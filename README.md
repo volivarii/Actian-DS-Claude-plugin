@@ -1,85 +1,92 @@
 # Actian Design System Plugin
 
-Claude Code plugin for the Actian UX team. Generate wireframe flows, create component specs, audit Figma files, and compare designs — powered by Claude Code + Figma MCP.
+Claude plugin for the Actian UX team. Generate wireframe flows, create component specs, audit Figma files, and compare designs — powered by Claude + Figma MCP.
 
 ## Install
 
-```bash
-# Install the plugin (one-time)
-claude plugin add /path/to/actian-design-system-plugin
+### Claude Desktop App (marketplace)
 
-# Or test locally without installing
-claude --plugin-dir /path/to/actian-design-system-plugin
-```
+1. Open **Personnaliser** (Customize) in the sidebar
+2. Under **Plugins personnels**, click **+**
+3. Select **Ajouter une marketplace** (Add a marketplace)
+4. Enter: `volivarii/Actian-DS-Claude-plugin`
+5. Click **Synchro**
 
-Then connect Figma MCP (one-time):
-```bash
-claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
-```
+The plugin appears under your personal plugins. Enable it and you're ready to go.
 
-## Update
+### Claude Code CLI
 
 ```bash
-cd /path/to/actian-design-system-plugin
-git pull    # Get latest skills, tokens, references
+claude plugin add volivarii/Actian-DS-Claude-plugin
 ```
 
-Claude Code picks up changes on next session. Run `/reload-plugins` to reload mid-session.
+### Connector required
+
+This plugin requires the **Figma MCP** connector. If not already connected:
+
+- **Claude Desktop:** Go to Personnaliser → Connecteurs → add the Figma connector
+- **Claude Code CLI:** `claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp`
 
 ## Skills
 
 | Skill | What it does |
 |-------|-------------|
-| `/actian-design-system:generate-flow` | Generate a Fat Marker wireframe flow and push to Figma |
-| `/actian-design-system:component-brief` | Draft a 9-card DS2026 or 5-card FM component spec |
-| `/actian-design-system:design-audit` | Audit a Figma file against DS2026 conventions |
-| `/actian-design-system:compare-flows` | Compare two Figma flows with structured analysis |
+| `/design-audit` | Audit a Figma file against DS2026 tokens, accessibility, and content conventions |
+| `/component-brief` | Draft a 9-card DS2026 or 5-card Fat Marker component spec |
+| `/generate-flow` | Generate a Fat Marker wireframe flow from a user story and push to Figma |
+| `/compare-flows` | Compare two Figma flows with structured UX analysis and recommendations |
+
+## Try asking...
+
+- "Audit this Figma screen for accessibility issues" + paste a Figma URL
+- "Generate a wireframe flow for user onboarding"
+- "Create a component brief for a dropdown select"
+- "Compare these two Figma flows and recommend which to ship" + paste two Figma URLs
+- "Check if this design uses the correct DS2026 tokens"
+- "Build a Fat Marker flow for a data export feature with error states"
+
+## Design system — two layers
+
+| Layer | Font | Used by |
+|-------|------|---------|
+| **Fat Marker (lo-fi)** | Inter | `/generate-flow` wireframing |
+| **DS2026 (hi-fi)** | Roboto | `/component-brief` specs |
+
+3 theme modes: **Actian**, **Studio**, **Explorer** — tokens shift via `[data-theme]` CSS attribute.
+
+## Token naming
+
+All tokens use the `--zen-` prefix: `--zen-color-theme-primary`, `--zen-spacing-md`, `--zen-radius-default`, `--zen-shadow-xs`, `--zen-font-body-standard`.
 
 ## Project structure
 
 ```
 actian-design-system-plugin/
-├── .claude-plugin/plugin.json     # Plugin manifest (name, version, description)
-├── settings.json                  # Auto-allows Figma MCP tools on install
-├── CLAUDE.md                      # Design system rules (loaded every session)
-├── README.md                      # This file
+├── .claude-plugin/
+│   ├── plugin.json            # Plugin manifest
+│   └── marketplace.json       # Marketplace index
+├── settings.json              # Auto-allows Figma MCP tools
+├── CLAUDE.md                  # Design system rules (loaded every session)
 │
-├── skills/                        # Plugin skills
-│   ├── generate-flow/SKILL.md     #   Fat Marker flow generation
-│   ├── component-brief/SKILL.md   #   9-card component brief
-│   ├── design-audit/SKILL.md      #   Figma audit
-│   ├── compare-flows/SKILL.md     #   Flow comparison
-│   └── references/                #   Shared reference files (loaded on demand)
-│       ├── design-system.md       #     Token reference (3 themes)
-│       ├── content-guidelines.md  #     UI copy rules
-│       ├── accessibility-guidelines.md  # WCAG 2.1 AA standards
-│       └── fm-component-catalog.md     # 42 FM wireframe components
+├── skills/                    # Plugin skills
+│   ├── generate-flow/         #   Fat Marker flow generation
+│   ├── component-brief/       #   9-card component brief
+│   ├── design-audit/          #   Figma audit
+│   ├── compare-flows/         #   Flow comparison
+│   └── references/            #   Shared reference files
 │
-├── tokens/                        # Design tokens
-│   ├── actian-ds.tokens.json      #   W3C DTCG format (source of truth)
-│   └── tokens.css                 #   CSS custom properties (--zen-*)
+├── tokens/                    # Design tokens
+│   ├── actian-ds.tokens.json  #   W3C DTCG format (source of truth)
+│   └── tokens.css             #   CSS custom properties (--zen-*)
 │
-├── docs/                          # Human-readable reference docs
+├── docs/                      # Human-readable reference docs
 │   ├── design-system.md
 │   ├── content-guidelines.md
 │   └── accessibility-guidelines.md
 │
-├── components/                    # Component specs + flows (HTML)
-│   ├── FATMARKER-COMPONENT-CATALOG.md
-│   ├── button/button-spec.html
-│   ├── link/link-spec.html
-│   ├── text-input/text-input-spec.html
-│   ├── sticky-footer/sticky-footer-spec.html
-│   └── flows/
-│       ├── login-flow.html
-│       └── data-product-builder-flow.html
-│
-├── prototypes/                    # Standalone HTML prototypes
-│   └── studio-dashboard.html
-│
-└── team/                          # Team distribution resources
+└── team/                      # Team distribution resources
     ├── DISTRIBUTION.md
-    └── prompt-templates/          # Copy-paste prompts for Claude Desktop
+    └── prompt-templates/      # Copy-paste prompts for non-CLI users
 ```
 
 ## How it works
@@ -96,19 +103,6 @@ Editable frames  ←  Figma capture  ←  Claude generates HTML
 4. Capture to Figma via `generate_figma_design`
 5. Result: editable vector frames in the target Figma file
 
-## Design system — two layers
-
-| Layer | Font | Used by |
-|-------|------|---------|
-| **Fat Marker (lo-fi)** | Inter | `/generate-flow` wireframing |
-| **DS2026 (hi-fi)** | Roboto | `/component-brief` specs |
-
-3 theme modes: **Actian**, **Studio**, **Explorer** — tokens shift via `[data-theme]` CSS attribute.
-
-## Token naming
-
-All tokens use the `--zen-` prefix: `--zen-color-theme-primary`, `--zen-spacing-md`, `--zen-radius-default`, `--zen-shadow-xs`, `--zen-font-body-standard`.
-
 ## Maintaining
 
 | What changed | What to update |
@@ -118,15 +112,13 @@ All tokens use the `--zen-` prefix: `--zen-color-theme-primary`, `--zen-spacing-
 | Content rules change | Update `docs/content-guidelines.md` + `skills/references/content-guidelines.md` |
 | A11y rules change | Update `docs/accessibility-guidelines.md` + `skills/references/accessibility-guidelines.md` |
 | New skill needed | Add `skills/<name>/SKILL.md` |
-| Bump version | Update `version` in `.claude-plugin/plugin.json` |
+| Bump version | Update `version` in `.claude-plugin/plugin.json` and `marketplace.json` |
 
-After any update: `git commit` + `git push`. Teammates run `git pull` to get the latest.
+After any update: `git commit` + `git push`. Users click **Mettre à jour** (Update) in the desktop app, or run `git pull` in CLI.
 
 ## Figma files
 
 | File | Key |
 |------|-----|
 | [Actian Design System 2026](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK) | `l8biHxfarNi1I2RMvVxVOK` |
-| [Testing V1 DS](https://www.figma.com/design/8Yu8wUtPTXsa3iV6R4TmnS) | `8Yu8wUtPTXsa3iV6R4TmnS` |
 | [Fat Marker Kit](https://www.figma.com/design/X2JSEUyLvxyNCx22ucOexn) | `X2JSEUyLvxyNCx22ucOexn` |
-| [Policies 2025](https://www.figma.com/design/2WF4POyRBXKEJ5zSLIu8pn) | `2WF4POyRBXKEJ5zSLIu8pn` |

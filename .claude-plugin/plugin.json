@@ -5,5 +5,21 @@
   "author": {
     "name": "Actian UX Team"
   },
-  "license": "UNLICENSED"
+  "homepage": "https://github.com/volivarii/Actian-DS-Claude-plugin",
+  "repository": "https://github.com/volivarii/Actian-DS-Claude-plugin",
+  "license": "UNLICENSED",
+  "keywords": [
+    "design-system",
+    "figma",
+    "wireframing",
+    "accessibility",
+    "wcag",
+    "component-specs"
+  ],
+  "mcpServers": {
+    "figma": {
+      "type": "url",
+      "url": "https://mcp.figma.com/mcp"
+    }
+  }
 }
