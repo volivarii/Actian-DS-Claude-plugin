@@ -18,3 +18,4 @@ __pycache__/
 
 # Node
 node_modules/
+.superpowers/
