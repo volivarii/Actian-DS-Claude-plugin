@@ -38,18 +38,26 @@ This plugin requires the **Figma MCP** connector. If not already connected:
 
 ## Figma Component Assembler
 
-Opt-in mode for `/generate-flow` that assembles real Figma component instances instead of flat HTML captures. Requires the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) Figma plugin.
+`/generate-flow` defaults to assembling **real Figma component instances** from the published FM Kit library using the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) plugin. The output is editable, linked to the design system, and supports variant swapping.
 
-Usage: ask Claude to `/generate-flow` with "use real components".
+Falls back to flat HTML capture if the assembler plugin is not installed.
+
+### Setup (one-time)
+
+1. Clone and build the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler)
+2. Import the plugin manifest in Figma (Plugins → Development → Import from manifest)
+3. That's it — `/generate-flow` will automatically generate JSON specs for the assembler
 
 ## Try asking...
 
+- "Generate a wireframe flow for user onboarding" — assembles real FM components in Figma
+- "Build a flow for a data export feature with error states"
+- "Create a 5-screen wizard for creating a new policy"
+- "Generate a flow from this PDF spec" + attach a PDF
+- "Use HTML mode to generate a login flow" — uses flat HTML capture instead of assembler
 - "Audit this Figma screen for accessibility issues" + paste a Figma URL
-- "Generate a wireframe flow for user onboarding"
 - "Create a component brief for a dropdown select"
 - "Compare these two Figma flows and recommend which to ship" + paste two Figma URLs
-- "Check if this design uses the correct DS2026 tokens"
-- "Build a Fat Marker flow for a data export feature with error states"
 
 ## Design system — two layers
 

@@ -1,6 +1,6 @@
 ---
 name: generate-flow
-description: Generate a Fat Marker wireframe flow from a user story and push to Figma. Use when user asks to create a flow, wireframe, or mockup for a feature.
+description: Generate a Fat Marker wireframe flow from a user story and push to Figma. Defaults to real component assembly via the Actian DS Assembler plugin. Falls back to HTML capture if assembler is unavailable. Use when user asks to create a flow, wireframe, or mockup for a feature.
 argument-hint: "[feature description or Figma URL]"
 ---
 
@@ -413,7 +413,28 @@ Refer to `components/FATMARKER-COMPONENT-CATALOG.md` for the full inventory. Key
 </div>
 ```
 
-## Step 5 — Capture to Figma
+## Step 5 — Choose output mode
+
+**IMPORTANT: Default to Assembler mode.** Only fall back to HTML capture if the user explicitly asks for HTML or doesn't have the assembler plugin.
+
+### Option A: Actian DS Assembler (default, preferred)
+
+Generates real Figma component instances from the published FM Kit library. Output is editable, linked to the design system, and supports variant swapping.
+
+1. Generate a layout spec JSON using the schema below
+2. Reference components by their exact registry names (FM-prefixed for wireframes)
+3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
+4. Save as `spec.json` in the Actian-DS-Assembler directory
+5. Serve on localhost:8765 using `python3 serve.py 8765` (from the Actian-DS-Assembler directory)
+6. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
+7. For multi-screen flows, generate one spec per screen and assemble sequentially, or generate all screens in a single horizontal wrapper spec
+
+### Option B: HTML capture (fallback)
+
+Generates flat vector frames via `generate_figma_design`. Use only when:
+- The user says "use HTML" or "capture as HTML"
+- The assembler plugin is not installed
+- The user explicitly declines the assembler
 
 1. Ensure the local HTTP server is running on port 8765 (or start one)
 2. Call `generate_figma_design` with `outputMode: "existingFile"` and the target file key/node
@@ -423,23 +444,7 @@ Refer to `components/FATMARKER-COMPONENT-CATALOG.md` for the full inventory. Key
 
 ## Step 6 — Review
 
-After capture, get a screenshot of the result and show it to the user. Ask if they want adjustments before considering it done.
-
----
-
-## Real Components Mode (opt-in)
-
-When the user says **"use real components"**, **"assemble in Figma"**, or **"use native components"**, switch from HTML generation to layout spec JSON output.
-
-### How it works
-
-Instead of generating HTML, output a JSON layout spec file that the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) Figma plugin can consume.
-
-1. Generate a layout spec JSON using the schema below
-2. Reference components by their exact registry names (FM-prefixed for wireframes)
-3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
-4. Save as `spec.json` in the project root and serve on localhost:8765 using `python3 serve.py 8765`
-5. Tell the user: "Open the Actian DS Assembler plugin in Figma and click Assemble"
+After capture or assembly, get a screenshot of the result and show it to the user. Ask if they want adjustments before considering it done.
 
 ### Layout spec schema
 
