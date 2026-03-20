@@ -1,0 +1,207 @@
+# Actian Design System 2026 — Claude Code Rules
+
+Follow these rules for every Figma-to-code task in this project.
+
+---
+
+## Token Reference
+
+Token reference docs and files:
+- **[`docs/design-system.md`](docs/design-system.md)** — Human + AI readable token reference (Markdown)
+- **[`tokens/actian-ds.tokens.json`](tokens/actian-ds.tokens.json)** — Source of truth (W3C DTCG format)
+- **[`tokens/tokens.css`](tokens/tokens.css)** — CSS custom properties with `--zen-*` prefix, 3 theme modes via `[data-theme]`
+- Source Figma: [Actian Design System 2026](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-2026)
+
+When generating HTML, import `tokens/tokens.css` or copy the relevant `--zen-*` variables into your `<style>` block. Use `var(--zen-color-theme-primary)` not hardcoded hex values.
+
+## Content Guidelines
+
+All UI copy rules are in **[`docs/content-guidelines.md`](docs/content-guidelines.md)**.
+Apply in every task: component briefs, design audits, flow generation, and analysis.
+
+## Accessibility Guidelines
+
+WCAG 2.1 AA standards and component checklists are in **[`docs/accessibility-guidelines.md`](docs/accessibility-guidelines.md)**.
+Apply in every task: contrast ratios, keyboard interaction, ARIA patterns, focus management, touch targets, P0–P2 component checklists.
+
+---
+
+## Figma MCP Integration — Required Flow
+
+**Do not skip any step.**
+
+1. Run `get_design_context` on the target node(s) first
+2. If the response is too large, run `get_metadata` to get the node map, then re-fetch specific nodes with `get_design_context`
+3. Run `get_screenshot` for visual reference of the variant being implemented
+4. Download assets only after you have both `get_design_context` and `get_screenshot`
+5. Translate the Figma output into the project's conventions (tokens, framework, styling)
+6. Validate against the Figma screenshot for 1:1 visual parity before marking complete
+
+- IMPORTANT: Never hardcode hex colors, pixel values, or font sizes — always use design tokens
+- IMPORTANT: Use localhost asset sources returned by the Figma MCP server directly — do not create placeholders
+- IMPORTANT: Do not install new icon packages — all icons come from the Figma payload
+
+---
+
+## What Never to Hardcode
+
+- Colors → use `Color` collection tokens or gradient styles
+- Font sizes, weights, line heights → use text style tokens
+- Spacing → use `Spacing` tokens
+- Border radius → use `Border/radius-*` tokens
+- Border widths → use `Border/width-*` tokens
+- Box shadows → use `shadow-*` effect style tokens
+- Icon sizes → use `Size` tokens
+
+---
+
+## Theme Modes
+
+3 themes: **Actian**, **Studio**, **Explorer**.
+
+Theme switching changes these tokens (see `design-system.md` for exact values):
+
+- `theme-primary`, `theme-selected`
+- `interactive-selected-primary`, `interactive-selected-secondary`, `interactive-dragged-primary`
+- `background-bg-reverse`
+- Most `status-*` tokens (values differ per theme)
+- `text-secondary`, `text-tertiary`, `text-placeholder`, `text-disabled`
+- `icon-secondary`, `icon-disabled`
+- `border-default`, `border-strong`, `border-disabled`
+- `overlay-default`
+- Category 8 `strong` level
+- `background-bg-grey-1`, `background-bg-grey-2`, `background-bg-disabled`
+
+Theme switching must be implemented at the CSS variable root level so all components inherit automatically.
+
+---
+
+## Known Source Typos (Corrected)
+
+These typos were present in earlier Figma exports but have been **corrected in the 03/19 export**.
+Use the **corrected** names going forward:
+- `body-standard` (was `body-stardard`)
+- `interactive-*-secondary` (was `interactive-*-secodary`)
+
+---
+
+## Component Token Mapping
+
+### Buttons
+
+- Fill color: `theme-primary` → `interactive-dragged-primary` (active/pressed)
+- Text on filled: `interactive-enabled-inverse`
+- Ghost/text variant label: `text-primary`
+- Hover: `interactive-hovered-primary`
+- Focus ring: `width-focus` + `interactive-focused-stroke-default`
+- Disabled fill: `interactive-disabled-primary`; disabled bg: `interactive-disabled-secondary`
+- Border radius: `radius-sm` (default) or `radius-full` (pill)
+- Typography: `label-standard`
+- Spacing: `spacing-xs` vertical, `spacing-sm`/`spacing-md` horizontal
+- Height: `size-2xl` (large) / `size-xl` (medium)
+
+### Form Inputs (text, select, datepicker, textarea)
+
+- Border: `border-default` at rest → `border-strong` on focus
+- Focus ring: `interactive-focused-stroke-default` with `width-focus`
+- Background: `background-bg-default`
+- Disabled: `background-bg-disabled` bg, `interactive-disabled-primary` border, `text-disabled` text
+- Error: `status-error-primary` border + label
+- Placeholder: `text-placeholder`
+- Typography: `body-standard` (input text), `label-standard` (label), `body-subtle` (hint/error)
+- Border radius: `radius-sm`
+- Spacing: `spacing-xs` padding
+
+### Badges / Tags / Chips
+
+- Background + text: `category-N-lower` (bg) + `category-N-stronger` (text)
+- Or: `status-*-secondary` (bg) + `status-*-primary` (text) for semantic status
+- Typography: `label-subtle` or `label-micro`
+- Border radius: `radius-full` (pill) or `radius-xs`
+- Spacing: `spacing-2xs` vertical, `spacing-xs` horizontal
+
+### Cards / Panels
+
+- Background: `background-bg-default` or `background-bg-grey-1`
+- Border: `border-default`, `width-default`
+- Border radius: `radius-md` or `radius-lg`
+- Shadow: `shadow-xs` at rest, `shadow-sm` on hover/elevated
+- Spacing (inner): `spacing-md`, `spacing-lg`
+
+### Tables / Data Grids
+
+- Header bg: `background-bg-grey-2`
+- Row bg alternate: `background-bg-grey-1`
+- Row hover: `interactive-hovered-secondary`
+- Row selected: `interactive-selected-secondary`
+- Border: `border-default`, `width-default`
+- Header typography: `label-standard`
+- Cell typography: `body-standard`
+- Spacing: `spacing-xs` vertical, `spacing-sm` horizontal cell padding
+
+### Navigation (sidebar, tabs, top nav)
+
+- Default item text: `text-secondary`
+- Active item bg: `interactive-selected-secondary`
+- Active item accent: `theme-primary`
+- Hover item bg: `interactive-hovered-secondary`
+- Typography: `label-standard`
+- Spacing: `spacing-xs`, `spacing-sm`
+- Active indicator radius: `radius-sm`
+
+### Modals / Dialogs
+
+- Backdrop: `overlay-default`
+- Surface: `background-bg-default`
+- Shadow: `shadow-xl`
+- Border radius: `radius-xl`
+- Spacing: `spacing-lg`
+
+### Tooltips / Popovers
+
+- Background: `background-bg-reverse`
+- Text: `text-reverse`
+- Shadow: `shadow-sm`
+- Border radius: `radius-xs` (tooltip) / `radius-md` (popover)
+- Typography: `body-subtle`
+
+### Status / Alert Banners
+
+- Background: `status-*-secondary`, accent: `status-*-primary`
+- Border radius: `radius-sm`
+- Typography: `body-standard` + `label-standard`
+- Spacing: `spacing-xs`, `spacing-sm`
+
+### Data Visualization / Charts
+
+- IMPORTANT: Always use `category-1–9` token families for series colors — never hardcode
+- Background fills: `category-N-lower` or `category-N-low` (subtle)
+- Foreground/stroke: `category-N-strong` or `category-N-stronger`
+- Axis labels: `body-micro` / `label-micro`
+- Grid lines: `border-default`
+- All 9 category colors may shift between themes — ensure the active theme mode is applied
+
+### Links
+
+- Text color (enabled): `theme-primary`
+- Text color (visited/clicked): `interactive-selected-primary`
+- Text color (disabled): `interactive-disabled-primary`
+- Hover bg: `interactive-hovered-secondary`, `radius: 4px`
+- Focus bg: `interactive-focused-secondary`, border: `interactive-focused-stroke-default` + `width-focus`, `radius-default`
+- Pressed bg: `interactive-pressed-secondary`, `radius: 4px`
+- Typography: `body-standard` (Roboto 400 14px/20px, 0.2px tracking)
+- Text decoration: `underline solid` in all states
+- Padding: `spacing-2xs`
+- IMPORTANT: Use links for navigation only — use Ghost Button for actions
+
+### Icons
+
+- Default fill: `icon-default`
+- Secondary fill: `icon-secondary`
+- Brand fill: `theme-primary`
+- Status fills: `status-*-primary`
+- Category fills: `category-N-strong`
+- Disabled fill: `icon-disabled`
+- Reverse fill: `icon-reverse`
+- Size: use `Size` tokens (md: 16px default, lg: 24px large)
+- IMPORTANT: Icons come from the Figma payload — do not import icon libraries

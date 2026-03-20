@@ -1,0 +1,28 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__claude_ai_Figma__get_metadata",
+      "mcp__claude_ai_Figma__get_screenshot",
+      "mcp__claude_ai_Figma__get_design_context",
+      "mcp__claude_ai_Figma__get_variable_defs",
+      "mcp__plugin_figma_figma__get_metadata",
+      "mcp__plugin_figma_figma__get_screenshot",
+      "mcp__plugin_figma_figma__get_design_context",
+      "mcp__plugin_figma_figma__get_variable_defs",
+      "mcp__plugin_figma_figma__generate_figma_design",
+      "mcp__plugin_figma_figma__generate_diagram",
+      "Bash(python3 -m http.server:*)",
+      "Bash(python3:*)",
+      "Bash(open:*)",
+      "Bash(lsof:*)",
+      "Bash(mkdir:*)",
+      "Bash(curl:*)",
+      "WebSearch",
+      "WebFetch",
+      "Skill(generate-flow *)",
+      "Skill(component-brief *)",
+      "Skill(design-audit *)",
+      "Skill(compare-flows *)"
+    ]
+  }
+}

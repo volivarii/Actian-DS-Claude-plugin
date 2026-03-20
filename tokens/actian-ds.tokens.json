@@ -1,0 +1,1494 @@
+{
+  "$schema": "https://www.designtokens.org/schemas/design-tokens.schema.json",
+  "$description": "Actian Design System 2026 \u2014 Design Tokens (DTCG W3C format)",
+  "$metadata": {
+    "source": "Actian-Design-System_variables_03192026.json",
+    "exportDate": "2026-03-19T16:24:02.073Z",
+    "figmaFile": "Actian Design System 2026",
+    "generatedBy": "Claude Code",
+    "generatedDate": "2026-03-20"
+  },
+  "color": {
+    "$type": "color",
+    "status-success-secondary": {
+      "$value": "#f0ffec",
+      "$description": "Actian: #f0ffec, Studio: #f0ffec, Explorer: #f0ffec",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#f0ffec",
+          "studio": "#f0ffec",
+          "explorer": "#f0ffec"
+        }
+      }
+    },
+    "status-success-primary": {
+      "$value": "#047800",
+      "$description": "Actian: #047800, Studio: #299315, Explorer: #299315",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#047800",
+          "studio": "#299315",
+          "explorer": "#299315"
+        }
+      }
+    },
+    "status-error-secondary": {
+      "$value": "#fcf3f3",
+      "$description": "Actian: #fcf3f3, Studio: #fff4ec, Explorer: #fff4ec",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#fcf3f3",
+          "studio": "#fff4ec",
+          "explorer": "#fff4ec"
+        }
+      }
+    },
+    "status-error-primary": {
+      "$value": "#c10c0d",
+      "$description": "Actian: #c10c0d, Studio: #e6492d, Explorer: #e6492d",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#c10c0d",
+          "studio": "#e6492d",
+          "explorer": "#e6492d"
+        }
+      }
+    },
+    "annotation-annotation": {
+      "$value": "#d71d6d",
+      "$description": "Actian: #d71d6d, Studio: #d71d6d, Explorer: #d71d6d",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#d71d6d",
+          "studio": "#d71d6d",
+          "explorer": "#d71d6d"
+        }
+      }
+    },
+    "status-info-primary": {
+      "$value": "#023e8a",
+      "$description": "Actian: #023e8a"
+    },
+    "status-info-secondary": {
+      "$value": "#f1fdff",
+      "$description": "Actian: #f1fdff, Studio: #ecffff, Explorer: #ecffff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#f1fdff",
+          "studio": "#ecffff",
+          "explorer": "#ecffff"
+        }
+      }
+    },
+    "status-inactive-primary": {
+      "$value": "#33333d",
+      "$description": "Actian: #33333d, Studio: #7b7b7b, Explorer: #7b7b7b",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#33333d",
+          "studio": "#7b7b7b",
+          "explorer": "#7b7b7b"
+        }
+      }
+    },
+    "border-default": {
+      "$value": "#e4e4f0",
+      "$description": "Actian: #e4e4f0, Studio: #dadada, Explorer: #dadada",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#e4e4f0",
+          "studio": "#dadada",
+          "explorer": "#dadada"
+        }
+      }
+    },
+    "status-inactive-secondary": {
+      "$value": "#f5f5fa",
+      "$description": "Actian: #f5f5fa, Studio: #ebebeb, Explorer: #ebebeb",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#f5f5fa",
+          "studio": "#ebebeb",
+          "explorer": "#ebebeb"
+        }
+      }
+    },
+    "text-primary": {
+      "$value": "#000000",
+      "$description": "Actian: #000000, Studio: #000000, Explorer: #000000",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#000000",
+          "studio": "#000000",
+          "explorer": "#000000"
+        }
+      }
+    },
+    "text-secondary": {
+      "$value": "#3f3f4a",
+      "$description": "Actian: #3f3f4a, Studio: #8d8d8d, Explorer: #8d8d8d",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#3f3f4a",
+          "studio": "#8d8d8d",
+          "explorer": "#8d8d8d"
+        }
+      }
+    },
+    "background-bg-default": {
+      "$value": "#ffffff",
+      "$description": "Actian: #ffffff, Studio: #ffffff, Explorer: #ffffff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#ffffff",
+          "studio": "#ffffff",
+          "explorer": "#ffffff"
+        }
+      }
+    },
+    "background-bg-grey-1": {
+      "$value": "#fbfbff",
+      "$description": "Actian: #fbfbff, Studio: #fbfbff, Explorer: #fcfcfc",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#fbfbff",
+          "studio": "#fbfbff",
+          "explorer": "#fcfcfc"
+        }
+      }
+    },
+    "theme-primary": {
+      "$value": "#0550dc",
+      "$description": "Actian: #0550dc, Studio: #0283be, Explorer: #049b98",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#0550dc",
+          "studio": "#0283be",
+          "explorer": "#049b98"
+        }
+      }
+    },
+    "category-5-stronger": {
+      "$value": "#9a083e",
+      "$description": "Actian: #9a083e, Studio: #9a083e, Explorer: #9a083e",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#9a083e",
+          "studio": "#9a083e",
+          "explorer": "#9a083e"
+        }
+      }
+    },
+    "interactive-focused-primary": {
+      "$value": "rgba(63, 63, 74, 0.3)",
+      "$description": "Actian: rgba(63, 63, 74, 0.3), Studio: rgba(63, 63, 74, 0.3), Explorer: rgba(63, 63, 74, 0.3)",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "rgba(63, 63, 74, 0.3)",
+          "studio": "rgba(63, 63, 74, 0.3)",
+          "explorer": "rgba(63, 63, 74, 0.3)"
+        }
+      }
+    },
+    "interactive-pressed-primary": {
+      "$value": "rgba(63, 63, 74, 0.5)",
+      "$description": "Actian: rgba(63, 63, 74, 0.5), Studio: rgba(63, 63, 74, 0.5), Explorer: rgba(63, 63, 74, 0.5)",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "rgba(63, 63, 74, 0.5)",
+          "studio": "rgba(63, 63, 74, 0.5)",
+          "explorer": "rgba(63, 63, 74, 0.5)"
+        }
+      }
+    },
+    "interactive-dragged-primary": {
+      "$value": "#0029a9",
+      "$description": "Actian: #0029a9, Studio: #0079b6, Explorer: #00908e",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#0029a9",
+          "studio": "#0079b6",
+          "explorer": "#00908e"
+        }
+      }
+    },
+    "interactive-hovered-primary": {
+      "$value": "rgba(63, 63, 74, 0.3)",
+      "$description": "Actian: rgba(63, 63, 74, 0.3), Studio: rgba(63, 63, 74, 0.3), Explorer: rgba(63, 63, 74, 0.3)",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "rgba(63, 63, 74, 0.3)",
+          "studio": "rgba(63, 63, 74, 0.3)",
+          "explorer": "rgba(63, 63, 74, 0.3)"
+        }
+      }
+    },
+    "interactive-selected-primary": {
+      "$value": "#0029a9",
+      "$description": "Actian: #0029a9, Studio: #0079b6, Explorer: #00908e",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#0029a9",
+          "studio": "#0079b6",
+          "explorer": "#00908e"
+        }
+      }
+    },
+    "icon-default": {
+      "$value": "#000000",
+      "$description": "Actian: #000000, Studio: #000000, Explorer: #000000",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#000000",
+          "studio": "#000000",
+          "explorer": "#000000"
+        }
+      }
+    },
+    "overlay-default": {
+      "$value": "rgba(101, 101, 116, 0.7)",
+      "$description": "Actian: rgba(101, 101, 116, 0.7), Studio: rgba(153, 153, 153, 0.7), Explorer: rgba(153, 153, 153, 0.7)",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "rgba(101, 101, 116, 0.7)",
+          "studio": "rgba(153, 153, 153, 0.7)",
+          "explorer": "rgba(153, 153, 153, 0.7)"
+        }
+      }
+    },
+    "background-bg-grey-2": {
+      "$value": "#f5f5fa",
+      "$description": "Actian: #f5f5fa, Studio: #f5f5fa, Explorer: #ebebeb",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#f5f5fa",
+          "studio": "#f5f5fa",
+          "explorer": "#ebebeb"
+        }
+      }
+    },
+    "interactive-hovered-secondary": {
+      "$value": "rgba(228, 228, 240, 0.3)",
+      "$description": "Actian: rgba(228, 228, 240, 0.3), Studio: rgba(228, 228, 240, 0.3), Explorer: rgba(228, 228, 240, 0.3)",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "rgba(228, 228, 240, 0.3)",
+          "studio": "rgba(228, 228, 240, 0.3)",
+          "explorer": "rgba(228, 228, 240, 0.3)"
+        }
+      }
+    },
+    "interactive-focused-secondary": {
+      "$value": "rgba(228, 228, 240, 0.3)",
+      "$description": "Actian: rgba(228, 228, 240, 0.3), Studio: rgba(228, 228, 240, 0.3), Explorer: rgba(228, 228, 240, 0.3)",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "rgba(228, 228, 240, 0.3)",
+          "studio": "rgba(228, 228, 240, 0.3)",
+          "explorer": "rgba(228, 228, 240, 0.3)"
+        }
+      }
+    },
+    "interactive-pressed-secondary": {
+      "$value": "rgba(228, 228, 240, 0.5)",
+      "$description": "Actian: rgba(228, 228, 240, 0.5), Studio: rgba(228, 228, 240, 0.5), Explorer: rgba(228, 228, 240, 0.5)",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "rgba(228, 228, 240, 0.5)",
+          "studio": "rgba(228, 228, 240, 0.5)",
+          "explorer": "rgba(228, 228, 240, 0.5)"
+        }
+      }
+    },
+    "interactive-selected-secondary": {
+      "$value": "#edf6ff",
+      "$description": "Actian: #edf6ff, Studio: #ecffff, Explorer: #ecffff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#edf6ff",
+          "studio": "#ecffff",
+          "explorer": "#ecffff"
+        }
+      }
+    },
+    "interactive-disabled-primary": {
+      "$value": "#9898a7",
+      "$description": "Actian: #9898a7, Studio: #a9a9a9, Explorer: #a9a9a9",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#9898a7",
+          "studio": "#a9a9a9",
+          "explorer": "#a9a9a9"
+        }
+      }
+    },
+    "interactive-disabled-secondary": {
+      "$value": "#f5f5fa",
+      "$description": "Actian: #f5f5fa, Studio: #ebebeb, Explorer: #f5f5fa",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#f5f5fa",
+          "studio": "#ebebeb",
+          "explorer": "#f5f5fa"
+        }
+      }
+    },
+    "interactive-focused-stroke-inverse": {
+      "$value": "#fbfbff",
+      "$description": "Actian: #fbfbff, Studio: #fcfcfc, Explorer: #fcfcfc",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#fbfbff",
+          "studio": "#fcfcfc",
+          "explorer": "#fcfcfc"
+        }
+      }
+    },
+    "category-5-lower": {
+      "$value": "#fff1f5",
+      "$description": "Actian: #fff1f5, Studio: #fff1f5, Explorer: #fff1f5",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#fff1f5",
+          "studio": "#fff1f5",
+          "explorer": "#fff1f5"
+        }
+      }
+    },
+    "category-4-lower": {
+      "$value": "#fff5ff",
+      "$description": "Actian: #fff5ff, Studio: #fff5ff, Explorer: #fff5ff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#fff5ff",
+          "studio": "#fff5ff",
+          "explorer": "#fff5ff"
+        }
+      }
+    },
+    "category-2-lower": {
+      "$value": "#ecffff",
+      "$description": "Actian: #ecffff, Studio: #ecffff, Explorer: #ecffff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#ecffff",
+          "studio": "#ecffff",
+          "explorer": "#ecffff"
+        }
+      }
+    },
+    "category-3-lower": {
+      "$value": "#ecffff",
+      "$description": "Actian: #ecffff, Studio: #ecffff, Explorer: #ecffff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#ecffff",
+          "studio": "#ecffff",
+          "explorer": "#ecffff"
+        }
+      }
+    },
+    "category-6-lower": {
+      "$value": "#f0ffec",
+      "$description": "Actian: #f0ffec, Studio: #f0ffec, Explorer: #f0ffec",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#f0ffec",
+          "studio": "#f0ffec",
+          "explorer": "#f0ffec"
+        }
+      }
+    },
+    "category-8-lower": {
+      "$value": "#fff9e5",
+      "$description": "Actian: #fff9e5, Studio: #fff9e5, Explorer: #fff9e5",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#fff9e5",
+          "studio": "#fff9e5",
+          "explorer": "#fff9e5"
+        }
+      }
+    },
+    "category-7-lower": {
+      "$value": "#fff5f6",
+      "$description": "Actian: #fff5f6, Studio: #fff5f6, Explorer: #fff5f6",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#fff5f6",
+          "studio": "#fff5f6",
+          "explorer": "#fff5f6"
+        }
+      }
+    },
+    "icon-secondary": {
+      "$value": "#595968",
+      "$description": "Actian: #595968, Studio: #7b7b7b, Explorer: #7b7b7b",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#595968",
+          "studio": "#7b7b7b",
+          "explorer": "#7b7b7b"
+        }
+      }
+    },
+    "category-5-low": {
+      "$value": "#ffd5dd",
+      "$description": "Actian: #ffd5dd, Studio: #ffd5dd, Explorer: #ffd5dd",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#ffd5dd",
+          "studio": "#ffd5dd",
+          "explorer": "#ffd5dd"
+        }
+      }
+    },
+    "category-1-lower": {
+      "$value": "#f7fdff",
+      "$description": "Actian: #f7fdff, Studio: #f7fdff, Explorer: #f7fdff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#f7fdff",
+          "studio": "#f7fdff",
+          "explorer": "#f7fdff"
+        }
+      }
+    },
+    "interactive-focused-stroke-default": {
+      "$value": "#000000",
+      "$description": "Actian: #000000, Studio: #000000, Explorer: #000000",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#000000",
+          "studio": "#000000",
+          "explorer": "#000000"
+        }
+      }
+    },
+    "category-5-strong": {
+      "$value": "#c4004c",
+      "$description": "Actian: #c4004c, Studio: #c4004c, Explorer: #c4004c",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#c4004c",
+          "studio": "#c4004c",
+          "explorer": "#c4004c"
+        }
+      }
+    },
+    "category-4-strong": {
+      "$value": "#7900cb",
+      "$description": "Actian: #7900cb, Studio: #7900cb, Explorer: #7900cb",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#7900cb",
+          "studio": "#7900cb",
+          "explorer": "#7900cb"
+        }
+      }
+    },
+    "category-2-strong": {
+      "$value": "#00699f",
+      "$description": "Actian: #00699f, Studio: #00699f, Explorer: #00699f",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#00699f",
+          "studio": "#00699f",
+          "explorer": "#00699f"
+        }
+      }
+    },
+    "category-3-strong": {
+      "$value": "#007e7b",
+      "$description": "Actian: #007e7b, Studio: #007e7b, Explorer: #007e7b",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#007e7b",
+          "studio": "#007e7b",
+          "explorer": "#007e7b"
+        }
+      }
+    },
+    "category-6-strong": {
+      "$value": "#047800",
+      "$description": "Actian: #047800, Studio: #047800, Explorer: #047800",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#047800",
+          "studio": "#047800",
+          "explorer": "#047800"
+        }
+      }
+    },
+    "category-8-strong": {
+      "$value": "#a76605",
+      "$description": "Actian: #a76605, Studio: #d27b00, Explorer: #d27b00",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#a76605",
+          "studio": "#d27b00",
+          "explorer": "#d27b00"
+        }
+      }
+    },
+    "category-7-strong": {
+      "$value": "#932139",
+      "$description": "Actian: #932139, Studio: #932139, Explorer: #932139",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#932139",
+          "studio": "#932139",
+          "explorer": "#932139"
+        }
+      }
+    },
+    "category-1-strong": {
+      "$value": "#4a6470",
+      "$description": "Actian: #4a6470, Studio: #4a6470, Explorer: #4a6470",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#4a6470",
+          "studio": "#4a6470",
+          "explorer": "#4a6470"
+        }
+      }
+    },
+    "interactive-enabled-inverse": {
+      "$value": "#ffffff",
+      "$description": "Actian: #ffffff, Studio: #ffffff, Explorer: #ffffff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#ffffff",
+          "studio": "#ffffff",
+          "explorer": "#ffffff"
+        }
+      }
+    },
+    "category-4-stronger": {
+      "$value": "#5f0c9e",
+      "$description": "Actian: #5f0c9e, Studio: #5f0c9e, Explorer: #5f0c9e",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#5f0c9e",
+          "studio": "#5f0c9e",
+          "explorer": "#5f0c9e"
+        }
+      }
+    },
+    "category-4-low": {
+      "$value": "#eed7ff",
+      "$description": "Actian: #eed7ff, Studio: #eed7ff, Explorer: #eed7ff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#eed7ff",
+          "studio": "#eed7ff",
+          "explorer": "#eed7ff"
+        }
+      }
+    },
+    "category-2-stronger": {
+      "$value": "#00547d",
+      "$description": "Actian: #00547d, Studio: #00547d, Explorer: #00547d",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#00547d",
+          "studio": "#00547d",
+          "explorer": "#00547d"
+        }
+      }
+    },
+    "category-2-low": {
+      "$value": "#cfeafd",
+      "$description": "Actian: #cfeafd, Studio: #cfeafd, Explorer: #cfeafd",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#cfeafd",
+          "studio": "#cfeafd",
+          "explorer": "#cfeafd"
+        }
+      }
+    },
+    "category-3-stronger": {
+      "$value": "#006563",
+      "$description": "Actian: #006563, Studio: #006563, Explorer: #006563",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#006563",
+          "studio": "#006563",
+          "explorer": "#006563"
+        }
+      }
+    },
+    "category-3-low": {
+      "$value": "#d0efed",
+      "$description": "Actian: #d0efed, Studio: #d0efed, Explorer: #d0efed",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#d0efed",
+          "studio": "#d0efed",
+          "explorer": "#d0efed"
+        }
+      }
+    },
+    "category-6-stronger": {
+      "$value": "#145f04",
+      "$description": "Actian: #145f04, Studio: #145f04, Explorer: #145f04",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#145f04",
+          "studio": "#145f04",
+          "explorer": "#145f04"
+        }
+      }
+    },
+    "category-6-low": {
+      "$value": "#d3efcd",
+      "$description": "Actian: #d3efcd, Studio: #d3efcd, Explorer: #d3efcd",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#d3efcd",
+          "studio": "#d3efcd",
+          "explorer": "#d3efcd"
+        }
+      }
+    },
+    "category-8-stronger": {
+      "$value": "#a76605",
+      "$description": "Actian: #a76605, Studio: #a76605, Explorer: #a76605",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#a76605",
+          "studio": "#a76605",
+          "explorer": "#a76605"
+        }
+      }
+    },
+    "category-8-low": {
+      "$value": "#ffebce",
+      "$description": "Actian: #ffebce, Studio: #ffebce, Explorer: #ffebce",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#ffebce",
+          "studio": "#ffebce",
+          "explorer": "#ffebce"
+        }
+      }
+    },
+    "category-7-stronger": {
+      "$value": "#73202f",
+      "$description": "Actian: #73202f, Studio: #73202f, Explorer: #73202f",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#73202f",
+          "studio": "#73202f",
+          "explorer": "#73202f"
+        }
+      }
+    },
+    "category-7-low": {
+      "$value": "#ffd6d8",
+      "$description": "Actian: #ffd6d8, Studio: #ffd6d8, Explorer: #ffd6d8",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#ffd6d8",
+          "studio": "#ffd6d8",
+          "explorer": "#ffd6d8"
+        }
+      }
+    },
+    "category-1-stronger": {
+      "$value": "#3c515a",
+      "$description": "Actian: #3c515a, Studio: #3c515a, Explorer: #3c515a",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#3c515a",
+          "studio": "#3c515a",
+          "explorer": "#3c515a"
+        }
+      }
+    },
+    "category-1-low": {
+      "$value": "#dde6ec",
+      "$description": "Actian: #dde6ec, Studio: #dde6ec, Explorer: #dde6ec",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#dde6ec",
+          "studio": "#dde6ec",
+          "explorer": "#dde6ec"
+        }
+      }
+    },
+    "text-tertiary": {
+      "$value": "#595968",
+      "$description": "Actian: #595968, Studio: #999999, Explorer: #999999",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#595968",
+          "studio": "#999999",
+          "explorer": "#999999"
+        }
+      }
+    },
+    "text-disabled": {
+      "$value": "#9898a7",
+      "$description": "Actian: #9898a7, Studio: #a9a9a9, Explorer: #a9a9a9",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#9898a7",
+          "studio": "#a9a9a9",
+          "explorer": "#a9a9a9"
+        }
+      }
+    },
+    "theme-selected": {
+      "$value": "#edf6ff",
+      "$description": "Actian: #edf6ff, Studio: #ecffff, Explorer: #ecffff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#edf6ff",
+          "studio": "#ecffff",
+          "explorer": "#ecffff"
+        }
+      }
+    },
+    "border-strong": {
+      "$value": "#a8a8bd",
+      "$description": "Actian: #a8a8bd, Studio: #b9b9b9, Explorer: #b9b9b9",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#a8a8bd",
+          "studio": "#b9b9b9",
+          "explorer": "#b9b9b9"
+        }
+      }
+    },
+    "icon-reverse": {
+      "$value": "#ffffff",
+      "$description": "Actian: #ffffff, Studio: #ffffff, Explorer: #ffffff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#ffffff",
+          "studio": "#ffffff",
+          "explorer": "#ffffff"
+        }
+      }
+    },
+    "background-bg-reverse": {
+      "$value": "#12131f",
+      "$description": "Actian: #12131f, Studio: #12131f, Explorer: #505050",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#12131f",
+          "studio": "#12131f",
+          "explorer": "#505050"
+        }
+      }
+    },
+    "status-warning-secondary": {
+      "$value": "#fff6ec",
+      "$description": "Actian: #fff6ec, Studio: #fff9e5, Explorer: #fff9e5",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#fff6ec",
+          "studio": "#fff9e5",
+          "explorer": "#fff9e5"
+        }
+      }
+    },
+    "status-warning-primary": {
+      "$value": "#9c2000",
+      "$description": "Actian: #9c2000, Studio: #fc9f1d, Explorer: #fc9f1d",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#9c2000",
+          "studio": "#fc9f1d",
+          "explorer": "#fc9f1d"
+        }
+      }
+    },
+    "category-9-stronger": {
+      "$value": "#937148",
+      "$description": "Actian: #937148, Studio: #937148, Explorer: #937148",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#937148",
+          "studio": "#937148",
+          "explorer": "#937148"
+        }
+      }
+    },
+    "category-9-strong": {
+      "$value": "#b78a55",
+      "$description": "Actian: #b78a55, Studio: #b78a55, Explorer: #b78a55",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#b78a55",
+          "studio": "#b78a55",
+          "explorer": "#b78a55"
+        }
+      }
+    },
+    "category-9-low": {
+      "$value": "#feeddc",
+      "$description": "Actian: #feeddc, Studio: #feeddc, Explorer: #feeddc",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#feeddc",
+          "studio": "#feeddc",
+          "explorer": "#feeddc"
+        }
+      }
+    },
+    "category-9-lower": {
+      "$value": "#fffbef",
+      "$description": "Actian: #fffbef, Studio: #fffbef, Explorer: #fffbef",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#fffbef",
+          "studio": "#fffbef",
+          "explorer": "#fffbef"
+        }
+      }
+    },
+    "text-placeholder": {
+      "$value": "#595968",
+      "$description": "Actian: #595968, Studio: #999999, Explorer: #999999",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#595968",
+          "studio": "#999999",
+          "explorer": "#999999"
+        }
+      }
+    },
+    "border-disabled": {
+      "$value": "#9898a7",
+      "$description": "Actian: #9898a7, Studio: #a9a9a9, Explorer: #a9a9a9",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#9898a7",
+          "studio": "#a9a9a9",
+          "explorer": "#a9a9a9"
+        }
+      }
+    },
+    "icon-disabled": {
+      "$value": "#9898a7",
+      "$description": "Actian: #9898a7, Studio: #a9a9a9, Explorer: #a9a9a9",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#9898a7",
+          "studio": "#a9a9a9",
+          "explorer": "#a9a9a9"
+        }
+      }
+    },
+    "text-reverse": {
+      "$value": "#ffffff",
+      "$description": "Actian: #ffffff, Studio: #ffffff, Explorer: #ffffff",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#ffffff",
+          "studio": "#ffffff",
+          "explorer": "#ffffff"
+        }
+      }
+    },
+    "background-bg-disabled": {
+      "$value": "#f5f5fa",
+      "$description": "Actian: #f5f5fa, Studio: #f5f5fa, Explorer: #ebebeb",
+      "$extensions": {
+        "com.actian.themes": {
+          "actian": "#f5f5fa",
+          "studio": "#f5f5fa",
+          "explorer": "#ebebeb"
+        }
+      }
+    }
+  },
+  "spacing": {
+    "$type": "dimension",
+    "spacing-2xs": {
+      "$value": "4px"
+    },
+    "spacing-xs": {
+      "$value": "8px"
+    },
+    "spacing-md": {
+      "$value": "16px"
+    },
+    "spacing-lg": {
+      "$value": "24px"
+    },
+    "spacing-xl": {
+      "$value": "32px"
+    },
+    "spacing-sm": {
+      "$value": "12px"
+    }
+  },
+  "radius": {
+    "$type": "dimension",
+    "radius-xs": {
+      "$value": "4px"
+    },
+    "radius-2xs": {
+      "$value": "2px"
+    },
+    "radius-sm": {
+      "$value": "6px"
+    },
+    "radius-md": {
+      "$value": "8px"
+    },
+    "radius-lg": {
+      "$value": "10px"
+    },
+    "radius-xl": {
+      "$value": "12px"
+    },
+    "radius-full": {
+      "$value": "9999px"
+    },
+    "radius-default": {
+      "$value": "6px"
+    }
+  },
+  "width": {
+    "$type": "dimension",
+    "width-md": {
+      "$value": "1px"
+    },
+    "width-lg": {
+      "$value": "2px"
+    },
+    "width-focus": {
+      "$value": "2px"
+    },
+    "width-default": {
+      "$value": "1px"
+    }
+  },
+  "size": {
+    "$type": "dimension",
+    "size-sx": {
+      "$value": "4px"
+    },
+    "size-sm": {
+      "$value": "8px"
+    },
+    "size-md": {
+      "$value": "16px"
+    },
+    "size-lg": {
+      "$value": "24px"
+    },
+    "size-xl": {
+      "$value": "32px"
+    },
+    "size-2xl": {
+      "$value": "40px"
+    },
+    "size-3xl": {
+      "$value": "44px"
+    }
+  },
+  "breakpoint": {
+    "$type": "dimension",
+    "breakpoint-xl": {
+      "$value": "1920px"
+    },
+    "breakpoint-sm": {
+      "$value": "600px"
+    },
+    "breakpoint-md": {
+      "$value": "840px"
+    },
+    "breakpoint-lg": {
+      "$value": "1200px"
+    }
+  },
+  "typography": {
+    "$type": "typography",
+    "heading-display": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-semibold}",
+        "fontSize": "{font-size.font-size-3xl}",
+        "lineHeight": "{font-lineheight.font-lineheight-lg}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-normal}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 600,
+          "fontSize": "24px",
+          "lineHeight": "28px",
+          "letterSpacing": "0px"
+        }
+      }
+    },
+    "heading-prominent": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-semibold}",
+        "fontSize": "{font-size.font-size-xl}",
+        "lineHeight": "{font-lineheight.font-lineheight-xl}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-normal}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 600,
+          "fontSize": "18px",
+          "lineHeight": "26px",
+          "letterSpacing": "0px"
+        }
+      }
+    },
+    "heading-standard": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-semibold}",
+        "fontSize": "{font-size.font-size-lg}",
+        "lineHeight": "{font-lineheight.font-lineheight-lg}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-1}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 600,
+          "fontSize": "16px",
+          "lineHeight": "24px",
+          "letterSpacing": "0.1px"
+        }
+      }
+    },
+    "heading-subtle": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-semibold}",
+        "fontSize": "{font-size.font-size-md}",
+        "lineHeight": "{font-lineheight.font-lineheight-md}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-2}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 600,
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "letterSpacing": "0.2px"
+        }
+      }
+    },
+    "heading-micro": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-semibold}",
+        "fontSize": "{font-size.font-size-sm}",
+        "lineHeight": "{font-lineheight.font-lineheight-sm}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-3}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 600,
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "letterSpacing": "0.3px"
+        }
+      }
+    },
+    "body-prominent": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-regular}",
+        "fontSize": "{font-size.font-size-lg}",
+        "lineHeight": "{font-lineheight.font-lineheight-lg}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-1}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 400,
+          "fontSize": "16px",
+          "lineHeight": "24px",
+          "letterSpacing": "0.1px"
+        }
+      }
+    },
+    "body-standard": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-regular}",
+        "fontSize": "{font-size.font-size-md}",
+        "lineHeight": "{font-lineheight.font-lineheight-md}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-2}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 400,
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "letterSpacing": "0.2px"
+        }
+      }
+    },
+    "body-subtle": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-regular}",
+        "fontSize": "{font-size.font-size-sm}",
+        "lineHeight": "{font-lineheight.font-lineheight-sm}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-3}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 400,
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "letterSpacing": "0.3px"
+        }
+      }
+    },
+    "body-micro": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-regular}",
+        "fontSize": "{font-size.font-size-xs}",
+        "lineHeight": "{font-lineheight.font-lineheight-xs}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-4}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 400,
+          "fontSize": "11px",
+          "lineHeight": "14px",
+          "letterSpacing": "0.4px"
+        }
+      }
+    },
+    "label-standard": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-medium}",
+        "fontSize": "{font-size.font-size-md}",
+        "lineHeight": "{font-lineheight.font-lineheight-md}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-2}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 500,
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "letterSpacing": "0.2px"
+        }
+      }
+    },
+    "label-subtle": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-medium}",
+        "fontSize": "{font-size.font-size-sm}",
+        "lineHeight": "{font-lineheight.font-lineheight-sm}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-3}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 500,
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "letterSpacing": "0.3px"
+        }
+      }
+    },
+    "label-micro": {
+      "$value": {
+        "fontFamily": "{font-family.font-family-text}",
+        "fontWeight": "{font-weight.font-weight-medium}",
+        "fontSize": "{font-size.font-size-xs}",
+        "lineHeight": "{font-lineheight.font-lineheight-xs}",
+        "letterSpacing": "{font-letterspacing.font-letterspacing-wide-4}"
+      },
+      "$extensions": {
+        "com.actian.resolved": {
+          "fontFamily": "Roboto",
+          "fontWeight": 500,
+          "fontSize": "11px",
+          "lineHeight": "14px",
+          "letterSpacing": "0.4px"
+        }
+      }
+    }
+  },
+  "shadow": {
+    "$type": "shadow",
+    "shadow-xs": {
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "1px",
+          "color": "rgba(0, 0, 15, 0.06)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "5px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 18, 0.07)"
+        }
+      ]
+    },
+    "shadow-sm": {
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "7px",
+          "spread": "3px",
+          "color": "rgba(0, 0, 20, 0.08)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "1px",
+          "color": "rgba(0, 0, 31, 0.12)"
+        }
+      ]
+    },
+    "shadow-md": {
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "1px",
+          "blur": "3px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 77, 0.3)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "8px",
+          "spread": "3px",
+          "color": "rgba(0, 0, 38, 0.15)"
+        }
+      ]
+    },
+    "shadow-lg": {
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "6px",
+          "blur": "10px",
+          "spread": "4px",
+          "color": "rgba(0, 0, 38, 0.15)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "2px",
+          "blur": "3px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 77, 0.3)"
+        }
+      ]
+    },
+    "shadow-xl": {
+      "$value": [
+        {
+          "offsetX": "0px",
+          "offsetY": "8px",
+          "blur": "12px",
+          "spread": "6px",
+          "color": "rgba(0, 0, 38, 0.15)"
+        },
+        {
+          "offsetX": "0px",
+          "offsetY": "4px",
+          "blur": "4px",
+          "spread": "0px",
+          "color": "rgba(0, 0, 77, 0.3)"
+        }
+      ]
+    }
+  },
+  "gradient": {
+    "surface-gradient": {
+      "$type": "gradient",
+      "$value": "gradient_linear",
+      "$description": "Surface gradient"
+    },
+    "gradient-teal": {
+      "$type": "gradient",
+      "$value": "gradient_linear",
+      "$description": "Gradient/Teal"
+    },
+    "gradient-blue": {
+      "$type": "gradient",
+      "$value": "gradient_linear",
+      "$description": "Gradient/Blue"
+    },
+    "gradient-indigo": {
+      "$type": "gradient",
+      "$value": "gradient_linear",
+      "$description": "Gradient/Indigo"
+    },
+    "gradient-purple": {
+      "$type": "gradient",
+      "$value": "gradient_linear",
+      "$description": "Gradient/Purple"
+    },
+    "gradient-pink": {
+      "$type": "gradient",
+      "$value": "gradient_linear",
+      "$description": "Gradient/pink"
+    },
+    "gradient-orange": {
+      "$type": "gradient",
+      "$value": "gradient_linear",
+      "$description": "Gradient/Orange"
+    },
+    "gradient-yellow": {
+      "$type": "gradient",
+      "$value": "gradient_linear",
+      "$description": "Gradient/Yellow"
+    },
+    "gradient-lime": {
+      "$type": "gradient",
+      "$value": "gradient_linear",
+      "$description": "Gradient/Lime"
+    },
+    "gradient-ai": {
+      "$type": "gradient",
+      "$value": "gradient_radial",
+      "$description": "Gradient/AI"
+    }
+  },
+  "font-family": {
+    "$type": "fontFamily",
+    "font-family-text": {
+      "$value": "Roboto",
+      "$description": "Default font"
+    },
+    "font-family-brand": {
+      "$value": "Roboto",
+      "$description": "Explore home main heading. Replaceable with client's brand font for white-labeling"
+    },
+    "font-family-mono": {
+      "$value": "Roboto Mono",
+      "$description": "Code and data"
+    }
+  },
+  "font-weight": {
+    "$type": "fontWeight",
+    "font-weight-regular": {
+      "$value": 400,
+      "$description": "Body"
+    },
+    "font-weight-medium": {
+      "$value": 500,
+      "$description": "Labels (e.g. buttons, form fields)"
+    },
+    "font-weight-semibold": {
+      "$value": 600,
+      "$description": "Headings"
+    },
+    "font-weight-bold": {
+      "$value": 700,
+      "$description": "-"
+    }
+  },
+  "font-size": {
+    "$type": "dimension",
+    "font-size-xs": {
+      "$value": "11px",
+      "$description": "Default body, label"
+    },
+    "font-size-sm": {
+      "$value": "12px",
+      "$description": "Default body, label, heading"
+    },
+    "font-size-md": {
+      "$value": "14px",
+      "$description": "Default body, label, heading"
+    },
+    "font-size-lg": {
+      "$value": "16px",
+      "$description": "Body, label, heading"
+    },
+    "font-size-xl": {
+      "$value": "18px",
+      "$description": "Heading"
+    },
+    "font-size-2xl": {
+      "$value": "20px",
+      "$description": "Heading"
+    },
+    "font-size-3xl": {
+      "$value": "24px",
+      "$description": "Heading"
+    },
+    "font-size-4xl": {
+      "$value": "30px",
+      "$description": "-"
+    }
+  },
+  "font-lineheight": {
+    "$type": "dimension",
+    "font-lineheight-xs": {
+      "$value": "14px",
+      "$description": "Font size 11px or smaller"
+    },
+    "font-lineheight-sm": {
+      "$value": "16px",
+      "$description": "Font size 12px"
+    },
+    "font-lineheight-md": {
+      "$value": "20px",
+      "$description": "Font size 14"
+    },
+    "font-lineheight-lg": {
+      "$value": "24px",
+      "$description": "Font size 16"
+    },
+    "font-lineheight-xl": {
+      "$value": "26px",
+      "$description": "Font size 18"
+    },
+    "font-lineheight-2xl": {
+      "$value": "32px",
+      "$description": "Font size 24px"
+    }
+  },
+  "font-letterspacing": {
+    "$type": "dimension",
+    "font-letterspacing-normal": {
+      "$value": "0px",
+      "$description": "Font larger than 16px"
+    },
+    "font-letterspacing-wide-1": {
+      "$value": "0.1px",
+      "$description": "Font size 16"
+    },
+    "font-letterspacing-wide-2": {
+      "$value": "0.2px",
+      "$description": "Font size 14"
+    },
+    "font-letterspacing-wide-3": {
+      "$value": "0.3px",
+      "$description": "Font size 12"
+    },
+    "font-letterspacing-wide-4": {
+      "$value": "0.4px",
+      "$description": "Font size 11"
+    }
+  }
+}

@@ -1,0 +1,300 @@
+/**
+ * Actian Design System 2026 — CSS Custom Properties
+ * Generated from actian-ds.tokens.json (DTCG W3C format)
+ * Generated: 2026-03-20
+ * Prefix: --zen-
+ */
+
+:root,
+[data-theme='actian'] {
+  /* ── Colors ──────────────────────────────────────── */
+  --zen-color-status-success-secondary: #f0ffec;
+  --zen-color-status-success-primary: #047800;
+  --zen-color-status-error-secondary: #fcf3f3;
+  --zen-color-status-error-primary: #c10c0d;
+  --zen-color-annotation-annotation: #d71d6d;
+  --zen-color-status-info-primary: #023e8a;
+  --zen-color-status-info-secondary: #f1fdff;
+  --zen-color-status-inactive-primary: #33333d;
+  --zen-color-border-default: #e4e4f0;
+  --zen-color-status-inactive-secondary: #f5f5fa;
+  --zen-color-text-primary: #000000;
+  --zen-color-text-secondary: #3f3f4a;
+  --zen-color-background-bg-default: #ffffff;
+  --zen-color-background-bg-grey-1: #fbfbff;
+  --zen-color-theme-primary: #0550dc;
+  --zen-color-category-5-stronger: #9a083e;
+  --zen-color-interactive-focused-primary: rgba(63, 63, 74, 0.3);
+  --zen-color-interactive-pressed-primary: rgba(63, 63, 74, 0.5);
+  --zen-color-interactive-dragged-primary: #0029a9;
+  --zen-color-interactive-hovered-primary: rgba(63, 63, 74, 0.3);
+  --zen-color-interactive-selected-primary: #0029a9;
+  --zen-color-icon-default: #000000;
+  --zen-color-overlay-default: rgba(101, 101, 116, 0.7);
+  --zen-color-background-bg-grey-2: #f5f5fa;
+  --zen-color-interactive-hovered-secondary: rgba(228, 228, 240, 0.3);
+  --zen-color-interactive-focused-secondary: rgba(228, 228, 240, 0.3);
+  --zen-color-interactive-pressed-secondary: rgba(228, 228, 240, 0.5);
+  --zen-color-interactive-selected-secondary: #edf6ff;
+  --zen-color-interactive-disabled-primary: #9898a7;
+  --zen-color-interactive-disabled-secondary: #f5f5fa;
+  --zen-color-interactive-focused-stroke-inverse: #fbfbff;
+  --zen-color-category-5-lower: #fff1f5;
+  --zen-color-category-4-lower: #fff5ff;
+  --zen-color-category-2-lower: #ecffff;
+  --zen-color-category-3-lower: #ecffff;
+  --zen-color-category-6-lower: #f0ffec;
+  --zen-color-category-8-lower: #fff9e5;
+  --zen-color-category-7-lower: #fff5f6;
+  --zen-color-icon-secondary: #595968;
+  --zen-color-category-5-low: #ffd5dd;
+  --zen-color-category-1-lower: #f7fdff;
+  --zen-color-interactive-focused-stroke-default: #000000;
+  --zen-color-category-5-strong: #c4004c;
+  --zen-color-category-4-strong: #7900cb;
+  --zen-color-category-2-strong: #00699f;
+  --zen-color-category-3-strong: #007e7b;
+  --zen-color-category-6-strong: #047800;
+  --zen-color-category-8-strong: #a76605;
+  --zen-color-category-7-strong: #932139;
+  --zen-color-category-1-strong: #4a6470;
+  --zen-color-interactive-enabled-inverse: #ffffff;
+  --zen-color-category-4-stronger: #5f0c9e;
+  --zen-color-category-4-low: #eed7ff;
+  --zen-color-category-2-stronger: #00547d;
+  --zen-color-category-2-low: #cfeafd;
+  --zen-color-category-3-stronger: #006563;
+  --zen-color-category-3-low: #d0efed;
+  --zen-color-category-6-stronger: #145f04;
+  --zen-color-category-6-low: #d3efcd;
+  --zen-color-category-8-stronger: #a76605;
+  --zen-color-category-8-low: #ffebce;
+  --zen-color-category-7-stronger: #73202f;
+  --zen-color-category-7-low: #ffd6d8;
+  --zen-color-category-1-stronger: #3c515a;
+  --zen-color-category-1-low: #dde6ec;
+  --zen-color-text-tertiary: #595968;
+  --zen-color-text-disabled: #9898a7;
+  --zen-color-theme-selected: #edf6ff;
+  --zen-color-border-strong: #a8a8bd;
+  --zen-color-icon-reverse: #ffffff;
+  --zen-color-background-bg-reverse: #12131f;
+  --zen-color-status-warning-secondary: #fff6ec;
+  --zen-color-status-warning-primary: #9c2000;
+  --zen-color-category-9-stronger: #937148;
+  --zen-color-category-9-strong: #b78a55;
+  --zen-color-category-9-low: #feeddc;
+  --zen-color-category-9-lower: #fffbef;
+  --zen-color-text-placeholder: #595968;
+  --zen-color-border-disabled: #9898a7;
+  --zen-color-icon-disabled: #9898a7;
+  --zen-color-text-reverse: #ffffff;
+  --zen-color-background-bg-disabled: #f5f5fa;
+
+  /* ── Spacing ─────────────────────────────────────── */
+  --zen-spacing-2xs: 4px;
+  --zen-spacing-xs: 8px;
+  --zen-spacing-md: 16px;
+  --zen-spacing-lg: 24px;
+  --zen-spacing-xl: 32px;
+  --zen-spacing-sm: 12px;
+
+  /* ── Border radius ───────────────────────────────── */
+  --zen-radius-xs: 4px;
+  --zen-radius-2xs: 2px;
+  --zen-radius-sm: 6px;
+  --zen-radius-md: 8px;
+  --zen-radius-lg: 10px;
+  --zen-radius-xl: 12px;
+  --zen-radius-full: 9999px;
+  --zen-radius-default: 6px;
+
+  /* ── Border width ────────────────────────────────── */
+  --zen-width-md: 1px;
+  --zen-width-lg: 2px;
+  --zen-width-focus: 2px;
+  --zen-width-default: 1px;
+
+  /* ── Size (icons & controls) ─────────────────────── */
+  --zen-size-sx: 4px;
+  --zen-size-sm: 8px;
+  --zen-size-md: 16px;
+  --zen-size-lg: 24px;
+  --zen-size-xl: 32px;
+  --zen-size-2xl: 40px;
+  --zen-size-3xl: 44px;
+
+  /* ── Breakpoints ─────────────────────────────────── */
+  --zen-breakpoint-xl: 1920px;
+  --zen-breakpoint-sm: 600px;
+  --zen-breakpoint-md: 840px;
+  --zen-breakpoint-lg: 1200px;
+
+  /* ── Shadows ─────────────────────────────────────── */
+  --zen-shadow-xs: 0px 1px 3px 1px rgba(0, 0, 15, 0.06), 0px 1px 5px 0px rgba(0, 0, 18, 0.07);
+  --zen-shadow-sm: 0px 1px 7px 3px rgba(0, 0, 20, 0.08), 0px 1px 3px 1px rgba(0, 0, 31, 0.12);
+  --zen-shadow-md: 0px 1px 3px 0px rgba(0, 0, 77, 0.3), 0px 4px 8px 3px rgba(0, 0, 38, 0.15);
+  --zen-shadow-lg: 0px 6px 10px 4px rgba(0, 0, 38, 0.15), 0px 2px 3px 0px rgba(0, 0, 77, 0.3);
+  --zen-shadow-xl: 0px 8px 12px 6px rgba(0, 0, 38, 0.15), 0px 4px 4px 0px rgba(0, 0, 77, 0.3);
+
+  /* ── Font family ─────────────────────────────────── */
+  --zen-font-family-text: 'Roboto', sans-serif;
+  --zen-font-family-brand: 'Roboto', sans-serif;
+  --zen-font-family-mono: 'Roboto Mono', sans-serif;
+
+  /* ── Font weight ─────────────────────────────────── */
+  --zen-font-weight-regular: 400;
+  --zen-font-weight-medium: 500;
+  --zen-font-weight-semibold: 600;
+  --zen-font-weight-bold: 700;
+
+  /* ── Font size ──────────────────────────────────── */
+  --zen-font-size-xs: 11px;
+  --zen-font-size-sm: 12px;
+  --zen-font-size-md: 14px;
+  --zen-font-size-lg: 16px;
+  --zen-font-size-xl: 18px;
+  --zen-font-size-2xl: 20px;
+  --zen-font-size-3xl: 24px;
+  --zen-font-size-4xl: 30px;
+
+  /* ── Line height ────────────────────────────────── */
+  --zen-font-lineheight-xs: 14px;
+  --zen-font-lineheight-sm: 16px;
+  --zen-font-lineheight-md: 20px;
+  --zen-font-lineheight-lg: 24px;
+  --zen-font-lineheight-xl: 26px;
+  --zen-font-lineheight-2xl: 32px;
+
+  /* ── Letter spacing ─────────────────────────────── */
+  --zen-font-letterspacing-normal: 0px;
+  --zen-font-letterspacing-wide-1: 0.1px;
+  --zen-font-letterspacing-wide-2: 0.2px;
+  --zen-font-letterspacing-wide-3: 0.3px;
+  --zen-font-letterspacing-wide-4: 0.4px;
+
+  /* ── Typography composites (text styles) ─────────── */
+  --zen-font-heading-display-family: var(--zen-font-family-text);
+  --zen-font-heading-display-weight: 600;
+  --zen-font-heading-display-size: 24px;
+  --zen-font-heading-display-line-height: 28px;
+  --zen-font-heading-display-letter-spacing: 0px;
+  --zen-font-heading-prominent-family: var(--zen-font-family-text);
+  --zen-font-heading-prominent-weight: 600;
+  --zen-font-heading-prominent-size: 18px;
+  --zen-font-heading-prominent-line-height: 26px;
+  --zen-font-heading-prominent-letter-spacing: 0px;
+  --zen-font-heading-standard-family: var(--zen-font-family-text);
+  --zen-font-heading-standard-weight: 600;
+  --zen-font-heading-standard-size: 16px;
+  --zen-font-heading-standard-line-height: 24px;
+  --zen-font-heading-standard-letter-spacing: 0.1px;
+  --zen-font-heading-subtle-family: var(--zen-font-family-text);
+  --zen-font-heading-subtle-weight: 600;
+  --zen-font-heading-subtle-size: 14px;
+  --zen-font-heading-subtle-line-height: 20px;
+  --zen-font-heading-subtle-letter-spacing: 0.2px;
+  --zen-font-heading-micro-family: var(--zen-font-family-text);
+  --zen-font-heading-micro-weight: 600;
+  --zen-font-heading-micro-size: 12px;
+  --zen-font-heading-micro-line-height: 16px;
+  --zen-font-heading-micro-letter-spacing: 0.3px;
+  --zen-font-body-prominent-family: var(--zen-font-family-text);
+  --zen-font-body-prominent-weight: 400;
+  --zen-font-body-prominent-size: 16px;
+  --zen-font-body-prominent-line-height: 24px;
+  --zen-font-body-prominent-letter-spacing: 0.1px;
+  --zen-font-body-standard-family: var(--zen-font-family-text);
+  --zen-font-body-standard-weight: 400;
+  --zen-font-body-standard-size: 14px;
+  --zen-font-body-standard-line-height: 20px;
+  --zen-font-body-standard-letter-spacing: 0.2px;
+  --zen-font-body-subtle-family: var(--zen-font-family-text);
+  --zen-font-body-subtle-weight: 400;
+  --zen-font-body-subtle-size: 12px;
+  --zen-font-body-subtle-line-height: 16px;
+  --zen-font-body-subtle-letter-spacing: 0.3px;
+  --zen-font-body-micro-family: var(--zen-font-family-text);
+  --zen-font-body-micro-weight: 400;
+  --zen-font-body-micro-size: 11px;
+  --zen-font-body-micro-line-height: 14px;
+  --zen-font-body-micro-letter-spacing: 0.4px;
+  --zen-font-label-standard-family: var(--zen-font-family-text);
+  --zen-font-label-standard-weight: 500;
+  --zen-font-label-standard-size: 14px;
+  --zen-font-label-standard-line-height: 20px;
+  --zen-font-label-standard-letter-spacing: 0.2px;
+  --zen-font-label-subtle-family: var(--zen-font-family-text);
+  --zen-font-label-subtle-weight: 500;
+  --zen-font-label-subtle-size: 12px;
+  --zen-font-label-subtle-line-height: 16px;
+  --zen-font-label-subtle-letter-spacing: 0.3px;
+  --zen-font-label-micro-family: var(--zen-font-family-text);
+  --zen-font-label-micro-weight: 500;
+  --zen-font-label-micro-size: 11px;
+  --zen-font-label-micro-line-height: 14px;
+  --zen-font-label-micro-letter-spacing: 0.4px;
+}
+
+[data-theme='studio'] {
+  --zen-color-status-success-primary: #299315;
+  --zen-color-status-error-secondary: #fff4ec;
+  --zen-color-status-error-primary: #e6492d;
+  --zen-color-status-info-secondary: #ecffff;
+  --zen-color-status-inactive-primary: #7b7b7b;
+  --zen-color-border-default: #dadada;
+  --zen-color-status-inactive-secondary: #ebebeb;
+  --zen-color-text-secondary: #8d8d8d;
+  --zen-color-theme-primary: #0283be;
+  --zen-color-interactive-dragged-primary: #0079b6;
+  --zen-color-interactive-selected-primary: #0079b6;
+  --zen-color-overlay-default: rgba(153, 153, 153, 0.7);
+  --zen-color-interactive-selected-secondary: #ecffff;
+  --zen-color-interactive-disabled-primary: #a9a9a9;
+  --zen-color-interactive-disabled-secondary: #ebebeb;
+  --zen-color-interactive-focused-stroke-inverse: #fcfcfc;
+  --zen-color-icon-secondary: #7b7b7b;
+  --zen-color-category-8-strong: #d27b00;
+  --zen-color-text-tertiary: #999999;
+  --zen-color-text-disabled: #a9a9a9;
+  --zen-color-theme-selected: #ecffff;
+  --zen-color-border-strong: #b9b9b9;
+  --zen-color-status-warning-secondary: #fff9e5;
+  --zen-color-status-warning-primary: #fc9f1d;
+  --zen-color-text-placeholder: #999999;
+  --zen-color-border-disabled: #a9a9a9;
+  --zen-color-icon-disabled: #a9a9a9;
+}
+
+[data-theme='explorer'] {
+  --zen-color-status-success-primary: #299315;
+  --zen-color-status-error-secondary: #fff4ec;
+  --zen-color-status-error-primary: #e6492d;
+  --zen-color-status-info-secondary: #ecffff;
+  --zen-color-status-inactive-primary: #7b7b7b;
+  --zen-color-border-default: #dadada;
+  --zen-color-status-inactive-secondary: #ebebeb;
+  --zen-color-text-secondary: #8d8d8d;
+  --zen-color-background-bg-grey-1: #fcfcfc;
+  --zen-color-theme-primary: #049b98;
+  --zen-color-interactive-dragged-primary: #00908e;
+  --zen-color-interactive-selected-primary: #00908e;
+  --zen-color-overlay-default: rgba(153, 153, 153, 0.7);
+  --zen-color-background-bg-grey-2: #ebebeb;
+  --zen-color-interactive-selected-secondary: #ecffff;
+  --zen-color-interactive-disabled-primary: #a9a9a9;
+  --zen-color-interactive-focused-stroke-inverse: #fcfcfc;
+  --zen-color-icon-secondary: #7b7b7b;
+  --zen-color-category-8-strong: #d27b00;
+  --zen-color-text-tertiary: #999999;
+  --zen-color-text-disabled: #a9a9a9;
+  --zen-color-theme-selected: #ecffff;
+  --zen-color-border-strong: #b9b9b9;
+  --zen-color-background-bg-reverse: #505050;
+  --zen-color-status-warning-secondary: #fff9e5;
+  --zen-color-status-warning-primary: #fc9f1d;
+  --zen-color-text-placeholder: #999999;
+  --zen-color-border-disabled: #a9a9a9;
+  --zen-color-icon-disabled: #a9a9a9;
+  --zen-color-background-bg-disabled: #ebebeb;
+}
