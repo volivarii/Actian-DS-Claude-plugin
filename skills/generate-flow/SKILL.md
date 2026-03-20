@@ -418,3 +418,119 @@ Refer to `components/FATMARKER-COMPONENT-CATALOG.md` for the full inventory. Key
 ## Step 6 — Review
 
 After capture, get a screenshot of the result and show it to the user. Ask if they want adjustments before considering it done.
+
+---
+
+## Real Components Mode (opt-in)
+
+When the user says **"use real components"**, **"assemble in Figma"**, or **"use native components"**, switch from HTML generation to layout spec JSON output.
+
+### How it works
+
+Instead of generating HTML, output a JSON layout spec file that the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) Figma plugin can consume.
+
+1. Generate a layout spec JSON using the schema below
+2. Reference components by their exact registry names (FM-prefixed for wireframes)
+3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
+4. Save as `spec.json` in the project root and serve on localhost:8765 using `python3 serve.py 8765`
+5. Tell the user: "Open the Actian DS Assembler plugin in Figma and click Assemble"
+
+### Layout spec schema
+
+Two node types: **frames** (layout containers) and **instances** (component references).
+
+**Frame node:**
+```json
+{
+  "type": "frame",
+  "name": "Content Area",
+  "layout": "vertical",
+  "spacing": 16,
+  "padding": { "top": 24, "right": 24, "bottom": 24, "left": 24 },
+  "fill": "--zen-color-background-bg-default",
+  "width": "fill",
+  "height": "hug",
+  "align": "min",
+  "counterAlign": "min",
+  "children": []
+}
+```
+
+**Instance node:**
+```json
+{
+  "component": "FM Button",
+  "props": { "Type": "Primary" },
+  "text": { "Label": "Save" },
+  "width": "fill"
+}
+```
+
+- `width` / `height`: number (fixed px), `"hug"`, or `"fill"`
+- `align`: `"min"` | `"center"` | `"max"` | `"space-between"` (primary axis)
+- `counterAlign`: `"min"` | `"center"` | `"max"` (counter axis)
+- `fill`: `--zen-*` token name or hex value
+- `component`: exact name from the registry (see list below)
+
+### FM Kit component names (use exactly)
+
+**Layout:** `FM App_header`, `FM Side navigation bar`, `FM Side navigation item`, `FM Tabs`, `FM Tab`, `FM Sidepanel`, `FM Menu`, `FM Menu item`
+
+**Inputs:** `FM Text input field`, `FM Text Area`, `FM Search input field`, `FM Dropdown`, `FM Multi-select dropdown`, `FM Date input`, `FM Checkbox`, `FM Radio button`, `FM Toggle`, `FM Slider`
+
+**Actions:** `FM Button`, `FM Icon Buttons`
+
+**Data:** `FM Table Cell`, `FM Table example`, `FM Badge`, `FM Tag`, `FM Chip`
+
+**Feedback:** `FM Alert`, `FM Banner`, `FM Toast`, `FM Dialog`, `FM Empty State`, `FM Progress bar`, `FM Spinner`, `FM Tooltip`
+
+**Other:** `FM Placeholder`, `FM User`, `FM Cursor`
+
+### Full screen example
+
+```json
+{
+  "version": "1.0",
+  "name": "Settings Page",
+  "type": "frame",
+  "layout": "vertical",
+  "width": 1440,
+  "height": 900,
+  "children": [
+    { "component": "FM App_header", "width": "fill" },
+    {
+      "type": "frame",
+      "layout": "horizontal",
+      "width": "fill",
+      "height": "fill",
+      "children": [
+        { "component": "FM Side navigation bar", "height": "fill" },
+        {
+          "type": "frame",
+          "name": "Content",
+          "layout": "vertical",
+          "spacing": 16,
+          "padding": { "top": 24, "right": 24, "bottom": 24, "left": 24 },
+          "width": "fill",
+          "children": [
+            { "component": "FM Text input field", "width": "fill" },
+            {
+              "type": "frame",
+              "layout": "horizontal",
+              "spacing": 8,
+              "children": [
+                { "component": "FM Button", "props": { "Type": "Primary" } },
+                { "component": "FM Button", "props": { "Type": "Secondary" } }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Fallback
+
+If the user hasn't set up the Figma plugin, fall back to the standard HTML workflow (Steps 4–6 above).
