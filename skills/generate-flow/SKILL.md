@@ -182,6 +182,12 @@ Refer to `components/FATMARKER-COMPONENT-CATALOG.md` for the full inventory. Key
 - Compact (no sidebar): 1440x700px
 - Always include FM App_header (70px) + FM Sidebar (260px) + content area
 
+### Forms layout (from Design Consistency handoff)
+- Simple form inputs (text, dropdown, textarea, radio, checkbox): constrain container to **480px max-width**, left-aligned in content area
+- Extended elements (selectable rows, tiles, tables): **full-width** within the content area
+- Multi-column layouts: forms stay **fluid** inside their containers
+- Action footer: sticky bottom, primary actions right, secondary left
+
 ### Styling rules
 - Use the FM CSS Reference below — do not deviate from these exact values
 - Include the Figma capture script: `<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>`

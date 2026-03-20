@@ -42,6 +42,12 @@ The user provides a Figma URL (frame, page, or section). If no URL is given, ask
 - Are screens 1440x960px (standard) or 1440x700px (compact)?
 - Is the reading order left-to-right, top-to-bottom?
 
+### Forms layout (Design Consistency handoff)
+- Simple form input containers must be constrained to **480px max-width** — flag if inputs stretch full-width
+- Extended elements (selectable rows, tiles, tables) should be **full-width** — flag if constrained to 480px
+- Multi-column layouts: forms should be **fluid** inside their containers
+- Action footer: sticky bottom, primary actions right, secondary left — flag if reversed or floating
+
 ### Missing states
 - Flag flows missing: empty states, error states, loading states, or confirmation states.
 - Flag forms missing: validation errors, disabled states, required field indicators.

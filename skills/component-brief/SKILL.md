@@ -37,7 +37,7 @@ Before writing anything:
 1. **Check the Fat Marker catalog** (`components/FATMARKER-COMPONENT-CATALOG.md`) — does this component already exist?
 2. **Check the DS2026 library** (`l8biHxfarNi1I2RMvVxVOK` or `8Yu8wUtPTXsa3iV6R4TmnS`) — fetch design context + screenshot if a node exists
 3. **Check the Policies flow** (`2WF4POyRBXKEJ5zSLIu8pn`) or other feature files — is there a real usage example?
-4. **Check CLAUDE.md** — what tokens and conventions apply to this component type?
+4. **Check CLAUDE.md** — what tokens, conventions, and **Forms Layout Rules** apply to this component type?
 5. **Check `references/design-system.md` (in the skills directory)** — get exact token values per theme (Actian DS mode only)
 
 ## Step 2 — Draft the brief
@@ -317,6 +317,7 @@ Content:
 - **When to use** — bulleted list of appropriate scenarios
 - **When NOT to use** — anti-patterns with correct alternatives
 - **Do / Don't pairs** — side-by-side cards with green bar (Do) / red bar (Don't), each showing a visual example + caption
+- **Forms layout** (for form input components): include the 480px max-width rule for simple forms, full-width rule for extended elements (selectable rows, tiles, tables), and fluid rule for multi-column layouts. See CLAUDE.md "Forms Layout Rules".
 
 #### Card 7 — Content guidelines
 `data-name="Content guidelines"`

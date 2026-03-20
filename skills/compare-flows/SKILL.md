@@ -45,6 +45,11 @@ The user provides two Figma URLs (frames, sections, or pages) to compare. Exampl
 - Spacing and alignment consistency
 - Color token usage
 
+### Forms layout (Design Consistency handoff)
+- Are simple form inputs constrained to **480px max-width**?
+- Are extended elements (selectable rows, tiles, tables) displayed **full-width**?
+- Is the action footer sticky bottom with primary actions right, secondary left?
+
 ### UX patterns
 - Information hierarchy — is the most important content prominent?
 - Progressive disclosure — is complexity managed well?

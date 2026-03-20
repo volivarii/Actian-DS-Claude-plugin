@@ -55,6 +55,34 @@ Apply in every task: contrast ratios, keyboard interaction, ARIA patterns, focus
 
 ---
 
+## Forms Layout Rules
+
+Source: [Design Consistency 2026 — Forms](https://www.figma.com/design/Z82GkL5d9Eu1HS5hMiEBBw/Design-consistency-2026?node-id=10939-12809)
+
+These rules apply to all generated screens (flows, specs, audits) across all skills:
+
+### Simple forms
+- Input form containers must be constrained to **480px max-width** on medium and large screens
+- Applies to: text inputs, dropdowns, text areas, date pickers, radio groups, checkbox groups
+- The 480px container sits left-aligned within the content area
+
+### Extended form elements
+- **Selectable rows, tiles, and tables** must be displayed **full-width**
+- Follow the grid and max-width rules of the content area (1600px max-width)
+- Applies to: multi-select lists, data tables used in forms, tile selectors, card grids
+
+### Multi-column layouts
+- Forms should stay **fluid** inside their containers
+- Do not constrain to 480px when the form is inside a multi-column layout (e.g., side panel, split view)
+
+### Action footer
+- Stick to **bottom** of the page
+- Fluid width for background color and stroke
+- Actions container constrained to **1600px max-width**
+- **Primary actions on the right**, secondary on the left
+
+---
+
 ## Theme Modes
 
 3 themes: **Actian**, **Studio**, **Explorer**.
@@ -102,6 +130,7 @@ Use the **corrected** names going forward:
 
 ### Form Inputs (text, select, datepicker, textarea)
 
+- IMPORTANT: Form input containers must be constrained to **480px max-width** (see Forms Layout Rules above)
 - Border: `border-default` at rest → `border-strong` on focus
 - Focus ring: `interactive-focused-stroke-default` with `width-focus`
 - Background: `background-bg-default`
