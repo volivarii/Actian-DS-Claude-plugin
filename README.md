@@ -36,6 +36,12 @@ This plugin requires the **Figma MCP** connector. If not already connected:
 | `/generate-flow` | Generate a Fat Marker wireframe flow from a user story and push to Figma |
 | `/compare-flows` | Compare two Figma flows with structured UX analysis and recommendations |
 
+## Figma Component Assembler
+
+Opt-in mode for `/generate-flow` that assembles real Figma component instances instead of flat HTML captures. Requires the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) Figma plugin.
+
+Usage: ask Claude to `/generate-flow` with "use real components".
+
 ## Try asking...
 
 - "Audit this Figma screen for accessibility issues" + paste a Figma URL
