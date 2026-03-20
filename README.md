@@ -6,11 +6,11 @@ Claude plugin for the Actian UX team. Generate wireframe flows, create component
 
 ### Claude Desktop App (marketplace)
 
-1. Open **Personnaliser** (Customize) in the sidebar
-2. Under **Plugins personnels**, click **+**
-3. Select **Ajouter une marketplace** (Add a marketplace)
+1. Open **Customize** in the sidebar
+2. Under **Personal plugins**, click **+**
+3. Select **Add a marketplace**
 4. Enter: `volivarii/Actian-DS-Claude-plugin`
-5. Click **Synchro**
+5. Click **Sync**
 
 The plugin appears under your personal plugins. Enable it and you're ready to go.
 
@@ -24,7 +24,7 @@ claude plugin add volivarii/Actian-DS-Claude-plugin
 
 This plugin requires the **Figma MCP** connector. If not already connected:
 
-- **Claude Desktop:** Go to Personnaliser → Connecteurs → add the Figma connector
+- **Claude Desktop:** Go to Customize → Connectors → add the Figma connector
 - **Claude Code CLI:** `claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp`
 
 ## Skills
@@ -114,7 +114,7 @@ Editable frames  ←  Figma capture  ←  Claude generates HTML
 | New skill needed | Add `skills/<name>/SKILL.md` |
 | Bump version | Update `version` in `.claude-plugin/plugin.json` and `marketplace.json` |
 
-After any update: `git commit` + `git push`. Users click **Mettre à jour** (Update) in the desktop app, or run `git pull` in CLI.
+After any update: `git commit` + `git push`. Users click **Update** in the desktop app, or run `git pull` in CLI.
 
 ## Figma files
 
