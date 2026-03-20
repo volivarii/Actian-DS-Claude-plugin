@@ -8,22 +8,28 @@
 
 **Tech Stack:** Node.js (registry builder), TypeScript (Figma plugin), Figma Plugin API, Figma REST API
 
-**Spec:** `docs/superpowers/specs/2026-03-20-figma-component-assembler-design.md`
+**Spec:** `docs/superpowers/specs/2026-03-20-figma-component-assembler-design.md` (in Claude plugin repo)
+
+**Repos:**
+- **Actian-DS-Assembler** (`/Users/volivari/Developer/Actian/Actian-DS-Assembler`) — Figma plugin + registry builder. GitHub: `volivarii/Actian-DS-Assembler`
+- **Actian-DS-Claude-plugin** (`/Users/volivari/Developer/Actian/actian-design-system-plugin`) — Claude skills (Task 8 only)
 
 ---
 
 ## File Structure
 
+### Actian-DS-Assembler (new repo)
 ```
-actian-design-system-plugin/
+Actian-DS-Assembler/
 ├── registry/
 │   ├── build-registry.js          # Script: queries Figma REST API, outputs registry JSON
 │   ├── build-token-map.js         # Script: parses tokens.css, outputs token-to-hex JSON
 │   ├── component-registry.json    # Generated: component keys + variants + text props
-│   └── token-map.json             # Generated: --zen-* token name → hex value
-├── figma-plugin/
+│   ├── token-map.json             # Generated: --zen-* token name → hex value
+│   └── .env.example               # FIGMA_TOKEN template
+├── plugin/
 │   ├── manifest.json              # Figma plugin manifest
-│   ├── package.json               # Dependencies (typescript)
+│   ├── package.json               # Dependencies (typescript, esbuild)
 │   ├── tsconfig.json              # TypeScript config
 │   ├── src/
 │   │   ├── code.ts                # Plugin sandbox: tree walker, component assembly
@@ -32,8 +38,76 @@ actian-design-system-plugin/
 │   └── dist/                      # Compiled output (gitignored)
 │       ├── code.js
 │       └── ui.html
+├── tokens/
+│   └── tokens.css                 # Copied from Claude plugin (input for token map builder)
+├── .gitignore
+├── LICENSE.txt
+└── README.md
+```
+
+### Actian-DS-Claude-plugin (existing repo — Task 8 only)
+```
+actian-design-system-plugin/
 └── skills/
     └── generate-flow/SKILL.md     # Modified: add opt-in "real components" mode
+```
+
+---
+
+> **Working directory for Tasks 0–7 and 9:** `/Users/volivari/Developer/Actian/Actian-DS-Assembler`
+> **Working directory for Task 8:** `/Users/volivari/Developer/Actian/actian-design-system-plugin`
+
+### Task 0: Initial Repo Setup
+
+**Files:**
+- Create: `.gitignore`
+- Create: `LICENSE.txt`
+- Create: `README.md`
+- Create: `tokens/tokens.css` (copied from Claude plugin)
+
+- [ ] **Step 1: Create .gitignore**
+
+```
+.DS_Store
+node_modules/
+plugin/dist/
+.env
+```
+
+- [ ] **Step 2: Create LICENSE.txt**
+
+```
+Copyright (c) 2026 Actian Corporation. All rights reserved.
+
+This software is proprietary and confidential. Unauthorized copying, distribution,
+or use of this software, via any medium, is strictly prohibited.
+```
+
+- [ ] **Step 3: Copy tokens.css from the Claude plugin repo**
+
+```bash
+mkdir -p tokens
+cp /Users/volivari/Developer/Actian/actian-design-system-plugin/tokens/tokens.css tokens/tokens.css
+```
+
+- [ ] **Step 4: Create a minimal README.md**
+
+```markdown
+# Actian DS Assembler
+
+Figma plugin that assembles real component instances from published Actian DS2026 and Fat Marker libraries via JSON layout specs.
+
+## Setup
+
+See full docs after build tasks complete.
+```
+
+- [ ] **Step 5: Commit and push**
+
+```bash
+git add .gitignore LICENSE.txt README.md tokens/tokens.css
+git commit -m "chore: initial repo setup with license, gitignore, and tokens"
+git push -u origin main
 ```
 
 ---
@@ -219,7 +293,7 @@ Parses `tokens/tokens.css` and extracts `--zen-*` variable names → hex values 
 const fs = require('fs');
 const path = require('path');
 
-const cssPath = path.join(__dirname, '..', 'tokens', 'tokens.css');
+const cssPath = path.join(__dirname, '..', 'tokens', 'tokens.css'); // copied from Claude plugin repo
 const css = fs.readFileSync(cssPath, 'utf8');
 
 // Extract only the :root / [data-theme='actian'] block (first block in file)
@@ -277,10 +351,10 @@ git commit -m "feat: add token map builder and initial token map"
 ### Task 3: Figma Plugin — Scaffold and Manifest
 
 **Files:**
-- Create: `figma-plugin/manifest.json`
-- Create: `figma-plugin/package.json`
-- Create: `figma-plugin/tsconfig.json`
-- Create: `figma-plugin/.gitignore`
+- Create: `plugin/manifest.json`
+- Create: `plugin/package.json`
+- Create: `plugin/tsconfig.json`
+- Create: `plugin/.gitignore`
 
 - [ ] **Step 1: Create manifest.json**
 
@@ -358,7 +432,7 @@ mkdir -p dist && cd ..
 - [ ] **Step 7: Commit**
 
 ```bash
-git add figma-plugin/manifest.json figma-plugin/package.json figma-plugin/tsconfig.json figma-plugin/.gitignore
+git add plugin/manifest.json plugin/package.json plugin/tsconfig.json plugin/.gitignore
 git commit -m "feat: scaffold Figma plugin with manifest and build config"
 ```
 
@@ -367,7 +441,7 @@ git commit -m "feat: scaffold Figma plugin with manifest and build config"
 ### Task 4: Figma Plugin — Registry Module
 
 **Files:**
-- Create: `figma-plugin/src/registry.ts`
+- Create: `plugin/src/registry.ts`
 
 Bundles the component registry and token map as importable modules with lookup helpers.
 
@@ -475,7 +549,7 @@ Expected: No TypeScript errors. (May need to add `"resolveJsonModule": true` to 
 - [ ] **Step 4: Commit**
 
 ```bash
-git add figma-plugin/src/registry.ts figma-plugin/package.json
+git add plugin/src/registry.ts plugin/package.json
 git commit -m "feat: add registry module with component/token lookup helpers"
 ```
 
@@ -484,7 +558,7 @@ git commit -m "feat: add registry module with component/token lookup helpers"
 ### Task 5: Figma Plugin — UI
 
 **Files:**
-- Create: `figma-plugin/src/ui.html`
+- Create: `plugin/src/ui.html`
 
 Minimal UI with URL input, Assemble button, and status log.
 
@@ -581,7 +655,7 @@ Expected: `dist/ui.html` created.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add figma-plugin/src/ui.html
+git add plugin/src/ui.html
 git commit -m "feat: add Figma plugin UI with URL input and status log"
 ```
 
@@ -590,7 +664,7 @@ git commit -m "feat: add Figma plugin UI with URL input and status log"
 ### Task 6: Figma Plugin — Core Assembly Engine
 
 **Files:**
-- Create: `figma-plugin/src/code.ts`
+- Create: `plugin/src/code.ts`
 
 The sandbox thread that walks the spec tree and creates Figma nodes.
 
@@ -807,7 +881,7 @@ Expected: `dist/code.js` and `dist/ui.html` created without errors.
 - [ ] **Step 3: Commit**
 
 ```bash
-git add figma-plugin/src/code.ts
+git add plugin/src/code.ts
 git commit -m "feat: add core assembly engine — tree walker and component instantiation"
 ```
 
@@ -866,7 +940,7 @@ Verify: `curl http://localhost:8765/test-spec.json` returns the JSON.
 
 - [ ] **Step 3: Load the plugin in Figma**
 
-In Figma: Plugins → Development → Import plugin from manifest → select `figma-plugin/manifest.json`.
+In Figma: Plugins → Development → Import plugin from manifest → select `plugin/manifest.json`.
 
 - [ ] **Step 4: Run the plugin**
 
@@ -956,65 +1030,98 @@ git commit -m "feat: add real-components opt-in mode to generate-flow skill"
 
 ### Task 9: Documentation and Final Push
 
+Two repos to update.
+
+#### 9A: Assembler repo README (`Actian-DS-Assembler`)
+
 **Files:**
 - Modify: `README.md`
-- Modify: `.gitignore`
 
-- [ ] **Step 1: Add figma-plugin to .gitignore**
+- [ ] **Step 1: Write full README.md**
 
-Append to `.gitignore`:
+```markdown
+# Actian DS Assembler
+
+Figma plugin that assembles real component instances from published Actian DS2026 and Fat Marker libraries via JSON layout specs.
+
+## Prerequisites
+
+- Figma desktop app
+- FM Kit and DS2026 libraries enabled in your Figma team
+- Node.js 18+
+- A Figma personal access token (for building the registry)
+
+## Setup
+
+### 1. Build the component registry
+
+```bash
+FIGMA_TOKEN=figd_xxx node registry/build-registry.js
+node registry/build-token-map.js
 ```
-# Figma plugin build output
-figma-plugin/node_modules/
-figma-plugin/dist/
+
+Re-run when library components are added or renamed.
+
+### 2. Build the Figma plugin
+
+```bash
+cd plugin && npm install && npm run build
 ```
 
-- [ ] **Step 2: Update README with assembler section**
+### 3. Install in Figma
+
+Plugins → Development → Import plugin from manifest → select `plugin/manifest.json`
+
+## Usage
+
+1. Serve a layout spec JSON on localhost (e.g. `python3 -m http.server 8765`)
+2. In Figma, run **Actian DS Assembler**
+3. Enter the spec URL (default: `http://localhost:8765/spec.json`)
+4. Click **Assemble**
+5. Real component instances appear on your canvas
+
+## Layout Spec Format
+
+See the [design spec](https://github.com/volivarii/Actian-DS-Claude-plugin/blob/main/docs/superpowers/specs/2026-03-20-figma-component-assembler-design.md) for the full JSON schema.
+
+## With Claude
+
+Use `/generate-flow` with "use real components" in the [Actian DS Claude plugin](https://github.com/volivarii/Actian-DS-Claude-plugin). Claude outputs a layout spec JSON and serves it locally.
+```
+
+- [ ] **Step 2: Commit and push**
+
+```bash
+git add README.md
+git commit -m "docs: complete README with setup, usage, and spec link"
+git push
+```
+
+#### 9B: Claude plugin repo (`actian-design-system-plugin`)
+
+**Working directory:** `/Users/volivari/Developer/Actian/actian-design-system-plugin`
+
+**Files:**
+- Modify: `README.md`
+
+- [ ] **Step 3: Add assembler reference to Claude plugin README**
 
 Add a section after "Skills" in `README.md`:
 
 ```markdown
 ## Figma Component Assembler
 
-Opt-in mode that assembles real Figma component instances instead of flat HTML captures.
+Opt-in mode for `/generate-flow` that assembles real Figma component instances instead of flat HTML captures. Requires the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) Figma plugin.
 
-### Setup
-
-1. Build the registry (one-time, re-run when libraries change):
-   ```bash
-   FIGMA_TOKEN=figd_xxx node registry/build-registry.js
-   node registry/build-token-map.js
-   ```
-
-2. Build the Figma plugin:
-   ```bash
-   cd figma-plugin && npm install && npm run build
-   ```
-
-3. In Figma: Plugins → Development → Import plugin from manifest → select `figma-plugin/manifest.json`
-
-### Usage
-
-1. Ask Claude to `/generate-flow` with "use real components"
-2. Claude serves `spec.json` on localhost:8765
-3. In Figma, run the Actian DS Assembler plugin → click Assemble
-4. Real component instances appear on your canvas
+Usage: ask Claude to `/generate-flow` with "use real components".
 ```
 
-- [ ] **Step 3: Final commit and push**
-
-```bash
-git add .gitignore README.md
-git commit -m "docs: add assembler setup and usage to README"
-git push
-```
-
-- [ ] **Step 4: Bump plugin version**
+- [ ] **Step 4: Bump Claude plugin version and push**
 
 Update version to `1.3.0` in both `.claude-plugin/plugin.json` and `.claude-plugin/marketplace.json`.
 
 ```bash
-git add .claude-plugin/plugin.json .claude-plugin/marketplace.json
-git commit -m "chore: bump plugin version to 1.3.0"
+git add README.md .claude-plugin/plugin.json .claude-plugin/marketplace.json
+git commit -m "docs: add assembler reference and bump to v1.3.0"
 git push
 ```
