@@ -149,6 +149,8 @@ Use the **corrected** names going forward:
 
 ### Buttons
 
+- DS2026 uses **Hierarchy** variant axis (not `Type`): Primary, Secondary color/gray, Tertiary color/gray, Link color/gray
+- FM Kit uses **Type** variant axis: Primary, Secondary, Outline
 - Fill color: `theme-primary` → `interactive-dragged-primary` (active/pressed)
 - Text on filled: `interactive-enabled-inverse`
 - Ghost/text variant label: `text-primary`
@@ -159,6 +161,7 @@ Use the **corrected** names going forward:
 - Typography: `label-standard`
 - Spacing: `spacing-xs` vertical, `spacing-sm`/`spacing-md` horizontal
 - Height: `size-2xl` (large) / `size-xl` (medium)
+- Additional axes: `Size` (Default/Small), `Icon` (Default/Leading/Trailing/Only), `Destructive` (True/False), `Theme`
 
 ### Form Inputs (text, select, datepicker, textarea)
 

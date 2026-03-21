@@ -1,8 +1,8 @@
 # Actian Design System 2026 — Token Reference
 
-> Auto-generated from `Actian-Design-System_variables_03192026.json`
-> Export date: 2026-03-19
+> Last synced: 2026-03-21 (via `sync-all.js` + manual verification)
 > Source: [Actian Design System 2026](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-2026)
+> Component reference: see `docs/ds2026-component-reference.md` (auto-generated)
 
 ---
 
@@ -229,13 +229,80 @@ Font family: **Roboto** for all styles.
 
 ---
 
-## Breakpoints
+## Breakpoints & Grid Styles
 
-| Token | Value |
-|-------|-------|
-| `breakpoint-sm` | 600px |
-| `breakpoint-md` | 840px |
-| `breakpoint-lg` | 1200px |
+| Breakpoint | Min width | Grid style | Description |
+|------------|-----------|------------|-------------|
+| XS | 0px | `XS` | Phone portrait |
+| S | 600px | `S` | Tablet portrait |
+| M | 840px | `M` | Phone & tablet landscape, desktop |
+| L | 1200px | `L` | Desktop |
+| XL | 1440px+ | `XL` | Desktop (content max-width: 1600px) |
+
+Additional grid: `Icon Grid` — for icon alignment.
+
+### Layout rules (from Design Consistency handoff)
+
+- Content area constrained to **1600px max-width** on all platforms (Studio, Explorer, Admin)
+- Simple form input containers: **480px max-width** on medium and large screens
+- Extended elements (selectable rows, tiles, tables): **full-width** within content area
+- Action footer: sticky bottom, fluid background, actions constrained to 1600px, primary right / secondary left
+- Scrollbar: apply scrolling to the **page**, not the container
+
+---
+
+## Component Variant Patterns
+
+Key variant axes used across DS2026 components (from analysis of 5980 instances):
+
+### Button hierarchy
+
+DS2026 buttons use `Hierarchy` (not `Type`) for visual weight:
+
+| Hierarchy | Usage | Description |
+|-----------|-------|-------------|
+| Primary | Main CTA | Single most important action per view |
+| Secondary color | Supporting | Theme-colored alternative actions |
+| Secondary gray | Supporting | Neutral alternative actions |
+| Tertiary color | Low-emphasis | Theme-colored inline actions |
+| Tertiary gray | Low-emphasis | Neutral inline actions |
+| Link color | Inline | Text-style link actions |
+| Link gray | Inline | Neutral text-style link actions |
+
+Additional button axes: `Size` (Default, Small), `State` (Default, Hovered, Focused, Pressed, Selected, Disabled), `Icon` (Default, Leading, Trailing, Only), `Destructive` (True, False), `Theme` (Studio, Actian, Explorer).
+
+### Size naming
+
+Size values are inconsistent across components:
+
+| Component | Size values |
+|-----------|-------------|
+| Buttons | `Default`, `Small` |
+| Tags/Badges | `Small`, `Medium`, `Large` |
+| Progress bars | `Default`, `Large` |
+| Digrams | `Default`, `Large` |
+| Inputs | Use `States` not `Size` |
+
+When generating specs, use the exact values from `ds2026-component-reference.md` for each component.
+
+### Common variant axes
+
+| Axis | Used by | Values |
+|------|---------|--------|
+| `State` | Most components | Default, Hovered, Focused, Pressed, Disabled, Selected |
+| `Type` | Tags, Search, Tabs, Table | Varies per component |
+| `App` / `App type` | Header, Side nav, Drawer | Admin, Studio, Explorer |
+| `Breakpoints` | Header, Grids | XS, S, M, L, XL |
+| `View` | Side nav | Expanded, Collapsed |
+
+---
+
+## Known Issues (from analysis)
+
+- **33 published styles** in DS2026 (12 text, 10 fill, 6 grid, 5 effect)
+- **Text style typo**: Figma style is still named `body-stardard` — CSS variable is corrected to `body-standard`
+- **7174 hardcoded colors** in the DS2026 file itself (not bound to variables)
+- **561 frames** with 3+ children missing auto-layout
 | `breakpoint-xl` | 1920px |
 
 ---
