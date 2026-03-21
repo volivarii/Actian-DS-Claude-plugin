@@ -11,7 +11,7 @@
 |---|---|---|
 | `CLAUDE.md` | Component rules, conventions, Figma MCP flow | Claude Project Knowledge |
 | `design-system.md` | Full token reference (colors, typography, spacing, etc.) | Claude Project Knowledge |
-| `FATMARKER-COMPONENT-CATALOG.md` | 42 FM components with variants and node IDs | Claude Project Knowledge |
+| `fm-component-catalog.md` | 42 FM components with variants and node IDs | Claude Project Knowledge |
 | `team/prompt-templates/*.md` | 4 ready-to-paste prompt templates | Team Notion / Drive / Slack |
 | `ux-ai-resources-canvas.md` | Onboarding guide and learning resources | Team Notion / Slack canvas |
 
@@ -28,7 +28,7 @@
    - Upload `docs/design-system.md` (full token reference)
    - Upload `docs/content-guidelines.md` (UI copy rules)
    - Upload `docs/accessibility-guidelines.md` (WCAG 2.1 AA standards)
-   - Upload `components/FATMARKER-COMPONENT-CATALOG.md`
+   - Upload `components/fm-component-catalog.md`
 4. Invite the team — everyone who joins gets the context automatically
 
 ### 2. Connect Figma (each designer, 2 minutes)

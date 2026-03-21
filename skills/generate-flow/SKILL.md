@@ -146,7 +146,7 @@ Create a single HTML file at `components/flows/[feature-name]-flow.html` using t
 - **FM Page Header** — title (+ optional subtitle) at top of content area
 
 ### Available components (use as needed)
-Refer to `components/FATMARKER-COMPONENT-CATALOG.md` for the full inventory. Key ones:
+Refer to `docs/fm-component-catalog.md` for the full inventory. Key ones:
 - FM Button (Primary/Secondary/Outline)
 - FM Text input field, FM Text Area, FM Dropdown, FM Search input field
 - FM Input Label (with required asterisk where needed)

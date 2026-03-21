@@ -34,7 +34,7 @@ The user describes a component or provides a Figma URL. Examples:
 
 Before writing anything:
 
-1. **Check the Fat Marker catalog** (`components/FATMARKER-COMPONENT-CATALOG.md`) — does this component already exist?
+1. **Check the Fat Marker catalog** (`docs/fm-component-catalog.md`) — does this component already exist?
 2. **Check the DS2026 library** (`l8biHxfarNi1I2RMvVxVOK` or `8Yu8wUtPTXsa3iV6R4TmnS`) — fetch design context + screenshot if a node exists
 3. **Check the Policies flow** (`2WF4POyRBXKEJ5zSLIu8pn`) or other feature files — is there a real usage example?
 4. **Check CLAUDE.md** — what tokens, conventions, and **Forms Layout Rules** apply to this component type?

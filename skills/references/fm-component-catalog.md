@@ -1,1 +1,1 @@
-../../components/FATMARKER-COMPONENT-CATALOG.md
+../../docs/fm-component-catalog.md

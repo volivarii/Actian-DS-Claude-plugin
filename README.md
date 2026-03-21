@@ -122,7 +122,7 @@ Editable frames  ←  Figma capture  ←  Claude generates HTML
 | What changed | What to update |
 |-------------|---------------|
 | Tokens change in Figma | Re-export JSON to `tokens/`, regenerate `actian-ds.tokens.json` + `tokens.css`, update `docs/design-system.md` |
-| FM Kit changes | Update `components/FATMARKER-COMPONENT-CATALOG.md` + FM CSS in generate-flow skill |
+| FM Kit changes | Update `docs/fm-component-catalog.md` + FM CSS in generate-flow skill |
 | Content rules change | Update `docs/content-guidelines.md` + `skills/references/content-guidelines.md` |
 | A11y rules change | Update `docs/accessibility-guidelines.md` + `skills/references/accessibility-guidelines.md` |
 | New skill needed | Add `skills/<name>/SKILL.md` |

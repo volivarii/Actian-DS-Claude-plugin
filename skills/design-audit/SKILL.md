@@ -27,7 +27,7 @@ The user provides a Figma URL (frame, page, or section). If no URL is given, ask
 
 ### Component consistency
 - Are FM-prefixed components used consistently? Flag any detached instances or ad-hoc recreations.
-- Are component names consistent with the Fat Marker catalog? (See `components/FATMARKER-COMPONENT-CATALOG.md`)
+- Are component names consistent with the Fat Marker catalog? (See `docs/fm-component-catalog.md`)
 - Flag any naming mismatches (e.g., "App_header" without "FM" prefix, "Text Cell" vs "Table Cell").
 
 ### Token usage
