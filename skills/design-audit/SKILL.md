@@ -82,3 +82,48 @@ Present findings as a structured report:
 ### Recommendations
 - [Actionable next steps]
 ```
+
+## Deep analysis with DS Assembler (recommended)
+
+If the DS Assembler plugin is running (`python3 serve.py 8765` in the Actian-DS-Assembler directory), use it for a more accurate audit:
+
+### Step 1 — Analyze via plugin
+
+1. Tell the user: **"Open DS Assembler → Analyze tab → select scope → click Analyze"**
+2. Wait for the user to confirm analysis is complete
+3. Read the analysis results:
+   ```bash
+   cat /Users/volivari/Developer/Actian/Actian-DS-Assembler/analysis.json
+   ```
+4. Use the data to enrich the audit with exact node IDs, instance counts, variant usage, and hardcoded color locations
+
+### Step 2 — Enhanced report
+
+With analysis data, the report gains:
+- **Exact component counts** by library (local vs external)
+- **Variant usage patterns** — which variants are actually used vs available
+- **Hardcoded color list** with node IDs and hex values
+- **Missing auto-layout** frames with child counts
+- **Instance-level detail** — every component instance with its position, variants, and text overrides
+
+### Step 3 — Auto-fix (if user requests)
+
+If the user says "fix it", "apply fixes", or "auto-correct":
+
+1. Generate an `updates.json` file based on the audit findings:
+   ```json
+   {
+     "updates": [
+       { "nodeId": "123:456", "action": "set-fill", "fill": "#0550dc" },
+       { "nodeId": "789:012", "action": "set-variant", "props": { "State": "Default" } },
+       { "nodeId": "345:678", "action": "replace-with-instance", "componentName": "FM Button", "props": { "Type": "Primary" } }
+     ]
+   }
+   ```
+2. Save to `/Users/volivari/Developer/Actian/Actian-DS-Assembler/updates.json`
+3. Tell the user: **"Open DS Assembler → Update tab → Load Updates → review → Apply"**
+4. After the user confirms, read the results:
+   ```bash
+   cat /Users/volivari/Developer/Actian/Actian-DS-Assembler/update-result.json
+   ```
+5. Report what was fixed and what failed
