@@ -440,3 +440,24 @@ If the user provides a target Figma file:
 3. Open the HTML file with the capture hash URL
 4. Poll until capture completes
 5. Share the Figma link with the user
+
+## Step 6 — Create in Figma (optional)
+
+If the user says "create it in Figma", "build the component", or "make it real":
+
+1. Generate a `component-spec.json` from the brief:
+   - Component name from Card 1 (Page header)
+   - Variants from Card 2 (Actual component) and Card 5 (Component API)
+   - Internal layout from Card 3 (Anatomy)
+   - Text properties from Card 5 text props (mark as `"isProperty": true`)
+   - Library: `"fat-marker"` (if FM mode) or `"ds2026"` (if Actian DS mode)
+   - Use nested component instances where appropriate (e.g., buttons, icons)
+
+2. Save to `/Users/volivari/Developer/Actian/Actian-DS-Assembler/component-spec.json`
+
+3. Tell the user: **"Open DS Assembler → Create tab → enter component-spec.json → Create Component"**
+
+4. After creation, remind the user to:
+   - Review the component in Figma
+   - Publish to library if it's a shared component
+   - Run `sync-all.js` to update the registry
