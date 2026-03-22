@@ -12,6 +12,8 @@ argument-hint: "[feature description or Figma URL]"
 
 Generate a low-fidelity user flow using Fat Marker components and push it to Figma.
 
+> **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — make reasonable decisions instead of asking for every detail. Favor complete output over perfect output; the cleanup pass (Step 7) handles polish. Keep status updates to milestones only.
+
 ## Input
 
 The user describes a feature or user goal, and optionally provides reference material. Examples:
@@ -545,3 +547,50 @@ Two node types: **frames** (layout containers) and **instances** (component refe
 ### Fallback
 
 If the user hasn't set up the Figma plugin, fall back to the standard HTML workflow (Steps 4–6 above).
+
+## Step 7 — Cleanup pass
+
+After generation is complete and before presenting to the user as done, run a focused cleanup sweep on the output. This is a mandatory self-review — do not skip it.
+
+### Checklist
+
+Work through each item. Fix issues inline, don't just flag them.
+
+**Token compliance:**
+- [ ] No hardcoded hex colors — all colors use `--fm-*` CSS variables (HTML mode) or token references (assembler mode)
+- [ ] No hardcoded font sizes or weights — use FM text styles
+- [ ] Spacing values match the FM scale (4, 8, 12, 16, 24, 28, 32px)
+
+**Component consistency:**
+- [ ] All component names match exactly: `FM Button`, `FM Text input field`, etc. — no abbreviations or renames
+- [ ] Component variants use correct axis names and values from the FM catalog
+- [ ] FM App_header, FM Side navigation bar, and FM Page Header present on every screen
+
+**Forms layout (CLAUDE.md rules):**
+- [ ] Simple form inputs constrained to 480px max-width container
+- [ ] Extended elements (tables, selectable rows, tiles) are full-width
+- [ ] Action footer: sticky bottom, primary right, secondary left
+
+**Missing states:**
+- [ ] Empty state screen included (or noted as out of scope)
+- [ ] Error state for form submissions included
+- [ ] Loading/progress state where async operations occur
+- [ ] Confirmation/success state after primary action
+
+**Content guidelines:**
+- [ ] Button labels: action verbs, title case, no "Click here"
+- [ ] Form labels: concise, no colons
+- [ ] Error messages: explain what happened + how to fix
+- [ ] Screen names follow convention: `[Persona] - [Page] - [State/Action]`
+
+**Accessibility basics:**
+- [ ] Interactive elements have visible focus indicators
+- [ ] Form inputs have associated labels
+- [ ] No text below 11px
+- [ ] Color is not the only way to convey status (icons/text accompany color)
+
+### How to apply fixes
+
+- Fix issues directly in the HTML or spec JSON — do not create a separate report
+- If a fix requires adding a missing screen (e.g., empty state), add it
+- If a fix is ambiguous or would change the user's intent, note it for the review step instead of fixing silently

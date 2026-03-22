@@ -10,6 +10,8 @@ Create a new Figma component (with variants) from a text description or by exten
 
 > Uses the DS Assembler plugin's Create mode. Requires the plugin to be installed and `python3 serve.py 8765` running in the Actian-DS-Assembler directory.
 
+> **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — make reasonable decisions instead of asking for every detail. Favor complete output over perfect output; the cleanup pass (Step 5) handles polish. Keep status updates to milestones only.
+
 ## Input
 
 The user describes a component they want to create. Examples:
@@ -109,7 +111,43 @@ Use exact component names from the registry.
 3. Tell the user: **"Open DS Assembler → Create tab → enter component-spec.json → Create Component"**
 4. After creation, remind the user to publish to library if it's a shared component
 
-## Step 5 — Update references
+## Step 5 — Cleanup pass
+
+After generation and before presenting to the user, run a focused cleanup sweep on the spec. Fix issues inline.
+
+### Checklist
+
+**Spec structure:**
+- [ ] Component name follows convention: `FM` prefix for Fat Marker, no prefix for DS2026
+- [ ] All variant axis names and values are consistent with existing catalog patterns
+- [ ] `isProperty: true` set on all text fields that should be editable
+- [ ] Layout uses `"hug"` / `"fill"` sizing — no unnecessary fixed pixel values
+
+**Token compliance:**
+- [ ] Fill colors use `--fm-*` variables (FM) or `--zen-*` tokens (DS2026) — no hardcoded hex
+- [ ] Text styles reference valid style names (heading-display, body-standard, label-standard, etc.)
+- [ ] Spacing values match the scale (4, 8, 12, 16, 24, 32px)
+- [ ] Border radius uses standard values (6px FM default, or token references for DS2026)
+
+**Completeness:**
+- [ ] All declared variants have a definition in the `definitions` array
+- [ ] Each variant has all required children (no empty definitions)
+- [ ] Nested component references use exact registry names
+
+**Content guidelines:**
+- [ ] Default text content follows content guidelines (action verbs for buttons, concise labels)
+- [ ] Placeholder text is realistic, not "Lorem ipsum"
+
+**Accessibility:**
+- [ ] Interactive children have adequate touch target size (min 44px)
+- [ ] Text contrast: check that text style + fill color combinations meet WCAG AA
+
+### How to apply fixes
+
+- Fix directly in the spec JSON — do not create a separate report
+- If a fix is ambiguous, note it for the user review step
+
+## Step 6 — Update references
 
 After the component is created and published:
 1. Run `FIGMA_TOKEN=figd_xxx node registry/sync-all.js` to update the registry and reference docs

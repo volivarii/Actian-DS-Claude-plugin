@@ -12,6 +12,8 @@ argument-hint: "[Figma URL]"
 
 Audit a Figma file or section against the Actian Design System 2026 and/or Fat Marker conventions.
 
+> **Mode: Audit.** Be methodical and exhaustive — check every element against the rules. Work through tokens, components, accessibility, content, forms layout, and missing states systematically. Flag everything, categorize by severity (P0 critical / P1 important / P2 minor). Quote the specific rule being violated. Output a structured report, not prose.
+
 ## Input
 
 The user provides a Figma URL (frame, page, or section). If no URL is given, ask for one.

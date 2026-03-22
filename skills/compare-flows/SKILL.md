@@ -12,6 +12,8 @@ argument-hint: "[Figma URL 1] [Figma URL 2]"
 
 Compare two Figma flows or screens and provide structured UX recommendations.
 
+> **Mode: Research + Audit.** Read both flows thoroughly before concluding. Compare approaches as structured analysis — separate observation from opinion. Then switch to audit posture: flag issues by severity, quote specific rules, output a structured report.
+
 ## Input
 
 The user provides two Figma URLs (frames, sections, or pages) to compare. Examples:
