@@ -1,6 +1,6 @@
 # Actian Design System 2026 — Component Reference
 
-Auto-generated from Figma REST API on 2026-03-21.
+Auto-generated from Figma REST API on 2026-03-22.
 75 component sets, 725 individual components.
 
 Source: [Actian Design System 2026](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK)

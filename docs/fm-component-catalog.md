@@ -1,10 +1,10 @@
 # Fat Marker Kit — Component Reference
 
-Auto-generated from Figma REST API on 2026-03-21.
-28 component sets, 388 individual components.
+Auto-generated from Figma REST API on 2026-03-22.
+29 component sets, 391 individual components.
 
 Source: [Page mockups](https://www.figma.com/design/X2JSEUyLvxyNCx22ucOexn)
-Last modified: 2026-03-21T14:03:58Z
+Last modified: 2026-03-22T22:27:32Z
 
 ---
 
@@ -12,7 +12,7 @@ Last modified: 2026-03-21T14:03:58Z
 
 - Cover
 - ---
-- Fat Marker — 28 component sets
+- Fat Marker — 29 component sets
 - ---
 - Zen Design (Current - Oct 2025)
 
@@ -21,7 +21,7 @@ Last modified: 2026-03-21T14:03:58Z
 ## Fat Marker
 
 ### FM App_header
-Top-level application header bar. Contains the Actian logo, product label, and user avatar. Use at the top of every screen.
+Top-level application header bar. Contains the Actian logo, product label, and user avatar. Use at the top of every screen mockup.
 
 - Variants: **Type:** `Admin` · `Explorer` · `Studio` · `Actian`
 - Node: `67:1858` | Key: `8fc9bcee610c7f8d22ebcc268467993f6dc99c87`
@@ -81,6 +81,12 @@ Icon-only action button. Use for toolbar actions or compact UI.
 
 - Variants: **Type:** `Primary` · `Secondary` · `Outline` | **State:** `Default` · `Disabled`
 - Node: `8:21121` | Key: `f868aabb0aa2c52f00610c09da8dce3bccc79dc4`
+
+### FM Input Label
+
+- Variants: **Disabled:** `No` · `Yes` | **Type:** `Text` · `Placeholder`
+- Text overrides: `Label Text`, `Caption Text`
+- Node: `23:1207` | Key: `a39aa1c7cb593f7d26b7659e4cbe4e419e00c766`
 
 ### FM Menu item
 Individual row inside an FM Menu.
@@ -298,6 +304,9 @@ Small overlay with contextual help text. Triggered on hover.
 - **desktop-computer** — Key: `ae6f154255c3cc91311d40ce88c7a14409ba4088`
 - **device-mobile** — Key: `327211c12cc84f54aba167a67d99dbe395c99016`
 - **device-tablet** — Key: `9aaa1d413678d31c8f309d98c327825c066d0671`
+- **Disabled=No, Type=Placeholder** — Key: `b153c3b4da76258e6241c3bb1dc08af4ee0ebb8c`
+- **Disabled=No, Type=Text** — Key: `c7077c062b20f62d9905ec55a26859b51d843928`
+- **Disabled=Yes, Type=Text** — Key: `2ded78ea011358d75882405bb9b9b1a99b979055`
 - **document** — Key: `7d02de8d798242b895e53dbdd74484b3e950c7b3`
 - **document-add** — Key: `abc90131757704cbde1796c201dbfece2ec02e28`
 - **document-download** — Key: `678ee61b1fec3f17929efec56700284ae0b454bf`
@@ -329,6 +338,7 @@ Small overlay with contextual help text. Triggered on hover.
 - **FM Menu** — Key: `696ef83ffe2d0af84432b8f12cc15b43e0b25a15`
 - **FM Rich text field** — Key: `284aa580c4c313ba309ff9eda15b3da8c957cd18`
 - **FM Side navigation bar** — Key: `d4ee41767fdf094965b65ddd98c29376a9ac07ac`
+  Vertical sidebar navigation panel (260px wide). Contains navigation items with placeholder labels and an active-state hi
 - **FM Spinner** — Key: `52927648847b15a51d314cf06ca1c0f19f398b4d`
 - **FM Table example** — Key: `31c00b04d7dfda38c8577f8541afe48b15fba00a`
 - **FM Tabs** — Key: `860eadef9ba29cf20a3da3ca9d014718e3f6cabb`

@@ -73,6 +73,12 @@ Before generating anything, clarify:
 
 If any of these are unclear, ask the user. Do not guess.
 
+**Always ask for output type:**
+- **Assembler spec** (default) — generates real Figma component instances via the DS Assembler plugin
+- **HTML capture** — generates flat vector frames via HTML-to-Figma capture
+
+Do not assume. Ask: "Output as assembler spec or HTML capture?"
+
 ## Step 2 — Competitor & pattern research
 
 Before designing, research how other products solve the same problem. This grounds the flow in real-world patterns rather than guessing.
@@ -116,6 +122,21 @@ Present findings as a brief summary before the screen list:
 
 If the user says "skip research" or the feature is highly specific to Actian, skip this step and note that no competitor research was done.
 
+### Research frame (optional)
+
+If the user requests it, include the research summary as an additional Figma frame at the start of the flow. This creates a permanent reference alongside the wireframes.
+
+**Format:** A dark-background card (same style as flow cover cards) containing:
+- Title: "Research: [Feature]"
+- Competitor findings (bulleted)
+- Common patterns (bulleted)
+- Recommendation summary
+- Sources list
+
+**Styling:** Use `--fm-base-900` background, `--fm-base-white` text, `--fm-base-400` for dividers. Same width as flow screens (1440px), height auto. Typography: `fm-page-header__title` for section headings, 14px Inter for body.
+
+**When to offer:** After completing research in Step 2, ask: "Want me to include the research summary as a frame in the flow?" — or include automatically if the user has previously requested it.
+
 ## Step 3 — Plan the screen list
 
 Output a numbered screen list for the user to review BEFORE generating:
@@ -135,6 +156,12 @@ Include at minimum:
 - Form or input state (if applicable)
 - Confirmation / success state
 - Error state (if applicable)
+
+If any screen requires elements not in the FM library (e.g., charts, visualizations, custom controls), note them in the screen list so the user can review before generation:
+```
+3. Dashboard — Overview metrics
+   ⚡ Custom: bar chart (category breakdown), sparkline (trend)
+```
 
 Wait for user approval before proceeding.
 
@@ -164,18 +191,38 @@ Refer to `docs/fm-component-catalog.md` for the full inventory. Key ones:
 - FM Menu (for dropdown action menus)
 - FM Tabs (for tabbed content)
 
+### Custom elements (when the library doesn't cover it)
+
+The FM library doesn't have everything — charts, visualizations, custom controls, specialized layouts, etc. When no FM component fits, build a custom element inline.
+
+**Rules:**
+1. **FM first** — always check `docs/fm-component-catalog.md` before going custom. If an FM component can do the job (even approximately), use it.
+2. **Follow FM conventions** — custom elements must use:
+   - `--fm-*` CSS variables for all colors (no raw hex)
+   - FM spacing scale (4, 8, 12, 16, 24, 28, 32px)
+   - FM typography (Inter, same sizes/weights as FM components)
+   - FM border radius (`var(--fm-radius)` / 6px) and border color (`var(--fm-border)`)
+3. **Prefix with `fm-custom-`** — use class names like `fm-custom-chart`, `fm-custom-timeline`, `fm-custom-drag-zone` so they're visually distinct from library components
+4. **Comment what it represents** — add a brief HTML comment above each custom element: `<!-- Custom: [what this is and why no FM component fits] -->`
+5. **Keep it lo-fi** — these are wireframes. A chart is a labeled rectangle with axis lines, not a D3 visualization. A drag zone is a dashed-border area with a label. Match the fidelity level of FM components.
+
 ### Flow structure in HTML
+
+**One row per flow.** Each flow (sub-flow) must be a single horizontal `flow-row` with all its screens side by side. Never split a flow across multiple rows. Use `flex-wrap: nowrap` to prevent wrapping. The same rule applies to assembler specs — all screens for a flow go in one horizontal wrapper frame.
+
 ```html
-<div class="flow-row">
+<div class="flow-row"> <!-- One row = one complete flow, all screens in a line -->
   <!-- Dark cover card -->
   <div class="flow-cover">
     <div class="flow-cover__feature">[Feature]</div>
     <div class="flow-cover__flow">Flow: [Sub-flow]</div>
     <div class="flow-cover__user">User: [Role]</div>
   </div>
-  <!-- Screens left to right -->
+  <!-- ALL screens for this flow, left to right -->
   <div class="screen"> ... </div>
   <div class="screen"> ... </div>
+  <div class="screen"> ... </div>
+  <!-- Do NOT close the flow-row and start a new one mid-flow -->
 </div>
 ```
 
@@ -188,7 +235,7 @@ Refer to `docs/fm-component-catalog.md` for the full inventory. Key ones:
 - Simple form inputs (text, dropdown, textarea, radio, checkbox): constrain container to **480px max-width**, left-aligned in content area
 - Extended elements (selectable rows, tiles, tables): **full-width** within the content area
 - Multi-column layouts: forms stay **fluid** inside their containers
-- Action footer: sticky bottom, primary actions right, secondary left
+- Action footer: inside the **content area** (not the full screen), sticky bottom, primary actions right, secondary left. The footer sits alongside the sidebar, not spanning the entire screen width.
 
 ### Styling rules
 - Use the FM CSS Reference below — do not deviate from these exact values
@@ -426,10 +473,11 @@ Generates real Figma component instances from the published FM Kit library. Outp
 1. Generate a layout spec JSON using the schema below
 2. Reference components by their exact registry names (FM-prefixed for wireframes)
 3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
-4. Save as `spec.json` in the Actian-DS-Assembler directory
-5. Serve on localhost:8765 using `python3 serve.py 8765` (from the Actian-DS-Assembler directory)
-6. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
-7. For multi-screen flows, generate one spec per screen and assemble sequentially, or generate all screens in a single horizontal wrapper spec
+4. For custom elements (not in the FM registry), use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children styled using `--zen-*` or `--fm-*` tokens — do not reference non-existent component names
+5. Save as `spec.json` in the Actian-DS-Assembler directory
+6. Serve on localhost:8765 using `python3 serve.py 8765` (from the Actian-DS-Assembler directory)
+7. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
+8. For multi-screen flows, generate one spec per screen and assemble sequentially, or generate all screens in a single horizontal wrapper spec
 
 ### Option B: HTML capture (fallback)
 
@@ -479,6 +527,21 @@ Two node types: **frames** (layout containers) and **instances** (component refe
 }
 ```
 
+**`textOverrides`** — Override text inside any FM component instance by matching the current text content or layer name. Use this to set contextual labels instead of leaving default placeholder text.
+
+```json
+{
+  "component": "FM Side navigation bar",
+  "height": "fill",
+  "textOverrides": {
+    "Nav Item": "Dashboard",
+    "Active Item": "Catalog"
+  }
+}
+```
+
+Keys are matched against text content first, then layer name. All matched text layers are updated. This works on any FM component — nav items, tabs, table headers, button labels, etc.
+
 - `width` / `height`: number (fixed px), `"hug"`, or `"fill"`
 - `align`: `"min"` | `"center"` | `"max"` | `"space-between"` (primary axis)
 - `counterAlign`: `"min"` | `"center"` | `"max"` (counter axis)
@@ -498,6 +561,8 @@ Two node types: **frames** (layout containers) and **instances** (component refe
 **Feedback:** `FM Alert`, `FM Banner`, `FM Toast`, `FM Dialog`, `FM Empty State`, `FM Progress bar`, `FM Spinner`, `FM Tooltip`
 
 **Other:** `FM Placeholder`, `FM User`, `FM Cursor`
+
+All components support `textOverrides` for customizing labels, nav items, tabs, headers, and other text content to match the flow context. See the `textOverrides` section above.
 
 ### Full screen example
 
@@ -562,9 +627,13 @@ Work through each item. Fix issues inline, don't just flag them.
 - [ ] Spacing values match the FM scale (4, 8, 12, 16, 24, 28, 32px)
 
 **Component consistency:**
-- [ ] All component names match exactly: `FM Button`, `FM Text input field`, etc. — no abbreviations or renames
+- [ ] All FM component names match exactly: `FM Button`, `FM Text input field`, etc. — no abbreviations or renames
 - [ ] Component variants use correct axis names and values from the FM catalog
 - [ ] FM App_header, FM Side navigation bar, and FM Page Header present on every screen
+- [ ] Custom elements use `fm-custom-` prefix and have an HTML comment explaining what they are
+- [ ] Custom elements use `--fm-*` variables, FM spacing, FM typography — no raw hex or arbitrary values
+- [ ] Custom elements match FM fidelity level (lo-fi wireframe shapes, not high-detail renders)
+- [ ] FM components use `textOverrides` to set contextual labels (nav items, tabs, page headers) — no generic "Nav Item" or "Tab 1" text
 
 **Forms layout (CLAUDE.md rules):**
 - [ ] Simple form inputs constrained to 480px max-width container
