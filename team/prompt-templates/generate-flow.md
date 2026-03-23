@@ -1,7 +1,7 @@
 # Prompt Template: Generate a Fat Marker Flow
 
 > Copy this into Claude Desktop when starting a new flow. Replace the [bracketed] parts with your specifics.
-> Updated: 2026-03-19
+> Updated: 2026-03-23
 
 ---
 
@@ -16,6 +16,11 @@ Using the Fat Marker wireframe components from our design system, generate a use
 
 **User goal:** [e.g., A reviewer needs to evaluate and approve an incoming request for a listed item]
 
+**Output type:** [assembler / html / both]
+  - assembler: generates a JSON spec for the DS Assembler plugin (real Figma components)
+  - html: generates an HTML file for Figma capture
+  - both: generates both formats
+
 **References:** [paste Figma URLs, attach screenshots, or link competitor pages — or write "none"]
 
 **Before designing:**
@@ -28,10 +33,11 @@ Using the Fat Marker wireframe components from our design system, generate a use
 2. A brief competitor/pattern research summary (3–5 bullet points)
 3. A numbered screen list with screen names and what each shows — I'll review before you generate anything
 4. Include: starting state, interaction triggers, form/input states, success confirmation, and error state
-5. Use Fat Marker components: FM App_header (white bg, border-bottom, "Actian Data Intelligence / [App]" logo), FM Side navigation bar (icon + label + chevron items), FM Page Header, FM Button (primary fill #2D3648), FM Text input field, FM Input Label, FM Table Cell, FM Badge, FM Tag, FM Alert, FM Dialog, FM Empty State, FM Placeholder
+5. Use Fat Marker components: FM App_header, FM Side navigation bar, FM Page Header, FM Button, FM Text input field, FM Input Label, FM Table Cell, FM Badge, FM Tag, FM Alert, FM Dialog, FM Empty State, FM Placeholder
 6. Each sub-flow starts with a dark cover card showing Feature / Flow / User
 7. Screen naming convention: [Persona] - [Page] - [State/Action]
 8. Screen size: 1440×960px (70px header + 260px sidebar + content area)
+9. Flows are always laid out as horizontal rows — one row per flow
 
 Do not generate screens until I approve the screen list.
 ```
@@ -63,10 +69,26 @@ Using the Fat Marker wireframe components from our design system, generate a use
 **User role:** [Administrator / Reviewer / Viewer]
 **App context:** [Admin / Studio / Explorer]
 **User goal:** [describe the goal]
+**Output type:** [assembler / html / both]
 
 Skip competitor research — go straight to a numbered screen list. I'll review before you generate.
 Include: empty state, error state, success confirmation. Use FM components only.
 ```
+
+---
+
+## Output types explained
+
+| Type | What it produces | Best for |
+|------|-----------------|----------|
+| **assembler** | JSON spec file → DS Assembler plugin creates real Figma component instances | Production-quality Figma frames with actual library components |
+| **html** | HTML file → captured to Figma as static frames | Quick visual mockups, complex layouts, custom elements |
+| **both** | Both formats generated | When you want real components + a visual backup |
+
+The assembler output supports:
+- **textOverrides** — customize text content on library components (match by content or layer name)
+- **textByOrder** — sequential text replacement (e.g., Tab 1, Tab 2, Tab 3)
+- **Custom elements** — mix library components with raw frames, text nodes, and shapes
 
 ---
 
@@ -87,3 +109,5 @@ These are the correct styles — if Claude generates something different, point 
 - If the flow has multiple user roles (e.g., requester + approver), ask for separate sub-flows
 - After Claude generates, ask: "What edge cases or error states are missing?"
 - To iterate: "Move screen 3 before screen 2" or "Add a confirmation dialog between steps 4 and 5"
+- The assembler output produces real Figma components that are editable — HTML capture produces static frames
+- Always specify output type — Claude will ask if you forget
