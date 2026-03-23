@@ -291,3 +291,28 @@ Use the **corrected** names going forward:
 - Reverse fill: `icon-reverse`
 - Size: use `Size` tokens (md: 16px default, lg: 24px large)
 - IMPORTANT: Icons come from the Figma payload — do not import icon libraries
+
+---
+
+## Quality & Hygiene Checklist
+
+Source: [Actian Design System v1.0.0 — Quality & Hygiene](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-v1.0.0?node-id=14793-7507)
+
+**Apply this checklist to ALL skill outputs** — component briefs, generated flows, design audits, created components, and any Figma-bound deliverable. Every output must pass all applicable items before being marked complete.
+
+1. **Auto Layout** — Does the component resize correctly (Fixed vs. Hug vs. Fill)?
+2. **Constraints** — Are pins/alignments set so it doesn't "shatter" when stretched?
+3. **Properties** — Are Boolean toggles (Show/Hide) and Text properties named clearly?
+4. **States** — Does it include Hover, Pressed, Disabled, and Focused states?
+5. **Contrast** — Does the foreground/background pass WCAG AA (at least 4.5:1)?
+6. **Layer naming** — No "Frame 102" or "Group 7." Everything follows category/name or simple descriptors.
+7. **Style check** — 100% of colors/fonts linked to Variables or Styles (zero hex-code overrides).
+8. **Instance cleanup** — Find and fix any "Detached Instances" in main library pages.
+9. **Hidden layers** — Delete invisible layers used for drafting but not needed in the final component.
+10. **Documentation** — Is the "Description" field filled out for every main component? Does it provide enough guardrails? Doesn't it conflict with something else?
+
+When generating HTML for capture or assembler specs, items 1–3 and 6–7 translate to:
+- All containers use flex/grid with appropriate sizing (no fixed pixel widths that break on resize)
+- All data-name attributes are descriptive (no generic "Frame" or "Group" names)
+- All boolean visibility is controlled via named properties, not hidden layers
+- All colors and fonts use `--zen-*` tokens or design system variables (zero hardcoded hex values)

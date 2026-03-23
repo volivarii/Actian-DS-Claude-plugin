@@ -9,6 +9,7 @@ argument-hint: "[Figma URL]"
 > **Works with both workflows.** First determine which library the file uses (FM components = Workflow A, DS2026 components = Workflow B), then apply the corresponding rules from CLAUDE.md.
 > **Content guidelines:** Audit all UI copy against `references/content-guidelines.md` (in the skills directory) — check button labels, link text, form labels, status messages, modal copy, table headers, and navigation items.
 > **Accessibility guidelines:** Audit against `references/accessibility-guidelines.md` (in the skills directory) — use the General Accessibility Checklist and the relevant component-specific checklists (P0–P2). Check contrast ratios, keyboard access, focus indicators, ARIA patterns, touch targets, and state completeness. All WCAG 2.1 AA.
+> **Quality & hygiene:** Include the Quality & Hygiene Checklist from CLAUDE.md as an audit dimension — flag violations of any of the 10 items (auto layout, constraints, properties, states, contrast, layer naming, style check, instance cleanup, hidden layers, documentation).
 
 Audit a Figma file or section against the Actian Design System 2026 and/or Fat Marker conventions.
 
