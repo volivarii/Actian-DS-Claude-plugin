@@ -298,21 +298,56 @@ Use the **corrected** names going forward:
 
 Source: [Actian Design System v1.0.0 — Quality & Hygiene](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-v1.0.0?node-id=14793-7507)
 
-**Apply this checklist to ALL skill outputs** — component briefs, generated flows, design audits, created components, and any Figma-bound deliverable. Every output must pass all applicable items before being marked complete.
+**Apply to ALL skill outputs** — component briefs, generated flows, design audits, created components, and any Figma-bound deliverable. Every output must pass all applicable items before being marked complete. P0 items are blockers.
 
-1. **Auto Layout** — Does the component resize correctly (Fixed vs. Hug vs. Fill)?
-2. **Constraints** — Are pins/alignments set so it doesn't "shatter" when stretched?
-3. **Properties** — Are Boolean toggles (Show/Hide) and Text properties named clearly?
-4. **States** — Does it include Hover, Pressed, Disabled, and Focused states?
-5. **Contrast** — Does the foreground/background pass WCAG AA (at least 4.5:1)?
-6. **Layer naming** — No "Frame 102" or "Group 7." Everything follows category/name or simple descriptors.
-7. **Style check** — 100% of colors/fonts linked to Variables or Styles (zero hex-code overrides).
-8. **Instance cleanup** — Find and fix any "Detached Instances" in main library pages.
-9. **Hidden layers** — Delete invisible layers used for drafting but not needed in the final component.
-10. **Documentation** — Is the "Description" field filled out for every main component? Does it provide enough guardrails? Doesn't it conflict with something else?
+### Layout & responsiveness
 
-When generating HTML for capture or assembler specs, items 1–3 and 6–7 translate to:
-- All containers use flex/grid with appropriate sizing (no fixed pixel widths that break on resize)
-- All data-name attributes are descriptive (no generic "Frame" or "Group" names)
-- All boolean visibility is controlled via named properties, not hidden layers
-- All colors and fonts use `--zen-*` tokens or design system variables (zero hardcoded hex values)
+| # | Check | Severity | Pass criteria |
+|---|-------|----------|---------------|
+| 1 | **Auto Layout** | P0 | Every container uses Auto Layout with correct resizing (Fixed / Hug / Fill). No absolute-positioned children unless intentionally overlaid (e.g., badges, pointers). |
+| 2 | **Constraints** | P1 | Pins and alignments are set so the component does not break, overlap, or clip when its parent is resized. Test at 1× and 2× width. |
+
+### States & accessibility
+
+| # | Check | Severity | Pass criteria |
+|---|-------|----------|---------------|
+| 3 | **States** | P0 | Component includes all applicable interactive states: Enabled, Hovered, Focused, Pressed, Disabled. Selected/Error/Loading where relevant. No missing states. |
+| 4 | **Contrast** | P0 | Every foreground/background pair passes WCAG AA — 4.5:1 for normal text, 3:1 for large text and UI elements. Disabled states are exempt but must still be distinguishable. |
+
+### Tokens & styles
+
+| # | Check | Severity | Pass criteria |
+|---|-------|----------|---------------|
+| 5 | **Style check** | P0 | 100% of colors, fonts, shadows, and border radii reference Variables or Styles. Zero hardcoded hex values, pixel font sizes, or raw shadows. |
+| 6 | **Properties** | P1 | Boolean toggles (Show/Hide), Text properties, and Instance swaps are named clearly and descriptively (`showIcon`, `labelText` — not `boolean1`, `prop`). |
+
+### Naming & cleanup
+
+| # | Check | Severity | Pass criteria |
+|---|-------|----------|---------------|
+| 7 | **Layer naming** | P1 | No auto-generated names ("Frame 102", "Group 7"). Every layer follows `category/name` or a simple descriptor (`Container`, `Leading icon`, `Label`). |
+| 8 | **Instance cleanup** | P1 | No detached instances in library pages. All component usages remain linked to their source. |
+| 9 | **Hidden layers** | P2 | No invisible or zero-opacity layers left from drafting. Delete anything not needed in the final component. |
+
+### Documentation
+
+| # | Check | Severity | Pass criteria |
+|---|-------|----------|---------------|
+| 10 | **Component description** | P1 | Every main component has a filled "Description" field visible in the Inspect panel. Description states: what it does, when to use it, and any constraints. Does not conflict with other component descriptions. |
+
+### HTML translation
+
+When generating HTML for Figma capture or assembler specs, the checklist translates to:
+
+| Figma check | HTML equivalent |
+|-------------|-----------------|
+| Auto Layout | Use `display: flex` or `display: grid` with appropriate sizing. No fixed pixel widths that break on resize. |
+| Constraints | Use relative units, `max-width`, or flex properties — not absolute positioning (except overlays). |
+| States | Render all interactive states visually. Include focus ring (`:focus-visible`), hover, pressed, and disabled. |
+| Contrast | Verify all text/background pairs against WCAG AA. Use token colors — they are pre-validated. |
+| Style check | Reference `--zen-*` CSS custom properties exclusively. Zero raw hex, px font sizes, or inline color values. |
+| Properties | Use descriptive `data-name` attributes on every element. Boolean visibility via named classes or props. |
+| Layer naming | All `data-name` values are descriptive (`"Page header"`, `"Variant matrix"` — not `"div"`, `"section1"`). |
+| Instance cleanup | All component references use the correct library component — no detached or inline duplicates. |
+| Hidden layers | No `display: none` or `opacity: 0` elements left from iteration. Delete unused markup. |
+| Documentation | Include `<!-- AI CONSUMPTION METADATA -->` comment and descriptive subtitles on every card. |
