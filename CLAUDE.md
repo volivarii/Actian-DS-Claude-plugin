@@ -36,6 +36,28 @@ Both the Claude plugin and the DS Assembler use **semver** (`MAJOR.MINOR.PATCH`)
 
 ---
 
+## Local Server Management
+
+When serving HTML for preview or Figma capture, always use the `ensure-server.sh` utility:
+
+```bash
+# From the plugin directory — serves HTML files for Figma capture
+BASE_URL=$(.claude-plugin/scripts/ensure-server.sh . 8765)
+
+# From the Assembler directory — serves specs + registry
+BASE_URL=$(.claude-plugin/scripts/ensure-server.sh ~/Developer/Actian/Actian-DS-Assembler 8765)
+```
+
+The script handles all edge cases:
+- If nothing is on the port → starts a new server
+- If the right server is already running → reuses it (no restart)
+- If a different server is on the port → kills it and starts fresh
+- Returns the base URL on stdout
+
+**Never manually run `python3 -m http.server` or `kill` processes.** Use `ensure-server.sh` instead.
+
+---
+
 ## Token Reference
 
 Token reference docs and files:
