@@ -106,7 +106,7 @@ Use exact component names from the registry.
 
 ## Step 4 — Save and create
 
-1. Save the spec to `/Users/volivari/Developer/Actian/Actian-DS-Assembler/component-spec.json`
+1. Save the spec to `Actian-DS-Assembler/component-spec.json`
 2. Ensure `python3 serve.py 8765` is running
 3. Tell the user: **"Open DS Assembler → Create tab → enter component-spec.json → Create Component"**
 4. After creation, remind the user to publish to library if it's a shared component

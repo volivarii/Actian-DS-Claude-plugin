@@ -1,7 +1,7 @@
 {
   "name": "actian-design-system",
   "description": "Actian Design System 2026 toolkit — generate wireframe flows, create 9-card component briefs, audit Figma files, and compare flows. Includes DS2026 tokens (3 themes), content guidelines, accessibility standards (WCAG 2.1 AA), and 42 Fat Marker wireframe components.",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "author": {
     "name": "Actian UX Team"
   },

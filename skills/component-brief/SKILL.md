@@ -38,7 +38,7 @@ Before writing anything:
 
 1. **Check the Fat Marker catalog** (`docs/fm-component-catalog.md`) — does this component already exist?
 2. **Check the DS2026 library** (`l8biHxfarNi1I2RMvVxVOK` or `8Yu8wUtPTXsa3iV6R4TmnS`) — fetch design context + screenshot if a node exists
-3. **Check the Policies flow** (`2WF4POyRBXKEJ5zSLIu8pn`) or other feature files — is there a real usage example?
+3. Check existing feature files — is there a real usage example?
 4. **Check CLAUDE.md** — what tokens, conventions, and **Forms Layout Rules** apply to this component type?
 5. **Check `references/design-system.md` (in the skills directory)** — get exact token values per theme (Actian DS mode only)
 
@@ -455,7 +455,7 @@ If the user says "create it in Figma", "build the component", or "make it real":
    - Library: `"fat-marker"` (if FM mode) or `"ds2026"` (if Actian DS mode)
    - Use nested component instances where appropriate (e.g., buttons, icons)
 
-2. Save to `/Users/volivari/Developer/Actian/Actian-DS-Assembler/component-spec.json`
+2. Save to `Actian-DS-Assembler/component-spec.json`
 
 3. Tell the user: **"Open DS Assembler → Create tab → enter component-spec.json → Create Component"**
 

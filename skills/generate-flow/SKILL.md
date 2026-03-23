@@ -18,8 +18,8 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 
 The user describes a feature or user goal, and optionally provides reference material. Examples:
 - "A user needs to request access to a data asset"
-- "Admin creates a new governance policy"
-- "Explorer browses the catalog and views item details"
+- "Admin creates a new configuration rule"
+- "User browses the directory and views item details"
 - "Here are 3 competitor screenshots — build a flow inspired by these"
 
 ### Accepted reference formats
@@ -65,8 +65,8 @@ If the user provides a Figma URL as **target** (where to put the output), use th
 ## Step 1 — Understand the request
 
 Before generating anything, clarify:
-- **Feature name** (e.g., "Access Request", "Policy Creation")
-- **User role** (Administrator, Data Steward, Explorer, or All roles)
+- **Feature name** (e.g., "Approval Workflow", "Rule Configuration")
+- **User role** (Administrator, Reviewer, Viewer, or All roles)
 - **App context** (Admin, Studio, or Explorer — determines the FM App_header variant)
 - **Number of sub-flows** (e.g., happy path + error path + alternate role)
 - **References provided?** — If yes, analyze them first (see above). If no, proceed to research.
@@ -85,10 +85,8 @@ Before designing, research how other products solve the same problem. This groun
 
 ### What to research
 1. **Direct competitors** — How do similar data platforms handle this feature?
-   - For data catalog features: Collibra, Alation, Atlan, data.world, Informatica
-   - For governance/policy: Collibra, OneTrust, BigID
-   - For data quality: Monte Carlo, Soda, Great Expectations
-   - For general SaaS patterns: Linear, Notion, Figma, Stripe Dashboard
+   - Common enterprise SaaS competitors: Collibra, Alation, Atlan, data.world, Informatica, OneTrust, BigID, Monte Carlo, Soda, Great Expectations
+   - General SaaS patterns: Linear, Notion, Figma, Stripe Dashboard
 2. **UX pattern libraries** — Check established patterns for the interaction type:
    - Forms/wizards: multi-step vs single-page, progressive disclosure
    - Tables/lists: filtering, sorting, bulk actions, inline editing
@@ -535,7 +533,7 @@ Two node types: **frames** (layout containers) and **instances** (component refe
   "height": "fill",
   "textOverrides": {
     "Nav Item": "Dashboard",
-    "Active Item": "Catalog"
+    "Active Item": "Overview"
   }
 }
 ```

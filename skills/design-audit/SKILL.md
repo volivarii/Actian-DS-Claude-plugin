@@ -95,7 +95,7 @@ If the DS Assembler plugin is running (`python3 serve.py 8765` in the Actian-DS-
 2. Wait for the user to confirm analysis is complete
 3. Read the analysis results:
    ```bash
-   cat /Users/volivari/Developer/Actian/Actian-DS-Assembler/analysis.json
+   cat Actian-DS-Assembler/analysis.json
    ```
 4. Use the data to enrich the audit with exact node IDs, instance counts, variant usage, and hardcoded color locations
 
@@ -122,10 +122,10 @@ If the user says "fix it", "apply fixes", or "auto-correct":
      ]
    }
    ```
-2. Save to `/Users/volivari/Developer/Actian/Actian-DS-Assembler/updates.json`
+2. Save to `Actian-DS-Assembler/updates.json`
 3. Tell the user: **"Open DS Assembler → Update tab → Load Updates → review → Apply"**
 4. After the user confirms, read the results:
    ```bash
-   cat /Users/volivari/Developer/Actian/Actian-DS-Assembler/update-result.json
+   cat Actian-DS-Assembler/update-result.json
    ```
 5. Report what was fixed and what failed

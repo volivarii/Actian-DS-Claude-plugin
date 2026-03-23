@@ -58,7 +58,7 @@
 ## Link Labels
 
 ### Rules
-- Use **meaningful, descriptive text** that tells the user where the link goes: "View pipeline details", not "Click here".
+- Use **meaningful, descriptive text** that tells the user where the link goes: "View item details", not "Click here".
 - **Never use raw URLs** as visible link text — they are long, complex, and hard to interpret.
 - Use **action verbs** for links that lead to tasks: "Download orders", "Learn more".
 - Use **sentence case**, no terminal punctuation.
@@ -118,7 +118,7 @@
 
 ## Navigation & Menu Items
 
-- Use **nouns or verb + noun** for navigation items: "Dashboard", "Data Products", "Access Requests".
+- Use **nouns or verb + noun** for navigation items: "Dashboard", "Projects", "Requests".
 - Keep to **1–2 words** maximum.
 - Active item should be visually distinct (not just by color — also weight or background).
 

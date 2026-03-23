@@ -10,17 +10,17 @@
 ```
 Using the Fat Marker wireframe components from our design system, generate a user flow for the following feature:
 
-**Feature:** [e.g., Access Request]
-**User role:** [Administrator / Data Steward / Explorer]
+**Feature:** [e.g., Approval Workflow]
+**User role:** [Administrator / Reviewer / Viewer]
 **App context:** [Admin / Studio / Explorer]
 
-**User goal:** [e.g., A Data Steward needs to review and approve an incoming access request for a catalog item]
+**User goal:** [e.g., A reviewer needs to evaluate and approve an incoming request for a listed item]
 
 **References:** [paste Figma URLs, attach screenshots, or link competitor pages — or write "none"]
 
 **Before designing:**
 1. If I attached references, analyze each one: describe the layout, extract useful patterns, note what to skip, and map to our FM components
-2. Search for how competing data platforms handle this feature (Collibra, Alation, Atlan, data.world, Informatica, or relevant SaaS products)
+2. Search for how competing data platforms handle this feature (relevant competitors in the same product category)
 3. Summarize what you found: which approaches work, what's common across products, and what you recommend
 
 **Then give me:**
@@ -44,7 +44,7 @@ You can attach any of these — Claude will analyze them before designing:
 |---|---|
 | Figma frame | Paste the URL (e.g., `figma.com/design/.../...?node-id=...`) |
 | Screenshot / photo | Drag and drop the image into the chat, or paste the file path |
-| Competitor website | Paste the URL (e.g., `https://app.collibra.com/...`) |
+| Competitor website | Paste the URL (e.g., `https://competitor-app.example.com/...`) |
 | PDF (spec, wireframe, deck) | Drag and drop, or paste the file path |
 | Existing Actian screen | Paste the Figma URL from Studio/Explorer/Admin |
 
@@ -59,8 +59,8 @@ If you want to skip the research phase:
 ```
 Using the Fat Marker wireframe components from our design system, generate a user flow for:
 
-**Feature:** [e.g., Access Request]
-**User role:** [Administrator / Data Steward / Explorer]
+**Feature:** [e.g., Approval Workflow]
+**User role:** [Administrator / Reviewer / Viewer]
 **App context:** [Admin / Studio / Explorer]
 **User goal:** [describe the goal]
 
