@@ -174,34 +174,92 @@ Use when documenting DS2026 production components.
 
 ### Cards (9 total, horizontal)
 
-All 9 cards use the same chrome structure:
+All 9 cards use the same chrome and internal styling:
 
 ```css
-/* Section header — grey top with rounded corners */
+/* Card outer shell */
+.card { border-radius: 16px; overflow: hidden; background: white; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+/* Section header — grey top */
 .card-section-header {
-  background: #F5F5FA;
-  padding: 80px;
-  border-radius: 16px 16px 0 0;
-  display: flex; flex-direction: column; gap: 16px;
+  background: #F5F5FA; padding: 56px 64px;
 }
 .card-section-header__title {
   font-family: 'Roboto', sans-serif;
-  font-weight: 500; font-size: 48px; line-height: 1.3;
-  color: black;
+  font-weight: 500; font-size: 40px; color: black; margin-bottom: 8px;
 }
 .card-section-header__subtitle {
   font-family: 'Roboto', sans-serif;
-  font-weight: 400; font-size: 24px; line-height: 1.3;
-  color: black; max-width: 840px;
+  font-weight: 400; font-size: 20px; line-height: 1.4;
+  color: black; max-width: 600px;
 }
+
 /* Content area — white bottom */
 .card-content {
-  background: white;
-  padding: 80px;
+  padding: 56px 64px;
   display: flex; flex-direction: column; gap: 48px;
-  border-radius: 0 0 16px 16px;
+}
+
+/* Sub-section dividers */
+.card-divider { height: 1px; background: #EDF0F7; }
+
+/* Sub-section headings */
+.card-sub-heading {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500; font-size: 24px; color: black; margin-bottom: 24px;
+}
+
+/* Standard table chrome (used in Cards 2–5, 8) */
+table { width: 100%; border-collapse: collapse; font-family: 'Roboto', sans-serif; font-size: 13px; }
+th {
+  text-align: left; padding: 10px 12px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+  color: #717D96; font-weight: 500;
+}
+thead tr { border-bottom: 2px solid #E2E7F0; }
+tbody tr { border-bottom: 1px solid #EDF0F7; }
+tbody tr:last-child { border-bottom: none; }
+td { padding: 12px; }
+
+/* Token code tags (red on pink) */
+.token-tag {
+  background: #FFF5F5; border: 1px solid #FDE8E8;
+  color: #C10C0D; padding: 2px 8px; border-radius: 4px; font-size: 11px;
+}
+
+/* Grey content cells (states, themes) */
+.grey-cell {
+  background: #F9FAFB; border-radius: 12px; padding: 24px; text-align: center;
+}
+
+/* State/theme label */
+.cell-label {
+  font-family: 'Roboto', sans-serif; font-size: 11px; font-weight: 500;
+  color: #717D96; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px;
+}
+
+/* Numbered pointer badge (anatomy) */
+.pointer-badge {
+  width: 20px; height: 20px; background: #1a1a1a; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-family: 'Roboto', sans-serif; font-size: 11px; font-weight: 500;
+}
+
+/* Do/Don't cards (usage & content guidelines) */
+.do-card { border-radius: 12px; overflow: hidden; border: 1px solid #EDF0F7; }
+.do-card__bar--do { height: 4px; background: #22C55E; }
+.do-card__bar--dont { height: 4px; background: #EF4444; }
+.do-card__body--do { padding: 24px; background: #FAFFF5; }
+.do-card__body--dont { padding: 24px; background: #FFF5F5; }
+
+/* Dark code block (a11y cards, code spec) */
+.code-block {
+  background: #1E1E2E; border-radius: 8px; padding: 14px;
+  font-family: 'Roboto Mono', monospace; font-size: 11px; color: #CDD6F4; line-height: 1.6;
 }
 ```
+
+**These class names are reference only** — the actual HTML uses inline styles for Figma capture compatibility. But every card MUST follow these exact values.
 
 #### Card 1 — Page header
 `data-name="Page header"`
@@ -219,217 +277,216 @@ Content: Component name as title. 1–2 paragraphs describing what the component
 #### Card 2 — Actual component (Locked)
 `data-name="Actual component (Locked)"`
 
-Section header: "Actual component (Locked)" / "The finalized, production-ready component that cannot be edited."
+Section header: "Actual component" / "The finalized, production-ready component. Locked — cannot be edited."
 
-Content:
-- **State grid** — All states rendered side by side (Enabled, Hovered, Focused, Pressed, Selected/Visited, Disabled) with labels below each
-- **Variant matrix** — If the component has multiple types/sizes, show a grid: rows = types, columns = states
-- **Theme comparison** — Show Actian / Studio / Explorer side by side with color swatches when colors vary per theme
+Content — 3 sub-sections separated by `1px #EDF0F7` dividers:
+
+**Sub-section 1: States** — Horizontal grid showing all interactive states
+- Grid: `grid-template-columns: repeat(N, 1fr)` where N = number of states (typically 5: Enabled, Hovered, Focused, Pressed, Disabled)
+- Each cell: `background: #F9FAFB; border-radius: 12px; padding: 20px; text-align: center`
+- State label: uppercase, 10px, `#717D96`, `letter-spacing: 1px`, 14px margin-bottom
+- Render the actual component in each state with correct colors/outlines
+
+**Sub-section 2: Variant matrix** — Table with live components
+- If the component has multiple hierarchy/type variants AND sizes, show a table
+- Columns = size variants (Default, Small, Icon-only, etc.)
+- Rows = hierarchy/type variants (Primary, Secondary, Tertiary, etc.)
+- Each cell renders the actual component at correct size and style
+- Table header: same chrome as all other tables (11px uppercase, `#717D96`)
+
+**Sub-section 3: Theme comparison** — 3-column grid
+- Grid: `repeat(3, 1fr)` for Actian / Studio / Explorer
+- Each cell: `background: #F9FAFB; border-radius: 12px; padding: 24px; text-align: center`
+- Theme label: uppercase, 10px, `#717D96`
+- Render the component with that theme's primary color
+- Color swatches below: small 16px rounded squares showing primary + selected colors
 
 #### Card 3 — Anatomy
 `data-name="Anatomy"`
 
-Section header: "Anatomy" / "Each labelled part is a token reference. Color & size adapt to variant and theme."
+Section header: "Anatomy" / "Each labelled part is a token reference. Color and size adapt to variant and theme."
 
-**IMPORTANT: Use the two-zone layout to prevent text overlapping.**
+Content — 4 sub-sections separated by `1px #EDF0F7` dividers:
 
-**Zone 1 — Annotated diagram** (top half):
-- Render the component at 1.5–2× scale inside a dashed border box
-- Place **letter badges only** (A, B, C, D...) as small colored circles (24px, `#0550DC` bg, white text, bold) positioned next to each structural part
-- **NO descriptions or token names on the diagram** — only the letter badges
-- Show additional state variants (e.g., Focused, Error) as smaller companion diagrams below the main one, each with relevant badges highlighted
-- Keep the diagram clean and scannable — whitespace between parts
+**Sub-section 1: Structure** — Component with numbered pointer badges
+- Component rendered at actual scale inside `background: #F9FAFB; border-radius: 12px; padding: 48px 64px`
+- Numbered pointer badges: 20px dark circles (`#1a1a1a`), white text (11px, weight 500)
+- Each badge has a 14px directional line (`1px solid #1a1a1a`) pointing to its element
+- Pointers above or below the component — NEVER overlapping it
+- Numbers start at 1, increment sequentially
+- Only structural parts (Container, Icon slots, Label, etc.) — NO states
+- Inline legend below diagram: horizontal row of badge + element name pairs, 13px, `#475467`, 20px gap
 
-**Zone 2 — Parts table** (bottom half):
-- A structured table listing each part with full specs:
+**Sub-section 2: Specs** — Visual component with dimension annotations
+- Show each size variant side by side inside `background: #F9FAFB; border-radius: 12px`
+- Height: pink bracket line (`#D71D6D`) on the left with rotated "Npx" label
+- Padding: pink semi-transparent overlay blocks (`#D71D6D`, 35% opacity) on left/right edges
+- Gap: pink annotations between content elements
+- Token pill below each variant: `background: #FFF5F5; border: 1px solid #FDE8E8; color: #C10C0D; border-radius: 4px; font-size: 10px`
+- Radius callout at bottom with visual border-radius indicator + token pill
 
-```
-| Part | Element | Token | Spec |
-|------|---------|-------|------|
-| A | Container | --zen-size-*, --zen-radius-*, --zen-spacing-* | 32px height, 6px radius, 12px padding |
-| B | Leading icon | — | 20×20px (Default), 16×16px (Small) |
-| C | Label | --zen-font-label-standard | Roboto Medium 14px/20px, 0.2px |
-| D | Trailing icon | — | 20×20px |
-| E | Focus ring | --zen-width-focus, --zen-color-interactive-focused-stroke-default | 2px solid #000, offset 2px |
-| F | State overlay | --zen-color-interactive-hovered-primary | Absolute inset, matches container radius |
-```
+**Sub-section 3: States** — 3-column grid of key interactive states
+- Grid: `repeat(3, 1fr)` — typically Default, Focused, Hovered
+- Each cell: `background: #F9FAFB; border-radius: 12px; padding: 24px; text-align: center`
+- State label: uppercase, 11px, `#717D96`, `letter-spacing: 1px`
+- States that introduce NEW visual elements (focus ring, overlay) get numbered pointers continuing from Structure (e.g., 5, 6)
+- Pointer + element name positioned below the state example
+- Extra bottom padding (48px) on cells with pointers to prevent clipping
+- No pointer on Default state
 
-This approach follows industry best practices (Adobe Spectrum, Material Design, Carbon):
-- Diagram stays clean and readable at any zoom level
-- Token details live in a table that auto-sizes and never overlaps
-- Letter badges create a clear cross-reference between diagram and table
+**Sub-section 4: Parts reference** — Two tables under one heading
+- Heading: "Parts reference" (24px, weight 500)
+- Sub-header 1: **Structure** (15px, weight 500) — table for parts 1–N from the Structure diagram
+- Sub-header 2: **States** (15px, weight 500) — table for parts N+1–M from the States diagram
+- Table columns: [badge] | Element | Token | Notes
+- Badge: same 20px dark circle as in diagrams
+- Token values: `background: #FFF5F5; border: 1px solid #FDE8E8; color: #C10C0D; padding: 2px 8px; border-radius: 4px; font-size: 11px`
+- Em-dash (`—`) for elements with no token
+- Every number in the tables MUST appear in a diagram above
 
 #### Card 4 — Design tokens
 `data-name="Design tokens"`
 
-Section header: "Design tokens" / "Complete token map for every visual property. Never hardcode values — always reference the token."
+Section header: "Design tokens" / "Complete token map for every visual property. Never hardcode values."
 
-Content — TWO tables side by side:
+Content — 3 sub-sections separated by `1px #EDF0F7` dividers:
 
-**Table 1: Color tokens**
+**Sub-section 1: Color tokens** — Table with color swatches
+- Columns: Variant / State | Background | Text / Icon
+- Each color cell: 14px rounded swatch + token code tag
+- Token code tags: `background: #FFF5F5; border: 1px solid #FDE8E8; color: #C10C0D; padding: 2px 6px; border-radius: 4px; font-size: 11px`
+- Use "inherits" in grey (`#A0ABC0`) when a state inherits from its base
+- Row per variant×state combination (e.g., Primary·Enabled, Primary·Hovered, Primary·Disabled)
 
-| Type / State | Background token | Text / Icon token |
-|---|---|---|
-| Primary · Enabled | `--zen-color-base-brand` #0550DC | `--zen-color-base-inverse` #FFFFFF |
-| Primary · Hovered | `--zen-color-base-brand` + `--zen-color-interactive-hovered-primary` overlay | inherits |
-| Primary · Disabled | `--zen-color-interactive-disabled-secondary` | `--zen-color-interactive-disabled-primary` |
-| ... | ... | ... |
+**Sub-section 2: Sizing & spacing** — Table with Default/Small columns
+- Columns: Property | Token | Default | Small
+- Property column: weight 500, `#101828`
+- Value columns: `#475467`
+- Token column: same red code tag style as color tokens
+- Rows: Height, Horizontal padding, Content gap, Border radius, Focus ring width, etc.
 
-**Table 2: Sizing, spacing & typography**
-
-| Sizing & Spacing | Token | Value |
-|---|---|---|
-| Height — Default | `--zen-size-xl` | 32px |
-| Padding horizontal | `--zen-spacing-sm` | 12px |
-| Gap (icon–label) | `--zen-spacing-xs` | 8px |
-| Border radius | `--zen-radius-default` | 6px |
-| Focus ring width | `--zen-width-focus` | 2px |
-
-| Typography | Value |
-|---|---|
-| Token | `--zen-font-label-standard` |
-| Font family | Roboto |
-| Font weight | 500 (Medium) |
-| Font size | 14px |
-| Line height | 20px |
-| Letter spacing | 0.2px |
+**Sub-section 3: Typography** — Inline specimen card
+- `background: #F9FAFB; border-radius: 12px; padding: 24px`
+- Left: rendered text sample in the component's font
+- Divider: `1px #EDF0F7` vertical line
+- Right: Token code tag + specs inline (Family, Weight, Size, Line height, Tracking)
 
 #### Card 5 — Component API
 `data-name="Component API"`
 
-Section header: "Component API" / "All Figma variant properties map 1:1 to component props. AI agents must honour these exact names."
+Section header: "Component API" / "Figma variant properties map 1:1 to component props."
 
-Content — Props table:
-
-| Prop | Type | Default | Accepted values | Notes |
-|---|---|---|---|---|
-| `type` **REQUIRED** | string | "Primary" | "Primary"\|"Secondary"\|"Ghost"\|... | Drives all colour tokens |
-| `size` OPTIONAL | string | "Default" | "Default"\|"Small" | Default=32px; Small=24px |
-| `state` OPTIONAL | string | "Enabled" | "Enabled"\|"Hovered"\|"Focused"\|... | CSS :hover/:focus-visible in production |
-| `label` OPTIONAL | string | "Button" | Any string | Omit for Icon type |
-| `ariaLabel` OPTIONAL | string | — | Any string | REQUIRED when type="Icon" |
-| `ariaDisabled` OPTIONAL | boolean | — | true\|false | Preferred over HTML disabled |
+Content — Single props table:
+- Columns: Prop | Type | Default | Values | Notes
+- Prop name: `background: #F0F2F5; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: 500`
+- Accepted values: pill chips (`background: #F0F2F5; padding: 1px 6px; border-radius: 4px; font-size: 11px; color: #475467`) with flex-wrap
+- Type and Default: plain text, `#475467`
+- Notes: `font-size: 12px`, `#475467`
 
 #### Card 6 — Usage guidelines
 `data-name="Usage guidelines"`
 
 Section header: "Usage guidelines" / "When and how to use each [component] type, with do and don't examples."
 
-Content:
-- **When to use** — bulleted list of appropriate scenarios
-- **When NOT to use** — anti-patterns with correct alternatives
-- **Do / Don't pairs** — side-by-side cards with green bar (Do) / red bar (Don't), each showing a visual example + caption
+Content — 3 sub-sections separated by `1px #EDF0F7` dividers:
+
+**Sub-section 1: When to use** — Bulleted list with green `+` prefix
+- Each item: `display: flex; gap: 8px`
+- Plus sign: `color: #22C55E; font-weight: 700`
+- Text: 14px, `#475467`, `line-height: 1.6`
+
+**Sub-section 2: When NOT to use** — Bulleted list with red `−` prefix
+- Same layout as "When to use" but minus sign: `color: #EF4444; font-weight: 700`
+- Each anti-pattern includes the correct alternative (e.g., "→ use Link instead")
+
+**Sub-section 3: Do / Don't pairs** — 2-column grid of comparison cards
+- Grid: `grid-template-columns: 1fr 1fr; gap: 16px`
+- Each card: `border-radius: 12px; border: 1px solid #EDF0F7; overflow: hidden`
+- Do card: 4px green bar (`#22C55E`) on top, `background: #FAFFF5` body
+- Don't card: 4px red bar (`#EF4444`) on top, `background: #FFF5F5` body
+- Each card: visual example centered + caption below (13px, `#475467`, centered)
+- For form input components: include 480px max-width rule pair
 - **Forms layout** (for form input components): include the 480px max-width rule for simple forms, full-width rule for extended elements (selectable rows, tiles, tables), and fluid rule for multi-column layouts. See CLAUDE.md "Forms Layout Rules".
 
 #### Card 7 — Content guidelines
 `data-name="Content guidelines"`
 
-Section header: "Content guidelines" / "Guidance on what content works best, including text, imagery, and messaging."
+Section header: "Content guidelines" / "Label copy rules: what to write, how to write it, and common mistakes."
 
-Content:
-- **Terminology rules** — specific label conventions (e.g., "Cancel vs Close", "Create vs Add vs Insert", "Submit vs Send vs Save")
-- Each rule: heading, explanation, Do/Don't example pairs
-- Keep language prescriptive and concise
+Content — Stacked rules, separated by `1px #EDF0F7` dividers:
+
+Each rule block contains:
+- Rule heading: 20px, weight 500, black
+- Explanation: 14px, `#475467`, `line-height: 1.6`, 16px margin-bottom
+- Inline Do/Don't pair: same 2-column grid as Card 6 but compact (20px padding, no caption text if the visual is self-explanatory)
+
+Typical rules for any component:
+- Sentence case
+- Lead with a verb (for action components)
+- Confirm destructive actions explicitly
+- Keep labels concise (2–3 words max for buttons, clear field labels for inputs)
 
 #### Card 8 — Accessibility
 `data-name="Accessibility"`
 
 Section header: "Accessibility" / "WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios."
 
-Content — **2-column grid of cards**, each with an icon, title, plain-text description, and a dark code snippet below.
+Content — 2 sub-sections separated by `1px #EDF0F7` divider:
 
-**CRITICAL: No inline `<code>` tags in the `.a11y-card__body` text.** Inline code elements cause text overlapping when captured to Figma. Instead:
-- Write the description in **plain language only** (no backtick-wrapped tokens or HTML entities in the body text)
-- Put all code/token references **only in the `.a11y-card__code` dark block** below the description
-- Example: write "Use aria-disabled='true' instead of the disabled attribute" NOT "Use `aria-disabled="true"` instead of `disabled`"
+**Sub-section 1: A11y requirement cards** — 2-column grid
+- Grid: `grid-template-columns: 1fr 1fr; gap: 16px`
+- Each card: `border: 1px solid #EDF0F7; border-radius: 12px; padding: 24px; display: flex; flex-direction: column; gap: 12px`
+- Card header: `display: flex; align-items: center; gap: 10px`
+  - Icon placeholder: `width: 28px; height: 28px; background: #EEF4FF; border-radius: 8px` — NO emoji icons, leave as plain colored square
+  - Title: 15px, weight 500, `#101828`
+- Body text: 13px, `#475467`, `line-height: 1.6` — plain language ONLY, no inline `<code>` tags
+- Code block: `background: #1E1E2E; border-radius: 8px; padding: 14px; font-family: 'Roboto Mono', monospace; font-size: 11px; color: #CDD6F4; line-height: 1.6`
 
+**CRITICAL: No inline `<code>` tags in body text.** Inline code causes text overlapping when captured to Figma. Put all code/ARIA references in the dark code block only.
+
+Standard cards (include all that apply to the component):
 | Card | Content |
 |---|---|
-| **Role & semantics** | Native element, fallback role + tabindex if not native. Code example in dark block. |
-| **Keyboard support** | Keys (Tab, Enter, Space, Escape) and what they do. Key mapping in dark block. |
-| **Focus ring** | Plain description of ring appearance. CSS :focus-visible in dark block. |
-| **Touch target (WCAG 2.5.8)** | Minimum 44×44px. ::after expansion in dark block. |
-| **Disabled state** | Prefer aria-disabled="true" over HTML disabled. Code in dark block. |
-| **Icon-only** | Must have accessible name via aria-label. Code in dark block. |
-| **Toggle / Selected state** | aria-pressed for toggles, aria-expanded for dropdowns. Code in dark block. |
-| **Critical action context** | aria-describedby pointing to warning text. Code in dark block. |
+| **Role & semantics** | Native element, fallback role + tabindex. Code in dark block. |
+| **Keyboard support** | Key mappings (Tab, Enter, Space, Escape). Table in dark block. |
+| **Focus ring** | Ring description. CSS :focus-visible in dark block. |
+| **Touch target (WCAG 2.5.8)** | 44×44px minimum. ::after expansion in dark block. |
+| **Disabled state** | aria-disabled="true" pattern. Code in dark block. |
+| **Icon-only** | aria-label requirement. Code in dark block. |
 
-Then a **Contrast ratio table**:
-
-| Variant | Foreground | Background | Ratio | WCAG AA |
-|---|---|---|---|---|
-| Primary label | #ffffff | #0550DC | 5.94:1 | Pass |
-| Disabled | #9898A7 | #F5F5FA | 2.06:1 | Exempt |
+**Sub-section 2: Contrast ratio table**
+- Columns: Variant | Foreground | Background | Ratio | WCAG AA
+- Foreground/Background cells: 12px color swatch + hex value
+- Ratio: weight 500, `#101828`
+- Pass badge: `background: #DCFCE7; color: #166534; padding: 2px 10px; border-radius: 10px; font-size: 12px; font-weight: 500`
+- Exempt badge: `background: #F3F4F6; color: #6B7280` (same shape)
 
 #### Card 9 — Code specification
 `data-name="Code specification"`
 
 Section header: "Code specification" / "Framework-agnostic implementation reference with full CSS token mapping."
 
-Content — A **dark code block** (`background: #1E1E2E`, monospace font, syntax-highlighted) containing:
+Content — Single dark code block:
+- `background: #1E1E2E; border-radius: 12px; padding: 32px`
+- `font-family: 'Roboto Mono', monospace; font-size: 12px; line-height: 1.8; color: #CDD6F4`
+- Syntax highlighting (Catppuccin Mocha palette):
+  - Keywords/types: `#CBA6F7` (purple)
+  - Strings: `#A6E3A1` (green)
+  - Comments: `#6C7086` (grey)
+  - Values/numbers: `#FAB387` (orange)
+  - Properties: `#89DCEB` (cyan)
+  - Selectors: `#89B4FA` (blue)
+  - Pseudo-classes: `#F38BA8` (pink)
+  - Functions: `#F9E2AF` (yellow)
 
-```css
-/**
- * [Component] — Actian Design System 2026
- * Figma component : [node-id]
- * Source page     : [page-node-id]
- */
-
-/* Types */
-type [Component]Type = "Primary" | "Secondary" | "Ghost" | ...;
-type [Component]Size = "Default" | "Small";
-type [Component]State = "Enabled" | "Hovered" | "Focused" | "Pressed" | "Disabled";
-
-/* --- Container tokens --- */
-.[component] {
-  height:         var(--zen-size-xl, 32px);
-  padding:        0 var(--zen-spacing-sm, 12px);
-  gap:            var(--zen-spacing-xs, 8px);
-  border-radius:  var(--zen-radius-default, 6px);
-  border-width:   var(--zen-width-default, 1px);
-  font-family:    'Roboto', sans-serif;       /* --zen-font-label-standard */
-  font-size:      14px;
-  font-weight:    500;
-  line-height:    20px;
-  letter-spacing: 0.2px;
-}
-
-/* --- Size: Small --- */
-.[component]-sm {
-  height: var(--zen-size-lg, 24px);
-  padding: 0 var(--zen-spacing-xs, 8px);
-  font-size: 12px;
-  letter-spacing: 0.3px;
-}
-
-/* --- Focus ring — never suppress --- */
-.[component]:focus-visible {
-  outline: var(--zen-width-focus, 2px) solid var(--zen-color-interactive-focused-stroke-default, #000000);
-  outline-offset: 2px;
-}
-
-/* --- Primary variant --- */
-.[component]-primary {
-  background: var(--zen-color-theme-primary, #0550DC);
-  color: var(--zen-color-base-inverse, #ffffff);
-}
-.[component]-primary:hover {
-  background: color-mix(in srgb, var(--zen-color-theme-primary) 82%, #000);
-}
-.[component]-primary:active {
-  background: var(--zen-color-interactive-selected-primary, #0029A9);
-}
-
-/* --- Disabled — aria-disabled pattern --- */
-[aria-disabled="true"].[component] {
-  background: var(--zen-color-interactive-disabled-secondary, #F5F5FA);
-  color:      var(--zen-color-interactive-disabled-primary, #9898A7);
-  cursor:     not-allowed;
-  pointer-events: none;
-}
-```
-
-Use syntax highlighting with color classes: keywords in purple, strings in green, comments in grey, values in orange, properties in light blue.
+Code structure:
+1. Header comment: component name, Figma node-id, source page
+2. Type definitions for all variant axes
+3. Container base styles with all token vars + fallback values
+4. Size variant overrides
+5. Focus ring (`:focus-visible` — never suppress)
+6. One variant example (e.g., Primary) with hover/active states
+7. Disabled state using `[aria-disabled="true"]` pattern
 
 ---
 
