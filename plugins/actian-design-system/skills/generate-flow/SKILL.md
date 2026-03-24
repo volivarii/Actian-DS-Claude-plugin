@@ -474,8 +474,8 @@ Generates real Figma component instances from the published FM Kit library. Outp
 2. Reference components by their exact registry names (FM-prefixed for wireframes)
 3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
 4. For custom elements (not in the FM registry), use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children styled using `--zen-*` or `--fm-*` tokens — do not reference non-existent component names
-5. Save as `spec.json` in the Actian-DS-Assembler directory
-6. Serve on localhost:8765 using `python3 serve.py 8765` (from the Actian-DS-Assembler directory)
+5. Save as `assembler-specs/spec.json` in the current project directory
+6. Serve the project directory on localhost:8765 using `scripts/ensure-server.sh . 8765`
 7. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
 8. For multi-screen flows, generate one spec per screen and assemble sequentially, or generate all screens in a single horizontal wrapper spec
 

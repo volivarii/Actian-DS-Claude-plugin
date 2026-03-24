@@ -221,7 +221,7 @@ If the user says "create it in Figma", "build the component", or "make it real":
    - Library: `"fat-marker"` (if FM mode) or `"ds2026"` (if Actian DS mode)
    - Use nested component instances where appropriate (e.g., buttons, icons)
 
-2. Save to `Actian-DS-Assembler/component-spec.json`
+2. Save to `assembler-specs/component-spec.json`
 
 3. Tell the user: **"Open DS Assembler → Create tab → enter component-spec.json → Create Component"**
 

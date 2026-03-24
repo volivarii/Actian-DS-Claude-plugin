@@ -89,7 +89,7 @@ Present findings as a structured report:
 
 ## Deep analysis with DS Assembler (recommended)
 
-If the DS Assembler plugin is running (`python3 serve.py 8765` in the Actian-DS-Assembler directory), use it for a more accurate audit:
+If the DS Assembler plugin is running (with its Local server URL pointing to the current project directory, served via `scripts/ensure-server.sh . 8765`), use it for a more accurate audit:
 
 ### Step 1 — Analyze via plugin
 
@@ -97,7 +97,7 @@ If the DS Assembler plugin is running (`python3 serve.py 8765` in the Actian-DS-
 2. Wait for the user to confirm analysis is complete
 3. Read the analysis results:
    ```bash
-   cat Actian-DS-Assembler/analysis.json
+   cat assembler-specs/analysis.json
    ```
 4. Use the data to enrich the audit with exact node IDs, instance counts, variant usage, and hardcoded color locations
 
@@ -124,10 +124,10 @@ If the user says "fix it", "apply fixes", or "auto-correct":
      ]
    }
    ```
-2. Save to `Actian-DS-Assembler/updates.json`
+2. Save to `assembler-specs/updates.json`
 3. Tell the user: **"Open DS Assembler → Update tab → Load Updates → review → Apply"**
 4. After the user confirms, read the results:
    ```bash
-   cat Actian-DS-Assembler/update-result.json
+   cat assembler-specs/update-result.json
    ```
 5. Report what was fixed and what failed

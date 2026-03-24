@@ -8,7 +8,7 @@ argument-hint: "[component description or Figma URL]"
 
 Create a new Figma component (with variants) from a text description or by extending an existing component.
 
-> Uses the DS Assembler plugin's Create mode. Requires the plugin to be installed and `python3 serve.py 8765` running in the Actian-DS-Assembler directory.
+> Uses the DS Assembler plugin's Create mode. Requires the plugin to be installed and its Local server URL pointing to the current project directory (served via `scripts/ensure-server.sh . 8765`).
 > **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
 > **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
 
@@ -108,8 +108,8 @@ Use exact component names from the registry.
 
 ## Step 4 — Save and create
 
-1. Save the spec to `Actian-DS-Assembler/component-spec.json`
-2. Ensure `python3 serve.py 8765` is running
+1. Save the spec to `assembler-specs/component-spec.json`
+2. Ensure the project directory is served via `scripts/ensure-server.sh . 8765`
 3. Tell the user: **"Open DS Assembler → Create tab → enter component-spec.json → Create Component"**
 4. After creation, remind the user to publish to library if it's a shared component
 
