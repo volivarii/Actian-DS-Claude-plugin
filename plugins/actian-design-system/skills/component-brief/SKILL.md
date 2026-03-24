@@ -163,7 +163,16 @@ Use these prefixed names everywhere: spec tables, anatomy callouts, code specifi
 
 ## Step 5 — Capture to Figma
 
-If the user wants to push the spec to Figma, use the `generate_figma_design` **MCP tool** (not a browser extension, not a Figma plugin — the MCP tool).
+If the user wants to push the spec to Figma, use `generate_figma_design` via the Figma MCP tool.
+
+### Before capturing — ask the user
+
+Before running the capture, ask:
+1. **"Which Figma file should I send this to?"** — get the file URL or fileKey
+2. **"Which page?"** — get the nodeId for the target page (extract from the URL's `node-id` parameter)
+
+If the user provides a Figma URL, extract `fileKey` and `nodeId` from it:
+- `figma.com/design/:fileKey/:fileName?node-id=:nodeId` → convert `-` to `:` in nodeId
 
 ### Capture flow
 
@@ -171,22 +180,32 @@ If the user wants to push the spec to Figma, use the `generate_figma_design` **M
    ```bash
    BASE_URL=$(scripts/ensure-server.sh . 8765)
    ```
-   This gives you a URL like `http://localhost:8765/components/button/button-spec.html`
 
-2. **Call the `generate_figma_design` MCP tool** with the localhost URL:
-   - To create a new Figma file: set `outputMode: "newFile"` and `fileName`
-   - To add to an existing file: set `outputMode: "existingFile"`, `fileKey`, and optionally `nodeId`
-   - If unsure, call without `outputMode` first — the tool returns options to choose from
+2. **Try calling `generate_figma_design` directly** (MCP tool) with:
+   - `outputMode: "existingFile"`
+   - `fileKey` from the user's target file
+   - `nodeId` from the user's target page
+   - If creating a new file: `outputMode: "newFile"` and `fileName`
 
-3. **Poll for completion:** Call `generate_figma_design` again with the returned `captureId` every 5 seconds (up to 10 times) until status is `completed`
+3. **If the MCP tool is not available** (e.g., Claude Desktop doesn't expose it), use the CLI workaround:
+   ```bash
+   cat <<'PROMPT' | claude -p --output-format text --allowedTools "mcp__plugin_figma_figma__generate_figma_design"
+   Call generate_figma_design with outputMode existingFile, fileKey {{FILE_KEY}}, and nodeId {{NODE_ID}} to capture the page at {{LOCALHOST_URL}}. Poll with captureId until completed. Do not edit any files. Return the final Figma link.
+   PROMPT
+   ```
+   Replace `{{FILE_KEY}}`, `{{NODE_ID}}`, and `{{LOCALHOST_URL}}` with actual values.
 
-4. **Share the Figma link** with the user
+4. **Poll for completion:** whether using the MCP tool directly or the CLI workaround, poll with `captureId` every 5 seconds (up to 10 times) until status is `completed`
+
+5. **Share the Figma link** with the user
 
 ### Important
 
+- **ALWAYS** ask the user for the target Figma file and page before capturing
+- **NEVER** capture to the first page of a file without asking — always use the `nodeId` parameter
 - **NEVER** suggest installing browser extensions or Figma plugins for capture
-- **NEVER** tell the user to open the HTML manually in a browser for capture
-- **ALWAYS** use the `generate_figma_design` MCP tool — it handles capture end-to-end
+- **NEVER** tell the user to open the HTML manually in a browser
+- The CLI workaround (`claude -p`) is a temporary solution until Claude Desktop exposes `generate_figma_design` natively
 - Each `captureId` is single-use — one capture per page
 
 ## Step 6 — Create in Figma (optional)
