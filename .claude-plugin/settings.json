@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(docs/**)",
+      "Read(skills/**)",
+      "Read(tokens/**)",
+      "Read(components/**)",
+      "Read(CLAUDE.md)"
+    ]
+  }
+}

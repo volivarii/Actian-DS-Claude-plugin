@@ -1,0 +1,120 @@
+<!-- ============================================================
+     CARD 2 — Actual Component (Locked)
+     Shows the live-rendered component in all variant×state combinations
+     and across all three theme modes.
+
+     IMPORTANT: This card requires component-specific CSS to render the
+     actual component. Inject it via {{COMPONENT_SPECIFIC_CSS}} inside
+     a <style> tag at the top of this card.
+     ============================================================ -->
+
+<!-- {{COMPONENT_SPECIFIC_CSS}} — All CSS classes needed to render this specific component.
+     For example, button briefs would include .btn, .btn--primary, .btn--secondary, etc.
+     This style block is scoped to the card content — do NOT duplicate wrapper CSS here.
+     Example:
+       <style>
+         .btn { display: inline-flex; align-items: center; ... }
+         .btn--primary { background: var(--zen-color-theme-primary); ... }
+       </style>
+-->
+{{COMPONENT_SPECIFIC_CSS}}
+
+<div class="brief-card" data-name="Actual component (Locked)">
+
+  <div class="card-section-header">
+    <div class="card-section-header__title" data-name="Section title">Actual component</div>
+    <div class="card-section-header__subtitle" data-name="Section subtitle">Live-rendered component across all variants, states, and theme modes</div>
+  </div>
+
+  <div class="card-content">
+
+    <!-- ========================================================
+         SUB-SECTION 1: Variant Matrix
+         A table showing every type×state combination with the
+         actual component rendered in each cell.
+         ======================================================== -->
+    <div class="section" data-name="Variant matrix">
+      <div class="section-title">Variant matrix</div>
+
+      <table class="variant-matrix" data-name="Variant matrix table">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <!-- {{VARIANT_MATRIX_COLUMNS}} — One <th> per interactive state.
+                 Example:
+                   <th>Enabled</th>
+                   <th>Hovered</th>
+                   <th>Focused</th>
+                   <th>Pressed</th>
+                   <th>Disabled</th>
+            -->
+            {{VARIANT_MATRIX_COLUMNS}}
+          </tr>
+        </thead>
+        <tbody>
+          <!-- {{VARIANT_MATRIX_ROWS}} — One <tr> per component type/variant.
+               First <td> is the type name, remaining <td>s contain the rendered component.
+               Example:
+                 <tr>
+                   <td>Primary</td>
+                   <td><button class="btn btn--primary">Label</button></td>
+                   <td><button class="btn btn--primary btn--hover">Label</button></td>
+                   <td><button class="btn btn--primary btn--focus">Label</button></td>
+                   <td><button class="btn btn--primary btn--pressed">Label</button></td>
+                   <td><button class="btn btn--primary" disabled>Label</button></td>
+                 </tr>
+          -->
+          {{VARIANT_MATRIX_ROWS}}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card-divider"></div>
+
+    <!-- ========================================================
+         SUB-SECTION 2: Theme Comparison
+         Three-column layout showing the component rendered with
+         each theme's colors, plus color swatches below.
+         ======================================================== -->
+    <div class="section" data-name="Theme comparison">
+      <div class="section-title">Theme comparison</div>
+
+      <div class="theme-row">
+
+        <!-- {{THEME_ACTIAN}} — Actian theme card content.
+             Must include:
+             - theme-card__label with "ACTIAN"
+             - theme-card__states with rendered component(s) using Actian colors
+             - theme-card__swatches with swatch dots showing key theme colors
+             Example:
+               <div class="theme-card">
+                 <div class="theme-card__label">ACTIAN</div>
+                 <div class="theme-card__states">
+                   <button class="btn btn--primary" style="background: #0550DC;">Label</button>
+                 </div>
+                 <div class="theme-card__swatches">
+                   <span class="swatch"><span class="swatch__dot" style="background:#0550DC;"></span> Primary</span>
+                   <span class="swatch"><span class="swatch__dot" style="background:#0029A9;"></span> Selected</span>
+                 </div>
+               </div>
+        -->
+        {{THEME_ACTIAN}}
+
+        <!-- {{THEME_STUDIO}} — Studio theme card content.
+             Same structure as Actian but using Studio theme colors.
+             Studio primary: #0283BE, Studio selected: #0079B6
+        -->
+        {{THEME_STUDIO}}
+
+        <!-- {{THEME_EXPLORER}} — Explorer theme card content.
+             Same structure as Actian but using Explorer theme colors.
+             Explorer primary: #049B98, Explorer selected: #00908E
+        -->
+        {{THEME_EXPLORER}}
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

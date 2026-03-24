@@ -1,0 +1,108 @@
+<!--
+  DS Card 9 — Code Specification
+  Template for the component-brief skill (Actian DS mode).
+
+  CSS classes (card-section-header, card-content) are defined in
+  ds-wrapper.html. Do NOT redefine them here.
+
+  The entire card content is a single dark code block with
+  syntax-highlighted CSS using Catppuccin Mocha palette spans.
+
+  SYNTAX HIGHLIGHT CLASSES (defined in ds-wrapper.html):
+    .cm   — comments     (#6C7086 italic)
+    .kw   — keywords     (#CBA6F7 purple)
+    .prop — properties   (#89DCEB cyan)
+    .fn   — functions    (#F9E2AF yellow)
+    .str  — strings      (#A6E3A1 green)
+    .val  — values       (#FAB387 orange)
+    .sel  — selectors    (#89B4FA blue)
+    .tag  — pseudo-class (#F38BA8 pink)
+    .punc — punctuation  (#89DDFF)
+    .attr — attributes   (#FFCB6B)
+
+  PLACEHOLDERS
+  ============
+  {{COMPONENT_NAME}}     — Display name of the component
+  {{CODE_SPECIFICATION}} — The full syntax-highlighted code block content
+-->
+
+<div data-name="Code specification" style="width:960px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.08);flex-shrink:0;">
+
+  <!-- ====== SECTION HEADER ====== -->
+  <div class="card-section-header">
+    <div class="card-section-header__title">Code specification</div>
+    <div class="card-section-header__subtitle">Framework-agnostic implementation reference with full CSS token mapping for {{COMPONENT_NAME}}.</div>
+  </div>
+
+  <!-- ====== CONTENT ====== -->
+  <div class="card-content">
+
+    <!-- ──────────────────────────────────────────────
+         CODE BLOCK
+         Single dark code block containing the full CSS specification.
+         Use Catppuccin Mocha palette spans for syntax highlighting.
+
+         CODE STRUCTURE (generate in this order):
+
+         1. HEADER COMMENT — component name, Figma node-id, source page
+            <span class="cm">/* ============================================
+             * ComponentName — Actian DS 2026
+             * Figma: node-id (page name)
+             * ============================================ */</span>
+
+         2. TYPE DEFINITIONS — all variant axes as TS-style comments
+            <span class="cm">/* Variant axes */</span>
+            <span class="kw">type</span> Hierarchy <span class="punc">=</span> <span class="str">"primary"</span> <span class="punc">|</span> <span class="str">"secondary"</span> <span class="punc">|</span> ...
+            <span class="kw">type</span> Size <span class="punc">=</span> <span class="str">"default"</span> <span class="punc">|</span> <span class="str">"small"</span>
+
+         3. CONTAINER BASE STYLES — all token vars with fallback values
+            <span class="sel">.zen-component</span> <span class="punc">{</span>
+              <span class="prop">--bg</span><span class="punc">:</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-color-theme-primary</span><span class="punc">,</span> <span class="val">#3D5AFE</span><span class="punc">)</span><span class="punc">;</span>
+              <span class="prop">--text</span><span class="punc">:</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-color-interactive-enabled-inverse</span><span class="punc">,</span> <span class="val">#FFFFFF</span><span class="punc">)</span><span class="punc">;</span>
+              ...
+              <span class="prop">display</span><span class="punc">:</span> <span class="val">inline-flex</span><span class="punc">;</span>
+              <span class="prop">height</span><span class="punc">:</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-size-2xl</span><span class="punc">,</span> <span class="val">48px</span><span class="punc">)</span><span class="punc">;</span>
+              ...
+            <span class="punc">}</span>
+
+         4. SIZE VARIANT OVERRIDES
+            <span class="sel">.zen-component--small</span> <span class="punc">{</span>
+              <span class="prop">height</span><span class="punc">:</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-size-xl</span><span class="punc">,</span> <span class="val">40px</span><span class="punc">)</span><span class="punc">;</span>
+              ...
+            <span class="punc">}</span>
+
+         5. FOCUS RING — never suppress :focus-visible
+            <span class="sel">.zen-component</span><span class="tag">:focus-visible</span> <span class="punc">{</span>
+              <span class="prop">outline</span><span class="punc">:</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-width-focus</span><span class="punc">,</span> <span class="val">2px</span><span class="punc">)</span> <span class="val">solid</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-color-interactive-focused-stroke-default</span><span class="punc">,</span> <span class="val">#3D5AFE</span><span class="punc">)</span><span class="punc">;</span>
+              <span class="prop">outline-offset</span><span class="punc">:</span> <span class="val">2px</span><span class="punc">;</span>
+            <span class="punc">}</span>
+
+         6. ONE VARIANT EXAMPLE — e.g. Primary with hover/active
+            <span class="sel">.zen-component--primary</span><span class="tag">:hover</span> <span class="punc">{</span>
+              <span class="prop">--bg</span><span class="punc">:</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-color-interactive-hovered-primary</span><span class="punc">,</span> <span class="val">#304FFE</span><span class="punc">)</span><span class="punc">;</span>
+            <span class="punc">}</span>
+            <span class="sel">.zen-component--primary</span><span class="tag">:active</span> <span class="punc">{</span>
+              <span class="prop">--bg</span><span class="punc">:</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-color-interactive-dragged-primary</span><span class="punc">,</span> <span class="val">#1A237E</span><span class="punc">)</span><span class="punc">;</span>
+            <span class="punc">}</span>
+
+         7. DISABLED STATE — use [aria-disabled="true"] pattern
+            <span class="sel">.zen-component</span><span class="punc">[</span><span class="attr">aria-disabled</span><span class="punc">=</span><span class="str">"true"</span><span class="punc">]</span> <span class="punc">{</span>
+              <span class="prop">--bg</span><span class="punc">:</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-color-interactive-disabled-secondary</span><span class="punc">,</span> <span class="val">#E8ECF2</span><span class="punc">)</span><span class="punc">;</span>
+              <span class="prop">--text</span><span class="punc">:</span> <span class="fn">var</span><span class="punc">(</span><span class="str">--zen-color-interactive-disabled-primary</span><span class="punc">,</span> <span class="val">#A0ABC0</span><span class="punc">)</span><span class="punc">;</span>
+              <span class="prop">pointer-events</span><span class="punc">:</span> <span class="val">none</span><span class="punc">;</span>
+              <span class="prop">cursor</span><span class="punc">:</span> <span class="val">not-allowed</span><span class="punc">;</span>
+            <span class="punc">}</span>
+
+         IMPORTANT:
+         - Every CSS value MUST use var() with a --zen-* token and a fallback
+         - Never suppress :focus-visible
+         - Use [aria-disabled="true"] not :disabled
+         - Use --zen- prefix for all tokens (see SKILL.md Token Naming Convention)
+         - Include all relevant token vars from CLAUDE.md Component Token Mapping
+    ────────────────────────────────────────────── -->
+    <div data-name="Code block" style="background:#1E1E2E;border-radius:12px;padding:32px;font-family:'Roboto Mono',monospace;font-size:12px;line-height:1.8;color:#CDD6F4;overflow-x:auto;">
+      <pre style="margin:0;white-space:pre;">{{CODE_SPECIFICATION}}</pre>
+    </div>
+
+  </div>
+</div>

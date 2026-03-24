@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- {{PAGE_TITLE}} — e.g., "Button — Actian DS2026 Component Brief" -->
+  <title>{{PAGE_TITLE}}</title>
+
+  <!-- AI CONSUMPTION METADATA
+       Replace each placeholder with the actual value for this component.
+       {{COMPONENT_NAME}}  — e.g., "Button", "Text Input", "Badge"
+       {{COMPONENT_CATEGORY}} — e.g., "Actions", "Forms", "Data Display"
+       {{BRIEF_VERSION}} — e.g., "1.0.0"
+       {{DS_VERSION}} — e.g., "2026.1"
+  -->
+  <!--
+    component: {{COMPONENT_NAME}}
+    category: {{COMPONENT_CATEGORY}}
+    brief-version: {{BRIEF_VERSION}}
+    ds-version: {{DS_VERSION}}
+  -->
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Inter:wght@400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS (Actian theme defaults)
+       ============================================================ */
+    :root {
+      --zen-color-theme-primary: #0550DC;
+      --zen-color-theme-primary-studio: #0283BE;
+      --zen-color-theme-primary-explorer: #049B98;
+      --zen-color-interactive-selected-primary: #0029A9;
+      --zen-color-selected-primary-studio: #0079B6;
+      --zen-color-selected-primary-explorer: #00908E;
+      --zen-color-interactive-disabled-primary: #9898A7;
+      --zen-color-disabled-primary-studio: #A9A9A9;
+      --zen-color-interactive-hovered-primary: rgba(63,63,74,0.3);
+      --zen-color-interactive-hovered-secondary: rgba(228,228,240,0.3);
+      --zen-color-interactive-focused-secondary: rgba(228,228,240,0.3);
+      --zen-color-interactive-pressed-primary: rgba(63,63,74,0.5);
+      --zen-color-interactive-pressed-secondary: rgba(228,228,240,0.5);
+      --zen-color-interactive-disabled-secondary: #F5F5FA;
+      --zen-color-interactive-focused-stroke-default: #000000;
+      --zen-color-base-inverse: #FFFFFF;
+      --zen-color-text-primary: #000000;
+      --zen-color-text-secondary: #3F3F4A;
+      --zen-color-text-tertiary: #595968;
+      --zen-color-background-bg-default: #FFFFFF;
+      --zen-color-background-bg-grey-2: #F5F5FA;
+      --zen-color-border-default: #E4E4F0;
+      --zen-color-status-success-primary: #047800;
+      --zen-color-status-error-primary: #C10C0D;
+      --zen-spacing-2xs: 4px;
+      --zen-spacing-xs: 8px;
+      --zen-spacing-sm: 12px;
+      --zen-spacing-md: 16px;
+      --zen-size-lg: 24px;
+      --zen-size-xl: 32px;
+      --zen-radius-default: 6px;
+      --zen-width-default: 1px;
+      --zen-width-focus: 2px;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Roboto', sans-serif; background: #EEEEF5; color: var(--zen-color-text-primary); padding: 48px; }
+
+    /* ============================================================
+       LAYOUT — Brief row (horizontal card strip)
+       ============================================================ */
+    .brief-row { display: flex; gap: 48px; align-items: flex-start; }
+
+    /* ============================================================
+       CARD CHROME — Header card (Card 1)
+       ============================================================ */
+    .brief-card--header {
+      width: 1200px; background: white; border-radius: 24px; padding: 80px;
+      display: flex; flex-direction: column; gap: 48px; flex-shrink: 0;
+    }
+    .card-title-row { display: flex; gap: 64px; align-items: flex-start; width: 100%; }
+    .card-title { font-weight: 500; font-size: 72px; line-height: 1.173; color: black; flex: 1; }
+    .card-logo { width: 64px; height: 60px; flex-shrink: 0; margin-top: 12px; }
+    .card-body { font-weight: 400; font-size: 32px; line-height: 1.36; color: #12131F; max-width: 1062px; }
+
+    /* ============================================================
+       CARD CHROME — Standard cards (Cards 2–N)
+       ============================================================ */
+    .brief-card { width: 1200px; display: flex; flex-direction: column; flex-shrink: 0; }
+    .card-section-header {
+      background: #F5F5FA; padding: 80px; border-radius: 16px 16px 0 0;
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .card-section-header__title { font-weight: 500; font-size: 48px; line-height: 1.3; color: black; }
+    .card-section-header__subtitle { font-weight: 400; font-size: 24px; line-height: 1.3; color: black; max-width: 840px; }
+    .card-content {
+      background: white; padding: 80px; display: flex; flex-direction: column; gap: 48px;
+      border-radius: 0 0 16px 16px;
+    }
+
+    /* ============================================================
+       SECTION TYPOGRAPHY
+       ============================================================ */
+    .section { display: flex; flex-direction: column; gap: 16px; }
+    .section-title { font-weight: 500; font-size: 24px; line-height: 32px; color: black; }
+    .section-subtitle { font-weight: 500; font-size: 18px; line-height: 26px; color: black; }
+    .section-body { font-weight: 400; font-size: 16px; line-height: 24px; color: var(--zen-color-text-secondary); }
+    .section-body ul { margin-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+    .section-body code { font-family: 'Fira Code', monospace; font-size: 13px; background: #F5F5FA; padding: 2px 6px; border-radius: 3px; }
+
+    /* ============================================================
+       STATE GRID — Used for showing component in multiple states
+       ============================================================ */
+    .state-grid { display: flex; gap: 48px; align-items: flex-start; flex-wrap: wrap; }
+    .state-col { display: flex; flex-direction: column; gap: 10px; align-items: center; }
+    .state-label { font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: #888; }
+
+    /* ============================================================
+       THEME CARDS — 3-column Actian/Studio/Explorer comparison
+       ============================================================ */
+    .theme-row { display: flex; gap: 24px; }
+    .theme-card { flex: 1; display: flex; flex-direction: column; gap: 16px; padding: 24px 32px; background: #FAFAFA; border: 1px solid var(--zen-color-border-default); border-radius: 12px; }
+    .theme-card__label { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; color: var(--zen-color-text-secondary); letter-spacing: 0.3px; }
+    .theme-card__states { display: flex; gap: 32px; align-items: center; }
+    .theme-card__swatches { display: flex; gap: 12px; font-family: 'Inter', sans-serif; font-size: 12px; color: var(--zen-color-text-tertiary); }
+    .swatch { display: inline-flex; align-items: center; gap: 4px; }
+    .swatch__dot { width: 12px; height: 12px; border-radius: 3px; border: 1px solid rgba(0,0,0,0.08); }
+
+    /* ============================================================
+       DO / DON'T CARDS
+       ============================================================ */
+    .do-dont-row { display: flex; gap: 24px; }
+    .do-dont-card { flex: 1; display: flex; flex-direction: column; gap: 10px; }
+    .do-dont-card__bar { height: 4px; border-radius: 2px; }
+    .do-dont-card__bar--do { background: #047800; }
+    .do-dont-card__bar--dont { background: #C10C0D; }
+    .do-dont-card__label { font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.3px; }
+    .do-dont-card__label--do { color: #047800; }
+    .do-dont-card__label--dont { color: #C10C0D; }
+    .do-dont-card__example { font-size: 16px; line-height: 24px; color: var(--zen-color-text-secondary); padding: 16px; background: #FAFAFA; border-radius: 8px; }
+
+    /* ============================================================
+       ANATOMY — Structure callout with numbered badges
+       ============================================================ */
+    .anatomy-box { display: flex; gap: 48px; align-items: center; }
+    .anatomy-component { position: relative; padding: 28px 32px; border: 2px dashed var(--zen-color-border-default); border-radius: 12px; }
+    .anatomy-component__label { position: absolute; top: -10px; left: 16px; background: white; padding: 0 8px; font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    .anatomy-props { display: flex; flex-direction: column; gap: 16px; }
+    .anatomy-prop { display: flex; flex-direction: column; gap: 2px; }
+    .anatomy-prop__label { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; }
+    .anatomy-prop__value { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--zen-color-text-secondary); }
+
+    /* ============================================================
+       SPEC TABLES — Token/value reference tables
+       ============================================================ */
+    .spec-table { width: 100%; border-collapse: collapse; font-family: 'Inter', sans-serif; font-size: 14px; }
+    .spec-table th { text-align: left; font-weight: 600; padding: 12px 16px; background: #F5F5FA; border-bottom: 1px solid var(--zen-color-border-default); color: var(--zen-color-text-secondary); font-size: 13px; }
+    .spec-table td { padding: 12px 16px; border-bottom: 1px solid #F0F0F5; vertical-align: top; line-height: 1.5; }
+    .spec-table code { font-family: 'Fira Code', monospace; font-size: 12px; background: #F5F5FA; padding: 2px 6px; border-radius: 3px; color: #0550DC; }
+
+    /* ============================================================
+       ACCESSIBILITY GRID — 2-column card grid for a11y items
+       ============================================================ */
+    .a11y-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .a11y-card { display: flex; flex-direction: column; gap: 12px; padding: 24px; background: #FAFAFA; border-radius: 12px; border: 1px solid var(--zen-color-border-default); }
+    .a11y-card__icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+    .a11y-card__icon--red { background: #FCF3F3; }
+    .a11y-card__icon--blue { background: #F1FDFF; }
+    .a11y-card__icon--green { background: #F0FFEC; }
+    .a11y-card__icon--grey { background: #F5F5FA; }
+    .a11y-card__icon--orange { background: #FFF6EC; }
+    .a11y-card__title { font-family: 'Inter', sans-serif; font-weight: 600; font-size: 15px; color: black; }
+    .a11y-card__body { font-family: 'Inter', sans-serif; font-size: 14px; line-height: 1.5; color: var(--zen-color-text-secondary); }
+    .a11y-card__code { font-family: 'Fira Code', monospace; font-size: 12px; line-height: 1.6; color: #C4C4C4; background: #1E1E2E; padding: 12px 16px; border-radius: 8px; white-space: pre; overflow-x: auto; }
+    .a11y-card__code .kw { color: #C792EA; }
+    .a11y-card__code .str { color: #C3E88D; }
+    .a11y-card__code .tag { color: #89DDFF; }
+    .a11y-card__code .attr { color: #FFCB6B; }
+    .a11y-card__code .val { color: #F78C6C; }
+    .a11y-card__code .prop { color: #82AAFF; }
+    .a11y-card__code .sel { color: #FFCB6B; }
+    .a11y-card__code .punc { color: #89DDFF; }
+
+    /* ============================================================
+       CODE BLOCK — Syntax-highlighted code snippets
+       ============================================================ */
+    .code-block { background: #1E1E2E; border-radius: 12px; padding: 32px; overflow-x: auto; }
+    .code-block pre { font-family: 'Fira Code', monospace; font-size: 13px; line-height: 1.7; color: #A6ACCD; margin: 0; white-space: pre; }
+    .code-block .cm { color: #676E95; font-style: italic; }
+    .code-block .kw { color: #C792EA; }
+    .code-block .prop { color: #82AAFF; }
+    .code-block .fn { color: #82AAFF; }
+    .code-block .str { color: #C3E88D; }
+    .code-block .val { color: #F78C6C; }
+    .code-block .sel { color: #FFCB6B; }
+    .code-block .tag { color: #89DDFF; }
+    .code-block .punc { color: #89DDFF; }
+    .code-block .attr { color: #FFCB6B; }
+
+    /* ============================================================
+       CONTRAST BADGES — Pass / Exempt indicators
+       ============================================================ */
+    .badge-pass { display: inline-flex; align-items: center; gap: 4px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: #047800; }
+    .badge-exempt { display: inline-flex; align-items: center; gap: 4px; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 600; color: #9C2000; }
+
+    /* ============================================================
+       PROPS TABLE — Component API property rows
+       ============================================================ */
+    .prop-required { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: #C10C0D; }
+    .prop-optional { font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: #888; }
+    .prop-name { font-family: 'Fira Code', monospace; font-weight: 500; font-size: 14px; color: black; }
+    .prop-type { font-family: 'Fira Code', monospace; font-size: 13px; color: #C792EA; }
+    .prop-default { font-family: 'Fira Code', monospace; font-size: 13px; color: #C3E88D; }
+    .prop-values { font-family: 'Fira Code', monospace; font-size: 12px; color: var(--zen-color-text-secondary); }
+
+    /* ============================================================
+       VARIANT MATRIX — Type x State grid table
+       ============================================================ */
+    .variant-matrix { width: 100%; border-collapse: collapse; }
+    .variant-matrix th { font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 600; color: #888; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; text-align: center; background: #F5F5FA; border-bottom: 1px solid var(--zen-color-border-default); }
+    .variant-matrix th:first-child { text-align: left; }
+    .variant-matrix td { padding: 14px 12px; text-align: center; border-bottom: 1px solid #F0F0F5; vertical-align: middle; }
+    .variant-matrix td:first-child { text-align: left; font-family: 'Inter', sans-serif; font-size: 12px; font-weight: 500; color: var(--zen-color-text-secondary); }
+
+    /* ============================================================
+       DIVIDER — Horizontal rule between card sub-sections
+       ============================================================ */
+    .card-divider { height: 1px; background: #EDF0F7; }
+
+    /* ============================================================
+       COMPONENT-SPECIFIC CSS INJECTED HERE
+       Do NOT add component-specific styles to this wrapper.
+       Each card template (especially Card 2) injects its own
+       component CSS via the {{COMPONENT_SPECIFIC_CSS}} placeholder.
+       ============================================================ */
+  </style>
+</head>
+<body>
+
+  <div class="brief-row" data-name="Component brief">
+    <!-- {{CARDS}}
+         Replace this marker with the concatenated HTML from all card templates:
+         - ds-card-1-page-header.html
+         - ds-card-2-actual-component.html
+         - ds-card-3-anatomy.html
+         - ds-card-4-design-tokens.html
+         - ds-card-5-component-api.html
+         Each card is a self-contained HTML fragment that slots in here.
+    -->
+  </div>
+
+  <!-- Figma capture script — triggers screenshot after fonts load -->
+  <script>
+    document.fonts.ready.then(() => {
+      setTimeout(() => {
+        window.figmaCaptureReady = true;
+      }, 200);
+    });
+  </script>
+
+</body>
+</html>

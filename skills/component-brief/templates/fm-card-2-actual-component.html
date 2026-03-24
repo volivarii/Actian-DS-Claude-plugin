@@ -1,0 +1,56 @@
+<!-- FM Card 2: Actual Component (Locked)
+     Shows all variants of the FM component rendered at actual scale.
+
+     Placeholders:
+       {{COMPONENT_SPECIFIC_CSS}} — A <style> block with CSS classes needed to render
+                                     this specific FM component (e.g., .fm-btn, .fm-input).
+                                     Use FM palette tokens:
+                                       FM background: #FFFFFF
+                                       FM stroke: #B0B0B0
+                                       FM text: #333333
+                                       FM primary fill: #333333
+                                       FM primary text: #FFFFFF
+       {{GRID_COLUMNS}}           — Grid modifier class: "variant-grid--3col" for 3+ variants,
+                                     "variant-grid--2col" for 2 variants.
+       {{VARIANT_CELLS}}          — One or more variant cell blocks. Each cell follows this pattern:
+                                     <div class="variant-cell">
+                                       [rendered FM component markup]
+                                       <div class="variant-cell__label">Variant name</div>
+                                     </div>
+-->
+<div class="card" data-name="Actual component (Locked)">
+  <div class="card-header">
+    <div class="card-header__title">Actual component (Locked)</div>
+    <div class="card-header__subtitle">All variants of the component as they appear in the wireframe kit.</div>
+  </div>
+  <div class="card-content">
+
+    <!-- {{COMPONENT_SPECIFIC_CSS}} — Inject a <style> block here with classes needed
+         to render this specific FM component. Example for a button:
+         <style>
+           .fm-btn { display: inline-flex; align-items: center; ... }
+           .fm-btn--primary { background: #333333; color: #FFFFFF; ... }
+         </style>
+    -->
+    {{COMPONENT_SPECIFIC_CSS}}
+
+    <div class="section" data-name="Variants">
+      <div class="section__title">Variants</div>
+
+      <!-- {{GRID_COLUMNS}} — Use "variant-grid--3col" or "variant-grid--2col" -->
+      <div class="variant-grid {{GRID_COLUMNS}}">
+
+        <!-- {{VARIANT_CELLS}} — Replace with variant cell blocks.
+             Each cell renders the FM component and labels the variant below.
+             Example:
+             <div class="variant-cell">
+               <button class="fm-btn fm-btn--primary">Label</button>
+               <div class="variant-cell__label">Primary</div>
+             </div>
+        -->
+        {{VARIANT_CELLS}}
+
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<!-- ============================================================
+     CARD 1 — Page Header
+     Uses the special brief-card--header class (no section header).
+     This card introduces the component with its name and description.
+     ============================================================ -->
+
+<div class="brief-card--header" data-name="Page header">
+
+  <div class="card-title-row">
+    <!-- {{COMPONENT_NAME}} — The display name of the component.
+         Examples: "Button", "Text Input", "Badge", "Data Table"
+         This appears as the large 72px title. -->
+    <div class="card-title" data-name="Component name">{{COMPONENT_NAME}}</div>
+
+    <!-- Actian pyramid logo — do not modify this SVG -->
+    <svg class="card-logo" viewBox="0 0 64 60" fill="none" xmlns="http://www.w3.org/2000/svg" data-name="Actian logo">
+      <path d="M32 0L64 60H0L32 0Z" fill="#0550DC"/>
+      <path d="M32 20L48 52H16L32 20Z" fill="white"/>
+      <path d="M32 34L40 48H24L32 34Z" fill="#0550DC"/>
+    </svg>
+  </div>
+
+  <!-- {{COMPONENT_DESCRIPTION}} — 1-2 paragraphs describing the component.
+       Cover: what it is, its role in the design system, key variants, and when to use it.
+       Each paragraph should be wrapped in a <p class="card-body"> tag.
+       Example:
+         <p class="card-body">Buttons trigger actions or navigation. They are the primary
+         interactive element for user-initiated operations.</p>
+         <p class="card-body">DS2026 buttons use a Hierarchy axis (Primary, Secondary, Tertiary,
+         Link) instead of the FM Kit's Type axis.</p>
+  -->
+  {{COMPONENT_DESCRIPTION}}
+
+</div>

@@ -1,0 +1,120 @@
+<!--
+  DS Card 6 — Usage Guidelines
+  Template for the component-brief skill (Actian DS mode).
+
+  CSS classes (do-dont-card, do-dont-row, card-section-header, card-content,
+  card-divider, card-sub-heading, section-title, section-body) are defined
+  in ds-wrapper.html. Do NOT redefine them here.
+
+  PLACEHOLDERS
+  ============
+  {{COMPONENT_NAME}}        — Display name of the component (e.g. "Button", "Text Input")
+  {{WHEN_TO_USE_ITEMS}}     — Repeated green-plus bullet rows (see pattern below)
+  {{WHEN_NOT_TO_USE_ITEMS}} — Repeated red-minus bullet rows with alternatives
+  {{DO_DONT_PAIRS}}         — Repeated do-dont-row blocks (see pattern below)
+-->
+
+<div data-name="Usage guidelines" style="width:960px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.08);flex-shrink:0;">
+
+  <!-- ====== SECTION HEADER ====== -->
+  <div class="card-section-header">
+    <div class="card-section-header__title">Usage guidelines</div>
+    <div class="card-section-header__subtitle">When and how to use each {{COMPONENT_NAME}} type, with do and don't examples.</div>
+  </div>
+
+  <!-- ====== CONTENT ====== -->
+  <div class="card-content">
+
+    <!-- ──────────────────────────────────────────────
+         SUB-SECTION 1: When to use
+         Generate 4-6 bullet items. Each item is a flex row
+         with a green plus sign and descriptive text.
+
+         PATTERN for each item inside {{WHEN_TO_USE_ITEMS}}:
+
+         <div style="display:flex;gap:8px;align-items:flex-start;">
+           <span style="color:#047800;font-weight:700;font-size:16px;line-height:1.6;flex-shrink:0;">+</span>
+           <span style="font-size:14px;line-height:1.6;color:#475467;">Use case description here</span>
+         </div>
+
+         Example items:
+         - Use for primary actions that advance the user's workflow
+         - Use to submit forms or confirm dialog decisions
+         - Use as a call-to-action in empty states or onboarding
+    ────────────────────────────────────────────── -->
+    <div data-name="When to use">
+      <div class="card-sub-heading">When to use</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        {{WHEN_TO_USE_ITEMS}}
+      </div>
+    </div>
+
+    <div class="card-divider"></div>
+
+    <!-- ──────────────────────────────────────────────
+         SUB-SECTION 2: When NOT to use
+         Generate 3-5 anti-pattern items. Each item is a flex row
+         with a red minus sign, the anti-pattern description,
+         and the recommended alternative.
+
+         PATTERN for each item inside {{WHEN_NOT_TO_USE_ITEMS}}:
+
+         <div style="display:flex;gap:8px;align-items:flex-start;">
+           <span style="color:#C10C0D;font-weight:700;font-size:16px;line-height:1.6;flex-shrink:0;">&minus;</span>
+           <span style="font-size:14px;line-height:1.6;color:#475467;">Anti-pattern description &rarr; use <strong>Alternative component</strong> instead</span>
+         </div>
+
+         Example items:
+         - For navigation between pages -> use Link instead
+         - For toggling a setting on/off -> use Toggle instead
+         - For a list of low-priority actions -> use Menu instead
+    ────────────────────────────────────────────── -->
+    <div data-name="When not to use">
+      <div class="card-sub-heading">When NOT to use</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        {{WHEN_NOT_TO_USE_ITEMS}}
+      </div>
+    </div>
+
+    <div class="card-divider"></div>
+
+    <!-- ──────────────────────────────────────────────
+         SUB-SECTION 3: Do / Don't pairs
+         Generate 3-5 pairs. Each pair is a 2-column grid row.
+         The Do card has a green bar, the Don't card has a red bar.
+
+         PATTERN for each pair inside {{DO_DONT_PAIRS}}:
+
+         <div class="do-dont-row">
+           <div class="do-dont-card">
+             <div class="do-dont-card__bar do-dont-card__bar--do"></div>
+             <div class="do-dont-card__label do-dont-card__label--do">Do &mdash; Short label describing the good practice</div>
+             <div class="do-dont-card__example">
+               Visual example or descriptive text showing the correct approach.
+               Can contain rendered component HTML or plain description.
+             </div>
+           </div>
+           <div class="do-dont-card">
+             <div class="do-dont-card__bar do-dont-card__bar--dont"></div>
+             <div class="do-dont-card__label do-dont-card__label--dont">Don't &mdash; Short label describing the mistake</div>
+             <div class="do-dont-card__example">
+               Visual example or descriptive text showing the incorrect approach.
+             </div>
+           </div>
+         </div>
+
+         Example pairs:
+         - Do: Use sentence case for labels / Don't: Use ALL CAPS or Title Case
+         - Do: One primary action per view / Don't: Multiple primary buttons competing
+         - Do: Use 480px max-width for form inputs / Don't: Stretch inputs full-width
+           (include this pair for form input components — see Forms Layout Rules)
+    ────────────────────────────────────────────── -->
+    <div data-name="Do and don't">
+      <div class="card-sub-heading">Do / Don't</div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        {{DO_DONT_PAIRS}}
+      </div>
+    </div>
+
+  </div>
+</div>

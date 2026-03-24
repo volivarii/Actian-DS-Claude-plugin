@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- {{PAGE_TITLE}} — e.g., "FM Button — Component Brief" -->
+  <title>{{PAGE_TITLE}}</title>
+
+  <!-- AI CONSUMPTION METADATA
+       Component: {{COMPONENT_NAME}}
+       Kit: Fat Marker Wireframe Kit
+       Brief type: Component Brief
+       Generated: {{GENERATION_DATE}}
+  -->
+
+  <!-- Google Fonts: Inter (400, 500, 600, 700) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Figma capture script -->
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+
+  <style>
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', sans-serif; background: #E8E8EE; padding: 40px; }
+
+    /* ===== LAYOUT ===== */
+    .brief-row { display: flex; gap: 24px; align-items: flex-start; }
+
+    /* ===== CARDS ===== */
+    .card { width: 820px; border-radius: 16px; overflow: hidden; flex-shrink: 0; background: white; }
+    .card--dark { background: #2D3648; }
+    .card-header { background: #F5F5FA; padding: 48px; border-radius: 16px 16px 0 0; }
+    .card-header__title { font-weight: 600; font-size: 28px; color: #101828; margin-bottom: 8px; }
+    .card-header__subtitle { font-weight: 400; font-size: 14px; color: #475467; max-width: 600px; line-height: 1.5; }
+    .card-content { padding: 48px; display: flex; flex-direction: column; gap: 32px; }
+
+    /* ===== PAGE HEADER (dark card) ===== */
+    .page-header { padding: 48px; display: flex; flex-direction: column; justify-content: flex-end; min-height: 320px; }
+    .page-header__source { font-size: 12px; color: #A0ABC0; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+    .page-header__title { font-size: 48px; font-weight: 700; color: white; margin-bottom: 8px; }
+    .page-header__subtitle { font-size: 16px; color: #CBD2E0; line-height: 1.5; max-width: 600px; }
+
+    /* ===== SECTIONS ===== */
+    .section { display: flex; flex-direction: column; gap: 12px; }
+    .section__title { font-weight: 600; font-size: 16px; color: #101828; }
+    .section__subtitle { font-size: 13px; color: #475467; }
+
+    /* ===== TABLES ===== */
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th { text-align: left; font-weight: 600; color: #475467; padding: 10px 12px; border-bottom: 2px solid #E2E7F0; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+    td { padding: 10px 12px; border-bottom: 1px solid #EDF0F7; color: #2D3648; vertical-align: top; }
+    td code { background: #F5F5FA; padding: 2px 6px; border-radius: 4px; font-size: 12px; font-family: 'SF Mono', 'Fira Code', monospace; color: #4A5468; }
+
+    /* ===== VARIANT GRID ===== */
+    .variant-grid { display: grid; gap: 24px; }
+    .variant-grid--3col { grid-template-columns: repeat(3, 1fr); }
+    .variant-grid--2col { grid-template-columns: repeat(2, 1fr); }
+
+    /* ===== DO / DON'T CARDS (FM) ===== */
+    .do-card { border-radius: 12px; overflow: hidden; border: 1px solid #EDF0F7; }
+    .do-card__bar { height: 4px; }
+    .do-card__bar--do { background: #22C55E; }
+    .do-card__bar--dont { background: #EF4444; }
+    .do-card__body { padding: 24px; }
+    .do-card__body--do { background: #FAFFF5; }
+    .do-card__body--dont { background: #FFF5F5; }
+    .do-card__label { font-weight: 600; font-size: 13px; margin-bottom: 8px; }
+    .do-card__label--do { color: #22C55E; }
+    .do-card__label--dont { color: #EF4444; }
+
+    /* ===== ANATOMY ===== */
+    .anatomy-diagram { background: #F9FAFB; border-radius: 12px; padding: 48px; position: relative; }
+    .pointer-badge { width: 20px; height: 20px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 500; }
+
+    /* ===== FM PALETTE TOKENS ===== */
+    /* Use these when rendering FM-style components inside the brief:
+       FM background: #FFFFFF (white)
+       FM stroke:     #B0B0B0
+       FM text:       #333333
+       FM primary fill: #333333
+       FM primary text: #FFFFFF
+    */
+
+    /* ===== UTILITY: variant cell label ===== */
+    .variant-cell { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .variant-cell__label { font-size: 12px; color: #475467; text-align: center; }
+  </style>
+</head>
+<body>
+  <div class="brief-row">
+    <!-- {{CARDS}} — Replace this marker with the concatenated card HTML files
+         (fm-card-1 through fm-card-5). Each card is a sibling <div> inside brief-row. -->
+    {{CARDS}}
+  </div>
+</body>
+</html>

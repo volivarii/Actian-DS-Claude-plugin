@@ -1,0 +1,116 @@
+<!-- FM Card 5: Anatomy
+     Structural breakdown with numbered callouts and a parts reference table.
+
+     Placeholders:
+       {{ANATOMY_COMPONENT_WITH_BADGES}} — The FM component rendered at actual scale inside the
+                                            anatomy-diagram container, with numbered pointer-badge
+                                            circles positioned near each structural part.
+                                            Pointer badges should be placed ABOVE or BELOW the
+                                            component — NEVER overlapping it.
+                                            Use absolute positioning relative to the anatomy-diagram
+                                            container, or flex layout with lines/connectors.
+       {{INLINE_LEGEND}}                 — Horizontal row of badge + name pairs for quick reference.
+                                            Each legend item follows this pattern:
+                                            <div style="display:flex; align-items:center; gap:6px;">
+                                              <div class="pointer-badge">{{N}}</div>
+                                              <span style="font-size:13px; color:#475467;">{{PART_NAME}}</span>
+                                            </div>
+       {{PARTS_TABLE_ROWS}}              — Table rows for the parts reference table.
+                                            Each row follows this pattern:
+                                            <tr>
+                                              <td><div class="pointer-badge">{{N}}</div></td>
+                                              <td><strong>{{PART_NAME}}</strong></td>
+                                              <td>{{PART_DESCRIPTION}}</td>
+                                            </tr>
+-->
+<div class="card" data-name="Anatomy">
+  <div class="card-header">
+    <div class="card-header__title">Anatomy</div>
+    <div class="card-header__subtitle">Structural breakdown with numbered callouts and specifications.</div>
+  </div>
+  <div class="card-content">
+
+    <!-- Structure section with anatomy diagram -->
+    <div class="section" data-name="Structure">
+      <div class="anatomy-diagram">
+        <!-- {{ANATOMY_COMPONENT_WITH_BADGES}} — Render the FM component at actual scale.
+             Add numbered pointer-badge circles pointing to each structural part.
+             Place pointers ABOVE or BELOW the component — NEVER overlapping it.
+
+             Example for a button with 3 parts:
+             <div style="display:flex; flex-direction:column; align-items:center; gap:24px;">
+               <div style="display:flex; gap:32px; align-items:center;">
+                 <div class="pointer-badge">1</div>
+                 <div class="pointer-badge">2</div>
+                 <div class="pointer-badge">3</div>
+               </div>
+               <button class="fm-btn fm-btn--primary">
+                 <svg>...</svg> Label
+               </button>
+             </div>
+        -->
+        {{ANATOMY_COMPONENT_WITH_BADGES}}
+      </div>
+
+      <!-- Inline legend: horizontal row of badge + name pairs -->
+      <div style="display:flex; gap:20px; flex-wrap:wrap; margin-top:16px;">
+        <!-- {{INLINE_LEGEND}} — Replace with legend items.
+
+             Legend item pattern:
+             <div style="display:flex; align-items:center; gap:6px;">
+               <div class="pointer-badge">1</div>
+               <span style="font-size:13px; color:#475467;">Container</span>
+             </div>
+             <div style="display:flex; align-items:center; gap:6px;">
+               <div class="pointer-badge">2</div>
+               <span style="font-size:13px; color:#475467;">Leading icon</span>
+             </div>
+             <div style="display:flex; align-items:center; gap:6px;">
+               <div class="pointer-badge">3</div>
+               <span style="font-size:13px; color:#475467;">Label</span>
+             </div>
+        -->
+        {{INLINE_LEGEND}}
+      </div>
+    </div>
+
+    <!-- Parts reference table -->
+    <div class="section" data-name="Parts reference">
+      <div class="section__title">Parts reference</div>
+      <table>
+        <thead>
+          <tr>
+            <th style="width:40px;">#</th>
+            <th>Element</th>
+            <th>Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- {{PARTS_TABLE_ROWS}} — Replace with table rows.
+
+               Parts table row pattern:
+               <tr>
+                 <td><div class="pointer-badge">1</div></td>
+                 <td><strong>Container</strong></td>
+                 <td>The outer boundary of the button. Uses FM primary fill (#333333)
+                 for primary variant, FM stroke (#B0B0B0) border for secondary.</td>
+               </tr>
+               <tr>
+                 <td><div class="pointer-badge">2</div></td>
+                 <td><strong>Leading icon</strong></td>
+                 <td>Optional icon before the label. 16px size, inherits text color.</td>
+               </tr>
+               <tr>
+                 <td><div class="pointer-badge">3</div></td>
+                 <td><strong>Label</strong></td>
+                 <td>Action text. Uses FM primary text (#FFFFFF) on filled,
+                 FM text (#333333) on outlined variants.</td>
+               </tr>
+          -->
+          {{PARTS_TABLE_ROWS}}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

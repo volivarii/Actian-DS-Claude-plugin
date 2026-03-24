@@ -1,0 +1,112 @@
+<!--
+  DS Card 7 — Content Guidelines
+  Template for the component-brief skill (Actian DS mode).
+
+  CSS classes (do-dont-card, do-dont-row, card-section-header, card-content,
+  card-divider, card-sub-heading, section, section-title, section-body,
+  spec-table) are defined in ds-wrapper.html. Do NOT redefine them here.
+
+  PLACEHOLDERS
+  ============
+  {{COMPONENT_NAME}}    — Display name of the component (e.g. "Button", "Text Input")
+  {{CONTENT_RULES}}     — Repeated rule blocks (see pattern below)
+  {{TERMINOLOGY_ROWS}}  — Repeated <tr> rows for the terminology table (optional)
+-->
+
+<div data-name="Content guidelines" style="width:960px;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 2px 12px rgba(0,0,0,0.08);flex-shrink:0;">
+
+  <!-- ====== SECTION HEADER ====== -->
+  <div class="card-section-header">
+    <div class="card-section-header__title">Content guidelines</div>
+    <div class="card-section-header__subtitle">Label copy rules: what to write, how to write it, and common mistakes for {{COMPONENT_NAME}}.</div>
+  </div>
+
+  <!-- ====== CONTENT ====== -->
+  <div class="card-content">
+
+    <!-- ──────────────────────────────────────────────
+         CONTENT RULES
+         Generate 4-6 rule blocks. Each block has:
+         1. A section-title heading (24px, weight 500)
+         2. A section-body explanation (14px, #475467)
+         3. An inline Do/Don't pair (compact, 20px padding)
+
+         Rules are separated by card-divider elements.
+
+         Read docs/content-guidelines.md before generating rules.
+         Apply all relevant guidelines for this component type.
+
+         PATTERN for each rule inside {{CONTENT_RULES}}:
+
+         <div class="section">
+           <div class="section-title">Rule title (e.g. "Use sentence case")</div>
+           <div class="section-body">
+             Explanation of the rule in plain language. Why it matters
+             and when it applies. 1-2 sentences max.
+           </div>
+           <div class="do-dont-row">
+             <div class="do-dont-card">
+               <div class="do-dont-card__bar do-dont-card__bar--do"></div>
+               <div class="do-dont-card__label do-dont-card__label--do">Do</div>
+               <div class="do-dont-card__example" style="padding:20px;">
+                 Good example text or rendered component showing correct copy.
+               </div>
+             </div>
+             <div class="do-dont-card">
+               <div class="do-dont-card__bar do-dont-card__bar--dont"></div>
+               <div class="do-dont-card__label do-dont-card__label--dont">Don't</div>
+               <div class="do-dont-card__example" style="padding:20px;">
+                 Bad example text or rendered component showing incorrect copy.
+               </div>
+             </div>
+           </div>
+         </div>
+
+         <div class="card-divider"></div>
+
+         Typical rules to include (adapt per component):
+         - Sentence case: capitalize only the first word and proper nouns
+         - Lead with a verb: for action-oriented components (buttons, links, CTAs)
+         - Be concise: 2-3 words for buttons, clear labels for inputs
+         - Confirm destructive actions: explicit language for delete/remove
+         - Use specific language: avoid vague terms like "Submit" or "Click here"
+         - Avoid jargon: use plain language the user understands
+    ────────────────────────────────────────────── -->
+    {{CONTENT_RULES}}
+
+    <!-- ──────────────────────────────────────────────
+         TERMINOLOGY TABLE (optional)
+         Include when the component has domain-specific terms that
+         need consistent usage. Skip for simple components.
+
+         PATTERN for each row inside {{TERMINOLOGY_ROWS}}:
+
+         <tr>
+           <td style="font-weight:500;color:#101828;">Term (e.g. "Cancel")</td>
+           <td style="color:#475467;">When to use this term and any alternatives to avoid.</td>
+         </tr>
+
+         Example rows:
+         - Cancel | Use to dismiss without saving. Don't use "Close" for cancel actions.
+         - Delete | Use for permanent removal. Don't use "Remove" for destructive actions.
+         - Save   | Use when persisting changes. Don't use "Submit" for save actions.
+    ────────────────────────────────────────────── -->
+    <div class="card-divider"></div>
+
+    <div data-name="Terminology">
+      <div class="card-sub-heading">Terminology</div>
+      <table class="spec-table">
+        <thead>
+          <tr>
+            <th style="width:200px;">Term</th>
+            <th>When to use</th>
+          </tr>
+        </thead>
+        <tbody>
+          {{TERMINOLOGY_ROWS}}
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
