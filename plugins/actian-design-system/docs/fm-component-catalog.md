@@ -1,10 +1,10 @@
 # Fat Marker Kit — Component Reference
 
-Auto-generated from Figma REST API on 2026-03-22.
+Auto-generated from Figma REST API on 2026-03-24.
 29 component sets, 391 individual components.
 
 Source: [Page mockups](https://www.figma.com/design/X2JSEUyLvxyNCx22ucOexn)
-Last modified: 2026-03-22T22:27:32Z
+Last modified: 2026-03-24T15:44:05Z
 
 ---
 

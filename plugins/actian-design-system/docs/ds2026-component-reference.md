@@ -1,10 +1,10 @@
 # Actian Design System 2026 — Component Reference
 
-Auto-generated from Figma REST API on 2026-03-22.
-75 component sets, 725 individual components.
+Auto-generated from Figma REST API on 2026-03-24.
+77 component sets, 728 individual components.
 
-Source: [Actian Design System 2026](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK)
-Last modified: 2026-03-21T00:05:26Z
+Source: [Actian Design System v1.1.0](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK)
+Last modified: 2026-03-24T18:38:08Z
 
 ---
 
@@ -13,20 +13,20 @@ Last modified: 2026-03-21T00:05:26Z
 - Cover
 - Table of contents
 - Governance & change log
-- Ready-to-use mockups
+- ✍️ Ready-to-use mockups
 - ✍️ Playground
 - -----
 - 💎 FOUNDATIONS
 - Accessibility
 - Borders
-- Breakpoint, grid & structure
-- Color
+- Breakpoint, grid & structure — 5 component sets
+- ✍️ Color
 - Content guidelines
 - Elevation
 - Icons
 - Interaction & motion
 - Spacing
-- Typography
+- ✍️ Typography
 - Usage example
 - ----
 - 🧱 COMPONENTS 
@@ -54,7 +54,7 @@ Last modified: 2026-03-21T00:05:26Z
 - Data Display
 -         Avatar — 1 component sets
 -         Badge — 1 component sets
--         Card — 1 component sets
+-         Card — 3 component sets
 -         Collapse (Accordion) — 1 component sets
 -         Data viz: glossary item hierarchy — 1 component sets
 -         Data viz: lineage — 2 component sets
@@ -93,6 +93,33 @@ Last modified: 2026-03-21T00:05:26Z
 - ---
 
 ---
+
+## Breakpoint, grid & structure
+
+### L grid
+
+- Variants: **Property:** `Default` · `Side nav collapsed` · `Side nav expanded`
+- Node: `12054:30598` | Key: `8601f7461f9b21847400f69ebb63d7f591119987`
+
+### M grid
+
+- Variants: **Property 1:** `Default` · `Sid nav collapsed`
+- Node: `12054:30576` | Key: `ed642e9bb87c7b5e1cdab020943ad2f999374a39`
+
+### S grid
+
+- Variants: **Property 1:** `Default`
+- Node: `14744:8072` | Key: `15772025d13a090b6327442a396f6f9757858031`
+
+### XL grid
+
+- Variants: **Property:** `Default` · `Side nav collapsed` · `Side nav expanded`
+- Node: `12054:30623` | Key: `d6b83246f85c6e57d45bbd35ec6d8acab2e16488`
+
+### XS grid
+
+- Variants: **Property 1:** `Default`
+- Node: `14744:8073` | Key: `e939d776621f097562d024535a10d5c011fd493c`
 
 ## Button
 
@@ -157,7 +184,7 @@ Use when there are 5+ options or space is limited. Ideal for selecting one item 
 
 ## Filters
 
-### Full filters
+### Search filters
 A collection of inputs used to narrow down a dataset or search results. Should be placed above or to the left of the content it controls.
 
 - Variants: **Type:** `Explorer` · `Studio`
@@ -284,6 +311,16 @@ Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for count
 - Node: `12159:16447` | Key: `e8d93a3432951bd42d9b0bb20287eb61262ae10e`
 
 ## Card
+
+### Card
+
+- Variants: **Property 1:** `Default`
+- Node: `14782:29281` | Key: `3b8d2c7adc118fdd5f31e68440fa35e952fee92e`
+
+### Perimeter card
+
+- Variants: **Property 1:** `Default`
+- Node: `14783:7565` | Key: `c1672b025b85c4ed0ddc645d89aa202803a95f07`
 
 ### Tile, Item
 A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.
@@ -456,7 +493,7 @@ Use for large datasets requiring comparison, sorting, and filtering. Supports co
 ### Alert-banner
 Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.
 
-- Variants: **Type:** `Informational` · `Success` · `Critical`
+- Variants: **Type:** `Primary` · `Success` · `Warning` · `Danger`
 - Node: `13732:3056` | Key: `9717f500f425975f63c0eb2f9c1e434ff010f24b`
 
 ## Empty state
@@ -603,9 +640,10 @@ A non-modal floating container triggered by a click. Use for displaying a small 
 
 ###         Alert (banner)
 
-- **Type=Critical** — Key: `e5403f7e8d8e885e4499279266c8899544399415`
-- **Type=Informational** — Key: `5cbcbd676a3f4687691b2153885635c50fea230e`
+- **Type=Danger** — Key: `e5403f7e8d8e885e4499279266c8899544399415`
+- **Type=Primary** — Key: `5cbcbd676a3f4687691b2153885635c50fea230e`
 - **Type=Success** — Key: `66aebc399ceebe68fb0ea657c49e21493be62ef7`
+- **Type=Warning** — Key: `d811d12f1c014676252427380b491f84cb659707`
 
 ###         Avatar
 
@@ -709,6 +747,8 @@ A non-modal floating container triggered by a click. Use for displaying a small 
 
 ###         Card
 
+- **Property 1=Default** — Key: `aa1974476257fdfad2d0b631c83f71ca64e0d810`
+- **Property 1=Default** — Key: `c5d01d9189464a5dcc7fc48cd08136aaad010b54`
 - **Type=Catalog, State=Default** — Key: `5649eceed8174a46c4bc3d93d849742f1cd99471`
 - **Type=Catalog, State=Focused** — Key: `569b449657264a65f9d8d11658932cbacb6b0c28`
 - **Type=Catalog, State=Hovered** — Key: `83ba0f7fd4dc46464d9b8825f51517b0bd570258`
@@ -737,16 +777,16 @@ A non-modal floating container triggered by a click. Use for displaying a small 
 - **Selected=Indeterminate, State=Focused** — Key: `251e2cbc5258868fc4c5657fd2d44d80ae8560e6`
 - **Selected=Indeterminate, State=Hovered** — Key: `07c4b4d81303dd4282df5f352a42ffb007931af8`
 - **Selected=Indeterminate, State=Pressed** — Key: `8e0107545bf2bca8fb95059cc568fd48c9dd8fea`
-- **Selected=No, State=Disabled** — Key: `a21590f9cb247d293a1da2bf85fb451cf1c67953`
-- **Selected=No, State=Enabled** — Key: `890988b6111c33d31ee20454f8b0eadd4a06352a`
-- **Selected=No, State=Focused** — Key: `6e695f55c73f07f8d5ab47c2d2f1596f502b239f`
-- **Selected=No, State=Hovered** — Key: `592cbd28b21f945d1f4bd1099a3e0c209fdece52`
-- **Selected=No, State=Pressed** — Key: `3b84a862722842bedf41a1b9b378c7e78ee45fa6`
-- **Selected=Yes, State=Disabled** — Key: `0ca2d43e73aa180fd5c8ff69f298b3f978c9d5db`
-- **Selected=Yes, State=Enabled** — Key: `8c54618038d158bf17ecbd5a131d2aca73781f69`
-- **Selected=Yes, State=Focused** — Key: `3fdf6ac547d915ee41cc2b6663d5779790333710`
-- **Selected=Yes, State=Hovered** — Key: `e2489b69666a849e4c3174fb3c44df6e8666f6c3`
-- **Selected=Yes, State=Pressed** — Key: `b3cdd5a4188ca01a0deef93449998767180bc3bb`
+- **Selected=No, State=Disabled** — Key: `0ca2d43e73aa180fd5c8ff69f298b3f978c9d5db`
+- **Selected=No, State=Enabled** — Key: `8c54618038d158bf17ecbd5a131d2aca73781f69`
+- **Selected=No, State=Focused** — Key: `3fdf6ac547d915ee41cc2b6663d5779790333710`
+- **Selected=No, State=Hovered** — Key: `e2489b69666a849e4c3174fb3c44df6e8666f6c3`
+- **Selected=No, State=Pressed** — Key: `b3cdd5a4188ca01a0deef93449998767180bc3bb`
+- **Selected=Yes, State=Disabled** — Key: `a21590f9cb247d293a1da2bf85fb451cf1c67953`
+- **Selected=Yes, State=Enabled** — Key: `890988b6111c33d31ee20454f8b0eadd4a06352a`
+- **Selected=Yes, State=Focused** — Key: `6e695f55c73f07f8d5ab47c2d2f1596f502b239f`
+- **Selected=Yes, State=Hovered** — Key: `592cbd28b21f945d1f4bd1099a3e0c209fdece52`
+- **Selected=Yes, State=Pressed** — Key: `3b84a862722842bedf41a1b9b378c7e78ee45fa6`
 
 ###         Collapse (Accordion)
 
@@ -879,10 +919,10 @@ A non-modal floating container triggered by a click. Use for displaying a small 
 
 ###         Dropdown / Select
 
-- **Type=Custom dropdown, State=Active** — Key: `a0e7090190b1fc4f5293b530337fc486f71055c6`
-- **Type=Custom dropdown, State=Default** — Key: `def798476f5bd8b290e5a12bcba91186631d8bb4`
-- **Type=Custom dropdown, State=Focused** — Key: `5b9e756011aa40eb975590772098f61da53978c4`
-- **Type=Custom dropdown, State=Hovered** — Key: `a45b525989decfe248fecac07d2316a8555c9372`
+- **Type=Compact/Custom, State=Active** — Key: `a0e7090190b1fc4f5293b530337fc486f71055c6`
+- **Type=Compact/Custom, State=Default** — Key: `def798476f5bd8b290e5a12bcba91186631d8bb4`
+- **Type=Compact/Custom, State=Focused** — Key: `5b9e756011aa40eb975590772098f61da53978c4`
+- **Type=Compact/Custom, State=Hovered** — Key: `a45b525989decfe248fecac07d2316a8555c9372`
 - **Type=Default, State=Active** — Key: `046310a45b9247181cc97f195720b8f4caf3dc59`
 - **Type=Default, State=Default** — Key: `6a3378f23f40c55608cf03013e33740bd0620357`
 - **Type=Default, State=Disabled** — Key: `a42e1ff601646059d4eb66f8084de3337d1095b2`
@@ -898,9 +938,9 @@ A non-modal floating container triggered by a click. Use for displaying a small 
 
 ###         Empty state
 
-- **Size=Large** — Key: `511bd120d27d3a5007850641123c1419bc9cbf5b`
 - **Size=Large** — Key: `56c8289f7813a2d1d8649e369f42bb56a7dde6f1`
 - **Size=Large** — Key: `15cbfe5da8e0570989bce12982bcd840bc9b8f22`
+- **Size=Large** — Key: `511bd120d27d3a5007850641123c1419bc9cbf5b`
 - **Size=Large** — Key: `530c4f4568d2dd180d403c0a6754f6e170dbe6dd`
 - **Size=Medium** — Key: `08de9835cb374a493678c56554fcfd023ff02652`
 - **Size=Medium** — Key: `fd0eaed3e24bc2df73c36a3d79f4add9653ef6be`
@@ -938,10 +978,10 @@ Menus display a list of choices on a temporary surface. They appear when users i
 - **Property 1=Drilldown2** — Key: `5450fdc81a90b30f303dddb91f646c3c9a25569f`
   Menu: -4 Density 
 Menus display a list of choices on a temporary surface. They appear when users interact with a button,
-- **Property 1=Empty** — Key: `0746fbfa6e1abbb1c5cb47d1d49e9b5acff199c2`
+- **Property 1=Empty** — Key: `ffd24c6d16790391c22ff80dbc67e4402d0a8dc4`
   Menu: -4 Density 
 Menus display a list of choices on a temporary surface. They appear when users interact with a button,
-- **Property 1=Empty** — Key: `ffd24c6d16790391c22ff80dbc67e4402d0a8dc4`
+- **Property 1=Empty** — Key: `0746fbfa6e1abbb1c5cb47d1d49e9b5acff199c2`
   Menu: -4 Density 
 Menus display a list of choices on a temporary surface. They appear when users interact with a button,
 - **Property 1=List** — Key: `75435f0f0dbc2c73558a9d62a6e5fddd64b344eb`
@@ -997,10 +1037,10 @@ Menus display a list of choices on a temporary surface. They appear when users i
 
 ###         Page header 
 
-- **Type=Admin** — Key: `b368ce636789de7dd02e1d5543de2e50d31ab7a3`
+- **Type=Default** — Key: `b368ce636789de7dd02e1d5543de2e50d31ab7a3`
+- **Type=Details page** — Key: `0967a66265836fe1245c30c3320a3d527b90b0f6`
 - **Type=Explorer detail** — Key: `9e00cebe8c99e620b6eb3eddd708900165467184`
 - **Type=Explorer home** — Key: `727e80ee2b835468179abbbea1ade88cff6e1cb0`
-- **Type=Studio detail** — Key: `0967a66265836fe1245c30c3320a3d527b90b0f6`
 
 ###         Popover
 
@@ -1056,20 +1096,20 @@ Menus display a list of choices on a temporary surface. They appear when users i
   Menu: -4 Density 
 Menus display a list of choices on a temporary surface. They appear when users interact with a button,
 - **Type=Explorer home, State=Active** — Key: `6fe675d6f65fd239c7fb410384500fabc5921b0b`
+- **Type=Explorer home, State=Default** — Key: `7dfc347dd3115c5196b922682833eb0d7b39cc20`
 - **Type=Explorer home, State=Dsiabled** — Key: `369899776b2d496a9b666aeb77fbb5da24c1bb02`
-- **Type=Explorer home, State=Enabled** — Key: `7dfc347dd3115c5196b922682833eb0d7b39cc20`
 - **Type=Explorer home, State=Filled** — Key: `7b7b3ff1e7b01c9678f17504f1090deae5845307`
 - **Type=Explorer home, State=Focused** — Key: `03e430a54dd08025b55c02a7205baa1561de9bec`
 - **Type=Explorer home, State=Hovered** — Key: `efa08267418862f862b01810ccc610661664bb3b`
 - **Type=Global header, State=Active** — Key: `8f1f3a9a6dc8b42c2177289b02bb2d84a4dc52f4`
+- **Type=Global header, State=Default** — Key: `22082717cef362f82da0d341b570fde20d32cd8a`
 - **Type=Global header, State=Dsiabled** — Key: `3e8cb9e592ea5cd48fc8fc74e8d45f98a0973a31`
-- **Type=Global header, State=Enabled** — Key: `22082717cef362f82da0d341b570fde20d32cd8a`
 - **Type=Global header, State=Filled** — Key: `0eafefbfbacd2d5e24941c9bab620b290ffd2c2e`
 - **Type=Global header, State=Focused** — Key: `752d43f87cc82a501ff810f7c7415d9eb62330fd`
 - **Type=Global header, State=Hovered** — Key: `8c4621f0bc818cc0251d59d1a35db6a90f9b7b28`
 - **Type=Inline, State=Active** — Key: `54a709464e92b8f18de60ab291ed4fe4da91f505`
+- **Type=Inline, State=Default** — Key: `b852a6a4ee4442bcc70d384fa1d58a79e17176a0`
 - **Type=Inline, State=Dsiabled** — Key: `013576978e2969561f3765af6bc3d84a93ee00d0`
-- **Type=Inline, State=Enabled** — Key: `b852a6a4ee4442bcc70d384fa1d58a79e17176a0`
 - **Type=Inline, State=Filled** — Key: `882baffe8dda0e438b03578852b68b225091be17`
 - **Type=Inline, State=Focused** — Key: `377afd90a94de34c3a0860cd1bbab387b8050aa7`
 - **Type=Inline, State=Hovered** — Key: `7fc67f203487ecaeac1245e3f756b0662e80a8c2`
@@ -1112,22 +1152,22 @@ Menus display a list of choices on a temporary surface. They appear when users i
 - **Color=Default** — Key: `ce2f8cc105432b11153ff3e7a74052a15da99baf`
 - **Color=Gray** — Key: `752b2de4c840cf1961ab9a48d6b90bbaaee788b5`
 - **Color=Gray** — Key: `e0524703beb0b1708c4256ad25670e120dd003e7`
-- **Color=Indigo** — Key: `db1bea735074dad15d49f3cf60067c552e020a50`
 - **Color=Indigo** — Key: `3a1c6cf905dd00f0ca5a9ee73a2723ff450dc887`
+- **Color=Indigo** — Key: `db1bea735074dad15d49f3cf60067c552e020a50`
 - **Color=Lime** — Key: `e8e6b452cb8be16cd3518215f72c1c77beed08c6`
 - **Color=Lime** — Key: `f3a0680bd9340912285d4f0f0268c497cdd6738d`
 - **Color=Orange** — Key: `4c621297010c3ad3d52e8447f0d79a0e841b0fbf`
 - **Color=Orange** — Key: `94d503d45b2d0748146419fecd8673896ffc1a88`
-- **Color=Pink** — Key: `5401608a83409270bc3e56a6b2733c0b72124b11`
 - **Color=Pink** — Key: `4f84432a29b8f8c301083e41f294e7babe8f4e9c`
-- **Color=Purple** — Key: `9525d14fa2e56c8ae586a6a26cfb61b554ae0984`
+- **Color=Pink** — Key: `5401608a83409270bc3e56a6b2733c0b72124b11`
 - **Color=Purple** — Key: `891e3d1c722536e0f5d9f261678202be7b502f31`
+- **Color=Purple** — Key: `9525d14fa2e56c8ae586a6a26cfb61b554ae0984`
 - **Color=Teal** — Key: `4a7f4db8deb482df5eb84151cf7fdfeb436c3d9f`
 - **Color=Teal** — Key: `f7b1cf85074e8ac3e437f306399169713605f6c7`
 - **Color=Yellow** — Key: `0863f29da6e37fbd3dee995f51320ac5bd7cf185`
 - **Color=Yellow** — Key: `de4426bf42b6ddcf20c54ddd3ac8ea00d794fd01`
-- **Property 1=Default** — Key: `55088cf45c7ee10b5e6ad9377551a299428f50d7`
 - **Property 1=Default** — Key: `fff06ba00e1d5317d3112c722a8434f765194909`
+- **Property 1=Default** — Key: `55088cf45c7ee10b5e6ad9377551a299428f50d7`
 - **State=Default** — Key: `039d7410dc30000f974880724cb9cdb579754fad`
 - **State=Disabled** — Key: `95726cc41d8dbcab21a5298e315426efc635bdb2`
 - **State=Focused** — Key: `ae4bd0fa1fe16acf59ab93df59fb2edad7d0b54d`
@@ -1192,17 +1232,17 @@ Menus display a list of choices on a temporary surface. They appear when users i
 - **Type=Orange** — Key: `352e312097d5dec19bfdb60897637ef78d1e60cf`
 - **Type=Red** — Key: `c1958a0fb3d20247030e9ccbe94de90f9278053a`
 
-### Breakpoint & grid
+### Breakpoint, grid & structure
 
-- **Property 1=Default** — Key: `06c58fafe40868767254cd70707f0c96bf1c547c`
 - **Property 1=Default** — Key: `40c22ceb0c13e3d0b42f52d68d0cc6b31d699c3e`
 - **Property 1=Default** — Key: `0892c771829c8e81c9d1b667f168980c9c1bb315`
   Layout template with expanded navigation region
+- **Property 1=Default** — Key: `06c58fafe40868767254cd70707f0c96bf1c547c`
 - **Property 1=Sid nav collapsed** — Key: `1d5974dc39089380707dfa512b8a4d89f2ac7521`
   Layout template with expanded navigation region
-- **Property=Default** — Key: `f320c3f7fcb22e2c503e2ee20efa7b5dbd5a1c8b`
-  Layout template with expanded navigation region
 - **Property=Default** — Key: `1dfac09ff35b50f560e2b191869eb41f638cc5e5`
+  Layout template with expanded navigation region
+- **Property=Default** — Key: `f320c3f7fcb22e2c503e2ee20efa7b5dbd5a1c8b`
   Layout template with expanded navigation region
 - **Property=Side nav collapsed** — Key: `5ec1709582e9c410d82f79007833761e2ab18efc`
   Layout template with expanded navigation region
@@ -1219,8 +1259,8 @@ Menus display a list of choices on a temporary surface. They appear when users i
 
 ### Icons
 
-- **add** — Key: `2b10108613a16fe36ada2420f992f0240b076804`
 - **add** — Key: `33ab1534db5a1d5619a29735d2a0ac87514819b9`
+- **add** — Key: `2b10108613a16fe36ada2420f992f0240b076804`
 - **add-circle** — Key: `1aa9aeb58cfd76045aef34c67c9137a659eb4c5d`
 - **adlsgen1** — Key: `7a4697cd3f8b40eec2dd6122528b4b7d6ef0a57c`
 - **adobe-analytics** — Key: `dbbd381b0a1be15cf5f3c68aa1348c5fda1fbb1c`
@@ -1250,8 +1290,8 @@ Menus display a list of choices on a temporary surface. They appear when users i
 - **back** — Key: `3626cb4ae78e5ad1bbc79bb3b04ef9d0323dbf9f`
 - **bigquery** — Key: `f2105b90a8f205ee78b02428b71cc2720fc451f6`
 - **bin-type** — Key: `fe0c2ab0c4128c555979c33682a6f3df40fb0b76`
-- **book-bookmark** — Key: `b5e398041c92e0830c652775f440c06226403d04`
 - **book-bookmark** — Key: `37bb27238ac422fd734919a3193c3c7564f1ce7c`
+- **book-bookmark** — Key: `b5e398041c92e0830c652775f440c06226403d04`
 - **book-edit** — Key: `5375571bf48c287ec6f4c68bc4323db53466cf36`
 - **boolean-type** — Key: `e3dffdffb222be75a098c850a0ad155e1ad47eef`
 - **brightness-contrast** — Key: `f6cb9d9b6a1a428237a5d845543c565524cd4eb0`
@@ -1299,13 +1339,13 @@ Menus display a list of choices on a temporary surface. They appear when users i
 - **dbt** — Key: `120f28794fbc5ce6b7a8f0e405a3c8d58ab3cdaf`
 - **denodo** — Key: `b2c1c1149efbd4f9da9aa7f0598e494e2a5f94bf`
 - **dictionnary** — Key: `391bd61cec5cb74f9db7c92fab0afc483c75db5b`
-- **directory** — Key: `c97a2b5506aafe95c2e4964752e4522b247e609b`
 - **directory** — Key: `64b2045e4c431df3c913363c7ae6d98bc44434d6`
+- **directory** — Key: `c97a2b5506aafe95c2e4964752e4522b247e609b`
 - **disconnected** — Key: `a5726c79041ba23ea9615c4c8af7a7dedde9eb4f`
 - **discussion** — Key: `4544a1b4ee7ecc05c3c18662aabb8b1aa0abebe0`
 - **dots** — Key: `d4bf02099fcf80e9f1956149da15460fe1ae13a7`
-- **download** — Key: `6e95f8cd495baaa3db3e1f4435182f4717aad5f0`
 - **download** — Key: `3a3acebe888e3a87c03831ab720ad5639c358af6`
+- **download** — Key: `6e95f8cd495baaa3db3e1f4435182f4717aad5f0`
 - **drag** — Key: `f4dd4a86dfd0f91cce381eaa51abaa14a84785d3`
 - **edit** — Key: `2f0c909fda47237325e20a1fc1c3d6eea2b05cd6`
 - **elasticsearch** — Key: `f891e01a197b6befba71d802e4461f512211dbe1`
@@ -1391,8 +1431,8 @@ Menus display a list of choices on a temporary surface. They appear when users i
 - **PostgreSQL** — Key: `cbc2bc0a266fabdfb26be4bc406413846501248d`
 - **Powerbi** — Key: `0303355bb9f628d8908b8a6b5ea5ccdae0826310`
 - **powerbireportserver** — Key: `4f905bd3d9625c8ef3c115a421ec22035a700283`
-- **process** — Key: `dc941ab8d4a5da501b15ec3ebba7f97cce7c4cc4`
 - **process** — Key: `edc02bc5216a1b8970bf42c0192dbac253613d8d`
+- **process** — Key: `dc941ab8d4a5da501b15ec3ebba7f97cce7c4cc4`
 - **process csv** — Key: `115c254d8901c11f5dfc8c8575e0a483cb798d51`
 - **qlik-sense** — Key: `651160c6a9ac69ff73c400920218e736e72661a4`
 - **relation** — Key: `328e40cf262d88c868275a408b432b445bf34888`
