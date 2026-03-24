@@ -1,1 +1,0 @@
-../../docs/accessibility-guidelines.md

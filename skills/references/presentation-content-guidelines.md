@@ -1,1 +1,0 @@
-../../docs/presentation-content-guidelines.md

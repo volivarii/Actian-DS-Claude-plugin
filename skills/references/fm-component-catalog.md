@@ -1,1 +1,0 @@
-../../docs/fm-component-catalog.md
