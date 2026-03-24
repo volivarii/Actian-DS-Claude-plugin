@@ -7,8 +7,8 @@ argument-hint: "[feature description or Figma URL]"
 # Generate Fat Marker Flow
 
 > **Workflow A — Fat Marker (lo-fi).** This skill uses FM components, Inter font, and the simplified Fat Marker palette. NOT DS2026 tokens. See CLAUDE.md "Workflow A" for rules.
-> **Content guidelines:** All UI copy must follow `references/content-guidelines.md` (in the skills directory). Read it before writing any screen copy.
-> **Accessibility guidelines:** All flows must follow `references/accessibility-guidelines.md` (in the skills directory) — ensure keyboard navigation, focus order, ARIA landmarks, form labels, error states, and touch targets are designed. WCAG 2.1 AA.
+> **Content guidelines:** All UI copy must follow `docs/content-guidelines.md`. Read it before writing any screen copy.
+> **Accessibility guidelines:** All flows must follow `docs/accessibility-guidelines.md` — ensure keyboard navigation, focus order, ARIA landmarks, form labels, error states, and touch targets are designed. WCAG 2.1 AA.
 > **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
 
 Generate a low-fidelity user flow using Fat Marker components and push it to Figma.

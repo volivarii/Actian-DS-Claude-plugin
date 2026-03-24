@@ -8,9 +8,9 @@ argument-hint: "[topic, file path, Figma URL, or description of content]"
 
 Generate a structured Figma presentation deck using the official Actian slide templates.
 
-> **Presentation templates:** Read `references/presentation-templates.md` (in the skills directory) before generating any slides. It contains the exact specs for all 5 slide types, typography, colors, and sequencing rules.
-> **Presentation content guidelines:** Read `references/presentation-content-guidelines.md` (in the skills directory) before writing any slide copy. It defines voice & tone, headline rules, data formatting, chart selection, narrative structure, and the review report format. This is the primary content reference for this skill.
-> **Content guidelines:** General UI copy rules in `references/content-guidelines.md` — sentence case, terminology, and formatting also apply.
+> **Presentation templates:** Read `docs/presentation-templates.md` before generating any slides. It contains the exact specs for all 5 slide types, typography, colors, and sequencing rules.
+> **Presentation content guidelines:** Read `docs/presentation-content-guidelines.md` before writing any slide copy. It defines voice & tone, headline rules, data formatting, chart selection, narrative structure, and the review report format. This is the primary content reference for this skill.
+> **Content guidelines:** General UI copy rules in `docs/content-guidelines.md` — sentence case, terminology, and formatting also apply.
 > **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
 
 > **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — make reasonable decisions instead of asking for every detail. Favor complete output over perfect output; the cleanup pass handles polish. Keep status updates to milestones only.
@@ -187,7 +187,7 @@ For light Section dividers, use the same shapes but with `rgba(0,0,100,0.03)` in
 
 **MANDATORY: Always present a full review report before offering to send to Figma.** Never skip this step.
 
-Follow the review report format defined in `references/presentation-content-guidelines.md`:
+Follow the review report format defined in `docs/presentation-content-guidelines.md`:
 
 1. **Deck summary** — slide count, section count, estimated duration
 2. **Slide-by-slide breakdown table** — #, template type, headline, content summary, charts/visuals used
@@ -217,7 +217,7 @@ After the user reviews in Figma:
 
 ## Charts, diagrams, and data visualization
 
-Use charts, diagrams, and data visualizations as the primary content medium — not walls of text. Refer to `references/presentation-content-guidelines.md` for the full chart selection guide, CSS patterns, and styling rules.
+Use charts, diagrams, and data visualizations as the primary content medium — not walls of text. Refer to `docs/presentation-content-guidelines.md` for the full chart selection guide, CSS patterns, and styling rules.
 
 **Default behavior:** When input material contains data, metrics, timelines, processes, or comparisons, generate appropriate charts automatically. The chart selection guide in the content guidelines maps each question type to the right chart.
 
@@ -235,7 +235,7 @@ All charts must use DS2026 category tokens (`--zen-color-category-N-strong`) for
 
 ## Content quality rules
 
-All slide copy must follow `references/presentation-content-guidelines.md`. Key rules:
+All slide copy must follow `docs/presentation-content-guidelines.md`. Key rules:
 
 - **1 message per slide** — three points on a slide means zero remembered
 - **Headlines as conclusions** — "Q1 adoption grew 40%" not "Q1 Results" (the "So what?" test)

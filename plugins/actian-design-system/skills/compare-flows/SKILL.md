@@ -7,8 +7,8 @@ argument-hint: "[Figma URL 1] [Figma URL 2]"
 # Compare Flows
 
 > **Works with both workflows.** Determine which library each flow uses. If comparing across fidelity levels (FM vs DS2026), note the difference and focus on UX structure rather than visual tokens.
-> **Content guidelines:** Evaluate all UI copy in both flows against `references/content-guidelines.md` (in the skills directory) — flag inconsistencies in button labels, link text, status messages, and terminology.
-> **Accessibility guidelines:** Compare accessibility compliance in both flows using `references/accessibility-guidelines.md` (in the skills directory) — check focus order, keyboard access, ARIA patterns, contrast, touch targets, and missing states. WCAG 2.1 AA.
+> **Content guidelines:** Evaluate all UI copy in both flows against `docs/content-guidelines.md` — flag inconsistencies in button labels, link text, status messages, and terminology.
+> **Accessibility guidelines:** Compare accessibility compliance in both flows using `docs/accessibility-guidelines.md` — check focus order, keyboard access, ARIA patterns, contrast, touch targets, and missing states. WCAG 2.1 AA.
 > **Quality & hygiene:** Evaluate both flows against the Quality & Hygiene Checklist in CLAUDE.md — flag violations as comparison points.
 
 Compare two Figma flows or screens and provide structured UX recommendations.

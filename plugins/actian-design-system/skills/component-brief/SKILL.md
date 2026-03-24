@@ -8,8 +8,8 @@ argument-hint: "[Figma URL or component name] [generate N,N,N]"
 
 Draft a structured component brief and generate an HTML spec page. Supports two modes matching the two design system layers.
 
-> **Content guidelines:** All UI copy in briefs must follow `references/content-guidelines.md` (in the skills directory). Read it before writing Cards 6 (Usage guidelines) and 7 (Content guidelines).
-> **Accessibility guidelines:** Card 8 (Accessibility) must follow `references/accessibility-guidelines.md` (in the skills directory) — use the component-specific checklist matching the component type (P0/P1/P2), include WCAG criteria references, contrast ratio table, and keyboard interaction spec. All WCAG 2.1 AA.
+> **Content guidelines:** All UI copy in briefs must follow `docs/content-guidelines.md`. Read it before writing Cards 6 (Usage guidelines) and 7 (Content guidelines).
+> **Accessibility guidelines:** Card 8 (Accessibility) must follow `docs/accessibility-guidelines.md` — use the component-specific checklist matching the component type (P0/P1/P2), include WCAG criteria references, contrast ratio table, and keyboard interaction spec. All WCAG 2.1 AA.
 > **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
 
 > **Mode: Spec.** Be thorough — document every variant, state, and edge case. Structure everything with consistent headings, tables, and numbered lists. Define before building; every decision needs a rationale. Cross-reference tokens, components, and guidelines by name. Include what's out of scope explicitly.
@@ -41,7 +41,7 @@ Before writing anything:
 2. **Check the DS2026 library** (`l8biHxfarNi1I2RMvVxVOK` or `8Yu8wUtPTXsa3iV6R4TmnS`) — fetch design context + screenshot if a node exists
 3. Check existing feature files — is there a real usage example?
 4. **Check CLAUDE.md** — what tokens, conventions, and **Forms Layout Rules** apply to this component type?
-5. **Check `references/design-system.md` (in the skills directory)** — get exact token values per theme (Actian DS mode only)
+5. **Check `docs/design-system.md`** — get exact token values per theme (Actian DS mode only)
 
 ## Step 2 — Draft the brief
 
