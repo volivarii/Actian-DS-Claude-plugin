@@ -201,28 +201,32 @@ Only ask for the target if the user hasn't provided one.
    BASE_URL=$(scripts/ensure-server.sh . 8765)
    ```
 
-2. **Call `mcp__plugin_figma_figma__generate_figma_design`** (or `mcp__claude_ai_Figma__generate_figma_design` — whichever is available) with:
+2. **Try calling `generate_figma_design` directly** — check if `mcp__plugin_figma_figma__generate_figma_design` or `mcp__claude_ai_Figma__generate_figma_design` is available. If yes, call it with:
    - `outputMode: "existingFile"`
    - `fileKey` from the user's target file
    - `nodeId` from the user's target page
    - The localhost URL for the served HTML spec
-   - If creating a new file: `outputMode: "newFile"` and `fileName`
 
-3. **Poll for completion** with `captureId` every 5 seconds (up to 10 times) until status is `completed`
+3. **If `generate_figma_design` is NOT available** (e.g., Claude Desktop doesn't expose it), use the CLI fallback:
+   ```bash
+   claude -p --output-format text --allowedTools "mcp__plugin_figma_figma__generate_figma_design" "Call generate_figma_design with outputMode existingFile, fileKey {{FILE_KEY}}, and nodeId {{NODE_ID}} to capture the page at {{LOCALHOST_URL}}. Poll with captureId until completed. Do not edit any files. Return the final Figma link."
+   ```
+   Replace `{{FILE_KEY}}`, `{{NODE_ID}}`, and `{{LOCALHOST_URL}}` with actual values. This spawns a Claude Code CLI subprocess that HAS access to `generate_figma_design`.
 
-4. **Share the Figma link** with the user
+4. **Poll for completion** with `captureId` every 5 seconds (up to 10 times) until status is `completed`
+
+5. **Share the Figma link** with the user
 
 ### CRITICAL rules
 
-- **NEVER delegate Figma capture to a subagent.** Subagents do NOT have access to MCP tools. Call `generate_figma_design` directly in the main conversation.
-- **ALWAYS** call `generate_figma_design` — it IS available in both Claude Code and Claude Desktop. The tool name is `mcp__plugin_figma_figma__generate_figma_design` or `mcp__claude_ai_Figma__generate_figma_design`.
 - **NEVER fall back to `use_figma`** to build cards programmatically. The capture tool renders the HTML as-is with full CSS fidelity. Building cards with the Plugin API produces inferior results.
 - **NEVER** give up and suggest manual workarounds (browser, copy/paste, extensions)
 - **NEVER** tell the user to open the HTML manually in a browser
 - **NEVER** suggest installing browser extensions or Figma plugins for capture
 - **NEVER** capture to the first page of a file without a nodeId
-- **NEVER** use the `claude -p` CLI workaround — call the MCP tool directly
+- **NEVER delegate capture to a subagent.** Subagents do NOT have MCP tools.
 - Each `captureId` is single-use — one capture per page
+- The `claude -p` CLI fallback is the ONLY acceptable alternative when `generate_figma_design` is not directly available
 
 ## Step 4 — Create in Figma (optional)
 
