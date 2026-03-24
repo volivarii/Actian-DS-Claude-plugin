@@ -10,6 +10,7 @@ Create a new Figma component (with variants) from a text description or by exten
 
 > Uses the DS Assembler plugin's Create mode. Requires the plugin to be installed and `python3 serve.py 8765` running in the Actian-DS-Assembler directory.
 > **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
+> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
 
 > **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — make reasonable decisions instead of asking for every detail. Favor complete output over perfect output; the cleanup pass (Step 5) handles polish. Keep status updates to milestones only.
 

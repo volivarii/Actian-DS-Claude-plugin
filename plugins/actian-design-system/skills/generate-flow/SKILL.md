@@ -10,6 +10,7 @@ argument-hint: "[feature description or Figma URL]"
 > **Content guidelines:** All UI copy must follow `docs/content-guidelines.md`. Read it before writing any screen copy.
 > **Accessibility guidelines:** All flows must follow `docs/accessibility-guidelines.md` — ensure keyboard navigation, focus order, ARIA landmarks, form labels, error states, and touch targets are designed. WCAG 2.1 AA.
 > **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
+> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
 
 Generate a low-fidelity user flow using Fat Marker components and push it to Figma.
 

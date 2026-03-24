@@ -12,6 +12,7 @@ Generate a structured Figma presentation deck using the official Actian slide te
 > **Presentation content guidelines:** Read `docs/presentation-content-guidelines.md` before writing any slide copy. It defines voice & tone, headline rules, data formatting, chart selection, narrative structure, and the review report format. This is the primary content reference for this skill.
 > **Content guidelines:** General UI copy rules in `docs/content-guidelines.md` — sentence case, terminology, and formatting also apply.
 > **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
+> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
 
 > **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — make reasonable decisions instead of asking for every detail. Favor complete output over perfect output; the cleanup pass handles polish. Keep status updates to milestones only.
 

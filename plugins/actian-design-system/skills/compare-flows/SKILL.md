@@ -10,6 +10,7 @@ argument-hint: "[Figma URL 1] [Figma URL 2]"
 > **Content guidelines:** Evaluate all UI copy in both flows against `docs/content-guidelines.md` — flag inconsistencies in button labels, link text, status messages, and terminology.
 > **Accessibility guidelines:** Compare accessibility compliance in both flows using `docs/accessibility-guidelines.md` — check focus order, keyboard access, ARIA patterns, contrast, touch targets, and missing states. WCAG 2.1 AA.
 > **Quality & hygiene:** Evaluate both flows against the Quality & Hygiene Checklist in CLAUDE.md — flag violations as comparison points.
+> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
 
 Compare two Figma flows or screens and provide structured UX recommendations.
 
