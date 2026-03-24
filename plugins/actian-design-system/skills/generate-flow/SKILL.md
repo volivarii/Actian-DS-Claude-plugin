@@ -482,11 +482,19 @@ Generates flat vector frames via `generate_figma_design`. Use only when:
 - The assembler plugin is not installed
 - The user explicitly declines the assembler
 
-1. Ensure the local HTTP server is running on port 8765 (or start one)
-2. Call `generate_figma_design` with `outputMode: "existingFile"` and the target file key/node
-3. Open the HTML file with the capture hash URL
-4. Poll until capture completes
+1. Serve the HTML file locally:
+   ```bash
+   BASE_URL=$(scripts/ensure-server.sh . 8765)
+   ```
+2. **Try calling `generate_figma_design` directly** — check if `mcp__plugin_figma_figma__generate_figma_design` or `mcp__claude_ai_Figma__generate_figma_design` is available. If yes, call it with `outputMode: "existingFile"`, the target `fileKey`, `nodeId`, and the localhost URL.
+3. **If `generate_figma_design` is NOT available** (e.g., Claude Desktop), use the CLI fallback:
+   ```bash
+   claude -p --output-format text --allowedTools "mcp__plugin_figma_figma__generate_figma_design" "Call generate_figma_design with outputMode existingFile, fileKey {{FILE_KEY}}, and nodeId {{NODE_ID}} to capture the page at {{LOCALHOST_URL}}. Poll with captureId until completed. Do not edit any files. Return the final Figma link."
+   ```
+4. Poll with `captureId` every 5 seconds (up to 10 times) until `completed`
 5. Share the Figma link with the user
+
+**CRITICAL:** NEVER fall back to `use_figma` Plugin API to build frames programmatically. NEVER suggest manual workarounds. NEVER delegate capture to a subagent.
 
 ## Step 6 — Review
 
