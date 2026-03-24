@@ -4,27 +4,37 @@ Claude plugin for the Actian UX team. Generate wireframe flows, create component
 
 ## Install
 
-### Claude Desktop App
+### Option A — Claude Code CLI (recommended)
 
-1. Open Claude Desktop (Code mode)
-2. Run:
-   ```
-   /install-plugin https://github.com/volivarii/Actian-DS-Claude-plugin
-   ```
-3. Restart Claude Desktop
-
-### Claude Code CLI
+Claude Code CLI provides full access to all features including direct Figma capture via `generate_figma_design`.
 
 ```bash
+# Add the marketplace
 claude plugin add volivarii/Actian-DS-Claude-plugin
+
+# Connect Figma MCP (if not already connected)
+claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
 ```
+
+### Option B — Claude Desktop (Code mode, Cowork mode, Chat mode)
+
+1. Open Claude Desktop
+2. Go to **Customize** → **Personal plugins** → **+**
+3. Add marketplace: `volivarii/Actian-DS-Claude-plugin`
+4. Click **Check for updates** to load the plugin
+5. Enable the **Figma** connector under **Customize** → **Connectors**
+
+> **Note:** Claude Desktop does not currently expose the `generate_figma_design` Figma MCP tool. The plugin works around this by shelling out to `claude -p` (Claude Code CLI) for Figma capture. **Install Claude Code CLI alongside Claude Desktop for full Figma capture support:**
+>
+> ```bash
+> npm install -g @anthropic-ai/claude-code
+> ```
+>
+> Without the CLI installed, you can still generate specs and preview them locally — you just won't get automatic push-to-Figma.
 
 ### Connector required
 
-This plugin requires the **Figma MCP** connector. If not already connected:
-
-- **Claude Desktop:** Go to Customize → Connectors → add the Figma connector
-- **Claude Code CLI:** `claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp`
+This plugin requires the **Figma MCP** connector for design context, screenshots, and capture. The official Figma plugin (from "By Anthropic & Partners") provides this. Make sure it's connected in your Connectors settings.
 
 ## Skills
 
@@ -35,7 +45,7 @@ This plugin requires the **Figma MCP** connector. If not already connected:
 | `/design-audit` | Audit a Figma file against DS2026 tokens, accessibility, and quality standards |
 | `/compare-flows` | Compare two Figma flows with structured UX analysis and recommendations |
 | `/generate-presentation` | Create a full slide deck from docs, research, Figma content, or a topic |
-| `/create-component` | Build a new Figma component with variants (requires DS Assembler — not yet available) |
+| `/create-component` | Build a new Figma component with variants (requires DS Assembler) |
 
 You don't need to memorize commands. You can also ask naturally:
 
@@ -44,7 +54,6 @@ You don't need to memorize commands. You can also ask naturally:
 - "Audit this Figma page for accessibility" + paste URL
 - "Compare these two flows and recommend which to ship" + paste two URLs
 - "Create a presentation about our Q1 accessibility findings" + attach a file
-- "Generate a flow from this PDF spec" + attach a PDF
 
 ## How it works
 
@@ -55,6 +64,35 @@ You don't need to memorize commands. You can also ask naturally:
 5. **Claude pushes to Figma** — captures the output into your target Figma file
 
 All outputs use `--zen-*` design tokens across all three themes (Actian, Studio, Explorer). No hardcoded values.
+
+## Feature comparison
+
+| Feature | Claude Code CLI | Claude Desktop |
+|---------|:-:|:-:|
+| All 6 skills | Yes | Yes |
+| Figma read (design context, screenshots) | Yes | Yes |
+| Figma capture (`generate_figma_design`) | Yes (native) | Yes (via `claude -p` workaround) |
+| Local server management | Automatic | Automatic |
+| Hooks (auto-approve internal reads) | Yes | Yes |
+| Cowork mode | N/A | Yes |
+
+## DS Assembler (optional)
+
+The `/generate-flow` and `/create-component` skills can assemble **real Figma component instances** from the published FM Kit library using the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) Figma plugin.
+
+### Setup
+
+The Assembler plugin needs a local server to load its component registry:
+
+```bash
+# From the Assembler directory
+cd ~/Developer/Actian/Actian-DS-Assembler
+python3 -m http.server 8765
+```
+
+Or if using Claude Code, the plugin handles this automatically via `scripts/ensure-server.sh`.
+
+Without the Assembler, flow generation falls back to HTML capture mode.
 
 ## Design system — two layers
 
@@ -80,27 +118,7 @@ Every skill output is validated against a 10-item quality checklist before compl
 9. Hidden layer cleanup
 10. Component documentation
 
-Items 1–4 are P0 blockers. Source: [DS2026 Quality & Hygiene](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-v1.0.0?node-id=14793-7507)
-
-## Presentation templates
-
-`/generate-presentation` uses 5 official Actian slide templates at 1920x1080px:
-
-| Template | Use for |
-|----------|---------|
-| Cover | Opening slide (dark gradient + geometric BG) |
-| Body (Full) | Charts, diagrams, screenshots |
-| Body (Text+Visual) | Written content + visual side by side |
-| Section divider | Separating major sections (light gradient) |
-| Back cover | Closing slide |
-
-Charts and data visualizations are generated as CSS-only (no JS): stat cards, bar charts, donut charts, progress bars, timelines, flow diagrams.
-
-## DS Assembler (coming soon)
-
-`/generate-flow` and `/create-component` will support assembling **real Figma component instances** from the published FM Kit library using the Actian DS Assembler plugin. The output will be editable, linked to the design system, and support variant swapping.
-
-Currently falls back to HTML capture for all flow generation.
+Items 1-4 are P0 blockers. Source: [DS2026 Quality & Hygiene](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-v1.0.0?node-id=14793-7507)
 
 ## Token naming
 
@@ -118,40 +136,38 @@ All tokens use the `--zen-` prefix:
 ```
 actian-design-system-plugin/
 ├── .claude-plugin/
-│   ├── plugin.json              # Plugin manifest
-│   └── marketplace.json         # Marketplace index
-├── scripts/                     # ensure-server.sh (safe local server mgmt)
-├── CLAUDE.md                    # Design system rules (loaded every session)
+│   └── marketplace.json              # Marketplace index (only file here)
 │
-├── skills/                      # Plugin skills
-│   ├── generate-flow/           #   Fat Marker flow generation
-│   ├── component-brief/         #   9-card component brief
-│   ├── design-audit/            #   Figma audit
-│   ├── compare-flows/           #   Flow comparison
-│   ├── generate-presentation/   #   Presentation deck generation
-│   ├── create-component/        #   Component creation (needs Assembler)
-│   └── references/              #   Shared reference files (symlinks to docs/)
+├── plugins/actian-design-system/     # The plugin
+│   ├── .claude-plugin/plugin.json    # Plugin manifest
+│   ├── CLAUDE.md                     # Design system rules
+│   ├── hooks/hooks.json              # Auto-approve internal reads
+│   ├── scripts/                      # ensure-server.sh
+│   │
+│   ├── skills/                       # Plugin skills
+│   │   ├── generate-flow/
+│   │   ├── component-brief/
+│   │   │   └── templates/            # HTML skeleton templates (9 DS + 5 FM)
+│   │   ├── design-audit/
+│   │   ├── compare-flows/
+│   │   ├── generate-presentation/
+│   │   └── create-component/
+│   │
+│   ├── tokens/                       # Design tokens
+│   │   ├── actian-ds.tokens.json     # W3C DTCG format (source of truth)
+│   │   └── tokens.css                # CSS custom properties (--zen-*)
+│   │
+│   └── docs/                         # Reference docs
+│       ├── design-system.md          # Token reference (3 themes)
+│       ├── content-guidelines.md     # UI copy rules
+│       ├── accessibility-guidelines.md
+│       ├── fm-component-catalog.md   # 42 Fat Marker components
+│       ├── presentation-templates.md
+│       └── presentation-content-guidelines.md
 │
-├── tokens/                      # Design tokens
-│   ├── actian-ds.tokens.json    #   W3C DTCG format (source of truth)
-│   └── tokens.css               #   CSS custom properties (--zen-*)
-│
-├── docs/                        # Human-readable reference docs
-│   ├── design-system.md         #   Token reference (3 themes)
-│   ├── content-guidelines.md    #   UI copy rules
-│   ├── accessibility-guidelines.md  # WCAG 2.1 AA standards
-│   ├── fm-component-catalog.md  #   42 Fat Marker components
-│   ├── presentation-templates.md    # 5 slide template specs
-│   └── presentation-content-guidelines.md  # Voice, tone, chart selection
-│
-└── team/                        # Team resources
-    ├── DISTRIBUTION.md          #   Setup guide
-    └── prompt-templates/        #   Copy-paste prompts for each skill
-        ├── generate-flow.md
-        ├── component-brief.md
-        ├── design-audit.md
-        ├── compare-flows.md
-        └── generate-presentation.md
+└── team/                             # Team resources
+    ├── DISTRIBUTION.md
+    └── prompt-templates/             # Copy-paste prompts for each skill
 ```
 
 ## Maintaining
@@ -160,20 +176,12 @@ actian-design-system-plugin/
 |-------------|---------------|
 | Tokens change in Figma | Re-export JSON to `tokens/`, regenerate `actian-ds.tokens.json` + `tokens.css`, update `docs/design-system.md` |
 | FM Kit changes | Update `docs/fm-component-catalog.md` + FM CSS in generate-flow skill |
-| Content rules change | Edit `docs/content-guidelines.md` (symlink updates skills automatically) |
+| Content rules change | Edit `docs/content-guidelines.md` |
 | A11y rules change | Edit `docs/accessibility-guidelines.md` |
 | New skill needed | Add `skills/<name>/SKILL.md` + prompt template in `team/prompt-templates/` |
-| Bump version | Update `version` in both `.claude-plugin/plugin.json` and `marketplace.json` |
+| Bump version | Update `version` in `plugins/actian-design-system/.claude-plugin/plugin.json` |
 
-**Versioning:** PATCH for fixes/docs, MINOR for new features/skills, MAJOR for breaking changes. Always bump both files in the same commit.
-
-## Upgrading
-
-Run the install command again:
-```
-/install-plugin https://github.com/volivarii/Actian-DS-Claude-plugin
-```
-Then restart Claude Desktop.
+**Versioning:** PATCH for fixes/docs, MINOR for new features/skills, MAJOR for breaking changes.
 
 ## Figma files
 
