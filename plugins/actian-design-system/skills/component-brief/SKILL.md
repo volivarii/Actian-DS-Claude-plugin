@@ -34,9 +34,15 @@ The user describes a component or provides a Figma URL. Examples:
 - "Document FM Alert"
 - "We need a notification banner component"
 
-## Step 1 — Research
+## Execution Model — Run Autonomously
 
-Before writing anything:
+**This skill runs end-to-end without intermediate prompts.** Do NOT pause to ask questions, present drafts, or wait for confirmation between steps. The only acceptable pause is when the mode (FM vs DS) is genuinely ambiguous AND no signals resolve it.
+
+Parse card selection from the user's initial input. If no selection is specified, default to **all cards**. Do not ask "which cards?" — just generate them.
+
+## Step 1 — Research (parallel)
+
+Run all research in parallel using subagents or parallel tool calls:
 
 1. **Check the Fat Marker catalog** (`docs/fm-component-catalog.md`) — does this component already exist?
 2. **Check the DS2026 library** (`l8biHxfarNi1I2RMvVxVOK` or `8Yu8wUtPTXsa3iV6R4TmnS`) — fetch design context + screenshot if a node exists
@@ -44,22 +50,17 @@ Before writing anything:
 4. **Check CLAUDE.md** — what tokens, conventions, and **Forms Layout Rules** apply to this component type?
 5. **Check `docs/design-system.md`** — get exact token values per theme (Actian DS mode only)
 
-## Step 2 — Draft the brief
+## Step 2 — Draft the brief (internal)
 
-Present a structured markdown brief to the user covering all sections relevant to the mode.
+Draft the brief internally. Do NOT present it to the user for review — go straight to HTML generation.
 
-## Step 3 — Review with user
+## Step 3 — Generate HTML (immediate)
 
-Present the brief and ask:
-- "Does this match your expectations?"
-- "Any variants or states I should add?"
-- "Which cards should I generate?"
+Read templates and generate the HTML spec page immediately after research. No card selector prompt needed — parse it from the initial input or default to all.
 
-Then present the card selector:
+### Card selection (parsed from input, never prompted)
 
-### Card selector
-
-The user can choose which cards to generate. Default is **All**.
+Default is **All cards**.
 
 **Actian DS cards:**
 
@@ -97,7 +98,7 @@ The user can choose which cards to generate. Default is **All**.
 
 When generating a subset, only include the selected cards in the HTML `brief-row`. The CSS framework and capture script are always included regardless of selection.
 
-## Step 4 — Generate HTML spec page (TEMPLATE-DRIVEN)
+### HTML generation (TEMPLATE-DRIVEN)
 
 **CRITICAL: You MUST read the template files and use them as the structural foundation for every card.** Do not generate card HTML from memory or from the descriptions above — the templates are the single source of truth for layout, CSS classes, and structure.
 
@@ -162,18 +163,16 @@ Use these prefixed names everywhere: spec tables, anatomy callouts, code specifi
 
 ---
 
-## Step 5 — Capture to Figma
+## Step 4 — Capture to Figma
 
-If the user wants to push the spec to Figma, use `generate_figma_design` via the Figma MCP tool.
+If the user wants to push the spec to Figma, capture it automatically. Do NOT give up or suggest manual workarounds.
 
-### Before capturing — ask the user
+### Figma target
 
-Before running the capture, ask:
-1. **"Which Figma file should I send this to?"** — get the file URL or fileKey
-2. **"Which page?"** — get the nodeId for the target page (extract from the URL's `node-id` parameter)
-
-If the user provides a Figma URL, extract `fileKey` and `nodeId` from it:
+If the user already provided a Figma URL, extract `fileKey` and `nodeId` from it:
 - `figma.com/design/:fileKey/:fileName?node-id=:nodeId` → convert `-` to `:` in nodeId
+
+Only ask for the target if the user hasn't provided one.
 
 ### Capture flow
 
@@ -182,34 +181,29 @@ If the user provides a Figma URL, extract `fileKey` and `nodeId` from it:
    BASE_URL=$(scripts/ensure-server.sh . 8765)
    ```
 
-2. **Try calling `generate_figma_design` directly** (MCP tool) with:
+2. **Call `mcp__plugin_figma_figma__generate_figma_design`** (or `mcp__claude_ai_Figma__generate_figma_design` — whichever is available) with:
    - `outputMode: "existingFile"`
    - `fileKey` from the user's target file
    - `nodeId` from the user's target page
+   - The localhost URL for the served HTML spec
    - If creating a new file: `outputMode: "newFile"` and `fileName`
 
-3. **If the MCP tool is not available** (e.g., Claude Desktop doesn't expose it), use the CLI workaround:
-   ```bash
-   cat <<'PROMPT' | claude -p --output-format text --allowedTools "mcp__plugin_figma_figma__generate_figma_design"
-   Call generate_figma_design with outputMode existingFile, fileKey {{FILE_KEY}}, and nodeId {{NODE_ID}} to capture the page at {{LOCALHOST_URL}}. Poll with captureId until completed. Do not edit any files. Return the final Figma link.
-   PROMPT
-   ```
-   Replace `{{FILE_KEY}}`, `{{NODE_ID}}`, and `{{LOCALHOST_URL}}` with actual values.
+3. **Poll for completion** with `captureId` every 5 seconds (up to 10 times) until status is `completed`
 
-4. **Poll for completion:** whether using the MCP tool directly or the CLI workaround, poll with `captureId` every 5 seconds (up to 10 times) until status is `completed`
+4. **Share the Figma link** with the user
 
-5. **Share the Figma link** with the user
+### CRITICAL rules
 
-### Important
-
-- **ALWAYS** ask the user for the target Figma file and page before capturing
-- **NEVER** capture to the first page of a file without asking — always use the `nodeId` parameter
-- **NEVER** suggest installing browser extensions or Figma plugins for capture
+- **NEVER delegate Figma capture to a subagent.** Subagents do NOT have access to MCP tools. Call `generate_figma_design` directly in the main conversation.
+- **ALWAYS** call the MCP tool directly — it IS available in both Claude Code and Claude Desktop. The tool name is `mcp__plugin_figma_figma__generate_figma_design` or `mcp__claude_ai_Figma__generate_figma_design`.
+- **NEVER** give up and suggest manual workarounds (browser, copy/paste, extensions)
 - **NEVER** tell the user to open the HTML manually in a browser
-- The CLI workaround (`claude -p`) is a temporary solution until Claude Desktop exposes `generate_figma_design` natively
+- **NEVER** suggest installing browser extensions or Figma plugins for capture
+- **NEVER** capture to the first page of a file without a nodeId
+- **NEVER** use the `claude -p` CLI workaround — call the MCP tool directly
 - Each `captureId` is single-use — one capture per page
 
-## Step 6 — Create in Figma (optional)
+## Step 5 — Create in Figma (optional)
 
 If the user says "create it in Figma", "build the component", or "make it real":
 

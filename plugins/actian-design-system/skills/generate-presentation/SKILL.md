@@ -24,28 +24,26 @@ The user provides one or more of:
 - **Figma content** — URLs to designs, flows, components, or audit results
 - A **brief or outline** — bullet points, agenda, or structure they want followed
 
+## Execution Model — Run Autonomously
+
+**This skill runs end-to-end without intermediate prompts.** Do NOT pause to present outlines for approval, ask review questions, or wait for confirmation between steps. The only acceptable pause is when the input is genuinely too thin to generate anything (e.g., user said "make a deck" with zero topic or content).
+
+**Defaults:** Audience = team update. Goal = inform. Slide count = 8–15 based on content density.
+
 ## Step 1 — Gather and understand content
 
 Before writing slides:
 
 1. **Read all input material** — files, URLs, Figma nodes. Extract key points, data, visuals.
-2. **Identify the audience** — ask if not obvious: executive summary? Team update? External pitch? Workshop?
-3. **Identify the goal** — what should the audience know, feel, or do after seeing this deck?
+2. **Identify the audience** — infer from context, default to "team update"
+3. **Identify the goal** — infer from content, default to "inform"
 4. **Check CLAUDE.md** — what tokens, conventions, and guidelines apply?
 
-If the input is thin (just a topic), ask 2–3 quick questions:
-- Who is the audience?
-- What are the 3–5 key points to cover?
-- Any specific visuals, data, or Figma designs to include?
+Only ask questions if the input is genuinely empty (just a topic with no content at all). Otherwise, infer and proceed.
 
-## Step 2 — Create the outline
+## Step 2 — Create the outline (internal)
 
-Present a slide-by-slide outline before generating. Each entry shows:
-
-```
-Slide N — [Template type] — "[Slide title]"
-  Content: [1-line description of what goes on this slide]
-```
+Plan the slide outline internally. Do NOT present it to the user for review — go straight to HTML generation.
 
 **Template selection rules:**
 - Slide 1 is always **Cover**
@@ -56,11 +54,9 @@ Slide N — [Template type] — "[Slide title]"
 - Target 1 key message per slide
 - Typical deck: 8–15 slides. Under 8 feels thin, over 20 feels heavy. Adjust to content density.
 
-Ask: "Does this outline look right? Want to add, remove, or reorder anything?"
-
 ## Step 3 — Generate the HTML deck
 
-Once the outline is approved, generate a single HTML file containing all slides as a horizontal row of 1920x1080px frames, ready for Figma capture.
+Generate a single HTML file containing all slides as a horizontal row of 1920x1080px frames, ready for Figma capture.
 
 ### Slide dimensions and capture setup
 

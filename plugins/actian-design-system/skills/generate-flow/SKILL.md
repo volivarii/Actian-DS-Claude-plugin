@@ -75,11 +75,7 @@ Before generating anything, clarify:
 
 If any of these are unclear, ask the user. Do not guess.
 
-**Always ask for output type:**
-- **Assembler spec** (default) — generates real Figma component instances via the DS Assembler plugin
-- **HTML capture** — generates flat vector frames via HTML-to-Figma capture
-
-Do not assume. Ask: "Output as assembler spec or HTML capture?"
+**Output type defaults to Assembler spec.** Only use HTML capture if the user explicitly asks for it or doesn't have the assembler plugin.
 
 ## Step 2 — Competitor & pattern research
 
