@@ -23,9 +23,11 @@ Determine the mode from context:
 |--------|------|
 | User says "FM", "Fat Marker", "wireframe", "lo-fi" | **Fat Marker** |
 | User says "DS2026", "design system", "hi-fi", "production" | **Actian DS** |
-| Component exists in FM catalog (`FATMARKER-COMPONENT-CATALOG.md`) | **Fat Marker** |
-| User provides a Figma URL from the DS2026 library (`8Yu8wUtPTXsa3iV6R4TmnS` or `l8biHxfarNi1I2RMvVxVOK`) | **Actian DS** |
-| Ambiguous | Ask the user: "Fat Marker (lo-fi wireframe) or Actian DS (hi-fi production)?" |
+| Component exists in FM catalog (`FATMARKER-COMPONENT-CATALOG.md`) AND no DS2026 signals | **Fat Marker** |
+| User provides a Figma URL from DS2026 files (`8Yu8wUtPTXsa3iV6R4TmnS`, `l8biHxfarNi1I2RMvVxVOK`, or `fuWLltVXyBrbn6KfBAav12`) | **Actian DS** |
+| Figma file name contains "Design System", "DS2026", or "Actian" | **Actian DS** |
+| **Default when a Figma URL is provided and no FM signals exist** | **Actian DS** |
+| Ambiguous (no URL, no explicit mode) | Ask the user: "Fat Marker (lo-fi wireframe) or Actian DS (hi-fi production)?" |
 
 ## Input
 
@@ -57,6 +59,8 @@ Draft the brief internally. Do NOT present it to the user for review — go stra
 ## Step 3 — Generate HTML (immediate)
 
 Read templates and generate the HTML spec page immediately after research. No card selector prompt needed — parse it from the initial input or default to all.
+
+**MANDATORY: Include the GENERATION LOG** comment block in `<head>` as specified in CLAUDE.md. Every output file must have it — no exceptions.
 
 ### Card selection (parsed from input, never prompted)
 
@@ -195,7 +199,8 @@ Only ask for the target if the user hasn't provided one.
 ### CRITICAL rules
 
 - **NEVER delegate Figma capture to a subagent.** Subagents do NOT have access to MCP tools. Call `generate_figma_design` directly in the main conversation.
-- **ALWAYS** call the MCP tool directly — it IS available in both Claude Code and Claude Desktop. The tool name is `mcp__plugin_figma_figma__generate_figma_design` or `mcp__claude_ai_Figma__generate_figma_design`.
+- **ALWAYS** call `generate_figma_design` — it IS available in both Claude Code and Claude Desktop. The tool name is `mcp__plugin_figma_figma__generate_figma_design` or `mcp__claude_ai_Figma__generate_figma_design`.
+- **NEVER fall back to `use_figma`** to build cards programmatically. The capture tool renders the HTML as-is with full CSS fidelity. Building cards with the Plugin API produces inferior results.
 - **NEVER** give up and suggest manual workarounds (browser, copy/paste, extensions)
 - **NEVER** tell the user to open the HTML manually in a browser
 - **NEVER** suggest installing browser extensions or Figma plugins for capture
