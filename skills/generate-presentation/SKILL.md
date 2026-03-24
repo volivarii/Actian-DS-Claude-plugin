@@ -180,7 +180,7 @@ For light Section dividers, use the same shapes but with `rgba(0,0,100,0.03)` in
 ## Step 4 — Save, serve, and preview
 
 1. Save to: `presentations/[topic-slug]/[topic-slug]-deck.html`
-2. Start local server: `BASE_URL=$(.claude-plugin/scripts/ensure-server.sh . 8765)`
+2. Start local server: `BASE_URL=$(scripts/ensure-server.sh . 8765)`
 3. Tell the user: "Preview at `http://localhost:8765/presentations/[topic-slug]/[topic-slug]-deck.html`"
 
 ## Step 5 — Present the review report

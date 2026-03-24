@@ -169,7 +169,7 @@ If the user wants to push the spec to Figma, use the `generate_figma_design` **M
 
 1. **Serve the HTML file locally:**
    ```bash
-   BASE_URL=$(.claude-plugin/scripts/ensure-server.sh . 8765)
+   BASE_URL=$(scripts/ensure-server.sh . 8765)
    ```
    This gives you a URL like `http://localhost:8765/components/button/button-spec.html`
 

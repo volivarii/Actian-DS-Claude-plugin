@@ -119,10 +119,8 @@ All tokens use the `--zen-` prefix:
 actian-design-system-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json              # Plugin manifest
-│   ├── marketplace.json         # Marketplace index
-│   ├── hooks/                   # PreToolUse hooks (auto-approve reads)
-│   └── scripts/                 # ensure-server.sh (safe local server mgmt)
-├── settings.json                # Auto-allows Figma MCP tools
+│   └── marketplace.json         # Marketplace index
+├── scripts/                     # ensure-server.sh (safe local server mgmt)
 ├── CLAUDE.md                    # Design system rules (loaded every session)
 │
 ├── skills/                      # Plugin skills

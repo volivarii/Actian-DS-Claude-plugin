@@ -44,10 +44,10 @@ When serving HTML for preview or Figma capture, always use the `ensure-server.sh
 
 ```bash
 # From the plugin directory — serves HTML files for Figma capture
-BASE_URL=$(.claude-plugin/scripts/ensure-server.sh . 8765)
+BASE_URL=$(scripts/ensure-server.sh . 8765)
 
 # From the Assembler directory — serves specs + registry
-BASE_URL=$(.claude-plugin/scripts/ensure-server.sh ~/Developer/Actian/Actian-DS-Assembler 8765)
+BASE_URL=$(scripts/ensure-server.sh ~/Developer/Actian/Actian-DS-Assembler 8765)
 ```
 
 The script handles all edge cases:
