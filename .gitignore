@@ -7,13 +7,12 @@ settings.json
 settings.local.json
 
 # Generated output (teammates create their own via skills)
-components/*/*.html
-components/flows/*.html
+components/
 presentations/
 prototypes/
 
 # Raw Figma export archive (DTCG file is source of truth)
-tokens/Actian-Design-System_variables_*.json
+plugins/*/tokens/Actian-Design-System_variables_*.json
 
 # Python
 *.pyc
@@ -21,6 +20,8 @@ __pycache__/
 
 # Node
 node_modules/
+
+# Superpowers working files
 .superpowers/
-docs/superpowers/
-docs/ds2026-analysis.json
+plugins/*/docs/superpowers/
+plugins/*/docs/ds2026-analysis.json
