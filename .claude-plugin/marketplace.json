@@ -1,5 +1,8 @@
 {
   "name": "actian-design-system",
+  "metadata": {
+    "description": "Actian Design System 2026 toolkit for Figma-to-code workflows, component briefs, design audits, and wireframe generation."
+  },
   "owner": {
     "name": "Actian UX Team"
   },
