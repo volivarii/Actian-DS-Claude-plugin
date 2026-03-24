@@ -58,6 +58,35 @@ The script handles all edge cases:
 
 ---
 
+## Generation Metadata (required for all outputs)
+
+**Every generated file** (HTML specs, flows, presentations, component specs) MUST include a generation metadata block. This applies to all skills that produce output files.
+
+Add this as an HTML comment in the `<head>` section, immediately after the AI CONSUMPTION METADATA block:
+
+```html
+<!--
+  GENERATION LOG
+  prompt       : {{exact user prompt or slash command that triggered this generation}}
+  generated-at : {{ISO 8601 date+time, e.g. 2026-03-24T14:30:00}}
+  duration     : {{total generation time from prompt to file save, e.g. "2m 45s"}}
+  skill        : {{skill name, e.g. "component-brief", "generate-flow"}}
+  model        : {{model used, e.g. "claude-opus-4-6"}}
+  plugin-version : {{current plugin version from plugin.json}}
+-->
+```
+
+**Rules:**
+- `prompt` — the user's exact input, truncated to 200 chars if longer
+- `generated-at` — use the current date and time when the file is saved (not when the skill starts)
+- `duration` — measure from when the user's prompt was received to when the file is written
+- `skill` — the skill name from SKILL.md frontmatter
+- `model` — the model powering the current session
+- `plugin-version` — read from `.claude-plugin/plugin.json`
+- For non-HTML outputs (JSON specs, markdown), add the same fields as a comment block in the appropriate format
+
+---
+
 ## Token Reference
 
 Token reference docs and files:
