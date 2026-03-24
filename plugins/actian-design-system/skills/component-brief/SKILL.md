@@ -42,25 +42,41 @@ The user describes a component or provides a Figma URL. Examples:
 
 Parse card selection from the user's initial input. If no selection is specified, default to **all cards**. Do not ask "which cards?" — just generate them.
 
-## Step 1 — Research (parallel)
+### Speed rules
 
-Run all research in parallel using subagents or parallel tool calls:
+- **Do NOT use TaskCreate/TaskUpdate/TodoWrite.** No task tracking overhead — just execute.
+- **ONE parallel batch for research.** Read all files in a single message with parallel tool calls. Never do serial rounds of research.
+- **Do NOT read CLAUDE.md** — the relevant token mappings and rules are already in this skill file and in `docs/design-system.md`.
+- **Do NOT read `plugin.json`** — the plugin version for the generation log is: check `.claude-plugin/plugin.json` only once, at the very end, right before writing the file.
+- **If a Figma call fails, skip it and proceed.** Do not retry or try alternative approaches — use the screenshot and existing docs instead.
+- **Do NOT create directories with mkdir.** Use the Write tool directly — it creates parent directories automatically.
 
-1. **Check the Fat Marker catalog** (`docs/fm-component-catalog.md`) — does this component already exist?
-2. **Check the DS2026 library** (`l8biHxfarNi1I2RMvVxVOK` or `8Yu8wUtPTXsa3iV6R4TmnS`) — fetch design context + screenshot if a node exists
-3. Check existing feature files — is there a real usage example?
-4. **Check CLAUDE.md** — what tokens, conventions, and **Forms Layout Rules** apply to this component type?
-5. **Check `docs/design-system.md`** — get exact token values per theme (Actian DS mode only)
+## Step 1 — Research (ONE parallel batch)
 
-## Step 2 — Draft the brief (internal)
+Issue ALL of these reads in a **single message** with parallel tool calls. Do not wait for results between reads.
 
-Draft the brief internally. Do NOT present it to the user for review — go straight to HTML generation.
+**For Actian DS mode (9 cards), read these files in parallel:**
+1. `get_screenshot` on the provided Figma node (for visual reference)
+2. `docs/design-system.md` (token values per theme)
+3. `docs/content-guidelines.md` (for Cards 6-7)
+4. `docs/accessibility-guidelines.md` (for Card 8)
+5. All 9 card templates: `templates/ds-card-1-page-header.html` through `templates/ds-card-9-code-specification.html`
+6. `templates/ds-wrapper.html`
 
-## Step 3 — Generate HTML (immediate)
+**For Fat Marker mode (5 cards), read these files in parallel:**
+1. `get_screenshot` on the provided Figma node
+2. `docs/fm-component-catalog.md` (component variants)
+3. `docs/content-guidelines.md`
+4. All 5 card templates: `templates/fm-card-1-page-header.html` through `templates/fm-card-5-anatomy.html`
+5. `templates/fm-wrapper.html`
 
-Read templates and generate the HTML spec page immediately after research. No card selector prompt needed — parse it from the initial input or default to all.
+That's it. No additional research rounds. Proceed immediately to generation.
 
-**MANDATORY: Include the GENERATION LOG** comment block in `<head>` as specified in CLAUDE.md. Every output file must have it — no exceptions.
+## Step 2 — Generate HTML (immediate)
+
+Draft the brief content and generate the HTML in the same step. Do NOT draft as a separate step — go straight from research results to final HTML output.
+
+**MANDATORY: Include the GENERATION LOG** comment block in `<head>` as specified in CLAUDE.md. Read `.claude-plugin/plugin.json` for the version right before writing the file.
 
 ### Card selection (parsed from input, never prompted)
 
@@ -167,7 +183,7 @@ Use these prefixed names everywhere: spec tables, anatomy callouts, code specifi
 
 ---
 
-## Step 4 — Capture to Figma
+## Step 3 — Capture to Figma
 
 If the user wants to push the spec to Figma, capture it automatically. Do NOT give up or suggest manual workarounds.
 
@@ -208,7 +224,7 @@ Only ask for the target if the user hasn't provided one.
 - **NEVER** use the `claude -p` CLI workaround — call the MCP tool directly
 - Each `captureId` is single-use — one capture per page
 
-## Step 5 — Create in Figma (optional)
+## Step 4 — Create in Figma (optional)
 
 If the user says "create it in Figma", "build the component", or "make it real":
 
