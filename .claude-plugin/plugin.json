@@ -15,6 +15,5 @@
     "accessibility",
     "wcag",
     "component-specs"
-  ],
-  "mcpServers": "./.mcp.json"
+  ]
 }
