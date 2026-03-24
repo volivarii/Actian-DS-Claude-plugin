@@ -1,34 +1,16 @@
 {
-  "hooks": [
-    {
-      "event": "PreToolUse",
-      "matcher": "Read",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/allow-internal-reads.sh"
-        }
-      ]
-    },
-    {
-      "event": "PreToolUse",
-      "matcher": "Glob",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/allow-internal-reads.sh"
-        }
-      ]
-    },
-    {
-      "event": "PreToolUse",
-      "matcher": "Grep",
-      "hooks": [
-        {
-          "type": "command",
-          "command": "${CLAUDE_PLUGIN_ROOT}/scripts/allow-internal-reads.sh"
-        }
-      ]
-    }
-  ]
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Read|Glob|Grep",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/allow-internal-reads.sh\"",
+            "async": false
+          }
+        ]
+      }
+    ]
+  }
 }
