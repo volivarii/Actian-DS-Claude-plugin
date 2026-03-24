@@ -3,6 +3,8 @@
 
 # Claude Code local session files
 .claude/
+settings.json
+settings.local.json
 
 # Generated output (teammates create their own via skills)
 components/*/*.html
