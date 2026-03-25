@@ -2,6 +2,30 @@
 
 JSON schema for the DS Assembler layout specs. Used by generate-flow and create-component skills to produce Figma-ready component and screen layouts.
 
+## Generation Metadata Frame
+
+Every assembler spec must include a generation metadata frame as the **first child** of the top-level wrapper (or the first element before the first screen in a flow). See CLAUDE.md for the full spec. Compact version:
+
+```json
+{
+  "type": "frame",
+  "name": "Generation log",
+  "layout": "vertical",
+  "spacing": 4,
+  "padding": { "top": 16, "right": 20, "bottom": 16, "left": 20 },
+  "fill": "#2D3648",
+  "cornerRadius": 8,
+  "width": 280,
+  "height": "hug",
+  "children": [
+    { "type": "text", "content": "GENERATED", "style": "label-micro", "fill": "#A0ABC0" },
+    { "type": "text", "content": "Skill: generate-flow", "style": "label-subtle", "fill": "#CBD2E0" },
+    { "type": "text", "content": "2026-03-25T14:30:00", "style": "label-subtle", "fill": "#CBD2E0" },
+    { "type": "text", "content": "claude-opus-4-6 · v1.9.1", "style": "label-subtle", "fill": "#CBD2E0" }
+  ]
+}
+```
+
 ## Node Types
 
 Two node types: **frames** (layout containers) and **instances** (component references).

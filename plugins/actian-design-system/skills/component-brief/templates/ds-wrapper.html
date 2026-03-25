@@ -20,16 +20,6 @@
     ds-version: {{DS_VERSION}}
   -->
 
-  <!--
-    GENERATION LOG
-    prompt         : {{PROMPT}}
-    generated-at   : {{GENERATED_AT}}
-    duration       : {{DURATION}}
-    skill          : component-brief
-    model          : {{MODEL}}
-    plugin-version : {{PLUGIN_VERSION}}
-  -->
-
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -243,6 +233,27 @@
     .card-divider { height: 1px; background: #EDF0F7; }
 
     /* ============================================================
+       GENERATION CARD — visible metadata prefix
+       ============================================================ */
+    .gen-card {
+      width: 280px; flex-shrink: 0; background: #2D3648; border-radius: 12px;
+      padding: 20px 24px; display: flex; flex-direction: column; gap: 6px;
+      align-self: flex-start;
+    }
+    .gen-card__label {
+      font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
+      color: #A0ABC0; letter-spacing: 1.2px; text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+    .gen-card__field {
+      font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400;
+      color: #CBD2E0; line-height: 1.5;
+    }
+    .gen-card__key {
+      font-weight: 600; color: #A0ABC0; margin-right: 6px;
+    }
+
+    /* ============================================================
        COMPONENT-SPECIFIC CSS INJECTED HERE
        Do NOT add component-specific styles to this wrapper.
        Each card template (especially Card 2) injects its own
@@ -253,6 +264,8 @@
 <body>
 
   <div class="brief-row" data-name="Component brief">
+    <!-- {{GENERATION_CARD}} — Insert the filled gen-card HTML here (see CLAUDE.md Generation Metadata) -->
+
     <!-- {{CARDS}}
          Replace this marker with the concatenated HTML from all card templates:
          - ds-card-1-page-header.html

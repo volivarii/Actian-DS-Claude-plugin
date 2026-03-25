@@ -208,6 +208,9 @@ The FM library doesn't have everything — charts, visualizations, custom contro
 
 ```html
 <div class="flow-row"> <!-- One row = one complete flow, all screens in a line -->
+  <!-- Generation card (first element in the first flow-row only) -->
+  <!-- See CLAUDE.md Generation Metadata for the .gen-card HTML -->
+
   <!-- Dark cover card -->
   <div class="flow-cover">
     <div class="flow-cover__feature">[Feature]</div>

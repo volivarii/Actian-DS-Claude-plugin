@@ -60,30 +60,56 @@ The script handles all edge cases:
 
 ## Generation Metadata (required for all outputs)
 
-**Every generated file** (HTML specs, flows, presentations, component specs) MUST include a generation metadata block. This applies to all skills that produce output files.
+**Every generated output** (HTML specs, flows, presentations, assembler specs) MUST include a visible generation card as the **first element** — before any content cards, screens, or slides. This card is rendered and captured alongside the output so the metadata is always visible in Figma.
 
-Add this as an HTML comment in the `<head>` section, immediately after the AI CONSUMPTION METADATA block:
+### HTML outputs (specs, flows, presentations)
+
+Add a generation card as the first child inside the layout container (`.brief-row`, `.flow-row`, or `body`). Use the `.gen-card` class defined in the wrapper templates:
 
 ```html
-<!--
-  GENERATION LOG
-  prompt       : {{exact user prompt or slash command that triggered this generation}}
-  generated-at : {{ISO 8601 date+time, e.g. 2026-03-24T14:30:00}}
-  duration     : {{total generation time from prompt to file save, e.g. "2m 45s"}}
-  skill        : {{skill name, e.g. "component-brief", "generate-flow"}}
-  model        : {{model used, e.g. "claude-opus-4-6"}}
-  plugin-version : {{current plugin version from plugin.json}}
--->
+<div class="gen-card" data-name="Generation log">
+  <div class="gen-card__label">GENERATED</div>
+  <div class="gen-card__field"><span class="gen-card__key">Skill</span> {{skill name}}</div>
+  <div class="gen-card__field"><span class="gen-card__key">Prompt</span> {{user prompt, truncated to 200 chars}}</div>
+  <div class="gen-card__field"><span class="gen-card__key">Date</span> {{ISO 8601 date+time}}</div>
+  <div class="gen-card__field"><span class="gen-card__key">Duration</span> {{prompt to file save}}</div>
+  <div class="gen-card__field"><span class="gen-card__key">Model</span> {{model ID}}</div>
+  <div class="gen-card__field"><span class="gen-card__key">Plugin</span> v{{plugin version}}</div>
+</div>
 ```
 
-**Rules:**
+### Assembler JSON specs
+
+Add a `metadata` frame as the first child of the top-level spec:
+
+```json
+{
+  "type": "frame",
+  "name": "Generation log",
+  "layout": "vertical",
+  "spacing": 4,
+  "padding": { "top": 16, "right": 20, "bottom": 16, "left": 20 },
+  "fill": "#2D3648",
+  "cornerRadius": 8,
+  "width": 280,
+  "height": "hug",
+  "children": [
+    { "type": "text", "content": "GENERATED", "style": "label-micro", "fill": "#A0ABC0" },
+    { "type": "text", "content": "Skill: {{skill name}}", "style": "label-subtle", "fill": "#CBD2E0" },
+    { "type": "text", "content": "{{ISO 8601 date}}", "style": "label-subtle", "fill": "#CBD2E0" },
+    { "type": "text", "content": "{{model ID}} · v{{plugin version}}", "style": "label-subtle", "fill": "#CBD2E0" }
+  ]
+}
+```
+
+### Field rules
+
 - `prompt` — the user's exact input, truncated to 200 chars if longer
 - `generated-at` — use the current date and time when the file is saved (not when the skill starts)
 - `duration` — measure from when the user's prompt was received to when the file is written
 - `skill` — the skill name from SKILL.md frontmatter
 - `model` — the model powering the current session
 - `plugin-version` — read from `.claude-plugin/plugin.json`
-- For non-HTML outputs (JSON specs, markdown), add the same fields as a comment block in the appropriate format
 
 ---
 

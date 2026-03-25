@@ -202,6 +202,28 @@ Copy these exact styles into every generated flow HTML. These values are extract
 }
 ```
 
+### Generation Card
+
+```css
+.gen-card {
+  width: 280px; flex-shrink: 0; background: var(--fm-base-800); border-radius: 12px;
+  padding: 20px 24px; display: flex; flex-direction: column; gap: 6px;
+  align-self: flex-start;
+}
+.gen-card__label {
+  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
+  color: var(--fm-base-500); letter-spacing: 1.2px; text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.gen-card__field {
+  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400;
+  color: var(--fm-base-300); line-height: 1.5;
+}
+.gen-card__key {
+  font-weight: 600; color: var(--fm-base-500); margin-right: 6px;
+}
+```
+
 ## HTML Structure Templates
 
 ### FM App Header
