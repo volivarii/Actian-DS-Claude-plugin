@@ -40,28 +40,128 @@ This plugin requires the **Figma MCP** connector for design context, screenshots
 
 | Skill | What it does |
 |-------|-------------|
-| `/generate-flow` | Generate a Fat Marker wireframe flow from a user story and push to Figma |
-| `/component-brief` | Draft a 9-card DS2026 or 5-card Fat Marker component spec |
-| `/design-audit` | Audit a Figma file against DS2026 tokens, accessibility, and quality standards |
-| `/compare-flows` | Compare two Figma flows with structured UX analysis and recommendations |
-| `/generate-presentation` | Create a full slide deck from docs, research, Figma content, or a topic |
-| `/create-component` | Build a new Figma component with variants (requires DS Assembler) |
+| `/generate-flow` | Generate Fat Marker wireframe flows from user stories, with competitor research and assembler-based Figma output |
+| `/component-brief` | Draft a 9-card DS2026 or 5-card Fat Marker component spec with anatomy, tokens, API, and accessibility |
+| `/design-audit` | Audit a Figma file against DS2026 tokens, accessibility (WCAG AA), content, forms layout, and quality standards |
+| `/compare-flows` | Compare two Figma flows with severity-rated issues (P0/P1/P2), structured analysis, and concrete recommendations |
+| `/generate-presentation` | Create a full slide deck with charts and data visualizations from docs, research, Figma content, or a topic |
+| `/create-component` | Build a new Figma component with variants, optional pattern research, and DS Assembler output |
 
-You don't need to memorize commands. You can also ask naturally:
+## Example prompts
 
-- "Generate a wireframe flow for user onboarding"
-- "Create a component brief for the Button component" + paste Figma URL
-- "Audit this Figma page for accessibility" + paste URL
-- "Compare these two flows and recommend which to ship" + paste two URLs
-- "Create a presentation about our Q1 accessibility findings" + attach a file
+You don't need to memorize commands — just describe what you need. Here are examples for each skill:
+
+### Generate flows
+
+```
+Generate a wireframe flow for the data asset access request feature.
+The user should browse assets, request access, and get notified when approved.
+About 6 screens, happy path. Admin app context.
+```
+
+```
+I have screenshots of how Collibra handles dataset tagging.
+Can you create a similar flow for our Studio app using FM components?
+```
+
+```
+Design the screens for the bulk import workflow — user uploads a CSV,
+maps columns, previews data, confirms, and sees results. Include error states.
+```
+
+### Component briefs
+
+```
+Draft a brief for the Link component from DS2026.
+https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/DS2026?node-id=14793-7507
+Generate all 9 cards.
+```
+
+```
+Document FM Alert — I want the full 5-card Fat Marker spec
+with variants, design guidelines, content guidelines, and anatomy.
+```
+
+```
+Generate cards 4, 5, and 8 (design tokens, component API, accessibility)
+for the Dropdown component.
+```
+
+### Design audits
+
+```
+Audit this Figma page for design system compliance.
+Check tokens, component consistency, accessibility, and missing states.
+https://www.figma.com/design/abc123/Admin?node-id=5-6
+```
+
+```
+Is this page using the right tokens? I think there are some hardcoded
+colors in the form section.
+https://www.figma.com/design/abc123/Settings?node-id=10-20
+```
+
+```
+Before we hand this off to dev, can you check if the flow meets WCAG AA?
+Focus on contrast, focus states, and keyboard access.
+```
+
+### Compare flows
+
+```
+Compare these two versions of the onboarding flow and tell me which is
+stronger. Here's v1 and v2:
+https://www.figma.com/design/abc123/Onboarding?node-id=12-34
+https://www.figma.com/design/abc123/Onboarding?node-id=56-78
+```
+
+```
+How does the Explorer item detail view differ from the Studio version?
+I want to see where they diverge and if we should align them.
+```
+
+### Presentations
+
+```
+Create a presentation about our Q1 design system progress.
+I have the metrics in ds-metrics.md and screenshots in Figma.
+```
+
+```
+Turn the accessibility audit findings into a deck for stakeholders.
+Include charts showing pass/fail rates by component category.
+The findings are in audit-report.md.
+```
+
+```
+Make a pitch deck for the design system team — we want budget approval
+for 2 more headcount. Here are our impact metrics and roadmap.
+```
+
+### Create components
+
+```
+Build a new FM Card component with Default, Hover, and Selected states.
+It should have a title, description, and optional action button.
+```
+
+```
+I want to create a reusable status indicator that shows
+online/offline/away states — something we can use across the admin panel.
+```
+
+```
+Add a Destructive variant to the existing FM Button — red background,
+white text, same sizes as the current button.
+```
 
 ## How it works
 
 1. **You describe what you need** — paste a Figma URL, attach a file, or describe the task
-2. **Claude researches** — fetches Figma design context, reads your files, checks the design system
+2. **Claude researches** — fetches Figma design context, reads docs, checks competitors (for flows)
 3. **Claude generates** — creates output using DS2026 tokens and Actian templates
-4. **You review** — preview locally in the browser, approve or request changes
-5. **Claude pushes to Figma** — captures the output into your target Figma file
+4. **You review** — preview locally, approve at review gates (screen lists, slide reports)
+5. **Claude pushes to Figma** — captures output into your target Figma file via the Assembler or HTML capture
 
 All outputs use `--zen-*` design tokens across all three themes (Actian, Studio, Explorer). No hardcoded values.
 
@@ -103,6 +203,32 @@ Without the Assembler, flow generation falls back to HTML capture mode.
 
 3 theme modes: **Actian**, **Studio**, **Explorer** — tokens shift via `[data-theme]` CSS attribute.
 
+## Architecture
+
+### Shared references
+
+Skills share common reference files to avoid duplication:
+
+| Reference | Used by | Content |
+|-----------|---------|---------|
+| `references/figma-capture.md` | component-brief, generate-flow, generate-presentation | Figma capture procedure (serve, capture, CLI fallback, polling) |
+| `references/fm-css-reference.md` | generate-flow | FM token palette, component CSS, HTML structure templates |
+| `references/layout-spec-schema.md` | generate-flow, create-component | Assembler JSON schema, node types, FM Kit component names |
+| `references/token-naming.md` | component-brief | `--zen-*` prefix mapping from Figma tokens |
+
+### Execution models
+
+Each skill declares how it runs — autonomous or with review gates:
+
+| Skill | Model | Pauses at |
+|-------|-------|-----------|
+| compare-flows | Research + Audit, autonomous | Never (unless only 1 URL provided) |
+| component-brief | Spec, autonomous | Never |
+| create-component | Implement | Only if request is too vague |
+| design-audit | Audit | Assembler physical gate (user runs plugin) |
+| generate-flow | Implement with review gate | Screen list approval (Step 3) |
+| generate-presentation | Implement with review gate | Review report before Figma push (Step 5) |
+
 ## Quality & hygiene
 
 Every skill output is validated against a 10-item quality checklist before completion:
@@ -136,10 +262,10 @@ All tokens use the `--zen-` prefix:
 ```
 actian-design-system-plugin/
 ├── .claude-plugin/
-│   └── marketplace.json              # Marketplace index (only file here)
+│   └── marketplace.json              # Marketplace index
 │
 ├── plugins/actian-design-system/     # The plugin
-│   ├── .claude-plugin/plugin.json    # Plugin manifest
+│   ├── .claude-plugin/plugin.json    # Plugin manifest (v1.9.0)
 │   ├── CLAUDE.md                     # Design system rules
 │   ├── hooks/hooks.json              # Auto-approve internal reads
 │   ├── scripts/                      # ensure-server.sh
@@ -152,6 +278,12 @@ actian-design-system-plugin/
 │   │   ├── compare-flows/
 │   │   ├── generate-presentation/
 │   │   └── create-component/
+│   │
+│   ├── references/                   # Shared reference files
+│   │   ├── figma-capture.md          # Capture flow (3 skills share this)
+│   │   ├── fm-css-reference.md       # FM CSS palette + component styles
+│   │   ├── layout-spec-schema.md     # Assembler JSON schema
+│   │   └── token-naming.md           # --zen-* prefix mapping
 │   │
 │   ├── tokens/                       # Design tokens
 │   │   ├── actian-ds.tokens.json     # W3C DTCG format (source of truth)
@@ -175,7 +307,7 @@ actian-design-system-plugin/
 | What changed | What to update |
 |-------------|---------------|
 | Tokens change in Figma | Re-export JSON to `tokens/`, regenerate `actian-ds.tokens.json` + `tokens.css`, update `docs/design-system.md` |
-| FM Kit changes | Update `docs/fm-component-catalog.md` + FM CSS in generate-flow skill |
+| FM Kit changes | Update `docs/fm-component-catalog.md` + `references/fm-css-reference.md` |
 | Content rules change | Edit `docs/content-guidelines.md` |
 | A11y rules change | Edit `docs/accessibility-guidelines.md` |
 | New skill needed | Add `skills/<name>/SKILL.md` + prompt template in `team/prompt-templates/` |
