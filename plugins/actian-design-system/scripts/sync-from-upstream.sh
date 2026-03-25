@@ -65,9 +65,7 @@ sync_docs() {
   fetch_file "registry/ds2026-component-reference.md" "$PLUGIN_DIR/docs/ds2026-component-reference.md" && ok=$((ok + 1)) || fail=$((fail + 1))
   fetch_file "registry/fm-component-catalog.md" "$PLUGIN_DIR/docs/fm-component-catalog.md" && ok=$((ok + 1)) || fail=$((fail + 1))
 
-  # design-system.md is not yet in the Assembler repo — skip for now
-  # TODO: move design-system.md to Assembler, then uncomment:
-  # fetch_file "docs/design-system.md" "$PLUGIN_DIR/docs/design-system.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "docs/design-system.md" "$PLUGIN_DIR/docs/design-system.md" && ok=$((ok + 1)) || fail=$((fail + 1))
 
   echo ""
   echo -e "Docs: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"
@@ -82,9 +80,7 @@ sync_tokens() {
 
   fetch_file "tokens/tokens.css" "$PLUGIN_DIR/tokens/tokens.css" && ok=$((ok + 1)) || fail=$((fail + 1))
 
-  # actian-ds.tokens.json is not yet in the Assembler repo — skip for now
-  # TODO: move actian-ds.tokens.json to Assembler, then uncomment:
-  # fetch_file "tokens/actian-ds.tokens.json" "$PLUGIN_DIR/tokens/actian-ds.tokens.json" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "tokens/actian-ds.tokens.json" "$PLUGIN_DIR/tokens/actian-ds.tokens.json" && ok=$((ok + 1)) || fail=$((fail + 1))
 
   echo ""
   echo -e "Tokens: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"
