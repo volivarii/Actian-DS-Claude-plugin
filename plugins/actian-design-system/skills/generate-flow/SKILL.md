@@ -308,7 +308,7 @@ Generates flat vector frames via `generate_figma_design`. Use only when:
 - The user says "use HTML" or "capture as HTML"
 - Neither Assembler nor `use_figma` is available
 
-Follow Step 4 (Generate the HTML) above, then capture via `../../references/figma-capture.md`.
+Follow Step 4 (Generate the HTML) above, then capture via `../../references/figma-output.md`.
 
 ---
 
