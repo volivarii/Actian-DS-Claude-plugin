@@ -166,59 +166,71 @@ Read and follow the shared output procedure in `../../references/figma-output.md
 
 Each spec card is a Figma frame with:
 
-- **Width:** 440px fixed, **height:** hug content
+- **Width:** 1200px fixed, **height:** hug content (matches the HTML card templates)
 - **Layout:** vertical auto-layout
-- **Padding:** 24px all sides
-- **Item spacing:** 16px
+- **Padding:** 48px all sides (top 32px)
+- **Item spacing:** 24px
 - **Background:** white with border
   - DS2026: `#FFFFFF` (`--zen-background-bg-default`) fill, `#D9DCE1` (`--zen-border-default`) 1px stroke
   - FM: `#FFFFFF` (`--fm-base-0`) fill, `#D9DCE1` (`--fm-base-300`) 1px stroke
-- **Corner radius:** 8px
+- **Corner radius:** 12px
 
 ### Card children
 
-Each card contains these element types as needed:
+Each card contains these element types. **Match the HTML templates** (`templates/ds-card-*.html`) — they define the sub-sections, tables, and visual elements for each card. The `use_figma` output must include the same content sections as the HTML.
 
 | Element | Structure |
 |---------|-----------|
-| **Card number + title** | Text node, bold 18px (e.g., "1 — Page header") |
-| **Subtitle** | Text node, regular 14px, secondary color (`--zen-text-secondary` / `--fm-base-600`) |
-| **Content sections** | Nested vertical auto-layout frames with 8px spacing |
-| **Tables** | Horizontal auto-layout frames with text columns (header row bold, data rows regular) |
-| **Color swatches** | Small rectangles (24x24) filled with the token hex value, labeled |
-| **Code blocks** | Frame with dark background (`#1E1E1E`) + monospace text (Inter Mono or Roboto Mono, 12px) |
+| **Card title** | Text node, bold 24px (e.g., "Anatomy") |
+| **Subtitle** | Text node, regular 18px, secondary color |
+| **Section headings** | Text node, bold 16px, with a divider line above (1px `#E2E7F0` rectangle) |
+| **Body text** | Text node, regular 14px, secondary color, max-width fill |
+| **Tables** | Frame rows: header row (bold 12px, grey background `#F5F5FA`), data rows (regular 14px). Fixed column widths. |
+| **Color swatches** | 12px circle/rectangle filled with the token hex value, placed inline next to the token name text |
+| **Typography specimens** | Actual styled text nodes rendered at the documented font size/weight/family |
+| **Code blocks** | Frame with dark background (`#1E1E1E`), padding 16px, monospace text (12px) in `#E2E7F0` |
+| **Do/Don't pairs** | Two side-by-side frames: green header (`#ECFDF3`) for Do, red header (`#FEF3F2`) for Don't |
+| **Component instances** | Import real library instances via `getComponentByKeyAsync()` for variant matrices and anatomy |
 
-### Grid layout
+### Per-card content requirements
 
-Cards are arranged in a 3-column grid: an outer vertical wrapper contains row frames (horizontal), each holding up to 3 cards.
+Follow the HTML templates for each card's sub-sections. Key visual elements that must NOT be omitted:
+
+**Card 2 — Actual component:** Render a variant matrix showing real component instances (imported from the library) across all variant axes. Include a theme comparison row showing the component in Actian, Studio, and Explorer themes.
+
+**Card 3 — Anatomy:** Must include ALL 4 sub-sections:
+1. **Structure** — The component rendered with lettered pointer badges (A, B, C...) overlaying each part, plus a legend listing each part
+2. **Specs** — Size variants with pink (`#E91E8C`) dimension annotation lines showing height, padding, icon size, gap
+3. **States** — Grid showing every interactive state (Enabled, Hovered, Focused, Pressed, Disabled, Selected, Error) as actual rendered instances
+4. **Parts reference** — Table mapping each part to its element type, token, and notes
+
+**Card 4 — Design tokens:** Must include ALL 3 sub-sections:
+1. **Color tokens** — Table with variant×state rows, each color cell shows a 12px swatch dot (filled with the hex value) next to the token name
+2. **Sizing & spacing** — Table listing height, padding, gap, border-radius, focus-ring tokens with their values
+3. **Typography** — Table showing font-family, weight, size, line-height, letter-spacing. Render an actual text specimen at the documented style.
+
+**Card 7 — Content guidelines:** Include Do/Don't pairs as side-by-side frames with green/red header strips.
+
+**Card 8 — Accessibility:** Include a contrast ratio table with foreground/background hex, ratio value, and Pass/Fail indicator.
+
+**Card 9 — Code specification:** Render full CSS code in a dark code block frame. Use the `--zen-*` token names in the code.
+
+### Layout
+
+Cards are arranged in a single horizontal row (matching the HTML brief layout where all 9 cards sit side by side):
 
 ```js
-// Outer wrapper — vertical auto-layout, holds rows
+// Outer wrapper — horizontal auto-layout, all cards in a row
 const wrapper = figma.createFrame();
 wrapper.name = "Component Spec: [Name]";
-wrapper.layoutMode = "VERTICAL";
-wrapper.itemSpacing = 24;
+wrapper.layoutMode = "HORIZONTAL";
+wrapper.itemSpacing = 32;
 wrapper.primaryAxisSizingMode = "AUTO";
 wrapper.counterAxisSizingMode = "AUTO";
 wrapper.fills = [];
-
-// Each row — horizontal auto-layout, holds up to 3 cards
-function createRow(name) {
-  const row = figma.createFrame();
-  row.name = name;
-  row.layoutMode = "HORIZONTAL";
-  row.itemSpacing = 24;
-  row.primaryAxisSizingMode = "AUTO";
-  row.counterAxisSizingMode = "AUTO";
-  row.fills = [];
-  wrapper.appendChild(row);
-  return row;
-}
-
-const row1 = createRow("Row 1"); // Cards 1–3
-const row2 = createRow("Row 2"); // Cards 4–6
-const row3 = createRow("Row 3"); // Cards 7–9
 ```
+
+The generation metadata frame is prepended as the first child (see `figma-output.md`), followed by the 9 card frames in order.
 
 ### Execution steps
 
