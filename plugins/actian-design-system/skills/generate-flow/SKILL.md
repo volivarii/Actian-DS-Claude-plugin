@@ -248,41 +248,98 @@ Read `../../references/fm-css-reference.md` for the complete FM CSS token palett
 
 ## Step 5 — Choose output mode
 
-**IMPORTANT: Default to Assembler mode.** Only fall back to HTML capture if the user explicitly asks for HTML or doesn't have the assembler plugin.
+Three approaches are available. Each has tradeoffs — pick the right one for the situation.
 
-### Option A: Actian DS Assembler (default, preferred)
+| | Assembler | Plugin API | HTML capture |
+|---|---|---|---|
+| **Output** | Real FM Kit instances from library | Raw Figma frames built via JS | Flat vector frames from HTML |
+| **Token binding** | Figma variables bound | Hex values (with token comments) | CSS variables in HTML |
+| **Library components** | Yes (FM Button, etc.) | No (raw frames only) | No (flat vectors) |
+| **Editable in Figma** | Fully (swap variants, edit text) | Partially (manual properties) | No (static frames) |
+| **Speed** | Medium (user opens plugin) | Fast (direct in Figma) | Medium (serve + capture) |
+| **Requires** | DS Assembler plugin | `use_figma` MCP tool | `generate_figma_design` MCP tool |
+
+**Default:** Assembler (Option A). Use Plugin API (Option B) when the user asks for direct creation or doesn't have the Assembler. Use HTML capture (Option C) when explicitly requested or as a last resort.
+
+### Option A: Assembler (default)
 
 Generates real Figma component instances from the published FM Kit library. Output is editable, linked to the design system, and supports variant swapping.
 
-1. Generate a layout spec JSON using the schema below
-2. Reference components by their exact registry names (FM-prefixed for wireframes)
+1. Generate a layout spec JSON — read `../../references/layout-spec-schema.md` for the schema (node types, layout properties, `textOverrides`, FM Kit component names, full screen example)
+2. Reference components by their exact names from `../../docs/fm-component-catalog.md`
 3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
-4. For custom elements (not in the FM registry), use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children styled using `--zen-*` or `--fm-*` tokens — do not reference non-existent component names
-5. Save as `assembler-specs/spec.json` in the current project directory
-6. Serve the project directory on localhost:8765 using `scripts/ensure-server.sh . 8765`
-7. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
-8. For multi-screen flows, generate one spec per screen and assemble sequentially, or generate all screens in a single horizontal wrapper spec
+4. Use `--fm-*` token names for fills (the Assembler resolves them to Figma variables)
+5. For custom elements (not in FM Kit), use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children
+6. Save as `assembler-specs/spec.json`
+7. Serve the project directory: `scripts/ensure-server.sh . 8765`
+8. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
 
-### Option B: HTML capture (fallback)
+### Option B: Plugin API (`use_figma`)
+
+Builds the flow directly in Figma via JavaScript — faster, no external plugin needed.
+
+**Use when:**
+- The user asks for direct creation or quick prototyping
+- The user doesn't have the Assembler plugin
+- Simple flows where library component linking isn't critical
+
+**Rules for `use_figma` code:**
+
+1. **Build each screen as a frame** with auto-layout — no absolute positioning
+2. **Use token hex values** from the FM Token Reference below — comment the token name for traceability:
+   ```js
+   frame.fills = [{ type: 'SOLID', color: hexToRgb('#F5F5FA') }]; // --fm-base-100
+   ```
+3. **Build standard screen structure**: App header (70px) → horizontal frame → Sidebar (260px) + Content area
+4. **Include a generation metadata frame** as the first element (see CLAUDE.md Generation Metadata)
+5. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
+6. **Use `textOverrides` pattern**: set all text content contextually (nav items, page headers, button labels) — no generic placeholder text
+7. **One row per flow**: all screens for a sub-flow in a single horizontal wrapper frame
+
+### Option C: HTML capture (fallback)
 
 Generates flat vector frames via `generate_figma_design`. Use only when:
 - The user says "use HTML" or "capture as HTML"
-- The assembler plugin is not installed
-- The user explicitly declines the assembler
+- Neither Assembler nor `use_figma` is available
 
-Follow the capture procedure in `../../references/figma-capture.md` (serve, capture, CLI fallback, polling, and rules).
+Follow Step 4 (Generate the HTML) above, then capture via `../../references/figma-capture.md`.
+
+---
+
+## FM Token Reference
+
+Use these exact values when writing `use_figma` code. In assembler specs, use the token name. In HTML, use the `var(--fm-*)` CSS variable.
+
+| Token | Hex | Usage |
+|-------|-----|-------|
+| `--fm-base-900` | `#1A202C` | Darkest background, cover cards |
+| `--fm-base-800` | `#2D3648` | Primary button fill, nav text |
+| `--fm-base-700` | `#4A5468` | Secondary text |
+| `--fm-base-600` | `#717D96` | Muted text, labels |
+| `--fm-base-500` | `#A0ABC0` | Placeholder text, icon borders |
+| `--fm-base-400` | `#CBD2E0` | Borders, disabled fills, header border |
+| `--fm-base-300` | `#E2E7F0` | Subtle borders |
+| `--fm-base-200` | `#EDF0F7` | Active nav bg, hover, dividers |
+| `--fm-base-100` | `#F5F5FA` | Light background, content bg |
+| `--fm-base-white` | `#FFFFFF` | White, card/sidebar/header bg |
+| `--fm-brand` | `#0550DC` | Brand blue, links |
+| `--fm-text-primary` | `#101828` | Primary text, headings |
+| `--fm-text-secondary` | `#2D3648` | Secondary text |
+| `--fm-text-tertiary` | `#475467` | Tertiary text, subtitles |
+| `--fm-text-error` | `#D92D20` | Error text, required markers |
+| `--fm-text-success` | `#047800` | Success text |
+| `--fm-border` | `#CBD2E0` | Default border color |
+| `--fm-radius` | `6px` | Default border radius |
+
+**Spacing scale:** 4, 8, 12, 16, 24, 28, 32px only.
+
+For the full CSS reference (component styles + HTML structure templates), read `../../references/fm-css-reference.md`.
+
+---
 
 ## Step 6 — Review
 
 After capture or assembly, get a screenshot of the result and show it to the user. Ask if they want adjustments before considering it done.
-
-### Layout spec schema
-
-Read `../../references/layout-spec-schema.md` for the complete schema — node types (frames + instances), layout properties, `textOverrides`, FM Kit component names, and a full screen example.
-
-### Fallback
-
-If the user hasn't set up the Figma plugin, fall back to the standard HTML workflow (Steps 4–6 above).
 
 ## Step 7 — Cleanup pass
 
@@ -293,7 +350,7 @@ After generation is complete and before presenting to the user as done, run a fo
 Work through each item. Fix issues inline, don't just flag them.
 
 **Token compliance:**
-- [ ] No hardcoded hex colors — all colors use `--fm-*` CSS variables (HTML mode) or token references (assembler mode)
+- [ ] No arbitrary hex colors — use `--fm-*` CSS variables (HTML), token names (assembler), or hex from Token Reference with token comment (Plugin API)
 - [ ] No hardcoded font sizes or weights — use FM text styles
 - [ ] Spacing values match the FM scale (4, 8, 12, 16, 24, 28, 32px)
 
@@ -305,6 +362,7 @@ Work through each item. Fix issues inline, don't just flag them.
 - [ ] Custom elements use `--fm-*` variables, FM spacing, FM typography — no raw hex or arbitrary values
 - [ ] Custom elements match FM fidelity level (lo-fi wireframe shapes, not high-detail renders)
 - [ ] FM components use `textOverrides` to set contextual labels (nav items, tabs, page headers) — no generic "Nav Item" or "Tab 1" text
+- [ ] Generation metadata card included as first element (visible, not a comment)
 
 **Forms layout (CLAUDE.md rules):**
 - [ ] Simple form inputs constrained to 480px max-width container
