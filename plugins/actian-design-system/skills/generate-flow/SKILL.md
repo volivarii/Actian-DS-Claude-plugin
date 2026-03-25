@@ -1,6 +1,6 @@
 ---
 name: generate-flow
-description: Use this skill whenever the user wants to turn a feature idea or user story into lo-fi wireframe screens in Figma. Researches competitor patterns, plans a screen list, generates Fat Marker wireframes using FM Kit components, and pushes them to Figma via the DS Assembler plugin. Triggers when the user asks to create a flow, wireframe, or mockup, describes a feature and wants to see screens for it, asks how a user would accomplish a task, wants to mock up an experience, or provides a user story and wants it visualized as a multi-screen flow.
+description: Use this skill whenever the user wants to turn a feature idea or user story into lo-fi wireframe screens in Figma. Researches competitor patterns, plans a screen list, generates Fat Marker wireframes using FM Kit components, and pushes them to Figma via `use_figma`. Triggers when the user asks to create a flow, wireframe, or mockup, describes a feature and wants to see screens for it, asks how a user would accomplish a task, wants to mock up an experience, or provides a user story and wants it visualized as a multi-screen flow.
 argument-hint: "[feature description or Figma URL]"
 ---
 
@@ -75,7 +75,7 @@ Before generating anything, determine from the user's request:
 
 Infer as much as possible. Only ask if critical context is genuinely missing — e.g., the user said "create a flow" with no feature described, or the app context could be any of the three and it materially changes the UI.
 
-**Output type defaults to Assembler spec.** Only use HTML capture if the user explicitly asks for it or doesn't have the assembler plugin.
+**Output type defaults to `use_figma`** (Plugin API). Use Assembler if the user explicitly requests a reviewable JSON spec or needs Figma variable bindings on scaffolding.
 
 ## Step 2 — Competitor & pattern research
 
@@ -238,7 +238,6 @@ The FM library doesn't have everything — charts, visualizations, custom contro
 
 ### Styling rules
 - Use the FM CSS Reference below — do not deviate from these exact values
-- Include the Figma capture script: `<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>`
 - Load Inter font from Google Fonts
 - Use screen labels above each frame (12px, #888)
 
@@ -246,36 +245,25 @@ The FM library doesn't have everything — charts, visualizations, custom contro
 
 Read `../../references/fm-css-reference.md` for the complete FM CSS token palette, component styles, and HTML structure templates. Copy those exact styles into every generated flow HTML — do not approximate values.
 
-## Step 5 — Choose output mode
+## Step 5 — Output to Figma
 
-Three approaches are available. The first two can both import real library components with correct tokens.
+Two approaches are available. Both import real library components with correct tokens.
 
-| | Assembler | Plugin API (`use_figma`) | HTML capture |
-|---|---|---|---|
-| **Library components** | Yes — with Figma variables | Yes — via `getComponentByKeyAsync()` with Figma variables | No (flat vectors) |
-| **Tokens on library instances** | Automatic | Automatic | CSS variables |
-| **Tokens on scaffolding** | Resolved to Figma variables | Hex from Token Reference | CSS variables |
-| **Text overrides** | Reliable (`textOverrides` key) | Needs layer name matching | N/A |
-| **Editable in Figma** | Fully | Fully (real instances) | No (static frames) |
-| **Speed** | Medium (user opens plugin) | Fast (direct in Figma) | Medium (serve + capture) |
-| **Requires** | DS Assembler plugin | `use_figma` MCP tool | `generate_figma_design` MCP tool |
+| | Plugin API (`use_figma`) | Assembler |
+|---|---|---|
+| **Library components** | Yes — via `getComponentByKeyAsync()` with Figma variables | Yes — with Figma variables |
+| **Tokens on library instances** | Automatic | Automatic |
+| **Tokens on scaffolding** | Hex from Token Reference | Resolved to Figma variables |
+| **Text overrides** | Needs layer name matching | Reliable (`textOverrides` key) |
+| **Editable in Figma** | Fully (real instances) | Fully |
+| **Speed** | Fast (direct in Figma) | Medium (user opens plugin) |
+| **Requires** | `use_figma` MCP tool | DS Assembler plugin |
 
-**Default:** Plugin API (Option B) for speed. Assembler (Option A) when you need Figma variable bindings on scaffolding or a reviewable JSON spec. HTML capture (Option C) as a last resort.
+**Default: `use_figma`** for speed and direct creation. Use Assembler when you need Figma variable bindings on scaffolding or a reviewable JSON spec.
 
-### Option A: Assembler (declarative, production)
+For additional output guidance, see `../../references/figma-output.md`.
 
-Generates a JSON spec. The Assembler resolves all tokens to Figma variables — including scaffolding.
-
-1. Generate a layout spec JSON — read `../../references/layout-spec-schema.md` for the schema
-2. Reference components by their exact names from `../../docs/fm-components.md`
-3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
-4. Use `--fm-*` token names for fills (the Assembler resolves them to Figma variables)
-5. For custom elements, use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children
-6. Save as `assembler-specs/spec.json`
-7. Serve the project directory: `scripts/ensure-server.sh . 8765`
-8. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
-
-### Option B: Plugin API (`use_figma`)
+### Default: Plugin API (`use_figma`)
 
 Builds the flow directly in Figma via JavaScript. Imports published library components via `figma.teamLibrary.getComponentByKeyAsync()` — imported instances arrive with all their styles and Figma variables intact.
 
@@ -302,13 +290,18 @@ Builds the flow directly in Figma via JavaScript. Imports published library comp
 7. **Set text content contextually** on all instances (nav items, page headers, button labels) — no generic placeholder text
 8. **One row per flow**: all screens for a sub-flow in a single horizontal wrapper frame
 
-### Option C: HTML capture (fallback)
+### Optional: Assembler (declarative, reviewable JSON)
 
-Generates flat vector frames via `generate_figma_design`. Use only when:
-- The user says "use HTML" or "capture as HTML"
-- Neither Assembler nor `use_figma` is available
+Generates a JSON spec. The Assembler resolves all tokens to Figma variables — including scaffolding. Use when the user explicitly requests it or needs variable bindings on scaffolding.
 
-Follow Step 4 (Generate the HTML) above, then capture via `../../references/figma-output.md`.
+1. Generate a layout spec JSON — read `../../references/layout-spec-schema.md` for the schema
+2. Reference components by their exact names from `../../docs/fm-components.md`
+3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
+4. Use `--fm-*` token names for fills (the Assembler resolves them to Figma variables)
+5. For custom elements, use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children
+6. Save as `assembler-specs/spec.json`
+7. Serve the project directory: `scripts/ensure-server.sh . 8765`
+8. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
 
 ---
 
