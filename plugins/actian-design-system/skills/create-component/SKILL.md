@@ -36,10 +36,9 @@ Infer as much as possible from the request and context. If a Figma URL is provid
 
 ## Step 2 — Check existing components
 
-Before creating, check:
+Before creating, check these files (shipped with the plugin):
 1. `../../docs/ds2026-component-reference.md` — does it already exist in DS2026?
 2. `../../docs/fm-component-catalog.md` — does it already exist in FM Kit?
-3. Registry: `../../registry/component-registry.json` — is there a key for it?
 
 If it exists, tell the user and suggest modifying it instead of creating a duplicate.
 
@@ -98,13 +97,13 @@ Generate a `component-spec.json` following this schema:
 { "type": "text", "name": "Title", "content": "Page Title", "style": "heading-display", "isProperty": true }
 ```
 - `style`: heading-display, heading-prominent, heading-standard, heading-subtle, body-standard, body-subtle, label-standard, label-subtle, label-micro
-- `isProperty: true`: exposes text as an editable component property
+- `isProperty: true`: exposes text as an editable component property — **set this on every user-facing text field** (titles, labels, descriptions, button text). Without it, users can't customize text content when using the component.
 
 **Nested component instance:**
 ```json
 { "component": "FM Button", "props": { "Type": "Primary", "Size": "sm" } }
 ```
-Use exact component names from the registry.
+Use exact component names from `../../docs/fm-component-catalog.md` (FM Kit) or `../../docs/ds2026-component-reference.md` (DS2026).
 
 **Frame (container):**
 ```json
@@ -127,8 +126,22 @@ Use exact component names from the registry.
 | `width` / `height` | number, `"hug"`, `"fill"` | Sizing mode |
 | `align` | `"min"` / `"center"` / `"max"` / `"space-between"` | Primary axis alignment |
 | `counterAlign` | `"min"` / `"center"` / `"max"` | Counter axis alignment |
-| `fill` | hex color (e.g., `"#F5F5FA"`) | Background fill |
+| `fill` | `--zen-*` or `--fm-*` token name (e.g., `"--zen-color-background-bg-grey-2"`, `"--fm-base-100"`) | Background fill |
 | `cornerRadius` | number | Border radius |
+
+### Token usage (no hardcoded colors)
+
+All fill colors, text colors, and border colors must use token variable names — never raw hex values. Read `../../tokens/tokens.css` for the full list of `--zen-*` tokens, or `../../docs/design-system.md` for the token reference.
+
+**Fat Marker components:** use `--fm-*` variables (see `../../references/fm-css-reference.md`)
+**DS2026 components:** use `--zen-*` variables (see `../../tokens/tokens.css`)
+
+Common tokens for component specs:
+- Background: `--zen-color-background-bg-default` (white), `--zen-color-background-bg-grey-2` (#F5F5FA)
+- Text: `--zen-color-text-primary`, `--zen-color-text-secondary`, `--zen-color-text-tertiary`
+- Borders: `--zen-color-border-default`
+- Interactive: `--zen-color-theme-primary`, `--zen-color-interactive-hovered-secondary`
+- FM equivalents: `--fm-base-white`, `--fm-base-100`, `--fm-base-800`, `--fm-border`, `--fm-text-primary`
 
 ## Step 5 — Save and create
 
@@ -175,6 +188,6 @@ After generation and before presenting to the user, run a focused cleanup sweep 
 
 ## Step 7 — Update references
 
-After the component is created and published:
-1. Run `FIGMA_TOKEN=figd_xxx node registry/sync-all.js` to update the registry and reference docs
-2. If it's a FM Kit component, update `../../registry/fm-descriptions.json` with a description
+After the component is created and published, remind the user to:
+1. Run `npm run sync` in the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) repo to update the registry from Figma
+2. The registry is hosted on GitHub and auto-fetched by the Assembler plugin — no local files to update

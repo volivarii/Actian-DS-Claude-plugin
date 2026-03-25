@@ -69,7 +69,7 @@ Two node types: **frames** (layout containers) and **instances** (component refe
 | `width` / `height` | number, `"hug"`, `"fill"` | Sizing mode |
 | `align` | `"min"` / `"center"` / `"max"` / `"space-between"` | Primary axis alignment |
 | `counterAlign` | `"min"` / `"center"` / `"max"` | Counter axis alignment |
-| `fill` | `--zen-*` token name or hex value | Background fill |
+| `fill` | `--zen-*` or `--fm-*` token name (e.g., `"--zen-color-background-bg-grey-2"`, `"--fm-base-100"`) — never hardcoded hex | Background fill |
 | `cornerRadius` | number | Border radius |
 
 ## textOverrides
