@@ -28,7 +28,7 @@ The user provides one or more of:
 
 **Autonomous through generation.** Do NOT pause to present outlines for approval or ask clarifying questions between Steps 1–4. Infer audience, goal, and structure from the input. The only acceptable pause before Step 5 is when the input is genuinely too thin to generate anything (e.g., user said "make a deck" with zero topic or content).
 
-**Review gate at Step 5.** Always present the review report and wait for approval before capturing to Figma.
+**Review gate at Step 5.** Always present the review report and wait for approval before pushing to Figma.
 
 **Defaults:** Audience = team update. Goal = inform. Slide count = 8–15 based on content density.
 
@@ -58,9 +58,9 @@ Plan the slide outline internally. Do NOT present it to the user for review — 
 
 ## Step 3 — Generate the HTML deck
 
-Generate a single HTML file containing all slides as a horizontal row of 1920x1080px frames, ready for Figma capture.
+Generate a single HTML file containing all slides as a horizontal row of 1920x1080px frames for local preview.
 
-### Slide dimensions and capture setup
+### Slide dimensions and layout
 
 ```html
 <!DOCTYPE html>
@@ -70,7 +70,6 @@ Generate a single HTML file containing all slides as a horizontal row of 1920x10
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <!-- AI CONSUMPTION METADATA -->
-  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
   <style>
     body { margin: 0; padding: 40px; background: #E0E0E0; display: flex; gap: 40px; }
     .slide { width: 1920px; height: 1080px; flex-shrink: 0; position: relative; overflow: hidden; }
@@ -195,20 +194,58 @@ Follow the review report format defined in `../../docs/presentation-content-guid
 
 Wait for the user's approval or requested changes. If changes are requested, apply them to the HTML, re-serve, and present an updated report. Repeat until approved.
 
-## Step 6 — Capture to Figma
+## Step 6 — Output to Figma (default: `use_figma`)
 
-Only after the user approves the review report:
+Only after the user approves the review report.
 
-Follow the capture procedure in `../../references/figma-capture.md` (serve, capture, CLI fallback, polling, and rules).
+> **Shared pattern:** Follow the rules in `../../references/figma-output.md` — `hexToRgb` helper, generation metadata frame, font loading, auto-layout, descriptive layer names, and the 20KB-per-call limit all apply.
 
 If the user hasn't provided a target Figma file, ask: "Where should I push this? Provide a Figma file URL, or I can create a new file."
+
+### Slide frame structure
+
+Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizontal auto-layout inside. Font: **Roboto** (DS2026).
+
+### Slide types and token hex values
+
+**Cover slide:**
+- Background: `#0550DC` (`--zen-color-theme-primary`)
+- Title: white `#FFFFFF`, 48px bold
+- Subtitle: white at 80% opacity (`rgba(255,255,255,0.8)`), 24px regular
+
+**Body (Text + Visual):**
+- Background: `#FFFFFF`
+- Two-column layout (text left, visual right)
+- Heading: `#000000`, 32px bold
+- Body text: `#3F3F4A`, 18px regular
+
+**Section divider:**
+- Background: `#F5F5FA` (`--zen-color-background-bg-grey-2`)
+- Centered title: 36px bold, `#000000`
+
+**Back cover:**
+- Background: `#0550DC` (`--zen-color-theme-primary`)
+- Text: white `#FFFFFF`
+
+### Charts in `use_figma`
+
+- **Bar charts** — render as rectangles using `category-N-strong` hex values for each series
+- **Data tables** — horizontal auto-layout frames with header row and data rows
+- **Complex charts** — create a placeholder frame labeled `"Chart: [description]"` for manual follow-up
+
+### Execution sequence
+
+1. **Generation metadata frame first** — follow the generation log pattern from `../../references/figma-output.md`
+2. **One `use_figma` call per slide** — keep each call under the 20KB limit. Each call creates one 1920x1080 frame with auto-layout contents.
+3. **Arrange in horizontal row** — position slides left-to-right with consistent spacing (e.g., 40px gap)
+4. **Take screenshot and show user** — use `get_screenshot` on the parent frame or page to show the final result
 
 ## Step 7 — Iterate
 
 After the user reviews in Figma:
 - Adjust slide content, reorder, add/remove slides
 - Refine visuals based on feedback
-- Re-capture to Figma if needed
+- Rebuild slides via `use_figma` if needed
 
 ## Charts, diagrams, and data visualization
 
