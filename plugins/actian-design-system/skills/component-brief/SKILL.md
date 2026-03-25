@@ -118,7 +118,7 @@ Default is **All cards**.
 | "generate 1–5" or "first 5" | Range of cards |
 | "skip 6 and 7" or "all except Content and Usage" | All minus excluded |
 
-When generating a subset, only include the selected cards in the HTML `brief-row`. The CSS framework and capture script are always included regardless of selection.
+When generating a subset, only include the selected cards in the HTML `brief-row`. The CSS framework is always included regardless of selection.
 
 ### HTML generation (TEMPLATE-DRIVEN)
 
@@ -158,24 +158,85 @@ Read `../../references/token-naming.md` for the full `--zen-` prefix mapping tab
 
 ---
 
-## Step 3 — Capture to Figma
+## Step 3 — Output to Figma (default: `use_figma`)
 
-If the user wants to push the spec to Figma, capture it automatically. Do NOT give up or suggest manual workarounds.
+Read and follow the shared output procedure in `../../references/figma-output.md`. This step builds spec cards directly in Figma via Plugin API JavaScript — HTML is for local preview only.
+
+### Card structure
+
+Each spec card is a Figma frame with:
+
+- **Width:** 440px fixed, **height:** hug content
+- **Layout:** vertical auto-layout
+- **Padding:** 24px all sides
+- **Item spacing:** 16px
+- **Background:** white with border
+  - DS2026: `#FFFFFF` (`--zen-background-bg-default`) fill, `#D9DCE1` (`--zen-border-default`) 1px stroke
+  - FM: `#FFFFFF` (`--fm-base-0`) fill, `#D9DCE1` (`--fm-base-300`) 1px stroke
+- **Corner radius:** 8px
+
+### Card children
+
+Each card contains these element types as needed:
+
+| Element | Structure |
+|---------|-----------|
+| **Card number + title** | Text node, bold 18px (e.g., "1 — Page header") |
+| **Subtitle** | Text node, regular 14px, secondary color (`--zen-text-secondary` / `--fm-base-600`) |
+| **Content sections** | Nested vertical auto-layout frames with 8px spacing |
+| **Tables** | Horizontal auto-layout frames with text columns (header row bold, data rows regular) |
+| **Color swatches** | Small rectangles (24x24) filled with the token hex value, labeled |
+| **Code blocks** | Frame with dark background (`#1E1E1E`) + monospace text (Inter Mono or Roboto Mono, 12px) |
+
+### Grid layout
+
+Cards are arranged in a 3-column grid: an outer vertical wrapper contains row frames (horizontal), each holding up to 3 cards.
+
+```js
+// Outer wrapper — vertical auto-layout, holds rows
+const wrapper = figma.createFrame();
+wrapper.name = "Component Spec: [Name]";
+wrapper.layoutMode = "VERTICAL";
+wrapper.itemSpacing = 24;
+wrapper.primaryAxisSizingMode = "AUTO";
+wrapper.counterAxisSizingMode = "AUTO";
+wrapper.fills = [];
+
+// Each row — horizontal auto-layout, holds up to 3 cards
+function createRow(name) {
+  const row = figma.createFrame();
+  row.name = name;
+  row.layoutMode = "HORIZONTAL";
+  row.itemSpacing = 24;
+  row.primaryAxisSizingMode = "AUTO";
+  row.counterAxisSizingMode = "AUTO";
+  row.fills = [];
+  wrapper.appendChild(row);
+  return row;
+}
+
+const row1 = createRow("Row 1"); // Cards 1–3
+const row2 = createRow("Row 2"); // Cards 4–6
+const row3 = createRow("Row 3"); // Cards 7–9
+```
+
+### Execution steps
+
+1. **Build generation metadata frame first** — follow the generation metadata pattern in `../../references/figma-output.md`. Append it as the first child of the wrapper.
+2. **Build each card as a separate `use_figma` call** to stay under the 20KB code limit. Each call creates one card frame and appends it to the appropriate row.
+3. **Take a screenshot** with `get_screenshot` after all cards are built and show the result to the user.
+4. **Ask for adjustments** — "Here is the spec page in Figma. Want me to adjust anything?"
 
 ### Figma target
 
-If the user already provided a Figma URL, extract `fileKey` and `nodeId` from it:
+If the user provided a Figma URL, extract `fileKey` and `nodeId`:
 - `figma.com/design/:fileKey/:fileName?node-id=:nodeId` → convert `-` to `:` in nodeId
 
 Only ask for the target if the user hasn't provided one.
 
-### Capture flow
+## Step 4 — Assembler path (optional)
 
-Read and follow `../../references/figma-capture.md` for the complete capture procedure (serve, capture, CLI fallback, polling, and rules).
-
-## Step 4 — Create in Figma (optional)
-
-If the user says "create it in Figma", "build the component", or "make it real":
+If the user says "use Assembler", "create it in Figma with Assembler", or "build the component":
 
 1. Generate a `component-spec.json` from the brief:
    - Component name from Card 1 (Page header)
