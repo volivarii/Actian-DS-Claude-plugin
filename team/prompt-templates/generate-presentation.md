@@ -1,7 +1,7 @@
 # Prompt Template: Generate Presentation
 
 > Copy this into Claude Desktop when creating a presentation deck. Replace the [bracketed] parts.
-> Updated: 2026-03-23
+> Updated: 2026-03-25
 
 ---
 

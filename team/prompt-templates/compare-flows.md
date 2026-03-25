@@ -1,7 +1,7 @@
 # Prompt Template: Compare Flows
 
 > Copy this into Claude Desktop when evaluating two design alternatives. Paste both Figma URLs.
-> Updated: 2026-03-23
+> Updated: 2026-03-25
 
 ---
 
@@ -25,9 +25,13 @@ Compare across these dimensions:
 6. **Quality & hygiene** — Auto layout, constraints, layer naming, style check, state completeness, instance cleanup
 
 Format as:
-- At-a-glance comparison table
+- At-a-glance comparison table (including issue counts per severity)
 - Strengths of each flow
-- Issues in each flow (with severity: P0/P1/P2 and fixes)
+- Issues grouped by severity:
+  - P0 Critical (blocks usability or violates WCAG AA)
+  - P1 Important (degrades experience or breaks conventions)
+  - P2 Minor (polish issues, low user impact)
+  Each issue needs: flow, location, problem, recommendation
 - Quality & hygiene checklist comparison
 - Recommendation: which is stronger and why (or how to combine the best of both)
 - Suggested next steps

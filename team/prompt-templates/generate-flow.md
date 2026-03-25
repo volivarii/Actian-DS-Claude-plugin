@@ -1,7 +1,7 @@
 # Prompt Template: Generate a Fat Marker Flow
 
 > Copy this into Claude Desktop when starting a new flow. Replace the [bracketed] parts with your specifics.
-> Updated: 2026-03-23
+> Updated: 2026-03-25
 
 ---
 

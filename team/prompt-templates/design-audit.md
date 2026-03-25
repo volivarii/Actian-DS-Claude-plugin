@@ -1,7 +1,7 @@
 # Prompt Template: Design System Audit
 
 > Copy this into Claude Desktop when reviewing an existing Figma file. Paste the Figma URL where indicated.
-> Updated: 2026-03-23
+> Updated: 2026-03-25
 
 ---
 

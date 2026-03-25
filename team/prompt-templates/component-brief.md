@@ -1,7 +1,7 @@
 # Prompt Template: Component Brief
 
 > Copy this into Claude Desktop when documenting a new or existing component. Replace the [bracketed] parts.
-> Updated: 2026-03-23
+> Updated: 2026-03-25
 
 ---
 
