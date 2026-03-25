@@ -40,12 +40,13 @@ This plugin requires the **Figma MCP** connector for design context, screenshots
 
 | Skill | What it does |
 |-------|-------------|
-| `/generate-flow` | Generate Fat Marker wireframe flows from user stories, with competitor research and assembler-based Figma output |
+| `/generate-flow` | Generate Fat Marker wireframe flows from user stories, with competitor research. Output via Assembler, Plugin API, or HTML capture. |
 | `/component-brief` | Draft a 9-card DS2026 or 5-card Fat Marker component spec with anatomy, tokens, API, and accessibility |
 | `/design-audit` | Audit a Figma file against DS2026 tokens, accessibility (WCAG AA), content, forms layout, and quality standards |
 | `/compare-flows` | Compare two Figma flows with severity-rated issues (P0/P1/P2), structured analysis, and concrete recommendations |
 | `/generate-presentation` | Create a full slide deck with charts and data visualizations from docs, research, Figma content, or a topic |
-| `/create-component` | Build a new Figma component with variants, optional pattern research, and DS Assembler output |
+| `/create-component` | Build a new Figma component with variants via Assembler or Plugin API, with optional pattern research |
+| `/sync-guidelines` | Extract per-component guidelines from the DS2026 Figma library into structured JSON |
 
 ## Example prompts
 
@@ -155,21 +156,80 @@ Add a Destructive variant to the existing FM Button — red background,
 white text, same sizes as the current button.
 ```
 
+### Sync guidelines
+
+```
+Sync guidelines for Button, Text Input, and Modal
+```
+
+```
+Sync all guidelines
+```
+
 ## How it works
 
 1. **You describe what you need** — paste a Figma URL, attach a file, or describe the task
 2. **Claude researches** — fetches Figma design context, reads docs, checks competitors (for flows)
 3. **Claude generates** — creates output using DS2026 tokens and Actian templates
 4. **You review** — preview locally, approve at review gates (screen lists, slide reports)
-5. **Claude pushes to Figma** — captures output into your target Figma file via the Assembler or HTML capture
+5. **Claude pushes to Figma** — captures output into your target Figma file via the Assembler, Plugin API, or HTML capture
 
 All outputs use `--zen-*` design tokens across all three themes (Actian, Studio, Explorer). No hardcoded values.
+
+## Data architecture
+
+This plugin consumes data from the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) repo, which is the single source of truth for all Figma-derived data.
+
+```
+Figma libraries (source of truth)
+    ↓
+Assembler repo (npm run sync → generates registry, tokens, docs)
+    ↓
+This plugin (scripts/sync-from-upstream.sh → fetches via GitHub raw URLs)
+    ↓
+Claude skills (read bundled docs/tokens at runtime)
+```
+
+### Syncing from upstream
+
+```bash
+cd plugins/actian-design-system
+
+./scripts/sync-from-upstream.sh              # everything (50+ files)
+./scripts/sync-from-upstream.sh docs         # 3 reference docs
+./scripts/sync-from-upstream.sh guidelines   # 44 component guideline JSONs
+./scripts/sync-from-upstream.sh tokens       # 2 token files
+```
+
+### What triggers a sync
+
+| Something changed in Figma | What to do |
+|---|---|
+| Tokens (colors, spacing, radius) | Assembler: `npm run sync` → Plugin: `sync-from-upstream.sh tokens` |
+| Components added/modified | Assembler: `npm run sync` → Plugin: `sync-from-upstream.sh docs` |
+| Content guidelines edited | Claude: `/sync-guidelines` → copy to Assembler → Plugin: `sync-from-upstream.sh guidelines` |
+| Everything | Assembler: `npm run sync` → Claude: `/sync-guidelines all` → Plugin: `sync-from-upstream.sh` |
+
+### File sources
+
+| File | Source | How it gets here |
+|------|--------|-----------------|
+| `docs/ds2026-component-reference.md` | Assembler (auto-generated) | `sync-from-upstream.sh docs` |
+| `docs/fm-component-catalog.md` | Assembler (auto-generated) | `sync-from-upstream.sh docs` |
+| `docs/design-system.md` | Assembler (semi-generated) | `sync-from-upstream.sh docs` |
+| `docs/component-guidelines/*.json` | Assembler (Claude-extracted from Figma) | `sync-from-upstream.sh guidelines` |
+| `tokens/tokens.css` | Assembler (generated) | `sync-from-upstream.sh tokens` |
+| `tokens/actian-ds.tokens.json` | Assembler (Figma export) | `sync-from-upstream.sh tokens` |
+| `docs/content-guidelines.md` | Hand-authored (this repo) | Local edit |
+| `docs/accessibility-guidelines.md` | Hand-authored (this repo) | Local edit |
+| `docs/presentation-*.md` | Hand-authored (this repo) | Local edit |
+| `references/*.md` | Hand-authored (this repo) | Local edit |
 
 ## Feature comparison
 
 | Feature | Claude Code CLI | Claude Desktop |
 |---------|:-:|:-:|
-| All 6 skills | Yes | Yes |
+| All 7 skills | Yes | Yes |
 | Figma read (design context, screenshots) | Yes | Yes |
 | Figma capture (`generate_figma_design`) | Yes (native) | Yes (via `claude -p` workaround) |
 | Local server management | Automatic | Automatic |
@@ -178,21 +238,17 @@ All outputs use `--zen-*` design tokens across all three themes (Actian, Studio,
 
 ## DS Assembler (optional)
 
-The `/generate-flow` and `/create-component` skills can assemble **real Figma component instances** from the published FM Kit library using the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) Figma plugin.
+The `/generate-flow` and `/create-component` skills can assemble **real Figma component instances** from the published FM Kit library using the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) Figma plugin. Without it, these skills fall back to Plugin API (direct Figma JS) or HTML capture.
 
 ### Setup
-
-The Assembler plugin needs a local server to load its component registry:
 
 ```bash
 # From the Assembler directory
 cd ~/Developer/Actian/Actian-DS-Assembler
-python3 -m http.server 8765
+python3 serve.py 8765
 ```
 
 Or if using Claude Code, the plugin handles this automatically via `scripts/ensure-server.sh`.
-
-Without the Assembler, flow generation falls back to HTML capture mode.
 
 ## Design system — two layers
 
@@ -205,7 +261,7 @@ Without the Assembler, flow generation falls back to HTML capture mode.
 
 ## Architecture
 
-### Shared references
+### Shared skill references
 
 Skills share common reference files to avoid duplication:
 
@@ -218,16 +274,23 @@ Skills share common reference files to avoid duplication:
 
 ### Execution models
 
-Each skill declares how it runs — autonomous or with review gates:
-
-| Skill | Model | Pauses at |
-|-------|-------|-----------|
+| Skill | Mode | Pauses at |
+|-------|------|-----------|
 | compare-flows | Research + Audit, autonomous | Never (unless only 1 URL provided) |
 | component-brief | Spec, autonomous | Never |
-| create-component | Implement | Only if request is too vague |
+| create-component | Implement (Assembler or Plugin API) | Only if request is too vague |
 | design-audit | Audit | Assembler physical gate (user runs plugin) |
 | generate-flow | Implement with review gate | Screen list approval (Step 3) |
 | generate-presentation | Implement with review gate | Review report before Figma push (Step 5) |
+| sync-guidelines | Extract + Transform | Never (read-only sync) |
+
+### Output modes (generate-flow, create-component)
+
+| Mode | Output | Tokens | Library links | Best for |
+|------|--------|--------|:---:|---|
+| **Assembler** (default) | Real FM Kit instances | Figma variables | Yes | Production components |
+| **Plugin API** (`use_figma`) | Raw Figma frames via JS | Hex with token comments | No | Quick prototyping |
+| **HTML capture** | Flat vectors from HTML | CSS variables | No | Last resort |
 
 ## Quality & hygiene
 
@@ -265,51 +328,59 @@ actian-design-system-plugin/
 │   └── marketplace.json              # Marketplace index
 │
 ├── plugins/actian-design-system/     # The plugin
-│   ├── .claude-plugin/plugin.json    # Plugin manifest (v1.9.0)
-│   ├── CLAUDE.md                     # Design system rules
+│   ├── .claude-plugin/plugin.json    # Plugin manifest (v1.10.0)
+│   ├── CLAUDE.md                     # Design system rules + data architecture
 │   ├── hooks/hooks.json              # Auto-approve internal reads
-│   ├── scripts/                      # ensure-server.sh
 │   │
-│   ├── skills/                       # Plugin skills
+│   ├── scripts/
+│   │   ├── ensure-server.sh          # Local HTTP server management
+│   │   └── sync-from-upstream.sh     # Fetch docs/tokens/guidelines from Assembler
+│   │
+│   ├── skills/                       # Plugin skills (7)
 │   │   ├── generate-flow/
 │   │   ├── component-brief/
 │   │   │   └── templates/            # HTML skeleton templates (9 DS + 5 FM)
 │   │   ├── design-audit/
 │   │   ├── compare-flows/
 │   │   ├── generate-presentation/
-│   │   └── create-component/
+│   │   ├── create-component/
+│   │   └── sync-guidelines/          # Extracts per-component docs from Figma
 │   │
-│   ├── references/                   # Shared reference files
-│   │   ├── figma-capture.md          # Capture flow (3 skills share this)
-│   │   ├── fm-css-reference.md       # FM CSS palette + component styles
-│   │   ├── layout-spec-schema.md     # Assembler JSON schema
-│   │   └── token-naming.md           # --zen-* prefix mapping
+│   ├── references/                   # Shared skill references (hand-authored)
+│   │   ├── figma-capture.md
+│   │   ├── fm-css-reference.md
+│   │   ├── layout-spec-schema.md
+│   │   └── token-naming.md
 │   │
-│   ├── tokens/                       # Design tokens
-│   │   ├── actian-ds.tokens.json     # W3C DTCG format (source of truth)
-│   │   └── tokens.css                # CSS custom properties (--zen-*)
+│   ├── tokens/                       # Design tokens (synced from Assembler)
+│   │   ├── actian-ds.tokens.json
+│   │   └── tokens.css
 │   │
 │   └── docs/                         # Reference docs
-│       ├── design-system.md          # Token reference (3 themes)
-│       ├── content-guidelines.md     # UI copy rules
-│       ├── accessibility-guidelines.md
-│       ├── fm-component-catalog.md   # 42 Fat Marker components
-│       ├── presentation-templates.md
-│       └── presentation-content-guidelines.md
+│       ├── design-system.md          # Synced from Assembler
+│       ├── ds2026-component-reference.md  # Synced from Assembler
+│       ├── fm-component-catalog.md   # Synced from Assembler
+│       ├── component-guidelines/     # Synced from Assembler (44 JSONs)
+│       ├── content-guidelines.md     # Hand-authored
+│       ├── accessibility-guidelines.md    # Hand-authored
+│       ├── presentation-templates.md      # Hand-authored
+│       └── presentation-content-guidelines.md  # Hand-authored
 │
 └── team/                             # Team resources
     ├── DISTRIBUTION.md
-    └── prompt-templates/             # Copy-paste prompts for each skill
+    └── prompt-templates/             # Copy-paste prompts for each skill (6)
 ```
 
 ## Maintaining
 
-| What changed | What to update |
-|-------------|---------------|
-| Tokens change in Figma | Re-export JSON to `tokens/`, regenerate `actian-ds.tokens.json` + `tokens.css`, update `docs/design-system.md` |
-| FM Kit changes | Update `docs/fm-component-catalog.md` + `references/fm-css-reference.md` |
-| Content rules change | Edit `docs/content-guidelines.md` |
-| A11y rules change | Edit `docs/accessibility-guidelines.md` |
+| What changed | What to do |
+|-------------|------------|
+| Tokens change in Figma | Assembler: `npm run sync` → Plugin: `./scripts/sync-from-upstream.sh tokens` |
+| Components added/modified in Figma | Assembler: `npm run sync` → Plugin: `./scripts/sync-from-upstream.sh docs` |
+| Content designer edits guidelines in Figma | Claude: `/sync-guidelines` → copy to Assembler → Plugin: `./scripts/sync-from-upstream.sh guidelines` |
+| Generic content rules change | Edit `docs/content-guidelines.md` directly (hand-authored) |
+| A11y rules change | Edit `docs/accessibility-guidelines.md` directly (hand-authored) |
+| FM CSS reference needs update | Edit `references/fm-css-reference.md` directly (hand-authored) |
 | New skill needed | Add `skills/<name>/SKILL.md` + prompt template in `team/prompt-templates/` |
 | Bump version | Update `version` in `plugins/actian-design-system/.claude-plugin/plugin.json` |
 
