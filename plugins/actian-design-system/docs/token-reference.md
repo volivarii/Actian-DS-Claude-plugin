@@ -2,7 +2,7 @@
 
 > Last synced: 2026-03-21 (via `sync-all.js` + manual verification)
 > Source: [Actian Design System 2026](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-2026)
-> Component reference: see `docs/ds2026-component-reference.md` (auto-generated)
+> Component reference: see `docs/ds2026-components.md` (auto-generated)
 
 ---
 
@@ -283,7 +283,7 @@ Size values are inconsistent across components:
 | Digrams | `Default`, `Large` |
 | Inputs | Use `States` not `Size` |
 
-When generating specs, use the exact values from `ds2026-component-reference.md` for each component.
+When generating specs, use the exact values from `ds2026-components.md` for each component.
 
 ### Common variant axes
 

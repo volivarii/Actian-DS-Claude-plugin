@@ -20,11 +20,11 @@ To update docs and tokens: run `scripts/sync-from-upstream.sh` (fetches from Ass
 
 | File | Source | Purpose |
 |------|--------|---------|
-| `docs/design-system.md` | Synced from Assembler | Token reference (3 themes) |
-| `docs/ds2026-component-reference.md` | Synced from Assembler | 77 DS2026 component sets, auto-generated |
-| `docs/fm-component-catalog.md` | Synced from Assembler | 29 FM Kit component sets, auto-generated |
-| `docs/content-guidelines.md` | Hand-authored (this repo) | Generic UI copy rules |
-| `docs/accessibility-guidelines.md` | Hand-authored (this repo) | WCAG 2.1 AA standards |
+| `docs/token-reference.md` | Synced from Assembler | Token reference (3 themes) |
+| `docs/ds2026-components.md` | Synced from Assembler | 77 DS2026 component sets, auto-generated |
+| `docs/fm-components.md` | Synced from Assembler | 29 FM Kit component sets, auto-generated |
+| `docs/content-guidelines.md` | Synced from Assembler | Generic UI copy rules |
+| `docs/accessibility-guidelines.md` | Synced from Assembler | WCAG 2.1 AA standards |
 | `docs/presentation-templates.md` | Hand-authored (this repo) | 5 slide template specs |
 | `docs/presentation-content-guidelines.md` | Hand-authored (this repo) | Voice, tone, chart selection |
 | `docs/component-guidelines/*.json` | Extracted via `/sync-guidelines` | Per-component content/design guidelines from Figma (44 components) |
@@ -131,7 +131,7 @@ Add a `metadata` frame as the first child of the top-level spec:
 ## Token Reference
 
 Token reference docs and files:
-- **[`docs/design-system.md`](docs/design-system.md)** — Human + AI readable token reference (Markdown)
+- **[`docs/token-reference.md`](docs/token-reference.md)** — Human + AI readable token reference (Markdown)
 - **[`tokens/actian-ds.tokens.json`](tokens/actian-ds.tokens.json)** — Source of truth (W3C DTCG format)
 - **[`tokens/tokens.css`](tokens/tokens.css)** — CSS custom properties with `--zen-*` prefix, 3 theme modes via `[data-theme]`
 - Source Figma: [Actian Design System 2026](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-2026)
@@ -211,7 +211,7 @@ These rules apply to all generated screens (flows, specs, audits) across all ski
 
 3 themes: **Actian**, **Studio**, **Explorer**.
 
-Theme switching changes these tokens (see `design-system.md` for exact values):
+Theme switching changes these tokens (see `token-reference.md` for exact values):
 
 - `theme-primary`, `theme-selected`
 - `interactive-selected-primary`, `interactive-selected-secondary`, `interactive-dragged-primary`

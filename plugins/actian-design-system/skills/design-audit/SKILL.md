@@ -29,9 +29,13 @@ The user provides a Figma URL (frame, page, or section). If no URL is given, ask
 
 ## What to check
 
+### Component-specific guidelines
+
+For each component identified in the design, check `../../docs/component-guidelines/<slug>.json` for per-component content and design guidelines extracted from Figma. Use the `content_guidelines` field to audit UI copy and the `design_guidelines` field to check layout/usage patterns. If no file exists for a component, rely on the generic guidelines.
+
 ### Component consistency
 - Are FM-prefixed components used consistently? Flag any detached instances or ad-hoc recreations.
-- Are component names consistent with the Fat Marker catalog? (See `../../docs/fm-component-catalog.md`)
+- Are component names consistent with the Fat Marker catalog? (See `../../docs/fm-components.md`)
 - Flag any naming mismatches (e.g., "App_header" without "FM" prefix, "Text Cell" vs "Table Cell").
 
 ### Token usage

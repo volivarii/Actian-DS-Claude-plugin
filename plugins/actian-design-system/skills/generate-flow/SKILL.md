@@ -171,7 +171,7 @@ Create a single HTML file at `components/flows/[feature-name]-flow.html` using t
 - **FM Page Header** — title (+ optional subtitle) at top of content area
 
 ### Available components (use as needed)
-Refer to `../../docs/fm-component-catalog.md` for the full inventory. Key ones:
+Refer to `../../docs/fm-components.md` for the full inventory. Key ones:
 - FM Button (Primary/Secondary/Outline)
 - FM Text input field, FM Text Area, FM Dropdown, FM Search input field
 - FM Input Label (with required asterisk where needed)
@@ -192,7 +192,7 @@ Refer to `../../docs/fm-component-catalog.md` for the full inventory. Key ones:
 The FM library doesn't have everything — charts, visualizations, custom controls, specialized layouts, etc. When no FM component fits, build a custom element inline.
 
 **Rules:**
-1. **FM first** — always check `../../docs/fm-component-catalog.md` before going custom. If an FM component can do the job (even approximately), use it.
+1. **FM first** — always check `../../docs/fm-components.md` before going custom. If an FM component can do the job (even approximately), use it.
 2. **Follow FM conventions** — custom elements must use:
    - `--fm-*` CSS variables for all colors (no raw hex)
    - FM spacing scale (4, 8, 12, 16, 24, 28, 32px)
@@ -267,7 +267,7 @@ Three approaches are available. The first two can both import real library compo
 Generates a JSON spec. The Assembler resolves all tokens to Figma variables — including scaffolding.
 
 1. Generate a layout spec JSON — read `../../references/layout-spec-schema.md` for the schema
-2. Reference components by their exact names from `../../docs/fm-component-catalog.md`
+2. Reference components by their exact names from `../../docs/fm-components.md`
 3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
 4. Use `--fm-*` token names for fills (the Assembler resolves them to Figma variables)
 5. For custom elements, use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children

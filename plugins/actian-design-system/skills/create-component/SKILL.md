@@ -36,10 +36,18 @@ Infer as much as possible from the request and context. If a Figma URL is provid
 ## Step 2 — Check existing components
 
 Before creating, check these files (shipped with the plugin):
-1. `../../docs/ds2026-component-reference.md` — does it already exist in DS2026?
-2. `../../docs/fm-component-catalog.md` — does it already exist in FM Kit?
+1. `../../docs/ds2026-components.md` — does it already exist in DS2026?
+2. `../../docs/fm-components.md` — does it already exist in FM Kit?
 
 If it exists, tell the user and suggest modifying it instead of creating a duplicate.
+
+### Load component guidelines
+
+If the component exists (or a similar one does), check for per-component guidelines:
+- Read `../../docs/component-guidelines/<slug>.json` (e.g., `button.json`, `text-input.json`)
+- This file contains content guidelines, design guidelines, variant inventory, and example screenshots extracted from Figma
+- Use the `content_guidelines` and `design_guidelines` fields to inform your spec — they capture Figma-native guidance that the generic docs don't cover
+- If the file doesn't exist, proceed without it
 
 ## Step 3 — Research patterns (optional)
 
@@ -159,7 +167,7 @@ Generate a `component-spec.json` following the schema below, then:
 ```json
 { "component": "FM Button", "props": { "Type": "Primary", "Size": "sm" } }
 ```
-Use exact component names from `../../docs/fm-component-catalog.md` (FM Kit) or `../../docs/ds2026-component-reference.md` (DS2026).
+Use exact component names from `../../docs/fm-components.md` (FM Kit) or `../../docs/ds2026-components.md` (DS2026).
 
 **Frame (container):**
 ```json
@@ -272,7 +280,7 @@ Use these exact values when writing `use_figma` code. In assembler specs, use th
 | `--zen-color-status-success-primary` | `#047800` | Success |
 | `--zen-color-status-error-primary` | `#C10C0D` | Error |
 
-For the full token list, read `../../tokens/tokens.css` or `../../docs/design-system.md`.
+For the full token list, read `../../tokens/tokens.css` or `../../docs/token-reference.md`.
 
 ### Spacing scale
 

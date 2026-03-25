@@ -64,10 +64,14 @@ sync_docs() {
   local ok=0 fail=0
 
   # Generated component reference docs (currently under registry/ in the Assembler repo)
-  fetch_file "registry/ds2026-component-reference.md" "$PLUGIN_DIR/docs/ds2026-component-reference.md" && ok=$((ok + 1)) || fail=$((fail + 1))
-  fetch_file "registry/fm-component-catalog.md" "$PLUGIN_DIR/docs/fm-component-catalog.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "registry/ds2026-components.md" "$PLUGIN_DIR/docs/ds2026-components.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "registry/fm-components.md" "$PLUGIN_DIR/docs/fm-components.md" && ok=$((ok + 1)) || fail=$((fail + 1))
 
-  fetch_file "docs/design-system.md" "$PLUGIN_DIR/docs/design-system.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "docs/token-reference.md" "$PLUGIN_DIR/docs/token-reference.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+
+  # Curated guideline docs (canonical source is Assembler)
+  fetch_file "docs/content-guidelines.md" "$PLUGIN_DIR/docs/content-guidelines.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "docs/accessibility-guidelines.md" "$PLUGIN_DIR/docs/accessibility-guidelines.md" && ok=$((ok + 1)) || fail=$((fail + 1))
 
   echo ""
   echo -e "Docs: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"

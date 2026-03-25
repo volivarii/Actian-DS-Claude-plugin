@@ -10,8 +10,8 @@
 | File | Purpose | Where it goes |
 |---|---|---|
 | `CLAUDE.md` | Component rules, conventions, Figma MCP flow | Claude Project Knowledge |
-| `design-system.md` | Full token reference (colors, typography, spacing, etc.) | Claude Project Knowledge |
-| `fm-component-catalog.md` | 42 FM components with variants and node IDs | Claude Project Knowledge |
+| `token-reference.md` | Full token reference (colors, typography, spacing, etc.) | Claude Project Knowledge |
+| `fm-components.md` | 42 FM components with variants and node IDs | Claude Project Knowledge |
 | `team/prompt-templates/*.md` | 6 ready-to-paste prompt templates | Team Notion / Drive / Slack |
 | `ux-ai-resources-canvas.md` | Onboarding guide and learning resources | Team Notion / Slack canvas |
 
@@ -43,10 +43,10 @@ If you prefer not to install the plugin:
 2. Name it **"Actian UX Design System"**
 3. Add Project Knowledge:
    - Upload `CLAUDE.md` (component rules + conventions)
-   - Upload `docs/design-system.md` (full token reference)
+   - Upload `docs/token-reference.md` (full token reference)
    - Upload `docs/content-guidelines.md` (UI copy rules)
    - Upload `docs/accessibility-guidelines.md` (WCAG 2.1 AA standards)
-   - Upload `docs/fm-component-catalog.md`
+   - Upload `docs/fm-components.md`
 4. Invite the team — everyone who joins gets the context automatically
 
 ### 3. Connect Figma (each designer, 2 minutes)
@@ -138,8 +138,8 @@ The `/generate-flow` and `/create-component` skills can produce real Figma compo
 ## Keeping it updated
 
 - **Plugin version** — `plugins/actian-design-system/.claude-plugin/plugin.json` — bump for each release
-- **Tokens** — Re-export JSON to `tokens/`, regenerate `actian-ds.tokens.json` + `tokens.css`, update `docs/design-system.md`
-- **FM Kit** — Update `docs/fm-component-catalog.md` + `references/fm-css-reference.md`
+- **Tokens** — Re-export JSON to `tokens/`, regenerate `actian-ds.tokens.json` + `tokens.css`, update `docs/token-reference.md`
+- **FM Kit** — Update `docs/fm-components.md` + `references/fm-css-reference.md`
 - **Content rules** — Edit `docs/content-guidelines.md`
 - **A11y rules** — Edit `docs/accessibility-guidelines.md`
 - **Prompt templates** — Add new templates when the team discovers useful prompt patterns. Remove ones that don't work.

@@ -214,14 +214,15 @@ cd plugins/actian-design-system
 
 | File | Source | How it gets here |
 |------|--------|-----------------|
-| `docs/ds2026-component-reference.md` | Assembler (auto-generated) | `sync-from-upstream.sh docs` |
-| `docs/fm-component-catalog.md` | Assembler (auto-generated) | `sync-from-upstream.sh docs` |
-| `docs/design-system.md` | Assembler (semi-generated) | `sync-from-upstream.sh docs` |
+| `docs/ds2026-components.md` | Assembler (auto-generated) | `sync-from-upstream.sh docs` |
+| `docs/fm-components.md` | Assembler (auto-generated) | `sync-from-upstream.sh docs` |
+| `docs/token-reference.md` | Assembler (semi-generated) | `sync-from-upstream.sh docs` |
 | `docs/component-guidelines/*.json` | Assembler (Claude-extracted from Figma) | `sync-from-upstream.sh guidelines` |
+| `docs/foundations/*.json` | Assembler (Claude-extracted from Figma) | `sync-from-upstream.sh foundations` |
 | `tokens/tokens.css` | Assembler (generated) | `sync-from-upstream.sh tokens` |
 | `tokens/actian-ds.tokens.json` | Assembler (Figma export) | `sync-from-upstream.sh tokens` |
-| `docs/content-guidelines.md` | Hand-authored (this repo) | Local edit |
-| `docs/accessibility-guidelines.md` | Hand-authored (this repo) | Local edit |
+| `docs/content-guidelines.md` | Assembler (curated) | `sync-from-upstream.sh docs` |
+| `docs/accessibility-guidelines.md` | Assembler (curated) | `sync-from-upstream.sh docs` |
 | `docs/presentation-*.md` | Hand-authored (this repo) | Local edit |
 | `references/*.md` | Hand-authored (this repo) | Local edit |
 
@@ -357,9 +358,9 @@ actian-design-system-plugin/
 │   │   └── tokens.css
 │   │
 │   └── docs/                         # Reference docs
-│       ├── design-system.md          # Synced from Assembler
-│       ├── ds2026-component-reference.md  # Synced from Assembler
-│       ├── fm-component-catalog.md   # Synced from Assembler
+│       ├── token-reference.md          # Synced from Assembler
+│       ├── ds2026-components.md  # Synced from Assembler
+│       ├── fm-components.md   # Synced from Assembler
 │       ├── component-guidelines/     # Synced from Assembler (44 JSONs)
 │       ├── content-guidelines.md     # Hand-authored
 │       ├── accessibility-guidelines.md    # Hand-authored
