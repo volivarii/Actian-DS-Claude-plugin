@@ -8,8 +8,8 @@ argument-hint: "[Figma URL or component name] [generate N,N,N]"
 
 Draft a structured component brief and generate an HTML spec page. Supports two modes matching the two design system layers.
 
-> **Content guidelines:** All UI copy in briefs must follow `docs/content-guidelines.md`. Read it before writing Cards 6 (Usage guidelines) and 7 (Content guidelines).
-> **Accessibility guidelines:** Card 8 (Accessibility) must follow `docs/accessibility-guidelines.md` — use the component-specific checklist matching the component type (P0/P1/P2), include WCAG criteria references, contrast ratio table, and keyboard interaction spec. All WCAG 2.1 AA.
+> **Content guidelines:** All UI copy in briefs must follow `../../docs/content-guidelines.md`. Read it before writing Cards 6 (Usage guidelines) and 7 (Content guidelines).
+> **Accessibility guidelines:** Card 8 (Accessibility) must follow `../../docs/accessibility-guidelines.md` — use the component-specific checklist matching the component type (P0/P1/P2), include WCAG criteria references, contrast ratio table, and keyboard interaction spec. All WCAG 2.1 AA.
 > **Quality & hygiene:** Validate all output against CLAUDE.md Quality & Hygiene Checklist before marking complete.
 > **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
@@ -46,7 +46,7 @@ Parse card selection from the user's initial input. If no selection is specified
 
 - **Do NOT use TaskCreate/TaskUpdate/TodoWrite.** No task tracking overhead — just execute.
 - **ONE parallel batch for research.** Read all files in a single message with parallel tool calls. Never do serial rounds of research.
-- **Do NOT read CLAUDE.md** — the relevant token mappings and rules are already in this skill file and in `docs/design-system.md`.
+- **Do NOT read CLAUDE.md** — the relevant token mappings and rules are already in this skill file and in `../../docs/design-system.md`.
 - **Do NOT read `plugin.json`** — the plugin version for the generation log is: check `.claude-plugin/plugin.json` only once, at the very end, right before writing the file.
 - **If a Figma call fails, skip it and proceed.** Do not retry or try alternative approaches — use the screenshot and existing docs instead.
 - **Do NOT create directories with mkdir.** Use the Write tool directly — it creates parent directories automatically.
@@ -57,16 +57,16 @@ Issue ALL of these reads in a **single message** with parallel tool calls. Do no
 
 **For Actian DS mode (9 cards), read these files in parallel:**
 1. `get_screenshot` on the provided Figma node (for visual reference)
-2. `docs/design-system.md` (token values per theme)
-3. `docs/content-guidelines.md` (for Cards 6-7)
-4. `docs/accessibility-guidelines.md` (for Card 8)
+2. `../../docs/design-system.md` (token values per theme)
+3. `../../docs/content-guidelines.md` (for Cards 6-7)
+4. `../../docs/accessibility-guidelines.md` (for Card 8)
 5. All 9 card templates: `templates/ds-card-1-page-header.html` through `templates/ds-card-9-code-specification.html`
 6. `templates/ds-wrapper.html`
 
 **For Fat Marker mode (5 cards), read these files in parallel:**
 1. `get_screenshot` on the provided Figma node
-2. `docs/fm-component-catalog.md` (component variants)
-3. `docs/content-guidelines.md`
+2. `../../docs/fm-component-catalog.md` (component variants)
+3. `../../docs/content-guidelines.md`
 4. All 5 card templates: `templates/fm-card-1-page-header.html` through `templates/fm-card-5-anatomy.html`
 5. `templates/fm-wrapper.html`
 
@@ -152,7 +152,7 @@ When generating a subset, only include the selected cards in the HTML `brief-row
 
 ## Token Naming Convention
 
-Read `references/token-naming.md` for the full `--zen-` prefix mapping table. Use these prefixed names everywhere: spec tables, anatomy callouts, code specification, CSS custom properties.
+Read `../../references/token-naming.md` for the full `--zen-` prefix mapping table. Use these prefixed names everywhere: spec tables, anatomy callouts, code specification, CSS custom properties.
 
 ---
 
@@ -169,7 +169,7 @@ Only ask for the target if the user hasn't provided one.
 
 ### Capture flow
 
-Read and follow `references/figma-capture.md` for the complete capture procedure (serve, capture, CLI fallback, polling, and rules).
+Read and follow `../../references/figma-capture.md` for the complete capture procedure (serve, capture, CLI fallback, polling, and rules).
 
 ## Step 4 — Create in Figma (optional)
 

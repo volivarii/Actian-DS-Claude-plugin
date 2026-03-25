@@ -7,8 +7,8 @@ argument-hint: "[feature description or Figma URL]"
 # Generate Fat Marker Flow
 
 > **Workflow A — Fat Marker (lo-fi).** This skill uses FM components, Inter font, and the simplified Fat Marker palette. NOT DS2026 tokens. See CLAUDE.md "Workflow A" for rules.
-> **Content guidelines:** All UI copy must follow `docs/content-guidelines.md`. Read it before writing any screen copy.
-> **Accessibility guidelines:** All flows must follow `docs/accessibility-guidelines.md` — ensure keyboard navigation, focus order, ARIA landmarks, form labels, error states, and touch targets are designed. WCAG 2.1 AA.
+> **Content guidelines:** All UI copy must follow `../../docs/content-guidelines.md`. Read it before writing any screen copy.
+> **Accessibility guidelines:** All flows must follow `../../docs/accessibility-guidelines.md` — ensure keyboard navigation, focus order, ARIA landmarks, form labels, error states, and touch targets are designed. WCAG 2.1 AA.
 > **Quality & hygiene:** Validate all output against CLAUDE.md Quality & Hygiene Checklist before marking complete.
 > **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
@@ -171,7 +171,7 @@ Create a single HTML file at `components/flows/[feature-name]-flow.html` using t
 - **FM Page Header** — title (+ optional subtitle) at top of content area
 
 ### Available components (use as needed)
-Refer to `docs/fm-component-catalog.md` for the full inventory. Key ones:
+Refer to `../../docs/fm-component-catalog.md` for the full inventory. Key ones:
 - FM Button (Primary/Secondary/Outline)
 - FM Text input field, FM Text Area, FM Dropdown, FM Search input field
 - FM Input Label (with required asterisk where needed)
@@ -192,7 +192,7 @@ Refer to `docs/fm-component-catalog.md` for the full inventory. Key ones:
 The FM library doesn't have everything — charts, visualizations, custom controls, specialized layouts, etc. When no FM component fits, build a custom element inline.
 
 **Rules:**
-1. **FM first** — always check `docs/fm-component-catalog.md` before going custom. If an FM component can do the job (even approximately), use it.
+1. **FM first** — always check `../../docs/fm-component-catalog.md` before going custom. If an FM component can do the job (even approximately), use it.
 2. **Follow FM conventions** — custom elements must use:
    - `--fm-*` CSS variables for all colors (no raw hex)
    - FM spacing scale (4, 8, 12, 16, 24, 28, 32px)
@@ -241,7 +241,7 @@ The FM library doesn't have everything — charts, visualizations, custom contro
 
 ### Fat Marker CSS Reference
 
-Read `references/fm-css-reference.md` for the complete FM CSS token palette, component styles, and HTML structure templates. Copy those exact styles into every generated flow HTML — do not approximate values.
+Read `../../references/fm-css-reference.md` for the complete FM CSS token palette, component styles, and HTML structure templates. Copy those exact styles into every generated flow HTML — do not approximate values.
 
 ## Step 5 — Choose output mode
 
@@ -267,7 +267,7 @@ Generates flat vector frames via `generate_figma_design`. Use only when:
 - The assembler plugin is not installed
 - The user explicitly declines the assembler
 
-Follow the capture procedure in `references/figma-capture.md` (serve, capture, CLI fallback, polling, and rules).
+Follow the capture procedure in `../../references/figma-capture.md` (serve, capture, CLI fallback, polling, and rules).
 
 ## Step 6 — Review
 
@@ -275,7 +275,7 @@ After capture or assembly, get a screenshot of the result and show it to the use
 
 ### Layout spec schema
 
-Read `references/layout-spec-schema.md` for the complete schema — node types (frames + instances), layout properties, `textOverrides`, FM Kit component names, and a full screen example.
+Read `../../references/layout-spec-schema.md` for the complete schema — node types (frames + instances), layout properties, `textOverrides`, FM Kit component names, and a full screen example.
 
 ### Fallback
 

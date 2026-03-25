@@ -37,9 +37,9 @@ Infer as much as possible from the request and context. If a Figma URL is provid
 ## Step 2 — Check existing components
 
 Before creating, check:
-1. `docs/ds2026-component-reference.md` — does it already exist in DS2026?
-2. `docs/fm-component-catalog.md` — does it already exist in FM Kit?
-3. Registry: `registry/component-registry.json` — is there a key for it?
+1. `../../docs/ds2026-component-reference.md` — does it already exist in DS2026?
+2. `../../docs/fm-component-catalog.md` — does it already exist in FM Kit?
+3. Registry: `../../registry/component-registry.json` — is there a key for it?
 
 If it exists, tell the user and suggest modifying it instead of creating a duplicate.
 
@@ -177,4 +177,4 @@ After generation and before presenting to the user, run a focused cleanup sweep 
 
 After the component is created and published:
 1. Run `FIGMA_TOKEN=figd_xxx node registry/sync-all.js` to update the registry and reference docs
-2. If it's a FM Kit component, update `registry/fm-descriptions.json` with a description
+2. If it's a FM Kit component, update `../../registry/fm-descriptions.json` with a description

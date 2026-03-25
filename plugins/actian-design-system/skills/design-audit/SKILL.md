@@ -7,8 +7,8 @@ argument-hint: "[Figma URL]"
 # Design System Audit
 
 > **Works with both workflows.** First determine which library the file uses (FM components = Workflow A, DS2026 components = Workflow B), then apply the corresponding rules from CLAUDE.md.
-> **Content guidelines:** Audit all UI copy against `docs/content-guidelines.md` — check button labels, link text, form labels, status messages, modal copy, table headers, and navigation items.
-> **Accessibility guidelines:** Audit against `docs/accessibility-guidelines.md` — use the General Accessibility Checklist and the relevant component-specific checklists (P0–P2). Check contrast ratios, keyboard access, focus indicators, ARIA patterns, touch targets, and state completeness. All WCAG 2.1 AA.
+> **Content guidelines:** Audit all UI copy against `../../docs/content-guidelines.md` — check button labels, link text, form labels, status messages, modal copy, table headers, and navigation items.
+> **Accessibility guidelines:** Audit against `../../docs/accessibility-guidelines.md` — use the General Accessibility Checklist and the relevant component-specific checklists (P0–P2). Check contrast ratios, keyboard access, focus indicators, ARIA patterns, touch targets, and state completeness. All WCAG 2.1 AA.
 > **Quality & hygiene:** Include the Quality & Hygiene Checklist from CLAUDE.md as an audit dimension — flag violations of any of the 10 items (auto layout, constraints, properties, states, contrast, layer naming, style check, instance cleanup, hidden layers, documentation).
 > **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
@@ -31,7 +31,7 @@ The user provides a Figma URL (frame, page, or section). If no URL is given, ask
 
 ### Component consistency
 - Are FM-prefixed components used consistently? Flag any detached instances or ad-hoc recreations.
-- Are component names consistent with the Fat Marker catalog? (See `docs/fm-component-catalog.md`)
+- Are component names consistent with the Fat Marker catalog? (See `../../docs/fm-component-catalog.md`)
 - Flag any naming mismatches (e.g., "App_header" without "FM" prefix, "Text Cell" vs "Table Cell").
 
 ### Token usage
