@@ -31,7 +31,7 @@ To update docs and tokens: run `scripts/sync-from-upstream.sh` (fetches from Ass
 | `docs/foundations/*.json` | Extracted via `/sync-guidelines` | Foundation docs from Figma: accessibility, borders, breakpoints, color, content, elevation, icons, interaction, spacing, typography |
 | `tokens/tokens.css` | Synced from Assembler | CSS custom properties (`--zen-*`) |
 | `tokens/actian-ds.tokens.json` | Synced from Assembler | W3C DTCG format (source of truth for tokens) |
-| `references/*.md` | Hand-authored (this repo) | Shared skill references (figma-capture, fm-css, layout-spec, token-naming) |
+| `references/*.md` | Hand-authored (this repo) | Shared skill references (figma-output, fm-css, layout-spec, token-naming) |
 
 ## Versioning (Semantic Versioning)
 
@@ -53,10 +53,10 @@ Both the Claude plugin and the DS Assembler use **semver** (`MAJOR.MINOR.PATCH`)
 
 ## Local Server Management
 
-When serving HTML for preview or Figma capture, always use the `ensure-server.sh` utility:
+When serving HTML for local preview or Assembler specs, always use the `ensure-server.sh` utility:
 
 ```bash
-# From the plugin directory — serves HTML files for Figma capture
+# From the plugin directory — serves HTML files for local preview
 BASE_URL=$(scripts/ensure-server.sh . 8765)
 
 # From the Assembler directory — serves specs + registry
@@ -75,7 +75,7 @@ The script handles all edge cases:
 
 ## Generation Metadata (required for all outputs)
 
-**Every generated output** (HTML specs, flows, presentations, assembler specs) MUST include a visible generation card as the **first element** — before any content cards, screens, or slides. This card is rendered and captured alongside the output so the metadata is always visible in Figma.
+**Every generated output** (HTML specs, flows, presentations, assembler specs) MUST include a visible generation card as the **first element** — before any content cards, screens, or slides. This card is included in the output so the metadata is always visible in Figma.
 
 ### HTML outputs (specs, flows, presentations)
 
@@ -116,6 +116,14 @@ Add a `metadata` frame as the first child of the top-level spec:
   ]
 }
 ```
+
+### `use_figma` outputs (Plugin API)
+
+Build a generation metadata frame as the first sibling before main content. See `references/figma-output.md` for the complete code pattern. The frame must include:
+- "GENERATED" label
+- Skill name
+- ISO 8601 date
+- Model + plugin version
 
 ### Field rules
 
@@ -407,7 +415,7 @@ Source: [Actian Design System v1.0.0 — Quality & Hygiene](https://www.figma.co
 
 ### HTML translation
 
-When generating HTML for Figma capture or assembler specs, the checklist translates to:
+When generating HTML for local preview or assembler specs, the checklist translates to:
 
 | Figma check | HTML equivalent |
 |-------------|-----------------|
