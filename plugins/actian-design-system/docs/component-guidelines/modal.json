@@ -1,0 +1,27 @@
+{
+  "component": "Modal",
+  "page_id": "9253:29287",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:29287",
+  "frames_found": ["Content guidelines", "Components", "Screenshots of current use cases"],
+  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Terminology",
+        "content": [
+          { "rule": "CTA uses standardized term, Modal title uses same term, Confirmation button uses same verb." },
+          { "rule": "Example: CTA 'Revert description' -> Title 'Revert to the source description?' -> Buttons 'Cancel' / 'Revert'." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null
+}

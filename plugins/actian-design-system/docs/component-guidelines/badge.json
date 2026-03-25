@@ -1,0 +1,26 @@
+{
+  "component": "Badge",
+  "page_id": "9253:20900",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:20900",
+  "frames_found": ["Design guidelines", "Content guidelines", "Components", "Ready made examples"],
+  "frames_missing": ["Screenshots of use cases", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Content",
+        "content": [
+          { "rule": "Number badges appear with number ONLY." },
+          { "rule": "Optionally include tooltip for explanation (e.g., '5 unread notifications')." },
+          { "rule": "Non-clickable." },
+          { "rule": "Updated dynamically." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

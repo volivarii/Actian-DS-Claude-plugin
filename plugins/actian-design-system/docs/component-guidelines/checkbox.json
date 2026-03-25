@@ -1,0 +1,51 @@
+{
+  "component": "Checkbox",
+  "page_id": "12070:77593",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77593",
+  "frames_found": ["Design guidelines", "Content guidelines", "Components", "Screenshots of current use cases"],
+  "frames_missing": ["ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Default format - When to use",
+        "content": [
+          { "rule": "Allow users to select multiple options." },
+          { "rule": "Binary settings independent of other choices." },
+          { "rule": "Filtering/refining data." }
+        ]
+      },
+      {
+        "heading": "Default format - Style",
+        "content": [
+          { "rule": "Use clear, direct labels." },
+          { "rule": "Write in positive form ('Show archived items' not 'Don't hide archived items')." },
+          { "rule": "Group related checkboxes under group label." }
+        ]
+      },
+      {
+        "heading": "Card format - When to use",
+        "content": [
+          { "rule": "When each option needs rich context (title, description, image, metadata)." },
+          { "rule": "Primary decision points." }
+        ]
+      },
+      {
+        "heading": "Card format - Behavior",
+        "content": [
+          { "rule": "Indicate selected state visually." },
+          { "rule": "Click anywhere on tile to toggle." },
+          { "rule": "Multi-select: checkbox behavior. Single-select: radio group behavior." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null
+}

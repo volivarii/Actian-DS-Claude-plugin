@@ -1,0 +1,44 @@
+{
+  "component": "Dropdown / Select",
+  "page_id": "12070:77588",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77588",
+  "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
+  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "When to use",
+        "content": [
+          { "rule": "When offering 2-7 related actions that can't fit inline." },
+          { "rule": "When top-level button triggers default action with dropdown alternatives." },
+          { "rule": "For bulk/item-level controls." }
+        ]
+      },
+      {
+        "heading": "Behavior",
+        "content": [
+          { "rule": "Menu opens on click (not hover)." },
+          { "rule": "Close on ESC or outside click." }
+        ]
+      },
+      {
+        "heading": "Style",
+        "content": [
+          { "rule": "Label button with clear action or noun ('Actions', 'More')." },
+          { "rule": "Menu items: verb + noun ('Download PDF', 'Add tag')." },
+          { "rule": "Use sentence case." },
+          { "rule": "Multi-selection: include checkboxes, persist selections." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null
+}

@@ -1,0 +1,14 @@
+{
+  "component": "Alert / banner",
+  "page_id": "9253:21058",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:21058",
+  "frames_found": ["Design guidelines", "Components"],
+  "frames_missing": ["Content guidelines", "ready made examples", "Screenshots of use cases", "Behavior demo"],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

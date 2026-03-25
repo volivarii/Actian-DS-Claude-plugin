@@ -1,0 +1,17 @@
+{
+  "component": "Tab",
+  "page_id": "9253:33996",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:33996",
+  "frames_found": ["Components", "Screenshots of current use cases"],
+  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null
+}

@@ -5,11 +5,12 @@
 # for all Figma-derived data. This script pulls the latest versions into the Plugin.
 #
 # Usage:
-#   ./scripts/sync-from-upstream.sh           # sync everything
-#   ./scripts/sync-from-upstream.sh docs      # sync docs only
-#   ./scripts/sync-from-upstream.sh tokens    # sync tokens only
+#   ./scripts/sync-from-upstream.sh                # sync everything
+#   ./scripts/sync-from-upstream.sh docs           # sync docs only
+#   ./scripts/sync-from-upstream.sh tokens         # sync tokens only
+#   ./scripts/sync-from-upstream.sh guidelines     # sync component guidelines only
 #
-# Requires: curl
+# Requires: curl, python3 (for JSON parsing)
 
 set -euo pipefail
 
@@ -71,6 +72,43 @@ sync_docs() {
   echo -e "Docs: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"
 }
 
+sync_guidelines() {
+  echo ""
+  echo "Syncing component guidelines from ${REPO}..."
+  echo ""
+
+  local ok=0 fail=0
+  local guidelines_dir="$PLUGIN_DIR/docs/component-guidelines"
+  mkdir -p "$guidelines_dir"
+
+  # Fetch the index first to discover all component files
+  fetch_file "docs/component-guidelines/_index.json" "$guidelines_dir/_index.json" && ok=$((ok + 1)) || fail=$((fail + 1))
+
+  if [ ! -f "$guidelines_dir/_index.json" ]; then
+    echo -e "  ${RED}Cannot fetch _index.json — skipping component guidelines${NC}"
+    echo ""
+    echo -e "Guidelines: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"
+    return
+  fi
+
+  # Parse slugs from _index.json and fetch each component file
+  local slugs
+  slugs=$(python3 -c "
+import json
+with open('$guidelines_dir/_index.json') as f:
+    data = json.load(f)
+for c in data.get('components', []):
+    print(c['slug'])
+")
+
+  for slug in $slugs; do
+    fetch_file "docs/component-guidelines/${slug}.json" "$guidelines_dir/${slug}.json" && ok=$((ok + 1)) || fail=$((fail + 1))
+  done
+
+  echo ""
+  echo -e "Guidelines: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"
+}
+
 sync_tokens() {
   echo ""
   echo "Syncing tokens from ${REPO}..."
@@ -96,17 +134,21 @@ echo "========================================"
 case "$SYNC_TARGET" in
   all)
     sync_docs
+    sync_guidelines
     sync_tokens
     ;;
   docs)
     sync_docs
+    ;;
+  guidelines)
+    sync_guidelines
     ;;
   tokens)
     sync_tokens
     ;;
   *)
     echo -e "${RED}Unknown target: ${SYNC_TARGET}${NC}"
-    echo "Usage: $0 [all|docs|tokens]"
+    echo "Usage: $0 [all|docs|tokens|guidelines]"
     exit 1
     ;;
 esac

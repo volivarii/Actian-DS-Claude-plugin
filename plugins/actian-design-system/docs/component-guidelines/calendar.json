@@ -1,0 +1,40 @@
+{
+  "component": "Calendar",
+  "page_id": "12070:77589",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77589",
+  "frames_found": ["Content guidelines", "Components"],
+  "frames_missing": ["design guidelines", "ready made examples", "Screenshots of use cases", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "When to use",
+        "content": [
+          { "rule": "Use for anything involving date ranges, filtering, or scheduling." }
+        ]
+      },
+      {
+        "heading": "Style",
+        "content": [
+          { "rule": "Use labels like 'From' and 'To', or 'Start date' and 'End date'." },
+          { "rule": "Display formats clearly (mm/dd/yyyy)." },
+          { "rule": "Do not pre-fill dates." }
+        ]
+      },
+      {
+        "heading": "Behavior",
+        "content": [
+          { "rule": "Support both typing and calendar picking." },
+          { "rule": "Auto-close when selection complete." },
+          { "rule": "Highlight today, weekends, blocked dates." },
+          { "rule": "Visually display range." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

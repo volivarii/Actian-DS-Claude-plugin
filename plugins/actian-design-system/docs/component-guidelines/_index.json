@@ -1,0 +1,929 @@
+{
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "total_components": 44,
+  "components": [
+    {
+      "slug": "alert-banner",
+      "component": "Alert / banner",
+      "page_id": "9253:21058",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": false,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Components"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "ready made examples",
+        "Screenshots of use cases",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "avatar",
+      "component": "Avatar",
+      "page_id": "9253:18762",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Content guidelines",
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "badge",
+      "component": "Badge",
+      "page_id": "9253:20900",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": false,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Content guidelines",
+        "Components",
+        "Ready made examples"
+      ],
+      "frames_missing": [
+        "Screenshots of use cases",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "breadcrumbs",
+      "component": "Breadcrumbs",
+      "page_id": "9253:21088",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "Components",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "button",
+      "component": "Button",
+      "page_id": "9085:24375",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "calendar",
+      "component": "Calendar",
+      "page_id": "12070:77589",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": false,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Screenshots of use cases",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "card",
+      "component": "Card",
+      "page_id": "9253:21106",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "checkbox",
+      "component": "Checkbox",
+      "page_id": "12070:77593",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Content guidelines",
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "collapse-accordion",
+      "component": "Collapse / Accordion",
+      "page_id": "9253:20890",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": false,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Content guidelines",
+        "Components"
+      ],
+      "frames_missing": [
+        "ready made examples",
+        "Screenshots of use cases",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "data-viz-glossary-item-hierarchy",
+      "component": "Data viz: glossary item hierarchy",
+      "page_id": "14747:29925",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "Components",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "data-viz-lineage",
+      "component": "Data viz: lineage",
+      "page_id": "14747:19872",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "data-viz-metamodel",
+      "component": "Data viz: metamodel",
+      "page_id": "14747:23223",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "data-viz-progressive-bar",
+      "component": "Data viz: progressive bar",
+      "page_id": "14136:1567",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "data-viz-toolbar",
+      "component": "Data viz: toolbar",
+      "page_id": "8239:5170",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "data-viz-wip-all-others",
+      "component": "Data viz: WIP all others",
+      "page_id": "14747:33303",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "digram",
+      "component": "Digram",
+      "page_id": "14007:22442",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "drawer",
+      "component": "Drawer / Side panel",
+      "page_id": "12054:49858",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "dropdown-select",
+      "component": "Dropdown / Select",
+      "page_id": "12070:77588",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "empty-state",
+      "component": "Empty state",
+      "page_id": "7314:3195",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": false,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Content guidelines",
+        "Components"
+      ],
+      "frames_missing": [
+        "ready made examples",
+        "Screenshots of use cases",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "filters",
+      "component": "Filters",
+      "page_id": "9474:8729",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "global-header",
+      "component": "Global header",
+      "page_id": "9052:17057",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "link",
+      "component": "Link",
+      "page_id": "12054:32076",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": false,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Content guidelines",
+        "Components"
+      ],
+      "frames_missing": [
+        "ready made examples",
+        "Screenshots of use cases",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "loading",
+      "component": "Loading",
+      "page_id": "9253:29118",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "maintenance-banner",
+      "component": "Maintenance banner",
+      "page_id": "13868:11327",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "modal",
+      "component": "Modal",
+      "page_id": "9253:29287",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "notification-toast",
+      "component": "Notification / Toast",
+      "page_id": "13868:11578",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "page-header",
+      "component": "Page header",
+      "page_id": "9253:29981",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "popover",
+      "component": "Popover",
+      "page_id": "13298:2723",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "radio-button",
+      "component": "Radio button",
+      "page_id": "12070:77592",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "rich-text",
+      "component": "Rich text (existing)",
+      "page_id": "12070:77590",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "scroll-bar",
+      "component": "Scroll bar",
+      "page_id": "9253:31918",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": false,
+      "has_behavior": false,
+      "frames_found": [],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "Components",
+        "ready made examples",
+        "Screenshots of use cases",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "search-result-card",
+      "component": "Search result card",
+      "page_id": "9253:31959",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Content guidelines",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "search",
+      "component": "Search",
+      "page_id": "9085:22545",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "segmented-control",
+      "component": "Segmented control / Button group",
+      "page_id": "9253:33950",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "side-nav",
+      "component": "Side nav",
+      "page_id": "13599:19122",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": false,
+      "has_behavior": false,
+      "frames_found": [
+        "Behavior demo"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "Components",
+        "ready made examples",
+        "Screenshots of use cases"
+      ]
+    },
+    {
+      "slug": "stepper",
+      "component": "Stepper",
+      "page_id": "9253:33976",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "sticky-footer",
+      "component": "Sticky footer",
+      "page_id": "9253:33986",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "Components",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "tab",
+      "component": "Tab",
+      "page_id": "9253:33996",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "table",
+      "component": "Table",
+      "page_id": "9253:34015",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "tag",
+      "component": "Tag / Identification key",
+      "page_id": "9253:34505",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Components",
+        "Content guidelines",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "text-input",
+      "component": "Text input",
+      "page_id": "12070:77587",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Content guidelines",
+        "Components",
+        "Screenshots of use cases"
+      ],
+      "frames_missing": [
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "toggle-control",
+      "component": "Toggle control",
+      "page_id": "12070:77591",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": true,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": false,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Content guidelines",
+        "Components"
+      ],
+      "frames_missing": [
+        "ready made examples",
+        "Screenshots of use cases",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "tooltip",
+      "component": "Tooltip",
+      "page_id": "9253:37504",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Design guidelines",
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    },
+    {
+      "slug": "traffic-light",
+      "component": "Traffic light",
+      "page_id": "14719:5902",
+      "extracted_at": "2026-03-25T00:00:00Z",
+      "has_content_guidelines": false,
+      "has_design_guidelines": false,
+      "has_examples": false,
+      "has_screenshots": true,
+      "has_behavior": false,
+      "frames_found": [
+        "Components",
+        "Screenshots of current use cases"
+      ],
+      "frames_missing": [
+        "Content guidelines",
+        "design guidelines",
+        "ready made examples",
+        "Behavior demo"
+      ]
+    }
+  ]
+}

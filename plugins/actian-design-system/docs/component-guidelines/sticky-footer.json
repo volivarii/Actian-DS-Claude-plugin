@@ -1,0 +1,51 @@
+{
+  "component": "Sticky footer",
+  "page_id": "9253:33986",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:33986",
+  "frames_found": ["Content guidelines", "Screenshots of use cases"],
+  "frames_missing": ["design guidelines", "Components", "ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Usage",
+        "content": [
+          { "rule": "Use when a page or drawer contains primary actions that must remain available during scrolling." },
+          { "rule": "Use when users complete steppers or multi-field forms." },
+          { "rule": "Use when the action affects entire page/drawer/form state." }
+        ]
+      },
+      {
+        "heading": "Button hierarchy",
+        "content": [
+          { "rule": "Must contain exactly one primary action." },
+          { "rule": "Exception: additional destructive button (Delete)." },
+          { "rule": "Optional secondary action." },
+          { "rule": "Max 3 buttons." }
+        ]
+      },
+      {
+        "heading": "Button labels",
+        "content": [
+          { "rule": "Use clear verbs describing the OUTCOME: Save, Update, Create, Confirm, Submit, Cancel, Delete, Continue." },
+          { "rule": "Avoid generic labels like 'Done'." }
+        ]
+      },
+      {
+        "heading": "Steppers",
+        "content": [
+          { "rule": "Label terminology: Back, Next, Submit (final step)." },
+          { "rule": "Do not mix: Continue and Next, Finish and Submit." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null
+}

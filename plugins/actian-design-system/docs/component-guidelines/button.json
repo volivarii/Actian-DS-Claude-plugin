@@ -1,0 +1,88 @@
+{
+  "component": "Button",
+  "page_id": "9085:24375",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9085:24375",
+  "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
+  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Terminology for button labeling",
+        "content": [
+          {
+            "term": "Cancel vs Close",
+            "rule": "Use 'Cancel' to back out of a page/modal when information has been entered or confirmation is required. It should allow the user to return to the previous state without saving any changes. Use 'Close' for read-only messages or screens."
+          },
+          {
+            "term": "Create vs Add vs Insert",
+            "rule": "Use 'Create' when the user is making something brand new or bringing individual components to form something new. Use 'Add' when the user is bringing in similar information that already exists elsewhere. Use 'Insert' when the user is bringing in similar information and the ordering is important.",
+            "examples": ["Create report", "Create warehouse", "Add to bid sheet", "Add note", "Insert property"],
+            "note": "The plus (+) icon is only needed when you are creating a new object to add to something else. When adding an existing object to a list, it's not needed."
+          },
+          {
+            "term": "OK",
+            "rule": "Use 'OK' for read-only pages that are not legally required to accept."
+          },
+          {
+            "term": "Accept and Decline",
+            "rule": "Use 'Accept' when legal terms of services need to be acknowledged before the user can proceed. 'Accept' can also be used with 'Decline' when the user must choose whether to implement proposed changes from someone else (or AI)."
+          },
+          {
+            "term": "Got it!",
+            "rule": "Use 'Got it!' when providing information confirmation modals where the user doesn't have to do anything."
+          },
+          {
+            "term": "Select vs Choose",
+            "rule": "Use 'Select' when the user is picking from a list with limited options. Use 'Choose' when the user is picking from a large number of options or an open-ended decision."
+          },
+          {
+            "term": "Submit vs Send vs Save",
+            "rule": "Use 'Submit' for a form. Use 'Send' only for email. Use 'Save' when the user is adding or changing selections on a modal."
+          },
+          {
+            "term": "View vs See",
+            "rule": "Use 'View' as a noun (e.g., 'Table view'). Use 'See' as a verb, but only with a modifier (e.g., 'See more')."
+          }
+        ]
+      },
+      {
+        "heading": "Stepper buttons",
+        "content": [
+          {
+            "rule": "Use verb + object for the creation button. With few exceptions, the verb should be 'Create'.",
+            "do": "Create integration",
+            "dont": "Integration (do not use a noun as a button label)"
+          },
+          {
+            "rule": "An exception: When the button is a dropdown, such as the Create button on the Home page. Just the verb is needed.",
+            "do": "Create"
+          },
+          {
+            "rule": "Use ONLY the verb (without the object) when finishing a stepper.",
+            "do": "Cancel / Create",
+            "dont": "Create integration (do NOT use the verb + noun to FINISH a stepper)"
+          },
+          {
+            "note": "In modals and steppers, the initial button and the final button should follow this guideline and use the same term in most cases! The exceptions are listed above (such as using the Save button instead)."
+          }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Type": ["Primary", "Secondary", "Tertiary", "Icon", "Critical primary", "Critical secondary"],
+      "Size": ["Default", "Small"],
+      "State": ["Default", "Hovered", "Focused", "Pressed", "Selected", "Disabled"]
+    },
+    "totalVariants": 72
+  },
+  "examples": null,
+  "screenshots": {
+    "count": 2,
+    "contexts": []
+  },
+  "behavior": null
+}

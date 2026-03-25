@@ -1,0 +1,52 @@
+{
+  "component": "Text input",
+  "page_id": "12070:77587",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77587",
+  "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
+  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Labels",
+        "content": [
+          { "rule": "Input forms MUST always include a visible label." },
+          { "rule": "Initial state can use placeholder as label." },
+          { "rule": "Once content entered, label moves above." },
+          { "rule": "NEVER repeat label as placeholder." }
+        ]
+      },
+      {
+        "heading": "Behavior",
+        "content": [
+          { "rule": "Error validation at latest when user clicks out of focus." }
+        ]
+      },
+      {
+        "heading": "Placeholder text",
+        "content": [
+          { "rule": "Brief example of expected input. Only to model good input, not instructions." },
+          { "rule": "Use when example would model correct input." },
+          { "do": "Customer Orders, Sales Performance", "dont": "Type here, Name, Enter name" },
+          { "rule": "2-5 words, no full sentences, no punctuation." }
+        ]
+      },
+      {
+        "heading": "Accessibility",
+        "content": [
+          { "rule": "Placeholder must never replace label." },
+          { "rule": "Critical guidance must remain visible after typing." },
+          { "rule": "UI must remain usable if placeholder removed." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null
+}

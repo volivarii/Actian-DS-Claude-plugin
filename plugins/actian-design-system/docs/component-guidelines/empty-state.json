@@ -1,0 +1,70 @@
+{
+  "component": "Empty state",
+  "page_id": "7314:3195",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=7314:3195",
+  "frames_found": ["Design guidelines", "Content guidelines", "Components"],
+  "frames_missing": ["ready made examples", "Screenshots of use cases", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Description",
+        "content": [
+          { "rule": "Used when expected content cannot be displayed." },
+          { "rule": "Provide instructions, guidance, or info." },
+          { "rule": "Tone: direct and helpful. Action-first CTAs." }
+        ]
+      },
+      {
+        "heading": "Types",
+        "content": [
+          { "rule": "No data empty states: explain what will be there, guide next step." },
+          { "rule": "User action empty states: no results, confirmations." }
+        ]
+      },
+      {
+        "heading": "Usage by context",
+        "content": [
+          { "rule": "Full page = Large illustration + CTA." },
+          { "rule": "Smaller pane = Small illustration/icon." },
+          { "rule": "Multiple on page = Prioritize most important." },
+          { "rule": "No user action = Text only." }
+        ]
+      },
+      {
+        "heading": "Content",
+        "content": [
+          { "rule": "Optional bold title, required description text, CTA as ghost button/link." },
+          { "rule": "Max 60 chars width." }
+        ]
+      },
+      {
+        "heading": "Maintenance state",
+        "content": [
+          { "rule": "During planned/unplanned downtime." },
+          { "rule": "State nature, provide time estimate, identify workarounds." }
+        ]
+      },
+      {
+        "heading": "Error state",
+        "content": [
+          { "rule": "Direct, helpful, immediate CTA." },
+          { "rule": "NEVER blame the user." }
+        ]
+      },
+      {
+        "heading": "Success state",
+        "content": [
+          { "rule": "'Success!' title." },
+          { "rule": "Description of what happened and what comes next." },
+          { "rule": "Primary button mandatory for navigation." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

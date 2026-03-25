@@ -1,0 +1,61 @@
+{
+  "component": "Card",
+  "page_id": "9253:21106",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:21106",
+  "frames_found": ["Content guidelines", "Components", "Screenshots of current use cases"],
+  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "When to use (catalogs/items)",
+        "content": [
+          { "rule": "Main dashboard item display." },
+          { "rule": "Details pages." },
+          { "rule": "Represent single object/dataset." }
+        ]
+      },
+      {
+        "heading": "Format (catalogs/items)",
+        "content": [
+          { "rule": "Headline/title with optional metadata tags." },
+          { "rule": "Hierarchy: Headline, Tags, Description." }
+        ]
+      },
+      {
+        "heading": "Behavior (catalogs/items)",
+        "content": [
+          { "rule": "Click tile (except title) to open in right-side drawer." },
+          { "rule": "Click title to open details page." }
+        ]
+      },
+      {
+        "heading": "When to use (topics)",
+        "content": [
+          { "rule": "ONLY on main Explorer dashboard." },
+          { "rule": "Clickable gateways to curated collections." }
+        ]
+      },
+      {
+        "heading": "Format (topics)",
+        "content": [
+          { "rule": "Hierarchy: Icon, Headline, # items, Description (1-2 lines)." }
+        ]
+      },
+      {
+        "heading": "Behavior (topics)",
+        "content": [
+          { "rule": "Click anywhere to open catalog with topic filters." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null
+}

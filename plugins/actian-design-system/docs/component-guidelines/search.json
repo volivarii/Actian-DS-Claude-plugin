@@ -1,0 +1,34 @@
+{
+  "component": "Search",
+  "page_id": "9085:22545",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9085:22545",
+  "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
+  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Placeholder text",
+        "content": [
+          { "rule": "Provide hint as to what's being searched. No period." },
+          { "rule": "When retrieving assets by metadata, use 'Search in <assetNames>' (plural)." },
+          { "rule": "Safe default: 'Search <assetNames>'." }
+        ]
+      },
+      {
+        "heading": "Examples",
+        "content": [
+          { "rule": "Use domain-specific plural nouns.", "examples": ["Search item types", "Search users", "Search contacts", "Search items", "Search properties", "Search glossary types", "Search topics"] }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null
+}

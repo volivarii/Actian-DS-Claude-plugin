@@ -1,0 +1,43 @@
+{
+  "component": "Radio button",
+  "page_id": "12070:77592",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77592",
+  "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
+  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Default format - When to use",
+        "content": [
+          { "rule": "Short lists of 2-6 options." },
+          { "rule": "When all choices should be visible up front." }
+        ]
+      },
+      {
+        "heading": "Default format - Style",
+        "content": [
+          { "rule": "Short, descriptive labels as direct answers." },
+          { "rule": "Visible group label." },
+          { "rule": "No jargon." },
+          { "rule": "Parallel labels." }
+        ]
+      },
+      {
+        "heading": "Card format",
+        "content": [
+          { "rule": "Use when options need rich context (title, description, image, metadata)." },
+          { "rule": "Radio group behavior for single-select." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null
+}

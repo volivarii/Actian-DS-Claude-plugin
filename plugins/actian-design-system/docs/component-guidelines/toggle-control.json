@@ -1,0 +1,39 @@
+{
+  "component": "Toggle control",
+  "page_id": "12070:77591",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77591",
+  "frames_found": ["Design guidelines", "Content guidelines", "Components"],
+  "frames_missing": ["ready made examples", "Screenshots of use cases", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Style",
+        "content": [
+          { "rule": "Label next to or above control ('Enable alerts')." },
+          { "rule": "Show label for currently selected state ('Off' when off, 'On' when on, not both)." }
+        ]
+      },
+      {
+        "heading": "Behavior",
+        "content": [
+          { "rule": "Action happens on toggle (no confirmation)." },
+          { "rule": "Left = off, right = on." },
+          { "rule": "Should update instantly." }
+        ]
+      },
+      {
+        "heading": "Toggle vs Checkbox",
+        "content": [
+          { "rule": "Toggle for instant changes, system state, rarely in forms." },
+          { "rule": "Checkbox for form submissions, multiple options." }
+        ]
+      }
+    ]
+  },
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}
