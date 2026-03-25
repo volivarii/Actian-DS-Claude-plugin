@@ -4,7 +4,7 @@ Auto-generated from Figma REST API on 2026-03-24.
 77 component sets, 728 individual components.
 
 Source: [Actian Design System v1.1.0](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK)
-Last modified: 2026-03-24T18:38:08Z
+Last modified: 2026-03-24T18:15:47Z
 
 ---
 
@@ -493,7 +493,7 @@ Use for large datasets requiring comparison, sorting, and filtering. Supports co
 ### Alert-banner
 Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.
 
-- Variants: **Type:** `Primary` · `Success` · `Warning` · `Danger`
+- Variants: **Type:** `Informational` · `Success` · `Critical` · `Warning`
 - Node: `13732:3056` | Key: `9717f500f425975f63c0eb2f9c1e434ff010f24b`
 
 ## Empty state
@@ -640,8 +640,8 @@ A non-modal floating container triggered by a click. Use for displaying a small 
 
 ###         Alert (banner)
 
-- **Type=Danger** — Key: `e5403f7e8d8e885e4499279266c8899544399415`
-- **Type=Primary** — Key: `5cbcbd676a3f4687691b2153885635c50fea230e`
+- **Type=Critical** — Key: `e5403f7e8d8e885e4499279266c8899544399415`
+- **Type=Informational** — Key: `5cbcbd676a3f4687691b2153885635c50fea230e`
 - **Type=Success** — Key: `66aebc399ceebe68fb0ea657c49e21493be62ef7`
 - **Type=Warning** — Key: `d811d12f1c014676252427380b491f84cb659707`
 
@@ -939,11 +939,11 @@ A non-modal floating container triggered by a click. Use for displaying a small 
 ###         Empty state
 
 - **Size=Large** — Key: `56c8289f7813a2d1d8649e369f42bb56a7dde6f1`
-- **Size=Large** — Key: `15cbfe5da8e0570989bce12982bcd840bc9b8f22`
 - **Size=Large** — Key: `511bd120d27d3a5007850641123c1419bc9cbf5b`
+- **Size=Large** — Key: `15cbfe5da8e0570989bce12982bcd840bc9b8f22`
 - **Size=Large** — Key: `530c4f4568d2dd180d403c0a6754f6e170dbe6dd`
-- **Size=Medium** — Key: `08de9835cb374a493678c56554fcfd023ff02652`
 - **Size=Medium** — Key: `fd0eaed3e24bc2df73c36a3d79f4add9653ef6be`
+- **Size=Medium** — Key: `08de9835cb374a493678c56554fcfd023ff02652`
 - **Size=Small** — Key: `a5c14fbe5d4d53b78b0f01cab3eafbdf81e255d2`
 
 ###         Filters 
