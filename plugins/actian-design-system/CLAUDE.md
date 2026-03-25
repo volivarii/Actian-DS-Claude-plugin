@@ -119,11 +119,7 @@ Add a `metadata` frame as the first child of the top-level spec:
 
 ### `use_figma` outputs (Plugin API)
 
-Build a generation metadata frame as the first sibling before main content. See `references/figma-output.md` for the complete code pattern. The frame must include:
-- "GENERATED" label
-- Skill name
-- ISO 8601 date
-- Model + plugin version
+Build a generation metadata frame as the first sibling before main content. See `references/figma-output.md` for the complete code pattern and field table. The frame must include all 7 fields: GENERATED label, skill name, prompt (truncated to 200 chars), ISO 8601 date, duration, model, and plugin version.
 
 ### Field rules
 

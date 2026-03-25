@@ -84,7 +84,30 @@ function hexToRgb(hex) {
 
 ## Generation metadata frame
 
-Every output must include a visible generation metadata frame as the **first sibling** before the main content. This is required by CLAUDE.md.
+Every output must include a visible generation metadata frame as the **first sibling** before the main content. This is required by CLAUDE.md. The metadata frame is shared across all skills — follow this spec exactly.
+
+### Required fields
+
+| Field | Value | How to get it |
+|-------|-------|---------------|
+| **GENERATED** | Static label | Hardcoded |
+| **Skill** | Skill name from SKILL.md frontmatter | e.g., "component-brief", "generate-flow" |
+| **Prompt** | User's exact input, truncated to 200 chars | The message that triggered this skill |
+| **Date** | ISO 8601 date+time when output is written | `new Date().toISOString()` |
+| **Duration** | Time from prompt to output completion | e.g., "2m 34s" — measure from when the user's message was received to when the last `use_figma` call finishes |
+| **Model** | Model powering the session | e.g., "claude-opus-4-6" |
+| **Plugin** | Plugin version | Read from `../../.claude-plugin/plugin.json` |
+
+### Timing guidelines
+
+Skills run in two phases. Track time across both:
+
+1. **Research + planning** — reading files, fetching Figma context, planning the output. This phase starts when the user's prompt is received.
+2. **Generation + output** — building HTML/Figma content, making `use_figma` calls. This phase ends when the last output call completes.
+
+**Duration** = end of phase 2 − start of phase 1. Report as `Xm Ys` (e.g., "1m 42s").
+
+### `use_figma` code pattern
 
 ```js
 const genCard = figma.createFrame();
@@ -112,13 +135,15 @@ async function addGenText(parent, content, size, color) {
   return t;
 }
 
-await addGenText(genCard, "GENERATED", 10, "#A0ABC0");        // --fm-base-500
-await addGenText(genCard, "Skill: {{skill-name}}", 12, "#CBD2E0"); // --fm-base-400
+await addGenText(genCard, "GENERATED", 10, "#A0ABC0");                   // --fm-base-500
+await addGenText(genCard, "Skill: {{skill-name}}", 12, "#CBD2E0");       // --fm-base-400
+await addGenText(genCard, "Prompt: {{prompt}}", 12, "#CBD2E0");          // truncated to 200 chars
 await addGenText(genCard, "{{ISO 8601 date}}", 12, "#CBD2E0");
+await addGenText(genCard, "Duration: {{duration}}", 12, "#CBD2E0");
 await addGenText(genCard, "{{model}} · v{{version}}", 12, "#CBD2E0");
 ```
 
-Replace `{{skill-name}}`, `{{ISO 8601 date}}`, `{{model}}`, and `{{version}}` with actual values. Read version from `../../.claude-plugin/plugin.json`.
+Replace all `{{...}}` placeholders with actual values.
 
 ## Assembler path (optional)
 
