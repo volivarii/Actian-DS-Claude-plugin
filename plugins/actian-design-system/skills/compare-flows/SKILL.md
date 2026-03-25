@@ -1,6 +1,6 @@
 ---
 name: compare-flows
-description: Compare two Figma flows with structured UX analysis and recommendations. Use when user asks to compare, diff, or evaluate two designs.
+description: Use this skill whenever the user wants to decide between two design options or understand what changed between two versions. Takes two Figma URLs and produces a structured comparison report with severity-rated issues, strengths, and a concrete recommendation. Triggers on any request involving two Figma designs — comparing flows, evaluating which version is better, diffing v1 vs v2, reviewing a redesign against the original, or choosing between competing UX approaches. If the user provides two Figma URLs in any context, this skill likely applies.
 argument-hint: "[Figma URL 1] [Figma URL 2]"
 ---
 
@@ -10,11 +10,11 @@ argument-hint: "[Figma URL 1] [Figma URL 2]"
 > **Content guidelines:** Evaluate all UI copy in both flows against `docs/content-guidelines.md` — flag inconsistencies in button labels, link text, status messages, and terminology.
 > **Accessibility guidelines:** Compare accessibility compliance in both flows using `docs/accessibility-guidelines.md` — check focus order, keyboard access, ARIA patterns, contrast, touch targets, and missing states. WCAG 2.1 AA.
 > **Quality & hygiene:** Evaluate both flows against the Quality & Hygiene Checklist in CLAUDE.md — flag violations as comparison points.
-> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
+> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
 Compare two Figma flows or screens and provide structured UX recommendations.
 
-> **Mode: Research + Audit.** Read both flows thoroughly before concluding. Compare approaches as structured analysis — separate observation from opinion. Then switch to audit posture: flag issues by severity, quote specific rules, output a structured report.
+> **Mode: Research + Audit. Runs autonomously.** Fetch both designs, analyze thoroughly, and output the full report without pausing for intermediate confirmation. Separate observation from opinion. Flag issues by severity, quote specific rules, output a structured report. The only acceptable pause is if the user provides only one URL — ask for the second.
 
 ## Input
 
@@ -28,7 +28,8 @@ The user provides two Figma URLs (frames, sections, or pages) to compare. Exampl
 1. **Fetch both designs** — get metadata and screenshots for both URLs.
 2. **Get design context** for key screens in each flow.
 3. **Analyze and compare** across the dimensions below.
-4. **Present findings** in a structured format.
+4. **Self-review** — verify completeness before presenting (see Cleanup pass below).
+5. **Present findings** in a structured format.
 
 ## Comparison dimensions
 
@@ -65,6 +66,18 @@ The user provides two Figma URLs (frames, sections, or pages) to compare. Exampl
 - Touch target sizes
 - Focus order logic
 
+## Severity levels
+
+Categorize every issue found in either flow:
+
+| Severity | Meaning | Examples |
+|----------|---------|----------|
+| **P0 Critical** | Blocks usability or violates WCAG AA | Missing error state on a form, contrast failure, no keyboard access to primary action |
+| **P1 Important** | Degrades experience or breaks conventions | Hardcoded hex colors, detached component instances, forms not constrained to 480px, inconsistent naming |
+| **P2 Minor** | Polish issue, low user impact | Spacing off by 4px, minor label inconsistency, hidden layers left from drafting |
+
+When comparing, a flow with fewer P0s is generally stronger regardless of P1/P2 counts.
+
 ## Output format
 
 ```markdown
@@ -76,6 +89,7 @@ The user provides two Figma URLs (frames, sections, or pages) to compare. Exampl
 | Screens | X | Y |
 | Components used | X | Y |
 | Missing states | [list] | [list] |
+| Issues | X P0, Y P1, Z P2 | X P0, Y P1, Z P2 |
 
 ### Strengths
 **Flow A:**
@@ -85,11 +99,21 @@ The user provides two Figma URLs (frames, sections, or pages) to compare. Exampl
 - [What it does well]
 
 ### Issues
-**Flow A:**
-- [Problem] — [Recommendation]
 
-**Flow B:**
-- [Problem] — [Recommendation]
+**P0 — Critical**
+| # | Flow | Issue | Location | Recommendation |
+|---|------|-------|----------|----------------|
+| 1 | A | [Problem] | [Screen/element] | [Fix] |
+
+**P1 — Important**
+| # | Flow | Issue | Location | Recommendation |
+|---|------|-------|----------|----------------|
+| 1 | B | [Problem] | [Screen/element] | [Fix] |
+
+**P2 — Minor**
+| # | Flow | Issue | Location | Recommendation |
+|---|------|-------|----------|----------------|
+| 1 | A | [Problem] | [Screen/element] | [Fix] |
 
 ### Recommendation
 [Which flow is stronger and why, or how to combine the best of both]
@@ -98,3 +122,16 @@ The user provides two Figma URLs (frames, sections, or pages) to compare. Exampl
 1. [Action item]
 2. [Action item]
 ```
+
+## Cleanup pass
+
+Before presenting the report, verify completeness:
+
+- [ ] Both flows were fetched — screenshots and design context for all key screens
+- [ ] Every comparison dimension was evaluated (structure, components, consistency, forms layout, UX patterns, accessibility)
+- [ ] Every issue has a severity level (P0/P1/P2) and a specific location
+- [ ] Content guidelines were checked: button labels, link text, status messages, terminology consistency between the two flows
+- [ ] Accessibility was checked: contrast, focus order, keyboard access, touch targets
+- [ ] Quality & hygiene checklist applied to both flows as comparison points
+- [ ] The recommendation is concrete — names the stronger flow or explains how to merge the best of both
+- [ ] Suggested next steps are actionable (not generic "review" items)

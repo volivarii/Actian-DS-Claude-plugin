@@ -1,6 +1,6 @@
 ---
 name: design-audit
-description: Audit a Figma file against DS2026 and Fat Marker conventions. Checks tokens, components, accessibility, content, and missing states. Use when user asks to audit, review, or check a design.
+description: Use this skill whenever the user wants to check if a Figma design follows the Actian design system rules. Performs a comprehensive audit covering token usage, component consistency, accessibility (WCAG AA), content guidelines, forms layout, and missing states — then produces a severity-rated report (P0/P1/P2) with specific fixes. Triggers when the user asks to audit, review, or check a design, wants to know if tokens are correct, asks what's wrong with a screen, wants to find inconsistencies, or shares a Figma URL and asks if it meets DS2026 or Fat Marker standards.
 argument-hint: "[Figma URL]"
 ---
 
@@ -10,7 +10,7 @@ argument-hint: "[Figma URL]"
 > **Content guidelines:** Audit all UI copy against `docs/content-guidelines.md` — check button labels, link text, form labels, status messages, modal copy, table headers, and navigation items.
 > **Accessibility guidelines:** Audit against `docs/accessibility-guidelines.md` — use the General Accessibility Checklist and the relevant component-specific checklists (P0–P2). Check contrast ratios, keyboard access, focus indicators, ARIA patterns, touch targets, and state completeness. All WCAG 2.1 AA.
 > **Quality & hygiene:** Include the Quality & Hygiene Checklist from CLAUDE.md as an audit dimension — flag violations of any of the 10 items (auto layout, constraints, properties, states, contrast, layer naming, style check, instance cleanup, hidden layers, documentation).
-> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
+> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
 Audit a Figma file or section against the Actian Design System 2026 and/or Fat Marker conventions.
 

@@ -1,6 +1,6 @@
 ---
 name: generate-flow
-description: Generate a Fat Marker wireframe flow from a user story and push to Figma. Defaults to real component assembly via the Actian DS Assembler plugin. Falls back to HTML capture if assembler is unavailable. Use when user asks to create a flow, wireframe, or mockup for a feature.
+description: Use this skill whenever the user wants to turn a feature idea or user story into lo-fi wireframe screens in Figma. Researches competitor patterns, plans a screen list, generates Fat Marker wireframes using FM Kit components, and pushes them to Figma via the DS Assembler plugin. Triggers when the user asks to create a flow, wireframe, or mockup, describes a feature and wants to see screens for it, asks how a user would accomplish a task, wants to mock up an experience, or provides a user story and wants it visualized as a multi-screen flow.
 argument-hint: "[feature description or Figma URL]"
 ---
 
@@ -9,12 +9,12 @@ argument-hint: "[feature description or Figma URL]"
 > **Workflow A — Fat Marker (lo-fi).** This skill uses FM components, Inter font, and the simplified Fat Marker palette. NOT DS2026 tokens. See CLAUDE.md "Workflow A" for rules.
 > **Content guidelines:** All UI copy must follow `docs/content-guidelines.md`. Read it before writing any screen copy.
 > **Accessibility guidelines:** All flows must follow `docs/accessibility-guidelines.md` — ensure keyboard navigation, focus order, ARIA landmarks, form labels, error states, and touch targets are designed. WCAG 2.1 AA.
-> **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
-> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
+> **Quality & hygiene:** Validate all output against CLAUDE.md Quality & Hygiene Checklist before marking complete.
+> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
 Generate a low-fidelity user flow using Fat Marker components and push it to Figma.
 
-> **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — make reasonable decisions instead of asking for every detail. Favor complete output over perfect output; the cleanup pass (Step 7) handles polish. Keep status updates to milestones only.
+> **Mode: Implement with review gate.** Build first, explain after. Move fast — infer details and make reasonable decisions instead of asking for every detail. Two acceptable pauses: (1) Step 1 if critical context is genuinely missing (feature name, user role, app context), and (2) Step 3 to confirm the screen list before generating — regenerating wrong screens is expensive. The cleanup pass (Step 7) handles polish. Keep status updates to milestones only.
 
 ## Input
 
@@ -66,14 +66,14 @@ If the user provides a Figma URL as **target** (where to put the output), use th
 
 ## Step 1 — Understand the request
 
-Before generating anything, clarify:
+Before generating anything, determine from the user's request:
 - **Feature name** (e.g., "Approval Workflow", "Rule Configuration")
 - **User role** (Administrator, Reviewer, Viewer, or All roles)
 - **App context** (Admin, Studio, or Explorer — determines the FM App_header variant)
 - **Number of sub-flows** (e.g., happy path + error path + alternate role)
 - **References provided?** — If yes, analyze them first (see above). If no, proceed to research.
 
-If any of these are unclear, ask the user. Do not guess.
+Infer as much as possible. Only ask if critical context is genuinely missing — e.g., the user said "create a flow" with no feature described, or the app context could be any of the three and it materially changes the UI.
 
 **Output type defaults to Assembler spec.** Only use HTML capture if the user explicitly asks for it or doesn't have the assembler plugin.
 
@@ -241,222 +241,7 @@ The FM library doesn't have everything — charts, visualizations, custom contro
 
 ### Fat Marker CSS Reference
 
-**Copy these exact styles into every generated flow HTML. Do NOT approximate — use these exact hex values, font sizes, paddings, and border-radii.**
-
-```css
-/* ── FM Token Palette (from Figma FM library) ──────────────── */
-:root {
-  --fm-base-900:   #1A202C;
-  --fm-base-800:   #2D3648;   /* Primary button fill, nav text */
-  --fm-base-700:   #4A5468;
-  --fm-base-600:   #717D96;
-  --fm-base-500:   #A0ABC0;
-  --fm-base-400:   #CBD2E0;   /* Borders, disabled fills */
-  --fm-base-300:   #E2E7F0;
-  --fm-base-200:   #EDF0F7;   /* Active nav bg, hover, dividers */
-  --fm-base-100:   #F5F5FA;
-  --fm-base-white: #FFFFFF;
-  --fm-brand:      #0550DC;
-  --fm-brand-dark: #0029A9;
-  --fm-brand-light:#EDF6FF;
-  --fm-text-primary:  #101828;
-  --fm-text-secondary:#2D3648;
-  --fm-text-tertiary: #475467;
-  --fm-text-error:    #D92D20;
-  --fm-text-light:    #6D6D6D;
-  --fm-text-success:  #047800;
-  --fm-border:     #CBD2E0;
-  --fm-bg-grey:    #F5F5FA;
-  --fm-placeholder: #A0ABC0;
-  --fm-shadow-default: 0px 2px 8px 0px rgba(0,0,0,0.13);
-  --fm-radius:     6px;
-}
-
-/* ── FM App Header (WHITE bg, all variants) ────────────────── */
-.fm-app-header {
-  width: 100%; height: 70px;
-  background: var(--fm-base-white);
-  border-bottom: 2px solid var(--fm-base-400);
-  display: flex; align-items: center;
-  padding: 16px 28px; gap: 12px;
-}
-.fm-app-header__logo {
-  display: flex; align-items: center; gap: 12px;
-  mix-blend-mode: luminosity; flex-shrink: 0;
-}
-.fm-app-header__logo-icon {
-  width: 30px; height: 25px;
-  background: var(--fm-base-400); border-radius: 2px;
-}
-.fm-app-header__brand-text {
-  display: flex; flex-direction: column; line-height: 1.2;
-}
-.fm-app-header__brand-line1 {
-  font-size: 11px; font-weight: 400;
-  color: var(--fm-base-700); letter-spacing: 0.2px;
-}
-.fm-app-header__brand-line2 {
-  font-size: 13px; font-weight: 700; color: var(--fm-base-900);
-}
-.fm-app-header__spacer { flex: 1; }
-.fm-app-header__icon-btn {
-  width: 24px; height: 24px;
-  background: var(--fm-base-300); border-radius: 4px;
-}
-.fm-app-header__avatar {
-  width: 36px; height: 36px;
-  background: var(--fm-base-400); border-radius: 50%;
-}
-
-/* ── FM Side Navigation Bar ────────────────────────────────── */
-.fm-sidebar {
-  width: 260px; background: var(--fm-base-white);
-  padding: 28px 16px 8px 16px;
-  display: flex; flex-direction: column; flex-shrink: 0;
-}
-.fm-sidebar__section {
-  display: flex; flex-direction: column; gap: 4px; flex: 1;
-}
-.fm-sidebar__section--bottom {
-  flex: 0; border-top: 1px solid var(--fm-base-200);
-  padding-top: 16px; margin-top: auto;
-}
-.fm-sidebar__item {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 8px 12px 16px; border-radius: 8px;
-  font-size: 14px; font-weight: 400; color: var(--fm-base-800);
-  letter-spacing: -0.14px; line-height: 1.5;
-}
-.fm-sidebar__item--active {
-  background: var(--fm-base-200); font-weight: 600;
-}
-.fm-sidebar__icon {
-  width: 20px; height: 20px;
-  border: 1.5px solid var(--fm-base-500); border-radius: 4px;
-  flex-shrink: 0;
-}
-.fm-sidebar__chevron {
-  width: 20px; height: 20px; margin-left: auto;
-  color: var(--fm-base-500); display: flex;
-  align-items: center; justify-content: center;
-  font-size: 14px; flex-shrink: 0;
-}
-
-/* ── FM Button ─────────────────────────────────────────────── */
-.fm-button {
-  display: inline-flex; align-items: center; justify-content: center;
-  gap: 10px; padding: 12px 16px; border-radius: 6px;
-  font-family: 'Inter', sans-serif; font-weight: 600;
-  font-size: 16px; line-height: 22px; letter-spacing: -0.32px;
-  cursor: pointer; border: none; white-space: nowrap; height: 48px;
-}
-.fm-button--primary { background: var(--fm-base-800); color: white; }
-.fm-button--secondary { background: white; color: var(--fm-base-800); }
-.fm-button--outline {
-  background: transparent; color: var(--fm-base-800);
-  border: 2px solid var(--fm-base-800);
-}
-.fm-button--text {
-  background: transparent; color: var(--fm-brand);
-  padding: 10px 4px; border: none; height: auto;
-}
-.fm-button--disabled { background: var(--fm-base-400); color: white; cursor: not-allowed; }
-.fm-button--sm {
-  padding: 8px 16px; font-size: 14px;
-  letter-spacing: -0.28px; height: auto;
-}
-
-/* ── FM Page Header ────────────────────────────────────────── */
-.fm-page-header__title {
-  font-weight: 600; font-size: 24px; line-height: 34.32px;
-  color: var(--fm-text-primary);
-}
-.fm-page-header__subtitle {
-  font-weight: 400; font-size: 14px; line-height: 22.88px;
-  color: var(--fm-text-tertiary); margin-top: 4px;
-}
-
-/* ── FM Input Label ────────────────────────────────────────── */
-.fm-input-label { display: flex; gap: 4px; align-items: baseline; }
-.fm-input-label__text {
-  font-weight: 500; font-size: 14px; line-height: 16px;
-  color: #1A202C;
-}
-.fm-input-label__required {
-  font-weight: 700; font-size: 12px; color: #D92D20;
-}
-
-/* ── FM Text Input ─────────────────────────────────────────── */
-.fm-text-input {
-  width: 100%; height: 40px;
-  border: 1px solid var(--fm-border); border-radius: 6px;
-  padding: 8px 12px; font-family: 'Inter', sans-serif;
-  font-size: 14px; letter-spacing: -0.28px; line-height: 22px;
-  color: #1A202C; background: white;
-}
-.fm-text-input::placeholder { color: var(--fm-placeholder); }
-
-/* ── FM Alert ──────────────────────────────────────────────── */
-.fm-alert {
-  display: inline-flex; align-items: center; gap: 12px;
-  padding: 12px 16px; height: 48px; border-radius: 6px;
-  box-shadow: 0px 2px 8px rgba(0,0,0,0.2);
-}
-.fm-alert--success { background: #EDF0F7; }
-.fm-alert--error { background: #FCF3F3; }
-.fm-alert--info { background: #EDF0F7; }
-.fm-alert__text { font-size: 16px; line-height: 22px; color: #1A202C; }
-
-/* ── FM Tag ────────────────────────────────────────────────── */
-.fm-tag {
-  display: inline-flex; align-items: center;
-  padding: 2px 10px; border-radius: 9999px;
-  font-size: 12px; font-weight: 500; line-height: 20px;
-}
-```
-
-### FM App Header HTML structure
-```html
-<div class="fm-app-header">
-  <div class="fm-app-header__logo">
-    <div class="fm-app-header__logo-icon"></div>
-    <div class="fm-app-header__brand-text">
-      <span class="fm-app-header__brand-line1">Actian Data Intelligence</span>
-      <span class="fm-app-header__brand-line2">Studio</span>
-      <!-- Use "Administration" for Admin, "Explorer" for Explorer -->
-    </div>
-  </div>
-  <div class="fm-app-header__spacer"></div>
-  <div class="fm-app-header__icon-btn"></div>
-  <div class="fm-app-header__icon-btn"></div>
-  <div class="fm-app-header__avatar"></div>
-</div>
-```
-
-### FM Sidebar HTML structure
-```html
-<div class="fm-sidebar">
-  <div class="fm-sidebar__section">
-    <div class="fm-sidebar__item fm-sidebar__item--active">
-      <div class="fm-sidebar__icon"></div>
-      <span>Active Item</span>
-      <div class="fm-sidebar__chevron">›</div>
-    </div>
-    <div class="fm-sidebar__item">
-      <div class="fm-sidebar__icon"></div>
-      <span>Nav Item</span>
-      <div class="fm-sidebar__chevron">›</div>
-    </div>
-  </div>
-  <div class="fm-sidebar__section fm-sidebar__section--bottom">
-    <div class="fm-sidebar__item">
-      <div class="fm-sidebar__icon"></div>
-      <span>Settings</span>
-      <div class="fm-sidebar__chevron">›</div>
-    </div>
-  </div>
-</div>
-```
+Read `references/fm-css-reference.md` for the complete FM CSS token palette, component styles, and HTML structure templates. Copy those exact styles into every generated flow HTML — do not approximate values.
 
 ## Step 5 — Choose output mode
 
@@ -482,19 +267,7 @@ Generates flat vector frames via `generate_figma_design`. Use only when:
 - The assembler plugin is not installed
 - The user explicitly declines the assembler
 
-1. Serve the HTML file locally:
-   ```bash
-   BASE_URL=$(scripts/ensure-server.sh . 8765)
-   ```
-2. **Try calling `generate_figma_design` directly** — check if `mcp__plugin_figma_figma__generate_figma_design` or `mcp__claude_ai_Figma__generate_figma_design` is available. If yes, call it with `outputMode: "existingFile"`, the target `fileKey`, `nodeId`, and the localhost URL.
-3. **If `generate_figma_design` is NOT available** (e.g., Claude Desktop), use the CLI fallback:
-   ```bash
-   claude -p --output-format text --allowedTools "mcp__plugin_figma_figma__generate_figma_design" "Call generate_figma_design with outputMode existingFile, fileKey {{FILE_KEY}}, and nodeId {{NODE_ID}} to capture the page at {{LOCALHOST_URL}}. Poll with captureId until completed. Do not edit any files. Return the final Figma link."
-   ```
-4. Poll with `captureId` every 5 seconds (up to 10 times) until `completed`
-5. Share the Figma link with the user
-
-**CRITICAL:** NEVER fall back to `use_figma` Plugin API to build frames programmatically. NEVER suggest manual workarounds. NEVER delegate capture to a subagent.
+Follow the capture procedure in `references/figma-capture.md` (serve, capture, CLI fallback, polling, and rules).
 
 ## Step 6 — Review
 
@@ -502,116 +275,7 @@ After capture or assembly, get a screenshot of the result and show it to the use
 
 ### Layout spec schema
 
-Two node types: **frames** (layout containers) and **instances** (component references).
-
-**Frame node:**
-```json
-{
-  "type": "frame",
-  "name": "Content Area",
-  "layout": "vertical",
-  "spacing": 16,
-  "padding": { "top": 24, "right": 24, "bottom": 24, "left": 24 },
-  "fill": "--zen-color-background-bg-default",
-  "width": "fill",
-  "height": "hug",
-  "align": "min",
-  "counterAlign": "min",
-  "children": []
-}
-```
-
-**Instance node:**
-```json
-{
-  "component": "FM Button",
-  "props": { "Type": "Primary" },
-  "text": { "Label": "Save" },
-  "width": "fill"
-}
-```
-
-**`textOverrides`** — Override text inside any FM component instance by matching the current text content or layer name. Use this to set contextual labels instead of leaving default placeholder text.
-
-```json
-{
-  "component": "FM Side navigation bar",
-  "height": "fill",
-  "textOverrides": {
-    "Nav Item": "Dashboard",
-    "Active Item": "Overview"
-  }
-}
-```
-
-Keys are matched against text content first, then layer name. All matched text layers are updated. This works on any FM component — nav items, tabs, table headers, button labels, etc.
-
-- `width` / `height`: number (fixed px), `"hug"`, or `"fill"`
-- `align`: `"min"` | `"center"` | `"max"` | `"space-between"` (primary axis)
-- `counterAlign`: `"min"` | `"center"` | `"max"` (counter axis)
-- `fill`: `--zen-*` token name or hex value
-- `component`: exact name from the registry (see list below)
-
-### FM Kit component names (use exactly)
-
-**Layout:** `FM App_header`, `FM Side navigation bar`, `FM Side navigation item`, `FM Tabs`, `FM Tab`, `FM Sidepanel`, `FM Menu`, `FM Menu item`
-
-**Inputs:** `FM Text input field`, `FM Text Area`, `FM Search input field`, `FM Dropdown`, `FM Multi-select dropdown`, `FM Date input`, `FM Checkbox`, `FM Radio button`, `FM Toggle`, `FM Slider`
-
-**Actions:** `FM Button`, `FM Icon Buttons`
-
-**Data:** `FM Table Cell`, `FM Table example`, `FM Badge`, `FM Tag`, `FM Chip`
-
-**Feedback:** `FM Alert`, `FM Banner`, `FM Toast`, `FM Dialog`, `FM Empty State`, `FM Progress bar`, `FM Spinner`, `FM Tooltip`
-
-**Other:** `FM Placeholder`, `FM User`, `FM Cursor`
-
-All components support `textOverrides` for customizing labels, nav items, tabs, headers, and other text content to match the flow context. See the `textOverrides` section above.
-
-### Full screen example
-
-```json
-{
-  "version": "1.0",
-  "name": "Settings Page",
-  "type": "frame",
-  "layout": "vertical",
-  "width": 1440,
-  "height": 900,
-  "children": [
-    { "component": "FM App_header", "width": "fill" },
-    {
-      "type": "frame",
-      "layout": "horizontal",
-      "width": "fill",
-      "height": "fill",
-      "children": [
-        { "component": "FM Side navigation bar", "height": "fill" },
-        {
-          "type": "frame",
-          "name": "Content",
-          "layout": "vertical",
-          "spacing": 16,
-          "padding": { "top": 24, "right": 24, "bottom": 24, "left": 24 },
-          "width": "fill",
-          "children": [
-            { "component": "FM Text input field", "width": "fill" },
-            {
-              "type": "frame",
-              "layout": "horizontal",
-              "spacing": 8,
-              "children": [
-                { "component": "FM Button", "props": { "Type": "Primary" } },
-                { "component": "FM Button", "props": { "Type": "Secondary" } }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
+Read `references/layout-spec-schema.md` for the complete schema — node types (frames + instances), layout properties, `textOverrides`, FM Kit component names, and a full screen example.
 
 ### Fallback
 

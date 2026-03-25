@@ -1,6 +1,6 @@
 ---
 name: create-component
-description: Create a new Figma component with variants from a description or reference. Uses the DS Assembler plugin. Use when user asks to create, build, or add a new component to the design system.
+description: Use this skill whenever the user wants to add a new component to the Figma design system library or extend an existing one with new variants. Generates a component spec JSON and creates it in Figma via the DS Assembler plugin with proper auto-layout, variants, and token usage. Triggers when the user asks to create, build, or make a new component, add a variant or state to an existing component, extend a component, or describes a UI element that should become reusable in the library.
 argument-hint: "[component description or Figma URL]"
 ---
 
@@ -9,10 +9,10 @@ argument-hint: "[component description or Figma URL]"
 Create a new Figma component (with variants) from a text description or by extending an existing component.
 
 > Uses the DS Assembler plugin's Create mode. Requires the plugin to be installed and its Local server URL pointing to the current project directory (served via `scripts/ensure-server.sh . 8765`).
-> **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
-> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
+> **Quality & hygiene:** Validate all output against CLAUDE.md Quality & Hygiene Checklist before marking complete.
+> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
-> **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — make reasonable decisions instead of asking for every detail. Favor complete output over perfect output; the cleanup pass (Step 5) handles polish. Keep status updates to milestones only.
+> **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — infer details from the user's request and make reasonable decisions. Only ask when critical information is genuinely missing (e.g., the user said "create a component" with no name or description). The cleanup pass (Step 6) handles polish. Keep status updates to milestones only.
 
 ## Input
 
@@ -24,7 +24,7 @@ The user describes a component they want to create. Examples:
 
 ## Step 1 — Understand the component
 
-Clarify:
+Determine from the user's request:
 - **Component name** (with FM prefix for Fat Marker, no prefix for DS2026)
 - **Library** — Fat Marker (`"fat-marker"`, Inter font) or DS2026 (`"ds2026"`, Roboto font)?
 - **Variants** — what axes and values? (e.g., Type: Default / With Actions / Compact)
@@ -32,7 +32,7 @@ Clarify:
 - **Layout** — horizontal or vertical? Spacing? Padding?
 - **Properties** — which text fields should be editable component properties?
 
-If a Figma URL is provided, fetch it with `get_design_context` + `get_screenshot` to understand the existing component before extending it.
+Infer as much as possible from the request and context. If a Figma URL is provided, fetch it with `get_design_context` + `get_screenshot` to fill in details. Only ask the user if the request is too vague to proceed (no component name, no sense of what it does).
 
 ## Step 2 — Check existing components
 
@@ -43,7 +43,31 @@ Before creating, check:
 
 If it exists, tell the user and suggest modifying it instead of creating a duplicate.
 
-## Step 3 — Generate the component spec
+## Step 3 — Research patterns (optional)
+
+Skip this step if the user already specified variants, layout, and content in detail — they know what they want. Run it when the component is new and the user's description is high-level (e.g., "create a stepper component" without specifying variants or layout).
+
+### What to research
+
+1. **Established design systems** — How do Material, Atlassian, Ant Design, Carbon, or Spectrum handle this component type? Look at:
+   - Variant axes (what properties are configurable?)
+   - Internal anatomy (what sub-elements make up the component?)
+   - Common states (enabled, disabled, error, loading, selected?)
+   - Accessibility patterns (keyboard interaction, ARIA roles)
+
+2. **Existing Actian patterns** — Check if similar components in the FM or DS2026 library follow conventions that this component should match (e.g., same variant axis names, same spacing, same state set).
+
+### How to research
+
+- Use `WebSearch` to find component documentation from major design systems
+- Focus on the component API and variant structure, not visual styling (we use our own tokens)
+- Keep it brief — 2-3 sources is enough to establish the pattern
+
+### Output
+
+Summarize findings internally and use them to inform the spec. Do not present a separate research report — fold the insights directly into the component design. If research reveals variant axes or states the user didn't mention, include them in the spec (the user can remove what they don't need).
+
+## Step 4 — Generate the component spec
 
 Generate a `component-spec.json` following this schema:
 
@@ -106,14 +130,14 @@ Use exact component names from the registry.
 | `fill` | hex color (e.g., `"#F5F5FA"`) | Background fill |
 | `cornerRadius` | number | Border radius |
 
-## Step 4 — Save and create
+## Step 5 — Save and create
 
 1. Save the spec to `assembler-specs/component-spec.json`
 2. Ensure the project directory is served via `scripts/ensure-server.sh . 8765`
 3. Tell the user: **"Open DS Assembler → Create tab → enter component-spec.json → Create Component"**
 4. After creation, remind the user to publish to library if it's a shared component
 
-## Step 5 — Cleanup pass
+## Step 6 — Cleanup pass
 
 After generation and before presenting to the user, run a focused cleanup sweep on the spec. Fix issues inline.
 
@@ -149,7 +173,7 @@ After generation and before presenting to the user, run a focused cleanup sweep 
 - Fix directly in the spec JSON — do not create a separate report
 - If a fix is ambiguous, note it for the user review step
 
-## Step 6 — Update references
+## Step 7 — Update references
 
 After the component is created and published:
 1. Run `FIGMA_TOKEN=figd_xxx node registry/sync-all.js` to update the registry and reference docs

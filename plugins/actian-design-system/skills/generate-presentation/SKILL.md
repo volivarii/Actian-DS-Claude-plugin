@@ -1,6 +1,6 @@
 ---
 name: generate-presentation
-description: Generate a full Figma presentation deck from input files, research, Figma content, or a topic description. Uses the Actian presentation templates (Cover, Body, Section, Back cover). Use when user asks to create a presentation, slide deck, pitch deck, report deck, or wants to turn research/findings/content into slides. Also triggers when user says "make a deck", "presentation for", "slides about", or provides content and asks to present it.
+description: Use this skill whenever the user wants to create a presentation or slide deck. Takes input files, research notes, Figma content, or a topic description and produces a complete Figma deck using Actian presentation templates (Cover, Body, Section, Back cover) with data visualizations and DS2026 styling. Triggers when the user asks to create a presentation, make a deck, turn findings or research into slides, build a pitch or report deck, or provides content and wants it presented visually.
 argument-hint: "[topic, file path, Figma URL, or description of content]"
 ---
 
@@ -11,10 +11,10 @@ Generate a structured Figma presentation deck using the official Actian slide te
 > **Presentation templates:** Read `docs/presentation-templates.md` before generating any slides. It contains the exact specs for all 5 slide types, typography, colors, and sequencing rules.
 > **Presentation content guidelines:** Read `docs/presentation-content-guidelines.md` before writing any slide copy. It defines voice & tone, headline rules, data formatting, chart selection, narrative structure, and the review report format. This is the primary content reference for this skill.
 > **Content guidelines:** General UI copy rules in `docs/content-guidelines.md` — sentence case, terminology, and formatting also apply.
-> **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
-> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
+> **Quality & hygiene:** Validate all output against CLAUDE.md Quality & Hygiene Checklist before marking complete.
+> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
-> **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — make reasonable decisions instead of asking for every detail. Favor complete output over perfect output; the cleanup pass handles polish. Keep status updates to milestones only.
+> **Mode: Implement with review gate.** Build first, explain after. Move fast through research, outlining, and HTML generation without pausing for confirmation. But always pause at Step 5 (review report) before pushing to Figma — wrong slides in Figma are costly to fix. Keep status updates to milestones only.
 
 ## Input
 
@@ -24,9 +24,11 @@ The user provides one or more of:
 - **Figma content** — URLs to designs, flows, components, or audit results
 - A **brief or outline** — bullet points, agenda, or structure they want followed
 
-## Execution Model — Run Autonomously
+## Execution Model
 
-**This skill runs end-to-end without intermediate prompts.** Do NOT pause to present outlines for approval, ask review questions, or wait for confirmation between steps. The only acceptable pause is when the input is genuinely too thin to generate anything (e.g., user said "make a deck" with zero topic or content).
+**Autonomous through generation.** Do NOT pause to present outlines for approval or ask clarifying questions between Steps 1–4. Infer audience, goal, and structure from the input. The only acceptable pause before Step 5 is when the input is genuinely too thin to generate anything (e.g., user said "make a deck" with zero topic or content).
+
+**Review gate at Step 5.** Always present the review report and wait for approval before capturing to Figma.
 
 **Defaults:** Audience = team update. Goal = inform. Slide count = 8–15 based on content density.
 
@@ -197,21 +199,9 @@ Wait for the user's approval or requested changes. If changes are requested, app
 
 Only after the user approves the review report:
 
-1. Serve the HTML file locally:
-   ```bash
-   BASE_URL=$(scripts/ensure-server.sh . 8765)
-   ```
-2. **Try calling `generate_figma_design` directly** — check if `mcp__plugin_figma_figma__generate_figma_design` or `mcp__claude_ai_Figma__generate_figma_design` is available. If yes, call it with `outputMode: "existingFile"`, the target `fileKey`, `nodeId`, and the localhost URL.
-3. **If `generate_figma_design` is NOT available** (e.g., Claude Desktop), use the CLI fallback:
-   ```bash
-   claude -p --output-format text --allowedTools "mcp__plugin_figma_figma__generate_figma_design" "Call generate_figma_design with outputMode existingFile, fileKey {{FILE_KEY}}, and nodeId {{NODE_ID}} to capture the page at {{LOCALHOST_URL}}. Poll with captureId until completed. Do not edit any files. Return the final Figma link."
-   ```
-4. Poll with `captureId` every 5 seconds (up to 10 times) until `completed`
-5. Share the Figma link with the user
+Follow the capture procedure in `references/figma-capture.md` (serve, capture, CLI fallback, polling, and rules).
 
 If the user hasn't provided a target Figma file, ask: "Where should I push this? Provide a Figma file URL, or I can create a new file."
-
-**CRITICAL:** NEVER fall back to `use_figma` Plugin API to build frames programmatically. NEVER suggest manual workarounds. NEVER delegate capture to a subagent.
 
 ## Step 7 — Iterate
 

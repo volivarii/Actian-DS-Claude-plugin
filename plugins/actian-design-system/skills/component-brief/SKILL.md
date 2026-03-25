@@ -1,6 +1,6 @@
 ---
 name: component-brief
-description: Draft a structured component brief (9-card Actian DS or 5-card Fat Marker) and generate an HTML spec page. Use when user asks to document, brief, or spec a component.
+description: Use this skill whenever the user wants to formally document or specify a design system component. Produces a multi-card HTML spec page covering anatomy, design tokens, component API, usage guidelines, content guidelines, accessibility, and code specification. Supports both 9-card Actian DS (hi-fi) and 5-card Fat Marker (lo-fi) formats. Triggers when the user asks to document, brief, or spec a component, wants to know the variants/states/tokens for a component, asks for a spec page, or provides a Figma component URL and wants it turned into structured documentation for the team.
 argument-hint: "[Figma URL or component name] [generate N,N,N]"
 ---
 
@@ -10,8 +10,8 @@ Draft a structured component brief and generate an HTML spec page. Supports two 
 
 > **Content guidelines:** All UI copy in briefs must follow `docs/content-guidelines.md`. Read it before writing Cards 6 (Usage guidelines) and 7 (Content guidelines).
 > **Accessibility guidelines:** Card 8 (Accessibility) must follow `docs/accessibility-guidelines.md` — use the component-specific checklist matching the component type (P0/P1/P2), include WCAG criteria references, contrast ratio table, and keyboard interaction spec. All WCAG 2.1 AA.
-> **Quality & hygiene:** Before marking any output complete, validate against the Quality & Hygiene Checklist in CLAUDE.md — all 10 items must pass for Figma-bound deliverables.
-> **Generation log:** Every generated file MUST include a `<!-- GENERATION LOG -->` comment block with: prompt (user's exact input, max 200 chars), generated-at (ISO 8601), duration (prompt to file save), skill name, model, and plugin-version. See CLAUDE.md for the exact format.
+> **Quality & hygiene:** Validate all output against CLAUDE.md Quality & Hygiene Checklist before marking complete.
+> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
 > **Mode: Spec.** Be thorough — document every variant, state, and edge case. Structure everything with consistent headings, tables, and numbered lists. Define before building; every decision needs a rationale. Cross-reference tokens, components, and guidelines by name. Include what's out of scope explicitly.
 
@@ -152,34 +152,7 @@ When generating a subset, only include the selected cards in the HTML `brief-row
 
 ## Token Naming Convention
 
-All design tokens displayed in briefs MUST use the `--zen-` prefix following this pattern:
-
-```
---zen-<type>-<name>
-
-Types:
-  color     → --zen-color-base-brand, --zen-color-text-primary, --zen-color-interactive-hovered-secondary
-  spacing   → --zen-spacing-xs, --zen-spacing-md
-  radius    → --zen-radius-default, --zen-radius-full
-  shadow    → --zen-shadow-xs, --zen-shadow-md
-  size      → --zen-size-md, --zen-size-xl
-  width     → --zen-width-default, --zen-width-focus
-  font      → --zen-font-body-standard, --zen-font-label-standard
-```
-
-Map from raw Figma tokens to `--zen-` prefixed names:
-- `theme-primary` → `--zen-color-theme-primary`
-- `interactive-hovered-secondary` → `--zen-color-interactive-hovered-secondary`
-- `interactive-focused-stroke-default` → `--zen-color-interactive-focused-stroke-default`
-- `spacing-xs` → `--zen-spacing-xs`
-- `radius-default` → `--zen-radius-default`
-- `width-focus` → `--zen-width-focus`
-- `shadow-xs` → `--zen-shadow-xs`
-- `size-xl` → `--zen-size-xl`
-- `body-standard` → `--zen-font-body-standard`
-- `label-standard` → `--zen-font-label-standard`
-
-Use these prefixed names everywhere: spec tables, anatomy callouts, code specification, CSS custom properties.
+Read `references/token-naming.md` for the full `--zen-` prefix mapping table. Use these prefixed names everywhere: spec tables, anatomy callouts, code specification, CSS custom properties.
 
 ---
 
@@ -196,37 +169,7 @@ Only ask for the target if the user hasn't provided one.
 
 ### Capture flow
 
-1. **Serve the HTML file locally:**
-   ```bash
-   BASE_URL=$(scripts/ensure-server.sh . 8765)
-   ```
-
-2. **Try calling `generate_figma_design` directly** — check if `mcp__plugin_figma_figma__generate_figma_design` or `mcp__claude_ai_Figma__generate_figma_design` is available. If yes, call it with:
-   - `outputMode: "existingFile"`
-   - `fileKey` from the user's target file
-   - `nodeId` from the user's target page
-   - The localhost URL for the served HTML spec
-
-3. **If `generate_figma_design` is NOT available** (e.g., Claude Desktop doesn't expose it), use the CLI fallback:
-   ```bash
-   claude -p --output-format text --allowedTools "mcp__plugin_figma_figma__generate_figma_design" "Call generate_figma_design with outputMode existingFile, fileKey {{FILE_KEY}}, and nodeId {{NODE_ID}} to capture the page at {{LOCALHOST_URL}}. Poll with captureId until completed. Do not edit any files. Return the final Figma link."
-   ```
-   Replace `{{FILE_KEY}}`, `{{NODE_ID}}`, and `{{LOCALHOST_URL}}` with actual values. This spawns a Claude Code CLI subprocess that HAS access to `generate_figma_design`.
-
-4. **Poll for completion** with `captureId` every 5 seconds (up to 10 times) until status is `completed`
-
-5. **Share the Figma link** with the user
-
-### CRITICAL rules
-
-- **NEVER fall back to `use_figma`** to build cards programmatically. The capture tool renders the HTML as-is with full CSS fidelity. Building cards with the Plugin API produces inferior results.
-- **NEVER** give up and suggest manual workarounds (browser, copy/paste, extensions)
-- **NEVER** tell the user to open the HTML manually in a browser
-- **NEVER** suggest installing browser extensions or Figma plugins for capture
-- **NEVER** capture to the first page of a file without a nodeId
-- **NEVER delegate capture to a subagent.** Subagents do NOT have MCP tools.
-- Each `captureId` is single-use — one capture per page
-- The `claude -p` CLI fallback is the ONLY acceptable alternative when `generate_figma_design` is not directly available
+Read and follow `references/figma-capture.md` for the complete capture procedure (serve, capture, CLI fallback, polling, and rules).
 
 ## Step 4 — Create in Figma (optional)
 
