@@ -67,33 +67,45 @@ Summarize findings internally and use them to inform the spec. Do not present a 
 
 ## Step 4 — Choose creation mode
 
-Two approaches are available. Each has tradeoffs — pick the right one for the situation.
+Two approaches are available. Both can import real library components with correct tokens.
 
-### Option A: DS Assembler (default for production components)
+| | Assembler | Plugin API (`use_figma`) |
+|---|---|---|
+| **Library components** | Yes — imported with Figma variables | Yes — imported via `getComponentByKeyAsync()` with Figma variables |
+| **Token binding on library instances** | Automatic (Figma variables) | Automatic (Figma variables) |
+| **Token binding on scaffolding** | Resolved to Figma variables | Hex from Token Reference (with token name comments) |
+| **Text overrides** | Reliable (`textOverrides` key) | Needs layer name matching (may need debugging) |
+| **Workflow** | Declarative JSON spec | Imperative JavaScript |
+| **Speed** | Medium (user opens plugin) | Fast (direct in Figma) |
+| **Requires** | DS Assembler plugin + local server | `use_figma` MCP tool |
 
-Generates a JSON spec, the user runs it through the Assembler Figma plugin which resolves tokens to Figma variables, imports library components, and sets up proper properties.
+**Default:** Plugin API (Option B) for speed. Assembler (Option A) when you need Figma variable bindings on scaffolding or a reviewable JSON spec.
+
+### Option A: DS Assembler (declarative, production)
+
+Generates a JSON spec, the user runs it through the Assembler Figma plugin which resolves all tokens to Figma variables — including scaffolding frames.
 
 **Use when:**
-- Creating production-quality library components
-- You need Figma variable bindings (not just hex colors)
-- The component nests existing library components (FM Button, FM Badge, etc.)
+- You need Figma variable bindings everywhere (not just library components)
+- You want a declarative JSON workflow (easier to review and iterate)
 - The user has the DS Assembler plugin installed
 
 **Tradeoffs:** Requires the Assembler plugin + local server. User must manually trigger assembly.
 
 ### Option B: Figma Plugin API (`use_figma`)
 
-Builds the component directly in Figma via JavaScript — faster, no external plugin needed.
+Builds the component directly in Figma via JavaScript. Can import published library components via `figma.teamLibrary.getComponentByKeyAsync()` — imported instances arrive with all their styles and Figma variables intact.
 
 **Use when:**
-- Quick prototyping or testing
+- The user wants fast, direct creation
 - The user doesn't have the Assembler installed
-- The user explicitly asks for direct creation
-- Simple components without library nesting
+- Any complexity level — library imports work
 
-**Tradeoffs:** Cannot bind Figma variables (tokens resolve to hex values only). No library component imports. Properties must be set up manually in code.
+**What has correct tokens automatically:** All imported library component instances (FM Button, FM Table Cell, FM Tabs, etc.) bring their own bound Figma variables. No hex needed for these.
 
-**Default:** Use Assembler (Option A) unless the user asks for direct creation or doesn't have the Assembler.
+**What needs hex from the Token Reference:** Only custom scaffolding — wrapper frames, content area backgrounds, custom text nodes, cover cards, generation log.
+
+**Tradeoffs:** Text overrides on library instances can require layer name debugging. No declarative spec.
 
 ---
 

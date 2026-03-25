@@ -248,53 +248,59 @@ Read `../../references/fm-css-reference.md` for the complete FM CSS token palett
 
 ## Step 5 — Choose output mode
 
-Three approaches are available. Each has tradeoffs — pick the right one for the situation.
+Three approaches are available. The first two can both import real library components with correct tokens.
 
-| | Assembler | Plugin API | HTML capture |
+| | Assembler | Plugin API (`use_figma`) | HTML capture |
 |---|---|---|---|
-| **Output** | Real FM Kit instances from library | Raw Figma frames built via JS | Flat vector frames from HTML |
-| **Token binding** | Figma variables bound | Hex values (with token comments) | CSS variables in HTML |
-| **Library components** | Yes (FM Button, etc.) | No (raw frames only) | No (flat vectors) |
-| **Editable in Figma** | Fully (swap variants, edit text) | Partially (manual properties) | No (static frames) |
+| **Library components** | Yes — with Figma variables | Yes — via `getComponentByKeyAsync()` with Figma variables | No (flat vectors) |
+| **Tokens on library instances** | Automatic | Automatic | CSS variables |
+| **Tokens on scaffolding** | Resolved to Figma variables | Hex from Token Reference | CSS variables |
+| **Text overrides** | Reliable (`textOverrides` key) | Needs layer name matching | N/A |
+| **Editable in Figma** | Fully | Fully (real instances) | No (static frames) |
 | **Speed** | Medium (user opens plugin) | Fast (direct in Figma) | Medium (serve + capture) |
 | **Requires** | DS Assembler plugin | `use_figma` MCP tool | `generate_figma_design` MCP tool |
 
-**Default:** Assembler (Option A). Use Plugin API (Option B) when the user asks for direct creation or doesn't have the Assembler. Use HTML capture (Option C) when explicitly requested or as a last resort.
+**Default:** Plugin API (Option B) for speed. Assembler (Option A) when you need Figma variable bindings on scaffolding or a reviewable JSON spec. HTML capture (Option C) as a last resort.
 
-### Option A: Assembler (default)
+### Option A: Assembler (declarative, production)
 
-Generates real Figma component instances from the published FM Kit library. Output is editable, linked to the design system, and supports variant swapping.
+Generates a JSON spec. The Assembler resolves all tokens to Figma variables — including scaffolding.
 
-1. Generate a layout spec JSON — read `../../references/layout-spec-schema.md` for the schema (node types, layout properties, `textOverrides`, FM Kit component names, full screen example)
+1. Generate a layout spec JSON — read `../../references/layout-spec-schema.md` for the schema
 2. Reference components by their exact names from `../../docs/fm-component-catalog.md`
 3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
 4. Use `--fm-*` token names for fills (the Assembler resolves them to Figma variables)
-5. For custom elements (not in FM Kit), use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children
+5. For custom elements, use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children
 6. Save as `assembler-specs/spec.json`
 7. Serve the project directory: `scripts/ensure-server.sh . 8765`
 8. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
 
 ### Option B: Plugin API (`use_figma`)
 
-Builds the flow directly in Figma via JavaScript — faster, no external plugin needed.
+Builds the flow directly in Figma via JavaScript. Imports published library components via `figma.teamLibrary.getComponentByKeyAsync()` — imported instances arrive with all their styles and Figma variables intact.
 
 **Use when:**
-- The user asks for direct creation or quick prototyping
+- The user wants fast, direct creation (default)
 - The user doesn't have the Assembler plugin
-- Simple flows where library component linking isn't critical
+- Any complexity level — library imports work
+
+**What has correct tokens automatically:** All imported FM Kit instances (FM App_header, FM Side navigation bar, FM Table Cell, FM Button, FM Tabs, FM Dropdown, etc.) bring their own bound Figma variables.
+
+**What needs hex from the Token Reference:** Only custom scaffolding — wrapper frames, content area backgrounds, cover cards, generation log, custom text nodes.
 
 **Rules for `use_figma` code:**
 
-1. **Build each screen as a frame** with auto-layout — no absolute positioning
-2. **Use token hex values** from the FM Token Reference below — comment the token name for traceability:
+1. **Import library components** for all standard UI elements — never recreate FM components as raw frames
+2. **Build each screen as a frame** with auto-layout — no absolute positioning
+3. **Use token hex values** from the FM Token Reference below for scaffolding only:
    ```js
    frame.fills = [{ type: 'SOLID', color: hexToRgb('#F5F5FA') }]; // --fm-base-100
    ```
-3. **Build standard screen structure**: App header (70px) → horizontal frame → Sidebar (260px) + Content area
-4. **Include a generation metadata frame** as the first element (see CLAUDE.md Generation Metadata)
-5. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
-6. **Use `textOverrides` pattern**: set all text content contextually (nav items, page headers, button labels) — no generic placeholder text
-7. **One row per flow**: all screens for a sub-flow in a single horizontal wrapper frame
+4. **Build standard screen structure**: FM App_header → horizontal frame → FM Side navigation bar + Content area
+5. **Include a generation metadata frame** as the first element (see CLAUDE.md Generation Metadata)
+6. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
+7. **Set text content contextually** on all instances (nav items, page headers, button labels) — no generic placeholder text
+8. **One row per flow**: all screens for a sub-flow in a single horizontal wrapper frame
 
 ### Option C: HTML capture (fallback)
 
