@@ -1,0 +1,25 @@
+{
+  "foundation": "Spacing",
+  "page_id": "12054:27513",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12054:27513",
+  "frames": [
+    " ",
+    ".local - page header with body"
+  ],
+  "sections": [
+    {
+      "heading": "Design guidelines & tokens",
+      "content": []
+    },
+    {
+      "heading": "Spacing",
+      "content": []
+    },
+    {
+      "heading": "Spacing is based on baseline grid for vertical rhythm. When spacing out components use a figure of 4 to keep consistency. \nTip: Set “Nudge Amount” in Figma to 8px",
+      "content": []
+    }
+  ],
+  "text_count": 3
+}

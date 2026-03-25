@@ -1,10 +1,10 @@
 {
   "component": "Dropdown / Select",
   "page_id": "12070:77588",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77588",
   "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
-  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": {
     "sections": [
       {
@@ -19,26 +19,38 @@
         "heading": "Behavior",
         "content": [
           { "rule": "Menu opens on click (not hover)." },
-          { "rule": "Close on ESC or outside click." }
+          { "rule": "Close menu on ESC key or outside click." }
         ]
       },
       {
         "heading": "Style",
         "content": [
-          { "rule": "Label button with clear action or noun ('Actions', 'More')." },
-          { "rule": "Menu items: verb + noun ('Download PDF', 'Add tag')." },
+          { "rule": "Label the button with a clear action or noun (ex: 'Actions', 'More')." },
+          { "rule": "Menu items should be verb + noun (ex: 'Download PDF', 'Add tag', 'Delete record')." },
           { "rule": "Use sentence case." },
-          { "rule": "Multi-selection: include checkboxes, persist selections." }
+          { "rule": "Multi-selection dropdowns: include checkboxes, and selections should persist." }
         ]
       }
     ]
   },
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "Type": ["Default", "Search/Multiple", "With avatar", "Compact/Custom"],
+      "State": ["Default", "Hovered", "Focused", "Active", "Filled", "Disabled"],
+      "Menu item type": ["Selectable item", "Category", "Divider"],
+      "Menu item state": ["Default", "Hovered", "Focused", "Pressed", "Selected"]
+    },
+    "note": "Uses PrimeNG Select (third party)"
+  },
   "examples": null,
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 10,
+    "contexts": [
+      "Product screenshots showing dropdown in various contexts (2026-02-27)",
+      "Storybook documentation captures for DropdownButtonComponent",
+      "Screenshots of compact/custom dropdown, search/multiple dropdown, and with-avatar dropdown in real product UI"
+    ]
   },
   "behavior": null
 }

@@ -1,7 +1,7 @@
 {
   "component": "Link",
   "page_id": "12054:32076",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12054:32076",
   "frames_found": ["Design guidelines", "Content guidelines", "Components"],
   "frames_missing": ["ready made examples", "Screenshots of use cases", "Behavior demo"],
@@ -12,7 +12,7 @@
         "content": [
           { "rule": "Use for navigation to internal or external destinations." },
           { "rule": "Use for inline standalone contextual actions." },
-          { "rule": "Avoid using links for actions; use ghost buttons instead." }
+          { "dont": "Use links for actions; use ghost buttons instead." }
         ]
       },
       {
@@ -25,7 +25,7 @@
         "heading": "Style",
         "content": [
           { "rule": "Use meaningful, descriptive text (e.g., 'View pipeline details', not 'Click here')." },
-          { "rule": "Avoid standalone icons as links." },
+          { "dont": "Use standalone icons as links." },
           { "rule": "Use sentence case and no terminal punctuation." }
         ]
       },
@@ -40,27 +40,27 @@
       {
         "heading": "Clear and Descriptive Link Text",
         "content": [
-          { "rule": "Use descriptive link text.", "do": "View your order details", "dont": "Click here" },
-          { "rule": "Avoid URLs as link text." }
+          { "do": "View your order details", "dont": "Click here" },
+          { "dont": "Use URLs as link text." }
         ]
       },
       {
         "heading": "Action-Oriented Language",
         "content": [
-          { "rule": "Use action verbs.", "do": "Download report", "dont": "Get report" },
-          { "rule": "Use exploratory verbs.", "do": "Explore features", "dont": "Click to learn more" }
+          { "do": "Download report", "dont": "Get report" },
+          { "do": "Explore features", "dont": "Click to learn more" }
         ]
       },
       {
         "heading": "Consistency in Link Text",
         "content": [
-          { "rule": "Use consistent phrases for similar actions.", "do": "View our services", "dont": "Click here to view our list of services" }
+          { "do": "View our services", "dont": "Click here to view our list of services" }
         ]
       },
       {
         "heading": "Avoid Linking Full Sentences",
         "content": [
-          { "rule": "Link only the specific relevant portion.", "do": "Read our user experience design blog.", "dont": "Click here to read our blog about user experience design" }
+          { "do": "Read our user experience design blog.", "dont": "Click here to read our blog about user experience design" }
         ]
       }
     ]
@@ -69,5 +69,6 @@
   "variants": null,
   "examples": null,
   "screenshots": null,
-  "behavior": null
+  "behavior": null,
+  "_note": "Metadata for variants could not be retrieved due to Figma MCP tool call limit. Re-run extraction when limit resets to populate variants and screenshots."
 }

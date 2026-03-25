@@ -1,0 +1,57 @@
+{
+  "foundation": "Usage example",
+  "page_id": "12957:2843",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12957:2843",
+  "frames": [
+    ".local - page header with body",
+    "Design guidelines",
+    "Notes/Feedback"
+  ],
+  "sections": [
+    {
+      "heading": "Usage examples",
+      "content": []
+    },
+    {
+      "heading": "Examples of how visual foundations are used in layouts.",
+      "content": []
+    },
+    {
+      "heading": "Forms within a modal",
+      "content": []
+    },
+    {
+      "heading": "Design specifications for typography and spacing in forms within a modal.",
+      "content": []
+    },
+    {
+      "heading": "Example 1",
+      "content": []
+    },
+    {
+      "heading": "Example 2",
+      "content": []
+    },
+    {
+      "heading": "Behavior",
+      "content": []
+    },
+    {
+      "heading": "Interaction (Tooltip & max width)",
+      "content": [
+        "Hovering over tags brings up a tooltip with the full tag content.",
+        "Tags truncate automatically when they exceed the maximum width."
+      ]
+    },
+    {
+      "heading": "Layout",
+      "content": [
+        "Tags are laid out horizontally to fill containers. Make sure there is at least 4px between tags.",
+        "Tags will reflow onto the next line when container size is limited.",
+        "Jessie Jan/30/26\n\n• Modal sizes and text width/character count: What other modal sizes do we have today? The current text width is ~76 characters. It might be worth defining a consistent character width across the platform (not just modals) so hierarchy is clearer and easier for eng to remember.  • Topic name color: I know you will be looking at the primary color on topic names with Franck, but calling it out since it affects visual hierarchy."
+      ]
+    }
+  ],
+  "text_count": 14
+}

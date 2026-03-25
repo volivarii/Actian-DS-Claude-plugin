@@ -1,10 +1,10 @@
 {
   "component": "Search",
   "page_id": "9085:22545",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9085:22545",
   "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
-  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": {
     "sections": [
       {
@@ -30,5 +30,6 @@
     "count": 1,
     "contexts": []
   },
-  "behavior": null
+  "behavior": null,
+  "_note": "Variant metadata could not be retrieved due to Figma MCP tool call limit. Re-run extraction when limit resets."
 }

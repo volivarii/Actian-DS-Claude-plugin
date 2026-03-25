@@ -1,17 +1,23 @@
 {
-  "component": "Rich text (existing)",
+  "component": "Rich text",
   "page_id": "12070:77590",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77590",
   "frames_found": ["Components", "Screenshots of use cases"],
-  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "State": ["Default", "Expanded"]
+    }
+  },
   "examples": null,
   "screenshots": {
     "count": 1,
-    "contexts": []
+    "contexts": [
+      "Screenshot showing rich text editor in product context (2026-02-27)"
+    ]
   },
   "behavior": null
 }

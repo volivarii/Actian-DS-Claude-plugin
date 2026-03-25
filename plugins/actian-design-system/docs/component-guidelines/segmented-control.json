@@ -2,16 +2,42 @@
   "component": "Segmented control / Button group",
   "page_id": "9253:33950",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:33950",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253-33950",
   "frames_found": ["Components", "Screenshots of use cases"],
-  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
-  "variants": null,
-  "examples": null,
+  "variants": {
+    "axes": {
+      "Segmented control": {
+        "node_id": "7618:5187",
+        "variants": {
+          "Type": ["Default"]
+        }
+      },
+      ".segmented control sub component": {
+        "node_id": "7618:5084",
+        "variants": {
+          "State": ["Default", "Hovered", "Focused", "Pressed", "Selected", "Disabled"]
+        }
+      }
+    }
+  },
+  "examples": {
+    "descriptions": [
+      "ZNG (Eng library) Storybook reference screenshot showing ButtonGroupComponent docs (node 13539:44210)"
+    ]
+  },
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 6,
+    "contexts": [
+      "Screenshot 2026-02-20 at 2.31.37 PM - segmented control in app",
+      "Screenshot 2026-02-20 at 2.32.16 PM - segmented control variant",
+      "Screenshot 2026-02-20 at 2.32.40 PM - segmented control in context",
+      "Screenshot 2026-02-20 at 2.33.24 PM - segmented control usage",
+      "Screenshot 2026-02-25 at 10.39.13 AM - segmented control in data viz",
+      "Screenshot 2026-02-25 at 10.42.46 AM - segmented control wide layout"
+    ]
   },
   "behavior": null
 }

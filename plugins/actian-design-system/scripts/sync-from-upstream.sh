@@ -9,6 +9,7 @@
 #   ./scripts/sync-from-upstream.sh docs           # sync docs only
 #   ./scripts/sync-from-upstream.sh tokens         # sync tokens only
 #   ./scripts/sync-from-upstream.sh guidelines     # sync component guidelines only
+#   ./scripts/sync-from-upstream.sh foundations     # sync foundations only
 #
 # Requires: curl, python3 (for JSON parsing)
 
@@ -109,6 +110,38 @@ for c in data.get('components', []):
   echo -e "Guidelines: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"
 }
 
+sync_foundations() {
+  echo ""
+  echo "Syncing foundations from ${REPO}..."
+  echo ""
+
+  local ok=0 fail=0
+  local foundations_dir="$PLUGIN_DIR/docs/foundations"
+  mkdir -p "$foundations_dir"
+
+  # Known foundation files
+  local foundations=(
+    "accessibility"
+    "borders"
+    "breakpoint-grid-structure"
+    "color"
+    "content-guidelines"
+    "elevation"
+    "icons"
+    "interaction-motion"
+    "spacing"
+    "typography"
+    "usage-example"
+  )
+
+  for f in "${foundations[@]}"; do
+    fetch_file "docs/foundations/${f}.json" "$foundations_dir/${f}.json" && ok=$((ok + 1)) || fail=$((fail + 1))
+  done
+
+  echo ""
+  echo -e "Foundations: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"
+}
+
 sync_tokens() {
   echo ""
   echo "Syncing tokens from ${REPO}..."
@@ -135,6 +168,7 @@ case "$SYNC_TARGET" in
   all)
     sync_docs
     sync_guidelines
+    sync_foundations
     sync_tokens
     ;;
   docs)
@@ -143,12 +177,15 @@ case "$SYNC_TARGET" in
   guidelines)
     sync_guidelines
     ;;
+  foundations)
+    sync_foundations
+    ;;
   tokens)
     sync_tokens
     ;;
   *)
     echo -e "${RED}Unknown target: ${SYNC_TARGET}${NC}"
-    echo "Usage: $0 [all|docs|tokens|guidelines]"
+    echo "Usage: $0 [all|docs|tokens|guidelines|foundations]"
     exit 1
     ;;
 esac

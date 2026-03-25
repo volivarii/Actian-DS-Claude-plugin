@@ -1,7 +1,7 @@
 {
   "component": "Checkbox",
   "page_id": "12070:77593",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77593",
   "frames_found": ["Design guidelines", "Content guidelines", "Components", "Screenshots of current use cases"],
   "frames_missing": ["ready made examples", "Behavior demo"],
@@ -19,7 +19,7 @@
         "heading": "Default format - Style",
         "content": [
           { "rule": "Use clear, direct labels." },
-          { "rule": "Write in positive form ('Show archived items' not 'Don't hide archived items')." },
+          { "do": "Show archived items", "dont": "Don't hide archived items" },
           { "rule": "Group related checkboxes under group label." }
         ]
       },
@@ -47,5 +47,6 @@
     "count": 1,
     "contexts": []
   },
-  "behavior": null
+  "behavior": null,
+  "_note": "Variant metadata could not be retrieved due to Figma MCP tool call limit. Re-run extraction when limit resets."
 }

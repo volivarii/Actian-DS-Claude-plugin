@@ -4,14 +4,20 @@
   "extracted_at": "2026-03-25T00:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=13868:11327",
   "frames_found": ["Components", "Screenshots of use cases"],
-  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Screenshots of current use cases", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "Type": ["Default"]
+    }
+  },
   "examples": null,
   "screenshots": {
     "count": 1,
-    "contexts": []
+    "contexts": [
+      "Storybook documentation screenshot: MaintenanceBannerComponent"
+    ]
   },
   "behavior": null
 }

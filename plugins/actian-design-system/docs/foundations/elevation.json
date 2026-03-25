@@ -1,0 +1,49 @@
+{
+  "foundation": "Elevation",
+  "page_id": "12054:27514",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12054:27514",
+  "frames": [
+    ".local - page header with body",
+    "Design guidelines"
+  ],
+  "sections": [
+    {
+      "heading": "Elevation",
+      "content": []
+    },
+    {
+      "heading": "Use elevation to define the layering between elements in a design when required. Flat is the style we primarily follow. But considering elevation will be needed when many elements come together.",
+      "content": []
+    },
+    {
+      "heading": "Design guidelines & tokens",
+      "content": []
+    },
+    {
+      "heading": "Behavior",
+      "content": []
+    },
+    {
+      "heading": "Interaction (Tooltip & max width)",
+      "content": [
+        "Hovering over tags brings up a tooltip with the full tag content.",
+        "Tags truncate automatically when they exceed the maximum width."
+      ]
+    },
+    {
+      "heading": "Layout",
+      "content": [
+        "Tags are laid out horizontally to fill containers. Make sure there is at least 4px between tags.",
+        "Tags will reflow onto the next line when container size is limited."
+      ]
+    },
+    {
+      "heading": "Usage",
+      "content": [
+        "Elevation MUST be used only to define the layering between elements in a design when required. The purpose of having elevation remains only this and not merely adding visual aesthetics. \n\nOnly use drop shadows, colors and/or overlays to depict elevation. Do not use bevels, borders, opacity, etc. to depict layering or elevation. \n\nButtons may be considered elevated from their surface depending on situations. \n\nElevation MUST be depicted in either of these 3 ways:  \nDrop shadows (recommended)  \nColor difference (when obvious) \nOverlays (when required to separate from whole underlying layers)."
+      ]
+    }
+  ],
+  "text_count": 12
+}

@@ -4,10 +4,57 @@
   "extracted_at": "2026-03-25T00:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:21058",
   "frames_found": ["Design guidelines", "Components"],
-  "frames_missing": ["Content guidelines", "ready made examples", "Screenshots of use cases", "Behavior demo"],
+  "frames_missing": ["Content guidelines", "ready made examples", "Screenshots of use cases", "Screenshots of current use cases", "Behavior demo"],
   "content_guidelines": null,
-  "design_guidelines": null,
-  "variants": null,
+  "design_guidelines": {
+    "sections": [
+      {
+        "heading": "Types",
+        "content": [
+          {
+            "note": "Visual reference showing the four alert banner types. Types are Primary, Success, Warning, and Danger."
+          }
+        ]
+      },
+      {
+        "heading": "Specs",
+        "content": [
+          {
+            "note": "Spacing between icon and text uses --zen-spacing-xs (16px icon size)."
+          }
+        ]
+      },
+      {
+        "heading": "Background",
+        "content": [
+          {
+            "rule": "Each alert type uses a specific background color token tied to its semantic meaning.",
+            "examples": [
+              "Info (Primary) - info-filled icon with info background",
+              "Success - success-filled icon with success background",
+              "Warning - warning-filled icon with warning background",
+              "Error (Danger) - error-filled icon with error background"
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Layout",
+        "content": [
+          {
+            "rule": "In between alert banners, keep 8px (spacing-xs).",
+            "note": "Suggested spacing in between alert banners and other elements around is 16px (spacing-md) but this can be reduced if space is limited or the element is directly related to the banner."
+          }
+        ]
+      }
+    ]
+  },
+  "variants": {
+    "axes": {
+      "Type": ["Primary", "Success", "Warning", "Danger"],
+      "Orientation": ["Horizontal", "Vertical"]
+    }
+  },
   "examples": null,
   "screenshots": null,
   "behavior": null

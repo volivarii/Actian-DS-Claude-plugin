@@ -1,0 +1,94 @@
+{
+  "foundation": "Typography",
+  "page_id": "12054:26789",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12054:26789",
+  "frames": [
+    ".local - page header with body",
+    "Design tokens",
+    "Design guidelines"
+  ],
+  "sections": [
+    {
+      "heading": "Typography",
+      "content": []
+    },
+    {
+      "heading": "Use typography to present your design and content as clearly and efficiently as possible.",
+      "content": []
+    },
+    {
+      "heading": "Design tokens",
+      "content": []
+    },
+    {
+      "heading": "Text style",
+      "content": []
+    },
+    {
+      "heading": "Font family",
+      "content": []
+    },
+    {
+      "heading": "Line height",
+      "content": []
+    },
+    {
+      "heading": "Weight",
+      "content": []
+    },
+    {
+      "heading": "Letter spacing",
+      "content": []
+    },
+    {
+      "heading": "Font size",
+      "content": []
+    },
+    {
+      "heading": "Text color",
+      "content": []
+    },
+    {
+      "heading": "Design guidelines",
+      "content": []
+    },
+    {
+      "heading": "Typeface",
+      "content": [
+        "You must only use Roboto in the product. Roboto mono should be used for representations of code. \nRoobert is the brand typeface only for marketing and communication materials like website, PPTs, and flyers."
+      ]
+    },
+    {
+      "heading": "Language support",
+      "content": [
+        "Provide Noto as a font when your product is being consumed by users who read languages with tall or dense scripts."
+      ]
+    },
+    {
+      "heading": "Minimum size",
+      "content": [
+        "Must not use type sizes smaller than 11px. You may use 11px text in labels in tags and data visualizations and supporting text with icon."
+      ]
+    },
+    {
+      "heading": "Line length",
+      "content": [
+        "Text line length is 544px at max with 16px text\nText line length is 480px at max with 14px text\nText line length is 424px at max with 12px text"
+      ]
+    },
+    {
+      "heading": "Paragraph spacing",
+      "content": [
+        "At default, the paragraph spacing is 8px."
+      ]
+    },
+    {
+      "heading": "Accessibility",
+      "content": [
+        "Default body text size is 14px\nMinimum body text size is 12px\n11px is only acceptable for non-essential UI\nUse defined type styles (Avoid light weight)\nMaintain readable line height and spacing\nText line length is 544px at max with 16px text\nText line length is 480px at max with 14px text\nText line length is 424px at max with 12px text\nAvoid placeholder-only labels\nAvoid long blocks of dense text"
+      ]
+    }
+  ],
+  "text_count": 23
+}

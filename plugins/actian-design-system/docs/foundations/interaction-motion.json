@@ -1,0 +1,89 @@
+{
+  "foundation": "Interaction & motion",
+  "page_id": "12054:27512",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12054:27512",
+  "frames": [
+    "State interaction",
+    ".local - page header with body"
+  ],
+  "sections": [
+    {
+      "heading": "Types of states",
+      "content": [
+        "States show the interaction status of a component or UI element and ensure accessibility.",
+        "Enabled/Active: An enabled state communicates an interactive component or element.\nHovered: A hovered state communicates when a user has placed a cursor over an interactive element.\nFocused: A focused state communicates when a user has highlighted an element using an input method such as a keyboard or voice.\nPressed: A pressed state communicates when a user clicks or taps an element.\nDragged: A dragged state communicates when a user presses and moves an element.\nSelected: A selected state communicates when a user has chosen an element using a cursor, keyboard, voice, or tap. This state is typically indicated by a check mark icon, a checkbox component, a change in surface color, or a combination of these indicators.\nDisabled: A disabled state communicates an inoperable component or element."
+      ]
+    },
+    {
+      "heading": "State layers",
+      "content": [
+        "Action",
+        "Action",
+        "Front-end engineering: We decided to use brightness filters to apply the different state styles more consistently and easily, especially for customizable components. July 17, 2025",
+        "State layer value for dark colored containers",
+        "State",
+        "Light mode",
+        "Dark mode",
+        "Enabled",
+        "N/A",
+        "N/A",
+        "Pressed",
+        "CoolGrey 80 (#3F3F4A), 50% opacity",
+        "CoolGrey 15 (#E4E4F0), 50% opacity",
+        "Dragged",
+        "Blue 90 \n+ Elevation 3",
+        "Blue 20\n+ Elevation 3",
+        "Selected",
+        "Blue 90",
+        "Blue 20",
+        "State layer value for light colored containers",
+        "State",
+        "Light mode",
+        "Dark mode",
+        "Enabled",
+        "N/A",
+        "N/A",
+        "Pressed",
+        "CoolGrey 15 (#E4E4F0), 50% opacity",
+        "CoolGrey 80 (#3F3F4A), 50% opacity",
+        "Dragged",
+        "Blue 05\n+ Elevation 3",
+        "CoolGrey 80\n+ Elevation 3",
+        "Selected",
+        "Blue 05",
+        "CoolGrey 80",
+        "Elevation values"
+      ]
+    },
+    {
+      "heading": "Disabled state",
+      "content": [
+        "For the disabled state, use these two assigned neutral shades.",
+        "Level",
+        "Light mode",
+        "Dark mode"
+      ]
+    },
+    {
+      "heading": "Usage examples",
+      "content": [
+        "Enabled",
+        "Hovered",
+        "Focused",
+        "Pressed",
+        "Selected",
+        "Disabled"
+      ]
+    },
+    {
+      "heading": "Interaction & motion",
+      "content": []
+    },
+    {
+      "heading": "Interaction & motion define how elements respond and animate to provide feedback, guide users, and enhance usability.",
+      "content": []
+    }
+  ],
+  "text_count": 54
+}

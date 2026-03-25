@@ -3,67 +3,160 @@
   "page_id": "7314:3195",
   "extracted_at": "2026-03-25T00:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=7314:3195",
-  "frames_found": ["Design guidelines", "Content guidelines", "Components"],
-  "frames_missing": ["ready made examples", "Screenshots of use cases", "Behavior demo"],
+  "frames_found": ["Content guidelines", "Design guidelines", "Components"],
+  "frames_missing": ["ready made examples", "Screenshots of use cases", "Screenshots of current use cases", "Behavior demo"],
   "content_guidelines": {
     "sections": [
       {
-        "heading": "Description",
+        "heading": "Empty state",
         "content": [
-          { "rule": "Used when expected content cannot be displayed." },
-          { "rule": "Provide instructions, guidance, or info." },
-          { "rule": "Tone: direct and helpful. Action-first CTAs." }
+          {
+            "rule": "Empty states should be used when the expected content cannot be displayed. They can be used to provide instructions, guidance, or information to the user.",
+            "examples": [
+              "The tone should be direct and helpful.",
+              "Action-first CTAs should be used whenever possible.",
+              "Be consistent and prioritize important pieces."
+            ]
+          }
         ]
       },
       {
         "heading": "Types",
         "content": [
-          { "rule": "No data empty states: explain what will be there, guide next step." },
-          { "rule": "User action empty states: no results, confirmations." }
+          {
+            "term": "No data empty states",
+            "rule": "These are the most recognizable first use empty states, explaining what will be in the space once it is populated with data, and providing guidance for the next step the user can take to populate the space."
+          },
+          {
+            "term": "User action empty states",
+            "rule": "These empty states occur as a result of a user action.",
+            "examples": [
+              "No Results: A message showing there are no search results",
+              "Confirmation: A success confirmation for completion of a process or set of tasks"
+            ],
+            "note": "Should provide follow up step to guide the user."
+          }
         ]
       },
       {
-        "heading": "Usage by context",
+        "heading": "Usage",
         "content": [
-          { "rule": "Full page = Large illustration + CTA." },
-          { "rule": "Smaller pane = Small illustration/icon." },
-          { "rule": "Multiple on page = Prioritize most important." },
-          { "rule": "No user action = Text only." }
+          {
+            "rule": "Based on the use case, use different types of empty states where appropriate:",
+            "examples": [
+              {"use_case": "Full page list or feature", "solution": "Large illustration", "cta_example": "Create your first project"},
+              {"use_case": "Smaller window pane or widget", "solution": "Small illustration or icon", "cta_example": "Optional/situational: (Create policy)"},
+              {"use_case": "Multiple empty states on one page", "solution": "*Prioritize most important", "cta_example": "Start here"},
+              {"use_case": "No user action possible", "solution": "No illustration, text only.", "cta_example": "No access requests created yet"}
+            ]
+          },
+          {
+            "note": "*Prioritize: Determine most important empty state (e.g., tasks list over sidebar widgets). Use full-page empty state with large illustration if primary area is empty. Use smaller inline empty states without illustration for support/smaller areas. There should only be one large empty state."
+          },
+          {
+            "term": "Image choice considerations",
+            "rule": "The image choice should relate to the situation."
+          }
         ]
       },
       {
         "heading": "Content",
         "content": [
-          { "rule": "Optional bold title, required description text, CTA as ghost button/link." },
-          { "rule": "Max 60 chars width." }
+          {
+            "rule": "You can optionally use a title in bold, but every empty state must include the description text. The CTA should be a ghost button or link.",
+            "note": "Character count: Descriptions should not exceed 60 characters in width, before optionally continuing on a new line."
+          }
         ]
       },
       {
         "heading": "Maintenance state",
         "content": [
-          { "rule": "During planned/unplanned downtime." },
-          { "rule": "State nature, provide time estimate, identify workarounds." }
+          {
+            "term": "When to use",
+            "examples": [
+              "During planned downtime for updates, migrations, or upgrades",
+              "When performing system maintenance that affects data access or platform functionality",
+              "When a specific dataset or tool is temporarily locked or restricted for updates"
+            ]
+          },
+          {
+            "term": "Content",
+            "examples": [
+              "State the nature of the maintenance, and whether it was planned or unplanned.",
+              "Provide a time estimate or range for completion if possible",
+              "Clearly identify workarounds, or recovery actions",
+              "If maintenance is unplanned, provide a link to real-time updates or who to contact for support."
+            ]
+          }
         ]
       },
       {
         "heading": "Error state",
         "content": [
-          { "rule": "Direct, helpful, immediate CTA." },
-          { "rule": "NEVER blame the user." }
+          {
+            "rule": "Error state content is similar to that of empty states, and should follow similar guidelines with some exceptions: The tone should be direct, helpful, and immediately provide a call to action.",
+            "dont": "NEVER blame the user for the error."
+          }
         ]
       },
       {
         "heading": "Success state",
         "content": [
-          { "rule": "'Success!' title." },
-          { "rule": "Description of what happened and what comes next." },
-          { "rule": "Primary button mandatory for navigation." }
+          {
+            "term": "When to use",
+            "examples": [
+              "Large page steppers need confirmation notifications for their processes, but if the resulting page does not lead to a list or table of created items, the notification cannot appear as a banner. A full confirmation page is necessary.",
+              "When the resulting confirmation needs its own page for clarity or follow-up, and the banner won't cover everything needed."
+            ]
+          },
+          {
+            "term": "Content",
+            "examples": [
+              "Success! message as the title, alternatives can be used in small cases.",
+              "Description should indicate what has happened, and what comes next.",
+              "Primary button is mandatory for navigation purposes, as there will be no other available action on the page. Primary button should take them to next logical page.",
+              "Secondary button should be optional but rare. Use in cases where you can view a log or report, etc."
+            ]
+          }
         ]
       }
     ]
   },
-  "design_guidelines": null,
-  "variants": null,
+  "design_guidelines": {
+    "sections": [
+      {
+        "heading": "Anatomy",
+        "content": [
+          {
+            "note": "Three sizes: Large (381x278px), Medium (290x142px), Small (161x21px). Each has pointer annotations showing component parts."
+          }
+        ]
+      },
+      {
+        "heading": "Spec",
+        "content": [
+          {
+            "rule": "Large: 240px wide illustration area, 160px tall. Uses spacing-md between elements, spacing-xs for small gaps, spacing-2xs for subtitle gap. Content is centered.",
+            "note": "Medium: 68px wide illustration, 49px tall. Uses spacing-xs between elements, spacing-2xs for subtitle. Small: 28px wide, 21px tall. Uses spacing-xs."
+          }
+        ]
+      },
+      {
+        "heading": "Layout",
+        "content": [
+          {
+            "note": "Layout examples show Large, Medium, and Small empty states within application wireframes. Large empty states center in the main content area. Medium states use spacing-2xl above. Small states use spacing-md for padding. Pattern section shows before/after states demonstrating how content replaces the empty state."
+          }
+        ]
+      }
+    ]
+  },
+  "variants": {
+    "axes": {
+      "Size": ["Large", "Medium", "Small"],
+      "State": ["Empty state", "Maintenance state", "Error state", "Success state"]
+    }
+  },
   "examples": null,
   "screenshots": null,
   "behavior": null

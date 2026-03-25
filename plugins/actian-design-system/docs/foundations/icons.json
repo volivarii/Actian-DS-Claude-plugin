@@ -1,0 +1,45 @@
+{
+  "foundation": "Icons",
+  "page_id": "7370:3775",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=7370:3775",
+  "frames": [
+    "Design guidelines",
+    ".local - page header with body",
+    "Actual icons",
+    "inner-path",
+    "add",
+    "add",
+    "add",
+    "Vector"
+  ],
+  "sections": [
+    {
+      "heading": "Design guidelines",
+      "content": []
+    },
+    {
+      "heading": "Size and scale",
+      "content": [
+        "Each icon is rendered with a 1.5px stroke weight at 24px and drawn for alignment to the icon grid (below). It can easily be scaled proportionally to desire size. The standard sizes are 16, 24, and 32px. However, in the limited space, 12px is allowed at the minimum. For larger size, you may consider other graphics like illustration. \n\nStandard size: 12, 16, 20, 24, and 32px\nLarger size: Consider other graphics like illustration"
+      ]
+    },
+    {
+      "heading": "Icon grid",
+      "content": []
+    },
+    {
+      "heading": "Icons",
+      "content": []
+    },
+    {
+      "heading": "The design system icon set is composed of IBM’s Carbon icons and custom icons that are created in the same style as IBMs. In the future, more icons can be added as required.",
+      "content": []
+    },
+    {
+      "heading": "Actual icons",
+      "content": []
+    }
+  ],
+  "text_count": 7
+}

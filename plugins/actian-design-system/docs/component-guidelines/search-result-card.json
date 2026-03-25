@@ -2,9 +2,9 @@
   "component": "Search result card",
   "page_id": "9253:31959",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:31959",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253-31959",
   "frames_found": ["Components", "Content guidelines", "Screenshots of current use cases"],
-  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
   "variants": null,
@@ -13,5 +13,8 @@
     "count": 1,
     "contexts": []
   },
-  "behavior": null
+  "behavior": null,
+  "notes": [
+    "Figma MCP rate limit reached before metadata could be fetched for this page. Re-run extraction to populate variants and content_guidelines."
+  ]
 }

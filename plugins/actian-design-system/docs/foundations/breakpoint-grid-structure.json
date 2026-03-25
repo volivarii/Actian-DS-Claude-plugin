@@ -1,0 +1,104 @@
+{
+  "foundation": "Breakpoint, grid & structure",
+  "page_id": "12217:457",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12217:457",
+  "frames": [
+    ".local - page header with body",
+    "Design guidelines",
+    "Design guidelines"
+  ],
+  "sections": [
+    {
+      "heading": "Breakpoint, grid & structure",
+      "content": []
+    },
+    {
+      "heading": "A responsive grid allows a layout to adapt different screen sizes and ensures that the design is displayed consistently on all devices.\nPress ‘shift’ + G to toggle Figma’s layout grid visibility",
+      "content": []
+    },
+    {
+      "heading": "Breakpoints & grids",
+      "content": []
+    },
+    {
+      "heading": "Behavior",
+      "content": []
+    },
+    {
+      "heading": "Interaction (Tooltip & max width)",
+      "content": [
+        "Hovering over tags brings up a tooltip with the full tag content.",
+        "Tags truncate automatically when they exceed the maximum width."
+      ]
+    },
+    {
+      "heading": "Layout",
+      "content": [
+        "Tags are laid out horizontally to fill containers. Make sure there is at least 4px between tags.",
+        "Tags will reflow onto the next line when container size is limited."
+      ]
+    },
+    {
+      "heading": "8-pixel grid",
+      "content": [
+        "The 8-pixel grid can be used for overall page layouts to define page sections and component placements."
+      ]
+    },
+    {
+      "heading": "Columns, gutters, and margins",
+      "content": [
+        "Margin",
+        "Body",
+        "Margin",
+        "Column",
+        "Gutter",
+        "Columns: Guides what the content aligns to\nGutters: Fixed spacing between columns\nMargins: Negative space beyond the content area"
+      ]
+    },
+    {
+      "heading": "Setting",
+      "content": [
+        "Target XL and until S. XS is not considered at this moment.",
+        "XS: Under 600px",
+        "S: 600–839px",
+        "M: 840-1199px",
+        "L: 1200-1919px",
+        "XL: 1920 and up"
+      ]
+    },
+    {
+      "heading": "Structure: Layout templates",
+      "content": []
+    },
+    {
+      "heading": "Behavior",
+      "content": []
+    },
+    {
+      "heading": "Interaction (Tooltip & max width)",
+      "content": [
+        "Hovering over tags brings up a tooltip with the full tag content.",
+        "Tags truncate automatically when they exceed the maximum width."
+      ]
+    },
+    {
+      "heading": "Layout",
+      "content": [
+        "Tags are laid out horizontally to fill containers. Make sure there is at least 4px between tags.",
+        "Tags will reflow onto the next line when container size is limited.",
+        "Main template with left side navigation",
+        "Body variations",
+        "With left panel open"
+      ]
+    },
+    {
+      "heading": "Main template without left side navigation",
+      "content": [
+        "Body variations",
+        "With left panel open"
+      ]
+    }
+  ],
+  "text_count": 40
+}

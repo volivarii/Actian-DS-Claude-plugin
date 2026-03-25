@@ -1,10 +1,10 @@
 {
   "component": "Calendar",
   "page_id": "12070:77589",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77589",
   "frames_found": ["Content guidelines", "Components"],
-  "frames_missing": ["design guidelines", "ready made examples", "Screenshots of use cases", "Behavior demo"],
+  "frames_missing": ["Design guidelines", "Screenshots of use cases", "ready made examples", "Behavior demo"],
   "content_guidelines": {
     "sections": [
       {
@@ -16,24 +16,39 @@
       {
         "heading": "Style",
         "content": [
-          { "rule": "Use labels like 'From' and 'To', or 'Start date' and 'End date'." },
-          { "rule": "Display formats clearly (mm/dd/yyyy)." },
-          { "rule": "Do not pre-fill dates." }
+          { "rule": "Use labels like 'From' and 'To', or 'Start date' and 'End date' for range fields." },
+          { "dont": "Leave any fields unlabeled." },
+          { "rule": "Display formats clearly (mm/dd/yyyy or regional format) with placeholders or hints where appropriate." },
+          { "dont": "Pre-fill dates for users." }
         ]
       },
       {
         "heading": "Behavior",
         "content": [
           { "rule": "Support both typing and calendar picking." },
-          { "rule": "Auto-close when selection complete." },
-          { "rule": "Highlight today, weekends, blocked dates." },
-          { "rule": "Visually display range." }
+          { "rule": "Auto-close the calendar when the selection is complete." },
+          { "rule": "Highlight today, weekends, and other necessarily blocked dates visually when appropriate." },
+          { "rule": "Visually display any range in the calendar." }
         ]
       }
     ]
   },
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "Type": ["Single date select", "Date range"],
+      "Selection": ["Single", "Range"],
+      "Display type": ["Dates", "Months", "Years"],
+      "State (input)": ["Enabled", "Hovered", "Focused", "Active", "Filled", "Error", "Disabled"],
+      "State (calendar item)": ["Default", "Hovered", "Focused", "Selected", "Disabled"]
+    },
+    "sub_component": {
+      "name": ".Calendar item",
+      "axes": {
+        "State": ["Default", "Hovered", "Focused", "Selected", "Disabled"]
+      }
+    }
+  },
   "examples": null,
   "screenshots": null,
   "behavior": null

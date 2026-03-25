@@ -2,16 +2,38 @@
   "component": "Data viz: toolbar",
   "page_id": "8239:5170",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=8239:5170",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=8239-5170",
   "frames_found": ["Components", "Screenshots of use cases"],
-  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
-  "variants": null,
-  "examples": null,
+  "variants": {
+    "axes": {
+      "Toolbar": {
+        "node_id": "14335:16907",
+        "variants": {
+          "Type": ["Single", "Group", "Combined"],
+          "Orientation": ["Horizontal", "Vertical"]
+        }
+      }
+    }
+  },
+  "examples": {
+    "descriptions": [
+      "V2 full-page layout showing toolbar in data lineage context with sidebar, page header, tabs, dropdowns, search, and icon buttons (node 14241:37014)"
+    ]
+  },
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 7,
+    "contexts": [
+      "Screenshot 2026-02-25 at 10.38.28 AM - toolbar in metamodel view",
+      "Screenshot 2026-02-25 at 10.39.56 AM - toolbar in lineage view",
+      "Screenshot 2026-02-25 at 10.40.07 AM - toolbar in another data viz context",
+      "Screenshot 2026-02-25 at 10.42.02 AM - toolbar in glossary view",
+      "Screenshot 2026-03-13 at 10.05.13 AM - compact toolbar",
+      "Reference screenshot from 2025-06-30 - toolbar in app context",
+      "Screenshot 2026-03-17 at 9.24.33 AM - toolbar variant"
+    ]
   },
   "behavior": null
 }

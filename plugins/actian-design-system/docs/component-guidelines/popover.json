@@ -3,15 +3,13 @@
   "page_id": "13298:2723",
   "extracted_at": "2026-03-25T00:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=13298:2723",
-  "frames_found": ["Components", "Screenshots of current use cases"],
-  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "frames_found": [],
+  "frames_missing": ["Content guidelines", "Design guidelines", "Components", "ready made examples", "Screenshots of use cases", "Screenshots of current use cases", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
   "variants": null,
   "examples": null,
-  "screenshots": {
-    "count": 1,
-    "contexts": []
-  },
-  "behavior": null
+  "screenshots": null,
+  "behavior": null,
+  "_note": "Figma MCP tool call limit reached before metadata could be retrieved for this page. Re-run extraction when API quota resets."
 }

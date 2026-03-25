@@ -2,16 +2,45 @@
   "component": "Data viz: metamodel",
   "page_id": "14747:23223",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=14747:23223",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=14747-23223",
   "frames_found": ["Components", "Screenshots of use cases"],
-  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
-  "variants": null,
-  "examples": null,
+  "variants": {
+    "axes": {
+      "Metamodel widget": {
+        "node_id": "14747:23588",
+        "variants": {
+          "Type": ["Dataset", "Visualisation", "Field", "Data Process", "Business Term"]
+        }
+      },
+      ".metamodel property section": {
+        "node_id": "14747:23614",
+        "variants": {
+          "Section": ["Collapsed", "Expanded"]
+        }
+      },
+      ".metamodel connecting line": {
+        "node_id": "14747:23654",
+        "variants": {
+          "Direction": ["1", "2", "3", "4"]
+        }
+      }
+    }
+  },
+  "examples": {
+    "descriptions": [
+      "Metamodel graph example showing connected widgets of different types with connecting lines (node 14747:23642)",
+      "Second example layout with same component arrangement (node 14747:23630)"
+    ]
+  },
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 2,
+    "contexts": [
+      "Screenshot 2026-02-25 at 10.38.28 AM - metamodel diagram in app",
+      "Reference screenshot from 2025-06-30 showing metamodel in context"
+    ]
   },
   "behavior": null
 }

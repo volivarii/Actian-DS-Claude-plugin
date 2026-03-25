@@ -1,10 +1,10 @@
 {
   "component": "Button",
   "page_id": "9085:24375",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9085:24375",
   "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
-  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": {
     "sections": [
       {
@@ -81,8 +81,11 @@
   },
   "examples": null,
   "screenshots": {
-    "count": 2,
-    "contexts": []
+    "count": 13,
+    "contexts": [
+      "Product screenshots showing button usage across the Actian platform",
+      "13 screenshots dated 2026-02-20 showing real UI implementations including forms, modals, headers, and data tables"
+    ]
   },
   "behavior": null
 }

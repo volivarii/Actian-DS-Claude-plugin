@@ -1,43 +1,72 @@
 {
   "component": "Radio button",
   "page_id": "12070:77592",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77592",
   "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
-  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": {
     "sections": [
       {
         "heading": "Default format - When to use",
         "content": [
-          { "rule": "Short lists of 2-6 options." },
-          { "rule": "When all choices should be visible up front." }
+          { "rule": "For short lists of options (2-6) that can be easily scanned." },
+          { "rule": "When all choices should be visible up front rather than hidden in a dropdown." }
         ]
       },
       {
         "heading": "Default format - Style",
         "content": [
-          { "rule": "Short, descriptive labels as direct answers." },
-          { "rule": "Visible group label." },
-          { "rule": "No jargon." },
-          { "rule": "Parallel labels." }
+          { "rule": "Use short, descriptive labels that clearly state each option." },
+          { "rule": "Write labels as direct answers to the group's prompt or question (e.g., 'Yes / No' instead of 'Select yes if you agree')." },
+          { "rule": "Ensure the group label or question is always visible next to the option." },
+          { "rule": "Avoid jargon or abbreviations." },
+          { "rule": "Keep labels parallel in structure (all nouns, or all verbs)." }
         ]
       },
       {
-        "heading": "Card format",
+        "heading": "Card format - When to use",
         "content": [
-          { "rule": "Use when options need rich context (title, description, image, metadata)." },
-          { "rule": "Radio group behavior for single-select." }
+          { "rule": "Use instead of traditional check boxes or radio boxes when each option needs to present rich context (title, description, image, metadata, tags) and the selection should feel like a visual choice rather than a text label." },
+          { "rule": "Primary decision point: When consequences of the choice are important, or they drive a main workflow or journey." },
+          { "examples": ["Pricing tiers", "Template selections (e.g., use cases)", "Layout choices"] }
+        ]
+      },
+      {
+        "heading": "Card format - Behavior",
+        "content": [
+          { "rule": "Indicate selected state visually ('Selected', highlight border, etc.)." },
+          { "rule": "Click anywhere on the tile to toggle selection." },
+          { "rule": "For multi-select: checkbox behavior. For single-select: radio group behavior." },
+          { "rule": "Maintain selection across steps if part of a multi-step process." },
+          { "rule": "Title: Short, descriptive, and consistent across tiles." },
+          { "rule": "Supporting text: Use only in the large variant." }
         ]
       }
     ]
   },
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "Format": ["Default", "Card format"],
+      "State": ["Default", "Hovered", "Focused", "Pressed", "Disabled"],
+      "Selected": ["Yes", "No"]
+    },
+    "sub_component": {
+      "name": ".Radio button",
+      "axes": {
+        "State": ["Default", "Hovered", "Focused", "Pressed", "Disabled"],
+        "Selected": ["Yes", "No"]
+      }
+    }
+  },
   "examples": null,
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 2,
+    "contexts": [
+      "Product screenshot showing radio button usage (2025-07-28)",
+      "Storybook documentation capture for RadioButtonComponent"
+    ]
   },
   "behavior": null
 }

@@ -1,10 +1,10 @@
 {
   "component": "Text input",
   "page_id": "12070:77587",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77587",
   "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
-  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": {
     "sections": [
       {
@@ -13,40 +13,57 @@
           { "rule": "Input forms MUST always include a visible label." },
           { "rule": "Initial state can use placeholder as label." },
           { "rule": "Once content entered, label moves above." },
-          { "rule": "NEVER repeat label as placeholder." }
+          { "dont": "Repeat label as placeholder." }
         ]
       },
       {
         "heading": "Behavior",
         "content": [
-          { "rule": "Error validation at latest when user clicks out of focus." }
+          { "rule": "Error validation should happen at the latest when the user clicks out of the text entry focus." }
         ]
       },
       {
         "heading": "Placeholder text",
         "content": [
-          { "rule": "Brief example of expected input. Only to model good input, not instructions." },
-          { "rule": "Use when example would model correct input." },
-          { "do": "Customer Orders, Sales Performance", "dont": "Type here, Name, Enter name" },
-          { "rule": "2-5 words, no full sentences, no punctuation." }
+          { "rule": "Provides a brief example of the expected input content. It should be used only to model good input, and not to convey instructions or restrictions for the field." },
+          { "dont": "Simply repeat the field label or description in the placeholder." },
+          { "rule": "Use placeholder text when: An example would model the correct input; Naming conventions or restrictions should be reinforced; The field label could be interpreted in different ways, and an example would reduce that ambiguity." },
+          { "dont": "Use placeholder text if the label text is sufficient." },
+          { "rule": "Keep placeholders concise and brief: No full sentences. No ending punctuation. Between 2-5 words. The placeholder should scan instantly and disappear without cognitive load." },
+          { "dont": "Include restrictions and rules such as character limits, allowed or restricted characters, or formatting rules in placeholder text." },
+          { "do": "Customer Orders, Sales Performance", "dont": "Type here, Name, Enter name" }
         ]
       },
       {
         "heading": "Accessibility",
         "content": [
-          { "rule": "Placeholder must never replace label." },
-          { "rule": "Critical guidance must remain visible after typing." },
-          { "rule": "UI must remain usable if placeholder removed." }
+          { "rule": "Placeholder text must never replace a field's label." },
+          { "rule": "All critical guidance must remain visible after the user starts typing." },
+          { "rule": "The UI must remain usable if placeholder text is removed." }
         ]
       }
     ]
   },
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "State": ["Default", "Hovered", "Focused", "Active", "Filled", "Error", "Disabled", "Read-only"]
+    },
+    "sub_component": {
+      "name": ".Textfield buttons",
+      "axes": {
+        "Type": ["Default"]
+      }
+    }
+  },
   "examples": null,
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 6,
+    "contexts": [
+      "Screenshots showing text input in product forms (2026-02-27)",
+      "Screenshots showing various text input states in real UI",
+      "Captures from 2025-03-26 and 2025-07-22 showing historical usage"
+    ]
   },
   "behavior": null
 }

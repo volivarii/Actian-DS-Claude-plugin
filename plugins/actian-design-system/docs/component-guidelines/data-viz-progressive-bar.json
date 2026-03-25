@@ -2,16 +2,59 @@
   "component": "Data viz: progressive bar",
   "page_id": "14136:1567",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=14136:1567",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=14136-1567",
   "frames_found": ["Content guidelines", "Components", "Screenshots of current use cases"],
-  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
-  "content_guidelines": null,
+  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Main title",
+        "content": [
+          {
+            "rule": "Use to show progress of a task such as uploads, data processing, or form completion."
+          },
+          {
+            "rule": "Use percentages or absolute numbers when progress can be measured.",
+            "examples": [
+              "65% complete",
+              "5 of 10 files copied",
+              "Step 2 of 5"
+            ]
+          },
+          {
+            "rule": "Use visual-only indicators with a looping animation when the system is working but the length or quantity is unknown."
+          },
+          {
+            "rule": "Upon completion, transition to success state, confirmation message, or next step."
+          },
+          {
+            "dont": "Avoid freezing the progress indicator -- always provide user feedback if stalled."
+          }
+        ]
+      }
+    ]
+  },
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "Progress bar": {
+        "node_id": "14136:1615",
+        "variants": {
+          "Size": ["Default", "Large"],
+          "Completeness": ["0%", "50%", "100%"]
+        }
+      }
+    }
+  },
   "examples": null,
   "screenshots": {
     "count": 1,
-    "contexts": []
+    "contexts": [
+      "Screenshot 2026-03-10 at 3.33.50 PM - progress bar in loading context"
+    ]
   },
-  "behavior": null
+  "behavior": null,
+  "notes": [
+    "Jeff's note: Based on guidelines research, we do need to add some text to the current design, such as 'Loading Studio', or whatever is appropriate."
+  ]
 }

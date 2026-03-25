@@ -27,7 +27,8 @@ To update docs and tokens: run `scripts/sync-from-upstream.sh` (fetches from Ass
 | `docs/accessibility-guidelines.md` | Hand-authored (this repo) | WCAG 2.1 AA standards |
 | `docs/presentation-templates.md` | Hand-authored (this repo) | 5 slide template specs |
 | `docs/presentation-content-guidelines.md` | Hand-authored (this repo) | Voice, tone, chart selection |
-| `docs/component-guidelines/*.json` | Extracted via `/sync-guidelines` | Per-component content/design guidelines from Figma |
+| `docs/component-guidelines/*.json` | Extracted via `/sync-guidelines` | Per-component content/design guidelines from Figma (44 components) |
+| `docs/foundations/*.json` | Extracted via `/sync-guidelines` | Foundation docs from Figma: accessibility, borders, breakpoints, color, content, elevation, icons, interaction, spacing, typography |
 | `tokens/tokens.css` | Synced from Assembler | CSS custom properties (`--zen-*`) |
 | `tokens/actian-ds.tokens.json` | Synced from Assembler | W3C DTCG format (source of truth for tokens) |
 | `references/*.md` | Hand-authored (this repo) | Shared skill references (figma-capture, fm-css, layout-spec, token-naming) |

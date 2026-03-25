@@ -1,0 +1,55 @@
+{
+  "foundation": "Borders",
+  "page_id": "13321:12804",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=13321:12804",
+  "frames": [
+    ".local - page header with body",
+    "Design guidelines"
+  ],
+  "sections": [
+    {
+      "heading": "Borders",
+      "content": []
+    },
+    {
+      "heading": "Borders define visual boundaries and separation using consistent stroke widths, styles, and semantic colors across the interface.",
+      "content": []
+    },
+    {
+      "heading": "Design guidelines & tokens",
+      "content": []
+    },
+    {
+      "heading": "Radius",
+      "content": []
+    },
+    {
+      "heading": "Width",
+      "content": []
+    },
+    {
+      "heading": "Width, border style & color",
+      "content": []
+    },
+    {
+      "heading": "Behavior",
+      "content": []
+    },
+    {
+      "heading": "Interaction (Tooltip & max width)",
+      "content": [
+        "Hovering over tags brings up a tooltip with the full tag content.",
+        "Tags truncate automatically when they exceed the maximum width."
+      ]
+    },
+    {
+      "heading": "Layout",
+      "content": [
+        "Tags are laid out horizontally to fill containers. Make sure there is at least 4px between tags.",
+        "Tags will reflow onto the next line when container size is limited."
+      ]
+    }
+  ],
+  "text_count": 13
+}

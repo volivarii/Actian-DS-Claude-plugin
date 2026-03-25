@@ -1,0 +1,80 @@
+{
+  "foundation": "Color",
+  "page_id": "12054:27511",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12054:27511",
+  "frames": [
+    ".local - page header with body",
+    "Note",
+    "Design guidelines"
+  ],
+  "sections": [
+    {
+      "heading": "Colors",
+      "content": []
+    },
+    {
+      "heading": "Colors are an essential part of the visual design language used to communicate with users. They have a large impact on the overall perception of a digital product. Selected colors can help users connect with a brand and put them in a frame of mind that compels them to take action.\nWe only allow use colors from the HCL color palette. For Actian products, we handpicked a few colors for most common use cases. Until we implement the new color values (HCL), we will continue using Zen colors.",
+      "content": [
+        "Action",
+        "Action",
+        "Going with OKLCH: We decided to adapt OKLCH and it will impact how we define colors in the design system. With discussion with Franck, we’ll decide what colors we should still define and rely on a generic formula. Jan 20, 2026"
+      ]
+    },
+    {
+      "heading": "Design guidelines & tokens",
+      "content": []
+    },
+    {
+      "heading": "Theme",
+      "content": []
+    },
+    {
+      "heading": "Text",
+      "content": []
+    },
+    {
+      "heading": "Border",
+      "content": []
+    },
+    {
+      "heading": "Icon",
+      "content": []
+    },
+    {
+      "heading": "BG (background)",
+      "content": []
+    },
+    {
+      "heading": "Overlay",
+      "content": []
+    },
+    {
+      "heading": "Status",
+      "content": []
+    },
+    {
+      "heading": "category",
+      "content": []
+    },
+    {
+      "heading": "Behavior",
+      "content": []
+    },
+    {
+      "heading": "Interaction (Tooltip & max width)",
+      "content": [
+        "Hovering over tags brings up a tooltip with the full tag content.",
+        "Tags truncate automatically when they exceed the maximum width."
+      ]
+    },
+    {
+      "heading": "Layout",
+      "content": [
+        "Tags are laid out horizontally to fill containers. Make sure there is at least 4px between tags.",
+        "Tags will reflow onto the next line when container size is limited."
+      ]
+    }
+  ],
+  "text_count": 21
+}

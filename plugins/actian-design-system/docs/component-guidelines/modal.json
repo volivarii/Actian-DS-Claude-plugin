@@ -4,24 +4,120 @@
   "extracted_at": "2026-03-25T00:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:29287",
   "frames_found": ["Content guidelines", "Components", "Screenshots of current use cases"],
-  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": {
     "sections": [
       {
         "heading": "Terminology",
         "content": [
-          { "rule": "CTA uses standardized term, Modal title uses same term, Confirmation button uses same verb." },
-          { "rule": "Example: CTA 'Revert description' -> Title 'Revert to the source description?' -> Buttons 'Cancel' / 'Revert'." }
+          {
+            "rule": "The modal should be launched from a CTA that uses a standardized term as described in Buttons and CTAs. The title of the modal must then use the same term. And finally, except as noted in Buttons and CTAs, the confirmation button at the end of the modal must also use the same verb terminology."
+          }
+        ]
+      },
+      {
+        "heading": "Types",
+        "content": [
+          {
+            "term": "Standard (Transactional)",
+            "rule": "Requires user to confirm or cancel, etc."
+          },
+          {
+            "term": "Confirmation (or Acknowledgement)",
+            "rule": "Mostly informational but requires user to click a button to confirm."
+          },
+          {
+            "term": "Stepper",
+            "rule": "Has multiple pages with user input needed, OK, Cancel, Next, Previous, etc."
+          },
+          {
+            "term": "Passive",
+            "rule": "No user input, just info, status, etc. Close using X or click outside."
+          }
+        ]
+      },
+      {
+        "heading": "Modal title",
+        "content": [
+          {
+            "rule": "Use a brief verb phrase to describe the purpose."
+          },
+          {
+            "rule": "With few exceptions, if the modal is accessed by a CTA, use the button label in the modal title."
+          },
+          {
+            "dont": "Do not mix and match button or icon labels and modal titles. For example, if the icon name is New user, use New user as the modal title, not Create user."
+          },
+          {
+            "rule": "If your product has a more conversational tone, use articles (a, an, the) in the modal title even though the button label doesn't include the article, for example Create an access group."
+          },
+          {
+            "rule": "Sometimes, you might need to provide contextual information for the modal, such as when the actions performed using the modal apply to a specific item and you want to make it clear which item the actions apply to. For example, if the user needs to know the path to the object that they are editing, you might put the path in the optional label."
+          }
+        ]
+      },
+      {
+        "heading": "Modal description",
+        "content": [
+          {
+            "rule": "If the purpose or goal of the modal is not readily apparent, provide a sentence or two of embedded assistance to help the user understand the modal. But this is optional."
+          }
+        ]
+      },
+      {
+        "heading": "Body content",
+        "content": [
+          {
+            "rule": "Any links in the modal should open a new tab on click."
+          },
+          {
+            "do": "Use a clear label, such as \"Learn more about topic\" or \"Actian Support\"."
+          }
+        ]
+      },
+      {
+        "heading": "Buttons",
+        "content": [
+          {
+            "rule": "For action button labels, except as noted in Buttons and CTAs, use the same verb you used in the modal's launch button and the modal title. Otherwise, use active words that describe the purpose of the modal, such as Add, Delete, and Save.",
+            "dont": "Avoid vague or passive words when possible, such as Done or OK."
+          }
+        ]
+      },
+      {
+        "heading": "Content examples",
+        "content": [
+          {
+            "term": "Example 1",
+            "examples": [
+              "CTA: 'Revert description' -> Modal title: 'Revert to the source description?' -> Confirm buttons: 'Cancel' | 'Revert'"
+            ]
+          },
+          {
+            "term": "Example 2",
+            "examples": [
+              "Modal title: 'Add contacts' -> Button disabled until content completed"
+            ]
+          }
         ]
       }
     ]
   },
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "Size & Type": ["1200px", "900px create", "900px edit", "700px create", "700px setting", "450px warning", "450px confirm"]
+    }
+  },
   "examples": null,
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 18,
+    "contexts": [
+      "Storybook documentation: ModalConfirmComponent",
+      "Application screenshot 2026-03-11",
+      "Application screenshot 2026-03-10",
+      "Grouped by size: 1200px, 900px, 700px, 500px, 450px, 400px with multiple real use case screenshots each"
+    ]
   },
   "behavior": null
 }

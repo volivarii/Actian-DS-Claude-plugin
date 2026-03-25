@@ -1,18 +1,18 @@
 ---
 name: sync-guidelines
-description: Use this skill to extract per-component guidelines from the DS2026 Figma library into structured JSON. Reads the named frames on each component page (content guidelines, design guidelines, components, ready made examples, screenshots, behavior demo) and produces machine-readable data that other skills can consume. Triggers when the user asks to sync guidelines, extract component docs from Figma, update the component guidelines, or wants to pull the latest content from the design system Figma file.
-argument-hint: "[component name, Figma URL, or 'all']"
+description: Use this skill to extract per-component guidelines AND foundation docs from the DS2026 Figma library into structured JSON. Reads named frames on each component page (content guidelines, design guidelines, components, ready made examples, screenshots, behavior demo) and foundation pages (Accessibility, Borders, Color, Spacing, Typography, etc.). Triggers when the user asks to sync guidelines, extract docs from Figma, update component or foundation documentation, or wants to pull the latest content from the design system Figma file.
+argument-hint: "[component name, 'foundations', Figma URL, or 'all']"
 ---
 
 # Sync Guidelines from Figma
 
-Extract per-component documentation frames from the DS2026 Figma library into structured JSON files. This bridges the gap between Figma (where the content designer maintains guidelines) and Claude skills (which need machine-readable content).
+Extract per-component documentation and foundation pages from the DS2026 Figma library into structured JSON files. This bridges the gap between Figma (where the content designer maintains guidelines) and Claude skills (which need machine-readable content).
 
 > **Mode: Extract + Transform.** Read Figma pages, extract text content, produce structured JSON. Do not generate designs or modify Figma — this is a read-only sync operation.
 
 ## Why this skill exists
 
-The DS2026 Figma library contains rich per-component documentation — content guidelines, design guidelines, usage examples, screenshots, and behavior demos. But this content is locked inside Figma as visual layouts. Without extraction, Claude skills can only reference the generic `content-guidelines.md` and miss the component-specific rules that the content designer maintains.
+The DS2026 Figma library contains rich documentation — per-component guidelines (content, design, usage examples, screenshots, behavior demos) AND foundation pages (accessibility standards, border specs, color system, spacing scale, typography, icons, elevation, interaction patterns). This content is locked inside Figma as visual layouts. Without extraction, Claude skills can only reference hand-authored summaries and miss the detailed rules that the design team maintains.
 
 ## Input
 
@@ -21,6 +21,8 @@ The user specifies what to extract:
 - **Single component:** "Sync guidelines for Button" or a Figma URL to a component page
 - **Multiple components:** "Sync guidelines for Button, Text Input, and Modal"
 - **All components:** "Sync all guidelines" — extracts every component page in the DS2026 file
+- **Foundations only:** "Sync foundations" — extracts the 11 foundation pages
+- **Everything:** "Sync all" — extracts all components AND all foundations
 
 ## DS2026 Figma file
 
@@ -197,6 +199,60 @@ When running on a single component or subset:
 - Update the corresponding JSON files
 - Update `_index.json` with new extraction dates
 - Don't touch other component files
+
+## Foundations extraction
+
+When the user says "sync foundations" or "sync all", also extract the foundation pages. These are under the "FOUNDATIONS" section in the Figma file.
+
+### Foundation pages
+
+| Page ID | Name | Slug |
+|---------|------|------|
+| `12685:19373` | Accessibility | `accessibility` |
+| `13321:12804` | Borders | `borders` |
+| `12217:457` | Breakpoint, grid & structure | `breakpoint-grid-structure` |
+| `12054:27511` | Color | `color` |
+| `7397:3249` | Content guidelines | `content-guidelines` |
+| `12054:27514` | Elevation | `elevation` |
+| `7370:3775` | Icons | `icons` |
+| `12054:27512` | Interaction & motion | `interaction-motion` |
+| `12054:27513` | Spacing | `spacing` |
+| `12054:26789` | Typography | `typography` |
+| `12957:2843` | Usage example | `usage-example` |
+
+### Foundation JSON format
+
+Foundation pages are less structured than component pages — they're educational/reference content. Extract all text content organized by sections:
+
+```json
+{
+  "foundation": "Typography",
+  "page_id": "12054:26789",
+  "extracted_at": "2026-03-25T...",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12054:26789",
+  "sections": [
+    {
+      "heading": "Type scale",
+      "content": "...",
+      "subsections": [
+        {
+          "heading": "Body",
+          "specs": {
+            "font-family": "Roboto",
+            "sizes": ["14px/20px (standard)", "12px/16px (subtle)", "11px/14px (micro)"]
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+For foundations, prioritize extracting **exact spec values** — sizes, weights, colors, spacing values, breakpoints, elevation levels. These are the concrete data that skills need.
+
+### Output location
+
+Write foundation files to `docs/foundations/`: one JSON per foundation page.
 
 ## Error handling
 

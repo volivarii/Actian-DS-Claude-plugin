@@ -4,14 +4,36 @@
   "extracted_at": "2026-03-25T00:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:34015",
   "frames_found": ["Components", "Screenshots of current use cases"],
-  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "main_component": {
+        "Type": ["Default"]
+      },
+      "sub_components": {
+        ".Table column": {
+          "Type": ["Default", "Actions", "Tag"]
+        },
+        ".Table cell": {
+          "Type": ["Header", "Action", "Tag", "Text", "Skeleton"]
+        }
+      }
+    }
+  },
   "examples": null,
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 7,
+    "contexts": [
+      "Screenshot 2026-03-06 at 3.09.43 PM",
+      "Screenshot 2026-03-06 at 3.10.22 PM",
+      "Screenshot 2026-03-06 at 3.10.29 PM",
+      "Screenshot 2026-03-06 at 3.11.27 PM",
+      "Screenshot 2026-03-06 at 3.11.49 PM",
+      "Screenshot 2026-03-06 at 3.10.04 PM",
+      "Screenshot 2026-03-06 at 3.13.09 PM"
+    ]
   },
   "behavior": null
 }

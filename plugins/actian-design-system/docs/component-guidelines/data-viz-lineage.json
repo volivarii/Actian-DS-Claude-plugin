@@ -2,16 +2,64 @@
   "component": "Data viz: lineage",
   "page_id": "14747:19872",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=14747:19872",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=14747-19872",
   "frames_found": ["Components", "Screenshots of use cases"],
-  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
-  "variants": null,
-  "examples": null,
+  "variants": {
+    "axes": {
+      "Lineage widget": {
+        "node_id": "14747:19902",
+        "variants": {
+          "Type": ["Main item", "Sub item"],
+          "State": ["Default", "Selected", "Disabled"],
+          "Fields": ["Collapsed", "Expanded"]
+        }
+      },
+      "Lineage connecting line": {
+        "node_id": "14747:20085",
+        "variants": {
+          "Direction": ["Straight", "Down", "Up"],
+          "State": ["Default", "Selected", "Disabled"]
+        }
+      },
+      "Lineage expand collapse control": {
+        "node_id": "14747:20046",
+        "variants": {
+          "Icon": ["Collapse", "Expand"],
+          "State": ["Default", "Disabled"]
+        }
+      },
+      "Lineage connector icon": {
+        "node_id": "14747:20113",
+        "variants": {
+          "State": ["Default", "Disabled"]
+        }
+      },
+      "Lineage field": {
+        "node_id": "14747:20078",
+        "variants": {
+          "Type": ["Default"]
+        }
+      }
+    }
+  },
+  "examples": {
+    "descriptions": [
+      "Lineage graph example showing connected widgets with directional lines (node 14747:20120)",
+      "V2 full-page layout with sidebar, page header, toolbar, and data lineage graph (node 14747:20390)",
+      "Lineage - Selected state with expanded fields and multiple connected nodes (node 14747:20478)",
+      "Lineage - Default - Expanded view showing full graph layout (node 14747:20536)"
+    ]
+  },
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 3,
+    "contexts": [
+      "Screenshot 2026-02-25 at 10.39.56 AM - lineage graph in app context",
+      "Screenshot 2026-03-13 at 10.05.13 AM - compact lineage view",
+      "Screenshot 2026-03-20 at 1.42.12 PM - narrow vertical lineage"
+    ]
   },
   "behavior": null
 }

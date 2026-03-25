@@ -1,0 +1,132 @@
+{
+  "foundation": "Content guidelines",
+  "page_id": "7397:3249",
+  "extracted_at": "2026-03-25T17:00:00Z",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=7397:3249",
+  "frames": [
+    "Content style and usage",
+    "Content Checklist",
+    "Notes/Feedback"
+  ],
+  "sections": [
+    {
+      "heading": "Content guidelines",
+      "content": []
+    },
+    {
+      "heading": "Table of contents\nChecklist\nWords to avoid\r\nCapitalization\r\nWriting style\nNumerical formatting\r\nPunctuation\r\nPrepositions\r\nAcronyms\r\nPlurals\r\nAbbreviations and articles",
+      "content": []
+    },
+    {
+      "heading": "Content guidelines checklist",
+      "content": []
+    },
+    {
+      "heading": "Use this handy checklist to confirm content is in the right state for reviews. Before meeting with Jeff or Jessie, or asking for review, ensure you’ve fixed any content issues during design and checked them off here.",
+      "content": []
+    },
+    {
+      "heading": "Words to avoid",
+      "content": []
+    },
+    {
+      "heading": "Guidance on what content works best, including text, imagery, and messaging.",
+      "content": []
+    },
+    {
+      "heading": "Capitalization",
+      "content": []
+    },
+    {
+      "heading": "Don’t overuse capitalization as it makes copy harder to read and de-emphasizes the important content.",
+      "content": []
+    },
+    {
+      "heading": "Writing style",
+      "content": []
+    },
+    {
+      "heading": "Use present, active tense in all possible cases.  In some cases, you can use passive voice, if the focus needs to be on a system instead of a person, for example.",
+      "content": []
+    },
+    {
+      "heading": "Numerical formatting",
+      "content": []
+    },
+    {
+      "heading": "---",
+      "content": []
+    },
+    {
+      "heading": "Punctuation",
+      "content": []
+    },
+    {
+      "heading": "To help readers scan text at a glance, avoid using punctuation in places where it isn't necessary.",
+      "content": []
+    },
+    {
+      "heading": "Prepositions",
+      "content": []
+    },
+    {
+      "heading": "Prepositions indicate relationships between different elements, actions, or concepts. Proper use of prepositions helps maintain clarity and precision, while misuse can lead to confusion or overly complex sentences. This section provides guidelines for how to effectively and consistently use prepositions across the product.",
+      "content": []
+    },
+    {
+      "heading": "Acronyms",
+      "content": []
+    },
+    {
+      "heading": "---",
+      "content": []
+    },
+    {
+      "heading": "Plurals",
+      "content": []
+    },
+    {
+      "heading": "---",
+      "content": []
+    },
+    {
+      "heading": "Abbreviations and articles",
+      "content": []
+    },
+    {
+      "heading": "---",
+      "content": []
+    },
+    {
+      "heading": "💬 Backlog",
+      "content": []
+    },
+    {
+      "heading": "Colors",
+      "content": []
+    },
+    {
+      "heading": "[Optional] Important note goes here",
+      "content": []
+    },
+    {
+      "heading": "[Optional] Objective, use case, requirements, timeline, link to confluence or jira, etc.",
+      "content": []
+    },
+    {
+      "heading": "[Optional] Add a supporting image",
+      "content": []
+    },
+    {
+      "heading": "Content guidelines checklist",
+      "content": []
+    },
+    {
+      "heading": "Use this handy checklist to confirm content is in the right state for reviews. Before meeting with Jeff or Jessie, or asking for review, ensure you’ve fixed any content issues during design and checked them off here.",
+      "content": [
+        "Notes: Kristina/Harrison (Feb/5/26)\n\nDefault 1200 width ✅\nUse whole width for tables ✅\n48px table header default ✅\n\nAsk Jeff:\nFeedback on layout\nShorten descriptions to fit into 2 lines (header)\n10 sub-topics: Can they be grouped into less sections"
+      ]
+    }
+  ],
+  "text_count": 30
+}

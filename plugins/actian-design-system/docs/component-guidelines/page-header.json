@@ -2,16 +2,31 @@
   "component": "Page header",
   "page_id": "9253:29981",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:29981",
+  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253-29981",
   "frames_found": ["Components", "Screenshots of current use cases"],
-  "frames_missing": ["Content guidelines", "design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": null,
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "Page header": {
+        "node_id": "12923:2794",
+        "variants": {
+          "Type": ["Default", "Details page", "Explorer home", "Explorer detail"]
+        }
+      }
+    }
+  },
   "examples": null,
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 5,
+    "contexts": [
+      "Screenshot 2026-03-06 at 4.54.45 PM - page header in default context",
+      "Screenshot 2026-03-06 at 4.54.53 PM - page header with explorer layout",
+      "Screenshot 2026-03-06 at 4.55.10 PM - page header in detail page",
+      "Screenshot 2026-03-06 at 4.55.21 PM - page header compact variant",
+      "Screenshot 2026-03-06 at 4.55.49 PM - page header alternate layout"
+    ]
   },
   "behavior": null
 }

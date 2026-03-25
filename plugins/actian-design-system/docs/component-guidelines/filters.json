@@ -1,18 +1,18 @@
 {
   "component": "Filters",
   "page_id": "9474:8729",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-25T12:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9474:8729",
   "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
-  "frames_missing": ["design guidelines", "ready made examples", "Behavior demo"],
+  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
   "content_guidelines": {
     "sections": [
       {
         "heading": "Description",
         "content": [
-          { "rule": "Allow users to refine visible data by applying structured criteria." },
-          { "rule": "Reduce results without modifying underlying data." },
-          { "rule": "Must be consistent across products." }
+          { "rule": "Filters allow users to refine visible data by applying structured criteria." },
+          { "rule": "They reduce results without modifying underlying data." },
+          { "rule": "Filters must be consistent in terminology, placement, and behavior across all products." }
         ]
       },
       {
@@ -21,7 +21,7 @@
           { "rule": "Use when users need to narrow results." },
           { "rule": "Use when multiple attributes can refine results." },
           { "rule": "Use when filtering changes only visible result set." },
-          { "rule": "Don't use for configuration, preferences, or sorting." }
+          { "dont": "Use for configuration, preferences, or sorting." }
         ]
       },
       {
@@ -36,11 +36,18 @@
     ]
   },
   "design_guidelines": null,
-  "variants": null,
+  "variants": {
+    "axes": {
+      "Type": ["Explorer", "Studio"]
+    }
+  },
   "examples": null,
   "screenshots": {
-    "count": 1,
-    "contexts": []
+    "count": 2,
+    "contexts": [
+      "Screenshot of Explorer filter panel (2026-03-03)",
+      "Screenshot of Studio filter panel (2026-03-03)"
+    ]
   },
   "behavior": null
 }
