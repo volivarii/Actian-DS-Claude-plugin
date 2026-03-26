@@ -280,3 +280,54 @@ Available builders:
 - **HTML is local preview only.** Open in browser with `open $URL` if the user wants to see it, but never treat HTML as a Figma delivery mechanism.
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed (e.g., one call per card, one call per slide).
+
+## Sequential Execution Constraint
+
+**Never run `use_figma` calls in parallel.** Concurrent writes cause silent corruption in Figma — nodes get misplaced, properties get dropped, or entire frames disappear. This applies to:
+
+- Multiple `use_figma` calls in the same skill step
+- Subagent fan-out patterns where agents share a file
+- Parallel task execution touching the same Figma file
+
+Always execute `use_figma` calls sequentially. If a skill needs multiple calls (e.g., one per card), await each before starting the next.
+
+Source: Augment Multi-Agent skills (AugmentedAJ/skills), confirmed by Figma MCP documentation.
+
+## HUG Sizing Default
+
+Figma defaults new frames to `FIXED` width of 100px. Every frame created via `use_figma` must explicitly set sizing:
+
+```js
+frame.layoutSizingHorizontal = 'HUG';  // or 'FILL'
+frame.layoutSizingVertical = 'HUG';    // or 'FILL'
+```
+
+Never rely on Figma's default. A frame left as FIXED 100px will clip content or leave whitespace.
+
+Source: Component Contracts (nvillapiano/component-contracts-figma).
+
+## Ghost Mode Prevention
+
+After binding a variable to a node, call `setExplicitVariableModeForCollection` on the nearest ancestor that defines the mode. Without this, Figma may resolve the variable in the wrong mode (e.g., showing Explorer theme values when Actian is intended).
+
+```js
+// After binding variables to a frame:
+const collection = await figma.variables.getVariableCollectionByIdAsync(collectionId);
+frame.setExplicitVariableModeForCollection(collection.id, modeId);
+```
+
+Source: Component Contracts (nvillapiano/component-contracts-figma).
+
+## Rate Limits
+
+Figma MCP enforces daily call limits:
+
+| Plan | Limit |
+|------|-------|
+| Pro | 200 calls/day |
+| Enterprise | 600 calls/day |
+
+Each `use_figma`, `get_design_context`, `search_design_system`, etc. counts as one call. Plan skill implementations to minimize total calls:
+- Batch multiple operations into a single `use_figma` call (up to 20KB)
+- Cache `search_design_system` results — don't re-query for the same component/variable
+- Use `get_metadata` for structure discovery, `get_design_context` only for content extraction
