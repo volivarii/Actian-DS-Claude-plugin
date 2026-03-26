@@ -369,7 +369,132 @@ Formatting rules:
 
 Extract text styles (font family, weight, size, line height, letter spacing) and effect styles (shadow parameters).
 
-<!-- TODO: Implementation details -->
+#### Step 1: Extract text styles
+
+Call `use_figma` on the DS2026 library (`l8biHxfarNi1I2RMvVxVOK`) to retrieve all local text styles:
+
+```js
+const textStyles = await figma.getLocalTextStylesAsync();
+return JSON.stringify(textStyles.map(s => ({
+  name: s.name,
+  key: s.key,
+  fontFamily: s.fontName.family,
+  fontStyle: s.fontName.style,
+  fontSize: s.fontSize,
+  lineHeight: s.lineHeight,
+  letterSpacing: s.letterSpacing,
+  textDecoration: s.textDecoration,
+  textCase: s.textCase,
+})), null, 2);
+```
+
+Expected: 12 text styles, all Roboto family (heading-display, heading-prominent, heading-default, heading-subtle, body-standard, body-subtle, body-micro, label-standard, label-subtle, label-micro, plus variants). Each style includes full font specs: family, style (weight mapping), fontSize, lineHeight, letterSpacing.
+
+#### Step 2: Extract effect styles
+
+Call `use_figma` on the DS2026 library to retrieve all local effect styles:
+
+```js
+const effectStyles = await figma.getLocalEffectStylesAsync();
+return JSON.stringify(effectStyles.map(s => ({
+  name: s.name,
+  key: s.key,
+  effects: s.effects.map(e => ({
+    type: e.type,
+    color: e.color,
+    offset: e.offset,
+    radius: e.radius,
+    spread: e.spread,
+    visible: e.visible,
+  })),
+})), null, 2);
+```
+
+Expected: 5 effect styles (shadow-xs, shadow-sm, shadow-md, shadow-lg, shadow-xl). Each style contains 2 `DROP_SHADOW` effects with RGBA color, offset `{x, y}`, blur radius, and spread.
+
+#### Step 3: Format text styles output
+
+Write `docs/meta-kit/text-styles.md` with all 12 text styles organized as a reference table:
+
+```markdown
+# Meta Kit — Text Styles
+
+DS2026 text styles for binding via `figma.importStyleByKeyAsync(key)`.
+Extracted from Actian Design System v1.1.0 on YYYY-MM-DD.
+
+## Usage
+
+\`\`\`js
+const style = await figma.importStyleByKeyAsync("KEY");
+textNode.textStyleId = style.id;
+\`\`\`
+
+## Styles
+
+| Style | Key | Font | Weight | Size | Line Height | Letter Spacing |
+|-------|-----|------|--------|------|-------------|----------------|
+| heading-display | `a14c...` | Roboto | SemiBold | 24 | 28px | 0 |
+| heading-prominent | `6fe7...` | Roboto | SemiBold | 18 | 26px | 0 |
+[... all 12 styles ...]
+```
+
+Formatting rules:
+- Use the style `name` as the Style column
+- The `key` column shows the full Figma style key (for `importStyleByKeyAsync`)
+- Map `fontName.style` to the Weight column (e.g., "Regular" → Regular, "SemiBold" → SemiBold)
+- `lineHeight` may be `{ unit: "PIXELS", value: N }` or `{ unit: "AUTO" }` — render as `Npx` or `Auto`
+- `letterSpacing` may be `{ unit: "PIXELS", value: N }` or `{ unit: "PERCENT", value: N }` — render as `Npx` or `N%`
+- Sort styles by fontSize descending (largest heading first, smallest label last)
+
+#### Step 4: Format effect styles output
+
+Write `docs/meta-kit/effect-styles.md` with all 5 effect styles:
+
+```markdown
+# Meta Kit — Effect Styles
+
+DS2026 effect styles for binding via `figma.importStyleByKeyAsync(key)`.
+Extracted from Actian Design System v1.1.0 on YYYY-MM-DD.
+
+## Usage
+
+\`\`\`js
+const style = await figma.importStyleByKeyAsync("KEY");
+frame.effectStyleId = style.id;
+\`\`\`
+
+## Styles
+
+| Style | Key | Effects |
+|-------|-----|---------|
+| shadow-xs | `e5e6...` | DROP_SHADOW(0,1,3,1,rgba(0,0,15,0.06)) + DROP_SHADOW(0,1,5,0,rgba(0,0,18,0.07)) |
+| shadow-sm | `3bde...` | DROP_SHADOW(0,1,7,3,rgba(0,0,20,0.08)) + DROP_SHADOW(0,1,3,1,rgba(0,0,31,0.12)) |
+[... all 5 styles ...]
+
+### Shadow detail
+
+For each style, expand full shadow parameters in a detail table:
+
+#### shadow-xs
+| # | Type | Color | X | Y | Blur | Spread |
+|---|------|-------|---|---|------|--------|
+| 1 | DROP_SHADOW | rgba(0,0,15,0.06) | 0 | 1 | 3 | 1 |
+| 2 | DROP_SHADOW | rgba(0,0,18,0.07) | 0 | 1 | 5 | 0 |
+[... repeat for each style ...]
+```
+
+Formatting rules:
+- The summary table shows all effects for a style in a single compact line using `TYPE(x,y,blur,spread,rgba(...))` notation
+- Multiple effects on the same style are joined with ` + `
+- The detail section expands each style into its own sub-table with one row per effect
+- Convert Figma RGBA floats (0-1 range) to CSS `rgba(R,G,B,A)` format: multiply `r`, `g`, `b` by 255 and round; keep `a` as a decimal (e.g., `0.06`)
+- Sort styles by shadow intensity: xs → sm → md → lg → xl
+
+#### Error handling
+
+- If `getLocalTextStylesAsync()` returns an empty array, log a warning: "No text styles found — the library may have changed or access may be restricted." Continue with effect style extraction.
+- If `getLocalEffectStylesAsync()` returns an empty array, log a warning: "No effect styles found — the library may have changed or access may be restricted." Continue with writing whatever was successfully extracted.
+- After writing, report the total count of text styles and effect styles extracted, and flag any that returned empty.
 
 ### Phase 4 -- Token files
 
