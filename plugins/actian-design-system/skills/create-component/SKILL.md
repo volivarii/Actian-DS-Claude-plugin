@@ -13,6 +13,14 @@ Create a new Figma component (with variants) from a text description or by exten
 
 > **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — infer details from the user's request and make reasonable decisions. Only ask when critical information is genuinely missing (e.g., the user said "create a component" with no name or description). The cleanup pass (Step 6) handles polish. Keep status updates to milestones only.
 
+### Quality tier detection
+
+| Signal | Tier | Effect |
+|--------|------|--------|
+| "quick", "rough", "draft" | Draft | Component only, no generation log, minimal cleanup |
+| No qualifier (default) | Standard | Component + generation log + standard cleanup pass |
+| "production", "final" | Production | Standard + variable binding on all scaffolding + research step |
+
 ## Input
 
 The user describes a component they want to create. Examples:
@@ -197,7 +205,9 @@ Use exact component names from `../../docs/fm-components.md` (FM Kit) or `../../
 
 ## Step 5B — Plugin API path (`use_figma`)
 
-Build the component directly in Figma using JavaScript via `use_figma`. Because the Plugin API can't bind CSS variables, you must resolve tokens to hex values manually. Use the Token Reference below.
+Follow the shared `use_figma` pattern in `../../references/figma-output.md`.
+
+Build the component directly in Figma using JavaScript via `use_figma`. The Plugin API supports variable binding via `importVariableByKeyAsync` + `setBoundVariableForPaint`. For DS2026 output, bind scaffolding colors to Figma variables (see `../../docs/meta-kit-variables.md`). For FM output, use hex from the FM token palette.
 
 ### Required structure
 
@@ -206,23 +216,8 @@ The `use_figma` code must:
 1. **Create a component set** (for variants) or a single component
 2. **Use auto-layout** on every frame — no absolute positioning
 3. **Set component properties** — text properties (`componentPropertyDefinitions`) and boolean properties for show/hide toggles
-4. **Use token hex values** from the Token Reference — comment the token name next to each hex value for traceability:
-   ```js
-   frame.fills = [{ type: 'SOLID', color: hexToRgb('#2D3648') }]; // --fm-base-800
-   ```
-5. **Include a generation metadata frame** as the first sibling before the component set (see CLAUDE.md Generation Metadata):
-   ```js
-   const genCard = figma.createFrame();
-   genCard.name = "Generation log";
-   genCard.resize(280, 1); // height will hug
-   genCard.layoutMode = "VERTICAL";
-   genCard.itemSpacing = 4;
-   genCard.paddingTop = genCard.paddingBottom = 16;
-   genCard.paddingLeft = genCard.paddingRight = 20;
-   genCard.cornerRadius = 8;
-   genCard.fills = [{ type: 'SOLID', color: hexToRgb('#2D3648') }]; // --fm-base-800
-   // Add text children: "GENERATED", "Skill: create-component", date, model, version
-   ```
+4. **Bind tokens** — for DS2026, use variable binding from `../../docs/meta-kit-variables.md`; for FM, use hex from `../../references/fm-css-reference.md` with token name comments
+5. **Include generation metadata** — import `Meta / Chrome / Generation Log` component (key: `a9653f30925367e96dea90093d750bfe70849571`) as the first sibling before the component set. Set all 6 text properties using `setProp()` from `../../docs/meta-kit-components.md`.
 6. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
 
 ### Properties checklist
@@ -238,49 +233,18 @@ Without properties, users can't customize the component when using instances.
 
 ## Token Reference
 
-Use these exact values when writing `use_figma` code. In assembler specs, use the token name instead.
+For FM token hex values, see `../../references/fm-css-reference.md`.
+For DS2026 variable keys (preferred for Plugin API), see `../../docs/meta-kit-variables.md`.
+For the full token list, see `../../docs/token-reference.md` or `../../tokens/tokens.css`.
 
-### Fat Marker tokens
+When using `use_figma` for DS2026 components, prefer variable binding over hex:
+```js
+// Import variable and bind (see meta-kit-variables.md for all keys)
+const themePrimary = await figma.variables.importVariableByKeyAsync("a256595115f6048a1e1c843e3099a79a5c259288");
+bindFill(frame, themePrimary);
+```
 
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--fm-base-900` | `#1A202C` | Darkest background |
-| `--fm-base-800` | `#2D3648` | Primary button fill, nav text |
-| `--fm-base-700` | `#4A5468` | Secondary text |
-| `--fm-base-600` | `#717D96` | Muted text |
-| `--fm-base-500` | `#A0ABC0` | Placeholder text |
-| `--fm-base-400` | `#CBD2E0` | Borders, disabled fills |
-| `--fm-base-300` | `#E2E7F0` | Subtle borders |
-| `--fm-base-200` | `#EDF0F7` | Active nav bg, hover, dividers |
-| `--fm-base-100` | `#F5F5FA` | Light background |
-| `--fm-base-white` | `#FFFFFF` | White |
-| `--fm-brand` | `#0550DC` | Brand blue |
-| `--fm-text-primary` | `#101828` | Primary text |
-| `--fm-text-secondary` | `#2D3648` | Secondary text |
-| `--fm-text-tertiary` | `#475467` | Tertiary text |
-| `--fm-text-error` | `#D92D20` | Error text |
-| `--fm-text-success` | `#047800` | Success text |
-| `--fm-border` | `#CBD2E0` | Default border |
-| `--fm-radius` | `6px` | Default border radius |
-
-### DS2026 tokens (Actian theme)
-
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--zen-color-theme-primary` | `#0550DC` | Brand/primary actions |
-| `--zen-color-text-primary` | `#000000` | Primary text |
-| `--zen-color-text-secondary` | `#3F3F4A` | Secondary text |
-| `--zen-color-text-tertiary` | `#595968` | Tertiary text |
-| `--zen-color-background-bg-default` | `#FFFFFF` | White background |
-| `--zen-color-background-bg-grey-1` | `#FBFBFF` | Subtle grey |
-| `--zen-color-background-bg-grey-2` | `#F5F5FA` | Light grey |
-| `--zen-color-border-default` | `#E4E4F0` | Default border |
-| `--zen-color-interactive-hovered-secondary` | `rgba(228,228,240,0.3)` | Hover state |
-| `--zen-color-interactive-disabled-primary` | `#9898A7` | Disabled state |
-| `--zen-color-status-success-primary` | `#047800` | Success |
-| `--zen-color-status-error-primary` | `#C10C0D` | Error |
-
-For the full token list, read `../../tokens/tokens.css` or `../../docs/token-reference.md`.
+For FM components, use hex from `fm-css-reference.md` (FM Kit does not publish variables).
 
 ### Spacing scale
 
