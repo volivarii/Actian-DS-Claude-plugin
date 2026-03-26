@@ -1,7 +1,7 @@
 ---
 name: sync-design-system
-description: Extract components, variables, styles, guidelines, and foundations from DS2026 and FM Kit Figma libraries directly via MCP tools. Replaces the Assembler-based sync pipeline. Produces static reference files (Markdown, JSON, CSS) consumed by all other skills. Triggers when the user asks to sync, refresh, or update design system data, tokens, or guidelines.
-argument-hint: "[phase name, 'all', or 'validate']"
+description: Extract components, variables, styles, guidelines, and foundations from DS2026 and FM Kit Figma libraries directly via MCP tools. Replaces the Assembler-based sync pipeline. Produces static reference files (Markdown, JSON, CSS) consumed by all other skills. Triggers when the user asks to sync, refresh, or update design system data, tokens, or guidelines. Supports component-level granularity for guidelines (e.g., 'sync Button').
+argument-hint: "[phase name, component name, 'all', or 'validate']"
 ---
 
 # Sync Design System from Figma
@@ -35,6 +35,8 @@ The user specifies what to sync:
 - **Single phase:** "Sync components" / "Sync variables" / "Sync styles" / "Sync guidelines" / "Sync foundations"
 - **All phases:** "Sync design system" or "Sync all"
 - **Validate only:** "Validate sync" -- diffs current local files against Figma without overwriting
+- **Single component guidelines:** "Sync Button" / "Sync guidelines for Text Input" — extracts only that component's guidelines (Phase 5 for one component)
+- **Multiple components:** "Sync Button, Modal, and Table" — extracts guidelines for specified components only
 
 ## Source libraries
 
@@ -73,6 +75,30 @@ These constraints were confirmed during MCP investigation and must be respected 
 - **Rate limits:** Figma MCP has daily limits -- Pro plans allow 200 calls/day, Enterprise plans 600 calls/day. Minimize redundant calls. Cache intermediate results within a session.
 - **Frame node IDs required:** `get_design_context` requires frame-level node IDs, not page IDs. Use `get_metadata` first to discover frame node IDs within a page.
 - **Accessibility page ambiguity:** The Accessibility page contains 23 frames all named "Design guidelines". Use page section headers and frame ordering to distinguish content.
+
+## DS2026 component page structure
+
+Each component page in the DS2026 library has consistently named top-level frames:
+
+| Frame name | Present | Content type |
+|---|---|---|
+| `.local - page header with body` | Always | Component name, description |
+| `Content guidelines` | Always | Copy rules, terminology, do/don't examples |
+| `Components` | Always | Variant state grid |
+| `ready made examples` | Always | Pre-built usage patterns |
+| `Design guidelines` | Most | Visual rules, spacing, layout guidance |
+| `Screenshots of use cases` | Some | Real product screenshots |
+| `Behavior demo` | Some | Interaction/animation documentation |
+
+### Internal frame structure
+
+Each named frame follows the same pattern:
+1. An `.local - section header` instance (title bar — skip during extraction)
+2. A `Body` or `Guidelines` sub-frame containing the actual content:
+   - Text nodes (headings, body text, rules)
+   - Table structures (`.Row` frames with `Cell`/`Content` sub-frames)
+   - Inline component instances (note variant names)
+   - Do/don't pairs (check/cancel icon + text)
 
 ## Phases
 
@@ -710,6 +736,18 @@ Write to `tokens/actian-ds.tokens.json`.
 ### Phase 5 -- Component guidelines
 
 Extract per-component design and content guidelines from DS2026 guideline pages.
+
+#### Single-component mode
+
+When the user specifies a component name (e.g., "sync Button"), skip the full page discovery and extract only that component:
+
+1. Find the component page by matching the name against the page list
+2. Extract guideline frames for that page only
+3. Update only that component's JSON file
+4. Update `_index.json` with the new extraction date for that component
+5. Skip all other phases unless explicitly requested
+
+This is the most MCP-efficient mode — typically 2-4 calls per component.
 
 #### Step 1: Discover component pages
 
