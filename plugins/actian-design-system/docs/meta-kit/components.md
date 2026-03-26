@@ -1,6 +1,6 @@
 # Meta Kit — Component Catalog
 
-Auto-generated from Figma MCP on 2026-03-26. 18 components (13 component sets + 5 standalone).
+Auto-generated from Figma MCP on 2026-03-26. 16 components (11 component sets + 5 standalone).
 
 Library components used by skills to build spec briefs, flow screens, and presentations.
 These live in the Meta Kit Figma library and are imported at runtime via the Plugin API.
@@ -304,67 +304,30 @@ content.appendChild(myThemePreview);
 
 ---
 
-### Meta / Content / Slide Frame
+### Meta / Chrome / Slide Frame
+Presentation slide container matching the Actian template. Cover/Section/Back Cover use a navy-to-blue gradient (`rgb(9,9,82)` → `rgb(20,20,184)`). Body is white. 1920×1080px.
 
-Presentation slide container. 4 types: Cover (dark), Body (white), Section (dark divider), Back Cover (dark). 1920x1080px. Detach to append content.
+For the **background geometric art**, import from the Template file (`l7KNDEvTs22yr7xbymwoYe`). For the **Actian Pyramid** logo, import from DS2026 (key: `84e6abe2e5b7dbe96a859397f557249922560413`).
 
-| Field | Value |
-|-------|-------|
-| Key | `6397e64be948d8c974911f4e78be21a5d96366a5` |
-| Node | `48:30` |
-| Import | `figma.importComponentSetByKeyAsync(key)` |
-| Variant axes | **Type:** `Cover` · `Body` · `Section` · `Back Cover` |
-| Text overrides | `Title`, `Subtitle` |
-
-```js
-const slideSet = await figma.importComponentSetByKeyAsync("6397e64be948d8c974911f4e78be21a5d96366a5");
-const body = slideSet.children.find(c => c.name === "Type=Body");
-const slide = body.createInstance();
-setProp(slide, "Title", "Component Overview");
-setProp(slide, "Subtitle", "DS2026 Button variants");
-const frame = slide.detachInstance();              // Detach to append content
-const content = frame.findOne(n => n.name === "Content");
-content.appendChild(mySlideContent);
-```
+- Variants: **Type:** `Cover` · `Body` · `Section` · `Back Cover`
+- Cover text overrides: `Topic`, `Title`, `Subtitle`, `Date`, `Creators`
+- Body text overrides: `Title`
+- Section text overrides: `Topic`, `Title`
+- Back Cover text overrides: `Title`
+- Node: `53:27` | Key: `4f158eb6f140731435fe78b155a6339e8a21fcd8`
 
 ---
 
-### Meta / Brand / Actian Pyramid
+### DS2026 Brand Assets (import directly — not in Meta Kit)
 
-Actian brand pyramid element. Used on cover slides and section dividers. Fill color should be bound to theme-primary at runtime.
+These components live in the DS2026 library and should be imported directly via `importComponentByKeyAsync` or `importComponentSetByKeyAsync`. They are NOT in Meta Kit.
 
-| Field | Value |
-|-------|-------|
-| Key | `67b4a9bb9b6dc81fa1e65ed2bf14a1f3ce77482e` |
-| Node | `49:19` |
-| Import | `figma.importComponentSetByKeyAsync(key)` |
-| Variant axes | **Size:** `Small` · `Medium` · `Large` |
-
-```js
-const pyramidSet = await figma.importComponentSetByKeyAsync("67b4a9bb9b6dc81fa1e65ed2bf14a1f3ce77482e");
-const large = pyramidSet.children.find(c => c.name === "Size=Large");
-const pyramid = large.createInstance();
-// Bind fill to theme-primary at runtime
-```
-
----
-
-### Meta / Brand / Geometric Overlay
-
-Background decoration for cover and divider slides. Layer behind content.
-
-| Field | Value |
-|-------|-------|
-| Key | `0b34c3f9fe88c08efa256cacca6c08cb82709bcf` |
-| Node | `49:38` |
-| Import | `figma.importComponentSetByKeyAsync(key)` |
-| Variant axes | **Style:** `Gradient` · `Solid` · `Transparent` | **Position:** `TopRight` · `BottomLeft` · `Center` |
-
-```js
-const overlaySet = await figma.importComponentSetByKeyAsync("0b34c3f9fe88c08efa256cacca6c08cb82709bcf");
-const variant = overlaySet.children.find(c => c.name === "Style=Gradient, Position=TopRight");
-const overlay = variant.createInstance();
-```
+| Asset | Key | Library | Import method |
+|-------|-----|---------|---------------|
+| Actian Pyramid | `84e6abe2e5b7dbe96a859397f557249922560413` | DS2026 | `importComponentSetByKeyAsync` — Variants: Color=Full color, Color=White |
+| Illustration | `00302ca7dc4298c719f19ca4766029909ecbeb9d` | DS2026 | `importComponentSetByKeyAsync` — Variants: Empty state large/medium/small, Error state/medium, Maintenance, Success |
+| Actian Data Intelligence logo | `2e53061b856da7a42b2328279d16718d252e0780` | DS2026 | `importComponentSetByKeyAsync` — Type × Orientation |
+| Background graphic (presentations) | N/A — use frame from Template file | Template (`l7KNDEvTs22yr7xbymwoYe`) | Copy the "Background graphic" frame from Cover/Section slides |
 
 ---
 
@@ -498,9 +461,7 @@ setProp(research, "Source", "Q1 2026 Research — 12 participants");
 | Stat Card | `8662c721d7...` | `46:29` | `importComponentSetByKeyAsync` |
 | Accessibility Card | `b4779a13f4...` | `47:24` | `importComponentSetByKeyAsync` |
 | Theme Card | `9081a77619...` | `47:43` | `importComponentSetByKeyAsync` |
-| Slide Frame | `6397e64be9...` | `48:30` | `importComponentSetByKeyAsync` |
-| Actian Pyramid | `67b4a9bb9b...` | `49:19` | `importComponentSetByKeyAsync` |
-| Geometric Overlay | `0b34c3f9fe...` | `49:38` | `importComponentSetByKeyAsync` |
+| Slide Frame | `4f158eb6f1...` | `53:27` | `importComponentSetByKeyAsync` |
 | Generation Log | `a9653f3092...` | `3:2` | `importComponentByKeyAsync` |
 | Card Divider | `f4d778e1cf...` | `4:2` | `importComponentByKeyAsync` |
 | Code Block | `1bf10eee17...` | `8:2` | `importComponentByKeyAsync` |
