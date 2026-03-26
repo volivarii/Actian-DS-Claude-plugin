@@ -8,33 +8,39 @@ Follow these rules for every Figma-to-code task in this project.
 
 ### Data flow — single source of truth
 
-The [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) repo is the single source of truth for all Figma-derived data. This plugin consumes from it.
+Figma libraries are the single source of truth. The `/sync-design-system` skill extracts data directly via MCP tools.
 
 ```
-Figma libraries → Assembler (npm run sync) → Plugin (scripts/sync-from-upstream.sh)
+Figma libraries → /sync-design-system skill (MCP tools) → Plugin docs/tokens/
 ```
 
-To update docs and tokens: run `scripts/sync-from-upstream.sh` (fetches from Assembler GitHub).
+To update docs and tokens: run `/sync-design-system` (extracts directly from Figma via MCP).
 
 ### Reference files
 
 | File | Source | Purpose |
 |------|--------|---------|
-| `docs/token-reference.md` | Synced from Assembler | Token reference (3 themes) |
-| `docs/ds2026-components.md` | Synced from Assembler | 77 DS2026 component sets, auto-generated |
-| `docs/fm-components.md` | Synced from Assembler | 29 FM Kit component sets, auto-generated |
-| `docs/content-guidelines.md` | Synced from Assembler | Generic UI copy rules |
-| `docs/accessibility-guidelines.md` | Synced from Assembler | WCAG 2.1 AA standards |
+| `docs/token-reference.md` | Extracted via `/sync-design-system` | Token reference (3 themes) |
+| `docs/ds2026-components.md` | Extracted via `/sync-design-system` | 77 DS2026 component sets, auto-generated |
+| `docs/fm-components.md` | Extracted via `/sync-design-system` | 29 FM Kit component sets, auto-generated |
+| `docs/content-guidelines.md` | Extracted via `/sync-design-system` | Generic UI copy rules |
+| `docs/accessibility-guidelines.md` | Extracted via `/sync-design-system` | WCAG 2.1 AA standards |
 | `docs/presentation-templates.md` | Hand-authored (this repo) | 5 slide template specs |
 | `docs/presentation-content-guidelines.md` | Hand-authored (this repo) | Voice, tone, chart selection |
 | `docs/component-guidelines/*.json` | Extracted via `/sync-guidelines` | Per-component content/design guidelines from Figma (44 components) |
 | `docs/foundations/*.json` | Extracted via `/sync-guidelines` | Foundation docs from Figma: accessibility, borders, breakpoints, color, content, elevation, icons, interaction, spacing, typography |
-| `tokens/tokens.css` | Synced from Assembler | CSS custom properties (`--zen-*`) |
-| `tokens/actian-ds.tokens.json` | Synced from Assembler | W3C DTCG format (source of truth for tokens) |
+| `tokens/tokens.css` | Extracted via `/sync-design-system` | CSS custom properties (`--zen-*`) |
+| `tokens/actian-ds.tokens.json` | Extracted via `/sync-design-system` | W3C DTCG format (source of truth for tokens) |
 | `references/*.md` | Hand-authored (this repo) | Shared skill references (figma-output, fm-css, layout-spec, token-naming) |
-| `docs/meta-kit/components.md` | Synced from Assembler | Meta Kit component keys and properties |
-| `docs/meta-kit/variables.md` | Synced from Assembler | DS2026 variable keys for scaffolding binding |
-| `docs/meta-kit/builders.md` | Synced from Assembler | Shared JS builder functions for tables, grids |
+| `docs/meta-kit/components.md` | Extracted via `/sync-design-system` | Meta Kit component keys and properties |
+| `docs/meta-kit/variables.md` | Extracted via `/sync-design-system` | DS2026 variable keys for scaffolding binding |
+| `docs/meta-kit/builders.md` | Extracted via `/sync-design-system` | Shared JS builder functions for tables, grids |
+| `docs/meta-kit/text-styles.md` | Extracted via `/sync-design-system` | DS2026 text styles with font specs |
+| `docs/meta-kit/effect-styles.md` | Extracted via `/sync-design-system` | DS2026 effect styles with shadow params |
+
+### Legacy sync (deprecated)
+
+`scripts/sync-from-upstream.sh` syncs from the Assembler GitHub repo. This is replaced by `/sync-design-system` which extracts directly from Figma. The script remains available as a fallback but will be removed in a future version.
 
 ## Versioning (Semantic Versioning)
 
