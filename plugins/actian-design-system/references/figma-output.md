@@ -154,6 +154,63 @@ When the user explicitly requests the Assembler:
 3. Ensure localhost server: `scripts/ensure-server.sh . 8765`
 4. Tell user: **"Open DS Assembler → select spec → Assemble"**
 
+## Meta Kit components
+
+For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../../docs/meta-kit-components.md` for component keys and properties.
+
+### Import pattern
+
+```js
+// Single component
+const comp = await figma.importComponentByKeyAsync("COMPONENT_KEY");
+const instance = comp.createInstance();
+
+// Component set (with variants)
+const set = await figma.importComponentSetByKeyAsync("COMPONENT_KEY");
+const variant = set.children.find(c => c.name === "Mode=DS, Type=Standard");
+const instance = variant.createInstance();
+
+// Set text properties (use prefix matching — keys include internal IDs)
+function setProp(inst, prefix, value) {
+  const key = Object.keys(inst.componentProperties).find(k => k.startsWith(prefix));
+  if (key) inst.setProperties({ [key]: value });
+}
+setProp(instance, "Title", "Design tokens");
+```
+
+When a Meta Kit component exists for an element, **always import it** instead of building inline. The component IS the spec — its dimensions, colors, and typography are the single source of truth.
+
+## Variable binding (DS2026 output)
+
+For DS2026 output, bind scaffolding colors to Figma variables instead of using hex. This enables theme switching on generated output. See `../../docs/meta-kit-variables.md` for variable keys.
+
+```js
+// Import variables at the start of each use_figma call
+const vars = {};
+async function importVar(name, key) {
+  vars[name] = await figma.variables.importVariableByKeyAsync(key);
+}
+await importVar('bgDefault', 'VARIABLE_KEY_HERE');
+await importVar('borderDefault', 'VARIABLE_KEY_HERE');
+
+// Bind to a node's fill
+function bindFill(node, variable) {
+  const fills = JSON.parse(JSON.stringify(node.fills));
+  fills[0] = figma.variables.setBoundVariableForPaint(fills[0], 'color', variable);
+  node.fills = fills;
+}
+```
+
+For FM output, continue using hex values — FM Kit does not publish variables for theme switching.
+
+## Builder functions
+
+For dynamic content (tables with variable rows, state grids with variable columns), use the builder functions in `../../references/meta-kit-builders.md`. Copy the needed function into your `use_figma` call and invoke it.
+
+Available builders:
+- `buildSpecTable(parent, headers, rows, options)` — data tables with header row + N data rows
+- `buildStateGrid(parent, states)` — horizontal row of labeled state columns
+
 ## Rules
 
 - **`use_figma` is always the default.** Only use Assembler when the user explicitly asks for it.

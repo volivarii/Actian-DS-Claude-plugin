@@ -32,6 +32,9 @@ To update docs and tokens: run `scripts/sync-from-upstream.sh` (fetches from Ass
 | `tokens/tokens.css` | Synced from Assembler | CSS custom properties (`--zen-*`) |
 | `tokens/actian-ds.tokens.json` | Synced from Assembler | W3C DTCG format (source of truth for tokens) |
 | `references/*.md` | Hand-authored (this repo) | Shared skill references (figma-output, fm-css, layout-spec, token-naming) |
+| `docs/meta-kit-components.md` | Hand-authored (this repo) | Meta Kit component keys and properties |
+| `docs/meta-kit-variables.md` | Hand-authored (this repo) | DS2026 variable keys for scaffolding binding |
+| `references/meta-kit-builders.md` | Hand-authored (this repo) | Shared JS builder functions for tables, grids |
 
 ## Versioning (Semantic Versioning)
 
