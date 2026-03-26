@@ -15,6 +15,15 @@ Draft a structured component brief and generate an HTML spec page. Supports two 
 
 > **Mode: Spec.** Be thorough — document every variant, state, and edge case. Structure everything with consistent headings, tables, and numbered lists. Define before building; every decision needs a rationale. Cross-reference tokens, components, and guidelines by name. Include what's out of scope explicitly.
 
+### Quality tier detection
+
+| Signal in user prompt | Tier | Effect |
+|----------------------|------|--------|
+| "quick", "rough", "draft", "sketch" | Draft | Cards 1-5 only, simplified tables (5 rows max), no variant matrices |
+| No qualifier (default) | Standard | All cards, full Meta Kit components, proper token tables |
+| "production", "final", "publish-ready" | Production | Standard + variable binding on all scaffolding + golden reference comparison |
+| Re-generation after feedback | Production | Auto-upgrade to production tier |
+
 ## Modes
 
 Determine the mode from context:
@@ -162,18 +171,28 @@ Read `../../references/token-naming.md` for the full `--zen-` prefix mapping tab
 
 Read and follow the shared output procedure in `../../references/figma-output.md`. This step builds spec cards directly in Figma via Plugin API JavaScript — HTML is for local preview only.
 
-### Card structure
+### Card structure (Meta Kit)
 
-Each spec card is a Figma frame with:
+Card shells are Meta Kit components — do not construct inline. Import `Meta / Chrome / Brief Card` and detach before adding content.
 
-- **Width:** 1200px fixed, **height:** hug content (matches the HTML card templates)
-- **Layout:** vertical auto-layout
-- **Padding:** 48px all sides (top 32px)
-- **Item spacing:** 24px
-- **Background:** white with border
-  - DS2026: `#FFFFFF` (`--zen-background-bg-default`) fill, `#D9DCE1` (`--zen-border-default`) 1px stroke
-  - FM: `#FFFFFF` (`--fm-base-0`) fill, `#D9DCE1` (`--fm-base-300`) 1px stroke
-- **Corner radius:** 12px
+```js
+// Import and configure card
+const briefCardSet = await figma.importComponentSetByKeyAsync("3dbb732730af0754210cde7af35e5236a2502843");
+const variant = briefCardSet.children.find(c => c.name === "Mode=DS, Type=Standard");
+const instance = variant.createInstance();
+setProp(instance, "Title", "Design tokens");
+setProp(instance, "Subtitle", "Color, sizing, and typography tokens");
+const card = instance.detachInstance();  // Detach to allow content insertion
+const content = card.findOne(n => n.name === "Content");
+// Now append tables, text, and visual elements to `content`
+```
+
+For component keys, properties, and the `setProp` helper, see `../../docs/meta-kit-components.md`.
+For builder functions (`buildSpecTable`, `buildStateGrid`), see `../../references/meta-kit-builders.md`.
+
+### Variable binding (DS2026 mode)
+
+For DS2026 output, bind scaffolding colors to Figma variables for theme switching. See `../../docs/meta-kit-variables.md` for keys and the `bindFill`/`bindStroke` pattern. FM output continues using hex from `../../references/fm-css-reference.md`.
 
 ### Card children
 
@@ -234,7 +253,7 @@ The generation metadata frame is prepended as the first child (see `figma-output
 
 ### Execution steps
 
-1. **Build generation metadata frame first** — follow the generation metadata pattern in `../../references/figma-output.md`. Append it as the first child of the wrapper.
+1. **Import `Meta / Chrome / Generation Log` component** (key: `a9653f30925367e96dea90093d750bfe70849571`), set all 6 text properties using `setProp()`, append as first child of the wrapper.
 2. **Build each card as a separate `use_figma` call** to stay under the 20KB code limit. Each call creates one card frame and appends it to the appropriate row.
 3. **Take a screenshot** with `get_screenshot` after all cards are built and show the result to the user.
 4. **Ask for adjustments** — "Here is the spec page in Figma. Want me to adjust anything?"
