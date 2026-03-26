@@ -10,18 +10,39 @@ Source: [Actian Design System v1.0.0 — Quality & Hygiene](https://www.figma.co
 
 These checks apply to every output — component briefs, flows, presentations, and created components.
 
-| # | Check | Pass criteria |
-|---|-------|---------------|
-| 1 | **Auto-layout on every frame** | Every container uses auto-layout (flex/grid in HTML, auto-layout in Figma). No absolute-positioned children unless intentionally overlaid (badges, pointers). |
-| 2 | **Descriptive layer names** | No auto-generated names ("Frame 1", "Rectangle 2", "Group 7"). Every layer follows `category/name` or a simple descriptor (`Container`, `Leading icon`, `Label`). |
-| 3 | **Token compliance** | All colors use design tokens or Figma variables — never arbitrary hex. `--zen-*` for DS2026, `--fm-*` for Fat Marker. |
-| 4 | **Generation log present** | Visible generation card as the first element, all fields filled (skill, prompt, date, duration, model, plugin version). |
-| 5 | **Style check** | Zero hardcoded hex values, pixel font sizes, or raw shadows. 100% of colors, fonts, shadows, and border radii reference variables or styles. |
-| 6 | **Meta Kit components for chrome** | Brief Card, Flow Screen, Generation Log, Code Block, Do-Don't Pair used for structural chrome — not hand-built frames. |
-| 7 | **Spacing from the scale** | All spacing values use the FM/DS scale: 4, 8, 12, 16, 24, 28, 32px. No arbitrary gaps. |
-| 8 | **No hidden/invisible layers** | No `display: none`, `opacity: 0`, or invisible layers left from drafting. Delete anything not needed. |
-| 9 | **Component description filled** | Every main component has a filled Description field stating what it does, when to use it, and constraints. |
-| 10 | **WCAG AA contrast** | Every foreground/background pair passes WCAG AA — 4.5:1 for normal text, 3:1 for large text and UI elements. Disabled states exempt but distinguishable. |
+| # | Check | Priority | Pass criteria |
+|---|-------|----------|---------------|
+| 1 | **Auto-layout on every frame** | P0 | Every container uses auto-layout (flex/grid in HTML, auto-layout in Figma). No absolute-positioned children unless intentionally overlaid (badges, pointers). |
+| 2 | **HUG/Fill sizing explicit** | P0 | Every frame created via `use_figma` has `layoutSizingHorizontal` and `layoutSizingVertical` explicitly set to `'HUG'` or `'FILL'`. Never rely on Figma's default (FIXED 100px). |
+| 3 | **Descriptive layer names** | P1 | No auto-generated names ("Frame 1", "Rectangle 2", "Group 7"). Every layer follows `category/name` or a simple descriptor (`Container`, `Leading icon`, `Label`). |
+| 4 | **Token compliance** | P0 | All colors use design tokens or Figma variables — never arbitrary hex. `--zen-*` for DS2026, `--fm-*` for Fat Marker. |
+| 5 | **Generation log present** | P1 | Visible generation card as the first element, all fields filled (skill, prompt, date, duration, model, plugin version). |
+| 6 | **Style check** | P0 | Zero hardcoded hex values, pixel font sizes, or raw shadows. 100% of colors, fonts, shadows, and border radii reference variables or styles. |
+| 7 | **Variable mode set** | P1 | After binding DS2026 variables, `setExplicitVariableModeForCollection` is called on the nearest ancestor frame. No ghost mode resolution. |
+| 8 | **Meta Kit components for chrome** | P1 | Brief Card, Flow Screen, Generation Log, Code Block, Do-Don't Pair used for structural chrome — not hand-built frames. |
+| 9 | **Spacing from the scale** | P1 | All spacing values use the FM/DS scale: 4, 8, 12, 16, 24, 28, 32px. No arbitrary gaps. |
+| 10 | **No hidden/invisible layers** | P2 | No `display: none`, `opacity: 0`, or invisible layers left from drafting. Delete anything not needed. |
+| 11 | **Component description filled** | P1 | Every main component has a filled Description field stating what it does, when to use it, and constraints. |
+| 12 | **WCAG AA contrast** | P0 | Every foreground/background pair passes WCAG AA — 4.5:1 for normal text, 3:1 for large text and UI elements. Disabled states exempt but distinguishable. |
+
+### HTML translation
+
+When generating HTML for local preview or assembler specs, the checklist translates to:
+
+| Figma check | HTML equivalent |
+|-------------|-----------------|
+| Auto Layout | Use `display: flex` or `display: grid` with appropriate sizing. No fixed pixel widths that break on resize. |
+| HUG/Fill sizing | Use explicit `width`/`height` or flex sizing. No unconstrained containers. |
+| Descriptive layer names | All `data-name` values are descriptive (`"Page header"`, `"Variant matrix"` — not `"div"`, `"section1"`). |
+| Token compliance | Reference `--zen-*` or `--fm-*` CSS custom properties exclusively. Zero raw hex or inline color values. |
+| Generation log present | Include generation card as the first child inside the layout container. |
+| Style check | Reference `--zen-*` CSS custom properties exclusively. Zero raw hex, px font sizes, or inline color values. |
+| Variable mode set | CSS variables resolve via `[data-theme]` selector on ancestor. No inline overrides. |
+| Meta Kit components | All component references use the correct library component — no detached or inline duplicates. |
+| Spacing from the scale | Use spacing tokens or scale values. No arbitrary margins/padding. |
+| No hidden/invisible layers | No `display: none` or `opacity: 0` elements left from iteration. Delete unused markup. |
+| Component description filled | Include `<!-- AI CONSUMPTION METADATA -->` comment and descriptive subtitles on every card. |
+| WCAG AA contrast | Verify all text/background pairs against WCAG AA. Use token colors — they are pre-validated. |
 
 ---
 
