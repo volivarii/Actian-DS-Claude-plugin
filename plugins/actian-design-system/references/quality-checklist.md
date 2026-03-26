@@ -10,7 +10,7 @@ Source: [Actian Design System v1.0.0 — Quality & Hygiene](https://www.figma.co
 
 These checks apply to every output — component briefs, flows, presentations, and created components.
 
-| # | Check | Priority | Pass criteria |
+| # | Check | Severity | Pass criteria |
 |---|-------|----------|---------------|
 | 1 | **Auto-layout on every frame** | P0 | Every container uses auto-layout (flex/grid in HTML, auto-layout in Figma). No absolute-positioned children unless intentionally overlaid (badges, pointers). |
 | 2 | **HUG/Fill sizing explicit** | P0 | Every frame created via `use_figma` has `layoutSizingHorizontal` and `layoutSizingVertical` explicitly set to `'HUG'` or `'FILL'`. Never rely on Figma's default (FIXED 100px). |
