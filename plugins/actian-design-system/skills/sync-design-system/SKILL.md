@@ -80,7 +80,145 @@ These constraints were confirmed during MCP investigation and must be respected 
 
 Extract component sets, variant axes, properties, and keys from DS2026, FM Kit, and Meta Kit libraries.
 
-<!-- TODO: Implementation details -->
+#### Step 1: Extract page structure
+
+For each library (DS2026, FM Kit, Meta Kit), call `use_figma` to retrieve the page tree with component set counts:
+
+```js
+const pages = figma.root.children.map(p => ({
+  name: p.name,
+  id: p.id,
+  componentSets: p.findAll(n => n.type === 'COMPONENT_SET').length
+}));
+return JSON.stringify(pages, null, 2);
+```
+
+This gives you the page list and lets you plan chunking for Step 2.
+
+#### Step 2: Extract component sets
+
+For each library, call `use_figma` to extract all component sets with their variant axes, text overrides, and keys:
+
+```js
+const sets = figma.root.findAll(n => n.type === 'COMPONENT_SET');
+return JSON.stringify(sets.map(cs => ({
+  name: cs.name,
+  key: cs.key,
+  nodeId: cs.id,
+  page: cs.parent?.parent?.name || cs.parent?.name || 'unknown',
+  description: cs.description || '',
+  variantAxes: Object.entries(cs.variantGroupProperties || {}).map(([axis, prop]) => ({
+    axis,
+    values: prop.values
+  })),
+  componentPropertyDefinitions: Object.entries(cs.componentPropertyDefinitions || {})
+    .filter(([_, def]) => def.type === 'TEXT')
+    .map(([name]) => name),
+  variants: cs.children.map(v => ({ name: v.name, key: v.key })),
+})), null, 2);
+```
+
+**Chunking strategy:** If a library has many component sets and the JSON response exceeds 20KB, split extraction by page:
+
+```js
+// Extract one page at a time
+const page = figma.root.children.find(p => p.name === 'Button');
+const sets = page.findAll(n => n.type === 'COMPONENT_SET');
+return JSON.stringify(sets.map(cs => ({
+  name: cs.name,
+  key: cs.key,
+  nodeId: cs.id,
+  page: cs.parent?.parent?.name || cs.parent?.name || 'unknown',
+  description: cs.description || '',
+  variantAxes: Object.entries(cs.variantGroupProperties || {}).map(([axis, prop]) => ({
+    axis,
+    values: prop.values
+  })),
+  componentPropertyDefinitions: Object.entries(cs.componentPropertyDefinitions || {})
+    .filter(([_, def]) => def.type === 'TEXT')
+    .map(([name]) => name),
+  variants: cs.children.map(v => ({ name: v.name, key: v.key })),
+})), null, 2);
+```
+
+Use the page counts from Step 1 to decide whether to extract all-at-once or page-by-page. DS2026 (77 component sets) will almost certainly need chunking. FM Kit (29) and Meta Kit (6) may fit in a single call.
+
+#### Step 3: Format output
+
+Transform the extracted JSON into Markdown matching these exact formats:
+
+**DS2026 format** (`docs/ds2026-components.md`):
+
+```markdown
+# Actian Design System 2026 — Component Reference
+
+Auto-generated from Figma MCP on YYYY-MM-DD.
+77 component sets, NNN individual components.
+
+Source: [Actian Design System v1.1.0](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK)
+
+---
+
+## Pages
+
+- Cover
+- Table of contents
+[... page list with component set counts ...]
+
+---
+
+## Button
+
+### Button
+Primary trigger for a specific action...
+
+- Variants: **Type:** `Primary` · `Secondary` · ... | **Size:** `Default` · `Small` | **State:** `Default` · `Hovered` · ...
+- Text overrides: `Label`
+- Node: `7206:2643` | Key: `5a6d10d26bef3cc83955bf32a318c6b4682f25d3`
+```
+
+**FM Kit format** (`docs/fm-components.md`):
+
+```markdown
+# FM Kit — Component Reference
+
+Auto-generated from Figma MCP on YYYY-MM-DD.
+29 component sets.
+
+Source: [FM Kit](https://www.figma.com/design/X2JSEUyLvxyNCx22ucOexn)
+
+---
+
+### FM App_header
+Top-level application header bar...
+
+- Variants: **Type:** `Admin` · `Explorer` · `Studio` · `Actian`
+- Node: `67:1858` | Key: `8fc9bcee610c7f8d22ebcc268467993f6dc99c87`
+```
+
+**Meta Kit format** (`docs/meta-kit/components.md`): Same structure as FM Kit, adapted for Meta Kit component names.
+
+Formatting rules:
+- Group components by page using `## Page Name` headings
+- Each component set gets a `### Component Name` heading
+- Description on the line after the heading (if available)
+- Variant axes formatted as: `**Axis:** \`Value1\` · \`Value2\` · \`Value3\``
+- Multiple axes separated by ` | `
+- Text overrides listed only if `componentPropertyDefinitions` returned any TEXT entries
+- Node ID and Key on the last bullet
+
+#### Step 4: Write files
+
+Write the formatted Markdown to:
+- `docs/ds2026-components.md`
+- `docs/fm-components.md`
+- `docs/meta-kit/components.md`
+
+#### Error handling
+
+- If a library file is inaccessible (e.g., no edit permission for FM Kit), log a warning and skip that library. The skill must not fail entirely if one library is unavailable.
+- If a single page extraction fails, log the page name and continue with remaining pages.
+- After writing, report the total component set count per library and flag any libraries that were skipped.
 
 ### Phase 2 -- Variables
 
