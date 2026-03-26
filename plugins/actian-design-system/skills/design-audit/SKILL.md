@@ -77,8 +77,10 @@ Present findings as a structured report:
 - Components used: [count] from FM kit, [count] ad-hoc
 - Token compliance: [percentage]
 
-### Critical Issues
-1. [Issue] — [Location] — [Fix]
+### Findings
+
+| # | Severity | Confidence | Finding | Rule | Fix |
+|---|----------|------------|---------|------|-----|
 
 ### Warnings
 1. [Issue] — [Location] — [Recommendation]
@@ -90,6 +92,37 @@ Present findings as a structured report:
 ### Recommendations
 - [Actionable next steps]
 ```
+
+### Confidence scores
+
+Every finding must include a confidence score (0.0–1.0):
+
+| Score | Meaning | When to use |
+|-------|---------|------------|
+| 0.9–1.0 | Certain | Token value directly visible in `get_design_context` output, contrast ratio calculated |
+| 0.7–0.8 | High | Structure strongly suggests violation (e.g., frame without auto-layout, text without style binding) |
+| 0.5–0.6 | Medium | Inferred from screenshot or partial data (e.g., color looks off but hex not extractable) |
+| 0.3–0.4 | Low | Based on naming conventions or indirect evidence only |
+| 0.0–0.2 | Speculative | Flagged for manual review, insufficient data to confirm |
+
+Include confidence in every finding row:
+
+| # | Severity | Confidence | Finding | Rule | Fix |
+|---|----------|------------|---------|------|-----|
+| 1 | P0 | 0.95 | Button uses hardcoded #0550DC | Style check: zero hardcoded hex | Bind `theme-primary` variable |
+| 2 | P1 | 0.70 | Frame "Header" appears to lack auto-layout | Auto-layout on every frame | Add auto-layout with HORIZONTAL direction |
+| 3 | P2 | 0.40 | Layer named "Frame 23" | Descriptive layer naming | Rename to describe content |
+
+### Evidence standard
+
+Every finding must cite what structure in the design proves the violation:
+
+- **What:** The specific node/layer name and ID where the issue exists
+- **Expected:** What the design system rule requires (quote the rule)
+- **Actual:** What was observed (include hex values, pixel values, or node properties from `get_design_context`)
+- **Why it matters:** Impact on users, consistency, or maintenance
+
+Findings without evidence are not findings — they are guesses. If you cannot extract enough data to support a finding at confidence ≥ 0.5, add it to a "Needs manual review" section instead of the main findings table.
 
 ## Deep analysis with DS Assembler (recommended)
 
