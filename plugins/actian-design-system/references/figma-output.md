@@ -180,20 +180,33 @@ setProp(instance, "Title", "Design tokens");
 
 When a Meta Kit component exists for an element, **always import it** instead of building inline. The component IS the spec — its dimensions, colors, and typography are the single source of truth.
 
-## Variable binding (DS2026 output)
+## Token binding — DS2026 and FM libraries
 
-For DS2026 output, bind scaffolding colors to Figma variables instead of using hex. This enables theme switching on generated output. See `../../docs/meta-kit/variables.md` for variable keys.
+**NEVER hardcode hex colors, pixel font sizes, or raw shadow values.** Both libraries publish reusable assets. Bind them.
+
+### What each library publishes
+
+| Asset type | DS2026 | FM Kit | Binding API |
+|------------|--------|--------|-------------|
+| **Color variables** | Yes (theme-switching) | No | `importVariableByKeyAsync` + `setBoundVariableForPaint` |
+| **Color styles** | Yes | Yes (`Fatmarker Base/*`) | `importStyleByKeyAsync` + `node.fillStyleId` |
+| **Text styles** | Yes (`body-standard`, etc.) | Yes (`Fatmarker/*`) | `importStyleByKeyAsync` + `node.textStyleId` |
+| **Effect styles** | Yes (`shadow-xs`, etc.) | No | `importStyleByKeyAsync` + `node.effectStyleId` |
+
+### DS2026 output — bind variables AND styles
+
+DS2026 publishes **color variables** (for theme switching), **text styles** (typography), and **effect styles** (shadows). Use all three:
+
+**Step 1 — Color variables** (see `../../docs/meta-kit/variables.md` for keys):
 
 ```js
-// Import variables at the start of each use_figma call
 const vars = {};
 async function importVar(name, key) {
   vars[name] = await figma.variables.importVariableByKeyAsync(key);
 }
-await importVar('bgDefault', 'VARIABLE_KEY_HERE');
-await importVar('borderDefault', 'VARIABLE_KEY_HERE');
+await importVar('bgDefault', '805afec875092b89deebe685e17992963d603974');
+await importVar('borderDefault', '290c868621027b488cbc3b262619959bec52765f');
 
-// Bind to a node's fill
 function bindFill(node, variable) {
   const fills = JSON.parse(JSON.stringify(node.fills));
   fills[0] = figma.variables.setBoundVariableForPaint(fills[0], 'color', variable);
@@ -201,7 +214,55 @@ function bindFill(node, variable) {
 }
 ```
 
-For FM output, continue using hex values — FM Kit does not publish variables for theme switching.
+**Step 2 — Text styles** (discover via `search_design_system`):
+
+```js
+// Search for DS2026 text styles (e.g., "body-standard", "heading-display", "label-subtle")
+// Use search_design_system with query: "body-standard" or "heading" etc.
+const textStyle = await figma.importStyleByKeyAsync("TEXT_STYLE_KEY_FROM_SEARCH");
+textNode.textStyleId = textStyle.id;
+```
+
+**Step 3 — Effect styles** (discover via `search_design_system`):
+
+```js
+// Search for DS2026 effect styles (e.g., "shadow-xs", "shadow-sm", "shadow-xl")
+const effectStyle = await figma.importStyleByKeyAsync("EFFECT_STYLE_KEY_FROM_SEARCH");
+frame.effectStyleId = effectStyle.id;
+```
+
+### FM output — bind published color and text styles
+
+FM Kit does not publish Figma **variables**, but it publishes **color styles** and **text styles**. Always bind these instead of hardcoding:
+
+```js
+// Discover FM styles via search_design_system (query: "Fatmarker Base" for colors, "Fatmarker" for text)
+const colorStyle = await figma.importStyleByKeyAsync("COLOR_STYLE_KEY");
+node.fillStyleId = colorStyle.id;
+
+const textStyle = await figma.importStyleByKeyAsync("TEXT_STYLE_KEY");
+textNode.textStyleId = textStyle.id;
+```
+
+### Discovery pattern — `search_design_system`
+
+Before writing any `use_figma` code, call `search_design_system` to discover the style/variable keys you need. Useful queries:
+
+| Query | Returns |
+|-------|---------|
+| `"body-standard"` | DS2026 text style key |
+| `"heading-display"` | DS2026 text style key |
+| `"shadow-xs"` | DS2026 effect style key |
+| `"Fatmarker Base"` | FM color style keys |
+| `"Fatmarker"` | FM text + color style keys |
+
+Cache the keys within a single `use_figma` call — import once, apply to many nodes.
+
+### Fallback
+
+If `search_design_system` returns no results (file not connected to a library), fall back to:
+- DS2026: hex from `../../docs/token-reference.md` with token name comments
+- FM: hex from `../../references/fm-css-reference.md` with token name comments
 
 ## Builder functions
 

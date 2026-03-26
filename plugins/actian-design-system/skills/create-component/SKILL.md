@@ -119,7 +119,7 @@ Builds the component directly in Figma via JavaScript. Can import published libr
 
 **What has correct tokens automatically:** All imported library component instances (FM Button, FM Table Cell, FM Tabs, etc.) bring their own bound Figma variables. No hex needed for these.
 
-**What needs hex from the Token Reference:** Only custom scaffolding — wrapper frames, content area backgrounds, custom text nodes, cover cards, generation log.
+**What needs library binding:** Custom scaffolding — wrapper frames, backgrounds, text nodes, shadows. Follow `../../references/figma-output.md` § "Token binding": discover keys via `search_design_system`, bind color variables + text styles + effect styles (DS2026) or color styles + text styles (FM). Hex only as fallback.
 
 **Tradeoffs:** Text overrides on library instances can require layer name debugging. No declarative spec.
 
@@ -207,7 +207,9 @@ Use exact component names from `../../docs/fm-components.md` (FM Kit) or `../../
 
 Follow the shared `use_figma` pattern in `../../references/figma-output.md`.
 
-Build the component directly in Figma using JavaScript via `use_figma`. The Plugin API supports variable binding via `importVariableByKeyAsync` + `setBoundVariableForPaint`. For DS2026 output, bind scaffolding colors to Figma variables (see `../../docs/meta-kit/variables.md`). For FM output, use hex from the FM token palette.
+Build the component directly in Figma using JavaScript via `use_figma`. Follow the token binding rules in `../../references/figma-output.md`:
+- **DS2026**: bind color variables (`importVariableByKeyAsync`), text styles (`textStyleId`), and effect styles (`effectStyleId`). Discover style keys via `search_design_system`.
+- **FM**: bind published color styles (`fillStyleId`) and text styles (`textStyleId`). Discover keys via `search_design_system` with query `"Fatmarker"`.
 
 ### Required structure
 
@@ -216,7 +218,7 @@ The `use_figma` code must:
 1. **Create a component set** (for variants) or a single component
 2. **Use auto-layout** on every frame — no absolute positioning
 3. **Set component properties** — text properties (`componentPropertyDefinitions`) and boolean properties for show/hide toggles
-4. **Bind tokens** — for DS2026, use variable binding from `../../docs/meta-kit/variables.md`; for FM, use hex from `../../references/fm-css-reference.md` with token name comments
+4. **Bind tokens** — follow `../../references/figma-output.md` "Token binding" section. Use `search_design_system` to discover style keys before writing code.
 5. **Include generation metadata** — import `Meta / Chrome / Generation Log` component (key: `a9653f30925367e96dea90093d750bfe70849571`) as the first sibling before the component set. Set all 6 text properties using `setProp()` from `../../docs/meta-kit/components.md`.
 6. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
 
@@ -233,18 +235,12 @@ Without properties, users can't customize the component when using instances.
 
 ## Token Reference
 
-For FM token hex values, see `../../references/fm-css-reference.md`.
-For DS2026 variable keys (preferred for Plugin API), see `../../docs/meta-kit/variables.md`.
-For the full token list, see `../../docs/token-reference.md` or `../../tokens/tokens.css`.
+All token binding patterns — color variables, text styles, effect styles, discovery via `search_design_system`, and fallback rules — are in `../../references/figma-output.md` § "Token binding."
 
-When using `use_figma` for DS2026 components, prefer variable binding over hex:
-```js
-// Import variable and bind (see meta-kit/variables.md for all keys)
-const themePrimary = await figma.variables.importVariableByKeyAsync("a256595115f6048a1e1c843e3099a79a5c259288");
-bindFill(frame, themePrimary);
-```
-
-For FM components, use hex from `fm-css-reference.md` (FM Kit does not publish variables).
+Additional references:
+- DS2026 variable keys: `../../docs/meta-kit/variables.md`
+- DS2026 full token list: `../../docs/token-reference.md`
+- FM hex fallback: `../../references/fm-css-reference.md`
 
 ### Spacing scale
 

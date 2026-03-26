@@ -303,7 +303,7 @@ Flow Screen does NOT need detaching — `contentArea.appendChild()` works direct
 
 1. **Import library components** for all standard UI elements — never recreate FM components as raw frames
 2. **Build each screen as a frame** with auto-layout — no absolute positioning
-3. **Use token hex values** from `../../references/fm-css-reference.md` for scaffolding only
+3. **Bind library tokens** on scaffolding — follow `../../references/figma-output.md` § "Token binding". Call `search_design_system` to discover style keys before writing code. Bind color styles, text styles, and (for DS2026) effect styles + color variables. Hex fallback only if the file isn't connected to the library.
 4. **Build standard screen structure**: FM App_header → horizontal frame → FM Side navigation bar + Content area
 5. **Import `Meta / Chrome / Generation Log`** component (key: `a9653f30925367e96dea90093d750bfe70849571`) as the first element before the flow cover card. Set all 6 text properties using `setProp()` from `../../docs/meta-kit/components.md`.
 6. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
@@ -327,8 +327,8 @@ Generates a JSON spec. The Assembler resolves all tokens to Figma variables — 
 
 ### Token reference
 
-For FM scaffolding hex values, see the FM token palette in `../../references/fm-css-reference.md`.
-For DS2026 variable binding, see `../../docs/meta-kit/variables.md`.
+For `use_figma` output (FM or DS2026), follow `../../references/figma-output.md` § "Token binding" — discover keys via `search_design_system`, bind all available styles and variables. Hex fallback only.
+For HTML output, use `--fm-*` CSS variables from `../../references/fm-css-reference.md` (FM) or `--zen-*` from `../../tokens/tokens.css` (DS2026).
 
 ---
 

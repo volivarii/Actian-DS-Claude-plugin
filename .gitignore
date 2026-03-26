@@ -21,6 +21,9 @@ __pycache__/
 # Node
 node_modules/
 
+# Test prompts (local reference only)
+plugins/*/TEST-PROMPTS.md
+
 # Superpowers working files
 .superpowers/
 plugins/*/docs/superpowers/

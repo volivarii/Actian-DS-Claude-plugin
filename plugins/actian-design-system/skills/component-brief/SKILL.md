@@ -192,7 +192,10 @@ For builder functions (`buildSpecTable`, `buildStateGrid`), see `../../reference
 
 ### Variable binding (DS2026 mode)
 
-For DS2026 output, bind scaffolding colors to Figma variables for theme switching. See `../../docs/meta-kit/variables.md` for keys and the `bindFill`/`bindStroke` pattern. FM output continues using hex from `../../references/fm-css-reference.md`.
+Follow `../../references/figma-output.md` § "Token binding" for all style and variable binding. Before writing `use_figma` code, call `search_design_system` to discover the style keys you need:
+- **DS2026**: bind color variables, text styles (`textStyleId`), and effect styles (`effectStyleId`)
+- **FM**: bind published color styles (`fillStyleId`) and text styles (`textStyleId`)
+- **Fallback**: hex only if the file isn't connected to the library
 
 ### Card children
 
