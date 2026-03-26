@@ -16,6 +16,14 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 
 > **Mode: Implement with review gate.** Build first, explain after. Move fast — infer details and make reasonable decisions instead of asking for every detail. Two acceptable pauses: (1) Step 1 if critical context is genuinely missing (feature name, user role, app context), and (2) Step 3 to confirm the screen list before generating — regenerating wrong screens is expensive. The cleanup pass (Step 7) handles polish. Keep status updates to milestones only.
 
+### Quality tier detection
+
+| Signal | Tier | Effect |
+|--------|------|--------|
+| "quick", "rough", "draft" | Draft | Happy path only (3-5 screens), minimal text overrides |
+| No qualifier (default) | Standard | Happy path + error/empty states, full FM component overrides |
+| "production", "final" | Production | All paths + loading states + edge cases, variable binding |
+
 ## Input
 
 The user describes a feature or user goal, and optionally provides reference material. Examples:
@@ -276,16 +284,28 @@ Builds the flow directly in Figma via JavaScript. Imports published library comp
 
 **What needs hex from the Token Reference:** Only custom scaffolding — wrapper frames, content area backgrounds, cover cards, generation log, custom text nodes.
 
+### Screen scaffolding (Meta Kit)
+
+Import `Meta / Chrome / Flow Screen` instead of building header + sidebar + content manually:
+
+```js
+const flowScreenSet = await figma.importComponentSetByKeyAsync("2ca7c756ad54e81219104d3a270ba8eb9eeffcf6");
+const stdVariant = flowScreenSet.children.find(c => c.name === "Size=Standard");
+const screen = stdVariant.createInstance();
+// Screen arrives with FM App_header (top) + FM Sidebar (left) + Content Area
+const contentArea = screen.findOne(n => n.name === "Content Area");
+// Add screen content to contentArea
+```
+
+Flow Screen does NOT need detaching — `contentArea.appendChild()` works directly. See `../../docs/meta-kit-components.md` for full details.
+
 **Rules for `use_figma` code:**
 
 1. **Import library components** for all standard UI elements — never recreate FM components as raw frames
 2. **Build each screen as a frame** with auto-layout — no absolute positioning
-3. **Use token hex values** from the FM Token Reference below for scaffolding only:
-   ```js
-   frame.fills = [{ type: 'SOLID', color: hexToRgb('#F5F5FA') }]; // --fm-base-100
-   ```
+3. **Use token hex values** from `../../references/fm-css-reference.md` for scaffolding only
 4. **Build standard screen structure**: FM App_header → horizontal frame → FM Side navigation bar + Content area
-5. **Include a generation metadata frame** as the first element (see CLAUDE.md Generation Metadata)
+5. **Import `Meta / Chrome / Generation Log`** component (key: `a9653f30925367e96dea90093d750bfe70849571`) as the first element before the flow cover card. Set all 6 text properties using `setProp()` from `../../docs/meta-kit-components.md`.
 6. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
 7. **Set text content contextually** on all instances (nav items, page headers, button labels) — no generic placeholder text
 8. **One row per flow**: all screens for a sub-flow in a single horizontal wrapper frame
@@ -305,34 +325,10 @@ Generates a JSON spec. The Assembler resolves all tokens to Figma variables — 
 
 ---
 
-## FM Token Reference
+### Token reference
 
-Use these exact values when writing `use_figma` code. In assembler specs, use the token name. In HTML, use the `var(--fm-*)` CSS variable.
-
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `--fm-base-900` | `#1A202C` | Darkest background, cover cards |
-| `--fm-base-800` | `#2D3648` | Primary button fill, nav text |
-| `--fm-base-700` | `#4A5468` | Secondary text |
-| `--fm-base-600` | `#717D96` | Muted text, labels |
-| `--fm-base-500` | `#A0ABC0` | Placeholder text, icon borders |
-| `--fm-base-400` | `#CBD2E0` | Borders, disabled fills, header border |
-| `--fm-base-300` | `#E2E7F0` | Subtle borders |
-| `--fm-base-200` | `#EDF0F7` | Active nav bg, hover, dividers |
-| `--fm-base-100` | `#F5F5FA` | Light background, content bg |
-| `--fm-base-white` | `#FFFFFF` | White, card/sidebar/header bg |
-| `--fm-brand` | `#0550DC` | Brand blue, links |
-| `--fm-text-primary` | `#101828` | Primary text, headings |
-| `--fm-text-secondary` | `#2D3648` | Secondary text |
-| `--fm-text-tertiary` | `#475467` | Tertiary text, subtitles |
-| `--fm-text-error` | `#D92D20` | Error text, required markers |
-| `--fm-text-success` | `#047800` | Success text |
-| `--fm-border` | `#CBD2E0` | Default border color |
-| `--fm-radius` | `6px` | Default border radius |
-
-**Spacing scale:** 4, 8, 12, 16, 24, 28, 32px only.
-
-For the full CSS reference (component styles + HTML structure templates), read `../../references/fm-css-reference.md`.
+For FM scaffolding hex values, see the FM token palette in `../../references/fm-css-reference.md`.
+For DS2026 variable binding, see `../../docs/meta-kit-variables.md`.
 
 ---
 
