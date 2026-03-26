@@ -161,6 +161,21 @@ sync_tokens() {
   echo -e "Tokens: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"
 }
 
+sync_meta_kit() {
+  echo ""
+  echo "Syncing Meta Kit catalogs from ${REPO}..."
+  echo ""
+
+  local ok=0 fail=0
+
+  fetch_file "docs/meta-kit-components.md" "$PLUGIN_DIR/docs/meta-kit-components.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "docs/meta-kit-variables.md" "$PLUGIN_DIR/docs/meta-kit-variables.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "docs/meta-kit-builders.md" "$PLUGIN_DIR/references/meta-kit-builders.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+
+  echo ""
+  echo -e "Meta Kit: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"
+}
+
 # Main
 echo "========================================"
 echo "  Sync from upstream: ${REPO}"
@@ -174,6 +189,7 @@ case "$SYNC_TARGET" in
     sync_guidelines
     sync_foundations
     sync_tokens
+    sync_meta_kit
     ;;
   docs)
     sync_docs
@@ -187,9 +203,12 @@ case "$SYNC_TARGET" in
   tokens)
     sync_tokens
     ;;
+  meta-kit)
+    sync_meta_kit
+    ;;
   *)
     echo -e "${RED}Unknown target: ${SYNC_TARGET}${NC}"
-    echo "Usage: $0 [all|docs|tokens|guidelines|foundations]"
+    echo "Usage: $0 [all|docs|tokens|guidelines|foundations|meta-kit]"
     exit 1
     ;;
 esac
