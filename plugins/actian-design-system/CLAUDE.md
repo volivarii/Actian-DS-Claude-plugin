@@ -54,14 +54,10 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 
 | File | Purpose |
 |------|---------|
-| `docs/presentation-templates.md` | 5 slide template specs |
-| `docs/presentation-content-guidelines.md` | Voice, tone, chart selection |
+| `docs/presentation-guide.md` | Slide templates, voice & tone, chart selection, narrative structure |
 | `docs/meta-kit/builders.md` | Shared JS builder functions |
 | `references/*.md` | Shared skill references (figma-output, fm-css, layout-spec, token-naming) |
 
-### Legacy sync (deprecated)
-
-`scripts/sync-from-upstream.sh` syncs from the Assembler GitHub repo. This is replaced by `/sync-design-system` which extracts directly from Figma. The script remains available as a fallback but will be removed in a future version.
 
 ## Versioning (Semantic Versioning)
 

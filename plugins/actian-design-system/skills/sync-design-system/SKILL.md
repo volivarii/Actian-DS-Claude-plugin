@@ -1071,7 +1071,7 @@ Changed files: [N] files, [+X] insertions, [-Y] deletions
 This skill replaces the following pieces of the old pipeline:
 
 - **Assembler repo as sync intermediary** -- no longer needed for data extraction; Figma is read directly.
-- **`scripts/sync-from-upstream.sh`** -- deprecated (script remains in repo for reference but is no longer the primary sync path).
+- **`scripts/sync-from-upstream.sh`** -- removed.
 - **Two-hop data flow** -- eliminated in favor of single-hop Figma-to-plugin extraction.
 - **Hand-authored `content-guidelines.md`** -- replaced by Figma-extracted content from DS2026 guideline pages.
 - **Hand-authored `accessibility-guidelines.md`** -- replaced by Figma-extracted content from DS2026 accessibility page.
