@@ -297,7 +297,7 @@ const contentArea = screen.findOne(n => n.name === "Content Area");
 // Add screen content to contentArea
 ```
 
-Flow Screen does NOT need detaching — `contentArea.appendChild()` works directly. See `../../docs/meta-kit-components.md` for full details.
+Flow Screen does NOT need detaching — `contentArea.appendChild()` works directly. See `../../docs/meta-kit/components.md` for full details.
 
 **Rules for `use_figma` code:**
 
@@ -305,7 +305,7 @@ Flow Screen does NOT need detaching — `contentArea.appendChild()` works direct
 2. **Build each screen as a frame** with auto-layout — no absolute positioning
 3. **Use token hex values** from `../../references/fm-css-reference.md` for scaffolding only
 4. **Build standard screen structure**: FM App_header → horizontal frame → FM Side navigation bar + Content area
-5. **Import `Meta / Chrome / Generation Log`** component (key: `a9653f30925367e96dea90093d750bfe70849571`) as the first element before the flow cover card. Set all 6 text properties using `setProp()` from `../../docs/meta-kit-components.md`.
+5. **Import `Meta / Chrome / Generation Log`** component (key: `a9653f30925367e96dea90093d750bfe70849571`) as the first element before the flow cover card. Set all 6 text properties using `setProp()` from `../../docs/meta-kit/components.md`.
 6. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
 7. **Set text content contextually** on all instances (nav items, page headers, button labels) — no generic placeholder text
 8. **One row per flow**: all screens for a sub-flow in a single horizontal wrapper frame
@@ -328,7 +328,7 @@ Generates a JSON spec. The Assembler resolves all tokens to Figma variables — 
 ### Token reference
 
 For FM scaffolding hex values, see the FM token palette in `../../references/fm-css-reference.md`.
-For DS2026 variable binding, see `../../docs/meta-kit-variables.md`.
+For DS2026 variable binding, see `../../docs/meta-kit/variables.md`.
 
 ---
 

@@ -235,9 +235,9 @@ Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizonta
 - Background: `theme-primary` gradient
 - Text: inverse text
 
-For slide token values and DS2026 variable binding, see `../../docs/meta-kit-variables.md`.
-For the shared Do-Don't Pair and Code Block components, see `../../docs/meta-kit-components.md`.
-For `buildSpecTable` (data tables in slides), see `../../references/meta-kit-builders.md`.
+For slide token values and DS2026 variable binding, see `../../docs/meta-kit/variables.md`.
+For the shared Do-Don't Pair and Code Block components, see `../../docs/meta-kit/components.md`.
+For `buildSpecTable` (data tables in slides), see `../../references/meta-kit/builders.md`.
 
 ### Charts in `use_figma`
 

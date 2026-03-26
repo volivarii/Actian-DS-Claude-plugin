@@ -168,9 +168,9 @@ sync_meta_kit() {
 
   local ok=0 fail=0
 
-  fetch_file "docs/meta-kit-components.md" "$PLUGIN_DIR/docs/meta-kit-components.md" && ok=$((ok + 1)) || fail=$((fail + 1))
-  fetch_file "docs/meta-kit-variables.md" "$PLUGIN_DIR/docs/meta-kit-variables.md" && ok=$((ok + 1)) || fail=$((fail + 1))
-  fetch_file "docs/meta-kit-builders.md" "$PLUGIN_DIR/references/meta-kit-builders.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "docs/meta-kit-components.md" "$PLUGIN_DIR/docs/meta-kit/components.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "docs/meta-kit-variables.md" "$PLUGIN_DIR/docs/meta-kit/variables.md" && ok=$((ok + 1)) || fail=$((fail + 1))
+  fetch_file "docs/meta-kit-builders.md" "$PLUGIN_DIR/docs/meta-kit/builders.md" && ok=$((ok + 1)) || fail=$((fail + 1))
 
   echo ""
   echo -e "Meta Kit: ${GREEN}${ok} synced${NC}, ${RED}${fail} failed${NC}"

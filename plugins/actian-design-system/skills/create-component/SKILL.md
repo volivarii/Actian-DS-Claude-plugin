@@ -207,7 +207,7 @@ Use exact component names from `../../docs/fm-components.md` (FM Kit) or `../../
 
 Follow the shared `use_figma` pattern in `../../references/figma-output.md`.
 
-Build the component directly in Figma using JavaScript via `use_figma`. The Plugin API supports variable binding via `importVariableByKeyAsync` + `setBoundVariableForPaint`. For DS2026 output, bind scaffolding colors to Figma variables (see `../../docs/meta-kit-variables.md`). For FM output, use hex from the FM token palette.
+Build the component directly in Figma using JavaScript via `use_figma`. The Plugin API supports variable binding via `importVariableByKeyAsync` + `setBoundVariableForPaint`. For DS2026 output, bind scaffolding colors to Figma variables (see `../../docs/meta-kit/variables.md`). For FM output, use hex from the FM token palette.
 
 ### Required structure
 
@@ -216,8 +216,8 @@ The `use_figma` code must:
 1. **Create a component set** (for variants) or a single component
 2. **Use auto-layout** on every frame — no absolute positioning
 3. **Set component properties** — text properties (`componentPropertyDefinitions`) and boolean properties for show/hide toggles
-4. **Bind tokens** — for DS2026, use variable binding from `../../docs/meta-kit-variables.md`; for FM, use hex from `../../references/fm-css-reference.md` with token name comments
-5. **Include generation metadata** — import `Meta / Chrome / Generation Log` component (key: `a9653f30925367e96dea90093d750bfe70849571`) as the first sibling before the component set. Set all 6 text properties using `setProp()` from `../../docs/meta-kit-components.md`.
+4. **Bind tokens** — for DS2026, use variable binding from `../../docs/meta-kit/variables.md`; for FM, use hex from `../../references/fm-css-reference.md` with token name comments
+5. **Include generation metadata** — import `Meta / Chrome / Generation Log` component (key: `a9653f30925367e96dea90093d750bfe70849571`) as the first sibling before the component set. Set all 6 text properties using `setProp()` from `../../docs/meta-kit/components.md`.
 6. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
 
 ### Properties checklist
@@ -234,12 +234,12 @@ Without properties, users can't customize the component when using instances.
 ## Token Reference
 
 For FM token hex values, see `../../references/fm-css-reference.md`.
-For DS2026 variable keys (preferred for Plugin API), see `../../docs/meta-kit-variables.md`.
+For DS2026 variable keys (preferred for Plugin API), see `../../docs/meta-kit/variables.md`.
 For the full token list, see `../../docs/token-reference.md` or `../../tokens/tokens.css`.
 
 When using `use_figma` for DS2026 components, prefer variable binding over hex:
 ```js
-// Import variable and bind (see meta-kit-variables.md for all keys)
+// Import variable and bind (see meta-kit/variables.md for all keys)
 const themePrimary = await figma.variables.importVariableByKeyAsync("a256595115f6048a1e1c843e3099a79a5c259288");
 bindFill(frame, themePrimary);
 ```

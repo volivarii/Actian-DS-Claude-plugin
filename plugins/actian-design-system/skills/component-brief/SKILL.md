@@ -187,12 +187,12 @@ const content = card.findOne(n => n.name === "Content");
 // Now append tables, text, and visual elements to `content`
 ```
 
-For component keys, properties, and the `setProp` helper, see `../../docs/meta-kit-components.md`.
-For builder functions (`buildSpecTable`, `buildStateGrid`), see `../../references/meta-kit-builders.md`.
+For component keys, properties, and the `setProp` helper, see `../../docs/meta-kit/components.md`.
+For builder functions (`buildSpecTable`, `buildStateGrid`), see `../../references/meta-kit/builders.md`.
 
 ### Variable binding (DS2026 mode)
 
-For DS2026 output, bind scaffolding colors to Figma variables for theme switching. See `../../docs/meta-kit-variables.md` for keys and the `bindFill`/`bindStroke` pattern. FM output continues using hex from `../../references/fm-css-reference.md`.
+For DS2026 output, bind scaffolding colors to Figma variables for theme switching. See `../../docs/meta-kit/variables.md` for keys and the `bindFill`/`bindStroke` pattern. FM output continues using hex from `../../references/fm-css-reference.md`.
 
 ### Card children
 

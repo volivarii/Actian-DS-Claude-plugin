@@ -156,7 +156,7 @@ When the user explicitly requests the Assembler:
 
 ## Meta Kit components
 
-For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../../docs/meta-kit-components.md` for component keys and properties.
+For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../../docs/meta-kit/components.md` for component keys and properties.
 
 ### Import pattern
 
@@ -182,7 +182,7 @@ When a Meta Kit component exists for an element, **always import it** instead of
 
 ## Variable binding (DS2026 output)
 
-For DS2026 output, bind scaffolding colors to Figma variables instead of using hex. This enables theme switching on generated output. See `../../docs/meta-kit-variables.md` for variable keys.
+For DS2026 output, bind scaffolding colors to Figma variables instead of using hex. This enables theme switching on generated output. See `../../docs/meta-kit/variables.md` for variable keys.
 
 ```js
 // Import variables at the start of each use_figma call
@@ -205,7 +205,7 @@ For FM output, continue using hex values — FM Kit does not publish variables f
 
 ## Builder functions
 
-For dynamic content (tables with variable rows, state grids with variable columns), use the builder functions in `../../references/meta-kit-builders.md`. Copy the needed function into your `use_figma` call and invoke it.
+For dynamic content (tables with variable rows, state grids with variable columns), use the builder functions in `../../references/meta-kit/builders.md`. Copy the needed function into your `use_figma` call and invoke it.
 
 Available builders:
 - `buildSpecTable(parent, headers, rows, options)` — data tables with header row + N data rows
