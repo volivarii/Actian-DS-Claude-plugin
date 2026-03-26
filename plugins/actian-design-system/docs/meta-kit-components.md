@@ -22,6 +22,25 @@ const variant = set.children.find(c => c.name === "Mode=DS, Type=Standard");
 const instance = variant.createInstance();
 ```
 
+### Detaching for content insertion (Brief Card, Code Block)
+
+Figma instances do NOT allow `appendChild` into their internal frames. For components that have a content slot (Brief Card, Code Block), use this pattern:
+
+1. **Set text properties BEFORE detaching** (properties only work on instances)
+2. **Detach** with `instance.detachInstance()` — converts to a regular frame
+3. **Find the content frame** and append children freely
+
+```js
+const instance = variant.createInstance();
+setProp(instance, "Title", "Design tokens");        // Set props first!
+setProp(instance, "Subtitle", "Token documentation");
+const frame = instance.detachInstance();              // Now it's a regular frame
+const content = frame.findOne(n => n.name === "Content");
+content.appendChild(myTable);                         // Works!
+```
+
+The Generation Log, Card Divider, and Flow Screen do NOT need detaching — they don't have content slots that need dynamic children.
+
 ### Setting text and boolean properties
 
 Component properties in Figma have auto-generated suffixes (e.g., `Title#1234:56`).
