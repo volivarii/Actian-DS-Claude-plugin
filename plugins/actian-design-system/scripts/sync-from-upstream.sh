@@ -32,6 +32,12 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+echo ""
+echo -e "${YELLOW}⚠  DEPRECATED: This script syncs from the Assembler repo.${NC}"
+echo -e "${YELLOW}   Use '/sync-design-system' skill instead for direct Figma extraction.${NC}"
+echo -e "${YELLOW}   This script will be removed in a future version.${NC}"
+echo ""
+
 fetch_file() {
   local remote_path="$1"
   local local_path="$2"
