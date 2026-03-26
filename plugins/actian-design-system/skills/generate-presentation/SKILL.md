@@ -32,6 +32,14 @@ The user provides one or more of:
 
 **Defaults:** Audience = team update. Goal = inform. Slide count = 8–15 based on content density.
 
+### Quality tier detection
+
+| Signal | Tier | Effect |
+|--------|------|--------|
+| "quick", "rough", "draft" | Draft | 5-8 slides, stat cards only (no complex charts) |
+| No qualifier (default) | Standard | 8-15 slides, full chart selection |
+| "production", "final" | Production | 8-20 slides with speaker notes, slide-by-slide quality check |
+
 ## Step 1 — Gather and understand content
 
 Before writing slides:
@@ -206,26 +214,30 @@ If the user hasn't provided a target Figma file, ask: "Where should I push this?
 
 Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizontal auto-layout inside. Font: **Roboto** (DS2026).
 
-### Slide types and token hex values
+### Slide types
 
 **Cover slide:**
-- Background: `#0550DC` (`--zen-color-theme-primary`)
-- Title: white `#FFFFFF`, 48px bold
-- Subtitle: white at 80% opacity (`rgba(255,255,255,0.8)`), 24px regular
+- Background: `theme-primary` gradient
+- Title: inverse text, 48px bold
+- Subtitle: inverse text at 80% opacity, 24px regular
 
 **Body (Text + Visual):**
-- Background: `#FFFFFF`
+- Background: `background-bg-default`
 - Two-column layout (text left, visual right)
-- Heading: `#000000`, 32px bold
-- Body text: `#3F3F4A`, 18px regular
+- Heading: `text-primary`, 32px bold
+- Body text: `text-secondary`, 18px regular
 
 **Section divider:**
-- Background: `#F5F5FA` (`--zen-color-background-bg-grey-2`)
-- Centered title: 36px bold, `#000000`
+- Background: `background-bg-grey-2`
+- Centered title: 36px bold, `text-primary`
 
 **Back cover:**
-- Background: `#0550DC` (`--zen-color-theme-primary`)
-- Text: white `#FFFFFF`
+- Background: `theme-primary` gradient
+- Text: inverse text
+
+For slide token values and DS2026 variable binding, see `../../docs/meta-kit-variables.md`.
+For the shared Do-Don't Pair and Code Block components, see `../../docs/meta-kit-components.md`.
+For `buildSpecTable` (data tables in slides), see `../../references/meta-kit-builders.md`.
 
 ### Charts in `use_figma`
 
@@ -235,10 +247,13 @@ Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizonta
 
 ### Execution sequence
 
-1. **Generation metadata frame first** — follow the generation log pattern from `../../references/figma-output.md`
+1. **Generation metadata frame first** — Import `Meta / Chrome / Generation Log` component (key: `a9653f30925367e96dea90093d750bfe70849571`), set all 6 text properties using `setProp()`, place as the first element.
 2. **One `use_figma` call per slide** — keep each call under the 20KB limit. Each call creates one 1920x1080 frame with auto-layout contents.
 3. **Arrange in horizontal row** — position slides left-to-right with consistent spacing (e.g., 40px gap)
 4. **Take screenshot and show user** — use `get_screenshot` on the parent frame or page to show the final result
+
+For best-practice slides, import `Meta / Content / Do-Don't Pair` (key: `28edfacf13e50706586172bd48f8a3ad84d7c263`). Set `Do Label`, `Don't Label`, `Do Example`, `Don't Example` properties.
+For code example slides, import `Meta / Content / Code Block` (key: `1bf10eee1751a46da5f90a9671be6c9abf0073b7`). Set `Code` and optionally `Header Text` properties. Detach before appending content if needed.
 
 ## Step 7 — Iterate
 
