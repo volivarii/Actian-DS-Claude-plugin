@@ -1,6 +1,6 @@
 # Meta Kit — Component Catalog
 
-Auto-generated from Figma MCP on 2026-03-26. 16 components (11 component sets + 5 standalone).
+Auto-generated from Figma MCP on 2026-03-26. 15 components (10 component sets + 5 standalone).
 
 Library components used by skills to build spec briefs, flow screens, and presentations.
 These live in the Meta Kit Figma library and are imported at runtime via the Plugin API.
@@ -24,9 +24,9 @@ const variant = set.children.find(c => c.name === "Mode=DS, Type=Standard");
 const instance = variant.createInstance();
 ```
 
-### Detaching for content insertion (Brief Card, Code Block, Accessibility Card, Theme Card, Slide Frame)
+### Detaching for content insertion (Brief Card, Code Block, Accessibility Card, Theme Card)
 
-Figma instances do NOT allow `appendChild` into their internal frames. For components that have a content slot (Brief Card, Code Block, Accessibility Card, Theme Card, Slide Frame), use this pattern:
+Figma instances do NOT allow `appendChild` into their internal frames. For components that have a content slot (Brief Card, Code Block, Accessibility Card, Theme Card), use this pattern:
 
 1. **Set text properties BEFORE detaching** (properties only work on instances)
 2. **Detach** with `instance.detachInstance()` — converts to a regular frame
@@ -304,21 +304,7 @@ content.appendChild(myThemePreview);
 
 ---
 
-### Meta / Chrome / Slide Frame
-Presentation slide container matching the Actian template. Cover/Section/Back Cover use a navy-to-blue gradient (`rgb(9,9,82)` → `rgb(20,20,184)`). Body is white. 1920×1080px.
-
-For the **background geometric art**, import from the Template file (`l7KNDEvTs22yr7xbymwoYe`). For the **Actian Pyramid** logo, import from DS2026 (key: `84e6abe2e5b7dbe96a859397f557249922560413`).
-
-- Variants: **Type:** `Cover` · `Body` · `Section` · `Back Cover`
-- Cover text overrides: `Topic`, `Title`, `Subtitle`, `Date`, `Creators`
-- Body text overrides: `Title`
-- Section text overrides: `Topic`, `Title`
-- Back Cover text overrides: `Title`
-- Node: `53:27` | Key: `4f158eb6f140731435fe78b155a6339e8a21fcd8`
-
----
-
-### DS2026 Brand Assets (import directly — not in Meta Kit)
+### DS2026 Brand & Presentation Assets (import directly — not in Meta Kit)
 
 These components live in the DS2026 library and should be imported directly via `importComponentByKeyAsync` or `importComponentSetByKeyAsync`. They are NOT in Meta Kit.
 
@@ -327,7 +313,11 @@ These components live in the DS2026 library and should be imported directly via 
 | Actian Pyramid | `84e6abe2e5b7dbe96a859397f557249922560413` | DS2026 | `importComponentSetByKeyAsync` — Variants: Color=Full color, Color=White |
 | Illustration | `00302ca7dc4298c719f19ca4766029909ecbeb9d` | DS2026 | `importComponentSetByKeyAsync` — Variants: Empty state large/medium/small, Error state/medium, Maintenance, Success |
 | Actian Data Intelligence logo | `2e53061b856da7a42b2328279d16718d252e0780` | DS2026 | `importComponentSetByKeyAsync` — Type × Orientation |
-| Background graphic (presentations) | N/A — use frame from Template file | Template (`l7KNDEvTs22yr7xbymwoYe`) | Copy the "Background graphic" frame from Cover/Section slides |
+| Presentation Cover background | Node `12770:14027` | DS2026 (Illustrations & graphics page) | Clone frame via `use_figma` — dark with geometric vectors |
+| Presentation Cover+logo background | Node `12770:14032` | DS2026 | Same as Cover + Actian Pyramid at bottom-right |
+| Presentation Section background | Node `12770:14016` | DS2026 | Dark geometric for section dividers |
+| Presentation Section+logo background | Node `12770:14021` | DS2026 | Same as Section + Actian Pyramid |
+| Template file (full slide reference) | File `l7KNDEvTs22yr7xbymwoYe` node `5557:16` | Template for projects | 5 slide types: Cover, Body, Body+sidebar, Section, Back cover |
 
 ---
 
@@ -461,7 +451,6 @@ setProp(research, "Source", "Q1 2026 Research — 12 participants");
 | Stat Card | `8662c721d7...` | `46:29` | `importComponentSetByKeyAsync` |
 | Accessibility Card | `b4779a13f4...` | `47:24` | `importComponentSetByKeyAsync` |
 | Theme Card | `9081a77619...` | `47:43` | `importComponentSetByKeyAsync` |
-| Slide Frame | `4f158eb6f1...` | `53:27` | `importComponentSetByKeyAsync` |
 | Generation Log | `a9653f3092...` | `3:2` | `importComponentByKeyAsync` |
 | Card Divider | `f4d778e1cf...` | `4:2` | `importComponentByKeyAsync` |
 | Code Block | `1bf10eee17...` | `8:2` | `importComponentByKeyAsync` |
