@@ -1,7 +1,7 @@
 {
   "component": "Toggle control",
   "page_id": "12070:77591",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-26T00:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12070:77591",
   "frames_found": ["Design guidelines", "Content guidelines", "Components"],
   "frames_missing": ["ready made examples", "Screenshots of use cases", "Behavior demo"],
@@ -31,7 +31,18 @@
       }
     ]
   },
-  "design_guidelines": null,
+  "has_design_guidelines": true,
+  "design_guidelines": {
+    "sections": [
+      {
+        "heading": "Toggle alignment",
+        "items": [
+          "When the toggle label is short (e.g., 'On'/'Off'), the toggle is left-aligned with the label to its right.",
+          "When the toggle has a longer descriptive label (e.g., 'Activate on current page'), the toggle is right-aligned with the label to its left."
+        ]
+      }
+    ]
+  },
   "variants": null,
   "examples": null,
   "screenshots": null,

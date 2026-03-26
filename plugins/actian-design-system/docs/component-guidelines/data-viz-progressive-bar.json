@@ -1,7 +1,8 @@
 {
   "component": "Data viz: progressive bar",
   "page_id": "14136:1567",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-26T00:00:00Z",
+  "has_content_guidelines": true,
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=14136-1567",
   "frames_found": ["Content guidelines", "Components", "Screenshots of current use cases"],
   "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],

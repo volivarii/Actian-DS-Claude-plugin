@@ -1,7 +1,7 @@
 {
   "component": "Link",
   "page_id": "12054:32076",
-  "extracted_at": "2026-03-25T12:00:00Z",
+  "extracted_at": "2026-03-26T00:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=12054:32076",
   "frames_found": ["Design guidelines", "Content guidelines", "Components"],
   "frames_missing": ["ready made examples", "Screenshots of use cases", "Behavior demo"],
@@ -65,7 +65,21 @@
       }
     ]
   },
-  "design_guidelines": null,
+  "has_design_guidelines": true,
+  "design_guidelines": {
+    "sections": [
+      {
+        "heading": "Accessibility",
+        "items": [
+          "Default State: Underlined. Standard practice is to underline links in their default state. This ensures the link is distinguishable from surrounding text by a visual cue other than color alone.",
+          "Exception: Non-Underlined Links. In specific instances where links are not underlined by default, they must meet the following WCAG 2.1 Level AA requirements:",
+          "Contrast with Surrounding Text: The link text must have at least a 3:1 contrast ratio against the surrounding body text.",
+          "Contrast with Background: The link text must maintain at least a 4.5:1 contrast ratio against the background color.",
+          "Hover/Focus Requirement: A non-color visual indicator (typically an underline) must appear when the link is hovered with a mouse or focused via keyboard."
+        ]
+      }
+    ]
+  },
   "variants": null,
   "examples": null,
   "screenshots": null,

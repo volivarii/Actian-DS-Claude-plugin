@@ -1,7 +1,7 @@
 {
   "component": "Empty state",
   "page_id": "7314:3195",
-  "extracted_at": "2026-03-25T00:00:00Z",
+  "extracted_at": "2026-03-26T00:00:00Z",
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=7314:3195",
   "frames_found": ["Content guidelines", "Design guidelines", "Components"],
   "frames_missing": ["ready made examples", "Screenshots of use cases", "Screenshots of current use cases", "Behavior demo"],
@@ -122,31 +122,41 @@
       }
     ]
   },
+  "has_design_guidelines": true,
   "design_guidelines": {
     "sections": [
       {
         "heading": "Anatomy",
-        "content": [
-          {
-            "note": "Three sizes: Large (381x278px), Medium (290x142px), Small (161x21px). Each has pointer annotations showing component parts."
-          }
+        "items": [
+          "Large: Illustration (240x160px), H2 heading, Body1 description, Ghost button (Small) + Outlined button (Small).",
+          "Medium: Illustration (80x50px), H4 heading, Body2 description, Ghost button (Small).",
+          "Small: Illustration (28x21px) inline with Body2 text. No heading or button."
         ]
       },
       {
-        "heading": "Spec",
-        "content": [
-          {
-            "rule": "Large: 240px wide illustration area, 160px tall. Uses spacing-md between elements, spacing-xs for small gaps, spacing-2xs for subtitle gap. Content is centered.",
-            "note": "Medium: 68px wide illustration, 49px tall. Uses spacing-xs between elements, spacing-2xs for subtitle. Small: 28px wide, 21px tall. Uses spacing-xs."
-          }
+        "heading": "Specs",
+        "items": [
+          "Large: illustration 240px wide x 160px tall; spacing-md (16px) between illustration and text; spacing-2xs (4px) between heading and description; spacing-xs (8px) between text and actions; content centered.",
+          "Medium: illustration 80px wide x 50px tall (or 68px x 49px); spacing-xs (8px) between illustration and text; spacing-2xs (4px) between heading and description; content centered.",
+          "Small: illustration 28px wide x 21px tall; spacing-xs (8px) gap between illustration and inline text."
         ]
       },
       {
         "heading": "Layout",
-        "content": [
-          {
-            "note": "Layout examples show Large, Medium, and Small empty states within application wireframes. Large empty states center in the main content area. Medium states use spacing-2xl above. Small states use spacing-md for padding. Pattern section shows before/after states demonstrating how content replaces the empty state."
-          }
+        "items": [
+          "Empty states are always centered within the main body of a component or page.",
+          "Large: occupies the full main content area, centered both horizontally and vertically.",
+          "Medium (tab panel): spacing-2xl (40px) from the top of the content area to the empty state.",
+          "Medium (side panel / drawer): spacing-lg (24px) top and bottom padding around the empty state.",
+          "Small (card or widget): spacing-md (16px) padding around the empty state."
+        ]
+      },
+      {
+        "heading": "Pattern",
+        "items": [
+          "Users can use the button in the empty state component to resolve the empty state. Once resolved, the main button will appear, allowing them to add, create, or edit.",
+          "Before resolution: empty state is shown centered with illustration, title, description, and CTA.",
+          "After resolution: empty state is replaced by actual data (table rows, list items, cards)."
         ]
       }
     ]

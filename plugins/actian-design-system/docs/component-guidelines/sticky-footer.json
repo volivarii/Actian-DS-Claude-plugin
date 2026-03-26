@@ -1,7 +1,8 @@
 {
   "component": "Sticky footer",
   "page_id": "9253:33986",
-  "extracted_at": "2026-03-25T12:00:00Z",
+  "extracted_at": "2026-03-26T00:00:00Z",
+  "has_content_guidelines": true,
   "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:33986",
   "frames_found": ["Content guidelines", "Sticky footer", "Screenshots of use cases"],
   "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
@@ -9,33 +10,34 @@
     "sections": [
       {
         "heading": "Usage",
-        "content": [
-          { "rule": "Use when a page or drawer contains primary actions that must remain available during scrolling." },
-          { "rule": "Use when users complete steppers or multi-field forms." },
-          { "rule": "Use when the action affects entire page/drawer/form state." }
+        "items": [
+          "A page or drawer contains primary actions that must remain available during scrolling.",
+          "Users complete steppers, or multi-field forms that extend beyond the current view.",
+          "The action affects the entire page, drawer, or form's state."
         ]
       },
       {
         "heading": "Button hierarchy",
-        "content": [
-          { "rule": "Must contain exactly one primary action." },
-          { "rule": "Exception: additional destructive button (Delete)." },
-          { "rule": "Optional secondary action." },
-          { "rule": "Max 3 buttons. More actions increase the cognitive load." }
+        "items": [
+          "The sticky footer must contain exactly one primary action.",
+          "Exception: An additional 'destructive' button (such as Delete).",
+          "An optional secondary action can be included.",
+          "Limit to a maximum of 3 buttons. More actions increase the cognitive load."
         ]
       },
       {
         "heading": "Button labels",
-        "content": [
-          { "rule": "Use clear verbs describing the OUTCOME: Save, Update, Create, Confirm, Submit, Cancel, Delete, Continue." },
-          { "rule": "Avoid generic labels like 'Done'." }
+        "items": [
+          "Use clear verbs that describe the OUTCOME. Labels should describe what will happen, not what the button is.",
+          "Examples: Save, Update, Create, Confirm, Submit, Cancel, Delete, Continue (as part of a defined stepper).",
+          "Avoid generic action labels such as 'Done'."
         ]
       },
       {
         "heading": "Steppers",
-        "content": [
-          { "rule": "Label terminology: Back, Next, Submit (final step)." },
-          { "rule": "Do not mix: Continue and Next, Finish and Submit." }
+        "items": [
+          "Label terminology: Back, Next, Submit (final step).",
+          "Do not mix: Continue and Next, or Finish and Submit."
         ]
       }
     ]

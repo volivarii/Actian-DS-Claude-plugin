@@ -16,27 +16,48 @@ Figma libraries → /sync-design-system skill (MCP tools) → Plugin docs/tokens
 
 To update docs and tokens: run `/sync-design-system` (extracts directly from Figma via MCP).
 
+### Dual format strategy — JSON primary, Markdown secondary
+
+Design system data uses a dual-format approach:
+
+- **JSON** = source of truth for skills (structured, queryable, composable)
+- **Markdown** = auto-generated from JSON for human review (git-diffable, readable)
+
+Skills should always read JSON for programmatic decisions (token values, guideline rules, component properties). Markdown files are for human documentation and are regenerated on each sync.
+
 ### Reference files
+
+**JSON (source of truth — read these in skills):**
 
 | File | Source | Purpose |
 |------|--------|---------|
-| `docs/token-reference.md` | Extracted via `/sync-design-system` | Token reference (3 themes) |
-| `docs/ds2026-components.md` | Extracted via `/sync-design-system` | 77 DS2026 component sets, auto-generated |
-| `docs/fm-components.md` | Extracted via `/sync-design-system` | 29 FM Kit component sets, auto-generated |
-| `docs/content-guidelines.md` | Extracted via `/sync-design-system` | Generic UI copy rules |
-| `docs/accessibility-guidelines.md` | Extracted via `/sync-design-system` | WCAG 2.1 AA standards |
-| `docs/presentation-templates.md` | Hand-authored (this repo) | 5 slide template specs |
-| `docs/presentation-content-guidelines.md` | Hand-authored (this repo) | Voice, tone, chart selection |
-| `docs/component-guidelines/*.json` | Extracted via `/sync-guidelines` | Per-component content/design guidelines from Figma (44 components) |
-| `docs/foundations/*.json` | Extracted via `/sync-guidelines` | Foundation docs from Figma: accessibility, borders, breakpoints, color, content, elevation, icons, interaction, spacing, typography |
-| `tokens/tokens.css` | Extracted via `/sync-design-system` | CSS custom properties (`--zen-*`) |
-| `tokens/actian-ds.tokens.json` | Extracted via `/sync-design-system` | W3C DTCG format (source of truth for tokens) |
-| `references/*.md` | Hand-authored (this repo) | Shared skill references (figma-output, fm-css, layout-spec, token-naming) |
-| `docs/meta-kit/components.md` | Extracted via `/sync-design-system` | Meta Kit component keys and properties |
-| `docs/meta-kit/variables.md` | Extracted via `/sync-design-system` | DS2026 variable keys for scaffolding binding |
-| `docs/meta-kit/builders.md` | Extracted via `/sync-design-system` | Shared JS builder functions for tables, grids |
+| `docs/component-guidelines/*.json` | Extracted via `/sync-guidelines` | Per-component content/design guidelines (44 components) |
+| `docs/foundations/*.json` | Extracted via `/sync-guidelines` | Foundation docs: accessibility, borders, color, spacing, typography, etc. |
+| `tokens/actian-ds.tokens.json` | Extracted via `/sync-design-system` | W3C DTCG format (source of truth for token values) |
+| `docs/meta-kit/variables.md` | Extracted via `/sync-design-system` | DS2026 variable keys (115 vars, 3 themes) |
 | `docs/meta-kit/text-styles.md` | Extracted via `/sync-design-system` | DS2026 text styles with font specs |
 | `docs/meta-kit/effect-styles.md` | Extracted via `/sync-design-system` | DS2026 effect styles with shadow params |
+| `docs/meta-kit/components.md` | Extracted via `/sync-design-system` | Meta Kit component keys and properties |
+
+**Markdown (auto-generated from JSON — for human review):**
+
+| File | Generated from | Purpose |
+|------|---------------|---------|
+| `docs/content-guidelines.md` | `foundations/content-guidelines.json` | UI copy rules (auto-generated, do not edit) |
+| `docs/accessibility-guidelines.md` | `foundations/accessibility.json` | WCAG 2.1 AA standards (auto-generated, do not edit) |
+| `docs/token-reference.md` | `tokens/actian-ds.tokens.json` | Human-readable token reference (3 themes) |
+| `docs/ds2026-components.md` | Figma MCP extraction | 100 DS2026 component sets |
+| `docs/fm-components.md` | Figma MCP extraction | 31 FM Kit component sets |
+| `tokens/tokens.css` | `tokens/actian-ds.tokens.json` | CSS custom properties (`--zen-*`) |
+
+**Hand-authored (not synced):**
+
+| File | Purpose |
+|------|---------|
+| `docs/presentation-templates.md` | 5 slide template specs |
+| `docs/presentation-content-guidelines.md` | Voice, tone, chart selection |
+| `docs/meta-kit/builders.md` | Shared JS builder functions |
+| `references/*.md` | Shared skill references (figma-output, fm-css, layout-spec, token-naming) |
 
 ### Legacy sync (deprecated)
 
