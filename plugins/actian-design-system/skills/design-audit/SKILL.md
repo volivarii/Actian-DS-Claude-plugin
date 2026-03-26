@@ -124,6 +124,55 @@ Every finding must cite what structure in the design proves the violation:
 
 Findings without evidence are not findings — they are guesses. If you cannot extract enough data to support a finding at confidence ≥ 0.5, add it to a "Needs manual review" section instead of the main findings table.
 
+### JSON output (for programmatic consumption)
+
+When the user requests JSON output or when the audit is consumed by another skill (e.g., `/fix-finding`), produce structured JSON alongside the Markdown report:
+
+```json
+{
+  "audit": {
+    "file": "Design Consistency 2026",
+    "fileKey": "Z82GkL5d9Eu1HS5hMiEBBw",
+    "nodeId": "10939-12809",
+    "timestamp": "2026-03-26T14:30:00Z",
+    "summary": {
+      "total": 12,
+      "p0": 3,
+      "p1": 5,
+      "p2": 4,
+      "tokenCompliance": 0.78,
+      "componentCount": { "library": 14, "adHoc": 3 }
+    },
+    "findings": [
+      {
+        "id": 1,
+        "severity": "P0",
+        "confidence": 0.95,
+        "category": "token-usage",
+        "finding": "Button uses hardcoded #0550DC instead of theme-primary variable",
+        "node": "Frame 1 > Button > Fill",
+        "nodeId": "1234:5678",
+        "expected": "Bound to variable theme-primary (key: a256...)",
+        "actual": "Hardcoded fill #0550DC",
+        "rule": "Style check: zero hardcoded hex values",
+        "fix": "Bind theme-primary variable to fill property",
+        "fixType": "bind-tokens",
+        "autoFixable": true
+      }
+    ]
+  }
+}
+```
+
+The `fixType` field classifies fixes for the `/fix-finding` companion skill:
+- `swap-instance` — Replace ad-hoc element with library component
+- `bind-tokens` — Bind variable/style to property
+- `align-variant` — Switch to correct variant
+- `compose-from-primitives` — Build from library primitives
+- `blocked` — Cannot be auto-fixed (needs design decision)
+
+The `autoFixable` field indicates whether `/fix-finding` can apply this fix automatically (`true` for swap-instance, bind-tokens, align-variant; `false` for compose-from-primitives and blocked).
+
 ## Deep analysis with DS Assembler (recommended)
 
 If the DS Assembler plugin is running (with its Local server URL pointing to the current project directory, served via `scripts/ensure-server.sh . 8765`), use it for a more accurate audit:
