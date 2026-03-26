@@ -224,7 +224,146 @@ Write the formatted Markdown to:
 
 Extract all DS2026 variables with keys, types, scopes, and resolved per-mode values across 3 themes.
 
-<!-- TODO: Implementation details -->
+#### Step 1: Extract raw variables
+
+Call `use_figma` on the DS2026 library (`l8biHxfarNi1I2RMvVxVOK`) to retrieve all variable collections and their variables:
+
+```js
+const collections = await figma.variables.getLocalVariableCollectionsAsync();
+const vars = await figma.variables.getLocalVariablesAsync();
+
+const result = [];
+for (const collection of collections) {
+  const collVars = vars.filter(v => v.variableCollectionId === collection.id);
+  result.push({
+    collection: collection.name,
+    modes: collection.modes.map(m => ({ name: m.name, modeId: m.modeId })),
+    variables: collVars.map(v => ({
+      name: v.name,
+      key: v.key,
+      resolvedType: v.resolvedType,
+      scopes: v.scopes,
+      description: v.description,
+      valuesByMode: Object.fromEntries(
+        collection.modes.map(m => [m.name, v.valuesByMode[m.modeId]])
+      ),
+    })),
+  });
+}
+return JSON.stringify(result, null, 2);
+```
+
+Expected collections: Spacing (6 vars), Color (86 vars), Border (12 vars), Size (7 vars), Breakpoint (4 vars) -- 115 total. The Color collection has 3 modes (Actian, Studio, Explorer); all other collections have 1 mode ("Mode 1").
+
+**Chunking strategy:** The Color collection (86 variables x 3 modes) will likely exceed the 20KB response limit. Split extraction across two calls:
+
+1. **First call:** Extract Spacing + Border + Size + Breakpoint collections (small, single-mode -- fits in one call)
+2. **Second call:** Extract the Color collection alone with alias resolution (Step 2)
+
+To extract a single collection by name:
+
+```js
+const collections = await figma.variables.getLocalVariableCollectionsAsync();
+const target = collections.find(c => c.name === 'Color');
+const vars = await figma.variables.getLocalVariablesAsync();
+const collVars = vars.filter(v => v.variableCollectionId === target.id);
+// ... same mapping as above, but only for `target`
+```
+
+#### Step 2: Resolve aliases
+
+Color variables frequently use `VARIABLE_ALIAS` -- their raw values are `{ type: "VARIABLE_ALIAS", id: "VariableID:..." }` references to other variables rather than direct RGBA values. The skill must resolve each alias chain to obtain the final color value for every mode.
+
+```js
+// Resolve a VARIABLE_ALIAS to its final RGBA value
+async function resolveValue(value, modeId) {
+  if (value && value.type === 'VARIABLE_ALIAS') {
+    const aliasVar = await figma.variables.getVariableByIdAsync(value.id);
+    const aliasValue = aliasVar.valuesByMode[modeId];
+    return resolveValue(aliasValue, modeId); // recursive for chained aliases
+  }
+  return value; // direct RGBA or FLOAT
+}
+```
+
+Apply `resolveValue()` to every variable value in every mode before writing output. Non-color collections (Spacing, Border, Size, Breakpoint) use direct `FLOAT` values and do not need alias resolution.
+
+#### Step 3: Convert RGBA to hex
+
+Figma returns color values as `{ r, g, b, a }` with floats in the 0-1 range. Convert to hex strings:
+
+```js
+function rgbaToHex(rgba) {
+  const r = Math.round(rgba.r * 255);
+  const g = Math.round(rgba.g * 255);
+  const b = Math.round(rgba.b * 255);
+  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toUpperCase();
+}
+```
+
+If `a < 1`, append the alpha channel as two additional hex digits. For fully opaque colors (`a === 1`), use 6-digit hex.
+
+#### Step 4: Format output
+
+Write `docs/meta-kit/variables.md` with ALL 115 variables organized by collection. Use the Figma variable name path (e.g., `Status/success-primary`) as the Variable column.
+
+```markdown
+# Meta Kit Variable Keys
+
+DS2026 Figma variables for use with `figma.variables.importVariableByKeyAsync(key)`.
+Bind to generated scaffolding frames via `setBoundVariableForPaint()`.
+
+All variables from **Actian Design System v1.1.0** library, extracted on YYYY-MM-DD.
+
+## Usage pattern
+[keep existing usage pattern section from current file]
+
+## Color Variables
+
+| Variable | Key | Actian | Studio | Explorer | Purpose |
+|----------|-----|--------|--------|----------|---------|
+| background-bg-default | `805af...` | #FFFFFF | #FFFFFF | #FFFFFF | Card backgrounds |
+| theme-primary | `a256...` | #0550DC | #7B2FBE | #00875A | Brand accents, links |
+[... all 86 color variables, resolved to hex ...]
+
+## Spacing Variables
+
+| Variable | Key | Value | Purpose |
+|----------|-----|-------|---------|
+| Spacing/2xs | `5a7e...` | 4 | Tight spacing |
+[... all 6 spacing variables ...]
+
+## Border Variables
+
+| Variable | Key | Value | Purpose |
+|----------|-----|-------|---------|
+[... all 12 border variables ...]
+
+## Size Variables
+
+| Variable | Key | Value | Purpose |
+|----------|-----|-------|---------|
+[... all 7 size variables ...]
+
+## Breakpoint Variables
+
+| Variable | Key | Value | Purpose |
+|----------|-----|-------|---------|
+[... all 4 breakpoint variables ...]
+```
+
+Formatting rules:
+- Color variables table has per-mode columns (Actian, Studio, Explorer) with resolved hex values
+- Non-color variable tables have a single Value column (since they only have one mode)
+- Use the Figma variable name path as the Variable column (e.g., `Status/success-primary`)
+- Populate the Purpose column with a brief description derived from the variable's `description` field, or infer from the name where helpful (e.g., convert `Status/success-primary` to "Success state primary color")
+- Sort variables alphabetically within each collection section
+
+#### Error handling
+
+- If alias resolution encounters a circular reference or a missing variable (deleted upstream), log a warning and use `"UNRESOLVED"` as the hex value in the output table.
+- If a collection extraction call fails, log the collection name and continue with remaining collections. The skill must not fail entirely if one collection is inaccessible.
+- After writing, report the total variable count per collection and flag any unresolved aliases.
 
 ### Phase 3 -- Styles
 
