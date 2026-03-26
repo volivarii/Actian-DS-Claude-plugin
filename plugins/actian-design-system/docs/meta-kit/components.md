@@ -1,5 +1,7 @@
 # Meta Kit — Component Catalog
 
+Auto-generated from Figma MCP on 2026-03-26. 3 component sets + 3 standalone components.
+
 Library components used by skills to build spec briefs, flow screens, and presentations.
 These live in the Meta Kit Figma library and are imported at runtime via the Plugin API.
 
@@ -59,87 +61,19 @@ setProp(instance, "Show Header", true);
 
 ---
 
-## Core
-
-### Meta / Chrome / Generation Log
-
-First element in every output. Import once per generation.
-
-| Field | Value |
-|-------|-------|
-| Key | `a9653f30925367e96dea90093d750bfe70849571` |
-| Import | `figma.importComponentByKeyAsync(key)` |
-| Variants | None (single component) |
-| Text properties | Skill, Prompt, Date, Duration, Model, Plugin Version |
-
-```js
-const genLog = await figma.importComponentByKeyAsync("a9653f30925367e96dea90093d750bfe70849571");
-const logInstance = genLog.createInstance();
-setProp(logInstance, "Skill", "generate-spec");
-setProp(logInstance, "Prompt", userPrompt.slice(0, 200));
-setProp(logInstance, "Date", new Date().toISOString());
-setProp(logInstance, "Duration", "12s");
-setProp(logInstance, "Model", "claude-opus-4-6");
-setProp(logInstance, "Plugin Version", "v1.10.0");
-```
-
----
-
-### Meta / Utility / Card Divider
-
-Horizontal rule between sections inside Brief Cards.
-
-| Field | Value |
-|-------|-------|
-| Key | `f4d778e1cf9bb61a33712c791486f54bb1c095b7` |
-| Import | `figma.importComponentByKeyAsync(key)` |
-| Variants | None (single component) |
-| Properties | None |
-
-After appending to a parent auto-layout frame, stretch to fill width:
-
-```js
-const divComp = await figma.importComponentByKeyAsync("f4d778e1cf9bb61a33712c791486f54bb1c095b7");
-const divider = divComp.createInstance();
-parentFrame.appendChild(divider);
-divider.layoutSizingHorizontal = "FILL";
-```
-
----
-
-### Meta / Content / Code Block
-
-Dark code block for token tables, usage examples, and presentation code slides.
-
-| Field | Value |
-|-------|-------|
-| Key | `1bf10eee1751a46da5f90a9671be6c9abf0073b7` |
-| Import | `figma.importComponentByKeyAsync(key)` |
-| Variants | None (single component) |
-| Boolean properties | Show Header |
-| Text properties | Header Text, Code |
-
-```js
-const codeComp = await figma.importComponentByKeyAsync("1bf10eee1751a46da5f90a9671be6c9abf0073b7");
-const codeBlock = codeComp.createInstance();
-setProp(codeBlock, "Show Header", true);
-setProp(codeBlock, "Header Text", "CSS Custom Properties");
-setProp(codeBlock, "Code", "--zen-color-theme-primary: #0066CC;");
-```
-
----
-
-## Brief Components
+## Component Sets
 
 ### Meta / Chrome / Brief Card
 
-Card shell for all spec cards. Import 8-9 times per brief.
+Card shell for component spec pages. 4 variants: DS Standard, DS Page Header, FM Standard, FM Page Header.
 
 | Field | Value |
 |-------|-------|
 | Key | `3dbb732730af0754210cde7af35e5236a2502843` |
+| Node | `7:2` |
 | Import | `figma.importComponentSetByKeyAsync(key)` |
-| Variant axes | **Mode:** `DS` · `FM`  **Type:** `Standard` · `Page Header` |
+| Variant axes | **Mode:** `DS` · `FM` | **Type:** `Standard` · `Page Header` |
+| Text overrides | `Title`, `Subtitle`, `Component Name`, `Description`, `Source` |
 
 **Text properties by variant:**
 
@@ -171,14 +105,15 @@ setProp(headerCard, "Description", "Action trigger with Primary, Secondary, and 
 
 ### Meta / Content / Do-Don't Pair
 
-Best-practice comparison for Cards 6-7 and presentation slides.
+Side-by-side Do and Don't examples with green/red color bars.
 
 | Field | Value |
 |-------|-------|
 | Key | `28edfacf13e50706586172bd48f8a3ad84d7c263` |
+| Node | `9:24` |
 | Import | `figma.importComponentSetByKeyAsync(key)` |
 | Variant axes | **Mode:** `DS` · `FM` |
-| Text properties | Do Label, Don't Label, Do Example, Don't Example |
+| Text overrides | `Do Label`, `Don't Label`, `Do Example`, `Don't Example` |
 
 ```js
 const doDontSet = await figma.importComponentSetByKeyAsync("28edfacf13e50706586172bd48f8a3ad84d7c263");
@@ -192,17 +127,16 @@ setProp(pair, "Don't Example", "Save  [Primary]  Cancel  [Primary]");
 
 ---
 
-## Flow Components
-
 ### Meta / Chrome / Flow Screen
 
-Wrapper for every flow screen. Contains an app header, side nav, and a content area.
+Screen frame for wireframe flows. Standard (1440x960) and Compact (1440x700).
 
 | Field | Value |
 |-------|-------|
 | Key | `2ca7c756ad54e81219104d3a270ba8eb9eeffcf6` |
+| Node | `21:1198` |
 | Import | `figma.importComponentSetByKeyAsync(key)` |
-| Variant axes | **Size:** `Standard` (1440x960) · `Compact` (1440x700) |
+| Variant axes | **Size:** `Standard` · `Compact` |
 | Internal structure | FM App_header (top) + FM Side nav (left) + Content Area (fill) |
 
 Find the "Content Area" child by name and append your content to it:
@@ -219,13 +153,86 @@ contentArea.appendChild(yourContentFrame);
 
 ---
 
+## Standalone Components
+
+### Meta / Chrome / Generation Log
+
+Generation metadata card. First element in every AI-generated output.
+
+| Field | Value |
+|-------|-------|
+| Key | `a9653f30925367e96dea90093d750bfe70849571` |
+| Node | `3:2` |
+| Import | `figma.importComponentByKeyAsync(key)` |
+| Variants | None (single component) |
+| Text properties | Skill, Prompt, Date, Duration, Model, Plugin Version |
+
+```js
+const genLog = await figma.importComponentByKeyAsync("a9653f30925367e96dea90093d750bfe70849571");
+const logInstance = genLog.createInstance();
+setProp(logInstance, "Skill", "generate-spec");
+setProp(logInstance, "Prompt", userPrompt.slice(0, 200));
+setProp(logInstance, "Date", new Date().toISOString());
+setProp(logInstance, "Duration", "12s");
+setProp(logInstance, "Model", "claude-opus-4-6");
+setProp(logInstance, "Plugin Version", "v1.10.0");
+```
+
+---
+
+### Meta / Utility / Card Divider
+
+Horizontal divider line between card sections.
+
+| Field | Value |
+|-------|-------|
+| Key | `f4d778e1cf9bb61a33712c791486f54bb1c095b7` |
+| Node | `4:2` |
+| Import | `figma.importComponentByKeyAsync(key)` |
+| Variants | None (single component) |
+| Properties | None |
+
+After appending to a parent auto-layout frame, stretch to fill width:
+
+```js
+const divComp = await figma.importComponentByKeyAsync("f4d778e1cf9bb61a33712c791486f54bb1c095b7");
+const divider = divComp.createInstance();
+parentFrame.appendChild(divider);
+divider.layoutSizingHorizontal = "FILL";
+```
+
+---
+
+### Meta / Content / Code Block
+
+Dark code block for CSS, HTML, ARIA code examples.
+
+| Field | Value |
+|-------|-------|
+| Key | `1bf10eee1751a46da5f90a9671be6c9abf0073b7` |
+| Node | `8:2` |
+| Import | `figma.importComponentByKeyAsync(key)` |
+| Variants | None (single component) |
+| Boolean properties | Show Header |
+| Text properties | Header Text, Code |
+
+```js
+const codeComp = await figma.importComponentByKeyAsync("1bf10eee1751a46da5f90a9671be6c9abf0073b7");
+const codeBlock = codeComp.createInstance();
+setProp(codeBlock, "Show Header", true);
+setProp(codeBlock, "Header Text", "CSS Custom Properties");
+setProp(codeBlock, "Code", "--zen-color-theme-primary: #0066CC;");
+```
+
+---
+
 ## Quick Reference
 
-| Component | Key | Import method |
-|-----------|-----|---------------|
-| Generation Log | `a9653f3092...` | `importComponentByKeyAsync` |
-| Card Divider | `f4d778e1cf...` | `importComponentByKeyAsync` |
-| Code Block | `1bf10eee17...` | `importComponentByKeyAsync` |
-| Brief Card | `3dbb732730...` | `importComponentSetByKeyAsync` |
-| Do-Don't Pair | `28edfacf13...` | `importComponentSetByKeyAsync` |
-| Flow Screen | `2ca7c756ad...` | `importComponentSetByKeyAsync` |
+| Component | Key | Node | Import method |
+|-----------|-----|------|---------------|
+| Brief Card | `3dbb732730...` | `7:2` | `importComponentSetByKeyAsync` |
+| Do-Don't Pair | `28edfacf13...` | `9:24` | `importComponentSetByKeyAsync` |
+| Flow Screen | `2ca7c756ad...` | `21:1198` | `importComponentSetByKeyAsync` |
+| Generation Log | `a9653f3092...` | `3:2` | `importComponentByKeyAsync` |
+| Card Divider | `f4d778e1cf...` | `4:2` | `importComponentByKeyAsync` |
+| Code Block | `1bf10eee17...` | `8:2` | `importComponentByKeyAsync` |
