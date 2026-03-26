@@ -1,0 +1,93 @@
+# Quality Checklist
+
+Unified quality checklist for all skill outputs. Every generated deliverable must pass the **Universal** section plus the relevant **skill-specific** section before being marked complete.
+
+Source: [Actian Design System v1.0.0 — Quality & Hygiene](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-v1.0.0?node-id=14793-7507)
+
+---
+
+## Universal (all skills)
+
+These checks apply to every output — component briefs, flows, presentations, and created components.
+
+| # | Check | Pass criteria |
+|---|-------|---------------|
+| 1 | **Auto-layout on every frame** | Every container uses auto-layout (flex/grid in HTML, auto-layout in Figma). No absolute-positioned children unless intentionally overlaid (badges, pointers). |
+| 2 | **Descriptive layer names** | No auto-generated names ("Frame 1", "Rectangle 2", "Group 7"). Every layer follows `category/name` or a simple descriptor (`Container`, `Leading icon`, `Label`). |
+| 3 | **Token compliance** | All colors use design tokens or Figma variables — never arbitrary hex. `--zen-*` for DS2026, `--fm-*` for Fat Marker. |
+| 4 | **Generation log present** | Visible generation card as the first element, all fields filled (skill, prompt, date, duration, model, plugin version). |
+| 5 | **Style check** | Zero hardcoded hex values, pixel font sizes, or raw shadows. 100% of colors, fonts, shadows, and border radii reference variables or styles. |
+| 6 | **Meta Kit components for chrome** | Brief Card, Flow Screen, Generation Log, Code Block, Do-Don't Pair used for structural chrome — not hand-built frames. |
+| 7 | **Spacing from the scale** | All spacing values use the FM/DS scale: 4, 8, 12, 16, 24, 28, 32px. No arbitrary gaps. |
+| 8 | **No hidden/invisible layers** | No `display: none`, `opacity: 0`, or invisible layers left from drafting. Delete anything not needed. |
+| 9 | **Component description filled** | Every main component has a filled Description field stating what it does, when to use it, and constraints. |
+| 10 | **WCAG AA contrast** | Every foreground/background pair passes WCAG AA — 4.5:1 for normal text, 3:1 for large text and UI elements. Disabled states exempt but distinguishable. |
+
+---
+
+## Component Brief
+
+Items specific to the `component-brief` skill, in addition to Universal.
+
+| # | Check | Pass criteria |
+|---|-------|---------------|
+| 1 | **All declared cards present** | Every card in the selection is generated and complete — no empty or placeholder cards. |
+| 2 | **Card titles match templates** | Card title + subtitle match the HTML template titles exactly. |
+| 3 | **Variant matrix complete** | Card 2 shows all variant x state combinations as rendered instances. |
+| 4 | **Token tables include swatches** | Card 4 color token rows include a 12px swatch dot filled with the hex value next to the token name. |
+| 5 | **Do/Don't pairs styled** | Card 7 Do/Don't pairs have green header (`#ECFDF3`) and red header (`#FEF3F2`) bars. |
+| 6 | **Code spec uses `--zen-*` tokens** | Card 9 CSS code block references `--zen-*` token names, not raw hex. |
+| 7 | **Accessibility cards complete** | Card 8 covers all applicable WCAG requirements with P0/P1/P2 severity. |
+| 8 | **Contrast ratio table present** | Card 8 includes a foreground/background contrast ratio table with Pass/Fail indicators. |
+
+---
+
+## Generate Flow
+
+Items specific to the `generate-flow` skill, in addition to Universal.
+
+| # | Check | Pass criteria |
+|---|-------|---------------|
+| 1 | **Cover card present** | Dark cover card with Feature, Flow, and User fields is the first screen in each flow row. |
+| 2 | **Screen naming convention** | Every screen label follows `[Persona] - [Page] - [State/Action]`. |
+| 3 | **Screen dimensions** | Standard: 1440x960px. Compact (no sidebar): 1440x700px. No other sizes. |
+| 4 | **FM library components used** | All standard UI elements use imported FM Kit components — never recreated as raw frames. |
+| 5 | **Forms layout** | Simple form inputs in a 480px max-width container. Tables/tiles full-width. Action footer: primary right, secondary left. |
+| 6 | **Missing states flagged** | Empty, error, loading, and confirmation states are included (or explicitly noted as out of scope). |
+| 7 | **Reading order** | Screens flow left-to-right, top-to-bottom. One row per sub-flow, no wrapping. |
+| 8 | **Custom elements follow FM conventions** | `fm-custom-` prefix, `--fm-*` variables, FM spacing/typography, HTML comment explaining purpose. Lo-fi fidelity. |
+| 9 | **Content guidelines applied** | Button labels use action verbs (title case). Form labels are concise (no colons). Error messages explain what + how to fix. |
+| 10 | **Accessibility basics** | Interactive elements have focus indicators. Form inputs have labels. No text below 11px. Color is not the only status indicator. |
+
+---
+
+## Generate Presentation
+
+Items specific to the `generate-presentation` skill, in addition to Universal.
+
+| # | Check | Pass criteria |
+|---|-------|---------------|
+| 1 | **Slide count matches outline** | Final deck has the planned number of slides — no missing or extra slides. |
+| 2 | **Cover slide complete** | Cover has title, subtitle, date, and creators fields filled. |
+| 3 | **Charts use category tokens** | All chart series colors use `category-N-strong` tokens (or `--zen-color-category-N-strong` in CSS). Never hardcoded chart colors. |
+| 4 | **Review report completed** | Step 5 review report presented and approved before Figma output. |
+| 5 | **Content follows guidelines** | Every headline passes "So what?" test. 1 message per slide. Active voice. Max 6 bullets or 150 words per text area. Every metric has context. |
+| 6 | **Slide templates correct** | Cover and Back cover use gradient backgrounds. Section dividers use light gradient. Body slides use white background. |
+| 7 | **Narrative arc present** | Deck follows situation -> complication -> resolution -> evidence -> next steps structure. |
+
+---
+
+## Create Component
+
+Items specific to the `create-component` skill, in addition to Universal.
+
+| # | Check | Pass criteria |
+|---|-------|---------------|
+| 1 | **Naming convention** | FM prefix for Fat Marker components, no prefix for DS2026. Matches existing catalog naming patterns. |
+| 2 | **Variant axes consistent** | All variant axis names and values align with existing catalog conventions. |
+| 3 | **Text properties exposed** | `isProperty: true` set on all user-facing text fields (titles, labels, descriptions, button text). |
+| 4 | **Boolean properties on toggles** | All optional/toggleable elements (badge, description, footer, icon) have boolean property toggles. |
+| 5 | **Sizing uses hug/fill** | Layout uses `"hug"` / `"fill"` sizing — no unnecessary fixed pixel values. |
+| 6 | **All variants defined** | Every declared variant has a complete definition with all required children. No empty variants. |
+| 7 | **Default text is realistic** | Placeholder text is contextual and realistic, not "Lorem ipsum" or generic "Text". |
+| 8 | **Touch targets adequate** | Interactive children meet minimum 44px touch target size. |

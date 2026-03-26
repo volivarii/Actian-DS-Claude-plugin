@@ -11,7 +11,7 @@ Generate a structured Figma presentation deck using the official Actian slide te
 > **Presentation templates:** Read `../../docs/presentation-templates.md` before generating any slides. It contains the exact specs for all 5 slide types, typography, colors, and sequencing rules.
 > **Presentation content guidelines:** Read `../../docs/presentation-content-guidelines.md` before writing any slide copy. It defines voice & tone, headline rules, data formatting, chart selection, narrative structure, and the review report format. This is the primary content reference for this skill.
 > **Content guidelines:** General UI copy rules in `../../docs/content-guidelines.md` — sentence case, terminology, and formatting also apply.
-> **Quality & hygiene:** Validate all output against CLAUDE.md Quality & Hygiene Checklist before marking complete.
+> **Quality & hygiene:** Run through `../../references/quality-checklist.md` — check the **Universal** section plus the **Generate Presentation** section. Fix issues inline before presenting to the user.
 > **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
 
 > **Mode: Implement with review gate.** Build first, explain after. Move fast through research, outlining, and HTML generation without pausing for confirmation. But always pause at Step 5 (review report) before pushing to Figma — wrong slides in Figma are costly to fix. Keep status updates to milestones only.

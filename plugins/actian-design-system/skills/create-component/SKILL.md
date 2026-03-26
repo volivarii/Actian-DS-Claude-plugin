@@ -254,40 +254,9 @@ Use only these values: 4, 8, 12, 16, 24, 28, 32px.
 
 ## Step 6 — Cleanup pass
 
-After generation and before presenting to the user, run a focused cleanup sweep. Fix issues inline.
+Run through the checklist in `../../references/quality-checklist.md` — check the **Universal** section plus the **Create Component** section for this skill. Fix issues inline before presenting to the user.
 
-### Checklist
-
-**Spec structure:**
-- [ ] Component name follows convention: `FM` prefix for Fat Marker, no prefix for DS2026
-- [ ] All variant axis names and values are consistent with existing catalog patterns
-- [ ] `isProperty: true` set on all user-facing text fields
-- [ ] Boolean properties set on all optional/toggleable elements
-- [ ] Layout uses `"hug"` / `"fill"` sizing — no unnecessary fixed pixel values
-
-**Token compliance:**
-- [ ] Fill colors use token names (assembler) or hex from Token Reference with comment (Plugin API) — no arbitrary hex
-- [ ] Text styles reference valid style names (heading-display, body-standard, label-standard, etc.)
-- [ ] Spacing values match the scale (4, 8, 12, 16, 24, 28, 32px)
-- [ ] Border radius uses standard values (6px FM default, or token references for DS2026)
-
-**Completeness:**
-- [ ] All declared variants have a definition
-- [ ] Each variant has all required children (no empty definitions)
-- [ ] Generation metadata card is included (visible, not a comment)
-
-**Content guidelines:**
-- [ ] Default text content follows content guidelines (action verbs for buttons, concise labels)
-- [ ] Placeholder text is realistic, not "Lorem ipsum"
-
-**Accessibility:**
-- [ ] Interactive children have adequate touch target size (min 44px)
-- [ ] Text contrast: check that text style + fill color combinations meet WCAG AA
-
-### How to apply fixes
-
-- Fix directly in the spec JSON or `use_figma` code — do not create a separate report
-- If a fix is ambiguous, note it for the user review step
+If a fix is ambiguous, note it for the user review step instead of fixing silently.
 
 ## Step 7 — Update references
 

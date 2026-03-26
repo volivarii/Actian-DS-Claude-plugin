@@ -338,52 +338,6 @@ After capture or assembly, get a screenshot of the result and show it to the use
 
 ## Step 7 — Cleanup pass
 
-After generation is complete and before presenting to the user as done, run a focused cleanup sweep on the output. This is a mandatory self-review — do not skip it.
+Run through the checklist in `../../references/quality-checklist.md` — check the **Universal** section plus the **Generate Flow** section for this skill. Fix issues inline before presenting to the user.
 
-### Checklist
-
-Work through each item. Fix issues inline, don't just flag them.
-
-**Token compliance:**
-- [ ] No arbitrary hex colors — use `--fm-*` CSS variables (HTML), token names (assembler), or hex from Token Reference with token comment (Plugin API)
-- [ ] No hardcoded font sizes or weights — use FM text styles
-- [ ] Spacing values match the FM scale (4, 8, 12, 16, 24, 28, 32px)
-
-**Component consistency:**
-- [ ] All FM component names match exactly: `FM Button`, `FM Text input field`, etc. — no abbreviations or renames
-- [ ] Component variants use correct axis names and values from the FM catalog
-- [ ] FM App_header, FM Side navigation bar, and FM Page Header present on every screen
-- [ ] Custom elements use `fm-custom-` prefix and have an HTML comment explaining what they are
-- [ ] Custom elements use `--fm-*` variables, FM spacing, FM typography — no raw hex or arbitrary values
-- [ ] Custom elements match FM fidelity level (lo-fi wireframe shapes, not high-detail renders)
-- [ ] FM components use `textOverrides` to set contextual labels (nav items, tabs, page headers) — no generic "Nav Item" or "Tab 1" text
-- [ ] Generation metadata card included as first element (visible, not a comment)
-
-**Forms layout (CLAUDE.md rules):**
-- [ ] Simple form inputs constrained to 480px max-width container
-- [ ] Extended elements (tables, selectable rows, tiles) are full-width
-- [ ] Action footer: sticky bottom, primary right, secondary left
-
-**Missing states:**
-- [ ] Empty state screen included (or noted as out of scope)
-- [ ] Error state for form submissions included
-- [ ] Loading/progress state where async operations occur
-- [ ] Confirmation/success state after primary action
-
-**Content guidelines:**
-- [ ] Button labels: action verbs, title case, no "Click here"
-- [ ] Form labels: concise, no colons
-- [ ] Error messages: explain what happened + how to fix
-- [ ] Screen names follow convention: `[Persona] - [Page] - [State/Action]`
-
-**Accessibility basics:**
-- [ ] Interactive elements have visible focus indicators
-- [ ] Form inputs have associated labels
-- [ ] No text below 11px
-- [ ] Color is not the only way to convey status (icons/text accompany color)
-
-### How to apply fixes
-
-- Fix issues directly in the HTML or spec JSON — do not create a separate report
-- If a fix requires adding a missing screen (e.g., empty state), add it
-- If a fix is ambiguous or would change the user's intent, note it for the review step instead of fixing silently
+If a fix requires adding a missing screen (e.g., empty state), add it. If a fix is ambiguous or would change the user's intent, note it for the review step instead of fixing silently.
