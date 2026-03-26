@@ -183,9 +183,26 @@ const instance = variant.createInstance();
 setProp(instance, "Title", "Design tokens");
 setProp(instance, "Subtitle", "Color, sizing, and typography tokens");
 const card = instance.detachInstance();  // Detach to allow content insertion
+card.name = "Design tokens";            // Rename to card title for readability
 const content = card.findOne(n => n.name === "Content");
 // Now append tables, text, and visual elements to `content`
 ```
+
+**IMPORTANT — Frame naming:** After detaching each card, rename it to match its card title. This makes the Figma layer panel readable and cards easy to find. Use these exact names:
+
+| Card | Frame name |
+|------|-----------|
+| 1 | `Page header` |
+| 2 | `Components` |
+| 3 | `Anatomy` |
+| 4 | `Design tokens` |
+| 5 | `Component API` |
+| 6 | `Usage guidelines` |
+| 7 | `Content guidelines` |
+| 8 | `Accessibility` |
+| 9 | `Code specification` |
+
+Do NOT leave cards named `"Meta / Chrome / Brief Card"` — that is the source component name, not the output name.
 
 For component keys, properties, and the `setProp` helper, see `../../docs/meta-kit/components.md`.
 For builder functions (`buildSpecTable`, `buildStateGrid`), see `../../references/meta-kit/builders.md`.
@@ -199,43 +216,74 @@ Follow `../../references/figma-output.md` § "Token binding" for all style and v
 
 ### Card children
 
-Each card contains these element types. **Match the HTML templates** (`templates/ds-card-*.html`) — they define the sub-sections, tables, and visual elements for each card. The `use_figma` output must include the same content sections as the HTML.
+Each card contains these element types. **Match the HTML templates** (`templates/ds-card-*.html`) — they define the sub-sections, tables, and visual elements for each card. The `use_figma` output must include the **same content sections and visual elements** as the HTML — omissions are bugs.
 
-| Element | Structure |
-|---------|-----------|
-| **Card title** | Text node, bold 24px (e.g., "Anatomy") |
-| **Subtitle** | Text node, regular 18px, secondary color |
-| **Section headings** | Text node, bold 16px, with a divider line above (1px `#E2E7F0` rectangle) |
-| **Body text** | Text node, regular 14px, secondary color, max-width fill |
-| **Tables** | Frame rows: header row (bold 12px, grey background `#F5F5FA`), data rows (regular 14px). Fixed column widths. |
-| **Color swatches** | 12px circle/rectangle filled with the token hex value, placed inline next to the token name text |
-| **Typography specimens** | Actual styled text nodes rendered at the documented font size/weight/family |
-| **Code blocks** | Frame with dark background (`#1E1E1E`), padding 16px, monospace text (12px) in `#E2E7F0` |
-| **Do/Don't pairs** | Two side-by-side frames: green header (`#ECFDF3`) for Do, red header (`#FEF3F2`) for Don't |
-| **Component instances** | Import real library instances via `getComponentByKeyAsync()` for variant matrices and anatomy |
+| Element | Structure | Where used |
+|---------|-----------|------------|
+| **Card title** | Text node, bold 24px (e.g., "Anatomy") | Every card header |
+| **Subtitle** | Text node, regular 18px, secondary color | Every card header |
+| **Section headings** | Text node, bold 16px, with a divider line above (1px `#E2E7F0` rectangle) | Sub-sections within cards |
+| **Body text** | Text node, regular 14px, secondary color, max-width fill | Descriptions, explanations |
+| **Tables** | Frame rows: header row (bold 12px, grey background `#F5F5FA`), data rows (regular 14px). Fixed column widths. | Cards 3, 4, 5, 8 |
+| **Color swatch dots** | 12px × 12px rectangle, cornerRadius 3, filled with token hex, placed in a horizontal auto-layout frame next to the token name text. **Never omit — every color token needs a visible swatch.** | Cards 2, 4, 8 |
+| **Pink dimension lines** | 1px rectangles filled `#E91E8C` forming brackets (vertical line + horizontal ticks), with 11px text labels in `#E91E8C`. **Never omit from Specs sub-section.** | Card 3 (Specs) |
+| **REQ/OPT badges** | Small auto-layout frame: colored bg + bold 10px uppercase text. REQ = red bg `#FEF3F2` + text `#C10C0D`. OPT = grey bg `#F5F5FA` + text `#888888`. | Card 5 |
+| **Typography specimens** | Actual styled text nodes rendered at the documented font size/weight/family | Card 4 |
+| **Code blocks** | Frame with dark background (`#1E1E2E`), padding 16px, monospace text (12px) with syntax-colored segments | Cards 8, 9 |
+| **Do/Don't pairs** | Two side-by-side frames: green header bar (`#047800`, 4px height) + Do label, red header bar (`#C10C0D`, 4px height) + Don't label | Cards 6, 7 |
+| **Component instances** | Import real library instances via `getComponentByKeyAsync()` for variant matrices and anatomy | Cards 2, 3 |
+| **Pass/Exempt badges** | Text node: Pass = green `#047800`, Exempt = brown `#9C2000`, bold 12px | Card 8 |
 
-### Per-card content requirements
+### Per-card content requirements — Figma output MUST match HTML
 
-Follow the HTML templates for each card's sub-sections. Key visual elements that must NOT be omitted:
+The HTML spec is the source of truth. The Figma output must contain **every sub-section, table, and visual element** present in the HTML. Omitting content that exists in the HTML is a P0 bug.
 
-**Card 2 — Actual component:** Render a variant matrix showing real component instances (imported from the library) across all variant axes. Include a theme comparison row showing the component in Actian, Studio, and Explorer themes.
+**Card 2 — Actual component:**
+- [ ] Variant matrix table: one row per variant type (Standalone, Inline, With icon, etc.) — **include ALL rows the HTML has**, not just the first two
+- [ ] Each row × every interactive state (Enabled, Focused, Hovered, Pressed, Disabled) = one cell with the actual component rendered
+- [ ] Theme comparison section: 3 cards (Actian, Studio, Explorer), each showing:
+  - Theme label
+  - Component rendered in that theme's primary color
+  - 12px color swatch dots with labels (Primary, Pressed, Disabled)
 
-**Card 3 — Anatomy:** Must include ALL 4 sub-sections:
-1. **Structure** — The component rendered with lettered pointer badges (A, B, C...) overlaying each part, plus a legend listing each part
-2. **Specs** — Size variants with pink (`#E91E8C`) dimension annotation lines showing height, padding, icon size, gap
-3. **States** — Grid showing every interactive state (Enabled, Hovered, Focused, Pressed, Disabled, Selected, Error) as actual rendered instances
-4. **Parts reference** — Table mapping each part to its element type, token, and notes
+**Card 3 — Anatomy:** Must include ALL 4 sub-sections (not 3, not 2 — all 4):
+1. **Structure** — Component with lettered pointer badges (A, B, C...) overlaying each part + legend text listing each badge
+2. **Specs** — **MANDATORY, DO NOT SKIP.** Size variants rendered with pink (`#E91E8C`) dimension annotation lines:
+   - Height bracket (vertical line with horizontal ticks at top/bottom, measurement text)
+   - Gap/spacing indicators (horizontal bracket between elements)
+   - Focus ring offset indicators
+   - Build as: 1px rectangles filled `#E91E8C` for lines, text nodes in `#E91E8C` for measurements
+3. **States** — Horizontal grid showing every interactive state as rendered component instances with state labels above
+4. **Parts reference** — Table with columns: Part (letter), Element, Token, Notes — one row per anatomical part (A through F typically)
 
 **Card 4 — Design tokens:** Must include ALL 3 sub-sections:
-1. **Color tokens** — Table with variant×state rows, each color cell shows a 12px swatch dot (filled with the hex value) next to the token name
-2. **Sizing & spacing** — Table listing height, padding, gap, border-radius, focus-ring tokens with their values
-3. **Typography** — Table showing font-family, weight, size, line-height, letter-spacing. Render an actual text specimen at the documented style.
+1. **Color tokens** table:
+   - [ ] Columns: Variant·State | Fill/Text color columns (varies by component)
+   - [ ] **12px swatch dots are MANDATORY** — for every color token in the table, create a 12px × 12px rectangle filled with the hex value, placed inline (horizontally) next to the token name text. Do NOT show token names as plain text without swatches.
+   - Build swatches as: `figma.createRectangle()`, 12×12, cornerRadius 3, filled with the token hex
+2. **Sizing & spacing** table: Property | Token | Value — include height, padding, gap, border-radius, focus-ring width, touch target
+3. **Typography** section: render actual text specimens at the documented font size/weight/family, with token name and metrics below each specimen
 
-**Card 7 — Content guidelines:** Include Do/Don't pairs as side-by-side frames with green/red header strips.
+**Card 5 — Component API:**
+- [ ] Props table with columns: REQ/OPT | Property | Type | Default | Values | Notes
+- [ ] **REQ/OPT badges are MANDATORY** — create small rectangles (auto-sized to text) with:
+  - REQ: red fill (`#FEF3F2`), red text (`#C10C0D`), bold 10px uppercase
+  - OPT: grey fill (`#F5F5FA`), grey text (`#888888`), semibold 10px uppercase
+- [ ] Property names in monospace (Fira Code or similar)
+- [ ] Type values in purple (`#C792EA`) monospace
+- [ ] Default values in green (`#C3E88D`) monospace
 
-**Card 8 — Accessibility:** Include a contrast ratio table with foreground/background hex, ratio value, and Pass/Fail indicator.
+**Card 6 — Usage guidelines:** "When to use" (green `+`), "When NOT to use" (red `−`), and Do/Don't pairs as side-by-side frames with green/red header bars.
 
-**Card 9 — Code specification:** Render full CSS code in a dark code block frame. Use the `--zen-*` token names in the code.
+**Card 7 — Content guidelines:** Content rules with inline Do/Don't pairs. Optional terminology table if the component has domain-specific terms.
+
+**Card 8 — Accessibility:**
+- [ ] 2×3 grid of a11y requirement cards (Role, Keyboard, Focus ring, Touch target, Disabled state, Color independence)
+- [ ] Each card: colored icon square (36px, NOT emoji) + title + body + dark code block
+- [ ] **Contrast ratio table with swatch dots** — columns: Variant | Foreground (12px swatch + hex) | Background (12px swatch + hex) | Ratio | WCAG AA badge
+- [ ] Pass badges in green (`#047800`), Exempt badges in grey/brown (`#9C2000`)
+
+**Card 9 — Code specification:** Full CSS in a dark code block (`#1E1E2E` background). Use `--zen-*` token names with fallback hex values. Include syntax highlighting via colored text segments (purple for keywords, green for strings, blue for properties).
 
 ### Layout
 
@@ -258,8 +306,15 @@ The generation metadata frame is prepended as the first child (see `figma-output
 
 1. **Import `Meta / Chrome / Generation Log` component** (key: `a9653f30925367e96dea90093d750bfe70849571`), set all 6 text properties using `setProp()`, append as first child of the wrapper.
 2. **Build each card as a separate `use_figma` call** to stay under the 20KB code limit. Each call creates one card frame and appends it to the appropriate row.
-3. **Take a screenshot** with `get_screenshot` after all cards are built and show the result to the user.
-4. **Ask for adjustments** — "Here is the spec page in Figma. Want me to adjust anything?"
+3. **Parity check** — before presenting to the user, verify each card against the HTML spec:
+   - Card 2: count variant rows in Figma vs HTML — must match (e.g., 3 rows, not 2)
+   - Card 3: confirm all 4 sub-sections exist (Structure, **Specs with pink lines**, States, Parts reference)
+   - Card 4: confirm swatch dots are visible (not just text)
+   - Card 5: confirm REQ/OPT badges are rendered (not just text)
+   - Card 8: confirm contrast table has swatch dots and Pass/Exempt badges
+   - If anything is missing, fix it before proceeding
+4. **Take a screenshot** with `get_screenshot` after all cards are built and show the result to the user.
+5. **Ask for adjustments** — "Here is the spec page in Figma. Want me to adjust anything?"
 
 ### Figma target
 

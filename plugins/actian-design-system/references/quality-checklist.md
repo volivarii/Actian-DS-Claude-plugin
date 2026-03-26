@@ -33,12 +33,16 @@ Items specific to the `component-brief` skill, in addition to Universal.
 |---|-------|---------------|
 | 1 | **All declared cards present** | Every card in the selection is generated and complete — no empty or placeholder cards. |
 | 2 | **Card titles match templates** | Card title + subtitle match the HTML template titles exactly. |
-| 3 | **Variant matrix complete** | Card 2 shows all variant x state combinations as rendered instances. |
-| 4 | **Token tables include swatches** | Card 4 color token rows include a 12px swatch dot filled with the hex value next to the token name. |
-| 5 | **Do/Don't pairs styled** | Card 7 Do/Don't pairs have green header (`#ECFDF3`) and red header (`#FEF3F2`) bars. |
-| 6 | **Code spec uses `--zen-*` tokens** | Card 9 CSS code block references `--zen-*` token names, not raw hex. |
-| 7 | **Accessibility cards complete** | Card 8 covers all applicable WCAG requirements with P0/P1/P2 severity. |
-| 8 | **Contrast ratio table present** | Card 8 includes a foreground/background contrast ratio table with Pass/Fail indicators. |
+| 3 | **Variant matrix complete** | Card 2 shows ALL variant rows from the HTML (e.g., Standalone, Inline, With icon) × all states. Same row count in Figma as HTML. |
+| 4 | **Token tables include swatches** | Card 4 color token rows include a 12px swatch dot (rectangle, cornerRadius 3) filled with the hex value next to the token name. Text-only token names without swatches = fail. |
+| 5 | **Anatomy has all 4 sub-sections** | Card 3 includes: Structure (badges), Specs (pink `#E91E8C` dimension lines), States (grid), Parts reference (table). Missing Specs = P0 fail. |
+| 6 | **Component API has REQ/OPT badges** | Card 5 props table shows colored badges (REQ = red, OPT = grey) as styled frames, not plain text. |
+| 7 | **Do/Don't pairs styled** | Cards 6-7 Do/Don't pairs have colored header bars (green `#047800` for Do, red `#C10C0D` for Don't). |
+| 8 | **Code spec uses `--zen-*` tokens** | Card 9 CSS code block references `--zen-*` token names, not raw hex. |
+| 9 | **Accessibility cards complete** | Card 8 covers all applicable WCAG requirements with P0/P1/P2 severity. |
+| 10 | **Contrast ratio table with swatches** | Card 8 includes foreground/background contrast table with 12px swatch dots, ratio values, and Pass/Exempt badges. |
+| 11 | **Card frames named by title** | Each card frame is renamed to its card title (`"Anatomy"`, `"Design tokens"`, etc.) — not left as `"Meta / Chrome / Brief Card"`. |
+| 12 | **Figma↔HTML parity** | Every sub-section, table, visual element, and row count in the Figma output matches what the HTML spec contains. Omissions = P0. |
 
 ---
 
