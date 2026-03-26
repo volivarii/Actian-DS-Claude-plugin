@@ -254,7 +254,15 @@ Run through the checklist in `../../references/quality-checklist.md` — check t
 
 If a fix is ambiguous, note it for the user review step instead of fixing silently.
 
-## Step 7 — Update references
+## Step 7 — Offer component brief
+
+After the component is created, ask the user:
+
+> "Want me to generate a component brief for this? I'll place it in the **Components** card frame."
+
+If the user accepts, invoke the `component-brief` skill with the newly created component name. When generating the Figma output, place the created component instance inside **Card 2 ("Components")** of the brief.
+
+## Step 8 — Update references
 
 After the component is created and published, remind the user to:
 1. Run `npm run sync` in the [Actian DS Assembler](https://github.com/volivarii/Actian-DS-Assembler) repo to update the registry from Figma
