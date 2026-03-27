@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{FEATURE_NAME}} — Interactive Prototype</title>
+
+  <!-- Alpine.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+
+  <style>
+    /* ─── Reset ─────────────────────────────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ─── Base ───────────────────────────────────────────────────────────────── */
+    body {
+      background: #1a1d23;
+      color: #f0f2f5;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─── Stage — holds all screens, scrolls horizontally if needed ─────────── */
+    .proto-stage {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      padding: 24px 24px 96px; /* 96px bottom keeps content above fixed nav */
+      overflow: auto;
+    }
+
+    /* ─── Screen — the white canvas shown one at a time ─────────────────────── */
+    .proto-screen {
+      width: 1440px;
+      min-height: 700px;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow:
+        0 4px 6px -1px rgba(0, 0, 0, 0.3),
+        0 10px 15px -3px rgba(0, 0, 0, 0.4),
+        0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      flex-shrink: 0;
+      overflow: hidden;
+      opacity: 1;
+      transition: opacity 0.15s ease;
+    }
+
+    .proto-screen[aria-hidden="true"] {
+      display: none;
+    }
+
+    .proto-screen--transitioning {
+      opacity: 0;
+    }
+
+    /* ─── Bottom navigation bar ─────────────────────────────────────────────── */
+    .proto-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #2d3648;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 8px 16px;
+      z-index: 100;
+      min-height: 56px;
+    }
+
+    /* ─── Nav items ─────────────────────────────────────────────────────────── */
+    .proto-nav__item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: rgba(255, 255, 255, 0.55);
+      font-family: inherit;
+      font-size: 12px;
+      line-height: 1;
+      cursor: pointer;
+      transition:
+        background 0.1s ease,
+        border-color 0.1s ease,
+        color 0.1s ease;
+      white-space: nowrap;
+      max-width: 160px;
+    }
+
+    .proto-nav__item:hover {
+      background: rgba(255, 255, 255, 0.06);
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .proto-nav__item:active {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .proto-nav__item--active {
+      background: rgba(255, 255, 255, 0.10);
+      border-color: rgba(255, 255, 255, 0.20);
+      color: #ffffff;
+    }
+
+    /* ─── Step number circle ────────────────────────────────────────────────── */
+    .proto-nav__number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      font-size: 11px;
+      font-weight: 600;
+      background: rgba(255, 255, 255, 0.12);
+      color: rgba(255, 255, 255, 0.6);
+      flex-shrink: 0;
+      transition: background 0.1s ease, color 0.1s ease;
+    }
+
+    .proto-nav__item--active .proto-nav__number {
+      background: #3b82f6;
+      color: #ffffff;
+    }
+
+    /* ─── Label with overflow ellipsis ─────────────────────────────────────── */
+    .proto-nav__label {
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* ─── Screen indicator (top-right corner) ───────────────────────────────── */
+    .proto-indicator {
+      position: fixed;
+      top: 16px;
+      right: 20px;
+      background: rgba(45, 54, 72, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      z-index: 101;
+      letter-spacing: 0.02em;
+    }
+
+    /* ─── Keyboard shortcut hint (above nav) ────────────────────────────────── */
+    .proto-hint {
+      position: fixed;
+      bottom: 72px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(45, 54, 72, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.4);
+      z-index: 99;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .proto-hint kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: inherit;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.55);
+      margin: 0 2px;
+    }
+
+    /* ─── Inline error message ───────────────────────────────────────────────── */
+    .proto-error {
+      font-size: 12px;
+      color: #f87171;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .proto-error--visible {
+      display: block;
+    }
+
+    /* ─── Input error state ─────────────────────────────────────────────────── */
+    .proto-input--error {
+      border-color: #f87171 !important;
+      outline-color: #f87171 !important;
+    }
+
+    /* ─── Component-specific CSS placeholder ────────────────────────────────── */
+    /*
+     * {{COMPONENT_SPECIFIC_CSS}}
+     * Replace this comment with any component styles needed for this prototype,
+     * e.g., custom table rows, status badges, sidebar nav items, etc.
+     */
+
+    /* ─── Additional styles placeholder ─────────────────────────────────────── */
+    /*
+     * {{ADDITIONAL_STYLES}}
+     * Replace this comment with any additional one-off styles specific to
+     * this feature's screens.
+     */
+  </style>
+</head>
+
+<body
+  x-data="{
+    /* ── Active screen index (1-based) ── */
+    screen: 1,
+
+    /* ── Navigation path taken through the flow (e.g. 'happy', 'error') ── */
+    path: '',
+
+    /* ── Form field values keyed by field name ── */
+    form: {},
+
+    /* ── Validation error messages keyed by field name ── */
+    errors: {},
+
+    /*
+     * ── Screens definition ──
+     * Replace the placeholder array below with the actual screen list.
+     * Each entry: { id: Number, label: String }
+     *
+     * {{SCREENS_ARRAY}}
+     * Example:
+     * screens: [
+     *   { id: 1, label: 'Browse datasets' },
+     *   { id: 2, label: 'Request access' },
+     *   { id: 3, label: 'Confirmation' },
+     * ],
+     */
+    screens: [
+      /* {{SCREENS_ARRAY}} */
+    ],
+
+    /* ── Navigate to a specific screen by 1-based index ── */
+    goto(index) {
+      if (index < 1 || index > this.screens.length) return;
+      this.screen = index;
+    },
+
+    /* ── Move forward one screen ── */
+    next() {
+      this.goto(this.screen + 1);
+    },
+
+    /* ── Move back one screen ── */
+    prev() {
+      this.goto(this.screen - 1);
+    },
+
+    /*
+     * ── Validate the current screen's form fields ──
+     * Replace with field-specific validation logic.
+     *
+     * {{VALIDATE_IMPL}}
+     * Example:
+     * validate() {
+     *   this.errors = {};
+     *   if (!this.form.name || !this.form.name.trim()) {
+     *     this.errors.name = 'Name is required';
+     *   }
+     *   return Object.keys(this.errors).length === 0;
+     * },
+     */
+    validate() {
+      this.errors = {};
+      /* {{VALIDATE_IMPL}} */
+      return Object.keys(this.errors).length === 0;
+    },
+
+    /*
+     * ── Returns true when the current screen's primary action may be taken ──
+     * Replace with field-presence checks as needed.
+     *
+     * {{CAN_SUBMIT_IMPL}}
+     * Example:
+     * canSubmit() {
+     *   return Boolean(this.form.dataset && this.form.reason);
+     * },
+     */
+    canSubmit() {
+      /* {{CAN_SUBMIT_IMPL}} */
+      return true;
+    }
+  }"
+
+  @keyup.left.window="prev()"
+  @keyup.right.window="next()"
+>
+
+  <!-- ── Screen indicator (top-right): shows "N / total" ────────────────────── -->
+  <div class="proto-indicator" x-text="`${screen} / ${screens.length}`" aria-live="polite"></div>
+
+  <!-- ── Keyboard hint bar ────────────────────────────────────────────────────── -->
+  <div class="proto-hint">
+    <kbd>←</kbd> prev &nbsp;·&nbsp; <kbd>→</kbd> next &nbsp;·&nbsp; click step to jump
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════════
+       STAGE — wraps all proto-screen elements
+       ─────────────────────────────────────────────────────────────────────────
+       Replace the comment below with one <div class="proto-screen"> per screen.
+
+       Template for a single screen:
+
+         <div class="proto-screen"
+              :aria-hidden="screen !== 1"
+              x-show="screen === 1"
+              x-transition:enter="proto-screen"
+              data-screen="1">
+           <!-- Screen 1 content here -->
+           <!-- {{SCREEN_1_CONTENT}} -->
+         </div>
+
+       Increment data-screen and the x-show / :aria-hidden comparisons for each
+       additional screen. Alpine's x-show keeps DOM in place while hiding screens
+       that are not active — this preserves form state across navigation.
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <main class="proto-stage">
+    <!-- {{SCREENS}} -->
+  </main>
+
+  <!-- ── Bottom navigation bar ────────────────────────────────────────────────── -->
+  <!--
+       x-for renders one button per entry in `screens`.
+       :key keeps Alpine diffing stable.
+       @click navigates to that screen.
+       :class applies the active highlight to the currently visible screen.
+  -->
+  <nav class="proto-nav" aria-label="Prototype screen navigation">
+    <template x-for="item in screens" :key="item.id">
+      <button
+        class="proto-nav__item"
+        :class="{ 'proto-nav__item--active': screen === item.id }"
+        @click="goto(item.id)"
+        :aria-current="screen === item.id ? 'step' : undefined"
+        :title="item.label"
+      >
+        <span class="proto-nav__number" x-text="item.id"></span>
+        <span class="proto-nav__label" x-text="item.label"></span>
+      </button>
+    </template>
+  </nav>
+
+</body>
+</html>
