@@ -260,6 +260,38 @@ Available builders:
 - `buildSpecTable(parent, headers, rows, options)` — data tables with header row + N data rows
 - `buildStateGrid(parent, states)` — horizontal row of labeled state columns
 
+## Unsupported APIs
+
+The Figma MCP `use_figma` environment is NOT the full Figma Plugin API. These APIs will throw errors:
+
+| API | Error | Use instead |
+|-----|-------|-------------|
+| `figma.currentPage = page` | "Setting figma.currentPage is not supported" | `await figma.setCurrentPageAsync(page)` |
+| `node.setPluginData(key, value)` | "setPluginData is not a supported API" | Do not store data on Figma nodes — write to `.last-push.json` manifest file instead |
+| `node.getPluginData(key)` | "getPluginData is not a supported API" | Read from `.last-push.json` manifest file |
+| `figma.clientStorage` | Not available | Not needed — use local files |
+| `figma.ui` | Not available | No UI in MCP context |
+
+**Before using any Figma API:** Check if it's a standard read/create/modify operation (supported) or a plugin-specific storage/UI operation (not supported). When in doubt, stick to: creating frames, setting properties, importing components/styles/variables, loading fonts, and setting text.
+
+## Page Navigation
+
+When the user provides a Figma URL with a `node-id`, navigate to that node's page before creating frames. Without this, output lands on whichever page Figma defaults to (often the Cover page).
+
+```js
+// Navigate to the correct page before creating any frames
+const targetNode = await figma.getNodeByIdAsync(nodeId);
+if (targetNode) {
+  let page = targetNode;
+  while (page && page.type !== 'PAGE') page = page.parent;
+  if (page) await figma.setCurrentPageAsync(page);
+}
+```
+
+**CRITICAL:** Use `await figma.setCurrentPageAsync(page)` — NOT `figma.currentPage = page` (which throws an error).
+
+If no node-id is provided, ask the user which page to target. Never default to the first page.
+
 ## Rules
 
 - **`use_figma` is the only output path.** All Figma output goes through `use_figma`.
