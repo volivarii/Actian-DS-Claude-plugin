@@ -273,9 +273,17 @@ Read `flow-html-reference.md` § "Figma output" for the complete `use_figma` pro
 - Auto-layout on every frame, descriptive layer names, contextual text
 - One row per flow in a horizontal wrapper
 
-## Step 6 — Review
+## Step 6 — Parity check
 
-After capture or assembly, get a screenshot of the result and show it to the user. Ask if they want adjustments before considering it done.
+After all `use_figma` calls complete, run the post-push parity check procedure in `../../references/parity-check.md`:
+
+1. `get_screenshot` of each pushed screen
+2. Present screenshots alongside the HTML preview URL
+3. Run automated checklist (element count, clipping, empty text)
+4. Report findings and offer to fix P0 issues
+5. Write `.last-push.json` manifest to `{project_working_directory}/components/flows/.last-push.json`
+
+After parity check completes, ask: "Review in Figma and reply: **'looks good'**, **'fix [specific issue]'**, or run `/refine` later for corrections."
 
 ## Step 7 — Cleanup pass
 
