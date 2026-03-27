@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{COMPONENT_NAME}} — State Playground</title>
+
+  <!-- Alpine.js — reactive state management for the playground controls -->
+  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+
+  <!-- Design tokens — provides --zen-* CSS custom properties for all 3 themes -->
+  <link rel="stylesheet" href="../../tokens/tokens.css">
+
+  <style>
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #f5f5fa;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ============================================================
+       PLAYGROUND HEADER
+       ============================================================ */
+    .playground-header {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 20px 32px;
+    }
+
+    .playground-header__title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #12131f;
+      line-height: 1.3;
+    }
+
+    .playground-header__subtitle {
+      font-size: 14px;
+      color: #6b7280;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    /* ============================================================
+       PLAYGROUND CONTROLS
+       ============================================================ */
+    .playground-controls {
+      background: #ffffff;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 12px 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      align-items: center;
+    }
+
+    /* ============================================================
+       CONTROL GROUP
+       Each group is a labeled cluster of toggle buttons.
+       Use data-label="Group Label" to set the pseudo-element text.
+       ============================================================ */
+    .control-group {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .control-group::before {
+      content: attr(data-label);
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #9ca3af;
+      margin-right: 2px;
+    }
+
+    /* ============================================================
+       CONTROL BUTTONS
+       ============================================================ */
+    .control-btn {
+      background: #f5f5fa;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 5px 10px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 500;
+      color: #374151;
+      text-transform: capitalize;
+      cursor: pointer;
+      transition: background 0.1s ease, border-color 0.1s ease, color 0.1s ease;
+      white-space: nowrap;
+    }
+
+    .control-btn:hover {
+      background: #e5e7eb;
+    }
+
+    .control-btn.active {
+      background: #12131f;
+      border-color: #12131f;
+      color: #ffffff;
+    }
+
+    /* ============================================================
+       PLAYGROUND STAGE
+       The preview area where component variants are rendered.
+       ============================================================ */
+    .playground-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 32px;
+    }
+
+    .playground-stage__inner {
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 48px 64px;
+      min-width: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ============================================================
+       PLAYGROUND TOKEN READOUT
+       Dark panel at the bottom showing active token values.
+       ============================================================ */
+    .playground-tokens {
+      background: #2d3648;
+      padding: 16px 32px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .token-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .token-key {
+      font-size: 11px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: #9ca3af;
+    }
+
+    .token-value {
+      font-size: 12px;
+      font-family: 'Fira Code', 'Cascadia Code', 'JetBrains Mono', ui-monospace, monospace;
+      color: #e5e7eb;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 4px;
+      padding: 2px 6px;
+    }
+
+    /* ============================================================
+       COMPONENT-SPECIFIC CSS
+       Injected by the component-brief skill per component.
+       ============================================================ */
+    {{COMPONENT_SPECIFIC_CSS}}
+
+    /* ============================================================
+       ADDITIONAL STYLES
+       ============================================================ */
+    {{ADDITIONAL_STYLES}}
+  </style>
+</head>
+<body>
+
+  <!--
+    ROOT ALPINE.JS CONTROLLER
+    =========================
+    x-data initializes all reactive state:
+      - state     : current interaction state (e.g. 'enabled', 'hovered', 'disabled')
+      - selected  : whether a selectable variant is in selected mode
+      - size      : component size axis (e.g. 'medium', 'small')
+      - hierarchy : variant hierarchy (e.g. 'primary', 'secondary')
+      - theme     : active DS theme ('actian' | 'studio' | 'explorer')
+      - tokens    : map of state → { tokenKey: tokenValue } for the readout panel
+
+    All of these are PLACEHOLDERS — the component-brief skill replaces
+    {{ALPINE_X_DATA}} with the real axes and token map for each component.
+  -->
+  <div
+    x-data="{{ALPINE_X_DATA}}"
+    :data-theme="theme"
+  >
+
+    <!-- HEADER ================================================== -->
+    <header class="playground-header">
+      <h1 class="playground-header__title">{{COMPONENT_NAME}}</h1>
+      <p class="playground-header__subtitle">Interactive state playground — click controls to explore variants</p>
+    </header>
+
+    <!-- CONTROLS BAR ============================================ -->
+    <nav class="playground-controls" aria-label="Playground controls">
+
+      <!--
+        {{CONTROL_GROUPS}}
+        ==================
+        Replace this comment with one .control-group per variant axis.
+        Example for a "State" axis:
+
+        <div class="control-group" data-label="State">
+          <template x-for="s in ['enabled','hovered','focused','pressed','disabled']" :key="s">
+            <button
+              class="control-btn"
+              :class="{ active: state === s }"
+              @click="state = s"
+              x-text="s"
+            ></button>
+          </template>
+        </div>
+      -->
+      {{CONTROL_GROUPS}}
+
+      <!-- THEME CONTROL — always present -->
+      <div class="control-group" data-label="Theme">
+        <template x-for="t in ['actian', 'studio', 'explorer']" :key="t">
+          <button
+            class="control-btn"
+            :class="{ active: theme === t }"
+            @click="theme = t"
+            x-text="t"
+          ></button>
+        </template>
+      </div>
+
+    </nav>
+
+    <!-- STAGE =================================================== -->
+    <main class="playground-stage" aria-label="Component preview">
+      <div class="playground-stage__inner">
+
+        <!--
+          {{VARIANT_SECTIONS}}
+          ====================
+          Replace this comment with one section per variant combination.
+          Use x-show to toggle visibility based on state axes.
+          Example:
+
+          <div x-show="state === 'enabled' && size === 'medium'">
+            <!-- actual component markup here -->
+          </div>
+
+          Each section contains the real component HTML — either a live
+          web component, a CSS-rendered approximation, or an <img> snapshot.
+        -->
+        {{VARIANT_SECTIONS}}
+
+      </div>
+    </main>
+
+    <!-- TOKEN READOUT =========================================== -->
+    <footer class="playground-tokens" aria-label="Active design tokens">
+      <!--
+        Iterates over Object.entries(tokens[state]) to show the token key
+        and its resolved value for the currently active state.
+
+        If tokens[state] is undefined (e.g. state axis not in map), the
+        template renders nothing — safe to leave as-is.
+      -->
+      <template x-if="tokens[state]">
+        <template x-for="[key, value] in Object.entries(tokens[state])" :key="key">
+          <div class="token-row">
+            <span class="token-key" x-text="key"></span>
+            <span class="token-value" x-text="value"></span>
+          </div>
+        </template>
+      </template>
+    </footer>
+
+  </div><!-- /root Alpine controller -->
+
+</body>
+</html>
