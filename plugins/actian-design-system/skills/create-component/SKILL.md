@@ -1,6 +1,6 @@
 ---
 name: create-component
-description: Use this skill whenever the user wants to add a new component to the Figma design system library or extend an existing one with new variants. Generates a component spec JSON and creates it in Figma via the DS Assembler plugin or the Figma Plugin API. Triggers when the user asks to create, build, or make a new component, add a variant or state to an existing component, extend a component, or describes a UI element that should become reusable in the library.
+description: Use when the user asks to create, build, or make a new component in the Figma design system library, add a variant or state to an existing component, extend a component, or describes a UI element that should become reusable.
 argument-hint: "[component description or Figma URL]"
 ---
 
@@ -11,7 +11,7 @@ Create a new Figma component (with variants) from a text description or by exten
 > **Quality & hygiene:** Validate all output against CLAUDE.md Quality & Hygiene Checklist before marking complete.
 > **Generation log:** Follow the Generation Log format in CLAUDE.md — include a visible generation card before the component output.
 
-> **Mode: Implement.** Build first, explain after. Output working artifacts, not commentary. Move fast — infer details from the user's request and make reasonable decisions. Only ask when critical information is genuinely missing (e.g., the user said "create a component" with no name or description). The cleanup pass (Step 6) handles polish. Keep status updates to milestones only.
+> **Mode: Implement with build confirmation.** Build first, explain after. Output working artifacts, not commentary. Move fast — infer details from the user's request and make reasonable decisions. Only ask when critical information is genuinely missing. Two pause points: (1) Step 1 if the request is too vague, and (2) Step 4.5 to confirm the build plan before Figma output (skipped for Draft tier). The cleanup pass (Step 6) handles polish. Keep status updates to milestones only.
 
 ### Quality tier detection
 
@@ -122,6 +122,26 @@ Builds the component directly in Figma via JavaScript. Can import published libr
 **What needs library binding:** Custom scaffolding — wrapper frames, backgrounds, text nodes, shadows. Follow `../../references/figma-output.md` § "Token binding": discover keys via `search_design_system`, bind color variables + text styles + effect styles (DS2026) or color styles + text styles (FM). Hex only as fallback.
 
 **Tradeoffs:** Text overrides on library instances can require layer name debugging. No declarative spec.
+
+---
+
+## Step 4.5 — Confirm build plan
+
+Before creating in Figma, present a quick summary of what will be built. This is the user's last chance to catch misunderstandings before spending `use_figma` calls.
+
+Present:
+> **Building: [Component name]** ([library])
+>
+> **Variants:** [axis]: [values] × [axis]: [values] = [total count] variants
+> **Properties:** [list of editable text/boolean/instance-swap props]
+> **Nested components:** [list of imported library instances, e.g., "FM Button, FM Icon"]
+> **States:** [Enabled, Disabled, Hovered, etc.]
+>
+> **"build"** to proceed · **feedback** to adjust
+
+**Wait for the user's response.** On approval, proceed to Step 5. On feedback, adjust the spec and re-present.
+
+For Draft tier: skip this step (speed over accuracy).
 
 ---
 

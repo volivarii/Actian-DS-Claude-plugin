@@ -1,6 +1,6 @@
 ---
 name: component-brief
-description: Use this skill whenever the user wants to formally document or specify a design system component. Produces a multi-card HTML spec page covering anatomy, design tokens, component API, usage guidelines, content guidelines, accessibility, and code specification. Supports both 9-card Actian DS (hi-fi) and 5-card Fat Marker (lo-fi) formats. Triggers when the user asks to document, brief, or spec a component, wants to know the variants/states/tokens for a component, asks for a spec page, or provides a Figma component URL and wants it turned into structured documentation for the team.
+description: Use when the user asks to document, brief, or spec a design system component, wants to know the variants/states/tokens for a component, asks for a spec page, or provides a Figma component URL and wants structured documentation.
 argument-hint: "[Figma URL or component name] [generate N,N,N]"
 ---
 
@@ -45,11 +45,11 @@ The user describes a component or provides a Figma URL. Examples:
 - "Document FM Alert"
 - "We need a notification banner component"
 
-## Execution Model — Run Autonomously
+## Execution Model — Autonomous with preview gate
 
-**This skill runs end-to-end without intermediate prompts.** Do NOT pause to ask questions, present drafts, or wait for confirmation between steps. The only acceptable pause is when the mode (FM vs DS) is genuinely ambiguous AND no signals resolve it.
+**This skill runs autonomously through research and HTML generation (Steps 1–2), then pauses at Step 2.5 for user review before pushing to Figma (Step 3).** Two pause points: (1) before Step 1 if the mode (FM vs DS) is genuinely ambiguous AND no signals resolve it, and (2) Step 2.5 HTML preview gate. Between gates, do not pause or ask questions.
 
-Parse card selection from the user's initial input. If no selection is specified, default to **all cards**. Do not ask "which cards?" — just generate them.
+Parse card selection from the user's initial input. If no selection is specified, default to **all cards**. Do not ask "which cards?" — just generate them. The user can also select cards at the preview gate (e.g., "push 2,4,5").
 
 ### Speed rules
 
@@ -65,7 +65,7 @@ Parse card selection from the user's initial input. If no selection is specified
 Issue ALL of these reads in a **single message** with parallel tool calls. Do not wait for results between reads.
 
 **For Actian DS mode (9 cards), read these files in parallel:**
-1. `get_screenshot` on the provided Figma node (for visual reference)
+1. `get_design_context` on the provided Figma node (for visual reference AND to extract the component set key for importing real instances in Step 3)
 2. `../../docs/token-reference.md` (token values per theme)
 3. `../../docs/content-guidelines.md` (for Cards 6-7)
 4. `../../docs/accessibility-guidelines.md` (for Card 8)
@@ -74,7 +74,7 @@ Issue ALL of these reads in a **single message** with parallel tool calls. Do no
 7. `templates/ds-wrapper.html`
 
 **For Fat Marker mode (5 cards), read these files in parallel:**
-1. `get_screenshot` on the provided Figma node
+1. `get_design_context` on the provided Figma node (visual reference + component key extraction)
 2. `../../docs/fm-components.md` (component variants)
 3. `../../docs/content-guidelines.md`
 4. `../../docs/component-guidelines/<slug>.json` — per-component guidelines (if available)
@@ -83,7 +83,7 @@ Issue ALL of these reads in a **single message** with parallel tool calls. Do no
 
 That's it. No additional research rounds. Proceed immediately to generation.
 
-## Step 2 — Generate HTML (immediate)
+## Step 2 — Generate HTML
 
 Draft the brief content and generate the HTML in the same step. Do NOT draft as a separate step — go straight from research results to final HTML output.
 
@@ -167,9 +167,50 @@ Read `../../references/token-naming.md` for the full `--zen-` prefix mapping tab
 
 ---
 
+## Step 2.5 — Preview gate (BLOCKING)
+
+After generating the HTML, serve it and present the preview URL. **Do NOT proceed to Figma output until the user approves.**
+
+1. Start local server: `BASE_URL=$(scripts/ensure-server.sh . 8765)`
+2. Present:
+   > "Preview: `http://localhost:8765/components/[name]/[name]-spec.html`
+   >
+   > Review the cards and reply:
+   > - **"push"** — send all cards to Figma
+   > - **"push 2,4,5"** — send only those cards to Figma
+   > - **feedback** — I'll fix the HTML and re-preview"
+
+3. **Wait for the user's response.** Do not proceed.
+
+4. On feedback: fix the HTML, re-save, re-serve, present the updated preview URL again. Repeat until approved.
+
+5. On approval: proceed to Step 3 with only the approved cards (default: all).
+
+This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figma output is expensive and hard to undo.
+
+---
+
 ## Step 3 — Output to Figma (default: `use_figma`)
 
 Read and follow the shared output procedure in `../../references/figma-output.md`. This step builds spec cards directly in Figma via Plugin API JavaScript — HTML is for local preview only.
+
+### P0 Rule: Use real component instances
+
+When briefing an **existing** component (the user provided a Figma URL to a component page/section/frame), you MUST import real instances of that component or component set to illustrate relevant cards. Never approximate components with text placeholders like `[ Save ]` or rectangles.
+
+**Where to use real instances:**
+- **Card 2 (Actual component)** — variant matrix cells and theme comparison previews
+- **Card 3 (Anatomy)** — Structure sub-section (the component with badge overlays), Specs sub-section (the component with pink dimension annotations), States sub-section (one instance per state)
+- Any other card where showing the actual component adds clarity
+
+**How:**
+1. Use `get_design_context` on the source node to discover the component set key
+2. Import with `figma.importComponentSetByKeyAsync(key)` (for component sets) or `figma.importComponentByKeyAsync(key)` (for single components)
+3. Find the right variant: `set.children.find(c => c.name.includes("Type=Primary"))`
+4. Create instances: `variant.createInstance()`
+5. For different states, create separate instances and set variant properties if available, or annotate with state labels
+
+If the component key cannot be resolved (e.g., local component, not published), fall back to a placeholder frame with a dashed border and the text "Component instance — import manually". Never use text like `[ Button ]` as a substitute.
 
 ### Card structure (Meta Kit)
 
@@ -231,7 +272,7 @@ Each card contains these element types. **Match the HTML templates** (`templates
 | **Typography specimens** | Actual styled text nodes rendered at the documented font size/weight/family | Card 4 |
 | **Code blocks** | Frame with dark background (`#1E1E2E`), padding 16px, monospace text (12px) with syntax-colored segments | Cards 8, 9 |
 | **Do/Don't pairs** | Two side-by-side frames: green header bar (`#047800`, 4px height) + Do label, red header bar (`#C10C0D`, 4px height) + Don't label | Cards 6, 7 |
-| **Component instances** | Import real library instances via `getComponentByKeyAsync()` for variant matrices and anatomy | Cards 2, 3 |
+| **Component instances** | **P0 — Import real library instances** via `importComponentSetByKeyAsync()` or `importComponentByKeyAsync()`. Use `get_design_context` on the source node to find the component key. Never substitute with text placeholders. | Cards 2, 3 |
 | **Pass/Exempt badges** | Text node: Pass = green `#047800`, Exempt = brown `#9C2000`, bold 12px | Card 8 |
 
 ### Per-card content requirements — Figma output MUST match HTML
@@ -239,21 +280,17 @@ Each card contains these element types. **Match the HTML templates** (`templates
 The HTML spec is the source of truth. The Figma output must contain **every sub-section, table, and visual element** present in the HTML. Omitting content that exists in the HTML is a P0 bug.
 
 **Card 2 — Actual component:**
-- [ ] Variant matrix table: one row per variant type (Standalone, Inline, With icon, etc.) — **include ALL rows the HTML has**, not just the first two
-- [ ] Each row × every interactive state (Enabled, Focused, Hovered, Pressed, Disabled) = one cell with the actual component rendered
-- [ ] Theme comparison section: 3 cards (Actian, Studio, Explorer), each showing:
-  - Theme label
-  - Component rendered in that theme's primary color
-  - 12px color swatch dots with labels (Primary, Pressed, Disabled)
+- [ ] Variant matrix: one row per variant type — **include ALL rows the HTML has**, not just the first two
+- [ ] Each cell MUST contain a **real imported component instance** (not text like `[ Save ]`). Import the component set, find the variant, call `.createInstance()`.
+- [ ] Theme comparison: 3 cards (Actian, Studio, Explorer), each with a real component instance + 12px swatch dots for Primary, Pressed, Disabled colors
 
 **Card 3 — Anatomy:** Must include ALL 4 sub-sections (not 3, not 2 — all 4):
-1. **Structure** — Component with lettered pointer badges (A, B, C...) overlaying each part + legend text listing each badge
-2. **Specs** — **MANDATORY, DO NOT SKIP.** Size variants rendered with pink (`#E91E8C`) dimension annotation lines:
-   - Height bracket (vertical line with horizontal ticks at top/bottom, measurement text)
-   - Gap/spacing indicators (horizontal bracket between elements)
-   - Focus ring offset indicators
-   - Build as: 1px rectangles filled `#E91E8C` for lines, text nodes in `#E91E8C` for measurements
-3. **States** — Horizontal grid showing every interactive state as rendered component instances with state labels above
+1. **Structure** — A **real component instance** with lettered pointer badges (A, B, C...) positioned over each part. Create the instance, then overlay small circle frames with letter labels. Add legend text below listing each badge.
+2. **Specs** — **MANDATORY, DO NOT SKIP.** A **real component instance** with pink (`#E91E8C`) dimension annotation lines overlaid. Do NOT replace this with a table — it must be a visual annotation. Build as:
+   - 1px rectangles filled `#E91E8C` for bracket lines (vertical + horizontal ticks)
+   - Text nodes in `#E91E8C` 11px for measurement values (e.g., "40px", "16px")
+   - Place brackets next to the component instance showing height, padding, gap
+3. **States** — Horizontal row of **real component instances**, one per state (Default, Hovered, Focused, Pressed, Disabled). Use variant properties if available, or label each instance. Text-only descriptions are NOT acceptable.
 4. **Parts reference** — Table with columns: Part (letter), Element, Token, Notes — one row per anatomical part (A through F typically)
 
 **Card 4 — Design tokens:** Must include ALL 3 sub-sections:
@@ -279,7 +316,7 @@ The HTML spec is the source of truth. The Figma output must contain **every sub-
 
 **Card 8 — Accessibility:**
 - [ ] 2×3 grid of a11y requirement cards (Role, Keyboard, Focus ring, Touch target, Disabled state, Color independence)
-- [ ] Each card: colored icon square (36px, NOT emoji) + title + body + dark code block
+- [ ] Each card: colored icon square (36px rectangle, NOT emoji) + title (bold 14px) + body text (regular 12px, `#475467`) + dark code block (`#1E1E2E` bg, monospace 11px). **Known failure: cards render empty if fonts aren't loaded or text isn't set. Always `await figma.loadFontAsync` before `.characters =`.**
 - [ ] **Contrast ratio table with swatch dots** — columns: Variant | Foreground (12px swatch + hex) | Background (12px swatch + hex) | Ratio | WCAG AA badge
 - [ ] Pass badges in green (`#047800`), Exempt badges in grey/brown (`#9C2000`)
 
@@ -315,6 +352,20 @@ The generation metadata frame is prepended as the first child (see `figma-output
    - If anything is missing, fix it before proceeding
 4. **Take a screenshot** with `get_screenshot` after all cards are built and show the result to the user.
 5. **Ask for adjustments** — "Here is the spec page in Figma. Want me to adjust anything?"
+
+### Known pitfalls — avoid these failures
+
+These are recurring bugs observed in production runs. Check every `use_figma` call against this list.
+
+| Bug | Cause | Fix |
+|-----|-------|-----|
+| **Empty text nodes** | Setting `.characters` without loading the font first | Always `await figma.loadFontAsync(...)` before `.characters = "..."` |
+| **Clipped content** | Frame left at Figma's default FIXED 100px width | Set `frame.layoutSizingHorizontal = 'FILL'` or `'HUG'` on every frame |
+| **Text placeholders instead of components** | Approximating components with `[ Label ]` text | Import real instances via `importComponentByKeyAsync` / `importComponentSetByKeyAsync` |
+| **Specs section is a table** | Card 3 Specs rendered as a data table instead of visual annotations | Must be a real component instance with overlaid pink dimension lines — a table is not a substitute |
+| **A11y cards empty** | Font not loaded for card body/title/code text nodes | Load Inter Regular, Inter Bold, and a monospace font (Roboto Mono or Source Code Pro) before setting any text in Card 8 |
+| **Erratic table column widths** | Column frames without explicit widths | Set fixed `resize(width, 1)` on each column frame, matching the HTML template proportions |
+| **Cards different heights** | Some cards have fixed height instead of auto | Every card's content frame must use `primaryAxisSizingMode = "AUTO"` (hug content vertically) |
 
 ### Figma target
 

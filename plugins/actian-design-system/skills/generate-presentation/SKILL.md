@@ -1,6 +1,6 @@
 ---
 name: generate-presentation
-description: Use this skill whenever the user wants to create a presentation or slide deck. Takes input files, research notes, Figma content, or a topic description and produces a complete Figma deck using Actian presentation templates (Cover, Body, Section, Back cover) with data visualizations and DS2026 styling. Triggers when the user asks to create a presentation, make a deck, turn findings or research into slides, build a pitch or report deck, or provides content and wants it presented visually.
+description: Use when the user asks to create a presentation, make a deck, turn findings or research into slides, build a pitch or report deck, or provides content and wants it presented visually.
 argument-hint: "[topic, file path, Figma URL, or description of content]"
 ---
 
@@ -78,11 +78,26 @@ Generate a single HTML file containing all slides as a horizontal row of 1920x10
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
   <!-- AI CONSUMPTION METADATA -->
   <style>
-    body { margin: 0; padding: 40px; background: #E0E0E0; display: flex; gap: 40px; }
+    body { margin: 0; padding: 40px; background: #E0E0E0; display: flex; gap: 40px; align-items: flex-start; }
     .slide { width: 1920px; height: 1080px; flex-shrink: 0; position: relative; overflow: hidden; }
+    .gen-card { width: 280px; flex-shrink: 0; background: #2D3648; border-radius: 8px; padding: 16px 20px; font-family: 'Inter', 'Roboto', sans-serif; display: flex; flex-direction: column; gap: 4px; }
+    .gen-card__label { font-size: 10px; font-weight: 500; color: #A0ABC0; text-transform: uppercase; letter-spacing: 0.5px; }
+    .gen-card__field { font-size: 12px; color: #CBD2E0; line-height: 1.4; }
+    .gen-card__key { font-weight: 500; }
+    .gen-card__key::after { content: ' '; }
   </style>
 </head>
 <body>
+  <!-- Generation log (first element — see CLAUDE.md Generation Metadata) -->
+  <div class="gen-card" data-name="Generation log">
+    <div class="gen-card__label">GENERATED</div>
+    <div class="gen-card__field"><span class="gen-card__key">Skill</span> generate-presentation</div>
+    <div class="gen-card__field"><span class="gen-card__key">Prompt</span> {{user prompt, truncated to 200 chars}}</div>
+    <div class="gen-card__field"><span class="gen-card__key">Date</span> {{ISO 8601 date+time}}</div>
+    <div class="gen-card__field"><span class="gen-card__key">Duration</span> {{prompt to file save}}</div>
+    <div class="gen-card__field"><span class="gen-card__key">Model</span> {{model ID}}</div>
+    <div class="gen-card__field"><span class="gen-card__key">Plugin</span> v{{plugin version}}</div>
+  </div>
   <!-- Slides go here -->
 </body>
 </html>
@@ -197,9 +212,15 @@ Follow the review report format defined in `../../docs/presentation-guide.md`:
 1. **Deck summary** — slide count, section count, estimated duration
 2. **Slide-by-slide breakdown table** — #, template type, headline, content summary, charts/visuals used
 3. **Quality checklist** — verify every headline passes "So what?", 1 message per slide, metrics have context, charts use DS2026 tokens, active voice, narrative arc
-4. Ask: **"Review the breakdown above. Want to adjust any slides before I push to Figma?"**
+4. Present the preview URL and ask:
+   > "Preview: `http://localhost:8765/presentations/[topic-slug]/[topic-slug]-deck.html`
+   >
+   > Review the breakdown above and the slides, then reply:
+   > - **"push"** — send all slides to Figma
+   > - **"push 1,3,5-8"** — send only those slides to Figma
+   > - **feedback** — I'll fix the HTML and re-preview"
 
-Wait for the user's approval or requested changes. If changes are requested, apply them to the HTML, re-serve, and present an updated report. Repeat until approved.
+**Wait for the user's response.** Do not proceed. If changes are requested, apply them to the HTML, re-serve, and present an updated report. Repeat until approved.
 
 ## Step 6 — Output to Figma (default: `use_figma`)
 

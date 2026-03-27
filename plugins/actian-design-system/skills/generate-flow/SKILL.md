@@ -1,6 +1,6 @@
 ---
 name: generate-flow
-description: Use this skill whenever the user wants to turn a feature idea or user story into lo-fi wireframe screens in Figma. Researches competitor patterns, plans a screen list, generates Fat Marker wireframes using FM Kit components, and pushes them to Figma via `use_figma`. Triggers when the user asks to create a flow, wireframe, or mockup, describes a feature and wants to see screens for it, asks how a user would accomplish a task, wants to mock up an experience, or provides a user story and wants it visualized as a multi-screen flow.
+description: Use when the user wants to create a flow, wireframe, or mockup from a feature idea or user story, asks how a user would accomplish a task, wants to mock up an experience, or provides a user story and wants it visualized as a multi-screen flow.
 argument-hint: "[feature description or Figma URL]"
 ---
 
@@ -14,7 +14,7 @@ argument-hint: "[feature description or Figma URL]"
 
 Generate a low-fidelity user flow using Fat Marker components and push it to Figma.
 
-> **Mode: Implement with review gate.** Build first, explain after. Move fast — infer details and make reasonable decisions instead of asking for every detail. Two acceptable pauses: (1) Step 1 if critical context is genuinely missing (feature name, user role, app context), and (2) Step 3 to confirm the screen list before generating — regenerating wrong screens is expensive. The cleanup pass (Step 7) handles polish. Keep status updates to milestones only.
+> **Mode: Implement with review gates.** Build first, explain after. Move fast — infer details and make reasonable decisions instead of asking for every detail. However, pause at these structured gates: (1) Step 1 if critical context is genuinely missing, (2) Step 2 research opt-in — always ask, (3) Step 3 screen list confirmation, and (4) Step 4.5 HTML preview before Figma push. Between gates, do not pause or ask questions. The cleanup pass (Step 7) handles polish.
 
 ### Quality tier detection
 
@@ -85,11 +85,26 @@ Infer as much as possible. Only ask if critical context is genuinely missing —
 
 **Output type defaults to `use_figma`** (Plugin API). Use Assembler if the user explicitly requests a reviewable JSON spec or needs Figma variable bindings on scaffolding.
 
-## Step 2 — Competitor & pattern research
+## Step 2 — Research (opt-in)
 
-Before designing, research how other products solve the same problem. This grounds the flow in real-world patterns rather than guessing.
+Ask the user before running competitor research:
 
-### What to research
+> "Should I research competitor patterns for this flow?
+> - **Yes** — I'll look at how other SaaS products handle this
+> - **No, here are references:** — share Figma URLs, screenshots, or websites and I'll use those instead
+> - **No, just build it** — I'll use Actian DS guidelines and conventions only"
+
+**Wait for the user's response.** Then:
+
+- **Yes** → run competitor research (see below)
+- **References provided** → analyze the provided material (see "Accepted reference formats" above), skip competitor research
+- **No** → skip to Step 3, note that no research was done
+
+### Competitor research (when opted in)
+
+Research how other products solve the same problem. This grounds the flow in real-world patterns rather than guessing.
+
+**What to research:**
 1. **Direct competitors** — How do similar data platforms handle this feature?
    - Common enterprise SaaS competitors: Collibra, Alation, Atlan, data.world, Informatica, OneTrust, BigID, Monte Carlo, Soda, Great Expectations
    - General SaaS patterns: Linear, Notion, Figma, Stripe Dashboard
@@ -99,12 +114,11 @@ Before designing, research how other products solve the same problem. This groun
    - Access/permissions: request flows, approval chains, role pickers
    - Empty states: onboarding, zero-data, error recovery
 
-### How to research
+**How to research:**
 - Use `WebSearch` to find screenshots, case studies, or documentation of competitor flows
 - Use `WebFetch` on product pages, help docs, or blog posts that show the UX
-- If the user shares competitor URLs or screenshots, analyze those first
 
-### Output
+**Output:**
 Present findings as a brief summary before the screen list:
 
 ```
@@ -123,8 +137,6 @@ Present findings as a brief summary before the screen list:
 - [What to adopt and why]
 - [What to do differently and why]
 ```
-
-If the user says "skip research" or the feature is highly specific to Actian, skip this step and note that no competitor research was done.
 
 ### Research frame (optional)
 
@@ -252,6 +264,27 @@ The FM library doesn't have everything — charts, visualizations, custom contro
 ### Fat Marker CSS Reference
 
 Read `../../references/fm-css-reference.md` for the complete FM CSS token palette, component styles, and HTML structure templates. Copy those exact styles into every generated flow HTML — do not approximate values.
+
+## Step 4.5 — Preview gate (BLOCKING)
+
+After generating the HTML, serve it and present the preview URL. **Do NOT proceed to Figma output until the user approves.**
+
+1. Start local server: `BASE_URL=$(scripts/ensure-server.sh . 8765)`
+2. Present:
+   > "Preview: `http://localhost:8765/components/flows/[feature-name]-flow.html`
+   >
+   > Review the screens and reply:
+   > - **"push"** — send all screens to Figma
+   > - **"push 1,3,5"** — send only those screens to Figma
+   > - **feedback** — I'll fix the HTML and re-preview"
+
+3. **Wait for the user's response.** Do not proceed.
+
+4. On feedback: fix the HTML, re-save, re-serve, present the updated preview URL again. Repeat until approved.
+
+5. On approval: proceed to Step 5 with approved screens.
+
+This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figma output is expensive and hard to undo.
 
 ## Step 5 — Output to Figma
 

@@ -24,6 +24,9 @@ node_modules/
 # Test prompts (local reference only)
 plugins/*/TEST-PROMPTS.md
 
+# Release notes (local drafts for Slack)
+release-notes/
+
 # Superpowers working files
 .superpowers/
 plugins/*/docs/superpowers/
