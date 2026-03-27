@@ -482,9 +482,9 @@ Track progress in `docs/foundations/_index.json`. Support resumption.
 
 ---
 
-## Phase 7 — Validation
+## Phase 7 — Validation + Changelog
 
-Diff local files against current Figma state without overwriting.
+Diff local files against current Figma state, generate a semantic changelog, and present for approval.
 
 ### Step 1: Diff
 
@@ -494,16 +494,126 @@ git diff --stat docs/ tokens/
 
 Count new, modified, and deleted files.
 
-### Step 2: Sync report
+### Step 2: Generate semantic changelog
 
-Present structured Markdown report: files changed, summary counts, warnings.
+Parse the git diff content (not just `--stat`) to produce a human-readable changelog organized by category. This step transforms file-level diffs into design-system-meaningful changes.
 
-### Step 3: Approval gate
+**How to generate each section:**
+
+#### Tokens
+Parse `git diff tokens/actian-ds.tokens.json` and `git diff docs/token-reference.md`:
+- **Changed:** Compare old vs new `$value` for each token. Report: token name, old value → new value, per-theme if color.
+- **Added:** Tokens present in new file but not old.
+- **Removed:** Tokens present in old file but not new.
+
+```markdown
+#### Tokens
+- **Changed:** `theme-primary` Actian #0550DC → #0446B8, Studio #7B2FBE → #6A28A3
+- **Added:** `status-info-tertiary` (#4A90D9 / #6B5CE7 / #3D9970)
+- **Removed:** none
+```
+
+#### Components
+Parse `git diff docs/ds2026-components.md` and `git diff docs/fm-components.md`:
+- **New component:** Component heading exists in new but not old.
+- **Removed component:** Component heading exists in old but not new.
+- **New variant:** Variant axis values differ (more values in new).
+- **Changed properties:** Text overrides or variant axes differ.
+
+```markdown
+#### Components
+- **New component:** Stepper (DS2026, 3 variants: Size × State × Orientation)
+- **New variant:** Button → added Destructive=True axis
+- **Changed:** Dropdown — added `Placeholder Text` text override
+```
+
+#### Guidelines
+Parse `git diff docs/component-guidelines/*.json`:
+- For each changed JSON file, compare `contentGuidelines` and `designGuidelines` arrays.
+- Report added/removed/changed entries at a summary level (count of rules changed, not full text).
+
+```markdown
+#### Guidelines
+- **Updated:** Modal — 2 new content do/don't pairs, 1 design guideline added
+- **Updated:** Button — destructive variant usage guidance added
+- **New:** Stepper — initial guidelines extracted
+```
+
+#### Foundations
+Parse `git diff docs/foundations/*.json`, `docs/content-guidelines.md`, `docs/accessibility-guidelines.md`:
+- Report which foundation topics had changes and a brief summary.
+
+```markdown
+#### Foundations
+- **Updated:** Accessibility — keyboard navigation section rewritten (23 → 25 frames)
+- **Updated:** Color — 2 new category colors documented
+- No changes to content guidelines
+```
+
+#### Styles
+Parse `git diff docs/meta-kit/text-styles.md` and `docs/meta-kit/effect-styles.md`:
+- Report added/changed/removed styles with key properties.
+
+```markdown
+#### Styles
+- **Changed:** `shadow-md` blur 8 → 10, spread 2 → 3
+- No text style changes
+```
+
+**If a section has no changes, include it with "No changes" so the changelog is always complete.**
+
+### Step 3: Sync report with changelog
+
+Present the file-level diff table AND the semantic changelog together:
+
+```markdown
+## Sync Report — YYYY-MM-DD
+
+### Changelog
+
+#### Tokens
+- ...
+
+#### Components
+- ...
+
+#### Guidelines
+- ...
+
+#### Foundations
+- ...
+
+#### Styles
+- ...
+
+### Files changed
+
+| File | Status | Lines |
+|------|--------|-------|
+| ... | ... | ... |
+
+### Warnings
+- ⚠ [any issues from earlier phases]
+```
+
+### Step 4: Save changelog
+
+Save the changelog section to `release-notes/sync-YYYY-MM-DD.md` for historical tracking. This file is gitignored but available for `/release-notes` or manual reference.
+
+```markdown
+# Sync Changelog — YYYY-MM-DD
+
+Synced from Figma via `/sync-design-system`.
+
+[changelog sections from Step 2]
+```
+
+### Step 5: Approval gate
 
 Present report and ask for approval. **Do NOT commit automatically.**
-If user requests reverts: `git checkout -- <file>`, re-diff, re-present.
+If user requests reverts: `git checkout -- <file>`, re-diff, regenerate changelog, re-present.
 
-### Step 4: Post-approval
+### Step 6: Post-approval
 
 ```bash
 git add docs/ tokens/
@@ -514,5 +624,6 @@ Do NOT push. User pushes when ready.
 
 ### Error handling
 
-- No changes → report "up to date", skip approval
+- No changes → report "up to date" with empty changelog, skip approval
 - Uncommitted changes before sync → warn user to commit/stash first
+- Diff parsing fails for a file → fall back to file-level summary for that section, flag for manual review

@@ -38,7 +38,7 @@ Extract design system data directly from Figma libraries via MCP tools. Single-h
 | 4 | `docs/token-reference.md`, `tokens/tokens.css`, `tokens/actian-ds.tokens.json` | Token reference, CSS custom properties, W3C DTCG |
 | 5 | `docs/component-guidelines/*.json` | Per-component guidelines (44+) |
 | 6 | `docs/foundations/*.json`, `docs/content-guidelines.md`, `docs/accessibility-guidelines.md` | Foundation docs (11 pages) |
-| 7 | *(no files)* | Validation report + approval gate |
+| 7 | `release-notes/sync-YYYY-MM-DD.md` | Semantic changelog + validation report + approval gate |
 
 ## Extraction constraints
 
@@ -62,7 +62,7 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 | 4 | Token files | 0 (transforms Phase 2 data) | Generate token-reference.md, tokens.css, tokens.json |
 | 5 | Guidelines | ~15 `use_figma` + ~132 `get_design_context` | Per-component content/design guidelines |
 | 6 | Foundations | ~10 `use_figma` + ~56 `get_design_context` | Foundation pages + content/accessibility guidelines |
-| 7 | Validation | 0 (git diff) | Diff, report, approval gate, commit |
+| 7 | Validation + Changelog | 0 (git diff) | Semantic changelog, diff report, approval gate, commit |
 
 **Phase dependencies:** Phase 4 requires Phase 2 data. All other phases are independent.
 

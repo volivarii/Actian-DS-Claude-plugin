@@ -78,9 +78,32 @@ Before generating anything, determine from the user's request:
 - **User role** (Administrator, Reviewer, Viewer, or All roles)
 - **App context** (Admin, Studio, or Explorer — determines the FM App_header variant)
 - **Number of sub-flows** (e.g., happy path + error path + alternate role)
-- **References provided?** — If yes, analyze them first (see above). If no, proceed to research.
+- **References provided?** — If yes, analyze them first (see above). If a reference is *mentioned* but not attached (e.g., "inspired by this reference" with no URL/image), ask the user to provide it before proceeding.
+
+### App context inference guide
+
+| Signal in prompt | App context | Why |
+|---|---|---|
+| "admin", "configure", "manage users", "permissions", "rules", "settings" | **Admin** | System configuration and governance |
+| "developer", "pipeline", "integration", "transform", "build", "deploy" | **Studio** | Data engineering and building |
+| "analyst", "browse", "search", "explore", "preview", "discover", "request access" | **Explorer** | Data consumption and discovery |
+| "user" (generic), "profile", "notifications" | **Admin** (default) | Cross-product features default to Admin |
+
+For **multi-role flows** (e.g., "requester and approver"), each role maps to its own app context: a requester browsing data = Explorer, an approver managing access = Admin. Each sub-flow gets its own App_header variant.
 
 Infer as much as possible. Only ask if critical context is genuinely missing — e.g., the user said "create a flow" with no feature described, or the app context could be any of the three and it materially changes the UI.
+
+### Detail view pattern
+
+When a flow includes viewing a record's details from a list, commit to one pattern:
+
+| Pattern | When to use | Screen structure |
+|---|---|---|
+| **Full detail page** | Complex records with tabs, actions, metadata | New screen with FM Page Header (Title + Subtitle), FM Tabs for sections |
+| **Side panel** | Quick preview without losing list context | Same screen, content area split: table (left) + detail panel (right) |
+| **Expanded row** | Simple records with 2-3 extra fields | Same screen, selected row expands inline |
+
+Default to **full detail page** unless the prompt implies staying on the list.
 
 **Output type: `use_figma`** (Plugin API) — builds directly in Figma via MCP.
 
@@ -165,12 +188,24 @@ Output a numbered screen list for the user to review BEFORE generating:
 3. ...
 ```
 
-Include at minimum:
-- Starting state (list/empty/dashboard)
+### Screen templates by flow type
+
+**Action flows** (create, edit, submit, configure):
+- Starting state (list or empty state)
 - Action trigger (button click, menu selection)
-- Form or input state (if applicable)
+- Form or input state
 - Confirmation / success state
-- Error state (if applicable)
+- Error state (validation, failure)
+
+**Viewing/dashboard flows** (browse, monitor, review):
+- Populated view (the main content — table, dashboard, detail page)
+- Empty state (no data yet)
+- Error state (data load failure)
+- Optionally: filtered/searched view, drill-down/detail view
+
+**Multi-role flows** (requester + approver, viewer + editor):
+- One sub-flow per role, each with its own cover card and App_header variant
+- Each sub-flow follows its own template (action or viewing)
 
 If any screen requires elements not in the FM library (e.g., charts, visualizations, custom controls), note them in the screen list so the user can review before generation:
 ```
@@ -191,6 +226,21 @@ Create a single HTML file at `components/flows/[feature-name]-flow.html`. Read `
 - **Screen sizes**: Standard 1440x960px, Compact 1440x700px
 - **Forms**: inputs 480px max-width, extended elements full-width
 - **Styles**: read `../../references/fm-css-reference.md` — copy exact values
+
+### Content quality — contextual text, not generic
+
+Every text element must be specific to the feature domain. Generic text is a bug.
+
+| Element | Generic (wrong) | Contextual (right) |
+|---|---|---|
+| Page header | "Page Title", "New Item" | "Schedule Data Refresh", "Create Connection" |
+| Button label | "Submit", "Save", "Button" | "Schedule Refresh", "Test Connection", "Approve Request" |
+| Nav items | "Item 1", "Item 2", "Page 1" | "Datasets", "Schedules", "Connections", "Settings" |
+| Empty state | "No items found" | "No scheduled refreshes yet — set up automatic data refreshes" |
+| Toast | "Success", "Done" | "Connection saved successfully" |
+| Input placeholder | "Enter text", "Type here" | "e.g., db.example.com", "Select a dataset" |
+| Table headers | "Column 1", "Name" | "Dataset", "Frequency", "Next Refresh", "Status" |
+| Dropdown options | "Option 1", "Option 2" | "Every hour", "Every day at 6:00 AM", "Every Monday" |
 
 ## Step 4.5 — Preview gate (BLOCKING)
 
