@@ -1,18 +1,17 @@
 ---
 name: design-audit
-description: Use this skill whenever the user wants to check if a Figma design follows the Actian design system rules. Performs a comprehensive audit covering token usage, component consistency, accessibility (WCAG AA), content guidelines, forms layout, and missing states — then produces a severity-rated report (P0/P1/P2) with specific fixes. Triggers when the user asks to audit, review, or check a design, wants to know if tokens are correct, asks what's wrong with a screen, wants to find inconsistencies, or shares a Figma URL and asks if it meets DS2026 or Fat Marker standards.
+description: Use when the user wants to audit, review, lint, or QA a Figma design against DS2026 or Fat Marker rules, asks if tokens are correct, wants to find design system inconsistencies or compliance issues, asks what's wrong with a screen, or shares a Figma URL asking if it meets DS2026 standards.
 argument-hint: "[Figma URL]"
 ---
 
 # Design System Audit
 
 > **Works with both workflows.** First determine which library the file uses (FM components = Workflow A, DS2026 components = Workflow B), then apply the corresponding rules from CLAUDE.md.
-> **Content guidelines:** Audit all UI copy against `../../docs/content-guidelines.md` — check button labels, link text, form labels, status messages, modal copy, table headers, and navigation items.
-> **Accessibility guidelines:** Audit against `../../docs/accessibility-guidelines.md` — use the General Accessibility Checklist and the relevant component-specific checklists (P0–P2). Check contrast ratios, keyboard access, focus indicators, ARIA patterns, touch targets, and state completeness. All WCAG 2.1 AA.
-> **Quality & hygiene:** Include the Quality & Hygiene Checklist from CLAUDE.md as an audit dimension — flag violations of any of the 10 items (auto layout, constraints, properties, states, contrast, layer naming, style check, instance cleanup, hidden layers, documentation).
-> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
+> **Shared rules apply:** Content guidelines, accessibility guidelines (WCAG 2.1 AA), quality & hygiene checklist, and generation log format — all per CLAUDE.md.
 
 Audit a Figma file or section against the Actian Design System 2026 and/or Fat Marker conventions.
+
+**When NOT to use:** If the user provides *two* Figma URLs to compare → use `compare-flows`. If the user asks to *fix* a finding → use `fix-finding`. If the user asks to *create* a component → use `create-component`.
 
 > **Mode: Audit.** Be methodical and exhaustive — check every element against the rules. Work through tokens, components, accessibility, content, forms layout, and missing states systematically. Flag everything, categorize by severity (P0 critical / P1 important / P2 minor). Quote the specific rule being violated. Output a structured report, not prose.
 
@@ -173,47 +172,3 @@ The `fixType` field classifies fixes for the `/fix-finding` companion skill:
 
 The `autoFixable` field indicates whether `/fix-finding` can apply this fix automatically (`true` for swap-instance, bind-tokens, align-variant; `false` for compose-from-primitives and blocked).
 
-## Deep analysis with DS Assembler (recommended)
-
-If the DS Assembler plugin is running (with its Local server URL pointing to the current project directory, served via `scripts/ensure-server.sh . 8765`), use it for a more accurate audit:
-
-### Step 1 — Analyze via plugin
-
-1. Tell the user: **"Open DS Assembler → Analyze tab → select scope → click Analyze"**
-2. Wait for the user to confirm analysis is complete
-3. Read the analysis results:
-   ```bash
-   cat assembler-specs/analysis.json
-   ```
-4. Use the data to enrich the audit with exact node IDs, instance counts, variant usage, and hardcoded color locations
-
-### Step 2 — Enhanced report
-
-With analysis data, the report gains:
-- **Exact component counts** by library (local vs external)
-- **Variant usage patterns** — which variants are actually used vs available
-- **Hardcoded color list** with node IDs and hex values
-- **Missing auto-layout** frames with child counts
-- **Instance-level detail** — every component instance with its position, variants, and text overrides
-
-### Step 3 — Auto-fix (if user requests)
-
-If the user says "fix it", "apply fixes", or "auto-correct":
-
-1. Generate an `updates.json` file based on the audit findings:
-   ```json
-   {
-     "updates": [
-       { "nodeId": "123:456", "action": "set-fill", "fill": "#0550dc" },
-       { "nodeId": "789:012", "action": "set-variant", "props": { "State": "Default" } },
-       { "nodeId": "345:678", "action": "replace-with-instance", "componentName": "FM Button", "props": { "Type": "Primary" } }
-     ]
-   }
-   ```
-2. Save to `assembler-specs/updates.json`
-3. Tell the user: **"Open DS Assembler → Update tab → Load Updates → review → Apply"**
-4. After the user confirms, read the results:
-   ```bash
-   cat assembler-specs/update-result.json
-   ```
-5. Report what was fixed and what failed

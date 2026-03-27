@@ -1,7 +1,7 @@
 {
   "name": "actian-design-system",
   "metadata": {
-    "description": "Actian Design System 2026 toolkit — sync tokens and guidelines from Figma, generate wireframe flows, create component briefs, audit designs, compare flows, fix findings, and build presentations. Includes DS2026 tokens (3 themes, 115 variables), content and accessibility guidelines (WCAG 2.1 AA), and 31 Fat Marker wireframe components."
+    "description": "Actian Design System 2026 toolkit — sync tokens and guidelines from Figma, generate wireframe flows, create component briefs, audit designs, compare flows, fix findings, and build presentations. 115 tokens (3 themes), WCAG 2.1 AA, 29 FM Kit components, 77 DS2026 component sets."
   },
   "owner": {
     "name": "Actian UX Team"
@@ -10,7 +10,7 @@
     {
       "name": "actian-design-system",
       "source": "./plugins/actian-design-system",
-      "description": "Actian Design System 2026 toolkit — 9 skills: sync-design-system, design-audit, fix-finding, generate-flow, component-brief, create-component, compare-flows, generate-presentation. Direct Figma MCP extraction, 115 design tokens across 3 themes, WCAG 2.1 AA standards."
+      "description": "Actian Design System 2026 toolkit — 8 skills: sync-design-system, design-audit, fix-finding, generate-flow, component-brief, create-component, compare-flows, generate-presentation. Direct Figma MCP extraction, 115 tokens (3 themes), WCAG 2.1 AA."
     }
   ]
 }

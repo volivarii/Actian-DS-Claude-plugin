@@ -7,12 +7,11 @@ argument-hint: "[feature description or Figma URL]"
 # Generate Fat Marker Flow
 
 > **Workflow A — Fat Marker (lo-fi).** This skill uses FM components, Inter font, and the simplified Fat Marker palette. NOT DS2026 tokens. See CLAUDE.md "Workflow A" for rules.
-> **Content guidelines:** All UI copy must follow `../../docs/content-guidelines.md`. Read it before writing any screen copy.
-> **Accessibility guidelines:** All flows must follow `../../docs/accessibility-guidelines.md` — ensure keyboard navigation, focus order, ARIA landmarks, form labels, error states, and touch targets are designed. WCAG 2.1 AA.
-> **Quality & hygiene:** Validate all output against CLAUDE.md Quality & Hygiene Checklist before marking complete.
-> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
+> **Shared rules apply:** Content guidelines, accessibility guidelines (WCAG 2.1 AA), quality & hygiene checklist, and generation log format — all per CLAUDE.md.
 
 Generate a low-fidelity user flow using Fat Marker components and push it to Figma.
+
+**When NOT to use:** If the user wants a *presentation deck* → use `generate-presentation`. If the user wants to *compare* two existing flows → use `compare-flows`. If the user wants to *audit* a flow → use `design-audit`.
 
 > **Mode: Implement with review gates.** Build first, explain after. Move fast — infer details and make reasonable decisions instead of asking for every detail. However, pause at these structured gates: (1) Step 1 if critical context is genuinely missing, (2) Step 2 research opt-in — always ask, (3) Step 3 screen list confirmation, and (4) Step 4.5 HTML preview before Figma push. Between gates, do not pause or ask questions. The cleanup pass (Step 7) handles polish.
 
@@ -83,7 +82,7 @@ Before generating anything, determine from the user's request:
 
 Infer as much as possible. Only ask if critical context is genuinely missing — e.g., the user said "create a flow" with no feature described, or the app context could be any of the three and it materially changes the UI.
 
-**Output type defaults to `use_figma`** (Plugin API). Use Assembler if the user explicitly requests a reviewable JSON spec or needs Figma variable bindings on scaffolding.
+**Output type: `use_figma`** (Plugin API) — builds directly in Figma via MCP.
 
 ## Step 2 — Research (opt-in)
 
@@ -183,87 +182,15 @@ Wait for user approval before proceeding.
 
 ## Step 4 — Generate the HTML
 
-Create a single HTML file at `components/flows/[feature-name]-flow.html` using these Fat Marker components:
+Create a single HTML file at `components/flows/[feature-name]-flow.html`. Read `flow-html-reference.md` for the complete HTML template structure, FM component inventory, custom element rules, flow structure, screen dimensions, forms layout, and styling rules.
 
-### Required components per screen
-- **FM App_header** — top bar with logo, product label (Admin/Studio/Explorer), avatar
-- **FM Side navigation bar** — left sidebar with placeholder items + one active item
-- **FM Page Header** — title (+ optional subtitle) at top of content area
-
-### Available components (use as needed)
-Refer to `../../docs/fm-components.md` for the full inventory. Key ones:
-- FM Button (Primary/Secondary/Outline)
-- FM Text input field, FM Text Area, FM Dropdown, FM Search input field
-- FM Input Label (with required asterisk where needed)
-- FM Table Cell (Header/Text/Pill/Placeholder)
-- FM Badge, FM Tag, FM Chip
-- FM Checkbox, FM Radio button, FM Toggle
-- FM Alert (Success/Error/Info/Warning)
-- FM Banner (for persistent page-level notices)
-- FM Toast (for brief confirmations)
-- FM Dialog (for modal confirmations)
-- FM Empty State (for zero-data screens)
-- FM Placeholder (for non-essential content areas)
-- FM Menu (for dropdown action menus)
-- FM Tabs (for tabbed content)
-
-### Custom elements (when the library doesn't cover it)
-
-The FM library doesn't have everything — charts, visualizations, custom controls, specialized layouts, etc. When no FM component fits, build a custom element inline.
-
-**Rules:**
-1. **FM first** — always check `../../docs/fm-components.md` before going custom. If an FM component can do the job (even approximately), use it.
-2. **Follow FM conventions** — custom elements must use:
-   - `--fm-*` CSS variables for all colors (no raw hex)
-   - FM spacing scale (4, 8, 12, 16, 24, 28, 32px)
-   - FM typography (Inter, same sizes/weights as FM components)
-   - FM border radius (`var(--fm-radius)` / 6px) and border color (`var(--fm-border)`)
-3. **Prefix with `fm-custom-`** — use class names like `fm-custom-chart`, `fm-custom-timeline`, `fm-custom-drag-zone` so they're visually distinct from library components
-4. **Comment what it represents** — add a brief HTML comment above each custom element: `<!-- Custom: [what this is and why no FM component fits] -->`
-5. **Keep it lo-fi** — these are wireframes. A chart is a labeled rectangle with axis lines, not a D3 visualization. A drag zone is a dashed-border area with a label. Match the fidelity level of FM components.
-
-### Flow structure in HTML
-
-**One row per flow.** Each flow (sub-flow) must be a single horizontal `flow-row` with all its screens side by side. Never split a flow across multiple rows. Use `flex-wrap: nowrap` to prevent wrapping. The same rule applies to assembler specs — all screens for a flow go in one horizontal wrapper frame.
-
-```html
-<div class="flow-row"> <!-- One row = one complete flow, all screens in a line -->
-  <!-- Generation card (first element in the first flow-row only) -->
-  <!-- See CLAUDE.md Generation Metadata for the .gen-card HTML -->
-
-  <!-- Dark cover card -->
-  <div class="flow-cover">
-    <div class="flow-cover__feature">[Feature]</div>
-    <div class="flow-cover__flow">Flow: [Sub-flow]</div>
-    <div class="flow-cover__user">User: [Role]</div>
-  </div>
-  <!-- ALL screens for this flow, left to right -->
-  <div class="screen"> ... </div>
-  <div class="screen"> ... </div>
-  <div class="screen"> ... </div>
-  <!-- Do NOT close the flow-row and start a new one mid-flow -->
-</div>
-```
-
-### Screen dimensions
-- Standard: 1440x960px
-- Compact (no sidebar): 1440x700px
-- Always include FM App_header (70px) + FM Sidebar (260px) + content area
-
-### Forms layout (from Design Consistency handoff)
-- Simple form inputs (text, dropdown, textarea, radio, checkbox): constrain container to **480px max-width**, left-aligned in content area
-- Extended elements (selectable rows, tiles, tables): **full-width** within the content area
-- Multi-column layouts: forms stay **fluid** inside their containers
-- Action footer: inside the **content area** (not the full screen), sticky bottom, primary actions right, secondary left. The footer sits alongside the sidebar, not spanning the entire screen width.
-
-### Styling rules
-- Use the FM CSS Reference below — do not deviate from these exact values
-- Load Inter font from Google Fonts
-- Use screen labels above each frame (12px, #888)
-
-### Fat Marker CSS Reference
-
-Read `../../references/fm-css-reference.md` for the complete FM CSS token palette, component styles, and HTML structure templates. Copy those exact styles into every generated flow HTML — do not approximate values.
+**Key rules:**
+- **One row per flow** — never split across rows
+- **FM first** — check `../../docs/fm-components.md` before custom elements
+- **Custom elements** — prefix `fm-custom-`, use `--fm-*` vars, keep lo-fi
+- **Screen sizes**: Standard 1440x960px, Compact 1440x700px
+- **Forms**: inputs 480px max-width, extended elements full-width
+- **Styles**: read `../../references/fm-css-reference.md` — copy exact values
 
 ## Step 4.5 — Preview gate (BLOCKING)
 
@@ -288,82 +215,13 @@ This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figm
 
 ## Step 5 — Output to Figma
 
-Two approaches are available. Both import real library components with correct tokens.
+Read `flow-html-reference.md` § "Figma output" for the complete `use_figma` procedure, including screen scaffolding (Meta Kit Flow Screen), code rules, and token references. Follow `../../references/figma-output.md` for shared patterns.
 
-| | Plugin API (`use_figma`) | Assembler |
-|---|---|---|
-| **Library components** | Yes — via `getComponentByKeyAsync()` with Figma variables | Yes — with Figma variables |
-| **Tokens on library instances** | Automatic | Automatic |
-| **Tokens on scaffolding** | Hex from Token Reference | Resolved to Figma variables |
-| **Text overrides** | Needs layer name matching | Reliable (`textOverrides` key) |
-| **Editable in Figma** | Fully (real instances) | Fully |
-| **Speed** | Fast (direct in Figma) | Medium (user opens plugin) |
-| **Requires** | `use_figma` MCP tool | DS Assembler plugin |
-
-**Default: `use_figma`** for speed and direct creation. Use Assembler when you need Figma variable bindings on scaffolding or a reviewable JSON spec.
-
-For additional output guidance, see `../../references/figma-output.md`.
-
-### Default: Plugin API (`use_figma`)
-
-Builds the flow directly in Figma via JavaScript. Imports published library components via `figma.teamLibrary.getComponentByKeyAsync()` — imported instances arrive with all their styles and Figma variables intact.
-
-**Use when:**
-- The user wants fast, direct creation (default)
-- The user doesn't have the Assembler plugin
-- Any complexity level — library imports work
-
-**What has correct tokens automatically:** All imported FM Kit instances (FM App_header, FM Side navigation bar, FM Table Cell, FM Button, FM Tabs, FM Dropdown, etc.) bring their own bound Figma variables.
-
-**What needs hex from the Token Reference:** Only custom scaffolding — wrapper frames, content area backgrounds, cover cards, generation log, custom text nodes.
-
-### Screen scaffolding (Meta Kit)
-
-Import `Meta / Chrome / Flow Screen` instead of building header + sidebar + content manually:
-
-```js
-const flowScreenSet = await figma.importComponentSetByKeyAsync("2ca7c756ad54e81219104d3a270ba8eb9eeffcf6");
-const stdVariant = flowScreenSet.children.find(c => c.name === "Size=Standard");
-const screen = stdVariant.createInstance();
-// Screen arrives with FM App_header (top) + FM Sidebar (left) + Content Area
-const contentArea = screen.findOne(n => n.name === "Content Area");
-// Add screen content to contentArea
-```
-
-Flow Screen does NOT need detaching — `contentArea.appendChild()` works directly. See `../../docs/meta-kit/components.md` for full details.
-
-**Rules for `use_figma` code:**
-
-1. **Import library components** for all standard UI elements — never recreate FM components as raw frames
-2. **Build each screen as a frame** with auto-layout — no absolute positioning
-3. **Bind library tokens** on scaffolding — follow `../../references/figma-output.md` § "Token binding". Call `search_design_system` to discover style keys before writing code. Bind color styles, text styles, and (for DS2026) effect styles + color variables. Hex fallback only if the file isn't connected to the library.
-4. **Build standard screen structure**: FM App_header → horizontal frame → FM Side navigation bar + Content area
-5. **Import `Meta / Chrome / Generation Log`** component (key: `a9653f30925367e96dea90093d750bfe70849571`) as the first element before the flow cover card. Set all 6 text properties using `setProp()` from `../../docs/meta-kit/components.md`.
-6. **Set descriptive names** on every layer — no "Frame 1" or "Rectangle 2"
-7. **Set text content contextually** on all instances (nav items, page headers, button labels) — no generic placeholder text
-8. **One row per flow**: all screens for a sub-flow in a single horizontal wrapper frame
-
-### Optional: Assembler (declarative, reviewable JSON)
-
-Generates a JSON spec. The Assembler resolves all tokens to Figma variables — including scaffolding. Use when the user explicitly requests it or needs variable bindings on scaffolding.
-
-1. Generate a layout spec JSON — read `../../references/layout-spec-schema.md` for the schema
-2. Reference components by their exact names from `../../docs/fm-components.md`
-3. Use auto-layout frames with `"hug"` / `"fill"` sizing — avoid hardcoded pixel positions
-4. Use `--fm-*` token names for fills (the Assembler resolves them to Figma variables)
-5. For custom elements, use raw `"type": "frame"` nodes with `fill`, `stroke`, and `text` children
-6. Save as `assembler-specs/spec.json`
-7. Serve the project directory: `scripts/ensure-server.sh . 8765`
-8. Tell the user: **"Open the Actian DS Assembler plugin in Figma and click Assemble"**
-
----
-
-### Token reference
-
-For `use_figma` output (FM or DS2026), follow `../../references/figma-output.md` § "Token binding" — discover keys via `search_design_system`, bind all available styles and variables. Hex fallback only.
-For HTML output, use `--fm-*` CSS variables from `../../references/fm-css-reference.md` (FM) or `--zen-*` from `../../tokens/tokens.css` (DS2026).
-
----
+**Key rules:**
+- Import `Meta / Chrome / Flow Screen` for screen scaffolding — do not build manually
+- Import library components — never recreate as raw frames
+- Auto-layout on every frame, descriptive layer names, contextual text
+- One row per flow in a horizontal wrapper
 
 ## Step 6 — Review
 

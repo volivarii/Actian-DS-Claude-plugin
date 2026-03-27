@@ -31,8 +31,8 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 
 | File | Source | Purpose |
 |------|--------|---------|
-| `docs/component-guidelines/*.json` | Extracted via `/sync-guidelines` | Per-component content/design guidelines (44 components) |
-| `docs/foundations/*.json` | Extracted via `/sync-guidelines` | Foundation docs: accessibility, borders, color, spacing, typography, etc. |
+| `docs/component-guidelines/*.json` | Extracted via `/sync-design-system` (Phase 5) | Per-component content/design guidelines (44 components) |
+| `docs/foundations/*.json` | Extracted via `/sync-design-system` (Phase 6) | Foundation docs: accessibility, borders, color, spacing, typography, etc. |
 | `tokens/actian-ds.tokens.json` | Extracted via `/sync-design-system` | W3C DTCG format (source of truth for token values) |
 | `docs/meta-kit/variables.md` | Extracted via `/sync-design-system` | DS2026 variable keys (115 vars, 3 themes) |
 | `docs/meta-kit/text-styles.md` | Extracted via `/sync-design-system` | DS2026 text styles with font specs |
@@ -46,8 +46,8 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `docs/content-guidelines.md` | `foundations/content-guidelines.json` | UI copy rules (auto-generated, do not edit) |
 | `docs/accessibility-guidelines.md` | `foundations/accessibility.json` | WCAG 2.1 AA standards (auto-generated, do not edit) |
 | `docs/token-reference.md` | `tokens/actian-ds.tokens.json` | Human-readable token reference (3 themes) |
-| `docs/ds2026-components.md` | Figma MCP extraction | 100 DS2026 component sets |
-| `docs/fm-components.md` | Figma MCP extraction | 31 FM Kit component sets |
+| `docs/ds2026-components.md` | Figma MCP extraction | 77 DS2026 component sets |
+| `docs/fm-components.md` | Figma MCP extraction | 29 FM Kit component sets |
 | `tokens/tokens.css` | `tokens/actian-ds.tokens.json` | CSS custom properties (`--zen-*`) |
 
 **Hand-authored (not synced):**
@@ -56,22 +56,21 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 |------|---------|
 | `docs/presentation-guide.md` | Slide templates, voice & tone, chart selection, narrative structure |
 | `docs/meta-kit/builders.md` | Shared JS builder functions |
-| `references/*.md` | Shared skill references (figma-output, fm-css, layout-spec, token-naming) |
+| `references/*.md` | Shared skill references (figma-output, fm-css, quality-checklist, token-naming) |
 
 
 ## Versioning (Semantic Versioning)
 
-Both the Claude plugin and the DS Assembler use **semver** (`MAJOR.MINOR.PATCH`).
+This project uses **semver** (`MAJOR.MINOR.PATCH`).
 
 | Change type | Bump | Examples |
 |-------------|------|----------|
 | **PATCH** (x.y.Z) | Bug fixes, typo corrections, doc updates, token value changes | Fix sizing bug, update token hex, fix skill typo |
 | **MINOR** (x.Y.0) | New features, new skills, new component support, non-breaking additions | Add analyze mode, add new component to registry, add forms layout rules |
-| **MAJOR** (X.0.0) | Breaking changes to spec format, registry format, or skill behavior | Change layout spec schema, rename skill commands, restructure files |
+| **MAJOR** (X.0.0) | Breaking changes to spec format or skill behavior | Rename skill commands, restructure files, change token naming convention |
 
 **When to bump:**
-- Update version in **both** `plugin.json` and `marketplace.json` (Claude plugin)
-- Or `manifest.json` + `package.json` (DS Assembler)
+- Update version in **both** `plugin.json` and `marketplace.json`
 - Commit the version bump as part of the feature/fix commit, not as a separate commit
 - IMPORTANT: Do not bump version for every small change — batch related changes and bump once
 
@@ -79,14 +78,11 @@ Both the Claude plugin and the DS Assembler use **semver** (`MAJOR.MINOR.PATCH`)
 
 ## Local Server Management
 
-When serving HTML for local preview or Assembler specs, always use the `ensure-server.sh` utility:
+When serving HTML for local preview, always use the `ensure-server.sh` utility:
 
 ```bash
 # From the plugin directory — serves HTML files for local preview
 BASE_URL=$(scripts/ensure-server.sh . 8765)
-
-# From the Assembler directory — serves specs + registry
-BASE_URL=$(scripts/ensure-server.sh ~/Developer/Actian/Actian-DS-Assembler 8765)
 ```
 
 The script handles all edge cases:
@@ -101,7 +97,7 @@ The script handles all edge cases:
 
 ## Generation Metadata (required for all outputs)
 
-**Every generated output** (HTML specs, flows, presentations, assembler specs) MUST include a visible generation card as the **first element** — before any content cards, screens, or slides. This card is included in the output so the metadata is always visible in Figma.
+**Every generated output** (HTML specs, flows, presentations) MUST include a visible generation card as the **first element** — before any content cards, screens, or slides. This card is included in the output so the metadata is always visible in Figma.
 
 ### HTML outputs (specs, flows, presentations)
 
@@ -117,30 +113,6 @@ Add a generation card as the first child inside the layout container (`.brief-ro
   <div class="gen-card__field"><span class="gen-card__key">Model</span> {{model ID}}</div>
   <div class="gen-card__field"><span class="gen-card__key">Plugin</span> v{{plugin version}}</div>
 </div>
-```
-
-### Assembler JSON specs
-
-Add a `metadata` frame as the first child of the top-level spec:
-
-```json
-{
-  "type": "frame",
-  "name": "Generation log",
-  "layout": "vertical",
-  "spacing": 4,
-  "padding": { "top": 16, "right": 20, "bottom": 16, "left": 20 },
-  "fill": "#2D3648",
-  "cornerRadius": 8,
-  "width": 280,
-  "height": "hug",
-  "children": [
-    { "type": "text", "content": "GENERATED", "style": "label-micro", "fill": "#A0ABC0" },
-    { "type": "text", "content": "Skill: {{skill name}}", "style": "label-subtle", "fill": "#CBD2E0" },
-    { "type": "text", "content": "{{ISO 8601 date}}", "style": "label-subtle", "fill": "#CBD2E0" },
-    { "type": "text", "content": "{{model ID}} · v{{plugin version}}", "style": "label-subtle", "fill": "#CBD2E0" }
-  ]
-}
 ```
 
 ### `use_figma` outputs (Plugin API)
@@ -437,7 +409,7 @@ Source: [Actian Design System v1.0.0 — Quality & Hygiene](https://www.figma.co
 
 ### HTML translation
 
-When generating HTML for local preview or assembler specs, the checklist translates to:
+When generating HTML for local preview, the checklist translates to:
 
 | Figma check | HTML equivalent |
 |-------------|-----------------|
@@ -451,3 +423,32 @@ When generating HTML for local preview or assembler specs, the checklist transla
 | Instance cleanup | All component references use the correct library component — no detached or inline duplicates. |
 | Hidden layers | No `display: none` or `opacity: 0` elements left from iteration. Delete unused markup. |
 | Documentation | Include `<!-- AI CONSUMPTION METADATA -->` comment and descriptive subtitles on every card. |
+
+---
+
+## Skill Review Gates
+
+All Figma-writing skills pause for user approval before pushing to Figma:
+
+| Skill | Gate | Vocabulary |
+|-------|------|-----------|
+| component-brief | Step 2.5 — HTML preview | "push" / "push N,N" / feedback |
+| generate-flow | Step 2 — research opt-in + Step 4.5 — HTML preview | "push" / "push N,N" / feedback |
+| generate-presentation | Step 5 — review report + preview | "push" / "push N,N" / feedback |
+| create-component | Step 4.5 — build plan summary | "build" / feedback |
+
+- If the user's prompt pre-answers a gate question (e.g., "no research"), skip asking
+- If the user requests cards/slides not in the HTML at the gate, regenerate HTML first
+- Draft tier in create-component skips the build plan gate
+
+---
+
+## Real Component Instances (P0)
+
+When briefing an existing component (Figma URL provided), import real library instances — never approximate with text placeholders like `[ Save ]`. Use `get_design_context` to extract the component set key, then `importComponentSetByKeyAsync()` in `use_figma`. Applies to component-brief Cards 2 and 3.
+
+---
+
+## Release Notes
+
+Save release notes to `release-notes/v{version}.md` (gitignored). Format for Slack copy-paste. Run `/release-notes` to generate.

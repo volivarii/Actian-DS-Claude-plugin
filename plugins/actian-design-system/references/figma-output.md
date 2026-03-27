@@ -2,12 +2,9 @@
 
 Shared procedure for outputting skill results to Figma. Used by all skills that produce Figma deliverables.
 
-## Output modes
+## Output mode
 
-| Mode | When to use | How it works |
-|------|-------------|--------------|
-| **`use_figma` (default)** | Always — unless user explicitly requests Assembler | Build directly in Figma via Plugin API JavaScript |
-| **Assembler (optional)** | User says "use Assembler" or needs full Figma variable bindings on scaffolding | Generate JSON spec, user runs Assembler plugin |
+All Figma output uses `use_figma` — build directly in Figma via Plugin API JavaScript.
 
 **HTML is for local preview only** — never use HTML as a Figma output path. Skills that generate HTML (component-brief, generate-presentation) do so for browser preview and archival, not for Figma delivery.
 
@@ -145,15 +142,6 @@ await addGenText(genCard, "{{model}} · v{{version}}", 12, "#CBD2E0");
 
 Replace all `{{...}}` placeholders with actual values.
 
-## Assembler path (optional)
-
-When the user explicitly requests the Assembler:
-
-1. Generate a JSON spec following `../../references/layout-spec-schema.md`
-2. Save to `assembler-specs/<name>.json`
-3. Ensure localhost server: `scripts/ensure-server.sh . 8765`
-4. Tell user: **"Open DS Assembler → select spec → Assemble"**
-
 ## Meta Kit components
 
 For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../../docs/meta-kit/components.md` for component keys and properties.
@@ -274,7 +262,7 @@ Available builders:
 
 ## Rules
 
-- **`use_figma` is always the default.** Only use Assembler when the user explicitly asks for it.
+- **`use_figma` is the only output path.** All Figma output goes through `use_figma`.
 - **Never use `generate_figma_design`** — it produces raw geometry without design system awareness and is unreliably available.
 - **Never delegate Figma output to a subagent.** Subagents do NOT have MCP tools.
 - **HTML is local preview only.** Open in browser with `open $URL` if the user wants to see it, but never treat HTML as a Figma delivery mechanism.

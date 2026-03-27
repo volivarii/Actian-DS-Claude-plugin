@@ -1,18 +1,17 @@
 ---
 name: compare-flows
-description: Use this skill whenever the user wants to decide between two design options or understand what changed between two versions. Takes two Figma URLs and produces a structured comparison report with severity-rated issues, strengths, and a concrete recommendation. Triggers on any request involving two Figma designs — comparing flows, evaluating which version is better, diffing v1 vs v2, reviewing a redesign against the original, or choosing between competing UX approaches. If the user provides two Figma URLs in any context, this skill likely applies.
+description: Use when the user provides two Figma URLs to compare, wants to diff v1 vs v2, evaluate which design is better, review a redesign against the original, do a before/after or side-by-side analysis, or choose between competing UX approaches. If two Figma URLs appear in any context, this skill likely applies.
 argument-hint: "[Figma URL 1] [Figma URL 2]"
 ---
 
 # Compare Flows
 
 > **Works with both workflows.** Determine which library each flow uses. If comparing across fidelity levels (FM vs DS2026), note the difference and focus on UX structure rather than visual tokens.
-> **Content guidelines:** Evaluate all UI copy in both flows against `../../docs/content-guidelines.md` — flag inconsistencies in button labels, link text, status messages, and terminology.
-> **Accessibility guidelines:** Compare accessibility compliance in both flows using `../../docs/accessibility-guidelines.md` — check focus order, keyboard access, ARIA patterns, contrast, touch targets, and missing states. WCAG 2.1 AA.
-> **Quality & hygiene:** Evaluate both flows against the Quality & Hygiene Checklist in CLAUDE.md — flag violations as comparison points.
-> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
+> **Shared rules apply:** Content guidelines, accessibility guidelines (WCAG 2.1 AA), quality & hygiene checklist, and generation log format — all per CLAUDE.md.
 
 Compare two Figma flows or screens and provide structured UX recommendations.
+
+**When NOT to use:** If the user provides *one* URL for review → use `design-audit`. If the user asks to *generate* a new flow → use `generate-flow`.
 
 > **Mode: Research + Audit. Runs autonomously.** Fetch both designs, analyze thoroughly, and output the full report without pausing for intermediate confirmation. Separate observation from opinion. Flag issues by severity, quote specific rules, output a structured report. The only acceptable pause is if the user provides only one URL — ask for the second.
 

@@ -27,7 +27,7 @@ These checks apply to every output — component briefs, flows, presentations, a
 
 ### HTML translation
 
-When generating HTML for local preview or assembler specs, the checklist translates to:
+When generating HTML for local preview, the checklist translates to:
 
 | Figma check | HTML equivalent |
 |-------------|-----------------|

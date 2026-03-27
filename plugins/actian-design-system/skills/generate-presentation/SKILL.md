@@ -8,10 +8,10 @@ argument-hint: "[topic, file path, Figma URL, or description of content]"
 
 Generate a structured Figma presentation deck using the official Actian slide templates.
 
-> **Presentation guide:** Read `../../docs/presentation-guide.md` before generating any slides. It contains the exact specs for all 5 slide types, typography, colors, sequencing rules, voice & tone, headline rules, data formatting, chart selection, narrative structure, and the review report format. This is the primary reference for this skill.
-> **Content guidelines:** General UI copy rules in `../../docs/content-guidelines.md` — sentence case, terminology, and formatting also apply.
-> **Quality & hygiene:** Run through `../../references/quality-checklist.md` — check the **Universal** section plus the **Generate Presentation** section. Fix issues inline before presenting to the user.
-> **Generation log:** Follow the Generation Log format in CLAUDE.md for all output files.
+**When NOT to use:** If the user wants a *user flow* or wireframe → use `generate-flow`. If the user wants to *document* a component → use `component-brief`.
+
+> **Presentation guide:** Read `../../docs/presentation-guide.md` before generating any slides — it is the primary reference for slide types, typography, colors, sequencing, voice & tone, charts, and the review report format.
+> **Shared rules apply:** Content guidelines, quality & hygiene checklist (Universal + Generate Presentation sections), and generation log format — all per CLAUDE.md.
 
 > **Mode: Implement with review gate.** Build first, explain after. Move fast through research, outlining, and HTML generation without pausing for confirmation. But always pause at Step 5 (review report) before pushing to Figma — wrong slides in Figma are costly to fix. Keep status updates to milestones only.
 
@@ -65,137 +65,13 @@ Plan the slide outline internally. Do NOT present it to the user for review — 
 
 ## Step 3 — Generate the HTML deck
 
-Generate a single HTML file containing all slides as a horizontal row of 1920x1080px frames for local preview.
+Generate a single HTML file containing all slides as a horizontal row of 1920x1080px frames. Read `presentation-templates.md` for the complete HTML templates (Cover, Body Full, Body Text+Visual, Section divider, Back cover), geometric background patterns, content area styling, and CSS chart types.
 
-### Slide dimensions and layout
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-  <!-- AI CONSUMPTION METADATA -->
-  <style>
-    body { margin: 0; padding: 40px; background: #E0E0E0; display: flex; gap: 40px; align-items: flex-start; }
-    .slide { width: 1920px; height: 1080px; flex-shrink: 0; position: relative; overflow: hidden; }
-    .gen-card { width: 280px; flex-shrink: 0; background: #2D3648; border-radius: 8px; padding: 16px 20px; font-family: 'Inter', 'Roboto', sans-serif; display: flex; flex-direction: column; gap: 4px; }
-    .gen-card__label { font-size: 10px; font-weight: 500; color: #A0ABC0; text-transform: uppercase; letter-spacing: 0.5px; }
-    .gen-card__field { font-size: 12px; color: #CBD2E0; line-height: 1.4; }
-    .gen-card__key { font-weight: 500; }
-    .gen-card__key::after { content: ' '; }
-  </style>
-</head>
-<body>
-  <!-- Generation log (first element — see CLAUDE.md Generation Metadata) -->
-  <div class="gen-card" data-name="Generation log">
-    <div class="gen-card__label">GENERATED</div>
-    <div class="gen-card__field"><span class="gen-card__key">Skill</span> generate-presentation</div>
-    <div class="gen-card__field"><span class="gen-card__key">Prompt</span> {{user prompt, truncated to 200 chars}}</div>
-    <div class="gen-card__field"><span class="gen-card__key">Date</span> {{ISO 8601 date+time}}</div>
-    <div class="gen-card__field"><span class="gen-card__key">Duration</span> {{prompt to file save}}</div>
-    <div class="gen-card__field"><span class="gen-card__key">Model</span> {{model ID}}</div>
-    <div class="gen-card__field"><span class="gen-card__key">Plugin</span> v{{plugin version}}</div>
-  </div>
-  <!-- Slides go here -->
-</body>
-</html>
-```
-
-### Template HTML patterns
-
-**Cover slide:**
-```html
-<div class="slide" data-name="Cover — [Title]"
-     style="background: linear-gradient(80deg, #090952 2%, #1414B8 107%);">
-  <!-- BG graphic: use CSS geometric shapes or captured SVG -->
-  <div style="position:absolute;top:88px;left:80px;font-family:'Roboto',sans-serif;font-size:40px;font-weight:500;color:white;">[Topic]</div>
-  <div style="position:absolute;top:166px;left:69px;width:1760px;font-family:'Roboto',sans-serif;font-size:130px;font-weight:500;color:white;line-height:1.02;">[Title]</div>
-  <div style="position:absolute;top:341px;left:69px;width:1760px;font-family:'Roboto',sans-serif;font-size:60px;font-weight:400;color:white;line-height:1.02;">[Subtitle]</div>
-  <div style="position:absolute;top:931px;left:80px;font-family:'Roboto',sans-serif;font-size:32px;font-weight:400;color:white;">[Date]</div>
-  <div style="position:absolute;top:980px;left:80px;font-family:'Roboto',sans-serif;font-size:32px;font-weight:400;color:white;">[Creators]</div>
-  <!-- Actian pyramid placeholder bottom-right -->
-  <div style="position:absolute;bottom:65px;right:80px;width:80px;height:68px;display:flex;align-items:center;justify-content:center;">
-    <div style="width:0;height:0;border-left:28px solid transparent;border-right:28px solid transparent;border-bottom:48px solid rgba(255,255,255,0.3);"></div>
-  </div>
-</div>
-```
-
-**Body (Full content):**
-```html
-<div class="slide" data-name="[Slide title]" style="background:white;">
-  <div style="position:absolute;top:64px;left:80px;width:1760px;font-family:'Roboto',sans-serif;font-size:56px;font-weight:400;color:#12131F;line-height:1.03;">[Title]</div>
-  <div style="position:absolute;top:187px;left:79px;width:1761px;height:829px;background:#F5F5FA;border-radius:4px;display:flex;align-items:center;justify-content:center;">
-    <!-- Content: charts, tables, diagrams, screenshots -->
-  </div>
-</div>
-```
-
-**Body (Text + Visual):**
-```html
-<div class="slide" data-name="[Slide title]" style="background:white;">
-  <div style="position:absolute;top:64px;left:80px;width:1760px;font-family:'Roboto',sans-serif;font-size:56px;font-weight:400;color:#12131F;line-height:1.03;">[Title]</div>
-  <div style="position:absolute;top:187px;left:80px;width:549px;height:829px;font-family:'Roboto',sans-serif;font-size:24px;font-weight:400;color:black;line-height:1.3;">
-    <!-- Body text, bullet points, key takeaways -->
-  </div>
-  <div style="position:absolute;top:187px;left:685px;width:1155px;height:829px;background:#F5F5FA;border-radius:4px;display:flex;align-items:center;justify-content:center;">
-    <!-- Visual: diagram, screenshot, component preview -->
-  </div>
-</div>
-```
-
-**Section divider:**
-```html
-<div class="slide" data-name="Section — [Title]"
-     style="background: linear-gradient(80deg, #EEEEFD 2%, #CBDAFF 107%);">
-  <!-- Light BG graphic -->
-  <div style="position:absolute;top:361px;left:69px;width:1760px;font-family:'Roboto',sans-serif;font-size:60px;font-weight:400;color:#12131F;line-height:1.02;">[Topic]</div>
-  <div style="position:absolute;top:449px;left:69px;width:1760px;font-family:'Roboto',sans-serif;font-size:130px;font-weight:500;color:#12131F;line-height:1.02;">[Title]</div>
-</div>
-```
-
-**Back cover:**
-```html
-<div class="slide" data-name="Back cover"
-     style="background: linear-gradient(80deg, #090952 2%, #1414B8 107%);">
-  <!-- BG graphic -->
-  <div style="position:absolute;top:421px;left:80px;width:1760px;font-family:'Roboto',sans-serif;font-size:152px;font-weight:500;color:white;line-height:1.02;">Thank you</div>
-  <!-- Actian pyramid placeholder -->
-  <div style="position:absolute;bottom:65px;right:80px;width:80px;height:68px;display:flex;align-items:center;justify-content:center;">
-    <div style="width:0;height:0;border-left:28px solid transparent;border-right:28px solid transparent;border-bottom:48px solid rgba(255,255,255,0.3);"></div>
-  </div>
-</div>
-```
-
-### Content inside body slides
-
-For the content areas (#F5F5FA placeholders), generate actual content based on the input material:
-
-- **Data/metrics** — render as simple charts (bar charts using divs, donut charts using CSS, stat cards)
-- **Bullet points** — clean list with DS2026 styling (Roboto 24px, `#12131F`, line-height 1.5)
-- **Figma screenshots** — if the user provided Figma URLs, use `get_screenshot` and embed the image
-- **Comparison tables** — use standard table chrome from component-brief (11px uppercase headers, `#717D96`)
-- **Timelines** — horizontal or vertical progress indicators
-- **Component previews** — render actual components using DS2026 tokens
-- **Flow diagrams** — simplified step diagrams using boxes and arrows
-
-Style all content using DS2026 tokens (`--zen-*` prefix) where applicable. For text inside content areas, use Roboto 20–24px at `#12131F` or `#475467`.
-
-### Background geometric pattern
-
-For Cover, Section, and Back cover slides, approximate the Actian geometric pattern using CSS:
-
-```html
-<!-- Geometric overlay — 3 diagonal shapes -->
-<div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
-  <div style="position:absolute;top:-20%;right:-10%;width:60%;height:140%;background:rgba(255,255,255,0.06);transform:rotate(-60deg);border-radius:20px;"></div>
-  <div style="position:absolute;top:10%;right:-20%;width:50%;height:120%;background:rgba(255,255,255,0.04);transform:rotate(-60deg);border-radius:20px;"></div>
-  <div style="position:absolute;top:-30%;right:5%;width:45%;height:130%;background:rgba(255,255,255,0.08);transform:rotate(-60deg);border-radius:20px;"></div>
-</div>
-```
-
-For light Section dividers, use the same shapes but with `rgba(0,0,100,0.03)` instead of white.
+**Key rules:**
+- 5 slide types: Cover, Body (Full), Body (Text+Visual), Section divider, Back cover
+- All content uses DS2026 tokens (`--zen-*` prefix), Roboto font
+- Charts use `--zen-color-category-N-strong` — never hardcode
+- Include generation log card as first element
 
 ## Step 4 — Save, serve, and preview
 
@@ -256,60 +132,14 @@ Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizonta
 - Text: inverse text
 
 For token binding (color variables, text styles, effect styles), follow `../../references/figma-output.md` § "Token binding". Discover style keys via `search_design_system` before writing `use_figma` code. For DS2026 variable keys specifically, see `../../docs/meta-kit/variables.md`.
-For the shared Do-Don't Pair and Code Block components, see `../../docs/meta-kit/components.md`.
-For `buildSpecTable` (data tables in slides), see `../../references/meta-kit/builders.md`.
-
-### Charts in `use_figma`
-
-- **Bar charts** — render as rectangles using `category-N-strong` hex values for each series
-- **Data tables** — horizontal auto-layout frames with header row and data rows
-- **Complex charts** — create a placeholder frame labeled `"Chart: [description]"` for manual follow-up
-
-### Execution sequence
-
-1. **Generation metadata frame first** — Import `Meta / Chrome / Generation Log` component (key: `a9653f30925367e96dea90093d750bfe70849571`), set all 6 text properties using `setProp()`, place as the first element.
-2. **One `use_figma` call per slide** — keep each call under the 20KB limit. Each call creates one 1920x1080 frame with auto-layout contents.
-3. **Arrange in horizontal row** — position slides left-to-right with consistent spacing (e.g., 40px gap)
-4. **Take screenshot and show user** — use `get_screenshot` on the parent frame or page to show the final result
-
-For best-practice slides, import `Meta / Content / Do-Don't Pair` (key: `28edfacf13e50706586172bd48f8a3ad84d7c263`). Set `Do Label`, `Don't Label`, `Do Example`, `Don't Example` properties.
-For code example slides, import `Meta / Content / Code Block` (key: `1bf10eee1751a46da5f90a9671be6c9abf0073b7`). Set `Code` and optionally `Header Text` properties. Detach before appending content if needed.
+Read `presentation-templates.md` § "Figma output" for slide types, charts in `use_figma`, execution sequence, and Meta Kit component keys (Do-Don't Pair, Code Block).
 
 ## Step 7 — Iterate
 
-After the user reviews in Figma:
-- Adjust slide content, reorder, add/remove slides
-- Refine visuals based on feedback
-- Rebuild slides via `use_figma` if needed
+After the user reviews in Figma: adjust content, reorder, add/remove slides, rebuild via `use_figma` if needed.
 
-## Charts, diagrams, and data visualization
+## Charts and content quality
 
-Use charts, diagrams, and data visualizations as the primary content medium — not walls of text. Refer to `../../docs/presentation-guide.md` for the full chart selection guide and styling rules.
+Read `presentation-templates.md` § "Available CSS chart types" for the 8 chart types (stat cards, bar charts, donut, progress bars, timelines, flow diagrams, comparison tables, before/after). All charts use `--zen-color-category-N-strong` tokens.
 
-**Default behavior:** When input material contains data, metrics, timelines, processes, or comparisons, generate appropriate charts automatically. The chart selection guide in the content guidelines maps each question type to the right chart.
-
-**Available CSS chart types** (no JavaScript dependencies):
-- **Stat cards** — single large metric with context (use for hero numbers)
-- **Horizontal bar charts** — category comparisons (div-based, width percentages)
-- **Donut charts** — parts of a whole (conic-gradient, max 5 segments)
-- **Progress bars** — status vs. target (with threshold marker)
-- **Timelines** — milestone sequences (horizontal dot + line)
-- **Flow diagrams** — process steps (boxes + connecting lines)
-- **Comparison tables** — side-by-side feature/option comparison
-- **Before/after cards** — delta visualization (two stat cards with arrow)
-
-All charts must use DS2026 category tokens (`--zen-color-category-N-strong`) for series colors. Never hardcode chart colors.
-
-## Content quality rules
-
-All slide copy must follow `../../docs/presentation-guide.md`. Key rules:
-
-- **1 message per slide** — three points on a slide means zero remembered
-- **Headlines as conclusions** — "Q1 adoption grew 40%" not "Q1 Results" (the "So what?" test)
-- **Active voice always** — "Customers cut costs by 45%" not "Costs were reduced by 45%"
-- **Corporate-friendly tone** — confident, clear, precise, human. No hype, no jargon stacking, no filler intros.
-- **Visual > text** — prefer charts, diagrams, and screenshots over paragraphs
-- **Max 6 bullets** or 150 words per slide in text areas
-- **Every metric needs context** — comparison, benchmark, or target
-- **Narrative arc** — situation → complication → resolution → evidence → next steps
-- **Source attribution** — if data comes from a specific source, add a small footnote (Roboto 16px, `#717D96`, bottom-left)
+All slide copy must follow `../../docs/presentation-guide.md`. Key rules: 1 message per slide, headlines as conclusions ("So what?" test), active voice, visual > text, max 6 bullets or 150 words, every metric needs context, narrative arc (situation → complication → resolution → evidence → next steps).

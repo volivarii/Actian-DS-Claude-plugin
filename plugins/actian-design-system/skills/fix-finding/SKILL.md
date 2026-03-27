@@ -1,12 +1,14 @@
 ---
 name: fix-finding
-description: Fix a single design-audit finding in Figma. Takes a finding from the design-audit JSON output and applies the fix via use_figma. Supports fix types: swap-instance (replace with library component), bind-tokens (bind variable/style), align-variant (switch variant), compose-from-primitives (build from library). Triggers when the user asks to fix a specific audit finding, apply a fix, or resolve a design system violation.
+description: Use when the user asks to fix a specific audit finding, apply a design system fix, resolve a token or component violation identified by design-audit, or says "fix finding #N". Not for creating new components — use create-component instead.
 argument-hint: "[finding ID or description from audit report]"
 ---
 
 # Fix Design System Finding
 
 Apply a single fix from a `/design-audit` report to a Figma file.
+
+**When NOT to use:** If the user wants to *create* a new component → use `create-component`. If the user wants to *audit* first → use `design-audit`. This skill requires an existing audit finding to act on.
 
 > **Mode: Write.** This skill modifies the Figma file via `use_figma`. Each fix is atomic — one finding, one fix, one verification.
 
