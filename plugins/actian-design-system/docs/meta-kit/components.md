@@ -437,6 +437,17 @@ setProp(research, "Source", "Q1 2026 Research — 12 participants");
 
 ---
 
+### Meta / Chrome / Feedback
+Annotation component for designer feedback and library gap markers. Two variants: Designer (prominent blue, placed by designers for `/refine comments`) and System (subtle amber, placed automatically when the plugin improvises around a library gap).
+
+- Variants: **Type:** `Designer` · `System`
+- Properties: `Message` (text), `Target` (text), `Severity` (enum: Missing component / Missing variant / Missing property / General)
+- Node: `TBD` | Key: `TBD`
+
+> **Note:** Component key will be updated after the Feedback component is built in the Meta Kit Figma file. Until then, skills should build the marker inline using the visual spec in `../../references/library-gap-detection.md`.
+
+---
+
 ## Quick Reference
 
 | Component | Key | Node | Import method |
