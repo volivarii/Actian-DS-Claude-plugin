@@ -132,6 +132,16 @@ Run through the checklist in `../../references/quality-checklist.md` — check t
 
 If a fix is ambiguous, note it for the user review step instead of fixing silently.
 
+## Step 6.5 — Parity check
+
+After all `use_figma` calls complete, run the post-push parity check procedure in `../../references/parity-check.md`:
+
+1. `get_screenshot` of the created component set
+2. Present screenshot to the designer
+3. Run automated checklist (variant count matches plan, no clipped frames)
+4. Report findings and offer to fix P0 issues
+5. Write `.last-push.json` manifest to `{project_working_directory}/components/[component-name]/.last-push.json`
+
 ## Step 7 — Offer component brief
 
 After the component is created, ask the user:
