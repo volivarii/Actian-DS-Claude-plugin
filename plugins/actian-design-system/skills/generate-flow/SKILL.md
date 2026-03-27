@@ -160,9 +160,9 @@ Present findings as a brief summary before the screen list:
 - [What to do differently and why]
 ```
 
-### Research frame (optional)
+### Research frame (included by default when research was done)
 
-If the user requests it, include the research summary as an additional Figma frame at the start of the flow. This creates a permanent reference alongside the wireframes.
+When research was conducted (competitor research or reference analysis), **always include** the research summary as the first screen in the HTML output, before the flow screens. This ensures the research context is preserved alongside the wireframes.
 
 **Format:** A dark-background card (same style as flow cover cards) containing:
 - Title: "Research: [Feature]"
@@ -173,7 +173,7 @@ If the user requests it, include the research summary as an additional Figma fra
 
 **Styling:** Use `--fm-base-900` background, `--fm-base-white` text, `--fm-base-400` for dividers. Same width as flow screens (1440px), height auto. Typography: `fm-page-header__title` for section headings, 14px Inter for body.
 
-**When to offer:** After completing research in Step 2, ask: "Want me to include the research summary as a frame in the flow?" — or include automatically if the user has previously requested it.
+**Skip only if:** The user explicitly says "no research card" or "skip the research frame".
 
 ## Step 3 — Plan the screen list
 
@@ -217,7 +217,7 @@ Wait for user approval before proceeding.
 
 ## Step 4 — Generate the HTML
 
-Create a single HTML file at `components/flows/[feature-name]-flow.html`. Read `flow-html-reference.md` for the complete HTML template structure, FM component inventory, custom element rules, flow structure, screen dimensions, forms layout, and styling rules.
+Create a single HTML file at `{project_working_directory}/components/flows/[feature-name]-flow.html` (absolute path based on user's project directory, never relative to the plugin). Read `flow-html-reference.md` for the complete HTML template structure, FM component inventory, custom element rules, flow structure, screen dimensions, forms layout, and styling rules.
 
 **Key rules:**
 - **One row per flow** — never split across rows
@@ -246,7 +246,7 @@ Every text element must be specific to the feature domain. Generic text is a bug
 
 After generating the HTML, serve it and present the preview URL. **Do NOT proceed to Figma output until the user approves.**
 
-1. Start local server: `BASE_URL=$(scripts/ensure-server.sh . 8765)`
+1. Start local server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
 2. Present:
    > "Preview: `http://localhost:8765/components/flows/[feature-name]-flow.html`
    >

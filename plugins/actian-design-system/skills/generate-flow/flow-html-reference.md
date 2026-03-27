@@ -159,9 +159,98 @@ When no FM component fits, build custom elements inline.
     <div class="flow-cover__flow">Flow: [Sub-flow]</div>
     <div class="flow-cover__user">User: [Role]</div>
   </div>
+
+  <!-- Research card (REQUIRED if research was conducted — placed after cover, before screens) -->
+  <div class="flow-research" data-name="Research: [Feature]">
+    <div class="flow-research__title">Research: [Feature]</div>
+    <div class="flow-research__section">
+      <div class="flow-research__heading">How others handle this</div>
+      <ul class="flow-research__list">
+        <li><strong>[Product A]:</strong> [approach]</li>
+        <li><strong>[Product B]:</strong> [approach]</li>
+      </ul>
+    </div>
+    <div class="flow-research__section">
+      <div class="flow-research__heading">Common patterns</div>
+      <ul class="flow-research__list">
+        <li>[Pattern observation]</li>
+      </ul>
+    </div>
+    <div class="flow-research__section">
+      <div class="flow-research__heading">Recommendation</div>
+      <p class="flow-research__body">[What to adopt and why]</p>
+    </div>
+    <div class="flow-research__section">
+      <div class="flow-research__heading">Sources</div>
+      <ul class="flow-research__list flow-research__list--sources">
+        <li>[Source URL or name]</li>
+      </ul>
+    </div>
+  </div>
+
   <div class="screen"> ... </div>
   <div class="screen"> ... </div>
 </div>
+```
+
+### Research card CSS
+
+Add these styles when research is included:
+
+```css
+.flow-research {
+  min-width: 480px;
+  max-width: 480px;
+  background: var(--fm-base-900, #1a1d23);
+  color: var(--fm-base-white, #ffffff);
+  border-radius: 12px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-self: stretch;
+}
+.flow-research__title {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+.flow-research__heading {
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--fm-base-400, #9ca3af);
+  margin-bottom: 8px;
+}
+.flow-research__list {
+  margin: 0;
+  padding-left: 16px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--fm-base-200, #e5e7eb);
+}
+.flow-research__list li {
+  margin-bottom: 4px;
+}
+.flow-research__list--sources {
+  color: var(--fm-base-400, #9ca3af);
+  font-size: 12px;
+}
+.flow-research__body {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--fm-base-200, #e5e7eb);
+  margin: 0;
+}
+.flow-research__section {
+  border-top: 1px solid var(--fm-base-700, #374151);
+  padding-top: 16px;
+}
+.flow-research__section:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
 ```
 
 ## Screen dimensions

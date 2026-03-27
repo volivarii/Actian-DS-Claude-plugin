@@ -4,6 +4,34 @@ Follow these rules for every Figma-to-code task in this project.
 
 ---
 
+## Output File Paths — Project Directory, Not Plugin Directory
+
+**CRITICAL:** All generated files (HTML specs, flows, presentations) MUST be written to the **user's project working directory**, NOT relative to the plugin's own files.
+
+On Claude Code desktop, the plugin runs from a cache directory (`~/.claude/plugins/cache/...`). Relative paths resolve there, which is wrong. Always construct absolute paths using the user's working directory:
+
+```
+# Correct — writes to the project directory
+{project_working_directory}/components/flows/my-flow.html
+
+# Wrong — writes to the plugin cache
+components/flows/my-flow.html
+```
+
+**How to get the project directory:** Use the primary working directory from the session context (the directory the user opened Claude Code in). This is NOT `CLAUDE_PLUGIN_ROOT` — that points to the plugin cache.
+
+**Also applies to `ensure-server.sh`** — serve the project directory, not `.`:
+
+```bash
+# Correct — serves the project directory
+BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
+
+# Wrong — serves the plugin cache
+BASE_URL=$(scripts/ensure-server.sh . 8765)
+```
+
+---
+
 ## File Organization
 
 ### Data flow — single source of truth
@@ -78,11 +106,11 @@ This project uses **semver** (`MAJOR.MINOR.PATCH`).
 
 ## Local Server Management
 
-When serving HTML for local preview, always use the `ensure-server.sh` utility:
+When serving HTML for local preview, always use the `ensure-server.sh` utility. **Serve the project directory, not the plugin directory:**
 
 ```bash
-# From the plugin directory — serves HTML files for local preview
-BASE_URL=$(scripts/ensure-server.sh . 8765)
+# Serve the project working directory (where output files are written)
+BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
 ```
 
 The script handles all edge cases:
@@ -92,6 +120,7 @@ The script handles all edge cases:
 - Returns the base URL on stdout
 
 **Never manually run `python3 -m http.server` or `kill` processes.** Use `ensure-server.sh` instead.
+**Never pass `.` as the directory** — on desktop this resolves to the plugin cache, not the project.
 
 ---
 

@@ -75,8 +75,8 @@ Generate a single HTML file containing all slides as a horizontal row of 1920x10
 
 ## Step 4 — Save, serve, and preview
 
-1. Save to: `presentations/[topic-slug]/[topic-slug]-deck.html`
-2. Start local server: `BASE_URL=$(scripts/ensure-server.sh . 8765)`
+1. Save to: `{project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html` (absolute path based on user's project directory, never relative to the plugin)
+2. Start local server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
 3. Tell the user: "Preview at `http://localhost:8765/presentations/[topic-slug]/[topic-slug]-deck.html`"
 
 ## Step 5 — Present the review report

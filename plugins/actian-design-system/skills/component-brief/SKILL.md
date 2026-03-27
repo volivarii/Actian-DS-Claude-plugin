@@ -147,7 +147,7 @@ When generating a subset, only include the selected cards in the HTML `brief-row
    - Insert the filled card HTML fragments where `<!-- {{CARDS}} -->` appears
    - For Card 2 (Actual component), also inject `{{COMPONENT_SPECIFIC_CSS}}` into a `<style>` block inside the card — these are the CSS classes needed to render the actual component (e.g., `.btn`, `.link`, `.input`)
 
-5. **Save to:** `components/[component-name]/[component-name]-spec.html`
+5. **Save to:** `{project_working_directory}/components/[component-name]/[component-name]-spec.html` — always use an absolute path based on the user's project directory, never relative to the plugin.
 
 ### Rules
 
@@ -170,7 +170,7 @@ Read `../../references/token-naming.md` for the full `--zen-` prefix mapping tab
 
 After generating the HTML, serve it and present the preview URL. **Do NOT proceed to Figma output until the user approves.**
 
-1. Start local server: `BASE_URL=$(scripts/ensure-server.sh . 8765)`
+1. Start local server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
 2. Present:
    > "Preview: `http://localhost:8765/components/[name]/[name]-spec.html`
    >
