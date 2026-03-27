@@ -29,5 +29,6 @@ release-notes/
 
 # Superpowers working files
 .superpowers/
+docs/superpowers/
 plugins/*/docs/superpowers/
 plugins/*/docs/ds2026-analysis.json
