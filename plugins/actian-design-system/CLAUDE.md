@@ -461,14 +461,54 @@ All Figma-writing skills pause for user approval before pushing to Figma:
 
 | Skill | Gate | Vocabulary |
 |-------|------|-----------|
-| component-brief | Step 2.5 — HTML preview | "push" / "push N,N" / feedback |
-| generate-flow | Step 2 — research opt-in + Step 4.5 — HTML preview | "push" / "push N,N" / feedback |
+| component-brief | Step 2.5 — HTML preview | "push" / "push N,N" / "playground" / feedback |
+| generate-flow | Step 2 — research opt-in + Step 4.5 — HTML preview | "push" / "push N,N" / "prototype" / feedback |
 | generate-presentation | Step 5 — review report + preview | "push" / "push N,N" / feedback |
 | create-component | Step 4.5 — build plan summary | "build" / feedback |
 
 - If the user's prompt pre-answers a gate question (e.g., "no research"), skip asking
 - If the user requests cards/slides not in the HTML at the gate, regenerate HTML first
 - Draft tier in create-component skips the build plan gate
+
+---
+
+## Post-Push Parity Check
+
+Every skill that pushes to Figma MUST run a parity check immediately after `use_figma` completes. See `references/parity-check.md` for the full procedure.
+
+**Quick summary:**
+1. Screenshot each pushed element
+2. Check for clipping (height/width < 10px), empty text, missing children
+3. Report findings — fix P0s before presenting to designer
+4. Write `.last-push.json` manifest for `/refine` support
+
+| Skill | Parity check step |
+|-------|-------------------|
+| generate-flow | Step 6 |
+| component-brief | Step 4 |
+| generate-presentation | Step 7 |
+| create-component | Step 6.5 |
+
+---
+
+## Interactive Prototypes & Playgrounds
+
+Opt-in interactive previews for testing flows and components before pushing to Figma. See `references/prototype-reference.md` for generation rules.
+
+**Flows** → `[name]-prototype.html`: Alpine.js shell with click-to-navigate, form validation, branching paths. Template: `templates/flow-prototype-wrapper.html`.
+
+**Components** → `[name]-playground.html`: Alpine.js shell with state switching, variant axes, theme toggling, live token readout. Template: `templates/component-playground-wrapper.html`.
+
+**Opt-in triggers:**
+- Prompt keywords: "prototype", "interactive", "playable", "clickable", "test it", "playground", "test states"
+- Gate keyword: "prototype" (flows) or "playground" (components)
+- Suppressed by: "quick", "draft", "just the flow"
+
+**Rules:**
+- Prototypes are for testing only — never pushed to Figma
+- Static HTML remains the source of truth for Figma parity
+- Same `ensure-server.sh` serves both files
+- Alpine.js 3.14.9 from CDN — no build step
 
 ---
 
