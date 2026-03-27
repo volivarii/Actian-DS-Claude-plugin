@@ -1,6 +1,6 @@
 # Actian Design System Plugin
 
-Claude plugin for the Actian UX team. Sync design tokens from Figma, generate wireframe flows, create component specs, audit designs, build presentations, and refine output — powered by Claude + Figma MCP.
+Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings. Test everything interactively before pushing to Figma, and fix anything after.
 
 **v1.15.0** | 9 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
 
@@ -49,35 +49,41 @@ Add to `~/.claude/settings.json`:
 
 ## Skills
 
-### Generate
+### Generate — from idea to Figma
+
+Describe what you need, review it in the browser, and push to Figma when it looks right. Every generation skill supports competitor research to ground decisions in real-world patterns, and previews everything locally before touching Figma.
 
 | Skill | What it does | How it helps |
 |-------|-------------|-------------|
-| `/generate-flow` | Wireframe flows from user stories. Includes competitor research, screen planning, and Figma output. | Go from a feature description to a complete flow in Figma. Research grounds decisions in real-world patterns instead of guessing. |
-| `/component-brief` | 9-card DS2026 or 5-card Fat Marker spec — anatomy, tokens, API, states, accessibility, code. | Every variant, state, and token documented in one place. Designers and developers reference the same spec. |
+| `/generate-flow` | Wireframe flows from user stories. Competitor research, screen planning, interactive prototype, Figma output. | Go from a feature description to a clickable flow. Test navigation, form validation, and branching paths in the browser before committing. |
+| `/component-brief` | 9-card DS2026 or 5-card Fat Marker spec — anatomy, tokens, API, states, accessibility, code. | Every variant, state, and token documented in one place. Use the interactive playground to toggle states and themes before pushing. |
 | `/create-component` | Build a new Figma component with variants via Plugin API, with optional pattern research. | New components follow DS2026 conventions from the start — correct auto-layout, token binding, and naming. |
 | `/generate-presentation` | Slide deck using Actian templates with charts and data visualizations. | Consistent decks that follow DS2026 typography, color, and layout without manual setup. |
 
-### Review
+### Review — catch issues, fix them in place
+
+Audit any screen against DS2026 rules, compare two versions of a flow, or fix issues in Figma output without regenerating from scratch. Every fix comes with before/after screenshots.
 
 | Skill | What it does | How it helps |
 |-------|-------------|-------------|
 | `/design-audit` | Audit a Figma screen against DS2026 tokens, WCAG AA, content guidelines, and forms layout. | Catch token mismatches, contrast failures, and guideline violations before handoff. Confidence-scored findings with evidence. |
 | `/compare-flows` | Side-by-side comparison of two Figma flows with severity-rated issues. | Evaluate a redesign against the original, or choose between competing approaches with structured criteria. |
 | `/fix-finding` | Fix a single audit finding in Figma — swap instances, bind tokens, align variants. | One-click resolution for audit findings without manual token lookup. |
-| `/refine` | Fix Figma output after pushing — describe issues, read Figma comments, or re-run quality checks. | Iterate on pushed output without regenerating from scratch. Before/after screenshots on every fix. |
+| `/refine` | Fix Figma output after pushing — describe issues, read Figma comments, or re-run quality checks. | Iterate on pushed output without regenerating. Say what's wrong and it gets fixed with verification. |
 
-### Sync
+### Sync — keep everything current
+
+The design system lives in Figma. Sync extracts it directly via MCP so skills always have current tokens, components, and guidelines.
 
 | Skill | What it does | How it helps |
 |-------|-------------|-------------|
-| `/sync-design-system` | Extract components, variables, styles, guidelines, and tokens from Figma via MCP. | Keep local reference files in sync with Figma. Full sync, per-phase, or single-component granularity. |
+| `/sync-design-system` | Extract components, variables, styles, guidelines, and tokens from Figma via MCP. | Full sync, per-phase, or single-component. No intermediary repos — Figma is the source of truth. |
 
 ---
 
 ## Workflow
 
-Every skill that outputs to Figma follows the same loop:
+Every skill that outputs to Figma follows the same loop. The goal is to catch problems early (when they're cheap to fix) and give designers control at every step.
 
 ```
 1. Research + generate
@@ -85,45 +91,43 @@ Every skill that outputs to Figma follows the same loop:
    then generates an HTML preview.
 
 2. Preview in browser
-   Static preview served on localhost.
-   Give feedback to iterate, or request an interactive
-   prototype (flows) or state playground (components).
+   Static preview served on localhost. Iterate with
+   feedback until it looks right. Optionally generate
+   an interactive prototype or state playground to
+   test the experience hands-on.
 
 3. Push to Figma
-   Approved content goes to Figma via use_figma.
-   Automatic parity check flags clipping, missing
-   content, or empty text.
+   Approved content goes to Figma via MCP.
+   Automatic parity check catches clipping, missing
+   content, or empty text before declaring success.
 
 4. Refine
-   Review in Figma. Run /refine to fix issues with
-   before/after verification, or leave Figma comments
-   for /refine to read.
+   Review in Figma. Run /refine to fix specific issues,
+   or leave Figma comments for /refine to read.
+   Every fix is verified with before/after screenshots.
 ```
 
 ### Preview gate
 
-All output skills pause before pushing to Figma. At the gate:
+All output skills pause before pushing to Figma. This is where most iteration happens — HTML previews are free and fast, Figma output costs MCP calls and is harder to undo.
 
 | Reply | What happens |
 |-------|-------------|
 | `"push"` | Send all content to Figma |
 | `"push 2,4,5"` | Send only selected cards/screens |
-| `"prototype"` | Generate an interactive flow prototype (click-through navigation, form simulation, branching paths) |
-| `"playground"` | Generate a component state explorer (toggle states, switch themes, see active tokens) |
+| `"prototype"` | Generate an interactive flow prototype — click through screens, fill forms, test branching paths |
+| `"playground"` | Generate a component state explorer — toggle states, switch themes, see which tokens are active |
 | `feedback` | Fix the HTML and re-preview |
 
-Prototypes and playgrounds are served alongside the static preview. They use Alpine.js with no build step — open the URL and start testing.
+Prototypes and playgrounds are served alongside the static preview — open the URL and start testing. No build step, no dependencies.
 
 ### Post-push parity check
 
-After every push, the skill automatically:
-1. Screenshots each pushed element
-2. Checks for clipping, empty text, and missing content
-3. Reports findings and offers to fix issues inline
+After every push, the skill automatically screenshots the Figma output and checks for common issues (clipped frames, empty text, missing children). P0 issues are flagged and can be fixed inline before the designer reviews.
 
 ### /refine
 
-After reviewing in Figma, run `/refine` to apply corrections:
+The last step in the loop. After reviewing in Figma, run `/refine` to apply corrections without regenerating everything:
 
 ```
 /refine screen 3 header is too tall
