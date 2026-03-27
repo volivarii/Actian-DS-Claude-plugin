@@ -202,3 +202,16 @@ Read `component-brief-figma.md` for the complete Figma output reference: card st
 
 If the user provided a Figma URL, extract `fileKey` and `nodeId`. Only ask for target if not provided.
 
+---
+
+## Step 4 — Parity check
+
+After all `use_figma` calls complete, run the post-push parity check procedure in `../../references/parity-check.md`:
+
+1. `get_screenshot` of each pushed card
+2. Present screenshots alongside the HTML preview URL
+3. Run automated checklist (element count, clipping, empty text)
+4. Report findings and offer to fix P0 issues
+5. Write `.last-push.json` manifest to `{project_working_directory}/components/[component-name]/.last-push.json`
+
+After parity check completes, ask: "Review in Figma and reply: **'looks good'**, **'fix [specific issue]'**, or run `/refine` later for corrections."
