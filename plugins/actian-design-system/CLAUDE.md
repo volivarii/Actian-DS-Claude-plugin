@@ -512,6 +512,26 @@ Opt-in interactive previews for testing flows and components before pushing to F
 
 ---
 
+## Library Gap Detection
+
+When building Figma output, **always check the component catalog before creating custom frames.** If a library component exists for the element you're building, import it — even if a variant is missing.
+
+See `references/library-gap-detection.md` for the full procedure.
+
+**When a gap is detected:**
+1. Attach a `Feedback (Type=System)` marker next to the improvised frame in Figma — subtle, doesn't distract the reviewing designer
+2. Log the gap to `{project_working_directory}/library-gaps.json` with component name, severity, and workaround
+
+**Severity levels:**
+- `Missing component` — no library component exists for this element
+- `Missing variant` — component exists but lacks the needed variant (e.g., Info type on FM Alert)
+- `Missing property` — component exists but lacks a needed property (e.g., no text override, no disabled state)
+- `General` — other limitation that forced a workaround
+
+**Designer annotations:** Designers can place `Feedback (Type=Designer)` components in Figma to annotate issues. `/refine comments` scans for these and applies fixes.
+
+---
+
 ## Real Component Instances (P0)
 
 When briefing an existing component (Figma URL provided), import real library instances — never approximate with text placeholders like `[ Save ]`. Use `get_design_context` to extract the component set key, then `importComponentSetByKeyAsync()` in `use_figma`. Applies to component-brief Cards 2 and 3.
