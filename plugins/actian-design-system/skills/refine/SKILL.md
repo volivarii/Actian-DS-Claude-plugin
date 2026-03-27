@@ -21,9 +21,9 @@ Detect the user's intent from their argument:
 | Argument | Mode | Behavior |
 |----------|------|----------|
 | Free text (e.g., "the header is too tall, fix the button label") | Conversational | Parse text into discrete findings, match to pushed nodes |
-| `"comments"` | Figma comment reading | Read comments from Figma via MCP, present numbered list, ask which to fix |
+| `"comments"` | Figma annotation reading | Scan output page for `Feedback (Type=Designer)` component instances, present numbered list, ask which to fix |
 | `"check"` | Parity re-check | Re-run parity check from `../../references/parity-check.md` against the last-pushed content |
-| No argument | Ask | Prompt: "What would you like to refine? Share feedback text, type `comments` to pull Figma comments, or type `check` to re-run parity." |
+| No argument | Ask | Prompt: "What would you like to refine? Share feedback text, type `comments` to scan Figma annotations, or type `check` to re-run parity." |
 
 ---
 
@@ -101,25 +101,41 @@ For each finding:
 
 Do not ask for confirmation before proceeding. Parse and move to Step 3.
 
-### Mode 2 — Figma comment reading
+### Mode 2 — Figma annotation reading
 
-1. Call `get_metadata` on the Figma file (using `figmaFileKey` from the manifest) to confirm the file is accessible.
-2. Read comments from the file. Present them as a numbered list:
+Scans the output page for `Feedback (Type=Designer)` component instances placed by the reviewing designer.
 
-```
-Comments on [figmaPageName] (as of [timestamp]):
+1. Read `.last-push.json` manifest to find the output file and page
+2. `get_metadata` on the page node to scan the full node tree
+3. Find all nodes named `Feedback` or matching the Feedback component instance pattern
+4. For each candidate, `get_design_context` to read its properties:
+   - Check variant — only process `Type=Designer` (skip `Type=System`)
+   - Extract `Message` text (the issue description)
+   - Extract `Target` text (which element it refers to)
+5. Match each `Target` to a `pushedNodes` entry from the manifest
+6. Present as a numbered list:
+   ```
+   Found 3 designer annotations:
+   1. [Screen 3: Form] "Header too tall"
+   2. [Screen 5: Success] "Add loading state before this"
+   3. [Card 2: Components] "Wrong icon in variant matrix"
 
-1. [author] on [node name]: "[comment text]"
-2. [author] on [node name]: "[comment text]"
-...
-```
+   Fix all, pick specific ones (e.g. "fix 1,3"), or skip?
+   ```
+7. Wait for designer's selection
+8. Apply selected fixes using the Step 3 fix loop (screenshot before → fix → screenshot after → verify)
+9. After each fix is verified, remove the corresponding `Type=Designer` annotation frame from Figma via `use_figma`:
+   ```js
+   const annotation = await figma.getNodeByIdAsync(annotationNodeId);
+   if (annotation) annotation.remove();
+   ```
 
-If there are no comments, say: "No open comments found on this file. Share feedback text directly and I'll fix it."
+**Fallback:** If no Feedback instances are found on the page, tell the designer:
+> "No annotations found on this page. You can either:
+> - Place `Feedback` components in Figma next to issues, then re-run `/refine comments`
+> - Describe the issues here and I'll fix them directly"
 
-3. Ask:
-   > "Fix all, pick specific ones (e.g., `fix 1,3`), or skip? Reply with your selection."
-
-4. Wait for the user's response. Map selected comments to findings in the same `{target, issue}` format as Mode 1.
+Then switch to Mode 1 (conversational feedback) if the designer responds with text.
 
 ### Mode 3 — Parity re-check
 
