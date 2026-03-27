@@ -1,7 +1,7 @@
 # Fat Marker Kit — Component Reference
 
-Auto-generated from Figma MCP on 2026-03-26.
-31 component sets, 140 individual components.
+Auto-generated from Figma MCP on 2026-03-27.
+33 component sets + 1 single component, 158 individual components.
 
 Source: [Page mockups](https://www.figma.com/design/X2JSEUyLvxyNCx22ucOexn)
 
@@ -13,6 +13,12 @@ Source: [Page mockups](https://www.figma.com/design/X2JSEUyLvxyNCx22ucOexn)
 
 - Variants: **Property 1:** `Default` · `Critical`
 - Node: `139:2309` | Key: `9b4f450c92de6178731d1eca0f03f42ac3f64085`
+
+### FM Alert
+Inline feedback message for success, error, or warning states. Use for persistent status messages — for brief confirmations, use FM Toast instead.
+
+- Variants: **Type:** `Success` · `Error` · `Warning`
+- Node: `1052:9637` | Key: `fe30f37740688350762bd2b1be426d9d1588b7d9`
 
 ### FM App_header
 Top-level application header bar. Contains the Actian logo, product label, and user avatar. Use at the top of every screen mockup.
@@ -27,7 +33,7 @@ Top-level application header bar. Contains the Actian logo, product label, and u
 
 ### FM Button
 
-- Variants: **Size:** `md` · `sm` | **Shape:** `Regular` · `Pill` | **Type:** `Primary` · `Secondary` · `Outline` | **State:** `Default` · `Disabled`
+- Variants: **Size:** `md` · `sm` | **Shape:** `Regular` · `Pill` | **Type:** `Primary` · `Secondary` · `Outline` · `Destructive` | **State:** `Default` · `Disabled`
 - Text overrides: `Label`
 - Node: `8:21044` | Key: `368b62312ca941c80ea8eeed84a57d33bb470b09`
 
@@ -52,14 +58,22 @@ Top-level application header bar. Contains the Actian logo, product label, and u
 - Text overrides: `Input Text`
 - Node: `8:21321` | Key: `69d6329ea2d5ac3515b6ebb04ad6c1bd72e4890e`
 
+### FM Dialog
+Modal dialog for confirmations. Contains title, body text, and action buttons (uses FM Button instances). Use for actions that need explicit user decision before proceeding.
+
+- Single component (no variants)
+- Node: `9:1382` | Key: `0cc53eca9c90cccb8cbc57864ea110378414fd2b`
+
 ### FM Dropdown
+Single-select dropdown. Placeholder = empty, Filled = value selected, Open = showing options, Disabled = non-interactive.
 
 - Variants: **Type:** `Placeholder` · `Open` · `Disabled` · `Filled`
 - Node: `8:21420` | Key: `781f86dca2a37706771f3e2e580242d2693a722f`
 
 ### FM Empty State
+Empty or zero-data state placeholder. Default = centered with icon and text. Compact = smaller, for inline use. Include onboarding hint text to guide the user.
 
-- Variants: **Property 1:** `Default` · `Variant2`
+- Variants: **Type:** `Default` · `Compact`
 - Node: `228:2994` | Key: `cf44b9c0b5623a394d90f320f98250dc77378268`
 
 ### FM Icon Buttons
@@ -134,12 +148,20 @@ Page title area with optional subtitle and action buttons.
 - Variants: **Progress:** `0%` · `25%` · `50%` · `75%` · `100%`
 - Node: `8:21194` | Key: `181d7f761179e7ce2f2849ae5c73989177d3a3c6`
 
+### FM Stepper
+Step indicator for multi-step wizard flows. Place in a horizontal row — one instance per step. Active = current step, Complete = done, Upcoming = not yet reached.
+
+- Variants: **State:** `Active` · `Complete` · `Upcoming`
+- Node: `1052:9653` | Key: `d0a21b5288571cc7690c6c9289d18cd298035c53`
+
 ### FM Tab
+Tab for switching between views within the same context. On = active tab, Off = inactive, Placeholder = future/reserved tab slot.
 
 - Variants: **State:** `On` · `Off` · `Placeholder`
 - Node: `8:21619` | Key: `cfbd732ff4f4e6620b333c60f1ac7fe5116a93aa`
 
 ### FM Table Cell
+Table cell for data tables. Header = column title, Text = data value, Pill = status badge, Placeholder = future column.
 
 - Variants: **Type:** `Header` · `Text` · `Pill` · `Placeholder`
 - Node: `8:21551` | Key: `9267fecfadc4577563deb1425fa598d1f5af9144`
@@ -166,8 +188,9 @@ Page title area with optional subtitle and action buttons.
 - Node: `8:21566` | Key: `6140b137ce98ebfeeb7fc7e426f6d09de1cc18d0`
 
 ### FM Toggle
+On/off toggle switch. Use for immediate binary actions. Pair with a text label using fm-custom-toggle-row layout. Disabled style reduces opacity.
 
-- Variants: **State:** `Off` · `On` | **Style:** `Default`
+- Variants: **State:** `Off` · `On` | **Style:** `Default` · `Disabled`
 - Node: `8:21173` | Key: `fe9e82118d1df75a8aea732eb7f9169ccaa21878`
 
 ### FM Tooltip

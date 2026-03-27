@@ -269,6 +269,29 @@ Available builders:
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed (e.g., one call per card, one call per slide).
 
+## Component Set Variant Layout
+
+After `figma.combineAsVariants()`, variants stack on top of each other by default. **Always position variants manually** so they're visible and scannable:
+
+```js
+const cs = figma.combineAsVariants(variants, page);
+cs.name = "FM Component";
+
+// Disable auto-layout on the component set — use manual positioning
+cs.layoutMode = "NONE";
+
+// Size the set frame to fit all variants with padding
+cs.resize(totalWidth, totalHeight);
+
+// Position each variant in a grid with 32px padding and ~80-200px spacing
+for (let i = 0; i < cs.children.length; i++) {
+  cs.children[i].x = 32 + (col * spacingX);
+  cs.children[i].y = 32 + (row * spacingY);
+}
+```
+
+Match the existing library's layout pattern. In FM Kit, variants use `layoutMode: "NONE"` with ~200px vertical spacing and 32px edge padding.
+
 ## Sequential Execution Constraint
 
 **Never run `use_figma` calls in parallel.** Concurrent writes cause silent corruption in Figma — nodes get misplaced, properties get dropped, or entire frames disappear. This applies to:

@@ -35,6 +35,9 @@ These exist in the FM Kit Figma library and can be imported with `getComponentBy
 | **FM Badge** | Size: Small / Medium / Large, Type: Icon / Number / Number Expand | — | |
 | **FM Tag** | Style: Filled / Outline / Light | — | |
 | **FM Chip** | Outline: False / True | — | |
+| **FM Alert** | Type: Success / Error / Warning | — | Persistent inline feedback. Left color bar indicates type. For brief confirmations use FM Toast instead |
+| **FM Dialog** | Single component (no variants) | — | 484px confirmation dialog with title, body, FM Button instances. Import via `importComponentByKeyAsync` (not component set) |
+| **FM Stepper** | State: Active / Complete / Upcoming | — | Step indicator for wizard flows. One instance per step in a horizontal row. Complete shows checkmark |
 | **FM Toast** | Style: Standard / Outline | — | **Brief confirmations only** — auto-dismissing, overlaid |
 | **FM Page Header** | Type: Title only / Title + Subtitle / Title + Actions | `Title`, `Subtitle` | Use correct variant — don't add buttons outside "Title + Actions" |
 | **FM Side navigation bar** | Property 1: Default / Slim | — | |
@@ -96,9 +99,9 @@ These have CSS in `fm-css-reference.md` but **do not exist as importable Figma c
 
 | Component | HTML class | Use for | Figma workaround |
 |---|---|---|---|
-| **FM Alert** | `.fm-alert`, `.fm-alert--success/--error/--info` | Inline persistent status messages | `fm-custom-alert` frame: 48px height, 12px 16px padding, 6px radius, shadow |
 | **FM Banner** | `.fm-banner` | Page-level persistent notices | `fm-custom-banner` frame: full-width, color bar left edge |
-| **FM Dialog** | `.fm-dialog` | Modal confirmations | `fm-custom-dialog` frame: centered overlay, white bg, shadow, radius 12px |
+
+**Note:** FM Alert and FM Dialog are now Figma library components — import them directly via `getComponentByKeyAsync()`.
 
 ### Error states on form inputs
 
@@ -118,10 +121,10 @@ Set the FM Input Label's Caption Text to the error message and color it red.
 | Situation | Use | Why |
 |---|---|---|
 | Brief success after action | **FM Toast** | Transient, auto-dismiss, doesn't block content |
-| Persistent error on page | **FM Alert** (HTML) / `fm-custom-alert` (Figma) | Stays visible until dismissed or fixed |
+| Persistent error on page | **FM Alert** (Type=Error) | Stays visible until dismissed or fixed |
 | Field-level validation error | **FM Input Label** Caption Text + input border override | Inline, per-field, most specific |
 | Page-level persistent notice | **FM Banner** (HTML) / `fm-custom-banner` (Figma) | Full-width, high visibility |
-| Destructive action confirmation | **FM Dialog** (HTML) / `fm-custom-dialog` (Figma) | Modal, requires explicit decision |
+| Destructive action confirmation | **FM Dialog** (Size=Small) | Modal, requires explicit decision |
 
 ### Component pairing patterns
 

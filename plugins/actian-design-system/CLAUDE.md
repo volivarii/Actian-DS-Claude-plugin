@@ -47,7 +47,7 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `docs/accessibility-guidelines.md` | `foundations/accessibility.json` | WCAG 2.1 AA standards (auto-generated, do not edit) |
 | `docs/token-reference.md` | `tokens/actian-ds.tokens.json` | Human-readable token reference (3 themes) |
 | `docs/ds2026-components.md` | Figma MCP extraction | 77 DS2026 component sets |
-| `docs/fm-components.md` | Figma MCP extraction | 29 FM Kit component sets |
+| `docs/fm-components.md` | Figma MCP extraction | 34 FM Kit component sets |
 | `tokens/tokens.css` | `tokens/actian-ds.tokens.json` | CSS custom properties (`--zen-*`) |
 
 **Hand-authored (not synced):**

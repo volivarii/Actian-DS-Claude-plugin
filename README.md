@@ -107,7 +107,7 @@ Skills read at runtime
 
 | Layer | Font | Components | Used by |
 |-------|------|-----------|---------|
-| **Fat Marker (lo-fi)** | Inter | 29 FM Kit components | `/generate-flow` |
+| **Fat Marker (lo-fi)** | Inter | 34 FM Kit components | `/generate-flow` |
 | **DS2026 (hi-fi)** | Roboto | 77 component sets | `/component-brief`, `/design-audit` |
 | **Meta Kit** | Inter | 6 skill-output components | All output skills |
 
@@ -163,7 +163,7 @@ actian-design-system-plugin/
 │   │
 │   └── docs/
 │       ├── ds2026-components.md         # 77 component sets
-│       ├── fm-components.md             # 29 FM Kit components
+│       ├── fm-components.md             # 34 FM Kit components
 │       ├── token-reference.md
 │       ├── content-guidelines.md
 │       ├── accessibility-guidelines.md
