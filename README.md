@@ -1,20 +1,8 @@
 # Actian Design System Plugin
 
-A Claude-powered design toolkit for the Actian UX team. From first wireframe to final spec — generate flows, test them interactively, push to Figma, and refine without starting over.
+Claude plugin for the Actian UX team. Sync design tokens from Figma, generate wireframe flows, create component specs, audit designs, build presentations, and refine output — powered by Claude + Figma MCP.
 
 **v1.15.0** | 9 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
-
----
-
-## What designers get
-
-**Go from idea to Figma in minutes.** Describe a feature, get a full wireframe flow. Spec a component, get a 9-card brief with real library instances. Audit a screen, get token-level findings with confidence scores.
-
-**Test before you commit.** Every skill previews in the browser first. Say "prototype" to click through a flow, fill forms, and test branching paths — all before touching Figma. Say "playground" to toggle component states, switch themes, and see which tokens are active.
-
-**Fix without starting over.** After pushing to Figma, the plugin automatically checks for clipping, missing content, and broken layouts. Found something off? Run `/refine` — describe what's wrong, and it fixes it with before/after screenshots. Or leave Figma comments and let `/refine` read them.
-
----
 
 ## Install
 
@@ -51,122 +39,97 @@ Add to `~/.claude/settings.json`:
 }
 ```
 
-On new versions, Claude Code fetches at next startup automatically. Works in both CLI and Desktop.
-
 ### Manual update
 
-**Claude Code CLI:**
-```bash
-/plugin marketplace update
-```
+**Claude Code CLI:** `/plugin marketplace update`
 
-**Claude Desktop:**
-1. Open the **Cowork** tab
-2. Click **Customize** in the left sidebar
-3. Find **Actian Design System** under Personal plugins
-4. Remove and re-add from GitHub if needed: `volivarii/Actian-DS-Claude-plugin`
+**Claude Desktop:** Cowork tab > Customize > find Actian Design System > remove and re-add from GitHub.
 
 ---
 
 ## Skills
 
-### Build
+### Generate
 
-| Skill | What it does |
-|-------|-------------|
-| `/generate-flow` | Turn a user story into a full wireframe flow with competitor research, interactive prototype, and Figma output. |
-| `/component-brief` | Create a 9-card DS2026 or 5-card Fat Marker component spec — anatomy, tokens, API, accessibility, code. Includes interactive state playground. |
-| `/create-component` | Build a new Figma component with variants via Plugin API, with optional pattern research. |
-| `/generate-presentation` | Create a slide deck using Actian presentation templates with charts and data visualizations. |
+| Skill | What it does | How it helps |
+|-------|-------------|-------------|
+| `/generate-flow` | Wireframe flows from user stories. Includes competitor research, screen planning, and Figma output. | Go from a feature description to a complete flow in Figma. Research grounds decisions in real-world patterns instead of guessing. |
+| `/component-brief` | 9-card DS2026 or 5-card Fat Marker spec — anatomy, tokens, API, states, accessibility, code. | Every variant, state, and token documented in one place. Designers and developers reference the same spec. |
+| `/create-component` | Build a new Figma component with variants via Plugin API, with optional pattern research. | New components follow DS2026 conventions from the start — correct auto-layout, token binding, and naming. |
+| `/generate-presentation` | Slide deck using Actian templates with charts and data visualizations. | Consistent decks that follow DS2026 typography, color, and layout without manual setup. |
 
-### Review and refine
+### Review
 
-| Skill | What it does |
-|-------|-------------|
-| `/design-audit` | Audit a Figma screen against DS2026 tokens, WCAG AA, content guidelines, and forms layout. Confidence-scored findings with evidence. |
-| `/fix-finding` | Fix a single audit finding in Figma — swap instances, bind tokens, align variants. |
-| `/compare-flows` | Compare two Figma flows side-by-side with severity-rated issues (P0/P1/P2) and concrete recommendations. |
-| `/refine` | Fix Figma output after pushing — describe issues, read Figma comments, or re-run parity checks. Before/after screenshots on every fix. |
+| Skill | What it does | How it helps |
+|-------|-------------|-------------|
+| `/design-audit` | Audit a Figma screen against DS2026 tokens, WCAG AA, content guidelines, and forms layout. | Catch token mismatches, contrast failures, and guideline violations before handoff. Confidence-scored findings with evidence. |
+| `/compare-flows` | Side-by-side comparison of two Figma flows with severity-rated issues. | Evaluate a redesign against the original, or choose between competing approaches with structured criteria. |
+| `/fix-finding` | Fix a single audit finding in Figma — swap instances, bind tokens, align variants. | One-click resolution for audit findings without manual token lookup. |
+| `/refine` | Fix Figma output after pushing — describe issues, read Figma comments, or re-run quality checks. | Iterate on pushed output without regenerating from scratch. Before/after screenshots on every fix. |
 
 ### Sync
 
-| Skill | What it does |
+| Skill | What it does | How it helps |
+|-------|-------------|-------------|
+| `/sync-design-system` | Extract components, variables, styles, guidelines, and tokens from Figma via MCP. | Keep local reference files in sync with Figma. Full sync, per-phase, or single-component granularity. |
+
+---
+
+## Workflow
+
+Every skill that outputs to Figma follows the same loop:
+
+```
+1. Research + generate
+   Skill reads tokens, guidelines, and Figma context,
+   then generates an HTML preview.
+
+2. Preview in browser
+   Static preview served on localhost.
+   Give feedback to iterate, or request an interactive
+   prototype (flows) or state playground (components).
+
+3. Push to Figma
+   Approved content goes to Figma via use_figma.
+   Automatic parity check flags clipping, missing
+   content, or empty text.
+
+4. Refine
+   Review in Figma. Run /refine to fix issues with
+   before/after verification, or leave Figma comments
+   for /refine to read.
+```
+
+### Preview gate
+
+All output skills pause before pushing to Figma. At the gate:
+
+| Reply | What happens |
 |-------|-------------|
-| `/sync-design-system` | Extract components, variables, styles, guidelines, and tokens from Figma via MCP. Full sync, per-phase, or single-component. |
+| `"push"` | Send all content to Figma |
+| `"push 2,4,5"` | Send only selected cards/screens |
+| `"prototype"` | Generate an interactive flow prototype (click-through navigation, form simulation, branching paths) |
+| `"playground"` | Generate a component state explorer (toggle states, switch themes, see active tokens) |
+| `feedback` | Fix the HTML and re-preview |
 
----
+Prototypes and playgrounds are served alongside the static preview. They use Alpine.js with no build step — open the URL and start testing.
 
-## The designer workflow
+### Post-push parity check
 
-```
- Describe a feature or provide a Figma URL
-                    |
-          Skill generates HTML
-                    |
-        +--------- Preview in browser ---------+
-        |                                       |
-   "prototype"                             "playground"
-   Click through screens,             Toggle states, switch
-   fill forms, test paths             themes, explore variants
-        |                                       |
-        +------------- "push" -----------------+
-                    |
-          Push to Figma via MCP
-                    |
-        Automatic parity check
-        (clipping, missing content, empty text)
-                    |
-       +---------- Review in Figma ----------+
-       |                                      |
-  "looks good"                          /refine
-  Done.                           Describe issues or
-                                  read Figma comments
-                                         |
-                                  Fix + screenshot + verify
-                                  (loop until done)
-```
-
----
-
-## Interactive prototypes
-
-When previewing a flow, say **"prototype"** at the gate to generate an interactive version:
-
-- **Click-to-navigate** — buttons advance between screens
-- **Form simulation** — fill inputs, see validation errors, submit when valid
-- **Branching paths** — decision buttons ("Approve" / "Reject") lead to different screens
-- **Keyboard navigation** — arrow keys to step through screens
-- **Bottom nav bar** — jump to any screen by clicking its thumbnail
-
-When previewing a component brief, say **"playground"** to generate a state explorer:
-
-- **State switching** — toggle between Default, Hover, Focused, Pressed, Disabled
-- **Variant axes** — combine Size, Type, Selected, and other properties
-- **Theme switching** — Actian, Studio, Explorer with one click
-- **Live token readout** — see which `--zen-*` tokens are active for the current state
-
-Both are served locally alongside the static preview. No build step, no dependencies to install.
-
----
-
-## Post-push quality
-
-Every skill that pushes to Figma automatically runs a **parity check**:
-
+After every push, the skill automatically:
 1. Screenshots each pushed element
-2. Checks for clipping (frames < 10px), empty text, missing children
-3. Reports findings: `OK` or `WARNING` with the specific issue
-4. Offers to fix P0 issues before declaring success
+2. Checks for clipping, empty text, and missing content
+3. Reports findings and offers to fix issues inline
 
-After reviewing in Figma, run `/refine` to fix anything:
+### /refine
+
+After reviewing in Figma, run `/refine` to apply corrections:
 
 ```
-/refine screen 3 header is too tall, card 5 missing error state
-/refine comments          # reads your Figma annotations
+/refine screen 3 header is too tall
+/refine comments          # reads Figma annotations
 /refine check             # re-runs the parity check
 ```
-
-Each fix is applied individually with a before/after screenshot. Loop until you're satisfied.
 
 ---
 
@@ -246,50 +209,15 @@ All tokens use the `--zen-` prefix:
 actian-design-system-plugin/
 +-- plugins/actian-design-system/
 |   +-- .claude-plugin/plugin.json
-|   +-- CLAUDE.md                        # Design system rules
-|   |
+|   +-- CLAUDE.md
 |   +-- skills/                          # 9 skills
-|   |   +-- sync-design-system/          # Figma MCP extraction (7 phases)
-|   |   +-- design-audit/
-|   |   +-- fix-finding/
-|   |   +-- generate-flow/
-|   |   +-- component-brief/
-|   |   +-- create-component/
-|   |   +-- compare-flows/
-|   |   +-- generate-presentation/
-|   |   +-- refine/                      # Post-Figma corrections
-|   |
 |   +-- references/                      # Shared skill references
-|   |   +-- figma-output.md
-|   |   +-- fm-css-reference.md
-|   |   +-- quality-checklist.md
-|   |   +-- token-naming.md
-|   |   +-- parity-check.md             # Post-push verification
-|   |   +-- prototype-reference.md       # Alpine.js generation rules
-|   |
 |   +-- templates/                       # Interactive preview templates
-|   |   +-- flow-prototype-wrapper.html
-|   |   +-- component-playground-wrapper.html
-|   |
-|   +-- tokens/
-|   |   +-- actian-ds.tokens.json        # W3C DTCG (source of truth)
-|   |   +-- tokens.css                   # CSS custom properties
-|   |
-|   +-- docs/
-|       +-- ds2026-components.md         # 97 component sets + 3 standalone
-|       +-- fm-components.md             # 34 FM Kit components
-|       +-- token-reference.md
-|       +-- content-guidelines.md
-|       +-- accessibility-guidelines.md
-|       +-- presentation-guide.md
-|       +-- component-guidelines/        # 44 per-component JSONs
-|       +-- foundations/                  # 11 foundation JSONs
-|       +-- meta-kit/                    # Components, variables, styles
-|
+|   +-- tokens/                          # W3C DTCG + CSS custom properties
+|   +-- docs/                            # Synced reference files
 +-- docs/
-    +-- superpowers/
-        +-- specs/                       # Design specs
-        +-- plans/                       # Implementation plans
+    +-- superpowers/specs/               # Design specs
+    +-- superpowers/plans/               # Implementation plans
 ```
 
 ## Maintaining
