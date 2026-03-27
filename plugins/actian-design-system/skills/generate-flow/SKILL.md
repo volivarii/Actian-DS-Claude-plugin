@@ -87,14 +87,14 @@ Infer as much as possible. Only ask if critical context is genuinely missing —
 
 ## Step 2 — Research (opt-in)
 
-Ask the user before running competitor research:
+If the user's prompt already indicates their research preference (e.g., "no research", "just build it", or provides reference URLs/files), treat that as the answer and skip the question. Otherwise, ask:
 
 > "Should I research competitor patterns for this flow?
 > - **Yes** — I'll look at how other SaaS products handle this
 > - **No, here are references:** — share Figma URLs, screenshots, or websites and I'll use those instead
 > - **No, just build it** — I'll use Actian DS guidelines and conventions only"
 
-**Wait for the user's response.** Then:
+**Wait for the user's response** (unless already answered in the prompt). Then:
 
 - **Yes** → run competitor research (see below)
 - **References provided** → analyze the provided material (see "Accepted reference formats" above), skip competitor research

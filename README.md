@@ -2,7 +2,7 @@
 
 Claude plugin for the Actian UX team. Sync design tokens from Figma, generate wireframe flows, create component specs, audit designs, fix findings, build presentations, and compare flows — powered by Claude + Figma MCP.
 
-**v1.13.1** | 9 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.13.3** | 9 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 
@@ -23,6 +23,25 @@ claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
 4. Enable the **Figma** connector under **Settings** > **Integrations**
 
 > All 9 skills work in Claude Desktop. The Figma MCP connector provides design context, screenshots, and `use_figma` write access.
+
+### Auto-updates
+
+The plugin auto-updates on startup when configured. Add this to your `~/.claude/settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "actian-design-system": {
+      "source": { "source": "github", "repo": "volivarii/Actian-DS-Claude-plugin" },
+      "autoUpdate": true
+    }
+  }
+}
+```
+
+When a new version is pushed, Claude Code fetches it at next startup and prompts you to run `/reload-plugins`. This works in both CLI and Desktop.
+
+> `autoUpdate` is off by default for third-party marketplaces. You must set it to `true` explicitly.
 
 ## Skills
 
@@ -133,12 +152,11 @@ All tokens use the `--zen-` prefix:
 actian-design-system-plugin/
 ├── .claude-plugin/marketplace.json
 ├── plugins/actian-design-system/
-│   ├── .claude-plugin/plugin.json       # v1.13.1
+│   ├── .claude-plugin/plugin.json       # v1.13.3
 │   ├── CLAUDE.md                        # Design system rules
 │   ├── hooks/hooks.json
 │   │
 │   ├── scripts/
-│   │   ├── ensure-server.sh             # Local HTTP server
 │   │   └── ensure-server.sh             # Local HTTP server management
 │   │
 │   ├── skills/                          # 9 skills

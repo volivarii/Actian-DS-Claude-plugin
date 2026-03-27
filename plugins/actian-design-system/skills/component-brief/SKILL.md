@@ -184,7 +184,7 @@ After generating the HTML, serve it and present the preview URL. **Do NOT procee
 
 4. On feedback: fix the HTML, re-save, re-serve, present the updated preview URL again. Repeat until approved.
 
-5. On approval: proceed to Step 3 with only the approved cards (default: all).
+5. On approval: proceed to Step 3 with only the approved cards (default: all). If the user requests cards that were not in the HTML (e.g., "push 2,4,5" when only 2,4 were generated), regenerate the HTML with the expanded card set first, re-serve, then proceed to Figma.
 
 This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figma output is expensive and hard to undo.
 
