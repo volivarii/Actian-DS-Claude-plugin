@@ -79,6 +79,7 @@ Before generating anything, determine from the user's request:
 - **App context** (Admin, Studio, or Explorer — determines the FM App_header variant)
 - **Number of sub-flows** (e.g., happy path + error path + alternate role)
 - **References provided?** — If yes, analyze them first (see above). If a reference is *mentioned* but not attached (e.g., "inspired by this reference" with no URL/image), ask the user to provide it before proceeding.
+- **Prototype requested?** — Check if the user's prompt includes "prototype", "interactive", "playable", "clickable", or "test it". If yes, generate the prototype automatically after Step 4 (no need to offer at the gate).
 
 ### App context inference guide
 
@@ -253,6 +254,7 @@ After generating the HTML, serve it and present the preview URL. **Do NOT procee
    > Review the screens and reply:
    > - **"push"** — send all screens to Figma
    > - **"push 1,3,5"** — send only those screens to Figma
+   > - **"prototype"** — generate interactive prototype first
    > - **feedback** — I'll fix the HTML and re-preview"
 
 3. **Wait for the user's response.** Do not proceed.
@@ -262,6 +264,29 @@ After generating the HTML, serve it and present the preview URL. **Do NOT procee
 5. On approval: proceed to Step 5 with approved screens.
 
 This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figma output is expensive and hard to undo.
+
+## Step 4.6 — Generate interactive prototype (opt-in)
+
+**Trigger:** The user says "prototype" at the preview gate, or included "prototype"/"interactive"/"playable"/"clickable"/"test it" in their original prompt.
+
+**Skip if:** The user said "quick"/"draft"/"just the flow", or went straight to "push".
+
+1. Read `../../references/prototype-reference.md` for generation rules
+2. Read `../../templates/flow-prototype-wrapper.html` for the base template
+3. For each screen in the static HTML:
+   - Copy the inner HTML of the `.screen` div
+   - Wrap in `<section x-show="screen === N" class="proto-screen">`
+   - Add Alpine directives to interactive elements (buttons → `@click`, inputs → `x-model`, submit → `:disabled`)
+4. Fill the `screens` array in `x-data` with the screen list
+5. Save to: `{project_working_directory}/components/flows/[feature-name]-prototype.html`
+6. Re-present the gate with both URLs:
+   > "Static: `http://localhost:8765/components/flows/[name]-flow.html`
+   > Prototype: `http://localhost:8765/components/flows/[name]-prototype.html`
+   >
+   > Click through the prototype to test the flow, then:
+   > - **"push"** — send to Figma
+   > - **"push 1,3,5"** — send selected screens
+   > - **feedback** — I'll fix and re-preview"
 
 ## Step 5 — Output to Figma
 
