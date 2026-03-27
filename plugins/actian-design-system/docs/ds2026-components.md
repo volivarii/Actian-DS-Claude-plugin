@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
-Auto-generated from Figma MCP on 2026-03-26.
-100 component sets across 47 pages.
+Auto-generated from Figma MCP on 2026-03-27.
+97 component sets + 3 standalone components across 47 pages.
 
 Source: [Actian Design System v1.1.0](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK)
 
@@ -60,7 +60,7 @@ Source: [Actian Design System v1.1.0](https://www.figma.com/design/l8biHxfarNi1I
 -         Data viz: metamodel — 3 component sets
 -         Data viz: progressive bar — 1 component sets
 -         Data viz: toolbar — 1 component sets
--         Data viz: WIP — 1 component sets
+-         Data viz: WIP all others — 1 component sets
 -         Digram — 2 component sets
 -         Page header  — 1 component sets
 -         Scroll bar — 1 component sets
@@ -152,7 +152,7 @@ A persistent container at the bottom of the viewport used for high-priority glob
 - Variants: **Type:** `Single date select` · `Date` · `Month` · `Single` | **Selection:** `Single` · `Range` · `Year`
 - Node: `8211:6664` | Key: `6c61c1469d97020721267a3e1ad209f3cf4c12c3`
 
-### Input date
+### Input, date
 Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.
 
 - Variants: **Type:** `Single date` · `Date range` | **States:** `Enabled` · `Hovered` · `Focused` · `Error` · `Disabled` · `Fille` · `Activ`
@@ -178,8 +178,8 @@ Used for binary choices (on/off) or when a user can select multiple options from
 
 ## Dropdown / Select
 
-### Dropdown Select default
-Use when 5+ options are available or space is limited. Ideal for selecting one item from a pre-defined list.
+### Dropdown, Select, default
+Use when there are 5+ options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).
 
 - Variants: **Type:** `Default` · `Search/Multiple` · `With avatar` · `Compact/Custom` | **State:** `Default` · `Hovered` · `Focused` · `Active` · `Filled` · `Disabled`
 - Node: `13972:708` | Key: `1140aec3d572e3fbda362723cd7137ac2f0ce9bd`
@@ -254,7 +254,7 @@ Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify
 - Node: `7218:3122` | Key: `824f6d18ca7fa1a03d5843958e4ffb6b0d232c52`
 
 ### Toglge
-Used for immediate on/off actions.
+Used for an immediate "on/off" state change that doesn't require a "Submit" button to take effect (e.g., System Settings).
 
 - Variants: **Toggle location:** `Left` · `Right` | **State:** `Hovered` · `Focused` · `Pressed` · `Disabled` · `Default` | **Selected:** `No` · `Yes`
 - Node: `14000:4395` | Key: `4e7793f094eed660e01d8f7c804f2391e72115d2`
@@ -285,6 +285,17 @@ The persistent top-level container for branding, primary site-wide navigation, a
 - Variants: **Property 1:** `Drilldown1` · `Drilldown2` · `Empty` · `List`
 - Node: `9114:16794` | Key: `f7040db58ba132df1b3d292a72a003399433765f`
 
+### Account dropdown
+
+- Single component (no variants)
+- Node: `9118:17382` | Key: `487b25247d05a6f9d36a4c7b9f5177ca2017348e`
+
+### App switcher dropdown
+Menu: -4 Density. Menus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.
+
+- Single component (no variants)
+- Node: `9118:17666` | Key: `09baf67bef9191d0b5303b52c1c3159eefba3843`
+
 ## Side nav
 
 ### nav item
@@ -311,7 +322,7 @@ Use to guide a user through a linear process with defined steps (e.g., Onboardin
 ## Tab
 
 ### .tab
-Secondary tabs label.
+Secondary tabs label and icon building blocks
 
 - Variants: **Selected:** `No` · `Yes` | **State:** `Default` · `Hovered` · `Focused` · `Pressed`
 - Text overrides: `Label text`
@@ -349,7 +360,7 @@ Small status or numerical indicator (e.g., "Active", "New", "+5"). Use for count
 
 ## Card
 
-### Tile Item
+### Tile, Item
 A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.
 
 - Variants: **Type:** `Catalog` · `Item` · `item type` · `Glossary type` · `Topic` | **State:** `Default` · `Hovered` · `Focused` · `Pressed`
@@ -454,7 +465,7 @@ Visualizes the completion percentage of a task. Use as a static visualization li
 - Variants: **Type:** `Single` · `Combined` · `Group` | **Orientation:** `Horizontal` · `Vertical`
 - Node: `14335:16907` | Key: `96683d78ad981aacc04a5b6c7c2b0f0f1d631516`
 
-## Data viz: WIP
+## Data viz: WIP all others
 
 ### .data-viz-legend-item
 
@@ -665,8 +676,8 @@ Small, temporary overlay that appears at the edge of the screen. Use for non-cri
 
 ## Drawer (Side panel)
 
-### Drawer side panel
-A container that slides from the right side of the screen. Use for secondary tasks that require high focus but need to maintain the context of the main page.
+### Drawer, side panel
+A container that slides from right side of the screen. Use for secondary tasks that require high focus but need to maintain the context of the main page.
 
 - Variants: **App:** `Studio` · `Explorer`
 - Node: `14294:5758` | Key: `3fe66a28fd56e3dbfd87a6f6be08df327bda27bf`
@@ -751,3 +762,8 @@ A non-modal floating container triggered by a click. Use for displaying a small 
 
 - Variants: **Type:** `Spacing` | **Size:** `Default` · `Variant2` · `Variant3` · `Variant4` · `Variant5` · `Variant6`
 - Node: `13571:27572` | Key: `67a84f1ecfa2a9c815d452feb5f6ffa726eca55d`
+
+### Notes/Feedback
+
+- Single component (no variants)
+- Node: `8662:6474` | Key: `4f1fba9d4ba4dd56ef8f60b7190456bf824a2089`

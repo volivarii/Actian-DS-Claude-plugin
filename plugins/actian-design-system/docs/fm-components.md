@@ -1,7 +1,7 @@
 # Fat Marker Kit — Component Reference
 
 Auto-generated from Figma MCP on 2026-03-27.
-33 component sets + 1 single component, 158 individual components.
+33 component sets + 7 standalone components.
 
 Source: [Page mockups](https://www.figma.com/design/X2JSEUyLvxyNCx22ucOexn)
 
@@ -19,6 +19,12 @@ Inline feedback message for success, error, or warning states. Use for persisten
 
 - Variants: **Type:** `Success` · `Error` · `Warning`
 - Node: `1052:9637` | Key: `fe30f37740688350762bd2b1be426d9d1588b7d9`
+
+### FM Banner
+Page-level persistent notice bar. Use for system-wide messages that stay visible until dismissed.
+
+- Single component (no variants)
+- Node: `36:3235` | Key: `d7f323e492b456a2c56f81f3dc892eb24de11a6e`
 
 ### FM App_header
 Top-level application header bar. Contains the Actian logo, product label, and user avatar. Use at the top of every screen mockup.
@@ -87,6 +93,12 @@ Empty or zero-data state placeholder. Default = centered with icon and text. Com
 - Text overrides: `Label Text`, `Caption Text`
 - Node: `23:1207` | Key: `a39aa1c7cb593f7d26b7659e4cbe4e419e00c766`
 
+### FM Menu
+Dropdown menu container. Use with FM Menu item instances as children.
+
+- Single component (no variants)
+- Node: `8:21644` | Key: `696ef83ffe2d0af84432b8f12cc15b43e0b25a15`
+
 ### FM Menu item
 
 - Variants: **State:** `Default` · `Hover` · `Active`
@@ -126,6 +138,13 @@ Page title area with optional subtitle and action buttons.
 - Variants: **State:** `On` · `Off` | **Style:** `Default` · `Disabled`
 - Node: `8:21160` | Key: `1569353eb82fd5f6cb8da979f1048cd1b323e8c4`
 
+### FM Rich text field
+Multi-line rich text input with formatting support.
+
+- Single component (no variants)
+- Text overrides: `Input Text`
+- Node: `8:21282` | Key: `284aa580c4c313ba309ff9eda15b3da8c957cd18`
+
 ### FM Search input field
 
 - Variants: **Type:** `Empty` · `Placeholder` · `Filled`
@@ -148,6 +167,12 @@ Page title area with optional subtitle and action buttons.
 - Variants: **Progress:** `0%` · `25%` · `50%` · `75%` · `100%`
 - Node: `8:21194` | Key: `181d7f761179e7ce2f2849ae5c73989177d3a3c6`
 
+### FM Spinner
+Loading indicator. Use for inline loading states within a component or section.
+
+- Single component (no variants)
+- Node: `8:21577` | Key: `52927648847b15a51d314cf06ca1c0f19f398b4d`
+
 ### FM Stepper
 Step indicator for multi-step wizard flows. Place in a horizontal row — one instance per step. Active = current step, Complete = done, Upcoming = not yet reached.
 
@@ -159,6 +184,12 @@ Tab for switching between views within the same context. On = active tab, Off = 
 
 - Variants: **State:** `On` · `Off` · `Placeholder`
 - Node: `8:21619` | Key: `cfbd732ff4f4e6620b333c60f1ac7fe5116a93aa`
+
+### FM Tabs
+Tab bar container. Use with FM Tab instances as children. Provides the underline bar and horizontal layout.
+
+- Single component (no variants)
+- Node: `20:1705` | Key: `860eadef9ba29cf20a3da3ca9d014718e3f6cabb`
 
 ### FM Table Cell
 Table cell for data tables. Header = column title, Text = data value, Pill = status badge, Placeholder = future column.
@@ -192,6 +223,12 @@ On/off toggle switch. Use for immediate binary actions. Pair with a text label u
 
 - Variants: **State:** `Off` · `On` | **Style:** `Default` · `Disabled`
 - Node: `8:21173` | Key: `fe9e82118d1df75a8aea732eb7f9169ccaa21878`
+
+### FM User
+User avatar placeholder. Use in headers, comments, or user lists.
+
+- Single component (no variants)
+- Node: `70:1783` | Key: `5c1b3d8d00056075c833799200d3cc27b6d915f0`
 
 ### FM Tooltip
 

@@ -32,7 +32,168 @@ Each named frame follows the same pattern:
 
 Extract component sets, variant axes, properties, and keys from DS2026, FM Kit, and Meta Kit libraries.
 
-### Step 1: Extract page structure
+**Two modes:** full sync (rewrites entire file) or incremental sync (patches only changed entries). Default to incremental for DS2026 (77+ components); use full sync for FM Kit and Meta Kit (small enough for one call).
+
+### Mode selection
+
+| User says | Mode | When to use |
+|-----------|------|-------------|
+| "Sync components" | Incremental | Default — only fetches changed/new/removed components |
+| "Sync components full" | Full | Force full rewrite (e.g., after file corruption or format change) |
+| "Sync all" | Incremental | Incremental by default across all phases |
+| "Sync all full" | Full | Force full rewrite across all phases |
+
+### Incremental sync (default for Phase 1)
+
+#### Step I1: Extract lightweight manifest from Figma
+
+One MCP call per library. Returns component manifest + page catalog (reused by Phase 5):
+
+```js
+// Lightweight manifest — fits in one call even for DS2026
+const sets = figma.root.findAll(n => n.type === 'COMPONENT_SET');
+const standalones = figma.root.findAll(n =>
+  n.type === 'COMPONENT' &&
+  n.parent?.type !== 'COMPONENT_SET' &&
+  !n.name.startsWith('.')
+);
+
+// Page catalog — reused by Phase 5 (avoids separate discovery call)
+const pageCatalog = figma.root.children.map(p => ({
+  name: p.name.trim(),
+  id: p.id,
+  isComponentPage: p.name.startsWith('        '), // double-indented = component page
+  childCount: p.children.length,
+}));
+
+const manifest = [
+  ...sets.map(cs => ({
+    name: cs.name,
+    key: cs.key,
+    nodeId: cs.id,
+    type: 'component_set',
+    page: cs.parent?.parent?.name || cs.parent?.name || 'unknown',
+    variantCount: cs.children.length,
+    variantHash: cs.children.map(v => v.name).sort().join('|'),
+    textOverrideCount: Object.values(cs.componentPropertyDefinitions || {})
+      .filter(d => d.type === 'TEXT').length,
+    description: (cs.description || '').slice(0, 80),
+  })),
+  ...standalones.map(c => ({
+    name: c.name,
+    key: c.key,
+    nodeId: c.id,
+    type: 'component',
+    page: c.parent?.parent?.name || c.parent?.name || 'unknown',
+    variantCount: 0,
+    variantHash: '',
+    textOverrideCount: Object.values(c.componentPropertyDefinitions || {})
+      .filter(d => d.type === 'TEXT').length,
+    description: (c.description || '').slice(0, 80),
+  })),
+];
+return JSON.stringify({ manifest, pageCatalog }, null, 2);
+```
+
+**Phase 5 reuse:** When running Phases 1+5 together, Phase 5 reads the `pageCatalog` from Phase 1 output instead of making a separate discovery call (saves 1 `use_figma` call).
+
+#### Step I2: Parse local file into comparable format
+
+Read the existing `docs/ds2026-components.md` (or `fm-components.md` / `meta-kit/components.md`). For each `### Component Name` entry, extract:
+
+- `name` — from the heading
+- `key` — from the `Key: \`...\`` line
+- `nodeId` — from the `Node: \`...\`` line
+- `page` — from the parent `## Page Name` heading
+- `type` — `component_set` if it has `Variants:` line, `component` if `Single component`
+- `variantSummary` — the full `Variants:` line text (used for modification detection)
+- `textOverrides` — from `Text overrides:` line
+
+#### Step I3: Diff manifest against local
+
+Compare by `key` (stable identifier across renames):
+
+| Condition | Classification |
+|-----------|---------------|
+| Key in Figma manifest, not in local file | **New** — needs full extraction |
+| Key in both, but `variantHash`, `textOverrideCount`, `name`, or `description` changed | **Modified** — needs full extraction |
+| Key in local file, not in Figma manifest | **Removed** — delete from local file |
+| Key in both, all fields match | **Unchanged** — skip |
+
+Report the diff summary to the user before proceeding:
+```
+Incremental sync diff:
+  New: 3 (ComponentA, ComponentB, ComponentC)
+  Modified: 2 (Button, Toggle)
+  Removed: 1 (OldComponent)
+  Unchanged: 72
+```
+
+If everything is unchanged, report "Already up to date" and skip Steps I4-I5.
+
+#### Step I4: Extract full details for changed or new components only
+
+For each **new** or **modified** component, extract full variant axes, text overrides, and description. Group by page to minimize MCP calls:
+
+```js
+// Extract specific components by node ID (one call per page batch)
+const targetIds = ['7206:2643', '14000:4395']; // node IDs of changed components
+const results = [];
+for (const id of targetIds) {
+  const node = await figma.getNodeByIdAsync(id);
+  if (!node) continue;
+  if (node.type === 'COMPONENT_SET') {
+    results.push({
+      name: node.name,
+      key: node.key,
+      nodeId: node.id,
+      type: 'component_set',
+      page: node.parent?.parent?.name || node.parent?.name || 'unknown',
+      description: node.description || '',
+      variantAxes: Object.entries(node.variantGroupProperties || {}).map(([axis, prop]) => ({
+        axis, values: prop.values
+      })),
+      componentPropertyDefinitions: Object.entries(node.componentPropertyDefinitions || {})
+        .filter(([_, def]) => def.type === 'TEXT').map(([name]) => name),
+      variants: node.children.map(v => ({ name: v.name, key: v.key })),
+    });
+  } else if (node.type === 'COMPONENT') {
+    results.push({
+      name: node.name,
+      key: node.key,
+      nodeId: node.id,
+      type: 'component',
+      page: node.parent?.parent?.name || node.parent?.name || 'unknown',
+      description: node.description || '',
+      variantAxes: [],
+      componentPropertyDefinitions: Object.entries(node.componentPropertyDefinitions || {})
+        .filter(([_, def]) => def.type === 'TEXT').map(([name]) => name),
+      variants: [],
+    });
+  }
+}
+return JSON.stringify(results, null, 2);
+```
+
+**Batch by 20KB limit:** If more than ~15 components changed, split across multiple calls (each call handles a batch of node IDs).
+
+#### Step I5: Patch local file
+
+For each changed component:
+
+- **New:** Format as markdown entry (see formatting rules below) and insert under the correct `## Page Name` section. If the page section doesn't exist, create it at the correct position.
+- **Modified:** Find the existing entry by key and replace it entirely with the new formatted entry.
+- **Removed:** Delete the entry (from `### Name` heading to the next `###` or `##` heading).
+
+Update the header line counts (component sets, standalone components) after patching.
+
+---
+
+### Full sync (fallback)
+
+Use when incremental is not appropriate (format change, file corruption, or "sync all").
+
+#### Step 1: Extract page structure
 
 For each library, call `use_figma` to retrieve the page tree with component counts:
 
@@ -46,7 +207,7 @@ const pages = figma.root.children.map(p => ({
 return JSON.stringify(pages, null, 2);
 ```
 
-### Step 2: Extract component sets AND standalone components
+#### Step 2: Extract component sets AND standalone components
 
 Extract both component sets (multi-variant) and standalone components (single, no variants). Standalone components are top-level `COMPONENT` nodes whose parent is NOT a `COMPONENT_SET`.
 
@@ -155,70 +316,76 @@ Formatting rules:
 
 Extract all DS2026 variables with keys, types, scopes, and resolved per-mode values across 3 themes.
 
-### Step 1: Extract raw variables
+**Optimized to 2 MCP calls** (down from 3-5): one for non-color collections, one for color with inline alias resolution.
 
-Call `use_figma` on DS2026 (`l8biHxfarNi1I2RMvVxVOK`):
+### Step 1: Extract non-color variables (1 call)
 
 ```js
 const collections = await figma.variables.getLocalVariableCollectionsAsync();
 const vars = await figma.variables.getLocalVariablesAsync();
 
-const result = [];
-for (const collection of collections) {
-  const collVars = vars.filter(v => v.variableCollectionId === collection.id);
-  result.push({
-    collection: collection.name,
-    modes: collection.modes.map(m => ({ name: m.name, modeId: m.modeId })),
-    variables: collVars.map(v => ({
-      name: v.name,
-      key: v.key,
-      resolvedType: v.resolvedType,
-      scopes: v.scopes,
-      description: v.description,
-      valuesByMode: Object.fromEntries(
-        collection.modes.map(m => [m.name, v.valuesByMode[m.modeId]])
-      ),
-    })),
+// Non-color collections: Spacing, Border, Size, Breakpoint (29 vars, single mode, no aliases)
+const nonColor = collections
+  .filter(c => c.name !== 'Color')
+  .map(c => {
+    const collVars = vars.filter(v => v.variableCollectionId === c.id);
+    return {
+      collection: c.name,
+      modes: c.modes.map(m => ({ name: m.name, modeId: m.modeId })),
+      variables: collVars.map(v => ({
+        name: v.name, key: v.key, resolvedType: v.resolvedType,
+        scopes: v.scopes, description: v.description,
+        value: v.valuesByMode[c.modes[0].modeId], // single mode → direct value
+      })),
+    };
   });
+return JSON.stringify(nonColor, null, 2);
+```
+
+Expected: Spacing (6), Border (12), Size (7), Breakpoint (4) = 29 vars. Fits in one call (~3KB).
+
+### Step 2: Extract color variables with inline resolution (1 call)
+
+Combine extraction + alias resolution + hex conversion in a single `use_figma` call:
+
+```js
+const collections = await figma.variables.getLocalVariableCollectionsAsync();
+const colorCol = collections.find(c => c.name === 'Color');
+const vars = await figma.variables.getLocalVariablesAsync();
+const colorVars = vars.filter(v => v.variableCollectionId === colorCol.id);
+
+function rgbaToHex(rgba) {
+  const r = Math.round(rgba.r * 255), g = Math.round(rgba.g * 255), b = Math.round(rgba.b * 255);
+  let hex = `#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`.toUpperCase();
+  if (rgba.a !== undefined && rgba.a < 1) hex += Math.round(rgba.a * 255).toString(16).padStart(2,'0').toUpperCase();
+  return hex;
+}
+
+async function resolve(value, modeId) {
+  if (value && value.type === 'VARIABLE_ALIAS') {
+    const v = await figma.variables.getVariableByIdAsync(value.id);
+    return resolve(v.valuesByMode[modeId], modeId);
+  }
+  return value;
+}
+
+const result = [];
+for (const v of colorVars) {
+  const resolved = {};
+  for (const mode of colorCol.modes) {
+    const val = await resolve(v.valuesByMode[mode.modeId], mode.modeId);
+    resolved[mode.name] = val ? rgbaToHex(val) : 'UNRESOLVED';
+  }
+  result.push({ name: v.name, key: v.key, scopes: v.scopes, description: v.description, values: resolved });
 }
 return JSON.stringify(result, null, 2);
 ```
 
-Expected: Spacing (6), Color (86, 3 modes), Border (12), Size (7), Breakpoint (4) = 115 total.
+Expected: 86 color variables × 3 modes = 258 resolved hex values. Output is ~15KB (fits in 20KB limit because hex strings are compact vs raw RGBA objects).
 
-**Chunking:** Color collection (86 vars x 3 modes) exceeds 20KB. Split:
-1. First call: Spacing + Border + Size + Breakpoint
-2. Second call: Color collection with alias resolution
+**Fallback:** If 86 vars exceed 20KB (unlikely with hex-only output), split by variable name prefix: `background-*`, `theme-*`/`interactive-*`, `status-*`/`category-*`.
 
-### Step 2: Resolve aliases
-
-Color variables use `VARIABLE_ALIAS` references. Resolve each alias chain:
-
-```js
-async function resolveValue(value, modeId) {
-  if (value && value.type === 'VARIABLE_ALIAS') {
-    const aliasVar = await figma.variables.getVariableByIdAsync(value.id);
-    const aliasValue = aliasVar.valuesByMode[modeId];
-    return resolveValue(aliasValue, modeId);
-  }
-  return value;
-}
-```
-
-### Step 3: Convert RGBA to hex
-
-```js
-function rgbaToHex(rgba) {
-  const r = Math.round(rgba.r * 255);
-  const g = Math.round(rgba.g * 255);
-  const b = Math.round(rgba.b * 255);
-  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`.toUpperCase();
-}
-```
-
-If `a < 1`, append alpha as two hex digits. For `a === 1`, use 6-digit hex.
-
-### Step 4: Format output
+### Step 3: Format output
 
 Write `docs/meta-kit/variables.md` with ALL 115 variables by collection:
 
@@ -401,6 +568,8 @@ W3C DTCG format:
 
 Extract per-component design and content guidelines from DS2026 guideline pages.
 
+**Two modes:** incremental (default — extract only changed pages) or full (re-extract everything).
+
 ### Single-component mode
 
 When user specifies a name (e.g., "sync Button"):
@@ -410,11 +579,112 @@ When user specifies a name (e.g., "sync Button"):
 4. Update `_index.json`
 5. Typically 2-4 MCP calls
 
+---
+
+### Incremental sync (default for Phase 5)
+
+#### Step I1: Extract page manifest with frame signatures
+
+**If Phase 1 ran in this session:** Read the `pageCatalog` from Phase 1 output to get the component page list (saves this discovery call). Filter to `isComponentPage: true` pages, then extract frame signatures for those pages only.
+
+**Otherwise:** One `use_figma` call to get all component pages with their frame names and child counts (acts as a change signature):
+
+```js
+const pages = figma.root.children;
+const componentPages = pages.filter(p => p.name.trim().startsWith('  '));
+const manifest = componentPages.map(p => ({
+  name: p.name.trim(),
+  id: p.id,
+  frameSignature: p.children
+    .filter(c => !c.name.startsWith('.local'))
+    .map(c => c.name + ':' + c.children.length)
+    .sort()
+    .join('|'),
+  frameCount: p.children.filter(c => !c.name.startsWith('.local')).length,
+}));
+return JSON.stringify(manifest, null, 2);
+```
+
+**Why frame signatures work:** When a designer edits a guideline frame (adds a do/don't pair, rewrites a section), the child count changes. The signature `frameName:childCount` catches structural edits. It won't catch text-only edits within a fixed number of children — accept this trade-off for 80%+ call savings.
+
+#### Step I2: Compare against cached `_index.json`
+
+Read `docs/component-guidelines/_index.json`. For each page:
+
+| Condition | Classification |
+|-----------|---------------|
+| Page ID in manifest but not in `_index.json` | **New** — extract all frames |
+| Page ID in both, but `frameSignature` differs | **Modified** — re-extract all frames for this page |
+| Page ID in both, `frameSignature` matches, `status` = `"complete"` | **Unchanged** — skip |
+| Page ID in `_index.json` but not in manifest | **Removed** — delete JSON file |
+| Page in `_index.json` with `status` = `"partial"` or `"error"` | **Retry** — re-extract regardless of signature |
+
+Report diff summary before proceeding:
+```
+Phase 5 incremental diff:
+  New: 2 (Stepper, Traffic light)
+  Modified: 3 (Button, Modal, Dropdown)
+  Retry: 1 (Table — previous partial)
+  Removed: 0
+  Unchanged: 38
+  Extracting: 6 pages (~18 get_design_context calls)
+```
+
+If all unchanged: report "Guidelines up to date" and skip Steps I3-I4.
+
+#### Step I3: Extract changed pages only
+
+For each new/modified/retry page:
+
+1. **Discover frames** — batch 5-6 pages per `use_figma` call:
+```js
+const pageIds = ['PAGE_ID_1', 'PAGE_ID_2', ...];
+const results = [];
+for (const pid of pageIds) {
+  const page = figma.root.children.find(p => p.id === pid);
+  if (!page) continue;
+  results.push({
+    pageId: pid,
+    pageName: page.name.trim(),
+    frames: page.children
+      .filter(c => !c.name.startsWith('.local') && c.name !== 'Components')
+      .map(c => ({ name: c.name, id: c.id }))
+  });
+}
+return JSON.stringify(results, null, 2);
+```
+
+2. **Extract content** — call `get_design_context` per guideline frame (same as full sync Step 3)
+3. **Transform to JSON** — same as full sync Step 4
+
+#### Step I4: Update `_index.json`
+
+After extracting, update each page's entry:
+```json
+{
+  "pageName": "Button",
+  "pageId": "9085:24375",
+  "frameSignature": "Content guidelines:12|Design guidelines:8|ready made examples:4",
+  "status": "complete",
+  "extractedOn": "2026-03-27T15:00:00Z",
+  "frameCount": 3,
+  "jsonFile": "button.json"
+}
+```
+
+**Call budget:** Typically 1 manifest call + 1-2 frame discovery calls + ~15-20 `get_design_context` calls = **~20-25 total** (vs ~147 for full).
+
+---
+
+### Full sync (fallback)
+
+Use when `_index.json` is missing/corrupt, or user appends "full".
+
 ### Step 1: Discover component pages
 
 ```js
 const pages = figma.root.children;
-const componentPages = pages.filter(p => p.name.trim().startsWith('  ')); // indented = component pages
+const componentPages = pages.filter(p => p.name.trim().startsWith('  '));
 return JSON.stringify(componentPages.map(p => ({
   name: p.name.trim(),
   id: p.id,
@@ -469,6 +739,8 @@ Output `_index.json` with per-component extraction status and date.
 
 ## Phase 6 — Foundations + Content + Accessibility
 
+**Two modes:** incremental (default — extract only changed pages) or full (re-extract everything).
+
 ### Foundation pages
 
 | Page | Node ID | Expected children |
@@ -484,6 +756,73 @@ Output `_index.json` with per-component extraction status and date.
 | Spacing | `12054:27513` | — |
 | Typography | `12054:26789` | — |
 | Usage example | `12957:2843` | — |
+
+---
+
+### Incremental sync (default for Phase 6)
+
+#### Step I1: Extract foundation page manifest
+
+One `use_figma` call to get all foundation pages with frame signatures:
+
+```js
+const foundationPageIds = [
+  '12685:19373', '13321:12804', '12217:457', '12054:27511',
+  '7397:3249', '12054:27514', '7370:3775', '12054:27512',
+  '12054:27513', '12054:26789', '12957:2843'
+];
+const manifest = [];
+for (const pid of foundationPageIds) {
+  const page = figma.root.children.find(p => p.id === pid);
+  if (!page) continue;
+  manifest.push({
+    name: page.name.trim(),
+    id: page.id,
+    frameSignature: page.children
+      .filter(c => !c.name.startsWith('.local'))
+      .map(c => c.name + ':' + c.children.length)
+      .sort()
+      .join('|'),
+    frameCount: page.children.filter(c => !c.name.startsWith('.local')).length,
+  });
+}
+return JSON.stringify(manifest, null, 2);
+```
+
+#### Step I2: Compare against cached `_index.json`
+
+Read `docs/foundations/_index.json`. Same diff logic as Phase 5:
+
+| Condition | Classification |
+|-----------|---------------|
+| Page in manifest but not in `_index.json` | **New** |
+| `frameSignature` differs | **Modified** |
+| Signature matches + `status: "complete"` | **Unchanged** — skip |
+| In `_index.json` but not manifest | **Removed** |
+| `status: "partial"` or `"error"` | **Retry** |
+
+Report diff summary. If all unchanged: "Foundations up to date", skip extraction.
+
+#### Step I3: Extract changed pages only
+
+Same pattern as Phase 5 Step I3:
+1. Discover frames via `use_figma` (batch changed pages)
+2. Extract content via `get_design_context` per frame
+3. Transform to JSON / Markdown
+
+**Special handling:**
+- **Accessibility** (23 frames, all named "Design guidelines"): Always compare by `frameCount`. If count changed, re-extract all 23 frames. If unchanged, skip entirely.
+- **Content guidelines** (2 frames): Lightweight; re-extract on any signature change.
+
+#### Step I4: Update `_index.json`
+
+Same schema as Phase 5 index. Track `status`, `extractedOn`, `frameSignature` per page.
+
+**Call budget:** 1 manifest call + 1-2 frame discovery + ~8-15 `get_design_context` = **~12-18 total** (vs ~56 for full).
+
+---
+
+### Full sync (fallback)
 
 ### Step 1: Extract foundation page content
 

@@ -2,7 +2,7 @@
 
 Claude plugin for the Actian UX team. Sync design tokens from Figma, generate wireframe flows, create component specs, audit designs, fix findings, build presentations, and compare flows — powered by Claude + Figma MCP.
 
-**v1.14.1** | 8 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.14.2** | 8 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 

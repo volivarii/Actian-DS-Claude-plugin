@@ -15,10 +15,14 @@ Extract design system data directly from Figma libraries via MCP tools. Single-h
 ## Input
 
 - **Single phase:** "Sync components" / "Sync variables" / "Sync styles" / "Sync guidelines" / "Sync foundations"
-- **All phases:** "Sync design system" or "Sync all"
+- **All phases (tokens):** "Sync design system" or "Sync all" — runs Phases 1-4 only (~13 calls, safe for Pro)
+- **All phases + guidelines:** "Sync all with guidelines" — adds Phase 5 (~60 incremental / ~147 full calls)
+- **All phases + everything:** "Sync all with guidelines and foundations" — all 7 phases (~120 incremental / ~212 full)
 - **Validate only:** "Validate sync" — diffs local files against Figma without overwriting
 - **Single component:** "Sync Button" — extracts only that component's guidelines (Phase 5)
 - **Multiple components:** "Sync Button, Modal, and Table"
+- **Incremental components:** "Sync components" — Phase 1 defaults to incremental (manifest diff, extract only changed). Use "Sync components full" to force full rewrite.
+- **Full force:** Append "full" to any command to skip incremental cache and force full re-extraction
 
 ## Source libraries
 
@@ -56,15 +60,29 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 
 | Phase | Name | MCP calls | What it does |
 |-------|------|-----------|--------------|
-| 1 | Components | ~10-20 `use_figma` | Extract component sets + standalone components from DS2026, FM Kit, Meta Kit |
-| 2 | Variables | ~3-5 `use_figma` | Extract 115 variables with alias resolution |
+| 1 | Components | 1-3 `use_figma` (incremental) or ~10-20 (full) | Extract component sets + standalone components. Incremental by default |
+| 2 | Variables | 2 `use_figma` | Extract 115 variables with inline alias resolution (non-color + color) |
 | 3 | Styles | 2 `use_figma` | Extract 12 text styles + 5 effect styles |
 | 4 | Token files | 0 (transforms Phase 2 data) | Generate token-reference.md, tokens.css, tokens.json |
-| 5 | Guidelines | ~15 `use_figma` + ~132 `get_design_context` | Per-component content/design guidelines |
-| 6 | Foundations | ~10 `use_figma` + ~56 `get_design_context` | Foundation pages + content/accessibility guidelines |
+| 5 | Guidelines | ~5 `use_figma` + ~30 `get_design_context` (incremental) or ~147 (full) | Per-component content/design guidelines. Incremental by default |
+| 6 | Foundations | ~3 `use_figma` + ~15 `get_design_context` (incremental) or ~56 (full) | Foundation pages + content/accessibility guidelines. Incremental by default |
 | 7 | Validation + Changelog | 0 (git diff) | Semantic changelog, diff report, approval gate, commit |
 
 **Phase dependencies:** Phase 4 requires Phase 2 data. All other phases are independent.
+
+## Sync scope rules
+
+Default "sync all" runs **Phases 1-4 only** (tokens, components, variables, styles) to stay within Pro rate limits. Guidelines and foundations are opt-in:
+
+| User says | Phases | Estimated calls |
+|-----------|--------|-----------------|
+| "Sync all" / "Sync design system" | 1-4 + 7 | ~10 |
+| "Sync all with guidelines" | 1-5 + 7 | ~35 (incremental) / ~155 (full) |
+| "Sync all with guidelines and foundations" | 1-7 | ~55 (incremental) / ~210 (full) |
+| "Sync guidelines" | 5 only | ~25 (incremental) / ~147 (full) |
+| "Sync foundations" | 6 only | ~15 (incremental) / ~56 (full) |
+
+**Rate limit safety:** Pro (200/day) fits all incremental scenarios comfortably. Full guidelines+foundations (~210 calls) requires Enterprise (600/day) or split across two sessions.
 
 ## What this skill replaced
 
