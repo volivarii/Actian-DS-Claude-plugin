@@ -23,6 +23,8 @@ Draft a structured component brief and generate an HTML spec page. Supports two 
 | "production", "final", "publish-ready" | Production | Standard + variable binding on all scaffolding + golden reference comparison |
 | Re-generation after feedback | Production | Auto-upgrade to production tier |
 
+**Playground detection:** If the user's prompt includes "playground", "interactive", or "test states", generate the playground automatically after Step 2 (no need to offer at the gate).
+
 ## Modes
 
 Determine the mode from context:
@@ -177,6 +179,7 @@ After generating the HTML, serve it and present the preview URL. **Do NOT procee
    > Review the cards and reply:
    > - **"push"** — send all cards to Figma
    > - **"push 2,4,5"** — send only those cards to Figma
+   > - **"playground"** — generate interactive state playground first
    > - **feedback** — I'll fix the HTML and re-preview"
 
 3. **Wait for the user's response.** Do not proceed.
@@ -186,6 +189,31 @@ After generating the HTML, serve it and present the preview URL. **Do NOT procee
 5. On approval: proceed to Step 3 with only the approved cards (default: all). If the user requests cards that were not in the HTML (e.g., "push 2,4,5" when only 2,4 were generated), regenerate the HTML with the expanded card set first, re-serve, then proceed to Figma.
 
 This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figma output is expensive and hard to undo.
+
+---
+
+## Step 2.6 — Generate state playground (opt-in)
+
+**Trigger:** The user says "playground" at the preview gate, or included "playground"/"interactive"/"test states" in their original prompt.
+
+**Skip if:** The user said "quick"/"draft", or went straight to "push".
+
+1. Read `../../references/prototype-reference.md` § "Component playgrounds" for generation rules
+2. Read `../../templates/component-playground-wrapper.html` for the base template
+3. Extract variant axes from the `get_design_context` data collected in Step 1:
+   - Each Figma property (State, Selected, Size, Type, etc.) becomes a control group
+   - Booleans → toggle button, Enums → segmented bar
+4. For each axis combination, render the component variant HTML from Card 2 of the static spec
+5. Populate the token readout from the component token mapping in CLAUDE.md
+6. Save to: `{project_working_directory}/components/[component-name]/[component-name]-playground.html`
+7. Re-present the gate with both URLs:
+   > "Static: `http://localhost:8765/components/[name]/[name]-spec.html`
+   > Playground: `http://localhost:8765/components/[name]/[name]-playground.html`
+   >
+   > Toggle states, variants, and themes in the playground, then:
+   > - **"push"** — send to Figma
+   > - **"push 2,4,5"** — send selected cards
+   > - **feedback** — I'll fix and re-preview"
 
 ---
 
