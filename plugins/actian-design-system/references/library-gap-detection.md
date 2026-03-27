@@ -34,7 +34,7 @@ This check is part of the existing `use_figma` step — it is not a separate ste
 After placing a custom or workaround frame, import the Feedback component set and attach a Type=System instance adjacent to the frame.
 
 ```js
-const FEEDBACK_COMPONENT_KEY = "TBD"; // filled after Figma component is built
+const FEEDBACK_COMPONENT_KEY = "d5cba21bc3dbf36578665bac89834fbe1ca29ed0";
 
 // Import the Feedback component set
 const feedbackSet = await figma.importComponentSetByKeyAsync(FEEDBACK_COMPONENT_KEY);

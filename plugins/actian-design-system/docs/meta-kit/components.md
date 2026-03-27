@@ -442,9 +442,7 @@ Annotation component for designer feedback and library gap markers. Two variants
 
 - Variants: **Type:** `Designer` · `System`
 - Properties: `Message` (text), `Target` (text), `Severity` (enum: Missing component / Missing variant / Missing property / General)
-- Node: `TBD` | Key: `TBD`
-
-> **Note:** Component key will be updated after the Feedback component is built in the Meta Kit Figma file. Until then, skills should build the marker inline using the visual spec in `../../references/library-gap-detection.md`.
+- Node: `66:20` | Key: `d5cba21bc3dbf36578665bac89834fbe1ca29ed0`
 
 ---
 
