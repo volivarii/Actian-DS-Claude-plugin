@@ -56,7 +56,7 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 
 | Phase | Name | MCP calls | What it does |
 |-------|------|-----------|--------------|
-| 1 | Components | ~10-20 `use_figma` | Extract component sets from DS2026, FM Kit, Meta Kit |
+| 1 | Components | ~10-20 `use_figma` | Extract component sets + standalone components from DS2026, FM Kit, Meta Kit |
 | 2 | Variables | ~3-5 `use_figma` | Extract 115 variables with alias resolution |
 | 3 | Styles | 2 `use_figma` | Extract 12 text styles + 5 effect styles |
 | 4 | Token files | 0 (transforms Phase 2 data) | Generate token-reference.md, tokens.css, tokens.json |

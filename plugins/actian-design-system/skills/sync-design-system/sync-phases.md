@@ -34,25 +34,32 @@ Extract component sets, variant axes, properties, and keys from DS2026, FM Kit, 
 
 ### Step 1: Extract page structure
 
-For each library, call `use_figma` to retrieve the page tree with component set counts:
+For each library, call `use_figma` to retrieve the page tree with component counts:
 
 ```js
 const pages = figma.root.children.map(p => ({
   name: p.name,
   id: p.id,
-  componentSets: p.findAll(n => n.type === 'COMPONENT_SET').length
+  componentSets: p.findAll(n => n.type === 'COMPONENT_SET').length,
+  standaloneComponents: p.findAll(n => n.type === 'COMPONENT' && n.parent?.type !== 'COMPONENT_SET').length
 }));
 return JSON.stringify(pages, null, 2);
 ```
 
-### Step 2: Extract component sets
+### Step 2: Extract component sets AND standalone components
+
+Extract both component sets (multi-variant) and standalone components (single, no variants). Standalone components are top-level `COMPONENT` nodes whose parent is NOT a `COMPONENT_SET`.
+
+**Filter out internal/sub-components:** Skip components whose name starts with `.` (e.g., `.Checkbox`, `.Radio button`, `.Table column`) — these are internal building blocks, not public components.
 
 ```js
+// Component sets (multi-variant)
 const sets = figma.root.findAll(n => n.type === 'COMPONENT_SET');
-return JSON.stringify(sets.map(cs => ({
+const setData = sets.map(cs => ({
   name: cs.name,
   key: cs.key,
   nodeId: cs.id,
+  type: 'component_set',
   page: cs.parent?.parent?.name || cs.parent?.name || 'unknown',
   description: cs.description || '',
   variantAxes: Object.entries(cs.variantGroupProperties || {}).map(([axis, prop]) => ({
@@ -63,7 +70,29 @@ return JSON.stringify(sets.map(cs => ({
     .filter(([_, def]) => def.type === 'TEXT')
     .map(([name]) => name),
   variants: cs.children.map(v => ({ name: v.name, key: v.key })),
-})), null, 2);
+}));
+
+// Standalone components (no variants, not inside a component set)
+const standalones = figma.root.findAll(n =>
+  n.type === 'COMPONENT' &&
+  n.parent?.type !== 'COMPONENT_SET' &&
+  !n.name.startsWith('.')
+);
+const standaloneData = standalones.map(c => ({
+  name: c.name,
+  key: c.key,
+  nodeId: c.id,
+  type: 'component',
+  page: c.parent?.parent?.name || c.parent?.name || 'unknown',
+  description: c.description || '',
+  variantAxes: [],
+  componentPropertyDefinitions: Object.entries(c.componentPropertyDefinitions || {})
+    .filter(([_, def]) => def.type === 'TEXT')
+    .map(([name]) => name),
+  variants: [],
+}));
+
+return JSON.stringify([...setData, ...standaloneData], null, 2);
 ```
 
 **Chunking strategy:** If a library has many component sets and the JSON response exceeds 20KB, split extraction by page:
@@ -72,6 +101,7 @@ return JSON.stringify(sets.map(cs => ({
 // Extract one page at a time
 const page = figma.root.children.find(p => p.name === 'Button');
 const sets = page.findAll(n => n.type === 'COMPONENT_SET');
+const standalones = page.findAll(n => n.type === 'COMPONENT' && n.parent?.type !== 'COMPONENT_SET' && !n.name.startsWith('.'));
 // ... same mapping as above
 ```
 
@@ -107,15 +137,17 @@ Primary trigger for a specific action...
 Formatting rules:
 - Group components by page using `## Page Name` headings
 - Each component set gets a `### Component Name` heading
+- **Standalone components** (type=`component`): use `- Single component (no variants)` instead of variant axes
 - Variant axes: `**Axis:** \`Value1\` · \`Value2\``; multiple axes separated by ` | `
 - Text overrides listed only if TEXT entries exist
 - Node ID and Key on the last bullet
+- Description on the line after the heading (if available)
 
 ### Error handling
 
 - If a library is inaccessible, log a warning and skip it
 - If a single page extraction fails, log the page name and continue
-- After writing, report total component set count per library
+- After writing, report total component set count + standalone component count per library
 
 ---
 
