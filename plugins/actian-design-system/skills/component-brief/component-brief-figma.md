@@ -11,12 +11,47 @@ When briefing an **existing** component (Figma URL provided), MUST import real i
 - **Card 3 (Anatomy)** — Structure (badge overlays), Specs (pink annotations), States (one per state)
 - Any other card where the actual component adds clarity
 
-**How:**
-1. `get_design_context` on source node → discover component set key
-2. `figma.importComponentSetByKeyAsync(key)` or `importComponentByKeyAsync(key)`
-3. Find variant: `set.children.find(c => c.name.includes("Type=Primary"))`
-4. Create instances: `variant.createInstance()`
-5. For states, create separate instances with variant properties or annotate with labels
+**How — local vs library component:**
+
+The user's Figma URL points to a specific component. That component may be **local** (defined in the same file) or from an **external library**. You MUST use the correct method:
+
+**Case 1: Component is in the SAME file as the output target** (most common for test/copy files)
+
+```js
+// Use getNodeByIdAsync — the component already exists in this file
+const componentSet = await figma.getNodeByIdAsync(nodeId); // nodeId from user's URL
+// componentSet.type === 'COMPONENT_SET' → has variant children
+// componentSet.type === 'COMPONENT' → single component, no variants
+const variant = componentSet.children.find(c => c.name.includes("State=Default"));
+const instance = variant.createInstance();
+```
+
+**Case 2: Component is from an external library** (e.g., user references DS2026 library directly)
+
+```js
+// Use importComponentSetByKeyAsync — fetches from published library
+const componentSet = await figma.importComponentSetByKeyAsync(componentKey);
+const variant = componentSet.children.find(c => c.name.includes("Type=Primary"));
+const instance = variant.createInstance();
+```
+
+**How to decide:** The user's URL contains a `fileKey`. If it matches the output target file → Case 1. If the component is from a different file (library) → Case 2.
+
+**Detection in `use_figma`:**
+
+```js
+// Try local first — if the node exists in this file, use it directly
+const localNode = await figma.getNodeByIdAsync(nodeId);
+if (localNode && (localNode.type === 'COMPONENT_SET' || localNode.type === 'COMPONENT')) {
+  // Case 1: local component — use directly
+  const componentSet = localNode;
+} else {
+  // Case 2: external library — import by key
+  const componentSet = await figma.importComponentSetByKeyAsync(componentKey);
+}
+```
+
+**P0: Never use `importComponentSetByKeyAsync` for components that exist locally in the file.** This will import the published library version, which may differ from the local copy (different variants, properties, or styling).
 
 Fallback: placeholder frame with dashed border + "Component instance — import manually". Never `[ Button ]`.
 
@@ -119,6 +154,25 @@ Figma output MUST match HTML. Omitting content is a P0 bug.
 
 **Card 9 — Code specification:** Full CSS in dark code block with syntax highlighting.
 
+## Page targeting
+
+**CRITICAL:** Output must land on the correct page, not the Cover page.
+
+If the user provided a Figma URL with a `node-id`, navigate to that node's page first:
+
+```js
+// Extract nodeId from URL (convert "-" to ":" in node-id param)
+const targetNode = await figma.getNodeByIdAsync(nodeId);
+if (targetNode) {
+  // Walk up to the page
+  let page = targetNode;
+  while (page && page.type !== 'PAGE') page = page.parent;
+  if (page) await figma.setCurrentPageAsync(page);
+}
+```
+
+If no node-id is provided, ask the user which page to target. Never default to the first page (Cover).
+
 ## Layout
 
 ```js
@@ -152,9 +206,11 @@ Generation metadata first child, then 9 cards in order.
 | Bug | Cause | Fix |
 |-----|-------|-----|
 | **Empty text nodes** | `.characters` set without font loaded | `await figma.loadFontAsync(...)` first |
-| **Clipped content** | Frame at default FIXED 100px width | `layoutSizingHorizontal = 'FILL'` or `'HUG'` |
+| **Clipped content (width)** | Frame at default FIXED 100px width | `layoutSizingHorizontal = 'FILL'` or `'HUG'` |
+| **Clipped content (height=1px)** | Missing `layoutSizingVertical` after appending to parent auto-layout | Add `frame.layoutSizingVertical = 'HUG'` after every `parent.appendChild(frame)` |
+| **Wrong page** | Frames created on Cover page instead of target | Navigate to target page first with `figma.setCurrentPageAsync(page)` — see "Page targeting" section |
 | **Text placeholders** | `[ Label ]` instead of real component | Import via `importComponentByKeyAsync` |
 | **Specs is a table** | Card 3 Specs as data table | Must be visual annotation with pink lines |
 | **A11y cards empty** | Font not loaded for Card 8 text | Load Inter Regular, Bold, + monospace |
 | **Erratic column widths** | No explicit widths on column frames | `resize(width, 1)` matching HTML proportions |
-| **Cards different heights** | Fixed height instead of auto | `primaryAxisSizingMode = "AUTO"` |
+| **Cards different heights** | Fixed height instead of auto | `primaryAxisSizingMode = "AUTO"` + `layoutSizingVertical = 'HUG'` after appendChild |

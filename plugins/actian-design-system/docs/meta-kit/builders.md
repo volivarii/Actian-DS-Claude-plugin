@@ -198,9 +198,15 @@ async function buildSpecTable(parent, headers, rows, options = {}) {
     row.layoutSizingHorizontal = 'FILL';
   }
 
-  // Append to parent and fill width
+  // Append to parent and set sizing
   parent.appendChild(table);
   table.layoutSizingHorizontal = 'FILL';
+  table.layoutSizingVertical = 'HUG';
+
+  // Ensure all rows hug their content vertically
+  for (const child of table.children) {
+    child.layoutSizingVertical = 'HUG';
+  }
 
   return table;
 }
@@ -292,9 +298,10 @@ async function buildStateGrid(parent, states) {
     grid.appendChild(column);
   }
 
-  // Append to parent and fill width
+  // Append to parent and set sizing
   parent.appendChild(grid);
   grid.layoutSizingHorizontal = 'FILL';
+  grid.layoutSizingVertical = 'HUG';
 
   return grid;
 }

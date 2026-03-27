@@ -194,7 +194,8 @@ This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figm
 Read `component-brief-figma.md` for the complete Figma output reference: card structure, per-card content requirements, element types, known pitfalls, and execution steps. Also follow `../../references/figma-output.md` for shared patterns.
 
 **Key rules (read the reference for details):**
-- **P0: Real component instances** — import via `importComponentSetByKeyAsync()`, never text placeholders
+- **P0: Real component instances** — use the component from the user's URL, never text placeholders
+- **P0: Local vs library components** — if the component is in the same file as the output, use `figma.getNodeByIdAsync(nodeId)` to get it directly. Only use `importComponentSetByKeyAsync()` for components from external libraries. See `component-brief-figma.md` for detection pattern.
 - **Card shells** — import `Meta / Chrome / Brief Card`, detach, rename to card title
 - **Parity check** — Figma output must match HTML exactly; omissions are P0 bugs
 - **One `use_figma` call per card** to stay under 20KB limit

@@ -309,9 +309,22 @@ Source: Augment Multi-Agent skills (AugmentedAJ/skills), confirmed by Figma MCP 
 Figma defaults new frames to `FIXED` width of 100px. Every frame created via `use_figma` must explicitly set sizing:
 
 ```js
-frame.layoutSizingHorizontal = 'HUG';  // or 'FILL'
-frame.layoutSizingVertical = 'HUG';    // or 'FILL'
+// Frame's own sizing behavior
+frame.primaryAxisSizingMode = 'AUTO';   // hug content along layout direction
+frame.counterAxisSizingMode = 'AUTO';   // hug content along cross axis
+
+// CRITICAL: After appending to a parent auto-layout, ALSO set child sizing.
+// Without these, the parent may assign FIXED sizing and clip content.
+parent.appendChild(frame);
+frame.layoutSizingHorizontal = 'FILL';  // or 'HUG'
+frame.layoutSizingVertical = 'HUG';     // MUST be set — prevents height=1px clipping
 ```
+
+**Both layers are required:**
+- `primaryAxisSizingMode` / `counterAxisSizingMode` — how the frame sizes itself
+- `layoutSizingHorizontal` / `layoutSizingVertical` — how the frame sizes within its parent's auto-layout
+
+Omitting the second layer is the #1 cause of clipped content (frames render at 1px height).
 
 Never rely on Figma's default. A frame left as FIXED 100px will clip content or leave whitespace.
 
