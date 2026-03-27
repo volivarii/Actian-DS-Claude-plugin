@@ -300,6 +300,7 @@ If no node-id is provided, ask the user which page to target. Never default to t
 - **HTML is local preview only.** Open in browser with `open $URL` if the user wants to see it, but never treat HTML as a Figma delivery mechanism.
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed (e.g., one call per card, one call per slide).
+- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../docs/fm-components.md` (FM) or `../../docs/ds2026-components.md` (DS2026) for an existing library component. If one exists, import it — even if a variant is missing. See `library-gap-detection.md` for the full detection procedure, how to attach System markers, and how to log gaps.
 
 ## Component Set Variant Layout
 
