@@ -15,13 +15,56 @@ from pathlib import Path
 
 
 class PreviewHandler(SimpleHTTPRequestHandler):
-    """Static file server + POST /_annotations endpoint."""
+    """Static file server + POST /_annotations + plugin asset serving."""
+
+    # Set by main() — path to the plugin's templates/ directory
+    plugin_templates_dir = None
 
     def do_GET(self):
         if self.path.startswith('/_version'):
             self._handle_version()
+        elif self.path.startswith('/_plugin/'):
+            self._serve_plugin_asset()
         else:
             super().do_GET()
+
+    def _serve_plugin_asset(self):
+        """Serve files from the plugin's templates directory at /_plugin/..."""
+        if not self.plugin_templates_dir:
+            self.send_error(404, 'Plugin templates path not configured')
+            return
+        rel_path = self.path[len('/_plugin/'):]
+        file_path = Path(self.plugin_templates_dir) / rel_path
+        # Security: prevent path traversal
+        try:
+            file_path = file_path.resolve()
+            templates_dir = Path(self.plugin_templates_dir).resolve()
+            if not str(file_path).startswith(str(templates_dir)):
+                self.send_error(403, 'Forbidden')
+                return
+        except Exception:
+            self.send_error(400, 'Bad path')
+            return
+        if not file_path.is_file():
+            self.send_error(404, 'Not found')
+            return
+        # Determine content type
+        ext = file_path.suffix.lower()
+        content_types = {
+            '.html': 'text/html', '.css': 'text/css', '.js': 'application/javascript',
+            '.json': 'application/json', '.svg': 'image/svg+xml',
+        }
+        content_type = content_types.get(ext, 'application/octet-stream')
+        try:
+            data = file_path.read_bytes()
+            self.send_response(200)
+            self.send_header('Content-Type', content_type)
+            self.send_header('Content-Length', len(data))
+            self.send_header('Cache-Control', 'no-cache')
+            self.end_headers()
+            self.wfile.write(data)
+        except Exception as e:
+            self.send_error(500, str(e))
 
     def do_POST(self):
         if self.path == '/_annotations':
@@ -99,6 +142,10 @@ def main():
 
     os.chdir(directory)
     PreviewHandler.directory = os.getcwd()
+
+    # Plugin templates directory (sibling of scripts/)
+    script_dir = Path(__file__).resolve().parent
+    PreviewHandler.plugin_templates_dir = str(script_dir.parent / 'templates')
 
     server = HTTPServer(('', port), PreviewHandler)
     server.serve_forever()

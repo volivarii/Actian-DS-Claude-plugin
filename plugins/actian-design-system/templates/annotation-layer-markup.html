@@ -1,0 +1,190 @@
+<!-- Annotation Layer Root -->
+<div
+  id="anno-root"
+  x-data="annotationLayer()"
+  x-init="init()"
+>
+  <!-- Hover tooltip (follows cursor, not Alpine-bound for perf reasons) -->
+  <div id="anno-hover-tooltip" class="anno-hover-tooltip" aria-hidden="true"></div>
+
+  <!-- Annotation badge container (badges are injected into DOM directly by renderBadges()) -->
+  <!-- badges are appended to their target elements, not rendered here -->
+
+  <!-- Popover -->
+  <div
+    x-cloak
+    x-show="popover.open"
+    class="anno-popover"
+    :style="`top: ${popover.y}px; left: ${popover.x}px;`"
+    @keydown.escape.window="closePopover()"
+    role="dialog"
+    aria-modal="true"
+    :aria-label="`Annotation for ${popover.target}`"
+  >
+    <div class="anno-popover__header">
+      <span class="anno-popover__target" :title="popover.target" x-text="popover.target"></span>
+      <button class="anno-popover__close" @click="closePopover()" aria-label="Close popover">&#x2715;</button>
+    </div>
+    <div class="anno-popover__body">
+      <div>
+        <div class="anno-popover__label">Message</div>
+        <textarea
+          class="anno-popover__textarea"
+          x-model="popover.message"
+          placeholder="Describe the issue or note…"
+          id="anno-popover-textarea"
+          rows="3"
+        ></textarea>
+      </div>
+      <div>
+        <div class="anno-popover__label">Severity</div>
+        <div class="anno-severity">
+          <button
+            class="anno-severity__btn anno-severity__btn--fix"
+            :class="{ 'anno-severity__btn--active': popover.severity === 'fix' }"
+            @click="popover.severity = 'fix'"
+            type="button"
+          >Fix</button>
+          <button
+            class="anno-severity__btn anno-severity__btn--change"
+            :class="{ 'anno-severity__btn--active': popover.severity === 'change' }"
+            @click="popover.severity = 'change'"
+            type="button"
+          >Change</button>
+          <button
+            class="anno-severity__btn anno-severity__btn--note"
+            :class="{ 'anno-severity__btn--active': popover.severity === 'note' }"
+            @click="popover.severity = 'note'"
+            type="button"
+          >Note</button>
+        </div>
+      </div>
+    </div>
+    <div class="anno-popover__actions">
+      <button
+        class="anno-popover__btn anno-popover__btn--save"
+        @click="saveAnnotation()"
+        :disabled="!popover.message.trim()"
+        type="button"
+      >Save</button>
+      <button
+        class="anno-popover__btn anno-popover__btn--cancel"
+        @click="closePopover()"
+        type="button"
+      >Cancel</button>
+      <button
+        x-show="popover.editingId !== null"
+        class="anno-popover__btn anno-popover__btn--delete"
+        @click="deleteAnnotation(popover.editingId)"
+        type="button"
+        aria-label="Delete annotation"
+      >Delete</button>
+    </div>
+  </div>
+
+  <!-- Export Panel -->
+  <div
+    x-cloak
+    x-show="panelOpen"
+    class="anno-panel"
+    @keydown.escape.window="panelOpen = false"
+    role="region"
+    aria-label="Annotations panel"
+  >
+    <div class="anno-panel__header">
+      <span class="anno-panel__title" x-text="`Annotations (${annotations.length})`"></span>
+      <div class="anno-panel__header-actions">
+        <button
+          class="anno-panel__hbtn anno-panel__hbtn--apply"
+          @click="submitAnnotations()"
+          type="button"
+          :disabled="annotations.length === 0 || submitted"
+          title="Submit annotations for Claude to apply"
+          x-text="submitted ? 'Submitted — tell Claude: apply' : 'Apply'"
+        ></button>
+        <button
+          class="anno-panel__hbtn anno-panel__hbtn--copy"
+          @click="exportJSON()"
+          type="button"
+          title="Copy annotations as JSON"
+        >Copy JSON</button>
+        <button
+          class="anno-panel__hbtn anno-panel__hbtn--clear"
+          @click="clearAll()"
+          type="button"
+          :disabled="annotations.length === 0"
+        >Clear all</button>
+        <button
+          class="anno-panel__hbtn anno-panel__hbtn--close"
+          @click="panelOpen = false"
+          type="button"
+        >Close</button>
+      </div>
+    </div>
+    <div class="anno-panel__list">
+      <template x-if="annotations.length === 0">
+        <div class="anno-panel__empty">No annotations yet. Enable annotation mode and click any element to annotate.</div>
+      </template>
+      <template x-for="(a, idx) in annotations" :key="a.id">
+        <div class="anno-panel__item">
+          <span class="anno-panel__num" x-text="idx + 1"></span>
+          <div class="anno-panel__item-body">
+            <div class="anno-panel__item-target" :title="a.target" x-text="a.target"></div>
+            <div class="anno-panel__item-msg" x-text="a.message"></div>
+            <span
+              class="anno-panel__item-sev"
+              :class="`anno-panel__item-sev--${a.severity}`"
+              x-text="a.severity"
+            ></span>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div x-show="copyFeedback" class="anno-panel__copy-feedback">JSON copied to clipboard!</div>
+  </div>
+
+  <!-- Toggle button -->
+  <button
+    class="anno-toggle"
+    :class="{ 'anno-toggle--active': active }"
+    @click="toggleMode()"
+    type="button"
+    :aria-pressed="active"
+    :aria-label="active ? 'Disable annotation mode' : 'Enable annotation mode'"
+    :title="active ? 'Click to exit annotation mode' : 'Click to annotate this preview'"
+  >
+    <!-- Pencil icon -->
+    <svg class="anno-toggle__icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M11.333 2a1.886 1.886 0 0 1 2.667 2.667L5.333 13.333 2 14l.667-3.333L11.333 2Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <template x-if="!active">
+      <span>Annotate</span>
+    </template>
+    <template x-if="active">
+      <span>
+        Annotating
+        <span class="anno-toggle__count" x-text="annotations.length" x-show="annotations.length > 0"></span>
+      </span>
+    </template>
+  </button>
+
+  <!-- Panel toggle (only shown when annotations exist) -->
+  <button
+    x-show="annotations.length > 0"
+    class="anno-toggle"
+    :style="`bottom: ${annotations.length > 0 ? 72 : 24}px; right: 24px;`"
+    @click="panelOpen = !panelOpen"
+    type="button"
+    :aria-label="panelOpen ? 'Hide annotations panel' : 'Show annotations panel'"
+    :title="panelOpen ? 'Hide panel' : 'View all annotations'"
+    style="bottom: 72px; right: 24px;"
+  >
+    <svg class="anno-toggle__icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="2" y="3" width="12" height="2" rx="1" fill="currentColor"/>
+      <rect x="2" y="7" width="8" height="2" rx="1" fill="currentColor"/>
+      <rect x="2" y="11" width="10" height="2" rx="1" fill="currentColor"/>
+    </svg>
+    <span x-text="`${annotations.length} annotation${annotations.length !== 1 ? 's' : ''}`"></span>
+  </button>
+</div>
+

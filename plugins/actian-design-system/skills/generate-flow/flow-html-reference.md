@@ -282,15 +282,15 @@ When both types coexist on one screen, use **separate containers**: 480px wrappe
 
 ## Annotation layer (required)
 
-Every generated HTML file MUST include the annotation layer before `</body>`. This enables click-to-annotate feedback in the browser preview.
+Every generated HTML file MUST include the annotation layer. Add this single script tag before `</body>`:
 
-1. Add Alpine.js CDN if not already loaded:
-   ```html
-   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
-   ```
-2. Read `../../templates/annotation-layer.html` and include its full contents before `</body>`
+```html
+<script src="/_plugin/annotation-loader.js"></script>
+```
 
-Do NOT skip this step. Do NOT add it after the fact. The annotation layer is part of every preview.
+This loads Alpine.js, the annotation CSS, HTML markup, and JS automatically from the preview server. No other files need to be read or inlined.
+
+Do NOT skip this step. Do NOT read or inline `annotation-layer.html` — the loader handles everything.
 
 ## `data-name` attributes (required for annotations)
 
