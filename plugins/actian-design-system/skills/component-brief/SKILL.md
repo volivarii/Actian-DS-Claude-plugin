@@ -180,6 +180,7 @@ After generating the HTML, serve it and present the preview URL. **Do NOT procee
    > - **"push"** — send all cards to Figma
    > - **"push 2,4,5"** — send only those cards to Figma
    > - **"playground"** — generate interactive state playground first
+   > - **"apply annotations"** — paste annotation JSON from the browser, I'll fix and re-preview
    > - **feedback** — I'll fix the HTML and re-preview"
 
 3. **Wait for the user's response.** Do not proceed.

@@ -461,9 +461,9 @@ All Figma-writing skills pause for user approval before pushing to Figma:
 
 | Skill | Gate | Vocabulary |
 |-------|------|-----------|
-| component-brief | Step 2.5 — HTML preview | "push" / "push N,N" / "playground" / feedback |
-| generate-flow | Step 2 — research opt-in + Step 4.5 — HTML preview | "push" / "push N,N" / "prototype" / feedback |
-| generate-presentation | Step 5 — review report + preview | "push" / "push N,N" / feedback |
+| component-brief | Step 2.5 — HTML preview | "push" / "push N,N" / "playground" / "apply annotations" / feedback |
+| generate-flow | Step 2 — research opt-in + Step 4.5 — HTML preview | "push" / "push N,N" / "prototype" / "apply annotations" / feedback |
+| generate-presentation | Step 5 — review report + preview | "push" / "push N,N" / "apply annotations" / feedback |
 | create-component | Step 4.5 — build plan summary | "build" / feedback |
 
 - If the user's prompt pre-answers a gate question (e.g., "no research"), skip asking
@@ -529,6 +529,20 @@ See `references/library-gap-detection.md` for the full procedure.
 - `General` — other limitation that forced a workaround
 
 **Designer annotations:** Designers can place `Feedback (Type=Designer)` components in Figma to annotate issues. `/refine comments` scans for these and applies fixes.
+
+---
+
+## Browser Annotations
+
+Designers can annotate issues directly in the browser preview instead of describing them in text. See `references/annotation-reference.md` for the full reference.
+
+**How it works:** Click "Annotate" in the preview → click any element → type feedback → "Copy JSON" → paste in CLI with "apply annotations". Claude applies fixes to the HTML and re-serves.
+
+**Gate keyword:** `"apply annotations"` — available at all preview gates (generate-flow Step 4.5, component-brief Step 2.5, generate-presentation Step 5).
+
+**Severity levels:** `fix` (something's wrong), `change` (different approach), `note` (informational — carried to Figma output as context).
+
+**Prerequisite:** Preview HTML must have `data-name` attributes on annotatable elements. All skills should already add these for Figma frame naming.
 
 ---
 

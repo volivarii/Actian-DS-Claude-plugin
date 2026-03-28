@@ -48,8 +48,9 @@ if [ -n "$EXISTING_PIDS" ]; then
   fi
 fi
 
-# Start a new server
-cd "$DIR_ABS" && python3 -m http.server "$PORT" &>/dev/null &
+# Start a new server (custom handler with annotation POST endpoint)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+python3 "$SCRIPT_DIR/preview-server.py" "$PORT" "$DIR_ABS" &>/dev/null &
 SERVER_PID=$!
 
 # Wait for it to be ready

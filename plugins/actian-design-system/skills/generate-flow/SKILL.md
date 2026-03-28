@@ -255,6 +255,7 @@ After generating the HTML, serve it and present the preview URL. **Do NOT procee
    > - **"push"** — send all screens to Figma
    > - **"push 1,3,5"** — send only those screens to Figma
    > - **"prototype"** — generate interactive prototype first
+   > - **"apply annotations"** — paste annotation JSON from the browser, I'll fix and re-preview
    > - **feedback** — I'll fix the HTML and re-preview"
 
 3. **Wait for the user's response.** Do not proceed.

@@ -1,0 +1,1135 @@
+<!-- annotation-layer.html — Include before </body> in preview templates -->
+<!-- Self-contained annotation layer: Alpine.js component, CSS, and JS -->
+
+<style>
+  [x-cloak] { display: none !important; }
+
+  /* ============================================================
+     ANNOTATION LAYER — all classes scoped with .anno- prefix
+     ============================================================ */
+
+  /* Toggle button — fixed bottom-right */
+  .anno-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: #ffffff;
+    border: 1.5px solid #d1d5db;
+    border-radius: 8px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: #374151;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
+    transition: background 0.15s, border-color 0.15s, color 0.15s, box-shadow 0.15s;
+    user-select: none;
+  }
+  .anno-toggle:hover {
+    background: #f3f4f6;
+    border-color: #9ca3af;
+  }
+  .anno-toggle.anno-toggle--active {
+    background: #2563eb;
+    border-color: #1d4ed8;
+    color: #ffffff;
+    box-shadow: 0 2px 12px rgba(37, 99, 235, 0.30);
+  }
+  .anno-toggle.anno-toggle--active:hover {
+    background: #1d4ed8;
+    border-color: #1e40af;
+  }
+  .anno-toggle__icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+  .anno-toggle__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  /* Hover tooltip on [data-name] elements while annotation mode is active */
+  .anno-hover-tooltip {
+    position: fixed;
+    z-index: 9100;
+    pointer-events: none;
+    padding: 4px 8px;
+    background: #1e293b;
+    color: #f8fafc;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    border-radius: 4px;
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.20);
+    display: none;
+  }
+  .anno-hover-tooltip.anno-hover-tooltip--visible {
+    display: block;
+  }
+
+  /* Hover highlight ring — injected via JS as outline on the target element */
+  .anno-highlight {
+    outline: 2px dashed #2563eb !important;
+    outline-offset: 2px !important;
+  }
+
+  /* Annotation badges — numbered circles on annotated elements */
+  .anno-badge {
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    z-index: 9050;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    background: #2563eb;
+    color: #ffffff;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 999px;
+    border: 2px solid #ffffff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.20);
+    cursor: pointer;
+    pointer-events: all;
+    transition: transform 0.1s, background 0.1s;
+  }
+  .anno-badge:hover {
+    transform: scale(1.15);
+    background: #1d4ed8;
+  }
+
+  /* Popover — anchored to clicked element */
+  .anno-popover {
+    position: fixed;
+    z-index: 9200;
+    width: 280px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+  .anno-popover__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px 8px;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .anno-popover__target {
+    font-size: 12px;
+    font-weight: 600;
+    color: #111827;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+  }
+  .anno-popover__close {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: #6b7280;
+    font-size: 16px;
+    line-height: 1;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .anno-popover__close:hover {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .anno-popover__body {
+    padding: 10px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .anno-popover__label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+  }
+  .anno-popover__textarea {
+    width: 100%;
+    min-height: 72px;
+    padding: 8px 10px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 13px;
+    color: #111827;
+    resize: vertical;
+    outline: none;
+    transition: border-color 0.15s;
+    box-sizing: border-box;
+  }
+  .anno-popover__textarea:focus {
+    border-color: #2563eb;
+    background: #ffffff;
+  }
+  .anno-popover__textarea::placeholder {
+    color: #9ca3af;
+  }
+
+  /* Severity picker */
+  .anno-severity {
+    display: flex;
+    gap: 6px;
+  }
+  .anno-severity__btn {
+    flex: 1;
+    padding: 5px 8px;
+    border-radius: 6px;
+    border: 1.5px solid #e5e7eb;
+    background: #f9fafb;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    color: #6b7280;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.12s, border-color 0.12s, color 0.12s;
+  }
+  .anno-severity__btn:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+    color: #374151;
+  }
+  /* Active states: fix=red, change=blue, note=green */
+  .anno-severity__btn--fix.anno-severity__btn--active {
+    background: #fef2f2;
+    border-color: #ef4444;
+    color: #dc2626;
+  }
+  .anno-severity__btn--change.anno-severity__btn--active {
+    background: #eff6ff;
+    border-color: #2563eb;
+    color: #1d4ed8;
+  }
+  .anno-severity__btn--note.anno-severity__btn--active {
+    background: #f0fdf4;
+    border-color: #22c55e;
+    color: #16a34a;
+  }
+
+  /* Popover action row */
+  .anno-popover__actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px 12px;
+    border-top: 1px solid #f3f4f6;
+  }
+  .anno-popover__btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background 0.12s;
+  }
+  .anno-popover__btn--save {
+    background: #2563eb;
+    color: #ffffff;
+  }
+  .anno-popover__btn--save:hover {
+    background: #1d4ed8;
+  }
+  .anno-popover__btn--save:disabled {
+    background: #93c5fd;
+    cursor: not-allowed;
+  }
+  .anno-popover__btn--cancel {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .anno-popover__btn--cancel:hover {
+    background: #e5e7eb;
+  }
+  .anno-popover__btn--delete {
+    margin-left: auto;
+    background: none;
+    color: #ef4444;
+    padding: 6px 8px;
+    border-radius: 6px;
+  }
+  .anno-popover__btn--delete:hover {
+    background: #fef2f2;
+  }
+
+  /* Export panel — fixed above toggle button */
+  .anno-panel {
+    position: fixed;
+    bottom: 80px;
+    right: 24px;
+    z-index: 9100;
+    width: 360px;
+    max-height: 480px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.14);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .anno-panel__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px 10px;
+    border-bottom: 1px solid #f3f4f6;
+    flex-shrink: 0;
+  }
+  .anno-panel__title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #111827;
+  }
+  .anno-panel__header-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .anno-panel__hbtn {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    border: none;
+    transition: background 0.12s;
+  }
+  .anno-panel__hbtn--apply {
+    background: #16a34a;
+    color: #ffffff;
+  }
+  .anno-panel__hbtn--apply:hover {
+    background: #15803d;
+  }
+  .anno-panel__hbtn--apply:disabled {
+    background: #86efac;
+    cursor: default;
+    color: #166534;
+  }
+  .anno-panel__hbtn--copy {
+    background: #2563eb;
+    color: #ffffff;
+  }
+  .anno-panel__hbtn--copy:hover {
+    background: #1d4ed8;
+  }
+  .anno-panel__hbtn--clear {
+    background: #f3f4f6;
+    color: #ef4444;
+  }
+  .anno-panel__hbtn--clear:hover {
+    background: #fef2f2;
+  }
+  .anno-panel__hbtn--close {
+    background: #f3f4f6;
+    color: #374151;
+  }
+  .anno-panel__hbtn--close:hover {
+    background: #e5e7eb;
+  }
+  .anno-panel__list {
+    overflow-y: auto;
+    flex: 1;
+    padding: 8px 0;
+  }
+  .anno-panel__empty {
+    padding: 24px 16px;
+    text-align: center;
+    font-size: 13px;
+    color: #9ca3af;
+  }
+  .anno-panel__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 16px;
+    border-bottom: 1px solid #f9fafb;
+  }
+  .anno-panel__item:last-child {
+    border-bottom: none;
+  }
+  .anno-panel__num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 700;
+    border-radius: 999px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .anno-panel__item-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .anno-panel__item-target {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .anno-panel__item-msg {
+    font-size: 12px;
+    color: #6b7280;
+    margin-top: 2px;
+    word-break: break-word;
+  }
+  .anno-panel__item-sev {
+    margin-top: 4px;
+    display: inline-block;
+    padding: 1px 7px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .anno-panel__item-sev--fix    { background: #fef2f2; color: #dc2626; }
+  .anno-panel__item-sev--change { background: #eff6ff; color: #1d4ed8; }
+  .anno-panel__item-sev--note   { background: #f0fdf4; color: #16a34a; }
+  .anno-panel__copy-feedback {
+    padding: 6px 16px 8px;
+    font-size: 12px;
+    color: #16a34a;
+    font-weight: 500;
+    text-align: center;
+    border-top: 1px solid #f3f4f6;
+    flex-shrink: 0;
+  }
+</style>
+
+<!-- Annotation Layer Root -->
+<div
+  id="anno-root"
+  x-data="annotationLayer()"
+  x-init="init()"
+>
+  <!-- Hover tooltip (follows cursor, not Alpine-bound for perf reasons) -->
+  <div id="anno-hover-tooltip" class="anno-hover-tooltip" aria-hidden="true"></div>
+
+  <!-- Annotation badge container (badges are injected into DOM directly by renderBadges()) -->
+  <!-- badges are appended to their target elements, not rendered here -->
+
+  <!-- Popover -->
+  <div
+    x-cloak
+    x-show="popover.open"
+    class="anno-popover"
+    :style="`top: ${popover.y}px; left: ${popover.x}px;`"
+    @keydown.escape.window="closePopover()"
+    role="dialog"
+    aria-modal="true"
+    :aria-label="`Annotation for ${popover.target}`"
+  >
+    <div class="anno-popover__header">
+      <span class="anno-popover__target" :title="popover.target" x-text="popover.target"></span>
+      <button class="anno-popover__close" @click="closePopover()" aria-label="Close popover">&#x2715;</button>
+    </div>
+    <div class="anno-popover__body">
+      <div>
+        <div class="anno-popover__label">Message</div>
+        <textarea
+          class="anno-popover__textarea"
+          x-model="popover.message"
+          placeholder="Describe the issue or note…"
+          id="anno-popover-textarea"
+          rows="3"
+        ></textarea>
+      </div>
+      <div>
+        <div class="anno-popover__label">Severity</div>
+        <div class="anno-severity">
+          <button
+            class="anno-severity__btn anno-severity__btn--fix"
+            :class="{ 'anno-severity__btn--active': popover.severity === 'fix' }"
+            @click="popover.severity = 'fix'"
+            type="button"
+          >Fix</button>
+          <button
+            class="anno-severity__btn anno-severity__btn--change"
+            :class="{ 'anno-severity__btn--active': popover.severity === 'change' }"
+            @click="popover.severity = 'change'"
+            type="button"
+          >Change</button>
+          <button
+            class="anno-severity__btn anno-severity__btn--note"
+            :class="{ 'anno-severity__btn--active': popover.severity === 'note' }"
+            @click="popover.severity = 'note'"
+            type="button"
+          >Note</button>
+        </div>
+      </div>
+    </div>
+    <div class="anno-popover__actions">
+      <button
+        class="anno-popover__btn anno-popover__btn--save"
+        @click="saveAnnotation()"
+        :disabled="!popover.message.trim()"
+        type="button"
+      >Save</button>
+      <button
+        class="anno-popover__btn anno-popover__btn--cancel"
+        @click="closePopover()"
+        type="button"
+      >Cancel</button>
+      <button
+        x-show="popover.editingId !== null"
+        class="anno-popover__btn anno-popover__btn--delete"
+        @click="deleteAnnotation(popover.editingId)"
+        type="button"
+        aria-label="Delete annotation"
+      >Delete</button>
+    </div>
+  </div>
+
+  <!-- Export Panel -->
+  <div
+    x-cloak
+    x-show="panelOpen"
+    class="anno-panel"
+    @keydown.escape.window="panelOpen = false"
+    role="region"
+    aria-label="Annotations panel"
+  >
+    <div class="anno-panel__header">
+      <span class="anno-panel__title" x-text="`Annotations (${annotations.length})`"></span>
+      <div class="anno-panel__header-actions">
+        <button
+          class="anno-panel__hbtn anno-panel__hbtn--apply"
+          @click="submitAnnotations()"
+          type="button"
+          :disabled="annotations.length === 0 || submitted"
+          title="Submit annotations for Claude to apply"
+          x-text="submitted ? 'Submitted — tell Claude: apply' : 'Apply'"
+        ></button>
+        <button
+          class="anno-panel__hbtn anno-panel__hbtn--copy"
+          @click="exportJSON()"
+          type="button"
+          title="Copy annotations as JSON"
+        >Copy JSON</button>
+        <button
+          class="anno-panel__hbtn anno-panel__hbtn--clear"
+          @click="clearAll()"
+          type="button"
+          :disabled="annotations.length === 0"
+        >Clear all</button>
+        <button
+          class="anno-panel__hbtn anno-panel__hbtn--close"
+          @click="panelOpen = false"
+          type="button"
+        >Close</button>
+      </div>
+    </div>
+    <div class="anno-panel__list">
+      <template x-if="annotations.length === 0">
+        <div class="anno-panel__empty">No annotations yet. Enable annotation mode and click any element to annotate.</div>
+      </template>
+      <template x-for="(a, idx) in annotations" :key="a.id">
+        <div class="anno-panel__item">
+          <span class="anno-panel__num" x-text="idx + 1"></span>
+          <div class="anno-panel__item-body">
+            <div class="anno-panel__item-target" :title="a.target" x-text="a.target"></div>
+            <div class="anno-panel__item-msg" x-text="a.message"></div>
+            <span
+              class="anno-panel__item-sev"
+              :class="`anno-panel__item-sev--${a.severity}`"
+              x-text="a.severity"
+            ></span>
+          </div>
+        </div>
+      </template>
+    </div>
+    <div x-show="copyFeedback" class="anno-panel__copy-feedback">JSON copied to clipboard!</div>
+  </div>
+
+  <!-- Toggle button -->
+  <button
+    class="anno-toggle"
+    :class="{ 'anno-toggle--active': active }"
+    @click="toggleMode()"
+    type="button"
+    :aria-pressed="active"
+    :aria-label="active ? 'Disable annotation mode' : 'Enable annotation mode'"
+    :title="active ? 'Click to exit annotation mode' : 'Click to annotate this preview'"
+  >
+    <!-- Pencil icon -->
+    <svg class="anno-toggle__icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M11.333 2a1.886 1.886 0 0 1 2.667 2.667L5.333 13.333 2 14l.667-3.333L11.333 2Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <template x-if="!active">
+      <span>Annotate</span>
+    </template>
+    <template x-if="active">
+      <span>
+        Annotating
+        <span class="anno-toggle__count" x-text="annotations.length" x-show="annotations.length > 0"></span>
+      </span>
+    </template>
+  </button>
+
+  <!-- Panel toggle (only shown when annotations exist) -->
+  <button
+    x-show="annotations.length > 0"
+    class="anno-toggle"
+    :style="`bottom: ${annotations.length > 0 ? 72 : 24}px; right: 24px;`"
+    @click="panelOpen = !panelOpen"
+    type="button"
+    :aria-label="panelOpen ? 'Hide annotations panel' : 'Show annotations panel'"
+    :title="panelOpen ? 'Hide panel' : 'View all annotations'"
+    style="bottom: 72px; right: 24px;"
+  >
+    <svg class="anno-toggle__icon" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <rect x="2" y="3" width="12" height="2" rx="1" fill="currentColor"/>
+      <rect x="2" y="7" width="8" height="2" rx="1" fill="currentColor"/>
+      <rect x="2" y="11" width="10" height="2" rx="1" fill="currentColor"/>
+    </svg>
+    <span x-text="`${annotations.length} annotation${annotations.length !== 1 ? 's' : ''}`"></span>
+  </button>
+</div>
+
+<script>
+  document.addEventListener('alpine:init', () => {
+    Alpine.data('annotationLayer', () => ({
+      /** Whether annotation click-to-annotate mode is active */
+      active: false,
+
+      /** All persisted annotations for this page */
+      annotations: [],
+
+      /** Whether the export panel is open */
+      panelOpen: false,
+
+      /** Brief copy-to-clipboard feedback flag */
+      copyFeedback: false,
+
+      /** Whether annotations have been submitted to the server */
+      submitted: false,
+
+      /** Popover state */
+      popover: {
+        open: false,
+        x: 0,
+        y: 0,
+        target: '',
+        message: '',
+        severity: 'note',
+        editingId: null,
+        /** The actual DOM element being annotated */
+        _el: null,
+      },
+
+      /** localStorage key for this page */
+      _storageKey: 'anno-' + location.pathname,
+
+      /** Injected badge elements keyed by annotation id */
+      _badges: {},
+
+      /** Currently hovered element (for outline/tooltip) */
+      _hoveredEl: null,
+
+      /** Bound event handler references (for cleanup) */
+      _onDocClick: null,
+      _onDocMouseover: null,
+      _onDocMouseout: null,
+      _onMousemove: null,
+
+      // ─────────────────────────────────────────────
+      // Lifecycle
+      // ─────────────────────────────────────────────
+
+      init() {
+        this._load();
+        this.renderBadges();
+        this._bindHoverHandlers();
+        this._bindClickCapture();
+      },
+
+      // ─────────────────────────────────────────────
+      // Mode toggle
+      // ─────────────────────────────────────────────
+
+      toggleMode() {
+        this.active = !this.active;
+        if (!this.active) {
+          this._clearHover();
+          this.closePopover();
+        }
+        document.body.style.cursor = this.active ? 'crosshair' : '';
+      },
+
+      // ─────────────────────────────────────────────
+      // Popover
+      // ─────────────────────────────────────────────
+
+      openPopover(el) {
+        const rect = el.getBoundingClientRect();
+        const vpW = window.innerWidth;
+        const vpH = window.innerHeight;
+        const popW = 280;
+        const popH = 260; // approximate
+
+        // Default: appear below-right of element
+        let x = rect.left;
+        let y = rect.bottom + 8;
+
+        // Flip horizontally if overflowing right edge
+        if (x + popW > vpW - 16) {
+          x = Math.max(16, vpW - popW - 16);
+        }
+        // Flip vertically if overflowing bottom
+        if (y + popH > vpH - 16) {
+          y = Math.max(16, rect.top - popH - 8);
+        }
+
+        this.popover.x = Math.round(x);
+        this.popover.y = Math.round(y);
+        this.popover.target = el.dataset.name || el.tagName.toLowerCase();
+        this.popover._el = el;
+
+        // Focus textarea after Alpine re-renders
+        this.$nextTick(() => {
+          const ta = document.getElementById('anno-popover-textarea');
+          if (ta) ta.focus();
+        });
+      },
+
+      closePopover() {
+        this.popover.open = false;
+        this.popover.editingId = null;
+        this.popover.message = '';
+        this.popover.severity = 'note';
+        this.popover._el = null;
+      },
+
+      // ─────────────────────────────────────────────
+      // CRUD
+      // ─────────────────────────────────────────────
+
+      saveAnnotation() {
+        const msg = this.popover.message.trim();
+        if (!msg) return;
+
+        if (this.popover.editingId !== null) {
+          // Update existing
+          const idx = this.annotations.findIndex(a => a.id === this.popover.editingId);
+          if (idx !== -1) {
+            this.annotations[idx].message = msg;
+            this.annotations[idx].severity = this.popover.severity;
+          }
+        } else {
+          // Create new — store targetIndex to disambiguate duplicate data-name values
+          const allMatches = document.querySelectorAll(`[data-name="${CSS.escape(this.popover.target)}"]`);
+          let targetIndex = 0;
+          allMatches.forEach((el, i) => { if (el === this.popover._el) targetIndex = i; });
+
+          this.annotations.push({
+            id: Date.now() + Math.random(),
+            target: this.popover.target,
+            targetIndex: targetIndex,
+            message: msg,
+            severity: this.popover.severity,
+            createdAt: new Date().toISOString(),
+            _el: this.popover._el,
+          });
+        }
+
+        this.submitted = false;
+        this.persist();
+        this.renderBadges();
+        this.closePopover();
+      },
+
+      deleteAnnotation(id) {
+        this.annotations = this.annotations.filter(a => a.id !== id);
+        this._removeBadge(id);
+        this.persist();
+        this.closePopover();
+      },
+
+      clearAll() {
+        if (!confirm('Clear all annotations for this page?')) return;
+        this.annotations = [];
+        Object.keys(this._badges).forEach(id => this._removeBadge(id));
+        this._badges = {};
+        this.persist();
+      },
+
+      editAnnotation(a) {
+        // Re-resolve element (may have been GC'd if DOM changed)
+        const el = a._el || document.querySelector(`[data-name="${CSS.escape(a.target)}"]`);
+        this.popover.editingId = a.id;
+        this.popover.message = a.message;
+        this.popover.severity = a.severity;
+        this.popover.target = a.target;
+        this.popover._el = el;
+        this.popover.open = true;
+
+        if (el) {
+          this.openPopover(el);
+          // openPopover resets message/severity — restore after
+          this.$nextTick(() => {
+            this.popover.message = a.message;
+            this.popover.severity = a.severity;
+            this.popover.editingId = a.id;
+            const ta = document.getElementById('anno-popover-textarea');
+            if (ta) ta.focus();
+          });
+        }
+      },
+
+      // ─────────────────────────────────────────────
+      // Persistence
+      // ─────────────────────────────────────────────
+
+      persist() {
+        try {
+          const serialisable = this.annotations.map(a => ({
+            id: a.id,
+            target: a.target,
+            targetIndex: a.targetIndex || 0,
+            message: a.message,
+            severity: a.severity,
+            createdAt: a.createdAt,
+          }));
+          localStorage.setItem(this._storageKey, JSON.stringify(serialisable));
+        } catch (e) {
+          // localStorage may be unavailable (e.g., private browsing with full quota)
+          console.warn('[annotation-layer] Could not persist to localStorage:', e);
+        }
+      },
+
+      _load() {
+        try {
+          const raw = localStorage.getItem(this._storageKey);
+          if (raw) {
+            const parsed = JSON.parse(raw);
+            // Re-hydrate with _el references, using targetIndex for disambiguation
+            this.annotations = parsed.map(a => {
+              const allMatches = document.querySelectorAll(`[data-name="${CSS.escape(a.target)}"]`);
+              return {
+                ...a,
+                _el: allMatches[a.targetIndex || 0] || allMatches[0] || null,
+              };
+            });
+          }
+        } catch (e) {
+          console.warn('[annotation-layer] Could not load from localStorage:', e);
+        }
+      },
+
+      // ─────────────────────────────────────────────
+      // Badges
+      // ─────────────────────────────────────────────
+
+      renderBadges() {
+        // Remove all existing badges first
+        document.querySelectorAll('.anno-badge').forEach(b => b.remove());
+        this._badges = {};
+
+        this.annotations.forEach((a, idx) => {
+          // Use targetIndex to find the correct element when multiple share the same data-name
+          let el = a._el;
+          if (!el) {
+            const allMatches = document.querySelectorAll(`[data-name="${CSS.escape(a.target)}"]`);
+            el = allMatches[a.targetIndex || 0] || allMatches[0];
+          }
+          if (!el) return;
+
+          // Ensure the target element has position context for the badge
+          const pos = getComputedStyle(el).position;
+          if (pos === 'static') {
+            el.style.position = 'relative';
+          }
+
+          const badge = document.createElement('button');
+          badge.className = 'anno-badge';
+          badge.textContent = idx + 1;
+          badge.setAttribute('aria-label', `Annotation ${idx + 1}: ${a.target}`);
+          badge.setAttribute('type', 'button');
+          badge.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.editAnnotation(a);
+          });
+
+          el.appendChild(badge);
+          this._badges[a.id] = badge;
+        });
+      },
+
+      _removeBadge(id) {
+        if (this._badges[id]) {
+          this._badges[id].remove();
+          delete this._badges[id];
+        }
+        // Re-render to renumber remaining badges
+        this.renderBadges();
+      },
+
+      // ─────────────────────────────────────────────
+      // Export
+      // ─────────────────────────────────────────────
+
+      exportJSON() {
+        const payload = {
+          source: 'browser-preview',
+          previewUrl: location.href,
+          exportedAt: new Date().toISOString(),
+          annotations: this.annotations.map(a => ({
+            id: a.id,
+            target: a.target,
+            targetIndex: a.targetIndex || 0,
+            message: a.message,
+            severity: a.severity,
+            createdAt: a.createdAt,
+          })),
+        };
+        const json = JSON.stringify(payload, null, 2);
+
+        // Clipboard API with execCommand fallback
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(json).then(() => this._showCopyFeedback()).catch(() => this._copyFallback(json));
+        } else {
+          this._copyFallback(json);
+        }
+      },
+
+      async submitAnnotations() {
+        const payload = {
+          source: 'browser-preview',
+          previewUrl: location.href,
+          exportedAt: new Date().toISOString(),
+          annotations: this.annotations.map(a => ({
+            id: a.id,
+            target: a.target,
+            targetIndex: a.targetIndex || 0,
+            message: a.message,
+            severity: a.severity,
+            createdAt: a.createdAt,
+          })),
+        };
+        try {
+          const res = await fetch('/_annotations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload, null, 2),
+          });
+          if (res.ok) {
+            this.submitted = true;
+            // Clear annotations from localStorage so they don't reappear after reload
+            localStorage.removeItem(this._storageKey);
+          } else {
+            // Fallback: copy to clipboard instead
+            console.warn('[annotation-layer] Server POST failed, falling back to clipboard');
+            this.exportJSON();
+          }
+        } catch (e) {
+          // Server doesn't support POST — fall back to clipboard
+          console.warn('[annotation-layer] POST not available, falling back to clipboard');
+          this.exportJSON();
+        }
+      },
+
+      _copyFallback(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+        document.body.appendChild(ta);
+        ta.focus();
+        ta.select();
+        try {
+          document.execCommand('copy');
+          this._showCopyFeedback();
+        } catch (e) {
+          console.warn('[annotation-layer] Copy failed:', e);
+          prompt('Copy the JSON below:', text);
+        }
+        document.body.removeChild(ta);
+      },
+
+      _showCopyFeedback() {
+        this.copyFeedback = true;
+        setTimeout(() => { this.copyFeedback = false; }, 2200);
+      },
+
+      // ─────────────────────────────────────────────
+      // Event handlers
+      // ─────────────────────────────────────────────
+
+      _bindClickCapture() {
+        this._onDocClick = (e) => {
+          if (!this.active) return;
+
+          // Ignore clicks inside annotation UI
+          const root = document.getElementById('anno-root');
+          if (root && root.contains(e.target)) return;
+
+          // Find the closest [data-name] ancestor
+          const el = e.target.closest('[data-name]');
+          if (!el) return;
+
+          e.preventDefault();
+          e.stopPropagation();
+
+          this.popover.editingId = null;
+          this.popover.message = '';
+          this.popover.severity = 'note';
+          this.popover.open = true;
+          this.openPopover(el);
+        };
+        document.addEventListener('click', this._onDocClick, true);
+      },
+
+      _bindHoverHandlers() {
+        const tooltip = document.getElementById('anno-hover-tooltip');
+
+        this._onDocMouseover = (e) => {
+          if (!this.active) return;
+          const root = document.getElementById('anno-root');
+          if (root && root.contains(e.target)) return;
+
+          const el = e.target.closest('[data-name]');
+          if (!el) return;
+
+          if (this._hoveredEl && this._hoveredEl !== el) {
+            this._hoveredEl.classList.remove('anno-highlight');
+          }
+          el.classList.add('anno-highlight');
+          this._hoveredEl = el;
+
+          if (tooltip) {
+            tooltip.textContent = el.dataset.name;
+            tooltip.classList.add('anno-hover-tooltip--visible');
+          }
+        };
+
+        this._onDocMouseout = (e) => {
+          if (!this.active) return;
+          const el = e.target.closest('[data-name]');
+          if (!el) return;
+
+          // Only clear if we're leaving the element entirely (not moving to a child)
+          if (!el.contains(e.relatedTarget)) {
+            el.classList.remove('anno-highlight');
+            if (this._hoveredEl === el) this._hoveredEl = null;
+            if (tooltip) tooltip.classList.remove('anno-hover-tooltip--visible');
+          }
+        };
+
+        this._onMousemove = (e) => {
+          if (!this.active || !tooltip) return;
+          if (!tooltip.classList.contains('anno-hover-tooltip--visible')) return;
+          const offset = 14;
+          const tw = tooltip.offsetWidth;
+          const th = tooltip.offsetHeight;
+          let tx = e.clientX + offset;
+          let ty = e.clientY + offset;
+          if (tx + tw > window.innerWidth - 8) tx = e.clientX - tw - offset;
+          if (ty + th > window.innerHeight - 8) ty = e.clientY - th - offset;
+          tooltip.style.left = tx + 'px';
+          tooltip.style.top = ty + 'px';
+        };
+
+        document.addEventListener('mouseover', this._onDocMouseover, true);
+        document.addEventListener('mouseout', this._onDocMouseout, true);
+        document.addEventListener('mousemove', this._onMousemove, true);
+      },
+
+      _clearHover() {
+        if (this._hoveredEl) {
+          this._hoveredEl.classList.remove('anno-highlight');
+          this._hoveredEl = null;
+        }
+        const tooltip = document.getElementById('anno-hover-tooltip');
+        if (tooltip) {
+          tooltip.classList.remove('anno-hover-tooltip--visible');
+        }
+        document.body.style.cursor = '';
+      },
+    }));
+  });
+
+  // Live reload — polls /_version endpoint for file mtime changes
+  (function() {
+    let lastMtime = null;
+    const filePath = location.pathname;
+    setInterval(async () => {
+      try {
+        const res = await fetch(`/_version?file=${encodeURIComponent(filePath)}`);
+        if (!res.ok) return;
+        const data = await res.json();
+        if (lastMtime !== null && data.mtime !== lastMtime) {
+          sessionStorage.setItem('anno-reload-toast', '1');
+          location.reload();
+        }
+        lastMtime = data.mtime;
+      } catch(e) {}
+    }, 1500);
+
+    // Show toast if we just reloaded from a file change
+    if (sessionStorage.getItem('anno-reload-toast')) {
+      sessionStorage.removeItem('anno-reload-toast');
+      const toast = document.createElement('div');
+      toast.textContent = 'Changes applied';
+      toast.style.cssText = `
+        position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+        z-index: 99999; background: #166534; color: #fff;
+        font-family: Inter, system-ui, sans-serif; font-size: 13px; font-weight: 500;
+        padding: 8px 20px; border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        opacity: 0; transition: opacity 0.3s;
+      `;
+      document.body.appendChild(toast);
+      requestAnimationFrame(() => { toast.style.opacity = '1'; });
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    }
+  })();
+</script>

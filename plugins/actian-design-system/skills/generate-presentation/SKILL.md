@@ -94,6 +94,7 @@ Follow the review report format defined in `../../docs/presentation-guide.md`:
    > Review the breakdown above and the slides, then reply:
    > - **"push"** — send all slides to Figma
    > - **"push 1,3,5-8"** — send only those slides to Figma
+   > - **"apply annotations"** — paste annotation JSON from the browser, I'll fix and re-preview
    > - **feedback** — I'll fix the HTML and re-preview"
 
 **Wait for the user's response.** Do not proceed. If changes are requested, apply them to the HTML, re-serve, and present an updated report. Repeat until approved.
