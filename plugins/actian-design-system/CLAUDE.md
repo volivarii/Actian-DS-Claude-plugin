@@ -113,6 +113,10 @@ When serving HTML for local preview, always use the `ensure-server.sh` utility. 
 BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
 ```
 
+The script uses `preview-server.py` — a custom Python handler that serves static files AND provides two endpoints:
+- `POST /_annotations` — receives annotation JSON from the browser, writes to `.annotations.json`
+- `GET /_version?file=<path>` — returns file mtime for live-reload polling
+
 The script handles all edge cases:
 - If nothing is on the port → starts a new server
 - If the right server is already running → reuses it (no restart)
@@ -536,7 +540,7 @@ See `references/library-gap-detection.md` for the full procedure.
 
 Designers can annotate issues directly in the browser preview instead of describing them in text. See `references/annotation-reference.md` for the full reference.
 
-**How it works:** Click "Annotate" in the preview → click any element → type feedback → "Copy JSON" → paste in CLI with "apply annotations". Claude applies fixes to the HTML and re-serves.
+**How it works:** Click "Annotate" in the preview → click any element → type feedback → click "Apply". The browser POSTs to `/_annotations` which writes `.annotations.json` to the project directory. Designer says "apply" in the CLI → Claude reads the file, fixes the HTML, and the page auto-refreshes with a "Changes applied" toast.
 
 **Gate keyword:** `"apply annotations"` — available at all preview gates (generate-flow Step 4.5, component-brief Step 2.5, generate-presentation Step 5).
 

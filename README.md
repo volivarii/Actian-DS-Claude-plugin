@@ -2,7 +2,7 @@
 
 Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings. Test everything interactively before pushing to Figma, and fix anything after.
 
-**v1.15.0** | 9 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.15.2** | 9 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 
@@ -69,7 +69,7 @@ Audit any screen against DS2026 rules, compare two versions of a flow, or fix is
 | `/design-audit` | Audit a Figma screen against DS2026 tokens, WCAG AA, content guidelines, and forms layout. | Catch token mismatches, contrast failures, and guideline violations before handoff. Confidence-scored findings with evidence. |
 | `/compare-flows` | Side-by-side comparison of two Figma flows with severity-rated issues. | Evaluate a redesign against the original, or choose between competing approaches with structured criteria. |
 | `/fix-finding` | Fix a single audit finding in Figma — swap instances, bind tokens, align variants. | One-click resolution for audit findings without manual token lookup. |
-| `/refine` | Fix Figma output after pushing — describe issues, read Figma comments, or re-run quality checks. | Iterate on pushed output without regenerating. Say what's wrong and it gets fixed with verification. |
+| `/refine` | Fix Figma output after pushing — describe issues, scan Figma annotations, or re-run quality checks. | Iterate on pushed output without regenerating. Say what's wrong and it gets fixed with before/after verification. |
 
 ### Sync — keep everything current
 
@@ -90,11 +90,11 @@ Every skill that outputs to Figma follows the same loop. The goal is to catch pr
    Skill reads tokens, guidelines, and Figma context,
    then generates an HTML preview.
 
-2. Preview in browser
-   Static preview served on localhost. Iterate with
-   feedback until it looks right. Optionally generate
-   an interactive prototype or state playground to
-   test the experience hands-on.
+2. Preview + annotate
+   Static preview served on localhost. Click "Annotate"
+   to mark issues directly on elements. Optionally
+   generate an interactive prototype or state playground.
+   Say "apply" to fix annotations, or give text feedback.
 
 3. Push to Figma
    Approved content goes to Figma via MCP.
@@ -103,7 +103,7 @@ Every skill that outputs to Figma follows the same loop. The goal is to catch pr
 
 4. Refine
    Review in Figma. Run /refine to fix specific issues,
-   or leave Figma comments for /refine to read.
+   or place Feedback components for /refine to scan.
    Every fix is verified with before/after screenshots.
 ```
 
@@ -117,9 +117,12 @@ All output skills pause before pushing to Figma. This is where most iteration ha
 | `"push 2,4,5"` | Send only selected cards/screens |
 | `"prototype"` | Generate an interactive flow prototype — click through screens, fill forms, test branching paths |
 | `"playground"` | Generate a component state explorer — toggle states, switch themes, see which tokens are active |
+| `"apply annotations"` | Read annotations from the browser preview, fix the HTML, and re-serve |
 | `feedback` | Fix the HTML and re-preview |
 
-Prototypes and playgrounds are served alongside the static preview — open the URL and start testing. No build step, no dependencies.
+### Browser annotations
+
+Every preview includes an annotation layer. Click "Annotate" (bottom-right) to enter annotation mode — hover highlights elements, click opens a feedback popover with severity options (Fix / Change / Note). Click "Apply" in the browser, then say "apply" in the CLI. Claude reads the annotations, fixes the HTML, and the page auto-refreshes with a "Changes applied" toast. No copy-paste needed.
 
 ### Post-push parity check
 
@@ -131,7 +134,7 @@ The last step in the loop. After reviewing in Figma, run `/refine` to apply corr
 
 ```
 /refine screen 3 header is too tall
-/refine comments          # reads Figma annotations
+/refine comments          # scans Figma Feedback annotations
 /refine check             # re-runs the parity check
 ```
 
@@ -181,7 +184,7 @@ Skills read at runtime
 |-------|------|-----------|---------|
 | **Fat Marker (lo-fi)** | Inter | 34 FM Kit components | `/generate-flow` |
 | **DS2026 (hi-fi)** | Roboto | 97 component sets + 3 standalone | `/component-brief`, `/design-audit` |
-| **Meta Kit** | Inter | 6 skill-output components | All output skills |
+| **Meta Kit** | Inter | 7 skill-output components | All output skills |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS attribute or Figma variable modes.
 
