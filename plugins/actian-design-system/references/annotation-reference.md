@@ -66,7 +66,7 @@ Alpine is already present in the document — include the annotation layer direc
 | `id` | Unique identifier for the annotation (e.g. `ann_01`). |
 | `target` | Matches the `data-name` attribute on the annotated element. |
 | `message` | The designer's feedback text. |
-| `severity` | One of `fix`, `change`, or `note`. |
+| `severity` | One of `change` or `note`. |
 | `createdAt` | ISO 8601 timestamp when the annotation was saved. |
 
 The `target` value is matched against `data-name` attributes in the HTML. If no element has a matching `data-name`, the annotation is reported as unresolvable and carried forward as a note.
@@ -79,10 +79,9 @@ When a designer says **"apply annotations"** and pastes a JSON payload:
 
 1. **Parse** the JSON payload and validate it against the schema above.
 2. **For each annotation**, locate the element whose `data-name` matches `annotation.target`.
-3. **Apply based on severity:**
-   - `fix` — Correct the element directly. Fix the specific issue described in `message` (e.g. wrong token, broken layout, incorrect label).
-   - `change` — Modify the approach. Rethink how the element is implemented or styled based on the guidance in `message`.
-   - `note` — Carry the message forward as a comment or context note. Do not change the element; preserve the note for the next gate review.
+3. **Apply based on type:**
+   - `change` — Modify the element as described in `message`. This is the default — the designer wants something different.
+   - `note` — Do NOT change the HTML. Carry the note forward to the Figma push step. Write it into the `.last-push.json` manifest under a `notes` array so it's available during `use_figma` generation and parity check.
 4. **Re-save the HTML** file with all applied changes.
 5. **Re-serve the preview** at the same local URL.
 6. **Report what was applied** — list each annotation, the target element, the action taken, and flag any `note`-severity items as carried forward. Flag any unresolvable targets (no matching `data-name`).

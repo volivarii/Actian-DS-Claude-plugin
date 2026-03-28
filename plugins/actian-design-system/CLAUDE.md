@@ -544,7 +544,7 @@ Designers can annotate issues directly in the browser preview instead of describ
 
 **Gate keyword:** `"apply annotations"` — available at all preview gates (generate-flow Step 4.5, component-brief Step 2.5, generate-presentation Step 5).
 
-**Severity levels:** `fix` (something's wrong), `change` (different approach), `note` (informational — carried to Figma output as context).
+**Annotation types:** `change` (modify the HTML — the designer wants something different) or `note` (don't change the HTML — carry forward to Figma push step via `.last-push.json` notes array).
 
 **Prerequisite:** Preview HTML must have `data-name` attributes on annotatable elements. All skills should already add these for Figma frame naming.
 

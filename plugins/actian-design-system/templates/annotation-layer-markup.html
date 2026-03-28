@@ -37,14 +37,8 @@
         ></textarea>
       </div>
       <div>
-        <div class="anno-popover__label">Severity</div>
+        <div class="anno-popover__label">Type</div>
         <div class="anno-severity">
-          <button
-            class="anno-severity__btn anno-severity__btn--fix"
-            :class="{ 'anno-severity__btn--active': popover.severity === 'fix' }"
-            @click="popover.severity = 'fix'"
-            type="button"
-          >Fix</button>
           <button
             class="anno-severity__btn anno-severity__btn--change"
             :class="{ 'anno-severity__btn--active': popover.severity === 'change' }"

@@ -226,12 +226,7 @@
     border-color: #d1d5db;
     color: #374151;
   }
-  /* Active states: fix=red, change=blue, note=green */
-  .anno-severity__btn--fix.anno-severity__btn--active {
-    background: #fef2f2;
-    border-color: #ef4444;
-    color: #dc2626;
-  }
+  /* Active states: change=blue, note=green */
   .anno-severity__btn--change.anno-severity__btn--active {
     background: #eff6ff;
     border-color: #2563eb;
@@ -429,7 +424,6 @@
     font-size: 11px;
     font-weight: 600;
   }
-  .anno-panel__item-sev--fix    { background: #fef2f2; color: #dc2626; }
   .anno-panel__item-sev--change { background: #eff6ff; color: #1d4ed8; }
   .anno-panel__item-sev--note   { background: #f0fdf4; color: #16a34a; }
   .anno-panel__copy-feedback {
@@ -482,14 +476,8 @@
         ></textarea>
       </div>
       <div>
-        <div class="anno-popover__label">Severity</div>
+        <div class="anno-popover__label">Type</div>
         <div class="anno-severity">
-          <button
-            class="anno-severity__btn anno-severity__btn--fix"
-            :class="{ 'anno-severity__btn--active': popover.severity === 'fix' }"
-            @click="popover.severity = 'fix'"
-            type="button"
-          >Fix</button>
           <button
             class="anno-severity__btn anno-severity__btn--change"
             :class="{ 'anno-severity__btn--active': popover.severity === 'change' }"
@@ -658,7 +646,7 @@
         y: 0,
         target: '',
         message: '',
-        severity: 'note',
+        severity: 'change',
         editingId: null,
         /** The actual DOM element being annotated */
         _el: null,
@@ -743,7 +731,7 @@
         this.popover.open = false;
         this.popover.editingId = null;
         this.popover.message = '';
-        this.popover.severity = 'note';
+        this.popover.severity = 'change';
         this.popover._el = null;
       },
 
@@ -1018,7 +1006,7 @@
 
           this.popover.editingId = null;
           this.popover.message = '';
-          this.popover.severity = 'note';
+          this.popover.severity = 'change';
           this.popover.open = true;
           this.openPopover(el);
         };

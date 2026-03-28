@@ -22,7 +22,7 @@
         y: 0,
         target: '',
         message: '',
-        severity: 'note',
+        severity: 'change',
         editingId: null,
         /** The actual DOM element being annotated */
         _el: null,
