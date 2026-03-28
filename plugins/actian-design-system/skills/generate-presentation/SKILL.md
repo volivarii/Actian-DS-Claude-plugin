@@ -72,6 +72,7 @@ Generate a single HTML file containing all slides as a horizontal row of 1920x10
 - All content uses DS2026 tokens (`--zen-*` prefix), Roboto font
 - Charts use `--zen-color-category-N-strong` — never hardcode
 - Include generation log card as first element
+- Include the annotation layer before `</body>`: add Alpine.js CDN (`alpinejs@3.14.9`) + full contents of `../../templates/annotation-layer.html`
 
 ## Step 4 — Save, serve, and preview
 

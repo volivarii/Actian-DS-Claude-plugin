@@ -92,23 +92,45 @@ When a designer says **"apply annotations"** and pastes a JSON payload:
 
 ## data-name requirements
 
-Every meaningful element in a generated HTML preview must have a `data-name` attribute so designers can annotate it precisely. Required elements include:
+The annotation layer targets `[data-name]` elements. Add `data-name` to **every meaningful element at every level**, not just top-level containers. Designers need to annotate specific components — a button, a table header, a nav item — not just entire screens.
 
-- **Screens** — top-level containers representing a full screen or page (e.g. `data-name="Dashboard Screen"`).
-- **Cards** — any card or panel component (e.g. `data-name="Summary Card"`).
-- **Sections** — logical groupings within a screen (e.g. `data-name="Filters Section"`).
-- **Tables** — data tables and their header rows (e.g. `data-name="Results Table"`).
-- **Key UI elements** — primary actions, hero content, navigation items, form fields, and any element a designer would want to call out by name.
+**Required depth — annotate every layer:**
 
-Skills already add `data-name` attributes derived from Figma frame names during output generation. When writing custom HTML or extending a template, apply `data-name` to any element that has a distinct identity in the design.
+| Level | Examples | data-name format |
+|-------|---------|-----------------|
+| **Screen** | Full page/screen container | `"Screen 1: Dashboard"` |
+| **Chrome** | App header, sidebar, footer | `"App header"`, `"Side navigation"` |
+| **Navigation items** | Individual nav links | `"Nav: Dashboard"`, `"Nav: Catalog"` |
+| **Page structure** | Page header, content sections | `"Page header"`, `"Summary metrics"` |
+| **Components** | Search inputs, filter bars, metric cards | `"Search input"`, `"Metric: Pending"` |
+| **Tables** | Table, header row, individual columns | `"Request table"`, `"Table header"` |
+| **Actions** | Buttons, links, action groups | `"Button: Approve"`, `"Action buttons"` |
+| **Forms** | Form groups, individual fields | `"Email input"`, `"Priority dropdown"` |
+| **Feedback** | Alerts, toasts, empty states, dialogs | `"Error alert"`, `"Success toast"`, `"Approve dialog"` |
+
+**Naming convention:** Descriptive names matching what the designer sees. Prefix with element type when there are many of the same kind (`"Nav: Dashboard"`, `"Metric: Pending"`, `"Button: Submit"`).
 
 **Example:**
 
 ```html
-<section data-name="Filters Section" class="...">
-  <div data-name="Date Range Card" class="...">...</div>
-  <table data-name="Results Table" class="...">...</table>
-</section>
+<div class="screen" data-name="Screen 1: Dashboard">
+  <div class="fm-app-header" data-name="App header">...</div>
+  <div class="fm-sidebar" data-name="Side navigation">
+    <div class="fm-sidebar__item" data-name="Nav: Dashboard">Dashboard</div>
+    <div class="fm-sidebar__item" data-name="Nav: Catalog">Catalog</div>
+  </div>
+  <div class="content-area" data-name="Content area">
+    <div class="fm-page-header" data-name="Page header">...</div>
+    <div class="fm-search" data-name="Search input">...</div>
+    <table data-name="Request table">
+      <thead data-name="Table header">...</thead>
+    </table>
+    <div class="action-footer" data-name="Action buttons">
+      <button data-name="Button: Cancel">Cancel</button>
+      <button data-name="Button: Approve">Approve</button>
+    </div>
+  </div>
+</div>
 ```
 
-Elements without `data-name` are invisible to the annotation layer. When in doubt, add it.
+**Rule of thumb:** If a designer might want to comment on it, it needs a `data-name`. Elements without `data-name` are invisible to the annotation layer.

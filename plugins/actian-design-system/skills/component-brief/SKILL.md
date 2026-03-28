@@ -157,6 +157,7 @@ When generating a subset, only include the selected cards in the HTML `brief-row
 - **DO NOT** change CSS class names, spacing values, font sizes, or colors from the template
 - **DO** add component-specific CSS classes inside Card 2 for rendering the actual component
 - **DO** add `data-name` attributes to every section div
+- **DO** include the annotation layer before `</body>`: add Alpine.js CDN (`alpinejs@3.14.9`) + full contents of `../../templates/annotation-layer.html`
 - Each card auto-sizes to fit content — NEVER use fixed heights that clip or overflow
 - For existing components, check `components/*/` for previously generated specs as additional reference
 

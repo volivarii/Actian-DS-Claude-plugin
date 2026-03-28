@@ -280,6 +280,54 @@ Add these styles when research is included:
 
 When both types coexist on one screen, use **separate containers**: 480px wrapper for simple inputs, full-width wrapper for extended elements. Do not wrap the entire form in one width constraint.
 
+## Annotation layer (required)
+
+Every generated HTML file MUST include the annotation layer before `</body>`. This enables click-to-annotate feedback in the browser preview.
+
+1. Add Alpine.js CDN if not already loaded:
+   ```html
+   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+   ```
+2. Read `../../templates/annotation-layer.html` and include its full contents before `</body>`
+
+Do NOT skip this step. Do NOT add it after the fact. The annotation layer is part of every preview.
+
+## `data-name` attributes (required for annotations)
+
+The annotation layer targets elements with `data-name` attributes. Add `data-name` to **every meaningful element**, not just top-level screens. Designers need to annotate specific components, not entire screens.
+
+**Required depth:**
+
+```html
+<div class="screen" data-name="Screen 1: Dashboard">
+  <div class="fm-app-header" data-name="App header">...</div>
+  <div class="fm-sidebar" data-name="Side navigation">
+    <div class="fm-sidebar__item" data-name="Nav: Dashboard">Dashboard</div>
+    <div class="fm-sidebar__item" data-name="Nav: Catalog">Catalog</div>
+  </div>
+  <div class="content-area" data-name="Content area">
+    <div class="fm-page-header" data-name="Page header">...</div>
+    <div class="fm-search" data-name="Search input">...</div>
+    <div class="metrics-row" data-name="Summary metrics">
+      <div class="metric-card" data-name="Metric: Pending">...</div>
+      <div class="metric-card" data-name="Metric: Approved">...</div>
+    </div>
+    <table data-name="Request table">
+      <thead data-name="Table header">...</thead>
+      <tbody data-name="Table body">...</tbody>
+    </table>
+    <div class="action-footer" data-name="Action buttons">
+      <button data-name="Button: Cancel">Cancel</button>
+      <button data-name="Button: Submit">Submit</button>
+    </div>
+  </div>
+</div>
+```
+
+**Naming convention:** Use descriptive names that match what the designer sees. Prefix with the element type when there are many of the same kind (e.g., "Nav: Dashboard", "Metric: Pending", "Button: Submit").
+
+**Rule of thumb:** If a designer might want to comment on it, it needs a `data-name`.
+
 ## Styling rules
 
 - Read `../../references/fm-css-reference.md` — copy exact styles, do not approximate

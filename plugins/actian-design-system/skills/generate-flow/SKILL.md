@@ -119,9 +119,9 @@ If the user's prompt already indicates their research preference (e.g., "no rese
 
 **Wait for the user's response** (unless already answered in the prompt). Then:
 
-- **Yes** → run competitor research (see below)
-- **References provided** → analyze the provided material (see "Accepted reference formats" above), skip competitor research
-- **No** → skip to Step 3, note that no research was done
+- **Yes** → run competitor research (see below), then present screen list
+- **References provided** → analyze the provided material (see "Accepted reference formats" above), skip competitor research, then present screen list
+- **No** → **immediately present the screen list in the same response** — do not send a separate "ok, skipping research" message. Combine into one turn to save a round-trip.
 
 ### Competitor research (when opted in)
 
