@@ -8,42 +8,42 @@
       "key": "0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e",
       "nodeId": "73:12",
       "textSlots": ["label"],
-      "visibility": "hidden",
+      "visibility": "template-only",
       "category": "table"
     },
     "table-data-row": {
       "key": "3a1fae22dd85936f81565122888efd8a50e37180",
       "nodeId": "74:12",
       "textSlots": ["label", "value"],
-      "visibility": "hidden",
+      "visibility": "template-only",
       "category": "table"
     },
     "state-column": {
       "key": "4f782d1a8541b4474858767209f99dce1428784b",
       "nodeId": "75:12",
       "textSlots": ["title"],
-      "visibility": "hidden",
+      "visibility": "template-only",
       "category": "grid"
     },
     "section-header": {
       "key": "f4fd576001f4f1f4606a4efb051d1e4492e378c4",
       "nodeId": "76:12",
       "textSlots": ["title", "subtitle"],
-      "visibility": "hidden",
+      "visibility": "template-only",
       "category": "layout"
     },
     "swatch-row": {
       "key": "96647364b6cb5c55b7ced72106708daaa33afb7f",
       "nodeId": "77:12",
       "textSlots": ["name", "value", "hex"],
-      "visibility": "hidden",
+      "visibility": "template-only",
       "category": "tokens"
     },
     "a11y-spec-row": {
       "key": "PENDING",
       "nodeId": "PENDING",
       "textSlots": ["element", "role", "label", "focus-order", "keyboard", "announcement"],
-      "visibility": "hidden",
+      "visibility": "template-only",
       "category": "a11y"
     }
   },

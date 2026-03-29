@@ -448,7 +448,7 @@ Annotation component for designer feedback and library gap markers. Two variants
 
 ## Templates (hidden)
 
-These components are invisible in the asset panel. Skills clone and fill them via the template engine (`cloneTemplate` + `fillSlots` from `builders.md`). See `meta-kit-registry.json` for the full registry.
+These components live on the dedicated "Templates" page in Meta Kit. They are visible (required for publishing/importing) but prefixed with `Meta / Template /` and described as "Do not use directly." Skills clone and fill them via the template engine (`cloneTemplate` + `fillSlots` from `builders.md`). See `meta-kit-registry.json` for the full registry.
 
 ### Meta / Template / Table Header Row
 - Node: `73:12` | Key: `0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e`
