@@ -429,8 +429,34 @@ ${card7_content.terminology.length > 0 ?
 
 **Static structure:**
 - Brief Card Standard shell
-- 6 a11y requirement cards in 2x3 grid (using Accessibility Card component or equivalent)
-- Each card: icon color square + title + body + code block
+- 6 a11y requirement cards in 2x3 grid
+- Each card: icon color square + title + body + syntax-colored code block
+
+**CRITICAL:** Each requirement card has an inline code block that MUST have syntax coloring. The skill pre-computes `setRangeFills` calls for each card's code block, same as Call 11.
+
+**Pre-computation (the skill does this before calling use_figma):**
+
+For each requirement in `card8_accessibility.requirements`, compute the code block's plain text and syntax ranges:
+
+```js
+for (const req of card8_accessibility.requirements) {
+  req._plainCode = req.code.tokens.map(t => t.type === 'newline' ? '\n' : t.text).join('');
+  req._syntaxRanges = [];
+  let offset = 0;
+  for (const token of req.code.tokens) {
+    if (token.type === 'newline') { offset += 1; continue; }
+    req._syntaxRanges.push({
+      start: offset,
+      end: offset + token.text.length,
+      hex: TOKEN_COLORS[token.type] || '#BABED8'
+    });
+    offset += token.text.length;
+  }
+  req._coloringCode = req._syntaxRanges.map(r =>
+    `codeText.setRangeFills(${r.start}, ${r.end}, [{type:'SOLID',color:hexToRgb('${r.hex}')}]);`
+  ).join('\n');
+}
+```
 
 **Checklist template:**
 
@@ -441,6 +467,7 @@ CARD SHELL:
 □ Import Brief Card Standard, setProp Title="Accessibility", Subtitle="WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios"
 □ Detach → card frame, find "Content" child
 □ Append card to wrapper (ID: ${wrapperNodeId})
+□ Load fonts: Inter Regular, Inter Semi Bold, Fira Code Regular (or Source Code Pro / Roboto Mono fallback)
 
 REQUIREMENTS (2x3 grid):
 □ Add section title "Requirements"
@@ -448,19 +475,20 @@ REQUIREMENTS (2x3 grid):
 
 ${card8_accessibility.requirements.map((req, i) =>
   `REQUIREMENT ${i+1}: "${req.title}"
-□ Create card frame (280px width, #F9FAFB bg, 16px radius, 24px padding)
+□ Create card frame (280px width, #F9FAFB bg, 16px radius, 24px padding, auto-layout VERTICAL, 12px gap)
 □ Icon: 36x36 rectangle, cornerRadius=8, fill=${req.icon === 'red' ? '#FEE2E2' : req.icon === 'blue' ? '#DBEAFE' : req.icon === 'green' ? '#DCFCE7' : req.icon === 'orange' ? '#FEF3C7' : '#F3F4F6'}
 □ Title: "${req.title}" (Inter Semi Bold 14px, #101828)
 □ Body: "${req.body}" (Inter Regular 13px, #475467)
-□ Code block: dark bg #1E1E2E, 12px padding, 8px radius, monospace 12px
-□ Code tokens (apply syntax colors via setRangeFills):
-${req.code.tokens.filter(t => t.type !== 'newline').map(t =>
-    `  □ "${t.text}" → ${t.type} color`
-  ).join('\n')}`
+□ Code block frame: #1E1E2E bg, 12px padding, 8px radius
+□ Code text: monospace 12px, set characters to: "${req._plainCode}"
+□ SYNTAX COLORING — MANDATORY (P0 if skipped):
+${req._coloringCode}`
 ).join('\n\n')}
 
 SIZING:
 □ card.layoutSizingVertical = 'HUG'
+□ All requirement cards: layoutSizingVertical = 'HUG'
+□ Grid frame: layoutSizingHorizontal = 'FILL'
 ```
 
 ---
@@ -511,9 +539,48 @@ SIZING:
 - Brief Card Standard shell
 - Code Block component with syntax coloring via setRangeFills
 
+**CRITICAL:** The code text MUST have syntax coloring applied. A mono-color code block is a P0 bug. The AI must detach the Code Block instance, find the "Code" text node, then apply `setRangeFills` per token range.
+
 **Checklist template:**
 
-The skill pre-computes character offsets by walking `card9_code.tokens`:
+The skill pre-computes character offsets and the syntax coloring code before assembling the checklist.
+
+**Pre-computation (the skill does this before calling use_figma):**
+
+```js
+// 1. Build plain text from tokens
+const plainText = card9_code.tokens
+  .map(t => t.type === 'newline' ? '\n' : t.text)
+  .join('');
+
+// 2. Build syntax ranges with offsets
+const TOKEN_COLORS = {
+  selector: '#FF79C6', property: '#82AAFF', value: '#C3E88D',
+  comment: '#676E95', keyword: '#C792EA', string: '#C3E88D',
+  punctuation: '#BABED8', tag: '#FF5370', attribute: '#FFCB6B',
+  function: '#82AAFF', text: '#BABED8'
+};
+
+const syntaxRanges = [];
+let offset = 0;
+for (const token of card9_code.tokens) {
+  if (token.type === 'newline') { offset += 1; continue; }
+  syntaxRanges.push({
+    start: offset,
+    end: offset + token.text.length,
+    hex: TOKEN_COLORS[token.type] || '#BABED8',
+    preview: token.text.slice(0, 25)
+  });
+  offset += token.text.length;
+}
+
+// 3. Build the setRangeFills code string
+const coloringCode = syntaxRanges.map(r =>
+  `codeText.setRangeFills(${r.start}, ${r.end}, [{type:'SOLID',color:hexToRgb('${r.hex}')}]);`
+).join('\n');
+```
+
+**Assembled checklist:**
 
 ```
 MICRO-TASKS — complete ALL (skipping any is a P0 bug):
@@ -523,30 +590,39 @@ CARD SHELL:
 □ Detach → card frame, find "Content" child
 □ Append card to wrapper (ID: ${wrapperNodeId})
 
-CODE BLOCK:
+CODE BLOCK SETUP:
 □ Import Code Block (key: 1bf10eee1751a46da5f90a9671be6c9abf0073b7)
 □ setProp Show Header = true
 □ setProp Header Text = "${card9_code.language.toUpperCase()}"
-□ setProp Code = "${plainText}" (all tokens concatenated, newlines as \n — ${plainText.length} chars total)
-□ Detach instance to access text node for syntax coloring
+□ setProp Code = [the full plain text — ${plainText.length} chars]
+□ DETACH the Code Block instance: const codeFrame = codeInst.detachInstance()
+□ FIND the Code text node: const codeText = codeFrame.findOne(n => n.type === 'TEXT' && n.name === 'Code')
 
-SYNTAX COLORING (mandatory — setRangeFills on the "Code" text node):
-${syntaxRanges.map(r =>
-  `□ Chars ${r.start}-${r.end}: ${r.type} "${r.hex}" — "${r.text.slice(0, 30)}${r.text.length > 30 ? '...' : ''}"`
-).join('\n')}
+SYNTAX COLORING — MANDATORY (P0 bug if skipped):
+□ Load monospace font: await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' })
+  (If Fira Code not available, try: 'Source Code Pro', 'Roboto Mono', 'Courier New')
+□ Apply ALL of the following setRangeFills calls on codeText:
+
+${coloringCode}
+
+□ VERIFY: codeText should now have MULTI-COLOR fills (not mono-color)
 
 SIZING:
-□ card.layoutSizingVertical = 'HUG'
+□ content.appendChild(codeFrame)
 □ codeFrame.layoutSizingHorizontal = 'FILL'
+□ card.layoutSizingVertical = 'HUG'
 ```
 
-The skill computes `syntaxRanges` by walking `card9_code.tokens`:
-```
-offset = 0
-for each token:
-  if token.type === 'newline': offset += 1, continue
-  syntaxRanges.push({ start: offset, end: offset + token.text.length, type: token.type, hex: colorMap[token.type], text: token.text })
-  offset += token.text.length
+**Why this works:** The skill pre-computes the exact `setRangeFills` calls with character offsets and hex colors, then pastes them as literal code lines in the checklist. The AI copies them verbatim into the `use_figma` code — no interpretation needed.
+
+**hexToRgb helper (include in the use_figma code):**
+```js
+function hexToRgb(hex) {
+  const r = parseInt(hex.slice(1, 3), 16) / 255;
+  const g = parseInt(hex.slice(3, 5), 16) / 255;
+  const b = parseInt(hex.slice(5, 7), 16) / 255;
+  return { r, g, b };
+}
 ```
 
 ---
