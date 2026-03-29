@@ -280,16 +280,32 @@ This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figm
 
 ## Step 3 — Render Figma from data model (MECHANICAL)
 
-**Do NOT write freehand use_figma code.** Read `brief-data.json` and follow the card recipes in `../../references/component-brief/figma-renderer.md`.
+**Do NOT write freehand use_figma code.** Assemble micro-task checklists from the data model and call templates, then pass them to `use_figma`.
+
+### Checklist assembly process (10 calls)
 
 1. Read `[name]-brief-data.json` (same file used by HTML renderer)
-2. Read `../../references/component-brief/figma-renderer.md` for card recipes
-3. Read `../../docs/meta-kit/meta-kit-registry.json` for template keys
-4. Execute recipes card by card — each recipe is a fixed script that iterates data arrays
-5. ALL Meta Kit components are mandatory (Brief Card shell, Pointer Badge, Dimension Annotation, Color Swatch, Do-Don't Pair, Code Block, Contrast Badge, Accessibility Card)
-6. Parity validation: check counts from data model match Figma frame counts
+2. Read `../../references/component-brief/figma-renderer.md` for the 10 call templates
+3. For each call (1-10):
+   a. Read the **static call template** (defines sections and Meta Kit components)
+   b. **Merge with dynamic data** from the data model — expand `${data}` placeholders into explicit `□` lines with actual values, row counts, hex colors, component keys
+   c. Assemble the merged checklist as a `/* */` comment block
+   d. Set `use_figma` `description` to: `"Complete ALL micro-tasks in the checklist comment. Every □ item is mandatory. Do NOT skip any."`
+   e. Set `use_figma` `code` parameter to: the checklist comment + the AI writes implementation code below it using current Figma MCP skills
+4. After all 10 calls: run parity validation (counts from data model vs Figma frame counts)
 
-See `../../references/component-brief/figma-renderer.md` for complete code and `../../skills/component-brief/component-brief-figma.md` for additional Figma-specific rules (page targeting, token binding, known pitfalls).
+### What the AI does NOT do:
+- Decide which cards to build (the call map decides)
+- Decide how many table rows (the data model decides)
+- Decide whether to include swatches (the checklist says "Color Swatch #hex" — mandatory)
+- Decide whether to use Meta Kit components (the checklist names them with keys)
+
+### What the AI DOES do:
+- Translate each `□` line to current Plugin API code
+- Use loaded Figma MCP skills (`figma-use`, `figma-generate-library`) for correct API patterns
+- Handle auto-layout, font loading, sizing — the HOW, not the WHAT
+
+See `../../references/component-brief/figma-renderer.md` for all 10 call templates and `../../skills/component-brief/component-brief-figma.md` for additional Figma-specific rules (page targeting, token binding, known pitfalls).
 
 If the user provided a Figma URL, extract `fileKey` and `nodeId`. Only ask for target if not provided.
 
