@@ -104,15 +104,16 @@ For Draft tier: skip this step (speed over accuracy).
 
 ## Step 5 — Build in Figma (`use_figma`)
 
-Follow `../../references/figma-output.md` for shared patterns and token binding.
+Follow `../../references/figma-output.md` for shared patterns and token binding. Load `figma-generate-library` skill for component creation workflows.
 
 **Required structure:**
 1. Create a component set (variants) or single component
 2. Auto-layout on every frame — no absolute positioning
 3. Set component properties (text, boolean, variant)
 4. Bind tokens — discover keys via `search_design_system` first
-5. Generation metadata — import key `a9653f30925367e96dea90093d750bfe70849571`
-6. Descriptive layer names — no "Frame 1"
+5. **Set variable scopes** — NEVER leave as `ALL_SCOPES`. Use: `FRAME_FILL`/`SHAPE_FILL` for backgrounds, `TEXT_FILL` for text, `STROKE_COLOR` for borders, `GAP` for spacing, `CORNER_RADIUS` for radii
+6. Generation metadata — import key `a9653f30925367e96dea90093d750bfe70849571`
+7. Descriptive layer names — no "Frame 1"
 
 **Properties checklist — every component must expose:**
 - **Text properties** for user-facing text (titles, labels, button text)

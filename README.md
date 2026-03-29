@@ -122,7 +122,7 @@ All output skills pause before pushing to Figma. This is where most iteration ha
 
 ### Browser annotations
 
-Every preview includes an annotation layer. Click "Annotate" (bottom-right) to enter annotation mode — hover highlights elements, click opens a feedback popover with severity options (Fix / Change / Note). Click "Apply" in the browser, then say "apply" in the CLI. Claude reads the annotations, fixes the HTML, and the page auto-refreshes with a "Changes applied" toast. No copy-paste needed.
+Every preview includes an annotation layer. Click "Annotate" (bottom-right) to enter annotation mode — hover highlights elements, click opens a feedback popover. Mark annotations as **Change** (modify the HTML) or **Note** (carry forward to Figma without changing the preview). Click "Apply" in the browser, then say "apply" in the CLI. Claude applies changes and the page auto-refreshes with a "Changes applied" toast. Notes are preserved in the push manifest for the Figma output step.
 
 ### Post-push parity check
 
