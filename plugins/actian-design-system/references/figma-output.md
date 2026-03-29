@@ -248,6 +248,23 @@ Separate data extraction from rendering for cleaner, more debuggable `use_figma`
 
 Skills that audit or document existing components (component-brief, design-audit) benefit most from two-tier extraction. Skills that build from scratch (generate-flow) can skip Tier 1.
 
+## Data Model Pattern (recommended for all output skills)
+
+For skills that generate both HTML and Figma output (component-brief, generate-flow, generate-presentation), use a structured JSON data model as the single source of truth:
+
+```
+Research (AI) → data-model.json → HTML renderer (mechanical)
+                                → Figma renderer (mechanical)
+```
+
+**Benefits:**
+- HTML and Figma output are guaranteed identical (same data, same arrays, same row counts)
+- Feedback edits the data model → both outputs re-render consistently
+- `/refine` reads the data model to understand what was generated
+- Incremental re-rendering: change one card's data → re-render only that card
+
+**Implementation:** See `component-brief/data-schema.md`, `component-brief/html-renderer.md`, and `component-brief/figma-renderer.md` in the `references/` directory. Other skills follow the same pattern with skill-specific schemas.
+
 ## Node tracking with `getSharedPluginData`
 
 After creating or pushing nodes, tag them so `/refine` and parity checks can find them later:

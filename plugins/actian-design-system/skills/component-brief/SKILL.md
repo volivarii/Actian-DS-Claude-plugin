@@ -71,8 +71,8 @@ Issue ALL of these reads in a **single message** with parallel tool calls. Do no
 3. `../../docs/content-guidelines.md` (for Cards 6-7)
 4. `../../docs/accessibility-guidelines.md` (for Card 8)
 5. `../../docs/component-guidelines/<slug>.json` — per-component guidelines from Figma (content guidelines, design guidelines, variants, examples). Use the component slug (e.g., `button.json`, `date-picker.json`). If the file doesn't exist, skip it.
-6. All 9 card templates: `templates/ds-card-1-page-header.html` through `templates/ds-card-9-code-specification.html`
-7. `templates/ds-wrapper.html`
+6. `templates/ds-wrapper.html` (CSS framework only — card templates are NOT needed, the renderer builds cards from the data model)
+7. `../../references/component-brief/data-schema.md` (data model schema — read this to know the structure for Step 1.5)
 8. `WebSearch` for WAI-ARIA Practices pattern for the component type (e.g., "WAI-ARIA dialog pattern", "WAI-ARIA tabs pattern"). Use the first authoritative result (w3.org) to populate the ARIA table in Card 8.
 
 **For Fat Marker mode (5 cards), read these files in parallel:**
@@ -80,14 +80,40 @@ Issue ALL of these reads in a **single message** with parallel tool calls. Do no
 2. `../../docs/fm-components.md` (component variants)
 3. `../../docs/content-guidelines.md`
 4. `../../docs/component-guidelines/<slug>.json` — per-component guidelines (if available)
-5. All 5 card templates: `templates/fm-card-1-page-header.html` through `templates/fm-card-5-anatomy.html`
-6. `templates/fm-wrapper.html`
+5. `templates/fm-wrapper.html` (CSS framework only — card templates are NOT needed, the renderer builds cards from the data model)
+6. `../../references/component-brief/data-schema.md` (data model schema — read the FM section for Step 1.5)
 
 That's it. No additional research rounds. Proceed immediately to generation.
 
-## Step 2 — Generate HTML
+## Step 1.5 — Generate data model (MANDATORY)
 
-Draft the brief content and generate the HTML in the same step. Do NOT draft as a separate step — go straight from research results to final HTML output.
+After research completes, structure ALL findings into `[component]-brief-data.json` following the schema in `../../references/component-brief/data-schema.md`.
+
+**This is the ONLY step where the AI makes content decisions.** After this step, both renderers are mechanical.
+
+1. Read `../../references/component-brief/data-schema.md` for the schema contract
+2. Populate every card key (`card1_header` through `card9_code`) from research data
+3. Ensure:
+   - `card2_component.variantMatrix` includes ALL variant rows from the Figma component (not a subset)
+   - `card4_tokens.colorTokens` includes ALL states (not just Default + Focused)
+   - `card7_content.rules` includes ALL content rules from the component's Figma page
+   - `card8_accessibility.requirements` has exactly 6 items for the 2×3 grid
+   - `card9_code.tokens` is fully tokenized with syntax types
+4. Write to: `{project_working_directory}/components/[name]/[name]-brief-data.json`
+
+**The data model is persisted.** It can be re-used by `/refine`, by feedback loops at the preview gate, and for incremental re-rendering.
+
+## Step 2 — Render HTML from data model (MECHANICAL)
+
+**Do NOT generate HTML by interpreting research directly.** Read `brief-data.json` and apply the row templates from `../../references/component-brief/html-renderer.md`.
+
+1. Read `[name]-brief-data.json`
+2. Read `../../references/component-brief/html-renderer.md` for complete card HTML builders
+3. Read `templates/ds-wrapper.html` (CSS framework only — no card template files needed)
+4. For each card: build HTML from the data model using the card builders in the renderer reference
+5. The ONLY AI-interpreted part is Card 2's component-specific CSS and `componentHtml()` function — this requires rendering the actual component in HTML, which varies per component
+6. Replace `{{GENERATION_CARD}}`, `{{CARDS}}`, and `{{PAGE_TITLE}}` in the wrapper
+7. Write to: `{project_working_directory}/components/[name]/[name]-spec.html`
 
 **MANDATORY: Include the GENERATION LOG** comment block in `<head>` as specified in CLAUDE.md. Read `.claude-plugin/plugin.json` for the version right before writing the file.
 
@@ -95,29 +121,29 @@ Draft the brief content and generate the HTML in the same step. Do NOT draft as 
 
 Default is **All cards**.
 
-**Actian DS cards:**
+**Actian DS cards** (built from data model — no template files):
 
-| # | Card | `data-name` | Template file |
-|---|------|-------------|---------------|
-| 1 | Page header | `"Page header"` | `templates/ds-card-1-page-header.html` |
-| 2 | Actual component (Locked) | `"Actual component (Locked)"` | `templates/ds-card-2-actual-component.html` |
-| 3 | Anatomy | `"Anatomy"` | `templates/ds-card-3-anatomy.html` |
-| 4 | Design tokens | `"Design tokens"` | `templates/ds-card-4-design-tokens.html` |
-| 5 | Component API | `"Component API"` | `templates/ds-card-5-component-api.html` |
-| 6 | Usage guidelines | `"Usage guidelines"` | `templates/ds-card-6-usage-guidelines.html` |
-| 7 | Content guidelines | `"Content guidelines"` | `templates/ds-card-7-content-guidelines.html` |
-| 8 | Accessibility | `"Accessibility"` | `templates/ds-card-8-accessibility.html` |
-| 9 | Code specification | `"Code specification"` | `templates/ds-card-9-code-specification.html` |
+| # | Card | `data-name` | Data model key |
+|---|------|-------------|----------------|
+| 1 | Page header | `"Page header"` | `card1_header` |
+| 2 | Actual component | `"Actual component"` | `card2_component` |
+| 3 | Anatomy | `"Anatomy"` | `card3_anatomy` |
+| 4 | Design tokens | `"Design tokens"` | `card4_tokens` |
+| 5 | Component API | `"Component API"` | `card5_api` |
+| 6 | Usage guidelines | `"Usage guidelines"` | `card6_usage` |
+| 7 | Content guidelines | `"Content guidelines"` | `card7_content` |
+| 8 | Accessibility | `"Accessibility"` | `card8_accessibility` |
+| 9 | Code specification | `"Code specification"` | `card9_code` |
 
-**Fat Marker cards:**
+**Fat Marker cards** (built from data model — no template files):
 
-| # | Card | `data-name` | Template file |
-|---|------|-------------|---------------|
-| 1 | Page header | `"Page header"` | `templates/fm-card-1-page-header.html` |
-| 2 | Actual component (Locked) | `"Actual component (Locked)"` | `templates/fm-card-2-actual-component.html` |
-| 3 | Design guidelines | `"Design guidelines"` | `templates/fm-card-3-design-guidelines.html` |
-| 4 | Content guidelines | `"Content guidelines"` | `templates/fm-card-4-content-guidelines.html` |
-| 5 | Anatomy | `"Anatomy"` | `templates/fm-card-5-anatomy.html` |
+| # | Card | `data-name` | Data model key |
+|---|------|-------------|----------------|
+| 1 | Page header | `"Page header"` | `card1_header` |
+| 2 | Actual component (Locked) | `"Actual component (Locked)"` | `card2_component` |
+| 3 | Design guidelines | `"Design guidelines"` | `card3_design_guidelines` |
+| 4 | Content guidelines | `"Content guidelines"` | `card4_content_guidelines` |
+| 5 | Anatomy | `"Anatomy"` | `card5_anatomy` |
 
 **How the user selects:**
 
@@ -214,6 +240,13 @@ After generating the HTML, serve it and present the preview URL. **Do NOT procee
 
 4. On feedback: fix the HTML, re-save, re-serve, present the updated preview URL again. Repeat until approved.
 
+**Feedback modifies the data model, not the HTML directly.** When the user requests changes:
+1. Edit `brief-data.json` (add/remove/modify the relevant card key)
+2. Re-run Step 2 (HTML renderer) from the modified data model
+3. Re-serve and re-present the preview
+
+This ensures the Figma output (Step 3) will include the same changes automatically.
+
 5. On approval: proceed to Step 3 with only the approved cards (default: all). If the user requests cards that were not in the HTML (e.g., "push 2,4,5" when only 2,4 were generated), regenerate the HTML with the expanded card set first, re-serve, then proceed to Figma.
 
 This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figma output is expensive and hard to undo.
@@ -245,16 +278,18 @@ This gate costs zero `use_figma` calls. HTML iteration is fast and free — Figm
 
 ---
 
-## Step 3 — Output to Figma (default: `use_figma`)
+## Step 3 — Render Figma from data model (MECHANICAL)
 
-Read `component-brief-figma.md` for the complete Figma output reference: card structure, per-card content requirements, element types, known pitfalls, and execution steps. Also follow `../../references/figma-output.md` for shared patterns.
+**Do NOT write freehand use_figma code.** Read `brief-data.json` and follow the card recipes in `../../references/component-brief/figma-renderer.md`.
 
-**Key rules (read the reference for details):**
-- **P0: Real component instances** — use the component from the user's URL, never text placeholders
-- **P0: Local vs library components** — if the component is in the same file as the output, use `figma.getNodeByIdAsync(nodeId)` to get it directly. Only use `importComponentSetByKeyAsync()` for components from external libraries. See `component-brief-figma.md` for detection pattern.
-- **Card shells** — import `Meta / Chrome / Brief Card`, detach, rename to card title
-- **Parity check** — Figma output must match HTML exactly; omissions are P0 bugs
-- **One `use_figma` call per card** to stay under 20KB limit
+1. Read `[name]-brief-data.json` (same file used by HTML renderer)
+2. Read `../../references/component-brief/figma-renderer.md` for card recipes
+3. Read `../../docs/meta-kit/meta-kit-registry.json` for template keys
+4. Execute recipes card by card — each recipe is a fixed script that iterates data arrays
+5. ALL Meta Kit components are mandatory (Brief Card shell, Pointer Badge, Dimension Annotation, Color Swatch, Do-Don't Pair, Code Block, Contrast Badge, Accessibility Card)
+6. Parity validation: check counts from data model match Figma frame counts
+
+See `../../references/component-brief/figma-renderer.md` for complete code and `../../skills/component-brief/component-brief-figma.md` for additional Figma-specific rules (page targeting, token binding, known pitfalls).
 
 If the user provided a Figma URL, extract `fileKey` and `nodeId`. Only ask for target if not provided.
 
