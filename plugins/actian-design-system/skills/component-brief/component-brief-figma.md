@@ -55,14 +55,29 @@ if (localNode && (localNode.type === 'COMPONENT_SET' || localNode.type === 'COMP
 
 Fallback: placeholder frame with dashed border + "Component instance — import manually". Never `[ Button ]`.
 
-## Card structure (Meta Kit)
+## Card structure (Meta Kit) — MANDATORY
 
-Import `Meta / Chrome / Brief Card` (key: `3dbb732730af0754210cde7af35e5236a2502843`) and detach before adding content.
+**Every card MUST use `Meta / Chrome / Brief Card`** (key: `3dbb732730af0754210cde7af35e5236a2502843`). Never build raw frames as card shells.
+
+**Card 1 (Page header)** uses the **Page Header** variant:
 
 ```js
 const briefCardSet = await figma.importComponentSetByKeyAsync("3dbb732730af0754210cde7af35e5236a2502843");
-const variant = briefCardSet.children.find(c => c.name === "Mode=DS, Type=Standard");
-const instance = variant.createInstance();
+
+// Card 1 — Page Header variant (NOT Standard)
+const pageHeaderVariant = briefCardSet.children.find(c => c.name === "Mode=DS, Type=Page Header");
+const phInstance = pageHeaderVariant.createInstance();
+setProp(phInstance, "Component Name", "Radio Button");
+setProp(phInstance, "Description", "Radio buttons let users select one option...");
+const pageHeader = phInstance.detachInstance();
+pageHeader.name = "Page header";
+```
+
+**Cards 2-9** use the **Standard** variant:
+
+```js
+const standardVariant = briefCardSet.children.find(c => c.name === "Mode=DS, Type=Standard");
+const instance = standardVariant.createInstance();
 setProp(instance, "Title", "Design tokens");
 setProp(instance, "Subtitle", "Color, sizing, and typography tokens");
 const card = instance.detachInstance();
@@ -72,19 +87,19 @@ const content = card.findOne(n => n.name === "Content");
 
 **Frame naming** — rename each detached card:
 
-| Card | Frame name |
-|------|-----------|
-| 1 | `Page header` |
-| 2 | `Components` |
-| 3 | `Anatomy` |
-| 4 | `Design tokens` |
-| 5 | `Component API` |
-| 6 | `Usage guidelines` |
-| 7 | `Content guidelines` |
-| 8 | `Accessibility` |
-| 9 | `Code specification` |
+| Card | Variant | Frame name |
+|------|---------|-----------|
+| 1 | `Mode=DS, Type=Page Header` | `Page header` |
+| 2 | `Mode=DS, Type=Standard` | `Components` |
+| 3 | `Mode=DS, Type=Standard` | `Anatomy` |
+| 4 | `Mode=DS, Type=Standard` | `Design tokens` |
+| 5 | `Mode=DS, Type=Standard` | `Component API` |
+| 6 | `Mode=DS, Type=Standard` | `Usage guidelines` |
+| 7 | `Mode=DS, Type=Standard` | `Content guidelines` |
+| 8 | `Mode=DS, Type=Standard` | `Accessibility` |
+| 9 | `Mode=DS, Type=Standard` | `Code specification` |
 
-Do NOT leave cards named `"Meta / Chrome / Brief Card"`.
+Do NOT leave cards named `"Meta / Chrome / Brief Card"`. Do NOT build raw frames as card shells.
 
 For `setProp` helper and component keys, see `../../docs/meta-kit/components.md`.
 For `buildSpecTable`, `buildStateGrid`, see `../../references/meta-kit/builders.md`.
@@ -107,12 +122,13 @@ Follow `../../references/figma-output.md` § "Token binding". Discover keys via 
 | **Section headings** | Text node, bold 16px, with 1px `#E2E7F0` divider above | Sub-sections |
 | **Body text** | Text node, regular 14px, secondary color, max-width fill | Descriptions |
 | **Tables** | Header row (bold 12px, `#F5F5FA` bg), data rows (regular 14px). Fixed column widths. | Cards 3, 4, 5, 8 |
-| **Color swatch dots** | 12×12 rectangle, cornerRadius 3, token hex fill, in horizontal auto-layout next to text. **Never omit.** | Cards 2, 4, 8 |
-| **Pink dimension lines** | 1px `#E91E8C` rectangles (brackets) + 11px `#E91E8C` labels. **Never omit from Specs.** | Card 3 |
-| **REQ/OPT badges** | Auto-layout frame: REQ = `#FEF3F2` bg + `#C10C0D` text. OPT = `#F5F5FA` bg + `#888888` text. Bold 10px uppercase. | Card 5 |
+| **Color swatch dots** | **Use `Meta / Content / Color Swatch`** (Size=Small). Import, create instance, bind fill to token variable. 12×12, in horizontal auto-layout next to text. **Never omit.** | Cards 2, 4, 8 |
+| **Pink dimension annotations** | **Use `Meta / Content / Dimension Annotation`** (Horizontal/Vertical). Import, set Value property. **Never use plain text for specs.** | Card 3 |
+| **Pointer badges (A, B, C)** | **Use `Meta / Content / Pointer Badge`** (Direction variant). Import, set Label property. For anatomy structure callouts. | Card 3 |
+| **REQ/OPT badges** | Auto-layout frame, **horizontal, min-width 50px**: REQ = `#FEF3F2` bg + `#C10C0D` text. OPT = `#F5F5FA` bg + `#888888` text. Bold 10px uppercase. **Text must stay on one line.** | Card 5 |
 | **Typography specimens** | Actual styled text at documented font size/weight/family | Card 4 |
 | **Code blocks** | `#1E1E2E` bg, 16px padding, 12px monospace with syntax colors | Cards 8, 9 |
-| **Do/Don't pairs** | Side-by-side: green bar (`#047800`, 4px) + red bar (`#C10C0D`, 4px) | Cards 6, 7 |
+| **Do/Don't pairs** | **Use `Meta / Content / Do-Don't Pair`** (Mode=DS). Import, set Do Label, Don't Label, Do Example, Don't Example. **Never build as raw frames with colored bars.** | Cards 6, 7 |
 | **Component instances** | P0 — real library instances via `importComponentSetByKeyAsync()`. Never text placeholders. | Cards 2, 3 |
 | **Pass/Exempt badges** | Pass = green `#047800`, Exempt = `#9C2000`, bold 12px | Card 8 |
 
@@ -126,25 +142,24 @@ Figma output MUST match HTML. Omitting content is a P0 bug.
 - [ ] Theme comparison: 3 cards (Actian, Studio, Explorer) with instance + swatch dots
 
 **Card 3 — Anatomy:** ALL 4 sub-sections:
-1. **Structure** — real instance + lettered badges (A, B, C...) + legend
-2. **Specs** — **MANDATORY.** Real instance + pink `#E91E8C` dimension lines. NOT a table.
-   - 1px `#E91E8C` bracket lines + 11px measurement labels
-3. **States** — horizontal row of real instances per state. Text-only NOT acceptable.
-4. **Parts reference** — table: Part | Element | Token | Notes
+1. **Structure** — real instance + **`Meta / Content / Pointer Badge`** (key: `7e066fc21d9a2bbbcd1149113787cf59140162d4`) for lettered callouts (A, B, C...). Import the component set, pick Direction variant, set Label property. Place badges pointing at component parts. Add legend below.
+2. **Specs** — **MANDATORY.** Real instance + **`Meta / Content / Dimension Annotation`** (key: `49bf6a1b210a403ba145a3fdee9b1994eb54069a`) for pink measurement callouts. Import Horizontal/Vertical variants, set Value property (e.g., "16px", "8px"). NOT a text list. NOT a table.
+3. **States** — horizontal row of real instances per state (use `buildStateGrid` or clone `state-column` template). Text-only NOT acceptable.
+4. **Parts reference** — table via `buildSpecTable`: Part | Element | Token | Notes
 
 **Card 4 — Design tokens:** ALL 3 sub-sections:
-1. Color tokens table with **mandatory swatch dots** (12×12, cornerRadius 3)
-2. Sizing & spacing table: Property | Token | Value
-3. Typography specimens at documented font specs
+1. Color tokens table — use **`Meta / Content / Color Swatch`** (key: `da3369932f710386b76ca91a40ebd48d94e3f2e0`, Size=Small variant) as inline swatch dots next to each color value. Import the component, create instances, bind fills to the token variable. **Never omit swatch dots.**
+2. Sizing & spacing table via `buildSpecTable`: Property | Token | Value
+3. Typography specimens at documented font specs — render actual styled text at the specified font size/weight/family
 
 **Card 5 — Component API:**
-- [ ] Props table: REQ/OPT | Property | Type | Default | Values | Notes
-- [ ] **Mandatory REQ/OPT badges**
+- [ ] Props table via `buildSpecTable`: REQ/OPT | Property | Type | Default | Values | Notes
+- [ ] **REQ/OPT badges as inline auto-layout frames** — REQ = `#FEF3F2` bg + `#C10C0D` text, OPT = `#F5F5FA` bg + `#888888` text. Bold 10px uppercase. Must be **horizontal** layout with padding so text stays on one line. **Column width for REQ/OPT must be at least 50px** to prevent text wrapping.
 - [ ] Monospace property names, purple types (`#C792EA`), green defaults (`#C3E88D`)
 
-**Card 6 — Usage guidelines:** When to use (+), When NOT to use (−), Do/Don't pairs.
+**Card 6 — Usage guidelines:** When to use (+), When NOT to use (−), Do/Don't pairs using **`Meta / Content / Do-Don't Pair`** (key: `28edfacf13e50706586172bd48f8a3ad84d7c263`, Mode=DS variant). Import the component set, set `Do Label`, `Don't Label`, `Do Example`, `Don't Example` properties. **Never build Do/Don't as raw frames with colored bars.**
 
-**Card 7 — Content guidelines:** Content rules + inline Do/Don't. Optional terminology table.
+**Card 7 — Content guidelines:** Content rules + **`Meta / Content / Do-Don't Pair`** for inline examples. **MUST include all content guideline rules from the component's Figma page** (extracted via `get_design_context` in Step 1). If the Figma page has 6 content rules, Card 7 must have 6 rules. Do not summarize or skip rules.
 
 **Card 8 — Accessibility:**
 - [ ] 2×3 grid: Role, Keyboard, Focus ring, Touch target, Disabled state, Color independence
@@ -214,3 +229,9 @@ Generation metadata first child, then 9 cards in order.
 | **A11y cards empty** | Font not loaded for Card 8 text | Load Inter Regular, Bold, + monospace |
 | **Erratic column widths** | No explicit widths on column frames | `resize(width, 1)` matching HTML proportions |
 | **Cards different heights** | Fixed height instead of auto | `primaryAxisSizingMode = "AUTO"` + `layoutSizingVertical = 'HUG'` after appendChild |
+| **REQ/OPT text wraps vertically** | Column too narrow or badge is vertical layout | Badge frame: `layoutMode = 'HORIZONTAL'`, `resize(50, 1)`, `counterAxisSizingMode = 'AUTO'`. First column min 50px width |
+| **Page header is raw frame** | Forgot to use Brief Card Page Header variant | Card 1 MUST use `Mode=DS, Type=Page Header` variant of Brief Card |
+| **Do/Don't as raw frames** | Built colored bars manually instead of importing | MUST use `Meta / Content / Do-Don't Pair` component |
+| **Anatomy specs as text list** | Listed dimensions as text instead of visual annotations | MUST use `Meta / Content / Dimension Annotation` + `Pointer Badge` components |
+| **Missing swatch dots** | Built token table without Color Swatch instances | MUST use `Meta / Content / Color Swatch` (Size=Small) next to every color value |
+| **Content guidelines incomplete** | Only included generic rules, skipped component-specific ones | Extract ALL rules from the component's Figma page via `get_design_context` |
