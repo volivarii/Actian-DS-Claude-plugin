@@ -73,6 +73,7 @@ Issue ALL of these reads in a **single message** with parallel tool calls. Do no
 5. `../../docs/component-guidelines/<slug>.json` — per-component guidelines from Figma (content guidelines, design guidelines, variants, examples). Use the component slug (e.g., `button.json`, `date-picker.json`). If the file doesn't exist, skip it.
 6. All 9 card templates: `templates/ds-card-1-page-header.html` through `templates/ds-card-9-code-specification.html`
 7. `templates/ds-wrapper.html`
+8. `WebSearch` for WAI-ARIA Practices pattern for the component type (e.g., "WAI-ARIA dialog pattern", "WAI-ARIA tabs pattern"). Use the first authoritative result (w3.org) to populate the ARIA table in Card 8.
 
 **For Fat Marker mode (5 cards), read these files in parallel:**
 1. `get_design_context` on the provided Figma node (visual reference + component key extraction)
@@ -129,6 +130,31 @@ Default is **All cards**.
 | "skip 6 and 7" or "all except Content and Usage" | All minus excluded |
 
 When generating a subset, only include the selected cards in the HTML `brief-row`. The CSS framework is always included regardless of selection.
+
+### Card 8 — Accessibility (structured format)
+
+Card 8 uses a structured ARIA specification table instead of bullet points. Generate the table from WAI-ARIA Practices research:
+
+| Source | Maps to |
+|--------|---------|
+| WAI-ARIA "Keyboard Interaction" section | `keyboard` column + Keyboard Interaction sub-section |
+| WAI-ARIA "WAI-ARIA Roles, States, and Properties" section | `role` and `label` columns |
+| Component anatomy (Card 3) interactive elements | `element` column (one row per interactive element) |
+| Logical tab order through elements | `focus-order` column (1, 2, 3...) |
+| Role + label + state combined | `announcement` column |
+
+**ARIA table columns:** Element, Role, Label, Focus Order, Keyboard Interaction, Screen Reader Announcement
+
+**Sub-sections in Card 8:**
+1. **ARIA (Web)** — always present, structured table
+2. **Keyboard Interaction** — summary of key bindings
+3. **Contrast Requirements** — foreground/background pairs with ratios
+4. **VoiceOver (iOS)** — placeholder: "Needs manual review — add platform-specific behaviors"
+5. **TalkBack (Android)** — placeholder: "Needs manual review — add platform-specific behaviors"
+
+**Figma output:** When pushing Card 8 to Figma, use clone-and-fill with the `a11y-spec-row` template from `meta-kit-registry.json` (one clone per table row). Stack rows in a vertical auto-layout frame. Add section headers via the `section-header` template.
+
+**Fallback:** If WAI-ARIA Practices has no pattern for this component, generate the ARIA section from general WCAG rules and mark with: "Derived from general WCAG rules — verify against platform testing."
 
 ### HTML generation (TEMPLATE-DRIVEN)
 

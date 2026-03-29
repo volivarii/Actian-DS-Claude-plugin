@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "lastSynced": null,
+  "library": "meta-kit",
+  "fileKey": "osoeCLcrWqfoq8TvLQoyh0",
+  "templates": {
+    "table-header-row": {
+      "key": "PENDING",
+      "nodeId": "PENDING",
+      "textSlots": ["label"],
+      "visibility": "hidden",
+      "category": "table"
+    },
+    "table-data-row": {
+      "key": "PENDING",
+      "nodeId": "PENDING",
+      "textSlots": ["label", "value"],
+      "visibility": "hidden",
+      "category": "table"
+    },
+    "state-column": {
+      "key": "PENDING",
+      "nodeId": "PENDING",
+      "textSlots": ["title"],
+      "visibility": "hidden",
+      "category": "grid"
+    },
+    "section-header": {
+      "key": "PENDING",
+      "nodeId": "PENDING",
+      "textSlots": ["title", "subtitle"],
+      "visibility": "hidden",
+      "category": "layout"
+    },
+    "swatch-row": {
+      "key": "PENDING",
+      "nodeId": "PENDING",
+      "textSlots": ["name", "value", "hex"],
+      "visibility": "hidden",
+      "category": "tokens"
+    },
+    "a11y-spec-row": {
+      "key": "PENDING",
+      "nodeId": "PENDING",
+      "textSlots": ["element", "role", "label", "focus-order", "keyboard", "announcement"],
+      "visibility": "hidden",
+      "category": "a11y"
+    }
+  },
+  "components": {
+    "brief-card": {
+      "key": "3dbb732730af0754210cde7af35e5236a2502843",
+      "nodeId": "7:2",
+      "type": "component_set"
+    },
+    "do-dont-pair": {
+      "key": "28edfacf13e50706586172bd48f8a3ad84d7c263",
+      "nodeId": "9:24",
+      "type": "component_set"
+    },
+    "flow-screen": {
+      "key": "2ca7c756ad54e81219104d3a270ba8eb9eeffcf6",
+      "nodeId": "21:1198",
+      "type": "component_set"
+    },
+    "color-swatch": {
+      "key": "da3369932f710386b76ca91a40ebd48d94e3f2e0",
+      "nodeId": "42:17",
+      "type": "component_set"
+    },
+    "contrast-badge": {
+      "key": "941756541adc6ce21e32e848c2039c64fece0fcf",
+      "nodeId": "44:20",
+      "type": "component_set"
+    },
+    "pointer-badge": {
+      "key": "7e066fc21d9a2bbbcd1149113787cf59140162d4",
+      "nodeId": "45:26",
+      "type": "component_set"
+    },
+    "dimension-annotation": {
+      "key": "49bf6a1b210a403ba145a3fdee9b1994eb54069a",
+      "nodeId": "45:37",
+      "type": "component_set"
+    },
+    "stat-card": {
+      "key": "8662c721d74d6f0079f273f76eec374b12ec2fae",
+      "nodeId": "46:29",
+      "type": "component_set"
+    },
+    "accessibility-card": {
+      "key": "b4779a13f4097d682413a669eaaf9ead1b49f115",
+      "nodeId": "47:24",
+      "type": "component_set"
+    },
+    "theme-card": {
+      "key": "9081a7761dfbe11d576182f3cb1711b9e76c2d36",
+      "nodeId": "47:43",
+      "type": "component_set"
+    },
+    "generation-log": {
+      "key": "a9653f30925367e96dea90093d750bfe70849571",
+      "nodeId": "3:2",
+      "type": "component"
+    },
+    "card-divider": {
+      "key": "f4d778e1cf9bb61a33712c791486f54bb1c095b7",
+      "nodeId": "4:2",
+      "type": "component"
+    },
+    "code-block": {
+      "key": "1bf10eee1751a46da5f90a9671be6c9abf0073b7",
+      "nodeId": "8:2",
+      "type": "component"
+    },
+    "flow-cover-card": {
+      "key": "eaebde6bd07d2f19f3f9c00a9587240cb085a90d",
+      "nodeId": "46:344",
+      "type": "component"
+    },
+    "research-frame": {
+      "key": "e671618f2b4c6ea406a995fdc3012ac54eadfe56",
+      "nodeId": "48:31",
+      "type": "component"
+    },
+    "feedback": {
+      "key": "d5cba21bc3dbf36578665bac89834fbe1ca29ed0",
+      "nodeId": "66:20",
+      "type": "component"
+    }
+  }
+}

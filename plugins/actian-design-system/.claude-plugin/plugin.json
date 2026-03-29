@@ -1,7 +1,7 @@
 {
   "name": "actian-design-system",
   "description": "Actian Design System 2026 toolkit — sync tokens from Figma, generate wireframe flows, create component briefs, audit designs, fix findings, build presentations, and compare flows. 115 tokens (3 themes), WCAG 2.1 AA, 34 FM Kit components, 77 DS2026 component sets.",
-  "version": "1.15.6",
+  "version": "1.16.0",
   "author": {
     "name": "Actian UX Team"
   },

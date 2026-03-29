@@ -24,6 +24,8 @@ These checks apply to every output — component briefs, flows, presentations, a
 | 10 | **No hidden/invisible layers** | P2 | No `display: none`, `opacity: 0`, or invisible layers left from drafting. Delete anything not needed. |
 | 11 | **Component description filled** | P1 | Every main component has a filled Description field stating what it does, when to use it, and constraints. |
 | 12 | **WCAG AA contrast** | P0 | Every foreground/background pair passes WCAG AA — 4.5:1 for normal text, 3:1 for large text and UI elements. Disabled states exempt but distinguishable. |
+| 13 | **Template compliance** | P1 | When Meta Kit templates are available (registry keys are not `"PENDING"`), builders use clone-and-fill pattern instead of raw frame construction. Check for `cloneTemplate()` calls in `use_figma` code. |
+| 14 | **Registry keys valid** | P1 | All component keys referenced in `use_figma` code exist in the corresponding registry JSON (`meta-kit-registry.json`, `fm-components-registry.json`, or `ds2026-components-registry.json`). No `"PENDING"` keys used in production output. |
 
 ### HTML translation
 
@@ -43,6 +45,8 @@ When generating HTML for local preview, the checklist translates to:
 | No hidden/invisible layers | No `display: none` or `opacity: 0` elements left from iteration. Delete unused markup. |
 | Component description filled | Include `<!-- AI CONSUMPTION METADATA -->` comment and descriptive subtitles on every card. |
 | WCAG AA contrast | Verify all text/background pairs against WCAG AA. Use token colors — they are pre-validated. |
+| Template compliance | N/A — templates only apply to Figma output via `use_figma`. HTML uses its own card templates. |
+| Registry keys valid | N/A — HTML generation does not reference component registries. |
 
 ---
 

@@ -66,6 +66,9 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `docs/meta-kit/text-styles.md` | Extracted via `/sync-design-system` | DS2026 text styles with font specs |
 | `docs/meta-kit/effect-styles.md` | Extracted via `/sync-design-system` | DS2026 effect styles with shadow params |
 | `docs/meta-kit/components.md` | Extracted via `/sync-design-system` | Meta Kit component keys and properties |
+| `docs/meta-kit/meta-kit-registry.json` | Generated via `/sync-design-system` | Meta Kit component + template keys, text slots, categories |
+| `docs/fm-components-registry.json` | Generated via `/sync-design-system` | FM Kit component keys, variants, text overrides (40 components) |
+| `docs/ds2026-components-registry.json` | Generated via `/sync-design-system` | DS2026 component keys, variants, text overrides (103 component sets) |
 
 **Markdown (auto-generated from JSON — for human review):**
 
@@ -77,6 +80,7 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `docs/ds2026-components.md` | Figma MCP extraction | 97 DS2026 component sets + 3 standalone components |
 | `docs/fm-components.md` | Figma MCP extraction | 33 FM Kit component sets + 7 standalone components |
 | `tokens/tokens.css` | `tokens/actian-ds.tokens.json` | CSS custom properties (`--zen-*`) |
+| `docs/meta-kit/meta-kit-reference.md` | `meta-kit-registry.json` | Human-readable registry table (auto-generated, do not edit) |
 
 **Hand-authored (not synced):**
 

@@ -1,0 +1,366 @@
+{
+  "version": "1.0.0",
+  "lastSynced": null,
+  "library": "fm",
+  "fileKey": "X2JSEUyLvxyNCx22ucOexn",
+  "components": {
+    "sticky-note": {
+      "key": "9b4f450c92de6178731d1eca0f03f42ac3f64085",
+      "nodeId": "139:2309",
+      "type": "component_set",
+      "variants": {
+        "Property 1": ["Default", "Critical"]
+      },
+      "nestedComponents": []
+    },
+    "fm-alert": {
+      "key": "fe30f37740688350762bd2b1be426d9d1588b7d9",
+      "nodeId": "1052:9637",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Success", "Error", "Warning"]
+      },
+      "nestedComponents": []
+    },
+    "fm-banner": {
+      "key": "d7f323e492b456a2c56f81f3dc892eb24de11a6e",
+      "nodeId": "36:3235",
+      "type": "component",
+      "nestedComponents": []
+    },
+    "fm-app_header": {
+      "key": "8fc9bcee610c7f8d22ebcc268467993f6dc99c87",
+      "nodeId": "67:1858",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Admin", "Explorer", "Studio", "Actian"]
+      },
+      "nestedComponents": []
+    },
+    "fm-badge": {
+      "key": "2410b87c83d33d3bcb2a6ac7aa2168a53a4eb3d8",
+      "nodeId": "8:22406",
+      "type": "component_set",
+      "variants": {
+        "Size": ["Small", "Medium", "Large"],
+        "Type": ["Icon", "Number", "Number Expand"]
+      },
+      "nestedComponents": []
+    },
+    "fm-button": {
+      "key": "368b62312ca941c80ea8eeed84a57d33bb470b09",
+      "nodeId": "8:21044",
+      "type": "component_set",
+      "variants": {
+        "Size": ["md", "sm"],
+        "Shape": ["Regular", "Pill"],
+        "Type": ["Primary", "Secondary", "Outline", "Destructive"],
+        "State": ["Default", "Disabled"]
+      },
+      "textOverrides": ["Label"],
+      "nestedComponents": []
+    },
+    "fm-checkbox": {
+      "key": "965cf2c85659bbde891f6f086bbd02d50d445d58",
+      "nodeId": "8:21147",
+      "type": "component_set",
+      "variants": {
+        "State": ["Off", "On"],
+        "Style": ["Default", "Disabled"]
+      },
+      "nestedComponents": []
+    },
+    "fm-chip": {
+      "key": "0861d937682e66d39f57fe52ca83d526e634ff66",
+      "nodeId": "8:22389",
+      "type": "component_set",
+      "variants": {
+        "Outline": ["False", "True"]
+      },
+      "nestedComponents": []
+    },
+    "fm-cursor": {
+      "key": "0f68684930c7e7a364121853baafe23fdb921730",
+      "nodeId": "8:21470",
+      "type": "component_set",
+      "variants": {
+        "Cursor Type": ["Link", "Pointer", "Dragging", "Text"]
+      },
+      "nestedComponents": []
+    },
+    "fm-date-input": {
+      "key": "69d6329ea2d5ac3515b6ebb04ad6c1bd72e4890e",
+      "nodeId": "8:21321",
+      "type": "component_set",
+      "variants": {
+        "State": ["Default", "Open", "Placeholder"]
+      },
+      "textOverrides": ["Input Text"],
+      "nestedComponents": []
+    },
+    "fm-dialog": {
+      "key": "0cc53eca9c90cccb8cbc57864ea110378414fd2b",
+      "nodeId": "9:1382",
+      "type": "component",
+      "nestedComponents": []
+    },
+    "fm-dropdown": {
+      "key": "781f86dca2a37706771f3e2e580242d2693a722f",
+      "nodeId": "8:21420",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Placeholder", "Open", "Disabled", "Filled"]
+      },
+      "nestedComponents": []
+    },
+    "fm-empty-state": {
+      "key": "cf44b9c0b5623a394d90f320f98250dc77378268",
+      "nodeId": "228:2994",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Default", "Compact"]
+      },
+      "nestedComponents": []
+    },
+    "fm-icon-buttons": {
+      "key": "f868aabb0aa2c52f00610c09da8dce3bccc79dc4",
+      "nodeId": "8:21121",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Primary", "Secondary", "Outline"],
+        "State": ["Default", "Disabled"]
+      },
+      "nestedComponents": []
+    },
+    "fm-input-label": {
+      "key": "a39aa1c7cb593f7d26b7659e4cbe4e419e00c766",
+      "nodeId": "23:1207",
+      "type": "component_set",
+      "variants": {
+        "Disabled": ["No", "Yes"],
+        "Type": ["Text", "Placeholder"]
+      },
+      "textOverrides": ["Label Text", "Caption Text"],
+      "nestedComponents": []
+    },
+    "fm-menu": {
+      "key": "696ef83ffe2d0af84432b8f12cc15b43e0b25a15",
+      "nodeId": "8:21644",
+      "type": "component",
+      "nestedComponents": []
+    },
+    "fm-menu-item": {
+      "key": "6d3a9c26c31762f832a3a95033c1594edf33da72",
+      "nodeId": "8:21652",
+      "type": "component_set",
+      "variants": {
+        "State": ["Default", "Hover", "Active"]
+      },
+      "nestedComponents": []
+    },
+    "fm-multi-select-dropdown": {
+      "key": "876bfa32334594915085ebea82f1f887b3fecb09",
+      "nodeId": "8:21443",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Placeholder", "Disabled", "Open Multi-select", "Filled", "User Filled"]
+      },
+      "textOverrides": ["Dropdown Text"],
+      "nestedComponents": []
+    },
+    "fm-multi-select-menu-item": {
+      "key": "56ad08f30372948c12ebb989e47e6260342eab52",
+      "nodeId": "8:21659",
+      "type": "component_set",
+      "variants": {
+        "State": ["On", "Off", "User Off"]
+      },
+      "textOverrides": ["Dropdown item text"],
+      "nestedComponents": []
+    },
+    "fm-page-header": {
+      "key": "ae1f8684a4a89aa74463d439e4e8c1e7a48137fe",
+      "nodeId": "979:3117",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Title only", "Title + Subtitle", "Title + Actions"]
+      },
+      "textOverrides": ["Title", "Subtitle"],
+      "nestedComponents": []
+    },
+    "fm-placeholder": {
+      "key": "e49a9de0573cf527736e8173f722f230fa957fb8",
+      "nodeId": "86:716",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Label+1line", "Label+3lines", "Label+6lines", "Label+avatars", "metric"]
+      },
+      "nestedComponents": []
+    },
+    "fm-progress-bar": {
+      "key": "12abe66d36a63ef385a17e2553a1312560a0f106",
+      "nodeId": "8:21584",
+      "type": "component_set",
+      "variants": {
+        "Completion": ["10%", "20%", "30%", "40%", "50%", "60%", "70%", "80%", "90%", "100%"]
+      },
+      "nestedComponents": []
+    },
+    "fm-radio-button": {
+      "key": "1569353eb82fd5f6cb8da979f1048cd1b323e8c4",
+      "nodeId": "8:21160",
+      "type": "component_set",
+      "variants": {
+        "State": ["On", "Off"],
+        "Style": ["Default", "Disabled"]
+      },
+      "nestedComponents": []
+    },
+    "fm-rich-text-field": {
+      "key": "284aa580c4c313ba309ff9eda15b3da8c957cd18",
+      "nodeId": "8:21282",
+      "type": "component",
+      "textOverrides": ["Input Text"],
+      "nestedComponents": []
+    },
+    "fm-search-input-field": {
+      "key": "443e232d5454f06dbd5bc06c2cacf21e80a20e4a",
+      "nodeId": "8:21302",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Empty", "Placeholder", "Filled"]
+      },
+      "textOverrides": ["Input Text"],
+      "nestedComponents": []
+    },
+    "fm-side-navigation-bar": {
+      "key": "1e8673ccc2818b68f9faabb99757bfd44af2b592",
+      "nodeId": "1020:2324",
+      "type": "component_set",
+      "variants": {
+        "Property 1": ["Default", "Slim"]
+      },
+      "nestedComponents": []
+    },
+    "fm-side-navigation-item": {
+      "key": "d18a0a772ed4acd760c497cb93de796ff052a7b4",
+      "nodeId": "8:21525",
+      "type": "component_set",
+      "variants": {
+        "State": ["On", "Off", "Placeholder"]
+      },
+      "textOverrides": ["Label"],
+      "nestedComponents": []
+    },
+    "fm-slider": {
+      "key": "181d7f761179e7ce2f2849ae5c73989177d3a3c6",
+      "nodeId": "8:21194",
+      "type": "component_set",
+      "variants": {
+        "Progress": ["0%", "25%", "50%", "75%", "100%"]
+      },
+      "nestedComponents": []
+    },
+    "fm-spinner": {
+      "key": "52927648847b15a51d314cf06ca1c0f19f398b4d",
+      "nodeId": "8:21577",
+      "type": "component",
+      "nestedComponents": []
+    },
+    "fm-stepper": {
+      "key": "d0a21b5288571cc7690c6c9289d18cd298035c53",
+      "nodeId": "1052:9653",
+      "type": "component_set",
+      "variants": {
+        "State": ["Active", "Complete", "Upcoming"]
+      },
+      "nestedComponents": []
+    },
+    "fm-tab": {
+      "key": "cfbd732ff4f4e6620b333c60f1ac7fe5116a93aa",
+      "nodeId": "8:21619",
+      "type": "component_set",
+      "variants": {
+        "State": ["On", "Off", "Placeholder"]
+      },
+      "nestedComponents": []
+    },
+    "fm-tabs": {
+      "key": "860eadef9ba29cf20a3da3ca9d014718e3f6cabb",
+      "nodeId": "20:1705",
+      "type": "component",
+      "nestedComponents": []
+    },
+    "fm-table-cell": {
+      "key": "9267fecfadc4577563deb1425fa598d1f5af9144",
+      "nodeId": "8:21551",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Header", "Text", "Pill", "Placeholder"]
+      },
+      "nestedComponents": []
+    },
+    "fm-tag": {
+      "key": "c7239d9355ddf557f36f4d159153619672ab81ef",
+      "nodeId": "8:22396",
+      "type": "component_set",
+      "variants": {
+        "Style": ["Filled", "Outline", "Light"]
+      },
+      "nestedComponents": []
+    },
+    "fm-text-area": {
+      "key": "bba14eea66edb3871ea389afeb4e1a07585e5733",
+      "nodeId": "8:21882",
+      "type": "component_set",
+      "variants": {
+        "Content": ["None", "Placeholder", "Filled"]
+      },
+      "nestedComponents": []
+    },
+    "fm-text-input-field": {
+      "key": "355855c7b2e05b5b336167883b3c9ebbfbd881ad",
+      "nodeId": "8:21220",
+      "type": "component_set",
+      "variants": {
+        "Type": ["Empty", "Placeholder", "Default", "Disabled"]
+      },
+      "textOverrides": ["Input Text"],
+      "nestedComponents": []
+    },
+    "fm-toast": {
+      "key": "6140b137ce98ebfeeb7fc7e426f6d09de1cc18d0",
+      "nodeId": "8:21566",
+      "type": "component_set",
+      "variants": {
+        "Style": ["Standard", "Outline"]
+      },
+      "nestedComponents": []
+    },
+    "fm-toggle": {
+      "key": "fe9e82118d1df75a8aea732eb7f9169ccaa21878",
+      "nodeId": "8:21173",
+      "type": "component_set",
+      "variants": {
+        "State": ["Off", "On"],
+        "Style": ["Default", "Disabled"]
+      },
+      "nestedComponents": []
+    },
+    "fm-user": {
+      "key": "5c1b3d8d00056075c833799200d3cc27b6d915f0",
+      "nodeId": "70:1783",
+      "type": "component",
+      "nestedComponents": []
+    },
+    "fm-tooltip": {
+      "key": "82fc81413312e7e69981169db50003765cf94423",
+      "nodeId": "8:22316",
+      "type": "component_set",
+      "variants": {
+        "Position": ["Left", "Left Top", "Left Bottom", "Right", "Right Top", "Right Bottom", "Top", "Top Left", "Top Right", "Bottom", "Bottom Left", "Bottom Right"]
+      },
+      "nestedComponents": []
+    }
+  }
+}

@@ -165,6 +165,89 @@ Available builders:
 - `buildSpecTable(parent, headers, rows, options)` — data tables with header row + N data rows
 - `buildStateGrid(parent, states)` — horizontal row of labeled state columns
 
+## Clone-and-Fill Pattern (preferred over raw builders)
+
+When Meta Kit template components are available, use clone-and-fill instead of constructing frames from scratch. This gives visual consistency with the published Meta Kit style and auto-inherits any style updates.
+
+### How it works
+
+1. **Read registry:** Load `../../docs/meta-kit/meta-kit-registry.json` at the start of the skill (before `use_figma`)
+2. **Import template:** `figma.importComponentByKeyAsync(registry.templates['table-header-row'].key)`
+3. **Clone and detach:** `comp.createInstance()` → `instance.detachInstance()` — gives a mutable frame
+4. **Show:** Set `visible = true` on the detached frame (templates are hidden by default)
+5. **Fill slots:** Find child text nodes by `name` property, set `characters`
+
+### Registry loading pattern
+
+```js
+// Skills read meta-kit-registry.json before calling use_figma
+// Then pass the relevant keys into the code string as a constant:
+const HEADER_KEY = 'KEY_FROM_REGISTRY';
+const DATA_ROW_KEY = 'KEY_FROM_REGISTRY';
+
+// Inside use_figma code:
+async function cloneTemplate(templateKey) {
+  const comp = await figma.importComponentByKeyAsync(templateKey);
+  const instance = comp.createInstance();
+  const detached = instance.detachInstance();
+  detached.visible = true;
+  return detached;
+}
+
+function fillSlots(frame, slots) {
+  for (const [slotName, value] of Object.entries(slots)) {
+    const textNode = frame.findOne(n => n.type === 'TEXT' && n.name === slotName);
+    if (textNode) textNode.characters = value;
+  }
+}
+```
+
+### Template registry
+
+Templates are hidden components in the Meta Kit Figma library. Each has stable, semantic layer names (e.g., `label`, `value`, `title`) that serve as the contract between the registry and builder scripts.
+
+Registry location: `../../docs/meta-kit/meta-kit-registry.json`
+
+Available templates:
+- `table-header-row` — table header cells (slots: `label`)
+- `table-data-row` — table data cells (slots: `label`, `value`)
+- `state-column` — state grid columns (slots: `title`)
+- `section-header` — section headings (slots: `title`, `subtitle`)
+- `swatch-row` — color swatch rows (slots: `name`, `value`, `hex`)
+
+### Fallback
+
+If `meta-kit-registry.json` has `"PENDING"` keys (templates not yet built in Figma), fall back to the legacy builders in `../../docs/meta-kit/builders.md`.
+
+## Two-Tier Extraction
+
+Separate data extraction from rendering for cleaner, more debuggable `use_figma` calls. See `extraction-scripts.md` for reusable Tier 1 scripts.
+
+### Pattern
+
+1. **Tier 1 — Extract:** `use_figma` runs a deterministic extraction script → returns JSON string
+2. **AI interprets:** Claude reads the JSON, decides which templates to clone, what to fill, how to arrange
+3. **Tier 2 — Render:** `use_figma` runs the rendering plan (clone-and-fill)
+
+### When to use
+
+| Scenario | Approach |
+|----------|----------|
+| Building from text description (no Figma source) | Single-tier (Tier 2 only) |
+| Building from existing Figma component | Two-tier |
+| Auditing/documenting existing components | Two-tier |
+| Syncing data from Figma | Tier 1 only |
+
+### Example flow
+
+```
+1. use_figma: extractComponentStructure("7206:2643") → JSON
+2. Claude reads JSON: "Button has 5 variant axes, 3 text props, anatomy has icon + label"
+3. use_figma: clone section-header, fill title="Button"; clone table rows, fill props...
+```
+
+Skills that audit or document existing components (component-brief, design-audit) benefit most from two-tier extraction. Skills that build from scratch (generate-flow) can skip Tier 1.
+
 ## Node tracking with `getSharedPluginData`
 
 After creating or pushing nodes, tag them so `/refine` and parity checks can find them later:

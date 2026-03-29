@@ -102,6 +102,28 @@ For Draft tier: skip this step (speed over accuracy).
 
 ---
 
+### Step 5.0 — Resolve dependencies (before building)
+
+When the build plan includes nested components (e.g., a Card that contains Button and Badge), ensure dependencies exist before building.
+
+1. Scan the build plan for nested component references (any mention of importing or including other components)
+2. For each referenced component, check if it exists:
+   a. First check `../../docs/fm-components-registry.json` or `../../docs/ds2026-components-registry.json` (fast, local lookup)
+   b. Fallback: call `search_design_system` to verify the component exists in the library
+3. Classify each dependency:
+   - **Exists** → import key ready, proceed to Step 5
+   - **Missing** → must be built first
+
+4. If missing dependencies exist, build them leaf-to-root:
+   - Sort by dependency depth (components with no dependencies first)
+   - Build each missing component with a minimal `use_figma` call (basic structure only)
+   - Record their keys for the parent component's build step
+
+5. Report to user before proceeding:
+   > "Dependencies resolved: FM Button (exists), FM Icon (exists), Custom Badge (building...)"
+
+If no nested components are referenced in the build plan, skip this step entirely.
+
 ## Step 5 — Build in Figma (`use_figma`)
 
 Follow `../../references/figma-output.md` for shared patterns and token binding. Load `figma-generate-library` skill for component creation workflows.

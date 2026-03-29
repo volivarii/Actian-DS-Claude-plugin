@@ -36,10 +36,10 @@ Extract design system data directly from Figma libraries via MCP tools. Single-h
 
 | Phase | Output | Description |
 |-------|--------|-------------|
-| 1 | `docs/ds2026-components.md`, `docs/fm-components.md`, `docs/meta-kit/components.md` | Component catalogs with variant axes, properties, keys |
+| 1 | `docs/ds2026-components.md`, `docs/fm-components.md`, `docs/meta-kit/components.md`, `docs/ds2026-components-registry.json`, `docs/fm-components-registry.json`, `docs/meta-kit/meta-kit-registry.json` | Component catalogs with variant axes, properties, keys |
 | 2 | `docs/meta-kit/variables.md` | 115 variables with keys, scopes, per-mode values |
 | 3 | `docs/meta-kit/text-styles.md`, `docs/meta-kit/effect-styles.md` | Text + effect style specs |
-| 4 | `docs/token-reference.md`, `tokens/tokens.css`, `tokens/actian-ds.tokens.json` | Token reference, CSS custom properties, W3C DTCG |
+| 4 | `docs/token-reference.md`, `tokens/tokens.css`, `tokens/actian-ds.tokens.json`, `token-drift.json` (if drift detected) | Token reference, CSS custom properties, W3C DTCG |
 | 5 | `docs/component-guidelines/*.json` | Per-component guidelines (44+) |
 | 6 | `docs/foundations/*.json`, `docs/content-guidelines.md`, `docs/accessibility-guidelines.md` | Foundation docs (11 pages) |
 | 7 | `release-notes/sync-YYYY-MM-DD.md` | Semantic changelog + validation report + approval gate |
@@ -60,7 +60,7 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 
 | Phase | Name | MCP calls | What it does |
 |-------|------|-----------|--------------|
-| 1 | Components | 1-3 `use_figma` (incremental) or ~10-20 (full) | Extract component sets + standalone components. Incremental by default |
+| 1 | Components | 1-3 `use_figma` (incremental) or ~10-20 (full) | Extract component sets + standalone components + generate JSON registries. Incremental by default |
 | 2 | Variables | 2 `use_figma` | Extract 115 variables with inline alias resolution (non-color + color) |
 | 3 | Styles | 2 `use_figma` | Extract 12 text styles + 5 effect styles |
 | 4 | Token files | 0 (transforms Phase 2 data) | Generate token-reference.md, tokens.css, tokens.json |

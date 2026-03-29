@@ -53,6 +53,34 @@ function hexToRgb(hex) {
 
 ---
 
+## Clone-and-Fill Helpers
+
+Include these when using template-based builders. The skill must read `meta-kit-registry.json` before the `use_figma` call and pass the relevant template keys.
+
+```js
+// Helper: clone a template component from the registry
+// templateKey = the component key from meta-kit-registry.json
+async function cloneTemplate(templateKey) {
+  const comp = await figma.importComponentByKeyAsync(templateKey);
+  const instance = comp.createInstance();
+  const detached = instance.detachInstance();
+  detached.visible = true;
+  return detached;
+}
+
+// Helper: fill text slots in a cloned template by matching layer names
+function fillSlots(frame, slots) {
+  for (const [slotName, value] of Object.entries(slots)) {
+    const textNode = frame.findOne(n => n.type === 'TEXT' && n.name === slotName);
+    if (textNode) {
+      textNode.characters = value;
+    }
+  }
+}
+```
+
+---
+
 ## `buildSpecTable(parent, headers, rows, options)`
 
 Builds a fully styled specification table with header row and data rows, appended into the given parent frame.
@@ -235,6 +263,116 @@ const table = await buildSpecTable(
 
 ---
 
+## `buildSpecTable` — Template-based (preferred)
+
+Uses clone-and-fill with Meta Kit template components. Requires `cloneTemplate` and `fillSlots` helpers above, plus the registry data.
+
+### Prerequisites
+
+The skill reads `meta-kit-registry.json` before the `use_figma` call and includes the registry's `templates` object in the code string.
+
+### Code
+
+```js
+async function buildSpecTable(parent, headers, rows, options = {}) {
+  const { columnWidths, registry } = options;
+
+  await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
+  await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
+
+  const colCount = headers.length;
+  const parentWidth = parent.width || 800;
+  const widths = columnWidths || headers.map(() => Math.floor(parentWidth / colCount));
+
+  // Table container
+  const table = figma.createFrame();
+  table.name = 'Spec Table';
+  table.layoutMode = 'VERTICAL';
+  table.primaryAxisSizingMode = 'AUTO';
+  table.counterAxisSizingMode = 'AUTO';
+  table.itemSpacing = 0;
+  table.fills = [];
+
+  // --- Header row (clone from template) ---
+  const headerRow = figma.createFrame();
+  headerRow.name = 'Header Row';
+  headerRow.layoutMode = 'HORIZONTAL';
+  headerRow.primaryAxisSizingMode = 'AUTO';
+  headerRow.counterAxisSizingMode = 'AUTO';
+  headerRow.itemSpacing = 0;
+  headerRow.fills = [];
+
+  for (let i = 0; i < colCount; i++) {
+    const cell = await cloneTemplate(registry.templates['table-header-row'].key);
+    cell.name = 'Header: ' + headers[i];
+    cell.resize(widths[i], 1);
+    cell.primaryAxisSizingMode = 'FIXED';
+    cell.counterAxisSizingMode = 'AUTO';
+    fillSlots(cell, { label: headers[i] });
+    headerRow.appendChild(cell);
+  }
+
+  table.appendChild(headerRow);
+  headerRow.layoutSizingHorizontal = 'FILL';
+
+  // --- Data rows (clone from template) ---
+  for (let r = 0; r < rows.length; r++) {
+    const row = figma.createFrame();
+    row.name = 'Row ' + (r + 1);
+    row.layoutMode = 'HORIZONTAL';
+    row.primaryAxisSizingMode = 'AUTO';
+    row.counterAxisSizingMode = 'AUTO';
+    row.itemSpacing = 0;
+    row.fills = [];
+
+    for (let c = 0; c < colCount; c++) {
+      const cell = await cloneTemplate(registry.templates['table-data-row'].key);
+      cell.name = 'Cell [' + r + ',' + c + ']';
+      cell.resize(widths[c], 1);
+      cell.primaryAxisSizingMode = 'FIXED';
+      cell.counterAxisSizingMode = 'AUTO';
+      fillSlots(cell, { label: rows[r][c] || '' });
+      // Remove the 'value' text node (single-value cell)
+      const valueNode = cell.findOne(n => n.type === 'TEXT' && n.name === 'value');
+      if (valueNode) valueNode.remove();
+      row.appendChild(cell);
+    }
+
+    table.appendChild(row);
+    row.layoutSizingHorizontal = 'FILL';
+  }
+
+  parent.appendChild(table);
+  table.layoutSizingHorizontal = 'FILL';
+  table.layoutSizingVertical = 'HUG';
+
+  for (const child of table.children) {
+    child.layoutSizingVertical = 'HUG';
+  }
+
+  return table;
+}
+```
+
+### Usage example
+
+```js
+// Skill reads registry before use_figma call, then passes template keys
+const registry = { templates: { 'table-header-row': { key: 'KEY_FROM_REGISTRY' }, 'table-data-row': { key: 'KEY_FROM_REGISTRY' } } };
+
+const table = await buildSpecTable(
+  section,
+  ['Property', 'Type', 'Default', 'Description'],
+  [
+    ['variant', 'string', '"primary"', 'Visual style of the button'],
+    ['size',    'string', '"md"',      'Button size: sm, md, lg'],
+  ],
+  { columnWidths: [160, 120, 120, 560], registry }
+);
+```
+
+---
+
 ## `buildStateGrid(parent, states)`
 
 Builds a horizontal grid of labeled states — each column has a label on top and a content node (component instance or frame) below.
@@ -328,3 +466,55 @@ const stateGrid = await buildStateGrid(section, [
   { label: 'Disabled', content: disabledInstance },
 ]);
 ```
+
+---
+
+## `buildStateGrid` — Template-based (preferred)
+
+Uses clone-and-fill with Meta Kit template components.
+
+### Code
+
+```js
+async function buildStateGrid(parent, states) {
+  await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
+
+  const grid = figma.createFrame();
+  grid.name = 'State Grid';
+  grid.layoutMode = 'HORIZONTAL';
+  grid.primaryAxisSizingMode = 'AUTO';
+  grid.counterAxisSizingMode = 'AUTO';
+  grid.itemSpacing = 48;
+  grid.fills = [];
+
+  for (const state of states) {
+    const column = await cloneTemplate(registry.templates['state-column'].key);
+    column.name = 'State: ' + state.label;
+    fillSlots(column, { title: state.label });
+
+    // Replace the placeholder content frame with the actual content
+    const placeholder = column.findOne(n => n.name === 'content');
+    if (placeholder) {
+      const idx = column.children.indexOf(placeholder);
+      column.insertChild(idx, state.content);
+      placeholder.remove();
+    } else {
+      column.appendChild(state.content);
+    }
+
+    grid.appendChild(column);
+  }
+
+  parent.appendChild(grid);
+  grid.layoutSizingHorizontal = 'FILL';
+  grid.layoutSizingVertical = 'HUG';
+
+  return grid;
+}
+```
+
+---
+
+## Fallback
+
+When Meta Kit template components are not yet published (registry has `"PENDING"` keys), use the original non-template versions of `buildSpecTable` and `buildStateGrid` above. The template-based versions are preferred when available.

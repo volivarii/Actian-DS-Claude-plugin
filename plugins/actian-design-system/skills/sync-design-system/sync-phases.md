@@ -310,6 +310,73 @@ Formatting rules:
 - If a single page extraction fails, log the page name and continue
 - After writing, report total component set count + standalone component count per library
 
+#### Registry generation (after Markdown files are written)
+
+After writing the Markdown component files, generate JSON registries from the same extracted data. This step runs at the end of both incremental and full sync.
+
+**For each library (DS2026, FM, Meta Kit):**
+
+1. Read the component data already extracted in earlier steps (manifest for incremental, full extraction for full sync)
+2. Transform into registry schema:
+
+```js
+function toRegistryEntry(comp) {
+  const entry = {
+    key: comp.key,
+    nodeId: comp.nodeId,
+    type: comp.type,
+  };
+  if (comp.page) entry.page = comp.page;
+  if (comp.variantAxes && comp.variantAxes.length > 0) {
+    entry.variants = {};
+    for (const axis of comp.variantAxes) {
+      entry.variants[axis.axis] = axis.values;
+    }
+  }
+  if (comp.componentPropertyDefinitions && comp.componentPropertyDefinitions.length > 0) {
+    entry.textOverrides = comp.componentPropertyDefinitions;
+  }
+  entry.nestedComponents = [];
+  return entry;
+}
+```
+
+3. Write the JSON registry file with metadata:
+   - `version`: `"1.0.0"`
+   - `lastSynced`: current ISO 8601 timestamp
+   - `library`: library identifier (`"ds2026"`, `"fm"`, or `"meta-kit"`)
+   - `fileKey`: Figma file key
+   - `components`: object keyed by slug (lowercase, hyphenated component name)
+
+4. **Meta Kit special handling:** Preserve the `templates` section from the existing `meta-kit-registry.json` — do not overwrite template keys during sync. Read the existing file first, merge: keep all template entries unchanged, update only the `components` section from extraction.
+
+5. Generate `docs/meta-kit/meta-kit-reference.md` as auto-generated human-readable table:
+
+```markdown
+# Meta Kit Registry Reference
+
+> Auto-generated from `meta-kit-registry.json` — do not edit manually.
+
+## Templates
+
+| Name | Key | Node | Category | Text Slots |
+|------|-----|------|----------|------------|
+| table-header-row | `abc...` | `66:42` | table | label |
+| ... | ... | ... | ... | ... |
+
+## Components
+
+| Name | Key | Node | Type |
+|------|-----|------|------|
+| brief-card | `3dbb...` | `7:2` | component_set |
+| ... | ... | ... | ... |
+```
+
+**Output files per library:**
+- DS2026: `docs/ds2026-components-registry.json` (replaces existing seed) + `docs/ds2026-components.md` (existing)
+- FM: `docs/fm-components-registry.json` (replaces existing seed) + `docs/fm-components.md` (existing)
+- Meta Kit: `docs/meta-kit/meta-kit-registry.json` (merge with existing) + `docs/meta-kit/meta-kit-reference.md` (new, auto-generated)
+
 ---
 
 ## Phase 2 — Variables
@@ -561,6 +628,71 @@ W3C DTCG format:
 
 - Missing Phase 2 data → abort with error message
 - `UNRESOLVED` values → carry through with CSS comment and `$status` field
+
+#### Drift detection (after token files are generated)
+
+After generating the new `actian-ds.tokens.json` from fresh Figma data, compare against the previously existing local file to detect drift.
+
+**Procedure:**
+
+1. Before overwriting, read the **existing** `tokens/actian-ds.tokens.json` into memory
+2. Generate the **new** token file from Phase 2 extraction data
+3. Compare every token value across all 3 themes:
+   - Walk both JSON trees in parallel
+   - For each token path (e.g., `color.background-bg-default`):
+     - Compare `$value` fields
+     - Compare each theme value in `$extensions.com.actian.themes` (actian, studio, explorer)
+     - If any value differs → add to drift list with both old and new values
+4. Write `token-drift.json` to the project working directory (not the plugin directory):
+
+```json
+{
+  "generated": "2026-03-29T10:00:00Z",
+  "previousSyncDate": "2026-03-26T00:00:00Z",
+  "summary": {
+    "total": 115,
+    "matched": 112,
+    "drifted": 3,
+    "added": 0,
+    "removed": 0
+  },
+  "drifted": [
+    {
+      "path": "color.background-bg-disabled",
+      "category": "color",
+      "themes": {
+        "actian": { "previous": "#F5F5F9", "current": "#F5F5FA" },
+        "studio": { "previous": "#EBEBEB", "current": "#EBEBEB" },
+        "explorer": { "previous": "#EBEBEB", "current": "#EBEBEB" }
+      }
+    }
+  ],
+  "added": [],
+  "removed": []
+}
+```
+
+5. Report drift summary to user:
+   > "Drift detection: 3 tokens changed since last sync. See `token-drift.json` for details."
+   > - 2 color tokens changed (actian theme)
+   > - 1 spacing token changed (all themes)
+
+6. If no drift detected: report "No token drift detected — local files match Figma." and skip writing `token-drift.json`.
+
+7. Then proceed to overwrite the token files as usual.
+
+**Note:** Drift detection is informational only. It does not block the sync or require user approval. The DS team reviews the report manually.
+
+#### CSS custom properties generation
+
+The `tokens/tokens.css` file is generated with:
+- Default theme (Actian) values in `:root`
+- Theme overrides in `[data-theme="studio"]` and `[data-theme="explorer"]` selectors (only tokens that differ from Actian default)
+- `--zen-*` prefix on all custom properties
+- Comment headers per token category (Color, Spacing, Border, Typography, Effects)
+- Generation metadata comment at top (source file, date, version)
+
+An additional `tokens/actian-ds.tokens.css` file is generated as an alias with identical content, following the naming convention of `actian-ds.tokens.json`.
 
 ---
 
