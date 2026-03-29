@@ -92,10 +92,10 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 ```json
 {
   "parts": [
-    { "letter": "A", "name": "Container", "description": "Border + border-radius + background fill" },
-    { "letter": "B", "name": "Floating label", "description": "Animates from placeholder position to top" },
-    { "letter": "C", "name": "Input value", "description": "User-entered text content" },
-    { "letter": "D", "name": "Helper text", "description": "Guidance or error message below the field" }
+    { "letter": "A", "name": "Container", "description": "Border + border-radius + background fill", "figmaLayerName": "Container" },
+    { "letter": "B", "name": "Floating label", "description": "Animates from placeholder position to top", "figmaLayerName": "Label" },
+    { "letter": "C", "name": "Input value", "description": "User-entered text content", "figmaLayerName": "Input" },
+    { "letter": "D", "name": "Helper text", "description": "Guidance or error message below the field", "figmaLayerName": "Helper text" }
   ],
   "specs": [
     { "label": "48px", "orientation": "vertical", "target": "field height" },
@@ -113,7 +113,7 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 }
 ```
 
-- `parts`: lettered callouts for the Structure sub-section. HTML renders as `anatomy-prop` divs. Figma renders as Pointer Badge instances.
+- `parts`: lettered callouts for the Structure sub-section. `figmaLayerName` is the Figma layer name used to find the child via `findOne(n => n.name === layerName)` and read its `absoluteBoundingBox` for badge positioning. HTML renders as `anatomy-prop` divs. Figma renders as Pointer Badge instances positioned at actual part coordinates with vector leader lines.
 - `specs`: measurement annotations for the Specs sub-section. HTML renders as pink CSS measurement brackets. Figma renders as Dimension Annotation instances.
 - `states`: list of state names for the States sub-section. HTML renders as `state-col` divs. Figma renders via `buildStateGrid` with real component instances.
 - `partsTable`: rows for the Parts Reference tables. Both renderers use `spec-table` / `buildSpecTable`.

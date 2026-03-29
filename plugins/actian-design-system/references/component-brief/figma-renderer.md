@@ -27,7 +27,7 @@ Before any `use_figma` call, the skill must:
 
 ## How the skill assembles each call
 
-For each of the 10 calls:
+For each of the 11 calls:
 
 1. Read the **static call template** below — defines sections and Meta Kit components
 2. Read **dynamic data** from `brief-data.json` — provides row counts, values, hex colors
@@ -139,12 +139,9 @@ SIZING:
 
 ---
 
-## Call 3: Card 3a — Anatomy: Structure + Specs
+## Call 3: Card 3 — Anatomy: Extract part positions (Tier 1)
 
-**Static structure:**
-- Brief Card Standard shell (only created here, reused in Call 4)
-- Structure sub-section: real component instance + Pointer Badge per part + legend
-- Specs sub-section: real component instance + Dimension Annotation per measurement
+**Purpose:** Read the absolute positions of component parts so badges and annotations can be placed accurately in Calls 4-5. This is a read-then-build call — create an instance, read positions, then build the card structure.
 
 **Checklist template:**
 
@@ -156,15 +153,32 @@ CARD SHELL:
 □ Detach → card frame, find "Content" child
 □ Append card to wrapper (ID: ${wrapperNodeId})
 
-STRUCTURE SUB-SECTION:
-□ Add section title text "Structure" (Inter Semi Bold 16px)
-□ Create anatomy diagram frame (auto-layout, VERTICAL, fills=[])
-□ Get local component, create real instance for default state
-□ Import Pointer Badge (key: 7e066fc21d9a2bbbcd1149113787cf59140162d4)
+EXTRACT PART POSITIONS:
+□ Get local component set via getNodeByIdAsync("${meta.nodeId}")
+□ Create instance of default variant
+□ Append instance to a temporary frame inside Content (so it renders and has absoluteBoundingBox)
+□ Read instance.absoluteBoundingBox → store as instanceBounds
+□ For each part, find child by name and read position:
 ${card3_anatomy.parts.map(p =>
-  `□ Pointer Badge "${p.letter}": Direction=Left variant, setProp Label="${p.letter}", position near ${p.name}`
+  `□ Find child "${p.figmaLayerName}" → read absoluteBoundingBox → store as part${p.letter}Bounds`
 ).join('\n')}
-□ Add legend row (horizontal auto-layout, 20px gap):
+
+STRUCTURE SUB-SECTION (using extracted positions):
+□ Add section title text "Structure" (Inter Semi Bold 16px)
+□ Create anatomy diagram frame: layoutMode=NONE (free positioning), width=800, height=auto, fills=[{type:'SOLID', color:{r:0.976,g:0.98,b:0.984}}], cornerRadius=12, padding=48
+□ Move the instance inside the diagram frame, center it horizontally
+
+POINTER BADGES (positioned using absoluteBoundingBox):
+□ Import Pointer Badge set (key: 7e066fc21d9a2bbbcd1149113787cf59140162d4)
+${card3_anatomy.parts.map(p =>
+  `□ Pointer Badge "${p.letter}":
+  □ Find variant Direction=Left, createInstance, setProp Label="${p.letter}"
+  □ Position: x = instanceBounds.x - 50 (left of component), y = part${p.letter}Bounds.y + part${p.letter}Bounds.height/2 - 10 (vertically centered on part)
+  □ Draw vector leader line: figma.createVector() with vectorPaths M (badgeRightEdge) (badgeCenterY) L (part${p.letter}Bounds.x) (part${p.letter}CenterY)
+  □ Leader stroke: 1px #E91E8C (pink), strokeWeight=1`
+).join('\n')}
+
+□ Add legend row below diagram (horizontal auto-layout, 20px gap):
 ${card3_anatomy.parts.map(p =>
   `  □ "${p.letter} — ${p.name}"`
 ).join('\n')}
@@ -173,30 +187,69 @@ ${card3_anatomy.parts.map(p =>
   `  □ "${p.letter} · ${p.name.toUpperCase()}" → "${p.description}"`
 ).join('\n')}
 
+SIZING:
+□ card.layoutSizingVertical = 'HUG'
+□ Diagram frame: fixed width, HUG height
+
+RETURN: card node ID (needed by Calls 4-5)
+```
+
+**Key API patterns:**
+- `absoluteBoundingBox` returns `{x, y, width, height}` in page coordinates
+- Badges use `layoutPositioning = 'ABSOLUTE'` if inside auto-layout, or direct x/y if inside free frame
+- Vector leader lines: `figma.createVector()` with `vectorPaths: [{ windingRule: 'NONE', data: 'M x1 y1 L x2 y2' }]`
+- Set `strokes: [{type:'SOLID', color:{r:0.914,g:0.118,b:0.549}}]` for #E91E8C pink
+
+---
+
+## Call 4: Card 3 — Anatomy: Specs with Dimension Annotations
+
+**Static structure:**
+- Find existing Anatomy card (from Call 3)
+- Specs sub-section: size comparison instances + Dimension Annotations positioned using absoluteBoundingBox
+
+**Checklist template:**
+
+```
+MICRO-TASKS — complete ALL (skipping any is a P0 bug):
+
+FIND CARD:
+□ Find "Anatomy" card in wrapper (ID: ${wrapperNodeId}), find "Content" child
+
 □ Add Card Divider (key: f4d778e1cf9bb61a33712c791486f54bb1c095b7)
 
 SPECS SUB-SECTION:
-□ Add section title text "Specs"
-□ Create specs diagram frame
-□ Get local component, create real instance
-□ Import Dimension Annotation (key: 49bf6a1b210a403ba145a3fdee9b1994eb54069a)
-${card3_anatomy.specs.map(s =>
-  `□ Dimension Annotation: Orientation=${s.orientation === 'horizontal' ? 'Horizontal' : 'Vertical'}, setProp Value="${s.label}", position near "${s.target}"`
-).join('\n')}
+□ Add section title text "Specs" (Inter Semi Bold 16px)
+□ Create specs frame: layoutMode=NONE (free positioning), width=800, minHeight=200, fills=[], cornerRadius=0
+
+SIZE COMPARISON (create instances, read positions, add annotations):
+□ Get local component set via getNodeByIdAsync("${meta.nodeId}")
+□ Import Dimension Annotation set (key: 49bf6a1b210a403ba145a3fdee9b1994eb54069a)
+
+${card3_anatomy.specs.map((s, i) =>
+  `SPEC ${i+1}: "${s.label}" (${s.target})
+□ Create component instance for this measurement context
+□ Read instance absoluteBoundingBox
+□ Import Dimension Annotation (Orientation=${s.orientation === 'horizontal' ? 'Horizontal' : 'Vertical'})
+□ setProp Value = "${s.label}"
+□ Position annotation adjacent to the measured dimension:
+  □ Vertical measurement: place annotation to the right of instance, y aligned with instance top/bottom
+  □ Horizontal measurement: place annotation below instance, x aligned with measured edges
+□ Add label text "${s.target}" below the annotation (Inter Regular 11px #888)`
+).join('\n\n')}
 
 SIZING:
-□ card.layoutSizingVertical = 'HUG'
-□ All sub-frames: layoutSizingHorizontal = 'FILL', layoutSizingVertical = 'HUG'
+□ specs frame: fixed width, HUG height
 ```
 
 ---
 
-## Call 4: Card 3b — Anatomy: States + Parts table
+## Call 5: Card 3 — Anatomy: States + Parts table
 
 **Static structure:**
-- Find existing Anatomy card (appended in Call 3)
+- Find existing Anatomy card (from Call 3)
 - States sub-section: horizontal grid of real component instances per state
-- Parts reference table via text rows
+- Parts reference table
 
 **Checklist template:**
 
@@ -231,7 +284,7 @@ SIZING:
 
 ---
 
-## Call 5: Card 4 — Design tokens
+## Call 6: Card 4 — Design tokens
 
 **Static structure:**
 - Brief Card Standard shell
@@ -285,7 +338,7 @@ SIZING:
 
 ---
 
-## Call 6: Card 5 — Component API
+## Call 7: Card 5 — Component API
 
 **Static structure:**
 - Brief Card Standard shell
@@ -315,7 +368,7 @@ SIZING:
 
 ---
 
-## Call 7: Cards 6 + 7 — Usage + Content guidelines
+## Call 8: Cards 6 + 7 — Usage + Content guidelines
 
 **Static structure:**
 - Card 6: When to use list, When NOT to use list, Do/Don't pairs via Meta Kit component
@@ -372,7 +425,7 @@ ${card7_content.terminology.length > 0 ?
 
 ---
 
-## Call 8: Card 8a — Accessibility: Requirements
+## Call 9: Card 8a — Accessibility: Requirements
 
 **Static structure:**
 - Brief Card Standard shell
@@ -412,7 +465,7 @@ SIZING:
 
 ---
 
-## Call 9: Card 8b — ARIA table + Contrast table
+## Call 10: Card 8b — ARIA table + Contrast table
 
 **Static structure:**
 - Find existing Accessibility card (from Call 8)
@@ -452,7 +505,7 @@ SIZING:
 
 ---
 
-## Call 10: Card 9 — Code specification
+## Call 11: Card 9 — Code specification
 
 **Static structure:**
 - Brief Card Standard shell
@@ -500,14 +553,14 @@ for each token:
 
 ## Parity validation
 
-After all 10 calls complete, verify these counts from the data model:
+After all 11 calls complete, verify these counts from the data model:
 
 | Check | Expected | Source |
 |-------|----------|--------|
 | Wrapper children | 10 (gen log + 9 cards) | Fixed |
 | Card 2 variant instances | `variantMatrix.flatMap(r => r.columns).length` | `card2_component` |
-| Card 3 Pointer Badges | `parts.length` | `card3_anatomy` |
-| Card 3 Dimension Annotations | `specs.length` | `card3_anatomy` |
+| Card 3 Pointer Badges | `parts.length` badges + `parts.length` vector leader lines | `card3_anatomy` |
+| Card 3 Dimension Annotations | `specs.length` (positioned via absoluteBoundingBox) | `card3_anatomy` |
 | Card 3 state columns | `states.length` | `card3_anatomy` |
 | Card 4 color table rows | `colorTokens.length` | `card4_tokens` |
 | Card 4 swatch dots per row | `colorTokens[0].columns.length` | `card4_tokens` |
