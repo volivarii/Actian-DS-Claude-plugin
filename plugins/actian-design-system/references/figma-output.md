@@ -253,14 +253,14 @@ Skills that audit or document existing components (component-brief, design-audit
 After creating or pushing nodes, tag them so `/refine` and parity checks can find them later:
 
 ```js
-node.setSharedPluginData('actian-ds', 'skill', 'generate-flow');
-node.setSharedPluginData('actian-ds', 'screen', 'Screen 3: Login form');
-node.setSharedPluginData('actian-ds', 'pushed_at', new Date().toISOString());
+node.setSharedPluginData('actian_ds', 'skill', 'generate-flow');
+node.setSharedPluginData('actian_ds', 'screen', 'Screen 3: Login form');
+node.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());
 ```
 
-Read back with `node.getSharedPluginData('actian-ds', 'skill')`. This is more reliable than name-based matching for locating pushed nodes.
+Read back with `node.getSharedPluginData('actian_ds', 'skill')`. This is more reliable than name-based matching for locating pushed nodes.
 
-Note: `setPluginData` / `getPluginData` are NOT supported — use `setSharedPluginData` / `getSharedPluginData` instead. The namespace `'actian-ds'` is ours.
+Note: `setPluginData` / `getPluginData` are NOT supported — use `setSharedPluginData` / `getSharedPluginData` instead. The namespace `'actian_ds'` is ours.
 
 ## `search_design_system` before importing
 
@@ -280,7 +280,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 - **`use_figma` is the only output path.** All Figma output goes through `use_figma`.
 - **Load Figma skills.** Always pass `skillNames: "figma-use"` (or `"figma-use,figma-generate-design"` for screens, `"figma-use,figma-generate-library"` for components) when calling `use_figma`.
 - **Return all created node IDs** from every `use_figma` call. Store them for parity checks and `/refine`.
-- **Tag pushed nodes** with `setSharedPluginData('actian-ds', ...)` for reliable retrieval.
+- **Tag pushed nodes** with `setSharedPluginData('actian_ds', ...)` for reliable retrieval.
 - **Never use `generate_figma_design`** — it produces raw geometry without design system awareness.
 - **Never delegate Figma output to a subagent.** Subagents do NOT have MCP tools.
 - **HTML is local preview only.**

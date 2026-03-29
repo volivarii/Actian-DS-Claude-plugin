@@ -1,6 +1,6 @@
 # Meta Kit — Component Catalog
 
-Auto-generated from Figma MCP on 2026-03-26. 15 components (10 component sets + 5 standalone).
+Auto-generated from Figma MCP on 2026-03-26. 21 components (10 component sets + 5 standalone + 1 feedback + 5 hidden templates).
 
 Library components used by skills to build spec briefs, flow screens, and presentations.
 These live in the Meta Kit Figma library and are imported at runtime via the Plugin API.
@@ -446,6 +446,37 @@ Annotation component for designer feedback and library gap markers. Two variants
 
 ---
 
+## Templates (hidden)
+
+These components are invisible in the asset panel. Skills clone and fill them via the template engine (`cloneTemplate` + `fillSlots` from `builders.md`). See `meta-kit-registry.json` for the full registry.
+
+### Meta / Template / Table Header Row
+- Node: `73:12` | Key: `0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e`
+- Text slots: `label`
+- Category: table
+
+### Meta / Template / Table Data Row
+- Node: `74:12` | Key: `3a1fae22dd85936f81565122888efd8a50e37180`
+- Text slots: `label`, `value`
+- Category: table
+
+### Meta / Template / State Column
+- Node: `75:12` | Key: `4f782d1a8541b4474858767209f99dce1428784b`
+- Text slots: `title`
+- Category: grid
+
+### Meta / Template / Section Header
+- Node: `76:12` | Key: `f4fd576001f4f1f4606a4efb051d1e4492e378c4`
+- Text slots: `title`, `subtitle`
+- Category: layout
+
+### Meta / Template / Swatch Row
+- Node: `77:12` | Key: `96647364b6cb5c55b7ced72106708daaa33afb7f`
+- Text slots: `name`, `value`, `hex`
+- Category: tokens
+
+---
+
 ## Quick Reference
 
 | Component | Key | Node | Import method |
@@ -465,3 +496,10 @@ Annotation component for designer feedback and library gap markers. Two variants
 | Code Block | `1bf10eee17...` | `8:2` | `importComponentByKeyAsync` |
 | Flow Cover Card | `eaebde6bd0...` | `46:344` | `importComponentByKeyAsync` |
 | Research Frame | `e671618f2b...` | `48:31` | `importComponentByKeyAsync` |
+| Feedback | `d5cba21bc3...` | `66:20` | `importComponentSetByKeyAsync` |
+| **Templates (hidden)** | | | |
+| Table Header Row | `0754accfc4...` | `73:12` | `importComponentByKeyAsync` → clone+fill |
+| Table Data Row | `3a1fae22dd...` | `74:12` | `importComponentByKeyAsync` → clone+fill |
+| State Column | `4f782d1a85...` | `75:12` | `importComponentByKeyAsync` → clone+fill |
+| Section Header | `f4fd576001...` | `76:12` | `importComponentByKeyAsync` → clone+fill |
+| Swatch Row | `96647364b6...` | `77:12` | `importComponentByKeyAsync` → clone+fill |
