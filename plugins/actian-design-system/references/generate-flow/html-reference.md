@@ -374,6 +374,12 @@ Does NOT need detaching — `contentArea.appendChild()` works. See `../../docs/m
 6. **Descriptive layer names** — no "Frame 1"
 7. **Contextual text content** — no generic placeholders
 8. **One row per flow** — all screens in a single horizontal wrapper
+9. **App Header variant must match app context** — if the flow is for Studio, set `Type=Studio`. Never leave as default or wrong app. Verify after creation.
+10. **Set ALL text properties on every instance** — after `createInstance()`, set every text property (Label, Caption, Title, Input Text). Never leave FM defaults like "Label", "Caption", "Text", "Nav Item". Check by reading back the property value.
+11. **Every frame with children MUST have layoutMode** — set `layoutMode = 'VERTICAL'` or `'HORIZONTAL'` BEFORE appending children. Frames without layoutMode collapse to minimum height. This is the #1 cause of invisible content in Figma output.
+12. **Append screens to the flow wrapper** — every screen must be a child of the horizontal flow wrapper frame, not a direct child of the page or section. After appending, verify `screen.parent.name` matches the wrapper name.
+13. **Split calls by screen** — push one screen per `use_figma` call. Do not batch multiple screens. Pass the flow wrapper frame ID to each call so screens land in the right parent.
+14. **Feature focus in Figma matches HTML** — the Figma output must mirror the HTML preview exactly. If the HTML uses placeholder bars for non-feature sidebar items, the Figma output must use `FM Side navigation item` with `State=Placeholder` — not real text labels. If the HTML uses placeholder table rows, use `FM Text Cell` with `Type=Placeholder`. The Figma output is NOT a higher-fidelity version of the HTML — it is a 1:1 translation.
 
 ## Token reference
 

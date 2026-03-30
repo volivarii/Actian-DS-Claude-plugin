@@ -301,6 +301,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 - **Never use `generate_figma_design`** — it produces raw geometry without design system awareness.
 - **Never delegate Figma output to a subagent.** Subagents do NOT have MCP tools.
 - **HTML is local preview only.**
+- **Figma output must match HTML preview exactly.** The Figma push is a 1:1 translation of the approved HTML — not a reinterpretation. If the HTML uses placeholder bars, the Figma uses Placeholder component variants. If the HTML shows only one active nav item, the Figma shows only one active nav item. Do not add detail, color, or content that wasn't in the HTML.
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed.
 - **Check library before building custom.** Before creating any custom frame for a UI element, check `../../docs/fm-components.md` (FM) or `../../docs/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `library-gap-detection.md` for the full detection procedure.
@@ -321,6 +322,48 @@ frame.layoutSizingVertical = 'HUG';     // MUST be set — prevents height=1px c
 **Both layers are required:**
 - `primaryAxisSizingMode` / `counterAxisSizingMode` — how the frame sizes itself
 - `layoutSizingHorizontal` / `layoutSizingVertical` — how the frame sizes within its parent's auto-layout
+
+## Frame Collapse Prevention
+
+**#1 cause of invisible content in Figma output.** A frame with children but no `layoutMode` set will collapse to its minimum height (often 10px or 0px), hiding all children.
+
+**Rule:** Set `layoutMode` BEFORE appending children:
+
+```js
+// CORRECT — layoutMode set first
+const form = figma.createFrame();
+form.layoutMode = 'VERTICAL';
+form.primaryAxisSizingMode = 'AUTO'; // HUG height
+form.counterAxisSizingMode = 'FIXED'; // fixed width
+form.itemSpacing = 20;
+// NOW append children — frame will grow to fit
+
+// WRONG — children added to a frame with no layout
+const form = figma.createFrame();
+form.appendChild(field1); // frame stays at default 100x100 or collapses
+form.appendChild(field2); // children overlap or are invisible
+```
+
+**After every frame creation, verify:** `frame.height > 50` (or whatever the minimum expected height is). If height is suspiciously small, `layoutMode` was not set.
+
+## Instance Text Property Prevention
+
+After creating any component instance, set ALL text properties. FM components ship with default placeholder text ("Label", "Caption", "Text", "Nav Item") that MUST be replaced:
+
+```js
+const instance = variant.createInstance();
+
+// Set ALL text properties — find them by prefix
+function setProp(inst, prefix, value) {
+  const key = Object.keys(inst.componentProperties).find(k => k.startsWith(prefix));
+  if (key) inst.setProperties({ [key]: value });
+}
+setProp(instance, 'Label', 'Create Term');
+setProp(instance, 'Caption', '');  // empty if not needed
+setProp(instance, 'Title', 'Glossary');
+```
+
+**Never leave defaults.** If a text property isn't needed, set it to empty string — don't leave "Label" or "Caption" visible.
 
 ## Ghost Mode Prevention
 
