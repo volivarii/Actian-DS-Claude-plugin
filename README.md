@@ -2,7 +2,7 @@
 
 Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings with one-click fixes. Test everything interactively before pushing to Figma.
 
-**v1.17.2** | 7 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.17.6** | 7 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 
@@ -76,6 +76,18 @@ The design system lives in Figma. Sync extracts it directly via MCP so skills al
 | Skill | What it does | How it helps |
 |-------|-------------|-------------|
 | `/sync-design-system` | Extract components, variables, styles, guidelines, and tokens from Figma via MCP. | Full sync, per-phase, or single-component. No intermediary repos — Figma is the source of truth. |
+
+### Agents — autonomous helpers
+
+Agents are dispatched automatically by skills to parallelize research, validate outputs, and analyze results. They run as subprocesses with restricted tool access.
+
+| Agent | What it does | Dispatched by |
+|-------|-------------|---------------|
+| `flow-researcher` | Research UX patterns, competitor approaches, and Actian product context for a flow feature | generate-flow (Step 2) |
+| `brief-data-validator` | Validate brief-data.json against schema — catch missing fields, truncated arrays, hardcoded values | component-brief (after Step 1.5) |
+| `wiring-analyzer` | Analyze Figma flow structure and produce a prototype wiring plan (screens, buttons, overlays) | generate-flow (Step 5.5) |
+| `flow-consistency` | Check generated flow HTML against app context — chrome, terminology, empty states, feature focus | generate-flow (after Step 4) |
+| `parity-analyzer` | Analyze Figma screenshots for clipping, empty text, missing children, layout problems | All skills (parity check step) |
 
 ---
 
@@ -202,6 +214,7 @@ actian-design-system-plugin/
 |   +-- .claude-plugin/plugin.json
 |   +-- CLAUDE.md
 |   +-- skills/                          # 7 skills
+|   +-- agents/                          # 5 agents (auto-dispatched by skills)
 |   +-- references/                      # Shared + skill-specific references
 |   |   +-- component-brief/             # Data schema, renderers, Figma rules, playground
 |   |   +-- generate-flow/               # HTML reference, research guide
