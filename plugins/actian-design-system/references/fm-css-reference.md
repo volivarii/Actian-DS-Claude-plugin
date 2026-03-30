@@ -1,6 +1,8 @@
 # Fat Marker CSS Reference
 
-Copy these exact styles into every generated flow HTML. These values are extracted from the Figma FM library and must not be approximated — use these exact hex values, font sizes, paddings, and border-radii.
+Copy these exact styles into every generated FM HTML. These values are extracted from the Figma FM library and must not be approximated — use these exact hex values, font sizes, paddings, and border-radii.
+
+**No extra colors.** Use only the `--fm-*` variables below. Do not introduce custom colors, gradients, decorative backgrounds, or any color not in this palette. FM outputs are intentionally lo-fi — the palette is deliberately constrained.
 
 ## Token Palette
 

@@ -195,6 +195,8 @@ Apply in every task: contrast ratios, keyboard interaction, ARIA patterns, focus
 - Box shadows → use `shadow-*` effect style tokens
 - Icon sizes → use `Size` tokens
 
+**FM outputs (flows, FM briefs, FM components):** Use only `--fm-*` variables from `references/fm-css-reference.md`. No custom colors, gradients, or decorative elements. The FM palette is intentionally constrained — lo-fi means lo-fi.
+
 ---
 
 ## Forms Layout Rules
