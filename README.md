@@ -2,7 +2,7 @@
 
 Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings with one-click fixes. Test everything interactively before pushing to Figma.
 
-**v1.17.1** | 7 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.17.2** | 7 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 
@@ -203,8 +203,10 @@ actian-design-system-plugin/
 |   +-- CLAUDE.md
 |   +-- skills/                          # 7 skills
 |   +-- references/                      # Shared + skill-specific references
-|   |   +-- component-brief/             # Data schema, renderers, Figma rules
+|   |   +-- component-brief/             # Data schema, renderers, Figma rules, playground
 |   |   +-- generate-flow/               # HTML reference, research guide
+|   |   +-- generate-presentation/       # Slide templates and chart types
+|   +-- templates/                       # CSS wrappers, annotation layer, prototype/playground
 |   +-- tokens/                          # W3C DTCG + CSS custom properties
 |   +-- docs/                            # Synced reference files
 +-- docs/
@@ -222,4 +224,4 @@ actian-design-system-plugin/
 | Presentation guide | Edit `docs/presentation-guide.md` |
 | Shared skill patterns | Edit `references/*.md` |
 | New skill | Add `skills/<name>/SKILL.md` |
-| Version bump | Update `plugin.json` + `marketplace.json` |
+| Version bump | Update `.claude-plugin/plugin.json` |

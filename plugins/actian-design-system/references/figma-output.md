@@ -221,7 +221,7 @@ If `meta-kit-registry.json` has `"PENDING"` keys (templates not yet built in Fig
 
 ## Two-Tier Extraction
 
-Separate data extraction from rendering for cleaner, more debuggable `use_figma` calls. See `extraction-scripts.md` for reusable Tier 1 scripts.
+Separate data extraction from rendering for cleaner, more debuggable `use_figma` calls.
 
 ### Pattern
 

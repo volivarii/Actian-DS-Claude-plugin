@@ -83,7 +83,7 @@ Issue ALL reads in a **single message** with parallel tool calls:
 3. `../../docs/content-guidelines.md`
 4. `../../docs/accessibility-guidelines.md`
 5. `../../docs/component-guidelines/<slug>.json`
-6. `templates/ds-wrapper.html` (CSS framework only)
+6. `../../templates/ds-wrapper.html` (CSS framework only)
 7. `../../references/component-brief/data-schema.md`
 8. `WebSearch` for WAI-ARIA Practices pattern
 
@@ -92,7 +92,7 @@ Issue ALL reads in a **single message** with parallel tool calls:
 2. `../../docs/fm-components.md`
 3. `../../docs/content-guidelines.md`
 4. `../../docs/component-guidelines/<slug>.json`
-5. `templates/fm-wrapper.html` (CSS framework only)
+5. `../../templates/fm-wrapper.html` (CSS framework only)
 6. `../../references/component-brief/data-schema.md`
 
 No additional research rounds. Proceed to Step 1.5.
@@ -123,7 +123,7 @@ The data model is persisted — used by feedback loops and incremental re-render
 2. Read the appropriate renderer:
    - DS: `../../references/component-brief/html-renderer.md`
    - FM: `../../references/component-brief/html-renderer-fm.md`
-3. Read the wrapper template (`templates/ds-wrapper.html` or `templates/fm-wrapper.html`)
+3. Read the wrapper template (`../../templates/ds-wrapper.html` or `../../templates/fm-wrapper.html`)
 4. Build each card's HTML from the data model using the card builders in the renderer
 5. The ONLY AI-interpreted part: Card 2's component-specific CSS + `componentHtml()` function
 6. Replace `{{GENERATION_CARD}}`, `{{CARDS}}`, `{{PAGE_TITLE}}` in the wrapper

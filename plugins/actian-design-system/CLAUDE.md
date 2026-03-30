@@ -88,7 +88,11 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 |------|---------|
 | `docs/presentation-guide.md` | Slide templates, voice & tone, chart selection, narrative structure |
 | `docs/meta-kit/builders.md` | Shared JS builder functions |
-| `references/*.md` | Shared skill references (figma-output, fm-css, quality-checklist, token-naming) |
+| `references/*.md` | Shared references (figma-output, fm-css, quality-checklist, token-naming, parity-check, etc.) |
+| `references/component-brief/` | Data schema, HTML renderers (DS + FM), Figma renderer, Figma rules, playground |
+| `references/generate-flow/` | HTML reference, research guide |
+| `references/generate-presentation/` | Slide templates and chart types |
+| `templates/` | CSS wrapper templates (ds-wrapper, fm-wrapper), annotation layer, prototype/playground wrappers |
 
 
 ## Versioning (Semantic Versioning)
@@ -102,9 +106,9 @@ This project uses **semver** (`MAJOR.MINOR.PATCH`).
 | **MAJOR** (X.0.0) | Breaking changes to spec format or skill behavior | Rename skill commands, restructure files, change token naming convention |
 
 **When to bump:**
-- Update version in **both** `plugin.json` and `marketplace.json`
+- Update version in `.claude-plugin/plugin.json`
 - Commit the version bump as part of the feature/fix commit, not as a separate commit
-- IMPORTANT: Do not bump version for every small change — batch related changes and bump once
+- Do not bump for every small change — batch related changes and bump once
 
 ---
 
@@ -134,36 +138,11 @@ The script handles all edge cases:
 
 ## Generation Metadata (required for all outputs)
 
-**Every generated output** (HTML specs, flows, presentations) MUST include a visible generation card as the **first element** — before any content cards, screens, or slides. This card is included in the output so the metadata is always visible in Figma.
+**Every generated output** MUST include a visible generation card as the **first element** with 7 fields: GENERATED label, skill name, prompt (truncated 200 chars), ISO 8601 date, duration, model, plugin version.
 
-### HTML outputs (specs, flows, presentations)
-
-Add a generation card as the first child inside the layout container (`.brief-row`, `.flow-row`, or `body`). Use the `.gen-card` class defined in the wrapper templates:
-
-```html
-<div class="gen-card" data-name="Generation log">
-  <div class="gen-card__label">GENERATED</div>
-  <div class="gen-card__field"><span class="gen-card__key">Skill</span> {{skill name}}</div>
-  <div class="gen-card__field"><span class="gen-card__key">Prompt</span> {{user prompt, truncated to 200 chars}}</div>
-  <div class="gen-card__field"><span class="gen-card__key">Date</span> {{ISO 8601 date+time}}</div>
-  <div class="gen-card__field"><span class="gen-card__key">Duration</span> {{prompt to file save}}</div>
-  <div class="gen-card__field"><span class="gen-card__key">Model</span> {{model ID}}</div>
-  <div class="gen-card__field"><span class="gen-card__key">Plugin</span> v{{plugin version}}</div>
-</div>
-```
-
-### `use_figma` outputs (Plugin API)
-
-Build a generation metadata frame as the first sibling before main content. See `references/figma-output.md` for the complete code pattern and field table. The frame must include all 7 fields: GENERATED label, skill name, prompt (truncated to 200 chars), ISO 8601 date, duration, model, and plugin version.
-
-### Field rules
-
-- `prompt` — the user's exact input, truncated to 200 chars if longer
-- `generated-at` — use the current date and time when the file is saved (not when the skill starts)
-- `duration` — measure from when the user's prompt was received to when the file is written
-- `skill` — the skill name from SKILL.md frontmatter
-- `model` — the model powering the current session
-- `plugin-version` — read from `.claude-plugin/plugin.json`
+- **HTML:** Use `.gen-card` class from wrapper templates. See renderer references for card structure.
+- **Figma:** Import Meta Kit Generation Log component. See `references/figma-output.md` for code pattern.
+- `plugin-version` — read from `.claude-plugin/plugin.json` at file-write time
 
 ---
 
@@ -278,188 +257,32 @@ Use the **corrected** names going forward:
 
 ## Component Token Mapping
 
-### Buttons
+Per-component token lookups are in the synced JSON files — do NOT hardcode from memory:
+- **Per-component guidelines:** `docs/component-guidelines/*.json` (44 components — content rules, design rules, variants)
+- **All token values:** `tokens/actian-ds.tokens.json` (W3C DTCG, 3 themes) + `docs/token-reference.md`
+- **Variable keys for Figma binding:** `docs/meta-kit/variables.md` (115 keys)
+- **FM palette:** `references/fm-css-reference.md`
 
-- DS2026 uses **Hierarchy** variant axis (not `Type`): Primary, Secondary color/gray, Tertiary color/gray, Link color/gray
-- FM Kit uses **Type** variant axis: Primary, Secondary, Outline
-- Fill color: `theme-primary` → `interactive-dragged-primary` (active/pressed)
-- Text on filled: `interactive-enabled-inverse`
-- Ghost/text variant label: `text-primary`
-- Hover: `interactive-hovered-primary`
-- Focus ring: `width-focus` + `interactive-focused-stroke-default`
-- Disabled fill: `interactive-disabled-primary`; disabled bg: `interactive-disabled-secondary`
-- Border radius: `radius-sm` (default) or `radius-full` (pill)
-- Typography: `label-standard`
-- Spacing: `spacing-xs` vertical, `spacing-sm`/`spacing-md` horizontal
-- Height: `size-2xl` (large) / `size-xl` (medium)
-- Additional axes: `Size` (Default/Small), `Icon` (Default/Leading/Trailing/Only), `Destructive` (True/False), `Theme`
+Skills read these at runtime. When building any component, look up its tokens from the JSON — never use the values below as a substitute for the synced data.
 
-### Form Inputs (text, select, datepicker, textarea)
-
-- IMPORTANT: Form input containers must be constrained to **480px max-width** (see Forms Layout Rules above)
-- Border: `border-default` at rest → `border-strong` on focus
-- Focus ring: `interactive-focused-stroke-default` with `width-focus`
-- Background: `background-bg-default`
-- Disabled: `background-bg-disabled` bg, `interactive-disabled-primary` border, `text-disabled` text
-- Error: `status-error-primary` border + label
-- Placeholder: `text-placeholder`
-- Typography: `body-standard` (input text), `label-standard` (label), `body-subtle` (hint/error)
-- Border radius: `radius-sm`
-- Spacing: `spacing-xs` padding
-
-### Badges / Tags / Chips
-
-- Background + text: `category-N-lower` (bg) + `category-N-stronger` (text)
-- Or: `status-*-secondary` (bg) + `status-*-primary` (text) for semantic status
-- Typography: `label-subtle` or `label-micro`
-- Border radius: `radius-full` (pill) or `radius-xs`
-- Spacing: `spacing-2xs` vertical, `spacing-xs` horizontal
-
-### Cards / Panels
-
-- Background: `background-bg-default` or `background-bg-grey-1`
-- Border: `border-default`, `width-default`
-- Border radius: `radius-md` or `radius-lg`
-- Shadow: `shadow-xs` at rest, `shadow-sm` on hover/elevated
-- Spacing (inner): `spacing-md`, `spacing-lg`
-
-### Tables / Data Grids
-
-- Header bg: `background-bg-grey-2`
-- Row bg alternate: `background-bg-grey-1`
-- Row hover: `interactive-hovered-secondary`
-- Row selected: `interactive-selected-secondary`
-- Border: `border-default`, `width-default`
-- Header typography: `label-standard`
-- Cell typography: `body-standard`
-- Spacing: `spacing-xs` vertical, `spacing-sm` horizontal cell padding
-
-### Navigation (sidebar, tabs, top nav)
-
-- Default item text: `text-secondary`
-- Active item bg: `interactive-selected-secondary`
-- Active item accent: `theme-primary`
-- Hover item bg: `interactive-hovered-secondary`
-- Typography: `label-standard`
-- Spacing: `spacing-xs`, `spacing-sm`
-- Active indicator radius: `radius-sm`
-
-### Modals / Dialogs
-
-- Backdrop: `overlay-default`
-- Surface: `background-bg-default`
-- Shadow: `shadow-xl`
-- Border radius: `radius-xl`
-- Spacing: `spacing-lg`
-
-### Tooltips / Popovers
-
-- Background: `background-bg-reverse`
-- Text: `text-reverse`
-- Shadow: `shadow-sm`
-- Border radius: `radius-xs` (tooltip) / `radius-md` (popover)
-- Typography: `body-subtle`
-
-### Status / Alert Banners
-
-- Background: `status-*-secondary`, accent: `status-*-primary`
-- Border radius: `radius-sm`
-- Typography: `body-standard` + `label-standard`
-- Spacing: `spacing-xs`, `spacing-sm`
-
-### Data Visualization / Charts
-
-- IMPORTANT: Always use `category-1–9` token families for series colors — never hardcode
-- Background fills: `category-N-lower` or `category-N-low` (subtle)
-- Foreground/stroke: `category-N-strong` or `category-N-stronger`
-- Axis labels: `body-micro` / `label-micro`
-- Grid lines: `border-default`
-- All 9 category colors may shift between themes — ensure the active theme mode is applied
-
-### Links
-
-- Text color (enabled): `theme-primary`
-- Text color (visited/clicked): `interactive-selected-primary`
-- Text color (disabled): `interactive-disabled-primary`
-- Hover bg: `interactive-hovered-secondary`, `radius: 4px`
-- Focus bg: `interactive-focused-secondary`, border: `interactive-focused-stroke-default` + `width-focus`, `radius-default`
-- Pressed bg: `interactive-pressed-secondary`, `radius: 4px`
-- Typography: `body-standard` (Roboto 400 14px/20px, 0.2px tracking)
-- Text decoration: `underline solid` in all states
-- Padding: `spacing-2xs`
-- IMPORTANT: Use links for navigation only — use Ghost Button for actions
-
-### Icons
-
-- Default fill: `icon-default`
-- Secondary fill: `icon-secondary`
-- Brand fill: `theme-primary`
-- Status fills: `status-*-primary`
-- Category fills: `category-N-strong`
-- Disabled fill: `icon-disabled`
-- Reverse fill: `icon-reverse`
-- Size: use `Size` tokens (md: 16px default, lg: 24px large)
-- IMPORTANT: Icons come from the Figma payload — do not import icon libraries
+**Key patterns to remember** (not a complete reference):
+- Buttons: `theme-primary` fill, `label-standard` typography, `radius-sm` border
+- Form inputs: `border-default` → `border-strong` on focus, **480px max-width** container
+- Links: `theme-primary` text, `underline solid`, navigation only (use Ghost Button for actions)
+- Icons: come from Figma payload — do not import icon libraries
+- Charts: `category-1–9` token families for series colors — never hardcode
 
 ---
 
 ## Quality & Hygiene Checklist
 
-Source: [Actian Design System v1.0.0 — Quality & Hygiene](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-v1.0.0?node-id=14793-7507)
+Full checklist with P0/P1/P2 severity, pass criteria, and HTML translation in `references/quality-checklist.md`. Apply to ALL skill outputs.
 
-**Apply to ALL skill outputs** — component briefs, generated flows, design audits, created components, and any Figma-bound deliverable. Every output must pass all applicable items before being marked complete. P0 items are blockers.
-
-### Layout & responsiveness
-
-| # | Check | Severity | Pass criteria |
-|---|-------|----------|---------------|
-| 1 | **Auto Layout** | P0 | Every container uses Auto Layout with correct resizing (Fixed / Hug / Fill). No absolute-positioned children unless intentionally overlaid (e.g., badges, pointers). |
-| 2 | **Constraints** | P1 | Pins and alignments are set so the component does not break, overlap, or clip when its parent is resized. Test at 1× and 2× width. |
-
-### States & accessibility
-
-| # | Check | Severity | Pass criteria |
-|---|-------|----------|---------------|
-| 3 | **States** | P0 | Component includes all applicable interactive states: Enabled, Hovered, Focused, Pressed, Disabled. Selected/Error/Loading where relevant. No missing states. |
-| 4 | **Contrast** | P0 | Every foreground/background pair passes WCAG AA — 4.5:1 for normal text, 3:1 for large text and UI elements. Disabled states are exempt but must still be distinguishable. |
-
-### Tokens & styles
-
-| # | Check | Severity | Pass criteria |
-|---|-------|----------|---------------|
-| 5 | **Style check** | P0 | 100% of colors, fonts, shadows, and border radii reference Variables or Styles. Zero hardcoded hex values, pixel font sizes, or raw shadows. |
-| 6 | **Properties** | P1 | Boolean toggles (Show/Hide), Text properties, and Instance swaps are named clearly and descriptively (`showIcon`, `labelText` — not `boolean1`, `prop`). |
-
-### Naming & cleanup
-
-| # | Check | Severity | Pass criteria |
-|---|-------|----------|---------------|
-| 7 | **Layer naming** | P1 | No auto-generated names ("Frame 102", "Group 7"). Every layer follows `category/name` or a simple descriptor (`Container`, `Leading icon`, `Label`). |
-| 8 | **Instance cleanup** | P1 | No detached instances in library pages. All component usages remain linked to their source. |
-| 9 | **Hidden layers** | P2 | No invisible or zero-opacity layers left from drafting. Delete anything not needed in the final component. |
-
-### Documentation
-
-| # | Check | Severity | Pass criteria |
-|---|-------|----------|---------------|
-| 10 | **Component description** | P1 | Every main component has a filled "Description" field visible in the Inspect panel. Description states: what it does, when to use it, and any constraints. Does not conflict with other component descriptions. |
-
-### HTML translation
-
-When generating HTML for local preview, the checklist translates to:
-
-| Figma check | HTML equivalent |
-|-------------|-----------------|
-| Auto Layout | Use `display: flex` or `display: grid` with appropriate sizing. No fixed pixel widths that break on resize. |
-| Constraints | Use relative units, `max-width`, or flex properties — not absolute positioning (except overlays). |
-| States | Render all interactive states visually. Include focus ring (`:focus-visible`), hover, pressed, and disabled. |
-| Contrast | Verify all text/background pairs against WCAG AA. Use token colors — they are pre-validated. |
-| Style check | Reference `--zen-*` CSS custom properties exclusively. Zero raw hex, px font sizes, or inline color values. |
-| Properties | Use descriptive `data-name` attributes on every element. Boolean visibility via named classes or props. |
-| Layer naming | All `data-name` values are descriptive (`"Page header"`, `"Variant matrix"` — not `"div"`, `"section1"`). |
-| Instance cleanup | All component references use the correct library component — no detached or inline duplicates. |
-| Hidden layers | No `display: none` or `opacity: 0` elements left from iteration. Delete unused markup. |
-| Documentation | Include `<!-- AI CONSUMPTION METADATA -->` comment and descriptive subtitles on every card. |
+**P0 blockers (must pass before presenting):**
+- Auto Layout on every container (Hug/Fill, no fixed widths)
+- All interactive states present (Enabled, Hovered, Focused, Pressed, Disabled)
+- WCAG AA contrast on all text/background pairs
+- 100% token binding — zero hardcoded hex, px fonts, or raw shadows
 
 ---
 

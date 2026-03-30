@@ -5,7 +5,7 @@ Mechanical process that converts `brief-data.json` into `[component]-spec.html`.
 ## Process
 
 1. Read `brief-data.json`
-2. Read `templates/ds-wrapper.html` (CSS framework only — no card template files needed)
+2. Read `../../templates/ds-wrapper.html` (CSS framework only — no card template files needed)
 3. Build each card's HTML from the data model using the card builders below
 4. Replace `{{GENERATION_CARD}}` with the gen card HTML from `meta`
 5. Replace `{{CARDS}}` with the concatenated card HTML

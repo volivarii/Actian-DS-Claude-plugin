@@ -2,7 +2,7 @@
 
 ## Including the annotation layer
 
-Skills inject the contents of `../../templates/annotation-layer.html` at the `{{ANNOTATION_LAYER}}` placeholder, inserted immediately before `</body>`.
+Skills include the annotation loader before `</body>`: `<script src="/_plugin/annotation-loader.js" defer></script>`. The loader fetches split files (CSS, JS, markup) from the `/_plugin/` server route.
 
 **Static previews (no Alpine.js present):**
 Add the Alpine.js CDN script first, then inject the annotation layer:

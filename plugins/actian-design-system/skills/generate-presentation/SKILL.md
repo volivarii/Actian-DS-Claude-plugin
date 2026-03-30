@@ -65,7 +65,7 @@ Plan the slide outline internally. Do NOT present it to the user for review — 
 
 ## Step 3 — Generate the HTML deck
 
-Generate a single HTML file containing all slides as a horizontal row of 1920x1080px frames. Read `presentation-templates.md` for the complete HTML templates (Cover, Body Full, Body Text+Visual, Section divider, Back cover), geometric background patterns, content area styling, and CSS chart types.
+Generate a single HTML file containing all slides as a horizontal row of 1920x1080px frames. Read `../../references/generate-presentation/templates.md` for the complete HTML templates (Cover, Body Full, Body Text+Visual, Section divider, Back cover), geometric background patterns, content area styling, and CSS chart types.
 
 **Key rules:**
 - 5 slide types: Cover, Body (Full), Body (Text+Visual), Section divider, Back cover
@@ -134,7 +134,7 @@ Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizonta
 - Text: inverse text
 
 For token binding (color variables, text styles, effect styles), follow `../../references/figma-output.md` § "Token binding". Discover style keys via `search_design_system` before writing `use_figma` code. For DS2026 variable keys specifically, see `../../docs/meta-kit/variables.md`.
-Read `presentation-templates.md` § "Figma output" for slide types, charts in `use_figma`, execution sequence, and Meta Kit component keys (Do-Don't Pair, Code Block).
+Read `../../references/generate-presentation/templates.md` § "Figma output" for slide types, charts in `use_figma`, execution sequence, and Meta Kit component keys (Do-Don't Pair, Code Block).
 
 ## Step 7 — Parity check
 
@@ -150,6 +150,6 @@ After parity check completes, ask: "Review in Figma and reply: **'looks good'** 
 
 ## Charts and content quality
 
-Read `presentation-templates.md` § "Available CSS chart types" for the 8 chart types (stat cards, bar charts, donut, progress bars, timelines, flow diagrams, comparison tables, before/after). All charts use `--zen-color-category-N-strong` tokens.
+Read `../../references/generate-presentation/templates.md` § "Available CSS chart types" for the 8 chart types (stat cards, bar charts, donut, progress bars, timelines, flow diagrams, comparison tables, before/after). All charts use `--zen-color-category-N-strong` tokens.
 
 All slide copy must follow `../../docs/presentation-guide.md`. Key rules: 1 message per slide, headlines as conclusions ("So what?" test), active voice, visual > text, max 6 bullets or 150 words, every metric needs context, narrative arc (situation → complication → resolution → evidence → next steps).
