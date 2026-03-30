@@ -64,13 +64,17 @@ Skip this step if the user already specified variants, layout, and content in de
 
 ### What to research
 
-1. **Established design systems** — How do Material, Atlassian, Ant Design, Carbon, or Spectrum handle this component type? Look at:
+1. **Actian product context** — Read `../../references/app-context.md`. Which app is this component for (Studio/Explorer/Administration)? What entities does it display? A "Data Product Card" needs trust signals (quality score, freshness, owner). A "Lineage Node" needs transformation metadata. A "Connection Tile" needs status and provider logo. The app context changes the component's property surface.
+
+2. **Established design systems** — How do Material, Atlassian, Ant Design, Carbon, or Spectrum handle this component type? Look at:
    - Variant axes (what properties are configurable?)
    - Internal anatomy (what sub-elements make up the component?)
    - Common states (enabled, disabled, error, loading, selected?)
    - Accessibility patterns (keyboard interaction, ARIA roles)
 
-2. **Existing Actian patterns** — Check if similar components in the FM or DS2026 library follow conventions that this component should match (e.g., same variant axis names, same spacing, same state set).
+3. **SaaS UX patterns** — Read `../../references/ux-patterns.md` for the relevant flow type. If the component is a filter bar, reference faceted filtering patterns. If it's a detail panel, reference companion sidebar patterns. If it's a table, reference inline editing and bulk operation patterns.
+
+4. **Existing Actian patterns** — Check if similar components in the FM or DS2026 library follow conventions that this component should match (e.g., same variant axis names, same spacing, same state set).
 
 ### How to research
 

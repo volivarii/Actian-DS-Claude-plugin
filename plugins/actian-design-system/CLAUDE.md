@@ -88,7 +88,7 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 |------|---------|
 | `docs/presentation-guide.md` | Slide templates, voice & tone, chart selection, narrative structure |
 | `docs/meta-kit/builders.md` | Shared JS builder functions |
-| `references/*.md` | Shared references (figma-output, fm-css, quality-checklist, token-naming, parity-check, etc.) |
+| `references/*.md` | Shared references (figma-output, fm-css, quality-checklist, token-naming, parity-check, app-context, ux-patterns, etc.) |
 | `references/component-brief/` | Data schema, HTML renderers (DS + FM), Figma renderer, Figma rules, playground |
 | `references/generate-flow/` | HTML reference, research guide |
 | `references/generate-presentation/` | Slide templates and chart types |

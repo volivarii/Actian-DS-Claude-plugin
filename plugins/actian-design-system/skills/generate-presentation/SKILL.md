@@ -46,7 +46,8 @@ Before writing slides:
 1. **Read all input material** — files, URLs, Figma nodes. Extract key points, data, visuals.
 2. **Identify the audience** — infer from context, default to "team update"
 3. **Identify the goal** — infer from content, default to "inform"
-4. **Check CLAUDE.md** — what tokens, conventions, and guidelines apply?
+4. **Product context** — Read `../../references/app-context.md` for correct terminology, entity names, and app references. Use exact Actian terms (e.g., "Data Intelligence Platform" not "the tool", "Studio" not "admin panel").
+5. **Topic research** (Standard/Production tier) — `WebSearch` for relevant data, stats, benchmarks, or industry context to give charts real substance and claims real evidence. Skip for Draft tier.
 
 Only ask questions if the input is genuinely empty (just a topic with no content at all). Otherwise, infer and proceed.
 
