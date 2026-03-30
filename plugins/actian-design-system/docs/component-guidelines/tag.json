@@ -2,9 +2,17 @@
   "component": "Tag / Identification key",
   "page_id": "9253:34505",
   "extracted_at": "2026-03-26T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:34505",
-  "frames_found": ["Design guidelines"],
-  "frames_missing": ["Content guidelines", "Components", "ready made examples", "Screenshots of use cases", "Screenshots of current use cases", "Behavior demo"],
+  "frames_found": [
+    "Design guidelines"
+  ],
+  "frames_missing": [
+    "Content guidelines",
+    "Components",
+    "ready made examples",
+    "Screenshots of use cases",
+    "Screenshots of current use cases",
+    "Behavior demo"
+  ],
   "content_guidelines": null,
   "has_design_guidelines": true,
   "design_guidelines": {

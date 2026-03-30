@@ -26,11 +26,13 @@ Extract design system data directly from Figma libraries via MCP tools. Single-h
 
 ## Source libraries
 
-| Library  | File key                  | Contents |
-|----------|---------------------------|----------|
-| DS2026   | `l8biHxfarNi1I2RMvVxVOK` | 77 components, 115 variables (3 themes), 12 text styles, 5 effect styles, guidelines, foundations |
-| FM Kit   | `X2JSEUyLvxyNCx22ucOexn` | 29 wireframe components |
-| Meta Kit | `osoeCLcrWqfoq8TvLQoyh0` | 6 skill-output components |
+Read file keys from `../../.figma-keys.json` at the start of every sync run.
+
+| Library  | Config key         | Contents |
+|----------|-------------------|----------|
+| DS2026   | `ds2026`          | 77 components, 115 variables (3 themes), 12 text styles, 5 effect styles, guidelines, foundations |
+| FM Kit   | `fmKit`           | 29 wireframe components |
+| Meta Kit | `metaKit`         | 6 skill-output components |
 
 ## Output files
 

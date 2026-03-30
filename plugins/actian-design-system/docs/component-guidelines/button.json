@@ -2,9 +2,16 @@
   "component": "Button",
   "page_id": "9085:24375",
   "extracted_at": "2026-03-25T12:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9085:24375",
-  "frames_found": ["Content guidelines", "Components", "Screenshots of use cases"],
-  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
+  "frames_found": [
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases"
+  ],
+  "frames_missing": [
+    "Design guidelines",
+    "ready made examples",
+    "Behavior demo"
+  ],
   "content_guidelines": {
     "sections": [
       {
@@ -17,7 +24,13 @@
           {
             "term": "Create vs Add vs Insert",
             "rule": "Use 'Create' when the user is making something brand new or bringing individual components to form something new. Use 'Add' when the user is bringing in similar information that already exists elsewhere. Use 'Insert' when the user is bringing in similar information and the ordering is important.",
-            "examples": ["Create report", "Create warehouse", "Add to bid sheet", "Add note", "Insert property"],
+            "examples": [
+              "Create report",
+              "Create warehouse",
+              "Add to bid sheet",
+              "Add note",
+              "Insert property"
+            ],
             "note": "The plus (+) icon is only needed when you are creating a new object to add to something else. When adding an existing object to a list, it's not needed."
           },
           {
@@ -73,9 +86,26 @@
   "design_guidelines": null,
   "variants": {
     "axes": {
-      "Type": ["Primary", "Secondary", "Tertiary", "Icon", "Critical primary", "Critical secondary"],
-      "Size": ["Default", "Small"],
-      "State": ["Default", "Hovered", "Focused", "Pressed", "Selected", "Disabled"]
+      "Type": [
+        "Primary",
+        "Secondary",
+        "Tertiary",
+        "Icon",
+        "Critical primary",
+        "Critical secondary"
+      ],
+      "Size": [
+        "Default",
+        "Small"
+      ],
+      "State": [
+        "Default",
+        "Hovered",
+        "Focused",
+        "Pressed",
+        "Selected",
+        "Disabled"
+      ]
     },
     "totalVariants": 72
   },

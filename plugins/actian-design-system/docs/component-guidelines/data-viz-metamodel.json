@@ -2,9 +2,16 @@
   "component": "Data viz: metamodel",
   "page_id": "14747:23223",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=14747-23223",
-  "frames_found": ["Components", "Screenshots of use cases"],
-  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
+  "frames_found": [
+    "Components",
+    "Screenshots of use cases"
+  ],
+  "frames_missing": [
+    "Content guidelines",
+    "Design guidelines",
+    "ready made examples",
+    "Behavior demo"
+  ],
   "content_guidelines": null,
   "design_guidelines": null,
   "variants": {
@@ -12,19 +19,33 @@
       "Metamodel widget": {
         "node_id": "14747:23588",
         "variants": {
-          "Type": ["Dataset", "Visualisation", "Field", "Data Process", "Business Term"]
+          "Type": [
+            "Dataset",
+            "Visualisation",
+            "Field",
+            "Data Process",
+            "Business Term"
+          ]
         }
       },
       ".metamodel property section": {
         "node_id": "14747:23614",
         "variants": {
-          "Section": ["Collapsed", "Expanded"]
+          "Section": [
+            "Collapsed",
+            "Expanded"
+          ]
         }
       },
       ".metamodel connecting line": {
         "node_id": "14747:23654",
         "variants": {
-          "Direction": ["1", "2", "3", "4"]
+          "Direction": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ]
         }
       }
     }

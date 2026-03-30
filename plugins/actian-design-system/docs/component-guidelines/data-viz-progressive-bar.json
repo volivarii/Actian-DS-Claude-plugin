@@ -3,9 +3,16 @@
   "page_id": "14136:1567",
   "extracted_at": "2026-03-26T00:00:00Z",
   "has_content_guidelines": true,
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=14136-1567",
-  "frames_found": ["Content guidelines", "Components", "Screenshots of current use cases"],
-  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
+  "frames_found": [
+    "Content guidelines",
+    "Components",
+    "Screenshots of current use cases"
+  ],
+  "frames_missing": [
+    "Design guidelines",
+    "ready made examples",
+    "Behavior demo"
+  ],
   "content_guidelines": {
     "sections": [
       {
@@ -41,8 +48,15 @@
       "Progress bar": {
         "node_id": "14136:1615",
         "variants": {
-          "Size": ["Default", "Large"],
-          "Completeness": ["0%", "50%", "100%"]
+          "Size": [
+            "Default",
+            "Large"
+          ],
+          "Completeness": [
+            "0%",
+            "50%",
+            "100%"
+          ]
         }
       }
     }

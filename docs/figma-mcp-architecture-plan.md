@@ -119,8 +119,8 @@ Skills call `search_design_system` on-demand to get keys for binding. No static 
 
 | Data | Source | Method | Output |
 |------|--------|--------|--------|
-| DS2026 components (77) | Library `l8biHxfarNi1I2RMvVxVOK` | `get_metadata` + `use_figma` | `ds2026-components.md` |
-| FM components (29) | Library `X2JSEUyLvxyNCx22ucOexn` | Same | `fm-components.md` |
+| DS2026 components (77) | Library `<DS2026_FILE_KEY>` | `get_metadata` + `use_figma` | `ds2026-components.md` |
+| FM components (29) | Library `<FM_KIT_FILE_KEY>` | Same | `fm-components.md` |
 | Meta Kit components | Meta Kit library | Same | `meta-kit/components.md` |
 | All variable values | DS2026 library | `use_figma` → `getLocalVariablesAsync()` | `meta-kit/variables.md` (expanded) |
 | Text style specs | DS2026 library | `use_figma` → `getLocalTextStylesAsync()` | NEW `meta-kit/text-styles.md` |

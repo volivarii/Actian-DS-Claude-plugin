@@ -323,7 +323,7 @@ FM mode uses a simpler 5-card schema. The `meta.library` field is `"fm"` — ren
   "meta": {
     "component": "FM Button",
     "library": "fm",
-    "fileKey": "X2JSEUyLvxyNCx22ucOexn",
+    "fileKey": "<from .figma-keys.json>",
     "nodeId": "...",
     "componentKey": "...",
     "generatedAt": "...",

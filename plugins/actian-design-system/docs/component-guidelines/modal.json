@@ -2,9 +2,16 @@
   "component": "Modal",
   "page_id": "9253:29287",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:29287",
-  "frames_found": ["Content guidelines", "Components", "Screenshots of current use cases"],
-  "frames_missing": ["Design guidelines", "ready made examples", "Behavior demo"],
+  "frames_found": [
+    "Content guidelines",
+    "Components",
+    "Screenshots of current use cases"
+  ],
+  "frames_missing": [
+    "Design guidelines",
+    "ready made examples",
+    "Behavior demo"
+  ],
   "content_guidelines": {
     "sections": [
       {
@@ -106,7 +113,15 @@
   "design_guidelines": null,
   "variants": {
     "axes": {
-      "Size & Type": ["1200px", "900px create", "900px edit", "700px create", "700px setting", "450px warning", "450px confirm"]
+      "Size & Type": [
+        "1200px",
+        "900px create",
+        "900px edit",
+        "700px create",
+        "700px setting",
+        "450px warning",
+        "450px confirm"
+      ]
     }
   },
   "examples": null,

@@ -152,7 +152,7 @@ Token reference docs and files:
 - **[`docs/token-reference.md`](docs/token-reference.md)** — Human + AI readable token reference (Markdown)
 - **[`tokens/actian-ds.tokens.json`](tokens/actian-ds.tokens.json)** — Source of truth (W3C DTCG format)
 - **[`tokens/tokens.css`](tokens/tokens.css)** — CSS custom properties with `--zen-*` prefix, 3 theme modes via `[data-theme]`
-- Source Figma: [Actian Design System 2026](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-2026)
+- Source Figma: Actian Design System 2026 (file key in `.figma-keys.json` → `ds2026`)
 
 When generating HTML, import `tokens/tokens.css` or copy the relevant `--zen-*` variables into your `<style>` block. Use `var(--zen-color-theme-primary)` not hardcoded hex values.
 
@@ -199,7 +199,7 @@ Apply in every task: contrast ratios, keyboard interaction, ARIA patterns, focus
 
 ## Forms Layout Rules
 
-Source: [Design Consistency 2026 — Forms](https://www.figma.com/design/Z82GkL5d9Eu1HS5hMiEBBw/Design-consistency-2026?node-id=10939-12809)
+Source: Design Consistency 2026 — Forms (file key in `.figma-keys.json` → `designConsistency`)
 
 These rules apply to all generated screens (flows, specs, audits) across all skills:
 

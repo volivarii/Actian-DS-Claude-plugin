@@ -2,7 +2,7 @@
 
 Unified quality checklist for all skill outputs. Every generated deliverable must pass the **Universal** section plus the relevant **skill-specific** section before being marked complete.
 
-Source: [Actian Design System v1.0.0 — Quality & Hygiene](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/Actian-Design-System-v1.0.0?node-id=14793-7507)
+Source: Actian Design System — Quality & Hygiene (Figma, DS2026 library)
 
 ---
 

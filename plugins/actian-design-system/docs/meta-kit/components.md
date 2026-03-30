@@ -317,7 +317,7 @@ These components live in the DS2026 library and should be imported directly via 
 | Presentation Cover+logo background | Node `12770:14032` | DS2026 | Same as Cover + Actian Pyramid at bottom-right |
 | Presentation Section background | Node `12770:14016` | DS2026 | Dark geometric for section dividers |
 | Presentation Section+logo background | Node `12770:14021` | DS2026 | Same as Section + Actian Pyramid |
-| Template file (full slide reference) | File `l7KNDEvTs22yr7xbymwoYe` node `5557:16` | Template for projects | 5 slide types: Cover, Body, Body+sidebar, Section, Back cover |
+| Template file (full slide reference) | File `<TEMPLATES_FILE_KEY>` node `5557:16` | Template for projects | 5 slide types: Cover, Body, Body+sidebar, Section, Back cover |
 
 ---
 

@@ -121,14 +121,26 @@ All output skills pause before pushing to Figma. This is where most iteration ha
 |-------|-------------|
 | `"push"` | Send all content to Figma |
 | `"push 2,4,5"` | Send only selected cards/screens |
+| `"push and wire"` | Push + wire prototype connections — flow becomes playable in Figma Presentation mode |
 | `"prototype"` | Generate an interactive flow prototype — click through screens, fill forms, test branching paths |
 | `"playground"` | Generate a component state explorer — toggle states, switch themes, see which tokens are active |
-| `"apply annotations"` | Read annotations from the browser preview, fix the HTML, and re-serve |
+| `"apply annotations"` | Apply visual annotations from the browser preview (see below) |
 | `feedback` | Fix the HTML and re-preview |
 
-### Browser annotations
+### Visual annotations — point at what needs changing
 
-Every preview includes an annotation layer. Click "Annotate" (bottom-right) to enter annotation mode — hover highlights elements, click opens a feedback popover. Mark annotations as **Change** (modify the HTML) or **Note** (carry forward to Figma without changing the preview). Click "Apply" in the browser, then say "apply" in the CLI. Claude applies changes and the page auto-refreshes with a "Changes applied" toast. Notes are preserved in the push manifest for the Figma output step.
+Instead of describing issues in text, click directly on any element in the preview and annotate it. The plugin fixes exactly what you pointed at.
+
+1. Click **Annotate** in the preview toolbar
+2. Hover over any element — it highlights with a blue outline and shows its name
+3. Click → type your feedback → pick **Change** or **Note** → Save
+4. Repeat for as many elements as you want
+5. Click **Apply** in the browser, then say **"apply"** in the CLI
+6. Every change is applied and the page auto-refreshes
+
+**Change** = modify the element ("make this a primary button", "change text to 'Save draft'"). **Note** = carry forward to Figma without changing the preview. Notes are preserved in the push manifest.
+
+This works at every preview gate across all skills — flows, briefs, presentations.
 
 ### Post-push parity check
 
@@ -197,12 +209,14 @@ All tokens use the `--zen-` prefix:
 
 ## Figma files
 
-| File | Key | Purpose |
-|------|-----|---------|
-| [Actian Design System v1.1.0](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK) | `l8biHxfarNi1I2RMvVxVOK` | DS2026 library |
-| [Fat Marker Kit](https://www.figma.com/design/X2JSEUyLvxyNCx22ucOexn) | `X2JSEUyLvxyNCx22ucOexn` | Wireframe components |
-| [Meta Kit](https://www.figma.com/design/osoeCLcrWqfoq8TvLQoyh0) | `osoeCLcrWqfoq8TvLQoyh0` | Skill-output components |
-| [Template for projects](https://www.figma.com/design/l7KNDEvTs22yr7xbymwoYe) | `l7KNDEvTs22yr7xbymwoYe` | Presentation templates |
+| File | Config key | Purpose |
+|------|-----------|---------|
+| Actian Design System v1.1.0 | `ds2026` | DS2026 library |
+| Fat Marker Kit | `fmKit` | Wireframe components |
+| Meta Kit | `metaKit` | Skill-output components |
+| Template for projects | `templates` | Presentation templates |
+
+File keys are stored in `.figma-keys.json` (gitignored). Copy `.figma-keys.json.example` and fill in your team's keys.
 
 ---
 

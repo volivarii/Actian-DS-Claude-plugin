@@ -2,9 +2,16 @@
   "component": "Page header",
   "page_id": "9253:29981",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253-29981",
-  "frames_found": ["Components", "Screenshots of current use cases"],
-  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
+  "frames_found": [
+    "Components",
+    "Screenshots of current use cases"
+  ],
+  "frames_missing": [
+    "Content guidelines",
+    "Design guidelines",
+    "ready made examples",
+    "Behavior demo"
+  ],
   "content_guidelines": null,
   "design_guidelines": null,
   "variants": {
@@ -12,7 +19,12 @@
       "Page header": {
         "node_id": "12923:2794",
         "variants": {
-          "Type": ["Default", "Details page", "Explorer home", "Explorer detail"]
+          "Type": [
+            "Default",
+            "Details page",
+            "Explorer home",
+            "Explorer detail"
+          ]
         }
       }
     }

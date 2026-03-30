@@ -3,7 +3,7 @@
 Auto-generated from Figma MCP on 2026-03-27.
 33 component sets + 7 standalone components.
 
-Source: [Page mockups](https://www.figma.com/design/X2JSEUyLvxyNCx22ucOexn)
+Source: [Page mockups](https://www.figma.com/design/<FM_KIT_FILE_KEY>)
 
 ---
 

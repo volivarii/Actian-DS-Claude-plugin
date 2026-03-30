@@ -2,9 +2,16 @@
   "component": "Segmented control / Button group",
   "page_id": "9253:33950",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253-33950",
-  "frames_found": ["Components", "Screenshots of use cases"],
-  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
+  "frames_found": [
+    "Components",
+    "Screenshots of use cases"
+  ],
+  "frames_missing": [
+    "Content guidelines",
+    "Design guidelines",
+    "ready made examples",
+    "Behavior demo"
+  ],
   "content_guidelines": null,
   "design_guidelines": null,
   "variants": {
@@ -12,13 +19,22 @@
       "Segmented control": {
         "node_id": "7618:5187",
         "variants": {
-          "Type": ["Default"]
+          "Type": [
+            "Default"
+          ]
         }
       },
       ".segmented control sub component": {
         "node_id": "7618:5084",
         "variants": {
-          "State": ["Default", "Hovered", "Focused", "Pressed", "Selected", "Disabled"]
+          "State": [
+            "Default",
+            "Hovered",
+            "Focused",
+            "Pressed",
+            "Selected",
+            "Disabled"
+          ]
         }
       }
     }

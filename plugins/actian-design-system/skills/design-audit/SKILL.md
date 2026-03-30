@@ -131,7 +131,7 @@ When the user requests JSON output or for programmatic consumption by the fix st
 {
   "audit": {
     "file": "Design Consistency 2026",
-    "fileKey": "Z82GkL5d9Eu1HS5hMiEBBw",
+    "fileKey": "<read from .figma-keys.json>",
     "nodeId": "10939-12809",
     "timestamp": "2026-03-26T14:30:00Z",
     "summary": {

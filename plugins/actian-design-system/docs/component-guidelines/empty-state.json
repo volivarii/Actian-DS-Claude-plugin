@@ -2,9 +2,17 @@
   "component": "Empty state",
   "page_id": "7314:3195",
   "extracted_at": "2026-03-26T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=7314:3195",
-  "frames_found": ["Content guidelines", "Design guidelines", "Components"],
-  "frames_missing": ["ready made examples", "Screenshots of use cases", "Screenshots of current use cases", "Behavior demo"],
+  "frames_found": [
+    "Content guidelines",
+    "Design guidelines",
+    "Components"
+  ],
+  "frames_missing": [
+    "ready made examples",
+    "Screenshots of use cases",
+    "Screenshots of current use cases",
+    "Behavior demo"
+  ],
   "content_guidelines": {
     "sections": [
       {
@@ -44,10 +52,26 @@
           {
             "rule": "Based on the use case, use different types of empty states where appropriate:",
             "examples": [
-              {"use_case": "Full page list or feature", "solution": "Large illustration", "cta_example": "Create your first project"},
-              {"use_case": "Smaller window pane or widget", "solution": "Small illustration or icon", "cta_example": "Optional/situational: (Create policy)"},
-              {"use_case": "Multiple empty states on one page", "solution": "*Prioritize most important", "cta_example": "Start here"},
-              {"use_case": "No user action possible", "solution": "No illustration, text only.", "cta_example": "No access requests created yet"}
+              {
+                "use_case": "Full page list or feature",
+                "solution": "Large illustration",
+                "cta_example": "Create your first project"
+              },
+              {
+                "use_case": "Smaller window pane or widget",
+                "solution": "Small illustration or icon",
+                "cta_example": "Optional/situational: (Create policy)"
+              },
+              {
+                "use_case": "Multiple empty states on one page",
+                "solution": "*Prioritize most important",
+                "cta_example": "Start here"
+              },
+              {
+                "use_case": "No user action possible",
+                "solution": "No illustration, text only.",
+                "cta_example": "No access requests created yet"
+              }
             ]
           },
           {
@@ -163,8 +187,17 @@
   },
   "variants": {
     "axes": {
-      "Size": ["Large", "Medium", "Small"],
-      "State": ["Empty state", "Maintenance state", "Error state", "Success state"]
+      "Size": [
+        "Large",
+        "Medium",
+        "Small"
+      ],
+      "State": [
+        "Empty state",
+        "Maintenance state",
+        "Error state",
+        "Success state"
+      ]
     }
   },
   "examples": null,

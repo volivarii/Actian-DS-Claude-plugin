@@ -278,7 +278,7 @@ Use page counts from Step 1 to decide: DS2026 (77 sets) needs chunking. FM Kit (
 Auto-generated from Figma MCP on YYYY-MM-DD.
 77 component sets, NNN individual components.
 
-Source: [Actian Design System v1.1.0](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK)
+Source: [Actian Design System v1.1.0](https://www.figma.com/design/<DS2026_FILE_KEY>)
 
 ---
 
@@ -606,7 +606,7 @@ W3C DTCG format:
 ```json
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
-  "$metadata": { "source": "Actian Design System 2026", "extractedOn": "YYYY-MM-DD", "figmaFileKey": "l8biHxfarNi1I2RMvVxVOK" },
+  "$metadata": { "source": "Actian Design System 2026", "extractedOn": "YYYY-MM-DD", "figmaFileKey": "<DS2026_FILE_KEY>" },
   "color": {
     "theme": {
       "primary": {

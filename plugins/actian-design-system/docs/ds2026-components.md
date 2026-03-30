@@ -3,7 +3,7 @@
 Auto-generated from Figma MCP on 2026-03-27.
 97 component sets + 3 standalone components across 47 pages.
 
-Source: [Actian Design System v1.1.0](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK)
+Source: [Actian Design System v1.1.0](https://www.figma.com/design/<DS2026_FILE_KEY>)
 
 ---
 

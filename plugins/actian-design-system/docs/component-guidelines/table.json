@@ -2,22 +2,41 @@
   "component": "Table",
   "page_id": "9253:34015",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:34015",
-  "frames_found": ["Components", "Screenshots of current use cases"],
-  "frames_missing": ["Content guidelines", "Design guidelines", "ready made examples", "Behavior demo"],
+  "frames_found": [
+    "Components",
+    "Screenshots of current use cases"
+  ],
+  "frames_missing": [
+    "Content guidelines",
+    "Design guidelines",
+    "ready made examples",
+    "Behavior demo"
+  ],
   "content_guidelines": null,
   "design_guidelines": null,
   "variants": {
     "axes": {
       "main_component": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "sub_components": {
         ".Table column": {
-          "Type": ["Default", "Actions", "Tag"]
+          "Type": [
+            "Default",
+            "Actions",
+            "Tag"
+          ]
         },
         ".Table cell": {
-          "Type": ["Header", "Action", "Tag", "Text", "Skeleton"]
+          "Type": [
+            "Header",
+            "Action",
+            "Tag",
+            "Text",
+            "Skeleton"
+          ]
         }
       }
     }

@@ -77,7 +77,7 @@ After attaching a System marker, append an entry to `{project_working_directory}
     "severity": "Missing component",
     "gap": "No Stepper component exists in FM Kit or DS2026. Built custom 3-step indicator.",
     "workaround": "Custom auto-layout frame with numbered circles and connector lines.",
-    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "fileKey": "<from .figma-keys.json>",
     "nodeId": "1234:5678",
     "count": 1
   }

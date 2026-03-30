@@ -2,9 +2,17 @@
   "component": "Alert / banner",
   "page_id": "9253:21058",
   "extracted_at": "2026-03-26T00:00:00Z",
-  "figma_url": "https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK/?node-id=9253:21058",
-  "frames_found": ["Design guidelines", "Components"],
-  "frames_missing": ["Content guidelines", "ready made examples", "Screenshots of use cases", "Screenshots of current use cases", "Behavior demo"],
+  "frames_found": [
+    "Design guidelines",
+    "Components"
+  ],
+  "frames_missing": [
+    "Content guidelines",
+    "ready made examples",
+    "Screenshots of use cases",
+    "Screenshots of current use cases",
+    "Behavior demo"
+  ],
   "content_guidelines": null,
   "has_design_guidelines": true,
   "design_guidelines": {
@@ -30,12 +38,27 @@
         "heading": "Icon and color mapping",
         "tables": [
           {
-            "headers": ["Icon", "Color token"],
+            "headers": [
+              "Icon",
+              "Color token"
+            ],
             "rows": [
-              ["info-filled", "--zen-color-primary-700"],
-              ["success-filled", "--zen-color-success-700"],
-              ["warning-filled", "--zen-color-warning-700"],
-              ["error-filled", "--zen-color-error-700"]
+              [
+                "info-filled",
+                "--zen-color-primary-700"
+              ],
+              [
+                "success-filled",
+                "--zen-color-success-700"
+              ],
+              [
+                "warning-filled",
+                "--zen-color-warning-700"
+              ],
+              [
+                "error-filled",
+                "--zen-color-error-700"
+              ]
             ]
           }
         ]
@@ -51,8 +74,16 @@
   },
   "variants": {
     "axes": {
-      "Type": ["Primary", "Success", "Warning", "Danger"],
-      "Orientation": ["Horizontal", "Vertical"]
+      "Type": [
+        "Primary",
+        "Success",
+        "Warning",
+        "Danger"
+      ],
+      "Orientation": [
+        "Horizontal",
+        "Vertical"
+      ]
     }
   },
   "examples": null,

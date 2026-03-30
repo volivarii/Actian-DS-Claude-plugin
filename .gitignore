@@ -30,6 +30,9 @@ __pycache__/
 # Node
 node_modules/
 
+# Figma file keys (sensitive — create from .figma-keys.json.example)
+plugins/*/.figma-keys.json
+
 # Test prompts (local reference only)
 plugins/*/TEST-PROMPTS.md
 

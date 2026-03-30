@@ -1,0 +1,7 @@
+{
+  "ds2026": "YOUR_DS2026_FILE_KEY",
+  "fmKit": "YOUR_FM_KIT_FILE_KEY",
+  "metaKit": "YOUR_META_KIT_FILE_KEY",
+  "templates": "YOUR_TEMPLATES_FILE_KEY",
+  "designConsistency": "YOUR_DESIGN_CONSISTENCY_FILE_KEY"
+}
