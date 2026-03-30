@@ -2,7 +2,13 @@
 
 Copy these exact styles into every generated FM HTML. These values are extracted from the Figma FM library and must not be approximated — use these exact hex values, font sizes, paddings, and border-radii.
 
-**No extra colors.** Use only the `--fm-*` variables below. Do not introduce custom colors, gradients, decorative backgrounds, or any color not in this palette. FM outputs are intentionally lo-fi — the palette is deliberately constrained.
+**HARD RULE — No extra colors.** Every color in FM output MUST be a `--fm-*` variable or a `var(--fm-*)` reference. This includes:
+- Badge backgrounds and text → use `--fm-base-200`/`--fm-base-700`, not purple/teal/amber
+- Status tags → use `--fm-base-200`/`--fm-base-800`, not green/blue/yellow
+- Highlights → use `--fm-base-300`, not yellow
+- Type indicators → differentiate by text label or icon, not by color
+
+If you find yourself typing a hex value that isn't in the palette below, STOP — it's wrong. Use `--fm-base-*` grayscale to differentiate elements. FM is intentionally monochrome with only `--fm-brand` blue as an accent.
 
 ## Token Palette
 
