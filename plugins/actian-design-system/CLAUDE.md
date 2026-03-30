@@ -293,7 +293,7 @@ All Figma-writing skills pause for user approval before pushing to Figma:
 | Skill | Gate | Vocabulary |
 |-------|------|-----------|
 | component-brief | Step 2.5 — HTML preview | "push" / "push N,N" / "playground" / "apply annotations" / feedback |
-| generate-flow | Step 2 — research opt-in + Step 4.5 — HTML preview | "push" / "push N,N" / "prototype" / "apply annotations" / feedback |
+| generate-flow | Step 2 — research opt-in + Step 4.5 — HTML preview | "push" / "push N,N" / "push and wire" / "wire" / "prototype" / "apply annotations" / feedback |
 | generate-presentation | Step 5 — review report + preview | "push" / "push N,N" / "apply annotations" / feedback |
 | create-component | Step 4.5 — build plan summary | "build" / feedback |
 

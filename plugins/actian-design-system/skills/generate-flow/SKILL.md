@@ -1,6 +1,6 @@
 ---
 name: generate-flow
-description: This skill should be used when the user wants to create a flow, wireframe, or mockup from a feature idea or user story, asks how a user would accomplish a task, wants to mock up an experience, or provides a user story and wants it visualized as a multi-screen flow.
+description: This skill should be used when the user wants to create a flow, wireframe, or mockup from a feature idea or user story, asks how a user would accomplish a task, wants to mock up an experience, provides a user story and wants it visualized as a multi-screen flow, or wants to wire prototype connections on an existing Figma flow to make it playable.
 argument-hint: "[feature description or Figma URL]"
 ---
 
@@ -133,10 +133,12 @@ Spotlight the feature being demonstrated. Only elements directly relevant to the
 1. Start server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
 2. Present preview URL and options:
    - **"push"** / **"push 1,3,5"** — send to Figma
-   - **"prototype"** — generate interactive prototype first
+   - **"push and wire"** — send to Figma + wire prototype connections (playable in Presentation mode)
+   - **"prototype"** — generate interactive HTML prototype (local browser testing)
    - **"apply annotations"** — read browser annotations, fix and re-preview
    - **feedback** — fix and re-preview
 3. Wait for response. On feedback: fix HTML, re-serve, re-present.
+4. On "push and wire": run Step 5 (push) then Step 5.5 (wire).
 
 ## Step 4.6 — Interactive prototype (opt-in)
 
@@ -148,13 +150,37 @@ Spotlight the feature being demonstrated. Only elements directly relevant to the
 4. Save to: `{project_working_directory}/components/flows/[feature-name]-prototype.html`
 5. Re-present gate with both URLs
 
-## Step 5 — Output to Figma
+## Step 5 — Output to Figma (push)
 
 Read `../../references/generate-flow/html-reference.md` § "Figma output" for the `use_figma` procedure. Follow `../../references/figma-output.md` for shared patterns.
 
 - Import `Meta / Chrome / Flow Screen` — do not build manually
 - Import library components — never recreate as raw frames
 - Auto-layout on every frame, descriptive layer names, contextual text
+
+## Step 5.5 — Wire prototype (opt-in)
+
+Wire Figma prototype connections so the pushed flow is playable in Presentation mode.
+
+**Triggers:**
+- "push and wire" at the preview gate (Step 4.5) — runs after Step 5 push
+- "wire" after push — runs on already-pushed frames
+- Production tier — auto-applies linear frame-to-frame wiring (no smart analysis)
+
+**For new flows (fast path):**
+Screen IDs, names, order, and button labels are already known from Steps 3-5. Skip analysis and build the wiring plan directly.
+
+**For existing flows (Figma URL provided):**
+If the user provides a Figma URL with wiring keywords ("wire", "make interactive", "connect screens"), run the full analysis path: `get_metadata` → analyze → present plan → execute.
+
+**Procedure:**
+1. Read `../../references/prototype-wiring.md` for the analysis algorithm and code patterns
+2. Build the wiring plan (fast path or analysis path)
+3. Present wiring plan for approval (see reference for format)
+4. On "wire": execute via single `use_figma` call assembling the code patterns
+5. On "wire linear": frame-to-frame only, skip button and overlay wiring
+6. On feedback: adjust plan and re-present
+7. Post-wiring report with connection summary
 
 ## Step 6 — Parity check
 
@@ -175,3 +201,4 @@ Detailed content in `references/generate-flow/`:
 Shared references:
 - **`../../references/app-context.md`** — Actian product context: 3 apps, entity model, terminology, UI patterns
 - **`../../references/ux-patterns.md`** — SaaS UX pattern library by flow type (discovery, creation, config, visualization, governance)
+- **`../../references/prototype-wiring.md`** — Smart Figma prototype wiring: analysis algorithm, code patterns, wiring plan format
