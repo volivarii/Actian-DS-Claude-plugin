@@ -330,7 +330,7 @@ The annotation layer targets elements with `data-name` attributes. Add `data-nam
 
 ## Styling rules
 
-- Read `../../references/fm-css-reference.md` — copy exact styles, do not approximate
+- Read `../fm-css-reference.md` — copy exact styles, do not approximate
 - Load Inter font from Google Fonts
 - Screen labels: 12px, #888
 
@@ -357,7 +357,7 @@ Does NOT need detaching — `contentArea.appendChild()` works. See `../../docs/m
 
 1. **Import library components** — never recreate FM components as raw frames
 2. **Auto-layout on every frame** — no absolute positioning
-3. **Bind library tokens** — follow `../../references/figma-output.md` § "Token binding". Hex fallback only.
+3. **Bind library tokens** — follow `../figma-output.md` § "Token binding". Hex fallback only.
 4. **Standard screen structure**: FM App_header → horizontal frame → FM Sidebar + Content area
 5. **Generation Log** — import key `a9653f30925367e96dea90093d750bfe70849571`, set all 6 properties
 6. **Descriptive layer names** — no "Frame 1"
@@ -366,5 +366,5 @@ Does NOT need detaching — `contentArea.appendChild()` works. See `../../docs/m
 
 ## Token reference
 
-- **`use_figma`**: `../../references/figma-output.md` § "Token binding"
-- **HTML**: `--fm-*` from `../../references/fm-css-reference.md` (FM) or `--zen-*` from `../../tokens/tokens.css` (DS2026)
+- **`use_figma`**: `../figma-output.md` § "Token binding"
+- **HTML**: `--fm-*` from `../fm-css-reference.md` (FM) or `--zen-*` from `../../tokens/tokens.css` (DS2026)

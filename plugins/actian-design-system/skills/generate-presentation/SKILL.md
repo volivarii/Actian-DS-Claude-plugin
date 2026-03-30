@@ -146,7 +146,7 @@ After all `use_figma` calls complete, run the post-push parity check procedure i
 4. Report findings and offer to fix P0 issues
 5. Write `.last-push.json` manifest to `{project_working_directory}/presentations/[topic-slug]/.last-push.json`
 
-After parity check completes, ask: "Review in Figma and reply: **'looks good'**, **'fix [specific issue]'**, or run `/refine` later for corrections."
+After parity check completes, ask: "Review in Figma and reply: **'looks good'** or **'fix [specific issue]'**."
 
 ## Charts and content quality
 

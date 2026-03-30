@@ -8,7 +8,7 @@ argument-hint: "[component description or Figma URL]"
 
 Create a new Figma component (with variants) from a text description or by extending an existing component.
 
-**When NOT to use:** If the user wants to *document* an existing component → use `component-brief`. If the user wants to *fix* an audit finding → use `fix-finding`.
+**When NOT to use:** If the user wants to *document* an existing component → use `component-brief`. If the user wants to *fix* an audit finding → use `design-audit`.
 
 > **Shared rules apply:** Quality & hygiene checklist and generation log format — all per CLAUDE.md.
 

@@ -260,14 +260,14 @@ Research (AI) → data-model.json → HTML renderer (mechanical)
 **Benefits:**
 - HTML and Figma output are guaranteed identical (same data, same arrays, same row counts)
 - Feedback edits the data model → both outputs re-render consistently
-- `/refine` reads the data model to understand what was generated
+- Post-push iteration reads the data model to understand what was generated
 - Incremental re-rendering: change one card's data → re-render only that card
 
 **Implementation:** See `component-brief/data-schema.md`, `component-brief/html-renderer.md`, and `component-brief/figma-renderer.md` in the `references/` directory. Other skills follow the same pattern with skill-specific schemas.
 
 ## Node tracking with `getSharedPluginData`
 
-After creating or pushing nodes, tag them so `/refine` and parity checks can find them later:
+After creating or pushing nodes, tag them so parity checks and post-push fixes can find them later:
 
 ```js
 node.setSharedPluginData('actian_ds', 'skill', 'generate-flow');
@@ -296,7 +296,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 
 - **`use_figma` is the only output path.** All Figma output goes through `use_figma`.
 - **Load Figma skills.** Always pass `skillNames: "figma-use"` (or `"figma-use,figma-generate-design"` for screens, `"figma-use,figma-generate-library"` for components) when calling `use_figma`.
-- **Return all created node IDs** from every `use_figma` call. Store them for parity checks and `/refine`.
+- **Return all created node IDs** from every `use_figma` call. Store them for parity checks.
 - **Tag pushed nodes** with `setSharedPluginData('actian_ds', ...)` for reliable retrieval.
 - **Never use `generate_figma_design`** — it produces raw geometry without design system awareness.
 - **Never delegate Figma output to a subagent.** Subagents do NOT have MCP tools.

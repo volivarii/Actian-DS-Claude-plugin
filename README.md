@@ -1,8 +1,8 @@
 # Actian Design System Plugin
 
-Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings. Test everything interactively before pushing to Figma, and fix anything after.
+Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings with one-click fixes. Test everything interactively before pushing to Figma.
 
-**v1.15.2** | 9 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.17.1** | 7 skills | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 
@@ -22,7 +22,7 @@ claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
 3. Enter: `volivarii/Actian-DS-Claude-plugin`
 4. Enable the **Figma** connector under **Settings** > **Integrations**
 
-> All 9 skills work in Claude Desktop. The Figma MCP connector provides design context, screenshots, and `use_figma` write access.
+> All 7 skills work in Claude Desktop. The Figma MCP connector provides design context, screenshots, and `use_figma` write access.
 
 ### Auto-updates
 
@@ -62,14 +62,12 @@ Describe what you need, review it in the browser, and push to Figma when it look
 
 ### Review — catch issues, fix them in place
 
-Audit any screen against DS2026 rules, compare two versions of a flow, or fix issues in Figma output without regenerating from scratch. Every fix comes with before/after screenshots.
+Audit any screen against DS2026 rules and fix findings directly. Compare two versions of a flow. Every fix comes with before/after screenshots.
 
 | Skill | What it does | How it helps |
 |-------|-------------|-------------|
-| `/design-audit` | Audit a Figma screen against DS2026 tokens, WCAG AA, content guidelines, and forms layout. | Catch token mismatches, contrast failures, and guideline violations before handoff. Confidence-scored findings with evidence. |
+| `/design-audit` | Audit a Figma screen against DS2026 tokens, WCAG AA, content guidelines, and forms layout. Fix findings inline — swap instances, bind tokens, align variants. | Catch and fix token mismatches, contrast failures, and guideline violations in one pass. Confidence-scored findings with evidence. |
 | `/compare-flows` | Side-by-side comparison of two Figma flows with severity-rated issues. | Evaluate a redesign against the original, or choose between competing approaches with structured criteria. |
-| `/fix-finding` | Fix a single audit finding in Figma — swap instances, bind tokens, align variants. | One-click resolution for audit findings without manual token lookup. |
-| `/refine` | Fix Figma output after pushing — describe issues, scan Figma annotations, or re-run quality checks. | Iterate on pushed output without regenerating. Say what's wrong and it gets fixed with before/after verification. |
 
 ### Sync — keep everything current
 
@@ -86,25 +84,21 @@ The design system lives in Figma. Sync extracts it directly via MCP so skills al
 Every skill that outputs to Figma follows the same loop. The goal is to catch problems early (when they're cheap to fix) and give designers control at every step.
 
 ```
-1. Research + generate
+1. Research + data model
    Skill reads tokens, guidelines, and Figma context,
-   then generates an HTML preview.
+   then structures everything into a JSON data model.
 
 2. Preview + annotate
-   Static preview served on localhost. Click "Annotate"
-   to mark issues directly on elements. Optionally
-   generate an interactive prototype or state playground.
-   Say "apply" to fix annotations, or give text feedback.
+   HTML rendered from the data model, served on localhost.
+   Click "Annotate" to mark issues on elements. Generate
+   an interactive prototype or state playground. Feedback
+   edits the data model — both HTML and Figma stay in sync.
 
 3. Push to Figma
-   Approved content goes to Figma via MCP.
-   Automatic parity check catches clipping, missing
-   content, or empty text before declaring success.
-
-4. Refine
-   Review in Figma. Run /refine to fix specific issues,
-   or place Feedback components for /refine to scan.
-   Every fix is verified with before/after screenshots.
+   Approved content goes to Figma via MCP using micro-task
+   checklists assembled from the data model. Automatic
+   parity check catches clipping, missing content, or
+   empty text before declaring success.
 ```
 
 ### Preview gate
@@ -127,16 +121,6 @@ Every preview includes an annotation layer. Click "Annotate" (bottom-right) to e
 ### Post-push parity check
 
 After every push, the skill automatically screenshots the Figma output and checks for common issues (clipped frames, empty text, missing children). P0 issues are flagged and can be fixed inline before the designer reviews.
-
-### /refine
-
-The last step in the loop. After reviewing in Figma, run `/refine` to apply corrections without regenerating everything:
-
-```
-/refine screen 3 header is too tall
-/refine comments          # scans Figma Feedback annotations
-/refine check             # re-runs the parity check
-```
 
 ---
 
@@ -184,7 +168,7 @@ Skills read at runtime
 |-------|------|-----------|---------|
 | **Fat Marker (lo-fi)** | Inter | 34 FM Kit components | `/generate-flow` |
 | **DS2026 (hi-fi)** | Roboto | 97 component sets + 3 standalone | `/component-brief`, `/design-audit` |
-| **Meta Kit** | Inter | 7 skill-output components | All output skills |
+| **Meta Kit** | Inter | 16 components + 5 templates | All output skills |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS attribute or Figma variable modes.
 
@@ -217,9 +201,10 @@ actian-design-system-plugin/
 +-- plugins/actian-design-system/
 |   +-- .claude-plugin/plugin.json
 |   +-- CLAUDE.md
-|   +-- skills/                          # 9 skills
-|   +-- references/                      # Shared skill references
-|   +-- templates/                       # Interactive preview templates
+|   +-- skills/                          # 7 skills
+|   +-- references/                      # Shared + skill-specific references
+|   |   +-- component-brief/             # Data schema, renderers, Figma rules
+|   |   +-- generate-flow/               # HTML reference, research guide
 |   +-- tokens/                          # W3C DTCG + CSS custom properties
 |   +-- docs/                            # Synced reference files
 +-- docs/

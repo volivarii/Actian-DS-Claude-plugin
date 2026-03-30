@@ -488,7 +488,7 @@ Every skill that pushes to Figma MUST run a parity check immediately after `use_
 1. Screenshot each pushed element
 2. Check for clipping (height/width < 10px), empty text, missing children
 3. Report findings — fix P0s before presenting to designer
-4. Write `.last-push.json` manifest for `/refine` support
+4. Write `.last-push.json` manifest for post-push iteration
 
 | Skill | Parity check step |
 |-------|-------------------|
@@ -536,7 +536,7 @@ See `references/library-gap-detection.md` for the full procedure.
 - `Missing property` — component exists but lacks a needed property (e.g., no text override, no disabled state)
 - `General` — other limitation that forced a workaround
 
-**Designer annotations:** Designers can place `Feedback (Type=Designer)` components in Figma to annotate issues. `/refine comments` scans for these and applies fixes.
+**Designer annotations:** Designers can place `Feedback (Type=Designer)` components in Figma to annotate issues. Skills scan for these at their post-push parity check step.
 
 ---
 

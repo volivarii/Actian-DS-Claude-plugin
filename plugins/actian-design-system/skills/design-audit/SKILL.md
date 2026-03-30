@@ -1,7 +1,7 @@
 ---
 name: design-audit
-description: Use when the user wants to audit, review, lint, or QA a Figma design against DS2026 or Fat Marker rules, asks if tokens are correct, wants to find design system inconsistencies or compliance issues, asks what's wrong with a screen, or shares a Figma URL asking if it meets DS2026 standards.
-argument-hint: "[Figma URL]"
+description: This skill should be used when the user wants to audit, review, lint, or QA a Figma design against DS2026 or Fat Marker rules, asks if tokens are correct, wants to find design system inconsistencies, asks what's wrong with a screen, shares a Figma URL asking if it meets standards, or asks to fix a specific audit finding ("fix finding #N", "fix the hardcoded blue").
+argument-hint: "[Figma URL] or [fix finding #N]"
 ---
 
 # Design System Audit
@@ -11,7 +11,7 @@ argument-hint: "[Figma URL]"
 
 Audit a Figma file or section against the Actian Design System 2026 and/or Fat Marker conventions.
 
-**When NOT to use:** If the user provides *two* Figma URLs to compare → use `compare-flows`. If the user asks to *fix* a finding → use `fix-finding`. If the user asks to *create* a component → use `create-component`.
+**When NOT to use:** If the user provides *two* Figma URLs to compare → use `compare-flows`. If the user asks to *create* a component → use `create-component`.
 
 > **Mode: Audit.** Be methodical and exhaustive — check every element against the rules. Work through tokens, components, accessibility, content, forms layout, and missing states systematically. Flag everything, categorize by severity (P0 critical / P1 important / P2 minor). Quote the specific rule being violated. Output a structured report, not prose.
 
@@ -125,7 +125,7 @@ Findings without evidence are not findings — they are guesses. If you cannot e
 
 ### JSON output (for programmatic consumption)
 
-When the user requests JSON output or when the audit is consumed by another skill (e.g., `/fix-finding`), produce structured JSON alongside the Markdown report:
+When the user requests JSON output or for programmatic consumption by the fix step below, produce structured JSON alongside the Markdown report:
 
 ```json
 {
@@ -163,12 +163,61 @@ When the user requests JSON output or when the audit is consumed by another skil
 }
 ```
 
-The `fixType` field classifies fixes for the `/fix-finding` companion skill:
+The `fixType` field classifies fixes:
 - `swap-instance` — Replace ad-hoc element with library component
 - `bind-tokens` — Bind variable/style to property
 - `align-variant` — Switch to correct variant
 - `compose-from-primitives` — Build from library primitives
 - `blocked` — Cannot be auto-fixed (needs design decision)
 
-The `autoFixable` field indicates whether `/fix-finding` can apply this fix automatically (`true` for swap-instance, bind-tokens, align-variant; `false` for compose-from-primitives and blocked).
+The `autoFixable` field: `true` for swap-instance, bind-tokens, align-variant; `false` for compose-from-primitives and blocked.
+
+---
+
+## Fixing findings
+
+After presenting the audit report, the user can ask to fix findings directly:
+- `"fix #3"` — fix a specific finding
+- `"fix all auto-fixable"` — batch fix all findings where `autoFixable: true`
+- `"fix the hardcoded blue on the login button"` — free-text description
+
+### Fix types
+
+**swap-instance:** Replace ad-hoc element with correct library component.
+1. Identify target node via node ID from audit
+2. Find correct component via `search_design_system`
+3. Import: `figma.importComponentByKeyAsync(key)`
+4. Create instance, position at original location
+5. Copy text content from original, delete original
+
+**bind-tokens:** Bind a variable or style to a node property.
+1. Import variable: `figma.variables.importVariableByKeyAsync(key)`
+2. Bind to fill, or import style and assign `node.fillStyleId = style.id`
+3. Call `setExplicitVariableModeForCollection` on nearest ancestor (ghost mode prevention)
+
+**align-variant:** Switch instance to correct variant.
+1. Read current properties: `instance.componentProperties`
+2. Set correct variant: `instance.setProperties({ "Property": "Value" })`
+
+**compose-from-primitives:** Build from library primitives when no single component matches.
+1. Import required primitives via `search_design_system`
+2. Create container with auto-layout, compose primitives, position at original location, delete original
+
+**blocked:** Cannot be auto-fixed. Present details and explain why manual intervention is needed.
+
+### Verification
+
+After every fix:
+1. `get_screenshot` on the fixed node
+2. Compare against expected state
+3. Report: `✓ Finding #3 fixed (bind-tokens): Bound theme-primary to Button fill`
+4. On failure: `✗ Finding #3 failed: [reason]. Manual review needed.`
+
+### Batch mode
+
+When "fix all auto-fixable":
+1. Filter findings where `autoFixable: true`
+2. Sort by severity (P0 first)
+3. Apply fixes sequentially (never parallel `use_figma`)
+4. Report: "Fixed N/M findings. K blocked."
 

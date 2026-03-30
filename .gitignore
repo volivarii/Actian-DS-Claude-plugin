@@ -11,6 +11,15 @@ components/
 presentations/
 prototypes/
 
+# Annotation files (browser preview artifacts)
+.annotations.json
+
+# Test files (local dev artifacts)
+test-*.html
+
+# Skill evaluation files (local testing)
+skill-evals/
+
 # Raw Figma export archive (DTCG file is source of truth)
 plugins/*/tokens/Actian-Design-System_variables_*.json
 

@@ -1,14 +1,14 @@
 # Component Brief — Figma Output Reference
 
-Detailed Figma output requirements for Step 3 of the component-brief skill. Read `../../references/figma-output.md` for shared patterns (token binding, generation metadata, auto-layout).
+Detailed Figma output requirements for Step 3 of the component-brief skill. Read `../figma-output.md` for shared patterns (token binding, generation metadata, auto-layout).
 
 ## Data Model-Driven Rendering (MANDATORY)
 
 **All Figma output MUST be driven by `brief-data.json`**, generated in Step 1.5. Do NOT write freehand `use_figma` code that interprets research directly.
 
-**Renderer reference:** `../../references/component-brief/figma-renderer.md` — contains copy-paste-ready `use_figma` code recipes for every card. Follow these recipes exactly.
+**Renderer reference:** `../component-brief/figma-renderer.md` — contains copy-paste-ready `use_figma` code recipes for every card. Follow these recipes exactly.
 
-**Data model schema:** `../../references/component-brief/data-schema.md` — defines the JSON structure consumed by the renderer.
+**Data model schema:** `../component-brief/data-schema.md` — defines the JSON structure consumed by the renderer.
 
 The renderer recipes use the data model arrays to determine content. Card row counts, variant states, token tables, Do/Don't pairs — all come from the JSON. The AI does not make content decisions during Figma rendering.
 
@@ -112,11 +112,11 @@ const content = card.findOne(n => n.name === "Content");
 Do NOT leave cards named `"Meta / Chrome / Brief Card"`. Do NOT build raw frames as card shells.
 
 For `setProp` helper and component keys, see `../../docs/meta-kit/components.md`.
-For `buildSpecTable`, `buildStateGrid`, see `../../references/meta-kit/builders.md`.
+For `buildSpecTable`, `buildStateGrid`, see `../meta-kit/builders.md`.
 
 ## Variable binding
 
-Follow `../../references/figma-output.md` § "Token binding". Discover keys via `search_design_system`:
+Follow `../figma-output.md` § "Token binding". Discover keys via `search_design_system`:
 - **DS2026**: color variables, text styles (`textStyleId`), effect styles (`effectStyleId`)
 - **FM**: color styles (`fillStyleId`), text styles (`textStyleId`)
 - **Fallback**: hex only if file isn't connected to library
