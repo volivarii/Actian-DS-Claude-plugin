@@ -75,17 +75,17 @@ The `target` value is matched against `data-name` attributes in the HTML. If no 
 
 ## Processing annotations at the gate
 
-When a designer says **"apply annotations"** and pastes a JSON payload:
+When a designer says **"apply"** or **"apply annotations"**:
 
-1. **Parse** the JSON payload and validate it against the schema above.
-2. **For each annotation**, locate the element whose `data-name` matches `annotation.target`.
-3. **Apply based on type:**
+1. **Read `.annotations.json`** from the project working directory (written by the browser's "Apply" button via `POST /_annotations`). If the user pastes JSON directly, use that instead.
+2. **Parse and validate** against the schema above.
+3. **For each annotation**, locate the element whose `data-name` matches `annotation.target`.
+4. **Apply based on type:**
    - `change` — Modify the element as described in `message`. This is the default — the designer wants something different.
    - `note` — Do NOT change the HTML. Carry the note forward to the Figma push step. Write it into the `.last-push.json` manifest under a `notes` array so it's available during `use_figma` generation and parity check.
-4. **Re-save the HTML** file with all applied changes.
-5. **Re-serve the preview** at the same local URL.
+5. **Re-save the HTML file** with all applied changes. This is CRITICAL — the file must be written to disk so the live-reload polling detects the mtime change and auto-refreshes the browser with a "Changes applied" toast.
 6. **Report what was applied** — list each annotation, the target element, the action taken, and flag any `note`-severity items as carried forward. Flag any unresolvable targets (no matching `data-name`).
-7. **Re-present the gate** — walk through the updated output and prompt for approval or further feedback.
+7. **Re-present the gate** — present all options again for the next iteration.
 
 ---
 

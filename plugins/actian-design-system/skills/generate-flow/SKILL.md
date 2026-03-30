@@ -114,8 +114,14 @@ Wait for user approval.
 
 Create `{project_working_directory}/components/flows/[feature-name]-flow.html`. Read `../../references/generate-flow/html-reference.md` for the complete template structure, FM component inventory, custom element rules, and styling.
 
-**Feature focus principle (FM flows):**
-Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — all other chrome (nav items, sidebar entries, content rows, table data) must use placeholder/muted variants so they don't compete for attention. Identify what's new or changed, make it visually prominent, and let everything else recede.
+**Feature focus principle (FM flows — mandatory):**
+Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — everything else must use placeholder/muted variants. This is not optional.
+
+- **Sidebar nav items**: only the active feature item gets a real label (e.g., "Glossary"). All other items use the FM Side navigation item Placeholder variant — grey bars, no text.
+- **Table rows**: feature-relevant rows get real contextual data. Non-feature rows use FM Text Cell Placeholder variant or grey placeholder bars.
+- **Content areas**: only sections demonstrating the feature get real content. Others use FM Placeholder components.
+- **App header**: always present with correct app type, but no extra styling or customization beyond the standard FM component.
+- **No extra colors**: use only existing FM styles (`--fm-*` variables). Do not introduce custom colors, gradients, or decorative elements.
 
 **Key rules:**
 - One row per flow — never split across rows
@@ -123,22 +129,26 @@ Spotlight the feature being demonstrated. Only elements directly relevant to the
 - Custom elements: prefix `fm-custom-`, use `--fm-*` vars, keep lo-fi
 - Screen sizes: Standard 1440x960px, Compact 1440x700px
 - Forms: inputs 480px max-width, extended elements full-width
-- Styles: read `../../references/fm-css-reference.md` — exact values
+- Styles: read `../../references/fm-css-reference.md` — exact values only, no custom colors
 - All text must be contextual, not generic ("Schedule Refresh" not "Submit")
-- Nav items: only show items relevant to the feature with real labels; others use placeholder variant
-- Content rows: feature-relevant rows get real data; others get placeholder text
 
 ## Step 4.5 — Preview gate (BLOCKING)
 
 1. Start server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
-2. Present preview URL and options:
-   - **"push"** / **"push 1,3,5"** — send to Figma
-   - **"push and wire"** — send to Figma + wire prototype connections (playable in Presentation mode)
-   - **"prototype"** — generate interactive HTML prototype (local browser testing)
-   - **"apply annotations"** — read browser annotations, fix and re-preview
-   - **feedback** — fix and re-preview
+2. Present preview URL and ALL options — do not omit any:
+
+> Preview: `{URL}`
+>
+> Review the flow, then reply:
+> - **"push"** / **"push 1,3"** — send to Figma
+> - **"push and wire"** — push + wire prototype connections (playable in Figma Presentation mode)
+> - **"prototype"** — generate interactive HTML prototype (click through screens locally)
+> - **"annotate"** — click Annotate in the preview toolbar to mark issues visually on specific elements, then say **"apply"** here
+> - **feedback** — describe changes in text, I'll fix and re-preview
+
 3. Wait for response. On feedback: fix HTML, re-serve, re-present.
 4. On "push and wire": run Step 5 (push) then Step 5.5 (wire).
+5. On "apply": read `.annotations.json` from the project directory, apply changes per `../../references/annotation-reference.md`, re-serve and re-present gate.
 
 ## Step 4.6 — Interactive prototype (opt-in)
 
