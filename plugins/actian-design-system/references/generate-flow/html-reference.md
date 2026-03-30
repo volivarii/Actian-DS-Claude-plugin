@@ -71,11 +71,11 @@ textNode.characters = "Overview";
 
 Never leave default/generic text like "Tab", "Cell", "Tag" — always set contextual content.
 
-### FM Kit limitations vs DS2026
+### FM Kit limitations vs DS Kit
 
-These features exist in the DS2026 library but **not in FM Kit**. Handle with workarounds:
+These features exist in the DS Kit library but **not in FM Kit**. Handle with workarounds:
 
-| Feature | DS2026 has | FM Kit workaround |
+| Feature | DS Kit has | FM Kit workaround |
 |---|---|---|
 | **Button icons** (Leading/Trailing/Only) | `Icon` variant axis | HTML: add icon element inside button. Figma: use FM Icon Buttons for icon-only; for text+icon, build `fm-custom-button-with-icon` (horizontal auto-layout: icon frame + FM Button) |
 | **Destructive button** | `Destructive=True/False` | HTML: add `color: var(--fm-text-error)` or red border. Figma: use FM Button Type=Outline and note "destructive" in the screen list — the lo-fi wireframe conveys intent through label text ("Delete", "Remove") |
@@ -367,4 +367,4 @@ Does NOT need detaching — `contentArea.appendChild()` works. See `../../docs/m
 ## Token reference
 
 - **`use_figma`**: `../figma-output.md` § "Token binding"
-- **HTML**: `--fm-*` from `../fm-css-reference.md` (FM) or `--zen-*` from `../../tokens/tokens.css` (DS2026)
+- **HTML**: `--fm-*` from `../fm-css-reference.md` (FM) or `--zen-*` from `../../tokens/tokens.css` (DS Kit)

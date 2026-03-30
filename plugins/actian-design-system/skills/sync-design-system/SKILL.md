@@ -30,7 +30,7 @@ Read file keys from `../../.figma-keys.json` at the start of every sync run.
 
 | Library  | Config key         | Contents |
 |----------|-------------------|----------|
-| DS2026   | `ds2026`          | 77 components, 115 variables (3 themes), 12 text styles, 5 effect styles, guidelines, foundations |
+| DS Kit   | `dsKit`          | 77 components, 115 variables (3 themes), 12 text styles, 5 effect styles, guidelines, foundations |
 | FM Kit   | `fmKit`           | 29 wireframe components |
 | Meta Kit | `metaKit`         | 6 skill-output components |
 
@@ -38,7 +38,7 @@ Read file keys from `../../.figma-keys.json` at the start of every sync run.
 
 | Phase | Output | Description |
 |-------|--------|-------------|
-| 1 | `docs/ds2026-components.md`, `docs/fm-components.md`, `docs/meta-kit/components.md`, `docs/ds2026-components-registry.json`, `docs/fm-components-registry.json`, `docs/meta-kit/meta-kit-registry.json` | Component catalogs with variant axes, properties, keys |
+| 1 | `docs/dskit-components.md`, `docs/fm-components.md`, `docs/meta-kit/components.md`, `docs/dskit-components-registry.json`, `docs/fm-components-registry.json`, `docs/meta-kit/meta-kit-registry.json` | Component catalogs with variant axes, properties, keys |
 | 2 | `docs/meta-kit/variables.md` | 115 variables with keys, scopes, per-mode values |
 | 3 | `docs/meta-kit/text-styles.md`, `docs/meta-kit/effect-styles.md` | Text + effect style specs |
 | 4 | `docs/token-reference.md`, `tokens/tokens.css`, `tokens/actian-ds.tokens.json`, `token-drift.json` (if drift detected) | Token reference, CSS custom properties, W3C DTCG |

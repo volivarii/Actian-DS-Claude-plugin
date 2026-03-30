@@ -36,7 +36,7 @@ const variant = componentSet.children.find(c => c.name.includes("State=Default")
 const instance = variant.createInstance();
 ```
 
-**Case 2: Component is from an external library** (e.g., user references DS2026 library directly)
+**Case 2: Component is from an external library** (e.g., user references DS Kit library directly)
 
 ```js
 // Use importComponentSetByKeyAsync — fetches from published library
@@ -117,7 +117,7 @@ For `buildSpecTable`, `buildStateGrid`, see `../meta-kit/builders.md`.
 ## Variable binding
 
 Follow `../figma-output.md` § "Token binding". Discover keys via `search_design_system`:
-- **DS2026**: color variables, text styles (`textStyleId`), effect styles (`effectStyleId`)
+- **DS Kit**: color variables, text styles (`textStyleId`), effect styles (`effectStyleId`)
 - **FM**: color styles (`fillStyleId`), text styles (`textStyleId`)
 - **Fallback**: hex only if file isn't connected to library
 

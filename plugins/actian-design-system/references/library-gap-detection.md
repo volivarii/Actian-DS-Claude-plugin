@@ -7,13 +7,13 @@ Shared procedure for detecting and logging when a skill builds a custom frame in
 Before building ANY custom element in a `use_figma` call, check both component catalogs:
 
 - **FM Kit** → `../../docs/fm-components.md`
-- **DS2026** → `../../docs/ds2026-components.md`
+- **DS Kit** → `../../docs/dskit-components.md`
 
 This check is part of the existing `use_figma` step — it is not a separate step.
 
 ## Detection logic
 
-1. **Match the element to the catalog by name.** Look up the element's name (or closest equivalent) in both `fm-components.md` and `ds2026-components.md`.
+1. **Match the element to the catalog by name.** Look up the element's name (or closest equivalent) in both `fm-components.md` and `dskit-components.md`.
 
 2. **Component EXISTS in catalog:**
    - Check whether the needed variant also exists.
@@ -75,7 +75,7 @@ After attaching a System marker, append an entry to `{project_working_directory}
     "skill": "generate-flow",
     "component": "Stepper",
     "severity": "Missing component",
-    "gap": "No Stepper component exists in FM Kit or DS2026. Built custom 3-step indicator.",
+    "gap": "No Stepper component exists in FM Kit or DS Kit. Built custom 3-step indicator.",
     "workaround": "Custom auto-layout frame with numbered circles and connector lines.",
     "fileKey": "<from .figma-keys.json>",
     "nodeId": "1234:5678",
@@ -121,7 +121,7 @@ The library gap check is embedded inside the existing `use_figma` step, not adde
 
 ```
 Before building any custom frame: check ../../docs/fm-components.md and
-../../docs/ds2026-components.md. Follow the detection logic in
+../../docs/dskit-components.md. Follow the detection logic in
 @references/library-gap-detection.md. Attach a System marker and log to
 library-gaps.json for any element built custom instead of imported.
 ```

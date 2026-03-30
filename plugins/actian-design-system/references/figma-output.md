@@ -44,7 +44,7 @@ function setProp(inst, prefix, value) {
 setProp(instance, "Title", "Design tokens");
 ```
 
-Look up component keys in `../../docs/fm-components.md` (FM Kit), `../../docs/ds2026-components.md` (DS2026), or `../../docs/meta-kit/components.md` (Meta Kit).
+Look up component keys in `../../docs/fm-components.md` (FM Kit), `../../docs/dskit-components.md` (DS Kit), or `../../docs/meta-kit/components.md` (Meta Kit).
 
 ### Meta Kit components
 
@@ -52,22 +52,22 @@ For shared visual elements (card chrome, code blocks, do/don't pairs, generation
 
 When a Meta Kit component exists for an element, **always import it**. The component IS the spec.
 
-## Token binding — DS2026 and FM libraries
+## Token binding — DS Kit and FM libraries
 
 **NEVER hardcode hex colors, pixel font sizes, or raw shadow values.** Both libraries publish reusable assets. Bind them.
 
 ### What each library publishes
 
-| Asset type | DS2026 | FM Kit | Binding API |
+| Asset type | DS Kit | FM Kit | Binding API |
 |------------|--------|--------|-------------|
 | **Color variables** | Yes (theme-switching) | No | `importVariableByKeyAsync` + `setBoundVariableForPaint` |
 | **Color styles** | Yes | Yes (`Fatmarker Base/*`) | `importStyleByKeyAsync` + `node.fillStyleId` |
 | **Text styles** | Yes (`body-standard`, etc.) | Yes (`Fatmarker/*`) | `importStyleByKeyAsync` + `node.textStyleId` |
 | **Effect styles** | Yes (`shadow-xs`, etc.) | No | `importStyleByKeyAsync` + `node.effectStyleId` |
 
-### DS2026 output — bind variables AND styles
+### DS Kit output — bind variables AND styles
 
-DS2026 publishes **color variables** (for theme switching), **text styles** (typography), and **effect styles** (shadows). Use all three:
+DS Kit publishes **color variables** (for theme switching), **text styles** (typography), and **effect styles** (shadows). Use all three:
 
 **Color variables** (see `../../docs/meta-kit/variables.md` for keys):
 
@@ -118,9 +118,9 @@ Before writing any `use_figma` code, call `search_design_system` to discover the
 
 | Query | Returns |
 |-------|---------|
-| `"body-standard"` | DS2026 text style key |
-| `"heading-display"` | DS2026 text style key |
-| `"shadow-xs"` | DS2026 effect style key |
+| `"body-standard"` | DS Kit text style key |
+| `"heading-display"` | DS Kit text style key |
+| `"shadow-xs"` | DS Kit effect style key |
 | `"Fatmarker Base"` | FM color style keys |
 | `"Fatmarker"` | FM text + color style keys |
 
@@ -129,7 +129,7 @@ Cache the keys within a single `use_figma` call — import once, apply to many n
 ### Fallback
 
 If `search_design_system` returns no results (file not connected to a library), fall back to:
-- DS2026: hex from `../../docs/token-reference.md` with token name comments
+- DS Kit: hex from `../../docs/token-reference.md` with token name comments
 - FM: hex from `../../references/fm-css-reference.md` with token name comments
 
 ## Generation metadata frame
@@ -303,7 +303,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 - **HTML is local preview only.**
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed.
-- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../docs/fm-components.md` (FM) or `../../docs/ds2026-components.md` (DS2026) for an existing library component. If one exists, import it — even if a variant is missing. See `library-gap-detection.md` for the full detection procedure.
+- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../docs/fm-components.md` (FM) or `../../docs/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `library-gap-detection.md` for the full detection procedure.
 
 ## HUG Sizing Default
 

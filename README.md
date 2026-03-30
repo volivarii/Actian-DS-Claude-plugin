@@ -2,7 +2,7 @@
 
 Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings with one-click fixes. Test everything interactively before pushing to Figma.
 
-**v1.17.6** | 7 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.18.0** | 7 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 
@@ -56,17 +56,17 @@ Describe what you need, review it in the browser, and push to Figma when it look
 | Skill | What it does | How it helps |
 |-------|-------------|-------------|
 | `/generate-flow` | Wireframe flows from user stories. Competitor research, screen planning, interactive prototype, Figma output. | Go from a feature description to a clickable flow. Test navigation, form validation, and branching paths in the browser before committing. |
-| `/component-brief` | 9-card DS2026 or 5-card Fat Marker spec — anatomy, tokens, API, states, accessibility, code. | Every variant, state, and token documented in one place. Use the interactive playground to toggle states and themes before pushing. |
-| `/create-component` | Build a new Figma component with variants via Plugin API, with optional pattern research. | New components follow DS2026 conventions from the start — correct auto-layout, token binding, and naming. |
-| `/generate-presentation` | Slide deck using Actian templates with charts and data visualizations. | Consistent decks that follow DS2026 typography, color, and layout without manual setup. |
+| `/component-brief` | 9-card DS Kit or 5-card Fat Marker spec — anatomy, tokens, API, states, accessibility, code. | Every variant, state, and token documented in one place. Use the interactive playground to toggle states and themes before pushing. |
+| `/create-component` | Build a new Figma component with variants via Plugin API, with optional pattern research. | New components follow DS Kit conventions from the start — correct auto-layout, token binding, and naming. |
+| `/generate-presentation` | Slide deck using Actian templates with charts and data visualizations. | Consistent decks that follow DS Kit typography, color, and layout without manual setup. |
 
 ### Review — catch issues, fix them in place
 
-Audit any screen against DS2026 rules and fix findings directly. Compare two versions of a flow. Every fix comes with before/after screenshots.
+Audit any screen against DS Kit rules and fix findings directly. Compare two versions of a flow. Every fix comes with before/after screenshots.
 
 | Skill | What it does | How it helps |
 |-------|-------------|-------------|
-| `/design-audit` | Audit a Figma screen against DS2026 tokens, WCAG AA, content guidelines, and forms layout. Fix findings inline — swap instances, bind tokens, align variants. | Catch and fix token mismatches, contrast failures, and guideline violations in one pass. Confidence-scored findings with evidence. |
+| `/design-audit` | Audit a Figma screen against DS Kit tokens, WCAG AA, content guidelines, and forms layout. Fix findings inline — swap instances, bind tokens, align variants. | Catch and fix token mismatches, contrast failures, and guideline violations in one pass. Confidence-scored findings with evidence. |
 | `/compare-flows` | Side-by-side comparison of two Figma flows with severity-rated issues. | Evaluate a redesign against the original, or choose between competing approaches with structured criteria. |
 
 ### Sync — keep everything current
@@ -153,7 +153,7 @@ After every push, the skill automatically screenshots the Figma output and check
 Figma libraries are the single source of truth. `/sync-design-system` extracts directly via MCP — no intermediary repos.
 
 ```
-Figma libraries (DS2026 + FM Kit + Meta Kit)
+Figma libraries (DS Kit + FM Kit + Meta Kit)
     |
 /sync-design-system (Figma MCP)
     |
@@ -177,7 +177,7 @@ Skills read at runtime
 
 | Phase | Output | Format |
 |-------|--------|--------|
-| 1 — Components | `ds2026-components.md`, `fm-components.md`, `meta-kit/components.md` | Markdown |
+| 1 — Components | `dskit-components.md`, `fm-components.md`, `meta-kit/components.md` | Markdown |
 | 2 — Variables | `meta-kit/variables.md` (115 vars, 3 themes) | Markdown |
 | 3 — Styles | `meta-kit/text-styles.md`, `meta-kit/effect-styles.md` | Markdown |
 | 4 — Tokens | `token-reference.md`, `tokens.css`, `actian-ds.tokens.json` | MD + CSS + JSON |
@@ -191,7 +191,7 @@ Skills read at runtime
 | Layer | Font | Components | Used by |
 |-------|------|-----------|---------|
 | **Fat Marker (lo-fi)** | Inter | 34 FM Kit components | `/generate-flow` |
-| **DS2026 (hi-fi)** | Roboto | 97 component sets + 3 standalone | `/component-brief`, `/design-audit` |
+| **DS Kit (hi-fi)** | Roboto | 97 component sets + 3 standalone | `/component-brief`, `/design-audit` |
 | **Meta Kit** | Inter | 16 components + 5 templates | All output skills |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS attribute or Figma variable modes.
@@ -211,7 +211,7 @@ All tokens use the `--zen-` prefix:
 
 | File | Config key | Purpose |
 |------|-----------|---------|
-| Actian Design System v1.1.0 | `ds2026` | DS2026 library |
+| Actian Design System v1.1.0 | `dsKit` | DS Kit library |
 | Fat Marker Kit | `fmKit` | Wireframe components |
 | Meta Kit | `metaKit` | Skill-output components |
 | Template for projects | `templates` | Presentation templates |
@@ -241,7 +241,31 @@ actian-design-system-plugin/
     +-- superpowers/plans/               # Implementation plans
 ```
 
-## Maintaining
+---
+
+## Development
+
+### Setup
+
+Clone the repo and configure Figma file keys:
+
+```bash
+git clone https://github.com/volivarii/Actian-DS-Claude-plugin.git
+cd Actian-DS-Claude-plugin/plugins/actian-design-system
+cp .figma-keys.json.example .figma-keys.json
+# Edit .figma-keys.json with your team's Figma file keys
+```
+
+Keys are found in Figma URLs: `figma.com/design/<FILE_KEY>/...`. The config maps 5 libraries: `dsKit`, `fmKit`, `metaKit`, `templates`, `designConsistency`.
+
+### Local testing
+
+```bash
+# Test with the plugin directory
+claude --plugin-dir plugins/actian-design-system
+```
+
+### Maintaining
 
 | What changed | What to do |
 |-------------|------------|
@@ -252,3 +276,7 @@ actian-design-system-plugin/
 | Shared skill patterns | Edit `references/*.md` |
 | New skill | Add `skills/<name>/SKILL.md` |
 | Version bump | Update `.claude-plugin/plugin.json` |
+
+### Release notes
+
+Generate from git log and format for Slack: ask Claude "generate release notes" or see `CLAUDE.md` § Release Notes.

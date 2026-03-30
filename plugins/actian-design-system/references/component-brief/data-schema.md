@@ -28,7 +28,7 @@ Rigid JSON schema for component-brief output. Generated in Step 1.5, consumed by
 ```json
 {
   "component": "Text Input",
-  "library": "ds2026",
+  "library": "dsKit",
   "fileKey": "fuWLltVXyBrbn6KfBAav12",
   "nodeId": "12070:77587",
   "componentKey": "abc123...",

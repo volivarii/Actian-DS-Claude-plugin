@@ -9,7 +9,7 @@ Mechanical process that converts `brief-data.json` into `[component]-spec.html`.
 3. Build each card's HTML from the data model using the card builders below
 4. Replace `{{GENERATION_CARD}}` with the gen card HTML from `meta`
 5. Replace `{{CARDS}}` with the concatenated card HTML
-6. Replace `{{PAGE_TITLE}}` with `${card1_header.name} — Actian DS2026 Component Brief`
+6. Replace `{{PAGE_TITLE}}` with `${card1_header.name} — Actian DS Kit Component Brief`
 7. Write `{project}/components/[name]/[name]-spec.html`
 
 **No card template files are read.** The card structures below replace `ds-card-1-*.html` through `ds-card-9-*.html`. The wrapper's CSS framework provides all styling classes.
@@ -18,7 +18,7 @@ Mechanical process that converts `brief-data.json` into `[component]-spec.html`.
 
 | Placeholder | Source |
 |------------|--------|
-| `{{PAGE_TITLE}}` | `${meta.component} — Actian DS2026 Component Brief` |
+| `{{PAGE_TITLE}}` | `${meta.component} — Actian DS Kit Component Brief` |
 | `{{GENERATION_CARD}}` | Gen card HTML from `meta` (see below) |
 | `{{CARDS}}` | Concatenated card HTML from builders below |
 

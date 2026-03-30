@@ -4,7 +4,7 @@
 <!-- To update: run /sync-guidelines or /sync-design-system -->
 <!-- Do not edit manually — changes will be overwritten -->
 
-Source: [Content guidelines page](https://www.figma.com/design/<DS2026_FILE_KEY>?node-id=7397:3249)
+Source: [Content guidelines page](https://www.figma.com/design/<DS Kit_FILE_KEY>?node-id=7397:3249)
 Generated: 2026-03-26
 
 ---

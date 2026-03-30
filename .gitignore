@@ -43,4 +43,4 @@ release-notes/
 .superpowers/
 docs/superpowers/
 plugins/*/docs/superpowers/
-plugins/*/docs/ds2026-analysis.json
+plugins/*/docs/dskit-analysis.json

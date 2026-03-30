@@ -1,12 +1,12 @@
 ---
 name: design-audit
-description: This skill should be used when the user wants to audit, review, lint, or QA a Figma design against DS2026 or Fat Marker rules, asks if tokens are correct, wants to find design system inconsistencies, asks what's wrong with a screen, shares a Figma URL asking if it meets standards, or asks to fix a specific audit finding ("fix finding #N", "fix the hardcoded blue").
+description: This skill should be used when the user wants to audit, review, lint, or QA a Figma design against DS Kit or Fat Marker rules, asks if tokens are correct, wants to find design system inconsistencies, asks what's wrong with a screen, shares a Figma URL asking if it meets standards, or asks to fix a specific audit finding ("fix finding #N", "fix the hardcoded blue").
 argument-hint: "[Figma URL] or [fix finding #N]"
 ---
 
 # Design System Audit
 
-> **Works with both workflows.** First determine which library the file uses (FM components = Workflow A, DS2026 components = Workflow B), then apply the corresponding rules from CLAUDE.md.
+> **Works with both workflows.** First determine which library the file uses (FM components = Workflow A, DS Kit components = Workflow B), then apply the corresponding rules from CLAUDE.md.
 > **Shared rules apply:** Content guidelines, accessibility guidelines (WCAG 2.1 AA), quality & hygiene checklist, and generation log format — all per CLAUDE.md.
 
 Audit a Figma file or section against the Actian Design System 2026 and/or Fat Marker conventions.
@@ -39,7 +39,7 @@ For each component identified in the design, check `../../docs/component-guideli
 
 ### Token usage
 - Check for hardcoded hex colors — all colors should use design tokens from CLAUDE.md.
-- Check typography: should be Inter (Fat Marker) or Roboto (DS2026), using defined text style tokens.
+- Check typography: should be Inter (Fat Marker) or Roboto (DS Kit), using defined text style tokens.
 - Check spacing: values should align with the spacing scale (4, 8, 12, 16, 24, 32px).
 - Check border radius: should use radius tokens (2, 4, 6, 8, 10, 12, 9999px).
 

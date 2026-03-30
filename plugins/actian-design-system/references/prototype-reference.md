@@ -133,7 +133,7 @@ These elements must remain static. Adding Alpine to them creates scope creep and
 
 ## Component Playgrounds
 
-Component playgrounds render a single DS2026 or FM Kit component with live controls for every variant axis and interactive state. They are used to verify token binding, state transitions, and theme switching in isolation.
+Component playgrounds render a single DS Kit or FM Kit component with live controls for every variant axis and interactive state. They are used to verify token binding, state transitions, and theme switching in isolation.
 
 ### Template
 

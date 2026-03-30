@@ -2,9 +2,9 @@
 
 Full extraction procedures for each phase of `/sync-design-system`. Read this file for the phase you are executing — do not load all phases at once.
 
-## DS2026 component page structure
+## DS Kit component page structure
 
-Each component page in the DS2026 library has consistently named top-level frames:
+Each component page in the DS Kit library has consistently named top-level frames:
 
 | Frame name | Present | Content type |
 |---|---|---|
@@ -30,9 +30,9 @@ Each named frame follows the same pattern:
 
 ## Phase 1 — Components
 
-Extract component sets, variant axes, properties, and keys from DS2026, FM Kit, and Meta Kit libraries.
+Extract component sets, variant axes, properties, and keys from DS Kit, FM Kit, and Meta Kit libraries.
 
-**Two modes:** full sync (rewrites entire file) or incremental sync (patches only changed entries). Default to incremental for DS2026 (77+ components); use full sync for FM Kit and Meta Kit (small enough for one call).
+**Two modes:** full sync (rewrites entire file) or incremental sync (patches only changed entries). Default to incremental for DS Kit (77+ components); use full sync for FM Kit and Meta Kit (small enough for one call).
 
 ### Mode selection
 
@@ -50,7 +50,7 @@ Extract component sets, variant axes, properties, and keys from DS2026, FM Kit, 
 One MCP call per library. Returns component manifest + page catalog (reused by Phase 5):
 
 ```js
-// Lightweight manifest — fits in one call even for DS2026
+// Lightweight manifest — fits in one call even for DS Kit
 const sets = figma.root.findAll(n => n.type === 'COMPONENT_SET');
 const standalones = figma.root.findAll(n =>
   n.type === 'COMPONENT' &&
@@ -99,7 +99,7 @@ return JSON.stringify({ manifest, pageCatalog }, null, 2);
 
 #### Step I2: Parse local file into comparable format
 
-Read the existing `docs/ds2026-components.md` (or `fm-components.md` / `meta-kit/components.md`). For each `### Component Name` entry, extract:
+Read the existing `docs/dskit-components.md` (or `fm-components.md` / `meta-kit/components.md`). For each `### Component Name` entry, extract:
 
 - `name` — from the heading
 - `key` — from the `Key: \`...\`` line
@@ -266,11 +266,11 @@ const standalones = page.findAll(n => n.type === 'COMPONENT' && n.parent?.type !
 // ... same mapping as above
 ```
 
-Use page counts from Step 1 to decide: DS2026 (77 sets) needs chunking. FM Kit (29) and Meta Kit (6) may fit in one call.
+Use page counts from Step 1 to decide: DS Kit (77 sets) needs chunking. FM Kit (29) and Meta Kit (6) may fit in one call.
 
 ### Step 3: Format output
 
-**DS2026 format** (`docs/ds2026-components.md`):
+**DS Kit format** (`docs/dskit-components.md`):
 
 ```markdown
 # Actian Design System 2026 — Component Reference
@@ -278,7 +278,7 @@ Use page counts from Step 1 to decide: DS2026 (77 sets) needs chunking. FM Kit (
 Auto-generated from Figma MCP on YYYY-MM-DD.
 77 component sets, NNN individual components.
 
-Source: [Actian Design System v1.1.0](https://www.figma.com/design/<DS2026_FILE_KEY>)
+Source: [Actian Design System v1.1.0](https://www.figma.com/design/<DS Kit_FILE_KEY>)
 
 ---
 
@@ -314,7 +314,7 @@ Formatting rules:
 
 After writing the Markdown component files, generate JSON registries from the same extracted data. This step runs at the end of both incremental and full sync.
 
-**For each library (DS2026, FM, Meta Kit):**
+**For each library (DS Kit, FM, Meta Kit):**
 
 1. Read the component data already extracted in earlier steps (manifest for incremental, full extraction for full sync)
 2. Transform into registry schema:
@@ -344,7 +344,7 @@ function toRegistryEntry(comp) {
 3. Write the JSON registry file with metadata:
    - `version`: `"1.0.0"`
    - `lastSynced`: current ISO 8601 timestamp
-   - `library`: library identifier (`"ds2026"`, `"fm"`, or `"meta-kit"`)
+   - `library`: library identifier (`"dsKit"`, `"fm"`, or `"meta-kit"`)
    - `fileKey`: Figma file key
    - `components`: object keyed by slug (lowercase, hyphenated component name)
 
@@ -373,7 +373,7 @@ function toRegistryEntry(comp) {
 ```
 
 **Output files per library:**
-- DS2026: `docs/ds2026-components-registry.json` (replaces existing seed) + `docs/ds2026-components.md` (existing)
+- DS Kit: `docs/dskit-components-registry.json` (replaces existing seed) + `docs/dskit-components.md` (existing)
 - FM: `docs/fm-components-registry.json` (replaces existing seed) + `docs/fm-components.md` (existing)
 - Meta Kit: `docs/meta-kit/meta-kit-registry.json` (merge with existing) + `docs/meta-kit/meta-kit-reference.md` (new, auto-generated)
 
@@ -381,7 +381,7 @@ function toRegistryEntry(comp) {
 
 ## Phase 2 — Variables
 
-Extract all DS2026 variables with keys, types, scopes, and resolved per-mode values across 3 themes.
+Extract all DS Kit variables with keys, types, scopes, and resolved per-mode values across 3 themes.
 
 **Optimized to 2 MCP calls** (down from 3-5): one for non-color collections, one for color with inline alias resolution.
 
@@ -483,7 +483,7 @@ Formatting: color table has per-mode columns; non-color has single Value column.
 
 ## Phase 3 — Styles
 
-Extract text styles and effect styles from DS2026.
+Extract text styles and effect styles from DS Kit.
 
 ### Step 1: Extract text styles
 
@@ -606,7 +606,7 @@ W3C DTCG format:
 ```json
 {
   "$schema": "https://design-tokens.github.io/community-group/format/",
-  "$metadata": { "source": "Actian Design System 2026", "extractedOn": "YYYY-MM-DD", "figmaFileKey": "<DS2026_FILE_KEY>" },
+  "$metadata": { "source": "Actian Design System 2026", "extractedOn": "YYYY-MM-DD", "figmaFileKey": "<DS Kit_FILE_KEY>" },
   "color": {
     "theme": {
       "primary": {
@@ -698,7 +698,7 @@ An additional `tokens/actian-ds.tokens.css` file is generated as an alias with i
 
 ## Phase 5 — Component guidelines
 
-Extract per-component design and content guidelines from DS2026 guideline pages.
+Extract per-component design and content guidelines from DS Kit guideline pages.
 
 **Two modes:** incremental (default — extract only changed pages) or full (re-extract everything).
 
@@ -1017,7 +1017,7 @@ Parse `git diff tokens/actian-ds.tokens.json` and `git diff docs/token-reference
 ```
 
 #### Components
-Parse `git diff docs/ds2026-components.md` and `git diff docs/fm-components.md`:
+Parse `git diff docs/dskit-components.md` and `git diff docs/fm-components.md`:
 - **New component:** Component heading exists in new but not old.
 - **Removed component:** Component heading exists in old but not new.
 - **New variant:** Variant axis values differ (more values in new).
@@ -1025,7 +1025,7 @@ Parse `git diff docs/ds2026-components.md` and `git diff docs/fm-components.md`:
 
 ```markdown
 #### Components
-- **New component:** Stepper (DS2026, 3 variants: Size × State × Orientation)
+- **New component:** Stepper (DS Kit, 3 variants: Size × State × Orientation)
 - **New variant:** Button → added Destructive=True axis
 - **Changed:** Dropdown — added `Placeholder Text` text override
 ```

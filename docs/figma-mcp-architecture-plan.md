@@ -37,7 +37,7 @@
 - **No image/video assets** in `use_figma`
 - **Beta pricing:** Free now, will become usage-based
 - **`search_design_system` returns keys, not values** — can't get hex colors or font specs
-- **DS2026 variables** must be searched by Figma path name ("Brand/primary") not CSS name ("theme-primary")
+- **DS Kit variables** must be searched by Figma path name ("Brand/primary") not CSS name ("theme-primary")
 
 ### 5 Official Figma Skills vs Our Skills
 
@@ -119,16 +119,16 @@ Skills call `search_design_system` on-demand to get keys for binding. No static 
 
 | Data | Source | Method | Output |
 |------|--------|--------|--------|
-| DS2026 components (77) | Library `<DS2026_FILE_KEY>` | `get_metadata` + `use_figma` | `ds2026-components.md` |
+| DS Kit components (77) | Library `<DS Kit_FILE_KEY>` | `get_metadata` + `use_figma` | `dskit-components.md` |
 | FM components (29) | Library `<FM_KIT_FILE_KEY>` | Same | `fm-components.md` |
 | Meta Kit components | Meta Kit library | Same | `meta-kit/components.md` |
-| All variable values | DS2026 library | `use_figma` → `getLocalVariablesAsync()` | `meta-kit/variables.md` (expanded) |
-| Text style specs | DS2026 library | `use_figma` → `getLocalTextStylesAsync()` | NEW `meta-kit/text-styles.md` |
-| Effect style specs | DS2026 library | `use_figma` → `getLocalEffectStylesAsync()` | NEW `meta-kit/effect-styles.md` |
-| Component guidelines | DS2026 component pages | `get_design_context` per frame | `component-guidelines/*.json` |
-| Foundations | DS2026 foundation pages | Same | `foundations/*.json` |
-| **Content guidelines** | DS2026 page `7397:3249` | `get_design_context` per frame | `content-guidelines.md` **(replaces hand-authored)** |
-| **Accessibility guidelines** | DS2026 page `12685:19373` | `get_design_context` per frame | `accessibility-guidelines.md` **(replaces hand-authored)** |
+| All variable values | DS Kit library | `use_figma` → `getLocalVariablesAsync()` | `meta-kit/variables.md` (expanded) |
+| Text style specs | DS Kit library | `use_figma` → `getLocalTextStylesAsync()` | NEW `meta-kit/text-styles.md` |
+| Effect style specs | DS Kit library | `use_figma` → `getLocalEffectStylesAsync()` | NEW `meta-kit/effect-styles.md` |
+| Component guidelines | DS Kit component pages | `get_design_context` per frame | `component-guidelines/*.json` |
+| Foundations | DS Kit foundation pages | Same | `foundations/*.json` |
+| **Content guidelines** | DS Kit page `7397:3249` | `get_design_context` per frame | `content-guidelines.md` **(replaces hand-authored)** |
+| **Accessibility guidelines** | DS Kit page `12685:19373` | `get_design_context` per frame | `accessibility-guidelines.md` **(replaces hand-authored)** |
 | Token reference | Generated from variables | Template formatting | `token-reference.md` |
 | CSS properties | Generated from variables | Template formatting | `tokens.css` |
 | DTCG JSON | Generated from variables | Template formatting | `actian-ds.tokens.json` |
@@ -163,13 +163,13 @@ Skills call `search_design_system` on-demand to get keys for binding. No static 
 
 | Tool | Target | Result |
 |------|--------|--------|
-| `get_screenshot` on DS2026 library | Accessibility page (23 frames), Content page (10 frames) | **Works** — full page screenshots |
-| `get_design_context` on DS2026 frame | Content checklist (13143:9595) | **Works** — full text extracted cleanly (headings, body, checklist items, colored annotations) |
-| `search_design_system` for components | "button" query | **Works** — returns name, key, libraryName, description for DS2026 + FM + legacy libraries |
+| `get_screenshot` on DS Kit library | Accessibility page (23 frames), Content page (10 frames) | **Works** — full page screenshots |
+| `get_design_context` on DS Kit frame | Content checklist (13143:9595) | **Works** — full text extracted cleanly (headings, body, checklist items, colored annotations) |
+| `search_design_system` for components | "button" query | **Works** — returns name, key, libraryName, description for DS Kit + FM + legacy libraries |
 | `search_design_system` for variables | "Brand/primary" query | **Works** — returns key `a256...` matching our variables.md |
-| `search_design_system` for text styles | "heading" query | **Works** — returns all 5 DS2026 heading styles + FM heading styles with keys |
-| `search_design_system` for effect styles | "shadow" query | **Works** — returns all 5 DS2026 shadow styles with keys |
-| `get_metadata` on DS2026 library | Multiple nodes | **BROKEN in long sessions** — silent rejection. Needs fresh session. |
+| `search_design_system` for text styles | "heading" query | **Works** — returns all 5 DS Kit heading styles + FM heading styles with keys |
+| `search_design_system` for effect styles | "shadow" query | **Works** — returns all 5 DS Kit shadow styles with keys |
+| `get_metadata` on DS Kit library | Multiple nodes | **BROKEN in long sessions** — silent rejection. Needs fresh session. |
 
 ### Open Investigation Items (for next session)
 
@@ -194,7 +194,7 @@ Skills call `search_design_system` on-demand to get keys for binding. No static 
 
 ### Next Session — Plan & Build
 1. Test `get_metadata` in fresh session (confirm context-length theory)
-2. Test `use_figma` variable/style extraction on DS2026 library
+2. Test `use_figma` variable/style extraction on DS Kit library
 3. Test content extraction on complex guideline frames
 4. Plan `/sync-design-system` skill architecture
 5. Add to `figma-output.md`: sequential `use_figma` constraint, HUG sizing, ghost mode prevention, rate limits

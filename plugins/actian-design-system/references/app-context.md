@@ -8,9 +8,9 @@ Reference for all skills that generate flows, components, or presentations invol
 
 | App | Purpose | Primary users | Font/Layer |
 |-----|---------|---------------|------------|
-| **Studio** | Data governance, catalog management, stewardship, lineage, glossary admin, metadata enrichment | Data stewards, data engineers, data architects, domain experts | Roboto / DS2026 |
-| **Explorer** | Data marketplace, discovery, consumption, business glossary browsing, data product access | Business users, analysts, data consumers | Roboto / DS2026 |
-| **Administration** | User management, connections, catalog configuration, system settings | Admins, IT ops | Roboto / DS2026 |
+| **Studio** | Data governance, catalog management, stewardship, lineage, glossary admin, metadata enrichment | Data stewards, data engineers, data architects, domain experts | Roboto / DS Kit |
+| **Explorer** | Data marketplace, discovery, consumption, business glossary browsing, data product access | Business users, analysts, data consumers | Roboto / DS Kit |
+| **Administration** | User management, connections, catalog configuration, system settings | Admins, IT ops | Roboto / DS Kit |
 
 ### App context inference
 
@@ -65,7 +65,7 @@ Each app has distinct navigation, layout, and branding:
 
 ### Shared cross-app patterns
 
-- **DS2026 and FM Kit components are cross-platform** — the same component library is used across all 3 apps. Components are not app-specific.
+- **DS Kit and FM Kit components are cross-platform** — the same component library is used across all 3 apps. Components are not app-specific.
 - **Right sliding drawer** — used in both Studio (quick edit) and Explorer (quick view). Same component, different mode: Studio allows inline editing, Explorer is read-only with "Request Access" and "Open in Studio" actions.
 - **Color-coded type badges** — consistent type identification across apps. Each catalog item type has a distinct color + icon (teal for Dataset, blue for Data Product, orange for Data Process, green for Visualization, etc.).
 - **Completion progress bars** — visual completion level on catalog items, shown in both list rows and detail pages.

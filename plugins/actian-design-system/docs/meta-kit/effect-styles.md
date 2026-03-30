@@ -1,6 +1,6 @@
 # Meta Kit — Effect Styles
 
-DS2026 effect styles for binding via `figma.importStyleByKeyAsync(key)`.
+DS Kit effect styles for binding via `figma.importStyleByKeyAsync(key)`.
 Extracted from Actian Design System v1.1.0 on 2026-03-26.
 
 ## Usage

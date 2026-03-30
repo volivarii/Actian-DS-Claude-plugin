@@ -8,7 +8,7 @@ argument-hint: "[feature description or Figma URL]"
 
 Generate a low-fidelity user flow using Fat Marker components and push it to Figma.
 
-> **Workflow A — Fat Marker (lo-fi).** Uses FM components, Inter font, and the FM palette. NOT DS2026 tokens.
+> **Workflow A — Fat Marker (lo-fi).** Uses FM components, Inter font, and the FM palette. NOT DS Kit tokens.
 > **Shared rules apply:** Content guidelines, accessibility (WCAG 2.1 AA), quality checklist, generation log — per CLAUDE.md.
 
 **When NOT to use:** For a *presentation deck* → `generate-presentation`. To *compare* flows → `compare-flows`. To *audit* → `design-audit`.
@@ -21,7 +21,7 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 | No qualifier | Standard | Happy path + error/empty states, full FM overrides |
 | "production", "final" | Production | All paths + loading + edge cases, variable binding |
 
-**Rendering philosophy:** FM flows use feature-focused rendering — spotlight the feature, placeholder everything else. Future hi-fi (DS2026) flows will require pixel-perfect detail on every element.
+**Rendering philosophy:** FM flows use feature-focused rendering — spotlight the feature, placeholder everything else. Future hi-fi (DS Kit) flows will require pixel-perfect detail on every element.
 
 ## Execution Model
 

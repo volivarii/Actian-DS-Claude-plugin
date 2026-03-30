@@ -1,6 +1,6 @@
 # Meta Kit — Text Styles
 
-DS2026 text styles for binding via `figma.importStyleByKeyAsync(key)`.
+DS Kit text styles for binding via `figma.importStyleByKeyAsync(key)`.
 Extracted from Actian Design System v1.1.0 on 2026-03-26.
 
 ## Usage

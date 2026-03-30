@@ -1,6 +1,6 @@
 # Meta Kit Variable Keys
 
-DS2026 Figma variables for use with `figma.variables.importVariableByKeyAsync(key)`.
+DS Kit Figma variables for use with `figma.variables.importVariableByKeyAsync(key)`.
 Bind to generated scaffolding frames via `setBoundVariableForPaint()`.
 
 All variables from **Actian Design System v1.1.0** library, extracted on 2026-03-26.

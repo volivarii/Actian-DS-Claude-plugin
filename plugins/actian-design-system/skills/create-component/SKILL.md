@@ -33,8 +33,8 @@ The user describes a component they want to create. Examples:
 ## Step 1 — Understand the component
 
 Determine from the user's request:
-- **Component name** (with FM prefix for Fat Marker, no prefix for DS2026)
-- **Library** — Fat Marker (`"fat-marker"`, Inter font) or DS2026 (`"ds2026"`, Roboto font)?
+- **Component name** (with FM prefix for Fat Marker, no prefix for DS Kit)
+- **Library** — Fat Marker (`"fat-marker"`, Inter font) or DS Kit (`"dsKit"`, Roboto font)?
 - **Variants** — what axes and values? (e.g., Type: Default / With Actions / Compact)
 - **Content** — what text, icons, or nested components does each variant contain?
 - **Layout** — horizontal or vertical? Spacing? Padding?
@@ -45,7 +45,7 @@ Infer as much as possible from the request and context. If a Figma URL is provid
 ## Step 2 — Check existing components
 
 Before creating, check these files (shipped with the plugin):
-1. `../../docs/ds2026-components.md` — does it already exist in DS2026?
+1. `../../docs/dskit-components.md` — does it already exist in DS Kit?
 2. `../../docs/fm-components.md` — does it already exist in FM Kit?
 
 If it exists, tell the user and suggest modifying it instead of creating a duplicate.
@@ -74,7 +74,7 @@ Skip this step if the user already specified variants, layout, and content in de
 
 3. **SaaS UX patterns** — Read `../../references/ux-patterns.md` for the relevant flow type. If the component is a filter bar, reference faceted filtering patterns. If it's a detail panel, reference companion sidebar patterns. If it's a table, reference inline editing and bulk operation patterns.
 
-4. **Existing Actian patterns** — Check if similar components in the FM or DS2026 library follow conventions that this component should match (e.g., same variant axis names, same spacing, same state set).
+4. **Existing Actian patterns** — Check if similar components in the FM or DS Kit library follow conventions that this component should match (e.g., same variant axis names, same spacing, same state set).
 
 ### How to research
 
@@ -112,7 +112,7 @@ When the build plan includes nested components (e.g., a Card that contains Butto
 
 1. Scan the build plan for nested component references (any mention of importing or including other components)
 2. For each referenced component, check if it exists:
-   a. First check `../../docs/fm-components-registry.json` or `../../docs/ds2026-components-registry.json` (fast, local lookup)
+   a. First check `../../docs/fm-components-registry.json` or `../../docs/dskit-components-registry.json` (fast, local lookup)
    b. Fallback: call `search_design_system` to verify the component exists in the library
 3. Classify each dependency:
    - **Exists** → import key ready, proceed to Step 5
@@ -148,7 +148,7 @@ Follow `../../references/figma-output.md` for shared patterns and token binding.
 
 Without properties, users can't customize instances.
 
-**Token references:** `../../references/figma-output.md` § "Token binding", `../../docs/meta-kit/variables.md` (DS2026 keys), `../../references/fm-css-reference.md` (FM hex).
+**Token references:** `../../references/figma-output.md` § "Token binding", `../../docs/meta-kit/variables.md` (DS Kit keys), `../../references/fm-css-reference.md` (FM hex).
 **Spacing scale:** 4, 8, 12, 16, 24, 28, 32px only.
 
 ---

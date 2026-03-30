@@ -17,9 +17,9 @@ Draft a structured component brief with HTML spec page and Figma output. Support
 | Signal | Mode |
 |--------|------|
 | "FM", "Fat Marker", "wireframe", "lo-fi" | **Fat Marker** |
-| "DS2026", "design system", "hi-fi", "production" | **Actian DS** |
-| Figma URL from DS2026 files | **Actian DS** |
-| Component in FM catalog and no DS2026 signals | **Fat Marker** |
+| "DS Kit", "design system", "hi-fi", "production" | **Actian DS** |
+| Figma URL from DS Kit files | **Actian DS** |
+| Component in FM catalog and no DS Kit signals | **Fat Marker** |
 | Default when Figma URL provided | **Actian DS** |
 | Ambiguous | Ask: "Fat Marker (lo-fi) or Actian DS (hi-fi)?" |
 

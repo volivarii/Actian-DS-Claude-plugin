@@ -276,7 +276,7 @@ Start with the question you're answering, then pick the chart type.
 
 - **No 3D effects, no gradient fills, no unnecessary gridlines** — remove all chartjunk
 - **Label data directly** on the chart rather than using a separate legend
-- Use **DS2026 category tokens** (`category-1` through `category-9`) for series colors — never hardcode
+- Use **DS Kit category tokens** (`category-1` through `category-9`) for series colors — never hardcode
 - **Highlight the insight** — use color or weight to draw attention to the one bar/line that matters; de-emphasize the rest with grey
 - **Title every chart with the insight**, not the category ("Mobile grew 3x" not "Channel breakdown")
 - **Minimal axis labels** — remove decimals unless they change the story
@@ -334,7 +334,7 @@ Before sending any deck to Figma, present a structured review report to the user
 - [ ] Every headline passes the "So what?" test
 - [ ] Maximum 1 message per slide
 - [ ] All metrics have context (comparison, benchmark, or target)
-- [ ] Charts use DS2026 category tokens, not hardcoded colors
+- [ ] Charts use DS Kit category tokens, not hardcoded colors
 - [ ] No jargon without definition
 - [ ] Narrative follows situation → complication → resolution → evidence → next steps
 - [ ] Sentence case throughout

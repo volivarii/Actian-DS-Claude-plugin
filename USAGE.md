@@ -49,7 +49,7 @@ Document any component with a structured spec: anatomy, tokens, API, states, acc
 
 | What you say | What happens |
 |-------------|-------------|
-| "Brief the Button component" | 9-card DS2026 spec |
+| "Brief the Button component" | 9-card DS Kit spec |
 | "Brief the FM Alert" | 5-card Fat Marker spec |
 | "Brief this https://figma.com/design/...?node-id=123-456" | Spec from a Figma URL |
 | "Component brief for Modal, only cards 2, 4, 5" | Selected cards |
@@ -60,7 +60,7 @@ Document any component with a structured spec: anatomy, tokens, API, states, acc
 
 ## Design Audits
 
-Audit any Figma screen against DS2026 rules: tokens, WCAG AA contrast, content guidelines, forms layout.
+Audit any Figma screen against DS Kit rules: tokens, WCAG AA contrast, content guidelines, forms layout.
 
 | What you say | What happens |
 |-------------|-------------|
@@ -101,7 +101,7 @@ Generate slide decks using Actian templates with charts and data visualizations.
 
 | What you say | What happens |
 |-------------|-------------|
-| "Create a deck on Q1 design system progress" | 8-15 slides with DS2026 styling |
+| "Create a deck on Q1 design system progress" | 8-15 slides with DS Kit styling |
 | "Present the migration plan to engineering leads" | Audience-aware deck |
 | "Turn these notes into a presentation: [file]" | From input files |
 

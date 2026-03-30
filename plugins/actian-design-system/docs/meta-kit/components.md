@@ -155,7 +155,7 @@ contentArea.appendChild(yourContentFrame);
 
 ### Meta / Content / Color Swatch
 
-Circular color indicator. Used in component-brief Card 4 (token tables) and Card 8 (contrast tables). Bind fill to a DS2026 variable at runtime.
+Circular color indicator. Used in component-brief Card 4 (token tables) and Card 8 (contrast tables). Bind fill to a DS Kit variable at runtime.
 
 | Field | Value |
 |-------|-------|
@@ -168,7 +168,7 @@ Circular color indicator. Used in component-brief Card 4 (token tables) and Card
 const swatchSet = await figma.importComponentSetByKeyAsync("da3369932f710386b76ca91a40ebd48d94e3f2e0");
 const medium = swatchSet.children.find(c => c.name === "Size=Medium");
 const swatch = medium.createInstance();
-// Bind fill to a DS2026 variable at runtime
+// Bind fill to a DS Kit variable at runtime
 ```
 
 ---
@@ -304,19 +304,19 @@ content.appendChild(myThemePreview);
 
 ---
 
-### DS2026 Brand & Presentation Assets (import directly — not in Meta Kit)
+### DS Kit Brand & Presentation Assets (import directly — not in Meta Kit)
 
-These components live in the DS2026 library and should be imported directly via `importComponentByKeyAsync` or `importComponentSetByKeyAsync`. They are NOT in Meta Kit.
+These components live in the DS Kit library and should be imported directly via `importComponentByKeyAsync` or `importComponentSetByKeyAsync`. They are NOT in Meta Kit.
 
 | Asset | Key | Library | Import method |
 |-------|-----|---------|---------------|
-| Actian Pyramid | `84e6abe2e5b7dbe96a859397f557249922560413` | DS2026 | `importComponentSetByKeyAsync` — Variants: Color=Full color, Color=White |
-| Illustration | `00302ca7dc4298c719f19ca4766029909ecbeb9d` | DS2026 | `importComponentSetByKeyAsync` — Variants: Empty state large/medium/small, Error state/medium, Maintenance, Success |
-| Actian Data Intelligence logo | `2e53061b856da7a42b2328279d16718d252e0780` | DS2026 | `importComponentSetByKeyAsync` — Type × Orientation |
-| Presentation Cover background | Node `12770:14027` | DS2026 (Illustrations & graphics page) | Clone frame via `use_figma` — dark with geometric vectors |
-| Presentation Cover+logo background | Node `12770:14032` | DS2026 | Same as Cover + Actian Pyramid at bottom-right |
-| Presentation Section background | Node `12770:14016` | DS2026 | Dark geometric for section dividers |
-| Presentation Section+logo background | Node `12770:14021` | DS2026 | Same as Section + Actian Pyramid |
+| Actian Pyramid | `84e6abe2e5b7dbe96a859397f557249922560413` | DS Kit | `importComponentSetByKeyAsync` — Variants: Color=Full color, Color=White |
+| Illustration | `00302ca7dc4298c719f19ca4766029909ecbeb9d` | DS Kit | `importComponentSetByKeyAsync` — Variants: Empty state large/medium/small, Error state/medium, Maintenance, Success |
+| Actian Data Intelligence logo | `2e53061b856da7a42b2328279d16718d252e0780` | DS Kit | `importComponentSetByKeyAsync` — Type × Orientation |
+| Presentation Cover background | Node `12770:14027` | DS Kit (Illustrations & graphics page) | Clone frame via `use_figma` — dark with geometric vectors |
+| Presentation Cover+logo background | Node `12770:14032` | DS Kit | Same as Cover + Actian Pyramid at bottom-right |
+| Presentation Section background | Node `12770:14016` | DS Kit | Dark geometric for section dividers |
+| Presentation Section+logo background | Node `12770:14021` | DS Kit | Same as Section + Actian Pyramid |
 | Template file (full slide reference) | File `<TEMPLATES_FILE_KEY>` node `5557:16` | Template for projects | 5 slide types: Cover, Body, Body+sidebar, Section, Back cover |
 
 ---

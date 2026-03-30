@@ -6,7 +6,7 @@ argument-hint: "[Figma URL 1] [Figma URL 2]"
 
 # Compare Flows
 
-> **Works with both workflows.** Determine which library each flow uses. If comparing across fidelity levels (FM vs DS2026), note the difference and focus on UX structure rather than visual tokens.
+> **Works with both workflows.** Determine which library each flow uses. If comparing across fidelity levels (FM vs DS Kit), note the difference and focus on UX structure rather than visual tokens.
 > **Shared rules apply:** Content guidelines, accessibility guidelines (WCAG 2.1 AA), quality & hygiene checklist, and generation log format — all per CLAUDE.md.
 
 Compare two Figma flows or screens and provide structured UX recommendations.

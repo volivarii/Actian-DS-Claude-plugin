@@ -70,7 +70,7 @@ Generate a single HTML file containing all slides as a horizontal row of 1920x10
 
 **Key rules:**
 - 5 slide types: Cover, Body (Full), Body (Text+Visual), Section divider, Back cover
-- All content uses DS2026 tokens (`--zen-*` prefix), Roboto font
+- All content uses DS Kit tokens (`--zen-*` prefix), Roboto font
 - Charts use `--zen-color-category-N-strong` — never hardcode
 - Include generation log card as first element
 - Include the annotation layer before `</body>`: add `<script src="/_plugin/annotation-loader.js" defer></script>`
@@ -89,7 +89,7 @@ Follow the review report format defined in `../../docs/presentation-guide.md`:
 
 1. **Deck summary** — slide count, section count, estimated duration
 2. **Slide-by-slide breakdown table** — #, template type, headline, content summary, charts/visuals used
-3. **Quality checklist** — verify every headline passes "So what?", 1 message per slide, metrics have context, charts use DS2026 tokens, active voice, narrative arc
+3. **Quality checklist** — verify every headline passes "So what?", 1 message per slide, metrics have context, charts use DS Kit tokens, active voice, narrative arc
 4. Present the preview URL and ask:
    > "Preview: `http://localhost:8765/presentations/[topic-slug]/[topic-slug]-deck.html`
    >
@@ -111,7 +111,7 @@ If the user hasn't provided a target Figma file, ask: "Where should I push this?
 
 ### Slide frame structure
 
-Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizontal auto-layout inside. Font: **Roboto** (DS2026).
+Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizontal auto-layout inside. Font: **Roboto** (DS Kit).
 
 ### Slide types
 
@@ -134,7 +134,7 @@ Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizonta
 - Background: `theme-primary` gradient
 - Text: inverse text
 
-For token binding (color variables, text styles, effect styles), follow `../../references/figma-output.md` § "Token binding". Discover style keys via `search_design_system` before writing `use_figma` code. For DS2026 variable keys specifically, see `../../docs/meta-kit/variables.md`.
+For token binding (color variables, text styles, effect styles), follow `../../references/figma-output.md` § "Token binding". Discover style keys via `search_design_system` before writing `use_figma` code. For DS Kit variable keys specifically, see `../../docs/meta-kit/variables.md`.
 Read `../../references/generate-presentation/templates.md` § "Figma output" for slide types, charts in `use_figma`, execution sequence, and Meta Kit component keys (Do-Don't Pair, Code Block).
 
 ## Step 7 — Parity check

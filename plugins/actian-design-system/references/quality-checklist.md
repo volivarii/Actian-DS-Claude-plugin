@@ -2,7 +2,7 @@
 
 Unified quality checklist for all skill outputs. Every generated deliverable must pass the **Universal** section plus the relevant **skill-specific** section before being marked complete.
 
-Source: Actian Design System — Quality & Hygiene (Figma, DS2026 library)
+Source: Actian Design System — Quality & Hygiene (Figma, DS Kit library)
 
 ---
 
@@ -15,17 +15,17 @@ These checks apply to every output — component briefs, flows, presentations, a
 | 1 | **Auto-layout on every frame** | P0 | Every container uses auto-layout (flex/grid in HTML, auto-layout in Figma). No absolute-positioned children unless intentionally overlaid (badges, pointers). |
 | 2 | **HUG/Fill sizing explicit** | P0 | Every frame created via `use_figma` has `layoutSizingHorizontal` and `layoutSizingVertical` explicitly set to `'HUG'` or `'FILL'`. Never rely on Figma's default (FIXED 100px). |
 | 3 | **Descriptive layer names** | P1 | No auto-generated names ("Frame 1", "Rectangle 2", "Group 7"). Every layer follows `category/name` or a simple descriptor (`Container`, `Leading icon`, `Label`). |
-| 4 | **Token compliance** | P0 | All colors use design tokens or Figma variables — never arbitrary hex. `--zen-*` for DS2026, `--fm-*` for Fat Marker. |
+| 4 | **Token compliance** | P0 | All colors use design tokens or Figma variables — never arbitrary hex. `--zen-*` for DS Kit, `--fm-*` for Fat Marker. |
 | 5 | **Generation log present** | P1 | Visible generation card as the first element, all fields filled (skill, prompt, date, duration, model, plugin version). |
 | 6 | **Style check** | P0 | Zero hardcoded hex values, pixel font sizes, or raw shadows. 100% of colors, fonts, shadows, and border radii reference variables or styles. |
-| 7 | **Variable mode set** | P1 | After binding DS2026 variables, `setExplicitVariableModeForCollection` is called on the nearest ancestor frame. No ghost mode resolution. |
+| 7 | **Variable mode set** | P1 | After binding DS Kit variables, `setExplicitVariableModeForCollection` is called on the nearest ancestor frame. No ghost mode resolution. |
 | 8 | **Meta Kit components for chrome** | P1 | Brief Card, Flow Screen, Generation Log, Code Block, Do-Don't Pair used for structural chrome — not hand-built frames. |
 | 9 | **Spacing from the scale** | P1 | All spacing values use the FM/DS scale: 4, 8, 12, 16, 24, 28, 32px. No arbitrary gaps. |
 | 10 | **No hidden/invisible layers** | P2 | No `display: none`, `opacity: 0`, or invisible layers left from drafting. Delete anything not needed. |
 | 11 | **Component description filled** | P1 | Every main component has a filled Description field stating what it does, when to use it, and constraints. |
 | 12 | **WCAG AA contrast** | P0 | Every foreground/background pair passes WCAG AA — 4.5:1 for normal text, 3:1 for large text and UI elements. Disabled states exempt but distinguishable. |
 | 13 | **Template compliance** | P1 | When Meta Kit templates are available (registry keys are not `"PENDING"`), builders use clone-and-fill pattern instead of raw frame construction. Check for `cloneTemplate()` calls in `use_figma` code. |
-| 14 | **Registry keys valid** | P1 | All component keys referenced in `use_figma` code exist in the corresponding registry JSON (`meta-kit-registry.json`, `fm-components-registry.json`, or `ds2026-components-registry.json`). No `"PENDING"` keys used in production output. |
+| 14 | **Registry keys valid** | P1 | All component keys referenced in `use_figma` code exist in the corresponding registry JSON (`meta-kit-registry.json`, `fm-components-registry.json`, or `dskit-components-registry.json`). No `"PENDING"` keys used in production output. |
 
 ### HTML translation
 
@@ -112,7 +112,7 @@ Items specific to the `create-component` skill, in addition to Universal.
 
 | # | Check | Pass criteria |
 |---|-------|---------------|
-| 1 | **Naming convention** | FM prefix for Fat Marker components, no prefix for DS2026. Matches existing catalog naming patterns. |
+| 1 | **Naming convention** | FM prefix for Fat Marker components, no prefix for DS Kit. Matches existing catalog naming patterns. |
 | 2 | **Variant axes consistent** | All variant axis names and values align with existing catalog conventions. |
 | 3 | **Text properties exposed** | `isProperty: true` set on all user-facing text fields (titles, labels, descriptions, button text). |
 | 4 | **Boolean properties on toggles** | All optional/toggleable elements (badge, description, footer, icon) have boolean property toggles. |

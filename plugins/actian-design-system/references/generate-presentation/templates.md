@@ -129,7 +129,7 @@ For light Section dividers: `rgba(0,0,100,0.03)` instead of white.
 - **Figma screenshots** — `get_screenshot` + embed
 - **Comparison tables** — 11px uppercase headers, `#717D96`
 - **Timelines** — horizontal/vertical progress indicators
-- **Component previews** — DS2026 tokens
+- **Component previews** — DS Kit tokens
 - **Flow diagrams** — simplified boxes + arrows
 
 Style with `--zen-*` tokens. Text in content areas: Roboto 20-24px, `#12131F` or `#475467`.

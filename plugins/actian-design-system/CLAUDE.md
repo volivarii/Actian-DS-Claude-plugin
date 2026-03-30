@@ -62,13 +62,13 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `docs/component-guidelines/*.json` | Extracted via `/sync-design-system` (Phase 5) | Per-component content/design guidelines (44 components) |
 | `docs/foundations/*.json` | Extracted via `/sync-design-system` (Phase 6) | Foundation docs: accessibility, borders, color, spacing, typography, etc. |
 | `tokens/actian-ds.tokens.json` | Extracted via `/sync-design-system` | W3C DTCG format (source of truth for token values) |
-| `docs/meta-kit/variables.md` | Extracted via `/sync-design-system` | DS2026 variable keys (115 vars, 3 themes) |
-| `docs/meta-kit/text-styles.md` | Extracted via `/sync-design-system` | DS2026 text styles with font specs |
-| `docs/meta-kit/effect-styles.md` | Extracted via `/sync-design-system` | DS2026 effect styles with shadow params |
+| `docs/meta-kit/variables.md` | Extracted via `/sync-design-system` | DS Kit variable keys (115 vars, 3 themes) |
+| `docs/meta-kit/text-styles.md` | Extracted via `/sync-design-system` | DS Kit text styles with font specs |
+| `docs/meta-kit/effect-styles.md` | Extracted via `/sync-design-system` | DS Kit effect styles with shadow params |
 | `docs/meta-kit/components.md` | Extracted via `/sync-design-system` | Meta Kit component keys and properties |
 | `docs/meta-kit/meta-kit-registry.json` | Generated via `/sync-design-system` | Meta Kit component + template keys, text slots, categories |
 | `docs/fm-components-registry.json` | Generated via `/sync-design-system` | FM Kit component keys, variants, text overrides (40 components) |
-| `docs/ds2026-components-registry.json` | Generated via `/sync-design-system` | DS2026 component keys, variants, text overrides (103 component sets) |
+| `docs/dskit-components-registry.json` | Generated via `/sync-design-system` | DS Kit component keys, variants, text overrides (103 component sets) |
 
 **Markdown (auto-generated from JSON — for human review):**
 
@@ -77,7 +77,7 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `docs/content-guidelines.md` | `foundations/content-guidelines.json` | UI copy rules (auto-generated, do not edit) |
 | `docs/accessibility-guidelines.md` | `foundations/accessibility.json` | WCAG 2.1 AA standards (auto-generated, do not edit) |
 | `docs/token-reference.md` | `tokens/actian-ds.tokens.json` | Human-readable token reference (3 themes) |
-| `docs/ds2026-components.md` | Figma MCP extraction | 97 DS2026 component sets + 3 standalone components |
+| `docs/dskit-components.md` | Figma MCP extraction | 97 DS Kit component sets + 3 standalone components |
 | `docs/fm-components.md` | Figma MCP extraction | 33 FM Kit component sets + 7 standalone components |
 | `tokens/tokens.css` | `tokens/actian-ds.tokens.json` | CSS custom properties (`--zen-*`) |
 | `docs/meta-kit/meta-kit-reference.md` | `meta-kit-registry.json` | Human-readable registry table (auto-generated, do not edit) |
@@ -152,7 +152,7 @@ Token reference docs and files:
 - **[`docs/token-reference.md`](docs/token-reference.md)** — Human + AI readable token reference (Markdown)
 - **[`tokens/actian-ds.tokens.json`](tokens/actian-ds.tokens.json)** — Source of truth (W3C DTCG format)
 - **[`tokens/tokens.css`](tokens/tokens.css)** — CSS custom properties with `--zen-*` prefix, 3 theme modes via `[data-theme]`
-- Source Figma: Actian Design System 2026 (file key in `.figma-keys.json` → `ds2026`)
+- Source Figma: Actian Design System 2026 (file key in `.figma-keys.json` → `dsKit`)
 
 When generating HTML, import `tokens/tokens.css` or copy the relevant `--zen-*` variables into your `<style>` block. Use `var(--zen-color-theme-primary)` not hardcoded hex values.
 
