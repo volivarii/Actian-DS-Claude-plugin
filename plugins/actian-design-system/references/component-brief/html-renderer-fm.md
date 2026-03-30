@@ -202,8 +202,4 @@ Diagram with numbered pointer badges, an inline legend row, and a parts referenc
 
 ## Annotation layer
 
-Add before `</body>`:
-
-```html
-<script src="/_plugin/annotation-loader.js" defer></script>
-```
+Add before `</body>`: include the annotation layer inline. Read the 3 files from `templates/` (annotation-layer.css, annotation-layer.js, annotation-layer-markup.html) and embed as `<style>`, `<script>`, and markup. See `../annotation-reference.md` for details.

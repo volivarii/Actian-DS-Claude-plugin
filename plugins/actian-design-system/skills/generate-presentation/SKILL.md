@@ -73,7 +73,7 @@ Generate a single HTML file containing all slides as a horizontal row of 1920x10
 - All content uses DS Kit tokens (`--zen-*` prefix), Roboto font
 - Charts use `--zen-color-category-N-strong` — never hardcode
 - Include generation log card as first element
-- Include the annotation layer before `</body>`: add `<script src="/_plugin/annotation-loader.js" defer></script>`
+- Include annotation layer inline before `</body>` — see `../../references/annotation-reference.md`
 
 ## Step 4 — Save, serve, and preview
 

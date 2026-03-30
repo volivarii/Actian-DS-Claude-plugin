@@ -282,13 +282,24 @@ When both types coexist on one screen, use **separate containers**: 480px wrappe
 
 ## Annotation layer (required)
 
-Every generated HTML file MUST include the annotation layer. Add this single script tag before `</body>`:
+Every generated HTML file MUST include the annotation layer inline before `</body>`. Read the 3 files from `templates/` and embed directly:
+
+1. `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer.css` → wrap in `<style>...</style>`
+2. `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer.js` → wrap in `<script>...</script>`
+3. `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer-markup.html` → insert as-is
+
+Also include Alpine.js CDN before the annotation layer (unless already present):
 
 ```html
-<script src="/_plugin/annotation-loader.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+<!-- Annotation Layer -->
+<style>{annotation-layer.css}</style>
+<script>{annotation-layer.js}</script>
+{annotation-layer-markup.html}
+</body>
 ```
 
-This loads Alpine.js, the annotation CSS, HTML markup, and JS automatically from the preview server. No other files need to be read or inlined.
+See `../annotation-reference.md` for full details. Inlining ensures annotations work in all environments (CLI, Desktop, any browser).
 
 Do NOT skip this step. Do NOT read or inline `annotation-layer.html` — the loader handles everything.
 

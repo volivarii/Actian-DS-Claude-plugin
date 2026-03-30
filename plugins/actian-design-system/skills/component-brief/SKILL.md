@@ -127,7 +127,7 @@ The data model is persisted — used by feedback loops and incremental re-render
 4. Build each card's HTML from the data model using the card builders in the renderer
 5. The ONLY AI-interpreted part: Card 2's component-specific CSS + `componentHtml()` function
 6. Replace `{{GENERATION_CARD}}`, `{{CARDS}}`, `{{PAGE_TITLE}}` in the wrapper
-7. Include annotation layer: `<script src="/_plugin/annotation-loader.js" defer></script>`
+7. Include annotation layer inline before `</body>` — see `../../references/annotation-reference.md`
 8. Write to: `{project_working_directory}/components/[name]/[name]-spec.html`
 
 Token naming: read `../../references/token-naming.md` for the `--zen-*` prefix mapping.

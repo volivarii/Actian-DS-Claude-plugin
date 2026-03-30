@@ -2,24 +2,46 @@
 
 ## Including the annotation layer
 
-Skills include the annotation loader before `</body>`: `<script src="/_plugin/annotation-loader.js" defer></script>`. The loader fetches split files (CSS, JS, markup) from the `/_plugin/` server route.
+Skills include the annotation layer **inline** before `</body>`. Read the 3 source files from the plugin's `templates/` directory and embed them directly in the HTML — no external script tags, no `/_plugin/` route dependency.
 
-**Static previews (no Alpine.js present):**
-Add the Alpine.js CDN script first, then inject the annotation layer:
+**How to include:**
+
+1. Read `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer.css`
+2. Read `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer.js`
+3. Read `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer-markup.html`
+4. Insert before `</body>`:
 
 ```html
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-{{ANNOTATION_LAYER}}
+<!-- Annotation Layer (inline) -->
+<style>{contents of annotation-layer.css}</style>
+<script>{contents of annotation-layer.js}</script>
+{contents of annotation-layer-markup.html}
+```
+
+**Static previews (no Alpine.js present):**
+Add the Alpine.js CDN script first, then the inline annotation layer:
+
+```html
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+<!-- Annotation Layer -->
+<style>...</style>
+<script>...</script>
+{markup}
 </body>
 ```
 
 **Prototypes and playgrounds (Alpine.js already loaded):**
-Alpine is already present in the document — include the annotation layer directly without the CDN script:
+Alpine is already present — include only the annotation layer (no CDN script):
 
 ```html
-{{ANNOTATION_LAYER}}
+<!-- Annotation Layer -->
+<style>...</style>
+<script>...</script>
+{markup}
 </body>
 ```
+
+**Why inline:** The `/_plugin/` server route only works with the custom `preview-server.py`. Claude Desktop's preview panel uses its own server that doesn't handle `/_plugin/`. Inlining works everywhere — CLI, Desktop, any browser.
 
 ---
 
