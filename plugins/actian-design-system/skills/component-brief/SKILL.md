@@ -73,29 +73,29 @@ Autonomous through research and rendering, pauses at Step 2.5 for user review be
 - If a Figma call fails, skip and proceed
 - Do NOT create directories with mkdir — Write tool creates them
 
-## Step 1 — Research (ONE parallel batch)
+## Step 1 — Research (ONE parallel batch, minimal reads)
 
-Issue ALL reads in a **single message** with parallel tool calls:
+Issue ALL reads in a **single message** with parallel tool calls. Do NOT read large files that aren't needed until later steps.
 
-**Actian DS mode:**
+**Actian DS mode — read these in ONE parallel batch:**
+1. `get_design_context` on the Figma node (required — component structure)
+2. `../../docs/component-guidelines/<slug>.json` (if it exists — content/design rules)
+3. `../../references/component-brief/data-schema.md` (required — JSON schema contract)
+
+That's it. **Do NOT read these during research:**
+- `token-reference.md` — not needed; token names come from `get_design_context` and component-guidelines
+- `content-guidelines.md` — not needed; card7 rules come from component-guidelines JSON
+- `accessibility-guidelines.md` — not needed; card8 requirements are generated from ARIA patterns knowledge
+- Wrapper templates — read in Step 2 only (renderer step)
+- HTML renderer reference — read in Step 2 only
+- `WebSearch` for ARIA — skip; the AI already knows ARIA patterns for common components. Only search if the component is unusual (e.g., custom chart, non-standard widget)
+
+**Fat Marker mode — read these in ONE parallel batch:**
 1. `get_design_context` on the Figma node
-2. `../../docs/token-reference.md`
-3. `../../docs/content-guidelines.md`
-4. `../../docs/accessibility-guidelines.md`
-5. `../../docs/component-guidelines/<slug>.json`
-6. `../../templates/ds-wrapper.html` (CSS framework only)
-7. `../../references/component-brief/data-schema.md`
-8. `WebSearch` for WAI-ARIA Practices pattern
+2. `../../docs/component-guidelines/<slug>.json` (if it exists)
+3. `../../references/component-brief/data-schema.md`
 
-**Fat Marker mode:**
-1. `get_design_context` on the Figma node
-2. `../../docs/fm-components.md`
-3. `../../docs/content-guidelines.md`
-4. `../../docs/component-guidelines/<slug>.json`
-5. `../../templates/fm-wrapper.html` (CSS framework only)
-6. `../../references/component-brief/data-schema.md`
-
-No additional research rounds. Proceed to Step 1.5.
+**Target: 3 parallel reads → proceed to Step 1.5 immediately.** Total research should take under 30 seconds, not 9 minutes.
 
 ## Step 1.5 — Generate data model (MANDATORY)
 
@@ -119,18 +119,20 @@ The data model is persisted — used by feedback loops and incremental re-render
 
 **Do NOT generate HTML by interpreting research.** Read `brief-data.json` and build cards from the renderer reference.
 
-1. Read `[name]-brief-data.json`
-2. Read the appropriate renderer:
-   - DS: `../../references/component-brief/html-renderer.md`
-   - FM: `../../references/component-brief/html-renderer-fm.md`
-3. Read the wrapper template (`../../templates/ds-wrapper.html` or `../../templates/fm-wrapper.html`)
-4. Build each card's HTML from the data model using the card builders in the renderer
-5. The ONLY AI-interpreted part: Card 2's component-specific CSS + `componentHtml()` function
-6. Replace `{{GENERATION_CARD}}`, `{{CARDS}}`, `{{PAGE_TITLE}}` in the wrapper
-7. Include annotation layer inline before `</body>` — see `../../references/annotation-reference.md`
-8. Write to: `{project_working_directory}/components/[name]/[name]-spec.html`
+Read these in ONE parallel batch (first time only — skip if already in context):
+1. `[name]-brief-data.json` (just written in Step 1.5 — already in context, don't re-read)
+2. The appropriate renderer: DS → `../../references/component-brief/html-renderer.md`, FM → `../../references/component-brief/html-renderer-fm.md`
+3. The wrapper template: `../../templates/ds-wrapper.html` or `../../templates/fm-wrapper.html`
+4. The annotation layer files: `../../templates/annotation-layer.css`, `../../templates/annotation-layer.js`, `../../templates/annotation-layer-markup.html`
 
-Token naming: read `../../references/token-naming.md` for the `--zen-*` prefix mapping.
+Then build the HTML:
+1. Build each card's HTML from the data model using the card builders in the renderer
+2. The ONLY AI-interpreted part: Card 2's component-specific CSS + `componentHtml()` function
+3. Replace `{{GENERATION_CARD}}`, `{{CARDS}}`, `{{PAGE_TITLE}}` in the wrapper
+4. Embed annotation layer inline before `</body>` (CSS as `<style>`, JS as `<script>`, markup as-is)
+5. Write to: `{project_working_directory}/components/[name]/[name]-spec.html`
+
+Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming.md` — read only if needed.
 
 ## Step 2.5 — Preview gate (BLOCKING)
 
