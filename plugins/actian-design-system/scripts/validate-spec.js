@@ -34,7 +34,7 @@ function warn(path, msg) { warnings.push(`WARN ${path}: ${msg}`); }
 function validateMeta(meta) {
   if (!meta) return error('meta', 'missing');
   if (!meta.skill) error('meta.skill', 'missing');
-  if (!meta.targetNodeId) error('meta.targetNodeId', 'missing');
+  if (!meta.targetNodeId && !meta.appendToId) error('meta', 'must have either targetNodeId or appendToId');
 }
 
 function validateImports(imports) {

@@ -164,37 +164,37 @@ Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming
 4. On feedback: edit `brief-data.json` → re-run Step 2 → re-serve (ensures Figma gets same changes)
 5. On "playground": see `../../references/component-brief/playground.md`
 
-## Step 3 — Render Figma (JSON Spec Interpreter)
+## Step 3 — Render Figma (DETERMINISTIC SCRIPT)
 
-**Do NOT write freehand use_figma code.** Transform the data model into a figma-spec.json and run it through the fixed interpreter.
+**Do NOT generate the figma-spec manually.** A fixed Node.js script transforms brief-data.json into the spec deterministically. The AI only assembles the use_figma calls.
 
-1. Read `[name]-brief-data.json` (already in context from Step 1.5)
-2. Read `../../references/component-brief/figma-spec-builder.md` — data model → spec mapping
-3. Read `../../references/figma-spec-schema.md` — JSON spec format reference
-4. Transform: build `figma-spec.json` from the data model following the builder reference
-   - All component keys come from the builder reference — never guess
-   - All node types come from the schema reference — never write raw Plugin API
-   - Dynamic data (variant rows, token rows, props) → expand to spec tree nodes — NEVER summarize as text
-   - **Cards 2 and 3 MUST use `LOCAL_INSTANCE`** nodes for real component instances. Declare the target component in `spec.localComponents` using its node ID from `meta.componentKey` or get_metadata discovery.
-5. Read `../../scripts/figma-interpreter.min.js` (~16KB minified — all 17 node types, leaves ~34KB for spec)
-6. Assemble `use_figma` call:
-   ```js
-   // use_figma code parameter:
-   ${interpreterCode}
-   const spec = ${JSON.stringify(figmaSpec)};
-   return await buildFromSpec(spec);
+1. Run the spec generator script:
+   ```bash
+   node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-spec.js \
+     {project_working_directory}/components/[name]/[name]-brief-data.json \
+     --target-node-id [nodeId]
    ```
-7. Call splitting — split across 3-4 calls for full component instances:
-   - Call 1: Generation Log + Cards 1-2 (wrapper creation + variant matrix with LOCAL_INSTANCE)
-   - Call 2: Cards 3-5 (anatomy with LOCAL_INSTANCE states + tokens with swatches + API)
-   - Call 3: Cards 6-9 (usage + content + a11y + code)
-   - Each call: same imports/variables/styles, `meta.appendToId` = wrapper ID from Call 1
-8. After all calls: parity validation (data model counts vs Figma frame counts)
+   The script outputs a JSON array of call specs (auto-split to fit the 50KB use_figma limit). It also prints the call breakdown to stderr.
 
-**Size budget per call:** ~16KB interpreter + ~34KB spec = 50KB limit. With 3 calls of 3 cards each, each spec is ~10-12KB — well within budget for full component instances, swatch dots, and Meta Kit components.
+2. Read `../../scripts/figma-interpreter.min.js` (~16KB minified)
 
-**What the AI does:** Transform data model → figma-spec.json (pure data, no code)
-**What the AI does NOT do:** Write Plugin API code, handle Figma API quirks, import components manually
+3. For each call spec in the array:
+   - Call 1 has `meta.targetNodeId` — creates the wrapper, returns `wrapperId`
+   - Calls 2+ have `meta.appendToId: "__WRAPPER_ID__"` — replace with the actual wrapperId from Call 1
+   - Assemble `use_figma` call:
+     ```js
+     ${interpreterCode}
+     const spec = ${callSpecJSON};
+     return await buildFromSpec(spec);
+     ```
+   - Store the `wrapperId` from Call 1's return value
+
+4. After all calls: parity validation (data model counts vs Figma frame counts)
+
+**What the AI does:** Run the script, read output, assemble use_figma calls, replace `__WRAPPER_ID__`
+**What the AI does NOT do:** Generate spec JSON, read spec builder references, compute textRanges, decide call splitting
+
+**No reference files needed at runtime.** The script encodes all card-by-card mapping logic. The spec builder reference (`../../references/component-brief/figma-spec-builder.md`) is documentation for maintaining the script — not read by the AI.
 
 See also `../../references/component-brief/figma-rules.md` for page targeting, token binding, known pitfalls.
 

@@ -91,6 +91,7 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `scripts/figma-interpreter.js` | Source interpreter (32KB) — 17 node types, variable/style binding. Human-readable, not used directly by skills. |
 | `scripts/figma-interpreter.min.js` | Minified interpreter (~16KB) — all 17 node types. Used by ALL output skills. Leaves ~34KB for specs. |
 | `scripts/build-interpreters.sh` | Build script: minifies source → .min.js via terser. Run after editing the source. |
+| `scripts/brief-to-spec.js` | Deterministic transformer: brief-data.json → figma-spec.json array with auto-splitting under 33KB per call. Used by component-brief Step 3. |
 | `scripts/validate-spec.js` | Node.js validation script for figma-spec.json files |
 | `scripts/html-renderers/brief-renderer.js` | Client-side card renderer — builds all 9 DS + 5 FM cards from brief-data.json. Embedded in HTML. |
 | `scripts/html-renderers/flow-renderer.js` | Client-side screen chrome renderer — app header, sidebar, page header, cover card. Embedded in HTML. |
