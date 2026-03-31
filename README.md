@@ -39,6 +39,39 @@ Add to `~/.claude/settings.json`:
 }
 ```
 
+### Recommended permissions
+
+Skills read internal reference files, templates, and scripts during execution. To avoid per-file consent prompts, add these to `~/.claude/settings.json`:
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read(~/.claude/plugins/**)"
+    ]
+  }
+}
+```
+
+This trusts all installed plugin files for reading. Without it, each file read triggers a permission prompt, slowing down skill execution significantly.
+
+If you also want to skip prompts for Figma MCP tools (recommended):
+
+```json
+{
+  "permissions": {
+    "allow": [
+      "Read(~/.claude/plugins/**)",
+      "mcp__claude_ai_Figma__get_design_context",
+      "mcp__claude_ai_Figma__get_metadata",
+      "mcp__claude_ai_Figma__get_screenshot",
+      "mcp__claude_ai_Figma__search_design_system",
+      "mcp__claude_ai_Figma__use_figma"
+    ]
+  }
+}
+```
+
 ### Manual update
 
 **Claude Code CLI:** `/plugin marketplace update`
