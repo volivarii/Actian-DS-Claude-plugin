@@ -116,22 +116,36 @@ Structure ALL research into `[component]-brief-data.json` following `../../refer
 
 The data model is persisted — used by feedback loops and incremental re-rendering.
 
-## Step 2 — Render HTML (MECHANICAL)
+## Step 2 — Render HTML (CLIENT-SIDE RENDERER)
 
-**Do NOT generate HTML by interpreting research.** Read `brief-data.json` and build cards from the renderer reference.
+**Do NOT generate card HTML.** The browser renders cards from the data model. You write only the component-specific parts.
 
-Read these in ONE parallel batch (first time only — skip if already in context):
-1. `[name]-brief-data.json` (just written in Step 1.5 — already in context, don't re-read)
-2. The appropriate renderer: DS → `../../references/component-brief/html-renderer.md`, FM → `../../references/component-brief/html-renderer-fm.md`
-3. The wrapper template: `../../templates/ds-wrapper.html` or `../../templates/fm-wrapper.html`
+Read these in ONE parallel batch (first time only):
+1. `[name]-brief-data.json` (already in context from Step 1.5)
+2. The wrapper template: `../../templates/ds-wrapper.html` or `../../templates/fm-wrapper.html`
+3. `../../scripts/html-renderers/brief-renderer.js`
 4. The annotation layer files: `../../templates/annotation-layer.css`, `../../templates/annotation-layer.js`, `../../templates/annotation-layer-markup.html`
 
-Then build the HTML:
-1. Build each card's HTML from the data model using the card builders in the renderer
-2. The ONLY AI-interpreted part: Card 2's component-specific CSS + `componentHtml()` function
-3. Replace `{{GENERATION_CARD}}`, `{{CARDS}}`, `{{PAGE_TITLE}}` in the wrapper
-4. Embed annotation layer inline before `</body>` (CSS as `<style>`, JS as `<script>`, markup as-is)
-5. Write to: `{project_working_directory}/components/[name]/[name]-spec.html`
+Then assemble the HTML file:
+1. Start with the wrapper template
+2. Replace `{{PAGE_TITLE}}` with `${card1_header.name} — Actian DS Kit Component Brief`
+3. Before `</body>`, embed these blocks in order:
+   a. `<script type="application/json" id="spec-data">` — paste the full brief-data.json
+   b. `<style id="component-css">` — write component-specific CSS for Cards 2-3 (the only AI-interpreted CSS)
+   c. `<script id="component-html">` — write the `window.componentHtml = function(variantName, theme) { ... }` function (the only AI-interpreted JS)
+   d. `<script>` — paste brief-renderer.js contents (the fixed renderer)
+   e. Annotation layer (CSS as `<style>`, JS as `<script>`, markup as-is)
+4. Write to: `{project_working_directory}/components/[name]/[name]-spec.html`
+
+**What the AI writes:**
+- `componentHtml(variantName, theme)` — returns HTML for a specific variant/state combo (~50-100 lines)
+- Component-specific CSS — styles for the component preview (~50-80 lines)
+
+**What the AI does NOT write:**
+- Card 1 HTML (page header) — renderer builds from `card1_header`
+- Cards 4-9 HTML (tokens, API, usage, content, a11y, code) — renderer builds from data model
+- Generation card HTML — renderer builds from `meta`
+- Table markup, swatch dots, badges, do/dont cards — all handled by renderer helpers
 
 Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming.md` — read only if needed.
 
@@ -195,12 +209,13 @@ Ask: "Review in Figma and reply: **'looks good'** or **'fix [specific issue]'**.
 Detailed content in `references/component-brief/`:
 - **`data-schema.md`** — JSON schema for all 9 DS + 5 FM cards
 - **`figma-spec-builder.md`** — Data model → figma-spec.json mapping (primary Figma output path)
-- **`html-renderer.md`** — DS card HTML builders from data model
-- **`html-renderer-fm.md`** — FM card HTML builders from data model
+- **`html-renderer-legacy.md`** — Legacy server-side card builders (preserved for reference)
+- **`html-renderer-fm-legacy.md`** — Legacy FM card builders (preserved for reference)
 - **`figma-renderer-legacy.md`** — Legacy micro-task architecture (preserved for reference)
 - **`figma-rules.md`** — Figma-specific rules: page targeting, Meta Kit components, token binding, known pitfalls
 - **`playground.md`** — Interactive state playground generation (opt-in)
 
 Shared references:
-- **`../../references/figma-spec-schema.md`** — JSON spec format for the interpreter
-- **`../../scripts/figma-interpreter.js`** — Fixed interpreter (~26KB, included in use_figma calls)
+- **`../../scripts/html-renderers/brief-renderer.js`** — Client-side card renderer (~400 lines, embedded in HTML)
+- **`../../references/figma-spec-schema.md`** — JSON spec format for the Figma interpreter
+- **`../../scripts/figma-interpreter.js`** — Fixed Figma interpreter (~30KB, included in use_figma calls)

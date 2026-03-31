@@ -264,9 +264,8 @@
 <body>
 
   <div class="brief-row" data-name="Component brief">
-    <!-- {{GENERATION_CARD}} — Insert the filled gen-card HTML here (see CLAUDE.md Generation Metadata) -->
-
-    <!-- {{CARDS}} — Replace with card HTML built from brief-data.json via references/component-brief/html-renderer.md -->
+    <!-- Generation card and cards are rendered client-side by brief-renderer.js from #spec-data JSON -->
+    <div id="cards-container"></div>
   </div>
 
   <!-- Figma capture script — triggers screenshot after fonts load -->

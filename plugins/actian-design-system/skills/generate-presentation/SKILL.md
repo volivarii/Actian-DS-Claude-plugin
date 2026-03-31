@@ -64,15 +64,26 @@ Plan the slide outline internally. Do NOT present it to the user for review — 
 - Target 1 key message per slide
 - Typical deck: 8–15 slides. Under 8 feels thin, over 20 feels heavy. Adjust to content density.
 
-## Step 3 — Generate the HTML deck
+## Step 3 — Generate the HTML deck (CLIENT-SIDE RENDERER)
 
-Generate a single HTML file containing all slides as a horizontal row of 1920x1080px frames. Read `../../references/generate-presentation/templates.md` for the complete HTML templates (Cover, Body Full, Body Text+Visual, Section divider, Back cover), geometric background patterns, content area styling, and CSS chart types.
+Build the HTML file using the presentation renderer. The AI writes only body content per slide — slide chrome (cover gradient, section dividers, back cover) is rendered client-side.
+
+1. Build `slide-data.json` from the outline:
+   - `meta`: skill, topic, prompt, date, duration, model, pluginVersion
+   - `slides[]`: each with type (cover/section/body-full/body-text-visual/back-cover) + type-specific data
+   - Cover/section/back-cover slides: pure data (title, subtitle, topic) — no HTML needed
+   - Body slides: use structured `content[]` array for charts (stat-cards, bar-chart, progress-bars, comparison-table, timeline) or `contentHtml`/`bodyHtml`/`visualHtml` for custom content
+2. Read `../../references/generate-presentation/templates.md` for slide content rules, chart types, DS Kit token usage
+3. Read `../../scripts/html-renderers/presentation-renderer.js`
+4. Assemble HTML file with presentation CSS + `<div id="deck-container"></div>` + embedded JSON as `<script type="application/json" id="spec-data">` + renderer JS + annotation layer
+5. Write to: `{project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html`
 
 **Key rules:**
 - 5 slide types: Cover, Body (Full), Body (Text+Visual), Section divider, Back cover
 - All content uses DS Kit tokens (`--zen-*` prefix), Roboto font
-- Charts use `--zen-color-category-N-strong` — never hardcode
-- Include generation log card as first element
+- Charts use `--zen-color-category-N-strong` — never hardcode chart colors
+- Use structured content elements where possible — raw HTML only for novel content
+- Generation log card rendered by the renderer from `meta`
 - Include annotation layer inline before `</body>` — see `../../references/annotation-reference.md`
 
 ## Step 4 — Save, serve, and preview

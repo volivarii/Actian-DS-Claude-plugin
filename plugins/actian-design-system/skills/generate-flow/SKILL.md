@@ -111,18 +111,26 @@ Output a numbered screen list for review:
 
 Wait for user approval.
 
-## Step 4 — Generate HTML
+## Step 4 — Generate HTML (CLIENT-SIDE RENDERER)
 
-Create `{project_working_directory}/components/flows/[feature-name]-flow.html`. Read `../../references/generate-flow/html-reference.md` for the complete template structure, FM component inventory, custom element rules, and styling.
+Build the HTML file using the flow renderer. The AI writes only the content area per screen — screen chrome (app header, sidebar, page header) is rendered client-side.
+
+1. Build `flow-data.json` from the screen list:
+   - `meta`: skill, feature, app, prompt, date, duration, model, pluginVersion
+   - `flows[]`: one per sub-flow, each with name, user, screens[]
+   - Per screen: name, type (standard/compact), appHeader, sidebar (activeItem + items count), pageHeader (title, subtitle, actions), contentHtml
+2. Write `contentHtml` per screen — this is the ONLY AI-generated HTML:
+   - Feature-relevant content: tables, forms, dialogs, empty states, detail panels
+   - Use FM component classes from `../../references/generate-flow/html-reference.md`
+   - Feature focus: real content for feature elements, placeholder patterns for non-feature content
+3. Write CSS for any `fm-custom-*` elements
+4. Read `../../references/generate-flow/html-reference.md` for FM component classes and styling rules
+5. Read `../../scripts/html-renderers/flow-renderer.js`
+6. Assemble HTML file with flow CSS + `<div id="flow-container"></div>` + embedded JSON as `<script type="application/json" id="spec-data">` + renderer JS + annotation layer
+7. Write to: `{project_working_directory}/components/flows/[feature-name]-flow.html`
 
 **Feature focus principle (FM flows — mandatory):**
-Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — everything else must use placeholder/muted variants. This is not optional.
-
-- **Sidebar nav items**: only the active feature item gets a real label (e.g., "Glossary"). All other items use the FM Side navigation item Placeholder variant — grey bars, no text.
-- **Table rows**: feature-relevant rows get real contextual data. Non-feature rows use FM Text Cell Placeholder variant or grey placeholder bars.
-- **Content areas**: only sections demonstrating the feature get real content. Others use FM Placeholder components.
-- **App header**: always present with correct app type, but no extra styling or customization beyond the standard FM component.
-- **No extra colors**: use only existing FM styles (`--fm-*` variables). Do not introduce custom colors, gradients, or decorative elements.
+Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — everything else must use placeholder/muted variants. This is not optional. The renderer handles sidebar placeholders automatically from the `sidebar.items` count — only `sidebar.activeItem` gets a real label.
 
 **Key rules:**
 - One row per flow — never split across rows
