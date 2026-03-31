@@ -164,8 +164,8 @@ If a fix is ambiguous, note it for the user review step instead of fixing silent
 After all `use_figma` calls complete, run the post-push parity check procedure in `../../references/parity-check.md`:
 
 1. `get_screenshot` of the created component set
-2. Present screenshot to the designer
-3. Run automated checklist (variant count matches plan, no clipped frames)
+2. **Dispatch `parity-analyzer` agent** with screenshot + expected variant count and properties from the build plan
+3. Merge findings with your own visual check
 4. Report findings and offer to fix P0 issues
 5. Write `.last-push.json` manifest to `{project_working_directory}/components/[component-name]/.last-push.json`
 

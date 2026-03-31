@@ -112,6 +112,7 @@ Structure ALL research into `[component]-brief-data.json` following `../../refer
    - `card8_accessibility.requirements` — exactly 6 items (2x3 grid)
    - `card9_code.tokens` — fully tokenized with syntax types
 4. Write to: `{project_working_directory}/components/[name]/[name]-brief-data.json`
+5. **Dispatch `brief-data-validator` agent** in background — validates completeness, catches truncated arrays, hardcoded values, missing fields. Do not wait for result — proceed to Step 2. If the validator finds P0 issues, fix before presenting at the gate.
 
 The data model is persisted — used by feedback loops and incremental re-rendering.
 
@@ -169,10 +170,11 @@ See also `../../references/component-brief/figma-rules.md` for page targeting, t
 
 Per `../../references/parity-check.md`:
 1. `get_screenshot` of each pushed card
-2. Present screenshots alongside HTML preview URL
-3. Check element count, clipping, empty text
-4. Report findings, fix P0s
-5. Write `.last-push.json` manifest
+2. **Dispatch `parity-analyzer` agent** with the screenshots + expected card content from the data model. The agent checks for clipping, empty text, missing children, layout collapse.
+3. Present screenshots alongside HTML preview URL
+4. Merge parity-analyzer findings with your own visual check
+5. Report findings, fix P0s
+6. Write `.last-push.json` manifest
 
 Ask: "Review in Figma and reply: **'looks good'** or **'fix [specific issue]'**."
 

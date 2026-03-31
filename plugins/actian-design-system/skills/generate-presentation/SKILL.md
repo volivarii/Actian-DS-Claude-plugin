@@ -142,8 +142,8 @@ Read `../../references/generate-presentation/templates.md` § "Figma output" for
 After all `use_figma` calls complete, run the post-push parity check procedure in `../../references/parity-check.md`:
 
 1. `get_screenshot` of each pushed slide
-2. Present screenshots alongside the HTML preview URL
-3. Run automated checklist (element count, clipping, empty text)
+2. **Dispatch `parity-analyzer` agent** with screenshots + expected slide content
+3. Merge findings with your own visual check
 4. Report findings and offer to fix P0 issues
 5. Write `.last-push.json` manifest to `{project_working_directory}/presentations/[topic-slug]/.last-push.json`
 

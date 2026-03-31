@@ -86,7 +86,7 @@ Research has three layers (run in a single parallel batch):
 **Layer 3 — Cross-cutting principles (always):**
 - Apply from `../../references/ux-patterns.md` § "Cross-Cutting Principles": progressive disclosure, empty states with CTAs, trust signals on data assets, form progressive field disclosure
 
-- **Yes** → all 3 layers, then present screen list
+- **Yes** → dispatch `flow-researcher` agent for Layer 2 (runs in background while you do Layer 1 + 3), then merge results and present screen list
 - **References** → Layer 1 + analyze references per research guide + Layer 3, then screen list
 - **No** → Layer 1 + Layer 3 only, then present screen list in the same response
 
@@ -131,6 +131,8 @@ Spotlight the feature being demonstrated. Only elements directly relevant to the
 - Forms: inputs 480px max-width, extended elements full-width
 - Styles: read `../../references/fm-css-reference.md` — exact values only, no custom colors
 - All text must be contextual, not generic ("Schedule Refresh" not "Submit")
+
+After writing the HTML file, **dispatch `flow-consistency` agent** in background with the HTML path, app context, and feature name. It checks chrome correctness, terminology, empty states, and feature focus. Review its findings before presenting the gate — fix any P0/P1 issues first.
 
 ## Step 4.5 — Preview gate (BLOCKING)
 
@@ -181,11 +183,11 @@ Wire Figma prototype connections so the pushed flow is playable in Presentation 
 Screen IDs, names, order, and button labels are already known from Steps 3-5. Skip analysis and build the wiring plan directly.
 
 **For existing flows (Figma URL provided):**
-If the user provides a Figma URL with wiring keywords ("wire", "make interactive", "connect screens"), run the full analysis path: `get_metadata` → analyze → present plan → execute.
+If the user provides a Figma URL with wiring keywords ("wire", "make interactive", "connect screens"), run the full analysis path: `get_metadata` → **dispatch `wiring-analyzer` agent** with the metadata XML → agent returns structured wiring plan JSON → present plan → execute.
 
 **Procedure:**
 1. Read `../../references/prototype-wiring.md` for the analysis algorithm and code patterns
-2. Build the wiring plan (fast path or analysis path)
+2. Build the wiring plan — fast path: build directly from known context. Analysis path: dispatch `wiring-analyzer` agent with `get_metadata` output.
 3. Present wiring plan for approval (see reference for format)
 4. On "wire": execute via single `use_figma` call assembling the code patterns
 5. On "wire linear": frame-to-frame only, skip button and overlay wiring
@@ -194,7 +196,12 @@ If the user provides a Figma URL with wiring keywords ("wire", "make interactive
 
 ## Step 6 — Parity check
 
-Per `../../references/parity-check.md`: screenshot each screen, check for clipping/empty text, report findings, write `.last-push.json`.
+Per `../../references/parity-check.md`:
+1. `get_screenshot` of each pushed screen
+2. **Dispatch `parity-analyzer` agent** with screenshots + expected screen content from Step 3 screen list
+3. Merge findings with your own visual check
+4. Report findings, fix P0s
+5. Write `.last-push.json` manifest
 
 ## Step 7 — Cleanup pass
 
