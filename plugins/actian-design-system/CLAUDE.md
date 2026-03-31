@@ -93,6 +93,7 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `scripts/build-interpreters.sh` | Build script: minifies source → .min.js via terser. Run after editing the source. |
 | `scripts/brief-to-spec.js` | Deterministic transformer: brief-data.json → figma-spec.json array with auto-splitting under 33KB per call. Used by component-brief Step 3. |
 | `scripts/flow-to-spec.js` | Hybrid transformer: flow-data.json → figma-spec.json. Deterministic chrome (App Header, Sidebar, Content Area), AI provides content only. Used by generate-flow Step 5. |
+| `scripts/slide-to-spec.js` | Deterministic transformer: slide-data.json → figma-spec.json. Handles slide frames, gradients, variable bindings. Used by generate-presentation Step 6. |
 | `scripts/validate-spec.js` | Node.js validation script for figma-spec.json files |
 | `scripts/html-renderers/brief-renderer.js` | Client-side card renderer — builds all 9 DS + 5 FM cards from brief-data.json. Embedded in HTML. |
 | `scripts/html-renderers/flow-renderer.js` | Client-side screen chrome renderer — app header, sidebar, page header, cover card. Embedded in HTML. |

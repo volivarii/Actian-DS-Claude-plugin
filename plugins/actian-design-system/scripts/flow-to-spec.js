@@ -325,8 +325,8 @@ function buildGenLog(meta) {
       Prompt: (meta.prompt || '').substring(0, 200),
       Date: meta.generatedAt || new Date().toISOString(),
       Duration: meta.duration || '',
-      Model: meta.model || 'claude-opus-4-6',
-      Plugin: meta.pluginVersion || '1.20.2'
+      Model: meta.model || 'unknown',
+      Plugin: meta.pluginVersion || 'unknown'
     }
   };
 }

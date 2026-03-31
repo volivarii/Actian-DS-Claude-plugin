@@ -112,32 +112,30 @@ Follow the review report format defined in `../../docs/presentation-guide.md`:
 
 **Wait for the user's response.** Do not proceed. If changes are requested, apply them to the HTML, re-serve, and present an updated report. Repeat until approved.
 
-## Step 6 — Output to Figma (JSON Spec Interpreter)
+## Step 6 — Output to Figma (slide-to-spec.js + interpreter)
 
 Only after the user approves the review report.
 
-**Do NOT write freehand use_figma code.** Transform the slide outline into a figma-spec.json and run it through the fixed interpreter.
+**Do NOT write freehand Figma specs.** Use the `slide-to-spec.js` script — it builds correct slide frames, gradients, and variable bindings deterministically.
 
-1. Read `../../references/generate-presentation/figma-spec-builder.md` — slide outline → spec mapping
-2. Read `../../references/figma-spec-schema.md` — JSON spec format reference
-3. Transform: build `figma-spec.json` from the slide outline following the builder reference
-   - Each slide = FRAME 1920x1080 with auto-layout children
-   - 5 slide types: Cover (gradient), Body Full, Body Text+Visual, Section divider, Back cover
-   - Charts: FRAME + RECT bars + TEXT labels (bar charts), FRAME rows (tables)
-   - DS Kit tokens: declare variables for theme-primary, background, text colors
-4. Read `../../scripts/figma-interpreter.min.js` (~16KB minified — all 17 node types, leaves ~34KB for spec)
-5. Assemble `use_figma` call:
+1. Read `../../references/generate-presentation/figma-spec-builder.md` — input schema + chart patterns
+2. Write `slide-data.json` to the project directory:
+   - `meta`: title, targetNodeId, prompt, duration, model, pluginVersion, generatedAt
+   - `slides[]`: per slide: type (`cover`/`section`/`body-full`/`body-text-visual`/`back-cover`), name, title, content
+   - The AI provides only content nodes — the script handles slide frames, gradients, and variables
+3. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-spec.js slide-data.json --target-node-id "<nodeId>"`
+4. Script outputs array of figma-spec.json objects (auto-split, variables included)
+5. Read `../../scripts/figma-interpreter.min.js` (~16KB)
+6. For each spec in the array, assemble `use_figma` call:
    ```js
    ${interpreterCode}
-   const spec = ${JSON.stringify(figmaSpec)};
+   const spec = ${JSON.stringify(specFromScript)};
    return await buildFromSpec(spec);
    ```
-6. Call splitting: 3-4 slides per call. Use `meta.appendToId` for continuation calls.
+   For call 2+: replace `__WRAPPER_ID__` in `meta.appendToId` with the wrapperId from call 1.
 7. After all calls: parity validation (slide count vs Figma frame count)
 
 If the user hasn't provided a target Figma file, ask: "Where should I push this? Provide a Figma file URL, or I can create a new file."
-
-For DS Kit variable keys, see `../../docs/meta-kit/variables.md`. For slide type details, see `../../references/generate-presentation/templates.md`.
 
 ## Step 7 — Parity check
 

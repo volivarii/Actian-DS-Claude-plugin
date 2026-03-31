@@ -49,7 +49,7 @@ function validateVariables(variables) {
   if (!variables) return;
   for (const [ref, def] of Object.entries(variables)) {
     if (!def.key) error(`variables.${ref}.key`, 'missing');
-    if (!VALID_VARIABLE_TYPES.has(def.type)) error(`variables.${ref}.type`, `invalid: "${def.type}"`);
+    if (def.type && !VALID_VARIABLE_TYPES.has(def.type)) error(`variables.${ref}.type`, `invalid: "${def.type}"`);
   }
 }
 
