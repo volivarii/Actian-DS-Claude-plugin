@@ -2,7 +2,7 @@
 
 Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings with one-click fixes. Test everything interactively before pushing to Figma.
 
-**v1.20.2** | 7 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.21.0** | 7 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 
@@ -267,6 +267,7 @@ actian-design-system-plugin/
 |   |   +-- figma-interpreter.js         # Source interpreter (32KB, readable)
 |   |   +-- figma-interpreter.min.js    # Minified (16KB, all 17 node types)
 |   |   +-- brief-to-spec.js              # Deterministic brief → Figma spec (auto-split)
+|   |   +-- flow-to-spec.js              # Hybrid flow → Figma spec (chrome deterministic, content creative)
 |   |   +-- validate-spec.js             # Spec validation (Node.js)
 |   +-- references/                      # Shared + skill-specific references
 |   |   +-- figma-spec-schema.md         # JSON spec schema (AI reads this)

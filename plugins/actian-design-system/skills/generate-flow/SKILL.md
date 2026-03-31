@@ -65,7 +65,7 @@ Read `../../references/app-context.md` for the full inference table, entity mode
 | "steward", "govern", "curate", "lineage", "glossary admin", "metadata", "catalog management" | **Studio** |
 | "browse", "discover", "search", "marketplace", "consume", "request access", "data product" | **Explorer** |
 | "users", "permissions", "connections", "connectors", "settings", "configuration", "system" | **Administration** |
-| "admin" (ambiguous) | Default to **Administration**. Do not ask. |
+| "admin" (ambiguous) | Ask: "Administration app (users, connections, settings) or Studio (governance, catalog)?" |
 | No signal / "user" (generic) | **Studio** (default) |
 
 ### Detail view pattern
@@ -184,29 +184,26 @@ After writing the HTML file, **dispatch `flow-consistency` agent** in background
 4. Save to: `{project_working_directory}/components/flows/[feature-name]-prototype.html`
 5. Re-present gate with both URLs
 
-## Step 5 — Output to Figma (JSON Spec Interpreter)
+## Step 5 — Output to Figma (flow-to-spec.js + interpreter)
 
-**Do NOT write freehand use_figma code.** Transform the screen list into a figma-spec.json and run it through the fixed interpreter.
+**Do NOT write freehand Figma specs.** Use the `flow-to-spec.js` script — it builds correct screen chrome deterministically.
 
-1. Read `../../references/generate-flow/figma-spec-builder.md` — screen list → spec mapping
-2. Read `../../references/figma-spec-schema.md` — JSON spec format reference
-3. Transform: build `figma-spec.json` from the screen list following the builder reference
-   - Import `Meta / Chrome / Flow Screen` — always use the component, never build manually
-   - Import FM library components — never recreate as raw frames
-   - Feature focus: real content for feature elements, Placeholder variants for everything else
-4. Read `../../scripts/figma-interpreter.min.js` (~16KB minified — all 17 node types, leaves ~34KB for spec)
-5. Assemble `use_figma` call:
+1. Read `../../references/generate-flow/figma-spec-builder.md` — input schema + content node reference
+2. Write `flow-data.json` to the project directory:
+   - `meta`: feature, flow, user, app, targetNodeId, prompt, duration
+   - `screens[]`: per screen: name, chrome (`standard`/`no-sidebar`/`none`), size, activeNavItem, navItems, pageHeader, content[]
+   - The AI provides only `content[]` — the script handles App Header, Sidebar, Body, Content Area
+3. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-spec.js flow-data.json --target-node-id "<nodeId>"`
+4. Script outputs array of figma-spec.json objects (auto-split under 33KB)
+5. Read `../../scripts/figma-interpreter.min.js` (~16KB)
+6. For each spec in the array, assemble `use_figma` call:
    ```js
    ${interpreterCode}
-   const spec = ${JSON.stringify(figmaSpec)};
+   const spec = ${JSON.stringify(specFromScript)};
    return await buildFromSpec(spec);
    ```
-6. Call strategy:
-   - 5 screens or fewer: single `use_figma` call (~20-24KB total)
-   - 6+ screens: split into 2 calls (screens 1-5 + screens 6-N, using `meta.appendToId`)
+   For call 2+: replace `__WRAPPER_ID__` in `meta.appendToId` with the wrapperId from call 1.
 7. After all calls: parity validation (screen count vs Figma frame count)
-
-Also see `../../references/generate-flow/html-reference.md` § "Figma output" for FM-specific rules and `../../references/figma-output.md` for shared patterns.
 
 ## Step 5.5 — Wire prototype (opt-in)
 
