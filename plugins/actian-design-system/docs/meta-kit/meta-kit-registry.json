@@ -40,8 +40,8 @@
       "category": "tokens"
     },
     "a11y-spec-row": {
-      "key": "PENDING",
-      "nodeId": "PENDING",
+      "key": "92ed7bc88cf229782c4b42238aacba1d15f8fd06",
+      "nodeId": "96:12",
       "textSlots": ["element", "role", "label", "focus-order", "keyboard", "announcement"],
       "visibility": "template-only",
       "category": "a11y"

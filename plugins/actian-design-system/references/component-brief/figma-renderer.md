@@ -4,6 +4,25 @@ The skill assembles a **micro-task checklist** for each `use_figma` call. Every 
 
 **Principle:** Constrain WHAT to build (data model + checklist), let AI decide HOW (current Figma API).
 
+## HARD RULE — Meta Kit components are mandatory
+
+**Every visual element that has a Meta Kit component MUST use that component.** Do NOT create raw frames as substitutes. This is the #1 cause of inconsistent Figma output.
+
+| Instead of... | MUST use... |
+|---------------|------------|
+| 12x12 colored rectangle | **Color Swatch** (Size=Small) — import, set fill |
+| Green/red text badge "Pass"/"Fail" | **Contrast Badge** (Status=Pass/Fail/Exempt) — import, select variant |
+| Lettered circle "A", "B" with line | **Pointer Badge** (Direction=Left/Right/Up/Down) — import, set label, position with absoluteBoundingBox |
+| Measurement line with value | **Dimension Annotation** (Orientation=H/V) — import, set value |
+| A11y card with icon + title + body | **Accessibility Card** (Mode=DS/FM) — import, set all properties |
+| Do/Don't side-by-side | **Do-Don't Pair** (Mode=DS/FM) — import, set labels and examples |
+| Card wrapper with title + content | **Brief Card** (Mode=DS/FM, Type=Standard/Page Header) — import, set props, detach, append children |
+| Dark code box | **Code Block** — import, set code text, detach, apply setRangeFills |
+| Horizontal line between sections | **Card Divider** — import directly |
+| Theme comparison swatch card | **Theme Card** (Theme=Actian/Studio/Explorer) — import, select variant |
+
+**If you build a raw frame for ANY of these, it is a P0 bug.** Check the component keys table below and import the real component.
+
 ## Prerequisites
 
 Before any `use_figma` call, the skill must:
@@ -12,18 +31,32 @@ Before any `use_figma` call, the skill must:
 
 ## Component keys
 
-| Component | Key | Import method |
-|-----------|-----|---------------|
-| Brief Card | `3dbb732730af0754210cde7af35e5236a2502843` | `importComponentSetByKeyAsync` |
-| Do-Don't Pair | `28edfacf13e50706586172bd48f8a3ad84d7c263` | `importComponentSetByKeyAsync` |
-| Color Swatch | `da3369932f710386b76ca91a40ebd48d94e3f2e0` | `importComponentSetByKeyAsync` |
-| Contrast Badge | `941756541adc6ce21e32e848c2039c64fece0fcf` | `importComponentSetByKeyAsync` |
-| Pointer Badge | `7e066fc21d9a2bbbcd1149113787cf59140162d4` | `importComponentSetByKeyAsync` |
-| Dimension Annotation | `49bf6a1b210a403ba145a3fdee9b1994eb54069a` | `importComponentSetByKeyAsync` |
-| Accessibility Card | `b4779a13f4097d682413a669eaaf9ead1b49f115` | `importComponentSetByKeyAsync` |
-| Code Block | `1bf10eee1751a46da5f90a9671be6c9abf0073b7` | `importComponentByKeyAsync` |
-| Generation Log | `a9653f30925367e96dea90093d750bfe70849571` | `importComponentByKeyAsync` |
-| Card Divider | `f4d778e1cf9bb61a33712c791486f54bb1c095b7` | `importComponentByKeyAsync` |
+| Component | Key | Import method | Usage |
+|-----------|-----|---------------|-------|
+| Brief Card | `3dbb732730af0754210cde7af35e5236a2502843` | `importComponentSetByKeyAsync` | Card wrapper (all 9 cards) |
+| Do-Don't Pair | `28edfacf13e50706586172bd48f8a3ad84d7c263` | `importComponentSetByKeyAsync` | Cards 6, 7 |
+| Color Swatch | `da3369932f710386b76ca91a40ebd48d94e3f2e0` | `importComponentSetByKeyAsync` | Card 4 (token swatches), Card 8 (contrast table), Card 2 (theme swatches) |
+| Contrast Badge | `941756541adc6ce21e32e848c2039c64fece0fcf` | `importComponentSetByKeyAsync` | Card 8 (contrast table Pass/Exempt/Fail) |
+| Pointer Badge | `7e066fc21d9a2bbbcd1149113787cf59140162d4` | `importComponentSetByKeyAsync` | Card 3 (anatomy structure badges A, B, C, D) |
+| Dimension Annotation | `49bf6a1b210a403ba145a3fdee9b1994eb54069a` | `importComponentSetByKeyAsync` | Card 3 (specs measurements) |
+| Accessibility Card | `b4779a13f4097d682413a669eaaf9ead1b49f115` | `importComponentSetByKeyAsync` | Card 8 (6 requirement cards in 2x3 grid) |
+| Theme Card | (from Brief Card set — Theme=Actian/Studio/Explorer variants) | variant of Brief Card | Card 2 (theme comparison) |
+| Code Block | `1bf10eee1751a46da5f90a9671be6c9abf0073b7` | `importComponentByKeyAsync` | Card 9, Card 8 (code snippets) |
+| Generation Log | `a9653f30925367e96dea90093d750bfe70849571` | `importComponentByKeyAsync` | Card 1 (generation metadata) |
+| Card Divider | `f4d778e1cf9bb61a33712c791486f54bb1c095b7` | `importComponentByKeyAsync` | Between sections within cards |
+
+### Template keys (clone-and-fill)
+
+Import → `createInstance()` → `detachInstance()` → fill slot text nodes by name.
+
+| Template | Key | Slots | Usage |
+|----------|-----|-------|-------|
+| Table Header Row | `0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e` | `label` | Cards 4, 5, 8 (table headers) |
+| Table Data Row | `3a1fae22dd85936f81565122888efd8a50e37180` | `label`, `value` | Cards 4, 5, 8 (table rows) |
+| State Column | `4f782d1a8541b4474858767209f99dce1428784b` | `title` | Card 3 (one column per state) |
+| Section Header | `f4fd576001f4f1f4606a4efb051d1e4492e378c4` | `title`, `subtitle` | All cards (section titles) |
+| Swatch Row | `96647364b6cb5c55b7ced72106708daaa33afb7f` | `name`, `value`, `hex` | Card 4 (color token rows with dot) |
+| A11y Spec Row | `92ed7bc88cf229782c4b42238aacba1d15f8fd06` | `element`, `role`, `label`, `focus-order`, `keyboard`, `announcement` | Card 8 (ARIA specification table) |
 
 ## How the skill assembles each call
 
@@ -475,12 +508,13 @@ REQUIREMENTS (2x3 grid):
 
 ${card8_accessibility.requirements.map((req, i) =>
   `REQUIREMENT ${i+1}: "${req.title}"
-□ Create card frame (280px width, #F9FAFB bg, 16px radius, 24px padding, auto-layout VERTICAL, 12px gap)
-□ Icon: 36x36 rectangle, cornerRadius=8, fill=${req.icon === 'red' ? '#FEE2E2' : req.icon === 'blue' ? '#DBEAFE' : req.icon === 'green' ? '#DCFCE7' : req.icon === 'orange' ? '#FEF3C7' : '#F3F4F6'}
-□ Title: "${req.title}" (Inter Semi Bold 14px, #101828)
-□ Body: "${req.body}" (Inter Regular 13px, #475467)
-□ Code block frame: #1E1E2E bg, 12px padding, 8px radius
-□ Code text: monospace 12px, set characters to: "${req._plainCode}"
+□ Import Accessibility Card (key: b4779a13f4097d682413a669eaaf9ead1b49f115, variant Mode=DS)
+□ DO NOT build raw frame — MUST use the Meta Kit component
+□ setProp Title = "${req.title}"
+□ setProp Body = "${req.body}"
+□ setProp Icon Color = "${req.icon}" (sets the icon square fill)
+□ Detach instance → find "Code" text node inside
+□ Set code text characters to: "${req._plainCode}"
 □ SYNTAX COLORING — MANDATORY (P0 if skipped):
 ${req._coloringCode}`
 ).join('\n\n')}

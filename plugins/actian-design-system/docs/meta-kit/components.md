@@ -1,9 +1,18 @@
 # Meta Kit — Component Catalog
 
-Auto-generated from Figma MCP on 2026-03-26. 21 components (10 component sets + 5 standalone + 1 feedback + 5 hidden templates).
+Auto-generated from Figma MCP on 2026-03-26. Updated 2026-03-31. 22 components (10 component sets + 5 standalone + 1 feedback + 6 templates).
 
 Library components used by skills to build spec briefs, flow screens, and presentations.
 These live in the Meta Kit Figma library and are imported at runtime via the Plugin API.
+
+## Pages
+
+| Page | Contents | Used by |
+|------|----------|---------|
+| **Shared** | Generation Log, Card Divider, Feedback | All skills |
+| **Brief** | 10 components + 6 templates for component-brief | component-brief |
+| **Flow** | Flow Screen, Flow Cover Card | generate-flow |
+| **Presentation** | Research Frame | generate-presentation |
 
 ---
 
