@@ -23,16 +23,29 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 
 **Rendering philosophy:** FM flows use feature-focused rendering — spotlight the feature, placeholder everything else. Future hi-fi (DS Kit) flows will require pixel-perfect detail on every element.
 
+## DO NOT — hard rules
+
+- **DO NOT ask questions** except at the 3 gates below. No "what kind of dashboard?", no "which output format?", no "which sub-flows?"
+- **DO NOT offer output format choices.** There is ONE pipeline: HTML first (Step 4), then Figma push (Step 5). No "assembler spec", no "capture mode", no alternatives.
+- **DO NOT use TaskCreate or TodoWrite.** Just execute.
+- **DO NOT read CLAUDE.md repeatedly.** Read it once or not at all.
+- **DO NOT spend multiple tool calls parsing research output.** Summarize what you have and move on.
+- **DO NOT use bash/python/grep to read files.** Use the Read tool.
+
 ## Execution Model
 
-Build first, explain after. Pause at structured gates only: (1) Step 1 if critical context missing, (2) Step 2 research opt-in, (3) Step 3 screen list, (4) Step 4.5 HTML preview. Between gates, do not ask questions.
+Build first, explain after. There are exactly 3 gates where you pause:
+1. **Step 2** — research opt-in (skip if user already said "with research" or "no research")
+2. **Step 3** — screen list approval
+3. **Step 4.5** — HTML preview
+
+Between gates, DO NOT ask questions. Infer from context, use defaults, keep moving.
 
 ### Speed rules
 
-- No TaskCreate/TodoWrite — just execute
-- ONE parallel batch for research
-- Do NOT read CLAUDE.md repeatedly
+- ONE parallel batch for research — do not re-read research output more than once
 - If a Figma call fails, skip and proceed
+- If a reference file is missing, skip and proceed
 
 ## Step 1 — Understand the request
 
@@ -52,7 +65,7 @@ Read `../../references/app-context.md` for the full inference table, entity mode
 | "steward", "govern", "curate", "lineage", "glossary admin", "metadata", "catalog management" | **Studio** |
 | "browse", "discover", "search", "marketplace", "consume", "request access", "data product" | **Explorer** |
 | "users", "permissions", "connections", "connectors", "settings", "configuration", "system" | **Administration** |
-| "admin" (ambiguous) | Ask: "Administration app (users, connections, settings) or Studio (governance, catalog)?" |
+| "admin" (ambiguous) | Default to **Administration**. Do not ask. |
 | No signal / "user" (generic) | **Studio** (default) |
 
 ### Detail view pattern
