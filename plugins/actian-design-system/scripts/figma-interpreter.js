@@ -70,17 +70,33 @@ async function buildFromSpec(spec) {
     if (childSpec.type === 'INSTANCE' && childSpec.ref) cardCount++;
   }
 
-  // 8. Position wrapper relative to target node (only for new wrappers)
-  if (!spec.meta.appendToId && targetNode) {
-    wrapper.x = targetNode.x + (targetNode.width || 0) + 200;
-    wrapper.y = targetNode.y || 0;
+  // 8. Wrap in a SECTION and position clear of existing content (only for new wrappers)
+  if (!spec.meta.appendToId) {
+    var section = figma.createSection();
+    section.name = spec.meta.sectionName || spec.meta.wrapperName || (spec.meta.skill + ': ' + (spec.meta.component || 'output'));
+    section.appendChild(wrapper);
+
+    // Position below all existing content on the page
+    var parentPage = targetNode && targetNode.type === 'PAGE' ? targetNode : figma.currentPage;
+    var maxBottom = 0;
+    var pageChildren = parentPage.children;
+    for (var p = 0; p < pageChildren.length; p++) {
+      var existing = pageChildren[p];
+      if (existing.id === section.id) continue;
+      var ey = typeof existing.y === 'number' && isFinite(existing.y) ? existing.y : 0;
+      var eh = typeof existing.height === 'number' && isFinite(existing.height) ? existing.height : 0;
+      var bottom = ey + eh;
+      if (bottom > maxBottom) maxBottom = bottom;
+    }
+    section.x = 0;
+    section.y = maxBottom + 200;
   }
 
   // 9. Tag wrapper with plugin data
   wrapper.setSharedPluginData('actian_ds', 'skill', spec.meta.skill || '');
   wrapper.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());
 
-  return { wrapperId: wrapper.id, nodeCount: nodeCount, cardCount: cardCount };
+  return { wrapperId: wrapper.id, nodeCount: nodeCount, cardCount: cardCount, sectionId: spec.meta.appendToId ? undefined : section.id };
 }
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
@@ -200,13 +216,15 @@ function applyLayout(frame, layout) {
 /** Apply sizing. MUST be called AFTER appendChild. Values: 'FILL', 'HUG', or number (fixed px). */
 function applySizing(node, sizing) {
   if (!sizing) return;
+  // FILL/HUG only work inside auto-layout parents
+  var parentAL = node.parent && node.parent.layoutMode && node.parent.layoutMode !== 'NONE';
   var h = sizing.horizontal;
-  if (h === 'FILL') node.layoutSizingHorizontal = 'FILL';
+  if (h === 'FILL' && parentAL) node.layoutSizingHorizontal = 'FILL';
   else if (h === 'HUG') node.layoutSizingHorizontal = 'HUG';
   else if (typeof h === 'number') { node.layoutSizingHorizontal = 'FIXED'; node.resize(h, node.height); }
 
   var v = sizing.vertical;
-  if (v === 'FILL') node.layoutSizingVertical = 'FILL';
+  if (v === 'FILL' && parentAL) node.layoutSizingVertical = 'FILL';
   else if (v === 'HUG') node.layoutSizingVertical = 'HUG';
   else if (typeof v === 'number') { node.layoutSizingVertical = 'FIXED'; node.resize(node.width, v); }
 
@@ -528,9 +546,27 @@ async function buildInstance(spec, ctx) {
   // Override fills
   applyFills(instance, spec.fills);
 
-  // Append children into "Content" slot (or first auto-layout child)
+  // Append children into content slot (or instance root)
   if (spec.children && spec.children.length) {
-    var slot = instance.findOne(function (n) { return n.name === 'Content'; }) || instance;
+    var slot = instance.findOne(function (n) {
+      return n.name === 'Content' || n.name === 'Content Area';
+    });
+    // If slot is inside a nested instance, detach that instance first
+    if (slot) {
+      var p = slot.parent;
+      while (p && p !== instance) {
+        if (p.type === 'INSTANCE') {
+          var detached = p.detachInstance();
+          // Re-find slot after detach (node references may change)
+          slot = instance.findOne(function (n) {
+            return n.name === 'Content' || n.name === 'Content Area';
+          });
+          break;
+        }
+        p = p.parent;
+      }
+    }
+    if (!slot) slot = instance;
     for (var k = 0; k < spec.children.length; k++) {
       var child = await buildNode(spec.children[k], ctx);
       slot.appendChild(child);

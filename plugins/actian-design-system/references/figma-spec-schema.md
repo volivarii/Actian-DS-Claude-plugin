@@ -84,6 +84,7 @@ Every spec has this shape:
 | `skill` | string | Yes | Skill name. Written to `setSharedPluginData('actian_ds', 'skill', ...)`. |
 | `component` | string | No | Component or feature name. Used in default `wrapperName`. |
 | `wrapperName` | string | No | Name for the wrapper frame. Defaults to `"{skill}: {component}"`. |
+| `sectionName` | string | No | Name for the enclosing SECTION. Defaults to `wrapperName`. First call only. |
 | `appendToId` | string | No | If set, appends tree children to an existing frame instead of creating a new wrapper. Used for multi-call specs (see Call Splitting below). |
 
 ### `fonts` (required)
@@ -701,8 +702,8 @@ When a spec exceeds the 20KB `use_figma` limit or requires incremental building,
 
 ### How it works
 
-1. **First call:** Omit `appendToId`. The interpreter creates a new wrapper frame and returns `{ wrapperId: "123:789", ... }`.
-2. **Subsequent calls:** Set `meta.appendToId` to the wrapper ID from the first call. The interpreter finds the existing wrapper and appends new tree children to it.
+1. **First call:** Omit `appendToId`. The interpreter creates a new wrapper frame inside a dedicated SECTION, positioned below all existing page content, and returns `{ wrapperId: "123:789", sectionId: "456:012", ... }`.
+2. **Subsequent calls:** Set `meta.appendToId` to the wrapper ID from the first call. The interpreter finds the existing wrapper and appends new tree children to it (no new section created).
 
 ### First call
 

@@ -50,7 +50,7 @@ const content = frame.findOne(n => n.name === "Content");
 content.appendChild(myTable);                         // Works!
 ```
 
-The Generation Log, Card Divider, Flow Screen, and Flow Cover Card do NOT need detaching — they don't have content slots that need dynamic children.
+The Generation Log, Card Divider, and Flow Cover Card do NOT need detaching — they don't have content slots that need dynamic children. Flow Screen DOES need detaching (`"detach": true`) — the interpreter auto-detaches nested instances to reach the "Content Area" slot.
 
 ### Setting text and boolean properties
 
