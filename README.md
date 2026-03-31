@@ -2,7 +2,7 @@
 
 Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings with one-click fixes. Test everything interactively before pushing to Figma.
 
-**v1.18.2** | 7 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.19.0** | 7 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 
@@ -107,10 +107,11 @@ Every skill that outputs to Figma follows the same loop. The goal is to catch pr
    edits the data model — both HTML and Figma stay in sync.
 
 3. Push to Figma
-   Approved content goes to Figma via MCP using micro-task
-   checklists assembled from the data model. Automatic
-   parity check catches clipping, missing content, or
-   empty text before declaring success.
+   Data model → figma-spec.json → fixed interpreter.
+   The AI produces a declarative JSON spec. A fixed 30KB
+   interpreter builds the Figma tree mechanically — 16
+   node types, variable/style binding, zero retries.
+   Parity check catches issues before declaring success.
 ```
 
 ### Preview gate
@@ -229,10 +230,15 @@ actian-design-system-plugin/
 |   +-- CLAUDE.md
 |   +-- skills/                          # 7 skills
 |   +-- agents/                          # 5 agents (auto-dispatched by skills)
+|   +-- scripts/                         # Fixed interpreter + validation
+|   |   +-- figma-interpreter.js         # JSON Spec Interpreter (30KB, 16 node types)
+|   |   +-- validate-spec.js             # Spec validation (Node.js)
 |   +-- references/                      # Shared + skill-specific references
-|   |   +-- component-brief/             # Data schema, renderers, Figma rules, playground
-|   |   +-- generate-flow/               # HTML reference, research guide
-|   |   +-- generate-presentation/       # Slide templates and chart types
+|   |   +-- figma-spec-schema.md         # JSON spec schema (AI reads this)
+|   |   +-- component-brief/             # Data schema, spec builder, renderers, playground
+|   |   +-- generate-flow/               # Spec builder, HTML reference, research guide
+|   |   +-- generate-presentation/       # Spec builder, slide templates, chart types
+|   |   +-- create-component/            # Spec builder for component authoring
 |   +-- templates/                       # CSS wrappers, annotation layer, prototype/playground
 |   +-- tokens/                          # W3C DTCG + CSS custom properties
 |   +-- docs/                            # Synced reference files

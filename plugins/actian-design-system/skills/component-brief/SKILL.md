@@ -147,22 +147,32 @@ Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming
 4. On feedback: edit `brief-data.json` → re-run Step 2 → re-serve (ensures Figma gets same changes)
 5. On "playground": see `../../references/component-brief/playground.md`
 
-## Step 3 — Render Figma (MECHANICAL)
+## Step 3 — Render Figma (JSON Spec Interpreter)
 
-**Do NOT write freehand use_figma code.** Assemble micro-task checklists from data model + call templates.
+**Do NOT write freehand use_figma code.** Transform the data model into a figma-spec.json and run it through the fixed interpreter.
 
-1. Read `[name]-brief-data.json`
-2. Read `../../references/component-brief/figma-renderer.md` for the 11 call templates
-3. For each call:
-   a. Read the **static call template** (sections + Meta Kit components)
-   b. **Merge with dynamic data** — expand `${data}` into explicit `□` lines
-   c. Assemble as `/* */` comment block in `use_figma` code
-   d. Set description: `"Complete ALL micro-tasks. Every □ item is mandatory."`
-   e. AI writes implementation code below the checklist
-4. After all calls: parity validation (data model counts vs Figma frame counts)
+1. Read `[name]-brief-data.json` (already in context from Step 1.5)
+2. Read `../../references/component-brief/figma-spec-builder.md` — data model → spec mapping
+3. Read `../../references/figma-spec-schema.md` — JSON spec format reference
+4. Transform: build `figma-spec.json` from the data model following the builder reference
+   - All component keys come from the builder reference — never guess
+   - All node types come from the schema reference — never write raw Plugin API
+   - Dynamic data (variant rows, token rows, props) → expand to spec tree nodes
+5. Read `../../scripts/figma-interpreter.js` (fixed ~26KB)
+6. Assemble `use_figma` call:
+   ```js
+   // use_figma code parameter:
+   ${interpreterCode}
+   const spec = ${JSON.stringify(figmaSpec)};
+   return await buildFromSpec(spec);
+   ```
+7. Call splitting:
+   - Call 1: Generation Log + Cards 1-5 (spec tree = first 6 nodes)
+   - Call 2: Cards 6-9 (spec tree = last 4 nodes, same imports/variables/styles, `meta.appendToId` = wrapper ID from Call 1)
+8. After both calls: parity validation (data model counts vs Figma frame counts)
 
-**What the AI does NOT do:** decide which cards, how many rows, whether to include swatches/badges.
-**What the AI DOES do:** translate each `□` to current Plugin API code using Figma MCP skills.
+**What the AI does:** Transform data model → figma-spec.json (pure data, no code)
+**What the AI does NOT do:** Write Plugin API code, handle Figma API quirks, import components manually
 
 See also `../../references/component-brief/figma-rules.md` for page targeting, token binding, known pitfalls.
 
@@ -184,8 +194,13 @@ Ask: "Review in Figma and reply: **'looks good'** or **'fix [specific issue]'**.
 
 Detailed content in `references/component-brief/`:
 - **`data-schema.md`** — JSON schema for all 9 DS + 5 FM cards
+- **`figma-spec-builder.md`** — Data model → figma-spec.json mapping (primary Figma output path)
 - **`html-renderer.md`** — DS card HTML builders from data model
 - **`html-renderer-fm.md`** — FM card HTML builders from data model
-- **`figma-renderer.md`** — 11 micro-task call templates for Figma output
+- **`figma-renderer-legacy.md`** — Legacy micro-task architecture (preserved for reference)
 - **`figma-rules.md`** — Figma-specific rules: page targeting, Meta Kit components, token binding, known pitfalls
 - **`playground.md`** — Interactive state playground generation (opt-in)
+
+Shared references:
+- **`../../references/figma-spec-schema.md`** — JSON spec format for the interpreter
+- **`../../scripts/figma-interpreter.js`** — Fixed interpreter (~26KB, included in use_figma calls)

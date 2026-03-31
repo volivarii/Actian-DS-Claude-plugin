@@ -22,6 +22,49 @@ All Figma output uses `use_figma` — build directly in Figma via Plugin API Jav
 
 **HTML is for local preview only** — never use HTML as a Figma output path.
 
+## JSON Spec Interpreter (primary pattern)
+
+For skills that generate structured output (component-brief, generate-flow, generate-presentation), use the **JSON Spec Interpreter** pattern:
+
+```
+data-model.json → AI transforms → figma-spec.json → Fixed interpreter → Figma nodes
+```
+
+The AI produces a declarative JSON spec. A fixed interpreter function (`scripts/figma-interpreter.js`, ~26KB) builds the Figma tree mechanically. The AI never writes Plugin API code.
+
+### How to use
+
+1. Read the per-skill spec builder reference (e.g., `component-brief/figma-spec-builder.md`)
+2. Read `figma-spec-schema.md` for the JSON format
+3. Transform data model → `figma-spec.json`
+4. Read `scripts/figma-interpreter.js`
+5. Assemble `use_figma` call: `${interpreterCode}\nconst spec = ${JSON.stringify(figmaSpec)};\nreturn await buildFromSpec(spec);`
+
+### Benefits
+
+- **Deterministic** — the interpreter is tested, not AI-generated. Zero retry rate.
+- **Fast** — font loading, component imports, and variable binding are batched. 2 calls instead of 11+.
+- **Correct** — the interpreter handles all Figma API quirks (layoutMode before children, sizing after appendChild, paint variable binding).
+- **14 node types** — FRAME, TEXT, RECT, INSTANCE, DIVIDER, LINE, ELLIPSE, VECTOR, POLYGON, STAR, SVG, GROUP, BOOLEAN, SECTION.
+- **Variable + style binding** — declare in spec, interpreter binds automatically.
+
+### Skill coverage
+
+All 4 output skills now use the interpreter:
+
+| Skill | Builder reference | Node types used |
+|-------|------------------|-----------------|
+| component-brief | `component-brief/figma-spec-builder.md` | FRAME, TEXT, RECT, INSTANCE, DIVIDER |
+| generate-flow | `generate-flow/figma-spec-builder.md` | FRAME, TEXT, INSTANCE, DIVIDER |
+| generate-presentation | `generate-presentation/figma-spec-builder.md` | FRAME, TEXT, RECT (charts) |
+| create-component | `create-component/figma-spec-builder.md` | COMPONENT, COMPONENT_SET + all Tier 1 |
+
+### When to use legacy pattern
+
+The micro-task checklist pattern (see `component-brief/figma-renderer-legacy.md`) is still available for:
+- `design-audit` — reads existing Figma nodes, doesn't build from a data model
+- One-off Figma operations that don't fit the data model → spec → interpreter flow
+
 ## DS-specific import patterns
 
 ### Library components — always import, never recreate

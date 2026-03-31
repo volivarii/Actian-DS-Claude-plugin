@@ -6,7 +6,7 @@ Detailed Figma output requirements for Step 3 of the component-brief skill. Read
 
 **All Figma output MUST be driven by `brief-data.json`**, generated in Step 1.5. Do NOT write freehand `use_figma` code that interprets research directly.
 
-**Renderer reference:** `../component-brief/figma-renderer.md` — contains copy-paste-ready `use_figma` code recipes for every card. Follow these recipes exactly.
+**Spec builder reference:** `../component-brief/figma-spec-builder.md` — maps data model → figma-spec.json for the JSON Spec Interpreter. Legacy micro-task architecture preserved at `../component-brief/figma-renderer-legacy.md`.
 
 **Data model schema:** `../component-brief/data-schema.md` — defines the JSON structure consumed by the renderer.
 

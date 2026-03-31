@@ -88,10 +88,14 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 |------|---------|
 | `docs/presentation-guide.md` | Slide templates, voice & tone, chart selection, narrative structure |
 | `docs/meta-kit/builders.md` | Shared JS builder functions |
+| `scripts/figma-interpreter.js` | Fixed JSON Spec Interpreter (~30KB) — 16 node types, variable/style binding. Included verbatim in every `use_figma` call. |
+| `scripts/validate-spec.js` | Node.js validation script for figma-spec.json files |
+| `references/figma-spec-schema.md` | JSON spec schema reference — the format AI reads to produce valid specs |
 | `references/*.md` | Shared references (figma-output, fm-css, quality-checklist, token-naming, parity-check, app-context, ux-patterns, etc.) |
-| `references/component-brief/` | Data schema, HTML renderers (DS + FM), Figma renderer, Figma rules, playground |
-| `references/generate-flow/` | HTML reference, research guide |
-| `references/generate-presentation/` | Slide templates and chart types |
+| `references/component-brief/` | Data schema, HTML renderers (DS + FM), figma-spec-builder, Figma rules, playground |
+| `references/generate-flow/` | HTML reference, figma-spec-builder, research guide |
+| `references/generate-presentation/` | Slide templates, chart types, figma-spec-builder |
+| `references/create-component/` | figma-spec-builder for component authoring |
 | `templates/` | CSS wrapper templates (ds-wrapper, fm-wrapper), annotation layer, prototype/playground wrappers |
 
 

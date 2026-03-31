@@ -101,41 +101,32 @@ Follow the review report format defined in `../../docs/presentation-guide.md`:
 
 **Wait for the user's response.** Do not proceed. If changes are requested, apply them to the HTML, re-serve, and present an updated report. Repeat until approved.
 
-## Step 6 — Output to Figma (default: `use_figma`)
+## Step 6 — Output to Figma (JSON Spec Interpreter)
 
 Only after the user approves the review report.
 
-> **Shared pattern:** Follow the rules in `../../references/figma-output.md` — `hexToRgb` helper, generation metadata frame, font loading, auto-layout, descriptive layer names, and the 20KB-per-call limit all apply.
+**Do NOT write freehand use_figma code.** Transform the slide outline into a figma-spec.json and run it through the fixed interpreter.
+
+1. Read `../../references/generate-presentation/figma-spec-builder.md` — slide outline → spec mapping
+2. Read `../../references/figma-spec-schema.md` — JSON spec format reference
+3. Transform: build `figma-spec.json` from the slide outline following the builder reference
+   - Each slide = FRAME 1920x1080 with auto-layout children
+   - 5 slide types: Cover (gradient), Body Full, Body Text+Visual, Section divider, Back cover
+   - Charts: FRAME + RECT bars + TEXT labels (bar charts), FRAME rows (tables)
+   - DS Kit tokens: declare variables for theme-primary, background, text colors
+4. Read `../../scripts/figma-interpreter.js` (fixed ~30KB)
+5. Assemble `use_figma` call:
+   ```js
+   ${interpreterCode}
+   const spec = ${JSON.stringify(figmaSpec)};
+   return await buildFromSpec(spec);
+   ```
+6. Call splitting: 3-4 slides per call. Use `meta.appendToId` for continuation calls.
+7. After all calls: parity validation (slide count vs Figma frame count)
 
 If the user hasn't provided a target Figma file, ask: "Where should I push this? Provide a Figma file URL, or I can create a new file."
 
-### Slide frame structure
-
-Each slide is a fixed-size frame: **1920 x 1080 px**, with vertical or horizontal auto-layout inside. Font: **Roboto** (DS Kit).
-
-### Slide types
-
-**Cover slide:**
-- Background: `theme-primary` gradient
-- Title: inverse text, 48px bold
-- Subtitle: inverse text at 80% opacity, 24px regular
-
-**Body (Text + Visual):**
-- Background: `background-bg-default`
-- Two-column layout (text left, visual right)
-- Heading: `text-primary`, 32px bold
-- Body text: `text-secondary`, 18px regular
-
-**Section divider:**
-- Background: `background-bg-grey-2`
-- Centered title: 36px bold, `text-primary`
-
-**Back cover:**
-- Background: `theme-primary` gradient
-- Text: inverse text
-
-For token binding (color variables, text styles, effect styles), follow `../../references/figma-output.md` § "Token binding". Discover style keys via `search_design_system` before writing `use_figma` code. For DS Kit variable keys specifically, see `../../docs/meta-kit/variables.md`.
-Read `../../references/generate-presentation/templates.md` § "Figma output" for slide types, charts in `use_figma`, execution sequence, and Meta Kit component keys (Do-Don't Pair, Code Block).
+For DS Kit variable keys, see `../../docs/meta-kit/variables.md`. For slide type details, see `../../references/generate-presentation/templates.md`.
 
 ## Step 7 — Parity check
 

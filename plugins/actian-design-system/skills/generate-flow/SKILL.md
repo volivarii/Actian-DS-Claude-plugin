@@ -162,13 +162,29 @@ After writing the HTML file, **dispatch `flow-consistency` agent** in background
 4. Save to: `{project_working_directory}/components/flows/[feature-name]-prototype.html`
 5. Re-present gate with both URLs
 
-## Step 5 — Output to Figma (push)
+## Step 5 — Output to Figma (JSON Spec Interpreter)
 
-Read `../../references/generate-flow/html-reference.md` § "Figma output" for the `use_figma` procedure. Follow `../../references/figma-output.md` for shared patterns.
+**Do NOT write freehand use_figma code.** Transform the screen list into a figma-spec.json and run it through the fixed interpreter.
 
-- Import `Meta / Chrome / Flow Screen` — do not build manually
-- Import library components — never recreate as raw frames
-- Auto-layout on every frame, descriptive layer names, contextual text
+1. Read `../../references/generate-flow/figma-spec-builder.md` — screen list → spec mapping
+2. Read `../../references/figma-spec-schema.md` — JSON spec format reference
+3. Transform: build `figma-spec.json` from the screen list following the builder reference
+   - Import `Meta / Chrome / Flow Screen` — always use the component, never build manually
+   - Import FM library components — never recreate as raw frames
+   - Feature focus: real content for feature elements, Placeholder variants for everything else
+4. Read `../../scripts/figma-interpreter.js` (fixed ~26KB)
+5. Assemble `use_figma` call:
+   ```js
+   ${interpreterCode}
+   const spec = ${JSON.stringify(figmaSpec)};
+   return await buildFromSpec(spec);
+   ```
+6. Call strategy:
+   - 5 screens or fewer: single `use_figma` call (~20-24KB total)
+   - 6+ screens: split into 2 calls (screens 1-5 + screens 6-N, using `meta.appendToId`)
+7. After all calls: parity validation (screen count vs Figma frame count)
+
+Also see `../../references/generate-flow/html-reference.md` § "Figma output" for FM-specific rules and `../../references/figma-output.md` for shared patterns.
 
 ## Step 5.5 — Wire prototype (opt-in)
 
@@ -212,10 +228,13 @@ Run `../../references/quality-checklist.md` — Universal + Generate Flow sectio
 ### Reference Files
 
 Detailed content in `references/generate-flow/`:
+- **`figma-spec-builder.md`** — Screen list → figma-spec.json mapping (primary Figma output path)
 - **`html-reference.md`** — HTML template structure, FM components, screen rules, Figma output procedure
 - **`research-guide.md`** — Competitor research, reference analysis, research frame format
 
 Shared references:
+- **`../../references/figma-spec-schema.md`** — JSON spec format for the interpreter
+- **`../../scripts/figma-interpreter.js`** — Fixed interpreter (~26KB, included in use_figma calls)
 - **`../../references/app-context.md`** — Actian product context: 3 apps, entity model, terminology, UI patterns
 - **`../../references/ux-patterns.md`** — SaaS UX pattern library by flow type (discovery, creation, config, visualization, governance)
 - **`../../references/prototype-wiring.md`** — Smart Figma prototype wiring: analysis algorithm, code patterns, wiring plan format
