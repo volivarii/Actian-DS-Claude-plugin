@@ -170,13 +170,23 @@ Each screen is a flowScreen instance, detached so children can be appended into 
   "name": "Screen 1: Dashboard",
   "detach": true,
   "children": [
-    { "comment": "App Header" },
+    { "comment": "App Header instance" },
     { "comment": "Body frame: sidebar + content" }
   ]
 }
 ```
 
-The detached flowScreen has a child named `Content` where the interpreter appends children. The screen structure inside is:
+The interpreter finds the `Content Area` slot inside the detached flowScreen and appends children there. If the slot is inside a nested instance, the interpreter auto-detaches that instance first.
+
+> **CRITICAL — screen hierarchy rule:**
+> When building screens as **raw frames** (fallback, not recommended), App Header and Body MUST be **siblings** at the screen root — NEVER nest Body inside App Header. Wrong nesting causes all content to collapse to 1px.
+>
+> ```
+> ✅ Screen → [App Header, Body → [Sidebar, Content Area → [...]]]
+> ❌ Screen → [App Header → [Body → [Sidebar, Content Area → [...]]]]
+> ```
+
+The screen structure inside is:
 
 1. **App Header** -- INSTANCE of fmAppHeader with correct Type variant
 2. **Body** -- FRAME horizontal containing sidebar + content area

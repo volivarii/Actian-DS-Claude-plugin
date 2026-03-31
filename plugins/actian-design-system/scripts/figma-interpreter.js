@@ -220,11 +220,25 @@ function applySizing(node, sizing) {
   var parentAL = node.parent && node.parent.layoutMode && node.parent.layoutMode !== 'NONE';
   var h = sizing.horizontal;
   if (h === 'FILL' && parentAL) node.layoutSizingHorizontal = 'FILL';
+  else if (h === 'FILL' && !parentAL && node.parent) {
+    // Fallback: match parent width (minus padding) when parent isn't auto-layout
+    var pw = node.parent.width || 0;
+    var pl = node.parent.paddingLeft || 0;
+    var pr = node.parent.paddingRight || 0;
+    node.resize(Math.max(pw - pl - pr, 1), node.height);
+  }
   else if (h === 'HUG') node.layoutSizingHorizontal = 'HUG';
   else if (typeof h === 'number') { node.layoutSizingHorizontal = 'FIXED'; node.resize(h, node.height); }
 
   var v = sizing.vertical;
   if (v === 'FILL' && parentAL) node.layoutSizingVertical = 'FILL';
+  else if (v === 'FILL' && !parentAL && node.parent) {
+    // Fallback: match parent height (minus padding) when parent isn't auto-layout
+    var ph = node.parent.height || 0;
+    var pt = node.parent.paddingTop || 0;
+    var pb = node.parent.paddingBottom || 0;
+    node.resize(node.width, Math.max(ph - pt - pb, 1));
+  }
   else if (v === 'HUG') node.layoutSizingVertical = 'HUG';
   else if (typeof v === 'number') { node.layoutSizingVertical = 'FIXED'; node.resize(node.width, v); }
 
@@ -556,7 +570,7 @@ async function buildInstance(spec, ctx) {
       var p = slot.parent;
       while (p && p !== instance) {
         if (p.type === 'INSTANCE') {
-          var detached = p.detachInstance();
+          p.detachInstance();
           // Re-find slot after detach (node references may change)
           slot = instance.findOne(function (n) {
             return n.name === 'Content' || n.name === 'Content Area';
