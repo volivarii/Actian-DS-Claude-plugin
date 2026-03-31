@@ -88,7 +88,7 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 |------|---------|
 | `docs/presentation-guide.md` | Slide templates, voice & tone, chart selection, narrative structure |
 | `docs/meta-kit/builders.md` | Shared JS builder functions |
-| `scripts/figma-interpreter.js` | Fixed JSON Spec Interpreter (~30KB) — 16 node types, variable/style binding. Included verbatim in every `use_figma` call. |
+| `scripts/figma-interpreter.js` | Fixed JSON Spec Interpreter (~30KB) — 17 node types incl. LOCAL_INSTANCE for same-file components, variable/style binding. Included verbatim in every `use_figma` call. |
 | `scripts/validate-spec.js` | Node.js validation script for figma-spec.json files |
 | `scripts/html-renderers/brief-renderer.js` | Client-side card renderer — builds all 9 DS + 5 FM cards from brief-data.json. Embedded in HTML. |
 | `scripts/html-renderers/flow-renderer.js` | Client-side screen chrome renderer — app header, sidebar, page header, cover card. Embedded in HTML. |

@@ -36,6 +36,12 @@ async function buildFromSpec(spec) {
     ctx.styles[sRef] = await figma.importStyleByKeyAsync(spec.styles[sRef].key);
   }
 
+  // 5.5. Resolve local components by node ID (for instances in the same file)
+  ctx.localComponents = {};
+  for (var lcRef in (spec.localComponents || {})) {
+    ctx.localComponents[lcRef] = await figma.getNodeByIdAsync(spec.localComponents[lcRef].nodeId);
+  }
+
   // 6. Create or find wrapper frame
   var wrapper;
   if (spec.meta.appendToId) {
@@ -301,6 +307,8 @@ async function buildNode(spec, ctx) {
     // Tier 4 — Component authoring
     case 'COMPONENT':     return await buildComponent(spec, ctx);
     case 'COMPONENT_SET': return await buildComponentSet(spec, ctx);
+    // Local component instances (same-file components referenced by node ID)
+    case 'LOCAL_INSTANCE': return await buildLocalInstance(spec, ctx);
     default:
       throw new Error('Unknown node type: ' + spec.type);
   }
@@ -552,6 +560,46 @@ async function buildDivider(spec, ctx) {
     ? (divRef.defaultVariant || divRef.children[0]).createInstance()
     : divRef.createInstance();
   if (spec.name) instance.name = spec.name;
+  return instance;
+}
+
+/** Build a LOCAL_INSTANCE — instance of a component in the same file, referenced by node ID.
+ *  spec.ref → key in ctx.localComponents (resolved from spec.localComponents at startup)
+ *  spec.variant → variant name to find in the component set's children */
+async function buildLocalInstance(spec, ctx) {
+  var compOrSet = ctx.localComponents[spec.ref];
+  if (!compOrSet) throw new Error('Local component ref not found: ' + spec.ref + '. Add it to spec.localComponents.');
+
+  var instance;
+  if (spec.variant && compOrSet.type === 'COMPONENT_SET') {
+    var variants = compOrSet.children;
+    var target = null;
+    for (var i = 0; i < variants.length; i++) {
+      if (variants[i].name === spec.variant) { target = variants[i]; break; }
+    }
+    if (!target) {
+      // Partial match fallback
+      for (var j = 0; j < variants.length; j++) {
+        if (variants[j].name.indexOf(spec.variant) !== -1) { target = variants[j]; break; }
+      }
+    }
+    if (target) {
+      instance = target.createInstance();
+    } else {
+      instance = compOrSet.defaultVariant
+        ? compOrSet.defaultVariant.createInstance()
+        : variants[0].createInstance();
+    }
+  } else if (compOrSet.type === 'COMPONENT_SET') {
+    instance = compOrSet.defaultVariant
+      ? compOrSet.defaultVariant.createInstance()
+      : compOrSet.children[0].createInstance();
+  } else {
+    instance = compOrSet.createInstance();
+  }
+
+  if (spec.name) instance.name = spec.name;
+  applyOpacity(instance, spec.opacity);
   return instance;
 }
 

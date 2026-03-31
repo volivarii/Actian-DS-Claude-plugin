@@ -24,6 +24,7 @@ When generating a spec, every property name and value format must match this doc
 | `GROUP` | Group | 3 | Wraps children into a group. Children must exist first. |
 | `BOOLEAN` | Boolean operation | 3 | Union, subtract, intersect, exclude. Requires 2+ children. |
 | `SECTION` | Section | 3 | Top-level organizational container. |
+| `LOCAL_INSTANCE` | Instance of same-file component | 1 | Creates instance of a component in the same file, referenced by node ID via `localComponents`. |
 | `COMPONENT` | Reusable component | 4 | Single component with properties, property links, variable scopes. |
 | `COMPONENT_SET` | Variant group | 4 | Groups multiple COMPONENT variants into a set. |
 
@@ -56,6 +57,9 @@ Every spec has this shape:
   "imports": {
     "card": { "method": "component", "key": "abc123..." },
     "buttonSet": { "method": "set", "key": "def456..." }
+  },
+  "localComponents": {
+    "targetComponent": { "nodeId": "7206:2643" }
   },
   "variables": {
     "bgDefault": { "key": "805afec875092b89deebe685e17992963d603974" },
@@ -371,6 +375,34 @@ A convenience type. Looks for an import with ref `"divider"` or `"cardDivider"` 
 | `name` | string | Node name. Defaults to `"Divider"`. |
 | `width` | number | Width for fallback rectangle. Defaults to 300. |
 | `color` | string | Fill color for fallback rectangle. Defaults to `"#E0E0E0"`. |
+
+### LOCAL_INSTANCE
+
+Creates an instance of a component that lives in the **same Figma file** as the output. The component is referenced by node ID (not a library key). Used for Card 2 variant matrix and Card 3 state grid in component-brief.
+
+Declare the component in `spec.localComponents` first:
+```json
+{ "localComponents": { "targetComponent": { "nodeId": "7206:2643" } } }
+```
+
+| Property | Type | Description |
+|----------|------|-------------|
+| `ref` | string | **Required.** Key in `spec.localComponents`. |
+| `variant` | string | Variant name (e.g., `"Type=Primary, Size=Default, State=Default"`). Supports partial matching. |
+| `name` | string | Node name. |
+| `opacity` | number | Node opacity (0-1). |
+
+**Example:**
+```json
+{
+  "type": "LOCAL_INSTANCE",
+  "ref": "targetComponent",
+  "variant": "Type=Primary, Size=Default, State=Default",
+  "name": "Primary Default"
+}
+```
+
+The interpreter does: `getNodeByIdAsync(nodeId)` → `children.find(name matches variant)` → `createInstance()`. Partial matching is supported — if exact name match fails, it tries `indexOf`.
 
 ### LINE
 

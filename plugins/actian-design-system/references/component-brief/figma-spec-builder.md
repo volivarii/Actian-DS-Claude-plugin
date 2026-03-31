@@ -6,9 +6,11 @@ Transforms `brief-data.json` into `figma-spec.json` for the JSON Spec Interprete
 
 The AI reads `brief-data.json` and produces a `figma-spec.json` file. The interpreter (`scripts/figma-interpreter.js`) consumes that JSON and builds the entire Figma node tree — frames, text, instances, dividers — without the AI writing any Plugin API code.
 
-## Rule
+## Rules
 
 **AI produces JSON data only, never Plugin API code.** The interpreter handles all `figma.*` calls, font loading, variable binding, and child appending. The AI's job is to map data model fields to the correct spec tree structure.
+
+**NEVER summarize visual content as text.** Every data model array MUST expand to real spec nodes — INSTANCE, LOCAL_INSTANCE, FRAME with children. If a card should show a color token table, the spec MUST contain one INSTANCE colorSwatch per cell. If a card should show component variants, the spec MUST contain one LOCAL_INSTANCE per variant. Using a TEXT node to describe what should be there ("6 types × 2 sizes × 6 states = 72 variants total") is a **P0 bug**.
 
 ---
 
@@ -190,19 +192,31 @@ The interpreter's INSTANCE builder: sets props, detaches, then appends `children
 
 **Title:** `"Actual component"` | **Subtitle:** `"Live component across all states and theme modes"`
 
+**HARD RULE: Cards 2 and 3 MUST contain real component instances.** Using TEXT nodes to summarize variant content ("6 types × 2 sizes × 6 states...") is a **P0 bug**. Every cell in the variant matrix MUST be a LOCAL_INSTANCE showing the actual component variant.
+
 Children of the Content slot:
 
 1. **Section title** — TEXT node "Variant matrix"
-2. **Variant matrix** — one FRAME per `variantMatrix` row, each containing one FRAME per column with a component instance + label
+2. **Variant matrix** — one FRAME per `variantMatrix` row, each containing one FRAME per column with a LOCAL_INSTANCE + label
 
-The component instances in the variant matrix are created by the CALLER before spec generation — the interpreter cannot import local components by node ID. Instead, use placeholder FRAME nodes with a `data-variant` annotation, and the caller patches them post-build.
+**The spec MUST declare the component in `localComponents`:**
 
-**Dynamic expansion:** For each row in `card2_component.variantMatrix`, emit one FRAME. For each column in `row.columns`, emit one child FRAME containing a label TEXT.
+```json
+{
+  "localComponents": {
+    "targetComponent": { "nodeId": "7206:2643" }
+  }
+}
+```
+
+The `nodeId` comes from `meta.componentKey` or from the component set node discovered during Step 1 research (get_metadata).
+
+**Dynamic expansion:** For each row in `card2_component.variantMatrix`, emit one FRAME. For each column in `row.columns`, emit one child FRAME containing a LOCAL_INSTANCE + label TEXT.
 
 ```json
 {
   "type": "FRAME",
-  "name": "Row: Standard",
+  "name": "Row: Primary — Default",
   "layout": { "mode": "HORIZONTAL", "spacing": 24, "padding": [0, 0, 0, 0] },
   "fills": [],
   "children": [
@@ -212,6 +226,12 @@ The component instances in the variant matrix are created by the CALLER before s
       "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [0, 0, 0, 0] },
       "fills": [],
       "children": [
+        {
+          "type": "LOCAL_INSTANCE",
+          "ref": "targetComponent",
+          "variant": "Type=Primary, Size=Default, State=Default",
+          "name": "Primary Default"
+        },
         {
           "type": "TEXT",
           "content": "Default",
@@ -365,6 +385,7 @@ Legend row below diagram:
 - DIVIDER
 - Section title TEXT "States"
 - Horizontal FRAME, one column per `states[]` entry
+- **Each column MUST contain a LOCAL_INSTANCE** showing the component in that state — never a text placeholder
 
 ```json
 {
@@ -373,7 +394,13 @@ Legend row below diagram:
   "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [0, 0, 0, 0] },
   "fills": [],
   "children": [
-    { "type": "TEXT", "content": "Default", "font": "Inter:Medium", "size": 12, "color": "#888888" }
+    { "type": "TEXT", "content": "Default", "font": "Inter:Medium", "size": 12, "color": "#888888" },
+    {
+      "type": "LOCAL_INSTANCE",
+      "ref": "targetComponent",
+      "variant": "Type=Primary, Size=Default, State=Default",
+      "name": "Default state"
+    }
   ],
   "sizing": { "horizontal": "HUG", "vertical": "HUG" }
 }

@@ -174,7 +174,8 @@ Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming
 4. Transform: build `figma-spec.json` from the data model following the builder reference
    - All component keys come from the builder reference — never guess
    - All node types come from the schema reference — never write raw Plugin API
-   - Dynamic data (variant rows, token rows, props) → expand to spec tree nodes
+   - Dynamic data (variant rows, token rows, props) → expand to spec tree nodes — NEVER summarize as text
+   - **Cards 2 and 3 MUST use `LOCAL_INSTANCE`** nodes for real component instances. Declare the target component in `spec.localComponents` using its node ID from `meta.componentKey` or get_metadata discovery.
 5. Read `../../scripts/figma-interpreter.js` (fixed ~26KB)
 6. Assemble `use_figma` call:
    ```js

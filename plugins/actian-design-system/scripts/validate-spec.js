@@ -10,7 +10,8 @@ const VALID_TYPES = new Set([
   'FRAME', 'TEXT', 'RECT', 'INSTANCE', 'DIVIDER',
   'LINE', 'ELLIPSE', 'VECTOR', 'POLYGON', 'STAR', 'SVG',
   'GROUP', 'BOOLEAN', 'SECTION',
-  'COMPONENT', 'COMPONENT_SET'
+  'COMPONENT', 'COMPONENT_SET',
+  'LOCAL_INSTANCE'
 ]);
 
 const VALID_IMPORT_METHODS = new Set(['set', 'single']);
@@ -137,6 +138,11 @@ function validateNode(node, nodePath, importRefs, varRefs) {
           validateNode(v, `${nodePath}.variants[${i}]`, importRefs, varRefs);
         });
       }
+      break;
+
+    case 'LOCAL_INSTANCE':
+      if (!node.ref) error(`${nodePath}.ref`, 'missing — must reference a key in spec.localComponents');
+      // Cross-check against localComponents (if we have access)
       break;
   }
 

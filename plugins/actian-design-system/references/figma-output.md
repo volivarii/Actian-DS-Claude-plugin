@@ -106,7 +106,7 @@ The AI produces a declarative JSON spec. A fixed interpreter function (`scripts/
 - **Deterministic** — the interpreter is tested, not AI-generated. Zero retry rate.
 - **Fast** — font loading, component imports, and variable binding are batched. 2 calls instead of 11+.
 - **Correct** — the interpreter handles all Figma API quirks (layoutMode before children, sizing after appendChild, paint variable binding).
-- **14 node types** — FRAME, TEXT, RECT, INSTANCE, DIVIDER, LINE, ELLIPSE, VECTOR, POLYGON, STAR, SVG, GROUP, BOOLEAN, SECTION.
+- **17 node types** — FRAME, TEXT, RECT, INSTANCE, LOCAL_INSTANCE, DIVIDER, LINE, ELLIPSE, VECTOR, POLYGON, STAR, SVG, GROUP, BOOLEAN, SECTION, COMPONENT, COMPONENT_SET.
 - **Variable + style binding** — declare in spec, interpreter binds automatically.
 
 ### Skill coverage
@@ -115,7 +115,7 @@ All 4 output skills now use the interpreter:
 
 | Skill | Builder reference | Node types used |
 |-------|------------------|-----------------|
-| component-brief | `component-brief/figma-spec-builder.md` | FRAME, TEXT, RECT, INSTANCE, DIVIDER |
+| component-brief | `component-brief/figma-spec-builder.md` | FRAME, TEXT, RECT, INSTANCE, LOCAL_INSTANCE, DIVIDER |
 | generate-flow | `generate-flow/figma-spec-builder.md` | FRAME, TEXT, INSTANCE, DIVIDER |
 | generate-presentation | `generate-presentation/figma-spec-builder.md` | FRAME, TEXT, RECT (charts) |
 | create-component | `create-component/figma-spec-builder.md` | COMPONENT, COMPONENT_SET + all Tier 1 |
