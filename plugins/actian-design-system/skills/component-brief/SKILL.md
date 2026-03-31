@@ -77,25 +77,28 @@ Autonomous through research and rendering, pauses at Step 2.5 for user review be
 
 Issue ALL reads in a **single message** with parallel tool calls. Do NOT read large files that aren't needed until later steps.
 
-**Actian DS mode — read these in ONE parallel batch:**
-1. `get_design_context` on the Figma node — **parse the URL first** per `../../references/figma-output.md` § "Figma URL Parsing". Extract `fileKey` and `nodeId` (convert dashes to colons) and pass them explicitly. If the node is a page, use `get_metadata` first to discover children, then `get_design_context` on the component set node.
+**Parse the URL first:** Extract `fileKey` and `nodeId` (convert dashes to colons) per `../../references/figma-output.md` § "Figma URL Parsing".
+
+**Parallel batch 1 — discovery + local reads (ONE message):**
+1. `get_metadata(fileKey, nodeId)` — always start here, never `get_design_context` first. Reveals whether the node is a page, component set, frame, etc.
 2. `../../docs/component-guidelines/<slug>.json` (if it exists — content/design rules)
 3. `../../references/component-brief/data-schema.md` (required — JSON schema contract)
 
-That's it. **Do NOT read these during research:**
+**Then — targeted design context:**
+4. From the metadata, find the component set node ID (look for `<component_set>` in the XML). If the URL pointed to a page (`<canvas>`), the component set is a child — use its ID.
+5. `get_design_context(fileKey, componentSetNodeId)` — call with the discovered component set node ID, NOT the page ID.
+
+If `get_design_context` still fails, fall back to `get_screenshot(fileKey, nodeId)` + metadata for visual reference.
+
+**Do NOT read these during research:**
 - `token-reference.md` — not needed; token names come from `get_design_context` and component-guidelines
 - `content-guidelines.md` — not needed; card7 rules come from component-guidelines JSON
 - `accessibility-guidelines.md` — not needed; card8 requirements are generated from ARIA patterns knowledge
 - Wrapper templates — read in Step 2 only (renderer step)
-- HTML renderer reference — read in Step 2 only
+- HTML renderer reference — not needed (client-side renderer handles it)
 - `WebSearch` for ARIA — skip; the AI already knows ARIA patterns for common components. Only search if the component is unusual (e.g., custom chart, non-standard widget)
 
-**Fat Marker mode — read these in ONE parallel batch:**
-1. `get_design_context` on the Figma node — **parse the URL first** (same as DS mode above)
-2. `../../docs/component-guidelines/<slug>.json` (if it exists)
-3. `../../references/component-brief/data-schema.md`
-
-**Target: 3 parallel reads → proceed to Step 1.5 immediately.** Total research should take under 30 seconds, not 9 minutes.
+**Target: 3 parallel reads + 1 targeted read → proceed to Step 1.5 immediately.** Total research should take under 30 seconds.
 
 ## Step 1.5 — Generate data model (MANDATORY)
 
