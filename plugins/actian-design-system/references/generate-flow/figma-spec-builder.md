@@ -14,13 +14,13 @@ The AI receives a screen list (from Step 3) and produces a `figma-spec.json` fil
 
 ## Imports section
 
-Every flow spec needs these three Meta Kit imports:
+Every flow spec needs these Meta Kit imports:
 
 ```json
 {
-  "flowScreen": { "key": "2ca7c756ad54e81219104d3a270ba8eb9eeffcf6", "method": "set" },
-  "genLog":     { "key": "a9653f30925367e96dea90093d750bfe70849571", "method": "single" },
-  "divider":    { "key": "f4d778e1cf9bb61a33712c791486f54bb1c095b7", "method": "single" }
+  "genLog":       { "key": "a9653f30925367e96dea90093d750bfe70849571", "method": "single" },
+  "divider":      { "key": "f4d778e1cf9bb61a33712c791486f54bb1c095b7", "method": "single" },
+  "flowCoverCard": { "key": "eaebde6bd07d2f19f3f9c00a9587240cb085a90d", "method": "single" }
 }
 ```
 
@@ -160,38 +160,38 @@ If `flowCoverCard` is not in imports (missing from Meta Kit), fall back to a FRA
 
 ### Each screen (tree children after cover)
 
-Each screen is a flowScreen instance, detached so children can be appended into its Content Area:
+Each screen is a raw FRAME with fixed dimensions. App Header and Sidebar are leaf instances (no detach, no children). All creative content goes inside Content Area.
+
+```
+Screen (FRAME 1440×960)
+├── App Header (INSTANCE — leaf, no detach)
+├── Body (FRAME 1440×890)
+│   ├── Sidebar (INSTANCE — leaf, no detach)
+│   └── Content Area (FRAME — all content here)
+```
+
+> **NEVER use flowScreen with detach.** NEVER nest Body inside App Header. These patterns break. Use the simple structure below.
+
+#### Screen frame
 
 ```json
 {
-  "type": "INSTANCE",
-  "ref": "flowScreen",
-  "variant": "Size=Standard",
-  "name": "Screen 1: Dashboard",
-  "detach": true,
+  "type": "FRAME",
+  "name": "Screen 1: Glossary List",
+  "width": 1440,
+  "height": 960,
+  "fills": ["#FFFFFF"],
+  "clipsContent": true,
   "children": [
     { "comment": "App Header instance" },
-    { "comment": "Body frame: sidebar + content" }
+    { "comment": "Body frame" }
   ]
 }
 ```
 
-The interpreter finds the `Content Area` slot inside the detached flowScreen and appends children there. If the slot is inside a nested instance, the interpreter auto-detaches that instance first.
-
-> **CRITICAL — screen hierarchy rule:**
-> When building screens as **raw frames** (fallback, not recommended), App Header and Body MUST be **siblings** at the screen root — NEVER nest Body inside App Header. Wrong nesting causes all content to collapse to 1px.
->
-> ```
-> ✅ Screen → [App Header, Body → [Sidebar, Content Area → [...]]]
-> ❌ Screen → [App Header → [Body → [Sidebar, Content Area → [...]]]]
-> ```
-
-The screen structure inside is:
-
-1. **App Header** -- INSTANCE of fmAppHeader with correct Type variant
-2. **Body** -- FRAME horizontal containing sidebar + content area
-
 #### App Header
+
+Single leaf instance. No detach, no children.
 
 ```json
 {
@@ -202,7 +202,7 @@ The screen structure inside is:
 }
 ```
 
-Set `Type` to match the app context: `Studio`, `Explorer`, `Admin`, or `Actian`. Never leave as default.
+Set `Type` to match the app context: `Studio`, `Explorer`, `Admin`, or `Actian`.
 
 #### Body frame
 
@@ -210,32 +210,49 @@ Set `Type` to match the app context: `Studio`, `Explorer`, `Admin`, or `Actian`.
 {
   "type": "FRAME",
   "name": "Body",
+  "width": 1440,
+  "height": 890,
   "layout": { "mode": "HORIZONTAL", "spacing": 0 },
   "fills": [],
-  "sizing": { "horizontal": "FILL", "vertical": "FILL" },
   "children": [
-    { "comment": "Sidebar" },
-    { "comment": "Content area" }
+    { "comment": "Sidebar instance" },
+    { "comment": "Content Area frame" }
   ]
 }
 ```
 
 #### Sidebar
 
+Single leaf instance. No detach, no children.
+
+```json
+{
+  "type": "INSTANCE",
+  "ref": "fmSideNavBar",
+  "variant": "Type=Standard",
+  "name": "Sidebar"
+}
+```
+
+The fmSideNavBar component renders 260×890 with built-in nav items. To set the active item, use props: `{ "Active": "Dashboard" }`. Placeholder items are built into the component.
+
+If fmSideNavBar is not available, fall back to a FRAME with fmSideNavItem instances:
+
 ```json
 {
   "type": "FRAME",
   "name": "Sidebar",
-  "layout": { "mode": "VERTICAL", "spacing": 0 },
-  "fills": ["#1E2028"],
-  "sizing": { "horizontal": "HUG", "vertical": "FILL" },
+  "width": 260,
+  "height": 890,
+  "layout": { "mode": "VERTICAL", "spacing": 0, "padding": [28, 16, 8, 16] },
+  "fills": ["#FFFFFF"],
   "children": [
     {
       "type": "INSTANCE",
       "ref": "fmSideNavItem",
       "variant": "State=On",
-      "name": "Nav: Glossary",
-      "props": { "Label": "Glossary" }
+      "name": "Nav: Dashboard",
+      "props": { "Label": "Dashboard" }
     },
     {
       "type": "INSTANCE",
@@ -259,18 +276,21 @@ Set `Type` to match the app context: `Studio`, `Explorer`, `Admin`, or `Actian`.
 }
 ```
 
-#### Content area
+#### Content Area
+
+This is where all creative content goes. The AI has full freedom here.
 
 ```json
 {
   "type": "FRAME",
   "name": "Content Area",
-  "layout": { "mode": "VERTICAL", "spacing": 0, "padding": [0, 0, 0, 0] },
-  "fills": ["#FFFFFF"],
-  "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+  "width": 1180,
+  "height": 890,
+  "layout": { "mode": "VERTICAL", "spacing": 0 },
+  "fills": ["#F5F5FA"],
   "children": [
-    { "comment": "Page header" },
-    { "comment": "Content body" }
+    { "comment": "Page header (instance or frame)" },
+    { "comment": "Content body (frames, instances, text — whatever the screen needs)" }
   ]
 }
 ```
@@ -418,8 +438,8 @@ Number for uniform: `8`. Object for individual: `{ "topLeft": 8, "topRight": 8, 
 - `ref`: must match a key in `imports`
 - `variant`: exact Figma variant string (e.g., `"Size=Standard"`, `"Type=Primary, Size=md"`)
 - `props`: component property overrides by prefix name
-- `detach`: `true` to convert instance to editable frame (required for flowScreen)
-- `children`: appended into the node named `Content` inside the instance (or the instance root if no Content child)
+- `detach`: `true` to convert instance to editable frame (rarely needed — avoid for screen chrome)
+- `children`: appended into the node named `Content` or `Content Area` inside the instance (or the instance root)
 
 ### DIVIDER node
 
@@ -431,9 +451,9 @@ Uses the `divider` import automatically. No ref needed.
 
 ---
 
-## Complete example -- 3-screen glossary flow
+## Complete example -- 2-screen glossary flow
 
-A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
+Generation log + cover card + 2 screens for "Create Glossary Term" in Studio. Screens use raw frames with leaf instances for chrome.
 
 ```json
 {
@@ -448,9 +468,8 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
     "Inter:Semi Bold"
   ],
   "imports": {
-    "flowScreen":  { "key": "2ca7c756ad54e81219104d3a270ba8eb9eeffcf6", "method": "set" },
-    "genLog":      { "key": "a9653f30925367e96dea90093d750bfe70849571", "method": "single" },
-    "divider":     { "key": "f4d778e1cf9bb61a33712c791486f54bb1c095b7", "method": "single" },
+    "genLog":        { "key": "a9653f30925367e96dea90093d750bfe70849571", "method": "single" },
+    "divider":       { "key": "f4d778e1cf9bb61a33712c791486f54bb1c095b7", "method": "single" },
     "flowCoverCard": { "key": "eaebde6bd07d2f19f3f9c00a9587240cb085a90d", "method": "single" },
     "fmAppHeader":   { "key": "8fc9bcee610c7f8d22ebcc268467993f6dc99c87", "method": "set" },
     "fmSideNavItem": { "key": "d18a0a772ed4acd760c497cb93de796ff052a7b4", "method": "set" },
@@ -472,7 +491,7 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
         "Date": "2026-03-31T14:30:00Z",
         "Duration": "2m 15s",
         "Model": "claude-opus-4-6",
-        "Plugin": "1.18.1"
+        "Plugin": "1.20.2"
       }
     },
     {
@@ -486,11 +505,12 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
       }
     },
     {
-      "type": "INSTANCE",
-      "ref": "flowScreen",
-      "variant": "Size=Standard",
+      "type": "FRAME",
       "name": "Screen 1: Glossary list",
-      "detach": true,
+      "width": 1440,
+      "height": 960,
+      "fills": ["#FFFFFF"],
+      "clipsContent": true,
       "children": [
         {
           "type": "INSTANCE",
@@ -501,16 +521,18 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
         {
           "type": "FRAME",
           "name": "Body",
+          "width": 1440,
+          "height": 890,
           "layout": { "mode": "HORIZONTAL", "spacing": 0 },
           "fills": [],
-          "sizing": { "horizontal": "FILL", "vertical": "FILL" },
           "children": [
             {
               "type": "FRAME",
               "name": "Sidebar",
-              "layout": { "mode": "VERTICAL", "spacing": 0 },
-              "fills": ["#1E2028"],
-              "sizing": { "horizontal": "HUG", "vertical": "FILL" },
+              "width": 260,
+              "height": 890,
+              "layout": { "mode": "VERTICAL", "spacing": 0, "padding": [28, 16, 8, 16] },
+              "fills": ["#FFFFFF"],
               "children": [
                 {
                   "type": "INSTANCE",
@@ -542,9 +564,10 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
             {
               "type": "FRAME",
               "name": "Content Area",
-              "layout": { "mode": "VERTICAL", "spacing": 0, "padding": [32, 32, 32, 32] },
-              "fills": ["#FFFFFF"],
-              "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+              "width": 1180,
+              "height": 890,
+              "layout": { "mode": "VERTICAL", "spacing": 0 },
+              "fills": ["#F5F5FA"],
               "children": [
                 {
                   "type": "INSTANCE",
@@ -591,21 +614,9 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
                       "fills": [],
                       "sizing": { "horizontal": "FILL", "vertical": "HUG" },
                       "children": [
-                        { "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Placeholder", "name": "Cell: Placeholder", "sizing": { "horizontal": "FILL", "vertical": "HUG" } },
-                        { "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Placeholder", "name": "Cell: Placeholder", "sizing": { "horizontal": "FILL", "vertical": "HUG" } },
-                        { "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Placeholder", "name": "Cell: Placeholder", "sizing": { "horizontal": "FILL", "vertical": "HUG" } }
-                      ]
-                    },
-                    {
-                      "type": "FRAME",
-                      "name": "Data row 3 (placeholder)",
-                      "layout": { "mode": "HORIZONTAL", "spacing": 0 },
-                      "fills": [],
-                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
-                      "children": [
-                        { "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Placeholder", "name": "Cell: Placeholder", "sizing": { "horizontal": "FILL", "vertical": "HUG" } },
-                        { "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Placeholder", "name": "Cell: Placeholder", "sizing": { "horizontal": "FILL", "vertical": "HUG" } },
-                        { "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Placeholder", "name": "Cell: Placeholder", "sizing": { "horizontal": "FILL", "vertical": "HUG" } }
+                        { "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Placeholder", "name": "Cell", "sizing": { "horizontal": "FILL", "vertical": "HUG" } },
+                        { "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Placeholder", "name": "Cell", "sizing": { "horizontal": "FILL", "vertical": "HUG" } },
+                        { "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Placeholder", "name": "Cell", "sizing": { "horizontal": "FILL", "vertical": "HUG" } }
                       ]
                     }
                   ]
@@ -624,11 +635,12 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
       ]
     },
     {
-      "type": "INSTANCE",
-      "ref": "flowScreen",
-      "variant": "Size=Standard",
+      "type": "FRAME",
       "name": "Screen 2: Create term form",
-      "detach": true,
+      "width": 1440,
+      "height": 960,
+      "fills": ["#FFFFFF"],
+      "clipsContent": true,
       "children": [
         {
           "type": "INSTANCE",
@@ -639,16 +651,18 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
         {
           "type": "FRAME",
           "name": "Body",
+          "width": 1440,
+          "height": 890,
           "layout": { "mode": "HORIZONTAL", "spacing": 0 },
           "fills": [],
-          "sizing": { "horizontal": "FILL", "vertical": "FILL" },
           "children": [
             {
               "type": "FRAME",
               "name": "Sidebar",
-              "layout": { "mode": "VERTICAL", "spacing": 0 },
-              "fills": ["#1E2028"],
-              "sizing": { "horizontal": "HUG", "vertical": "FILL" },
+              "width": 260,
+              "height": 890,
+              "layout": { "mode": "VERTICAL", "spacing": 0, "padding": [28, 16, 8, 16] },
+              "fills": ["#FFFFFF"],
               "children": [
                 {
                   "type": "INSTANCE",
@@ -674,9 +688,10 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
             {
               "type": "FRAME",
               "name": "Content Area",
-              "layout": { "mode": "VERTICAL", "spacing": 24, "padding": [32, 32, 32, 32] },
-              "fills": ["#FFFFFF"],
-              "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+              "width": 1180,
+              "height": 890,
+              "layout": { "mode": "VERTICAL", "spacing": 24, "padding": [24, 32, 24, 32] },
+              "fills": ["#F5F5FA"],
               "children": [
                 {
                   "type": "INSTANCE",
@@ -690,7 +705,6 @@ A cover card + 2 screens + generation log for "Create Glossary Term" in Studio.
                   "name": "Form: Term details",
                   "layout": { "mode": "VERTICAL", "spacing": 20 },
                   "fills": [],
-                  "sizing": { "horizontal": "HUG", "vertical": "HUG" },
                   "width": 480,
                   "children": [
                     {
