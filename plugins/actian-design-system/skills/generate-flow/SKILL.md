@@ -181,7 +181,7 @@ After writing the HTML file, **dispatch `flow-consistency` agent** in background
    - Import `Meta / Chrome / Flow Screen` — always use the component, never build manually
    - Import FM library components — never recreate as raw frames
    - Feature focus: real content for feature elements, Placeholder variants for everything else
-4. Read `../../scripts/figma-interpreter.js` (fixed ~26KB)
+4. Read `../../scripts/figma-interpreter.min.js` (~16KB minified — all 17 node types, leaves ~34KB for spec)
 5. Assemble `use_figma` call:
    ```js
    ${interpreterCode}
@@ -243,7 +243,7 @@ Detailed content in `references/generate-flow/`:
 
 Shared references:
 - **`../../references/figma-spec-schema.md`** — JSON spec format for the interpreter
-- **`../../scripts/figma-interpreter.js`** — Fixed interpreter (~26KB, included in use_figma calls)
+- **`../../scripts/figma-interpreter.min.js`** — Minified interpreter (~16KB, all 17 node types, included in use_figma calls)
 - **`../../references/app-context.md`** — Actian product context: 3 apps, entity model, terminology, UI patterns
 - **`../../references/ux-patterns.md`** — SaaS UX pattern library by flow type (discovery, creation, config, visualization, governance)
 - **`../../references/prototype-wiring.md`** — Smart Figma prototype wiring: analysis algorithm, code patterns, wiring plan format

@@ -125,7 +125,7 @@ Only after the user approves the review report.
    - 5 slide types: Cover (gradient), Body Full, Body Text+Visual, Section divider, Back cover
    - Charts: FRAME + RECT bars + TEXT labels (bar charts), FRAME rows (tables)
    - DS Kit tokens: declare variables for theme-primary, background, text colors
-4. Read `../../scripts/figma-interpreter.js` (fixed ~30KB)
+4. Read `../../scripts/figma-interpreter.min.js` (~16KB minified — all 17 node types, leaves ~34KB for spec)
 5. Assemble `use_figma` call:
    ```js
    ${interpreterCode}

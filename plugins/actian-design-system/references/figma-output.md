@@ -91,14 +91,17 @@ For skills that generate structured output (component-brief, generate-flow, gene
 data-model.json → AI transforms → figma-spec.json → Fixed interpreter → Figma nodes
 ```
 
-The AI produces a declarative JSON spec. A fixed interpreter function (`scripts/figma-interpreter.js`, ~26KB) builds the Figma tree mechanically. The AI never writes Plugin API code.
+The AI produces a declarative JSON spec. A fixed minified interpreter builds the Figma tree mechanically. The AI never writes Plugin API code.
+
+One minified interpreter (built via `scripts/build-interpreters.sh`):
+- **`figma-interpreter.min.js`** (~16KB) — All 17 node types. Used by ALL output skills. Leaves ~34KB for specs — nearly double the unminified budget.
 
 ### How to use
 
 1. Read the per-skill spec builder reference (e.g., `component-brief/figma-spec-builder.md`)
 2. Read `figma-spec-schema.md` for the JSON format
 3. Transform data model → `figma-spec.json`
-4. Read `scripts/figma-interpreter.js`
+4. Read `scripts/figma-interpreter.min.js` (~16KB)
 5. Assemble `use_figma` call: `${interpreterCode}\nconst spec = ${JSON.stringify(figmaSpec)};\nreturn await buildFromSpec(spec);`
 
 ### Benefits

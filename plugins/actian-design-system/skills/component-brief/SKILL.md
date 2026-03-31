@@ -176,7 +176,7 @@ Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming
    - All node types come from the schema reference — never write raw Plugin API
    - Dynamic data (variant rows, token rows, props) → expand to spec tree nodes — NEVER summarize as text
    - **Cards 2 and 3 MUST use `LOCAL_INSTANCE`** nodes for real component instances. Declare the target component in `spec.localComponents` using its node ID from `meta.componentKey` or get_metadata discovery.
-5. Read `../../scripts/figma-interpreter.js` (fixed ~26KB)
+5. Read `../../scripts/figma-interpreter.min.js` (~16KB minified — all 17 node types, leaves ~34KB for spec)
 6. Assemble `use_figma` call:
    ```js
    // use_figma code parameter:
@@ -184,10 +184,14 @@ Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming
    const spec = ${JSON.stringify(figmaSpec)};
    return await buildFromSpec(spec);
    ```
-7. Call splitting:
-   - Call 1: Generation Log + Cards 1-5 (spec tree = first 6 nodes)
-   - Call 2: Cards 6-9 (spec tree = last 4 nodes, same imports/variables/styles, `meta.appendToId` = wrapper ID from Call 1)
-8. After both calls: parity validation (data model counts vs Figma frame counts)
+7. Call splitting — split across 3-4 calls for full component instances:
+   - Call 1: Generation Log + Cards 1-2 (wrapper creation + variant matrix with LOCAL_INSTANCE)
+   - Call 2: Cards 3-5 (anatomy with LOCAL_INSTANCE states + tokens with swatches + API)
+   - Call 3: Cards 6-9 (usage + content + a11y + code)
+   - Each call: same imports/variables/styles, `meta.appendToId` = wrapper ID from Call 1
+8. After all calls: parity validation (data model counts vs Figma frame counts)
+
+**Size budget per call:** ~16KB interpreter + ~34KB spec = 50KB limit. With 3 calls of 3 cards each, each spec is ~10-12KB — well within budget for full component instances, swatch dots, and Meta Kit components.
 
 **What the AI does:** Transform data model → figma-spec.json (pure data, no code)
 **What the AI does NOT do:** Write Plugin API code, handle Figma API quirks, import components manually
@@ -222,4 +226,4 @@ Detailed content in `references/component-brief/`:
 Shared references:
 - **`../../scripts/html-renderers/brief-renderer.js`** — Client-side card renderer (~400 lines, embedded in HTML)
 - **`../../references/figma-spec-schema.md`** — JSON spec format for the Figma interpreter
-- **`../../scripts/figma-interpreter.js`** — Fixed Figma interpreter (~30KB, included in use_figma calls)
+- **`../../scripts/figma-interpreter.min.js`** — Minified interpreter (~16KB, all 17 node types, included in use_figma calls)

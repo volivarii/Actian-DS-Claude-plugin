@@ -264,7 +264,8 @@ actian-design-system-plugin/
 |   +-- skills/                          # 7 skills
 |   +-- agents/                          # 5 agents (auto-dispatched by skills)
 |   +-- scripts/                         # Fixed interpreter + validation
-|   |   +-- figma-interpreter.js         # JSON Spec Interpreter (30KB, 17 node types)
+|   |   +-- figma-interpreter.js         # Source interpreter (32KB, readable)
+|   |   +-- figma-interpreter.min.js    # Minified (16KB, all 17 node types)
 |   |   +-- validate-spec.js             # Spec validation (Node.js)
 |   +-- references/                      # Shared + skill-specific references
 |   |   +-- figma-spec-schema.md         # JSON spec schema (AI reads this)
