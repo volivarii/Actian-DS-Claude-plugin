@@ -41,6 +41,7 @@ Determine from the user's request:
 - **Number of sub-flows** (happy path + error + alternate role)
 - **References provided?** — See `../../references/generate-flow/research-guide.md` for accepted formats
 - **Prototype requested?** — keywords: "prototype", "interactive", "playable", "clickable", "test it"
+- **Figma URL provided?** — Extract `fileKey` and `nodeId` per `../../references/figma-output.md` § "Figma URL Parsing". Convert dashes to colons. Pass explicitly to MCP calls. Never rely on "current selection".
 
 ### App context inference
 

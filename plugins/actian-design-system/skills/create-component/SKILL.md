@@ -40,7 +40,7 @@ Determine from the user's request:
 - **Layout** — horizontal or vertical? Spacing? Padding?
 - **Properties** — which text fields should be editable component properties? Which booleans toggle visibility?
 
-Infer as much as possible from the request and context. If a Figma URL is provided, fetch it with `get_design_context` + `get_screenshot` to fill in details. Only ask the user if the request is too vague to proceed (no component name, no sense of what it does).
+Infer as much as possible from the request and context. If a Figma URL is provided, **parse the URL first** per `../../references/figma-output.md` § "Figma URL Parsing" — extract `fileKey` and `nodeId` (convert dashes to colons), then call `get_design_context(fileKey, nodeId)` + `get_screenshot(fileKey, nodeId)`. Never rely on "current selection". Only ask the user if the request is too vague to proceed (no component name, no sense of what it does).
 
 ## Step 2 — Check existing components
 

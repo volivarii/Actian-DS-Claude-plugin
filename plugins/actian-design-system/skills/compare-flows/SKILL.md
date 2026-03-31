@@ -24,7 +24,7 @@ The user provides two Figma URLs (frames, sections, or pages) to compare. Exampl
 
 ## Steps
 
-1. **Fetch both designs** — get metadata and screenshots for both URLs.
+1. **Fetch both designs** — parse each URL per `../../references/figma-output.md` § "Figma URL Parsing" (extract `fileKey`, `nodeId`, convert dashes to colons). Get metadata and screenshots using explicit parameters. Never rely on "current selection".
 2. **Get design context** for key screens in each flow.
 3. **Analyze and compare** across the dimensions below.
 4. **Self-review** — verify completeness before presenting (see Cleanup pass below).

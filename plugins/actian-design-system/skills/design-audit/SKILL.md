@@ -21,8 +21,8 @@ The user provides a Figma URL (frame, page, or section). If no URL is given, ask
 
 ## Steps
 
-1. **Extract file key and node ID** from the URL.
-2. **Get metadata** using `get_metadata` to understand the full structure (pages, frames, components used).
+1. **Extract file key and node ID** from the URL — follow `../../references/figma-output.md` § "Figma URL Parsing". Convert dashes to colons in nodeId. Pass `fileKey` and `nodeId` explicitly to all MCP calls. Never rely on "current selection".
+2. **Get metadata** using `get_metadata(fileKey, nodeId)` to understand the full structure (pages, frames, components used).
 3. **Get screenshots** of key frames for visual reference.
 4. **Get design context** on representative nodes to inspect token usage, typography, spacing, and component structure.
 

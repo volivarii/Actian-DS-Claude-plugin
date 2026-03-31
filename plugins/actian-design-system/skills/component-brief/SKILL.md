@@ -78,7 +78,7 @@ Autonomous through research and rendering, pauses at Step 2.5 for user review be
 Issue ALL reads in a **single message** with parallel tool calls. Do NOT read large files that aren't needed until later steps.
 
 **Actian DS mode — read these in ONE parallel batch:**
-1. `get_design_context` on the Figma node (required — component structure)
+1. `get_design_context` on the Figma node — **parse the URL first** per `../../references/figma-output.md` § "Figma URL Parsing". Extract `fileKey` and `nodeId` (convert dashes to colons) and pass them explicitly. If the node is a page, use `get_metadata` first to discover children, then `get_design_context` on the component set node.
 2. `../../docs/component-guidelines/<slug>.json` (if it exists — content/design rules)
 3. `../../references/component-brief/data-schema.md` (required — JSON schema contract)
 
@@ -91,7 +91,7 @@ That's it. **Do NOT read these during research:**
 - `WebSearch` for ARIA — skip; the AI already knows ARIA patterns for common components. Only search if the component is unusual (e.g., custom chart, non-standard widget)
 
 **Fat Marker mode — read these in ONE parallel batch:**
-1. `get_design_context` on the Figma node
+1. `get_design_context` on the Figma node — **parse the URL first** (same as DS mode above)
 2. `../../docs/component-guidelines/<slug>.json` (if it exists)
 3. `../../references/component-brief/data-schema.md`
 

@@ -16,6 +16,42 @@ This document covers only **Actian DS-specific** patterns that the Figma skills 
 
 ---
 
+## Figma URL Parsing (MANDATORY)
+
+When a user provides a Figma URL, **always extract `fileKey` and `nodeId` and pass them explicitly** to MCP tools. Never rely on "current selection" — it is empty when the user pastes a URL.
+
+### Extraction rules
+
+```
+URL: https://www.figma.com/design/<fileKey>/<fileName>?node-id=<nodeId>
+     https://www.figma.com/design/<fileKey>/branch/<branchKey>/<fileName>
+
+fileKey: the segment after /design/ (or use branchKey if /branch/ is present)
+nodeId:  the node-id query parameter, with dashes converted to colons
+```
+
+**Examples:**
+
+| URL | fileKey | nodeId |
+|-----|---------|--------|
+| `figma.com/design/W3TdaJ.../File?node-id=9085-24375` | `W3TdaJ...` | `9085:24375` |
+| `figma.com/design/abc123/branch/def456/File?node-id=1-2` | `def456` | `1:2` |
+| `figma.com/design/abc123/File` (no node-id) | `abc123` | _(none — use get_metadata to discover)_ |
+
+### What to call
+
+| Node type | How to detect | MCP call |
+|-----------|--------------|----------|
+| **Component or frame** | nodeId present, not a page-level ID | `get_design_context(fileKey, nodeId)` |
+| **Page** | nodeId is a page-level section (large ID like `9085:24375` with no children visible) | `get_metadata(fileKey, nodeId)` first to discover children, then `get_design_context` on specific nodes |
+| **No nodeId** | URL has no `?node-id=` | `get_metadata(fileKey)` to list pages, then drill down |
+
+### When get_design_context returns "nothing selected"
+
+This means you called it without `fileKey`/`nodeId`. Go back to the URL, extract both, and retry with explicit parameters. **Never skip this step.**
+
+---
+
 ## Output mode
 
 All Figma output uses `use_figma` — build directly in Figma via Plugin API JavaScript.
