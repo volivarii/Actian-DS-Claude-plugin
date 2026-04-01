@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "component": "Button",
+    "componentKey": "123:456",
+    "skill": "component-brief",
+    "generatedAt": "2026-04-01T00:00:00.000Z",
+    "duration": "5s",
+    "model": "claude-sonnet-4-6",
+    "pluginVersion": "1.22.0"
+  },
+  "card1_header": {
+    "name": "Button",
+    "description": "A button component for triggering actions."
+  },
+  "card2_component": {
+    "variantMatrix": [
+      {
+        "row": "Size",
+        "columns": [
+          { "label": "Small", "variantName": "Size=Small" },
+          { "label": "Medium", "variantName": "Size=Medium" }
+        ]
+      }
+    ],
+    "themeComparison": {
+      "actian": {
+        "swatches": [
+          { "hex": "#005DB2", "token": "theme-primary" }
+        ]
+      },
+      "studio": {
+        "swatches": [
+          { "hex": "#7B3FC4", "token": "theme-primary" }
+        ]
+      },
+      "explorer": {
+        "swatches": [
+          { "hex": "#00796B", "token": "theme-primary" }
+        ]
+      }
+    }
+  },
+  "card3_anatomy": {
+    "parts": [
+      { "letter": "A", "name": "Container" },
+      { "letter": "B", "name": "Label" }
+    ],
+    "specs": [
+      { "target": "height", "label": "36px", "orientation": "vertical" },
+      { "target": "padding", "label": "8px 16px", "orientation": "horizontal" }
+    ],
+    "states": ["Enabled", "Hovered", "Focused", "Pressed", "Disabled"],
+    "partsTable": [
+      { "part": "A", "element": "Frame", "token": "border/radius-sm", "notes": "Container shape" },
+      { "part": "B", "element": "Text", "token": "label-standard", "notes": "Button label" }
+    ]
+  },
+  "card4_tokens": {
+    "colorTokens": [
+      {
+        "state": "Default",
+        "columns": [
+          { "header": "Fill", "hex": "#005DB2", "token": "theme-primary" },
+          { "header": "Text", "hex": "#FFFFFF", "token": "text-on-primary" }
+        ]
+      }
+    ],
+    "sizingTokens": [
+      { "property": "Height", "token": "size/md", "value": "36px" },
+      { "property": "Padding H", "token": "spacing/md", "value": "16px" }
+    ],
+    "typography": [
+      { "element": "Label", "token": "label-standard", "font": "Inter Semi Bold 14", "tracking": "0" }
+    ]
+  },
+  "card5_api": {
+    "props": [
+      { "required": true, "name": "label", "type": "string", "default": "", "values": "any string", "notes": "Button label text" },
+      { "required": false, "name": "variant", "type": "string", "default": "primary", "values": "primary | secondary | ghost", "notes": "Visual style" },
+      { "required": false, "name": "disabled", "type": "boolean", "default": "false", "values": "true | false", "notes": "Disabled state" }
+    ]
+  },
+  "card6_usage": {
+    "whenToUse": [
+      "Use for primary actions that complete a task.",
+      "Use when the action is the most important on the page."
+    ],
+    "whenNotToUse": [
+      "Do not use for navigation — use a link instead.",
+      "Do not use more than one primary button per view."
+    ],
+    "doDont": [
+      {
+        "doLabel": "Use an action verb",
+        "doDetail": "Save, Submit, Confirm",
+        "dontLabel": "Avoid vague labels",
+        "dontDetail": "OK, Yes, Click here"
+      }
+    ]
+  },
+  "card7_content": {
+    "rules": [
+      {
+        "title": "Label clarity",
+        "description": "Labels must clearly describe the action outcome.",
+        "do": "Save changes",
+        "dont": "OK"
+      }
+    ],
+    "terminology": [
+      { "term": "Save", "use": "When persisting form changes." },
+      { "term": "Submit", "use": "When sending a form for processing." }
+    ]
+  },
+  "card8_accessibility": {
+    "requirements": [
+      { "title": "Keyboard access", "body": "Button must be focusable with Tab.", "icon": "#005DB2", "code": { "tokens": [] } },
+      { "title": "ARIA role", "body": "Use role=button or native <button>.", "icon": "#005DB2", "code": { "tokens": [] } },
+      { "title": "Focus visible", "body": "Focus ring must be visible with 3:1 contrast.", "icon": "#005DB2", "code": { "tokens": [] } },
+      { "title": "Contrast", "body": "Text must meet 4.5:1 contrast ratio.", "icon": "#005DB2", "code": { "tokens": [] } },
+      { "title": "Touch target", "body": "Minimum 44x44px touch target.", "icon": "#005DB2", "code": { "tokens": [] } },
+      { "title": "Disabled state", "body": "Disabled buttons must not be focusable.", "icon": "#888888", "code": { "tokens": [] } }
+    ],
+    "ariaTable": [
+      { "element": "button", "role": "button", "label": "aria-label", "focusOrder": "1", "keyboard": "Enter, Space", "announcement": "Button name, role" }
+    ],
+    "contrastTable": [
+      { "element": "Label text", "foreground": "#FFFFFF", "background": "#005DB2", "ratio": "8.6:1", "wcag": "Pass" }
+    ]
+  },
+  "card9_code": {
+    "language": "css",
+    "tokens": [
+      { "type": "selector", "text": ".btn" },
+      { "type": "punctuation", "text": " { " },
+      { "type": "property", "text": "background" },
+      { "type": "punctuation", "text": ": " },
+      { "type": "value", "text": "var(--zen-theme-primary)" },
+      { "type": "punctuation", "text": "; }" }
+    ]
+  }
+}

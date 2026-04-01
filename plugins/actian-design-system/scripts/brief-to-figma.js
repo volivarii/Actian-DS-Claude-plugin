@@ -2,17 +2,20 @@
 'use strict';
 
 /**
- * brief-to-spec.js — Deterministic transformer: brief-data.json -> figma-spec.json
+ * brief-to-figma.js — Deterministic transformer: brief-data.json -> Figma plugin JS code
  *
  * Usage:
- *   node scripts/brief-to-spec.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>]
+ *   node scripts/brief-to-figma.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>]
  *
- * Reads brief-data.json and outputs a complete figma-spec.json (or array of specs)
- * that the JSON Spec Interpreter can consume directly.
+ * Reads brief-data.json, builds card nodes (same as brief-to-spec.js), then uses
+ * figma-codegen.js to generate self-contained Figma plugin JS code instead of JSON specs.
+ *
+ * Output: JSON array of { callIndex, code, description } to stdout
  */
 
 const fs = require('fs');
 const path = require('path');
+const codegen = require('./figma-codegen');
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -54,12 +57,17 @@ const TOKEN_COLORS = {
   text:        '#BABED8'
 };
 
+// Max raw JSON bytes per bin (keeps generated code under ~45KB)
+const MAX_BIN_SIZE = 6000;
+const OVERHEAD = 500; // meta + fonts + imports envelope
+
 // ---------------------------------------------------------------------------
 // Shared helpers
 // ---------------------------------------------------------------------------
 
 /** Returns a TEXT spec node */
-function textNode(content, font, size, color, opts = {}) {
+function textNode(content, font, size, color, opts) {
+  opts = opts || {};
   const node = { type: 'TEXT', content, font, size, color };
   if (opts.width != null) node.width = opts.width;
   if (opts.textCase) node.textCase = opts.textCase;
@@ -100,7 +108,6 @@ function tableFrame(name, headers, rows, colWidths) {
       // If cell is a frame (object with children), use it directly
       if (cell && typeof cell === 'object' && cell.children) return cell;
       // Otherwise, make a text node
-      const font = (ci === 0) ? 'Inter:Regular' : 'Inter:Regular';
       return textNode(String(cell), 'Inter:Regular', 14, '#1A1A2E', { width: colWidths[ci] });
     });
     return {
@@ -845,38 +852,17 @@ function validate(data) {
 }
 
 // ---------------------------------------------------------------------------
-// Call splitting — assemble specs
+// Bin-packing + code generation
 // ---------------------------------------------------------------------------
 
-// Auto-split cards into calls that fit within the 34KB spec budget (50KB - 16KB interpreter)
-const MAX_SPEC_BYTES = 33000; // 33KB per call (1KB margin under 34KB budget = 50KB - 16KB interpreter)
-
 function compactSize(obj) {
-  return JSON.stringify(obj, null, 0).length;
+  return Buffer.byteLength(JSON.stringify(obj), 'utf8');
 }
 
-function makeSpec(data, targetNodeId, appendToId, treeNodes) {
-  const spec = {
-    meta: {
-      skill: 'component-brief',
-      component: data.meta.component
-    },
-    fonts: FONTS.slice(),
-    imports: { ...IMPORTS },
-    localComponents: {
-      targetComponent: { nodeId: data.meta.componentKey }
-    },
-    tree: treeNodes
-  };
-  if (targetNodeId) {
-    spec.meta.targetNodeId = targetNodeId;
-    spec.meta.wrapperName = `Component Spec: ${data.meta.component}`;
-  } else {
-    spec.meta.appendToId = appendToId || '__WRAPPER_ID__';
-  }
-  return spec;
-}
-
+/**
+ * Build all cards and bin-pack them into code generation calls.
+ * Returns array of { callIndex, code, description }.
+ */
 function autoSplitCalls(data, targetNodeId) {
   // Build all cards
   const allCards = [
@@ -892,43 +878,73 @@ function autoSplitCalls(data, targetNodeId) {
     { name: 'Card 9', node: buildCard9(data.card9_code, data.card1_header) }
   ].filter(c => c.node != null);
 
-  // Bin-pack cards into calls under MAX_SPEC_BYTES
-  const calls = [];
+  // Bin-pack cards into groups under MAX_BIN_SIZE raw JSON bytes
+  const bins = [];
   let currentBin = [];
   let currentSize = 0;
-  const overhead = 500; // meta + fonts + imports envelope
 
   for (const card of allCards) {
     const cardSize = compactSize(card.node);
-    if (currentBin.length > 0 && currentSize + cardSize + overhead > MAX_SPEC_BYTES) {
-      calls.push(currentBin);
+    if (currentBin.length > 0 && currentSize + cardSize + OVERHEAD > MAX_BIN_SIZE) {
+      bins.push(currentBin);
       currentBin = [];
       currentSize = 0;
     }
     currentBin.push(card);
-    currentSize += cardSize;
+    currentSize += cardSize + OVERHEAD;
   }
-  if (currentBin.length > 0) calls.push(currentBin);
+  if (currentBin.length > 0) bins.push(currentBin);
 
-  // Build spec per call
-  const specs = calls.map((bin, i) => {
+  const totalCalls = bins.length;
+  const results = [];
+
+  for (let b = 0; b < bins.length; b++) {
+    const bin = bins[b];
+    const callIdx = b + 1;
     const treeNodes = bin.map(c => c.node);
     const names = bin.map(c => c.name).join(', ');
-    if (i === 0) {
-      return makeSpec(data, targetNodeId, null, treeNodes);
+
+    // Build spec for this bin
+    const spec = {
+      meta: {
+        skill: 'component-brief',
+        component: data.meta.component
+      },
+      fonts: FONTS.slice(),
+      imports: { ...IMPORTS },
+      localComponents: {
+        targetComponent: { nodeId: data.meta.componentKey }
+      },
+      tree: treeNodes
+    };
+
+    if (callIdx === 1) {
+      spec.meta.targetNodeId = targetNodeId;
+      spec.meta.wrapperName = `Component Spec: ${data.meta.component}`;
+      spec.meta.sectionName = `Component Spec: ${data.meta.component}`;
     } else {
-      return makeSpec(data, null, '__WRAPPER_ID__', treeNodes);
+      spec.meta.appendToId = '__WRAPPER_ID__';
     }
-  });
 
-  // Log split info to stderr
-  calls.forEach((bin, i) => {
-    const specSize = compactSize(specs[i]);
-    const names = bin.map(c => c.name).join(', ');
-    process.stderr.write(`Call ${i + 1}: ${names} (${specSize} bytes)\n`);
-  });
+    // Generate code
+    codegen.resetCounter();
+    const code = codegen.generateCallCode(spec);
+    const codeSize = Buffer.byteLength(code, 'utf8');
 
-  return specs;
+    process.stderr.write(`Call ${callIdx}: ${names} (code=${codeSize} bytes)\n`);
+
+    if (codeSize > 45000) {
+      process.stderr.write(`WARNING: Call ${callIdx} code exceeds 45KB (${codeSize} bytes)\n`);
+    }
+
+    results.push({
+      callIndex: callIdx,
+      code: code,
+      description: `Call ${callIdx}/${totalCalls}: ${names}`
+    });
+  }
+
+  return results;
 }
 
 // ---------------------------------------------------------------------------
@@ -966,7 +982,7 @@ function main() {
   const opts = parseArgs(process.argv);
 
   if (!opts.inputPath) {
-    process.stderr.write('Usage: node brief-to-spec.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>]\n');
+    process.stderr.write('Usage: node brief-to-figma.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>]\n');
     process.exit(1);
   }
 
@@ -1007,22 +1023,21 @@ function main() {
     process.exit(1);
   }
 
-  // Build specs with auto-splitting
-  const allSpecs = autoSplitCalls(data, opts.targetNodeId);
+  // Build code calls with auto-splitting
+  const allCalls = autoSplitCalls(data, opts.targetNodeId);
 
   let output;
   if (opts.call != null) {
-    if (opts.call > allSpecs.length) {
-      process.stderr.write(`Error: --call ${opts.call} but only ${allSpecs.length} calls generated\n`);
+    if (opts.call > allCalls.length) {
+      process.stderr.write(`Error: --call ${opts.call} but only ${allCalls.length} calls generated\n`);
       process.exit(1);
     }
-    output = allSpecs[opts.call - 1];
+    output = allCalls[opts.call - 1];
   } else {
-    output = allSpecs;
+    output = allCalls;
   }
 
-  // Compact JSON for use_figma (no pretty-printing — every byte counts)
-  const json = JSON.stringify(output);
+  const json = JSON.stringify(output, null, 2);
 
   if (opts.output) {
     try {
@@ -1035,6 +1050,8 @@ function main() {
   } else {
     process.stdout.write(json + '\n');
   }
+
+  process.stderr.write(`Done: ${allCalls.length} call(s)\n`);
 }
 
 main();

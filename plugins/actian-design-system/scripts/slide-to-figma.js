@@ -2,24 +2,26 @@
 'use strict';
 
 /**
- * slide-to-spec.js — Deterministic transformer: slide-data.json -> figma-spec.json
- *
- * The AI provides slide type + title + content per slide.
- * This script handles slide frames, gradients, variable bindings, and chrome.
+ * slide-to-figma.js — Reads slide-data.json, builds slide nodes,
+ * generates Figma plugin JS via the codegen library.
  *
  * Usage:
- *   node scripts/slide-to-spec.js <slide-data.json> --target-node-id <id> [--call N] [--output <path>]
+ *   node scripts/slide-to-figma.js <slide-data.json> --target-node-id <id>
+ *
+ * Output: JSON array of { callIndex, code, description } to stdout
+ * Logs:   "Done: N call(s), M slide(s)" to stderr
  */
 
 const fs = require('fs');
 const path = require('path');
+const codegen = require('./figma-codegen');
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const MAX_SPEC_BYTES = 33000;
-const OVERHEAD = 800; // larger overhead for variable declarations
+const MAX_BIN_SIZE = 25000; // bytes (raw JSON of items in bin)
+const OVERHEAD = 800;       // per-item overhead estimate
 
 const SLIDE_W = 1920;
 const SLIDE_H = 1080;
@@ -108,7 +110,6 @@ function buildBodyFull(slide) {
   ];
 
   if (slide.content && slide.content.length > 0) {
-    // Wrap content in a grey content area
     children.push({
       type: 'FRAME', name: 'Content area',
       layout: { mode: 'VERTICAL', spacing: 16, padding: [24, 24, 24, 24], primaryAxisAlign: 'CENTER', counterAxisAlign: 'CENTER' },
@@ -247,7 +248,7 @@ function scanVariables(nodes, vars) {
 }
 
 // ---------------------------------------------------------------------------
-// Ref scanner (for imports — same as flow-to-spec.js)
+// Ref scanner (for imports)
 // ---------------------------------------------------------------------------
 
 function scanRefs(nodes, refs) {
@@ -302,7 +303,7 @@ function autoSplit(meta, allItems, usedVars) {
 
   for (const item of allItems) {
     const itemSize = compactSize(item);
-    if (currentBin.length > 0 && currentSize + itemSize + OVERHEAD > MAX_SPEC_BYTES) {
+    if (currentBin.length > 0 && currentSize + itemSize + OVERHEAD > MAX_BIN_SIZE) {
       bins.push(currentBin);
       currentBin = [];
       currentSize = 0;
@@ -320,21 +321,18 @@ function autoSplit(meta, allItems, usedVars) {
 
   // Resolve additional imports from content refs
   const allRefs = scanRefs(allItems);
-  // genLog is always included
   const imports = Object.assign({}, IMPORTS);
-  // For now, presentations don't use FM components much — but if content has refs, we'd need registry lookup
-  // Keep it simple: only genLog + divider if used
   if (allRefs.has('divider')) {
     imports.divider = { key: 'f4d778e1cf9bb61a33712c791486f54bb1c095b7', method: 'single' };
   }
 
-  const specs = [];
+  const calls = [];
   for (let b = 0; b < bins.length; b++) {
     const spec = {
       meta: { skill: 'generate-presentation' },
       fonts: FONTS,
       imports: b === 0 ? imports : {},
-      variables: b === 0 ? resolvedVars : resolvedVars, // each call needs variables
+      variables: resolvedVars,
       tree: bins[b]
     };
 
@@ -344,18 +342,31 @@ function autoSplit(meta, allItems, usedVars) {
       spec.meta.wrapperName = 'Presentation: ' + (meta.title || 'Deck');
       spec.meta.sectionName = 'Presentation: ' + (meta.title || 'Deck');
     } else {
+      spec.meta.targetNodeId = meta.targetNodeId;
       spec.meta.appendToId = '__WRAPPER_ID__';
     }
 
-    const specSize = compactSize(spec);
-    process.stderr.write('Call ' + (b + 1) + ': ' + bins[b].length + ' items, ' + specSize + ' bytes\n');
-    if (specSize > 50000) {
-      process.stderr.write('WARNING: Call ' + (b + 1) + ' exceeds 50KB limit\n');
+    // Generate code using codegen library
+    const code = codegen.generateCallCode(spec);
+    const codeSize = Buffer.byteLength(code, 'utf8');
+
+    const slideNames = bins[b]
+      .filter(item => item.type === 'FRAME')
+      .map(item => item.name || 'Slide')
+      .join(', ');
+    const description = 'Call ' + (b + 1) + ' of ' + bins.length + ': ' +
+      (slideNames || 'generation log') +
+      ' (' + codeSize + ' bytes)';
+
+    process.stderr.write('Call ' + (b + 1) + ': ' + bins[b].length + ' items, ' + codeSize + ' bytes code\n');
+    if (codeSize > 100000) {
+      process.stderr.write('WARNING: Call ' + (b + 1) + ' code exceeds 100KB\n');
     }
-    specs.push(spec);
+
+    calls.push({ callIndex: b + 1, code: code, description: description });
   }
 
-  return specs;
+  return calls;
 }
 
 // ---------------------------------------------------------------------------
@@ -366,18 +377,16 @@ function main() {
   const args = process.argv.slice(2);
   let inputPath = null;
   let targetNodeId = null;
-  let callIndex = null;
   let outputPath = null;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--target-node-id' && args[i + 1]) { targetNodeId = args[++i]; }
-    else if (args[i] === '--call' && args[i + 1]) { callIndex = parseInt(args[++i], 10); }
     else if (args[i] === '--output' && args[i + 1]) { outputPath = args[++i]; }
     else if (!inputPath) { inputPath = args[i]; }
   }
 
   if (!inputPath) {
-    process.stderr.write('Usage: node slide-to-spec.js <slide-data.json> --target-node-id <id> [--call N] [--output <path>]\n');
+    process.stderr.write('Usage: node slide-to-figma.js <slide-data.json> --target-node-id <id> [--output <path>]\n');
     process.exit(1);
   }
 
@@ -417,18 +426,8 @@ function main() {
   // Always include core variables for slides
   ['bgDefault', 'bgGrey2', 'textPrimary', 'textSecondary', 'textReverse', 'brandPrimary', 'borderDefault'].forEach(function(v) { usedVars.add(v); });
 
-  const specs = autoSplit(input.meta, items, usedVars);
-
-  let output;
-  if (callIndex != null) {
-    if (callIndex < 1 || callIndex > specs.length) {
-      process.stderr.write('Error: --call ' + callIndex + ' out of range (1-' + specs.length + ')\n');
-      process.exit(1);
-    }
-    output = JSON.stringify(specs[callIndex - 1]);
-  } else {
-    output = JSON.stringify(specs);
-  }
+  const calls = autoSplit(input.meta, items, usedVars);
+  const output = JSON.stringify(calls);
 
   if (outputPath) {
     fs.writeFileSync(outputPath, output);
@@ -437,7 +436,7 @@ function main() {
     process.stdout.write(output + '\n');
   }
 
-  process.stderr.write('Done: ' + specs.length + ' call(s), ' + input.slides.length + ' slide(s)\n');
+  process.stderr.write('Done: ' + calls.length + ' call(s), ' + input.slides.length + ' slide(s)\n');
 }
 
 main();

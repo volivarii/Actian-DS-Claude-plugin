@@ -91,25 +91,23 @@ For skills that generate structured output (component-brief, generate-flow, gene
 data-model.json → AI transforms → figma-spec.json → Fixed interpreter → Figma nodes
 ```
 
-The AI produces a declarative JSON spec. A fixed minified interpreter builds the Figma tree mechanically. The AI never writes Plugin API code.
+The AI produces a declarative JSON spec. A shared codegen library (`figma-codegen.js`) generates self-contained Figma Plugin API code at build time. Per-skill scripts (`flow-to-figma.js`, `brief-to-figma.js`, `slide-to-figma.js`) read data files and call the codegen. The AI never writes Plugin API code directly.
 
-One minified interpreter (built via `scripts/build-interpreters.sh`):
-- **`figma-interpreter.min.js`** (~16KB) — All 17 node types. Used by ALL output skills. Leaves ~34KB for specs — nearly double the unminified budget.
+### How it works
 
-### How to use
+1. Skill-specific script reads data file (e.g., `flow-data.json`, `brief-data.json`, `slide-data.json`)
+2. Script builds structured node trees (same JSON spec format)
+3. Script calls `figma-codegen.generateCallCode(spec)` to produce Figma plugin JS
+4. AI passes the generated code to `use_figma`
 
-1. Read the per-skill spec builder reference (e.g., `component-brief/figma-spec-builder.md`)
-2. Read `figma-spec-schema.md` for the JSON format
-3. Transform data model → `figma-spec.json`
-4. Read `scripts/figma-interpreter.min.js` (~16KB)
-5. Assemble `use_figma` call: `${interpreterCode}\nconst spec = ${JSON.stringify(figmaSpec)};\nreturn await buildFromSpec(spec);`
+For `create-component` (no script): AI writes spec JSON to a temp file, runs codegen via one-liner, passes output to `use_figma`.
 
 ### Benefits
 
-- **Deterministic** — the interpreter is tested, not AI-generated. Zero retry rate.
-- **Fast** — font loading, component imports, and variable binding are batched. 2 calls instead of 11+.
-- **Correct** — the interpreter handles all Figma API quirks (layoutMode before children, sizing after appendChild, paint variable binding).
-- **17 node types** — FRAME, TEXT, RECT, INSTANCE, LOCAL_INSTANCE, DIVIDER, LINE, ELLIPSE, VECTOR, POLYGON, STAR, SVG, GROUP, BOOLEAN, SECTION, COMPONENT, COMPONENT_SET.
+- **No interpreter overhead** — code is self-contained, full 50KB budget per call
+- **Deterministic** — codegen is tested (480+ tests), not AI-generated
+- **Fast** — fewer calls needed (no 17KB interpreter consuming budget per call)
+- **Correct** — codegen handles all Figma API quirks (layoutMode before children, sizing after appendChild, paint variable binding)
 - **Variable + style binding** — declare in spec, interpreter binds automatically.
 
 ### Skill coverage

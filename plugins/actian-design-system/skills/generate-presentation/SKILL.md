@@ -112,28 +112,22 @@ Follow the review report format defined in `../../docs/presentation-guide.md`:
 
 **Wait for the user's response.** Do not proceed. If changes are requested, apply them to the HTML, re-serve, and present an updated report. Repeat until approved.
 
-## Step 6 — Output to Figma (slide-to-spec.js + interpreter)
+## Step 6 — Output to Figma (slide-to-figma.js)
 
 Only after the user approves the review report.
 
-**Do NOT write freehand Figma specs.** Use the `slide-to-spec.js` script — it builds correct slide frames, gradients, and variable bindings deterministically.
+**Do NOT write freehand Figma specs.** Use the `slide-to-figma.js` script — it builds correct slide frames, gradients, and variable bindings deterministically, then generates self-contained Figma plugin JS code.
 
 1. Read `../../references/generate-presentation/figma-spec-builder.md` — input schema + chart patterns
 2. Write `slide-data.json` to the project directory:
    - `meta`: title, targetNodeId, prompt, duration, model, pluginVersion, generatedAt
    - `slides[]`: per slide: type (`cover`/`section`/`body-full`/`body-text-visual`/`back-cover`), name, title, content
    - The AI provides only content nodes — the script handles slide frames, gradients, and variables
-3. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-spec.js slide-data.json --target-node-id "<nodeId>"`
-4. Script outputs array of figma-spec.json objects (auto-split, variables included)
-5. Read `../../scripts/figma-interpreter.min.js` (~16KB)
-6. For each spec in the array, assemble `use_figma` call:
-   ```js
-   ${interpreterCode}
-   const spec = ${JSON.stringify(specFromScript)};
-   return await buildFromSpec(spec);
-   ```
-   For call 2+: replace `__WRAPPER_ID__` in `meta.appendToId` with the wrapperId from call 1.
-7. After all calls: parity validation (slide count vs Figma frame count)
+3. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js slide-data.json --target-node-id "<nodeId>"`
+4. Script outputs JSON array of `{ callIndex, code, description }` — each `code` is self-contained Figma plugin JS
+5. For each call in the array, pass `code` directly to `use_figma`
+   - For call 2+: replace `__WRAPPER_ID__` in the code with the `wrapperId` returned from call 1
+6. After all calls: parity validation (slide count vs Figma frame count)
 
 If the user hasn't provided a target Figma file, ask: "Where should I push this? Provide a Figma file URL, or I can create a new file."
 

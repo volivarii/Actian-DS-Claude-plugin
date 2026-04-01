@@ -88,13 +88,11 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 |------|---------|
 | `docs/presentation-guide.md` | Slide templates, voice & tone, chart selection, narrative structure |
 | `docs/meta-kit/builders.md` | Shared JS builder functions |
-| `scripts/figma-interpreter.js` | Source interpreter (32KB) — 17 node types, variable/style binding. Human-readable, not used directly by skills. |
-| `scripts/figma-interpreter.min.js` | Minified interpreter (~16KB) — all 17 node types. Used by ALL output skills. Leaves ~34KB for specs. |
-| `scripts/build-interpreters.sh` | Build script: minifies source → .min.js via terser. Run after editing the source. |
-| `scripts/brief-to-spec.js` | Deterministic transformer: brief-data.json → figma-spec.json array with auto-splitting under 33KB per call. Used by component-brief Step 3. |
-| `scripts/flow-to-spec.js` | Hybrid transformer: flow-data.json → figma-spec.json. Deterministic chrome (App Header, Sidebar, Content Area), AI provides content only. Used by generate-flow Step 5. |
-| `scripts/slide-to-spec.js` | Deterministic transformer: slide-data.json → figma-spec.json. Handles slide frames, gradients, variable bindings. Used by generate-presentation Step 6. |
-| `scripts/validate-spec.js` | Node.js validation script for figma-spec.json files |
+| `scripts/figma-codegen.js` | Shared Figma code generation library — generates Plugin API code from node trees. Used by all Figma-writing skills (flow-to-figma, brief-to-figma, slide-to-figma, create-component). |
+| `scripts/flow-to-figma.js` | Flow-specific: reads flow-data.json, applies templates from templates.json, generates self-contained Figma plugin JS via codegen. |
+| `scripts/brief-to-figma.js` | Brief-specific: reads brief-data.json, builds 9 cards + gen log, generates Figma plugin JS via codegen. |
+| `scripts/slide-to-figma.js` | Slide-specific: reads slide-data.json, builds slide frames with gradients + variable bindings, generates Figma plugin JS via codegen. |
+| `scripts/templates.json` | Template definitions: dimensions, chrome type, content area config per template (admin, studio, explorer, no-sidebar, bare, mobile, tablet, compact, custom). |
 | `scripts/html-renderers/brief-renderer.js` | Client-side card renderer — builds all 9 DS + 5 FM cards from brief-data.json. Embedded in HTML. |
 | `scripts/html-renderers/flow-renderer.js` | Client-side screen chrome renderer — app header, sidebar, page header, cover card. Embedded in HTML. |
 | `scripts/html-renderers/presentation-renderer.js` | Client-side slide template renderer — cover, section, body, back cover + chart helpers. Embedded in HTML. |

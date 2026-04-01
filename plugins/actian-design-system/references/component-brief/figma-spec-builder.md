@@ -1,13 +1,13 @@
 # Component Brief — Figma Spec Builder
 
-**This file is maintenance documentation for `scripts/brief-to-spec.js`.** It is NOT read by the AI at runtime. The script encodes all card-by-card mapping logic deterministically.
+**This file is maintenance documentation for `scripts/brief-to-figma.js`.** It is NOT read by the AI at runtime. The script encodes all card-by-card mapping logic deterministically.
 
 ## How it works
 
 1. AI generates `brief-data.json` (the data model)
-2. Script runs: `node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-spec.js brief-data.json --target-node-id "<id>"`
-3. Script outputs figma-spec.json array (auto-split under 33KB per call)
-4. AI reads interpreter + assembles use_figma calls
+2. Script runs: `node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js brief-data.json --target-node-id "<id>"`
+3. Script outputs JSON array of `{ callIndex, code, description }` — self-contained Figma plugin JS per call
+4. AI passes each `code` to `use_figma` (replace `__WRAPPER_ID__` in call 2+)
 
 ## Card mapping (9 DS + 5 FM cards)
 
@@ -37,13 +37,12 @@ Cards 1-5 only, adapted for Fat Marker wireframe components.
 - **Never summarize** — every array item expands to real spec nodes (P0 rule)
 - **LOCAL_INSTANCE** for same-file component variants (Cards 2, 3)
 - **isValidHex()** guard for non-hex color values
-- **Auto-splitting** measures each card's JSON size, bins under 33KB
+- **Auto-splitting** measures each card's JSON size, bins under 12KB
 - **Compact JSON** — no pretty-printing (every byte counts for 50KB limit)
 
 ## Maintaining the script
 
 To modify card layout or add new cards:
-1. Edit `scripts/brief-to-spec.js` directly
-2. Test with real brief-data.json: `node scripts/brief-to-spec.js test-data.json --target-node-id "0:1"`
-3. Validate output: `node scripts/validate-spec.js output.json`
-4. The data model schema is in `references/component-brief/data-schema.md`
+1. Edit `scripts/brief-to-figma.js` directly
+2. Test with real brief-data.json: `node scripts/brief-to-figma.js test-data.json --target-node-id "0:1"`
+3. The data model schema is in `references/component-brief/data-schema.md`

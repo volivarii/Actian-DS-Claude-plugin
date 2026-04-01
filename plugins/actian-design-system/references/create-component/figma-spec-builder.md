@@ -1,6 +1,6 @@
 # Create Component — Figma Spec Builder
 
-Transforms a component build plan into `figma-spec.json` for the JSON Spec Interpreter. The interpreter (`scripts/figma-interpreter.js`) builds the component tree directly in Figma using `createComponent`, `combineAsVariants`, `addComponentProperty`, and `componentPropertyReferences`.
+Transforms a component build plan into `figma-spec.json`, then uses `figma-codegen.js` to generate Figma plugin code. The codegen produces `createComponent`, `combineAsVariants`, `addComponentProperty`, and `componentPropertyReferences` calls.
 
 ## Purpose
 

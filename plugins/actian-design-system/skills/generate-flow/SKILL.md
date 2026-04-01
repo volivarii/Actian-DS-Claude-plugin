@@ -184,26 +184,18 @@ After writing the HTML file, **dispatch `flow-consistency` agent** in background
 4. Save to: `{project_working_directory}/components/flows/[feature-name]-prototype.html`
 5. Re-present gate with both URLs
 
-## Step 5 — Output to Figma (flow-to-spec.js + interpreter)
+## Step 5 — Output to Figma (flow-to-figma.js)
 
-**Do NOT write freehand Figma specs.** Use the `flow-to-spec.js` script — it builds correct screen chrome deterministically.
+**Do NOT write freehand Figma code.** Use the `flow-to-figma.js` script — it builds correct screen chrome from templates and generates Figma plugin code via the shared codegen.
 
-1. Read `../../references/generate-flow/figma-spec-builder.md` — input schema + content node reference
-2. Write `flow-data.json` to the project directory:
-   - `meta`: feature, flow, user, app, targetNodeId, prompt, duration
-   - `screens[]`: per screen: name, chrome (`standard`/`no-sidebar`/`none`), size, activeNavItem, navItems, pageHeader, content[]
-   - The AI provides only `content[]` — the script handles App Header, Sidebar, Body, Content Area
-3. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-spec.js flow-data.json --target-node-id "<nodeId>"`
-4. Script outputs array of figma-spec.json objects (auto-split under 33KB)
-5. Read `../../scripts/figma-interpreter.min.js` (~16KB)
-6. For each spec in the array, assemble `use_figma` call:
-   ```js
-   ${interpreterCode}
-   const spec = ${JSON.stringify(specFromScript)};
-   return await buildFromSpec(spec);
-   ```
-   For call 2+: replace `__WRAPPER_ID__` in `meta.appendToId` with the wrapperId from call 1.
-7. After all calls: parity validation (screen count vs Figma frame count)
+1. Read `../../references/generate-flow/figma-spec-builder.md` — template list + content node reference
+2. Ensure `flow-data.json` exists in the project directory (written in Step 4)
+3. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<nodeId>"`
+4. Script outputs JSON array of `{ callIndex, code, description }` objects to stdout
+5. For each call, pass `code` to `use_figma`:
+   - Call 1: use as-is (creates wrapper + section)
+   - Call 2+: replace `__WRAPPER_ID__` in code with the `wrapperId` from call 1's response
+6. After all calls: parity validation (screen count vs Figma frame count)
 
 ## Step 5.5 — Wire prototype (opt-in)
 
@@ -252,8 +244,9 @@ Detailed content in `references/generate-flow/`:
 - **`research-guide.md`** — Competitor research, reference analysis, research frame format
 
 Shared references:
-- **`../../references/figma-spec-schema.md`** — JSON spec format for the interpreter
-- **`../../scripts/figma-interpreter.min.js`** — Minified interpreter (~16KB, all 17 node types, included in use_figma calls)
+- **`../../scripts/figma-codegen.js`** — Shared Figma code generation library (generates Plugin API code from node trees)
+- **`../../scripts/flow-to-figma.js`** — Flow-specific: reads flow-data.json, applies templates, generates Figma plugin JS via codegen
+- **`../../scripts/templates.json`** — Template definitions (admin, studio, explorer, no-sidebar, bare, mobile, tablet, compact, custom)
 - **`../../references/app-context.md`** — Actian product context: 3 apps, entity model, terminology, UI patterns
 - **`../../references/ux-patterns.md`** — SaaS UX pattern library by flow type (discovery, creation, config, visualization, governance)
 - **`../../references/prototype-wiring.md`** — Smart Figma prototype wiring: analysis algorithm, code patterns, wiring plan format
