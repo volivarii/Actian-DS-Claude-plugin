@@ -18,7 +18,7 @@ const path = require('path');
 // Constants
 // ---------------------------------------------------------------------------
 
-const MAX_SPEC_BYTES = 33000;
+const MAX_SPEC_BYTES = 12000;
 const OVERHEAD = 800; // larger overhead for variable declarations
 
 const SLIDE_W = 1920;

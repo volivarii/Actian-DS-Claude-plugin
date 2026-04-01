@@ -848,8 +848,8 @@ function validate(data) {
 // Call splitting — assemble specs
 // ---------------------------------------------------------------------------
 
-// Auto-split cards into calls that fit within the 34KB spec budget (50KB - 16KB interpreter)
-const MAX_SPEC_BYTES = 33000; // 33KB per call (1KB margin under 34KB budget = 50KB - 16KB interpreter)
+// Auto-split cards into calls under 12KB spec — keeps total use_figma code under ~30KB for reliable LLM output
+const MAX_SPEC_BYTES = 12000;
 
 function compactSize(obj) {
   return JSON.stringify(obj, null, 0).length;

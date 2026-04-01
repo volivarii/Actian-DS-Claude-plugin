@@ -6,7 +6,7 @@
 
 1. AI generates `brief-data.json` (the data model)
 2. Script runs: `node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-spec.js brief-data.json --target-node-id "<id>"`
-3. Script outputs figma-spec.json array (auto-split under 33KB per call)
+3. Script outputs figma-spec.json array (auto-split under 12KB per call)
 4. AI reads interpreter + assembles use_figma calls
 
 ## Card mapping (9 DS + 5 FM cards)
@@ -37,7 +37,7 @@ Cards 1-5 only, adapted for Fat Marker wireframe components.
 - **Never summarize** — every array item expands to real spec nodes (P0 rule)
 - **LOCAL_INSTANCE** for same-file component variants (Cards 2, 3)
 - **isValidHex()** guard for non-hex color values
-- **Auto-splitting** measures each card's JSON size, bins under 33KB
+- **Auto-splitting** measures each card's JSON size, bins under 12KB
 - **Compact JSON** — no pretty-printing (every byte counts for 50KB limit)
 
 ## Maintaining the script

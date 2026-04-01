@@ -1,0 +1,40 @@
+{
+  "flow-templates": {
+    "admin": {
+      "width": 1440, "height": 960,
+      "chrome": "app-header-sidebar",
+      "appHeaderVariant": "Type=Admin",
+      "sidebarWidth": 260,
+      "contentPadding": [24, 32, 24, 32],
+      "contentFill": "#F5F5FA"
+    },
+    "studio": {
+      "width": 1440, "height": 960,
+      "chrome": "app-header-sidebar",
+      "appHeaderVariant": "Type=Studio",
+      "sidebarWidth": 260,
+      "contentPadding": [24, 32, 24, 32],
+      "contentFill": "#F5F5FA"
+    },
+    "explorer": {
+      "width": 1440, "height": 960,
+      "chrome": "app-header-sidebar",
+      "appHeaderVariant": "Type=Explorer",
+      "sidebarWidth": 260,
+      "contentPadding": [24, 32, 24, 32],
+      "contentFill": "#F5F5FA"
+    },
+    "no-sidebar": {
+      "width": 1440, "height": 960,
+      "chrome": "app-header-only",
+      "appHeaderVariant": "Type=Admin",
+      "contentPadding": [24, 32, 24, 32],
+      "contentFill": "#F5F5FA"
+    },
+    "bare": { "width": 1440, "height": 960, "chrome": "none" },
+    "mobile": { "width": 390, "height": 844, "chrome": "none" },
+    "tablet": { "width": 1024, "height": 768, "chrome": "none" },
+    "compact": { "width": 1440, "height": 700, "chrome": "none" },
+    "custom": { "chrome": "none" }
+  }
+}

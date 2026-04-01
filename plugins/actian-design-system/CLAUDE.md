@@ -88,11 +88,14 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 |------|---------|
 | `docs/presentation-guide.md` | Slide templates, voice & tone, chart selection, narrative structure |
 | `docs/meta-kit/builders.md` | Shared JS builder functions |
-| `scripts/figma-interpreter.js` | Source interpreter (32KB) — 17 node types, variable/style binding. Human-readable, not used directly by skills. |
-| `scripts/figma-interpreter.min.js` | Minified interpreter (~16KB) — all 17 node types. Used by ALL output skills. Leaves ~34KB for specs. |
-| `scripts/build-interpreters.sh` | Build script: minifies source → .min.js via terser. Run after editing the source. |
-| `scripts/brief-to-spec.js` | Deterministic transformer: brief-data.json → figma-spec.json array with auto-splitting under 33KB per call. Used by component-brief Step 3. |
-| `scripts/flow-to-spec.js` | Hybrid transformer: flow-data.json → figma-spec.json. Deterministic chrome (App Header, Sidebar, Content Area), AI provides content only. Used by generate-flow Step 5. |
+| `scripts/figma-codegen.js` | Shared Figma code generation library — generates Plugin API code from node trees. Used by flow-to-figma.js (and future brief-to-figma.js, slide-to-figma.js). |
+| `scripts/flow-to-figma.js` | Flow-specific: reads flow-data.json, applies templates from templates.json, generates self-contained Figma plugin JS via codegen. No interpreter needed. |
+| `scripts/templates.json` | Template definitions: dimensions, chrome type, content area config per template (admin, studio, explorer, no-sidebar, bare, mobile, tablet, compact, custom). |
+| `scripts/figma-interpreter.js` | Legacy source interpreter (32KB) — used by brief-to-spec.js and slide-to-spec.js only. Pending Phase 3 migration. |
+| `scripts/figma-interpreter.min.js` | Legacy minified interpreter (~16KB) — used by component-brief and generate-presentation. Pending Phase 3 migration. |
+| `scripts/build-interpreters.sh` | Legacy build script for interpreter. Pending Phase 3 removal. |
+| `scripts/brief-to-spec.js` | Deterministic transformer: brief-data.json → figma-spec.json array with auto-splitting under 12KB per call. Used by component-brief Step 3. |
+| `scripts/flow-to-spec.js` | Legacy flow transformer — replaced by flow-to-figma.js for generate-flow. Kept for reference. |
 | `scripts/slide-to-spec.js` | Deterministic transformer: slide-data.json → figma-spec.json. Handles slide frames, gradients, variable bindings. Used by generate-presentation Step 6. |
 | `scripts/validate-spec.js` | Node.js validation script for figma-spec.json files |
 | `scripts/html-renderers/brief-renderer.js` | Client-side card renderer — builds all 9 DS + 5 FM cards from brief-data.json. Embedded in HTML. |

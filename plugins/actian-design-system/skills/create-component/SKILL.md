@@ -141,7 +141,7 @@ If no nested components are referenced in the build plan, skip this step entirel
    - **Property links** → `propertyLinks: [{ layer, property }]` to connect text nodes
    - **Variable scopes** → `variableScopes: [{ ref, scopes }]` — NEVER leave as `ALL_SCOPES`
    - **Nested components** → declare in `spec.imports`, use INSTANCE nodes in children
-4. Read `../../scripts/figma-interpreter.min.js` (~16KB minified — all 17 node types, leaves ~34KB for spec)
+4. Read `../../scripts/figma-interpreter.min.js` (~16KB minified — all 17 node types, specs should stay under 12KB per call)
 5. Assemble `use_figma` call:
    ```js
    ${interpreterCode}

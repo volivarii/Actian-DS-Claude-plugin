@@ -94,7 +94,7 @@ data-model.json → AI transforms → figma-spec.json → Fixed interpreter → 
 The AI produces a declarative JSON spec. A fixed minified interpreter builds the Figma tree mechanically. The AI never writes Plugin API code.
 
 One minified interpreter (built via `scripts/build-interpreters.sh`):
-- **`figma-interpreter.min.js`** (~16KB) — All 17 node types. Used by ALL output skills. Leaves ~34KB for specs — nearly double the unminified budget.
+- **`figma-interpreter.min.js`** (~16KB) — All 17 node types. Used by ALL output skills. Specs split at 12KB to keep total use_figma code under ~30KB for reliable LLM output.
 
 ### How to use
 

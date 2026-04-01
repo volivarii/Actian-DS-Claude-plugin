@@ -1,0 +1,555 @@
+{
+  "meta": {
+    "feature": "Admin Dashboard",
+    "flow": "Overview",
+    "user": "Administrator",
+    "app": "Administration",
+    "targetNodeId": "0:1",
+    "prompt": "Admin dashboard",
+    "duration": "~3 min"
+  },
+  "screens": [
+    {
+      "name": "Screen 1: Dashboard Overview",
+      "chrome": "standard",
+      "size": "standard",
+      "activeNavItem": "Dashboard",
+      "navItems": 8,
+      "pageHeader": { "title": "Dashboard", "subtitle": "System overview and recent activity" },
+      "content": [
+        {
+          "type": "FRAME", "name": "Metrics Row", "layout": { "mode": "HORIZONTAL", "spacing": 16 },
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+          "children": [
+            {
+              "type": "FRAME", "name": "Metric: Active Users", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "ACTIVE USERS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "128", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "12 new this month", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Metric: Connections", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "CONNECTIONS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "34", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "All valid", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Metric: Scanners", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "SCANNERS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "8", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "1 action required", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Metric: Groups", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "GROUPS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "6", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "3 Explorer, 3 Steward", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "FRAME", "name": "Two Column Layout", "layout": { "mode": "HORIZONTAL", "spacing": 24 },
+          "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+          "children": [
+            {
+              "type": "FRAME", "name": "Main Column", "layout": { "mode": "VERTICAL", "spacing": 12 },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "Recent Connections", "font": "Inter:Semi Bold", "size": 16, "color": "#101828" },
+                {
+                  "type": "FRAME", "name": "Connections Table", "layout": { "mode": "VERTICAL", "spacing": 0 },
+                  "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+                  "sizing": { "horizontal": "FILL", "vertical": "HUG" }, "clipsContent": true,
+                  "children": [
+                    {
+                      "type": "FRAME", "name": "Table Header", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+                      "fills": ["#F5F5FA"], "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+                      "children": [
+                        { "type": "TEXT", "content": "NAME", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "width": 280, "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                        { "type": "TEXT", "content": "TYPE", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "width": 180, "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                        { "type": "TEXT", "content": "STATUS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "width": 160, "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                        { "type": "TEXT", "content": "LAST SCAN", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } }
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Row: Snowflake", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+                      "children": [
+                        { "type": "TEXT", "content": "Snowflake Production", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 280 },
+                        { "type": "TEXT", "content": "Snowflake", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 180 },
+                        { "type": "FRAME", "name": "Status Valid", "layout": { "mode": "HORIZONTAL", "spacing": 6, "padding": [2, 10, 2, 10] }, "fills": ["#EDF0F7"], "cornerRadius": 9999, "sizing": { "horizontal": "HUG", "vertical": "HUG" }, "children": [
+                          { "type": "ELLIPSE", "name": "Dot", "width": 6, "height": 6, "fills": ["#047800"] },
+                          { "type": "TEXT", "content": "Valid", "font": "Inter:Medium", "size": 12, "color": "#2D3648" }
+                        ]},
+                        { "type": "TEXT", "content": "2 hours ago", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Row: Azure", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+                      "children": [
+                        { "type": "TEXT", "content": "Azure Data Lake", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 280 },
+                        { "type": "TEXT", "content": "Azure", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 180 },
+                        { "type": "FRAME", "name": "Status Valid", "layout": { "mode": "HORIZONTAL", "spacing": 6, "padding": [2, 10, 2, 10] }, "fills": ["#EDF0F7"], "cornerRadius": 9999, "sizing": { "horizontal": "HUG", "vertical": "HUG" }, "children": [
+                          { "type": "ELLIPSE", "name": "Dot", "width": 6, "height": 6, "fills": ["#047800"] },
+                          { "type": "TEXT", "content": "Valid", "font": "Inter:Medium", "size": 12, "color": "#2D3648" }
+                        ]},
+                        { "type": "TEXT", "content": "4 hours ago", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Row: PostgreSQL", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+                      "children": [
+                        { "type": "TEXT", "content": "PostgreSQL Analytics", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 280 },
+                        { "type": "TEXT", "content": "PostgreSQL", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 180 },
+                        { "type": "FRAME", "name": "Status Valid", "layout": { "mode": "HORIZONTAL", "spacing": 6, "padding": [2, 10, 2, 10] }, "fills": ["#EDF0F7"], "cornerRadius": 9999, "sizing": { "horizontal": "HUG", "vertical": "HUG" }, "children": [
+                          { "type": "ELLIPSE", "name": "Dot", "width": 6, "height": 6, "fills": ["#047800"] },
+                          { "type": "TEXT", "content": "Valid", "font": "Inter:Medium", "size": 12, "color": "#2D3648" }
+                        ]},
+                        { "type": "TEXT", "content": "1 day ago", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Row: Tableau", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "children": [
+                        { "type": "TEXT", "content": "Tableau Reports", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 280 },
+                        { "type": "TEXT", "content": "Tableau", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 180 },
+                        { "type": "FRAME", "name": "Status Valid", "layout": { "mode": "HORIZONTAL", "spacing": 6, "padding": [2, 10, 2, 10] }, "fills": ["#EDF0F7"], "cornerRadius": 9999, "sizing": { "horizontal": "HUG", "vertical": "HUG" }, "children": [
+                          { "type": "ELLIPSE", "name": "Dot", "width": 6, "height": 6, "fills": ["#047800"] },
+                          { "type": "TEXT", "content": "Valid", "font": "Inter:Medium", "size": 12, "color": "#2D3648" }
+                        ]},
+                        { "type": "TEXT", "content": "3 days ago", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Side Column", "layout": { "mode": "VERTICAL", "spacing": 12 },
+              "sizing": { "horizontal": 320, "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "Recent Activity", "font": "Inter:Semi Bold", "size": 16, "color": "#101828" },
+                {
+                  "type": "FRAME", "name": "Activity List", "layout": { "mode": "VERTICAL", "spacing": 0 },
+                  "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+                  "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                  "children": [
+                    {
+                      "type": "FRAME", "name": "Activity: User added", "layout": { "mode": "HORIZONTAL", "spacing": 12, "padding": [12, 16, 12, 16] },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+                      "children": [
+                        { "type": "ELLIPSE", "name": "Avatar", "width": 28, "height": 28, "fills": ["#CBD2E0"] },
+                        { "type": "FRAME", "name": "Text", "layout": { "mode": "VERTICAL", "spacing": 2 }, "sizing": { "horizontal": "FILL", "vertical": "HUG" }, "children": [
+                          { "type": "TEXT", "content": "Sarah Chen added to Data Steward group", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 220 },
+                          { "type": "TEXT", "content": "2h ago", "font": "Inter:Regular", "size": 12, "color": "#475467" }
+                        ]}
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Activity: Scan complete", "layout": { "mode": "HORIZONTAL", "spacing": 12, "padding": [12, 16, 12, 16] },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+                      "children": [
+                        { "type": "ELLIPSE", "name": "Avatar", "width": 28, "height": 28, "fills": ["#CBD2E0"] },
+                        { "type": "FRAME", "name": "Text", "layout": { "mode": "VERTICAL", "spacing": 2 }, "sizing": { "horizontal": "FILL", "vertical": "HUG" }, "children": [
+                          { "type": "TEXT", "content": "Snowflake Production scan completed", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 220 },
+                          { "type": "TEXT", "content": "4h ago", "font": "Inter:Regular", "size": 12, "color": "#475467" }
+                        ]}
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Activity: API key", "layout": { "mode": "HORIZONTAL", "spacing": 12, "padding": [12, 16, 12, 16] },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+                      "children": [
+                        { "type": "ELLIPSE", "name": "Avatar", "width": 28, "height": 28, "fills": ["#CBD2E0"] },
+                        { "type": "FRAME", "name": "Text", "layout": { "mode": "VERTICAL", "spacing": 2 }, "sizing": { "horizontal": "FILL", "vertical": "HUG" }, "children": [
+                          { "type": "TEXT", "content": "API Key created for CI/CD pipeline", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 220 },
+                          { "type": "TEXT", "content": "1d ago", "font": "Inter:Regular", "size": 12, "color": "#475467" }
+                        ]}
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Activity: Group updated", "layout": { "mode": "HORIZONTAL", "spacing": 12, "padding": [12, 16, 12, 16] },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "children": [
+                        { "type": "ELLIPSE", "name": "Avatar", "width": 28, "height": 28, "fills": ["#CBD2E0"] },
+                        { "type": "FRAME", "name": "Text", "layout": { "mode": "VERTICAL", "spacing": 2 }, "sizing": { "horizontal": "FILL", "vertical": "HUG" }, "children": [
+                          { "type": "TEXT", "content": "Explorer - Finance permissions updated", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 220 },
+                          { "type": "TEXT", "content": "2d ago", "font": "Inter:Regular", "size": 12, "color": "#475467" }
+                        ]}
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 2: Dashboard with Alerts",
+      "chrome": "standard",
+      "size": "standard",
+      "activeNavItem": "Dashboard",
+      "navItems": 8,
+      "pageHeader": { "title": "Dashboard", "subtitle": "System overview and recent activity" },
+      "content": [
+        {
+          "type": "FRAME", "name": "Alert: Connection Error", "layout": { "mode": "HORIZONTAL", "spacing": 12, "padding": [12, 16, 12, 16] },
+          "fills": ["#FCF3F3"], "cornerRadius": 8, "stroke": { "color": "#FECACA", "weight": 1, "align": "INSIDE" },
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+          "children": [
+            { "type": "ELLIPSE", "name": "Icon", "width": 20, "height": 20, "fills": ["#D92D20"] },
+            { "type": "TEXT", "content": "2 connections require attention — Databricks Staging has authentication errors", "font": "Inter:Regular", "size": 14, "color": "#101828", "sizing": { "horizontal": "FILL", "vertical": "HUG" } },
+            { "type": "TEXT", "content": "View Connections", "font": "Inter:Semi Bold", "size": 14, "color": "#0550DC" }
+          ]
+        },
+        {
+          "type": "FRAME", "name": "Alert: Scanner Action", "layout": { "mode": "HORIZONTAL", "spacing": 12, "padding": [12, 16, 12, 16] },
+          "fills": ["#EDF0F7"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+          "children": [
+            { "type": "ELLIPSE", "name": "Icon", "width": 20, "height": 20, "fills": ["#A0ABC0"] },
+            { "type": "TEXT", "content": "1 scanner needs action — verify network access for Oracle connector", "font": "Inter:Regular", "size": 14, "color": "#101828", "sizing": { "horizontal": "FILL", "vertical": "HUG" } },
+            { "type": "TEXT", "content": "View Scanners", "font": "Inter:Semi Bold", "size": 14, "color": "#0550DC" }
+          ]
+        },
+        {
+          "type": "FRAME", "name": "Metrics Row", "layout": { "mode": "HORIZONTAL", "spacing": 16 },
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+          "children": [
+            {
+              "type": "FRAME", "name": "Metric: Active Users", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "ACTIVE USERS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "128", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "12 new this month", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Metric: Connections", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "CONNECTIONS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "34", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "2 with errors", "font": "Inter:Regular", "size": 13, "color": "#D92D20" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Metric: Scanners", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "SCANNERS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "8", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "1 action required", "font": "Inter:Regular", "size": 13, "color": "#D92D20" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Metric: Groups", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "GROUPS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "6", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "3 Explorer, 3 Steward", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            }
+          ]
+        },
+        { "type": "TEXT", "content": "Recent Connections", "font": "Inter:Semi Bold", "size": 16, "color": "#101828" },
+        {
+          "type": "FRAME", "name": "Connections Table", "layout": { "mode": "VERTICAL", "spacing": 0 },
+          "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" }, "clipsContent": true,
+          "children": [
+            {
+              "type": "FRAME", "name": "Table Header", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+              "fills": ["#F5F5FA"], "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+              "children": [
+                { "type": "TEXT", "content": "NAME", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "width": 280, "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "TYPE", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "width": 180, "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "STATUS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "width": 160, "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "LAST SCAN", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Row: Databricks Error", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+              "children": [
+                { "type": "TEXT", "content": "Databricks Staging", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 280 },
+                { "type": "TEXT", "content": "Databricks", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 180 },
+                { "type": "FRAME", "name": "Status Error", "layout": { "mode": "HORIZONTAL", "spacing": 6, "padding": [2, 10, 2, 10] }, "fills": ["#EDF0F7"], "cornerRadius": 9999, "sizing": { "horizontal": "HUG", "vertical": "HUG" }, "children": [
+                  { "type": "ELLIPSE", "name": "Dot", "width": 6, "height": 6, "fills": ["#D92D20"] },
+                  { "type": "TEXT", "content": "Error", "font": "Inter:Medium", "size": 12, "color": "#2D3648" }
+                ]},
+                { "type": "TEXT", "content": "Failed 6h ago", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Row: SAP Error", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+              "children": [
+                { "type": "TEXT", "content": "SAP BW", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 280 },
+                { "type": "TEXT", "content": "SAP", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 180 },
+                { "type": "FRAME", "name": "Status Error", "layout": { "mode": "HORIZONTAL", "spacing": 6, "padding": [2, 10, 2, 10] }, "fills": ["#EDF0F7"], "cornerRadius": 9999, "sizing": { "horizontal": "HUG", "vertical": "HUG" }, "children": [
+                  { "type": "ELLIPSE", "name": "Dot", "width": 6, "height": 6, "fills": ["#D92D20"] },
+                  { "type": "TEXT", "content": "Error", "font": "Inter:Medium", "size": 12, "color": "#2D3648" }
+                ]},
+                { "type": "TEXT", "content": "Failed 1d ago", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Row: Snowflake", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+              "children": [
+                { "type": "TEXT", "content": "Snowflake Production", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 280 },
+                { "type": "TEXT", "content": "Snowflake", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 180 },
+                { "type": "FRAME", "name": "Status Valid", "layout": { "mode": "HORIZONTAL", "spacing": 6, "padding": [2, 10, 2, 10] }, "fills": ["#EDF0F7"], "cornerRadius": 9999, "sizing": { "horizontal": "HUG", "vertical": "HUG" }, "children": [
+                  { "type": "ELLIPSE", "name": "Dot", "width": 6, "height": 6, "fills": ["#047800"] },
+                  { "type": "TEXT", "content": "Valid", "font": "Inter:Medium", "size": 12, "color": "#2D3648" }
+                ]},
+                { "type": "TEXT", "content": "2 hours ago", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Row: Azure", "layout": { "mode": "HORIZONTAL", "spacing": 0, "padding": [12, 16, 12, 16] },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "Azure Data Lake", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 280 },
+                { "type": "TEXT", "content": "Azure", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 180 },
+                { "type": "FRAME", "name": "Status Valid", "layout": { "mode": "HORIZONTAL", "spacing": 6, "padding": [2, 10, 2, 10] }, "fills": ["#EDF0F7"], "cornerRadius": 9999, "sizing": { "horizontal": "HUG", "vertical": "HUG" }, "children": [
+                  { "type": "ELLIPSE", "name": "Dot", "width": 6, "height": 6, "fills": ["#047800"] },
+                  { "type": "TEXT", "content": "Valid", "font": "Inter:Medium", "size": 12, "color": "#2D3648" }
+                ]},
+                { "type": "TEXT", "content": "4 hours ago", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 3: Empty State",
+      "chrome": "standard",
+      "size": "standard",
+      "activeNavItem": "Dashboard",
+      "navItems": 8,
+      "pageHeader": { "title": "Dashboard", "subtitle": "System overview and recent activity" },
+      "content": [
+        {
+          "type": "FRAME", "name": "Metrics Row", "layout": { "mode": "HORIZONTAL", "spacing": 16 },
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+          "children": [
+            {
+              "type": "FRAME", "name": "Metric: Active Users", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "ACTIVE USERS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "1", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "Just you", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Metric: Connections", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "CONNECTIONS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "0", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "No connections yet", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Metric: Scanners", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "SCANNERS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "0", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "No scanners yet", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Metric: Groups", "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [20, 24, 20, 24] },
+              "fills": ["#FFFFFF"], "cornerRadius": 8, "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE" },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                { "type": "TEXT", "content": "GROUPS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                { "type": "TEXT", "content": "0", "font": "Inter:Bold", "size": 32, "color": "#101828" },
+                { "type": "TEXT", "content": "No groups yet", "font": "Inter:Regular", "size": 13, "color": "#475467" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "FRAME", "name": "Empty State", "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [64, 32, 64, 32] },
+          "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+          "children": [
+            { "type": "RECT", "name": "Icon Placeholder", "width": 64, "height": 64, "fills": ["#E2E7F0"], "cornerRadius": 16 },
+            { "type": "TEXT", "content": "Set up your platform", "font": "Inter:Semi Bold", "size": 18, "color": "#101828" },
+            { "type": "TEXT", "content": "Start by adding your first connection to begin discovering and cataloging your data assets. Then invite your team and configure groups.", "font": "Inter:Regular", "size": 14, "color": "#475467", "width": 360, "textAlign": { "horizontal": "CENTER" }, "lineHeight": { "value": 150, "unit": "PERCENT" } },
+            {
+              "type": "FRAME", "name": "CTA Buttons", "layout": { "mode": "HORIZONTAL", "spacing": 12, "padding": [12, 0, 0, 0] },
+              "sizing": { "horizontal": "HUG", "vertical": "HUG" },
+              "children": [
+                { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=sm, Shape=Regular, State=Default", "props": { "Label": "Add Connection" } },
+                { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=sm, Shape=Regular, State=Default", "props": { "Label": "Invite Users" } }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Screen 4: Connection Detail",
+      "chrome": "standard",
+      "size": "standard",
+      "activeNavItem": "Dashboard",
+      "navItems": 8,
+      "pageHeader": { "title": "Dashboard", "subtitle": "System overview and recent activity" },
+      "content": [
+        {
+          "type": "FRAME", "name": "Dashboard with Panel", "layout": { "mode": "HORIZONTAL", "spacing": 0 },
+          "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+          "children": [
+            {
+              "type": "FRAME", "name": "Background (dimmed)", "layout": { "mode": "VERTICAL", "spacing": 16, "padding": [0, 16, 0, 0] },
+              "sizing": { "horizontal": "FILL", "vertical": "FILL" }, "opacity": 0.4,
+              "children": [
+                {
+                  "type": "FRAME", "name": "Metrics Row Dimmed", "layout": { "mode": "HORIZONTAL", "spacing": 16 },
+                  "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                  "children": [
+                    { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=metric", "name": "Metric placeholder 1" },
+                    { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=metric", "name": "Metric placeholder 2" },
+                    { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=metric", "name": "Metric placeholder 3" },
+                    { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=metric", "name": "Metric placeholder 4" }
+                  ]
+                },
+                { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+3lines", "name": "Table placeholder" }
+              ]
+            },
+            {
+              "type": "FRAME", "name": "Connection Detail Panel", "layout": { "mode": "VERTICAL", "spacing": 0 },
+              "fills": ["#FFFFFF"], "sizing": { "horizontal": 400, "vertical": "FILL" },
+              "stroke": { "color": "#E2E7F0", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": false, "left": true } },
+              "effects": [{ "type": "DROP_SHADOW", "color": "#000000", "opacity": 0.06, "offset": { "x": -4, "y": 0 }, "radius": 16 }],
+              "children": [
+                {
+                  "type": "FRAME", "name": "Panel Header", "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [20, 24, 20, 24] },
+                  "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                  "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": false, "right": false, "bottom": true, "left": false } },
+                  "children": [
+                    { "type": "TEXT", "content": "Snowflake Production", "font": "Inter:Semi Bold", "size": 18, "color": "#101828", "sizing": { "horizontal": "FILL", "vertical": "HUG" } },
+                    { "type": "RECT", "name": "Close Button", "width": 32, "height": 32, "fills": ["#EDF0F7"], "cornerRadius": 6 }
+                  ]
+                },
+                {
+                  "type": "FRAME", "name": "Panel Body", "layout": { "mode": "VERTICAL", "spacing": 20, "padding": [24, 24, 24, 24] },
+                  "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+                  "children": [
+                    {
+                      "type": "FRAME", "name": "Field: Status", "layout": { "mode": "VERTICAL", "spacing": 4 },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "children": [
+                        { "type": "TEXT", "content": "STATUS", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                        { "type": "FRAME", "name": "Status Valid", "layout": { "mode": "HORIZONTAL", "spacing": 6, "padding": [2, 10, 2, 10] }, "fills": ["#EDF0F7"], "cornerRadius": 9999, "sizing": { "horizontal": "HUG", "vertical": "HUG" }, "children": [
+                          { "type": "ELLIPSE", "name": "Dot", "width": 6, "height": 6, "fills": ["#047800"] },
+                          { "type": "TEXT", "content": "Valid", "font": "Inter:Medium", "size": 12, "color": "#2D3648" }
+                        ]}
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Field: Type", "layout": { "mode": "VERTICAL", "spacing": 4 },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "children": [
+                        { "type": "TEXT", "content": "CONNECTION TYPE", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                        { "type": "TEXT", "content": "Snowflake", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Field: Last Scan", "layout": { "mode": "VERTICAL", "spacing": 4 },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "children": [
+                        { "type": "TEXT", "content": "LAST SCAN", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                        { "type": "TEXT", "content": "2 hours ago — 1,247 objects discovered", "font": "Inter:Regular", "size": 14, "color": "#101828", "width": 340 }
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Field: Items", "layout": { "mode": "VERTICAL", "spacing": 4 },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "children": [
+                        { "type": "TEXT", "content": "ITEMS IMPORTED", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                        { "type": "TEXT", "content": "892 datasets, 12,430 fields", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Field: Scanner", "layout": { "mode": "VERTICAL", "spacing": 4 },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "children": [
+                        { "type": "TEXT", "content": "SCANNER", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                        { "type": "TEXT", "content": "scanner-prod-01 (Active)", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+                      ]
+                    },
+                    {
+                      "type": "FRAME", "name": "Field: Created", "layout": { "mode": "VERTICAL", "spacing": 4 },
+                      "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                      "children": [
+                        { "type": "TEXT", "content": "CREATED", "font": "Inter:Semi Bold", "size": 12, "color": "#475467", "letterSpacing": { "value": 0.5, "unit": "PIXELS" } },
+                        { "type": "TEXT", "content": "Jan 15, 2026 by admin@company.com", "font": "Inter:Regular", "size": 14, "color": "#101828" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "FRAME", "name": "Panel Actions", "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 24, 16, 24] },
+                  "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                  "stroke": { "color": "#EDF0F7", "weight": 1, "align": "INSIDE", "sides": { "top": true, "right": false, "bottom": false, "left": false } },
+                  "children": [
+                    { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=sm, Shape=Regular, State=Default", "props": { "Label": "Run Inventory" } },
+                    { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=sm, Shape=Regular, State=Default", "props": { "Label": "Edit Connection" } }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1000,10 +1000,14 @@ const MINIMAL_SPEC = {
   );
   assertContains(
     code,
-    "(async function() {",
-    "generateCallCode: async IIFE wrapper",
+    "// Navigate to target page",
+    "generateCallCode: has top-level async code",
   );
-  assertContains(code, "})();", "generateCallCode: IIFE is invoked");
+  assertContains(
+    code,
+    "return { wrapperId:",
+    "generateCallCode: has top-level return",
+  );
 })();
 
 (function testCallCodeNavigation() {

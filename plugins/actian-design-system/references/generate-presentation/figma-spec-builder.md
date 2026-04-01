@@ -6,7 +6,7 @@ The `slide-to-spec.js` script builds the Figma spec. The AI provides slide type 
 
 1. AI writes `slide-data.json` with meta + slides
 2. Script runs: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-spec.js slide-data.json --target-node-id "<id>"`
-3. Script outputs array of figma-spec.json objects (auto-split under 33KB, variables included)
+3. Script outputs array of figma-spec.json objects (auto-split under 12KB, variables included)
 4. AI reads interpreter + assembles use_figma calls from output
 
 ## Input schema

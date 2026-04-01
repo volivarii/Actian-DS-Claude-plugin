@@ -2,27 +2,26 @@
 'use strict';
 
 /**
- * flow-to-spec.js — Hybrid transformer: flow-data.json -> figma-spec.json
- *
- * The AI provides creative content per screen. This script handles all
- * structural chrome (App Header, Sidebar, Content Area) deterministically.
+ * flow-to-figma.js — Reads flow-data.json, builds chrome from templates,
+ * generates Figma plugin JS via the codegen library.
  *
  * Usage:
- *   node scripts/flow-to-spec.js <flow-data.json> --target-node-id <id> [--call N] [--output <path>]
+ *   node scripts/flow-to-figma.js <input.json> --target-node-id "288:7646"
  *
- * Input: flow-data.json with meta + screens (content only)
- * Output: array of figma-spec.json objects (one per use_figma call)
+ * Output: JSON array of { callIndex, code, description } to stdout
+ * Logs:   "Done: N call(s), M screen(s)" to stderr
  */
 
 const fs = require('fs');
 const path = require('path');
+const codegen = require('./figma-codegen');
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const MAX_SPEC_BYTES = 12000;
-const OVERHEAD = 500;
+const MAX_BIN_SIZE = 8000; // bytes (raw JSON of items in bin — ~5x code expansion keeps under 45KB)
+const OVERHEAD = 500;      // per-item overhead estimate
 
 const FONTS = [
   'Inter:Regular',
@@ -31,25 +30,13 @@ const FONTS = [
   'Inter:Bold'
 ];
 
-// Chrome dimensions: [screenW, screenH, headerH, sidebarW, contentW, bodyH]
-const DIMS = {
-  'standard:standard':   [1440, 960, 70, 260, 1180, 890],
-  'standard:compact':    [1440, 700, 70, 260, 1180, 630],
-  'no-sidebar:standard': [1440, 960, 70,   0, 1440, 890],
-  'no-sidebar:compact':  [1440, 700, 70,   0, 1440, 630],
-  'none:standard':       [1440, 960,  0,   0, 1440, 960],
-  'none:compact':        [1440, 700,  0,   0, 1440, 700]
-};
+// Header height is fixed at 70px across all chrome types
+const HEADER_HEIGHT = 70;
 
-// App context → App Header variant
-const APP_HEADER_VARIANT = {
-  'Studio': 'Type=Studio',
-  'Explorer': 'Type=Explorer',
-  'Administration': 'Type=Admin',
-  'Actian': 'Type=Actian'
-};
+// ---------------------------------------------------------------------------
+// REF_ALIASES — copied exactly from flow-to-spec.js lines 52-94
+// ---------------------------------------------------------------------------
 
-// Ref name → registry key mapping (camelCase ref → kebab-case registry key)
 const REF_ALIASES = {
   // Meta Kit
   genLog:          { registryKey: 'generation-log',           library: 'meta' },
@@ -93,7 +80,10 @@ const REF_ALIASES = {
   fmSlider:        { registryKey: 'fm-slider',                library: 'fm' }
 };
 
-// Hardcoded fallback keys (used when registry files not found)
+// ---------------------------------------------------------------------------
+// FALLBACK_KEYS — copied exactly from flow-to-spec.js lines 97-131
+// ---------------------------------------------------------------------------
+
 const FALLBACK_KEYS = {
   genLog:        { key: 'a9653f30925367e96dea90093d750bfe70849571', method: 'single' },
   divider:       { key: 'f4d778e1cf9bb61a33712c791486f54bb1c095b7', method: 'single' },
@@ -131,6 +121,44 @@ const FALLBACK_KEYS = {
 };
 
 // ---------------------------------------------------------------------------
+// Template name resolution
+// ---------------------------------------------------------------------------
+
+// Map old-style chrome + app combo to a template name
+const APP_TO_TEMPLATE = {
+  'Administration': 'admin',
+  'Studio':         'studio',
+  'Explorer':       'explorer',
+  'Actian':         'admin'  // fallback for Actian brand app
+};
+
+/**
+ * Resolve template name for a screen.
+ * Supports new `screen.template` field and old `screen.chrome` + `meta.app`.
+ */
+function resolveTemplateName(screen, meta, templates) {
+  // New format: explicit template field
+  if (screen.template && templates[screen.template]) {
+    return screen.template;
+  }
+
+  // Old format: chrome + app mapping
+  const oldChrome = screen.chrome || 'standard';
+
+  if (oldChrome === 'none') return 'bare';
+  if (oldChrome === 'no-sidebar') return 'no-sidebar';
+
+  // 'standard' → look up by app
+  if (oldChrome === 'standard' || oldChrome === 'app-header-sidebar') {
+    const app = (meta && meta.app) || '';
+    return APP_TO_TEMPLATE[app] || 'admin';
+  }
+
+  // Fallback
+  return 'admin';
+}
+
+// ---------------------------------------------------------------------------
 // Registry loader
 // ---------------------------------------------------------------------------
 
@@ -149,7 +177,6 @@ function buildRefMap(pluginRoot) {
   const refMap = {};
 
   for (const [refName, alias] of Object.entries(REF_ALIASES)) {
-    // Try registry first
     let comp = null;
     if (alias.library === 'fm' && fmReg) {
       comp = (fmReg.components || {})[alias.registryKey];
@@ -172,21 +199,19 @@ function buildRefMap(pluginRoot) {
 // Chrome builders
 // ---------------------------------------------------------------------------
 
-function buildAppHeader(app) {
-  const variant = APP_HEADER_VARIANT[app] || 'Type=Admin';
+function buildAppHeader(appHeaderVariant) {
   return {
     type: 'INSTANCE',
     ref: 'fmAppHeader',
-    variant: variant,
+    variant: appHeaderVariant,
     name: 'App Header'
   };
 }
 
-function buildSidebar(activeNavItem, navItems, height) {
+function buildSidebar(activeNavItem, navItems, sidebarWidth, bodyH) {
   const count = navItems || 4;
   const children = [];
 
-  // Active item
   children.push({
     type: 'INSTANCE',
     ref: 'fmSideNavItem',
@@ -195,7 +220,6 @@ function buildSidebar(activeNavItem, navItems, height) {
     props: { Label: activeNavItem || 'Home' }
   });
 
-  // Placeholder items
   for (let i = 1; i < count; i++) {
     children.push({
       type: 'INSTANCE',
@@ -208,8 +232,8 @@ function buildSidebar(activeNavItem, navItems, height) {
   return {
     type: 'FRAME',
     name: 'Sidebar',
-    width: 260,
-    height: height,
+    width: sidebarWidth,
+    height: bodyH,
     layout: { mode: 'VERTICAL', spacing: 0, padding: [28, 16, 8, 16] },
     fills: ['#FFFFFF'],
     children: children
@@ -242,14 +266,15 @@ function buildPageHeader(config) {
   };
 }
 
-function buildScreen(screenDef, app) {
-  const chrome = screenDef.chrome || 'standard';
-  const size = screenDef.size || 'standard';
-  const dimKey = chrome + ':' + size;
-  const dims = DIMS[dimKey] || DIMS['standard:standard'];
-  const [screenW, screenH, headerH, sidebarW, contentW, bodyH] = dims;
+/**
+ * Build a screen frame from a screen definition and its resolved template.
+ */
+function buildScreen(screenDef, templateDef, templateName) {
+  const chrome = templateDef.chrome;
+  const screenW = templateDef.width || screenDef.width || 1440;
+  const screenH = templateDef.height || screenDef.height || 960;
 
-  // Chrome "none" — full screen, content is direct children
+  // chrome: "none" — full screen, content is direct children
   if (chrome === 'none') {
     return {
       type: 'FRAME',
@@ -263,7 +288,17 @@ function buildScreen(screenDef, app) {
     };
   }
 
-  // Build Content Area
+  const bodyH = screenH - HEADER_HEIGHT;
+  const sidebarWidth = templateDef.sidebarWidth || 260;
+  const contentW = (chrome === 'app-header-sidebar')
+    ? screenW - sidebarWidth
+    : screenW;
+  const contentPadding = templateDef.contentPadding || [24, 32, 24, 32];
+  const contentFill = templateDef.contentFill || '#F5F5FA';
+  const appHeaderVariant = templateDef.appHeaderVariant || 'Type=Admin';
+  const contentSpacing = screenDef.contentSpacing != null ? screenDef.contentSpacing : 16;
+
+  // Build Content Area children
   const contentChildren = [];
   const ph = buildPageHeader(screenDef.pageHeader);
   if (ph) contentChildren.push(ph);
@@ -274,16 +309,25 @@ function buildScreen(screenDef, app) {
     name: 'Content Area',
     width: contentW,
     height: bodyH,
-    layout: { mode: 'VERTICAL', spacing: screenDef.contentSpacing != null ? screenDef.contentSpacing : 16, padding: [24, 32, 24, 32] },
-    fills: ['#F5F5FA'],
+    layout: {
+      mode: 'VERTICAL',
+      spacing: contentSpacing,
+      padding: contentPadding
+    },
+    fills: [contentFill],
     sizing: { horizontal: 'FILL', vertical: 'FILL' },
     children: contentChildren
   };
 
   // Build Body children
   const bodyChildren = [];
-  if (chrome === 'standard') {
-    bodyChildren.push(buildSidebar(screenDef.activeNavItem, screenDef.navItems, bodyH));
+  if (chrome === 'app-header-sidebar') {
+    bodyChildren.push(buildSidebar(
+      screenDef.activeNavItem,
+      screenDef.navItems,
+      sidebarWidth,
+      bodyH
+    ));
   }
   bodyChildren.push(contentArea);
 
@@ -298,7 +342,6 @@ function buildScreen(screenDef, app) {
     children: bodyChildren
   };
 
-  // Screen frame — auto-layout vertical so App Header + Body stack correctly
   return {
     type: 'FRAME',
     name: screenDef.name,
@@ -308,7 +351,7 @@ function buildScreen(screenDef, app) {
     clipsContent: true,
     layout: { mode: 'VERTICAL', spacing: 0 },
     children: [
-      buildAppHeader(app),
+      buildAppHeader(appHeaderVariant),
       body
     ]
   };
@@ -388,107 +431,50 @@ function resolveImports(refs, refMap) {
 }
 
 // ---------------------------------------------------------------------------
-// Validation
-// ---------------------------------------------------------------------------
-
-function validate(input) {
-  const errors = [];
-
-  if (!input.meta) errors.push('Missing "meta" object');
-  else {
-    if (!input.meta.feature) errors.push('Missing meta.feature');
-    if (!input.meta.app) errors.push('Missing meta.app');
-    if (!input.meta.targetNodeId) errors.push('Missing meta.targetNodeId');
-    const validApps = ['Studio', 'Explorer', 'Administration', 'Actian'];
-    if (input.meta.app && !validApps.includes(input.meta.app)) {
-      errors.push('meta.app must be one of: ' + validApps.join(', '));
-    }
-  }
-
-  if (!input.screens || !Array.isArray(input.screens) || input.screens.length === 0) {
-    errors.push('Missing or empty "screens" array');
-  } else {
-    const validChrome = ['standard', 'no-sidebar', 'none'];
-    const validSize = ['standard', 'compact'];
-    for (let i = 0; i < input.screens.length; i++) {
-      const s = input.screens[i];
-      const prefix = 'screens[' + i + ']';
-      if (!s.name) errors.push(prefix + ': missing "name"');
-      if (s.chrome && !validChrome.includes(s.chrome)) {
-        errors.push(prefix + ': chrome must be one of: ' + validChrome.join(', '));
-      }
-      if (s.size && !validSize.includes(s.size)) {
-        errors.push(prefix + ': size must be one of: ' + validSize.join(', '));
-      }
-    }
-  }
-
-  return errors;
-}
-
-// ---------------------------------------------------------------------------
-// Auto-splitter
+// Bin-packer
 // ---------------------------------------------------------------------------
 
 function compactSize(obj) {
   return Buffer.byteLength(JSON.stringify(obj), 'utf8');
 }
 
-function autoSplit(meta, allItems, refMap) {
-  // allItems = [genLog, coverCard, screen1, screen2, ...]
+/**
+ * Bin-pack items into groups where raw JSON size stays under MAX_BIN_SIZE.
+ * Returns array of bins (each bin = array of tree node objects).
+ */
+function binPack(items) {
   const bins = [];
   let currentBin = [];
   let currentSize = 0;
 
-  for (let i = 0; i < allItems.length; i++) {
-    const itemSize = compactSize(allItems[i]);
+  for (let i = 0; i < items.length; i++) {
+    const itemSize = compactSize(items[i]);
 
-    if (currentBin.length > 0 && currentSize + itemSize + OVERHEAD > MAX_SPEC_BYTES) {
+    if (currentBin.length > 0 && currentSize + itemSize + OVERHEAD > MAX_BIN_SIZE) {
       bins.push(currentBin);
       currentBin = [];
       currentSize = 0;
     }
 
-    currentBin.push(allItems[i]);
-    currentSize += itemSize;
+    currentBin.push(items[i]);
+    currentSize += itemSize + OVERHEAD;
   }
+
   if (currentBin.length > 0) bins.push(currentBin);
 
-  // Build spec objects
-  const specs = [];
-  for (let b = 0; b < bins.length; b++) {
-    const bin = bins[b];
-    const refs = scanRefs(bin);
-    const imports = resolveImports(refs, refMap);
+  return bins;
+}
 
-    const spec = {
-      meta: {
-        skill: 'generate-flow'
-      },
-      fonts: FONTS,
-      imports: imports,
-      tree: bin
-    };
+// ---------------------------------------------------------------------------
+// Build description for a call
+// ---------------------------------------------------------------------------
 
-    if (b === 0) {
-      spec.meta.targetNodeId = meta.targetNodeId;
-      spec.meta.wrapperName = 'generate-flow: ' + (meta.feature || 'Flow');
-      spec.meta.sectionName = 'generate-flow: ' + (meta.feature || 'Flow');
-    } else {
-      spec.meta.appendToId = '__WRAPPER_ID__';
-    }
-
-    const specSize = compactSize(spec);
-    process.stderr.write('Call ' + (b + 1) + ': ' + bin.length + ' items, ' + specSize + ' bytes\n');
-
-    if (specSize > 50000) {
-      process.stderr.write('WARNING: Call ' + (b + 1) + ' exceeds 50KB limit (' + specSize + ' bytes)\n');
-    }
-
-    specs.push(spec);
+function buildDescription(callIdx, totalCalls, items) {
+  const parts = ['Call ' + callIdx + '/' + totalCalls + ':'];
+  for (const item of items) {
+    parts.push(item.name || item.type || 'item');
   }
-
-  return specs;
+  return parts.join(' ');
 }
 
 // ---------------------------------------------------------------------------
@@ -496,21 +482,14 @@ function autoSplit(meta, allItems, refMap) {
 // ---------------------------------------------------------------------------
 
 function main() {
-  // Parse args
   const args = process.argv.slice(2);
   let inputPath = null;
   let targetNodeId = null;
-  let callIndex = null;
-  let outputPath = null;
   let pluginRoot = path.resolve(__dirname, '..');
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--target-node-id' && args[i + 1]) {
       targetNodeId = args[++i];
-    } else if (args[i] === '--call' && args[i + 1]) {
-      callIndex = parseInt(args[++i], 10);
-    } else if (args[i] === '--output' && args[i + 1]) {
-      outputPath = args[++i];
     } else if (args[i] === '--plugin-root' && args[i + 1]) {
       pluginRoot = args[++i];
     } else if (!inputPath) {
@@ -519,7 +498,7 @@ function main() {
   }
 
   if (!inputPath) {
-    process.stderr.write('Usage: node flow-to-spec.js <flow-data.json> --target-node-id <id> [--call N] [--output <path>]\n');
+    process.stderr.write('Usage: node flow-to-figma.js <input.json> --target-node-id "288:7646"\n');
     process.exit(1);
   }
 
@@ -549,49 +528,88 @@ function main() {
     input.meta.targetNodeId = targetNodeId;
   }
 
-  // Validate
-  const errors = validate(input);
-  if (errors.length > 0) {
-    process.stderr.write('Validation errors:\n');
-    for (const e of errors) process.stderr.write('  - ' + e + '\n');
+  const meta = input.meta || {};
+
+  // Load templates
+  const templatesPath = path.join(__dirname, 'templates.json');
+  let templatesData;
+  try {
+    templatesData = JSON.parse(fs.readFileSync(templatesPath, 'utf8'));
+  } catch (e) {
+    process.stderr.write('Error: could not load templates.json: ' + e.message + '\n');
     process.exit(1);
   }
+  const templates = templatesData['flow-templates'];
 
   // Load registries
   const refMap = buildRefMap(pluginRoot);
 
-  // Build tree items
-  const items = [];
-  items.push(buildGenLog(input.meta));
-  items.push(buildCoverCard(input.meta));
+  // Build all items: genLog + coverCard + screens
+  const allItems = [];
+  allItems.push(buildGenLog(meta));
+  allItems.push(buildCoverCard(meta));
 
-  for (const screen of input.screens) {
-    items.push(buildScreen(screen, input.meta.app));
+  for (const screen of (input.screens || [])) {
+    const templateName = resolveTemplateName(screen, meta, templates);
+    const templateDef = templates[templateName] || templates['admin'];
+    allItems.push(buildScreen(screen, templateDef, templateName));
   }
 
-  // Auto-split
-  const specs = autoSplit(input.meta, items, refMap);
+  // Bin-pack
+  const bins = binPack(allItems);
+  const totalCalls = bins.length;
 
-  // Output
-  let output;
-  if (callIndex != null) {
-    if (callIndex < 1 || callIndex > specs.length) {
-      process.stderr.write('Error: --call ' + callIndex + ' out of range (1-' + specs.length + ')\n');
-      process.exit(1);
+  // Generate code for each bin
+  const results = [];
+
+  for (let b = 0; b < bins.length; b++) {
+    const bin = bins[b];
+    const callIdx = b + 1;
+
+    // Scan refs across all items in this bin
+    const refs = scanRefs(bin);
+    const imports = resolveImports(refs, refMap);
+
+    // Build spec for codegen
+    const spec = {
+      meta: {
+        skill: 'generate-flow',
+        targetNodeId: callIdx === 1 ? (meta.targetNodeId || '__TARGET_NODE_ID__') : undefined,
+        wrapperName: callIdx === 1 ? ('generate-flow: ' + (meta.feature || 'Flow')) : undefined,
+        sectionName: callIdx === 1 ? ('generate-flow: ' + (meta.feature || 'Flow')) : undefined,
+        appendToId: callIdx > 1 ? '__WRAPPER_ID__' : undefined
+      },
+      fonts: FONTS,
+      imports: imports,
+      tree: bin
+    };
+
+    // Remove undefined keys from meta
+    for (const k of Object.keys(spec.meta)) {
+      if (spec.meta[k] === undefined) delete spec.meta[k];
     }
-    output = JSON.stringify(specs[callIndex - 1]);
-  } else {
-    output = JSON.stringify(specs);
+
+    // Generate code
+    const code = codegen.generateCallCode(spec);
+    const codeSize = Buffer.byteLength(code, 'utf8');
+
+    process.stderr.write('Call ' + callIdx + ': ' + bin.length + ' items, code=' + codeSize + ' bytes\n');
+
+    if (codeSize > 45000) {
+      process.stderr.write('WARNING: Call ' + callIdx + ' code exceeds 45KB (' + codeSize + ' bytes)\n');
+    }
+
+    results.push({
+      callIndex: callIdx,
+      code: code,
+      description: buildDescription(callIdx, totalCalls, bin)
+    });
   }
 
-  if (outputPath) {
-    fs.writeFileSync(outputPath, output);
-    process.stderr.write('Written to ' + outputPath + '\n');
-  } else {
-    process.stdout.write(output + '\n');
-  }
+  // Output JSON array
+  process.stdout.write(JSON.stringify(results, null, 2) + '\n');
 
-  process.stderr.write('Done: ' + specs.length + ' call(s), ' + input.screens.length + ' screen(s)\n');
+  process.stderr.write('Done: ' + totalCalls + ' call(s), ' + (input.screens || []).length + ' screen(s)\n');
 }
 
 main();

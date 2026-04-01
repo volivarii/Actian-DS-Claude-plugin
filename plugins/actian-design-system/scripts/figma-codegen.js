@@ -599,30 +599,29 @@ function generateCallCode(spec) {
   lines.push(generateSetProp());
   lines.push('');
 
-  // 2. Async IIFE wrapper
-  lines.push('(async function() {');
+  // 2. Top-level async code (use_figma sandbox supports top-level await)
   lines.push('');
 
   // 3. Navigate to target page
   const meta = spec.meta || {};
-  lines.push('  // Navigate to target page');
-  lines.push('  var _targetNode = await figma.getNodeByIdAsync(' + lit(meta.targetNodeId) + ');');
-  lines.push('  var _page = _targetNode;');
-  lines.push("  while (_page && _page.type !== 'PAGE') _page = _page.parent;");
-  lines.push('  if (_page) await figma.setCurrentPageAsync(_page);');
+  lines.push('// Navigate to target page');
+  lines.push('var _targetNode = await figma.getNodeByIdAsync(' + lit(meta.targetNodeId) + ');');
+  lines.push('var _page = _targetNode;');
+  lines.push("while (_page && _page.type !== 'PAGE') _page = _page.parent;");
+  lines.push('if (_page) await figma.setCurrentPageAsync(_page);');
   lines.push('');
 
   // 4. Load fonts
   if (spec.fonts && spec.fonts.length) {
-    lines.push('  // Load fonts');
-    lines.push('  await Promise.all([');
+    lines.push('// Load fonts');
+    lines.push('await Promise.all([');
     spec.fonts.forEach(f => {
       const parts = f.split(':');
       const family = parts[0];
       const style = parts[1] ? parts[1].trim() : 'Regular';
-      lines.push("    figma.loadFontAsync({ family: '" + esc(family) + "', style: '" + esc(style) + "' }),");
+      lines.push("  figma.loadFontAsync({ family: '" + esc(family) + "', style: '" + esc(style) + "' }),");
     });
-    lines.push('  ]);');
+    lines.push(']);');
     lines.push('');
   }
 
@@ -630,51 +629,50 @@ function generateCallCode(spec) {
   const imports = spec.imports || {};
   const importKeys = Object.keys(imports);
   if (importKeys.length) {
-    lines.push('  // Import components');
+    lines.push('// Import components');
     importKeys.forEach(ref => {
       const def = imports[ref];
       const impVar = '_imp_' + ref;
       if (def.method === 'set') {
-        lines.push('  var ' + impVar + ' = await figma.importComponentSetByKeyAsync(' + lit(def.key) + ');');
+        lines.push('var ' + impVar + ' = await figma.importComponentSetByKeyAsync(' + lit(def.key) + ');');
       } else {
-        lines.push('  var ' + impVar + ' = await figma.importComponentByKeyAsync(' + lit(def.key) + ');');
+        lines.push('var ' + impVar + ' = await figma.importComponentByKeyAsync(' + lit(def.key) + ');');
       }
     });
     lines.push('');
   }
 
   // 6. Create wrapper or find existing
-  lines.push('  // Create or find wrapper');
+  lines.push('// Create or find wrapper');
   if (meta.appendToId) {
-    lines.push('  var _wrapper = await figma.getNodeByIdAsync(' + lit(meta.appendToId) + ');');
-    lines.push('  if (!_wrapper) throw new Error(' + lit('Wrapper ' + meta.appendToId + ' not found') + ');');
+    lines.push('var _wrapper = await figma.getNodeByIdAsync(' + lit(meta.appendToId) + ');');
+    lines.push('if (!_wrapper) throw new Error(' + lit('Wrapper ' + meta.appendToId + ' not found') + ');');
   } else {
-    lines.push('  var _wrapper = figma.createFrame();');
+    lines.push('var _wrapper = figma.createFrame();');
     const wrapperName = meta.wrapperName || ((meta.skill || 'output') + ': ' + (meta.component || 'output'));
-    lines.push('  _wrapper.name = ' + lit(wrapperName) + ';');
-    lines.push("  _wrapper.layoutMode = 'HORIZONTAL';");
-    lines.push('  _wrapper.itemSpacing = 32;');
-    lines.push("  _wrapper.primaryAxisSizingMode = 'AUTO';");
-    lines.push("  _wrapper.counterAxisSizingMode = 'AUTO';");
-    lines.push('  _wrapper.fills = [];');
+    lines.push('_wrapper.name = ' + lit(wrapperName) + ';');
+    lines.push("_wrapper.layoutMode = 'HORIZONTAL';");
+    lines.push('_wrapper.itemSpacing = 32;');
+    lines.push("_wrapper.primaryAxisSizingMode = 'AUTO';");
+    lines.push("_wrapper.counterAxisSizingMode = 'AUTO';");
+    lines.push('_wrapper.fills = [];');
   }
   lines.push('');
 
   // 7. Build tree nodes recursively
-  lines.push('  // Build tree');
-  lines.push('  var _nodeCount = 0;');
+  lines.push('// Build tree');
+  lines.push('var _nodeCount = 0;');
   const treeNodes = Array.isArray(spec.tree) ? spec.tree : (spec.tree ? [spec.tree] : []);
   treeNodes.forEach(childSpec => {
     const childVar = nextVar('c');
     const childCode = generateNodeCode(childSpec, childVar);
-    // Indent each line
-    childCode.split('\n').forEach(l => lines.push('  ' + l));
-    lines.push('  _wrapper.appendChild(' + childVar + ');');
+    childCode.split('\n').forEach(l => lines.push(l));
+    lines.push('_wrapper.appendChild(' + childVar + ');');
     if (childSpec.sizing) {
       const sc = genSizing(childVar, childSpec.sizing);
-      if (sc) sc.split('\n').forEach(l => lines.push('  ' + l));
+      if (sc) sc.split('\n').forEach(l => lines.push(l));
     }
-    lines.push('  _nodeCount++;');
+    lines.push('_nodeCount++;');
   });
   lines.push('');
 
@@ -683,41 +681,39 @@ function generateCallCode(spec) {
   if (!meta.appendToId) {
     hasSectionVar = true;
     const sectionName = meta.sectionName || meta.wrapperName || ((meta.skill || 'output') + ': ' + (meta.component || 'output'));
-    lines.push('  // Create section and position below existing content');
-    lines.push('  var _section = figma.createSection();');
-    lines.push('  _section.name = ' + lit(sectionName) + ';');
-    lines.push('  _section.appendChild(_wrapper);');
-    lines.push('  var _parentPage = _targetNode && _targetNode.type === \'PAGE\' ? _targetNode : figma.currentPage;');
-    lines.push('  var _maxBottom = 0;');
-    lines.push('  var _pageChildren = _parentPage.children;');
-    lines.push('  for (var _p = 0; _p < _pageChildren.length; _p++) {');
-    lines.push('    var _existing = _pageChildren[_p];');
-    lines.push('    if (_existing.id === _section.id) continue;');
-    lines.push('    var _ey = typeof _existing.y === \'number\' && isFinite(_existing.y) ? _existing.y : 0;');
-    lines.push('    var _eh = typeof _existing.height === \'number\' && isFinite(_existing.height) ? _existing.height : 0;');
-    lines.push('    var _bottom = _ey + _eh;');
-    lines.push('    if (_bottom > _maxBottom) _maxBottom = _bottom;');
-    lines.push('  }');
-    lines.push('  _section.x = 0;');
-    lines.push('  _section.y = _maxBottom + 200;');
+    lines.push('// Create section and position below existing content');
+    lines.push('var _section = figma.createSection();');
+    lines.push('_section.name = ' + lit(sectionName) + ';');
+    lines.push('_section.appendChild(_wrapper);');
+    lines.push('var _parentPage = _targetNode && _targetNode.type === \'PAGE\' ? _targetNode : figma.currentPage;');
+    lines.push('var _maxBottom = 0;');
+    lines.push('var _pageChildren = _parentPage.children;');
+    lines.push('for (var _p = 0; _p < _pageChildren.length; _p++) {');
+    lines.push('  var _existing = _pageChildren[_p];');
+    lines.push('  if (_existing.id === _section.id) continue;');
+    lines.push('  var _ey = typeof _existing.y === \'number\' && isFinite(_existing.y) ? _existing.y : 0;');
+    lines.push('  var _eh = typeof _existing.height === \'number\' && isFinite(_existing.height) ? _existing.height : 0;');
+    lines.push('  var _bottom = _ey + _eh;');
+    lines.push('  if (_bottom > _maxBottom) _maxBottom = _bottom;');
+    lines.push('}');
+    lines.push('_section.x = 0;');
+    lines.push('_section.y = _maxBottom + 200;');
     lines.push('');
   }
 
   // 9. Tag with setSharedPluginData
-  lines.push('  // Tag with plugin data');
-  lines.push("  _wrapper.setSharedPluginData('actian_ds', 'skill', " + lit(meta.skill || '') + ");");
-  lines.push("  _wrapper.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());");
+  lines.push('// Tag with plugin data');
+  lines.push("_wrapper.setSharedPluginData('actian_ds', 'skill', " + lit(meta.skill || '') + ");");
+  lines.push("_wrapper.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());");
   lines.push('');
 
   // 10. Return result
-  lines.push('  // Return metadata');
+  lines.push('// Return metadata');
   if (hasSectionVar) {
-    lines.push('  return { wrapperId: _wrapper.id, nodeCount: _nodeCount, sectionId: _section.id };');
+    lines.push('return { wrapperId: _wrapper.id, nodeCount: _nodeCount, sectionId: _section.id };');
   } else {
-    lines.push('  return { wrapperId: _wrapper.id, nodeCount: _nodeCount };');
+    lines.push('return { wrapperId: _wrapper.id, nodeCount: _nodeCount };');
   }
-
-  lines.push('})();');
 
   return lines.join('\n');
 }

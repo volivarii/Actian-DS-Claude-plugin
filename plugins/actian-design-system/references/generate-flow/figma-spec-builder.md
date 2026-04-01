@@ -1,13 +1,33 @@
 # Generate Flow — Figma Spec Builder
 
-The `flow-to-spec.js` script builds the Figma spec. The AI provides creative content per screen. The script handles all chrome (App Header, Sidebar, Content Area) deterministically.
+The `flow-to-figma.js` script builds Figma plugin code from flow-data.json. The AI provides creative content per screen and picks a template. The script handles chrome, auto-layout, and code generation.
 
 ## How it works
 
-1. AI writes `flow-data.json` with meta + screens (content only)
-2. Script runs: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-spec.js flow-data.json --target-node-id "<id>"`
-3. Script outputs array of figma-spec.json objects (auto-split under 33KB per call)
-4. AI reads interpreter + assembles use_figma calls from output
+1. AI writes `flow-data.json` with meta + screens (template + content per screen)
+2. Script runs: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<id>"`
+3. Script outputs JSON array of `{ callIndex, code, description }` — self-contained Figma plugin JS per call
+4. AI passes each `code` to `use_figma` (replace `__WRAPPER_ID__` in call 2+ with wrapperId from call 1)
+
+## Templates
+
+Each screen picks a template. The script builds chrome from the template; the AI provides `content[]`.
+
+| Template | Size | Chrome | Use for |
+|----------|------|--------|---------|
+| `admin` | 1440x960 | Admin header + sidebar + content area | Administration app screens |
+| `studio` | 1440x960 | Studio header + sidebar + content area | Studio app screens |
+| `explorer` | 1440x960 | Explorer header + sidebar + content area | Explorer app screens |
+| `no-sidebar` | 1440x960 | Header + full-width content | Settings, dashboards without nav |
+| `bare` | 1440x960 | None — AI controls entire frame | Custom layouts |
+| `mobile` | 390x844 | None | Mobile screens |
+| `tablet` | 1024x768 | None | Tablet screens |
+| `compact` | 1440x700 | None | Modals, overlays, panels |
+| `custom` | AI specifies | None | Any custom size (set `width`+`height` on screen) |
+
+Templates can be mixed within one flow. Screen 1 can be `admin`, Screen 2 can be `mobile`.
+
+**Backward compatibility:** `chrome: "standard"` maps to the template matching `meta.app` (Administration→admin, Studio→studio, Explorer→explorer). `chrome: "no-sidebar"` → `no-sidebar`. `chrome: "none"` → `bare`.
 
 ## Input schema (what the AI provides)
 
@@ -25,8 +45,7 @@ The `flow-to-spec.js` script builds the Figma spec. The AI provides creative con
   "screens": [
     {
       "name": "Screen 1: Glossary List",
-      "chrome": "standard",
-      "size": "standard",
+      "template": "studio",
       "activeNavItem": "Glossary",
       "navItems": 4,
       "pageHeader": { "title": "Glossary Terms", "actions": ["Create Term"] },
@@ -53,22 +72,24 @@ The `flow-to-spec.js` script builds the Figma spec. The AI provides creative con
 | Field | Required | Default | Description |
 |-------|----------|---------|-------------|
 | `name` | Yes | — | Screen name (e.g., "Screen 1: Dashboard") |
-| `chrome` | No | `standard` | `standard` (header + sidebar + content), `no-sidebar` (header + content), `none` (full screen) |
-| `size` | No | `standard` | `standard` (1440×960) or `compact` (1440×700) |
-| `activeNavItem` | No | `Home` | Label for the active sidebar nav item (chrome: standard only) |
-| `navItems` | No | `4` | Number of sidebar nav items (1 active + rest placeholder) |
-| `pageHeader` | No | — | `{ title, subtitle?, actions[]? }` — script builds fmPageHeader instance |
+| `template` | No | inferred from `meta.app` | Template name from table above. Controls chrome, size, layout. |
+| `activeNavItem` | No | `Home` | Label for the active sidebar nav item (chrome templates only) |
+| `navItems` | No | `4` | Number of sidebar nav items (1 active + rest placeholder, chrome templates only) |
+| `pageHeader` | No | — | `{ title, subtitle?, actions[]? }` — script builds fmPageHeader instance (chrome templates only) |
+| `contentSpacing` | No | `16` | Vertical spacing (px) between content items in Content Area. Use 0 for custom spacing, 24 for spacious layouts. |
 | `content` | Yes | — | Array of spec nodes (FRAME, TEXT, INSTANCE, DIVIDER) — the creative content |
+| `width` | No | from template | Override width (for `custom` template) |
+| `height` | No | from template | Override height (for `custom` template) |
 
-### Chrome modes
+### Chrome behavior
 
 ```
-standard     → App Header + Sidebar (260px) + Content Area (1180×890)
-no-sidebar   → App Header + Content Area (1440×890)
-none         → Full screen (1440×960), no header, no sidebar
+admin/studio/explorer → App Header + Sidebar (260px) + Content Area (padded)
+no-sidebar            → App Header + Content Area (full width, padded)
+bare/mobile/tablet/compact/custom → No chrome — AI controls entire frame
 ```
 
-Screens in one flow can mix chrome modes.
+Screens in one flow can mix templates. Screen 1 can be `admin`, Screen 2 can be `mobile`.
 
 ## Content nodes (what goes in `content[]`)
 
