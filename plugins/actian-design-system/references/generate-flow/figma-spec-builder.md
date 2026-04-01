@@ -178,3 +178,4 @@ FM flows spotlight the feature. Everything unrelated uses placeholder treatment.
 - **Content**: real FM components for feature sections, `fmPlaceholder` for non-feature areas
 - **Forms**: correct variant for feature inputs (`Type=Placeholder`/`Type=Default`), `fmPlaceholder` for non-feature
 - **Text**: all contextual — "Schedule Refresh" not "Submit", "Glossary Terms" not "Items"
+- **De-emphasized content**: when content is visible but secondary (behind panels, modals, dialogs, in inactive tabs, split views), use realistic content at reduced `opacity` — don't replace with `fmPlaceholder`. The real content gives context for what's underneath.
