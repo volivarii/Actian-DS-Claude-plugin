@@ -1,8 +1,24 @@
 # Actian Design System Plugin
 
-Point at anything in Figma and get help. Your design system teammate for spot fixes, flow generation, audits, research, and content review. Understands Actian's tokens, guidelines, components, and all three apps.
+> A design system teammate for the Actian UX team.
 
-**v1.26.0** | 8 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
+Built on Claude and connected directly to Figma, the Actian DS Plugin knows the design system — tokens, components, design & content guidelines, and the specific context of our apps. It can act on that knowledge and answer questions about it.
+
+- Scaffold wireframe flows from a user story — Fat Marker lo-fi, correct app chrome, HTML preview with direct browser annotations before anything is pushed to Figma
+- Generate 9-card component briefs with real library instances from Figma
+- Create new Figma components with variants, properties, and correct token binding
+- Audit screens for token violations, spacing issues, and contrast failures — with inline fixes
+- Review and rewrite copy against DS content guidelines
+- Compare two competing designs side by side
+- Research UX patterns and competitor approaches on demand
+- Build presentations using Actian slide templates
+- Sync tokens, components, and guidelines directly from Figma
+
+The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
+
+**v1.26.0** · 8 skills · 5 background agents · 115 design tokens · 3 themes · WCAG 2.1 AA
+
+---
 
 ## Install
 
@@ -13,7 +29,9 @@ Point at anything in Figma and get help. Your design system teammate for spot fi
 3. Install **Actian Design System** from the marketplace
 4. Enable the **Figma** connector under **Settings** > **Integrations**
 
-The plugin is available in both **Cowork** and **Code** tabs after install. Updates are applied from the same Customize panel.
+The plugin is available in both **Cowork** and **Code** tabs after install.
+
+> **Requirement:** Figma desktop must be running for the plugin to connect. The Figma MCP communicates with the desktop app directly — browser-only sessions won't work.
 
 ### Claude Code CLI
 
@@ -51,15 +69,11 @@ Add to `~/.claude/settings.json`:
 }
 ```
 
-### Claude Desktop notes
-
 ### Manual update
 
 **Desktop:** Cowork tab > Customize > find Actian Design System > Update
 
 **CLI:** `claude plugin marketplace update actian-design-system`
-
-**Claude Desktop:** Cowork tab > Customize > find Actian Design System > remove and re-add from GitHub.
 
 ---
 
@@ -166,13 +180,13 @@ Every capability is also available as a direct command. Use these when you know 
 
 | Command | What it does |
 |---------|-------------|
-| `/generate-flow` | Wireframe flow from a feature description |
-| `/component-brief` | Structured component spec (9 DS Kit or 5 FM cards) |
-| `/design-audit` | Token, contrast, and guideline audit with inline fixes |
-| `/create-component` | Build Figma components with variants and properties |
-| `/compare-flows` | Side-by-side comparison of two Figma flows |
-| `/generate-presentation` | Slide deck with Actian templates |
-| `/sync-design-system` | Extract tokens, components, and guidelines from Figma |
+| `/generate-flow` | Wireframe flow from a feature description — Fat Marker lo-fi, correct app chrome, HTML preview before push |
+| `/component-brief` | 9-card component spec — anatomy, variants, states, tokens, content rules, accessibility, real library instances |
+| `/design-audit` | Token, contrast, and guideline audit with inline fixes — not just a report |
+| `/create-component` | Build Figma components with variants and correct token binding, with a build plan review before push |
+| `/compare-flows` | Side-by-side analysis of two Figma flows — useful for v1 vs v2 or competing UX approaches |
+| `/generate-presentation` | Slide deck with Actian templates, token-bound backgrounds, and chart support |
+| `/sync-design-system` | Extract tokens, components, and guidelines directly from Figma via MCP |
 
 ---
 
@@ -182,14 +196,13 @@ Every generation task pauses for review before pushing to Figma:
 
 | Reply | What happens |
 |-------|-------------|
-| **"push"** | Send everything to Figma |
-| **"push 2,4,5"** | Send specific items only |
-| **"preview"** | Open HTML preview first (for flows) |
-| **"push and wire"** | Push + wire prototype connections |
-| **"prototype"** | Generate clickable HTML prototype |
-| **"playground"** | Generate component state explorer |
-| **"apply annotations"** | Apply visual annotations from the browser |
-| **feedback** | Describe changes, get updated output |
+| **`push`** | Send everything to Figma |
+| **`push 2,4,5`** | Send specific items only |
+| **`push and wire`** | Push + wire prototype connections automatically |
+| **`prototype`** | Generate a clickable Alpine.js prototype for testing |
+| **`playground`** | Generate a component state explorer with live token readout |
+| **`apply annotations`** | Apply visual annotations from the browser |
+| feedback | Describe changes, get updated output |
 
 ### Visual annotations
 
@@ -197,7 +210,7 @@ Instead of describing issues in text, click directly on any element in the previ
 
 1. Click **Annotate** in the preview toolbar
 2. Click any element, type feedback, pick **Change** or **Note**
-3. Click **Apply** in the browser, then say **"apply"** in the CLI
+3. Click **Apply** in the browser, then say **"apply annotations"** in the CLI
 
 Works at every preview gate across all skills.
 
@@ -207,32 +220,22 @@ Works at every preview gate across all skills.
 
 The companion has always-loaded knowledge of:
 
-- **Tokens** — spacing scale (4/8/12/16/24/28/32), colors, typography, borders for all 3 themes
+- **Tokens** — spacing scale (4/8/12/16/24/28/32), 115 design tokens in W3C DTCG format, 3 theme modes, CSS custom properties (`--zen-*`)
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
 - **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users)
 - **Component inventory** — 103 DS Kit + 40 FM Kit + Meta Kit templates
 
-It loads detailed references on demand: per-component guidelines, accessibility standards, UX patterns, foundation docs.
-
-### Three Actian apps
-
-| App | Purpose | Users |
-|-----|---------|-------|
-| **Studio** | Data integration, catalog, quality, lineage | Data engineers, stewards |
-| **Explorer** | Data discovery, search, browse, access requests | Analysts, data consumers |
-| **Administration** | Users, connections, scanners, settings | Admins |
-
-The companion uses the correct header, navigation, and terminology for each app.
+It loads detailed references on demand: per-component guidelines (44 components), accessibility standards, UX patterns, foundation docs.
 
 ---
 
 ## Agents
 
-Agents are dispatched automatically by skills. They run as background subprocesses.
+Agents are dispatched automatically by skills — they run as background subprocesses and feed results back into the main task.
 
 | Agent | What it does | When |
 |-------|-------------|------|
-| `flow-researcher` | Research UX patterns and competitors | Flow generation (research phase) |
+| `flow-researcher` | Research UX patterns and competitors | Flow generation (opt-in research phase) |
 | `flow-consistency` | Check HTML for chrome/terminology correctness | Flow generation (after HTML) |
 | `wiring-analyzer` | Analyze flow structure for prototype wiring | Flow push (wire step) |
 | `brief-data-validator` | Validate component brief data model | Brief generation (after data model) |
@@ -288,7 +291,6 @@ actian-design-system-plugin/
 |   +-- tokens/                          # W3C DTCG + CSS custom properties
 |   +-- docs/                            # Synced reference files
 +-- USAGE.md                             # Detailed usage guide
-+-- docs/superpowers/                    # Design specs + implementation plans
 ```
 
 ---
@@ -319,3 +321,9 @@ claude --plugin-dir plugins/actian-design-system
 | Foundation docs | `/sync-design-system foundations` |
 | New skill | Add `skills/<name>/SKILL.md` |
 | Version bump | Update `.claude-plugin/plugin.json` |
+
+---
+
+## Feedback
+
+This is the UX team's tool, built out of real work and iterated through real sessions. If something doesn't feel right — a skill misbehaves, an output misses the mark, a flow lands in the wrong app context — open an issue or reach out directly.
