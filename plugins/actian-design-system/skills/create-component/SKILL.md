@@ -1,8 +1,12 @@
 ---
+
+<!-- This skill can be invoked directly (/create-component) or via the DS companion. -->
 name: create-component
 description: Use when the user asks to create, build, or make a new component in the Figma design system library, add a variant or state to an existing component, extend a component, or describes a UI element that should become reusable.
 argument-hint: "[component description or Figma URL]"
 ---
+
+<!-- This skill can be invoked directly (/create-component) or via the DS companion. -->
 
 # Create Component
 
@@ -106,6 +110,8 @@ For Draft tier: skip this step (speed over accuracy).
 
 ---
 
+<!-- This skill can be invoked directly (/create-component) or via the DS companion. -->
+
 ### Step 5.0 — Resolve dependencies (before building)
 
 When the build plan includes nested components (e.g., a Card that contains Button and Badge), ensure dependencies exist before building.
@@ -158,6 +164,8 @@ Without properties, users can't customize instances. Without `propertyLinks`, pu
 **Spacing scale:** 4, 8, 12, 16, 24, 28, 32px only.
 
 ---
+
+<!-- This skill can be invoked directly (/create-component) or via the DS companion. -->
 
 ## Step 6 — Cleanup pass
 

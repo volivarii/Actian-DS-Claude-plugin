@@ -315,6 +315,22 @@ All Figma-writing skills pause for user approval before pushing to Figma:
 
 ---
 
+## DS Companion
+
+The companion is the primary interaction model. Users share a Figma URL or describe a design task, and the companion infers intent, loads relevant context, and either handles it directly or routes to a skill pipeline.
+
+**Always-loaded context:** `references/companion-context.md` — compact DS summary (tokens, content rules, app context, component inventory).
+
+**Autonomy rules:**
+- **Spot fixes** (wrong token, spacing, auto-layout): act freely, explain after
+- **Design tasks** (new screen, layout change): suggest + act on approval
+- **Research** (patterns, competitors): suggest only
+- **System changes** (guidelines, tokens): suggest only, user decides
+
+**Skill routing:** when the companion detects intent matching a skill (e.g., "mock up a dashboard"), it runs that skill's pipeline internally. All skills work as both companion capabilities and standalone commands (`/generate-flow`, `/design-audit`, etc.).
+
+---
+
 ## Post-Push Parity Check
 
 Every skill that pushes to Figma MUST run a parity check immediately after `use_figma` completes. See `references/parity-check.md` for the full procedure.

@@ -1,8 +1,12 @@
 ---
+
+<!-- This skill can be invoked directly (/generate-flow) or via the DS companion. -->
 name: generate-flow
 description: This skill should be used when the user wants to create a flow, wireframe, or mockup from a feature idea or user story, asks how a user would accomplish a task, wants to mock up an experience, provides a user story and wants it visualized as a multi-screen flow, or wants to wire prototype connections on an existing Figma flow to make it playable.
 argument-hint: "[feature description or Figma URL]"
 ---
+
+<!-- This skill can be invoked directly (/generate-flow) or via the DS companion. -->
 
 # Generate Fat Marker Flow
 

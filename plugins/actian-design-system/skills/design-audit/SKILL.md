@@ -1,8 +1,12 @@
 ---
+
+<!-- This skill can be invoked directly (/design-audit) or via the DS companion. -->
 name: design-audit
 description: This skill should be used when the user wants to audit, review, lint, or QA a Figma design against DS Kit or Fat Marker rules, asks if tokens are correct, wants to find design system inconsistencies, asks what's wrong with a screen, shares a Figma URL asking if it meets standards, or asks to fix a specific audit finding ("fix finding #N", "fix the hardcoded blue").
 argument-hint: "[Figma URL] or [fix finding #N]"
 ---
+
+<!-- This skill can be invoked directly (/design-audit) or via the DS companion. -->
 
 # Design System Audit
 
@@ -173,6 +177,8 @@ The `fixType` field classifies fixes:
 The `autoFixable` field: `true` for swap-instance, bind-tokens, align-variant; `false` for compose-from-primitives and blocked.
 
 ---
+
+<!-- This skill can be invoked directly (/design-audit) or via the DS companion. -->
 
 ## Fixing findings
 
