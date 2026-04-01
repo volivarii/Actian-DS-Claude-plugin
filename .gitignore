@@ -4,7 +4,6 @@
 # Claude Code local session files
 .claude/
 settings.json
-settings.local.json
 
 # Generated output (teammates create their own via skills)
 components/
@@ -16,12 +15,6 @@ prototypes/
 
 # Test files (local dev artifacts)
 test-*.html
-
-# Skill evaluation files (local testing)
-skill-evals/
-
-# Raw Figma export archive (DTCG file is source of truth)
-plugins/*/tokens/Actian-Design-System_variables_*.json
 
 # Python
 *.pyc
@@ -40,7 +33,8 @@ plugins/*/TEST-PROMPTS.md
 release-notes/
 
 # Superpowers working files
-.superpowers/
-docs/superpowers/
-plugins/*/docs/superpowers/
-plugins/*/docs/dskit-analysis.json
+docs/
+
+# Communication
+comms/
+
