@@ -128,9 +128,9 @@ When the build plan includes nested components (e.g., a Card that contains Butto
 
 If no nested components are referenced in the build plan, skip this step entirely.
 
-## Step 5 — Build in Figma (JSON Spec Interpreter)
+## Step 5 — Build in Figma (figma-codegen.js)
 
-**Do NOT write freehand use_figma code.** Transform the build plan into a figma-spec.json using the COMPONENT_SET or COMPONENT node types.
+**Do NOT write freehand use_figma code.** Transform the build plan into a figma-spec.json, then use figma-codegen.js to generate Figma plugin code.
 
 1. Read `../../references/create-component/figma-spec-builder.md` — build plan → spec mapping
 2. Read `../../references/figma-spec-schema.md` — JSON spec format reference
@@ -141,13 +141,11 @@ If no nested components are referenced in the build plan, skip this step entirel
    - **Property links** → `propertyLinks: [{ layer, property }]` to connect text nodes
    - **Variable scopes** → `variableScopes: [{ ref, scopes }]` — NEVER leave as `ALL_SCOPES`
    - **Nested components** → declare in `spec.imports`, use INSTANCE nodes in children
-4. Read `../../scripts/figma-interpreter.min.js` (~16KB minified — all 17 node types, specs should stay under 12KB per call)
-5. Assemble `use_figma` call:
-   ```js
-   ${interpreterCode}
-   const spec = ${JSON.stringify(figmaSpec)};
-   return await buildFromSpec(spec);
+4. Write the spec JSON to a temp file, then generate Figma plugin code:
+   ```bash
+   node -e "const cg = require('${CLAUDE_PLUGIN_ROOT}/scripts/figma-codegen.js'); const spec = JSON.parse(require('fs').readFileSync('/tmp/component-spec.json','utf8')); cg.resetCounter(); console.log(cg.generateCallCode(spec));" > /tmp/component-code.js
    ```
+5. Read `/tmp/component-code.js` and pass the code to `use_figma`
 6. Generation metadata — add INSTANCE genLog with 6 props as sibling to the component set
 
 **Properties checklist — every component must expose:**
