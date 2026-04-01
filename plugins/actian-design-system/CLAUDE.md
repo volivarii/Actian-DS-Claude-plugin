@@ -93,13 +93,6 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `scripts/brief-to-figma.js` | Brief-specific: reads brief-data.json, builds 9 cards + gen log, generates Figma plugin JS via codegen. |
 | `scripts/slide-to-figma.js` | Slide-specific: reads slide-data.json, builds slide frames with gradients + variable bindings, generates Figma plugin JS via codegen. |
 | `scripts/templates.json` | Template definitions: dimensions, chrome type, content area config per template (admin, studio, explorer, no-sidebar, bare, mobile, tablet, compact, custom). |
-| `scripts/figma-interpreter.js` | Legacy source interpreter — superseded by figma-codegen.js. Kept for reference only. |
-| `scripts/figma-interpreter.min.js` | Legacy minified interpreter — superseded by figma-codegen.js. Kept for reference only. |
-| `scripts/build-interpreters.sh` | Legacy build script for interpreter. |
-| `scripts/brief-to-spec.js` | Legacy brief transformer — superseded by brief-to-figma.js. Kept for reference. |
-| `scripts/flow-to-spec.js` | Legacy flow transformer — superseded by flow-to-figma.js. Kept for reference. |
-| `scripts/slide-to-spec.js` | Legacy slide transformer — superseded by slide-to-figma.js. Kept for reference. |
-| `scripts/validate-spec.js` | Node.js validation script for figma-spec.json files |
 | `scripts/html-renderers/brief-renderer.js` | Client-side card renderer — builds all 9 DS + 5 FM cards from brief-data.json. Embedded in HTML. |
 | `scripts/html-renderers/flow-renderer.js` | Client-side screen chrome renderer — app header, sidebar, page header, cover card. Embedded in HTML. |
 | `scripts/html-renderers/presentation-renderer.js` | Client-side slide template renderer — cover, section, body, back cover + chart helpers. Embedded in HTML. |

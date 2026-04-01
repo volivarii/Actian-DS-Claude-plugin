@@ -244,7 +244,6 @@ Detailed content in `references/generate-flow/`:
 - **`research-guide.md`** — Competitor research, reference analysis, research frame format
 
 Shared references:
-- **`../../references/figma-spec-schema.md`** — JSON spec format for the interpreter
 - **`../../scripts/figma-codegen.js`** — Shared Figma code generation library (generates Plugin API code from node trees)
 - **`../../scripts/flow-to-figma.js`** — Flow-specific: reads flow-data.json, applies templates, generates Figma plugin JS via codegen
 - **`../../scripts/templates.json`** — Template definitions (admin, studio, explorer, no-sidebar, bare, mobile, tablet, compact, custom)

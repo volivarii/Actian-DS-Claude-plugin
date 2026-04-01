@@ -133,8 +133,7 @@ If no nested components are referenced in the build plan, skip this step entirel
 **Do NOT write freehand use_figma code.** Transform the build plan into a figma-spec.json, then use figma-codegen.js to generate Figma plugin code.
 
 1. Read `../../references/create-component/figma-spec-builder.md` — build plan → spec mapping
-2. Read `../../references/figma-spec-schema.md` — JSON spec format reference
-3. Transform: build `figma-spec.json` from the build plan following the builder reference
+2. Transform: build `figma-spec.json` from the build plan following the builder reference
    - **Single component** → `{ type: "COMPONENT", ... }` with properties and children
    - **Variant set** → `{ type: "COMPONENT_SET", variants: [...] }` with named variants
    - **Properties** → `properties: [{ name, type, default }]` on each COMPONENT
