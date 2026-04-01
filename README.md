@@ -6,27 +6,24 @@ Point at anything in Figma and get help. Your design system teammate for spot fi
 
 ## Install
 
-### Step 1 — Add the marketplace
+### Claude Desktop (recommended)
 
-Run this in Claude Code (CLI or Desktop's Code tab):
+1. Open Claude Desktop > **Cowork** tab > **Customize**
+2. Click **+** > add marketplace: `volivarii/Actian-DS-Claude-plugin`
+3. Install **Actian Design System** from the marketplace
+4. Enable the **Figma** connector under **Settings** > **Integrations**
+
+The plugin is available in both **Cowork** and **Code** tabs after install. Updates are applied from the same Customize panel.
+
+### Claude Code CLI
 
 ```bash
 claude plugin marketplace add volivarii/Actian-DS-Claude-plugin
-```
-
-Then install the plugin:
-
-```bash
 claude plugin install actian-design-system@actian-design-system
-```
-
-### Step 2 — Connect Figma
-
-```bash
 claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
 ```
 
-### Step 3 — Enable auto-updates + permissions
+### Auto-updates + permissions (optional)
 
 Add to `~/.claude/settings.json`:
 
@@ -56,21 +53,11 @@ Add to `~/.claude/settings.json`:
 
 ### Claude Desktop notes
 
-The plugin works in Desktop's **Code tab**. The "Personal" tab uses a separate plugin system (Cowork) — ignore it.
-
-If skills don't appear after install, update via CLI:
-
-```bash
-claude plugin marketplace update actian-design-system
-```
-
-Then restart Desktop.
-
-> **Known issue (April 2026):** Desktop's plugin browser may not show skills correctly for third-party marketplace plugins ([#38008](https://github.com/anthropics/claude-code/issues/38008)). Skills still work when invoked — they just may not appear in the UI. Use the CLI for the most reliable experience.
-
 ### Manual update
 
-**Claude Code CLI:** `/plugin marketplace update`
+**Desktop:** Cowork tab > Customize > find Actian Design System > Update
+
+**CLI:** `claude plugin marketplace update actian-design-system`
 
 **Claude Desktop:** Cowork tab > Customize > find Actian Design System > remove and re-add from GitHub.
 
