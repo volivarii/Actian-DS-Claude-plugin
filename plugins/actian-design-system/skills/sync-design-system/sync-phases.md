@@ -97,6 +97,43 @@ return JSON.stringify({ manifest, pageCatalog }, null, 2);
 
 **Phase 5 reuse:** When running Phases 1+5 together, Phase 5 reads the `pageCatalog` from Phase 1 output instead of making a separate discovery call (saves 1 `use_figma` call).
 
+#### Step I1.5: Page discovery — detect new pages
+
+After extracting the `pageCatalog`, compare against the known page list below. Report any new pages to the user before proceeding.
+
+**Known pages** (synced by existing phases):
+
+| Page pattern | Synced by | Purpose |
+|-------------|-----------|---------|
+| Component pages (double-indented names) | Phases 1-5 | DS Kit / FM Kit / Meta Kit component docs |
+| `Foundations/*` or foundation-related | Phase 6 | Accessibility, typography, color, spacing docs |
+| `Cover`, `---` (divider pages) | Ignored | Figma organizational pages |
+
+**Discovery logic** (no extra MCP call — uses `pageCatalog` from Step I1):
+
+```js
+const knownPatterns = [
+  p => p.name.startsWith('        '),           // component pages (double-indented)
+  p => p.name.match(/cover|---|divider/i),       // organizational
+  p => p.name.match(/foundation|guideline/i),    // foundation pages
+];
+const newPages = pageCatalog.filter(p =>
+  !knownPatterns.some(fn => fn(p)) && p.childCount > 0
+);
+```
+
+**If new pages are found**, report them after Phase 1 diff:
+
+> **New pages detected in {library}:**
+> - "{page name}" ({N} frames) — not synced by any phase
+>
+> These may contain templates, mockups, or reference layouts. To sync them, describe what's on the page and I'll extract it.
+
+The AI does NOT auto-sync new pages. It reports them and waits for user direction. Possible actions:
+- **"sync as templates"** — extract frame names, sizes, and structure into `templates.json`
+- **"sync as reference"** — extract content as markdown docs
+- **"ignore"** — add to the known patterns list
+
 #### Step I2: Parse local file into comparable format
 
 Read the existing `docs/dskit-components.md` (or `fm-components.md` / `meta-kit/components.md`). For each `### Component Name` entry, extract:
