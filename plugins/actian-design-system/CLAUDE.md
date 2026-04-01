@@ -96,7 +96,8 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `scripts/build-interpreters.sh` | Legacy build script for interpreter. Pending Phase 3 removal. |
 | `scripts/brief-to-spec.js` | Deterministic transformer: brief-data.json → figma-spec.json array with auto-splitting under 12KB per call. Used by component-brief Step 3. |
 | `scripts/flow-to-spec.js` | Legacy flow transformer — replaced by flow-to-figma.js for generate-flow. Kept for reference. |
-| `scripts/slide-to-spec.js` | Deterministic transformer: slide-data.json → figma-spec.json. Handles slide frames, gradients, variable bindings. Used by generate-presentation Step 6. |
+| `scripts/slide-to-figma.js` | Deterministic transformer: slide-data.json → Figma plugin JS code via figma-codegen.js. Handles slide frames, gradients, variable bindings. Used by generate-presentation Step 6. No interpreter needed. |
+| `scripts/slide-to-spec.js` | Legacy slide transformer — replaced by slide-to-figma.js for generate-presentation. Kept for reference. |
 | `scripts/validate-spec.js` | Node.js validation script for figma-spec.json files |
 | `scripts/html-renderers/brief-renderer.js` | Client-side card renderer — builds all 9 DS + 5 FM cards from brief-data.json. Embedded in HTML. |
 | `scripts/html-renderers/flow-renderer.js` | Client-side screen chrome renderer — app header, sidebar, page header, cover card. Embedded in HTML. |

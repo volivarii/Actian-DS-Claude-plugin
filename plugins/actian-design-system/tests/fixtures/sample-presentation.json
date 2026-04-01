@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "title": "Design System Progress",
+    "targetNodeId": "123:456",
+    "prompt": "Create a presentation about Q1 design system progress",
+    "generatedAt": "2026-04-01T00:00:00.000Z",
+    "duration": "30s",
+    "model": "claude-sonnet-4-6",
+    "pluginVersion": "1.22.0"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "name": "Slide: Cover",
+      "topic": "DS 2026",
+      "title": "Design System Progress",
+      "subtitle": "Q1 2026 Update",
+      "date": "April 2026",
+      "creators": "Vincent Olivari"
+    },
+    {
+      "type": "body-full",
+      "name": "Slide: Key Metrics",
+      "title": "44 components shipped in Q1",
+      "content": [
+        {
+          "type": "TEXT",
+          "name": "Body",
+          "content": "The design system team shipped 44 components, 115 variables, and 3 theme modes in Q1.",
+          "font": "Roboto:Regular",
+          "size": 24,
+          "color": "#12131F",
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" }
+        }
+      ]
+    },
+    {
+      "type": "back-cover",
+      "name": "Slide: Back cover",
+      "title": "Thank you"
+    }
+  ]
+}
