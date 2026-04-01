@@ -166,33 +166,34 @@ Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming
 
 ## Step 3 — Render Figma (DETERMINISTIC SCRIPT)
 
-**Do NOT generate the figma-spec manually.** A fixed Node.js script transforms brief-data.json into the spec deterministically. The AI only assembles the use_figma calls.
+**Do NOT generate the figma-spec manually.** A fixed Node.js script transforms brief-data.json into ready-to-run Figma Plugin API code. The AI only runs the script and passes its output to `use_figma`.
 
-1. Run the spec generator script:
+1. Run the code generator script:
    ```bash
-   node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-spec.js \
+   node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js \
      {project_working_directory}/components/[name]/[name]-brief-data.json \
      --target-node-id [nodeId]
    ```
-   The script outputs a JSON array of call specs (auto-split to fit the 50KB use_figma limit). It also prints the call breakdown to stderr.
+   The script outputs a JSON array of `{ callIndex, code, description }` objects (auto-split to keep each call under ~45KB). It prints the call breakdown to stderr.
 
-2. Read `../../scripts/figma-interpreter.min.js` (~16KB minified)
-
-3. For each call spec in the array:
-   - Call 1 has `meta.targetNodeId` — creates the wrapper, returns `wrapperId`
-   - Calls 2+ have `meta.appendToId: "__WRAPPER_ID__"` — replace with the actual wrapperId from Call 1
-   - Assemble `use_figma` call:
+2. For each item in the array:
+   - Call 1 has `meta.targetNodeId` embedded in the code — creates the wrapper frame, returns `{ wrapperId }`
+   - Calls 2+ use `__WRAPPER_ID__` placeholder in the code — replace with the actual `wrapperId` returned from Call 1
+   - Pass `code` directly to `use_figma`:
      ```js
-     ${interpreterCode}
-     const spec = ${callSpecJSON};
-     return await buildFromSpec(spec);
+     // Call 1 — pass code as-is
+     return await (async () => { ${item.code} })();
+
+     // Calls 2+ — substitute the wrapper ID first
+     const code = item.code.replace(/__WRAPPER_ID__/g, wrapperId);
+     return await (async () => { ${code} })();
      ```
    - Store the `wrapperId` from Call 1's return value
 
-4. After all calls: parity validation (data model counts vs Figma frame counts)
+3. After all calls: parity validation (data model counts vs Figma frame counts)
 
-**What the AI does:** Run the script, read output, assemble use_figma calls, replace `__WRAPPER_ID__`
-**What the AI does NOT do:** Generate spec JSON, read spec builder references, compute textRanges, decide call splitting
+**What the AI does:** Run the script, pass each `code` string to `use_figma`, replace `__WRAPPER_ID__`, store the wrapper ID
+**What the AI does NOT do:** Generate node trees, read spec builder references, compute textRanges, decide call splitting
 
 **No reference files needed at runtime.** The script encodes all card-by-card mapping logic. The spec builder reference (`../../references/component-brief/figma-spec-builder.md`) is documentation for maintaining the script — not read by the AI.
 
@@ -225,5 +226,5 @@ Detailed content in `references/component-brief/`:
 
 Shared references:
 - **`../../scripts/html-renderers/brief-renderer.js`** — Client-side card renderer (~400 lines, embedded in HTML)
-- **`../../references/figma-spec-schema.md`** — JSON spec format for the Figma interpreter
-- **`../../scripts/figma-interpreter.min.js`** — Minified interpreter (~16KB, all 17 node types, included in use_figma calls)
+- **`../../scripts/brief-to-figma.js`** — Deterministic code generator: brief-data.json → Figma Plugin API JS array (used in Step 3)
+- **`../../scripts/figma-codegen.js`** — Shared code generation library used by brief-to-figma.js (and flow-to-figma.js, slide-to-figma.js)

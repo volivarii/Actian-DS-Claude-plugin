@@ -334,12 +334,14 @@ function genSizing(varName, sizing) {
  */
 function generateNodeCode(spec, varName) {
   switch (spec.type) {
-    case 'FRAME':    return _genFrame(spec, varName);
-    case 'TEXT':     return _genText(spec, varName);
-    case 'RECT':     return _genRect(spec, varName);
-    case 'ELLIPSE':  return _genEllipse(spec, varName);
-    case 'DIVIDER':  return _genDivider(spec, varName);
-    case 'INSTANCE': return _genInstance(spec, varName);
+    case 'FRAME':          return _genFrame(spec, varName);
+    case 'TEXT':           return _genText(spec, varName);
+    case 'RECT':           return _genRect(spec, varName);
+    case 'ELLIPSE':        return _genEllipse(spec, varName);
+    case 'DIVIDER':        return _genDivider(spec, varName);
+    case 'INSTANCE':       return _genInstance(spec, varName);
+    case 'LOCAL_INSTANCE': return _genLocalInstance(spec, varName);
+    case 'VECTOR':         return _genVector(spec, varName);
     default:
       throw new Error('generateNodeCode: unknown node type: ' + spec.type);
   }
@@ -515,6 +517,105 @@ function _genDivider(spec, varName) {
   return lines.join('\n');
 }
 
+/** Generate VECTOR node code — creates a minimal rectangle placeholder. */
+function _genVector(spec, varName) {
+  const lines = [];
+  const w = (spec.width != null) ? spec.width : 16;
+  const h = (spec.height != null) ? spec.height : 16;
+  lines.push('var ' + varName + ' = figma.createRectangle();');
+  if (spec.name) lines.push(varName + '.name = ' + lit(spec.name) + ';');
+  lines.push(varName + '.resize(' + w + ', ' + h + ');');
+  if (spec.fills != null) {
+    const fc = genFills(varName, spec.fills);
+    if (fc) lines.push(fc);
+  }
+  return lines.join('\n');
+}
+
+/** Generate LOCAL_INSTANCE node code (uses _local_<ref> instead of _imp_<ref>). */
+function _genLocalInstance(spec, varName) {
+  const lines = [];
+  const ref = spec.ref;
+
+  // Local components are stored as _local_<ref>
+  const localVar = '_local_' + ref;
+
+  lines.push('var ' + varName + ';');
+
+  if (spec.variant) {
+    lines.push('(function() {');
+    lines.push('  var _cs = ' + localVar + ';');
+    lines.push("  if (_cs && _cs.type === 'COMPONENT_SET') {");
+    lines.push('    var _variants = _cs.children;');
+    lines.push('    var _target = null;');
+    lines.push('    for (var _i = 0; _i < _variants.length; _i++) {');
+    lines.push('      if (_variants[_i].name === ' + lit(spec.variant) + ') { _target = _variants[_i]; break; }');
+    lines.push('    }');
+    lines.push('    if (!_target) {');
+    lines.push('      for (var _j = 0; _j < _variants.length; _j++) {');
+    lines.push('        if (_variants[_j].name.indexOf(' + lit(spec.variant) + ') !== -1) { _target = _variants[_j]; break; }');
+    lines.push('      }');
+    lines.push('    }');
+    lines.push('    if (_target) {');
+    lines.push('      ' + varName + ' = _target.createInstance();');
+    lines.push('    } else {');
+    lines.push('      ' + varName + ' = (_cs.defaultVariant || _cs.children[0]).createInstance();');
+    lines.push('    }');
+    lines.push('  } else if (_cs) {');
+    lines.push('    ' + varName + ' = _cs.createInstance();');
+    lines.push('  } else {');
+    lines.push('    ' + varName + ' = figma.createFrame();');
+    lines.push('    ' + varName + ".name = 'Missing: " + esc(ref) + "';");
+    lines.push('  }');
+    lines.push('})();');
+  } else {
+    lines.push('(function() {');
+    lines.push('  var _cs = ' + localVar + ';');
+    lines.push("  if (_cs && _cs.type === 'COMPONENT_SET') {");
+    lines.push('    ' + varName + ' = (_cs.defaultVariant || _cs.children[0]).createInstance();');
+    lines.push('  } else if (_cs) {');
+    lines.push('    ' + varName + ' = _cs.createInstance();');
+    lines.push('  } else {');
+    lines.push('    ' + varName + ' = figma.createFrame();');
+    lines.push('    ' + varName + ".name = 'Missing: " + esc(ref) + "';");
+    lines.push('  }');
+    lines.push('})();');
+  }
+
+  if (spec.name) lines.push(varName + '.name = ' + lit(spec.name) + ';');
+
+  if (spec.props) {
+    for (const prop in spec.props) {
+      lines.push('setProp(' + varName + ', ' + lit(prop) + ', ' + lit(spec.props[prop]) + ');');
+    }
+  }
+
+  if (spec.fills != null) {
+    const fc = genFills(varName, spec.fills);
+    if (fc) lines.push(fc);
+  }
+
+  // Detach instance and append children (for card shell pattern)
+  if (spec.detach) {
+    lines.push(varName + ' = ' + varName + '.detachInstance();');
+  }
+
+  if (spec.children && spec.children.length) {
+    spec.children.forEach(child => {
+      const childVar = nextVar('c');
+      const childCode = generateNodeCode(child, childVar);
+      childCode.split('\n').forEach(l => lines.push(l));
+      lines.push(varName + '.appendChild(' + childVar + ');');
+      if (child.sizing) {
+        const sc = genSizing(childVar, child.sizing);
+        if (sc) sc.split('\n').forEach(l => lines.push(l));
+      }
+    });
+  }
+
+  return lines.join('\n');
+}
+
 /** Generate INSTANCE node code. */
 function _genInstance(spec, varName) {
   const lines = [];
@@ -574,6 +675,24 @@ function _genInstance(spec, varName) {
   if (spec.fills != null) {
     const fc = genFills(varName, spec.fills);
     if (fc) lines.push(fc);
+  }
+
+  // Detach instance and append children (for card shell pattern)
+  if (spec.detach) {
+    lines.push(varName + ' = ' + varName + '.detachInstance();');
+  }
+
+  if (spec.children && spec.children.length) {
+    spec.children.forEach(child => {
+      const childVar = nextVar('c');
+      const childCode = generateNodeCode(child, childVar);
+      childCode.split('\n').forEach(l => lines.push(l));
+      lines.push(varName + '.appendChild(' + childVar + ');');
+      if (child.sizing) {
+        const sc = genSizing(childVar, child.sizing);
+        if (sc) sc.split('\n').forEach(l => lines.push(l));
+      }
+    });
   }
 
   return lines.join('\n');
@@ -638,6 +757,45 @@ function generateCallCode(spec) {
       } else {
         lines.push('var ' + impVar + ' = await figma.importComponentByKeyAsync(' + lit(def.key) + ');');
       }
+    });
+    lines.push('');
+  }
+
+  // 5b. Local components (by node ID)
+  const localComponents = spec.localComponents || {};
+  const localCompKeys = Object.keys(localComponents);
+  if (localCompKeys.length) {
+    lines.push('// Load local components by node ID');
+    localCompKeys.forEach(ref => {
+      const def = localComponents[ref];
+      const localVar = '_local_' + ref;
+      lines.push('var ' + localVar + ' = await figma.getNodeByIdAsync(' + lit(def.nodeId) + ');');
+    });
+    lines.push('');
+  }
+
+  // 5c. Variables (by key)
+  const variables = spec.variables || {};
+  const variableKeys = Object.keys(variables);
+  if (variableKeys.length) {
+    lines.push('// Import variables');
+    variableKeys.forEach(ref => {
+      const def = variables[ref];
+      const varVar = '_var_' + ref;
+      lines.push('var ' + varVar + ' = await figma.variables.importVariableByKeyAsync(' + lit(def.key) + ');');
+    });
+    lines.push('');
+  }
+
+  // 5d. Styles (by key)
+  const styles = spec.styles || {};
+  const styleKeys = Object.keys(styles);
+  if (styleKeys.length) {
+    lines.push('// Import styles');
+    styleKeys.forEach(ref => {
+      const def = styles[ref];
+      const styleVar = '_style_' + ref;
+      lines.push('var ' + styleVar + ' = await figma.importStyleByKeyAsync(' + lit(def.key) + ');');
     });
     lines.push('');
   }
@@ -741,4 +899,7 @@ module.exports = {
   generateNodeCode,
   // Full call assembler
   generateCallCode,
+  // Internal node generators (exported for testing)
+  _genLocalInstance,
+  _genVector,
 };
