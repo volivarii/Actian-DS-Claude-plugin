@@ -1,8 +1,8 @@
 # Actian Design System Plugin
 
-Claude plugin for the Actian UX team. Describe a feature and get a full wireframe flow. Spec a component and get a 9-card brief with real library instances. Audit a screen and get token-level findings with one-click fixes. Test everything interactively before pushing to Figma.
+Point at anything in Figma and get help. Your design system teammate for spot fixes, flow generation, audits, research, and content review. Understands Actian's tokens, guidelines, components, and all three apps.
 
-**v1.21.0** | 7 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
+**v1.26.0** | 8 skills | 5 agents | 115 design tokens | 3 themes | WCAG 2.1 AA
 
 ## Install
 
@@ -21,8 +21,6 @@ claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
 2. Go to **Settings** > **Extensions** > **Add from GitHub**
 3. Enter: `volivarii/Actian-DS-Claude-plugin`
 4. Enable the **Figma** connector under **Settings** > **Integrations**
-
-> All 7 skills work in Claude Desktop. The Figma MCP connector provides design context, screenshots, and `use_figma` write access.
 
 ### Auto-updates
 
@@ -47,20 +45,6 @@ Skills read internal reference files, templates, and scripts during execution. T
 {
   "permissions": {
     "allow": [
-      "Read(~/.claude/plugins/**)"
-    ]
-  }
-}
-```
-
-This trusts all installed plugin files for reading. Without it, each file read triggers a permission prompt, slowing down skill execution significantly.
-
-If you also want to skip prompts for Figma MCP tools (recommended):
-
-```json
-{
-  "permissions": {
-    "allow": [
       "Read(~/.claude/plugins/**)",
       "mcp__claude_ai_Figma__get_design_context",
       "mcp__claude_ai_Figma__get_metadata",
@@ -80,111 +64,186 @@ If you also want to skip prompts for Figma MCP tools (recommended):
 
 ---
 
-## Skills
+## How to work with the companion
 
-### Generate — from idea to Figma
+Just describe what you need. Share a Figma URL, ask a question, or describe a task. The companion figures out what to do.
 
-Describe what you need, review it in the browser, and push to Figma when it looks right. Every generation skill supports competitor research to ground decisions in real-world patterns, and previews everything locally before touching Figma.
+### Fix issues
 
-| Skill | What it does | How it helps |
-|-------|-------------|-------------|
-| `/generate-flow` | Wireframe flows from user stories. Competitor research, screen planning, interactive prototype, Figma output. | Go from a feature description to a clickable flow. Test navigation, form validation, and branching paths in the browser before committing. |
-| `/component-brief` | 9-card DS Kit or 5-card Fat Marker spec — anatomy, tokens, API, states, accessibility, code. | Every variant, state, and token documented in one place. Use the interactive playground to toggle states and themes before pushing. |
-| `/create-component` | Build a new Figma component with variants via Plugin API, with optional pattern research. | New components follow DS Kit conventions from the start — correct auto-layout, token binding, and naming. |
-| `/generate-presentation` | Slide deck using Actian templates with charts and data visualizations. | Consistent decks that follow DS Kit typography, color, and layout without manual setup. |
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+the spacing in this card feels off
+```
 
-### Review — catch issues, fix them in place
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+check the contrast on this form
+```
 
-Audit any screen against DS Kit rules and fix findings directly. Compare two versions of a flow. Every fix comes with before/after screenshots.
+```
+Is this button using the right token?
+https://figma.com/design/FILEKEY/File?node-id=123-456
+```
 
-| Skill | What it does | How it helps |
-|-------|-------------|-------------|
-| `/design-audit` | Audit a Figma screen against DS Kit tokens, WCAG AA, content guidelines, and forms layout. Fix findings inline — swap instances, bind tokens, align variants. | Catch and fix token mismatches, contrast failures, and guideline violations in one pass. Confidence-scored findings with evidence. |
-| `/compare-flows` | Side-by-side comparison of two Figma flows with severity-rated issues. | Evaluate a redesign against the original, or choose between competing approaches with structured criteria. |
+The companion reads the Figma node, checks it against DS rules, and fixes what's wrong — or asks when it's ambiguous.
 
-### Sync — keep everything current
+### Design screens and flows
 
-The design system lives in Figma. Sync extracts it directly via MCP so skills always have current tokens, components, and guidelines.
+```
+Mock up a data product publishing flow in Studio
+```
 
-| Skill | What it does | How it helps |
-|-------|-------------|-------------|
-| `/sync-design-system` | Extract components, variables, styles, guidelines, and tokens from Figma via MCP. | Full sync, per-phase, or single-component. No intermediary repos — Figma is the source of truth. |
+```
+Design a settings page for Administration
+```
 
-### Agents — autonomous helpers
+```
+How would a data steward create a metadata quality policy?
+```
 
-Agents are dispatched automatically by skills to parallelize research, validate outputs, and analyze results. They run as subprocesses with restricted tool access.
+The companion runs the full generation pipeline: screen planning, HTML preview, Figma push.
 
-| Agent | What it does | Dispatched by |
-|-------|-------------|---------------|
-| `flow-researcher` | Research UX patterns, competitor approaches, and Actian product context for a flow feature | generate-flow (Step 2) |
-| `brief-data-validator` | Validate brief-data.json against schema — catch missing fields, truncated arrays, hardcoded values | component-brief (after Step 1.5) |
-| `wiring-analyzer` | Analyze Figma flow structure and produce a prototype wiring plan (screens, buttons, overlays) | generate-flow (Step 5.5) |
-| `flow-consistency` | Check generated flow HTML against app context — chrome, terminology, empty states, feature focus | generate-flow (after Step 4) |
-| `parity-analyzer` | Analyze Figma screenshots for clipping, empty text, missing children, layout problems | All skills (parity check step) |
+### Review copy
+
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+review the copy in this screen
+```
+
+```
+Write better empty state text for the connections page
+```
+
+### Research patterns
+
+```
+How do data platforms like Atlan and Collibra handle onboarding?
+```
+
+```
+What's the best practice for wizard vs. inline form for multi-step setup?
+```
+
+### Document components
+
+```
+Brief the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
+```
+
+```
+Spec the Text Input component
+```
+
+### Compare designs
+
+```
+Which version is better for onboarding?
+v1: https://figma.com/design/FILEKEY/File?node-id=111-222
+v2: https://figma.com/design/FILEKEY/File?node-id=333-444
+```
+
+### Create components
+
+```
+Create a Data Product Card with Default, Hover, Selected states
+Properties: title, description, quality score, owner avatar, domain tag
+```
+
+### Sync from Figma
+
+```
+Sync the design system
+```
+
+```
+Sync the Button guidelines
+```
 
 ---
 
-## Workflow
+## Power-user shortcuts
 
-Every skill that outputs to Figma follows the same loop. The goal is to catch problems early (when they're cheap to fix) and give designers control at every step.
+Every capability is also available as a direct command. Use these when you know exactly which pipeline you want.
 
-```
-1. Research + data model
-   Skill reads tokens, guidelines, and Figma context,
-   then structures everything into a JSON data model.
+| Command | What it does |
+|---------|-------------|
+| `/generate-flow` | Wireframe flow from a feature description |
+| `/component-brief` | Structured component spec (9 DS Kit or 5 FM cards) |
+| `/design-audit` | Token, contrast, and guideline audit with inline fixes |
+| `/create-component` | Build Figma components with variants and properties |
+| `/compare-flows` | Side-by-side comparison of two Figma flows |
+| `/generate-presentation` | Slide deck with Actian templates |
+| `/sync-design-system` | Extract tokens, components, and guidelines from Figma |
 
-2. Preview + annotate
-   HTML rendered from the data model, served on localhost.
-   Click "Annotate" to mark issues on elements. Generate
-   an interactive prototype or state playground. Feedback
-   edits the data model — both HTML and Figma stay in sync.
+---
 
-3. Push to Figma
-   Data model → figma-spec.json → fixed interpreter.
-   The AI produces a declarative JSON spec. A fixed 30KB
-   interpreter builds the Figma tree mechanically — 16
-   node types, variable/style binding, zero retries.
-   Parity check catches issues before declaring success.
-```
+## Preview and iteration
 
-### Preview gate
-
-All output skills pause before pushing to Figma. This is where most iteration happens — HTML previews are free and fast, Figma output costs MCP calls and is harder to undo.
+Every generation task pauses for review before pushing to Figma:
 
 | Reply | What happens |
 |-------|-------------|
-| `"push"` | Send all content to Figma |
-| `"push 2,4,5"` | Send only selected cards/screens |
-| `"push and wire"` | Push + wire prototype connections — flow becomes playable in Figma Presentation mode |
-| `"prototype"` | Generate an interactive flow prototype — click through screens, fill forms, test branching paths |
-| `"playground"` | Generate a component state explorer — toggle states, switch themes, see which tokens are active |
-| `"apply annotations"` | Apply visual annotations from the browser preview (see below) |
-| `feedback` | Fix the HTML and re-preview |
+| **"push"** | Send everything to Figma |
+| **"push 2,4,5"** | Send specific items only |
+| **"preview"** | Open HTML preview first (for flows) |
+| **"push and wire"** | Push + wire prototype connections |
+| **"prototype"** | Generate clickable HTML prototype |
+| **"playground"** | Generate component state explorer |
+| **"apply annotations"** | Apply visual annotations from the browser |
+| **feedback** | Describe changes, get updated output |
 
-### Visual annotations — point at what needs changing
+### Visual annotations
 
-Instead of describing issues in text, click directly on any element in the preview and annotate it. The plugin fixes exactly what you pointed at.
+Instead of describing issues in text, click directly on any element in the preview:
 
 1. Click **Annotate** in the preview toolbar
-2. Hover over any element — it highlights with a blue outline and shows its name
-3. Click → type your feedback → pick **Change** or **Note** → Save
-4. Repeat for as many elements as you want
-5. Click **Apply** in the browser, then say **"apply"** in the CLI
-6. Every change is applied and the page auto-refreshes
+2. Click any element, type feedback, pick **Change** or **Note**
+3. Click **Apply** in the browser, then say **"apply"** in the CLI
 
-**Change** = modify the element ("make this a primary button", "change text to 'Save draft'"). **Note** = carry forward to Figma without changing the preview. Notes are preserved in the push manifest.
+Works at every preview gate across all skills.
 
-This works at every preview gate across all skills — flows, briefs, presentations.
+---
 
-### Post-push parity check
+## What the companion knows
 
-After every push, the skill automatically screenshots the Figma output and checks for common issues (clipped frames, empty text, missing children). P0 issues are flagged and can be fixed inline before the designer reviews.
+The companion has always-loaded knowledge of:
+
+- **Tokens** — spacing scale (4/8/12/16/24/28/32), colors, typography, borders for all 3 themes
+- **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
+- **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users)
+- **Component inventory** — 103 DS Kit + 40 FM Kit + Meta Kit templates
+
+It loads detailed references on demand: per-component guidelines, accessibility standards, UX patterns, foundation docs.
+
+### Three Actian apps
+
+| App | Purpose | Users |
+|-----|---------|-------|
+| **Studio** | Data integration, catalog, quality, lineage | Data engineers, stewards |
+| **Explorer** | Data discovery, search, browse, access requests | Analysts, data consumers |
+| **Administration** | Users, connections, scanners, settings | Admins |
+
+The companion uses the correct header, navigation, and terminology for each app.
+
+---
+
+## Agents
+
+Agents are dispatched automatically by skills. They run as background subprocesses.
+
+| Agent | What it does | When |
+|-------|-------------|------|
+| `flow-researcher` | Research UX patterns and competitors | Flow generation (research phase) |
+| `flow-consistency` | Check HTML for chrome/terminology correctness | Flow generation (after HTML) |
+| `wiring-analyzer` | Analyze flow structure for prototype wiring | Flow push (wire step) |
+| `brief-data-validator` | Validate component brief data model | Brief generation (after data model) |
+| `parity-analyzer` | Check Figma output for rendering issues | All skills (after push) |
 
 ---
 
 ## Data architecture
 
-Figma libraries are the single source of truth. `/sync-design-system` extracts directly via MCP — no intermediary repos.
+Figma libraries are the single source of truth. `/sync-design-system` extracts directly via MCP.
 
 ```
 Figma libraries (DS Kit + FM Kit + Meta Kit)
@@ -193,64 +252,18 @@ Figma libraries (DS Kit + FM Kit + Meta Kit)
     |
 Plugin docs/ + tokens/ (static reference files)
     |
-Skills read at runtime
+Companion + skills read at runtime
 ```
 
-**Dual format:** JSON is source of truth for skills. Markdown is auto-generated for human review.
+### Design system layers
 
-### Sync commands
+| Layer | Font | Components | Used for |
+|-------|------|-----------|----------|
+| **Fat Marker (lo-fi)** | Inter | 40 FM Kit components | Wireframe flows |
+| **DS Kit (hi-fi)** | Roboto | 103 component sets | Component briefs, audits |
+| **Meta Kit** | Inter | Templates + annotation markers | All output skills |
 
-```bash
-/sync-design-system all          # Full sync (all phases)
-/sync-design-system components   # Single phase
-/sync-design-system Button       # Single component guidelines
-/sync-design-system validate     # Diff without overwriting
-```
-
-### Sync output
-
-| Phase | Output | Format |
-|-------|--------|--------|
-| 1 — Components | `dskit-components.md`, `fm-components.md`, `meta-kit/components.md` | Markdown |
-| 2 — Variables | `meta-kit/variables.md` (115 vars, 3 themes) | Markdown |
-| 3 — Styles | `meta-kit/text-styles.md`, `meta-kit/effect-styles.md` | Markdown |
-| 4 — Tokens | `token-reference.md`, `tokens.css`, `actian-ds.tokens.json` | MD + CSS + JSON |
-| 5 — Guidelines | `component-guidelines/*.json` (44 components) | JSON |
-| 6 — Foundations | `foundations/*.json`, `content-guidelines.md`, `accessibility-guidelines.md` | JSON + MD |
-
----
-
-## Design system layers
-
-| Layer | Font | Components | Used by |
-|-------|------|-----------|---------|
-| **Fat Marker (lo-fi)** | Inter | 34 FM Kit components | `/generate-flow` |
-| **DS Kit (hi-fi)** | Roboto | 97 component sets + 3 standalone | `/component-brief`, `/design-audit` |
-| **Meta Kit** | Inter | 16 components + 5 templates | All output skills |
-
-3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS attribute or Figma variable modes.
-
-## Token naming
-
-All tokens use the `--zen-` prefix:
-
-```
---zen-color-theme-primary         --zen-spacing-md
---zen-color-brand-primary         --zen-border-radius-default
---zen-size-xl                     --zen-border-width-focus
---zen-breakpoint-lg
-```
-
-## Figma files
-
-| File | Config key | Purpose |
-|------|-----------|---------|
-| Actian Design System v1.1.0 | `dsKit` | DS Kit library |
-| Fat Marker Kit | `fmKit` | Wireframe components |
-| Meta Kit | `metaKit` | Skill-output components |
-| Template for projects | `templates` | Presentation templates |
-
-File keys are stored in `.figma-keys.json` (gitignored). Copy `.figma-keys.json.example` and fill in your team's keys.
+3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
 
 ---
 
@@ -261,27 +274,22 @@ actian-design-system-plugin/
 +-- plugins/actian-design-system/
 |   +-- .claude-plugin/plugin.json
 |   +-- CLAUDE.md
-|   +-- skills/                          # 7 skills
-|   +-- agents/                          # 5 agents (auto-dispatched by skills)
-|   +-- scripts/                         # Fixed interpreter + validation
-|   |   +-- figma-interpreter.js         # Source interpreter (32KB, readable)
-|   |   +-- figma-interpreter.min.js    # Minified (16KB, all 17 node types)
-|   |   +-- brief-to-spec.js              # Deterministic brief → Figma spec (auto-split)
-|   |   +-- flow-to-spec.js              # Hybrid flow → Figma spec (chrome deterministic, content creative)
-|   |   +-- slide-to-spec.js             # Deterministic slide → Figma spec (gradients, variables)
-|   |   +-- validate-spec.js             # Spec validation (Node.js)
-|   +-- references/                      # Shared + skill-specific references
-|   |   +-- figma-spec-schema.md         # JSON spec schema (AI reads this)
-|   |   +-- component-brief/             # Data schema, spec builder, renderers, playground
-|   |   +-- generate-flow/               # Spec builder, HTML reference, research guide
-|   |   +-- generate-presentation/       # Spec builder, slide templates, chart types
-|   |   +-- create-component/            # Spec builder for component authoring
-|   +-- templates/                       # CSS wrappers, annotation layer, prototype/playground
+|   +-- skills/                          # 8 skills (companion + 7 specialized)
+|   +-- agents/                          # 5 agents (auto-dispatched)
+|   +-- scripts/
+|   |   +-- figma-codegen.js             # Shared Figma code generation library
+|   |   +-- flow-to-figma.js             # Flow data → Figma plugin code
+|   |   +-- brief-to-figma.js            # Brief data → Figma plugin code
+|   |   +-- slide-to-figma.js            # Slide data → Figma plugin code
+|   |   +-- templates.json               # Screen templates (admin, mobile, etc.)
+|   |   +-- html-renderers/              # Client-side renderers for preview
+|   +-- references/                      # DS context + skill-specific references
+|   |   +-- companion-context.md         # Always-loaded DS summary
+|   +-- templates/                       # CSS wrappers, annotation layer
 |   +-- tokens/                          # W3C DTCG + CSS custom properties
 |   +-- docs/                            # Synced reference files
-+-- docs/
-    +-- superpowers/specs/               # Design specs
-    +-- superpowers/plans/               # Implementation plans
++-- USAGE.md                             # Detailed usage guide
++-- docs/superpowers/                    # Design specs + implementation plans
 ```
 
 ---
@@ -290,8 +298,6 @@ actian-design-system-plugin/
 
 ### Setup
 
-Clone the repo and configure Figma file keys:
-
 ```bash
 git clone https://github.com/volivarii/Actian-DS-Claude-plugin.git
 cd Actian-DS-Claude-plugin/plugins/actian-design-system
@@ -299,12 +305,9 @@ cp .figma-keys.json.example .figma-keys.json
 # Edit .figma-keys.json with your team's Figma file keys
 ```
 
-Keys are found in Figma URLs: `figma.com/design/<FILE_KEY>/...`. The config maps 5 libraries: `dsKit`, `fmKit`, `metaKit`, `templates`, `designConsistency`.
-
 ### Local testing
 
 ```bash
-# Test with the plugin directory
 claude --plugin-dir plugins/actian-design-system
 ```
 
@@ -315,11 +318,5 @@ claude --plugin-dir plugins/actian-design-system
 | Tokens/components in Figma | `/sync-design-system all` |
 | Single component's guidelines | `/sync-design-system Button` |
 | Foundation docs | `/sync-design-system foundations` |
-| Presentation guide | Edit `docs/presentation-guide.md` |
-| Shared skill patterns | Edit `references/*.md` |
 | New skill | Add `skills/<name>/SKILL.md` |
 | Version bump | Update `.claude-plugin/plugin.json` |
-
-### Release notes
-
-Generate from git log and format for Slack: ask Claude "generate release notes" or see `CLAUDE.md` § Release Notes.

@@ -1,164 +1,256 @@
 # Usage Guide
 
-How to use the Actian Design System plugin. All examples are natural language prompts — just type what you want. No special syntax required.
+Your design system teammate. Share a Figma URL, describe what you need, or ask a question — the companion handles the rest.
 
 ---
 
-## Quick Start
+## Working together
 
-After installing, connect the Figma MCP and start prompting:
+### Point at something, get help
+
+The most natural way to use the plugin: share a Figma URL and describe what you need.
 
 ```
-Generate a flow for catalog browsing in Explorer
+https://figma.com/design/FILEKEY/File?node-id=123-456
+the spacing in this card feels off
+```
+
+The companion reads the design, checks it against DS rules, and either fixes it directly (obvious violations) or asks when there's a judgment call.
+
+### Describe a task
+
+No URL needed — just say what you're working on.
+
+```
+Mock up a data product publishing flow in Studio
 ```
 
 ```
-Brief the Button component from https://figma.com/design/...?node-id=123-456
+How would a data steward create a metadata quality policy?
 ```
 
 ```
-Audit this screen https://figma.com/design/...?node-id=123-456
+Write better copy for the empty state on the connections page
+```
+
+### Ask a question
+
+```
+What's the correct spacing between cards in a grid?
+```
+
+```
+How do competitors handle multi-step onboarding?
+```
+
+```
+Is there a Tab component in the FM Kit?
 ```
 
 ---
 
-## Generating Flows
+## What the companion helps with
 
-Describe a feature, user story, or task — the plugin generates a multi-screen wireframe flow using Fat Marker components.
+### Spot fixes — wrong tokens, spacing, auto-layout
 
-| What you say | What happens |
-|-------------|-------------|
-| "Create a data product publishing flow in Studio" | Generates screens for the full creation workflow |
-| "How would a steward create a metadata quality policy?" | Infers app (Studio), role, and flow type |
-| "Quick draft of user registration" | Draft tier: happy path only, 3-5 screens |
-| "Production flow for data contracts with all states" | Production tier: all paths, edge cases, variable binding |
+Share a URL + describe what looks wrong. The companion fixes obvious violations directly (wrong color, spacing off-scale, missing auto-layout) and asks about ambiguous ones.
 
-**Research:** Add "research competitor patterns" to get UX research from Notion, Stripe, Atlan, etc. before generation. Or say "no research, just build it" to skip.
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+this doesn't look right
+```
 
-**Preview:** Every flow gets an HTML preview on localhost. Review it, annotate issues, then push to Figma.
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+check the tokens on this component
+```
 
-**Prototype wiring:** Say "push and wire" at the preview gate and your flow becomes playable in Figma's Presentation mode — buttons, menus, and back navigation are auto-detected.
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+the colors seem inconsistent here
+```
 
-**Wire existing flows:** Paste a Figma URL and say "wire a prototype on this flow" — works on any flow, not just ones the plugin generated.
+### Flows and screens — from idea to Figma
+
+Describe a feature, user story, or task. The companion plans screens, generates an HTML preview, and pushes to Figma.
+
+```
+Create a connection setup wizard for Administration
+```
+
+```
+Generate a catalog browsing experience in Explorer
+```
+
+```
+Quick draft of user registration
+```
+
+```
+Production flow for data contracts with all states and edge cases
+```
+
+**Research:** Add "research competitor patterns" to get UX research before generation. Or say "no research, just build it" to skip.
+
+**Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
+
+### Copy review — content guidelines applied
+
+Share a screen and ask about the text. The companion checks against Actian content guidelines: sentence case, action verbs, error message patterns, empty state CTAs.
+
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+review the copy in this screen
+```
+
+```
+Write an error message for a failed connection — timeout after 30s
+```
+
+```
+What should the empty state say when there are no data products?
+```
+
+### Accessibility — WCAG 2.1 AA checks
+
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+is this form accessible?
+```
+
+```
+Check the contrast on these cards
+```
+
+For a full audit with confidence-scored findings, say "audit this screen."
+
+### Research — patterns and competitors
+
+```
+How do data platforms like Atlan and Collibra handle data lineage visualization?
+```
+
+```
+What's the best practice for destructive action confirmation?
+```
+
+```
+Research wizard patterns for multi-step configuration
+```
+
+### Component specs — brief, document, create
+
+```
+Brief the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
+```
+
+```
+Create a Data Product Card with Default, Hover, Selected states
+Properties: title, description, quality score, owner avatar
+```
+
+```
+Add a compact size variant to the existing Badge component
+```
+
+### Compare designs — v1 vs v2
+
+```
+Compare these two approaches:
+https://figma.com/design/FILEKEY/File?node-id=111-222
+https://figma.com/design/FILEKEY/File?node-id=333-444
+```
+
+```
+Which version is better for onboarding? v1: [URL1] v2: [URL2]
+```
+
+### Presentations — decks from content
+
+```
+Create a presentation about Q1 design system adoption
+```
+
+```
+Present the migration plan to engineering leads
+```
+
+### Design system sync — keep tokens and docs current
+
+```
+Sync the design system
+```
+
+```
+Sync the Button guidelines
+```
+
+```
+Check if local files are up to date with Figma
+```
+
+### Guideline proposals — evolve the DS
+
+```
+We should add a rule about minimum card padding
+```
+
+```
+The content guidelines don't cover date formatting — can we add that?
+```
+
+The companion drafts the guideline and shows where it would go. You approve before any file changes.
 
 ---
 
-## Component Briefs
+## Power-user shortcuts
 
-Document any component with a structured spec: anatomy, tokens, API, states, accessibility, code.
+Every capability is also a direct command. Use these when you know exactly what you want.
 
-| What you say | What happens |
-|-------------|-------------|
-| "Brief the Button component" | 9-card DS Kit spec |
-| "Brief the FM Alert" | 5-card Fat Marker spec |
-| "Brief this https://figma.com/design/...?node-id=123-456" | Spec from a Figma URL |
-| "Component brief for Modal, only cards 2, 4, 5" | Selected cards |
-
-**Playground:** Say "playground" at the preview gate to generate an interactive state explorer — toggle states, switch themes, see active tokens.
-
----
-
-## Design Audits
-
-Audit any Figma screen against DS Kit rules: tokens, WCAG AA contrast, content guidelines, forms layout.
-
-| What you say | What happens |
-|-------------|-------------|
-| "Audit this screen [URL]" | Token, contrast, guideline check with confidence-scored findings |
-| "What's wrong with this design? [URL]" | Same audit, conversational trigger |
-| "Fix finding #3" | Apply the fix directly in Figma |
-| "Fix the hardcoded blue on the login button" | Fix by description |
-| "Fix all auto-fixable findings" | Batch fix |
+| Command | When to use |
+|---------|------------|
+| `/generate-flow [description]` | Jump straight to flow generation |
+| `/component-brief [name or URL]` | Jump to component spec |
+| `/design-audit [URL]` | Jump to full audit |
+| `/create-component [description]` | Jump to component creation |
+| `/compare-flows [URL1] [URL2]` | Jump to comparison |
+| `/generate-presentation [topic]` | Jump to deck creation |
+| `/sync-design-system [scope]` | Jump to sync |
 
 ---
 
-## Creating Components
+## Preview and iteration
 
-Build new Figma components with variants, properties, and token binding.
+Generation tasks pause for review before pushing to Figma:
 
-| What you say | What happens |
-|-------------|-------------|
-| "Create a Data Product Card with Default, Hover, Selected states" | New component with 3 variants |
-| "Add a compact size to the existing Button" | Extend an existing component |
-| "Create a Stepper, research Material and Atlassian first" | Research patterns before building |
-
----
-
-## Comparing Flows
-
-Side-by-side comparison of two Figma flows with severity-rated findings.
-
-| What you say | What happens |
-|-------------|-------------|
-| "Compare [URL1] and [URL2]" | Structured comparison |
-| "Which is better for onboarding? v1: [URL1] v2: [URL2]" | Evaluative comparison |
-
----
-
-## Presentations
-
-Generate slide decks using Actian templates with charts and data visualizations.
-
-| What you say | What happens |
-|-------------|-------------|
-| "Create a deck on Q1 design system progress" | 8-15 slides with DS Kit styling |
-| "Present the migration plan to engineering leads" | Audience-aware deck |
-| "Turn these notes into a presentation: [file]" | From input files |
-
----
-
-## Syncing from Figma
-
-Keep local tokens, components, and guidelines in sync with Figma.
-
-| What you say | What happens |
-|-------------|-------------|
-| "Sync the design system" | Full 6-phase sync |
-| "Sync the Button guidelines" | Single component |
-| "Sync tokens" | Single phase |
-| "Check if local files are up to date" | Validate without overwriting |
-
----
-
-## Preview & Iteration
-
-Every generation skill pauses at a preview gate before pushing to Figma:
-
-| At the gate | What happens |
-|-------------|-------------|
+| Reply | What happens |
+|-------|-------------|
 | **"push"** | Send everything to Figma |
-| **"push 2,4,5"** | Send specific items only |
-| **"push and wire"** | Push + wire prototype connections (flows) |
-| **"prototype"** | Generate clickable HTML prototype (flows) |
-| **"playground"** | Generate state explorer (component briefs) |
-| **feedback** | Describe changes, HTML updates and re-serves |
+| **"push 2,4,5"** | Send specific items |
+| **"preview"** | Open HTML preview first |
+| **"push and wire"** | Push + wire prototype connections |
+| **"prototype"** | Generate clickable HTML prototype |
+| **"playground"** | Generate component state explorer |
+| **feedback** | Describe changes, get updated output |
 
-### Visual annotations — point at what needs changing
+### Visual annotations
 
-Instead of describing issues in text ("the third button in the header should be blue"), click directly on the element in the preview and annotate it. The plugin fixes exactly what you pointed at.
+Click directly on elements in the preview instead of describing issues in text:
 
 1. Click **Annotate** in the preview toolbar
-2. Hover over any element — it highlights with a blue outline showing its name
-3. Click the element → type your feedback → pick **Change** or **Note** → Save
-4. Repeat for as many elements as you want
-5. Click **Apply** in the browser
-6. Say **"apply"** in the CLI — every annotation is applied and the page auto-refreshes
+2. Click any element, type feedback, pick **Change** or **Note**
+3. Click **Apply** in the browser, then say **"apply"** in the CLI
 
-**Change** = modify the element as described ("make this a primary button", "change text to 'Save draft'").
-**Note** = don't change anything — carry the note forward to the Figma push step.
-
-This turns iteration from "describe the problem → hope it's understood → check if it's fixed" into "point at the problem → describe the fix → it's applied." Works at every preview gate across all skills.
+**Change** = modify the element. **Note** = carry forward to Figma without changing.
 
 ---
 
-## Three Actian Apps
+## Three Actian apps
 
-The plugin understands all three applications in the Data Intelligence Platform:
+The companion uses the correct header, navigation, and terminology for each app.
 
-| App | Use when you mention | Examples |
-|-----|---------------------|----------|
-| **Studio** | governance, catalog management, stewardship, lineage, metadata | "Create a lineage exploration flow in Studio" |
-| **Explorer** | marketplace, discovery, search, data products, business glossary | "Mock up the data product browsing experience in Explorer" |
-| **Administration** | users, connections, settings, configuration, policies | "Generate a connection setup wizard for Administration" |
-
-The plugin uses the correct navigation, chrome, and terminology for each app.
+| App | Purpose | Typical tasks |
+|-----|---------|--------------|
+| **Studio** | Data integration, catalog, quality, lineage | "Create a lineage exploration flow" |
+| **Explorer** | Data discovery, search, data products, glossary | "Mock up the data product browsing experience" |
+| **Administration** | Users, connections, scanners, settings | "Generate a connection setup wizard" |
