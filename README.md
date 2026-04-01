@@ -6,23 +6,27 @@ Point at anything in Figma and get help. Your design system teammate for spot fi
 
 ## Install
 
-### Claude Code CLI
+### Step 1 — Add the marketplace
+
+Run this in Claude Code (CLI or Desktop's Code tab):
 
 ```bash
-claude plugin add volivarii/Actian-DS-Claude-plugin
+claude plugin marketplace add volivarii/Actian-DS-Claude-plugin
+```
 
-# Connect Figma MCP
+Then install the plugin:
+
+```bash
+claude plugin install actian-design-system@actian-design-system
+```
+
+### Step 2 — Connect Figma
+
+```bash
 claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
 ```
 
-### Claude Desktop
-
-1. Open Claude Desktop
-2. Go to **Settings** > **Extensions** > **Add from GitHub**
-3. Enter: `volivarii/Actian-DS-Claude-plugin`
-4. Enable the **Figma** connector under **Settings** > **Integrations**
-
-### Auto-updates
+### Step 3 — Enable auto-updates + permissions
 
 Add to `~/.claude/settings.json`:
 
@@ -33,16 +37,10 @@ Add to `~/.claude/settings.json`:
       "source": { "source": "github", "repo": "volivarii/Actian-DS-Claude-plugin" },
       "autoUpdate": true
     }
-  }
-}
-```
-
-### Recommended permissions
-
-Skills read internal reference files, templates, and scripts during execution. To avoid per-file consent prompts, add these to `~/.claude/settings.json`:
-
-```json
-{
+  },
+  "enabledPlugins": {
+    "actian-design-system@actian-design-system": true
+  },
   "permissions": {
     "allow": [
       "Read(~/.claude/plugins/**)",
@@ -55,6 +53,20 @@ Skills read internal reference files, templates, and scripts during execution. T
   }
 }
 ```
+
+### Claude Desktop notes
+
+The plugin works in Desktop's **Code tab**. The "Personal" tab uses a separate plugin system (Cowork) — ignore it.
+
+If skills don't appear after install, update via CLI:
+
+```bash
+claude plugin marketplace update actian-design-system
+```
+
+Then restart Desktop.
+
+> **Known issue (April 2026):** Desktop's plugin browser may not show skills correctly for third-party marketplace plugins ([#38008](https://github.com/anthropics/claude-code/issues/38008)). Skills still work when invoked — they just may not appear in the UI. Use the CLI for the most reliable experience.
 
 ### Manual update
 
