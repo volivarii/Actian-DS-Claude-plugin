@@ -37,9 +37,9 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 Build first, explain after. There are exactly 3 gates where you pause:
 1. **Step 2** — research opt-in (skip if user already said "with research" or "no research")
 2. **Step 3** — screen list approval (user can say "just screen 1" or similar to scope down)
-3. **Step 4.5** — HTML preview (user can say "push" to skip preview and go straight to Figma)
+3. **Step 4 preview gate** — HTML preview with push/feedback options
 
-Between gates, DO NOT ask questions. Infer from context, use defaults, keep moving. After screen list approval (gate 2), go straight to building HTML — no "ok" or "let me read the renderer" pauses.
+Between gates, DO NOT stop. After screen list approval (gate 2), read references, build HTML, start server, and present the preview gate — all in one uninterrupted sequence. No "ok", no "let me read the renderer", no "writing the file now". The user should not see anything between approving the screen list and seeing the preview URL.
 
 ### Speed rules
 
@@ -124,27 +124,32 @@ Output a numbered screen list for review:
 
 Wait for user approval.
 
-## Step 4 — Generate HTML (CLIENT-SIDE RENDERER)
+## Step 4 — Generate HTML and present preview (ONE ATOMIC STEP)
 
-Build the HTML file using the flow renderer. The AI writes only the content area per screen — screen chrome (app header, sidebar, page header) is rendered client-side.
+**This entire step — reading references, building JSON, writing HTML, starting server, and presenting the preview gate — happens in one uninterrupted sequence. Do NOT pause, narrate progress, or wait for confirmation at any point during this step. The next time you stop and wait for the user is the preview gate at the end.**
 
-1. Build `flow-data.json` from the screen list:
+The AI writes only the content area per screen — screen chrome (app header, sidebar, page header) is rendered client-side by `flow-renderer.js`.
+
+**What to read (in parallel where possible):**
+- `../../references/generate-flow/html-reference.md` — FM component classes and styling rules
+- `../../scripts/html-renderers/flow-renderer.js` — client-side renderer (embed in HTML)
+- `../../references/fm-css-reference.md` — exact FM variable values
+
+**What to build:**
+1. `flow-data.json` with:
    - `meta`: skill, feature, app, prompt, date, duration, model, pluginVersion
-   - `meta.research` (if research was done): `{ title, source, competitors, patterns, recommendation, sources }` — this generates a Research Frame card in Figma
+   - `meta.research` (if research was done): `{ title, source, competitors, patterns, recommendation, sources }`
    - `flows[]`: one per sub-flow, each with name, user, screens[]
    - Per screen: name, type (standard/compact), appHeader, sidebar (activeItem + items count), pageHeader (title, subtitle, actions), contentHtml
-2. Write `contentHtml` per screen — this is the ONLY AI-generated HTML:
-   - Feature-relevant content: tables, forms, dialogs, empty states, detail panels
-   - Use FM component classes from `../../references/generate-flow/html-reference.md`
-   - Feature focus: real content for feature elements, placeholder patterns for non-feature content
-3. Write CSS for any `fm-custom-*` elements
-4. Read `../../references/generate-flow/html-reference.md` for FM component classes and styling rules
-5. Read `../../scripts/html-renderers/flow-renderer.js`
-6. Assemble HTML file with flow CSS + `<div id="flow-container"></div>` + embedded JSON as `<script type="application/json" id="spec-data">` + renderer JS + annotation layer
-7. Write to: `{project_working_directory}/components/flows/[feature-name]-flow.html`
+2. `contentHtml` per screen — feature-relevant tables, forms, dialogs, empty states
+3. CSS for any `fm-custom-*` elements
+4. Assembled HTML file: flow CSS + `<div id="flow-container"></div>` + embedded JSON as `<script type="application/json" id="spec-data">` + renderer JS + annotation layer
+5. Write to: `{project_working_directory}/components/flows/[feature-name]-flow.html`
+
+**Then immediately** start server and present the preview gate (Step 4.5 below). No pause between writing and serving.
 
 **Feature focus principle (FM flows — mandatory):**
-Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — everything else must use placeholder/muted variants. This is not optional. The renderer handles sidebar placeholders automatically from the `sidebar.items` count — only `sidebar.activeItem` gets a real label.
+Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — everything else must use placeholder/muted variants. The renderer handles sidebar placeholders automatically from `sidebar.items` count.
 
 **Key rules:**
 - One row per flow — never split across rows
@@ -152,12 +157,14 @@ Spotlight the feature being demonstrated. Only elements directly relevant to the
 - Custom elements: prefix `fm-custom-`, use `--fm-*` vars, keep lo-fi
 - Screen sizes: Standard 1440x960px, Compact 1440x700px
 - Forms: inputs 480px max-width, extended elements full-width
-- Styles: read `../../references/fm-css-reference.md` — exact values only, no custom colors
+- Styles: exact FM values only, no custom colors
 - All text must be contextual, not generic ("Schedule Refresh" not "Submit")
 
-After writing the HTML file, **dispatch `flow-consistency` agent** in background with the HTML path, app context, and feature name. It checks chrome correctness, terminology, empty states, and feature focus. Review its findings before presenting the gate — fix any P0/P1 issues first.
+After writing the HTML file, **dispatch `flow-consistency` agent** in background. Do NOT wait for it — proceed to the preview gate immediately.
 
-## Step 4.5 — Preview gate (BLOCKING)
+### Preview gate (end of Step 4 — BLOCKING)
+
+Start server and present the gate in the same response as the HTML write:
 
 1. Start server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
 2. Present preview URL and ALL options — do not omit any:
