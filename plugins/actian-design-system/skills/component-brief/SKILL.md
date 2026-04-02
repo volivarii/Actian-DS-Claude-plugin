@@ -4,228 +4,69 @@ description: This skill should be used when the user asks to document, brief, or
 argument-hint: "[Figma URL or component name] [generate N,N,N]"
 ---
 
-<!-- This skill can be invoked directly (/component-brief) or via the DS companion. -->
-
 # Component Brief
 
-Draft a structured component brief with HTML spec page and Figma output. Supports two modes matching the two design system layers.
+Draft a structured component brief with HTML spec page and Figma output. Pipeline: research → data model → present options → push.
 
-**When NOT to use:** To *build* a new component → use `create-component`. To *audit* a design → use `design-audit`.
-
-> **Shared rules apply:** Content guidelines (Cards 6-7), accessibility guidelines for Card 8, quality checklist (Universal + Component Brief), generation log format — all per CLAUDE.md.
-
-## Modes
+## Mode detection
 
 | Signal | Mode |
 |--------|------|
-| "FM", "Fat Marker", "wireframe", "lo-fi" | **Fat Marker** |
-| "DS Kit", "design system", "hi-fi", "production" | **Actian DS** |
-| Figma URL from DS Kit files | **Actian DS** |
-| Component in FM catalog and no DS Kit signals | **Fat Marker** |
-| Default when Figma URL provided | **Actian DS** |
+| "FM", "Fat Marker", "wireframe", "lo-fi" | Fat Marker |
+| "DS Kit", "design system", "hi-fi", Figma URL from DS Kit, default with URL | Actian DS |
+| Component in FM catalog, no DS Kit signals | Fat Marker |
 | Ambiguous | Ask: "Fat Marker (lo-fi) or Actian DS (hi-fi)?" |
 
-## Quality tiers
+Card selection: default all. `"push 2,4,5"`, `"skip 6"`, `"generate card 4"`. Keywords: `"preview"` → HTML; `"playground"` → explorer.
 
-| Signal | Tier | Effect |
-|--------|------|--------|
-| "quick", "draft", "sketch" | Draft | Cards 1-5 only, simplified tables |
-| No qualifier | Standard | All cards, full Meta Kit components |
-| "production", "final" | Production | Standard + variable binding + golden reference |
-| Re-generation after feedback | Production | Auto-upgrade |
+## Step 1 — Research (ONE parallel batch)
 
-## Cards
+Parse URL (`fileKey` + `nodeId` per `../../references/figma-output.md`). ONE message: (1) `get_metadata(fileKey, nodeId)`, (2) `docs/component-guidelines/<slug>.json`, (3) `references/component-brief/data-schema.md`. Then: component set node ID from metadata → `get_design_context`. Fallback: `get_screenshot`.
 
-**Actian DS (9 cards):**
+## Step 1.5 — Generate data model
 
-| # | Card | Data model key |
-|---|------|----------------|
-| 1 | Page header | `card1_header` |
-| 2 | Actual component | `card2_component` |
-| 3 | Anatomy | `card3_anatomy` |
-| 4 | Design tokens | `card4_tokens` |
-| 5 | Component API | `card5_api` |
-| 6 | Usage guidelines | `card6_usage` |
-| 7 | Content guidelines | `card7_content` |
-| 8 | Accessibility | `card8_accessibility` |
-| 9 | Code specification | `card9_code` |
+Write `{project_working_directory}/components/[name]/[name]-brief-data.json` per `../../references/component-brief/data-schema.md`. Dispatch `brief-data-validator` in background.
 
-**Fat Marker (5 cards):**
-
-| # | Card | Data model key |
-|---|------|----------------|
-| 1 | Page header | `card1_header` |
-| 2 | Actual component (Locked) | `card2_component` |
-| 3 | Design guidelines | `card3_design_guidelines` |
-| 4 | Content guidelines | `card4_content_guidelines` |
-| 5 | Anatomy | `card5_anatomy` |
-
-**Card selection:** Default all cards. User can select: `"push 2,4,5"`, `"skip 6 and 7"`, `"generate card 4"`.
-
-**Keywords:** `"preview"` → HTML preview with annotations before push. `"playground"` → interactive component explorer.
-
-## Execution Model
-
-Autonomous through research and data model generation, then pauses to present options before pushing. Default path: research → data model → present options → push to Figma. Two pause points: (1) mode ambiguity, (2) Step 2 options gate (push/preview/playground/feedback).
-
-### DO NOT — hard rules
-
-- **DO NOT dump JSON, code, or file contents in chat.** Write files silently. The user sees tool call summaries.
-- **DO NOT pause between steps.** Research → data model → Figma is one uninterrupted sequence after the mode ambiguity gate.
-- **DO NOT use TaskCreate or TodoWrite.** Just execute.
-- **DO NOT read CLAUDE.md repeatedly.** Read it once or not at all.
-- **DO NOT read `plugin.json` until the very end.**
-
-### Speed rules
-
-- ONE parallel batch for research — all reads in a single message
-- If a Figma call fails, skip and proceed
-- Do NOT create directories with mkdir — Write tool creates them
-
-## Step 1 — Research (ONE parallel batch, minimal reads)
-
-Issue ALL reads in a **single message** with parallel tool calls. Do NOT read large files that aren't needed until later steps.
-
-**Parse the URL first:** Extract `fileKey` and `nodeId` (convert dashes to colons) per `../../references/figma-output.md` § "Figma URL Parsing".
-
-**Parallel batch 1 — discovery + local reads (ONE message):**
-1. `get_metadata(fileKey, nodeId)` — always start here, never `get_design_context` first. Reveals whether the node is a page, component set, frame, etc.
-2. `../../docs/component-guidelines/<slug>.json` (if it exists — content/design rules)
-3. `../../references/component-brief/data-schema.md` (required — JSON schema contract)
-
-**Then — targeted design context:**
-4. From the metadata, find the component set node ID (look for `<component_set>` in the XML). If the URL pointed to a page (`<canvas>`), the component set is a child — use its ID.
-5. `get_design_context(fileKey, componentSetNodeId)` — call with the discovered component set node ID, NOT the page ID.
-
-If `get_design_context` still fails, fall back to `get_screenshot(fileKey, nodeId)` + metadata for visual reference.
-
-**Do NOT read these during research:**
-- `token-reference.md` — not needed; token names come from `get_design_context` and component-guidelines
-- `content-guidelines.md` — not needed; card7 rules come from component-guidelines JSON
-- `accessibility-guidelines.md` — not needed; card8 requirements are generated from ARIA patterns knowledge
-- Wrapper templates — read in Step 2 only (renderer step)
-- HTML renderer reference — not needed (client-side renderer handles it)
-- `WebSearch` for ARIA — skip; the AI already knows ARIA patterns for common components. Only search if the component is unusual (e.g., custom chart, non-standard widget)
-
-**Target: 3 parallel reads + 1 targeted read → proceed to Step 1.5 immediately.** Total research should take under 30 seconds.
-
-## Step 1.5 — Generate data model (MANDATORY)
-
-Structure ALL research into `[component]-brief-data.json` following `../../references/component-brief/data-schema.md`.
-
-**This is the ONLY step where the AI makes content decisions.** After this, both renderers are mechanical.
-
-1. Read the schema contract
-2. Populate every card key from research data
-3. Ensure completeness:
-   - `card2_component.variantMatrix` — ALL variant rows (never truncate)
-   - `card4_tokens.colorTokens` — ALL states
-   - `card7_content.rules` — ALL content rules from Figma page
-   - `card8_accessibility.requirements` — exactly 6 items (2x3 grid)
-   - `card9_code.tokens` — fully tokenized with syntax types
-4. Write to: `{project_working_directory}/components/[name]/[name]-brief-data.json`
-5. **Dispatch `brief-data-validator` agent** in background — validates completeness, catches truncated arrays, hardcoded values, missing fields. Do not wait for result — proceed to Step 2. If the validator finds P0 issues, fix before presenting at the gate.
-
-The data model is persisted — used by feedback loops and incremental re-rendering.
-
-## Step 2 — Present options and push
-
-After the data model is built, ALWAYS present these exact options (copy verbatim):
+## Step 2 — Present options (copy verbatim)
 
 ```
 Brief ready (N cards). Reply:
 - **"push [Figma URL]"** — send to Figma
 - **"push N,N"** — send specific cards only
-- **"preview"** — HTML preview with annotations before pushing
-- **"playground"** — interactive component state explorer
-- **feedback** — describe changes to the data model
+- **"preview"** — HTML preview with annotations
+- **"playground"** — interactive state explorer
+- **feedback** — edit the data model
 ```
 
-These options are how the user discovers preview and push capabilities. Never omit them.
+"push" → Step 3. "preview"/"playground" → Step 2.5 then return. Feedback → edit data, re-present.
 
-On "push": run brief-to-figma.js → Figma (Step 3 below).
-On "preview" or "playground": generate HTML first (Step 2.5 below), then return to this gate.
-On feedback: edit brief-data.json, re-present gate.
+## Step 2.5 — Render HTML
 
-## Step 2.5 — Render HTML (on "preview" or "playground")
+```bash
+node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js \
+  {project_working_directory}/components/[name]/[name]-brief-data.json \
+  --type brief -o {project_working_directory}/components/[name]/[name]-spec.html
+```
 
-If triggered, generate the HTML preview BEFORE pushing:
+## Step 3 — Render Figma
 
-1. Run:
-   ```
-   node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js \
-     {project_working_directory}/components/[name]/[name]-brief-data.json \
-     --type brief \
-     -o {project_working_directory}/components/[name]/[name]-spec.html
-   ```
-   Do NOT add `2>&1`. Do NOT read wrapper templates, brief-renderer.js, or annotation layer files — the script handles everything.
-2. Start server and present preview URL with options:
-   - **"push"** / **"push 2,4,5"** — send to Figma
-   - **"playground"** — generate interactive playground
-   - **"apply annotations"** — click Annotate in preview, then say "apply annotations"
-   - **feedback** — fix and re-preview
-3. On feedback: edit `brief-data.json` → regenerate HTML → re-serve
-4. On "push": proceed to Step 2 (push) above
+```bash
+node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js \
+  {project_working_directory}/components/[name]/[name]-brief-data.json \
+  --target-node-id [nodeId] \
+  --output-dir {project_working_directory}/components/[name]/.figma-calls
+```
 
-Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming.md` — read only if needed.
-
-## Step 3 — Render Figma (DETERMINISTIC SCRIPT)
-
-**Do NOT generate the figma-spec manually.** A fixed Node.js script transforms brief-data.json into ready-to-run Figma Plugin API code. The AI only runs the script and passes its output to `use_figma`.
-
-1. Run the code generator script with `--output-dir`:
-   ```bash
-   node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js \
-     {project_working_directory}/components/[name]/[name]-brief-data.json \
-     --target-node-id [nodeId] \
-     --output-dir {project_working_directory}/components/[name]/.figma-calls
-   ```
-   Do NOT add `2>&1` (stderr has info lines).
-
-2. Read `manifest.json` from the output directory — it lists each call file and its size.
-
-3. For each call file listed in the manifest:
-   - Read the `.js` file from the output directory
-   - Call 1: pass code as-is to `use_figma` (creates wrapper, returns `wrapperId`)
-   - Call 2+: replace `__WRAPPER_ID__` in the code with the `wrapperId` from call 1, then pass to `use_figma`
-
-4. After all calls: parity validation (data model counts vs Figma frame counts)
-
-**What the AI does:** Run the script, pass each `code` string to `use_figma`, replace `__WRAPPER_ID__`, store the wrapper ID
-**What the AI does NOT do:** Generate node trees, read spec builder references, compute textRanges, decide call splitting
-
-**CRITICAL: Do NOT write freehand Figma code.** The script output IS the Figma code — pass it through. Do not write custom `findVariant`, `setProp`, or card-building code. Do not write code to intermediate files. If text overrides don't apply, the fix is in brief-data.json (wrong property name), not in post-push correction code.
-
-**No reference files needed at runtime.** The script encodes all card-by-card mapping logic. The spec builder reference (`../../references/component-brief/figma-spec-builder.md`) is documentation for maintaining the script — not read by the AI.
-
-See also `../../references/component-brief/figma-rules.md` for page targeting, token binding, known pitfalls.
+Read `manifest.json`. For each call: read `.js`, pass to `use_figma`. Call 1 returns `wrapperId`; replace `__WRAPPER_ID__` in subsequent calls. Never write freehand Figma code.
 
 ## Step 4 — Parity check
 
-Per `../../references/parity-check.md`:
-1. `get_screenshot` of each pushed card
-2. **Dispatch `parity-analyzer` agent** with the screenshots + expected card content from the data model. The agent checks for clipping, empty text, missing children, layout collapse.
-3. Present screenshots alongside HTML preview URL
-4. Merge parity-analyzer findings with your own visual check
-5. Report findings, fix P0s
-6. Write `.last-push.json` manifest
+Per `../../references/parity-check.md`: screenshot each card, dispatch `parity-analyzer`, fix P0s.
 
-Ask: "Review in Figma and reply: **'looks good'** or **'fix [specific issue]'**."
+## Key rules
 
-## Additional Resources
+Write files silently (never dump in chat). Research → data model → gate runs uninterrupted. If a Figma call fails, skip and proceed.
 
-### Reference Files
+## References
 
-Detailed content in `references/component-brief/`:
-- **`data-schema.md`** — JSON schema for all 9 DS + 5 FM cards
-- **`figma-spec-builder.md`** — Data model → figma-spec.json mapping (primary Figma output path)
-- **`html-renderer-legacy.md`** — Legacy server-side card builders (preserved for reference)
-- **`html-renderer-fm-legacy.md`** — Legacy FM card builders (preserved for reference)
-- **`figma-renderer-legacy.md`** — Legacy micro-task architecture (preserved for reference)
-- **`figma-rules.md`** — Figma-specific rules: page targeting, Meta Kit components, token binding, known pitfalls
-- **`playground.md`** — Interactive state playground generation (opt-in)
-
-Shared references:
-- **`../../scripts/html-renderers/brief-renderer.js`** — Client-side card renderer (~400 lines, embedded in HTML)
-- **`../../scripts/brief-to-figma.js`** — Deterministic code generator: brief-data.json → Figma Plugin API JS array (used in Step 3)
-- **`../../scripts/figma-codegen.js`** — Shared code generation library used by brief-to-figma.js (and flow-to-figma.js, slide-to-figma.js)
+`references/component-brief/`: `data-schema.md` (JSON schema, 9 DS + 5 FM cards), `quality-tiers.md` (tiers), `figma-spec-builder.md` (data→Figma mapping), `figma-rules.md` (pitfalls), `playground.md` (explorer).
