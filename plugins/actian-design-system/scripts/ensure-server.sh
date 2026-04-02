@@ -17,30 +17,28 @@ if [ -z "$DIR_ABS" ]; then
   exit 1
 fi
 
-# Kill ALL existing processes on this port (prevents stale server accumulation)
+# Check if something is already on this port
 EXISTING_PIDS=$(lsof -ti :"$PORT" 2>/dev/null)
 
 if [ -n "$EXISTING_PIDS" ]; then
-  # Test if an existing server is already serving our files correctly
-  TEST_FILE=$(ls "$DIR_ABS"/*.html "$DIR_ABS"/**/*.html 2>/dev/null | head -1)
-  if [ -n "$TEST_FILE" ]; then
-    REL_PATH="${TEST_FILE#$DIR_ABS/}"
-    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" "http://localhost:$PORT/$REL_PATH" 2>/dev/null)
-    if [ "$HTTP_CODE" = "200" ]; then
-      # Server is already serving our content — but kill any duplicate PIDs
-      PID_COUNT=$(echo "$EXISTING_PIDS" | wc -l | tr -d ' ')
-      if [ "$PID_COUNT" -le 1 ]; then
-        echo "http://localhost:$PORT"
-        exit 0
-      fi
-      # Multiple servers on same port — kill all and restart clean
+  # Verify the existing server is serving from the correct directory
+  # by checking its cwd matches our target directory
+  REUSE=false
+  FIRST_PID=$(echo "$EXISTING_PIDS" | head -1)
+  SERVER_CWD=$(lsof -p "$FIRST_PID" 2>/dev/null | awk '$4 == "cwd" {print $NF}')
+
+  if [ "$SERVER_CWD" = "$DIR_ABS" ]; then
+    PID_COUNT=$(echo "$EXISTING_PIDS" | wc -l | tr -d ' ')
+    if [ "$PID_COUNT" -le 1 ]; then
+      # Same directory, single process — reuse
+      echo "http://localhost:$PORT"
+      exit 0
     fi
   fi
 
-  # Kill all processes on this port
+  # Wrong directory or duplicate processes — kill and restart
   echo "$EXISTING_PIDS" | xargs kill 2>/dev/null
   sleep 1
-  # Force kill any survivors
   REMAINING=$(lsof -ti :"$PORT" 2>/dev/null)
   if [ -n "$REMAINING" ]; then
     echo "$REMAINING" | xargs kill -9 2>/dev/null
