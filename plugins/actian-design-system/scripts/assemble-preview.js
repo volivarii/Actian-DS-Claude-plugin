@@ -199,6 +199,20 @@ function main() {
   var annotationJs   = readFileChecked(ANNOTATION_JS);
   var annotationHtml = readFileChecked(ANNOTATION_HTML);
 
+  // Transform data to match renderer expectations
+  // flow-to-figma.js reads: { meta, screens[] }
+  // flow-renderer.js reads: { meta, flows: [{ name, screens[] }] }
+  if (args.type === 'flow' && data.screens && !data.flows) {
+    var transformed = {
+      meta: data.meta || {},
+      flows: [{
+        name: (data.meta && data.meta.flow) || (data.meta && data.meta.feature) || 'Flow',
+        screens: data.screens
+      }]
+    };
+    rawJson = JSON.stringify(transformed);
+  }
+
   // Escape JSON for embedding
   var escapedJson = escapeJsonForScript(rawJson);
 
