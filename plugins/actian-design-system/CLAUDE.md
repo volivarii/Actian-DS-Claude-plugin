@@ -73,7 +73,7 @@ When serving HTML for local preview, always use the `ensure-server.sh` utility. 
 BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
 ```
 
-The script uses `preview-server.py` — a custom Python handler that serves static files AND provides two endpoints:
+The script uses `preview-server.js` — a custom Node.js handler that serves static files AND provides two endpoints:
 - `POST /_annotations` — receives annotation JSON from the browser, writes to `.annotations.json`
 - `GET /_version?file=<path>` — returns file mtime for live-reload polling
 
@@ -83,7 +83,7 @@ The script handles all edge cases:
 - If a different server is on the port → kills it and starts fresh
 - Returns the base URL on stdout
 
-**Never manually run `python3 -m http.server` or `kill` processes.** Use `ensure-server.sh` instead.
+**Never manually run `node` http servers or `kill` processes.** Use `ensure-server.sh` instead.
 **Never pass `.` as the directory** — on desktop this resolves to the plugin cache, not the project.
 
 ---

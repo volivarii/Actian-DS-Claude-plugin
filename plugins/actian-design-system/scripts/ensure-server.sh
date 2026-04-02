@@ -51,7 +51,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SERVER_LOG="/tmp/preview-server-$PORT.log"
 # Use nohup + disown to ensure the server survives after this script exits.
 # On Desktop (Cowork), background processes get killed when the parent bash exits.
-nohup python3 "$SCRIPT_DIR/preview-server.py" "$PORT" "$DIR_ABS" > "$SERVER_LOG" 2>&1 &
+nohup node "$SCRIPT_DIR/preview-server.js" "$PORT" "$DIR_ABS" > "$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
 disown "$SERVER_PID" 2>/dev/null
 
@@ -59,7 +59,7 @@ disown "$SERVER_PID" 2>/dev/null
 for i in 1 2 3 4 5; do
   # Check if the process died
   if ! kill -0 "$SERVER_PID" 2>/dev/null; then
-    echo "Error: preview-server.py crashed on startup. Log: $SERVER_LOG" >&2
+    echo "Error: preview-server.js crashed on startup. Log: $SERVER_LOG" >&2
     cat "$SERVER_LOG" >&2
     exit 1
   fi

@@ -11,10 +11,10 @@ if [ ! -f "$PLUGIN_JSON" ]; then
 fi
 
 # Get marketplace version
-MARKET_VERSION=$(python3 -c "import json; print(json.load(open('$PLUGIN_JSON'))['version'])" 2>/dev/null)
+MARKET_VERSION=$(node -e "console.log(require('$PLUGIN_JSON').version)" 2>/dev/null)
 
 # Get cached version
-CACHE_VERSION=$(python3 -c "import json; print(json.load(open('${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json'))['version'])" 2>/dev/null)
+CACHE_VERSION=$(node -e "console.log(require('${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json').version)" 2>/dev/null)
 
 # If versions match or couldn't read, skip silently
 if [ -z "$MARKET_VERSION" ] || [ -z "$CACHE_VERSION" ] || [ "$MARKET_VERSION" = "$CACHE_VERSION" ]; then

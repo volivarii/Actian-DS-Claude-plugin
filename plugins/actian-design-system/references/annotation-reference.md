@@ -41,7 +41,7 @@ Alpine is already present — include only the annotation layer (no CDN script):
 </body>
 ```
 
-**Why inline:** The `/_plugin/` server route only works with the custom `preview-server.py`. Claude Desktop's preview panel uses its own server that doesn't handle `/_plugin/`. Inlining works everywhere — CLI, Desktop, any browser.
+**Why inline:** The `/_plugin/` server route only works with the custom `preview-server.js`. Claude Desktop's preview panel uses its own server that doesn't handle `/_plugin/`. Inlining works everywhere — CLI, Desktop, any browser.
 
 ---
 
