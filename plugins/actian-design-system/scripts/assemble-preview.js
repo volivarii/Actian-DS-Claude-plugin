@@ -35,7 +35,10 @@ var RENDERERS_DIR = path.join(PLUGIN_ROOT, 'scripts', 'html-renderers');
 
 var TYPE_CONFIGS = {
   flow: {
-    css: path.join(RENDERERS_DIR, 'flow-renderer.css'),
+    css: [
+      path.join(RENDERERS_DIR, 'fm-base.css'),
+      path.join(RENDERERS_DIR, 'flow-renderer.css')
+    ],
     renderers: [
       path.join(RENDERERS_DIR, 'fm-html-map.js'),
       path.join(RENDERERS_DIR, 'flow-renderer.js')
@@ -48,7 +51,10 @@ var TYPE_CONFIGS = {
     }
   },
   brief: {
-    css: path.join(RENDERERS_DIR, 'brief-renderer.css'),
+    css: [
+      path.join(RENDERERS_DIR, 'fm-base.css'),
+      path.join(RENDERERS_DIR, 'brief-renderer.css')
+    ],
     renderers: [
       path.join(RENDERERS_DIR, 'fm-html-map.js'),
       path.join(RENDERERS_DIR, 'brief-renderer.js')
@@ -61,7 +67,7 @@ var TYPE_CONFIGS = {
     }
   },
   presentation: {
-    css: path.join(RENDERERS_DIR, 'presentation-renderer.css'),
+    css: [path.join(RENDERERS_DIR, 'presentation-renderer.css')],
     renderers: [
       path.join(RENDERERS_DIR, 'presentation-renderer.js')
     ],
@@ -185,7 +191,12 @@ function main() {
 
   // Read static assets
   process.stderr.write('Loading assets for type: ' + args.type + '\n');
-  var cssContent = readFileChecked(config.css);
+  var cssParts = [];
+  var cssPaths = Array.isArray(config.css) ? config.css : [config.css];
+  for (var c = 0; c < cssPaths.length; c++) {
+    cssParts.push(readFileChecked(cssPaths[c]));
+  }
+  var cssContent = cssParts.join('\n');
 
   var rendererScripts = '';
   for (var r = 0; r < config.renderers.length; r++) {

@@ -1,8 +1,4 @@
-/* fm-brief.css — Reusable CSS for component brief previews. Loaded by assemble-preview.js */
-
-/* ===== RESET ===== */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Inter', sans-serif; background: #E8E8EE; padding: 40px; }
+/* brief-renderer.css — Brief-specific layout classes. Shared FM styles live in fm-base.css. */
 
 /* ===== LAYOUT ===== */
 .brief-row { display: flex; gap: 24px; align-items: flex-start; }
@@ -52,34 +48,6 @@ td code { background: #F5F5FA; padding: 2px 6px; border-radius: 4px; font-size: 
 /* ===== ANATOMY ===== */
 .anatomy-diagram { background: #F9FAFB; border-radius: 12px; padding: 48px; position: relative; }
 .pointer-badge { width: 20px; height: 20px; background: #1a1a1a; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; font-weight: 500; }
-
-/* ===== FM PALETTE TOKENS ===== */
-/* Use these when rendering FM-style components inside the brief:
-   FM background: #FFFFFF (white)
-   FM stroke:     #B0B0B0
-   FM text:       #333333
-   FM primary fill: #333333
-   FM primary text: #FFFFFF
-*/
-
-/* ===== GENERATION CARD — visible metadata prefix ===== */
-.gen-card {
-  width: 280px; flex-shrink: 0; background: #2D3648; border-radius: 12px;
-  padding: 20px 24px; display: flex; flex-direction: column; gap: 6px;
-  align-self: flex-start;
-}
-.gen-card__label {
-  font-family: 'Inter', sans-serif; font-size: 10px; font-weight: 700;
-  color: #A0ABC0; letter-spacing: 1.2px; text-transform: uppercase;
-  margin-bottom: 4px;
-}
-.gen-card__field {
-  font-family: 'Inter', sans-serif; font-size: 11px; font-weight: 400;
-  color: #CBD2E0; line-height: 1.5;
-}
-.gen-card__key {
-  font-weight: 600; color: #A0ABC0; margin-right: 6px;
-}
 
 /* ===== UTILITY: variant cell label ===== */
 .variant-cell { display: flex; flex-direction: column; align-items: center; gap: 12px; }
@@ -186,63 +154,3 @@ td code { background: #F5F5FA; padding: 2px 6px; border-radius: 4px; font-size: 
 .a11y-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
 .code-block { background: #1A202C; border-radius: 12px; padding: 24px; overflow-x: auto; }
 .code-block pre { font-size: 13px; font-family: 'SF Mono', 'Fira Code', monospace; color: #E2E7F0; margin: 0; line-height: 1.6; }
-
-/* ===== FM COMPONENTS (shared with flow-renderer) ===== */
-.fm-button { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 12px 20px; border-radius: 6px; font-weight: 600; font-size: 15px; height: 44px; white-space: nowrap; }
-.fm-button--primary { background: #2D3648; color: white; }
-.fm-input { display: flex; align-items: center; height: 44px; padding: 0 12px; border: 1.5px solid #CBD2E0; border-radius: 6px; background: white; font-size: 14px; }
-.fm-input__text { color: #101828; }
-.fm-dropdown { display: flex; align-items: center; justify-content: space-between; height: 44px; padding: 0 12px; border: 1.5px solid #CBD2E0; border-radius: 6px; background: white; font-size: 14px; }
-.fm-dropdown__arrow { font-size: 12px; color: #717D96; }
-.fm-dropdown--multi { }
-.fm-search-input { display: flex; align-items: center; height: 44px; padding: 0 12px; border: 1.5px solid #CBD2E0; border-radius: 6px; background: white; font-size: 14px; }
-.fm-textarea { min-height: 80px; padding: 12px; border: 1.5px solid #CBD2E0; border-radius: 6px; background: white; font-size: 14px; }
-.fm-textarea--rich { min-height: 120px; }
-.fm-date-input { display: flex; align-items: center; height: 44px; padding: 0 12px; border: 1.5px solid #CBD2E0; border-radius: 6px; background: white; font-size: 14px; }
-.fm-input-label { display: flex; flex-direction: column; gap: 4px; margin-bottom: 4px; }
-.fm-input-label__text { font-size: 13px; font-weight: 600; color: #101828; }
-.fm-input-label__caption { font-size: 12px; color: #475467; }
-.fm-table-cell { padding: 10px 12px; font-size: 13px; color: #101828; border-bottom: 1px solid #EDF0F7; }
-.fm-checkbox { width: 20px; height: 20px; border: 2px solid #717D96; border-radius: 4px; flex-shrink: 0; }
-.fm-radio { width: 20px; height: 20px; border: 2px solid #717D96; border-radius: 50%; flex-shrink: 0; }
-.fm-toggle { width: 40px; height: 22px; border-radius: 11px; background: #CBD2E0; flex-shrink: 0; }
-.fm-alert { display: flex; border-radius: 6px; border: 1px solid #E2E7F0; overflow: hidden; font-size: 13px; }
-.fm-alert__bar { width: 4px; flex-shrink: 0; background: #0550DC; }
-.fm-alert__content { padding: 12px 16px; color: #101828; }
-.fm-banner { padding: 12px 16px; background: #EDF6FF; border-radius: 6px; font-size: 13px; color: #101828; }
-.fm-dialog { background: white; border-radius: 12px; box-shadow: 0px 2px 8px 0px rgba(0,0,0,0.13); padding: 24px; min-width: 320px; }
-.fm-dialog__title { font-size: 18px; font-weight: 600; color: #101828; margin-bottom: 12px; }
-.fm-dialog__body { font-size: 14px; color: #2D3648; }
-.fm-stepper { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: #E2E7F0; font-size: 13px; font-weight: 600; }
-.fm-badge { display: inline-flex; align-items: center; padding: 2px 8px; border-radius: 10px; background: #EDF0F7; font-size: 12px; font-weight: 600; }
-.fm-tag { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 6px; background: #EDF0F7; font-size: 12px; }
-.fm-chip { display: inline-flex; align-items: center; padding: 6px 12px; border-radius: 16px; border: 1px solid #CBD2E0; font-size: 13px; }
-.fm-tab { display: inline-flex; align-items: center; padding: 10px 16px; font-size: 14px; font-weight: 500; color: #475467; border-bottom: 2px solid transparent; }
-.fm-toast { display: flex; align-items: center; padding: 12px 16px; background: #2D3648; border-radius: 6px; color: white; font-size: 13px; }
-.fm-empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; gap: 12px; }
-.fm-empty-state__icon { width: 48px; height: 48px; background: #EDF0F7; border-radius: 50%; }
-.fm-empty-state__text { font-size: 14px; color: #475467; }
-.fm-placeholder { background: #EDF0F7; border-radius: 6px; min-height: 24px; }
-.fm-app-header { width: 100%; height: 70px; background: white; border-bottom: 2px solid #CBD2E0; display: flex; align-items: center; padding: 16px 28px; gap: 12px; }
-.fm-app-header__logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-.fm-app-header__label { font-size: 13px; font-weight: 700; color: #1A202C; }
-.fm-app-header__spacer { flex: 1; }
-.fm-app-header__avatar { width: 36px; height: 36px; background: #CBD2E0; border-radius: 50%; }
-.fm-nav-item { display: flex; align-items: center; gap: 12px; padding: 10px 8px 10px 16px; border-radius: 8px; font-size: 14px; }
-.fm-nav-item--placeholder .fm-nav-item__icon { background: #EDF0F7; border-color: #E2E7F0; }
-.fm-nav-item__icon { width: 20px; height: 20px; border: 1.5px solid #A0ABC0; border-radius: 4px; flex-shrink: 0; }
-.fm-nav-item__bar { height: 12px; width: 100px; background: #E2E7F0; border-radius: 4px; }
-.fm-nav-item__label { font-size: 14px; color: #2D3648; }
-.fm-page-header { padding: 28px 32px 0 32px; display: flex; align-items: flex-start; justify-content: space-between; }
-.fm-page-header__title { font-weight: 600; font-size: 24px; color: #101828; }
-.fm-page-header__subtitle { font-size: 14px; color: #475467; }
-.fm-page-header__actions { display: flex; gap: 8px; }
-.fm-icon-button { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 6px; background: #EDF0F7; flex-shrink: 0; }
-.fm-spinner { width: 24px; height: 24px; border: 3px solid #E2E7F0; border-top-color: #0550DC; border-radius: 50%; }
-.fm-progress-bar { width: 100%; height: 8px; background: #EDF0F7; border-radius: 4px; overflow: hidden; }
-.fm-progress-bar__fill { height: 100%; background: #0550DC; border-radius: 4px; }
-.fm-menu-item { padding: 10px 16px; font-size: 14px; color: #101828; }
-.fm-tooltip { display: inline-block; padding: 6px 12px; background: #2D3648; color: white; border-radius: 6px; font-size: 12px; }
-.fm-slider { width: 100%; height: 6px; background: #E2E7F0; border-radius: 3px; overflow: hidden; }
-.fm-slider__fill { height: 100%; background: #0550DC; border-radius: 3px; }
-.fm-component { padding: 12px 16px; background: #F5F5FA; border: 1px dashed #CBD2E0; border-radius: 6px; font-size: 12px; color: #475467; text-align: center; }

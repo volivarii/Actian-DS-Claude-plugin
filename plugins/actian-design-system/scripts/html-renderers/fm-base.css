@@ -1,0 +1,584 @@
+/* fm-base.css — Shared FM component styles for flow + brief renderers.
+   Single source of truth for reset, token palette, gen-card, and all fm-* classes. */
+
+/* ── Reset ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #e8eaf0;
+  padding: 40px;
+  min-height: 100vh;
+}
+
+/* ── FM Token Palette ── */
+:root {
+  --fm-base-900:   #1A202C;
+  --fm-base-800:   #2D3648;
+  --fm-base-700:   #4A5468;
+  --fm-base-600:   #717D96;
+  --fm-base-500:   #A0ABC0;
+  --fm-base-400:   #CBD2E0;
+  --fm-base-300:   #E2E7F0;
+  --fm-base-200:   #EDF0F7;
+  --fm-base-100:   #F5F5FA;
+  --fm-base-white: #FFFFFF;
+  --fm-brand:      #0550DC;
+  --fm-brand-dark: #0029A9;
+  --fm-brand-light:#EDF6FF;
+  --fm-text-primary:  #101828;
+  --fm-text-secondary:#2D3648;
+  --fm-text-tertiary: #475467;
+  --fm-text-error:    #D92D20;
+  --fm-text-light:    #6D6D6D;
+  --fm-text-success:  #047800;
+  --fm-border:     #CBD2E0;
+  --fm-bg-grey:    #F5F5FA;
+  --fm-placeholder: #A0ABC0;
+  --fm-shadow-default: 0px 2px 8px 0px rgba(0,0,0,0.13);
+  --fm-radius:     6px;
+}
+
+/* ── Generation card ── */
+.gen-card {
+  width: 240px;
+  flex-shrink: 0;
+  background: var(--fm-base-800);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: flex-start;
+}
+.gen-card__label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--fm-base-500);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.gen-card__field {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--fm-base-300);
+  line-height: 1.5;
+}
+.gen-card__key {
+  font-weight: 600;
+  color: var(--fm-base-500);
+  margin-right: 6px;
+}
+
+/* ── FM App Header ── */
+.fm-app-header {
+  width: 100%;
+  height: 70px;
+  background: var(--fm-base-white);
+  border-bottom: 2px solid var(--fm-base-400);
+  display: flex;
+  align-items: center;
+  padding: 16px 28px;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.fm-app-header__logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.fm-app-header__logo-icon {
+  width: 30px;
+  height: 25px;
+  background: var(--fm-base-400);
+  border-radius: 2px;
+}
+.fm-app-header__brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.fm-app-header__brand-line1 {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--fm-base-700);
+  letter-spacing: 0.2px;
+}
+.fm-app-header__brand-line2 {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fm-base-900);
+}
+.fm-app-header__label {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--fm-base-900);
+}
+.fm-app-header__spacer { flex: 1; }
+.fm-app-header__icon-btn {
+  width: 24px;
+  height: 24px;
+  background: var(--fm-base-300);
+  border-radius: 4px;
+}
+.fm-app-header__avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--fm-base-400);
+  border-radius: 50%;
+}
+
+/* ── FM Sidebar ── */
+.fm-sidebar {
+  width: 260px;
+  background: var(--fm-base-white);
+  border-right: 1px solid var(--fm-base-300);
+  padding: 28px 16px 8px 16px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.fm-sidebar__section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+.fm-sidebar__section--bottom {
+  flex: 0;
+  border-top: 1px solid var(--fm-base-200);
+  padding-top: 16px;
+  margin-top: auto;
+}
+.fm-sidebar__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 8px 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--fm-base-800);
+  letter-spacing: -0.14px;
+  line-height: 1.5;
+}
+.fm-sidebar__item--active {
+  background: var(--fm-base-200);
+  font-weight: 600;
+}
+.fm-sidebar__icon {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--fm-base-500);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.fm-sidebar__item--placeholder .fm-sidebar__icon {
+  background: var(--fm-base-200);
+  border-color: var(--fm-base-300);
+}
+.fm-sidebar__item--placeholder span {
+  display: block;
+  height: 12px;
+  width: 100px;
+  background: var(--fm-base-300);
+  border-radius: 4px;
+}
+
+/* ── FM Nav Items ── */
+.fm-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 8px 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--fm-base-800);
+}
+.fm-nav-item--active {
+  background: var(--fm-base-200);
+  font-weight: 600;
+}
+.fm-nav-item__icon {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--fm-base-500);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.fm-nav-item__label {
+  font-size: 14px;
+  color: var(--fm-base-800);
+}
+.fm-nav-item--placeholder .fm-nav-item__icon {
+  background: var(--fm-base-200);
+  border-color: var(--fm-base-300);
+}
+.fm-nav-item__bar {
+  height: 12px;
+  width: 100px;
+  background: var(--fm-base-300);
+  border-radius: 4px;
+}
+
+/* ── FM Page Header ── */
+.fm-page-header {
+  padding: 28px 32px 0 32px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.fm-page-header__text { display: flex; flex-direction: column; gap: 4px; }
+.fm-page-header__title {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--fm-text-primary);
+}
+.fm-page-header__subtitle {
+  font-size: 14px;
+  color: var(--fm-text-tertiary);
+  font-weight: 400;
+}
+.fm-page-header__actions { display: flex; gap: 8px; }
+
+/* ── FM Buttons ── */
+.fm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: var(--fm-radius);
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.4;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  height: 44px;
+}
+.fm-button--primary {
+  background: var(--fm-base-800);
+  color: white;
+}
+.fm-button--outline {
+  background: transparent;
+  color: var(--fm-base-800);
+  border: 2px solid var(--fm-base-800);
+}
+.fm-button--disabled {
+  background: var(--fm-base-400);
+  color: white;
+  cursor: not-allowed;
+}
+
+/* ── FM Inputs ── */
+.fm-input {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+  color: var(--fm-text-primary);
+}
+.fm-input__text { color: var(--fm-text-primary); }
+
+/* ── FM Dropdown ── */
+.fm-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+  color: var(--fm-text-primary);
+}
+.fm-dropdown__arrow { font-size: 12px; color: var(--fm-base-600); }
+.fm-dropdown--multi { }
+
+/* ── FM Search Input ── */
+.fm-search-input {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+}
+
+/* ── FM Textarea ── */
+.fm-textarea {
+  min-height: 80px;
+  padding: 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+  color: var(--fm-text-primary);
+}
+.fm-textarea--rich { min-height: 120px; }
+
+/* ── FM Date Input ── */
+.fm-date-input {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+}
+
+/* ── FM Input Label ── */
+.fm-input-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.fm-input-label__text { font-size: 13px; font-weight: 600; color: var(--fm-text-primary); }
+.fm-input-label__caption { font-size: 12px; color: var(--fm-text-tertiary); }
+
+/* ── FM Table Cell ── */
+.fm-table-cell {
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--fm-text-primary);
+  border-bottom: 1px solid var(--fm-base-200);
+}
+
+/* ── FM Checkbox / Radio / Toggle ── */
+.fm-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--fm-base-600);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.fm-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--fm-base-600);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fm-toggle {
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--fm-base-400);
+  flex-shrink: 0;
+}
+
+/* ── FM Alert ── */
+.fm-alert {
+  display: flex;
+  border-radius: var(--fm-radius);
+  border: 1px solid var(--fm-base-300);
+  overflow: hidden;
+  font-size: 13px;
+}
+.fm-alert__bar { width: 4px; flex-shrink: 0; background: var(--fm-brand); }
+.fm-alert__content { padding: 12px 16px; color: var(--fm-text-primary); }
+
+/* ── FM Banner ── */
+.fm-banner {
+  padding: 12px 16px;
+  background: var(--fm-brand-light);
+  border-radius: var(--fm-radius);
+  font-size: 13px;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Dialog ── */
+.fm-dialog {
+  background: var(--fm-base-white);
+  border-radius: 12px;
+  box-shadow: var(--fm-shadow-default);
+  padding: 24px;
+  min-width: 320px;
+}
+.fm-dialog__title { font-size: 18px; font-weight: 600; color: var(--fm-text-primary); margin-bottom: 12px; }
+.fm-dialog__body { font-size: 14px; color: var(--fm-text-secondary); }
+
+/* ── FM Stepper ── */
+.fm-stepper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--fm-base-300);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Badge ── */
+.fm-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--fm-base-200);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Tag ── */
+.fm-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-200);
+  font-size: 12px;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Chip ── */
+.fm-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--fm-border);
+  font-size: 13px;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Tab ── */
+.fm-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fm-text-tertiary);
+  border-bottom: 2px solid transparent;
+}
+
+/* ── FM Toast ── */
+.fm-toast {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--fm-base-800);
+  border-radius: var(--fm-radius);
+  color: var(--fm-base-white);
+  font-size: 13px;
+  box-shadow: var(--fm-shadow-default);
+}
+
+/* ── FM Empty State ── */
+.fm-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 12px;
+  color: var(--fm-text-tertiary);
+}
+.fm-empty-state__icon { width: 48px; height: 48px; background: var(--fm-base-200); border-radius: 50%; }
+.fm-empty-state__text { font-size: 14px; color: var(--fm-text-tertiary); }
+
+/* ── FM Placeholder ── */
+.fm-placeholder {
+  background: var(--fm-base-200);
+  border-radius: var(--fm-radius);
+  min-height: 24px;
+}
+
+/* ── FM Icon Button ── */
+.fm-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-200);
+  flex-shrink: 0;
+}
+
+/* ── FM Spinner ── */
+.fm-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--fm-base-300);
+  border-top-color: var(--fm-brand);
+  border-radius: 50%;
+}
+
+/* ── FM Progress Bar ── */
+.fm-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--fm-base-200);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.fm-progress-bar__fill {
+  height: 100%;
+  background: var(--fm-brand);
+  border-radius: 4px;
+}
+
+/* ── FM Menu Item ── */
+.fm-menu-item {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: var(--fm-text-primary);
+  cursor: pointer;
+}
+
+/* ── FM Tooltip ── */
+.fm-tooltip {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--fm-base-800);
+  color: var(--fm-base-white);
+  border-radius: var(--fm-radius);
+  font-size: 12px;
+}
+
+/* ── FM Slider ── */
+.fm-slider {
+  width: 100%;
+  height: 6px;
+  background: var(--fm-base-300);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.fm-slider__fill {
+  height: 100%;
+  background: var(--fm-brand);
+  border-radius: 3px;
+}
+
+/* ── FM Component (generic fallback) ── */
+.fm-component {
+  padding: 12px 16px;
+  background: var(--fm-base-100);
+  border: 1px dashed var(--fm-base-400);
+  border-radius: var(--fm-radius);
+  font-size: 12px;
+  color: var(--fm-text-tertiary);
+  text-align: center;
+}

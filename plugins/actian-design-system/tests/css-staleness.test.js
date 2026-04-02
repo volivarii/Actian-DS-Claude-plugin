@@ -103,7 +103,10 @@ var PAIRS = [
       path.join(RENDERERS_DIR, "flow-renderer.js"),
       path.join(RENDERERS_DIR, "fm-html-map.js"),
     ],
-    css: path.join(RENDERERS_DIR, "flow-renderer.css"),
+    css: [
+      path.join(RENDERERS_DIR, "fm-base.css"),
+      path.join(RENDERERS_DIR, "flow-renderer.css"),
+    ],
   },
   {
     name: "Brief",
@@ -111,12 +114,15 @@ var PAIRS = [
       path.join(RENDERERS_DIR, "brief-renderer.js"),
       path.join(RENDERERS_DIR, "fm-html-map.js"),
     ],
-    css: path.join(RENDERERS_DIR, "brief-renderer.css"),
+    css: [
+      path.join(RENDERERS_DIR, "fm-base.css"),
+      path.join(RENDERERS_DIR, "brief-renderer.css"),
+    ],
   },
   {
     name: "Presentation",
     js: [path.join(RENDERERS_DIR, "presentation-renderer.js")],
-    css: path.join(RENDERERS_DIR, "presentation-renderer.css"),
+    css: [path.join(RENDERERS_DIR, "presentation-renderer.css")],
   },
 ];
 
@@ -131,12 +137,18 @@ describe("CSS Staleness", function () {
           });
         }
 
-        var cssClasses = extractClassesFromCSS(pair.css);
+        var cssClasses = new Set();
+        var cssPaths = Array.isArray(pair.css) ? pair.css : [pair.css];
+        for (var c = 0; c < cssPaths.length; c++) {
+          extractClassesFromCSS(cssPaths[c]).forEach(function (cls) {
+            cssClasses.add(cls);
+          });
+        }
         var missing = checkCoverage(jsClasses, cssClasses);
 
         assert.ok(
           missing.length === 0,
-          pair.name + ": missing CSS rules for: " + missing.join(", ")
+          pair.name + ": missing CSS rules for: " + missing.join(", "),
         );
       });
     });
