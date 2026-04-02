@@ -27,9 +27,9 @@ The user provides one or more of:
 
 ## Execution Model
 
-**Autonomous through generation and push.** Do NOT pause to present outlines for approval or ask clarifying questions. Infer audience, goal, and structure from the input. The only acceptable pause is when the input is genuinely too thin to generate anything (e.g., user said "make a deck" with zero topic or content).
+**Autonomous through outlining, then pauses to present options.** Infer audience, goal, and structure from the input. The only pause before the outline gate is when the input is genuinely too thin to generate anything (e.g., user said "make a deck" with zero topic or content).
 
-**Default path:** outline → build slide-data.json → slide-to-figma.js → push to Figma. No HTML step unless the user says "preview".
+**Default path:** outline → present options → build slide-data.json → push to Figma. User can choose "preview" for HTML or "push" for direct Figma output.
 
 **Defaults:** Audience = team update. Goal = inform. Slide count = 8–15 based on content density.
 
@@ -55,7 +55,7 @@ Only ask questions if the input is genuinely empty (just a topic with no content
 
 ## Step 2 — Create the outline (internal)
 
-Plan the slide outline internally. Do NOT present it to the user for review — go straight to HTML generation.
+Plan the slide outline, then present it with options:
 
 **Template selection rules:**
 - Slide 1 is always **Cover**
@@ -65,6 +65,13 @@ Plan the slide outline internally. Do NOT present it to the user for review — 
 - Use **Body (Text+Visual)** when written explanation accompanies a visual
 - Target 1 key message per slide
 - Typical deck: 8–15 slides. Under 8 feels thin, over 20 feels heavy. Adjust to content density.
+
+Present the outline and ask:
+
+> Deck outline: N slides (cover + N body + back cover). Reply:
+> - **approve** or adjust ("drop slide 3", "add a metrics slide")
+> - **"preview"** — HTML preview with annotations before pushing
+> - **"push [Figma URL]"** — approve and push directly to Figma
 
 ## Step 3 — Build slide-data.json and push to Figma
 

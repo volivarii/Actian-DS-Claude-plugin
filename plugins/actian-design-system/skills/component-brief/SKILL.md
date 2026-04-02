@@ -66,7 +66,7 @@ Draft a structured component brief with HTML spec page and Figma output. Support
 
 ## Execution Model
 
-Autonomous through research, data model generation, and Figma push. HTML preview is opt-in (user says "preview"). Default path: research → data model → push to Figma. Two pause points: (1) mode ambiguity, (2) push confirmation if user says "preview".
+Autonomous through research and data model generation, then pauses to present options before pushing. Default path: research → data model → present options → push to Figma. Two pause points: (1) mode ambiguity, (2) Step 2 options gate (push/preview/playground/feedback).
 
 ### DO NOT — hard rules
 
@@ -128,13 +128,22 @@ Structure ALL research into `[component]-brief-data.json` following `../../refer
 
 The data model is persisted — used by feedback loops and incremental re-rendering.
 
-## Step 2 — Push to Figma (DETERMINISTIC SCRIPT)
+## Step 2 — Present options and push
 
-**Default path: data model → brief-to-figma.js → Figma. No HTML step.**
+After the data model is built, present the options:
 
-## Step 2 (preview) — Render HTML (opt-in)
+> Brief ready (N cards). Reply:
+> - **"push [Figma URL]"** — send to Figma
+> - **"push N,N"** — send specific cards only
+> - **"preview"** — HTML preview with annotations before pushing
+> - **"playground"** — interactive component state explorer
+> - **feedback** — describe changes to the data model
 
-**Trigger:** User says "preview" or "playground" in the prompt or at any gate.
+On "push": run brief-to-figma.js → Figma (Step 3 below).
+On "preview" or "playground": generate HTML first (Step 2.5 below), then return to this gate.
+On feedback: edit brief-data.json, re-present gate.
+
+## Step 2.5 — Render HTML (on "preview" or "playground")
 
 If triggered, generate the HTML preview BEFORE pushing:
 
