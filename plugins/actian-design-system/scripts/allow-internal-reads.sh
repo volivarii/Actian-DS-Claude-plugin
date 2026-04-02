@@ -1,23 +1,19 @@
 #!/bin/bash
-# Auto-approve Read tool calls for files within the plugin's own directory.
-# This prevents permission prompts when skills read their reference docs.
-# Exit 0 with no output = no opinion (defer to normal permissions).
+# Auto-approve Read/Glob/Grep for files within the plugin's own directory.
+# No python dependency — pure bash extraction.
 
-# Hook input is JSON on stdin
+plugin_root="${CLAUDE_PLUGIN_ROOT:-}"
+[ -z "$plugin_root" ] && exit 0
+
+# Read hook input, extract file_path with sed (handles JSON without python)
 input=$(cat)
-file_path=$(echo "$input" | python3 -c "import json,sys; print(json.load(sys.stdin).get('tool_input',{}).get('file_path',''))" 2>/dev/null)
+file_path=$(echo "$input" | sed -n 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' | head -1)
 
-# If we couldn't extract the path, defer to normal permissions
-if [ -z "$file_path" ]; then
-  exit 0
-fi
+[ -z "$file_path" ] && exit 0
 
 # Allow reads from the plugin's own directory
-plugin_root="${CLAUDE_PLUGIN_ROOT:-}"
-if [ -n "$plugin_root" ] && [[ "$file_path" == "$plugin_root"/* ]]; then
+if [[ "$file_path" == "$plugin_root"/* ]]; then
   echo '{"decision":"allow","reason":"Plugin internal file"}'
-  exit 0
 fi
 
-# Defer to normal permission rules for everything else
 exit 0
