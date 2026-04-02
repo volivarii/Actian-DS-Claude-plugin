@@ -124,7 +124,12 @@ Output a numbered screen list for review:
 - **Viewing flows** (browse, monitor): populated view → empty state → error → detail
 - **Multi-role flows**: one sub-flow per role, each with own cover card and App_header
 
-Wait for user approval.
+Present the list and ask:
+
+> Does this work, or would you like to adjust?
+> - **approve** or scope down ("just 1 & 2")
+> - **"preview"** — generate HTML preview with annotations before pushing
+> - **"push [Figma URL]"** — approve and push directly to Figma
 
 ## Step 4 — Build flow-data.json and push to Figma
 

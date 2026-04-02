@@ -60,7 +60,9 @@ Draft a structured component brief with HTML spec page and Figma output. Support
 | 4 | Content guidelines | `card4_content_guidelines` |
 | 5 | Anatomy | `card5_anatomy` |
 
-**Card selection:** Default all cards. User can select at input or preview gate: `"push 2,4,5"`, `"skip 6 and 7"`, `"generate card 4"`.
+**Card selection:** Default all cards. User can select: `"push 2,4,5"`, `"skip 6 and 7"`, `"generate card 4"`.
+
+**Keywords:** `"preview"` → HTML preview with annotations before push. `"playground"` → interactive component explorer.
 
 ## Execution Model
 
