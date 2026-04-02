@@ -1264,6 +1264,62 @@ section("String escaping");
   );
 })();
 
+// Test: _genText supports style object
+(function () {
+  cg.resetCounter();
+  var code = cg.generateNodeCode(
+    {
+      type: "TEXT",
+      name: "Styled text",
+      content: "Hello",
+      style: {
+        fontSize: 13,
+        fontFamily: "Inter",
+        fontWeight: "Regular",
+        lineHeight: 20,
+      },
+      fills: ["#475467"],
+    },
+    "txt",
+  );
+  assert(
+    code.indexOf(".fontSize = 13") !== -1,
+    "_genText: style.fontSize is applied",
+  );
+  assert(
+    code.indexOf("family: 'Inter'") !== -1,
+    "_genText: style.fontFamily is applied",
+  );
+  assert(
+    code.indexOf("style: 'Regular'") !== -1,
+    "_genText: style.fontWeight is applied",
+  );
+  assert(
+    code.indexOf("lineHeight") !== -1,
+    "_genText: lineHeight is set from style object",
+  );
+})();
+
+// Test: _genText lineHeight with flat props
+(function () {
+  cg.resetCounter();
+  var code = cg.generateNodeCode(
+    {
+      type: "TEXT",
+      content: "Test",
+      font: "Inter:Bold",
+      size: 16,
+      lineHeight: 24,
+    },
+    "txt",
+  );
+  assert(
+    code.indexOf("lineHeight") !== -1,
+    "_genText: flat lineHeight prop is set",
+  );
+  assert(code.indexOf("value: 24") !== -1, "_genText: lineHeight value is 24");
+})();
+
 // ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------

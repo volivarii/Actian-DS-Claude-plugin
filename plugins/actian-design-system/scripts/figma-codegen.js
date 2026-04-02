@@ -422,6 +422,15 @@ function _genText(spec, varName) {
   }
   if (spec.bold) fontStyle = 'Bold';
 
+  // Style object support (alternative to flat props)
+  if (spec.style) {
+    if (spec.style.fontFamily) fontFamily = spec.style.fontFamily;
+    if (spec.style.fontWeight) fontStyle = spec.style.fontWeight;
+    if (spec.style.fontSize !== undefined) spec.size = spec.style.fontSize;
+    if (spec.style.lineHeight !== undefined) spec.lineHeight = spec.style.lineHeight;
+    if (spec.style.letterSpacing !== undefined) spec.letterSpacing = spec.style.letterSpacing;
+  }
+
   lines.push("await figma.loadFontAsync({ family: '" + esc(fontFamily) + "', style: '" + esc(fontStyle) + "' });");
   lines.push(varName + ".fontName = { family: '" + esc(fontFamily) + "', style: '" + esc(fontStyle) + "' };");
 
@@ -457,6 +466,10 @@ function _genText(spec, varName) {
   }
 
   if (spec.opacity != null) lines.push(varName + '.opacity = ' + spec.opacity + ';');
+
+  if (spec.lineHeight !== undefined) {
+    lines.push(varName + ".lineHeight = { value: " + spec.lineHeight + ", unit: 'PIXELS' };");
+  }
 
   return lines.join('\n');
 }
