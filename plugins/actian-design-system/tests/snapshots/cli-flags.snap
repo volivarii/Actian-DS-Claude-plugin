@@ -1,0 +1,23 @@
+{
+  "flow-to-figma": [
+    "--output-dir",
+    "--plugin-root",
+    "--target-node-id"
+  ],
+  "brief-to-figma": [
+    "--call",
+    "--output",
+    "--output-dir",
+    "--target-node-id"
+  ],
+  "slide-to-figma": [
+    "--output",
+    "--output-dir",
+    "--target-node-id"
+  ],
+  "assemble-preview": [
+    "--output",
+    "--type",
+    "-o"
+  ]
+}
