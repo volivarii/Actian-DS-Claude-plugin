@@ -151,16 +151,21 @@ On feedback: edit brief-data.json, re-present gate.
 
 If triggered, generate the HTML preview BEFORE pushing:
 
-1. Read the wrapper template, brief-renderer.js, and annotation layer files
-2. Assemble the HTML file with embedded brief-data.json + component-specific CSS/JS
-3. Write to: `{project_working_directory}/components/[name]/[name]-spec.html`
-4. Start server and present preview URL with options:
+1. Run:
+   ```
+   node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js \
+     {project_working_directory}/components/[name]/[name]-brief-data.json \
+     --type brief \
+     -o {project_working_directory}/components/[name]/[name]-spec.html
+   ```
+   Do NOT add `2>&1`. Do NOT read wrapper templates, brief-renderer.js, or annotation layer files — the script handles everything.
+2. Start server and present preview URL with options:
    - **"push"** / **"push 2,4,5"** — send to Figma
    - **"playground"** — generate interactive playground
    - **"apply annotations"** — click Annotate in preview, then say "apply annotations"
    - **feedback** — fix and re-preview
-5. On feedback: edit `brief-data.json` → regenerate HTML → re-serve
-6. On "push": proceed to Step 2 (push) above
+3. On feedback: edit `brief-data.json` → regenerate HTML → re-serve
+4. On "push": proceed to Step 2 (push) above
 
 Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming.md` — read only if needed.
 

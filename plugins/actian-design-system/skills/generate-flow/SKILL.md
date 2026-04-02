@@ -170,13 +170,17 @@ These options are how the user discovers preview and push capabilities. Never om
 
 **Trigger:** User says "preview" at the screen list gate, or includes "preview" in the original prompt.
 
-Generate the HTML preview from the SAME `flow-data.json` built in Step 4:
+Assemble the HTML preview from the SAME `flow-data.json` built in Step 4:
 
-1. Read `../../references/generate-flow/html-reference.md` and `../../scripts/html-renderers/flow-renderer.js`
-2. Build HTML file from `flow-data.json` — the renderer uses `content[]` via `renderContentNode()`
-3. Write to: `{project_working_directory}/components/flows/[feature-name]-flow.html`
-4. Start server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
-5. Present preview URL and options:
+1. Run:
+   ```
+   node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js \
+     flow-data.json --type flow \
+     -o {project_working_directory}/components/flows/[feature-name]-flow.html
+   ```
+   Do NOT add `2>&1`. Do NOT read html-reference.md or flow-renderer.js — the script handles everything.
+2. Start server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
+3. Present preview URL and options:
 
 > Preview: `{URL}`
 >
@@ -186,8 +190,8 @@ Generate the HTML preview from the SAME `flow-data.json` built in Step 4:
 > - **"apply annotations"** — click Annotate in the preview, then say "apply annotations" here
 > - **feedback** — describe changes, I'll fix and re-preview
 
-6. On feedback: fix flow-data.json, regenerate HTML, re-serve, re-present.
-7. On "push": proceed to Step 4b below.
+4. On feedback: fix flow-data.json, regenerate HTML, re-serve, re-present.
+5. On "push": proceed to Step 4b below.
 
 ### Step 4b — Push to Figma
 

@@ -117,16 +117,20 @@ If the user hasn't provided a target Figma file, ask: "Where should I push this?
 
 If triggered, generate HTML BEFORE pushing:
 
-1. Read presentation-renderer.js and templates
-2. Build HTML from the same slide-data.json
-3. Write to: `{project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html`
-4. Start server, present preview URL with options:
+1. Run:
+   ```
+   node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js \
+     slide-data.json --type presentation \
+     -o {project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html
+   ```
+   Do NOT add `2>&1`. Do NOT read presentation-renderer.js or templates — the script handles everything.
+2. Start server, present preview URL with options:
    - **"push"** / **"push 1,3,5-8"** — send to Figma
    - **"apply annotations"** — annotate in browser, then say "apply annotations"
    - **feedback** — fix and re-preview
-5. Present review report: slide count, breakdown table, quality checklist
-6. On feedback: fix slide-data.json → regenerate HTML → re-serve
-7. On "push": proceed to push step above
+3. Present review report: slide count, breakdown table, quality checklist
+4. On feedback: fix slide-data.json → regenerate HTML → re-serve
+5. On "push": proceed to push step above
 
 ## Step 4 — Parity check
 
