@@ -41,6 +41,7 @@ Top-level application header bar. Contains the Actian logo, product label, and u
 
 - Variants: **Size:** `md` · `sm` | **Shape:** `Regular` · `Pill` | **Type:** `Primary` · `Secondary` · `Outline` · `Destructive` | **State:** `Default` · `Disabled`
 - Text overrides: `Label`
+- Boolean properties: `👁 Leading Icon` (default: true) · `👁 Trailing Icon` (default: true) — set to `false` to hide icon placeholders
 - Node: `8:21044` | Key: `368b62312ca941c80ea8eeed84a57d33bb470b09`
 
 ### FM Checkbox

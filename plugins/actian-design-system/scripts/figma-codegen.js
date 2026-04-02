@@ -677,6 +677,23 @@ function _genInstance(spec, varName) {
     if (fc) lines.push(fc);
   }
 
+  // Hide children by name (e.g., hide icon placeholders on button instances)
+  if (spec.hideChildren && spec.hideChildren.length) {
+    lines.push('(function() {');
+    lines.push('  var _names = ' + JSON.stringify(spec.hideChildren) + ';');
+    lines.push('  function _hideByName(node) {');
+    lines.push('    if (node.children) {');
+    lines.push('      for (var _i = 0; _i < node.children.length; _i++) {');
+    lines.push('        var _ch = node.children[_i];');
+    lines.push('        if (_names.indexOf(_ch.name) !== -1) { _ch.visible = false; }');
+    lines.push('        _hideByName(_ch);');
+    lines.push('      }');
+    lines.push('    }');
+    lines.push('  }');
+    lines.push('  _hideByName(' + varName + ');');
+    lines.push('})();');
+  }
+
   // Detach instance and append children (for card shell pattern)
   if (spec.detach) {
     lines.push(varName + ' = ' + varName + '.detachInstance();');

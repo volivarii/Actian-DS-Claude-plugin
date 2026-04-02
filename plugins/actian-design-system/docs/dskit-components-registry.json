@@ -10,7 +10,10 @@
       "type": "component_set",
       "page": "Breakpoint, grid & structure",
       "variants": {
-        "Property 1": ["Default", "Sid nav collapsed"]
+        "Property 1": [
+          "Default",
+          "Sid nav collapsed"
+        ]
       },
       "nestedComponents": []
     },
@@ -20,7 +23,11 @@
       "type": "component_set",
       "page": "Breakpoint, grid & structure",
       "variants": {
-        "Property": ["Default", "Side nav collapsed", "Side nav expanded"]
+        "Property": [
+          "Default",
+          "Side nav collapsed",
+          "Side nav expanded"
+        ]
       },
       "nestedComponents": []
     },
@@ -30,7 +37,11 @@
       "type": "component_set",
       "page": "Breakpoint, grid & structure",
       "variants": {
-        "Property": ["Default", "Side nav collapsed", "Side nav expanded"]
+        "Property": [
+          "Default",
+          "Side nav collapsed",
+          "Side nav expanded"
+        ]
       },
       "nestedComponents": []
     },
@@ -40,7 +51,9 @@
       "type": "component_set",
       "page": "Breakpoint, grid & structure",
       "variants": {
-        "Property 1": ["Default"]
+        "Property 1": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -50,7 +63,9 @@
       "type": "component_set",
       "page": "Breakpoint, grid & structure",
       "variants": {
-        "Property 1": ["Default"]
+        "Property 1": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -60,12 +75,39 @@
       "type": "component_set",
       "page": "Button",
       "variants": {
-        "Type": ["Primary", "Secondary", "Tertiary", "Icon", "Critical primary", "Critical secondary"],
-        "Size": ["Default", "Small"],
-        "State": ["Default", "Hovered", "Focused", "Pressed", "Selected", "Disabled"]
+        "Type": [
+          "Primary",
+          "Secondary",
+          "Tertiary",
+          "Icon",
+          "Critical primary",
+          "Critical secondary"
+        ],
+        "Size": [
+          "Default",
+          "Small"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected",
+          "Disabled"
+        ]
       },
-      "textOverrides": ["Label"],
-      "nestedComponents": []
+      "textOverrides": [
+        "Label"
+      ],
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Leading icon show": {
+          "default": true
+        },
+        "Trailing icon show": {
+          "default": true
+        }
+      }
     },
     "link": {
       "key": "433bc17e08514c14ee821f2b03421bad865e0a0e",
@@ -73,7 +115,14 @@
       "type": "component_set",
       "page": "Link",
       "variants": {
-        "State": ["Disabled", "Enabled", "Focused", "Hovered", "Once clicked", "Pressed"]
+        "State": [
+          "Disabled",
+          "Enabled",
+          "Focused",
+          "Hovered",
+          "Once clicked",
+          "Pressed"
+        ]
       },
       "nestedComponents": []
     },
@@ -83,7 +132,9 @@
       "type": "component_set",
       "page": "Sticky footer",
       "variants": {
-        "Property 1": ["Default"]
+        "Property 1": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -93,8 +144,17 @@
       "type": "component_set",
       "page": "Calendar",
       "variants": {
-        "Type": ["Single date select", "Date", "Month", "Single"],
-        "Selection": ["Single", "Range", "Year"]
+        "Type": [
+          "Single date select",
+          "Date",
+          "Month",
+          "Single"
+        ],
+        "Selection": [
+          "Single",
+          "Range",
+          "Year"
+        ]
       },
       "nestedComponents": []
     },
@@ -104,10 +164,35 @@
       "type": "component_set",
       "page": "Calendar",
       "variants": {
-        "Type": ["Single date", "Date range"],
-        "States": ["Enabled", "Hovered", "Focused", "Error", "Disabled", "Fille", "Activ"]
+        "Type": [
+          "Single date",
+          "Date range"
+        ],
+        "States": [
+          "Enabled",
+          "Hovered",
+          "Focused",
+          "Error",
+          "Disabled",
+          "Fille",
+          "Activ"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Helper": {
+          "default": true
+        },
+        "Label": {
+          "default": true
+        },
+        "* (Asterisk)": {
+          "default": true
+        },
+        "Sub label": {
+          "default": true
+        }
+      }
     },
     "calendar-item": {
       "key": "d476d5eeedd37586b0f8e025a3bc8c70cc20c5bb",
@@ -115,7 +200,13 @@
       "type": "component_set",
       "page": "Calendar",
       "variants": {
-        "State": ["Default", "Hovered", "Focused", "Selected", "Disabled"]
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Selected",
+          "Disabled"
+        ]
       },
       "nestedComponents": []
     },
@@ -125,8 +216,18 @@
       "type": "component_set",
       "page": "Checkbox",
       "variants": {
-        "Selected": ["Unselected", "Indeterminate", "Selected"],
-        "State": ["Enabled", "Hovered", "Focused", "Pressed", "Disabled"]
+        "Selected": [
+          "Unselected",
+          "Indeterminate",
+          "Selected"
+        ],
+        "State": [
+          "Enabled",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled"
+        ]
       },
       "nestedComponents": []
     },
@@ -136,8 +237,18 @@
       "type": "component_set",
       "page": "Checkbox",
       "variants": {
-        "Selected": ["Yes", "Indeterminate", "No"],
-        "State": ["Enabled", "Hovered", "Focused", "Pressed", "Disabled"]
+        "Selected": [
+          "Yes",
+          "Indeterminate",
+          "No"
+        ],
+        "State": [
+          "Enabled",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled"
+        ]
       },
       "nestedComponents": []
     },
@@ -147,10 +258,39 @@
       "type": "component_set",
       "page": "Dropdown / Select",
       "variants": {
-        "Type": ["Default", "Search/Multiple", "With avatar", "Compact/Custom"],
-        "State": ["Default", "Hovered", "Focused", "Active", "Filled", "Disabled"]
+        "Type": [
+          "Default",
+          "Search/Multiple",
+          "With avatar",
+          "Compact/Custom"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Active",
+          "Filled",
+          "Disabled"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show description": {
+          "default": true
+        },
+        "Show asterisk ": {
+          "default": true
+        },
+        "Show info icon": {
+          "default": true
+        },
+        "Show helper text": {
+          "default": true
+        },
+        "Show Label": {
+          "default": true
+        }
+      }
     },
     "menu-item": {
       "key": "eab4098398a66550ebd20a27816809c8e4a33ad2",
@@ -158,11 +298,31 @@
       "type": "component_set",
       "page": "Dropdown / Select",
       "variants": {
-        "Type": ["Selectable item", "Category", "Divider"],
-        "State": ["Default", "Hovered", "Focused", "Pressed", "Selected"]
+        "Type": [
+          "Selectable item",
+          "Category",
+          "Divider"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected"
+        ]
       },
-      "textOverrides": ["Label text"],
-      "nestedComponents": []
+      "textOverrides": [
+        "Label text"
+      ],
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show trailing icon": {
+          "default": true
+        },
+        "Show leading icon": {
+          "default": true
+        }
+      }
     },
     "search-filters": {
       "key": "919ddc42563055f1d9f34b662fb806eb66763980",
@@ -170,7 +330,10 @@
       "type": "component_set",
       "page": "Filters",
       "variants": {
-        "Type": ["Explorer", "Studio"]
+        "Type": [
+          "Explorer",
+          "Studio"
+        ]
       },
       "nestedComponents": []
     },
@@ -180,8 +343,17 @@
       "type": "component_set",
       "page": "Radio button",
       "variants": {
-        "State": ["Default", "Hovered", "Focused", "Pressed", "Disabled"],
-        "Selected": ["Yes", "No"]
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled"
+        ],
+        "Selected": [
+          "Yes",
+          "No"
+        ]
       },
       "nestedComponents": []
     },
@@ -191,11 +363,31 @@
       "type": "component_set",
       "page": "Radio button",
       "variants": {
-        "Format": ["Default", "Card format"],
-        "State": ["Hovered", "Focused", "Pressed", "Disabled", "Default"],
-        "Selected": ["No", "Yes"]
+        "Format": [
+          "Default",
+          "Card format"
+        ],
+        "State": [
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled",
+          "Default"
+        ],
+        "Selected": [
+          "No",
+          "Yes"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show Helper text": {
+          "default": true
+        },
+        "Show Icon": {
+          "default": true
+        }
+      }
     },
     "rich-text": {
       "key": "e904c7b5c3ef6d223d9743546484e5a99b7a7808",
@@ -203,7 +395,10 @@
       "type": "component_set",
       "page": "Rich text (existing)",
       "variants": {
-        "State": ["Expanded", "Default"]
+        "State": [
+          "Expanded",
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -213,10 +408,26 @@
       "type": "component_set",
       "page": "Search",
       "variants": {
-        "Type": ["Explorer home", "Global header", "Inline"],
-        "State": ["Hovered", "Focused", "Filled", "Active", "Dsiabled", "Default"]
+        "Type": [
+          "Explorer home",
+          "Global header",
+          "Inline"
+        ],
+        "State": [
+          "Hovered",
+          "Focused",
+          "Filled",
+          "Active",
+          "Dsiabled",
+          "Default"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "AI icon": {
+          "default": true
+        }
+      }
     },
     "search-dropdown-menu": {
       "key": "9e267d055429c3f0e586f2fc787fd8b6fced1629",
@@ -224,7 +435,12 @@
       "type": "component_set",
       "page": "Search",
       "variants": {
-        "Type": ["No result", "Before typed", "After typed", "Explorer home"]
+        "Type": [
+          "No result",
+          "Before typed",
+          "After typed",
+          "Explorer home"
+        ]
       },
       "nestedComponents": []
     },
@@ -234,10 +450,51 @@
       "type": "component_set",
       "page": "Text input",
       "variants": {
-        "States": ["Default", "Hovered", "Focused", "Active", "Filled", "Error", "Disabled", "Read-only"]
+        "States": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Active",
+          "Filled",
+          "Error",
+          "Disabled",
+          "Read-only"
+        ]
       },
-      "textOverrides": ["Label text", "Description text", "Placeholder text", "Helper text", "Input text"],
-      "nestedComponents": []
+      "textOverrides": [
+        "Label text",
+        "Description text",
+        "Placeholder text",
+        "Helper text",
+        "Input text"
+      ],
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Helper": {
+          "default": true
+        },
+        "Trailing icon": {
+          "default": true
+        },
+        "Label": {
+          "default": true
+        },
+        "Info icon": {
+          "default": true
+        },
+        "* (Asterisk)": {
+          "default": true
+        },
+        "Description": {
+          "default": true
+        },
+        "Delete icon": {
+          "default": false
+        },
+        "Show .Textfield buttons": {
+          "default": true
+        }
+      }
     },
     "textfield-buttons": {
       "key": "701b1f6d93b336acb724a3496f7f0e33d1301c4f",
@@ -245,7 +502,9 @@
       "type": "component_set",
       "page": "Text input",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -255,8 +514,17 @@
       "type": "component_set",
       "page": "Toggle control",
       "variants": {
-        "Selected": ["Off", "On"],
-        "State": ["Default", "Hovered", "Focused", "Pressed", "Disabled"]
+        "Selected": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled"
+        ]
       },
       "nestedComponents": []
     },
@@ -266,11 +534,28 @@
       "type": "component_set",
       "page": "Toggle control",
       "variants": {
-        "Toggle location": ["Left", "Right"],
-        "State": ["Hovered", "Focused", "Pressed", "Disabled", "Default"],
-        "Selected": ["No", "Yes"]
+        "Toggle location": [
+          "Left",
+          "Right"
+        ],
+        "State": [
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled",
+          "Default"
+        ],
+        "Selected": [
+          "No",
+          "Yes"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show Helper text": {
+          "default": true
+        }
+      }
     },
     "breadcrumbs": {
       "key": "72976d77668b8e085d716fc8c5bc0bd144cb7274",
@@ -278,7 +563,9 @@
       "type": "component_set",
       "page": "Breadcrumbs",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -288,8 +575,18 @@
       "type": "component_set",
       "page": "Global header",
       "variants": {
-        "App type": ["Explorer", "Admin", "Studio"],
-        "Breakpoints": ["XL", "L", "M", "S", "XS"]
+        "App type": [
+          "Explorer",
+          "Admin",
+          "Studio"
+        ],
+        "Breakpoints": [
+          "XL",
+          "L",
+          "M",
+          "S",
+          "XS"
+        ]
       },
       "nestedComponents": []
     },
@@ -299,7 +596,10 @@
       "type": "component_set",
       "page": "Global header",
       "variants": {
-        "Property 1": ["Empty", "List"]
+        "Property 1": [
+          "Empty",
+          "List"
+        ]
       },
       "nestedComponents": []
     },
@@ -309,7 +609,12 @@
       "type": "component_set",
       "page": "Global header",
       "variants": {
-        "Property 1": ["Drilldown1", "Drilldown2", "Empty", "List"]
+        "Property 1": [
+          "Drilldown1",
+          "Drilldown2",
+          "Empty",
+          "List"
+        ]
       },
       "nestedComponents": []
     },
@@ -333,12 +638,39 @@
       "type": "component_set",
       "page": "Side nav",
       "variants": {
-        "Level": ["Top", "Sub"],
-        "Opened/Closed": ["Opened", "Closed", "N/A"],
-        "State": ["Default", "Hovered", "Focused", "Pressed", "Selected", "Disabled"]
+        "Level": [
+          "Top",
+          "Sub"
+        ],
+        "Opened/Closed": [
+          "Opened",
+          "Closed",
+          "N/A"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected",
+          "Disabled"
+        ]
       },
-      "textOverrides": ["Name"],
-      "nestedComponents": []
+      "textOverrides": [
+        "Name"
+      ],
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Icon left": {
+          "default": true
+        },
+        "Icon right": {
+          "default": true
+        },
+        "Label": {
+          "default": true
+        }
+      }
     },
     "side-nav": {
       "key": "3606cc19247f989332aac33953ffdf57c9d1bbdd",
@@ -346,8 +678,14 @@
       "type": "component_set",
       "page": "Side nav",
       "variants": {
-        "App": ["Admin", "Studio"],
-        "View": ["Collapsed", "Expanded"]
+        "App": [
+          "Admin",
+          "Studio"
+        ],
+        "View": [
+          "Collapsed",
+          "Expanded"
+        ]
       },
       "nestedComponents": []
     },
@@ -357,10 +695,22 @@
       "type": "component_set",
       "page": "Stepper",
       "variants": {
-        "State": ["Complete", "Active", "Default", "State5"]
+        "State": [
+          "Complete",
+          "Active",
+          "Default",
+          "State5"
+        ]
       },
-      "textOverrides": ["Body"],
-      "nestedComponents": []
+      "textOverrides": [
+        "Body"
+      ],
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show Body": {
+          "default": true
+        }
+      }
     },
     "tab": {
       "key": "96cfc367aba35f003e9394b76dc2d78ef78ffd9e",
@@ -368,11 +718,29 @@
       "type": "component_set",
       "page": "Tab",
       "variants": {
-        "Selected": ["No", "Yes"],
-        "State": ["Default", "Hovered", "Focused", "Pressed"]
+        "Selected": [
+          "No",
+          "Yes"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed"
+        ]
       },
-      "textOverrides": ["Label text"],
-      "nestedComponents": []
+      "textOverrides": [
+        "Label text"
+      ],
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Icon": {
+          "default": true
+        },
+        "Number": {
+          "default": true
+        }
+      }
     },
     "tabs": {
       "key": "dbd33845613381780e5364600815d9bc983d5230",
@@ -380,9 +748,16 @@
       "type": "component_set",
       "page": "Tab",
       "variants": {
-        "Property 1": ["Default"]
+        "Property 1": [
+          "Default"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show Avatar": {
+          "default": true
+        }
+      }
     },
     "traffic-light": {
       "key": "4d34e14670144322fcfb202e843dc75534ff917f",
@@ -390,7 +765,12 @@
       "type": "component_set",
       "page": "Traffic light",
       "variants": {
-        "Type": ["Default", "Green", "Orange", "Red"]
+        "Type": [
+          "Default",
+          "Green",
+          "Orange",
+          "Red"
+        ]
       },
       "nestedComponents": []
     },
@@ -400,8 +780,19 @@
       "type": "component_set",
       "page": "Avatar",
       "variants": {
-        "State": ["Default", "Hovered", "Focused", "Pressed", "Disabled", "Selected"],
-        "Type": ["One group", "Two groups", "Default"]
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled",
+          "Selected"
+        ],
+        "Type": [
+          "One group",
+          "Two groups",
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -411,7 +802,10 @@
       "type": "component_set",
       "page": "Badge",
       "variants": {
-        "Type": ["Number", "Dot"]
+        "Type": [
+          "Number",
+          "Dot"
+        ]
       },
       "nestedComponents": []
     },
@@ -421,10 +815,26 @@
       "type": "component_set",
       "page": "Card",
       "variants": {
-        "Type": ["Catalog", "Item", "item type", "Glossary type", "Topic"],
-        "State": ["Default", "Hovered", "Focused", "Pressed"]
+        "Type": [
+          "Catalog",
+          "Item",
+          "item type",
+          "Glossary type",
+          "Topic"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show AI ready": {
+          "default": true
+        }
+      }
     },
     "card-header": {
       "key": "3286cad107e4cf45c9082f2219d7866e44ade09d",
@@ -432,9 +842,22 @@
       "type": "component_set",
       "page": "Card",
       "variants": {
-        "Size": ["Default"]
+        "Size": [
+          "Default"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show leading icon": {
+          "default": false
+        },
+        "Show info icon": {
+          "default": true
+        },
+        "Show action": {
+          "default": false
+        }
+      }
     },
     "card": {
       "key": "3b8d2c7adc118fdd5f31e68440fa35e952fee92e",
@@ -442,7 +865,9 @@
       "type": "component_set",
       "page": "Card",
       "variants": {
-        "Property 1": ["Default"]
+        "Property 1": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -452,7 +877,9 @@
       "type": "component_set",
       "page": "Card",
       "variants": {
-        "Property 1": ["Default"]
+        "Property 1": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -462,7 +889,10 @@
       "type": "component_set",
       "page": "Collapse (Accordion)",
       "variants": {
-        "State": ["Closed", "Open"]
+        "State": [
+          "Closed",
+          "Open"
+        ]
       },
       "nestedComponents": []
     },
@@ -472,7 +902,11 @@
       "type": "component_set",
       "page": "Data viz: glossary item hierarchy",
       "variants": {
-        "Type": ["Going up", "Straight", "Going down"]
+        "Type": [
+          "Going up",
+          "Straight",
+          "Going down"
+        ]
       },
       "nestedComponents": []
     },
@@ -482,8 +916,18 @@
       "type": "component_set",
       "page": "Data viz: glossary item hierarchy",
       "variants": {
-        "Type": ["Main item", "Sub items"],
-        "State": ["Default", "Hovered", "Pressed", "Focused", "Selected", "Disabled"]
+        "Type": [
+          "Main item",
+          "Sub items"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Pressed",
+          "Focused",
+          "Selected",
+          "Disabled"
+        ]
       },
       "nestedComponents": []
     },
@@ -493,7 +937,9 @@
       "type": "component_set",
       "page": "Data viz: glossary item hierarchy",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -503,9 +949,19 @@
       "type": "component_set",
       "page": "Data viz: lineage",
       "variants": {
-        "Type": ["Main item", "Sub item"],
-        "State": ["Default", "Selected", "Disabled"],
-        "Fields": ["Collapsed", "Expanded"]
+        "Type": [
+          "Main item",
+          "Sub item"
+        ],
+        "State": [
+          "Default",
+          "Selected",
+          "Disabled"
+        ],
+        "Fields": [
+          "Collapsed",
+          "Expanded"
+        ]
       },
       "nestedComponents": []
     },
@@ -515,8 +971,14 @@
       "type": "component_set",
       "page": "Data viz: lineage",
       "variants": {
-        "Icon": ["Expand", "Collapse"],
-        "State": ["Default", "Disabled"]
+        "Icon": [
+          "Expand",
+          "Collapse"
+        ],
+        "State": [
+          "Default",
+          "Disabled"
+        ]
       },
       "nestedComponents": []
     },
@@ -526,7 +988,9 @@
       "type": "component_set",
       "page": "Data viz: lineage",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -536,8 +1000,17 @@
       "type": "component_set",
       "page": "Data viz: lineage",
       "variants": {
-        "Direction": ["Down", "Straight", "up", "Up"],
-        "State": ["Default", "Selected", "Disabled"]
+        "Direction": [
+          "Down",
+          "Straight",
+          "up",
+          "Up"
+        ],
+        "State": [
+          "Default",
+          "Selected",
+          "Disabled"
+        ]
       },
       "nestedComponents": []
     },
@@ -547,7 +1020,10 @@
       "type": "component_set",
       "page": "Data viz: lineage",
       "variants": {
-        "State": ["Default", "Disabled"]
+        "State": [
+          "Default",
+          "Disabled"
+        ]
       },
       "nestedComponents": []
     },
@@ -557,7 +1033,13 @@
       "type": "component_set",
       "page": "Data viz: metamodel",
       "variants": {
-        "Type": ["Dataset", "Business Term", "Data Process", "Field", "Visualisation"]
+        "Type": [
+          "Dataset",
+          "Business Term",
+          "Data Process",
+          "Field",
+          "Visualisation"
+        ]
       },
       "nestedComponents": []
     },
@@ -567,7 +1049,10 @@
       "type": "component_set",
       "page": "Data viz: metamodel",
       "variants": {
-        "Section": ["Collapsed", "Expanded"]
+        "Section": [
+          "Collapsed",
+          "Expanded"
+        ]
       },
       "nestedComponents": []
     },
@@ -577,7 +1062,12 @@
       "type": "component_set",
       "page": "Data viz: metamodel",
       "variants": {
-        "Directon": ["1", "2", "3", "4"]
+        "Directon": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
       },
       "nestedComponents": []
     },
@@ -587,8 +1077,15 @@
       "type": "component_set",
       "page": "Data viz: progressive bar",
       "variants": {
-        "Size": ["Default", "Large"],
-        "Completeness": ["0%", "100%", "50%"]
+        "Size": [
+          "Default",
+          "Large"
+        ],
+        "Completeness": [
+          "0%",
+          "100%",
+          "50%"
+        ]
       },
       "nestedComponents": []
     },
@@ -598,8 +1095,15 @@
       "type": "component_set",
       "page": "Data viz: toolbar",
       "variants": {
-        "Type": ["Single", "Combined", "Group"],
-        "Orientation": ["Horizontal", "Vertical"]
+        "Type": [
+          "Single",
+          "Combined",
+          "Group"
+        ],
+        "Orientation": [
+          "Horizontal",
+          "Vertical"
+        ]
       },
       "nestedComponents": []
     },
@@ -609,7 +1113,13 @@
       "type": "component_set",
       "page": "Data viz: WIP all others",
       "variants": {
-        "Property 1": ["Default", "Focused", "Hovered", "Pressed", "Selected"]
+        "Property 1": [
+          "Default",
+          "Focused",
+          "Hovered",
+          "Pressed",
+          "Selected"
+        ]
       },
       "nestedComponents": []
     },
@@ -619,7 +1129,18 @@
       "type": "component_set",
       "page": "Digram",
       "variants": {
-        "Type": ["Light purple", "Dark purple", "Light blue", "Dark blue", "Light green", "Dark green", "Yellow", "Orange", "Red", "Dark orange"]
+        "Type": [
+          "Light purple",
+          "Dark purple",
+          "Light blue",
+          "Dark blue",
+          "Light green",
+          "Dark green",
+          "Yellow",
+          "Orange",
+          "Red",
+          "Dark orange"
+        ]
       },
       "nestedComponents": []
     },
@@ -629,8 +1150,22 @@
       "type": "component_set",
       "page": "Digram",
       "variants": {
-        "Item type": ["Dataset", "Data process", "Data product", "Field", "Output port", "Use case", "Visualization", "Category", "Custom 1-16", "Glossary 1-5"],
-        "Size": ["Default", "Large"]
+        "Item type": [
+          "Dataset",
+          "Data process",
+          "Data product",
+          "Field",
+          "Output port",
+          "Use case",
+          "Visualization",
+          "Category",
+          "Custom 1-16",
+          "Glossary 1-5"
+        ],
+        "Size": [
+          "Default",
+          "Large"
+        ]
       },
       "nestedComponents": []
     },
@@ -640,7 +1175,12 @@
       "type": "component_set",
       "page": "Page header",
       "variants": {
-        "Type": ["Default", "Details page", "Explorer home", "Explorer detail"]
+        "Type": [
+          "Default",
+          "Details page",
+          "Explorer home",
+          "Explorer detail"
+        ]
       },
       "nestedComponents": []
     },
@@ -650,7 +1190,9 @@
       "type": "component_set",
       "page": "Scroll bar",
       "variants": {
-        "Property 1": ["Default"]
+        "Property 1": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -660,10 +1202,24 @@
       "type": "component_set",
       "page": "Segmented control (Button group)",
       "variants": {
-        "State": ["Default", "Hovered", "Focused", "Pressed", "Selected", "Disabled"]
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected",
+          "Disabled"
+        ]
       },
-      "textOverrides": ["Label"],
-      "nestedComponents": []
+      "textOverrides": [
+        "Label"
+      ],
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Icon2": {
+          "default": true
+        }
+      }
     },
     "segmented-control": {
       "key": "062274018b2daab1c45c7e634c95c5a4eaa42b69",
@@ -671,7 +1227,9 @@
       "type": "component_set",
       "page": "Segmented control (Button group)",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -681,8 +1239,13 @@
       "type": "component_set",
       "page": "Search result card",
       "variants": {
-        "App": ["Explorer", "Studio"],
-        "State": ["Default"]
+        "App": [
+          "Explorer",
+          "Studio"
+        ],
+        "State": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -692,10 +1255,30 @@
       "type": "component_set",
       "page": "Tag (Identification key)",
       "variants": {
-        "Color": ["Default", "Pink", "Purple", "Indigo", "Yellow", "Lime", "Teal", "Orange", "Gray"]
+        "Color": [
+          "Default",
+          "Pink",
+          "Purple",
+          "Indigo",
+          "Yellow",
+          "Lime",
+          "Teal",
+          "Orange",
+          "Gray"
+        ]
       },
-      "textOverrides": ["Label"],
-      "nestedComponents": []
+      "textOverrides": [
+        "Label"
+      ],
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Leading icon show": {
+          "default": true
+        },
+        "Trailing icon show": {
+          "default": false
+        }
+      }
     },
     "tag-stage": {
       "key": "2f4ae1cc7f2d610179a68b2c1b6e25d4900bd8bc",
@@ -703,9 +1286,26 @@
       "type": "component_set",
       "page": "Tag (Identification key)",
       "variants": {
-        "Color": ["Gray", "Orange", "Indigo", "Purple", "Lime", "Teal", "Yellow", "Pink"]
+        "Color": [
+          "Gray",
+          "Orange",
+          "Indigo",
+          "Purple",
+          "Lime",
+          "Teal",
+          "Yellow",
+          "Pink"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Trailing icon": {
+          "default": false
+        },
+        "Leading icon": {
+          "default": true
+        }
+      }
     },
     "tag-status": {
       "key": "1663e13e4fe1648aeef7bf6978f7faeea14a4c17",
@@ -713,7 +1313,19 @@
       "type": "component_set",
       "page": "Tag (Identification key)",
       "variants": {
-        "Status": ["Fail", "Warning", "Success", "Loading", "Maintenance", "Scheduled", "Queued", "Stopped", "Sleeping", "Offline", "Pending"]
+        "Status": [
+          "Fail",
+          "Warning",
+          "Success",
+          "Loading",
+          "Maintenance",
+          "Scheduled",
+          "Queued",
+          "Stopped",
+          "Sleeping",
+          "Offline",
+          "Pending"
+        ]
       },
       "nestedComponents": []
     },
@@ -723,9 +1335,23 @@
       "type": "component_set",
       "page": "Tag (Identification key)",
       "variants": {
-        "Type": ["Category", "Dataset", "Data process", "Data product", "Field", "Output port", "Use case", "Visualization"]
+        "Type": [
+          "Category",
+          "Dataset",
+          "Data process",
+          "Data product",
+          "Field",
+          "Output port",
+          "Use case",
+          "Visualization"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show counter": {
+          "default": false
+        }
+      }
     },
     "tag-updated": {
       "key": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
@@ -733,7 +1359,9 @@
       "type": "component_set",
       "page": "Tag (Identification key)",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -743,9 +1371,16 @@
       "type": "component_set",
       "page": "Tag (Identification key)",
       "variants": {
-        "Property 1": ["Default"]
+        "Property 1": [
+          "Default"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show Counter": {
+          "default": false
+        }
+      }
     },
     "tag-catalog": {
       "key": "a28b5c2f8b2b9fe218a7fc6674e43c3baacb24c2",
@@ -753,7 +1388,9 @@
       "type": "component_set",
       "page": "Tag (Identification key)",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -763,9 +1400,24 @@
       "type": "component_set",
       "page": "Tag (Identification key)",
       "variants": {
-        "State": ["Default", "Hovered", "Pressed", "Selected", "Disabled", "Focused"]
+        "State": [
+          "Default",
+          "Hovered",
+          "Pressed",
+          "Selected",
+          "Disabled",
+          "Focused"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Leading icon show": {
+          "default": false
+        },
+        "Trailing icon show": {
+          "default": true
+        }
+      }
     },
     "identification-key": {
       "key": "3bf340c5e6f49afc5b73140935558a558b3e8855",
@@ -773,7 +1425,9 @@
       "type": "component_set",
       "page": "Tag (Identification key)",
       "variants": {
-        "Property 1": ["Default"]
+        "Property 1": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -783,7 +1437,11 @@
       "type": "component_set",
       "page": "Table",
       "variants": {
-        "Type": ["Default", "Tag", "Actions"]
+        "Type": [
+          "Default",
+          "Tag",
+          "Actions"
+        ]
       },
       "nestedComponents": []
     },
@@ -793,9 +1451,32 @@
       "type": "component_set",
       "page": "Table",
       "variants": {
-        "Type": ["Header", "Text", "Tag", "Action", "Skeleton"]
+        "Type": [
+          "Header",
+          "Text",
+          "Tag",
+          "Action",
+          "Skeleton"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show Avatar": {
+          "default": false
+        },
+        "Show Sort": {
+          "default": false
+        },
+        "Show Button 1": {
+          "default": true
+        },
+        "Show Button 2": {
+          "default": true
+        },
+        "Show Button 3": {
+          "default": true
+        }
+      }
     },
     "table": {
       "key": "82307fa1e9783c4a5daba4d3c954d2faf48b9dd0",
@@ -803,7 +1484,9 @@
       "type": "component_set",
       "page": "Table",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -813,10 +1496,29 @@
       "type": "component_set",
       "page": "Alert (banner)",
       "variants": {
-        "Type": ["Primary", "Success", "Warning", "Danger"],
-        "Orientation'": ["Horizontal", "Vertical"]
+        "Type": [
+          "Primary",
+          "Success",
+          "Warning",
+          "Danger"
+        ],
+        "Orientation'": [
+          "Horizontal",
+          "Vertical"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show Icon": {
+          "default": true
+        },
+        "Show close button": {
+          "default": true
+        },
+        "Show action": {
+          "default": true
+        }
+      }
     },
     "empty-state": {
       "key": "0adc6b54a212315ebb16db7f5eea388276a1587b",
@@ -824,10 +1526,31 @@
       "type": "component_set",
       "page": "Empty state",
       "variants": {
-        "Size": ["Large", "Medium", "Small"]
+        "Size": [
+          "Large",
+          "Medium",
+          "Small"
+        ]
       },
-      "textOverrides": ["Title content", "Body content"],
-      "nestedComponents": []
+      "textOverrides": [
+        "Title content",
+        "Body content"
+      ],
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Tertiary button": {
+          "default": true
+        },
+        "Primary button": {
+          "default": true
+        },
+        "Title": {
+          "default": true
+        },
+        "Body": {
+          "default": true
+        }
+      }
     },
     "error-state": {
       "key": "a219aa99ab9712f911f391af8dd623c18b281ccb",
@@ -835,7 +1558,10 @@
       "type": "component_set",
       "page": "Empty state",
       "variants": {
-        "Size": ["Large", "Medium"]
+        "Size": [
+          "Large",
+          "Medium"
+        ]
       },
       "nestedComponents": []
     },
@@ -845,7 +1571,9 @@
       "type": "component_set",
       "page": "Empty state",
       "variants": {
-        "Size": ["Large"]
+        "Size": [
+          "Large"
+        ]
       },
       "nestedComponents": []
     },
@@ -855,7 +1583,9 @@
       "type": "component_set",
       "page": "Empty state",
       "variants": {
-        "Size": ["Large"]
+        "Size": [
+          "Large"
+        ]
       },
       "nestedComponents": []
     },
@@ -865,7 +1595,12 @@
       "type": "component_set",
       "page": "Loading (Loader, Spinner, Skeleton)",
       "variants": {
-        "Complete": ["50%", "75%", "100%", "25%"]
+        "Complete": [
+          "50%",
+          "75%",
+          "100%",
+          "25%"
+        ]
       },
       "nestedComponents": []
     },
@@ -875,7 +1610,11 @@
       "type": "component_set",
       "page": "Loading (Loader, Spinner, Skeleton)",
       "variants": {
-        "Percent": ["99%", "10%", "Percent3"]
+        "Percent": [
+          "99%",
+          "10%",
+          "Percent3"
+        ]
       },
       "nestedComponents": []
     },
@@ -885,7 +1624,12 @@
       "type": "component_set",
       "page": "Loading (Loader, Spinner, Skeleton)",
       "variants": {
-        "App": ["Actian Data Intelligence", "Studio", "Explorer", "Admin"]
+        "App": [
+          "Actian Data Intelligence",
+          "Studio",
+          "Explorer",
+          "Admin"
+        ]
       },
       "nestedComponents": []
     },
@@ -895,7 +1639,10 @@
       "type": "component_set",
       "page": "Loading (Loader, Spinner, Skeleton)",
       "variants": {
-        "Transition": ["1", "2"]
+        "Transition": [
+          "1",
+          "2"
+        ]
       },
       "nestedComponents": []
     },
@@ -905,7 +1652,9 @@
       "type": "component_set",
       "page": "Maintenance banner",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
       "nestedComponents": []
     },
@@ -915,7 +1664,10 @@
       "type": "component_set",
       "page": "Notification (Toast)",
       "variants": {
-        "Type": ["Default", "Critial"]
+        "Type": [
+          "Default",
+          "Critial"
+        ]
       },
       "nestedComponents": []
     },
@@ -925,9 +1677,17 @@
       "type": "component_set",
       "page": "Drawer (Side panel)",
       "variants": {
-        "App": ["Studio", "Explorer"]
+        "App": [
+          "Studio",
+          "Explorer"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show Back": {
+          "default": true
+        }
+      }
     },
     "modal": {
       "key": "2a2b287c2eb1c1c5e071d190e49f19891c937993",
@@ -935,7 +1695,15 @@
       "type": "component_set",
       "page": "Modal",
       "variants": {
-        "Size & Type": ["700px setting", "1200px", "900px create", "900px edit", "700px create", "450px warning", "450px confirm"]
+        "Size & Type": [
+          "700px setting",
+          "1200px",
+          "900px create",
+          "900px edit",
+          "700px create",
+          "450px warning",
+          "450px confirm"
+        ]
       },
       "nestedComponents": []
     },
@@ -945,9 +1713,17 @@
       "type": "component_set",
       "page": "Popover",
       "variants": {
-        "Type": ["Interaction guide", "Advanced search"]
+        "Type": [
+          "Interaction guide",
+          "Advanced search"
+        ]
       },
-      "nestedComponents": []
+      "nestedComponents": [],
+      "booleanProperties": {
+        "Show info icon": {
+          "default": true
+        }
+      }
     },
     "tooltip": {
       "key": "558adad968a5b5e1e3714307fb19de73d1ac6d21",
@@ -955,9 +1731,13 @@
       "type": "component_set",
       "page": "Tooltip",
       "variants": {
-        "Type": ["Default"]
+        "Type": [
+          "Default"
+        ]
       },
-      "textOverrides": ["Body"],
+      "textOverrides": [
+        "Body"
+      ],
       "nestedComponents": []
     },
     "illustration": {
@@ -966,7 +1746,15 @@
       "type": "component_set",
       "page": "Illustrations & graphics",
       "variants": {
-        "Type": ["Empty state large", "Empty state medium", "Empty state small", "Error state", "Maintenance", "Success", "Error state medium"]
+        "Type": [
+          "Empty state large",
+          "Empty state medium",
+          "Empty state small",
+          "Error state",
+          "Maintenance",
+          "Success",
+          "Error state medium"
+        ]
       },
       "nestedComponents": []
     },
@@ -976,7 +1764,10 @@
       "type": "component_set",
       "page": "Product logos",
       "variants": {
-        "Color": ["Full color", "White"]
+        "Color": [
+          "Full color",
+          "White"
+        ]
       },
       "nestedComponents": []
     },
@@ -986,8 +1777,16 @@
       "type": "component_set",
       "page": "Product logos",
       "variants": {
-        "Type": ["Explorer", "Data Intelligence", "Studio", "Admin"],
-        "Orientation": ["Horizontal", "Vertical"]
+        "Type": [
+          "Explorer",
+          "Data Intelligence",
+          "Studio",
+          "Admin"
+        ],
+        "Orientation": [
+          "Horizontal",
+          "Vertical"
+        ]
       },
       "nestedComponents": []
     },
@@ -997,8 +1796,14 @@
       "type": "component_set",
       "page": "Product logos",
       "variants": {
-        "Color": ["Full colo", "White"],
-        "Layout": ["Vertical", "Horizontal"]
+        "Color": [
+          "Full colo",
+          "White"
+        ],
+        "Layout": [
+          "Vertical",
+          "Horizontal"
+        ]
       },
       "nestedComponents": []
     },
@@ -1008,7 +1813,10 @@
       "type": "component_set",
       "page": "Product logos",
       "variants": {
-        "Layout": ["Horizontal", "Vertical"]
+        "Layout": [
+          "Horizontal",
+          "Vertical"
+        ]
       },
       "nestedComponents": []
     },
@@ -1018,7 +1826,11 @@
       "type": "component_set",
       "page": "Product logos",
       "variants": {
-        "Property 1": ["Dev Actian Data Intelligence Admin", "Explorer", "Studio"]
+        "Property 1": [
+          "Dev Actian Data Intelligence Admin",
+          "Explorer",
+          "Studio"
+        ]
       },
       "nestedComponents": []
     },
@@ -1028,7 +1840,17 @@
       "type": "component_set",
       "page": "Product logos",
       "variants": {
-        "Type": ["Dev Logo Explorer", "Dev Logo Studio", "Dev Logo Zenea Corporate", "Favicon Zeenea 1", "Logo Explorer", "Logo Studio", "Logo Zenea Corporate", "Favicon Explorer", "Favicon Studio"]
+        "Type": [
+          "Dev Logo Explorer",
+          "Dev Logo Studio",
+          "Dev Logo Zenea Corporate",
+          "Favicon Zeenea 1",
+          "Logo Explorer",
+          "Logo Studio",
+          "Logo Zenea Corporate",
+          "Favicon Explorer",
+          "Favicon Studio"
+        ]
       },
       "nestedComponents": []
     },
@@ -1038,8 +1860,17 @@
       "type": "component_set",
       "page": "Local components",
       "variants": {
-        "Label": ["Number", "Text", "Token"],
-        "Line": ["Up", "Down", "Left", "Right"]
+        "Label": [
+          "Number",
+          "Text",
+          "Token"
+        ],
+        "Line": [
+          "Up",
+          "Down",
+          "Left",
+          "Right"
+        ]
       },
       "nestedComponents": []
     },
@@ -1049,9 +1880,15 @@
       "type": "component_set",
       "page": "Local components",
       "variants": {
-        "Property 1": ["Default", "Color #value", "Tag"]
+        "Property 1": [
+          "Default",
+          "Color #value",
+          "Tag"
+        ]
       },
-      "textOverrides": ["Text"],
+      "textOverrides": [
+        "Text"
+      ],
       "nestedComponents": []
     },
     "spec": {
@@ -1060,8 +1897,17 @@
       "type": "component_set",
       "page": "Local components",
       "variants": {
-        "Type": ["Spacing"],
-        "Size": ["Default", "Variant2", "Variant3", "Variant4", "Variant5", "Variant6"]
+        "Type": [
+          "Spacing"
+        ],
+        "Size": [
+          "Default",
+          "Variant2",
+          "Variant3",
+          "Variant4",
+          "Variant5",
+          "Variant6"
+        ]
       },
       "nestedComponents": []
     },

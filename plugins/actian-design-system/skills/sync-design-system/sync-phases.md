@@ -77,6 +77,8 @@ const manifest = [
     variantHash: cs.children.map(v => v.name).sort().join('|'),
     textOverrideCount: Object.values(cs.componentPropertyDefinitions || {})
       .filter(d => d.type === 'TEXT').length,
+    booleanPropertyCount: Object.values(cs.componentPropertyDefinitions || {})
+      .filter(d => d.type === 'BOOLEAN').length,
     description: (cs.description || '').slice(0, 80),
   })),
   ...standalones.map(c => ({
@@ -89,6 +91,8 @@ const manifest = [
     variantHash: '',
     textOverrideCount: Object.values(c.componentPropertyDefinitions || {})
       .filter(d => d.type === 'TEXT').length,
+    booleanPropertyCount: Object.values(c.componentPropertyDefinitions || {})
+      .filter(d => d.type === 'BOOLEAN').length,
     description: (c.description || '').slice(0, 80),
   })),
 ];
@@ -153,7 +157,7 @@ Compare by `key` (stable identifier across renames):
 | Condition | Classification |
 |-----------|---------------|
 | Key in Figma manifest, not in local file | **New** — needs full extraction |
-| Key in both, but `variantHash`, `textOverrideCount`, `name`, or `description` changed | **Modified** — needs full extraction |
+| Key in both, but `variantHash`, `textOverrideCount`, `booleanPropertyCount`, `name`, or `description` changed | **Modified** — needs full extraction |
 | Key in local file, not in Figma manifest | **Removed** — delete from local file |
 | Key in both, all fields match | **Unchanged** — skip |
 
@@ -192,6 +196,10 @@ for (const id of targetIds) {
       })),
       componentPropertyDefinitions: Object.entries(node.componentPropertyDefinitions || {})
         .filter(([_, def]) => def.type === 'TEXT').map(([name]) => name),
+      booleanPropertyDefinitions: Object.entries(node.componentPropertyDefinitions || {})
+        .filter(([_, def]) => def.type === 'BOOLEAN').map(([name, def]) => ({
+          name: name.split('#')[0], default: def.defaultValue
+        })),
       variants: node.children.map(v => ({ name: v.name, key: v.key })),
     });
   } else if (node.type === 'COMPONENT') {
@@ -205,6 +213,10 @@ for (const id of targetIds) {
       variantAxes: [],
       componentPropertyDefinitions: Object.entries(node.componentPropertyDefinitions || {})
         .filter(([_, def]) => def.type === 'TEXT').map(([name]) => name),
+      booleanPropertyDefinitions: Object.entries(node.componentPropertyDefinitions || {})
+        .filter(([_, def]) => def.type === 'BOOLEAN').map(([name, def]) => ({
+          name: name.split('#')[0], default: def.defaultValue
+        })),
       variants: [],
     });
   }
@@ -267,6 +279,9 @@ const setData = sets.map(cs => ({
   componentPropertyDefinitions: Object.entries(cs.componentPropertyDefinitions || {})
     .filter(([_, def]) => def.type === 'TEXT')
     .map(([name]) => name),
+  booleanPropertyDefinitions: Object.entries(cs.componentPropertyDefinitions || {})
+    .filter(([_, def]) => def.type === 'BOOLEAN')
+    .map(([name, def]) => ({ name: name.split('#')[0], default: def.defaultValue })),
   variants: cs.children.map(v => ({ name: v.name, key: v.key })),
 }));
 
@@ -287,6 +302,9 @@ const standaloneData = standalones.map(c => ({
   componentPropertyDefinitions: Object.entries(c.componentPropertyDefinitions || {})
     .filter(([_, def]) => def.type === 'TEXT')
     .map(([name]) => name),
+  booleanPropertyDefinitions: Object.entries(c.componentPropertyDefinitions || {})
+    .filter(([_, def]) => def.type === 'BOOLEAN')
+    .map(([name, def]) => ({ name: name.split('#')[0], default: def.defaultValue })),
   variants: [],
 }));
 
@@ -338,6 +356,7 @@ Formatting rules:
 - **Standalone components** (type=`component`): use `- Single component (no variants)` instead of variant axes
 - Variant axes: `**Axis:** \`Value1\` · \`Value2\``; multiple axes separated by ` | `
 - Text overrides listed only if TEXT entries exist
+- Boolean properties listed only if BOOLEAN entries exist: `- Boolean properties: \`Name\` (default: true) · \`Name2\` (default: false)`
 - Node ID and Key on the last bullet
 - Description on the line after the heading (if available)
 
@@ -372,6 +391,12 @@ function toRegistryEntry(comp) {
   }
   if (comp.componentPropertyDefinitions && comp.componentPropertyDefinitions.length > 0) {
     entry.textOverrides = comp.componentPropertyDefinitions;
+  }
+  if (comp.booleanPropertyDefinitions && comp.booleanPropertyDefinitions.length > 0) {
+    entry.booleanProperties = {};
+    for (const bp of comp.booleanPropertyDefinitions) {
+      entry.booleanProperties[bp.name] = { default: bp.default };
+    }
   }
   entry.nestedComponents = [];
   return entry;

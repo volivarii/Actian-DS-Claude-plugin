@@ -1,6 +1,4 @@
 ---
-
-<!-- This skill can be invoked directly (/create-component) or via the DS companion. -->
 name: create-component
 description: Use when the user asks to create, build, or make a new component in the Figma design system library, add a variant or state to an existing component, extend a component, or describes a UI element that should become reusable.
 argument-hint: "[component description or Figma URL]"

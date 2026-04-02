@@ -67,8 +67,8 @@ Skills should always read JSON for programmatic decisions (token values, guideli
 | `docs/meta-kit/effect-styles.md` | Extracted via `/sync-design-system` | DS Kit effect styles with shadow params |
 | `docs/meta-kit/components.md` | Extracted via `/sync-design-system` | Meta Kit component keys and properties |
 | `docs/meta-kit/meta-kit-registry.json` | Generated via `/sync-design-system` | Meta Kit component + template keys, text slots, categories |
-| `docs/fm-components-registry.json` | Generated via `/sync-design-system` | FM Kit component keys, variants, text overrides (40 components) |
-| `docs/dskit-components-registry.json` | Generated via `/sync-design-system` | DS Kit component keys, variants, text overrides (103 component sets) |
+| `docs/fm-components-registry.json` | Generated via `/sync-design-system` | FM Kit component keys, variants, text overrides, boolean properties (40 components) |
+| `docs/dskit-components-registry.json` | Generated via `/sync-design-system` | DS Kit component keys, variants, text overrides, boolean properties (103 component sets) |
 
 **Markdown (auto-generated from JSON — for human review):**
 

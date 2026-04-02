@@ -66,6 +66,13 @@ Templates can be mixed within one flow. Screen 1 can be `admin`, Screen 2 can be
 | `targetNodeId` | Yes | Figma node ID (can also pass via `--target-node-id` CLI flag) |
 | `prompt` | No | Original prompt for Generation Log |
 | `duration` | No | Generation duration for Generation Log |
+| `research` | No | Research findings object — if present, a Research Frame card is pushed before the cover card |
+| `research.title` | No | Research card title (default: "UX Research") |
+| `research.source` | No | Source attribution (e.g., "Competitor analysis — Okta, Datadog, Linear") |
+| `research.competitors` | No | How competitors handle this — bullet points |
+| `research.patterns` | No | Key patterns adopted — bullet points |
+| `research.recommendation` | No | Summary recommendation paragraph |
+| `research.sources` | No | Source list — URLs or product names |
 
 ### screen (per screen)
 
@@ -126,6 +133,8 @@ Use `ref` names from the FM component table below. The script auto-resolves impo
 
 - **sizing**: `{ "horizontal": "FILL"|"HUG"|number, "vertical": "FILL"|"HUG"|number }`
 - **layout**: `{ "mode": "VERTICAL"|"HORIZONTAL", "spacing": 16, "padding": [t,r,b,l] }`
+  - Use `"primaryAxisAlignItems": "SPACE_BETWEEN"` to push children apart (e.g., label left + badge right)
+  - **Never use Spacer frames** — use `SPACE_BETWEEN` or `sizing: { horizontal: "FILL" }` on the expanding child instead
 - **fills**: `["#FFFFFF"]` or `[]` (transparent)
 - **stroke**: `{ "color": "#E0E0E0", "weight": 1, "align": "INSIDE" }`
 - **cornerRadius**: `8` or `{ "topLeft": 8, "topRight": 8, "bottomRight": 0, "bottomLeft": 0 }`
@@ -165,6 +174,13 @@ Set ALL text properties on every instance. Never leave FM defaults like "Label",
 { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
   "props": { "Label": "Create Term" } }
 ```
+
+**Button icons:** FM Button has leading and trailing icon placeholders visible by default. To hide them, set the boolean properties to `false`:
+```json
+{ "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
+  "props": { "Label": "Save", "👁 Leading Icon": false, "👁 Trailing Icon": false } }
+```
+By default, **always hide button icons** (`"👁 Leading Icon": false, "👁 Trailing Icon": false`) unless the prompt specifically requests icons on buttons.
 
 ---
 

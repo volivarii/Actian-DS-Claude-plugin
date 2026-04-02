@@ -1,6 +1,4 @@
 ---
-
-<!-- This skill can be invoked directly (/sync-design-system) or via the DS companion. -->
 name: sync-design-system
 description: Use when the user asks to sync, refresh, pull, import, or update design system data, tokens, components, guidelines, or foundations from Figma. Supports full sync, single-phase sync, or single-component granularity (e.g., 'sync Button').
 argument-hint: "[phase name, component name, 'all', or 'validate']"

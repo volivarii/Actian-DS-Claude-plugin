@@ -35,6 +35,9 @@
       "variants": {
         "Type": ["Admin", "Explorer", "Studio", "Actian"]
       },
+      "booleanProperties": {
+        "Show Context inputs": { "default": true }
+      },
       "nestedComponents": []
     },
     "fm-badge": {
@@ -57,6 +60,10 @@
         "Type": ["Primary", "Secondary", "Outline", "Destructive"],
         "State": ["Default", "Disabled"]
       },
+      "booleanProperties": {
+        "👁 Leading Icon": { "default": true },
+        "👁 Trailing Icon": { "default": true }
+      },
       "textOverrides": ["Label"],
       "nestedComponents": []
     },
@@ -76,6 +83,9 @@
       "type": "component_set",
       "variants": {
         "Outline": ["False", "True"]
+      },
+      "booleanProperties": {
+        "Icon": { "default": true }
       },
       "nestedComponents": []
     },
@@ -111,6 +121,9 @@
       "variants": {
         "Type": ["Placeholder", "Open", "Disabled", "Filled"]
       },
+      "booleanProperties": {
+        "Show label": { "default": true }
+      },
       "nestedComponents": []
     },
     "fm-empty-state": {
@@ -140,6 +153,10 @@
         "Disabled": ["No", "Yes"],
         "Type": ["Text", "Placeholder"]
       },
+      "booleanProperties": {
+        "Caption": { "default": true },
+        "Required": { "default": false }
+      },
       "textOverrides": ["Label Text", "Caption Text"],
       "nestedComponents": []
     },
@@ -164,6 +181,9 @@
       "type": "component_set",
       "variants": {
         "Type": ["Placeholder", "Disabled", "Open Multi-select", "Filled", "User Filled"]
+      },
+      "booleanProperties": {
+        "Show label": { "default": true }
       },
       "textOverrides": ["Dropdown Text"],
       "nestedComponents": []
@@ -230,6 +250,9 @@
       "variants": {
         "Type": ["Empty", "Placeholder", "Filled"]
       },
+      "booleanProperties": {
+        "Show label": { "default": true }
+      },
       "textOverrides": ["Input Text"],
       "nestedComponents": []
     },
@@ -248,6 +271,11 @@
       "type": "component_set",
       "variants": {
         "State": ["On", "Off", "Placeholder"]
+      },
+      "booleanProperties": {
+        "Show icon": { "default": true },
+        "Show Label": { "default": true },
+        "Chevron": { "default": true }
       },
       "textOverrides": ["Label"],
       "nestedComponents": []
@@ -283,6 +311,9 @@
       "variants": {
         "State": ["On", "Off", "Placeholder"]
       },
+      "booleanProperties": {
+        "Show Icon": { "default": true }
+      },
       "nestedComponents": []
     },
     "fm-tabs": {
@@ -307,6 +338,10 @@
       "variants": {
         "Style": ["Filled", "Outline", "Light"]
       },
+      "booleanProperties": {
+        "Icon Right": { "default": false },
+        "Icon Left": { "default": true }
+      },
       "nestedComponents": []
     },
     "fm-text-area": {
@@ -316,6 +351,9 @@
       "variants": {
         "Content": ["None", "Placeholder", "Filled"]
       },
+      "booleanProperties": {
+        "Show label": { "default": true }
+      },
       "nestedComponents": []
     },
     "fm-text-input-field": {
@@ -324,6 +362,11 @@
       "type": "component_set",
       "variants": {
         "Type": ["Empty", "Placeholder", "Default", "Disabled"]
+      },
+      "booleanProperties": {
+        "Show label": { "default": true },
+        "👁 Leading Icon": { "default": false },
+        "👁 Trailing Icon": { "default": false }
       },
       "textOverrides": ["Input Text"],
       "nestedComponents": []
@@ -359,6 +402,9 @@
       "type": "component_set",
       "variants": {
         "Position": ["Left", "Left Top", "Left Bottom", "Right", "Right Top", "Right Bottom", "Top", "Top Left", "Top Right", "Bottom", "Bottom Left", "Bottom Right"]
+      },
+      "booleanProperties": {
+        "Icon": { "default": false }
       },
       "nestedComponents": []
     }

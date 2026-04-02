@@ -1,12 +1,8 @@
 ---
-
-<!-- This skill can be invoked directly (/generate-flow) or via the DS companion. -->
 name: generate-flow
 description: This skill should be used when the user wants to create a flow, wireframe, or mockup from a feature idea or user story, asks how a user would accomplish a task, wants to mock up an experience, provides a user story and wants it visualized as a multi-screen flow, or wants to wire prototype connections on an existing Figma flow to make it playable.
 argument-hint: "[feature description or Figma URL]"
 ---
-
-<!-- This skill can be invoked directly (/generate-flow) or via the DS companion. -->
 
 # Generate Fat Marker Flow
 
@@ -29,8 +25,8 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 
 ## DO NOT — hard rules
 
-- **DO NOT ask questions** except at the 3 gates below. No "what kind of dashboard?", no "which output format?", no "which sub-flows?"
-- **DO NOT offer output format choices.** There is ONE pipeline: HTML first (Step 4), then Figma push (Step 5). No "assembler spec", no "capture mode", no alternatives.
+- **DO NOT ask questions** except at the gates below. No "what kind of dashboard?", no "which output format?", no "which sub-flows?"
+- **DO NOT add intermediate confirmation gates.** Never say "ok, let me now..." and wait. Never ask "should I proceed?" between steps. The only pauses are the gates listed below.
 - **DO NOT use TaskCreate or TodoWrite.** Just execute.
 - **DO NOT read CLAUDE.md repeatedly.** Read it once or not at all.
 - **DO NOT spend multiple tool calls parsing research output.** Summarize what you have and move on.
@@ -40,10 +36,10 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 
 Build first, explain after. There are exactly 3 gates where you pause:
 1. **Step 2** — research opt-in (skip if user already said "with research" or "no research")
-2. **Step 3** — screen list approval
-3. **Step 4.5** — HTML preview
+2. **Step 3** — screen list approval (user can say "just screen 1" or similar to scope down)
+3. **Step 4.5** — HTML preview (user can say "push" to skip preview and go straight to Figma)
 
-Between gates, DO NOT ask questions. Infer from context, use defaults, keep moving.
+Between gates, DO NOT ask questions. Infer from context, use defaults, keep moving. After screen list approval (gate 2), go straight to building HTML — no "ok" or "let me read the renderer" pauses.
 
 ### Speed rules
 
@@ -134,6 +130,7 @@ Build the HTML file using the flow renderer. The AI writes only the content area
 
 1. Build `flow-data.json` from the screen list:
    - `meta`: skill, feature, app, prompt, date, duration, model, pluginVersion
+   - `meta.research` (if research was done): `{ title, source, competitors, patterns, recommendation, sources }` — this generates a Research Frame card in Figma
    - `flows[]`: one per sub-flow, each with name, user, screens[]
    - Per screen: name, type (standard/compact), appHeader, sidebar (activeItem + items count), pageHeader (title, subtitle, actions), contentHtml
 2. Write `contentHtml` per screen — this is the ONLY AI-generated HTML:
@@ -171,12 +168,14 @@ After writing the HTML file, **dispatch `flow-consistency` agent** in background
 > - **"push"** / **"push 1,3"** — send to Figma
 > - **"push and wire"** — push + wire prototype connections (playable in Figma Presentation mode)
 > - **"prototype"** — generate interactive HTML prototype (click through screens locally)
-> - **"annotate"** — click Annotate in the preview toolbar to mark issues visually on specific elements, then say **"apply"** here
+> - **"apply annotations"** — click Annotate in the preview toolbar to mark issues visually on specific elements, then say **"apply annotations"** here
 > - **feedback** — describe changes in text, I'll fix and re-preview
 
 3. Wait for response. On feedback: fix HTML, re-serve, re-present.
 4. On "push and wire": run Step 5 (push) then Step 5.5 (wire).
-5. On "apply": read `.annotations.json` from the project directory, apply changes per `../../references/annotation-reference.md`, re-serve and re-present gate.
+5. On "apply annotations": read `.annotations.json` from the project directory, apply `change` annotations per `../../references/annotation-reference.md`, carry `note` annotations forward to `.last-push.json` notes array for the Figma push step, re-serve and re-present gate.
+
+**Skip preview:** If the user says "push" at the screen list gate (Step 3) or provides a Figma URL with "push" in the same message, skip HTML generation entirely and go straight to Step 5 (Figma output). The flow-to-figma.js script can build from the screen list directly — it doesn't require an HTML preview first.
 
 ## Step 4.6 — Interactive prototype (opt-in)
 
@@ -232,7 +231,7 @@ Per `../../references/parity-check.md`:
 2. **Dispatch `parity-analyzer` agent** with screenshots + expected screen content from Step 3 screen list
 3. Merge findings with your own visual check
 4. Report findings, fix P0s
-5. Write `.last-push.json` manifest
+5. Write `.last-push.json` manifest — include `notes` array from any `note`-type annotations carried forward from Step 4.5
 
 ## Step 7 — Cleanup pass
 

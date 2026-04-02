@@ -40,6 +40,7 @@ const HEADER_HEIGHT = 70;
 const REF_ALIASES = {
   // Meta Kit
   genLog:          { registryKey: 'generation-log',           library: 'meta' },
+  researchFrame:   { registryKey: 'research-frame',           library: 'meta' },
   divider:         { registryKey: 'card-divider',             library: 'meta' },
   flowCoverCard:   { registryKey: 'flow-cover-card',          library: 'meta' },
   // FM Kit
@@ -85,9 +86,10 @@ const REF_ALIASES = {
 // ---------------------------------------------------------------------------
 
 const FALLBACK_KEYS = {
-  genLog:        { key: 'a9653f30925367e96dea90093d750bfe70849571', method: 'single' },
-  divider:       { key: 'f4d778e1cf9bb61a33712c791486f54bb1c095b7', method: 'single' },
-  flowCoverCard: { key: 'eaebde6bd07d2f19f3f9c00a9587240cb085a90d', method: 'single' },
+  genLog:         { key: 'a9653f30925367e96dea90093d750bfe70849571', method: 'single' },
+  researchFrame:  { key: 'e671618f2b4c6ea406a995fdc3012ac54eadfe56', method: 'single' },
+  divider:        { key: 'f4d778e1cf9bb61a33712c791486f54bb1c095b7', method: 'single' },
+  flowCoverCard:  { key: 'eaebde6bd07d2f19f3f9c00a9587240cb085a90d', method: 'single' },
   fmAppHeader:   { key: '8fc9bcee610c7f8d22ebcc268467993f6dc99c87', method: 'set' },
   fmSideNavItem: { key: 'd18a0a772ed4acd760c497cb93de796ff052a7b4', method: 'set' },
   fmPageHeader:  { key: 'ae1f8684a4a89aa74463d439e4e8c1e7a48137fe', method: 'set' },
@@ -390,6 +392,42 @@ function buildCoverCard(meta) {
   };
 }
 
+function buildResearchCard(meta) {
+  var research = meta.research || {};
+  var title = research.title || 'UX Research';
+  var source = research.source || '';
+
+  // Build text body from research sections
+  var bodyParts = [];
+  if (research.competitors) bodyParts.push('How others handle this:\n' + research.competitors);
+  if (research.patterns) bodyParts.push('Key patterns adopted:\n' + research.patterns);
+  if (research.recommendation) bodyParts.push('Recommendation:\n' + research.recommendation);
+  if (research.sources) bodyParts.push('Sources:\n' + research.sources);
+
+  var children = [];
+  if (bodyParts.length > 0) {
+    children.push({
+      type: 'TEXT',
+      name: 'Research body',
+      text: bodyParts.join('\n\n'),
+      style: { fontSize: 13, fontFamily: 'Inter', fontWeight: 'Regular', lineHeight: 20 },
+      fills: ['#48474D'],
+      sizing: { horizontal: 'FILL' }
+    });
+  }
+
+  return {
+    type: 'INSTANCE',
+    ref: 'researchFrame',
+    name: 'Research: ' + title,
+    props: {
+      Title: title,
+      Source: source
+    },
+    children: children
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Import scanner — walks content tree, collects all ref values
 // ---------------------------------------------------------------------------
@@ -544,9 +582,12 @@ function main() {
   // Load registries
   const refMap = buildRefMap(pluginRoot);
 
-  // Build all items: genLog + coverCard + screens
+  // Build all items: genLog + researchCard (if present) + coverCard + screens
   const allItems = [];
   allItems.push(buildGenLog(meta));
+  if (meta.research) {
+    allItems.push(buildResearchCard(meta));
+  }
   allItems.push(buildCoverCard(meta));
 
   for (const screen of (input.screens || [])) {

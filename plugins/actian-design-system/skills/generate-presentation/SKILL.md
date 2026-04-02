@@ -1,6 +1,4 @@
 ---
-
-<!-- This skill can be invoked directly (/generate-presentation) or via the DS companion. -->
 name: generate-presentation
 description: Use when the user asks to create a presentation, make a deck, turn findings or research into slides, build a pitch or report deck, or provides content and wants it presented visually.
 argument-hint: "[topic, file path, Figma URL, or description of content]"

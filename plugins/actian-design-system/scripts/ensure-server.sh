@@ -50,11 +50,18 @@ fi
 
 # Start a new server (custom handler with annotation POST endpoint)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-python3 "$SCRIPT_DIR/preview-server.py" "$PORT" "$DIR_ABS" &>/dev/null &
+SERVER_LOG="/tmp/preview-server-$PORT.log"
+python3 "$SCRIPT_DIR/preview-server.py" "$PORT" "$DIR_ABS" >> "$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
 
 # Wait for it to be ready
 for i in 1 2 3 4 5; do
+  # Check if the process died
+  if ! kill -0 "$SERVER_PID" 2>/dev/null; then
+    echo "Error: preview-server.py crashed on startup. Log: $SERVER_LOG" >&2
+    cat "$SERVER_LOG" >&2
+    exit 1
+  fi
   if curl -s -o /dev/null "http://localhost:$PORT/" 2>/dev/null; then
     echo "http://localhost:$PORT"
     exit 0
@@ -62,5 +69,6 @@ for i in 1 2 3 4 5; do
   sleep 0.5
 done
 
-echo "Error: server failed to start on port $PORT" >&2
+echo "Error: server failed to start on port $PORT (PID $SERVER_PID). Log: $SERVER_LOG" >&2
+cat "$SERVER_LOG" >&2
 exit 1
