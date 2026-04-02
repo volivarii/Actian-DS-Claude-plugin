@@ -17,26 +17,10 @@
  * Run with: node tests/snapshot.test.js
  */
 
+var { describe, it } = require("node:test");
+var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
-
-var passed = 0;
-var failed = 0;
-var failures = [];
-
-function assert(condition, message) {
-  if (condition) {
-    passed++;
-  } else {
-    failed++;
-    failures.push(message);
-    process.stdout.write("  \u2717 FAIL: " + message + "\n");
-  }
-}
-
-function section(name) {
-  process.stdout.write("\n" + name + "\n");
-}
 
 // ---------------------------------------------------------------------------
 // Paths
@@ -57,30 +41,23 @@ if (!fs.existsSync(SNAP_DIR)) {
 
 /**
  * Compare actual value against a snapshot file.
- * - If snap doesn't exist: create it, PASS (first run)
- * - If snap exists and matches: PASS
- * - If snap exists and differs: FAIL with diff detail
- *
- * Returns true if passed, false if failed.
+ * - If snap doesn't exist: create it, return { created: true }
+ * - If snap exists and matches: return { match: true }
+ * - If snap exists and differs: return { mismatch: true, diff: string }
  */
-function matchSnapshot(name, snapFile, actual) {
+function checkSnapshot(snapFile, actual) {
   var snapPath = path.join(SNAP_DIR, snapFile);
   var actualStr = typeof actual === "string" ? actual : JSON.stringify(actual, null, 2);
 
   if (!fs.existsSync(snapPath)) {
-    // First run — create the snapshot
     fs.writeFileSync(snapPath, actualStr, "utf8");
-    process.stdout.write("  \u2713 " + name + " — snapshot created (" + snapFile + ")\n");
-    passed++;
-    return true;
+    return { created: true };
   }
 
   var expected = fs.readFileSync(snapPath, "utf8");
 
   if (actualStr === expected) {
-    process.stdout.write("  \u2713 " + name + " — matches snapshot\n");
-    passed++;
-    return true;
+    return { match: true };
   }
 
   // Mismatch — compute diff detail
@@ -104,168 +81,159 @@ function matchSnapshot(name, snapFile, actual) {
     }
   }
 
-  var msg = name + " — snapshot mismatch";
-  failed++;
-  failures.push(msg);
-  process.stdout.write("  \u2717 FAIL: " + msg + "\n");
-  process.stdout.write("    Diff:\n");
-  for (var d = 0; d < diffLines.length; d++) {
-    process.stdout.write("    " + diffLines[d] + "\n");
-  }
-  process.stdout.write(
-    "    Snapshot mismatch for " + name + ". If this change is intentional, " +
-    "delete tests/snapshots/" + snapFile + " and rerun.\n"
-  );
-  return false;
+  return {
+    mismatch: true,
+    diff: diffLines.join("\n") +
+      "\n  Snapshot mismatch. If intentional, delete tests/snapshots/" + snapFile + " and rerun.",
+  };
 }
 
-// ---------------------------------------------------------------------------
-// Part 1: templates.json keys snapshot
-// ---------------------------------------------------------------------------
+describe("Snapshots", function () {
+  // ---------------------------------------------------------------------------
+  // Part 1: templates.json keys snapshot
+  // ---------------------------------------------------------------------------
 
-section("Part 1: templates.json keys snapshot");
+  describe("Part 1: templates.json keys snapshot", function () {
+    it("template keys match snapshot", function () {
+      var templatesJson = JSON.parse(
+        fs.readFileSync(path.join(SCRIPTS_DIR, "templates.json"), "utf8")
+      );
+      var templateKeys = Object.keys(templatesJson["flow-templates"]).sort();
 
-var templatesJson = JSON.parse(
-  fs.readFileSync(path.join(SCRIPTS_DIR, "templates.json"), "utf8")
-);
-var templateKeys = Object.keys(templatesJson["flow-templates"]).sort();
+      var result = checkSnapshot("template-keys.snap", templateKeys);
+      if (result.mismatch) {
+        assert.fail("template keys snapshot mismatch:\n" + result.diff);
+      }
+      // created or match — pass
+    });
+  });
 
-matchSnapshot("template keys", "template-keys.snap", templateKeys);
+  // ---------------------------------------------------------------------------
+  // Part 2: CLAUDE.md gate table snapshot
+  // ---------------------------------------------------------------------------
 
-// ---------------------------------------------------------------------------
-// Part 2: CLAUDE.md gate table snapshot
-// ---------------------------------------------------------------------------
+  describe("Part 2: CLAUDE.md gate table snapshot", function () {
+    it("gate table extracted and matches snapshot", function () {
+      var claudeMd = fs.readFileSync(path.join(PLUGIN_ROOT, "CLAUDE.md"), "utf8");
 
-section("Part 2: CLAUDE.md gate table snapshot");
+      var gateMatch = claudeMd.match(
+        /## Skill Review Gates\n([\s\S]*?)(?=\n---|\n## )/
+      );
 
-var claudeMd = fs.readFileSync(path.join(PLUGIN_ROOT, "CLAUDE.md"), "utf8");
+      var gateTable = "";
+      if (gateMatch) {
+        gateTable = gateMatch[0].trim();
+      }
 
-// Extract the Skill Review Gates section: from "## Skill Review Gates" to next "---" or "##"
-var gateMatch = claudeMd.match(
-  /## Skill Review Gates\n([\s\S]*?)(?=\n---|\n## )/
-);
+      assert.ok(gateTable.length > 0, "gate table extracted from CLAUDE.md");
 
-var gateTable = "";
-if (gateMatch) {
-  gateTable = gateMatch[0].trim();
-}
+      var result = checkSnapshot("gate-table.snap", gateTable);
+      if (result.mismatch) {
+        assert.fail("gate table snapshot mismatch:\n" + result.diff);
+      }
+    });
+  });
 
-assert(gateTable.length > 0, "gate table extracted from CLAUDE.md");
-if (gateTable.length > 0) {
-  process.stdout.write("  \u2713 gate table extracted from CLAUDE.md\n");
-}
+  // ---------------------------------------------------------------------------
+  // Part 3: Script CLI flags snapshot
+  // ---------------------------------------------------------------------------
 
-matchSnapshot("gate table", "gate-table.snap", gateTable);
+  describe("Part 3: Script CLI flags snapshot", function () {
+    var SCRIPTS_TO_CHECK = [
+      "flow-to-figma.js",
+      "brief-to-figma.js",
+      "slide-to-figma.js",
+      "assemble-preview.js",
+    ];
 
-// ---------------------------------------------------------------------------
-// Part 3: Script CLI flags snapshot
-// ---------------------------------------------------------------------------
+    it("all scripts exist and have CLI flags", function () {
+      SCRIPTS_TO_CHECK.forEach(function (scriptName) {
+        var scriptPath = path.join(SCRIPTS_DIR, scriptName);
+        assert.ok(fs.existsSync(scriptPath), scriptName + " — script not found");
 
-section("Part 3: Script CLI flags snapshot");
+        var src = fs.readFileSync(scriptPath, "utf8");
+        var flags = [];
+        var fmatch;
 
-var SCRIPTS_TO_CHECK = [
-  "flow-to-figma.js",
-  "brief-to-figma.js",
-  "slide-to-figma.js",
-  "assemble-preview.js",
-];
+        var flagRe = /=== '(--[a-z][-a-z]*)'/g;
+        while ((fmatch = flagRe.exec(src)) !== null) {
+          if (flags.indexOf(fmatch[1]) === -1) flags.push(fmatch[1]);
+        }
 
-var cliFlags = {};
+        var shortRe = /=== '(-[a-z])'/g;
+        while ((fmatch = shortRe.exec(src)) !== null) {
+          if (flags.indexOf(fmatch[1]) === -1) flags.push(fmatch[1]);
+        }
 
-for (var si = 0; si < SCRIPTS_TO_CHECK.length; si++) {
-  var scriptName = SCRIPTS_TO_CHECK[si];
-  var scriptPath = path.join(SCRIPTS_DIR, scriptName);
-  var baseName = scriptName.replace(".js", "");
+        assert.ok(flags.length > 0, scriptName.replace(".js", "") + " — has no CLI flags");
+      });
+    });
 
-  assert(fs.existsSync(scriptPath), baseName + " — script exists");
-  if (fs.existsSync(scriptPath)) {
-    process.stdout.write("  \u2713 " + baseName + " — script exists\n");
-  }
+    it("CLI flags match snapshot", function () {
+      var cliFlags = {};
 
-  var src = fs.readFileSync(scriptPath, "utf8");
+      SCRIPTS_TO_CHECK.forEach(function (scriptName) {
+        var scriptPath = path.join(SCRIPTS_DIR, scriptName);
+        var baseName = scriptName.replace(".js", "");
 
-  // Extract flags from === '--flag' patterns
-  var flagRe = /=== '(--[a-z][-a-z]*)'/g;
-  var flags = [];
-  var fmatch;
-  while ((fmatch = flagRe.exec(src)) !== null) {
-    if (flags.indexOf(fmatch[1]) === -1) {
-      flags.push(fmatch[1]);
-    }
-  }
+        if (!fs.existsSync(scriptPath)) return;
 
-  // Also check === '-x' short flags
-  var shortRe = /=== '(-[a-z])'/g;
-  while ((fmatch = shortRe.exec(src)) !== null) {
-    if (flags.indexOf(fmatch[1]) === -1) {
-      flags.push(fmatch[1]);
-    }
-  }
+        var src = fs.readFileSync(scriptPath, "utf8");
+        var flags = [];
+        var fmatch;
 
-  flags.sort();
-  cliFlags[baseName] = flags;
+        var flagRe = /=== '(--[a-z][-a-z]*)'/g;
+        while ((fmatch = flagRe.exec(src)) !== null) {
+          if (flags.indexOf(fmatch[1]) === -1) flags.push(fmatch[1]);
+        }
 
-  assert(flags.length > 0, baseName + " — has CLI flags");
-  if (flags.length > 0) {
-    process.stdout.write(
-      "  \u2713 " + baseName + " — " + flags.length + " flags: " + flags.join(", ") + "\n"
-    );
-  }
-}
+        var shortRe = /=== '(-[a-z])'/g;
+        while ((fmatch = shortRe.exec(src)) !== null) {
+          if (flags.indexOf(fmatch[1]) === -1) flags.push(fmatch[1]);
+        }
 
-matchSnapshot("CLI flags", "cli-flags.snap", cliFlags);
+        flags.sort();
+        cliFlags[baseName] = flags;
+      });
 
-// ---------------------------------------------------------------------------
-// Part 4: assemble-preview TYPE_CONFIGS type names snapshot
-// ---------------------------------------------------------------------------
+      var result = checkSnapshot("cli-flags.snap", cliFlags);
+      if (result.mismatch) {
+        assert.fail("CLI flags snapshot mismatch:\n" + result.diff);
+      }
+    });
+  });
 
-section("Part 4: assemble-preview type names snapshot");
+  // ---------------------------------------------------------------------------
+  // Part 4: assemble-preview TYPE_CONFIGS type names snapshot
+  // ---------------------------------------------------------------------------
 
-var assemblePreviewSrc = fs.readFileSync(
-  path.join(SCRIPTS_DIR, "assemble-preview.js"),
-  "utf8"
-);
+  describe("Part 4: assemble-preview type names snapshot", function () {
+    it("TYPE_CONFIGS type names extracted and match snapshot", function () {
+      var assemblePreviewSrc = fs.readFileSync(
+        path.join(SCRIPTS_DIR, "assemble-preview.js"),
+        "utf8"
+      );
 
-// Extract TYPE_CONFIGS keys by finding the object literal after "var TYPE_CONFIGS = {"
-var typeConfigMatch = assemblePreviewSrc.match(
-  /var TYPE_CONFIGS\s*=\s*\{([\s\S]*?)\n\};/
-);
+      var typeConfigMatch = assemblePreviewSrc.match(
+        /var TYPE_CONFIGS\s*=\s*\{([\s\S]*?)\n\};/
+      );
 
-var typeNames = [];
-if (typeConfigMatch) {
-  // Match top-level keys (lines like "  flow: {" or "  brief: {")
-  var keyRe = /^\s{2}(\w+)\s*:\s*\{/gm;
-  var kmatch;
-  while ((kmatch = keyRe.exec(typeConfigMatch[1])) !== null) {
-    typeNames.push(kmatch[1]);
-  }
-}
-typeNames.sort();
+      var typeNames = [];
+      if (typeConfigMatch) {
+        var keyRe = /^\s{2}(\w+)\s*:\s*\{/gm;
+        var kmatch;
+        while ((kmatch = keyRe.exec(typeConfigMatch[1])) !== null) {
+          typeNames.push(kmatch[1]);
+        }
+      }
+      typeNames.sort();
 
-assert(typeNames.length > 0, "TYPE_CONFIGS type names extracted");
-if (typeNames.length > 0) {
-  process.stdout.write(
-    "  \u2713 TYPE_CONFIGS type names: " + typeNames.join(", ") + "\n"
-  );
-}
+      assert.ok(typeNames.length > 0, "TYPE_CONFIGS type names not extracted — none found");
 
-matchSnapshot("type names", "type-names.snap", typeNames);
-
-// ---------------------------------------------------------------------------
-// Summary
-// ---------------------------------------------------------------------------
-
-process.stdout.write("\n");
-process.stdout.write(
-  "Results: " + passed + " passed, " + failed + " failed\n"
-);
-
-if (failures.length > 0) {
-  process.stdout.write("\nSnapshot violations:\n");
-  for (var i = 0; i < failures.length; i++) {
-    process.stdout.write("  - " + failures[i] + "\n");
-  }
-  process.exit(1);
-} else {
-  process.stdout.write("All snapshots verified.\n");
-}
+      var result = checkSnapshot("type-names.snap", typeNames);
+      if (result.mismatch) {
+        assert.fail("type names snapshot mismatch:\n" + result.diff);
+      }
+    });
+  });
+});

@@ -12,26 +12,10 @@
  * (from the plugins/actian-design-system directory)
  */
 
+var { describe, it } = require("node:test");
+var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
-
-var passed = 0;
-var failed = 0;
-var failures = [];
-
-function assert(condition, message) {
-  if (condition) {
-    passed++;
-  } else {
-    failed++;
-    failures.push(message);
-    process.stdout.write("  \u2717 FAIL: " + message + "\n");
-  }
-}
-
-function section(name) {
-  process.stdout.write("\n" + name + "\n");
-}
 
 // ---------------------------------------------------------------------------
 // Configuration
@@ -100,22 +84,14 @@ function collectMdFiles(dir) {
  * a real file path.
  */
 function isPlaceholder(p) {
-  // Template variables: {project_working_directory}, ${CLAUDE_PLUGIN_ROOT}, etc.
   if (/\{[^}]+\}/.test(p)) return true;
   if (/\$\{/.test(p)) return true;
-  // Angle-bracket placeholders: <dir>, <data.json>, <output.html>, <slug>, <relevant>
   if (/<[a-zA-Z][^>]*>/.test(p)) return true;
-  // Square-bracket placeholders: [name], [feature-name], [component-name], [topic-slug]
   if (/\[[a-zA-Z]/.test(p)) return true;
-  // Date template placeholders: YYYY-MM-DD, YYYY_MM_DD
   if (/YYYY|MM-DD/.test(p)) return true;
-  // URLs
   if (/^https?:\/\//.test(p)) return true;
-  // Bare anchors
   if (/^#/.test(p)) return true;
-  // JS arrow function fragments that look like paths
   if (/=>/.test(p)) return true;
-  // Filter expressions like .filter(([_, def])
   if (/\(\[/.test(p)) return true;
   return false;
 }
@@ -124,19 +100,15 @@ function isPlaceholder(p) {
  * Check if a path looks like a real file reference rather than prose or code.
  */
 function looksLikeFilePath(p) {
-  // Must have a slash or a file extension
   if (p.indexOf("/") === -1 && p.indexOf(".") === -1) return false;
-  // Must have an extension or end with / (directory reference)
   if (!/\.[a-zA-Z]{1,10}$/.test(p) && !p.endsWith("/") && p.indexOf("*") === -1)
     return false;
-  // Skip if it's just a dotted name without slash (e.g., "Alpine.js")
   if (p.indexOf("/") === -1 && /^[A-Z]/.test(p)) return false;
   return true;
 }
 
 /**
  * Extract file path references from a single line of markdown.
- * Returns array of { path: string, line: number }.
  */
 function extractPaths(lineText) {
   var paths = [];
@@ -146,7 +118,6 @@ function extractPaths(lineText) {
   var relRe = /(?:^|[`"'\s(])(\.\.\/.+?)(?:[`"'\s)§]|$)/g;
   while ((match = relRe.exec(lineText)) !== null) {
     var p = match[1].replace(/[)§,;:]+$/, "").trim();
-    // Strip trailing markdown/prose fragments
     p = p.replace(/\s.*$/, "");
     if (p && !isPlaceholder(p)) paths.push(p);
   }
@@ -156,7 +127,6 @@ function extractPaths(lineText) {
   while ((match = btRe.exec(lineText)) !== null) {
     var candidate = match[1].trim();
     if (isPlaceholder(candidate)) continue;
-    // Check if it starts with a known root prefix
     var isRootRelative = false;
     for (var i = 0; i < ROOT_PREFIXES.length; i++) {
       if (candidate.indexOf(ROOT_PREFIXES[i]) === 0) {
@@ -172,7 +142,7 @@ function extractPaths(lineText) {
   // Pattern 3: Markdown links with relative file paths [text](path)
   var linkRe = /\]\(([^)]+)\)/g;
   while ((match = linkRe.exec(lineText)) !== null) {
-    var linkPath = match[1].split("#")[0].trim(); // strip anchor
+    var linkPath = match[1].split("#")[0].trim();
     if (!linkPath) continue;
     if (isPlaceholder(linkPath)) continue;
     if (/^https?:\/\//.test(linkPath)) continue;
@@ -184,22 +154,16 @@ function extractPaths(lineText) {
 
 /**
  * Resolve a path reference to an absolute path.
- * - ../../ paths resolve relative to the .md file's directory
- * - Root-prefixed paths resolve relative to PLUGIN_ROOT
- * - Glob patterns: verify the directory portion exists
  */
 function resolvePath(refPath, mdFileDir) {
-  // For relative paths (starting with . or ..)
   if (refPath.indexOf("./") === 0 || refPath.indexOf("../") === 0) {
     var resolved = path.resolve(mdFileDir, refPath);
-    // If glob pattern, check directory only
     if (refPath.indexOf("*") !== -1) {
       return path.dirname(resolved);
     }
     return resolved;
   }
 
-  // For root-relative paths
   for (var i = 0; i < ROOT_PREFIXES.length; i++) {
     if (refPath.indexOf(ROOT_PREFIXES[i]) === 0) {
       var resolved2 = path.join(PLUGIN_ROOT, refPath);
@@ -210,7 +174,6 @@ function resolvePath(refPath, mdFileDir) {
     }
   }
 
-  // Fallback: resolve from plugin root
   var resolved3 = path.join(PLUGIN_ROOT, refPath);
   if (refPath.indexOf("*") !== -1) {
     return path.dirname(resolved3);
@@ -232,14 +195,13 @@ for (var s = 0; s < SCAN_FILES.length; s++) {
   }
 }
 
-section("Scanning " + allMdFiles.length + " .md files for path references");
-
 // ---------------------------------------------------------------------------
-// Validate paths
+// Scan for broken paths
 // ---------------------------------------------------------------------------
 
 var totalPaths = 0;
 var brokenPaths = [];
+var skippedSyncOutputs = [];
 
 for (var f = 0; f < allMdFiles.length; f++) {
   var mdFile = allMdFiles[f];
@@ -255,102 +217,50 @@ for (var f = 0; f < allMdFiles.length; f++) {
       totalPaths++;
 
       if (!fs.existsSync(resolved)) {
-        brokenPaths.push({
-          source: relMdFile,
-          line: ln + 1,
-          path: refPath,
-          resolved: path.relative(PLUGIN_ROOT, resolved),
-        });
+        var relResolved = path.relative(PLUGIN_ROOT, resolved);
+        var isSyncOutput = KNOWN_SYNC_OUTPUTS.indexOf(relResolved) !== -1;
+
+        if (isSyncOutput) {
+          skippedSyncOutputs.push({
+            source: relMdFile,
+            line: ln + 1,
+            path: refPath,
+            resolved: relResolved,
+          });
+        } else {
+          brokenPaths.push({
+            source: relMdFile,
+            line: ln + 1,
+            path: refPath,
+            resolved: relResolved,
+          });
+        }
       }
     }
   }
 }
 
 // ---------------------------------------------------------------------------
-// Assertions
+// Tests
 // ---------------------------------------------------------------------------
 
-section("Path validation results");
+describe("Path Validation", function () {
+  describe("Scanning " + allMdFiles.length + " .md files for path references", function () {
+    it("all " + totalPaths + " path references resolve to existing files", function () {
+      if (brokenPaths.length > 0) {
+        var details = brokenPaths.map(function (bp) {
+          return bp.source + ":" + bp.line + " — " + bp.path + " → " + bp.resolved + " (not found)";
+        }).join("\n  ");
+        assert.fail("Broken path references:\n  " + details);
+      }
+      // If we get here, all paths resolved
+    });
 
-var skippedSyncOutputs = [];
-
-for (var b = 0; b < brokenPaths.length; b++) {
-  var bp = brokenPaths[b];
-
-  // Check if resolved path matches a known sync output
-  var isSyncOutput = false;
-  for (var k = 0; k < KNOWN_SYNC_OUTPUTS.length; k++) {
-    if (bp.resolved === KNOWN_SYNC_OUTPUTS[k]) {
-      isSyncOutput = true;
-      break;
+    if (skippedSyncOutputs.length > 0) {
+      it("sync output paths are expected to be missing (skipped)", function () {
+        // These paths only exist after /sync-design-system — always passes
+        assert.ok(true, skippedSyncOutputs.length + " sync output paths skipped");
+      });
     }
-  }
-
-  if (isSyncOutput) {
-    skippedSyncOutputs.push(bp);
-    process.stdout.write(
-      "  ~ skipped (sync output): " +
-        bp.source +
-        ":" +
-        bp.line +
-        " — " +
-        bp.path +
-        " → " +
-        bp.resolved +
-        "\n",
-    );
-    continue;
-  }
-
-  assert(
-    false,
-    bp.source +
-      ":" +
-      bp.line +
-      " — " +
-      bp.path +
-      " → " +
-      bp.resolved +
-      " (not found)",
-  );
-}
-
-if (failed === 0) {
-  process.stdout.write(
-    "  \u2713 All " +
-      totalPaths +
-      " path references resolve to existing files\n",
-  );
-  passed++;
-}
-
-// ---------------------------------------------------------------------------
-// Summary
-// ---------------------------------------------------------------------------
-
-process.stdout.write("\n");
-var skippedNote =
-  skippedSyncOutputs.length > 0
-    ? ", " + skippedSyncOutputs.length + " skipped (sync outputs)"
-    : "";
-process.stdout.write(
-  "Results: " +
-    passed +
-    " passed, " +
-    failed +
-    " failed" +
-    skippedNote +
-    " (" +
-    totalPaths +
-    " paths validated)\n",
-);
-
-if (failures.length > 0) {
-  process.stdout.write("\nBroken path references:\n");
-  for (var i = 0; i < failures.length; i++) {
-    process.stdout.write("  - " + failures[i] + "\n");
-  }
-  process.exit(1);
-} else {
-  process.stdout.write("All path references are valid.\n");
-}
+  });
+});

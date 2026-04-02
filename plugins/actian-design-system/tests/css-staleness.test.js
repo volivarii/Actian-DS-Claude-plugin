@@ -11,26 +11,10 @@
  * (from the plugins/actian-design-system directory)
  */
 
+var { describe, it } = require("node:test");
+var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
-
-var passed = 0;
-var failed = 0;
-var failures = [];
-
-function assert(condition, message) {
-  if (condition) {
-    passed++;
-  } else {
-    failed++;
-    failures.push(message);
-    process.stdout.write("  \u2717 FAIL: " + message + "\n");
-  }
-}
-
-function section(name) {
-  process.stdout.write("\n" + name + "\n");
-}
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -136,52 +120,25 @@ var PAIRS = [
   },
 ];
 
-for (var p = 0; p < PAIRS.length; p++) {
-  var pair = PAIRS[p];
-  section(pair.name + " renderer CSS coverage");
+describe("CSS Staleness", function () {
+  PAIRS.forEach(function (pair) {
+    describe(pair.name + " renderer CSS coverage", function () {
+      it("all JS classes are covered by CSS", function () {
+        var jsClasses = new Set();
+        for (var j = 0; j < pair.js.length; j++) {
+          extractClassesFromJS(pair.js[j]).forEach(function (c) {
+            jsClasses.add(c);
+          });
+        }
 
-  var jsClasses = new Set();
-  for (var j = 0; j < pair.js.length; j++) {
-    extractClassesFromJS(pair.js[j]).forEach(function (c) {
-      jsClasses.add(c);
+        var cssClasses = extractClassesFromCSS(pair.css);
+        var missing = checkCoverage(jsClasses, cssClasses);
+
+        assert.ok(
+          missing.length === 0,
+          pair.name + ": missing CSS rules for: " + missing.join(", ")
+        );
+      });
     });
-  }
-
-  var cssClasses = extractClassesFromCSS(pair.css);
-
-  var missing = checkCoverage(jsClasses, cssClasses);
-
-  if (missing.length === 0) {
-    assert(
-      true,
-      pair.name + ": all " + jsClasses.size + " JS classes covered by CSS",
-    );
-    passed++; // count the section pass
-    process.stdout.write(
-      "  \u2713 " +
-        pair.name +
-        ": all " +
-        jsClasses.size +
-        " JS classes covered by CSS\n",
-    );
-  } else {
-    assert(false, pair.name + ": missing CSS rules for: " + missing.join(", "));
-  }
-}
-
-// ---------------------------------------------------------------------------
-// Summary
-// ---------------------------------------------------------------------------
-
-process.stdout.write("\n");
-process.stdout.write("Results: " + passed + " passed, " + failed + " failed\n");
-
-if (failures.length > 0) {
-  process.stdout.write("\nMissing CSS rules (add to the paired .css file):\n");
-  for (var f = 0; f < failures.length; f++) {
-    process.stdout.write("  - " + failures[f] + "\n");
-  }
-  process.exit(1);
-} else {
-  process.stdout.write("All renderer CSS is up to date.\n");
-}
+  });
+});
