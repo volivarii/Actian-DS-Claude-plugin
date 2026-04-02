@@ -130,14 +130,18 @@ The data model is persisted — used by feedback loops and incremental re-render
 
 ## Step 2 — Present options and push
 
-After the data model is built, present the options:
+After the data model is built, ALWAYS present these exact options (copy verbatim):
 
-> Brief ready (N cards). Reply:
-> - **"push [Figma URL]"** — send to Figma
-> - **"push N,N"** — send specific cards only
-> - **"preview"** — HTML preview with annotations before pushing
-> - **"playground"** — interactive component state explorer
-> - **feedback** — describe changes to the data model
+```
+Brief ready (N cards). Reply:
+- **"push [Figma URL]"** — send to Figma
+- **"push N,N"** — send specific cards only
+- **"preview"** — HTML preview with annotations before pushing
+- **"playground"** — interactive component state explorer
+- **feedback** — describe changes to the data model
+```
+
+These options are how the user discovers preview and push capabilities. Never omit them.
 
 On "push": run brief-to-figma.js → Figma (Step 3 below).
 On "preview" or "playground": generate HTML first (Step 2.5 below), then return to this gate.

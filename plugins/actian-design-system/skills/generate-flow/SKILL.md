@@ -86,10 +86,14 @@ Default to full detail page unless prompt implies staying on the list.
 
 **You MUST present this question** unless the user's prompt explicitly contains "no research", "skip research", "just build it", or provides reference URLs/files. Reading context files (Layer 1) is NOT the same as presenting this gate — the gate is a question to the user.
 
-> "Should I research UX patterns for this?
-> - **Yes** — I'll research competitor and best-in-class SaaS patterns
-> - **No, here are references:** — share URLs, screenshots, or files
-> - **No, just build it** — I'll use Actian conventions only"
+Present these exact options (copy verbatim):
+
+```
+Should I research UX patterns for this?
+- **Yes** — I'll research competitor and best-in-class SaaS patterns
+- **No, here are references:** — share URLs, screenshots, or files
+- **No, just build it** — I'll use Actian conventions only
+```
 
 Research has three layers (run in a single parallel batch):
 
@@ -126,12 +130,16 @@ Output a numbered screen list for review:
 - **Viewing flows** (browse, monitor): populated view → empty state → error → detail
 - **Multi-role flows**: one sub-flow per role, each with own cover card and App_header
 
-Present the list and ask:
+Present the list, then ALWAYS include these exact options (copy verbatim):
 
-> Does this work, or would you like to adjust?
-> - **approve** or scope down ("just 1 & 2")
-> - **"preview"** — generate HTML preview with annotations before pushing
-> - **"push [Figma URL]"** — approve and push directly to Figma
+```
+Does this work, or would you like to adjust?
+- **approve** or scope down ("just 1 & 2")
+- **"preview"** — generate HTML preview before pushing
+- **"push [Figma URL]"** — approve and push directly to Figma
+```
+
+These options are how the user discovers preview and push capabilities. Never omit them.
 
 ## Step 4 — Build flow-data.json (ALWAYS — even for preview)
 

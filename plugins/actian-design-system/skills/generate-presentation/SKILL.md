@@ -66,12 +66,16 @@ Plan the slide outline, then present it with options:
 - Target 1 key message per slide
 - Typical deck: 8–15 slides. Under 8 feels thin, over 20 feels heavy. Adjust to content density.
 
-Present the outline and ask:
+Present the outline, then ALWAYS include these exact options (copy verbatim):
 
-> Deck outline: N slides (cover + N body + back cover). Reply:
-> - **approve** or adjust ("drop slide 3", "add a metrics slide")
-> - **"preview"** — HTML preview with annotations before pushing
-> - **"push [Figma URL]"** — approve and push directly to Figma
+```
+Deck outline: N slides (cover + N body + back cover). Reply:
+- **approve** or adjust ("drop slide 3", "add a metrics slide")
+- **"preview"** — HTML preview with annotations before pushing
+- **"push [Figma URL]"** — approve and push directly to Figma
+```
+
+These options are how the user discovers preview and push capabilities. Never omit them.
 
 ## Step 3 — Build slide-data.json and push to Figma
 
