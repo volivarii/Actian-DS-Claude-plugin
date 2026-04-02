@@ -80,7 +80,11 @@ class PreviewHandler(SimpleHTTPRequestHandler):
         if not file_path:
             self.send_error(400, 'Missing file param')
             return
-        full_path = Path(self.directory) / file_path.lstrip('/')
+        full_path = (Path(self.directory) / file_path.lstrip('/')).resolve()
+        # Security: prevent path traversal
+        if not str(full_path).startswith(str(Path(self.directory).resolve())):
+            self.send_error(403, 'Forbidden')
+            return
         try:
             mtime = full_path.stat().st_mtime
             self.send_response(200)
@@ -94,7 +98,11 @@ class PreviewHandler(SimpleHTTPRequestHandler):
 
     def _handle_annotations(self):
         try:
+            MAX_BODY = 10 * 1024 * 1024  # 10MB
             length = int(self.headers.get('Content-Length', 0))
+            if length > MAX_BODY:
+                self.send_error(413, 'Request body too large')
+                return
             body = self.rfile.read(length)
             data = json.loads(body)
 
