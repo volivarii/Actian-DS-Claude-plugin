@@ -64,7 +64,7 @@ Draft a structured component brief with HTML spec page and Figma output. Support
 
 ## Execution Model
 
-Autonomous through research and rendering, pauses at Step 2.5 for user review before Figma push. Two pause points: (1) mode ambiguity, (2) Step 2.5 preview gate.
+Autonomous through research, data model generation, and Figma push. HTML preview is opt-in (user says "preview"). Default path: research → data model → push to Figma. Two pause points: (1) mode ambiguity, (2) push confirmation if user says "preview".
 
 ### Speed rules
 
@@ -121,50 +121,28 @@ Structure ALL research into `[component]-brief-data.json` following `../../refer
 
 The data model is persisted — used by feedback loops and incremental re-rendering.
 
-## Step 2 — Render HTML (CLIENT-SIDE RENDERER)
+## Step 2 — Push to Figma (DETERMINISTIC SCRIPT)
 
-**Do NOT generate card HTML.** The browser renders cards from the data model. You write only the component-specific parts.
+**Default path: data model → brief-to-figma.js → Figma. No HTML step.**
 
-Read these in ONE parallel batch (first time only):
-1. `[name]-brief-data.json` (already in context from Step 1.5)
-2. The wrapper template: `../../templates/ds-wrapper.html` or `../../templates/fm-wrapper.html`
-3. `../../scripts/html-renderers/brief-renderer.js`
-4. The annotation layer files: `../../templates/annotation-layer.css`, `../../templates/annotation-layer.js`, `../../templates/annotation-layer-markup.html`
+## Step 2 (preview) — Render HTML (opt-in)
 
-Then assemble the HTML file:
-1. Start with the wrapper template
-2. Replace `{{PAGE_TITLE}}` with `${card1_header.name} — Actian DS Kit Component Brief`
-3. Before `</body>`, embed these blocks in order:
-   a. `<script type="application/json" id="spec-data">` — paste the full brief-data.json
-   b. `<style id="component-css">` — write component-specific CSS for Cards 2-3 (the only AI-interpreted CSS)
-   c. `<script id="component-html">` — write the `window.componentHtml = function(variantName, theme) { ... }` function (the only AI-interpreted JS)
-   d. `<script>` — paste brief-renderer.js contents (the fixed renderer)
-   e. Annotation layer (CSS as `<style>`, JS as `<script>`, markup as-is)
-4. Write to: `{project_working_directory}/components/[name]/[name]-spec.html`
+**Trigger:** User says "preview" or "playground" in the prompt or at any gate.
 
-**What the AI writes:**
-- `componentHtml(variantName, theme)` — returns HTML for a specific variant/state combo (~50-100 lines)
-- Component-specific CSS — styles for the component preview (~50-80 lines)
+If triggered, generate the HTML preview BEFORE pushing:
 
-**What the AI does NOT write:**
-- Card 1 HTML (page header) — renderer builds from `card1_header`
-- Cards 4-9 HTML (tokens, API, usage, content, a11y, code) — renderer builds from data model
-- Generation card HTML — renderer builds from `meta`
-- Table markup, swatch dots, badges, do/dont cards — all handled by renderer helpers
+1. Read the wrapper template, brief-renderer.js, and annotation layer files
+2. Assemble the HTML file with embedded brief-data.json + component-specific CSS/JS
+3. Write to: `{project_working_directory}/components/[name]/[name]-spec.html`
+4. Start server and present preview URL with options:
+   - **"push"** / **"push 2,4,5"** — send to Figma
+   - **"playground"** — generate interactive playground
+   - **"apply annotations"** — click Annotate in preview, then say "apply annotations"
+   - **feedback** — fix and re-preview
+5. On feedback: edit `brief-data.json` → regenerate HTML → re-serve
+6. On "push": proceed to Step 2 (push) above
 
 Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming.md` — read only if needed.
-
-## Step 2.5 — Preview gate (BLOCKING)
-
-1. Start server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
-2. Present preview URL and options:
-   - **"push"** / **"push 2,4,5"** — send to Figma
-   - **"playground"** — generate interactive playground first
-   - **"apply annotations"** — read browser annotations, fix and re-preview
-   - **feedback** — fix and re-preview
-3. **Wait for response.** Do not proceed.
-4. On feedback: edit `brief-data.json` → re-run Step 2 → re-serve (ensures Figma gets same changes)
-5. On "playground": see `../../references/component-brief/playground.md`
 
 ## Step 3 — Render Figma (DETERMINISTIC SCRIPT)
 

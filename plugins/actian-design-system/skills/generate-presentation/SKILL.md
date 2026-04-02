@@ -15,7 +15,7 @@ Generate a structured Figma presentation deck using the official Actian slide te
 > **Presentation guide:** Read `../../docs/presentation-guide.md` before generating any slides — it is the primary reference for slide types, typography, colors, sequencing, voice & tone, charts, and the review report format.
 > **Shared rules apply:** Content guidelines, quality & hygiene checklist (Universal + Generate Presentation sections), and generation log format — all per CLAUDE.md.
 
-> **Mode: Implement with review gate.** Build first, explain after. Move fast through research, outlining, and HTML generation without pausing for confirmation. But always pause at Step 5 (review report) before pushing to Figma — wrong slides in Figma are costly to fix. Keep status updates to milestones only.
+> **Mode: Build and push.** Build first, explain after. Move fast through research, outlining, and data generation without pausing for confirmation. HTML preview is opt-in — the default path is: outline → build slide-data.json → push to Figma. Only generate HTML if the user says "preview".
 
 ## Input
 
@@ -27,9 +27,9 @@ The user provides one or more of:
 
 ## Execution Model
 
-**Autonomous through generation.** Do NOT pause to present outlines for approval or ask clarifying questions between Steps 1–4. Infer audience, goal, and structure from the input. The only acceptable pause before Step 5 is when the input is genuinely too thin to generate anything (e.g., user said "make a deck" with zero topic or content).
+**Autonomous through generation and push.** Do NOT pause to present outlines for approval or ask clarifying questions. Infer audience, goal, and structure from the input. The only acceptable pause is when the input is genuinely too thin to generate anything (e.g., user said "make a deck" with zero topic or content).
 
-**Review gate at Step 5.** Always present the review report and wait for approval before pushing to Figma.
+**Default path:** outline → build slide-data.json → slide-to-figma.js → push to Figma. No HTML step unless the user says "preview".
 
 **Defaults:** Audience = team update. Goal = inform. Slide count = 8–15 based on content density.
 
@@ -66,74 +66,49 @@ Plan the slide outline internally. Do NOT present it to the user for review — 
 - Target 1 key message per slide
 - Typical deck: 8–15 slides. Under 8 feels thin, over 20 feels heavy. Adjust to content density.
 
-## Step 3 — Generate the HTML deck (CLIENT-SIDE RENDERER)
+## Step 3 — Build slide-data.json and push to Figma
 
-Build the HTML file using the presentation renderer. The AI writes only body content per slide — slide chrome (cover gradient, section dividers, back cover) is rendered client-side.
+**Default path: outline → slide-data.json → slide-to-figma.js → Figma. No HTML step.**
 
 1. Build `slide-data.json` from the outline:
-   - `meta`: skill, topic, prompt, date, duration, model, pluginVersion
+   - `meta`: title, targetNodeId, prompt, duration, model, pluginVersion, generatedAt, skill
    - `slides[]`: each with type (cover/section/body-full/body-text-visual/back-cover) + type-specific data
-   - Cover/section/back-cover slides: pure data (title, subtitle, topic) — no HTML needed
-   - Body slides: use structured `content[]` array for charts (stat-cards, bar-chart, progress-bars, comparison-table, timeline) or `contentHtml`/`bodyHtml`/`visualHtml` for custom content
-2. Read `../../references/generate-presentation/templates.md` for slide content rules, chart types, DS Kit token usage
-3. Read `../../scripts/html-renderers/presentation-renderer.js`
-4. Assemble HTML file with presentation CSS + `<div id="deck-container"></div>` + embedded JSON as `<script type="application/json" id="spec-data">` + renderer JS + annotation layer
-5. Write to: `{project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html`
+   - Cover/section/back-cover: pure data (title, subtitle, topic)
+   - Body slides: structured `content[]` nodes for charts and content
+2. Read `../../references/generate-presentation/figma-spec-builder.md` — input schema + chart patterns
+3. Write slide-data.json to: `{project_working_directory}/presentations/[topic-slug]/slide-data.json`
+4. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js slide-data.json --target-node-id "<nodeId>"`
+5. Script outputs JSON array of `{ callIndex, code, description }` — self-contained Figma plugin JS
+6. For each call, pass `code` to `use_figma`:
+   - Call 1: use as-is (creates wrapper)
+   - Call 2+: replace `__WRAPPER_ID__` with `wrapperId` from call 1
+7. After all calls: parity check (Step 4)
 
 **Key rules:**
 - 5 slide types: Cover, Body (Full), Body (Text+Visual), Section divider, Back cover
 - All content uses DS Kit tokens (`--zen-*` prefix), Roboto font
 - Charts use `--zen-color-category-N-strong` — never hardcode chart colors
-- Use structured content elements where possible — raw HTML only for novel content
-- Generation log card rendered by the renderer from `meta`
-- Include annotation layer inline before `</body>` — see `../../references/annotation-reference.md`
-
-## Step 4 — Save, serve, and preview
-
-1. Save to: `{project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html` (absolute path based on user's project directory, never relative to the plugin)
-2. Start local server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
-3. Tell the user: "Preview at `http://localhost:8765/presentations/[topic-slug]/[topic-slug]-deck.html`"
-
-## Step 5 — Present the review report
-
-**MANDATORY: Always present a full review report before offering to send to Figma.** Never skip this step.
-
-Follow the review report format defined in `../../docs/presentation-guide.md`:
-
-1. **Deck summary** — slide count, section count, estimated duration
-2. **Slide-by-slide breakdown table** — #, template type, headline, content summary, charts/visuals used
-3. **Quality checklist** — verify every headline passes "So what?", 1 message per slide, metrics have context, charts use DS Kit tokens, active voice, narrative arc
-4. Present the preview URL and ask:
-   > "Preview: `http://localhost:8765/presentations/[topic-slug]/[topic-slug]-deck.html`
-   >
-   > Review the breakdown above and the slides, then reply:
-   > - **"push"** — send all slides to Figma
-   > - **"push 1,3,5-8"** — send only those slides to Figma
-   > - **"apply annotations"** — paste annotation JSON from the browser, I'll fix and re-preview
-   > - **feedback** — I'll fix the HTML and re-preview"
-
-**Wait for the user's response.** Do not proceed. If changes are requested, apply them to the HTML, re-serve, and present an updated report. Repeat until approved.
-
-## Step 6 — Output to Figma (slide-to-figma.js)
-
-Only after the user approves the review report.
-
-**Do NOT write freehand Figma specs.** Use the `slide-to-figma.js` script — it builds correct slide frames, gradients, and variable bindings deterministically, then generates self-contained Figma plugin JS code.
-
-1. Read `../../references/generate-presentation/figma-spec-builder.md` — input schema + chart patterns
-2. Write `slide-data.json` to the project directory:
-   - `meta`: title, targetNodeId, prompt, duration, model, pluginVersion, generatedAt
-   - `slides[]`: per slide: type (`cover`/`section`/`body-full`/`body-text-visual`/`back-cover`), name, title, content
-   - The AI provides only content nodes — the script handles slide frames, gradients, and variables
-3. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js slide-data.json --target-node-id "<nodeId>"`
-4. Script outputs JSON array of `{ callIndex, code, description }` — each `code` is self-contained Figma plugin JS
-5. For each call in the array, pass `code` directly to `use_figma`
-   - For call 2+: replace `__WRAPPER_ID__` in the code with the `wrapperId` returned from call 1
-6. After all calls: parity validation (slide count vs Figma frame count)
 
 If the user hasn't provided a target Figma file, ask: "Where should I push this? Provide a Figma file URL, or I can create a new file."
 
-## Step 7 — Parity check
+### HTML preview (opt-in)
+
+**Trigger:** User says "preview" in the prompt.
+
+If triggered, generate HTML BEFORE pushing:
+
+1. Read presentation-renderer.js and templates
+2. Build HTML from the same slide-data.json
+3. Write to: `{project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html`
+4. Start server, present preview URL with options:
+   - **"push"** / **"push 1,3,5-8"** — send to Figma
+   - **"apply annotations"** — annotate in browser, then say "apply annotations"
+   - **feedback** — fix and re-preview
+5. Present review report: slide count, breakdown table, quality checklist
+6. On feedback: fix slide-data.json → regenerate HTML → re-serve
+7. On "push": proceed to push step above
+
+## Step 4 — Parity check
 
 After all `use_figma` calls complete, run the post-push parity check procedure in `../../references/parity-check.md`:
 

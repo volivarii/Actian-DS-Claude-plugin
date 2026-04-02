@@ -300,17 +300,17 @@ Full checklist with P0/P1/P2 severity, pass criteria, and HTML translation in `r
 
 ## Skill Review Gates
 
-All Figma-writing skills pause for user approval before pushing to Figma:
+**Default path for all Figma-writing skills: build structured data → run script → push to Figma.** HTML preview is opt-in (user says "preview").
 
-| Skill | Gate | Vocabulary |
-|-------|------|-----------|
-| component-brief | Step 2.5 — HTML preview | "push" / "push N,N" / "playground" / "apply annotations" / feedback |
-| generate-flow | Step 2 — research opt-in + Step 4.5 — HTML preview | "push" / "push N,N" / "push and wire" / "wire" / "prototype" / "apply annotations" / feedback |
-| generate-presentation | Step 5 — review report + preview | "push" / "push N,N" / "apply annotations" / feedback |
-| create-component | Step 4.5 — build plan summary | "build" / feedback |
+| Skill | Gates | Default path | Preview trigger |
+|-------|-------|-------------|-----------------|
+| generate-flow | Research opt-in → Screen list approval | flow-data.json → flow-to-figma.js → Figma | "preview" at gate 2 |
+| component-brief | Mode ambiguity only | brief-data.json → brief-to-figma.js → Figma | "preview" in prompt |
+| generate-presentation | None (autonomous) | slide-data.json → slide-to-figma.js → Figma | "preview" in prompt |
+| create-component | Build plan summary | Direct Figma output | N/A |
 
 - If the user's prompt pre-answers a gate question (e.g., "no research"), skip asking
-- If the user requests cards/slides not in the HTML at the gate, regenerate HTML first
+- "push and wire" triggers prototype wiring after push (generate-flow only)
 - Draft tier in create-component skips the build plan gate
 
 ---

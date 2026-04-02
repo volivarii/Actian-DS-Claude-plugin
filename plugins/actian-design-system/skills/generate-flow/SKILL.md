@@ -35,12 +35,13 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 
 ## Execution Model
 
-Build first, explain after. There are exactly 3 gates where you pause:
+Build first, explain after. There are exactly 2 gates where you pause:
 1. **Step 2** — research opt-in (skip if user already said "with research" or "no research")
-2. **Step 3** — screen list approval (user can say "just screen 1" or similar to scope down)
-3. **Step 4 preview gate** — HTML preview with push/feedback options
+2. **Step 3** — screen list approval → then build and push to Figma
 
-Between gates, DO NOT stop. After screen list approval (gate 2), read references, build HTML, start server, and present the preview gate — all in one uninterrupted sequence. No "ok", no "let me read the renderer", no "writing the file now". The user should not see anything between approving the screen list and seeing the preview URL.
+After screen list approval (gate 2), build flow-data.json with structured `content[]` nodes and push to Figma — all in one uninterrupted sequence. No "ok", no narration, no intermediate pauses.
+
+**HTML preview is opt-in.** Only generate HTML if the user says "preview" at gate 2 or in the original prompt. The default path is: screen list → build → push.
 
 ### Speed rules
 
@@ -125,95 +126,74 @@ Output a numbered screen list for review:
 
 Wait for user approval.
 
-## Step 4 — Generate HTML and present preview (ONE ATOMIC STEP)
+## Step 4 — Build flow-data.json and push to Figma
 
-**This entire step — reading references, building JSON, writing HTML, starting server, and presenting the preview gate — happens in one uninterrupted sequence. Do NOT pause, narrate progress, or wait for confirmation at any point during this step. The next time you stop and wait for the user is the preview gate at the end.**
+**This entire step — reading references, building JSON, running the script, and pushing — happens in one uninterrupted sequence after the screen list is approved. No pauses, no narration, no intermediate confirmations.**
 
-The AI writes only the content area per screen — screen chrome (app header, sidebar, page header) is rendered client-side by `flow-renderer.js`.
-
-**What to read (in parallel where possible):**
-- `../../references/generate-flow/html-reference.md` — FM component classes and styling rules
-- `../../scripts/html-renderers/flow-renderer.js` — client-side renderer (embed in HTML)
-- `../../references/fm-css-reference.md` — exact FM variable values
-
-**What to build:**
-1. `flow-data.json` with:
-   - `meta`: skill, feature, app, prompt, date, duration, model, pluginVersion
+1. Read `../../references/generate-flow/figma-spec-builder.md` — template list + content node reference
+2. Build `flow-data.json` with structured `content[]` nodes:
+   - `meta`: feature, flow, user, app, targetNodeId, prompt, duration, model, pluginVersion, skill
    - `meta.research` (if research was done): `{ title, source, competitors, patterns, recommendation, sources }`
-   - `flows[]`: one per sub-flow, each with name, user, screens[]
-   - Per screen: name, type (standard/compact), appHeader, sidebar (activeItem + items count), pageHeader (title, subtitle, actions), contentHtml
-2. `contentHtml` per screen — feature-relevant tables, forms, dialogs, empty states
-3. CSS for any `fm-custom-*` elements
-4. Assembled HTML file: flow CSS + `<div id="flow-container"></div>` + embedded JSON as `<script type="application/json" id="spec-data">` + renderer JS + annotation layer
-5. Write to: `{project_working_directory}/components/flows/[feature-name]-flow.html`
+   - `screens[]`: one per screen, each with: name, template, activeNavItem, navItems, pageHeader, contentSpacing, `content[]`
+3. Write `content[]` per screen using **structured spec nodes** (FRAME, TEXT, INSTANCE, DIVIDER) — see figma-spec-builder.md for the full node reference
+4. Write to: `{project_working_directory}/components/flows/flow-data.json`
+5. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<nodeId>"`
+6. Script outputs JSON array of `{ callIndex, code, description }` to stdout
+7. For each call, pass `code` to `use_figma`:
+   - Call 1: use as-is (creates wrapper + section)
+   - Call 2+: replace `__WRAPPER_ID__` in code with the `wrapperId` from call 1's response
+8. After all calls: parity check (Step 5)
 
-**Then immediately** start server and present the preview gate (Step 4.5 below). No pause between writing and serving.
+**There is no HTML step in the default path.** The structured nodes go directly to flow-to-figma.js → Figma.
 
 **Feature focus principle (FM flows — mandatory):**
-Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — everything else must use placeholder/muted variants. The renderer handles sidebar placeholders automatically from `sidebar.items` count.
+Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — everything else must use placeholder/muted variants. The script handles sidebar placeholders automatically from `navItems` count.
 
 **Key rules:**
-- One row per flow — never split across rows
-- FM first — check `../../docs/fm-components.md` before custom elements
-- Custom elements: prefix `fm-custom-`, use `--fm-*` vars, keep lo-fi
-- Screen sizes: Standard 1440x960px, Compact 1440x700px
+- FM first — check `../../docs/fm-components.md` + `../../docs/fm-components-registry.json` for available components and their boolean properties
+- Button icons: set `"👁 Leading Icon": false, "👁 Trailing Icon": false` in props unless icons are explicitly needed
+- Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for push-apart layouts — never Spacer frames
 - Forms: inputs 480px max-width, extended elements full-width
-- Styles: exact FM values only, no custom colors
 - All text must be contextual, not generic ("Schedule Refresh" not "Submit")
 
-After writing the HTML file, **dispatch `flow-consistency` agent** in background. Do NOT wait for it — proceed to the preview gate immediately. If the agent returns findings after you've already presented the gate, do NOT apply fixes automatically. Instead, mention the findings briefly when the user responds — let them decide whether to fix before pushing. Never re-edit the HTML and re-present the gate unprompted.
+### HTML preview (opt-in)
 
-### Preview gate (end of Step 4 — BLOCKING)
+**Trigger:** User says "preview" at the screen list gate, or includes "preview" in the original prompt.
 
-Start server and present the gate in the same response as the HTML write:
+If triggered, generate the HTML preview BEFORE pushing to Figma:
 
-1. Start server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
-2. Present preview URL and ALL options — do not omit any:
+1. Read `../../references/generate-flow/html-reference.md` and `../../scripts/html-renderers/flow-renderer.js`
+2. Build HTML file from the same `flow-data.json` — the renderer uses `content[]` via `renderContentNode()`, or `contentHtml` if present
+3. Write to: `{project_working_directory}/components/flows/[feature-name]-flow.html`
+4. Start server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
+5. Present preview URL and options:
 
 > Preview: `{URL}`
 >
 > Review the flow, then reply:
-> - **"push"** / **"push 1,3"** — send to Figma
-> - **"push and wire"** — push + wire prototype connections (playable in Figma Presentation mode)
-> - **"prototype"** — generate interactive HTML prototype (click through screens locally)
-> - **"apply annotations"** — click Annotate in the preview toolbar to mark issues visually on specific elements, then say **"apply annotations"** here
-> - **feedback** — describe changes in text, I'll fix and re-preview
+> - **"push"** — send to Figma
+> - **"push and wire"** — push + wire prototype connections
+> - **"apply annotations"** — click Annotate in the preview, then say "apply annotations" here
+> - **feedback** — describe changes, I'll fix and re-preview
 
-3. Wait for response. On feedback: fix HTML, re-serve, re-present.
-4. On "push and wire": run Step 5 (push) then Step 5.5 (wire).
-5. On "apply annotations": read `.annotations.json` from the project directory, apply `change` annotations per `../../references/annotation-reference.md`, carry `note` annotations forward to `.last-push.json` notes array for the Figma push step, re-serve and re-present gate.
+6. On feedback: fix flow-data.json, regenerate HTML, re-serve, re-present.
+7. On "push": proceed to the push step above.
 
-**Skip preview:** If the user says "push" at the screen list gate (Step 3) or provides a Figma URL with "push" in the same message, skip HTML generation entirely and go straight to Step 5 (Figma output). The flow-to-figma.js script can build from the screen list directly — it doesn't require an HTML preview first.
-
-## Step 4.6 — Interactive prototype (opt-in)
+### Interactive prototype (opt-in)
 
 **Trigger:** "prototype" at gate or keywords in original prompt. Skip if "quick"/"draft".
 
 1. Read `../../references/prototype-reference.md`
 2. Read `../../templates/flow-prototype-wrapper.html`
-3. Copy screen HTML into Alpine.js shell with click-to-navigate, form validation
+3. Build prototype from flow-data.json
 4. Save to: `{project_working_directory}/components/flows/[feature-name]-prototype.html`
-5. Re-present gate with both URLs
 
-## Step 5 — Output to Figma (flow-to-figma.js)
-
-**Do NOT write freehand Figma code.** Use the `flow-to-figma.js` script — it builds correct screen chrome from templates and generates Figma plugin code via the shared codegen.
-
-1. Read `../../references/generate-flow/figma-spec-builder.md` — template list + content node reference
-2. Ensure `flow-data.json` exists in the project directory (written in Step 4)
-3. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<nodeId>"`
-4. Script outputs JSON array of `{ callIndex, code, description }` objects to stdout
-5. For each call, pass `code` to `use_figma`:
-   - Call 1: use as-is (creates wrapper + section)
-   - Call 2+: replace `__WRAPPER_ID__` in code with the `wrapperId` from call 1's response
-6. After all calls: parity validation (screen count vs Figma frame count)
-
-## Step 5.5 — Wire prototype (opt-in)
+## Step 5 — Wire prototype (opt-in)
 
 Wire Figma prototype connections so the pushed flow is playable in Presentation mode.
 
 **Triggers:**
-- "push and wire" at the preview gate (Step 4.5) — runs after Step 5 push
+- "push and wire" at the screen list gate or preview gate — runs after push
 - "wire" after push — runs on already-pushed frames
 - Production tier — auto-applies linear frame-to-frame wiring (no smart analysis)
 
@@ -239,7 +219,7 @@ Per `../../references/parity-check.md`:
 2. **Dispatch `parity-analyzer` agent** with screenshots + expected screen content from Step 3 screen list
 3. Merge findings with your own visual check
 4. Report findings, fix P0s
-5. Write `.last-push.json` manifest — include `notes` array from any `note`-type annotations carried forward from Step 4.5
+5. Write `.last-push.json` manifest — include `notes` array from any `note`-type annotations if preview was used
 
 ## Step 7 — Cleanup pass
 
