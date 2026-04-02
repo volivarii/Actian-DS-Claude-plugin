@@ -134,6 +134,20 @@ function parseArgs(argv) {
 function main() {
   var args = parseArgs(process.argv);
 
+  if (process.argv.indexOf('--help') !== -1) {
+    process.stdout.write(JSON.stringify({
+      name: 'assemble-preview',
+      description: 'Assembles self-contained HTML preview from data JSON + static assets.',
+      flags: [
+        { name: '--type', required: true, description: 'Preview type: flow, brief, or presentation' },
+        { name: '-o', required: true, description: 'Output HTML file path' },
+        { name: '--output', required: true, description: 'Alias for -o' }
+      ],
+      types: Object.keys(TYPE_CONFIGS)
+    }, null, 2) + '\n');
+    process.exit(0);
+  }
+
   // Validate required args
   if (!args.input) {
     process.stderr.write('ERROR: Missing input JSON file.\n');

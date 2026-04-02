@@ -955,6 +955,20 @@ function parseArgs(argv) {
   const args = argv.slice(2);
   const result = { inputPath: null, targetNodeId: null, call: null, output: null, outputDir: null };
 
+  if (args.indexOf('--help') !== -1) {
+    process.stdout.write(JSON.stringify({
+      name: 'brief-to-figma',
+      description: 'Reads brief-data.json, generates Figma Plugin API JavaScript for component briefs.',
+      flags: [
+        { name: '--target-node-id', required: true, description: 'Figma node ID for the target page' },
+        { name: '--call', required: false, description: 'Output only call N (1-based)' },
+        { name: '--output', required: false, description: 'Write JSON output to file instead of stdout' },
+        { name: '--output-dir', required: false, description: 'Directory to write call-N.js + manifest.json' }
+      ]
+    }, null, 2) + '\n');
+    process.exit(0);
+  }
+
   let i = 0;
   while (i < args.length) {
     if (args[i] === '--target-node-id' && i + 1 < args.length) {

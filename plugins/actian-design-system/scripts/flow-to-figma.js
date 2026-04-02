@@ -538,6 +538,21 @@ function main() {
     }
   }
 
+  if (args.indexOf('--help') !== -1) {
+    var helpMeta = {
+      name: 'flow-to-figma',
+      description: 'Reads flow-data.json, generates Figma Plugin API JavaScript.',
+      flags: [
+        { name: '--target-node-id', required: false, description: 'Figma node ID to append output to' },
+        { name: '--output-dir', required: false, description: 'Directory to write call-N.js + manifest.json' },
+        { name: '--plugin-root', required: false, description: 'Override plugin root path' }
+      ],
+      templates: Object.keys(JSON.parse(fs.readFileSync(path.join(__dirname, 'templates.json'), 'utf8'))['flow-templates'])
+    };
+    process.stdout.write(JSON.stringify(helpMeta, null, 2) + '\n');
+    process.exit(0);
+  }
+
   if (!inputPath) {
     process.stderr.write('Usage: node flow-to-figma.js <input.json> --target-node-id "288:7646" [--output-dir <dir>]\n');
     process.exit(1);

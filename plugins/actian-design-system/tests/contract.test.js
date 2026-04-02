@@ -307,6 +307,104 @@ for (var ai = 0; ai < ANNOTATION_FILES.length; ai++) {
 }
 
 // ---------------------------------------------------------------------------
+// Part 4: --help output contracts
+// ---------------------------------------------------------------------------
+
+section("Part 4: --help output contracts");
+
+var execSync = require("child_process").execSync;
+
+var helpScripts = [
+  {
+    script: path.join(SCRIPTS_DIR, "flow-to-figma.js"),
+    expectedName: "flow-to-figma",
+  },
+  {
+    script: path.join(SCRIPTS_DIR, "brief-to-figma.js"),
+    expectedName: "brief-to-figma",
+  },
+  {
+    script: path.join(SCRIPTS_DIR, "slide-to-figma.js"),
+    expectedName: "slide-to-figma",
+  },
+  {
+    script: path.join(SCRIPTS_DIR, "assemble-preview.js"),
+    expectedName: "assemble-preview",
+  },
+];
+
+for (var hi = 0; hi < helpScripts.length; hi++) {
+  var hs = helpScripts[hi];
+  var hsLabel = hs.expectedName + " --help";
+
+  // Run script with --help
+  var helpOutput;
+  var helpExitCode = 0;
+  try {
+    helpOutput = execSync("node " + JSON.stringify(hs.script) + " --help", {
+      encoding: "utf8",
+      stdio: ["pipe", "pipe", "pipe"],
+    });
+  } catch (e) {
+    helpExitCode = e.status || 1;
+    helpOutput = (e.stdout || "") + (e.stderr || "");
+  }
+
+  // 1. Exits 0
+  var exitLabel = hsLabel + " — exits 0";
+  assert(helpExitCode === 0, exitLabel);
+  if (helpExitCode === 0) {
+    process.stdout.write("  \u2713 " + exitLabel + "\n");
+  }
+
+  // 2. Output is valid JSON
+  var helpJson = null;
+  try {
+    helpJson = JSON.parse(helpOutput);
+  } catch (e) {
+    // parse failed
+  }
+  var jsonLabel = hsLabel + " — valid JSON output";
+  assert(helpJson !== null, jsonLabel);
+  if (helpJson !== null) {
+    process.stdout.write("  \u2713 " + jsonLabel + "\n");
+  }
+
+  if (helpJson) {
+    // 3. name field matches expected
+    var nameLabel = hsLabel + " — name is '" + hs.expectedName + "'";
+    assert(helpJson.name === hs.expectedName, nameLabel);
+    if (helpJson.name === hs.expectedName) {
+      process.stdout.write("  \u2713 " + nameLabel + "\n");
+    }
+
+    // 4. flags is an array
+    var flagsLabel = hsLabel + " — flags is an array";
+    assert(Array.isArray(helpJson.flags), flagsLabel);
+    if (Array.isArray(helpJson.flags)) {
+      process.stdout.write("  \u2713 " + flagsLabel + "\n");
+    }
+
+    // 5. Every flag name exists in the script's source code
+    if (Array.isArray(helpJson.flags)) {
+      var hsSrc = fs.readFileSync(hs.script, "utf8");
+      for (var hf = 0; hf < helpJson.flags.length; hf++) {
+        var flagName = helpJson.flags[hf].name;
+        var flagSrcLabel =
+          hsLabel + " — flag " + flagName + " parsed in source";
+        var flagInSrc =
+          hsSrc.indexOf("'" + flagName + "'") !== -1 ||
+          hsSrc.indexOf('"' + flagName + '"') !== -1;
+        assert(flagInSrc, flagSrcLabel);
+        if (flagInSrc) {
+          process.stdout.write("  \u2713 " + flagSrcLabel + "\n");
+        }
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 

@@ -356,6 +356,19 @@ function main() {
     else if (!inputPath) { inputPath = args[i]; }
   }
 
+  if (args.indexOf('--help') !== -1) {
+    process.stdout.write(JSON.stringify({
+      name: 'slide-to-figma',
+      description: 'Reads slide-data.json, generates Figma Plugin API JavaScript for presentations.',
+      flags: [
+        { name: '--target-node-id', required: false, description: 'Figma node ID to append output to' },
+        { name: '--output', required: false, description: 'Write JSON output to file instead of stdout' },
+        { name: '--output-dir', required: false, description: 'Directory to write call-N.js + manifest.json' }
+      ]
+    }, null, 2) + '\n');
+    process.exit(0);
+  }
+
   if (!inputPath) {
     process.stderr.write('Usage: node slide-to-figma.js <slide-data.json> --target-node-id <id> [--output <path>] [--output-dir <dir>]\n');
     process.exit(1);
