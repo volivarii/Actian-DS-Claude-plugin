@@ -110,7 +110,7 @@ function escapeJsonForScript(jsonStr) {
 // ---------------------------------------------------------------------------
 
 function parseArgs(argv) {
-  var args = { input: null, type: null, output: null };
+  var args = { input: null, type: null, output: null, annotations: true };
   var positionals = [];
   var i = 2; // skip node + script
 
@@ -120,6 +120,8 @@ function parseArgs(argv) {
       args.type = argv[++i];
     } else if ((arg === '-o' || arg === '--output') && i + 1 < argv.length) {
       args.output = argv[++i];
+    } else if (arg === '--no-annotations') {
+      args.annotations = false;
     } else if (arg.charAt(0) !== '-') {
       positionals.push(arg);
     }
@@ -147,7 +149,8 @@ function main() {
       flags: [
         { name: '--type', required: true, description: 'Preview type: flow, brief, or presentation' },
         { name: '-o', required: true, description: 'Output HTML file path' },
-        { name: '--output', required: true, description: 'Alias for -o' }
+        { name: '--output', required: true, description: 'Alias for -o' },
+        { name: '--no-annotations', required: false, description: 'Skip annotation layer (Alpine.js + UI)' }
       ],
       types: Object.keys(TYPE_CONFIGS)
     }, null, 2) + '\n');
@@ -206,9 +209,9 @@ function main() {
     rendererScripts += '  <script>\n  /* ' + filename + ' */\n' + rendererSrc + '\n  </script>\n';
   }
 
-  var annotationCss  = readFileChecked(ANNOTATION_CSS);
-  var annotationJs   = readFileChecked(ANNOTATION_JS);
-  var annotationHtml = readFileChecked(ANNOTATION_HTML);
+  var annotationCss  = args.annotations ? readFileChecked(ANNOTATION_CSS) : '';
+  var annotationJs   = args.annotations ? readFileChecked(ANNOTATION_JS) : '';
+  var annotationHtml = args.annotations ? readFileChecked(ANNOTATION_HTML) : '';
 
   // Escape JSON for embedding
   // No transform needed — all renderers read the same format as their *-to-figma.js counterparts
@@ -230,10 +233,12 @@ function main() {
     + '  <script id="spec-data" type="application/json">' + escapedJson + '</script>\n'
     + '  ' + config.containerHtml + '\n'
     + rendererScripts
-    + '  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>\n'
-    + '  <style>\n' + annotationCss + '\n  </style>\n'
-    + '  <script>\n' + annotationJs + '\n  </script>\n'
-    + '  ' + annotationHtml + '\n'
+    + (args.annotations
+      ? '  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>\n'
+        + '  <style>\n' + annotationCss + '\n  </style>\n'
+        + '  <script>\n' + annotationJs + '\n  </script>\n'
+        + '  ' + annotationHtml + '\n'
+      : '')
     + '</body>\n'
     + '</html>\n';
 

@@ -1,0 +1,48 @@
+{
+  "skill_name": "generate-flow",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Design a settings page for Administration",
+      "expected_output": "Screen list with gate options (approve/preview/push), then flow-data.json with content[] nodes, then flow-to-figma.js execution",
+      "assertions": [
+        { "name": "presents_screen_list", "check": "output contains numbered screen list" },
+        { "name": "shows_gate_options", "check": "output contains 'preview' AND 'push' as options at the gate" },
+        { "name": "no_intermediate_pauses", "check": "no 'should I proceed', 'ok let me', 'shall I' between steps" },
+        { "name": "writes_flow_data_json", "check": "writes a file named flow-data.json or *-flow-data.json" },
+        { "name": "uses_content_array", "check": "flow-data.json contains 'content' array, NOT 'contentHtml'" },
+        { "name": "runs_flow_to_figma_script", "check": "runs node .../flow-to-figma.js" },
+        { "name": "no_freehand_figma_code", "check": "does NOT write figma.createFrame/createText/createInstance outside of script output" },
+        { "name": "no_json_dump", "check": "does NOT output flow-data.json contents as text in conversation" }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Create a connection setup wizard for Administration, just the first screen — push here https://www.figma.com/design/FaBwMaNkvdrcQIo3fl8I4D/Testing-AI-generation?node-id=288-7646",
+      "expected_output": "Should skip research (not asked), present minimal screen list, build and push directly (URL provided with push)",
+      "assertions": [
+        { "name": "skips_research_gate", "check": "does NOT ask about research (URL with push implies skip)" },
+        { "name": "presents_screen_list", "check": "output contains at least one numbered screen" },
+        { "name": "shows_gate_options", "check": "output contains 'preview' AND 'push' as options" },
+        { "name": "writes_flow_data_json", "check": "writes flow-data.json" },
+        { "name": "uses_content_array", "check": "flow-data.json has content[], not contentHtml" },
+        { "name": "runs_script_not_freehand", "check": "runs flow-to-figma.js, does NOT write custom Figma code" },
+        { "name": "no_2>&1", "check": "does NOT redirect stderr to stdout when running flow-to-figma.js" },
+        { "name": "passes_target_node_id", "check": "passes 288:7646 as target node ID (converted from 288-7646)" }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I want to preview a data catalog browsing flow for Studio with search, filters, and detail view",
+      "expected_output": "Should do research gate, screen list, then generate HTML preview (user said 'preview')",
+      "assertions": [
+        { "name": "asks_research", "check": "presents research opt-in gate" },
+        { "name": "presents_screen_list", "check": "output contains numbered screen list" },
+        { "name": "shows_gate_options", "check": "gate shows preview/push options" },
+        { "name": "generates_html", "check": "writes an HTML file (user said 'preview')" },
+        { "name": "starts_server", "check": "runs ensure-server.sh" },
+        { "name": "presents_preview_url", "check": "shows localhost URL" }
+      ]
+    }
+  ]
+}
