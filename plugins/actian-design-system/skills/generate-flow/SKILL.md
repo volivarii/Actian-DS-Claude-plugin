@@ -35,9 +35,11 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 
 ## Execution Model
 
-Build first, explain after. There are exactly 2 gates where you pause:
-1. **Step 2** — research opt-in (skip if user already said "with research" or "no research")
+Build first, explain after. There are exactly 2 gates where you pause and wait for user input:
+1. **Step 2** — research opt-in. Present the question unless the user's prompt explicitly says "no research" or provides references.
 2. **Step 3** — screen list approval → then build and push to Figma
+
+**Both gates require a user response before proceeding.** Do not merge them or skip the research gate by assuming the answer.
 
 After screen list approval (gate 2), build flow-data.json with structured `content[]` nodes and push to Figma — all in one uninterrupted sequence. No "ok", no narration, no intermediate pauses.
 
@@ -80,9 +82,9 @@ Read `../../references/app-context.md` for the full inference table, entity mode
 
 Default to full detail page unless prompt implies staying on the list.
 
-## Step 2 — Research (opt-in)
+## Step 2 — Research gate (MANDATORY unless user pre-answered)
 
-If the user's prompt already answers (e.g., "no research", provides references), skip the question. Otherwise ask:
+**You MUST present this question** unless the user's prompt explicitly contains "no research", "skip research", "just build it", or provides reference URLs/files. Reading context files (Layer 1) is NOT the same as presenting this gate — the gate is a question to the user.
 
 > "Should I research UX patterns for this?
 > - **Yes** — I'll research competitor and best-in-class SaaS patterns
