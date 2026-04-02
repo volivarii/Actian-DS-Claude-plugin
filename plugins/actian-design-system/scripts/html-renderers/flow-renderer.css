@@ -282,3 +282,391 @@ body {
   color: white;
   cursor: not-allowed;
 }
+
+/* ── Structured node primitives ── */
+.fm-frame { display: flex; }
+.fm-text { display: inline; line-height: 1.5; }
+.fm-ellipse { border-radius: 50%; flex-shrink: 0; }
+.fm-rect { flex-shrink: 0; }
+.fm-divider { border: none; border-top: 1px solid var(--fm-base-300); margin: 0; }
+
+/* ── Cover card ── */
+.cover-card {
+  width: 1440px;
+  height: 960px;
+  background: var(--fm-base-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  flex-shrink: 0;
+}
+.cover-card__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: var(--fm-base-white);
+  text-align: center;
+}
+.cover-card__label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--fm-base-500);
+}
+.cover-card__title {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--fm-base-white);
+}
+.cover-card__meta {
+  display: flex;
+  gap: 24px;
+  font-size: 13px;
+  color: var(--fm-base-500);
+}
+
+/* ── Nav items (sidebar) ── */
+.fm-nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 8px 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--fm-base-800);
+}
+.fm-nav-item--active {
+  background: var(--fm-base-200);
+  font-weight: 600;
+}
+.fm-nav-item__icon {
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--fm-base-500);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.fm-nav-item__label {
+  font-size: 14px;
+  color: var(--fm-base-800);
+}
+.fm-nav-item--placeholder .fm-nav-item__icon {
+  background: var(--fm-base-200);
+  border-color: var(--fm-base-300);
+}
+.fm-nav-item__bar {
+  height: 12px;
+  width: 100px;
+  background: var(--fm-base-300);
+  border-radius: 4px;
+}
+
+/* ── FM Inputs ── */
+.fm-input {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+  color: var(--fm-text-primary);
+}
+.fm-input__text { color: var(--fm-text-primary); }
+
+/* ── FM Dropdown ── */
+.fm-dropdown {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 44px;
+  padding: 0 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+  color: var(--fm-text-primary);
+}
+.fm-dropdown__arrow { font-size: 12px; color: var(--fm-base-600); }
+.fm-dropdown--multi { }
+
+/* ── FM Search Input ── */
+.fm-search-input {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+}
+
+/* ── FM Textarea ── */
+.fm-textarea {
+  min-height: 80px;
+  padding: 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+  color: var(--fm-text-primary);
+}
+.fm-textarea--rich { min-height: 120px; }
+
+/* ── FM Date Input ── */
+.fm-date-input {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 12px;
+  border: 1.5px solid var(--fm-border);
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-white);
+  font-size: 14px;
+}
+
+/* ── FM Input Label ── */
+.fm-input-label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.fm-input-label__text { font-size: 13px; font-weight: 600; color: var(--fm-text-primary); }
+.fm-input-label__caption { font-size: 12px; color: var(--fm-text-tertiary); }
+
+/* ── FM Table Cell ── */
+.fm-table-cell {
+  padding: 10px 12px;
+  font-size: 13px;
+  color: var(--fm-text-primary);
+  border-bottom: 1px solid var(--fm-base-200);
+}
+
+/* ── FM Checkbox / Radio / Toggle ── */
+.fm-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--fm-base-600);
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+.fm-radio {
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--fm-base-600);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fm-toggle {
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--fm-base-400);
+  flex-shrink: 0;
+}
+
+/* ── FM Alert ── */
+.fm-alert {
+  display: flex;
+  border-radius: var(--fm-radius);
+  border: 1px solid var(--fm-base-300);
+  overflow: hidden;
+  font-size: 13px;
+}
+.fm-alert__bar { width: 4px; flex-shrink: 0; background: var(--fm-brand); }
+.fm-alert__content { padding: 12px 16px; color: var(--fm-text-primary); }
+
+/* ── FM Banner ── */
+.fm-banner {
+  padding: 12px 16px;
+  background: var(--fm-brand-light);
+  border-radius: var(--fm-radius);
+  font-size: 13px;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Dialog ── */
+.fm-dialog {
+  background: var(--fm-base-white);
+  border-radius: 12px;
+  box-shadow: var(--fm-shadow-default);
+  padding: 24px;
+  min-width: 320px;
+}
+.fm-dialog__title { font-size: 18px; font-weight: 600; color: var(--fm-text-primary); margin-bottom: 12px; }
+.fm-dialog__body { font-size: 14px; color: var(--fm-text-secondary); }
+
+/* ── FM Stepper ── */
+.fm-stepper {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--fm-base-300);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Badge ── */
+.fm-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 10px;
+  background: var(--fm-base-200);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Tag ── */
+.fm-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-200);
+  font-size: 12px;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Chip ── */
+.fm-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--fm-border);
+  font-size: 13px;
+  color: var(--fm-text-primary);
+}
+
+/* ── FM Tab ── */
+.fm-tab {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--fm-text-tertiary);
+  border-bottom: 2px solid transparent;
+}
+
+/* ── FM Toast ── */
+.fm-toast {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  background: var(--fm-base-800);
+  border-radius: var(--fm-radius);
+  color: var(--fm-base-white);
+  font-size: 13px;
+  box-shadow: var(--fm-shadow-default);
+}
+
+/* ── FM Empty State ── */
+.fm-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  gap: 12px;
+  color: var(--fm-text-tertiary);
+}
+.fm-empty-state__icon { width: 48px; height: 48px; background: var(--fm-base-200); border-radius: 50%; }
+.fm-empty-state__text { font-size: 14px; color: var(--fm-text-tertiary); }
+
+/* ── FM Placeholder ── */
+.fm-placeholder {
+  background: var(--fm-base-200);
+  border-radius: var(--fm-radius);
+  min-height: 24px;
+}
+
+/* ── FM Icon Button ── */
+.fm-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--fm-radius);
+  background: var(--fm-base-200);
+  flex-shrink: 0;
+}
+
+/* ── FM Spinner ── */
+.fm-spinner {
+  width: 24px;
+  height: 24px;
+  border: 3px solid var(--fm-base-300);
+  border-top-color: var(--fm-brand);
+  border-radius: 50%;
+}
+
+/* ── FM Progress Bar ── */
+.fm-progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--fm-base-200);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.fm-progress-bar__fill {
+  height: 100%;
+  background: var(--fm-brand);
+  border-radius: 4px;
+}
+
+/* ── FM Menu Item ── */
+.fm-menu-item {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: var(--fm-text-primary);
+  cursor: pointer;
+}
+
+/* ── FM Tooltip ── */
+.fm-tooltip {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--fm-base-800);
+  color: var(--fm-base-white);
+  border-radius: var(--fm-radius);
+  font-size: 12px;
+}
+
+/* ── FM Slider ── */
+.fm-slider {
+  width: 100%;
+  height: 6px;
+  background: var(--fm-base-300);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.fm-slider__fill {
+  height: 100%;
+  background: var(--fm-brand);
+  border-radius: 3px;
+}
+
+/* ── FM Component (generic fallback) ── */
+.fm-component {
+  padding: 12px 16px;
+  background: var(--fm-base-100);
+  border: 1px dashed var(--fm-base-400);
+  border-radius: var(--fm-radius);
+  font-size: 12px;
+  color: var(--fm-text-tertiary);
+  text-align: center;
+}
