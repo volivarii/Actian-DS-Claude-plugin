@@ -45,9 +45,31 @@
       parts.push('gap:' + layout.spacing + 'px');
     }
 
+    // Primary axis alignment
+    if (layout.primaryAxisAlignItems) {
+      var alignMap = {
+        'SPACE_BETWEEN': 'space-between', 'CENTER': 'center',
+        'MIN': 'flex-start', 'MAX': 'flex-end'
+      };
+      var justifyVal = alignMap[layout.primaryAxisAlignItems];
+      if (justifyVal) parts.push('justify-content:' + justifyVal);
+    }
+
+    // Counter axis alignment
+    if (layout.counterAxisAlignItems) {
+      var crossMap = {
+        'CENTER': 'center', 'MIN': 'flex-start', 'MAX': 'flex-end'
+      };
+      var alignItemsVal = crossMap[layout.counterAxisAlignItems];
+      if (alignItemsVal) parts.push('align-items:' + alignItemsVal);
+    }
+
     if (layout.padding) {
       var p = layout.padding;
-      if (typeof p === 'object') {
+      if (Array.isArray(p)) {
+        // [top, right, bottom, left]
+        parts.push('padding:' + (p[0]||0) + 'px ' + (p[1]||0) + 'px ' + (p[2]||0) + 'px ' + (p[3]||0) + 'px');
+      } else if (typeof p === 'object') {
         var t = p.top != null ? p.top : (p.vertical != null ? p.vertical : 0);
         var r = p.right != null ? p.right : (p.horizontal != null ? p.horizontal : 0);
         var b = p.bottom != null ? p.bottom : (p.vertical != null ? p.vertical : 0);
@@ -333,7 +355,11 @@
     }
 
     var headerHtml = chrome.appHeaderType ? appHeader(chrome.appHeaderType) : '';
-    var sidebarHtml = chrome.hasSidebar ? sidebar(s.sidebar || { items: 6 }) : '';
+    var sidebarConfig = s.sidebar || {
+      items: s.navItems || 6,
+      activeItem: s.activeNavItem || null
+    };
+    var sidebarHtml = chrome.hasSidebar ? sidebar(sidebarConfig) : '';
 
     return '<div class="screen" data-name="' + esc(s.name) + '" style="width:' + w + 'px;height:' + h + 'px;">'
       + headerHtml

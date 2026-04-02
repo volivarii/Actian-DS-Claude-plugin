@@ -62,7 +62,17 @@
         };
         var inputType = stateMap[v.Type] || stateMap[v.State] || 'default';
         var text = esc(props['Input Text'] || '');
-        return '<div class="fm-input fm-input--' + inputType + '"><span class="fm-input__text">' + text + '</span></div>';
+        var inputHtml = '<div class="fm-input fm-input--' + inputType + '"><span class="fm-input__text">' + text + '</span></div>';
+        if (props['Show label'] !== false && props['Label Text']) {
+          var labelHtml = '<div class="fm-input-label">'
+            + '<span class="fm-input-label__text">' + esc(props['Label Text']) + '</span>';
+          if (props['Caption'] !== false && props['Caption Text']) {
+            labelHtml += '<span class="fm-input-label__caption">' + esc(props['Caption Text']) + '</span>';
+          }
+          labelHtml += '</div>';
+          return '<div class="fm-field-group">' + labelHtml + inputHtml + '</div>';
+        }
+        return inputHtml;
       }
 
       case 'fmDropdown': {
@@ -72,7 +82,17 @@
         };
         var ddType = ddMap[v.Type] || ddMap[v.State] || 'placeholder';
         var ddText = esc(props['Dropdown Text'] || '');
-        return '<div class="fm-dropdown fm-dropdown--' + ddType + '"><span>' + ddText + '</span><span class="fm-dropdown__arrow">&#9662;</span></div>';
+        var ddHtml = '<div class="fm-dropdown fm-dropdown--' + ddType + '"><span>' + ddText + '</span><span class="fm-dropdown__arrow">&#9662;</span></div>';
+        if (props['Show label'] !== false && props['Label Text']) {
+          var ddLabelHtml = '<div class="fm-input-label">'
+            + '<span class="fm-input-label__text">' + esc(props['Label Text']) + '</span>';
+          if (props['Caption'] !== false && props['Caption Text']) {
+            ddLabelHtml += '<span class="fm-input-label__caption">' + esc(props['Caption Text']) + '</span>';
+          }
+          ddLabelHtml += '</div>';
+          return '<div class="fm-field-group">' + ddLabelHtml + ddHtml + '</div>';
+        }
+        return ddHtml;
       }
 
       case 'fmSearchInput': {
