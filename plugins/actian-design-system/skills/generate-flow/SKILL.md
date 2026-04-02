@@ -27,6 +27,7 @@ Generate a low-fidelity user flow using Fat Marker components and push it to Fig
 
 - **DO NOT ask questions** except at the gates below. No "what kind of dashboard?", no "which output format?", no "which sub-flows?"
 - **DO NOT add intermediate confirmation gates.** Never say "ok, let me now..." and wait. Never ask "should I proceed?" between steps. The only pauses are the gates listed below.
+- **DO NOT dump JSON, code, or file contents in chat.** Write files silently. The user sees tool call summaries — don't repeat file contents as text output.
 - **DO NOT use TaskCreate or TodoWrite.** Just execute.
 - **DO NOT read CLAUDE.md repeatedly.** Read it once or not at all.
 - **DO NOT spend multiple tool calls parsing research output.** Summarize what you have and move on.
