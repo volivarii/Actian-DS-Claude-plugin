@@ -5,12 +5,13 @@
  * brief-to-figma.js — Deterministic transformer: brief-data.json -> Figma plugin JS code
  *
  * Usage:
- *   node scripts/brief-to-figma.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>]
+ *   node scripts/brief-to-figma.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>] [--output-dir <dir>]
  *
- * Reads brief-data.json, builds card nodes (same as brief-to-spec.js), then uses
- * figma-codegen.js to generate self-contained Figma plugin JS code instead of JSON specs.
+ * Reads brief-data.json, builds card nodes, then uses figma-codegen.js to generate
+ * self-contained Figma plugin JS code.
  *
  * Output: JSON array of { callIndex, code, description } to stdout
+ *         With --output-dir: writes call-N.js files + manifest.json to <dir>
  */
 
 const fs = require('fs');
@@ -952,7 +953,7 @@ function autoSplitCalls(data, targetNodeId) {
 
 function parseArgs(argv) {
   const args = argv.slice(2);
-  const result = { inputPath: null, targetNodeId: null, call: null, output: null };
+  const result = { inputPath: null, targetNodeId: null, call: null, output: null, outputDir: null };
 
   let i = 0;
   while (i < args.length) {
@@ -961,6 +962,9 @@ function parseArgs(argv) {
       i += 2;
     } else if (args[i] === '--call' && i + 1 < args.length) {
       result.call = parseInt(args[i + 1], 10);
+      i += 2;
+    } else if (args[i] === '--output-dir' && i + 1 < args.length) {
+      result.outputDir = args[i + 1];
       i += 2;
     } else if (args[i] === '--output' && i + 1 < args.length) {
       result.output = args[i + 1];
@@ -981,7 +985,7 @@ function main() {
   const opts = parseArgs(process.argv);
 
   if (!opts.inputPath) {
-    process.stderr.write('Usage: node brief-to-figma.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>]\n');
+    process.stderr.write('Usage: node brief-to-figma.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>] [--output-dir <dir>]\n');
     process.exit(1);
   }
 
@@ -1036,18 +1040,37 @@ function main() {
     output = allCalls;
   }
 
-  const json = JSON.stringify(output, null, 2);
-
-  if (opts.output) {
-    try {
-      fs.mkdirSync(path.dirname(path.resolve(opts.output)), { recursive: true });
-      fs.writeFileSync(path.resolve(opts.output), json, 'utf8');
-    } catch (err) {
-      process.stderr.write(`Error writing output file: ${err.message}\n`);
-      process.exit(1);
+  if (opts.outputDir) {
+    // Write each call as a separate file + manifest
+    fs.mkdirSync(opts.outputDir, { recursive: true });
+    const manifest = { totalCalls: allCalls.length, calls: [] };
+    for (const r of allCalls) {
+      const fileName = 'call-' + r.callIndex + '.js';
+      const filePath = path.join(opts.outputDir, fileName);
+      fs.writeFileSync(filePath, r.code, 'utf8');
+      manifest.calls.push({
+        callIndex: r.callIndex,
+        file: fileName,
+        sizeBytes: Buffer.byteLength(r.code, 'utf8'),
+        description: r.description
+      });
     }
+    fs.writeFileSync(path.join(opts.outputDir, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
+    process.stderr.write(`Wrote ${allCalls.length} call file(s) to ${opts.outputDir}\n`);
   } else {
-    process.stdout.write(json + '\n');
+    const json = JSON.stringify(output, null, 2);
+
+    if (opts.output) {
+      try {
+        fs.mkdirSync(path.dirname(path.resolve(opts.output)), { recursive: true });
+        fs.writeFileSync(path.resolve(opts.output), json, 'utf8');
+      } catch (err) {
+        process.stderr.write(`Error writing output file: ${err.message}\n`);
+        process.exit(1);
+      }
+    } else {
+      process.stdout.write(json + '\n');
+    }
   }
 
   process.stderr.write(`Done: ${allCalls.length} call(s)\n`);

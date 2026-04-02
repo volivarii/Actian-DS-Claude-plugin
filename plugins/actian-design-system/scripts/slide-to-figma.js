@@ -6,9 +6,10 @@
  * generates Figma plugin JS via the codegen library.
  *
  * Usage:
- *   node scripts/slide-to-figma.js <slide-data.json> --target-node-id <id>
+ *   node scripts/slide-to-figma.js <slide-data.json> --target-node-id <id> [--output-dir <dir>]
  *
  * Output: JSON array of { callIndex, code, description } to stdout
+ *         With --output-dir: writes call-N.js files + manifest.json to <dir>
  * Logs:   "Done: N call(s), M slide(s)" to stderr
  */
 
@@ -346,15 +347,17 @@ function main() {
   let inputPath = null;
   let targetNodeId = null;
   let outputPath = null;
+  let outputDir = null;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--target-node-id' && args[i + 1]) { targetNodeId = args[++i]; }
+    else if (args[i] === '--output-dir' && args[i + 1]) { outputDir = args[++i]; }
     else if (args[i] === '--output' && args[i + 1]) { outputPath = args[++i]; }
     else if (!inputPath) { inputPath = args[i]; }
   }
 
   if (!inputPath) {
-    process.stderr.write('Usage: node slide-to-figma.js <slide-data.json> --target-node-id <id> [--output <path>]\n');
+    process.stderr.write('Usage: node slide-to-figma.js <slide-data.json> --target-node-id <id> [--output <path>] [--output-dir <dir>]\n');
     process.exit(1);
   }
 
@@ -397,7 +400,24 @@ function main() {
   const calls = autoSplit(input.meta, items, usedVars);
   const output = JSON.stringify(calls);
 
-  if (outputPath) {
+  if (outputDir) {
+    // Write each call as a separate file + manifest
+    fs.mkdirSync(outputDir, { recursive: true });
+    const manifest = { totalCalls: calls.length, calls: [] };
+    for (const r of calls) {
+      const fileName = 'call-' + r.callIndex + '.js';
+      const filePath = path.join(outputDir, fileName);
+      fs.writeFileSync(filePath, r.code, 'utf8');
+      manifest.calls.push({
+        callIndex: r.callIndex,
+        file: fileName,
+        sizeBytes: Buffer.byteLength(r.code, 'utf8'),
+        description: r.description
+      });
+    }
+    fs.writeFileSync(path.join(outputDir, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
+    process.stderr.write('Wrote ' + calls.length + ' call file(s) to ' + outputDir + '\n');
+  } else if (outputPath) {
     fs.writeFileSync(outputPath, output);
     process.stderr.write('Written to ' + outputPath + '\n');
   } else {

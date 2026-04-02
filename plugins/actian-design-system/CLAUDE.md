@@ -34,76 +34,18 @@ BASE_URL=$(scripts/ensure-server.sh . 8765)
 
 ## File Organization
 
-### Data flow — single source of truth
+Figma libraries are the single source of truth. Data flows: `Figma → /sync-design-system (MCP) → docs/ + tokens/`. JSON is source of truth for skills; Markdown is auto-generated for human review. Full file catalog: `references/file-catalog.md`.
 
-Figma libraries are the single source of truth. The `/sync-design-system` skill extracts data directly via MCP tools.
+**Key data files** (read JSON, not Markdown):
+- `docs/component-guidelines/*.json` — per-component content/design guidelines (44 components)
+- `docs/fm-components-registry.json` — FM Kit: keys, variants, text overrides, boolean properties
+- `docs/dskit-components-registry.json` — DS Kit: keys, variants, text overrides, boolean properties
+- `tokens/actian-ds.tokens.json` — W3C DTCG token values (3 themes)
 
-```
-Figma libraries → /sync-design-system skill (MCP tools) → Plugin docs/tokens/
-```
-
-To update docs and tokens: run `/sync-design-system` (extracts directly from Figma via MCP).
-
-### Dual format strategy — JSON primary, Markdown secondary
-
-Design system data uses a dual-format approach:
-
-- **JSON** = source of truth for skills (structured, queryable, composable)
-- **Markdown** = auto-generated from JSON for human review (git-diffable, readable)
-
-Skills should always read JSON for programmatic decisions (token values, guideline rules, component properties). Markdown files are for human documentation and are regenerated on each sync.
-
-### Reference files
-
-**JSON (source of truth — read these in skills):**
-
-| File | Source | Purpose |
-|------|--------|---------|
-| `docs/component-guidelines/*.json` | Extracted via `/sync-design-system` (Phase 5) | Per-component content/design guidelines (44 components) |
-| `docs/foundations/*.json` | Extracted via `/sync-design-system` (Phase 6) | Foundation docs: accessibility, borders, color, spacing, typography, etc. |
-| `tokens/actian-ds.tokens.json` | Extracted via `/sync-design-system` | W3C DTCG format (source of truth for token values) |
-| `docs/meta-kit/variables.md` | Extracted via `/sync-design-system` | DS Kit variable keys (115 vars, 3 themes) |
-| `docs/meta-kit/text-styles.md` | Extracted via `/sync-design-system` | DS Kit text styles with font specs |
-| `docs/meta-kit/effect-styles.md` | Extracted via `/sync-design-system` | DS Kit effect styles with shadow params |
-| `docs/meta-kit/components.md` | Extracted via `/sync-design-system` | Meta Kit component keys and properties |
-| `docs/meta-kit/meta-kit-registry.json` | Generated via `/sync-design-system` | Meta Kit component + template keys, text slots, categories |
-| `docs/fm-components-registry.json` | Generated via `/sync-design-system` | FM Kit component keys, variants, text overrides, boolean properties (40 components) |
-| `docs/dskit-components-registry.json` | Generated via `/sync-design-system` | DS Kit component keys, variants, text overrides, boolean properties (103 component sets) |
-
-**Markdown (auto-generated from JSON — for human review):**
-
-| File | Generated from | Purpose |
-|------|---------------|---------|
-| `docs/content-guidelines.md` | `foundations/content-guidelines.json` | UI copy rules (auto-generated, do not edit) |
-| `docs/accessibility-guidelines.md` | `foundations/accessibility.json` | WCAG 2.1 AA standards (auto-generated, do not edit) |
-| `docs/token-reference.md` | `tokens/actian-ds.tokens.json` | Human-readable token reference (3 themes) |
-| `docs/dskit-components.md` | Figma MCP extraction | 97 DS Kit component sets + 3 standalone components |
-| `docs/fm-components.md` | Figma MCP extraction | 33 FM Kit component sets + 7 standalone components |
-| `tokens/tokens.css` | `tokens/actian-ds.tokens.json` | CSS custom properties (`--zen-*`) |
-| `docs/meta-kit/meta-kit-reference.md` | `meta-kit-registry.json` | Human-readable registry table (auto-generated, do not edit) |
-
-**Hand-authored (not synced):**
-
-| File | Purpose |
-|------|---------|
-| `docs/presentation-guide.md` | Slide templates, voice & tone, chart selection, narrative structure |
-| `docs/meta-kit/builders.md` | Shared JS builder functions |
-| `scripts/figma-codegen.js` | Shared Figma code generation library — generates Plugin API code from node trees. Used by all Figma-writing skills (flow-to-figma, brief-to-figma, slide-to-figma, create-component). |
-| `scripts/flow-to-figma.js` | Flow-specific: reads flow-data.json, applies templates from templates.json, generates self-contained Figma plugin JS via codegen. |
-| `scripts/brief-to-figma.js` | Brief-specific: reads brief-data.json, builds 9 cards + gen log, generates Figma plugin JS via codegen. |
-| `scripts/slide-to-figma.js` | Slide-specific: reads slide-data.json, builds slide frames with gradients + variable bindings, generates Figma plugin JS via codegen. |
-| `scripts/templates.json` | Template definitions: dimensions, chrome type, content area config per template (admin, studio, explorer, no-sidebar, bare, mobile, tablet, compact, custom). |
-| `scripts/html-renderers/brief-renderer.js` | Client-side card renderer — builds all 9 DS + 5 FM cards from brief-data.json. Embedded in HTML. |
-| `scripts/html-renderers/flow-renderer.js` | Client-side screen chrome renderer — app header, sidebar, page header, cover card. Embedded in HTML. |
-| `scripts/html-renderers/presentation-renderer.js` | Client-side slide template renderer — cover, section, body, back cover + chart helpers. Embedded in HTML. |
-| `references/figma-spec-schema.md` | JSON spec schema reference — the format AI reads to produce valid specs |
-| `references/*.md` | Shared references (figma-output, fm-css, quality-checklist, token-naming, parity-check, app-context, ux-patterns, etc.) |
-| `references/component-brief/` | Data schema, figma-spec-builder, Figma rules, playground |
-| `references/generate-flow/` | HTML reference, figma-spec-builder, research guide |
-| `references/generate-presentation/` | Slide templates, chart types, figma-spec-builder |
-| `references/create-component/` | figma-spec-builder for component authoring |
-| `templates/` | CSS wrapper templates (ds-wrapper, fm-wrapper), annotation layer, prototype/playground wrappers |
-
+**Scripts** (deterministic transformers — data.json → Figma plugin JS):
+- `scripts/flow-to-figma.js`, `scripts/brief-to-figma.js`, `scripts/slide-to-figma.js`
+- All support `--output-dir <dir>` to write `call-N.js` + `manifest.json` (preferred over stdout)
+- `scripts/figma-codegen.js` — shared code generation library used by all three
 
 ## Versioning (Semantic Versioning)
 
@@ -156,25 +98,12 @@ The script handles all edge cases:
 
 ---
 
-## Token Reference
+## Design System References
 
-Token reference docs and files:
-- **[`docs/token-reference.md`](docs/token-reference.md)** — Human + AI readable token reference (Markdown)
-- **[`tokens/actian-ds.tokens.json`](tokens/actian-ds.tokens.json)** — Source of truth (W3C DTCG format)
-- **[`tokens/tokens.css`](tokens/tokens.css)** — CSS custom properties with `--zen-*` prefix, 3 theme modes via `[data-theme]`
-- Source Figma: Actian Design System 2026 (file key in `.figma-keys.json` → `dsKit`)
-
-When generating HTML, import `tokens/tokens.css` or copy the relevant `--zen-*` variables into your `<style>` block. Use `var(--zen-color-theme-primary)` not hardcoded hex values.
-
-## Content Guidelines
-
-All UI copy rules are in **[`docs/content-guidelines.md`](docs/content-guidelines.md)**.
-Apply in every task: component briefs, design audits, flow generation, and analysis.
-
-## Accessibility Guidelines
-
-WCAG 2.1 AA standards and component checklists are in **[`docs/accessibility-guidelines.md`](docs/accessibility-guidelines.md)**.
-Apply in every task: contrast ratios, keyboard interaction, ARIA patterns, focus management, touch targets, P0–P2 component checklists.
+- **Tokens:** `tokens/actian-ds.tokens.json` (source of truth), `tokens/tokens.css` (`--zen-*` prefix, 3 themes), `docs/token-reference.md` (human-readable)
+- **Content guidelines:** `docs/content-guidelines.md` — apply to all UI copy
+- **Accessibility:** `docs/accessibility-guidelines.md` — WCAG 2.1 AA, apply to all outputs
+- For HTML: use `var(--zen-color-theme-primary)` not hardcoded hex. Import `tokens/tokens.css` or copy relevant variables.
 
 ---
 
@@ -234,36 +163,6 @@ These rules apply to all generated screens (flows, specs, audits) across all ski
 - Fluid width for background color and stroke
 - Actions container constrained to **1600px max-width**
 - **Primary actions on the right**, secondary on the left
-
----
-
-## Theme Modes
-
-3 themes: **Actian**, **Studio**, **Explorer**.
-
-Theme switching changes these tokens (see `token-reference.md` for exact values):
-
-- `theme-primary`, `theme-selected`
-- `interactive-selected-primary`, `interactive-selected-secondary`, `interactive-dragged-primary`
-- `background-bg-reverse`
-- Most `status-*` tokens (values differ per theme)
-- `text-secondary`, `text-tertiary`, `text-placeholder`, `text-disabled`
-- `icon-secondary`, `icon-disabled`
-- `border-default`, `border-strong`, `border-disabled`
-- `overlay-default`
-- Category 8 `strong` level
-- `background-bg-grey-1`, `background-bg-grey-2`, `background-bg-disabled`
-
-Theme switching must be implemented at the CSS variable root level so all components inherit automatically.
-
----
-
-## Known Source Typos (Corrected)
-
-These typos were present in earlier Figma exports but have been **corrected in the 03/19 export**.
-Use the **corrected** names going forward:
-- `body-standard` (was `body-stardard`)
-- `interactive-*-secondary` (was `interactive-*-secodary`)
 
 ---
 
@@ -362,22 +261,12 @@ Every skill that pushes to Figma MUST run a parity check immediately after `use_
 
 ## Interactive Prototypes & Playgrounds
 
-Opt-in interactive previews for testing flows and components before pushing to Figma. See `references/prototype-reference.md` for generation rules.
+Opt-in interactive previews. See `references/prototype-reference.md` for details.
 
-**Flows** → `[name]-prototype.html`: Alpine.js shell with click-to-navigate, form validation, branching paths. Template: `templates/flow-prototype-wrapper.html`.
-
-**Components** → `[name]-playground.html`: Alpine.js shell with state switching, variant axes, theme toggling, live token readout. Template: `templates/component-playground-wrapper.html`.
-
-**Opt-in triggers:**
-- Prompt keywords: "prototype", "interactive", "playable", "clickable", "test it", "playground", "test states"
-- Gate keyword: "prototype" (flows) or "playground" (components)
-- Suppressed by: "quick", "draft", "just the flow"
-
-**Rules:**
-- Prototypes are for testing only — never pushed to Figma
-- Static HTML remains the source of truth for Figma parity
-- Same `ensure-server.sh` serves both files
-- Alpine.js 3.14.9 from CDN — no build step
+- **Flows** → `[name]-prototype.html` (Alpine.js, template: `templates/flow-prototype-wrapper.html`)
+- **Components** → `[name]-playground.html` (Alpine.js, template: `templates/component-playground-wrapper.html`)
+- **Triggers:** "prototype", "interactive", "playable", "playground", "test states". Suppressed by "quick"/"draft".
+- For testing only — never pushed to Figma. Static HTML is the source of truth.
 
 ---
 

@@ -6,9 +6,10 @@
  * generates Figma plugin JS via the codegen library.
  *
  * Usage:
- *   node scripts/flow-to-figma.js <input.json> --target-node-id "288:7646"
+ *   node scripts/flow-to-figma.js <input.json> --target-node-id "288:7646" [--output-dir <dir>]
  *
  * Output: JSON array of { callIndex, code, description } to stdout
+ *         With --output-dir: writes call-N.js files + manifest.json to <dir>
  * Logs:   "Done: N call(s), M screen(s)" to stderr
  */
 
@@ -461,6 +462,60 @@ function buildDescription(callIdx, totalCalls, items) {
 }
 
 // ---------------------------------------------------------------------------
+// Input validation
+// ---------------------------------------------------------------------------
+
+function validateInput(input, pluginRoot) {
+  const warnings = [];
+
+  // Reject contentHtml — must use content[] nodes
+  for (const screen of (input.screens || [])) {
+    if (screen.contentHtml) {
+      warnings.push('Screen "' + (screen.name || '?') + '" uses contentHtml — use content[] nodes instead');
+    }
+  }
+
+  // Check for missing boolean properties on button instances
+  let registry = null;
+  try {
+    const regPath = path.join(pluginRoot, 'docs', 'fm-components-registry.json');
+    registry = JSON.parse(fs.readFileSync(regPath, 'utf8'));
+  } catch (e) { /* registry not available — skip boolean checks */ }
+
+  if (registry && registry.components) {
+    const walkNodes = function(nodes) {
+      for (const node of (nodes || [])) {
+        if (node.type === 'INSTANCE' && node.componentKey) {
+          const comp = registry.components[node.componentKey];
+          if (comp && comp.booleanProperties) {
+            for (const propName of Object.keys(comp.booleanProperties)) {
+              if (!node.overrides || !(propName in node.overrides)) {
+                warnings.push('Screen instance "' + (node.componentKey || '?') + '" missing boolean prop "' + propName + '" (defaults to ' + comp.booleanProperties[propName].default + ')');
+              }
+            }
+          }
+        }
+        if (node.children) walkNodes(node.children);
+      }
+    };
+
+    for (const screen of (input.screens || [])) {
+      walkNodes(screen.content);
+    }
+  }
+
+  // Check required meta fields
+  if (!input.meta) {
+    warnings.push('Missing meta object');
+  } else {
+    if (!input.meta.feature) warnings.push('meta.feature is missing');
+    if (!input.meta.skill) warnings.push('meta.skill is missing');
+  }
+
+  return warnings;
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -468,11 +523,14 @@ function main() {
   const args = process.argv.slice(2);
   let inputPath = null;
   let targetNodeId = null;
+  let outputDir = null;
   let pluginRoot = path.resolve(__dirname, '..');
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--target-node-id' && args[i + 1]) {
       targetNodeId = args[++i];
+    } else if (args[i] === '--output-dir' && args[i + 1]) {
+      outputDir = args[++i];
     } else if (args[i] === '--plugin-root' && args[i + 1]) {
       pluginRoot = args[++i];
     } else if (!inputPath) {
@@ -481,7 +539,7 @@ function main() {
   }
 
   if (!inputPath) {
-    process.stderr.write('Usage: node flow-to-figma.js <input.json> --target-node-id "288:7646"\n');
+    process.stderr.write('Usage: node flow-to-figma.js <input.json> --target-node-id "288:7646" [--output-dir <dir>]\n');
     process.exit(1);
   }
 
@@ -503,6 +561,12 @@ function main() {
   } catch (e) {
     process.stderr.write('Error: invalid JSON: ' + e.message + '\n');
     process.exit(1);
+  }
+
+  // Validate input
+  const warnings = validateInput(input, pluginRoot);
+  for (const w of warnings) {
+    process.stderr.write('WARNING: ' + w + '\n');
   }
 
   // Override targetNodeId from CLI
@@ -592,8 +656,28 @@ function main() {
     });
   }
 
-  // Output JSON array
-  process.stdout.write(JSON.stringify(results, null, 2) + '\n');
+  // Output
+  if (outputDir) {
+    // Write each call as a separate file for easier consumption
+    fs.mkdirSync(outputDir, { recursive: true });
+    const manifest = { totalCalls: totalCalls, calls: [] };
+    for (const r of results) {
+      const fileName = 'call-' + r.callIndex + '.js';
+      const filePath = path.join(outputDir, fileName);
+      fs.writeFileSync(filePath, r.code, 'utf8');
+      manifest.calls.push({
+        callIndex: r.callIndex,
+        file: fileName,
+        sizeBytes: Buffer.byteLength(r.code, 'utf8'),
+        description: r.description
+      });
+    }
+    fs.writeFileSync(path.join(outputDir, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
+    process.stderr.write('Wrote ' + totalCalls + ' call file(s) to ' + outputDir + '\n');
+  } else {
+    // Legacy: JSON array to stdout
+    process.stdout.write(JSON.stringify(results, null, 2) + '\n');
+  }
 
   process.stderr.write('Done: ' + totalCalls + ' call(s), ' + (input.screens || []).length + ' screen(s)\n');
 }

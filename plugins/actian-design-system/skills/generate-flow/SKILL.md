@@ -131,9 +131,9 @@ Present the list and ask:
 > - **"preview"** — generate HTML preview with annotations before pushing
 > - **"push [Figma URL]"** — approve and push directly to Figma
 
-## Step 4 — Build flow-data.json and push to Figma
+## Step 4 — Build flow-data.json (ALWAYS — even for preview)
 
-**This entire step — reading references, building JSON, running the script, and pushing — happens in one uninterrupted sequence after the screen list is approved. No pauses, no narration, no intermediate confirmations.**
+**flow-data.json is the single source of truth.** Build it before anything else — both Figma push and HTML preview consume it.
 
 1. Read `../../references/generate-flow/figma-spec-builder.md` — template list + content node reference
 2. Build `flow-data.json` with structured `content[]` nodes:
@@ -142,19 +142,10 @@ Present the list and ask:
    - `screens[]`: one per screen, each with: name, template, activeNavItem, navItems, pageHeader, contentSpacing, `content[]`
 3. Write `content[]` per screen using **structured spec nodes** (FRAME, TEXT, INSTANCE, DIVIDER) — see figma-spec-builder.md for the full node reference
 4. Write to: `{project_working_directory}/components/flows/flow-data.json`
-5. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<nodeId>"` — do NOT add `2>&1` (stderr has info lines that would corrupt the JSON)
-6. Script outputs a JSON array of `{ callIndex, code, description }` on stdout
-7. For each call, pass the `code` string DIRECTLY to `use_figma` — no modifications except replacing `__WRAPPER_ID__`:
-   - Call 1: pass `code` as-is (creates wrapper + section)
-   - Call 2+: string-replace `__WRAPPER_ID__` in `code` with the `wrapperId` from call 1's response, then pass to `use_figma`
-8. After all calls: parity check (Step 5)
 
-**CRITICAL: Do NOT write freehand Figma code.** The script output IS the Figma code — pass it through. Do not write custom `findVariant`, `setProp`, or screen-building code. Do not write code to intermediate files. Do not use `sed`. The script handles chrome, variant matching, property overrides, and auto-layout correctly. If text overrides don't apply, the fix is in flow-data.json (wrong property name), not in post-push correction code.
-
-**There is no HTML step in the default path.** The structured nodes go directly to flow-to-figma.js → Figma.
-
-**Feature focus principle (FM flows — mandatory):**
-Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — everything else must use placeholder/muted variants. The script handles sidebar placeholders automatically from `navItems` count.
+**If the user said "preview":** proceed to Step 4a (HTML preview).
+**If the user provided a Figma URL:** proceed to Step 4b (push to Figma).
+**If no Figma URL was provided:** ask for one: "Where should I push this? Provide a Figma file URL."
 
 **Key rules (P0 — violations block push):**
 - FM first — check `../../docs/fm-components.md` + `../../docs/fm-components-registry.json` for available components and their boolean properties
@@ -163,15 +154,16 @@ Spotlight the feature being demonstrated. Only elements directly relevant to the
 - **No hardcoded hex** in content[] nodes — use FM variable names from `../../references/fm-css-reference.md` where possible
 - Forms: inputs 480px max-width, extended elements full-width
 - All text must be contextual, not generic ("Schedule Refresh" not "Submit")
+- **Feature focus:** Spotlight the feature, placeholder everything else. The script handles sidebar placeholders from `navItems` count.
 
-### HTML preview (opt-in)
+### Step 4a — HTML preview (opt-in)
 
 **Trigger:** User says "preview" at the screen list gate, or includes "preview" in the original prompt.
 
-If triggered, generate the HTML preview BEFORE pushing to Figma:
+Generate the HTML preview from the SAME `flow-data.json` built in Step 4:
 
 1. Read `../../references/generate-flow/html-reference.md` and `../../scripts/html-renderers/flow-renderer.js`
-2. Build HTML file from the same `flow-data.json` — the renderer uses `content[]` via `renderContentNode()`, or `contentHtml` if present
+2. Build HTML file from `flow-data.json` — the renderer uses `content[]` via `renderContentNode()`
 3. Write to: `{project_working_directory}/components/flows/[feature-name]-flow.html`
 4. Start server: `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
 5. Present preview URL and options:
@@ -185,7 +177,27 @@ If triggered, generate the HTML preview BEFORE pushing to Figma:
 > - **feedback** — describe changes, I'll fix and re-preview
 
 6. On feedback: fix flow-data.json, regenerate HTML, re-serve, re-present.
-7. On "push": proceed to the push step above.
+7. On "push": proceed to Step 4b below.
+
+### Step 4b — Push to Figma
+
+**This step runs the script and pushes — no pauses, no narration, no intermediate confirmations.**
+
+1. Run the script with `--output-dir` to write each call as a separate file:
+   ```
+   node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json \
+     --target-node-id "<nodeId>" \
+     --output-dir {project_working_directory}/components/flows/.figma-calls
+   ```
+   Do NOT add `2>&1` (stderr has info lines).
+2. Read `manifest.json` from the output directory — it lists each call file and its size
+3. For each call file listed in the manifest:
+   - Read the `.js` file from the output directory
+   - Call 1: pass code as-is to `use_figma` (creates wrapper, returns `wrapperId`)
+   - Call 2+: replace `__WRAPPER_ID__` in the code with the `wrapperId` from call 1, then pass to `use_figma`
+4. After all calls: parity check (Step 5)
+
+**CRITICAL: Do NOT write freehand Figma code.** The script output IS the Figma code — pass it through. Do not write custom `findVariant`, `setProp`, or screen-building code. The script handles chrome, variant matching, property overrides, and auto-layout. If text overrides don't apply, the fix is in flow-data.json, not post-push correction code.
 
 ### Interactive prototype (opt-in)
 

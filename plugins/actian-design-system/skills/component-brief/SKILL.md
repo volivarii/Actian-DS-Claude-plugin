@@ -164,29 +164,23 @@ Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming
 
 **Do NOT generate the figma-spec manually.** A fixed Node.js script transforms brief-data.json into ready-to-run Figma Plugin API code. The AI only runs the script and passes its output to `use_figma`.
 
-1. Run the code generator script:
+1. Run the code generator script with `--output-dir`:
    ```bash
    node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js \
      {project_working_directory}/components/[name]/[name]-brief-data.json \
-     --target-node-id [nodeId]
+     --target-node-id [nodeId] \
+     --output-dir {project_working_directory}/components/[name]/.figma-calls
    ```
-   The script outputs a JSON array of `{ callIndex, code, description }` on stdout (auto-split to keep each call under ~45KB). Info lines go to stderr — do NOT add `2>&1`. Parse stdout directly.
+   Do NOT add `2>&1` (stderr has info lines).
 
-2. For each item in the array:
-   - Call 1 has `meta.targetNodeId` embedded in the code — creates the wrapper frame, returns `{ wrapperId }`
-   - Calls 2+ use `__WRAPPER_ID__` placeholder in the code — replace with the actual `wrapperId` returned from Call 1
-   - Pass `code` directly to `use_figma`:
-     ```js
-     // Call 1 — pass code as-is
-     return await (async () => { ${item.code} })();
+2. Read `manifest.json` from the output directory — it lists each call file and its size.
 
-     // Calls 2+ — substitute the wrapper ID first
-     const code = item.code.replace(/__WRAPPER_ID__/g, wrapperId);
-     return await (async () => { ${code} })();
-     ```
-   - Store the `wrapperId` from Call 1's return value
+3. For each call file listed in the manifest:
+   - Read the `.js` file from the output directory
+   - Call 1: pass code as-is to `use_figma` (creates wrapper, returns `wrapperId`)
+   - Call 2+: replace `__WRAPPER_ID__` in the code with the `wrapperId` from call 1, then pass to `use_figma`
 
-3. After all calls: parity validation (data model counts vs Figma frame counts)
+4. After all calls: parity validation (data model counts vs Figma frame counts)
 
 **What the AI does:** Run the script, pass each `code` string to `use_figma`, replace `__WRAPPER_ID__`, store the wrapper ID
 **What the AI does NOT do:** Generate node trees, read spec builder references, compute textRanges, decide call splitting

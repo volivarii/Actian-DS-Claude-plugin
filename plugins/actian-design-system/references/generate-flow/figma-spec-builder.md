@@ -5,9 +5,18 @@ The `flow-to-figma.js` script builds Figma plugin code from flow-data.json. The 
 ## How it works
 
 1. AI writes `flow-data.json` with meta + screens (template + content per screen)
-2. Script runs: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<id>"`
-3. Script outputs JSON array of `{ callIndex, code, description }` — self-contained Figma plugin JS per call
-4. AI passes each `code` to `use_figma` (replace `__WRAPPER_ID__` in call 2+ with wrapperId from call 1)
+2. Script runs with `--output-dir` to write each call as a separate file:
+   ```
+   node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json \
+     --target-node-id "<id>" \
+     --output-dir {project_working_directory}/components/flows/.figma-calls
+   ```
+3. Script writes `manifest.json` + `call-N.js` files to the output directory
+4. AI reads `manifest.json`, then reads each `call-N.js` file and passes it to `use_figma`
+   - Call 1: pass as-is (creates wrapper, returns `wrapperId`)
+   - Call 2+: replace `__WRAPPER_ID__` with wrapperId from call 1
+
+Legacy mode (without `--output-dir`): outputs JSON array to stdout. Use `--output-dir` for better handling of large calls.
 
 ## Templates
 
