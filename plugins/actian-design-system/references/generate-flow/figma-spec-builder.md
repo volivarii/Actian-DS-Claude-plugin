@@ -169,18 +169,32 @@ Use `ref` names from the FM component table below. The script auto-resolves impo
 | `fmSpinner` | Spinner | (single component) |
 | `fmProgressBar` | Progress bar | `Completion=10%\|20%\|...\|100%` |
 
-Set ALL text properties on every instance. Never leave FM defaults like "Label", "Caption", "Text":
+**Set ALL properties on every instance** — text, boolean, and nested properties. Never leave defaults like "Label", "Button", "Caption Text". Check `docs/fm-components-registry.json` for each component's `textOverrides` and `booleanProperties`.
+
+**Button example** — hide icons, set label:
 ```json
 { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
-  "props": { "Label": "Create Term" } }
+  "props": { "Label": "Save changes", "👁 Leading Icon": false, "👁 Trailing Icon": false } }
 ```
 
-**Button icons:** FM Button has leading and trailing icon placeholders visible by default. To hide them, set the boolean properties to `false`:
+**Form input example** — text input with nested label properties (do NOT add a separate fmInputLabel):
 ```json
-{ "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
-  "props": { "Label": "Save", "👁 Leading Icon": false, "👁 Trailing Icon": false } }
+{ "type": "INSTANCE", "ref": "fmTextInput", "variant": "Type=Default",
+  "name": "Input: Platform name",
+  "props": { "Input Text": "Actian Data Intelligence", "Label Text": "Platform name", "Caption Text": "Displayed in the header across all applications", "Show label": true, "Caption": true, "Required": false } }
 ```
-By default, **always hide button icons** (`"👁 Leading Icon": false, "👁 Trailing Icon": false`) unless the prompt specifically requests icons on buttons.
+
+**Dropdown example** — same pattern, nested label props on parent:
+```json
+{ "type": "INSTANCE", "ref": "fmDropdown", "variant": "Type=Filled",
+  "name": "Dropdown: Language",
+  "props": { "Dropdown Text": "English (US)", "Label Text": "Language", "Caption Text": "Default language for the platform", "Show label": true } }
+```
+
+**Rules:**
+- **Never create a separate `fmInputLabel`** next to an input that already contains one (fmTextInput, fmDropdown, fmSearchInput, fmTextArea all have nested labels)
+- **Always hide button icons** by default (`"👁 Leading Icon": false, "👁 Trailing Icon": false`)
+- **Set boolean properties** for visibility: `"Show label"`, `"Caption"`, `"Required"`, `"Disabled"`, `"Show Icon"`, `"Chevron"` — check the registry for each component
 
 ---
 

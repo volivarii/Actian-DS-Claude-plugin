@@ -277,6 +277,14 @@ Per-component token lookups are in the synced JSON files — do NOT hardcode fro
 
 Skills read these at runtime. When building any component, look up its tokens from the JSON — never use the values below as a substitute for the synced data.
 
+**Component instance properties — use ALL of them:**
+
+When creating a component instance in Figma (via `content[]` spec nodes or `use_figma`), set every relevant property:
+- **Variants** — the variant string (e.g., `"Type=Primary, Size=md, State=Default"`)
+- **Text overrides** — every text property (`Label`, `Title`, `Input Text`, `Caption Text`, etc.) — never leave defaults like "Label" or "Button"
+- **Boolean properties** — icon toggles (`"👁 Leading Icon": false`), visibility (`"Show label": false`), feature flags (`"Required": true`, `"Disabled": false`). Check `booleanProperties` in the component registry.
+- **Nested component properties** — FM inputs (Text Input, Dropdown, Search, Text Area) contain a nested FM Input Label whose properties (Caption, Required, Disabled, Show label) are exposed on the parent instance. Set them on the parent — do NOT create a separate FM Input Label next to an input that already has one built in.
+
 **Key patterns to remember** (not a complete reference):
 - Buttons: `theme-primary` fill, `label-standard` typography, `radius-sm` border
 - Form inputs: `border-default` → `border-strong` on focus, **480px max-width** container

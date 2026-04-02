@@ -143,11 +143,13 @@ Present the list and ask:
 3. Write `content[]` per screen using **structured spec nodes** (FRAME, TEXT, INSTANCE, DIVIDER) — see figma-spec-builder.md for the full node reference
 4. Write to: `{project_working_directory}/components/flows/flow-data.json`
 5. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<nodeId>"` — do NOT add `2>&1` (stderr has info lines that would corrupt the JSON)
-6. Script outputs a JSON array of `{ callIndex, code, description }` on stdout. Parse stdout directly — do not write to intermediate files or use custom parsers.
-7. For each call, pass `code` to `use_figma`:
-   - Call 1: use as-is (creates wrapper + section)
-   - Call 2+: replace `__WRAPPER_ID__` in code with the `wrapperId` from call 1's response
+6. Script outputs a JSON array of `{ callIndex, code, description }` on stdout
+7. For each call, pass the `code` string DIRECTLY to `use_figma` — no modifications except replacing `__WRAPPER_ID__`:
+   - Call 1: pass `code` as-is (creates wrapper + section)
+   - Call 2+: string-replace `__WRAPPER_ID__` in `code` with the `wrapperId` from call 1's response, then pass to `use_figma`
 8. After all calls: parity check (Step 5)
+
+**CRITICAL: Do NOT write freehand Figma code.** The script output IS the Figma code — pass it through. Do not write custom `findVariant`, `setProp`, or screen-building code. Do not write code to intermediate files. Do not use `sed`. The script handles chrome, variant matching, property overrides, and auto-layout correctly. If text overrides don't apply, the fix is in flow-data.json (wrong property name), not in post-push correction code.
 
 **There is no HTML step in the default path.** The structured nodes go directly to flow-to-figma.js → Figma.
 

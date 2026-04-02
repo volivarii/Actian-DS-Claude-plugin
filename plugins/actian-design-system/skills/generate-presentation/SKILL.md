@@ -86,10 +86,12 @@ Present the outline and ask:
 3. Write slide-data.json to: `{project_working_directory}/presentations/[topic-slug]/slide-data.json`
 4. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js slide-data.json --target-node-id "<nodeId>"` — do NOT add `2>&1`
 5. Script outputs a JSON array of `{ callIndex, code, description }` on stdout. Parse stdout directly.
-6. For each call, pass `code` to `use_figma`:
-   - Call 1: use as-is (creates wrapper)
-   - Call 2+: replace `__WRAPPER_ID__` with `wrapperId` from call 1
+6. For each call, pass the `code` string DIRECTLY to `use_figma` — no modifications except replacing `__WRAPPER_ID__`:
+   - Call 1: pass `code` as-is (creates wrapper)
+   - Call 2+: string-replace `__WRAPPER_ID__` with `wrapperId` from call 1, then pass to `use_figma`
 7. After all calls: parity check (Step 4)
+
+**CRITICAL: Do NOT write freehand Figma code.** The script output IS the Figma code — pass it through. Do not write custom slide-building code, intermediate files, or post-push fixes. If something is wrong, fix slide-data.json and rerun the script.
 
 **Key rules:**
 - 5 slide types: Cover, Body (Full), Body (Text+Visual), Section divider, Back cover

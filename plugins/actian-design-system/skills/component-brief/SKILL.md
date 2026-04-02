@@ -191,6 +191,8 @@ Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming
 **What the AI does:** Run the script, pass each `code` string to `use_figma`, replace `__WRAPPER_ID__`, store the wrapper ID
 **What the AI does NOT do:** Generate node trees, read spec builder references, compute textRanges, decide call splitting
 
+**CRITICAL: Do NOT write freehand Figma code.** The script output IS the Figma code — pass it through. Do not write custom `findVariant`, `setProp`, or card-building code. Do not write code to intermediate files. If text overrides don't apply, the fix is in brief-data.json (wrong property name), not in post-push correction code.
+
 **No reference files needed at runtime.** The script encodes all card-by-card mapping logic. The spec builder reference (`../../references/component-brief/figma-spec-builder.md`) is documentation for maintaining the script — not read by the AI.
 
 See also `../../references/component-brief/figma-rules.md` for page targeting, token binding, known pitfalls.
