@@ -230,16 +230,6 @@
 
   var genCard = fmMap.genCard || function() { return ''; };
 
-  function coverCard(flow) {
-    return '<div class="screen cover-card" data-name="Cover: ' + esc(flow.name) + '">'
-      + '<div class="cover-card__content">'
-      + '<div class="cover-card__label">FEATURE</div>'
-      + '<div class="cover-card__title">' + esc(flow.name || '') + '</div>'
-      + '<div class="cover-card__meta">'
-      + '<div>User: ' + esc(flow.user || 'User') + '</div>'
-      + '<div>Screens: ' + ((flow.screens && flow.screens.length) || 0) + '</div>'
-      + '</div></div></div>';
-  }
 
   function appHeader(type) {
     var labels = { Studio: 'Studio', Explorer: 'Explorer', Administration: 'Administration', Actian: 'Actian' };
@@ -355,16 +345,12 @@
       + '</div></div></div>';
   }
 
-  function flowRow(flow, meta) {
-    var html = genCard(meta);
-    html += coverCard(flow);
-    (flow.screens || []).forEach(function(s) { html += screen(s); });
-    return '<div class="flow-row" data-name="Flow: ' + esc(flow.name) + '">' + html + '</div>';
-  }
-
   // -------------------------------------------------------------------------
   // Entry Point
   // -------------------------------------------------------------------------
+
+  // Reads the same flat format as flow-to-figma.js: { meta, screens[] }
+  // No flows[] wrapper needed.
 
   if (typeof document !== 'undefined') {
     document.addEventListener('DOMContentLoaded', function() {
@@ -374,9 +360,23 @@
       var container = document.getElementById('flow-container');
       if (!container) return;
 
-      container.innerHTML = (data.flows || []).map(function(flow) {
-        return flowRow(flow, data.meta);
-      }).join('\n');
+      var meta = data.meta || {};
+      var screens = data.screens || [];
+      var flowName = meta.feature || meta.flow || 'Flow';
+
+      // Cover card uses meta fields directly
+      var coverHtml = '<div class="screen cover-card" data-name="Cover: ' + esc(flowName) + '">'
+        + '<div class="cover-card__content">'
+        + '<div class="cover-card__label">FEATURE</div>'
+        + '<div class="cover-card__title">' + esc(flowName) + '</div>'
+        + '<div class="cover-card__meta">'
+        + '<div>User: ' + esc(meta.user || 'User') + '</div>'
+        + '<div>Screens: ' + screens.length + '</div>'
+        + '</div></div></div>';
+
+      var html = genCard(meta) + coverHtml;
+      screens.forEach(function(s) { html += screen(s); });
+      container.innerHTML = '<div class="flow-row" data-name="Flow: ' + esc(flowName) + '">' + html + '</div>';
     });
   }
 
