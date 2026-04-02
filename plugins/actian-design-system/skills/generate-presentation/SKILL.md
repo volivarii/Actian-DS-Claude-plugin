@@ -84,8 +84,8 @@ Present the outline and ask:
    - Body slides: structured `content[]` nodes for charts and content
 2. Read `../../references/generate-presentation/figma-spec-builder.md` — input schema + chart patterns
 3. Write slide-data.json to: `{project_working_directory}/presentations/[topic-slug]/slide-data.json`
-4. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js slide-data.json --target-node-id "<nodeId>"`
-5. Script outputs JSON array of `{ callIndex, code, description }` — self-contained Figma plugin JS
+4. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js slide-data.json --target-node-id "<nodeId>"` — do NOT add `2>&1`
+5. Script outputs a JSON array of `{ callIndex, code, description }` on stdout. Parse stdout directly.
 6. For each call, pass `code` to `use_figma`:
    - Call 1: use as-is (creates wrapper)
    - Call 2+: replace `__WRAPPER_ID__` with `wrapperId` from call 1

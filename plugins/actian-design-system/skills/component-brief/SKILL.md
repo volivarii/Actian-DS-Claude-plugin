@@ -170,7 +170,7 @@ Token naming: `--zen-*` prefix. Full reference at `../../references/token-naming
      {project_working_directory}/components/[name]/[name]-brief-data.json \
      --target-node-id [nodeId]
    ```
-   The script outputs a JSON array of `{ callIndex, code, description }` objects (auto-split to keep each call under ~45KB). It prints the call breakdown to stderr.
+   The script outputs a JSON array of `{ callIndex, code, description }` on stdout (auto-split to keep each call under ~45KB). Info lines go to stderr — do NOT add `2>&1`. Parse stdout directly.
 
 2. For each item in the array:
    - Call 1 has `meta.targetNodeId` embedded in the code — creates the wrapper frame, returns `{ wrapperId }`

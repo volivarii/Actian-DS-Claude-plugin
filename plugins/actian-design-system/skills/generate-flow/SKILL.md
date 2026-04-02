@@ -142,8 +142,8 @@ Present the list and ask:
    - `screens[]`: one per screen, each with: name, template, activeNavItem, navItems, pageHeader, contentSpacing, `content[]`
 3. Write `content[]` per screen using **structured spec nodes** (FRAME, TEXT, INSTANCE, DIVIDER) — see figma-spec-builder.md for the full node reference
 4. Write to: `{project_working_directory}/components/flows/flow-data.json`
-5. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<nodeId>"`
-6. Script outputs JSON array of `{ callIndex, code, description }` to stdout
+5. Run: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<nodeId>"` — do NOT add `2>&1` (stderr has info lines that would corrupt the JSON)
+6. Script outputs a JSON array of `{ callIndex, code, description }` on stdout. Parse stdout directly — do not write to intermediate files or use custom parsers.
 7. For each call, pass `code` to `use_figma`:
    - Call 1: use as-is (creates wrapper + section)
    - Call 2+: replace `__WRAPPER_ID__` in code with the `wrapperId` from call 1's response
