@@ -1,0 +1,500 @@
+/* ds-presentation.css — Reusable CSS for presentation previews. Loaded by assemble-preview.js */
+
+/* ── Presentation Token Palette ── */
+:root {
+  --pres-bg:          #E8E8EE;
+  --pres-slide-bg:    #FFFFFF;
+  --pres-dark-800:    #2D3648;
+  --pres-dark-700:    #4A5468;
+  --pres-dark-600:    #717D96;
+  --pres-dark-500:    #A0ABC0;
+  --pres-dark-400:    #CBD2E0;
+  --pres-dark-300:    #E2E7F0;
+  --pres-dark-200:    #EDF0F7;
+  --pres-dark-100:    #F5F5FA;
+  --pres-brand:       #0550DC;
+  --pres-brand-dark:  #0029A9;
+  --pres-brand-light: #EDF6FF;
+  --pres-text-primary:   #101828;
+  --pres-text-secondary: #2D3648;
+  --pres-text-tertiary:  #475467;
+  --pres-text-light:     #6D6D6D;
+  --pres-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background: var(--pres-bg);
+  padding: 40px 40px 120px;
+  min-height: 100vh;
+}
+
+/* ── Deck row layout ── */
+.deck-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 32px;
+  overflow-x: auto;
+  align-items: flex-start;
+}
+
+/* ── Slide wrapper ── */
+.slide-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* ── Slide label ── */
+.slide-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pres-text-light);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* ── Slide ── */
+.slide {
+  width: 1280px;
+  height: 720px;
+  background: var(--pres-slide-bg);
+  border-radius: 12px;
+  box-shadow: var(--pres-shadow);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Slide variants ── */
+.slide--cover {
+  background: var(--pres-dark-800);
+  color: #FFFFFF;
+  justify-content: flex-end;
+  padding: 72px 80px;
+}
+
+.slide--section {
+  background: var(--pres-brand);
+  color: #FFFFFF;
+  justify-content: flex-end;
+  padding: 64px 80px;
+}
+
+.slide--body {
+  background: var(--pres-slide-bg);
+}
+
+/* ── Slide typographic elements ── */
+.slide__topic {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 12px;
+}
+
+.slide__title {
+  font-size: 52px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 16px;
+}
+
+.slide__subtitle {
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 1.5;
+  opacity: 0.8;
+  margin-bottom: 24px;
+}
+
+.slide__meta {
+  display: flex;
+  gap: 24px;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.6;
+  margin-top: 8px;
+}
+
+.slide__section-title {
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.slide__back-title {
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.slide__back-subtitle {
+  font-size: 22px;
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+/* ── Body slide chrome ── */
+.slide__title-bar {
+  flex-shrink: 0;
+  padding: 40px 64px 28px;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--pres-text-primary);
+  border-bottom: 2px solid var(--pres-dark-300);
+  line-height: 1.25;
+}
+
+.slide__content-full {
+  flex: 1;
+  padding: 36px 64px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.slide__two-col {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.slide__text-col {
+  flex: 1;
+  padding: 36px 40px 36px 64px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 18px;
+  color: var(--pres-text-secondary);
+  line-height: 1.6;
+}
+
+.slide__visual-col {
+  flex: 1;
+  padding: 36px 64px 36px 40px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Geometric background pattern ── */
+.geo-pattern {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.geo-rect {
+  position: absolute;
+  border-radius: 20px;
+  opacity: 0.12;
+  background: #FFFFFF;
+}
+
+.geo-rect--1 {
+  width: 500px;
+  height: 500px;
+  top: -120px;
+  right: -80px;
+  transform: rotate(28deg);
+}
+
+.geo-rect--2 {
+  width: 360px;
+  height: 360px;
+  top: 80px;
+  right: 200px;
+  transform: rotate(14deg);
+  opacity: 0.07;
+}
+
+.geo-rect--3 {
+  width: 280px;
+  height: 280px;
+  bottom: -60px;
+  right: 80px;
+  transform: rotate(40deg);
+  opacity: 0.09;
+}
+
+.geo-pattern--light .geo-rect {
+  background: var(--pres-brand-dark);
+  opacity: 0.08;
+}
+
+/* ── Generation card ── */
+.gen-card {
+  width: 280px;
+  flex-shrink: 0;
+  background: var(--pres-dark-800);
+  border-radius: 12px;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: flex-start;
+}
+
+.gen-card__label {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--pres-dark-500);
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.gen-card__field {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--pres-dark-300);
+  line-height: 1.5;
+}
+
+.gen-card__key {
+  font-weight: 600;
+  color: var(--pres-dark-500);
+  margin-right: 6px;
+}
+
+/* ── Stat cards ── */
+.stat-cards {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 160px;
+  background: var(--pres-dark-100);
+  border-radius: 10px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stat-card__value {
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--pres-brand);
+  line-height: 1;
+}
+
+.stat-card__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--pres-text-tertiary);
+}
+
+.stat-card__trend {
+  font-size: 13px;
+  font-weight: 600;
+  color: #047800;
+  margin-top: 4px;
+}
+
+/* ── Bar chart ── */
+.bar-chart {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.bar-chart__title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--pres-text-primary);
+  margin-bottom: 8px;
+}
+
+.bar-chart__row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bar-chart__label {
+  width: 120px;
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--pres-text-tertiary);
+  text-align: right;
+}
+
+.bar-chart__track {
+  flex: 1;
+  height: 20px;
+  background: var(--pres-dark-200);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar-chart__fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--pres-brand);
+}
+
+/* Series colors 1-9 */
+.bar-chart__fill--1 { background: #0550DC; }
+.bar-chart__fill--2 { background: #7C3AED; }
+.bar-chart__fill--3 { background: #059669; }
+.bar-chart__fill--4 { background: #D97706; }
+.bar-chart__fill--5 { background: #DC2626; }
+.bar-chart__fill--6 { background: #0891B2; }
+.bar-chart__fill--7 { background: #DB2777; }
+.bar-chart__fill--8 { background: #65A30D; }
+.bar-chart__fill--9 { background: #9333EA; }
+
+.bar-chart__value {
+  width: 60px;
+  flex-shrink: 0;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--pres-text-primary);
+}
+
+/* ── Progress bars ── */
+.progress-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+
+.progress-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.progress-bar__label {
+  font-size: 14px;
+  color: var(--pres-text-secondary);
+  font-weight: 500;
+}
+
+.progress-bar__label span {
+  font-weight: 700;
+  color: var(--pres-brand);
+}
+
+.progress-bar__track {
+  width: 100%;
+  height: 10px;
+  background: var(--pres-dark-200);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.progress-bar__fill {
+  height: 100%;
+  background: var(--pres-brand);
+  border-radius: 5px;
+}
+
+/* ── Comparison table ── */
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.comparison-table th {
+  background: var(--pres-dark-200);
+  color: var(--pres-text-primary);
+  font-weight: 700;
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 2px solid var(--pres-dark-300);
+}
+
+.comparison-table td {
+  padding: 10px 16px;
+  color: var(--pres-text-secondary);
+  border-bottom: 1px solid var(--pres-dark-300);
+}
+
+.comparison-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* ── Timeline ── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  position: relative;
+  padding-left: 28px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--pres-dark-300);
+}
+
+.timeline__event {
+  position: relative;
+  padding: 0 0 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timeline__dot {
+  position: absolute;
+  left: -21px;
+  top: 4px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--pres-brand);
+  border: 2px solid var(--pres-slide-bg);
+  box-shadow: 0 0 0 2px var(--pres-brand);
+}
+
+.timeline__date {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--pres-brand);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.timeline__title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--pres-text-primary);
+}
+
+.timeline__desc {
+  font-size: 13px;
+  color: var(--pres-text-tertiary);
+  line-height: 1.5;
+}
