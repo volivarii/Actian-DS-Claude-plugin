@@ -393,11 +393,10 @@ function buildCoverCard(meta) {
 }
 
 function buildResearchCard(meta) {
-  var research = meta.research || {};
+  var research = meta.research;
   var title = research.title || 'UX Research';
   var source = research.source || '';
 
-  // Build text body from research sections
   var bodyParts = [];
   if (research.competitors) bodyParts.push('How others handle this:\n' + research.competitors);
   if (research.patterns) bodyParts.push('Key patterns adopted:\n' + research.patterns);
@@ -411,7 +410,7 @@ function buildResearchCard(meta) {
       name: 'Research body',
       text: bodyParts.join('\n\n'),
       style: { fontSize: 13, fontFamily: 'Inter', fontWeight: 'Regular', lineHeight: 20 },
-      fills: ['#48474D'],
+      fills: ['#475467'], // --fm-text-tertiary
       sizing: { horizontal: 'FILL' }
     });
   }

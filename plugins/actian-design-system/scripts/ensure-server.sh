@@ -51,7 +51,7 @@ fi
 # Start a new server (custom handler with annotation POST endpoint)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SERVER_LOG="/tmp/preview-server-$PORT.log"
-python3 "$SCRIPT_DIR/preview-server.py" "$PORT" "$DIR_ABS" >> "$SERVER_LOG" 2>&1 &
+python3 "$SCRIPT_DIR/preview-server.py" "$PORT" "$DIR_ABS" > "$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
 
 # Wait for it to be ready
