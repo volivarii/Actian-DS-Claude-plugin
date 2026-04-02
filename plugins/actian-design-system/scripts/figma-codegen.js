@@ -324,6 +324,35 @@ function genSizing(varName, sizing) {
   return lines.join('\n');
 }
 
+/**
+ * Apply fills, cornerRadius, stroke, effects, and opacity to a node variable.
+ * Returns an array of code lines (each already a complete statement).
+ * Missing properties in spec are silently skipped.
+ */
+function genVisualProps(varName, spec) {
+  const lines = [];
+  if (spec.fills != null) {
+    const fc = genFills(varName, spec.fills);
+    if (fc) lines.push(fc);
+  }
+  if (spec.cornerRadius != null) {
+    const cr = genCornerRadius(varName, spec.cornerRadius);
+    if (cr) lines.push(cr);
+  }
+  if (spec.stroke) {
+    const st = genStroke(varName, spec.stroke);
+    if (st) lines.push(st);
+  }
+  if (spec.effects && spec.effects.length) {
+    const ef = genEffects(varName, spec.effects);
+    if (ef) lines.push(ef);
+  }
+  if (spec.opacity != null) {
+    lines.push(varName + '.opacity = ' + spec.opacity + ';');
+  }
+  return lines;
+}
+
 // ---------------------------------------------------------------------------
 // Node code generators
 // ---------------------------------------------------------------------------
@@ -360,25 +389,7 @@ function _genFrame(spec, varName) {
   }
 
   // Visual properties
-  if (spec.fills != null) {
-    const fc = genFills(varName, spec.fills);
-    if (fc) lines.push(fc);
-  }
-  if (spec.cornerRadius != null) {
-    const cc = genCornerRadius(varName, spec.cornerRadius);
-    if (cc) lines.push(cc);
-  }
-  if (spec.stroke) {
-    const sc = genStroke(varName, spec.stroke);
-    if (sc) lines.push(sc);
-  }
-  if (spec.effects && spec.effects.length) {
-    const ec = genEffects(varName, spec.effects);
-    if (ec) lines.push(ec);
-  }
-  if (spec.opacity != null) {
-    lines.push(varName + '.opacity = ' + spec.opacity + ';');
-  }
+  genVisualProps(varName, spec).forEach(l => lines.push(l));
   if (spec.clipsContent !== undefined) {
     lines.push(varName + '.clipsContent = ' + spec.clipsContent + ';');
   }
@@ -482,23 +493,7 @@ function _genRect(spec, varName) {
   if (spec.width !== undefined && spec.height !== undefined) {
     lines.push(varName + '.resize(' + spec.width + ', ' + spec.height + ');');
   }
-  if (spec.fills != null) {
-    const fc = genFills(varName, spec.fills);
-    if (fc) lines.push(fc);
-  }
-  if (spec.cornerRadius != null) {
-    const cc = genCornerRadius(varName, spec.cornerRadius);
-    if (cc) lines.push(cc);
-  }
-  if (spec.stroke) {
-    const sc = genStroke(varName, spec.stroke);
-    if (sc) lines.push(sc);
-  }
-  if (spec.effects && spec.effects.length) {
-    const ec = genEffects(varName, spec.effects);
-    if (ec) lines.push(ec);
-  }
-  if (spec.opacity != null) lines.push(varName + '.opacity = ' + spec.opacity + ';');
+  genVisualProps(varName, spec).forEach(l => lines.push(l));
   return lines.join('\n');
 }
 
@@ -510,11 +505,7 @@ function _genEllipse(spec, varName) {
   if (spec.width !== undefined && spec.height !== undefined) {
     lines.push(varName + '.resize(' + spec.width + ', ' + spec.height + ');');
   }
-  if (spec.fills != null) {
-    const fc = genFills(varName, spec.fills);
-    if (fc) lines.push(fc);
-  }
-  if (spec.opacity != null) lines.push(varName + '.opacity = ' + spec.opacity + ';');
+  genVisualProps(varName, spec).forEach(l => lines.push(l));
   return lines.join('\n');
 }
 
@@ -839,6 +830,48 @@ function generateCallCode(spec) {
 }
 
 // ---------------------------------------------------------------------------
+// Shared utilities
+// ---------------------------------------------------------------------------
+
+/** Return byte size of compact JSON representation. */
+function compactSize(obj) {
+  return Buffer.byteLength(JSON.stringify(obj), 'utf8');
+}
+
+/** Walk a tree of nodes and collect all ref values + DIVIDER markers. */
+function scanRefs(nodes, refs) {
+  if (!refs) refs = new Set();
+  if (!Array.isArray(nodes)) return refs;
+  for (let i = 0; i < nodes.length; i++) {
+    const node = nodes[i];
+    if (!node) continue;
+    if (node.ref) refs.add(node.ref);
+    if (node.type === 'DIVIDER') refs.add('divider');
+    if (node.children) scanRefs(node.children, refs);
+  }
+  return refs;
+}
+
+/** Bin-pack items into groups where raw JSON size stays under maxBinSize. */
+function binPack(items, maxBinSize, overhead) {
+  const bins = [];
+  let currentBin = [];
+  let currentSize = 0;
+  for (const item of items) {
+    const itemSize = compactSize(item);
+    if (currentBin.length > 0 && currentSize + itemSize + overhead > maxBinSize) {
+      bins.push(currentBin);
+      currentBin = [];
+      currentSize = 0;
+    }
+    currentBin.push(item);
+    currentSize += itemSize + overhead;
+  }
+  if (currentBin.length > 0) bins.push(currentBin);
+  return bins;
+}
+
+// ---------------------------------------------------------------------------
 // Exports
 // ---------------------------------------------------------------------------
 
@@ -857,10 +890,15 @@ module.exports = {
   genEffects,
   genCornerRadius,
   genSizing,
+  genVisualProps,
   // Node code generators
   generateNodeCode,
   // Full call assembler
   generateCallCode,
+  // Shared utilities
+  compactSize,
+  scanRefs,
+  binPack,
   // Internal node generators (exported for testing)
   _genLocalInstance,
   _genVector,
