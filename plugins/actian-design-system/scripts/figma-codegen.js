@@ -545,20 +545,27 @@ function _genVector(spec, varName) {
   return lines.join('\n');
 }
 
-/** Generate LOCAL_INSTANCE node code (uses _local_<ref> instead of _imp_<ref>). */
-function _genLocalInstance(spec, varName) {
+/** Shared implementation for LOCAL_INSTANCE and INSTANCE node code generation.
+ * @param {object} spec - Node spec
+ * @param {string} varName - Generated variable name for this node
+ * @param {string} varPrefix - Either '_local_' or '_imp_'
+ * @param {boolean} hasNullGuard - true for local instances (may be missing); false for imports (assumed present)
+ */
+function _genInstanceShared(spec, varName, varPrefix, hasNullGuard) {
   const lines = [];
   const ref = spec.ref;
-
-  // Local components are stored as _local_<ref>
-  const localVar = '_local_' + ref;
+  const csVar = varPrefix + ref;
 
   lines.push('var ' + varName + ';');
 
   if (spec.variant) {
     lines.push('(function() {');
-    lines.push('  var _cs = ' + localVar + ';');
-    lines.push("  if (_cs && _cs.type === 'COMPONENT_SET') {");
+    lines.push('  var _cs = ' + csVar + ';');
+    if (hasNullGuard) {
+      lines.push("  if (_cs && _cs.type === 'COMPONENT_SET') {");
+    } else {
+      lines.push("  if (_cs.type === 'COMPONENT_SET') {");
+    }
     lines.push('    var _variants = _cs.children;');
     lines.push('    var _target = null;');
     lines.push('    for (var _i = 0; _i < _variants.length; _i++) {');
@@ -574,23 +581,37 @@ function _genLocalInstance(spec, varName) {
     lines.push('    } else {');
     lines.push('      ' + varName + ' = (_cs.defaultVariant || _cs.children[0]).createInstance();');
     lines.push('    }');
-    lines.push('  } else if (_cs) {');
-    lines.push('    ' + varName + ' = _cs.createInstance();');
-    lines.push('  } else {');
-    lines.push('    ' + varName + ' = figma.createFrame();');
-    lines.push('    ' + varName + ".name = 'Missing: " + esc(ref) + "';");
+    if (hasNullGuard) {
+      lines.push('  } else if (_cs) {');
+      lines.push('    ' + varName + ' = _cs.createInstance();');
+      lines.push('  } else {');
+      lines.push('    ' + varName + ' = figma.createFrame();');
+      lines.push('    ' + varName + ".name = 'Missing: " + esc(ref) + "';");
+    } else {
+      lines.push('  } else {');
+      lines.push('    ' + varName + ' = _cs.createInstance();');
+    }
     lines.push('  }');
     lines.push('})();');
   } else {
     lines.push('(function() {');
-    lines.push('  var _cs = ' + localVar + ';');
-    lines.push("  if (_cs && _cs.type === 'COMPONENT_SET') {");
+    lines.push('  var _cs = ' + csVar + ';');
+    if (hasNullGuard) {
+      lines.push("  if (_cs && _cs.type === 'COMPONENT_SET') {");
+    } else {
+      lines.push("  if (_cs.type === 'COMPONENT_SET') {");
+    }
     lines.push('    ' + varName + ' = (_cs.defaultVariant || _cs.children[0]).createInstance();');
-    lines.push('  } else if (_cs) {');
-    lines.push('    ' + varName + ' = _cs.createInstance();');
-    lines.push('  } else {');
-    lines.push('    ' + varName + ' = figma.createFrame();');
-    lines.push('    ' + varName + ".name = 'Missing: " + esc(ref) + "';");
+    if (hasNullGuard) {
+      lines.push('  } else if (_cs) {');
+      lines.push('    ' + varName + ' = _cs.createInstance();');
+      lines.push('  } else {');
+      lines.push('    ' + varName + ' = figma.createFrame();');
+      lines.push('    ' + varName + ".name = 'Missing: " + esc(ref) + "';");
+    } else {
+      lines.push('  } else {');
+      lines.push('    ' + varName + ' = _cs.createInstance();');
+    }
     lines.push('  }');
     lines.push('})();');
   }
@@ -629,86 +650,14 @@ function _genLocalInstance(spec, varName) {
   return lines.join('\n');
 }
 
+/** Generate LOCAL_INSTANCE node code (uses _local_<ref> instead of _imp_<ref>). */
+function _genLocalInstance(spec, varName) {
+  return _genInstanceShared(spec, varName, '_local_', true);
+}
+
 /** Generate INSTANCE node code. */
 function _genInstance(spec, varName) {
-  const lines = [];
-  const ref = spec.ref;
-
-  // Look up the imported component var name from the ref
-  // We use a naming convention: imports are stored as _imp_<ref>
-  const impVar = '_imp_' + ref;
-
-  lines.push('var ' + varName + ';');
-
-  if (spec.variant) {
-    // Variant matching: exact → partial → defaultVariant
-    lines.push('(function() {');
-    lines.push('  var _cs = ' + impVar + ';');
-    lines.push("  if (_cs.type === 'COMPONENT_SET') {");
-    lines.push('    var _variants = _cs.children;');
-    lines.push('    var _target = null;');
-    lines.push('    for (var _i = 0; _i < _variants.length; _i++) {');
-    lines.push('      if (_variants[_i].name === ' + lit(spec.variant) + ') { _target = _variants[_i]; break; }');
-    lines.push('    }');
-    lines.push('    if (!_target) {');
-    lines.push('      for (var _j = 0; _j < _variants.length; _j++) {');
-    lines.push('        if (_variants[_j].name.indexOf(' + lit(spec.variant) + ') !== -1) { _target = _variants[_j]; break; }');
-    lines.push('      }');
-    lines.push('    }');
-    lines.push('    if (_target) {');
-    lines.push('      ' + varName + ' = _target.createInstance();');
-    lines.push('    } else {');
-    lines.push('      ' + varName + ' = (_cs.defaultVariant || _cs.children[0]).createInstance();');
-    lines.push('    }');
-    lines.push('  } else {');
-    lines.push('    ' + varName + ' = _cs.createInstance();');
-    lines.push('  }');
-    lines.push('})();');
-  } else {
-    lines.push('(function() {');
-    lines.push('  var _cs = ' + impVar + ';');
-    lines.push("  if (_cs.type === 'COMPONENT_SET') {");
-    lines.push('    ' + varName + ' = (_cs.defaultVariant || _cs.children[0]).createInstance();');
-    lines.push('  } else {');
-    lines.push('    ' + varName + ' = _cs.createInstance();');
-    lines.push('  }');
-    lines.push('})();');
-  }
-
-  if (spec.name) lines.push(varName + '.name = ' + lit(spec.name) + ';');
-
-  // Set component properties
-  if (spec.props) {
-    for (const prop in spec.props) {
-      lines.push('setProp(' + varName + ', ' + lit(prop) + ', ' + lit(spec.props[prop]) + ');');
-    }
-  }
-
-  // Override fills
-  if (spec.fills != null) {
-    const fc = genFills(varName, spec.fills);
-    if (fc) lines.push(fc);
-  }
-
-  // Detach instance and append children (for card shell pattern)
-  if (spec.detach) {
-    lines.push(varName + ' = ' + varName + '.detachInstance();');
-  }
-
-  if (spec.children && spec.children.length) {
-    spec.children.forEach(child => {
-      const childVar = nextVar('c');
-      const childCode = generateNodeCode(child, childVar);
-      childCode.split('\n').forEach(l => lines.push(l));
-      lines.push(varName + '.appendChild(' + childVar + ');');
-      if (child.sizing) {
-        const sc = genSizing(childVar, child.sizing);
-        if (sc) sc.split('\n').forEach(l => lines.push(l));
-      }
-    });
-  }
-
-  return lines.join('\n');
+  return _genInstanceShared(spec, varName, '_imp_', false);
 }
 
 // ---------------------------------------------------------------------------
