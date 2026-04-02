@@ -5,22 +5,14 @@
 (function() {
   'use strict';
 
-  function esc(str) {
+  var fmMap = (typeof window !== 'undefined' && window.fmHtmlMap)
+    || (typeof require !== 'undefined' && require('./fm-html-map'))
+    || {};
+  var esc = fmMap.esc || function(str) {
     if (str == null) return '';
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
-
-  function genCard(meta) {
-    return '<div class="gen-card">'
-      + '<div class="gen-card__label">GENERATED</div>'
-      + '<div class="gen-card__field"><span class="gen-card__key">Skill</span> ' + esc(meta.skill) + '</div>'
-      + '<div class="gen-card__field"><span class="gen-card__key">Prompt</span> ' + esc(meta.prompt || meta.topic || '') + '</div>'
-      + '<div class="gen-card__field"><span class="gen-card__key">Date</span> ' + esc(meta.date || meta.generatedAt) + '</div>'
-      + '<div class="gen-card__field"><span class="gen-card__key">Duration</span> ' + esc(meta.duration) + '</div>'
-      + '<div class="gen-card__field"><span class="gen-card__key">Model</span> ' + esc(meta.model) + '</div>'
-      + '<div class="gen-card__field"><span class="gen-card__key">Plugin</span> v' + esc(meta.pluginVersion) + '</div>'
-      + '</div>';
-  }
+  };
+  var genCard = fmMap.genCard || function() { return ''; };
 
   // Geometric background pattern (rotated rectangles)
   var geoPattern = '<div class="geo-pattern">'

@@ -315,7 +315,22 @@
     }
   }
 
+  exports.esc = esc;
   exports.renderFMComponent = renderFMComponent;
   exports.parseVariant = parseVariant;
+
+  exports.genCard = function(meta, promptFallback) {
+    var prompt = meta.prompt || promptFallback || '';
+    if (prompt.length > 200) prompt = prompt.substring(0, 200) + '...';
+    return '<div class="gen-card" data-name="Generation log">'
+      + '<div class="gen-card__label">GENERATED</div>'
+      + '<div class="gen-card__field"><span>Skill</span>' + esc(meta.skill || '') + '</div>'
+      + '<div class="gen-card__field"><span>Prompt</span>' + esc(prompt) + '</div>'
+      + '<div class="gen-card__field"><span>Date</span>' + esc(meta.generatedAt || meta.date || '') + '</div>'
+      + '<div class="gen-card__field"><span>Duration</span>' + esc(meta.duration || '') + '</div>'
+      + '<div class="gen-card__field"><span>Model</span>' + esc(meta.model || '') + '</div>'
+      + '<div class="gen-card__field"><span>Plugin</span>' + esc(meta.pluginVersion || '') + '</div>'
+      + '</div>';
+  };
 
 })(typeof module !== 'undefined' ? module.exports : (window.fmHtmlMap = window.fmHtmlMap || {}));

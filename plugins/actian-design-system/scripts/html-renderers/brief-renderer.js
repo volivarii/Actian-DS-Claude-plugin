@@ -8,10 +8,13 @@
 
   // --- Shared Helpers ---
 
-  function esc(str) {
+  var fmMap = (typeof window !== 'undefined' && window.fmHtmlMap)
+    || (typeof require !== 'undefined' && require('./fm-html-map'))
+    || {};
+  var esc = fmMap.esc || function(str) {
     if (str == null) return '';
     return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-  }
+  };
 
   function genCard(meta) {
     return '<div class="gen-card" data-name="Generation log">'
