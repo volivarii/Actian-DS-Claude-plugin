@@ -1,0 +1,247 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "flow-data.schema.json",
+  "title": "Flow Data",
+  "description": "Schema for flow-data.json consumed by flow-to-figma.js",
+  "type": "object",
+  "required": ["meta", "screens"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Generation metadata and flow context",
+      "required": ["feature"],
+      "properties": {
+        "feature": {
+          "type": "string",
+          "description": "Feature name - used for cover card and wrapper name"
+        },
+        "flow": {
+          "type": "string",
+          "description": "Flow description for cover card"
+        },
+        "user": {
+          "type": "string",
+          "description": "User role for cover card"
+        },
+        "app": {
+          "type": "string",
+          "enum": ["Studio", "Explorer", "Administration", "Actian"],
+          "description": "Application context - sets App Header variant"
+        },
+        "targetNodeId": {
+          "type": "string",
+          "description": "Figma node ID for placement"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Original prompt for Generation Log"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Generation duration for Generation Log"
+        },
+        "model": {
+          "type": "string",
+          "description": "AI model used for generation"
+        },
+        "pluginVersion": {
+          "type": "string",
+          "description": "Plugin version at generation time"
+        },
+        "skill": {
+          "type": "string",
+          "const": "generate-flow",
+          "description": "Skill identifier"
+        },
+        "research": {
+          "type": "object",
+          "description": "Optional research findings - triggers Research Frame card",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Research card title (default: UX Research)"
+            },
+            "source": {
+              "type": "string",
+              "description": "Source attribution"
+            },
+            "competitors": {
+              "type": "string",
+              "description": "How competitors handle this"
+            },
+            "patterns": {
+              "type": "string",
+              "description": "Key patterns adopted"
+            },
+            "recommendation": {
+              "type": "string",
+              "description": "Summary recommendation"
+            },
+            "sources": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Source list - URLs or product names"
+            }
+          }
+        }
+      }
+    },
+    "screens": {
+      "type": "array",
+      "description": "Array of screen definitions",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["name", "content"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Screen name (e.g. Screen 1: Dashboard)"
+          },
+          "template": {
+            "type": "string",
+            "description": "Template name controlling chrome, size, layout"
+          },
+          "chrome": {
+            "type": "string",
+            "description": "Legacy chrome field (deprecated - use template)",
+            "deprecated": true
+          },
+          "size": {
+            "type": "string",
+            "description": "Legacy size field (deprecated - use template)",
+            "deprecated": true
+          },
+          "activeNavItem": {
+            "type": "string",
+            "description": "Label for the active sidebar nav item"
+          },
+          "navItems": {
+            "type": ["number", "integer"],
+            "description": "Number of sidebar nav items"
+          },
+          "pageHeader": {
+            "type": "object",
+            "description": "Page header configuration",
+            "properties": {
+              "title": { "type": "string" },
+              "subtitle": { "type": "string" },
+              "actions": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
+          },
+          "contentSpacing": {
+            "type": ["number", "integer"],
+            "description": "Vertical spacing (px) between content items"
+          },
+          "width": {
+            "type": ["number", "integer"],
+            "description": "Override width (for custom template)"
+          },
+          "height": {
+            "type": ["number", "integer"],
+            "description": "Override height (for custom template)"
+          },
+          "content": {
+            "type": "array",
+            "description": "Array of content nodes",
+            "items": { "$ref": "#/$defs/contentNode" }
+          },
+          "contentHtml": {
+            "type": "string",
+            "description": "Legacy HTML content (deprecated - use content[])",
+            "deprecated": true
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "contentNode": {
+      "type": "object",
+      "description": "Recursive content node for screen content",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["FRAME", "TEXT", "INSTANCE", "DIVIDER", "ELLIPSE", "RECT"],
+          "description": "Node type"
+        },
+        "name": {
+          "type": "string",
+          "description": "Node name for Figma layer"
+        },
+        "children": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/contentNode" },
+          "description": "Child nodes (for FRAME type)"
+        },
+        "content": {
+          "type": "string",
+          "description": "Text content (for TEXT type)"
+        },
+        "ref": {
+          "type": "string",
+          "description": "FM component reference (for INSTANCE type)"
+        },
+        "variant": {
+          "type": "string",
+          "description": "Variant string (for INSTANCE type)"
+        },
+        "props": {
+          "type": "object",
+          "description": "Component properties (for INSTANCE type)"
+        },
+        "layout": {
+          "type": "object",
+          "description": "Auto-layout configuration"
+        },
+        "sizing": {
+          "type": "object",
+          "description": "Sizing constraints"
+        },
+        "fills": {
+          "type": "array",
+          "description": "Fill colors"
+        },
+        "stroke": {
+          "type": "object",
+          "description": "Stroke configuration"
+        },
+        "cornerRadius": {
+          "description": "Corner radius (number or per-corner object)"
+        },
+        "font": {
+          "type": "string",
+          "description": "Font family:weight (for TEXT type)"
+        },
+        "size": {
+          "type": ["number", "integer"],
+          "description": "Font size (for TEXT type)"
+        },
+        "color": {
+          "type": "string",
+          "description": "Text color hex (for TEXT type)"
+        },
+        "opacity": {
+          "type": "number",
+          "description": "Node opacity (0-1)"
+        },
+        "width": {
+          "type": ["number", "integer"],
+          "description": "Explicit width"
+        },
+        "height": {
+          "type": ["number", "integer"],
+          "description": "Explicit height"
+        },
+        "letterSpacing": {
+          "type": "object",
+          "description": "Letter spacing configuration"
+        }
+      }
+    }
+  }
+}

@@ -1030,6 +1030,16 @@ function main() {
     process.exit(1);
   }
 
+  // Schema validation (warn only — backwards compatible)
+  try {
+    var schemaValidator = require('./validate-schema');
+    var briefSchema = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'schemas', 'brief-data.schema.json'), 'utf8'));
+    var schemaErrors = schemaValidator(data, briefSchema);
+    for (var i = 0; i < schemaErrors.length; i++) {
+      process.stderr.write('SCHEMA: ' + schemaErrors[i] + '\n');
+    }
+  } catch (e) { /* schema files not available — skip */ }
+
   // Validate
   const errors = validate(data);
   if (errors.length > 0) {

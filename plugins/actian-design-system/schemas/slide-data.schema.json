@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "slide-data.schema.json",
+  "title": "Slide Data",
+  "description": "Schema for slide-data.json consumed by slide-to-figma.js",
+  "type": "object",
+  "required": ["meta", "slides"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "description": "Generation metadata",
+      "required": ["title"],
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Presentation title"
+        },
+        "targetNodeId": {
+          "type": "string",
+          "description": "Figma node ID for placement"
+        },
+        "prompt": {
+          "type": "string",
+          "description": "Original prompt for Generation Log"
+        },
+        "generatedAt": {
+          "type": "string",
+          "description": "ISO 8601 generation timestamp"
+        },
+        "duration": {
+          "type": "string",
+          "description": "Generation duration"
+        },
+        "model": {
+          "type": "string",
+          "description": "AI model used for generation"
+        },
+        "pluginVersion": {
+          "type": "string",
+          "description": "Plugin version at generation time"
+        },
+        "skill": {
+          "type": "string",
+          "const": "generate-presentation",
+          "description": "Skill identifier"
+        }
+      }
+    },
+    "slides": {
+      "type": "array",
+      "description": "Array of slide definitions",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["type", "name"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["cover", "section", "body-full", "body-text-visual", "back-cover"],
+            "description": "Slide layout type"
+          },
+          "name": {
+            "type": "string",
+            "description": "Slide name for Figma layer"
+          },
+          "title": {
+            "type": "string",
+            "description": "Slide title text"
+          },
+          "subtitle": {
+            "type": "string",
+            "description": "Slide subtitle (cover/section types)"
+          },
+          "topic": {
+            "type": "string",
+            "description": "Topic label (cover type)"
+          },
+          "date": {
+            "type": "string",
+            "description": "Date string (cover type)"
+          },
+          "creators": {
+            "type": "string",
+            "description": "Creator attribution (cover type)"
+          },
+          "content": {
+            "type": "array",
+            "description": "Slide content nodes",
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "Content node type"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "content": {
+                  "type": "string"
+                },
+                "font": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": ["number", "integer"]
+                },
+                "color": {
+                  "type": "string"
+                },
+                "sizing": {
+                  "type": "object"
+                },
+                "children": {
+                  "type": "array"
+                }
+              }
+            }
+          },
+          "bullets": {
+            "type": "array",
+            "description": "Bullet points (body-full type)",
+            "items": { "type": "string" }
+          },
+          "visual": {
+            "type": "object",
+            "description": "Visual element (body-text-visual type)"
+          }
+        }
+      }
+    }
+  }
+}

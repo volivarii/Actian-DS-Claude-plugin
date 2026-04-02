@@ -385,6 +385,16 @@ function main() {
   try { input = JSON.parse(raw); }
   catch (e) { process.stderr.write('Error: invalid JSON: ' + e.message + '\n'); process.exit(1); }
 
+  // Schema validation (warn only — backwards compatible)
+  try {
+    var schemaValidator = require('./validate-schema');
+    var slideSchema = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'schemas', 'slide-data.schema.json'), 'utf8'));
+    var schemaErrors = schemaValidator(input, slideSchema);
+    for (var i = 0; i < schemaErrors.length; i++) {
+      process.stderr.write('SCHEMA: ' + schemaErrors[i] + '\n');
+    }
+  } catch (e) { /* schema files not available — skip */ }
+
   if (targetNodeId) {
     if (!input.meta) input.meta = {};
     input.meta.targetNodeId = targetNodeId;
