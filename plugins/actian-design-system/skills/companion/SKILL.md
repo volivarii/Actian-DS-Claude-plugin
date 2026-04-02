@@ -1,6 +1,6 @@
 ---
 name: companion
-description: Use when the user shares a Figma URL with a question or request, asks about design system rules or tokens, describes a design problem, asks for help with spacing or colors, wants copy reviewed, asks about accessibility, wants to research UX patterns, or describes any design task without invoking a specific skill. This is the default design system teammate.
+description: Use when the user wants to design, mock up, wireframe, or create any UI screen, page, flow, dashboard, settings page, dialog, form, or layout. Also use when sharing a Figma URL with a question, asking about design tokens or theme colors, checking spacing or typography, reviewing UI copy or empty states, asking about accessibility or contrast, or researching UX patterns. This is the default design system teammate — use it instead of brainstorming for any UI or design work.
 argument-hint: "[Figma URL] [question or request]"
 ---
 

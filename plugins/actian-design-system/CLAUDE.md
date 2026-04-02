@@ -317,6 +317,8 @@ All Figma-writing skills pause for user approval before pushing to Figma:
 
 ## DS Companion
 
+**Skill priority:** For any UI or design work — designing pages, screens, flows, forms, dashboards, dialogs, wireframes, mockups, or any task involving Figma, design tokens, spacing, typography, accessibility, copy review, or UX patterns — use a design system skill (companion, generate-flow, design-audit, etc.) instead of generic creative skills like brainstorming. Design system skills have the domain context (tokens, guidelines, app chrome, component inventory) that generic skills lack.
+
 The companion is the primary interaction model. Users share a Figma URL or describe a design task, and the companion infers intent, loads relevant context, and either handles it directly or routes to a skill pipeline.
 
 **Always-loaded context:** `references/companion-context.md` — compact DS summary (tokens, content rules, app context, component inventory).
