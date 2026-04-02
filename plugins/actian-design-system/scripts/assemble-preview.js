@@ -35,7 +35,7 @@ var RENDERERS_DIR = path.join(PLUGIN_ROOT, 'scripts', 'html-renderers');
 
 var TYPE_CONFIGS = {
   flow: {
-    css: path.join(TEMPLATES_DIR, 'fm-flow.css'),
+    css: path.join(RENDERERS_DIR, 'flow-renderer.css'),
     renderers: [
       path.join(RENDERERS_DIR, 'fm-html-map.js'),
       path.join(RENDERERS_DIR, 'flow-renderer.js')
@@ -48,7 +48,7 @@ var TYPE_CONFIGS = {
     }
   },
   brief: {
-    css: path.join(TEMPLATES_DIR, 'fm-brief.css'),
+    css: path.join(RENDERERS_DIR, 'brief-renderer.css'),
     renderers: [
       path.join(RENDERERS_DIR, 'fm-html-map.js'),
       path.join(RENDERERS_DIR, 'brief-renderer.js')
@@ -61,7 +61,7 @@ var TYPE_CONFIGS = {
     }
   },
   presentation: {
-    css: path.join(TEMPLATES_DIR, 'ds-presentation.css'),
+    css: path.join(RENDERERS_DIR, 'presentation-renderer.css'),
     renderers: [
       path.join(RENDERERS_DIR, 'presentation-renderer.js')
     ],
