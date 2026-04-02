@@ -25,7 +25,7 @@ Flow prototypes add just enough interactivity to a static HTML flow to make it t
 Prototype files use the wrapper at:
 
 ```
-../../templates/flow-prototype-wrapper.html
+../templates/flow-prototype-wrapper.html
 ```
 
 #### Placeholder table
@@ -140,7 +140,7 @@ Component playgrounds render a single DS Kit or FM Kit component with live contr
 Playground files use the wrapper at:
 
 ```
-../../templates/component-playground-wrapper.html
+../templates/component-playground-wrapper.html
 ```
 
 #### Placeholder table

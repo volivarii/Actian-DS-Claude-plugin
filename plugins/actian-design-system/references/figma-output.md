@@ -149,11 +149,11 @@ function setProp(inst, prefix, value) {
 setProp(instance, "Title", "Design tokens");
 ```
 
-Look up component keys in `../../docs/fm-components.md` (FM Kit), `../../docs/dskit-components.md` (DS Kit), or `../../docs/meta-kit/components.md` (Meta Kit).
+Look up component keys in `../docs/fm-components.md` (FM Kit), `../docs/dskit-components.md` (DS Kit), or `../docs/meta-kit/components.md` (Meta Kit).
 
 ### Meta Kit components
 
-For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../../docs/meta-kit/components.md` for keys and properties.
+For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../docs/meta-kit/components.md` for keys and properties.
 
 When a Meta Kit component exists for an element, **always import it**. The component IS the spec.
 
@@ -174,7 +174,7 @@ When a Meta Kit component exists for an element, **always import it**. The compo
 
 DS Kit publishes **color variables** (for theme switching), **text styles** (typography), and **effect styles** (shadows). Use all three:
 
-**Color variables** (see `../../docs/meta-kit/variables.md` for keys):
+**Color variables** (see `../docs/meta-kit/variables.md` for keys):
 
 ```js
 const vars = {};
@@ -234,8 +234,8 @@ Cache the keys within a single `use_figma` call — import once, apply to many n
 ### Fallback
 
 If `search_design_system` returns no results (file not connected to a library), fall back to:
-- DS Kit: hex from `../../docs/token-reference.md` with token name comments
-- FM: hex from `../../references/fm-css-reference.md` with token name comments
+- DS Kit: hex from `../docs/token-reference.md` with token name comments
+- FM: hex from `../references/fm-css-reference.md` with token name comments
 
 ## Generation metadata frame
 
@@ -251,7 +251,7 @@ Every output must include a visible generation metadata frame as the **first sib
 | **Date** | ISO 8601 date+time when output is written | `new Date().toISOString()` |
 | **Duration** | Time from prompt to output completion | e.g., "2m 34s" |
 | **Model** | Model powering the session | e.g., "claude-opus-4-6" |
-| **Plugin** | Plugin version | Read from `../../.claude-plugin/plugin.json` |
+| **Plugin** | Plugin version | Read from `../.claude-plugin/plugin.json` |
 
 ### Timing guidelines
 
@@ -264,7 +264,7 @@ Skills run in two phases. Track time across both:
 
 ## Builder functions
 
-For dynamic content (tables with variable rows, state grids with variable columns), use the builder functions in `../../references/meta-kit/builders.md`. Copy the needed function into your `use_figma` call and invoke it.
+For dynamic content (tables with variable rows, state grids with variable columns), use the builder functions in `../docs/meta-kit/builders.md`. Copy the needed function into your `use_figma` call and invoke it.
 
 Available builders:
 - `buildSpecTable(parent, headers, rows, options)` — data tables with header row + N data rows
@@ -276,7 +276,7 @@ When Meta Kit template components are available, use clone-and-fill instead of c
 
 ### How it works
 
-1. **Read registry:** Load `../../docs/meta-kit/meta-kit-registry.json` at the start of the skill (before `use_figma`)
+1. **Read registry:** Load `../docs/meta-kit/meta-kit-registry.json` at the start of the skill (before `use_figma`)
 2. **Import template:** `figma.importComponentByKeyAsync(registry.templates['table-header-row'].key)`
 3. **Clone and detach:** `comp.createInstance()` → `instance.detachInstance()` — gives a mutable frame
 4. **Show:** Set `visible = true` on the detached frame (templates are hidden by default)
@@ -311,7 +311,7 @@ function fillSlots(frame, slots) {
 
 Templates are hidden components in the Meta Kit Figma library. Each has stable, semantic layer names (e.g., `label`, `value`, `title`) that serve as the contract between the registry and builder scripts.
 
-Registry location: `../../docs/meta-kit/meta-kit-registry.json`
+Registry location: `../docs/meta-kit/meta-kit-registry.json`
 
 Available templates:
 - `table-header-row` — table header cells (slots: `label`)
@@ -322,7 +322,7 @@ Available templates:
 
 ### Fallback
 
-If `meta-kit-registry.json` has `"PENDING"` keys (templates not yet built in Figma), fall back to the legacy builders in `../../docs/meta-kit/builders.md`.
+If `meta-kit-registry.json` has `"PENDING"` keys (templates not yet built in Figma), fall back to the legacy builders in `../docs/meta-kit/builders.md`.
 
 ## Two-Tier Extraction
 
@@ -409,7 +409,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 - **Figma output must match HTML preview exactly.** The Figma push is a 1:1 translation of the approved HTML — not a reinterpretation. If the HTML uses placeholder bars, the Figma uses Placeholder component variants. If the HTML shows only one active nav item, the Figma shows only one active nav item. Do not add detail, color, or content that wasn't in the HTML.
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed.
-- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../docs/fm-components.md` (FM) or `../../docs/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `library-gap-detection.md` for the full detection procedure.
+- **Check library before building custom.** Before creating any custom frame for a UI element, check `../docs/fm-components.md` (FM) or `../docs/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `library-gap-detection.md` for the full detection procedure.
 
 ## HUG Sizing Default
 

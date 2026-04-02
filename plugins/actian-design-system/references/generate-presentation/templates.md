@@ -159,7 +159,7 @@ Each slide: **1920 x 1080 px**, auto-layout inside. Font: **Roboto**.
 
 Token binding: `../../references/figma-output.md` § "Token binding". Variable keys: `../../docs/meta-kit/variables.md`.
 Shared components: `../../docs/meta-kit/components.md` (Do-Don't Pair, Code Block).
-Tables: `../../references/meta-kit/builders.md` (`buildSpecTable`).
+Tables: `../../docs/meta-kit/builders.md` (`buildSpecTable`).
 
 ### Charts in `use_figma`
 

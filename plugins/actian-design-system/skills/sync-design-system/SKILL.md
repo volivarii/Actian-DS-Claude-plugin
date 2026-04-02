@@ -91,6 +91,6 @@ Default "sync all" runs **Phases 1-4 only** (tokens, components, variables, styl
 ## What this skill replaced
 
 - Assembler repo as sync intermediary
-- `scripts/sync-from-upstream.sh`
+- scripts/sync-from-upstream.sh (deleted)
 - Two-hop data flow (Figma → Assembler → Plugin)
 - Hand-authored `content-guidelines.md` and `accessibility-guidelines.md`

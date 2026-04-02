@@ -47,6 +47,15 @@ var SCAN_DIRS = [
 
 var SCAN_FILES = [path.join(PLUGIN_ROOT, "CLAUDE.md")];
 
+// Paths that only exist after running /sync-design-system.
+// These are expected outputs referenced in sync skill docs — skip them in assertions
+// but still log them so they stay visible.
+var KNOWN_SYNC_OUTPUTS = [
+  "docs/meta-kit/meta-kit-reference.md",
+  "tokens/actian-ds.tokens.css",
+  "docs/foundations/_index.json",
+];
+
 // Known root-relative prefixes (resolve from plugin root)
 var ROOT_PREFIXES = [
   "scripts/",
@@ -263,8 +272,36 @@ for (var f = 0; f < allMdFiles.length; f++) {
 
 section("Path validation results");
 
+var skippedSyncOutputs = [];
+
 for (var b = 0; b < brokenPaths.length; b++) {
   var bp = brokenPaths[b];
+
+  // Check if resolved path matches a known sync output
+  var isSyncOutput = false;
+  for (var k = 0; k < KNOWN_SYNC_OUTPUTS.length; k++) {
+    if (bp.resolved === KNOWN_SYNC_OUTPUTS[k]) {
+      isSyncOutput = true;
+      break;
+    }
+  }
+
+  if (isSyncOutput) {
+    skippedSyncOutputs.push(bp);
+    process.stdout.write(
+      "  ~ skipped (sync output): " +
+        bp.source +
+        ":" +
+        bp.line +
+        " — " +
+        bp.path +
+        " → " +
+        bp.resolved +
+        "\n",
+    );
+    continue;
+  }
+
   assert(
     false,
     bp.source +
@@ -278,7 +315,7 @@ for (var b = 0; b < brokenPaths.length; b++) {
   );
 }
 
-if (brokenPaths.length === 0) {
+if (failed === 0) {
   process.stdout.write(
     "  \u2713 All " +
       totalPaths +
@@ -292,12 +329,18 @@ if (brokenPaths.length === 0) {
 // ---------------------------------------------------------------------------
 
 process.stdout.write("\n");
+var skippedNote =
+  skippedSyncOutputs.length > 0
+    ? ", " + skippedSyncOutputs.length + " skipped (sync outputs)"
+    : "";
 process.stdout.write(
   "Results: " +
     passed +
     " passed, " +
     failed +
-    " failed (" +
+    " failed" +
+    skippedNote +
+    " (" +
     totalPaths +
     " paths validated)\n",
 );
