@@ -34,7 +34,7 @@ const FONTS = [
 const HEADER_HEIGHT = 70;
 
 // ---------------------------------------------------------------------------
-// REF_ALIASES — copied exactly from flow-to-spec.js lines 52-94
+// REF_ALIASES
 // ---------------------------------------------------------------------------
 
 const REF_ALIASES = {
@@ -82,7 +82,7 @@ const REF_ALIASES = {
 };
 
 // ---------------------------------------------------------------------------
-// FALLBACK_KEYS — copied exactly from flow-to-spec.js lines 97-131
+// FALLBACK_KEYS
 // ---------------------------------------------------------------------------
 
 const FALLBACK_KEYS = {
@@ -271,7 +271,7 @@ function buildPageHeader(config) {
 /**
  * Build a screen frame from a screen definition and its resolved template.
  */
-function buildScreen(screenDef, templateDef, templateName) {
+function buildScreen(screenDef, templateDef) {
   const chrome = templateDef.chrome;
   const screenW = templateDef.width || screenDef.width || 1440;
   const screenH = templateDef.height || screenDef.height || 960;
@@ -428,25 +428,6 @@ function buildResearchCard(meta) {
 }
 
 // ---------------------------------------------------------------------------
-// Import scanner — walks content tree, collects all ref values
-// ---------------------------------------------------------------------------
-
-function scanRefs(nodes, refs) {
-  if (!refs) refs = new Set();
-  if (!Array.isArray(nodes)) return refs;
-
-  for (let i = 0; i < nodes.length; i++) {
-    const node = nodes[i];
-    if (!node) continue;
-    if (node.ref) refs.add(node.ref);
-    if (node.type === 'DIVIDER') refs.add('divider');
-    if (node.children) scanRefs(node.children, refs);
-  }
-
-  return refs;
-}
-
-// ---------------------------------------------------------------------------
 // Import resolver
 // ---------------------------------------------------------------------------
 
@@ -465,41 +446,6 @@ function resolveImports(refs, refMap) {
   }
 
   return imports;
-}
-
-// ---------------------------------------------------------------------------
-// Bin-packer
-// ---------------------------------------------------------------------------
-
-function compactSize(obj) {
-  return Buffer.byteLength(JSON.stringify(obj), 'utf8');
-}
-
-/**
- * Bin-pack items into groups where raw JSON size stays under MAX_BIN_SIZE.
- * Returns array of bins (each bin = array of tree node objects).
- */
-function binPack(items) {
-  const bins = [];
-  let currentBin = [];
-  let currentSize = 0;
-
-  for (let i = 0; i < items.length; i++) {
-    const itemSize = compactSize(items[i]);
-
-    if (currentBin.length > 0 && currentSize + itemSize + OVERHEAD > MAX_BIN_SIZE) {
-      bins.push(currentBin);
-      currentBin = [];
-      currentSize = 0;
-    }
-
-    currentBin.push(items[i]);
-    currentSize += itemSize + OVERHEAD;
-  }
-
-  if (currentBin.length > 0) bins.push(currentBin);
-
-  return bins;
 }
 
 // ---------------------------------------------------------------------------
@@ -592,11 +538,11 @@ function main() {
   for (const screen of (input.screens || [])) {
     const templateName = resolveTemplateName(screen, meta, templates);
     const templateDef = templates[templateName] || templates['admin'];
-    allItems.push(buildScreen(screen, templateDef, templateName));
+    allItems.push(buildScreen(screen, templateDef));
   }
 
   // Bin-pack
-  const bins = binPack(allItems);
+  const bins = codegen.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
   const totalCalls = bins.length;
 
   // Generate code for each bin
@@ -607,7 +553,7 @@ function main() {
     const callIdx = b + 1;
 
     // Scan refs across all items in this bin
-    const refs = scanRefs(bin);
+    const refs = codegen.scanRefs(bin);
     const imports = resolveImports(refs, refMap);
 
     // Build spec for codegen
