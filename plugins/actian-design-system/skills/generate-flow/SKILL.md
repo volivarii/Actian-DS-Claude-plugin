@@ -149,10 +149,11 @@ Wait for user approval.
 **Feature focus principle (FM flows — mandatory):**
 Spotlight the feature being demonstrated. Only elements directly relevant to the feature should be detailed — everything else must use placeholder/muted variants. The script handles sidebar placeholders automatically from `navItems` count.
 
-**Key rules:**
+**Key rules (P0 — violations block push):**
 - FM first — check `../../docs/fm-components.md` + `../../docs/fm-components-registry.json` for available components and their boolean properties
-- Button icons: set `"👁 Leading Icon": false, "👁 Trailing Icon": false` in props unless icons are explicitly needed
-- Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for push-apart layouts — never Spacer frames
+- **Button boolean properties:** Buttons expose `"👁 Leading Icon"` and `"👁 Trailing Icon"` (eye emoji prefix) as boolean toggles. Set both to `false` by default on every button instance. Only set to `true` when the design explicitly needs icons.
+- **Push-apart layouts:** Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for elements on opposite sides of a row — never create Spacer frames
+- **No hardcoded hex** in content[] nodes — use FM variable names from `../../references/fm-css-reference.md` where possible
 - Forms: inputs 480px max-width, extended elements full-width
 - All text must be contextual, not generic ("Schedule Refresh" not "Submit")
 

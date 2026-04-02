@@ -129,6 +129,12 @@ When you identify DS violations in the Figma selection:
 4. Identify which file to update (component guideline JSON, content guidelines, etc.)
 5. Propose the edit — user confirms before any file is modified
 
+## Execution rules
+
+- **DO NOT dump JSON, code, or file contents in chat.** Explain changes made, not file contents.
+- **DO NOT add intermediate gates.** Decisions are made upfront; execution is uninterrupted. Only pause when context is genuinely ambiguous (e.g., unclear app context, missing role).
+- **DO NOT commit or push** to git without explicit user approval.
+
 ## Quality rules
 
 All interactions follow DS rules from CLAUDE.md:
@@ -139,3 +145,5 @@ All interactions follow DS rules from CLAUDE.md:
 - WCAG 2.1 AA minimum for all contrast pairs
 - FM outputs use `--fm-*` variables only — no custom colors
 - Check component inventory before building custom frames
+- Button boolean properties: `"👁 Leading Icon": false, "👁 Trailing Icon": false` by default
+- Push-apart layouts: `primaryAxisAlignItems: "SPACE_BETWEEN"` — never Spacer frames

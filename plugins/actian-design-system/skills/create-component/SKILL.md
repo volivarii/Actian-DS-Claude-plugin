@@ -16,6 +16,14 @@ Create a new Figma component (with variants) from a text description or by exten
 
 > **Mode: Implement with build confirmation.** Build first, explain after. Output working artifacts, not commentary. Move fast — infer details from the user's request and make reasonable decisions. Only ask when critical information is genuinely missing. Two pause points: (1) Step 1 if the request is too vague, and (2) Step 4.5 to confirm the build plan before Figma output (skipped for Draft tier). The cleanup pass (Step 6) handles polish. Keep status updates to milestones only.
 
+### DO NOT — hard rules
+
+- **DO NOT dump JSON, code, or file contents in chat.** Write files silently.
+- **DO NOT ask questions** except at the build plan gate (Step 4.5). Infer component name, library, variants from the user's description.
+- **DO NOT add intermediate confirmation gates.** No "should I proceed?", no "ok, let me now...". The only pauses are the gates listed above.
+- **Button boolean properties:** Use `"👁 Leading Icon"` and `"👁 Trailing Icon"` (eye emoji prefix) as boolean toggle properties. Default to `false` on instances unless icons are explicitly needed.
+- **Layout:** Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for push-apart layouts — never create Spacer frames.
+
 ### Quality tier detection
 
 | Signal | Tier | Effect |

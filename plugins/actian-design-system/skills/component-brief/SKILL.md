@@ -66,12 +66,17 @@ Draft a structured component brief with HTML spec page and Figma output. Support
 
 Autonomous through research, data model generation, and Figma push. HTML preview is opt-in (user says "preview"). Default path: research → data model → push to Figma. Two pause points: (1) mode ambiguity, (2) push confirmation if user says "preview".
 
+### DO NOT — hard rules
+
+- **DO NOT dump JSON, code, or file contents in chat.** Write files silently. The user sees tool call summaries.
+- **DO NOT pause between steps.** Research → data model → Figma is one uninterrupted sequence after the mode ambiguity gate.
+- **DO NOT use TaskCreate or TodoWrite.** Just execute.
+- **DO NOT read CLAUDE.md repeatedly.** Read it once or not at all.
+- **DO NOT read `plugin.json` until the very end.**
+
 ### Speed rules
 
-- No TaskCreate/TodoWrite — just execute
 - ONE parallel batch for research — all reads in a single message
-- Do NOT read CLAUDE.md — relevant rules are in this file and references
-- Do NOT read `plugin.json` until the very end
 - If a Figma call fails, skip and proceed
 - Do NOT create directories with mkdir — Write tool creates them
 
