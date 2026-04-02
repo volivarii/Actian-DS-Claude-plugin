@@ -161,7 +161,7 @@ Spotlight the feature being demonstrated. Only elements directly relevant to the
 - Styles: exact FM values only, no custom colors
 - All text must be contextual, not generic ("Schedule Refresh" not "Submit")
 
-After writing the HTML file, **dispatch `flow-consistency` agent** in background. Do NOT wait for it — proceed to the preview gate immediately.
+After writing the HTML file, **dispatch `flow-consistency` agent** in background. Do NOT wait for it — proceed to the preview gate immediately. If the agent returns findings after you've already presented the gate, do NOT apply fixes automatically. Instead, mention the findings briefly when the user responds — let them decide whether to fix before pushing. Never re-edit the HTML and re-present the gate unprompted.
 
 ### Preview gate (end of Step 4 — BLOCKING)
 
