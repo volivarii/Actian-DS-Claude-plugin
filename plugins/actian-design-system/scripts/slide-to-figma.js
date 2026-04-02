@@ -30,19 +30,19 @@ const FONTS = ['Roboto:Regular', 'Roboto:Bold', 'Roboto:Medium'];
 
 // DS Kit variable keys for theme-aware colors
 const VARIABLES = {
-  brandPrimary:  { key: 'a256595115f6048a1e1c843e3099a79a5c259288', type: 'COLOR' },
-  bgDefault:     { key: '805afec875092b89deebe685e17992963d603974', type: 'COLOR' },
-  bgGrey2:       { key: '2d7f893d1d1f5807dfc84b7b6e057eff8fd2ae31', type: 'COLOR' },
-  bgReverse:     { key: '3d35091ed8a67f9cf4dc1e55e32a4bac7ac07a79', type: 'COLOR' },
-  textPrimary:   { key: 'cb3cf6a8b661f3a2ff12835120957f3278d329d0', type: 'COLOR' },
-  textSecondary: { key: '54d9d36f7653380d99e9aadbad21e14f9dcdb295', type: 'COLOR' },
-  textReverse:   { key: 'd5b2b08fd5bab41595edb892bf4707cb94bae50a', type: 'COLOR' },
-  borderDefault: { key: '290c868621027b488cbc3b262619959bec52765f', type: 'COLOR' },
-  cat1Strong:    { key: 'a6da1a364e8613bd146667f77efa03ee7ea39305', type: 'COLOR' },
-  cat2Strong:    { key: 'c2c0376490a69426cedfdcb1ab2a6d531b626fdf', type: 'COLOR' },
-  cat3Strong:    { key: '9997cab3913a4dfbcb8729e5a11bd21f14f16b86', type: 'COLOR' },
-  cat4Strong:    { key: '2b5d7f13d3765cb54d6b7ffdcd36b6ed3543823f', type: 'COLOR' },
-  cat5Strong:    { key: '8d43f11cdb9916465065f37576bb8d903706dcfc', type: 'COLOR' }
+  brandPrimary:  { key: 'a256595115f6048a1e1c843e3099a79a5c259288' },
+  bgDefault:     { key: '805afec875092b89deebe685e17992963d603974' },
+  bgGrey2:       { key: '2d7f893d1d1f5807dfc84b7b6e057eff8fd2ae31' },
+  bgReverse:     { key: '3d35091ed8a67f9cf4dc1e55e32a4bac7ac07a79' },
+  textPrimary:   { key: 'cb3cf6a8b661f3a2ff12835120957f3278d329d0' },
+  textSecondary: { key: '54d9d36f7653380d99e9aadbad21e14f9dcdb295' },
+  textReverse:   { key: 'd5b2b08fd5bab41595edb892bf4707cb94bae50a' },
+  borderDefault: { key: '290c868621027b488cbc3b262619959bec52765f' },
+  cat1Strong:    { key: 'a6da1a364e8613bd146667f77efa03ee7ea39305' },
+  cat2Strong:    { key: 'c2c0376490a69426cedfdcb1ab2a6d531b626fdf' },
+  cat3Strong:    { key: '9997cab3913a4dfbcb8729e5a11bd21f14f16b86' },
+  cat4Strong:    { key: '2b5d7f13d3765cb54d6b7ffdcd36b6ed3543823f' },
+  cat5Strong:    { key: '8d43f11cdb9916465065f37576bb8d903706dcfc' }
 };
 
 const DARK_GRADIENT = [{
@@ -247,21 +247,7 @@ function scanVariables(nodes, vars) {
   return vars;
 }
 
-// ---------------------------------------------------------------------------
-// Ref scanner (for imports)
-// ---------------------------------------------------------------------------
-
-function scanRefs(nodes, refs) {
-  if (!refs) refs = new Set();
-  if (!Array.isArray(nodes)) return refs;
-  for (const node of nodes) {
-    if (!node) continue;
-    if (node.ref) refs.add(node.ref);
-    if (node.type === 'DIVIDER') refs.add('divider');
-    if (node.children) scanRefs(node.children, refs);
-  }
-  return refs;
-}
+// scanRefs: use codegen.scanRefs
 
 // ---------------------------------------------------------------------------
 // Validation
@@ -292,26 +278,8 @@ function validate(input) {
 // Auto-splitter
 // ---------------------------------------------------------------------------
 
-function compactSize(obj) {
-  return Buffer.byteLength(JSON.stringify(obj), 'utf8');
-}
-
 function autoSplit(meta, allItems, usedVars) {
-  const bins = [];
-  let currentBin = [];
-  let currentSize = 0;
-
-  for (const item of allItems) {
-    const itemSize = compactSize(item);
-    if (currentBin.length > 0 && currentSize + itemSize + OVERHEAD > MAX_BIN_SIZE) {
-      bins.push(currentBin);
-      currentBin = [];
-      currentSize = 0;
-    }
-    currentBin.push(item);
-    currentSize += itemSize;
-  }
-  if (currentBin.length > 0) bins.push(currentBin);
+  const bins = codegen.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
 
   // Resolve which variables are actually used
   const resolvedVars = {};
@@ -320,7 +288,7 @@ function autoSplit(meta, allItems, usedVars) {
   }
 
   // Resolve additional imports from content refs
-  const allRefs = scanRefs(allItems);
+  const allRefs = codegen.scanRefs(allItems);
   const imports = Object.assign({}, IMPORTS);
   if (allRefs.has('divider')) {
     imports.divider = { key: 'f4d778e1cf9bb61a33712c791486f54bb1c095b7', method: 'single' };

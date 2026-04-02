@@ -57,6 +57,19 @@ const TOKEN_COLORS = {
   text:        '#BABED8'
 };
 
+const PALETTE = {
+  textPrimary:     '#1A1A2E',
+  textSecondary:   '#595968',
+  textTertiary:    '#888888',
+  bgGrey:          '#F5F5FA',
+  bgLight:         '#F9FAFB',
+  white:           '#FFFFFF',
+  errorRed:        '#C10C0D',
+  successGreen:    '#047800',
+  errorBg:         '#FEF3F2',
+  annotationPink:  '#E91E8C',
+};
+
 // Max raw JSON bytes per bin (keeps generated code under ~45KB)
 const MAX_BIN_SIZE = 6000;
 const OVERHEAD = 500; // meta + fonts + imports envelope
@@ -76,9 +89,9 @@ function textNode(content, font, size, color, opts) {
   return node;
 }
 
-/** Returns a section title TEXT node — Inter:Semi Bold 16px #1A1A2E */
+/** Returns a section title TEXT node — Inter:Semi Bold 16px textPrimary */
 function sectionTitle(title) {
-  return textNode(title, 'Inter:Semi Bold', 16, '#1A1A2E');
+  return textNode(title, 'Inter:Semi Bold', 16, PALETTE.textPrimary);
 }
 
 /** Returns a DIVIDER spec node */
@@ -89,14 +102,14 @@ function dividerNode() {
 /** Returns a table FRAME with header row + data rows */
 function tableFrame(name, headers, rows, colWidths) {
   const headerChildren = headers.map((h, i) =>
-    textNode(h, 'Inter:Bold', 12, '#595968', { width: colWidths[i] })
+    textNode(h, 'Inter:Bold', 12, PALETTE.textSecondary, { width: colWidths[i] })
   );
 
   const headerRow = {
     type: 'FRAME',
     name: 'Header',
     layout: { mode: 'HORIZONTAL', spacing: 0, padding: [8, 12, 8, 12] },
-    fills: ['#F5F5FA'],
+    fills: [PALETTE.bgGrey],
     children: headerChildren,
     sizing: { horizontal: 'FILL', vertical: 'HUG' }
   };
@@ -108,7 +121,7 @@ function tableFrame(name, headers, rows, colWidths) {
       // If cell is a frame (object with children), use it directly
       if (cell && typeof cell === 'object' && cell.children) return cell;
       // Otherwise, make a text node
-      return textNode(String(cell), 'Inter:Regular', 14, '#1A1A2E', { width: colWidths[ci] });
+      return textNode(String(cell), 'Inter:Regular', 14, PALETTE.textPrimary, { width: colWidths[ci] });
     });
     return {
       type: 'FRAME',
@@ -151,7 +164,7 @@ function swatchCell(hex, tokenName) {
         fills: fills,
         sizing: { horizontal: 'HUG', vertical: 'HUG' }
       },
-      textNode(`${tokenName} ${hex}`, 'Fira Code:Regular', 11, '#595968')
+      textNode(`${tokenName} ${hex}`, 'Fira Code:Regular', 11, PALETTE.textSecondary)
     ],
     sizing: { horizontal: 'HUG', vertical: 'HUG' }
   };
@@ -207,7 +220,7 @@ function bulletRow(text, prefix, prefixColor) {
     fills: [],
     children: [
       textNode(prefix, 'Inter:Bold', 14, prefixColor),
-      textNode(text, 'Inter:Regular', 14, '#1A1A2E')
+      textNode(text, 'Inter:Regular', 14, PALETTE.textPrimary)
     ],
     sizing: { horizontal: 'FILL', vertical: 'HUG' }
   };
@@ -215,29 +228,22 @@ function bulletRow(text, prefix, prefixColor) {
 
 /** Returns a REQ or OPT badge FRAME */
 function reqOptBadge(required) {
-  if (required) {
-    return {
-      type: 'FRAME',
-      name: 'REQ badge',
-      layout: { mode: 'HORIZONTAL', spacing: 0, padding: [2, 6, 2, 6] },
-      fills: ['#FEF3F2'],
-      cornerRadius: 4,
-      children: [
-        textNode('REQ', 'Inter:Bold', 10, '#C10C0D', { textCase: 'UPPER' })
-      ],
-      sizing: { horizontal: 'HUG', vertical: 'HUG' }
-    };
-  }
+  const label = required ? 'REQ' : 'OPT';
+  const bg    = required ? PALETTE.errorBg    : PALETTE.bgGrey;
+  const fg    = required ? PALETTE.errorRed   : PALETTE.textTertiary;
   return {
     type: 'FRAME',
-    name: 'OPT badge',
-    layout: { mode: 'HORIZONTAL', spacing: 0, padding: [2, 6, 2, 6] },
-    fills: ['#F5F5FA'],
+    name: label + ' badge',
+    layout: { mode: 'HORIZONTAL', padding: [2, 6, 2, 6] },
     cornerRadius: 4,
-    children: [
-      textNode('OPT', 'Inter:Bold', 10, '#888888', { textCase: 'UPPER' })
-    ],
-    sizing: { horizontal: 'HUG', vertical: 'HUG' }
+    fills: [bg],
+    children: [{
+      type: 'TEXT',
+      content: label,
+      font: 'Inter:Bold',
+      size: 10,
+      color: fg
+    }]
   };
 }
 
@@ -257,7 +263,7 @@ function buildGenLog(meta) {
       Date: meta.generatedAt,
       Duration: meta.duration,
       Model: meta.model,
-      'Plugin Version': `v${meta.pluginVersion}`
+      Plugin: meta.pluginVersion || 'unknown'
     },
     sizing: { horizontal: 'HUG', vertical: 'HUG' }
   };
@@ -300,7 +306,7 @@ function buildCard2(card2_component, meta) {
           variant: col.variantName,
           name: `${row.row} ${col.label}`
         },
-        textNode(col.label, 'Inter:Medium', 12, '#888888')
+        textNode(col.label, 'Inter:Medium', 12, PALETTE.textTertiary)
       ],
       sizing: { horizontal: 'HUG', vertical: 'HUG' }
     }));
@@ -339,17 +345,17 @@ function buildCard2(card2_component, meta) {
         fills: [swatch.hex],
         sizing: { horizontal: 'HUG', vertical: 'HUG' }
       });
-      swatchChildren.push(textNode(swatch.token, 'Inter:Regular', 11, '#595968'));
+      swatchChildren.push(textNode(swatch.token, 'Inter:Regular', 11, PALETTE.textSecondary));
     }
 
     themeFrames.push({
       type: 'FRAME',
       name: `Theme: ${themeLabels[themeName]}`,
       layout: { mode: 'VERTICAL', spacing: 8, padding: [16, 16, 16, 16] },
-      fills: ['#FFFFFF'],
+      fills: [PALETTE.white],
       cornerRadius: 8,
       children: [
-        textNode(themeLabels[themeName], 'Inter:Semi Bold', 14, '#1A1A2E'),
+        textNode(themeLabels[themeName], 'Inter:Semi Bold', 14, PALETTE.textPrimary),
         {
           type: 'FRAME',
           name: 'Swatches',
@@ -401,7 +407,7 @@ function buildCard3(card3_anatomy) {
       type: 'VECTOR',
       name: `Leader ${part.letter}`,
       paths: ['M 0 10 L 50 10'],
-      stroke: { color: '#E91E8C', weight: 1 },
+      stroke: { color: PALETTE.annotationPink, weight: 1 },
       fills: []
     });
   }
@@ -410,7 +416,7 @@ function buildCard3(card3_anatomy) {
     type: 'FRAME',
     name: 'Structure diagram',
     layout: { mode: 'NONE' },
-    fills: ['#F9FAFB'],
+    fills: [PALETTE.bgLight],
     cornerRadius: 12,
     children: diagramChildren,
     sizing: { horizontal: 'FILL', vertical: 400 }
@@ -418,7 +424,7 @@ function buildCard3(card3_anatomy) {
 
   // Legend row
   const legendChildren = card3_anatomy.parts.map(part =>
-    textNode(`${part.letter} \u2014 ${part.name}`, 'Inter:Regular', 12, '#595968')
+    textNode(`${part.letter} \u2014 ${part.name}`, 'Inter:Regular', 12, PALETTE.textSecondary)
   );
 
   children.push({
@@ -454,7 +460,7 @@ function buildCard3(card3_anatomy) {
     type: 'FRAME',
     name: 'Specs diagram',
     layout: { mode: 'NONE' },
-    fills: ['#F9FAFB'],
+    fills: [PALETTE.bgLight],
     cornerRadius: 12,
     children: specChildren,
     sizing: { horizontal: 'FILL', vertical: 300 }
@@ -470,7 +476,7 @@ function buildCard3(card3_anatomy) {
     layout: { mode: 'VERTICAL', spacing: 8, padding: [0, 0, 0, 0] },
     fills: [],
     children: [
-      textNode(state, 'Inter:Medium', 12, '#888888'),
+      textNode(state, 'Inter:Medium', 12, PALETTE.textTertiary),
       {
         type: 'LOCAL_INSTANCE',
         ref: 'targetComponent',
@@ -498,12 +504,12 @@ function buildCard3(card3_anatomy) {
   const partsWidths = [60, 140, 240, 300];
   const partsRows = card3_anatomy.partsTable.map(row => {
     // Token column uses monospace
-    const tokenCell = textNode(row.token, 'Fira Code:Regular', 12, '#1A1A2E', { width: 240 });
+    const tokenCell = textNode(row.token, 'Fira Code:Regular', 12, PALETTE.textPrimary, { width: 240 });
     return [
-      textNode(row.part, 'Inter:Regular', 14, '#1A1A2E', { width: 60 }),
-      textNode(row.element, 'Inter:Regular', 14, '#1A1A2E', { width: 140 }),
+      textNode(row.part, 'Inter:Regular', 14, PALETTE.textPrimary, { width: 60 }),
+      textNode(row.element, 'Inter:Regular', 14, PALETTE.textPrimary, { width: 140 }),
       tokenCell,
-      textNode(row.notes, 'Inter:Regular', 14, '#595968', { width: 300 })
+      textNode(row.notes, 'Inter:Regular', 14, PALETTE.textSecondary, { width: 300 })
     ];
   });
 
@@ -533,7 +539,7 @@ function buildCard4(card4_tokens) {
   for (let i = 1; i < colCount; i++) colorWidths.push(160);
 
   const colorRows = card4_tokens.colorTokens.map(row => {
-    const cells = [textNode(row.state, 'Inter:Medium', 14, '#1A1A2E', { width: 140 })];
+    const cells = [textNode(row.state, 'Inter:Medium', 14, PALETTE.textPrimary, { width: 140 })];
     for (const col of row.columns) {
       cells.push(swatchCell(col.hex, col.token));
     }
@@ -549,9 +555,9 @@ function buildCard4(card4_tokens) {
   const sizingHeaders = ['Property', 'Token', 'Value'];
   const sizingWidths = [200, 240, 120];
   const sizingRows = (card4_tokens.sizingTokens || []).map(row => [
-    textNode(row.property, 'Inter:Regular', 14, '#1A1A2E', { width: 200 }),
-    textNode(row.token, 'Fira Code:Regular', 12, '#1A1A2E', { width: 240 }),
-    textNode(row.value, 'Inter:Regular', 14, '#1A1A2E', { width: 120 })
+    textNode(row.property, 'Inter:Regular', 14, PALETTE.textPrimary, { width: 200 }),
+    textNode(row.token, 'Fira Code:Regular', 12, PALETTE.textPrimary, { width: 240 }),
+    textNode(row.value, 'Inter:Regular', 14, PALETTE.textPrimary, { width: 120 })
   ]);
 
   children.push(tableFrame('Sizing table', sizingHeaders, sizingRows, sizingWidths));
@@ -567,8 +573,8 @@ function buildCard4(card4_tokens) {
       layout: { mode: 'VERTICAL', spacing: 4, padding: [8, 0, 8, 0] },
       fills: [],
       children: [
-        textNode(typo.element, 'Inter:Semi Bold', 14, '#1A1A2E'),
-        textNode(`${typo.token} \u2014 ${typo.font}, tracking ${typo.tracking}`, 'Inter:Regular', 12, '#595968')
+        textNode(typo.element, 'Inter:Semi Bold', 14, PALETTE.textPrimary),
+        textNode(`${typo.token} \u2014 ${typo.font}, tracking ${typo.tracking}`, 'Inter:Regular', 12, PALETTE.textSecondary)
       ],
       sizing: { horizontal: 'FILL', vertical: 'HUG' }
     });
@@ -584,11 +590,11 @@ function buildCard5(card5_api) {
 
   const rows = card5_api.props.map(prop => [
     reqOptBadge(prop.required),
-    textNode(prop.name, 'Fira Code:Regular', 12, '#1A1A2E', { width: 140 }),
+    textNode(prop.name, 'Fira Code:Regular', 12, PALETTE.textPrimary, { width: 140 }),
     textNode(prop.type, 'Inter:Regular', 14, '#C792EA', { width: 100 }),
     textNode(prop.default, 'Inter:Regular', 14, '#C3E88D', { width: 120 }),
-    textNode(prop.values, 'Inter:Regular', 14, '#1A1A2E', { width: 200 }),
-    textNode(prop.notes, 'Inter:Regular', 14, '#595968', { width: 350 })
+    textNode(prop.values, 'Inter:Regular', 14, PALETTE.textPrimary, { width: 200 }),
+    textNode(prop.notes, 'Inter:Regular', 14, PALETTE.textSecondary, { width: 350 })
   ]);
 
   const table = tableFrame('API table', headers, rows, colWidths);
@@ -603,7 +609,7 @@ function buildCard6(card6_usage, card1_header) {
   // When to use
   children.push(sectionTitle('When to use'));
   for (const item of (card6_usage.whenToUse || [])) {
-    children.push(bulletRow(item, '+', '#047800'));
+    children.push(bulletRow(item, '+', PALETTE.successGreen));
   }
 
   // Divider
@@ -612,7 +618,7 @@ function buildCard6(card6_usage, card1_header) {
   // When NOT to use
   children.push(sectionTitle('When NOT to use'));
   for (const item of (card6_usage.whenNotToUse || [])) {
-    children.push(bulletRow(item, '\u2212', '#C10C0D'));
+    children.push(bulletRow(item, '\u2212', PALETTE.errorRed));
   }
 
   // Divider
@@ -649,7 +655,7 @@ function buildCard7(card7_content, card1_header) {
     const rule = rules[i];
 
     children.push(sectionTitle(rule.title));
-    children.push(textNode(rule.description, 'Inter:Regular', 14, '#595968'));
+    children.push(textNode(rule.description, 'Inter:Regular', 14, PALETTE.textSecondary));
 
     children.push({
       type: 'INSTANCE',
@@ -680,8 +686,8 @@ function buildCard7(card7_content, card1_header) {
     const termHeaders = ['Term', 'When to use'];
     const termWidths = [160, 500];
     const termRows = terminology.map(t => [
-      textNode(t.term, 'Inter:Semi Bold', 14, '#1A1A2E', { width: 160 }),
-      textNode(t.use, 'Inter:Regular', 14, '#595968', { width: 500 })
+      textNode(t.term, 'Inter:Semi Bold', 14, PALETTE.textPrimary, { width: 160 }),
+      textNode(t.use, 'Inter:Regular', 14, PALETTE.textSecondary, { width: 500 })
     ]);
 
     children.push(tableFrame('Terminology table', termHeaders, termRows, termWidths));
@@ -751,12 +757,12 @@ function buildCard8(card8_accessibility) {
     const ariaHeaders = ['Element', 'Role', 'Label', 'Focus Order', 'Keyboard', 'Announcement'];
     const ariaWidths = [120, 100, 120, 80, 200, 200];
     const ariaRows = ariaTable.map(row => [
-      textNode(row.element, 'Inter:Regular', 14, '#1A1A2E', { width: 120 }),
-      textNode(row.role, 'Fira Code:Regular', 12, '#1A1A2E', { width: 100 }),
-      textNode(row.label, 'Fira Code:Regular', 12, '#1A1A2E', { width: 120 }),
-      textNode(row.focusOrder, 'Inter:Regular', 14, '#1A1A2E', { width: 80 }),
-      textNode(row.keyboard, 'Inter:Regular', 14, '#595968', { width: 200 }),
-      textNode(row.announcement, 'Inter:Regular', 14, '#595968', { width: 200 })
+      textNode(row.element, 'Inter:Regular', 14, PALETTE.textPrimary, { width: 120 }),
+      textNode(row.role, 'Fira Code:Regular', 12, PALETTE.textPrimary, { width: 100 }),
+      textNode(row.label, 'Fira Code:Regular', 12, PALETTE.textPrimary, { width: 120 }),
+      textNode(row.focusOrder, 'Inter:Regular', 14, PALETTE.textPrimary, { width: 80 }),
+      textNode(row.keyboard, 'Inter:Regular', 14, PALETTE.textSecondary, { width: 200 }),
+      textNode(row.announcement, 'Inter:Regular', 14, PALETTE.textSecondary, { width: 200 })
     ]);
 
     children.push(tableFrame('ARIA table', ariaHeaders, ariaRows, ariaWidths));
@@ -771,10 +777,10 @@ function buildCard8(card8_accessibility) {
     const contrastHeaders = ['Element', 'Foreground', 'Background', 'Ratio', 'WCAG AA'];
     const contrastWidths = [160, 160, 160, 80, 80];
     const contrastRows = contrastTable.map(row => [
-      textNode(row.element, 'Inter:Regular', 14, '#1A1A2E', { width: 160 }),
+      textNode(row.element, 'Inter:Regular', 14, PALETTE.textPrimary, { width: 160 }),
       swatchCell(row.foreground, row.foreground),
       swatchCell(row.background, row.background),
-      textNode(row.ratio, 'Inter:Regular', 14, '#1A1A2E', { width: 80 }),
+      textNode(row.ratio, 'Inter:Regular', 14, PALETTE.textPrimary, { width: 80 }),
       {
         type: 'INSTANCE',
         ref: 'contrastBadge',
@@ -855,10 +861,6 @@ function validate(data) {
 // Bin-packing + code generation
 // ---------------------------------------------------------------------------
 
-function compactSize(obj) {
-  return Buffer.byteLength(JSON.stringify(obj), 'utf8');
-}
-
 /**
  * Build all cards and bin-pack them into code generation calls.
  * Returns array of { callIndex, code, description }.
@@ -876,24 +878,22 @@ function autoSplitCalls(data, targetNodeId) {
     { name: 'Card 7', node: buildCard7(data.card7_content, data.card1_header) },
     { name: 'Card 8', node: buildCard8(data.card8_accessibility) },
     { name: 'Card 9', node: buildCard9(data.card9_code, data.card1_header) }
-  ].filter(c => c.node != null);
+  ];
 
-  // Bin-pack cards into groups under MAX_BIN_SIZE raw JSON bytes
+  // Bin-pack card nodes into groups under MAX_BIN_SIZE raw JSON bytes
+  const treeNodes = allCards.map(c => c.node);
+  const nodeBins = codegen.binPack(treeNodes, MAX_BIN_SIZE, OVERHEAD);
+
+  // Map node bins back to card wrappers (preserving name for descriptions)
   const bins = [];
-  let currentBin = [];
-  let currentSize = 0;
-
-  for (const card of allCards) {
-    const cardSize = compactSize(card.node);
-    if (currentBin.length > 0 && currentSize + cardSize + OVERHEAD > MAX_BIN_SIZE) {
-      bins.push(currentBin);
-      currentBin = [];
-      currentSize = 0;
+  let cardIdx = 0;
+  for (const nodeBin of nodeBins) {
+    const cardBin = [];
+    for (let i = 0; i < nodeBin.length; i++) {
+      cardBin.push(allCards[cardIdx++]);
     }
-    currentBin.push(card);
-    currentSize += cardSize + OVERHEAD;
+    bins.push(cardBin);
   }
-  if (currentBin.length > 0) bins.push(currentBin);
 
   const totalCalls = bins.length;
   const results = [];
@@ -927,7 +927,6 @@ function autoSplitCalls(data, targetNodeId) {
     }
 
     // Generate code
-    codegen.resetCounter();
     const code = codegen.generateCallCode(spec);
     const codeSize = Buffer.byteLength(code, 'utf8');
 
