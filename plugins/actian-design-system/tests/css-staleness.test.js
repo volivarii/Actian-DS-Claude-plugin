@@ -78,13 +78,10 @@ function checkCoverage(jsClasses, cssClasses) {
     // Direct match
     if (cssClasses.has(cls)) return;
 
-    // BEM variant: fm-button--primary → check fm-button exists
+    // BEM modifier: fm-button--primary → accept if fm-button exists in CSS
+    // (modifiers are often styled via the base class + state)
     var base = cls.replace(/--[a-zA-Z0-9_-]+$/, "");
     if (base !== cls && cssClasses.has(base)) return;
-
-    // BEM element of variant: fm-alert__bar → check fm-alert exists
-    var block = cls.split("__")[0];
-    if (block !== cls && cssClasses.has(block)) return;
 
     missing.push(cls);
   });
