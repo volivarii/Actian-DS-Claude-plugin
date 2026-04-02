@@ -49,8 +49,11 @@ fi
 # Start a new server (custom handler with annotation POST endpoint)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SERVER_LOG="/tmp/preview-server-$PORT.log"
-python3 "$SCRIPT_DIR/preview-server.py" "$PORT" "$DIR_ABS" > "$SERVER_LOG" 2>&1 &
+# Use nohup + disown to ensure the server survives after this script exits.
+# On Desktop (Cowork), background processes get killed when the parent bash exits.
+nohup python3 "$SCRIPT_DIR/preview-server.py" "$PORT" "$DIR_ABS" > "$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
+disown "$SERVER_PID" 2>/dev/null
 
 # Wait for it to be ready
 for i in 1 2 3 4 5; do
