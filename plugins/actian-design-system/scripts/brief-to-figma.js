@@ -281,8 +281,7 @@ function buildCard1(card1_header) {
       'Component Name': card1_header.name,
       Description: card1_header.description
     },
-    detach: true,
-    sizing: { horizontal: 'HUG', vertical: 'HUG' }
+    detach: true
   };
 }
 
