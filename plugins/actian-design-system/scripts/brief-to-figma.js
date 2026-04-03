@@ -836,22 +836,24 @@ function validate(data) {
   if (!data.meta || !data.meta.componentKey) {
     errors.push('meta.componentKey is required (needed for localComponents)');
   }
+  // Card 1 (header) is always required — other cards are optional for partial briefs
   if (!data.card1_header || !data.card1_header.name) {
     errors.push('card1_header.name is required');
   }
   if (!data.card1_header || !data.card1_header.description) {
     errors.push('card1_header.description is required');
   }
-  if (!data.card2_component || !Array.isArray(data.card2_component.variantMatrix) || data.card2_component.variantMatrix.length === 0) {
+  // Warn about missing cards but don't block — partial briefs are valid
+  if (data.card2_component && (!Array.isArray(data.card2_component.variantMatrix) || data.card2_component.variantMatrix.length === 0)) {
     errors.push('card2_component.variantMatrix must be a non-empty array');
   }
-  if (!data.card4_tokens || !Array.isArray(data.card4_tokens.colorTokens) || data.card4_tokens.colorTokens.length === 0) {
+  if (data.card4_tokens && (!Array.isArray(data.card4_tokens.colorTokens) || data.card4_tokens.colorTokens.length === 0)) {
     errors.push('card4_tokens.colorTokens must be a non-empty array');
   }
-  if (!data.card8_accessibility || !Array.isArray(data.card8_accessibility.requirements) || data.card8_accessibility.requirements.length !== 6) {
+  if (data.card8_accessibility && (!Array.isArray(data.card8_accessibility.requirements) || data.card8_accessibility.requirements.length !== 6)) {
     errors.push('card8_accessibility.requirements must have exactly 6 items');
   }
-  if (!data.card9_code || !Array.isArray(data.card9_code.tokens) || data.card9_code.tokens.length === 0) {
+  if (data.card9_code && (!Array.isArray(data.card9_code.tokens) || data.card9_code.tokens.length === 0)) {
     errors.push('card9_code.tokens must be a non-empty array');
   }
 
@@ -867,19 +869,19 @@ function validate(data) {
  * Returns array of { callIndex, code, description }.
  */
 function autoSplitCalls(data, targetNodeId) {
-  // Build all cards
+  // Build only cards that have data — supports partial briefs
   const allCards = [
-    { name: 'GenLog', node: buildGenLog(data.meta) },
-    { name: 'Card 1', node: buildCard1(data.card1_header) },
-    { name: 'Card 2', node: buildCard2(data.card2_component, data.meta) },
-    { name: 'Card 3', node: buildCard3(data.card3_anatomy) },
-    { name: 'Card 4', node: buildCard4(data.card4_tokens) },
-    { name: 'Card 5', node: buildCard5(data.card5_api) },
-    { name: 'Card 6', node: buildCard6(data.card6_usage, data.card1_header) },
-    { name: 'Card 7', node: buildCard7(data.card7_content, data.card1_header) },
-    { name: 'Card 8', node: buildCard8(data.card8_accessibility) },
-    { name: 'Card 9', node: buildCard9(data.card9_code, data.card1_header) }
+    { name: 'GenLog', node: buildGenLog(data.meta) }
   ];
+  if (data.card1_header)      allCards.push({ name: 'Card 1', node: buildCard1(data.card1_header) });
+  if (data.card2_component)   allCards.push({ name: 'Card 2', node: buildCard2(data.card2_component, data.meta) });
+  if (data.card3_anatomy)     allCards.push({ name: 'Card 3', node: buildCard3(data.card3_anatomy) });
+  if (data.card4_tokens)      allCards.push({ name: 'Card 4', node: buildCard4(data.card4_tokens) });
+  if (data.card5_api)         allCards.push({ name: 'Card 5', node: buildCard5(data.card5_api) });
+  if (data.card6_usage)       allCards.push({ name: 'Card 6', node: buildCard6(data.card6_usage, data.card1_header) });
+  if (data.card7_content)     allCards.push({ name: 'Card 7', node: buildCard7(data.card7_content, data.card1_header) });
+  if (data.card8_accessibility) allCards.push({ name: 'Card 8', node: buildCard8(data.card8_accessibility) });
+  if (data.card9_code)        allCards.push({ name: 'Card 9', node: buildCard9(data.card9_code, data.card1_header) });
 
   // Bin-pack card nodes into groups under MAX_BIN_SIZE raw JSON bytes
   const treeNodes = allCards.map(c => c.node);
