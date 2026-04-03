@@ -49,9 +49,11 @@ fi
 # Start a new server (custom handler with annotation POST endpoint)
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SERVER_LOG="/tmp/preview-server-$PORT.log"
+# Resolve node binary — Desktop sandbox may not have it in PATH
+source "$SCRIPT_DIR/resolve-node.sh"
 # Use nohup + disown to ensure the server survives after this script exits.
 # On Desktop (Cowork), background processes get killed when the parent bash exits.
-nohup node "$SCRIPT_DIR/preview-server.js" "$PORT" "$DIR_ABS" > "$SERVER_LOG" 2>&1 &
+nohup "$NODE_BIN" "$SCRIPT_DIR/preview-server.js" "$PORT" "$DIR_ABS" > "$SERVER_LOG" 2>&1 &
 SERVER_PID=$!
 disown "$SERVER_PID" 2>/dev/null
 

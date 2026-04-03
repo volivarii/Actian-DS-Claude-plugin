@@ -47,6 +47,16 @@ Figma libraries are the single source of truth. Data flows: `Figma → /sync-des
 - All support `--output-dir <dir>` to write `call-N.js` + `manifest.json` (preferred over stdout)
 - `scripts/figma-codegen.js` — shared code generation library used by all three
 
+**Node.js resolution (Desktop compatibility):**
+On Claude Desktop, the sandbox may not have `node` in PATH. Before running any Node.js script, resolve the binary:
+```bash
+# Source the resolver — sets $NODE_BIN to the absolute path
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+# Then use $NODE_BIN instead of bare 'node'
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" ...
+```
+**Never use bare `node` in Bash commands.** Always use `$NODE_BIN` after sourcing `resolve-node.sh`.
+
 ## Versioning (Semantic Versioning)
 
 This project uses **semver** (`MAJOR.MINOR.PATCH`).
