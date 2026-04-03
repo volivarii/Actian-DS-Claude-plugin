@@ -91,13 +91,15 @@ var c0;
   }
 })();
 c0.name = 'Generation Log';
-setProp(c0, 'Skill', 'generate-presentation');
-setProp(c0, 'Prompt', 'Create a presentation about the DS 2026 update');
+setProp(c0, 'Skill', 'Skill: generate-presentation');
+setProp(c0, 'Prompt', 'Prompt: Create a presentation about the DS 2026 update');
 setProp(c0, 'Date', '2026-04-03T00:00:00Z');
-setProp(c0, 'Duration', '25s');
+setProp(c0, 'Duration', 'Duration: 25s');
 setProp(c0, 'Model', 'claude-opus-4-6');
-setProp(c0, 'Plugin', '1.31.0');
+setProp(c0, 'Plugin Version', 'v1.31.0');
 _wrapper.appendChild(c0);
+c0.layoutSizingHorizontal = 'HUG';
+c0.layoutSizingVertical = 'HUG';
 _nodeCount++;
 var c1;
 (function() {

@@ -105,6 +105,7 @@ The script handles all edge cases:
 - **HTML:** Use `.gen-card` class from wrapper templates. See renderer references for card structure.
 - **Figma:** Import Meta Kit Generation Log component. See `references/figma-output.md` for code pattern.
 - `plugin-version` — read from `.claude-plugin/plugin.json` at file-write time
+- `duration` — at skill start, run `date +%s` once. Before writing the data JSON, run `date +%s` again and compute the difference. Format as `Xm Ys` (e.g., "2m 34s"). Set `meta.duration` in the data JSON. No extra calls beyond these two.
 
 ---
 

@@ -235,22 +235,12 @@ function reqOptBadge(required) {
 // Card builders
 // ---------------------------------------------------------------------------
 
-/** Card 0 — Generation Log. Data source: meta */
+/** Card 0 — Generation Log. Uses shared builder. */
 function buildGenLog(meta) {
-  return {
-    type: "INSTANCE",
-    ref: "genLog",
-    name: "Generation Log",
-    props: {
-      Skill: meta.skill || "component-brief",
-      Prompt: `component-brief ${meta.component}`,
-      Date: meta.generatedAt,
-      Duration: meta.duration,
-      Model: meta.model,
-      Plugin: meta.pluginVersion || "unknown",
-    },
-    sizing: { horizontal: "HUG", vertical: "HUG" },
-  };
+  return shared.buildGenLog(meta, {
+    skillName: "component-brief",
+    promptOverride: "component-brief " + (meta.component || ""),
+  });
 }
 
 /** Card 1 — Page Header. Data source: card1_header */

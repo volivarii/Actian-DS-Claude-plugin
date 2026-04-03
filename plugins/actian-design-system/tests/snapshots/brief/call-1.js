@@ -94,12 +94,12 @@ var c0;
   }
 })();
 c0.name = 'Generation Log';
-setProp(c0, 'Skill', 'component-brief');
-setProp(c0, 'Prompt', 'component-brief Link');
+setProp(c0, 'Skill', 'Skill: component-brief');
+setProp(c0, 'Prompt', 'Prompt: component-brief Link');
 setProp(c0, 'Date', '2026-04-03T00:00:00Z');
-setProp(c0, 'Duration', '45s');
+setProp(c0, 'Duration', 'Duration: 45s');
 setProp(c0, 'Model', 'claude-opus-4-6');
-setProp(c0, 'Plugin', '1.31.0');
+setProp(c0, 'Plugin Version', 'v1.31.0');
 _wrapper.appendChild(c0);
 c0.layoutSizingHorizontal = 'HUG';
 c0.layoutSizingVertical = 'HUG';
