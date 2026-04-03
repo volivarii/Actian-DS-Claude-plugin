@@ -623,6 +623,10 @@ function _genInstanceShared(spec, varName, varPrefix, hasNullGuard) {
   // Resize instance if width/height specified
   if (spec.width !== undefined && spec.height !== undefined) {
     lines.push(varName + '.resize(' + spec.width + ', ' + spec.height + ');');
+  } else if (spec.width !== undefined) {
+    lines.push(varName + '.resize(' + spec.width + ', ' + varName + '.height);');
+  } else if (spec.height !== undefined) {
+    lines.push(varName + '.resize(' + varName + '.width, ' + spec.height + ');');
   }
 
   if (spec.props) {

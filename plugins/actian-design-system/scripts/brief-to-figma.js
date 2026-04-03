@@ -207,8 +207,8 @@ function cardShell(name, title, subtitle, children) {
       Subtitle: subtitle
     },
     detach: true,
-    children: children,
-    sizing: { horizontal: 'HUG', vertical: 'HUG' }
+    width: 960,
+    children: children
   };
 }
 
@@ -281,7 +281,8 @@ function buildCard1(card1_header) {
       'Component Name': card1_header.name,
       Description: card1_header.description
     },
-    detach: true
+    detach: true,
+    width: 960
   };
 }
 
