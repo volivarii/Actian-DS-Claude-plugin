@@ -836,12 +836,12 @@ function validate(data) {
   if (!data.meta || !data.meta.componentKey) {
     errors.push('meta.componentKey is required (needed for localComponents)');
   }
-  // Card 1 (header) is always required — other cards are optional for partial briefs
-  if (!data.card1_header || !data.card1_header.name) {
-    errors.push('card1_header.name is required');
+  // Card 1 (header) is optional for partial briefs — validate only if present
+  if (data.card1_header && !data.card1_header.name) {
+    errors.push('card1_header.name is required when card1_header is present');
   }
-  if (!data.card1_header || !data.card1_header.description) {
-    errors.push('card1_header.description is required');
+  if (data.card1_header && !data.card1_header.description) {
+    errors.push('card1_header.description is required when card1_header is present');
   }
   // Warn about missing cards but don't block — partial briefs are valid
   if (data.card2_component && (!Array.isArray(data.card2_component.variantMatrix) || data.card2_component.variantMatrix.length === 0)) {
@@ -878,10 +878,10 @@ function autoSplitCalls(data, targetNodeId) {
   if (data.card3_anatomy)     allCards.push({ name: 'Card 3', node: buildCard3(data.card3_anatomy) });
   if (data.card4_tokens)      allCards.push({ name: 'Card 4', node: buildCard4(data.card4_tokens) });
   if (data.card5_api)         allCards.push({ name: 'Card 5', node: buildCard5(data.card5_api) });
-  if (data.card6_usage)       allCards.push({ name: 'Card 6', node: buildCard6(data.card6_usage, data.card1_header) });
-  if (data.card7_content)     allCards.push({ name: 'Card 7', node: buildCard7(data.card7_content, data.card1_header) });
+  if (data.card6_usage)       allCards.push({ name: 'Card 6', node: buildCard6(data.card6_usage, data.card1_header || { name: data.meta.componentName || 'Component' }) });
+  if (data.card7_content)     allCards.push({ name: 'Card 7', node: buildCard7(data.card7_content, data.card1_header || { name: data.meta.componentName || 'Component' }) });
   if (data.card8_accessibility) allCards.push({ name: 'Card 8', node: buildCard8(data.card8_accessibility) });
-  if (data.card9_code)        allCards.push({ name: 'Card 9', node: buildCard9(data.card9_code, data.card1_header) });
+  if (data.card9_code)        allCards.push({ name: 'Card 9', node: buildCard9(data.card9_code, data.card1_header || { name: data.meta.componentName || 'Component' }) });
 
   // Bin-pack card nodes into groups under MAX_BIN_SIZE raw JSON bytes
   const treeNodes = allCards.map(c => c.node);
