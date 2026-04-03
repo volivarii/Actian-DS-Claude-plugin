@@ -72,8 +72,8 @@ const PALETTE = {
 };
 
 // Max raw JSON bytes per bin (keeps generated code under ~45KB)
-const MAX_BIN_SIZE = 6000;
-const OVERHEAD = 500; // meta + fonts + imports envelope
+const MAX_BIN_SIZE = 3500; // bytes — keeps generated code under 45KB (expansion ratio ~12x)
+const OVERHEAD = 500;      // meta + fonts + imports envelope
 
 // ---------------------------------------------------------------------------
 // Shared helpers
