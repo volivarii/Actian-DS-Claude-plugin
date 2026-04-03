@@ -16,7 +16,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.29.0** · 8 skills · 5 background agents · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.30.2** · 8 skills · 5 background agents · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
@@ -27,18 +27,16 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 1. Open Claude Desktop > **Cowork** tab > **Customize**
 2. Click **+** > add marketplace: `volivarii/Actian-DS-Claude-plugin`
 3. Install **Actian Design System** from the marketplace
-4. Enable the **Figma** connector under **Settings** > **Integrations**
 
 The plugin is available in both **Cowork** and **Code** tabs after install.
 
-> **Requirement:** Figma desktop must be running for the plugin to connect. The Figma MCP communicates with the desktop app directly — browser-only sessions won't work.
+> **Figma integration:** The Figma MCP (`claude.ai Figma`) is built into Claude. On first use, you'll be prompted to authorize your Figma account — no additional setup required. Works with Figma files in the browser; Figma desktop is not required.
 
 ### Claude Code CLI
 
 ```bash
 claude plugin marketplace add volivarii/Actian-DS-Claude-plugin
 claude plugin install actian-design-system@actian-design-system
-claude mcp add --scope user --transport http figma https://mcp.figma.com/mcp
 ```
 
 ### Auto-updates + permissions (optional)
@@ -111,10 +109,18 @@ Design a settings page for Administration
 ```
 
 ```
+Create an Explorer homepage with search hero, marketplace tiles, and topic cards
+```
+
+```
+Design a Studio dashboard with popular items and watchlists
+```
+
+```
 How would a data steward create a metadata quality policy?
 ```
 
-The companion runs the full generation pipeline: screen planning, HTML preview, Figma push.
+The companion knows the canonical layout patterns for each screen type (dashboard, detail, browse, creation form, table view, etc.) and applies the correct structure automatically.
 
 ### Review copy
 

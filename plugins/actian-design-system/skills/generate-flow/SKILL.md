@@ -65,6 +65,7 @@ Push-apart row — SPACE_BETWEEN, no Spacer: `{ "type": "FRAME", "name": "Header
 - `references/generate-flow/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `references/app-context.md` — app inference, entity model, terminology
 - `references/ux-patterns.md` — SaaS UX pattern library by flow type
+- `references/layout-patterns.md` — canonical page layouts (dashboard, detail, table, form, graph, overlay)
 - `references/parity-check.md` — post-push parity check procedure
 - `references/quality-checklist.md` — cleanup pass checklist
 - `references/prototype-reference.md` — interactive HTML prototype (opt-in)

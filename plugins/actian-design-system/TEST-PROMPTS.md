@@ -57,6 +57,44 @@ Mock up the catalog browsing experience in Explorer
 Design a settings page for Administration — users, roles, permissions
 ```
 
+### Layout-pattern-specific prompts
+
+```
+Design a Studio dashboard with latest searches, popular items, and watchlists
+```
+
+```
+Create an Explorer homepage with search hero, marketplace tiles, and topic cards
+```
+
+```
+Mock up a catalog item detail page in Explorer with featured properties sidebar
+```
+
+```
+Generate a catalog browsing flow in Explorer with faceted filters and result cards
+```
+
+```
+Design a new glossary term creation screen in Studio with radio card type picker and sticky footer
+```
+
+```
+Create a lineage visualization screen in Studio with graph canvas and toolbar
+```
+
+```
+Mock up a table view for Administration users page with sort, filters, and bulk actions
+```
+
+```
+Design a side panel drawer for quick-editing a dataset field in Studio
+```
+
+```
+Create a confirmation modal for deleting a connection — 700px width
+```
+
 ### Quality tiers
 
 ```

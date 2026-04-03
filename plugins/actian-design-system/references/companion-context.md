@@ -98,5 +98,6 @@ Load these only when the specific topic requires them:
 | Foundation (typography, color, etc.) | `docs/foundations/{topic}.json` |
 | FM CSS values (wireframes) | `references/fm-css-reference.md` |
 | UX patterns by flow type | `references/ux-patterns.md` |
+| Page layout patterns (dashboard, detail, table, etc.) | `references/layout-patterns.md` |
 | Token variable keys (Figma binding) | `docs/meta-kit/variables.md` |
 | Flow templates + content nodes | `references/generate-flow/figma-spec-builder.md` |

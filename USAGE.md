@@ -72,7 +72,7 @@ the colors seem inconsistent here
 
 ### Flows and screens — from idea to Figma
 
-Describe a feature, user story, or task. The companion plans screens, generates an HTML preview, and pushes to Figma.
+Describe a feature, user story, or task. The companion plans screens, generates an HTML preview, and pushes to Figma. It uses canonical layout patterns from the real product to get the structure right on the first try.
 
 ```
 Create a connection setup wizard for Administration
@@ -88,6 +88,28 @@ Quick draft of user registration
 
 ```
 Production flow for data contracts with all states and edge cases
+```
+
+**Layout-aware generation** — the companion knows the canonical patterns for each screen type:
+
+```
+Design a Studio dashboard with popular items cards and watchlists
+```
+
+```
+Create an Explorer homepage with search hero and marketplace tiles
+```
+
+```
+Mock up a catalog item detail page in Explorer with the property sidebar
+```
+
+```
+Generate a new glossary term creation screen with type picker cards and sticky footer
+```
+
+```
+Design a table view for the Administration users page with filters and bulk actions
 ```
 
 **Research:** Add "research competitor patterns" to get UX research before generation. Or say "no research, just build it" to skip.
@@ -251,6 +273,6 @@ The companion uses the correct header, navigation, and terminology for each app.
 
 | App | Purpose | Typical tasks |
 |-----|---------|--------------|
-| **Studio** | Data integration, catalog, quality, lineage | "Create a lineage exploration flow" |
-| **Explorer** | Data discovery, search, data products, glossary | "Mock up the data product browsing experience" |
-| **Administration** | Users, connections, scanners, settings | "Generate a connection setup wizard" |
+| **Studio** | Data integration, catalog, quality, lineage | "Create a lineage exploration flow", "Design a Studio dashboard", "Mock up the glossary term creation screen" |
+| **Explorer** | Data discovery, search, data products, glossary | "Mock up the Explorer homepage", "Design the catalog browse with faceted filters", "Create a dataset detail page" |
+| **Administration** | Users, connections, scanners, settings | "Generate a connection setup wizard", "Design a settings page with sticky footer", "Create a user management table view" |

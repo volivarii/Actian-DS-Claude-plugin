@@ -42,6 +42,7 @@ Complete listing of all reference files in the plugin. Skills don't need to read
 | `references/component-brief/` | Data schema, figma-spec-builder, Figma rules, playground |
 | `references/generate-presentation/` | Slide templates, chart types, figma-spec-builder |
 | `references/create-component/` | figma-spec-builder for component authoring |
+| `references/layout-patterns.md` | Canonical page layouts (dashboard, detail, table, form, graph, overlay) |
 | `templates/` | CSS wrappers, annotation layer, prototype/playground wrappers |
 
 ## Theme modes
