@@ -17,17 +17,57 @@ Draft a structured component brief with HTML spec page and Figma output. Pipelin
 | Component in FM catalog, no DS Kit signals | Fat Marker |
 | Ambiguous | Ask: "Fat Marker (lo-fi) or Actian DS (hi-fi)?" |
 
-Card selection: default all. `"push 2,4,5"`, `"skip 6"`, `"generate card 4"`. Keywords: `"preview"` → HTML; `"playground"` → explorer.
+Keywords: `"preview"` → HTML; `"playground"` → explorer.
 
 ## Step 1 — Research (ONE parallel batch)
 
 Parse URL (`fileKey` + `nodeId` per `../../references/figma-output.md`). ONE message: (1) `get_metadata(fileKey, nodeId)`, (2) `docs/component-guidelines/<slug>.json`, (3) `references/component-brief/data-schema.md`. Then: component set node ID from metadata → `get_design_context`. Fallback: `get_screenshot`.
 
-## Step 1.5 — Generate data model
+## Step 1.5 — Present card selection
 
-Write `{project_working_directory}/components/[name]/[name]-brief-data.json` per `../../references/component-brief/data-schema.md`. Dispatch `brief-data-validator` in background.
+Before generating the data model, present the available cards and let the user choose. Present the card list for the detected mode:
 
-## Step 2 — Present options (copy verbatim)
+**DS Kit mode (9 cards):**
+```
+Component brief for [Name] — 9 cards available:
+
+| # | Card | Content |
+|---|------|---------|
+| 1 | Header | Component name, description, status, metadata |
+| 2 | Component | Real library instances — all variants |
+| 3 | Anatomy | Structural breakdown with labeled parts |
+| 4 | Tokens | Design token bindings (colors, spacing, typography) |
+| 5 | API | Component properties, variants, types |
+| 6 | Usage | Do/don't examples, when to use, when not to |
+| 7 | Content | Copy guidelines, label patterns, error text |
+| 8 | Accessibility | WCAG compliance, keyboard, screen reader |
+| 9 | Code | Implementation reference with token mapping |
+
+Generate **all 9** or pick specific cards (e.g., "2,4,6").
+```
+
+**FM mode (5 cards):**
+```
+Component brief for [Name] (Fat Marker) — 5 cards available:
+
+| # | Card | Content |
+|---|------|---------|
+| 1 | Header | Component name, description, metadata |
+| 2 | Component | FM library instances — all variants |
+| 3 | Design guidelines | Spacing, sizing, layout rules |
+| 4 | Content guidelines | Copy patterns, label rules |
+| 5 | Anatomy | Structural breakdown |
+
+Generate **all 5** or pick specific cards (e.g., "1,2,5").
+```
+
+If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5"), skip this gate and generate only those cards.
+
+## Step 2 — Generate data model
+
+Write `{project_working_directory}/components/[name]/[name]-brief-data.json` per `../../references/component-brief/data-schema.md`. Only include selected cards. Dispatch `brief-data-validator` in background.
+
+## Step 2.5 — Present push options (copy verbatim)
 
 ```
 Brief ready (N cards). Reply:
@@ -38,12 +78,13 @@ Brief ready (N cards). Reply:
 - **feedback** — edit the data model
 ```
 
-"push" → Step 3. "preview"/"playground" → Step 2.5 then return. Feedback → edit data, re-present.
+"push" → Step 3. "preview"/"playground" → Step 2.75 then return. Feedback → edit data, re-present.
 
-## Step 2.5 — Render HTML
+## Step 2.75 — Render HTML
 
 ```bash
-node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js \
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" \
   {project_working_directory}/components/[name]/[name]-brief-data.json \
   --type brief -o {project_working_directory}/components/[name]/[name]-spec.html
 ```
@@ -51,7 +92,8 @@ node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js \
 ## Step 3 — Render Figma
 
 ```bash
-node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js \
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js" \
   {project_working_directory}/components/[name]/[name]-brief-data.json \
   --target-node-id [nodeId] \
   --output-dir {project_working_directory}/components/[name]/.figma-calls
