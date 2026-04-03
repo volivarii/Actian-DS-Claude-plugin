@@ -25,7 +25,6 @@ const codegen = require('./figma-codegen');
 const IMPORTS = {
   briefCard:      { key: '3dbb732730af0754210cde7af35e5236a2502843', method: 'set' },
   doDontPair:     { key: '28edfacf13e50706586172bd48f8a3ad84d7c263', method: 'set' },
-  colorSwatch:    { key: 'da3369932f710386b76ca91a40ebd48d94e3f2e0', method: 'set' },
   contrastBadge:  { key: '941756541adc6ce21e32e848c2039c64fece0fcf', method: 'set' },
   pointerBadge:   { key: '7e066fc21d9a2bbbcd1149113787cf59140162d4', method: 'set' },
   dimAnnotation:  { key: '49bf6a1b210a403ba145a3fdee9b1994eb54069a', method: 'set' },
@@ -144,7 +143,7 @@ function tableFrame(name, headers, rows, colWidths) {
   };
 }
 
-/** Returns a FRAME with colorSwatch INSTANCE + TEXT for a token cell */
+/** Returns a FRAME with color ELLIPSE + TEXT for a token cell */
 function isValidHex(s) {
   return /^#[0-9A-Fa-f]{6}$/.test(s);
 }
@@ -159,11 +158,11 @@ function swatchCell(hex, tokenName) {
     fills: [],
     children: [
       {
-        type: 'INSTANCE',
-        ref: 'colorSwatch',
-        variant: 'Size=Small',
-        fills: fills,
-        sizing: { horizontal: 'HUG', vertical: 'HUG' }
+        type: 'ELLIPSE',
+        name: 'Swatch',
+        width: 16,
+        height: 16,
+        fills: fills
       },
       textNode(`${tokenName} ${hex}`, 'Fira Code:Regular', 11, PALETTE.textSecondary)
     ],
@@ -208,6 +207,9 @@ function cardShell(name, title, subtitle, children) {
     },
     detach: true,
     width: 1200,
+    contentSlot: {
+      layout: { mode: 'VERTICAL', spacing: 16, padding: [48, 80, 48, 80] }
+    },
     children: children
   };
 }
@@ -340,11 +342,11 @@ function buildCard2(card2_component, meta) {
     const swatchChildren = [];
     for (const swatch of (theme.swatches || [])) {
       swatchChildren.push({
-        type: 'INSTANCE',
-        ref: 'colorSwatch',
-        variant: 'Size=Small',
-        fills: [swatch.hex],
-        sizing: { horizontal: 'HUG', vertical: 'HUG' }
+        type: 'ELLIPSE',
+        name: 'Swatch',
+        width: 16,
+        height: 16,
+        fills: isValidHex(swatch.hex) ? [swatch.hex] : []
       });
       swatchChildren.push(textNode(swatch.token, 'Inter:Regular', 11, PALETTE.textSecondary));
     }
@@ -698,15 +700,13 @@ function buildCard7(card7_content, card1_header) {
   return cardShell('Content guidelines', 'Content guidelines', `Label copy rules for ${componentName}`, children);
 }
 
-/** Card 8 — Accessibility. Data source: card8_accessibility */
-function buildCard8(card8_accessibility) {
+/** Card 8a — Accessibility: Requirements. Data source: card8_accessibility */
+function buildCard8a(card8_accessibility) {
   const children = [];
 
-  // Sub-section 1: Requirements (2x3 grid)
   children.push(sectionTitle('Requirements'));
 
   const reqCards = (card8_accessibility.requirements || []).map(req => {
-    // Build code block child if code tokens exist
     const codeChildren = [];
     if (req.code && req.code.tokens && req.code.tokens.length > 0) {
       const { content, textRanges } = computeTextRanges(req.code.tokens);
@@ -749,10 +749,16 @@ function buildCard8(card8_accessibility) {
     sizing: { horizontal: 'FILL', vertical: 'HUG' }
   });
 
-  // Sub-section 2: ARIA specification table
+  return cardShell('Accessibility', 'Accessibility', 'WCAG 2.1 AA requirements and code patterns', children);
+}
+
+/** Card 8b — Accessibility: Tables. Data source: card8_accessibility */
+function buildCard8b(card8_accessibility) {
+  const children = [];
+
+  // ARIA specification table
   const ariaTable = card8_accessibility.ariaTable || [];
   if (ariaTable.length > 0) {
-    children.push(dividerNode());
     children.push(sectionTitle('ARIA specification'));
 
     const ariaHeaders = ['Element', 'Role', 'Label', 'Focus Order', 'Keyboard', 'Announcement'];
@@ -769,10 +775,10 @@ function buildCard8(card8_accessibility) {
     children.push(tableFrame('ARIA table', ariaHeaders, ariaRows, ariaWidths));
   }
 
-  // Sub-section 3: Contrast ratios table
+  // Contrast ratios table
   const contrastTable = card8_accessibility.contrastTable || [];
   if (contrastTable.length > 0) {
-    children.push(dividerNode());
+    if (ariaTable.length > 0) children.push(dividerNode());
     children.push(sectionTitle('Contrast ratios'));
 
     const contrastHeaders = ['Element', 'Foreground', 'Background', 'Ratio', 'WCAG AA'];
@@ -793,7 +799,7 @@ function buildCard8(card8_accessibility) {
     children.push(tableFrame('Contrast table', contrastHeaders, contrastRows, contrastWidths));
   }
 
-  return cardShell('Accessibility', 'Accessibility', 'WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios', children);
+  return cardShell('Accessibility tables', 'Accessibility tables', 'Keyboard navigation, ARIA patterns, and contrast ratios', children);
 }
 
 /** Card 9 — Code Specification. Data source: card9_code, card1_header */
@@ -880,7 +886,10 @@ function autoSplitCalls(data, targetNodeId) {
   if (data.card5_api)         allCards.push({ name: 'Card 5', node: buildCard5(data.card5_api) });
   if (data.card6_usage)       allCards.push({ name: 'Card 6', node: buildCard6(data.card6_usage, data.card1_header || { name: data.meta.componentName || 'Component' }) });
   if (data.card7_content)     allCards.push({ name: 'Card 7', node: buildCard7(data.card7_content, data.card1_header || { name: data.meta.componentName || 'Component' }) });
-  if (data.card8_accessibility) allCards.push({ name: 'Card 8', node: buildCard8(data.card8_accessibility) });
+  if (data.card8_accessibility) {
+    allCards.push({ name: 'Card 8a', node: buildCard8a(data.card8_accessibility) });
+    allCards.push({ name: 'Card 8b', node: buildCard8b(data.card8_accessibility) });
+  }
   if (data.card9_code)        allCards.push({ name: 'Card 9', node: buildCard9(data.card9_code, data.card1_header || { name: data.meta.componentName || 'Component' }) });
 
   // Bin-pack card nodes into groups under MAX_BIN_SIZE raw JSON bytes
@@ -916,7 +925,7 @@ function autoSplitCalls(data, targetNodeId) {
       fonts: FONTS.slice(),
       imports: { ...IMPORTS },
       localComponents: {
-        targetComponent: { nodeId: data.meta.componentKey }
+        targetComponent: { key: data.meta.componentKey }
       },
       tree: treeNodes
     };

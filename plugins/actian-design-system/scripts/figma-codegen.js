@@ -644,11 +644,40 @@ function _genInstanceShared(spec, varName, varPrefix, hasNullGuard) {
   }
 
   if (spec.children && spec.children.length) {
+    // After detach, find the "Content" slot inside the detached frame.
+    // Components like Brief Card, Accessibility Card, and Code Block have
+    // an internal "Content" frame — children must go there, not at root.
+    // The Content frame is typically a fixed-height placeholder that needs
+    // auto-layout setup (via spec.contentSlot) before children can be appended.
+    const appendTarget = spec.detach ? (varName + '_slot') : varName;
+    if (spec.detach) {
+      lines.push('var ' + appendTarget + ' = ' + varName + '.findOne(function(n) { return n.name === "Content"; }) || ' + varName + ';');
+      // Clear placeholder children from the Content slot
+      lines.push("if (" + appendTarget + " !== " + varName + ") {");
+      lines.push("  while (" + appendTarget + ".children.length) " + appendTarget + ".children[0].remove();");
+      lines.push("}");
+      // Configure the Content slot's auto-layout from spec.contentSlot
+      if (spec.contentSlot && spec.contentSlot.layout) {
+        const sl = spec.contentSlot.layout;
+        lines.push("if (" + appendTarget + " !== " + varName + ") {");
+        lines.push("  " + appendTarget + ".layoutMode = '" + (sl.mode || 'VERTICAL') + "';");
+        if (sl.spacing != null) lines.push("  " + appendTarget + ".itemSpacing = " + sl.spacing + ";");
+        if (Array.isArray(sl.padding)) {
+          lines.push("  " + appendTarget + ".paddingTop = " + sl.padding[0] + ";");
+          lines.push("  " + appendTarget + ".paddingRight = " + sl.padding[1] + ";");
+          lines.push("  " + appendTarget + ".paddingBottom = " + sl.padding[2] + ";");
+          lines.push("  " + appendTarget + ".paddingLeft = " + sl.padding[3] + ";");
+        }
+        lines.push("  " + appendTarget + ".primaryAxisSizingMode = 'AUTO';");
+        lines.push("  " + appendTarget + ".counterAxisSizingMode = 'AUTO';");
+        lines.push("}");
+      }
+    }
     spec.children.forEach(child => {
       const childVar = nextVar('c');
       const childCode = generateNodeCode(child, childVar);
       childCode.split('\n').forEach(l => lines.push(l));
-      lines.push(varName + '.appendChild(' + childVar + ');');
+      lines.push(appendTarget + '.appendChild(' + childVar + ');');
       if (child.x !== undefined) lines.push(childVar + '.x = ' + child.x + ';');
       if (child.y !== undefined) lines.push(childVar + '.y = ' + child.y + ';');
       if (child.sizing) {
@@ -736,15 +765,21 @@ function generateCallCode(spec) {
     lines.push('');
   }
 
-  // 5b. Local components (by node ID)
+  // 5b. Local components (by node ID or component key)
   const localComponents = spec.localComponents || {};
   const localCompKeys = Object.keys(localComponents);
   if (localCompKeys.length) {
-    lines.push('// Load local components by node ID');
+    lines.push('// Load local components');
     localCompKeys.forEach(ref => {
       const def = localComponents[ref];
       const localVar = '_local_' + ref;
-      lines.push('var ' + localVar + ' = await figma.getNodeByIdAsync(' + lit(def.nodeId) + ');');
+      if (def.key) {
+        // Component key (hash) — import from library
+        lines.push('var ' + localVar + ' = await figma.importComponentSetByKeyAsync(' + lit(def.key) + ');');
+      } else {
+        // Node ID — get from current file
+        lines.push('var ' + localVar + ' = await figma.getNodeByIdAsync(' + lit(def.nodeId) + ');');
+      }
     });
     lines.push('');
   }
