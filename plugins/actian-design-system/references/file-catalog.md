@@ -32,10 +32,11 @@ Complete listing of all reference files in the plugin. Skills don't need to read
 
 | File | Purpose |
 |------|---------|
-| `scripts/figma-codegen.js` | Shared Figma code generation library |
-| `scripts/flow-to-figma.js` | Flow → Figma plugin JS via codegen |
-| `scripts/brief-to-figma.js` | Brief → Figma plugin JS via codegen |
-| `scripts/slide-to-figma.js` | Slide → Figma plugin JS via codegen |
+| `scripts/figma-interpreter.js` | Runtime that executes JSON specs inside Figma (bundled per call) |
+| `scripts/shared-constants.js` | Component keys, palette, assembleCall(), binPack() |
+| `scripts/flow-to-figma.js` | Flow → interpreter + JSON spec |
+| `scripts/brief-to-figma.js` | Brief → interpreter + JSON spec |
+| `scripts/slide-to-figma.js` | Slide → interpreter + JSON spec |
 | `scripts/templates.json` | Template definitions (admin, studio, explorer, etc.) |
 | `scripts/html-renderers/*.js` | Client-side renderers for HTML preview |
 | `references/generate-flow/` | HTML reference, figma-spec-builder, research guide |

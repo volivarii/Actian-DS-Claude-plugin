@@ -246,6 +246,67 @@ function buildGenLog(meta, opts) {
 }
 
 // ---------------------------------------------------------------------------
+// Interpreter call assembly
+// ---------------------------------------------------------------------------
+
+const fs = require("fs");
+const path = require("path");
+
+/** Read the minified interpreter source (cached after first read) */
+let _interpreterCache = null;
+function getInterpreterSource() {
+  if (!_interpreterCache) {
+    _interpreterCache = fs.readFileSync(
+      path.join(__dirname, "figma-interpreter.min.js"),
+      "utf8",
+    );
+  }
+  return _interpreterCache;
+}
+
+/**
+ * Assemble a use_figma call: interpreter runtime + JSON spec.
+ * Returns a self-contained JavaScript string that executes the spec in Figma.
+ */
+function assembleCall(spec) {
+  var interpreterSource = getInterpreterSource();
+  var specJSON = JSON.stringify(spec);
+  return (
+    interpreterSource +
+    "\nvar _spec = " +
+    specJSON +
+    ";\nreturn await buildFromSpec(_spec);"
+  );
+}
+
+/** Return byte size of compact JSON representation. */
+function compactSize(obj) {
+  return Buffer.byteLength(JSON.stringify(obj), "utf8");
+}
+
+/** Bin-pack items into groups where raw JSON size stays under maxBinSize. */
+function binPack(items, maxBinSize, overhead) {
+  var bins = [];
+  var currentBin = [];
+  var currentSize = 0;
+  for (var i = 0; i < items.length; i++) {
+    var itemSize = compactSize(items[i]);
+    if (
+      currentBin.length > 0 &&
+      currentSize + itemSize + overhead > maxBinSize
+    ) {
+      bins.push(currentBin);
+      currentBin = [];
+      currentSize = 0;
+    }
+    currentBin.push(items[i]);
+    currentSize += itemSize + overhead;
+  }
+  if (currentBin.length > 0) bins.push(currentBin);
+  return bins;
+}
+
+// ---------------------------------------------------------------------------
 // Exports
 // ---------------------------------------------------------------------------
 
@@ -257,4 +318,7 @@ module.exports = {
   TOKEN_COLORS,
   PALETTE,
   buildGenLog,
+  assembleCall,
+  compactSize,
+  binPack,
 };

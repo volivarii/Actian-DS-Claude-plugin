@@ -119,7 +119,7 @@ Before building custom frames, check: `docs/dskit-components.md`, `docs/fm-compo
 | flow-to-figma.js | generate-flow | flow-data.json |
 | brief-to-figma.js | component-brief | brief-data.json |
 | slide-to-figma.js | generate-presentation | slide-data.json |
-| figma-codegen.js (direct) | create-component | spec object |
+| shared-constants.js assembleCall() | create-component | spec object |
 
 ## On-Demand References
 

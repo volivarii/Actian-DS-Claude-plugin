@@ -6,8 +6,8 @@
 
 1. AI generates `brief-data.json` (the data model)
 2. Script runs: `node ${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js brief-data.json --target-node-id "<id>"`
-3. Script outputs JSON array of `{ callIndex, code, description }` — self-contained Figma plugin JS per call
-4. AI passes each `code` to `use_figma` (replace `__WRAPPER_ID__` in call 2+)
+3. Script outputs call files (interpreter runtime + JSON spec) — self-contained per call
+4. AI reads each `call-N.js` and passes to `use_figma` — no ID replacement needed
 
 ## Card mapping (9 DS + 5 FM cards)
 

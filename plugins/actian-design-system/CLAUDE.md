@@ -42,10 +42,12 @@ Figma libraries are the single source of truth. Data flows: `Figma → /sync-des
 - `docs/dskit-components-registry.json` — DS Kit: keys, variants, text overrides, boolean properties
 - `tokens/actian-ds.tokens.json` — W3C DTCG token values (3 themes)
 
-**Scripts** (deterministic transformers — data.json → Figma plugin JS):
+**Scripts** (deterministic transformers — data.json → interpreter + JSON spec):
 - `scripts/flow-to-figma.js`, `scripts/brief-to-figma.js`, `scripts/slide-to-figma.js`
 - All support `--output-dir <dir>` to write `call-N.js` + `manifest.json` (preferred over stdout)
-- `scripts/figma-codegen.js` — shared code generation library used by all three
+- Each call file = `figma-interpreter.min.js` runtime + JSON spec. Self-contained, no wrapper ID replacement needed.
+- `scripts/figma-interpreter.js` — runtime that executes JSON specs inside Figma (bundled per call)
+- `scripts/shared-constants.js` — component keys, palette, assembleCall(), binPack()
 
 **Node.js resolution (Desktop compatibility):**
 On Claude Desktop, the sandbox may not have `node` in PATH. Before running any Node.js script, resolve the binary:

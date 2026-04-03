@@ -1,13 +1,13 @@
 # Generate Presentation — Figma Spec Builder
 
-The `slide-to-figma.js` script generates Figma plugin code from slide-data.json via figma-codegen.js. The AI provides slide type + title + content per slide. The script handles slide frames, gradients, variable bindings, and positioning.
+The `slide-to-figma.js` script builds JSON specs from slide-data.json and bundles them with the interpreter runtime. The AI provides slide type + title + content per slide. The script handles slide frames, gradients, variable bindings, and positioning.
 
 ## How it works
 
 1. AI writes `slide-data.json` with meta + slides
 2. Script runs: `node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js slide-data.json --target-node-id "<id>"`
-3. Script outputs JSON array of `{ callIndex, code, description }` — self-contained Figma plugin JS per call
-4. AI passes each `code` to `use_figma` (replace `__WRAPPER_ID__` in call 2+ with wrapperId from call 1)
+3. Script outputs call files (interpreter runtime + JSON spec) — self-contained per call
+4. AI reads each `call-N.js` and passes to `use_figma` — no ID replacement needed
 
 ## Input schema
 

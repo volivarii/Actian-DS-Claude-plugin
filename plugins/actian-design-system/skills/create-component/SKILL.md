@@ -6,7 +6,7 @@ argument-hint: "[component description or Figma URL]"
 
 # Create Component
 
-Create a new Figma component (with variants) from a text description or by extending an existing component. Pipeline: understand → check existing → research (optional) → build plan gate → resolve dependencies → build via figma-codegen.js → cleanup → parity check.
+Create a new Figma component (with variants) from a text description or by extending an existing component. Pipeline: understand → check existing → research (optional) → build plan gate → resolve dependencies → build via interpreter → cleanup → parity check.
 
 ## Step 1 — Understand the component
 
@@ -35,17 +35,19 @@ States: [Enabled, Disabled, Hovered, etc.]
 
 Wait for response. Draft tier: skip this gate.
 
-## Step 5 — Build in Figma (figma-codegen.js)
+## Step 5 — Build in Figma (interpreter)
 
 1. Read `../../references/create-component/figma-spec-builder.md` — build plan to spec mapping
 2. Transform build plan into figma-spec.json (COMPONENT or COMPONENT_SET, properties, propertyLinks, variableScopes with explicit scopes, nested components via imports)
 3. Resolve dependencies per `../../references/create-component/research-and-dependencies.md`
-4. Generate Figma code:
+4. Write the spec JSON to `{project_working_directory}/components/[name]/component-spec.json`
+5. Generate interpreter call:
    ```bash
-   node -e "const cg = require('${CLAUDE_PLUGIN_ROOT}/scripts/figma-codegen.js'); const spec = JSON.parse(require('fs').readFileSync('/tmp/component-spec.json','utf8')); cg.resetCounter(); console.log(cg.generateCallCode(spec));" > /tmp/component-code.js
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+   "$NODE_BIN" -e "const s = require('${CLAUDE_PLUGIN_ROOT}/scripts/shared-constants.js'); const spec = JSON.parse(require('fs').readFileSync('{project_working_directory}/components/[name]/component-spec.json','utf8')); process.stdout.write(s.assembleCall(spec));" > /tmp/component-code.js
    ```
-5. Read `/tmp/component-code.js`, pass to `use_figma`
-6. Add INSTANCE genLog (6 props) as sibling to component set
+6. Read `/tmp/component-code.js`, pass to `use_figma`
+7. Add INSTANCE genLog (6 props) as sibling to component set
 
 Every component exposes: text properties (titles, labels), boolean properties (optional elements), variant properties (managed by Figma). Without propertyLinks, publishing fails with "unused property" errors.
 

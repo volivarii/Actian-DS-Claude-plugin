@@ -15,14 +15,13 @@
 
 const fs = require("fs");
 const path = require("path");
-const codegen = require("./figma-codegen");
 const shared = require("./shared-constants");
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const MAX_BIN_SIZE = 8000; // bytes (raw JSON of items in bin — ~5x code expansion keeps under 45KB)
+const MAX_BIN_SIZE = 18000; // bytes — JSON spec budget per call (interpreter is ~28KB, total under 50KB)
 const OVERHEAD = 500; // per-item overhead estimate
 
 const FONTS = [
@@ -404,6 +403,20 @@ function buildResearchCard(meta) {
 // Import resolver
 // ---------------------------------------------------------------------------
 
+/** Walk a tree of nodes and collect all ref values + DIVIDER markers. */
+function scanRefs(nodes, refs) {
+  if (!refs) refs = new Set();
+  if (!Array.isArray(nodes)) return refs;
+  for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+    if (!node) continue;
+    if (node.ref) refs.add(node.ref);
+    if (node.type === "DIVIDER") refs.add("divider");
+    if (node.children) scanRefs(node.children, refs);
+  }
+  return refs;
+}
+
 function resolveImports(refs, refMap) {
   const imports = {};
 
@@ -653,10 +666,10 @@ function main() {
   }
 
   // Bin-pack
-  const bins = codegen.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
+  const bins = shared.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
   const totalCalls = bins.length;
 
-  // Generate code for each bin
+  // Assemble interpreter calls for each bin
   const results = [];
 
   for (let b = 0; b < bins.length; b++) {
@@ -664,37 +677,29 @@ function main() {
     const callIdx = b + 1;
 
     // Scan refs across all items in this bin
-    const refs = codegen.scanRefs(bin);
+    const refs = scanRefs(bin);
     const imports = resolveImports(refs, refMap);
 
-    // Build spec for codegen
+    // Build spec for interpreter
     const spec = {
       meta: {
         skill: "generate-flow",
-        targetNodeId:
-          callIdx === 1 ? meta.targetNodeId || "__TARGET_NODE_ID__" : undefined,
-        wrapperName:
-          callIdx === 1
-            ? "generate-flow: " + (meta.feature || "Flow")
-            : undefined,
-        sectionName:
-          callIdx === 1
-            ? "generate-flow: " + (meta.feature || "Flow")
-            : undefined,
-        appendToId: callIdx > 1 ? "__WRAPPER_ID__" : undefined,
       },
       fonts: FONTS,
       imports: imports,
       tree: bin,
     };
 
-    // Remove undefined keys from meta
-    for (const k of Object.keys(spec.meta)) {
-      if (spec.meta[k] === undefined) delete spec.meta[k];
+    if (callIdx === 1) {
+      spec.meta.targetNodeId = meta.targetNodeId || "__TARGET_NODE_ID__";
+      spec.meta.wrapperName = "generate-flow: " + (meta.feature || "Flow");
+      spec.meta.sectionName = "generate-flow: " + (meta.feature || "Flow");
+    } else {
+      spec.meta.appendToId = "__LAST_WRAPPER__";
     }
 
-    // Generate code
-    const code = codegen.generateCallCode(spec);
+    // Assemble: interpreter runtime + JSON spec
+    const code = shared.assembleCall(spec);
     const codeSize = Buffer.byteLength(code, "utf8");
 
     process.stderr.write(
@@ -707,11 +712,11 @@ function main() {
         " bytes\n",
     );
 
-    if (codeSize > 45000) {
+    if (codeSize > 50000) {
       process.stderr.write(
         "WARNING: Call " +
           callIdx +
-          " code exceeds 45KB (" +
+          " exceeds 50KB use_figma limit (" +
           codeSize +
           " bytes)\n",
       );

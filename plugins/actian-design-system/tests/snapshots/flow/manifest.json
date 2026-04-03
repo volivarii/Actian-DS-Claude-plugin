@@ -1,17 +1,11 @@
 {
-  "totalCalls": 2,
+  "totalCalls": 1,
   "calls": [
     {
       "callIndex": 1,
       "file": "call-1.js",
-      "sizeBytes": 24109,
-      "description": "Call 1/2: Generation Log Cover: Connection settings Connections list New connection — Step 1"
-    },
-    {
-      "callIndex": 2,
-      "file": "call-2.js",
-      "sizeBytes": 12834,
-      "description": "Call 2/2: New connection — Step 2"
+      "sizeBytes": 36221,
+      "description": "Call 1/1: Generation Log Cover: Connection settings Connections list New connection — Step 1 New connection — Step 2"
     }
   ]
 }

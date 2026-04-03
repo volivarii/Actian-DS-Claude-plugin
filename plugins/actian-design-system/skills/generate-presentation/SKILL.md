@@ -31,20 +31,22 @@ Deck outline: N slides (cover + N body + back cover). Reply:
 2. Read `../../references/generate-presentation/figma-spec-builder.md` — input schema + chart patterns
 3. Write to: `{project_working_directory}/presentations/[topic-slug]/slide-data.json`
 4. Run:
-   ```
-   node ${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js slide-data.json \
+   ```bash
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js" slide-data.json \
      --target-node-id "<nodeId>" \
      --output-dir {project_working_directory}/presentations/[topic-slug]/.figma-calls
    ```
-5. Read `manifest.json` → for each call file: read `.js`, pass to `use_figma` (call 1 as-is returns `wrapperId`, call 2+ replace `__WRAPPER_ID__`)
+5. Read `manifest.json` → for each call: read `call-N.js` → `use_figma` (self-contained, no ID replacement needed)
 6. Parity check per `../../references/parity-check.md`
 
 Never write freehand Figma code. Fix slide-data.json and rerun the script if something is wrong.
 
 ### HTML preview (opt-in, trigger: "preview")
 
-```
-node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js \
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" \
   slide-data.json --type presentation \
   -o {project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html
 ```

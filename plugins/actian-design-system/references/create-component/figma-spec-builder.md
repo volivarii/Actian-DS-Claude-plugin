@@ -1,6 +1,6 @@
 # Create Component — Figma Spec Builder
 
-Transforms a component build plan into `figma-spec.json`, then uses `figma-codegen.js` to generate Figma plugin code. The codegen produces `createComponent`, `combineAsVariants`, `addComponentProperty`, and `componentPropertyReferences` calls.
+Transforms a component build plan into `figma-spec.json`, then bundles it with the interpreter runtime via `shared.assembleCall()`. The interpreter executes `buildComponent`, `combineAsVariants`, `addComponentProperty`, and `componentPropertyReferences` inside Figma.
 
 ## Purpose
 

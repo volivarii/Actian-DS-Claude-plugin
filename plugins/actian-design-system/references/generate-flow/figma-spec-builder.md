@@ -13,8 +13,8 @@ The `flow-to-figma.js` script builds Figma plugin code from flow-data.json. The 
    ```
 3. Script writes `manifest.json` + `call-N.js` files to the output directory
 4. AI reads `manifest.json`, then reads each `call-N.js` file and passes it to `use_figma`
-   - Call 1: pass as-is (creates wrapper, returns `wrapperId`)
-   - Call 2+: replace `__WRAPPER_ID__` with wrapperId from call 1
+   - Each call is self-contained (interpreter runtime + JSON spec)
+   - Wrapper ID auto-discovered via `setSharedPluginData` — no replacement needed
 
 Legacy mode (without `--output-dir`): outputs JSON array to stdout. Use `--output-dir` for better handling of large calls.
 

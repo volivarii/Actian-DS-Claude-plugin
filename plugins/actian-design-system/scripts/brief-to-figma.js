@@ -7,8 +7,8 @@
  * Usage:
  *   node scripts/brief-to-figma.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>] [--output-dir <dir>]
  *
- * Reads brief-data.json, builds card nodes, then uses figma-codegen.js to generate
- * self-contained Figma plugin JS code.
+ * Reads brief-data.json, builds card nodes, bundles with figma-interpreter runtime.
+ * Each call = interpreter + JSON spec (no generated code).
  *
  * Output: JSON array of { callIndex, code, description } to stdout
  *         With --output-dir: writes call-N.js files + manifest.json to <dir>
@@ -16,7 +16,6 @@
 
 const fs = require("fs");
 const path = require("path");
-const codegen = require("./figma-codegen");
 const shared = require("./shared-constants");
 
 // ---------------------------------------------------------------------------
@@ -41,8 +40,8 @@ const TOKEN_COLORS = shared.TOKEN_COLORS;
 const PALETTE = shared.PALETTE;
 
 // Max raw JSON bytes per bin (keeps generated code under ~45KB)
-const MAX_BIN_SIZE = 2500; // bytes — keeps generated code under 45KB (expansion ratio can exceed 15x for token-heavy cards)
-const OVERHEAD = 500; // meta + fonts + imports envelope
+const MAX_BIN_SIZE = 18000; // bytes — JSON spec budget per call (interpreter is ~28KB, total under 50KB)
+const OVERHEAD = 500; // meta + fonts + imports envelope per item
 
 // ---------------------------------------------------------------------------
 // Shared helpers
@@ -1089,9 +1088,9 @@ function autoSplitCalls(data, targetNodeId) {
   }
   process.stderr.write("\n");
 
-  // Bin-pack card nodes into groups under MAX_BIN_SIZE raw JSON bytes
+  // Bin-pack card nodes into groups under MAX_BIN_SIZE JSON bytes
   const treeNodes = allCards.map((c) => c.node);
-  const nodeBins = codegen.binPack(treeNodes, MAX_BIN_SIZE, OVERHEAD);
+  const nodeBins = shared.binPack(treeNodes, MAX_BIN_SIZE, OVERHEAD);
 
   // Map node bins back to card wrappers (preserving name for descriptions)
   const bins = [];
@@ -1132,20 +1131,20 @@ function autoSplitCalls(data, targetNodeId) {
       spec.meta.wrapperName = `Component Spec: ${data.meta.component}`;
       spec.meta.sectionName = `Component Spec: ${data.meta.component}`;
     } else {
-      spec.meta.appendToId = "__WRAPPER_ID__";
+      spec.meta.appendToId = "__LAST_WRAPPER__";
     }
 
-    // Generate code
-    const code = codegen.generateCallCode(spec);
+    // Assemble: interpreter runtime + JSON spec
+    const code = shared.assembleCall(spec);
     const codeSize = Buffer.byteLength(code, "utf8");
 
     process.stderr.write(
-      `Call ${callIdx}: ${names} (code=${codeSize} bytes)\n`,
+      `Call ${callIdx}: ${names} (code=${codeSize} bytes, spec=${shared.compactSize(spec)} bytes)\n`,
     );
 
-    if (codeSize > 45000) {
+    if (codeSize > 50000) {
       process.stderr.write(
-        `WARNING: Call ${callIdx} code exceeds 45KB (${codeSize} bytes)\n`,
+        `WARNING: Call ${callIdx} exceeds 50KB use_figma limit (${codeSize} bytes)\n`,
       );
     }
 

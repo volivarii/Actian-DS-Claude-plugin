@@ -14,8 +14,18 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
 2. **Research gate** — present verbatim unless user said "no research"
 3. **Screen list gate** — present with options verbatim
 4. Build flow-data.json with content[] nodes (see figma-spec-builder.md, reference `examples/flow-data-example.json` for expected structure)
-5. Push: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<nodeId>" --output-dir {project_working_directory}/components/flows/.figma-calls` → read manifest.json → use_figma (call 1 as-is, call 2+ replace `__WRAPPER_ID__`)
-6. Preview (opt-in): `node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js flow-data.json --type flow -o {project_working_directory}/components/flows/[feature]-flow.html` → `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
+5. Push:
+   ```bash
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js" flow-data.json --target-node-id "<nodeId>" --output-dir {project_working_directory}/components/flows/.figma-calls
+   ```
+   Read manifest.json → for each call: read `call-N.js` → `use_figma` (self-contained, no ID replacement needed)
+6. Preview (opt-in):
+   ```bash
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/components/flows/[feature]-flow.html
+   BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
+   ```
 7. Parity check (parity-check.md) → Cleanup (quality-checklist.md)
 
 ## Research gate

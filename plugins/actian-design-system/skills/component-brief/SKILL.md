@@ -99,7 +99,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
   --output-dir {project_working_directory}/components/[name]/.figma-calls
 ```
 
-Read `manifest.json`. For each call: read `.js`, pass to `use_figma`. Call 1 returns `wrapperId`; replace `__WRAPPER_ID__` in subsequent calls. Never write freehand Figma code.
+Read `manifest.json`. For each call in order: read `call-N.js` → pass to `use_figma`. Each call is self-contained (no ID replacement needed — wrapper ID auto-discovered via shared plugin data). Never write freehand Figma code.
 
 ## Step 4 — Parity check
 

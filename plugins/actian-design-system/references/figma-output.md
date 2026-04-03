@@ -91,22 +91,23 @@ For skills that generate structured output (component-brief, generate-flow, gene
 data-model.json → AI transforms → figma-spec.json → Fixed interpreter → Figma nodes
 ```
 
-The AI produces a declarative JSON spec. A shared codegen library (`figma-codegen.js`) generates self-contained Figma Plugin API code at build time. Per-skill scripts (`flow-to-figma.js`, `brief-to-figma.js`, `slide-to-figma.js`) read data files and call the codegen. The AI never writes Plugin API code directly.
+The AI produces declarative JSON specs. A bundled runtime (`figma-interpreter.js`, ~28KB) executes specs directly inside Figma. Per-skill scripts (`flow-to-figma.js`, `brief-to-figma.js`, `slide-to-figma.js`) read data files, build node trees, and bundle them with the interpreter. The AI never writes Plugin API code directly.
 
 ### How it works
 
 1. Skill-specific script reads data file (e.g., `flow-data.json`, `brief-data.json`, `slide-data.json`)
-2. Script builds structured node trees (same JSON spec format)
-3. Script calls `figma-codegen.generateCallCode(spec)` to produce Figma plugin JS
-4. AI passes the generated code to `use_figma`
+2. Script builds structured node trees (JSON spec format)
+3. Script calls `shared.assembleCall(spec)` to bundle interpreter + JSON spec
+4. AI reads each call file and passes to `use_figma` — no wrapper ID replacement needed
 
-For `create-component` (no script): AI writes spec JSON to a temp file, runs codegen via one-liner, passes output to `use_figma`.
+For `create-component`: AI writes spec JSON, runs `shared.assembleCall()` via one-liner, passes to `use_figma`.
 
 ### Benefits
 
-- **No interpreter overhead** — code is self-contained, full 50KB budget per call
-- **Deterministic** — codegen is tested (480+ tests), not AI-generated
-- **Fast** — fewer calls needed (no 17KB interpreter consuming budget per call)
+- **Pure data** — specs are JSON, not generated code. No logic bugs in the spec.
+- **Built-in patterns** — Content slots, variant matching, sizing order all handled by runtime
+- **Self-contained calls** — wrapper ID auto-discovered via `setSharedPluginData`, no replacement needed
+- **Compact** — JSON specs are 1x size (no expansion), ~22KB budget per call after runtime
 - **Correct** — codegen handles all Figma API quirks (layoutMode before children, sizing after appendChild, paint variable binding)
 - **Variable + style binding** — declare in spec, interpreter binds automatically.
 

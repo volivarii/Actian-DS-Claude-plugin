@@ -16,7 +16,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.30.8** · 8 skills · 5 background agents · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.33.0** · 8 skills · 5 background agents · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
@@ -300,10 +300,11 @@ actian-design-system-plugin/
 |   +-- skills/                          # 8 skills (companion + 7 specialized)
 |   +-- agents/                          # 5 agents (auto-dispatched)
 |   +-- scripts/
-|   |   +-- figma-codegen.js             # Shared Figma code generation library
-|   |   +-- flow-to-figma.js             # Flow data → Figma plugin code
-|   |   +-- brief-to-figma.js            # Brief data → Figma plugin code
-|   |   +-- slide-to-figma.js            # Slide data → Figma plugin code
+|   |   +-- figma-interpreter.js         # Runtime that executes JSON specs in Figma
+|   |   +-- shared-constants.js          # Component keys, palette, assembleCall()
+|   |   +-- flow-to-figma.js             # Flow data → interpreter + JSON spec
+|   |   +-- brief-to-figma.js            # Brief data → interpreter + JSON spec
+|   |   +-- slide-to-figma.js            # Slide data → interpreter + JSON spec
 |   |   +-- templates.json               # Screen templates (admin, mobile, etc.)
 |   |   +-- html-renderers/              # Client-side renderers for preview
 |   +-- references/                      # DS context + skill-specific references

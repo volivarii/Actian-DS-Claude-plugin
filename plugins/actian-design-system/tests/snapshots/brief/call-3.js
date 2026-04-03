@@ -1,1026 +1,693 @@
+async function buildFromSpec(spec) {
+ // 1. Navigate to target page
+ var targetNode = null;
+ if (spec.meta.targetNodeId) {
+  targetNode = await figma.getNodeByIdAsync(spec.meta.targetNodeId);
+ }
+ var page = targetNode;
+ while (page && page.type !== 'PAGE') page = page.parent;
+ if (page) await figma.setCurrentPageAsync(page);
+ // 2. Load all fonts
+ await Promise.all((spec.fonts || []).map(function (f) {
+  var parts = f.split(':');
+  return figma.loadFontAsync({ family: parts[0], style: (parts[1] || 'Regular').trim() });
+ }));
+ // 3. Import all components, cache in ctx
+ var ctx = { imports: {}, locals: {}, variables: {}, styles: {} };
+ for (var ref in (spec.imports || {})) {
+  var def = spec.imports[ref];
+  ctx.imports[ref] = def.method === 'set'
+   ? await figma.importComponentSetByKeyAsync(def.key)
+   : await figma.importComponentByKeyAsync(def.key);
+ }
+ // 3b. Load local components (by node ID or component key)
+ for (var lRef in (spec.localComponents || {})) {
+  var lDef = spec.localComponents[lRef];
+  if (lDef.key) {
+   ctx.locals[lRef] = await figma.importComponentSetByKeyAsync(lDef.key);
+  } else if (lDef.nodeId) {
+   ctx.locals[lRef] = await figma.getNodeByIdAsync(lDef.nodeId);
+  }
+ }
+ // 4. Import all variables, cache in ctx
+ for (var vRef in (spec.variables || {})) {
+  ctx.variables[vRef] = await figma.variables.importVariableByKeyAsync(spec.variables[vRef].key);
+ }
+ // 5. Import all styles, cache in ctx
+ for (var sRef in (spec.styles || {})) {
+  ctx.styles[sRef] = await figma.importStyleByKeyAsync(spec.styles[sRef].key);
+ }
+ // 6. Create or find wrapper frame
+ var wrapper;
+ if (spec.meta.appendToId === '__LAST_WRAPPER__') {
+  // Auto-discover wrapper from previous call via shared plugin data
+  var lastWrapperId = figma.root.getSharedPluginData('actian_ds', 'last_wrapper');
+  if (!lastWrapperId) throw new Error('No wrapper found from previous call');
+  wrapper = await figma.getNodeByIdAsync(lastWrapperId);
+  if (!wrapper) throw new Error('Wrapper ' + lastWrapperId + ' no longer exists');
+ } else if (spec.meta.appendToId) {
+  wrapper = await figma.getNodeByIdAsync(spec.meta.appendToId);
+  if (!wrapper) throw new Error('Wrapper ' + spec.meta.appendToId + ' not found');
+ } else {
+  wrapper = figma.createFrame();
+  wrapper.name = spec.meta.wrapperName || (spec.meta.skill + ': ' + (spec.meta.component || 'output'));
+  wrapper.layoutMode = 'HORIZONTAL';
+  wrapper.itemSpacing = 32;
+  wrapper.primaryAxisSizingMode = 'AUTO';
+  wrapper.counterAxisSizingMode = 'AUTO';
+  wrapper.fills = [];
+ }
+ // Store wrapper ID for subsequent calls
+ figma.root.setSharedPluginData('actian_ds', 'last_wrapper', wrapper.id);
+ // 7. Build tree recursively
+ var nodeCount = 0;
+ var treeNodes = Array.isArray(spec.tree) ? spec.tree : spec.tree ? [spec.tree] : [];
+ for (var i = 0; i < treeNodes.length; i++) {
+  var childSpec = treeNodes[i];
+  var child = await buildNode(childSpec, ctx);
+  wrapper.appendChild(child);
+  applySizing(child, childSpec.sizing);
+  nodeCount++;
+ }
+ // 8. Position wrapper (only for new wrappers)
+ if (!spec.meta.appendToId) {
+  var parentPage = targetNode && targetNode.type === 'PAGE' ? targetNode : figma.currentPage;
+  var maxBottom = 0;
+  var pageChildren = parentPage.children;
+  for (var p = 0; p < pageChildren.length; p++) {
+   var existing = pageChildren[p];
+   if (existing.id === wrapper.id) continue;
+   var ey = typeof existing.y === 'number' && isFinite(existing.y) ? existing.y : 0;
+   var eh = typeof existing.height === 'number' && isFinite(existing.height) ? existing.height : 0;
+   var bottom = ey + eh;
+   if (bottom > maxBottom) maxBottom = bottom;
+  }
+  // Create section container
+  var section = figma.createFrame();
+  section.name = spec.meta.sectionName || wrapper.name;
+  section.layoutMode = 'VERTICAL';
+  section.primaryAxisSizingMode = 'AUTO';
+  section.counterAxisSizingMode = 'AUTO';
+  section.fills = [];
+  section.appendChild(wrapper);
+  section.x = 0;
+  section.y = maxBottom + 200;
+ }
+ // 9. Tag wrapper with plugin data
+ wrapper.setSharedPluginData('actian_ds', 'skill', spec.meta.skill || '');
+ wrapper.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());
+ return {
+  wrapperId: wrapper.id,
+  nodeCount: nodeCount,
+  sectionId: section ? section.id : undefined
+ };
+}
 function hexToRgb(hex) {
-  var h = hex.replace('#', '');
-  return {
-    r: parseInt(h.substring(0, 2), 16) / 255,
-    g: parseInt(h.substring(2, 4), 16) / 255,
-    b: parseInt(h.substring(4, 6), 16) / 255
-  };
+ var h = hex.replace('#', '');
+ return {
+  r: parseInt(h.substring(0, 2), 16) / 255,
+  g: parseInt(h.substring(2, 4), 16) / 255,
+  b: parseInt(h.substring(4, 6), 16) / 255
+ };
 }
-
 function angleToTransform(angleDeg) {
-  var rad = (angleDeg * Math.PI) / 180;
-  var cos = Math.cos(rad);
-  var sin = Math.sin(rad);
-  return [
-    [cos, sin, 0.5 - 0.5 * cos - 0.5 * sin],
-    [-sin, cos, 0.5 + 0.5 * sin - 0.5 * cos]
-  ];
+ var rad = (angleDeg * Math.PI) / 180;
+ var cos = Math.cos(rad);
+ var sin = Math.sin(rad);
+ return [
+  [cos, sin, 0.5 - 0.5 * cos - 0.5 * sin],
+  [-sin, cos, 0.5 + 0.5 * sin - 0.5 * cos]
+ ];
 }
-
+function applyFills(node, fills) {
+ if (fills == null) return;
+ if (Array.isArray(fills) && fills.length === 0) { node.fills = []; return; }
+ node.fills = (Array.isArray(fills) ? fills : [fills]).map(function (f) {
+  if (typeof f === 'string') return { type: 'SOLID', color: hexToRgb(f) };
+  var typeMap = { LINEAR: 'GRADIENT_LINEAR', RADIAL: 'GRADIENT_RADIAL',
+   ANGULAR: 'GRADIENT_ANGULAR', DIAMOND: 'GRADIENT_DIAMOND' };
+  if (typeMap[f.type]) {
+   return {
+    type: typeMap[f.type],
+    gradientStops: (f.stops || []).map(function (s) {
+     var c = hexToRgb(s.color);
+     return { position: s.position, color: { r: c.r, g: c.g, b: c.b, a: s.opacity != null ? s.opacity : 1 } };
+    }),
+    gradientTransform: f.angle != null ? angleToTransform(f.angle) : [[1, 0, 0], [0, 1, 0]]
+   };
+  }
+  return f;
+ });
+}
+function applyStroke(node, stroke) {
+ if (!stroke) return;
+ if (stroke.color) node.strokes = [{ type: 'SOLID', color: hexToRgb(stroke.color) }];
+ if (stroke.weight != null) node.strokeWeight = stroke.weight;
+ if (stroke.align) node.strokeAlign = stroke.align;
+ if (stroke.sides) {
+  if (stroke.sides.top === false) node.strokeTopWeight = 0;
+  if (stroke.sides.right === false) node.strokeRightWeight = 0;
+  if (stroke.sides.bottom === false) node.strokeBottomWeight = 0;
+  if (stroke.sides.left === false) node.strokeLeftWeight = 0;
+ }
+}
+function applyEffects(node, effects) {
+ if (!effects || !effects.length) return;
+ node.effects = effects.map(function (e) {
+  var eff = { type: e.type, visible: true };
+  if (e.type === 'DROP_SHADOW' || e.type === 'INNER_SHADOW') {
+   var c = hexToRgb(e.color);
+   eff.color = { r: c.r, g: c.g, b: c.b, a: e.opacity != null ? e.opacity : 0.25 };
+   eff.offset = { x: (e.offset && e.offset.x) || 0, y: (e.offset && e.offset.y) || 0 };
+   eff.radius = e.radius || 0;
+   if (e.spread != null) eff.spread = e.spread;
+  } else if (e.type === 'LAYER_BLUR' || e.type === 'BACKGROUND_BLUR') {
+   eff.radius = e.radius || 0;
+  }
+  return eff;
+ });
+}
+function applyOpacity(node, opacity) {
+ if (opacity != null) {
+  node.opacity = typeof opacity === 'object' ? opacity.value : opacity;
+ }
+}
+function applyCornerRadius(node, cr) {
+ if (cr == null) return;
+ if (typeof cr === 'number') { node.cornerRadius = cr; return; }
+ if (cr.topLeft != null) node.topLeftRadius = cr.topLeft;
+ if (cr.topRight != null) node.topRightRadius = cr.topRight;
+ if (cr.bottomRight != null) node.bottomRightRadius = cr.bottomRight;
+ if (cr.bottomLeft != null) node.bottomLeftRadius = cr.bottomLeft;
+}
+function applyLayout(frame, layout) {
+ if (!layout) return;
+ if (layout.mode && layout.mode !== 'NONE') frame.layoutMode = layout.mode;
+ if (layout.spacing != null) frame.itemSpacing = layout.spacing;
+ if (layout.counterAxisSpacing != null) frame.counterAxisSpacing = layout.counterAxisSpacing;
+ if (layout.wrap) frame.layoutWrap = 'WRAP';
+ if (Array.isArray(layout.padding)) {
+  frame.paddingTop = layout.padding[0];
+  frame.paddingRight = layout.padding[1];
+  frame.paddingBottom = layout.padding[2];
+  frame.paddingLeft = layout.padding[3];
+ }
+ if (layout.primaryAxisAlign) frame.primaryAxisAlignItems = layout.primaryAxisAlign;
+ if (layout.counterAxisAlign) frame.counterAxisAlignItems = layout.counterAxisAlign;
+ frame.primaryAxisSizingMode = 'AUTO';
+ frame.counterAxisSizingMode = 'AUTO';
+}
+function applySizing(node, sizing) {
+ if (!sizing) return;
+ var h = sizing.horizontal;
+ if (h === 'FILL') node.layoutSizingHorizontal = 'FILL';
+ else if (h === 'HUG') node.layoutSizingHorizontal = 'HUG';
+ else if (typeof h === 'number') { node.layoutSizingHorizontal = 'FIXED'; node.resize(h, node.height); }
+ var v = sizing.vertical;
+ if (v === 'FILL') node.layoutSizingVertical = 'FILL';
+ else if (v === 'HUG') node.layoutSizingVertical = 'HUG';
+ else if (typeof v === 'number') { node.layoutSizingVertical = 'FIXED'; node.resize(node.width, v); }
+ if (sizing.minWidth != null) node.minWidth = sizing.minWidth;
+ if (sizing.maxWidth != null) node.maxWidth = sizing.maxWidth;
+ if (sizing.minHeight != null) node.minHeight = sizing.minHeight;
+ if (sizing.maxHeight != null) node.maxHeight = sizing.maxHeight;
+}
 function setProp(instance, prefix, value) {
-  var props = instance.componentProperties;
-  for (var key in props) {
-    var propName = key.split('#')[0];
-    if (propName === prefix) {
-      instance.setProperties({ [key]: value });
-      return;
-    }
+ var props = instance.componentProperties;
+ for (var key in props) {
+  var propName = key.split('#')[0];
+  if (propName === prefix) {
+   instance.setProperties({ [key]: value });
+   return;
   }
+ }
 }
-
-function _fillH(n) {
-  var p = n.parent; if (!p) return;
-  if (p.layoutMode && p.layoutMode !== 'NONE') { n.layoutSizingHorizontal = 'FILL'; }
-  else { n.resize(Math.max((p.width||0)-(p.paddingLeft||0)-(p.paddingRight||0),1), n.height); }
+function applyVariables(node, variables, ctx) {
+ if (!variables) return;
+ for (var field in variables) {
+  var variable = ctx.variables[variables[field]];
+  if (!variable) continue;
+  var parts = field.split('.');
+  if ((parts[0] === 'fills' || parts[0] === 'strokes') && parts.length >= 3) {
+   var prop = parts[0];
+   var idx = parseInt(parts[1], 10);
+   var arr = JSON.parse(JSON.stringify(node[prop] || []));
+   if (arr[idx]) {
+    arr[idx] = figma.variables.setBoundVariableForPaint(arr[idx], parts[2], variable);
+    node[prop] = arr;
+   }
+  } else if (parts[0] === 'effects' && parts.length >= 3) {
+   var eIdx = parseInt(parts[1], 10);
+   var arr2 = JSON.parse(JSON.stringify(node.effects || []));
+   if (arr2[eIdx]) {
+    arr2[eIdx] = figma.variables.setBoundVariableForEffect(arr2[eIdx], parts[2], variable);
+    node.effects = arr2;
+   }
+  } else {
+   node.setBoundVariable(field, variable);
+  }
+ }
 }
-function _fillV(n) {
-  var p = n.parent; if (!p) return;
-  if (p.layoutMode && p.layoutMode !== 'NONE') { n.layoutSizingVertical = 'FILL'; }
-  else { n.resize(n.width, Math.max((p.height||0)-(p.paddingTop||0)-(p.paddingBottom||0),1)); }
+async function applyStyles(node, styles, ctx) {
+ if (!styles) return;
+ if (styles.text && ctx.styles[styles.text]) await node.setTextStyleIdAsync(ctx.styles[styles.text].id);
+ if (styles.fill && ctx.styles[styles.fill]) await node.setFillStyleIdAsync(ctx.styles[styles.fill].id);
+ if (styles.stroke && ctx.styles[styles.stroke]) await node.setStrokeStyleIdAsync(ctx.styles[styles.stroke].id);
+ if (styles.effect && ctx.styles[styles.effect]) await node.setEffectStyleIdAsync(ctx.styles[styles.effect].id);
+ if (styles.grid && ctx.styles[styles.grid]) await node.setGridStyleIdAsync(ctx.styles[styles.grid].id);
 }
-
-
-// Navigate to target page
-var _targetNode = await figma.getNodeByIdAsync(undefined);
-var _page = _targetNode;
-while (_page && _page.type !== 'PAGE') _page = _page.parent;
-if (_page) await figma.setCurrentPageAsync(_page);
-
-// Load fonts
-await Promise.all([
-  figma.loadFontAsync({ family: 'Inter', style: 'Regular' }),
-  figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' }),
-  figma.loadFontAsync({ family: 'Inter', style: 'Bold' }),
-  figma.loadFontAsync({ family: 'Inter', style: 'Medium' }),
-  figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' }),
-  figma.loadFontAsync({ family: 'Roboto', style: 'Regular' }),
-]);
-
-// Import components
-var _imp_genLog = await figma.importComponentByKeyAsync('a9653f30925367e96dea90093d750bfe70849571');
-var _imp_divider = await figma.importComponentByKeyAsync('f4d778e1cf9bb61a33712c791486f54bb1c095b7');
-var _imp_codeBlock = await figma.importComponentByKeyAsync('1bf10eee1751a46da5f90a9671be6c9abf0073b7');
-var _imp_flowCoverCard = await figma.importComponentByKeyAsync('eaebde6bd07d2f19f3f9c00a9587240cb085a90d');
-var _imp_researchFrame = await figma.importComponentByKeyAsync('e671618f2b4c6ea406a995fdc3012ac54eadfe56');
-var _imp_feedback = await figma.importComponentSetByKeyAsync('d5cba21bc3dbf36578665bac89834fbe1ca29ed0');
-var _imp_briefCard = await figma.importComponentSetByKeyAsync('3dbb732730af0754210cde7af35e5236a2502843');
-var _imp_doDontPair = await figma.importComponentSetByKeyAsync('28edfacf13e50706586172bd48f8a3ad84d7c263');
-var _imp_contrastBadge = await figma.importComponentSetByKeyAsync('941756541adc6ce21e32e848c2039c64fece0fcf');
-var _imp_pointerBadge = await figma.importComponentSetByKeyAsync('7e066fc21d9a2bbbcd1149113787cf59140162d4');
-var _imp_dimAnnotation = await figma.importComponentSetByKeyAsync('49bf6a1b210a403ba145a3fdee9b1994eb54069a');
-var _imp_a11yCard = await figma.importComponentSetByKeyAsync('b4779a13f4097d682413a669eaaf9ead1b49f115');
-
-// Load local components
-var _local_targetComponent = await figma.importComponentSetByKeyAsync('675f7f8d0d57162e4cce51d26cbe39cf490e9b8d');
-
-// Create or find wrapper
-var _wrapper = await figma.getNodeByIdAsync('__WRAPPER_ID__');
-if (!_wrapper) throw new Error('Wrapper __WRAPPER_ID__ not found');
-
-// Build tree
-var _nodeCount = 0;
-var c0;
-(function() {
-  var _cs = _imp_briefCard;
-  if (_cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'Mode=DS, Type=Standard') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('Mode=DS, Type=Standard') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c0 = _target.createInstance();
-    } else {
-      c0 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else {
-    c0 = _cs.createInstance();
-  }
-})();
-c0.name = 'Anatomy';
-c0.resize(1200, c0.height);
-setProp(c0, 'Title', 'Anatomy');
-setProp(c0, 'Subtitle', 'Component structure, dimensions, interactive states, and part-level token mapping');
-c0 = c0.detachInstance();
-var c0_slot = c0.findOne(function(n) { return n.name === "Content"; }) || c0;
-if (c0_slot !== c0) {
-  while (c0_slot.children.length) c0_slot.children[0].remove();
+async function buildNode(spec, ctx) {
+ switch (spec.type) {
+  case 'FRAME':          return await buildFrame(spec, ctx);
+  case 'TEXT':           return await buildText(spec, ctx);
+  case 'RECT':           return await buildRect(spec, ctx);
+  case 'INSTANCE':       return await buildInstance(spec, ctx);
+  case 'LOCAL_INSTANCE': return await buildLocalInstance(spec, ctx);
+  case 'DIVIDER':        return await buildDivider(spec, ctx);
+  case 'LINE':           return await buildLine(spec, ctx);
+  case 'ELLIPSE':        return await buildEllipse(spec, ctx);
+  case 'VECTOR':         return await buildVector(spec, ctx);
+  case 'POLYGON':        return await buildPolygon(spec, ctx);
+  case 'STAR':           return await buildStar(spec, ctx);
+  case 'SVG':            return await buildSvg(spec, ctx);
+  case 'GROUP':          return await buildGroup(spec, ctx);
+  case 'BOOLEAN':        return await buildBoolean(spec, ctx);
+  case 'SECTION':        return await buildSection(spec, ctx);
+  case 'COMPONENT':      return await buildComponent(spec, ctx);
+  case 'COMPONENT_SET':  return await buildComponentSet(spec, ctx);
+  default:
+   throw new Error('Unknown node type: ' + spec.type);
+ }
 }
-if (c0_slot !== c0) {
-  c0_slot.layoutMode = 'VERTICAL';
-  c0_slot.itemSpacing = 16;
-  c0_slot.paddingTop = 48;
-  c0_slot.paddingRight = 80;
-  c0_slot.paddingBottom = 48;
-  c0_slot.paddingLeft = 80;
-  c0_slot.primaryAxisSizingMode = 'AUTO';
-  c0_slot.counterAxisSizingMode = 'AUTO';
-  c0.primaryAxisSizingMode = 'AUTO';
+async function buildFrame(spec, ctx) {
+ var frame = figma.createFrame();
+ if (spec.name) frame.name = spec.name;
+ applyLayout(frame, spec.layout);
+ applyFills(frame, spec.fills);
+ applyCornerRadius(frame, spec.cornerRadius);
+ applyStroke(frame, spec.stroke);
+ applyEffects(frame, spec.effects);
+ applyOpacity(frame, spec.opacity);
+ if (spec.clipsContent !== undefined) frame.clipsContent = spec.clipsContent;
+ if (spec.width !== undefined && spec.height !== undefined) {
+  frame.resize(spec.width, spec.height);
+ }
+ if (spec.children) {
+  for (var i = 0; i < spec.children.length; i++) {
+   var child = await buildNode(spec.children[i], ctx);
+   frame.appendChild(child);
+   if (spec.children[i].x !== undefined) child.x = spec.children[i].x;
+   if (spec.children[i].y !== undefined) child.y = spec.children[i].y;
+   applySizing(child, spec.children[i].sizing);
+  }
+ }
+ await applyStyles(frame, spec.styles, ctx);
+ applyVariables(frame, spec.variables, ctx);
+ return frame;
 }
-var c1 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
-c1.fontName = { family: 'Inter', style: 'Semi Bold' };
-c1.fontSize = 16;
-c1.characters = 'Structure';
-c1.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c0_slot.appendChild(c1);
-var c2 = figma.createFrame();
-c2.name = 'Structure diagram';
-c2.primaryAxisSizingMode = 'AUTO';
-c2.counterAxisSizingMode = 'AUTO';
-c2.fills = [{ type: 'SOLID', color: hexToRgb('#F9FAFB') }];
-c2.cornerRadius = 12;
-var c3;
-(function() {
-  var _cs = _imp_pointerBadge;
-  if (_cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'Direction=Left') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('Direction=Left') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c3 = _target.createInstance();
-    } else {
-      c3 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else {
-    c3 = _cs.createInstance();
+async function buildText(spec, ctx) {
+ var text = figma.createText();
+ if (spec.name) text.name = spec.name;
+ var fontFamily = 'Inter';
+ var fontStyle = 'Regular';
+ if (spec.font) {
+  var parts = spec.font.split(':');
+  fontFamily = parts[0];
+  fontStyle = parts[1] ? parts[1].trim() : 'Regular';
+ }
+ if (spec.bold) fontStyle = 'Bold';
+ await figma.loadFontAsync({ family: fontFamily, style: fontStyle });
+ text.fontName = { family: fontFamily, style: fontStyle };
+ if (spec.size !== undefined) {
+  text.fontSize = typeof spec.size === 'object' ? spec.size.value : spec.size;
+ }
+ if (spec.content !== undefined) text.characters = String(spec.content);
+ if (spec.color) text.fills = [{ type: 'SOLID', color: hexToRgb(spec.color) }];
+ if (spec.width !== undefined) {
+  text.resize(spec.width, text.height);
+  text.textAutoResize = 'HEIGHT';
+ }
+ if (spec.textAlign) {
+  if (spec.textAlign.horizontal) text.textAlignHorizontal = spec.textAlign.horizontal;
+  if (spec.textAlign.vertical) text.textAlignVertical = spec.textAlign.vertical;
+ }
+ if (spec.lineHeight !== undefined) {
+  if (typeof spec.lineHeight === 'number') text.lineHeight = { value: spec.lineHeight, unit: 'PIXELS' };
+  else if (spec.lineHeight === 'AUTO') text.lineHeight = { unit: 'AUTO' };
+  else if (typeof spec.lineHeight === 'object') text.lineHeight = spec.lineHeight;
+ }
+ if (spec.letterSpacing !== undefined) {
+  if (typeof spec.letterSpacing === 'number') text.letterSpacing = { value: spec.letterSpacing, unit: 'PIXELS' };
+  else text.letterSpacing = spec.letterSpacing;
+ }
+ if (spec.textDecoration) text.textDecoration = spec.textDecoration;
+ if (spec.textCase) text.textCase = spec.textCase;
+ applyOpacity(text, spec.opacity);
+ if (spec.textRanges && spec.textRanges.length) {
+  for (var i = 0; i < spec.textRanges.length; i++) {
+   var range = spec.textRanges[i];
+   if (range.font) {
+    var rParts = range.font.split(':');
+    await figma.loadFontAsync({ family: rParts[0], style: (rParts[1] || 'Regular').trim() });
+    text.setRangeFontName(range.start, range.end, { family: rParts[0], style: (rParts[1] || 'Regular').trim() });
+   }
+   if (range.size !== undefined) text.setRangeFontSize(range.start, range.end, range.size);
+   if (range.color) text.setRangeFills(range.start, range.end, [{ type: 'SOLID', color: hexToRgb(range.color) }]);
+   if (range.textDecoration) text.setRangeTextDecoration(range.start, range.end, range.textDecoration);
+   if (range.textCase) text.setRangeTextCase(range.start, range.end, range.textCase);
   }
-})();
-c3.name = 'Badge A';
-setProp(c3, 'Label', 'A');
-c2.appendChild(c3);
-c3.layoutSizingHorizontal = 'HUG';
-c3.layoutSizingVertical = 'HUG';
-var c4 = figma.createRectangle();
-c4.name = 'Leader A';
-c4.resize(16, 16);
-c4.fills = [];
-c2.appendChild(c4);
-var c5;
-(function() {
-  var _cs = _imp_pointerBadge;
-  if (_cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'Direction=Left') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('Direction=Left') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c5 = _target.createInstance();
-    } else {
-      c5 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else {
-    c5 = _cs.createInstance();
+ }
+ await applyStyles(text, spec.styles, ctx);
+ applyVariables(text, spec.variables, ctx);
+ return text;
+}
+async function buildRect(spec, ctx) {
+ var rect = figma.createRectangle();
+ if (spec.name) rect.name = spec.name;
+ if (spec.width !== undefined && spec.height !== undefined) rect.resize(spec.width, spec.height);
+ applyFills(rect, spec.fills);
+ applyCornerRadius(rect, spec.cornerRadius);
+ applyStroke(rect, spec.stroke);
+ applyEffects(rect, spec.effects);
+ applyOpacity(rect, spec.opacity);
+ await applyStyles(rect, spec.styles, ctx);
+ applyVariables(rect, spec.variables, ctx);
+ return rect;
+}
+async function buildInstance(spec, ctx) {
+ var componentOrSet = ctx.imports[spec.ref];
+ if (!componentOrSet) {
+  // Graceful fallback: create placeholder frame
+  var placeholder = figma.createFrame();
+  placeholder.name = 'Missing: ' + (spec.ref || 'unknown');
+  placeholder.resize(200, 40);
+  return placeholder;
+ }
+ var instance;
+ if (spec.variant && componentOrSet.type === 'COMPONENT_SET') {
+  var variants = componentOrSet.children;
+  var target = null;
+  for (var i = 0; i < variants.length; i++) {
+   if (variants[i].name === spec.variant) { target = variants[i]; break; }
   }
-})();
-c5.name = 'Badge B';
-setProp(c5, 'Label', 'B');
-c2.appendChild(c5);
-c5.layoutSizingHorizontal = 'HUG';
-c5.layoutSizingVertical = 'HUG';
-var c6 = figma.createRectangle();
-c6.name = 'Leader B';
-c6.resize(16, 16);
-c6.fills = [];
-c2.appendChild(c6);
-var c7;
-(function() {
-  var _cs = _imp_pointerBadge;
-  if (_cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'Direction=Left') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('Direction=Left') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c7 = _target.createInstance();
-    } else {
-      c7 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else {
-    c7 = _cs.createInstance();
+  if (!target) {
+   for (var j = 0; j < variants.length; j++) {
+    if (variants[j].name.indexOf(spec.variant) !== -1) { target = variants[j]; break; }
+   }
   }
-})();
-c7.name = 'Badge C';
-setProp(c7, 'Label', 'C');
-c2.appendChild(c7);
-c7.layoutSizingHorizontal = 'HUG';
-c7.layoutSizingVertical = 'HUG';
-var c8 = figma.createRectangle();
-c8.name = 'Leader C';
-c8.resize(16, 16);
-c8.fills = [];
-c2.appendChild(c8);
-var c9;
-(function() {
-  var _cs = _imp_pointerBadge;
-  if (_cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'Direction=Left') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('Direction=Left') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c9 = _target.createInstance();
-    } else {
-      c9 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else {
-    c9 = _cs.createInstance();
+  instance = target
+   ? target.createInstance()
+   : (componentOrSet.defaultVariant || variants[0]).createInstance();
+ } else if (componentOrSet.type === 'COMPONENT_SET') {
+  instance = (componentOrSet.defaultVariant || componentOrSet.children[0]).createInstance();
+ } else {
+  instance = componentOrSet.createInstance();
+ }
+ if (spec.name) instance.name = spec.name;
+ // Resize BEFORE detach (width-only, height-only, or both)
+ if (spec.width !== undefined && spec.height !== undefined) {
+  instance.resize(spec.width, spec.height);
+ } else if (spec.width !== undefined) {
+  instance.resize(spec.width, instance.height);
+ } else if (spec.height !== undefined) {
+  instance.resize(instance.width, spec.height);
+ }
+ // Set component properties BEFORE detach
+ if (spec.props) {
+  for (var prop in spec.props) {
+   setProp(instance, prop, spec.props[prop]);
   }
-})();
-c9.name = 'Badge D';
-setProp(c9, 'Label', 'D');
-c2.appendChild(c9);
-c9.layoutSizingHorizontal = 'HUG';
-c9.layoutSizingVertical = 'HUG';
-var c10 = figma.createRectangle();
-c10.name = 'Leader D';
-c10.resize(16, 16);
-c10.fills = [];
-c2.appendChild(c10);
-c0_slot.appendChild(c2);
-_fillH(c2);
-c2.layoutSizingVertical = 'FIXED';
-c2.resize(c2.width, 400);
-var c11 = figma.createFrame();
-c11.name = 'Legend';
-c11.layoutMode = 'HORIZONTAL';
-c11.itemSpacing = 20;
-c11.paddingTop = 0;
-c11.paddingRight = 0;
-c11.paddingBottom = 0;
-c11.paddingLeft = 0;
-c11.primaryAxisSizingMode = 'AUTO';
-c11.counterAxisSizingMode = 'AUTO';
-c11.fills = [];
-var c12 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c12.fontName = { family: 'Inter', style: 'Regular' };
-c12.fontSize = 12;
-c12.characters = 'A — Link text';
-c12.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c11.appendChild(c12);
-var c13 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c13.fontName = { family: 'Inter', style: 'Regular' };
-c13.fontSize = 12;
-c13.characters = 'B — Trailing icon';
-c13.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c11.appendChild(c13);
-var c14 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c14.fontName = { family: 'Inter', style: 'Regular' };
-c14.fontSize = 12;
-c14.characters = 'C — Focus ring';
-c14.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c11.appendChild(c14);
-var c15 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c15.fontName = { family: 'Inter', style: 'Regular' };
-c15.fontSize = 12;
-c15.characters = 'D — Underline';
-c15.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c11.appendChild(c15);
-c0_slot.appendChild(c11);
-_fillH(c11);
-c11.layoutSizingVertical = 'HUG';
-var c16 = figma.createRectangle();
-c16.name = 'Divider';
-c16.resize(300, 1);
-c16.fills = [{ type: 'SOLID', color: hexToRgb('#E0E0E0') }];
-c0_slot.appendChild(c16);
-var c17 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
-c17.fontName = { family: 'Inter', style: 'Semi Bold' };
-c17.fontSize = 16;
-c17.characters = 'Specs';
-c17.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c0_slot.appendChild(c17);
-var c18 = figma.createFrame();
-c18.name = 'Specs diagram';
-c18.primaryAxisSizingMode = 'AUTO';
-c18.counterAxisSizingMode = 'AUTO';
-c18.fills = [{ type: 'SOLID', color: hexToRgb('#F9FAFB') }];
-c18.cornerRadius = 12;
-var c19;
-(function() {
-  var _cs = _imp_dimAnnotation;
-  if (_cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'Orientation=Horizontal') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('Orientation=Horizontal') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c19 = _target.createInstance();
-    } else {
-      c19 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else {
-    c19 = _cs.createInstance();
+ }
+ // Detach if requested
+ if (spec.detach) {
+  instance = instance.detachInstance();
+ }
+ // Override fills
+ applyFills(instance, spec.fills);
+ // Append children into "Content" slot
+ if (spec.children && spec.children.length) {
+  var slot = instance.findOne(function (n) { return n.name === 'Content'; }) || instance;
+  // Clear placeholder children from Content slot
+  if (slot !== instance) {
+   while (slot.children.length) slot.children[0].remove();
   }
-})();
-c19.name = 'Spec: text-to-icon gap';
-setProp(c19, 'Value', '4px');
-c18.appendChild(c19);
-c19.layoutSizingHorizontal = 'HUG';
-c19.layoutSizingVertical = 'HUG';
-var c20;
-(function() {
-  var _cs = _imp_dimAnnotation;
-  if (_cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'Orientation=Vertical') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('Orientation=Vertical') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c20 = _target.createInstance();
-    } else {
-      c20 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else {
-    c20 = _cs.createInstance();
+  // Configure Content slot auto-layout from contentSlot spec
+  if (spec.contentSlot && spec.contentSlot.layout && slot !== instance) {
+   var sl = spec.contentSlot.layout;
+   slot.layoutMode = sl.mode || 'VERTICAL';
+   if (sl.spacing != null) slot.itemSpacing = sl.spacing;
+   if (Array.isArray(sl.padding)) {
+    slot.paddingTop = sl.padding[0];
+    slot.paddingRight = sl.padding[1];
+    slot.paddingBottom = sl.padding[2];
+    slot.paddingLeft = sl.padding[3];
+   }
+   slot.primaryAxisSizingMode = 'AUTO';
+   slot.counterAxisSizingMode = 'AUTO';
+   // Root frame must also HUG vertically
+   instance.primaryAxisSizingMode = 'AUTO';
   }
-})();
-c20.name = 'Spec: focus ring offset';
-setProp(c20, 'Value', '2px');
-c18.appendChild(c20);
-c20.layoutSizingHorizontal = 'HUG';
-c20.layoutSizingVertical = 'HUG';
-var c21;
-(function() {
-  var _cs = _imp_dimAnnotation;
-  if (_cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'Orientation=Vertical') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('Orientation=Vertical') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c21 = _target.createInstance();
-    } else {
-      c21 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else {
-    c21 = _cs.createInstance();
+  for (var k = 0; k < spec.children.length; k++) {
+   var child = await buildNode(spec.children[k], ctx);
+   slot.appendChild(child);
+   applySizing(child, spec.children[k].sizing);
   }
-})();
-c21.name = 'Spec: icon size';
-setProp(c21, 'Value', '16px');
-c18.appendChild(c21);
-c21.layoutSizingHorizontal = 'HUG';
-c21.layoutSizingVertical = 'HUG';
-c0_slot.appendChild(c18);
-_fillH(c18);
-c18.layoutSizingVertical = 'FIXED';
-c18.resize(c18.width, 300);
-var c22 = figma.createRectangle();
-c22.name = 'Divider';
-c22.resize(300, 1);
-c22.fills = [{ type: 'SOLID', color: hexToRgb('#E0E0E0') }];
-c0_slot.appendChild(c22);
-var c23 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
-c23.fontName = { family: 'Inter', style: 'Semi Bold' };
-c23.fontSize = 16;
-c23.characters = 'States';
-c23.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c0_slot.appendChild(c23);
-var c24 = figma.createFrame();
-c24.name = 'States grid';
-c24.layoutMode = 'HORIZONTAL';
-c24.itemSpacing = 24;
-c24.paddingTop = 0;
-c24.paddingRight = 0;
-c24.paddingBottom = 0;
-c24.paddingLeft = 0;
-c24.primaryAxisSizingMode = 'AUTO';
-c24.counterAxisSizingMode = 'AUTO';
-c24.fills = [];
-var c25 = figma.createFrame();
-c25.name = 'State: Enabled';
-c25.layoutMode = 'VERTICAL';
-c25.itemSpacing = 8;
-c25.paddingTop = 0;
-c25.paddingRight = 0;
-c25.paddingBottom = 0;
-c25.paddingLeft = 0;
-c25.primaryAxisSizingMode = 'AUTO';
-c25.counterAxisSizingMode = 'AUTO';
-c25.fills = [];
-var c26 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c26.fontName = { family: 'Inter', style: 'Medium' };
-c26.fontSize = 12;
-c26.characters = 'Enabled';
-c26.fills = [{ type: 'SOLID', color: hexToRgb('#888888') }];
-c25.appendChild(c26);
-var c27;
-(function() {
-  var _cs = _local_targetComponent;
-  if (_cs && _cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'State=Enabled') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('State=Enabled') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c27 = _target.createInstance();
-    } else {
-      c27 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else if (_cs) {
-    c27 = _cs.createInstance();
-  } else {
-    c27 = figma.createFrame();
-    c27.name = 'Missing: targetComponent';
+ }
+ await applyStyles(instance, spec.styles, ctx);
+ applyVariables(instance, spec.variables, ctx);
+ return instance;
+}
+async function buildLocalInstance(spec, ctx) {
+ var componentOrSet = ctx.locals[spec.ref];
+ if (!componentOrSet) {
+  var placeholder = figma.createFrame();
+  placeholder.name = 'Missing: ' + (spec.ref || 'unknown');
+  placeholder.resize(200, 40);
+  return placeholder;
+ }
+ var instance;
+ if (spec.variant && componentOrSet.type === 'COMPONENT_SET') {
+  var variants = componentOrSet.children;
+  var target = null;
+  for (var i = 0; i < variants.length; i++) {
+   if (variants[i].name === spec.variant) { target = variants[i]; break; }
   }
-})();
-c27.name = 'Enabled state';
-c25.appendChild(c27);
-c24.appendChild(c25);
-c25.layoutSizingHorizontal = 'HUG';
-c25.layoutSizingVertical = 'HUG';
-var c28 = figma.createFrame();
-c28.name = 'State: Hovered';
-c28.layoutMode = 'VERTICAL';
-c28.itemSpacing = 8;
-c28.paddingTop = 0;
-c28.paddingRight = 0;
-c28.paddingBottom = 0;
-c28.paddingLeft = 0;
-c28.primaryAxisSizingMode = 'AUTO';
-c28.counterAxisSizingMode = 'AUTO';
-c28.fills = [];
-var c29 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c29.fontName = { family: 'Inter', style: 'Medium' };
-c29.fontSize = 12;
-c29.characters = 'Hovered';
-c29.fills = [{ type: 'SOLID', color: hexToRgb('#888888') }];
-c28.appendChild(c29);
-var c30;
-(function() {
-  var _cs = _local_targetComponent;
-  if (_cs && _cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'State=Hovered') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('State=Hovered') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c30 = _target.createInstance();
-    } else {
-      c30 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else if (_cs) {
-    c30 = _cs.createInstance();
-  } else {
-    c30 = figma.createFrame();
-    c30.name = 'Missing: targetComponent';
+  if (!target) {
+   for (var j = 0; j < variants.length; j++) {
+    if (variants[j].name.indexOf(spec.variant) !== -1) { target = variants[j]; break; }
+   }
   }
-})();
-c30.name = 'Hovered state';
-c28.appendChild(c30);
-c24.appendChild(c28);
-c28.layoutSizingHorizontal = 'HUG';
-c28.layoutSizingVertical = 'HUG';
-var c31 = figma.createFrame();
-c31.name = 'State: Focused';
-c31.layoutMode = 'VERTICAL';
-c31.itemSpacing = 8;
-c31.paddingTop = 0;
-c31.paddingRight = 0;
-c31.paddingBottom = 0;
-c31.paddingLeft = 0;
-c31.primaryAxisSizingMode = 'AUTO';
-c31.counterAxisSizingMode = 'AUTO';
-c31.fills = [];
-var c32 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c32.fontName = { family: 'Inter', style: 'Medium' };
-c32.fontSize = 12;
-c32.characters = 'Focused';
-c32.fills = [{ type: 'SOLID', color: hexToRgb('#888888') }];
-c31.appendChild(c32);
-var c33;
-(function() {
-  var _cs = _local_targetComponent;
-  if (_cs && _cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'State=Focused') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('State=Focused') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c33 = _target.createInstance();
-    } else {
-      c33 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else if (_cs) {
-    c33 = _cs.createInstance();
-  } else {
-    c33 = figma.createFrame();
-    c33.name = 'Missing: targetComponent';
+  instance = target
+   ? target.createInstance()
+   : (componentOrSet.defaultVariant || variants[0]).createInstance();
+ } else if (componentOrSet.type === 'COMPONENT_SET') {
+  instance = (componentOrSet.defaultVariant || componentOrSet.children[0]).createInstance();
+ } else if (componentOrSet.createInstance) {
+  instance = componentOrSet.createInstance();
+ } else {
+  var placeholder2 = figma.createFrame();
+  placeholder2.name = 'Cannot instance: ' + (spec.ref || 'unknown');
+  placeholder2.resize(200, 40);
+  return placeholder2;
+ }
+ if (spec.name) instance.name = spec.name;
+ if (spec.props) {
+  for (var prop in spec.props) setProp(instance, prop, spec.props[prop]);
+ }
+ applyFills(instance, spec.fills);
+ return instance;
+}
+async function buildDivider(spec, ctx) {
+ var divRef = ctx.imports['divider'] || ctx.imports['cardDivider'];
+ if (!divRef) {
+  var line = figma.createRectangle();
+  line.name = spec.name || 'Divider';
+  line.resize(spec.width || 300, 1);
+  line.fills = [{ type: 'SOLID', color: hexToRgb(spec.color || '#E0E0E0') }];
+  return line;
+ }
+ var instance = divRef.type === 'COMPONENT_SET'
+  ? (divRef.defaultVariant || divRef.children[0]).createInstance()
+  : divRef.createInstance();
+ if (spec.name) instance.name = spec.name;
+ return instance;
+}
+async function buildLine(spec, ctx) {
+ var line = figma.createLine();
+ if (spec.name) line.name = spec.name;
+ if (spec.length !== undefined) line.resize(spec.length, 0);
+ if (spec.stroke) {
+  if (spec.stroke.color) line.strokes = [{ type: 'SOLID', color: hexToRgb(spec.stroke.color) }];
+  if (spec.stroke.weight !== undefined) line.strokeWeight = spec.stroke.weight;
+ }
+ if (spec.rotation !== undefined) line.rotation = spec.rotation;
+ applyOpacity(line, spec.opacity);
+ return line;
+}
+async function buildEllipse(spec, ctx) {
+ var ellipse = figma.createEllipse();
+ if (spec.name) ellipse.name = spec.name;
+ if (spec.width !== undefined && spec.height !== undefined) ellipse.resize(spec.width, spec.height);
+ applyFills(ellipse, spec.fills);
+ applyStroke(ellipse, spec.stroke);
+ if (spec.arcData) {
+  ellipse.arcData = {
+   startingAngle: spec.arcData.startingAngle || 0,
+   endingAngle: spec.arcData.endingAngle || 6.2832,
+   innerRadius: spec.arcData.innerRadius || 0
+  };
+ }
+ applyOpacity(ellipse, spec.opacity);
+ return ellipse;
+}
+async function buildVector(spec, ctx) {
+ var vector = figma.createVector();
+ if (spec.name) vector.name = spec.name;
+ if (spec.paths) {
+  vector.vectorPaths = spec.paths.map(function (p) {
+   if (typeof p === 'string') return { windingRule: 'NONZERO', data: p };
+   return { windingRule: p.windingRule || 'NONZERO', data: p.data };
+  });
+ }
+ if (spec.width !== undefined && spec.height !== undefined) vector.resize(spec.width, spec.height);
+ applyFills(vector, spec.fills);
+ applyStroke(vector, spec.stroke);
+ applyOpacity(vector, spec.opacity);
+ return vector;
+}
+async function buildPolygon(spec, ctx) {
+ var polygon = figma.createPolygon();
+ if (spec.name) polygon.name = spec.name;
+ if (spec.width !== undefined && spec.height !== undefined) polygon.resize(spec.width, spec.height);
+ if (spec.pointCount !== undefined) polygon.pointCount = spec.pointCount;
+ applyFills(polygon, spec.fills);
+ applyStroke(polygon, spec.stroke);
+ applyOpacity(polygon, spec.opacity);
+ return polygon;
+}
+async function buildStar(spec, ctx) {
+ var star = figma.createStar();
+ if (spec.name) star.name = spec.name;
+ if (spec.width !== undefined && spec.height !== undefined) star.resize(spec.width, spec.height);
+ if (spec.pointCount !== undefined) star.pointCount = spec.pointCount;
+ if (spec.innerRadius !== undefined) star.innerRadius = spec.innerRadius;
+ applyFills(star, spec.fills);
+ applyStroke(star, spec.stroke);
+ applyOpacity(star, spec.opacity);
+ return star;
+}
+async function buildSvg(spec, ctx) {
+ var node = figma.createNodeFromSvg(spec.svg);
+ if (spec.name) node.name = spec.name;
+ return node;
+}
+async function buildGroup(spec, ctx) {
+ var children = [];
+ for (var i = 0; i < (spec.children || []).length; i++) {
+  var child = await buildNode(spec.children[i], ctx);
+  figma.currentPage.appendChild(child);
+  children.push(child);
+ }
+ if (children.length === 0) throw new Error('GROUP requires at least one child');
+ var group = figma.group(children, figma.currentPage);
+ if (spec.name) group.name = spec.name;
+ applyOpacity(group, spec.opacity);
+ return group;
+}
+async function buildBoolean(spec, ctx) {
+ var children = [];
+ for (var i = 0; i < (spec.children || []).length; i++) {
+  var child = await buildNode(spec.children[i], ctx);
+  figma.currentPage.appendChild(child);
+  children.push(child);
+ }
+ if (children.length < 2) throw new Error('BOOLEAN requires at least two children');
+ var boolNode;
+ var op = (spec.operation || 'UNION').toUpperCase();
+ switch (op) {
+  case 'UNION':     boolNode = figma.union(children, figma.currentPage); break;
+  case 'SUBTRACT':  boolNode = figma.subtract(children, figma.currentPage); break;
+  case 'INTERSECT': boolNode = figma.intersect(children, figma.currentPage); break;
+  case 'EXCLUDE':   boolNode = figma.exclude(children, figma.currentPage); break;
+  default: throw new Error('Unknown boolean operation: ' + op);
+ }
+ if (spec.name) boolNode.name = spec.name;
+ applyFills(boolNode, spec.fills);
+ applyStroke(boolNode, spec.stroke);
+ applyOpacity(boolNode, spec.opacity);
+ return boolNode;
+}
+async function buildSection(spec, ctx) {
+ var section = figma.createSection();
+ if (spec.name) section.name = spec.name;
+ applyFills(section, spec.fills);
+ if (spec.children) {
+  for (var i = 0; i < spec.children.length; i++) {
+   var child = await buildNode(spec.children[i], ctx);
+   section.appendChild(child);
   }
-})();
-c33.name = 'Focused state';
-c31.appendChild(c33);
-c24.appendChild(c31);
-c31.layoutSizingHorizontal = 'HUG';
-c31.layoutSizingVertical = 'HUG';
-var c34 = figma.createFrame();
-c34.name = 'State: Pressed';
-c34.layoutMode = 'VERTICAL';
-c34.itemSpacing = 8;
-c34.paddingTop = 0;
-c34.paddingRight = 0;
-c34.paddingBottom = 0;
-c34.paddingLeft = 0;
-c34.primaryAxisSizingMode = 'AUTO';
-c34.counterAxisSizingMode = 'AUTO';
-c34.fills = [];
-var c35 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c35.fontName = { family: 'Inter', style: 'Medium' };
-c35.fontSize = 12;
-c35.characters = 'Pressed';
-c35.fills = [{ type: 'SOLID', color: hexToRgb('#888888') }];
-c34.appendChild(c35);
-var c36;
-(function() {
-  var _cs = _local_targetComponent;
-  if (_cs && _cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'State=Pressed') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('State=Pressed') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c36 = _target.createInstance();
-    } else {
-      c36 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else if (_cs) {
-    c36 = _cs.createInstance();
-  } else {
-    c36 = figma.createFrame();
-    c36.name = 'Missing: targetComponent';
+ }
+ return section;
+}
+async function buildComponent(spec, ctx) {
+ var comp = figma.createComponent();
+ if (spec.name) comp.name = spec.name;
+ applyLayout(comp, spec.layout);
+ applyFills(comp, spec.fills);
+ applyCornerRadius(comp, spec.cornerRadius);
+ applyStroke(comp, spec.stroke);
+ applyEffects(comp, spec.effects);
+ applyOpacity(comp, spec.opacity);
+ if (spec.width != null && spec.height != null) comp.resize(spec.width, spec.height);
+ var propKeys = {};
+ if (spec.properties) {
+  for (var i = 0; i < spec.properties.length; i++) {
+   var p = spec.properties[i];
+   var propType = p.type || 'TEXT';
+   var defaultVal = p.default;
+   if (propType === 'TEXT') defaultVal = defaultVal || '';
+   else if (propType === 'BOOLEAN') defaultVal = defaultVal !== false;
+   comp.addComponentProperty(p.name, propType, defaultVal);
+   var keys = Object.keys(comp.componentPropertyDefinitions);
+   for (var k = 0; k < keys.length; k++) {
+    if (keys[k].split('#')[0] === p.name) { propKeys[p.name] = keys[k]; break; }
+   }
   }
-})();
-c36.name = 'Pressed state';
-c34.appendChild(c36);
-c24.appendChild(c34);
-c34.layoutSizingHorizontal = 'HUG';
-c34.layoutSizingVertical = 'HUG';
-var c37 = figma.createFrame();
-c37.name = 'State: Once clicked';
-c37.layoutMode = 'VERTICAL';
-c37.itemSpacing = 8;
-c37.paddingTop = 0;
-c37.paddingRight = 0;
-c37.paddingBottom = 0;
-c37.paddingLeft = 0;
-c37.primaryAxisSizingMode = 'AUTO';
-c37.counterAxisSizingMode = 'AUTO';
-c37.fills = [];
-var c38 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c38.fontName = { family: 'Inter', style: 'Medium' };
-c38.fontSize = 12;
-c38.characters = 'Once clicked';
-c38.fills = [{ type: 'SOLID', color: hexToRgb('#888888') }];
-c37.appendChild(c38);
-var c39;
-(function() {
-  var _cs = _local_targetComponent;
-  if (_cs && _cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'State=Once clicked') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('State=Once clicked') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c39 = _target.createInstance();
-    } else {
-      c39 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else if (_cs) {
-    c39 = _cs.createInstance();
-  } else {
-    c39 = figma.createFrame();
-    c39.name = 'Missing: targetComponent';
+ }
+ if (spec.children) {
+  for (var j = 0; j < spec.children.length; j++) {
+   var child = await buildNode(spec.children[j], ctx);
+   comp.appendChild(child);
+   applySizing(child, spec.children[j].sizing);
   }
-})();
-c39.name = 'Once clicked state';
-c37.appendChild(c39);
-c24.appendChild(c37);
-c37.layoutSizingHorizontal = 'HUG';
-c37.layoutSizingVertical = 'HUG';
-var c40 = figma.createFrame();
-c40.name = 'State: Disabled';
-c40.layoutMode = 'VERTICAL';
-c40.itemSpacing = 8;
-c40.paddingTop = 0;
-c40.paddingRight = 0;
-c40.paddingBottom = 0;
-c40.paddingLeft = 0;
-c40.primaryAxisSizingMode = 'AUTO';
-c40.counterAxisSizingMode = 'AUTO';
-c40.fills = [];
-var c41 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c41.fontName = { family: 'Inter', style: 'Medium' };
-c41.fontSize = 12;
-c41.characters = 'Disabled';
-c41.fills = [{ type: 'SOLID', color: hexToRgb('#888888') }];
-c40.appendChild(c41);
-var c42;
-(function() {
-  var _cs = _local_targetComponent;
-  if (_cs && _cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'State=Disabled') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('State=Disabled') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c42 = _target.createInstance();
-    } else {
-      c42 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
-  } else if (_cs) {
-    c42 = _cs.createInstance();
-  } else {
-    c42 = figma.createFrame();
-    c42.name = 'Missing: targetComponent';
+ }
+ if (spec.propertyLinks) {
+  for (var link = 0; link < spec.propertyLinks.length; link++) {
+   var pl = spec.propertyLinks[link];
+   var textNode = comp.findOne(function (n) { return n.type === 'TEXT' && n.name === pl.layer; });
+   if (textNode && propKeys[pl.property]) {
+    textNode.componentPropertyReferences = { characters: propKeys[pl.property] };
+   }
   }
-})();
-c42.name = 'Disabled state';
-c40.appendChild(c42);
-c24.appendChild(c40);
-c40.layoutSizingHorizontal = 'HUG';
-c40.layoutSizingVertical = 'HUG';
-c0_slot.appendChild(c24);
-_fillH(c24);
-c24.layoutSizingVertical = 'HUG';
-var c43 = figma.createRectangle();
-c43.name = 'Divider';
-c43.resize(300, 1);
-c43.fills = [{ type: 'SOLID', color: hexToRgb('#E0E0E0') }];
-c0_slot.appendChild(c43);
-var c44 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
-c44.fontName = { family: 'Inter', style: 'Semi Bold' };
-c44.fontSize = 16;
-c44.characters = 'Parts reference';
-c44.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c0_slot.appendChild(c44);
-var c45 = figma.createFrame();
-c45.name = 'Parts reference table';
-c45.layoutMode = 'VERTICAL';
-c45.itemSpacing = 0;
-c45.paddingTop = 0;
-c45.paddingRight = 0;
-c45.paddingBottom = 0;
-c45.paddingLeft = 0;
-c45.primaryAxisSizingMode = 'AUTO';
-c45.counterAxisSizingMode = 'AUTO';
-c45.fills = [];
-var c46 = figma.createFrame();
-c46.name = 'Header';
-c46.layoutMode = 'HORIZONTAL';
-c46.itemSpacing = 0;
-c46.paddingTop = 8;
-c46.paddingRight = 12;
-c46.paddingBottom = 8;
-c46.paddingLeft = 12;
-c46.primaryAxisSizingMode = 'AUTO';
-c46.counterAxisSizingMode = 'AUTO';
-c46.fills = [{ type: 'SOLID', color: hexToRgb('#F5F5FA') }];
-var c47 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c47.fontName = { family: 'Inter', style: 'Bold' };
-c47.fontSize = 12;
-c47.characters = 'Part';
-c47.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c47.resize(60, c47.height);
-c47.textAutoResize = 'HEIGHT';
-c46.appendChild(c47);
-var c48 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c48.fontName = { family: 'Inter', style: 'Bold' };
-c48.fontSize = 12;
-c48.characters = 'Element';
-c48.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c48.resize(140, c48.height);
-c48.textAutoResize = 'HEIGHT';
-c46.appendChild(c48);
-var c49 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c49.fontName = { family: 'Inter', style: 'Bold' };
-c49.fontSize = 12;
-c49.characters = 'Token';
-c49.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c49.resize(240, c49.height);
-c49.textAutoResize = 'HEIGHT';
-c46.appendChild(c49);
-var c50 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c50.fontName = { family: 'Inter', style: 'Bold' };
-c50.fontSize = 12;
-c50.characters = 'Notes';
-c50.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c50.resize(300, c50.height);
-c50.textAutoResize = 'HEIGHT';
-c46.appendChild(c50);
-c45.appendChild(c46);
-_fillH(c46);
-c46.layoutSizingVertical = 'HUG';
-var c51 = figma.createFrame();
-c51.name = 'Row 0';
-c51.layoutMode = 'HORIZONTAL';
-c51.itemSpacing = 0;
-c51.paddingTop = 8;
-c51.paddingRight = 12;
-c51.paddingBottom = 8;
-c51.paddingLeft = 12;
-c51.primaryAxisSizingMode = 'AUTO';
-c51.counterAxisSizingMode = 'AUTO';
-c51.fills = [];
-var c52 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c52.fontName = { family: 'Inter', style: 'Regular' };
-c52.fontSize = 14;
-c52.characters = 'A';
-c52.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c52.resize(60, c52.height);
-c52.textAutoResize = 'HEIGHT';
-c51.appendChild(c52);
-var c53 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c53.fontName = { family: 'Inter', style: 'Regular' };
-c53.fontSize = 14;
-c53.characters = 'Link text';
-c53.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c53.resize(140, c53.height);
-c53.textAutoResize = 'HEIGHT';
-c51.appendChild(c53);
-var c54 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c54.fontName = { family: 'Fira Code', style: 'Regular' };
-c54.fontSize = 12;
-c54.characters = '--zen-font-body-standard, theme-primary';
-c54.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c54.resize(240, c54.height);
-c54.textAutoResize = 'HEIGHT';
-c51.appendChild(c54);
-var c55 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c55.fontName = { family: 'Inter', style: 'Regular' };
-c55.fontSize = 14;
-c55.characters = 'Roboto 400 14px/20px, inherits theme color';
-c55.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c55.resize(300, c55.height);
-c55.textAutoResize = 'HEIGHT';
-c51.appendChild(c55);
-c45.appendChild(c51);
-_fillH(c51);
-c51.layoutSizingVertical = 'HUG';
-var c56 = figma.createFrame();
-c56.name = 'Row 1';
-c56.layoutMode = 'HORIZONTAL';
-c56.itemSpacing = 0;
-c56.paddingTop = 8;
-c56.paddingRight = 12;
-c56.paddingBottom = 8;
-c56.paddingLeft = 12;
-c56.primaryAxisSizingMode = 'AUTO';
-c56.counterAxisSizingMode = 'AUTO';
-c56.fills = [];
-var c57 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c57.fontName = { family: 'Inter', style: 'Regular' };
-c57.fontSize = 14;
-c57.characters = 'B';
-c57.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c57.resize(60, c57.height);
-c57.textAutoResize = 'HEIGHT';
-c56.appendChild(c57);
-var c58 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c58.fontName = { family: 'Inter', style: 'Regular' };
-c58.fontSize = 14;
-c58.characters = 'Trailing icon';
-c58.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c58.resize(140, c58.height);
-c58.textAutoResize = 'HEIGHT';
-c56.appendChild(c58);
-var c59 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c59.fontName = { family: 'Fira Code', style: 'Regular' };
-c59.fontSize = 12;
-c59.characters = 'theme-primary';
-c59.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c59.resize(240, c59.height);
-c59.textAutoResize = 'HEIGHT';
-c56.appendChild(c59);
-var c60 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c60.fontName = { family: 'Inter', style: 'Regular' };
-c60.fontSize = 14;
-c60.characters = '16×16px, same color as text';
-c60.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c60.resize(300, c60.height);
-c60.textAutoResize = 'HEIGHT';
-c56.appendChild(c60);
-c45.appendChild(c56);
-_fillH(c56);
-c56.layoutSizingVertical = 'HUG';
-var c61 = figma.createFrame();
-c61.name = 'Row 2';
-c61.layoutMode = 'HORIZONTAL';
-c61.itemSpacing = 0;
-c61.paddingTop = 8;
-c61.paddingRight = 12;
-c61.paddingBottom = 8;
-c61.paddingLeft = 12;
-c61.primaryAxisSizingMode = 'AUTO';
-c61.counterAxisSizingMode = 'AUTO';
-c61.fills = [];
-var c62 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c62.fontName = { family: 'Inter', style: 'Regular' };
-c62.fontSize = 14;
-c62.characters = 'C';
-c62.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c62.resize(60, c62.height);
-c62.textAutoResize = 'HEIGHT';
-c61.appendChild(c62);
-var c63 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c63.fontName = { family: 'Inter', style: 'Regular' };
-c63.fontSize = 14;
-c63.characters = 'Focus ring';
-c63.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c63.resize(140, c63.height);
-c63.textAutoResize = 'HEIGHT';
-c61.appendChild(c63);
-var c64 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c64.fontName = { family: 'Fira Code', style: 'Regular' };
-c64.fontSize = 12;
-c64.characters = 'theme-primary';
-c64.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c64.resize(240, c64.height);
-c64.textAutoResize = 'HEIGHT';
-c61.appendChild(c64);
-var c65 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c65.fontName = { family: 'Inter', style: 'Regular' };
-c65.fontSize = 14;
-c65.characters = '2px solid, 2px offset, rounded';
-c65.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c65.resize(300, c65.height);
-c65.textAutoResize = 'HEIGHT';
-c61.appendChild(c65);
-c45.appendChild(c61);
-_fillH(c61);
-c61.layoutSizingVertical = 'HUG';
-var c66 = figma.createFrame();
-c66.name = 'Row 3';
-c66.layoutMode = 'HORIZONTAL';
-c66.itemSpacing = 0;
-c66.paddingTop = 8;
-c66.paddingRight = 12;
-c66.paddingBottom = 8;
-c66.paddingLeft = 12;
-c66.primaryAxisSizingMode = 'AUTO';
-c66.counterAxisSizingMode = 'AUTO';
-c66.fills = [];
-var c67 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c67.fontName = { family: 'Inter', style: 'Regular' };
-c67.fontSize = 14;
-c67.characters = 'D';
-c67.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c67.resize(60, c67.height);
-c67.textAutoResize = 'HEIGHT';
-c66.appendChild(c67);
-var c68 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c68.fontName = { family: 'Inter', style: 'Regular' };
-c68.fontSize = 14;
-c68.characters = 'Underline';
-c68.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c68.resize(140, c68.height);
-c68.textAutoResize = 'HEIGHT';
-c66.appendChild(c68);
-var c69 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c69.fontName = { family: 'Fira Code', style: 'Regular' };
-c69.fontSize = 12;
-c69.characters = 'theme-primary';
-c69.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c69.resize(240, c69.height);
-c69.textAutoResize = 'HEIGHT';
-c66.appendChild(c69);
-var c70 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c70.fontName = { family: 'Inter', style: 'Regular' };
-c70.fontSize = 14;
-c70.characters = 'Appears on hover and focus states';
-c70.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c70.resize(300, c70.height);
-c70.textAutoResize = 'HEIGHT';
-c66.appendChild(c70);
-c45.appendChild(c66);
-_fillH(c66);
-c66.layoutSizingVertical = 'HUG';
-c0_slot.appendChild(c45);
-_fillH(c45);
-c45.layoutSizingVertical = 'HUG';
-_wrapper.appendChild(c0);
-_nodeCount++;
-
-// Tag with plugin data
-_wrapper.setSharedPluginData('actian_ds', 'skill', 'component-brief');
-_wrapper.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());
-
-// Return metadata
-return { wrapperId: _wrapper.id, nodeCount: _nodeCount };
+ }
+ await applyStyles(comp, spec.styles, ctx);
+ applyVariables(comp, spec.variables, ctx);
+ return comp;
+}
+async function buildComponentSet(spec, ctx) {
+ var components = [];
+ for (var i = 0; i < (spec.variants || []).length; i++) {
+  var variantSpec = spec.variants[i];
+  variantSpec.type = 'COMPONENT';
+  var comp = await buildComponent(variantSpec, ctx);
+  figma.currentPage.appendChild(comp);
+  components.push(comp);
+ }
+ if (components.length === 0) throw new Error('COMPONENT_SET requires at least one variant');
+ var set = figma.combineAsVariants(components, figma.currentPage);
+ if (spec.name) set.name = spec.name;
+ if (spec.description) set.description = spec.description;
+ return set;
+}
+var _spec = {"meta":{"skill":"component-brief","component":"Link","appendToId":"__LAST_WRAPPER__"},"fonts":["Inter:Regular","Inter:Semi Bold","Inter:Bold","Inter:Medium","Fira Code:Regular","Roboto:Regular"],"imports":{"genLog":{"key":"a9653f30925367e96dea90093d750bfe70849571","method":"single"},"divider":{"key":"f4d778e1cf9bb61a33712c791486f54bb1c095b7","method":"single"},"codeBlock":{"key":"1bf10eee1751a46da5f90a9671be6c9abf0073b7","method":"single"},"flowCoverCard":{"key":"eaebde6bd07d2f19f3f9c00a9587240cb085a90d","method":"single"},"researchFrame":{"key":"e671618f2b4c6ea406a995fdc3012ac54eadfe56","method":"single"},"feedback":{"key":"d5cba21bc3dbf36578665bac89834fbe1ca29ed0","method":"set"},"briefCard":{"key":"3dbb732730af0754210cde7af35e5236a2502843","method":"set"},"doDontPair":{"key":"28edfacf13e50706586172bd48f8a3ad84d7c263","method":"set"},"contrastBadge":{"key":"941756541adc6ce21e32e848c2039c64fece0fcf","method":"set"},"pointerBadge":{"key":"7e066fc21d9a2bbbcd1149113787cf59140162d4","method":"set"},"dimAnnotation":{"key":"49bf6a1b210a403ba145a3fdee9b1994eb54069a","method":"set"},"a11yCard":{"key":"b4779a13f4097d682413a669eaaf9ead1b49f115","method":"set"}},"localComponents":{"targetComponent":{"key":"675f7f8d0d57162e4cce51d26cbe39cf490e9b8d"}},"tree":[{"type":"INSTANCE","ref":"briefCard","name":"Component API","variant":"Mode=DS, Type=Standard","props":{"Title":"Component API","Subtitle":"Properties, types, defaults, and allowed values"},"detach":true,"width":1200,"contentSlot":{"layout":{"mode":"VERTICAL","spacing":16,"padding":[48,80,48,80]}},"children":[{"type":"FRAME","name":"API table","layout":{"mode":"VERTICAL","spacing":0,"padding":[0,0,0,0]},"fills":[],"children":[{"type":"FRAME","name":"Header","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":["#F5F5FA"],"children":[{"type":"TEXT","content":"","font":"Inter:Bold","size":12,"color":"#595968","width":50},{"type":"TEXT","content":"Property","font":"Inter:Bold","size":12,"color":"#595968","width":140},{"type":"TEXT","content":"Type","font":"Inter:Bold","size":12,"color":"#595968","width":100},{"type":"TEXT","content":"Default","font":"Inter:Bold","size":12,"color":"#595968","width":120},{"type":"TEXT","content":"Values","font":"Inter:Bold","size":12,"color":"#595968","width":200},{"type":"TEXT","content":"Notes","font":"Inter:Bold","size":12,"color":"#595968","width":350}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Row 0","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":[],"children":[{"type":"FRAME","name":"REQ badge","layout":{"mode":"HORIZONTAL","padding":[2,6,2,6]},"cornerRadius":4,"fills":["#FEF3F2"],"children":[{"type":"TEXT","content":"REQ","font":"Inter:Bold","size":10,"color":"#C10C0D"}]},{"type":"TEXT","content":"href","font":"Fira Code:Regular","size":12,"color":"#1A1A2E","width":140},{"type":"TEXT","content":"string","font":"Inter:Regular","size":14,"color":"#C792EA","width":100},{"type":"TEXT","content":"—","font":"Inter:Regular","size":14,"color":"#C3E88D","width":120},{"type":"TEXT","content":"any URL","font":"Inter:Regular","size":14,"color":"#1A1A2E","width":200},{"type":"TEXT","content":"Navigation destination","font":"Inter:Regular","size":14,"color":"#595968","width":350}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Row 1","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":[],"children":[{"type":"FRAME","name":"REQ badge","layout":{"mode":"HORIZONTAL","padding":[2,6,2,6]},"cornerRadius":4,"fills":["#FEF3F2"],"children":[{"type":"TEXT","content":"REQ","font":"Inter:Bold","size":10,"color":"#C10C0D"}]},{"type":"TEXT","content":"children","font":"Fira Code:Regular","size":12,"color":"#1A1A2E","width":140},{"type":"TEXT","content":"ReactNode","font":"Inter:Regular","size":14,"color":"#C792EA","width":100},{"type":"TEXT","content":"—","font":"Inter:Regular","size":14,"color":"#C3E88D","width":120},{"type":"TEXT","content":"text content","font":"Inter:Regular","size":14,"color":"#1A1A2E","width":200},{"type":"TEXT","content":"Visible link label","font":"Inter:Regular","size":14,"color":"#595968","width":350}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Row 2","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":[],"children":[{"type":"FRAME","name":"OPT badge","layout":{"mode":"HORIZONTAL","padding":[2,6,2,6]},"cornerRadius":4,"fills":["#F5F5FA"],"children":[{"type":"TEXT","content":"OPT","font":"Inter:Bold","size":10,"color":"#888888"}]},{"type":"TEXT","content":"variant","font":"Fira Code:Regular","size":12,"color":"#1A1A2E","width":140},{"type":"TEXT","content":"enum","font":"Inter:Regular","size":14,"color":"#C792EA","width":100},{"type":"TEXT","content":"\"link\"","font":"Inter:Regular","size":14,"color":"#C3E88D","width":120},{"type":"TEXT","content":"\"link\" | \"link-with-icon\"","font":"Inter:Regular","size":14,"color":"#1A1A2E","width":200},{"type":"TEXT","content":"Link type with optional trailing icon","font":"Inter:Regular","size":14,"color":"#595968","width":350}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Row 3","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":[],"children":[{"type":"FRAME","name":"OPT badge","layout":{"mode":"HORIZONTAL","padding":[2,6,2,6]},"cornerRadius":4,"fills":["#F5F5FA"],"children":[{"type":"TEXT","content":"OPT","font":"Inter:Bold","size":10,"color":"#888888"}]},{"type":"TEXT","content":"external","font":"Fira Code:Regular","size":12,"color":"#1A1A2E","width":140},{"type":"TEXT","content":"boolean","font":"Inter:Regular","size":14,"color":"#C792EA","width":100},{"type":"TEXT","content":"false","font":"Inter:Regular","size":14,"color":"#C3E88D","width":120},{"type":"TEXT","content":"true | false","font":"Inter:Regular","size":14,"color":"#1A1A2E","width":200},{"type":"TEXT","content":"Opens in new tab with rel=noopener","font":"Inter:Regular","size":14,"color":"#595968","width":350}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Row 4","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":[],"children":[{"type":"FRAME","name":"OPT badge","layout":{"mode":"HORIZONTAL","padding":[2,6,2,6]},"cornerRadius":4,"fills":["#F5F5FA"],"children":[{"type":"TEXT","content":"OPT","font":"Inter:Bold","size":10,"color":"#888888"}]},{"type":"TEXT","content":"disabled","font":"Fira Code:Regular","size":12,"color":"#1A1A2E","width":140},{"type":"TEXT","content":"boolean","font":"Inter:Regular","size":14,"color":"#C792EA","width":100},{"type":"TEXT","content":"false","font":"Inter:Regular","size":14,"color":"#C3E88D","width":120},{"type":"TEXT","content":"true | false","font":"Inter:Regular","size":14,"color":"#1A1A2E","width":200},{"type":"TEXT","content":"Disables interaction, applies muted styling","font":"Inter:Regular","size":14,"color":"#595968","width":350}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Row 5","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":[],"children":[{"type":"FRAME","name":"OPT badge","layout":{"mode":"HORIZONTAL","padding":[2,6,2,6]},"cornerRadius":4,"fills":["#F5F5FA"],"children":[{"type":"TEXT","content":"OPT","font":"Inter:Bold","size":10,"color":"#888888"}]},{"type":"TEXT","content":"icon","font":"Fira Code:Regular","size":12,"color":"#1A1A2E","width":140},{"type":"TEXT","content":"ReactNode","font":"Inter:Regular","size":14,"color":"#C792EA","width":100},{"type":"TEXT","content":"—","font":"Inter:Regular","size":14,"color":"#C3E88D","width":120},{"type":"TEXT","content":"icon element","font":"Inter:Regular","size":14,"color":"#1A1A2E","width":200},{"type":"TEXT","content":"Trailing icon (only when variant is link-with-icon)","font":"Inter:Regular","size":14,"color":"#595968","width":350}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Row 6","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":[],"children":[{"type":"FRAME","name":"OPT badge","layout":{"mode":"HORIZONTAL","padding":[2,6,2,6]},"cornerRadius":4,"fills":["#F5F5FA"],"children":[{"type":"TEXT","content":"OPT","font":"Inter:Bold","size":10,"color":"#888888"}]},{"type":"TEXT","content":"onClick","font":"Fira Code:Regular","size":12,"color":"#1A1A2E","width":140},{"type":"TEXT","content":"function","font":"Inter:Regular","size":14,"color":"#C792EA","width":100},{"type":"TEXT","content":"—","font":"Inter:Regular","size":14,"color":"#C3E88D","width":120},{"type":"TEXT","content":"(e) => void","font":"Inter:Regular","size":14,"color":"#1A1A2E","width":200},{"type":"TEXT","content":"Click handler, fires before navigation","font":"Inter:Regular","size":14,"color":"#595968","width":350}],"sizing":{"horizontal":"FILL","vertical":"HUG"}}],"sizing":{"horizontal":"FILL","vertical":"HUG"}}]},{"type":"INSTANCE","ref":"briefCard","name":"Usage guidelines","variant":"Mode=DS, Type=Standard","props":{"Title":"Usage guidelines","Subtitle":"When and how to use Link"},"detach":true,"width":1200,"contentSlot":{"layout":{"mode":"VERTICAL","spacing":16,"padding":[48,80,48,80]}},"children":[{"type":"TEXT","content":"When to use","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"FRAME","name":"Bullet: Navigation to internal or external desti","layout":{"mode":"HORIZONTAL","spacing":8,"padding":[0,0,0,0]},"fills":[],"children":[{"type":"TEXT","content":"+","font":"Inter:Bold","size":14,"color":"#047800"},{"type":"TEXT","content":"Navigation to internal or external destinations (pages, sections, resources)","font":"Inter:Regular","size":14,"color":"#1A1A2E"}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Bullet: Inline contextual navigation within body","layout":{"mode":"HORIZONTAL","spacing":8,"padding":[0,0,0,0]},"fills":[],"children":[{"type":"TEXT","content":"+","font":"Inter:Bold","size":14,"color":"#047800"},{"type":"TEXT","content":"Inline contextual navigation within body text or descriptions","font":"Inter:Regular","size":14,"color":"#1A1A2E"}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Bullet: Standalone navigation elements like brea","layout":{"mode":"HORIZONTAL","spacing":8,"padding":[0,0,0,0]},"fills":[],"children":[{"type":"TEXT","content":"+","font":"Inter:Bold","size":14,"color":"#047800"},{"type":"TEXT","content":"Standalone navigation elements like breadcrumbs or footer links","font":"Inter:Regular","size":14,"color":"#1A1A2E"}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"DIVIDER"},{"type":"TEXT","content":"When NOT to use","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"FRAME","name":"Bullet: Actions that don't navigate (submit, del","layout":{"mode":"HORIZONTAL","spacing":8,"padding":[0,0,0,0]},"fills":[],"children":[{"type":"TEXT","content":"−","font":"Inter:Bold","size":14,"color":"#C10C0D"},{"type":"TEXT","content":"Actions that don't navigate (submit, delete, toggle) → use Button","font":"Inter:Regular","size":14,"color":"#1A1A2E"}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Bullet: Primary call-to-action → use Button with","layout":{"mode":"HORIZONTAL","spacing":8,"padding":[0,0,0,0]},"fills":[],"children":[{"type":"TEXT","content":"−","font":"Inter:Bold","size":14,"color":"#C10C0D"},{"type":"TEXT","content":"Primary call-to-action → use Button with appropriate hierarchy","font":"Inter:Regular","size":14,"color":"#1A1A2E"}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Bullet: Standalone icons as navigation → use Ico","layout":{"mode":"HORIZONTAL","spacing":8,"padding":[0,0,0,0]},"fills":[],"children":[{"type":"TEXT","content":"−","font":"Inter:Bold","size":14,"color":"#C10C0D"},{"type":"TEXT","content":"Standalone icons as navigation → use Icon Button instead","font":"Inter:Regular","size":14,"color":"#1A1A2E"}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"DIVIDER"},{"type":"INSTANCE","ref":"doDontPair","name":"Do-Dont: Use for navigation","variant":"Mode=DS","props":{"Do Label":"Use for navigation","Do Example":"Links should always navigate to a destination — a new page, section, or external resource.","Don't Label":"Use for actions","Don't Example":"Don't use links for actions like submitting a form or deleting an item. Use ghost buttons instead."},"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"INSTANCE","ref":"doDontPair","name":"Do-Dont: Use descriptive text","variant":"Mode=DS","props":{"Do Label":"Use descriptive text","Do Example":"Link text should describe the destination clearly, e.g., 'View pipeline details'.","Don't Label":"Use vague text","Don't Example":"Avoid generic labels like 'Click here', 'Read more', or raw URLs as link text."},"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"INSTANCE","ref":"doDontPair","name":"Do-Dont: Indicate external links","variant":"Mode=DS","props":{"Do Label":"Indicate external links","Do Example":"Add a trailing icon or label when the link opens in a new tab or goes to an external site.","Don't Label":"Surprise navigation","Don't Example":"Don't open links in new tabs without visual indication — users should anticipate the behavior."},"sizing":{"horizontal":"FILL","vertical":"HUG"}}]}]};
+return await buildFromSpec(_spec);

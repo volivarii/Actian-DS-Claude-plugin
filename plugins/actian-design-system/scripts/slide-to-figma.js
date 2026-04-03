@@ -15,14 +15,13 @@
 
 const fs = require("fs");
 const path = require("path");
-const codegen = require("./figma-codegen");
 const shared = require("./shared-constants");
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
-const MAX_BIN_SIZE = 12000; // bytes (raw JSON of items in bin) — keep calls under 50KB
+const MAX_BIN_SIZE = 18000; // bytes — JSON spec budget per call (interpreter is ~28KB, total under 50KB)
 const OVERHEAD = 800; // per-item overhead estimate
 
 const SLIDE_W = 1920;
@@ -293,7 +292,19 @@ function scanVariables(nodes, vars) {
   return vars;
 }
 
-// scanRefs: use codegen.scanRefs
+/** Walk a tree of nodes and collect all ref values + DIVIDER markers. */
+function scanRefs(nodes, refs) {
+  if (!refs) refs = new Set();
+  if (!Array.isArray(nodes)) return refs;
+  for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+    if (!node) continue;
+    if (node.ref) refs.add(node.ref);
+    if (node.type === "DIVIDER") refs.add("divider");
+    if (node.children) scanRefs(node.children, refs);
+  }
+  return refs;
+}
 
 // ---------------------------------------------------------------------------
 // Validation
@@ -337,7 +348,7 @@ function validate(input) {
 // ---------------------------------------------------------------------------
 
 function autoSplit(meta, allItems, usedVars) {
-  const bins = codegen.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
+  const bins = shared.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
 
   // Resolve which variables are actually used
   const resolvedVars = {};
@@ -346,13 +357,10 @@ function autoSplit(meta, allItems, usedVars) {
   }
 
   // Resolve additional imports from content refs
-  const allRefs = codegen.scanRefs(allItems);
+  const allRefs = scanRefs(allItems);
   const imports = Object.assign({}, IMPORTS);
   if (allRefs.has("divider")) {
-    imports.divider = {
-      key: "f4d778e1cf9bb61a33712c791486f54bb1c095b7",
-      method: "single",
-    };
+    imports.divider = shared.META_KEYS.divider;
   }
 
   const calls = [];
@@ -360,7 +368,7 @@ function autoSplit(meta, allItems, usedVars) {
     const spec = {
       meta: { skill: "generate-presentation" },
       fonts: FONTS,
-      imports: b === 0 ? imports : {},
+      imports: imports,
       variables: resolvedVars,
       tree: bins[b],
     };
@@ -371,12 +379,11 @@ function autoSplit(meta, allItems, usedVars) {
       spec.meta.wrapperName = "Presentation: " + (meta.title || "Deck");
       spec.meta.sectionName = "Presentation: " + (meta.title || "Deck");
     } else {
-      spec.meta.targetNodeId = meta.targetNodeId;
-      spec.meta.appendToId = "__WRAPPER_ID__";
+      spec.meta.appendToId = "__LAST_WRAPPER__";
     }
 
-    // Generate code using codegen library
-    const code = codegen.generateCallCode(spec);
+    // Assemble: interpreter runtime + JSON spec
+    const code = shared.assembleCall(spec);
     const codeSize = Buffer.byteLength(code, "utf8");
 
     const slideNames = bins[b]

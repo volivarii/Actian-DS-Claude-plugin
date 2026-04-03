@@ -1,980 +1,693 @@
+async function buildFromSpec(spec) {
+ // 1. Navigate to target page
+ var targetNode = null;
+ if (spec.meta.targetNodeId) {
+  targetNode = await figma.getNodeByIdAsync(spec.meta.targetNodeId);
+ }
+ var page = targetNode;
+ while (page && page.type !== 'PAGE') page = page.parent;
+ if (page) await figma.setCurrentPageAsync(page);
+ // 2. Load all fonts
+ await Promise.all((spec.fonts || []).map(function (f) {
+  var parts = f.split(':');
+  return figma.loadFontAsync({ family: parts[0], style: (parts[1] || 'Regular').trim() });
+ }));
+ // 3. Import all components, cache in ctx
+ var ctx = { imports: {}, locals: {}, variables: {}, styles: {} };
+ for (var ref in (spec.imports || {})) {
+  var def = spec.imports[ref];
+  ctx.imports[ref] = def.method === 'set'
+   ? await figma.importComponentSetByKeyAsync(def.key)
+   : await figma.importComponentByKeyAsync(def.key);
+ }
+ // 3b. Load local components (by node ID or component key)
+ for (var lRef in (spec.localComponents || {})) {
+  var lDef = spec.localComponents[lRef];
+  if (lDef.key) {
+   ctx.locals[lRef] = await figma.importComponentSetByKeyAsync(lDef.key);
+  } else if (lDef.nodeId) {
+   ctx.locals[lRef] = await figma.getNodeByIdAsync(lDef.nodeId);
+  }
+ }
+ // 4. Import all variables, cache in ctx
+ for (var vRef in (spec.variables || {})) {
+  ctx.variables[vRef] = await figma.variables.importVariableByKeyAsync(spec.variables[vRef].key);
+ }
+ // 5. Import all styles, cache in ctx
+ for (var sRef in (spec.styles || {})) {
+  ctx.styles[sRef] = await figma.importStyleByKeyAsync(spec.styles[sRef].key);
+ }
+ // 6. Create or find wrapper frame
+ var wrapper;
+ if (spec.meta.appendToId === '__LAST_WRAPPER__') {
+  // Auto-discover wrapper from previous call via shared plugin data
+  var lastWrapperId = figma.root.getSharedPluginData('actian_ds', 'last_wrapper');
+  if (!lastWrapperId) throw new Error('No wrapper found from previous call');
+  wrapper = await figma.getNodeByIdAsync(lastWrapperId);
+  if (!wrapper) throw new Error('Wrapper ' + lastWrapperId + ' no longer exists');
+ } else if (spec.meta.appendToId) {
+  wrapper = await figma.getNodeByIdAsync(spec.meta.appendToId);
+  if (!wrapper) throw new Error('Wrapper ' + spec.meta.appendToId + ' not found');
+ } else {
+  wrapper = figma.createFrame();
+  wrapper.name = spec.meta.wrapperName || (spec.meta.skill + ': ' + (spec.meta.component || 'output'));
+  wrapper.layoutMode = 'HORIZONTAL';
+  wrapper.itemSpacing = 32;
+  wrapper.primaryAxisSizingMode = 'AUTO';
+  wrapper.counterAxisSizingMode = 'AUTO';
+  wrapper.fills = [];
+ }
+ // Store wrapper ID for subsequent calls
+ figma.root.setSharedPluginData('actian_ds', 'last_wrapper', wrapper.id);
+ // 7. Build tree recursively
+ var nodeCount = 0;
+ var treeNodes = Array.isArray(spec.tree) ? spec.tree : spec.tree ? [spec.tree] : [];
+ for (var i = 0; i < treeNodes.length; i++) {
+  var childSpec = treeNodes[i];
+  var child = await buildNode(childSpec, ctx);
+  wrapper.appendChild(child);
+  applySizing(child, childSpec.sizing);
+  nodeCount++;
+ }
+ // 8. Position wrapper (only for new wrappers)
+ if (!spec.meta.appendToId) {
+  var parentPage = targetNode && targetNode.type === 'PAGE' ? targetNode : figma.currentPage;
+  var maxBottom = 0;
+  var pageChildren = parentPage.children;
+  for (var p = 0; p < pageChildren.length; p++) {
+   var existing = pageChildren[p];
+   if (existing.id === wrapper.id) continue;
+   var ey = typeof existing.y === 'number' && isFinite(existing.y) ? existing.y : 0;
+   var eh = typeof existing.height === 'number' && isFinite(existing.height) ? existing.height : 0;
+   var bottom = ey + eh;
+   if (bottom > maxBottom) maxBottom = bottom;
+  }
+  // Create section container
+  var section = figma.createFrame();
+  section.name = spec.meta.sectionName || wrapper.name;
+  section.layoutMode = 'VERTICAL';
+  section.primaryAxisSizingMode = 'AUTO';
+  section.counterAxisSizingMode = 'AUTO';
+  section.fills = [];
+  section.appendChild(wrapper);
+  section.x = 0;
+  section.y = maxBottom + 200;
+ }
+ // 9. Tag wrapper with plugin data
+ wrapper.setSharedPluginData('actian_ds', 'skill', spec.meta.skill || '');
+ wrapper.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());
+ return {
+  wrapperId: wrapper.id,
+  nodeCount: nodeCount,
+  sectionId: section ? section.id : undefined
+ };
+}
 function hexToRgb(hex) {
-  var h = hex.replace('#', '');
-  return {
-    r: parseInt(h.substring(0, 2), 16) / 255,
-    g: parseInt(h.substring(2, 4), 16) / 255,
-    b: parseInt(h.substring(4, 6), 16) / 255
-  };
+ var h = hex.replace('#', '');
+ return {
+  r: parseInt(h.substring(0, 2), 16) / 255,
+  g: parseInt(h.substring(2, 4), 16) / 255,
+  b: parseInt(h.substring(4, 6), 16) / 255
+ };
 }
-
 function angleToTransform(angleDeg) {
-  var rad = (angleDeg * Math.PI) / 180;
-  var cos = Math.cos(rad);
-  var sin = Math.sin(rad);
-  return [
-    [cos, sin, 0.5 - 0.5 * cos - 0.5 * sin],
-    [-sin, cos, 0.5 + 0.5 * sin - 0.5 * cos]
-  ];
+ var rad = (angleDeg * Math.PI) / 180;
+ var cos = Math.cos(rad);
+ var sin = Math.sin(rad);
+ return [
+  [cos, sin, 0.5 - 0.5 * cos - 0.5 * sin],
+  [-sin, cos, 0.5 + 0.5 * sin - 0.5 * cos]
+ ];
 }
-
+function applyFills(node, fills) {
+ if (fills == null) return;
+ if (Array.isArray(fills) && fills.length === 0) { node.fills = []; return; }
+ node.fills = (Array.isArray(fills) ? fills : [fills]).map(function (f) {
+  if (typeof f === 'string') return { type: 'SOLID', color: hexToRgb(f) };
+  var typeMap = { LINEAR: 'GRADIENT_LINEAR', RADIAL: 'GRADIENT_RADIAL',
+   ANGULAR: 'GRADIENT_ANGULAR', DIAMOND: 'GRADIENT_DIAMOND' };
+  if (typeMap[f.type]) {
+   return {
+    type: typeMap[f.type],
+    gradientStops: (f.stops || []).map(function (s) {
+     var c = hexToRgb(s.color);
+     return { position: s.position, color: { r: c.r, g: c.g, b: c.b, a: s.opacity != null ? s.opacity : 1 } };
+    }),
+    gradientTransform: f.angle != null ? angleToTransform(f.angle) : [[1, 0, 0], [0, 1, 0]]
+   };
+  }
+  return f;
+ });
+}
+function applyStroke(node, stroke) {
+ if (!stroke) return;
+ if (stroke.color) node.strokes = [{ type: 'SOLID', color: hexToRgb(stroke.color) }];
+ if (stroke.weight != null) node.strokeWeight = stroke.weight;
+ if (stroke.align) node.strokeAlign = stroke.align;
+ if (stroke.sides) {
+  if (stroke.sides.top === false) node.strokeTopWeight = 0;
+  if (stroke.sides.right === false) node.strokeRightWeight = 0;
+  if (stroke.sides.bottom === false) node.strokeBottomWeight = 0;
+  if (stroke.sides.left === false) node.strokeLeftWeight = 0;
+ }
+}
+function applyEffects(node, effects) {
+ if (!effects || !effects.length) return;
+ node.effects = effects.map(function (e) {
+  var eff = { type: e.type, visible: true };
+  if (e.type === 'DROP_SHADOW' || e.type === 'INNER_SHADOW') {
+   var c = hexToRgb(e.color);
+   eff.color = { r: c.r, g: c.g, b: c.b, a: e.opacity != null ? e.opacity : 0.25 };
+   eff.offset = { x: (e.offset && e.offset.x) || 0, y: (e.offset && e.offset.y) || 0 };
+   eff.radius = e.radius || 0;
+   if (e.spread != null) eff.spread = e.spread;
+  } else if (e.type === 'LAYER_BLUR' || e.type === 'BACKGROUND_BLUR') {
+   eff.radius = e.radius || 0;
+  }
+  return eff;
+ });
+}
+function applyOpacity(node, opacity) {
+ if (opacity != null) {
+  node.opacity = typeof opacity === 'object' ? opacity.value : opacity;
+ }
+}
+function applyCornerRadius(node, cr) {
+ if (cr == null) return;
+ if (typeof cr === 'number') { node.cornerRadius = cr; return; }
+ if (cr.topLeft != null) node.topLeftRadius = cr.topLeft;
+ if (cr.topRight != null) node.topRightRadius = cr.topRight;
+ if (cr.bottomRight != null) node.bottomRightRadius = cr.bottomRight;
+ if (cr.bottomLeft != null) node.bottomLeftRadius = cr.bottomLeft;
+}
+function applyLayout(frame, layout) {
+ if (!layout) return;
+ if (layout.mode && layout.mode !== 'NONE') frame.layoutMode = layout.mode;
+ if (layout.spacing != null) frame.itemSpacing = layout.spacing;
+ if (layout.counterAxisSpacing != null) frame.counterAxisSpacing = layout.counterAxisSpacing;
+ if (layout.wrap) frame.layoutWrap = 'WRAP';
+ if (Array.isArray(layout.padding)) {
+  frame.paddingTop = layout.padding[0];
+  frame.paddingRight = layout.padding[1];
+  frame.paddingBottom = layout.padding[2];
+  frame.paddingLeft = layout.padding[3];
+ }
+ if (layout.primaryAxisAlign) frame.primaryAxisAlignItems = layout.primaryAxisAlign;
+ if (layout.counterAxisAlign) frame.counterAxisAlignItems = layout.counterAxisAlign;
+ frame.primaryAxisSizingMode = 'AUTO';
+ frame.counterAxisSizingMode = 'AUTO';
+}
+function applySizing(node, sizing) {
+ if (!sizing) return;
+ var h = sizing.horizontal;
+ if (h === 'FILL') node.layoutSizingHorizontal = 'FILL';
+ else if (h === 'HUG') node.layoutSizingHorizontal = 'HUG';
+ else if (typeof h === 'number') { node.layoutSizingHorizontal = 'FIXED'; node.resize(h, node.height); }
+ var v = sizing.vertical;
+ if (v === 'FILL') node.layoutSizingVertical = 'FILL';
+ else if (v === 'HUG') node.layoutSizingVertical = 'HUG';
+ else if (typeof v === 'number') { node.layoutSizingVertical = 'FIXED'; node.resize(node.width, v); }
+ if (sizing.minWidth != null) node.minWidth = sizing.minWidth;
+ if (sizing.maxWidth != null) node.maxWidth = sizing.maxWidth;
+ if (sizing.minHeight != null) node.minHeight = sizing.minHeight;
+ if (sizing.maxHeight != null) node.maxHeight = sizing.maxHeight;
+}
 function setProp(instance, prefix, value) {
-  var props = instance.componentProperties;
-  for (var key in props) {
-    var propName = key.split('#')[0];
-    if (propName === prefix) {
-      instance.setProperties({ [key]: value });
-      return;
-    }
+ var props = instance.componentProperties;
+ for (var key in props) {
+  var propName = key.split('#')[0];
+  if (propName === prefix) {
+   instance.setProperties({ [key]: value });
+   return;
   }
+ }
 }
-
-function _fillH(n) {
-  var p = n.parent; if (!p) return;
-  if (p.layoutMode && p.layoutMode !== 'NONE') { n.layoutSizingHorizontal = 'FILL'; }
-  else { n.resize(Math.max((p.width||0)-(p.paddingLeft||0)-(p.paddingRight||0),1), n.height); }
-}
-function _fillV(n) {
-  var p = n.parent; if (!p) return;
-  if (p.layoutMode && p.layoutMode !== 'NONE') { n.layoutSizingVertical = 'FILL'; }
-  else { n.resize(n.width, Math.max((p.height||0)-(p.paddingTop||0)-(p.paddingBottom||0),1)); }
-}
-
-
-// Navigate to target page
-var _targetNode = await figma.getNodeByIdAsync(undefined);
-var _page = _targetNode;
-while (_page && _page.type !== 'PAGE') _page = _page.parent;
-if (_page) await figma.setCurrentPageAsync(_page);
-
-// Load fonts
-await Promise.all([
-  figma.loadFontAsync({ family: 'Inter', style: 'Regular' }),
-  figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' }),
-  figma.loadFontAsync({ family: 'Inter', style: 'Bold' }),
-  figma.loadFontAsync({ family: 'Inter', style: 'Medium' }),
-  figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' }),
-  figma.loadFontAsync({ family: 'Roboto', style: 'Regular' }),
-]);
-
-// Import components
-var _imp_genLog = await figma.importComponentByKeyAsync('a9653f30925367e96dea90093d750bfe70849571');
-var _imp_divider = await figma.importComponentByKeyAsync('f4d778e1cf9bb61a33712c791486f54bb1c095b7');
-var _imp_codeBlock = await figma.importComponentByKeyAsync('1bf10eee1751a46da5f90a9671be6c9abf0073b7');
-var _imp_flowCoverCard = await figma.importComponentByKeyAsync('eaebde6bd07d2f19f3f9c00a9587240cb085a90d');
-var _imp_researchFrame = await figma.importComponentByKeyAsync('e671618f2b4c6ea406a995fdc3012ac54eadfe56');
-var _imp_feedback = await figma.importComponentSetByKeyAsync('d5cba21bc3dbf36578665bac89834fbe1ca29ed0');
-var _imp_briefCard = await figma.importComponentSetByKeyAsync('3dbb732730af0754210cde7af35e5236a2502843');
-var _imp_doDontPair = await figma.importComponentSetByKeyAsync('28edfacf13e50706586172bd48f8a3ad84d7c263');
-var _imp_contrastBadge = await figma.importComponentSetByKeyAsync('941756541adc6ce21e32e848c2039c64fece0fcf');
-var _imp_pointerBadge = await figma.importComponentSetByKeyAsync('7e066fc21d9a2bbbcd1149113787cf59140162d4');
-var _imp_dimAnnotation = await figma.importComponentSetByKeyAsync('49bf6a1b210a403ba145a3fdee9b1994eb54069a');
-var _imp_a11yCard = await figma.importComponentSetByKeyAsync('b4779a13f4097d682413a669eaaf9ead1b49f115');
-
-// Load local components
-var _local_targetComponent = await figma.importComponentSetByKeyAsync('675f7f8d0d57162e4cce51d26cbe39cf490e9b8d');
-
-// Create or find wrapper
-var _wrapper = await figma.getNodeByIdAsync('__WRAPPER_ID__');
-if (!_wrapper) throw new Error('Wrapper __WRAPPER_ID__ not found');
-
-// Build tree
-var _nodeCount = 0;
-var c0;
-(function() {
-  var _cs = _imp_briefCard;
-  if (_cs.type === 'COMPONENT_SET') {
-    var _variants = _cs.children;
-    var _target = null;
-    for (var _i = 0; _i < _variants.length; _i++) {
-      if (_variants[_i].name === 'Mode=DS, Type=Standard') { _target = _variants[_i]; break; }
-    }
-    if (!_target) {
-      for (var _j = 0; _j < _variants.length; _j++) {
-        if (_variants[_j].name.indexOf('Mode=DS, Type=Standard') !== -1) { _target = _variants[_j]; break; }
-      }
-    }
-    if (_target) {
-      c0 = _target.createInstance();
-    } else {
-      c0 = (_cs.defaultVariant || _cs.children[0]).createInstance();
-    }
+function applyVariables(node, variables, ctx) {
+ if (!variables) return;
+ for (var field in variables) {
+  var variable = ctx.variables[variables[field]];
+  if (!variable) continue;
+  var parts = field.split('.');
+  if ((parts[0] === 'fills' || parts[0] === 'strokes') && parts.length >= 3) {
+   var prop = parts[0];
+   var idx = parseInt(parts[1], 10);
+   var arr = JSON.parse(JSON.stringify(node[prop] || []));
+   if (arr[idx]) {
+    arr[idx] = figma.variables.setBoundVariableForPaint(arr[idx], parts[2], variable);
+    node[prop] = arr;
+   }
+  } else if (parts[0] === 'effects' && parts.length >= 3) {
+   var eIdx = parseInt(parts[1], 10);
+   var arr2 = JSON.parse(JSON.stringify(node.effects || []));
+   if (arr2[eIdx]) {
+    arr2[eIdx] = figma.variables.setBoundVariableForEffect(arr2[eIdx], parts[2], variable);
+    node.effects = arr2;
+   }
   } else {
-    c0 = _cs.createInstance();
+   node.setBoundVariable(field, variable);
   }
-})();
-c0.name = 'Design tokens';
-c0.resize(1200, c0.height);
-setProp(c0, 'Title', 'Design tokens');
-setProp(c0, 'Subtitle', 'Color, sizing, spacing, and typography tokens');
-c0 = c0.detachInstance();
-var c0_slot = c0.findOne(function(n) { return n.name === "Content"; }) || c0;
-if (c0_slot !== c0) {
-  while (c0_slot.children.length) c0_slot.children[0].remove();
+ }
 }
-if (c0_slot !== c0) {
-  c0_slot.layoutMode = 'VERTICAL';
-  c0_slot.itemSpacing = 16;
-  c0_slot.paddingTop = 48;
-  c0_slot.paddingRight = 80;
-  c0_slot.paddingBottom = 48;
-  c0_slot.paddingLeft = 80;
-  c0_slot.primaryAxisSizingMode = 'AUTO';
-  c0_slot.counterAxisSizingMode = 'AUTO';
-  c0.primaryAxisSizingMode = 'AUTO';
+async function applyStyles(node, styles, ctx) {
+ if (!styles) return;
+ if (styles.text && ctx.styles[styles.text]) await node.setTextStyleIdAsync(ctx.styles[styles.text].id);
+ if (styles.fill && ctx.styles[styles.fill]) await node.setFillStyleIdAsync(ctx.styles[styles.fill].id);
+ if (styles.stroke && ctx.styles[styles.stroke]) await node.setStrokeStyleIdAsync(ctx.styles[styles.stroke].id);
+ if (styles.effect && ctx.styles[styles.effect]) await node.setEffectStyleIdAsync(ctx.styles[styles.effect].id);
+ if (styles.grid && ctx.styles[styles.grid]) await node.setGridStyleIdAsync(ctx.styles[styles.grid].id);
 }
-var c1 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
-c1.fontName = { family: 'Inter', style: 'Semi Bold' };
-c1.fontSize = 16;
-c1.characters = 'Color tokens';
-c1.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c0_slot.appendChild(c1);
-var c2 = figma.createFrame();
-c2.name = 'Color tokens table';
-c2.layoutMode = 'VERTICAL';
-c2.itemSpacing = 0;
-c2.paddingTop = 0;
-c2.paddingRight = 0;
-c2.paddingBottom = 0;
-c2.paddingLeft = 0;
-c2.primaryAxisSizingMode = 'AUTO';
-c2.counterAxisSizingMode = 'AUTO';
-c2.fills = [];
-var c3 = figma.createFrame();
-c3.name = 'Header';
-c3.layoutMode = 'HORIZONTAL';
-c3.itemSpacing = 0;
-c3.paddingTop = 8;
-c3.paddingRight = 12;
-c3.paddingBottom = 8;
-c3.paddingLeft = 12;
-c3.primaryAxisSizingMode = 'AUTO';
-c3.counterAxisSizingMode = 'AUTO';
-c3.fills = [{ type: 'SOLID', color: hexToRgb('#F5F5FA') }];
-var c4 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c4.fontName = { family: 'Inter', style: 'Bold' };
-c4.fontSize = 12;
-c4.characters = 'Variant / State';
-c4.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c4.resize(140, c4.height);
-c4.textAutoResize = 'HEIGHT';
-c3.appendChild(c4);
-var c5 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c5.fontName = { family: 'Inter', style: 'Bold' };
-c5.fontSize = 12;
-c5.characters = 'Text';
-c5.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c5.resize(160, c5.height);
-c5.textAutoResize = 'HEIGHT';
-c3.appendChild(c5);
-var c6 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c6.fontName = { family: 'Inter', style: 'Bold' };
-c6.fontSize = 12;
-c6.characters = 'Icon';
-c6.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c6.resize(160, c6.height);
-c6.textAutoResize = 'HEIGHT';
-c3.appendChild(c6);
-var c7 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c7.fontName = { family: 'Inter', style: 'Bold' };
-c7.fontSize = 12;
-c7.characters = 'Underline';
-c7.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c7.resize(160, c7.height);
-c7.textAutoResize = 'HEIGHT';
-c3.appendChild(c7);
-c2.appendChild(c3);
-_fillH(c3);
-c3.layoutSizingVertical = 'HUG';
-var c8 = figma.createFrame();
-c8.name = 'Row 0';
-c8.layoutMode = 'HORIZONTAL';
-c8.itemSpacing = 0;
-c8.paddingTop = 8;
-c8.paddingRight = 12;
-c8.paddingBottom = 8;
-c8.paddingLeft = 12;
-c8.primaryAxisSizingMode = 'AUTO';
-c8.counterAxisSizingMode = 'AUTO';
-c8.fills = [];
-var c9 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c9.fontName = { family: 'Inter', style: 'Medium' };
-c9.fontSize = 14;
-c9.characters = 'Enabled';
-c9.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c9.resize(140, c9.height);
-c9.textAutoResize = 'HEIGHT';
-c8.appendChild(c9);
-var c10 = figma.createFrame();
-c10.name = 'Cell: theme-primary';
-c10.layoutMode = 'HORIZONTAL';
-c10.itemSpacing = 6;
-c10.paddingTop = 0;
-c10.paddingRight = 0;
-c10.paddingBottom = 0;
-c10.paddingLeft = 0;
-c10.primaryAxisSizingMode = 'AUTO';
-c10.counterAxisSizingMode = 'AUTO';
-c10.fills = [];
-var c11 = figma.createEllipse();
-c11.name = 'Swatch';
-c11.resize(16, 16);
-c11.fills = [{ type: 'SOLID', color: hexToRgb('#0550DC') }];
-c10.appendChild(c11);
-var c12 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c12.fontName = { family: 'Fira Code', style: 'Regular' };
-c12.fontSize = 11;
-c12.characters = 'theme-primary #0550DC';
-c12.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c10.appendChild(c12);
-c8.appendChild(c10);
-c10.layoutSizingHorizontal = 'HUG';
-c10.layoutSizingVertical = 'HUG';
-var c13 = figma.createFrame();
-c13.name = 'Cell: theme-primary';
-c13.layoutMode = 'HORIZONTAL';
-c13.itemSpacing = 6;
-c13.paddingTop = 0;
-c13.paddingRight = 0;
-c13.paddingBottom = 0;
-c13.paddingLeft = 0;
-c13.primaryAxisSizingMode = 'AUTO';
-c13.counterAxisSizingMode = 'AUTO';
-c13.fills = [];
-var c14 = figma.createEllipse();
-c14.name = 'Swatch';
-c14.resize(16, 16);
-c14.fills = [{ type: 'SOLID', color: hexToRgb('#0550DC') }];
-c13.appendChild(c14);
-var c15 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c15.fontName = { family: 'Fira Code', style: 'Regular' };
-c15.fontSize = 11;
-c15.characters = 'theme-primary #0550DC';
-c15.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c13.appendChild(c15);
-c8.appendChild(c13);
-c13.layoutSizingHorizontal = 'HUG';
-c13.layoutSizingVertical = 'HUG';
-var c16 = figma.createFrame();
-c16.name = 'Cell: —';
-c16.layoutMode = 'HORIZONTAL';
-c16.itemSpacing = 6;
-c16.paddingTop = 0;
-c16.paddingRight = 0;
-c16.paddingBottom = 0;
-c16.paddingLeft = 0;
-c16.primaryAxisSizingMode = 'AUTO';
-c16.counterAxisSizingMode = 'AUTO';
-c16.fills = [];
-var c17 = figma.createEllipse();
-c17.name = 'Swatch';
-c17.resize(16, 16);
-c17.fills = [];
-c16.appendChild(c17);
-var c18 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c18.fontName = { family: 'Fira Code', style: 'Regular' };
-c18.fontSize = 11;
-c18.characters = '— transparent';
-c18.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c16.appendChild(c18);
-c8.appendChild(c16);
-c16.layoutSizingHorizontal = 'HUG';
-c16.layoutSizingVertical = 'HUG';
-c2.appendChild(c8);
-_fillH(c8);
-c8.layoutSizingVertical = 'HUG';
-var c19 = figma.createFrame();
-c19.name = 'Row 1';
-c19.layoutMode = 'HORIZONTAL';
-c19.itemSpacing = 0;
-c19.paddingTop = 8;
-c19.paddingRight = 12;
-c19.paddingBottom = 8;
-c19.paddingLeft = 12;
-c19.primaryAxisSizingMode = 'AUTO';
-c19.counterAxisSizingMode = 'AUTO';
-c19.fills = [];
-var c20 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c20.fontName = { family: 'Inter', style: 'Medium' };
-c20.fontSize = 14;
-c20.characters = 'Hovered';
-c20.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c20.resize(140, c20.height);
-c20.textAutoResize = 'HEIGHT';
-c19.appendChild(c20);
-var c21 = figma.createFrame();
-c21.name = 'Cell: theme-primary-hover';
-c21.layoutMode = 'HORIZONTAL';
-c21.itemSpacing = 6;
-c21.paddingTop = 0;
-c21.paddingRight = 0;
-c21.paddingBottom = 0;
-c21.paddingLeft = 0;
-c21.primaryAxisSizingMode = 'AUTO';
-c21.counterAxisSizingMode = 'AUTO';
-c21.fills = [];
-var c22 = figma.createEllipse();
-c22.name = 'Swatch';
-c22.resize(16, 16);
-c22.fills = [{ type: 'SOLID', color: hexToRgb('#0343B5') }];
-c21.appendChild(c22);
-var c23 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c23.fontName = { family: 'Fira Code', style: 'Regular' };
-c23.fontSize = 11;
-c23.characters = 'theme-primary-hover #0343B5';
-c23.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c21.appendChild(c23);
-c19.appendChild(c21);
-c21.layoutSizingHorizontal = 'HUG';
-c21.layoutSizingVertical = 'HUG';
-var c24 = figma.createFrame();
-c24.name = 'Cell: theme-primary-hover';
-c24.layoutMode = 'HORIZONTAL';
-c24.itemSpacing = 6;
-c24.paddingTop = 0;
-c24.paddingRight = 0;
-c24.paddingBottom = 0;
-c24.paddingLeft = 0;
-c24.primaryAxisSizingMode = 'AUTO';
-c24.counterAxisSizingMode = 'AUTO';
-c24.fills = [];
-var c25 = figma.createEllipse();
-c25.name = 'Swatch';
-c25.resize(16, 16);
-c25.fills = [{ type: 'SOLID', color: hexToRgb('#0343B5') }];
-c24.appendChild(c25);
-var c26 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c26.fontName = { family: 'Fira Code', style: 'Regular' };
-c26.fontSize = 11;
-c26.characters = 'theme-primary-hover #0343B5';
-c26.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c24.appendChild(c26);
-c19.appendChild(c24);
-c24.layoutSizingHorizontal = 'HUG';
-c24.layoutSizingVertical = 'HUG';
-var c27 = figma.createFrame();
-c27.name = 'Cell: theme-primary-hover';
-c27.layoutMode = 'HORIZONTAL';
-c27.itemSpacing = 6;
-c27.paddingTop = 0;
-c27.paddingRight = 0;
-c27.paddingBottom = 0;
-c27.paddingLeft = 0;
-c27.primaryAxisSizingMode = 'AUTO';
-c27.counterAxisSizingMode = 'AUTO';
-c27.fills = [];
-var c28 = figma.createEllipse();
-c28.name = 'Swatch';
-c28.resize(16, 16);
-c28.fills = [{ type: 'SOLID', color: hexToRgb('#0343B5') }];
-c27.appendChild(c28);
-var c29 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c29.fontName = { family: 'Fira Code', style: 'Regular' };
-c29.fontSize = 11;
-c29.characters = 'theme-primary-hover #0343B5';
-c29.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c27.appendChild(c29);
-c19.appendChild(c27);
-c27.layoutSizingHorizontal = 'HUG';
-c27.layoutSizingVertical = 'HUG';
-c2.appendChild(c19);
-_fillH(c19);
-c19.layoutSizingVertical = 'HUG';
-var c30 = figma.createFrame();
-c30.name = 'Row 2';
-c30.layoutMode = 'HORIZONTAL';
-c30.itemSpacing = 0;
-c30.paddingTop = 8;
-c30.paddingRight = 12;
-c30.paddingBottom = 8;
-c30.paddingLeft = 12;
-c30.primaryAxisSizingMode = 'AUTO';
-c30.counterAxisSizingMode = 'AUTO';
-c30.fills = [];
-var c31 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c31.fontName = { family: 'Inter', style: 'Medium' };
-c31.fontSize = 14;
-c31.characters = 'Focused';
-c31.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c31.resize(140, c31.height);
-c31.textAutoResize = 'HEIGHT';
-c30.appendChild(c31);
-var c32 = figma.createFrame();
-c32.name = 'Cell: theme-primary';
-c32.layoutMode = 'HORIZONTAL';
-c32.itemSpacing = 6;
-c32.paddingTop = 0;
-c32.paddingRight = 0;
-c32.paddingBottom = 0;
-c32.paddingLeft = 0;
-c32.primaryAxisSizingMode = 'AUTO';
-c32.counterAxisSizingMode = 'AUTO';
-c32.fills = [];
-var c33 = figma.createEllipse();
-c33.name = 'Swatch';
-c33.resize(16, 16);
-c33.fills = [{ type: 'SOLID', color: hexToRgb('#0550DC') }];
-c32.appendChild(c33);
-var c34 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c34.fontName = { family: 'Fira Code', style: 'Regular' };
-c34.fontSize = 11;
-c34.characters = 'theme-primary #0550DC';
-c34.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c32.appendChild(c34);
-c30.appendChild(c32);
-c32.layoutSizingHorizontal = 'HUG';
-c32.layoutSizingVertical = 'HUG';
-var c35 = figma.createFrame();
-c35.name = 'Cell: theme-primary';
-c35.layoutMode = 'HORIZONTAL';
-c35.itemSpacing = 6;
-c35.paddingTop = 0;
-c35.paddingRight = 0;
-c35.paddingBottom = 0;
-c35.paddingLeft = 0;
-c35.primaryAxisSizingMode = 'AUTO';
-c35.counterAxisSizingMode = 'AUTO';
-c35.fills = [];
-var c36 = figma.createEllipse();
-c36.name = 'Swatch';
-c36.resize(16, 16);
-c36.fills = [{ type: 'SOLID', color: hexToRgb('#0550DC') }];
-c35.appendChild(c36);
-var c37 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c37.fontName = { family: 'Fira Code', style: 'Regular' };
-c37.fontSize = 11;
-c37.characters = 'theme-primary #0550DC';
-c37.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c35.appendChild(c37);
-c30.appendChild(c35);
-c35.layoutSizingHorizontal = 'HUG';
-c35.layoutSizingVertical = 'HUG';
-var c38 = figma.createFrame();
-c38.name = 'Cell: theme-primary';
-c38.layoutMode = 'HORIZONTAL';
-c38.itemSpacing = 6;
-c38.paddingTop = 0;
-c38.paddingRight = 0;
-c38.paddingBottom = 0;
-c38.paddingLeft = 0;
-c38.primaryAxisSizingMode = 'AUTO';
-c38.counterAxisSizingMode = 'AUTO';
-c38.fills = [];
-var c39 = figma.createEllipse();
-c39.name = 'Swatch';
-c39.resize(16, 16);
-c39.fills = [{ type: 'SOLID', color: hexToRgb('#0550DC') }];
-c38.appendChild(c39);
-var c40 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c40.fontName = { family: 'Fira Code', style: 'Regular' };
-c40.fontSize = 11;
-c40.characters = 'theme-primary #0550DC';
-c40.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c38.appendChild(c40);
-c30.appendChild(c38);
-c38.layoutSizingHorizontal = 'HUG';
-c38.layoutSizingVertical = 'HUG';
-c2.appendChild(c30);
-_fillH(c30);
-c30.layoutSizingVertical = 'HUG';
-var c41 = figma.createFrame();
-c41.name = 'Row 3';
-c41.layoutMode = 'HORIZONTAL';
-c41.itemSpacing = 0;
-c41.paddingTop = 8;
-c41.paddingRight = 12;
-c41.paddingBottom = 8;
-c41.paddingLeft = 12;
-c41.primaryAxisSizingMode = 'AUTO';
-c41.counterAxisSizingMode = 'AUTO';
-c41.fills = [];
-var c42 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c42.fontName = { family: 'Inter', style: 'Medium' };
-c42.fontSize = 14;
-c42.characters = 'Pressed';
-c42.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c42.resize(140, c42.height);
-c42.textAutoResize = 'HEIGHT';
-c41.appendChild(c42);
-var c43 = figma.createFrame();
-c43.name = 'Cell: theme-primary-pressed';
-c43.layoutMode = 'HORIZONTAL';
-c43.itemSpacing = 6;
-c43.paddingTop = 0;
-c43.paddingRight = 0;
-c43.paddingBottom = 0;
-c43.paddingLeft = 0;
-c43.primaryAxisSizingMode = 'AUTO';
-c43.counterAxisSizingMode = 'AUTO';
-c43.fills = [];
-var c44 = figma.createEllipse();
-c44.name = 'Swatch';
-c44.resize(16, 16);
-c44.fills = [{ type: 'SOLID', color: hexToRgb('#023699') }];
-c43.appendChild(c44);
-var c45 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c45.fontName = { family: 'Fira Code', style: 'Regular' };
-c45.fontSize = 11;
-c45.characters = 'theme-primary-pressed #023699';
-c45.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c43.appendChild(c45);
-c41.appendChild(c43);
-c43.layoutSizingHorizontal = 'HUG';
-c43.layoutSizingVertical = 'HUG';
-var c46 = figma.createFrame();
-c46.name = 'Cell: theme-primary-pressed';
-c46.layoutMode = 'HORIZONTAL';
-c46.itemSpacing = 6;
-c46.paddingTop = 0;
-c46.paddingRight = 0;
-c46.paddingBottom = 0;
-c46.paddingLeft = 0;
-c46.primaryAxisSizingMode = 'AUTO';
-c46.counterAxisSizingMode = 'AUTO';
-c46.fills = [];
-var c47 = figma.createEllipse();
-c47.name = 'Swatch';
-c47.resize(16, 16);
-c47.fills = [{ type: 'SOLID', color: hexToRgb('#023699') }];
-c46.appendChild(c47);
-var c48 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c48.fontName = { family: 'Fira Code', style: 'Regular' };
-c48.fontSize = 11;
-c48.characters = 'theme-primary-pressed #023699';
-c48.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c46.appendChild(c48);
-c41.appendChild(c46);
-c46.layoutSizingHorizontal = 'HUG';
-c46.layoutSizingVertical = 'HUG';
-var c49 = figma.createFrame();
-c49.name = 'Cell: theme-primary-pressed';
-c49.layoutMode = 'HORIZONTAL';
-c49.itemSpacing = 6;
-c49.paddingTop = 0;
-c49.paddingRight = 0;
-c49.paddingBottom = 0;
-c49.paddingLeft = 0;
-c49.primaryAxisSizingMode = 'AUTO';
-c49.counterAxisSizingMode = 'AUTO';
-c49.fills = [];
-var c50 = figma.createEllipse();
-c50.name = 'Swatch';
-c50.resize(16, 16);
-c50.fills = [{ type: 'SOLID', color: hexToRgb('#023699') }];
-c49.appendChild(c50);
-var c51 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c51.fontName = { family: 'Fira Code', style: 'Regular' };
-c51.fontSize = 11;
-c51.characters = 'theme-primary-pressed #023699';
-c51.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c49.appendChild(c51);
-c41.appendChild(c49);
-c49.layoutSizingHorizontal = 'HUG';
-c49.layoutSizingVertical = 'HUG';
-c2.appendChild(c41);
-_fillH(c41);
-c41.layoutSizingVertical = 'HUG';
-var c52 = figma.createFrame();
-c52.name = 'Row 4';
-c52.layoutMode = 'HORIZONTAL';
-c52.itemSpacing = 0;
-c52.paddingTop = 8;
-c52.paddingRight = 12;
-c52.paddingBottom = 8;
-c52.paddingLeft = 12;
-c52.primaryAxisSizingMode = 'AUTO';
-c52.counterAxisSizingMode = 'AUTO';
-c52.fills = [];
-var c53 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Medium' });
-c53.fontName = { family: 'Inter', style: 'Medium' };
-c53.fontSize = 14;
-c53.characters = 'Disabled';
-c53.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c53.resize(140, c53.height);
-c53.textAutoResize = 'HEIGHT';
-c52.appendChild(c53);
-var c54 = figma.createFrame();
-c54.name = 'Cell: text-disabled';
-c54.layoutMode = 'HORIZONTAL';
-c54.itemSpacing = 6;
-c54.paddingTop = 0;
-c54.paddingRight = 0;
-c54.paddingBottom = 0;
-c54.paddingLeft = 0;
-c54.primaryAxisSizingMode = 'AUTO';
-c54.counterAxisSizingMode = 'AUTO';
-c54.fills = [];
-var c55 = figma.createEllipse();
-c55.name = 'Swatch';
-c55.resize(16, 16);
-c55.fills = [{ type: 'SOLID', color: hexToRgb('#9898A7') }];
-c54.appendChild(c55);
-var c56 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c56.fontName = { family: 'Fira Code', style: 'Regular' };
-c56.fontSize = 11;
-c56.characters = 'text-disabled #9898A7';
-c56.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c54.appendChild(c56);
-c52.appendChild(c54);
-c54.layoutSizingHorizontal = 'HUG';
-c54.layoutSizingVertical = 'HUG';
-var c57 = figma.createFrame();
-c57.name = 'Cell: text-disabled';
-c57.layoutMode = 'HORIZONTAL';
-c57.itemSpacing = 6;
-c57.paddingTop = 0;
-c57.paddingRight = 0;
-c57.paddingBottom = 0;
-c57.paddingLeft = 0;
-c57.primaryAxisSizingMode = 'AUTO';
-c57.counterAxisSizingMode = 'AUTO';
-c57.fills = [];
-var c58 = figma.createEllipse();
-c58.name = 'Swatch';
-c58.resize(16, 16);
-c58.fills = [{ type: 'SOLID', color: hexToRgb('#9898A7') }];
-c57.appendChild(c58);
-var c59 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c59.fontName = { family: 'Fira Code', style: 'Regular' };
-c59.fontSize = 11;
-c59.characters = 'text-disabled #9898A7';
-c59.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c57.appendChild(c59);
-c52.appendChild(c57);
-c57.layoutSizingHorizontal = 'HUG';
-c57.layoutSizingVertical = 'HUG';
-var c60 = figma.createFrame();
-c60.name = 'Cell: —';
-c60.layoutMode = 'HORIZONTAL';
-c60.itemSpacing = 6;
-c60.paddingTop = 0;
-c60.paddingRight = 0;
-c60.paddingBottom = 0;
-c60.paddingLeft = 0;
-c60.primaryAxisSizingMode = 'AUTO';
-c60.counterAxisSizingMode = 'AUTO';
-c60.fills = [];
-var c61 = figma.createEllipse();
-c61.name = 'Swatch';
-c61.resize(16, 16);
-c61.fills = [];
-c60.appendChild(c61);
-var c62 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c62.fontName = { family: 'Fira Code', style: 'Regular' };
-c62.fontSize = 11;
-c62.characters = '— transparent';
-c62.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c60.appendChild(c62);
-c52.appendChild(c60);
-c60.layoutSizingHorizontal = 'HUG';
-c60.layoutSizingVertical = 'HUG';
-c2.appendChild(c52);
-_fillH(c52);
-c52.layoutSizingVertical = 'HUG';
-c0_slot.appendChild(c2);
-_fillH(c2);
-c2.layoutSizingVertical = 'HUG';
-var c63 = figma.createRectangle();
-c63.name = 'Divider';
-c63.resize(300, 1);
-c63.fills = [{ type: 'SOLID', color: hexToRgb('#E0E0E0') }];
-c0_slot.appendChild(c63);
-var c64 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
-c64.fontName = { family: 'Inter', style: 'Semi Bold' };
-c64.fontSize = 16;
-c64.characters = 'Sizing & spacing';
-c64.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c0_slot.appendChild(c64);
-var c65 = figma.createFrame();
-c65.name = 'Sizing table';
-c65.layoutMode = 'VERTICAL';
-c65.itemSpacing = 0;
-c65.paddingTop = 0;
-c65.paddingRight = 0;
-c65.paddingBottom = 0;
-c65.paddingLeft = 0;
-c65.primaryAxisSizingMode = 'AUTO';
-c65.counterAxisSizingMode = 'AUTO';
-c65.fills = [];
-var c66 = figma.createFrame();
-c66.name = 'Header';
-c66.layoutMode = 'HORIZONTAL';
-c66.itemSpacing = 0;
-c66.paddingTop = 8;
-c66.paddingRight = 12;
-c66.paddingBottom = 8;
-c66.paddingLeft = 12;
-c66.primaryAxisSizingMode = 'AUTO';
-c66.counterAxisSizingMode = 'AUTO';
-c66.fills = [{ type: 'SOLID', color: hexToRgb('#F5F5FA') }];
-var c67 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c67.fontName = { family: 'Inter', style: 'Bold' };
-c67.fontSize = 12;
-c67.characters = 'Property';
-c67.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c67.resize(200, c67.height);
-c67.textAutoResize = 'HEIGHT';
-c66.appendChild(c67);
-var c68 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c68.fontName = { family: 'Inter', style: 'Bold' };
-c68.fontSize = 12;
-c68.characters = 'Token';
-c68.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c68.resize(240, c68.height);
-c68.textAutoResize = 'HEIGHT';
-c66.appendChild(c68);
-var c69 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Bold' });
-c69.fontName = { family: 'Inter', style: 'Bold' };
-c69.fontSize = 12;
-c69.characters = 'Value';
-c69.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c69.resize(120, c69.height);
-c69.textAutoResize = 'HEIGHT';
-c66.appendChild(c69);
-c65.appendChild(c66);
-_fillH(c66);
-c66.layoutSizingVertical = 'HUG';
-var c70 = figma.createFrame();
-c70.name = 'Row 0';
-c70.layoutMode = 'HORIZONTAL';
-c70.itemSpacing = 0;
-c70.paddingTop = 8;
-c70.paddingRight = 12;
-c70.paddingBottom = 8;
-c70.paddingLeft = 12;
-c70.primaryAxisSizingMode = 'AUTO';
-c70.counterAxisSizingMode = 'AUTO';
-c70.fills = [];
-var c71 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c71.fontName = { family: 'Inter', style: 'Regular' };
-c71.fontSize = 14;
-c71.characters = 'Icon size';
-c71.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c71.resize(200, c71.height);
-c71.textAutoResize = 'HEIGHT';
-c70.appendChild(c71);
-var c72 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c72.fontName = { family: 'Fira Code', style: 'Regular' };
-c72.fontSize = 12;
-c72.characters = '--zen-size-md';
-c72.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c72.resize(240, c72.height);
-c72.textAutoResize = 'HEIGHT';
-c70.appendChild(c72);
-var c73 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c73.fontName = { family: 'Inter', style: 'Regular' };
-c73.fontSize = 14;
-c73.characters = '16px';
-c73.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c73.resize(120, c73.height);
-c73.textAutoResize = 'HEIGHT';
-c70.appendChild(c73);
-c65.appendChild(c70);
-_fillH(c70);
-c70.layoutSizingVertical = 'HUG';
-var c74 = figma.createFrame();
-c74.name = 'Row 1';
-c74.layoutMode = 'HORIZONTAL';
-c74.itemSpacing = 0;
-c74.paddingTop = 8;
-c74.paddingRight = 12;
-c74.paddingBottom = 8;
-c74.paddingLeft = 12;
-c74.primaryAxisSizingMode = 'AUTO';
-c74.counterAxisSizingMode = 'AUTO';
-c74.fills = [];
-var c75 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c75.fontName = { family: 'Inter', style: 'Regular' };
-c75.fontSize = 14;
-c75.characters = 'Text-to-icon gap';
-c75.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c75.resize(200, c75.height);
-c75.textAutoResize = 'HEIGHT';
-c74.appendChild(c75);
-var c76 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c76.fontName = { family: 'Fira Code', style: 'Regular' };
-c76.fontSize = 12;
-c76.characters = '--zen-spacing-2xs';
-c76.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c76.resize(240, c76.height);
-c76.textAutoResize = 'HEIGHT';
-c74.appendChild(c76);
-var c77 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c77.fontName = { family: 'Inter', style: 'Regular' };
-c77.fontSize = 14;
-c77.characters = '4px';
-c77.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c77.resize(120, c77.height);
-c77.textAutoResize = 'HEIGHT';
-c74.appendChild(c77);
-c65.appendChild(c74);
-_fillH(c74);
-c74.layoutSizingVertical = 'HUG';
-var c78 = figma.createFrame();
-c78.name = 'Row 2';
-c78.layoutMode = 'HORIZONTAL';
-c78.itemSpacing = 0;
-c78.paddingTop = 8;
-c78.paddingRight = 12;
-c78.paddingBottom = 8;
-c78.paddingLeft = 12;
-c78.primaryAxisSizingMode = 'AUTO';
-c78.counterAxisSizingMode = 'AUTO';
-c78.fills = [];
-var c79 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c79.fontName = { family: 'Inter', style: 'Regular' };
-c79.fontSize = 14;
-c79.characters = 'Focus ring offset';
-c79.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c79.resize(200, c79.height);
-c79.textAutoResize = 'HEIGHT';
-c78.appendChild(c79);
-var c80 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c80.fontName = { family: 'Fira Code', style: 'Regular' };
-c80.fontSize = 12;
-c80.characters = '--zen-spacing-3xs';
-c80.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c80.resize(240, c80.height);
-c80.textAutoResize = 'HEIGHT';
-c78.appendChild(c80);
-var c81 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c81.fontName = { family: 'Inter', style: 'Regular' };
-c81.fontSize = 14;
-c81.characters = '2px';
-c81.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c81.resize(120, c81.height);
-c81.textAutoResize = 'HEIGHT';
-c78.appendChild(c81);
-c65.appendChild(c78);
-_fillH(c78);
-c78.layoutSizingVertical = 'HUG';
-var c82 = figma.createFrame();
-c82.name = 'Row 3';
-c82.layoutMode = 'HORIZONTAL';
-c82.itemSpacing = 0;
-c82.paddingTop = 8;
-c82.paddingRight = 12;
-c82.paddingBottom = 8;
-c82.paddingLeft = 12;
-c82.primaryAxisSizingMode = 'AUTO';
-c82.counterAxisSizingMode = 'AUTO';
-c82.fills = [];
-var c83 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c83.fontName = { family: 'Inter', style: 'Regular' };
-c83.fontSize = 14;
-c83.characters = 'Focus ring width';
-c83.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c83.resize(200, c83.height);
-c83.textAutoResize = 'HEIGHT';
-c82.appendChild(c83);
-var c84 = figma.createText();
-await figma.loadFontAsync({ family: 'Fira Code', style: 'Regular' });
-c84.fontName = { family: 'Fira Code', style: 'Regular' };
-c84.fontSize = 12;
-c84.characters = '—';
-c84.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c84.resize(240, c84.height);
-c84.textAutoResize = 'HEIGHT';
-c82.appendChild(c84);
-var c85 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c85.fontName = { family: 'Inter', style: 'Regular' };
-c85.fontSize = 14;
-c85.characters = '2px';
-c85.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c85.resize(120, c85.height);
-c85.textAutoResize = 'HEIGHT';
-c82.appendChild(c85);
-c65.appendChild(c82);
-_fillH(c82);
-c82.layoutSizingVertical = 'HUG';
-c0_slot.appendChild(c65);
-_fillH(c65);
-c65.layoutSizingVertical = 'HUG';
-var c86 = figma.createRectangle();
-c86.name = 'Divider';
-c86.resize(300, 1);
-c86.fills = [{ type: 'SOLID', color: hexToRgb('#E0E0E0') }];
-c0_slot.appendChild(c86);
-var c87 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
-c87.fontName = { family: 'Inter', style: 'Semi Bold' };
-c87.fontSize = 16;
-c87.characters = 'Typography';
-c87.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c0_slot.appendChild(c87);
-var c88 = figma.createFrame();
-c88.name = 'Typography: Link text';
-c88.layoutMode = 'VERTICAL';
-c88.itemSpacing = 4;
-c88.paddingTop = 8;
-c88.paddingRight = 0;
-c88.paddingBottom = 8;
-c88.paddingLeft = 0;
-c88.primaryAxisSizingMode = 'AUTO';
-c88.counterAxisSizingMode = 'AUTO';
-c88.fills = [];
-var c89 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Semi Bold' });
-c89.fontName = { family: 'Inter', style: 'Semi Bold' };
-c89.fontSize = 14;
-c89.characters = 'Link text';
-c89.fills = [{ type: 'SOLID', color: hexToRgb('#1A1A2E') }];
-c88.appendChild(c89);
-var c90 = figma.createText();
-await figma.loadFontAsync({ family: 'Inter', style: 'Regular' });
-c90.fontName = { family: 'Inter', style: 'Regular' };
-c90.fontSize = 12;
-c90.characters = 'body-standard — Roboto Regular 14px/20px, tracking 0.2px';
-c90.fills = [{ type: 'SOLID', color: hexToRgb('#595968') }];
-c88.appendChild(c90);
-c0_slot.appendChild(c88);
-_fillH(c88);
-c88.layoutSizingVertical = 'HUG';
-_wrapper.appendChild(c0);
-_nodeCount++;
-
-// Tag with plugin data
-_wrapper.setSharedPluginData('actian_ds', 'skill', 'component-brief');
-_wrapper.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());
-
-// Return metadata
-return { wrapperId: _wrapper.id, nodeCount: _nodeCount };
+async function buildNode(spec, ctx) {
+ switch (spec.type) {
+  case 'FRAME':          return await buildFrame(spec, ctx);
+  case 'TEXT':           return await buildText(spec, ctx);
+  case 'RECT':           return await buildRect(spec, ctx);
+  case 'INSTANCE':       return await buildInstance(spec, ctx);
+  case 'LOCAL_INSTANCE': return await buildLocalInstance(spec, ctx);
+  case 'DIVIDER':        return await buildDivider(spec, ctx);
+  case 'LINE':           return await buildLine(spec, ctx);
+  case 'ELLIPSE':        return await buildEllipse(spec, ctx);
+  case 'VECTOR':         return await buildVector(spec, ctx);
+  case 'POLYGON':        return await buildPolygon(spec, ctx);
+  case 'STAR':           return await buildStar(spec, ctx);
+  case 'SVG':            return await buildSvg(spec, ctx);
+  case 'GROUP':          return await buildGroup(spec, ctx);
+  case 'BOOLEAN':        return await buildBoolean(spec, ctx);
+  case 'SECTION':        return await buildSection(spec, ctx);
+  case 'COMPONENT':      return await buildComponent(spec, ctx);
+  case 'COMPONENT_SET':  return await buildComponentSet(spec, ctx);
+  default:
+   throw new Error('Unknown node type: ' + spec.type);
+ }
+}
+async function buildFrame(spec, ctx) {
+ var frame = figma.createFrame();
+ if (spec.name) frame.name = spec.name;
+ applyLayout(frame, spec.layout);
+ applyFills(frame, spec.fills);
+ applyCornerRadius(frame, spec.cornerRadius);
+ applyStroke(frame, spec.stroke);
+ applyEffects(frame, spec.effects);
+ applyOpacity(frame, spec.opacity);
+ if (spec.clipsContent !== undefined) frame.clipsContent = spec.clipsContent;
+ if (spec.width !== undefined && spec.height !== undefined) {
+  frame.resize(spec.width, spec.height);
+ }
+ if (spec.children) {
+  for (var i = 0; i < spec.children.length; i++) {
+   var child = await buildNode(spec.children[i], ctx);
+   frame.appendChild(child);
+   if (spec.children[i].x !== undefined) child.x = spec.children[i].x;
+   if (spec.children[i].y !== undefined) child.y = spec.children[i].y;
+   applySizing(child, spec.children[i].sizing);
+  }
+ }
+ await applyStyles(frame, spec.styles, ctx);
+ applyVariables(frame, spec.variables, ctx);
+ return frame;
+}
+async function buildText(spec, ctx) {
+ var text = figma.createText();
+ if (spec.name) text.name = spec.name;
+ var fontFamily = 'Inter';
+ var fontStyle = 'Regular';
+ if (spec.font) {
+  var parts = spec.font.split(':');
+  fontFamily = parts[0];
+  fontStyle = parts[1] ? parts[1].trim() : 'Regular';
+ }
+ if (spec.bold) fontStyle = 'Bold';
+ await figma.loadFontAsync({ family: fontFamily, style: fontStyle });
+ text.fontName = { family: fontFamily, style: fontStyle };
+ if (spec.size !== undefined) {
+  text.fontSize = typeof spec.size === 'object' ? spec.size.value : spec.size;
+ }
+ if (spec.content !== undefined) text.characters = String(spec.content);
+ if (spec.color) text.fills = [{ type: 'SOLID', color: hexToRgb(spec.color) }];
+ if (spec.width !== undefined) {
+  text.resize(spec.width, text.height);
+  text.textAutoResize = 'HEIGHT';
+ }
+ if (spec.textAlign) {
+  if (spec.textAlign.horizontal) text.textAlignHorizontal = spec.textAlign.horizontal;
+  if (spec.textAlign.vertical) text.textAlignVertical = spec.textAlign.vertical;
+ }
+ if (spec.lineHeight !== undefined) {
+  if (typeof spec.lineHeight === 'number') text.lineHeight = { value: spec.lineHeight, unit: 'PIXELS' };
+  else if (spec.lineHeight === 'AUTO') text.lineHeight = { unit: 'AUTO' };
+  else if (typeof spec.lineHeight === 'object') text.lineHeight = spec.lineHeight;
+ }
+ if (spec.letterSpacing !== undefined) {
+  if (typeof spec.letterSpacing === 'number') text.letterSpacing = { value: spec.letterSpacing, unit: 'PIXELS' };
+  else text.letterSpacing = spec.letterSpacing;
+ }
+ if (spec.textDecoration) text.textDecoration = spec.textDecoration;
+ if (spec.textCase) text.textCase = spec.textCase;
+ applyOpacity(text, spec.opacity);
+ if (spec.textRanges && spec.textRanges.length) {
+  for (var i = 0; i < spec.textRanges.length; i++) {
+   var range = spec.textRanges[i];
+   if (range.font) {
+    var rParts = range.font.split(':');
+    await figma.loadFontAsync({ family: rParts[0], style: (rParts[1] || 'Regular').trim() });
+    text.setRangeFontName(range.start, range.end, { family: rParts[0], style: (rParts[1] || 'Regular').trim() });
+   }
+   if (range.size !== undefined) text.setRangeFontSize(range.start, range.end, range.size);
+   if (range.color) text.setRangeFills(range.start, range.end, [{ type: 'SOLID', color: hexToRgb(range.color) }]);
+   if (range.textDecoration) text.setRangeTextDecoration(range.start, range.end, range.textDecoration);
+   if (range.textCase) text.setRangeTextCase(range.start, range.end, range.textCase);
+  }
+ }
+ await applyStyles(text, spec.styles, ctx);
+ applyVariables(text, spec.variables, ctx);
+ return text;
+}
+async function buildRect(spec, ctx) {
+ var rect = figma.createRectangle();
+ if (spec.name) rect.name = spec.name;
+ if (spec.width !== undefined && spec.height !== undefined) rect.resize(spec.width, spec.height);
+ applyFills(rect, spec.fills);
+ applyCornerRadius(rect, spec.cornerRadius);
+ applyStroke(rect, spec.stroke);
+ applyEffects(rect, spec.effects);
+ applyOpacity(rect, spec.opacity);
+ await applyStyles(rect, spec.styles, ctx);
+ applyVariables(rect, spec.variables, ctx);
+ return rect;
+}
+async function buildInstance(spec, ctx) {
+ var componentOrSet = ctx.imports[spec.ref];
+ if (!componentOrSet) {
+  // Graceful fallback: create placeholder frame
+  var placeholder = figma.createFrame();
+  placeholder.name = 'Missing: ' + (spec.ref || 'unknown');
+  placeholder.resize(200, 40);
+  return placeholder;
+ }
+ var instance;
+ if (spec.variant && componentOrSet.type === 'COMPONENT_SET') {
+  var variants = componentOrSet.children;
+  var target = null;
+  for (var i = 0; i < variants.length; i++) {
+   if (variants[i].name === spec.variant) { target = variants[i]; break; }
+  }
+  if (!target) {
+   for (var j = 0; j < variants.length; j++) {
+    if (variants[j].name.indexOf(spec.variant) !== -1) { target = variants[j]; break; }
+   }
+  }
+  instance = target
+   ? target.createInstance()
+   : (componentOrSet.defaultVariant || variants[0]).createInstance();
+ } else if (componentOrSet.type === 'COMPONENT_SET') {
+  instance = (componentOrSet.defaultVariant || componentOrSet.children[0]).createInstance();
+ } else {
+  instance = componentOrSet.createInstance();
+ }
+ if (spec.name) instance.name = spec.name;
+ // Resize BEFORE detach (width-only, height-only, or both)
+ if (spec.width !== undefined && spec.height !== undefined) {
+  instance.resize(spec.width, spec.height);
+ } else if (spec.width !== undefined) {
+  instance.resize(spec.width, instance.height);
+ } else if (spec.height !== undefined) {
+  instance.resize(instance.width, spec.height);
+ }
+ // Set component properties BEFORE detach
+ if (spec.props) {
+  for (var prop in spec.props) {
+   setProp(instance, prop, spec.props[prop]);
+  }
+ }
+ // Detach if requested
+ if (spec.detach) {
+  instance = instance.detachInstance();
+ }
+ // Override fills
+ applyFills(instance, spec.fills);
+ // Append children into "Content" slot
+ if (spec.children && spec.children.length) {
+  var slot = instance.findOne(function (n) { return n.name === 'Content'; }) || instance;
+  // Clear placeholder children from Content slot
+  if (slot !== instance) {
+   while (slot.children.length) slot.children[0].remove();
+  }
+  // Configure Content slot auto-layout from contentSlot spec
+  if (spec.contentSlot && spec.contentSlot.layout && slot !== instance) {
+   var sl = spec.contentSlot.layout;
+   slot.layoutMode = sl.mode || 'VERTICAL';
+   if (sl.spacing != null) slot.itemSpacing = sl.spacing;
+   if (Array.isArray(sl.padding)) {
+    slot.paddingTop = sl.padding[0];
+    slot.paddingRight = sl.padding[1];
+    slot.paddingBottom = sl.padding[2];
+    slot.paddingLeft = sl.padding[3];
+   }
+   slot.primaryAxisSizingMode = 'AUTO';
+   slot.counterAxisSizingMode = 'AUTO';
+   // Root frame must also HUG vertically
+   instance.primaryAxisSizingMode = 'AUTO';
+  }
+  for (var k = 0; k < spec.children.length; k++) {
+   var child = await buildNode(spec.children[k], ctx);
+   slot.appendChild(child);
+   applySizing(child, spec.children[k].sizing);
+  }
+ }
+ await applyStyles(instance, spec.styles, ctx);
+ applyVariables(instance, spec.variables, ctx);
+ return instance;
+}
+async function buildLocalInstance(spec, ctx) {
+ var componentOrSet = ctx.locals[spec.ref];
+ if (!componentOrSet) {
+  var placeholder = figma.createFrame();
+  placeholder.name = 'Missing: ' + (spec.ref || 'unknown');
+  placeholder.resize(200, 40);
+  return placeholder;
+ }
+ var instance;
+ if (spec.variant && componentOrSet.type === 'COMPONENT_SET') {
+  var variants = componentOrSet.children;
+  var target = null;
+  for (var i = 0; i < variants.length; i++) {
+   if (variants[i].name === spec.variant) { target = variants[i]; break; }
+  }
+  if (!target) {
+   for (var j = 0; j < variants.length; j++) {
+    if (variants[j].name.indexOf(spec.variant) !== -1) { target = variants[j]; break; }
+   }
+  }
+  instance = target
+   ? target.createInstance()
+   : (componentOrSet.defaultVariant || variants[0]).createInstance();
+ } else if (componentOrSet.type === 'COMPONENT_SET') {
+  instance = (componentOrSet.defaultVariant || componentOrSet.children[0]).createInstance();
+ } else if (componentOrSet.createInstance) {
+  instance = componentOrSet.createInstance();
+ } else {
+  var placeholder2 = figma.createFrame();
+  placeholder2.name = 'Cannot instance: ' + (spec.ref || 'unknown');
+  placeholder2.resize(200, 40);
+  return placeholder2;
+ }
+ if (spec.name) instance.name = spec.name;
+ if (spec.props) {
+  for (var prop in spec.props) setProp(instance, prop, spec.props[prop]);
+ }
+ applyFills(instance, spec.fills);
+ return instance;
+}
+async function buildDivider(spec, ctx) {
+ var divRef = ctx.imports['divider'] || ctx.imports['cardDivider'];
+ if (!divRef) {
+  var line = figma.createRectangle();
+  line.name = spec.name || 'Divider';
+  line.resize(spec.width || 300, 1);
+  line.fills = [{ type: 'SOLID', color: hexToRgb(spec.color || '#E0E0E0') }];
+  return line;
+ }
+ var instance = divRef.type === 'COMPONENT_SET'
+  ? (divRef.defaultVariant || divRef.children[0]).createInstance()
+  : divRef.createInstance();
+ if (spec.name) instance.name = spec.name;
+ return instance;
+}
+async function buildLine(spec, ctx) {
+ var line = figma.createLine();
+ if (spec.name) line.name = spec.name;
+ if (spec.length !== undefined) line.resize(spec.length, 0);
+ if (spec.stroke) {
+  if (spec.stroke.color) line.strokes = [{ type: 'SOLID', color: hexToRgb(spec.stroke.color) }];
+  if (spec.stroke.weight !== undefined) line.strokeWeight = spec.stroke.weight;
+ }
+ if (spec.rotation !== undefined) line.rotation = spec.rotation;
+ applyOpacity(line, spec.opacity);
+ return line;
+}
+async function buildEllipse(spec, ctx) {
+ var ellipse = figma.createEllipse();
+ if (spec.name) ellipse.name = spec.name;
+ if (spec.width !== undefined && spec.height !== undefined) ellipse.resize(spec.width, spec.height);
+ applyFills(ellipse, spec.fills);
+ applyStroke(ellipse, spec.stroke);
+ if (spec.arcData) {
+  ellipse.arcData = {
+   startingAngle: spec.arcData.startingAngle || 0,
+   endingAngle: spec.arcData.endingAngle || 6.2832,
+   innerRadius: spec.arcData.innerRadius || 0
+  };
+ }
+ applyOpacity(ellipse, spec.opacity);
+ return ellipse;
+}
+async function buildVector(spec, ctx) {
+ var vector = figma.createVector();
+ if (spec.name) vector.name = spec.name;
+ if (spec.paths) {
+  vector.vectorPaths = spec.paths.map(function (p) {
+   if (typeof p === 'string') return { windingRule: 'NONZERO', data: p };
+   return { windingRule: p.windingRule || 'NONZERO', data: p.data };
+  });
+ }
+ if (spec.width !== undefined && spec.height !== undefined) vector.resize(spec.width, spec.height);
+ applyFills(vector, spec.fills);
+ applyStroke(vector, spec.stroke);
+ applyOpacity(vector, spec.opacity);
+ return vector;
+}
+async function buildPolygon(spec, ctx) {
+ var polygon = figma.createPolygon();
+ if (spec.name) polygon.name = spec.name;
+ if (spec.width !== undefined && spec.height !== undefined) polygon.resize(spec.width, spec.height);
+ if (spec.pointCount !== undefined) polygon.pointCount = spec.pointCount;
+ applyFills(polygon, spec.fills);
+ applyStroke(polygon, spec.stroke);
+ applyOpacity(polygon, spec.opacity);
+ return polygon;
+}
+async function buildStar(spec, ctx) {
+ var star = figma.createStar();
+ if (spec.name) star.name = spec.name;
+ if (spec.width !== undefined && spec.height !== undefined) star.resize(spec.width, spec.height);
+ if (spec.pointCount !== undefined) star.pointCount = spec.pointCount;
+ if (spec.innerRadius !== undefined) star.innerRadius = spec.innerRadius;
+ applyFills(star, spec.fills);
+ applyStroke(star, spec.stroke);
+ applyOpacity(star, spec.opacity);
+ return star;
+}
+async function buildSvg(spec, ctx) {
+ var node = figma.createNodeFromSvg(spec.svg);
+ if (spec.name) node.name = spec.name;
+ return node;
+}
+async function buildGroup(spec, ctx) {
+ var children = [];
+ for (var i = 0; i < (spec.children || []).length; i++) {
+  var child = await buildNode(spec.children[i], ctx);
+  figma.currentPage.appendChild(child);
+  children.push(child);
+ }
+ if (children.length === 0) throw new Error('GROUP requires at least one child');
+ var group = figma.group(children, figma.currentPage);
+ if (spec.name) group.name = spec.name;
+ applyOpacity(group, spec.opacity);
+ return group;
+}
+async function buildBoolean(spec, ctx) {
+ var children = [];
+ for (var i = 0; i < (spec.children || []).length; i++) {
+  var child = await buildNode(spec.children[i], ctx);
+  figma.currentPage.appendChild(child);
+  children.push(child);
+ }
+ if (children.length < 2) throw new Error('BOOLEAN requires at least two children');
+ var boolNode;
+ var op = (spec.operation || 'UNION').toUpperCase();
+ switch (op) {
+  case 'UNION':     boolNode = figma.union(children, figma.currentPage); break;
+  case 'SUBTRACT':  boolNode = figma.subtract(children, figma.currentPage); break;
+  case 'INTERSECT': boolNode = figma.intersect(children, figma.currentPage); break;
+  case 'EXCLUDE':   boolNode = figma.exclude(children, figma.currentPage); break;
+  default: throw new Error('Unknown boolean operation: ' + op);
+ }
+ if (spec.name) boolNode.name = spec.name;
+ applyFills(boolNode, spec.fills);
+ applyStroke(boolNode, spec.stroke);
+ applyOpacity(boolNode, spec.opacity);
+ return boolNode;
+}
+async function buildSection(spec, ctx) {
+ var section = figma.createSection();
+ if (spec.name) section.name = spec.name;
+ applyFills(section, spec.fills);
+ if (spec.children) {
+  for (var i = 0; i < spec.children.length; i++) {
+   var child = await buildNode(spec.children[i], ctx);
+   section.appendChild(child);
+  }
+ }
+ return section;
+}
+async function buildComponent(spec, ctx) {
+ var comp = figma.createComponent();
+ if (spec.name) comp.name = spec.name;
+ applyLayout(comp, spec.layout);
+ applyFills(comp, spec.fills);
+ applyCornerRadius(comp, spec.cornerRadius);
+ applyStroke(comp, spec.stroke);
+ applyEffects(comp, spec.effects);
+ applyOpacity(comp, spec.opacity);
+ if (spec.width != null && spec.height != null) comp.resize(spec.width, spec.height);
+ var propKeys = {};
+ if (spec.properties) {
+  for (var i = 0; i < spec.properties.length; i++) {
+   var p = spec.properties[i];
+   var propType = p.type || 'TEXT';
+   var defaultVal = p.default;
+   if (propType === 'TEXT') defaultVal = defaultVal || '';
+   else if (propType === 'BOOLEAN') defaultVal = defaultVal !== false;
+   comp.addComponentProperty(p.name, propType, defaultVal);
+   var keys = Object.keys(comp.componentPropertyDefinitions);
+   for (var k = 0; k < keys.length; k++) {
+    if (keys[k].split('#')[0] === p.name) { propKeys[p.name] = keys[k]; break; }
+   }
+  }
+ }
+ if (spec.children) {
+  for (var j = 0; j < spec.children.length; j++) {
+   var child = await buildNode(spec.children[j], ctx);
+   comp.appendChild(child);
+   applySizing(child, spec.children[j].sizing);
+  }
+ }
+ if (spec.propertyLinks) {
+  for (var link = 0; link < spec.propertyLinks.length; link++) {
+   var pl = spec.propertyLinks[link];
+   var textNode = comp.findOne(function (n) { return n.type === 'TEXT' && n.name === pl.layer; });
+   if (textNode && propKeys[pl.property]) {
+    textNode.componentPropertyReferences = { characters: propKeys[pl.property] };
+   }
+  }
+ }
+ await applyStyles(comp, spec.styles, ctx);
+ applyVariables(comp, spec.variables, ctx);
+ return comp;
+}
+async function buildComponentSet(spec, ctx) {
+ var components = [];
+ for (var i = 0; i < (spec.variants || []).length; i++) {
+  var variantSpec = spec.variants[i];
+  variantSpec.type = 'COMPONENT';
+  var comp = await buildComponent(variantSpec, ctx);
+  figma.currentPage.appendChild(comp);
+  components.push(comp);
+ }
+ if (components.length === 0) throw new Error('COMPONENT_SET requires at least one variant');
+ var set = figma.combineAsVariants(components, figma.currentPage);
+ if (spec.name) set.name = spec.name;
+ if (spec.description) set.description = spec.description;
+ return set;
+}
+var _spec = {"meta":{"skill":"component-brief","component":"Link","appendToId":"__LAST_WRAPPER__"},"fonts":["Inter:Regular","Inter:Semi Bold","Inter:Bold","Inter:Medium","Fira Code:Regular","Roboto:Regular"],"imports":{"genLog":{"key":"a9653f30925367e96dea90093d750bfe70849571","method":"single"},"divider":{"key":"f4d778e1cf9bb61a33712c791486f54bb1c095b7","method":"single"},"codeBlock":{"key":"1bf10eee1751a46da5f90a9671be6c9abf0073b7","method":"single"},"flowCoverCard":{"key":"eaebde6bd07d2f19f3f9c00a9587240cb085a90d","method":"single"},"researchFrame":{"key":"e671618f2b4c6ea406a995fdc3012ac54eadfe56","method":"single"},"feedback":{"key":"d5cba21bc3dbf36578665bac89834fbe1ca29ed0","method":"set"},"briefCard":{"key":"3dbb732730af0754210cde7af35e5236a2502843","method":"set"},"doDontPair":{"key":"28edfacf13e50706586172bd48f8a3ad84d7c263","method":"set"},"contrastBadge":{"key":"941756541adc6ce21e32e848c2039c64fece0fcf","method":"set"},"pointerBadge":{"key":"7e066fc21d9a2bbbcd1149113787cf59140162d4","method":"set"},"dimAnnotation":{"key":"49bf6a1b210a403ba145a3fdee9b1994eb54069a","method":"set"},"a11yCard":{"key":"b4779a13f4097d682413a669eaaf9ead1b49f115","method":"set"}},"localComponents":{"targetComponent":{"key":"675f7f8d0d57162e4cce51d26cbe39cf490e9b8d"}},"tree":[{"type":"INSTANCE","ref":"briefCard","name":"Content guidelines","variant":"Mode=DS, Type=Standard","props":{"Title":"Content guidelines","Subtitle":"Label copy rules for Link"},"detach":true,"width":1200,"contentSlot":{"layout":{"mode":"VERTICAL","spacing":16,"padding":[48,80,48,80]}},"children":[{"type":"TEXT","content":"Use clear and descriptive link text","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"TEXT","content":"Link text should describe the destination or action. Avoid generic phrases that require surrounding context to understand.","font":"Inter:Regular","size":14,"color":"#595968"},{"type":"INSTANCE","ref":"doDontPair","name":"Do-Dont: Use clear and descriptive link text","variant":"Mode=DS","props":{"Do Label":"View your order details","Do Example":"","Don't Label":"Click here","Don't Example":""},"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"DIVIDER"},{"type":"TEXT","content":"Use action-oriented language","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"TEXT","content":"For links that lead to tasks, use precise action verbs. This is especially important for links for actions like downloads.","font":"Inter:Regular","size":14,"color":"#595968"},{"type":"INSTANCE","ref":"doDontPair","name":"Do-Dont: Use action-oriented language","variant":"Mode=DS","props":{"Do Label":"Download report","Do Example":"","Don't Label":"Get report","Don't Example":""},"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"DIVIDER"},{"type":"TEXT","content":"Use sentence case","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"TEXT","content":"Capitalize only the first word and proper nouns. Always provide clarity on what will happen when the user clicks.","font":"Inter:Regular","size":14,"color":"#595968"},{"type":"INSTANCE","ref":"doDontPair","name":"Do-Dont: Use sentence case","variant":"Mode=DS","props":{"Do Label":"Explore features","Do Example":"","Don't Label":"Click to learn more","Don't Example":""},"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"DIVIDER"},{"type":"TEXT","content":"Keep link text concise","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"TEXT","content":"A navigational element's text should be short enough to provide clarity on what it does. Should be meaningful but not wordy.","font":"Inter:Regular","size":14,"color":"#595968"},{"type":"INSTANCE","ref":"doDontPair","name":"Do-Dont: Keep link text concise","variant":"Mode=DS","props":{"Do Label":"View our services","Do Example":"","Don't Label":"Click here to view our list of services","Don't Example":""},"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"DIVIDER"},{"type":"TEXT","content":"Avoid linking full sentences or paragraphs","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"TEXT","content":"Link only the specific actionable words, not entire sentences. Avoid formatting entire sentences as clickable links to improve readability.","font":"Inter:Regular","size":14,"color":"#595968"},{"type":"INSTANCE","ref":"doDontPair","name":"Do-Dont: Avoid linking full sentences or paragraphs","variant":"Mode=DS","props":{"Do Label":"Read our user experience design blog","Do Example":"","Don't Label":"Click here to read our blog about user experience design","Don't Example":""},"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"DIVIDER"},{"type":"TEXT","content":"Consistency in link text","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"TEXT","content":"Use consistent phrasing for similar link actions. Inline labels should use the same terminology to \"Read more\" destinations, not switch between \"See more\", \"Learn more\", etc.","font":"Inter:Regular","size":14,"color":"#595968"},{"type":"INSTANCE","ref":"doDontPair","name":"Do-Dont: Consistency in link text","variant":"Mode=DS","props":{"Do Label":"View our services","Do Example":"","Don't Label":"Click here to view our list of services","Don't Example":""},"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"DIVIDER"},{"type":"TEXT","content":"Terminology","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"FRAME","name":"Terminology table","layout":{"mode":"VERTICAL","spacing":0,"padding":[0,0,0,0]},"fills":[],"children":[{"type":"FRAME","name":"Header","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":["#F5F5FA"],"children":[{"type":"TEXT","content":"Term","font":"Inter:Bold","size":12,"color":"#595968","width":160},{"type":"TEXT","content":"When to use","font":"Inter:Bold","size":12,"color":"#595968","width":500}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Row 0","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":[],"children":[{"type":"TEXT","content":"Link","font":"Inter:Semi Bold","size":14,"color":"#1A1A2E","width":160},{"type":"TEXT","content":"A navigational element that takes the user to a new destination","font":"Inter:Regular","size":14,"color":"#595968","width":500}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"FRAME","name":"Row 1","layout":{"mode":"HORIZONTAL","spacing":0,"padding":[8,12,8,12]},"fills":[],"children":[{"type":"TEXT","content":"Button","font":"Inter:Semi Bold","size":14,"color":"#1A1A2E","width":160},{"type":"TEXT","content":"An action trigger — use when the click performs an action rather than navigating","font":"Inter:Regular","size":14,"color":"#595968","width":500}],"sizing":{"horizontal":"FILL","vertical":"HUG"}}],"sizing":{"horizontal":"FILL","vertical":"HUG"}}]},{"type":"INSTANCE","ref":"briefCard","name":"Accessibility","variant":"Mode=DS, Type=Standard","props":{"Title":"Accessibility","Subtitle":"WCAG 2.1 AA requirements and code patterns"},"detach":true,"width":1200,"contentSlot":{"layout":{"mode":"VERTICAL","spacing":16,"padding":[48,80,48,80]}},"children":[{"type":"TEXT","content":"Requirements","font":"Inter:Semi Bold","size":16,"color":"#1A1A2E"},{"type":"FRAME","name":"Requirements grid","layout":{"mode":"HORIZONTAL","spacing":16,"counterAxisSpacing":16,"wrap":true,"padding":[0,0,0,0]},"fills":[],"children":[{"type":"INSTANCE","ref":"a11yCard","name":"Default state: underlined","variant":"Mode=DS","props":{"Title":"Default state: underlined","Body":"Standard practice is to underline links in their default state. This ensures the link is distinguishable from surrounding text by a visual cue other than color alone.","Icon Color":"blue"},"detach":true,"children":[{"type":"INSTANCE","ref":"codeBlock","name":"Code: default-state:-underlined","detach":true,"children":[{"type":"TEXT","content":"a { text-decoration: underline; }","font":"Fira Code:Regular","size":12,"color":"#BABED8","textRanges":[{"start":0,"end":1,"color":"#FF79C6"},{"start":1,"end":4,"color":"#BABED8"},{"start":4,"end":19,"color":"#82AAFF"},{"start":19,"end":21,"color":"#BABED8"},{"start":21,"end":30,"color":"#C3E88D"},{"start":30,"end":33,"color":"#BABED8"}],"name":"Code"}]}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"INSTANCE","ref":"a11yCard","name":"Non-underlined link contrast","variant":"Mode=DS","props":{"Title":"Non-underlined link contrast","Body":"When links are not underlined by default, they must have at least 3:1 contrast ratio against surrounding body text, and 4.5:1 against background. A non-color indicator must appear on hover/focus.","Icon Color":"red"},"detach":true,"children":[{"type":"INSTANCE","ref":"codeBlock","name":"Code: non-underlined-link-contrast","detach":true,"children":[{"type":"TEXT","content":"/* 3:1 vs body text */\n/* 4.5:1 vs background */","font":"Fira Code:Regular","size":12,"color":"#BABED8","textRanges":[{"start":0,"end":22,"color":"#676E95"},{"start":23,"end":48,"color":"#676E95"}],"name":"Code"}]}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"INSTANCE","ref":"a11yCard","name":"Focus indication","variant":"Mode=DS","props":{"Title":"Focus indication","Body":"Links must have a visible focus indicator when navigated via keyboard. Use a 2px outline with 2px offset in the theme-primary color.","Icon Color":"blue"},"detach":true,"children":[{"type":"INSTANCE","ref":"codeBlock","name":"Code: focus-indication","detach":true,"children":[{"type":"TEXT","content":"a:focus-visible { outline: 2px solid var(--theme-primary); outline-offset: 2px; }","font":"Fira Code:Regular","size":12,"color":"#BABED8","textRanges":[{"start":0,"end":15,"color":"#FF79C6"},{"start":15,"end":18,"color":"#BABED8"},{"start":18,"end":25,"color":"#82AAFF"},{"start":25,"end":27,"color":"#BABED8"},{"start":27,"end":57,"color":"#C3E88D"},{"start":57,"end":59,"color":"#BABED8"},{"start":59,"end":73,"color":"#82AAFF"},{"start":73,"end":75,"color":"#BABED8"},{"start":75,"end":78,"color":"#C3E88D"},{"start":78,"end":81,"color":"#BABED8"}],"name":"Code"}]}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"INSTANCE","ref":"a11yCard","name":"Semantic HTML","variant":"Mode=DS","props":{"Title":"Semantic HTML","Body":"Always use the native <a> element with a valid href attribute. Never use <span> or <div> styled as a link. The href ensures proper keyboard navigation and screen reader announcements.","Icon Color":"green"},"detach":true,"children":[{"type":"INSTANCE","ref":"codeBlock","name":"Code: semantic-html","detach":true,"children":[{"type":"TEXT","content":"<a href=\"/page\">Link text</a>","font":"Fira Code:Regular","size":12,"color":"#BABED8","textRanges":[{"start":0,"end":2,"color":"#FF5370"},{"start":2,"end":7,"color":"#FFCB6B"},{"start":7,"end":9,"color":"#BABED8"},{"start":9,"end":14,"color":"#C3E88D"},{"start":14,"end":16,"color":"#BABED8"},{"start":16,"end":25,"color":"#BABED8"},{"start":25,"end":29,"color":"#FF5370"}],"name":"Code"}]}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"INSTANCE","ref":"a11yCard","name":"External link indication","variant":"Mode=DS","props":{"Title":"External link indication","Body":"External links should include a trailing icon and open in a new tab with rel=\"noopener noreferrer\". Add aria-label or visually hidden text to communicate the behavior.","Icon Color":"orange"},"detach":true,"children":[{"type":"INSTANCE","ref":"codeBlock","name":"Code: external-link-indication","detach":true,"children":[{"type":"TEXT","content":"<a href=\"https://...\" target=\"_blank\" rel=\"noopener\">Docs</a>","font":"Fira Code:Regular","size":12,"color":"#BABED8","textRanges":[{"start":0,"end":2,"color":"#FF5370"},{"start":2,"end":7,"color":"#FFCB6B"},{"start":7,"end":9,"color":"#BABED8"},{"start":9,"end":20,"color":"#C3E88D"},{"start":20,"end":21,"color":"#BABED8"},{"start":21,"end":28,"color":"#FFCB6B"},{"start":28,"end":30,"color":"#BABED8"},{"start":30,"end":36,"color":"#C3E88D"},{"start":36,"end":37,"color":"#BABED8"},{"start":37,"end":41,"color":"#FFCB6B"},{"start":41,"end":43,"color":"#BABED8"},{"start":43,"end":51,"color":"#C3E88D"},{"start":51,"end":53,"color":"#BABED8"},{"start":53,"end":57,"color":"#BABED8"},{"start":57,"end":61,"color":"#FF5370"}],"name":"Code"}]}],"sizing":{"horizontal":"FILL","vertical":"HUG"}},{"type":"INSTANCE","ref":"a11yCard","name":"Disabled state","variant":"Mode=DS","props":{"Title":"Disabled state","Body":"Disabled links should use aria-disabled=\"true\" and remove the href to prevent navigation. Apply muted styling with text-disabled token. Do not rely on pointer-events: none alone.","Icon Color":"grey"},"detach":true,"children":[{"type":"INSTANCE","ref":"codeBlock","name":"Code: disabled-state","detach":true,"children":[{"type":"TEXT","content":"<a aria-disabled=\"true\" tabindex=\"-1\">Link</a>","font":"Fira Code:Regular","size":12,"color":"#BABED8","textRanges":[{"start":0,"end":2,"color":"#FF5370"},{"start":2,"end":16,"color":"#FFCB6B"},{"start":16,"end":18,"color":"#BABED8"},{"start":18,"end":22,"color":"#C3E88D"},{"start":22,"end":23,"color":"#BABED8"},{"start":23,"end":32,"color":"#FFCB6B"},{"start":32,"end":34,"color":"#BABED8"},{"start":34,"end":36,"color":"#C3E88D"},{"start":36,"end":38,"color":"#BABED8"},{"start":38,"end":42,"color":"#BABED8"},{"start":42,"end":46,"color":"#FF5370"}],"name":"Code"}]}],"sizing":{"horizontal":"FILL","vertical":"HUG"}}],"sizing":{"horizontal":"FILL","vertical":"HUG"}}]}]};
+return await buildFromSpec(_spec);
