@@ -28,7 +28,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 2. Click **+** > add marketplace: `volivarii/Actian-DS-Claude-plugin`
 3. Install **Actian Design System** from the marketplace
 
-The plugin is available in both **Cowork** and **Code** tabs after install.
+The plugin is available in both **Cowork** and **Code** tabs after install. At this time, **Code** is recommended for best results.
 
 > **Figma integration:** The Figma MCP (`claude.ai Figma`) is built into Claude. On first use, you'll be prompted to authorize your Figma account — no additional setup required. Works with Figma files in the browser and Figma desktop.
 
