@@ -13,7 +13,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
 1. Read app-context.md → determine app (Studio/Explorer/Administration)
 2. **Research gate** — present verbatim unless user said "no research"
 3. **Screen list gate** — present with options verbatim
-4. Build flow-data.json with content[] nodes (see figma-spec-builder.md)
+4. Build flow-data.json with content[] nodes (see figma-spec-builder.md, reference `examples/flow-data-example.json` for expected structure)
 5. Push: `node ${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js flow-data.json --target-node-id "<nodeId>" --output-dir {project_working_directory}/components/flows/.figma-calls` → read manifest.json → use_figma (call 1 as-is, call 2+ replace `__WRAPPER_ID__`)
 6. Preview (opt-in): `node ${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js flow-data.json --type flow -o {project_working_directory}/components/flows/[feature]-flow.html` → `BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)`
 7. Parity check (parity-check.md) → Cleanup (quality-checklist.md)
@@ -62,7 +62,7 @@ Push-apart row — SPACE_BETWEEN, no Spacer: `{ "type": "FRAME", "name": "Header
 
 - `references/generate-flow/figma-spec-builder.md` — templates, content node spec, FM component ref table
 - `references/generate-flow/research-guide.md` — competitor research, reference analysis
-- `references/generate-flow/quality-tiers.md` — Draft / Standard / Production tier definitions
+- `references/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `references/app-context.md` — app inference, entity model, terminology
 - `references/ux-patterns.md` — SaaS UX pattern library by flow type
 - `references/layout-patterns.md` — canonical page layouts (dashboard, detail, table, form, graph, overlay)

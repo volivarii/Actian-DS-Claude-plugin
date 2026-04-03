@@ -16,6 +16,7 @@
 const fs = require('fs');
 const path = require('path');
 const codegen = require('./figma-codegen');
+const shared = require('./shared-constants');
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -87,40 +88,8 @@ const REF_ALIASES = {
 // ---------------------------------------------------------------------------
 
 const FALLBACK_KEYS = {
-  genLog:         { key: 'a9653f30925367e96dea90093d750bfe70849571', method: 'single' },
-  researchFrame:  { key: 'e671618f2b4c6ea406a995fdc3012ac54eadfe56', method: 'single' },
-  divider:        { key: 'f4d778e1cf9bb61a33712c791486f54bb1c095b7', method: 'single' },
-  flowCoverCard:  { key: 'eaebde6bd07d2f19f3f9c00a9587240cb085a90d', method: 'single' },
-  fmAppHeader:   { key: '8fc9bcee610c7f8d22ebcc268467993f6dc99c87', method: 'set' },
-  fmSideNavItem: { key: 'd18a0a772ed4acd760c497cb93de796ff052a7b4', method: 'set' },
-  fmPageHeader:  { key: 'ae1f8684a4a89aa74463d439e4e8c1e7a48137fe', method: 'set' },
-  fmButton:      { key: '368b62312ca941c80ea8eeed84a57d33bb470b09', method: 'set' },
-  fmTableCell:   { key: '9267fecfadc4577563deb1425fa598d1f5af9144', method: 'set' },
-  fmTextInput:   { key: '355855c7b2e05b5b336167883b3c9ebbfbd881ad', method: 'set' },
-  fmDropdown:    { key: '781f86dca2a37706771f3e2e580242d2693a722f', method: 'set' },
-  fmInputLabel:  { key: 'a39aa1c7cb593f7d26b7659e4cbe4e419e00c766', method: 'set' },
-  fmSearchInput: { key: '443e232d5454f06dbd5bc06c2cacf21e80a20e4a', method: 'set' },
-  fmTag:         { key: 'c7239d9355ddf557f36f4d159153619672ab81ef', method: 'set' },
-  fmChip:        { key: '0861d937682e66d39f57fe52ca83d526e634ff66', method: 'set' },
-  fmTab:         { key: 'cfbd732ff4f4e6620b333c60f1ac7fe5116a93aa', method: 'set' },
-  fmPlaceholder: { key: 'e49a9de0573cf527736e8173f722f230fa957fb8', method: 'set' },
-  fmEmptyState:  { key: 'cf44b9c0b5623a394d90f320f98250dc77378268', method: 'set' },
-  fmAlert:       { key: 'fe30f37740688350762bd2b1be426d9d1588b7d9', method: 'set' },
-  fmBanner:      { key: 'd7f323e492b456a2c56f81f3dc892eb24de11a6e', method: 'single' },
-  fmToggle:      { key: 'fe9e82118d1df75a8aea732eb7f9169ccaa21878', method: 'set' },
-  fmCheckbox:    { key: '965cf2c85659bbde891f6f086bbd02d50d445d58', method: 'set' },
-  fmDialog:      { key: '0cc53eca9c90cccb8cbc57864ea110378414fd2b', method: 'single' },
-  fmTextArea:    { key: 'bba14eea66edb3871ea389afeb4e1a07585e5733', method: 'set' },
-  fmBadge:       { key: '2410b87c83d33d3bcb2a6ac7aa2168a53a4eb3d8', method: 'set' },
-  fmStepper:     { key: 'd0a21b5288571cc7690c6c9289d18cd298035c53', method: 'set' },
-  fmToast:       { key: '6140b137ce98ebfeeb7fc7e426f6d09de1cc18d0', method: 'set' },
-  fmIconButtons: { key: 'f868aabb0aa2c52f00610c09da8dce3bccc79dc4', method: 'set' },
-  fmSpinner:     { key: '52927648847b15a51d314cf06ca1c0f19f398b4d', method: 'single' },
-  fmRadioButton: { key: '1569353eb82fd5f6cb8da979f1048cd1b323e8c4', method: 'set' },
-  fmDateInput:   { key: '69d6329ea2d5ac3515b6ebb04ad6c1bd72e4890e', method: 'set' },
-  fmProgressBar: { key: '12abe66d36a63ef385a17e2553a1312560a0f106', method: 'set' },
-  fmMultiSelectDropdown: { key: '876bfa32334594915085ebea82f1f887b3fecb09', method: 'set' },
-  fmTabs:        { key: '860eadef9ba29cf20a3da3ca9d014718e3f6cabb', method: 'single' }
+  ...shared.META_KEYS,
+  ...shared.FM_FALLBACK_KEYS
 };
 
 // ---------------------------------------------------------------------------

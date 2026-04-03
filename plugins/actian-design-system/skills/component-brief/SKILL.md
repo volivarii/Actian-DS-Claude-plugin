@@ -65,7 +65,7 @@ If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5")
 
 ## Step 2 — Generate data model
 
-Write `{project_working_directory}/components/[name]/[name]-brief-data.json` per `../../references/component-brief/data-schema.md`. Only include selected cards. Dispatch `brief-data-validator` in background.
+Write `{project_working_directory}/components/[name]/[name]-brief-data.json` per `../../references/component-brief/data-schema.md`. Reference `examples/brief-data-example.json` for the expected structure and level of detail. Only include selected cards. Dispatch `brief-data-validator` in background.
 
 ## Step 2.5 — Present push options (copy verbatim)
 
@@ -111,4 +111,4 @@ Write files silently (never dump in chat). Research → data model → gate runs
 
 ## References
 
-`references/component-brief/`: `data-schema.md` (JSON schema, 9 DS + 5 FM cards), `quality-tiers.md` (tiers), `figma-spec-builder.md` (data→Figma mapping), `figma-rules.md` (pitfalls), `playground.md` (explorer).
+`references/component-brief/`: `data-schema.md` (JSON schema, 9 DS + 5 FM cards), `figma-spec-builder.md` (data→Figma mapping), `figma-rules.md` (pitfalls), `playground.md` (explorer). `references/quality-tiers.md` (tiers).

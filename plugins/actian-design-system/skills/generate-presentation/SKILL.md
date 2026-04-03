@@ -27,7 +27,7 @@ Deck outline: N slides (cover + N body + back cover). Reply:
 
 ## Step 3 — Build slide-data.json and push to Figma
 
-1. Build `slide-data.json`: `meta` (title, targetNodeId, prompt, duration, model, pluginVersion, generatedAt, skill) + `slides[]` (type + type-specific data, structured `content[]` nodes for charts)
+1. Build `slide-data.json`: `meta` (title, targetNodeId, prompt, duration, model, pluginVersion, generatedAt, skill) + `slides[]` (type + type-specific data, structured `content[]` nodes for charts). Reference `examples/slide-data-example.json` for expected structure.
 2. Read `../../references/generate-presentation/figma-spec-builder.md` — input schema + chart patterns
 3. Write to: `{project_working_directory}/presentations/[topic-slug]/slide-data.json`
 4. Run:
@@ -62,7 +62,7 @@ Serve, present review report, accept feedback or "push".
 
 - `references/generate-presentation/figma-spec-builder.md` — input schema, chart patterns
 - `references/generate-presentation/templates.md` — 8 CSS chart types, slide type details
-- `references/generate-presentation/quality-tiers.md` — Draft / Standard / Production tier definitions
+- `references/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `docs/presentation-guide.md` — voice & tone, narrative arc, review report format
 - `references/app-context.md` — Actian terminology
 - `references/parity-check.md` — post-push parity check procedure

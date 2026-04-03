@@ -16,6 +16,7 @@
 const fs = require('fs');
 const path = require('path');
 const codegen = require('./figma-codegen');
+const shared = require('./shared-constants');
 
 // ---------------------------------------------------------------------------
 // Constants
@@ -59,12 +60,8 @@ const LIGHT_GRADIENT = [{
 }];
 
 const IMPORTS = {
-  genLog:       { key: 'a9653f30925367e96dea90093d750bfe70849571', method: 'single' },
-  slideCover:   { key: 'a12f6f0b26fffc59fdac49df2bc3c36182c912da', method: 'single' },
-  slideBodyFull:{ key: '281e7a9bc55abe69bb2364e639f7511b4a005694', method: 'single' },
-  slideBodyTV:  { key: '28ea7a37752149d78679847ec7893368a4c4f1a0', method: 'single' },
-  slideSection: { key: '348efaa22a6da818c435017399a357b47257bcdc', method: 'single' },
-  slideBack:    { key: '6df533ae800a6596fd84e93a2e5fc725dbd6a369', method: 'single' }
+  genLog: shared.META_KEYS.genLog,
+  ...shared.SLIDE_KEYS
 };
 
 // Template source (reference only — components now live in Meta Kit)

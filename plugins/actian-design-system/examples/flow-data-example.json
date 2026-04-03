@@ -1,0 +1,189 @@
+{
+  "meta": {
+    "feature": "Connection settings",
+    "flow": "User configures a database connection in Studio",
+    "user": "Data engineer",
+    "app": "Studio",
+    "targetNodeId": "0:0",
+    "prompt": "Design a connection settings page in Studio",
+    "duration": "30s",
+    "model": "claude-opus-4-6",
+    "pluginVersion": "1.31.0",
+    "skill": "generate-flow",
+    "generatedAt": "2026-04-03T00:00:00Z"
+  },
+  "screens": [
+    {
+      "name": "Connections list",
+      "chrome": "standard",
+      "app": "Studio",
+      "sidebar": {
+        "activeItem": "Connections",
+        "items": ["Overview", "Pipelines", "Connections", "Catalog", "Settings"]
+      },
+      "pageHeader": {
+        "title": "Connections",
+        "subtitle": "Manage database and API connections",
+        "actions": [
+          { "label": "New connection", "type": "Primary" }
+        ]
+      },
+      "content": [
+        {
+          "type": "FRAME",
+          "name": "Connections table",
+          "layout": { "mode": "VERTICAL", "spacing": 0, "padding": [0, 0, 0, 0] },
+          "fills": [],
+          "children": [
+            {
+              "type": "INSTANCE",
+              "ref": "fmTableCell",
+              "variant": "Type=Header",
+              "props": { "Label": "Name", "Label 2": "Type", "Label 3": "Status", "Label 4": "Last synced" }
+            },
+            {
+              "type": "INSTANCE",
+              "ref": "fmTableCell",
+              "variant": "Type=Data",
+              "props": { "Label": "Production DB", "Label 2": "PostgreSQL", "Label 3": "Active", "Label 4": "2 hours ago" }
+            },
+            {
+              "type": "INSTANCE",
+              "ref": "fmTableCell",
+              "variant": "Type=Data",
+              "props": { "Label": "Staging DB", "Label 2": "PostgreSQL", "Label 3": "Active", "Label 4": "1 day ago" }
+            },
+            {
+              "type": "INSTANCE",
+              "ref": "fmTableCell",
+              "variant": "Type=Data",
+              "props": { "Label": "Analytics API", "Label 2": "REST API", "Label 3": "Error", "Label 4": "3 days ago" }
+            }
+          ],
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" }
+        }
+      ]
+    },
+    {
+      "name": "New connection — Step 1",
+      "chrome": "standard",
+      "app": "Studio",
+      "sidebar": {
+        "activeItem": "Connections",
+        "items": ["Overview", "Pipelines", "Connections", "Catalog", "Settings"]
+      },
+      "pageHeader": {
+        "title": "New connection",
+        "subtitle": "Step 1 of 3 — Choose type"
+      },
+      "content": [
+        {
+          "type": "FRAME",
+          "name": "Connection type grid",
+          "layout": { "mode": "HORIZONTAL", "spacing": 16, "wrap": true, "padding": [0, 0, 0, 0] },
+          "fills": [],
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "PostgreSQL card",
+              "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [24, 24, 24, 24] },
+              "fills": ["#FFFFFF"],
+              "cornerRadius": 8,
+              "stroke": { "color": "#E2E7F0", "weight": 1 },
+              "children": [
+                { "type": "TEXT", "content": "PostgreSQL", "font": "Inter:Semi Bold", "size": 16, "color": "#1A1A2E" },
+                { "type": "TEXT", "content": "Connect to PostgreSQL databases", "font": "Inter:Regular", "size": 14, "color": "#595968" }
+              ],
+              "width": 280,
+              "sizing": { "vertical": "HUG" }
+            },
+            {
+              "type": "FRAME",
+              "name": "MySQL card",
+              "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [24, 24, 24, 24] },
+              "fills": ["#FFFFFF"],
+              "cornerRadius": 8,
+              "stroke": { "color": "#E2E7F0", "weight": 1 },
+              "children": [
+                { "type": "TEXT", "content": "MySQL", "font": "Inter:Semi Bold", "size": 16, "color": "#1A1A2E" },
+                { "type": "TEXT", "content": "Connect to MySQL databases", "font": "Inter:Regular", "size": 14, "color": "#595968" }
+              ],
+              "width": 280,
+              "sizing": { "vertical": "HUG" }
+            },
+            {
+              "type": "FRAME",
+              "name": "REST API card",
+              "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [24, 24, 24, 24] },
+              "fills": ["#FFFFFF"],
+              "cornerRadius": 8,
+              "stroke": { "color": "#E2E7F0", "weight": 1 },
+              "children": [
+                { "type": "TEXT", "content": "REST API", "font": "Inter:Semi Bold", "size": 16, "color": "#1A1A2E" },
+                { "type": "TEXT", "content": "Connect to REST API endpoints", "font": "Inter:Regular", "size": 14, "color": "#595968" }
+              ],
+              "width": 280,
+              "sizing": { "vertical": "HUG" }
+            }
+          ],
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" }
+        }
+      ]
+    },
+    {
+      "name": "New connection — Step 2",
+      "chrome": "standard",
+      "app": "Studio",
+      "sidebar": {
+        "activeItem": "Connections",
+        "items": ["Overview", "Pipelines", "Connections", "Catalog", "Settings"]
+      },
+      "pageHeader": {
+        "title": "New connection",
+        "subtitle": "Step 2 of 3 — Configure"
+      },
+      "content": [
+        {
+          "type": "FRAME",
+          "name": "Form container",
+          "layout": { "mode": "VERTICAL", "spacing": 16, "padding": [0, 0, 0, 0] },
+          "fills": [],
+          "width": 480,
+          "children": [
+            {
+              "type": "INSTANCE",
+              "ref": "fmTextInput",
+              "variant": "State=Default",
+              "props": { "Label Text": "Connection name", "Input Text": "", "Show label": true }
+            },
+            {
+              "type": "INSTANCE",
+              "ref": "fmTextInput",
+              "variant": "State=Default",
+              "props": { "Label Text": "Host", "Input Text": "localhost", "Show label": true }
+            },
+            {
+              "type": "INSTANCE",
+              "ref": "fmTextInput",
+              "variant": "State=Default",
+              "props": { "Label Text": "Port", "Input Text": "5432", "Show label": true }
+            },
+            {
+              "type": "INSTANCE",
+              "ref": "fmTextInput",
+              "variant": "State=Default",
+              "props": { "Label Text": "Database name", "Input Text": "", "Show label": true }
+            },
+            {
+              "type": "INSTANCE",
+              "ref": "fmTextInput",
+              "variant": "State=Default",
+              "props": { "Label Text": "Username", "Input Text": "", "Show label": true }
+            }
+          ],
+          "sizing": { "vertical": "HUG" }
+        }
+      ]
+    }
+  ]
+}

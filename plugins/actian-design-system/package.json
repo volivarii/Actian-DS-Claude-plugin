@@ -1,0 +1,7 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "node tests/codegen-snapshots.test.js",
+    "update-snapshots": "UPDATE_SNAPSHOTS=1 node tests/codegen-snapshots.test.js"
+  }
+}

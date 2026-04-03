@@ -1,0 +1,1154 @@
+{
+  "meta": {
+    "component": "Link",
+    "library": "dsKit",
+    "fileKey": "EXAMPLE_FILE_KEY",
+    "nodeId": "0:0",
+    "componentKey": "675f7f8d0d57162e4cce51d26cbe39cf490e9b8d",
+    "generatedAt": "2026-04-03T00:00:00Z",
+    "skill": "component-brief",
+    "pluginVersion": "1.31.0",
+    "model": "claude-opus-4-6",
+    "duration": "45s"
+  },
+  "card1_header": {
+    "name": "Link",
+    "description": "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design standards for clarity and usability."
+  },
+  "card2_component": {
+    "variantAxes": [
+      {
+        "axis": "State",
+        "values": [
+          "Enabled",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Once clicked",
+          "Disabled"
+        ]
+      }
+    ],
+    "variantMatrix": [
+      {
+        "row": "Link",
+        "columns": [
+          {
+            "variantName": "State=Enabled",
+            "label": "Enabled"
+          },
+          {
+            "variantName": "State=Hovered",
+            "label": "Hovered"
+          },
+          {
+            "variantName": "State=Focused",
+            "label": "Focused"
+          },
+          {
+            "variantName": "State=Pressed",
+            "label": "Pressed"
+          },
+          {
+            "variantName": "State=Once clicked",
+            "label": "Once clicked"
+          },
+          {
+            "variantName": "State=Disabled",
+            "label": "Disabled"
+          }
+        ]
+      }
+    ],
+    "themeComparison": {
+      "actian": {
+        "variantName": "State=Enabled",
+        "swatches": [
+          {
+            "token": "theme-primary",
+            "hex": "#0550DC"
+          }
+        ]
+      },
+      "studio": {
+        "variantName": "State=Enabled",
+        "swatches": [
+          {
+            "token": "theme-primary",
+            "hex": "#0283BE"
+          }
+        ]
+      },
+      "explorer": {
+        "variantName": "State=Enabled",
+        "swatches": [
+          {
+            "token": "theme-primary",
+            "hex": "#049B98"
+          }
+        ]
+      }
+    }
+  },
+  "card3_anatomy": {
+    "parts": [
+      {
+        "letter": "A",
+        "name": "Link text",
+        "description": "The visible clickable text label styled with theme color and optional underline decoration",
+        "figmaLayerName": "Link text"
+      },
+      {
+        "letter": "B",
+        "name": "Trailing icon",
+        "description": "Optional icon following the text, indicates external navigation or additional context",
+        "figmaLayerName": "Icon"
+      },
+      {
+        "letter": "C",
+        "name": "Focus ring",
+        "description": "2px outline around the link for keyboard focus indication, offset by 2px",
+        "figmaLayerName": "Focus ring"
+      },
+      {
+        "letter": "D",
+        "name": "Underline",
+        "description": "Text decoration that appears on hover/focus states to reinforce interactivity",
+        "figmaLayerName": "Underline"
+      }
+    ],
+    "specs": [
+      {
+        "label": "4px",
+        "orientation": "horizontal",
+        "target": "text-to-icon gap"
+      },
+      {
+        "label": "2px",
+        "orientation": "vertical",
+        "target": "focus ring offset"
+      },
+      {
+        "label": "16px",
+        "orientation": "vertical",
+        "target": "icon size"
+      }
+    ],
+    "states": [
+      "Enabled",
+      "Hovered",
+      "Focused",
+      "Pressed",
+      "Once clicked",
+      "Disabled"
+    ],
+    "partsTable": [
+      {
+        "part": "A",
+        "element": "Link text",
+        "token": "--zen-font-body-standard, theme-primary",
+        "notes": "Roboto 400 14px/20px, inherits theme color"
+      },
+      {
+        "part": "B",
+        "element": "Trailing icon",
+        "token": "theme-primary",
+        "notes": "16×16px, same color as text"
+      },
+      {
+        "part": "C",
+        "element": "Focus ring",
+        "token": "theme-primary",
+        "notes": "2px solid, 2px offset, rounded"
+      },
+      {
+        "part": "D",
+        "element": "Underline",
+        "token": "theme-primary",
+        "notes": "Appears on hover and focus states"
+      }
+    ]
+  },
+  "card4_tokens": {
+    "colorTokens": [
+      {
+        "state": "Enabled",
+        "columns": [
+          {
+            "header": "Text",
+            "token": "theme-primary",
+            "hex": "#0550DC"
+          },
+          {
+            "header": "Icon",
+            "token": "theme-primary",
+            "hex": "#0550DC"
+          },
+          {
+            "header": "Underline",
+            "token": "—",
+            "hex": "transparent"
+          }
+        ]
+      },
+      {
+        "state": "Hovered",
+        "columns": [
+          {
+            "header": "Text",
+            "token": "theme-primary-hover",
+            "hex": "#0343B5"
+          },
+          {
+            "header": "Icon",
+            "token": "theme-primary-hover",
+            "hex": "#0343B5"
+          },
+          {
+            "header": "Underline",
+            "token": "theme-primary-hover",
+            "hex": "#0343B5"
+          }
+        ]
+      },
+      {
+        "state": "Focused",
+        "columns": [
+          {
+            "header": "Text",
+            "token": "theme-primary",
+            "hex": "#0550DC"
+          },
+          {
+            "header": "Icon",
+            "token": "theme-primary",
+            "hex": "#0550DC"
+          },
+          {
+            "header": "Underline",
+            "token": "theme-primary",
+            "hex": "#0550DC"
+          }
+        ]
+      },
+      {
+        "state": "Pressed",
+        "columns": [
+          {
+            "header": "Text",
+            "token": "theme-primary-pressed",
+            "hex": "#023699"
+          },
+          {
+            "header": "Icon",
+            "token": "theme-primary-pressed",
+            "hex": "#023699"
+          },
+          {
+            "header": "Underline",
+            "token": "theme-primary-pressed",
+            "hex": "#023699"
+          }
+        ]
+      },
+      {
+        "state": "Disabled",
+        "columns": [
+          {
+            "header": "Text",
+            "token": "text-disabled",
+            "hex": "#9898A7"
+          },
+          {
+            "header": "Icon",
+            "token": "text-disabled",
+            "hex": "#9898A7"
+          },
+          {
+            "header": "Underline",
+            "token": "—",
+            "hex": "transparent"
+          }
+        ]
+      }
+    ],
+    "sizingTokens": [
+      {
+        "property": "Icon size",
+        "token": "--zen-size-md",
+        "value": "16px"
+      },
+      {
+        "property": "Text-to-icon gap",
+        "token": "--zen-spacing-2xs",
+        "value": "4px"
+      },
+      {
+        "property": "Focus ring offset",
+        "token": "--zen-spacing-3xs",
+        "value": "2px"
+      },
+      {
+        "property": "Focus ring width",
+        "token": "—",
+        "value": "2px"
+      }
+    ],
+    "typography": [
+      {
+        "element": "Link text",
+        "token": "body-standard",
+        "font": "Roboto Regular 14px/20px",
+        "tracking": "0.2px"
+      }
+    ]
+  },
+  "card5_api": {
+    "props": [
+      {
+        "required": true,
+        "name": "href",
+        "type": "string",
+        "default": "—",
+        "values": "any URL",
+        "notes": "Navigation destination"
+      },
+      {
+        "required": true,
+        "name": "children",
+        "type": "ReactNode",
+        "default": "—",
+        "values": "text content",
+        "notes": "Visible link label"
+      },
+      {
+        "required": false,
+        "name": "variant",
+        "type": "enum",
+        "default": "\"link\"",
+        "values": "\"link\" | \"link-with-icon\"",
+        "notes": "Link type with optional trailing icon"
+      },
+      {
+        "required": false,
+        "name": "external",
+        "type": "boolean",
+        "default": "false",
+        "values": "true | false",
+        "notes": "Opens in new tab with rel=noopener"
+      },
+      {
+        "required": false,
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "values": "true | false",
+        "notes": "Disables interaction, applies muted styling"
+      },
+      {
+        "required": false,
+        "name": "icon",
+        "type": "ReactNode",
+        "default": "—",
+        "values": "icon element",
+        "notes": "Trailing icon (only when variant is link-with-icon)"
+      },
+      {
+        "required": false,
+        "name": "onClick",
+        "type": "function",
+        "default": "—",
+        "values": "(e) => void",
+        "notes": "Click handler, fires before navigation"
+      }
+    ]
+  },
+  "card6_usage": {
+    "whenToUse": [
+      "Navigation to internal or external destinations (pages, sections, resources)",
+      "Inline contextual navigation within body text or descriptions",
+      "Standalone navigation elements like breadcrumbs or footer links"
+    ],
+    "whenNotToUse": [
+      "Actions that don't navigate (submit, delete, toggle) → use Button",
+      "Primary call-to-action → use Button with appropriate hierarchy",
+      "Standalone icons as navigation → use Icon Button instead"
+    ],
+    "doDont": [
+      {
+        "doLabel": "Use for navigation",
+        "doDetail": "Links should always navigate to a destination — a new page, section, or external resource.",
+        "dontLabel": "Use for actions",
+        "dontDetail": "Don't use links for actions like submitting a form or deleting an item. Use ghost buttons instead."
+      },
+      {
+        "doLabel": "Use descriptive text",
+        "doDetail": "Link text should describe the destination clearly, e.g., 'View pipeline details'.",
+        "dontLabel": "Use vague text",
+        "dontDetail": "Avoid generic labels like 'Click here', 'Read more', or raw URLs as link text."
+      },
+      {
+        "doLabel": "Indicate external links",
+        "doDetail": "Add a trailing icon or label when the link opens in a new tab or goes to an external site.",
+        "dontLabel": "Surprise navigation",
+        "dontDetail": "Don't open links in new tabs without visual indication — users should anticipate the behavior."
+      }
+    ]
+  },
+  "card7_content": {
+    "rules": [
+      {
+        "title": "Use clear and descriptive link text",
+        "description": "Link text should describe the destination or action. Avoid generic phrases that require surrounding context to understand.",
+        "do": "View your order details",
+        "dont": "Click here"
+      },
+      {
+        "title": "Use action-oriented language",
+        "description": "For links that lead to tasks, use precise action verbs. This is especially important for links for actions like downloads.",
+        "do": "Download report",
+        "dont": "Get report"
+      },
+      {
+        "title": "Use sentence case",
+        "description": "Capitalize only the first word and proper nouns. Always provide clarity on what will happen when the user clicks.",
+        "do": "Explore features",
+        "dont": "Click to learn more"
+      },
+      {
+        "title": "Keep link text concise",
+        "description": "A navigational element's text should be short enough to provide clarity on what it does. Should be meaningful but not wordy.",
+        "do": "View our services",
+        "dont": "Click here to view our list of services"
+      },
+      {
+        "title": "Avoid linking full sentences or paragraphs",
+        "description": "Link only the specific actionable words, not entire sentences. Avoid formatting entire sentences as clickable links to improve readability.",
+        "do": "Read our user experience design blog",
+        "dont": "Click here to read our blog about user experience design"
+      },
+      {
+        "title": "Consistency in link text",
+        "description": "Use consistent phrasing for similar link actions. Inline labels should use the same terminology to \"Read more\" destinations, not switch between \"See more\", \"Learn more\", etc.",
+        "do": "View our services",
+        "dont": "Click here to view our list of services"
+      }
+    ],
+    "terminology": [
+      {
+        "term": "Link",
+        "use": "A navigational element that takes the user to a new destination"
+      },
+      {
+        "term": "Button",
+        "use": "An action trigger — use when the click performs an action rather than navigating"
+      }
+    ]
+  },
+  "card8_accessibility": {
+    "requirements": [
+      {
+        "title": "Default state: underlined",
+        "icon": "blue",
+        "body": "Standard practice is to underline links in their default state. This ensures the link is distinguishable from surrounding text by a visual cue other than color alone.",
+        "code": {
+          "language": "css",
+          "tokens": [
+            {
+              "type": "selector",
+              "text": "a"
+            },
+            {
+              "type": "punctuation",
+              "text": " { "
+            },
+            {
+              "type": "property",
+              "text": "text-decoration"
+            },
+            {
+              "type": "punctuation",
+              "text": ": "
+            },
+            {
+              "type": "value",
+              "text": "underline"
+            },
+            {
+              "type": "punctuation",
+              "text": "; }"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Non-underlined link contrast",
+        "icon": "red",
+        "body": "When links are not underlined by default, they must have at least 3:1 contrast ratio against surrounding body text, and 4.5:1 against background. A non-color indicator must appear on hover/focus.",
+        "code": {
+          "language": "html",
+          "tokens": [
+            {
+              "type": "comment",
+              "text": "/* 3:1 vs body text */"
+            },
+            {
+              "type": "newline"
+            },
+            {
+              "type": "comment",
+              "text": "/* 4.5:1 vs background */"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Focus indication",
+        "icon": "blue",
+        "body": "Links must have a visible focus indicator when navigated via keyboard. Use a 2px outline with 2px offset in the theme-primary color.",
+        "code": {
+          "language": "css",
+          "tokens": [
+            {
+              "type": "selector",
+              "text": "a:focus-visible"
+            },
+            {
+              "type": "punctuation",
+              "text": " { "
+            },
+            {
+              "type": "property",
+              "text": "outline"
+            },
+            {
+              "type": "punctuation",
+              "text": ": "
+            },
+            {
+              "type": "value",
+              "text": "2px solid var(--theme-primary)"
+            },
+            {
+              "type": "punctuation",
+              "text": "; "
+            },
+            {
+              "type": "property",
+              "text": "outline-offset"
+            },
+            {
+              "type": "punctuation",
+              "text": ": "
+            },
+            {
+              "type": "value",
+              "text": "2px"
+            },
+            {
+              "type": "punctuation",
+              "text": "; }"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Semantic HTML",
+        "icon": "green",
+        "body": "Always use the native <a> element with a valid href attribute. Never use <span> or <div> styled as a link. The href ensures proper keyboard navigation and screen reader announcements.",
+        "code": {
+          "language": "html",
+          "tokens": [
+            {
+              "type": "tag",
+              "text": "<a"
+            },
+            {
+              "type": "attribute",
+              "text": " href"
+            },
+            {
+              "type": "punctuation",
+              "text": "=\""
+            },
+            {
+              "type": "string",
+              "text": "/page"
+            },
+            {
+              "type": "punctuation",
+              "text": "\">"
+            },
+            {
+              "type": "text",
+              "text": "Link text"
+            },
+            {
+              "type": "tag",
+              "text": "</a>"
+            }
+          ]
+        }
+      },
+      {
+        "title": "External link indication",
+        "icon": "orange",
+        "body": "External links should include a trailing icon and open in a new tab with rel=\"noopener noreferrer\". Add aria-label or visually hidden text to communicate the behavior.",
+        "code": {
+          "language": "html",
+          "tokens": [
+            {
+              "type": "tag",
+              "text": "<a"
+            },
+            {
+              "type": "attribute",
+              "text": " href"
+            },
+            {
+              "type": "punctuation",
+              "text": "=\""
+            },
+            {
+              "type": "string",
+              "text": "https://..."
+            },
+            {
+              "type": "punctuation",
+              "text": "\""
+            },
+            {
+              "type": "attribute",
+              "text": " target"
+            },
+            {
+              "type": "punctuation",
+              "text": "=\""
+            },
+            {
+              "type": "string",
+              "text": "_blank"
+            },
+            {
+              "type": "punctuation",
+              "text": "\""
+            },
+            {
+              "type": "attribute",
+              "text": " rel"
+            },
+            {
+              "type": "punctuation",
+              "text": "=\""
+            },
+            {
+              "type": "string",
+              "text": "noopener"
+            },
+            {
+              "type": "punctuation",
+              "text": "\">"
+            },
+            {
+              "type": "text",
+              "text": "Docs"
+            },
+            {
+              "type": "tag",
+              "text": "</a>"
+            }
+          ]
+        }
+      },
+      {
+        "title": "Disabled state",
+        "icon": "grey",
+        "body": "Disabled links should use aria-disabled=\"true\" and remove the href to prevent navigation. Apply muted styling with text-disabled token. Do not rely on pointer-events: none alone.",
+        "code": {
+          "language": "html",
+          "tokens": [
+            {
+              "type": "tag",
+              "text": "<a"
+            },
+            {
+              "type": "attribute",
+              "text": " aria-disabled"
+            },
+            {
+              "type": "punctuation",
+              "text": "=\""
+            },
+            {
+              "type": "string",
+              "text": "true"
+            },
+            {
+              "type": "punctuation",
+              "text": "\""
+            },
+            {
+              "type": "attribute",
+              "text": " tabindex"
+            },
+            {
+              "type": "punctuation",
+              "text": "=\""
+            },
+            {
+              "type": "string",
+              "text": "-1"
+            },
+            {
+              "type": "punctuation",
+              "text": "\">"
+            },
+            {
+              "type": "text",
+              "text": "Link"
+            },
+            {
+              "type": "tag",
+              "text": "</a>"
+            }
+          ]
+        }
+      }
+    ],
+    "contrastTable": [
+      {
+        "element": "Link text (default)",
+        "foreground": "#0550DC",
+        "background": "#FFFFFF",
+        "ratio": "5.26:1",
+        "wcag": "Pass"
+      },
+      {
+        "element": "Link text (hovered)",
+        "foreground": "#0343B5",
+        "background": "#FFFFFF",
+        "ratio": "6.82:1",
+        "wcag": "Pass"
+      },
+      {
+        "element": "Link text (pressed)",
+        "foreground": "#023699",
+        "background": "#FFFFFF",
+        "ratio": "8.63:1",
+        "wcag": "Pass"
+      },
+      {
+        "element": "Disabled text",
+        "foreground": "#9898A7",
+        "background": "#FFFFFF",
+        "ratio": "3.01:1",
+        "wcag": "Exempt"
+      },
+      {
+        "element": "Link vs body text",
+        "foreground": "#0550DC",
+        "background": "#1A1A2E",
+        "ratio": "3.24:1",
+        "wcag": "Pass (3:1)"
+      }
+    ],
+    "ariaTable": [
+      {
+        "element": "Link",
+        "role": "link",
+        "label": "Visible text",
+        "focusOrder": "Tab order",
+        "keyboard": "Enter to activate",
+        "announcement": "[Link text], link"
+      },
+      {
+        "element": "External link",
+        "role": "link",
+        "label": "aria-label with context",
+        "focusOrder": "Tab order",
+        "keyboard": "Enter to activate",
+        "announcement": "[Link text], opens in new tab, link"
+      },
+      {
+        "element": "Disabled link",
+        "role": "link",
+        "label": "aria-disabled=true",
+        "focusOrder": "Removed (tabindex=-1)",
+        "keyboard": "Not focusable",
+        "announcement": "[Link text], dimmed, link"
+      }
+    ]
+  },
+  "card9_code": {
+    "language": "css",
+    "tokens": [
+      {
+        "type": "selector",
+        "text": ".zen-link"
+      },
+      {
+        "type": "punctuation",
+        "text": " {"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  color"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "var(--zen-theme-primary)"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  text-decoration"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "underline"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  font"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "var(--zen-font-body-standard)"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  cursor"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "pointer"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  display"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "inline-flex"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  align-items"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "center"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  gap"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "var(--zen-spacing-2xs)"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "comment",
+        "text": " /* 4px */"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "punctuation",
+        "text": "}"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "selector",
+        "text": ".zen-link:hover"
+      },
+      {
+        "type": "punctuation",
+        "text": " {"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  color"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "var(--zen-theme-primary-hover)"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  text-decoration"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "underline"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "punctuation",
+        "text": "}"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "selector",
+        "text": ".zen-link:focus-visible"
+      },
+      {
+        "type": "punctuation",
+        "text": " {"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  outline"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "2px solid var(--zen-theme-primary)"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  outline-offset"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "2px"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  border-radius"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "var(--zen-radius-xs)"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "punctuation",
+        "text": "}"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "selector",
+        "text": ".zen-link--disabled"
+      },
+      {
+        "type": "punctuation",
+        "text": " {"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  color"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "var(--zen-text-disabled)"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  text-decoration"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "none"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "property",
+        "text": "  pointer-events"
+      },
+      {
+        "type": "punctuation",
+        "text": ": "
+      },
+      {
+        "type": "value",
+        "text": "none"
+      },
+      {
+        "type": "punctuation",
+        "text": ";"
+      },
+      {
+        "type": "newline"
+      },
+      {
+        "type": "punctuation",
+        "text": "}"
+      }
+    ]
+  }
+}
