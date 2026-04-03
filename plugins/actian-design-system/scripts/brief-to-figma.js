@@ -1121,7 +1121,9 @@ function autoSplitCalls(data, targetNodeId) {
       fonts: FONTS.slice(),
       imports: { ...IMPORTS },
       localComponents: {
-        targetComponent: { key: data.meta.componentKey },
+        targetComponent: /^\d+:\d+$/.test(data.meta.componentKey)
+          ? { nodeId: data.meta.componentKey }
+          : { key: data.meta.componentKey },
       },
       tree: treeNodes,
     };
