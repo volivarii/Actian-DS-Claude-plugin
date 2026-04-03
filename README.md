@@ -67,11 +67,25 @@ Add to `~/.claude/settings.json`:
 }
 ```
 
-### Manual update
+### Updating the plugin
 
-**Desktop:** Cowork tab > Customize > find Actian Design System > Update
+> **Known issue:** The built-in update mechanism for external marketplace plugins [does not reliably detect new versions](https://github.com/anthropics/claude-code/issues/38271). The cached version persists even after a new release is pushed.
 
-**CLI:** `claude plugin marketplace update actian-design-system`
+**Recommended update method (Desktop and CLI):**
+
+1. Remove the marketplace: Customize > find marketplace > Remove
+2. Re-add the marketplace: `volivarii/Actian-DS-Claude-plugin`
+3. Install the plugin again
+
+**CLI alternative** (faster if it works):
+
+```bash
+cd ~/.claude/plugins/marketplaces/actian-design-system/
+git pull
+claude plugin update actian-design-system@actian-design-system
+```
+
+**Verify your version:** Ask the companion "what version are you running?" — it reads from `plugin.json` at runtime.
 
 ---
 
