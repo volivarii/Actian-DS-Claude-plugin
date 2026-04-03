@@ -864,6 +864,8 @@ function _genInstanceShared(spec, varName, varPrefix, hasNullGuard) {
         }
         lines.push("  " + appendTarget + ".primaryAxisSizingMode = 'AUTO';");
         lines.push("  " + appendTarget + ".counterAxisSizingMode = 'AUTO';");
+        // Root frame must also HUG vertically so it grows with content
+        lines.push("  " + varName + ".primaryAxisSizingMode = 'AUTO';");
         lines.push("}");
       }
     }

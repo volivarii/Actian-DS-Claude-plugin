@@ -120,6 +120,7 @@ if (c0_slot !== c0) {
   c0_slot.paddingLeft = 80;
   c0_slot.primaryAxisSizingMode = 'AUTO';
   c0_slot.counterAxisSizingMode = 'AUTO';
+  c0.primaryAxisSizingMode = 'AUTO';
 }
 var c1 = figma.createFrame();
 c1.name = 'API table';

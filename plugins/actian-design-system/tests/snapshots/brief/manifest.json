@@ -10,55 +10,55 @@
     {
       "callIndex": 2,
       "file": "call-2.js",
-      "sizeBytes": 20053,
+      "sizeBytes": 20090,
       "description": "Call 2/10: Card 2"
     },
     {
       "callIndex": 3,
       "file": "call-3.js",
-      "sizeBytes": 33601,
+      "sizeBytes": 33638,
       "description": "Call 3/10: Card 3"
     },
     {
       "callIndex": 4,
       "file": "call-4.js",
-      "sizeBytes": 32592,
+      "sizeBytes": 32629,
       "description": "Call 4/10: Card 4"
     },
     {
       "callIndex": 5,
       "file": "call-5.js",
-      "sizeBytes": 26663,
+      "sizeBytes": 26700,
       "description": "Call 5/10: Card 5"
     },
     {
       "callIndex": 6,
       "file": "call-6.js",
-      "sizeBytes": 15325,
+      "sizeBytes": 15362,
       "description": "Call 6/10: Card 6"
     },
     {
       "callIndex": 7,
       "file": "call-7.js",
-      "sizeBytes": 20070,
+      "sizeBytes": 20107,
       "description": "Call 7/10: Card 7"
     },
     {
       "callIndex": 8,
       "file": "call-8.js",
-      "sizeBytes": 18173,
+      "sizeBytes": 18210,
       "description": "Call 8/10: Card 8a"
     },
     {
       "callIndex": 9,
       "file": "call-9.js",
-      "sizeBytes": 35654,
+      "sizeBytes": 35691,
       "description": "Call 9/10: Card 8b"
     },
     {
       "callIndex": 10,
       "file": "call-10.js",
-      "sizeBytes": 6523,
+      "sizeBytes": 6560,
       "description": "Call 10/10: Card 9"
     }
   ]
