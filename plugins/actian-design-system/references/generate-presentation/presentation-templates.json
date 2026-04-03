@@ -1,6 +1,14 @@
 {
   "sourceFile": "l7KNDEvTs22yr7xbymwoYe",
   "sourceSection": "5557:16",
+  "metaKitFile": "osoeCLcrWqfoq8TvLQoyh0",
+  "componentKeys": {
+    "cover": "a12f6f0b26fffc59fdac49df2bc3c36182c912da",
+    "bodyFull": "281e7a9bc55abe69bb2364e639f7511b4a005694",
+    "bodyTextVisual": "28ea7a37752149d78679847ec7893368a4c4f1a0",
+    "section": "348efaa22a6da818c435017399a357b47257bcdc",
+    "backCover": "6df533ae800a6596fd84e93a2e5fc725dbd6a369"
+  },
   "templates": {
     "cover": {
       "nodeId": "5557:17",

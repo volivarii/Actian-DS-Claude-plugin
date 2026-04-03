@@ -59,12 +59,16 @@ const LIGHT_GRADIENT = [{
 }];
 
 const IMPORTS = {
-  genLog: { key: 'a9653f30925367e96dea90093d750bfe70849571', method: 'single' },
-  actianPyramid: { key: '84e6abe2e5b7dbe96a859397f557249922560413', method: 'set' }
+  genLog:       { key: 'a9653f30925367e96dea90093d750bfe70849571', method: 'single' },
+  slideCover:   { key: 'a12f6f0b26fffc59fdac49df2bc3c36182c912da', method: 'single' },
+  slideBodyFull:{ key: '281e7a9bc55abe69bb2364e639f7511b4a005694', method: 'single' },
+  slideBodyTV:  { key: '28ea7a37752149d78679847ec7893368a4c4f1a0', method: 'single' },
+  slideSection: { key: '348efaa22a6da818c435017399a357b47257bcdc', method: 'single' },
+  slideBack:    { key: '6df533ae800a6596fd84e93a2e5fc725dbd6a369', method: 'single' }
 };
 
-// Template source file — for cloning background graphics
-const TEMPLATE_FILE_KEY = 'l7KNDEvTs22yr7xbymwoYe';
+// Template source (reference only — components now live in Meta Kit)
+// const TEMPLATE_FILE_KEY = 'l7KNDEvTs22yr7xbymwoYe';
 const BG_GRAPHIC_NODES = {
   dark: '5557:18',   // Cover & back cover background
   light: '5557:38'   // Section divider background
@@ -76,42 +80,38 @@ const BG_GRAPHIC_NODES = {
 
 function buildCover(slide) {
   return {
-    type: 'FRAME',
+    type: 'INSTANCE',
+    ref: 'slideCover',
     name: slide.name || 'Slide: Cover',
-    width: SLIDE_W, height: SLIDE_H,
-    layout: { mode: 'NONE' },
-    clipsContent: true,
-    fills: DARK_GRADIENT,
-    children: [
-      { type: 'TEXT', name: 'Topic', content: slide.topic || '', font: 'Roboto:Medium', size: 40, color: '#FFFFFF', width: 1429, x: 80, y: 88, lineHeight: { value: 36, unit: 'PIXELS' }, variables: { 'fills.0.color': 'textReverse' } },
-      { type: 'TEXT', name: 'Title', content: slide.title || '', font: 'Roboto:Medium', size: 130, color: '#FFFFFF', width: 1760, x: 69, y: 166, lineHeight: { value: 102, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textReverse' } },
-      { type: 'TEXT', name: 'Subtitle', content: slide.subtitle || '', font: 'Roboto:Regular', size: 60, color: '#FFFFFF', width: 1760, x: 69, y: 341, lineHeight: { value: 102, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textReverse' } },
-      { type: 'TEXT', name: 'Date', content: slide.date || '', font: 'Roboto:Regular', size: 32, color: '#FFFFFF', x: 80, y: 931, lineHeight: { value: 32, unit: 'PIXELS' }, variables: { 'fills.0.color': 'textReverse' } },
-      { type: 'TEXT', name: 'Creators', content: slide.creators || '', font: 'Roboto:Regular', size: 32, color: '#FFFFFF', x: 80, y: 980, lineHeight: { value: 32, unit: 'PIXELS' }, variables: { 'fills.0.color': 'textReverse' } },
-      { type: 'INSTANCE', ref: 'actianPyramid', variant: 'Color=White', x: 1760, y: 947, width: 80, height: 68 }
-    ]
+    props: {
+      'Topic': slide.topic || '',
+      'Title': slide.title || '',
+      'Subtitle': slide.subtitle || '',
+      'Date': slide.date || '',
+      'Creators': slide.creators || ''
+    }
   };
 }
 
 function buildSection(slide) {
   return {
-    type: 'FRAME',
+    type: 'INSTANCE',
+    ref: 'slideSection',
     name: slide.name || 'Slide: Section',
-    width: SLIDE_W, height: SLIDE_H,
-    layout: { mode: 'NONE' },
-    clipsContent: true,
-    fills: LIGHT_GRADIENT,
-    children: [
-      { type: 'TEXT', name: 'Topic', content: slide.topic || '', font: 'Roboto:Regular', size: 60, color: '#12131F', width: 1760, x: 69, y: 361, lineHeight: { value: 102, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textPrimary' } },
-      { type: 'TEXT', name: 'Title', content: slide.title || '', font: 'Roboto:Medium', size: 130, color: '#12131F', width: 1760, x: 69, y: 449, lineHeight: { value: 102, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textPrimary' } }
-    ]
+    props: {
+      'Topic': slide.topic || '',
+      'Title': slide.title || ''
+    }
   };
 }
 
 function buildBodyFull(slide) {
+  // Body slides use build-from-scratch — the content area is filled with
+  // generated nodes that can't be added as component instance overrides.
+  // Cover/section/back-cover use real template imports.
   const children = [
     {
-      type: 'TEXT', name: 'Slide title', content: slide.title || '',
+      type: 'TEXT', name: 'Title', content: slide.title || '',
       font: 'Roboto:Regular', size: 56, color: '#12131F',
       lineHeight: { value: 103, unit: 'PERCENT' },
       sizing: { horizontal: 'FILL', vertical: 'HUG' },
@@ -143,6 +143,8 @@ function buildBodyFull(slide) {
 }
 
 function buildBodyTextVisual(slide) {
+  // Body slides use build-from-scratch — visual content area is filled with
+  // generated nodes. Cover/section/back-cover use real template imports.
   return {
     type: 'FRAME',
     name: slide.name || 'Slide: Body',
@@ -153,7 +155,7 @@ function buildBodyTextVisual(slide) {
     variables: { 'fills.0.color': 'bgDefault' },
     children: [
       {
-        type: 'TEXT', name: 'Slide title', content: slide.title || '',
+        type: 'TEXT', name: 'Title', content: slide.title || '',
         font: 'Roboto:Regular', size: 56, color: '#12131F',
         lineHeight: { value: 103, unit: 'PERCENT' },
         sizing: { horizontal: 'FILL', vertical: 'HUG' },
@@ -171,7 +173,7 @@ function buildBodyTextVisual(slide) {
             sizing: { horizontal: 549, vertical: 'FILL' },
             fills: [],
             children: slide.textContent || [
-              { type: 'TEXT', name: 'Body', content: slide.body || '', font: 'Roboto:Regular', size: 24, color: '#12131F', width: 549, lineHeight: { value: 150, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textPrimary' } }
+              { type: 'TEXT', name: 'Body', content: slide.body || '', font: 'Roboto:Regular', size: 24, color: '#000000', width: 549, lineHeight: { value: 130, unit: 'PERCENT' } }
             ]
           },
           {
@@ -180,9 +182,7 @@ function buildBodyTextVisual(slide) {
             sizing: { horizontal: 'FILL', vertical: 'FILL' },
             fills: ['#F5F5FA'], cornerRadius: 4,
             variables: { 'fills.0.color': 'bgGrey2' },
-            children: slide.visualContent || [
-              { type: 'TEXT', name: 'Visual placeholder', content: 'Visual content here', font: 'Roboto:Regular', size: 18, color: '#717D96' }
-            ]
+            children: slide.visualContent || []
           }
         ]
       }
@@ -192,16 +192,12 @@ function buildBodyTextVisual(slide) {
 
 function buildBackCover(slide) {
   return {
-    type: 'FRAME',
+    type: 'INSTANCE',
+    ref: 'slideBack',
     name: slide.name || 'Slide: Back cover',
-    width: SLIDE_W, height: SLIDE_H,
-    layout: { mode: 'NONE' },
-    clipsContent: true,
-    fills: DARK_GRADIENT,
-    children: [
-      { type: 'TEXT', name: 'Closing text', content: slide.title || 'Thank you', font: 'Roboto:Medium', size: 152, color: '#FFFFFF', width: 1760, x: 80, y: 421, lineHeight: { value: 102, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textReverse' } },
-      { type: 'INSTANCE', ref: 'actianPyramid', variant: 'Color=White', x: 1760, y: 947, width: 80, height: 68 }
-    ]
+    props: {
+      'Title': slide.title || 'Thank you'
+    }
   };
 }
 
