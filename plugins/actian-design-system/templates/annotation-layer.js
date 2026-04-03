@@ -331,11 +331,13 @@
             // Fallback: copy to clipboard instead
             console.warn('[annotation-layer] Server POST failed, falling back to clipboard');
             this.exportJSON();
+            this._showServerlessHint();
           }
         } catch (e) {
-          // Server doesn't support POST — fall back to clipboard
-          console.warn('[annotation-layer] POST not available, falling back to clipboard');
+          // Server doesn't support POST (e.g., file:// or Cowork sandbox) — copy to clipboard
+          console.warn('[annotation-layer] POST not available, copying to clipboard');
           this.exportJSON();
+          this._showServerlessHint();
         }
       },
 
@@ -359,6 +361,25 @@
       _showCopyFeedback() {
         this.copyFeedback = true;
         setTimeout(() => { this.copyFeedback = false; }, 2200);
+      },
+
+      _showServerlessHint() {
+        const toast = document.createElement('div');
+        toast.innerHTML = 'Annotations copied to clipboard.<br>Paste into the chat to apply.';
+        toast.style.cssText = `
+          position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+          z-index: 99999; background: #1e40af; color: #fff;
+          font-family: Inter, system-ui, sans-serif; font-size: 14px; font-weight: 500;
+          padding: 12px 24px; border-radius: 10px; text-align: center; line-height: 1.5;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+          opacity: 0; transition: opacity 0.3s;
+        `;
+        document.body.appendChild(toast);
+        requestAnimationFrame(() => { toast.style.opacity = '1'; });
+        setTimeout(() => {
+          toast.style.opacity = '0';
+          setTimeout(() => toast.remove(), 300);
+        }, 4000);
       },
 
       // ─────────────────────────────────────────────
