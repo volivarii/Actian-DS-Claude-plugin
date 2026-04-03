@@ -348,7 +348,8 @@ function genVisualProps(varName, spec) {
     if (ef) lines.push(ef);
   }
   if (spec.opacity != null) {
-    lines.push(varName + '.opacity = ' + spec.opacity + ';');
+    var opVal = typeof spec.opacity === 'object' ? spec.opacity.value : spec.opacity;
+    lines.push(varName + '.opacity = ' + opVal + ';');
   }
   return lines;
 }
@@ -407,6 +408,9 @@ function _genFrame(spec, varName) {
       const childCode = generateNodeCode(child, childVar);
       lines.push(childCode);
       lines.push(varName + '.appendChild(' + childVar + ');');
+      // Absolute positioning for children of NONE-layout frames
+      if (child.x !== undefined) lines.push(childVar + '.x = ' + child.x + ';');
+      if (child.y !== undefined) lines.push(childVar + '.y = ' + child.y + ';');
       if (child.sizing) {
         const sc = genSizing(childVar, child.sizing);
         if (sc) lines.push(sc);
@@ -445,7 +449,10 @@ function _genText(spec, varName) {
   lines.push("await figma.loadFontAsync({ family: '" + esc(fontFamily) + "', style: '" + esc(fontStyle) + "' });");
   lines.push(varName + ".fontName = { family: '" + esc(fontFamily) + "', style: '" + esc(fontStyle) + "' };");
 
-  if (spec.size !== undefined) lines.push(varName + '.fontSize = ' + spec.size + ';');
+  if (spec.size !== undefined) {
+    var szVal = typeof spec.size === 'object' ? spec.size.value : spec.size;
+    lines.push(varName + '.fontSize = ' + szVal + ';');
+  }
   if (spec.content !== undefined) lines.push(varName + '.characters = ' + lit(String(spec.content)) + ';');
 
   // Color
@@ -476,10 +483,14 @@ function _genText(spec, varName) {
     }
   }
 
-  if (spec.opacity != null) lines.push(varName + '.opacity = ' + spec.opacity + ';');
+  if (spec.opacity != null) {
+    var opVal2 = typeof spec.opacity === 'object' ? spec.opacity.value : spec.opacity;
+    lines.push(varName + '.opacity = ' + opVal2 + ';');
+  }
 
   if (spec.lineHeight !== undefined) {
-    lines.push(varName + ".lineHeight = { value: " + spec.lineHeight + ", unit: 'PIXELS' };");
+    var lhVal = typeof spec.lineHeight === 'object' ? spec.lineHeight.value : spec.lineHeight;
+    lines.push(varName + ".lineHeight = { value: " + lhVal + ", unit: 'PIXELS' };");
   }
 
   return lines.join('\n');
@@ -609,6 +620,11 @@ function _genInstanceShared(spec, varName, varPrefix, hasNullGuard) {
 
   if (spec.name) lines.push(varName + '.name = ' + lit(spec.name) + ';');
 
+  // Resize instance if width/height specified
+  if (spec.width !== undefined && spec.height !== undefined) {
+    lines.push(varName + '.resize(' + spec.width + ', ' + spec.height + ');');
+  }
+
   if (spec.props) {
     for (const prop in spec.props) {
       lines.push('setProp(' + varName + ', ' + lit(prop) + ', ' + lit(spec.props[prop]) + ');');
@@ -631,6 +647,8 @@ function _genInstanceShared(spec, varName, varPrefix, hasNullGuard) {
       const childCode = generateNodeCode(child, childVar);
       childCode.split('\n').forEach(l => lines.push(l));
       lines.push(varName + '.appendChild(' + childVar + ');');
+      if (child.x !== undefined) lines.push(childVar + '.x = ' + child.x + ';');
+      if (child.y !== undefined) lines.push(childVar + '.y = ' + child.y + ';');
       if (child.sizing) {
         const sc = genSizing(childVar, child.sizing);
         if (sc) sc.split('\n').forEach(l => lines.push(l));

@@ -21,7 +21,7 @@ const codegen = require('./figma-codegen');
 // Constants
 // ---------------------------------------------------------------------------
 
-const MAX_BIN_SIZE = 25000; // bytes (raw JSON of items in bin)
+const MAX_BIN_SIZE = 12000; // bytes (raw JSON of items in bin) — keep calls under 50KB
 const OVERHEAD = 800;       // per-item overhead estimate
 
 const SLIDE_W = 1920;
@@ -59,7 +59,15 @@ const LIGHT_GRADIENT = [{
 }];
 
 const IMPORTS = {
-  genLog: { key: 'a9653f30925367e96dea90093d750bfe70849571', method: 'single' }
+  genLog: { key: 'a9653f30925367e96dea90093d750bfe70849571', method: 'single' },
+  actianPyramid: { key: '84e6abe2e5b7dbe96a859397f557249922560413', method: 'set' }
+};
+
+// Template source file — for cloning background graphics
+const TEMPLATE_FILE_KEY = 'l7KNDEvTs22yr7xbymwoYe';
+const BG_GRAPHIC_NODES = {
+  dark: '5557:18',   // Cover & back cover background
+  light: '5557:38'   // Section divider background
 };
 
 // ---------------------------------------------------------------------------
@@ -75,11 +83,12 @@ function buildCover(slide) {
     clipsContent: true,
     fills: DARK_GRADIENT,
     children: [
-      { type: 'TEXT', name: 'Topic', content: slide.topic || '', font: 'Roboto:Medium', size: 40, color: '#FFFFFF', width: 1760, x: 80, y: 88, variables: { 'fills.0.color': 'textReverse' } },
+      { type: 'TEXT', name: 'Topic', content: slide.topic || '', font: 'Roboto:Medium', size: 40, color: '#FFFFFF', width: 1429, x: 80, y: 88, lineHeight: { value: 36, unit: 'PIXELS' }, variables: { 'fills.0.color': 'textReverse' } },
       { type: 'TEXT', name: 'Title', content: slide.title || '', font: 'Roboto:Medium', size: 130, color: '#FFFFFF', width: 1760, x: 69, y: 166, lineHeight: { value: 102, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textReverse' } },
-      { type: 'TEXT', name: 'Subtitle', content: slide.subtitle || '', font: 'Roboto:Regular', size: 60, color: '#FFFFFF', opacity: 0.8, width: 1760, x: 69, y: 341, lineHeight: { value: 102, unit: 'PERCENT' } },
-      { type: 'TEXT', name: 'Date', content: slide.date || '', font: 'Roboto:Regular', size: 32, color: '#FFFFFF', x: 80, y: 931, variables: { 'fills.0.color': 'textReverse' } },
-      { type: 'TEXT', name: 'Creators', content: slide.creators || '', font: 'Roboto:Regular', size: 32, color: '#FFFFFF', x: 80, y: 980, variables: { 'fills.0.color': 'textReverse' } }
+      { type: 'TEXT', name: 'Subtitle', content: slide.subtitle || '', font: 'Roboto:Regular', size: 60, color: '#FFFFFF', width: 1760, x: 69, y: 341, lineHeight: { value: 102, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textReverse' } },
+      { type: 'TEXT', name: 'Date', content: slide.date || '', font: 'Roboto:Regular', size: 32, color: '#FFFFFF', x: 80, y: 931, lineHeight: { value: 32, unit: 'PIXELS' }, variables: { 'fills.0.color': 'textReverse' } },
+      { type: 'TEXT', name: 'Creators', content: slide.creators || '', font: 'Roboto:Regular', size: 32, color: '#FFFFFF', x: 80, y: 980, lineHeight: { value: 32, unit: 'PIXELS' }, variables: { 'fills.0.color': 'textReverse' } },
+      { type: 'INSTANCE', ref: 'actianPyramid', variant: 'Color=White', x: 1760, y: 947, width: 80, height: 68 }
     ]
   };
 }
@@ -190,7 +199,8 @@ function buildBackCover(slide) {
     clipsContent: true,
     fills: DARK_GRADIENT,
     children: [
-      { type: 'TEXT', name: 'Closing text', content: slide.title || 'Thank you', font: 'Roboto:Medium', size: 152, color: '#FFFFFF', width: 1760, x: 69, y: 361, lineHeight: { value: 102, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textReverse' } }
+      { type: 'TEXT', name: 'Closing text', content: slide.title || 'Thank you', font: 'Roboto:Medium', size: 152, color: '#FFFFFF', width: 1760, x: 80, y: 421, lineHeight: { value: 102, unit: 'PERCENT' }, variables: { 'fills.0.color': 'textReverse' } },
+      { type: 'INSTANCE', ref: 'actianPyramid', variant: 'Color=White', x: 1760, y: 947, width: 80, height: 68 }
     ]
   };
 }
@@ -328,8 +338,8 @@ function autoSplit(meta, allItems, usedVars) {
       ' (' + codeSize + ' bytes)';
 
     process.stderr.write('Call ' + (b + 1) + ': ' + bins[b].length + ' items, ' + codeSize + ' bytes code\n');
-    if (codeSize > 100000) {
-      process.stderr.write('WARNING: Call ' + (b + 1) + ' code exceeds 100KB\n');
+    if (codeSize > 45000) {
+      process.stderr.write('WARNING: Call ' + (b + 1) + ' code exceeds 45KB (' + codeSize + ' bytes) — may hit use_figma limit\n');
     }
 
     calls.push({ callIndex: b + 1, code: code, description: description });

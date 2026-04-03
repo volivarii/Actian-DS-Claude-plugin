@@ -1,7 +1,7 @@
 # Actian Presentation Guide
 
 > Slide templates, content guidelines, and data visualization rules for the `/generate-presentation` skill.
-> Source templates: [Template for projects](https://www.figma.com/design/<TEMPLATES_FILE_KEY>/Template-for-projects?node-id=5557-16)
+> Source templates: [Template for projects](https://www.figma.com/design/l7KNDEvTs22yr7xbymwoYe/Template-for-projects?node-id=5557-16)
 
 ---
 
@@ -150,7 +150,7 @@ Both dark and light slides share the same geometric pattern — three overlappin
 | Back cover | `5557:44` |
 | Actian pyramid (white) | `5317:44` |
 
-File key: `<TEMPLATES_FILE_KEY>`
+File key: `l7KNDEvTs22yr7xbymwoYe`
 
 ---
 

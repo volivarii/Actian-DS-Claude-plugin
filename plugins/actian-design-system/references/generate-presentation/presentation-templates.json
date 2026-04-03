@@ -1,0 +1,95 @@
+{
+  "sourceFile": "l7KNDEvTs22yr7xbymwoYe",
+  "sourceSection": "5557:16",
+  "templates": {
+    "cover": {
+      "nodeId": "5557:17",
+      "name": "Presentation cover",
+      "size": { "width": 1920, "height": 1080 },
+      "background": "linear-gradient(80.12deg, #090952 1.85%, #1414B8 107.45%)",
+      "bgGraphic": {
+        "nodeId": "5557:18",
+        "type": "vector-group",
+        "rotation": -60,
+        "note": "Complex overlapping vector shapes — must be cloned or imported as image"
+      },
+      "elements": {
+        "topic": { "nodeId": "5557:27", "x": 80, "y": 88, "width": 1429, "font": "Roboto:Medium", "size": 40, "color": "white", "lineHeight": "36px" },
+        "title": { "nodeId": "5557:23", "x": 69, "y": 166, "width": 1760, "font": "Roboto:Medium", "size": 130, "color": "white", "lineHeight": 1.02 },
+        "subtitle": { "nodeId": "5557:24", "x": 69, "y": 341, "width": 1760, "font": "Roboto:Regular", "size": 60, "color": "white", "lineHeight": 1.02 },
+        "date": { "nodeId": "5557:25", "x": 80, "y": 931, "font": "Roboto:Regular", "size": 32, "color": "white", "lineHeight": "32px" },
+        "creators": { "nodeId": "5557:26", "x": 80, "y": 980, "font": "Roboto:Regular", "size": 32, "color": "white", "lineHeight": "32px" },
+        "pyramid": { "nodeId": "5557:28", "componentNodeId": "5317:44", "x": 1760, "y": 947, "width": 80, "height": 68 }
+      }
+    },
+    "bodyFull": {
+      "nodeId": "5557:29",
+      "name": "Presentation body",
+      "size": { "width": 1920, "height": 1080 },
+      "background": "white",
+      "elements": {
+        "label": { "nodeId": "5557:30", "x": 80, "y": 44, "width": 1760, "font": "Roboto:Regular", "size": 25, "hidden": true, "note": "Optional — hidden by default" },
+        "title": { "nodeId": "5557:31", "x": 80, "y": 64, "width": 1760, "font": "Roboto:Regular", "size": 56, "color": "#12131F", "lineHeight": 1.03 },
+        "contentArea": { "nodeId": "5557:32", "x": 79, "y": 187, "width": 1761, "height": 829, "background": "#F5F5FA" }
+      }
+    },
+    "bodyTextVisual": {
+      "nodeId": "5557:33",
+      "name": "Presentation body",
+      "size": { "width": 1920, "height": 1080 },
+      "background": "white",
+      "elements": {
+        "title": { "nodeId": "5557:34", "x": 80, "y": 64, "width": 1760, "font": "Roboto:Regular", "size": 56, "color": "#12131F", "lineHeight": 1.03 },
+        "body": { "nodeId": "5557:36", "x": 80, "y": 187, "width": 549, "height": 829, "font": "Roboto:Regular", "size": 24, "color": "black", "lineHeight": 1.3 },
+        "visualArea": { "nodeId": "5557:35", "x": 685, "y": 187, "width": 1155, "height": 829, "background": "#F5F5FA", "cornerRadius": 4 }
+      }
+    },
+    "section": {
+      "nodeId": "5557:37",
+      "name": "Section",
+      "size": { "width": 1920, "height": 1080 },
+      "background": "linear-gradient(80.12deg, #EEEEFD 1.85%, #CBDAFF 107.45%)",
+      "bgGraphic": {
+        "nodeId": "5557:38",
+        "type": "vector-group",
+        "rotation": -60,
+        "note": "Same geometric shape as cover but in light tones"
+      },
+      "elements": {
+        "topic": { "nodeId": "5557:43", "x": 69, "y": 361, "width": 1760, "font": "Roboto:Regular", "size": 60, "color": "#12131F", "lineHeight": 1.02 },
+        "title": { "nodeId": "5557:42", "x": 69, "y": 449, "width": 1760, "font": "Roboto:Medium", "size": 130, "color": "#12131F", "lineHeight": 1.02 }
+      }
+    },
+    "backCover": {
+      "nodeId": "5557:44",
+      "name": "Back cover",
+      "size": { "width": 1920, "height": 1080 },
+      "background": "linear-gradient(80.12deg, #090952 1.85%, #1414B8 107.45%)",
+      "bgGraphic": {
+        "nodeId": "5557:45",
+        "type": "vector-group",
+        "rotation": -60,
+        "note": "Same as cover"
+      },
+      "elements": {
+        "title": { "nodeId": "5557:49", "x": 80, "y": 421, "width": 1760, "font": "Roboto:Medium", "size": 152, "color": "white", "lineHeight": 1.02 },
+        "pyramid": { "nodeId": "5557:50", "componentNodeId": "5317:44", "x": 1760, "y": 947, "width": 80, "height": 68 }
+      }
+    }
+  },
+  "sharedAssets": {
+    "actianPyramid": {
+      "type": "component",
+      "nodeId": "5317:44",
+      "note": "Import with importComponentByKeyAsync — it IS a component instance"
+    },
+    "backgroundGraphicDark": {
+      "type": "vector-group",
+      "note": "Complex rotated vectors. For Figma push: clone from source file or use createImageAsync with exported PNG. For HTML: CSS approximation with geo-rect shapes."
+    },
+    "backgroundGraphicLight": {
+      "type": "vector-group",
+      "note": "Same shape, lighter color variant for section dividers"
+    }
+  }
+}
