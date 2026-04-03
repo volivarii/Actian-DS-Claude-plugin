@@ -669,22 +669,29 @@ function main() {
   const bins = shared.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
   const totalCalls = bins.length;
 
-  // Assemble interpreter calls for each bin
+  // Call 0: install interpreter runtime
   const results = [];
+  const installCode = shared.assembleInstallCall();
+  process.stderr.write(
+    "Call 0: install interpreter (" +
+      Buffer.byteLength(installCode) +
+      " bytes)\n",
+  );
+  results.push({
+    callIndex: 0,
+    code: installCode,
+    description: "Call 0: install interpreter runtime",
+  });
 
   for (let b = 0; b < bins.length; b++) {
     const bin = bins[b];
     const callIdx = b + 1;
 
-    // Scan refs across all items in this bin
     const refs = scanRefs(bin);
     const imports = resolveImports(refs, refMap);
 
-    // Build spec for interpreter
     const spec = {
-      meta: {
-        skill: "generate-flow",
-      },
+      meta: { skill: "generate-flow" },
       fonts: FONTS,
       imports: imports,
       tree: bin,
@@ -698,7 +705,6 @@ function main() {
       spec.meta.appendToId = "__LAST_WRAPPER__";
     }
 
-    // Assemble: interpreter runtime + JSON spec
     const code = shared.assembleCall(spec);
     const codeSize = Buffer.byteLength(code, "utf8");
 

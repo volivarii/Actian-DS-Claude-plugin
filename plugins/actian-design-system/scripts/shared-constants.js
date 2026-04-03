@@ -30,6 +30,10 @@ const META_KEYS = {
     method: "single",
   },
   feedback: { key: "d5cba21bc3dbf36578665bac89834fbe1ca29ed0", method: "set" },
+  flowScreen: {
+    key: "2ca7c756ad54e81219104d3a270ba8eb9eeffcf6",
+    method: "set",
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -55,6 +59,49 @@ const BRIEF_KEYS = {
     method: "set",
   },
   a11yCard: { key: "b4779a13f4097d682413a669eaaf9ead1b49f115", method: "set" },
+  colorSwatch: {
+    key: "da3369932f710386b76ca91a40ebd48d94e3f2e0",
+    method: "set",
+  },
+  themeCard: {
+    key: "9081a7761dfbe11d576182f3cb1711b9e76c2d36",
+    method: "set",
+  },
+  statCard: {
+    key: "8662c721d74d6f0079f273f76eec374b12ec2fae",
+    method: "set",
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Template keys (clone → detach → fill textSlots)
+// ---------------------------------------------------------------------------
+
+const TEMPLATE_KEYS = {
+  tableHeaderRow: {
+    key: "0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e",
+    method: "single",
+  },
+  tableDataRow: {
+    key: "3a1fae22dd85936f81565122888efd8a50e37180",
+    method: "single",
+  },
+  stateColumn: {
+    key: "4f782d1a8541b4474858767209f99dce1428784b",
+    method: "single",
+  },
+  sectionHeader: {
+    key: "f4fd576001f4f1f4606a4efb051d1e4492e378c4",
+    method: "single",
+  },
+  swatchRow: {
+    key: "96647364b6cb5c55b7ced72106708daaa33afb7f",
+    method: "single",
+  },
+  a11ySpecRow: {
+    key: "92ed7bc88cf229782c4b42238aacba1d15f8fd06",
+    method: "single",
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -265,17 +312,35 @@ function getInterpreterSource() {
 }
 
 /**
- * Assemble a use_figma call: interpreter runtime + JSON spec.
- * Returns a self-contained JavaScript string that executes the spec in Figma.
+ * Generate "call 0" that installs the interpreter runtime into shared plugin data.
+ * Execute once before any spec calls. Returns ~28KB.
+ */
+function assembleInstallCall() {
+  var interpreterSource = getInterpreterSource();
+  return (
+    "figma.root.setSharedPluginData('actian_ds', 'interpreter', " +
+    JSON.stringify(interpreterSource) +
+    ");\n" +
+    "return { installed: true, size: " +
+    interpreterSource.length +
+    " };"
+  );
+}
+
+/**
+ * Assemble a spec call. Reads stored interpreter via eval(), executes spec.
+ * Each call is just bootstrap (~200 bytes) + JSON spec.
  */
 function assembleCall(spec) {
-  var interpreterSource = getInterpreterSource();
   var specJSON = JSON.stringify(spec);
   return (
-    interpreterSource +
-    "\nvar _spec = " +
+    "var _rt = figma.root.getSharedPluginData('actian_ds', 'interpreter');\n" +
+    "if (!_rt) throw new Error('Interpreter not found — run install call first');\n" +
+    "eval(_rt);\n" +
+    "var _spec = " +
     specJSON +
-    ";\nreturn await buildFromSpec(_spec);"
+    ";\n" +
+    "return await buildFromSpec(_spec);"
   );
 }
 
@@ -313,11 +378,13 @@ function binPack(items, maxBinSize, overhead) {
 module.exports = {
   META_KEYS,
   BRIEF_KEYS,
+  TEMPLATE_KEYS,
   SLIDE_KEYS,
   FM_FALLBACK_KEYS,
   TOKEN_COLORS,
   PALETTE,
   buildGenLog,
+  assembleInstallCall,
   assembleCall,
   compactSize,
   binPack,

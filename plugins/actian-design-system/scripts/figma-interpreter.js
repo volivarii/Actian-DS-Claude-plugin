@@ -7,6 +7,7 @@
 // - contentSlot layout override (clear placeholder + set auto-layout on Content frame)
 // - Instance resize (width/height before detach)
 // - Root frame HUG after contentSlot setup
+// - textSlots: fill named TEXT children by name after detach (for templates)
 // - setSharedPluginData for wrapper ID auto-discovery between calls
 
 // ─── Entry Point ───────────────────────────────────────────────────────────────
@@ -18,26 +19,32 @@ async function buildFromSpec(spec) {
     targetNode = await figma.getNodeByIdAsync(spec.meta.targetNodeId);
   }
   var page = targetNode;
-  while (page && page.type !== 'PAGE') page = page.parent;
+  while (page && page.type !== "PAGE") page = page.parent;
   if (page) await figma.setCurrentPageAsync(page);
 
   // 2. Load all fonts
-  await Promise.all((spec.fonts || []).map(function (f) {
-    var parts = f.split(':');
-    return figma.loadFontAsync({ family: parts[0], style: (parts[1] || 'Regular').trim() });
-  }));
+  await Promise.all(
+    (spec.fonts || []).map(function (f) {
+      var parts = f.split(":");
+      return figma.loadFontAsync({
+        family: parts[0],
+        style: (parts[1] || "Regular").trim(),
+      });
+    }),
+  );
 
   // 3. Import all components, cache in ctx
   var ctx = { imports: {}, locals: {}, variables: {}, styles: {} };
-  for (var ref in (spec.imports || {})) {
+  for (var ref in spec.imports || {}) {
     var def = spec.imports[ref];
-    ctx.imports[ref] = def.method === 'set'
-      ? await figma.importComponentSetByKeyAsync(def.key)
-      : await figma.importComponentByKeyAsync(def.key);
+    ctx.imports[ref] =
+      def.method === "set"
+        ? await figma.importComponentSetByKeyAsync(def.key)
+        : await figma.importComponentByKeyAsync(def.key);
   }
 
   // 3b. Load local components (by node ID or component key)
-  for (var lRef in (spec.localComponents || {})) {
+  for (var lRef in spec.localComponents || {}) {
     var lDef = spec.localComponents[lRef];
     if (lDef.key) {
       ctx.locals[lRef] = await figma.importComponentSetByKeyAsync(lDef.key);
@@ -47,42 +54,55 @@ async function buildFromSpec(spec) {
   }
 
   // 4. Import all variables, cache in ctx
-  for (var vRef in (spec.variables || {})) {
-    ctx.variables[vRef] = await figma.variables.importVariableByKeyAsync(spec.variables[vRef].key);
+  for (var vRef in spec.variables || {}) {
+    ctx.variables[vRef] = await figma.variables.importVariableByKeyAsync(
+      spec.variables[vRef].key,
+    );
   }
 
   // 5. Import all styles, cache in ctx
-  for (var sRef in (spec.styles || {})) {
+  for (var sRef in spec.styles || {}) {
     ctx.styles[sRef] = await figma.importStyleByKeyAsync(spec.styles[sRef].key);
   }
 
   // 6. Create or find wrapper frame
   var wrapper;
-  if (spec.meta.appendToId === '__LAST_WRAPPER__') {
+  if (spec.meta.appendToId === "__LAST_WRAPPER__") {
     // Auto-discover wrapper from previous call via shared plugin data
-    var lastWrapperId = figma.root.getSharedPluginData('actian_ds', 'last_wrapper');
-    if (!lastWrapperId) throw new Error('No wrapper found from previous call');
+    var lastWrapperId = figma.root.getSharedPluginData(
+      "actian_ds",
+      "last_wrapper",
+    );
+    if (!lastWrapperId) throw new Error("No wrapper found from previous call");
     wrapper = await figma.getNodeByIdAsync(lastWrapperId);
-    if (!wrapper) throw new Error('Wrapper ' + lastWrapperId + ' no longer exists');
+    if (!wrapper)
+      throw new Error("Wrapper " + lastWrapperId + " no longer exists");
   } else if (spec.meta.appendToId) {
     wrapper = await figma.getNodeByIdAsync(spec.meta.appendToId);
-    if (!wrapper) throw new Error('Wrapper ' + spec.meta.appendToId + ' not found');
+    if (!wrapper)
+      throw new Error("Wrapper " + spec.meta.appendToId + " not found");
   } else {
     wrapper = figma.createFrame();
-    wrapper.name = spec.meta.wrapperName || (spec.meta.skill + ': ' + (spec.meta.component || 'output'));
-    wrapper.layoutMode = 'HORIZONTAL';
+    wrapper.name =
+      spec.meta.wrapperName ||
+      spec.meta.skill + ": " + (spec.meta.component || "output");
+    wrapper.layoutMode = "HORIZONTAL";
     wrapper.itemSpacing = 32;
-    wrapper.primaryAxisSizingMode = 'AUTO';
-    wrapper.counterAxisSizingMode = 'AUTO';
+    wrapper.primaryAxisSizingMode = "AUTO";
+    wrapper.counterAxisSizingMode = "AUTO";
     wrapper.fills = [];
   }
 
   // Store wrapper ID for subsequent calls
-  figma.root.setSharedPluginData('actian_ds', 'last_wrapper', wrapper.id);
+  figma.root.setSharedPluginData("actian_ds", "last_wrapper", wrapper.id);
 
   // 7. Build tree recursively
   var nodeCount = 0;
-  var treeNodes = Array.isArray(spec.tree) ? spec.tree : spec.tree ? [spec.tree] : [];
+  var treeNodes = Array.isArray(spec.tree)
+    ? spec.tree
+    : spec.tree
+      ? [spec.tree]
+      : [];
   for (var i = 0; i < treeNodes.length; i++) {
     var childSpec = treeNodes[i];
     var child = await buildNode(childSpec, ctx);
@@ -93,23 +113,28 @@ async function buildFromSpec(spec) {
 
   // 8. Position wrapper (only for new wrappers)
   if (!spec.meta.appendToId) {
-    var parentPage = targetNode && targetNode.type === 'PAGE' ? targetNode : figma.currentPage;
+    var parentPage =
+      targetNode && targetNode.type === "PAGE" ? targetNode : figma.currentPage;
     var maxBottom = 0;
     var pageChildren = parentPage.children;
     for (var p = 0; p < pageChildren.length; p++) {
       var existing = pageChildren[p];
       if (existing.id === wrapper.id) continue;
-      var ey = typeof existing.y === 'number' && isFinite(existing.y) ? existing.y : 0;
-      var eh = typeof existing.height === 'number' && isFinite(existing.height) ? existing.height : 0;
+      var ey =
+        typeof existing.y === "number" && isFinite(existing.y) ? existing.y : 0;
+      var eh =
+        typeof existing.height === "number" && isFinite(existing.height)
+          ? existing.height
+          : 0;
       var bottom = ey + eh;
       if (bottom > maxBottom) maxBottom = bottom;
     }
     // Create section container
     var section = figma.createFrame();
     section.name = spec.meta.sectionName || wrapper.name;
-    section.layoutMode = 'VERTICAL';
-    section.primaryAxisSizingMode = 'AUTO';
-    section.counterAxisSizingMode = 'AUTO';
+    section.layoutMode = "VERTICAL";
+    section.primaryAxisSizingMode = "AUTO";
+    section.counterAxisSizingMode = "AUTO";
     section.fills = [];
     section.appendChild(wrapper);
     section.x = 0;
@@ -117,24 +142,28 @@ async function buildFromSpec(spec) {
   }
 
   // 9. Tag wrapper with plugin data
-  wrapper.setSharedPluginData('actian_ds', 'skill', spec.meta.skill || '');
-  wrapper.setSharedPluginData('actian_ds', 'pushed_at', new Date().toISOString());
+  wrapper.setSharedPluginData("actian_ds", "skill", spec.meta.skill || "");
+  wrapper.setSharedPluginData(
+    "actian_ds",
+    "pushed_at",
+    new Date().toISOString(),
+  );
 
   return {
     wrapperId: wrapper.id,
     nodeCount: nodeCount,
-    sectionId: section ? section.id : undefined
+    sectionId: section ? section.id : undefined,
   };
 }
 
 // ─── Helpers ───────────────────────────────────────────────────────────────────
 
 function hexToRgb(hex) {
-  var h = hex.replace('#', '');
+  var h = hex.replace("#", "");
   return {
     r: parseInt(h.substring(0, 2), 16) / 255,
     g: parseInt(h.substring(2, 4), 16) / 255,
-    b: parseInt(h.substring(4, 6), 16) / 255
+    b: parseInt(h.substring(4, 6), 16) / 255,
   };
 }
 
@@ -144,25 +173,46 @@ function angleToTransform(angleDeg) {
   var sin = Math.sin(rad);
   return [
     [cos, sin, 0.5 - 0.5 * cos - 0.5 * sin],
-    [-sin, cos, 0.5 + 0.5 * sin - 0.5 * cos]
+    [-sin, cos, 0.5 + 0.5 * sin - 0.5 * cos],
   ];
 }
 
 function applyFills(node, fills) {
   if (fills == null) return;
-  if (Array.isArray(fills) && fills.length === 0) { node.fills = []; return; }
+  if (Array.isArray(fills) && fills.length === 0) {
+    node.fills = [];
+    return;
+  }
   node.fills = (Array.isArray(fills) ? fills : [fills]).map(function (f) {
-    if (typeof f === 'string') return { type: 'SOLID', color: hexToRgb(f) };
-    var typeMap = { LINEAR: 'GRADIENT_LINEAR', RADIAL: 'GRADIENT_RADIAL',
-      ANGULAR: 'GRADIENT_ANGULAR', DIAMOND: 'GRADIENT_DIAMOND' };
+    if (typeof f === "string") return { type: "SOLID", color: hexToRgb(f) };
+    var typeMap = {
+      LINEAR: "GRADIENT_LINEAR",
+      RADIAL: "GRADIENT_RADIAL",
+      ANGULAR: "GRADIENT_ANGULAR",
+      DIAMOND: "GRADIENT_DIAMOND",
+    };
     if (typeMap[f.type]) {
       return {
         type: typeMap[f.type],
         gradientStops: (f.stops || []).map(function (s) {
           var c = hexToRgb(s.color);
-          return { position: s.position, color: { r: c.r, g: c.g, b: c.b, a: s.opacity != null ? s.opacity : 1 } };
+          return {
+            position: s.position,
+            color: {
+              r: c.r,
+              g: c.g,
+              b: c.b,
+              a: s.opacity != null ? s.opacity : 1,
+            },
+          };
         }),
-        gradientTransform: f.angle != null ? angleToTransform(f.angle) : [[1, 0, 0], [0, 1, 0]]
+        gradientTransform:
+          f.angle != null
+            ? angleToTransform(f.angle)
+            : [
+                [1, 0, 0],
+                [0, 1, 0],
+              ],
       };
     }
     return f;
@@ -171,7 +221,8 @@ function applyFills(node, fills) {
 
 function applyStroke(node, stroke) {
   if (!stroke) return;
-  if (stroke.color) node.strokes = [{ type: 'SOLID', color: hexToRgb(stroke.color) }];
+  if (stroke.color)
+    node.strokes = [{ type: "SOLID", color: hexToRgb(stroke.color) }];
   if (stroke.weight != null) node.strokeWeight = stroke.weight;
   if (stroke.align) node.strokeAlign = stroke.align;
   if (stroke.sides) {
@@ -186,13 +237,21 @@ function applyEffects(node, effects) {
   if (!effects || !effects.length) return;
   node.effects = effects.map(function (e) {
     var eff = { type: e.type, visible: true };
-    if (e.type === 'DROP_SHADOW' || e.type === 'INNER_SHADOW') {
+    if (e.type === "DROP_SHADOW" || e.type === "INNER_SHADOW") {
       var c = hexToRgb(e.color);
-      eff.color = { r: c.r, g: c.g, b: c.b, a: e.opacity != null ? e.opacity : 0.25 };
-      eff.offset = { x: (e.offset && e.offset.x) || 0, y: (e.offset && e.offset.y) || 0 };
+      eff.color = {
+        r: c.r,
+        g: c.g,
+        b: c.b,
+        a: e.opacity != null ? e.opacity : 0.25,
+      };
+      eff.offset = {
+        x: (e.offset && e.offset.x) || 0,
+        y: (e.offset && e.offset.y) || 0,
+      };
       eff.radius = e.radius || 0;
       if (e.spread != null) eff.spread = e.spread;
-    } else if (e.type === 'LAYER_BLUR' || e.type === 'BACKGROUND_BLUR') {
+    } else if (e.type === "LAYER_BLUR" || e.type === "BACKGROUND_BLUR") {
       eff.radius = e.radius || 0;
     }
     return eff;
@@ -201,13 +260,16 @@ function applyEffects(node, effects) {
 
 function applyOpacity(node, opacity) {
   if (opacity != null) {
-    node.opacity = typeof opacity === 'object' ? opacity.value : opacity;
+    node.opacity = typeof opacity === "object" ? opacity.value : opacity;
   }
 }
 
 function applyCornerRadius(node, cr) {
   if (cr == null) return;
-  if (typeof cr === 'number') { node.cornerRadius = cr; return; }
+  if (typeof cr === "number") {
+    node.cornerRadius = cr;
+    return;
+  }
   if (cr.topLeft != null) node.topLeftRadius = cr.topLeft;
   if (cr.topRight != null) node.topRightRadius = cr.topRight;
   if (cr.bottomRight != null) node.bottomRightRadius = cr.bottomRight;
@@ -216,32 +278,41 @@ function applyCornerRadius(node, cr) {
 
 function applyLayout(frame, layout) {
   if (!layout) return;
-  if (layout.mode && layout.mode !== 'NONE') frame.layoutMode = layout.mode;
+  if (layout.mode && layout.mode !== "NONE") frame.layoutMode = layout.mode;
   if (layout.spacing != null) frame.itemSpacing = layout.spacing;
-  if (layout.counterAxisSpacing != null) frame.counterAxisSpacing = layout.counterAxisSpacing;
-  if (layout.wrap) frame.layoutWrap = 'WRAP';
+  if (layout.counterAxisSpacing != null)
+    frame.counterAxisSpacing = layout.counterAxisSpacing;
+  if (layout.wrap) frame.layoutWrap = "WRAP";
   if (Array.isArray(layout.padding)) {
     frame.paddingTop = layout.padding[0];
     frame.paddingRight = layout.padding[1];
     frame.paddingBottom = layout.padding[2];
     frame.paddingLeft = layout.padding[3];
   }
-  if (layout.primaryAxisAlign) frame.primaryAxisAlignItems = layout.primaryAxisAlign;
-  if (layout.counterAxisAlign) frame.counterAxisAlignItems = layout.counterAxisAlign;
-  frame.primaryAxisSizingMode = 'AUTO';
-  frame.counterAxisSizingMode = 'AUTO';
+  if (layout.primaryAxisAlign)
+    frame.primaryAxisAlignItems = layout.primaryAxisAlign;
+  if (layout.counterAxisAlign)
+    frame.counterAxisAlignItems = layout.counterAxisAlign;
+  frame.primaryAxisSizingMode = "AUTO";
+  frame.counterAxisSizingMode = "AUTO";
 }
 
 function applySizing(node, sizing) {
   if (!sizing) return;
   var h = sizing.horizontal;
-  if (h === 'FILL') node.layoutSizingHorizontal = 'FILL';
-  else if (h === 'HUG') node.layoutSizingHorizontal = 'HUG';
-  else if (typeof h === 'number') { node.layoutSizingHorizontal = 'FIXED'; node.resize(h, node.height); }
+  if (h === "FILL") node.layoutSizingHorizontal = "FILL";
+  else if (h === "HUG") node.layoutSizingHorizontal = "HUG";
+  else if (typeof h === "number") {
+    node.layoutSizingHorizontal = "FIXED";
+    node.resize(h, node.height);
+  }
   var v = sizing.vertical;
-  if (v === 'FILL') node.layoutSizingVertical = 'FILL';
-  else if (v === 'HUG') node.layoutSizingVertical = 'HUG';
-  else if (typeof v === 'number') { node.layoutSizingVertical = 'FIXED'; node.resize(node.width, v); }
+  if (v === "FILL") node.layoutSizingVertical = "FILL";
+  else if (v === "HUG") node.layoutSizingVertical = "HUG";
+  else if (typeof v === "number") {
+    node.layoutSizingVertical = "FIXED";
+    node.resize(node.width, v);
+  }
   if (sizing.minWidth != null) node.minWidth = sizing.minWidth;
   if (sizing.maxWidth != null) node.maxWidth = sizing.maxWidth;
   if (sizing.minHeight != null) node.minHeight = sizing.minHeight;
@@ -251,7 +322,7 @@ function applySizing(node, sizing) {
 function setProp(instance, prefix, value) {
   var props = instance.componentProperties;
   for (var key in props) {
-    var propName = key.split('#')[0];
+    var propName = key.split("#")[0];
     if (propName === prefix) {
       instance.setProperties({ [key]: value });
       return;
@@ -264,20 +335,28 @@ function applyVariables(node, variables, ctx) {
   for (var field in variables) {
     var variable = ctx.variables[variables[field]];
     if (!variable) continue;
-    var parts = field.split('.');
-    if ((parts[0] === 'fills' || parts[0] === 'strokes') && parts.length >= 3) {
+    var parts = field.split(".");
+    if ((parts[0] === "fills" || parts[0] === "strokes") && parts.length >= 3) {
       var prop = parts[0];
       var idx = parseInt(parts[1], 10);
       var arr = JSON.parse(JSON.stringify(node[prop] || []));
       if (arr[idx]) {
-        arr[idx] = figma.variables.setBoundVariableForPaint(arr[idx], parts[2], variable);
+        arr[idx] = figma.variables.setBoundVariableForPaint(
+          arr[idx],
+          parts[2],
+          variable,
+        );
         node[prop] = arr;
       }
-    } else if (parts[0] === 'effects' && parts.length >= 3) {
+    } else if (parts[0] === "effects" && parts.length >= 3) {
       var eIdx = parseInt(parts[1], 10);
       var arr2 = JSON.parse(JSON.stringify(node.effects || []));
       if (arr2[eIdx]) {
-        arr2[eIdx] = figma.variables.setBoundVariableForEffect(arr2[eIdx], parts[2], variable);
+        arr2[eIdx] = figma.variables.setBoundVariableForEffect(
+          arr2[eIdx],
+          parts[2],
+          variable,
+        );
         node.effects = arr2;
       }
     } else {
@@ -288,36 +367,58 @@ function applyVariables(node, variables, ctx) {
 
 async function applyStyles(node, styles, ctx) {
   if (!styles) return;
-  if (styles.text && ctx.styles[styles.text]) await node.setTextStyleIdAsync(ctx.styles[styles.text].id);
-  if (styles.fill && ctx.styles[styles.fill]) await node.setFillStyleIdAsync(ctx.styles[styles.fill].id);
-  if (styles.stroke && ctx.styles[styles.stroke]) await node.setStrokeStyleIdAsync(ctx.styles[styles.stroke].id);
-  if (styles.effect && ctx.styles[styles.effect]) await node.setEffectStyleIdAsync(ctx.styles[styles.effect].id);
-  if (styles.grid && ctx.styles[styles.grid]) await node.setGridStyleIdAsync(ctx.styles[styles.grid].id);
+  if (styles.text && ctx.styles[styles.text])
+    await node.setTextStyleIdAsync(ctx.styles[styles.text].id);
+  if (styles.fill && ctx.styles[styles.fill])
+    await node.setFillStyleIdAsync(ctx.styles[styles.fill].id);
+  if (styles.stroke && ctx.styles[styles.stroke])
+    await node.setStrokeStyleIdAsync(ctx.styles[styles.stroke].id);
+  if (styles.effect && ctx.styles[styles.effect])
+    await node.setEffectStyleIdAsync(ctx.styles[styles.effect].id);
+  if (styles.grid && ctx.styles[styles.grid])
+    await node.setGridStyleIdAsync(ctx.styles[styles.grid].id);
 }
 
 // ─── Node Dispatcher ───────────────────────────────────────────────────────────
 
 async function buildNode(spec, ctx) {
   switch (spec.type) {
-    case 'FRAME':          return await buildFrame(spec, ctx);
-    case 'TEXT':           return await buildText(spec, ctx);
-    case 'RECT':           return await buildRect(spec, ctx);
-    case 'INSTANCE':       return await buildInstance(spec, ctx);
-    case 'LOCAL_INSTANCE': return await buildLocalInstance(spec, ctx);
-    case 'DIVIDER':        return await buildDivider(spec, ctx);
-    case 'LINE':           return await buildLine(spec, ctx);
-    case 'ELLIPSE':        return await buildEllipse(spec, ctx);
-    case 'VECTOR':         return await buildVector(spec, ctx);
-    case 'POLYGON':        return await buildPolygon(spec, ctx);
-    case 'STAR':           return await buildStar(spec, ctx);
-    case 'SVG':            return await buildSvg(spec, ctx);
-    case 'GROUP':          return await buildGroup(spec, ctx);
-    case 'BOOLEAN':        return await buildBoolean(spec, ctx);
-    case 'SECTION':        return await buildSection(spec, ctx);
-    case 'COMPONENT':      return await buildComponent(spec, ctx);
-    case 'COMPONENT_SET':  return await buildComponentSet(spec, ctx);
+    case "FRAME":
+      return await buildFrame(spec, ctx);
+    case "TEXT":
+      return await buildText(spec, ctx);
+    case "RECT":
+      return await buildRect(spec, ctx);
+    case "INSTANCE":
+      return await buildInstance(spec, ctx);
+    case "LOCAL_INSTANCE":
+      return await buildLocalInstance(spec, ctx);
+    case "DIVIDER":
+      return await buildDivider(spec, ctx);
+    case "LINE":
+      return await buildLine(spec, ctx);
+    case "ELLIPSE":
+      return await buildEllipse(spec, ctx);
+    case "VECTOR":
+      return await buildVector(spec, ctx);
+    case "POLYGON":
+      return await buildPolygon(spec, ctx);
+    case "STAR":
+      return await buildStar(spec, ctx);
+    case "SVG":
+      return await buildSvg(spec, ctx);
+    case "GROUP":
+      return await buildGroup(spec, ctx);
+    case "BOOLEAN":
+      return await buildBoolean(spec, ctx);
+    case "SECTION":
+      return await buildSection(spec, ctx);
+    case "COMPONENT":
+      return await buildComponent(spec, ctx);
+    case "COMPONENT_SET":
+      return await buildComponentSet(spec, ctx);
     default:
-      throw new Error('Unknown node type: ' + spec.type);
+      throw new Error("Unknown node type: " + spec.type);
   }
 }
 
@@ -353,36 +454,41 @@ async function buildFrame(spec, ctx) {
 async function buildText(spec, ctx) {
   var text = figma.createText();
   if (spec.name) text.name = spec.name;
-  var fontFamily = 'Inter';
-  var fontStyle = 'Regular';
+  var fontFamily = "Inter";
+  var fontStyle = "Regular";
   if (spec.font) {
-    var parts = spec.font.split(':');
+    var parts = spec.font.split(":");
     fontFamily = parts[0];
-    fontStyle = parts[1] ? parts[1].trim() : 'Regular';
+    fontStyle = parts[1] ? parts[1].trim() : "Regular";
   }
-  if (spec.bold) fontStyle = 'Bold';
+  if (spec.bold) fontStyle = "Bold";
   await figma.loadFontAsync({ family: fontFamily, style: fontStyle });
   text.fontName = { family: fontFamily, style: fontStyle };
   if (spec.size !== undefined) {
-    text.fontSize = typeof spec.size === 'object' ? spec.size.value : spec.size;
+    text.fontSize = typeof spec.size === "object" ? spec.size.value : spec.size;
   }
   if (spec.content !== undefined) text.characters = String(spec.content);
-  if (spec.color) text.fills = [{ type: 'SOLID', color: hexToRgb(spec.color) }];
+  if (spec.color) text.fills = [{ type: "SOLID", color: hexToRgb(spec.color) }];
   if (spec.width !== undefined) {
     text.resize(spec.width, text.height);
-    text.textAutoResize = 'HEIGHT';
+    text.textAutoResize = "HEIGHT";
   }
   if (spec.textAlign) {
-    if (spec.textAlign.horizontal) text.textAlignHorizontal = spec.textAlign.horizontal;
-    if (spec.textAlign.vertical) text.textAlignVertical = spec.textAlign.vertical;
+    if (spec.textAlign.horizontal)
+      text.textAlignHorizontal = spec.textAlign.horizontal;
+    if (spec.textAlign.vertical)
+      text.textAlignVertical = spec.textAlign.vertical;
   }
   if (spec.lineHeight !== undefined) {
-    if (typeof spec.lineHeight === 'number') text.lineHeight = { value: spec.lineHeight, unit: 'PIXELS' };
-    else if (spec.lineHeight === 'AUTO') text.lineHeight = { unit: 'AUTO' };
-    else if (typeof spec.lineHeight === 'object') text.lineHeight = spec.lineHeight;
+    if (typeof spec.lineHeight === "number")
+      text.lineHeight = { value: spec.lineHeight, unit: "PIXELS" };
+    else if (spec.lineHeight === "AUTO") text.lineHeight = { unit: "AUTO" };
+    else if (typeof spec.lineHeight === "object")
+      text.lineHeight = spec.lineHeight;
   }
   if (spec.letterSpacing !== undefined) {
-    if (typeof spec.letterSpacing === 'number') text.letterSpacing = { value: spec.letterSpacing, unit: 'PIXELS' };
+    if (typeof spec.letterSpacing === "number")
+      text.letterSpacing = { value: spec.letterSpacing, unit: "PIXELS" };
     else text.letterSpacing = spec.letterSpacing;
   }
   if (spec.textDecoration) text.textDecoration = spec.textDecoration;
@@ -392,14 +498,30 @@ async function buildText(spec, ctx) {
     for (var i = 0; i < spec.textRanges.length; i++) {
       var range = spec.textRanges[i];
       if (range.font) {
-        var rParts = range.font.split(':');
-        await figma.loadFontAsync({ family: rParts[0], style: (rParts[1] || 'Regular').trim() });
-        text.setRangeFontName(range.start, range.end, { family: rParts[0], style: (rParts[1] || 'Regular').trim() });
+        var rParts = range.font.split(":");
+        await figma.loadFontAsync({
+          family: rParts[0],
+          style: (rParts[1] || "Regular").trim(),
+        });
+        text.setRangeFontName(range.start, range.end, {
+          family: rParts[0],
+          style: (rParts[1] || "Regular").trim(),
+        });
       }
-      if (range.size !== undefined) text.setRangeFontSize(range.start, range.end, range.size);
-      if (range.color) text.setRangeFills(range.start, range.end, [{ type: 'SOLID', color: hexToRgb(range.color) }]);
-      if (range.textDecoration) text.setRangeTextDecoration(range.start, range.end, range.textDecoration);
-      if (range.textCase) text.setRangeTextCase(range.start, range.end, range.textCase);
+      if (range.size !== undefined)
+        text.setRangeFontSize(range.start, range.end, range.size);
+      if (range.color)
+        text.setRangeFills(range.start, range.end, [
+          { type: "SOLID", color: hexToRgb(range.color) },
+        ]);
+      if (range.textDecoration)
+        text.setRangeTextDecoration(
+          range.start,
+          range.end,
+          range.textDecoration,
+        );
+      if (range.textCase)
+        text.setRangeTextCase(range.start, range.end, range.textCase);
     }
   }
   await applyStyles(text, spec.styles, ctx);
@@ -410,7 +532,8 @@ async function buildText(spec, ctx) {
 async function buildRect(spec, ctx) {
   var rect = figma.createRectangle();
   if (spec.name) rect.name = spec.name;
-  if (spec.width !== undefined && spec.height !== undefined) rect.resize(spec.width, spec.height);
+  if (spec.width !== undefined && spec.height !== undefined)
+    rect.resize(spec.width, spec.height);
   applyFills(rect, spec.fills);
   applyCornerRadius(rect, spec.cornerRadius);
   applyStroke(rect, spec.stroke);
@@ -426,28 +549,36 @@ async function buildInstance(spec, ctx) {
   if (!componentOrSet) {
     // Graceful fallback: create placeholder frame
     var placeholder = figma.createFrame();
-    placeholder.name = 'Missing: ' + (spec.ref || 'unknown');
+    placeholder.name = "Missing: " + (spec.ref || "unknown");
     placeholder.resize(200, 40);
     return placeholder;
   }
 
   var instance;
-  if (spec.variant && componentOrSet.type === 'COMPONENT_SET') {
+  if (spec.variant && componentOrSet.type === "COMPONENT_SET") {
     var variants = componentOrSet.children;
     var target = null;
     for (var i = 0; i < variants.length; i++) {
-      if (variants[i].name === spec.variant) { target = variants[i]; break; }
+      if (variants[i].name === spec.variant) {
+        target = variants[i];
+        break;
+      }
     }
     if (!target) {
       for (var j = 0; j < variants.length; j++) {
-        if (variants[j].name.indexOf(spec.variant) !== -1) { target = variants[j]; break; }
+        if (variants[j].name.indexOf(spec.variant) !== -1) {
+          target = variants[j];
+          break;
+        }
       }
     }
     instance = target
       ? target.createInstance()
       : (componentOrSet.defaultVariant || variants[0]).createInstance();
-  } else if (componentOrSet.type === 'COMPONENT_SET') {
-    instance = (componentOrSet.defaultVariant || componentOrSet.children[0]).createInstance();
+  } else if (componentOrSet.type === "COMPONENT_SET") {
+    instance = (
+      componentOrSet.defaultVariant || componentOrSet.children[0]
+    ).createInstance();
   } else {
     instance = componentOrSet.createInstance();
   }
@@ -475,12 +606,28 @@ async function buildInstance(spec, ctx) {
     instance = instance.detachInstance();
   }
 
+  // Fill named text slots (after detach — finds TEXT children by name)
+  if (spec.textSlots) {
+    for (var slotName in spec.textSlots) {
+      var slotNode = instance.findOne(function (n) {
+        return n.type === "TEXT" && n.name === slotName;
+      });
+      if (slotNode) {
+        await figma.loadFontAsync(slotNode.fontName);
+        slotNode.characters = String(spec.textSlots[slotName]);
+      }
+    }
+  }
+
   // Override fills
   applyFills(instance, spec.fills);
 
   // Append children into "Content" slot
   if (spec.children && spec.children.length) {
-    var slot = instance.findOne(function (n) { return n.name === 'Content'; }) || instance;
+    var slot =
+      instance.findOne(function (n) {
+        return n.name === "Content";
+      }) || instance;
 
     // Clear placeholder children from Content slot
     if (slot !== instance) {
@@ -490,7 +637,7 @@ async function buildInstance(spec, ctx) {
     // Configure Content slot auto-layout from contentSlot spec
     if (spec.contentSlot && spec.contentSlot.layout && slot !== instance) {
       var sl = spec.contentSlot.layout;
-      slot.layoutMode = sl.mode || 'VERTICAL';
+      slot.layoutMode = sl.mode || "VERTICAL";
       if (sl.spacing != null) slot.itemSpacing = sl.spacing;
       if (Array.isArray(sl.padding)) {
         slot.paddingTop = sl.padding[0];
@@ -498,10 +645,10 @@ async function buildInstance(spec, ctx) {
         slot.paddingBottom = sl.padding[2];
         slot.paddingLeft = sl.padding[3];
       }
-      slot.primaryAxisSizingMode = 'AUTO';
-      slot.counterAxisSizingMode = 'AUTO';
+      slot.primaryAxisSizingMode = "AUTO";
+      slot.counterAxisSizingMode = "AUTO";
       // Root frame must also HUG vertically
-      instance.primaryAxisSizingMode = 'AUTO';
+      instance.primaryAxisSizingMode = "AUTO";
     }
 
     for (var k = 0; k < spec.children.length; k++) {
@@ -522,33 +669,41 @@ async function buildLocalInstance(spec, ctx) {
   var componentOrSet = ctx.locals[spec.ref];
   if (!componentOrSet) {
     var placeholder = figma.createFrame();
-    placeholder.name = 'Missing: ' + (spec.ref || 'unknown');
+    placeholder.name = "Missing: " + (spec.ref || "unknown");
     placeholder.resize(200, 40);
     return placeholder;
   }
 
   var instance;
-  if (spec.variant && componentOrSet.type === 'COMPONENT_SET') {
+  if (spec.variant && componentOrSet.type === "COMPONENT_SET") {
     var variants = componentOrSet.children;
     var target = null;
     for (var i = 0; i < variants.length; i++) {
-      if (variants[i].name === spec.variant) { target = variants[i]; break; }
+      if (variants[i].name === spec.variant) {
+        target = variants[i];
+        break;
+      }
     }
     if (!target) {
       for (var j = 0; j < variants.length; j++) {
-        if (variants[j].name.indexOf(spec.variant) !== -1) { target = variants[j]; break; }
+        if (variants[j].name.indexOf(spec.variant) !== -1) {
+          target = variants[j];
+          break;
+        }
       }
     }
     instance = target
       ? target.createInstance()
       : (componentOrSet.defaultVariant || variants[0]).createInstance();
-  } else if (componentOrSet.type === 'COMPONENT_SET') {
-    instance = (componentOrSet.defaultVariant || componentOrSet.children[0]).createInstance();
+  } else if (componentOrSet.type === "COMPONENT_SET") {
+    instance = (
+      componentOrSet.defaultVariant || componentOrSet.children[0]
+    ).createInstance();
   } else if (componentOrSet.createInstance) {
     instance = componentOrSet.createInstance();
   } else {
     var placeholder2 = figma.createFrame();
-    placeholder2.name = 'Cannot instance: ' + (spec.ref || 'unknown');
+    placeholder2.name = "Cannot instance: " + (spec.ref || "unknown");
     placeholder2.resize(200, 40);
     return placeholder2;
   }
@@ -562,17 +717,18 @@ async function buildLocalInstance(spec, ctx) {
 }
 
 async function buildDivider(spec, ctx) {
-  var divRef = ctx.imports['divider'] || ctx.imports['cardDivider'];
+  var divRef = ctx.imports["divider"] || ctx.imports["cardDivider"];
   if (!divRef) {
     var line = figma.createRectangle();
-    line.name = spec.name || 'Divider';
+    line.name = spec.name || "Divider";
     line.resize(spec.width || 300, 1);
-    line.fills = [{ type: 'SOLID', color: hexToRgb(spec.color || '#E0E0E0') }];
+    line.fills = [{ type: "SOLID", color: hexToRgb(spec.color || "#E0E0E0") }];
     return line;
   }
-  var instance = divRef.type === 'COMPONENT_SET'
-    ? (divRef.defaultVariant || divRef.children[0]).createInstance()
-    : divRef.createInstance();
+  var instance =
+    divRef.type === "COMPONENT_SET"
+      ? (divRef.defaultVariant || divRef.children[0]).createInstance()
+      : divRef.createInstance();
   if (spec.name) instance.name = spec.name;
   return instance;
 }
@@ -584,8 +740,10 @@ async function buildLine(spec, ctx) {
   if (spec.name) line.name = spec.name;
   if (spec.length !== undefined) line.resize(spec.length, 0);
   if (spec.stroke) {
-    if (spec.stroke.color) line.strokes = [{ type: 'SOLID', color: hexToRgb(spec.stroke.color) }];
-    if (spec.stroke.weight !== undefined) line.strokeWeight = spec.stroke.weight;
+    if (spec.stroke.color)
+      line.strokes = [{ type: "SOLID", color: hexToRgb(spec.stroke.color) }];
+    if (spec.stroke.weight !== undefined)
+      line.strokeWeight = spec.stroke.weight;
   }
   if (spec.rotation !== undefined) line.rotation = spec.rotation;
   applyOpacity(line, spec.opacity);
@@ -595,14 +753,15 @@ async function buildLine(spec, ctx) {
 async function buildEllipse(spec, ctx) {
   var ellipse = figma.createEllipse();
   if (spec.name) ellipse.name = spec.name;
-  if (spec.width !== undefined && spec.height !== undefined) ellipse.resize(spec.width, spec.height);
+  if (spec.width !== undefined && spec.height !== undefined)
+    ellipse.resize(spec.width, spec.height);
   applyFills(ellipse, spec.fills);
   applyStroke(ellipse, spec.stroke);
   if (spec.arcData) {
     ellipse.arcData = {
       startingAngle: spec.arcData.startingAngle || 0,
       endingAngle: spec.arcData.endingAngle || 6.2832,
-      innerRadius: spec.arcData.innerRadius || 0
+      innerRadius: spec.arcData.innerRadius || 0,
     };
   }
   applyOpacity(ellipse, spec.opacity);
@@ -614,11 +773,12 @@ async function buildVector(spec, ctx) {
   if (spec.name) vector.name = spec.name;
   if (spec.paths) {
     vector.vectorPaths = spec.paths.map(function (p) {
-      if (typeof p === 'string') return { windingRule: 'NONZERO', data: p };
-      return { windingRule: p.windingRule || 'NONZERO', data: p.data };
+      if (typeof p === "string") return { windingRule: "NONZERO", data: p };
+      return { windingRule: p.windingRule || "NONZERO", data: p.data };
     });
   }
-  if (spec.width !== undefined && spec.height !== undefined) vector.resize(spec.width, spec.height);
+  if (spec.width !== undefined && spec.height !== undefined)
+    vector.resize(spec.width, spec.height);
   applyFills(vector, spec.fills);
   applyStroke(vector, spec.stroke);
   applyOpacity(vector, spec.opacity);
@@ -628,7 +788,8 @@ async function buildVector(spec, ctx) {
 async function buildPolygon(spec, ctx) {
   var polygon = figma.createPolygon();
   if (spec.name) polygon.name = spec.name;
-  if (spec.width !== undefined && spec.height !== undefined) polygon.resize(spec.width, spec.height);
+  if (spec.width !== undefined && spec.height !== undefined)
+    polygon.resize(spec.width, spec.height);
   if (spec.pointCount !== undefined) polygon.pointCount = spec.pointCount;
   applyFills(polygon, spec.fills);
   applyStroke(polygon, spec.stroke);
@@ -639,7 +800,8 @@ async function buildPolygon(spec, ctx) {
 async function buildStar(spec, ctx) {
   var star = figma.createStar();
   if (spec.name) star.name = spec.name;
-  if (spec.width !== undefined && spec.height !== undefined) star.resize(spec.width, spec.height);
+  if (spec.width !== undefined && spec.height !== undefined)
+    star.resize(spec.width, spec.height);
   if (spec.pointCount !== undefined) star.pointCount = spec.pointCount;
   if (spec.innerRadius !== undefined) star.innerRadius = spec.innerRadius;
   applyFills(star, spec.fills);
@@ -663,7 +825,8 @@ async function buildGroup(spec, ctx) {
     figma.currentPage.appendChild(child);
     children.push(child);
   }
-  if (children.length === 0) throw new Error('GROUP requires at least one child');
+  if (children.length === 0)
+    throw new Error("GROUP requires at least one child");
   var group = figma.group(children, figma.currentPage);
   if (spec.name) group.name = spec.name;
   applyOpacity(group, spec.opacity);
@@ -677,15 +840,25 @@ async function buildBoolean(spec, ctx) {
     figma.currentPage.appendChild(child);
     children.push(child);
   }
-  if (children.length < 2) throw new Error('BOOLEAN requires at least two children');
+  if (children.length < 2)
+    throw new Error("BOOLEAN requires at least two children");
   var boolNode;
-  var op = (spec.operation || 'UNION').toUpperCase();
+  var op = (spec.operation || "UNION").toUpperCase();
   switch (op) {
-    case 'UNION':     boolNode = figma.union(children, figma.currentPage); break;
-    case 'SUBTRACT':  boolNode = figma.subtract(children, figma.currentPage); break;
-    case 'INTERSECT': boolNode = figma.intersect(children, figma.currentPage); break;
-    case 'EXCLUDE':   boolNode = figma.exclude(children, figma.currentPage); break;
-    default: throw new Error('Unknown boolean operation: ' + op);
+    case "UNION":
+      boolNode = figma.union(children, figma.currentPage);
+      break;
+    case "SUBTRACT":
+      boolNode = figma.subtract(children, figma.currentPage);
+      break;
+    case "INTERSECT":
+      boolNode = figma.intersect(children, figma.currentPage);
+      break;
+    case "EXCLUDE":
+      boolNode = figma.exclude(children, figma.currentPage);
+      break;
+    default:
+      throw new Error("Unknown boolean operation: " + op);
   }
   if (spec.name) boolNode.name = spec.name;
   applyFills(boolNode, spec.fills);
@@ -718,19 +891,23 @@ async function buildComponent(spec, ctx) {
   applyStroke(comp, spec.stroke);
   applyEffects(comp, spec.effects);
   applyOpacity(comp, spec.opacity);
-  if (spec.width != null && spec.height != null) comp.resize(spec.width, spec.height);
+  if (spec.width != null && spec.height != null)
+    comp.resize(spec.width, spec.height);
   var propKeys = {};
   if (spec.properties) {
     for (var i = 0; i < spec.properties.length; i++) {
       var p = spec.properties[i];
-      var propType = p.type || 'TEXT';
+      var propType = p.type || "TEXT";
       var defaultVal = p.default;
-      if (propType === 'TEXT') defaultVal = defaultVal || '';
-      else if (propType === 'BOOLEAN') defaultVal = defaultVal !== false;
+      if (propType === "TEXT") defaultVal = defaultVal || "";
+      else if (propType === "BOOLEAN") defaultVal = defaultVal !== false;
       comp.addComponentProperty(p.name, propType, defaultVal);
       var keys = Object.keys(comp.componentPropertyDefinitions);
       for (var k = 0; k < keys.length; k++) {
-        if (keys[k].split('#')[0] === p.name) { propKeys[p.name] = keys[k]; break; }
+        if (keys[k].split("#")[0] === p.name) {
+          propKeys[p.name] = keys[k];
+          break;
+        }
       }
     }
   }
@@ -744,9 +921,13 @@ async function buildComponent(spec, ctx) {
   if (spec.propertyLinks) {
     for (var link = 0; link < spec.propertyLinks.length; link++) {
       var pl = spec.propertyLinks[link];
-      var textNode = comp.findOne(function (n) { return n.type === 'TEXT' && n.name === pl.layer; });
+      var textNode = comp.findOne(function (n) {
+        return n.type === "TEXT" && n.name === pl.layer;
+      });
       if (textNode && propKeys[pl.property]) {
-        textNode.componentPropertyReferences = { characters: propKeys[pl.property] };
+        textNode.componentPropertyReferences = {
+          characters: propKeys[pl.property],
+        };
       }
     }
   }
@@ -759,12 +940,13 @@ async function buildComponentSet(spec, ctx) {
   var components = [];
   for (var i = 0; i < (spec.variants || []).length; i++) {
     var variantSpec = spec.variants[i];
-    variantSpec.type = 'COMPONENT';
+    variantSpec.type = "COMPONENT";
     var comp = await buildComponent(variantSpec, ctx);
     figma.currentPage.appendChild(comp);
     components.push(comp);
   }
-  if (components.length === 0) throw new Error('COMPONENT_SET requires at least one variant');
+  if (components.length === 0)
+    throw new Error("COMPONENT_SET requires at least one variant");
   var set = figma.combineAsVariants(components, figma.currentPage);
   if (spec.name) set.name = spec.name;
   if (spec.description) set.description = spec.description;

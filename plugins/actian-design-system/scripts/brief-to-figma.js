@@ -25,6 +25,7 @@ const shared = require("./shared-constants");
 const IMPORTS = {
   ...shared.META_KEYS,
   ...shared.BRIEF_KEYS,
+  ...shared.TEMPLATE_KEYS,
 };
 
 const FONTS = [
@@ -58,9 +59,18 @@ function textNode(content, font, size, color, opts) {
   return node;
 }
 
-/** Returns a section title TEXT node — Inter:Semi Bold 16px textPrimary */
-function sectionTitle(title) {
-  return textNode(title, "Inter:Semi Bold", 16, PALETTE.textPrimary);
+/** Returns a Section Header INSTANCE (Meta Kit template) */
+function sectionTitle(title, subtitle) {
+  const node = {
+    type: "INSTANCE",
+    ref: "sectionHeader",
+    name: title,
+    detach: true,
+    textSlots: { title: title },
+    sizing: { horizontal: "FILL", vertical: "HUG" },
+  };
+  if (subtitle) node.textSlots.subtitle = subtitle;
+  return node;
 }
 
 /** Returns a DIVIDER spec node */
@@ -68,19 +78,26 @@ function dividerNode() {
   return { type: "DIVIDER" };
 }
 
-/** Returns a table FRAME with header row + data rows */
+/** Returns a table FRAME with header row + data rows.
+ *  Header row uses Meta Kit Table Header Row template.
+ *  Data rows: cells that are already spec nodes pass through;
+ *  plain strings become text nodes (same as before). */
 function tableFrame(name, headers, rows, colWidths) {
-  const headerChildren = headers.map((h, i) =>
-    textNode(h, "Inter:Bold", 12, PALETTE.textSecondary, {
-      width: colWidths[i],
-    }),
-  );
+  const headerChildren = headers.map((h, i) => ({
+    type: "INSTANCE",
+    ref: "tableHeaderRow",
+    name: `Header: ${h}`,
+    detach: true,
+    textSlots: { label: h },
+    width: colWidths[i],
+    sizing: { horizontal: "FIXED", vertical: "HUG" },
+  }));
 
   const headerRow = {
     type: "FRAME",
     name: "Header",
-    layout: { mode: "HORIZONTAL", spacing: 0, padding: [8, 12, 8, 12] },
-    fills: [PALETTE.bgGrey],
+    layout: { mode: "HORIZONTAL", spacing: 0, padding: [0, 0, 0, 0] },
+    fills: [],
     children: headerChildren,
     sizing: { horizontal: "FILL", vertical: "HUG" },
   };
@@ -116,7 +133,7 @@ function tableFrame(name, headers, rows, colWidths) {
   };
 }
 
-/** Returns a FRAME with color ELLIPSE + TEXT for a token cell */
+/** Returns a FRAME with Color Swatch INSTANCE + TEXT for a token cell */
 function isValidHex(s) {
   return /^#[0-9A-Fa-f]{6}$/.test(s);
 }
@@ -131,18 +148,15 @@ function swatchCell(hex, tokenName) {
     fills: [],
     children: [
       {
-        type: "ELLIPSE",
+        type: "INSTANCE",
+        ref: "colorSwatch",
         name: "Swatch",
-        width: 16,
-        height: 16,
+        variant: "Size=Small",
         fills: fills,
+        width: 14,
+        height: 14,
       },
-      textNode(
-        `${tokenName} ${hex}`,
-        "Fira Code:Regular",
-        11,
-        PALETTE.textSecondary,
-      ),
+      textNode(tokenName, "Fira Code:Regular", 11, PALETTE.textSecondary),
     ],
     sizing: { horizontal: "HUG", vertical: "HUG" },
   };
@@ -377,56 +391,38 @@ function buildCard3(card3_anatomy) {
   // Sub-section 1: Structure
   children.push(sectionTitle("Structure"));
 
-  // Diagram frame with free positioning
-  const diagramChildren = [];
-
-  // Pointer badges for each part
-  for (const part of card3_anatomy.parts) {
-    diagramChildren.push({
-      type: "INSTANCE",
-      ref: "pointerBadge",
-      name: `Badge ${part.letter}`,
-      variant: "Direction=Left",
-      props: { Label: part.letter },
-      sizing: { horizontal: "HUG", vertical: "HUG" },
-    });
-
-    // Leader line for each part
-    diagramChildren.push({
-      type: "VECTOR",
-      name: `Leader ${part.letter}`,
-      paths: ["M 0 10 L 50 10"],
-      stroke: { color: PALETTE.annotationPink, weight: 1 },
-      fills: [],
-    });
-  }
+  // Structure: badge + part name rows in auto-layout
+  const structureRows = card3_anatomy.parts.map((part) => ({
+    type: "FRAME",
+    name: `Part ${part.letter}`,
+    layout: { mode: "HORIZONTAL", spacing: 12, padding: [4, 0, 4, 0] },
+    fills: [],
+    children: [
+      {
+        type: "INSTANCE",
+        ref: "pointerBadge",
+        name: `Badge ${part.letter}`,
+        variant: "Direction=Left",
+        props: { Label: part.letter },
+        sizing: { horizontal: "HUG", vertical: "HUG" },
+      },
+      textNode(
+        `${part.name} \u2014 ${part.description}`,
+        "Inter:Regular",
+        13,
+        PALETTE.textPrimary,
+      ),
+    ],
+    sizing: { horizontal: "FILL", vertical: "HUG" },
+  }));
 
   children.push({
     type: "FRAME",
-    name: "Structure diagram",
-    layout: { mode: "NONE" },
+    name: "Structure",
+    layout: { mode: "VERTICAL", spacing: 4, padding: [16, 20, 16, 20] },
     fills: [PALETTE.bgLight],
     cornerRadius: 12,
-    children: diagramChildren,
-    sizing: { horizontal: "FILL", vertical: 400 },
-  });
-
-  // Legend row
-  const legendChildren = card3_anatomy.parts.map((part) =>
-    textNode(
-      `${part.letter} \u2014 ${part.name}`,
-      "Inter:Regular",
-      12,
-      PALETTE.textSecondary,
-    ),
-  );
-
-  children.push({
-    type: "FRAME",
-    name: "Legend",
-    layout: { mode: "HORIZONTAL", spacing: 20, padding: [0, 0, 0, 0] },
-    fills: [],
-    children: legendChildren,
+    children: structureRows,
     sizing: { horizontal: "FILL", vertical: "HUG" },
   });
 
@@ -434,31 +430,36 @@ function buildCard3(card3_anatomy) {
   children.push(dividerNode());
   children.push(sectionTitle("Specs"));
 
-  const specChildren = [];
-  for (const spec of card3_anatomy.specs) {
-    const orientationVariant =
-      spec.orientation === "vertical"
-        ? "Orientation=Vertical"
-        : "Orientation=Horizontal";
-
-    specChildren.push({
-      type: "INSTANCE",
-      ref: "dimAnnotation",
-      name: `Spec: ${spec.target}`,
-      variant: orientationVariant,
-      props: { Value: spec.label },
-      sizing: { horizontal: "HUG", vertical: "HUG" },
-    });
-  }
+  const specRows = card3_anatomy.specs.map((spec) => ({
+    type: "FRAME",
+    name: `Spec: ${spec.target}`,
+    layout: { mode: "HORIZONTAL", spacing: 12, padding: [4, 0, 4, 0] },
+    fills: [],
+    children: [
+      {
+        type: "INSTANCE",
+        ref: "dimAnnotation",
+        name: spec.label,
+        variant:
+          spec.orientation === "vertical"
+            ? "Orientation=Vertical"
+            : "Orientation=Horizontal",
+        props: { Value: spec.label },
+        sizing: { horizontal: "HUG", vertical: "HUG" },
+      },
+      textNode(spec.target, "Inter:Regular", 13, PALETTE.textSecondary),
+    ],
+    sizing: { horizontal: "FILL", vertical: "HUG" },
+  }));
 
   children.push({
     type: "FRAME",
-    name: "Specs diagram",
-    layout: { mode: "NONE" },
+    name: "Specs",
+    layout: { mode: "VERTICAL", spacing: 4, padding: [16, 20, 16, 20] },
     fills: [PALETTE.bgLight],
     cornerRadius: 12,
-    children: specChildren,
-    sizing: { horizontal: "FILL", vertical: 300 },
+    children: specRows,
+    sizing: { horizontal: "FILL", vertical: "HUG" },
   });
 
   // Sub-section 3: States
@@ -764,10 +765,11 @@ function buildCard7(card7_content, card1_header) {
   );
 }
 
-/** Card 8a — Accessibility: Requirements. Data source: card8_accessibility */
-function buildCard8a(card8_accessibility) {
+/** Card 8 — Accessibility. Data source: card8_accessibility */
+function buildCard8(card8_accessibility) {
   const children = [];
 
+  // Sub-section 1: Requirements (3-column wrapping grid)
   children.push(sectionTitle("Requirements"));
 
   const reqCards = (card8_accessibility.requirements || []).map((req) => {
@@ -800,7 +802,8 @@ function buildCard8a(card8_accessibility) {
       },
       detach: true,
       children: codeChildren,
-      sizing: { horizontal: "FILL", vertical: "HUG" },
+      width: 330,
+      sizing: { vertical: "HUG" },
     };
   });
 
@@ -819,24 +822,14 @@ function buildCard8a(card8_accessibility) {
     sizing: { horizontal: "FILL", vertical: "HUG" },
   });
 
-  return cardShell(
-    "Accessibility",
-    "Accessibility",
-    "WCAG 2.1 AA requirements and code patterns",
-    children,
-  );
-}
-
-/** Card 8b — Accessibility: Tables. Data source: card8_accessibility */
-function buildCard8b(card8_accessibility) {
-  const children = [];
-
-  // ARIA specification table
+  // Sub-section 2: ARIA specification (Meta Kit A11y Spec Row templates)
   const ariaTable = card8_accessibility.ariaTable || [];
   if (ariaTable.length > 0) {
+    children.push(dividerNode());
     children.push(sectionTitle("ARIA specification"));
 
-    const ariaHeaders = [
+    // Header row using Table Header Row template
+    const ariaHeaderLabels = [
       "Element",
       "Role",
       "Label",
@@ -844,35 +837,57 @@ function buildCard8b(card8_accessibility) {
       "Keyboard",
       "Announcement",
     ];
-    const ariaWidths = [120, 100, 120, 80, 200, 200];
-    const ariaRows = ariaTable.map((row) => [
-      textNode(row.element, "Inter:Regular", 14, PALETTE.textPrimary, {
-        width: 120,
-      }),
-      textNode(row.role, "Fira Code:Regular", 12, PALETTE.textPrimary, {
-        width: 100,
-      }),
-      textNode(row.label, "Fira Code:Regular", 12, PALETTE.textPrimary, {
-        width: 120,
-      }),
-      textNode(row.focusOrder, "Inter:Regular", 14, PALETTE.textPrimary, {
-        width: 80,
-      }),
-      textNode(row.keyboard, "Inter:Regular", 14, PALETTE.textSecondary, {
-        width: 200,
-      }),
-      textNode(row.announcement, "Inter:Regular", 14, PALETTE.textSecondary, {
-        width: 200,
-      }),
-    ]);
+    const ariaHeaderWidths = [140, 100, 160, 100, 180, 200];
+    const ariaHeaderCells = ariaHeaderLabels.map((h, i) => ({
+      type: "INSTANCE",
+      ref: "tableHeaderRow",
+      name: `Header: ${h}`,
+      detach: true,
+      textSlots: { label: h },
+      width: ariaHeaderWidths[i],
+      sizing: { horizontal: "FIXED", vertical: "HUG" },
+    }));
 
-    children.push(tableFrame("ARIA table", ariaHeaders, ariaRows, ariaWidths));
+    const ariaHeaderRow = {
+      type: "FRAME",
+      name: "ARIA Header",
+      layout: { mode: "HORIZONTAL", spacing: 0, padding: [0, 0, 0, 0] },
+      fills: [],
+      children: ariaHeaderCells,
+      sizing: { horizontal: "FILL", vertical: "HUG" },
+    };
+
+    // Data rows using A11y Spec Row template
+    const ariaDataRows = ariaTable.map((row, ri) => ({
+      type: "INSTANCE",
+      ref: "a11ySpecRow",
+      name: `ARIA: ${row.element}`,
+      detach: true,
+      textSlots: {
+        element: row.element || "",
+        role: row.role || "",
+        label: row.label || "",
+        "focus-order": row.focusOrder || "",
+        keyboard: row.keyboard || "",
+        announcement: row.announcement || "",
+      },
+      sizing: { horizontal: "FILL", vertical: "HUG" },
+    }));
+
+    children.push({
+      type: "FRAME",
+      name: "ARIA table",
+      layout: { mode: "VERTICAL", spacing: 0, padding: [0, 0, 0, 0] },
+      fills: [],
+      children: [ariaHeaderRow, ...ariaDataRows],
+      sizing: { horizontal: "FILL", vertical: "HUG" },
+    });
   }
 
-  // Contrast ratios table
+  // Sub-section 3: Contrast ratios table
   const contrastTable = card8_accessibility.contrastTable || [];
   if (contrastTable.length > 0) {
-    if (ariaTable.length > 0) children.push(dividerNode());
+    children.push(dividerNode());
     children.push(sectionTitle("Contrast ratios"));
 
     const contrastHeaders = [
@@ -911,9 +926,9 @@ function buildCard8b(card8_accessibility) {
   }
 
   return cardShell(
-    "Accessibility tables",
-    "Accessibility tables",
-    "Keyboard navigation, ARIA patterns, and contrast ratios",
+    "Accessibility",
+    "Accessibility",
+    "WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios",
     children,
   );
 }
@@ -1045,16 +1060,11 @@ function autoSplitCalls(data, targetNodeId) {
         data.card1_header || { name: data.meta.componentName || "Component" },
       ),
     });
-  if (data.card8_accessibility) {
+  if (data.card8_accessibility)
     allCards.push({
-      name: "Card 8a",
-      node: buildCard8a(data.card8_accessibility),
+      name: "Card 8",
+      node: buildCard8(data.card8_accessibility),
     });
-    allCards.push({
-      name: "Card 8b",
-      node: buildCard8b(data.card8_accessibility),
-    });
-  }
   if (data.card9_code)
     allCards.push({
       name: "Card 9",
@@ -1103,8 +1113,19 @@ function autoSplitCalls(data, targetNodeId) {
     bins.push(cardBin);
   }
 
-  const totalCalls = bins.length;
+  const totalSpecCalls = bins.length;
   const results = [];
+
+  // Call 0: install interpreter runtime (~28KB, no spec)
+  const installCode = shared.assembleInstallCall();
+  process.stderr.write(
+    `Call 0: install interpreter (${Buffer.byteLength(installCode)} bytes)\n`,
+  );
+  results.push({
+    callIndex: 0,
+    code: installCode,
+    description: "Call 0: install interpreter runtime",
+  });
 
   for (let b = 0; b < bins.length; b++) {
     const bin = bins[b];
@@ -1136,7 +1157,7 @@ function autoSplitCalls(data, targetNodeId) {
       spec.meta.appendToId = "__LAST_WRAPPER__";
     }
 
-    // Assemble: interpreter runtime + JSON spec
+    // Assemble: bootstrap + JSON spec (interpreter loaded from shared plugin data)
     const code = shared.assembleCall(spec);
     const codeSize = Buffer.byteLength(code, "utf8");
 
@@ -1153,7 +1174,7 @@ function autoSplitCalls(data, targetNodeId) {
     results.push({
       callIndex: callIdx,
       code: code,
-      description: `Call ${callIdx}/${totalCalls}: ${names}`,
+      description: `Call ${callIdx}/${totalSpecCalls}: ${names}`,
     });
   }
 

@@ -1,8 +1,8 @@
 {
   "version": "1.0.0",
-  "lastSynced": null,
+  "lastSynced": "2026-04-04",
   "library": "meta-kit",
-  "fileKey": "<META_KIT_FILE_KEY>",
+  "fileKey": "osoeCLcrWqfoq8TvLQoyh0",
   "templates": {
     "table-header-row": {
       "key": "0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e",
@@ -42,7 +42,14 @@
     "a11y-spec-row": {
       "key": "92ed7bc88cf229782c4b42238aacba1d15f8fd06",
       "nodeId": "96:12",
-      "textSlots": ["element", "role", "label", "focus-order", "keyboard", "announcement"],
+      "textSlots": [
+        "element",
+        "role",
+        "label",
+        "focus-order",
+        "keyboard",
+        "announcement"
+      ],
       "visibility": "template-only",
       "category": "a11y"
     }
@@ -126,6 +133,31 @@
     "feedback": {
       "key": "d5cba21bc3dbf36578665bac89834fbe1ca29ed0",
       "nodeId": "66:20",
+      "type": "component_set"
+    },
+    "slide-cover": {
+      "key": "a12f6f0b26fffc59fdac49df2bc3c36182c912da",
+      "nodeId": "112:14",
+      "type": "component"
+    },
+    "slide-body-full": {
+      "key": "281e7a9bc55abe69bb2364e639f7511b4a005694",
+      "nodeId": "112:15",
+      "type": "component"
+    },
+    "slide-body-text-visual": {
+      "key": "28ea7a37752149d78679847ec7893368a4c4f1a0",
+      "nodeId": "112:16",
+      "type": "component"
+    },
+    "slide-section": {
+      "key": "348efaa22a6da818c435017399a357b47257bcdc",
+      "nodeId": "112:17",
+      "type": "component"
+    },
+    "slide-back-cover": {
+      "key": "6df533ae800a6596fd84e93a2e5fc725dbd6a369",
+      "nodeId": "112:18",
       "type": "component"
     }
   }
