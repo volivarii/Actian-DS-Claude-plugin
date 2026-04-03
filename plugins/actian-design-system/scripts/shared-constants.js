@@ -312,32 +312,16 @@ function getInterpreterSource() {
 }
 
 /**
- * Generate "call 0" that installs the interpreter runtime into shared plugin data.
- * Execute once before any spec calls. Returns ~28KB.
- */
-function assembleInstallCall() {
-  var interpreterSource = getInterpreterSource();
-  return (
-    "figma.root.setSharedPluginData('actian_ds', 'interpreter', " +
-    JSON.stringify(interpreterSource) +
-    ");\n" +
-    "return { installed: true, size: " +
-    interpreterSource.length +
-    " };"
-  );
-}
-
-/**
- * Assemble a spec call. Reads stored interpreter via eval(), executes spec.
- * Each call is just bootstrap (~200 bytes) + JSON spec.
+ * Assemble a self-contained call: interpreter source + JSON spec.
+ * Each call inlines the full interpreter (~18KB) + spec data.
+ * No eval needed — Figma sandbox doesn't support eval for function defs.
  */
 function assembleCall(spec) {
+  var interpreterSource = getInterpreterSource();
   var specJSON = JSON.stringify(spec);
   return (
-    "var _rt = figma.root.getSharedPluginData('actian_ds', 'interpreter');\n" +
-    "if (!_rt) throw new Error('Interpreter not found — run install call first');\n" +
-    "eval(_rt);\n" +
-    "var _spec = " +
+    interpreterSource +
+    "\nvar _spec = " +
     specJSON +
     ";\n" +
     "return await buildFromSpec(_spec);"
@@ -384,7 +368,6 @@ module.exports = {
   TOKEN_COLORS,
   PALETTE,
   buildGenLog,
-  assembleInstallCall,
   assembleCall,
   compactSize,
   binPack,

@@ -1,17 +1,11 @@
 {
-  "totalCalls": 2,
+  "totalCalls": 1,
   "calls": [
-    {
-      "callIndex": 0,
-      "file": "call-0.js",
-      "sizeBytes": 18099,
-      "description": "Call 0: install interpreter runtime"
-    },
     {
       "callIndex": 1,
       "file": "call-1.js",
-      "sizeBytes": 4082,
-      "description": "Call 1 of 1: Slide: Token architecture, Slide: Spacing scale (4082 bytes)"
+      "sizeBytes": 21632,
+      "description": "Call 1 of 1: Slide: Token architecture, Slide: Spacing scale (21632 bytes)"
     }
   ]
 }

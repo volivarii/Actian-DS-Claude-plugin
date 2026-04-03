@@ -365,19 +365,6 @@ function autoSplit(meta, allItems, usedVars) {
 
   const calls = [];
 
-  // Call 0: install interpreter runtime
-  var installCode = shared.assembleInstallCall();
-  process.stderr.write(
-    "Call 0: install interpreter (" +
-      Buffer.byteLength(installCode) +
-      " bytes)\n",
-  );
-  calls.push({
-    callIndex: 0,
-    code: installCode,
-    description: "Call 0: install interpreter runtime",
-  });
-
   for (let b = 0; b < bins.length; b++) {
     const spec = {
       meta: { skill: "generate-presentation" },

@@ -1,52 +1,46 @@
 {
-  "totalCalls": 8,
+  "totalCalls": 7,
   "calls": [
-    {
-      "callIndex": 0,
-      "file": "call-0.js",
-      "sizeBytes": 18099,
-      "description": "Call 0: install interpreter runtime"
-    },
     {
       "callIndex": 1,
       "file": "call-1.js",
-      "sizeBytes": 8115,
+      "sizeBytes": 25665,
       "description": "Call 1/7: GenLog, Card 1, Card 2"
     },
     {
       "callIndex": 2,
       "file": "call-2.js",
-      "sizeBytes": 12813,
+      "sizeBytes": 30363,
       "description": "Call 2/7: Card 3"
     },
     {
       "callIndex": 3,
       "file": "call-3.js",
-      "sizeBytes": 14723,
+      "sizeBytes": 32273,
       "description": "Call 3/7: Card 4"
     },
     {
       "callIndex": 4,
       "file": "call-4.js",
-      "sizeBytes": 14965,
+      "sizeBytes": 32515,
       "description": "Call 4/7: Card 5, Card 6"
     },
     {
       "callIndex": 5,
       "file": "call-5.js",
-      "sizeBytes": 8559,
+      "sizeBytes": 26109,
       "description": "Call 5/7: Card 7"
     },
     {
       "callIndex": 6,
       "file": "call-6.js",
-      "sizeBytes": 19269,
+      "sizeBytes": 36819,
       "description": "Call 6/7: Card 8"
     },
     {
       "callIndex": 7,
       "file": "call-7.js",
-      "sizeBytes": 6525,
+      "sizeBytes": 24075,
       "description": "Call 7/7: Card 9"
     }
   ]

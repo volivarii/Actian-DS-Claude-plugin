@@ -1116,17 +1116,6 @@ function autoSplitCalls(data, targetNodeId) {
   const totalSpecCalls = bins.length;
   const results = [];
 
-  // Call 0: install interpreter runtime (~28KB, no spec)
-  const installCode = shared.assembleInstallCall();
-  process.stderr.write(
-    `Call 0: install interpreter (${Buffer.byteLength(installCode)} bytes)\n`,
-  );
-  results.push({
-    callIndex: 0,
-    code: installCode,
-    description: "Call 0: install interpreter runtime",
-  });
-
   for (let b = 0; b < bins.length; b++) {
     const bin = bins[b];
     const callIdx = b + 1;
@@ -1157,7 +1146,7 @@ function autoSplitCalls(data, targetNodeId) {
       spec.meta.appendToId = "__LAST_WRAPPER__";
     }
 
-    // Assemble: bootstrap + JSON spec (interpreter loaded from shared plugin data)
+    // Assemble: interpreter + JSON spec (self-contained per call)
     const code = shared.assembleCall(spec);
     const codeSize = Buffer.byteLength(code, "utf8");
 

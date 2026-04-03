@@ -669,19 +669,7 @@ function main() {
   const bins = shared.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
   const totalCalls = bins.length;
 
-  // Call 0: install interpreter runtime
   const results = [];
-  const installCode = shared.assembleInstallCall();
-  process.stderr.write(
-    "Call 0: install interpreter (" +
-      Buffer.byteLength(installCode) +
-      " bytes)\n",
-  );
-  results.push({
-    callIndex: 0,
-    code: installCode,
-    description: "Call 0: install interpreter runtime",
-  });
 
   for (let b = 0; b < bins.length; b++) {
     const bin = bins[b];

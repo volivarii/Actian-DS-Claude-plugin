@@ -2,15 +2,9 @@
   "totalCalls": 1,
   "calls": [
     {
-      "callIndex": 0,
-      "file": "call-0.js",
-      "sizeBytes": 18099,
-      "description": "Call 0: install interpreter runtime"
-    },
-    {
       "callIndex": 1,
       "file": "call-1.js",
-      "sizeBytes": 8819,
+      "sizeBytes": 26369,
       "description": "Call 1/1: Generation Log Cover: Connection settings Connections list New connection — Step 1 New connection — Step 2"
     }
   ]
