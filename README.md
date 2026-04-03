@@ -30,7 +30,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 
 The plugin is available in both **Cowork** and **Code** tabs after install.
 
-> **Figma integration:** The Figma MCP (`claude.ai Figma`) is built into Claude. On first use, you'll be prompted to authorize your Figma account — no additional setup required. Works with Figma files in the browser; Figma desktop is not required.
+> **Figma integration:** The Figma MCP (`claude.ai Figma`) is built into Claude. On first use, you'll be prompted to authorize your Figma account — no additional setup required. Works with Figma files in the browser and Figma desktop.
 
 ### Claude Code CLI
 
