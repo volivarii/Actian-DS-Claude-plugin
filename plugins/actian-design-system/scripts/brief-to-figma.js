@@ -72,7 +72,7 @@ const PALETTE = {
 };
 
 // Max raw JSON bytes per bin (keeps generated code under ~45KB)
-const MAX_BIN_SIZE = 3500; // bytes — keeps generated code under 45KB (expansion ratio ~12x)
+const MAX_BIN_SIZE = 2500; // bytes — keeps generated code under 45KB (expansion ratio can exceed 15x for token-heavy cards)
 const OVERHEAD = 500;      // meta + fonts + imports envelope
 
 // ---------------------------------------------------------------------------
@@ -207,7 +207,7 @@ function cardShell(name, title, subtitle, children) {
       Subtitle: subtitle
     },
     detach: true,
-    width: 960,
+    width: 1200,
     children: children
   };
 }

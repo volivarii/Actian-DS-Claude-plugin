@@ -29,6 +29,9 @@ plugins/*/.figma-keys.json
 # Test prompts (local reference only)
 plugins/*/TEST-PROMPTS.md
 
+# Evals (large transcripts, local dev only)
+plugins/*/evals/
+
 # Release notes (local drafts for Slack)
 release-notes/
 

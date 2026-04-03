@@ -105,6 +105,25 @@ function generateSetProp() {
   ].join('\n');
 }
 
+/**
+ * Returns JS source for _fillH(node) and _fillV(node) helpers.
+ * These replace the inline IIFEs that were duplicated per sizing call.
+ */
+function generateFillHelpers() {
+  return [
+    'function _fillH(n) {',
+    "  var p = n.parent; if (!p) return;",
+    "  if (p.layoutMode && p.layoutMode !== 'NONE') { n.layoutSizingHorizontal = 'FILL'; }",
+    '  else { n.resize(Math.max((p.width||0)-(p.paddingLeft||0)-(p.paddingRight||0),1), n.height); }',
+    '}',
+    'function _fillV(n) {',
+    "  var p = n.parent; if (!p) return;",
+    "  if (p.layoutMode && p.layoutMode !== 'NONE') { n.layoutSizingVertical = 'FILL'; }",
+    '  else { n.resize(n.width, Math.max((p.height||0)-(p.paddingTop||0)-(p.paddingBottom||0),1)); }',
+    '}'
+  ].join('\n');
+}
+
 // ---------------------------------------------------------------------------
 // Property code generators
 // ---------------------------------------------------------------------------
@@ -277,18 +296,7 @@ function genSizing(varName, sizing) {
 
   const h = sizing.horizontal;
   if (h === 'FILL') {
-    // Check parent auto-layout; fallback to parent width match
-    lines.push('(function() {');
-    lines.push('  var _parentAL = ' + varName + '.parent && ' + varName + '.parent.layoutMode && ' + varName + ".parent.layoutMode !== 'NONE';");
-    lines.push('  if (_parentAL) {');
-    lines.push("    " + varName + ".layoutSizingHorizontal = 'FILL';");
-    lines.push('  } else if (' + varName + '.parent) {');
-    lines.push('    var _pw = ' + varName + '.parent.width || 0;');
-    lines.push('    var _pl = ' + varName + '.parent.paddingLeft || 0;');
-    lines.push('    var _pr = ' + varName + '.parent.paddingRight || 0;');
-    lines.push('    ' + varName + '.resize(Math.max(_pw - _pl - _pr, 1), ' + varName + '.height);');
-    lines.push('  }');
-    lines.push('})();');
+    lines.push('_fillH(' + varName + ');');
   } else if (h === 'HUG') {
     lines.push(varName + ".layoutSizingHorizontal = 'HUG';");
   } else if (typeof h === 'number') {
@@ -298,17 +306,7 @@ function genSizing(varName, sizing) {
 
   const v = sizing.vertical;
   if (v === 'FILL') {
-    lines.push('(function() {');
-    lines.push('  var _parentAL2 = ' + varName + '.parent && ' + varName + '.parent.layoutMode && ' + varName + ".parent.layoutMode !== 'NONE';");
-    lines.push('  if (_parentAL2) {');
-    lines.push("    " + varName + ".layoutSizingVertical = 'FILL';");
-    lines.push('  } else if (' + varName + '.parent) {');
-    lines.push('    var _ph = ' + varName + '.parent.height || 0;');
-    lines.push('    var _pt = ' + varName + '.parent.paddingTop || 0;');
-    lines.push('    var _pb = ' + varName + '.parent.paddingBottom || 0;');
-    lines.push('    ' + varName + '.resize(' + varName + '.width, Math.max(_ph - _pt - _pb, 1));');
-    lines.push('  }');
-    lines.push('})();');
+    lines.push('_fillV(' + varName + ');');
   } else if (v === 'HUG') {
     lines.push(varName + ".layoutSizingVertical = 'HUG';");
   } else if (typeof v === 'number') {
@@ -692,6 +690,8 @@ function generateCallCode(spec) {
   lines.push('');
   lines.push(generateSetProp());
   lines.push('');
+  lines.push(generateFillHelpers());
+  lines.push('');
 
   // 2. Top-level async code (use_figma sandbox supports top-level await)
   lines.push('');
@@ -814,9 +814,13 @@ function generateCallCode(spec) {
   if (!meta.appendToId) {
     hasSectionVar = true;
     const sectionName = meta.sectionName || meta.wrapperName || ((meta.skill || 'output') + ': ' + (meta.component || 'output'));
-    lines.push('// Create section and position below existing content');
-    lines.push('var _section = figma.createSection();');
+    lines.push('// Create container frame and position below existing content');
+    lines.push('var _section = figma.createFrame();');
     lines.push('_section.name = ' + lit(sectionName) + ';');
+    lines.push("_section.layoutMode = 'VERTICAL';");
+    lines.push("_section.primaryAxisSizingMode = 'AUTO';");
+    lines.push("_section.counterAxisSizingMode = 'AUTO';");
+    lines.push('_section.fills = [];');
     lines.push('_section.appendChild(_wrapper);');
     lines.push('var _parentPage = _targetNode && _targetNode.type === \'PAGE\' ? _targetNode : figma.currentPage;');
     lines.push('var _maxBottom = 0;');
