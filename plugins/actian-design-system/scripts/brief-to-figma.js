@@ -61,16 +61,14 @@ function textNode(content, font, size, color, opts) {
 
 /** Returns a Section Header INSTANCE (Meta Kit template) */
 function sectionTitle(title, subtitle) {
-  const node = {
+  return {
     type: "INSTANCE",
     ref: "sectionHeader",
     name: title,
     detach: true,
-    textSlots: { title: title },
+    textSlots: { title: title, subtitle: subtitle || "" },
     sizing: { horizontal: "FILL", vertical: "HUG" },
   };
-  if (subtitle) node.textSlots.subtitle = subtitle;
-  return node;
 }
 
 /** Returns a DIVIDER spec node */
@@ -138,10 +136,10 @@ function isValidHex(s) {
   return /^#[0-9A-Fa-f]{6}$/.test(s);
 }
 
-function swatchCell(hex, tokenName) {
+function swatchCell(hex, tokenName, width) {
   // Normalize non-hex values: "none", "transparent", "rgba(...)" → use empty fills
   const fills = isValidHex(hex) ? [hex] : [];
-  return {
+  const cell = {
     type: "FRAME",
     name: `Cell: ${tokenName}`,
     layout: { mode: "HORIZONTAL", spacing: 6, padding: [0, 0, 0, 0] },
@@ -160,6 +158,11 @@ function swatchCell(hex, tokenName) {
     ],
     sizing: { horizontal: "HUG", vertical: "HUG" },
   };
+  if (width) {
+    cell.width = width;
+    cell.sizing = { horizontal: "FIXED", vertical: "HUG" };
+  }
+  return cell;
 }
 
 /** Converts code.tokens array to { content, textRanges } for syntax coloring */
@@ -301,7 +304,13 @@ function buildCard2(card2_component, meta) {
     children.push({
       type: "FRAME",
       name: `Row: ${row.row}`,
-      layout: { mode: "HORIZONTAL", spacing: 24, padding: [0, 0, 0, 0] },
+      layout: {
+        mode: "HORIZONTAL",
+        spacing: 24,
+        counterAxisSpacing: 24,
+        wrap: true,
+        padding: [0, 0, 0, 0],
+      },
       fills: [],
       children: columns,
       sizing: { horizontal: "FILL", vertical: "HUG" },
@@ -430,6 +439,14 @@ function buildCard3(card3_anatomy) {
   children.push(dividerNode());
   children.push(sectionTitle("Specs"));
 
+  // Component instance for visual context
+  const specComponentInstance = {
+    type: "LOCAL_INSTANCE",
+    ref: "targetComponent",
+    variant: "State=Default",
+    name: "Specs reference",
+  };
+
   const specRows = card3_anatomy.specs.map((spec) => ({
     type: "FRAME",
     name: `Spec: ${spec.target}`,
@@ -455,10 +472,10 @@ function buildCard3(card3_anatomy) {
   children.push({
     type: "FRAME",
     name: "Specs",
-    layout: { mode: "VERTICAL", spacing: 4, padding: [16, 20, 16, 20] },
+    layout: { mode: "VERTICAL", spacing: 16, padding: [16, 20, 16, 20] },
     fills: [PALETTE.bgLight],
     cornerRadius: 12,
-    children: specRows,
+    children: [specComponentInstance, ...specRows],
     sizing: { horizontal: "FILL", vertical: "HUG" },
   });
 
@@ -559,8 +576,9 @@ function buildCard4(card4_tokens) {
         width: 140,
       }),
     ];
-    for (const col of row.columns) {
-      cells.push(swatchCell(col.hex, col.token));
+    for (let ci = 0; ci < row.columns.length; ci++) {
+      const col = row.columns[ci];
+      cells.push(swatchCell(col.hex, col.token, colorWidths[ci + 1]));
     }
     return cells;
   });
@@ -721,9 +739,9 @@ function buildCard7(card7_content, card1_header) {
       variant: "Mode=DS",
       props: {
         "Do Label": rule.do,
-        "Do Example": "",
+        "Do Example": rule.doExample || "",
         "Don't Label": rule.dont,
-        "Don't Example": "",
+        "Don't Example": rule.dontExample || "",
       },
       sizing: { horizontal: "FILL", vertical: "HUG" },
     });
@@ -781,6 +799,7 @@ function buildCard8(card8_accessibility) {
         ref: "codeBlock",
         name: `Code: ${req.title.toLowerCase().replace(/\s+/g, "-")}`,
         detach: true,
+        contentSlot: { name: "Code Area" },
         children: [
           textNode(content, "Fira Code:Regular", 12, "#BABED8", {
             name: "Code",
@@ -797,11 +816,12 @@ function buildCard8(card8_accessibility) {
       variant: "Mode=DS",
       props: {
         Title: req.title,
-        Body: req.body,
-        "Icon Color": req.icon,
       },
       detach: true,
-      children: codeChildren,
+      children: [
+        textNode(req.body, "Inter:Regular", 13, PALETTE.textSecondary),
+        ...codeChildren,
+      ],
       width: 330,
       sizing: { vertical: "HUG" },
     };
@@ -902,8 +922,8 @@ function buildCard8(card8_accessibility) {
       textNode(row.element, "Inter:Regular", 14, PALETTE.textPrimary, {
         width: 160,
       }),
-      swatchCell(row.foreground, row.foreground),
-      swatchCell(row.background, row.background),
+      swatchCell(row.foreground, row.foreground, 160),
+      swatchCell(row.background, row.background, 160),
       textNode(row.ratio, "Inter:Regular", 14, PALETTE.textPrimary, {
         width: 80,
       }),
@@ -947,6 +967,7 @@ function buildCard9(card9_code, card1_header) {
       "Header Text": language,
     },
     detach: true,
+    contentSlot: { name: "Code Area" },
     children: [
       textNode(content, "Fira Code:Regular", 12, "#BABED8", {
         name: "Code",

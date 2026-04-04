@@ -207,7 +207,9 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
       "title": "Use sentence case for labels",
       "description": "Capitalize only the first word and proper nouns.",
       "do": "Email address",
-      "dont": "Email Address"
+      "dont": "Email Address",
+      "doExample": "Email address",
+      "dontExample": "Email Address"
     }
   ],
   "terminology": [
@@ -218,6 +220,7 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 ```
 
 - `rules`: MUST include ALL content rules from the component's Figma page. Do not summarize or skip.
+- `doExample`/`dontExample`: concrete example text shown in the Do/Don't example boxes. Optional — falls back to empty.
 - HTML renders each rule as section-title + section-body + inline do-dont pair.
 - Figma renders each rule as Section Header template + Do-Don't Pair component.
 - `terminology`: optional table. Empty array = section omitted.

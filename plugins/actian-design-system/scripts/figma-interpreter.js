@@ -4,6 +4,7 @@
 //
 // Restored from v1.0.0 (a92b10d) with additions:
 // - LOCAL_INSTANCE type (same-file component by node ID or library key)
+// - contentSlot.name: custom slot name (default "Content") for children insertion
 // - contentSlot layout override (clear placeholder + set auto-layout on Content frame)
 // - Instance resize (width/height before detach)
 // - Root frame HUG after contentSlot setup
@@ -622,11 +623,12 @@ async function buildInstance(spec, ctx) {
   // Override fills
   applyFills(instance, spec.fills);
 
-  // Append children into "Content" slot
+  // Append children into "Content" slot (or custom slot via contentSlot.name)
   if (spec.children && spec.children.length) {
+    var slotName = (spec.contentSlot && spec.contentSlot.name) || "Content";
     var slot =
       instance.findOne(function (n) {
-        return n.name === "Content";
+        return n.name === slotName;
       }) || instance;
 
     // Clear placeholder children from Content slot

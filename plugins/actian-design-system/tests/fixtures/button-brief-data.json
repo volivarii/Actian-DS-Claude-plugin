@@ -24,19 +24,13 @@
     ],
     "themeComparison": {
       "actian": {
-        "swatches": [
-          { "hex": "#005DB2", "token": "theme-primary" }
-        ]
+        "swatches": [{ "hex": "#005DB2", "token": "theme-primary" }]
       },
       "studio": {
-        "swatches": [
-          { "hex": "#7B3FC4", "token": "theme-primary" }
-        ]
+        "swatches": [{ "hex": "#7B3FC4", "token": "theme-primary" }]
       },
       "explorer": {
-        "swatches": [
-          { "hex": "#00796B", "token": "theme-primary" }
-        ]
+        "swatches": [{ "hex": "#00796B", "token": "theme-primary" }]
       }
     }
   },
@@ -51,8 +45,18 @@
     ],
     "states": ["Enabled", "Hovered", "Focused", "Pressed", "Disabled"],
     "partsTable": [
-      { "part": "A", "element": "Frame", "token": "border/radius-sm", "notes": "Container shape" },
-      { "part": "B", "element": "Text", "token": "label-standard", "notes": "Button label" }
+      {
+        "part": "A",
+        "element": "Frame",
+        "token": "border/radius-sm",
+        "notes": "Container shape"
+      },
+      {
+        "part": "B",
+        "element": "Text",
+        "token": "label-standard",
+        "notes": "Button label"
+      }
     ]
   },
   "card4_tokens": {
@@ -70,14 +74,40 @@
       { "property": "Padding H", "token": "spacing/md", "value": "16px" }
     ],
     "typography": [
-      { "element": "Label", "token": "label-standard", "font": "Inter Semi Bold 14", "tracking": "0" }
+      {
+        "element": "Label",
+        "token": "label-standard",
+        "font": "Inter Semi Bold 14",
+        "tracking": "0"
+      }
     ]
   },
   "card5_api": {
     "props": [
-      { "required": true, "name": "label", "type": "string", "default": "", "values": "any string", "notes": "Button label text" },
-      { "required": false, "name": "variant", "type": "string", "default": "primary", "values": "primary | secondary | ghost", "notes": "Visual style" },
-      { "required": false, "name": "disabled", "type": "boolean", "default": "false", "values": "true | false", "notes": "Disabled state" }
+      {
+        "required": true,
+        "name": "label",
+        "type": "string",
+        "default": "",
+        "values": "any string",
+        "notes": "Button label text"
+      },
+      {
+        "required": false,
+        "name": "variant",
+        "type": "string",
+        "default": "primary",
+        "values": "primary | secondary | ghost",
+        "notes": "Visual style"
+      },
+      {
+        "required": false,
+        "name": "disabled",
+        "type": "boolean",
+        "default": "false",
+        "values": "true | false",
+        "notes": "Disabled state"
+      }
     ]
   },
   "card6_usage": {
@@ -104,7 +134,9 @@
         "title": "Label clarity",
         "description": "Labels must clearly describe the action outcome.",
         "do": "Save changes",
-        "dont": "OK"
+        "dont": "OK",
+        "doExample": "Save changes",
+        "dontExample": "OK"
       }
     ],
     "terminology": [
@@ -114,18 +146,61 @@
   },
   "card8_accessibility": {
     "requirements": [
-      { "title": "Keyboard access", "body": "Button must be focusable with Tab.", "icon": "#005DB2", "code": { "tokens": [] } },
-      { "title": "ARIA role", "body": "Use role=button or native <button>.", "icon": "#005DB2", "code": { "tokens": [] } },
-      { "title": "Focus visible", "body": "Focus ring must be visible with 3:1 contrast.", "icon": "#005DB2", "code": { "tokens": [] } },
-      { "title": "Contrast", "body": "Text must meet 4.5:1 contrast ratio.", "icon": "#005DB2", "code": { "tokens": [] } },
-      { "title": "Touch target", "body": "Minimum 44x44px touch target.", "icon": "#005DB2", "code": { "tokens": [] } },
-      { "title": "Disabled state", "body": "Disabled buttons must not be focusable.", "icon": "#888888", "code": { "tokens": [] } }
+      {
+        "title": "Keyboard access",
+        "body": "Button must be focusable with Tab.",
+        "icon": "#005DB2",
+        "code": { "tokens": [] }
+      },
+      {
+        "title": "ARIA role",
+        "body": "Use role=button or native <button>.",
+        "icon": "#005DB2",
+        "code": { "tokens": [] }
+      },
+      {
+        "title": "Focus visible",
+        "body": "Focus ring must be visible with 3:1 contrast.",
+        "icon": "#005DB2",
+        "code": { "tokens": [] }
+      },
+      {
+        "title": "Contrast",
+        "body": "Text must meet 4.5:1 contrast ratio.",
+        "icon": "#005DB2",
+        "code": { "tokens": [] }
+      },
+      {
+        "title": "Touch target",
+        "body": "Minimum 44x44px touch target.",
+        "icon": "#005DB2",
+        "code": { "tokens": [] }
+      },
+      {
+        "title": "Disabled state",
+        "body": "Disabled buttons must not be focusable.",
+        "icon": "#888888",
+        "code": { "tokens": [] }
+      }
     ],
     "ariaTable": [
-      { "element": "button", "role": "button", "label": "aria-label", "focusOrder": "1", "keyboard": "Enter, Space", "announcement": "Button name, role" }
+      {
+        "element": "button",
+        "role": "button",
+        "label": "aria-label",
+        "focusOrder": "1",
+        "keyboard": "Enter, Space",
+        "announcement": "Button name, role"
+      }
     ],
     "contrastTable": [
-      { "element": "Label text", "foreground": "#FFFFFF", "background": "#005DB2", "ratio": "8.6:1", "wcag": "Pass" }
+      {
+        "element": "Label text",
+        "foreground": "#FFFFFF",
+        "background": "#005DB2",
+        "ratio": "8.6:1",
+        "wcag": "Pass"
+      }
     ]
   },
   "card9_code": {

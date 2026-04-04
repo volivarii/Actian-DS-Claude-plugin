@@ -4,43 +4,43 @@
     {
       "callIndex": 1,
       "file": "call-1.js",
-      "sizeBytes": 25665,
+      "sizeBytes": 25769,
       "description": "Call 1/7: GenLog, Card 1, Card 2"
     },
     {
       "callIndex": 2,
       "file": "call-2.js",
-      "sizeBytes": 30363,
+      "sizeBytes": 30561,
       "description": "Call 2/7: Card 3"
     },
     {
       "callIndex": 3,
       "file": "call-3.js",
-      "sizeBytes": 32273,
+      "sizeBytes": 32565,
       "description": "Call 3/7: Card 4"
     },
     {
       "callIndex": 4,
       "file": "call-4.js",
-      "sizeBytes": 32515,
+      "sizeBytes": 32583,
       "description": "Call 4/7: Card 5, Card 6"
     },
     {
       "callIndex": 5,
       "file": "call-5.js",
-      "sizeBytes": 26109,
+      "sizeBytes": 26247,
       "description": "Call 5/7: Card 7"
     },
     {
       "callIndex": 6,
       "file": "call-6.js",
-      "sizeBytes": 36819,
+      "sizeBytes": 37549,
       "description": "Call 6/7: Card 8"
     },
     {
       "callIndex": 7,
       "file": "call-7.js",
-      "sizeBytes": 24075,
+      "sizeBytes": 24150,
       "description": "Call 7/7: Card 9"
     }
   ]

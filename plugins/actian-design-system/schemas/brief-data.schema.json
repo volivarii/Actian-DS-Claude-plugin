@@ -159,7 +159,10 @@
             "type": "object",
             "properties": {
               "label": { "type": "string" },
-              "orientation": { "type": "string", "enum": ["vertical", "horizontal"] },
+              "orientation": {
+                "type": "string",
+                "enum": ["vertical", "horizontal"]
+              },
               "target": { "type": "string" }
             }
           }
@@ -342,7 +345,15 @@
               "title": { "type": "string" },
               "description": { "type": "string" },
               "do": { "type": "string" },
-              "dont": { "type": "string" }
+              "dont": { "type": "string" },
+              "doExample": {
+                "type": "string",
+                "description": "Concrete example showing the Do guideline"
+              },
+              "dontExample": {
+                "type": "string",
+                "description": "Concrete example showing the Don't guideline"
+              }
             }
           }
         },
