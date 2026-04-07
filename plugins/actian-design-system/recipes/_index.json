@@ -1,0 +1,8 @@
+[
+  { "file": "table-list.json", "archetype": "table-list", "pattern": 6, "tags": ["table", "list", "data", "crud", "browse"] },
+  { "file": "form-create.json", "archetype": "form-create", "pattern": 4, "tags": ["form", "create", "wizard", "input", "edit"] },
+  { "file": "detail-view.json", "archetype": "detail-view", "pattern": 3, "tags": ["detail", "tabs", "profile", "settings", "entity"] },
+  { "file": "dashboard.json", "archetype": "dashboard", "pattern": 1, "tags": ["dashboard", "cards", "overview", "metrics", "home"] },
+  { "file": "browse-search.json", "archetype": "browse-search", "pattern": 2, "tags": ["search", "browse", "catalog", "results", "filter"] },
+  { "file": "overlay.json", "archetype": "overlay", "pattern": 7, "tags": ["modal", "panel", "dialog", "drawer", "side-panel"] }
+]
