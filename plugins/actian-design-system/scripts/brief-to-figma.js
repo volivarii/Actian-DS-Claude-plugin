@@ -61,12 +61,14 @@ function textNode(content, font, size, color, opts) {
 
 /** Returns a Section Header INSTANCE (Meta Kit template) */
 function sectionTitle(title, subtitle) {
+  const slots = { title: title };
+  if (subtitle) slots.subtitle = subtitle;
   return {
     type: "INSTANCE",
     ref: "sectionHeader",
     name: title,
     detach: true,
-    textSlots: { title: title, subtitle: subtitle || "" },
+    textSlots: slots,
     sizing: { horizontal: "FILL", vertical: "HUG" },
   };
 }
@@ -81,15 +83,23 @@ function dividerNode() {
  *  Data rows: cells that are already spec nodes pass through;
  *  plain strings become text nodes (same as before). */
 function tableFrame(name, headers, rows, colWidths) {
-  const headerChildren = headers.map((h, i) => ({
-    type: "INSTANCE",
-    ref: "tableHeaderRow",
-    name: `Header: ${h}`,
-    detach: true,
-    textSlots: { label: h },
-    width: colWidths[i],
-    sizing: { horizontal: "FIXED", vertical: "HUG" },
-  }));
+  const headerChildren = headers.map((h, i) => {
+    const w = colWidths[i];
+    const node = {
+      type: "INSTANCE",
+      ref: "tableHeaderRow",
+      name: `Header: ${h}`,
+      detach: true,
+      textSlots: { label: h },
+    };
+    if (w === "FILL") {
+      node.sizing = { horizontal: "FILL", vertical: "HUG" };
+    } else {
+      node.width = w;
+      node.sizing = { horizontal: "FIXED", vertical: "HUG" };
+    }
+    return node;
+  });
 
   const headerRow = {
     type: "FRAME",
@@ -102,14 +112,30 @@ function tableFrame(name, headers, rows, colWidths) {
 
   const dataRows = rows.map((row, ri) => {
     const cells = row.map((cell, ci) => {
-      // If cell is already a spec node (object with type), use it directly
-      if (cell && typeof cell === "object" && cell.type) return cell;
-      // If cell is a frame (object with children), use it directly
-      if (cell && typeof cell === "object" && cell.children) return cell;
+      const w = colWidths[ci];
+      // If cell is already a spec node (object with type), apply FILL sizing if needed
+      if (cell && typeof cell === "object" && cell.type) {
+        if (w === "FILL" && !cell.sizing)
+          cell.sizing = { horizontal: "FILL", vertical: "HUG" };
+        return cell;
+      }
+      // If cell is a frame (object with children), apply FILL sizing if needed
+      if (cell && typeof cell === "object" && cell.children) {
+        if (w === "FILL" && !cell.sizing)
+          cell.sizing = { horizontal: "FILL", vertical: "HUG" };
+        return cell;
+      }
       // Otherwise, make a text node
-      return textNode(String(cell), "Inter:Regular", 14, PALETTE.textPrimary, {
-        width: colWidths[ci],
-      });
+      const opts = w === "FILL" ? {} : { width: w };
+      const node = textNode(
+        String(cell),
+        "Inter:Regular",
+        14,
+        PALETTE.textPrimary,
+        opts,
+      );
+      if (w === "FILL") node.sizing = { horizontal: "FILL", vertical: "HUG" };
+      return node;
     });
     return {
       type: "FRAME",
@@ -158,7 +184,9 @@ function swatchCell(hex, tokenName, width) {
     ],
     sizing: { horizontal: "HUG", vertical: "HUG" },
   };
-  if (width) {
+  if (width === "FILL") {
+    cell.sizing = { horizontal: "FILL", vertical: "HUG" };
+  } else if (width) {
     cell.width = width;
     cell.sizing = { horizontal: "FIXED", vertical: "HUG" };
   }
@@ -565,10 +593,10 @@ function buildCard4(card4_tokens) {
     }
   }
 
-  // Column widths: first col wider for state name, rest equal
+  // Column widths: first col fixed for state name, rest FILL
   const colCount = colorHeaders.length;
   const colorWidths = [140];
-  for (let i = 1; i < colCount; i++) colorWidths.push(160);
+  for (let i = 1; i < colCount; i++) colorWidths.push("FILL");
 
   const colorRows = card4_tokens.colorTokens.map((row) => {
     const cells = [
@@ -592,14 +620,10 @@ function buildCard4(card4_tokens) {
   children.push(sectionTitle("Sizing & spacing"));
 
   const sizingHeaders = ["Property", "Token", "Value"];
-  const sizingWidths = [200, 240, 120];
+  const sizingWidths = ["FILL", "FILL", 120];
   const sizingRows = (card4_tokens.sizingTokens || []).map((row) => [
-    textNode(row.property, "Inter:Regular", 14, PALETTE.textPrimary, {
-      width: 200,
-    }),
-    textNode(row.token, "Fira Code:Regular", 12, PALETTE.textPrimary, {
-      width: 240,
-    }),
+    textNode(row.property, "Inter:Regular", 14, PALETTE.textPrimary),
+    textNode(row.token, "Fira Code:Regular", 12, PALETTE.textPrimary),
     textNode(row.value, "Inter:Regular", 14, PALETTE.textPrimary, {
       width: 120,
     }),
@@ -822,23 +846,33 @@ function buildCard8(card8_accessibility) {
         textNode(req.body, "Inter:Regular", 13, PALETTE.textSecondary),
         ...codeChildren,
       ],
-      width: 330,
-      sizing: { vertical: "HUG" },
+      sizing: { horizontal: "FILL", vertical: "HUG" },
     };
   });
+
+  // Arrange in rows of 3 for proper FILL distribution
+  const reqRows = [];
+  for (let i = 0; i < reqCards.length; i += 3) {
+    reqRows.push({
+      type: "FRAME",
+      name: `Requirements row ${Math.floor(i / 3) + 1}`,
+      layout: { mode: "HORIZONTAL", spacing: 16, padding: [0, 0, 0, 0] },
+      fills: [],
+      children: reqCards.slice(i, i + 3),
+      sizing: { horizontal: "FILL", vertical: "HUG" },
+    });
+  }
 
   children.push({
     type: "FRAME",
     name: "Requirements grid",
     layout: {
-      mode: "HORIZONTAL",
+      mode: "VERTICAL",
       spacing: 16,
-      counterAxisSpacing: 16,
-      wrap: true,
       padding: [0, 0, 0, 0],
     },
     fills: [],
-    children: reqCards,
+    children: reqRows,
     sizing: { horizontal: "FILL", vertical: "HUG" },
   });
 
@@ -857,16 +891,24 @@ function buildCard8(card8_accessibility) {
       "Keyboard",
       "Announcement",
     ];
-    const ariaHeaderWidths = [140, 100, 160, 100, 180, 200];
-    const ariaHeaderCells = ariaHeaderLabels.map((h, i) => ({
-      type: "INSTANCE",
-      ref: "tableHeaderRow",
-      name: `Header: ${h}`,
-      detach: true,
-      textSlots: { label: h },
-      width: ariaHeaderWidths[i],
-      sizing: { horizontal: "FIXED", vertical: "HUG" },
-    }));
+    const ariaHeaderWidths = ["FILL", "FILL", "FILL", 100, "FILL", "FILL"];
+    const ariaHeaderCells = ariaHeaderLabels.map((h, i) => {
+      const w = ariaHeaderWidths[i];
+      const node = {
+        type: "INSTANCE",
+        ref: "tableHeaderRow",
+        name: `Header: ${h}`,
+        detach: true,
+        textSlots: { label: h },
+      };
+      if (w === "FILL") {
+        node.sizing = { horizontal: "FILL", vertical: "HUG" };
+      } else {
+        node.width = w;
+        node.sizing = { horizontal: "FIXED", vertical: "HUG" };
+      }
+      return node;
+    });
 
     const ariaHeaderRow = {
       type: "FRAME",
@@ -917,13 +959,11 @@ function buildCard8(card8_accessibility) {
       "Ratio",
       "WCAG AA",
     ];
-    const contrastWidths = [160, 160, 160, 80, 80];
+    const contrastWidths = ["FILL", "FILL", "FILL", 80, 100];
     const contrastRows = contrastTable.map((row) => [
-      textNode(row.element, "Inter:Regular", 14, PALETTE.textPrimary, {
-        width: 160,
-      }),
-      swatchCell(row.foreground, row.foreground, 160),
-      swatchCell(row.background, row.background, 160),
+      textNode(row.element, "Inter:Regular", 14, PALETTE.textPrimary),
+      swatchCell(row.foreground, row.foreground, "FILL"),
+      swatchCell(row.background, row.background, "FILL"),
       textNode(row.ratio, "Inter:Regular", 14, PALETTE.textPrimary, {
         width: 80,
       }),
