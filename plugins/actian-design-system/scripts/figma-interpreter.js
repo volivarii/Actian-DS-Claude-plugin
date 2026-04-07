@@ -418,6 +418,8 @@ async function buildNode(spec, ctx) {
       return await buildComponent(spec, ctx);
     case "COMPONENT_SET":
       return await buildComponentSet(spec, ctx);
+    case "ANATOMY_DIAGRAM":
+      return await buildAnatomyDiagram(spec, ctx);
     default:
       throw new Error("Unknown node type: " + spec.type);
   }
@@ -451,7 +453,8 @@ async function buildFrame(spec, ctx) {
   applyVariables(frame, spec.variables, ctx);
   // Set explicit variable mode for themed containers
   if (spec.variableMode) {
-    var vmCollections = await figma.variables.getLocalVariableCollectionsAsync();
+    var vmCollections =
+      await figma.variables.getLocalVariableCollectionsAsync();
     var vmTarget = null;
     for (var vm = 0; vm < vmCollections.length; vm++) {
       if (vmCollections[vm].name === spec.variableMode.collection) {
@@ -976,4 +979,218 @@ async function buildComponentSet(spec, ctx) {
   if (spec.name) set.name = spec.name;
   if (spec.description) set.description = spec.description;
   return set;
+}
+
+// ─── Anatomy Diagram (two-pass badge positioning) ─────────────────────────────
+
+async function buildAnatomyDiagram(spec, ctx) {
+  var padding = spec.padding || 48;
+  var badgeSize = spec.badgeSize || 26;
+  var lineWeight = spec.lineWeight || 1;
+  var badgeColor = spec.badgeColor || "#1A1A2E";
+  var lineColor = spec.lineColor || "#1A1A2E";
+  var badgeFont = spec.badgeFont || "Inter:Semi Bold";
+  var badgeFontSize = spec.badgeFontSize || 12;
+
+  var container = figma.createFrame();
+  container.name = spec.name || "Anatomy diagram";
+  container.layoutMode = "NONE";
+  container.fills = [];
+  container.clipsContent = false;
+
+  // Pass 1: Create the component instance
+  var instanceSpec = spec.instance;
+  var componentOrSet = ctx.locals[instanceSpec.ref];
+  if (!componentOrSet) {
+    container.resize(400, 200);
+    return container;
+  }
+
+  var instance;
+  if (instanceSpec.variant && componentOrSet.type === "COMPONENT_SET") {
+    var variants = componentOrSet.children;
+    var target = null;
+    for (var vi = 0; vi < variants.length; vi++) {
+      if (
+        variants[vi].name === instanceSpec.variant ||
+        variants[vi].name.indexOf(instanceSpec.variant) !== -1
+      ) {
+        target = variants[vi];
+        break;
+      }
+    }
+    instance = target
+      ? target.createInstance()
+      : (componentOrSet.defaultVariant || variants[0]).createInstance();
+  } else if (componentOrSet.type === "COMPONENT_SET") {
+    instance = (
+      componentOrSet.defaultVariant || componentOrSet.children[0]
+    ).createInstance();
+  } else if (componentOrSet.createInstance) {
+    instance = componentOrSet.createInstance();
+  } else {
+    container.resize(400, 200);
+    return container;
+  }
+
+  instance.name = instanceSpec.name || "Component";
+  container.appendChild(instance);
+  instance.x = padding;
+  instance.y = padding;
+
+  var iw = instance.width;
+  var ih = instance.height;
+  container.resize(iw + padding * 2, ih + padding * 2);
+
+  // Pass 2: Read bounding boxes and assign sides
+  var parts = spec.parts || [];
+  var sides = { top: [], right: [], bottom: [], left: [] };
+
+  for (var pi = 0; pi < parts.length; pi++) {
+    var part = parts[pi];
+    var layerNode = instance.findOne(function (n) {
+      return n.name === part.layerName;
+    });
+
+    if (!layerNode) {
+      sides.top.push({
+        part: part,
+        cx: padding + (iw / (parts.length + 1)) * (pi + 1),
+        cy: padding,
+      });
+      continue;
+    }
+
+    var lb = layerNode.absoluteBoundingBox;
+    var cb = container.absoluteBoundingBox;
+    var lx = lb.x - cb.x;
+    var ly = lb.y - cb.y;
+    var lw = lb.width;
+    var lh = lb.height;
+    var lcx = lx + lw / 2;
+    var lcy = ly + lh / 2;
+
+    var distTop = lcy - padding;
+    var distBottom = padding + ih - lcy;
+    var distLeft = lcx - padding;
+    var distRight = padding + iw - lcx;
+    var minDist = Math.min(distTop, distBottom, distLeft, distRight);
+
+    if (minDist === distTop) {
+      sides.top.push({ part: part, cx: lcx, cy: ly, edge: "top" });
+    } else if (minDist === distBottom) {
+      sides.bottom.push({ part: part, cx: lcx, cy: ly + lh, edge: "bottom" });
+    } else if (minDist === distLeft) {
+      sides.left.push({ part: part, cx: lx, cy: lcy, edge: "left" });
+    } else {
+      sides.right.push({ part: part, cx: lx + lw, cy: lcy, edge: "right" });
+    }
+  }
+
+  // Redistribute overflow (max 3 per side)
+  var allSideNames = ["top", "right", "bottom", "left"];
+  for (var si = 0; si < allSideNames.length; si++) {
+    var sideName = allSideNames[si];
+    while (sides[sideName].length > 3) {
+      var overflow = sides[sideName].pop();
+      var minSide = null;
+      var minCount = 999;
+      for (var ms = 0; ms < allSideNames.length; ms++) {
+        if (
+          allSideNames[ms] !== sideName &&
+          sides[allSideNames[ms]].length < minCount
+        ) {
+          minCount = sides[allSideNames[ms]].length;
+          minSide = allSideNames[ms];
+        }
+      }
+      sides[minSide].push(overflow);
+    }
+  }
+
+  // Sort each side by position
+  sides.top.sort(function (a, b) {
+    return a.cx - b.cx;
+  });
+  sides.bottom.sort(function (a, b) {
+    return a.cx - b.cx;
+  });
+  sides.left.sort(function (a, b) {
+    return a.cy - b.cy;
+  });
+  sides.right.sort(function (a, b) {
+    return a.cy - b.cy;
+  });
+
+  // Load badge font
+  var bfParts = badgeFont.split(":");
+  await figma.loadFontAsync({
+    family: bfParts[0],
+    style: (bfParts[1] || "Regular").trim(),
+  });
+
+  // Helper: create a badge circle + letter + leader line
+  function createBadge(partData, badgeX, badgeY, lineEndX, lineEndY) {
+    var badge = figma.createEllipse();
+    badge.name = "Badge " + partData.part.letter;
+    badge.resize(badgeSize, badgeSize);
+    badge.fills = [{ type: "SOLID", color: hexToRgb(badgeColor) }];
+    badge.x = badgeX - badgeSize / 2;
+    badge.y = badgeY - badgeSize / 2;
+    container.appendChild(badge);
+
+    var letter = figma.createText();
+    letter.name = "Letter " + partData.part.letter;
+    letter.fontName = {
+      family: bfParts[0],
+      style: (bfParts[1] || "Regular").trim(),
+    };
+    letter.fontSize = badgeFontSize;
+    letter.characters = partData.part.letter;
+    letter.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];
+    letter.textAlignHorizontal = "CENTER";
+    letter.textAlignVertical = "CENTER";
+    letter.resize(badgeSize, badgeSize);
+    letter.x = badgeX - badgeSize / 2;
+    letter.y = badgeY - badgeSize / 2;
+    container.appendChild(letter);
+
+    // Leader line
+    var dx = lineEndX - badgeX;
+    var dy = lineEndY - badgeY;
+    var length = Math.sqrt(dx * dx + dy * dy);
+    if (length > badgeSize / 2) {
+      var line = figma.createLine();
+      line.name = "Line " + partData.part.letter;
+      line.strokes = [{ type: "SOLID", color: hexToRgb(lineColor) }];
+      line.strokeWeight = lineWeight;
+      line.resize(length, 0);
+      var angle = Math.atan2(dy, dx);
+      line.rotation = -angle * (180 / Math.PI);
+      line.x = badgeX;
+      line.y = badgeY;
+      container.appendChild(line);
+    }
+  }
+
+  var offset = badgeSize / 2 + 8;
+
+  for (var ti = 0; ti < sides.top.length; ti++) {
+    var t = sides.top[ti];
+    createBadge(t, t.cx, padding - offset, t.cx, t.cy || padding);
+  }
+  for (var ri = 0; ri < sides.right.length; ri++) {
+    var r = sides.right[ri];
+    createBadge(r, padding + iw + offset, r.cy, r.cx || padding + iw, r.cy);
+  }
+  for (var bi = 0; bi < sides.bottom.length; bi++) {
+    var b = sides.bottom[bi];
+    createBadge(b, b.cx, padding + ih + offset, b.cx, b.cy || padding + ih);
+  }
+  for (var li = 0; li < sides.left.length; li++) {
+    var l = sides.left[li];
+    createBadge(l, padding - offset, l.cy, l.cx || padding, l.cy);
+  }
+
+  return container;
 }
