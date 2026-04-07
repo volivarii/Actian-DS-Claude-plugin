@@ -449,6 +449,29 @@ async function buildFrame(spec, ctx) {
   }
   await applyStyles(frame, spec.styles, ctx);
   applyVariables(frame, spec.variables, ctx);
+  // Set explicit variable mode for themed containers
+  if (spec.variableMode) {
+    var vmCollections = await figma.variables.getLocalVariableCollectionsAsync();
+    var vmTarget = null;
+    for (var vm = 0; vm < vmCollections.length; vm++) {
+      if (vmCollections[vm].name === spec.variableMode.collection) {
+        vmTarget = vmCollections[vm];
+        break;
+      }
+    }
+    if (vmTarget) {
+      var vmMode = null;
+      for (var vmi = 0; vmi < vmTarget.modes.length; vmi++) {
+        if (vmTarget.modes[vmi].name === spec.variableMode.mode) {
+          vmMode = vmTarget.modes[vmi];
+          break;
+        }
+      }
+      if (vmMode) {
+        frame.setExplicitVariableModeForCollection(vmTarget.id, vmMode.modeId);
+      }
+    }
+  }
   return frame;
 }
 
