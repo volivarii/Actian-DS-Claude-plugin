@@ -401,155 +401,167 @@ function buildCard2(card2_component, meta) {
 function buildCard3(card3_anatomy) {
   const children = [];
 
-  // Sub-section 1: Structure
+  // Section 1: Structure — anatomy diagram with leader lines
   children.push(sectionTitle("Structure"));
 
-  // Structure: badge + part name rows in auto-layout
-  const structureRows = card3_anatomy.parts.map((part) => ({
-    type: "FRAME",
-    name: `Part ${part.letter}`,
-    layout: { mode: "HORIZONTAL", spacing: 12, padding: [4, 0, 4, 0] },
-    fills: [],
-    children: [
-      {
-        type: "INSTANCE",
-        ref: "pointerBadge",
-        name: `Badge ${part.letter}`,
-        variant: "Direction=Left",
-        props: { Label: part.letter },
-        sizing: { horizontal: "HUG", vertical: "HUG" },
-      },
-      textNode(
-        `${part.name} \u2014 ${part.description}`,
-        "Inter:Regular",
-        13,
-        PALETTE.textPrimary,
-      ),
-    ],
-    sizing: { horizontal: "FILL", vertical: "HUG" },
-  }));
+  children.push({
+    type: "ANATOMY_DIAGRAM",
+    name: "Component anatomy",
+    instance: {
+      ref: "targetComponent",
+      variant: card3_anatomy.diagramVariant || "State=Default",
+      name: "Anatomy instance",
+    },
+    parts: card3_anatomy.parts.map((p) => ({
+      letter: p.letter,
+      layerName: p.figmaLayerName,
+    })),
+    badgeColor: "#1A1A2E",
+    lineColor: "#1A1A2E",
+    padding: 48,
+  });
+
+  // Parts legend (2-column grid)
+  const legendRows = [];
+  for (let i = 0; i < card3_anatomy.parts.length; i += 2) {
+    const rowChildren = [];
+    for (let j = i; j < Math.min(i + 2, card3_anatomy.parts.length); j++) {
+      const part = card3_anatomy.parts[j];
+      rowChildren.push({
+        type: "FRAME",
+        name: "Legend: " + part.letter,
+        layout: { mode: "HORIZONTAL", spacing: 8, padding: [0, 0, 0, 0] },
+        fills: [],
+        children: [
+          {
+            type: "FRAME",
+            name: "Badge " + part.letter,
+            layout: { mode: "VERTICAL", spacing: 0, padding: [0, 0, 0, 0] },
+            fills: ["#1A1A2E"],
+            cornerRadius: 13,
+            children: [
+              textNode(part.letter, "Inter:Semi Bold", 11, "#FFFFFF", {
+                width: 22,
+                textAlign: { horizontal: "CENTER", vertical: "CENTER" },
+              }),
+            ],
+            sizing: { horizontal: 22, vertical: 22 },
+          },
+          {
+            type: "FRAME",
+            name: "Description " + part.letter,
+            layout: { mode: "VERTICAL", spacing: 2, padding: [0, 0, 0, 0] },
+            fills: [],
+            children: [
+              textNode(part.name, "Inter:Semi Bold", 13, PALETTE.textPrimary),
+              textNode(
+                part.description,
+                "Inter:Regular",
+                12,
+                PALETTE.textSecondary,
+              ),
+            ],
+            sizing: { horizontal: "FILL", vertical: "HUG" },
+          },
+        ],
+        sizing: { horizontal: "FILL", vertical: "HUG" },
+      });
+    }
+    legendRows.push({
+      type: "FRAME",
+      name: "Legend row",
+      layout: { mode: "HORIZONTAL", spacing: 32, padding: [0, 0, 0, 0] },
+      fills: [],
+      children: rowChildren,
+      sizing: { horizontal: "FILL", vertical: "HUG" },
+    });
+  }
 
   children.push({
     type: "FRAME",
-    name: "Structure",
-    layout: { mode: "VERTICAL", spacing: 4, padding: [16, 20, 16, 20] },
-    fills: [PALETTE.bgLight],
-    cornerRadius: 12,
-    children: structureRows,
+    name: "Parts legend",
+    layout: { mode: "VERTICAL", spacing: 8, padding: [0, 0, 0, 0] },
+    fills: [],
+    children: legendRows,
     sizing: { horizontal: "FILL", vertical: "HUG" },
   });
 
-  // Sub-section 2: Specs
+  // Divider
   children.push(dividerNode());
+
+  // Section 2: Specs table
   children.push(sectionTitle("Specs"));
 
-  // Component instance for visual context
-  const specComponentInstance = {
-    type: "LOCAL_INSTANCE",
-    ref: "targetComponent",
-    variant: "State=Default",
-    name: "Specs reference",
-  };
+  const specsHeaders = ["Part", "Property", "Token", "Value"];
+  const specsWidths = [50, "FILL", "FILL", 80];
+  const specsRows = (card3_anatomy.partsTable || []).map((row) => [
+    {
+      type: "FRAME",
+      name: "Badge " + row.part,
+      layout: { mode: "VERTICAL", spacing: 0, padding: [0, 0, 0, 0] },
+      fills: ["#1A1A2E22"],
+      cornerRadius: 9,
+      children: [
+        textNode(row.part, "Inter:Semi Bold", 10, "#1A1A2E", {
+          width: 18,
+          textAlign: { horizontal: "CENTER", vertical: "CENTER" },
+        }),
+      ],
+      sizing: { horizontal: 18, vertical: 18 },
+    },
+    textNode(row.element, "Inter:Regular", 14, PALETTE.textPrimary),
+    textNode(row.token, "Fira Code:Regular", 11, "#0550DC"),
+    textNode(row.notes, "Inter:Regular", 12, PALETTE.textSecondary, {
+      width: 80,
+    }),
+  ]);
 
-  const specRows = card3_anatomy.specs.map((spec) => ({
-    type: "FRAME",
-    name: `Spec: ${spec.target}`,
-    layout: { mode: "HORIZONTAL", spacing: 12, padding: [4, 0, 4, 0] },
-    fills: [],
-    children: [
-      {
-        type: "INSTANCE",
-        ref: "dimAnnotation",
-        name: spec.label,
-        variant:
-          spec.orientation === "vertical"
-            ? "Orientation=Vertical"
-            : "Orientation=Horizontal",
-        props: { Value: spec.label },
-        sizing: { horizontal: "HUG", vertical: "HUG" },
-      },
-      textNode(spec.target, "Inter:Regular", 13, PALETTE.textSecondary),
-    ],
-    sizing: { horizontal: "FILL", vertical: "HUG" },
-  }));
+  children.push(
+    tableFrame("Specs table", specsHeaders, specsRows, specsWidths),
+  );
 
-  children.push({
-    type: "FRAME",
-    name: "Specs",
-    layout: { mode: "VERTICAL", spacing: 16, padding: [16, 20, 16, 20] },
-    fills: [PALETTE.bgLight],
-    cornerRadius: 12,
-    children: [specComponentInstance, ...specRows],
-    sizing: { horizontal: "FILL", vertical: "HUG" },
-  });
-
-  // Sub-section 3: States
+  // Divider
   children.push(dividerNode());
+
+  // Section 3: States row
   children.push(sectionTitle("States"));
 
-  const stateColumns = card3_anatomy.states.map((state) => ({
+  const stateInstances = (card3_anatomy.states || []).map((stateName) => ({
     type: "FRAME",
-    name: `State: ${state}`,
+    name: "State: " + stateName,
     layout: { mode: "VERTICAL", spacing: 8, padding: [0, 0, 0, 0] },
     fills: [],
     children: [
-      textNode(state, "Inter:Medium", 12, PALETTE.textTertiary),
       {
         type: "LOCAL_INSTANCE",
         ref: "targetComponent",
-        variant: `State=${state}`,
-        name: `${state} state`,
+        variant: "State=" + stateName,
+        name: stateName,
       },
+      textNode(stateName, "Inter:Medium", 12, PALETTE.textSecondary),
     ],
     sizing: { horizontal: "HUG", vertical: "HUG" },
   }));
 
   children.push({
     type: "FRAME",
-    name: "States grid",
-    layout: { mode: "HORIZONTAL", spacing: 24, padding: [0, 0, 0, 0] },
+    name: "States row",
+    layout: {
+      mode: "HORIZONTAL",
+      spacing: 24,
+      wrap: true,
+      counterAxisSpacing: 16,
+      padding: [0, 0, 0, 0],
+    },
     fills: [],
-    children: stateColumns,
+    children: stateInstances,
     sizing: { horizontal: "FILL", vertical: "HUG" },
   });
-
-  // Sub-section 4: Parts reference table
-  children.push(dividerNode());
-  children.push(sectionTitle("Parts reference"));
-
-  const partsHeaders = ["Part", "Element", "Token", "Notes"];
-  const partsWidths = [60, 140, 240, 300];
-  const partsRows = card3_anatomy.partsTable.map((row) => {
-    // Token column uses monospace
-    const tokenCell = textNode(
-      row.token,
-      "Fira Code:Regular",
-      12,
-      PALETTE.textPrimary,
-      { width: 240 },
-    );
-    return [
-      textNode(row.part, "Inter:Regular", 14, PALETTE.textPrimary, {
-        width: 60,
-      }),
-      textNode(row.element, "Inter:Regular", 14, PALETTE.textPrimary, {
-        width: 140,
-      }),
-      tokenCell,
-      textNode(row.notes, "Inter:Regular", 14, PALETTE.textSecondary, {
-        width: 300,
-      }),
-    ];
-  });
-
-  children.push(
-    tableFrame("Parts reference table", partsHeaders, partsRows, partsWidths),
-  );
 
   return cardShell(
     "Anatomy",
     "Anatomy",
-    "Component structure, dimensions, interactive states, and part-level token mapping",
+    "Component structure, specifications, and interactive states",
     children,
   );
 }

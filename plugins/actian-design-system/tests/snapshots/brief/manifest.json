@@ -1,53 +1,59 @@
 {
-  "totalCalls": 6,
+  "totalCalls": 7,
   "unitMap": {
     "genLog": 1,
     "card1_header": 1,
     "card2_component": 1,
-    "card3_anatomy": 1,
-    "card4_tokens": 2,
-    "card5_api": 3,
-    "card6_usage": 3,
-    "card7_content": 4,
-    "card8_accessibility": 5,
-    "card9_code": 6
+    "card3_anatomy": 2,
+    "card4_tokens": 3,
+    "card5_api": 4,
+    "card6_usage": 4,
+    "card7_content": 5,
+    "card8_accessibility": 6,
+    "card9_code": 7
   },
   "calls": [
     {
       "callIndex": 1,
       "file": "call-1.js",
-      "sizeBytes": 35794,
-      "description": "Call 1/6: GenLog, Card 1, Card 2, Card 3"
+      "sizeBytes": 25173,
+      "description": "Call 1/7: GenLog, Card 1, Card 2"
     },
     {
       "callIndex": 2,
       "file": "call-2.js",
-      "sizeBytes": 32551,
-      "description": "Call 2/6: Card 4"
+      "sizeBytes": 31890,
+      "description": "Call 2/7: Card 3"
     },
     {
       "callIndex": 3,
       "file": "call-3.js",
-      "sizeBytes": 32555,
-      "description": "Call 3/6: Card 5, Card 6"
+      "sizeBytes": 32551,
+      "description": "Call 3/7: Card 4"
     },
     {
       "callIndex": 4,
       "file": "call-4.js",
-      "sizeBytes": 26149,
-      "description": "Call 4/6: Card 7"
+      "sizeBytes": 32555,
+      "description": "Call 4/7: Card 5, Card 6"
     },
     {
       "callIndex": 5,
       "file": "call-5.js",
-      "sizeBytes": 37826,
-      "description": "Call 5/6: Card 8"
+      "sizeBytes": 26149,
+      "description": "Call 5/7: Card 7"
     },
     {
       "callIndex": 6,
       "file": "call-6.js",
+      "sizeBytes": 37826,
+      "description": "Call 6/7: Card 8"
+    },
+    {
+      "callIndex": 7,
+      "file": "call-7.js",
       "sizeBytes": 24150,
-      "description": "Call 6/6: Card 9"
+      "description": "Call 7/7: Card 9"
     }
   ]
 }
