@@ -65,7 +65,25 @@ If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5")
 
 ## Step 2 — Generate data model
 
-Write `{project_working_directory}/components/[name]/[name]-brief-data.json` per `../../references/component-brief/data-schema.md`. Reference `examples/brief-data-example.json` for the expected structure and level of detail. Only include selected cards. Dispatch `brief-data-validator` in background.
+**Parallel mode (6+ DS cards selected):** Dispatch 3 `card-generator` agents in parallel:
+- Agent A: cards 1, 2, 3 → `{project_working_directory}/components/[name]/.partial/cards-1-3.json`
+- Agent B: cards 4, 5, 6 → `{project_working_directory}/components/[name]/.partial/cards-4-6.json`
+- Agent C: cards 7, 8, 9 → `{project_working_directory}/components/[name]/.partial/cards-7-9.json`
+
+Each agent receives: card numbers, component name, library, component guidelines JSON content, meta object, output path. Reference `references/component-brief/data-schema.md` and `examples/brief-data-example.json`.
+
+After all 3 complete, merge:
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/merge-partials.js" \
+  --type brief \
+  --partials-dir {project_working_directory}/components/[name]/.partial \
+  --output {project_working_directory}/components/[name]/[name]-brief-data.json
+```
+
+Dispatch `brief-data-validator` in background on the merged file.
+
+**Sequential mode (<6 cards or FM mode):** Write `{project_working_directory}/components/[name]/[name]-brief-data.json` directly per `../../references/component-brief/data-schema.md`. Reference `examples/brief-data-example.json` for the expected structure. Only include selected cards. Dispatch `brief-data-validator` in background.
 
 ## Step 2.5 — Present push options (copy verbatim)
 
