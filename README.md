@@ -16,7 +16,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.40.0** · 8 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.42.0** · 8 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
