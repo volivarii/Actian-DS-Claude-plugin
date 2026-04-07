@@ -327,6 +327,139 @@ for (const entry of briefIndex) {
   }
 }
 
+// ── presentation recipes ────────────────────────────────────────────
+
+const PRES_DIR = path.join(RECIPES_DIR, "presentation");
+const PRES_INDEX_PATH = path.join(PRES_DIR, "_index.json");
+
+if (fs.existsSync(PRES_INDEX_PATH)) {
+  let presIndex;
+  try {
+    presIndex = JSON.parse(fs.readFileSync(PRES_INDEX_PATH, "utf-8"));
+  } catch (err) {
+    console.error(
+      `FAIL  presentation/_index.json could not be loaded: ${err.message}`,
+    );
+    failed++;
+  }
+
+  if (presIndex) {
+    assert.ok(
+      Array.isArray(presIndex),
+      "presentation/_index.json must be an array",
+    );
+
+    for (const entry of presIndex) {
+      const label = `presentation/${entry.file || "(unknown)"}`;
+      const errors = [];
+
+      if (typeof entry.file !== "string")
+        errors.push('index entry missing "file" (string)');
+      if (typeof entry.slideType !== "string")
+        errors.push('index entry missing "slideType" (string)');
+
+      const presRecipePath = path.join(PRES_DIR, entry.file);
+      if (!fs.existsSync(presRecipePath)) {
+        errors.push(`recipe file not found: presentation/${entry.file}`);
+        console.log(`FAIL  ${label}`);
+        errors.forEach((e) => console.log(`        ${e}`));
+        failed++;
+        continue;
+      }
+
+      let recipe;
+      try {
+        recipe = JSON.parse(fs.readFileSync(presRecipePath, "utf-8"));
+      } catch (err) {
+        errors.push(`recipe file is not valid JSON: ${err.message}`);
+        console.log(`FAIL  ${label}`);
+        errors.forEach((e) => console.log(`        ${e}`));
+        failed++;
+        continue;
+      }
+
+      // Required string fields
+      for (const field of ["slideType", "title", "description"]) {
+        if (typeof recipe[field] !== "string") {
+          errors.push(`missing or invalid field "${field}" (expected string)`);
+        }
+      }
+
+      // slideType match
+      if (
+        typeof recipe.slideType === "string" &&
+        recipe.slideType !== entry.slideType
+      ) {
+        errors.push(
+          `slideType mismatch: index says "${entry.slideType}", recipe says "${recipe.slideType}"`,
+        );
+      }
+
+      // sections: object with string values
+      if (
+        typeof recipe.sections !== "object" ||
+        recipe.sections === null ||
+        Array.isArray(recipe.sections)
+      ) {
+        errors.push('missing or invalid field "sections" (expected object)');
+      } else {
+        if (Object.keys(recipe.sections).length < 1) {
+          errors.push('"sections" must have at least 1 entry');
+        }
+        for (const [key, val] of Object.entries(recipe.sections)) {
+          if (typeof val !== "string") {
+            errors.push(
+              `sections["${key}"] must be a string, got ${typeof val}`,
+            );
+          }
+        }
+      }
+
+      // qualityRules: array of strings
+      if (!Array.isArray(recipe.qualityRules)) {
+        errors.push('missing or invalid field "qualityRules" (expected array)');
+      } else {
+        if (recipe.qualityRules.length < 1) {
+          errors.push('"qualityRules" must have at least 1 entry');
+        }
+        recipe.qualityRules.forEach((rule, i) => {
+          if (typeof rule !== "string") {
+            errors.push(
+              `qualityRules[${i}] must be a string, got ${typeof rule}`,
+            );
+          }
+        });
+      }
+
+      // minimums: object with number values
+      if (
+        typeof recipe.minimums !== "object" ||
+        recipe.minimums === null ||
+        Array.isArray(recipe.minimums)
+      ) {
+        errors.push('missing or invalid field "minimums" (expected object)');
+      } else {
+        for (const [key, val] of Object.entries(recipe.minimums)) {
+          if (typeof val !== "number") {
+            errors.push(
+              `minimums["${key}"] must be a number, got ${typeof val}`,
+            );
+          }
+        }
+      }
+
+      if (errors.length === 0) {
+        console.log(`PASS  ${label}`);
+        passed++;
+      } else {
+        console.log(`FAIL  ${label}`);
+        errors.forEach((e) => console.log(`        ${e}`));
+        failed++;
+      }
+    }
+  }
+}
+
 // ── summary ──────────────────────────────────────────────────────────
 
 console.log("");

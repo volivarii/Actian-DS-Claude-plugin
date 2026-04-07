@@ -1,0 +1,93 @@
+{
+  "archetype": "explorer-homepage",
+  "description": "Full-width search-first marketplace with hero area, sectioned tile lists, and horizontal carousels. No sidebar — unique to Explorer app.",
+  "pattern": 9,
+  "tags": ["homepage", "search", "marketplace", "tiles", "hero"],
+  "slots": {
+    "header-section": "Hero area with large title and prominent search bar (800px wide) on decorative background",
+    "body-section": "Repeating sections: section title row (title + divider + action) → sub-sections with tile grids (240px tiles, 16px gap)",
+    "footer-section": "Not used — page scrolls"
+  },
+  "skeleton": {
+    "chrome": "no-sidebar",
+    "pageHeader": null,
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Hero area",
+        "layout": { "mode": "VERTICAL", "spacing": 16, "padding": [32, 32, 32, 32] },
+        "fills": ["#F0F8F8"],
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          { "type": "TEXT", "content": "{{hero_title}}", "font": "Inter:Bold", "size": 28, "color": "#1A1A2E" },
+          { "type": "INSTANCE", "ref": "fmSearchInput", "variant": "Type=Empty", "props": { "Placeholder": "Search items..." } }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Section: {{section1_title}}",
+        "layout": { "mode": "VERTICAL", "spacing": 16 },
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Section title row",
+            "layout": { "mode": "HORIZONTAL", "spacing": 8, "primaryAxisAlignItems": "SPACE_BETWEEN" },
+            "sizing": { "horizontal": "FILL", "vertical": 32 },
+            "children": [
+              { "type": "TEXT", "content": "{{section1_title}}", "font": "Inter:Semi Bold", "size": 16, "color": "#1A1A2E" },
+              { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=sm, Shape=Regular, State=Default", "props": { "Label": "Browse all", "👁 Leading Icon": false, "👁 Trailing Icon": false } }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Tile grid",
+            "layout": { "mode": "HORIZONTAL", "spacing": 16 },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Tile: {{tile1_title}}",
+                "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
+                "fills": ["#FFFFFF"],
+                "cornerRadius": 8,
+                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "sizing": { "horizontal": 240, "vertical": "HUG" },
+                "children": [
+                  { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{tile1_type}}" } },
+                  { "type": "TEXT", "content": "{{tile1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" },
+                  { "type": "TEXT", "content": "{{tile1_description}}", "font": "Inter:Regular", "size": 13, "color": "#595968" }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Tile: {{tile2_title}}",
+                "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
+                "fills": ["#FFFFFF"],
+                "cornerRadius": 8,
+                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "sizing": { "horizontal": 240, "vertical": "HUG" },
+                "children": [
+                  { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{tile2_type}}" } },
+                  { "type": "TEXT", "content": "{{tile2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" },
+                  { "type": "TEXT", "content": "{{tile2_description}}", "font": "Inter:Regular", "size": 13, "color": "#595968" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Explorer homepage has NO sidebar — use no-sidebar template",
+    "Hero area: decorative background (simplified to solid fill for FM), large title (28px), prominent search bar",
+    "Content starts at x=25, full width ~1391px",
+    "Section anatomy: title row (title + divider + right-aligned action) → sub-sections (subtitle + tiles)",
+    "Tiles are 240px wide, 16px gap — repeat tile frames as needed",
+    "Tile heights vary by content type: item ~156px, catalog ~44px, topic ~124px, type ~96px",
+    "For horizontal carousels, add 2-3 tiles and note 'scrollable' in the section",
+    "Repeat the section pattern for each content area (Marketplace, Topics, Catalog types)"
+  ],
+  "missing_states": ["empty-search-results", "loading"]
+}

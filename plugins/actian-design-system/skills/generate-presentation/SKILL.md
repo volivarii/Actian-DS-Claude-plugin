@@ -40,7 +40,7 @@ Deck outline: N slides (cover + N body + back cover). Reply:
 
 ## Step 3 — Build slide-data.json and push to Figma
 
-1. Build `slide-data.json`: `meta` (title, targetNodeId, prompt, duration, model, pluginVersion, generatedAt, skill) + `slides[]` (type + type-specific data, structured `content[]` nodes for charts). Reference `examples/slide-data-example.json` for expected structure.
+1. Build `slide-data.json`: `meta` (title, targetNodeId, prompt, duration, model, pluginVersion, generatedAt, skill) + `slides[]` (type + type-specific data, structured `content[]` nodes for charts). Reference `examples/slide-data-example.json` for expected structure. Before generating each slide, read `recipes/presentation/_index.json` and the corresponding slide type recipe for structure guidance, quality rules, and content constraints.
    - **Parallel mode (6+ slides):** Dispatch `slide-generator` agents in parallel, splitting slides into batches of 3-4. Each agent receives: batch index, slide details (type, title, content description), presentation context, meta object, output path to `.partial/`. After all complete, merge:
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"

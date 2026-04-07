@@ -1,0 +1,19 @@
+{
+  "slideType": "body-text-visual",
+  "title": "Body Slide (Text + Visual)",
+  "description": "Split layout with text on one side and a visual (chart, image, diagram) on the other",
+  "sections": {
+    "headline": "Slide headline — conclusion-oriented, same rules as body-full.",
+    "textSide": "Left or right column with bullet points, key takeaways, or narrative text. Max 4 bullets or 100 words.",
+    "visualSide": "Chart, diagram, screenshot, or illustration. Describe the visual content and its data if it's a chart."
+  },
+  "qualityRules": [
+    "Text and visual must reinforce the same message — don't show unrelated content",
+    "Text side: max 4 bullets or 100 words (less than body-full since space is split)",
+    "Visual side should be the primary focus — text supports the visual, not the other way around",
+    "Charts use --zen-color-category-N-strong tokens",
+    "Split is typically 40/60 or 50/50 — visual side gets equal or more space",
+    "All text uses Roboto font family"
+  ],
+  "minimums": {}
+}

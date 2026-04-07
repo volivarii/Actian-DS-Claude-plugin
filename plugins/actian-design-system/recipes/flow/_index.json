@@ -4,5 +4,8 @@
   { "file": "detail-view.json", "archetype": "detail-view", "pattern": 3, "tags": ["detail", "tabs", "profile", "settings", "entity"] },
   { "file": "dashboard.json", "archetype": "dashboard", "pattern": 1, "tags": ["dashboard", "cards", "overview", "metrics", "home"] },
   { "file": "browse-search.json", "archetype": "browse-search", "pattern": 2, "tags": ["search", "browse", "catalog", "results", "filter"] },
-  { "file": "overlay.json", "archetype": "overlay", "pattern": 7, "tags": ["modal", "panel", "dialog", "drawer", "side-panel"] }
+  { "file": "overlay.json", "archetype": "overlay", "pattern": 7, "tags": ["modal", "panel", "dialog", "drawer", "side-panel"] },
+  { "file": "data-visualization.json", "archetype": "data-visualization", "pattern": 5, "tags": ["graph", "canvas", "lineage", "nodes", "visualization"] },
+  { "file": "sticky-footer.json", "archetype": "sticky-footer", "pattern": 8, "tags": ["footer", "action-bar", "save", "submit", "sticky"] },
+  { "file": "explorer-homepage.json", "archetype": "explorer-homepage", "pattern": 9, "tags": ["homepage", "search", "marketplace", "tiles", "hero"] }
 ]

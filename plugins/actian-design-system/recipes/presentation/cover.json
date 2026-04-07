@@ -1,0 +1,18 @@
+{
+  "slideType": "cover",
+  "title": "Cover Slide",
+  "description": "Opening slide with presentation title, subtitle, date, and presenter info",
+  "sections": {
+    "title": "Presentation title — concise, conclusion-oriented. Headlines should answer 'so what?' rather than describe the topic.",
+    "subtitle": "Context line: audience, date, or scope (e.g., 'Q1 2026 Performance Review')",
+    "presenter": "Presenter name and role. Optional — omit if not relevant.",
+    "date": "Presentation date in readable format"
+  },
+  "qualityRules": [
+    "Title must pass the 'So what?' test — state the conclusion, not just the topic",
+    "Subtitle provides context that the title doesn't — don't repeat the title",
+    "Use Roboto font, DS Kit tokens (--zen-*) for all colors",
+    "Cover is always slide 1 — never place body slides before the cover"
+  ],
+  "minimums": {}
+}

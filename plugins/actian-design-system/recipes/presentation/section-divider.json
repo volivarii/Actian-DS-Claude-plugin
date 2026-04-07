@@ -1,0 +1,17 @@
+{
+  "slideType": "section",
+  "title": "Section Divider",
+  "description": "Visual break between major topic groups — large title centered on the slide",
+  "sections": {
+    "title": "Section name — short (2-5 words), describes the upcoming group of slides",
+    "subtitle": "Optional context line below the section title"
+  },
+  "qualityRules": [
+    "Use section dividers between major topic shifts, not between every slide",
+    "Title should be short and descriptive — section name, not a full sentence",
+    "Typical deck has 2-4 section dividers for 10-15 slides",
+    "Visual style: large centered text, minimal decoration",
+    "All text uses Roboto font family, DS Kit tokens for colors"
+  ],
+  "minimums": {}
+}

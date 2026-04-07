@@ -1,0 +1,75 @@
+{
+  "archetype": "data-visualization",
+  "description": "Graph canvas with toolbar and connected nodes. Used for lineage views, data model diagrams, and View 360. Specialized layout with sub-header, graph header, and canvas area.",
+  "pattern": 5,
+  "tags": ["graph", "canvas", "lineage", "nodes", "visualization"],
+  "slots": {
+    "header-section": "Sub-header (64px) with segmented control for view mode + primary action button, plus graph header (64px) with filter dropdowns, search, and toolbar icons",
+    "body-section": "Canvas area with dot grid background, vertical toolbar (zoom controls), and graph nodes connected by directional lines",
+    "footer-section": "Not used — canvas fills remaining space"
+  },
+  "skeleton": {
+    "chrome": "standard",
+    "pageHeader": {
+      "title": "{{page_title}}",
+      "subtitle": "{{page_subtitle}}"
+    },
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Sub-header",
+        "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 16, 16, 16], "primaryAxisAlignItems": "SPACE_BETWEEN" },
+        "sizing": { "horizontal": "FILL", "vertical": 64 },
+        "children": [
+          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=On", "props": { "Tab label": "{{view_mode}}" } },
+          { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=sm, Shape=Regular, State=Default", "props": { "Label": "{{primary_action}}", "👁 Leading Icon": false, "👁 Trailing Icon": false } }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Graph header",
+        "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 16, 16, 16], "primaryAxisAlignItems": "SPACE_BETWEEN" },
+        "sizing": { "horizontal": "FILL", "vertical": 64 },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Filters",
+            "layout": { "mode": "HORIZONTAL", "spacing": 8 },
+            "sizing": { "horizontal": "HUG", "vertical": "HUG" },
+            "children": [
+              { "type": "INSTANCE", "ref": "fmDropdown", "variant": "Type=Filled", "props": { "Dropdown Text": "{{filter1}}", "Show label": false } },
+              { "type": "INSTANCE", "ref": "fmSearchInput", "variant": "Type=Empty", "props": { "Placeholder": "Search..." } }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Toolbar icons",
+            "layout": { "mode": "HORIZONTAL", "spacing": 4 },
+            "sizing": { "horizontal": "HUG", "vertical": "HUG" },
+            "children": [
+              { "type": "INSTANCE", "ref": "fmIconButtons", "variant": "Type=Outline, State=Default", "props": {} }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Graph canvas",
+        "layout": { "mode": "VERTICAL", "spacing": 0 },
+        "fills": ["#F8F8FC"],
+        "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+        "children": [
+          { "type": "TEXT", "content": "{{visualization_description}}", "font": "Inter:Regular", "size": 13, "color": "#9999A6" }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Canvas area uses placeholder text for lo-fi — don't attempt to render real graph nodes with FM components",
+    "Graph nodes in production are 273x117px connected by directional lines — describe the topology in the placeholder text",
+    "Vertical toolbar (zoom +/-/fit) sits top-left of canvas — represent as an icon button column if needed",
+    "Sub-header and graph header stack at 64px each above the canvas",
+    "Used with tabs (lineage, data model views) — content starts below the tab bar"
+  ],
+  "missing_states": ["empty-canvas", "loading"]
+}

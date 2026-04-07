@@ -1,0 +1,16 @@
+{
+  "slideType": "back-cover",
+  "title": "Back Cover",
+  "description": "Closing slide with thank you message, contact info, or next steps",
+  "sections": {
+    "message": "Closing message — 'Thank you', 'Questions?', or a call-to-action relevant to the presentation goal",
+    "contact": "Optional contact info or follow-up details"
+  },
+  "qualityRules": [
+    "Back cover is always the last slide — never place body slides after it",
+    "Keep it simple — 1-2 lines max",
+    "If the presentation has action items, summarize them here instead of a generic 'Thank you'",
+    "All text uses Roboto font family, DS Kit tokens for colors"
+  ],
+  "minimums": {}
+}

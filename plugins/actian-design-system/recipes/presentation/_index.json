@@ -1,0 +1,7 @@
+[
+  { "file": "cover.json", "slideType": "cover" },
+  { "file": "body-full.json", "slideType": "body-full" },
+  { "file": "body-text-visual.json", "slideType": "body-text-visual" },
+  { "file": "section-divider.json", "slideType": "section" },
+  { "file": "back-cover.json", "slideType": "back-cover" }
+]

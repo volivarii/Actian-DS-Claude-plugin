@@ -1,0 +1,19 @@
+{
+  "slideType": "body-full",
+  "title": "Body Slide (Full Width)",
+  "description": "Full-width content slide for text, bullet lists, stat cards, tables, or charts",
+  "sections": {
+    "headline": "Slide headline — must be a conclusion, not a label. 'Revenue grew 23% YoY' not 'Revenue Overview'.",
+    "content": "Structured content nodes: bullet lists (max 6 items, max 150 words total), stat cards (2-4 metrics with label + value), tables, bar/line charts, timelines, or comparison grids. One content type per slide — don't mix charts with long bullet lists."
+  },
+  "qualityRules": [
+    "1 message per slide — if the slide says two things, split it",
+    "Headlines must be conclusions ('So what?' test), not topic labels",
+    "Max 6 bullet points or 150 words per slide",
+    "Stat cards: 2-4 per row, each with label + value + optional trend indicator",
+    "Charts use --zen-color-category-N-strong tokens, never hardcoded colors",
+    "Tables: max 5 columns, max 6 rows — simplify or split if more data",
+    "All text uses Roboto font family"
+  ],
+  "minimums": {}
+}

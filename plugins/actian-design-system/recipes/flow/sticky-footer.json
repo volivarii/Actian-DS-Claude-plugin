@@ -1,0 +1,55 @@
+{
+  "archetype": "sticky-footer",
+  "description": "64px fixed action bar at bottom of viewport with primary/secondary buttons. Used as a section-level pattern combined with other archetypes (creation flows, settings, bulk edit).",
+  "pattern": 8,
+  "tags": ["footer", "action-bar", "save", "submit", "sticky"],
+  "slots": {
+    "header-section": "Not applicable — sticky footer is a section, not a full screen",
+    "body-section": "Not applicable — combine with another archetype's body",
+    "footer-section": "64px fixed bar: full-width white background with top border, actions container max-width 1152px, primary action rightmost"
+  },
+  "skeleton": {
+    "chrome": "standard",
+    "pageHeader": {
+      "title": "{{page_title}}"
+    },
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Page content placeholder",
+        "layout": { "mode": "VERTICAL", "spacing": 16 },
+        "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+        "children": [
+          { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+6lines", "props": {} }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Sticky footer",
+        "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 32, 16, 32], "primaryAxisAlignItems": "MAX" },
+        "fills": ["#FFFFFF"],
+        "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+        "sizing": { "horizontal": "FILL", "vertical": 64 },
+        "children": [
+          {
+            "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=md, Shape=Regular, State=Default",
+            "props": { "Label": "Discard", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+          },
+          {
+            "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
+            "props": { "Label": "Save", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "This is a section-level pattern, not a full screen archetype — combine with form-create, detail-view, or table-list",
+    "Footer is 64px tall, fixed to bottom of viewport, full-width background with top border",
+    "Actions container: max-width 1152px (or content area width), centered",
+    "Primary action rightmost, secondary actions left (Discard/Cancel)",
+    "Use primaryAxisAlignItems: MAX to push buttons to the right",
+    "For destructive actions, use Type=Destructive on the primary button"
+  ],
+  "missing_states": ["unsaved-changes-indicator"]
+}
