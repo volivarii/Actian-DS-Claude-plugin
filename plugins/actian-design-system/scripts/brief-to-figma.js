@@ -334,8 +334,8 @@ function buildCard2(card2_component, meta) {
       name: `Row: ${row.row}`,
       layout: {
         mode: "HORIZONTAL",
-        spacing: 24,
-        counterAxisSpacing: 24,
+        spacing: 16,
+        counterAxisSpacing: 16,
         wrap: true,
         padding: [0, 0, 0, 0],
       },
@@ -351,58 +351,34 @@ function buildCard2(card2_component, meta) {
   // Section title: Theme comparison
   children.push(sectionTitle("Theme comparison"));
 
-  // Theme comparison row
-  const themeNames = ["actian", "studio", "explorer"];
-  const themeLabels = {
-    actian: "Actian",
-    studio: "Studio",
-    explorer: "Explorer",
-  };
-  const themeFrames = [];
+  // Themed instances — one per theme, each in a FRAME with variableMode
+  const themeVariant = card2_component.themeVariant || "State=Default";
+  const themes = [
+    { name: "Actian", mode: "Actian" },
+    { name: "Studio", mode: "Studio" },
+    { name: "Explorer", mode: "Explorer" },
+  ];
 
-  for (const themeName of themeNames) {
-    const theme = card2_component.themeComparison[themeName];
-    if (!theme) continue;
-
-    const swatchChildren = [];
-    for (const swatch of theme.swatches || []) {
-      swatchChildren.push({
-        type: "ELLIPSE",
-        name: "Swatch",
-        width: 16,
-        height: 16,
-        fills: isValidHex(swatch.hex) ? [swatch.hex] : [],
-      });
-      swatchChildren.push(
-        textNode(swatch.token, "Inter:Regular", 11, PALETTE.textSecondary),
-      );
-    }
-
-    themeFrames.push({
+  const themeFrames = themes.map(function (theme) {
+    return {
       type: "FRAME",
-      name: `Theme: ${themeLabels[themeName]}`,
+      name: "Theme: " + theme.name,
       layout: { mode: "VERTICAL", spacing: 8, padding: [16, 16, 16, 16] },
       fills: [PALETTE.white],
       cornerRadius: 8,
+      variableMode: { collection: "Color", mode: theme.mode },
       children: [
-        textNode(
-          themeLabels[themeName],
-          "Inter:Semi Bold",
-          14,
-          PALETTE.textPrimary,
-        ),
+        textNode(theme.name, "Inter:Semi Bold", 14, PALETTE.textPrimary),
         {
-          type: "FRAME",
-          name: "Swatches",
-          layout: { mode: "HORIZONTAL", spacing: 12, padding: [0, 0, 0, 0] },
-          fills: [],
-          children: swatchChildren,
-          sizing: { horizontal: "HUG", vertical: "HUG" },
+          type: "LOCAL_INSTANCE",
+          ref: "targetComponent",
+          variant: themeVariant,
+          name: theme.name + " preview",
         },
       ],
-      sizing: { horizontal: "HUG", vertical: "HUG" },
-    });
-  }
+      sizing: { horizontal: "FILL", vertical: "HUG" },
+    };
+  });
 
   children.push({
     type: "FRAME",
@@ -414,8 +390,8 @@ function buildCard2(card2_component, meta) {
   });
 
   return cardShell(
-    "Actual component",
-    "Actual component",
+    "Component",
+    "Component",
     "Live component across all states and theme modes",
     children,
   );
