@@ -1,25 +1,23 @@
 {
   "card": "card3_anatomy",
   "title": "Anatomy",
-  "description": "Structural breakdown with labeled parts, dimension specs, interactive states, and parts reference table",
+  "description": "Component structure with positioned leader-line badges, specs table with token cross-references, and interactive state row",
   "sections": {
-    "parts": "Letter-labeled callouts (A, B, C...) for every visible sub-element of the component. Include container, text elements, icons, dividers, badges — anything a developer would need to know about. figmaLayerName must match the actual Figma layer name for badge positioning.",
-    "specs": "Measurement annotations for all fixed dimensions: height, width, padding, gaps, border-radius, icon sizes. Use orientation 'vertical' for heights/vertical gaps, 'horizontal' for widths/horizontal gaps.",
-    "states": "All interactive states the component supports. Always include Default. Common states: Hovered, Focused, Active, Pressed, Error, Disabled, Read-only, Loading, Selected.",
-    "partsTable": "One row per anatomy part with: part letter, element name, relevant tokens (spacing, typography, radius), and notes (actual pixel values, font specs)."
+    "parts": "Letter-labeled callouts (A, B, C...) for every visible sub-element. figmaLayerName must match actual Figma layer names — badges are positioned by reading layer bounding boxes. Include container, text elements, icons, dividers — anything a developer needs to know about.",
+    "partsTable": "One row per anatomy part with: part letter, element name, relevant token (--zen-* name), and notes (resolved value, font spec). Links back to the structure diagram via part letter.",
+    "states": "All interactive states the component supports. Real component instances rendered in a horizontal row. Always include Default. Common states: Hovered, Focused, Active, Error, Disabled, Read-only."
   },
   "qualityRules": [
     "Every visible sub-element must have a parts entry — don't skip container, decorative elements, or nested components",
-    "figmaLayerName must match actual Figma layer names — verify against component metadata",
-    "specs must cover ALL fixed dimensions — height, horizontal padding, vertical gaps, border-radius at minimum",
-    "states must include Default plus every interactive state the component has — check the variant axes",
+    "figmaLayerName MUST match actual Figma layer names from get_metadata — badges are positioned using these names",
     "partsTable rows must use --zen-* token names, never raw pixel values in the token column",
-    "Letters must be sequential (A, B, C...) with no gaps"
+    "Letters must be sequential (A, B, C...) with no gaps",
+    "states must include Default plus every interactive state from the component's variant axes",
+    "Verify layer names against the component metadata before generating — incorrect names produce mispositioned badges"
   ],
   "minimums": {
     "parts": 2,
-    "specs": 3,
-    "states": 2,
-    "partsTable": 2
+    "partsTable": 2,
+    "states": 2
   }
 }

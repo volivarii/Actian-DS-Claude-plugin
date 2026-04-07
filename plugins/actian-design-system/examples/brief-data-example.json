@@ -60,35 +60,7 @@
         ]
       }
     ],
-    "themeComparison": {
-      "actian": {
-        "variantName": "State=Enabled",
-        "swatches": [
-          {
-            "token": "theme-primary",
-            "hex": "#0550DC"
-          }
-        ]
-      },
-      "studio": {
-        "variantName": "State=Enabled",
-        "swatches": [
-          {
-            "token": "theme-primary",
-            "hex": "#0283BE"
-          }
-        ]
-      },
-      "explorer": {
-        "variantName": "State=Enabled",
-        "swatches": [
-          {
-            "token": "theme-primary",
-            "hex": "#049B98"
-          }
-        ]
-      }
-    }
+    "themeVariant": "State=Enabled"
   },
   "card3_anatomy": {
     "parts": [
@@ -115,23 +87,6 @@
         "name": "Underline",
         "description": "Text decoration that appears on hover/focus states to reinforce interactivity",
         "figmaLayerName": "Underline"
-      }
-    ],
-    "specs": [
-      {
-        "label": "4px",
-        "orientation": "horizontal",
-        "target": "text-to-icon gap"
-      },
-      {
-        "label": "2px",
-        "orientation": "vertical",
-        "target": "focus ring offset"
-      },
-      {
-        "label": "16px",
-        "orientation": "vertical",
-        "target": "icon size"
       }
     ],
     "states": [

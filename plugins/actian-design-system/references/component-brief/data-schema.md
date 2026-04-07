@@ -54,7 +54,7 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 - `name`: component display name
 - `description`: 1-3 sentences. Becomes `<p class="card-body">` in HTML, `Description` property in Figma Brief Card Page Header
 
-## `card2_component` — Actual component
+## `card2_component` — Component
 
 ```json
 {
@@ -74,18 +74,14 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
       ]
     }
   ],
-  "themeComparison": {
-    "actian": { "variantName": "State=Default", "swatches": [{ "token": "theme-primary", "hex": "#0550DC" }] },
-    "studio": { "variantName": "State=Default", "swatches": [{ "token": "theme-primary", "hex": "#0283BE" }] },
-    "explorer": { "variantName": "State=Default", "swatches": [{ "token": "theme-primary", "hex": "#049B98" }] }
-  }
+  "themeVariant": "State=Default"
 }
 ```
 
 - `variantAxes`: ALL variant axes from the component. Used for column/row headers.
 - `variantMatrix`: rows = primary axis (often Type), columns = secondary axis (often State). `variantName` must match the Figma variant name string exactly (e.g., `"Type=Standard, State=Default"`) — used by Figma renderer to find the correct variant child.
 - `variantMatrix` must include ALL variants shown in the HTML — never truncate.
-- `themeComparison`: one entry per theme with the variant to display and swatch dots.
+- `themeVariant`: variant name to display in theme comparison (e.g., `"State=Default"`). The script renders 3 frames (Actian, Studio, Explorer) each containing a real component instance with the corresponding theme's variable mode.
 
 ## `card3_anatomy` — Anatomy
 
@@ -97,12 +93,6 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
     { "letter": "C", "name": "Input value", "description": "User-entered text content", "figmaLayerName": "Input" },
     { "letter": "D", "name": "Helper text", "description": "Guidance or error message below the field", "figmaLayerName": "Helper text" }
   ],
-  "specs": [
-    { "label": "48px", "orientation": "vertical", "target": "field height" },
-    { "label": "12px", "orientation": "horizontal", "target": "horizontal padding" },
-    { "label": "4px", "orientation": "horizontal", "target": "label-to-value gap" },
-    { "label": "4px", "orientation": "vertical", "target": "field-to-helper gap" }
-  ],
   "states": ["Default", "Focused", "Error", "Disabled"],
   "partsTable": [
     { "part": "A", "element": "Container", "token": "--zen-radius-xs, --zen-spacing-sm", "notes": "4px border-radius, 12px padding, 48px height" },
@@ -113,10 +103,9 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 }
 ```
 
-- `parts`: lettered callouts for the Structure sub-section. `figmaLayerName` is the Figma layer name used to find the child via `findOne(n => n.name === layerName)` and read its `absoluteBoundingBox` for badge positioning. HTML renders as `anatomy-prop` divs. Figma renders as Pointer Badge instances positioned at actual part coordinates with vector leader lines.
-- `specs`: measurement annotations for the Specs sub-section. HTML renders as pink CSS measurement brackets. Figma renders as Dimension Annotation instances.
-- `states`: list of state names for the States sub-section. HTML renders as `state-col` divs. Figma renders via `buildStateGrid` with real component instances.
-- `partsTable`: rows for the Parts Reference tables. Both renderers use `spec-table` / `buildSpecTable`.
+- `parts`: lettered callouts for the Structure section. `figmaLayerName` is the Figma layer name used to find the child via `findOne(n => n.name === layerName)` and read its `absoluteBoundingBox` for badge positioning. Figma renders as an `ANATOMY_DIAGRAM` node — badges with leader lines on 4 sides (top/right/bottom/left), assigned by closest-edge algorithm. HTML renders as a parts legend (no positioned diagram).
+- `states`: list of state names for the States section. Figma renders real component instances (LOCAL_INSTANCE with variant switching) in a horizontal row. HTML renders state labels.
+- `partsTable`: rows for the Specs table. Each row links back to a part letter. Columns: part letter, element name, token name, notes.
 
 ## `card4_tokens` — Design tokens
 
