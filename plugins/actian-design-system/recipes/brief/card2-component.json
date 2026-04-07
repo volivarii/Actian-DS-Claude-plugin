@@ -1,0 +1,21 @@
+{
+  "card": "card2_component",
+  "title": "Component Variants",
+  "description": "Real library instances showing all variants plus theme comparison swatches",
+  "sections": {
+    "variantAxes": "List ALL variant axes from the component set. Common axes: Type, State, Size, Style. Never omit axes even if they have only 2 values.",
+    "variantMatrix": "Rows = primary axis (usually Type or Style), columns = secondary axis (usually State). Must include EVERY variant combination — never truncate. If the matrix would exceed 8 columns, split into multiple rows per primary axis value.",
+    "themeComparison": "Show all 3 themes (Actian, Studio, Explorer) with the Default state variant and primary color swatch. Use the exact token names and hex values from the DS tokens file."
+  },
+  "qualityRules": [
+    "variantMatrix must include ALL variants — count them against the Figma component set and verify none are missing",
+    "variantName strings must exactly match Figma variant names (e.g., 'Type=Primary, State=Default')",
+    "Every variantAxes entry must have a complete values array — no truncation with '...' or 'etc'",
+    "themeComparison must include all 3 themes, never just Actian",
+    "themeComparison hex values must match the actual DS tokens, not approximations"
+  ],
+  "minimums": {
+    "variantAxes": 1,
+    "variantMatrix": 1
+  }
+}

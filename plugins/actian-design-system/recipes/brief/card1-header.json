@@ -1,0 +1,17 @@
+{
+  "card": "card1_header",
+  "title": "Page Header",
+  "description": "Component name and description — the brief's title card",
+  "sections": {
+    "name": "Exact component name as it appears in the Figma library. No abbreviations, no prefixes.",
+    "description": "1-3 sentences covering: (1) what the component is, (2) its primary use case, (3) what makes it distinct from similar components. Never start with 'A component for...' — lead with what it does."
+  },
+  "qualityRules": [
+    "Description must be 1-3 sentences, not a single phrase",
+    "Description must mention the primary use case specifically",
+    "Description must differentiate from similar components (e.g., Text Input vs Textarea)",
+    "Name must exactly match the Figma library component name",
+    "No marketing language — factual, concise, technical"
+  ],
+  "minimums": {}
+}

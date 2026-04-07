@@ -1,0 +1,24 @@
+{
+  "card": "card8_accessibility",
+  "title": "Accessibility",
+  "description": "6 requirement cards in 2x3 grid, contrast table, ARIA specification table",
+  "sections": {
+    "requirements": "Exactly 6 cards in a 2x3 grid layout. Each card has: title, icon color (red/blue/green/grey/orange), body text explaining the requirement, and optional code snippet with syntax-highlighted tokens. The 6 cards must cover these topics (adapt to component): Role & semantics, Keyboard navigation, Screen reader announcements, Focus management, Color & contrast, Touch targets / motion / responsive.",
+    "contrastTable": "WCAG contrast check for every foreground/background color pair in the component. Include: element name, foreground hex, background hex, contrast ratio, and Pass/Fail/Exempt verdict. Disabled states are Exempt.",
+    "ariaTable": "ARIA specification rows for each interactive element. Include: element name, ARIA role, label method (aria-label, aria-labelledby, etc), focus order number, keyboard interaction, and screen reader announcement text."
+  },
+  "qualityRules": [
+    "requirements must have EXACTLY 6 items — no more, no less (2x3 grid layout)",
+    "Each requirement must have a code snippet with syntax-highlighted tokens when demonstrating HTML/ARIA patterns",
+    "contrastTable must include ALL text/background pairs, including Error and Disabled states",
+    "Disabled state text is WCAG Exempt, not Fail — mark accordingly",
+    "ariaTable keyboard column must describe the actual key (Tab, Enter, Space, Arrow keys) and what it does",
+    "ariaTable announcement must be the literal text a screen reader would speak",
+    "icon colors: red for semantic/role, blue for keyboard, green for screen reader, grey for focus, orange for contrast/touch"
+  ],
+  "minimums": {
+    "requirements": 6,
+    "contrastTable": 3,
+    "ariaTable": 1
+  }
+}

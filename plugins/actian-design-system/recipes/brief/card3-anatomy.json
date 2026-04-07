@@ -1,0 +1,25 @@
+{
+  "card": "card3_anatomy",
+  "title": "Anatomy",
+  "description": "Structural breakdown with labeled parts, dimension specs, interactive states, and parts reference table",
+  "sections": {
+    "parts": "Letter-labeled callouts (A, B, C...) for every visible sub-element of the component. Include container, text elements, icons, dividers, badges — anything a developer would need to know about. figmaLayerName must match the actual Figma layer name for badge positioning.",
+    "specs": "Measurement annotations for all fixed dimensions: height, width, padding, gaps, border-radius, icon sizes. Use orientation 'vertical' for heights/vertical gaps, 'horizontal' for widths/horizontal gaps.",
+    "states": "All interactive states the component supports. Always include Default. Common states: Hovered, Focused, Active, Pressed, Error, Disabled, Read-only, Loading, Selected.",
+    "partsTable": "One row per anatomy part with: part letter, element name, relevant tokens (spacing, typography, radius), and notes (actual pixel values, font specs)."
+  },
+  "qualityRules": [
+    "Every visible sub-element must have a parts entry — don't skip container, decorative elements, or nested components",
+    "figmaLayerName must match actual Figma layer names — verify against component metadata",
+    "specs must cover ALL fixed dimensions — height, horizontal padding, vertical gaps, border-radius at minimum",
+    "states must include Default plus every interactive state the component has — check the variant axes",
+    "partsTable rows must use --zen-* token names, never raw pixel values in the token column",
+    "Letters must be sequential (A, B, C...) with no gaps"
+  ],
+  "minimums": {
+    "parts": 2,
+    "specs": 3,
+    "states": 2,
+    "partsTable": 2
+  }
+}

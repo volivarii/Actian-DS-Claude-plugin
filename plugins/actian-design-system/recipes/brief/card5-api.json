@@ -1,0 +1,20 @@
+{
+  "card": "card5_api",
+  "title": "Component API",
+  "description": "Property table with types, defaults, allowed values, and usage notes",
+  "sections": {
+    "props": "One row per component property. Required props get a red REQ badge, optional get grey OPT. Include: name, type (string, boolean, enum, number, ReactNode), default value, allowed values (for enums), and usage notes. List ALL props from the component — never truncate."
+  },
+  "qualityRules": [
+    "Every property from the component set must be listed — count them and verify none missing",
+    "required field must be true for essential props (the component breaks without them), false for optional",
+    "type must be a specific type (enum, string, boolean), never 'any' or 'various'",
+    "default must be a concrete value ('false', '\"md\"', '—' for required props with no default)",
+    "values must list ALL allowed values for enum types, pipe-separated",
+    "notes must explain what the prop does, not just restate its name",
+    "No truncation with '...' or 'and more' in values lists"
+  ],
+  "minimums": {
+    "props": 3
+  }
+}

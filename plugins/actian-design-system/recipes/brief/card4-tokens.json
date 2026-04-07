@@ -1,0 +1,24 @@
+{
+  "card": "card4_tokens",
+  "title": "Design Tokens",
+  "description": "Color, sizing, and typography token bindings by component state",
+  "sections": {
+    "colorTokens": "State-by-state color breakdown. Columns: one per visual element that has a color (Border, Label, Background, Icon, etc). Rows: one per interactive state. Include Default, Focused, Error, Disabled at minimum. More states if the component has them (Hovered, Active, Selected).",
+    "sizingTokens": "Every fixed dimension with its token name and resolved pixel value. Cover: height, horizontal padding, vertical padding, internal gaps, border-radius, border-width, icon size.",
+    "typography": "Font specification per text element. Include: element name, token name, resolved font string (family weight size/lineHeight), tracking value (even if 0)."
+  },
+  "qualityRules": [
+    "Every token must use --zen-* prefix in the token name field, never hardcoded hex",
+    "hex field is REQUIRED alongside every color token (used for swatch dot rendering)",
+    "colorTokens must cover Default, Focused, Error, Disabled states at minimum",
+    "First row's column headers define the table header — be consistent across states",
+    "sizingTokens must cover height, horizontal padding, vertical gaps, and border-radius",
+    "typography must include tracking value even when 0 — renderers expect this field",
+    "Do not combine multiple tokens into one row — one row per property"
+  ],
+  "minimums": {
+    "colorTokens": 3,
+    "sizingTokens": 3,
+    "typography": 2
+  }
+}

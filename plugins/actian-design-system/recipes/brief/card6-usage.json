@@ -1,0 +1,22 @@
+{
+  "card": "card6_usage",
+  "title": "Usage Guidelines",
+  "description": "When to use, when not to use, and do/don't pairs with concrete UI examples",
+  "sections": {
+    "whenToUse": "2-4 bullet points describing scenarios where this component is the right choice. Focus on the user's task, not abstract descriptions. Each bullet should be a specific scenario.",
+    "whenNotToUse": "2-4 bullet points. Each must name the ALTERNATIVE component to use instead (e.g., 'Multi-line content → use Textarea'). Never just say 'don't use for X' without naming the alternative.",
+    "doDont": "1-3 pairs of do/don't examples. Each pair should show a concrete UI scenario, not an abstract guideline. doLabel and doDetail describe the correct approach, dontLabel and dontDetail describe the incorrect approach."
+  },
+  "qualityRules": [
+    "whenToUse bullets must describe specific user tasks, not component capabilities",
+    "whenNotToUse bullets must ALWAYS name the alternative component with → arrow syntax",
+    "doDont pairs must show concrete UI scenarios — labels visible on the component, not abstract principles",
+    "doDont doDetail and dontDetail must explain WHY, not just restate the label",
+    "Minimum 2 doDont pairs for components with rich interaction patterns"
+  ],
+  "minimums": {
+    "whenToUse": 2,
+    "whenNotToUse": 2,
+    "doDont": 1
+  }
+}

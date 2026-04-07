@@ -31,8 +31,8 @@ You will receive:
 
 ## Process
 
-1. Read `references/component-brief/data-schema.md` for the card schemas
-2. For each assigned card number, generate the card data following the schema exactly
+1. Read `references/component-brief/data-schema.md` for the card schemas and `recipes/brief/_index.json` → read the recipe for each assigned card. Follow the recipe's `sections`, `qualityRules`, and `minimums`.
+2. For each assigned card number, generate the card data following the schema and recipe exactly
 3. Write the partial JSON to the specified output path
 
 ## Output format

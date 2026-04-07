@@ -65,6 +65,8 @@ If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5")
 
 ## Step 2 — Generate data model
 
+**Recipe guidance:** Before generating each card's data, read `recipes/brief/_index.json` and the corresponding card recipe from `recipes/brief/`. Follow the recipe's `sections` guidance for what to include, `qualityRules` for correctness, and `minimums` for completeness. The component guidelines JSON provides the content; the recipe defines the structure and quality bar.
+
 **Parallel mode (6+ DS cards selected):** Dispatch 3 `card-generator` agents in parallel:
 - Agent A: cards 1, 2, 3 → `{project_working_directory}/components/[name]/.partial/cards-1-3.json`
 - Agent B: cards 4, 5, 6 → `{project_working_directory}/components/[name]/.partial/cards-4-6.json`

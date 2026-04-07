@@ -1,0 +1,19 @@
+{
+  "card": "card7_content",
+  "title": "Content Guidelines",
+  "description": "Copy rules with do/don't examples plus terminology table",
+  "sections": {
+    "rules": "One entry per content rule from the component's Figma documentation. Each rule has: title (the rule name), description (what the rule means), do/dont text (correct vs incorrect label text), doExample/dontExample (concrete example strings shown in the Do/Don't boxes). Must include ALL rules — never summarize or skip.",
+    "terminology": "Optional table of terms specific to this component. Each entry: term name + how to use it correctly. Empty array if no component-specific terminology."
+  },
+  "qualityRules": [
+    "Every content rule from the component's Figma page must be included — never summarize multiple rules into one",
+    "do/dont must use realistic component copy, not placeholder text like 'Good text' / 'Bad text'",
+    "doExample/dontExample must be concrete strings that could appear on the actual component",
+    "Rule titles must be concise (2-5 words), descriptions must explain the reasoning",
+    "terminology entries should only include component-specific terms, not general DS vocabulary"
+  ],
+  "minimums": {
+    "rules": 2
+  }
+}
