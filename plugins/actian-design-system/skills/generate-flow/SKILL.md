@@ -14,6 +14,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
 2. **Research gate** — present verbatim unless user said "no research"
 3. **Screen list gate** — present with options verbatim
 4. Build flow-data.json with content[] nodes (see figma-spec-builder.md, reference `examples/flow-data-example.json` for expected structure)
+   - **Recipe acceleration**: Before building each screen's `content[]`, read `recipes/_index.json`. If an archetype matches the screen's purpose, read that recipe file and use its skeleton as a starting point — fill `{{placeholders}}` with domain content, add/remove rows and sections as needed. If no recipe fits or the screen needs a novel layout, build `content[]` from scratch. Recipes are accelerators, not constraints — deviate freely when the design calls for it.
 5. Push:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
@@ -80,3 +81,4 @@ Push-apart row — SPACE_BETWEEN, no Spacer: `{ "type": "FRAME", "name": "Header
 - `references/quality-checklist.md` — cleanup pass checklist
 - `references/prototype-reference.md` — interactive HTML prototype (opt-in)
 - `references/prototype-wiring.md` — Figma prototype wiring (opt-in, "push and wire")
+- `recipes/_index.json` — archetype recipe catalog (table-list, form-create, detail-view, dashboard, browse-search, overlay)

@@ -1,0 +1,92 @@
+{
+  "archetype": "table-list",
+  "description": "Full-width data table with search/filter control bar and primary action button. The most common screen pattern — used for listing, browsing, and managing collections of entities.",
+  "pattern": 6,
+  "tags": ["table", "list", "data", "crud", "browse"],
+  "slots": {
+    "header-section": "Control bar with search input, filter dropdowns, and view toggles",
+    "body-section": "Full-width table with header row and data rows",
+    "footer-section": "Pagination or bulk action bar (optional)"
+  },
+  "skeleton": {
+    "chrome": "standard",
+    "pageHeader": {
+      "title": "{{resource_plural}}",
+      "subtitle": "Manage {{resource_plural_lower}}",
+      "actions": [{ "label": "New {{resource_singular}}", "type": "Primary" }]
+    },
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Control bar",
+        "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [0, 0, 16, 0], "primaryAxisAlignItems": "SPACE_BETWEEN" },
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Left controls",
+            "layout": { "mode": "HORIZONTAL", "spacing": 8 },
+            "sizing": { "horizontal": "HUG", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "INSTANCE", "ref": "fmSearchInput", "variant": "Type=Empty",
+                "props": { "Placeholder": "Search {{resource_plural_lower}}..." }
+              },
+              {
+                "type": "INSTANCE", "ref": "fmDropdown", "variant": "Type=Filled",
+                "name": "Filter: {{filter_name}}",
+                "props": { "Dropdown Text": "All", "Label Text": "{{filter_name}}", "Show label": false }
+              }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Right controls",
+            "layout": { "mode": "HORIZONTAL", "spacing": 8 },
+            "sizing": { "horizontal": "HUG", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "INSTANCE", "ref": "fmIconButtons", "variant": "Type=Outline, State=Default",
+                "name": "View toggle",
+                "props": {}
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "{{resource_plural}} table",
+        "layout": { "mode": "VERTICAL", "spacing": 0 },
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          {
+            "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Header",
+            "props": { "Label": "Name", "Label 2": "{{col2}}", "Label 3": "{{col3}}", "Label 4": "{{col4}}" }
+          },
+          {
+            "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Text",
+            "props": { "Label": "{{row1_name}}", "Label 2": "{{row1_col2}}", "Label 3": "{{row1_col3}}", "Label 4": "{{row1_col4}}" }
+          },
+          {
+            "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Text",
+            "props": { "Label": "{{row2_name}}", "Label 2": "{{row2_col2}}", "Label 3": "{{row2_col3}}", "Label 4": "{{row2_col4}}" }
+          },
+          {
+            "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Text",
+            "props": { "Label": "{{row3_name}}", "Label 2": "{{row3_col2}}", "Label 3": "{{row3_col3}}", "Label 4": "{{row3_col4}}" }
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Table is full-width (FILL), not constrained to 480px",
+    "Repeat data rows as needed — skeleton shows 3 as minimum",
+    "Use fmTableCell Type=Pill for status columns, Type=Placeholder for de-emphasized rows",
+    "Add fmEmptyState as alternate body-section for zero-results state",
+    "Control bar items are flexible — add/remove filters and toggles as needed",
+    "For sortable columns, note sort direction in the header label (e.g., 'Name ▾')"
+  ],
+  "missing_states": ["empty", "loading", "error"]
+}

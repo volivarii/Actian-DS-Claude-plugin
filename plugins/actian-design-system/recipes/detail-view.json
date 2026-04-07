@@ -1,0 +1,96 @@
+{
+  "archetype": "detail-view",
+  "description": "Tab bar with two-column content layout. Used for entity detail pages — left column for primary content, right column for metadata and secondary info. Studio uses equal columns (568px), Explorer uses sidebar (336px) + main (1040px).",
+  "pattern": 3,
+  "tags": ["detail", "tabs", "profile", "settings", "entity"],
+  "slots": {
+    "header-section": "Tab bar below page header for switching between content sections",
+    "body-section": "Two-column layout — primary content left, secondary/metadata right",
+    "footer-section": "Optional action bar for save/edit actions"
+  },
+  "skeleton": {
+    "chrome": "standard",
+    "pageHeader": {
+      "title": "{{entity_name}}",
+      "subtitle": "{{entity_type}}",
+      "actions": [{ "label": "Edit", "type": "Primary" }]
+    },
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Tab bar",
+        "layout": { "mode": "HORIZONTAL", "spacing": 0 },
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=On", "props": { "Tab label": "{{tab1_label}}" } },
+          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=Off", "props": { "Tab label": "{{tab2_label}}" } },
+          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=Off", "props": { "Tab label": "{{tab3_label}}" } },
+          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=Placeholder", "props": {} },
+          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=Placeholder", "props": {} }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Two-column layout",
+        "layout": { "mode": "HORIZONTAL", "spacing": 24, "padding": [24, 0, 0, 0] },
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Left column",
+            "layout": { "mode": "VERTICAL", "spacing": 24 },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Section: {{section1_title}}",
+                "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
+                "fills": ["#FFFFFF"],
+                "cornerRadius": 8,
+                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                "children": [
+                  { "type": "TEXT", "content": "{{section1_title}}", "font": "Inter:Semi Bold", "size": 16, "color": "#1A1A2E" },
+                  { "type": "TEXT", "content": "{{section1_body}}", "font": "Inter:Regular", "size": 14, "color": "#595968", "width": 520 }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Right column",
+            "layout": { "mode": "VERTICAL", "spacing": 24 },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Section: {{meta_section_title}}",
+                "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
+                "fills": ["#FFFFFF"],
+                "cornerRadius": 8,
+                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                "children": [
+                  { "type": "TEXT", "content": "{{meta_section_title}}", "font": "Inter:Semi Bold", "size": 16, "color": "#1A1A2E" },
+                  {
+                    "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+3lines",
+                    "props": {}
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Studio variant: two equal columns (568px each) — both columns use FILL sizing",
+    "Explorer variant: left sidebar 336px fixed + main content FILL — adjust column widths accordingly",
+    "Inputs inside columns fill their column width — not constrained to 480px (multi-column exception)",
+    "Active tab uses State=On, 2-3 real tabs use State=Off, remaining use State=Placeholder",
+    "Section cards use header (Semi Bold 16px) + body content — repeat the card pattern per section",
+    "For Explorer, the page header includes type badge, breadcrumb, and right-aligned actions"
+  ],
+  "missing_states": ["empty-section", "loading"]
+}

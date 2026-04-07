@@ -1,0 +1,146 @@
+{
+  "archetype": "dashboard",
+  "description": "Multi-column card grid with mixed card sizes for overview and metrics pages. Cards use header (48px) + divider + body anatomy. Common for landing pages and monitoring dashboards.",
+  "pattern": 1,
+  "tags": ["dashboard", "cards", "overview", "metrics", "home"],
+  "slots": {
+    "header-section": "Optional metrics row with stat cards or KPI summary",
+    "body-section": "Card grid with mixed sizes — S (200px), M (570px), L (790px)",
+    "footer-section": "Rarely used — dashboards typically scroll"
+  },
+  "skeleton": {
+    "chrome": "standard",
+    "pageHeader": {
+      "title": "{{page_title}}",
+      "subtitle": "{{page_subtitle}}"
+    },
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Metrics row",
+        "layout": { "mode": "HORIZONTAL", "spacing": 16 },
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Metric: {{metric1_label}}",
+            "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [16, 16, 16, 16] },
+            "fills": ["#FFFFFF"],
+            "cornerRadius": 8,
+            "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              { "type": "TEXT", "content": "{{metric1_label}}", "font": "Inter:Regular", "size": 13, "color": "#595968" },
+              { "type": "TEXT", "content": "{{metric1_value}}", "font": "Inter:Semi Bold", "size": 24, "color": "#1A1A2E" }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Metric: {{metric2_label}}",
+            "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [16, 16, 16, 16] },
+            "fills": ["#FFFFFF"],
+            "cornerRadius": 8,
+            "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              { "type": "TEXT", "content": "{{metric2_label}}", "font": "Inter:Regular", "size": 13, "color": "#595968" },
+              { "type": "TEXT", "content": "{{metric2_value}}", "font": "Inter:Semi Bold", "size": 24, "color": "#1A1A2E" }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Metric: {{metric3_label}}",
+            "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [16, 16, 16, 16] },
+            "fills": ["#FFFFFF"],
+            "cornerRadius": 8,
+            "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              { "type": "TEXT", "content": "{{metric3_label}}", "font": "Inter:Regular", "size": 13, "color": "#595968" },
+              { "type": "TEXT", "content": "{{metric3_value}}", "font": "Inter:Semi Bold", "size": 24, "color": "#1A1A2E" }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Card grid row 1",
+        "layout": { "mode": "HORIZONTAL", "spacing": 16 },
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Card: {{card1_title}}",
+            "layout": { "mode": "VERTICAL", "spacing": 0 },
+            "fills": ["#FFFFFF"],
+            "cornerRadius": 8,
+            "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Card header",
+                "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [12, 16, 12, 16], "primaryAxisAlignItems": "SPACE_BETWEEN" },
+                "sizing": { "horizontal": "FILL", "vertical": 48 },
+                "children": [
+                  { "type": "TEXT", "content": "{{card1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" },
+                  { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=sm, Shape=Regular, State=Default", "props": { "Label": "View all", "👁 Leading Icon": false, "👁 Trailing Icon": false } }
+                ]
+              },
+              { "type": "DIVIDER" },
+              {
+                "type": "FRAME",
+                "name": "Card body",
+                "layout": { "mode": "VERTICAL", "spacing": 0, "padding": [16, 16, 16, 16] },
+                "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                "children": [
+                  { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+3lines", "props": {} }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Card: {{card2_title}}",
+            "layout": { "mode": "VERTICAL", "spacing": 0 },
+            "fills": ["#FFFFFF"],
+            "cornerRadius": 8,
+            "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Card header",
+                "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [12, 16, 12, 16], "primaryAxisAlignItems": "SPACE_BETWEEN" },
+                "sizing": { "horizontal": "FILL", "vertical": 48 },
+                "children": [
+                  { "type": "TEXT", "content": "{{card2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" }
+                ]
+              },
+              { "type": "DIVIDER" },
+              {
+                "type": "FRAME",
+                "name": "Card body",
+                "layout": { "mode": "VERTICAL", "spacing": 0, "padding": [16, 16, 16, 16] },
+                "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                "children": [
+                  { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+3lines", "props": {} }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Card sizes are flexible — use FILL on all cards in a row and let auto-layout distribute",
+    "For fixed-width cards, set sizing.horizontal to a pixel value (200, 570, 790)",
+    "Card anatomy: header (48px, SPACE_BETWEEN for title + action) → divider → body (padded)",
+    "Empty states inside cards: use fmEmptyState Type=Compact centered in card body",
+    "List-style card bodies: rows with HORIZONTAL layout, 24-32px row height",
+    "Metric cards can use fmPlaceholder Type=metric for placeholder treatment",
+    "Add/remove metric cards and grid cards as needed — skeleton shows a 3+2 layout"
+  ],
+  "missing_states": ["empty-dashboard", "loading"]
+}

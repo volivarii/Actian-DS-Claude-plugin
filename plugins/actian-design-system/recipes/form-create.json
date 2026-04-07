@@ -1,0 +1,76 @@
+{
+  "archetype": "form-create",
+  "description": "480px-wide form with stacked inputs and optional wizard steps. Used for creating or editing entities — simple text inputs, dropdowns, toggles. Optional sticky footer with Cancel/Submit actions.",
+  "pattern": 4,
+  "tags": ["form", "create", "wizard", "input", "edit"],
+  "slots": {
+    "header-section": "Section title and optional wizard step indicator in page header subtitle",
+    "body-section": "480px form container with stacked input fields",
+    "footer-section": "Sticky footer with Cancel + primary action buttons"
+  },
+  "skeleton": {
+    "chrome": "standard",
+    "pageHeader": {
+      "title": "New {{resource_singular}}",
+      "subtitle": "{{step_indicator}}"
+    },
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Form container",
+        "layout": { "mode": "VERTICAL", "spacing": 16, "padding": [0, 0, 0, 0] },
+        "sizing": { "vertical": "HUG" },
+        "width": 480,
+        "children": [
+          {
+            "type": "INSTANCE", "ref": "fmTextInput", "variant": "State=Default",
+            "name": "Input: {{field1_label}}",
+            "props": { "Label Text": "{{field1_label}}", "Input Text": "", "Show label": true, "Caption": false, "Required": true }
+          },
+          {
+            "type": "INSTANCE", "ref": "fmTextInput", "variant": "State=Default",
+            "name": "Input: {{field2_label}}",
+            "props": { "Label Text": "{{field2_label}}", "Input Text": "", "Show label": true, "Caption": false, "Required": false }
+          },
+          {
+            "type": "INSTANCE", "ref": "fmDropdown", "variant": "Type=Placeholder",
+            "name": "Dropdown: {{field3_label}}",
+            "props": { "Label Text": "{{field3_label}}", "Dropdown Text": "Select...", "Show label": true }
+          },
+          {
+            "type": "INSTANCE", "ref": "fmTextArea", "variant": "Content=None",
+            "name": "TextArea: {{field4_label}}",
+            "props": { "Label Text": "{{field4_label}}", "Show label": true }
+          }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Sticky footer",
+        "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 32, 16, 32], "primaryAxisAlignItems": "MAX" },
+        "fills": ["#FFFFFF"],
+        "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+        "sizing": { "horizontal": "FILL", "vertical": 64 },
+        "children": [
+          {
+            "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=md, Shape=Regular, State=Default",
+            "props": { "Label": "Cancel", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+          },
+          {
+            "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
+            "props": { "Label": "Create {{resource_singular}}", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Form container is 480px max-width (per Forms Layout Rules) — do not use FILL",
+    "Add/remove input fields as needed — skeleton shows a common 4-field pattern",
+    "For wizard flows, add fmStepper above the form and update pageHeader subtitle with step info",
+    "For card selector grids (radio cards), use full-width FILL frame below the 480px form container",
+    "Sticky footer is optional — omit for flows that save inline or navigate away",
+    "For edit forms, pre-fill Input Text and Dropdown Text props with existing values"
+  ],
+  "missing_states": ["validation-error", "loading", "success-confirmation"]
+}

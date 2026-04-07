@@ -1,0 +1,119 @@
+{
+  "archetype": "browse-search",
+  "description": "Search results with optional secondary nav panel and control bar. Studio variant has a 277px tree nav; Explorer variant has a 335px faceted filter panel. Results displayed as cards or list items.",
+  "pattern": 2,
+  "tags": ["search", "browse", "catalog", "results", "filter"],
+  "slots": {
+    "header-section": "Control bar (40px) with search, sort dropdown, filter buttons, and bulk actions",
+    "body-section": "Result list — full-width cards or list items with type badge, title, description, metadata",
+    "footer-section": "Pagination (optional)"
+  },
+  "skeleton": {
+    "chrome": "standard",
+    "pageHeader": {
+      "title": "{{page_title}}",
+      "actions": [{ "label": "{{primary_action}}", "type": "Primary" }]
+    },
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Browse layout",
+        "layout": { "mode": "HORIZONTAL", "spacing": 24 },
+        "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Secondary nav panel",
+            "layout": { "mode": "VERTICAL", "spacing": 4, "padding": [0, 16, 0, 0] },
+            "sizing": { "horizontal": 277, "vertical": "FILL" },
+            "children": [
+              { "type": "INSTANCE", "ref": "fmSearchInput", "variant": "Type=Empty", "props": { "Placeholder": "Search categories..." } },
+              { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+1line", "props": {} },
+              { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+1line", "props": {} },
+              { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+1line", "props": {} }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "Results area",
+            "layout": { "mode": "VERTICAL", "spacing": 0 },
+            "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Control bar",
+                "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [8, 8, 8, 8] },
+                "sizing": { "horizontal": "FILL", "vertical": 40 },
+                "children": [
+                  { "type": "INSTANCE", "ref": "fmCheckbox", "variant": "State=Off", "props": {} },
+                  { "type": "TEXT", "content": "Sort by", "font": "Inter:Regular", "size": 13, "color": "#595968" },
+                  {
+                    "type": "INSTANCE", "ref": "fmDropdown", "variant": "Type=Filled",
+                    "sizing": { "horizontal": 120 },
+                    "props": { "Dropdown Text": "Relevance", "Show label": false }
+                  },
+                  {
+                    "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=sm, Shape=Regular, State=Default",
+                    "props": { "Label": "Filters", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+                  }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Result card: {{result1_title}}",
+                "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
+                "fills": ["#FFFFFF"],
+                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Result header",
+                    "layout": { "mode": "HORIZONTAL", "spacing": 8 },
+                    "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                    "children": [
+                      { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{result1_type}}" } },
+                      { "type": "TEXT", "content": "{{result1_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" }
+                    ]
+                  },
+                  { "type": "TEXT", "content": "{{result1_description}}", "font": "Inter:Regular", "size": 13, "color": "#595968" }
+                ]
+              },
+              {
+                "type": "FRAME",
+                "name": "Result card: {{result2_title}}",
+                "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
+                "fills": ["#FFFFFF"],
+                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                "children": [
+                  {
+                    "type": "FRAME",
+                    "name": "Result header",
+                    "layout": { "mode": "HORIZONTAL", "spacing": 8 },
+                    "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                    "children": [
+                      { "type": "INSTANCE", "ref": "fmBadge", "variant": "Size=Small", "props": { "Label": "{{result2_type}}" } },
+                      { "type": "TEXT", "content": "{{result2_title}}", "font": "Inter:Semi Bold", "size": 14, "color": "#1A1A2E" }
+                    ]
+                  },
+                  { "type": "TEXT", "content": "{{result2_description}}", "font": "Inter:Regular", "size": 13, "color": "#595968" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Studio: secondary nav panel is 277px with tree/category navigation",
+    "Explorer: filter panel is 335px with faceted checkbox groups — adjust width accordingly",
+    "Explorer variant has no app sidebar — use no-sidebar template and widen filter panel",
+    "Result cards are full width of remaining space after secondary nav",
+    "Bulk actions appear in control bar when checkbox is checked — add buttons for Edit, Delete, Export",
+    "Repeat result cards as needed — skeleton shows 2 as minimum",
+    "For grid view, replace vertical result cards with a HORIZONTAL wrapping frame of tile cards"
+  ],
+  "missing_states": ["empty-results", "loading", "no-matches"]
+}

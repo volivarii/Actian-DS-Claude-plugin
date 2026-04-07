@@ -1,0 +1,74 @@
+{
+  "archetype": "overlay",
+  "description": "Side panel (550px drawer) and modal (3 size presets) overlays. Used for quick-edit, quick-view, create forms, confirmation dialogs, and settings editors. Both use compact template.",
+  "pattern": 7,
+  "tags": ["modal", "panel", "dialog", "drawer", "side-panel"],
+  "slots": {
+    "header-section": "Title + close button (panel) or title bar (modal)",
+    "body-section": "Scrollable content area — forms, detail views, confirmations",
+    "footer-section": "Action buttons — Cancel + Primary, right-aligned"
+  },
+  "skeleton": {
+    "chrome": "none",
+    "pageHeader": null,
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Side panel (550px)",
+        "layout": { "mode": "VERTICAL", "spacing": 0 },
+        "fills": ["#FFFFFF"],
+        "sizing": { "horizontal": 550, "vertical": 896 },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Panel header",
+            "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 24, 16, 24], "primaryAxisAlignItems": "SPACE_BETWEEN" },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              { "type": "TEXT", "content": "{{panel_title}}", "font": "Inter:Semi Bold", "size": 18, "color": "#1A1A2E" },
+              { "type": "INSTANCE", "ref": "fmIconButtons", "variant": "Type=Outline, State=Default", "name": "Close", "props": {} }
+            ]
+          },
+          { "type": "DIVIDER" },
+          {
+            "type": "FRAME",
+            "name": "Panel body",
+            "layout": { "mode": "VERTICAL", "spacing": 16, "padding": [24, 24, 24, 24] },
+            "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+            "children": [
+              { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+6lines", "props": {} }
+            ]
+          },
+          { "type": "DIVIDER" },
+          {
+            "type": "FRAME",
+            "name": "Panel footer",
+            "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 24, 16, 24], "primaryAxisAlignItems": "MAX" },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=md, Shape=Regular, State=Default",
+                "props": { "Label": "Cancel", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+              },
+              {
+                "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
+                "props": { "Label": "{{primary_action}}", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Side panel: 550px wide, full viewport height below header (896px = 960 - 64px header)",
+    "Modal sizes: Large 900x600, Medium 700x580, Small 480x300 — adjust FRAME dimensions",
+    "For modals, replace the side panel FRAME with a centered modal FRAME at the appropriate size",
+    "Modal header: title + close X button, no subtitle",
+    "Modal body: scrollable if content exceeds height",
+    "Modal footer: action buttons right-aligned, cancel left of primary",
+    "Panel body content: use forms (constrained to panel width, not 480px), detail views, or list items",
+    "For confirmation dialogs (small modal): body is 1-2 lines of text, footer has Cancel + Destructive button"
+  ],
+  "missing_states": ["loading", "error"]
+}
