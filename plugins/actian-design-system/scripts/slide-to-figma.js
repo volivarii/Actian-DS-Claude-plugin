@@ -347,7 +347,7 @@ function validate(input) {
 // Auto-splitter
 // ---------------------------------------------------------------------------
 
-function autoSplit(meta, allItems, usedVars) {
+function autoSplit(meta, allItems, usedVars, itemIds) {
   const bins = shared.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
 
   // Resolve which variables are actually used
@@ -423,7 +423,19 @@ function autoSplit(meta, allItems, usedVars) {
     calls.push({ callIndex: b + 1, code: code, description: description });
   }
 
-  return calls;
+  const unitMap = {};
+  if (itemIds) {
+    let itemIdx = 0;
+    for (let b = 0; b < bins.length; b++) {
+      const callIdx = b + 1;
+      for (let i = 0; i < bins[b].length; i++) {
+        if (itemIds[itemIdx]) unitMap[itemIds[itemIdx]] = callIdx;
+        itemIdx++;
+      }
+    }
+  }
+
+  return { calls: calls, unitMap: unitMap };
 }
 
 // ---------------------------------------------------------------------------
@@ -436,6 +448,7 @@ function main() {
   let targetNodeId = null;
   let outputPath = null;
   let outputDir = null;
+  let callFilter = null;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--target-node-id" && args[i + 1]) {
@@ -444,6 +457,8 @@ function main() {
       outputDir = args[++i];
     } else if (args[i] === "--output" && args[i + 1]) {
       outputPath = args[++i];
+    } else if (args[i] === "--call" && args[i + 1]) {
+      callFilter = parseInt(args[++i], 10);
     } else if (!inputPath) {
       inputPath = args[i];
     }
@@ -471,6 +486,12 @@ function main() {
               name: "--output-dir",
               required: false,
               description: "Directory to write call-N.js + manifest.json",
+            },
+            {
+              name: "--call",
+              required: false,
+              description:
+                "Only write the specified call number (use with --output-dir)",
             },
           ],
         },
@@ -538,10 +559,15 @@ function main() {
 
   // Build slides
   const items = [];
+  const itemIds = [];
   items.push(buildGenLog(input.meta));
+  itemIds.push("genLog");
 
+  let slideIdx = 0;
   for (const slide of input.slides) {
     items.push(buildSlide(slide));
+    itemIds.push("slide_" + slideIdx);
+    slideIdx++;
   }
 
   // Scan variables used across all slides
@@ -559,17 +585,31 @@ function main() {
     usedVars.add(v);
   });
 
-  const calls = autoSplit(input.meta, items, usedVars);
+  const { calls, unitMap } = autoSplit(input.meta, items, usedVars, itemIds);
+
+  if (callFilter && (callFilter < 1 || callFilter > calls.length)) {
+    process.stderr.write(
+      "Error: --call " +
+        callFilter +
+        " but only " +
+        calls.length +
+        " calls generated\n",
+    );
+    process.exit(1);
+  }
+
   const output = JSON.stringify(calls);
 
   if (outputDir) {
     // Write each call as a separate file + manifest
     fs.mkdirSync(outputDir, { recursive: true });
-    const manifest = { totalCalls: calls.length, calls: [] };
+    const manifest = { totalCalls: calls.length, unitMap: unitMap, calls: [] };
     for (const r of calls) {
       const fileName = "call-" + r.callIndex + ".js";
       const filePath = path.join(outputDir, fileName);
-      fs.writeFileSync(filePath, r.code, "utf8");
+      if (!callFilter || r.callIndex === callFilter) {
+        fs.writeFileSync(filePath, r.code, "utf8");
+      }
       manifest.calls.push({
         callIndex: r.callIndex,
         file: fileName,

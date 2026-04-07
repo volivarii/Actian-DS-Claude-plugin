@@ -1,5 +1,12 @@
 {
   "totalCalls": 1,
+  "unitMap": {
+    "genLog": 1,
+    "coverCard": 1,
+    "screen_0": 1,
+    "screen_1": 1,
+    "screen_2": 1
+  },
   "calls": [
     {
       "callIndex": 1,

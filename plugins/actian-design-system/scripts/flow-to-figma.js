@@ -532,6 +532,7 @@ function main() {
   let targetNodeId = null;
   let outputDir = null;
   let pluginRoot = path.resolve(__dirname, "..");
+  var callFilter = null;
 
   for (let i = 0; i < args.length; i++) {
     if (args[i] === "--target-node-id" && args[i + 1]) {
@@ -540,6 +541,8 @@ function main() {
       outputDir = args[++i];
     } else if (args[i] === "--plugin-root" && args[i + 1]) {
       pluginRoot = args[++i];
+    } else if (args[i] === "--call" && i + 1 < args.length) {
+      callFilter = parseInt(args[++i], 10);
     } else if (!inputPath) {
       inputPath = args[i];
     }
@@ -565,6 +568,11 @@ function main() {
           name: "--plugin-root",
           required: false,
           description: "Override plugin root path",
+        },
+        {
+          name: "--call",
+          required: false,
+          description: "Only write the specified call file (1-based index)",
         },
       ],
       templates: Object.keys(
@@ -653,21 +661,39 @@ function main() {
 
   // Build all items: genLog + researchCard (if present) + coverCard + screens
   const allItems = [];
+  const itemIds = [];
   allItems.push(buildGenLog(meta));
+  itemIds.push("genLog");
   if (meta.research) {
     allItems.push(buildResearchCard(meta));
+    itemIds.push("researchCard");
   }
   allItems.push(buildCoverCard(meta));
+  itemIds.push("coverCard");
 
+  let screenIdx = 0;
   for (const screen of input.screens || []) {
     const templateName = resolveTemplateName(screen, meta, templates);
     const templateDef = templates[templateName] || templates["admin"];
     allItems.push(buildScreen(screen, templateDef));
+    itemIds.push("screen_" + screenIdx);
+    screenIdx++;
   }
 
   // Bin-pack
   const bins = shared.binPack(allItems, MAX_BIN_SIZE, OVERHEAD);
   const totalCalls = bins.length;
+
+  // Build unitMap: which call contains each item
+  const unitMap = {};
+  let itemIdx = 0;
+  for (let b = 0; b < bins.length; b++) {
+    const callIdx = b + 1;
+    for (let i = 0; i < bins[b].length; i++) {
+      unitMap[itemIds[itemIdx]] = callIdx;
+      itemIdx++;
+    }
+  }
 
   const results = [];
 
@@ -723,15 +749,29 @@ function main() {
     });
   }
 
+  // Validate --call filter
+  if (callFilter && (callFilter < 1 || callFilter > results.length)) {
+    process.stderr.write(
+      "Error: --call " +
+        callFilter +
+        " but only " +
+        results.length +
+        " calls generated\n",
+    );
+    process.exit(1);
+  }
+
   // Output
   if (outputDir) {
     // Write each call as a separate file for easier consumption
     fs.mkdirSync(outputDir, { recursive: true });
-    const manifest = { totalCalls: totalCalls, calls: [] };
+    const manifest = { totalCalls: totalCalls, unitMap: unitMap, calls: [] };
     for (const r of results) {
       const fileName = "call-" + r.callIndex + ".js";
       const filePath = path.join(outputDir, fileName);
-      fs.writeFileSync(filePath, r.code, "utf8");
+      if (!callFilter || r.callIndex === callFilter) {
+        fs.writeFileSync(filePath, r.code, "utf8");
+      }
       manifest.calls.push({
         callIndex: r.callIndex,
         file: fileName,

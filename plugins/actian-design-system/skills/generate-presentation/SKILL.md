@@ -51,6 +51,7 @@ Deck outline: N slides (cover + N body + back cover). Reply:
      --output-dir {project_working_directory}/presentations/[topic-slug]/.figma-calls
    ```
 5. Read `manifest.json` → for each call: read `call-N.js` → `use_figma` (self-contained, no ID replacement needed)
+   - **Incremental update** (when fixing specific slides after initial push): Update the slide data in `slide-data.json`, read `.figma-calls/manifest.json` → `unitMap.slide_N` (0-indexed), re-run `slide-to-figma.js` with `--call M` where M is the call index, push only that call.
 6. Parity check per `../../references/parity-check.md`
 
 Never write freehand Figma code. Fix slide-data.json and rerun the script if something is wrong.

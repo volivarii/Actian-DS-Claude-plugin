@@ -1,5 +1,13 @@
 {
   "totalCalls": 1,
+  "unitMap": {
+    "genLog": 1,
+    "slide_0": 1,
+    "slide_1": 1,
+    "slide_2": 1,
+    "slide_3": 1,
+    "slide_4": 1
+  },
   "calls": [
     {
       "callIndex": 1,

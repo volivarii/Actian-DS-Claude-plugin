@@ -119,6 +119,22 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
 
 Read `manifest.json`. For each call in order: read `call-N.js` → pass to `use_figma`. Each call is self-contained (no ID replacement needed — wrapper ID auto-discovered via shared plugin data). Never write freehand Figma code.
 
+## Incremental update (when fixing specific cards after initial push)
+
+When the user asks to fix or update specific cards (e.g., "card 3's anatomy is wrong"):
+1. Update the card data in the existing `[name]-brief-data.json`
+2. Read `.figma-calls/manifest.json` → check `unitMap` for the affected card key (e.g., `unitMap.card3_anatomy`)
+3. Re-run brief-to-figma.js with `--call N` where N is the call index from unitMap:
+   ```bash
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js" \
+     {project_working_directory}/components/[name]/[name]-brief-data.json \
+     --target-node-id [nodeId] \
+     --output-dir {project_working_directory}/components/[name]/.figma-calls \
+     --call N
+   ```
+4. Push only the regenerated `call-N.js` via `use_figma`
+
 ## Step 4 — Parity check
 
 Per `../../references/parity-check.md`: screenshot each card, dispatch `parity-analyzer`, fix P0s.
