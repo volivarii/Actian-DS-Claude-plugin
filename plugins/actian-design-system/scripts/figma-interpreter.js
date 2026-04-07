@@ -48,7 +48,16 @@ async function buildFromSpec(spec) {
   for (var lRef in spec.localComponents || {}) {
     var lDef = spec.localComponents[lRef];
     if (lDef.key) {
-      ctx.locals[lRef] = await figma.importComponentSetByKeyAsync(lDef.key);
+      // Try component set first, fall back to single component
+      try {
+        ctx.locals[lRef] = await figma.importComponentSetByKeyAsync(lDef.key);
+      } catch (e) {
+        try {
+          ctx.locals[lRef] = await figma.importComponentByKeyAsync(lDef.key);
+        } catch (e2) {
+          // Both failed — leave undefined, builders will handle fallback
+        }
+      }
     } else if (lDef.nodeId) {
       ctx.locals[lRef] = await figma.getNodeByIdAsync(lDef.nodeId);
     }
@@ -456,10 +465,28 @@ async function buildFrame(spec, ctx) {
     var vmCollections =
       await figma.variables.getLocalVariableCollectionsAsync();
     var vmTarget = null;
+    // Try exact name match first, then substring match for remote proxy collections
     for (var vm = 0; vm < vmCollections.length; vm++) {
       if (vmCollections[vm].name === spec.variableMode.collection) {
         vmTarget = vmCollections[vm];
         break;
+      }
+    }
+    if (!vmTarget) {
+      // Fallback: find any collection that contains the target mode names (remote proxies may have different names)
+      for (var vm2 = 0; vm2 < vmCollections.length; vm2++) {
+        var cModes = vmCollections[vm2].modes;
+        var hasMode = false;
+        for (var cm = 0; cm < cModes.length; cm++) {
+          if (cModes[cm].name === spec.variableMode.mode) {
+            hasMode = true;
+            break;
+          }
+        }
+        if (hasMode && cModes.length >= 3) {
+          vmTarget = vmCollections[vm2];
+          break;
+        }
       }
     }
     if (vmTarget) {
@@ -631,6 +658,11 @@ async function buildInstance(spec, ctx) {
   // Detach if requested
   if (spec.detach) {
     instance = instance.detachInstance();
+  }
+
+  // Apply clipsContent after detach (detached instance is now a frame)
+  if (spec.clipsContent !== undefined) {
+    instance.clipsContent = spec.clipsContent;
   }
 
   // Fill named text slots (after detach — finds TEXT children by name)

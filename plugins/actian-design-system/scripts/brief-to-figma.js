@@ -830,6 +830,7 @@ function buildCard8(card8_accessibility) {
         Title: req.title,
       },
       detach: true,
+      clipsContent: false,
       children: [
         textNode(req.body, "Inter:Regular", 13, PALETTE.textSecondary),
         ...codeChildren,
