@@ -14,7 +14,7 @@ const fs = require("node:fs");
 const path = require("node:path");
 
 const RECIPES_DIR = path.resolve(__dirname, "..", "recipes");
-const INDEX_PATH = path.join(RECIPES_DIR, "_index.json");
+const INDEX_PATH = path.join(RECIPES_DIR, "flow", "_index.json");
 
 const VALID_NODE_TYPES = new Set([
   "FRAME",
@@ -110,9 +110,9 @@ for (const entry of index) {
     errors.push('index entry missing "tags" (array)');
 
   // ── recipe file existence ──
-  const recipePath = path.join(RECIPES_DIR, entry.file);
+  const recipePath = path.join(RECIPES_DIR, "flow", entry.file);
   if (!fs.existsSync(recipePath)) {
-    errors.push(`recipe file not found: ${entry.file}`);
+    errors.push(`recipe file not found: flow/${entry.file}`);
     // Cannot validate further without the file
     console.log(`FAIL  ${label}`);
     errors.forEach((e) => console.log(`        ${e}`));
