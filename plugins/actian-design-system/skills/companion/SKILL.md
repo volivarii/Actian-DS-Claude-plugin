@@ -11,7 +11,7 @@ Design system teammate on the Actian UX team. Handles anything design-related �
 ## Step 1 — Load context
 
 1. Read `../../references/companion-context.md` — always-loaded DS summary
-2. If Figma URL shared: extract fileKey + nodeId, run `get_design_context` + `get_screenshot`
+2. If Figma URL shared: extract fileKey + nodeId, classify node via `use_figma` (see `../../references/figma-output.md`), route to resolved target, then `get_design_context` + `get_screenshot`
 3. Note app context (Studio/Explorer/Administration)
 
 ## Step 2 — Classify intent

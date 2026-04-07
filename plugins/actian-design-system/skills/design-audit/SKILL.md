@@ -11,9 +11,9 @@ Audit a Figma file or section against the Actian Design System 2026 and/or Fat M
 ## Pipeline
 
 1. Parse URL → extract `fileKey` + `nodeId` (per `../../references/figma-output.md`)
-2. `get_metadata(fileKey, nodeId)` → understand structure
-3. `get_screenshot` of key frames → visual reference
-4. `get_design_context` on representative nodes → inspect tokens, typography, spacing, components
+2. Classify node via `use_figma` (see figma-output.md) → get type, name, children. Route: if PAGE/SECTION/GROUP, pick the target frame/component from children.
+3. `get_screenshot` of resolved target → visual reference
+4. `get_design_context` on resolved target → inspect tokens, typography, spacing, components
 5. Check each dimension below → structured report with severity (P0/P1/P2)
 6. Present findings; user can request fixes ("fix #3", "fix all auto-fixable")
 

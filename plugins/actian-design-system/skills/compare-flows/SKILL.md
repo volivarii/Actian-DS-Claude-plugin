@@ -10,7 +10,7 @@ Compare two Figma flows or screens and provide structured UX recommendations. Ru
 
 ## Pipeline
 
-1. Parse each URL per `../../references/figma-output.md` (extract `fileKey`, `nodeId`). Get metadata + screenshots.
+1. Parse each URL per `../../references/figma-output.md` (extract `fileKey`, `nodeId`). Classify each node via `use_figma` (see figma-output.md), route to resolved targets, then get screenshots.
 2. `get_design_context` on key screens in each flow
 3. Analyze across all dimensions below
 4. Self-review: verify every dimension evaluated, every issue has severity + location

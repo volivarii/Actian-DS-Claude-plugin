@@ -10,7 +10,7 @@ Create a new Figma component (with variants) from a text description or by exten
 
 ## Step 1 — Understand the component
 
-Determine: component name (FM prefix for Fat Marker), library (FM = Inter, DS Kit = Roboto), variants, content, layout, properties. If a Figma URL is provided, parse per `../../references/figma-output.md` then `get_design_context` + `get_screenshot`. Infer as much as possible; only ask if the request is too vague to proceed.
+Determine: component name (FM prefix for Fat Marker), library (FM = Inter, DS Kit = Roboto), variants, content, layout, properties. If a Figma URL is provided, parse per `../../references/figma-output.md` — classify node first via `use_figma`, route to the correct target, then `get_design_context` + `get_screenshot`. Infer as much as possible; only ask if the request is too vague to proceed.
 
 ## Step 2 — Check existing components
 

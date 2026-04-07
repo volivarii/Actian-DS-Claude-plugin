@@ -36,44 +36,70 @@ nodeId:  the node-id query parameter, with dashes converted to colons
 |-----|---------|--------|
 | `figma.com/design/W3TdaJ.../File?node-id=9085-24375` | `W3TdaJ...` | `9085:24375` |
 | `figma.com/design/abc123/branch/def456/File?node-id=1-2` | `def456` | `1:2` |
-| `figma.com/design/abc123/File` (no node-id) | `abc123` | _(none — use get_metadata to discover)_ |
+| `figma.com/design/abc123/File` (no node-id) | `abc123` | _(none — classify-node on root to discover pages)_ |
 
-### Discovery procedure (MANDATORY — always follow this order)
+### Node classification (MANDATORY — always the FIRST call)
 
-**Step 1: Always start with `get_metadata(fileKey, nodeId)`.**
-This is fast, always works, and reveals the node type (canvas = page, component_set, frame, instance, etc.). Never call `get_design_context` as the first call — it fails on pages and sometimes on nodes without a Figma selection.
+When a user provides a Figma URL, the **first MCP call** must be a `use_figma` classify-node call. Never start with `get_metadata` or `get_design_context` — `get_metadata` hangs on page nodes (known Figma bug), and `get_design_context` fails on pages with "nothing selected."
 
-**Step 2: Identify the target node from metadata.**
-The metadata XML shows the node hierarchy:
-- `<canvas>` = page → drill down to find the component set or frame you need
-- `<component_set>` = variant group → this is your target for component briefs
-- `<component>` = single component → use directly
-- `<frame>` = generic frame → use directly
-- `<instance>` = component instance → find the source component
+**Step 1: Classify the node via `use_figma`.**
 
-**Step 3: Call `get_design_context(fileKey, targetNodeId)` on the specific target node.**
-Use the node ID discovered from metadata, not the URL's node ID (which might be a page).
+Pass `skillNames: "figma-use"` and this code (replace `NODE_ID` with the extracted nodeId):
+
+```js
+const n = await figma.getNodeByIdAsync("NODE_ID");
+if (!n) return JSON.stringify({ error: "not_found" });
+const r = { type: n.type, name: n.name };
+if (n.children) {
+  r.childCount = n.children.length;
+  if (n.type === "PAGE" || n.type === "SECTION" || n.type === "GROUP") {
+    r.children = n.children.slice(0, 50).map(c => ({
+      id: c.id, name: c.name, type: c.type
+    }));
+  }
+}
+return JSON.stringify(r);
+```
+
+This returns in <1 second and tells you exactly what the node is. Costs 1 `use_figma` call but prevents all downstream failures.
+
+**Step 2: Route based on node type.**
+
+| `type` returned | Action |
+|---|---|
+| `PAGE` | Read `children[]` — find the `COMPONENT_SET`, `FRAME`, or `SECTION` you need, use its `id` for subsequent calls |
+| `COMPONENT_SET` | Use directly — ideal target for component-brief |
+| `COMPONENT` | Use directly |
+| `FRAME` | Use directly — ideal target for generate-flow, design-audit |
+| `SECTION` | Read `children[]` — find the frame inside, use its `id` |
+| `GROUP` | Read `children[]` — find the frame inside, use its `id` |
+| `INSTANCE` | Resolve to source component via `get_design_context` on this node |
+
+**Step 3: Call `get_design_context(fileKey, targetNodeId)` on the resolved target.**
+
+Use the node ID from Step 2 routing — never the raw URL nodeId (which might be a page).
 
 **Example — user pastes a page URL:**
 ```
-URL nodeId: 9085:24375 → get_metadata reveals <canvas name="Button">
-  → find <component_set id="7206:2643" name="Button"> inside
-  → get_design_context(fileKey, "7206:2643") ← use this ID
+URL nodeId: 12070:77593 → classify-node returns { type: "PAGE", name: "Checkbox", children: [
+  { id: "7206:2643", name: "Checkbox", type: "COMPONENT_SET" },
+  { id: "7206:2700", name: "Design guidelines", type: "FRAME" }
+]}
+→ pick COMPONENT_SET "7206:2643" → get_design_context(fileKey, "7206:2643")
 ```
 
 **Example — user pastes a component URL:**
 ```
-URL nodeId: 7206:2643 → get_metadata reveals <component_set name="Button">
-  → get_design_context(fileKey, "7206:2643") ← same ID works
+URL nodeId: 7206:2643 → classify-node returns { type: "COMPONENT_SET", name: "Checkbox" }
+→ use directly → get_design_context(fileKey, "7206:2643")
 ```
 
 ### When get_design_context returns "nothing selected"
 
-This means the node ID points to a page or the Figma client doesn't have it selected. Fall back to:
-1. `get_metadata(fileKey, nodeId)` to discover the structure
-2. Find the actual component/frame node ID from the metadata
-3. Retry `get_design_context` with the discovered node ID
-4. If it still fails, use `get_screenshot(fileKey, nodeId)` + metadata for visual reference
+The classify-node step should prevent this. If it still occurs:
+1. Verify the node ID from classify-node is correct (not a page or removed node)
+2. Use `get_screenshot(fileKey, nodeId)` for visual reference
+3. Use `get_metadata(fileKey, nodeId)` as secondary structural data (safe on non-page nodes)
 
 ---
 

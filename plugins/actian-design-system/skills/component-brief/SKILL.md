@@ -21,7 +21,7 @@ Keywords: `"preview"` → HTML; `"playground"` → explorer.
 
 ## Step 1 — Research (ONE parallel batch)
 
-Parse URL (`fileKey` + `nodeId` per `../../references/figma-output.md`). ONE message: (1) `get_metadata(fileKey, nodeId)`, (2) `docs/component-guidelines/<slug>.json`, (3) `references/component-brief/data-schema.md`. Then: component set node ID from metadata → `get_design_context`. Fallback: `get_screenshot`.
+Parse URL (`fileKey` + `nodeId` per `../../references/figma-output.md`). ONE message: (1) classify-node via `use_figma` (see figma-output.md — returns node type, name, children), (2) `docs/component-guidelines/<slug>.json`, (3) `references/component-brief/data-schema.md`. Then: route based on node type — if PAGE, pick the COMPONENT_SET child from the classification response; if COMPONENT_SET, use directly. Call `get_design_context` on the resolved target. Fallback: `get_screenshot`.
 
 ## Step 1.5 — Present card selection
 
