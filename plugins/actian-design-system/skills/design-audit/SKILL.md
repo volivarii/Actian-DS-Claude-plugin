@@ -1,6 +1,6 @@
 ---
 name: design-audit
-description: This skill should be used when the user wants to audit, review, lint, or QA a Figma design against DS Kit or Fat Marker rules, asks if tokens are correct, wants to find design system inconsistencies, asks what's wrong with a screen, shares a Figma URL asking if it meets standards, or asks to fix a specific audit finding ("fix finding #N", "fix the hardcoded blue").
+description: Audit a Figma design against DS rules — tokens, spacing, a11y, component usage. Finds inconsistencies and can fix specific findings.
 argument-hint: "[Figma URL] or [fix finding #N]"
 ---
 

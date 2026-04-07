@@ -1,6 +1,6 @@
 ---
 name: generate-presentation
-description: Use when the user asks to create a presentation, make a deck, turn findings or research into slides, build a pitch or report deck, or provides content and wants it presented visually.
+description: Create a Figma presentation deck from content, research, or a topic description. Supports slide templates and chart patterns.
 argument-hint: "[topic, file path, Figma URL, or description of content]"
 ---
 

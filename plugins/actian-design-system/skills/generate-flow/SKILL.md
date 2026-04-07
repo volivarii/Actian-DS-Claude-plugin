@@ -1,6 +1,6 @@
 ---
 name: generate-flow
-description: This skill should be used when the user wants to create a flow, wireframe, or mockup from a feature idea or user story, asks how a user would accomplish a task, wants to mock up an experience, provides a user story and wants it visualized as a multi-screen flow, or wants to wire prototype connections on an existing Figma flow to make it playable.
+description: Generate a multi-screen lo-fi flow from a feature idea or user story, and push to Figma. Also handles prototype wiring on existing flows.
 argument-hint: "[feature description or Figma URL]"
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: create-component
-description: Use when the user asks to create, build, or make a new component in the Figma design system library, add a variant or state to an existing component, extend a component, or describes a UI element that should become reusable.
+description: Build or extend a component in the Figma DS library — new components, variants, or states. Includes research and token binding.
 argument-hint: "[component description or Figma URL]"
 ---
 

@@ -569,6 +569,32 @@ Real screens combine multiple patterns. Common combinations:
 
 ---
 
+## Forms Layout Rules
+
+Source: Design Consistency 2026 — Forms (file key in `.figma-keys.json` -> `designConsistency`). These rules apply to all generated screens across all skills.
+
+### Simple forms
+- Input form containers must be constrained to **480px max-width** on medium and large screens
+- Applies to: text inputs, dropdowns, text areas, date pickers, radio groups, checkbox groups
+- The 480px container sits left-aligned within the content area
+
+### Extended form elements
+- **Selectable rows, tiles, and tables** must be displayed **full-width**
+- Follow the grid and max-width rules of the content area (1600px max-width)
+- Applies to: multi-select lists, data tables used in forms, tile selectors, card grids
+
+### Multi-column layouts
+- Forms should stay **fluid** inside their containers
+- Do not constrain to 480px when the form is inside a multi-column layout (e.g., side panel, split view)
+
+### Action footer
+- Stick to **bottom** of the page
+- Fluid width for background color and stroke
+- Actions container constrained to **1600px max-width**
+- **Primary actions on the right**, secondary on the left
+
+---
+
 ## Usage by Skill
 
 | Skill | How to use this reference |

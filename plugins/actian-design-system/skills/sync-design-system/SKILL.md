@@ -1,6 +1,7 @@
 ---
 name: sync-design-system
-description: Use when the user asks to sync, refresh, pull, import, or update design system data, tokens, components, guidelines, or foundations from Figma. Supports full sync, single-phase sync, or single-component granularity (e.g., 'sync Button').
+description: Sync DS data from Figma — tokens, components, guidelines, foundations. Supports full sync, single-phase, or single-component.
+disable-model-invocation: true
 argument-hint: "[phase name, component name, 'all', or 'validate']"
 ---
 

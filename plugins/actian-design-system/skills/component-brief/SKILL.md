@@ -1,6 +1,6 @@
 ---
 name: component-brief
-description: This skill should be used when the user asks to document, brief, or spec a design system component, wants to know the variants/states/tokens for a component, asks for a spec page, or provides a Figma component URL and wants structured documentation.
+description: Document a DS component with structured brief cards (variants, tokens, API, usage, a11y). Accepts Figma URL or component name.
 argument-hint: "[Figma URL or component name] [generate N,N,N]"
 ---
 

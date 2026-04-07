@@ -1,6 +1,6 @@
 ---
 name: compare-flows
-description: Use when the user provides two Figma URLs to compare, wants to diff v1 vs v2, evaluate which design is better, review a redesign against the original, do a before/after or side-by-side analysis, or choose between competing UX approaches. If two Figma URLs appear in any context, this skill likely applies.
+description: Compare two Figma designs side-by-side — v1 vs v2 diffs, before/after analysis, or competing UX approaches. Requires two Figma URLs.
 argument-hint: "[Figma URL 1] [Figma URL 2]"
 ---
 
