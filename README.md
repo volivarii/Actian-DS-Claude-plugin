@@ -16,7 +16,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.33.0** · 8 skills · 5 background agents · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.40.0** · 8 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
@@ -135,7 +135,7 @@ Design a Studio dashboard with popular items and watchlists
 How would a data steward create a metadata quality policy?
 ```
 
-The companion knows the canonical layout patterns for each screen type (dashboard, detail, browse, creation form, table view, etc.) and applies the correct structure automatically.
+The companion knows the canonical layout patterns for each screen type (dashboard, detail, browse, creation form, table view, data visualization, explorer homepage, overlays) and uses recipe skeletons for consistent structure while keeping full creative freedom.
 
 ### Review copy
 
@@ -261,6 +261,9 @@ Agents are dispatched automatically by skills — they run as background subproc
 | `wiring-analyzer` | Analyze flow structure for prototype wiring | Flow push (wire step) |
 | `brief-data-validator` | Validate component brief data model | Brief generation (after data model) |
 | `parity-analyzer` | Check Figma output for rendering issues | All skills (after push) |
+| `card-generator` | Generate brief cards in parallel batches | Brief generation (6+ DS cards) |
+| `screen-generator` | Generate flow screens in parallel batches | Flow generation (6+ screens) |
+| `slide-generator` | Generate presentation slides in parallel batches | Presentation generation (6+ slides) |
 
 ---
 
@@ -298,15 +301,20 @@ actian-design-system-plugin/
 |   +-- .claude-plugin/plugin.json
 |   +-- CLAUDE.md
 |   +-- skills/                          # 8 skills (companion + 7 specialized)
-|   +-- agents/                          # 5 agents (auto-dispatched)
+|   +-- agents/                          # 8 agents (5 validation + 3 parallel generation)
 |   +-- scripts/
 |   |   +-- figma-interpreter.js         # Runtime that executes JSON specs in Figma
 |   |   +-- shared-constants.js          # Component keys, palette, assembleCall()
 |   |   +-- flow-to-figma.js             # Flow data → interpreter + JSON spec
 |   |   +-- brief-to-figma.js            # Brief data → interpreter + JSON spec
 |   |   +-- slide-to-figma.js            # Slide data → interpreter + JSON spec
+|   |   +-- merge-partials.js            # Merge parallel agent outputs
 |   |   +-- templates.json               # Screen templates (admin, mobile, etc.)
 |   |   +-- html-renderers/              # Client-side renderers for preview
+|   +-- recipes/                         # Archetype skeletons for consistent output
+|   |   +-- flow/                        # 9 flow screen archetypes
+|   |   +-- brief/                       # 9 DS Kit card templates
+|   |   +-- presentation/                # 5 slide type templates
 |   +-- references/                      # DS context + skill-specific references
 |   |   +-- companion-context.md         # Always-loaded DS summary
 |   +-- templates/                       # CSS wrappers, annotation layer
