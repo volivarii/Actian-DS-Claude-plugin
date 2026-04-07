@@ -28,8 +28,8 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js" flow-data.json --target-node-id "<nodeId>" --output-dir {project_working_directory}/components/flows/.figma-calls
    ```
-   Read manifest.json → for each call: read `call-N.js` → `use_figma` (self-contained, no ID replacement needed)
-   - **Incremental update** (when fixing specific screens after initial push): Update the screen data in `flow-data.json`, read `.figma-calls/manifest.json` → `unitMap.screen_N` (0-indexed), re-run `flow-to-figma.js` with `--call M` where M is the call index, push only that call.
+   Read `manifest.json`. Read `runtime.js` once. For each call: read `call-N.json` (spec only) → reassemble with runtime (`runtime + "\nvar _spec = " + spec + ";\nreturn await buildFromSpec(_spec);"`) → `use_figma`.
+   - **Incremental update** (when fixing specific screens after initial push): Update the screen data in `flow-data.json`, read `.figma-calls/manifest.json` → `unitMap.screen_N` (0-indexed), re-run `flow-to-figma.js` with `--call M` where M is the call index, push only that `call-M.json` reassembled with `runtime.js`.
 6. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"

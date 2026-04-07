@@ -12,47 +12,48 @@
     "card8_accessibility": 6,
     "card9_code": 7
   },
+  "runtime": "runtime.js",
   "calls": [
     {
       "callIndex": 1,
-      "file": "call-1.js",
-      "sizeBytes": 25173,
+      "file": "call-1.json",
+      "specBytes": 15187,
       "description": "Call 1/7: GenLog, Card 1, Card 2"
     },
     {
       "callIndex": 2,
-      "file": "call-2.js",
-      "sizeBytes": 31890,
+      "file": "call-2.json",
+      "specBytes": 37518,
       "description": "Call 2/7: Card 3"
     },
     {
       "callIndex": 3,
-      "file": "call-3.js",
-      "sizeBytes": 32551,
+      "file": "call-3.json",
+      "specBytes": 38755,
       "description": "Call 3/7: Card 4"
     },
     {
       "callIndex": 4,
-      "file": "call-4.js",
-      "sizeBytes": 32555,
+      "file": "call-4.json",
+      "specBytes": 33741,
       "description": "Call 4/7: Card 5, Card 6"
     },
     {
       "callIndex": 5,
-      "file": "call-5.js",
-      "sizeBytes": 26149,
+      "file": "call-5.json",
+      "specBytes": 14679,
       "description": "Call 5/7: Card 7"
     },
     {
       "callIndex": 6,
-      "file": "call-6.js",
-      "sizeBytes": 37952,
+      "file": "call-6.json",
+      "specBytes": 54662,
       "description": "Call 6/7: Card 8"
     },
     {
       "callIndex": 7,
-      "file": "call-7.js",
-      "sizeBytes": 24150,
+      "file": "call-7.json",
+      "specBytes": 14533,
       "description": "Call 7/7: Card 9"
     }
   ]

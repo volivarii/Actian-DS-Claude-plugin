@@ -328,6 +328,71 @@ function assembleCall(spec) {
   );
 }
 
+/**
+ * Write call files in split format: runtime.js (once) + call-N.json (spec per call).
+ * Returns the manifest object. Caller should write manifest.json separately if needed.
+ *
+ * @param {string} outputDir - Directory to write files into (created if missing)
+ * @param {Array<{callIndex: number, code: string, description: string, spec: object}>} calls
+ * @param {object} unitMap - Card/screen/slide → call index mapping
+ * @param {number|null} callFilter - If set, only write this specific call index
+ * @returns {object} manifest
+ */
+function writeCallFiles(outputDir, calls, unitMap, callFilter) {
+  fs.mkdirSync(outputDir, { recursive: true });
+
+  // Write runtime once
+  const runtimeSource = getInterpreterSource();
+  fs.writeFileSync(path.join(outputDir, "runtime.js"), runtimeSource, "utf8");
+
+  const manifest = {
+    totalCalls: calls.length,
+    unitMap: unitMap,
+    runtime: "runtime.js",
+    calls: [],
+  };
+
+  for (const r of calls) {
+    const fileName = "call-" + r.callIndex + ".json";
+    const specJSON = JSON.stringify(r.spec, null, 2);
+    if (!callFilter || r.callIndex === callFilter) {
+      fs.writeFileSync(path.join(outputDir, fileName), specJSON, "utf8");
+    }
+    manifest.calls.push({
+      callIndex: r.callIndex,
+      file: fileName,
+      specBytes: Buffer.byteLength(specJSON, "utf8"),
+      description: r.description,
+    });
+  }
+
+  fs.writeFileSync(
+    path.join(outputDir, "manifest.json"),
+    JSON.stringify(manifest, null, 2),
+    "utf8",
+  );
+
+  return manifest;
+}
+
+/**
+ * Reassemble a call from runtime source + spec JSON for use_figma execution.
+ * Used at push time: read runtime.js once, read each call-N.json, combine.
+ *
+ * @param {string} runtimeSource - Content of runtime.js
+ * @param {string} specJSON - Content of call-N.json
+ * @returns {string} Executable code for use_figma
+ */
+function reassembleCall(runtimeSource, specJSON) {
+  return (
+    runtimeSource +
+    "\nvar _spec = " +
+    specJSON +
+    ";\n" +
+    "return await buildFromSpec(_spec);"
+  );
+}
+
 /** Return byte size of compact JSON representation. */
 function compactSize(obj) {
   return Buffer.byteLength(JSON.stringify(obj), "utf8");
@@ -369,6 +434,8 @@ module.exports = {
   PALETTE,
   buildGenLog,
   assembleCall,
+  writeCallFiles,
+  reassembleCall,
   compactSize,
   binPack,
 };

@@ -420,7 +420,12 @@ function autoSplit(meta, allItems, usedVars, itemIds) {
       );
     }
 
-    calls.push({ callIndex: b + 1, code: code, description: description });
+    calls.push({
+      callIndex: b + 1,
+      code: code,
+      spec: spec,
+      description: description,
+    });
   }
 
   const unitMap = {};
@@ -601,27 +606,8 @@ function main() {
   const output = JSON.stringify(calls);
 
   if (outputDir) {
-    // Write each call as a separate file + manifest
-    fs.mkdirSync(outputDir, { recursive: true });
-    const manifest = { totalCalls: calls.length, unitMap: unitMap, calls: [] };
-    for (const r of calls) {
-      const fileName = "call-" + r.callIndex + ".js";
-      const filePath = path.join(outputDir, fileName);
-      if (!callFilter || r.callIndex === callFilter) {
-        fs.writeFileSync(filePath, r.code, "utf8");
-      }
-      manifest.calls.push({
-        callIndex: r.callIndex,
-        file: fileName,
-        sizeBytes: Buffer.byteLength(r.code, "utf8"),
-        description: r.description,
-      });
-    }
-    fs.writeFileSync(
-      path.join(outputDir, "manifest.json"),
-      JSON.stringify(manifest, null, 2),
-      "utf8",
-    );
+    // Write runtime.js (once) + call-N.json (spec per call) + manifest.json
+    shared.writeCallFiles(outputDir, calls, unitMap, callFilter);
     process.stderr.write(
       "Wrote " + calls.length + " call file(s) to " + outputDir + "\n",
     );

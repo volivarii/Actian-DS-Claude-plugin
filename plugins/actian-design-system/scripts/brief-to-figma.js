@@ -1235,6 +1235,7 @@ function autoSplitCalls(data, targetNodeId) {
     results.push({
       callIndex: callIdx,
       code: code,
+      spec: spec,
       description: `Call ${callIdx}/${totalSpecCalls}: ${names}`,
     });
   }
@@ -1400,29 +1401,8 @@ function main() {
   }
 
   if (opts.outputDir) {
-    // Write each call as a separate file + manifest
-    fs.mkdirSync(opts.outputDir, { recursive: true });
-    const manifest = {
-      totalCalls: allCalls.length,
-      unitMap: unitMap,
-      calls: [],
-    };
-    for (const r of allCalls) {
-      const fileName = "call-" + r.callIndex + ".js";
-      const filePath = path.join(opts.outputDir, fileName);
-      fs.writeFileSync(filePath, r.code, "utf8");
-      manifest.calls.push({
-        callIndex: r.callIndex,
-        file: fileName,
-        sizeBytes: Buffer.byteLength(r.code, "utf8"),
-        description: r.description,
-      });
-    }
-    fs.writeFileSync(
-      path.join(opts.outputDir, "manifest.json"),
-      JSON.stringify(manifest, null, 2),
-      "utf8",
-    );
+    // Write runtime.js (once) + call-N.json (spec per call) + manifest.json
+    shared.writeCallFiles(opts.outputDir, allCalls, unitMap, null);
     process.stderr.write(
       `Wrote ${allCalls.length} call file(s) to ${opts.outputDir}\n`,
     );

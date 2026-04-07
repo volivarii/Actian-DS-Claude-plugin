@@ -1,0 +1,270 @@
+{
+  "meta": {
+    "skill": "generate-presentation",
+    "targetNodeId": "0:0",
+    "component": "Actian Design System 2026",
+    "wrapperName": "Presentation: Actian Design System 2026",
+    "sectionName": "Presentation: Actian Design System 2026"
+  },
+  "fonts": [
+    "Roboto:Regular",
+    "Roboto:Bold",
+    "Roboto:Medium"
+  ],
+  "imports": {
+    "genLog": {
+      "key": "a9653f30925367e96dea90093d750bfe70849571",
+      "method": "single"
+    },
+    "slideCover": {
+      "key": "a12f6f0b26fffc59fdac49df2bc3c36182c912da",
+      "method": "single"
+    },
+    "slideBodyFull": {
+      "key": "281e7a9bc55abe69bb2364e639f7511b4a005694",
+      "method": "single"
+    },
+    "slideBodyTV": {
+      "key": "28ea7a37752149d78679847ec7893368a4c4f1a0",
+      "method": "single"
+    },
+    "slideSection": {
+      "key": "348efaa22a6da818c435017399a357b47257bcdc",
+      "method": "single"
+    },
+    "slideBack": {
+      "key": "6df533ae800a6596fd84e93a2e5fc725dbd6a369",
+      "method": "single"
+    }
+  },
+  "variables": {
+    "bgDefault": {
+      "key": "805afec875092b89deebe685e17992963d603974"
+    },
+    "textPrimary": {
+      "key": "cb3cf6a8b661f3a2ff12835120957f3278d329d0"
+    },
+    "bgGrey2": {
+      "key": "2d7f893d1d1f5807dfc84b7b6e057eff8fd2ae31"
+    },
+    "textSecondary": {
+      "key": "54d9d36f7653380d99e9aadbad21e14f9dcdb295"
+    },
+    "textReverse": {
+      "key": "d5b2b08fd5bab41595edb892bf4707cb94bae50a"
+    },
+    "brandPrimary": {
+      "key": "a256595115f6048a1e1c843e3099a79a5c259288"
+    },
+    "borderDefault": {
+      "key": "290c868621027b488cbc3b262619959bec52765f"
+    }
+  },
+  "tree": [
+    {
+      "type": "INSTANCE",
+      "ref": "genLog",
+      "name": "Generation Log",
+      "props": {
+        "Skill": "Skill: generate-presentation",
+        "Prompt": "Prompt: Create a presentation about the DS 2026 update",
+        "Date": "2026-04-03T00:00:00Z",
+        "Duration": "Duration: 25s",
+        "Model": "claude-opus-4-6",
+        "Plugin Version": "v1.31.0"
+      },
+      "sizing": {
+        "horizontal": "HUG",
+        "vertical": "HUG"
+      }
+    },
+    {
+      "type": "INSTANCE",
+      "ref": "slideCover",
+      "name": "Slide: Cover",
+      "props": {
+        "Topic": "Design System",
+        "Title": "Actian Design System 2026",
+        "Subtitle": "Tokens, components, and guidelines for consistent product experiences",
+        "Date": "April 2026",
+        "Creators": "UX Team"
+      }
+    },
+    {
+      "type": "INSTANCE",
+      "ref": "slideSection",
+      "name": "Slide: Section — Foundation",
+      "props": {
+        "Topic": "",
+        "Title": "Foundation"
+      }
+    },
+    {
+      "type": "FRAME",
+      "name": "Slide: Token architecture",
+      "width": 1920,
+      "height": 1080,
+      "layout": {
+        "mode": "VERTICAL",
+        "spacing": 24,
+        "padding": [
+          64,
+          80,
+          64,
+          80
+        ]
+      },
+      "clipsContent": true,
+      "fills": [
+        "#FFFFFF"
+      ],
+      "variables": {
+        "fills.0.color": "bgDefault"
+      },
+      "children": [
+        {
+          "type": "TEXT",
+          "name": "Title",
+          "content": "Token architecture",
+          "font": "Roboto:Regular",
+          "size": 56,
+          "color": "#12131F",
+          "lineHeight": {
+            "value": 103,
+            "unit": "PERCENT"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          },
+          "variables": {
+            "fills.0.color": "textPrimary"
+          }
+        }
+      ]
+    },
+    {
+      "type": "FRAME",
+      "name": "Slide: Spacing scale",
+      "width": 1920,
+      "height": 1080,
+      "layout": {
+        "mode": "VERTICAL",
+        "spacing": 0,
+        "padding": [
+          64,
+          80,
+          64,
+          80
+        ]
+      },
+      "clipsContent": true,
+      "fills": [
+        "#FFFFFF"
+      ],
+      "variables": {
+        "fills.0.color": "bgDefault"
+      },
+      "children": [
+        {
+          "type": "TEXT",
+          "name": "Title",
+          "content": "Spacing scale",
+          "font": "Roboto:Regular",
+          "size": 56,
+          "color": "#12131F",
+          "lineHeight": {
+            "value": 103,
+            "unit": "PERCENT"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          },
+          "variables": {
+            "fills.0.color": "textPrimary"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Content columns",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 56
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "FILL"
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "Text column",
+              "layout": {
+                "mode": "VERTICAL",
+                "spacing": 16
+              },
+              "sizing": {
+                "horizontal": 549,
+                "vertical": "FILL"
+              },
+              "fills": [],
+              "children": [
+                {
+                  "type": "TEXT",
+                  "name": "Body",
+                  "content": "Eight-point grid with 7 named steps. Used consistently across all components and layouts.",
+                  "font": "Roboto:Regular",
+                  "size": 24,
+                  "color": "#000000",
+                  "width": 549,
+                  "lineHeight": {
+                    "value": 130,
+                    "unit": "PERCENT"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "FRAME",
+              "name": "Visual area",
+              "layout": {
+                "mode": "VERTICAL",
+                "spacing": 0,
+                "padding": [
+                  24,
+                  24,
+                  24,
+                  24
+                ],
+                "primaryAxisAlign": "CENTER",
+                "counterAxisAlign": "CENTER"
+              },
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "FILL"
+              },
+              "fills": [
+                "#F5F5FA"
+              ],
+              "cornerRadius": 4,
+              "variables": {
+                "fills.0.color": "bgGrey2"
+              },
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "INSTANCE",
+      "ref": "slideBack",
+      "name": "Slide: Back cover",
+      "props": {
+        "Title": "Thank you"
+      }
+    }
+  ]
+}

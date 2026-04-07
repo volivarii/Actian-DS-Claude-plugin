@@ -119,7 +119,12 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
   --output-dir {project_working_directory}/components/[name]/.figma-calls
 ```
 
-Read `manifest.json`. For each call in order: read `call-N.js` → pass to `use_figma`. Each call is self-contained (no ID replacement needed — wrapper ID auto-discovered via shared plugin data). Never write freehand Figma code.
+Read `manifest.json`. Read `runtime.js` once. For each call in order: read `call-N.json` (spec only, ~2-3KB) → reassemble with runtime → pass to `use_figma`. Wrapper ID auto-discovered via shared plugin data. Never write freehand Figma code.
+
+**Reassembly at push time:**
+```
+runtime.js content + "\nvar _spec = " + call-N.json content + ";\nreturn await buildFromSpec(_spec);"
+```
 
 ## Incremental update (when fixing specific cards after initial push)
 
@@ -135,7 +140,7 @@ When the user asks to fix or update specific cards (e.g., "card 3's anatomy is w
      --output-dir {project_working_directory}/components/[name]/.figma-calls \
      --call N
    ```
-4. Push only the regenerated `call-N.js` via `use_figma`
+4. Push only the regenerated `call-N.json` — reassemble with `runtime.js` → `use_figma`
 
 ## Step 4 — Parity check
 

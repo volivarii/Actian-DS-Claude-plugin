@@ -745,6 +745,7 @@ function main() {
     results.push({
       callIndex: callIdx,
       code: code,
+      spec: spec,
       description: buildDescription(callIdx, totalCalls, bin),
     });
   }
@@ -763,27 +764,8 @@ function main() {
 
   // Output
   if (outputDir) {
-    // Write each call as a separate file for easier consumption
-    fs.mkdirSync(outputDir, { recursive: true });
-    const manifest = { totalCalls: totalCalls, unitMap: unitMap, calls: [] };
-    for (const r of results) {
-      const fileName = "call-" + r.callIndex + ".js";
-      const filePath = path.join(outputDir, fileName);
-      if (!callFilter || r.callIndex === callFilter) {
-        fs.writeFileSync(filePath, r.code, "utf8");
-      }
-      manifest.calls.push({
-        callIndex: r.callIndex,
-        file: fileName,
-        sizeBytes: Buffer.byteLength(r.code, "utf8"),
-        description: r.description,
-      });
-    }
-    fs.writeFileSync(
-      path.join(outputDir, "manifest.json"),
-      JSON.stringify(manifest, null, 2),
-      "utf8",
-    );
+    // Write runtime.js (once) + call-N.json (spec per call) + manifest.json
+    shared.writeCallFiles(outputDir, results, unitMap, callFilter);
     process.stderr.write(
       "Wrote " + totalCalls + " call file(s) to " + outputDir + "\n",
     );

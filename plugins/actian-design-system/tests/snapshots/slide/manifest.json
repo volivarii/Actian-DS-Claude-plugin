@@ -8,11 +8,12 @@
     "slide_3": 1,
     "slide_4": 1
   },
+  "runtime": "runtime.js",
   "calls": [
     {
       "callIndex": 1,
-      "file": "call-1.js",
-      "sizeBytes": 21672,
+      "file": "call-1.json",
+      "specBytes": 6646,
       "description": "Call 1 of 1: Slide: Token architecture, Slide: Spacing scale (21672 bytes)"
     }
   ]
