@@ -1134,6 +1134,28 @@ function autoSplitCalls(data, targetNodeId) {
     bins.push(cardBin);
   }
 
+  // Build unitMap: card data key -> call index (for incremental regeneration)
+  const CARD_NAME_TO_KEY = {
+    GenLog: "genLog",
+    "Card 1": "card1_header",
+    "Card 2": "card2_component",
+    "Card 3": "card3_anatomy",
+    "Card 4": "card4_tokens",
+    "Card 5": "card5_api",
+    "Card 6": "card6_usage",
+    "Card 7": "card7_content",
+    "Card 8": "card8_accessibility",
+    "Card 9": "card9_code",
+  };
+  const unitMap = {};
+  for (let b = 0; b < bins.length; b++) {
+    const callIdx = b + 1;
+    for (const card of bins[b]) {
+      const key = CARD_NAME_TO_KEY[card.name];
+      if (key) unitMap[key] = callIdx;
+    }
+  }
+
   const totalSpecCalls = bins.length;
   const results = [];
 
@@ -1188,7 +1210,7 @@ function autoSplitCalls(data, targetNodeId) {
     });
   }
 
-  return results;
+  return { calls: results, unitMap: unitMap };
 }
 
 // ---------------------------------------------------------------------------
@@ -1333,7 +1355,7 @@ function main() {
   }
 
   // Build code calls with auto-splitting
-  const allCalls = autoSplitCalls(data, opts.targetNodeId);
+  const { calls: allCalls, unitMap } = autoSplitCalls(data, opts.targetNodeId);
 
   let output;
   if (opts.call != null) {
@@ -1351,7 +1373,11 @@ function main() {
   if (opts.outputDir) {
     // Write each call as a separate file + manifest
     fs.mkdirSync(opts.outputDir, { recursive: true });
-    const manifest = { totalCalls: allCalls.length, calls: [] };
+    const manifest = {
+      totalCalls: allCalls.length,
+      unitMap: unitMap,
+      calls: [],
+    };
     for (const r of allCalls) {
       const fileName = "call-" + r.callIndex + ".js";
       const filePath = path.join(opts.outputDir, fileName);
