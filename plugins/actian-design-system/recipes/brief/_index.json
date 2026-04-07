@@ -1,0 +1,11 @@
+[
+  { "file": "card1-header.json", "card": "card1_header" },
+  { "file": "card2-component.json", "card": "card2_component" },
+  { "file": "card3-anatomy.json", "card": "card3_anatomy" },
+  { "file": "card4-tokens.json", "card": "card4_tokens" },
+  { "file": "card5-api.json", "card": "card5_api" },
+  { "file": "card6-usage.json", "card": "card6_usage" },
+  { "file": "card7-content.json", "card": "card7_content" },
+  { "file": "card8-accessibility.json", "card": "card8_accessibility" },
+  { "file": "card9-code.json", "card": "card9_code" }
+]
