@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "totalCalls": 6,
+  "totalCalls": 5,
   "unitMap": {
     "genLog": 1,
     "card1_header": 1,
@@ -25,45 +25,36 @@
     ],
     "description": "Creates wrapper + 4 section frames"
   },
-  "executor": {
-    "file": "executor.js",
-    "sizeBytes": 22515,
-    "description": "Reads all stored fill specs from plugin data, builds everything"
-  },
   "fills": [
     {
       "fillIndex": 1,
       "file": "fill-1.js",
-      "specFile": "fill-1.spec.json",
-      "prettyFile": "fill-1.json",
-      "specBytes": 19337,
+      "specFile": "fill-1.json",
+      "sizeBytes": 41310,
       "sectionKey": "__section_genlog_card1_card2_card3",
       "description": "Fill 1/4: GenLog, Card 1, Card 2, Card 3"
     },
     {
       "fillIndex": 2,
       "file": "fill-2.js",
-      "specFile": "fill-2.spec.json",
-      "prettyFile": "fill-2.json",
-      "specBytes": 22848,
+      "specFile": "fill-2.json",
+      "sizeBytes": 44821,
       "sectionKey": "__section_card4_card5",
       "description": "Fill 2/4: Card 4, Card 5"
     },
     {
       "fillIndex": 3,
       "file": "fill-3.js",
-      "specFile": "fill-3.spec.json",
-      "prettyFile": "fill-3.json",
-      "specBytes": 12939,
+      "specFile": "fill-3.json",
+      "sizeBytes": 34912,
       "sectionKey": "__section_card6_card7",
       "description": "Fill 3/4: Card 6, Card 7"
     },
     {
       "fillIndex": 4,
       "file": "fill-4.js",
-      "specFile": "fill-4.spec.json",
-      "prettyFile": "fill-4.json",
-      "specBytes": 24426,
+      "specFile": "fill-4.json",
+      "sizeBytes": 46399,
       "sectionKey": "__section_card8_card9",
       "description": "Fill 4/4: Card 8, Card 9"
     }

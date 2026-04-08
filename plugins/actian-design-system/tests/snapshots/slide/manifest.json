@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "totalCalls": 3,
+  "totalCalls": 2,
   "unitMap": {
     "genLog": 1,
     "slide_0": 1,
@@ -18,18 +18,12 @@
     ],
     "description": "Creates wrapper + 1 section frames"
   },
-  "executor": {
-    "file": "executor.js",
-    "sizeBytes": 22515,
-    "description": "Reads all stored fill specs from plugin data, builds everything"
-  },
   "fills": [
     {
       "fillIndex": 1,
       "file": "fill-1.js",
-      "specFile": "fill-1.spec.json",
-      "prettyFile": "fill-1.json",
-      "specBytes": 3735,
+      "specFile": "fill-1.json",
+      "sizeBytes": 25708,
       "sectionKey": "__section_slide_0",
       "description": "Fill 1/1: Slide: Token architecture, Slide: Spacing scale"
     }

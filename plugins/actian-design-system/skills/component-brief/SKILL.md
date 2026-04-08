@@ -119,19 +119,13 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
   --output-dir {project_working_directory}/components/[name]/.figma-calls
 ```
 
-Read `manifest.json`. Push uses **stage + execute** — no file over 25KB:
+Read `manifest.json`. Push scaffold, then each fill directly — cards appear progressively in Figma:
 
-1. Read `scaffold.js` (~22KB) → `use_figma` (creates wrapper + named section frames)
-2. For each fill, read `fill-N.spec.json` (compact, ~20KB) → `use_figma` to stage it:
-   ```
-   figma.root.setSharedPluginData("actian_ds", "fill_N", JSON.stringify(<paste spec content here>));
-   figma.root.setSharedPluginData("actian_ds", "fill_count", "N");
-   return "stored fill N";
-   ```
-   Replace `N` with the fill index. Replace `<paste spec content here>` with the JSON from the spec file (it's valid JS — paste directly). The last store call sets `fill_count` to the total number of fills.
-3. Read `executor.js` (~22KB) → `use_figma` (reads all stored specs from plugin data, builds everything)
+1. Read `scaffold.js` → `use_figma` (creates wrapper + named section frames)
+2. For each fill in order: read `fill-N.js` → `use_figma` (builds cards into section — visible immediately)
+3. If any fill fails, skip it and continue with the next. Never retry in a loop.
 
-**Never read** `fill-N.js`, `fill-N.json`, or `runtime.js` at push time — those are for debugging only.
+Each `.js` file is pre-assembled (runtime + spec). Never read `runtime.js` or `.json` files at push time.
 
 ## Incremental update (when fixing specific cards after initial push)
 
@@ -147,7 +141,7 @@ When the user asks to fix or update specific cards (e.g., "card 3's anatomy is w
      --output-dir {project_working_directory}/components/[name]/.figma-calls \
      --fill N
    ```
-4. Stage only the regenerated `fill-N.spec.json` → then push `executor.js` (it re-fills only the changed section)
+4. Push only the regenerated `fill-N.js` → `use_figma`
 
 ## Step 4 — Parity check
 

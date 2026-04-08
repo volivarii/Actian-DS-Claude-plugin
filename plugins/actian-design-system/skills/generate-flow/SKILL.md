@@ -28,13 +28,11 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js" flow-data.json --target-node-id "<nodeId>" --output-dir {project_working_directory}/components/flows/.figma-calls
    ```
-   Read `manifest.json`. Push uses **stage + execute** — no file over 25KB:
-   1. Read `scaffold.js` (~22KB) → `use_figma` (creates wrapper + named section frames)
-   2. For each fill, read `fill-N.spec.json` (~15-20KB) → `use_figma` to stage: `figma.root.setSharedPluginData("actian_ds", "fill_N", JSON.stringify(<spec content>)); figma.root.setSharedPluginData("actian_ds", "fill_count", "N"); return "stored fill N";`
-   3. Read `executor.js` (~22KB) → `use_figma` (reads stored specs, builds everything)
-
-   **Never read** `fill-N.js`, `fill-N.json`, or `runtime.js` at push time.
-   - **Incremental update** (when fixing specific screens after initial push): Update the screen data in `flow-data.json`, read `.figma-calls/manifest.json` → `unitMap.screen_N` (0-indexed), re-run `flow-to-figma.js` with `--fill M` where M is the fill index, stage `fill-M.spec.json` → push `executor.js`.
+   Read `manifest.json`. Push scaffold, then each fill — screens appear progressively:
+   1. Read `scaffold.js` → `use_figma` (creates wrapper + named section frames)
+   2. For each fill: read `fill-N.js` → `use_figma` (builds screens into section — visible immediately)
+   3. If any fill fails, skip and continue. Each `.js` file is pre-assembled. Never read `.json` or `runtime.js`.
+   - **Incremental update**: Update `flow-data.json`, check `manifest.json` → `unitMap.screen_N`, re-run with `--fill M`, push only `fill-M.js`.
 6. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"

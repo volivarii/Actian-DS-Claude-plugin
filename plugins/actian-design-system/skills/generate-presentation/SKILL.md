@@ -58,13 +58,11 @@ Deck outline: N slides (cover + N body + back cover). Reply:
      --target-node-id "<nodeId>" \
      --output-dir {project_working_directory}/presentations/[topic-slug]/.figma-calls
    ```
-5. Read `manifest.json`. Push uses **stage + execute** — no file over 25KB:
-   1. Read `scaffold.js` (~22KB) → `use_figma` (creates wrapper + named section frames)
-   2. For each fill, read `fill-N.spec.json` (~15-20KB) → `use_figma` to stage: `figma.root.setSharedPluginData("actian_ds", "fill_N", JSON.stringify(<spec content>)); figma.root.setSharedPluginData("actian_ds", "fill_count", "N"); return "stored fill N";`
-   3. Read `executor.js` (~22KB) → `use_figma` (reads stored specs, builds everything)
-
-   **Never read** `fill-N.js`, `fill-N.json`, or `runtime.js` at push time.
-   - **Incremental update** (when fixing specific slides after initial push): Update the slide data in `slide-data.json`, read `.figma-calls/manifest.json` → `unitMap.slide_N` (0-indexed), re-run `slide-to-figma.js` with `--fill M` where M is the fill index, stage `fill-M.spec.json` → push `executor.js`.
+5. Read `manifest.json`. Push scaffold, then each fill — slides appear progressively:
+   1. Read `scaffold.js` → `use_figma` (creates wrapper + named section frames)
+   2. For each fill: read `fill-N.js` → `use_figma` (builds slides into section — visible immediately)
+   3. If any fill fails, skip and continue. Each `.js` file is pre-assembled. Never read `.json` or `runtime.js`.
+   - **Incremental update**: Update `slide-data.json`, check `manifest.json` → `unitMap.slide_N`, re-run with `--fill M`, push only `fill-M.js`.
 6. Parity check per `../../references/parity-check.md`
 
 Never write freehand Figma code. Fix slide-data.json and rerun the script if something is wrong.
