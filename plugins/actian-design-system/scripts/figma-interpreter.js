@@ -75,7 +75,43 @@ async function buildFromSpec(spec) {
     ctx.styles[sRef] = await figma.importStyleByKeyAsync(spec.styles[sRef].key);
   }
 
-  // 6. Create or find wrapper frame
+  // 6. Fill mode: find named section, clear it, build tree into it
+  if (spec.meta.fillSection) {
+    var sectionName = spec.meta.fillSection;
+    var section = figma.currentPage.findOne(function (n) {
+      return n.name === sectionName && n.type === "FRAME";
+    });
+    if (!section)
+      throw new Error("Fill target section '" + sectionName + "' not found");
+
+    // Clear existing children (supports re-push)
+    while (section.children.length > 0) {
+      section.children[0].remove();
+    }
+
+    // Build tree into the section
+    var fillCount = 0;
+    var fillTree = Array.isArray(spec.tree)
+      ? spec.tree
+      : spec.tree
+        ? [spec.tree]
+        : [];
+    for (var fi = 0; fi < fillTree.length; fi++) {
+      var fillChild = await buildNode(fillTree[fi], ctx);
+      section.appendChild(fillChild);
+      applySizing(fillChild, fillTree[fi].sizing);
+      fillCount++;
+    }
+
+    return {
+      message:
+        "Filled section '" + sectionName + "' with " + fillCount + " nodes",
+      sectionId: section.id,
+      nodeCount: fillCount,
+    };
+  }
+
+  // 7. Create or find wrapper frame
   var wrapper;
   if (spec.meta.appendToId === "__LAST_WRAPPER__") {
     // Auto-discover wrapper from previous call via shared plugin data
@@ -106,7 +142,7 @@ async function buildFromSpec(spec) {
   // Store wrapper ID for subsequent calls
   figma.root.setSharedPluginData("actian_ds", "last_wrapper", wrapper.id);
 
-  // 7. Build tree recursively
+  // 8. Build tree recursively
   var nodeCount = 0;
   var treeNodes = Array.isArray(spec.tree)
     ? spec.tree
