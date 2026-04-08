@@ -21,7 +21,7 @@ const shared = require("./shared-constants");
 // Constants
 // ---------------------------------------------------------------------------
 
-const MAX_BIN_SIZE = 18000; // bytes — JSON spec budget per call (interpreter is ~28KB, total under 50KB)
+const MAX_BIN_SIZE = shared.getMaxBinSize();
 const OVERHEAD = 500; // per-item overhead estimate
 
 const FONTS = [
@@ -543,6 +543,8 @@ function main() {
       pluginRoot = args[++i];
     } else if (args[i] === "--call" && i + 1 < args.length) {
       callFilter = parseInt(args[++i], 10);
+    } else if (args[i] === "--fill" && args[i + 1]) {
+      callFilter = parseInt(args[++i], 10);
     } else if (!inputPath) {
       inputPath = args[i];
     }
@@ -695,89 +697,119 @@ function main() {
     }
   }
 
-  const results = [];
+  // Build section keys from bin contents
+  const sectionKeys = bins.map(function (bin, idx) {
+    return "__section_flow_" + idx;
+  });
 
+  // Scaffold spec: wrapper + empty section frames
+  const scaffoldSpec = {
+    meta: {
+      skill: "generate-flow",
+      targetNodeId: meta.targetNodeId || "__TARGET_NODE_ID__",
+      wrapperName: "generate-flow: " + (meta.feature || "Flow"),
+      sectionName: "generate-flow: " + (meta.feature || "Flow"),
+    },
+    fonts: ["Inter:Regular"],
+    imports: {},
+    tree: sectionKeys.map(function (key) {
+      return {
+        type: "FRAME",
+        name: key,
+        layout: {
+          mode: "HORIZONTAL",
+          spacing: 32,
+          primarySizing: "AUTO",
+          counterSizing: "AUTO",
+        },
+        fills: [],
+      };
+    }),
+  };
+
+  // Fill specs
+  const fills = [];
   for (let b = 0; b < bins.length; b++) {
     const bin = bins[b];
-    const callIdx = b + 1;
+    const fillIdx = b + 1;
 
     const refs = scanRefs(bin);
     const imports = resolveImports(refs, refMap);
 
-    const spec = {
-      meta: { skill: "generate-flow" },
+    const fillSpec = {
+      meta: {
+        skill: "generate-flow",
+        fillSection: sectionKeys[b],
+      },
       fonts: FONTS,
       imports: imports,
       tree: bin,
     };
 
-    if (callIdx === 1) {
-      spec.meta.targetNodeId = meta.targetNodeId || "__TARGET_NODE_ID__";
-      spec.meta.wrapperName = "generate-flow: " + (meta.feature || "Flow");
-      spec.meta.sectionName = "generate-flow: " + (meta.feature || "Flow");
-    } else {
-      spec.meta.appendToId = "__LAST_WRAPPER__";
-    }
-
-    const code = shared.assembleCall(spec);
-    const codeSize = Buffer.byteLength(code, "utf8");
-
     process.stderr.write(
-      "Call " +
-        callIdx +
+      "Fill " +
+        fillIdx +
         ": " +
         bin.length +
-        " items, code=" +
-        codeSize +
-        " bytes\n",
+        " items (tree=" +
+        shared.compactSize(bin) +
+        " bytes)\n",
     );
 
-    if (codeSize > 50000) {
-      process.stderr.write(
-        "WARNING: Call " +
-          callIdx +
-          " exceeds 50KB use_figma limit (" +
-          codeSize +
-          " bytes)\n",
-      );
-    }
-
-    results.push({
-      callIndex: callIdx,
-      code: code,
-      spec: spec,
-      description: buildDescription(callIdx, totalCalls, bin),
+    fills.push({
+      fillIndex: fillIdx,
+      spec: fillSpec,
+      sectionKey: sectionKeys[b],
+      description: buildDescription(fillIdx, bins.length, bin),
     });
   }
 
-  // Validate --call filter
-  if (callFilter && (callFilter < 1 || callFilter > results.length)) {
+  // Validate --call/--fill filter
+  if (callFilter && (callFilter < 1 || callFilter > fills.length)) {
     process.stderr.write(
       "Error: --call " +
         callFilter +
         " but only " +
-        results.length +
-        " calls generated\n",
+        fills.length +
+        " fills generated\n",
     );
     process.exit(1);
   }
 
   // Output
   if (outputDir) {
-    // Write runtime.js (once) + call-N.json (spec per call) + manifest.json
-    shared.writeCallFiles(outputDir, results, unitMap, callFilter);
+    shared.writeCallFilesV2(
+      outputDir,
+      scaffoldSpec,
+      fills,
+      unitMap,
+      callFilter,
+    );
     process.stderr.write(
-      "Wrote " + totalCalls + " call file(s) to " + outputDir + "\n",
+      "Wrote " + (1 + fills.length) + " call file(s) to " + outputDir + "\n",
     );
   } else {
     // Legacy: JSON array to stdout
+    const results = [];
+    results.push({
+      callIndex: 0,
+      code: shared.assembleCall(scaffoldSpec),
+      description: "Scaffold: wrapper + sections",
+    });
+    for (const f of fills) {
+      results.push({
+        callIndex: f.fillIndex,
+        code: shared.assembleCall(f.spec),
+        description: f.description,
+      });
+    }
     process.stdout.write(JSON.stringify(results, null, 2) + "\n");
   }
 
   process.stderr.write(
-    "Done: " +
-      totalCalls +
-      " call(s), " +
+    "Done: 1 scaffold + " +
+      fills.length +
+      " fill(s), " +
       (input.screens || []).length +
       " screen(s)\n",
   );
