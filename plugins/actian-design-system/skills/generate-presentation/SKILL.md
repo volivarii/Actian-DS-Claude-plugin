@@ -51,21 +51,28 @@ Deck outline: N slides (cover + N body + back cover). Reply:
      Sequential mode (<6 slides): build slide-data.json directly as today.
 2. Read `../../references/generate-presentation/figma-spec-builder.md` — input schema + chart patterns
 3. Write to: `{project_working_directory}/presentations/[topic-slug]/slide-data.json`
-4. Run:
-   ```bash
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/slide-to-figma.js" slide-data.json \
-     --target-node-id "<nodeId>" \
-     --output-dir {project_working_directory}/presentations/[topic-slug]/.figma-calls
-   ```
-5. Read `manifest.json`. Push scaffold, then each fill — slides appear progressively:
-   1. Read `scaffold.js` → `use_figma` (creates wrapper + named section frames)
-   2. For each fill: read `fill-N.js` → `use_figma` (builds slides into section — visible immediately)
-   3. If any fill fails, skip and continue. Each `.js` file is pre-assembled. Never read `.json` or `runtime.js`.
-   - **Incremental update**: Update `slide-data.json`, check `manifest.json` → `unitMap.slide_N`, re-run with `--fill M`, push only `fill-M.js`.
-6. Parity check per `../../references/parity-check.md`
+4. Push to Figma — read `references/figma-push-patterns.md` for component keys and patterns. Read your `slide-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
 
-Never write freehand Figma code. Fix slide-data.json and rerun the script if something is wrong.
+   **Push sequence** (each step is one small `use_figma` call):
+   1. Navigate to target page + create wrapper frame (name: "Presentation: [title]")
+   2. Create Generation Log instance (import genLog by key, set props, append to wrapper)
+   3. For each slide in `slide-data.json`:
+      a. Import slide template by key (slideCover, slideBodyFull, slideBodyTV, slideSection, slideBack)
+      b. Create instance, set text properties (title, subtitle, body, bullet points)
+      c. For charts: create chart frames using structured content nodes
+      d. Append slide to wrapper
+   4. After all slides pushed, report to user with count
+
+   **Rules:**
+   - Each `use_figma` call creates 1-3 nodes max — keep calls small
+   - Roboto font, DS Kit tokens (`--zen-*`), 1920×1080 slide dimensions
+   - Return IDs from every call — use them to append children
+   - If a call fails, skip that slide and continue
+   - Do NOT run `slide-to-figma.js` — push directly from your data model
+   - Do NOT read any `.js` files, manifests, or scaffolds
+5. Parity check per `../../references/parity-check.md`
+
+Write small direct Figma Plugin API calls using patterns from `references/figma-push-patterns.md`. Fix slide-data.json and re-push if something is wrong.
 
 ### HTML preview (opt-in, trigger: "preview")
 
