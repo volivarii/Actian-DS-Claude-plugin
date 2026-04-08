@@ -119,28 +119,29 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
   --output-dir {project_working_directory}/components/[name]/.figma-calls
 ```
 
-Read `manifest.json`. Read `runtime.js` once. For each call in order: read `call-N.json` (spec only, ~2-3KB) → reassemble with runtime → pass to `use_figma`. Wrapper ID auto-discovered via shared plugin data. Never write freehand Figma code.
+Read `manifest.json`. Push scaffold first, then all fills in parallel:
 
-**Reassembly at push time:**
-```
-runtime.js content + "\nvar _spec = " + call-N.json content + ";\nreturn await buildFromSpec(_spec);"
-```
+1. Read `scaffold.js` → pass entire content to `use_figma` (creates wrapper + named section frames)
+2. Read ALL `fill-N.js` files → push ALL via **parallel** `use_figma` calls (one tool call per fill, all in the same message). These are independent — no ordering required.
+3. If any fill fails, retry that fill alone. Other fills are unaffected.
+
+Each `.js` file is pre-assembled (runtime + spec) — never manually reassemble. Never read `runtime.js` at push time.
 
 ## Incremental update (when fixing specific cards after initial push)
 
 When the user asks to fix or update specific cards (e.g., "card 3's anatomy is wrong"):
 1. Update the card data in the existing `[name]-brief-data.json`
-2. Read `.figma-calls/manifest.json` → check `unitMap` for the affected card key (e.g., `unitMap.card3_anatomy`)
-3. Re-run brief-to-figma.js with `--call N` where N is the call index from unitMap:
+2. Read `.figma-calls/manifest.json` → check `unitMap` for the affected card key (e.g., `unitMap.card3_anatomy`) — this gives the fill index
+3. Re-run brief-to-figma.js with `--fill N` where N is the fill index from unitMap:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js" \
      {project_working_directory}/components/[name]/[name]-brief-data.json \
      --target-node-id [nodeId] \
      --output-dir {project_working_directory}/components/[name]/.figma-calls \
-     --call N
+     --fill N
    ```
-4. Push only the regenerated `call-N.json` — reassemble with `runtime.js` → `use_figma`
+4. Push only the regenerated `fill-N.js` → `use_figma` (the fill finds its section by name and replaces content)
 
 ## Step 4 — Parity check
 

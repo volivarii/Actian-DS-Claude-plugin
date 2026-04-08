@@ -58,8 +58,13 @@ Deck outline: N slides (cover + N body + back cover). Reply:
      --target-node-id "<nodeId>" \
      --output-dir {project_working_directory}/presentations/[topic-slug]/.figma-calls
    ```
-5. Read `manifest.json`. Read `runtime.js` once. For each call: read `call-N.json` (spec only) → reassemble with runtime (`runtime + "\nvar _spec = " + spec + ";\nreturn await buildFromSpec(_spec);"`) → `use_figma`.
-   - **Incremental update** (when fixing specific slides after initial push): Update the slide data in `slide-data.json`, read `.figma-calls/manifest.json` → `unitMap.slide_N` (0-indexed), re-run `slide-to-figma.js` with `--call M` where M is the call index, push only that `call-M.json` reassembled with `runtime.js`.
+5. Read `manifest.json`. Push scaffold first, then all fills in parallel:
+   1. Read `scaffold.js` → pass entire content to `use_figma` (creates wrapper + named section frames)
+   2. Read ALL `fill-N.js` files → push ALL via **parallel** `use_figma` calls. These are independent — no ordering required.
+   3. If any fill fails, retry that fill alone.
+
+   Each `.js` file is pre-assembled — never manually reassemble. Never read `runtime.js` at push time.
+   - **Incremental update** (when fixing specific slides after initial push): Update the slide data in `slide-data.json`, read `.figma-calls/manifest.json` → `unitMap.slide_N` (0-indexed), re-run `slide-to-figma.js` with `--fill M` where M is the fill index, push only `fill-M.js` → `use_figma`.
 6. Parity check per `../../references/parity-check.md`
 
 Never write freehand Figma code. Fix slide-data.json and rerun the script if something is wrong.
