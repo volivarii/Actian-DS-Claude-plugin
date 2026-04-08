@@ -16,7 +16,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.42.0** · 8 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.43.0** · 8 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
@@ -217,7 +217,7 @@ Every generation task pauses for review before pushing to Figma:
 
 | Reply | What happens |
 |-------|-------------|
-| **`push`** | Send everything to Figma |
+| **`push`** | Send everything to Figma (scaffold + parallel fills) |
 | **`push 2,4,5`** | Send specific items only |
 | **`push and wire`** | Push + wire prototype connections automatically |
 | **`prototype`** | Generate a clickable Alpine.js prototype for testing |
@@ -304,10 +304,11 @@ actian-design-system-plugin/
 |   +-- agents/                          # 8 agents (5 validation + 3 parallel generation)
 |   +-- scripts/
 |   |   +-- figma-interpreter.js         # Runtime that executes JSON specs in Figma
-|   |   +-- shared-constants.js          # Component keys, palette, assembleCall()
-|   |   +-- flow-to-figma.js             # Flow data → interpreter + JSON spec
-|   |   +-- brief-to-figma.js            # Brief data → interpreter + JSON spec
-|   |   +-- slide-to-figma.js            # Slide data → interpreter + JSON spec
+|   |   +-- shared-constants.js          # Component keys, palette, assembleCall(), writeCallFilesV2()
+|   |   +-- flow-to-figma.js             # Flow data → scaffold + fill specs
+|   |   +-- brief-to-figma.js            # Brief data → scaffold + fill specs
+|   |   +-- slide-to-figma.js            # Slide data → scaffold + fill specs
+|   |   +-- minify-interpreter.sh        # Re-minify interpreter after source changes
 |   |   +-- merge-partials.js            # Merge parallel agent outputs
 |   |   +-- templates.json               # Screen templates (admin, mobile, etc.)
 |   |   +-- html-renderers/              # Client-side renderers for preview
