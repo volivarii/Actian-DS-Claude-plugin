@@ -16,7 +16,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.44.0** · 8 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.45.0** · 8 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
@@ -244,7 +244,7 @@ The companion has always-loaded knowledge of:
 - **Tokens** — spacing scale (4/8/12/16/24/28/32), 115 design tokens in W3C DTCG format, 3 theme modes, CSS custom properties (`--zen-*`)
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
 - **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users)
-- **Component inventory** — 103 DS Kit + 40 FM Kit + Meta Kit templates
+- **Component inventory** — 107 DS Kit + 33 FM Kit + 27 Meta Kit components (synced registries with full properties)
 
 It loads detailed references on demand: per-component guidelines (44 components), accessibility standards, UX patterns, foundation docs.
 
@@ -285,9 +285,9 @@ Companion + skills read at runtime
 
 | Layer | Font | Components | Used for |
 |-------|------|-----------|----------|
-| **Fat Marker (lo-fi)** | Inter | 40 FM Kit components | Wireframe flows |
-| **DS Kit (hi-fi)** | Roboto | 103 component sets | Component briefs, audits |
-| **Meta Kit** | Inter | Templates + annotation markers | All output skills |
+| **Fat Marker (lo-fi)** | Inter | 33 FM Kit components | Wireframe flows |
+| **DS Kit (hi-fi)** | Roboto | 107 component sets | Component briefs, audits |
+| **Meta Kit** | Inter | 27 components + 6 templates | All output skills |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
 
@@ -304,7 +304,7 @@ actian-design-system-plugin/
 |   +-- agents/                          # 8 agents (5 validation + 3 parallel generation)
 |   +-- scripts/
 |   |   +-- figma-interpreter.js         # Runtime that executes JSON specs in Figma
-|   |   +-- shared-constants.js          # Component keys, palette, assembleCall(), writeCallFilesV2()
+|   |   +-- shared-constants.js          # Reads registries, palette, assembleCall(), writeCallFilesV2()
 |   |   +-- flow-to-figma.js             # Flow data → scaffold + fill specs
 |   |   +-- brief-to-figma.js            # Brief data → scaffold + fill specs
 |   |   +-- slide-to-figma.js            # Slide data → scaffold + fill specs
@@ -320,7 +320,7 @@ actian-design-system-plugin/
 |   |   +-- companion-context.md         # Always-loaded DS summary
 |   +-- templates/                       # CSS wrappers, annotation layer
 |   +-- tokens/                          # W3C DTCG + CSS custom properties
-|   +-- docs/                            # Synced reference files
+|   +-- docs/                            # Synced reference files + component registries (*.json)
 +-- USAGE.md                             # Detailed usage guide
 ```
 
