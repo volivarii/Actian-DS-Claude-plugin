@@ -107,39 +107,32 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
   --type brief -o {project_working_directory}/components/[name]/[name]-spec.html
 ```
 
-## Step 3 — Render Figma
+## Step 3 — Push to Figma
 
-```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js" \
-  {project_working_directory}/components/[name]/[name]-brief-data.json \
-  --target-node-id [nodeId] \
-  --output-dir {project_working_directory}/components/[name]/.figma-calls
-```
+Read `references/figma-push-patterns.md` for component keys and patterns. Read your `[name]-brief-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
 
-Read `manifest.json`. Push scaffold, then each fill directly — cards appear progressively in Figma:
+**Push sequence** (each step is one small `use_figma` call):
+1. Navigate to target page + create wrapper frame (use "Create wrapper frame" pattern, name: "Component Spec: [name]")
+2. Create Generation Log instance (import genLog by key, set props from meta, append to wrapper)
+3. For each selected card:
+   a. Import briefCard component set by key → create instance with variant matching the card type
+   b. Set text/boolean properties from the card data
+   c. For cards with tables (card4 tokens, card5 API, card8 a11y): create table rows using template component keys (tableHeaderRow, tableDataRow, a11ySpecRow, swatchRow)
+   d. For card3 anatomy: import the target component, create instance, add annotation badges
+   e. For card6 usage: import doDontPair instances
+   f. Append card to wrapper
+4. After all cards pushed, report to user with count
 
-1. Read `scaffold.js` → `use_figma` (creates wrapper + named section frames)
-2. For each fill in order: read `fill-N.js` → `use_figma` (builds cards into section — visible immediately)
-3. If any fill fails, skip it and continue with the next. Never retry in a loop.
+**Rules:**
+- Each `use_figma` call creates 1-3 nodes max — keep calls small
+- Return IDs from every call — use them to append children
+- If a call fails, skip that card and continue
+- Do NOT run `brief-to-figma.js` — push directly from your data model
+- Do NOT read any `.js` files, manifests, or scaffolds
 
-Each `.js` file is pre-assembled (runtime + spec). Never read `runtime.js` or `.json` files at push time.
+## Incremental update
 
-## Incremental update (when fixing specific cards after initial push)
-
-When the user asks to fix or update specific cards (e.g., "card 3's anatomy is wrong"):
-1. Update the card data in the existing `[name]-brief-data.json`
-2. Read `.figma-calls/manifest.json` → check `unitMap` for the affected card key (e.g., `unitMap.card3_anatomy`) — this gives the fill index
-3. Re-run brief-to-figma.js with `--fill N` where N is the fill index from unitMap:
-   ```bash
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js" \
-     {project_working_directory}/components/[name]/[name]-brief-data.json \
-     --target-node-id [nodeId] \
-     --output-dir {project_working_directory}/components/[name]/.figma-calls \
-     --fill N
-   ```
-4. Push only the regenerated `fill-N.js` → `use_figma`
+To fix a specific card: re-read the data model, delete the old card frame in Figma, push the corrected card with small direct calls.
 
 ## Step 4 — Parity check (opt-in)
 
