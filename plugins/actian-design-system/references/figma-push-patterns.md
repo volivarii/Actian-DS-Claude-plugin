@@ -239,46 +239,51 @@ const subtitleText = inst.findOne(n => n.type === "TEXT" && n.name === "Subtitle
 if (subtitleText) subtitleText.characters = "Manage team members and permissions";
 ```
 
-**Common property names by kit:**
+**FM Kit property reference** (synced from Figma — use exact names including `#hash` suffixes with `setProperties()`):
+
+- **FM Button** — `"Label#1411:32"`: TEXT (default: "Button label"), `"👁 Leading Icon#1410:3"`: BOOLEAN (default: true → **set false**), `"👁 Trailing Icon#1410:6"`: BOOLEAN (default: true → **set false**). Variants: `Size=md|sm`, `Shape=Regular|Pill`, `Type=Primary|Secondary|Outline|Destructive`, `State=Default|Disabled`
+- **FM Text input field** — `"Input Text#1411:57"`: TEXT (default: "Input text"), `"Show label#176:0"`: BOOLEAN, `"👁 Leading Icon#1411:74"`: BOOLEAN (default: false), `"👁 Trailing Icon#1411:76"`: BOOLEAN (default: false). Variants: `Type=Empty|Placeholder|Default|Disabled`. **Nested FM Input Label** exposes: `"Label Text#1555:11"`, `"Caption Text#1555:12"`, `"Caption#1555:9"`: BOOLEAN, `"Required#1555:10"`: BOOLEAN — set on the INPUT instance, not separately.
+- **FM Dropdown** — `"Show label#176:13"`: BOOLEAN. Variants: `Type=Placeholder|Open|Filled|Disabled`. Text via nested `findOne` for dropdown display text.
+- **FM Multi-select dropdown** — `"Dropdown Text#1411:84"`: TEXT (default: "Select"), `"Show label#176:18"`: BOOLEAN. Variants: `Type=Placeholder|Disabled|Open Multi-select|Filled|User Filled`
+- **FM Search input field** — `"Input Text#1411:57"`: TEXT (default: "my search terms"), `"Show label#176:9"`: BOOLEAN. Variants: `Type=Empty|Placeholder|Filled`
+- **FM Date input** — `"Input Text#1451:1"`: TEXT (default: "MM / DD / YYYY"). Variants: `State=Default|Open|Placeholder`
+- **FM Text Area** — `"Show label#176:5"`: BOOLEAN. Variants: `Content=None|Placeholder|Filled`. Text via nested `findOne`.
+- **FM Page Header** — `"Title#979:22"`: TEXT (default: "Page Title"), `"Subtitle#979:23"`: TEXT (default: "Description text"). Variants: `Type=Title only|Title + Subtitle|Title + Actions`
+- **FM Side navigation item** — `"Label#1463:4"`: TEXT (default: "Nav Item"), `"Show icon#166:0"`: BOOLEAN, `"Show Label#1020:0"`: BOOLEAN, `"Chevron#1507:0"`: BOOLEAN. Variants: `State=On|Off|Placeholder`
+- **FM App_header** — `"Show Context inputs#186:0"`: BOOLEAN. Variants: `Type=Admin|Explorer|Studio|Actian`. App name text via nested `findOne`.
+- **FM Input Label** — `"Label Text#1555:11"`: TEXT (default: "Label"), `"Caption Text#1555:12"`: TEXT (default: "Caption"), `"Caption#1555:9"`: BOOLEAN, `"Required#1555:10"`: BOOLEAN. Variants: `Disabled=No|Yes`, `Type=Text|Placeholder`
+- **FM Tag** — `"Icon Right#50:0"`: BOOLEAN (default: false), `"Icon Left#163:343"`: BOOLEAN (default: true). Variants: `Style=Filled|Outline|Light`. Label text via nested `findOne`.
+- **FM Tab** — `"Show Icon#20:0"`: BOOLEAN. Variants: `State=On|Off|Placeholder`. Label text via nested `findOne`.
+- **FM Table Cell** — Variants: `Type=Header|Text|Pill|Placeholder`. Cell text via nested `findOne`.
+- **FM Badge** — Variants: `Size=Small|Medium|Large`, `Type=Icon|Number|Number Expand`. Number via nested `findOne`.
+- **FM Checkbox** — Variants: `State=On|Off`, `Style=Default|Disabled`. Label text via nested `findOne`.
+- **FM Toggle** — Variants: `State=On|Off`, `Style=Default|Disabled`. Label text via nested `findOne`.
+- **FM Radio button** — `"Show Label#1072:0"`: BOOLEAN. Variants: `State=On|Off`, `Style=Default|Disabled`. Label text via nested `findOne`.
+- **FM Alert** — Variants: `Type=Success|Error|Warning`. Title/description via nested `findOne`.
+- **FM Empty State** — Variants: `Type=Default|Compact`. Title/description via nested `findOne`.
+- **FM Stepper** — Variants: `State=Active|Complete|Upcoming`. Label via nested `findOne`.
+- **FM Toast** — Variants: `Style=Standard|Outline`. Message text via nested `findOne`.
+- **FM Tooltip** — `"Icon#163:311"`: BOOLEAN. Variants: `Position=Left|Right|Top|Bottom|...`. Tooltip text via nested `findOne`.
+- **FM Chip** — `"Icon#163:337"`: BOOLEAN. Variants: `Outline=True|False`. Label via nested `findOne`.
+- **FM Multi-select menu item** — `"Dropdown item text#1428:2"`: TEXT (default: "Dropdown item"). Variants: `State=On|Off|User Off`
+- **FM Placeholder** — Variants: `Type=Label+1line|Label+3lines|Label+6lines|Label+avatars|metric`
+- **FM Progress bar** — Variants: `Completion=10%|20%|...|100%`
+- **FM Icon Buttons** — Variants: `Type=Primary|Secondary|Outline`, `State=Default|Disabled`
 
 **Meta Kit (all skills):**
-- **genLog**: `Skill`, `Prompt`, `Date`, `Duration`, `Model`, `Plugin Version`
-- **flowCoverCard**: find nested text "Feature Name", "Flow Description", "User Persona" via `findOne`
-- **divider**: no properties needed
-
-**FM Kit (generate-flow):**
-- **fmButton**: `Label`, `👁 Leading Icon`, `👁 Trailing Icon`
-- **fmTextInput**: `Input Text`, `Label Text`, `Caption Text`, `Show label`, `Caption`, `Required`
-- **fmDropdown**: `Dropdown Text`, `Label Text`, `Show label`
-- **fmSearchInput**: `Placeholder`
-- **fmSideNavItem**: `Label` (text), `👉 Active` (boolean for selected state)
-- **fmPageHeader**: find nested text "Title" and "Subtitle" via `findOne`
-- **fmAppHeader**: find nested text "App Name" via `findOne`
-- **fmTag**: `Label`
-- **fmBadge**: `Label`
-- **fmTableCell**: find nested text via `findOne`
-- **fmCheckbox**: `Label`
-- **fmToggle**: `Label`
-- **fmAlert**: find nested text "Title", "Description" via `findOne`
-- **fmEmptyState**: find nested text "Title", "Description" via `findOne`
+- **genLog** — `"Skill"`, `"Prompt"`, `"Date"`, `"Duration"`, `"Model"`, `"Plugin Version"` — all TEXT via `setProperties()`
+- **flowCoverCard** — text via nested `findOne`: "Feature Name", "Flow Description", "User Persona"
+- **divider** — no properties
 
 **Brief Kit (component-brief):**
-- **briefCard**: variant `Card Type=Header` / `Anatomy` / `Tokens` / etc. — then find nested text layers ("Title", "Description", "Status") via `findOne` and override
-- **doDontPair**: variant `Type=Do` or `Type=Dont` — find nested "Title", "Description" via `findOne`
-- **contrastBadge**: variant `Result=Pass` or `Result=Fail` — find nested "Ratio", "Colors" via `findOne`
-- **a11yCard**: find nested text "Title", "Description", "Status" via `findOne`
-- **colorSwatch**: find nested text "Token Name", "Value" via `findOne`
-- **tableHeaderRow / tableDataRow**: find nested text cells via `findOne` — override each cell's text
-- **a11ySpecRow / swatchRow**: find nested text via `findOne` — override each field
+- **briefCard** — component set, variants by Card Type. All content via nested `findOne` — find text layers by name and override `.characters`
+- **doDontPair / contrastBadge / a11yCard / colorSwatch** — all content via nested `findOne`
+- **tableHeaderRow / tableDataRow / a11ySpecRow / swatchRow** — all cells via nested `findOne`
 
-**Slide Kit (generate-presentation):**
-- **slideCover**: find nested text "Title", "Subtitle", "Date" via `findOne` — uses Roboto font
-- **slideBodyFull**: find nested text "Title", "Body" via `findOne` — body supports bullet lists
-- **slideBodyTV**: find nested text "Title", "Body" via `findOne` + visual placeholder frame
-- **slideSection**: find nested text "Title" via `findOne`
-- **slideBack**: find nested text "Title", "Subtitle" via `findOne`
+**Slide Kit (generate-presentation):** (uses Roboto font, not Inter)
+- **slideCover / slideBodyFull / slideBodyTV / slideSection / slideBack** — all single components (not sets). Content via nested `findOne` — find "Title", "Subtitle", "Body" text layers.
 
-**Rule: If you don't know the exact property name, use `findOne` to find text layers by name and override `.characters` directly. NEVER leave default placeholder text in any skill output.**
+**Rule: Use `setProperties()` with exact hash-suffixed names for exposed properties. Use `findOne(n => n.type === "TEXT" && n.name === "LayerName")` for nested text. Load the correct font before setting `.characters`. NEVER leave default placeholder text.**
 
 ### Pattern 8: hexToRgb helper
 
