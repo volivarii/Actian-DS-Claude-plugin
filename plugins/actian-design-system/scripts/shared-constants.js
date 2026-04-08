@@ -311,6 +311,23 @@ function getInterpreterSource() {
   return _interpreterCache;
 }
 
+/** Byte length of the minified interpreter (cached). */
+function getRuntimeSize() {
+  return Buffer.byteLength(getInterpreterSource(), "utf8");
+}
+
+/**
+ * Calculate the maximum tree-node bin size that keeps assembled code under the
+ * use_figma 50,000-character limit.
+ *
+ * Budget: 50000 - runtime - specOverhead - safetyMargin
+ *   specOverhead ≈ 2100 bytes (meta + fonts + imports + JSON structure)
+ *   safetyMargin = 500 bytes
+ */
+function getMaxBinSize() {
+  return 50000 - getRuntimeSize() - 2100 - 500;
+}
+
 /**
  * Assemble a self-contained call: interpreter source + JSON spec.
  * Each call inlines the full interpreter (~18KB) + spec data.
@@ -363,6 +380,104 @@ function writeCallFiles(outputDir, calls, unitMap, callFilter) {
       file: fileName,
       specBytes: Buffer.byteLength(specJSON, "utf8"),
       description: r.description,
+    });
+  }
+
+  fs.writeFileSync(
+    path.join(outputDir, "manifest.json"),
+    JSON.stringify(manifest, null, 2),
+    "utf8",
+  );
+
+  return manifest;
+}
+
+/**
+ * Write call files in scaffold+fill format with pre-assembled .js files.
+ *
+ * Output:
+ *   outputDir/
+ *   ├── manifest.json          (v2 format with scaffold + fills)
+ *   ├── runtime.js             (interpreter source, for debugging)
+ *   ├── scaffold.js            (pre-assembled: runtime + scaffold spec)
+ *   ├── scaffold.json          (scaffold spec only, for debugging)
+ *   ├── fill-1.js              (pre-assembled: runtime + fill spec)
+ *   ├── fill-1.json            (fill spec only, for debugging)
+ *   └── fill-N.js / .json      ...
+ *
+ * @param {string} outputDir
+ * @param {object} scaffoldSpec - Spec for the scaffold call (creates wrapper + sections)
+ * @param {Array<{fillIndex: number, spec: object, description: string, sectionKey: string}>} fills
+ * @param {object} unitMap - Card/screen/slide → fill index mapping
+ * @param {number|null} fillFilter - If set, only write this specific fill index
+ * @returns {object} manifest
+ */
+function writeCallFilesV2(outputDir, scaffoldSpec, fills, unitMap, fillFilter) {
+  fs.mkdirSync(outputDir, { recursive: true });
+
+  var runtimeSource = getInterpreterSource();
+
+  // Always write runtime (for debugging/reference)
+  fs.writeFileSync(path.join(outputDir, "runtime.js"), runtimeSource, "utf8");
+
+  // Write scaffold (pre-assembled)
+  var scaffoldJSON = JSON.stringify(scaffoldSpec, null, 2);
+  var scaffoldCode = assembleCall(scaffoldSpec);
+  if (!fillFilter) {
+    fs.writeFileSync(
+      path.join(outputDir, "scaffold.json"),
+      scaffoldJSON,
+      "utf8",
+    );
+    fs.writeFileSync(path.join(outputDir, "scaffold.js"), scaffoldCode, "utf8");
+  }
+
+  var manifest = {
+    version: 2,
+    totalCalls: 1 + fills.length,
+    unitMap: unitMap,
+    scaffold: {
+      file: "scaffold.js",
+      specFile: "scaffold.json",
+      sizeBytes: Buffer.byteLength(scaffoldCode, "utf8"),
+      sections: fills.map(function (f) {
+        return f.sectionKey;
+      }),
+      description: "Creates wrapper + " + fills.length + " section frames",
+    },
+    fills: [],
+  };
+
+  for (var i = 0; i < fills.length; i++) {
+    var f = fills[i];
+    var fillJSON = JSON.stringify(f.spec, null, 2);
+    var fillCode = assembleCall(f.spec);
+    var jsFile = "fill-" + f.fillIndex + ".js";
+    var jsonFile = "fill-" + f.fillIndex + ".json";
+
+    if (!fillFilter || f.fillIndex === fillFilter) {
+      fs.writeFileSync(path.join(outputDir, jsonFile), fillJSON, "utf8");
+      fs.writeFileSync(path.join(outputDir, jsFile), fillCode, "utf8");
+    }
+
+    var codeSize = Buffer.byteLength(fillCode, "utf8");
+    if (codeSize > 50000) {
+      process.stderr.write(
+        "WARNING: fill-" +
+          f.fillIndex +
+          " exceeds 50KB use_figma limit (" +
+          codeSize +
+          " bytes)\n",
+      );
+    }
+
+    manifest.fills.push({
+      fillIndex: f.fillIndex,
+      file: jsFile,
+      specFile: jsonFile,
+      sizeBytes: codeSize,
+      sectionKey: f.sectionKey,
+      description: f.description,
     });
   }
 
@@ -435,7 +550,10 @@ module.exports = {
   buildGenLog,
   assembleCall,
   writeCallFiles,
+  writeCallFilesV2,
   reassembleCall,
+  getRuntimeSize,
+  getMaxBinSize,
   compactSize,
   binPack,
 };
