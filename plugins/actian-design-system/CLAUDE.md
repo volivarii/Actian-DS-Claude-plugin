@@ -82,7 +82,7 @@ Full checklist: `references/quality-checklist.md`
 
 ## Figma MCP Flow
 
-1. `get_design_context` first. 2. `get_metadata` if response too large. 3. `get_screenshot` for visual ref. 4. Translate to project conventions. 5. Validate against screenshot. See `references/figma-output.md`.
+1. `get_design_context` first. 2. `get_metadata` if response too large. 3. `get_screenshot` for visual ref. 4. Push to Figma using small direct `use_figma` calls (200-2000 bytes each, one operation per call) — see `references/figma-push-patterns.md` for component keys and patterns. Always pass `skillNames: "figma-use"`. 5. Validate against screenshot. See `references/figma-output.md`.
 
 ---
 
@@ -94,7 +94,7 @@ Use `ensure-server.sh` for all preview serving. Never manually run servers or ki
 
 ## Parity Check
 
-Every Figma push → screenshot → check for clipping, empty text, missing children → fix P0s. See `references/parity-check.md`.
+Parity check is **opt-in** — only run when the user asks ("check parity", "verify output"). When triggered: screenshot → check for clipping, empty text, missing children → fix P0s. See `references/parity-check.md`.
 
 ---
 
