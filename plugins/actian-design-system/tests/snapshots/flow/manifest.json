@@ -1,5 +1,6 @@
 {
-  "totalCalls": 1,
+  "version": 2,
+  "totalCalls": 2,
   "unitMap": {
     "genLog": 1,
     "coverCard": 1,
@@ -7,12 +8,22 @@
     "screen_1": 1,
     "screen_2": 1
   },
-  "runtime": "runtime.js",
-  "calls": [
+  "scaffold": {
+    "file": "scaffold.js",
+    "specFile": "scaffold.json",
+    "sizeBytes": 22322,
+    "sections": [
+      "__section_flow_0"
+    ],
+    "description": "Creates wrapper + 1 section frames"
+  },
+  "fills": [
     {
-      "callIndex": 1,
-      "file": "call-1.json",
-      "specBytes": 21478,
+      "fillIndex": 1,
+      "file": "fill-1.js",
+      "specFile": "fill-1.json",
+      "sizeBytes": 30494,
+      "sectionKey": "__section_flow_0",
       "description": "Call 1/1: Generation Log Cover: Connection settings Connections list New connection — Step 1 New connection — Step 2"
     }
   ]

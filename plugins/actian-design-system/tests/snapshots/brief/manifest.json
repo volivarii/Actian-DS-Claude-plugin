@@ -1,60 +1,62 @@
 {
-  "totalCalls": 7,
+  "version": 2,
+  "totalCalls": 5,
   "unitMap": {
     "genLog": 1,
     "card1_header": 1,
     "card2_component": 1,
-    "card3_anatomy": 2,
-    "card4_tokens": 3,
-    "card5_api": 4,
-    "card6_usage": 4,
-    "card7_content": 5,
-    "card8_accessibility": 6,
-    "card9_code": 7
+    "card3_anatomy": 1,
+    "card4_tokens": 2,
+    "card5_api": 2,
+    "card6_usage": 3,
+    "card7_content": 3,
+    "card8_accessibility": 4,
+    "card9_code": 4
   },
-  "runtime": "runtime.js",
-  "calls": [
+  "scaffold": {
+    "file": "scaffold.js",
+    "specFile": "scaffold.json",
+    "sizeBytes": 22780,
+    "sections": [
+      "__section_genlog_card1_card2_card3",
+      "__section_card4_card5",
+      "__section_card6_card7",
+      "__section_card8_card9"
+    ],
+    "description": "Creates wrapper + 4 section frames"
+  },
+  "fills": [
     {
-      "callIndex": 1,
-      "file": "call-1.json",
-      "specBytes": 15187,
-      "description": "Call 1/7: GenLog, Card 1, Card 2"
+      "fillIndex": 1,
+      "file": "fill-1.js",
+      "specFile": "fill-1.json",
+      "sizeBytes": 41310,
+      "sectionKey": "__section_genlog_card1_card2_card3",
+      "description": "Fill 1/4: GenLog, Card 1, Card 2, Card 3"
     },
     {
-      "callIndex": 2,
-      "file": "call-2.json",
-      "specBytes": 37518,
-      "description": "Call 2/7: Card 3"
+      "fillIndex": 2,
+      "file": "fill-2.js",
+      "specFile": "fill-2.json",
+      "sizeBytes": 44821,
+      "sectionKey": "__section_card4_card5",
+      "description": "Fill 2/4: Card 4, Card 5"
     },
     {
-      "callIndex": 3,
-      "file": "call-3.json",
-      "specBytes": 38755,
-      "description": "Call 3/7: Card 4"
+      "fillIndex": 3,
+      "file": "fill-3.js",
+      "specFile": "fill-3.json",
+      "sizeBytes": 34912,
+      "sectionKey": "__section_card6_card7",
+      "description": "Fill 3/4: Card 6, Card 7"
     },
     {
-      "callIndex": 4,
-      "file": "call-4.json",
-      "specBytes": 33741,
-      "description": "Call 4/7: Card 5, Card 6"
-    },
-    {
-      "callIndex": 5,
-      "file": "call-5.json",
-      "specBytes": 14679,
-      "description": "Call 5/7: Card 7"
-    },
-    {
-      "callIndex": 6,
-      "file": "call-6.json",
-      "specBytes": 54662,
-      "description": "Call 6/7: Card 8"
-    },
-    {
-      "callIndex": 7,
-      "file": "call-7.json",
-      "specBytes": 14533,
-      "description": "Call 7/7: Card 9"
+      "fillIndex": 4,
+      "file": "fill-4.js",
+      "specFile": "fill-4.json",
+      "sizeBytes": 46399,
+      "sectionKey": "__section_card8_card9",
+      "description": "Fill 4/4: Card 8, Card 9"
     }
   ]
 }

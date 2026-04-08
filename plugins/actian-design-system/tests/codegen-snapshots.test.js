@@ -41,6 +41,60 @@ const TESTS = [
   },
 ];
 
+function compareFile(
+  outputDir,
+  snapshotDir,
+  filename,
+  testName,
+  currentPassed,
+) {
+  const actualPath = path.join(outputDir, filename);
+  const baselinePath = path.join(snapshotDir, filename);
+
+  if (!fs.existsSync(actualPath)) {
+    console.error(`FAIL [${testName}] Missing output file: ${filename}`);
+    return false;
+  }
+  if (!fs.existsSync(baselinePath)) {
+    console.error(`FAIL [${testName}] New file: ${filename} (not in baseline)`);
+    return false;
+  }
+
+  const actual = fs.readFileSync(actualPath, "utf8");
+  const baseline = fs.readFileSync(baselinePath, "utf8");
+
+  if (actual !== baseline) {
+    const actualLines = actual.split("\n");
+    const baselineLines = baseline.split("\n");
+    let diffLine = -1;
+    for (
+      let i = 0;
+      i < Math.max(actualLines.length, baselineLines.length);
+      i++
+    ) {
+      if (actualLines[i] !== baselineLines[i]) {
+        diffLine = i + 1;
+        break;
+      }
+    }
+    const sizeDiff = Buffer.byteLength(actual) - Buffer.byteLength(baseline);
+    console.error(
+      `FAIL [${testName}] ${filename} differs at line ${diffLine} (size ${sizeDiff > 0 ? "+" : ""}${sizeDiff} bytes)`,
+    );
+    if (diffLine > 0) {
+      console.error(
+        `  baseline: ${(baselineLines[diffLine - 1] || "").substring(0, 100)}`,
+      );
+      console.error(
+        `  actual:   ${(actualLines[diffLine - 1] || "").substring(0, 100)}`,
+      );
+    }
+    return false;
+  }
+
+  return currentPassed;
+}
+
 let passed = 0;
 let failed = 0;
 let updated = 0;
@@ -82,20 +136,54 @@ for (const test of TESTS) {
   if (UPDATE) {
     // Update snapshots
     fs.mkdirSync(snapshotDir, { recursive: true });
+    // Clean old files first
+    const existingFiles = fs.existsSync(snapshotDir)
+      ? fs.readdirSync(snapshotDir)
+      : [];
+    for (const ef of existingFiles) {
+      fs.unlinkSync(path.join(snapshotDir, ef));
+    }
     fs.copyFileSync(manifestPath, path.join(snapshotDir, "manifest.json"));
-    if (manifest.runtime) {
+
+    if (manifest.version === 2) {
+      // V2: scaffold + fills
       fs.copyFileSync(
-        path.join(outputDir, manifest.runtime),
-        path.join(snapshotDir, manifest.runtime),
+        path.join(outputDir, manifest.scaffold.file),
+        path.join(snapshotDir, manifest.scaffold.file),
       );
-    }
-    for (const call of manifest.calls) {
       fs.copyFileSync(
-        path.join(outputDir, call.file),
-        path.join(snapshotDir, call.file),
+        path.join(outputDir, manifest.scaffold.specFile),
+        path.join(snapshotDir, manifest.scaffold.specFile),
       );
+      for (const fill of manifest.fills) {
+        fs.copyFileSync(
+          path.join(outputDir, fill.file),
+          path.join(snapshotDir, fill.file),
+        );
+        fs.copyFileSync(
+          path.join(outputDir, fill.specFile),
+          path.join(snapshotDir, fill.specFile),
+        );
+      }
+      console.log(
+        `UPDATED [${test.name}] v2: scaffold + ${manifest.fills.length} fill(s)`,
+      );
+    } else {
+      // V1: runtime + calls
+      if (manifest.runtime) {
+        fs.copyFileSync(
+          path.join(outputDir, manifest.runtime),
+          path.join(snapshotDir, manifest.runtime),
+        );
+      }
+      for (const call of manifest.calls) {
+        fs.copyFileSync(
+          path.join(outputDir, call.file),
+          path.join(snapshotDir, call.file),
+        );
+      }
+      console.log(`UPDATED [${test.name}] ${manifest.totalCalls} call(s)`);
     }
-    console.log(`UPDATED [${test.name}] ${manifest.calls.length} call(s)`);
     updated++;
     continue;
   }
@@ -113,82 +201,89 @@ for (const test of TESTS) {
     fs.readFileSync(path.join(snapshotDir, "manifest.json"), "utf8"),
   );
 
-  // Check call count
-  if (manifest.totalCalls !== baselineManifest.totalCalls) {
+  let testPassed = true;
+
+  // Check version matches
+  if ((manifest.version || 1) !== (baselineManifest.version || 1)) {
     console.error(
-      `FAIL [${test.name}] Call count changed: ${baselineManifest.totalCalls} → ${manifest.totalCalls}`,
+      `FAIL [${test.name}] Manifest version changed: ${baselineManifest.version || 1} → ${manifest.version || 1}`,
     );
     failed++;
     continue;
   }
 
-  // Compare runtime.js if present
-  let testPassed = true;
-  if (manifest.runtime) {
-    const runtimeActual = fs.readFileSync(
-      path.join(outputDir, manifest.runtime),
-      "utf8",
-    );
-    const runtimeBaselinePath = path.join(snapshotDir, manifest.runtime);
-    if (fs.existsSync(runtimeBaselinePath)) {
-      if (runtimeActual !== fs.readFileSync(runtimeBaselinePath, "utf8")) {
-        console.error(`FAIL [${test.name}] runtime.js differs`);
-        testPassed = false;
-      }
-    }
-  }
-
-  // Compare each call file
-  for (const call of manifest.calls) {
-    const actual = fs.readFileSync(path.join(outputDir, call.file), "utf8");
-    const baselinePath = path.join(snapshotDir, call.file);
-
-    if (!fs.existsSync(baselinePath)) {
+  if (manifest.version === 2) {
+    // V2: compare scaffold + fills
+    // Check fill count
+    if (manifest.fills.length !== baselineManifest.fills.length) {
       console.error(
-        `FAIL [${test.name}] New call file: ${call.file} (not in baseline)`,
+        `FAIL [${test.name}] Fill count changed: ${baselineManifest.fills.length} → ${manifest.fills.length}`,
       );
-      testPassed = false;
+      failed++;
       continue;
     }
 
-    const baseline = fs.readFileSync(baselinePath, "utf8");
-
-    if (actual !== baseline) {
-      // Find first diff line
-      const actualLines = actual.split("\n");
-      const baselineLines = baseline.split("\n");
-      let diffLine = -1;
-      for (
-        let i = 0;
-        i < Math.max(actualLines.length, baselineLines.length);
-        i++
-      ) {
-        if (actualLines[i] !== baselineLines[i]) {
-          diffLine = i + 1;
-          break;
-        }
-      }
-
-      const sizeDiff = Buffer.byteLength(actual) - Buffer.byteLength(baseline);
-      console.error(
-        `FAIL [${test.name}] ${call.file} differs at line ${diffLine} (size ${sizeDiff > 0 ? "+" : ""}${sizeDiff} bytes)`,
+    // Compare scaffold files
+    for (const fname of [manifest.scaffold.file, manifest.scaffold.specFile]) {
+      testPassed = compareFile(
+        outputDir,
+        snapshotDir,
+        fname,
+        test.name,
+        testPassed,
       );
-      if (diffLine > 0) {
-        console.error(
-          `  baseline: ${(baselineLines[diffLine - 1] || "").substring(0, 100)}`,
-        );
-        console.error(
-          `  actual:   ${(actualLines[diffLine - 1] || "").substring(0, 100)}`,
+    }
+
+    // Compare fill files
+    for (const fill of manifest.fills) {
+      for (const fname of [fill.file, fill.specFile]) {
+        testPassed = compareFile(
+          outputDir,
+          snapshotDir,
+          fname,
+          test.name,
+          testPassed,
         );
       }
-      testPassed = false;
+    }
+  } else {
+    // V1: compare runtime + calls
+    // Check call count
+    if (manifest.totalCalls !== baselineManifest.totalCalls) {
+      console.error(
+        `FAIL [${test.name}] Call count changed: ${baselineManifest.totalCalls} → ${manifest.totalCalls}`,
+      );
+      failed++;
+      continue;
+    }
+
+    if (manifest.runtime) {
+      testPassed = compareFile(
+        outputDir,
+        snapshotDir,
+        manifest.runtime,
+        test.name,
+        testPassed,
+      );
+    }
+
+    for (const call of manifest.calls) {
+      testPassed = compareFile(
+        outputDir,
+        snapshotDir,
+        call.file,
+        test.name,
+        testPassed,
+      );
     }
   }
 
   if (testPassed) {
-    console.log(
-      `PASS [${test.name}] ${manifest.totalCalls} call(s), all match`,
-    );
+    const desc =
+      manifest.version === 2
+        ? `scaffold + ${manifest.fills.length} fill(s)`
+        : `${manifest.totalCalls} call(s)`;
+    console.log(`PASS [${test.name}] ${desc}, all match`);
     passed++;
   } else {
     failed++;

@@ -2,7 +2,7 @@
   "meta": {
     "skill": "component-brief",
     "component": "Link",
-    "appendToId": "__LAST_WRAPPER__"
+    "fillSection": "__section_card4_card5"
   },
   "fonts": [
     "Inter:Regular",
@@ -1312,6 +1312,767 @@
               "font": "Inter:Regular",
               "size": 12,
               "color": "#595968"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        }
+      ]
+    },
+    {
+      "type": "INSTANCE",
+      "ref": "briefCard",
+      "name": "Component API",
+      "variant": "Mode=DS, Type=Standard",
+      "props": {
+        "Title": "Component API",
+        "Subtitle": "Properties, types, defaults, and allowed values"
+      },
+      "detach": true,
+      "width": 1200,
+      "contentSlot": {
+        "layout": {
+          "mode": "VERTICAL",
+          "spacing": 16,
+          "padding": [
+            48,
+            80,
+            48,
+            80
+          ]
+        }
+      },
+      "children": [
+        {
+          "type": "FRAME",
+          "name": "API table",
+          "layout": {
+            "mode": "VERTICAL",
+            "spacing": 0,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "Header",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "padding": [
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "fills": [],
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "ref": "tableHeaderRow",
+                  "name": "Header: ",
+                  "detach": true,
+                  "textSlots": {
+                    "label": ""
+                  },
+                  "width": 50,
+                  "sizing": {
+                    "horizontal": "FIXED",
+                    "vertical": "HUG"
+                  }
+                },
+                {
+                  "type": "INSTANCE",
+                  "ref": "tableHeaderRow",
+                  "name": "Header: Property",
+                  "detach": true,
+                  "textSlots": {
+                    "label": "Property"
+                  },
+                  "width": 140,
+                  "sizing": {
+                    "horizontal": "FIXED",
+                    "vertical": "HUG"
+                  }
+                },
+                {
+                  "type": "INSTANCE",
+                  "ref": "tableHeaderRow",
+                  "name": "Header: Type",
+                  "detach": true,
+                  "textSlots": {
+                    "label": "Type"
+                  },
+                  "width": 100,
+                  "sizing": {
+                    "horizontal": "FIXED",
+                    "vertical": "HUG"
+                  }
+                },
+                {
+                  "type": "INSTANCE",
+                  "ref": "tableHeaderRow",
+                  "name": "Header: Default",
+                  "detach": true,
+                  "textSlots": {
+                    "label": "Default"
+                  },
+                  "width": 120,
+                  "sizing": {
+                    "horizontal": "FIXED",
+                    "vertical": "HUG"
+                  }
+                },
+                {
+                  "type": "INSTANCE",
+                  "ref": "tableHeaderRow",
+                  "name": "Header: Values",
+                  "detach": true,
+                  "textSlots": {
+                    "label": "Values"
+                  },
+                  "width": 200,
+                  "sizing": {
+                    "horizontal": "FIXED",
+                    "vertical": "HUG"
+                  }
+                },
+                {
+                  "type": "INSTANCE",
+                  "ref": "tableHeaderRow",
+                  "name": "Header: Notes",
+                  "detach": true,
+                  "textSlots": {
+                    "label": "Notes"
+                  },
+                  "width": 350,
+                  "sizing": {
+                    "horizontal": "FIXED",
+                    "vertical": "HUG"
+                  }
+                }
+              ],
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              }
+            },
+            {
+              "type": "FRAME",
+              "name": "Row 0",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "padding": [
+                  8,
+                  12,
+                  8,
+                  12
+                ]
+              },
+              "fills": [],
+              "children": [
+                {
+                  "type": "FRAME",
+                  "name": "REQ badge",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "padding": [
+                      2,
+                      6,
+                      2,
+                      6
+                    ]
+                  },
+                  "cornerRadius": 4,
+                  "fills": [
+                    "#FEF3F2"
+                  ],
+                  "children": [
+                    {
+                      "type": "TEXT",
+                      "content": "REQ",
+                      "font": "Inter:Bold",
+                      "size": 10,
+                      "color": "#C10C0D"
+                    }
+                  ]
+                },
+                {
+                  "type": "TEXT",
+                  "content": "href",
+                  "font": "Fira Code:Regular",
+                  "size": 12,
+                  "color": "#1A1A2E",
+                  "width": 140
+                },
+                {
+                  "type": "TEXT",
+                  "content": "string",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C792EA",
+                  "width": 100
+                },
+                {
+                  "type": "TEXT",
+                  "content": "—",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C3E88D",
+                  "width": 120
+                },
+                {
+                  "type": "TEXT",
+                  "content": "any URL",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#1A1A2E",
+                  "width": 200
+                },
+                {
+                  "type": "TEXT",
+                  "content": "Navigation destination",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#595968",
+                  "width": 350
+                }
+              ],
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              }
+            },
+            {
+              "type": "FRAME",
+              "name": "Row 1",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "padding": [
+                  8,
+                  12,
+                  8,
+                  12
+                ]
+              },
+              "fills": [],
+              "children": [
+                {
+                  "type": "FRAME",
+                  "name": "REQ badge",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "padding": [
+                      2,
+                      6,
+                      2,
+                      6
+                    ]
+                  },
+                  "cornerRadius": 4,
+                  "fills": [
+                    "#FEF3F2"
+                  ],
+                  "children": [
+                    {
+                      "type": "TEXT",
+                      "content": "REQ",
+                      "font": "Inter:Bold",
+                      "size": 10,
+                      "color": "#C10C0D"
+                    }
+                  ]
+                },
+                {
+                  "type": "TEXT",
+                  "content": "children",
+                  "font": "Fira Code:Regular",
+                  "size": 12,
+                  "color": "#1A1A2E",
+                  "width": 140
+                },
+                {
+                  "type": "TEXT",
+                  "content": "ReactNode",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C792EA",
+                  "width": 100
+                },
+                {
+                  "type": "TEXT",
+                  "content": "—",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C3E88D",
+                  "width": 120
+                },
+                {
+                  "type": "TEXT",
+                  "content": "text content",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#1A1A2E",
+                  "width": 200
+                },
+                {
+                  "type": "TEXT",
+                  "content": "Visible link label",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#595968",
+                  "width": 350
+                }
+              ],
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              }
+            },
+            {
+              "type": "FRAME",
+              "name": "Row 2",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "padding": [
+                  8,
+                  12,
+                  8,
+                  12
+                ]
+              },
+              "fills": [],
+              "children": [
+                {
+                  "type": "FRAME",
+                  "name": "OPT badge",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "padding": [
+                      2,
+                      6,
+                      2,
+                      6
+                    ]
+                  },
+                  "cornerRadius": 4,
+                  "fills": [
+                    "#F5F5FA"
+                  ],
+                  "children": [
+                    {
+                      "type": "TEXT",
+                      "content": "OPT",
+                      "font": "Inter:Bold",
+                      "size": 10,
+                      "color": "#888888"
+                    }
+                  ]
+                },
+                {
+                  "type": "TEXT",
+                  "content": "variant",
+                  "font": "Fira Code:Regular",
+                  "size": 12,
+                  "color": "#1A1A2E",
+                  "width": 140
+                },
+                {
+                  "type": "TEXT",
+                  "content": "enum",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C792EA",
+                  "width": 100
+                },
+                {
+                  "type": "TEXT",
+                  "content": "\"link\"",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C3E88D",
+                  "width": 120
+                },
+                {
+                  "type": "TEXT",
+                  "content": "\"link\" | \"link-with-icon\"",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#1A1A2E",
+                  "width": 200
+                },
+                {
+                  "type": "TEXT",
+                  "content": "Link type with optional trailing icon",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#595968",
+                  "width": 350
+                }
+              ],
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              }
+            },
+            {
+              "type": "FRAME",
+              "name": "Row 3",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "padding": [
+                  8,
+                  12,
+                  8,
+                  12
+                ]
+              },
+              "fills": [],
+              "children": [
+                {
+                  "type": "FRAME",
+                  "name": "OPT badge",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "padding": [
+                      2,
+                      6,
+                      2,
+                      6
+                    ]
+                  },
+                  "cornerRadius": 4,
+                  "fills": [
+                    "#F5F5FA"
+                  ],
+                  "children": [
+                    {
+                      "type": "TEXT",
+                      "content": "OPT",
+                      "font": "Inter:Bold",
+                      "size": 10,
+                      "color": "#888888"
+                    }
+                  ]
+                },
+                {
+                  "type": "TEXT",
+                  "content": "external",
+                  "font": "Fira Code:Regular",
+                  "size": 12,
+                  "color": "#1A1A2E",
+                  "width": 140
+                },
+                {
+                  "type": "TEXT",
+                  "content": "boolean",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C792EA",
+                  "width": 100
+                },
+                {
+                  "type": "TEXT",
+                  "content": "false",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C3E88D",
+                  "width": 120
+                },
+                {
+                  "type": "TEXT",
+                  "content": "true | false",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#1A1A2E",
+                  "width": 200
+                },
+                {
+                  "type": "TEXT",
+                  "content": "Opens in new tab with rel=noopener",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#595968",
+                  "width": 350
+                }
+              ],
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              }
+            },
+            {
+              "type": "FRAME",
+              "name": "Row 4",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "padding": [
+                  8,
+                  12,
+                  8,
+                  12
+                ]
+              },
+              "fills": [],
+              "children": [
+                {
+                  "type": "FRAME",
+                  "name": "OPT badge",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "padding": [
+                      2,
+                      6,
+                      2,
+                      6
+                    ]
+                  },
+                  "cornerRadius": 4,
+                  "fills": [
+                    "#F5F5FA"
+                  ],
+                  "children": [
+                    {
+                      "type": "TEXT",
+                      "content": "OPT",
+                      "font": "Inter:Bold",
+                      "size": 10,
+                      "color": "#888888"
+                    }
+                  ]
+                },
+                {
+                  "type": "TEXT",
+                  "content": "disabled",
+                  "font": "Fira Code:Regular",
+                  "size": 12,
+                  "color": "#1A1A2E",
+                  "width": 140
+                },
+                {
+                  "type": "TEXT",
+                  "content": "boolean",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C792EA",
+                  "width": 100
+                },
+                {
+                  "type": "TEXT",
+                  "content": "false",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C3E88D",
+                  "width": 120
+                },
+                {
+                  "type": "TEXT",
+                  "content": "true | false",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#1A1A2E",
+                  "width": 200
+                },
+                {
+                  "type": "TEXT",
+                  "content": "Disables interaction, applies muted styling",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#595968",
+                  "width": 350
+                }
+              ],
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              }
+            },
+            {
+              "type": "FRAME",
+              "name": "Row 5",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "padding": [
+                  8,
+                  12,
+                  8,
+                  12
+                ]
+              },
+              "fills": [],
+              "children": [
+                {
+                  "type": "FRAME",
+                  "name": "OPT badge",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "padding": [
+                      2,
+                      6,
+                      2,
+                      6
+                    ]
+                  },
+                  "cornerRadius": 4,
+                  "fills": [
+                    "#F5F5FA"
+                  ],
+                  "children": [
+                    {
+                      "type": "TEXT",
+                      "content": "OPT",
+                      "font": "Inter:Bold",
+                      "size": 10,
+                      "color": "#888888"
+                    }
+                  ]
+                },
+                {
+                  "type": "TEXT",
+                  "content": "icon",
+                  "font": "Fira Code:Regular",
+                  "size": 12,
+                  "color": "#1A1A2E",
+                  "width": 140
+                },
+                {
+                  "type": "TEXT",
+                  "content": "ReactNode",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C792EA",
+                  "width": 100
+                },
+                {
+                  "type": "TEXT",
+                  "content": "—",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C3E88D",
+                  "width": 120
+                },
+                {
+                  "type": "TEXT",
+                  "content": "icon element",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#1A1A2E",
+                  "width": 200
+                },
+                {
+                  "type": "TEXT",
+                  "content": "Trailing icon (only when variant is link-with-icon)",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#595968",
+                  "width": 350
+                }
+              ],
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              }
+            },
+            {
+              "type": "FRAME",
+              "name": "Row 6",
+              "layout": {
+                "mode": "HORIZONTAL",
+                "spacing": 0,
+                "padding": [
+                  8,
+                  12,
+                  8,
+                  12
+                ]
+              },
+              "fills": [],
+              "children": [
+                {
+                  "type": "FRAME",
+                  "name": "OPT badge",
+                  "layout": {
+                    "mode": "HORIZONTAL",
+                    "padding": [
+                      2,
+                      6,
+                      2,
+                      6
+                    ]
+                  },
+                  "cornerRadius": 4,
+                  "fills": [
+                    "#F5F5FA"
+                  ],
+                  "children": [
+                    {
+                      "type": "TEXT",
+                      "content": "OPT",
+                      "font": "Inter:Bold",
+                      "size": 10,
+                      "color": "#888888"
+                    }
+                  ]
+                },
+                {
+                  "type": "TEXT",
+                  "content": "onClick",
+                  "font": "Fira Code:Regular",
+                  "size": 12,
+                  "color": "#1A1A2E",
+                  "width": 140
+                },
+                {
+                  "type": "TEXT",
+                  "content": "function",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C792EA",
+                  "width": 100
+                },
+                {
+                  "type": "TEXT",
+                  "content": "—",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#C3E88D",
+                  "width": 120
+                },
+                {
+                  "type": "TEXT",
+                  "content": "(e) => void",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#1A1A2E",
+                  "width": 200
+                },
+                {
+                  "type": "TEXT",
+                  "content": "Click handler, fires before navigation",
+                  "font": "Inter:Regular",
+                  "size": 14,
+                  "color": "#595968",
+                  "width": 350
+                }
+              ],
+              "sizing": {
+                "horizontal": "FILL",
+                "vertical": "HUG"
+              }
             }
           ],
           "sizing": {

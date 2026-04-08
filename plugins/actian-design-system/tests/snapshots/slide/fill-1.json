@@ -1,10 +1,7 @@
 {
   "meta": {
     "skill": "generate-presentation",
-    "targetNodeId": "0:0",
-    "component": "Actian Design System 2026",
-    "wrapperName": "Presentation: Actian Design System 2026",
-    "sectionName": "Presentation: Actian Design System 2026"
+    "fillSection": "__section_slide_0"
   },
   "fonts": [
     "Roboto:Regular",

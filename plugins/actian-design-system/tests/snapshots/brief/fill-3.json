@@ -2,7 +2,7 @@
   "meta": {
     "skill": "component-brief",
     "component": "Link",
-    "appendToId": "__LAST_WRAPPER__"
+    "fillSection": "__section_card6_card7"
   },
   "fonts": [
     "Inter:Regular",
@@ -108,6 +108,322 @@
     }
   },
   "tree": [
+    {
+      "type": "INSTANCE",
+      "ref": "briefCard",
+      "name": "Usage guidelines",
+      "variant": "Mode=DS, Type=Standard",
+      "props": {
+        "Title": "Usage guidelines",
+        "Subtitle": "When and how to use Link"
+      },
+      "detach": true,
+      "width": 1200,
+      "contentSlot": {
+        "layout": {
+          "mode": "VERTICAL",
+          "spacing": 16,
+          "padding": [
+            48,
+            80,
+            48,
+            80
+          ]
+        }
+      },
+      "children": [
+        {
+          "type": "INSTANCE",
+          "ref": "sectionHeader",
+          "name": "When to use",
+          "detach": true,
+          "textSlots": {
+            "title": "When to use"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Navigation to internal or external desti",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "+",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#047800"
+            },
+            {
+              "type": "TEXT",
+              "content": "Navigation to internal or external destinations (pages, sections, resources)",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Inline contextual navigation within body",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "+",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#047800"
+            },
+            {
+              "type": "TEXT",
+              "content": "Inline contextual navigation within body text or descriptions",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Standalone navigation elements like brea",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "+",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#047800"
+            },
+            {
+              "type": "TEXT",
+              "content": "Standalone navigation elements like breadcrumbs or footer links",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "DIVIDER"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "sectionHeader",
+          "name": "When NOT to use",
+          "detach": true,
+          "textSlots": {
+            "title": "When NOT to use"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Actions that don't navigate (submit, del",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "−",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#C10C0D"
+            },
+            {
+              "type": "TEXT",
+              "content": "Actions that don't navigate (submit, delete, toggle) → use Button",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Primary call-to-action → use Button with",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "−",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#C10C0D"
+            },
+            {
+              "type": "TEXT",
+              "content": "Primary call-to-action → use Button with appropriate hierarchy",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Standalone icons as navigation → use Ico",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "−",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#C10C0D"
+            },
+            {
+              "type": "TEXT",
+              "content": "Standalone icons as navigation → use Icon Button instead",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "DIVIDER"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Use for navigation",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "Use for navigation",
+            "Do Example": "Links should always navigate to a destination — a new page, section, or external resource.",
+            "Don't Label": "Use for actions",
+            "Don't Example": "Don't use links for actions like submitting a form or deleting an item. Use ghost buttons instead."
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Use descriptive text",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "Use descriptive text",
+            "Do Example": "Link text should describe the destination clearly, e.g., 'View pipeline details'.",
+            "Don't Label": "Use vague text",
+            "Don't Example": "Avoid generic labels like 'Click here', 'Read more', or raw URLs as link text."
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Indicate external links",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "Indicate external links",
+            "Do Example": "Add a trailing icon or label when the link opens in a new tab or goes to an external site.",
+            "Don't Label": "Surprise navigation",
+            "Don't Example": "Don't open links in new tabs without visual indication — users should anticipate the behavior."
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        }
+      ]
+    },
     {
       "type": "INSTANCE",
       "ref": "briefCard",

@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "skill": "component-brief",
+    "component": "Link",
+    "targetNodeId": "0:0",
+    "wrapperName": "Component Spec: Link",
+    "sectionName": "Component Spec: Link"
+  },
+  "fonts": [
+    "Inter:Regular"
+  ],
+  "imports": {},
+  "tree": [
+    {
+      "type": "FRAME",
+      "name": "__section_genlog_card1_card2_card3",
+      "layout": {
+        "mode": "HORIZONTAL",
+        "spacing": 32,
+        "primarySizing": "AUTO",
+        "counterSizing": "AUTO"
+      },
+      "fills": []
+    },
+    {
+      "type": "FRAME",
+      "name": "__section_card4_card5",
+      "layout": {
+        "mode": "HORIZONTAL",
+        "spacing": 32,
+        "primarySizing": "AUTO",
+        "counterSizing": "AUTO"
+      },
+      "fills": []
+    },
+    {
+      "type": "FRAME",
+      "name": "__section_card6_card7",
+      "layout": {
+        "mode": "HORIZONTAL",
+        "spacing": 32,
+        "primarySizing": "AUTO",
+        "counterSizing": "AUTO"
+      },
+      "fills": []
+    },
+    {
+      "type": "FRAME",
+      "name": "__section_card8_card9",
+      "layout": {
+        "mode": "HORIZONTAL",
+        "spacing": 32,
+        "primarySizing": "AUTO",
+        "counterSizing": "AUTO"
+      },
+      "fills": []
+    }
+  ]
+}

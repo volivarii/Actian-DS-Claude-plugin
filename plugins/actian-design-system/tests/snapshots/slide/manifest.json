@@ -1,5 +1,6 @@
 {
-  "totalCalls": 1,
+  "version": 2,
+  "totalCalls": 2,
   "unitMap": {
     "genLog": 1,
     "slide_0": 1,
@@ -8,13 +9,23 @@
     "slide_3": 1,
     "slide_4": 1
   },
-  "runtime": "runtime.js",
-  "calls": [
+  "scaffold": {
+    "file": "scaffold.js",
+    "specFile": "scaffold.json",
+    "sizeBytes": 22382,
+    "sections": [
+      "__section_slide_0"
+    ],
+    "description": "Creates wrapper + 1 section frames"
+  },
+  "fills": [
     {
-      "callIndex": 1,
-      "file": "call-1.json",
-      "specBytes": 6646,
-      "description": "Call 1 of 1: Slide: Token architecture, Slide: Spacing scale (21672 bytes)"
+      "fillIndex": 1,
+      "file": "fill-1.js",
+      "specFile": "fill-1.json",
+      "sizeBytes": 25708,
+      "sectionKey": "__section_slide_0",
+      "description": "Fill 1/1: Slide: Token architecture, Slide: Spacing scale"
     }
   ]
 }

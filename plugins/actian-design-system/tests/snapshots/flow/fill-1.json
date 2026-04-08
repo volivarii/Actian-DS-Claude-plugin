@@ -1,9 +1,7 @@
 {
   "meta": {
     "skill": "generate-flow",
-    "targetNodeId": "0:0",
-    "wrapperName": "generate-flow: Connection settings",
-    "sectionName": "generate-flow: Connection settings"
+    "fillSection": "__section_flow_0"
   },
   "fonts": [
     "Inter:Regular",
