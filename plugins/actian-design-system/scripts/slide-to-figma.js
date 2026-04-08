@@ -21,7 +21,7 @@ const shared = require("./shared-constants");
 // Constants
 // ---------------------------------------------------------------------------
 
-const MAX_BIN_SIZE = 18000; // bytes — JSON spec budget per call (interpreter is ~28KB, total under 50KB)
+const MAX_BIN_SIZE = shared.getMaxBinSize();
 const OVERHEAD = 800; // per-item overhead estimate
 
 const SLIDE_W = 1920;
@@ -363,84 +363,97 @@ function autoSplit(meta, allItems, usedVars, itemIds) {
     imports.divider = shared.META_KEYS.divider;
   }
 
-  const calls = [];
+  // Build section keys
+  const sectionKeys = bins.map(function (bin, idx) {
+    return "__section_slide_" + idx;
+  });
 
+  // Scaffold spec: wrapper + empty section frames
+  const scaffoldSpec = {
+    meta: {
+      skill: "generate-presentation",
+      targetNodeId: meta.targetNodeId,
+      component: meta.title || "Presentation",
+      wrapperName: "Presentation: " + (meta.title || "Deck"),
+      sectionName: "Presentation: " + (meta.title || "Deck"),
+    },
+    fonts: ["Roboto:Regular"],
+    imports: {},
+    tree: sectionKeys.map(function (key) {
+      return {
+        type: "FRAME",
+        name: key,
+        layout: {
+          mode: "HORIZONTAL",
+          spacing: 32,
+          primarySizing: "AUTO",
+          counterSizing: "AUTO",
+        },
+        fills: [],
+      };
+    }),
+  };
+
+  // Fill specs
+  const fills = [];
   for (let b = 0; b < bins.length; b++) {
-    const spec = {
-      meta: { skill: "generate-presentation" },
-      fonts: FONTS,
-      imports: imports,
-      variables: resolvedVars,
-      tree: bins[b],
-    };
-
-    if (b === 0) {
-      spec.meta.targetNodeId = meta.targetNodeId;
-      spec.meta.component = meta.title || "Presentation";
-      spec.meta.wrapperName = "Presentation: " + (meta.title || "Deck");
-      spec.meta.sectionName = "Presentation: " + (meta.title || "Deck");
-    } else {
-      spec.meta.appendToId = "__LAST_WRAPPER__";
-    }
-
-    const code = shared.assembleCall(spec);
-    const codeSize = Buffer.byteLength(code, "utf8");
+    const fillIdx = b + 1;
 
     const slideNames = bins[b]
       .filter((item) => item.type === "FRAME")
       .map((item) => item.name || "Slide")
       .join(", ");
     const description =
-      "Call " +
-      (b + 1) +
-      " of " +
+      "Fill " +
+      fillIdx +
+      "/" +
       bins.length +
       ": " +
-      (slideNames || "generation log") +
-      " (" +
-      codeSize +
-      " bytes)";
+      (slideNames || "generation log");
+
+    const fillSpec = {
+      meta: {
+        skill: "generate-presentation",
+        fillSection: sectionKeys[b],
+      },
+      fonts: FONTS,
+      imports: imports,
+      variables: resolvedVars,
+      tree: bins[b],
+    };
 
     process.stderr.write(
-      "Call " +
-        (b + 1) +
+      "Fill " +
+        fillIdx +
         ": " +
         bins[b].length +
-        " items, " +
-        codeSize +
-        " bytes code\n",
+        " items (tree=" +
+        shared.compactSize(bins[b]) +
+        " bytes)\n",
     );
-    if (codeSize > 45000) {
-      process.stderr.write(
-        "WARNING: Call " +
-          (b + 1) +
-          " code exceeds 45KB (" +
-          codeSize +
-          " bytes) — may hit use_figma limit\n",
-      );
-    }
 
-    calls.push({
-      callIndex: b + 1,
-      code: code,
-      spec: spec,
+    fills.push({
+      fillIndex: fillIdx,
+      spec: fillSpec,
+      sectionKey: sectionKeys[b],
       description: description,
     });
   }
 
+  // Build unitMap
   const unitMap = {};
   if (itemIds) {
     let itemIdx = 0;
     for (let b = 0; b < bins.length; b++) {
-      const callIdx = b + 1;
+      const fillIdx = b + 1;
       for (let i = 0; i < bins[b].length; i++) {
-        if (itemIds[itemIdx]) unitMap[itemIds[itemIdx]] = callIdx;
+        if (itemIds[itemIdx]) unitMap[itemIds[itemIdx]] = fillIdx;
         itemIdx++;
       }
     }
   }
 
-  return { calls: calls, unitMap: unitMap };
+  return { scaffoldSpec: scaffoldSpec, fills: fills, unitMap: unitMap };
 }
 
 // ---------------------------------------------------------------------------
@@ -463,6 +476,8 @@ function main() {
     } else if (args[i] === "--output" && args[i + 1]) {
       outputPath = args[++i];
     } else if (args[i] === "--call" && args[i + 1]) {
+      callFilter = parseInt(args[++i], 10);
+    } else if (args[i] === "--fill" && args[i + 1]) {
       callFilter = parseInt(args[++i], 10);
     } else if (!inputPath) {
       inputPath = args[i];
@@ -590,38 +605,72 @@ function main() {
     usedVars.add(v);
   });
 
-  const { calls, unitMap } = autoSplit(input.meta, items, usedVars, itemIds);
+  const { scaffoldSpec, fills, unitMap } = autoSplit(
+    input.meta,
+    items,
+    usedVars,
+    itemIds,
+  );
 
-  if (callFilter && (callFilter < 1 || callFilter > calls.length)) {
+  if (callFilter && (callFilter < 1 || callFilter > fills.length)) {
     process.stderr.write(
       "Error: --call " +
         callFilter +
         " but only " +
-        calls.length +
-        " calls generated\n",
+        fills.length +
+        " fills generated\n",
     );
     process.exit(1);
   }
 
-  const output = JSON.stringify(calls);
-
   if (outputDir) {
-    // Write runtime.js (once) + call-N.json (spec per call) + manifest.json
-    shared.writeCallFiles(outputDir, calls, unitMap, callFilter);
+    shared.writeCallFilesV2(
+      outputDir,
+      scaffoldSpec,
+      fills,
+      unitMap,
+      callFilter,
+    );
     process.stderr.write(
-      "Wrote " + calls.length + " call file(s) to " + outputDir + "\n",
+      "Wrote " + (1 + fills.length) + " call file(s) to " + outputDir + "\n",
     );
   } else if (outputPath) {
-    fs.writeFileSync(outputPath, output);
+    const results = [];
+    results.push({
+      callIndex: 0,
+      code: shared.assembleCall(scaffoldSpec),
+      description: "Scaffold: wrapper + sections",
+    });
+    for (const f of fills) {
+      results.push({
+        callIndex: f.fillIndex,
+        code: shared.assembleCall(f.spec),
+        description: f.description,
+      });
+    }
+    fs.writeFileSync(outputPath, JSON.stringify(results));
     process.stderr.write("Written to " + outputPath + "\n");
   } else {
-    process.stdout.write(output + "\n");
+    const results = [];
+    results.push({
+      callIndex: 0,
+      code: shared.assembleCall(scaffoldSpec),
+      description: "Scaffold: wrapper + sections",
+    });
+    for (const f of fills) {
+      results.push({
+        callIndex: f.fillIndex,
+        code: shared.assembleCall(f.spec),
+        description: f.description,
+      });
+    }
+    process.stdout.write(JSON.stringify(results) + "\n");
   }
 
   process.stderr.write(
-    "Done: " +
-      calls.length +
-      " call(s), " +
+    "Done: 1 scaffold + " +
+      fills.length +
+      " fill(s), " +
       input.slides.length +
       " slide(s)\n",
   );
