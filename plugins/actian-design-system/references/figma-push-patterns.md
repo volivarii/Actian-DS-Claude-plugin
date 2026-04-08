@@ -239,7 +239,14 @@ const subtitleText = inst.findOne(n => n.type === "TEXT" && n.name === "Subtitle
 if (subtitleText) subtitleText.characters = "Manage team members and permissions";
 ```
 
-**Common FM Kit property names** (from component registry):
+**Common property names by kit:**
+
+**Meta Kit (all skills):**
+- **genLog**: `Skill`, `Prompt`, `Date`, `Duration`, `Model`, `Plugin Version`
+- **flowCoverCard**: find nested text "Feature Name", "Flow Description", "User Persona" via `findOne`
+- **divider**: no properties needed
+
+**FM Kit (generate-flow):**
 - **fmButton**: `Label`, `👁 Leading Icon`, `👁 Trailing Icon`
 - **fmTextInput**: `Input Text`, `Label Text`, `Caption Text`, `Show label`, `Caption`, `Required`
 - **fmDropdown**: `Dropdown Text`, `Label Text`, `Show label`
@@ -250,10 +257,28 @@ if (subtitleText) subtitleText.characters = "Manage team members and permissions
 - **fmTag**: `Label`
 - **fmBadge**: `Label`
 - **fmTableCell**: find nested text via `findOne`
-- **flowCoverCard**: find nested text "Feature Name", "Flow Description", "User Persona" via `findOne`
-- **genLog**: `Skill`, `Prompt`, `Date`, `Duration`, `Model`, `Plugin Version`
+- **fmCheckbox**: `Label`
+- **fmToggle**: `Label`
+- **fmAlert**: find nested text "Title", "Description" via `findOne`
+- **fmEmptyState**: find nested text "Title", "Description" via `findOne`
 
-**Rule: If you don't know the exact property name, use `findOne` to find text layers by name and override `.characters` directly. NEVER leave default placeholder text.**
+**Brief Kit (component-brief):**
+- **briefCard**: variant `Card Type=Header` / `Anatomy` / `Tokens` / etc. — then find nested text layers ("Title", "Description", "Status") via `findOne` and override
+- **doDontPair**: variant `Type=Do` or `Type=Dont` — find nested "Title", "Description" via `findOne`
+- **contrastBadge**: variant `Result=Pass` or `Result=Fail` — find nested "Ratio", "Colors" via `findOne`
+- **a11yCard**: find nested text "Title", "Description", "Status" via `findOne`
+- **colorSwatch**: find nested text "Token Name", "Value" via `findOne`
+- **tableHeaderRow / tableDataRow**: find nested text cells via `findOne` — override each cell's text
+- **a11ySpecRow / swatchRow**: find nested text via `findOne` — override each field
+
+**Slide Kit (generate-presentation):**
+- **slideCover**: find nested text "Title", "Subtitle", "Date" via `findOne` — uses Roboto font
+- **slideBodyFull**: find nested text "Title", "Body" via `findOne` — body supports bullet lists
+- **slideBodyTV**: find nested text "Title", "Body" via `findOne` + visual placeholder frame
+- **slideSection**: find nested text "Title" via `findOne`
+- **slideBack**: find nested text "Title", "Subtitle" via `findOne`
+
+**Rule: If you don't know the exact property name, use `findOne` to find text layers by name and override `.characters` directly. NEVER leave default placeholder text in any skill output.**
 
 ### Pattern 8: hexToRgb helper
 
