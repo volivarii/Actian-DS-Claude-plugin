@@ -109,23 +109,70 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
 
 ## Step 3 — Push to Figma
 
-Read `references/figma-push-patterns.md` for component keys and patterns. Read your `[name]-brief-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
+Read `references/figma-push-patterns.md` for component keys and patterns. Read your `[name]-brief-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call. Look up component keys from `docs/metakit.json` (briefCard, templates, genLog).
 
-**Push sequence** (each step is one small `use_figma` call):
-1. Navigate to target page + create wrapper frame (use "Create wrapper frame" pattern, name: "Component Spec: [name]")
-2. Create Generation Log instance (import genLog by key, set props from meta, append to wrapper)
-3. For each selected card:
-   a. Import briefCard component set by key → create instance with variant matching the card type
-   b. Set text/boolean properties from the card data
-   c. For cards with tables (card4 tokens, card5 API, card8 a11y): create table rows using template component keys (tableHeaderRow, tableDataRow, a11ySpecRow, swatchRow)
-   d. For card3 anatomy: import the target component, create instance, add annotation badges
-   e. For card6 usage: import doDontPair instances
-   f. Append card to wrapper
-4. After all cards pushed, report to user with count
+**Push sequence:**
+
+### Call 1: Create wrapper
+Navigate to target page, create wrapper frame (name: "Component Spec: [name]"), return `wrapperId`.
+
+### Call 2: GenLog
+Import genLog by key, create instance, set props from meta, append to wrapper.
+
+### Calls 3+: Each card (one call per card)
+
+**CRITICAL — briefCard structure:** Every card (2-9) is a briefCard instance. The briefCard component has a "Content" child frame. You MUST place card-specific content INSIDE this Content frame, not as siblings:
+
+```js
+// 1. Import and instantiate
+const set = await figma.importComponentSetByKeyAsync(BRIEF_CARD_KEY);
+const variant = set.findChild(n => n.name === "Mode=DS, Type=Standard");
+const inst = (variant || set.defaultVariant || set.children[0]).createInstance();
+inst.resize(1200, inst.height);
+
+// 2. Set properties BEFORE detach (use exact hash names from metakit.json)
+inst.setProperties({ "Title#7:0": cardTitle, "Subtitle#7:1": cardSubtitle });
+
+// 3. Detach
+const card = inst.detachInstance();
+card.name = "Card N: Title";
+
+// 4. Find Content slot and configure it
+const content = card.findOne(n => n.name === "Content");
+while (content.children.length) content.children[0].remove();
+content.layoutMode = "VERTICAL";
+content.itemSpacing = 16;
+content.paddingTop = 48;
+content.paddingRight = 80;
+content.paddingBottom = 48;
+content.paddingLeft = 80;
+content.primaryAxisSizingMode = "AUTO";
+content.counterAxisSizingMode = "AUTO";
+card.primaryAxisSizingMode = "AUTO";
+
+// 5. Build content and append INTO the Content frame
+const section = figma.createFrame();
+section.name = "My Section";
+// ... build content ...
+content.appendChild(section);  // ← INTO content, NOT card
+
+// 6. Append card to wrapper
+const wrapper = await figma.getNodeByIdAsync(wrapperId);
+wrapper.appendChild(card);
+```
+
+**Card 1 (Header):** Use variant `"Mode=DS, Type=Page Header"`. Set all text properties from card data. No contentSlot needed — Card 1 is just a styled header instance.
+
+**Cards 2-9:** Use variant `"Mode=DS, Type=Standard"`. Follow the Content slot pattern above. Build section titles, tables, annotations etc. and append them into the Content frame.
+
+**Card-specific notes:**
+- **Card 3 (Anatomy):** Import the target component, create an instance, position annotation badges with leader lines. Include Structure table, Specs table, and a state row showing all interactive states.
+- **Card 4 (Tokens):** Use template keys (tableHeaderRow, tableDataRow, swatchRow) for token tables. Import templates, clone, detach, fill text slots.
+- **Card 6 (Usage):** Import doDontPair instances for do/don't examples.
+- **Card 9 (Code):** Code block frame should be `layoutSizingHorizontal = "FILL"` to span full card width.
 
 **Rules:**
-- Each `use_figma` call creates 1-3 nodes max — keep calls small
-- Return IDs from every call — use them to append children
+- Return IDs from every call — use them to append children in subsequent calls
 - If a call fails, skip that card and continue
 - Do NOT run `brief-to-figma.js` — push directly from your data model
 - Do NOT read any `.js` files, manifests, or scaffolds
