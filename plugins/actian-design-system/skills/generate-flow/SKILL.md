@@ -23,16 +23,26 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
        --output {project_working_directory}/components/flows/flow-data.json
      ```
      Sequential mode (<6 screens): build flow-data.json directly as today.
-5. Push:
-   ```bash
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js" flow-data.json --target-node-id "<nodeId>" --output-dir {project_working_directory}/components/flows/.figma-calls
-   ```
-   Read `manifest.json`. Push scaffold, then each fill — screens appear progressively:
-   1. Read `scaffold.js` → `use_figma` (creates wrapper + named section frames)
-   2. For each fill: read `fill-N.js` → `use_figma` (builds screens into section — visible immediately)
-   3. If any fill fails, skip and continue. Each `.js` file is pre-assembled. Never read `.json` or `runtime.js`.
-   - **Incremental update**: Update `flow-data.json`, check `manifest.json` → `unitMap.screen_N`, re-run with `--fill M`, push only `fill-M.js`.
+5. Push to Figma — read `references/figma-push-patterns.md` for component keys and patterns. Read your `flow-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
+
+   **Push sequence** (each step is one small `use_figma` call, ~200-800 bytes):
+   1. Navigate to target page + create wrapper frame (use "Create wrapper frame" pattern from push-patterns.md)
+   2. Create Generation Log instance (import genLog by key, create instance, set props from meta, append to wrapper)
+   3. Create Cover Card instance (import flowCoverCard by key, set props from meta, append to wrapper)
+   4. For each screen in `flow-data.json`:
+      a. Import needed components for this screen (batch: header, sidebar items, content components)
+      b. Create screen frame with auto-layout, set dimensions (1440×960)
+      c. Create app chrome (header instance, sidebar with nav items, page header) using imported instances
+      d. Create content area, populate from `screen.content[]` nodes — translate each node to Plugin API calls
+      e. Append completed screen to wrapper
+   5. After all screens pushed, report to user with count
+
+   **Rules:**
+   - Each `use_figma` call creates 1-3 nodes max — keep calls small
+   - Return IDs from every call — use them in subsequent calls to append children
+   - If a call fails, skip that element and continue
+   - Do NOT run `flow-to-figma.js` — push directly from your data model
+   - Do NOT read any `.js` files, manifests, or scaffolds
 6. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
@@ -77,12 +87,13 @@ Push-apart row — SPACE_BETWEEN, no Spacer: `{ "type": "FRAME", "name": "Header
 
 - **Button booleans:** Set `"👁 Leading Icon": false, "👁 Trailing Icon": false` on every button by default
 - **SPACE_BETWEEN:** Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for opposite-side layouts — never Spacer frames
-- **Feature focus:** Spotlight the feature, placeholder everything else; script handles sidebar from navItems
-- **No freehand Figma code:** Script output IS the Figma code — pass it through, do not write custom screen-building code
+- **Feature focus:** Spotlight the feature, placeholder everything else; build sidebar from navItems in flow-data.json
+- **Small direct calls:** Write direct Figma Plugin API code using patterns from `references/figma-push-patterns.md`. Keep each use_figma call under 2KB.
 - **No contentHtml:** Use structured content[] nodes (FRAME, TEXT, INSTANCE, DIVIDER) only
 
 ## References
 
+- `references/figma-push-patterns.md` — component keys, push patterns, and Plugin API call templates
 - `references/generate-flow/figma-spec-builder.md` — templates, content node spec, FM component ref table
 - `references/generate-flow/research-guide.md` — competitor research, reference analysis
 - `references/quality-tiers.md` — Draft / Standard / Production tier definitions
