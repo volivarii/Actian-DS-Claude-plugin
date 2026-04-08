@@ -65,27 +65,25 @@ If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5")
 
 ## Step 2 — Generate data model
 
-**Recipe guidance:** Before generating each card's data, read `recipes/brief/_index.json` and the corresponding card recipe from `recipes/brief/`. Follow the recipe's `sections` guidance for what to include, `qualityRules` for correctness, and `minimums` for completeness. The component guidelines JSON provides the content; the recipe defines the structure and quality bar.
+**Recipe guidance:** Before generating each card's data, read `recipes/brief/_index.json` and the recipe for each selected card from `recipes/brief/`. Follow the recipe's `sections` guidance, `qualityRules` for correctness, and `minimums` for completeness. The component guidelines JSON provides the content; the recipe defines the structure and quality bar.
 
-**Parallel mode (6+ DS cards selected):** Dispatch 3 `card-generator` agents in parallel:
-- Agent A: cards 1, 2, 3 → `{project_working_directory}/components/[name]/.partial/cards-1-3.json`
-- Agent B: cards 4, 5, 6 → `{project_working_directory}/components/[name]/.partial/cards-4-6.json`
-- Agent C: cards 7, 8, 9 → `{project_working_directory}/components/[name]/.partial/cards-7-9.json`
+Generate the complete `brief-data.json` directly. Reference `references/component-brief/data-schema.md` (already loaded in Step 1) and `examples/brief-data-example.json` for expected structure. Include only selected cards.
 
-Each agent receives: card numbers, component name, library, component guidelines JSON content, meta object, output path. Reference `references/component-brief/data-schema.md` and `examples/brief-data-example.json`.
+Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
 
-After all 3 complete, merge:
-```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/merge-partials.js" \
-  --type brief \
-  --partials-dir {project_working_directory}/components/[name]/.partial \
-  --output {project_working_directory}/components/[name]/[name]-brief-data.json
-```
+**Critical — avoid truncation:** Each card's data must be complete. Common truncation traps:
+- `card2_component.variantMatrix` — include ALL variant rows, not just 2-3 examples
+- `card4_tokens.colorTokens` — include ALL token bindings for the component
+- `card5_api.properties` — include ALL properties from the component guidelines
+- `card8_accessibility.requirements` — must have exactly 6 items (2 per column × 3 rows)
 
-Dispatch `brief-data-validator` in background on the merged file.
-
-**Sequential mode (<6 cards or FM mode):** Write `{project_working_directory}/components/[name]/[name]-brief-data.json` directly per `../../references/component-brief/data-schema.md`. Reference `examples/brief-data-example.json` for the expected structure. Only include selected cards. Dispatch `brief-data-validator` in background.
+**Inline validation after writing:** Check the file you just wrote:
+- Every selected card key exists and is non-empty
+- No `"..."`, `"etc"`, or `"and more"` in any value (truncation signals)
+- All token names use `--zen-` prefix (DS Kit) or `--fm-` prefix (FM)
+- No hardcoded hex values in token fields
+- `card8_accessibility.requirements` has exactly 6 items (if card 8 selected)
+If P0 issues found, fix them immediately before proceeding.
 
 ## Step 2.5 — Present push options (copy verbatim)
 
@@ -143,9 +141,11 @@ When the user asks to fix or update specific cards (e.g., "card 3's anatomy is w
    ```
 4. Push only the regenerated `fill-N.js` → `use_figma`
 
-## Step 4 — Parity check
+## Step 4 — Parity check (opt-in)
 
-Per `../../references/parity-check.md`: screenshot each card, dispatch `parity-analyzer`, fix P0s.
+Only run if the user says "check parity", "screenshot check", or "verify output". Do NOT run automatically after push.
+
+When triggered: per `../../references/parity-check.md` — screenshot each card, dispatch `parity-analyzer`, fix P0s.
 
 ## Key rules
 
