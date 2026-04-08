@@ -36,7 +36,10 @@ plugins/*/evals/
 release-notes/
 
 # Superpowers working files
-docs/
+docs/superpowers/
+
+# Root-level scratch docs
+/docs/
 
 # Communication
 comms/

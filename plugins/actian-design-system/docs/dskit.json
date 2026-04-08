@@ -1,0 +1,2368 @@
+{
+  "library": "ds",
+  "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+  "lastSynced": "2026-04-08T16:00:00.000Z",
+  "componentCount": 107,
+  "components": {
+    "button": {
+      "name": "Button",
+      "key": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
+      "nodeId": "7206:2643",
+      "importMethod": "set",
+      "page": "Button",
+      "description": "Primary trigger for a specific action or form submission. Use \"Primary\" for the main task, \"Secondary\" for alternative a",
+      "variants": {
+        "Type": [
+          "Primary",
+          "Secondary",
+          "Tertiary",
+          "Icon",
+          "Critical primary",
+          "Critical secondary"
+        ],
+        "Size": [
+          "Default",
+          "Small"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Leading icon#724:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "7206:3772"
+        },
+        "Label#724:10": {
+          "type": "TEXT",
+          "default": "Button"
+        },
+        "Leading icon show#809:73": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Trailing icon#13805:43": {
+          "type": "INSTANCE_SWAP",
+          "default": "7207:2839"
+        },
+        "Trailing icon show#13807:82": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "link": {
+      "name": "Link",
+      "key": "433bc17e08514c14ee821f2b03421bad865e0a0e",
+      "nodeId": "8346:6897",
+      "importMethod": "set",
+      "page": "Link",
+      "description": "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources.",
+      "variants": {
+        "State": [
+          "Disabled",
+          "Enabled",
+          "Focused",
+          "Hovered",
+          "Once clicked",
+          "Pressed"
+        ]
+      },
+      "properties": {}
+    },
+    "sticky-footer": {
+      "name": "Sticky footer",
+      "key": "de36372be7d1532ee37fbfc43238aed444f6e7c9",
+      "nodeId": "14747:9839",
+      "importMethod": "set",
+      "page": "Sticky footer",
+      "description": "A persistent container at the bottom of the viewport used for high-priority global actions.",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "calendar": {
+      "name": "Calendar",
+      "key": "6c61c1469d97020721267a3e1ad209f3cf4c12c3",
+      "nodeId": "8211:6664",
+      "importMethod": "set",
+      "page": "Calendar",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Single date select",
+          "Date",
+          "Month",
+          "Single"
+        ],
+        "Selection": [
+          "Single",
+          "Range",
+          "Year"
+        ]
+      },
+      "properties": {}
+    },
+    "input-date": {
+      "name": "Input, date",
+      "key": "9eafdb6242837b591ba5f39959150b53e40ef02d",
+      "nodeId": "8194:7305",
+      "importMethod": "set",
+      "page": "Calendar",
+      "description": "Used for selecting a single date, a date range, or a specific point in time.",
+      "variants": {
+        "Type": [
+          "Single date",
+          "Date range"
+        ],
+        "States": [
+          "Enabled",
+          "Hovered",
+          "Focused",
+          "Error",
+          "Disabled",
+          "Fille",
+          "Activ"
+        ]
+      },
+      "properties": {
+        "Helper#458:9": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label#458:13": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "* (Asterisk)#7242:142": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Sub label#9716:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "calendar-item": {
+      "name": ".Calendar item",
+      "key": "d476d5eeedd37586b0f8e025a3bc8c70cc20c5bb",
+      "nodeId": "8211:5909",
+      "importMethod": "set",
+      "page": "Calendar",
+      "description": "",
+      "variants": {
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Selected",
+          "Disabled"
+        ]
+      },
+      "properties": {}
+    },
+    "checkbox": {
+      "name": ".Checkbox",
+      "key": "aa8f60928fc502e8fd2855943617e70578fe58c7",
+      "nodeId": "7420:3799",
+      "importMethod": "set",
+      "page": "Checkbox",
+      "description": "",
+      "variants": {
+        "Selected": [
+          "Unselected",
+          "Indeterminate",
+          "Selected"
+        ],
+        "State": [
+          "Enabled",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled"
+        ]
+      },
+      "properties": {}
+    },
+    "checkbox-with-label": {
+      "name": "Checkbox with label",
+      "key": "f88de6fe161264680045b2b5ec77d311b1b3adb6",
+      "nodeId": "9478:17216",
+      "importMethod": "set",
+      "page": "Checkbox",
+      "description": "Used for binary choices (on/off) or when a user can select multiple options from a list of related items.",
+      "variants": {
+        "Selected": [
+          "Yes",
+          "Indeterminate",
+          "No"
+        ],
+        "State": [
+          "Enabled",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled"
+        ]
+      },
+      "properties": {}
+    },
+    "dropdown-select-default": {
+      "name": "Dropdown, Select, default",
+      "key": "1140aec3d572e3fbda362723cd7137ac2f0ce9bd",
+      "nodeId": "13972:708",
+      "importMethod": "set",
+      "page": "Dropdown / Select",
+      "description": "Use when there are 5+ options or space is limited.",
+      "variants": {
+        "Type": [
+          "Default",
+          "Search/Multiple",
+          "With avatar",
+          "Compact/Custom"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Active",
+          "Filled",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Show description#13978:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show asterisk #13978:8": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show info icon#13978:16": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show helper text#13978:24": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show Label#14292:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "menu-item": {
+      "name": ".menu item",
+      "key": "eab4098398a66550ebd20a27816809c8e4a33ad2",
+      "nodeId": "7218:2995",
+      "importMethod": "set",
+      "page": "Dropdown / Select",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Selectable item",
+          "Category",
+          "Divider"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected"
+        ]
+      },
+      "properties": {
+        "Label text#1188:0": {
+          "type": "TEXT",
+          "default": "Menu item"
+        },
+        "Show trailing icon#1188:2": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show leading icon#1188:3": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Leading icon#13935:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "7218:3078"
+        }
+      }
+    },
+    "search-filters": {
+      "name": "Search filters",
+      "key": "919ddc42563055f1d9f34b662fb806eb66763980",
+      "nodeId": "9660:49637",
+      "importMethod": "set",
+      "page": "Filters",
+      "description": "A collection of inputs used to narrow down a dataset or search results.",
+      "variants": {
+        "Type": [
+          "Explorer",
+          "Studio"
+        ]
+      },
+      "properties": {}
+    },
+    "radio-button": {
+      "name": ".Radio button",
+      "key": "c3a8c025928c83fd8da8186f18ad7b5fab69ea4f",
+      "nodeId": "7420:3800",
+      "importMethod": "set",
+      "page": "Radio button",
+      "description": "",
+      "variants": {
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled"
+        ],
+        "Selected": [
+          "Yes",
+          "No"
+        ]
+      },
+      "properties": {}
+    },
+    "radio-button-radio-button": {
+      "name": "Radio button",
+      "key": "9ceb34116fd119a17b08b9b445a204de28f9d249",
+      "nodeId": "9474:16884",
+      "importMethod": "set",
+      "page": "Radio button",
+      "description": "Used for mutually exclusive choices where the user must select exactly one option from a small list (2\u20135 items).",
+      "variants": {
+        "Format": [
+          "Default",
+          "Card format"
+        ],
+        "State": [
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled",
+          "Default"
+        ],
+        "Selected": [
+          "No",
+          "Yes"
+        ]
+      },
+      "properties": {
+        "Show Helper text#13981:32": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show Icon#14119:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "rich-text": {
+      "name": "Rich text",
+      "key": "e904c7b5c3ef6d223d9743546484e5a99b7a7808",
+      "nodeId": "9480:17723",
+      "importMethod": "set",
+      "page": "Rich text (existing)",
+      "description": "A multi-line input field that allows for text formatting (bold, links, lists).",
+      "variants": {
+        "State": [
+          "Expanded",
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "search": {
+      "name": "Search",
+      "key": "1b7cd9f309d84560098a2506089a77da8972d470",
+      "nodeId": "8589:11055",
+      "importMethod": "set",
+      "page": "Search",
+      "description": "A specialized text input designed to query a database or filter a page's content in real-time.",
+      "variants": {
+        "Type": [
+          "Explorer home",
+          "Global header",
+          "Inline"
+        ],
+        "State": [
+          "Hovered",
+          "Focused",
+          "Filled",
+          "Active",
+          "Dsiabled",
+          "Default"
+        ]
+      },
+      "properties": {
+        "AI icon#8589:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "search-dropdown-menu": {
+      "name": "Search dropdown menu",
+      "key": "9e267d055429c3f0e586f2fc787fd8b6fced1629",
+      "nodeId": "8756:9994",
+      "importMethod": "set",
+      "page": "Search",
+      "description": "",
+      "variants": {
+        "Type": [
+          "No result",
+          "Before typed",
+          "After typed",
+          "Explorer home"
+        ]
+      },
+      "properties": {}
+    },
+    "input": {
+      "name": "Input",
+      "key": "9245f434d92d2a5d54962c51d7e374c87251fc4b",
+      "nodeId": "7238:2487",
+      "importMethod": "set",
+      "page": "Text input",
+      "description": "Used for single-line alphanumeric data entry (e.g., Name, Email, Phone).",
+      "variants": {
+        "States": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Active",
+          "Filled",
+          "Error",
+          "Disabled",
+          "Read-only"
+        ]
+      },
+      "properties": {
+        "Helper#458:9": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Trailing icon#458:10": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label#458:13": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Info icon#7242:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "* (Asterisk)#7242:142": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Description#7242:164": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Delete icon#9482:0": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Label text#9633:0": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Description text#9633:17": {
+          "type": "TEXT",
+          "default": "A description helps users to define and understand the purpose of the input."
+        },
+        "Placeholder text#9633:34": {
+          "type": "TEXT",
+          "default": "Placeholder text"
+        },
+        "Helper text#9633:51": {
+          "type": "TEXT",
+          "default": "Helper text goes here"
+        },
+        "Input text#9633:68": {
+          "type": "TEXT",
+          "default": "Typed"
+        },
+        "Show .Textfield buttons#14241:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "textfield-buttons": {
+      "name": ".Textfield buttons",
+      "key": "701b1f6d93b336acb724a3496f7f0e33d1301c4f",
+      "nodeId": "14241:37663",
+      "importMethod": "set",
+      "page": "Text input",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "toggle-switch": {
+      "name": ".Toggle switch",
+      "key": "824f6d18ca7fa1a03d5843958e4ffb6b0d232c52",
+      "nodeId": "7218:3122",
+      "importMethod": "set",
+      "page": "Toggle control",
+      "description": "",
+      "variants": {
+        "Selected": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled"
+        ]
+      },
+      "properties": {}
+    },
+    "toggle": {
+      "name": "Toggle",
+      "key": "4e7793f094eed660e01d8f7c804f2391e72115d2",
+      "nodeId": "14000:4395",
+      "importMethod": "set",
+      "page": "Toggle control",
+      "description": "Used for an immediate \"on/off\" state change that doesn't require a \"Submit\" button to take effect.",
+      "variants": {
+        "Toggle location": [
+          "Left",
+          "Right"
+        ],
+        "State": [
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled",
+          "Default"
+        ],
+        "Selected": [
+          "No",
+          "Yes"
+        ]
+      },
+      "properties": {
+        "Show Helper text#13981:32": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "breadcrumbs": {
+      "name": "Breadcrumbs",
+      "key": "72976d77668b8e085d716fc8c5bc0bd144cb7274",
+      "nodeId": "13792:15247",
+      "importMethod": "set",
+      "page": "Breadcrumbs",
+      "description": "Use to show the user's current location within a hierarchical multi-level structure.",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "global-header": {
+      "name": "Global header",
+      "key": "e3e1e5d29f092fbd6ba5f0f40141ba55473548a8",
+      "nodeId": "7384:22554",
+      "importMethod": "set",
+      "page": "Global header",
+      "description": "The persistent top-level container for branding, primary site-wide navigation, and user-specific actions.",
+      "variants": {
+        "App type": [
+          "Explorer",
+          "Admin",
+          "Studio"
+        ],
+        "Breakpoints": [
+          "XL",
+          "L",
+          "M",
+          "S",
+          "XS"
+        ]
+      },
+      "properties": {}
+    },
+    "notification-dropdown": {
+      "name": "Notification dropdown",
+      "key": "927eb804d065b6e2be5f8dfa54643774304d7d6c",
+      "nodeId": "9114:15379",
+      "importMethod": "set",
+      "page": "Global header",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Empty",
+          "List"
+        ]
+      },
+      "properties": {}
+    },
+    "whats-new-dropdown": {
+      "name": "Whats new dropdown",
+      "key": "f7040db58ba132df1b3d292a72a003399433765f",
+      "nodeId": "9114:16794",
+      "importMethod": "set",
+      "page": "Global header",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Drilldown1",
+          "Drilldown2",
+          "Empty",
+          "List"
+        ]
+      },
+      "properties": {}
+    },
+    "account-dropdown": {
+      "name": "Account dropdown",
+      "key": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
+      "nodeId": "9118:17382",
+      "importMethod": "single",
+      "page": "Global header",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "app-switcher-dropdown": {
+      "name": "App switcher dropdown",
+      "key": "09baf67bef9191d0b5303b52c1c3159eefba3843",
+      "nodeId": "9118:17666",
+      "importMethod": "single",
+      "page": "Global header",
+      "description": "Menu: -4 Density",
+      "variants": {},
+      "properties": {}
+    },
+    "nav-item": {
+      "name": "nav item",
+      "key": "c2bdd8eb008c44f9731c88317cae5437eb89d9ec",
+      "nodeId": "13599:20027",
+      "importMethod": "set",
+      "page": "Side nav",
+      "description": "",
+      "variants": {
+        "Level": [
+          "Top",
+          "Sub"
+        ],
+        "Opened/Closed": [
+          "Opened",
+          "Closed",
+          "N/A"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Name#332:0": {
+          "type": "TEXT",
+          "default": "Home"
+        },
+        "Icon left#7384:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon right#7384:19": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label#7384:38": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon left2#9011:6": {
+          "type": "INSTANCE_SWAP",
+          "default": "7439:4602"
+        },
+        "Icon right2#9011:25": {
+          "type": "INSTANCE_SWAP",
+          "default": "7364:3013"
+        }
+      }
+    },
+    "side-nav": {
+      "name": "Side nav",
+      "key": "3606cc19247f989332aac33953ffdf57c9d1bbdd",
+      "nodeId": "13599:20120",
+      "importMethod": "set",
+      "page": "Side nav",
+      "description": "Vertical navigation for primary application modules.",
+      "variants": {
+        "App": [
+          "Admin",
+          "Studio"
+        ],
+        "View": [
+          "Collapsed",
+          "Expanded"
+        ]
+      },
+      "properties": {}
+    },
+    "stepper": {
+      "name": "Stepper",
+      "key": "9d73595077c798866bf42c87a53893bbdc8d4ce0",
+      "nodeId": "7676:4492",
+      "importMethod": "set",
+      "page": "Stepper",
+      "description": "Use to guide a user through a linear process with defined steps (e.g., Onboarding).",
+      "variants": {
+        "State": [
+          "Complete",
+          "Active",
+          "Default",
+          "State5"
+        ]
+      },
+      "properties": {
+        "Show Body#14072:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Body#14072:5": {
+          "type": "TEXT",
+          "default": "Optional body"
+        }
+      }
+    },
+    "tab": {
+      "name": ".tab",
+      "key": "96cfc367aba35f003e9394b76dc2d78ef78ffd9e",
+      "nodeId": "7279:3166",
+      "importMethod": "set",
+      "page": "Tab",
+      "description": "Secondary tabs label and icon building blocks",
+      "variants": {
+        "Selected": [
+          "No",
+          "Yes"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed"
+        ]
+      },
+      "properties": {
+        "Icon#1020:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Number#7369:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label text#53409:54": {
+          "type": "TEXT",
+          "default": "Tab"
+        }
+      }
+    },
+    "tabs": {
+      "name": "Tabs",
+      "key": "dbd33845613381780e5364600815d9bc983d5230",
+      "nodeId": "14747:14818",
+      "importMethod": "set",
+      "page": "Tab",
+      "description": "Use to switch between related views within the same context without navigating to a new page.",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {
+        "Show Avatar#14797:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "traffic-light": {
+      "name": "Traffic light",
+      "key": "4d34e14670144322fcfb202e843dc75534ff917f",
+      "nodeId": "13797:13103",
+      "importMethod": "set",
+      "page": "Traffic light",
+      "description": "A status indicator (Red, Amber, Green).",
+      "variants": {
+        "Type": [
+          "Default",
+          "Green",
+          "Orange",
+          "Red"
+        ]
+      },
+      "properties": {}
+    },
+    "avatar": {
+      "name": "Avatar",
+      "key": "67e11f5d63bbe3cb24cae7d38ab5e90ee506d266",
+      "nodeId": "7384:14212",
+      "importMethod": "set",
+      "page": "Avatar",
+      "description": "Visual representation of a user or entity.",
+      "variants": {
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Disabled",
+          "Selected"
+        ],
+        "Type": [
+          "One group",
+          "Two groups",
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "badge": {
+      "name": "Badge",
+      "key": "e8d93a3432951bd42d9b0bb20287eb61262ae10e",
+      "nodeId": "12159:16447",
+      "importMethod": "set",
+      "page": "Badge",
+      "description": "Small status or numerical indicator (e.g., \"Active\", \"New\", \"+5\").",
+      "variants": {
+        "Type": [
+          "Number",
+          "Dot"
+        ]
+      },
+      "properties": {}
+    },
+    "tile-item": {
+      "name": "Tile, Item",
+      "key": "95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30",
+      "nodeId": "7613:7853",
+      "importMethod": "set",
+      "page": "Card",
+      "description": "A flexible container for grouping related information.",
+      "variants": {
+        "Type": [
+          "Catalog",
+          "Item",
+          "item type",
+          "Glossary type",
+          "Topic"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed"
+        ]
+      },
+      "properties": {
+        "Show AI ready#14853:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "card-header": {
+      "name": ".card header",
+      "key": "3286cad107e4cf45c9082f2219d7866e44ade09d",
+      "nodeId": "14782:29244",
+      "importMethod": "set",
+      "page": "Card",
+      "description": "",
+      "variants": {
+        "Size": [
+          "Default"
+        ]
+      },
+      "properties": {
+        "Show leading icon#14981:0": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show info icon#14981:3": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show action#14981:6": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
+    },
+    "card": {
+      "name": "Card",
+      "key": "3b8d2c7adc118fdd5f31e68440fa35e952fee92e",
+      "nodeId": "14782:29281",
+      "importMethod": "set",
+      "page": "Card",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "perimeter-card": {
+      "name": "Perimeter card",
+      "key": "c1672b025b85c4ed0ddc645d89aa202803a95f07",
+      "nodeId": "14783:7565",
+      "importMethod": "set",
+      "page": "Card",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "collapse-accordion": {
+      "name": "Collapse-accordion",
+      "key": "8253d19d70a3b835653049d90b4fdf97b26a31c8",
+      "nodeId": "8292:80",
+      "importMethod": "set",
+      "page": "Collapse (Accordion)",
+      "description": "Use to hide/show secondary information to reduce vertical clutter.",
+      "variants": {
+        "State": [
+          "Closed",
+          "Open"
+        ]
+      },
+      "properties": {}
+    },
+    "glossary-connecting-line": {
+      "name": ".Glossary connecting line",
+      "key": "847d637d3876bc09b7caebb3cf6bafe60ddb6274",
+      "nodeId": "14747:30216",
+      "importMethod": "set",
+      "page": "Data viz: glossary item hierarchy",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Going up",
+          "Straight",
+          "Going down"
+        ]
+      },
+      "properties": {}
+    },
+    "glossary-item": {
+      "name": ".Glossary item",
+      "key": "93459a98ceecbac2d17cc87dd9c8295d12c485e6",
+      "nodeId": "14747:30223",
+      "importMethod": "set",
+      "page": "Data viz: glossary item hierarchy",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Main item",
+          "Sub items"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Pressed",
+          "Focused",
+          "Selected",
+          "Disabled"
+        ]
+      },
+      "properties": {}
+    },
+    "glossary-item-hierarchy-diagram": {
+      "name": "Glossary item hierarchy diagram",
+      "key": "ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da",
+      "nodeId": "14747:30242",
+      "importMethod": "set",
+      "page": "Data viz: glossary item hierarchy",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "lineage-widget": {
+      "name": "Lineage widget",
+      "key": "5904351595c9b5b263bb5891bd1ed038fbaff636",
+      "nodeId": "14747:19902",
+      "importMethod": "set",
+      "page": "Data viz: lineage",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Main item",
+          "Sub item"
+        ],
+        "State": [
+          "Default",
+          "Selected",
+          "Disabled"
+        ],
+        "Fields": [
+          "Collapsed",
+          "Expanded"
+        ]
+      },
+      "properties": {
+        "Show left control#14691:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "lineage-expand-collapse-control": {
+      "name": ".lineage expand collapse control",
+      "key": "4d518c08b1c4317701ca2a7056fb2edf44ec1db1",
+      "nodeId": "14747:20046",
+      "importMethod": "set",
+      "page": "Data viz: lineage",
+      "description": "",
+      "variants": {
+        "Icon": [
+          "Expand",
+          "Collapse"
+        ],
+        "State": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "properties": {}
+    },
+    "lineage-field": {
+      "name": ".lineage field",
+      "key": "bb9837cd08cd8613856a2693a9a92ea178b8e5cf",
+      "nodeId": "14747:20078",
+      "importMethod": "set",
+      "page": "Data viz: lineage",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {
+        "Show Identification key#14518:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Icon#14518:2": {
+          "type": "INSTANCE_SWAP",
+          "default": "8504:23299"
+        },
+        "Show Indicator left#14518:4": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show Indicator right#14518:6": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "lineage-connecting-line": {
+      "name": "Lineage connecting line",
+      "key": "553bdc1ba26f3b30988997771dcf74f275eb12d3",
+      "nodeId": "14747:20085",
+      "importMethod": "set",
+      "page": "Data viz: lineage",
+      "description": "",
+      "variants": {
+        "Direction": [
+          "Down",
+          "Straight",
+          "up",
+          "Up"
+        ],
+        "State": [
+          "Default",
+          "Selected",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Show icon#14697:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "lineage-connector-icon": {
+      "name": ".lineage connector icon",
+      "key": "1cb8e9a32c502d2e4951924a5089dc263ec2c7c0",
+      "nodeId": "14747:20113",
+      "importMethod": "set",
+      "page": "Data viz: lineage",
+      "description": "",
+      "variants": {
+        "State": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Icon#14623:1": {
+          "type": "INSTANCE_SWAP",
+          "default": "7168:748"
+        }
+      }
+    },
+    "metamodel-widget": {
+      "name": "Metamodel widget",
+      "key": "6b29851b99078abe643d2c6873e8e1a89f8ff0b4",
+      "nodeId": "14747:23588",
+      "importMethod": "set",
+      "page": "Data viz: metamodel",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Dataset",
+          "Business Term",
+          "Data Process",
+          "Field",
+          "Visualisation"
+        ]
+      },
+      "properties": {
+        "Show Section#8582:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "metamodel-property-section": {
+      "name": ".metamodel property section",
+      "key": "6824a56c7907608c733ac5a38228574a25983538",
+      "nodeId": "14747:23614",
+      "importMethod": "set",
+      "page": "Data viz: metamodel",
+      "description": "",
+      "variants": {
+        "Section": [
+          "Collapsed",
+          "Expanded"
+        ]
+      },
+      "properties": {}
+    },
+    "metamodel-connecting-line": {
+      "name": ".metamodel connecting line",
+      "key": "c092263e488d3f60a7afcabe71badd3c8d91c658",
+      "nodeId": "14747:23654",
+      "importMethod": "set",
+      "page": "Data viz: metamodel",
+      "description": "",
+      "variants": {
+        "Directon": [
+          "1",
+          "2",
+          "3",
+          "4"
+        ]
+      },
+      "properties": {}
+    },
+    "progress-bar-small": {
+      "name": "Progress bar small",
+      "key": "3ad726123245a1052e193ff80b894ba98b9a3e52",
+      "nodeId": "14136:1615",
+      "importMethod": "set",
+      "page": "Data viz: progressive bar",
+      "description": "Visualizes the completion percentage of a task.",
+      "variants": {
+        "Size": [
+          "Default",
+          "Large"
+        ],
+        "Completeness": [
+          "0%",
+          "100%",
+          "50%"
+        ]
+      },
+      "properties": {}
+    },
+    "toolbar": {
+      "name": "Toolbar",
+      "key": "96683d78ad981aacc04a5b6c7c2b0f0f1d631516",
+      "nodeId": "14335:16907",
+      "importMethod": "set",
+      "page": "Data viz: toolbar",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Single",
+          "Combined",
+          "Group"
+        ],
+        "Orientation": [
+          "Horizontal",
+          "Vertical"
+        ]
+      },
+      "properties": {
+        "Show View scale#14335:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "data-viz-legend-item": {
+      "name": ".data-viz-legend-item",
+      "key": "0a5b4776b4199b4a9efc77a76e99e12192e0dac5",
+      "nodeId": "14747:33310",
+      "importMethod": "set",
+      "page": "Data viz: WIP all others",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default",
+          "Focused",
+          "Hovered",
+          "Pressed",
+          "Selected"
+        ]
+      },
+      "properties": {}
+    },
+    "digram-topic": {
+      "name": "Digram, Topic",
+      "key": "c5cccb155896a560523120f96888c1d64374b562",
+      "nodeId": "14128:3800",
+      "importMethod": "set",
+      "page": "Digram",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Light purple",
+          "Dark purple",
+          "Light blue",
+          "Dark blue",
+          "Light green",
+          "Dark green",
+          "Yellow",
+          "Orange",
+          "Red",
+          "Dark orange"
+        ]
+      },
+      "properties": {}
+    },
+    "digram-item-types": {
+      "name": "Digram, Item types",
+      "key": "1705ad4e55489bb9ca0f203be5bd0edbd77e82b2",
+      "nodeId": "14007:23209",
+      "importMethod": "set",
+      "page": "Digram",
+      "description": "Works like tags but contains only 2 letters (initials of category name)",
+      "variants": {
+        "Item type": [
+          "Dataset",
+          "Data process",
+          "Data product",
+          "Field",
+          "Output port",
+          "Use case",
+          "Visualization",
+          "Category",
+          "Custom 1",
+          "Custom 2",
+          "Custom 3",
+          "Custom 4",
+          "Custom 5",
+          "Custom 6",
+          "Custom 7",
+          "Custom 8",
+          "Custom 9",
+          "Custom 10",
+          "Custom 11",
+          "Custom 12",
+          "Custom 13",
+          "Custom 14",
+          "Custom 16",
+          "Glossary 1",
+          "Glossary 2",
+          "Glossary 3",
+          "Glossary 4",
+          "Glossary 5"
+        ],
+        "Size": [
+          "Default",
+          "Large"
+        ]
+      },
+      "properties": {}
+    },
+    "page-header": {
+      "name": "Page header",
+      "key": "ec2418807ba81bd52ab103d34c1bffd82fc0b92c",
+      "nodeId": "12923:2794",
+      "importMethod": "set",
+      "page": "Page header",
+      "description": "The title area of a specific page.",
+      "variants": {
+        "Type": [
+          "Default",
+          "Details page",
+          "Explorer home",
+          "Explorer detail"
+        ]
+      },
+      "properties": {}
+    },
+    "scroll-bar": {
+      "name": "Scroll bar",
+      "key": "374c471abeb21e0693327b61cc12a31a5eeef5ba",
+      "nodeId": "14747:17639",
+      "importMethod": "set",
+      "page": "Scroll bar",
+      "description": "Custom UI for indicating and controlling scroll position within a specific container.",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "segmented-control-sub-component": {
+      "name": ".segmented control sub component",
+      "key": "6dc9d9ea5a991e5310dc5a4bb8be4bdbfcc8d0fb",
+      "nodeId": "7618:5084",
+      "importMethod": "set",
+      "page": "Segmented control (Button group)",
+      "description": "",
+      "variants": {
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Icon#468:65": {
+          "type": "INSTANCE_SWAP",
+          "default": "7618:5036"
+        },
+        "Instance#7622:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "7622:5374"
+        },
+        "Icon2#13811:135": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label#13811:142": {
+          "type": "TEXT",
+          "default": "Label"
+        }
+      }
+    },
+    "segmented-control": {
+      "name": "Segmented control",
+      "key": "062274018b2daab1c45c7e634c95c5a4eaa42b69",
+      "nodeId": "7618:5187",
+      "importMethod": "set",
+      "page": "Segmented control (Button group)",
+      "description": "Use for mutually exclusive options that impact the immediate view.",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "search-result-card": {
+      "name": "Search result card",
+      "key": "0549dc90f04862d64b5b4f8808f26f4968327ce9",
+      "nodeId": "12932:3259",
+      "importMethod": "set",
+      "page": "Search result card",
+      "description": "A specialized card variant optimized for scannability during a search.",
+      "variants": {
+        "App": [
+          "Explorer",
+          "Studio"
+        ],
+        "State": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "tag-default": {
+      "name": "Tag, Default",
+      "key": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
+      "nodeId": "7257:3037",
+      "importMethod": "set",
+      "page": "Tag (Identification key)",
+      "description": "Use for categorizing or labeling items.",
+      "variants": {
+        "Color": [
+          "Default",
+          "Pink",
+          "Purple",
+          "Indigo",
+          "Yellow",
+          "Lime",
+          "Teal",
+          "Orange",
+          "Gray"
+        ]
+      },
+      "properties": {
+        "Label#257:0": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Leading icon show#7276:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Leading icon#8400:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "7206:3772"
+        },
+        "Trailing icon show#13812:149": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Trailing icon#13812:158": {
+          "type": "INSTANCE_SWAP",
+          "default": "7207:2839"
+        }
+      }
+    },
+    "tag-stage": {
+      "name": "Tag, Stage",
+      "key": "2f4ae1cc7f2d610179a68b2c1b6e25d4900bd8bc",
+      "nodeId": "8655:10279",
+      "importMethod": "set",
+      "page": "Tag (Identification key)",
+      "description": "Use for data lifecycle stages.",
+      "variants": {
+        "Color": [
+          "Gray",
+          "Orange",
+          "Indigo",
+          "Purple",
+          "Lime",
+          "Teal",
+          "Yellow",
+          "Pink"
+        ]
+      },
+      "properties": {
+        "Trailing icon#13844:0": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Leading icon#13844:7": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "tag-status": {
+      "name": "Tag, Status",
+      "key": "1663e13e4fe1648aeef7bf6978f7faeea14a4c17",
+      "nodeId": "7257:3705",
+      "importMethod": "set",
+      "page": "Tag (Identification key)",
+      "description": "Use for status.",
+      "variants": {
+        "Status": [
+          "Fail",
+          "Warning",
+          "Success",
+          "Loading",
+          "Maintenance",
+          "Scheduled",
+          "Queued",
+          "Stopped",
+          "Sleeping",
+          "Offline",
+          "Pending"
+        ]
+      },
+      "properties": {}
+    },
+    "tag-catalog-item-type": {
+      "name": "Tag, Catalog item type",
+      "key": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
+      "nodeId": "11300:8312",
+      "importMethod": "set",
+      "page": "Tag (Identification key)",
+      "description": "Use for physical metamodel item types.",
+      "variants": {
+        "Type": [
+          "Category",
+          "Dataset",
+          "Data process",
+          "Data product",
+          "Field",
+          "Output port",
+          "Use case",
+          "Visualization"
+        ]
+      },
+      "properties": {
+        "Show counter#14128:0": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
+    },
+    "tag-updated": {
+      "name": "Tag, Updated",
+      "key": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
+      "nodeId": "13812:22307",
+      "importMethod": "set",
+      "page": "Tag (Identification key)",
+      "description": "Use for indicating something is recently updated.",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "tag-glossary-item-type": {
+      "name": "Tag, Glossary item type",
+      "key": "639773a27d790a489c5e115360b64c7d05a45ac3",
+      "nodeId": "13812:22308",
+      "importMethod": "set",
+      "page": "Tag (Identification key)",
+      "description": "Use for glossary item types.",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {
+        "Show Counter#14128:9": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
+    },
+    "tag-catalog": {
+      "name": "Tag, Catalog",
+      "key": "a28b5c2f8b2b9fe218a7fc6674e43c3baacb24c2",
+      "nodeId": "13812:22309",
+      "importMethod": "set",
+      "page": "Tag (Identification key)",
+      "description": "Use for catalog types.",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "tag-interactive": {
+      "name": "Tag, Interactive",
+      "key": "19d8ed0dd3f5dc406017130026a6229f121f169d",
+      "nodeId": "13845:33759",
+      "importMethod": "set",
+      "page": "Tag (Identification key)",
+      "description": "",
+      "variants": {
+        "State": [
+          "Default",
+          "Hovered",
+          "Pressed",
+          "Selected",
+          "Disabled",
+          "Focused"
+        ]
+      },
+      "properties": {
+        "Leading icon show#13846:14": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Leading icon#13846:21": {
+          "type": "INSTANCE_SWAP",
+          "default": "7206:3772"
+        },
+        "Trailing icon show#13846:28": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Trailing icon#13849:35": {
+          "type": "INSTANCE_SWAP",
+          "default": "7207:2839"
+        }
+      }
+    },
+    "identification-key": {
+      "name": "Identification key",
+      "key": "3bf340c5e6f49afc5b73140935558a558b3e8855",
+      "nodeId": "14349:15323",
+      "importMethod": "set",
+      "page": "Tag (Identification key)",
+      "description": "Use for identification keys.",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "table-column": {
+      "name": ".Table column",
+      "key": "12d2de8897078b632dd44df3ba550f281d2ea3c3",
+      "nodeId": "15295:14838",
+      "importMethod": "set",
+      "page": "Table",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Default",
+          "Tag",
+          "Actions"
+        ]
+      },
+      "properties": {}
+    },
+    "table-cell": {
+      "name": ".Table cell",
+      "key": "a9e134186026b7479ee62e4d3b313d275df639af",
+      "nodeId": "15295:14869",
+      "importMethod": "set",
+      "page": "Table",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Header",
+          "Text",
+          "Tag",
+          "Action",
+          "Skeleton"
+        ]
+      },
+      "properties": {
+        "Show Avatar#14076:0": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show Sort#14076:5": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Show Button 1#14076:10": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show Button 2#14076:15": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show Button 3#14076:20": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "table": {
+      "name": "Table",
+      "key": "62d235b35d44ddafd58cb1a060107b4f69ab234e",
+      "nodeId": "15295:14902",
+      "importMethod": "set",
+      "page": "Table",
+      "description": "Use for large datasets requiring comparison, sorting, and filtering.",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "pagination": {
+      "name": ".Pagination",
+      "key": "f0ea6a2f83204ac8f42067305536b30e312ed4ef",
+      "nodeId": "15295:14915",
+      "importMethod": "set",
+      "page": "Table",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "table-header-control": {
+      "name": ".table header control",
+      "key": "bea2fd0807b923ab0d9434c17b38fb7ad7506ebd",
+      "nodeId": "15295:14926",
+      "importMethod": "set",
+      "page": "Table",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "table-row-header": {
+      "name": ".table-row-header",
+      "key": "c9868cfaefd29eb5626a6664844532f8f9d46746",
+      "nodeId": "15295:14941",
+      "importMethod": "set",
+      "page": "Table",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "table-row-body": {
+      "name": ".table-row-body",
+      "key": "f221e68b091946e42cf3002729a1b19fdb25e3b0",
+      "nodeId": "15295:14948",
+      "importMethod": "set",
+      "page": "Table",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "alert-banner": {
+      "name": "Alert-banner",
+      "key": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
+      "nodeId": "13732:3056",
+      "importMethod": "set",
+      "page": "Alert (banner)",
+      "description": "Static, high-visibility message placed at the top of a page or section.",
+      "variants": {
+        "Type": [
+          "Primary",
+          "Success",
+          "Warning",
+          "Danger"
+        ],
+        "Orientation'": [
+          "Horizontal",
+          "Vertical"
+        ]
+      },
+      "properties": {
+        "Show Icon#14881:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show close button#14881:5": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show action#14907:5": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "empty-state": {
+      "name": "Empty state",
+      "key": "0adc6b54a212315ebb16db7f5eea388276a1587b",
+      "nodeId": "9230:22073",
+      "importMethod": "set",
+      "page": "Empty state",
+      "description": "A placeholder shown when a container has no content.",
+      "variants": {
+        "Size": [
+          "Large",
+          "Medium",
+          "Small"
+        ]
+      },
+      "properties": {
+        "Medium illustration#9230:4": {
+          "type": "INSTANCE_SWAP",
+          "default": "8991:11401"
+        },
+        "Tertiary button#10964:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Primary button#10964:4": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Title#10964:8": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Body#10964:12": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Large illustration#10964:20": {
+          "type": "INSTANCE_SWAP",
+          "default": "8837:9944"
+        },
+        "Title content#10964:24": {
+          "type": "TEXT",
+          "default": "No policies available"
+        },
+        "Body content#10964:28": {
+          "type": "TEXT",
+          "default": "Create policies to define how your platform operates."
+        },
+        "Small Illustration#10966:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "10966:18012"
+        }
+      }
+    },
+    "error-state": {
+      "name": "Error state",
+      "key": "a219aa99ab9712f911f391af8dd623c18b281ccb",
+      "nodeId": "13087:34544",
+      "importMethod": "set",
+      "page": "Empty state",
+      "description": "A placeholder shown when a container has an error.",
+      "variants": {
+        "Size": [
+          "Large",
+          "Medium"
+        ]
+      },
+      "properties": {}
+    },
+    "confirmation": {
+      "name": "Confirmation",
+      "key": "41a7ce5d67baa4a49843fc0768bee6df42f945a7",
+      "nodeId": "13871:32310",
+      "importMethod": "set",
+      "page": "Empty state",
+      "description": "A placeholder shown when success.",
+      "variants": {
+        "Size": [
+          "Large"
+        ]
+      },
+      "properties": {}
+    },
+    "maintenance-state": {
+      "name": "Maintenance state",
+      "key": "4c187d32a069682c44d5ccd8744b9fe0709c894a",
+      "nodeId": "13871:32311",
+      "importMethod": "set",
+      "page": "Empty state",
+      "description": "A placeholder shown when maintenance.",
+      "variants": {
+        "Size": [
+          "Large"
+        ]
+      },
+      "properties": {}
+    },
+    "spinner": {
+      "name": "Spinner",
+      "key": "c4958a4a5d7aaac4fd262e3609204e7c110e3129",
+      "nodeId": "7372:2170",
+      "importMethod": "set",
+      "page": "Loading (Loader, Spinner, Skeleton)",
+      "description": "Indicates a background process is active. Use Spinner for small, localized actions.",
+      "variants": {
+        "Complete": [
+          "50%",
+          "75%",
+          "100%",
+          "25%"
+        ]
+      },
+      "properties": {}
+    },
+    "loader": {
+      "name": "Loader",
+      "key": "0cf73cc20fd0120418e60d904cff641ff38f4840",
+      "nodeId": "7372:2195",
+      "importMethod": "set",
+      "page": "Loading (Loader, Spinner, Skeleton)",
+      "description": "Indicates a background process is active. Use loader for large components.",
+      "variants": {
+        "Percent": [
+          "99%",
+          "10%",
+          "Percent3"
+        ]
+      },
+      "properties": {}
+    },
+    "loader-with-logo": {
+      "name": "Loader with logo",
+      "key": "688ff5c70f4d617faa022058078d47d6bafde817",
+      "nodeId": "14294:7650",
+      "importMethod": "set",
+      "page": "Loading (Loader, Spinner, Skeleton)",
+      "description": "Indicates a background process is active. Use loader with logo in transition between apps.",
+      "variants": {
+        "App": [
+          "Actian Data Intelligence",
+          "Studio",
+          "Explorer",
+          "Admin"
+        ]
+      },
+      "properties": {}
+    },
+    "loading-skeleton": {
+      "name": "Loading skeleton",
+      "key": "b798100889bf79e5b9b3c0bb28bafe9713342871",
+      "nodeId": "14294:8086",
+      "importMethod": "set",
+      "page": "Loading (Loader, Spinner, Skeleton)",
+      "description": "Indicates a background process is active. Use Skeleton for page-level transitions.",
+      "variants": {
+        "Transition": [
+          "1",
+          "2"
+        ]
+      },
+      "properties": {}
+    },
+    "maintenance-banner": {
+      "name": "Maintenance banner",
+      "key": "0b2532c1213a748aea1559458099a058bd486959",
+      "nodeId": "13868:11535",
+      "importMethod": "set",
+      "page": "Maintenance banner",
+      "description": "A specialized Alert variant for scheduled downtime or degraded performance.",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "notification": {
+      "name": "Notification",
+      "key": "590d2373b688235e8da72732919d2f874eee6cda",
+      "nodeId": "13868:11595",
+      "importMethod": "set",
+      "page": "Notification (Toast)",
+      "description": "Small, temporary overlay that appears at the edge of the screen.",
+      "variants": {
+        "Type": [
+          "Default",
+          "Critial"
+        ]
+      },
+      "properties": {}
+    },
+    "drawer-side-panel": {
+      "name": "Drawer, side panel",
+      "key": "3fe66a28fd56e3dbfd87a6f6be08df327bda27bf",
+      "nodeId": "14294:5758",
+      "importMethod": "set",
+      "page": "Drawer (Side panel)",
+      "description": "A container that slides from right side of the screen.",
+      "variants": {
+        "App": [
+          "Studio",
+          "Explorer"
+        ]
+      },
+      "properties": {
+        "Show Back#14294:18": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "modal": {
+      "name": "Modal",
+      "key": "2a2b287c2eb1c1c5e071d190e49f19891c937993",
+      "nodeId": "14175:14426",
+      "importMethod": "set",
+      "page": "Modal",
+      "description": "A centered dialog that blocks the main content.",
+      "variants": {
+        "Size & Type": [
+          "700px setting",
+          "1200px",
+          "900px create",
+          "900px edit",
+          "700px create",
+          "450px warning",
+          "450px confirm"
+        ],
+        "Dev status": [
+          "\ud83d\udfe2 Ready"
+        ]
+      },
+      "properties": {}
+    },
+    "popover": {
+      "name": "Popover",
+      "key": "6116aac0bacf92b34f2f796633953616ab9efd7c",
+      "nodeId": "14294:7345",
+      "importMethod": "set",
+      "page": "Popover",
+      "description": "A non-modal floating container triggered by a click.",
+      "variants": {
+        "Type": [
+          "Interaction guide",
+          "Advanced search"
+        ]
+      },
+      "properties": {
+        "Show info icon#14294:20": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "tooltip": {
+      "name": "Tooltip",
+      "key": "558adad968a5b5e1e3714307fb19de73d1ac6d21",
+      "nodeId": "7038:351",
+      "importMethod": "set",
+      "page": "Tooltip",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      },
+      "properties": {
+        "Body#7038:10": {
+          "type": "TEXT",
+          "default": "Body line text lorem ipsum dolor sit amet, consectetur"
+        }
+      }
+    },
+    "m-grid": {
+      "name": "M grid",
+      "key": "ed642e9bb87c7b5e1cdab020943ad2f999374a39",
+      "nodeId": "12054:30576",
+      "importMethod": "set",
+      "page": "Breakpoint, grid & structure",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default",
+          "Sid nav collapsed"
+        ]
+      },
+      "properties": {}
+    },
+    "l-grid": {
+      "name": "L grid",
+      "key": "8601f7461f9b21847400f69ebb63d7f591119987",
+      "nodeId": "12054:30598",
+      "importMethod": "set",
+      "page": "Breakpoint, grid & structure",
+      "description": "",
+      "variants": {
+        "Property": [
+          "Default",
+          "Side nav collapsed",
+          "Side nav expanded"
+        ]
+      },
+      "properties": {}
+    },
+    "xl-grid": {
+      "name": "XL grid",
+      "key": "d6b83246f85c6e57d45bbd35ec6d8acab2e16488",
+      "nodeId": "12054:30623",
+      "importMethod": "set",
+      "page": "Breakpoint, grid & structure",
+      "description": "",
+      "variants": {
+        "Property": [
+          "Default",
+          "Side nav collapsed",
+          "Side nav expanded"
+        ]
+      },
+      "properties": {}
+    },
+    "s-grid": {
+      "name": "S grid",
+      "key": "15772025d13a090b6327442a396f6f9757858031",
+      "nodeId": "14744:8072",
+      "importMethod": "set",
+      "page": "Breakpoint, grid & structure",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "xs-grid": {
+      "name": "XS grid",
+      "key": "e939d776621f097562d024535a10d5c011fd493c",
+      "nodeId": "14744:8073",
+      "importMethod": "set",
+      "page": "Breakpoint, grid & structure",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      },
+      "properties": {}
+    },
+    "illustration": {
+      "name": "Illustration",
+      "key": "00302ca7dc4298c719f19ca4766029909ecbeb9d",
+      "nodeId": "8837:9945",
+      "importMethod": "set",
+      "page": "Illustrations & graphics",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Empty state large",
+          "Empty state medium",
+          "Empty state small",
+          "Error state",
+          "Maintenance",
+          "Success",
+          "Error state medium"
+        ]
+      },
+      "properties": {}
+    },
+    "actian-pyramid": {
+      "name": "Actian pyramid",
+      "key": "84e6abe2e5b7dbe96a859397f557249922560413",
+      "nodeId": "7764:7688",
+      "importMethod": "set",
+      "page": "Product logos",
+      "description": "",
+      "variants": {
+        "Color": [
+          "Full color",
+          "White"
+        ]
+      },
+      "properties": {}
+    },
+    "actian-data-intelligence": {
+      "name": "Actian Data Intelligence",
+      "key": "2e53061b856da7a42b2328279d16718d252e0780",
+      "nodeId": "7764:7617",
+      "importMethod": "set",
+      "page": "Product logos",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Explorer",
+          "Data Intelligence",
+          "Studio",
+          "Admin"
+        ],
+        "Orientation": [
+          "Horizontal",
+          "Vertical"
+        ]
+      },
+      "properties": {}
+    },
+    "actian-data-observability": {
+      "name": "Actian Data Observability",
+      "key": "5f5d2ac2d74db9854ad09510d7b237090afd8a76",
+      "nodeId": "7764:7671",
+      "importMethod": "set",
+      "page": "Product logos",
+      "description": "",
+      "variants": {
+        "Color": [
+          "Full colo",
+          "White"
+        ],
+        "Layout": [
+          "Vertical",
+          "Horizontal"
+        ]
+      },
+      "properties": {}
+    },
+    "component-1": {
+      "name": "Component 1",
+      "key": "21e6d9f1dc0fd84b226c3a52649eb25bfb45105b",
+      "nodeId": "8927:9233",
+      "importMethod": "set",
+      "page": "Product logos",
+      "description": "",
+      "variants": {
+        "Layout": [
+          "Horizontal",
+          "Vertical"
+        ]
+      },
+      "properties": {}
+    },
+    "data-intelligence-dev-logo": {
+      "name": "Data Intelligence Dev Logo",
+      "key": "528044aaf9ab8b637aa37e94f67e60c5363cf751",
+      "nodeId": "12770:6655",
+      "importMethod": "set",
+      "page": "Product logos",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Dev Actian Data Intelligence Admin",
+          "Dev Actian Data Intelligence Explorer",
+          "Dev Actian Data Intelligence Studio"
+        ]
+      },
+      "properties": {}
+    },
+    "zeenea-logo": {
+      "name": "Zeenea logo",
+      "key": "b1071930165c007be3fe93de3f881d09794235ce",
+      "nodeId": "12770:6651",
+      "importMethod": "set",
+      "page": "Product logos",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Dev Logo Explorer",
+          "Dev Logo Studio",
+          "Dev Logo Zenea Corporate",
+          "Favicon Zeenea 1",
+          "Logo Explorer",
+          "Logo Studio",
+          "Logo Zenea Corporate",
+          "Favicon Explorer",
+          "Favicon Studio"
+        ]
+      },
+      "properties": {}
+    },
+    "pointer-with-line": {
+      "name": ".Pointer with line",
+      "key": "4d02ff8d5a86a66d96adf3497dab35e7ef75c2fa",
+      "nodeId": "7148:410",
+      "importMethod": "set",
+      "page": "Local components",
+      "description": "",
+      "variants": {
+        "Label": [
+          "Number",
+          "Text",
+          "Token"
+        ],
+        "Line": [
+          "Up",
+          "Down",
+          "Left",
+          "Right"
+        ]
+      },
+      "properties": {}
+    },
+    "notes-feedback": {
+      "name": "Notes/Feedback",
+      "key": "4f1fba9d4ba4dd56ef8f60b7190456bf824a2089",
+      "nodeId": "8662:6474",
+      "importMethod": "single",
+      "page": "Local components",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "cell": {
+      "name": "cell",
+      "key": "29570f59b76e836279c8d76f2309652181042c4d",
+      "nodeId": "10442:1855",
+      "importMethod": "set",
+      "page": "Local components",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default",
+          "Color #value",
+          "Tag"
+        ]
+      },
+      "properties": {
+        "Text#10442:0": {
+          "type": "TEXT",
+          "default": "Light Mode"
+        }
+      }
+    },
+    "spec": {
+      "name": ".spec",
+      "key": "67a84f1ecfa2a9c815d452feb5f6ffa726eca55d",
+      "nodeId": "13571:27572",
+      "importMethod": "set",
+      "page": "Local components",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Spacing"
+        ],
+        "Size": [
+          "Default",
+          "Variant2",
+          "Variant3",
+          "Variant4",
+          "Variant5",
+          "Variant6"
+        ]
+      },
+      "properties": {}
+    }
+  }
+}

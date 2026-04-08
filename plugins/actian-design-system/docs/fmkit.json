@@ -1,0 +1,783 @@
+{
+  "library": "fm",
+  "fileKey": "X2JSEUyLvxyNCx22ucOexn",
+  "lastSynced": "2026-04-08T14:26:07.883Z",
+  "componentCount": 33,
+  "components": {
+    "sticky-note": {
+      "name": "Sticky note",
+      "key": "9b4f450c92de6178731d1eca0f03f42ac3f64085",
+      "nodeId": "139:2309",
+      "importMethod": "set",
+      "page": "Fat Marker",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default",
+          "Critical"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-app-header": {
+      "name": "FM App_header",
+      "key": "8fc9bcee610c7f8d22ebcc268467993f6dc99c87",
+      "nodeId": "67:1858",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "Top-level application header bar. Contains the Actian logo, product label, and user avatar. Use at the top of every screen mockup.",
+      "variants": {
+        "Type": [
+          "Admin",
+          "Explorer",
+          "Studio",
+          "Actian"
+        ]
+      },
+      "properties": {
+        "Show Context inputs#186:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "fm-badge": {
+      "name": "FM Badge",
+      "key": "2410b87c83d33d3bcb2a6ac7aa2168a53a4eb3d8",
+      "nodeId": "8:22406",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "Type": [
+          "Icon",
+          "Number",
+          "Number Expand"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-button": {
+      "name": "FM Button",
+      "key": "368b62312ca941c80ea8eeed84a57d33bb470b09",
+      "nodeId": "8:21044",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Size": [
+          "md",
+          "sm"
+        ],
+        "Shape": [
+          "Regular",
+          "Pill"
+        ],
+        "Type": [
+          "Primary",
+          "Secondary",
+          "Outline",
+          "Destructive"
+        ],
+        "State": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Leading Icon#1410:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "9:1404"
+        },
+        "👁 Leading Icon#1410:3": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "👁 Trailing Icon#1410:6": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Trailing Icon#1410:9": {
+          "type": "INSTANCE_SWAP",
+          "default": "9:1404"
+        },
+        "Label#1411:32": {
+          "type": "TEXT",
+          "default": "Button label"
+        }
+      }
+    },
+    "fm-chip": {
+      "name": "FM Chip",
+      "key": "0861d937682e66d39f57fe52ca83d526e634ff66",
+      "nodeId": "8:22389",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Outline": [
+          "False",
+          "True"
+        ]
+      },
+      "properties": {
+        "Icon#163:337": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "↳ Icon#163:340": {
+          "type": "INSTANCE_SWAP",
+          "default": "9:1404"
+        }
+      }
+    },
+    "fm-checkbox": {
+      "name": "FM Checkbox",
+      "key": "965cf2c85659bbde891f6f086bbd02d50d445d58",
+      "nodeId": "8:21147",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "State": [
+          "Off",
+          "On"
+        ],
+        "Style": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-radio-button": {
+      "name": "FM Radio button",
+      "key": "1569353eb82fd5f6cb8da979f1048cd1b323e8c4",
+      "nodeId": "8:21160",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "State": [
+          "On",
+          "Off"
+        ],
+        "Style": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Show Label#1072:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "fm-toggle": {
+      "name": "FM Toggle",
+      "key": "fe9e82118d1df75a8aea732eb7f9169ccaa21878",
+      "nodeId": "8:21173",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "On/off toggle switch.",
+      "variants": {
+        "State": [
+          "Off",
+          "On"
+        ],
+        "Style": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-slider": {
+      "name": "FM Slider",
+      "key": "181d7f761179e7ce2f2849ae5c73989177d3a3c6",
+      "nodeId": "8:21194",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Progress": [
+          "0%",
+          "25%",
+          "50%",
+          "75%",
+          "100%"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-cursor": {
+      "name": "FM Cursor",
+      "key": "0f68684930c7e7a364121853baafe23fdb921730",
+      "nodeId": "8:21470",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Cursor Type": [
+          "Link",
+          "Pointer",
+          "Dragging",
+          "Text"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-empty-state": {
+      "name": "FM Empty State",
+      "key": "cf44b9c0b5623a394d90f320f98250dc77378268",
+      "nodeId": "228:2994",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "Empty or zero-data state placeholder.",
+      "variants": {
+        "Type": [
+          "Default",
+          "Compact"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-icon-buttons": {
+      "name": "FM Icon Buttons",
+      "key": "f868aabb0aa2c52f00610c09da8dce3bccc79dc4",
+      "nodeId": "8:21121",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Primary",
+          "Secondary",
+          "Outline"
+        ],
+        "State": [
+          "Default",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Icon#1470:32": {
+          "type": "INSTANCE_SWAP",
+          "default": "8:20614"
+        }
+      }
+    },
+    "fm-dropdown": {
+      "name": "FM Dropdown",
+      "key": "781f86dca2a37706771f3e2e580242d2693a722f",
+      "nodeId": "8:21420",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "Single-select dropdown.",
+      "variants": {
+        "Type": [
+          "Placeholder",
+          "Open",
+          "Disabled",
+          "Filled"
+        ]
+      },
+      "properties": {
+        "Show label#176:13": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "fm-multi-select-dropdown": {
+      "name": "FM Multi-select dropdown",
+      "key": "876bfa32334594915085ebea82f1f887b3fecb09",
+      "nodeId": "8:21443",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Placeholder",
+          "Disabled",
+          "Open Multi-select",
+          "Filled",
+          "User Filled"
+        ]
+      },
+      "properties": {
+        "Show label#176:18": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Dropdown Text#1411:84": {
+          "type": "TEXT",
+          "default": "Select"
+        }
+      }
+    },
+    "fm-text-input-field": {
+      "name": "FM Text input field",
+      "key": "355855c7b2e05b5b336167883b3c9ebbfbd881ad",
+      "nodeId": "8:21220",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Empty",
+          "Placeholder",
+          "Default",
+          "Disabled"
+        ]
+      },
+      "properties": {
+        "Show label#176:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Leading Icon#1411:36": {
+          "type": "INSTANCE_SWAP",
+          "default": "8:20720"
+        },
+        "Trailing Icon#1411:43": {
+          "type": "INSTANCE_SWAP",
+          "default": "8:20720"
+        },
+        "Input Text#1411:57": {
+          "type": "TEXT",
+          "default": "Input text"
+        },
+        "👁 Leading Icon#1411:74": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "👁 Trailing Icon#1411:76": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      }
+    },
+    "fm-text-area": {
+      "name": "FM Text Area",
+      "key": "bba14eea66edb3871ea389afeb4e1a07585e5733",
+      "nodeId": "8:21882",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Content": [
+          "None",
+          "Placeholder",
+          "Filled"
+        ]
+      },
+      "properties": {
+        "Show label#176:5": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "fm-search-input-field": {
+      "name": "FM Search input field",
+      "key": "443e232d5454f06dbd5bc06c2cacf21e80a20e4a",
+      "nodeId": "8:21302",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Empty",
+          "Placeholder",
+          "Filled"
+        ]
+      },
+      "properties": {
+        "Show label#176:9": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Input Text#1411:57": {
+          "type": "TEXT",
+          "default": "my search terms"
+        }
+      }
+    },
+    "fm-date-input": {
+      "name": "FM Date input",
+      "key": "69d6329ea2d5ac3515b6ebb04ad6c1bd72e4890e",
+      "nodeId": "8:21321",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "State": [
+          "Default",
+          "Open",
+          "Placeholder"
+        ]
+      },
+      "properties": {
+        "Input Text#1451:1": {
+          "type": "TEXT",
+          "default": "MM / DD / YYYY"
+        }
+      }
+    },
+    "fm-progress-bar": {
+      "name": "FM Progress bar",
+      "key": "12abe66d36a63ef385a17e2553a1312560a0f106",
+      "nodeId": "8:21584",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Completion": [
+          "10%",
+          "20%",
+          "30%",
+          "40%",
+          "50%",
+          "60%",
+          "70%",
+          "80%",
+          "90%",
+          "100%"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-menu-item": {
+      "name": "FM Menu item",
+      "key": "6d3a9c26c31762f832a3a95033c1594edf33da72",
+      "nodeId": "8:21652",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "State": [
+          "Default",
+          "Hover",
+          "Active"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-multi-select-menu-item": {
+      "name": "FM Multi-select menu item",
+      "key": "56ad08f30372948c12ebb989e47e6260342eab52",
+      "nodeId": "8:21659",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "State": [
+          "On",
+          "Off",
+          "User Off"
+        ]
+      },
+      "properties": {
+        "Dropdown item text#1428:2": {
+          "type": "TEXT",
+          "default": "Dropdown item"
+        }
+      }
+    },
+    "fm-side-navigation-bar": {
+      "name": "FM Side navigation bar",
+      "key": "1e8673ccc2818b68f9faabb99757bfd44af2b592",
+      "nodeId": "1020:2324",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Property 1": [
+          "Default",
+          "Slim"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-side-navigation-item": {
+      "name": "FM Side navigation item",
+      "key": "d18a0a772ed4acd760c497cb93de796ff052a7b4",
+      "nodeId": "8:21525",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "State": [
+          "On",
+          "Off",
+          "Placeholder"
+        ]
+      },
+      "properties": {
+        "Show icon#166:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show Label#1020:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Label#1463:4": {
+          "type": "TEXT",
+          "default": "Nav Item"
+        },
+        "Icon#1503:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "9:1404"
+        },
+        "Chevron#1507:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "fm-placeholder": {
+      "name": "FM Placeholder",
+      "key": "e49a9de0573cf527736e8173f722f230fa957fb8",
+      "nodeId": "86:716",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Type": [
+          "Label+1line",
+          "Label+3lines",
+          "Label+6lines",
+          "Label+avatars",
+          "metric"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-table-cell": {
+      "name": "FM Table Cell",
+      "key": "9267fecfadc4577563deb1425fa598d1f5af9144",
+      "nodeId": "8:21551",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "Table cell for data tables.",
+      "variants": {
+        "Type": [
+          "Header",
+          "Text",
+          "Pill",
+          "Placeholder"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-tab": {
+      "name": "FM Tab",
+      "key": "cfbd732ff4f4e6620b333c60f1ac7fe5116a93aa",
+      "nodeId": "8:21619",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "Tab for switching between views.",
+      "variants": {
+        "State": [
+          "On",
+          "Off",
+          "Placeholder"
+        ]
+      },
+      "properties": {
+        "Show Icon#20:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      }
+    },
+    "fm-tag": {
+      "name": "FM Tag",
+      "key": "c7239d9355ddf557f36f4d159153619672ab81ef",
+      "nodeId": "8:22396",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Style": [
+          "Filled",
+          "Outline",
+          "Light"
+        ]
+      },
+      "properties": {
+        "Icon Right#50:0": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "↳ Icon R#50:8": {
+          "type": "INSTANCE_SWAP",
+          "default": "9:1404"
+        },
+        "Icon Left#163:343": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "↳ Icon L#163:347": {
+          "type": "INSTANCE_SWAP",
+          "default": "9:1404"
+        }
+      }
+    },
+    "fm-toast": {
+      "name": "FM Toast",
+      "key": "6140b137ce98ebfeeb7fc7e426f6d09de1cc18d0",
+      "nodeId": "8:21566",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Style": [
+          "Standard",
+          "Outline"
+        ]
+      },
+      "properties": {
+        "Icon#1485:2": {
+          "type": "INSTANCE_SWAP",
+          "default": "8:20570"
+        }
+      }
+    },
+    "fm-tooltip": {
+      "name": "FM Tooltip",
+      "key": "82fc81413312e7e69981169db50003765cf94423",
+      "nodeId": "8:22316",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {
+        "Position": [
+          "Left",
+          "Left Top",
+          "Left Bottom",
+          "Right",
+          "Right Top",
+          "Right Bottom",
+          "Top",
+          "Top Left",
+          "Top Right",
+          "Bottom",
+          "Bottom Left",
+          "Bottom Right"
+        ]
+      },
+      "properties": {
+        "Icon#163:311": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "↳ Icon#163:324": {
+          "type": "INSTANCE_SWAP",
+          "default": "2:5"
+        }
+      }
+    },
+    "fm-input-label": {
+      "name": "FM Input Label",
+      "key": "a39aa1c7cb593f7d26b7659e4cbe4e419e00c766",
+      "nodeId": "23:1207",
+      "importMethod": "set",
+      "page": "Fat Marker",
+      "description": "",
+      "variants": {
+        "Disabled": [
+          "No",
+          "Yes"
+        ],
+        "Type": [
+          "Text",
+          "Placeholder"
+        ]
+      },
+      "properties": {
+        "Caption#1555:9": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Required#1555:10": {
+          "type": "BOOLEAN",
+          "default": false
+        },
+        "Label Text#1555:11": {
+          "type": "TEXT",
+          "default": "Label"
+        },
+        "Caption Text#1555:12": {
+          "type": "TEXT",
+          "default": "Caption"
+        }
+      }
+    },
+    "fm-page-header": {
+      "name": "FM Page Header",
+      "key": "ae1f8684a4a89aa74463d439e4e8c1e7a48137fe",
+      "nodeId": "979:3117",
+      "importMethod": "set",
+      "page": "Container",
+      "description": "Page title area with optional subtitle and action buttons.",
+      "variants": {
+        "Type": [
+          "Title only",
+          "Title + Subtitle",
+          "Title + Actions"
+        ]
+      },
+      "properties": {
+        "Title#979:22": {
+          "type": "TEXT",
+          "default": "Page Title"
+        },
+        "Subtitle#979:23": {
+          "type": "TEXT",
+          "default": "Description text"
+        }
+      }
+    },
+    "fm-alert": {
+      "name": "FM Alert",
+      "key": "fe30f37740688350762bd2b1be426d9d1588b7d9",
+      "nodeId": "1052:9637",
+      "importMethod": "set",
+      "page": "Fat Marker",
+      "description": "Inline feedback message.",
+      "variants": {
+        "Type": [
+          "Success",
+          "Error",
+          "Warning"
+        ]
+      },
+      "properties": {}
+    },
+    "fm-stepper": {
+      "name": "FM Stepper",
+      "key": "d0a21b5288571cc7690c6c9289d18cd298035c53",
+      "nodeId": "1052:9653",
+      "importMethod": "set",
+      "page": "Fat Marker",
+      "description": "Step indicator for multi-step wizard flows.",
+      "variants": {
+        "State": [
+          "Active",
+          "Complete",
+          "Upcoming"
+        ]
+      },
+      "properties": {}
+    }
+  }
+}
