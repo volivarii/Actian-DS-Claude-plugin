@@ -119,13 +119,19 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
   --output-dir {project_working_directory}/components/[name]/.figma-calls
 ```
 
-Read `manifest.json`. Push scaffold first, then all fills in parallel:
+Read `manifest.json`. Push uses **stage + execute** — no file over 25KB:
 
-1. Read `scaffold.js` → pass entire content to `use_figma` (creates wrapper + named section frames)
-2. Read ALL `fill-N.js` files → push ALL via **parallel** `use_figma` calls (one tool call per fill, all in the same message). These are independent — no ordering required.
-3. If any fill fails, retry that fill alone. Other fills are unaffected.
+1. Read `scaffold.js` (~22KB) → `use_figma` (creates wrapper + named section frames)
+2. For each fill, read `fill-N.spec.json` (compact, ~20KB) → `use_figma` to stage it:
+   ```
+   figma.root.setSharedPluginData("actian_ds", "fill_N", JSON.stringify(<paste spec content here>));
+   figma.root.setSharedPluginData("actian_ds", "fill_count", "N");
+   return "stored fill N";
+   ```
+   Replace `N` with the fill index. Replace `<paste spec content here>` with the JSON from the spec file (it's valid JS — paste directly). The last store call sets `fill_count` to the total number of fills.
+3. Read `executor.js` (~22KB) → `use_figma` (reads all stored specs from plugin data, builds everything)
 
-Each `.js` file is pre-assembled (runtime + spec) — never manually reassemble. Never read `runtime.js` at push time.
+**Never read** `fill-N.js`, `fill-N.json`, or `runtime.js` at push time — those are for debugging only.
 
 ## Incremental update (when fixing specific cards after initial push)
 
@@ -141,7 +147,7 @@ When the user asks to fix or update specific cards (e.g., "card 3's anatomy is w
      --output-dir {project_working_directory}/components/[name]/.figma-calls \
      --fill N
    ```
-4. Push only the regenerated `fill-N.js` → `use_figma` (the fill finds its section by name and replaces content)
+4. Stage only the regenerated `fill-N.spec.json` → then push `executor.js` (it re-fills only the changed section)
 
 ## Step 4 — Parity check
 

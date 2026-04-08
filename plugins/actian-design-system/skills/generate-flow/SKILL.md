@@ -28,13 +28,13 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/flow-to-figma.js" flow-data.json --target-node-id "<nodeId>" --output-dir {project_working_directory}/components/flows/.figma-calls
    ```
-   Read `manifest.json`. Push scaffold first, then all fills in parallel:
-   1. Read `scaffold.js` → pass entire content to `use_figma` (creates wrapper + named section frames)
-   2. Read ALL `fill-N.js` files → push ALL via **parallel** `use_figma` calls. These are independent — no ordering required.
-   3. If any fill fails, retry that fill alone.
+   Read `manifest.json`. Push uses **stage + execute** — no file over 25KB:
+   1. Read `scaffold.js` (~22KB) → `use_figma` (creates wrapper + named section frames)
+   2. For each fill, read `fill-N.spec.json` (~15-20KB) → `use_figma` to stage: `figma.root.setSharedPluginData("actian_ds", "fill_N", JSON.stringify(<spec content>)); figma.root.setSharedPluginData("actian_ds", "fill_count", "N"); return "stored fill N";`
+   3. Read `executor.js` (~22KB) → `use_figma` (reads stored specs, builds everything)
 
-   Each `.js` file is pre-assembled — never manually reassemble. Never read `runtime.js` at push time.
-   - **Incremental update** (when fixing specific screens after initial push): Update the screen data in `flow-data.json`, read `.figma-calls/manifest.json` → `unitMap.screen_N` (0-indexed), re-run `flow-to-figma.js` with `--fill M` where M is the fill index, push only `fill-M.js` → `use_figma`.
+   **Never read** `fill-N.js`, `fill-N.json`, or `runtime.js` at push time.
+   - **Incremental update** (when fixing specific screens after initial push): Update the screen data in `flow-data.json`, read `.figma-calls/manifest.json` → `unitMap.screen_N` (0-indexed), re-run `flow-to-figma.js` with `--fill M` where M is the fill index, stage `fill-M.spec.json` → push `executor.js`.
 6. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"

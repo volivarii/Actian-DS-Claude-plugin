@@ -393,20 +393,28 @@ function writeCallFiles(outputDir, calls, unitMap, callFilter) {
 }
 
 /**
- * Write call files in scaffold+fill format with pre-assembled .js files.
+ * Write call files in scaffold + stage + execute format.
+ *
+ * Push flow (what the agent does):
+ *   1. Read scaffold.js → use_figma (creates wrapper + named sections)
+ *   2. For each fill: read fill-N.spec.json (compact, <25KB) → use_figma to store
+ *      in shared plugin data
+ *   3. Read executor.js → use_figma (reads all stored specs, builds everything)
  *
  * Output:
  *   outputDir/
- *   ├── manifest.json          (v2 format with scaffold + fills)
- *   ├── runtime.js             (interpreter source, for debugging)
- *   ├── scaffold.js            (pre-assembled: runtime + scaffold spec)
- *   ├── scaffold.json          (scaffold spec only, for debugging)
- *   ├── fill-1.js              (pre-assembled: runtime + fill spec)
- *   ├── fill-1.json            (fill spec only, for debugging)
- *   └── fill-N.js / .json      ...
+ *   ├── manifest.json            (v2 manifest)
+ *   ├── scaffold.js              (pre-assembled, ~22KB)
+ *   ├── executor.js              (runtime + batch loader, ~22KB)
+ *   ├── fill-1.spec.json         (compact spec for staging, <25KB)
+ *   ├── fill-N.spec.json         ...
+ *   ├── runtime.js               (debugging only)
+ *   ├── scaffold.json            (debugging only)
+ *   ├── fill-1.json              (pretty spec, debugging only)
+ *   └── fill-1.js                (pre-assembled, debugging/fallback only)
  *
  * @param {string} outputDir
- * @param {object} scaffoldSpec - Spec for the scaffold call (creates wrapper + sections)
+ * @param {object} scaffoldSpec - Spec for the scaffold call
  * @param {Array<{fillIndex: number, spec: object, description: string, sectionKey: string}>} fills
  * @param {object} unitMap - Card/screen/slide → fill index mapping
  * @param {number|null} fillFilter - If set, only write this specific fill index
@@ -432,9 +440,27 @@ function writeCallFilesV2(outputDir, scaffoldSpec, fills, unitMap, fillFilter) {
     fs.writeFileSync(path.join(outputDir, "scaffold.js"), scaffoldCode, "utf8");
   }
 
+  // Write executor (runtime + batch loader that reads specs from plugin data)
+  var executorCode =
+    runtimeSource +
+    "\n" +
+    "var _fillCount = parseInt(figma.root.getSharedPluginData('actian_ds', 'fill_count') || '0');\n" +
+    "var _results = [];\n" +
+    "for (var _i = 1; _i <= _fillCount; _i++) {\n" +
+    "  var _specJSON = figma.root.getSharedPluginData('actian_ds', 'fill_' + _i);\n" +
+    "  if (!_specJSON) continue;\n" +
+    "  var _spec = JSON.parse(_specJSON);\n" +
+    "  var _r = await buildFromSpec(_spec);\n" +
+    "  _results.push({ fill: _i, result: _r });\n" +
+    "  figma.root.setSharedPluginData('actian_ds', 'fill_' + _i, '');\n" +
+    "}\n" +
+    "figma.root.setSharedPluginData('actian_ds', 'fill_count', '');\n" +
+    "return { message: 'Executed ' + _results.length + ' fills', results: _results };\n";
+  fs.writeFileSync(path.join(outputDir, "executor.js"), executorCode, "utf8");
+
   var manifest = {
     version: 2,
-    totalCalls: 1 + fills.length,
+    totalCalls: 1 + fills.length + 1,
     unitMap: unitMap,
     scaffold: {
       file: "scaffold.js",
@@ -445,6 +471,12 @@ function writeCallFilesV2(outputDir, scaffoldSpec, fills, unitMap, fillFilter) {
       }),
       description: "Creates wrapper + " + fills.length + " section frames",
     },
+    executor: {
+      file: "executor.js",
+      sizeBytes: Buffer.byteLength(executorCode, "utf8"),
+      description:
+        "Reads all stored fill specs from plugin data, builds everything",
+    },
     fills: [],
   };
 
@@ -452,30 +484,34 @@ function writeCallFilesV2(outputDir, scaffoldSpec, fills, unitMap, fillFilter) {
     var f = fills[i];
     var fillJSON = JSON.stringify(f.spec, null, 2);
     var fillCode = assembleCall(f.spec);
+    var compactSpec = JSON.stringify(f.spec);
     var jsFile = "fill-" + f.fillIndex + ".js";
     var jsonFile = "fill-" + f.fillIndex + ".json";
+    var specFile = "fill-" + f.fillIndex + ".spec.json";
 
     if (!fillFilter || f.fillIndex === fillFilter) {
       fs.writeFileSync(path.join(outputDir, jsonFile), fillJSON, "utf8");
       fs.writeFileSync(path.join(outputDir, jsFile), fillCode, "utf8");
+      fs.writeFileSync(path.join(outputDir, specFile), compactSpec, "utf8");
     }
 
-    var codeSize = Buffer.byteLength(fillCode, "utf8");
-    if (codeSize > 50000) {
+    var specBytes = Buffer.byteLength(compactSpec, "utf8");
+    if (specBytes > 25000) {
       process.stderr.write(
         "WARNING: fill-" +
           f.fillIndex +
-          " exceeds 50KB use_figma limit (" +
-          codeSize +
-          " bytes)\n",
+          " spec exceeds 25KB (" +
+          specBytes +
+          " bytes) — may be slow to stage\n",
       );
     }
 
     manifest.fills.push({
       fillIndex: f.fillIndex,
       file: jsFile,
-      specFile: jsonFile,
-      sizeBytes: codeSize,
+      specFile: specFile,
+      prettyFile: jsonFile,
+      specBytes: specBytes,
       sectionKey: f.sectionKey,
       description: f.description,
     });

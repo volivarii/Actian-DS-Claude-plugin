@@ -146,7 +146,7 @@ for (const test of TESTS) {
     fs.copyFileSync(manifestPath, path.join(snapshotDir, "manifest.json"));
 
     if (manifest.version === 2) {
-      // V2: scaffold + fills
+      // V2: scaffold + fills + executor
       fs.copyFileSync(
         path.join(outputDir, manifest.scaffold.file),
         path.join(snapshotDir, manifest.scaffold.file),
@@ -155,6 +155,12 @@ for (const test of TESTS) {
         path.join(outputDir, manifest.scaffold.specFile),
         path.join(snapshotDir, manifest.scaffold.specFile),
       );
+      if (manifest.executor) {
+        fs.copyFileSync(
+          path.join(outputDir, manifest.executor.file),
+          path.join(snapshotDir, manifest.executor.file),
+        );
+      }
       for (const fill of manifest.fills) {
         fs.copyFileSync(
           path.join(outputDir, fill.file),
@@ -164,9 +170,16 @@ for (const test of TESTS) {
           path.join(outputDir, fill.specFile),
           path.join(snapshotDir, fill.specFile),
         );
+        // Copy pretty file for reference
+        if (fill.prettyFile) {
+          fs.copyFileSync(
+            path.join(outputDir, fill.prettyFile),
+            path.join(snapshotDir, fill.prettyFile),
+          );
+        }
       }
       console.log(
-        `UPDATED [${test.name}] v2: scaffold + ${manifest.fills.length} fill(s)`,
+        `UPDATED [${test.name}] v2: scaffold + ${manifest.fills.length} fill(s) + executor`,
       );
     } else {
       // V1: runtime + calls
@@ -229,6 +242,17 @@ for (const test of TESTS) {
         outputDir,
         snapshotDir,
         fname,
+        test.name,
+        testPassed,
+      );
+    }
+
+    // Compare executor
+    if (manifest.executor) {
+      testPassed = compareFile(
+        outputDir,
+        snapshotDir,
+        manifest.executor.file,
         test.name,
         testPassed,
       );
