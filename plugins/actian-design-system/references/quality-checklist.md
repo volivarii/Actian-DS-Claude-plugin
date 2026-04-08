@@ -25,7 +25,7 @@ These checks apply to every output — component briefs, flows, presentations, a
 | 11 | **Component description filled** | P1 | Every main component has a filled Description field stating what it does, when to use it, and constraints. |
 | 12 | **WCAG AA contrast** | P0 | Every foreground/background pair passes WCAG AA — 4.5:1 for normal text, 3:1 for large text and UI elements. Disabled states exempt but distinguishable. |
 | 13 | **Template compliance** | P1 | When Meta Kit templates are available (registry keys are not `"PENDING"`), builders use clone-and-fill pattern instead of raw frame construction. Check for `cloneTemplate()` calls in `use_figma` code. |
-| 14 | **Registry keys valid** | P1 | All component keys referenced in `use_figma` code exist in the corresponding registry JSON (`meta-kit-registry.json`, `fm-components-registry.json`, or `dskit-components-registry.json`). No `"PENDING"` keys used in production output. |
+| 14 | **Registry keys valid** | P1 | All component keys referenced in `use_figma` code exist in the corresponding registry JSON (`metakit.json`, `fmkit.json`, or `dskit.json`). No `"PENDING"` keys used in production output. |
 
 ### HTML translation
 

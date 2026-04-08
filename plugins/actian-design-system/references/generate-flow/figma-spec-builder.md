@@ -178,7 +178,7 @@ Use `ref` names from the FM component table below. The script auto-resolves impo
 | `fmSpinner` | Spinner | (single component) |
 | `fmProgressBar` | Progress bar | `Completion=10%\|20%\|...\|100%` |
 
-**Set ALL properties on every instance** — text, boolean, and nested properties. Never leave defaults like "Label", "Button", "Caption Text". Check `docs/fm-components-registry.json` for each component's `textOverrides` and `booleanProperties`.
+**Set ALL properties on every instance** — text, boolean, and nested properties. Never leave defaults like "Label", "Button", "Caption Text". Check `docs/fmkit.json` for each component's `properties` (with exact hash-suffixed names).
 
 **Button example** — hide icons, set label:
 ```json

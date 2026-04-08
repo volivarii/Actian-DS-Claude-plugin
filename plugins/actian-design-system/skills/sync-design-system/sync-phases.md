@@ -440,14 +440,14 @@ function toRegistryEntry(comp) {
    - `componentCount`: total number of components
    - `components`: object keyed by slug (lowercase, hyphenated component name)
 
-4. **Meta Kit special handling:** Preserve the `templates` section from the existing `meta-kit-registry.json` — do not overwrite template keys during sync. Read the existing file first, merge: keep all template entries unchanged, update only the `components` section from extraction.
+4. **Meta Kit special handling:** Preserve the `templates` section from the existing `metakit.json` — do not overwrite template keys during sync. Read the existing file first, merge: keep all template entries unchanged, update only the `components` section from extraction.
 
 5. Generate `docs/meta-kit/meta-kit-reference.md` as auto-generated human-readable table:
 
 ```markdown
 # Meta Kit Registry Reference
 
-> Auto-generated from `meta-kit-registry.json` — do not edit manually.
+> Auto-generated from `metakit.json` — do not edit manually.
 
 ## Templates
 
@@ -465,9 +465,9 @@ function toRegistryEntry(comp) {
 ```
 
 **Output files per library:**
-- DS Kit: `docs/dskit-components-registry.json` (replaces existing seed)
-- FM: `docs/fm-components-registry.json` (replaces existing seed)
-- Meta Kit: `docs/meta-kit/meta-kit-registry.json` (merge with existing) + `docs/meta-kit/meta-kit-reference.md` (auto-generated)
+- DS Kit: `docs/dskit.json` (full registry with keys, variants, properties)
+- FM Kit: `docs/fmkit.json` (full registry with keys, variants, properties)
+- Meta Kit: `docs/metakit.json` (full registry with keys, templates, properties)
 
 ---
 

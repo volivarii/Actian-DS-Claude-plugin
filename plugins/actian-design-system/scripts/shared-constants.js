@@ -4,229 +4,164 @@
  * shared-constants.js — Single source of truth for constants used across codegen scripts.
  *
  * Imported by flow-to-figma.js, brief-to-figma.js, and slide-to-figma.js.
- * Change a component key HERE, not in 3 places.
+ * Component keys and methods are read from registry JSON files (docs/*.json).
+ * Only the ref-name → slug mapping is maintained here.
  */
 
+const fs = require("fs");
+const path = require("path");
+
 // ---------------------------------------------------------------------------
-// Meta Kit component keys (shared across skills)
+// Registry loader — reads JSON registries from docs/
 // ---------------------------------------------------------------------------
 
-const META_KEYS = {
-  genLog: { key: "a9653f30925367e96dea90093d750bfe70849571", method: "single" },
-  divider: {
-    key: "f4d778e1cf9bb61a33712c791486f54bb1c095b7",
-    method: "single",
-  },
-  codeBlock: {
-    key: "1bf10eee1751a46da5f90a9671be6c9abf0073b7",
-    method: "single",
-  },
-  flowCoverCard: {
-    key: "eaebde6bd07d2f19f3f9c00a9587240cb085a90d",
-    method: "single",
-  },
-  researchFrame: {
-    key: "e671618f2b4c6ea406a995fdc3012ac54eadfe56",
-    method: "single",
-  },
-  feedback: { key: "d5cba21bc3dbf36578665bac89834fbe1ca29ed0", method: "set" },
-  flowScreen: {
-    key: "2ca7c756ad54e81219104d3a270ba8eb9eeffcf6",
-    method: "set",
-  },
+const _registryCache = {};
+function loadRegistry(name) {
+  if (!_registryCache[name]) {
+    const filePath = path.join(__dirname, "..", "docs", name + ".json");
+    _registryCache[name] = JSON.parse(fs.readFileSync(filePath, "utf8"));
+  }
+  return _registryCache[name];
+}
+
+/**
+ * Build a { refName: { key, method } } map from a registry + slug mapping.
+ * @param {string} registryName - "metakit", "fmkit", or "dskit"
+ * @param {object} slugMap - { refName: slug } where slug is the key in registry.components
+ * @param {string} [section] - "components" (default) or "templates"
+ */
+function buildKeyMap(registryName, slugMap, section) {
+  var registry = loadRegistry(registryName);
+  var store = registry[section || "components"];
+  var result = {};
+  for (var ref in slugMap) {
+    var slug = slugMap[ref];
+    var entry = store[slug];
+    if (entry) {
+      result[ref] = {
+        key: entry.key,
+        method: entry.importMethod === "set" ? "set" : "single",
+      };
+    }
+  }
+  return result;
+}
+
+/**
+ * Look up full properties for a component by ref name.
+ * @param {string} registryName
+ * @param {object} slugMap
+ * @param {string} refName
+ * @returns {object|null} Properties object with hash-suffixed names
+ */
+function getProperties(registryName, slugMap, refName) {
+  var slug = slugMap[refName];
+  if (!slug) return null;
+  var registry = loadRegistry(registryName);
+  var entry = registry.components[slug];
+  return entry ? entry.properties || {} : null;
+}
+
+// ---------------------------------------------------------------------------
+// Ref-name → registry-slug mappings (only source of duplication)
+// ---------------------------------------------------------------------------
+
+const META_SLUGS = {
+  genLog: "meta-/-chrome-/-generation-log",
+  divider: "meta-/-utility-/-card-divider",
+  codeBlock: "meta-/-content-/-code-block",
+  flowCoverCard: "meta-/-chrome-/-flow-cover-card",
+  researchFrame: "meta-/-content-/-research-frame",
+  feedback: "meta-/-chrome-/-feedback",
+  flowScreen: "meta-/-chrome-/-flow-screen",
+};
+
+const BRIEF_SLUGS = {
+  briefCard: "meta-/-chrome-/-brief-card",
+  doDontPair: "meta-/-content-/-do-don't-pair",
+  contrastBadge: "meta-/-content-/-contrast-badge",
+  pointerBadge: "meta-/-content-/-pointer-badge",
+  dimAnnotation: "meta-/-content-/-dimension-annotation",
+  a11yCard: "meta-/-chrome-/-accessibility-card",
+  colorSwatch: "meta-/-content-/-color-swatch",
+  themeCard: "meta-/-chrome-/-theme-card",
+  statCard: "meta-/-content-/-stat-card",
+};
+
+const TEMPLATE_SLUGS = {
+  tableHeaderRow: "table-header-row",
+  tableDataRow: "table-data-row",
+  stateColumn: "state-column",
+  sectionHeader: "section-header",
+  swatchRow: "swatch-row",
+  a11ySpecRow: "a11y-spec-row",
+};
+
+const SLIDE_SLUGS = {
+  slideCover: "meta-/-slide-/-cover",
+  slideBodyFull: "meta-/-slide-/-body-full",
+  slideBodyTV: "meta-/-slide-/-body-text-visual",
+  slideSection: "meta-/-slide-/-section",
+  slideBack: "meta-/-slide-/-back-cover",
+};
+
+const FM_SLUGS = {
+  fmAppHeader: "fm-app-header",
+  fmSideNavItem: "fm-side-navigation-item",
+  fmPageHeader: "fm-page-header",
+  fmButton: "fm-button",
+  fmTableCell: "fm-table-cell",
+  fmTextInput: "fm-text-input-field",
+  fmDropdown: "fm-dropdown",
+  fmInputLabel: "fm-input-label",
+  fmSearchInput: "fm-search-input-field",
+  fmTag: "fm-tag",
+  fmChip: "fm-chip",
+  fmTab: "fm-tab",
+  fmPlaceholder: "fm-placeholder",
+  fmEmptyState: "fm-empty-state",
+  fmAlert: "fm-alert",
+  fmBanner: "fm-banner",
+  fmToggle: "fm-toggle",
+  fmCheckbox: "fm-checkbox",
+  fmDialog: "fm-dialog",
+  fmTextArea: "fm-text-area",
+  fmBadge: "fm-badge",
+  fmStepper: "fm-stepper",
+  fmToast: "fm-toast",
+  fmIconButtons: "fm-icon-buttons",
+  fmSpinner: "fm-spinner",
+  fmRadioButton: "fm-radio-button",
+  fmDateInput: "fm-date-input",
+  fmProgressBar: "fm-progress-bar",
+  fmMultiSelectDropdown: "fm-multi-select-dropdown",
+  fmTabs: "fm-tabs",
 };
 
 // ---------------------------------------------------------------------------
-// Brief-specific Meta Kit keys
+// Build key maps from registries (computed at module load)
 // ---------------------------------------------------------------------------
 
-const BRIEF_KEYS = {
-  briefCard: { key: "3dbb732730af0754210cde7af35e5236a2502843", method: "set" },
-  doDontPair: {
-    key: "28edfacf13e50706586172bd48f8a3ad84d7c263",
-    method: "set",
-  },
-  contrastBadge: {
-    key: "941756541adc6ce21e32e848c2039c64fece0fcf",
-    method: "set",
-  },
-  pointerBadge: {
-    key: "7e066fc21d9a2bbbcd1149113787cf59140162d4",
-    method: "set",
-  },
-  dimAnnotation: {
-    key: "49bf6a1b210a403ba145a3fdee9b1994eb54069a",
-    method: "set",
-  },
-  a11yCard: { key: "b4779a13f4097d682413a669eaaf9ead1b49f115", method: "set" },
-  colorSwatch: {
-    key: "da3369932f710386b76ca91a40ebd48d94e3f2e0",
-    method: "set",
-  },
-  themeCard: {
-    key: "9081a7761dfbe11d576182f3cb1711b9e76c2d36",
-    method: "set",
-  },
-  statCard: {
-    key: "8662c721d74d6f0079f273f76eec374b12ec2fae",
-    method: "set",
-  },
-};
-
-// ---------------------------------------------------------------------------
-// Template keys (clone → detach → fill textSlots)
-// ---------------------------------------------------------------------------
-
-const TEMPLATE_KEYS = {
-  tableHeaderRow: {
-    key: "0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e",
-    method: "single",
-  },
-  tableDataRow: {
-    key: "3a1fae22dd85936f81565122888efd8a50e37180",
-    method: "single",
-  },
-  stateColumn: {
-    key: "4f782d1a8541b4474858767209f99dce1428784b",
-    method: "single",
-  },
-  sectionHeader: {
-    key: "f4fd576001f4f1f4606a4efb051d1e4492e378c4",
-    method: "single",
-  },
-  swatchRow: {
-    key: "96647364b6cb5c55b7ced72106708daaa33afb7f",
-    method: "single",
-  },
-  a11ySpecRow: {
-    key: "92ed7bc88cf229782c4b42238aacba1d15f8fd06",
-    method: "single",
-  },
-};
-
-// ---------------------------------------------------------------------------
-// Slide-specific Meta Kit keys
-// ---------------------------------------------------------------------------
-
-const SLIDE_KEYS = {
-  slideCover: {
-    key: "a12f6f0b26fffc59fdac49df2bc3c36182c912da",
-    method: "single",
-  },
-  slideBodyFull: {
-    key: "281e7a9bc55abe69bb2364e639f7511b4a005694",
-    method: "single",
-  },
-  slideBodyTV: {
-    key: "28ea7a37752149d78679847ec7893368a4c4f1a0",
-    method: "single",
-  },
-  slideSection: {
-    key: "348efaa22a6da818c435017399a357b47257bcdc",
-    method: "single",
-  },
-  slideBack: {
-    key: "6df533ae800a6596fd84e93a2e5fc725dbd6a369",
-    method: "single",
-  },
-};
-
-// ---------------------------------------------------------------------------
-// FM Kit fallback keys (used when registry lookup fails)
-// ---------------------------------------------------------------------------
-
-const FM_FALLBACK_KEYS = {
-  fmAppHeader: {
-    key: "8fc9bcee610c7f8d22ebcc268467993f6dc99c87",
-    method: "set",
-  },
-  fmSideNavItem: {
-    key: "d18a0a772ed4acd760c497cb93de796ff052a7b4",
-    method: "set",
-  },
-  fmPageHeader: {
-    key: "ae1f8684a4a89aa74463d439e4e8c1e7a48137fe",
-    method: "set",
-  },
-  fmButton: { key: "368b62312ca941c80ea8eeed84a57d33bb470b09", method: "set" },
-  fmTableCell: {
-    key: "9267fecfadc4577563deb1425fa598d1f5af9144",
-    method: "set",
-  },
-  fmTextInput: {
-    key: "355855c7b2e05b5b336167883b3c9ebbfbd881ad",
-    method: "set",
-  },
-  fmDropdown: {
-    key: "781f86dca2a37706771f3e2e580242d2693a722f",
-    method: "set",
-  },
-  fmInputLabel: {
-    key: "a39aa1c7cb593f7d26b7659e4cbe4e419e00c766",
-    method: "set",
-  },
-  fmSearchInput: {
-    key: "443e232d5454f06dbd5bc06c2cacf21e80a20e4a",
-    method: "set",
-  },
-  fmTag: { key: "c7239d9355ddf557f36f4d159153619672ab81ef", method: "set" },
-  fmChip: { key: "0861d937682e66d39f57fe52ca83d526e634ff66", method: "set" },
-  fmTab: { key: "cfbd732ff4f4e6620b333c60f1ac7fe5116a93aa", method: "set" },
-  fmPlaceholder: {
-    key: "e49a9de0573cf527736e8173f722f230fa957fb8",
-    method: "set",
-  },
-  fmEmptyState: {
-    key: "cf44b9c0b5623a394d90f320f98250dc77378268",
-    method: "set",
-  },
-  fmAlert: { key: "fe30f37740688350762bd2b1be426d9d1588b7d9", method: "set" },
+const META_KEYS = buildKeyMap("metakit", META_SLUGS);
+const BRIEF_KEYS = buildKeyMap("metakit", BRIEF_SLUGS);
+const TEMPLATE_KEYS = buildKeyMap("metakit", TEMPLATE_SLUGS, "templates");
+const SLIDE_KEYS = buildKeyMap("metakit", SLIDE_SLUGS);
+const FM_FALLBACK_KEYS = Object.assign(buildKeyMap("fmkit", FM_SLUGS), {
+  // Components in Figma but not yet in fmkit.json — will resolve after next sync
   fmBanner: {
     key: "d7f323e492b456a2c56f81f3dc892eb24de11a6e",
     method: "single",
-  },
-  fmToggle: { key: "fe9e82118d1df75a8aea732eb7f9169ccaa21878", method: "set" },
-  fmCheckbox: {
-    key: "965cf2c85659bbde891f6f086bbd02d50d445d58",
-    method: "set",
   },
   fmDialog: {
     key: "0cc53eca9c90cccb8cbc57864ea110378414fd2b",
     method: "single",
   },
-  fmTextArea: {
-    key: "bba14eea66edb3871ea389afeb4e1a07585e5733",
-    method: "set",
-  },
-  fmBadge: { key: "2410b87c83d33d3bcb2a6ac7aa2168a53a4eb3d8", method: "set" },
-  fmStepper: { key: "d0a21b5288571cc7690c6c9289d18cd298035c53", method: "set" },
-  fmToast: { key: "6140b137ce98ebfeeb7fc7e426f6d09de1cc18d0", method: "set" },
-  fmIconButtons: {
-    key: "f868aabb0aa2c52f00610c09da8dce3bccc79dc4",
-    method: "set",
-  },
   fmSpinner: {
     key: "52927648847b15a51d314cf06ca1c0f19f398b4d",
     method: "single",
   },
-  fmRadioButton: {
-    key: "1569353eb82fd5f6cb8da979f1048cd1b323e8c4",
-    method: "set",
-  },
-  fmDateInput: {
-    key: "69d6329ea2d5ac3515b6ebb04ad6c1bd72e4890e",
-    method: "set",
-  },
-  fmProgressBar: {
-    key: "12abe66d36a63ef385a17e2553a1312560a0f106",
-    method: "set",
-  },
-  fmMultiSelectDropdown: {
-    key: "876bfa32334594915085ebea82f1f887b3fecb09",
-    method: "set",
-  },
   fmTabs: { key: "860eadef9ba29cf20a3da3ca9d014718e3f6cabb", method: "single" },
-};
+});
 
 // ---------------------------------------------------------------------------
 // Syntax highlighting colors (code blocks in briefs + slides)
@@ -295,9 +230,6 @@ function buildGenLog(meta, opts) {
 // ---------------------------------------------------------------------------
 // Interpreter call assembly
 // ---------------------------------------------------------------------------
-
-const fs = require("fs");
-const path = require("path");
 
 /** Read the minified interpreter source (cached after first read) */
 let _interpreterCache = null;
@@ -550,6 +482,13 @@ module.exports = {
   TEMPLATE_KEYS,
   SLIDE_KEYS,
   FM_FALLBACK_KEYS,
+  META_SLUGS,
+  BRIEF_SLUGS,
+  TEMPLATE_SLUGS,
+  SLIDE_SLUGS,
+  FM_SLUGS,
+  loadRegistry,
+  getProperties,
   TOKEN_COLORS,
   PALETTE,
   buildGenLog,

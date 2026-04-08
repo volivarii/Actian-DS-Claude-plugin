@@ -18,7 +18,7 @@ Use `WebSearch` for 2-3 sources. Focus on component API, not visual styling. Fol
 When the build plan includes nested components (e.g., Card containing Button and Badge):
 
 1. Scan build plan for nested component references
-2. Check `../../docs/fm-components-registry.json` or `../../docs/dskit-components-registry.json` (fast, local). Fallback: `search_design_system`
+2. Check `../../docs/fmkit.json` or `../../docs/dskit.json` (fast, local). Fallback: `search_design_system`
 3. Classify: **Exists** (import key ready) or **Missing** (build first)
 4. If missing: build leaf-to-root (components with no dependencies first), record keys
 5. Report: "Dependencies resolved: FM Button (exists), FM Icon (exists), Custom Badge (building...)"

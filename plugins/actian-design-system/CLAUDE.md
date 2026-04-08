@@ -36,7 +36,7 @@ Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is sou
 
 **Key data files** (read JSON, not Markdown):
 - `docs/component-guidelines/*.json` — 44 component guidelines
-- `docs/fm-components-registry.json` / `docs/dskit-components-registry.json` — component registries
+- `docs/fmkit.json` / `docs/dskit.json` / `docs/metakit.json` — component registries (keys, variants, properties)
 - `tokens/actian-ds.tokens.json` — W3C DTCG tokens (3 themes)
 
 **Scripts** (deterministic: data.json -> interpreter + JSON spec):

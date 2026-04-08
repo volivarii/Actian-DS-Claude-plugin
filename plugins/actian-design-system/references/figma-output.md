@@ -303,7 +303,7 @@ When Meta Kit template components are available, use clone-and-fill instead of c
 
 ### How it works
 
-1. **Read registry:** Load `../docs/meta-kit/meta-kit-registry.json` at the start of the skill (before `use_figma`)
+1. **Read registry:** Load `../docs/metakit.json` at the start of the skill (before `use_figma`)
 2. **Import template:** `figma.importComponentByKeyAsync(registry.templates['table-header-row'].key)`
 3. **Clone and detach:** `comp.createInstance()` → `instance.detachInstance()` — gives a mutable frame
 4. **Show:** Set `visible = true` on the detached frame (templates are hidden by default)
@@ -312,7 +312,7 @@ When Meta Kit template components are available, use clone-and-fill instead of c
 ### Registry loading pattern
 
 ```js
-// Skills read meta-kit-registry.json before calling use_figma
+// Skills read metakit.json before calling use_figma
 // Then pass the relevant keys into the code string as a constant:
 const HEADER_KEY = 'KEY_FROM_REGISTRY';
 const DATA_ROW_KEY = 'KEY_FROM_REGISTRY';
@@ -338,7 +338,7 @@ function fillSlots(frame, slots) {
 
 Templates are hidden components in the Meta Kit Figma library. Each has stable, semantic layer names (e.g., `label`, `value`, `title`) that serve as the contract between the registry and builder scripts.
 
-Registry location: `../docs/meta-kit/meta-kit-registry.json`
+Registry location: `../docs/metakit.json`
 
 Available templates:
 - `table-header-row` — table header cells (slots: `label`)
@@ -349,7 +349,7 @@ Available templates:
 
 ### Fallback
 
-If `meta-kit-registry.json` has `"PENDING"` keys (templates not yet built in Figma), fall back to the legacy builders in `../docs/meta-kit/builders.md`.
+If `metakit.json` has `"PENDING"` keys (templates not yet built in Figma), fall back to the legacy builders in `../docs/meta-kit/builders.md`.
 
 ## Two-Tier Extraction
 

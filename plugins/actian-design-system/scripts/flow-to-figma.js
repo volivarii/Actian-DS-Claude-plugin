@@ -145,12 +145,8 @@ function loadRegistry(filePath) {
 }
 
 function buildRefMap(pluginRoot) {
-  const fmReg = loadRegistry(
-    path.join(pluginRoot, "docs", "fm-components-registry.json"),
-  );
-  const metaReg = loadRegistry(
-    path.join(pluginRoot, "docs", "meta-kit", "meta-kit-registry.json"),
-  );
+  const fmReg = loadRegistry(path.join(pluginRoot, "docs", "fmkit.json"));
+  const metaReg = loadRegistry(path.join(pluginRoot, "docs", "metakit.json"));
 
   const refMap = {};
 
@@ -163,7 +159,10 @@ function buildRefMap(pluginRoot) {
     }
 
     if (comp && comp.key) {
-      const method = comp.type === "component_set" ? "set" : "single";
+      const method =
+        comp.importMethod === "set" || comp.type === "component_set"
+          ? "set"
+          : "single";
       refMap[refName] = { key: comp.key, method };
     } else if (FALLBACK_KEYS[refName]) {
       refMap[refName] = FALLBACK_KEYS[refName];
@@ -471,11 +470,7 @@ function validateInput(input, pluginRoot) {
   // Check for missing boolean properties on button instances
   let registry = null;
   try {
-    const regPath = path.join(
-      pluginRoot,
-      "docs",
-      "fm-components-registry.json",
-    );
+    const regPath = path.join(pluginRoot, "docs", "fmkit.json");
     registry = JSON.parse(fs.readFileSync(regPath, "utf8"));
   } catch (e) {
     /* registry not available — skip boolean checks */
