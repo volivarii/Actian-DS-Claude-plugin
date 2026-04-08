@@ -41,7 +41,7 @@ const TOKEN_COLORS = shared.TOKEN_COLORS;
 const PALETTE = shared.PALETTE;
 
 // Max raw JSON bytes per bin (keeps generated code under ~45KB)
-const MAX_BIN_SIZE = 18000; // bytes — JSON spec budget per call (interpreter is ~28KB, total under 50KB)
+const MAX_BIN_SIZE = shared.getMaxBinSize();
 const OVERHEAD = 500; // meta + fonts + imports envelope per item
 
 // ---------------------------------------------------------------------------
@@ -1152,7 +1152,7 @@ function autoSplitCalls(data, targetNodeId) {
   const treeNodes = allCards.map((c) => c.node);
   const nodeBins = shared.binPack(treeNodes, MAX_BIN_SIZE, OVERHEAD);
 
-  // Map node bins back to card wrappers (preserving name for descriptions)
+  // Map node bins back to card wrappers
   const bins = [];
   let cardIdx = 0;
   for (const nodeBin of nodeBins) {
@@ -1163,7 +1163,7 @@ function autoSplitCalls(data, targetNodeId) {
     bins.push(cardBin);
   }
 
-  // Build unitMap: card data key -> call index (for incremental regeneration)
+  // Build unitMap: card data key -> fill index
   const CARD_NAME_TO_KEY = {
     GenLog: "genLog",
     "Card 1": "card1_header",
@@ -1178,27 +1178,63 @@ function autoSplitCalls(data, targetNodeId) {
   };
   const unitMap = {};
   for (let b = 0; b < bins.length; b++) {
-    const callIdx = b + 1;
+    const fillIdx = b + 1;
     for (const card of bins[b]) {
       const key = CARD_NAME_TO_KEY[card.name];
-      if (key) unitMap[key] = callIdx;
+      if (key) unitMap[key] = fillIdx;
     }
   }
 
-  const totalSpecCalls = bins.length;
-  const results = [];
+  // Build section keys from bin contents
+  const sectionKeys = bins.map(function (bin) {
+    return (
+      "__section_" +
+      bin
+        .map(function (c) {
+          return c.name.toLowerCase().replace(/\s+/g, "");
+        })
+        .join("_")
+    );
+  });
 
+  // Scaffold spec: wrapper + empty section frames
+  const scaffoldSpec = {
+    meta: {
+      skill: "component-brief",
+      component: data.meta.component,
+      targetNodeId: targetNodeId,
+      wrapperName: "Component Spec: " + data.meta.component,
+      sectionName: "Component Spec: " + data.meta.component,
+    },
+    fonts: ["Inter:Regular"],
+    imports: {},
+    tree: sectionKeys.map(function (key) {
+      return {
+        type: "FRAME",
+        name: key,
+        layout: {
+          mode: "HORIZONTAL",
+          spacing: 32,
+          primarySizing: "AUTO",
+          counterSizing: "AUTO",
+        },
+        fills: [],
+      };
+    }),
+  };
+
+  // Fill specs
+  const fills = [];
   for (let b = 0; b < bins.length; b++) {
     const bin = bins[b];
-    const callIdx = b + 1;
-    const treeNodes = bin.map((c) => c.node);
+    const fillIdx = b + 1;
     const names = bin.map((c) => c.name).join(", ");
 
-    // Build spec for this bin
-    const spec = {
+    const fillSpec = {
       meta: {
         skill: "component-brief",
         component: data.meta.component,
+        fillSection: sectionKeys[b],
       },
       fonts: FONTS.slice(),
       imports: { ...IMPORTS },
@@ -1207,40 +1243,36 @@ function autoSplitCalls(data, targetNodeId) {
           ? { nodeId: data.meta.componentKey }
           : { key: data.meta.componentKey },
       },
-      tree: treeNodes,
+      tree: bin.map((c) => c.node),
     };
 
-    if (callIdx === 1) {
-      spec.meta.targetNodeId = targetNodeId;
-      spec.meta.wrapperName = `Component Spec: ${data.meta.component}`;
-      spec.meta.sectionName = `Component Spec: ${data.meta.component}`;
-    } else {
-      spec.meta.appendToId = "__LAST_WRAPPER__";
-    }
-
-    // Assemble: interpreter + JSON spec (self-contained per call)
-    const code = shared.assembleCall(spec);
-    const codeSize = Buffer.byteLength(code, "utf8");
-
     process.stderr.write(
-      `Call ${callIdx}: ${names} (code=${codeSize} bytes, spec=${shared.compactSize(spec)} bytes)\n`,
+      "Fill " +
+        fillIdx +
+        ": " +
+        names +
+        " (tree=" +
+        shared.compactSize(fillSpec.tree) +
+        " bytes)\n",
     );
 
-    if (codeSize > 50000) {
-      process.stderr.write(
-        `WARNING: Call ${callIdx} exceeds 50KB use_figma limit (${codeSize} bytes)\n`,
-      );
-    }
-
-    results.push({
-      callIndex: callIdx,
-      code: code,
-      spec: spec,
-      description: `Call ${callIdx}/${totalSpecCalls}: ${names}`,
+    fills.push({
+      fillIndex: fillIdx,
+      spec: fillSpec,
+      sectionKey: sectionKeys[b],
+      description: "Fill " + fillIdx + "/" + bins.length + ": " + names,
     });
   }
 
-  return { calls: results, unitMap: unitMap };
+  process.stderr.write(
+    "Total: 1 scaffold + " +
+      fills.length +
+      " fills (" +
+      (1 + fills.length) +
+      " calls)\n",
+  );
+
+  return { scaffoldSpec: scaffoldSpec, fills: fills, unitMap: unitMap };
 }
 
 // ---------------------------------------------------------------------------
@@ -1273,7 +1305,12 @@ function parseArgs(argv) {
             {
               name: "--call",
               required: false,
-              description: "Output only call N (1-based)",
+              description: "Output only call N (1-based). Alias: --fill",
+            },
+            {
+              name: "--fill",
+              required: false,
+              description: "Alias for --call",
             },
             {
               name: "--output",
@@ -1302,6 +1339,9 @@ function parseArgs(argv) {
     } else if (args[i] === "--call" && i + 1 < args.length) {
       result.call = parseInt(args[i + 1], 10);
       i += 2;
+    } else if (args[i] === "--fill" && i + 1 < args.length) {
+      result.call = parseInt(args[i + 1], 10);
+      i += 2;
     } else if (args[i] === "--output-dir" && i + 1 < args.length) {
       result.outputDir = args[i + 1];
       i += 2;
@@ -1325,7 +1365,7 @@ function main() {
 
   if (!opts.inputPath) {
     process.stderr.write(
-      "Usage: node brief-to-figma.js <brief-data.json> --target-node-id <id> [--call N] [--output <path>] [--output-dir <dir>]\n",
+      "Usage: node brief-to-figma.js <brief-data.json> --target-node-id <id> [--call N] [--fill N] [--output <path>] [--output-dir <dir>]\n",
     );
     process.exit(1);
   }
@@ -1384,29 +1424,45 @@ function main() {
     process.exit(1);
   }
 
-  // Build code calls with auto-splitting
-  const { calls: allCalls, unitMap } = autoSplitCalls(data, opts.targetNodeId);
-
-  let output;
-  if (opts.call != null) {
-    if (opts.call > allCalls.length) {
-      process.stderr.write(
-        `Error: --call ${opts.call} but only ${allCalls.length} calls generated\n`,
-      );
-      process.exit(1);
-    }
-    output = allCalls[opts.call - 1];
-  } else {
-    output = allCalls;
-  }
+  // Build scaffold + fill calls
+  const { scaffoldSpec, fills, unitMap } = autoSplitCalls(
+    data,
+    opts.targetNodeId,
+  );
 
   if (opts.outputDir) {
-    // Write runtime.js (once) + call-N.json (spec per call) + manifest.json
-    shared.writeCallFiles(opts.outputDir, allCalls, unitMap, null);
+    // Write scaffold.js + fill-N.js + manifest.json (v2 format)
+    const manifest = shared.writeCallFilesV2(
+      opts.outputDir,
+      scaffoldSpec,
+      fills,
+      unitMap,
+      opts.call || null,
+    );
     process.stderr.write(
-      `Wrote ${allCalls.length} call file(s) to ${opts.outputDir}\n`,
+      "Wrote " +
+        manifest.totalCalls +
+        " call file(s) to " +
+        opts.outputDir +
+        "\n",
     );
   } else {
+    // Stdout mode: output all as JSON array
+    const results = [];
+    results.push({
+      callIndex: 0,
+      code: shared.assembleCall(scaffoldSpec),
+      description: "Scaffold: wrapper + sections",
+    });
+    for (const f of fills) {
+      results.push({
+        callIndex: f.fillIndex,
+        code: shared.assembleCall(f.spec),
+        description: f.description,
+      });
+    }
+
+    const output = opts.call != null ? results[opts.call] : results;
     const json = JSON.stringify(output, null, 2);
 
     if (opts.output) {
@@ -1416,7 +1472,9 @@ function main() {
         });
         fs.writeFileSync(path.resolve(opts.output), json, "utf8");
       } catch (err) {
-        process.stderr.write(`Error writing output file: ${err.message}\n`);
+        process.stderr.write(
+          "Error writing output file: " + err.message + "\n",
+        );
         process.exit(1);
       }
     } else {
@@ -1424,7 +1482,7 @@ function main() {
     }
   }
 
-  process.stderr.write(`Done: ${allCalls.length} call(s)\n`);
+  process.stderr.write("Done: 1 scaffold + " + fills.length + " fill(s)\n");
 }
 
 main();
