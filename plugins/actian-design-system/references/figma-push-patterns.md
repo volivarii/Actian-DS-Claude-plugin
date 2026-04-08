@@ -205,7 +205,57 @@ frame.cornerRadius = 8;
 return { frameId: frame.id };
 ```
 
-### Pattern 7: hexToRgb helper
+### Pattern 7: Set ALL instance properties (CRITICAL — never leave defaults)
+
+After creating any component instance, you MUST override every text and boolean property with real content from your data model. Default values like "Button label", "Nav Item", "Tag", "Page Title" are NEVER acceptable in output.
+
+```js
+// STEP 1: Create the instance (see Patterns 2 or 3)
+const set = await figma.importComponentSetByKeyAsync("KEY");
+let variant = set.findChild(n => n.name === "Type=Primary, Size=md, State=Default");
+if (!variant) variant = set.defaultVariant || set.children[0];
+const inst = variant.createInstance();
+
+// STEP 2: Set exposed component properties (works for explicitly exposed props)
+// Use setProperties for properties the component author exposed.
+// Property names must match EXACTLY — check the component definition.
+inst.setProperties({
+  "Label": "Save changes",           // text property
+  "👁 Leading Icon": false,           // boolean property
+  "👁 Trailing Icon": false,          // boolean property
+  "Show label": true,                 // boolean property
+  "Caption": true,                    // boolean property
+  "Caption Text": "Required field",   // text property
+  "Input Text": "john@actian.com",    // text property
+  "Label Text": "Email address"       // text property
+});
+
+// STEP 3: For text NOT exposed as properties, find the nested text layer and override
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+const titleText = inst.findOne(n => n.type === "TEXT" && n.name === "Title");
+if (titleText) titleText.characters = "User Management";
+
+const subtitleText = inst.findOne(n => n.type === "TEXT" && n.name === "Subtitle");
+if (subtitleText) subtitleText.characters = "Manage team members and permissions";
+```
+
+**Common FM Kit property names** (from component registry):
+- **fmButton**: `Label`, `👁 Leading Icon`, `👁 Trailing Icon`
+- **fmTextInput**: `Input Text`, `Label Text`, `Caption Text`, `Show label`, `Caption`, `Required`
+- **fmDropdown**: `Dropdown Text`, `Label Text`, `Show label`
+- **fmSearchInput**: `Placeholder`
+- **fmSideNavItem**: `Label` (text), `👉 Active` (boolean for selected state)
+- **fmPageHeader**: find nested text "Title" and "Subtitle" via `findOne`
+- **fmAppHeader**: find nested text "App Name" via `findOne`
+- **fmTag**: `Label`
+- **fmBadge**: `Label`
+- **fmTableCell**: find nested text via `findOne`
+- **flowCoverCard**: find nested text "Feature Name", "Flow Description", "User Persona" via `findOne`
+- **genLog**: `Skill`, `Prompt`, `Date`, `Duration`, `Model`, `Plugin Version`
+
+**Rule: If you don't know the exact property name, use `findOne` to find text layers by name and override `.characters` directly. NEVER leave default placeholder text.**
+
+### Pattern 8: hexToRgb helper
 
 ```js
 // Convert hex color to Figma's 0-1 RGB format. Inline in any call that needs it.
@@ -225,11 +275,13 @@ function hexToRgb(hex) {
 ## 3. Push Rules
 
 1. **Always pass `skillNames: "figma-use"`** with every `use_figma` call.
-2. **One operation per call** -- create a frame OR import components OR populate content. Not all three.
-3. **Return IDs from every call** -- use them in subsequent calls to append children.
-4. **Keep calls under 2KB** -- if code is longer, split into multiple calls.
-5. **Fonts before text** -- call `loadFontAsync` before setting `.characters`.
-6. **Colors are 0-1 range** -- `{ r: 0.1, g: 0.1, b: 0.18 }` not `{ r: 26, g: 26, b: 46 }`.
-7. **No interpreter, no JSON specs, no Node scripts at push time** -- write direct Plugin API code.
-8. **Read your data model** -- the JSON you generated has all the content. Translate each node to Plugin API calls.
-9. **If a call fails, skip that element and continue** -- don't retry in a loop.
+2. **NEVER leave default property values** -- every instance must have real content from your data model. "Button label", "Nav Item", "Tag", "Page Title" are P0 bugs. Use `setProperties()` and `findOne()` per Pattern 7.
+3. **One operation per call** -- create a frame OR import components OR populate content. Not all three.
+4. **Return IDs from every call** -- use them in subsequent calls to append children.
+5. **Keep calls under 2KB** -- if code is longer, split into multiple calls.
+6. **Fonts before text** -- call `loadFontAsync` before setting `.characters`.
+7. **Colors are 0-1 range** -- `{ r: 0.1, g: 0.1, b: 0.18 }` not `{ r: 26, g: 26, b: 46 }`.
+8. **No interpreter, no JSON specs, no Node scripts at push time** -- write direct Plugin API code.
+9. **Read your data model** -- the JSON you generated has all the content. Translate each node to Plugin API calls. Every text value in the data model must appear in the Figma output.
+10. **If a call fails, skip that element and continue** -- don't retry in a loop.
+11. **See `references/component-instance-rules.md`** for full property override rules, nested component patterns, and token mapping.
