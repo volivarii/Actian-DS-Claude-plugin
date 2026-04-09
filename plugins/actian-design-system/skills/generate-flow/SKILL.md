@@ -1,7 +1,7 @@
 ---
 name: generate-flow
 description: Generate a multi-screen lo-fi flow from a feature idea or user story, and push to Figma. Also handles prototype wiring on existing flows.
-argument-hint: "[feature description or Figma URL]"
+argument-hint: "[feature description or Figma URL] [--hifi]"
 ---
 
 # Generate Fat Marker Flow
@@ -43,6 +43,19 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
    - If a call fails, skip that element and continue
    - Do NOT run `flow-to-figma.js` — push directly from your data model
    - Do NOT read any `.js` files, manifests, or scaffolds
+### HiFi conversion (if --hifi flag)
+
+After the FM flow push completes:
+
+1. Run `scripts/transform-to-hifi.js` on the in-memory `flow-data.json`
+2. Report mapped/unmapped component counts to user
+3. Handle unmapped nodes creatively using `docs/dskit.json` component descriptions
+4. Apply DS layout polish: spacing tokens, typography scale, proper padding
+5. Push hifi frame as sibling of FM frame, named `[Flow name] — HiFi`
+6. Add generation card with `mode: "hifi"`
+
+References: `docs/fm-to-ds-map.json`, `docs/dskit.json`, `scripts/transform-to-hifi.js`
+
 6. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
