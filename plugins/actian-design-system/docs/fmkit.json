@@ -1,7 +1,7 @@
 {
   "library": "fm",
   "fileKey": "X2JSEUyLvxyNCx22ucOexn",
-  "lastSynced": "2026-04-08T14:26:07.883Z",
+  "lastSynced": "2026-04-09T14:28:51.000Z",
   "componentCount": 33,
   "components": {
     "sticky-note": {
@@ -12,10 +12,7 @@
       "page": "Fat Marker",
       "description": "",
       "variants": {
-        "Property 1": [
-          "Default",
-          "Critical"
-        ]
+        "Property 1": ["Default", "Critical"]
       },
       "properties": {}
     },
@@ -27,12 +24,7 @@
       "page": "_comp",
       "description": "Top-level application header bar. Contains the Actian logo, product label, and user avatar. Use at the top of every screen mockup.",
       "variants": {
-        "Type": [
-          "Admin",
-          "Explorer",
-          "Studio",
-          "Actian"
-        ]
+        "Type": ["Admin", "Explorer", "Studio", "Actian"]
       },
       "properties": {
         "Show Context inputs#186:0": {
@@ -49,16 +41,8 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Size": [
-          "Small",
-          "Medium",
-          "Large"
-        ],
-        "Type": [
-          "Icon",
-          "Number",
-          "Number Expand"
-        ]
+        "Size": ["Small", "Medium", "Large"],
+        "Type": ["Icon", "Number", "Number Expand"]
       },
       "properties": {}
     },
@@ -70,24 +54,10 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Size": [
-          "md",
-          "sm"
-        ],
-        "Shape": [
-          "Regular",
-          "Pill"
-        ],
-        "Type": [
-          "Primary",
-          "Secondary",
-          "Outline",
-          "Destructive"
-        ],
-        "State": [
-          "Default",
-          "Disabled"
-        ]
+        "Size": ["md", "sm"],
+        "Shape": ["Regular", "Pill"],
+        "Type": ["Primary", "Secondary", "Outline", "Destructive"],
+        "State": ["Default", "Disabled"]
       },
       "properties": {
         "Leading Icon#1410:0": {
@@ -120,10 +90,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Outline": [
-          "False",
-          "True"
-        ]
+        "Outline": ["False", "True"]
       },
       "properties": {
         "Icon#163:337": {
@@ -144,14 +111,8 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": [
-          "Off",
-          "On"
-        ],
-        "Style": [
-          "Default",
-          "Disabled"
-        ]
+        "State": ["Off", "On"],
+        "Style": ["Default", "Disabled"]
       },
       "properties": {}
     },
@@ -163,14 +124,9 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": [
-          "On",
-          "Off"
-        ],
-        "Style": [
-          "Default",
-          "Disabled"
-        ]
+        "Format": ["Default", "Card"],
+        "State": ["On", "Off"],
+        "Style": ["Default", "Disabled"]
       },
       "properties": {
         "Show Label#1072:0": {
@@ -185,16 +141,10 @@
       "nodeId": "8:21173",
       "importMethod": "set",
       "page": "_comp",
-      "description": "On/off toggle switch.",
+      "description": "On/off toggle switch. Use for immediate binary actions. Pair with a text label using fm-custom-toggle-row layout. Disabled style reduces opacity.",
       "variants": {
-        "State": [
-          "Off",
-          "On"
-        ],
-        "Style": [
-          "Default",
-          "Disabled"
-        ]
+        "State": ["Off", "On"],
+        "Style": ["Default", "Disabled"]
       },
       "properties": {}
     },
@@ -206,13 +156,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Progress": [
-          "0%",
-          "25%",
-          "50%",
-          "75%",
-          "100%"
-        ]
+        "Progress": ["0%", "25%", "50%", "75%", "100%"]
       },
       "properties": {}
     },
@@ -224,12 +168,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Cursor Type": [
-          "Link",
-          "Pointer",
-          "Dragging",
-          "Text"
-        ]
+        "Cursor Type": ["Link", "Pointer", "Dragging", "Text"]
       },
       "properties": {}
     },
@@ -239,12 +178,9 @@
       "nodeId": "228:2994",
       "importMethod": "set",
       "page": "_comp",
-      "description": "Empty or zero-data state placeholder.",
+      "description": "Empty or zero-data state placeholder. Default = centered with icon and text. Compact = smaller, for inline use. Include onboarding hint text to guide the user.",
       "variants": {
-        "Type": [
-          "Default",
-          "Compact"
-        ]
+        "Type": ["Default", "Compact"]
       },
       "properties": {}
     },
@@ -256,15 +192,8 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Type": [
-          "Primary",
-          "Secondary",
-          "Outline"
-        ],
-        "State": [
-          "Default",
-          "Disabled"
-        ]
+        "Type": ["Primary", "Secondary", "Outline"],
+        "State": ["Default", "Disabled"]
       },
       "properties": {
         "Icon#1470:32": {
@@ -279,14 +208,9 @@
       "nodeId": "8:21420",
       "importMethod": "set",
       "page": "_comp",
-      "description": "Single-select dropdown.",
+      "description": "Single-select dropdown. Placeholder = empty, Filled = value selected, Open = showing options, Disabled = non-interactive.",
       "variants": {
-        "Type": [
-          "Placeholder",
-          "Open",
-          "Disabled",
-          "Filled"
-        ]
+        "Type": ["Placeholder", "Open", "Disabled", "Filled"]
       },
       "properties": {
         "Show label#176:13": {
@@ -330,12 +254,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Type": [
-          "Empty",
-          "Placeholder",
-          "Default",
-          "Disabled"
-        ]
+        "Type": ["Empty", "Placeholder", "Default", "Disabled"]
       },
       "properties": {
         "Show label#176:0": {
@@ -372,11 +291,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Content": [
-          "None",
-          "Placeholder",
-          "Filled"
-        ]
+        "Content": ["None", "Placeholder", "Filled"]
       },
       "properties": {
         "Show label#176:5": {
@@ -393,11 +308,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Type": [
-          "Empty",
-          "Placeholder",
-          "Filled"
-        ]
+        "Type": ["Empty", "Placeholder", "Filled"]
       },
       "properties": {
         "Show label#176:9": {
@@ -418,11 +329,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": [
-          "Default",
-          "Open",
-          "Placeholder"
-        ]
+        "State": ["Default", "Open", "Placeholder"]
       },
       "properties": {
         "Input Text#1451:1": {
@@ -462,11 +369,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": [
-          "Default",
-          "Hover",
-          "Active"
-        ]
+        "State": ["Default", "Hover", "Active"]
       },
       "properties": {}
     },
@@ -478,11 +381,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": [
-          "On",
-          "Off",
-          "User Off"
-        ]
+        "State": ["On", "Off", "User Off"]
       },
       "properties": {
         "Dropdown item text#1428:2": {
@@ -499,10 +398,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Property 1": [
-          "Default",
-          "Slim"
-        ]
+        "Property 1": ["Default", "Slim"]
       },
       "properties": {}
     },
@@ -514,11 +410,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": [
-          "On",
-          "Off",
-          "Placeholder"
-        ]
+        "State": ["On", "Off", "Placeholder"]
       },
       "properties": {
         "Show icon#166:0": {
@@ -567,14 +459,9 @@
       "nodeId": "8:21551",
       "importMethod": "set",
       "page": "_comp",
-      "description": "Table cell for data tables.",
+      "description": "Table cell for data tables. Header = column title, Text = data value, Pill = status badge, Placeholder = future column.",
       "variants": {
-        "Type": [
-          "Header",
-          "Text",
-          "Pill",
-          "Placeholder"
-        ]
+        "Type": ["Header", "Text", "Pill", "Placeholder"]
       },
       "properties": {}
     },
@@ -584,13 +471,9 @@
       "nodeId": "8:21619",
       "importMethod": "set",
       "page": "_comp",
-      "description": "Tab for switching between views.",
+      "description": "Tab for switching between views within the same context. On = active tab, Off = inactive, Placeholder = future/reserved tab slot.",
       "variants": {
-        "State": [
-          "On",
-          "Off",
-          "Placeholder"
-        ]
+        "State": ["On", "Off", "Placeholder"]
       },
       "properties": {
         "Show Icon#20:0": {
@@ -607,11 +490,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Style": [
-          "Filled",
-          "Outline",
-          "Light"
-        ]
+        "Style": ["Filled", "Outline", "Light"]
       },
       "properties": {
         "Icon Right#50:0": {
@@ -640,10 +519,7 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Style": [
-          "Standard",
-          "Outline"
-        ]
+        "Style": ["Standard", "Outline"]
       },
       "properties": {
         "Icon#1485:2": {
@@ -694,14 +570,8 @@
       "page": "Fat Marker",
       "description": "",
       "variants": {
-        "Disabled": [
-          "No",
-          "Yes"
-        ],
-        "Type": [
-          "Text",
-          "Placeholder"
-        ]
+        "Disabled": ["No", "Yes"],
+        "Type": ["Text", "Placeholder"]
       },
       "properties": {
         "Caption#1555:9": {
@@ -730,11 +600,7 @@
       "page": "Container",
       "description": "Page title area with optional subtitle and action buttons.",
       "variants": {
-        "Type": [
-          "Title only",
-          "Title + Subtitle",
-          "Title + Actions"
-        ]
+        "Type": ["Title only", "Title + Subtitle", "Title + Actions"]
       },
       "properties": {
         "Title#979:22": {
@@ -753,13 +619,9 @@
       "nodeId": "1052:9637",
       "importMethod": "set",
       "page": "Fat Marker",
-      "description": "Inline feedback message.",
+      "description": "Inline feedback message for success, error, or warning states. Use for persistent status messages — for brief confirmations, use FM Toast instead.",
       "variants": {
-        "Type": [
-          "Success",
-          "Error",
-          "Warning"
-        ]
+        "Type": ["Success", "Error", "Warning"]
       },
       "properties": {}
     },
@@ -769,13 +631,9 @@
       "nodeId": "1052:9653",
       "importMethod": "set",
       "page": "Fat Marker",
-      "description": "Step indicator for multi-step wizard flows.",
+      "description": "Step indicator for multi-step wizard flows. Place in a horizontal row — one instance per step. Active = current step, Complete = done, Upcoming = not yet reached.",
       "variants": {
-        "State": [
-          "Active",
-          "Complete",
-          "Upcoming"
-        ]
+        "State": ["Active", "Complete", "Upcoming"]
       },
       "properties": {}
     }
