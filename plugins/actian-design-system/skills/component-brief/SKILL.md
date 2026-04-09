@@ -109,7 +109,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
 
 ## Step 3 — Push to Figma (direct calls)
 
-Read your `brief-data.json` and push directly to Figma using small `use_figma` calls. Read `../../references/brief-push-patterns.md` for all patterns. Read `../../references/figma-push-patterns.md` for core patterns (wrapper frame, hexToRgb, etc.). Always pass `skillNames: "figma-use"` to every call.
+Read your `brief-data.json` and push directly to Figma using small `use_figma` calls. Read `../../references/component-brief/push-patterns.md` for all patterns. Read `../../references/figma-push-patterns.md` for core patterns (wrapper frame, hexToRgb, etc.). Always pass `skillNames: "figma-use"` to every call.
 
 **Push sequence** (each step is one small `use_figma` call, ~200-2000 bytes; anatomy diagram ~4-6KB):
 
@@ -117,7 +117,7 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
 2. Create GenLog instance (import by key, set 6 meta props, append to wrapper)
 3. For each card in the data model:
    a. Create card shell (import briefCard set, set variant + title + subtitle, detach, find content slot)
-   b. Populate content: translate data model fields to Plugin API calls using brief-push-patterns.md
+   b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
    c. Card 3 anatomy: use the anatomy diagram pattern (~4-6KB inline call)
 4. After all cards pushed, report to user with count
 
@@ -149,4 +149,4 @@ Write files silently (never dump in chat). Research → data model → gate runs
 
 ## References
 
-`references/component-brief/`: `data-schema.md` (JSON schema, 9 DS + 5 FM cards), `figma-rules.md` (pitfalls), `playground.md` (explorer). `references/brief-push-patterns.md` (Figma push). `references/quality-tiers.md` (tiers).
+`references/component-brief/`: `data-schema.md` (JSON schema, 9 DS + 5 FM cards), `figma-rules.md` (pitfalls), `playground.md` (explorer). `references/component-brief/push-patterns.md` (Figma push). `references/quality-tiers.md` (tiers).

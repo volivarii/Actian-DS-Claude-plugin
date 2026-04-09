@@ -118,7 +118,7 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 
 | Skill | Push patterns reference | Data model |
 |-------|----------------------|------------|
-| component-brief | `references/brief-push-patterns.md` | brief-data.json |
+| component-brief | `references/component-brief/push-patterns.md` | brief-data.json |
 | generate-flow | `references/figma-push-patterns.md` | flow-data.json |
 | generate-presentation | `references/figma-push-patterns.md` | slide-data.json |
 | create-component | `references/create-component/push-patterns.md` | component-spec.json |
