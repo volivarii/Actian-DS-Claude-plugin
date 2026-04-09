@@ -107,66 +107,35 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
   --type brief -o {project_working_directory}/components/[name]/[name]-spec.html
 ```
 
-## Step 3 — Push to Figma (deterministic pipeline)
+## Step 3 — Push to Figma (direct calls)
 
-Generate Figma Plugin API code from the data model using `brief-to-figma.js`, then execute each call via `use_figma`. This ensures consistent, reliable output — same data always produces the same Figma result.
+Read your `brief-data.json` and push directly to Figma using small `use_figma` calls. Read `../../references/brief-push-patterns.md` for all patterns. Read `../../references/figma-push-patterns.md` for core patterns (wrapper frame, hexToRgb, etc.). Always pass `skillNames: "figma-use"` to every call.
 
-### 3a. Generate the push calls
+**Push sequence** (each step is one small `use_figma` call, ~200-2000 bytes; anatomy diagram ~4-6KB):
 
-```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js" \
-  {project_working_directory}/components/[name]/[name]-brief-data.json \
-  --target-node-id <targetNodeId> \
-  --output-dir {project_working_directory}/components/[name]/figma-calls/
-```
+1. Navigate to target page + create wrapper frame (Pattern 1 from figma-push-patterns.md)
+2. Create GenLog instance (import by key, set 6 meta props, append to wrapper)
+3. For each card in the data model:
+   a. Create card shell (import briefCard set, set variant + title + subtitle, detach, find content slot)
+   b. Populate content: translate data model fields to Plugin API calls using brief-push-patterns.md
+   c. Card 3 anatomy: use the anatomy diagram pattern (~4-6KB inline call)
+4. After all cards pushed, report to user with count
 
-This produces `figma-calls/` with:
-- `scaffold.js` — creates wrapper frame + card shells
-- `fill-N.js` — populates each card's content
-- `manifest.json` — lists all calls with descriptions and sizes
-
-### 3b. Execute via store-and-execute (default path)
-
-Read `manifest.json`, then use the `storeAndExecute` section. This keeps every file under ~25KB for reliable reading.
-
-**Execution order:**
-
-1. **Scaffold** — Read `scaffold.js` → pass to `use_figma` (creates wrapper + sections)
-2. **Store specs** — For each store file in `manifest.storeAndExecute.stores`:
-   Read `store-N.js` → pass to `use_figma` (stores spec as plugin data, ~8-20KB each)
-3. **Execute all** — Read `execute-fills.js` → pass to `use_figma` (runs interpreter on all stored specs, ~24KB)
-
-```bash
-# 1. Read manifest
-cat {project_working_directory}/components/[name]/figma-calls/manifest.json
-```
-
-Then for each file, use the Read tool and pass the content to `use_figma` with `skillNames: "figma-use"`. All store and execute files are under 25KB and safe to read directly.
-
-### 3c. Handle failures
-
-- If a store call fails, skip it and continue (that card will be missing)
-- If the scaffold call fails, stop and report the error
-- If execute-fills fails, report which fills succeeded (check the return value)
-- Do NOT manually construct Figma API code — always use the generated files
-- Do NOT modify the generated `.js` files
+**Rules:**
+- Each `use_figma` call creates 1-3 nodes max — keep calls small
+- Return IDs from every call — use them in subsequent calls to append children
+- If a call fails, skip that element and continue
+- Do NOT run `brief-to-figma.js` — push directly from your data model
+- Do NOT read any `.js` files, manifests, or scaffolds
+- Code blocks (Cards 8, 9) render as monochrome — single color `#BABED8`, no per-token coloring
 
 ### Pushing specific cards only
 
-Use the `--fill N` flag to regenerate a single card's fill:
+Read only the relevant card keys from `brief-data.json` and push those cards. Skip the rest.
 
-```bash
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js" \
-  [name]-brief-data.json --target-node-id <id> --fill 3 \
-  --output-dir figma-calls/
-```
+### Incremental update
 
-This regenerates only `fill-3.js`. Execute it via `use_figma` to update that card.
-
-## Incremental update
-
-To fix a specific card: edit the data model, regenerate that card's fill with `--fill N`, execute via `use_figma`.
+To fix a specific card: edit the data model, then re-push just that card using the same patterns. Use `figma.getNodeByIdAsync` to find and remove the old card frame before pushing the replacement.
 
 ## Step 4 — Parity check (opt-in)
 
