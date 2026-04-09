@@ -55,14 +55,25 @@ const comp = await figma.importComponentByKeyAsync("f4fd576001f4f1f4606a4efb051d
 const header = comp.createInstance();
 header.detachInstance();
 await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
 const titleText = header.findOne(n => n.type === "TEXT" && n.name === "title");
 if (titleText) titleText.characters = "Section Title";
+
+// CRITICAL: Always set the subtitle — default is "Optional description text"
+// Set to real content, or remove the node if no subtitle is needed
+const subtitleText = header.findOne(n => n.type === "TEXT" && n.name === "subtitle");
+if (subtitleText) {
+  subtitleText.characters = "Subtitle text here";
+  // OR remove it if no subtitle: subtitleText.remove();
+}
 
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(header);
 header.layoutSizingHorizontal = "FILL";
 return { headerId: header.id };
 ```
+
+**Never leave the subtitle at its default "Optional description text".** Either set real content or remove the subtitle node.
 
 ---
 
@@ -157,6 +168,30 @@ return { pairId: pair.id };
 ---
 
 ## 6. Accessibility Card Pattern
+
+**Layout:** The 6 a11y requirement cards MUST be arranged in a **2×3 grid** (2 columns, 3 rows). Create a grid container frame first, then add cards to it.
+
+```js
+// First: create the 2-column grid container
+const grid = figma.createFrame();
+grid.name = "Requirements grid";
+grid.layoutMode = "HORIZONTAL";
+grid.layoutWrap = "WRAP";
+grid.itemSpacing = 16;
+grid.counterAxisSpacing = 16;
+grid.primaryAxisSizingMode = "FIXED";
+grid.counterAxisSizingMode = "AUTO";
+grid.resize(1040, grid.height); // fits 2 cards across
+grid.fills = [];
+
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+parent.appendChild(grid);
+grid.layoutSizingHorizontal = "FILL";
+
+return { gridId: grid.id };
+```
+
+Then for each of the 6 requirement cards, create and append to the grid:
 
 ```js
 const set = await figma.importComponentSetByKeyAsync("b4779a13f4097d682413a669eaaf9ead1b49f115");
