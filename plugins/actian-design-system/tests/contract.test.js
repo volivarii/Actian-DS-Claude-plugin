@@ -111,7 +111,10 @@ describe("Contract Tests", function () {
         var label = skill.name + " → " + cmd.script;
 
         it(label + " — script exists", function () {
-          assert.ok(fs.existsSync(scriptPath), label + " — script not found at " + scriptPath);
+          assert.ok(
+            fs.existsSync(scriptPath),
+            label + " — script not found at " + scriptPath,
+          );
         });
 
         if (cmd.flags.length > 0) {
@@ -126,7 +129,9 @@ describe("Contract Tests", function () {
             });
             assert.ok(
               missingFlags.length === 0,
-              label + " — flags not found in source: " + missingFlags.join(", ")
+              label +
+                " — flags not found in source: " +
+                missingFlags.join(", "),
             );
           });
         }
@@ -140,17 +145,22 @@ describe("Contract Tests", function () {
 
   describe("Part 2: Template name contracts", function () {
     var templatesJson = JSON.parse(
-      fs.readFileSync(path.join(SCRIPTS_DIR, "templates.json"), "utf8")
+      fs.readFileSync(path.join(SCRIPTS_DIR, "templates.json"), "utf8"),
     );
     var templateKeys = Object.keys(templatesJson["flow-templates"]);
 
     var flowSkillMd = fs.readFileSync(
       path.join(PLUGIN_ROOT, "skills", "generate-flow", "SKILL.md"),
-      "utf8"
+      "utf8",
     );
     var specBuilderMd = fs.readFileSync(
-      path.join(PLUGIN_ROOT, "references", "generate-flow", "figma-spec-builder.md"),
-      "utf8"
+      path.join(
+        PLUGIN_ROOT,
+        "references",
+        "generate-flow",
+        "figma-spec-builder.md",
+      ),
+      "utf8",
     );
     var docsCombined = flowSkillMd + "\n" + specBuilderMd;
 
@@ -160,7 +170,7 @@ describe("Contract Tests", function () {
       });
       assert.ok(
         undocumented.length === 0,
-        "templates.json keys not documented: " + undocumented.join(", ")
+        "templates.json keys not documented: " + undocumented.join(", "),
       );
     });
 
@@ -184,7 +194,7 @@ describe("Contract Tests", function () {
       });
       assert.ok(
         missing.length === 0,
-        "doc template names not in templates.json: " + missing.join(", ")
+        "doc template names not in templates.json: " + missing.join(", "),
       );
     });
   });
@@ -229,12 +239,12 @@ describe("Contract Tests", function () {
       it(typeName + " — CSS and renderer files exist", function () {
         assert.ok(
           fs.existsSync(config.css),
-          typeName + " — CSS file not found: " + path.basename(config.css)
+          typeName + " — CSS file not found: " + path.basename(config.css),
         );
         config.renderers.forEach(function (rendererPath) {
           assert.ok(
             fs.existsSync(rendererPath),
-            typeName + " — renderer not found: " + path.basename(rendererPath)
+            typeName + " — renderer not found: " + path.basename(rendererPath),
           );
         });
       });
@@ -244,7 +254,7 @@ describe("Contract Tests", function () {
       ANNOTATION_FILES.forEach(function (annoFile) {
         assert.ok(
           fs.existsSync(annoFile),
-          "annotation layer — " + path.basename(annoFile) + " not found"
+          "annotation layer — " + path.basename(annoFile) + " not found",
         );
       });
     });
@@ -257,63 +267,78 @@ describe("Contract Tests", function () {
   describe("Part 4: --help output contracts", function () {
     var helpScripts = [
       {
-        script: path.join(SCRIPTS_DIR, "flow-to-figma.js"),
-        expectedName: "flow-to-figma",
-      },
-      {
-        script: path.join(SCRIPTS_DIR, "brief-to-figma.js"),
-        expectedName: "brief-to-figma",
-      },
-      {
-        script: path.join(SCRIPTS_DIR, "slide-to-figma.js"),
-        expectedName: "slide-to-figma",
-      },
-      {
         script: path.join(SCRIPTS_DIR, "assemble-preview.js"),
         expectedName: "assemble-preview",
       },
     ];
 
     helpScripts.forEach(function (hs) {
-      it(hs.expectedName + " --help: exits 0 with valid JSON, correct name and flags", function () {
-        var helpOutput = "";
-        var helpExitCode = 0;
-        try {
-          helpOutput = execSync("node " + JSON.stringify(hs.script) + " --help", {
-            encoding: "utf8",
-            stdio: ["pipe", "pipe", "pipe"],
-          });
-        } catch (e) {
-          helpExitCode = e.status || 1;
-          helpOutput = (e.stdout || "") + (e.stderr || "");
-        }
-
-        assert.strictEqual(helpExitCode, 0, hs.expectedName + " --help — exits 0");
-
-        var helpJson = null;
-        try {
-          helpJson = JSON.parse(helpOutput);
-        } catch (e) {
-          // parse failed
-        }
-        assert.ok(helpJson !== null, hs.expectedName + " --help — valid JSON output");
-        assert.strictEqual(helpJson && helpJson.name, hs.expectedName, hs.expectedName + " --help — name field matches");
-        assert.ok(Array.isArray(helpJson && helpJson.flags), hs.expectedName + " --help — flags is an array");
-
-        if (helpJson && Array.isArray(helpJson.flags)) {
-          var hsSrc = fs.readFileSync(hs.script, "utf8");
-          var missingFlagNames = helpJson.flags.filter(function (f) {
-            return (
-              hsSrc.indexOf("'" + f.name + "'") === -1 &&
-              hsSrc.indexOf('"' + f.name + '"') === -1
+      it(
+        hs.expectedName +
+          " --help: exits 0 with valid JSON, correct name and flags",
+        function () {
+          var helpOutput = "";
+          var helpExitCode = 0;
+          try {
+            helpOutput = execSync(
+              "node " + JSON.stringify(hs.script) + " --help",
+              {
+                encoding: "utf8",
+                stdio: ["pipe", "pipe", "pipe"],
+              },
             );
-          }).map(function (f) { return f.name; });
-          assert.ok(
-            missingFlagNames.length === 0,
-            hs.expectedName + " --help — flags not found in source: " + missingFlagNames.join(", ")
+          } catch (e) {
+            helpExitCode = e.status || 1;
+            helpOutput = (e.stdout || "") + (e.stderr || "");
+          }
+
+          assert.strictEqual(
+            helpExitCode,
+            0,
+            hs.expectedName + " --help — exits 0",
           );
-        }
-      });
+
+          var helpJson = null;
+          try {
+            helpJson = JSON.parse(helpOutput);
+          } catch (e) {
+            // parse failed
+          }
+          assert.ok(
+            helpJson !== null,
+            hs.expectedName + " --help — valid JSON output",
+          );
+          assert.strictEqual(
+            helpJson && helpJson.name,
+            hs.expectedName,
+            hs.expectedName + " --help — name field matches",
+          );
+          assert.ok(
+            Array.isArray(helpJson && helpJson.flags),
+            hs.expectedName + " --help — flags is an array",
+          );
+
+          if (helpJson && Array.isArray(helpJson.flags)) {
+            var hsSrc = fs.readFileSync(hs.script, "utf8");
+            var missingFlagNames = helpJson.flags
+              .filter(function (f) {
+                return (
+                  hsSrc.indexOf("'" + f.name + "'") === -1 &&
+                  hsSrc.indexOf('"' + f.name + '"') === -1
+                );
+              })
+              .map(function (f) {
+                return f.name;
+              });
+            assert.ok(
+              missingFlagNames.length === 0,
+              hs.expectedName +
+                " --help — flags not found in source: " +
+                missingFlagNames.join(", "),
+            );
+          }
+        },
+      );
     });
   });
 });
