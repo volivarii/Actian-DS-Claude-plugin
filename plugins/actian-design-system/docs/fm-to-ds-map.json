@@ -1,0 +1,470 @@
+{
+  "_meta": {
+    "description": "FM Kit to DS Kit component mapping for hifi conversion",
+    "fmRegistry": "docs/fmkit.json",
+    "dsRegistry": "docs/dskit.json",
+    "lastUpdated": "2026-04-09"
+  },
+  "mappings": {
+    "fmButton": {
+      "dsSlug": "button",
+      "defaultVariant": {
+        "Type": "Primary",
+        "Size": "Default",
+        "State": "Default"
+      },
+      "variantMap": {
+        "Type": {
+          "Primary": "Primary",
+          "Secondary": "Secondary",
+          "Outline": "Tertiary",
+          "Destructive": "Critical primary"
+        },
+        "Size": {
+          "md": "Default",
+          "sm": "Small"
+        },
+        "State": {
+          "Default": "Default",
+          "Disabled": "Disabled"
+        }
+      },
+      "propertyMap": {
+        "Label": "Label",
+        "Leading Icon": "Leading icon",
+        "\ud83d\udc41 Leading Icon": "Leading icon show",
+        "\ud83d\udc41 Trailing Icon": "Trailing icon show",
+        "Trailing Icon": "Trailing icon"
+      },
+      "dropVariants": ["Shape"]
+    },
+    "fmIconButtons": {
+      "dsSlug": "button",
+      "defaultVariant": {
+        "Type": "Icon",
+        "Size": "Default",
+        "State": "Default"
+      },
+      "variantMap": {
+        "Type": {
+          "Primary": "Icon",
+          "Secondary": "Icon",
+          "Outline": "Icon"
+        },
+        "State": {
+          "Default": "Default",
+          "Disabled": "Disabled"
+        }
+      },
+      "propertyMap": {
+        "Icon": "Leading icon"
+      },
+      "notes": "FM icon buttons collapse all types into DS Icon type; FM Type is dropped"
+    },
+    "fmTextInput": {
+      "dsSlug": "input",
+      "defaultVariant": { "States": "Default" },
+      "variantMap": {
+        "Type": {
+          "Empty": "Default",
+          "Placeholder": "Default",
+          "Default": "Filled",
+          "Disabled": "Disabled"
+        }
+      },
+      "propertyMap": {
+        "Show label": "Label",
+        "Input Text": "Placeholder text",
+        "\ud83d\udc41 Leading Icon": "Trailing icon",
+        "\ud83d\udc41 Trailing Icon": "Trailing icon"
+      },
+      "notes": "FM 'Type' axis maps to DS 'States' axis. FM combines state+content into one axis."
+    },
+    "fmDropdown": {
+      "dsSlug": "dropdown-select-default",
+      "defaultVariant": { "Type": "Default", "State": "Default" },
+      "variantMap": {
+        "Type": {
+          "Placeholder": "Default",
+          "Open": "Active",
+          "Disabled": "Disabled",
+          "Filled": "Filled"
+        }
+      },
+      "propertyMap": {
+        "Show label": "Show Label"
+      },
+      "notes": "FM 'Type' conflates state and type; maps to DS 'State' axis with DS Type=Default"
+    },
+    "fmMultiSelectDropdown": {
+      "dsSlug": "dropdown-select-default",
+      "defaultVariant": { "Type": "Search/Multiple", "State": "Default" },
+      "variantMap": {
+        "Type": {
+          "Placeholder": "Default",
+          "Disabled": "Disabled",
+          "Open Multi-select": "Active",
+          "Filled": "Filled",
+          "User Filled": "Filled"
+        }
+      },
+      "propertyMap": {
+        "Show label": "Show Label",
+        "Dropdown Text": "Show description"
+      },
+      "notes": "Always maps to DS Type=Search/Multiple. FM 'Type' maps to DS 'State' axis."
+    },
+    "fmCheckbox": {
+      "dsSlug": "checkbox-with-label",
+      "defaultVariant": { "Selected": "No", "State": "Enabled" },
+      "variantMap": {
+        "State": {
+          "Off": "No",
+          "On": "Yes"
+        },
+        "Style": {
+          "Default": "Enabled",
+          "Disabled": "Disabled"
+        }
+      },
+      "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis."
+    },
+    "fmRadioButton": {
+      "dsSlug": "radio-button-radio-button",
+      "defaultVariant": {
+        "Format": "Default",
+        "State": "Default",
+        "Selected": "No"
+      },
+      "variantMap": {
+        "State": {
+          "On": "Yes",
+          "Off": "No"
+        },
+        "Style": {
+          "Default": "Default",
+          "Disabled": "Disabled"
+        }
+      },
+      "propertyMap": {
+        "Show Label": "Show Helper text"
+      },
+      "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis."
+    },
+    "fmToggle": {
+      "dsSlug": "toggle",
+      "defaultVariant": {
+        "Toggle location": "Left",
+        "State": "Default",
+        "Selected": "No"
+      },
+      "variantMap": {
+        "State": {
+          "Off": "No",
+          "On": "Yes"
+        },
+        "Style": {
+          "Default": "Default",
+          "Disabled": "Disabled"
+        }
+      },
+      "notes": "FM 'State' (Off/On) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis."
+    },
+    "fmAppHeader": {
+      "dsSlug": "global-header",
+      "defaultVariant": { "App type": "Explorer", "Breakpoints": "XL" },
+      "variantMap": {
+        "Type": {
+          "Admin": "Admin",
+          "Explorer": "Explorer",
+          "Studio": "Studio",
+          "Actian": "Explorer"
+        }
+      },
+      "propertyMap": {},
+      "dropVariants": [],
+      "notes": "FM 'Type' maps to DS 'App type'. FM 'Actian' has no DS match; falls back to Explorer. DS adds Breakpoints axis (default XL)."
+    },
+    "fmSideNav": {
+      "dsSlug": "side-nav",
+      "defaultVariant": { "App": "Admin", "View": "Expanded" },
+      "variantMap": {
+        "Property 1": {
+          "Default": "Expanded",
+          "Slim": "Collapsed"
+        }
+      },
+      "notes": "FM 'Property 1' maps to DS 'View' axis. DS 'App' axis has no FM equivalent (default Admin)."
+    },
+    "fmSideNavItem": {
+      "dsSlug": "nav-item",
+      "defaultVariant": {
+        "Level": "Top",
+        "Opened/Closed": "N/A",
+        "State": "Default"
+      },
+      "variantMap": {
+        "State": {
+          "On": "Selected",
+          "Off": "Default",
+          "Placeholder": "Disabled"
+        }
+      },
+      "propertyMap": {
+        "Show icon": "Icon left",
+        "Show Label": "Label",
+        "Label": "Name",
+        "Icon": "Icon left2",
+        "Chevron": "Icon right"
+      },
+      "notes": "FM State On/Off/Placeholder maps to DS State Selected/Default/Disabled."
+    },
+    "fmPageHeader": {
+      "dsSlug": "page-header",
+      "defaultVariant": { "Type": "Default" },
+      "variantMap": {
+        "Type": {
+          "Title only": "Default",
+          "Title + Subtitle": "Default",
+          "Title + Actions": "Default"
+        }
+      },
+      "propertyMap": {},
+      "notes": "DS page-header has limited Type variants (Default, Details page, Explorer home, Explorer detail). All FM types map to Default."
+    },
+    "fmSearchInput": {
+      "dsSlug": "search",
+      "defaultVariant": { "Type": "Inline", "State": "Default" },
+      "variantMap": {
+        "Type": {
+          "Empty": "Default",
+          "Placeholder": "Default",
+          "Filled": "Filled"
+        }
+      },
+      "propertyMap": {
+        "Show label": "AI icon",
+        "Input Text": null
+      },
+      "notes": "FM 'Type' conflates content state; maps to DS 'State' axis with DS Type=Inline. Note DS has typo 'Dsiabled' for disabled state."
+    },
+    "fmDateInput": {
+      "dsSlug": "input-date",
+      "defaultVariant": { "Type": "Single date", "States": "Enabled" },
+      "variantMap": {
+        "State": {
+          "Default": "Enabled",
+          "Open": "Activ",
+          "Placeholder": "Enabled"
+        }
+      },
+      "propertyMap": {
+        "Input Text": null
+      },
+      "notes": "FM 'State' maps to DS 'States' axis. Note DS uses 'Activ' (typo) for active state and 'Fille' (typo) for filled."
+    },
+    "fmAlert": {
+      "dsSlug": "alert-banner",
+      "defaultVariant": { "Type": "Primary", "Orientation'": "Horizontal" },
+      "variantMap": {
+        "Type": {
+          "Success": "Success",
+          "Error": "Danger",
+          "Warning": "Warning"
+        }
+      },
+      "notes": "DS 'Orientation'' axis has trailing apostrophe (typo in Figma). FM Error maps to DS Danger."
+    },
+    "fmToast": {
+      "dsSlug": "notification",
+      "defaultVariant": { "Type": "Default" },
+      "variantMap": {
+        "Style": {
+          "Standard": "Default",
+          "Outline": "Default"
+        }
+      },
+      "propertyMap": {},
+      "notes": "DS notification has only Default and Critial (typo) types. Both FM styles map to Default."
+    },
+    "fmBadge": {
+      "dsSlug": "badge",
+      "defaultVariant": { "Type": "Number" },
+      "variantMap": {
+        "Type": {
+          "Icon": "Dot",
+          "Number": "Number",
+          "Number Expand": "Number"
+        }
+      },
+      "dropVariants": ["Size"],
+      "notes": "DS badge has only Number and Dot types. FM Size axis (Small/Medium/Large) has no DS equivalent."
+    },
+    "fmChip": {
+      "dsSlug": "tag-interactive",
+      "defaultVariant": { "State": "Default" },
+      "variantMap": {
+        "Outline": {
+          "False": "Default",
+          "True": "Default"
+        }
+      },
+      "propertyMap": {
+        "Icon": "Leading icon show",
+        "\u2199 Icon": "Leading icon"
+      },
+      "dropVariants": ["Outline"],
+      "notes": "No DS chip component exists. Tag, Interactive is the closest equivalent. FM Outline axis has no DS mapping."
+    },
+    "fmTag": {
+      "dsSlug": "tag-default",
+      "defaultVariant": { "Color": "Default" },
+      "variantMap": {
+        "Style": {
+          "Filled": "Default",
+          "Outline": "Default",
+          "Light": "Default"
+        }
+      },
+      "propertyMap": {
+        "Icon Left": "Leading icon show",
+        "\u2199 Icon L": "Leading icon",
+        "Icon Right": "Trailing icon show",
+        "\u2199 Icon R": "Trailing icon"
+      },
+      "dropVariants": ["Style"],
+      "notes": "DS tag-default uses Color axis instead of Style. FM Style axis has no direct mapping."
+    },
+    "fmTab": {
+      "dsSlug": "tab",
+      "defaultVariant": { "Selected": "No", "State": "Default" },
+      "variantMap": {
+        "State": {
+          "On": "Yes",
+          "Off": "No",
+          "Placeholder": "No"
+        }
+      },
+      "propertyMap": {
+        "Show Icon": "Icon"
+      },
+      "notes": "DS .tab is dot-prefixed (internal), but it is the only single-tab component. FM State On/Off maps to DS Selected Yes/No."
+    },
+    "fmStepper": {
+      "dsSlug": "stepper",
+      "defaultVariant": { "State": "Default" },
+      "variantMap": {
+        "State": {
+          "Active": "Active",
+          "Complete": "Complete",
+          "Upcoming": "Default"
+        }
+      },
+      "notes": "FM Upcoming maps to DS Default. DS also has State5 which is unused."
+    },
+    "fmEmptyState": {
+      "dsSlug": "empty-state",
+      "defaultVariant": { "Size": "Medium" },
+      "variantMap": {
+        "Type": {
+          "Default": "Medium",
+          "Compact": "Small"
+        }
+      },
+      "notes": "FM 'Type' axis maps to DS 'Size' axis. DS also has Large."
+    },
+    "fmProgressBar": {
+      "dsSlug": "progress-bar-small",
+      "defaultVariant": { "Size": "Default", "Completeness": "50%" },
+      "variantMap": {
+        "Completion": {
+          "10%": "0%",
+          "20%": "0%",
+          "30%": "50%",
+          "40%": "50%",
+          "50%": "50%",
+          "60%": "50%",
+          "70%": "50%",
+          "80%": "100%",
+          "90%": "100%",
+          "100%": "100%"
+        }
+      },
+      "notes": "DS has only 0%, 50%, 100% completeness. FM granular percentages are bucketed to nearest DS value."
+    },
+    "fmTooltip": {
+      "dsSlug": "tooltip",
+      "defaultVariant": { "Type": "Default" },
+      "variantMap": {},
+      "dropVariants": ["Position"],
+      "notes": "DS tooltip has only Type=Default with no position variants. FM Position axis is dropped."
+    },
+    "fmTextArea": {
+      "dsSlug": "rich-text",
+      "defaultVariant": { "State": "Default" },
+      "variantMap": {
+        "Content": {
+          "None": "Default",
+          "Placeholder": "Default",
+          "Filled": "Expanded"
+        }
+      },
+      "propertyMap": {
+        "Show label": null
+      },
+      "notes": "No direct DS textarea exists. Rich text is the closest multi-line input. FM Content axis maps loosely to DS State axis."
+    },
+    "fmMenuItem": {
+      "dsSlug": "menu-item",
+      "defaultVariant": { "Type": "Selectable item", "State": "Default" },
+      "variantMap": {
+        "State": {
+          "Default": "Default",
+          "Hover": "Hovered",
+          "Active": "Selected"
+        }
+      },
+      "propertyMap": {},
+      "notes": "DS .menu item is dot-prefixed (internal). FM Active maps to DS Selected."
+    },
+    "fmMultiSelectMenuItem": {
+      "dsSlug": "menu-item",
+      "defaultVariant": { "Type": "Selectable item", "State": "Default" },
+      "variantMap": {
+        "State": {
+          "On": "Selected",
+          "Off": "Default",
+          "User Off": "Default"
+        }
+      },
+      "propertyMap": {
+        "Dropdown item text": "Label text"
+      },
+      "notes": "Maps to same DS .menu item. FM On/Off/User Off maps to DS Selected/Default."
+    },
+    "fmTableCell": {
+      "dsSlug": "table-cell",
+      "defaultVariant": { "Type": "Text" },
+      "variantMap": {
+        "Type": {
+          "Header": "Header",
+          "Text": "Text",
+          "Pill": "Tag",
+          "Placeholder": "Skeleton"
+        }
+      },
+      "notes": "DS .Table cell is dot-prefixed (internal building block). FM Pill maps to DS Tag; FM Placeholder maps to DS Skeleton."
+    }
+  },
+  "unmappable": {
+    "fmStickyNote": "FM-only annotation tool for wireframes. No DS equivalent -- remove during hifi conversion.",
+    "fmPlaceholder": "FM-only wireframe content placeholder (Label+1line, metric, etc.). No DS equivalent -- replace with actual content or DS empty-state.",
+    "fmCursor": "FM-only annotation showing cursor types (Link, Pointer, Dragging, Text). No DS equivalent -- remove during hifi conversion.",
+    "fmSlider": "No DS slider/range component exists. Reconstruct as auto-layout frame with DS tokens if needed.",
+    "fmInputLabel": "FM-only label helper. DS input components have built-in label properties -- set label boolean/text on the DS input directly.",
+    "fmBanner": "Not yet in fmkit.json registry. When synced, map to DS alert-banner.",
+    "fmDialog": "Not yet in fmkit.json registry. When synced, map to DS modal.",
+    "fmSpinner": "Not yet in fmkit.json registry. When synced, map to DS spinner.",
+    "fmTabs": "Not yet in fmkit.json registry. When synced, map to DS tabs container."
+  }
+}
