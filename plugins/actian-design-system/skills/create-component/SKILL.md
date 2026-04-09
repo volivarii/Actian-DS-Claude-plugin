@@ -72,7 +72,7 @@ After creation, offer: "Want me to generate a component brief?" If accepted, inv
 
 ## References
 
-- `references/create-component/figma-spec-builder.md` — build plan to spec mapping
+- `references/create-component/push-patterns.md` — direct push patterns for component creation
 - `references/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `references/create-component/research-and-dependencies.md` — research procedure, dependency resolution
 - `references/figma-output.md` — Figma URL parsing, token binding

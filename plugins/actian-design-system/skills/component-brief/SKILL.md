@@ -149,4 +149,4 @@ Write files silently (never dump in chat). Research → data model → gate runs
 
 ## References
 
-`references/component-brief/`: `data-schema.md` (JSON schema, 9 DS + 5 FM cards), `figma-spec-builder.md` (data→Figma mapping), `figma-rules.md` (pitfalls), `playground.md` (explorer). `references/quality-tiers.md` (tiers).
+`references/component-brief/`: `data-schema.md` (JSON schema, 9 DS + 5 FM cards), `figma-rules.md` (pitfalls), `playground.md` (explorer). `references/brief-push-patterns.md` (Figma push). `references/quality-tiers.md` (tiers).

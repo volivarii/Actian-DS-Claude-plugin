@@ -134,5 +134,4 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 | UX patterns by flow type | `references/ux-patterns.md` |
 | Page layout patterns | `references/layout-patterns.md` |
 | Token variable keys (Figma binding) | `docs/meta-kit/variables.md` |
-| Flow templates + content nodes | `references/generate-flow/figma-spec-builder.md` |
 | Quality tiers (Draft/Standard/Production) | `references/quality-tiers.md` |

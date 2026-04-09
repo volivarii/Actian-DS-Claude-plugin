@@ -13,7 +13,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
 1. Read app-context.md → determine app (Studio/Explorer/Administration)
 2. **Research gate** — present verbatim unless user said "no research"
 3. **Screen list gate** — present with options verbatim
-4. Build flow-data.json with content[] nodes (see figma-spec-builder.md, reference `examples/flow-data-example.json` for expected structure)
+4. Build flow-data.json with content[] nodes (reference `examples/flow-data-example.json` for expected structure)
    - **Recipe acceleration**: Before building each screen's `content[]`, read `recipes/flow/_index.json`. If an archetype matches the screen's purpose, read that recipe file and use its skeleton as a starting point — fill `{{placeholders}}` with domain content, add/remove rows and sections as needed. If no recipe fits or the screen needs a novel layout, build `content[]` from scratch. Recipes are accelerators, not constraints — deviate freely when the design calls for it.
    - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in parallel, splitting screens into batches of 2-3. Each agent receives: batch index, screen details (name, template, content description), feature context, meta object, output path to `.partial/`. After all complete, merge:
      ```bash
@@ -107,7 +107,6 @@ Push-apart row — SPACE_BETWEEN, no Spacer: `{ "type": "FRAME", "name": "Header
 ## References
 
 - `references/figma-push-patterns.md` — component keys, push patterns, and Plugin API call templates
-- `references/generate-flow/figma-spec-builder.md` — templates, content node spec, FM component ref table
 - `references/generate-flow/research-guide.md` — competitor research, reference analysis
 - `references/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `references/app-context.md` — app inference, entity model, terminology

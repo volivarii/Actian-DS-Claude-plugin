@@ -49,8 +49,7 @@ Deck outline: N slides (cover + N body + back cover). Reply:
        --output {project_working_directory}/presentations/[topic-slug]/slide-data.json
      ```
      Sequential mode (<6 slides): build slide-data.json directly as today.
-2. Read `../../references/generate-presentation/figma-spec-builder.md` — input schema + chart patterns
-3. Write to: `{project_working_directory}/presentations/[topic-slug]/slide-data.json`
+2. Write to: `{project_working_directory}/presentations/[topic-slug]/slide-data.json`
 4. Push to Figma — read `references/figma-push-patterns.md` for component keys and patterns. Read your `slide-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
 
    **Push sequence** (each step is one small `use_figma` call):
@@ -94,7 +93,6 @@ Serve, present review report, accept feedback or "push".
 
 ## References
 
-- `references/generate-presentation/figma-spec-builder.md` — input schema, chart patterns
 - `references/generate-presentation/templates.md` — 8 CSS chart types, slide type details
 - `references/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `docs/presentation-guide.md` — voice & tone, narrative arc, review report format
