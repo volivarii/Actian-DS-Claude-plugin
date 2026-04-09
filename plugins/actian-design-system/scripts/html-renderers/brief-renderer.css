@@ -514,6 +514,13 @@ td code {
   font-size: 14px;
   flex-shrink: 0;
 }
+.anatomy-badge--dim {
+  background: #c0392b;
+  border-radius: 4px;
+  width: auto;
+  padding: 2px 8px;
+  font-size: 12px;
+}
 .anatomy-prop__label {
   font-size: 14px;
   font-weight: 400;

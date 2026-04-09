@@ -303,6 +303,34 @@
       );
     }
 
+    // Specs (dimension annotations — simplified for HTML preview)
+    if (anatomy.specs && anatomy.specs.length) {
+      var specsHtml =
+        '<div class="anatomy-box">' +
+        '<div class="anatomy-component">' +
+        '<span class="anatomy-component__label">Specs</span>' +
+        componentHtml("default") +
+        '</div><div class="anatomy-props">';
+      anatomy.specs.forEach(function (s) {
+        specsHtml +=
+          '<div class="anatomy-prop">' +
+          '<div class="anatomy-badge anatomy-badge--dim">' +
+          esc(s.value) +
+          "</div>" +
+          '<div class="anatomy-prop__label">' +
+          esc(s.layerName || s.orientation || s.direction || "") +
+          "</div></div>";
+      });
+      specsHtml += "</div></div>";
+      parts.push(
+        cardDivider() +
+          '<div class="section" data-name="Specs">' +
+          sectionTitle("Specs") +
+          specsHtml +
+          "</div>",
+      );
+    }
+
     // States
     if (anatomy.states && anatomy.states.length) {
       var statesHtml = '<div class="state-grid">';
