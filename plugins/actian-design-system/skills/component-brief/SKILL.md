@@ -128,22 +128,27 @@ This produces `figma-calls/` with:
 
 ### 3b. Execute each call via use_figma
 
-Read `manifest.json` to get the call sequence. For each call:
+Read `manifest.json` to get the call sequence, then execute each `.js` file.
 
-1. Read the `.js` file contents
-2. Pass as the `code` parameter to `use_figma` with `skillNames: "figma-use"`
-3. The code is self-contained (interpreter runtime + JSON spec) — do NOT modify it
+**CRITICAL — do NOT use the Read tool on fill files.** They are too large (30-47KB). Use bash to get the file contents:
 
 ```bash
 # Read manifest to get call order
 cat {project_working_directory}/components/[name]/figma-calls/manifest.json
+
+# For each call file, use bash to capture the content, then pass to use_figma:
+CODE=$(cat {project_working_directory}/components/[name]/figma-calls/scaffold.js)
 ```
 
-Execute in order: scaffold first, then fills. Each call returns IDs that are embedded in subsequent calls via the spec's `appendToId` field.
+Then pass `$CODE` as the `code` parameter to `use_figma` with `skillNames: "figma-use"`.
 
-```
-# For each call file:
-use_figma(fileKey, code=<contents of .js file>, skillNames="figma-use")
+Execute in order: scaffold first, then fills (fill-1, fill-2, etc.). The code is self-contained (interpreter runtime + JSON spec) — do NOT modify it.
+
+**Alternative — read via bash and pipe to a variable for each call:**
+```bash
+# Get file content as a string to pass to use_figma
+bash "${CLAUDE_PLUGIN_ROOT}/scripts/execute-figma-call.sh" \
+  {project_working_directory}/components/[name]/figma-calls/fill-1.js <fileKey>
 ```
 
 ### 3c. Handle failures
