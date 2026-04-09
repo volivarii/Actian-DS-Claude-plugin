@@ -4,6 +4,8 @@ Direct Figma Plugin API patterns for pushing component briefs. Each pattern is a
 
 All calls MUST include `skillNames: "figma-use"`.
 
+**CRITICAL: The wrapper frame MUST use `layoutMode = "HORIZONTAL"`** with `itemSpacing = 32`. Brief cards display side by side in a horizontal row, NOT stacked vertically. Use Pattern 1 from `figma-push-patterns.md` exactly — do NOT change the layout direction.
+
 ---
 
 ## 1. Card Shell Pattern
