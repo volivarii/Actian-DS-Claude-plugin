@@ -46,7 +46,18 @@
     },
     {
       "type": "FRAME",
-      "name": "__section_card8_card9",
+      "name": "__section_card8",
+      "layout": {
+        "mode": "HORIZONTAL",
+        "spacing": 32,
+        "primarySizing": "AUTO",
+        "counterSizing": "AUTO"
+      },
+      "fills": []
+    },
+    {
+      "type": "FRAME",
+      "name": "__section_card9",
       "layout": {
         "mode": "HORIZONTAL",
         "spacing": 32,

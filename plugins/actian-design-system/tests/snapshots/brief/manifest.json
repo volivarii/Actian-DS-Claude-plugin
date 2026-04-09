@@ -1,62 +1,117 @@
 {
   "version": 2,
-  "totalCalls": 5,
+  "totalCalls": 7,
   "unitMap": {
     "genLog": 1,
     "card1_header": 1,
     "card2_component": 1,
     "card3_anatomy": 1,
-    "card4_tokens": 2,
-    "card5_api": 2,
-    "card6_usage": 3,
-    "card7_content": 3,
-    "card8_accessibility": 4,
-    "card9_code": 4
+    "card4_tokens": 3,
+    "card5_api": 3,
+    "card6_usage": 4,
+    "card7_content": 4,
+    "card8_accessibility": 5,
+    "card9_code": 6
   },
   "scaffold": {
     "file": "scaffold.js",
     "specFile": "scaffold.json",
-    "sizeBytes": 22780,
+    "sizeBytes": 25310,
     "sections": [
       "__section_genlog_card1_card2_card3",
+      "__section_card3b",
       "__section_card4_card5",
       "__section_card6_card7",
-      "__section_card8_card9"
+      "__section_card8",
+      "__section_card9"
     ],
-    "description": "Creates wrapper + 4 section frames"
+    "description": "Creates wrapper + 6 section frames"
   },
   "fills": [
     {
       "fillIndex": 1,
       "file": "fill-1.js",
       "specFile": "fill-1.json",
-      "sizeBytes": 41310,
+      "sizeBytes": 36561,
       "sectionKey": "__section_genlog_card1_card2_card3",
-      "description": "Fill 1/4: GenLog, Card 1, Card 2, Card 3"
+      "description": "Fill 1/6: GenLog, Card 1, Card 2, Card 3"
     },
     {
       "fillIndex": 2,
       "file": "fill-2.js",
       "specFile": "fill-2.json",
-      "sizeBytes": 44821,
-      "sectionKey": "__section_card4_card5",
-      "description": "Fill 2/4: Card 4, Card 5"
+      "sizeBytes": 33827,
+      "sectionKey": "__section_card3b",
+      "description": "Fill 2/6: Card 3b"
     },
     {
       "fillIndex": 3,
       "file": "fill-3.js",
       "specFile": "fill-3.json",
-      "sizeBytes": 34912,
-      "sectionKey": "__section_card6_card7",
-      "description": "Fill 3/4: Card 6, Card 7"
+      "sizeBytes": 47214,
+      "sectionKey": "__section_card4_card5",
+      "description": "Fill 3/6: Card 4, Card 5"
     },
     {
       "fillIndex": 4,
       "file": "fill-4.js",
       "specFile": "fill-4.json",
-      "sizeBytes": 46399,
-      "sectionKey": "__section_card8_card9",
-      "description": "Fill 4/4: Card 8, Card 9"
+      "sizeBytes": 37305,
+      "sectionKey": "__section_card6_card7",
+      "description": "Fill 4/6: Card 6, Card 7"
+    },
+    {
+      "fillIndex": 5,
+      "file": "fill-5.js",
+      "specFile": "fill-5.json",
+      "sizeBytes": 44520,
+      "sectionKey": "__section_card8",
+      "description": "Fill 5/6: Card 8"
+    },
+    {
+      "fillIndex": 6,
+      "file": "fill-6.js",
+      "specFile": "fill-6.json",
+      "sizeBytes": 30718,
+      "sectionKey": "__section_card9",
+      "description": "Fill 6/6: Card 9"
     }
-  ]
+  ],
+  "storeAndExecute": {
+    "stores": [
+      {
+        "fillIndex": 1,
+        "file": "store-1.js",
+        "sizeBytes": 12291
+      },
+      {
+        "fillIndex": 2,
+        "file": "store-2.js",
+        "sizeBytes": 9557
+      },
+      {
+        "fillIndex": 3,
+        "file": "store-3.js",
+        "sizeBytes": 22944
+      },
+      {
+        "fillIndex": 4,
+        "file": "store-4.js",
+        "sizeBytes": 13035
+      },
+      {
+        "fillIndex": 5,
+        "file": "store-5.js",
+        "sizeBytes": 20250
+      },
+      {
+        "fillIndex": 6,
+        "file": "store-6.js",
+        "sizeBytes": 6448
+      }
+    ],
+    "executeFile": "execute-fills.js",
+    "executeSizeBytes": 24693,
+    "description": "Agent-friendly path: store each spec (<25KB), then execute all at once (~24KB)"
+  }
 }

@@ -451,6 +451,66 @@ function writeCallFilesV2(outputDir, scaffoldSpec, fills, unitMap, fillFilter) {
     });
   }
 
+  // --- Store-and-execute files (agent-friendly, all files <25KB) ---
+  // Each store file embeds the spec as a JS object literal inside a
+  // setSharedPluginData call.  The execute file bundles the interpreter
+  // with a loop that reads stored specs and processes them.  This keeps
+  // every file under ~25KB so agents can reliably read and push them.
+
+  var storeFiles = [];
+  for (var j = 0; j < fills.length; j++) {
+    var sf = fills[j];
+    var storeFileName = "store-" + sf.fillIndex + ".js";
+    var compactSpec = JSON.stringify(sf.spec);
+    var storeCode =
+      "figma.root.setSharedPluginData('ds-push', 'fill-" +
+      sf.fillIndex +
+      "', JSON.stringify(\n" +
+      compactSpec +
+      "\n));\nreturn 'stored fill-" +
+      sf.fillIndex +
+      "';";
+    var storeSize = Buffer.byteLength(storeCode, "utf8");
+
+    if (!fillFilter || sf.fillIndex === fillFilter) {
+      fs.writeFileSync(path.join(outputDir, storeFileName), storeCode, "utf8");
+    }
+
+    storeFiles.push({
+      fillIndex: sf.fillIndex,
+      file: storeFileName,
+      sizeBytes: storeSize,
+    });
+  }
+
+  // Execute-fills: interpreter + loop to process all stored specs
+  var readable = runtimeSource.replace(/(.{2000})/g, "$1\n");
+  var execCode =
+    readable +
+    "\nvar _fillCount = " +
+    fills.length +
+    ";\n" +
+    "var _results = [];\n" +
+    "for (var _i = 1; _i <= _fillCount; _i++) {\n" +
+    "  var _json = figma.root.getSharedPluginData('ds-push', 'fill-' + _i);\n" +
+    "  if (_json) {\n" +
+    "    var _spec = JSON.parse(_json);\n" +
+    "    await buildFromSpec(_spec);\n" +
+    "    _results.push('fill-' + _i + ': OK');\n" +
+    "    figma.root.setSharedPluginData('ds-push', 'fill-' + _i, '');\n" +
+    "  }\n" +
+    "}\n" +
+    "return _results.join(', ');";
+  fs.writeFileSync(path.join(outputDir, "execute-fills.js"), execCode, "utf8");
+
+  manifest.storeAndExecute = {
+    stores: storeFiles,
+    executeFile: "execute-fills.js",
+    executeSizeBytes: Buffer.byteLength(execCode, "utf8"),
+    description:
+      "Agent-friendly path: store each spec (<25KB), then execute all at once (~24KB)",
+  };
+
   fs.writeFileSync(
     path.join(outputDir, "manifest.json"),
     JSON.stringify(manifest, null, 2),

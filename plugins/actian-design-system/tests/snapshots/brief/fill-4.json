@@ -2,7 +2,7 @@
   "meta": {
     "skill": "component-brief",
     "component": "Link",
-    "fillSection": "__section_card8_card9"
+    "fillSection": "__section_card6_card7"
   },
   "fonts": [
     "Inter:Regular",
@@ -111,11 +111,11 @@
     {
       "type": "INSTANCE",
       "ref": "briefCard",
-      "name": "Accessibility",
+      "name": "Usage guidelines",
       "variant": "Mode=DS, Type=Standard",
       "props": {
-        "Title": "Accessibility",
-        "Subtitle": "WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios"
+        "Title": "Usage guidelines",
+        "Subtitle": "When and how to use Link"
       },
       "detach": true,
       "width": 1200,
@@ -135,10 +135,10 @@
         {
           "type": "INSTANCE",
           "ref": "sectionHeader",
-          "name": "Requirements",
+          "name": "When to use",
           "detach": true,
           "textSlots": {
-            "title": "Requirements"
+            "title": "When to use"
           },
           "sizing": {
             "horizontal": "FILL",
@@ -147,10 +147,10 @@
         },
         {
           "type": "FRAME",
-          "name": "Requirements grid",
+          "name": "Bullet: Navigation to internal or external desti",
           "layout": {
-            "mode": "VERTICAL",
-            "spacing": 16,
+            "mode": "HORIZONTAL",
+            "spacing": 8,
             "padding": [
               0,
               0,
@@ -161,571 +161,88 @@
           "fills": [],
           "children": [
             {
-              "type": "FRAME",
-              "name": "Requirements row 1",
-              "layout": {
-                "mode": "HORIZONTAL",
-                "spacing": 16,
-                "padding": [
-                  0,
-                  0,
-                  0,
-                  0
-                ]
-              },
-              "fills": [],
-              "children": [
-                {
-                  "type": "INSTANCE",
-                  "ref": "a11yCard",
-                  "name": "Default state: underlined",
-                  "variant": "Mode=DS",
-                  "props": {
-                    "Title": "Default state: underlined"
-                  },
-                  "detach": true,
-                  "clipsContent": false,
-                  "children": [
-                    {
-                      "type": "TEXT",
-                      "content": "Standard practice is to underline links in their default state. This ensures the link is distinguishable from surrounding text by a visual cue other than color alone.",
-                      "font": "Inter:Regular",
-                      "size": 13,
-                      "color": "#595968"
-                    },
-                    {
-                      "type": "INSTANCE",
-                      "ref": "codeBlock",
-                      "name": "Code: default-state:-underlined",
-                      "detach": true,
-                      "contentSlot": {
-                        "name": "Code Area"
-                      },
-                      "children": [
-                        {
-                          "type": "TEXT",
-                          "content": "a { text-decoration: underline; }",
-                          "font": "Fira Code:Regular",
-                          "size": 12,
-                          "color": "#BABED8",
-                          "textRanges": [
-                            {
-                              "start": 0,
-                              "end": 1,
-                              "color": "#FF79C6"
-                            },
-                            {
-                              "start": 1,
-                              "end": 4,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 4,
-                              "end": 19,
-                              "color": "#82AAFF"
-                            },
-                            {
-                              "start": 19,
-                              "end": 21,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 21,
-                              "end": 30,
-                              "color": "#C3E88D"
-                            },
-                            {
-                              "start": 30,
-                              "end": 33,
-                              "color": "#BABED8"
-                            }
-                          ],
-                          "name": "Code"
-                        }
-                      ]
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "a11yCard",
-                  "name": "Non-underlined link contrast",
-                  "variant": "Mode=DS",
-                  "props": {
-                    "Title": "Non-underlined link contrast"
-                  },
-                  "detach": true,
-                  "clipsContent": false,
-                  "children": [
-                    {
-                      "type": "TEXT",
-                      "content": "When links are not underlined by default, they must have at least 3:1 contrast ratio against surrounding body text, and 4.5:1 against background. A non-color indicator must appear on hover/focus.",
-                      "font": "Inter:Regular",
-                      "size": 13,
-                      "color": "#595968"
-                    },
-                    {
-                      "type": "INSTANCE",
-                      "ref": "codeBlock",
-                      "name": "Code: non-underlined-link-contrast",
-                      "detach": true,
-                      "contentSlot": {
-                        "name": "Code Area"
-                      },
-                      "children": [
-                        {
-                          "type": "TEXT",
-                          "content": "/* 3:1 vs body text */\n/* 4.5:1 vs background */",
-                          "font": "Fira Code:Regular",
-                          "size": 12,
-                          "color": "#BABED8",
-                          "textRanges": [
-                            {
-                              "start": 0,
-                              "end": 22,
-                              "color": "#676E95"
-                            },
-                            {
-                              "start": 23,
-                              "end": 48,
-                              "color": "#676E95"
-                            }
-                          ],
-                          "name": "Code"
-                        }
-                      ]
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "a11yCard",
-                  "name": "Focus indication",
-                  "variant": "Mode=DS",
-                  "props": {
-                    "Title": "Focus indication"
-                  },
-                  "detach": true,
-                  "clipsContent": false,
-                  "children": [
-                    {
-                      "type": "TEXT",
-                      "content": "Links must have a visible focus indicator when navigated via keyboard. Use a 2px outline with 2px offset in the theme-primary color.",
-                      "font": "Inter:Regular",
-                      "size": 13,
-                      "color": "#595968"
-                    },
-                    {
-                      "type": "INSTANCE",
-                      "ref": "codeBlock",
-                      "name": "Code: focus-indication",
-                      "detach": true,
-                      "contentSlot": {
-                        "name": "Code Area"
-                      },
-                      "children": [
-                        {
-                          "type": "TEXT",
-                          "content": "a:focus-visible { outline: 2px solid var(--theme-primary); outline-offset: 2px; }",
-                          "font": "Fira Code:Regular",
-                          "size": 12,
-                          "color": "#BABED8",
-                          "textRanges": [
-                            {
-                              "start": 0,
-                              "end": 15,
-                              "color": "#FF79C6"
-                            },
-                            {
-                              "start": 15,
-                              "end": 18,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 18,
-                              "end": 25,
-                              "color": "#82AAFF"
-                            },
-                            {
-                              "start": 25,
-                              "end": 27,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 27,
-                              "end": 57,
-                              "color": "#C3E88D"
-                            },
-                            {
-                              "start": 57,
-                              "end": 59,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 59,
-                              "end": 73,
-                              "color": "#82AAFF"
-                            },
-                            {
-                              "start": 73,
-                              "end": 75,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 75,
-                              "end": 78,
-                              "color": "#C3E88D"
-                            },
-                            {
-                              "start": 78,
-                              "end": 81,
-                              "color": "#BABED8"
-                            }
-                          ],
-                          "name": "Code"
-                        }
-                      ]
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                }
-              ],
-              "sizing": {
-                "horizontal": "FILL",
-                "vertical": "HUG"
-              }
+              "type": "TEXT",
+              "content": "+",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#047800"
             },
             {
-              "type": "FRAME",
-              "name": "Requirements row 2",
-              "layout": {
-                "mode": "HORIZONTAL",
-                "spacing": 16,
-                "padding": [
-                  0,
-                  0,
-                  0,
-                  0
-                ]
-              },
-              "fills": [],
-              "children": [
-                {
-                  "type": "INSTANCE",
-                  "ref": "a11yCard",
-                  "name": "Semantic HTML",
-                  "variant": "Mode=DS",
-                  "props": {
-                    "Title": "Semantic HTML"
-                  },
-                  "detach": true,
-                  "clipsContent": false,
-                  "children": [
-                    {
-                      "type": "TEXT",
-                      "content": "Always use the native <a> element with a valid href attribute. Never use <span> or <div> styled as a link. The href ensures proper keyboard navigation and screen reader announcements.",
-                      "font": "Inter:Regular",
-                      "size": 13,
-                      "color": "#595968"
-                    },
-                    {
-                      "type": "INSTANCE",
-                      "ref": "codeBlock",
-                      "name": "Code: semantic-html",
-                      "detach": true,
-                      "contentSlot": {
-                        "name": "Code Area"
-                      },
-                      "children": [
-                        {
-                          "type": "TEXT",
-                          "content": "<a href=\"/page\">Link text</a>",
-                          "font": "Fira Code:Regular",
-                          "size": 12,
-                          "color": "#BABED8",
-                          "textRanges": [
-                            {
-                              "start": 0,
-                              "end": 2,
-                              "color": "#FF5370"
-                            },
-                            {
-                              "start": 2,
-                              "end": 7,
-                              "color": "#FFCB6B"
-                            },
-                            {
-                              "start": 7,
-                              "end": 9,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 9,
-                              "end": 14,
-                              "color": "#C3E88D"
-                            },
-                            {
-                              "start": 14,
-                              "end": 16,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 16,
-                              "end": 25,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 25,
-                              "end": 29,
-                              "color": "#FF5370"
-                            }
-                          ],
-                          "name": "Code"
-                        }
-                      ]
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "a11yCard",
-                  "name": "External link indication",
-                  "variant": "Mode=DS",
-                  "props": {
-                    "Title": "External link indication"
-                  },
-                  "detach": true,
-                  "clipsContent": false,
-                  "children": [
-                    {
-                      "type": "TEXT",
-                      "content": "External links should include a trailing icon and open in a new tab with rel=\"noopener noreferrer\". Add aria-label or visually hidden text to communicate the behavior.",
-                      "font": "Inter:Regular",
-                      "size": 13,
-                      "color": "#595968"
-                    },
-                    {
-                      "type": "INSTANCE",
-                      "ref": "codeBlock",
-                      "name": "Code: external-link-indication",
-                      "detach": true,
-                      "contentSlot": {
-                        "name": "Code Area"
-                      },
-                      "children": [
-                        {
-                          "type": "TEXT",
-                          "content": "<a href=\"https://...\" target=\"_blank\" rel=\"noopener\">Docs</a>",
-                          "font": "Fira Code:Regular",
-                          "size": 12,
-                          "color": "#BABED8",
-                          "textRanges": [
-                            {
-                              "start": 0,
-                              "end": 2,
-                              "color": "#FF5370"
-                            },
-                            {
-                              "start": 2,
-                              "end": 7,
-                              "color": "#FFCB6B"
-                            },
-                            {
-                              "start": 7,
-                              "end": 9,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 9,
-                              "end": 20,
-                              "color": "#C3E88D"
-                            },
-                            {
-                              "start": 20,
-                              "end": 21,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 21,
-                              "end": 28,
-                              "color": "#FFCB6B"
-                            },
-                            {
-                              "start": 28,
-                              "end": 30,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 30,
-                              "end": 36,
-                              "color": "#C3E88D"
-                            },
-                            {
-                              "start": 36,
-                              "end": 37,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 37,
-                              "end": 41,
-                              "color": "#FFCB6B"
-                            },
-                            {
-                              "start": 41,
-                              "end": 43,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 43,
-                              "end": 51,
-                              "color": "#C3E88D"
-                            },
-                            {
-                              "start": 51,
-                              "end": 53,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 53,
-                              "end": 57,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 57,
-                              "end": 61,
-                              "color": "#FF5370"
-                            }
-                          ],
-                          "name": "Code"
-                        }
-                      ]
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "a11yCard",
-                  "name": "Disabled state",
-                  "variant": "Mode=DS",
-                  "props": {
-                    "Title": "Disabled state"
-                  },
-                  "detach": true,
-                  "clipsContent": false,
-                  "children": [
-                    {
-                      "type": "TEXT",
-                      "content": "Disabled links should use aria-disabled=\"true\" and remove the href to prevent navigation. Apply muted styling with text-disabled token. Do not rely on pointer-events: none alone.",
-                      "font": "Inter:Regular",
-                      "size": 13,
-                      "color": "#595968"
-                    },
-                    {
-                      "type": "INSTANCE",
-                      "ref": "codeBlock",
-                      "name": "Code: disabled-state",
-                      "detach": true,
-                      "contentSlot": {
-                        "name": "Code Area"
-                      },
-                      "children": [
-                        {
-                          "type": "TEXT",
-                          "content": "<a aria-disabled=\"true\" tabindex=\"-1\">Link</a>",
-                          "font": "Fira Code:Regular",
-                          "size": 12,
-                          "color": "#BABED8",
-                          "textRanges": [
-                            {
-                              "start": 0,
-                              "end": 2,
-                              "color": "#FF5370"
-                            },
-                            {
-                              "start": 2,
-                              "end": 16,
-                              "color": "#FFCB6B"
-                            },
-                            {
-                              "start": 16,
-                              "end": 18,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 18,
-                              "end": 22,
-                              "color": "#C3E88D"
-                            },
-                            {
-                              "start": 22,
-                              "end": 23,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 23,
-                              "end": 32,
-                              "color": "#FFCB6B"
-                            },
-                            {
-                              "start": 32,
-                              "end": 34,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 34,
-                              "end": 36,
-                              "color": "#C3E88D"
-                            },
-                            {
-                              "start": 36,
-                              "end": 38,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 38,
-                              "end": 42,
-                              "color": "#BABED8"
-                            },
-                            {
-                              "start": 42,
-                              "end": 46,
-                              "color": "#FF5370"
-                            }
-                          ],
-                          "name": "Code"
-                        }
-                      ]
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                }
-              ],
-              "sizing": {
-                "horizontal": "FILL",
-                "vertical": "HUG"
-              }
+              "type": "TEXT",
+              "content": "Navigation to internal or external destinations (pages, sections, resources)",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Inline contextual navigation within body",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "+",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#047800"
+            },
+            {
+              "type": "TEXT",
+              "content": "Inline contextual navigation within body text or descriptions",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Standalone navigation elements like brea",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "+",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#047800"
+            },
+            {
+              "type": "TEXT",
+              "content": "Standalone navigation elements like breadcrumbs or footer links",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
             }
           ],
           "sizing": {
@@ -739,10 +256,10 @@
         {
           "type": "INSTANCE",
           "ref": "sectionHeader",
-          "name": "ARIA specification",
+          "name": "When NOT to use",
           "detach": true,
           "textSlots": {
-            "title": "ARIA specification"
+            "title": "When NOT to use"
           },
           "sizing": {
             "horizontal": "FILL",
@@ -751,10 +268,10 @@
         },
         {
           "type": "FRAME",
-          "name": "ARIA table",
+          "name": "Bullet: Actions that don't navigate (submit, del",
           "layout": {
-            "mode": "VERTICAL",
-            "spacing": 0,
+            "mode": "HORIZONTAL",
+            "spacing": 8,
             "padding": [
               0,
               0,
@@ -765,158 +282,88 @@
           "fills": [],
           "children": [
             {
-              "type": "FRAME",
-              "name": "ARIA Header",
-              "layout": {
-                "mode": "HORIZONTAL",
-                "spacing": 0,
-                "padding": [
-                  0,
-                  0,
-                  0,
-                  0
-                ]
-              },
-              "fills": [],
-              "children": [
-                {
-                  "type": "INSTANCE",
-                  "ref": "tableHeaderRow",
-                  "name": "Header: Element",
-                  "detach": true,
-                  "textSlots": {
-                    "label": "Element"
-                  },
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "tableHeaderRow",
-                  "name": "Header: Role",
-                  "detach": true,
-                  "textSlots": {
-                    "label": "Role"
-                  },
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "tableHeaderRow",
-                  "name": "Header: Label",
-                  "detach": true,
-                  "textSlots": {
-                    "label": "Label"
-                  },
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "tableHeaderRow",
-                  "name": "Header: Focus Order",
-                  "detach": true,
-                  "textSlots": {
-                    "label": "Focus Order"
-                  },
-                  "width": 100,
-                  "sizing": {
-                    "horizontal": "FIXED",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "tableHeaderRow",
-                  "name": "Header: Keyboard",
-                  "detach": true,
-                  "textSlots": {
-                    "label": "Keyboard"
-                  },
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "tableHeaderRow",
-                  "name": "Header: Announcement",
-                  "detach": true,
-                  "textSlots": {
-                    "label": "Announcement"
-                  },
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                }
-              ],
-              "sizing": {
-                "horizontal": "FILL",
-                "vertical": "HUG"
-              }
+              "type": "TEXT",
+              "content": "−",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#C10C0D"
             },
             {
-              "type": "INSTANCE",
-              "ref": "a11ySpecRow",
-              "name": "ARIA: Link",
-              "detach": true,
-              "textSlots": {
-                "element": "Link",
-                "role": "link",
-                "label": "Visible text",
-                "focus-order": "Tab order",
-                "keyboard": "Enter to activate",
-                "announcement": "[Link text], link"
-              },
-              "sizing": {
-                "horizontal": "FILL",
-                "vertical": "HUG"
-              }
+              "type": "TEXT",
+              "content": "Actions that don't navigate (submit, delete, toggle) → use Button",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Primary call-to-action → use Button with",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "−",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#C10C0D"
             },
             {
-              "type": "INSTANCE",
-              "ref": "a11ySpecRow",
-              "name": "ARIA: External link",
-              "detach": true,
-              "textSlots": {
-                "element": "External link",
-                "role": "link",
-                "label": "aria-label with context",
-                "focus-order": "Tab order",
-                "keyboard": "Enter to activate",
-                "announcement": "[Link text], opens in new tab, link"
-              },
-              "sizing": {
-                "horizontal": "FILL",
-                "vertical": "HUG"
-              }
+              "type": "TEXT",
+              "content": "Primary call-to-action → use Button with appropriate hierarchy",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
+            }
+          ],
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "FRAME",
+          "name": "Bullet: Standalone icons as navigation → use Ico",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [
+              0,
+              0,
+              0,
+              0
+            ]
+          },
+          "fills": [],
+          "children": [
+            {
+              "type": "TEXT",
+              "content": "−",
+              "font": "Inter:Bold",
+              "size": 14,
+              "color": "#C10C0D"
             },
             {
-              "type": "INSTANCE",
-              "ref": "a11ySpecRow",
-              "name": "ARIA: Disabled link",
-              "detach": true,
-              "textSlots": {
-                "element": "Disabled link",
-                "role": "link",
-                "label": "aria-disabled=true",
-                "focus-order": "Removed (tabindex=-1)",
-                "keyboard": "Not focusable",
-                "announcement": "[Link text], dimmed, link"
-              },
-              "sizing": {
-                "horizontal": "FILL",
-                "vertical": "HUG"
-              }
+              "type": "TEXT",
+              "content": "Standalone icons as navigation → use Icon Button instead",
+              "font": "Inter:Regular",
+              "size": 14,
+              "color": "#1A1A2E"
             }
           ],
           "sizing": {
@@ -929,11 +376,319 @@
         },
         {
           "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Use for navigation",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "Use for navigation",
+            "Do Example": "Links should always navigate to a destination — a new page, section, or external resource.",
+            "Don't Label": "Use for actions",
+            "Don't Example": "Don't use links for actions like submitting a form or deleting an item. Use ghost buttons instead."
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Use descriptive text",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "Use descriptive text",
+            "Do Example": "Link text should describe the destination clearly, e.g., 'View pipeline details'.",
+            "Don't Label": "Use vague text",
+            "Don't Example": "Avoid generic labels like 'Click here', 'Read more', or raw URLs as link text."
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Indicate external links",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "Indicate external links",
+            "Do Example": "Add a trailing icon or label when the link opens in a new tab or goes to an external site.",
+            "Don't Label": "Surprise navigation",
+            "Don't Example": "Don't open links in new tabs without visual indication — users should anticipate the behavior."
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        }
+      ]
+    },
+    {
+      "type": "INSTANCE",
+      "ref": "briefCard",
+      "name": "Content guidelines",
+      "variant": "Mode=DS, Type=Standard",
+      "props": {
+        "Title": "Content guidelines",
+        "Subtitle": "Label copy rules for Link"
+      },
+      "detach": true,
+      "width": 1200,
+      "contentSlot": {
+        "layout": {
+          "mode": "VERTICAL",
+          "spacing": 16,
+          "padding": [
+            48,
+            80,
+            48,
+            80
+          ]
+        }
+      },
+      "children": [
+        {
+          "type": "INSTANCE",
           "ref": "sectionHeader",
-          "name": "Contrast ratios",
+          "name": "Use clear and descriptive link text",
           "detach": true,
           "textSlots": {
-            "title": "Contrast ratios"
+            "title": "Use clear and descriptive link text"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "TEXT",
+          "content": "Link text should describe the destination or action. Avoid generic phrases that require surrounding context to understand.",
+          "font": "Inter:Regular",
+          "size": 14,
+          "color": "#595968"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Use clear and descriptive link text",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "View your order details",
+            "Do Example": "",
+            "Don't Label": "Click here",
+            "Don't Example": ""
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "DIVIDER"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "sectionHeader",
+          "name": "Use action-oriented language",
+          "detach": true,
+          "textSlots": {
+            "title": "Use action-oriented language"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "TEXT",
+          "content": "For links that lead to tasks, use precise action verbs. This is especially important for links for actions like downloads.",
+          "font": "Inter:Regular",
+          "size": 14,
+          "color": "#595968"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Use action-oriented language",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "Download report",
+            "Do Example": "",
+            "Don't Label": "Get report",
+            "Don't Example": ""
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "DIVIDER"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "sectionHeader",
+          "name": "Use sentence case",
+          "detach": true,
+          "textSlots": {
+            "title": "Use sentence case"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "TEXT",
+          "content": "Capitalize only the first word and proper nouns. Always provide clarity on what will happen when the user clicks.",
+          "font": "Inter:Regular",
+          "size": 14,
+          "color": "#595968"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Use sentence case",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "Explore features",
+            "Do Example": "",
+            "Don't Label": "Click to learn more",
+            "Don't Example": ""
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "DIVIDER"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "sectionHeader",
+          "name": "Keep link text concise",
+          "detach": true,
+          "textSlots": {
+            "title": "Keep link text concise"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "TEXT",
+          "content": "A navigational element's text should be short enough to provide clarity on what it does. Should be meaningful but not wordy.",
+          "font": "Inter:Regular",
+          "size": 14,
+          "color": "#595968"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Keep link text concise",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "View our services",
+            "Do Example": "",
+            "Don't Label": "Click here to view our list of services",
+            "Don't Example": ""
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "DIVIDER"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "sectionHeader",
+          "name": "Avoid linking full sentences or paragraphs",
+          "detach": true,
+          "textSlots": {
+            "title": "Avoid linking full sentences or paragraphs"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "TEXT",
+          "content": "Link only the specific actionable words, not entire sentences. Avoid formatting entire sentences as clickable links to improve readability.",
+          "font": "Inter:Regular",
+          "size": 14,
+          "color": "#595968"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Avoid linking full sentences or paragraphs",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "Read our user experience design blog",
+            "Do Example": "",
+            "Don't Label": "Click here to read our blog about user experience design",
+            "Don't Example": ""
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "DIVIDER"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "sectionHeader",
+          "name": "Consistency in link text",
+          "detach": true,
+          "textSlots": {
+            "title": "Consistency in link text"
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "TEXT",
+          "content": "Use consistent phrasing for similar link actions. Inline labels should use the same terminology to \"Read more\" destinations, not switch between \"See more\", \"Learn more\", etc.",
+          "font": "Inter:Regular",
+          "size": 14,
+          "color": "#595968"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "doDontPair",
+          "name": "Do-Dont: Consistency in link text",
+          "variant": "Mode=DS",
+          "props": {
+            "Do Label": "View our services",
+            "Do Example": "",
+            "Don't Label": "Click here to view our list of services",
+            "Don't Example": ""
+          },
+          "sizing": {
+            "horizontal": "FILL",
+            "vertical": "HUG"
+          }
+        },
+        {
+          "type": "DIVIDER"
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "sectionHeader",
+          "name": "Terminology",
+          "detach": true,
+          "textSlots": {
+            "title": "Terminology"
           },
           "sizing": {
             "horizontal": "FILL",
@@ -942,7 +697,7 @@
         },
         {
           "type": "FRAME",
-          "name": "Contrast table",
+          "name": "Terminology table",
           "layout": {
             "mode": "VERTICAL",
             "spacing": 0,
@@ -973,51 +728,12 @@
                 {
                   "type": "INSTANCE",
                   "ref": "tableHeaderRow",
-                  "name": "Header: Element",
+                  "name": "Header: Term",
                   "detach": true,
                   "textSlots": {
-                    "label": "Element"
+                    "label": "Term"
                   },
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "tableHeaderRow",
-                  "name": "Header: Foreground",
-                  "detach": true,
-                  "textSlots": {
-                    "label": "Foreground"
-                  },
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "tableHeaderRow",
-                  "name": "Header: Background",
-                  "detach": true,
-                  "textSlots": {
-                    "label": "Background"
-                  },
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "tableHeaderRow",
-                  "name": "Header: Ratio",
-                  "detach": true,
-                  "textSlots": {
-                    "label": "Ratio"
-                  },
-                  "width": 80,
+                  "width": 160,
                   "sizing": {
                     "horizontal": "FIXED",
                     "vertical": "HUG"
@@ -1026,12 +742,12 @@
                 {
                   "type": "INSTANCE",
                   "ref": "tableHeaderRow",
-                  "name": "Header: WCAG AA",
+                  "name": "Header: When to use",
                   "detach": true,
                   "textSlots": {
-                    "label": "WCAG AA"
+                    "label": "When to use"
                   },
-                  "width": 100,
+                  "width": 500,
                   "sizing": {
                     "horizontal": "FIXED",
                     "vertical": "HUG"
@@ -1060,109 +776,19 @@
               "children": [
                 {
                   "type": "TEXT",
-                  "content": "Link text (default)",
-                  "font": "Inter:Regular",
+                  "content": "Link",
+                  "font": "Inter:Semi Bold",
                   "size": 14,
                   "color": "#1A1A2E",
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #0550DC",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#0550DC"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#0550DC",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #FFFFFF",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#FFFFFF"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#FFFFFF",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
+                  "width": 160
                 },
                 {
                   "type": "TEXT",
-                  "content": "5.26:1",
+                  "content": "A navigational element that takes the user to a new destination",
                   "font": "Inter:Regular",
                   "size": 14,
-                  "color": "#1A1A2E",
-                  "width": 80
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "contrastBadge",
-                  "variant": "Status=Pass",
-                  "sizing": {
-                    "horizontal": "HUG",
-                    "vertical": "HUG"
-                  }
+                  "color": "#595968",
+                  "width": 500
                 }
               ],
               "sizing": {
@@ -1187,916 +813,25 @@
               "children": [
                 {
                   "type": "TEXT",
-                  "content": "Link text (hovered)",
-                  "font": "Inter:Regular",
+                  "content": "Button",
+                  "font": "Inter:Semi Bold",
                   "size": 14,
                   "color": "#1A1A2E",
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #0343B5",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#0343B5"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#0343B5",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #FFFFFF",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#FFFFFF"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#FFFFFF",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
+                  "width": 160
                 },
                 {
                   "type": "TEXT",
-                  "content": "6.82:1",
+                  "content": "An action trigger — use when the click performs an action rather than navigating",
                   "font": "Inter:Regular",
                   "size": 14,
-                  "color": "#1A1A2E",
-                  "width": 80
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "contrastBadge",
-                  "variant": "Status=Pass",
-                  "sizing": {
-                    "horizontal": "HUG",
-                    "vertical": "HUG"
-                  }
+                  "color": "#595968",
+                  "width": 500
                 }
               ],
               "sizing": {
                 "horizontal": "FILL",
                 "vertical": "HUG"
               }
-            },
-            {
-              "type": "FRAME",
-              "name": "Row 2",
-              "layout": {
-                "mode": "HORIZONTAL",
-                "spacing": 0,
-                "padding": [
-                  8,
-                  12,
-                  8,
-                  12
-                ]
-              },
-              "fills": [],
-              "children": [
-                {
-                  "type": "TEXT",
-                  "content": "Link text (pressed)",
-                  "font": "Inter:Regular",
-                  "size": 14,
-                  "color": "#1A1A2E",
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #023699",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#023699"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#023699",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #FFFFFF",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#FFFFFF"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#FFFFFF",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "TEXT",
-                  "content": "8.63:1",
-                  "font": "Inter:Regular",
-                  "size": 14,
-                  "color": "#1A1A2E",
-                  "width": 80
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "contrastBadge",
-                  "variant": "Status=Pass",
-                  "sizing": {
-                    "horizontal": "HUG",
-                    "vertical": "HUG"
-                  }
-                }
-              ],
-              "sizing": {
-                "horizontal": "FILL",
-                "vertical": "HUG"
-              }
-            },
-            {
-              "type": "FRAME",
-              "name": "Row 3",
-              "layout": {
-                "mode": "HORIZONTAL",
-                "spacing": 0,
-                "padding": [
-                  8,
-                  12,
-                  8,
-                  12
-                ]
-              },
-              "fills": [],
-              "children": [
-                {
-                  "type": "TEXT",
-                  "content": "Disabled text",
-                  "font": "Inter:Regular",
-                  "size": 14,
-                  "color": "#1A1A2E",
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #9898A7",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#9898A7"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#9898A7",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #FFFFFF",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#FFFFFF"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#FFFFFF",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "TEXT",
-                  "content": "3.01:1",
-                  "font": "Inter:Regular",
-                  "size": 14,
-                  "color": "#1A1A2E",
-                  "width": 80
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "contrastBadge",
-                  "variant": "Status=Exempt",
-                  "sizing": {
-                    "horizontal": "HUG",
-                    "vertical": "HUG"
-                  }
-                }
-              ],
-              "sizing": {
-                "horizontal": "FILL",
-                "vertical": "HUG"
-              }
-            },
-            {
-              "type": "FRAME",
-              "name": "Row 4",
-              "layout": {
-                "mode": "HORIZONTAL",
-                "spacing": 0,
-                "padding": [
-                  8,
-                  12,
-                  8,
-                  12
-                ]
-              },
-              "fills": [],
-              "children": [
-                {
-                  "type": "TEXT",
-                  "content": "Link vs body text",
-                  "font": "Inter:Regular",
-                  "size": 14,
-                  "color": "#1A1A2E",
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #0550DC",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#0550DC"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#0550DC",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "FRAME",
-                  "name": "Cell: #1A1A2E",
-                  "layout": {
-                    "mode": "HORIZONTAL",
-                    "spacing": 6,
-                    "padding": [
-                      0,
-                      0,
-                      0,
-                      0
-                    ]
-                  },
-                  "fills": [],
-                  "children": [
-                    {
-                      "type": "INSTANCE",
-                      "ref": "colorSwatch",
-                      "name": "Swatch",
-                      "variant": "Size=Small",
-                      "fills": [
-                        "#1A1A2E"
-                      ],
-                      "width": 14,
-                      "height": 14
-                    },
-                    {
-                      "type": "TEXT",
-                      "content": "#1A1A2E",
-                      "font": "Fira Code:Regular",
-                      "size": 11,
-                      "color": "#595968"
-                    }
-                  ],
-                  "sizing": {
-                    "horizontal": "FILL",
-                    "vertical": "HUG"
-                  }
-                },
-                {
-                  "type": "TEXT",
-                  "content": "3.24:1",
-                  "font": "Inter:Regular",
-                  "size": 14,
-                  "color": "#1A1A2E",
-                  "width": 80
-                },
-                {
-                  "type": "INSTANCE",
-                  "ref": "contrastBadge",
-                  "variant": "Status=Pass (3:1)",
-                  "sizing": {
-                    "horizontal": "HUG",
-                    "vertical": "HUG"
-                  }
-                }
-              ],
-              "sizing": {
-                "horizontal": "FILL",
-                "vertical": "HUG"
-              }
-            }
-          ],
-          "sizing": {
-            "horizontal": "FILL",
-            "vertical": "HUG"
-          }
-        }
-      ]
-    },
-    {
-      "type": "INSTANCE",
-      "ref": "briefCard",
-      "name": "Code specification",
-      "variant": "Mode=DS, Type=Standard",
-      "props": {
-        "Title": "Code specification",
-        "Subtitle": "CSS custom properties for Link"
-      },
-      "detach": true,
-      "width": 1200,
-      "contentSlot": {
-        "layout": {
-          "mode": "VERTICAL",
-          "spacing": 16,
-          "padding": [
-            48,
-            80,
-            48,
-            80
-          ]
-        }
-      },
-      "children": [
-        {
-          "type": "INSTANCE",
-          "ref": "codeBlock",
-          "name": "CSS Code Block",
-          "props": {
-            "Show Header": true,
-            "Header Text": "CSS"
-          },
-          "detach": true,
-          "contentSlot": {
-            "name": "Code Area"
-          },
-          "children": [
-            {
-              "type": "TEXT",
-              "content": ".zen-link {\n  color: var(--zen-theme-primary);\n  text-decoration: underline;\n  font: var(--zen-font-body-standard);\n  cursor: pointer;\n  display: inline-flex;\n  align-items: center;\n  gap: var(--zen-spacing-2xs); /* 4px */\n}\n\n.zen-link:hover {\n  color: var(--zen-theme-primary-hover);\n  text-decoration: underline;\n}\n\n.zen-link:focus-visible {\n  outline: 2px solid var(--zen-theme-primary);\n  outline-offset: 2px;\n  border-radius: var(--zen-radius-xs);\n}\n\n.zen-link--disabled {\n  color: var(--zen-text-disabled);\n  text-decoration: none;\n  pointer-events: none;\n}",
-              "font": "Fira Code:Regular",
-              "size": 12,
-              "color": "#BABED8",
-              "textRanges": [
-                {
-                  "start": 0,
-                  "end": 9,
-                  "color": "#FF79C6"
-                },
-                {
-                  "start": 9,
-                  "end": 11,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 12,
-                  "end": 19,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 19,
-                  "end": 21,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 21,
-                  "end": 45,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 45,
-                  "end": 46,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 47,
-                  "end": 64,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 64,
-                  "end": 66,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 66,
-                  "end": 75,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 75,
-                  "end": 76,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 77,
-                  "end": 83,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 83,
-                  "end": 85,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 85,
-                  "end": 114,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 114,
-                  "end": 115,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 116,
-                  "end": 124,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 124,
-                  "end": 126,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 126,
-                  "end": 133,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 133,
-                  "end": 134,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 135,
-                  "end": 144,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 144,
-                  "end": 146,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 146,
-                  "end": 157,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 157,
-                  "end": 158,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 159,
-                  "end": 172,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 172,
-                  "end": 174,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 174,
-                  "end": 180,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 180,
-                  "end": 181,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 182,
-                  "end": 187,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 187,
-                  "end": 189,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 189,
-                  "end": 211,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 211,
-                  "end": 212,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 212,
-                  "end": 222,
-                  "color": "#676E95"
-                },
-                {
-                  "start": 223,
-                  "end": 224,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 226,
-                  "end": 241,
-                  "color": "#FF79C6"
-                },
-                {
-                  "start": 241,
-                  "end": 243,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 244,
-                  "end": 251,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 251,
-                  "end": 253,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 253,
-                  "end": 283,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 283,
-                  "end": 284,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 285,
-                  "end": 302,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 302,
-                  "end": 304,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 304,
-                  "end": 313,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 313,
-                  "end": 314,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 315,
-                  "end": 316,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 318,
-                  "end": 341,
-                  "color": "#FF79C6"
-                },
-                {
-                  "start": 341,
-                  "end": 343,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 344,
-                  "end": 353,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 353,
-                  "end": 355,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 355,
-                  "end": 389,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 389,
-                  "end": 390,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 391,
-                  "end": 407,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 407,
-                  "end": 409,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 409,
-                  "end": 412,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 412,
-                  "end": 413,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 414,
-                  "end": 429,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 429,
-                  "end": 431,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 431,
-                  "end": 451,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 451,
-                  "end": 452,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 453,
-                  "end": 454,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 456,
-                  "end": 475,
-                  "color": "#FF79C6"
-                },
-                {
-                  "start": 475,
-                  "end": 477,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 478,
-                  "end": 485,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 485,
-                  "end": 487,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 487,
-                  "end": 511,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 511,
-                  "end": 512,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 513,
-                  "end": 530,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 530,
-                  "end": 532,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 532,
-                  "end": 536,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 536,
-                  "end": 537,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 538,
-                  "end": 554,
-                  "color": "#82AAFF"
-                },
-                {
-                  "start": 554,
-                  "end": 556,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 556,
-                  "end": 560,
-                  "color": "#C3E88D"
-                },
-                {
-                  "start": 560,
-                  "end": 561,
-                  "color": "#BABED8"
-                },
-                {
-                  "start": 562,
-                  "end": 563,
-                  "color": "#BABED8"
-                }
-              ],
-              "name": "Code"
             }
           ],
           "sizing": {

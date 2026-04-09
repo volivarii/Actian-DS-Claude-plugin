@@ -126,36 +126,30 @@ This produces `figma-calls/` with:
 - `fill-N.js` — populates each card's content
 - `manifest.json` — lists all calls with descriptions and sizes
 
-### 3b. Execute each call via use_figma
+### 3b. Execute via store-and-execute (default path)
 
-Read `manifest.json` to get the call sequence, then execute each `.js` file.
+Read `manifest.json`, then use the `storeAndExecute` section. This keeps every file under ~25KB for reliable reading.
 
-**CRITICAL — do NOT use the Read tool on fill files.** They are too large (30-47KB). Use bash to get the file contents:
+**Execution order:**
+
+1. **Scaffold** — Read `scaffold.js` → pass to `use_figma` (creates wrapper + sections)
+2. **Store specs** — For each store file in `manifest.storeAndExecute.stores`:
+   Read `store-N.js` → pass to `use_figma` (stores spec as plugin data, ~8-20KB each)
+3. **Execute all** — Read `execute-fills.js` → pass to `use_figma` (runs interpreter on all stored specs, ~24KB)
 
 ```bash
-# Read manifest to get call order
+# 1. Read manifest
 cat {project_working_directory}/components/[name]/figma-calls/manifest.json
-
-# For each call file, use bash to capture the content, then pass to use_figma:
-CODE=$(cat {project_working_directory}/components/[name]/figma-calls/scaffold.js)
 ```
 
-Then pass `$CODE` as the `code` parameter to `use_figma` with `skillNames: "figma-use"`.
-
-Execute in order: scaffold first, then fills (fill-1, fill-2, etc.). The code is self-contained (interpreter runtime + JSON spec) — do NOT modify it.
-
-**Alternative — read via bash and pipe to a variable for each call:**
-```bash
-# Get file content as a string to pass to use_figma
-bash "${CLAUDE_PLUGIN_ROOT}/scripts/execute-figma-call.sh" \
-  {project_working_directory}/components/[name]/figma-calls/fill-1.js <fileKey>
-```
+Then for each file, use the Read tool and pass the content to `use_figma` with `skillNames: "figma-use"`. All store and execute files are under 25KB and safe to read directly.
 
 ### 3c. Handle failures
 
-- If a fill call fails, skip it and continue with the next fill
+- If a store call fails, skip it and continue (that card will be missing)
 - If the scaffold call fails, stop and report the error
-- Do NOT manually construct Figma API code — always use the generated calls
+- If execute-fills fails, report which fills succeeded (check the return value)
+- Do NOT manually construct Figma API code — always use the generated files
 - Do NOT modify the generated `.js` files
 
 ### Pushing specific cards only
