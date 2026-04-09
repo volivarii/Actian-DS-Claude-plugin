@@ -287,13 +287,11 @@
       anatomy.parts.forEach(function (p) {
         structHtml +=
           '<div class="anatomy-prop">' +
-          '<div class="anatomy-prop__label">' +
+          '<div class="anatomy-badge">' +
           esc(p.letter) +
-          " · " +
-          esc(p.name) +
           "</div>" +
-          '<div class="anatomy-prop__value">' +
-          esc(p.description) +
+          '<div class="anatomy-prop__label">' +
+          esc(p.name) +
           "</div></div>";
       });
       structHtml += "</div></div>";
