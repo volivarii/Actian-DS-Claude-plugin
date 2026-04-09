@@ -22,7 +22,7 @@ var shared = require("./shared-constants");
 // Build reverse lookup: componentKey → FM ref name
 function buildKeyToRefMap() {
   var fmRegistry = JSON.parse(
-    fs.readFileSync(path.join(DOCS_DIR, "fmkit.json"), "utf8")
+    fs.readFileSync(path.join(DOCS_DIR, "fmkit.json"), "utf8"),
   );
 
   // Reverse FM_SLUGS: slug → ref name
@@ -109,8 +109,69 @@ function convertNode(node, keyToRef) {
   return null;
 }
 
+// Convert flat node list (from Pass 1 extraction) to nested tree
+function flatToTree(flatData) {
+  var root = { name: flatData.root || "Screen", type: "FRAME", children: [] };
+  var pathMap = {};
+  pathMap[root.name] = root;
+
+  var nodes = flatData.nodes || [];
+  for (var i = 0; i < nodes.length; i++) {
+    var n = nodes[i];
+    var entry;
+    if (n.t === "I") {
+      entry = {
+        type: "INSTANCE",
+        name: n.n,
+        componentKey: n.k,
+        variantProperties: n.v || {},
+        props: n.pr || {},
+        width: n.w,
+        height: n.h,
+        children: [],
+      };
+    } else if (n.t === "T") {
+      entry = {
+        type: "TEXT",
+        name: n.n,
+        characters: n.c,
+        fontSize: n.s,
+      };
+    } else if (n.t === "F") {
+      entry = {
+        type: "FRAME",
+        name: n.n,
+        width: n.w,
+        height: n.h,
+        layoutMode: n.lm,
+        children: [],
+      };
+    } else {
+      continue;
+    }
+
+    // Find parent by path
+    var pathParts = (n.p || "").split("/");
+    var parentPath = pathParts.slice(0, -1).join("/");
+    var parent = pathMap[parentPath] || root;
+    if (parent.children) parent.children.push(entry);
+
+    // Register this node in pathMap for potential children
+    if (entry.children) {
+      pathMap[n.p] = entry;
+    }
+  }
+
+  return root;
+}
+
 function convert(fmTree) {
   var keyToRef = buildKeyToRefMap();
+
+  // Detect flat format (from Pass 1 extraction)
+  if (fmTree.nodes && Array.isArray(fmTree.nodes)) {
+    fmTree = flatToTree(fmTree);
+  }
 
   var screen = {
     name: fmTree.name || "Screen",
@@ -152,7 +213,7 @@ if (require.main === module) {
   }
   if (!inputPath) {
     process.stderr.write(
-      "Usage: node scripts/fm-tree-to-flow-data.js <fm-tree.json> -o <flow-data.json>\n"
+      "Usage: node scripts/fm-tree-to-flow-data.js <fm-tree.json> -o <flow-data.json>\n",
     );
     process.exit(1);
   }
@@ -187,7 +248,7 @@ if (require.main === module) {
       resolved +
       " resolved, " +
       unresolved +
-      " unresolved keys)\n"
+      " unresolved keys)\n",
   );
 
   var output = JSON.stringify(flowData, null, 2);

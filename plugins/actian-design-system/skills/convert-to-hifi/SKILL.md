@@ -19,42 +19,59 @@ Upgrade a Fat Marker wireframe to a high-fidelity DS Kit frame. Three-stage pipe
 
 ## Stage 1 — Extract FM tree from Figma
 
-Parse the Figma URL per `references/figma-output.md` (convert `-` to `:` in nodeId). Then run a single `use_figma` call with the code below. Always pass `skillNames: "figma-use"`.
+Parse the Figma URL per `references/figma-output.md` (convert `-` to `:` in nodeId). Always pass `skillNames: "figma-use"`.
+
+**CRITICAL — large frames overflow the use_figma response limit.** Use the two-pass approach below.
+
+### Pass 1: Flat instance list (compact, no nesting)
+
+Collect all INSTANCE and TEXT nodes as a flat array with their parent path. This avoids response truncation.
 
 ```js
 const target = await figma.getNodeByIdAsync('<nodeId>');
-function walk(node) {
-  const entry = { type: node.type, name: node.name, id: node.id, width: node.width, height: node.height };
+const nodes = [];
+function walk(node, path) {
   if (node.type === 'INSTANCE') {
     const main = node.mainComponent;
-    const setParent = main?.parent?.type === 'COMPONENT_SET' ? main.parent : null;
-    entry.componentKey = setParent ? setParent.key : main?.key;
-    entry.variantProperties = node.variantProperties || {};
+    const set = main?.parent?.type === 'COMPONENT_SET' ? main.parent : null;
     const props = {};
     try {
-      const cpDefs = (setParent || main)?.componentPropertyDefinitions || {};
-      for (const [name, def] of Object.entries(cpDefs)) {
-        if (def.type === 'TEXT' || def.type === 'BOOLEAN') {
-          const baseName = name.split('#')[0];
-          props[baseName] = node.componentProperties?.[name]?.value;
-        }
+      const defs = (set || main)?.componentPropertyDefinitions || {};
+      for (const [k, d] of Object.entries(defs)) {
+        if (d.type === 'TEXT' || d.type === 'BOOLEAN')
+          props[k.split('#')[0]] = node.componentProperties?.[k]?.value;
       }
-    } catch (e) {}
-    entry.props = props;
+    } catch(e) {}
+    nodes.push({ t: 'I', p: path, n: node.name, k: set ? set.key : main?.key, v: node.variantProperties || {}, pr: props, w: node.width, h: node.height });
+  } else if (node.type === 'TEXT') {
+    nodes.push({ t: 'T', p: path, n: node.name, c: node.characters, s: node.fontSize });
+  } else if (node.type === 'FRAME' || node.type === 'GROUP' || node.type === 'SECTION') {
+    nodes.push({ t: 'F', p: path, n: node.name, w: node.width, h: node.height, lm: node.layoutMode || 'NONE' });
   }
-  if (node.type === 'TEXT') { entry.characters = node.characters; entry.fontSize = node.fontSize; }
-  if (node.children) { entry.children = node.children.map(walk); }
-  return entry;
+  if ('children' in node && node.children) {
+    for (let i = 0; i < node.children.length; i++)
+      walk(node.children[i], path + '/' + node.children[i].name);
+  }
 }
-return JSON.stringify(walk(target), null, 2);
+walk(target, target.name);
+return JSON.stringify({ root: target.name, count: nodes.length, nodes });
 ```
 
-**What to collect per INSTANCE node:**
-- `componentKey` — from `mainComponent.parent` if parent is a `COMPONENT_SET`, else from `mainComponent` itself
-- `variantProperties` — the current variant axis values on the instance
-- `props` — TEXT and BOOLEAN component properties, keyed by base name (strip `#hash` suffixes)
+### Pass 2: Reconstruct tree from flat list
 
-Write the extracted tree as `{project_working_directory}/components/hifi/[frame-name]-fm-tree.json`.
+If the response is still truncated for very large frames, split by fetching top-level children separately:
+
+```js
+const target = await figma.getNodeByIdAsync('<nodeId>');
+const children = target.children || [];
+return JSON.stringify(children.map(c => ({ id: c.id, name: c.name, type: c.type, childCount: c.children?.length || 0 })));
+```
+
+Then fetch each child's subtree individually using the same flat-list code with the child's ID.
+
+### Write FM tree
+
+Assemble the flat node list into a tree structure (group by path) and write as `{project_working_directory}/components/hifi/[frame-name]-fm-tree.json`. The `fm-tree-to-flow-data.js` converter handles both flat and nested formats.
 
 ### Convert to flow-data format
 
