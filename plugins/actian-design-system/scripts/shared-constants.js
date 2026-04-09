@@ -138,6 +138,35 @@ const FM_SLUGS = {
   fmTabs: "fm-tabs",
 };
 
+// DS ref names follow pattern ds + PascalCase(slug). Only slugs used in fm-to-ds-map.json.
+const DS_SLUGS = {
+  dsButton: "button",
+  dsInput: "input",
+  dsDropdownSelectDefault: "dropdown-select-default",
+  dsCheckboxWithLabel: "checkbox-with-label",
+  dsRadioButtonRadioButton: "radio-button-radio-button",
+  dsToggle: "toggle",
+  dsGlobalHeader: "global-header",
+  dsSideNav: "side-nav",
+  dsNavItem: "nav-item",
+  dsPageHeader: "page-header",
+  dsSearch: "search",
+  dsInputDate: "input-date",
+  dsAlertBanner: "alert-banner",
+  dsNotification: "notification",
+  dsBadge: "badge",
+  dsTagInteractive: "tag-interactive",
+  dsTagDefault: "tag-default",
+  dsTab: "tab",
+  dsStepper: "stepper",
+  dsEmptyState: "empty-state",
+  dsProgressBarSmall: "progress-bar-small",
+  dsTooltip: "tooltip",
+  dsRichText: "rich-text",
+  dsMenuItem: "menu-item",
+  dsTableCell: "table-cell",
+};
+
 // ---------------------------------------------------------------------------
 // Build key maps from registries (computed at module load)
 // ---------------------------------------------------------------------------
@@ -162,6 +191,7 @@ const FM_FALLBACK_KEYS = Object.assign(buildKeyMap("fmkit", FM_SLUGS), {
   },
   fmTabs: { key: "860eadef9ba29cf20a3da3ca9d014718e3f6cabb", method: "single" },
 });
+const DS_KEYS = buildKeyMap("dskit", DS_SLUGS);
 
 // ---------------------------------------------------------------------------
 // Syntax highlighting colors (code blocks in briefs + slides)
@@ -482,11 +512,13 @@ module.exports = {
   TEMPLATE_KEYS,
   SLIDE_KEYS,
   FM_FALLBACK_KEYS,
+  DS_KEYS,
   META_SLUGS,
   BRIEF_SLUGS,
   TEMPLATE_SLUGS,
   SLIDE_SLUGS,
   FM_SLUGS,
+  DS_SLUGS,
   loadRegistry,
   getProperties,
   TOKEN_COLORS,
