@@ -54,18 +54,30 @@ return JSON.stringify(walk(target), null, 2);
 - `variantProperties` — the current variant axis values on the instance
 - `props` — TEXT and BOOLEAN component properties, keyed by base name (strip `#hash` suffixes)
 
-Match each `componentKey` against `docs/fmkit.json` registry keys to identify which FM component each instance represents. Write the extracted tree as `{project_working_directory}/components/hifi/[frame-name]-fm-tree.json`.
+Write the extracted tree as `{project_working_directory}/components/hifi/[frame-name]-fm-tree.json`.
+
+### Convert to flow-data format
+
+The raw Figma tree uses `componentKey` fields. Convert to the flow-data format expected by the transform script using the converter:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/fm-tree-to-flow-data.js" \
+  {project_working_directory}/components/hifi/[frame-name]-fm-tree.json \
+  -o {project_working_directory}/components/hifi/[frame-name]-flow-data.json
+```
+
+This resolves `componentKey` → FM ref names (e.g., `fmSideNavItem`) using the FM Kit registry + FM_SLUGS mapping. Instances with unrecognized keys are tagged `unmapped` for Stage 3 handling.
 
 ---
 
 ## Stage 2 — Deterministic transform
 
-Run `transform-to-hifi.js` on the extracted tree:
+Run `transform-to-hifi.js` on the **converted flow-data** (not the raw FM tree):
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transform-to-hifi.js" \
-  {project_working_directory}/components/hifi/[frame-name]-fm-tree.json \
+  {project_working_directory}/components/hifi/[frame-name]-flow-data.json \
   -o {project_working_directory}/components/hifi/[frame-name]-hifi-data.json
 ```
 
@@ -100,6 +112,10 @@ For each node flagged `unmapped: true`:
 2. Infer the best DS Kit match by shape, purpose, and label text
 3. Substitute with the inferred component; log the substitution in the generation card notes
 
+**Common utility components** (not in FM Kit registry but frequently appear):
+- `Meta / Utility / Card Divider` — import by key from `docs/metakit.json`, use as a DS divider
+- Manual rectangles used as dividers — replace with a 1px frame, fill `#E2E7F0`, `FILL` width
+
 If the user chose "skip unmapped", omit those nodes entirely.
 
 ### Layout polish
@@ -113,14 +129,15 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 
 ### Push sequence (one small `use_figma` call per step)
 
-1. **Create sibling frame** — same parent as original, named `"[Original name] — HiFi"`, 1440×960, `VERTICAL` auto layout
-2. **Generation card** — import genLog by key from `docs/metakit.json`, create instance, set props with `mode: "hifi"`, `skill: "convert-to-hifi"`, ISO date, prompt excerpt; append to hifi frame
-3. **For each screen / section in hifi-data.json:**
+1. **Create wrapper frame** — same parent as original, named `"[Original name] — HiFi wrapper"`, `HORIZONTAL` auto layout, gap 32, no fills. This holds the gen card and hifi frame side by side.
+2. **Generation card** — import genLog by key from `docs/metakit.json`, create instance, set props with `mode: "hifi"`, `skill: "convert-to-hifi"`, ISO date, prompt excerpt; append to **wrapper** (NOT inside the hifi frame)
+3. **Create hifi frame** — named `"[Original name] — HiFi"`, 1440×960, `VERTICAL` auto layout; append to **wrapper**
+4. **For each screen / section in hifi-data.json:**
    a. Import DS Kit components needed for this section (batch per section)
    b. Create content frame with auto layout
    c. Instantiate each DS component, set ALL properties (variant, text, boolean) per `references/component-instance-rules.md`
    d. Append to content frame, append content frame to hifi frame
-4. **Report** — after all pushes complete, report node count and any skipped nodes to user
+5. **Report** — after all pushes complete, report node count and any skipped nodes to user
 
 **Rules:**
 - Return IDs from every call — use them in subsequent calls to append children
@@ -145,6 +162,7 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 - `docs/fm-to-ds-map.json` — FM component key → DS component mapping table with variant axis maps
 - `docs/dskit.json` — DS Kit component registry (keys, variants, properties, descriptions)
 - `docs/fmkit.json` — FM Kit component registry (keys, variants, properties)
+- `scripts/fm-tree-to-flow-data.js` — converts raw Figma tree to flow-data format (resolves componentKey → FM ref names via FM_SLUGS)
 - `scripts/transform-to-hifi.js` — deterministic Stage 2 transform (CLI + module API)
 - `references/figma-push-patterns.md` — component keys, push patterns, Plugin API call templates
 - `references/component-instance-rules.md` — rules for setting component properties correctly
