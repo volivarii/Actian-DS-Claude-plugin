@@ -1,9 +1,10 @@
 {
   "card": "card3_anatomy",
   "title": "Anatomy",
-  "description": "Component structure with positioned leader-line badges, specs table with token cross-references, and interactive state row",
+  "description": "Component structure with positioned leader-line badges, dimension annotations with real Meta Kit components, specs table with token cross-references, and interactive state row",
   "sections": {
     "parts": "Letter-labeled callouts (A, B, C...) for every visible sub-element. figmaLayerName must match actual Figma layer names — badges are positioned by reading layer bounding boxes. Include container, text elements, icons, dividers — anything a developer needs to know about.",
+    "specs": "Dimension annotations positioned on the component using Meta / Content / Dimension Annotation (Horizontal/Vertical) and Meta / Content / Pointer Badge (Left/Right/Up/Down) components. Each entry has: value (e.g. '24px', '4px'), layerName (Figma layer to anchor to), orientation (Horizontal/Vertical for Dimension Annotation) OR direction (Left/Right/Up/Down for Pointer Badge), and optional side/offset for positioning.",
     "partsTable": "One row per anatomy part with: part letter, element name, relevant token (--zen-* name), and notes (resolved value, font spec). Links back to the structure diagram via part letter.",
     "states": "All interactive states the component supports. Real component instances rendered in a horizontal row. Always include Default. Common states: Hovered, Focused, Active, Error, Disabled, Read-only."
   },
@@ -13,10 +14,14 @@
     "partsTable rows must use --zen-* token names, never raw pixel values in the token column",
     "Letters must be sequential (A, B, C...) with no gaps",
     "states must include Default plus every interactive state from the component's variant axes",
-    "Verify layer names against the component metadata before generating — incorrect names produce mispositioned badges"
+    "Verify layer names against the component metadata before generating — incorrect names produce mispositioned badges",
+    "specs entries MUST use Dimension Annotation (orientation: Horizontal/Vertical) or Pointer Badge (direction: Left/Right/Up/Down) — never raw lines or text",
+    "specs layerName must match actual Figma layer names for accurate positioning",
+    "Include at least 2 dimension specs: one for a key spacing/gap value, one for a sizing value"
   ],
   "minimums": {
     "parts": 2,
+    "specs": 2,
     "partsTable": 2,
     "states": 2
   }
