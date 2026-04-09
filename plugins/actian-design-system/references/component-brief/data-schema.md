@@ -294,6 +294,8 @@ Both renderers use this mapping for all tokenized code (Card 8 inline + Card 9 f
 | `text` | (none) | `#BABED8` |
 | `newline` | `\n` | — |
 
+**Figma rendering note:** Code tokens in Cards 8 and 9 render as monochrome text (`#BABED8`) in Figma output. The HTML preview retains per-token syntax coloring via CSS classes.
+
 ## Rendering contract
 
 - **Arrays** → iterate: one HTML row/element per item, one Figma clone per item

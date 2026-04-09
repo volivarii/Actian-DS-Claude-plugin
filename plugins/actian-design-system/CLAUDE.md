@@ -39,9 +39,10 @@ Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is sou
 - `docs/fmkit.json` / `docs/dskit.json` / `docs/metakit.json` — component registries (keys, variants, properties)
 - `tokens/actian-ds.tokens.json` — W3C DTCG tokens (3 themes)
 
-**Scripts** (deterministic: data.json -> interpreter + JSON spec):
-- `scripts/flow-to-figma.js`, `scripts/brief-to-figma.js`, `scripts/slide-to-figma.js`
-- Each call file = `figma-interpreter.min.js` + JSON spec. Self-contained, no wrapper ID replacement.
+**Scripts** (utilities — NOT used for Figma push):
+- `scripts/assemble-preview.js` — generates HTML previews from data models
+- `scripts/shared-constants.js` — registry loaders, key maps, palette, buildGenLog
+- `scripts/fm-tree-to-flow-data.js` — converts FM Figma tree to flow-data.json
 
 ---
 

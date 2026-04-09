@@ -112,14 +112,16 @@ Before building custom frames, check: `docs/dskit-components.md`, `docs/fm-compo
 
 **Common FM wireframe components:** fmButton, fmTextInput, fmDropdown, fmSearchInput, fmTableCell, fmCheckbox, fmRadioButton, fmToggle, fmAlert, fmBanner, fmDialog, fmEmptyState, fmPlaceholder, fmTab, fmStepper, fmBadge, fmTag, fmToast, fmPageHeader, fmAppHeader, fmSideNavItem
 
-## Figma Output Scripts
+## Figma Output
 
-| Script | Skill | Input |
-|--------|-------|-------|
-| flow-to-figma.js | generate-flow | flow-data.json |
-| brief-to-figma.js | component-brief | brief-data.json |
-| slide-to-figma.js | generate-presentation | slide-data.json |
-| shared-constants.js assembleCall() | create-component | spec object |
+All skills push to Figma using direct `use_figma` calls. No codegen scripts at push time.
+
+| Skill | Push patterns reference | Data model |
+|-------|----------------------|------------|
+| component-brief | `references/brief-push-patterns.md` | brief-data.json |
+| generate-flow | `references/figma-push-patterns.md` | flow-data.json |
+| generate-presentation | `references/figma-push-patterns.md` | slide-data.json |
+| create-component | `references/create-component/push-patterns.md` | component-spec.json |
 
 ## On-Demand References
 

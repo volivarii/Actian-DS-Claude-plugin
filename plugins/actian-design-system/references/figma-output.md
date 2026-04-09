@@ -109,50 +109,35 @@ All Figma output uses `use_figma` — build directly in Figma via Plugin API Jav
 
 **HTML is for local preview only** — never use HTML as a Figma output path.
 
-## JSON Spec Interpreter (primary pattern)
+## Direct Push Pattern (all skills)
 
-For skills that generate structured output (component-brief, generate-flow, generate-presentation), use the **JSON Spec Interpreter** pattern:
+All output skills push to Figma using **small direct `use_figma` calls** (200-2000 bytes each). The agent reads its data model JSON and translates each element to Plugin API code using documented push patterns.
 
 ```
-data-model.json → AI transforms → figma-spec.json → Fixed interpreter → Figma nodes
+data-model.json → AI reads JSON → AI emits small use_figma calls → Figma nodes
 ```
 
-The AI produces declarative JSON specs. A bundled runtime (`figma-interpreter.js`, ~28KB) executes specs directly inside Figma. Per-skill scripts (`flow-to-figma.js`, `brief-to-figma.js`, `slide-to-figma.js`) read data files, build node trees, and bundle them with the interpreter. The AI never writes Plugin API code directly.
+### Push pattern references
 
-### How it works
-
-1. Skill-specific script reads data file (e.g., `flow-data.json`, `brief-data.json`, `slide-data.json`)
-2. Script builds structured node trees (JSON spec format)
-3. Script calls `shared.assembleCall(spec)` to bundle interpreter + JSON spec
-4. AI reads each call file and passes to `use_figma` — no wrapper ID replacement needed
-
-For `create-component`: AI writes spec JSON, runs `shared.assembleCall()` via one-liner, passes to `use_figma`.
+| Skill | Push patterns | Data model |
+|-------|--------------|------------|
+| component-brief | `references/brief-push-patterns.md` | brief-data.json |
+| generate-flow | `references/figma-push-patterns.md` | flow-data.json |
+| generate-presentation | `references/figma-push-patterns.md` | slide-data.json |
+| create-component | `references/create-component/push-patterns.md` | component-spec.json |
 
 ### Benefits
 
-- **Pure data** — specs are JSON, not generated code. No logic bugs in the spec.
-- **Built-in patterns** — Content slots, variant matching, sizing order all handled by runtime
-- **Self-contained calls** — wrapper ID auto-discovered via `setSharedPluginData`, no replacement needed
-- **Compact** — JSON specs are 1x size (no expansion), ~22KB budget per call after runtime
-- **Correct** — codegen handles all Figma API quirks (layoutMode before children, sizing after appendChild, paint variable binding)
-- **Variable + style binding** — declare in spec, interpreter binds automatically.
+- **Small calls** — each 200-2000 bytes, well within the 50KB `use_figma` limit
+- **No generated files** — agent reads data model directly, no codegen step
+- **Resilient** — if one call fails, skip and continue
+- **Debuggable** — each call is simple, self-contained Plugin API code
 
-### Skill coverage
+### When to use direct calls vs. other patterns
 
-All 4 output skills now use the interpreter:
-
-| Skill | Builder reference | Node types used |
-|-------|------------------|-----------------|
-| component-brief | `component-brief/figma-spec-builder.md` | FRAME, TEXT, RECT, INSTANCE, LOCAL_INSTANCE, DIVIDER |
-| generate-flow | `generate-flow/figma-spec-builder.md` | FRAME, TEXT, INSTANCE, DIVIDER |
-| generate-presentation | `generate-presentation/figma-spec-builder.md` | FRAME, TEXT, RECT (charts) |
-| create-component | `create-component/figma-spec-builder.md` | COMPONENT, COMPONENT_SET + all Tier 1 |
-
-### When to use legacy pattern
-
-The micro-task checklist pattern (see `component-brief/figma-renderer-legacy.md`) is still available for:
-- `design-audit` — reads existing Figma nodes, doesn't build from a data model
-- One-off Figma operations that don't fit the data model → spec → interpreter flow
+- **Output skills** (brief, flow, presentation, create-component): direct push from data model
+- **design-audit**: reads existing Figma nodes, doesn't build from a data model
+- **One-off operations**: direct Plugin API code (no data model needed)
 
 ## DS-specific import patterns
 
