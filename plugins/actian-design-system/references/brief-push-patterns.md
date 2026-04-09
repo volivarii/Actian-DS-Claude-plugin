@@ -1,0 +1,487 @@
+# Brief Push Patterns
+
+Direct Figma Plugin API patterns for pushing component briefs. Each pattern is a standalone `use_figma` call. Read your `brief-data.json` and translate each card to these patterns.
+
+All calls MUST include `skillNames: "figma-use"`.
+
+---
+
+## 1. Card Shell Pattern
+
+Every card (except GenLog) uses the Brief Card component. Import it, set variant, set title/subtitle, detach, find content slot.
+
+```js
+// Import briefCard set and create variant instance
+const set = await figma.importComponentSetByKeyAsync("3dbb732730af0754210cde7af35e5236a2502843");
+let variant = set.findChild(n => n.name === "Mode=DS, Type=Standard");
+if (!variant) variant = set.defaultVariant || set.children[0];
+const card = variant.createInstance();
+card.name = "Card Title";
+card.setProperties({
+  "Title#7:0": "Card Title",
+  "Subtitle#7:1": "Card subtitle description"
+});
+card.detachInstance();
+card.resize(1200, card.height);
+
+// Find content slot for child injection
+const contentSlot = card.findOne(n => n.name === "Content");
+if (contentSlot) {
+  contentSlot.layoutMode = "VERTICAL";
+  contentSlot.itemSpacing = 16;
+  contentSlot.paddingTop = 48;
+  contentSlot.paddingBottom = 48;
+  contentSlot.paddingLeft = 80;
+  contentSlot.paddingRight = 80;
+}
+
+// Append to wrapper
+const wrapper = await figma.getNodeByIdAsync("<wrapperId>");
+wrapper.appendChild(card);
+
+return { cardId: card.id, contentSlotId: contentSlot?.id || card.id };
+```
+
+For Page Header variant, use `"Mode=DS, Type=Page Header"` and set `"Component Name#7:2"` and `"Description#7:3"` instead of Title/Subtitle.
+
+---
+
+## 2. Section Header Pattern
+
+```js
+const comp = await figma.importComponentByKeyAsync("f4fd576001f4f1f4606a4efb051d1e4492e378c4");
+const header = comp.createInstance();
+header.detachInstance();
+await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+const titleText = header.findOne(n => n.type === "TEXT" && n.name === "title");
+if (titleText) titleText.characters = "Section Title";
+
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+parent.appendChild(header);
+header.layoutSizingHorizontal = "FILL";
+return { headerId: header.id };
+```
+
+---
+
+## 3. Table Pattern (API, Sizing, Typography, ARIA, Contrast)
+
+Build tables row-by-row. Each row is an auto-layout frame with text cells.
+
+```js
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
+
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });
+
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+
+// Header row
+const headerRow = figma.createFrame();
+headerRow.name = "Header Row";
+headerRow.layoutMode = "HORIZONTAL";
+headerRow.itemSpacing = 0;
+headerRow.fills = [{ type: "SOLID", color: hexToRgb("#F5F5FA") }];
+headerRow.primaryAxisSizingMode = "AUTO";
+headerRow.counterAxisSizingMode = "AUTO";
+
+const headers = ["", "Property", "Type", "Default", "Values", "Notes"];
+const widths = [50, 140, 100, 120, 200, 350];
+for (let i = 0; i < headers.length; i++) {
+  const cell = figma.createText();
+  cell.characters = headers[i];
+  cell.fontName = { family: "Inter", style: "Semi Bold" };
+  cell.fontSize = 12;
+  cell.fills = [{ type: "SOLID", color: hexToRgb("#595968") }];
+  cell.resize(widths[i], cell.height);
+  headerRow.appendChild(cell);
+}
+parent.appendChild(headerRow);
+headerRow.layoutSizingHorizontal = "FILL";
+
+// Data rows — one call per row or batch
+// Each row: same layout, different text content, "Inter:Regular" font
+// REQ/OPT badge: small frame with colored fill + text
+return { tableId: headerRow.id };
+```
+
+---
+
+## 4. Color Swatch Cell Pattern
+
+```js
+const set = await figma.importComponentSetByKeyAsync("da3369932f710386b76ca91a40ebd48d94e3f2e0");
+let variant = set.findChild(n => n.name === "Size=Small");
+if (!variant) variant = set.defaultVariant || set.children[0];
+const swatch = variant.createInstance();
+
+// Set fill color from hex
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
+const dot = swatch.findOne(n => n.name === "Dot" || n.name === "Color");
+if (dot) dot.fills = [{ type: "SOLID", color: hexToRgb("#0550DC") }];
+
+return { swatchId: swatch.id };
+```
+
+---
+
+## 5. Do/Don't Pair Pattern
+
+```js
+const set = await figma.importComponentSetByKeyAsync("28edfacf13e50706586172bd48f8a3ad84d7c263");
+let variant = set.findChild(n => n.name === "Mode=DS");
+if (!variant) variant = set.defaultVariant || set.children[0];
+const pair = variant.createInstance();
+pair.setProperties({
+  "Do Label#9:8": "Do — Use sentence case",
+  "Don't Label#9:9": "Don't — Use ALL CAPS",
+  "Do Example#9:10": "Save changes",
+  "Don't Example#9:11": "SAVE CHANGES"
+});
+
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+parent.appendChild(pair);
+pair.layoutSizingHorizontal = "FILL";
+return { pairId: pair.id };
+```
+
+---
+
+## 6. Accessibility Card Pattern
+
+```js
+const set = await figma.importComponentSetByKeyAsync("b4779a13f4097d682413a669eaaf9ead1b49f115");
+let variant = set.findChild(n => n.name === "Mode=DS");
+if (!variant) variant = set.defaultVariant || set.children[0];
+const card = variant.createInstance();
+card.setProperties({ "Title#47:0": "Role & semantics" });
+card.detachInstance();
+
+// Find content area and add body text
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+const body = figma.createText();
+body.characters = "Use native HTML <input> element...";
+body.fontSize = 13;
+body.fills = [{ type: "SOLID", color: hexToRgb("#3A3A4A") }];
+const content = card.findOne(n => n.name === "Content");
+if (content) content.appendChild(body);
+
+// Code block (monochrome)
+await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });
+const codeComp = await figma.importComponentByKeyAsync("1bf10eee1751a46da5f90a9671be6c9abf0073b7");
+const codeInst = codeComp.createInstance();
+codeInst.detachInstance();
+const codeText = codeInst.findOne(n => n.type === "TEXT");
+if (codeText) {
+  codeText.fontName = { family: "Fira Code", style: "Regular" };
+  codeText.characters = '<label for="name">Name</label>';
+  codeText.fills = [{ type: "SOLID", color: hexToRgb("#BABED8") }];
+}
+if (content) content.appendChild(codeInst);
+
+return { a11yCardId: card.id };
+```
+
+---
+
+## 7. Bullet Row Pattern (Usage: When to use / When not to use)
+
+```js
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
+
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+
+// Green "+" bullet for "when to use"
+const row = figma.createFrame();
+row.layoutMode = "HORIZONTAL";
+row.itemSpacing = 8;
+row.primaryAxisSizingMode = "AUTO";
+row.counterAxisSizingMode = "AUTO";
+row.fills = [];
+
+const prefix = figma.createText();
+prefix.characters = "+";
+prefix.fontSize = 14;
+prefix.fontName = { family: "Inter", style: "Regular" };
+prefix.fills = [{ type: "SOLID", color: hexToRgb("#16A34A") }]; // green
+row.appendChild(prefix);
+
+const label = figma.createText();
+label.characters = "Single-line text entry (names, emails, search queries)";
+label.fontSize = 14;
+label.fontName = { family: "Inter", style: "Regular" };
+label.fills = [{ type: "SOLID", color: hexToRgb("#3A3A4A") }];
+row.appendChild(label);
+
+parent.appendChild(row);
+row.layoutSizingHorizontal = "FILL";
+
+// For "when NOT to use", use "−" prefix with hexToRgb("#DC2626") (red)
+return { rowId: row.id };
+```
+
+---
+
+## 8. Variant Instance Pattern (Card 2: Component)
+
+```js
+// Import the TARGET component (the one being documented) by node ID
+const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
+
+// For component sets: find specific variant
+let variantComp;
+if (targetNode.type === "COMPONENT_SET") {
+  variantComp = targetNode.findChild(n => n.name === "Type=Standard, State=Default");
+  if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
+} else {
+  variantComp = targetNode;
+}
+
+const inst = variantComp.createInstance();
+inst.name = "Default variant";
+
+return { instanceId: inst.id };
+```
+
+For theme comparison frames, set `variableMode` after creating the frame:
+
+```js
+const frame = figma.createFrame();
+frame.name = "Theme: Actian";
+// ... add instance as child ...
+
+// Set variable mode for this frame's scope
+const collections = await figma.variables.getLocalVariableCollectionsAsync();
+const colorCol = collections.find(c => c.name === "Color");
+if (colorCol) {
+  const actianMode = colorCol.modes.find(m => m.name === "Actian");
+  if (actianMode) frame.setExplicitVariableModeForCollection(colorCol, actianMode.modeId);
+}
+```
+
+---
+
+## 9. Anatomy Diagram Pattern (Card 3)
+
+Single ~4-6KB call. Creates component instance, reads bounding boxes, computes badge positions, draws badges + leader lines.
+
+```js
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
+
+// Config
+const BADGE_SIZE = 22;
+const LINE_WEIGHT = 1.5;
+const BADGE_COLOR = hexToRgb("#1A1A2E");
+const PADDING = 48;
+
+// 1. Create container
+const container = figma.createFrame();
+container.name = "Anatomy diagram";
+container.fills = [{ type: "SOLID", color: hexToRgb("#FAFAFF") }];
+
+// 2. Create target component instance
+const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
+let variantComp;
+if (targetNode.type === "COMPONENT_SET") {
+  variantComp = targetNode.findChild(n => n.name === "<diagramVariant>");
+  if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
+} else {
+  variantComp = targetNode;
+}
+const inst = variantComp.createInstance();
+container.appendChild(inst);
+inst.x = PADDING;
+inst.y = PADDING;
+const iw = inst.width;
+const ih = inst.height;
+container.resize(iw + PADDING * 2, ih + PADDING * 2);
+
+// 3. Read bounding boxes for each part
+const parts = [/* from data model: {letter, figmaLayerName} */];
+const partData = [];
+for (const p of parts) {
+  const layer = inst.findOne(n => n.name === p.figmaLayerName);
+  if (!layer) continue;
+  const bb = layer.absoluteBoundingBox;
+  const cbb = container.absoluteBoundingBox;
+  const relX = bb.x - cbb.x;
+  const relY = bb.y - cbb.y;
+  const cx = relX + bb.width / 2;
+  const cy = relY + bb.height / 2;
+  // Closest edge
+  const distTop = relY;
+  const distBottom = (PADDING + ih) - (relY + bb.height);
+  const distLeft = relX;
+  const distRight = (PADDING + iw) - (relX + bb.width);
+  const minDist = Math.min(distTop, distBottom, distLeft, distRight);
+  let side = "top";
+  if (minDist === distRight) side = "right";
+  else if (minDist === distBottom) side = "bottom";
+  else if (minDist === distLeft) side = "left";
+  partData.push({ ...p, cx, cy, relX, relY, w: bb.width, h: bb.height, side });
+}
+
+// 4. Redistribute overflow (max 3 per side)
+const sides = { top: [], right: [], bottom: [], left: [] };
+for (const pd of partData) sides[pd.side].push(pd);
+const sideNames = ["top", "right", "bottom", "left"];
+for (let iter = 0; iter < 10; iter++) {
+  let moved = false;
+  for (const s of sideNames) {
+    while (sides[s].length > 3) {
+      const overflow = sides[s].pop();
+      const target = sideNames.reduce((a, b) => sides[a].length <= sides[b].length ? a : b);
+      sides[target].push(overflow);
+      moved = true;
+    }
+  }
+  if (!moved) break;
+}
+
+// 5. Sort each side by position
+sides.top.sort((a, b) => a.cx - b.cx);
+sides.bottom.sort((a, b) => a.cx - b.cx);
+sides.left.sort((a, b) => a.cy - b.cy);
+sides.right.sort((a, b) => a.cy - b.cy);
+
+// 6. Create badges + lines
+await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+const offset = BADGE_SIZE / 2 + 8;
+
+function createBadge(pd, bx, by, lx, ly) {
+  const badge = figma.createEllipse();
+  badge.resize(BADGE_SIZE, BADGE_SIZE);
+  badge.x = bx - BADGE_SIZE / 2;
+  badge.y = by - BADGE_SIZE / 2;
+  badge.fills = [{ type: "SOLID", color: BADGE_COLOR }];
+  container.appendChild(badge);
+
+  const txt = figma.createText();
+  txt.characters = pd.letter;
+  txt.fontSize = 11;
+  txt.fontName = { family: "Inter", style: "Semi Bold" };
+  txt.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];
+  txt.textAlignHorizontal = "CENTER";
+  txt.resize(BADGE_SIZE, BADGE_SIZE);
+  txt.x = bx - BADGE_SIZE / 2;
+  txt.y = by - BADGE_SIZE / 2;
+  container.appendChild(txt);
+
+  // Leader line
+  const dx = lx - bx;
+  const dy = ly - by;
+  const dist = Math.sqrt(dx * dx + dy * dy);
+  if (dist > BADGE_SIZE / 2) {
+    const line = figma.createLine();
+    line.x = bx;
+    line.y = by;
+    line.resize(dist, 0);
+    line.rotation = -Math.atan2(dy, dx) * 180 / Math.PI;
+    line.strokes = [{ type: "SOLID", color: BADGE_COLOR }];
+    line.strokeWeight = LINE_WEIGHT;
+    container.appendChild(line);
+  }
+}
+
+for (const pd of sides.top) {
+  createBadge(pd, pd.cx, PADDING - offset, pd.cx, pd.relY);
+}
+for (const pd of sides.right) {
+  createBadge(pd, PADDING + iw + offset, pd.cy, pd.relX + pd.w, pd.cy);
+}
+for (const pd of sides.bottom) {
+  createBadge(pd, pd.cx, PADDING + ih + offset, pd.cx, pd.relY + pd.h);
+}
+for (const pd of sides.left) {
+  createBadge(pd, PADDING - offset, pd.cy, pd.relX, pd.cy);
+}
+
+// Append container to content slot
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+parent.appendChild(container);
+
+return { diagramId: container.id };
+```
+
+Fill in `parts` array and `<targetNodeId>` / `<diagramVariant>` from `brief-data.json.card3_anatomy`.
+
+---
+
+## 10. Contrast Table Row Pattern
+
+```js
+// Each row: element name + foreground swatch + background swatch + ratio text + WCAG badge
+const badgeSet = await figma.importComponentSetByKeyAsync("941756541adc6ce21e32e848c2039c64fece0fcf");
+let badgeVariant = badgeSet.findChild(n => n.name === "Status=Pass");
+if (!badgeVariant) badgeVariant = badgeSet.defaultVariant || badgeSet.children[0];
+const badge = badgeVariant.createInstance();
+badge.setProperties({ "Label#44:3": "Pass" });
+
+return { badgeId: badge.id };
+```
+
+---
+
+## 11. ARIA Spec Row Pattern
+
+```js
+const comp = await figma.importComponentByKeyAsync("92ed7bc88cf229782c4b42238aacba1d15f8fd06");
+const row = comp.createInstance();
+row.detachInstance();
+
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+const slots = { element: "Input field", role: "textbox", label: "aria-labelledby", "focus-order": "1", keyboard: "Tab to focus", announcement: "Name, edit text" };
+for (const [name, value] of Object.entries(slots)) {
+  const txt = row.findOne(n => n.type === "TEXT" && n.name === name);
+  if (txt) txt.characters = value;
+}
+
+return { rowId: row.id };
+```
+
+---
+
+## 12. Code Block Pattern (monochrome)
+
+```js
+const comp = await figma.importComponentByKeyAsync("1bf10eee1751a46da5f90a9671be6c9abf0073b7");
+const block = comp.createInstance();
+block.detachInstance();
+
+await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });
+const codeText = block.findOne(n => n.type === "TEXT");
+if (codeText) {
+  codeText.fontName = { family: "Fira Code", style: "Regular" };
+  codeText.characters = ".zen-text-input {\n  height: var(--zen-size-3xl);\n}";
+  codeText.fills = [{ type: "SOLID", color: hexToRgb("#BABED8") }];
+  codeText.fontSize = 12;
+}
+
+return { blockId: block.id };
+```
+
+---
+
+## Push Rules
+
+1. **Each `use_figma` call creates 1-3 nodes max** — keep calls small (200-2000 bytes typical, up to 6KB for anatomy diagram).
+2. **Return IDs from every call** — use them in subsequent calls to append children.
+3. **Fonts before text** — always `loadFontAsync` before setting `.characters`.
+4. **No interpreter, no codegen scripts** — push directly from data model.
+5. **Detach before content injection** — briefCard and a11yCard must be detached before appending children to content slots.
+6. **Set ALL properties** — never leave default placeholder text. Check `docs/metakit.json` for exact property names with `#hash` suffixes.
