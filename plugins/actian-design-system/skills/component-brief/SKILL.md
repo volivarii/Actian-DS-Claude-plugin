@@ -107,83 +107,67 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
   --type brief -o {project_working_directory}/components/[name]/[name]-spec.html
 ```
 
-## Step 3 — Push to Figma
+## Step 3 — Push to Figma (deterministic pipeline)
 
-Read `references/figma-push-patterns.md` for component keys and patterns. Read your `[name]-brief-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call. Look up component keys from `docs/metakit.json` (briefCard, templates, genLog).
+Generate Figma Plugin API code from the data model using `brief-to-figma.js`, then execute each call via `use_figma`. This ensures consistent, reliable output — same data always produces the same Figma result.
 
-**Push sequence:**
+### 3a. Generate the push calls
 
-### Call 1: Create wrapper
-Navigate to target page, create wrapper frame (name: "Component Spec: [name]"), return `wrapperId`.
-
-### Call 2: GenLog
-Import genLog by key, create instance, set props from meta, append to wrapper.
-
-### Calls 3+: Each card (one call per card)
-
-**CRITICAL — briefCard structure:** Every card (2-9) is a briefCard instance. The briefCard component has a "Content" child frame. You MUST place card-specific content INSIDE this Content frame, not as siblings:
-
-```js
-// 1. Import and instantiate
-const set = await figma.importComponentSetByKeyAsync(BRIEF_CARD_KEY);
-const variant = set.findChild(n => n.name === "Mode=DS, Type=Standard");
-const inst = (variant || set.defaultVariant || set.children[0]).createInstance();
-inst.resize(1200, inst.height);
-
-// 2. Set properties BEFORE detach (use exact hash names from metakit.json)
-inst.setProperties({ "Title#7:0": cardTitle, "Subtitle#7:1": cardSubtitle });
-
-// 3. Detach
-const card = inst.detachInstance();
-card.name = "Card N: Title";
-
-// 4. Find Content slot and configure it
-const content = card.findOne(n => n.name === "Content");
-while (content.children.length) content.children[0].remove();
-content.layoutMode = "VERTICAL";
-content.itemSpacing = 16;
-content.paddingTop = 48;
-content.paddingRight = 80;
-content.paddingBottom = 48;
-content.paddingLeft = 80;
-content.primaryAxisSizingMode = "AUTO";
-content.counterAxisSizingMode = "AUTO";
-card.primaryAxisSizingMode = "AUTO";
-
-// 5. Build content and append INTO the Content frame
-const section = figma.createFrame();
-section.name = "My Section";
-// ... build content ...
-content.appendChild(section);  // ← INTO content, NOT card
-
-// 6. Append card to wrapper
-const wrapper = await figma.getNodeByIdAsync(wrapperId);
-wrapper.appendChild(card);
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js" \
+  {project_working_directory}/components/[name]/[name]-brief-data.json \
+  --target-node-id <targetNodeId> \
+  --output-dir {project_working_directory}/components/[name]/figma-calls/
 ```
 
-**Card 1 (Header):** Use variant `"Mode=DS, Type=Page Header"`. Set all text properties from card data. No contentSlot needed — Card 1 is just a styled header instance.
+This produces `figma-calls/` with:
+- `scaffold.js` — creates wrapper frame + card shells
+- `fill-N.js` — populates each card's content
+- `manifest.json` — lists all calls with descriptions and sizes
 
-**Cards 2-9:** Use variant `"Mode=DS, Type=Standard"`. Follow the Content slot pattern above. Build section titles, tables, annotations etc. and append them into the Content frame.
+### 3b. Execute each call via use_figma
 
-**Card-specific notes:**
-- **Card 3 (Anatomy):** Four sections:
-  1. **Structure** — ANATOMY_DIAGRAM with letter badges (A, B, C...) on the component. NO dimension annotations here.
-  2. **Specs** — SPECS_DIAGRAM with real `dimAnnotation` and `pointerBadge` Meta Kit instances positioned on a second component instance. Each spec entry needs: `value` (e.g. "24px"), `layerName` (for positioning), and `orientation` (Horizontal/Vertical) or `direction` (Left/Right/Up/Down). Minimum 2 specs.
-  3. **Parts reference** — Table with Part letter, Element, Token (--zen-*), and Notes columns.
-  4. **States** — Horizontal row of real component instances per interactive state.
-- **Card 4 (Tokens):** Use template keys (tableHeaderRow, tableDataRow, swatchRow) for token tables. Import templates, clone, detach, fill text slots.
-- **Card 6 (Usage):** Import doDontPair instances for do/don't examples.
-- **Card 9 (Code):** Code block frame should be `layoutSizingHorizontal = "FILL"` to span full card width.
+Read `manifest.json` to get the call sequence. For each call:
 
-**Rules:**
-- Return IDs from every call — use them to append children in subsequent calls
-- If a call fails, skip that card and continue
-- Do NOT run `brief-to-figma.js` — push directly from your data model
-- Do NOT read any `.js` files, manifests, or scaffolds
+1. Read the `.js` file contents
+2. Pass as the `code` parameter to `use_figma` with `skillNames: "figma-use"`
+3. The code is self-contained (interpreter runtime + JSON spec) — do NOT modify it
+
+```bash
+# Read manifest to get call order
+cat {project_working_directory}/components/[name]/figma-calls/manifest.json
+```
+
+Execute in order: scaffold first, then fills. Each call returns IDs that are embedded in subsequent calls via the spec's `appendToId` field.
+
+```
+# For each call file:
+use_figma(fileKey, code=<contents of .js file>, skillNames="figma-use")
+```
+
+### 3c. Handle failures
+
+- If a fill call fails, skip it and continue with the next fill
+- If the scaffold call fails, stop and report the error
+- Do NOT manually construct Figma API code — always use the generated calls
+- Do NOT modify the generated `.js` files
+
+### Pushing specific cards only
+
+Use the `--fill N` flag to regenerate a single card's fill:
+
+```bash
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/brief-to-figma.js" \
+  [name]-brief-data.json --target-node-id <id> --fill 3 \
+  --output-dir figma-calls/
+```
+
+This regenerates only `fill-3.js`. Execute it via `use_figma` to update that card.
 
 ## Incremental update
 
-To fix a specific card: re-read the data model, delete the old card frame in Figma, push the corrected card with small direct calls.
+To fix a specific card: edit the data model, regenerate that card's fill with `--fill N`, execute via `use_figma`.
 
 ## Step 4 — Parity check (opt-in)
 
