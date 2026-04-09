@@ -75,7 +75,6 @@
       "propertyMap": {
         "Show label": "Label",
         "Input Text": "Placeholder text",
-        "\ud83d\udc41 Leading Icon": "Trailing icon",
         "\ud83d\udc41 Trailing Icon": "Trailing icon"
       },
       "notes": "FM 'Type' axis maps to DS 'States' axis. FM combines state+content into one axis."
@@ -268,6 +267,7 @@
       "defaultVariant": { "Type": "Primary", "Orientation'": "Horizontal" },
       "variantMap": {
         "Type": {
+          "Primary": "Primary",
           "Success": "Success",
           "Error": "Danger",
           "Warning": "Warning"
