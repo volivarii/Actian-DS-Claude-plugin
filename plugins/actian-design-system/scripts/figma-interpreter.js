@@ -465,6 +465,8 @@ async function buildNode(spec, ctx) {
       return await buildComponentSet(spec, ctx);
     case "ANATOMY_DIAGRAM":
       return await buildAnatomyDiagram(spec, ctx);
+    case "SPECS_DIAGRAM":
+      return await buildSpecsDiagram(spec, ctx);
     default:
       throw new Error("Unknown node type: " + spec.type);
   }
@@ -1258,6 +1260,194 @@ async function buildAnatomyDiagram(spec, ctx) {
   for (var li = 0; li < sides.left.length; li++) {
     var l = sides.left[li];
     createBadge(l, padding - offset, l.cy, l.cx || padding, l.cy);
+  }
+
+  return container;
+}
+
+// ─── Specs Diagram (dimension annotations around a component instance) ────────
+
+async function buildSpecsDiagram(spec, ctx) {
+  var padding = spec.padding || 48;
+  var bgColor = spec.background || "#FAFAFF";
+
+  var container = figma.createFrame();
+  container.name = spec.name || "Specs annotations";
+  container.layoutMode = "NONE";
+  container.fills = bgColor
+    ? [{ type: "SOLID", color: hexToRgb(bgColor) }]
+    : [];
+  container.clipsContent = false;
+
+  // Pass 1: Create the component instance (same pattern as buildAnatomyDiagram)
+  var instanceSpec = spec.instance;
+  var componentOrSet = ctx.locals[instanceSpec.ref];
+  if (!componentOrSet) {
+    container.resize(400, 200);
+    return container;
+  }
+
+  var instance;
+  if (instanceSpec.variant && componentOrSet.type === "COMPONENT_SET") {
+    var variants = componentOrSet.children;
+    var target = null;
+    for (var vi = 0; vi < variants.length; vi++) {
+      if (
+        variants[vi].name === instanceSpec.variant ||
+        variants[vi].name.indexOf(instanceSpec.variant) !== -1
+      ) {
+        target = variants[vi];
+        break;
+      }
+    }
+    instance = target
+      ? target.createInstance()
+      : (componentOrSet.defaultVariant || variants[0]).createInstance();
+  } else if (componentOrSet.type === "COMPONENT_SET") {
+    instance = (
+      componentOrSet.defaultVariant || componentOrSet.children[0]
+    ).createInstance();
+  } else if (componentOrSet.createInstance) {
+    instance = componentOrSet.createInstance();
+  } else {
+    container.resize(400, 200);
+    return container;
+  }
+
+  instance.name = instanceSpec.name || "Specs instance";
+  container.appendChild(instance);
+  instance.x = padding;
+  instance.y = padding;
+
+  var iw = instance.width;
+  var ih = instance.height;
+  container.resize(iw + padding * 2, ih + padding * 2);
+
+  // Pass 2: Place dimension annotations around the instance
+  var dimensions = spec.dimensions || [];
+  var dimAnnotationSet = ctx.imports["dimAnnotation"];
+  var pointerBadgeSet = ctx.imports["pointerBadge"];
+
+  for (var di = 0; di < dimensions.length; di++) {
+    var dim = dimensions[di];
+    var offsetPx = dim.offset || 24;
+
+    // Resolve anchor layer
+    var layerNode = instance.findOne(function (n) {
+      return n.name === dim.layerName;
+    });
+
+    // Compute anchor coordinates relative to the container
+    var anchorX, anchorY, anchorW, anchorH;
+    if (layerNode) {
+      var lb = layerNode.absoluteBoundingBox;
+      var cb = container.absoluteBoundingBox;
+      anchorX = lb.x - cb.x;
+      anchorY = lb.y - cb.y;
+      anchorW = lb.width;
+      anchorH = lb.height;
+    } else {
+      // Fallback: use the whole instance bounds
+      anchorX = padding;
+      anchorY = padding;
+      anchorW = iw;
+      anchorH = ih;
+    }
+
+    var anchorCX = anchorX + anchorW / 2;
+    var anchorCY = anchorY + anchorH / 2;
+
+    if (dim.direction && pointerBadgeSet) {
+      // Pointer Badge — a directional callout
+      var pbVariantName = "Direction=" + dim.direction;
+      var pbTarget = null;
+      var pbChildren = pointerBadgeSet.children;
+      for (var pbi = 0; pbi < pbChildren.length; pbi++) {
+        if (
+          pbChildren[pbi].name === pbVariantName ||
+          pbChildren[pbi].name.indexOf(pbVariantName) !== -1
+        ) {
+          pbTarget = pbChildren[pbi];
+          break;
+        }
+      }
+      var badge = pbTarget
+        ? pbTarget.createInstance()
+        : (pointerBadgeSet.defaultVariant || pbChildren[0]).createInstance();
+
+      badge.name = "Pointer " + dim.layerName;
+      setProp(badge, "Label", dim.value);
+      container.appendChild(badge);
+
+      // Position based on direction
+      var bw = badge.width;
+      var bh = badge.height;
+      if (dim.direction === "Down") {
+        badge.x = anchorCX - bw / 2;
+        badge.y = anchorY - bh - offsetPx;
+      } else if (dim.direction === "Up") {
+        badge.x = anchorCX - bw / 2;
+        badge.y = anchorY + anchorH + offsetPx;
+      } else if (dim.direction === "Left") {
+        badge.x = anchorX + anchorW + offsetPx;
+        badge.y = anchorCY - bh / 2;
+      } else if (dim.direction === "Right") {
+        badge.x = anchorX - bw - offsetPx;
+        badge.y = anchorCY - bh / 2;
+      }
+    } else if (dim.orientation && dimAnnotationSet) {
+      // Dimension Annotation — horizontal or vertical measurement
+      var daVariantName = "Orientation=" + dim.orientation;
+      var daTarget = null;
+      var daChildren = dimAnnotationSet.children;
+      for (var dai = 0; dai < daChildren.length; dai++) {
+        if (
+          daChildren[dai].name === daVariantName ||
+          daChildren[dai].name.indexOf(daVariantName) !== -1
+        ) {
+          daTarget = daChildren[dai];
+          break;
+        }
+      }
+      var annotation = daTarget
+        ? daTarget.createInstance()
+        : (dimAnnotationSet.defaultVariant || daChildren[0]).createInstance();
+
+      annotation.name = "Dim " + dim.layerName;
+      setProp(annotation, "Value", dim.value);
+
+      // Resize annotation to match the dimension being measured
+      if (dim.orientation === "Horizontal") {
+        annotation.resize(anchorW, annotation.height);
+      } else {
+        annotation.resize(annotation.width, anchorH);
+      }
+
+      container.appendChild(annotation);
+
+      // Position based on side (default: auto-pick based on orientation)
+      var side = dim.side;
+      if (!side) {
+        side = dim.orientation === "Horizontal" ? "top" : "right";
+      }
+
+      var aw = annotation.width;
+      var ah = annotation.height;
+
+      if (side === "top") {
+        annotation.x = anchorX + (anchorW - aw) / 2;
+        annotation.y = anchorY - ah - offsetPx;
+      } else if (side === "bottom") {
+        annotation.x = anchorX + (anchorW - aw) / 2;
+        annotation.y = anchorY + anchorH + offsetPx;
+      } else if (side === "left") {
+        annotation.x = anchorX - aw - offsetPx;
+        annotation.y = anchorY + (anchorH - ah) / 2;
+      } else if (side === "right") {
+        annotation.x = anchorX + anchorW + offsetPx;
+        annotation.y = anchorY + (anchorH - ah) / 2;
+      }
+    }
   }
 
   return container;
