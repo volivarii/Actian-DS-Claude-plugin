@@ -463,7 +463,7 @@ function writeCallFilesV2(outputDir, scaffoldSpec, fills, unitMap, fillFilter) {
     var storeFileName = "store-" + sf.fillIndex + ".js";
     var compactSpec = JSON.stringify(sf.spec);
     var storeCode =
-      "figma.root.setSharedPluginData('ds-push', 'fill-" +
+      "figma.root.setSharedPluginData('ds_push', 'fill-" +
       sf.fillIndex +
       "', JSON.stringify(\n" +
       compactSpec +
@@ -492,12 +492,12 @@ function writeCallFilesV2(outputDir, scaffoldSpec, fills, unitMap, fillFilter) {
     ";\n" +
     "var _results = [];\n" +
     "for (var _i = 1; _i <= _fillCount; _i++) {\n" +
-    "  var _json = figma.root.getSharedPluginData('ds-push', 'fill-' + _i);\n" +
+    "  var _json = figma.root.getSharedPluginData('ds_push', 'fill-' + _i);\n" +
     "  if (_json) {\n" +
     "    var _spec = JSON.parse(_json);\n" +
     "    await buildFromSpec(_spec);\n" +
     "    _results.push('fill-' + _i + ': OK');\n" +
-    "    figma.root.setSharedPluginData('ds-push', 'fill-' + _i, '');\n" +
+    "    figma.root.setSharedPluginData('ds_push', 'fill-' + _i, '');\n" +
     "  }\n" +
     "}\n" +
     "return _results.join(', ');";
