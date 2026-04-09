@@ -166,7 +166,11 @@ wrapper.appendChild(card);
 **Cards 2-9:** Use variant `"Mode=DS, Type=Standard"`. Follow the Content slot pattern above. Build section titles, tables, annotations etc. and append them into the Content frame.
 
 **Card-specific notes:**
-- **Card 3 (Anatomy):** Import the target component, create an instance, position annotation badges with leader lines. Include Structure table, Specs table, and a state row showing all interactive states.
+- **Card 3 (Anatomy):** Four sections:
+  1. **Structure** — ANATOMY_DIAGRAM with letter badges (A, B, C...) on the component. NO dimension annotations here.
+  2. **Specs** — SPECS_DIAGRAM with real `dimAnnotation` and `pointerBadge` Meta Kit instances positioned on a second component instance. Each spec entry needs: `value` (e.g. "24px"), `layerName` (for positioning), and `orientation` (Horizontal/Vertical) or `direction` (Left/Right/Up/Down). Minimum 2 specs.
+  3. **Parts reference** — Table with Part letter, Element, Token (--zen-*), and Notes columns.
+  4. **States** — Horizontal row of real component instances per interactive state.
 - **Card 4 (Tokens):** Use template keys (tableHeaderRow, tableDataRow, swatchRow) for token tables. Import templates, clone, detach, fill text slots.
 - **Card 6 (Usage):** Import doDontPair instances for do/don't examples.
 - **Card 9 (Code):** Code block frame should be `layoutSizingHorizontal = "FILL"` to span full card width.
