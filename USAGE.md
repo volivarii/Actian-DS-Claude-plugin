@@ -114,6 +114,8 @@ Design a table view for the Administration users page with filters and bulk acti
 
 **Research:** Add "research competitor patterns" to get UX research before generation. Or say "no research, just build it" to skip.
 
+**HiFi conversion:** Add `--hifi` to also generate a DS Kit high-fidelity version alongside the wireframe. Or convert an existing wireframe later with `/convert-to-hifi`.
+
 **Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
 
 ### Copy review — content guidelines applied
@@ -159,6 +161,21 @@ What's the best practice for destructive action confirmation?
 ```
 Research wizard patterns for multi-step configuration
 ```
+
+### Convert wireframes to hifi — FM → DS Kit
+
+Point at an existing Fat Marker wireframe and get a production-ready DS Kit version. The companion reads the FM frame, identifies components, maps them to DS Kit equivalents, and pushes a new hifi frame alongside the original.
+
+```
+/convert-to-hifi https://figma.com/design/FILEKEY/File?node-id=123-456
+```
+
+```
+Convert this wireframe to high-fidelity
+https://figma.com/design/FILEKEY/File?node-id=123-456
+```
+
+The pipeline: extract FM tree → deterministic transform (28 component mappings) → LLM polish for unmapped components and layout → push. The original wireframe is never modified.
 
 ### Component specs — brief, document, create
 
@@ -231,7 +248,8 @@ Every capability is also a direct command. Use these when you know exactly what 
 
 | Command | When to use |
 |---------|------------|
-| `/generate-flow [description]` | Jump straight to flow generation |
+| `/generate-flow [description] [--hifi]` | Jump straight to flow generation (add `--hifi` for DS Kit version too) |
+| `/convert-to-hifi [URL]` | Convert FM wireframe to DS Kit hifi |
 | `/component-brief [name or URL]` | Jump to component spec |
 | `/design-audit [URL]` | Jump to full audit |
 | `/create-component [description]` | Jump to component creation |

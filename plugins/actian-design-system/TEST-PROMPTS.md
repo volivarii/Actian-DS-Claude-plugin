@@ -126,6 +126,16 @@ Mock up a mobile notification screen for scanner alerts
 Design a compact modal for connection deletion confirmation
 ```
 
+### With hifi conversion
+
+```
+Generate a connection settings flow in Studio --hifi
+```
+
+```
+/generate-flow Admin dashboard for Administration --hifi
+```
+
 ### At the action gate
 
 ```
@@ -361,10 +371,35 @@ Fix all auto-fixable findings
 
 ---
 
+## Convert wireframes to hifi
+
+### From a Figma URL
+
+```
+/convert-to-hifi https://figma.com/design/FILEKEY/File?node-id=123-456
+```
+
+```
+Convert this wireframe to hifi
+https://figma.com/design/FILEKEY/File?node-id=123-456
+```
+
+### At the confirmation gate
+
+```
+push https://figma.com/design/FILEKEY/File?node-id=123-456    # Handle unmapped creatively and push
+skip unmapped                                                    # Omit unmapped, push mapped only
+abort                                                            # Stop
+```
+
+---
+
 ## Direct skill invocation (power-user shortcuts)
 
 ```
 /generate-flow Admin Dashboard for Administration
+/generate-flow Connection settings in Studio --hifi
+/convert-to-hifi https://figma.com/design/FILEKEY/File?node-id=123-456
 /component-brief Button
 /design-audit https://figma.com/design/FILEKEY/File?node-id=123-456
 /compare-flows https://figma.com/design/FILEKEY/File?node-id=111-222 https://figma.com/design/FILEKEY/File?node-id=333-444
