@@ -37,17 +37,23 @@ Wait for response. Draft tier: skip this gate.
 
 ## Step 5 — Build in Figma (interpreter)
 
-1. Read `../../references/create-component/figma-spec-builder.md` — build plan to spec mapping
-2. Transform build plan into figma-spec.json (COMPONENT or COMPONENT_SET, properties, propertyLinks, variableScopes with explicit scopes, nested components via imports)
+1. Read `../../references/create-component/push-patterns.md` — direct push patterns
+2. Read `../../references/figma-push-patterns.md` — core patterns (wrapper frame, hexToRgb, etc.)
 3. Resolve dependencies per `../../references/create-component/research-and-dependencies.md`
-4. Write the spec JSON to `{project_working_directory}/components/[name]/component-spec.json`
-5. Generate interpreter call:
-   ```bash
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-   "$NODE_BIN" -e "const s = require('${CLAUDE_PLUGIN_ROOT}/scripts/shared-constants.js'); const spec = JSON.parse(require('fs').readFileSync('{project_working_directory}/components/[name]/component-spec.json','utf8')); process.stdout.write(s.assembleCall(spec));" > /tmp/component-code.js
-   ```
-6. Read `/tmp/component-code.js`, pass to `use_figma`
-7. Add INSTANCE genLog (6 props) as sibling to component set
+4. Push to Figma using small direct `use_figma` calls. Always pass `skillNames: "figma-use"`.
+
+   **Push sequence:**
+   a. For each variant: create component, set name, apply layout/fills, add children (1-2 calls each)
+   b. Add component properties to each variant (1 call each)
+   c. Link properties to text layers (1 call per component)
+   d. Combine as variant set: `figma.combineAsVariants(components, page)` (1 call)
+   e. Set name, description, variable scoping (1 call)
+   f. Add GenLog instance as sibling (1 call)
+
+   **Rules:**
+   - Do NOT run any codegen scripts or `assembleCall()` — push directly
+   - Do NOT read any `.js` files, manifests, or scaffolds
+   - Return IDs from every call — use them in subsequent calls
 
 Every component exposes: text properties (titles, labels), boolean properties (optional elements), variant properties (managed by Figma). Without propertyLinks, publishing fails with "unused property" errors.
 
