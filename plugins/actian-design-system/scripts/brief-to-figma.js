@@ -486,11 +486,39 @@ function buildCard3(card3_anatomy) {
     sizing: { horizontal: "FILL", vertical: "HUG" },
   });
 
+  // Section 2: Specs — visual dimension annotations
+  if (card3_anatomy.specs && card3_anatomy.specs.length) {
+    children.push(dividerNode());
+    children.push(sectionTitle("Specs"));
+
+    children.push({
+      type: "SPECS_DIAGRAM",
+      name: "Specs annotations",
+      instance: {
+        ref: "targetComponent",
+        variant: card3_anatomy.diagramVariant || "State=Default",
+        name: "Specs instance",
+      },
+      dimensions: card3_anatomy.specs.map(function (s) {
+        return {
+          layerName: s.layerName || null,
+          value: s.value,
+          orientation: s.orientation || null,
+          direction: s.direction || null,
+          side: s.side || null,
+          offset: s.offset || null,
+        };
+      }),
+      background: "#FAFAFF",
+      padding: 48,
+    });
+  }
+
   // Divider
   children.push(dividerNode());
 
-  // Section 2: Specs table
-  children.push(sectionTitle("Specs"));
+  // Section 3: Parts reference table
+  children.push(sectionTitle("Parts reference"));
 
   const specsHeaders = ["Part", "Property", "Token", "Value"];
   const specsWidths = [50, "FILL", "FILL", 80];
@@ -517,13 +545,13 @@ function buildCard3(card3_anatomy) {
   ]);
 
   children.push(
-    tableFrame("Specs table", specsHeaders, specsRows, specsWidths),
+    tableFrame("Parts reference table", specsHeaders, specsRows, specsWidths),
   );
 
   // Divider
   children.push(dividerNode());
 
-  // Section 3: States row
+  // Section 4: States row
   children.push(sectionTitle("States"));
 
   const stateInstances = (card3_anatomy.states || []).map((stateName) => ({
