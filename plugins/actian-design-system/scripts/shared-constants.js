@@ -297,9 +297,12 @@ function getMaxBinSize() {
  */
 function assembleCall(spec) {
   var interpreterSource = getInterpreterSource();
+  // Insert line breaks every ~2000 chars so the output file is readable
+  // by tools that struggle with very long lines (doesn't affect JS execution)
+  var readable = interpreterSource.replace(/(.{2000})/g, "$1\n");
   var specJSON = JSON.stringify(spec);
   return (
-    interpreterSource +
+    readable +
     "\nvar _spec = " +
     specJSON +
     ";\n" +

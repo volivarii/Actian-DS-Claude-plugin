@@ -397,8 +397,12 @@ function buildCard2(card2_component, meta) {
   );
 }
 
-/** Card 3 — Anatomy. Data source: card3_anatomy */
+/** Card 3 — Anatomy. Data source: card3_anatomy.
+ *  Returns an array of { name, node, appendMode? } items to allow splitting
+ *  heavy sections (ANATOMY_DIAGRAM, SPECS_DIAGRAM) into separate fills.
+ */
 function buildCard3(card3_anatomy) {
+  const items = [];
   const children = [];
 
   // Section 1: Structure — anatomy diagram with leader lines
@@ -486,12 +490,24 @@ function buildCard3(card3_anatomy) {
     sizing: { horizontal: "FILL", vertical: "HUG" },
   });
 
-  // Section 2: Specs — visual dimension annotations
-  if (card3_anatomy.specs && card3_anatomy.specs.length) {
-    children.push(dividerNode());
-    children.push(sectionTitle("Specs"));
+  // Card 3a: Structure only (ANATOMY_DIAGRAM is heavy — gets its own fill)
+  var card3shell = cardShell(
+    "Anatomy",
+    "Anatomy",
+    "Component structure, specifications, and interactive states",
+    children,
+  );
+  items.push({ name: "Card 3", node: card3shell });
 
-    children.push({
+  // Card 3b: Specs + Parts reference (continuation fill — appends to Card 3 Content)
+  var contChildren = [];
+
+  // Specs — visual dimension annotations
+  if (card3_anatomy.specs && card3_anatomy.specs.length) {
+    contChildren.push(dividerNode());
+    contChildren.push(sectionTitle("Specs"));
+
+    contChildren.push({
       type: "SPECS_DIAGRAM",
       name: "Specs annotations",
       instance: {
@@ -514,11 +530,9 @@ function buildCard3(card3_anatomy) {
     });
   }
 
-  // Divider
-  children.push(dividerNode());
-
-  // Section 3: Parts reference table
-  children.push(sectionTitle("Parts reference"));
+  // Parts reference table
+  contChildren.push(dividerNode());
+  contChildren.push(sectionTitle("Parts reference"));
 
   const specsHeaders = ["Part", "Property", "Token", "Value"];
   const specsWidths = [50, "FILL", "FILL", 80];
@@ -544,15 +558,13 @@ function buildCard3(card3_anatomy) {
     }),
   ]);
 
-  children.push(
+  contChildren.push(
     tableFrame("Parts reference table", specsHeaders, specsRows, specsWidths),
   );
 
-  // Divider
-  children.push(dividerNode());
-
-  // Section 4: States row
-  children.push(sectionTitle("States"));
+  // States row
+  contChildren.push(dividerNode());
+  contChildren.push(sectionTitle("States"));
 
   const stateInstances = (card3_anatomy.states || []).map((stateName) => ({
     type: "FRAME",
@@ -571,7 +583,7 @@ function buildCard3(card3_anatomy) {
     sizing: { horizontal: "HUG", vertical: "HUG" },
   }));
 
-  children.push({
+  contChildren.push({
     type: "FRAME",
     name: "States row",
     layout: {
@@ -586,12 +598,21 @@ function buildCard3(card3_anatomy) {
     sizing: { horizontal: "FILL", vertical: "HUG" },
   });
 
-  return cardShell(
-    "Anatomy",
-    "Anatomy",
-    "Component structure, specifications, and interactive states",
-    children,
-  );
+  // Wrap continuation children in a frame
+  items.push({
+    name: "Card 3b",
+    node: {
+      type: "FRAME",
+      name: "Card 3 continuation",
+      layout: { mode: "VERTICAL", spacing: 48, padding: [0, 0, 0, 0] },
+      fills: [],
+      children: contChildren,
+      sizing: { horizontal: "FILL", vertical: "HUG" },
+    },
+    appendMode: true,
+  });
+
+  return items;
 }
 
 /** Card 4 — Design Tokens. Data source: card4_tokens */
@@ -1116,8 +1137,12 @@ function autoSplitCalls(data, targetNodeId) {
       name: "Card 2",
       node: buildCard2(data.card2_component, data.meta),
     });
-  if (data.card3_anatomy)
-    allCards.push({ name: "Card 3", node: buildCard3(data.card3_anatomy) });
+  if (data.card3_anatomy) {
+    var card3Items = buildCard3(data.card3_anatomy);
+    for (var c3i = 0; c3i < card3Items.length; c3i++) {
+      allCards.push(card3Items[c3i]);
+    }
+  }
   if (data.card4_tokens)
     allCards.push({ name: "Card 4", node: buildCard4(data.card4_tokens) });
   if (data.card5_api)
@@ -1176,20 +1201,36 @@ function autoSplitCalls(data, targetNodeId) {
   }
   process.stderr.write("\n");
 
-  // Bin-pack card nodes into groups under MAX_BIN_SIZE JSON bytes
-  const treeNodes = allCards.map((c) => c.node);
-  const nodeBins = shared.binPack(treeNodes, MAX_BIN_SIZE, OVERHEAD);
-
-  // Map node bins back to card wrappers
+  // Bin-pack card nodes into groups under MAX_BIN_SIZE JSON bytes.
+  // appendMode items always start a new bin (they run as separate fills).
   const bins = [];
-  let cardIdx = 0;
-  for (const nodeBin of nodeBins) {
-    const cardBin = [];
-    for (let i = 0; i < nodeBin.length; i++) {
-      cardBin.push(allCards[cardIdx++]);
+  var currentBin = [];
+  var currentSize = 0;
+  for (var ci = 0; ci < allCards.length; ci++) {
+    var card = allCards[ci];
+    var cardSize = shared.compactSize(card.node);
+
+    // appendMode items get their own isolated bin (they use appendToSection)
+    if (card.appendMode) {
+      if (currentBin.length > 0) bins.push(currentBin);
+      bins.push([card]);
+      currentBin = [];
+      currentSize = 0;
+      continue;
     }
-    bins.push(cardBin);
+    // Normal size-based bin-packing
+    if (
+      currentBin.length > 0 &&
+      currentSize + cardSize + OVERHEAD > MAX_BIN_SIZE
+    ) {
+      bins.push(currentBin);
+      currentBin = [];
+      currentSize = 0;
+    }
+    currentBin.push(card);
+    currentSize += cardSize + OVERHEAD;
   }
+  if (currentBin.length > 0) bins.push(currentBin);
 
   // Build unitMap: card data key -> fill index
   const CARD_NAME_TO_KEY = {
@@ -1236,19 +1277,26 @@ function autoSplitCalls(data, targetNodeId) {
     },
     fonts: ["Inter:Regular"],
     imports: {},
-    tree: sectionKeys.map(function (key) {
-      return {
-        type: "FRAME",
-        name: key,
-        layout: {
-          mode: "HORIZONTAL",
-          spacing: 32,
-          primarySizing: "AUTO",
-          counterSizing: "AUTO",
-        },
-        fills: [],
-      };
-    }),
+    tree: sectionKeys
+      .filter(function (key, idx) {
+        // Skip scaffold section for append-mode bins (they share a previous bin's section)
+        return !bins[idx].every(function (c) {
+          return c.appendMode;
+        });
+      })
+      .map(function (key) {
+        return {
+          type: "FRAME",
+          name: key,
+          layout: {
+            mode: "HORIZONTAL",
+            spacing: 32,
+            primarySizing: "AUTO",
+            counterSizing: "AUTO",
+          },
+          fills: [],
+        };
+      }),
   };
 
   // Fill specs
@@ -1258,12 +1306,28 @@ function autoSplitCalls(data, targetNodeId) {
     const fillIdx = b + 1;
     const names = bin.map((c) => c.name).join(", ");
 
+    // Check if ALL items in this bin have appendMode — if so, use appendToSection
+    // targeting the previous bin's section key
+    const allAppend = bin.every((c) => c.appendMode);
+    const fillMeta = {
+      skill: "component-brief",
+      component: data.meta.component,
+    };
+    if (allAppend && b > 0) {
+      // Find the most recent non-append bin's section key
+      for (var prevB = b - 1; prevB >= 0; prevB--) {
+        if (!bins[prevB].every((c) => c.appendMode)) {
+          fillMeta.appendToSection = sectionKeys[prevB];
+          break;
+        }
+      }
+    }
+    if (!fillMeta.appendToSection) {
+      fillMeta.fillSection = sectionKeys[b];
+    }
+
     const fillSpec = {
-      meta: {
-        skill: "component-brief",
-        component: data.meta.component,
-        fillSection: sectionKeys[b],
-      },
+      meta: fillMeta,
       fonts: FONTS.slice(),
       imports: { ...IMPORTS },
       localComponents: {

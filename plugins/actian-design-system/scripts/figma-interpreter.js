@@ -76,17 +76,25 @@ async function buildFromSpec(spec) {
   }
 
   // 6. Fill mode: find named section, clear it, build tree into it
-  if (spec.meta.fillSection) {
-    var sectionName = spec.meta.fillSection;
+  if (spec.meta.fillSection || spec.meta.appendToSection) {
+    var isAppend = !!spec.meta.appendToSection;
+    var sectionName = spec.meta.appendToSection || spec.meta.fillSection;
     var section = figma.currentPage.findOne(function (n) {
       return n.name === sectionName && n.type === "FRAME";
     });
     if (!section)
-      throw new Error("Fill target section '" + sectionName + "' not found");
+      throw new Error(
+        (isAppend ? "Append" : "Fill") +
+          " target section '" +
+          sectionName +
+          "' not found",
+      );
 
-    // Clear existing children (supports re-push)
-    while (section.children.length > 0) {
-      section.children[0].remove();
+    // Clear existing children only for fillSection (not appendToSection)
+    if (!isAppend) {
+      while (section.children.length > 0) {
+        section.children[0].remove();
+      }
     }
 
     // Build tree into the section
