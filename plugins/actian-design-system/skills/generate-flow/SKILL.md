@@ -121,27 +121,39 @@ Wait for acknowledgment, then proceed to the screen list gate. The user needs th
 
 ### Research card in Figma output
 
-When research was opted-in, push a **Research Frame** card (`e671618f2b4c6ea406a995fdc3012ac54eadfe56`) as the second element in the wrapper (after GenLog, before Cover Card). Detach, resize to 1440px wide, and inject findings into the Content slot.
+When research was opted-in, push a **Research Frame** card (`e671618f2b4c6ea406a995fdc3012ac54eadfe56`) as the second element in the wrapper (after GenLog, before Cover Card).
+
+**The research card MUST contain the exact same content as the research findings presented in chat** — same competitor entries, same patterns, same recommendations, same source URLs. Do not summarize or abbreviate. The card is the persistent record of what informed the design.
 
 ```js
 const comp = await figma.importComponentByKeyAsync("e671618f2b4c6ea406a995fdc3012ac54eadfe56");
 const inst = comp.createInstance();
 inst.setProperties({
   "Title#48:10": "Research: [Feature]",
-  "Source#48:11": "Sources: [Product A docs], [Product B blog], [Product C help]"
+  "Source#48:11": "Sources: [URL1], [URL2], [URL3]"
 });
 const card = inst.detachInstance();
 
-// Inject findings into Content slot
+// Inject the EXACT findings from the chat presentation
 const content = card.findOne(n => n.name === "Content");
 if (content) {
   const ph = content.findOne(n => n.type === "TEXT");
   if (ph) ph.remove();
-  // Add findings as text nodes — competitors, patterns, recommendations
+
+  await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+  await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+
+  // Add each section as bold heading + body text
+  // "How competitors handle this:" → competitor entries with URLs
+  // "Common patterns:" → pattern list
+  // "What I'll apply:" → recommendations
+  // "Sources:" → full URL list
 }
 
 wrapper.appendChild(card);
 ```
+
+**Source URLs must appear in both chat AND Figma card** — as clickable links in chat, as plain text URLs in the Figma card. Every competitor entry must include the URL where the finding came from.
 
 Skip this card only if user says "no research card" or "skip the research frame".
 
