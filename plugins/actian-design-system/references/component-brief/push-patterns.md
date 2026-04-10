@@ -4,7 +4,33 @@ Direct Figma Plugin API patterns for pushing component briefs. Each pattern is a
 
 All calls MUST include `skillNames: "figma-use"`.
 
-**CRITICAL: The wrapper frame MUST use `layoutMode = "HORIZONTAL"`** with `itemSpacing = 32`. Brief cards display side by side in a horizontal row, NOT stacked vertically. Use Pattern 1 from `figma-push-patterns.md` exactly — do NOT change the layout direction.
+---
+
+## 0. Wrapper Frame (FIRST CALL — copy exactly)
+
+```js
+const page = figma.currentPage;
+let maxY = 0;
+for (const child of page.children) {
+  const bottom = child.y + child.height;
+  if (bottom > maxY) maxY = bottom;
+}
+
+const wrapper = figma.createFrame();
+wrapper.name = "Component Name — Component Brief";
+wrapper.layoutMode = "HORIZONTAL";  // ← MUST be HORIZONTAL, cards go side by side
+wrapper.itemSpacing = 32;
+wrapper.primaryAxisSizingMode = "AUTO";
+wrapper.counterAxisSizingMode = "AUTO";
+wrapper.fills = [];
+wrapper.x = 0;
+wrapper.y = maxY + 200;
+wrapper.setSharedPluginData("ds", "wrapperId", wrapper.id);
+
+return { wrapperId: wrapper.id };
+```
+
+**DO NOT use VERTICAL. Brief cards display in a HORIZONTAL row.**
 
 ---
 
@@ -125,6 +151,10 @@ return { tableId: headerRow.id };
 ---
 
 ## 4. Color Swatch Cell Pattern
+
+**MANDATORY for Card 4 (Design Tokens) color table.** Every color cell in the `colorTokens` table MUST contain a Color Swatch component instance with its fill set to the hex value from the data model. Do NOT render color tokens as plain text — the swatch dot is required.
+
+Each color cell is a small frame containing: swatch instance (colored dot) + token name text + hex text.
 
 ```js
 const set = await figma.importComponentSetByKeyAsync("da3369932f710386b76ca91a40ebd48d94e3f2e0");
@@ -313,6 +343,8 @@ if (colorCol) {
 ## 9. Anatomy Diagram Pattern (Card 3)
 
 Single ~4-6KB call. Creates component instance, reads bounding boxes, computes badge positions, draws badges + leader lines.
+
+**CRITICAL: `figmaLayerName` accuracy.** The badge placement algorithm uses `findOne(n => n.name === figmaLayerName)` to locate each part within the component instance. If a layer name doesn't match, the badge won't be positioned correctly. Before building the data model, use `get_metadata` or `get_design_context` on the target component to read the actual layer names. Common patterns: "Label", "Container", "Icon", "Helper text" — but ALWAYS verify against the real Figma structure.
 
 ```js
 function hexToRgb(hex) {
