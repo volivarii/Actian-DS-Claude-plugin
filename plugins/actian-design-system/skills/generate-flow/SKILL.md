@@ -25,6 +25,15 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
        --output {project_working_directory}/components/flows/flow-data.json
      ```
      Sequential mode (<6 screens): build flow-data.json directly as today.
+   - **Default text scan (MANDATORY before push):** After writing flow-data.json, scan it for these BANNED strings. If ANY are found, fix them before proceeding:
+     - `"Page Title"` → replace with the actual page name (e.g., "POS Transaction Records", "Customer 360")
+     - `"Description text"` → replace with a real subtitle (e.g., "Daily transaction data from all POS terminals")
+     - `"Button label"` → replace with the action verb (e.g., "Edit", "Publish", "Share", "Actions")
+     - `"Label"` (as a standalone section header) → replace with the section name (e.g., "Glossary terms", "Quality status")
+     - `"Nav Item"` → replace with a real nav label
+     - `"Tag"` → replace with a real tag value
+     - `"Header"` (as a standalone text) → replace with actual heading
+     This is a P0 blocker — do NOT push if any banned default text remains in the data model.
 7. Push to Figma — read `references/figma-push-patterns.md` for component keys and patterns. Read your `flow-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
 
    **Push sequence** (each step is one small `use_figma` call, ~200-800 bytes):

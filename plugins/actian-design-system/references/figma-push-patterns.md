@@ -237,7 +237,7 @@ function hexToRgb(hex) {
 ## 3. Push Rules
 
 1. **Always pass `skillNames: "figma-use"`** with every `use_figma` call.
-2. **NEVER leave default property values** -- every instance must have real content from your data model. "Button label", "Nav Item", "Tag", "Page Title" are P0 bugs. Use `setProperties()` and `findOne()` per Pattern 7.
+2. **NEVER leave default property values (P0 BLOCKER)** -- scan your data model for banned defaults BEFORE pushing. These strings must NEVER appear in Figma output: `"Page Title"`, `"Description text"`, `"Button label"`, `"Label"` (standalone), `"Nav Item"`, `"Tag"`, `"Header"` (standalone). Replace every one with real contextual content. Use `setProperties()` and `findOne()` per Pattern 7.
 3. **One operation per call** -- create a frame OR import components OR populate content. Not all three.
 4. **Return IDs from every call** -- use them in subsequent calls to append children.
 5. **Keep calls under 2KB** -- if code is longer, split into multiple calls.
