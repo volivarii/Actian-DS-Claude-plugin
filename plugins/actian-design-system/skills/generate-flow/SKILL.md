@@ -75,7 +75,34 @@ Should I research UX patterns for this?
 - **No, just build it** — I'll use Actian conventions only
 ```
 
-**Yes** → dispatch `flow-researcher` agent (Layer 2), merge with Layer 1+3, then screen list. **References** → Layer 1 + analyze + Layer 3. **No** → Layer 1+3 only, screen list in same response. Layers: see research-guide.md.
+**Yes** → dispatch `flow-researcher` agent (Layer 2), merge with Layer 1+3, then **present findings before the screen list**. **References** → Layer 1 + analyze + Layer 3. **No** → Layer 1+3 only, screen list in same response. Layers: see research-guide.md.
+
+## Research findings gate (mandatory when research opted-in)
+
+When the user opts in to research, you MUST present the findings BEFORE proposing the screen list. Do NOT internalize the research and jump to screens. Present verbatim:
+
+```
+### Research findings: [Feature]
+
+**How competitors handle this:**
+- [Product A]: [approach — 1-2 sentences]
+- [Product B]: [approach — 1-2 sentences]
+- [Product C]: [approach — 1-2 sentences]
+
+**Common patterns:**
+- [Pattern 1]
+- [Pattern 2]
+- [Pattern 3]
+
+**What I'll apply to our flow:**
+- [Specific recommendation 1]
+- [Specific recommendation 2]
+
+**What I'll skip and why:**
+- [Pattern that doesn't fit Actian conventions]
+```
+
+Wait for acknowledgment, then proceed to the screen list gate. The user needs this context to evaluate whether the proposed screens make sense.
 
 ## Screen list gate
 
@@ -98,6 +125,8 @@ Push-apart row — SPACE_BETWEEN, no Spacer: `{ "type": "FRAME", "name": "Header
 
 ## Key rules
 
+- **ZERO default text (P0):** Every component instance MUST have real contextual content. "Page Title", "Description text", "Button label", "Nav Item", "Tag" are P0 bugs. Use `setProperties` for every text property — no exceptions. The page header, action buttons, tabs, sidebar items, and all content must reflect the actual feature being designed.
+- **Content area spacing:** The content area inside each screen MUST have `paddingTop: 24` (or the value matching the layout pattern). Content should never start flush against the tab bar or page header.
 - **Button booleans:** Set `"👁 Leading Icon": false, "👁 Trailing Icon": false` on every button by default
 - **SPACE_BETWEEN:** Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for opposite-side layouts — never Spacer frames
 - **Feature focus:** Spotlight the feature, placeholder everything else; build sidebar from navItems in flow-data.json
