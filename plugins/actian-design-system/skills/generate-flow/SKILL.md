@@ -44,7 +44,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
       a. Import needed components for this screen (batch: header, sidebar items, content components)
       b. Create screen frame with auto-layout, set dimensions (1440×960)
       c. Create app chrome (header instance, sidebar with nav items, page header) using imported instances
-      d. Create content area, populate from `screen.content[]` nodes — translate each node to Plugin API calls
+      d. Create content area with `paddingTop: 24, paddingLeft: 24, paddingRight: 24, paddingBottom: 24` — content must NEVER start flush against the tab bar. Populate from `screen.content[]` nodes.
       e. Append completed screen to wrapper
    6. After all screens pushed, report to user with count
 
