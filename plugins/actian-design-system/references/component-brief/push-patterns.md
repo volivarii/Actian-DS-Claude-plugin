@@ -34,6 +34,33 @@ return { wrapperId: wrapper.id };
 
 ---
 
+## 0b. Generation Log (SECOND CALL — always include)
+
+Every brief MUST start with a GenLog card as the first child of the wrapper. Import by key, set all 6 properties from `meta`.
+
+```js
+const comp = await figma.importComponentByKeyAsync("a9653f30925367e96dea90093d750bfe70849571");
+const inst = comp.createInstance();
+inst.name = "Generation Log";
+inst.setProperties({
+  "Skill": "Skill: component-brief",
+  "Prompt": "Prompt: component-brief Button",
+  "Date": "2026-04-09T00:00:00.000Z",
+  "Duration": "Duration: 45s",
+  "Model": "claude-sonnet-4-6",
+  "Plugin Version": "v1.49.1"
+});
+
+const wrapper = await figma.getNodeByIdAsync("<wrapperId>");
+wrapper.appendChild(inst);
+
+return { genLogId: inst.id };
+```
+
+**Fill all 6 properties from `brief-data.json.meta`.** Do NOT skip this card.
+
+---
+
 ## 1. Card Shell Pattern
 
 Every card (except GenLog) uses the Brief Card component. Import it, set variant, set title/subtitle, detach, find content slot.

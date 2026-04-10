@@ -113,8 +113,8 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
 
 **Push sequence** (each step is one small `use_figma` call, ~200-2000 bytes; anatomy diagram ~4-6KB):
 
-1. Navigate to target page + create wrapper frame (Pattern 1 from figma-push-patterns.md)
-2. Create GenLog instance (import by key, set 6 meta props, append to wrapper)
+1. Create wrapper frame (Pattern 0 from component-brief/push-patterns.md — MUST be HORIZONTAL)
+2. Create GenLog instance (Pattern 0b — import by key, set 6 meta props, append to wrapper)
 3. For each card in the data model:
    a. Create card shell (import briefCard set, set variant + title + subtitle, detach, find content slot)
    b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
