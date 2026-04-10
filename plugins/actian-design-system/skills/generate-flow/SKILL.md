@@ -8,13 +8,12 @@ argument-hint: "[feature description or Figma URL] [--hifi]"
 
 Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette.
 
-## Pipeline (4 gates — after gate 4, build and push uninterrupted)
+## Pipeline (3 gates — after gate 3, build and push uninterrupted)
 
 1. Read app-context.md → determine app (Studio/Explorer/Administration)
 2. **Research gate** — present verbatim unless user said "no research"
 3. **Research findings gate** — present findings verbatim (mandatory when research opted-in)
-4. **Screen list gate** — present with options verbatim
-5. **Detail level gate** — Draft / Standard / Production (present after screen list approved)
+4. **Screen list + detail level gate** — screens AND detail tier in ONE response
 6. Build flow-data.json with content[] nodes (reference `examples/flow-data-example.json` for expected structure)
    - **Recipe acceleration**: Before building each screen's `content[]`, read `recipes/flow/_index.json`. If an archetype matches the screen's purpose, read that recipe file and use its skeleton as a starting point — fill `{{placeholders}}` with domain content, add/remove rows and sections as needed. If no recipe fits or the screen needs a novel layout, build `content[]` from scratch. Recipes are accelerators, not constraints — deviate freely when the design calls for it.
    - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in parallel, splitting screens into batches of 2-3. Each agent receives: batch index, screen details (name, template, content description), feature context, meta object, output path to `.partial/`. After all complete, merge:
@@ -148,29 +147,29 @@ wrapper.appendChild(card);
 
 Skip this card only if user says "no research card" or "skip the research frame".
 
-## Screen list gate
+## Screen list + detail level gate (SINGLE gate — both choices in one response)
 
 Present a numbered screen list, then ALWAYS include (copy verbatim):
 
 ```
 Does this work, or would you like to adjust?
-- **approve** or scope down ("just 1 & 2")
+
+**Screens:** approve all, scope down ("just 1 & 2"), or describe changes
+
+**Detail level:**
+- **draft** — feature area only, minimal content, placeholder chrome
+- **standard** — feature fully detailed, contextual labels and data (default)
+- **production** — all states, edge cases, loading, empty, error
+
+**Actions:**
+- **"approve"** — standard detail, build data model
+- **"approve draft"** or **"approve production"** — specify detail level
 - **"preview"** — generate HTML preview before pushing
-- **"push [Figma URL]"** — approve and push directly to Figma
+- **"push [Figma URL]"** — approve standard + push directly to Figma
+- **"push draft [URL]"** or **"push production [URL]"** — specify detail + push
 ```
 
-## Detail level gate (after screen list approved)
-
-After the user approves the screen list, present the detail level choice. Copy verbatim:
-
-```
-What level of detail?
-- **Draft** — feature area only, minimal content, placeholder chrome. Fast. (3-5 min)
-- **Standard** — feature area fully detailed, contextual labels and data. Non-feature chrome stays placeholder. (default)
-- **Production** — everything detailed: all states (empty, error, loading), real data, edge cases. (longest)
-```
-
-Default to **Standard** if the user just says "approve" or "push" without specifying.
+Parse the user's response for both screen approval AND detail level. If no detail level specified, default to **Standard**.
 
 **The FM focus principle applies at ALL tiers:**
 - Non-feature chrome (sidebar items, header nav, unrelated content) is ALWAYS placeholder — muted text, generic labels, greyed-out variants
