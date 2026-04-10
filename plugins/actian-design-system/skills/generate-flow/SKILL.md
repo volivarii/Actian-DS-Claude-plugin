@@ -37,7 +37,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
 
    **Push sequence** (each step is one small `use_figma` call, ~200-800 bytes):
    1. Navigate to target page + create wrapper frame (use "Create wrapper frame" pattern from push-patterns.md)
-   2. Create Generation Log instance (import genLog by key, create instance, set props from meta, append to wrapper)
+   2. Create Generation Log instance (import genLog by key `a9653f30925367e96dea90093d750bfe70849571`, set props via `setProperties` with hash-suffixed names: `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version must be `v1.50.5`** — read from plugin.json, never hardcode.)
    3. If research was opted-in: create Research Frame card (see "Research card in Figma output" section below)
    4. Create Cover Card instance (import flowCoverCard by key, set props from meta, append to wrapper)
    5. For each screen in `flow-data.json`:
