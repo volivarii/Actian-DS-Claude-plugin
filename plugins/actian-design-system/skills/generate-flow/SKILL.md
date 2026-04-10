@@ -32,6 +32,9 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
      - `"Nav Item"` → replace with a real nav label
      - `"Tag"` → replace with a real tag value
      - `"Header"` (as a standalone text) → replace with actual heading
+     - `"Feature Name"` → replace with the actual feature (e.g., "AI Steward", "Data Product Checkout")
+     - `"Flow Description"` → replace with a real flow description
+     - `"User Persona"` → replace with the target user (e.g., "Data Steward", "Business Analyst")
      This is a P0 blocker — do NOT push if any banned default text remains in the data model.
 7. Push to Figma — read `references/figma-push-patterns.md` for component keys and patterns. Read your `flow-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
 
@@ -39,7 +42,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
    1. Navigate to target page + create wrapper frame (use "Create wrapper frame" pattern from push-patterns.md)
    2. Create Generation Log instance (import genLog by key `a9653f30925367e96dea90093d750bfe70849571`, set props via `setProperties` with hash-suffixed names: `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version must be `v1.50.5`** — read from plugin.json, never hardcode.)
    3. If research was opted-in: create Research Frame card (see "Research card in Figma output" section below)
-   4. Create Cover Card instance (import flowCoverCard by key, set props from meta, append to wrapper)
+   4. Create Cover Card instance (import flowCoverCard by key `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, use `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave as defaults)
    5. For each screen in `flow-data.json`:
       a. Import needed components for this screen (batch: header, sidebar items, content components)
       b. Create screen frame with auto-layout, set dimensions (1440×960)

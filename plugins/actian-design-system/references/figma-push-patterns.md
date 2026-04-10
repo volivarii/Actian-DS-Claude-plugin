@@ -204,7 +204,7 @@ if (subtitleText) subtitleText.characters = "Manage team members and permissions
 
 **Meta Kit (all skills):**
 - **genLog** — `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"` — all TEXT via `setProperties()`. **Plugin Version MUST be read from `plugin.json`** — currently `v1.50.5`. Do NOT hardcode or guess the version.
-- **flowCoverCard** — text via nested `findOne`: "Feature Name", "Flow Description", "User Persona"
+- **flowCoverCard** — `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — all TEXT via `setProperties()`. NEVER leave as "Feature Name" / "Flow Description" / "User Persona".
 - **divider** — no properties
 
 **Brief Kit (component-brief):**
@@ -237,7 +237,7 @@ function hexToRgb(hex) {
 ## 3. Push Rules
 
 1. **Always pass `skillNames: "figma-use"`** with every `use_figma` call.
-2. **NEVER leave default property values (P0 BLOCKER)** -- scan your data model for banned defaults BEFORE pushing. These strings must NEVER appear in Figma output: `"Page Title"`, `"Description text"`, `"Button label"`, `"Label"` (standalone), `"Nav Item"`, `"Tag"`, `"Header"` (standalone). Replace every one with real contextual content. Use `setProperties()` and `findOne()` per Pattern 7.
+2. **NEVER leave default property values (P0 BLOCKER)** -- scan your data model for banned defaults BEFORE pushing. These strings must NEVER appear in Figma output: `"Page Title"`, `"Description text"`, `"Button label"`, `"Label"` (standalone), `"Nav Item"`, `"Tag"`, `"Header"` (standalone), `"Feature Name"`, `"Flow Description"`, `"User Persona"`. Replace every one with real contextual content. Use `setProperties()` and `findOne()` per Pattern 7.
 3. **One operation per call** -- create a frame OR import components OR populate content. Not all three.
 4. **Return IDs from every call** -- use them in subsequent calls to append children.
 5. **Keep calls under 2KB** -- if code is longer, split into multiple calls.
