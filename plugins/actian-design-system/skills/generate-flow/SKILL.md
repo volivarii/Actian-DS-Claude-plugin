@@ -115,6 +115,30 @@ Does this work, or would you like to adjust?
 - **"push [Figma URL]"** — approve and push directly to Figma
 ```
 
+## Detail level gate (after screen list approved)
+
+After the user approves the screen list, present the detail level choice. Copy verbatim:
+
+```
+What level of detail?
+- **Draft** — feature area only, minimal content, placeholder chrome. Fast. (3-5 min)
+- **Standard** — feature area fully detailed, contextual labels and data. Non-feature chrome stays placeholder. (default)
+- **Production** — everything detailed: all states (empty, error, loading), real data, edge cases. (longest)
+```
+
+Default to **Standard** if the user just says "approve" or "push" without specifying.
+
+**The FM focus principle applies at ALL tiers:**
+- Non-feature chrome (sidebar items, header nav, unrelated content) is ALWAYS placeholder — muted text, generic labels, greyed-out variants
+- Only elements relevant to the feature being designed get real content
+- The tier controls how detailed the **feature-relevant** content is:
+
+| Tier | Feature area | Non-feature chrome |
+|------|-------------|-------------------|
+| **Draft** | Key layout + minimal overrides | Placeholder |
+| **Standard** | Full overrides, contextual labels, realistic data | Placeholder |
+| **Production** | All states, edge cases, loading, empty, error | Contextual but secondary |
+
 ## Examples
 
 Button — icons hidden: `{ "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default", "props": { "Label": "Save changes", "👁 Leading Icon": false, "👁 Trailing Icon": false } }`
