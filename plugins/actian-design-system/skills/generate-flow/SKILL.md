@@ -8,79 +8,47 @@ argument-hint: "[feature description or Figma URL] [--hifi]"
 
 Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette.
 
-## Pipeline (3 gates — after gate 3, build and push uninterrupted)
+## Pipeline (3 gates, then build + push uninterrupted)
 
-1. Read app-context.md → determine app (Studio/Explorer/Administration)
-2. **Research gate** — present verbatim unless user said "no research"
-3. **Research findings gate** — present findings verbatim (mandatory when research opted-in)
-4. **Screen list + detail level gate** — screens AND detail tier in ONE response
-6. Build flow-data.json with content[] nodes (reference `examples/flow-data-example.json` for expected structure)
-   - **Recipe acceleration**: Before building each screen's `content[]`, read `recipes/flow/_index.json`. If an archetype matches the screen's purpose, read that recipe file and use its skeleton as a starting point — fill `{{placeholders}}` with domain content, add/remove rows and sections as needed. If no recipe fits or the screen needs a novel layout, build `content[]` from scratch. Recipes are accelerators, not constraints — deviate freely when the design calls for it.
-   - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in parallel, splitting screens into batches of 2-3. Each agent receives: batch index, screen details (name, template, content description), feature context, meta object, output path to `.partial/`. After all complete, merge:
+1. Read `references/app-context.md` → determine app (Studio/Explorer/Administration)
+2. **Gate 1 — Research** (present verbatim, see below)
+3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
+4. **Gate 3 — Screen list + detail level** (single gate, both choices, see below)
+5. Build `flow-data.json`
+   - Read `recipes/flow/_index.json` — if an archetype matches the screen, use its skeleton. Recipes are accelerators, not constraints.
+   - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in batches of 2-3, merge with:
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
      "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/merge-partials.js" \
        --type flow --partials-dir {project_working_directory}/components/flows/.partial \
        --output {project_working_directory}/components/flows/flow-data.json
      ```
-     Sequential mode (<6 screens): build flow-data.json directly as today.
-   - **Default text scan (MANDATORY before push):** After writing flow-data.json, scan it for these BANNED strings. If ANY are found, fix them before proceeding:
-     - `"Page Title"` → replace with the actual page name (e.g., "POS Transaction Records", "Customer 360")
-     - `"Description text"` → replace with a real subtitle (e.g., "Daily transaction data from all POS terminals")
-     - `"Button label"` → replace with the action verb (e.g., "Edit", "Publish", "Share", "Actions")
-     - `"Label"` (as a standalone section header) → replace with the section name (e.g., "Glossary terms", "Quality status")
-     - `"Nav Item"` → replace with a real nav label
-     - `"Tag"` → replace with a real tag value
-     - `"Header"` (as a standalone text) → replace with actual heading
-     - `"Feature Name"` → replace with the actual feature (e.g., "AI Steward", "Data Product Checkout")
-     - `"Flow Description"` → replace with a real flow description
-     - `"User Persona"` → replace with the target user (e.g., "Data Steward", "Business Analyst")
-     This is a P0 blocker — do NOT push if any banned default text remains in the data model.
-7. Push to Figma — read `references/figma-push-patterns.md` for component keys and patterns. Read your `flow-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
-
-   **Push sequence** (each step is one small `use_figma` call, ~200-800 bytes):
-   1. Navigate to target page + create wrapper frame (use "Create wrapper frame" pattern from push-patterns.md)
-   2. Create Generation Log instance (import genLog by key `a9653f30925367e96dea90093d750bfe70849571`, set props via `setProperties` with hash-suffixed names: `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version must be `v1.50.5`** — read from plugin.json, never hardcode.)
-   3. If research was opted-in: create Research Frame card (see "Research card in Figma output" section below)
-   4. Create Cover Card instance (import flowCoverCard by key `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, use `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave as defaults)
-   5. For each screen in `flow-data.json`:
-      a. Import needed components for this screen (batch: header, sidebar items, content components)
-      b. Create screen frame with auto-layout, set dimensions (1440×960)
-      c. Create app chrome (header instance, sidebar with nav items, page header) using imported instances
-      d. Create content area with `paddingTop: 24, paddingLeft: 24, paddingRight: 24, paddingBottom: 24` — content must NEVER start flush against the tab bar. Populate from `screen.content[]` nodes.
-      e. Append completed screen to wrapper
-   6. After all screens pushed, report to user with count
-
-   **Rules:**
-   - Each `use_figma` call creates 1-3 nodes max — keep calls small
-   - Return IDs from every call — use them in subsequent calls to append children
-   - If a call fails, skip that element and continue
-   - Do NOT run `flow-to-figma.js` — push directly from your data model
-   - Do NOT read any `.js` files, manifests, or scaffolds
-### HiFi conversion (if --hifi flag)
-
-After the FM flow push completes:
-
-1. Run `scripts/transform-to-hifi.js` on the in-memory `flow-data.json`
-2. Report mapped/unmapped component counts to user
-3. Handle unmapped nodes creatively using `docs/dskit.json` component descriptions
-4. Apply DS layout polish: spacing tokens, typography scale, proper padding
-5. Push hifi frame as sibling of FM frame, named `[Flow name] — HiFi`
-6. Add generation card with `mode: "hifi"`
-
-References: `docs/fm-to-ds-map.json`, `docs/dskit.json`, `scripts/transform-to-hifi.js`
-
+     Sequential mode (<6 screens): build flow-data.json directly.
+6. **Default text scan (P0 BLOCKER)** — scan flow-data.json for banned strings. Fix ALL before pushing:
+   - `"Page Title"` → actual page name (e.g., "Customer 360 Data Product")
+   - `"Description text"` → real subtitle (e.g., "Daily transaction data from all POS terminals")
+   - `"Button label"` → action verb (e.g., "Edit", "Publish", "Share", "Actions")
+   - `"Label"` (standalone) → section name (e.g., "Glossary terms", "Quality status")
+   - `"Nav Item"` → real nav label
+   - `"Tag"` → real tag value
+   - `"Header"` (standalone) → actual heading
+   - `"Feature Name"` → actual feature (e.g., "AI Steward", "Data Product Checkout")
+   - `"Flow Description"` → real flow description
+   - `"User Persona"` → target user (e.g., "Data Steward", "Business Analyst")
+7. Push to Figma (see Push section below)
 8. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/components/flows/[feature]-flow.html
    BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
    ```
-9. Parity check (parity-check.md) → Cleanup (quality-checklist.md)
+9. Parity check (opt-in) → `references/parity-check.md` + `references/quality-checklist.md`
 
-## Research gate
+---
 
-**MANDATORY** unless prompt contains "no research", "skip research", "just build it", or provides references. Reading context files is NOT presenting this gate. Copy verbatim:
+## Gate 1 — Research
+
+**MANDATORY** unless prompt contains "no research", "skip research", "just build it", or provides references. Copy verbatim:
 
 ```
 Should I research UX patterns for this?
@@ -89,11 +57,11 @@ Should I research UX patterns for this?
 - **No, just build it** — I'll use Actian conventions only
 ```
 
-**Yes** → dispatch `flow-researcher` agent (Layer 2), merge with Layer 1+3, then **present findings before the screen list**. **References** → Layer 1 + analyze + Layer 3. **No** → Layer 1+3 only, screen list in same response. Layers: see research-guide.md.
+**Yes** → dispatch `flow-researcher` agent, then present findings (Gate 2). **References** → analyze + screen list. **No** → screen list directly. Layers: see `references/generate-flow/research-guide.md`.
 
-## Research findings gate (mandatory when research opted-in)
+## Gate 2 — Research findings (mandatory when opted-in)
 
-When the user opts in to research, you MUST present the findings BEFORE proposing the screen list. Do NOT internalize the research and jump to screens. Present verbatim:
+Do NOT internalize the research. Present verbatim:
 
 ```
 ### Research findings: [Feature]
@@ -115,54 +83,14 @@ When the user opts in to research, you MUST present the findings BEFORE proposin
 **What I'll skip and why:**
 - [Pattern that doesn't fit Actian conventions]
 
-**Sources:** [list all URLs used in research as clickable links]
+**Sources:** [all URLs as clickable links]
 ```
 
-**ALWAYS include source URLs** — link to the actual pages, docs, or screenshots you found. The user needs to verify findings and may want to explore further.
+**ALWAYS include source URLs.** Wait for acknowledgment before proceeding to Gate 3.
 
-Wait for acknowledgment, then proceed to the screen list gate. The user needs this context to evaluate whether the proposed screens make sense.
+## Gate 3 — Screen list + detail level (SINGLE gate)
 
-### Research card in Figma output
-
-When research was opted-in, push a **Research Frame** card (`e671618f2b4c6ea406a995fdc3012ac54eadfe56`) as the second element in the wrapper (after GenLog, before Cover Card).
-
-**The research card MUST contain the exact same content as the research findings presented in chat** — same competitor entries, same patterns, same recommendations, same source URLs. Do not summarize or abbreviate. The card is the persistent record of what informed the design.
-
-```js
-const comp = await figma.importComponentByKeyAsync("e671618f2b4c6ea406a995fdc3012ac54eadfe56");
-const inst = comp.createInstance();
-inst.setProperties({
-  "Title#48:10": "Research: [Feature]",
-  "Source#48:11": "Sources: [URL1], [URL2], [URL3]"
-});
-const card = inst.detachInstance();
-
-// Inject the EXACT findings from the chat presentation
-const content = card.findOne(n => n.name === "Content");
-if (content) {
-  const ph = content.findOne(n => n.type === "TEXT");
-  if (ph) ph.remove();
-
-  await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
-  await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-
-  // Add each section as bold heading + body text
-  // "How competitors handle this:" → competitor entries with URLs
-  // "Common patterns:" → pattern list
-  // "What I'll apply:" → recommendations
-  // "Sources:" → full URL list
-}
-
-wrapper.appendChild(card);
-```
-
-**Source URLs must appear in both chat AND Figma card** — as clickable links in chat, as plain text URLs in the Figma card. Every competitor entry must include the URL where the finding came from.
-
-Skip this card only if user says "no research card" or "skip the research frame".
-
-## Screen list + detail level gate (SINGLE gate — both choices in one response)
-
-Present a numbered screen list, then ALWAYS include (copy verbatim):
+Present a numbered screen list, then copy verbatim:
 
 ```
 Does this work, or would you like to adjust?
@@ -182,47 +110,77 @@ Does this work, or would you like to adjust?
 - **"push draft [URL]"** or **"push production [URL]"** — specify detail + push
 ```
 
-Parse the user's response for both screen approval AND detail level. If no detail level specified, default to **Standard**.
+Parse the user's response for both screen approval AND detail level. Default to **Standard**.
 
-**The FM focus principle applies at ALL tiers:**
-- Non-feature chrome (sidebar items, header nav, unrelated content) is ALWAYS placeholder — muted text, generic labels, greyed-out variants
-- Only elements relevant to the feature being designed get real content
-- The tier controls how detailed the **feature-relevant** content is:
+**FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
 
-| Tier | Feature area | Non-feature chrome |
-|------|-------------|-------------------|
-| **Draft** | Key layout + minimal overrides | Placeholder |
-| **Standard** | Full overrides, contextual labels, realistic data | Placeholder |
-| **Production** | All states, edge cases, loading, empty, error | Contextual but secondary |
+---
+
+## Push to Figma
+
+Read `references/figma-push-patterns.md` for component keys and patterns. Push from `flow-data.json` using small `use_figma` calls. Always pass `skillNames: "figma-use"`.
+
+**Push sequence:**
+
+1. Navigate to target page + create wrapper frame
+2. GenLog — import by key `a9653f30925367e96dea90093d750bfe70849571`, `setProperties` with `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version = `v1.50.5`** (read from plugin.json, never hardcode)
+3. Research card (if opted-in) — import Research Frame `e671618f2b4c6ea406a995fdc3012ac54eadfe56`, `setProperties` with `"Title#48:10"`, `"Source#48:11"`, detach, inject findings into Content slot. **Must contain the exact same content as the chat findings** — same competitors, patterns, recommendations, source URLs. Card is the persistent record of what informed the design.
+4. Cover Card — import `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave defaults
+5. For each screen:
+   a. Import components (header, sidebar, content components)
+   b. Create screen frame (1440×960, auto-layout)
+   c. App chrome (header, sidebar with nav items, page header)
+   d. Content area with `paddingTop: 24, paddingLeft: 24, paddingRight: 24, paddingBottom: 24` — content NEVER flush against tab bar. Populate from `screen.content[]`.
+   e. Append to wrapper
+6. Report count to user
+
+**Push rules:**
+- Each `use_figma` call creates 1-3 nodes max
+- Return IDs from every call
+- If a call fails, skip and continue
+- Do NOT run `flow-to-figma.js` or read `.js` files
+
+### HiFi conversion (if --hifi flag)
+
+After FM push completes:
+
+1. Run `scripts/transform-to-hifi.js` on flow-data.json
+2. Report mapped/unmapped counts
+3. Handle unmapped creatively using `docs/dskit.json`
+4. Apply DS layout polish: spacing tokens, typography scale, padding
+5. Push hifi frame as sibling, named `[Flow name] — HiFi`
+6. Add generation card with `mode: "hifi"`
+
+References: `docs/fm-to-ds-map.json`, `docs/dskit.json`, `scripts/transform-to-hifi.js`
+
+---
 
 ## Examples
 
 Button — icons hidden: `{ "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default", "props": { "Label": "Save changes", "👁 Leading Icon": false, "👁 Trailing Icon": false } }`
 
-Text input — nested label, no separate fmInputLabel: `{ "type": "INSTANCE", "ref": "fmTextInput", "variant": "Type=Default", "name": "Input: Platform name", "props": { "Input Text": "Actian Data Intelligence", "Label Text": "Platform name", "Caption Text": "Displayed in the header", "Show label": true, "Caption": true, "Required": false } }`
+Text input — nested label: `{ "type": "INSTANCE", "ref": "fmTextInput", "variant": "Type=Default", "name": "Input: Platform name", "props": { "Input Text": "Actian Data Intelligence", "Label Text": "Platform name", "Caption Text": "Displayed in the header", "Show label": true, "Caption": true, "Required": false } }`
 
-Push-apart row — SPACE_BETWEEN, no Spacer: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "HORIZONTAL", "primaryAxisAlignItems": "SPACE_BETWEEN" }, "sizing": { "horizontal": "FILL", "vertical": "HUG" }, "children": [...] }`
+Push-apart row: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "HORIZONTAL", "primaryAxisAlignItems": "SPACE_BETWEEN" }, "sizing": { "horizontal": "FILL", "vertical": "HUG" }, "children": [...] }`
 
 ## Key rules
 
-- **ZERO default text (P0):** Every component instance MUST have real contextual content. "Page Title", "Description text", "Button label", "Nav Item", "Tag" are P0 bugs. Use `setProperties` for every text property — no exceptions. The page header, action buttons, tabs, sidebar items, and all content must reflect the actual feature being designed.
-- **Content area spacing:** The content area inside each screen MUST have `paddingTop: 24` (or the value matching the layout pattern). Content should never start flush against the tab bar or page header.
 - **Button booleans:** Set `"👁 Leading Icon": false, "👁 Trailing Icon": false` on every button by default
 - **SPACE_BETWEEN:** Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for opposite-side layouts — never Spacer frames
 - **Feature focus:** Spotlight the feature, placeholder everything else; build sidebar from navItems in flow-data.json
-- **Small direct calls:** Write direct Figma Plugin API code using patterns from `references/figma-push-patterns.md`. Keep each use_figma call under 2KB.
+- **Small direct calls:** Keep each `use_figma` call under 2KB
 - **No contentHtml:** Use structured content[] nodes (FRAME, TEXT, INSTANCE, DIVIDER) only
 
 ## References
 
-- `references/figma-push-patterns.md` — component keys, push patterns, and Plugin API call templates
+- `references/figma-push-patterns.md` — component keys, push patterns, Plugin API templates
 - `references/generate-flow/research-guide.md` — competitor research, reference analysis
-- `references/quality-tiers.md` — Draft / Standard / Production tier definitions
+- `references/quality-tiers.md` — Draft / Standard / Production concrete rules
 - `references/app-context.md` — app inference, entity model, terminology
 - `references/ux-patterns.md` — SaaS UX pattern library by flow type
-- `references/layout-patterns.md` — canonical page layouts (dashboard, detail, table, form, graph, overlay)
-- `references/parity-check.md` — post-push parity check procedure
+- `references/layout-patterns.md` — canonical page layouts
+- `references/parity-check.md` — post-push parity check
 - `references/quality-checklist.md` — cleanup pass checklist
 - `references/prototype-reference.md` — interactive HTML prototype (opt-in)
-- `references/prototype-wiring.md` — Figma prototype wiring (opt-in, "push and wire")
-- `recipes/flow/_index.json` — archetype recipe catalog (table-list, form-create, detail-view, dashboard, browse-search, overlay)
+- `references/prototype-wiring.md` — Figma prototype wiring (opt-in)
+- `recipes/flow/_index.json` — archetype recipe catalog
