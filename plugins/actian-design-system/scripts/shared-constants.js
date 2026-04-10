@@ -89,9 +89,6 @@ const BRIEF_SLUGS = {
 };
 
 const TEMPLATE_SLUGS = {
-  tableHeaderRow: "table-header-row",
-  tableDataRow: "table-data-row",
-  stateColumn: "state-column",
   sectionHeader: "section-header",
   swatchRow: "swatch-row",
   a11ySpecRow: "a11y-spec-row",

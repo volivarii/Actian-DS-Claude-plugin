@@ -2,54 +2,19 @@
   "library": "meta-kit",
   "fileKey": "osoeCLcrWqfoq8TvLQoyh0",
   "lastSynced": "2026-04-08T14:01:20.858Z",
-  "componentCount": 27,
+  "componentCount": 25,
   "templates": {
-    "table-header-row": {
-      "key": "0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e",
-      "nodeId": "73:12",
-      "textSlots": [
-        "label"
-      ],
-      "visibility": "template-only",
-      "category": "table"
-    },
-    "table-data-row": {
-      "key": "3a1fae22dd85936f81565122888efd8a50e37180",
-      "nodeId": "74:12",
-      "textSlots": [
-        "label",
-        "value"
-      ],
-      "visibility": "template-only",
-      "category": "table"
-    },
-    "state-column": {
-      "key": "4f782d1a8541b4474858767209f99dce1428784b",
-      "nodeId": "75:12",
-      "textSlots": [
-        "title"
-      ],
-      "visibility": "template-only",
-      "category": "grid"
-    },
     "section-header": {
       "key": "f4fd576001f4f1f4606a4efb051d1e4492e378c4",
       "nodeId": "76:12",
-      "textSlots": [
-        "title",
-        "subtitle"
-      ],
+      "textSlots": ["title", "subtitle"],
       "visibility": "template-only",
       "category": "layout"
     },
     "swatch-row": {
       "key": "96647364b6cb5c55b7ced72106708daaa33afb7f",
       "nodeId": "77:12",
-      "textSlots": [
-        "name",
-        "value",
-        "hex"
-      ],
+      "textSlots": ["name", "value", "hex"],
       "visibility": "template-only",
       "category": "tokens"
     },
@@ -69,6 +34,32 @@
     }
   },
   "components": {
+    "meta-/-chrome-/-brief-card-header": {
+      "name": "Meta / Chrome / Brief Card Header",
+      "key": "057e742610975479a8c9c245e713d9911a49e484",
+      "nodeId": "140:12",
+      "importMethod": "single",
+      "page": "Document",
+      "description": "Card header for component briefs. Nested inside Brief Card Standard variants — stays live after Brief Card detach. Set Title, Subtitle, Show Subtitle via properties.",
+      "lastSynced": "2026-04-10T00:00:00.000Z",
+      "variants": {},
+      "properties": {
+        "Title#140:0": {
+          "type": "TEXT",
+          "default": "Anatomy"
+        },
+        "Subtitle#140:1": {
+          "type": "TEXT",
+          "default": "Component structure and token mapping"
+        },
+        "Show Subtitle#140:2": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [],
+      "guidelinesFile": null
+    },
     "meta-/-chrome-/-feedback": {
       "name": "Meta / Chrome / Feedback",
       "key": "d5cba21bc3dbf36578665bac89834fbe1ca29ed0",
@@ -78,10 +69,7 @@
       "description": "Annotation component for designer feedback and library gap markers. Designer variant: place next to issues for /refine comments. System variant: auto-placed when plugin improvises around a library gap",
       "lastSynced": "2026-04-08T13:08:03.885Z",
       "variants": {
-        "Type": [
-          "Designer",
-          "System"
-        ]
+        "Type": ["Designer", "System"]
       },
       "properties": {},
       "nestedComponents": [],
@@ -96,14 +84,8 @@
       "description": "Card shell for component spec pages. 4 variants: DS Standard (1200px grey header), DS Page Header (1200px white with logo), FM Standard (820px grey header), FM Page Header (820px dark).",
       "lastSynced": "2026-04-08T13:08:03.887Z",
       "variants": {
-        "Mode": [
-          "DS",
-          "FM"
-        ],
-        "Type": [
-          "Standard",
-          "Page Header"
-        ]
+        "Mode": ["DS", "FM"],
+        "Type": ["Standard", "Page Header"]
       },
       "properties": {
         "Title#7:0": {
@@ -139,10 +121,7 @@
       "description": "Side-by-side Do and Don't examples with green/red color bars. Used in component-brief Cards 6-7 and presentation best-practice slides.",
       "lastSynced": "2026-04-08T13:08:03.888Z",
       "variants": {
-        "Mode": [
-          "DS",
-          "FM"
-        ]
+        "Mode": ["DS", "FM"]
       },
       "properties": {
         "Do Label#9:8": {
@@ -174,11 +153,7 @@
       "description": "Circular color indicator. Used in component-brief Card 4 (token tables) and Card 8 (contrast tables). Bind fill to a DS2026 variable at runtime.",
       "lastSynced": "2026-04-08T13:08:03.889Z",
       "variants": {
-        "Size": [
-          "Small",
-          "Medium",
-          "Large"
-        ]
+        "Size": ["Small", "Medium", "Large"]
       },
       "properties": {},
       "nestedComponents": [],
@@ -193,11 +168,7 @@
       "description": "WCAG contrast result badge (Pass/Exempt/Fail). Used in component-brief Card 8 accessibility contrast table.",
       "lastSynced": "2026-04-08T13:08:03.889Z",
       "variants": {
-        "Status": [
-          "Pass",
-          "Exempt",
-          "Fail"
-        ]
+        "Status": ["Pass", "Exempt", "Fail"]
       },
       "properties": {
         "Label#44:3": {
@@ -217,12 +188,7 @@
       "description": "Dimension callout label with directional line. Used in component-brief Card 3 (Anatomy) for pink dimension annotations.",
       "lastSynced": "2026-04-08T13:08:03.890Z",
       "variants": {
-        "Direction": [
-          "Left",
-          "Right",
-          "Up",
-          "Down"
-        ]
+        "Direction": ["Left", "Right", "Up", "Down"]
       },
       "properties": {
         "Label#45:4": {
@@ -242,10 +208,7 @@
       "description": "Measurement annotation with endcaps and value label. Used in component-brief Card 3 (Anatomy - Specs) for dimension callouts between elements.",
       "lastSynced": "2026-04-08T13:08:03.890Z",
       "variants": {
-        "Orientation": [
-          "Horizontal",
-          "Vertical"
-        ]
+        "Orientation": ["Horizontal", "Vertical"]
       },
       "properties": {
         "Value#45:7": {
@@ -265,11 +228,7 @@
       "description": "Data callout card with value, trend indicator, and label. Used in presentations for KPI highlights.",
       "lastSynced": "2026-04-08T13:08:03.891Z",
       "variants": {
-        "Trend": [
-          "Up",
-          "Down",
-          "Neutral"
-        ]
+        "Trend": ["Up", "Down", "Neutral"]
       },
       "properties": {
         "Value#46:6": {
@@ -293,10 +252,7 @@
       "description": "Container for WCAG requirements with severity badges. Used in component-brief Cards 7-8. Detach instance before appending content to the Content slot.",
       "lastSynced": "2026-04-08T13:08:03.892Z",
       "variants": {
-        "Mode": [
-          "DS",
-          "FM"
-        ]
+        "Mode": ["DS", "FM"]
       },
       "properties": {
         "Title#47:2": {
@@ -316,11 +272,7 @@
       "description": "Theme-branded card with colored accent bar. Used in component-brief for theme comparison views (Actian/Studio/Explorer). Detach to append content.",
       "lastSynced": "2026-04-08T13:08:03.892Z",
       "variants": {
-        "Theme": [
-          "Actian",
-          "Studio",
-          "Explorer"
-        ]
+        "Theme": ["Actian", "Studio", "Explorer"]
       },
       "properties": {},
       "nestedComponents": [],
@@ -335,10 +287,7 @@
       "description": "Screen frame for wireframe flows. Composes FM App_header + FM Side navigation bar + Content Area. Standard (1440x960) and Compact (1440x700).",
       "lastSynced": "2026-04-08T13:08:03.893Z",
       "variants": {
-        "Size": [
-          "Standard",
-          "Compact"
-        ]
+        "Size": ["Standard", "Compact"]
       },
       "properties": {},
       "nestedComponents": [],
@@ -421,72 +370,14 @@
       "nestedComponents": [],
       "guidelinesFile": null
     },
-    "meta-/-template-/-table-header-row": {
-      "name": "Meta / Template / Table Header Row",
-      "key": "0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e",
-      "nodeId": "73:12",
-      "importMethod": "single",
-      "page": "Document",
-      "description": "Hidden template for table header rows. Skills clone and fill text slots via the template engine. Do not use directly.",
-      "lastSynced": "2026-04-08T13:08:03.895Z",
-      "variants": {},
-      "properties": {
-        "label#83:0": {
-          "type": "TEXT",
-          "default": "Header"
-        }
-      },
-      "nestedComponents": [],
-      "guidelinesFile": null
-    },
-    "meta-/-template-/-table-data-row": {
-      "name": "Meta / Template / Table Data Row",
-      "key": "3a1fae22dd85936f81565122888efd8a50e37180",
-      "nodeId": "74:12",
-      "importMethod": "single",
-      "page": "Document",
-      "description": "Hidden template for table data rows. Skills clone and fill text slots via the template engine. Do not use directly.",
-      "lastSynced": "2026-04-08T13:08:03.895Z",
-      "variants": {},
-      "properties": {
-        "label#84:0": {
-          "type": "TEXT",
-          "default": "Label"
-        },
-        "value#84:1": {
-          "type": "TEXT",
-          "default": "Value"
-        }
-      },
-      "nestedComponents": [],
-      "guidelinesFile": null
-    },
-    "meta-/-template-/-state-column": {
-      "name": "Meta / Template / State Column",
-      "key": "4f782d1a8541b4474858767209f99dce1428784b",
-      "nodeId": "75:12",
-      "importMethod": "single",
-      "page": "Document",
-      "description": "Hidden template for state grid columns. Skills clone, fill title, replace content placeholder. Do not use directly.",
-      "lastSynced": "2026-04-08T13:08:03.896Z",
-      "variants": {},
-      "properties": {
-        "title#85:0": {
-          "type": "TEXT",
-          "default": "State"
-        }
-      },
-      "nestedComponents": [],
-      "guidelinesFile": null
-    },
     "meta-/-template-/-section-header": {
       "name": "Meta / Template / Section Header",
       "key": "f4fd576001f4f1f4606a4efb051d1e4492e378c4",
       "nodeId": "76:12",
       "importMethod": "single",
       "page": "Document",
-      "description": "Hidden template for section headers with title and subtitle. Skills clone and fill text slots. Do not use directly.",
-      "lastSynced": "2026-04-08T13:08:03.896Z",
+      "description": "Section header with title and optional subtitle. Use setProperties — do not detach. Toggle subtitle visibility with Show Subtitle boolean.",
+      "lastSynced": "2026-04-10T00:00:00.000Z",
       "variants": {},
       "properties": {
         "title#86:0": {
@@ -496,6 +387,10 @@
         "subtitle#86:1": {
           "type": "TEXT",
           "default": "Optional description text"
+        },
+        "Show Subtitle#138:0": {
+          "type": "BOOLEAN",
+          "default": true
         }
       },
       "nestedComponents": [],

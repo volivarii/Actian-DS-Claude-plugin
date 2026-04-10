@@ -63,21 +63,26 @@ return { genLogId: inst.id };
 
 ## 1. Card Shell Pattern
 
-Every card (except GenLog) uses the Brief Card component. Import it, set variant, set title/subtitle, detach, find content slot.
+Every card (except GenLog) uses the Brief Card component. Import it, select variant, detach, then set title/subtitle on the **nested Card Header instance** (which stays live after detach).
 
 ```js
 // Import briefCard set and create variant instance
 const set = await figma.importComponentSetByKeyAsync("3dbb732730af0754210cde7af35e5236a2502843");
 let variant = set.findChild(n => n.name === "Mode=DS, Type=Standard");
 if (!variant) variant = set.defaultVariant || set.children[0];
-const card = variant.createInstance();
-card.name = "Card Title";
-card.setProperties({
-  "Title#7:0": "Card Title",
-  "Subtitle#7:1": "Card subtitle description"
-});
-card.detachInstance();
-card.resize(1200, card.height);
+const inst = variant.createInstance();
+inst.name = "Card Title";
+const card = inst.detachInstance();
+
+// Card Header stays as a live instance — set properties on it
+const cardHeader = card.findOne(n => n.name === "Card Header" && n.type === "INSTANCE");
+if (cardHeader) {
+  cardHeader.setProperties({
+    "Title#140:0": "Card Title",
+    "Subtitle#140:1": "Card subtitle description",
+    "Show Subtitle#140:2": true
+  });
+}
 
 // Find content slot for child injection
 const contentSlot = card.findOne(n => n.name === "Content");
@@ -97,7 +102,7 @@ wrapper.appendChild(card);
 return { cardId: card.id, contentSlotId: contentSlot?.id || card.id };
 ```
 
-For Page Header variant, use `"Mode=DS, Type=Page Header"` and set `"Component Name#7:2"` and `"Description#7:3"` instead of Title/Subtitle.
+**Card Header stays live after detach.** Use `setProperties` with `Title#140:0`, `Subtitle#140:1`, `Show Subtitle#140:2`. For Page Header variant, use `"Mode=DS, Type=Page Header"` and set `"Component Name#7:2"` and `"Description#7:3"` instead.
 
 ---
 
@@ -106,19 +111,11 @@ For Page Header variant, use `"Mode=DS, Type=Page Header"` and set `"Component N
 ```js
 const comp = await figma.importComponentByKeyAsync("f4fd576001f4f1f4606a4efb051d1e4492e378c4");
 const header = comp.createInstance();
-header.detachInstance();
-await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
-await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-const titleText = header.findOne(n => n.type === "TEXT" && n.name === "title");
-if (titleText) titleText.characters = "Section Title";
-
-// CRITICAL: Always set the subtitle — default is "Optional description text"
-// Set to real content, or remove the node if no subtitle is needed
-const subtitleText = header.findOne(n => n.type === "TEXT" && n.name === "subtitle");
-if (subtitleText) {
-  subtitleText.characters = "Subtitle text here";
-  // OR remove it if no subtitle: subtitleText.remove();
-}
+header.setProperties({
+  "title#86:0": "Section Title",
+  "subtitle#86:1": "Optional subtitle",
+  "Show Subtitle#138:0": false
+});
 
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(header);
@@ -126,7 +123,7 @@ header.layoutSizingHorizontal = "FILL";
 return { headerId: header.id };
 ```
 
-**Never leave the subtitle at its default "Optional description text".** Either set real content or remove the subtitle node.
+**Do NOT detach.** Use `setProperties` with hash-suffixed names. Set `"Show Subtitle#138:0": false` to hide the subtitle, `true` to show it.
 
 ---
 
@@ -177,28 +174,32 @@ return { tableId: headerRow.id };
 
 ---
 
-## 4. Color Swatch Cell Pattern
+## 4. Color Swatch Cell Pattern (Card 4 Color Token Grid)
 
-**MANDATORY for Card 4 (Design Tokens) color table.** Every color cell in the `colorTokens` table MUST contain a Color Swatch component instance with its fill set to the hex value from the data model. Do NOT render color tokens as plain text — the swatch dot is required.
+**MANDATORY for Card 4 (Design Tokens) color table.** Build a compact grid: one row per state, one Color Swatch + token name per column. This keeps the table dense and readable.
 
-Each color cell is a small frame containing: swatch instance (colored dot) + token name text + hex text.
+Each color cell is a small frame containing: Color Swatch instance (colored dot) + token name text.
 
 ```js
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
+
 const set = await figma.importComponentSetByKeyAsync("da3369932f710386b76ca91a40ebd48d94e3f2e0");
 let variant = set.findChild(n => n.name === "Size=Small");
 if (!variant) variant = set.defaultVariant || set.children[0];
 const swatch = variant.createInstance();
 
-// Set fill color from hex
-function hexToRgb(hex) {
-  const h = hex.replace("#", "");
-  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
-}
-const dot = swatch.findOne(n => n.name === "Dot" || n.name === "Color");
-if (dot) dot.fills = [{ type: "SOLID", color: hexToRgb("#0550DC") }];
+// Set fill color — the swatch IS the dot (flat 12×12 instance, NO children)
+swatch.fills = [{ type: "SOLID", color: hexToRgb("#0550DC") }];
 
 return { swatchId: swatch.id };
 ```
+
+**CRITICAL:** The Color Swatch component is a flat 12×12 instance with NO children — set `.fills` directly on the swatch instance itself. Do NOT use `findOne` to look for a "Dot" or "Color" child — it will return null and the fill will never be set.
+
+**Table layout:** Build as a header row (state + column names) + data rows. Each data row: state label text + N swatch cells. Each swatch cell: auto-layout HORIZONTAL frame containing Color Swatch instance + token name text. Batch 2-3 rows per `use_figma` call.
 
 ---
 
@@ -238,47 +239,57 @@ grid.itemSpacing = 16;
 grid.counterAxisSpacing = 16;
 grid.primaryAxisSizingMode = "FIXED";
 grid.counterAxisSizingMode = "AUTO";
-grid.resize(1040, grid.height); // fits 2 cards across
+grid.resize(1040, 10);
 grid.fills = [];
 
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(grid);
 grid.layoutSizingHorizontal = "FILL";
+grid.layoutSizingVertical = "HUG";  // ← auto-grow to fit rows
 
 return { gridId: grid.id };
 ```
 
-Then for each of the 6 requirement cards, create and append to the grid:
+Then for each of the 6 requirement cards, create and append to the grid. **CRITICAL: resize each card to 512px wide** so two fit per row in the 1040px grid (512 + 16 gap + 512 = 1040).
 
 ```js
 const set = await figma.importComponentSetByKeyAsync("b4779a13f4097d682413a669eaaf9ead1b49f115");
 let variant = set.findChild(n => n.name === "Mode=DS");
 if (!variant) variant = set.defaultVariant || set.children[0];
-const card = variant.createInstance();
-card.setProperties({ "Title#47:0": "Role & semantics" });
-card.detachInstance();
+const inst = variant.createInstance();
+inst.setProperties({ "Title#47:2": "Role & semantics" });
+const card = inst.detachInstance();
+card.layoutSizingHorizontal = "FIXED";
+card.resize(512, card.height);  // ← MUST be 512px for 2-column grid
+card.clipsContent = false;
 
-// Find content area and add body text
+// Remove placeholder text, find content area
+const content = card.findOne(n => n.name === "Content");
+if (content) {
+  const ph = content.findOne(n => n.type === "TEXT" && n.characters && n.characters.includes("Content goes here"));
+  if (ph) ph.remove();
+}
+
+// Body text
 await figma.loadFontAsync({ family: "Inter", style: "Regular" });
 const body = figma.createText();
 body.characters = "Use native HTML <input> element...";
 body.fontSize = 13;
+body.fontName = { family: "Inter", style: "Regular" };
 body.fills = [{ type: "SOLID", color: hexToRgb("#3A3A4A") }];
-const content = card.findOne(n => n.name === "Content");
-if (content) content.appendChild(body);
+if (content) { content.appendChild(body); body.layoutSizingHorizontal = "FILL"; }
 
-// Code block (monochrome)
-await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });
+// Code block via setProperties (do NOT detach)
 const codeComp = await figma.importComponentByKeyAsync("1bf10eee1751a46da5f90a9671be6c9abf0073b7");
 const codeInst = codeComp.createInstance();
-codeInst.detachInstance();
-const codeText = codeInst.findOne(n => n.type === "TEXT");
-if (codeText) {
-  codeText.fontName = { family: "Fira Code", style: "Regular" };
-  codeText.characters = '<label for="name">Name</label>';
-  codeText.fills = [{ type: "SOLID", color: hexToRgb("#BABED8") }];
-}
-if (content) content.appendChild(codeInst);
+codeInst.setProperties({
+  "Show Header#8:0": false,
+  "Code#8:2": '<label for="name">Name</label>'
+});
+if (content) { content.appendChild(codeInst); codeInst.layoutSizingHorizontal = "FILL"; }
+
+const grid = await figma.getNodeByIdAsync("<gridId>");
+grid.appendChild(card);
 
 return { a11yCardId: card.id };
 ```
@@ -538,17 +549,22 @@ return { badgeId: badge.id };
 ```js
 const comp = await figma.importComponentByKeyAsync("92ed7bc88cf229782c4b42238aacba1d15f8fd06");
 const row = comp.createInstance();
-row.detachInstance();
+row.setProperties({
+  "element#105:0": "Input field",
+  "role#105:1": "textbox",
+  "label#105:2": "aria-labelledby",
+  "focus-order#105:3": "1",
+  "keyboard#105:4": "Tab to focus",
+  "announcement#105:5": "Name, edit text"
+});
 
-await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-const slots = { element: "Input field", role: "textbox", label: "aria-labelledby", "focus-order": "1", keyboard: "Tab to focus", announcement: "Name, edit text" };
-for (const [name, value] of Object.entries(slots)) {
-  const txt = row.findOne(n => n.type === "TEXT" && n.name === name);
-  if (txt) txt.characters = value;
-}
-
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+parent.appendChild(row);
+row.layoutSizingHorizontal = "FILL";
 return { rowId: row.id };
 ```
+
+**Do NOT detach** — use `setProperties` with hash-suffixed property names. No font loading needed.
 
 ---
 
@@ -557,19 +573,19 @@ return { rowId: row.id };
 ```js
 const comp = await figma.importComponentByKeyAsync("1bf10eee1751a46da5f90a9671be6c9abf0073b7");
 const block = comp.createInstance();
-block.detachInstance();
+block.setProperties({
+  "Show Header#8:0": true,
+  "Header Text#8:1": "radio-group.html",
+  "Code#8:2": '<fieldset role="radiogroup">\n  <legend>Options</legend>\n  <input type="radio" name="opt" />\n</fieldset>'
+});
 
-await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });
-const codeText = block.findOne(n => n.type === "TEXT");
-if (codeText) {
-  codeText.fontName = { family: "Fira Code", style: "Regular" };
-  codeText.characters = ".zen-text-input {\n  height: var(--zen-size-3xl);\n}";
-  codeText.fills = [{ type: "SOLID", color: hexToRgb("#BABED8") }];
-  codeText.fontSize = 12;
-}
-
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+parent.appendChild(block);
+block.layoutSizingHorizontal = "FILL";
 return { blockId: block.id };
 ```
+
+**Do NOT detach** — use `setProperties` with hash-suffixed names. Set `"Show Header#8:0": false` to hide the filename bar. Code text renders monochrome automatically.
 
 ---
 
@@ -577,7 +593,7 @@ return { blockId: block.id };
 
 1. **Each `use_figma` call creates 1-3 nodes max** — keep calls small (200-2000 bytes typical, up to 6KB for anatomy diagram).
 2. **Return IDs from every call** — use them in subsequent calls to append children.
-3. **Fonts before text** — always `loadFontAsync` before setting `.characters`.
+3. **Prefer `setProperties` over detach+findOne** — use hash-suffixed property names from `docs/metakit.json`. Only detach when you need to append children into content slots (briefCard, a11yCard). Templates like Swatch Row, A11y Spec Row, Code Block work best as live instances.
 4. **No interpreter, no codegen scripts** — push directly from data model.
-5. **Detach before content injection** — briefCard and a11yCard must be detached before appending children to content slots.
+5. **Detach only when needed** — briefCard and a11yCard must be detached before appending children to content slots. Do NOT detach Swatch Row, A11y Spec Row, Contrast Badge, or Code Block.
 6. **Set ALL properties** — never leave default placeholder text. Check `docs/metakit.json` for exact property names with `#hash` suffixes.

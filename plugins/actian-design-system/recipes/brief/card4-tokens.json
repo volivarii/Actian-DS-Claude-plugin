@@ -9,7 +9,7 @@
   },
   "qualityRules": [
     "Every token must use --zen-* prefix in the token name field, never hardcoded hex",
-    "hex field is REQUIRED alongside every color token (used for swatch dot rendering)",
+    "hex field is REQUIRED alongside every color token (used for Color Swatch .fills and HTML swatch dot)",
     "colorTokens must cover Default, Focused, Error, Disabled states at minimum",
     "First row's column headers define the table header — be consistent across states",
     "sizingTokens must cover height, horizontal padding, vertical gaps, and border-radius",

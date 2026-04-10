@@ -119,6 +119,8 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
    a. Create card shell (import briefCard set, set variant + title + subtitle, detach, find content slot)
    b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
    c. Card 3 anatomy: use the anatomy diagram pattern (~4-6KB inline call)
+   d. Card 4 tokens: compact grid table — one row per state, Color Swatch per cell. Set `.fills` directly on swatch instance (flat, no children). Use `setProperties` for Section Headers (Pattern 2).
+   e. Card 8 accessibility: MUST create Requirements grid (Pattern 6) with all 6 a11y cards at 512px wide BEFORE the contrast/ARIA tables — do NOT skip the requirement cards. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties`.
 4. After all cards pushed, report to user with count
 
 **Rules:**

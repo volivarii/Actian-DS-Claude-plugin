@@ -382,7 +382,7 @@
     if (!tokens) return "";
     var parts = [];
 
-    // Color tokens table
+    // Color tokens table — grid: one row per state, swatch dot per column
     if (tokens.colorTokens && tokens.colorTokens.length) {
       var headers = ["Variant · State"].concat(
         tokens.colorTokens[0].columns.map(function (c) {

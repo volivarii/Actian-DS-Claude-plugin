@@ -142,8 +142,8 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 }
 ```
 
-- `colorTokens[].columns[]`: dynamic column count. First row's `header` values define the table header. HTML renders headers from first row. Figma uses `buildSpecTable` headers from first row.
-- `hex` is required for swatch dot rendering (HTML `.swatch__dot` background, Figma Color Swatch fill).
+- `colorTokens[].columns[]`: one row per state, one column per visual element. First row's `header` values define the table header. Compact grid layout.
+- `hex` is REQUIRED for Color Swatch fill (set `.fills` directly on the 12×12 instance — it has NO children).
 - `sizingTokens` and `typography` are fixed-column tables.
 
 ## `card5_api` — Component API
