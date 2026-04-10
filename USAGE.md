@@ -112,7 +112,20 @@ Generate a new glossary term creation screen with type picker cards and sticky f
 Design a table view for the Administration users page with filters and bulk actions
 ```
 
-**Research:** Add "research competitor patterns" to get UX research before generation. Or say "no research, just build it" to skip.
+**Research:** Claude asks if you want competitor research. Say "yes" to get findings with source URLs presented before any screens are proposed. The research also appears as a card in the Figma output.
+
+**Detail levels:** When approving screens, pick your detail level:
+
+| Command | Level | What you get |
+|---------|-------|-------------|
+| `approve draft` | Draft | Layout zones with placeholders — "is this the right structure?" |
+| `approve` | Standard | Feature fully realized, contextual labels, realistic data |
+| `approve production` | Production | All states: happy, empty, error, loading, edge cases |
+| `push draft [URL]` | Draft + push | Approve + push in one command |
+| `push [URL]` | Standard + push | Approve + push in one command |
+| `push production [URL]` | Production + push | Approve + push in one command |
+
+At every level, only the feature you're designing gets detailed content — sidebar, header, and unrelated chrome stay as muted placeholders.
 
 **HiFi conversion:** Add `--hifi` to also generate a DS Kit high-fidelity version alongside the wireframe. Or convert an existing wireframe later with `/convert-to-hifi`.
 
@@ -265,7 +278,9 @@ Generation tasks pause for review before pushing to Figma:
 
 | Reply | What happens |
 |-------|-------------|
-| **"push"** | Send everything to Figma |
+| **"push"** | Send everything to Figma (standard detail) |
+| **"push draft"** | Send as a quick structural sketch |
+| **"push production"** | Send with all states and edge cases |
 | **"push 2,4,5"** | Send specific items |
 | **"preview"** | Open HTML preview first |
 | **"push and wire"** | Push + wire prototype connections |
