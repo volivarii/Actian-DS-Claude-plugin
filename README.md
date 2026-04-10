@@ -6,7 +6,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 - Scaffold wireframe flows from a user story — Fat Marker lo-fi, correct app chrome, HTML preview with direct browser annotations before anything is pushed to Figma
 - Convert wireframes to high-fidelity — reads FM screens from Figma, maps to real DS Kit components, pushes a production-ready hifi frame alongside the original
-- Generate 9-card component briefs with real library instances from Figma — deterministic pipeline (same data always produces the same Figma output)
+- Generate 9-card component briefs with real library instances from Figma — direct push to Figma using small API calls (no interpreter pipeline)
 - Create new Figma components with variants, properties, and correct token binding
 - Audit screens for token violations, spacing issues, and contrast failures — with inline fixes
 - Review and rewrite copy against DS content guidelines
@@ -17,7 +17,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.47.4** · 9 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.49.0** · 9 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
@@ -219,7 +219,7 @@ Every generation task pauses for review before pushing to Figma:
 
 | Reply | What happens |
 |-------|-------------|
-| **`push`** | Send everything to Figma (scaffold + parallel fills) |
+| **`push`** | Send everything to Figma |
 | **`push 2,4,5`** | Send specific items only |
 | **`push and wire`** | Push + wire prototype connections automatically |
 | **`prototype`** | Generate a clickable Alpine.js prototype for testing |
@@ -307,14 +307,10 @@ actian-design-system-plugin/
 |   +-- skills/                          # 9 skills (companion + 8 specialized)
 |   +-- agents/                          # 8 agents (5 validation + 3 parallel generation)
 |   +-- scripts/
-|   |   +-- figma-interpreter.js         # Runtime that executes JSON specs in Figma
-|   |   +-- shared-constants.js          # Reads registries, palette, assembleCall(), writeCallFilesV2()
-|   |   +-- flow-to-figma.js             # Flow data → scaffold + fill specs
-|   |   +-- brief-to-figma.js            # Brief data → scaffold + fill specs
-|   |   +-- slide-to-figma.js            # Slide data → scaffold + fill specs
+|   |   +-- shared-constants.js          # Registry loaders, key maps, palette, buildGenLog
+|   |   +-- assemble-preview.js          # HTML preview generator from data models
 |   |   +-- transform-to-hifi.js         # FM refs → DS Kit refs (deterministic transform)
 |   |   +-- fm-tree-to-flow-data.js      # Raw Figma tree → flow-data format (key → ref resolution)
-|   |   +-- minify-interpreter.sh        # Re-minify interpreter after source changes
 |   |   +-- merge-partials.js            # Merge parallel agent outputs
 |   |   +-- templates.json               # Screen templates (admin, mobile, etc.)
 |   |   +-- html-renderers/              # Client-side renderers for preview
