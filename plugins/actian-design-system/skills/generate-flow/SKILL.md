@@ -131,8 +131,6 @@ inst.setProperties({
   "Source#48:11": "Sources: [Product A docs], [Product B blog], [Product C help]"
 });
 const card = inst.detachInstance();
-card.resize(1440, card.height);
-card.layoutSizingHorizontal = "FIXED";
 
 // Inject findings into Content slot
 const content = card.findOne(n => n.name === "Content");
