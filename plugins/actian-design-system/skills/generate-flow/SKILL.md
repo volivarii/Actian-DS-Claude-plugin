@@ -30,14 +30,15 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
    **Push sequence** (each step is one small `use_figma` call, ~200-800 bytes):
    1. Navigate to target page + create wrapper frame (use "Create wrapper frame" pattern from push-patterns.md)
    2. Create Generation Log instance (import genLog by key, create instance, set props from meta, append to wrapper)
-   3. Create Cover Card instance (import flowCoverCard by key, set props from meta, append to wrapper)
-   4. For each screen in `flow-data.json`:
+   3. If research was opted-in: create Research Frame card (see "Research card in Figma output" section below)
+   4. Create Cover Card instance (import flowCoverCard by key, set props from meta, append to wrapper)
+   5. For each screen in `flow-data.json`:
       a. Import needed components for this screen (batch: header, sidebar items, content components)
       b. Create screen frame with auto-layout, set dimensions (1440×960)
       c. Create app chrome (header instance, sidebar with nav items, page header) using imported instances
       d. Create content area, populate from `screen.content[]` nodes — translate each node to Plugin API calls
       e. Append completed screen to wrapper
-   5. After all screens pushed, report to user with count
+   6. After all screens pushed, report to user with count
 
    **Rules:**
    - Each `use_figma` call creates 1-3 nodes max — keep calls small
@@ -87,9 +88,9 @@ When the user opts in to research, you MUST present the findings BEFORE proposin
 ### Research findings: [Feature]
 
 **How competitors handle this:**
-- [Product A]: [approach — 1-2 sentences]
-- [Product B]: [approach — 1-2 sentences]
-- [Product C]: [approach — 1-2 sentences]
+- [Product A]: [approach — 1-2 sentences] — [source URL]
+- [Product B]: [approach — 1-2 sentences] — [source URL]
+- [Product C]: [approach — 1-2 sentences] — [source URL]
 
 **Common patterns:**
 - [Pattern 1]
@@ -102,9 +103,41 @@ When the user opts in to research, you MUST present the findings BEFORE proposin
 
 **What I'll skip and why:**
 - [Pattern that doesn't fit Actian conventions]
+
+**Sources:** [list all URLs used in research as clickable links]
 ```
 
+**ALWAYS include source URLs** — link to the actual pages, docs, or screenshots you found. The user needs to verify findings and may want to explore further.
+
 Wait for acknowledgment, then proceed to the screen list gate. The user needs this context to evaluate whether the proposed screens make sense.
+
+### Research card in Figma output
+
+When research was opted-in, push a **Research Frame** card (`e671618f2b4c6ea406a995fdc3012ac54eadfe56`) as the second element in the wrapper (after GenLog, before Cover Card). Detach, resize to 1440px wide, and inject findings into the Content slot.
+
+```js
+const comp = await figma.importComponentByKeyAsync("e671618f2b4c6ea406a995fdc3012ac54eadfe56");
+const inst = comp.createInstance();
+inst.setProperties({
+  "Title#48:10": "Research: [Feature]",
+  "Source#48:11": "Sources: [Product A docs], [Product B blog], [Product C help]"
+});
+const card = inst.detachInstance();
+card.resize(1440, card.height);
+card.layoutSizingHorizontal = "FIXED";
+
+// Inject findings into Content slot
+const content = card.findOne(n => n.name === "Content");
+if (content) {
+  const ph = content.findOne(n => n.type === "TEXT");
+  if (ph) ph.remove();
+  // Add findings as text nodes — competitors, patterns, recommendations
+}
+
+wrapper.appendChild(card);
+```
+
+Skip this card only if user says "no research card" or "skip the research frame".
 
 ## Screen list gate
 
