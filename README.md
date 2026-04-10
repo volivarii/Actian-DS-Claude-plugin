@@ -6,7 +6,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 - Scaffold wireframe flows from a user story — Fat Marker lo-fi, correct app chrome, HTML preview with direct browser annotations before anything is pushed to Figma
 - Convert wireframes to high-fidelity — reads FM screens from Figma, maps to real DS Kit components, pushes a production-ready hifi frame alongside the original
-- Generate 9-card component briefs with real library instances from Figma — direct push to Figma using small API calls (no interpreter pipeline)
+- Generate 9-card component briefs with real library instances from Figma — direct push using `setProperties` on live MetaKit instances (colored swatches, a11y requirement grids, contrast badges)
 - Create new Figma components with variants, properties, and correct token binding
 - Audit screens for token violations, spacing issues, and contrast failures — with inline fixes
 - Review and rewrite copy against DS content guidelines
@@ -17,7 +17,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.49.1** · 9 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.50.0** · 9 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
@@ -246,7 +246,7 @@ The companion has always-loaded knowledge of:
 - **Tokens** — spacing scale (4/8/12/16/24/28/32), 115 design tokens in W3C DTCG format, 3 theme modes, CSS custom properties (`--zen-*`)
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
 - **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users)
-- **Component inventory** — 107 DS Kit + 33 FM Kit + 27 Meta Kit components (synced registries with full properties)
+- **Component inventory** — 107 DS Kit + 33 FM Kit + 25 Meta Kit components (synced registries with full properties)
 
 It loads detailed references on demand: per-component guidelines (44 components), accessibility standards, UX patterns, foundation docs.
 
@@ -289,7 +289,7 @@ Companion + skills read at runtime
 |-------|------|-----------|----------|
 | **Fat Marker (lo-fi)** | Inter | 33 FM Kit components | Wireframe flows |
 | **DS Kit (hi-fi)** | Roboto | 107 component sets | Component briefs, audits |
-| **Meta Kit** | Inter | 27 components + 6 templates | All output skills |
+| **Meta Kit** | Inter | 25 components + 3 templates | All output skills |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
 
