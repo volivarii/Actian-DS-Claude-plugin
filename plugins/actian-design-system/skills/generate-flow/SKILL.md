@@ -8,12 +8,14 @@ argument-hint: "[feature description or Figma URL] [--hifi]"
 
 Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette.
 
-## Pipeline (two gates, no other pauses — after gate 2, build and push uninterrupted)
+## Pipeline (4 gates — after gate 4, build and push uninterrupted)
 
 1. Read app-context.md → determine app (Studio/Explorer/Administration)
 2. **Research gate** — present verbatim unless user said "no research"
-3. **Screen list gate** — present with options verbatim
-4. Build flow-data.json with content[] nodes (reference `examples/flow-data-example.json` for expected structure)
+3. **Research findings gate** — present findings verbatim (mandatory when research opted-in)
+4. **Screen list gate** — present with options verbatim
+5. **Detail level gate** — Draft / Standard / Production (present after screen list approved)
+6. Build flow-data.json with content[] nodes (reference `examples/flow-data-example.json` for expected structure)
    - **Recipe acceleration**: Before building each screen's `content[]`, read `recipes/flow/_index.json`. If an archetype matches the screen's purpose, read that recipe file and use its skeleton as a starting point — fill `{{placeholders}}` with domain content, add/remove rows and sections as needed. If no recipe fits or the screen needs a novel layout, build `content[]` from scratch. Recipes are accelerators, not constraints — deviate freely when the design calls for it.
    - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in parallel, splitting screens into batches of 2-3. Each agent receives: batch index, screen details (name, template, content description), feature context, meta object, output path to `.partial/`. After all complete, merge:
      ```bash
@@ -23,7 +25,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
        --output {project_working_directory}/components/flows/flow-data.json
      ```
      Sequential mode (<6 screens): build flow-data.json directly as today.
-5. Push to Figma — read `references/figma-push-patterns.md` for component keys and patterns. Read your `flow-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
+7. Push to Figma — read `references/figma-push-patterns.md` for component keys and patterns. Read your `flow-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
 
    **Push sequence** (each step is one small `use_figma` call, ~200-800 bytes):
    1. Navigate to target page + create wrapper frame (use "Create wrapper frame" pattern from push-patterns.md)
@@ -56,13 +58,13 @@ After the FM flow push completes:
 
 References: `docs/fm-to-ds-map.json`, `docs/dskit.json`, `scripts/transform-to-hifi.js`
 
-6. Preview (opt-in):
+8. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/components/flows/[feature]-flow.html
    BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
    ```
-7. Parity check (parity-check.md) → Cleanup (quality-checklist.md)
+9. Parity check (parity-check.md) → Cleanup (quality-checklist.md)
 
 ## Research gate
 
