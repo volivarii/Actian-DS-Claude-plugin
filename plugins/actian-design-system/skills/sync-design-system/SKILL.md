@@ -30,7 +30,7 @@ Read file keys from `../../.figma-keys.json` at the start of every sync run.
 | Library | Config key | Contents |
 |---------|-----------|----------|
 | DS Kit | `dsKit` | 107 component sets, 115 variables (3 themes), 12 text styles, 5 effect styles, guidelines, foundations |
-| FM Kit | `fmKit` | 33 component sets + 7 standalone components |
+| FM Kit | `fmKit` | 44 component sets |
 | Meta Kit | `metaKit` | 25 components + 3 templates |
 
 ## Phases

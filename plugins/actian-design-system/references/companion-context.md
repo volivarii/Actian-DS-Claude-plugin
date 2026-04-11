@@ -105,7 +105,7 @@ Full context: `references/app-context.md`
 | Library | Count | Font | Use |
 |---------|-------|------|-----|
 | DS Kit | 107 sets | Roboto | Full design system, all tokens, 3 themes |
-| FM Kit | 33 sets + 7 standalone | Inter | Lo-fi wireframes, FM palette |
+| FM Kit | 44 components | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 25 components + 3 templates | Inter | Generation output, annotation markers |
 
 Before building custom frames, check: `docs/dskit-components.md`, `docs/fm-components.md`, `docs/component-guidelines/{name}.json`

@@ -37,11 +37,14 @@ Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is sou
 **Key data files** (read JSON, not Markdown):
 - `docs/component-guidelines/*.json` — 44 component guidelines
 - `docs/fmkit.json` / `docs/dskit.json` / `docs/metakit.json` — component registries (keys, variants, properties)
+- `docs/app-context.json` — structured app context (apps, entities, terminology, patterns)
 - `tokens/actian-ds.tokens.json` — W3C DTCG tokens (3 themes)
 
 **Scripts** (utilities — NOT used for Figma push):
 - `scripts/assemble-preview.js` — generates HTML previews from data models
-- `scripts/shared-constants.js` — registry loaders, key maps, palette, buildGenLog
+- `scripts/shared-constants.js` — dynamic registry loaders, key maps, palette, buildGenLog
+- `scripts/validate-flow-data.js` — pipeline validation (banned text, tokens, terminology)
+- `scripts/changelog.js` — design changelog (push-to-push diffing)
 - `scripts/fm-tree-to-flow-data.js` — converts FM Figma tree to flow-data.json
 
 ---

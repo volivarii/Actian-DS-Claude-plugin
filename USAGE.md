@@ -188,7 +188,7 @@ Convert this wireframe to high-fidelity
 https://figma.com/design/FILEKEY/File?node-id=123-456
 ```
 
-The pipeline: extract FM tree → deterministic transform (28 component mappings) → LLM polish for unmapped components and layout → push. The original wireframe is never modified.
+The pipeline: extract FM tree → deterministic transform (component mappings derived from registries) → LLM polish for unmapped components and layout → push. The original wireframe is never modified.
 
 ### Component specs — brief, document, create
 

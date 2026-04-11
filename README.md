@@ -17,7 +17,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.50.6** · 9 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.50.8** · 9 skills · 8 agents · 23 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
@@ -245,8 +245,8 @@ The companion has always-loaded knowledge of:
 
 - **Tokens** — spacing scale (4/8/12/16/24/28/32), 115 design tokens in W3C DTCG format, 3 theme modes, CSS custom properties (`--zen-*`)
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
-- **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users)
-- **Component inventory** — 107 DS Kit + 33 FM Kit + 25 Meta Kit components (synced registries with full properties)
+- **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — structured as queryable JSON with 16 entities, 33 terminology rules, 20 UI patterns
+- **Component inventory** — 107 DS Kit + 44 FM Kit + 25 Meta Kit components (dynamically derived from synced registries)
 
 It loads detailed references on demand: per-component guidelines (44 components), accessibility standards, UX patterns, foundation docs.
 
@@ -287,13 +287,18 @@ Companion + skills read at runtime
 
 | Layer | Font | Components | Used for |
 |-------|------|-----------|----------|
-| **Fat Marker (lo-fi)** | Inter | 33 FM Kit components | Wireframe flows |
+| **Fat Marker (lo-fi)** | Inter | 44 FM Kit components | Wireframe flows |
 | **DS Kit (hi-fi)** | Roboto | 107 component sets | Component briefs, audits |
 | **Meta Kit** | Inter | 25 components + 3 templates | All output skills |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
 
-**FM → HiFi pipeline:** `/convert-to-hifi` reads an FM wireframe from Figma, maps 28 FM components to DS Kit equivalents via `fm-to-ds-map.json`, and pushes a production-ready frame. Unmapped components are handled creatively by the LLM using DS Kit descriptions.
+**Pipeline quality gates:**
+- **Flow glossary** — before generating screens, the skill builds a shared vocabulary (`_glossary`) with entity names, action verbs, and CTA labels. All parallel screen-generators use it, ensuring consistent terminology across screens.
+- **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), and terminology violations checked against `app-context.json` (P1).
+- **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
+
+**FM → HiFi pipeline:** `/convert-to-hifi` reads an FM wireframe from Figma, maps FM components to DS Kit equivalents via `fm-to-ds-map.json`, and pushes a production-ready frame. Unmapped components are handled creatively by the LLM using DS Kit descriptions.
 
 ---
 
@@ -307,8 +312,10 @@ actian-design-system-plugin/
 |   +-- skills/                          # 9 skills (companion + 8 specialized)
 |   +-- agents/                          # 8 agents (5 validation + 3 parallel generation)
 |   +-- scripts/
-|   |   +-- shared-constants.js          # Registry loaders, key maps, palette, buildGenLog
+|   |   +-- shared-constants.js          # Registry loaders, dynamic key maps, palette, buildGenLog
 |   |   +-- assemble-preview.js          # HTML preview generator from data models
+|   |   +-- validate-flow-data.js        # Pipeline validation (banned text, tokens, terminology)
+|   |   +-- changelog.js                 # Design changelog (push-to-push diffing)
 |   |   +-- transform-to-hifi.js         # FM refs → DS Kit refs (deterministic transform)
 |   |   +-- fm-tree-to-flow-data.js      # Raw Figma tree → flow-data format (key → ref resolution)
 |   |   +-- merge-partials.js            # Merge parallel agent outputs
@@ -323,6 +330,7 @@ actian-design-system-plugin/
 |   +-- templates/                       # CSS wrappers, annotation layer
 |   +-- tokens/                          # W3C DTCG + CSS custom properties
 |   +-- docs/                            # Synced reference files + component registries (*.json)
+|   |   +-- app-context.json             # Structured app context (apps, entities, terminology, patterns)
 +-- USAGE.md                             # Detailed usage guide
 ```
 
