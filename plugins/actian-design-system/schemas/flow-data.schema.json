@@ -131,6 +131,11 @@
             "app": {
               "type": "string",
               "description": "App name (e.g., 'Studio')"
+            },
+            "entityProperties": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Standard field names for this entity from app-context.json"
             }
           }
         }

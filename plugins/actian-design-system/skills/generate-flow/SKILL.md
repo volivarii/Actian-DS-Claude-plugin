@@ -136,10 +136,15 @@ After the screen list is approved, build a `_glossary` object and set it on `met
     "primaryCTA": "Create data product",
     "pageTitle": "Data Products",
     "sidebarActive": "Catalog",
-    "app": "Studio"
+    "app": "Studio",
+    "entityProperties": ["name", "description", "status", "input ports", "output ports", "datasets", "contacts", "attachments"]
   }
 }
 ```
+
+**Entity properties lookup:** After building the glossary, slugify the entity name (lowercase, replace spaces with hyphens) and look it up in `docs/app-context.json` → `entities[slug]`. If found, set `_glossary.entityProperties` to the entity's `properties` array. Screen-generators use these for form field labels, table column headers, and detail page content instead of generic placeholders.
+
+Example: entity "Data Product" → slug "data-product" → `entities["data-product"].properties` → `["name", "description", "status", "input ports", "output ports", "datasets", "contacts", "attachments"]`
 
 If the flow doesn't center on a single entity (e.g., a dashboard or settings page), set entity fields to the most prominent noun in the feature description. Set verb fields to the most common actions visible in the screen list.
 
