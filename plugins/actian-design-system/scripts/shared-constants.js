@@ -176,7 +176,7 @@ const SLIDE_SLUGS = {
 var _FM_REF_OVERRIDES = {
   "fm-text-input-field": "fmTextInput",
   "fm-search-input-field": "fmSearchInput",
-  "fm-side-navigation-item": "fmSideNavItem",
+  "fm-side-navigation-item": "fmNavItem",
 };
 
 const FM_SLUGS = buildSlugMap("fmkit", "fm", null, _FM_REF_OVERRIDES);

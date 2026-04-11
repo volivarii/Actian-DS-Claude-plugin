@@ -84,7 +84,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
   -o {project_working_directory}/components/hifi/[frame-name]-flow-data.json
 ```
 
-This resolves `componentKey` → FM ref names (e.g., `fmSideNavItem`) using the FM Kit registry + FM_SLUGS mapping. Instances with unrecognized keys are tagged `unmapped` for Stage 3 handling.
+This resolves `componentKey` → FM ref names (e.g., `fmNavItem`) using the FM Kit registry + FM_SLUGS mapping. Instances with unrecognized keys are tagged `unmapped` for Stage 3 handling.
 
 ---
 

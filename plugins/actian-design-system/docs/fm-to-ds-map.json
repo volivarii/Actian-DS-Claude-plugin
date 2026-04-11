@@ -184,7 +184,7 @@
       "dropVariants": [],
       "notes": "FM 'Type' maps to DS 'App type'. FM 'Actian' has no DS match; falls back to Explorer. DS adds Breakpoints axis (default XL)."
     },
-    "fmSideNav": {
+    "fmNavBar": {
       "dsSlug": "side-nav",
       "defaultVariant": { "App": "Admin", "View": "Expanded" },
       "variantMap": {
@@ -195,7 +195,7 @@
       },
       "notes": "FM 'Property 1' maps to DS 'View' axis. DS 'App' axis has no FM equivalent (default Admin)."
     },
-    "fmSideNavItem": {
+    "fmNavItem": {
       "dsSlug": "nav-item",
       "defaultVariant": {
         "Level": "Top",
