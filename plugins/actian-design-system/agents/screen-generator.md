@@ -66,6 +66,7 @@ Example for screens 4-6:
 - All buttons must set `"👁 Leading Icon": false, "👁 Trailing Icon": false`
 - Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for push-apart layouts — never Spacer frames
 - **Glossary:** If `meta._glossary` is present, use it as the single source for entity names in page headers/breadcrumbs/body text, action verbs in button labels/CTAs, and the active sidebar item. Never invent alternative phrasings for glossary terms.
+- **Entity properties:** If generating form fields, table columns, or detail page content for a known entity, read `docs/app-context.json` → `entities[entityId].properties` for standard field names. Use these instead of generic placeholders.
 - Feature focus: spotlight the feature, placeholder everything else
 - Write the file silently — do not output the JSON to chat
 - If you cannot generate a screen (missing information), include a minimal placeholder screen and report DONE_WITH_CONCERNS

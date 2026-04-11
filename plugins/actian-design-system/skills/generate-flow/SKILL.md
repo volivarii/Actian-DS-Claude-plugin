@@ -24,17 +24,15 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
        --output {project_working_directory}/components/flows/flow-data.json
      ```
      Sequential mode (<6 screens): build flow-data.json directly.
-6. **Default text scan (P0 BLOCKER)** — scan flow-data.json for banned strings. Fix ALL before pushing:
-   - `"Page Title"` → actual page name (e.g., "Customer 360 Data Product")
-   - `"Description text"` → real subtitle (e.g., "Daily transaction data from all POS terminals")
-   - `"Button label"` → action verb (e.g., "Edit", "Publish", "Share", "Actions")
-   - `"Label"` (standalone) → section name (e.g., "Glossary terms", "Quality status")
-   - `"Nav Item"` → real nav label
-   - `"Tag"` → real tag value
-   - `"Header"` (standalone) → actual heading
-   - `"Feature Name"` → actual feature (e.g., "AI Steward", "Data Product Checkout")
-   - `"Flow Description"` → real flow description
-   - `"User Persona"` → target user (e.g., "Data Steward", "Business Analyst")
+6. **Validate flow data** — run the validation script before pushing:
+   ```bash
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+     {project_working_directory}/components/flows/flow-data.json
+   ```
+   - Exit 1 (P0s found): fix all banned placeholder text before pushing. Common P0s: `"Page Title"`, `"Button label"`, `"Description text"`, `"Label"`, `"Nav Item"`.
+   - Exit 2 (P1s only): report terminology or token warnings to user, proceed with push.
+   - Exit 0: clean, proceed.
 7. Push to Figma (see Push section below)
 8. Preview (opt-in):
    ```bash
