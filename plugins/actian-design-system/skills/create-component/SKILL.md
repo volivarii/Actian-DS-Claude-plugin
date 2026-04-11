@@ -59,7 +59,7 @@ Every component exposes: text properties (titles, labels), boolean properties (o
 
 ## Step 6 — Cleanup + parity check
 
-Run `../../references/quality-checklist.md` (Universal + Create Component sections). Then parity check per `../../references/parity-check.md`: screenshot, dispatch `parity-analyzer`, fix P0s, write `.last-push.json`.
+Run `../../references/quality-checklist.md` (Universal + Create Component sections). Then parity check per `../../references/parity-check.md`: screenshot, dispatch `parity-analyzer`, fix P0s, write `.last-push.json`. Manifest includes `sourceHash`, `componentKeys`, and `tokenHash` — see `references/parity-check.md` for computation.
 
 After creation, offer: "Want me to generate a component brief?" If accepted, invoke `component-brief`. Remind user to run `/sync-design-system` to update local references.
 

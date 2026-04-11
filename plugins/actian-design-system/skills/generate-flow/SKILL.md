@@ -42,7 +42,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/components/flows/[feature]-flow.html
    BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
    ```
-9. Parity check (opt-in) → `references/parity-check.md` + `references/quality-checklist.md`
+9. Parity check (opt-in) → `references/parity-check.md` + `references/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
 
 ---
 
@@ -113,6 +113,39 @@ Does this work, or would you like to adjust?
 Parse the user's response for both screen approval AND detail level. Default to **Standard**.
 
 **FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
+
+## Step 3.5 — Build flow glossary
+
+After the screen list is approved, build a `_glossary` object and set it on `meta._glossary`. This ensures all screen-generators use identical terminology.
+
+**Build from:**
+1. Feature description → extract the primary entity name (e.g., "Data Product", "Dataset", "Scanner")
+2. App context (from Gate 1) → verify the entity name matches `references/app-context.md` terminology (e.g., "Data product" not "dataset" when curated)
+3. Approved screen list → extract page titles and CTA labels already visible in screen names
+
+**Glossary fields:**
+
+```json
+{
+  "_glossary": {
+    "entity": "Data Product",
+    "entityPlural": "Data Products",
+    "entityLower": "data product",
+    "entityPluralLower": "data products",
+    "createVerb": "Create",
+    "editVerb": "Edit",
+    "deleteVerb": "Delete",
+    "primaryCTA": "Create data product",
+    "pageTitle": "Data Products",
+    "sidebarActive": "Catalog",
+    "app": "Studio"
+  }
+}
+```
+
+If the flow doesn't center on a single entity (e.g., a dashboard or settings page), set entity fields to the most prominent noun in the feature description. Set verb fields to the most common actions visible in the screen list.
+
+Set `meta._glossary` before dispatching screen-generators or building flow-data directly.
 
 ---
 

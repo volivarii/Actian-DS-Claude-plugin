@@ -70,6 +70,7 @@ Deck outline: N slides (cover + N body + back cover). Reply:
    - Do NOT run `slide-to-figma.js` — push directly from your data model
    - Do NOT read any `.js` files, manifests, or scaffolds
 5. Parity check per `../../references/parity-check.md`
+Manifest includes `sourceHash`, `componentKeys`, and `tokenHash`. See `references/parity-check.md` for computation.
 
 Write small direct Figma Plugin API calls using patterns from `references/figma-push-patterns.md`. Fix slide-data.json and re-push if something is wrong.
 

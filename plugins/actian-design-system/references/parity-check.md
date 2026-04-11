@@ -91,7 +91,10 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
   ],
   "htmlFile": "<relative-path-to-static-html>",
   "prototypeFile": "<relative-path-to-prototype-or-null>",
-  "pushedAt": "<ISO-8601-timestamp>"
+  "pushedAt": "<ISO-8601-timestamp>",
+  "sourceHash": "<sha256-hex-of-source-data-file>",
+  "componentKeys": ["<unique-component-keys-used>"],
+  "tokenHash": "<sha256-hex-of-tokens-file>"
 }
 ```
 
@@ -104,6 +107,9 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
 - `htmlFile` — path relative to the project root of the static HTML output file
 - `prototypeFile` — path relative to the project root of the prototype file, or `null` if none was generated
 - `pushedAt` — ISO 8601 timestamp at the moment the manifest is written (e.g. `2026-03-27T14:32:00Z`)
+- `sourceHash` — SHA-256 hex digest of the source data file (e.g., `flow-data.json`, `brief-data.json`) at push time. Enables detecting if source data changed since last push.
+- `componentKeys` — deduplicated array of Figma component keys imported during this push. Enables usage analytics and changelog diffs between pushes.
+- `tokenHash` — SHA-256 hex digest of `tokens/actian-ds.tokens.json` at push time. Enables detecting token drift — if tokens changed since last push, outputs may need regeneration.
 
 **Manifest locations by skill:**
 
@@ -115,6 +121,24 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
 | `create-component` | `{project_dir}/components/{name}/.last-push.json` |
 
 Write the manifest as the final step. Do not prompt the designer for confirmation before writing it.
+
+### Computing hashes and collecting keys
+
+Before writing the manifest, compute the enrichment fields:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+SOURCE_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('$SOURCE_FILE')).digest('hex'))")
+TOKEN_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('${CLAUDE_PLUGIN_ROOT}/tokens/actian-ds.tokens.json')).digest('hex'))")
+```
+
+For `componentKeys`: during the push step, collect the component key from every `use_figma` call that imports a component instance. Deduplicate the list before writing.
+
+`$SOURCE_FILE` is the path to the source data file:
+- `generate-flow`: the `flow-data.json` file
+- `component-brief`: the `brief-data.json` file
+- `generate-presentation`: the `presentation-data.json` file
+- `create-component`: the primary data file produced during build
 
 ## Integration pattern
 

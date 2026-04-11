@@ -140,6 +140,7 @@ Read only the relevant card keys from `brief-data.json` and push those cards. Sk
 To fix a specific card: edit the data model, then re-push just that card using the same patterns. Use `figma.getNodeByIdAsync` to find and remove the old card frame before pushing the replacement.
 
 ## Step 4 — Parity check (opt-in)
+Manifest includes `sourceHash` (of brief-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file). See `references/parity-check.md` for hash computation.
 
 Only run if the user says "check parity", "screenshot check", or "verify output". Do NOT run automatically after push.
 
