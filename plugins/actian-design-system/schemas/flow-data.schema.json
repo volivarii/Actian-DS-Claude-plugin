@@ -83,6 +83,56 @@
               "description": "Source list - URLs or product names"
             }
           }
+        },
+        "_glossary": {
+          "type": "object",
+          "description": "Shared vocabulary for cross-screen terminology consistency. Built by generate-flow after Gate 3, consumed by screen-generator agents.",
+          "properties": {
+            "entity": {
+              "type": "string",
+              "description": "Singular entity name (e.g., 'Data Product')"
+            },
+            "entityPlural": {
+              "type": "string",
+              "description": "Plural form (e.g., 'Data Products')"
+            },
+            "entityLower": {
+              "type": "string",
+              "description": "Lowercase singular (e.g., 'data product')"
+            },
+            "entityPluralLower": {
+              "type": "string",
+              "description": "Lowercase plural (e.g., 'data products')"
+            },
+            "createVerb": {
+              "type": "string",
+              "description": "Verb for creation CTAs (e.g., 'Create')"
+            },
+            "editVerb": {
+              "type": "string",
+              "description": "Verb for edit CTAs (e.g., 'Edit')"
+            },
+            "deleteVerb": {
+              "type": "string",
+              "description": "Verb for delete CTAs (e.g., 'Delete')"
+            },
+            "primaryCTA": {
+              "type": "string",
+              "description": "Main action label (e.g., 'Create data product')"
+            },
+            "pageTitle": {
+              "type": "string",
+              "description": "Default page title (e.g., 'Data Products')"
+            },
+            "sidebarActive": {
+              "type": "string",
+              "description": "Active sidebar item (e.g., 'Catalog')"
+            },
+            "app": {
+              "type": "string",
+              "description": "App name (e.g., 'Studio')"
+            }
+          }
         }
       }
     },
