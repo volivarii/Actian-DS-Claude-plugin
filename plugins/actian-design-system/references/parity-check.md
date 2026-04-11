@@ -75,6 +75,20 @@ Interpret the designer's response to the fix prompt:
 
 Never re-run the full checklist for nodes that already passed. Only re-check the node that was just fixed.
 
+### 5.5. Run changelog (if previous manifest exists)
+
+If a `.last-push.json` already exists at the manifest location, run the changelog script before overwriting:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/changelog.js" \
+  --previous <manifest-path>/.last-push.json \
+  --source <source-data-file> \
+  --tokens "${CLAUDE_PLUGIN_ROOT}/tokens/actian-ds.tokens.json"
+```
+
+Report the changelog output to the user. If the previous manifest doesn't exist (first push), the script outputs "First push — no changelog" and exits cleanly.
+
 ### 6. Write push manifest
 
 After the fix loop ends, write a `.last-push.json` file to the appropriate directory.
