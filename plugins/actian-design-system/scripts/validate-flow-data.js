@@ -27,8 +27,18 @@ var BANNED_STRINGS = [
 ];
 
 // Props to check for banned text
-var BANNED_PROP_KEYS = ["Label", "Input Text", "Title", "Subtitle", "Dropdown Text",
-  "Label Text", "Caption Text", "Feature", "Flow", "User"];
+var BANNED_PROP_KEYS = [
+  "Label",
+  "Input Text",
+  "Title",
+  "Subtitle",
+  "Dropdown Text",
+  "Label Text",
+  "Caption Text",
+  "Feature",
+  "Flow",
+  "User",
+];
 
 // ---------------------------------------------------------------------------
 // Walk content nodes recursively
@@ -59,7 +69,10 @@ function findBannedText(data) {
 
     // Check pageHeader
     if (screen.pageHeader) {
-      if (screen.pageHeader.title && BANNED_STRINGS.indexOf(screen.pageHeader.title) !== -1) {
+      if (
+        screen.pageHeader.title &&
+        BANNED_STRINGS.indexOf(screen.pageHeader.title) !== -1
+      ) {
         issues.push({
           severity: "P0",
           check: "banned-text",
@@ -68,7 +81,10 @@ function findBannedText(data) {
           value: screen.pageHeader.title,
         });
       }
-      if (screen.pageHeader.subtitle && BANNED_STRINGS.indexOf(screen.pageHeader.subtitle) !== -1) {
+      if (
+        screen.pageHeader.subtitle &&
+        BANNED_STRINGS.indexOf(screen.pageHeader.subtitle) !== -1
+      ) {
         issues.push({
           severity: "P0",
           check: "banned-text",
@@ -80,34 +96,127 @@ function findBannedText(data) {
     }
 
     // Walk content nodes
-    walkNodes(screen.content, screenName, "content", function (node, sName, nPath) {
-      // Check TEXT node content
-      if (node.type === "TEXT" && node.content && BANNED_STRINGS.indexOf(node.content) !== -1) {
-        issues.push({
-          severity: "P0",
-          check: "banned-text",
-          screen: sName,
-          path: nPath + ".content",
-          value: node.content,
-        });
-      }
+    walkNodes(
+      screen.content,
+      screenName,
+      "content",
+      function (node, sName, nPath) {
+        // Check TEXT node content
+        if (
+          node.type === "TEXT" &&
+          node.content &&
+          BANNED_STRINGS.indexOf(node.content) !== -1
+        ) {
+          issues.push({
+            severity: "P0",
+            check: "banned-text",
+            screen: sName,
+            path: nPath + ".content",
+            value: node.content,
+          });
+        }
 
-      // Check INSTANCE props
-      if (node.props) {
-        for (var k = 0; k < BANNED_PROP_KEYS.length; k++) {
-          var propKey = BANNED_PROP_KEYS[k];
-          if (node.props[propKey] && BANNED_STRINGS.indexOf(node.props[propKey]) !== -1) {
-            issues.push({
-              severity: "P0",
-              check: "banned-text",
-              screen: sName,
-              path: nPath + ".props." + propKey,
-              value: node.props[propKey],
-            });
+        // Check INSTANCE props
+        if (node.props) {
+          for (var k = 0; k < BANNED_PROP_KEYS.length; k++) {
+            var propKey = BANNED_PROP_KEYS[k];
+            if (
+              node.props[propKey] &&
+              BANNED_STRINGS.indexOf(node.props[propKey]) !== -1
+            ) {
+              issues.push({
+                severity: "P0",
+                check: "banned-text",
+                screen: sName,
+                path: nPath + ".props." + propKey,
+                value: node.props[propKey],
+              });
+            }
           }
         }
-      }
-    });
+      },
+    );
+  }
+
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
+// Check 3: Token reference validation
+// ---------------------------------------------------------------------------
+
+function loadTokenNames() {
+  var cssPath = path.join(PLUGIN_ROOT, "tokens", "tokens.css");
+  try {
+    var css = fs.readFileSync(cssPath, "utf8");
+    var names = {};
+    var re = /(--(?:zen|fm)-[a-z0-9-]+)/g;
+    var m;
+    while ((m = re.exec(css)) !== null) {
+      names[m[1]] = true;
+    }
+    return names;
+  } catch (e) {
+    return null;
+  }
+}
+
+function extractTokenRefs(obj) {
+  var refs = [];
+  if (typeof obj === "string") {
+    var re = /var\((--(?:zen|fm)-[a-z0-9-]+)\)/g;
+    var m;
+    while ((m = re.exec(obj)) !== null) {
+      refs.push(m[1]);
+    }
+  } else if (Array.isArray(obj)) {
+    for (var i = 0; i < obj.length; i++) {
+      refs = refs.concat(extractTokenRefs(obj[i]));
+    }
+  } else if (obj && typeof obj === "object") {
+    var keys = Object.keys(obj);
+    for (var k = 0; k < keys.length; k++) {
+      refs = refs.concat(extractTokenRefs(obj[keys[k]]));
+    }
+  }
+  return refs;
+}
+
+function findUnresolvedTokens(data) {
+  var tokenNames = loadTokenNames();
+  if (!tokenNames) return [];
+
+  var issues = [];
+
+  for (var si = 0; si < data.screens.length; si++) {
+    var screen = data.screens[si];
+    var screenName = screen.name || "Screen " + (si + 1);
+
+    walkNodes(
+      screen.content,
+      screenName,
+      "content",
+      function (node, sName, nPath) {
+        var fieldsToCheck = ["fills", "color", "stroke"];
+        for (var f = 0; f < fieldsToCheck.length; f++) {
+          var field = fieldsToCheck[f];
+          if (node[field]) {
+            var refs = extractTokenRefs(node[field]);
+            for (var r = 0; r < refs.length; r++) {
+              if (!tokenNames[refs[r]]) {
+                issues.push({
+                  severity: "P1",
+                  check: "token",
+                  screen: sName,
+                  path: nPath + "." + field,
+                  value: "var(" + refs[r] + ") not found in tokens.css",
+                });
+              }
+            }
+          }
+        }
+      },
+    );
   }
 
   return issues;
@@ -117,7 +226,10 @@ function findBannedText(data) {
 // Exports (for testing) and CLI
 // ---------------------------------------------------------------------------
 
-module.exports = { findBannedText: findBannedText };
+module.exports = {
+  findBannedText: findBannedText,
+  findUnresolvedTokens: findUnresolvedTokens,
+};
 
 if (require.main === module) {
   if (process.argv.length < 3 || process.argv[2] === "--help") {
@@ -126,7 +238,10 @@ if (require.main === module) {
       description: "Validate flow-data.json before Figma push",
       usage: "validate-flow-data.js <flow-data.json> [options]",
       flags: [
-        { name: "--skip-tokens", description: "Skip token reference validation" },
+        {
+          name: "--skip-tokens",
+          description: "Skip token reference validation",
+        },
         { name: "--skip-terminology", description: "Skip terminology check" },
         { name: "--json", description: "Output issues as JSON" },
         { name: "--help", description: "Show this help" },
@@ -136,7 +251,9 @@ if (require.main === module) {
       process.stdout.write(JSON.stringify(helpObj, null, 2) + "\n");
       process.exit(0);
     }
-    process.stderr.write("Usage: validate-flow-data.js <flow-data.json> [options]\n");
+    process.stderr.write(
+      "Usage: validate-flow-data.js <flow-data.json> [options]\n",
+    );
     process.exit(1);
   }
 
@@ -159,6 +276,11 @@ if (require.main === module) {
   // Check 1: Banned text
   allIssues = allIssues.concat(findBannedText(data));
 
+  // Check 3: Token references
+  if (!skipTokens) {
+    allIssues = allIssues.concat(findUnresolvedTokens(data));
+  }
+
   // Report
   if (jsonOutput) {
     process.stdout.write(JSON.stringify(allIssues, null, 2) + "\n");
@@ -166,17 +288,32 @@ if (require.main === module) {
     if (allIssues.length === 0) {
       process.stdout.write("validate-flow-data: 0 issues\n");
     } else {
-      process.stderr.write("validate-flow-data: " + allIssues.length + " issue(s) found\n\n");
+      process.stderr.write(
+        "validate-flow-data: " + allIssues.length + " issue(s) found\n\n",
+      );
       for (var i = 0; i < allIssues.length; i++) {
         var issue = allIssues[i];
         process.stderr.write(
-          issue.severity + " [" + issue.check + "] " + issue.screen + " → " + issue.path + " = " + JSON.stringify(issue.value) + "\n"
+          issue.severity +
+            " [" +
+            issue.check +
+            "] " +
+            issue.screen +
+            " → " +
+            issue.path +
+            " = " +
+            JSON.stringify(issue.value) +
+            "\n",
         );
       }
     }
   }
 
-  var hasP0 = allIssues.some(function (issue) { return issue.severity === "P0"; });
-  var hasP1 = allIssues.some(function (issue) { return issue.severity === "P1"; });
+  var hasP0 = allIssues.some(function (issue) {
+    return issue.severity === "P0";
+  });
+  var hasP1 = allIssues.some(function (issue) {
+    return issue.severity === "P1";
+  });
   process.exit(hasP0 ? 1 : hasP1 ? 2 : 0);
 }
