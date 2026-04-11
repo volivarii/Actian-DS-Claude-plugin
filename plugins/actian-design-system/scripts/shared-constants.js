@@ -62,8 +62,10 @@ function getProperties(registryName, slugMapOrRefName, refNameOrPrefix) {
     // New calling convention: derive slug from ref name
     registry = loadRegistry(registryName);
     var prefix = refNameOrPrefix || registryName.replace("kit", "");
+    var overrides = registryName === "fmkit" ? _FM_REF_OVERRIDES : null;
     for (var s of Object.keys(registry.components)) {
-      if (slugToRef(s, prefix) === slugMapOrRefName) {
+      var ref = (overrides && overrides[s]) || slugToRef(s, prefix);
+      if (ref === slugMapOrRefName) {
         return registry.components[s].properties || {};
       }
     }
@@ -99,12 +101,13 @@ function slugToRef(slug, prefix) {
 /**
  * Build { refName: slug } map from a registry, deriving ref names from slugs.
  */
-function buildSlugMap(registryName, prefix, section) {
+function buildSlugMap(registryName, prefix, section, overrides) {
   var registry = loadRegistry(registryName);
   var store = registry[section || "components"];
   var result = {};
   for (var slug of Object.keys(store)) {
-    result[slugToRef(slug, prefix)] = slug;
+    var ref = (overrides && overrides[slug]) || slugToRef(slug, prefix);
+    result[ref] = slug;
   }
   return result;
 }
@@ -112,13 +115,14 @@ function buildSlugMap(registryName, prefix, section) {
 /**
  * Build { refName: { key, method } } map from a registry, deriving ref names from slugs.
  */
-function buildKeyMapFromRegistry(registryName, prefix, section) {
+function buildKeyMapFromRegistry(registryName, prefix, section, overrides) {
   var registry = loadRegistry(registryName);
   var store = registry[section || "components"];
   var result = {};
   for (var slug of Object.keys(store)) {
     var entry = store[slug];
-    result[slugToRef(slug, prefix)] = {
+    var ref = (overrides && overrides[slug]) || slugToRef(slug, prefix);
+    result[ref] = {
       key: entry.key,
       method: entry.importMethod === "set" ? "set" : "single",
     };
@@ -166,7 +170,16 @@ const SLIDE_SLUGS = {
   slideBack: "meta-/-slide-/-back-cover",
 };
 
-const FM_SLUGS = buildSlugMap("fmkit", "fm");
+// Temporary overrides for FM components whose Figma names don't match the convention yet.
+// Remove after Figma rename + sync: fm-text-input-field → fm-text-input,
+// fm-search-input-field → fm-search-input, fm-side-navigation-item → fm-nav-item
+var _FM_REF_OVERRIDES = {
+  "fm-text-input-field": "fmTextInput",
+  "fm-search-input-field": "fmSearchInput",
+  "fm-side-navigation-item": "fmSideNavItem",
+};
+
+const FM_SLUGS = buildSlugMap("fmkit", "fm", null, _FM_REF_OVERRIDES);
 const DS_SLUGS = buildSlugMap("dskit", "ds");
 
 // ---------------------------------------------------------------------------
@@ -177,7 +190,7 @@ const META_KEYS = buildKeyMap("metakit", META_SLUGS);
 const BRIEF_KEYS = buildKeyMap("metakit", BRIEF_SLUGS);
 const TEMPLATE_KEYS = buildKeyMap("metakit", TEMPLATE_SLUGS, "templates");
 const SLIDE_KEYS = buildKeyMap("metakit", SLIDE_SLUGS);
-const FM_KEYS = buildKeyMapFromRegistry("fmkit", "fm");
+const FM_KEYS = buildKeyMapFromRegistry("fmkit", "fm", null, _FM_REF_OVERRIDES);
 const FM_FALLBACK_KEYS = Object.assign({}, FM_KEYS, {
   // Components in Figma but not yet in fmkit.json — will resolve after next sync
   fmBanner: {

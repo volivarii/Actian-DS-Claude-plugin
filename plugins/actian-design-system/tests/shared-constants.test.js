@@ -43,6 +43,20 @@ describe("shared-constants", function () {
     });
   });
 
+  describe("FM_SLUGS overrides", function () {
+    it("maps fmTextInput to fm-text-input-field (override)", function () {
+      assert.strictEqual(sc.FM_SLUGS.fmTextInput, "fm-text-input-field");
+    });
+
+    it("maps fmSearchInput to fm-search-input-field (override)", function () {
+      assert.strictEqual(sc.FM_SLUGS.fmSearchInput, "fm-search-input-field");
+    });
+
+    it("maps fmSideNavItem to fm-side-navigation-item (override)", function () {
+      assert.strictEqual(sc.FM_SLUGS.fmSideNavItem, "fm-side-navigation-item");
+    });
+  });
+
   describe("DS_SLUGS", function () {
     it("maps dsButton to button", function () {
       assert.strictEqual(sc.DS_SLUGS.dsButton, "button");
