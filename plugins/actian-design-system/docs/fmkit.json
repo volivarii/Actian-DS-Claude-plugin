@@ -1,8 +1,8 @@
 {
   "library": "fm",
   "fileKey": "X2JSEUyLvxyNCx22ucOexn",
-  "lastSynced": "2026-04-09T14:28:51.000Z",
-  "componentCount": 33,
+  "lastSynced": "2026-04-11T00:00:00.000Z",
+  "componentCount": 44,
   "components": {
     "sticky-note": {
       "name": "Sticky note",
@@ -246,8 +246,8 @@
         }
       }
     },
-    "fm-text-input-field": {
-      "name": "FM Text input field",
+    "fm-text-input": {
+      "name": "FM Text input",
       "key": "355855c7b2e05b5b336167883b3c9ebbfbd881ad",
       "nodeId": "8:21220",
       "importMethod": "set",
@@ -300,8 +300,8 @@
         }
       }
     },
-    "fm-search-input-field": {
-      "name": "FM Search input field",
+    "fm-search-input": {
+      "name": "FM Search input",
       "key": "443e232d5454f06dbd5bc06c2cacf21e80a20e4a",
       "nodeId": "8:21302",
       "importMethod": "set",
@@ -390,8 +390,8 @@
         }
       }
     },
-    "fm-side-navigation-bar": {
-      "name": "FM Side navigation bar",
+    "fm-nav-bar": {
+      "name": "FM Nav bar",
       "key": "1e8673ccc2818b68f9faabb99757bfd44af2b592",
       "nodeId": "1020:2324",
       "importMethod": "set",
@@ -402,8 +402,8 @@
       },
       "properties": {}
     },
-    "fm-side-navigation-item": {
-      "name": "FM Side navigation item",
+    "fm-nav-item": {
+      "name": "FM Nav item",
       "key": "d18a0a772ed4acd760c497cb93de796ff052a7b4",
       "nodeId": "8:21525",
       "importMethod": "set",
@@ -635,6 +635,116 @@
       "variants": {
         "State": ["Active", "Complete", "Upcoming"]
       },
+      "properties": {}
+    },
+    "fm-banner": {
+      "name": "FM Banner",
+      "key": "d7f323e492b456a2c56f81f3dc892eb24de11a6e",
+      "nodeId": "36:3235",
+      "importMethod": "single",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "fm-dialog": {
+      "name": "FM Dialog",
+      "key": "0cc53eca9c90cccb8cbc57864ea110378414fd2b",
+      "nodeId": "9:1382",
+      "importMethod": "single",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "fm-user": {
+      "name": "FM User",
+      "key": "5c1b3d8d00056075c833799200d3cc27b6d915f0",
+      "nodeId": "70:1783",
+      "importMethod": "single",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "fm-rich-text-field": {
+      "name": "FM Rich text field",
+      "key": "284aa580c4c313ba309ff9eda15b3da8c957cd18",
+      "nodeId": "8:21282",
+      "importMethod": "single",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "fm-spinner": {
+      "name": "FM Spinner",
+      "key": "52927648847b15a51d314cf06ca1c0f19f398b4d",
+      "nodeId": "8:21577",
+      "importMethod": "single",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "fm-menu": {
+      "name": "FM Menu",
+      "key": "696ef83ffe2d0af84432b8f12cc15b43e0b25a15",
+      "nodeId": "8:21644",
+      "importMethod": "single",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "fm-tabs": {
+      "name": "FM Tabs",
+      "key": "860eadef9ba29cf20a3da3ca9d014718e3f6cabb",
+      "nodeId": "20:1705",
+      "importMethod": "single",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "fm-table-example": {
+      "name": "FM Table example",
+      "key": "31c00b04d7dfda38c8577f8541afe48b15fba00a",
+      "nodeId": "9:1127",
+      "importMethod": "single",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "comment-box": {
+      "name": "Comment box",
+      "key": "74c07863dc054e1c7c7e80e7419de2989f5ac504",
+      "nodeId": "2:18929",
+      "importMethod": "single",
+      "page": "Fat Marker",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "google-header": {
+      "name": "Google_Header",
+      "key": "0d7ad22ff52dfd1ebf3ef099e3dd573e99ac7020",
+      "nodeId": "215:3048",
+      "importMethod": "single",
+      "page": "Fat Marker",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    },
+    "icon-placeholder": {
+      "name": "icon-placeholder",
+      "key": "ae4cb8ae57725689509e57001cfaf83a28ee1c85",
+      "nodeId": "9:1404",
+      "importMethod": "single",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
       "properties": {}
     }
   }

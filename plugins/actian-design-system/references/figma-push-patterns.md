@@ -16,7 +16,7 @@ Direct Figma Plugin API patterns for pushing content to Figma. Each pattern is a
 
 Each registry entry contains: `key`, `importMethod` ("set" for `importComponentSetByKeyAsync`, "single" for `importComponentByKeyAsync`), `variants`, and `properties` (with exact hash-suffixed names for `setProperties()`).
 
-**Codegen scripts** (`shared-constants.js`) read these registries at load time via ref-name-to-slug mappings. The key maps (META_KEYS, BRIEF_KEYS, TEMPLATE_KEYS, SLIDE_KEYS, FM_FALLBACK_KEYS) are built from the registries automatically.
+**Codegen scripts** (`shared-constants.js`) read these registries at load time via ref-name-to-slug mappings. The key maps (META_KEYS, BRIEF_KEYS, TEMPLATE_KEYS, SLIDE_KEYS, FM_KEYS) are built from the registries automatically.
 
 **For direct push** (non-interpreter), look up the component key and method from the registry JSON before writing `use_figma` calls.
 

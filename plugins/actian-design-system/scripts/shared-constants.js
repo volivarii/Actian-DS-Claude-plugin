@@ -62,9 +62,8 @@ function getProperties(registryName, slugMapOrRefName, refNameOrPrefix) {
     // New calling convention: derive slug from ref name
     registry = loadRegistry(registryName);
     var prefix = refNameOrPrefix || registryName.replace("kit", "");
-    var overrides = registryName === "fmkit" ? _FM_REF_OVERRIDES : null;
     for (var s of Object.keys(registry.components)) {
-      var ref = (overrides && overrides[s]) || slugToRef(s, prefix);
+      var ref = slugToRef(s, prefix);
       if (ref === slugMapOrRefName) {
         return registry.components[s].properties || {};
       }
@@ -170,16 +169,7 @@ const SLIDE_SLUGS = {
   slideBack: "meta-/-slide-/-back-cover",
 };
 
-// Temporary overrides for FM components whose Figma names don't match the convention yet.
-// Remove after Figma rename + sync: fm-text-input-field → fm-text-input,
-// fm-search-input-field → fm-search-input, fm-side-navigation-item → fm-nav-item
-var _FM_REF_OVERRIDES = {
-  "fm-text-input-field": "fmTextInput",
-  "fm-search-input-field": "fmSearchInput",
-  "fm-side-navigation-item": "fmNavItem",
-};
-
-const FM_SLUGS = buildSlugMap("fmkit", "fm", null, _FM_REF_OVERRIDES);
+const FM_SLUGS = buildSlugMap("fmkit", "fm");
 const DS_SLUGS = buildSlugMap("dskit", "ds");
 
 // ---------------------------------------------------------------------------
@@ -190,26 +180,7 @@ const META_KEYS = buildKeyMap("metakit", META_SLUGS);
 const BRIEF_KEYS = buildKeyMap("metakit", BRIEF_SLUGS);
 const TEMPLATE_KEYS = buildKeyMap("metakit", TEMPLATE_SLUGS, "templates");
 const SLIDE_KEYS = buildKeyMap("metakit", SLIDE_SLUGS);
-const FM_KEYS = buildKeyMapFromRegistry("fmkit", "fm", null, _FM_REF_OVERRIDES);
-const FM_FALLBACK_KEYS = Object.assign({}, FM_KEYS, {
-  // Components in Figma but not yet in fmkit.json — will resolve after next sync
-  fmBanner: {
-    key: "d7f323e492b456a2c56f81f3dc892eb24de11a6e",
-    method: "single",
-  },
-  fmDialog: {
-    key: "0cc53eca9c90cccb8cbc57864ea110378414fd2b",
-    method: "single",
-  },
-  fmSpinner: {
-    key: "52927648847b15a51d314cf06ca1c0f19f398b4d",
-    method: "single",
-  },
-  fmTabs: {
-    key: "860eadef9ba29cf20a3da3ca9d014718e3f6cabb",
-    method: "single",
-  },
-});
+const FM_KEYS = buildKeyMapFromRegistry("fmkit", "fm");
 const DS_KEYS = buildKeyMapFromRegistry("dskit", "ds");
 
 // ---------------------------------------------------------------------------
@@ -291,7 +262,6 @@ module.exports = {
   TEMPLATE_KEYS,
   SLIDE_KEYS,
   FM_KEYS,
-  FM_FALLBACK_KEYS,
   DS_KEYS,
   META_SLUGS,
   BRIEF_SLUGS,

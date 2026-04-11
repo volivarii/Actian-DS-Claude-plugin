@@ -43,17 +43,21 @@ describe("shared-constants", function () {
     });
   });
 
-  describe("FM_SLUGS overrides", function () {
-    it("maps fmTextInput to fm-text-input-field (override)", function () {
-      assert.strictEqual(sc.FM_SLUGS.fmTextInput, "fm-text-input-field");
+  describe("FM_SLUGS renamed components", function () {
+    it("maps fmTextInput to fm-text-input", function () {
+      assert.strictEqual(sc.FM_SLUGS.fmTextInput, "fm-text-input");
     });
 
-    it("maps fmSearchInput to fm-search-input-field (override)", function () {
-      assert.strictEqual(sc.FM_SLUGS.fmSearchInput, "fm-search-input-field");
+    it("maps fmSearchInput to fm-search-input", function () {
+      assert.strictEqual(sc.FM_SLUGS.fmSearchInput, "fm-search-input");
     });
 
-    it("maps fmNavItem to fm-side-navigation-item (override)", function () {
-      assert.strictEqual(sc.FM_SLUGS.fmNavItem, "fm-side-navigation-item");
+    it("maps fmNavItem to fm-nav-item", function () {
+      assert.strictEqual(sc.FM_SLUGS.fmNavItem, "fm-nav-item");
+    });
+
+    it("maps fmNavBar to fm-nav-bar", function () {
+      assert.strictEqual(sc.FM_SLUGS.fmNavBar, "fm-nav-bar");
     });
   });
 
@@ -77,20 +81,18 @@ describe("shared-constants", function () {
     });
   });
 
-  describe("FM_FALLBACK_KEYS", function () {
+  describe("FM_KEYS", function () {
     it("contains fmButton with a key", function () {
-      assert.ok(
-        sc.FM_FALLBACK_KEYS.fmButton,
-        "fmButton missing from FM_FALLBACK_KEYS",
-      );
-      assert.ok(sc.FM_FALLBACK_KEYS.fmButton.key, "fmButton has no key");
-      assert.ok(sc.FM_FALLBACK_KEYS.fmButton.method, "fmButton has no method");
+      assert.ok(sc.FM_KEYS.fmButton, "fmButton missing from FM_KEYS");
+      assert.ok(sc.FM_KEYS.fmButton.key, "fmButton has no key");
+      assert.ok(sc.FM_KEYS.fmButton.method, "fmButton has no method");
     });
 
-    it("contains fallback entries for components not in registry", function () {
-      assert.ok(sc.FM_FALLBACK_KEYS.fmBanner, "fmBanner fallback missing");
-      assert.ok(sc.FM_FALLBACK_KEYS.fmDialog, "fmDialog fallback missing");
-      assert.ok(sc.FM_FALLBACK_KEYS.fmSpinner, "fmSpinner fallback missing");
+    it("contains standalone components from registry", function () {
+      assert.ok(sc.FM_KEYS.fmBanner, "fmBanner missing from FM_KEYS");
+      assert.ok(sc.FM_KEYS.fmDialog, "fmDialog missing from FM_KEYS");
+      assert.ok(sc.FM_KEYS.fmSpinner, "fmSpinner missing from FM_KEYS");
+      assert.ok(sc.FM_KEYS.fmTabs, "fmTabs missing from FM_KEYS");
     });
   });
 
