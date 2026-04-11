@@ -52,8 +52,8 @@ describe("shared-constants", function () {
       assert.strictEqual(sc.FM_SLUGS.fmSearchInput, "fm-search-input-field");
     });
 
-    it("maps fmSideNavItem to fm-side-navigation-item (override)", function () {
-      assert.strictEqual(sc.FM_SLUGS.fmSideNavItem, "fm-side-navigation-item");
+    it("maps fmNavItem to fm-side-navigation-item (override)", function () {
+      assert.strictEqual(sc.FM_SLUGS.fmNavItem, "fm-side-navigation-item");
     });
   });
 
