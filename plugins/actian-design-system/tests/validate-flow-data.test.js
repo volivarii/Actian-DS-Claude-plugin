@@ -176,4 +176,85 @@ describe("validate-flow-data", function () {
       assert.ok(issues.length > 0);
     });
   });
+
+  describe("findTerminologyIssues", function () {
+    it("detects 'admin panel' and suggests 'Studio'", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1: Test",
+            content: [
+              {
+                type: "TEXT",
+                content: "Open the admin panel to configure settings",
+              },
+            ],
+          },
+        ],
+      };
+      var issues = validate.findTerminologyIssues(data);
+      assert.ok(issues.length > 0, "should detect 'admin panel'");
+      assert.strictEqual(issues[0].severity, "P1");
+      assert.ok(issues[0].suggestion.indexOf("Studio") !== -1);
+    });
+
+    it("detects 'the tool' and suggests 'Data Intelligence Platform'", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1: Test",
+            content: [
+              {
+                type: "TEXT",
+                content: "Welcome to the tool",
+              },
+            ],
+          },
+        ],
+      };
+      var issues = validate.findTerminologyIssues(data);
+      assert.ok(issues.length > 0);
+    });
+
+    it("does not flag correct terminology", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1: Test",
+            content: [
+              {
+                type: "TEXT",
+                content: "Browse the Studio catalog",
+              },
+            ],
+          },
+        ],
+      };
+      var issues = validate.findTerminologyIssues(data);
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("detects terminology in props values", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1: Test",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Go to admin panel" },
+              },
+            ],
+          },
+        ],
+      };
+      var issues = validate.findTerminologyIssues(data);
+      assert.ok(issues.length > 0);
+    });
+  });
 });

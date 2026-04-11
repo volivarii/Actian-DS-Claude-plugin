@@ -223,12 +223,108 @@ function findUnresolvedTokens(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 4: Terminology check
+// ---------------------------------------------------------------------------
+
+function loadTerminology() {
+  var appContextPath = path.join(PLUGIN_ROOT, "docs", "app-context.json");
+  try {
+    var appContext = JSON.parse(fs.readFileSync(appContextPath, "utf8"));
+    return appContext.terminology || {};
+  } catch (e) {
+    return null;
+  }
+}
+
+function buildTerminologyRules(terminology) {
+  var rules = [];
+  var keys = Object.keys(terminology);
+  for (var i = 0; i < keys.length; i++) {
+    var entry = terminology[keys[i]];
+    if (!entry.notUse || entry.notUse.length === 0) continue;
+    for (var j = 0; j < entry.notUse.length; j++) {
+      var wrong = entry.notUse[j];
+      // Strip parenthetical context notes like "dataset (when curated)"
+      var cleanWrong = wrong.replace(/\s*\(.*?\)\s*$/, "").trim();
+      if (cleanWrong.length < 3) continue;
+      var escaped = cleanWrong.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      rules.push({
+        pattern: new RegExp("\\b" + escaped + "\\b", "i"),
+        wrong: cleanWrong,
+        correct: entry.use,
+      });
+    }
+  }
+  return rules;
+}
+
+function findTerminologyIssues(data) {
+  var terminology = loadTerminology();
+  if (!terminology) return [];
+
+  var rules = buildTerminologyRules(terminology);
+  if (rules.length === 0) return [];
+
+  var issues = [];
+
+  function checkText(text, screenName, nodePath) {
+    if (!text || typeof text !== "string") return;
+    for (var r = 0; r < rules.length; r++) {
+      if (rules[r].pattern.test(text)) {
+        issues.push({
+          severity: "P1",
+          check: "terminology",
+          screen: screenName,
+          path: nodePath,
+          value: text,
+          found: rules[r].wrong,
+          suggestion: 'use "' + rules[r].correct + '"',
+        });
+      }
+    }
+  }
+
+  for (var si = 0; si < data.screens.length; si++) {
+    var screen = data.screens[si];
+    var screenName = screen.name || "Screen " + (si + 1);
+
+    if (screen.pageHeader) {
+      checkText(screen.pageHeader.title, screenName, "pageHeader.title");
+      checkText(screen.pageHeader.subtitle, screenName, "pageHeader.subtitle");
+    }
+
+    walkNodes(
+      screen.content,
+      screenName,
+      "content",
+      function (node, sName, nPath) {
+        if (node.content) {
+          checkText(node.content, sName, nPath + ".content");
+        }
+        if (node.props) {
+          var propKeys = Object.keys(node.props);
+          for (var pk = 0; pk < propKeys.length; pk++) {
+            var val = node.props[propKeys[pk]];
+            if (typeof val === "string") {
+              checkText(val, sName, nPath + ".props." + propKeys[pk]);
+            }
+          }
+        }
+      },
+    );
+  }
+
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
 // Exports (for testing) and CLI
 // ---------------------------------------------------------------------------
 
 module.exports = {
   findBannedText: findBannedText,
   findUnresolvedTokens: findUnresolvedTokens,
+  findTerminologyIssues: findTerminologyIssues,
 };
 
 if (require.main === module) {
@@ -279,6 +375,11 @@ if (require.main === module) {
   // Check 3: Token references
   if (!skipTokens) {
     allIssues = allIssues.concat(findUnresolvedTokens(data));
+  }
+
+  // Check 4: Terminology
+  if (!skipTerminology) {
+    allIssues = allIssues.concat(findTerminologyIssues(data));
   }
 
   // Report
