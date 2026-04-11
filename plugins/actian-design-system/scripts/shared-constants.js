@@ -50,16 +50,80 @@ function buildKeyMap(registryName, slugMap, section) {
 /**
  * Look up full properties for a component by ref name.
  * @param {string} registryName
- * @param {object} slugMap
- * @param {string} refName
+ * @param {object|string} slugMapOrRefName - slug map (old) or ref name string (new)
+ * @param {string} refNameOrPrefix - ref name (old) or prefix (new)
  * @returns {object|null} Properties object with hash-suffixed names
  */
-function getProperties(registryName, slugMap, refName) {
-  var slug = slugMap[refName];
+function getProperties(registryName, slugMapOrRefName, refNameOrPrefix) {
+  // New signature: getProperties("fmkit", "fmButton", "fm")
+  // Old signature: getProperties("fmkit", slugMapObj, "fmButton")
+  var slug, registry;
+  if (typeof slugMapOrRefName === "string") {
+    // New calling convention: derive slug from ref name
+    registry = loadRegistry(registryName);
+    var prefix = refNameOrPrefix || registryName.replace("kit", "");
+    for (var s of Object.keys(registry.components)) {
+      if (slugToRef(s, prefix) === slugMapOrRefName) {
+        return registry.components[s].properties || {};
+      }
+    }
+    return null;
+  }
+  // Old calling convention: use slug map
+  slug = slugMapOrRefName[refNameOrPrefix];
   if (!slug) return null;
-  var registry = loadRegistry(registryName);
+  registry = loadRegistry(registryName);
   var entry = registry.components[slug];
   return entry ? entry.properties || {} : null;
+}
+
+/**
+ * Derive ref name from registry slug + prefix.
+ * "fm-button" with prefix "fm" → "fmButton"
+ * "button" with prefix "ds" → "dsButton"
+ * "fm-text-input" with prefix "fm" → "fmTextInput"
+ */
+function slugToRef(slug, prefix) {
+  var stripped = slug.startsWith(prefix + "-")
+    ? slug.slice(prefix.length + 1)
+    : slug;
+  return (
+    prefix +
+    stripped.charAt(0).toUpperCase() +
+    stripped.slice(1).replace(/-([a-z])/g, function (_, c) {
+      return c.toUpperCase();
+    })
+  );
+}
+
+/**
+ * Build { refName: slug } map from a registry, deriving ref names from slugs.
+ */
+function buildSlugMap(registryName, prefix, section) {
+  var registry = loadRegistry(registryName);
+  var store = registry[section || "components"];
+  var result = {};
+  for (var slug of Object.keys(store)) {
+    result[slugToRef(slug, prefix)] = slug;
+  }
+  return result;
+}
+
+/**
+ * Build { refName: { key, method } } map from a registry, deriving ref names from slugs.
+ */
+function buildKeyMapFromRegistry(registryName, prefix, section) {
+  var registry = loadRegistry(registryName);
+  var store = registry[section || "components"];
+  var result = {};
+  for (var slug of Object.keys(store)) {
+    var entry = store[slug];
+    result[slugToRef(slug, prefix)] = {
+      key: entry.key,
+      method: entry.importMethod === "set" ? "set" : "single",
+    };
+  }
+  return result;
 }
 
 // ---------------------------------------------------------------------------
@@ -102,67 +166,8 @@ const SLIDE_SLUGS = {
   slideBack: "meta-/-slide-/-back-cover",
 };
 
-const FM_SLUGS = {
-  fmAppHeader: "fm-app-header",
-  fmSideNavItem: "fm-side-navigation-item",
-  fmPageHeader: "fm-page-header",
-  fmButton: "fm-button",
-  fmTableCell: "fm-table-cell",
-  fmTextInput: "fm-text-input-field",
-  fmDropdown: "fm-dropdown",
-  fmInputLabel: "fm-input-label",
-  fmSearchInput: "fm-search-input-field",
-  fmTag: "fm-tag",
-  fmChip: "fm-chip",
-  fmTab: "fm-tab",
-  fmPlaceholder: "fm-placeholder",
-  fmEmptyState: "fm-empty-state",
-  fmAlert: "fm-alert",
-  fmBanner: "fm-banner",
-  fmToggle: "fm-toggle",
-  fmCheckbox: "fm-checkbox",
-  fmDialog: "fm-dialog",
-  fmTextArea: "fm-text-area",
-  fmBadge: "fm-badge",
-  fmStepper: "fm-stepper",
-  fmToast: "fm-toast",
-  fmIconButtons: "fm-icon-buttons",
-  fmSpinner: "fm-spinner",
-  fmRadioButton: "fm-radio-button",
-  fmDateInput: "fm-date-input",
-  fmProgressBar: "fm-progress-bar",
-  fmMultiSelectDropdown: "fm-multi-select-dropdown",
-  fmTabs: "fm-tabs",
-};
-
-// DS ref names follow pattern ds + PascalCase(slug). Only slugs used in fm-to-ds-map.json.
-const DS_SLUGS = {
-  dsButton: "button",
-  dsInput: "input",
-  dsDropdownSelectDefault: "dropdown-select-default",
-  dsCheckboxWithLabel: "checkbox-with-label",
-  dsRadioButtonRadioButton: "radio-button-radio-button",
-  dsToggle: "toggle",
-  dsGlobalHeader: "global-header",
-  dsSideNav: "side-nav",
-  dsNavItem: "nav-item",
-  dsPageHeader: "page-header",
-  dsSearch: "search",
-  dsInputDate: "input-date",
-  dsAlertBanner: "alert-banner",
-  dsNotification: "notification",
-  dsBadge: "badge",
-  dsTagInteractive: "tag-interactive",
-  dsTagDefault: "tag-default",
-  dsTab: "tab",
-  dsStepper: "stepper",
-  dsEmptyState: "empty-state",
-  dsProgressBarSmall: "progress-bar-small",
-  dsTooltip: "tooltip",
-  dsRichText: "rich-text",
-  dsMenuItem: "menu-item",
-  dsTableCell: "table-cell",
-};
+const FM_SLUGS = buildSlugMap("fmkit", "fm");
+const DS_SLUGS = buildSlugMap("dskit", "ds");
 
 // ---------------------------------------------------------------------------
 // Build key maps from registries (computed at module load)
@@ -172,7 +177,8 @@ const META_KEYS = buildKeyMap("metakit", META_SLUGS);
 const BRIEF_KEYS = buildKeyMap("metakit", BRIEF_SLUGS);
 const TEMPLATE_KEYS = buildKeyMap("metakit", TEMPLATE_SLUGS, "templates");
 const SLIDE_KEYS = buildKeyMap("metakit", SLIDE_SLUGS);
-const FM_FALLBACK_KEYS = Object.assign(buildKeyMap("fmkit", FM_SLUGS), {
+const FM_KEYS = buildKeyMapFromRegistry("fmkit", "fm");
+const FM_FALLBACK_KEYS = Object.assign({}, FM_KEYS, {
   // Components in Figma but not yet in fmkit.json — will resolve after next sync
   fmBanner: {
     key: "d7f323e492b456a2c56f81f3dc892eb24de11a6e",
@@ -186,9 +192,12 @@ const FM_FALLBACK_KEYS = Object.assign(buildKeyMap("fmkit", FM_SLUGS), {
     key: "52927648847b15a51d314cf06ca1c0f19f398b4d",
     method: "single",
   },
-  fmTabs: { key: "860eadef9ba29cf20a3da3ca9d014718e3f6cabb", method: "single" },
+  fmTabs: {
+    key: "860eadef9ba29cf20a3da3ca9d014718e3f6cabb",
+    method: "single",
+  },
 });
-const DS_KEYS = buildKeyMap("dskit", DS_SLUGS);
+const DS_KEYS = buildKeyMapFromRegistry("dskit", "ds");
 
 // ---------------------------------------------------------------------------
 // Syntax highlighting colors (code blocks in briefs + slides)
@@ -268,6 +277,7 @@ module.exports = {
   BRIEF_KEYS,
   TEMPLATE_KEYS,
   SLIDE_KEYS,
+  FM_KEYS,
   FM_FALLBACK_KEYS,
   DS_KEYS,
   META_SLUGS,
@@ -278,6 +288,9 @@ module.exports = {
   DS_SLUGS,
   loadRegistry,
   getProperties,
+  slugToRef,
+  buildSlugMap,
+  buildKeyMapFromRegistry,
   TOKEN_COLORS,
   PALETTE,
   buildGenLog,

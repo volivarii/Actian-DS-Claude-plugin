@@ -95,13 +95,28 @@ describe("shared-constants", function () {
   });
 
   describe("getProperties", function () {
-    it("returns properties for fmButton", function () {
+    it("returns properties for fmButton via slug map (old convention)", function () {
       var props = sc.getProperties("fmkit", sc.FM_SLUGS, "fmButton");
       assert.ok(props, "getProperties returned null for fmButton");
       var hasLabel = Object.keys(props).some(function (k) {
         return k.startsWith("Label");
       });
       assert.ok(hasLabel, "fmButton properties should include Label");
+    });
+
+    it("returns properties for fmButton via ref name (new convention)", function () {
+      var props = sc.getProperties("fmkit", "fmButton", "fm");
+      assert.ok(
+        props,
+        "getProperties returned null for fmButton (new convention)",
+      );
+      var hasLabel = Object.keys(props).some(function (k) {
+        return k.startsWith("Label");
+      });
+      assert.ok(
+        hasLabel,
+        "fmButton properties should include Label (new convention)",
+      );
     });
 
     it("returns null for unknown ref", function () {
@@ -124,9 +139,48 @@ describe("shared-constants", function () {
   });
 
   describe("slugToRef", function () {
-    // This function doesn't exist yet — this test will fail until Task 2
-    it("is exported", function () {
-      assert.strictEqual(typeof sc.slugToRef, "function");
+    it("converts fm-button to fmButton", function () {
+      assert.strictEqual(sc.slugToRef("fm-button", "fm"), "fmButton");
+    });
+
+    it("converts fm-text-input to fmTextInput", function () {
+      assert.strictEqual(sc.slugToRef("fm-text-input", "fm"), "fmTextInput");
+    });
+
+    it("converts fm-app-header to fmAppHeader", function () {
+      assert.strictEqual(sc.slugToRef("fm-app-header", "fm"), "fmAppHeader");
+    });
+
+    it("converts button to dsButton", function () {
+      assert.strictEqual(sc.slugToRef("button", "ds"), "dsButton");
+    });
+
+    it("converts dropdown-select-default to dsDropdownSelectDefault", function () {
+      assert.strictEqual(
+        sc.slugToRef("dropdown-select-default", "ds"),
+        "dsDropdownSelectDefault",
+      );
+    });
+
+    it("converts fm-nav-item to fmNavItem", function () {
+      assert.strictEqual(sc.slugToRef("fm-nav-item", "fm"), "fmNavItem");
+    });
+  });
+
+  describe("buildSlugMap", function () {
+    it("returns an object mapping ref names to slugs", function () {
+      var map = sc.buildSlugMap("fmkit", "fm");
+      assert.strictEqual(map.fmButton, "fm-button");
+      assert.strictEqual(typeof map, "object");
+    });
+  });
+
+  describe("FM_KEYS (derived)", function () {
+    it("contains fmButton with key and method", function () {
+      assert.ok(sc.FM_KEYS, "FM_KEYS not exported");
+      assert.ok(sc.FM_KEYS.fmButton, "fmButton missing from FM_KEYS");
+      assert.ok(sc.FM_KEYS.fmButton.key, "fmButton has no key");
+      assert.ok(sc.FM_KEYS.fmButton.method, "fmButton has no method");
     });
   });
 });
