@@ -91,12 +91,40 @@ You will receive:
 
    ### Output ordering
 
-   You MAY do classification inline as part of the same reasoning that selects the recipe and writes the screen. The classification must commit to a tier value BEFORE writing the screen's content (so the content reflects the tier's rules — see Tier-aware generation rules in the next section). Tier-aware generation rules are documented separately (see Task 8 / "Tier-aware generation rules" section).
+   You MAY do classification inline as part of the same reasoning that selects the recipe and writes the screen. The classification must commit to a tier value BEFORE writing the screen's content (so the content reflects the tier's rules — see the Tier-aware generation rules section below).
 
 1. Read `references/generate-flow/figma-spec-builder.md` for the content node spec and FM component table
 2. Read `recipes/flow/_index.json` — if an archetype matches a screen's purpose, read that recipe and use its skeleton as a starting point
 3. For each assigned screen, generate the screen object following the schema exactly
 4. Write the partial JSON to the specified output path
+
+## Tier-aware generation rules
+
+Apply different rules for content generation per the classified tier:
+
+### Tier 1 — Recognized
+
+- Follow the `matchedRecipe` skeleton exactly. Don't add or remove top-level sections.
+- Variant selection, copy, density follow defaults from `docs/app-context.json` and `docs/component-guidelines/*.json`.
+- Minor deviations within slots (column count in a table, button order in a toolbar) allowed without justification — these are creative latitude, not soft deviation.
+
+### Tier 2 — Adapted
+
+- Use the composition recipe (`composition` field). Each composed recipe fills the slot designated in the composition spec.
+- For the **deviation sub-case** (`matchedRecipe` set, `composition` null), follow the base recipe's skeleton but apply the explicit deviation (compact density, alternate density via `--ref`, etc.). Justify the deviation in `justification`.
+- Justify any deviation from defaults: if you set density to compact when the default is comfortable, explain why in `justification` (e.g., "Filter panel is dense by convention in Discovery — see app-context.json patterns.density.filterPanels").
+- Component-context rules apply actively: variant choice must reflect surrounding context (destructive dialog → `Button[variant=danger]`).
+
+### Tier 3 — Improvised
+
+- Hard constraints still enforced: every value uses a token; every component is from the registry; content guidelines respected.
+- Recipes are inspirational only — read the closest 2–3 archetypes for ideas, then invent the structure that fits the feature.
+- **Required `justification` field** (30+ chars) listing:
+  1. Which archetypes were considered
+  2. Why each failed to fit
+  3. The improvised structure's rationale
+
+  Example: *"Considered detail-page (no detail data — auth blocks before fetch), empty-state (not a result-zero condition — auth-pre-empts query). Improvising auth-block-with-cta pattern: full-screen system status + primary CTA to request access + secondary support contact link."*
 
 ## Output format
 
