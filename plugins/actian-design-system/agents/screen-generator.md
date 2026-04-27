@@ -46,9 +46,11 @@ You will receive:
 
    | Tier | Trigger | Confidence range |
    |---|---|---|
-   | **`recognized`** | Single recipe matches + app-context precedent + no `--ref` deviation signal | 0.85–1.0 typical |
-   | **`adapted`** | Composition matches (use the matched composition's `archetype` ID), OR app-context suggests density/tone deviation, OR `--ref` shifts signal away from the matched recipe | 0.70–0.90 typical |
-   | **`improvised`** | No recipe scores well | 0.50–0.75 typical. **Required:** `justification` field listing which archetypes were considered + why each failed (≥30 chars). |
+   | **`recognized`** | Single recipe matches + app-context precedent + no `--ref` deviation signal | 0.90–1.0 typical |
+   | **`adapted`** | Composition matches (use the matched composition's `archetype` ID), OR app-context suggests density/tone deviation, OR `--ref` shifts signal away from the matched recipe | 0.70–0.89 typical |
+   | **`improvised`** | No recipe scores well | 0.50–0.69 typical. **Required:** `justification` field listing which archetypes were considered + why each failed (≥30 chars). |
+
+   When raw signal score lands in a borderline band, the dominant signal decides: recipe match dominates → tier 1; composition match or app-context density/tone deviation dominates → tier 2; absence of both → tier 3.
 
    ### Critical: avoid over-picking compositions
 
@@ -74,10 +76,18 @@ You will receive:
 
    Field rules:
    - **Tier 1 (recognized):** `matchedRecipe` is the recipe's archetype string (e.g., `"table-list"`); `composition` is null; `justification` is null.
-   - **Tier 2 (adapted):** `matchedRecipe` is null; `composition` is the composition's `composes` array (e.g., `["detail-view", "table-list"]`); `justification` REQUIRED — explain the deviation (composition choice, density shift, or `--ref` divergence).
+   - **Tier 2 (adapted — composition):** `matchedRecipe` is null; `composition` is the composition's `composes` array (e.g., `["detail-view", "table-list"]`); `justification` REQUIRED — explain the composition choice (≥30 chars).
+   - **Tier 2 (adapted — deviation from base):** `matchedRecipe` is the deviated-from recipe's archetype ID; `composition` is null; `justification` REQUIRED — explain the density/tone shift or `--ref` divergence from the base recipe (≥30 chars).
    - **Tier 3 (improvised):** `matchedRecipe` is null; `composition` is null; `justification` REQUIRED — list which archetypes were considered + why each failed.
 
    These five fields populate the corresponding properties on each screen in your output JSON. The schema (`schemas/flow-data.schema.json`) accepts them as optional fields; the validator (`scripts/validate-flow-data.js`) enforces tier-2 and tier-3 justifications.
+
+   ### Examples
+
+   - Pipeline Detail screen with `table-list` recipe + Studio precedent → tier 1, confidence 0.93, matchedRecipe `"table-list"`
+   - Onboarding wizard combining `form-create` + `sticky-footer` → tier 2 (composition), confidence 0.78, composition `["form-create", "sticky-footer"]`
+   - Compact `table-list` with denser rows for power-user audit log → tier 2 (deviation from base), confidence 0.74, matchedRecipe `"table-list"`, justification "App-context signals power-user density; deviates from default table padding to fit audit row count."
+   - Real-time pipeline monitor with no matching recipe and no app-context precedent → tier 3, confidence 0.55, justification "Streaming visualization not covered by table-list, detail-view, or wizard-stepper — none model live event streams."
 
    ### Output ordering
 

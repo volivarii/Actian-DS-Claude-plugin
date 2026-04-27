@@ -130,13 +130,14 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
   - `label` (string, required) — human-readable name shown in the Figma layers panel
   - `tier` (string, optional) — classifier output: `"recognized"` | `"adapted"` | `"improvised"`
   - `confidence` (number, optional) — 0.0 to 1.0; classifier confidence
-  - `matchedRecipe` (string|null, optional) — recipe ID at tier 1, null at tier 3
+  - `matchedRecipe` (string|null, optional) — recipe ID at tier 1; at tier 2 (deviation sub-case) the deviated-from recipe ID; null when tier 2 is a composition or when tier 3
   - `composition` (array|null, optional) — recipe IDs at tier 2, null otherwise
   - `justification` (string|null, optional) — required (non-null, ≥30 chars) when `tier` is `"adapted"` or `"improvised"`; null otherwise. The same field on the source `flow-data.json` screen object carries the same value (see `schemas/flow-data.schema.json`).
 
   **Per-tier field rules** (within each `pushedNodes` entry):
   - **Tier 1 (recognized):** `matchedRecipe` set, `composition` null, `justification` null
-  - **Tier 2 (adapted):** `matchedRecipe` null, `composition` set, `justification` set (non-empty, ≥30 chars)
+  - **Tier 2 (adapted — composition):** `matchedRecipe` null, `composition` set, `justification` set (non-empty, ≥30 chars)
+  - **Tier 2 (adapted — deviation from base):** `matchedRecipe` set (the deviated-from recipe ID), `composition` null, `justification` set (non-empty, ≥30 chars explaining the deviation)
   - **Tier 3 (improvised):** `matchedRecipe` null, `composition` null, `justification` set (≥30 chars; lists rejected archetypes)
 
   Pre-tier manifests **omit** the `tier` field on entries. Tooling that reads these manifests should treat a missing `tier` as the synthetic in-memory value `"unknown"` — this value is **not** part of the on-disk enum. No data migration required; tier metadata is added on the next push that runs the classifier.

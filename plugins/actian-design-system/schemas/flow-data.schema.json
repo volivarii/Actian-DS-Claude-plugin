@@ -222,7 +222,7 @@
           },
           "matchedRecipe": {
             "type": ["string", "null"],
-            "description": "Recipe ID matched at tier 1; null at tier 3"
+            "description": "Recipe ID matched at tier 1; at tier 2 (deviation sub-case) the deviated-from recipe ID; null when tier 2 is a composition or tier 3"
           },
           "composition": {
             "type": ["array", "null"],
