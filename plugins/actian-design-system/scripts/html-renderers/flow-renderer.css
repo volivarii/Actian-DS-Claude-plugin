@@ -16,7 +16,7 @@
   flex-direction: column;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   width: 1440px;
   height: 960px;
   background: var(--fm-bg-grey);
@@ -25,7 +25,7 @@
   font-size: 12px;
   color: #888;
   margin-bottom: 8px;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 .screen-wrapper {
   display: flex;
@@ -54,11 +54,25 @@
 }
 
 /* ── Structured node primitives ── */
-.fm-frame { display: flex; }
-.fm-text { display: inline; line-height: 1.5; }
-.fm-ellipse { border-radius: 50%; flex-shrink: 0; }
-.fm-rect { flex-shrink: 0; }
-.fm-divider { border: none; border-top: 1px solid var(--fm-base-300); margin: 0; }
+.fm-frame {
+  display: flex;
+}
+.fm-text {
+  display: inline;
+  line-height: 1.5;
+}
+.fm-ellipse {
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fm-rect {
+  flex-shrink: 0;
+}
+.fm-divider {
+  border: none;
+  border-top: 1px solid var(--fm-base-300);
+  margin: 0;
+}
 
 /* ── Cover card ── */
 .cover-card {
@@ -99,3 +113,26 @@
 }
 
 /* ── Flow research ── */
+
+/* ── Tier badge ── */
+.tier-badge {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  background: var(--fm-base-200);
+  color: var(--fm-text-secondary);
+  border: 1px solid var(--fm-base-300);
+}
+.tier-badge[data-tier="adapted"] {
+  background: var(--fm-brand-light);
+  border-color: var(--fm-brand);
+  color: var(--fm-brand-dark);
+}
+.tier-badge[data-tier="improvised"] {
+  background: var(--fm-base-300);
+  border-color: var(--fm-base-500);
+  color: var(--fm-text-primary);
+}

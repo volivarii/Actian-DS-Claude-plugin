@@ -582,6 +582,69 @@ assertContains(legacyScreen, "Explorer", "explorer header label");
 assertContains(legacyScreen, "Jobs", "active sidebar item");
 
 // ---------------------------------------------------------------------------
+// Tier badges
+// ---------------------------------------------------------------------------
+
+section("Tier badges");
+
+// Tier 1 (recognized)
+const screenTier1 = screen({
+  name: "Catalog",
+  template: "studio",
+  pageHeader: { title: "Catalog" },
+  tier: "recognized",
+  matchedRecipe: "table-list",
+  confidence: 0.92,
+  content: [],
+});
+assertContains(screenTier1, 'class="tier-badge"', "tier-1 badge present");
+assertContains(screenTier1, 'data-tier="recognized"', "tier-1 data attr");
+assertContains(screenTier1, "tier 1", "tier-1 label");
+assertContains(screenTier1, "table-list", "tier-1 includes recipe in title");
+assertContains(screenTier1, "0.92", "tier-1 confidence in title");
+
+// Tier 2 (adapted, composition)
+const screenTier2 = screen({
+  name: "Onboarding",
+  template: "studio",
+  pageHeader: { title: "Onboarding" },
+  tier: "adapted",
+  composition: ["form-create", "sticky-footer"],
+  confidence: 0.78,
+  justification: "Composition: form + sticky footer for confirmation.",
+  content: [],
+});
+assertContains(screenTier2, 'data-tier="adapted"', "tier-2 data attr");
+assertContains(
+  screenTier2,
+  "form-create+sticky-footer",
+  "tier-2 composition in title",
+);
+
+// Tier 3 (improvised)
+const screenTier3 = screen({
+  name: "Permission denied",
+  template: "studio",
+  pageHeader: { title: "Permission denied" },
+  tier: "improvised",
+  confidence: 0.55,
+  justification:
+    "Considered detail-page; auth-pre-empts query. Improvising auth-block-with-cta.",
+  content: [],
+});
+assertContains(screenTier3, 'data-tier="improvised"', "tier-3 data attr");
+assertContains(screenTier3, "tier 3", "tier-3 label");
+
+// No tier — no badge
+const screenNoTier = screen({
+  name: "Plain",
+  template: "studio",
+  pageHeader: { title: "Plain" },
+  content: [],
+});
+assertNotContains(screenNoTier, "tier-badge", "no badge when tier missing");
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 
