@@ -101,7 +101,15 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
   "fileKey": "<figma-file-key>",
   "pageNodeId": "<page-node-id>",
   "pushedNodes": [
-    { "id": "<node-id>", "label": "<human-readable label>" }
+    {
+      "id": "<node-id>",
+      "label": "<human-readable label>",
+      "tier": "recognized|adapted|improvised",
+      "confidence": 0.0,
+      "matchedRecipe": "<recipe-id>" | null,
+      "composition": ["<id>", "<id>"] | null,
+      "justification": "<string>" | null
+    }
   ],
   "htmlFile": "<relative-path-to-static-html>",
   "prototypeFile": "<relative-path-to-prototype-or-null>",
@@ -117,7 +125,16 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
 - `skill` — the slug of the skill that performed the push (e.g. `generate-flow`, `component-brief`, `generate-presentation`, `create-component`)
 - `fileKey` — Figma file key used for all `use_figma` calls in this session
 - `pageNodeId` — node ID of the Figma page (not a frame — the top-level page)
-- `pushedNodes` — one entry per node pushed; `label` is the human-readable name shown in the Figma layers panel
+- `pushedNodes` — one entry per node pushed. Each entry contains:
+  - `id` (string, required) — Figma node ID of the pushed unit root
+  - `label` (string, required) — human-readable name shown in the Figma layers panel
+  - `tier` (string, optional) — classifier output: `"recognized"` | `"adapted"` | `"improvised"`
+  - `confidence` (number, optional) — 0.0 to 1.0; classifier confidence
+  - `matchedRecipe` (string|null, optional) — recipe ID at tier 1, null at tier 3
+  - `composition` (array|null, optional) — recipe IDs at tier 2, null otherwise
+  - `justification` (string|null, optional) — required (in flow-data) when tier is `"adapted"` or `"improvised"`
+
+  Pre-tier manifests (no tier field on entries) read as `tier: "unknown"` in tooling. No data migration required; tier metadata accumulates on next push.
 - `htmlFile` — path relative to the project root of the static HTML output file
 - `prototypeFile` — path relative to the project root of the prototype file, or `null` if none was generated
 - `pushedAt` — ISO 8601 timestamp at the moment the manifest is written (e.g. `2026-03-27T14:32:00Z`)
@@ -133,6 +150,24 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
 | `component-brief` | `{project_dir}/components/{name}/.last-push.json` |
 | `generate-presentation` | `{project_dir}/presentations/{slug}/.last-push.json` |
 | `create-component` | `{project_dir}/components/{name}/.last-push.json` |
+
+### Tier summary line
+
+After all parity checks complete, output a tier summary on a single line:
+
+```
+Tiers: <N1> recognized, <N2> adapted, <N3> improvised
+```
+
+Where N1, N2, N3 are counts of `pushedNodes` entries at each tier. Skip the line if no entries have a `tier` field (pre-tier output).
+
+If any tier is improvised (N3 > 0), append on a second line:
+
+```
+Review tier-3 justification before approving push.
+```
+
+This is informational. Designer may proceed without acting on it. Justifications are visible in the GenLog card on the pushed Figma frame and in the per-node `pushedNodes[i].justification` field of the manifest.
 
 Write the manifest as the final step. Do not prompt the designer for confirmation before writing it.
 
