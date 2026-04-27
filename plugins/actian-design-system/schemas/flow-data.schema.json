@@ -208,8 +208,49 @@
             "type": "string",
             "description": "Legacy HTML content (deprecated - use content[])",
             "deprecated": true
+          },
+          "tier": {
+            "type": "string",
+            "enum": ["recognized", "adapted", "improvised"],
+            "description": "Classifier output: how strictly does this screen follow recipes?"
+          },
+          "confidence": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "description": "Classifier confidence in the tier assignment"
+          },
+          "matchedRecipe": {
+            "type": ["string", "null"],
+            "description": "Recipe ID matched at tier 1; at tier 2 (deviation sub-case) the deviated-from recipe ID; null when tier 2 is a composition or tier 3"
+          },
+          "composition": {
+            "type": ["array", "null"],
+            "items": { "type": "string" },
+            "description": "Recipe IDs composed at tier 2; null otherwise"
+          },
+          "justification": {
+            "type": ["string", "null"],
+            "minLength": 30,
+            "description": "Required for tier 2 and 3; explains deviation or invention"
           }
-        }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "tier": { "const": "improvised" } },
+              "required": ["tier"]
+            },
+            "then": { "required": ["justification"] }
+          },
+          {
+            "if": {
+              "properties": { "tier": { "const": "adapted" } },
+              "required": ["tier"]
+            },
+            "then": { "required": ["justification"] }
+          }
+        ]
       }
     }
   },

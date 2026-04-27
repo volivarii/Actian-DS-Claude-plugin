@@ -1,0 +1,16 @@
+{
+  "meta": { "feature": "Glossary term creation", "app": "Discovery" },
+  "screens": [
+    {
+      "name": "Create term",
+      "template": "studio",
+      "pageHeader": { "title": "New term" },
+      "tier": "adapted",
+      "confidence": 0.78,
+      "matchedRecipe": null,
+      "composition": ["form-create", "sticky-footer"],
+      "justification": "Term authoring requires the persistent confirm/cancel action bar; composition form-create + sticky-footer applies. Footer slot is replaced per composition embed_config to avoid duplication.",
+      "content": []
+    }
+  ]
+}

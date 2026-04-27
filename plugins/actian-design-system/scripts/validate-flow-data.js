@@ -318,6 +318,128 @@ function findTerminologyIssues(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 5: Tier justification (Sprint B1 — fallback ladder)
+// ---------------------------------------------------------------------------
+//
+// Schema requires a justification (>=30 chars) when a screen's tier is
+// "adapted" or "improvised". Tier "recognized" needs no justification.
+// Pre-tier flow-data (no `tier` field) is unaffected — backwards compatible.
+
+function checkTierJustification(screen, findings) {
+  if (!screen || !screen.tier) return; // backwards compat — pre-tier screens skip
+  if (screen.tier !== "adapted" && screen.tier !== "improvised") return; // tier 1 doesn't need justification
+
+  var j = screen.justification;
+  var trimmed = typeof j === "string" ? j.trim() : "";
+  // Minimum justification length (30 chars) mirrors flow-data.schema.json:
+  // $defs.screen.properties.justification.minLength. Keep the values aligned.
+  var ok = typeof j === "string" && trimmed.length >= 30;
+  if (!ok) {
+    var sample;
+    if (j == null) {
+      sample = "null";
+    } else if (typeof j !== "string") {
+      sample = "(" + typeof j + ")";
+    } else {
+      var preview = j.length > 40 ? j.slice(0, 40) + "…" : j;
+      sample = '"' + preview + '" (' + trimmed.length + " chars)";
+    }
+    findings.push({
+      severity: "error",
+      kind: "missing-justification",
+      screen: screen.name,
+      message:
+        'Tier "' +
+        screen.tier +
+        '" requires a justification of 30+ chars; got ' +
+        sample,
+    });
+  }
+}
+
+function findMissingJustifications(data) {
+  var findings = [];
+  if (!data || !Array.isArray(data.screens)) return findings;
+  for (var si = 0; si < data.screens.length; si++) {
+    checkTierJustification(data.screens[si], findings);
+  }
+  return findings;
+}
+
+// ---------------------------------------------------------------------------
+// Check 6: Severity-tiered soft-deviation checks (Sprint B1 — fallback ladder)
+// ---------------------------------------------------------------------------
+//
+// Hard constraint violations stay "error" at every tier (banned text, invalid
+// tokens, missing-justification, etc.). Soft constraint deviations (recipe
+// shape mismatch, density misalignment) scale by tier:
+//   - tier 1 (recognized) or no tier → "warning"
+//   - tier 2 (adapted)               → "warning"
+//   - tier 3 (improvised)            → "info"
+//
+// MVP detector: matches content nodes with `role: "off-recipe"` (a sentinel
+// the classifier or future checks can emit). Real recipe-shape deviation
+// detection lands in Sprint C+ when fingerprinting infrastructure exists.
+
+var HARD_KINDS = [
+  "banned-text",
+  "invalid-token",
+  "missing-component",
+  "schema-violation",
+  "missing-justification",
+];
+
+function severityForTier(kind, tier) {
+  if (HARD_KINDS.indexOf(kind) !== -1) return "error";
+  if (tier === "improvised") return "info";
+  // tier 1, tier 2, no-tier (pre-tier flow-data) → warning
+  return "warning";
+}
+
+function checkRecipeAdherence(screen, findings) {
+  if (!screen || !Array.isArray(screen.content)) return;
+  for (var i = 0; i < screen.content.length; i++) {
+    var node = screen.content[i];
+    if (node && node.role === "off-recipe") {
+      findings.push({
+        severity: severityForTier("soft-deviation", screen.tier),
+        kind: "soft-deviation",
+        screen: screen.name,
+        message: "Content node deviates from matched recipe shape",
+      });
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Aggregator entry point. Returns { findings: [...] } using the new shape
+// { severity, kind, screen, message }.
+//
+// Currently wraps a single check (tier justification); Task 4 will grow this
+// to host severity-tiered soft-deviation findings (warning at tier 1/2, info
+// at tier 3) — gradations the legacy P0/P1 shape can't express.
+//
+// Per-check functions (findBannedText, findUnresolvedTokens, etc.) remain the
+// granular API for callers that need the legacy {severity: "P0"|"P1", check,
+// screen, path, value} shape (e.g. the CLI runner). Both APIs coexist
+// intentionally for Sprint B1; consolidation is a follow-up after Task 4
+// lands and the aggregator's design has settled.
+// ---------------------------------------------------------------------------
+
+function validate(data) {
+  var findings = [];
+  if (!data || !Array.isArray(data.screens)) {
+    return { findings: findings };
+  }
+  for (var si = 0; si < data.screens.length; si++) {
+    var screen = data.screens[si];
+    checkTierJustification(screen, findings);
+    checkRecipeAdherence(screen, findings);
+  }
+  return { findings: findings };
+}
+
+// ---------------------------------------------------------------------------
 // Exports (for testing) and CLI
 // ---------------------------------------------------------------------------
 
@@ -325,6 +447,10 @@ module.exports = {
   findBannedText: findBannedText,
   findUnresolvedTokens: findUnresolvedTokens,
   findTerminologyIssues: findTerminologyIssues,
+  findMissingJustifications: findMissingJustifications,
+  validate: validate,
+  severityForTier: severityForTier,
+  checkRecipeAdherence: checkRecipeAdherence,
 };
 
 if (require.main === module) {
@@ -380,6 +506,20 @@ if (require.main === module) {
   // Check 4: Terminology
   if (!skipTerminology) {
     allIssues = allIssues.concat(findTerminologyIssues(data));
+  }
+
+  // Check 5: Tier justification (B1 fallback ladder).
+  // Map to legacy CLI shape so the existing reporter handles them uniformly.
+  var tierFindings = findMissingJustifications(data);
+  for (var ti = 0; ti < tierFindings.length; ti++) {
+    var f = tierFindings[ti];
+    allIssues.push({
+      severity: "P0",
+      check: f.kind,
+      screen: f.screen || "(unknown)",
+      path: "tier/justification",
+      value: f.message,
+    });
   }
 
   // Report

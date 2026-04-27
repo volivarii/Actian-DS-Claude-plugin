@@ -247,6 +247,91 @@ function buildGenLog(meta, opts) {
   };
 }
 
+/**
+ * Map a tier enum value to a short label.
+ * @param {string} tier - "recognized" | "adapted" | "improvised" | undefined
+ * @returns {string} "tier 1" | "tier 2" | "tier 3" | "tier ?"
+ */
+function tierShort(tier) {
+  if (tier === "recognized") return "tier 1";
+  if (tier === "adapted") return "tier 2";
+  if (tier === "improvised") return "tier 3";
+  return "tier ?";
+}
+
+/**
+ * Build a TEXT node spec rolling up per-screen tier metadata.
+ * Pushed alongside (after) the GenLog instance when any screen has a tier.
+ *
+ * @param {Array<object>} screens - screen objects with optional { tier, confidence, matchedRecipe, composition, justification }
+ * @returns {object|null} TEXT node spec, or null if no screen has a tier
+ */
+function buildTierSummary(screens) {
+  if (!Array.isArray(screens) || screens.length === 0) return null;
+  var tiered = screens.filter(function (s) {
+    return !!s.tier;
+  });
+  if (tiered.length === 0) return null;
+
+  var counts = { recognized: 0, adapted: 0, improvised: 0 };
+  for (var i = 0; i < tiered.length; i++) {
+    var t = tiered[i].tier;
+    if (counts[t] != null) counts[t]++;
+  }
+
+  var lines = [];
+  lines.push(
+    "Tiers: " +
+      counts.recognized +
+      " recognized, " +
+      counts.adapted +
+      " adapted, " +
+      counts.improvised +
+      " improvised",
+  );
+  lines.push("");
+
+  for (var j = 0; j < screens.length; j++) {
+    var s = screens[j];
+    if (!s.tier) continue;
+    var label = tierShort(s.tier);
+    var recipeOrCustom;
+    if (s.matchedRecipe) {
+      recipeOrCustom = s.matchedRecipe;
+    } else if (s.composition && s.composition.length) {
+      recipeOrCustom = s.composition.join("+");
+    } else {
+      recipeOrCustom = "custom layout";
+    }
+    var conf = typeof s.confidence === "number" ? s.confidence.toFixed(2) : "—";
+    lines.push(
+      "  " + s.name + " — " + label + " — " + recipeOrCustom + " — " + conf,
+    );
+  }
+
+  // Justifications for tier-3 AND tier-2-deviation (matchedRecipe set, composition null)
+  var needsJustification = screens.filter(function (s) {
+    if (s.tier === "improvised") return true;
+    if (s.tier === "adapted" && s.matchedRecipe && !s.composition) return true;
+    return false;
+  });
+  if (needsJustification.length > 0) {
+    lines.push("");
+    lines.push("Justifications:");
+    for (var k = 0; k < needsJustification.length; k++) {
+      var nj = needsJustification[k];
+      lines.push("  " + nj.name + ": " + (nj.justification || ""));
+    }
+  }
+
+  return {
+    type: "TEXT",
+    name: "Tier Summary",
+    text: lines.join("\n"),
+    sizing: { horizontal: "HUG", vertical: "HUG" },
+  };
+}
+
 /** Return byte size of compact JSON representation. */
 function compactSize(obj) {
   return Buffer.byteLength(JSON.stringify(obj), "utf8");
@@ -277,5 +362,7 @@ module.exports = {
   TOKEN_COLORS,
   PALETTE,
   buildGenLog,
+  tierShort,
+  buildTierSummary,
   compactSize,
 };

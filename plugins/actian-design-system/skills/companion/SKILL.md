@@ -59,3 +59,6 @@ Invoke via Skill tool with user's message as argument. If no skill matches, proc
 - **A11y specialist:** Check contrast (4.5:1 normal, 3:1 large), touch targets (44x44px min), focus order. For full audit, recommend `/design-audit`.
 - **UX researcher:** Load `references/ux-patterns.md`, search by flow type, optionally web search. Ground recommendations in Actian product context.
 - **System librarian:** Draft guideline in existing format, show draft, user approves before any file edit.
+- **Tier review** (signals: "review tier-3", "show improvised screens", "what got improvised", "show deviations" + Figma URL): Read `.last-push.json` for the URL's flow page; for each `pushedNodes` entry where `tier === "improvised"`, or where `tier === "adapted"` with `matchedRecipe` set and `composition` null, print `label`: `justification`. No skill routing — companion handles directly.
+
+> Tier-3 re-roll and creative-bias intents will land alongside Sprint A surface flags (`--from <url>`, `--call N`). Until then, designers can re-run `/generate-flow` manually with adjusted prompts.

@@ -257,4 +257,269 @@ describe("validate-flow-data", function () {
       assert.ok(issues.length > 0);
     });
   });
+
+  // === Task 3: Tier justification checks ===
+  describe("tier justification (validate)", function () {
+    it("tier 'recognized' without justification: no missing-justification error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "Catalog browse",
+            template: "studio",
+            pageHeader: { title: "Catalog" },
+            content: [],
+            tier: "recognized",
+            confidence: 0.9,
+            matchedRecipe: "table-list",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(
+        errs.length,
+        0,
+        "tier 1 should not require justification",
+      );
+    });
+
+    it("tier 'adapted' without justification: missing-justification error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "adapted",
+            confidence: 0.8,
+            composition: ["detail-page", "table-list"],
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(errs.length, 1, "tier 2 must require justification");
+      assert.strictEqual(errs[0].severity, "error");
+    });
+
+    it("tier 'improvised' without justification: missing-justification error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "improvised",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(errs.length, 1);
+      assert.strictEqual(errs[0].severity, "error");
+    });
+
+    it("tier 'adapted' with too-short justification (<30 chars): error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "adapted",
+            composition: ["detail-page", "table-list"],
+            justification: "too short",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(
+        errs.length,
+        1,
+        "<30 char justification treated as missing",
+      );
+    });
+
+    it("tier 'adapted' with valid justification: no error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "adapted",
+            composition: ["detail-page", "table-list"],
+            justification:
+              "Form authoring benefits from real-time preview of the term card across screens.",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(errs.length, 0);
+    });
+
+    it("screen with no tier field at all: no missing-justification error (backwards compat)", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(
+        errs.length,
+        0,
+        "pre-tier flow-data must validate without injecting tier-related errors",
+      );
+    });
+  });
+
+  // === Task 4: Severity-tiered soft-deviation checks ===
+  describe("severity-tiered soft-deviation", function () {
+    it("soft-deviation at tier 'recognized': severity warning", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [{ type: "FRAME", role: "off-recipe" }],
+            tier: "recognized",
+            matchedRecipe: "table-list",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var softs = (result.findings || []).filter(function (f) {
+        return f.kind === "soft-deviation";
+      });
+      assert.strictEqual(softs.length, 1);
+      assert.strictEqual(softs[0].severity, "warning");
+    });
+
+    it("soft-deviation at tier 'adapted': severity warning", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [{ type: "FRAME", role: "off-recipe" }],
+            tier: "adapted",
+            composition: ["detail-page", "table-list"],
+            justification:
+              "Form authoring benefits from real-time preview of related records.",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var softs = (result.findings || []).filter(function (f) {
+        return f.kind === "soft-deviation";
+      });
+      assert.strictEqual(softs.length, 1);
+      assert.strictEqual(softs[0].severity, "warning");
+    });
+
+    it("soft-deviation at tier 'improvised': severity info", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [{ type: "FRAME", role: "off-recipe" }],
+            tier: "improvised",
+            justification:
+              "No recipe matches; inventing structure for permission-block UX pattern.",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var softs = (result.findings || []).filter(function (f) {
+        return f.kind === "soft-deviation";
+      });
+      assert.strictEqual(softs.length, 1);
+      assert.strictEqual(softs[0].severity, "info");
+    });
+
+    it("soft-deviation at no-tier (pre-tier flow-data): severity warning", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [{ type: "FRAME", role: "off-recipe" }],
+            // no tier
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var softs = (result.findings || []).filter(function (f) {
+        return f.kind === "soft-deviation";
+      });
+      assert.strictEqual(softs.length, 1);
+      assert.strictEqual(softs[0].severity, "warning");
+    });
+
+    it("missing-justification stays error at every tier (hard constraint)", function () {
+      // Verifies severityForTier doesn't downgrade hard-constraint findings
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "improvised",
+            // missing justification — hard constraint
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(errs.length, 1);
+      assert.strictEqual(
+        errs[0].severity,
+        "error",
+        "hard constraints don't downgrade by tier",
+      );
+    });
+  });
 });

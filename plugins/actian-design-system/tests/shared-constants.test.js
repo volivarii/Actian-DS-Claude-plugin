@@ -154,6 +154,124 @@ describe("shared-constants", function () {
     });
   });
 
+  describe("tierShort", function () {
+    it("maps recognized to 'tier 1'", function () {
+      assert.strictEqual(sc.tierShort("recognized"), "tier 1");
+    });
+    it("maps adapted to 'tier 2'", function () {
+      assert.strictEqual(sc.tierShort("adapted"), "tier 2");
+    });
+    it("maps improvised to 'tier 3'", function () {
+      assert.strictEqual(sc.tierShort("improvised"), "tier 3");
+    });
+    it("returns 'tier ?' for unknown / missing tier", function () {
+      assert.strictEqual(sc.tierShort(undefined), "tier ?");
+      assert.strictEqual(sc.tierShort("nonsense"), "tier ?");
+    });
+  });
+
+  describe("buildTierSummary", function () {
+    it("returns null when no screen has a tier", function () {
+      var node = sc.buildTierSummary([
+        { name: "Screen A" },
+        { name: "Screen B" },
+      ]);
+      assert.strictEqual(node, null);
+    });
+
+    it("returns null for empty / missing screens", function () {
+      assert.strictEqual(sc.buildTierSummary([]), null);
+      assert.strictEqual(sc.buildTierSummary(undefined), null);
+    });
+
+    it("returns a TEXT node with tier roll-up + per-screen lines when at least one screen is tiered", function () {
+      var node = sc.buildTierSummary([
+        {
+          name: "Catalog browse",
+          tier: "recognized",
+          confidence: 0.92,
+          matchedRecipe: "table-list",
+        },
+        {
+          name: "Pipeline create",
+          tier: "adapted",
+          confidence: 0.78,
+          composition: ["form-create", "sticky-footer"],
+        },
+        {
+          name: "Permission denied",
+          tier: "improvised",
+          confidence: 0.61,
+          justification: "x".repeat(40),
+        },
+      ]);
+      assert.strictEqual(node.type, "TEXT");
+      assert.match(
+        node.text,
+        /Tiers:\s*1 recognized,\s*1 adapted,\s*1 improvised/,
+      );
+      assert.match(node.text, /Catalog browse.*tier 1.*table-list.*0\.92/);
+      assert.match(
+        node.text,
+        /Pipeline create.*tier 2.*form-create\+sticky-footer.*0\.78/,
+      );
+      assert.match(node.text, /Permission denied.*tier 3.*0\.61/);
+    });
+
+    it("includes a Justifications block listing every tier-3 screen's justification", function () {
+      var node = sc.buildTierSummary([
+        {
+          name: "S1",
+          tier: "improvised",
+          confidence: 0.55,
+          justification:
+            "Considered detail-page; no detail data — auth-pre-empts query.",
+        },
+      ]);
+      assert.match(node.text, /Justifications:/);
+      assert.match(node.text, /S1: Considered detail-page; no detail data/);
+    });
+
+    it("includes a Justifications block for tier-2 deviation screens (matchedRecipe set, composition null)", function () {
+      var node = sc.buildTierSummary([
+        {
+          name: "Audit log",
+          tier: "adapted",
+          confidence: 0.74,
+          matchedRecipe: "table-list",
+          composition: null,
+          justification:
+            "App-context signals power-user density; deviates from default table padding.",
+        },
+      ]);
+      assert.match(node.text, /Audit log.*tier 2.*table-list/);
+      assert.match(node.text, /Justifications:/);
+      assert.match(
+        node.text,
+        /Audit log: App-context signals power-user density/,
+      );
+    });
+
+    it("omits Justifications block when no tier-2-deviation or tier-3 screens are present", function () {
+      var node = sc.buildTierSummary([
+        {
+          name: "S1",
+          tier: "recognized",
+          confidence: 0.95,
+          matchedRecipe: "table-list",
+        },
+        {
+          name: "S2",
+          tier: "adapted",
+          confidence: 0.82,
+          composition: ["form-create", "sticky-footer"],
+          justification: "Composition: form + sticky footer for confirmation.",
+        },
+      ]);
+      assert.doesNotMatch(node.text, /Justifications:/);
+    });
+  });
+
   describe("slugToRef", function () {
     it("converts fm-button to fmButton", function () {
       assert.strictEqual(sc.slugToRef("fm-button", "fm"), "fmButton");

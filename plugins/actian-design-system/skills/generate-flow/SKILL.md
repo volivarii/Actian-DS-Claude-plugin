@@ -15,6 +15,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
 3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
 4. **Gate 3 — Screen list + detail level** (single gate, both choices, see below)
 5. Build `flow-data.json`
+   - **Tier classification (REQUIRED — runs in BOTH modes before generating screen content):** Read `agents/screen-generator.md` Step 0 and apply the classifier per-screen. Every screen object in the output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section. Then read `agents/screen-generator.md` "Tier-aware generation rules" section and apply the rules matching each screen's tier when authoring its content. **Parallel and sequential modes both apply the classifier — sequential does NOT skip Step 0.**
    - Read `recipes/flow/_index.json` — if an archetype matches the screen, use its skeleton. Recipes are accelerators, not constraints.
    - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in batches of 2-3, merge with:
      ```bash
@@ -23,7 +24,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
        --type flow --partials-dir {project_working_directory}/components/flows/.partial \
        --output {project_working_directory}/components/flows/flow-data.json
      ```
-     Sequential mode (<6 screens): build flow-data.json directly.
+     Sequential mode (<6 screens): build flow-data.json directly — but FIRST classify each screen per the agent's Step 0 (above).
 6. **Validate flow data** — run the validation script before pushing:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
@@ -159,16 +160,40 @@ Read `references/figma-push-patterns.md` for component keys and patterns. Push f
 **Push sequence:**
 
 1. Navigate to target page + create wrapper frame
-2. GenLog — import by key `a9653f30925367e96dea90093d750bfe70849571`, `setProperties` with `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version = `v1.50.6`** (read from plugin.json, never hardcode)
-3. Research card (if opted-in) — import Research Frame `e671618f2b4c6ea406a995fdc3012ac54eadfe56`, `setProperties` with `"Title#48:10"`, `"Source#48:11"`, detach, inject findings into Content slot. **Must contain the exact same content as the chat findings** — same competitors, patterns, recommendations, source URLs. Card is the persistent record of what informed the design.
-4. Cover Card — import `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave defaults
-5. For each screen:
+2. GenLog — import by key `a9653f30925367e96dea90093d750bfe70849571`, `setProperties` with `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version = `v1.51.0`** (read from plugin.json, never hardcode)
+3. Tier Summary (if any screen has a `tier` field) — call `buildTierSummary(screens)` from `scripts/shared-constants.js`. If it returns a TEXT node spec (not null), push the TEXT node into the wrapper as a sibling of the GenLog instance, immediately following it. Skip when `buildTierSummary` returns null (none of the screens are tiered).
+4. Research card (if opted-in) — import Research Frame `e671618f2b4c6ea406a995fdc3012ac54eadfe56`, `setProperties` with `"Title#48:10"`, `"Source#48:11"`, detach, inject findings into Content slot. **Must contain the exact same content as the chat findings** — same competitors, patterns, recommendations, source URLs. Card is the persistent record of what informed the design.
+5. Cover Card — import `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave defaults
+6. For each screen:
    a. Import components (header, sidebar, content components)
    b. Create screen frame (1440×960, auto-layout)
    c. App chrome (header, sidebar with nav items, page header)
    d. Content area with `paddingTop: 24, paddingLeft: 24, paddingRight: 24, paddingBottom: 24` — content NEVER flush against tab bar. Populate from `screen.content[]`.
    e. Append to wrapper
-6. Report count to user
+7. Report results to the designer:
+   - Count of pushed screens
+   - Tier breakdown (when any screen has a `tier` field):
+
+     ```
+     Generated <N> screens for <feature>:
+       ✓ <count> recognized — <recipe names, comma-separated>
+       ~ <count> adapted — <composition or matchedRecipe names>
+       ! <count> improvised — <screen names>
+
+     Confidence: avg <avg-confidence to 2 decimals>
+     ```
+
+   - If any screen is tier-3 (improvised), append:
+
+     ```
+     Review tier-3 justifications? [yes / skip]
+       yes → print full justification text per tier-3 screen
+       skip → proceed
+     ```
+
+   - If any screen is tier-2 deviation (adapted with `matchedRecipe` set, `composition` null), include those names in the `~ adapted` line and offer to surface their justifications under a separate `show-deviations` option.
+
+   This summary is informational, not a gate. The designer decides whether to act on it.
 
 **Push rules:**
 - Each `use_figma` call creates 1-3 nodes max

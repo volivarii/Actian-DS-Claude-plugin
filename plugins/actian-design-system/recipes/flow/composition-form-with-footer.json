@@ -1,0 +1,55 @@
+{
+  "archetype": "composition-form-with-footer",
+  "kind": "composition",
+  "composes": ["form-create", "sticky-footer"],
+  "tier": "adapted",
+  "description": "Form-driven creation or edit screen with a sticky bottom action bar (Save / Cancel / Discard). Use whenever a designer expects users to fill in fields and commit via primary actions, especially on long forms where the action bar should remain visible during scroll. Common across Actian: glossary term creation, dataset registration, contract authoring, data product editing.",
+  "pattern": 12,
+  "tags": [
+    "form",
+    "create",
+    "edit",
+    "save",
+    "footer",
+    "action-bar",
+    "composition",
+    "hybrid",
+    "sticky"
+  ],
+  "slots": {
+    "primary": "Form fields, sections, validation messages — uses form-create skeleton",
+    "footer": "Sticky bottom action bar with primary action (Save / Create / Update) and secondary action (Cancel) — uses sticky-footer skeleton"
+  },
+  "embed_config": {
+    "context_source": "form-create",
+    "embed_source": "sticky-footer",
+    "embed_position": "page-bottom",
+    "embed_size": "fixed-bar",
+    "replaces_section": "form-create:footer-section"
+  },
+  "skeleton": {
+    "chrome": "standard",
+    "composition": true,
+    "content": []
+  },
+  "notes": [
+    "`skeleton.composition: true` signals the renderer to treat the content array as additive on top of the composed recipes' skeletons, rather than as the authoritative skeleton. The composed recipes (form-create + sticky-footer) provide the base structure.",
+    "Render the form-create skeleton as the page body, BUT suppress its inline `footer-section` (form-create.json declares a sticky footer with Cancel/Submit actions of its own). Inject the sticky-footer skeleton as a fixed bottom bar in place of the suppressed section — the `embed_config.replaces_section` field declares this collision. The injected footer must remain visible regardless of form scroll position. Do not nest the sticky-footer inside the form's scroll area.",
+    "`embed_config.embed_position: \"page-bottom\"` and `embed_size: \"fixed-bar\"` together mean: viewport-anchored (not in document flow), spans the full width of the content area, sits above page content with the elevated surface token. This contrasts with Task 5's composition-detail-table which uses `embed_position: \"after-properties\"` (in-flow, inline within the parent's scroll area). The renderer must treat these as distinct positioning modes.",
+    "Footer primary action label mirrors the form intent: 'Create' for new entities, 'Save' for edits, 'Update' for partial updates. Secondary action defaults to 'Cancel' which navigates back without saving.",
+    "On mobile/narrow viewports, the footer remains pinned but action labels can shorten (e.g., 'Save' → save icon only). At lo-fi this is a structural decision only — designers can defer label-length decisions to hifi."
+  ],
+  "missing_states": [
+    "form-validation-error",
+    "saving-in-progress",
+    "save-failed-server-error",
+    "unsaved-changes-warning-on-cancel"
+  ],
+  "examples": [
+    "Glossary term creation with Save / Cancel footer",
+    "Dataset registration with Create / Cancel footer",
+    "Data contract authoring with Save Draft / Publish / Cancel footer",
+    "Edit user profile with Update / Discard footer"
+  ],
+  "guidance": "At hifi, footer should use the elevated surface token (sits above page content with subtle shadow). Primary action stays right-aligned per app-context patterns. Disable the primary action when the form has validation errors. The Cancel action should prompt a confirmation if the form is dirty. Pick this composition over plain form-create when: (1) the form is long enough to scroll, OR (2) the footer needs distinct visual elevation (e.g., the form is in a modal or detail-overlay context where the footer must visually break the form area), OR (3) you want explicit \"Save Draft\" + \"Publish\" + \"Cancel\" three-action footer that diverges from form-create's default Cancel/Submit. For short forms that fit in viewport with default Cancel/Submit, plain form-create suffices."
+}
