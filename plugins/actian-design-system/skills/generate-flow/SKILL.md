@@ -169,7 +169,30 @@ Read `references/figma-push-patterns.md` for component keys and patterns. Push f
    c. App chrome (header, sidebar with nav items, page header)
    d. Content area with `paddingTop: 24, paddingLeft: 24, paddingRight: 24, paddingBottom: 24` — content NEVER flush against tab bar. Populate from `screen.content[]`.
    e. Append to wrapper
-7. Report count to user
+7. Report results to the designer:
+   - Count of pushed screens
+   - Tier breakdown (when any screen has a `tier` field):
+
+     ```
+     Generated <N> screens for <feature>:
+       ✓ <count> recognized — <recipe names, comma-separated>
+       ~ <count> adapted — <composition or matchedRecipe names>
+       ! <count> improvised — <screen names>
+
+     Confidence: avg <avg-confidence to 2 decimals>
+     ```
+
+   - If any screen is tier-3 (improvised), append:
+
+     ```
+     Review tier-3 justifications? [yes / skip]
+       yes → print full justification text per tier-3 screen
+       skip → proceed
+     ```
+
+   - If any screen is tier-2 deviation (adapted with `matchedRecipe` set, `composition` null), include those names in the `~ adapted` line and offer to surface their justifications under a separate `show-deviations` option.
+
+   This summary is informational, not a gate. The designer decides whether to act on it.
 
 **Push rules:**
 - Each `use_figma` call creates 1-3 nodes max
