@@ -107,10 +107,12 @@ Apply different rules for content generation per the classified tier:
 - Follow the `matchedRecipe` skeleton exactly. Don't add or remove top-level sections.
 - Variant selection, copy, density follow defaults from `docs/app-context.json` and `docs/component-guidelines/*.json`.
 - Minor deviations within slots (column count in a table, button order in a toolbar) allowed without justification — these are creative latitude, not soft deviation.
+- **Boundary:** "minor" means the change does not add or remove a content section from the recipe's top-level slots. If you find yourself adding a slot that wasn't in the recipe (e.g., a sidebar to a `table-list` recipe), that's no longer minor — escalate to tier 2 deviation and justify, or pick a different (composition) recipe.
 
 ### Tier 2 — Adapted
 
 - Use the composition recipe (`composition` field). Each composed recipe fills the slot designated in the composition spec.
+- **Missing-skeleton fallback:** if a base recipe named in `composition` has no skeleton in `recipes/flow/_index.json` (or its file is unreadable), treat that slot as **tier 3 rules applied locally** — invent the slot's structure within hard constraints (tokens, registry, a11y), and explain the local invention in the screen's `justification` field (which archetype was missing + what you put there instead).
 - For the **deviation sub-case** (`matchedRecipe` set, `composition` null), follow the base recipe's skeleton but apply the explicit deviation (compact density, alternate density via `--ref`, etc.). Justify the deviation in `justification`.
 - Justify any deviation from defaults: if you set density to compact when the default is comfortable, explain why in `justification` (e.g., "Filter panel is dense by convention in Discovery — see app-context.json patterns.density.filterPanels").
 - Component-context rules apply actively: variant choice must reflect surrounding context (destructive dialog → `Button[variant=danger]`).
@@ -122,9 +124,9 @@ Apply different rules for content generation per the classified tier:
 - **Required `justification` field** (30+ chars) listing:
   1. Which archetypes were considered
   2. Why each failed to fit
-  3. The improvised structure's rationale
+  3. The improvised structure's rationale — **must name at least one concrete component or pattern** used in the improvised structure (e.g., `Button[variant=primary]`, `Banner[variant=info]`, `EmptyState`). Generic phrasing like "custom layout" is not sufficient; the named anchor lets reviewers locate the inventive choice.
 
-  Example: *"Considered detail-page (no detail data — auth blocks before fetch), empty-state (not a result-zero condition — auth-pre-empts query). Improvising auth-block-with-cta pattern: full-screen system status + primary CTA to request access + secondary support contact link."*
+  Example: *"Considered detail-page (no detail data — auth blocks before fetch), empty-state (not a result-zero condition — auth-pre-empts query). Improvising auth-block-with-cta pattern using `Banner[variant=info]` for system status + `Button[variant=primary]` request-access CTA + `Link[variant=subtle]` support contact."*
 
 ## Output format
 
