@@ -1,0 +1,16 @@
+{
+  "meta": { "feature": "Catalog browse", "app": "Discovery" },
+  "screens": [
+    {
+      "name": "Catalog browse",
+      "template": "studio",
+      "pageHeader": { "title": "Catalog" },
+      "tier": "recognized",
+      "confidence": 0.92,
+      "matchedRecipe": "table-list",
+      "composition": null,
+      "justification": null,
+      "content": []
+    }
+  ]
+}
