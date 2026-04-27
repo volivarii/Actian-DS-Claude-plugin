@@ -331,14 +331,18 @@ function checkTierJustification(screen, findings) {
 
   var j = screen.justification;
   var trimmed = typeof j === "string" ? j.trim() : "";
+  // Minimum justification length (30 chars) mirrors flow-data.schema.json:
+  // $defs.screen.properties.justification.minLength. Keep the values aligned.
   var ok = typeof j === "string" && trimmed.length >= 30;
   if (!ok) {
     var sample;
     if (j == null) {
       sample = "null";
+    } else if (typeof j !== "string") {
+      sample = "(" + typeof j + ")";
     } else {
-      sample =
-        '"' + String(j).slice(0, 40) + '…" (' + trimmed.length + " chars)";
+      var preview = j.length > 40 ? j.slice(0, 40) + "…" : j;
+      sample = '"' + preview + '" (' + trimmed.length + " chars)";
     }
     findings.push({
       severity: "error",
@@ -363,11 +367,18 @@ function findMissingJustifications(data) {
 }
 
 // ---------------------------------------------------------------------------
-// Aggregator — returns { findings } across all per-screen checks.
-// Kept distinct from the legacy P0/P1 check functions which return their own
-// shape. The aggregator normalises tier-related findings into the
-// { severity, kind, screen, message } shape expected by callers that need
-// a single entry point (e.g. parity-check, manifest gating).
+// Aggregator entry point. Returns { findings: [...] } using the new shape
+// { severity, kind, screen, message }.
+//
+// Currently wraps a single check (tier justification); Task 4 will grow this
+// to host severity-tiered soft-deviation findings (warning at tier 1/2, info
+// at tier 3) — gradations the legacy P0/P1 shape can't express.
+//
+// Per-check functions (findBannedText, findUnresolvedTokens, etc.) remain the
+// granular API for callers that need the legacy {severity: "P0"|"P1", check,
+// screen, path, value} shape (e.g. the CLI runner). Both APIs coexist
+// intentionally for Sprint B1; consolidation is a follow-up after Task 4
+// lands and the aggregator's design has settled.
 // ---------------------------------------------------------------------------
 
 function validate(data) {
