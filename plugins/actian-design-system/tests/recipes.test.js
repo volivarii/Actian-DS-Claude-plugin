@@ -579,6 +579,187 @@ if (fs.existsSync(PRES_INDEX_PATH)) {
   }
 }
 
+// ── Task 6: composition-form-with-footer recipe ─────────────────────
+
+{
+  const label = "composition-form-with-footer.json (composition checks)";
+  const errors = [];
+  const recipePath = path.join(
+    RECIPES_DIR,
+    "flow",
+    "composition-form-with-footer.json",
+  );
+
+  if (!fs.existsSync(recipePath)) {
+    errors.push(
+      "recipe file must exist at flow/composition-form-with-footer.json",
+    );
+  } else {
+    let recipe;
+    try {
+      recipe = JSON.parse(fs.readFileSync(recipePath, "utf-8"));
+    } catch (err) {
+      errors.push(`recipe file is not valid JSON: ${err.message}`);
+    }
+
+    if (recipe) {
+      if (recipe.archetype !== "composition-form-with-footer") {
+        errors.push(
+          `archetype must be "composition-form-with-footer", got "${recipe.archetype}"`,
+        );
+      }
+      if (recipe.kind !== "composition") {
+        errors.push(`kind must be "composition", got "${recipe.kind}"`);
+      }
+      try {
+        assert.deepStrictEqual(recipe.composes, [
+          "form-create",
+          "sticky-footer",
+        ]);
+      } catch (_) {
+        errors.push(
+          `composes must equal ["form-create","sticky-footer"], got ${JSON.stringify(recipe.composes)}`,
+        );
+      }
+      if (recipe.tier !== "adapted") {
+        errors.push(`tier must be "adapted", got "${recipe.tier}"`);
+      }
+      if (
+        typeof recipe.description !== "string" ||
+        recipe.description.length === 0
+      ) {
+        errors.push("description must be a non-empty string");
+      }
+      if (!Array.isArray(recipe.tags)) {
+        errors.push("tags must be an array");
+      }
+      if (
+        typeof recipe.slots !== "object" ||
+        recipe.slots === null ||
+        Array.isArray(recipe.slots)
+      ) {
+        errors.push("slots field required (object)");
+      } else if (Object.keys(recipe.slots).length < 2) {
+        errors.push(
+          "slots must have at least 2 entries (one per composed recipe role)",
+        );
+      }
+      if (
+        typeof recipe.embed_config !== "object" ||
+        recipe.embed_config === null ||
+        Array.isArray(recipe.embed_config)
+      ) {
+        errors.push("embed_config field required (object)");
+      }
+      if (
+        !recipe.skeleton ||
+        typeof recipe.skeleton !== "object" ||
+        recipe.skeleton.composition !== true
+      ) {
+        errors.push("skeleton.composition must be true");
+      }
+      if (!Array.isArray(recipe.notes) || recipe.notes.length === 0) {
+        errors.push("notes must be a non-empty array");
+      } else if (
+        typeof recipe.notes[0] !== "string" ||
+        !recipe.notes[0].includes("skeleton.composition: true")
+      ) {
+        errors.push(
+          "first note must document the skeleton.composition: true flag",
+        );
+      }
+      if (
+        !Array.isArray(recipe.missing_states) ||
+        recipe.missing_states.length === 0
+      ) {
+        errors.push("missing_states must be a non-empty array");
+      }
+    }
+  }
+
+  if (errors.length === 0) {
+    console.log(`PASS  ${label}`);
+    passed++;
+  } else {
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+  }
+}
+
+{
+  const label = "_index.json registers composition-form-with-footer";
+  const errors = [];
+
+  try {
+    const idx = JSON.parse(fs.readFileSync(INDEX_PATH, "utf-8"));
+    if (!Array.isArray(idx)) {
+      errors.push("index is not a flat array");
+    } else {
+      const entry = idx.find(
+        (e) => e.archetype === "composition-form-with-footer",
+      );
+      if (!entry) {
+        errors.push(
+          "composition-form-with-footer must be registered in _index.json",
+        );
+      } else {
+        if (entry.file !== "composition-form-with-footer.json") {
+          errors.push(
+            `entry.file must be "composition-form-with-footer.json", got "${entry.file}"`,
+          );
+        }
+        if (entry.kind !== "composition") {
+          errors.push(`entry.kind must be "composition", got "${entry.kind}"`);
+        }
+        try {
+          assert.deepStrictEqual(entry.composes, [
+            "form-create",
+            "sticky-footer",
+          ]);
+        } catch (_) {
+          errors.push(
+            `entry.composes must equal ["form-create","sticky-footer"], got ${JSON.stringify(entry.composes)}`,
+          );
+        }
+        if (!Array.isArray(entry.tags)) {
+          errors.push("entry.tags must be an array");
+        } else {
+          // Tags must match the recipe file's tags exactly
+          try {
+            const recipe = JSON.parse(
+              fs.readFileSync(
+                path.join(
+                  RECIPES_DIR,
+                  "flow",
+                  "composition-form-with-footer.json",
+                ),
+                "utf-8",
+              ),
+            );
+            assert.deepStrictEqual(entry.tags, recipe.tags);
+          } catch (_) {
+            errors.push(
+              "entry.tags must match recipe file's tags array exactly",
+            );
+          }
+        }
+      }
+    }
+  } catch (err) {
+    errors.push(`_index.json could not be parsed: ${err.message}`);
+  }
+
+  if (errors.length === 0) {
+    console.log(`PASS  ${label}`);
+    passed++;
+  } else {
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+  }
+}
+
 // ── summary ──────────────────────────────────────────────────────────
 
 console.log("");

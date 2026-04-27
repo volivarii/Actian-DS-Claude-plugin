@@ -67,5 +67,23 @@
       "embedded-list",
       "related-records"
     ]
+  },
+  {
+    "file": "composition-form-with-footer.json",
+    "archetype": "composition-form-with-footer",
+    "kind": "composition",
+    "composes": ["form-create", "sticky-footer"],
+    "pattern": 12,
+    "tags": [
+      "form",
+      "create",
+      "edit",
+      "save",
+      "footer",
+      "action-bar",
+      "composition",
+      "hybrid",
+      "sticky"
+    ]
   }
 ]
