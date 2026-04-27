@@ -318,6 +318,70 @@ function findTerminologyIssues(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 5: Tier justification (Sprint B1 — fallback ladder)
+// ---------------------------------------------------------------------------
+//
+// Schema requires a justification (>=30 chars) when a screen's tier is
+// "adapted" or "improvised". Tier "recognized" needs no justification.
+// Pre-tier flow-data (no `tier` field) is unaffected — backwards compatible.
+
+function checkTierJustification(screen, findings) {
+  if (!screen || !screen.tier) return; // backwards compat — pre-tier screens skip
+  if (screen.tier !== "adapted" && screen.tier !== "improvised") return; // tier 1 doesn't need justification
+
+  var j = screen.justification;
+  var trimmed = typeof j === "string" ? j.trim() : "";
+  var ok = typeof j === "string" && trimmed.length >= 30;
+  if (!ok) {
+    var sample;
+    if (j == null) {
+      sample = "null";
+    } else {
+      sample =
+        '"' + String(j).slice(0, 40) + '…" (' + trimmed.length + " chars)";
+    }
+    findings.push({
+      severity: "error",
+      kind: "missing-justification",
+      screen: screen.name,
+      message:
+        'Tier "' +
+        screen.tier +
+        '" requires a justification of 30+ chars; got ' +
+        sample,
+    });
+  }
+}
+
+function findMissingJustifications(data) {
+  var findings = [];
+  if (!data || !Array.isArray(data.screens)) return findings;
+  for (var si = 0; si < data.screens.length; si++) {
+    checkTierJustification(data.screens[si], findings);
+  }
+  return findings;
+}
+
+// ---------------------------------------------------------------------------
+// Aggregator — returns { findings } across all per-screen checks.
+// Kept distinct from the legacy P0/P1 check functions which return their own
+// shape. The aggregator normalises tier-related findings into the
+// { severity, kind, screen, message } shape expected by callers that need
+// a single entry point (e.g. parity-check, manifest gating).
+// ---------------------------------------------------------------------------
+
+function validate(data) {
+  var findings = [];
+  if (!data || !Array.isArray(data.screens)) {
+    return { findings: findings };
+  }
+  for (var si = 0; si < data.screens.length; si++) {
+    checkTierJustification(data.screens[si], findings);
+  }
+  return { findings: findings };
+}
+
+// ---------------------------------------------------------------------------
 // Exports (for testing) and CLI
 // ---------------------------------------------------------------------------
 
@@ -325,6 +389,8 @@ module.exports = {
   findBannedText: findBannedText,
   findUnresolvedTokens: findUnresolvedTokens,
   findTerminologyIssues: findTerminologyIssues,
+  findMissingJustifications: findMissingJustifications,
+  validate: validate,
 };
 
 if (require.main === module) {
@@ -380,6 +446,20 @@ if (require.main === module) {
   // Check 4: Terminology
   if (!skipTerminology) {
     allIssues = allIssues.concat(findTerminologyIssues(data));
+  }
+
+  // Check 5: Tier justification (B1 fallback ladder).
+  // Map to legacy CLI shape so the existing reporter handles them uniformly.
+  var tierFindings = findMissingJustifications(data);
+  for (var ti = 0; ti < tierFindings.length; ti++) {
+    var f = tierFindings[ti];
+    allIssues.push({
+      severity: "P0",
+      check: f.kind,
+      screen: f.screen || "(unknown)",
+      path: "tier/justification",
+      value: f.message,
+    });
   }
 
   // Report

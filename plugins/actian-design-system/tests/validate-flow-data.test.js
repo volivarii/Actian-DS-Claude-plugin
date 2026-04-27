@@ -257,4 +257,149 @@ describe("validate-flow-data", function () {
       assert.ok(issues.length > 0);
     });
   });
+
+  // === Task 3: Tier justification checks ===
+  describe("tier justification (validate)", function () {
+    it("tier 'recognized' without justification: no missing-justification error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "Catalog browse",
+            template: "studio",
+            pageHeader: { title: "Catalog" },
+            content: [],
+            tier: "recognized",
+            confidence: 0.9,
+            matchedRecipe: "table-list",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(
+        errs.length,
+        0,
+        "tier 1 should not require justification",
+      );
+    });
+
+    it("tier 'adapted' without justification: missing-justification error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "adapted",
+            confidence: 0.8,
+            composition: ["detail-page", "table-list"],
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(errs.length, 1, "tier 2 must require justification");
+      assert.strictEqual(errs[0].severity, "error");
+    });
+
+    it("tier 'improvised' without justification: missing-justification error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "improvised",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(errs.length, 1);
+      assert.strictEqual(errs[0].severity, "error");
+    });
+
+    it("tier 'adapted' with too-short justification (<30 chars): error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "adapted",
+            composition: ["detail-page", "table-list"],
+            justification: "too short",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(
+        errs.length,
+        1,
+        "<30 char justification treated as missing",
+      );
+    });
+
+    it("tier 'adapted' with valid justification: no error", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "adapted",
+            composition: ["detail-page", "table-list"],
+            justification:
+              "Form authoring benefits from real-time preview of the term card across screens.",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(errs.length, 0);
+    });
+
+    it("screen with no tier field at all: no missing-justification error (backwards compat)", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(
+        errs.length,
+        0,
+        "pre-tier flow-data must validate without injecting tier-related errors",
+      );
+    });
+  });
 });
