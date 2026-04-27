@@ -105,7 +105,7 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
       "id": "<node-id>",
       "label": "<human-readable label>",
       "tier": "recognized|adapted|improvised",
-      "confidence": 0.0,
+      "confidence": 0.85,
       "matchedRecipe": "<recipe-id>" | null,
       "composition": ["<id>", "<id>"] | null,
       "justification": "<string>" | null
@@ -132,9 +132,14 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
   - `confidence` (number, optional) — 0.0 to 1.0; classifier confidence
   - `matchedRecipe` (string|null, optional) — recipe ID at tier 1, null at tier 3
   - `composition` (array|null, optional) — recipe IDs at tier 2, null otherwise
-  - `justification` (string|null, optional) — required (in flow-data) when tier is `"adapted"` or `"improvised"`
+  - `justification` (string|null, optional) — required (non-null, ≥30 chars) when `tier` is `"adapted"` or `"improvised"`; null otherwise. The same field on the source `flow-data.json` screen object carries the same value (see `schemas/flow-data.schema.json`).
 
-  Pre-tier manifests (no tier field on entries) read as `tier: "unknown"` in tooling. No data migration required; tier metadata accumulates on next push.
+  **Per-tier field rules** (within each `pushedNodes` entry):
+  - **Tier 1 (recognized):** `matchedRecipe` set, `composition` null, `justification` null
+  - **Tier 2 (adapted):** `matchedRecipe` null, `composition` set, `justification` set (non-empty, ≥30 chars)
+  - **Tier 3 (improvised):** `matchedRecipe` null, `composition` null, `justification` set (≥30 chars; lists rejected archetypes)
+
+  Pre-tier manifests **omit** the `tier` field on entries. Tooling that reads these manifests should treat a missing `tier` as the synthetic in-memory value `"unknown"` — this value is **not** part of the on-disk enum. No data migration required; tier metadata is added on the next push that runs the classifier.
 - `htmlFile` — path relative to the project root of the static HTML output file
 - `prototypeFile` — path relative to the project root of the prototype file, or `null` if none was generated
 - `pushedAt` — ISO 8601 timestamp at the moment the manifest is written (e.g. `2026-03-27T14:32:00Z`)
@@ -150,24 +155,6 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
 | `component-brief` | `{project_dir}/components/{name}/.last-push.json` |
 | `generate-presentation` | `{project_dir}/presentations/{slug}/.last-push.json` |
 | `create-component` | `{project_dir}/components/{name}/.last-push.json` |
-
-### Tier summary line
-
-After all parity checks complete, output a tier summary on a single line:
-
-```
-Tiers: <N1> recognized, <N2> adapted, <N3> improvised
-```
-
-Where N1, N2, N3 are counts of `pushedNodes` entries at each tier. Skip the line if no entries have a `tier` field (pre-tier output).
-
-If any tier is improvised (N3 > 0), append on a second line:
-
-```
-Review tier-3 justification before approving push.
-```
-
-This is informational. Designer may proceed without acting on it. Justifications are visible in the GenLog card on the pushed Figma frame and in the per-node `pushedNodes[i].justification` field of the manifest.
 
 Write the manifest as the final step. Do not prompt the designer for confirmation before writing it.
 
@@ -188,6 +175,24 @@ For `componentKeys`: during the push step, collect the component key from every 
 - `component-brief`: the `brief-data.json` file
 - `generate-presentation`: the `presentation-data.json` file
 - `create-component`: the primary data file produced during build
+
+### Tier summary line
+
+After all parity checks complete, output a tier summary on a single line:
+
+```text
+Tiers: <N1> recognized, <N2> adapted, <N3> improvised
+```
+
+Where N1, N2, N3 are counts of `pushedNodes` entries at each tier. If no entries have a `tier` field (pre-tier output), omit the summary line entirely.
+
+If any tier is improvised (N3 > 0), append on a second line:
+
+```text
+Review tier-3 justification before approving push.
+```
+
+This is informational. Designer may proceed without acting on it. Justifications are visible in the GenLog card on the pushed Figma frame and in the per-node `pushedNodes[i].justification` field of the manifest.
 
 ## Integration pattern
 
