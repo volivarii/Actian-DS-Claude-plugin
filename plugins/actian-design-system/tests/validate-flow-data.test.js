@@ -402,4 +402,124 @@ describe("validate-flow-data", function () {
       );
     });
   });
+
+  // === Task 4: Severity-tiered soft-deviation checks ===
+  describe("severity-tiered soft-deviation", function () {
+    it("soft-deviation at tier 'recognized': severity warning", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [{ type: "FRAME", role: "off-recipe" }],
+            tier: "recognized",
+            matchedRecipe: "table-list",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var softs = (result.findings || []).filter(function (f) {
+        return f.kind === "soft-deviation";
+      });
+      assert.strictEqual(softs.length, 1);
+      assert.strictEqual(softs[0].severity, "warning");
+    });
+
+    it("soft-deviation at tier 'adapted': severity warning", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [{ type: "FRAME", role: "off-recipe" }],
+            tier: "adapted",
+            composition: ["detail-page", "table-list"],
+            justification:
+              "Form authoring benefits from real-time preview of related records.",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var softs = (result.findings || []).filter(function (f) {
+        return f.kind === "soft-deviation";
+      });
+      assert.strictEqual(softs.length, 1);
+      assert.strictEqual(softs[0].severity, "warning");
+    });
+
+    it("soft-deviation at tier 'improvised': severity info", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [{ type: "FRAME", role: "off-recipe" }],
+            tier: "improvised",
+            justification:
+              "No recipe matches; inventing structure for permission-block UX pattern.",
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var softs = (result.findings || []).filter(function (f) {
+        return f.kind === "soft-deviation";
+      });
+      assert.strictEqual(softs.length, 1);
+      assert.strictEqual(softs[0].severity, "info");
+    });
+
+    it("soft-deviation at no-tier (pre-tier flow-data): severity warning", function () {
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [{ type: "FRAME", role: "off-recipe" }],
+            // no tier
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var softs = (result.findings || []).filter(function (f) {
+        return f.kind === "soft-deviation";
+      });
+      assert.strictEqual(softs.length, 1);
+      assert.strictEqual(softs[0].severity, "warning");
+    });
+
+    it("missing-justification stays error at every tier (hard constraint)", function () {
+      // Verifies severityForTier doesn't downgrade hard-constraint findings
+      var data = {
+        meta: { feature: "X", app: "Studio" },
+        screens: [
+          {
+            name: "X",
+            template: "studio",
+            pageHeader: { title: "X" },
+            content: [],
+            tier: "improvised",
+            // missing justification — hard constraint
+          },
+        ],
+      };
+      var result = validate.validate(data);
+      var errs = (result.findings || []).filter(function (f) {
+        return f.kind === "missing-justification";
+      });
+      assert.strictEqual(errs.length, 1);
+      assert.strictEqual(
+        errs[0].severity,
+        "error",
+        "hard constraints don't downgrade by tier",
+      );
+    });
+  });
 });

@@ -367,6 +367,51 @@ function findMissingJustifications(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 6: Severity-tiered soft-deviation checks (Sprint B1 — fallback ladder)
+// ---------------------------------------------------------------------------
+//
+// Hard constraint violations stay "error" at every tier (banned text, invalid
+// tokens, missing-justification, etc.). Soft constraint deviations (recipe
+// shape mismatch, density misalignment) scale by tier:
+//   - tier 1 (recognized) or no tier → "warning"
+//   - tier 2 (adapted)               → "warning"
+//   - tier 3 (improvised)            → "info"
+//
+// MVP detector: matches content nodes with `role: "off-recipe"` (a sentinel
+// the classifier or future checks can emit). Real recipe-shape deviation
+// detection lands in Sprint C+ when fingerprinting infrastructure exists.
+
+var HARD_KINDS = [
+  "banned-text",
+  "invalid-token",
+  "missing-component",
+  "schema-violation",
+  "missing-justification",
+];
+
+function severityForTier(kind, tier) {
+  if (HARD_KINDS.indexOf(kind) !== -1) return "error";
+  if (tier === "improvised") return "info";
+  // tier 1, tier 2, no-tier (pre-tier flow-data) → warning
+  return "warning";
+}
+
+function checkRecipeAdherence(screen, findings) {
+  if (!screen || !Array.isArray(screen.content)) return;
+  for (var i = 0; i < screen.content.length; i++) {
+    var node = screen.content[i];
+    if (node && node.role === "off-recipe") {
+      findings.push({
+        severity: severityForTier("soft-deviation", screen.tier),
+        kind: "soft-deviation",
+        screen: screen.name,
+        message: "Content node deviates from matched recipe shape",
+      });
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
 // Aggregator entry point. Returns { findings: [...] } using the new shape
 // { severity, kind, screen, message }.
 //
@@ -387,7 +432,9 @@ function validate(data) {
     return { findings: findings };
   }
   for (var si = 0; si < data.screens.length; si++) {
-    checkTierJustification(data.screens[si], findings);
+    var screen = data.screens[si];
+    checkTierJustification(screen, findings);
+    checkRecipeAdherence(screen, findings);
   }
   return { findings: findings };
 }
@@ -402,6 +449,8 @@ module.exports = {
   findTerminologyIssues: findTerminologyIssues,
   findMissingJustifications: findMissingJustifications,
   validate: validate,
+  severityForTier: severityForTier,
+  checkRecipeAdherence: checkRecipeAdherence,
 };
 
 if (require.main === module) {
