@@ -87,6 +87,7 @@ const {
   buildTextStyle,
   resolveChrome,
   screen,
+  tierBadge,
 } = mockWindow._testExports || {};
 
 assert(typeof renderContentNode === "function", "renderContentNode exported");
@@ -95,6 +96,7 @@ assert(typeof parseVariant === "function", "parseVariant exported");
 assert(typeof buildFrameStyle === "function", "buildFrameStyle exported");
 assert(typeof buildTextStyle === "function", "buildTextStyle exported");
 assert(typeof resolveChrome === "function", "resolveChrome exported");
+assert(typeof tierBadge === "function", "tierBadge exported");
 
 // ---------------------------------------------------------------------------
 // FRAME node
