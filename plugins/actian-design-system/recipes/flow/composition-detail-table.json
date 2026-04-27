@@ -5,14 +5,23 @@
   "tier": "adapted",
   "description": "Detail page hosting a related-records table inline. Use when an entity's detail view includes a list of associated items (e.g., a dataset detail with its glossary terms, a user profile with their owned datasets, a catalog item with its lineage records). The detail page provides the primary entity context; the embedded table-list provides drill-down into related entities.",
   "pattern": 11,
-  "tags": ["detail", "table", "composition", "hybrid", "embedded-list", "related-records"],
+  "tags": [
+    "detail",
+    "table",
+    "composition",
+    "hybrid",
+    "embedded-list",
+    "related-records"
+  ],
   "slots": {
     "primary": "Detail page (header, summary, properties) — uses detail-view skeleton",
-    "embedded": "Related-records table beneath the properties section — uses table-list skeleton (compact mode preferred)",
-    "context-source": "detail-view",
-    "embed-source": "table-list",
-    "embed-position": "after-properties",
-    "embed-size": "secondary"
+    "embedded": "Related-records table beneath the properties section — uses table-list skeleton (compact mode preferred)"
+  },
+  "embed_config": {
+    "context_source": "detail-view",
+    "embed_source": "table-list",
+    "embed_position": "after-properties",
+    "embed_size": "secondary"
   },
   "skeleton": {
     "chrome": "standard",
@@ -27,6 +36,7 @@
   ],
   "guidance": "At hifi, the embedded table should default to compact density and limit visible rows (~5-10) with a 'View all' link to a dedicated table-list screen. Avoid duplicating filters from the parent detail page; the embedded table operates within an already-scoped context.",
   "notes": [
+    "`skeleton.composition: true` signals the renderer to treat the content array as additive on top of the composed recipes' skeletons, rather than as the authoritative skeleton. The composed recipes (detail-view + table-list) provide the base structure.",
     "Composition recipe — references the skeletons of detail-view and table-list rather than duplicating them.",
     "Renderer should compose the detail-view skeleton, then inject the table-list body skeleton (without its pageHeader) inside the left column after the properties section.",
     "Use compact table density when embedded; show a 'View all' link if the related set exceeds the embedded row cap."

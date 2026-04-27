@@ -59,6 +59,13 @@
     "kind": "composition",
     "composes": ["detail-view", "table-list"],
     "pattern": 11,
-    "tags": ["detail", "table", "composition", "hybrid", "embedded-list"]
+    "tags": [
+      "detail",
+      "table",
+      "composition",
+      "hybrid",
+      "embedded-list",
+      "related-records"
+    ]
   }
 ]
