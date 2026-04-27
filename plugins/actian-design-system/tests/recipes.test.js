@@ -460,6 +460,125 @@ if (fs.existsSync(PRES_INDEX_PATH)) {
   }
 }
 
+// ── Task 5: composition-detail-table recipe ─────────────────────────
+
+{
+  const label = "composition-detail-table.json (composition checks)";
+  const errors = [];
+  const recipePath = path.join(
+    RECIPES_DIR,
+    "flow",
+    "composition-detail-table.json",
+  );
+
+  if (!fs.existsSync(recipePath)) {
+    errors.push("recipe file must exist at flow/composition-detail-table.json");
+  } else {
+    let recipe;
+    try {
+      recipe = JSON.parse(fs.readFileSync(recipePath, "utf-8"));
+    } catch (err) {
+      errors.push(`recipe file is not valid JSON: ${err.message}`);
+    }
+
+    if (recipe) {
+      // Required composition fields
+      if (recipe.archetype !== "composition-detail-table") {
+        errors.push(
+          `archetype must be "composition-detail-table", got "${recipe.archetype}"`,
+        );
+      }
+      if (recipe.kind !== "composition") {
+        errors.push(`kind must be "composition", got "${recipe.kind}"`);
+      }
+      try {
+        assert.deepStrictEqual(recipe.composes, ["detail-view", "table-list"]);
+      } catch (_) {
+        errors.push(
+          `composes must equal ["detail-view","table-list"], got ${JSON.stringify(recipe.composes)}`,
+        );
+      }
+      if (
+        typeof recipe.description !== "string" ||
+        recipe.description.length === 0
+      ) {
+        errors.push("description must be a non-empty string");
+      }
+      if (!Array.isArray(recipe.tags)) {
+        errors.push("tags must be an array");
+      }
+
+      // Slots describing each composed recipe's role
+      if (
+        typeof recipe.slots !== "object" ||
+        recipe.slots === null ||
+        Array.isArray(recipe.slots)
+      ) {
+        errors.push("slots field required (object)");
+      } else if (Object.keys(recipe.slots).length < 2) {
+        errors.push(
+          "slots must have at least 2 entries (one per composed recipe role)",
+        );
+      }
+    }
+  }
+
+  if (errors.length === 0) {
+    console.log(`PASS  ${label}`);
+    passed++;
+  } else {
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+  }
+}
+
+{
+  const label = "_index.json registers composition-detail-table";
+  const errors = [];
+
+  try {
+    const idx = JSON.parse(fs.readFileSync(INDEX_PATH, "utf-8"));
+    if (!Array.isArray(idx)) {
+      errors.push("index is not a flat array");
+    } else {
+      const entry = idx.find((e) => e.archetype === "composition-detail-table");
+      if (!entry) {
+        errors.push(
+          "composition-detail-table must be registered in _index.json",
+        );
+      } else {
+        if (entry.file !== "composition-detail-table.json") {
+          errors.push(
+            `entry.file must be "composition-detail-table.json", got "${entry.file}"`,
+          );
+        }
+        if (entry.kind !== "composition") {
+          errors.push(`entry.kind must be "composition", got "${entry.kind}"`);
+        }
+        try {
+          assert.deepStrictEqual(entry.composes, ["detail-view", "table-list"]);
+        } catch (_) {
+          errors.push(
+            `entry.composes must equal ["detail-view","table-list"], got ${JSON.stringify(entry.composes)}`,
+          );
+        }
+      }
+    }
+  } catch (err) {
+    errors.push(`_index.json could not be parsed: ${err.message}`);
+  }
+
+  if (errors.length === 0) {
+    console.log(`PASS  ${label}`);
+    passed++;
+  } else {
+    console.log(`FAIL  ${label}`);
+    errors.forEach((e) => console.log(`        ${e}`));
+    failed++;
+  }
+}
+
 // ── summary ──────────────────────────────────────────────────────────
 
 console.log("");
