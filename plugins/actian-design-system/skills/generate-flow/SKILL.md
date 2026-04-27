@@ -15,6 +15,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
 3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
 4. **Gate 3 — Screen list + detail level** (single gate, both choices, see below)
 5. Build `flow-data.json`
+   - **Tier classification (REQUIRED — runs in BOTH modes before generating screen content):** Read `agents/screen-generator.md` Step 0 and apply the classifier per-screen. Every screen object in the output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section. Then read `agents/screen-generator.md` "Tier-aware generation rules" section and apply the rules matching each screen's tier when authoring its content. **Parallel and sequential modes both apply the classifier — sequential does NOT skip Step 0.**
    - Read `recipes/flow/_index.json` — if an archetype matches the screen, use its skeleton. Recipes are accelerators, not constraints.
    - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in batches of 2-3, merge with:
      ```bash
@@ -23,7 +24,7 @@ Build a lo-fi user flow and push to Figma. FM components, Inter font, FM palette
        --type flow --partials-dir {project_working_directory}/components/flows/.partial \
        --output {project_working_directory}/components/flows/flow-data.json
      ```
-     Sequential mode (<6 screens): build flow-data.json directly.
+     Sequential mode (<6 screens): build flow-data.json directly — but FIRST classify each screen per the agent's Step 0 (above).
 6. **Validate flow data** — run the validation script before pushing:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
