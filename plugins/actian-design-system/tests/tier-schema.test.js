@@ -7,6 +7,12 @@
  * Zero dependencies — uses only Node.js built-ins.
  */
 
+// NOTE: These tests verify schema *shape* (field presence, types, conditional rules
+// being declared) rather than schema *behavior* (whether a sample document actually
+// validates). Behavioral validation against the schema lives in Task 12 of Sprint B1
+// (integration fixtures hitting validate-flow-data.js end-to-end). Structural-only
+// tests here keep this task scoped + zero-deps; behavioral coverage arrives in Task 12.
+
 const fs = require("node:fs");
 const path = require("node:path");
 const assert = require("node:assert");
@@ -59,10 +65,11 @@ test("schema has matchedRecipe nullable string", () => {
 test("schema has composition nullable array of strings", () => {
   const screenDef = getScreenDef();
   assert.ok(screenDef.properties.composition.type.includes("array"));
+  assert.ok(screenDef.properties.composition.type.includes("null"));
   assert.strictEqual(screenDef.properties.composition.items.type, "string");
 });
 
-test("schema has justification with minLength 30 (when present)", () => {
+test("schema declares justification minLength 30", () => {
   const screenDef = getScreenDef();
   assert.strictEqual(screenDef.properties.justification.minLength, 30);
 });
@@ -86,6 +93,20 @@ test("schema requires justification when tier is adapted", () => {
       JSON.stringify(r).includes("justification"),
   );
   assert.ok(adaptedRule, "adapted tier should require justification");
+});
+
+test("tier field is optional (not in required)", () => {
+  const screenDef = getScreenDef();
+  const required = screenDef.required || [];
+  assert.ok(
+    !required.includes("tier"),
+    "tier must remain optional for backwards compat",
+  );
+  assert.ok(!required.includes("confidence"), "confidence must be optional");
+  assert.ok(
+    !required.includes("justification"),
+    "justification must be optional (conditionally required only via allOf)",
+  );
 });
 
 console.log("All tier schema tests passed.");
