@@ -24,6 +24,36 @@ Each registry entry contains: `key`, `importMethod` ("set" for `importComponentS
 
 ## 2. Core Patterns
 
+## 0. Auto-Layout Defaults
+
+**Any row containing text MUST use `sizing: { horizontal: "FILL" }` with text children at `Hug` sizing.** Never set fixed widths on text-bearing rows.
+
+This prevents the row-clipping symptom seen during the Sprint B1 smoke test (long descriptive text overflowing fixed-width parent frames).
+
+**Correct:**
+
+```js
+parentRow.layoutMode = "HORIZONTAL";
+parentRow.primaryAxisSizingMode = "FIXED";   // FILL container width
+parentRow.counterAxisSizingMode = "AUTO";    // HUG content height
+parentRow.layoutAlign = "STRETCH";
+
+textChild.layoutSizingHorizontal = "HUG";    // text hugs its content
+textChild.layoutSizingVertical = "HUG";
+textChild.textAutoResize = "WIDTH_AND_HEIGHT";
+```
+
+**Wrong (causes clipping):**
+
+```js
+parentRow.resize(400, 24);                    // fixed 400px width
+textChild.resize(380, 20);                    // fixed text width
+```
+
+For helper text or descriptions that may wrap, set the parent row to FILL horizontal and the text child to FILL horizontal with `textAutoResize = "HEIGHT"` so multi-line content expands vertically without clipping.
+
+---
+
 ### Pattern 1: Create wrapper frame + position on page
 
 ```js
