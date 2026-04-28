@@ -116,7 +116,12 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
   "pushedAt": "<ISO-8601-timestamp>",
   "sourceHash": "<sha256-hex-of-source-data-file>",
   "componentKeys": ["<unique-component-keys-used>"],
-  "tokenHash": "<sha256-hex-of-tokens-file>"
+  "tokenHash": "<sha256-hex-of-tokens-file>",
+  "propertyDefaultsHash": {
+    "fm": "<sha256-hex-of-fmkit-property-defaults>",
+    "ds": "<sha256-hex-of-dskit-property-defaults>",
+    "meta": "<sha256-hex-of-metakit-property-defaults>"
+  }
 }
 ```
 
@@ -147,6 +152,7 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
 - `sourceHash` — SHA-256 hex digest of the source data file (e.g., `flow-data.json`, `brief-data.json`) at push time. Enables detecting if source data changed since last push.
 - `componentKeys` — deduplicated array of Figma component keys imported during this push. Enables usage analytics and changelog diffs between pushes.
 - `tokenHash` — SHA-256 hex digest of `tokens/actian-ds.tokens.json` at push time. Enables detecting token drift — if tokens changed since last push, outputs may need regeneration.
+- `propertyDefaultsHash` — per-kit SHA-256 hex digests of component property defaults (text/boolean default values) at push time. Computed via `computePropertyDefaultsHashes({ fm, ds, meta })` from `scripts/changelog.js`. Enables detecting when a designer edits component default values upstream between syncs.
 
 **Manifest locations by skill:**
 
@@ -167,9 +173,23 @@ Before writing the manifest, compute the enrichment fields:
 source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
 SOURCE_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('$SOURCE_FILE')).digest('hex'))")
 TOKEN_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('${CLAUDE_PLUGIN_ROOT}/tokens/actian-ds.tokens.json')).digest('hex'))")
+PROPERTY_DEFAULTS_HASH=$("$NODE_BIN" -e "
+var changelog = require('${CLAUDE_PLUGIN_ROOT}/scripts/changelog.js');
+var path = require('path');
+var fs = require('fs');
+var root = '${CLAUDE_PLUGIN_ROOT}';
+var registries = {
+  fm:   JSON.parse(fs.readFileSync(path.join(root, 'docs', 'fmkit.json'), 'utf8')),
+  ds:   JSON.parse(fs.readFileSync(path.join(root, 'docs', 'dskit.json'), 'utf8')),
+  meta: JSON.parse(fs.readFileSync(path.join(root, 'docs', 'metakit.json'), 'utf8'))
+};
+process.stdout.write(JSON.stringify(changelog.computePropertyDefaultsHashes(registries)));
+")
 ```
 
 For `componentKeys`: during the push step, collect the component key from every `use_figma` call that imports a component instance. Deduplicate the list before writing.
+
+For `propertyDefaultsHash`: include the JSON object produced by `PROPERTY_DEFAULTS_HASH` above as the `propertyDefaultsHash` field. It is a `{ fm, ds, meta }` object of SHA-256 hex strings.
 
 `$SOURCE_FILE` is the path to the source data file:
 - `generate-flow`: the `flow-data.json` file

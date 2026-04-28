@@ -1,35 +1,28 @@
 # Fat Marker Kit — Component Reference
 
-Auto-generated from Figma MCP.
+Auto-generated from `docs/fmkit.json` by `scripts/render-component-reference.js`.
 44 components.
-
-Source: [Page mockups](https://www.figma.com/design/<FM_KIT_FILE_KEY>)
 
 ---
 
-## Fat Marker
+### Comment box
 
-### Sticky note
-
-- Variants: **Property 1:** `Default` · `Critical`
-- Node: `139:2309` | Key: `9b4f450c92de6178731d1eca0f03f42ac3f64085`
+- Single component (no variants)
+- Node: `2:18929` | Key: `74c07863dc054e1c7c7e80e7419de2989f5ac504`
 
 ### FM Alert
+
 Inline feedback message for success, error, or warning states. Use for persistent status messages — for brief confirmations, use FM Toast instead.
 
 - Variants: **Type:** `Success` · `Error` · `Warning`
 - Node: `1052:9637` | Key: `fe30f37740688350762bd2b1be426d9d1588b7d9`
 
-### FM Banner
-Page-level persistent notice bar. Use for system-wide messages that stay visible until dismissed.
-
-- Single component (no variants)
-- Node: `36:3235` | Key: `d7f323e492b456a2c56f81f3dc892eb24de11a6e`
-
 ### FM App_header
+
 Top-level application header bar. Contains the Actian logo, product label, and user avatar. Use at the top of every screen mockup.
 
 - Variants: **Type:** `Admin` · `Explorer` · `Studio` · `Actian`
+- Boolean properties: `Show Context inputs#186:0` (default: true) — set to `false` to hide
 - Node: `67:1858` | Key: `8fc9bcee610c7f8d22ebcc268467993f6dc99c87`
 
 ### FM Badge
@@ -37,11 +30,17 @@ Top-level application header bar. Contains the Actian logo, product label, and u
 - Variants: **Size:** `Small` · `Medium` · `Large` | **Type:** `Icon` · `Number` · `Number Expand`
 - Node: `8:22406` | Key: `2410b87c83d33d3bcb2a6ac7aa2168a53a4eb3d8`
 
+### FM Banner
+
+- Single component (no variants)
+- Node: `36:3235` | Key: `d7f323e492b456a2c56f81f3dc892eb24de11a6e`
+
 ### FM Button
 
 - Variants: **Size:** `md` · `sm` | **Shape:** `Regular` · `Pill` | **Type:** `Primary` · `Secondary` · `Outline` · `Destructive` | **State:** `Default` · `Disabled`
-- Text overrides: `Label`
-- Boolean properties: `👁 Leading Icon` (default: true) · `👁 Trailing Icon` (default: true) — set to `false` to hide icon placeholders
+- Text overrides: `Label#1411:32`
+- **Required overrides:** `Label#1411:32` (default `"Button label"` is a placeholder)
+- Boolean properties: `👁 Leading Icon#1410:3` (default: true) — set to `false` to hide · `👁 Trailing Icon#1410:6` (default: true) — set to `false` to hide
 - Node: `8:21044` | Key: `368b62312ca941c80ea8eeed84a57d33bb470b09`
 
 ### FM Checkbox
@@ -52,6 +51,7 @@ Top-level application header bar. Contains the Actian logo, product label, and u
 ### FM Chip
 
 - Variants: **Outline:** `False` · `True`
+- Boolean properties: `Icon#163:337` (default: true) — set to `false` to hide
 - Node: `8:22389` | Key: `0861d937682e66d39f57fe52ca83d526e634ff66`
 
 ### FM Cursor
@@ -62,22 +62,24 @@ Top-level application header bar. Contains the Actian logo, product label, and u
 ### FM Date input
 
 - Variants: **State:** `Default` · `Open` · `Placeholder`
-- Text overrides: `Input Text`
+- Text overrides: `Input Text#1451:1`
 - Node: `8:21321` | Key: `69d6329ea2d5ac3515b6ebb04ad6c1bd72e4890e`
 
 ### FM Dialog
-Modal dialog for confirmations. Contains title, body text, and action buttons (uses FM Button instances). Use for actions that need explicit user decision before proceeding.
 
 - Single component (no variants)
 - Node: `9:1382` | Key: `0cc53eca9c90cccb8cbc57864ea110378414fd2b`
 
 ### FM Dropdown
+
 Single-select dropdown. Placeholder = empty, Filled = value selected, Open = showing options, Disabled = non-interactive.
 
 - Variants: **Type:** `Placeholder` · `Open` · `Disabled` · `Filled`
+- Boolean properties: `Show label#176:13` (default: true) — set to `false` to hide
 - Node: `8:21420` | Key: `781f86dca2a37706771f3e2e580242d2693a722f`
 
 ### FM Empty State
+
 Empty or zero-data state placeholder. Default = centered with icon and text. Compact = smaller, for inline use. Include onboarding hint text to guide the user.
 
 - Variants: **Type:** `Default` · `Compact`
@@ -91,11 +93,12 @@ Empty or zero-data state placeholder. Default = centered with icon and text. Com
 ### FM Input Label
 
 - Variants: **Disabled:** `No` · `Yes` | **Type:** `Text` · `Placeholder`
-- Text overrides: `Label Text`, `Caption Text`
+- Text overrides: `Label Text#1555:11`, `Caption Text#1555:12`
+- **Required overrides:** `Label Text#1555:11` (default `"Label"` is a placeholder)
+- Boolean properties: `Caption#1555:9` (default: true) — set to `false` to hide
 - Node: `23:1207` | Key: `a39aa1c7cb593f7d26b7659e4cbe4e419e00c766`
 
 ### FM Menu
-Dropdown menu container. Use with FM Menu item instances as children.
 
 - Single component (no variants)
 - Node: `8:21644` | Key: `696ef83ffe2d0af84432b8f12cc15b43e0b25a15`
@@ -108,20 +111,36 @@ Dropdown menu container. Use with FM Menu item instances as children.
 ### FM Multi-select dropdown
 
 - Variants: **Type:** `Placeholder` · `Disabled` · `Open Multi-select` · `Filled` · `User Filled`
-- Text overrides: `Dropdown Text`
+- Text overrides: `Dropdown Text#1411:84`
+- Boolean properties: `Show label#176:18` (default: true) — set to `false` to hide
 - Node: `8:21443` | Key: `876bfa32334594915085ebea82f1f887b3fecb09`
 
 ### FM Multi-select menu item
 
 - Variants: **State:** `On` · `Off` · `User Off`
-- Text overrides: `Dropdown item text`
+- Text overrides: `Dropdown item text#1428:2`
 - Node: `8:21659` | Key: `56ad08f30372948c12ebb989e47e6260342eab52`
 
+### FM Nav bar
+
+- Variants: **Property 1:** `Default` · `Slim`
+- Node: `1020:2324` | Key: `1e8673ccc2818b68f9faabb99757bfd44af2b592`
+
+### FM Nav item
+
+- Variants: **State:** `On` · `Off` · `Placeholder`
+- Text overrides: `Label#1463:4`
+- **Required overrides:** `Label#1463:4` (default `"Nav Item"` is a placeholder)
+- Boolean properties: `Show icon#166:0` (default: true) — set to `false` to hide · `Show Label#1020:0` (default: true) — set to `false` to hide · `Chevron#1507:0` (default: true) — set to `false` to hide
+- Node: `8:21525` | Key: `d18a0a772ed4acd760c497cb93de796ff052a7b4`
+
 ### FM Page Header
+
 Page title area with optional subtitle and action buttons.
 
 - Variants: **Type:** `Title only` · `Title + Subtitle` · `Title + Actions`
-- Text overrides: `Title`, `Subtitle`
+- Text overrides: `Title#979:22`, `Subtitle#979:23`
+- **Required overrides:** `Title#979:22` (default `"Page Title"` is a placeholder), `Subtitle#979:23` (default `"Description text"` is a placeholder)
 - Node: `979:3117` | Key: `ae1f8684a4a89aa74463d439e4e8c1e7a48137fe`
 
 ### FM Placeholder
@@ -136,32 +155,21 @@ Page title area with optional subtitle and action buttons.
 
 ### FM Radio button
 
-- Variants: **State:** `On` · `Off` | **Style:** `Default` · `Disabled`
+- Variants: **Format:** `Default` · `Card` | **State:** `On` · `Off` | **Style:** `Default` · `Disabled`
+- Boolean properties: `Show Label#1072:0` (default: true) — set to `false` to hide
 - Node: `8:21160` | Key: `1569353eb82fd5f6cb8da979f1048cd1b323e8c4`
 
 ### FM Rich text field
-Multi-line rich text input with formatting support.
 
 - Single component (no variants)
-- Text overrides: `Input Text`
 - Node: `8:21282` | Key: `284aa580c4c313ba309ff9eda15b3da8c957cd18`
 
-### FM Search input field
+### FM Search input
 
 - Variants: **Type:** `Empty` · `Placeholder` · `Filled`
-- Text overrides: `Input Text`
+- Text overrides: `Input Text#1411:57`
+- Boolean properties: `Show label#176:9` (default: true) — set to `false` to hide
 - Node: `8:21302` | Key: `443e232d5454f06dbd5bc06c2cacf21e80a20e4a`
-
-### FM Side navigation bar
-
-- Variants: **Property 1:** `Default` · `Slim`
-- Node: `1020:2324` | Key: `1e8673ccc2818b68f9faabb99757bfd44af2b592`
-
-### FM Side navigation item
-
-- Variants: **State:** `On` · `Off` · `Placeholder`
-- Text overrides: `Label`
-- Node: `8:21525` | Key: `d18a0a772ed4acd760c497cb93de796ff052a7b4`
 
 ### FM Slider
 
@@ -169,49 +177,59 @@ Multi-line rich text input with formatting support.
 - Node: `8:21194` | Key: `181d7f761179e7ce2f2849ae5c73989177d3a3c6`
 
 ### FM Spinner
-Loading indicator. Use for inline loading states within a component or section.
 
 - Single component (no variants)
 - Node: `8:21577` | Key: `52927648847b15a51d314cf06ca1c0f19f398b4d`
 
 ### FM Stepper
+
 Step indicator for multi-step wizard flows. Place in a horizontal row — one instance per step. Active = current step, Complete = done, Upcoming = not yet reached.
 
 - Variants: **State:** `Active` · `Complete` · `Upcoming`
 - Node: `1052:9653` | Key: `d0a21b5288571cc7690c6c9289d18cd298035c53`
 
 ### FM Tab
+
 Tab for switching between views within the same context. On = active tab, Off = inactive, Placeholder = future/reserved tab slot.
 
 - Variants: **State:** `On` · `Off` · `Placeholder`
+- Boolean properties: `Show Icon#20:0` (default: true) — set to `false` to hide
 - Node: `8:21619` | Key: `cfbd732ff4f4e6620b333c60f1ac7fe5116a93aa`
 
-### FM Tabs
-Tab bar container. Use with FM Tab instances as children. Provides the underline bar and horizontal layout.
-
-- Single component (no variants)
-- Node: `20:1705` | Key: `860eadef9ba29cf20a3da3ca9d014718e3f6cabb`
-
 ### FM Table Cell
+
 Table cell for data tables. Header = column title, Text = data value, Pill = status badge, Placeholder = future column.
 
 - Variants: **Type:** `Header` · `Text` · `Pill` · `Placeholder`
 - Node: `8:21551` | Key: `9267fecfadc4577563deb1425fa598d1f5af9144`
 
+### FM Table example
+
+- Single component (no variants)
+- Node: `9:1127` | Key: `31c00b04d7dfda38c8577f8541afe48b15fba00a`
+
+### FM Tabs
+
+- Single component (no variants)
+- Node: `20:1705` | Key: `860eadef9ba29cf20a3da3ca9d014718e3f6cabb`
+
 ### FM Tag
 
 - Variants: **Style:** `Filled` · `Outline` · `Light`
+- Boolean properties: `Icon Left#163:343` (default: true) — set to `false` to hide
 - Node: `8:22396` | Key: `c7239d9355ddf557f36f4d159153619672ab81ef`
 
 ### FM Text Area
 
 - Variants: **Content:** `None` · `Placeholder` · `Filled`
+- Boolean properties: `Show label#176:5` (default: true) — set to `false` to hide
 - Node: `8:21882` | Key: `bba14eea66edb3871ea389afeb4e1a07585e5733`
 
-### FM Text input field
+### FM Text input
 
 - Variants: **Type:** `Empty` · `Placeholder` · `Default` · `Disabled`
-- Text overrides: `Input Text`
+- Text overrides: `Input Text#1411:57`
+- Boolean properties: `Show label#176:0` (default: true) — set to `false` to hide
 - Node: `8:21220` | Key: `355855c7b2e05b5b336167883b3c9ebbfbd881ad`
 
 ### FM Toast
@@ -220,18 +238,33 @@ Table cell for data tables. Header = column title, Text = data value, Pill = sta
 - Node: `8:21566` | Key: `6140b137ce98ebfeeb7fc7e426f6d09de1cc18d0`
 
 ### FM Toggle
+
 On/off toggle switch. Use for immediate binary actions. Pair with a text label using fm-custom-toggle-row layout. Disabled style reduces opacity.
 
 - Variants: **State:** `Off` · `On` | **Style:** `Default` · `Disabled`
 - Node: `8:21173` | Key: `fe9e82118d1df75a8aea732eb7f9169ccaa21878`
 
-### FM User
-User avatar placeholder. Use in headers, comments, or user lists.
-
-- Single component (no variants)
-- Node: `70:1783` | Key: `5c1b3d8d00056075c833799200d3cc27b6d915f0`
-
 ### FM Tooltip
 
 - Variants: **Position:** `Left` · `Left Top` · `Left Bottom` · `Right` · `Right Top` · `Right Bottom` · `Top` · `Top Left` · `Top Right` · `Bottom` · `Bottom Left` · `Bottom Right`
 - Node: `8:22316` | Key: `82fc81413312e7e69981169db50003765cf94423`
+
+### FM User
+
+- Single component (no variants)
+- Node: `70:1783` | Key: `5c1b3d8d00056075c833799200d3cc27b6d915f0`
+
+### Google_Header
+
+- Single component (no variants)
+- Node: `215:3048` | Key: `0d7ad22ff52dfd1ebf3ef099e3dd573e99ac7020`
+
+### icon-placeholder
+
+- Single component (no variants)
+- Node: `9:1404` | Key: `ae4cb8ae57725689509e57001cfaf83a28ee1c85`
+
+### Sticky note
+
+- Variants: **Property 1:** `Default` · `Critical`
+- Node: `139:2309` | Key: `9b4f450c92de6178731d1eca0f03f42ac3f64085`

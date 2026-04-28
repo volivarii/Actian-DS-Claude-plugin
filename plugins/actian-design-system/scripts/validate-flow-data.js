@@ -5,6 +5,86 @@ var fs = require("fs");
 var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
+var rules = require(path.join(__dirname, "component-property-rules.js"));
+
+// ---------------------------------------------------------------------------
+// Pass 1: registry helpers + INSTANCE-node walker
+// ---------------------------------------------------------------------------
+
+function loadKitRegistry(kit) {
+  var fileName =
+    kit === "fm" ? "fmkit.json" : kit === "ds" ? "dskit.json" : "metakit.json";
+  var registryPath = path.join(__dirname, "..", "docs", fileName);
+  try {
+    return JSON.parse(fs.readFileSync(registryPath, "utf8"));
+  } catch (e) {
+    return { components: {} };
+  }
+}
+
+var _registryCache = null;
+function getCombinedRegistry() {
+  if (_registryCache) return _registryCache;
+  var fm = loadKitRegistry("fm").components || {};
+  var ds = loadKitRegistry("ds").components || {};
+  // Build slug → componentDef lookup. flow-data.json uses camelCase refs
+  // ('fmButton', 'fmPageHeader'); registry slugs are kebab-case
+  // ('fm-button', 'fm-page-header'). Index both forms.
+  var combined = {};
+  function indexKit(kit) {
+    var slugs = Object.keys(kit);
+    for (var i = 0; i < slugs.length; i++) {
+      combined[slugs[i]] = kit[slugs[i]]; // kebab-case
+      // camelCase form: 'fm-button' → 'fmButton'
+      var camel = slugs[i].replace(/-([a-z])/g, function (_, c) {
+        return c.toUpperCase();
+      });
+      combined[camel] = kit[slugs[i]];
+    }
+  }
+  indexKit(fm);
+  indexKit(ds);
+  _registryCache = combined;
+  return _registryCache;
+}
+
+function walkInstanceNodes(node, currentPath, callback) {
+  if (node === null || node === undefined) return;
+  if (Array.isArray(node)) {
+    for (var i = 0; i < node.length; i++) {
+      walkInstanceNodes(node[i], currentPath + "[" + i + "]", callback);
+    }
+    return;
+  }
+  if (typeof node !== "object") return;
+  if (node.type === "INSTANCE" && typeof node.ref === "string") {
+    callback(node, currentPath);
+  }
+  var keys = Object.keys(node);
+  for (var k = 0; k < keys.length; k++) {
+    walkInstanceNodes(node[keys[k]], currentPath + "." + keys[k], callback);
+  }
+}
+
+function walkStringValues(node, currentPath, callback) {
+  if (node === null || node === undefined) return;
+  if (typeof node === "string") {
+    callback(node, currentPath);
+    return;
+  }
+  if (Array.isArray(node)) {
+    for (var i = 0; i < node.length; i++) {
+      walkStringValues(node[i], currentPath + "[" + i + "]", callback);
+    }
+    return;
+  }
+  if (typeof node === "object") {
+    var keys = Object.keys(node);
+    for (var k = 0; k < keys.length; k++) {
+      walkStringValues(node[keys[k]], currentPath + "." + keys[k], callback);
+    }
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Banned placeholder strings (P0 — blocks push)
@@ -60,7 +140,7 @@ function walkNodes(nodes, screenName, pathPrefix, visitor) {
 // Check 1: Banned text detection
 // ---------------------------------------------------------------------------
 
-function findBannedText(data) {
+function findBannedTextRaw(data) {
   var issues = [];
 
   for (var si = 0; si < data.screens.length; si++) {
@@ -182,7 +262,7 @@ function extractTokenRefs(obj) {
   return refs;
 }
 
-function findUnresolvedTokens(data) {
+function findUnresolvedTokensRaw(data) {
   var tokenNames = loadTokenNames();
   if (!tokenNames) return [];
 
@@ -258,7 +338,7 @@ function buildTerminologyRules(terminology) {
   return rules;
 }
 
-function findTerminologyIssues(data) {
+function findTerminologyIssuesRaw(data) {
   var terminology = loadTerminology();
   if (!terminology) return [];
 
@@ -357,7 +437,7 @@ function checkTierJustification(screen, findings) {
   }
 }
 
-function findMissingJustifications(data) {
+function findMissingJustificationsRaw(data) {
   var findings = [];
   if (!data || !Array.isArray(data.screens)) return findings;
   for (var si = 0; si < data.screens.length; si++) {
@@ -412,31 +492,191 @@ function checkRecipeAdherence(screen, findings) {
 }
 
 // ---------------------------------------------------------------------------
-// Aggregator entry point. Returns { findings: [...] } using the new shape
-// { severity, kind, screen, message }.
+// Aggregator entry point. Returns { findings: [...] } using the unified shape
+// { severity, kind, screen, message } plus any extra fields needed by legacy
+// adapters. opts.skipTokens and opts.skipTerminology mirror the CLI flags.
 //
-// Currently wraps a single check (tier justification); Task 4 will grow this
-// to host severity-tiered soft-deviation findings (warning at tier 1/2, info
-// at tier 3) — gradations the legacy P0/P1 shape can't express.
-//
-// Per-check functions (findBannedText, findUnresolvedTokens, etc.) remain the
-// granular API for callers that need the legacy {severity: "P0"|"P1", check,
-// screen, path, value} shape (e.g. the CLI runner). Both APIs coexist
-// intentionally for Sprint B1; consolidation is a follow-up after Task 4
-// lands and the aggregator's design has settled.
+// All legacy P0/P1 checks are folded in here so validate() is the single
+// authoritative runner. Legacy public functions (findBannedText, etc.) are
+// thin adapters over validate() — see below.
 // ---------------------------------------------------------------------------
 
-function validate(data) {
+function validate(data, opts) {
+  opts = opts || {};
   var findings = [];
-  if (!data || !Array.isArray(data.screens)) {
-    return { findings: findings };
+  if (!data || typeof data !== "object") return { findings: findings };
+
+  // Tier-level checks (existing — unchanged behavior)
+  if (Array.isArray(data.screens)) {
+    for (var si = 0; si < data.screens.length; si++) {
+      checkTierJustification(data.screens[si], findings);
+      checkRecipeAdherence(data.screens[si], findings);
+    }
   }
-  for (var si = 0; si < data.screens.length; si++) {
-    var screen = data.screens[si];
-    checkTierJustification(screen, findings);
-    checkRecipeAdherence(screen, findings);
+
+  // Pass 1: walk INSTANCE nodes, check ref exists + required overrides present
+  var registry = getCombinedRegistry();
+  if (data.screens) {
+    walkInstanceNodes(data.screens, "screens", function (instNode, p) {
+      var componentDef = registry[instNode.ref];
+      if (!componentDef) {
+        findings.push({
+          kind: "unknown-component",
+          severity: "error",
+          path: p + ".ref",
+          message:
+            "Component ref '" +
+            instNode.ref +
+            "' not found in fmkit.json or dskit.json",
+        });
+        return;
+      }
+      var required = rules.getRequiredOverrideProps(componentDef);
+      var props = instNode.props || {};
+      for (var i = 0; i < required.length; i++) {
+        if (props[required[i].propName] === undefined) {
+          findings.push({
+            kind: "missing-required-override",
+            severity: "error",
+            path: p + ".props",
+            message:
+              "Component '" +
+              instNode.ref +
+              "' requires override for prop '" +
+              required[i].propName +
+              "' (default '" +
+              required[i].defaultValue +
+              "' is a placeholder)",
+          });
+        }
+      }
+
+      // Check for unset default-true booleans (warning severity)
+      var defaultTrue = rules.getDefaultTrueBooleans(componentDef);
+      for (var b = 0; b < defaultTrue.length; b++) {
+        if (props[defaultTrue[b].propName] === undefined) {
+          findings.push({
+            kind: "default-true-boolean-unset",
+            severity: "warning",
+            path: p + ".props",
+            message:
+              "Component '" +
+              instNode.ref +
+              "' has default-true boolean '" +
+              defaultTrue[b].propName +
+              "' unset. Set explicitly to true or false to suppress this warning.",
+          });
+        }
+      }
+    });
   }
+
+  // Pass 2: walk all string values in screens (excludes meta block by design)
+  if (data.screens) {
+    walkStringValues(data.screens, "screens", function (str, p) {
+      if (rules.isPlaceholderDefault(str)) {
+        findings.push({
+          kind: "placeholder-text",
+          severity: "error",
+          path: p,
+          message: "Placeholder default leaked: " + JSON.stringify(str),
+          value: str,
+        });
+      }
+    });
+  }
+
+  // Banned-text check (folded from legacy findBannedTextRaw)
+  if (data && Array.isArray(data.screens)) {
+    var banned = findBannedTextRaw(data);
+    for (var bi = 0; bi < banned.length; bi++) {
+      findings.push({
+        kind: "banned-text",
+        severity: "error",
+        path: banned[bi].path,
+        message: "Banned placeholder text: " + JSON.stringify(banned[bi].value),
+        // preserve legacy fields for adapter reconstruction
+        _legacy: banned[bi],
+      });
+    }
+  }
+
+  // Token check (folded from legacy findUnresolvedTokensRaw)
+  if (!opts.skipTokens && data && Array.isArray(data.screens)) {
+    var tokens = findUnresolvedTokensRaw(data);
+    for (var ti = 0; ti < tokens.length; ti++) {
+      findings.push({
+        kind: "unresolved-token",
+        severity: "warning",
+        path: tokens[ti].path,
+        message: tokens[ti].value,
+        // preserve legacy fields for adapter reconstruction
+        _legacy: tokens[ti],
+      });
+    }
+  }
+
+  // Terminology check (folded from legacy findTerminologyIssuesRaw)
+  if (!opts.skipTerminology && data && Array.isArray(data.screens)) {
+    var terms = findTerminologyIssuesRaw(data);
+    for (var ri = 0; ri < terms.length; ri++) {
+      findings.push({
+        kind: "terminology-issue",
+        severity: "warning",
+        path: terms[ri].path,
+        message: terms[ri].value,
+        // preserve legacy fields for adapter reconstruction
+        _legacy: terms[ri],
+      });
+    }
+  }
+
   return { findings: findings };
+}
+
+// ---------------------------------------------------------------------------
+// Legacy adapters — preserve external CLI shape (P0/P1 arrays). Internally
+// these now derive from validate(). Maintained for backwards compatibility
+// with existing callers and tests.
+// ---------------------------------------------------------------------------
+
+function findBannedText(data) {
+  return validate(data, { skipTokens: true, skipTerminology: true })
+    .findings.filter(function (f) {
+      return f.kind === "banned-text";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
+function findUnresolvedTokens(data) {
+  return validate(data, { skipTerminology: true })
+    .findings.filter(function (f) {
+      return f.kind === "unresolved-token";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
+function findTerminologyIssues(data) {
+  return validate(data, { skipTokens: true })
+    .findings.filter(function (f) {
+      return f.kind === "terminology-issue";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
+function findMissingJustifications(data) {
+  return validate(data, {
+    skipTokens: true,
+    skipTerminology: true,
+  }).findings.filter(function (f) {
+    return f.kind === "missing-justification";
+  });
 }
 
 // ---------------------------------------------------------------------------

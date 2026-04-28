@@ -522,4 +522,280 @@ describe("validate-flow-data", function () {
       );
     });
   });
+
+  describe("validate() placeholder-text findings", function () {
+    it("flags 'Page Title' in pageHeader.title", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            pageHeader: { title: "Page Title" },
+            content: [],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "placeholder-text";
+      });
+      assert.strictEqual(findings.length, 1);
+      assert.strictEqual(findings[0].severity, "error");
+      assert.match(findings[0].path, /screens\[0\]\.pageHeader\.title/);
+    });
+
+    it("flags 'Dropdown text' in INSTANCE props (alongside banned-text)", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmDropdown",
+                props: { Text: "Dropdown text" },
+              },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings;
+      var placeholderFindings = findings.filter(function (f) {
+        return f.kind === "placeholder-text";
+      });
+      assert.ok(placeholderFindings.length >= 1);
+    });
+
+    it("does not flag strings inside meta block", function () {
+      var data = {
+        meta: { feature: "Page Title test" },
+        screens: [{ name: "Screen 1", content: [] }],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "placeholder-text";
+      });
+      assert.strictEqual(findings.length, 0);
+    });
+
+    it("clean data has no placeholder-text findings", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            pageHeader: { title: "Notification preferences" },
+            content: [],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "placeholder-text";
+      });
+      assert.strictEqual(findings.length, 0);
+    });
+  });
+
+  describe("validate() INSTANCE-level findings", function () {
+    it("flags missing-required-override when fmPageHeader title is omitted", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmPageHeader",
+                props: {},
+              },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "missing-required-override";
+      });
+      assert.ok(
+        findings.length >= 1,
+        "expected at least one missing-required-override finding",
+      );
+      assert.strictEqual(findings[0].severity, "error");
+    });
+
+    it("flags unknown-component for bogus ref", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              { type: "INSTANCE", ref: "fmTotallyNotAComponent", props: {} },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "unknown-component";
+      });
+      assert.strictEqual(findings.length, 1);
+      assert.strictEqual(findings[0].severity, "error");
+    });
+
+    it("does not flag missing-required-override when all required props are provided", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmPageHeader",
+                props: {
+                  "Title#979:22": "Notification preferences",
+                  "Subtitle#979:23": "Manage your alert subscriptions",
+                },
+              },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "missing-required-override";
+      });
+      assert.strictEqual(findings.length, 0);
+    });
+  });
+
+  describe("validate() default-true-boolean-unset findings", function () {
+    it("warns when fmButton default-true booleans are unset", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                // FM Button has default-true booleans (icon-show toggles).
+                // We provide the required Label override but no boolean overrides.
+                props: { "Label#1411:32": "Save" },
+              },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "default-true-boolean-unset";
+      });
+      assert.ok(
+        findings.length >= 1,
+        "expected at least one default-true-boolean-unset",
+      );
+      assert.strictEqual(findings[0].severity, "warning");
+    });
+
+    it("does not warn when default-true booleans are explicitly set", function () {
+      // We need to set ALL default-true booleans explicitly (true OR false) to suppress
+      // all warnings. Use the actual prop names from the registry.
+      var booleanProps = {};
+      // Read registry to get default-true boolean names dynamically
+      var registry = require(path.join(PLUGIN_ROOT, "docs", "fmkit.json"));
+      var fmButton = registry.components["fm-button"];
+      var props = fmButton.properties;
+      var keys = Object.keys(props);
+      for (var i = 0; i < keys.length; i++) {
+        if (
+          props[keys[i]].type === "BOOLEAN" &&
+          props[keys[i]].default === true
+        ) {
+          booleanProps[keys[i]] = false; // explicitly hide
+        }
+      }
+      booleanProps["Label#1411:32"] = "Save"; // required Label override
+
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              { type: "INSTANCE", ref: "fmButton", props: booleanProps },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "default-true-boolean-unset";
+      });
+      assert.strictEqual(findings.length, 0);
+    });
+  });
+
+  describe("CLI exit codes (contract lock)", function () {
+    var fs = require("fs");
+    var os = require("os");
+    var { spawnSync } = require("node:child_process");
+
+    function runCli(data) {
+      var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
+      var dataPath = path.join(tmpDir, "flow-data.json");
+      fs.writeFileSync(dataPath, JSON.stringify(data));
+      var script = path.join(PLUGIN_ROOT, "scripts", "validate-flow-data.js");
+      var result = spawnSync(process.execPath, [script, dataPath], {
+        encoding: "utf8",
+      });
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+      return result;
+    }
+
+    it("exits 0 on clean data", function () {
+      var data = {
+        meta: { feature: "Clean Test" },
+        screens: [
+          {
+            name: "Screen 1: Clean",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Save" },
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(
+        result.status,
+        0,
+        "expected exit 0, got " + result.status + ": " + result.stderr,
+      );
+    });
+
+    it("exits 1 on banned text (P0)", function () {
+      var data = {
+        meta: { feature: "Banned" },
+        screens: [
+          {
+            name: "Screen 1: Banned",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Button label" },
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(
+        result.status,
+        1,
+        "expected exit 1, got " + result.status,
+      );
+    });
+  });
 });

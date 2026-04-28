@@ -1,0 +1,20 @@
+{
+  "library": "ds",
+  "fileKey": "DS_FIXTURE",
+  "lastSynced": "2026-04-28T00:00:00.000Z",
+  "componentCount": 1,
+  "components": {
+    "button": {
+      "name": "Button",
+      "key": "ds-button-key-aaaa",
+      "nodeId": "1:1",
+      "importMethod": "set",
+      "page": "Button",
+      "description": "Primary trigger.",
+      "variants": { "Type": ["Primary", "Secondary"] },
+      "properties": {
+        "Label#10:0": { "type": "TEXT", "default": "Button" }
+      }
+    }
+  }
+}

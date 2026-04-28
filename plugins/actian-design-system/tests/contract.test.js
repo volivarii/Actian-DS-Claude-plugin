@@ -140,64 +140,11 @@ describe("Contract Tests", function () {
   });
 
   // ---------------------------------------------------------------------------
-  // Part 2: Template name contracts
+  // Part 2 — REMOVED. Previously cross-checked template names against
+  // references/generate-flow/figma-spec-builder.md, which was deleted in
+  // fc6bcad ("superseded by push-patterns"). Template name documentation is
+  // now informal — this contract no longer applies.
   // ---------------------------------------------------------------------------
-
-  describe("Part 2: Template name contracts", function () {
-    var templatesJson = JSON.parse(
-      fs.readFileSync(path.join(SCRIPTS_DIR, "templates.json"), "utf8"),
-    );
-    var templateKeys = Object.keys(templatesJson["flow-templates"]);
-
-    var flowSkillMd = fs.readFileSync(
-      path.join(PLUGIN_ROOT, "skills", "generate-flow", "SKILL.md"),
-      "utf8",
-    );
-    var specBuilderMd = fs.readFileSync(
-      path.join(
-        PLUGIN_ROOT,
-        "references",
-        "generate-flow",
-        "figma-spec-builder.md",
-      ),
-      "utf8",
-    );
-    var docsCombined = flowSkillMd + "\n" + specBuilderMd;
-
-    it("every templates.json key is documented in SKILL.md or figma-spec-builder.md", function () {
-      var undocumented = templateKeys.filter(function (tKey) {
-        return docsCombined.indexOf(tKey) === -1;
-      });
-      assert.ok(
-        undocumented.length === 0,
-        "templates.json keys not documented: " + undocumented.join(", "),
-      );
-    });
-
-    it("every template name in spec-builder docs exists in templates.json", function () {
-      var specLines = specBuilderMd.split("\n");
-      var docTemplateNames = {};
-      for (var li = 0; li < specLines.length; li++) {
-        var line = specLines[li];
-        if (!/\|/.test(line)) continue;
-        if (!/\d+x\d+|None|header|AI specifies/.test(line)) continue;
-        var cellRe = /\|\s*`([a-z][-a-z]*)`\s*\|/g;
-        var tmatch;
-        while ((tmatch = cellRe.exec(line)) !== null) {
-          docTemplateNames[tmatch[1]] = true;
-        }
-      }
-
-      var docNames = Object.keys(docTemplateNames);
-      var missing = docNames.filter(function (dName) {
-        return templateKeys.indexOf(dName) === -1;
-      });
-      assert.ok(
-        missing.length === 0,
-        "doc template names not in templates.json: " + missing.join(", "),
-      );
-    });
-  });
 
   // ---------------------------------------------------------------------------
   // Part 3: assemble-preview.js TYPE_CONFIGS

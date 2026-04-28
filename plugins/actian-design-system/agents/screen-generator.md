@@ -32,6 +32,19 @@ You will receive:
 
 ## Process
 
+## Step -1: Property completeness pre-check
+
+For every `{ type: "INSTANCE", ref: "<slug>", props: {...} }` node you write into the screen's content tree:
+
+1. Look up `<slug>` in the component registry (`docs/fmkit.json` for `fm*` slugs; `docs/dskit.json` otherwise).
+2. For every TEXT prop whose default value is a placeholder (matches `Page Title`, `Button label`, `Label`, `Dropdown text`, `Description text`, `Description`, `Placeholder*`, etc.), include a real value in `props`.
+3. For every BOOLEAN prop whose default is `true` (e.g., `👁 Leading Icon`, `👁 Trailing Icon`, `Show Trailing Action`), decide explicitly:
+   - If the design needs the element visible: set `props["<prop name>"]: true`
+   - If the design does NOT need it visible: set `props["<prop name>"]: false`
+   - Omitting these will produce a warning at the validator gate (not an error, but visible in GenLog).
+
+**Why this matters:** the validator (`scripts/validate-flow-data.js`) enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings (`"Page Title"`, etc.) in any string content → P0. Default-true booleans unset → P1 warning.
+
 0. **Classify each screen into a tier before generating.**
 
    For each screen in your batch, decide which tier the screen falls into based on these signals:

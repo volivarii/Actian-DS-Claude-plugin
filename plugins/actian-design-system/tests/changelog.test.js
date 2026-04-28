@@ -62,7 +62,9 @@ describe("changelog", function () {
     });
 
     it("returns truncated key for unknown key", function () {
-      var name = changelog.resolveKeyName("0000000000000000000000000000000000000000");
+      var name = changelog.resolveKeyName(
+        "0000000000000000000000000000000000000000",
+      );
       assert.ok(name.indexOf("00000000") !== -1);
     });
   });
@@ -74,7 +76,9 @@ describe("changelog", function () {
         tokenHash: "def456",
         componentKeys: ["key-a"],
       };
-      var result = changelog.buildChangelog(prev, "abc123", "def456", ["key-a"]);
+      var result = changelog.buildChangelog(prev, "abc123", "def456", [
+        "key-a",
+      ]);
       assert.strictEqual(result.sourceChanged, false);
       assert.strictEqual(result.tokensChanged, false);
       assert.strictEqual(result.components.added.length, 0);
@@ -110,10 +114,119 @@ describe("changelog", function () {
         tokenHash: "def456",
         componentKeys: ["key-a", "key-b"],
       };
-      var result = changelog.buildChangelog(prev, "abc123", "def456", ["key-b", "key-c"]);
+      var result = changelog.buildChangelog(prev, "abc123", "def456", [
+        "key-b",
+        "key-c",
+      ]);
       assert.strictEqual(result.components.added.length, 1);
       assert.strictEqual(result.components.removed.length, 1);
       assert.strictEqual(result.hasChanges, true);
+    });
+  });
+
+  describe("buildChangelog with propertyDefaultsHash", function () {
+    it("flags property-defaults change when hashes differ", function () {
+      var prevManifest = {
+        sourceHash: "x",
+        tokenHash: "y",
+        componentKeys: [],
+        propertyDefaultsHash: {
+          fm: "old-fm-hash",
+          ds: "ds-hash",
+          meta: "meta-hash",
+        },
+      };
+      var result = changelog.buildChangelog(prevManifest, "x", "y", [], {
+        fm: "new-fm-hash",
+        ds: "ds-hash",
+        meta: "meta-hash",
+      });
+      assert.strictEqual(result.propertyDefaultsChanged.fm, true);
+      assert.strictEqual(result.propertyDefaultsChanged.ds, false);
+      assert.strictEqual(result.hasChanges, true);
+    });
+
+    it("no change when all hashes match", function () {
+      var same = { fm: "f", ds: "d", meta: "m" };
+      var prevManifest = {
+        sourceHash: "x",
+        tokenHash: "y",
+        componentKeys: [],
+        propertyDefaultsHash: same,
+      };
+      var result = changelog.buildChangelog(prevManifest, "x", "y", [], same);
+      assert.strictEqual(result.propertyDefaultsChanged.fm, false);
+      assert.strictEqual(result.hasChanges, false);
+    });
+
+    it("graceful when prev manifest has no propertyDefaultsHash", function () {
+      var prevManifest = { sourceHash: "x", tokenHash: "y", componentKeys: [] };
+      var result = changelog.buildChangelog(prevManifest, "x", "y", [], {
+        fm: "f",
+        ds: "d",
+        meta: "m",
+      });
+      // No false-positive — propertyDefaultsChanged should all be false
+      assert.strictEqual(result.propertyDefaultsChanged.fm, false);
+      assert.strictEqual(result.hasChanges, false);
+    });
+  });
+
+  describe("propertyDefaultsHash diffing", function () {
+    it("computes hashes per kit", function () {
+      var registries = {
+        fm: {
+          components: {
+            "fm-a": { properties: { P: { type: "TEXT", default: "X" } } },
+          },
+        },
+        ds: { components: {} },
+        meta: { components: {} },
+      };
+      var hashes = changelog.computePropertyDefaultsHashes(registries);
+      assert.strictEqual(typeof hashes.fm, "string");
+      assert.strictEqual(hashes.fm.length, 64);
+      assert.strictEqual(typeof hashes.ds, "string");
+    });
+
+    it("diffPropertyDefaults reports changed defaults per component", function () {
+      var before = {
+        fm: {
+          components: {
+            "fm-button": {
+              properties: { Label: { type: "TEXT", default: "Button" } },
+            },
+          },
+        },
+      };
+      var after = {
+        fm: {
+          components: {
+            "fm-button": {
+              properties: { Label: { type: "TEXT", default: "Action" } },
+            },
+          },
+        },
+      };
+      var diff = changelog.diffPropertyDefaults(before, after);
+      assert.ok(Array.isArray(diff.fm));
+      assert.strictEqual(diff.fm.length, 1);
+      assert.strictEqual(diff.fm[0].component, "fm-button");
+      assert.strictEqual(diff.fm[0].propName, "Label");
+      assert.strictEqual(diff.fm[0].before, "Button");
+      assert.strictEqual(diff.fm[0].after, "Action");
+    });
+
+    it("diffPropertyDefaults returns empty arrays when nothing changed", function () {
+      var same = {
+        fm: {
+          components: {
+            "fm-a": { properties: { P: { type: "TEXT", default: "X" } } },
+          },
+        },
+      };
+      var diff = changelog.diffPropertyDefaults(same, same);
+      assert.deepStrictEqual(diff.fm, []);
     });
   });
 });
