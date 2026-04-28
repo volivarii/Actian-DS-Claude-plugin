@@ -60,7 +60,7 @@ function walkNodes(nodes, screenName, pathPrefix, visitor) {
 // Check 1: Banned text detection
 // ---------------------------------------------------------------------------
 
-function findBannedText(data) {
+function findBannedTextRaw(data) {
   var issues = [];
 
   for (var si = 0; si < data.screens.length; si++) {
@@ -182,7 +182,7 @@ function extractTokenRefs(obj) {
   return refs;
 }
 
-function findUnresolvedTokens(data) {
+function findUnresolvedTokensRaw(data) {
   var tokenNames = loadTokenNames();
   if (!tokenNames) return [];
 
@@ -258,7 +258,7 @@ function buildTerminologyRules(terminology) {
   return rules;
 }
 
-function findTerminologyIssues(data) {
+function findTerminologyIssuesRaw(data) {
   var terminology = loadTerminology();
   if (!terminology) return [];
 
@@ -357,7 +357,7 @@ function checkTierJustification(screen, findings) {
   }
 }
 
-function findMissingJustifications(data) {
+function findMissingJustificationsRaw(data) {
   var findings = [];
   if (!data || !Array.isArray(data.screens)) return findings;
   for (var si = 0; si < data.screens.length; si++) {
@@ -412,31 +412,119 @@ function checkRecipeAdherence(screen, findings) {
 }
 
 // ---------------------------------------------------------------------------
-// Aggregator entry point. Returns { findings: [...] } using the new shape
-// { severity, kind, screen, message }.
+// Aggregator entry point. Returns { findings: [...] } using the unified shape
+// { severity, kind, screen, message } plus any extra fields needed by legacy
+// adapters. opts.skipTokens and opts.skipTerminology mirror the CLI flags.
 //
-// Currently wraps a single check (tier justification); Task 4 will grow this
-// to host severity-tiered soft-deviation findings (warning at tier 1/2, info
-// at tier 3) — gradations the legacy P0/P1 shape can't express.
-//
-// Per-check functions (findBannedText, findUnresolvedTokens, etc.) remain the
-// granular API for callers that need the legacy {severity: "P0"|"P1", check,
-// screen, path, value} shape (e.g. the CLI runner). Both APIs coexist
-// intentionally for Sprint B1; consolidation is a follow-up after Task 4
-// lands and the aggregator's design has settled.
+// All legacy P0/P1 checks are folded in here so validate() is the single
+// authoritative runner. Legacy public functions (findBannedText, etc.) are
+// thin adapters over validate() — see below.
 // ---------------------------------------------------------------------------
 
-function validate(data) {
+function validate(data, opts) {
+  opts = opts || {};
   var findings = [];
-  if (!data || !Array.isArray(data.screens)) {
-    return { findings: findings };
+  if (!data || typeof data !== "object") return { findings: findings };
+
+  // Tier-level checks (existing — unchanged behavior)
+  if (Array.isArray(data.screens)) {
+    for (var si = 0; si < data.screens.length; si++) {
+      checkTierJustification(data.screens[si], findings);
+      checkRecipeAdherence(data.screens[si], findings);
+    }
   }
-  for (var si = 0; si < data.screens.length; si++) {
-    var screen = data.screens[si];
-    checkTierJustification(screen, findings);
-    checkRecipeAdherence(screen, findings);
+
+  // Banned-text check (folded from legacy findBannedTextRaw)
+  if (data && Array.isArray(data.screens)) {
+    var banned = findBannedTextRaw(data);
+    for (var bi = 0; bi < banned.length; bi++) {
+      findings.push({
+        kind: "banned-text",
+        severity: "error",
+        path: banned[bi].path,
+        message: "Banned placeholder text: " + JSON.stringify(banned[bi].value),
+        // preserve legacy fields for adapter reconstruction
+        _legacy: banned[bi],
+      });
+    }
   }
+
+  // Token check (folded from legacy findUnresolvedTokensRaw)
+  if (!opts.skipTokens && data && Array.isArray(data.screens)) {
+    var tokens = findUnresolvedTokensRaw(data);
+    for (var ti = 0; ti < tokens.length; ti++) {
+      findings.push({
+        kind: "unresolved-token",
+        severity: "warning",
+        path: tokens[ti].path,
+        message: tokens[ti].value,
+        // preserve legacy fields for adapter reconstruction
+        _legacy: tokens[ti],
+      });
+    }
+  }
+
+  // Terminology check (folded from legacy findTerminologyIssuesRaw)
+  if (!opts.skipTerminology && data && Array.isArray(data.screens)) {
+    var terms = findTerminologyIssuesRaw(data);
+    for (var ri = 0; ri < terms.length; ri++) {
+      findings.push({
+        kind: "terminology-issue",
+        severity: "warning",
+        path: terms[ri].path,
+        message: terms[ri].value,
+        // preserve legacy fields for adapter reconstruction
+        _legacy: terms[ri],
+      });
+    }
+  }
+
   return { findings: findings };
+}
+
+// ---------------------------------------------------------------------------
+// Legacy adapters — preserve external CLI shape (P0/P1 arrays). Internally
+// these now derive from validate(). Maintained for backwards compatibility
+// with existing callers and tests.
+// ---------------------------------------------------------------------------
+
+function findBannedText(data) {
+  return validate(data, { skipTokens: true, skipTerminology: true })
+    .findings.filter(function (f) {
+      return f.kind === "banned-text";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
+function findUnresolvedTokens(data) {
+  return validate(data, { skipTerminology: true })
+    .findings.filter(function (f) {
+      return f.kind === "unresolved-token";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
+function findTerminologyIssues(data) {
+  return validate(data, { skipTokens: true })
+    .findings.filter(function (f) {
+      return f.kind === "terminology-issue";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
+function findMissingJustifications(data) {
+  return validate(data, {
+    skipTokens: true,
+    skipTerminology: true,
+  }).findings.filter(function (f) {
+    return f.kind === "missing-justification";
+  });
 }
 
 // ---------------------------------------------------------------------------
