@@ -523,6 +523,78 @@ describe("validate-flow-data", function () {
     });
   });
 
+  describe("validate() placeholder-text findings", function () {
+    it("flags 'Page Title' in pageHeader.title", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            pageHeader: { title: "Page Title" },
+            content: [],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "placeholder-text";
+      });
+      assert.strictEqual(findings.length, 1);
+      assert.strictEqual(findings[0].severity, "error");
+      assert.match(findings[0].path, /screens\[0\]\.pageHeader\.title/);
+    });
+
+    it("flags 'Dropdown text' in INSTANCE props (alongside banned-text)", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmDropdown",
+                props: { Text: "Dropdown text" },
+              },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings;
+      var placeholderFindings = findings.filter(function (f) {
+        return f.kind === "placeholder-text";
+      });
+      assert.ok(placeholderFindings.length >= 1);
+    });
+
+    it("does not flag strings inside meta block", function () {
+      var data = {
+        meta: { feature: "Page Title test" },
+        screens: [{ name: "Screen 1", content: [] }],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "placeholder-text";
+      });
+      assert.strictEqual(findings.length, 0);
+    });
+
+    it("clean data has no placeholder-text findings", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            pageHeader: { title: "Notification preferences" },
+            content: [],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "placeholder-text";
+      });
+      assert.strictEqual(findings.length, 0);
+    });
+  });
+
   describe("CLI exit codes (contract lock)", function () {
     var fs = require("fs");
     var os = require("os");
@@ -557,7 +629,11 @@ describe("validate-flow-data", function () {
         ],
       };
       var result = runCli(data);
-      assert.strictEqual(result.status, 0, "expected exit 0, got " + result.status + ": " + result.stderr);
+      assert.strictEqual(
+        result.status,
+        0,
+        "expected exit 0, got " + result.status + ": " + result.stderr,
+      );
     });
 
     it("exits 1 on banned text (P0)", function () {
@@ -577,7 +653,11 @@ describe("validate-flow-data", function () {
         ],
       };
       var result = runCli(data);
-      assert.strictEqual(result.status, 1, "expected exit 1, got " + result.status);
+      assert.strictEqual(
+        result.status,
+        1,
+        "expected exit 1, got " + result.status,
+      );
     });
   });
 });

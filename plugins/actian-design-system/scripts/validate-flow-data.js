@@ -5,6 +5,27 @@ var fs = require("fs");
 var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
+var rules = require(path.join(__dirname, "component-property-rules.js"));
+
+function walkStringValues(node, currentPath, callback) {
+  if (node === null || node === undefined) return;
+  if (typeof node === "string") {
+    callback(node, currentPath);
+    return;
+  }
+  if (Array.isArray(node)) {
+    for (var i = 0; i < node.length; i++) {
+      walkStringValues(node[i], currentPath + "[" + i + "]", callback);
+    }
+    return;
+  }
+  if (typeof node === "object") {
+    var keys = Object.keys(node);
+    for (var k = 0; k < keys.length; k++) {
+      walkStringValues(node[keys[k]], currentPath + "." + keys[k], callback);
+    }
+  }
+}
 
 // ---------------------------------------------------------------------------
 // Banned placeholder strings (P0 — blocks push)
@@ -432,6 +453,21 @@ function validate(data, opts) {
       checkTierJustification(data.screens[si], findings);
       checkRecipeAdherence(data.screens[si], findings);
     }
+  }
+
+  // Pass 2: walk all string values in screens (excludes meta block by design)
+  if (data.screens) {
+    walkStringValues(data.screens, "screens", function (str, p) {
+      if (rules.isPlaceholderDefault(str)) {
+        findings.push({
+          kind: "placeholder-text",
+          severity: "error",
+          path: p,
+          message: "Placeholder default leaked: " + JSON.stringify(str),
+          value: str,
+        });
+      }
+    });
   }
 
   // Banned-text check (folded from legacy findBannedTextRaw)
