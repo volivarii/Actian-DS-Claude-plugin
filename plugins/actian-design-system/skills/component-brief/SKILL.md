@@ -1,12 +1,18 @@
 ---
 name: component-brief
-description: Document a DS component with structured brief cards (variants, tokens, API, usage, a11y). Accepts Figma URL or component name.
-argument-hint: "[Figma URL or component name] [generate N,N,N]"
+description: Generate a structured brief for a DS component with cards (variants, tokens, API, usage, a11y). Accepts Figma URL or component name.
+argument-hint: "[Figma URL or component name] [generate N,N,N] [--include-states]"
 ---
 
 # Component Brief
 
-Draft a structured component brief with HTML spec page and Figma output. Pipeline: research → data model → present options → push.
+Generate a structured component brief with HTML spec page and Figma output. Pipeline: research → data model → present options → push.
+
+## Flags
+
+| Flag | Type | Default | Behavior |
+|------|------|---------|----------|
+| `--include-states` | bool | off | Appends a state matrix card to the brief, generated from the component's documented states. Card lays out all interactive + content states (default, hover, focus, active, disabled, loading, empty, error, populated) using real component instances from the registry. |
 
 ## Mode detection
 

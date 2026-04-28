@@ -203,7 +203,7 @@ if (subtitleText) subtitleText.characters = "Manage team members and permissions
 - **FM Icon Buttons** — Variants: `Type=Primary|Secondary|Outline`, `State=Default|Disabled`
 
 **Meta Kit (all skills):**
-- **genLog** — `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"` — all TEXT via `setProperties()`. **Plugin Version MUST be read from `plugin.json`** — currently `v1.51.0`. Do NOT hardcode or guess the version.
+- **genLog** — `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"` — all TEXT via `setProperties()`. **Plugin Version MUST be read from `plugin.json`** — currently `v1.52.0`. Do NOT hardcode or guess the version.
 - **flowCoverCard** — `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — all TEXT via `setProperties()`. NEVER leave as "Feature Name" / "Flow Description" / "User Persona".
 - **divider** — no properties
 

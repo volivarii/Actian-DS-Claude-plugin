@@ -84,6 +84,98 @@
             }
           }
         },
+        "variants": {
+          "type": "object",
+          "description": "Sprint A surface flag --variants payload. Records the requested variant count and per-variant provenance so /compare-flows can diff between variants. Engine consumption deferred to Sprint B+.",
+          "properties": {
+            "count": {
+              "type": ["number", "integer"],
+              "minimum": 1,
+              "maximum": 5,
+              "description": "Number of structurally-distinct variants requested (1 = single output, 2-5 = multi-variant)"
+            },
+            "index": {
+              "type": ["number", "integer"],
+              "minimum": 0,
+              "description": "Zero-based index of THIS variant within the set"
+            },
+            "label": {
+              "type": "string",
+              "description": "Human-readable label for the variant (e.g. 'detail-page', 'split-view')"
+            },
+            "siblingIds": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Figma node IDs of sibling variants for /compare-flows lookup"
+            }
+          }
+        },
+        "references": {
+          "type": "array",
+          "description": "Sprint A surface flag --ref payload. Reference URLs whose structural fingerprint should bias recipe selection. v1: Figma URLs only. Engine consumption (vision pipeline) deferred to Sprint C.",
+          "items": {
+            "type": "object",
+            "required": ["url"],
+            "properties": {
+              "url": {
+                "type": "string",
+                "description": "Reference URL (Figma in v1; image URLs deferred to v2)"
+              },
+              "kind": {
+                "type": "string",
+                "enum": ["figma-frame", "figma-file", "image", "spec"],
+                "description": "URL classification"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "description": "Optional blending weight for multi-reference inputs"
+              }
+            }
+          }
+        },
+        "breakpoints": {
+          "type": "array",
+          "description": "Sprint A surface flag --breakpoints payload. Breakpoints to generate variants for. Lo-fi level = structural decisions only (collapse, stack).",
+          "items": {
+            "type": "string",
+            "description": "Breakpoint name: 'tablet', 'mobile', or 'custom-Npx' (e.g. 'custom-1024px')"
+          }
+        },
+        "branch": {
+          "type": "object",
+          "description": "Sprint A surface flag --branch payload. Provenance for forks created via --from <url> --branch <name>.",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "Branch label (forms the suffix on the forked frame name)"
+            },
+            "fromUrl": {
+              "type": "string",
+              "description": "Source Figma URL the branch was forked from"
+            },
+            "fromNodeId": {
+              "type": "string",
+              "description": "Source node ID resolved from fromUrl"
+            }
+          }
+        },
+        "states": {
+          "type": "array",
+          "description": "Sprint A surface flag --states payload. Coverage states to generate as additional screens or variants.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "empty",
+              "error",
+              "loading",
+              "no-permission",
+              "populated",
+              "partial-data"
+            ]
+          }
+        },
         "_glossary": {
           "type": "object",
           "description": "Shared vocabulary for cross-screen terminology consistency. Built by generate-flow after Gate 3, consumed by screen-generator agents.",
