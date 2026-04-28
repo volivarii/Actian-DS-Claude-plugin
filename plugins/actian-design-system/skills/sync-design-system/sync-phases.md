@@ -324,7 +324,7 @@ Use page counts from Step 1 to decide: DS Kit (77 sets) needs chunking. FM Kit (
 > **Auto-regenerated from JSON registries.** After Phase 1 writes the JSON registries, run:
 >
 > ```bash
-> "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/render-component-reference.js" --kit all
+> source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/render-component-reference.js" --kit all
 > ```
 >
 > This rewrites `docs/fm-components.md`, `docs/dskit-components.md`, `docs/meta-kit/components.md` from the JSON. The Markdown is a human-readable mirror; JSON registries remain the source of truth. The formatting rules below describe the renderer's output format.
@@ -477,7 +477,7 @@ function toRegistryEntry(comp) {
 
 #### Step 4: Regenerate component reference Markdown
 
-Run `"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/render-component-reference.js" --kit all`. Three files are rewritten: `docs/fm-components.md`, `docs/dskit-components.md`, `docs/meta-kit/components.md`. If the script exits non-zero, report the failure and do not proceed to Phase 2.
+Run `source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/render-component-reference.js" --kit all`. Three files are rewritten: `docs/fm-components.md`, `docs/dskit-components.md`, `docs/meta-kit/components.md`. If the script exits non-zero, report the failure and do not proceed to Phase 2.
 
 ---
 

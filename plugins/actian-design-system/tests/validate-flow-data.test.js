@@ -177,6 +177,150 @@ describe("validate-flow-data", function () {
     });
   });
 
+  describe("findHardcodedColors", function () {
+    function fixture(content) {
+      return {
+        meta: { feature: "Test" },
+        screens: [{ name: "S1", content: content }],
+      };
+    }
+
+    it("flags hex strings in fills", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([{ type: "FRAME", fills: ["#ffffff"] }]),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].severity, "P0");
+      assert.strictEqual(issues[0].check, "hardcoded-color");
+      assert.strictEqual(issues[0].value, "#ffffff");
+    });
+
+    it("flags 3-char hex strings", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([{ type: "FRAME", fills: ["#fff"] }]),
+      );
+      assert.strictEqual(issues.length, 1);
+    });
+
+    it("flags rgb() / rgba() / hsl() strings", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([
+          { type: "FRAME", fills: ["rgb(255, 255, 255)"] },
+          { type: "FRAME", fills: ["rgba(0, 0, 0, 0.5)"] },
+          { type: "FRAME", color: "hsl(120, 50%, 50%)" },
+        ]),
+      );
+      assert.strictEqual(issues.length, 3);
+    });
+
+    it("flags Figma {r,g,b} color objects", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([
+          {
+            type: "FRAME",
+            fills: [{ type: "SOLID", color: { r: 0.95, g: 0.95, b: 0.95 } }],
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].severity, "P0");
+      assert.ok(/"r":0.95/.test(issues[0].value));
+    });
+
+    it("flags hex color inside SOLID fill object", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([{ type: "FRAME", fills: [{ type: "SOLID", color: "#abc" }] }]),
+      );
+      assert.strictEqual(issues.length, 1);
+    });
+
+    it("flags hex inside stroke object", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([{ type: "FRAME", stroke: { color: "#E2E7F0", weight: 1 } }]),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.ok(/stroke/.test(issues[0].path));
+      assert.strictEqual(issues[0].value, "#E2E7F0");
+    });
+
+    it("flags hex on TEXT.color field", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([{ type: "TEXT", content: "x", color: "#101828" }]),
+      );
+      assert.strictEqual(issues.length, 1);
+    });
+
+    it("accepts var(--zen-…) and var(--fm-…) references", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([
+          { type: "FRAME", fills: ["var(--zen-color-brand-primary)"] },
+          { type: "FRAME", fills: ["var(--fm-bg-default)"] },
+          { type: "TEXT", content: "x", color: "var(--zen-text-default)" },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("accepts transparent / none / currentColor / inherit literals", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([
+          { type: "FRAME", fills: ["transparent"] },
+          { type: "FRAME", fills: ["none"] },
+          { type: "TEXT", content: "x", color: "currentColor" },
+          { type: "TEXT", content: "x", color: "inherit" },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("ignores non-color string values at color fields", function () {
+      // Some flow-data uses semantic tokens like "primary" — leave alone here;
+      // the unresolved-token check handles its own surface.
+      var issues = validate.findHardcodedColors(
+        fixture([{ type: "FRAME", fills: ["primary"] }]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("recurses into deeply nested children", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([
+          {
+            type: "FRAME",
+            children: [
+              {
+                type: "FRAME",
+                children: [{ type: "TEXT", content: "x", color: "#FF0000" }],
+              },
+            ],
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 1);
+    });
+
+    it("flags multiple hardcoded colors per screen", function () {
+      var issues = validate.findHardcodedColors(
+        fixture([
+          { type: "FRAME", fills: ["#fff", "#000"] },
+          { type: "TEXT", content: "x", color: "#101828" },
+        ]),
+      );
+      assert.strictEqual(issues.length, 3);
+    });
+
+    it("CLI exit code is 1 when hardcoded colors present", function () {
+      var result = validate.validate(
+        fixture([{ type: "FRAME", fills: ["#fff"] }]),
+      );
+      var hardcoded = result.findings.filter(function (f) {
+        return f.kind === "hardcoded-color";
+      });
+      assert.strictEqual(hardcoded.length, 1);
+      assert.strictEqual(hardcoded[0].severity, "error");
+    });
+  });
+
   describe("findTerminologyIssues", function () {
     it("detects 'admin panel' and suggests 'Studio'", function () {
       var data = {

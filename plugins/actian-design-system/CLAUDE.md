@@ -21,12 +21,26 @@ components/flows/my-flow.html
 
 ## Node.js Resolution
 
-On Desktop, `node` may not be in PATH. Always resolve first:
+On Desktop, `node` is rarely in PATH. **Two hard rules — these apply to every shell invocation, including ad-hoc diagnostics, one-liners, and `node -e` introspection.**
+
+1. **Never use bare `node`.** Always `$NODE_BIN`.
+2. **Never use bare `$NODE_BIN` either.** It's empty until `resolve-node.sh` is sourced — bash will then read your command as `"" -e "..."` and fail with `: command not found`. Always prepend the source line in the same Bash call:
+
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/some-script.js" ...
+source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/some-script.js" ...
 ```
-**Never use bare `node`** — always `$NODE_BIN` after sourcing `resolve-node.sh`.
+
+**Anti-pattern (will fail on Desktop):**
+```bash
+"$NODE_BIN" -e "console.log(require('./schema.json'))"   # ← $NODE_BIN is empty
+```
+
+**Correct (works everywhere):**
+```bash
+source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" -e "console.log(require('./schema.json'))"
+```
+
+This applies to freelance diagnostics too — if you're tempted to `node -e` something to inspect a schema, registry, or manifest mid-skill, source first or don't run it.
 
 ---
 

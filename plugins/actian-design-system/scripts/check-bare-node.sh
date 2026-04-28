@@ -15,4 +15,13 @@ if echo "$command" | grep -qE '(^|[;&|]\s*)node\s' && \
   exit 2
 fi
 
+# Block: $NODE_BIN used in a Bash call that does not also source resolve-node.sh in the same call.
+# Each Bash invocation is a fresh shell — $NODE_BIN is empty unless resolved in this command.
+# Allow override if NODE_BIN= is explicitly assigned inline (rare, but valid).
+if echo "$command" | grep -qE '\$NODE_BIN' && \
+   ! echo "$command" | grep -qE 'resolve-node\.sh|NODE_BIN='; then
+  echo '{"decision":"block","reason":"Bare $NODE_BIN is empty without sourcing resolve-node.sh first. Use: source \"$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh\" && \"$NODE_BIN\" ..."}'
+  exit 2
+fi
+
 exit 0

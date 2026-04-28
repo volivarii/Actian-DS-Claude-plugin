@@ -447,6 +447,124 @@ function findMissingJustificationsRaw(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 5b: Hardcoded color detection (v1.53.3 — companion to unresolved-token)
+// ---------------------------------------------------------------------------
+//
+// findUnresolvedTokensRaw() only catches `var(--unknown-token)` patterns. It
+// does NOT catch raw color literals (hex strings, rgb()/hsl() strings, or
+// Figma's {r,g,b,a} object form), which is how hardcoded colors slip past the
+// validator into pushed designs.
+//
+// This detector inspects every value at a known color field and flags
+// non-token color literals.
+
+var COLOR_FIELDS = [
+  "fills",
+  "stroke",
+  "strokes",
+  "color",
+  "backgroundColor",
+  "borderColor",
+];
+
+var COLOR_LITERAL_OK = ["transparent", "none", "currentColor", "inherit"];
+
+function describeHardcodedColor(val) {
+  if (val === null || val === undefined) return null;
+  if (typeof val === "string") {
+    var trimmed = val.trim();
+    if (trimmed === "" || COLOR_LITERAL_OK.indexOf(trimmed) !== -1) return null;
+    if (/var\(--(?:zen|fm)-[a-z0-9-]+\)/.test(trimmed)) return null;
+    if (/^#[0-9a-fA-F]{3,8}$/.test(trimmed)) return trimmed;
+    if (/^(rgb|hsl)a?\s*\(/i.test(trimmed)) return trimmed;
+    return null; // unrecognized string — not a literal color
+  }
+  if (typeof val === "object" && !Array.isArray(val)) {
+    if (
+      typeof val.r === "number" &&
+      typeof val.g === "number" &&
+      typeof val.b === "number"
+    ) {
+      return JSON.stringify(val);
+    }
+    if (val.type === "SOLID" && val.color !== undefined) {
+      return describeHardcodedColor(val.color);
+    }
+    if (Array.isArray(val.stops)) {
+      for (var s = 0; s < val.stops.length; s++) {
+        var hit = describeHardcodedColor(val.stops[s] && val.stops[s].color);
+        if (hit) return hit;
+      }
+    }
+    // Wrapper object with a 'color' subfield (e.g. stroke: { color, weight, align })
+    if (val.color !== undefined) {
+      return describeHardcodedColor(val.color);
+    }
+  }
+  return null;
+}
+
+function walkColorFields(node, currentPath, callback) {
+  if (node === null || node === undefined) return;
+  if (Array.isArray(node)) {
+    for (var i = 0; i < node.length; i++) {
+      walkColorFields(node[i], currentPath + "[" + i + "]", callback);
+    }
+    return;
+  }
+  if (typeof node !== "object") return;
+
+  for (var c = 0; c < COLOR_FIELDS.length; c++) {
+    var f = COLOR_FIELDS[c];
+    if (!Object.prototype.hasOwnProperty.call(node, f)) continue;
+    var val = node[f];
+    var fieldPath = currentPath + "." + f;
+    if (Array.isArray(val)) {
+      for (var ai = 0; ai < val.length; ai++) {
+        var hitArr = describeHardcodedColor(val[ai]);
+        if (hitArr) callback(fieldPath + "[" + ai + "]", hitArr);
+      }
+    } else {
+      var hit = describeHardcodedColor(val);
+      if (hit) callback(fieldPath, hit);
+    }
+  }
+
+  // Recurse into non-color-field children only — color values are already inspected above
+  var keys = Object.keys(node);
+  for (var k = 0; k < keys.length; k++) {
+    if (COLOR_FIELDS.indexOf(keys[k]) === -1) {
+      walkColorFields(node[keys[k]], currentPath + "." + keys[k], callback);
+    }
+  }
+}
+
+function findHardcodedColorsRaw(data) {
+  var issues = [];
+  if (!data || !Array.isArray(data.screens)) return issues;
+  for (var si = 0; si < data.screens.length; si++) {
+    var screen = data.screens[si];
+    var screenName = screen.name || "Screen " + (si + 1);
+    walkColorFields(
+      screen.content,
+      "screens[" + si + "].content",
+      (function (sName) {
+        return function (p, value) {
+          issues.push({
+            severity: "P0",
+            check: "hardcoded-color",
+            screen: sName,
+            path: p,
+            value: value,
+          });
+        };
+      })(screenName),
+    );
+  }
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
 // Check 6: Severity-tiered soft-deviation checks (Sprint B1 — fallback ladder)
 // ---------------------------------------------------------------------------
 //
@@ -616,6 +734,24 @@ function validate(data, opts) {
     }
   }
 
+  // Hardcoded color check — flags non-token color literals (hex, rgb, {r,g,b}).
+  // Hard error: pushes carrying hardcoded colors break the tokens-only rule.
+  if (!opts.skipTokens && data && Array.isArray(data.screens)) {
+    var hex = findHardcodedColorsRaw(data);
+    for (var hi = 0; hi < hex.length; hi++) {
+      findings.push({
+        kind: "hardcoded-color",
+        severity: "error",
+        path: hex[hi].path,
+        message:
+          "Hardcoded color " +
+          JSON.stringify(hex[hi].value) +
+          " — replace with var(--zen-…) or var(--fm-…) token",
+        _legacy: hex[hi],
+      });
+    }
+  }
+
   // Terminology check (folded from legacy findTerminologyIssuesRaw)
   if (!opts.skipTerminology && data && Array.isArray(data.screens)) {
     var terms = findTerminologyIssuesRaw(data);
@@ -660,6 +796,16 @@ function findUnresolvedTokens(data) {
     });
 }
 
+function findHardcodedColors(data) {
+  return validate(data, { skipTerminology: true })
+    .findings.filter(function (f) {
+      return f.kind === "hardcoded-color";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
 function findTerminologyIssues(data) {
   return validate(data, { skipTokens: true })
     .findings.filter(function (f) {
@@ -686,6 +832,7 @@ function findMissingJustifications(data) {
 module.exports = {
   findBannedText: findBannedText,
   findUnresolvedTokens: findUnresolvedTokens,
+  findHardcodedColors: findHardcodedColors,
   findTerminologyIssues: findTerminologyIssues,
   findMissingJustifications: findMissingJustifications,
   validate: validate,
@@ -741,6 +888,8 @@ if (require.main === module) {
   // Check 3: Token references
   if (!skipTokens) {
     allIssues = allIssues.concat(findUnresolvedTokens(data));
+    // Check 3b: Hardcoded color literals (P0 — tokens-only rule)
+    allIssues = allIssues.concat(findHardcodedColors(data));
   }
 
   // Check 4: Terminology
