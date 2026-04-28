@@ -105,6 +105,17 @@ If any condition fails, fall back per the table below.
    - Exit 1 (P0s found): fix all banned placeholder text before pushing. Common P0s: `"Page Title"`, `"Button label"`, `"Description text"`, `"Label"`, `"Nav Item"`.
    - Exit 2 (P1s only): report terminology or token warnings to user, proceed with push.
    - Exit 0: clean, proceed.
+
+**On validation failure (exit 1 / error findings):**
+
+- Open `flow-data.json` with the Edit tool.
+- For each `placeholder-text` finding: replace the placeholder string at the indicated path with the real content (typically derivable from `screens[N].name` or the user prompt).
+- For each `missing-required-override` finding: add the missing prop to the INSTANCE node's `props` object with a real value.
+- For each `unknown-component` finding: correct the `ref` slug (the validator suggests near matches via Levenshtein when applicable).
+- **Do NOT re-dispatch screen-generator agents.** Patch in-place with Edit, then re-run the validator.
+- **Retry cap:** if the same finding kind on the same path persists across 3 consecutive validator runs, stop and surface the validator output to the user. Do not loop further.
+
+For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `terminology-issue`): exit 2, push proceeds. Findings surface in the GenLog text node.
 7. Push to Figma (see Push section below)
 8. Preview (opt-in):
    ```bash
