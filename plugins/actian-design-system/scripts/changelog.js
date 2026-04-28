@@ -70,6 +70,7 @@ function buildChangelog(
   currSourceHash,
   currTokenHash,
   currComponentKeys,
+  currPropertyDefaultsHashes,
 ) {
   var sourceChanged = prevManifest.sourceHash !== currSourceHash;
   var tokensChanged = prevManifest.tokenHash !== currTokenHash;
@@ -77,16 +78,35 @@ function buildChangelog(
     prevManifest.componentKeys || [],
     currComponentKeys,
   );
+
+  // Per-kit property-defaults hash comparison
+  var propertyDefaultsChanged = { fm: false, ds: false, meta: false };
+  if (currPropertyDefaultsHashes && prevManifest.propertyDefaultsHash) {
+    var kits = ["fm", "ds", "meta"];
+    for (var k = 0; k < kits.length; k++) {
+      propertyDefaultsChanged[kits[k]] =
+        prevManifest.propertyDefaultsHash[kits[k]] !==
+        currPropertyDefaultsHashes[kits[k]];
+    }
+  }
+
+  var anyDefaultsChanged =
+    propertyDefaultsChanged.fm ||
+    propertyDefaultsChanged.ds ||
+    propertyDefaultsChanged.meta;
+
   var hasChanges =
     sourceChanged ||
     tokensChanged ||
     components.added.length > 0 ||
-    components.removed.length > 0;
+    components.removed.length > 0 ||
+    anyDefaultsChanged;
 
   return {
     sourceChanged: sourceChanged,
     tokensChanged: tokensChanged,
     components: components,
+    propertyDefaultsChanged: propertyDefaultsChanged,
     hasChanges: hasChanges,
   };
 }
@@ -140,6 +160,24 @@ function formatChangelog(result) {
           ")",
       );
     }
+  }
+
+  var defaultsKits = ["fm", "ds", "meta"];
+  var changedDefaultsKits = [];
+  for (var dk = 0; dk < defaultsKits.length; dk++) {
+    if (
+      result.propertyDefaultsChanged &&
+      result.propertyDefaultsChanged[defaultsKits[dk]]
+    ) {
+      changedDefaultsKits.push(defaultsKits[dk]);
+    }
+  }
+  if (changedDefaultsKits.length > 0) {
+    lines.push(
+      "  Property defaults: changed in " + changedDefaultsKits.join(", "),
+    );
+  } else {
+    lines.push("  Property defaults: unchanged");
   }
 
   return lines.join("\n") + "\n";

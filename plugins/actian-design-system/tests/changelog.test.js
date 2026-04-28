@@ -124,6 +124,54 @@ describe("changelog", function () {
     });
   });
 
+  describe("buildChangelog with propertyDefaultsHash", function () {
+    it("flags property-defaults change when hashes differ", function () {
+      var prevManifest = {
+        sourceHash: "x",
+        tokenHash: "y",
+        componentKeys: [],
+        propertyDefaultsHash: {
+          fm: "old-fm-hash",
+          ds: "ds-hash",
+          meta: "meta-hash",
+        },
+      };
+      var result = changelog.buildChangelog(prevManifest, "x", "y", [], {
+        fm: "new-fm-hash",
+        ds: "ds-hash",
+        meta: "meta-hash",
+      });
+      assert.strictEqual(result.propertyDefaultsChanged.fm, true);
+      assert.strictEqual(result.propertyDefaultsChanged.ds, false);
+      assert.strictEqual(result.hasChanges, true);
+    });
+
+    it("no change when all hashes match", function () {
+      var same = { fm: "f", ds: "d", meta: "m" };
+      var prevManifest = {
+        sourceHash: "x",
+        tokenHash: "y",
+        componentKeys: [],
+        propertyDefaultsHash: same,
+      };
+      var result = changelog.buildChangelog(prevManifest, "x", "y", [], same);
+      assert.strictEqual(result.propertyDefaultsChanged.fm, false);
+      assert.strictEqual(result.hasChanges, false);
+    });
+
+    it("graceful when prev manifest has no propertyDefaultsHash", function () {
+      var prevManifest = { sourceHash: "x", tokenHash: "y", componentKeys: [] };
+      var result = changelog.buildChangelog(prevManifest, "x", "y", [], {
+        fm: "f",
+        ds: "d",
+        meta: "m",
+      });
+      // No false-positive — propertyDefaultsChanged should all be false
+      assert.strictEqual(result.propertyDefaultsChanged.fm, false);
+      assert.strictEqual(result.hasChanges, false);
+    });
+  });
+
   describe("propertyDefaultsHash diffing", function () {
     it("computes hashes per kit", function () {
       var registries = {
