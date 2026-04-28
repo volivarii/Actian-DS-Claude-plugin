@@ -550,6 +550,24 @@ function validate(data, opts) {
           });
         }
       }
+
+      // Check for unset default-true booleans (warning severity)
+      var defaultTrue = rules.getDefaultTrueBooleans(componentDef);
+      for (var b = 0; b < defaultTrue.length; b++) {
+        if (props[defaultTrue[b].propName] === undefined) {
+          findings.push({
+            kind: "default-true-boolean-unset",
+            severity: "warning",
+            path: p + ".props",
+            message:
+              "Component '" +
+              instNode.ref +
+              "' has default-true boolean '" +
+              defaultTrue[b].propName +
+              "' unset. Set explicitly to true or false to suppress this warning.",
+          });
+        }
+      }
     });
   }
 

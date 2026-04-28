@@ -667,6 +667,72 @@ describe("validate-flow-data", function () {
     });
   });
 
+  describe("validate() default-true-boolean-unset findings", function () {
+    it("warns when fmButton default-true booleans are unset", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                // FM Button has default-true booleans (icon-show toggles).
+                // We provide the required Label override but no boolean overrides.
+                props: { "Label#1411:32": "Save" },
+              },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "default-true-boolean-unset";
+      });
+      assert.ok(
+        findings.length >= 1,
+        "expected at least one default-true-boolean-unset",
+      );
+      assert.strictEqual(findings[0].severity, "warning");
+    });
+
+    it("does not warn when default-true booleans are explicitly set", function () {
+      // We need to set ALL default-true booleans explicitly (true OR false) to suppress
+      // all warnings. Use the actual prop names from the registry.
+      var booleanProps = {};
+      // Read registry to get default-true boolean names dynamically
+      var registry = require(path.join(PLUGIN_ROOT, "docs", "fmkit.json"));
+      var fmButton = registry.components["fm-button"];
+      var props = fmButton.properties;
+      var keys = Object.keys(props);
+      for (var i = 0; i < keys.length; i++) {
+        if (
+          props[keys[i]].type === "BOOLEAN" &&
+          props[keys[i]].default === true
+        ) {
+          booleanProps[keys[i]] = false; // explicitly hide
+        }
+      }
+      booleanProps["Label#1411:32"] = "Save"; // required Label override
+
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              { type: "INSTANCE", ref: "fmButton", props: booleanProps },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "default-true-boolean-unset";
+      });
+      assert.strictEqual(findings.length, 0);
+    });
+  });
+
   describe("CLI exit codes (contract lock)", function () {
     var fs = require("fs");
     var os = require("os");
