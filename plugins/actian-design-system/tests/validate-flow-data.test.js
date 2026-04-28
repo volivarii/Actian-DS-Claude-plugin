@@ -522,4 +522,62 @@ describe("validate-flow-data", function () {
       );
     });
   });
+
+  describe("CLI exit codes (contract lock)", function () {
+    var fs = require("fs");
+    var os = require("os");
+    var { spawnSync } = require("node:child_process");
+
+    function runCli(data) {
+      var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
+      var dataPath = path.join(tmpDir, "flow-data.json");
+      fs.writeFileSync(dataPath, JSON.stringify(data));
+      var script = path.join(PLUGIN_ROOT, "scripts", "validate-flow-data.js");
+      var result = spawnSync(process.execPath, [script, dataPath], {
+        encoding: "utf8",
+      });
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+      return result;
+    }
+
+    it("exits 0 on clean data", function () {
+      var data = {
+        meta: { feature: "Clean Test" },
+        screens: [
+          {
+            name: "Screen 1: Clean",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Save" },
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(result.status, 0, "expected exit 0, got " + result.status + ": " + result.stderr);
+    });
+
+    it("exits 1 on banned text (P0)", function () {
+      var data = {
+        meta: { feature: "Banned" },
+        screens: [
+          {
+            name: "Screen 1: Banned",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Button label" },
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(result.status, 1, "expected exit 1, got " + result.status);
+    });
+  });
 });
