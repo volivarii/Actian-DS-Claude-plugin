@@ -321,6 +321,288 @@ describe("validate-flow-data", function () {
     });
   });
 
+  describe("findUnmutedChrome", function () {
+    function fixture(opts) {
+      opts = opts || {};
+      return {
+        meta: Object.assign(
+          { feature: opts.feature || "Settings" },
+          opts.glossary ? { _glossary: opts.glossary } : {},
+        ),
+        screens: [
+          {
+            name: opts.screenName || "Screen 1: Settings",
+            content: opts.content,
+          },
+        ],
+      };
+    }
+
+    it("flags fmNavItem with State=On + invented label on non-chrome feature", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=On",
+              props: { Label: "Catalog" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].severity, "P1");
+      assert.strictEqual(issues[0].check, "unmuted-chrome");
+      assert.strictEqual(issues[0].ref, "fmNavItem");
+      assert.strictEqual(issues[0].value, "Catalog");
+    });
+
+    it("flags fmNavItem with State=Off + invented label", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=Off",
+              props: { Label: "Pipelines" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 1);
+    });
+
+    it("does NOT flag fmNavItem with State=Placeholder", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=Placeholder",
+              props: { Label: "Pipelines" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("does NOT flag fmNavItem with default 'Nav Item' label", function () {
+      // The default-leak case is handled by placeholder-text check, not here
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=Off",
+              props: { Label: "Nav Item" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("exempts fmNavItem whose label matches glossary.sidebarActive", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          glossary: { sidebarActive: "Catalog" },
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=On",
+              props: { Label: "Catalog" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("flags non-active nav items even when sidebarActive is set", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          glossary: { sidebarActive: "Catalog" },
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=On",
+              props: { Label: "Catalog" },
+            },
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=Off",
+              props: { Label: "Pipelines" },
+            },
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=Off",
+              props: { Label: "Settings" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 2);
+      assert.deepStrictEqual(issues.map((i) => i.value).sort(), [
+        "Pipelines",
+        "Settings",
+      ]);
+    });
+
+    it("skips entirely when feature description mentions navigation", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          feature: "Sidebar navigation editor",
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=On",
+              props: { Label: "Catalog" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("skips when screen name mentions tabs", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          screenName: "Screen 2: Settings tabs",
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmTab",
+              variant: "State=On",
+              props: { "Tab label": "Overview" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("flags fmTab with State=On + Tab label on non-tab feature", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmTab",
+              variant: "State=On",
+              props: { "Tab label": "Overview" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].ref, "fmTab");
+    });
+
+    it("does NOT flag fmTab with State=Placeholder", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmTab",
+              variant: "State=Placeholder",
+              props: {},
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("ignores non-chrome refs (fmButton, fmInput)", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmButton",
+              variant: "Type=Primary",
+              props: { Label: "Save" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("recurses into deeply nested chrome instances", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "FRAME",
+              children: [
+                {
+                  type: "FRAME",
+                  children: [
+                    {
+                      type: "INSTANCE",
+                      ref: "fmNavItem",
+                      variant: "State=Off",
+                      props: { Label: "Reports" },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 1);
+    });
+
+    it("supports hash-suffixed prop keys (Label#1463:4)", function () {
+      var issues = validate.findUnmutedChrome(
+        fixture({
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "fmNavItem",
+              variant: "State=Off",
+              props: { "Label#1463:4": "Workspaces" },
+            },
+          ],
+        }),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].value, "Workspaces");
+    });
+
+    it("severity is warning in validate() output", function () {
+      var data = fixture({
+        content: [
+          {
+            type: "INSTANCE",
+            ref: "fmNavItem",
+            variant: "State=On",
+            props: { Label: "Catalog" },
+          },
+        ],
+      });
+      var result = validate.validate(data);
+      var unmuted = result.findings.filter(function (f) {
+        return f.kind === "unmuted-chrome";
+      });
+      assert.strictEqual(unmuted.length, 1);
+      assert.strictEqual(unmuted[0].severity, "warning");
+    });
+  });
+
   describe("findTerminologyIssues", function () {
     it("detects 'admin panel' and suggests 'Studio'", function () {
       var data = {

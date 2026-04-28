@@ -565,6 +565,142 @@ function findHardcodedColorsRaw(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 5c: Unmuted-chrome heuristic (v1.53.4 — FM focus principle)
+// ---------------------------------------------------------------------------
+//
+// references/quality-tiers.md:14 — "Non-feature chrome is ALWAYS placeholder."
+// fm-nav-item and fm-tab carry a `State` variant axis with a `Placeholder`
+// value precisely for this — when the model writes real-looking labels on
+// State=On/Off and the feature isn't navigation/tabs, that's the symptom.
+//
+// Soft warning, not error — heuristic by design has false positives. Designer
+// reviews the GenLog summary and decides whether to mute or accept.
+
+var CHROME_RULES = [
+  {
+    refs: ["fmNavItem"],
+    textProp: "Label",
+    defaultText: "Nav Item",
+    mutedVariant: "Placeholder",
+    variantAxis: "State",
+    activeMarker: "sidebarActive",
+  },
+  {
+    refs: ["fmTab"],
+    textProp: "Tab label",
+    defaultText: null,
+    mutedVariant: "Placeholder",
+    variantAxis: "State",
+    activeMarker: null,
+  },
+];
+
+var FEATURE_IS_CHROME_PATTERNS = [
+  /\bnav(igation)?\b/i,
+  /\bsidebar\b/i,
+  /\bmenu\b/i,
+  /\btab(s)?\b/i,
+  /\btoolbar\b/i,
+  /\bbreadcrumb\b/i,
+  /\b(side|top)\s*bar\b/i,
+];
+
+function looksLikeChromeFeature(text) {
+  if (!text || typeof text !== "string") return false;
+  for (var i = 0; i < FEATURE_IS_CHROME_PATTERNS.length; i++) {
+    if (FEATURE_IS_CHROME_PATTERNS[i].test(text)) return true;
+  }
+  return false;
+}
+
+function parseVariantAxis(variant, axis) {
+  if (typeof variant !== "string" || !axis) return null;
+  var parts = variant.split(",");
+  for (var i = 0; i < parts.length; i++) {
+    var kv = parts[i].split("=");
+    if (kv.length === 2 && kv[0].trim() === axis) return kv[1].trim();
+  }
+  return null;
+}
+
+function findPropValue(props, propName) {
+  if (!props || typeof props !== "object") return undefined;
+  if (Object.prototype.hasOwnProperty.call(props, propName))
+    return props[propName];
+  var keys = Object.keys(props);
+  for (var i = 0; i < keys.length; i++) {
+    if (keys[i].split("#")[0] === propName) return props[keys[i]];
+  }
+  return undefined;
+}
+
+function findUnmutedChromeRaw(data) {
+  var issues = [];
+  if (!data || !Array.isArray(data.screens)) return issues;
+
+  var glossary = (data.meta && data.meta._glossary) || {};
+  var sidebarActive = glossary.sidebarActive || null;
+  var featureContext = [
+    (data.meta && data.meta.feature) || "",
+    (data.meta && data.meta.flow) || "",
+    (data.meta && data.meta.prompt) || "",
+  ].join(" ");
+
+  var refToRule = {};
+  for (var ri = 0; ri < CHROME_RULES.length; ri++) {
+    var r = CHROME_RULES[ri];
+    for (var rj = 0; rj < r.refs.length; rj++) refToRule[r.refs[rj]] = r;
+  }
+
+  for (var si = 0; si < data.screens.length; si++) {
+    var screen = data.screens[si];
+    var screenName = screen.name || "Screen " + (si + 1);
+    var screenContext = featureContext + " " + screenName;
+    if (looksLikeChromeFeature(screenContext)) continue;
+
+    walkInstanceNodes(
+      screen.content,
+      "screens[" + si + "].content",
+      (function (sName) {
+        return function (instNode, p) {
+          var rule = refToRule[instNode.ref];
+          if (!rule) return;
+          var stateValue = parseVariantAxis(instNode.variant, rule.variantAxis);
+          if (stateValue === rule.mutedVariant) return;
+
+          var labelValue = findPropValue(instNode.props, rule.textProp);
+          if (typeof labelValue !== "string" || labelValue === "") return;
+          if (rule.defaultText && labelValue === rule.defaultText) return;
+          if (
+            rule.activeMarker === "sidebarActive" &&
+            sidebarActive &&
+            labelValue === sidebarActive
+          ) {
+            return; // canonical active-marker exemption
+          }
+
+          issues.push({
+            severity: "P1",
+            check: "unmuted-chrome",
+            screen: sName,
+            path: p,
+            ref: instNode.ref,
+            value: labelValue,
+            suggestion:
+              'Set variant="' +
+              rule.variantAxis +
+              "=" +
+              rule.mutedVariant +
+              '" or replace with fmPlaceholder',
+          });
+        };
+      })(screenName),
+    );
+  }
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
 // Check 6: Severity-tiered soft-deviation checks (Sprint B1 — fallback ladder)
 // ---------------------------------------------------------------------------
 //
@@ -752,6 +888,27 @@ function validate(data, opts) {
     }
   }
 
+  // Unmuted-chrome heuristic — soft warning. FM focus principle: non-feature
+  // chrome (nav items, tabs) should use State=Placeholder variant or fmPlaceholder.
+  if (data && Array.isArray(data.screens)) {
+    var unmuted = findUnmutedChromeRaw(data);
+    for (var ui = 0; ui < unmuted.length; ui++) {
+      findings.push({
+        kind: "unmuted-chrome",
+        severity: "warning",
+        path: unmuted[ui].path,
+        message:
+          "Chrome '" +
+          unmuted[ui].ref +
+          "' has real-looking content " +
+          JSON.stringify(unmuted[ui].value) +
+          " on a non-chrome-feature screen. " +
+          unmuted[ui].suggestion,
+        _legacy: unmuted[ui],
+      });
+    }
+  }
+
   // Terminology check (folded from legacy findTerminologyIssuesRaw)
   if (!opts.skipTerminology && data && Array.isArray(data.screens)) {
     var terms = findTerminologyIssuesRaw(data);
@@ -806,6 +963,16 @@ function findHardcodedColors(data) {
     });
 }
 
+function findUnmutedChrome(data) {
+  return validate(data, { skipTokens: true, skipTerminology: true })
+    .findings.filter(function (f) {
+      return f.kind === "unmuted-chrome";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
 function findTerminologyIssues(data) {
   return validate(data, { skipTokens: true })
     .findings.filter(function (f) {
@@ -833,6 +1000,7 @@ module.exports = {
   findBannedText: findBannedText,
   findUnresolvedTokens: findUnresolvedTokens,
   findHardcodedColors: findHardcodedColors,
+  findUnmutedChrome: findUnmutedChrome,
   findTerminologyIssues: findTerminologyIssues,
   findMissingJustifications: findMissingJustifications,
   validate: validate,
@@ -896,6 +1064,9 @@ if (require.main === module) {
   if (!skipTerminology) {
     allIssues = allIssues.concat(findTerminologyIssues(data));
   }
+
+  // Check 4b: Unmuted-chrome heuristic (P1 — soft warning)
+  allIssues = allIssues.concat(findUnmutedChrome(data));
 
   // Check 5: Tier justification (B1 fallback ladder).
   // Map to legacy CLI shape so the existing reporter handles them uniformly.

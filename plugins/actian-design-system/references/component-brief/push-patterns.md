@@ -48,7 +48,7 @@ inst.setProperties({
   "Date": "2026-04-09T00:00:00.000Z",
   "Duration": "Duration: 45s",
   "Model": "claude-sonnet-4-6",
-  "Plugin Version": "v1.53.3"
+  "Plugin Version": "v1.53.4"
 });
 
 const wrapper = await figma.getNodeByIdAsync("<wrapperId>");

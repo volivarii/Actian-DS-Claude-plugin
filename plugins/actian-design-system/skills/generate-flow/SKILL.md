@@ -116,7 +116,9 @@ If any condition fails, fall back per the table below.
 - **Do NOT re-dispatch screen-generator agents.** Patch in-place with Edit, then re-run the validator.
 - **Retry cap:** if the same finding kind on the same path persists across 3 consecutive validator runs, stop and surface the validator output to the user. Do not loop further.
 
-For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `terminology-issue`): exit 2, push proceeds. Findings surface in the GenLog text node.
+For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `terminology-issue`, `unmuted-chrome`): exit 2, push proceeds. Findings surface in the GenLog text node.
+
+**`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker (the one whose label matches `meta._glossary.sidebarActive`). This honors the rule that non-feature chrome is ALWAYS placeholder — see `references/quality-tiers.md`.
 7. Push to Figma (see Push section below)
 8. Preview (opt-in):
    ```bash
@@ -243,7 +245,7 @@ Read `references/figma-push-patterns.md` for component keys and patterns. Push f
 **Push sequence:**
 
 1. Navigate to target page + create wrapper frame
-2. GenLog — import by key `a9653f30925367e96dea90093d750bfe70849571`, `setProperties` with `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version = `v1.53.3`** (read from plugin.json, never hardcode)
+2. GenLog — import by key `a9653f30925367e96dea90093d750bfe70849571`, `setProperties` with `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version = `v1.53.4`** (read from plugin.json, never hardcode)
 3. Tier Summary (if any screen has a `tier` field) — call `buildTierSummary(screens)` from `scripts/shared-constants.js`. If it returns a TEXT node spec (not null), push the TEXT node into the wrapper as a sibling of the GenLog instance, immediately following it. Skip when `buildTierSummary` returns null (none of the screens are tiered).
 4. Research card (if opted-in) — import Research Frame `e671618f2b4c6ea406a995fdc3012ac54eadfe56`, `setProperties` with `"Title#48:10"`, `"Source#48:11"`, detach, inject findings into Content slot. **Must contain the exact same content as the chat findings** — same competitors, patterns, recommendations, source URLs. Card is the persistent record of what informed the design.
 5. Cover Card — import `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave defaults
