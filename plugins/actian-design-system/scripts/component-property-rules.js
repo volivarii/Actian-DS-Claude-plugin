@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 "use strict";
 
+var crypto = require("crypto");
+
 // ---------------------------------------------------------------------------
 // Placeholder default detection
 // ---------------------------------------------------------------------------
@@ -97,9 +99,39 @@ function getDefaultTrueBooleans(componentDef) {
   return result;
 }
 
+// ---------------------------------------------------------------------------
+// Property defaults hash
+// ---------------------------------------------------------------------------
+//
+// Stable sha256 over all property defaults across all components in a
+// registry, sorted by component slug then prop name. Used by changelog.js
+// to surface upstream drift when a designer edits a Figma component default.
+// ---------------------------------------------------------------------------
+
+function propertyDefaultsHash(registry) {
+  var components = (registry && registry.components) || {};
+  var slugs = Object.keys(components).sort();
+  var rows = [];
+  for (var i = 0; i < slugs.length; i++) {
+    var slug = slugs[i];
+    var props = (components[slug] && components[slug].properties) || {};
+    var propNames = Object.keys(props).sort();
+    for (var j = 0; j < propNames.length; j++) {
+      var prop = props[propNames[j]];
+      var defaultStr = JSON.stringify(
+        prop && prop.default !== undefined ? prop.default : null,
+      );
+      rows.push(slug + "\t" + propNames[j] + "\t" + defaultStr);
+    }
+  }
+  var canon = rows.join("\n");
+  return crypto.createHash("sha256").update(canon).digest("hex");
+}
+
 module.exports = {
   PLACEHOLDER_PATTERNS: PLACEHOLDER_PATTERNS,
   isPlaceholderDefault: isPlaceholderDefault,
   getRequiredOverrideProps: getRequiredOverrideProps,
   getDefaultTrueBooleans: getDefaultTrueBooleans,
+  propertyDefaultsHash: propertyDefaultsHash,
 };

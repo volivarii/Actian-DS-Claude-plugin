@@ -146,4 +146,68 @@ describe("component-property-rules", function () {
       );
     });
   });
+
+  describe("propertyDefaultsHash", function () {
+    it("produces deterministic hash for same registry", function () {
+      var registry = {
+        components: {
+          "fm-button": {
+            properties: { Label: { type: "TEXT", default: "Button" } },
+          },
+        },
+      };
+      var h1 = rules.propertyDefaultsHash(registry);
+      var h2 = rules.propertyDefaultsHash(registry);
+      assert.strictEqual(h1, h2);
+      assert.strictEqual(typeof h1, "string");
+      assert.strictEqual(h1.length, 64); // sha256 hex
+    });
+
+    it("differs when a default value changes", function () {
+      var before = {
+        components: {
+          "fm-button": {
+            properties: { Label: { type: "TEXT", default: "Button" } },
+          },
+        },
+      };
+      var after = {
+        components: {
+          "fm-button": {
+            properties: { Label: { type: "TEXT", default: "Action" } },
+          },
+        },
+      };
+      assert.notStrictEqual(
+        rules.propertyDefaultsHash(before),
+        rules.propertyDefaultsHash(after),
+      );
+    });
+
+    it("is insensitive to component-key ordering", function () {
+      var a = {
+        components: {
+          "fm-a": { properties: { P: { type: "TEXT", default: "X" } } },
+          "fm-b": { properties: { P: { type: "TEXT", default: "Y" } } },
+        },
+      };
+      var b = {
+        components: {
+          "fm-b": { properties: { P: { type: "TEXT", default: "Y" } } },
+          "fm-a": { properties: { P: { type: "TEXT", default: "X" } } },
+        },
+      };
+      assert.strictEqual(
+        rules.propertyDefaultsHash(a),
+        rules.propertyDefaultsHash(b),
+      );
+    });
+
+    it("handles missing components object", function () {
+      assert.strictEqual(
+        rules.propertyDefaultsHash({}),
+        rules.propertyDefaultsHash({ components: {} }),
+      );
+    });
+  });
 });
