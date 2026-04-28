@@ -37,7 +37,38 @@ function isPlaceholderDefault(text) {
   return false;
 }
 
+// ---------------------------------------------------------------------------
+// Required-override prop detection
+// ---------------------------------------------------------------------------
+//
+// A "required-override" prop is a TEXT property whose default value matches
+// PLACEHOLDER_PATTERNS — meaning the AI/designer MUST override it or the
+// placeholder string leaks into the design. Returned shape lets callers
+// reference both the prop name (for setProperties calls) and the default
+// (for error messages).
+// ---------------------------------------------------------------------------
+
+function getRequiredOverrideProps(componentDef) {
+  if (
+    !componentDef ||
+    !componentDef.properties ||
+    typeof componentDef.properties !== "object"
+  ) {
+    return [];
+  }
+  var result = [];
+  var names = Object.keys(componentDef.properties);
+  for (var i = 0; i < names.length; i++) {
+    var prop = componentDef.properties[names[i]];
+    if (prop && prop.type === "TEXT" && isPlaceholderDefault(prop.default)) {
+      result.push({ propName: names[i], defaultValue: prop.default });
+    }
+  }
+  return result;
+}
+
 module.exports = {
   PLACEHOLDER_PATTERNS: PLACEHOLDER_PATTERNS,
   isPlaceholderDefault: isPlaceholderDefault,
+  getRequiredOverrideProps: getRequiredOverrideProps,
 };

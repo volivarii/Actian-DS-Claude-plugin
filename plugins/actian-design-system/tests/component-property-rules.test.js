@@ -45,4 +45,60 @@ describe("component-property-rules", function () {
       assert.strictEqual(rules.isPlaceholderDefault(42), false);
     });
   });
+
+  describe("getRequiredOverrideProps", function () {
+    it("returns TEXT props with placeholder defaults", function () {
+      var componentDef = {
+        properties: {
+          "Title#1:0": { type: "TEXT", default: "Page Title" },
+          "Subtitle#1:1": { type: "TEXT", default: "Custom subtitle" },
+          "Label#1:2": { type: "TEXT", default: "Label" },
+        },
+      };
+      var result = rules.getRequiredOverrideProps(componentDef);
+      var names = result
+        .map(function (r) {
+          return r.propName;
+        })
+        .sort();
+      assert.deepStrictEqual(names, ["Label#1:2", "Title#1:0"]);
+    });
+
+    it("returns empty array for component with no placeholder TEXT defaults", function () {
+      var componentDef = {
+        properties: {
+          Label: { type: "TEXT", default: "Save" },
+        },
+      };
+      assert.deepStrictEqual(rules.getRequiredOverrideProps(componentDef), []);
+    });
+
+    it("ignores non-TEXT props", function () {
+      var componentDef = {
+        properties: {
+          "Show Icon": { type: "BOOLEAN", default: true },
+          Icon: { type: "INSTANCE_SWAP", default: "abc123" },
+        },
+      };
+      assert.deepStrictEqual(rules.getRequiredOverrideProps(componentDef), []);
+    });
+
+    it("handles missing properties object", function () {
+      assert.deepStrictEqual(rules.getRequiredOverrideProps({}), []);
+      assert.deepStrictEqual(
+        rules.getRequiredOverrideProps({ properties: null }),
+        [],
+      );
+    });
+
+    it("preserves default value in result", function () {
+      var componentDef = {
+        properties: {
+          Title: { type: "TEXT", default: "Page Title" },
+        },
+      };
+      var result = rules.getRequiredOverrideProps(componentDef);
+      assert.strictEqual(result[0].defaultValue, "Page Title");
+    });
+  });
 });
