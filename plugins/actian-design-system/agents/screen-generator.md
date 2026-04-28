@@ -34,16 +34,34 @@ You will receive:
 
 ## Step -1: Property completeness pre-check
 
-For every `{ type: "INSTANCE", ref: "<slug>", props: {...} }` node you write into the screen's content tree:
+**Run this once per screen before writing INSTANCE nodes.** Do NOT do per-component registry dumps with python or repeated reads of `docs/fmkit.json` / `docs/dskit.json` — use the CLI helper:
 
-1. Look up `<slug>` in the component registry (`docs/fmkit.json` for `fm*` slugs; `docs/dskit.json` otherwise).
-2. For every TEXT prop whose default value is a placeholder (matches `Page Title`, `Button label`, `Label`, `Dropdown text`, `Description text`, `Description`, `Placeholder*`, etc.), include a real value in `props`.
-3. For every BOOLEAN prop whose default is `true` (e.g., `👁 Leading Icon`, `👁 Trailing Icon`, `Show Trailing Action`), decide explicitly:
-   - If the design needs the element visible: set `props["<prop name>"]: true`
-   - If the design does NOT need it visible: set `props["<prop name>"]: false`
-   - Omitting these will produce a warning at the validator gate (not an error, but visible in GenLog).
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/component-property-rules.js" \
+  --inspect <slug1>,<slug2>,<slug3>,...
+```
 
-**Why this matters:** the validator (`scripts/validate-flow-data.js`) enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings (`"Page Title"`, etc.) in any string content → P0. Default-true booleans unset → P1 warning.
+Pass every component slug you plan to use in the screen, comma-separated. Output is ~3 lines per slug:
+
+```
+fmButton
+  required overrides: Label#1411:32
+  default-true booleans: 👁 Leading Icon#1410:3, 👁 Trailing Icon#1410:6
+fmPageHeader
+  required overrides: Title#979:22, Subtitle#979:23
+  default-true booleans: (none)
+```
+
+Use the output to write each `{ type: "INSTANCE", ref: "<slug>", props: {...} }` node correctly:
+
+1. **Required overrides** (TEXT props with placeholder defaults like `"Page Title"`, `"Button label"`, `"Label"`, etc.) — include a real value in `props` keyed by the EXACT prop name shown (with hash suffix).
+2. **Default-true booleans** — decide explicitly:
+   - If the design needs the element visible: set `props["<exact prop name>"]: true`
+   - If the design does NOT need it visible: set `props["<exact prop name>"]: false`
+   - Omitting these produces a warning at the validator gate (not an error, but visible in GenLog).
+
+**Why this matters:** the validator (`scripts/validate-flow-data.js`) enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings (`"Page Title"`, etc.) in any string content → P0. Default-true booleans unset → P1 warning. **One CLI call per screen replaces dozens of registry reads.**
 
 0. **Classify each screen into a tier before generating.**
 

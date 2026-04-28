@@ -1,5 +1,6 @@
 #!/bin/bash
 # Auto-approve Read/Glob/Grep for files within the plugin's own directory.
+# Output shape per https://code.claude.com/docs/en/hooks.md#pretooluse-hook-json-response-format
 # No python dependency — pure bash extraction.
 
 plugin_root="${CLAUDE_PLUGIN_ROOT:-}"
@@ -13,7 +14,7 @@ file_path=$(echo "$input" | sed -n 's/.*"file_path"[[:space:]]*:[[:space:]]*"\([
 
 # Allow reads from the plugin's own directory
 if [[ "$file_path" == "$plugin_root"/* ]]; then
-  echo '{"decision":"allow","reason":"Plugin internal file"}'
+  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","permissionDecision":"allow","permissionDecisionReason":"Plugin internal file"}}'
 fi
 
 exit 0

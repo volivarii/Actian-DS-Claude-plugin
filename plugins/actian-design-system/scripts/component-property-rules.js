@@ -135,3 +135,124 @@ module.exports = {
   getDefaultTrueBooleans: getDefaultTrueBooleans,
   propertyDefaultsHash: propertyDefaultsHash,
 };
+
+// ---------------------------------------------------------------------------
+// CLI — bulk inspector for screen-generator pre-check
+// ---------------------------------------------------------------------------
+//
+// Usage:
+//   node component-property-rules.js --inspect fmButton,fmPageHeader,fmCheckbox
+//   node component-property-rules.js --inspect button,checkbox  (DS Kit)
+//   node component-property-rules.js --inspect fmButton --json
+//
+// Returns required-override TEXT props and default-true booleans per slug,
+// looking up in fmkit.json (fm* slugs) or dskit.json (others). Output is
+// concise text by default (~3 lines per component) so the AI can read it
+// without doing python registry dumps.
+// ---------------------------------------------------------------------------
+
+if (require.main === module) {
+  var fs = require("fs");
+  var path = require("path");
+  var args = process.argv.slice(2);
+
+  var slugs = null;
+  var jsonOutput = false;
+
+  for (var i = 0; i < args.length; i++) {
+    if (args[i] === "--inspect" && i + 1 < args.length) {
+      slugs = args[i + 1].split(",").map(function (s) {
+        return s.trim();
+      });
+      i++;
+    } else if (args[i] === "--json") {
+      jsonOutput = true;
+    } else if (args[i] === "--help") {
+      process.stdout.write(
+        "Usage: component-property-rules.js --inspect <slug>[,<slug>...] [--json]\n",
+      );
+      process.stdout.write(
+        "Looks up required-override TEXT props and default-true booleans per slug.\n",
+      );
+      process.stdout.write(
+        "fm* slugs read from docs/fmkit.json; others read from docs/dskit.json.\n",
+      );
+      process.exit(0);
+    }
+  }
+
+  if (!slugs || slugs.length === 0) {
+    process.stderr.write(
+      "Usage: component-property-rules.js --inspect <slug>[,<slug>...] [--json]\n",
+    );
+    process.exit(1);
+  }
+
+  var PLUGIN_ROOT = path.resolve(__dirname, "..");
+  function loadKit(file) {
+    try {
+      return JSON.parse(
+        fs.readFileSync(path.join(PLUGIN_ROOT, "docs", file), "utf8"),
+      );
+    } catch (e) {
+      return { components: {} };
+    }
+  }
+  var fm = loadKit("fmkit.json").components || {};
+  var ds = loadKit("dskit.json").components || {};
+
+  function indexBoth(kit) {
+    var index = {};
+    var keys = Object.keys(kit);
+    for (var k = 0; k < keys.length; k++) {
+      index[keys[k]] = kit[keys[k]]; // kebab
+      var camel = keys[k].replace(/-([a-z])/g, function (_, c) {
+        return c.toUpperCase();
+      });
+      index[camel] = kit[keys[k]];
+    }
+    return index;
+  }
+  var combined = Object.assign({}, indexBoth(fm), indexBoth(ds));
+
+  var results = {};
+  for (var s = 0; s < slugs.length; s++) {
+    var slug = slugs[s];
+    var def = combined[slug];
+    if (!def) {
+      results[slug] = { error: "not found in fmkit.json or dskit.json" };
+      continue;
+    }
+    var required = getRequiredOverrideProps(def).map(function (r) {
+      return r.propName;
+    });
+    var booleans = getDefaultTrueBooleans(def).map(function (b) {
+      return b.propName;
+    });
+    results[slug] = { required: required, defaultTrueBooleans: booleans };
+  }
+
+  if (jsonOutput) {
+    process.stdout.write(JSON.stringify(results, null, 2) + "\n");
+  } else {
+    var lines = [];
+    var resultSlugs = Object.keys(results);
+    for (var rs = 0; rs < resultSlugs.length; rs++) {
+      var rSlug = resultSlugs[rs];
+      var r = results[rSlug];
+      if (r.error) {
+        lines.push(rSlug + ": ERROR — " + r.error);
+        continue;
+      }
+      var reqStr = r.required.length > 0 ? r.required.join(", ") : "(none)";
+      var boolStr =
+        r.defaultTrueBooleans.length > 0
+          ? r.defaultTrueBooleans.join(", ")
+          : "(none)";
+      lines.push(rSlug);
+      lines.push("  required overrides: " + reqStr);
+      lines.push("  default-true booleans: " + boolStr);
+    }
+    process.stdout.write(lines.join("\n") + "\n");
+  }
+}
