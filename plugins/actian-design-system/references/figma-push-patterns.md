@@ -54,6 +54,33 @@ For helper text or descriptions that may wrap, set the parent row to FILL horizo
 
 ---
 
+## 0b. No Raw RGB — Tokens Only
+
+**Never set `fills` or `strokes` with raw `{ r, g, b }` color objects.** Two correct paths:
+
+1. **Scaffold containers stay transparent.** A wrapper that just provides layout structure does not need a paint at all:
+   ```js
+   wrapper.fills = [];        // CORRECT — transparent
+   wrapper.strokes = [];      // CORRECT — no border
+   ```
+
+2. **If you genuinely need a paint, bind a Figma variable.** The Actian DS file ships color variables — look them up via `figma.variables.getLocalVariablesAsync()` or via the published library, then bind:
+   ```js
+   const fill = { type: "SOLID", color: { r: 0, g: 0, b: 0 } };  // placeholder
+   const bound = figma.variables.setBoundVariableForPaint(fill, "color", colorVar);
+   sidebar.fills = [bound];
+   ```
+
+**Wrong — leaks hardcoded values into the design** (caught during v1.53.0 smoke test):
+```js
+sidebar.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];                          // ❌ raw white
+sidebar.strokes = [{ type: "SOLID", color: { r: 0.886, g: 0.902, b: 0.937 } }];            // ❌ raw gray
+```
+
+**Library-gap reminder:** before scaffolding any chrome (sidebar, header, toolbar, page header, action bar) with raw frames, check the registry for an existing component. FM has `fm-app-header`, `fm-nav-bar`, `fm-page-header`, `fm-banner`. DS has Global Header, Side nav, Page header, Sticky footer. **Use components first; only scaffold when the registry has no fit.** See `references/library-gap-detection.md`.
+
+---
+
 ### Pattern 1: Create wrapper frame + position on page
 
 ```js
@@ -233,7 +260,7 @@ if (subtitleText) subtitleText.characters = "Manage team members and permissions
 - **FM Icon Buttons** — Variants: `Type=Primary|Secondary|Outline`, `State=Default|Disabled`
 
 **Meta Kit (all skills):**
-- **genLog** — `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"` — all TEXT via `setProperties()`. **Plugin Version MUST be read from `plugin.json`** — currently `v1.53.1`. Do NOT hardcode or guess the version.
+- **genLog** — `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"` — all TEXT via `setProperties()`. **Plugin Version MUST be read from `plugin.json`** — currently `v1.53.2`. Do NOT hardcode or guess the version.
 - **flowCoverCard** — `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — all TEXT via `setProperties()`. NEVER leave as "Feature Name" / "Flow Description" / "User Persona".
 - **divider** — no properties
 

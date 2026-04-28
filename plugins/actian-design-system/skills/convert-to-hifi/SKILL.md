@@ -52,7 +52,9 @@ function walk(node, path) {
   } else if (node.type === 'TEXT') {
     nodes.push({ t: 'T', p: path, n: node.name, c: node.characters, s: node.fontSize });
   } else if (node.type === 'FRAME' || node.type === 'GROUP' || node.type === 'SECTION') {
-    nodes.push({ t: 'F', p: path, n: node.name, w: node.width, h: node.height, lm: node.layoutMode || 'NONE' });
+    // node.layoutMode only exists on FRAME — guard for GROUP/SECTION
+    var lm = node.type === 'FRAME' ? (node.layoutMode || 'NONE') : 'NONE';
+    nodes.push({ t: 'F', p: path, n: node.name, w: node.width, h: node.height, lm: lm });
   }
   if ('children' in node && node.children) {
     for (let i = 0; i < node.children.length; i++)
