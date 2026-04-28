@@ -1,0 +1,45 @@
+{
+  "library": "fm",
+  "fileKey": "FM_FIXTURE",
+  "lastSynced": "2026-04-28T00:00:00.000Z",
+  "componentCount": 3,
+  "components": {
+    "fm-button": {
+      "name": "FM Button",
+      "key": "fm-button-key-aaaa",
+      "nodeId": "1:1",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "Standard button.",
+      "variants": { "Type": ["Primary", "Secondary"] },
+      "properties": {
+        "Label#1:0": { "type": "TEXT", "default": "Button label" },
+        "Show Leading Icon#1:1": { "type": "BOOLEAN", "default": true }
+      }
+    },
+    "fm-page-header": {
+      "name": "FM Page Header",
+      "key": "fm-page-header-key-bbbb",
+      "nodeId": "1:2",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "Page header bar.",
+      "variants": {},
+      "properties": {
+        "Title#2:0": { "type": "TEXT", "default": "Page Title" },
+        "Description#2:1": { "type": "TEXT", "default": "Description text" },
+        "Show Trailing Action#2:2": { "type": "BOOLEAN", "default": true }
+      }
+    },
+    "fm-spacer": {
+      "name": "FM Spacer",
+      "key": "fm-spacer-key-cccc",
+      "nodeId": "1:3",
+      "importMethod": "set",
+      "page": "_comp",
+      "description": "",
+      "variants": {},
+      "properties": {}
+    }
+  }
+}
