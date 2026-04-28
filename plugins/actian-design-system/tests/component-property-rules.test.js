@@ -101,4 +101,49 @@ describe("component-property-rules", function () {
       assert.strictEqual(result[0].defaultValue, "Page Title");
     });
   });
+
+  describe("getDefaultTrueBooleans", function () {
+    it("returns BOOLEAN props with default true", function () {
+      var componentDef = {
+        properties: {
+          "Show Leading Icon#1:0": { type: "BOOLEAN", default: true },
+          "Show Trailing Icon#1:1": { type: "BOOLEAN", default: true },
+          "Show Disabled#1:2": { type: "BOOLEAN", default: false },
+        },
+      };
+      var result = rules.getDefaultTrueBooleans(componentDef);
+      var names = result
+        .map(function (r) {
+          return r.propName;
+        })
+        .sort();
+      assert.deepStrictEqual(names, [
+        "Show Leading Icon#1:0",
+        "Show Trailing Icon#1:1",
+      ]);
+    });
+
+    it("ignores non-BOOLEAN props", function () {
+      var componentDef = {
+        properties: {
+          Title: { type: "TEXT", default: "Page Title" },
+        },
+      };
+      assert.deepStrictEqual(rules.getDefaultTrueBooleans(componentDef), []);
+    });
+
+    it("handles missing properties object", function () {
+      assert.deepStrictEqual(rules.getDefaultTrueBooleans({}), []);
+    });
+
+    it("preserves default value in result", function () {
+      var componentDef = {
+        properties: { "Show Icon": { type: "BOOLEAN", default: true } },
+      };
+      assert.strictEqual(
+        rules.getDefaultTrueBooleans(componentDef)[0].defaultValue,
+        true,
+      );
+    });
+  });
 });
