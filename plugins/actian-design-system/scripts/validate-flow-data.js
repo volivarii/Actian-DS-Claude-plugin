@@ -7,6 +7,65 @@ var path = require("path");
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 var rules = require(path.join(__dirname, "component-property-rules.js"));
 
+// ---------------------------------------------------------------------------
+// Pass 1: registry helpers + INSTANCE-node walker
+// ---------------------------------------------------------------------------
+
+function loadKitRegistry(kit) {
+  var fileName =
+    kit === "fm" ? "fmkit.json" : kit === "ds" ? "dskit.json" : "metakit.json";
+  var registryPath = path.join(__dirname, "..", "docs", fileName);
+  try {
+    return JSON.parse(fs.readFileSync(registryPath, "utf8"));
+  } catch (e) {
+    return { components: {} };
+  }
+}
+
+var _registryCache = null;
+function getCombinedRegistry() {
+  if (_registryCache) return _registryCache;
+  var fm = loadKitRegistry("fm").components || {};
+  var ds = loadKitRegistry("ds").components || {};
+  // Build slug → componentDef lookup. flow-data.json uses camelCase refs
+  // ('fmButton', 'fmPageHeader'); registry slugs are kebab-case
+  // ('fm-button', 'fm-page-header'). Index both forms.
+  var combined = {};
+  function indexKit(kit) {
+    var slugs = Object.keys(kit);
+    for (var i = 0; i < slugs.length; i++) {
+      combined[slugs[i]] = kit[slugs[i]]; // kebab-case
+      // camelCase form: 'fm-button' → 'fmButton'
+      var camel = slugs[i].replace(/-([a-z])/g, function (_, c) {
+        return c.toUpperCase();
+      });
+      combined[camel] = kit[slugs[i]];
+    }
+  }
+  indexKit(fm);
+  indexKit(ds);
+  _registryCache = combined;
+  return _registryCache;
+}
+
+function walkInstanceNodes(node, currentPath, callback) {
+  if (node === null || node === undefined) return;
+  if (Array.isArray(node)) {
+    for (var i = 0; i < node.length; i++) {
+      walkInstanceNodes(node[i], currentPath + "[" + i + "]", callback);
+    }
+    return;
+  }
+  if (typeof node !== "object") return;
+  if (node.type === "INSTANCE" && typeof node.ref === "string") {
+    callback(node, currentPath);
+  }
+  var keys = Object.keys(node);
+  for (var k = 0; k < keys.length; k++) {
+    walkInstanceNodes(node[keys[k]], currentPath + "." + keys[k], callback);
+  }
+}
+
 function walkStringValues(node, currentPath, callback) {
   if (node === null || node === undefined) return;
   if (typeof node === "string") {
@@ -453,6 +512,45 @@ function validate(data, opts) {
       checkTierJustification(data.screens[si], findings);
       checkRecipeAdherence(data.screens[si], findings);
     }
+  }
+
+  // Pass 1: walk INSTANCE nodes, check ref exists + required overrides present
+  var registry = getCombinedRegistry();
+  if (data.screens) {
+    walkInstanceNodes(data.screens, "screens", function (instNode, p) {
+      var componentDef = registry[instNode.ref];
+      if (!componentDef) {
+        findings.push({
+          kind: "unknown-component",
+          severity: "error",
+          path: p + ".ref",
+          message:
+            "Component ref '" +
+            instNode.ref +
+            "' not found in fmkit.json or dskit.json",
+        });
+        return;
+      }
+      var required = rules.getRequiredOverrideProps(componentDef);
+      var props = instNode.props || {};
+      for (var i = 0; i < required.length; i++) {
+        if (props[required[i].propName] === undefined) {
+          findings.push({
+            kind: "missing-required-override",
+            severity: "error",
+            path: p + ".props",
+            message:
+              "Component '" +
+              instNode.ref +
+              "' requires override for prop '" +
+              required[i].propName +
+              "' (default '" +
+              required[i].defaultValue +
+              "' is a placeholder)",
+          });
+        }
+      }
+    });
   }
 
   // Pass 2: walk all string values in screens (excludes meta block by design)

@@ -595,6 +595,78 @@ describe("validate-flow-data", function () {
     });
   });
 
+  describe("validate() INSTANCE-level findings", function () {
+    it("flags missing-required-override when fmPageHeader title is omitted", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmPageHeader",
+                props: {},
+              },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "missing-required-override";
+      });
+      assert.ok(
+        findings.length >= 1,
+        "expected at least one missing-required-override finding",
+      );
+      assert.strictEqual(findings[0].severity, "error");
+    });
+
+    it("flags unknown-component for bogus ref", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              { type: "INSTANCE", ref: "fmTotallyNotAComponent", props: {} },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "unknown-component";
+      });
+      assert.strictEqual(findings.length, 1);
+      assert.strictEqual(findings[0].severity, "error");
+    });
+
+    it("does not flag missing-required-override when all required props are provided", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmPageHeader",
+                props: {
+                  "Title#979:22": "Notification preferences",
+                  "Subtitle#979:23": "Manage your alert subscriptions",
+                },
+              },
+            ],
+          },
+        ],
+      };
+      var findings = validate.validate(data).findings.filter(function (f) {
+        return f.kind === "missing-required-override";
+      });
+      assert.strictEqual(findings.length, 0);
+    });
+  });
+
   describe("CLI exit codes (contract lock)", function () {
     var fs = require("fs");
     var os = require("os");
