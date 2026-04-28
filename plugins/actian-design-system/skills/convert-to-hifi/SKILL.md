@@ -1,12 +1,18 @@
 ---
 name: convert-to-hifi
 description: Convert a Fat Marker wireframe screen or flow into high-fidelity using DS Kit components. Reads FM instances from a Figma frame, maps to DS equivalents, applies layout polish, and pushes a new hifi frame.
-argument-hint: "<figma-url>"
+argument-hint: "<figma-url> [--ref <figma-url>[,<figma-url>]]"
 ---
 
 # Convert to HiFi
 
 Upgrade a Fat Marker wireframe to a high-fidelity DS Kit frame. Three-stage pipeline: extract FM tree from Figma → deterministic transform → LLM polish + push. Runs autonomously after Stage 2 confirmation — no other pauses.
+
+## Flags
+
+| Flag | Type | Default | Behavior |
+|------|------|---------|----------|
+| `--ref <url[,url]>` | URL list | none | **v1: Figma URLs only.** Reference frames influence hifi-specific decisions: component variant selection (compact vs. comfortable density), hierarchy emphasis, toolbar/empty-state choices. Multi-URL = blended influence. For external references (Linear, Stripe, etc.), screenshot into a Figma frame first and pass that URL. Image-URL support targeted for v2 alongside the vision pipeline. Until the engine pipeline lands, `--ref` URLs are surfaced to the LLM as `get_screenshot` reference images during Stage 3 polish. |
 
 ## Pipeline
 
@@ -154,7 +160,7 @@ Apply DS spacing tokens and layout rules to every container before pushing:
    b. Create content frame with auto layout
    c. Instantiate each DS component, set ALL properties (variant, text, boolean) per `references/component-instance-rules.md`
    d. Append to content frame, append content frame to hifi frame
-5. **Report** — after all pushes complete, report node count and any skipped nodes to user
+5. **Report** — after all pushes complete, report node count and any skipped nodes to user. Then suggest the next loop step: "Audit this hifi frame? Run `/design-audit <pushed-url>` to check tokens, a11y, and DS rules — or `/design-audit <pushed-url> --fix all` to auto-fix P0/P1 findings."
 
 **Rules:**
 - Return IDs from every call — use them in subsequent calls to append children

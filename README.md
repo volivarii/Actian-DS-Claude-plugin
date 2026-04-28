@@ -4,20 +4,29 @@
 
 Built on Claude and connected directly to Figma, the Actian DS Plugin knows the design system — tokens, components, design & content guidelines, and the specific context of our apps. It can act on that knowledge and answer questions about it.
 
-- Scaffold wireframe flows from a user story — Fat Marker lo-fi, correct app chrome, HTML preview with direct browser annotations before anything is pushed to Figma
-- Convert wireframes to high-fidelity — reads FM screens from Figma, maps to real DS Kit components, pushes a production-ready hifi frame alongside the original
+## The core loop
+
+**Sketch → Hifi → Audit.** Most design work flows through this loop.
+
+1. **Sketch.** Describe a feature; get a Fat Marker lo-fi flow (one screen or many) with correct app chrome, structured around real layout patterns from the product.
+2. **Hifi.** Convert the wireframe to high-fidelity — DS Kit components, real tokens, production-ready.
+3. **Audit.** Check tokens, contrast, copy, and DS rules. Auto-fix what's safe, report what needs judgment.
+
+Iterate inside the loop with **refine** (paste a URL + edit instruction), **branch** (fork into a sibling for parallel exploration), or **variants** (three structurally-distinct alternatives side-by-side).
+
+## Supporting capabilities
+
 - Generate 9-card component briefs with real library instances from Figma — direct push using `setProperties` on live MetaKit instances (colored swatches, a11y requirement grids, contrast badges)
 - Create new Figma components with variants, properties, and correct token binding
-- Audit screens for token violations, spacing issues, and contrast failures — with inline fixes
-- Review and rewrite copy against DS content guidelines
-- Compare two competing designs side by side
+- Review and rewrite copy against DS content guidelines (`/design-audit --scope copy`)
+- Compare two competing designs side by side (also works between branches and variants)
 - Research UX patterns and competitor approaches on demand
 - Build presentations using Actian slide templates
 - Sync tokens, components, and guidelines directly from Figma
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.51.0** · 9 skills (with tiered generation: recognized / adapted / improvised) · 8 agents · 25 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.52.0** · 9 skills (with tiered generation: recognized / adapted / improvised) · 8 agents · 25 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
 
 ---
 
@@ -200,14 +209,21 @@ Sync the Button guidelines
 
 Every capability is also available as a direct command. Use these when you know exactly which pipeline you want.
 
+**Core loop:**
+
 | Command | What it does |
 |---------|-------------|
-| `/generate-flow` | Wireframe flow from a feature description — Fat Marker lo-fi, correct app chrome, HTML preview before push. Add `--hifi` to also generate a DS Kit version. |
-| `/convert-to-hifi` | Convert an existing FM wireframe to high-fidelity — reads the Figma frame, maps FM components to DS Kit, pushes a new hifi frame alongside |
-| `/component-brief` | 9-card component spec — anatomy, variants, states, tokens, content rules, accessibility, real library instances (deterministic pipeline) |
-| `/design-audit` | Token, contrast, and guideline audit with inline fixes — not just a report |
+| `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Flags: `--hifi` (chain to hifi), `--audit` (chain to audit), `--variants N` (2–5 structurally-distinct), `--ref <url>` (bias on reference), `--from <url>` (iterate), `--from <url> --branch X` (fork), `--states empty,error` (state coverage), `--breakpoints tablet,mobile` (responsive variants). URL + prose = refine shape. |
+| `/convert-to-hifi` | Hifi — convert FM wireframe to DS Kit hifi. `--ref <url>` biases density/variant choices. |
+| `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
+
+**Supporting:**
+
+| Command | What it does |
+|---------|-------------|
+| `/component-brief` | 9-card component spec — anatomy, variants, states, tokens, content rules, accessibility, real library instances. `--include-states` adds a state matrix card. |
 | `/create-component` | Build Figma components with variants and correct token binding, with a build plan review before push |
-| `/compare-flows` | Side-by-side analysis of two Figma flows — useful for v1 vs v2 or competing UX approaches |
+| `/compare-flows` | Side-by-side analysis of two Figma flows — v1 vs v2, competing approaches, branches, variants |
 | `/generate-presentation` | Slide deck with Actian templates, token-bound backgrounds, and chart support |
 | `/sync-design-system` | Extract tokens, components, and guidelines directly from Figma via MCP |
 

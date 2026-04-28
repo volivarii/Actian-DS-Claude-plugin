@@ -1,6 +1,136 @@
 # Usage Guide
 
-Your design system teammate. Share a Figma URL, describe what you need, or ask a question — the companion handles the rest.
+Your design system teammate. Three input shapes — prompt, URL + intent, URL + URL — cover everything. The companion routes; you don't memorize commands.
+
+---
+
+## The three shapes
+
+### 1. Prompt — describe what you need
+
+Single screen or full flow, lo-fi or hifi, draft to production. The companion handles screen count, detail level, and chrome.
+
+```
+Mock me a connection setup screen for Administration
+```
+
+```
+Design the data product publishing flow in Studio
+```
+
+```
+Build me a ship-ready user registration flow end-to-end
+```
+
+```
+Show me three ways to do a notification preferences page
+```
+
+Single-screen output is first-class — `mock me X` produces one screen, `design a flow for X` produces multiple.
+
+### 2. URL + intent — operate on existing work
+
+Share a Figma URL plus what you want done. The companion picks the right pipeline.
+
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+rename the primary CTA to "Publish"
+```
+*Refine — surgical edit on a previously-pushed unit.*
+
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+try a different angle on this
+```
+*Iterate — re-roll the same flow with a different recipe selection.*
+
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+branch this for the admin variant
+```
+*Branch — fork into a sibling frame for parallel exploration.*
+
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+make it hifi
+```
+*Convert — FM wireframe → DS Kit hifi (`/convert-to-hifi`).*
+
+```
+https://figma.com/design/FILEKEY/File?node-id=123-456
+audit this — fix the copy
+```
+*Audit with focused scope (`/design-audit --scope copy --fix all`).*
+
+### 3. URL + URL — compare two designs
+
+```
+Compare these two approaches:
+https://figma.com/design/FILEKEY/File?node-id=111-222
+https://figma.com/design/FILEKEY/File?node-id=333-444
+```
+
+The companion routes to `/compare-flows` and produces a side-by-side diff.
+
+---
+
+## Worked examples
+
+### Single-screen prompt (n=1 first-class)
+
+```
+Mock me an empty state for the catalog page
+```
+
+The companion produces one screen. No flow ceremony, no multi-screen overhead.
+
+### Refine: targeted edit on prior work
+
+After any push, the result lives in `.last-push.json`. Paste the pushed URL and describe the edit:
+
+```
+https://figma.com/design/FILEKEY/File?node-id=42-100
+swap the CTA position to the right side and use "Publish" instead of "Save"
+```
+
+The skill detects the URL in the unitMap, loads the cached data model for that screen, applies the edit, and pushes only the affected unit. Faster than regeneration; preserves everything else.
+
+### Variants: structurally-distinct alternatives
+
+```
+Show me three takes on the data contract creation page
+```
+
+Routes to `/generate-flow ... --variants 3`. Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5; n>5 is refused.
+
+### Branch: fork a flow for a variant audience
+
+```
+https://figma.com/design/FILEKEY/File?node-id=99-200
+branch this for the steward role
+```
+
+Routes to `/generate-flow --from <url> --branch steward`. Produces a sibling frame named `[Original] — steward`. Use `/compare-flows` to diff branches.
+
+### Reference: bias generation toward an existing style
+
+Drop in one or more Figma URLs whose structure you want to echo:
+
+```
+Design a command palette in Studio. Match this style:
+https://figma.com/design/REF/File?node-id=10-20
+```
+
+Routes to `/generate-flow ... --ref <url>`. v1 accepts Figma URLs only — for external references (Linear, Stripe), screenshot into a Figma frame first.
+
+### State coverage: empty, error, loading, etc.
+
+```
+https://figma.com/design/FILEKEY/File?node-id=42-100
+add empty + error states
+```
+
+Routes to `/generate-flow <url> --states empty,error`. Generates each state as additional screens.
 
 ---
 
@@ -8,30 +138,16 @@ Your design system teammate. Share a Figma URL, describe what you need, or ask a
 
 ### Point at something, get help
 
-The most natural way to use the plugin: share a Figma URL and describe what you need.
+Share a Figma URL and describe what you need — the companion reads the design, checks it against DS rules, and either fixes it directly (obvious violations) or asks when there's a judgment call.
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
 the spacing in this card feels off
 ```
 
-The companion reads the design, checks it against DS rules, and either fixes it directly (obvious violations) or asks when there's a judgment call.
+### Ask a question
 
-### Describe a task
-
-No URL needed — just say what you're working on.
-
-```
-Mock up a data product publishing flow in Studio
-```
-
-```
-How would a data steward create a metadata quality policy?
-```
-
-```
-Write better copy for the empty state on the connections page
-```
+No URL needed — just describe what you're working on or ask.
 
 ### Ask a question
 
@@ -261,12 +377,20 @@ Every capability is also a direct command. Use these when you know exactly what 
 
 | Command | When to use |
 |---------|------------|
-| `/generate-flow [description] [--hifi]` | Jump straight to flow generation (add `--hifi` for DS Kit version too) |
-| `/convert-to-hifi [URL]` | Convert FM wireframe to DS Kit hifi |
-| `/component-brief [name or URL]` | Jump to component spec |
-| `/design-audit [URL]` | Jump to full audit |
+| `/generate-flow [description]` | Generate one or more lo-fi screens from a prompt |
+| `/generate-flow [URL] [instruction]` | Refine — surgical edit on a prior push |
+| `/generate-flow --from [URL]` | Iterate — re-roll the same flow |
+| `/generate-flow --from [URL] --branch [name]` | Branch — fork into a sibling frame |
+| `/generate-flow [description] --variants 3` | Three structurally-distinct alternatives |
+| `/generate-flow [description] --ref [URL]` | Bias generation toward a reference (Figma URLs only in v1) |
+| `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
+| `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
+| `/generate-flow [description] --hifi --audit` | Lo-fi → hifi → audit chain |
+| `/convert-to-hifi [URL] [--ref URL]` | Convert FM wireframe to DS Kit hifi |
+| `/component-brief [name or URL] [--include-states]` | Jump to component spec (add `--include-states` for state matrix card) |
+| `/design-audit [URL] [--scope copy\|tokens\|a11y\|heuristic] [--fix N\|all]` | Audit with focused scope and optional auto-fix |
 | `/create-component [description]` | Jump to component creation |
-| `/compare-flows [URL1] [URL2]` | Jump to comparison |
+| `/compare-flows [URL1] [URL2]` | Side-by-side diff (also works between branches/variants) |
 | `/generate-presentation [topic]` | Jump to deck creation |
 | `/sync-design-system [scope]` | Jump to sync |
 
