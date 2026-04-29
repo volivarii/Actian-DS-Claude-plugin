@@ -2116,3 +2116,64 @@ describe("refine pipeline integration (B-refine.2)", function () {
     ]);
   });
 });
+
+describe("meta.references[].fingerprint pass-through (C-vision)", function () {
+  it("validator accepts data with embedded fingerprints, no false positives", function () {
+    var data = {
+      meta: {
+        feature: "Test",
+        references: [
+          {
+            url: "https://figma.com/design/abc/?node-id=1-1",
+            kind: "figma-frame",
+            fingerprint: {
+              density: "high",
+              hierarchy_depth: 4,
+              primary_components: ["toolbar", "table"],
+              layout_archetype: "table-list",
+              extracted_at: "2026-04-29T12:00:00Z",
+            },
+          },
+        ],
+      },
+      screens: [{ id: "test-1", name: "Screen 1", content: [] }],
+    };
+    var result = validate.validate(data);
+    // Validator should not produce findings *about* the fingerprint itself.
+    var fingerprintFindings = result.findings.filter(function (f) {
+      return (
+        f.kind === "fingerprint-invalid" ||
+        (f.path && f.path.indexOf("fingerprint") !== -1)
+      );
+    });
+    assert.strictEqual(
+      fingerprintFindings.length,
+      0,
+      "validator should not produce findings about fingerprints",
+    );
+  });
+
+  it("validator does NOT mutate fingerprints (pure check)", function () {
+    var data = {
+      meta: {
+        feature: "Test",
+        references: [
+          {
+            url: "https://figma.com/design/abc/?node-id=1-1",
+            kind: "figma-frame",
+            fingerprint: { density: "high", layout_archetype: "table-list" },
+          },
+        ],
+      },
+      screens: [{ id: "test-1", name: "Screen 1", content: [] }],
+    };
+    var before = JSON.stringify(data.meta.references[0].fingerprint);
+    validate.validate(data);
+    var after = JSON.stringify(data.meta.references[0].fingerprint);
+    assert.strictEqual(
+      before,
+      after,
+      "validator mutated the fingerprint — must remain pure",
+    );
+  });
+});
