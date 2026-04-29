@@ -136,6 +136,37 @@
                 "minimum": 0,
                 "maximum": 1,
                 "description": "Optional blending weight for multi-reference inputs"
+              },
+              "fingerprint": {
+                "type": "object",
+                "description": "C-vision (v1.57.0+) structural fingerprint extracted by vision pipeline. Persisted across pushes/refines; refine path reuses when ref URL is unchanged. All sub-fields optional — partial fingerprints are valid (e.g., layout_archetype dropped due to invalid enum, density survived).",
+                "properties": {
+                  "density": {
+                    "type": "string",
+                    "enum": ["high", "medium", "low"],
+                    "description": "Information density of the reference layout"
+                  },
+                  "hierarchy_depth": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 8,
+                    "description": "Levels of visual nesting from top-level container to leaf content"
+                  },
+                  "primary_components": {
+                    "type": "array",
+                    "items": { "type": "string" },
+                    "description": "Vision-extracted dominant UI components (e.g., 'toolbar', 'table', 'filter-chips'). Free-form lowercase strings."
+                  },
+                  "layout_archetype": {
+                    "type": "string",
+                    "description": "Recipe archetype from recipes/flow/_index.json. Validated at runtime against scripts/fingerprint-schema.js RECIPE_IDS."
+                  },
+                  "extracted_at": {
+                    "type": "string",
+                    "format": "date-time",
+                    "description": "ISO 8601 timestamp of extraction"
+                  }
+                }
               }
             }
           }
