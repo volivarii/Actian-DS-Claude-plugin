@@ -1,0 +1,41 @@
+{
+  "skill": "generate-flow",
+  "fileKey": "FaBwMaNkvdrcQIo3fl8I4D",
+  "pageNodeId": "1:10",
+  "pushedNodes": [
+    {
+      "id": "1:23",
+      "label": "Notification Preferences — General",
+      "screenId": "notification-preferences-1",
+      "tier": "recognized",
+      "matchedRecipe": "form-with-footer",
+      "composition": null,
+      "justification": null
+    },
+    {
+      "id": "1:45",
+      "label": "Notification Preferences — Channels",
+      "screenId": "notification-preferences-2",
+      "tier": "adapted",
+      "matchedRecipe": null,
+      "composition": ["form-with-footer", "list"],
+      "justification": "Combines a channel toggle list with footer save controls"
+    },
+    {
+      "id": "1:67",
+      "label": "Notification Preferences — Schedule",
+      "screenId": "notification-preferences-3",
+      "tier": "recognized",
+      "matchedRecipe": "form-with-footer",
+      "composition": null,
+      "justification": null
+    }
+  ],
+  "htmlFile": "components/flows/notification-prefs/notification-prefs-flow.html",
+  "prototypeFile": null,
+  "pushedAt": "2026-04-29T12:00:00Z",
+  "sourceHash": "abc123",
+  "componentKeys": [],
+  "tokenHash": "tok456",
+  "propertyDefaultsHash": { "fm": "f1", "ds": "d1", "meta": "m1" }
+}
