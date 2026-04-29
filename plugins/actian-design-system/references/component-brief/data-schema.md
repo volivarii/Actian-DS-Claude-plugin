@@ -32,15 +32,15 @@ Rigid JSON schema for component-brief output. Generated in Step 1.5, consumed by
   "fileKey": "fuWLltVXyBrbn6KfBAav12",
   "nodeId": "12070:77587",
   "componentKey": "abc123...",
-  "generatedAt": "2026-03-29T13:00:00Z",
+  "generatedAt": "<ISO 8601 timestamp at generation time>",
   "skill": "component-brief",
-  "pluginVersion": "1.16.0",
-  "model": "claude-opus-4-6",
-  "duration": "1m 42s"
+  "pluginVersion": "<read from plugins/actian-design-system/.claude-plugin/plugin.json>",
+  "model": "<runtime model name, e.g. claude-opus-4-7>",
+  "duration": "<measured from prompt to file write, e.g. 1m 42s>"
 }
 ```
 
-All fields required. `generatedAt` is ISO 8601. `duration` is measured from prompt to file write.
+All fields required. **The placeholder values above are NOT defaults** — they describe where each value originates. Never type them literally into a generated file. In particular: `pluginVersion` MUST come from the project's `plugins/actian-design-system/.claude-plugin/plugin.json` `version` field at generation time; copying a version string from this doc produces a stale GenLog (e.g., shipping `v1.17.0` when the plugin is on `1.57.x`). `generatedAt` is ISO 8601. `duration` is measured from prompt to file write.
 
 ## Per-card header fields
 
@@ -344,11 +344,11 @@ FM mode uses a simpler 5-card schema. The `meta.library` field is `"fm"` — ren
     "fileKey": "<from .figma-keys.json>",
     "nodeId": "...",
     "componentKey": "...",
-    "generatedAt": "...",
+    "generatedAt": "<ISO 8601>",
     "skill": "component-brief",
-    "pluginVersion": "1.17.0",
-    "model": "claude-opus-4-6",
-    "duration": "1m 10s"
+    "pluginVersion": "<read from plugin.json — never type literally>",
+    "model": "<runtime model name>",
+    "duration": "<measured at generation time>"
   },
   "card1_header": { ... },
   "card2_component": { ... },

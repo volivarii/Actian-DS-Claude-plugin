@@ -38,17 +38,22 @@ return { wrapperId: wrapper.id };
 
 Every brief MUST start with a GenLog card as the first child of the wrapper. Import by key, set all 6 properties from `meta`.
 
+**Source values from `brief-data.json.meta`, never from this example.** The values shown below are placeholders — using them literally produces wrong GenLog content (e.g., a stale plugin version). The data-model values were sourced in Step 2 from authoritative inputs (`plugin.json`, the runtime model name, etc.) — pass them through verbatim.
+
 ```js
+// IMPORTANT: read these from your brief-data.json `meta` block, not from the example below.
+const meta = briefData.meta;
+
 const comp = await figma.importComponentByKeyAsync("a9653f30925367e96dea90093d750bfe70849571");
 const inst = comp.createInstance();
 inst.name = "Generation Log";
 inst.setProperties({
-  "Skill": "Skill: component-brief",
-  "Prompt": "Prompt: component-brief Button",
-  "Date": "2026-04-09T00:00:00.000Z",
-  "Duration": "Duration: 45s",
-  "Model": "claude-sonnet-4-6",
-  "Plugin Version": "v1.55.0"
+  "Skill": "Skill: " + meta.skill,                         // "component-brief"
+  "Prompt": "Prompt: component-brief " + meta.component,   // "Prompt: component-brief Button"
+  "Date": meta.generatedAt,                                // ISO 8601
+  "Duration": "Duration: " + meta.duration,
+  "Model": meta.model,
+  "Plugin Version": "v" + meta.pluginVersion              // e.g. "v1.57.2" — MUST come from project plugin.json, never invented
 });
 
 const wrapper = await figma.getNodeByIdAsync("<wrapperId>");
@@ -57,7 +62,7 @@ wrapper.appendChild(inst);
 return { genLogId: inst.id };
 ```
 
-**Fill all 6 properties from `brief-data.json.meta`.** Do NOT skip this card.
+**Fill all 6 properties from `brief-data.json.meta`.** Do NOT skip this card. Do NOT type any value as a literal — every value must originate in the data model.
 
 ---
 

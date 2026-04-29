@@ -75,6 +75,13 @@ If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5")
 
 **Card title + subtitle (required):** Every card object MUST include `cardTitle` and `cardSubtitle`. Source from the recipe: `cardTitle` = recipe `title`, `cardSubtitle` = recipe `description` (abridge to one line if long). Both renderers (HTML + Figma push) consume these fields directly — never hardcode card titles in the renderer or push step. Sentence case for both.
 
+**`meta` block — source every field, never copy from examples.** Same failure pattern as the title leak: literal values in `data-schema.md` and `examples/` are placeholders, not defaults. Specifically:
+- `meta.pluginVersion` — read from `plugins/actian-design-system/.claude-plugin/plugin.json` `version` field at generation time. Copying any version string from the schema doc or example file produces a stale GenLog.
+- `meta.model` — your actual runtime model name (e.g., `claude-opus-4-7`).
+- `meta.generatedAt` — ISO 8601 of now.
+- `meta.duration` — measured between prompt receipt and file write.
+- `meta.component`, `meta.fileKey`, `meta.nodeId`, `meta.componentKey` — sourced from the user's request and `figma-keys.json`.
+
 Generate the complete `brief-data.json` directly. Reference `references/component-brief/data-schema.md` (already loaded in Step 1) and `examples/brief-data-example.json` for expected structure. Include only selected cards.
 
 Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
@@ -93,6 +100,7 @@ Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
 - No hardcoded hex values in token fields
 - `card8_accessibility.requirements` has exactly 6 items (if card 8 selected)
 - **Code values use ASCII operators only** — `=>` not `⇒` (U+21D2), `->` not `→`, `<=` not `≤`, `>=` not `≥`, `!==` not `≠`. Especially watch `card5_api.props[].values` (e.g. `"(event) => void"`) and `card9_code.tokens[].text`. Pretty-typography breaks copy-paste into source code.
+- **`meta.pluginVersion` matches the project's `plugin.json` `version`** — read the file, do not transcribe from any example. If the value differs from the actual `plugin.json`, fix it before push (this catches stale-version leaks like `v1.17.0` when the plugin is on `1.57.x`).
 If P0 issues found, fix them immediately before proceeding.
 
 ## Step 2.5 — Present push options (copy verbatim)
