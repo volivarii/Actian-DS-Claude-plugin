@@ -12,7 +12,7 @@ Built on Claude and connected directly to Figma, the Actian DS Plugin knows the 
 2. **Hifi.** Convert the wireframe to high-fidelity — DS Kit components, real tokens, production-ready.
 3. **Audit.** Check tokens, contrast, copy, and DS rules. Auto-fix what's safe, report what needs judgment.
 
-Iterate inside the loop with **refine** (paste a URL + edit instruction), **branch** (fork into a sibling for parallel exploration), or **variants** (three structurally-distinct alternatives side-by-side).
+Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruction — only that screen is recreated, the rest stay byte-identical), **branch** (fork into a sibling for parallel exploration), or **variants** (three structurally-distinct alternatives side-by-side).
 
 ## Supporting capabilities
 
@@ -26,7 +26,7 @@ Iterate inside the loop with **refine** (paste a URL + edit instruction), **bran
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.52.0** · 9 skills (with tiered generation: recognized / adapted / improvised) · 8 agents · 25 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA
+**v1.56.0** · 9 skills (with tiered generation: recognized / adapted / improvised) · 8 agents · 25 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA · surgical refine engine
 
 ---
 
@@ -213,7 +213,7 @@ Every capability is also available as a direct command. Use these when you know 
 
 | Command | What it does |
 |---------|-------------|
-| `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Flags: `--hifi` (chain to hifi), `--audit` (chain to audit), `--variants N` (2–5 structurally-distinct), `--ref <url>` (bias on reference), `--from <url>` (iterate), `--from <url> --branch X` (fork), `--states empty,error` (state coverage), `--breakpoints tablet,mobile` (responsive variants). URL + prose = refine shape. |
+| `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Flags: `--hifi` (chain to hifi), `--audit` (chain to audit), `--variants N` (2–5 structurally-distinct), `--ref <url>` (bias on reference), `--from <url>` (iterate), `--from <url> --branch X` (fork), `--states empty,error` (state coverage), `--breakpoints tablet,mobile` (responsive variants). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). |
 | `/convert-to-hifi` | Hifi — convert FM wireframe to DS Kit hifi. `--ref <url>` biases density/variant choices. |
 | `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
 
@@ -312,6 +312,8 @@ Companion + skills read at runtime
 **Pipeline quality gates:**
 - **Flow glossary** — before generating screens, the skill builds a shared vocabulary (`_glossary`) with entity names, action verbs, and CTA labels. All parallel screen-generators use it, ensuring consistent terminology across screens.
 - **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), and terminology violations checked against `app-context.json` (P1).
+- **Scope-aware filtering** (v1.55.0+) — refines pass `--scope single-unit:<id>` so findings on untouched screens don't drown out findings on the screen the designer actually edited.
+- **Refine engine** (v1.56.0+) — `resolve-unit.js` maps a Figma URL to a `pushedNodes` entry, `snapshot-store.js` reads/writes a `flow-data.snapshot.json` sidecar, `derive-scope.js` diffs before/after by `screens[].id` to produce the canonical scope tag. Surgical push deletes and recreates only the changed screen frames.
 - **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
 
 **FM → HiFi pipeline:** `/convert-to-hifi` reads an FM wireframe from Figma, maps FM components to DS Kit equivalents via `fm-to-ds-map.json`, and pushes a production-ready frame. Unmapped components are handled creatively by the LLM using DS Kit descriptions.
