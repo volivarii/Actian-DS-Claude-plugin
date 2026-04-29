@@ -1,0 +1,23 @@
+{
+  "meta": {
+    "feature": "Notification Preferences",
+    "mode": "refine"
+  },
+  "screens": [
+    {
+      "id": "notification-preferences-1",
+      "name": "General",
+      "content": [{ "ref": "fmHeader", "props": { "title": "Notifications" } }]
+    },
+    {
+      "id": "notification-preferences-2",
+      "name": "Channels",
+      "content": [{ "ref": "fmHeader", "props": { "title": "Notification channels" } }]
+    },
+    {
+      "id": "notification-preferences-3",
+      "name": "Schedule",
+      "content": [{ "ref": "fmHeader", "props": { "title": "Schedule" } }]
+    }
+  ]
+}
