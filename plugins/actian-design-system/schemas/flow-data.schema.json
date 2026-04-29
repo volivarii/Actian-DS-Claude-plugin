@@ -249,7 +249,7 @@
           "id": {
             "type": "string",
             "pattern": "^[a-z0-9-]+$",
-            "description": "Stable kebab-case identifier. Used by unitMap and refine resolution. Auto-derived as <feature-slug>-<index> when omitted (validate-time stamp). Always optional in schema; always present after validate()."
+            "description": "Stable kebab-case identifier. Used by `pushedNodes[].screenId` linking and refine resolution. Auto-derived as <feature-slug>-<index> when omitted (validate-time stamp). Always optional in schema; always present after validate()."
           },
           "name": {
             "type": "string",

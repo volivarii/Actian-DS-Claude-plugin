@@ -18,7 +18,7 @@ The skill accepts three shapes; detection happens before the pipeline runs.
 | **Refine** | Figma URL + prose instruction | `/generate-flow <url> "rename the primary CTA to 'Publish'"` |
 | **Iterate / Branch** | `--from <url>` (no instruction) | `/generate-flow --from <url> --branch v2` |
 
-Refine activates when ALL of: a Figma URL is provided, prose instruction is provided alongside, AND the URL resolves to a unit in `.last-push.json`'s unitMap. See **Refine shape** below for the full detection + behavior spec.
+Refine activates when ALL of: a Figma URL is provided, prose instruction is provided alongside, AND the URL resolves to a `pushedNodes[]` entry (or the wrapper `pageNodeId`) in `.last-push.json`. See **Refine shape** below for the full detection + behavior spec.
 
 ## Flags
 
@@ -53,7 +53,7 @@ Refine is a shape the skill detects, not a flag. When detected (v1.56.0+), it ru
 
 1. A Figma URL is present in the input
 2. Prose instruction is present alongside (not just whitespace, not only flags)
-3. The URL resolves to a unit in `.last-push.json`'s `unitMap` (or one of its descendants)
+3. The URL resolves to a `pushedNodes[]` entry (single-screen refine) or the wrapper `pageNodeId` (whole-flow refine) in `.last-push.json`
 
 If any condition fails, fall back per the table below.
 
