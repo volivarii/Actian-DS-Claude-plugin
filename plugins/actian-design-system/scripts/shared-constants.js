@@ -365,4 +365,6 @@ module.exports = {
   tierShort,
   buildTierSummary,
   compactSize,
+  deriveScreenId: require("./screen-id.js").deriveScreenId,
+  stampScreenIds: require("./screen-id.js").stampScreenIds,
 };
