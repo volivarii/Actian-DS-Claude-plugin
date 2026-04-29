@@ -54,7 +54,7 @@ The companion is the API. Match the user's prose against this table; pick the mo
 | 2 | "design a flow for X" / "create the X flow" / "wizard for X" | no | `/generate-flow X` (multi-screen) |
 | 3 | "build me X end-to-end" / "ship-ready X" / "production version of X" | no | `/generate-flow X --hifi --audit` |
 | 4 | "show me alternatives" / "different angles" / "variants of X" / "three ways to do X" | no | `/generate-flow X --variants 3` |
-| 5 | "edit this" / "change X to Y" / "swap" / "move" / "rename" / "fix" | yes | `/generate-flow <url> "instruction"` (refine shape) |
+| 5 | "edit this" / "change X to Y" / "swap" / "move" / "rename" / "fix" | yes | `/generate-flow <url> "instruction"` (refine shape — passes `--scope single-unit:<id>` or `multi-unit:[…]` to validator so findings stay scoped to the changed screens; B-refine.1, v1.55.0+) |
 | 6 | "try a different angle on this" / "what else" / "another version" | yes | `/generate-flow --from <url>` (iterate, no instruction) |
 | 7 | "branch this for X variant" / "fork this as Y" | yes | `/generate-flow --from <url> --branch X` |
 | 8 | "make it hifi" / "convert to hifi" / "DS version" / "polish this up" | yes | `/convert-to-hifi <url>` |

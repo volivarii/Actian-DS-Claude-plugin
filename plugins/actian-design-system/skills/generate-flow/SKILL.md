@@ -106,6 +106,22 @@ If any condition fails, fall back per the table below.
    - Exit 2 (P1s only): report terminology or token warnings to user, proceed with push.
    - Exit 0: clean, proceed.
 
+   **Refine runs — pass `--scope`:** when this run is a refine (URL + prose, modifying one or more existing screens rather than full regenerate), pass the affected screen ids via `--scope`. Validator findings will then exclude unchanged screens, so designers don't see noise about pre-existing issues on screens they didn't touch.
+
+   ```bash
+   # Single-screen refine
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+     {project_working_directory}/components/flows/flow-data.json \
+     --scope single-unit:notification-preferences-2
+
+   # Multi-screen refine
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+     {project_working_directory}/components/flows/flow-data.json \
+     --scope multi-unit:[notification-preferences-1,notification-preferences-3]
+   ```
+
+   Scope is a runtime flag, not a data field — flow-data.json itself does not carry scope. Set `meta.mode = "refine"` on the artifact when applicable (that's the artifact-level signal).
+
 **On validation failure (exit 1 / error findings):**
 
 - Open `flow-data.json` with the Edit tool.
@@ -248,8 +264,9 @@ Read `references/figma-push-patterns.md` for component keys and patterns. Push f
 **Push sequence:**
 
 1. Navigate to target page + create wrapper frame
-2. GenLog — import by key `a9653f30925367e96dea90093d750bfe70849571`, `setProperties` with `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version = `v1.54.0`** (read from plugin.json, never hardcode)
+2. GenLog — import by key `a9653f30925367e96dea90093d750bfe70849571`, `setProperties` with `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version = `v1.55.0`** (read from plugin.json, never hardcode)
 3. Tier Summary (if any screen has a `tier` field) — call `buildTierSummary(screens)` from `scripts/shared-constants.js`. If it returns a TEXT node spec (not null), push the TEXT node into the wrapper as a sibling of the GenLog instance, immediately following it. Skip when `buildTierSummary` returns null (none of the screens are tiered).
+3b. **Scope tag (B-refine.1, v1.55.0+)** — when this run was scoped (`--scope single-unit:<id>` or `multi-unit:[…]`), push an additional TEXT node sibling immediately after Tier Summary with content `"Scope: <scope-tag>"` (e.g., `"Scope: single-unit:notification-preferences-2"`). Use the same TEXT styling as Tier Summary. Skip when scope is `"full"` (the default; producing no annotation matches v1.54.x behavior). The skill holds scope in its own runtime state — passed to the validator via `--scope` and to this push step in parallel.
 4. Research card (if opted-in) — import Research Frame `e671618f2b4c6ea406a995fdc3012ac54eadfe56`, `setProperties` with `"Title#48:10"`, `"Source#48:11"`, detach, inject findings into Content slot. **Must contain the exact same content as the chat findings** — same competitors, patterns, recommendations, source URLs. Card is the persistent record of what informed the design.
 5. Cover Card — import `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave defaults
 6. For each screen:

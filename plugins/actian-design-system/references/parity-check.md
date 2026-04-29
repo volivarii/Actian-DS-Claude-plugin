@@ -232,4 +232,16 @@ Run the full post-push parity check procedure:
 5. Write .last-push.json to the correct manifest location
 ```
 
+## Scope-aware behavior (v1.55.0+ / B-refine.1)
+
+Parity is opt-in (per CLAUDE.md "Parity check is opt-in — only run when the user asks"). When the designer requests parity AND the run scope is non-full (`single-unit:<id>` or `multi-unit:[...]`), the procedure scopes the screenshot loop to the changed units only:
+
+- Single-unit refine → screenshot only that unit's frame, run all 5 checks against it.
+- Multi-unit refine → screenshot only the listed units' frames.
+- Full regenerate → existing whole-flow procedure.
+
+Designer never sees parity findings for screens they didn't touch — eliminates noise that would otherwise drown out the actual refine result. The `gateConfig.skipWhenScope` pattern is the JS-level enforcement when parity is implemented as a callable module; until then this rule is doc-driven and the skill enforces it at Step N.
+
+If a designer wants whole-flow parity even on a refine (e.g., to check whether a refine introduced a regression elsewhere), they can pass `--check-parity full` explicitly.
+
 Replace `N` with the actual step number in context. Skills must not declare completion or present a final summary until the parity check procedure is finished and the manifest has been written.
