@@ -1,6 +1,6 @@
 {
   "card": "card9_code",
-  "title": "Code Specification",
+  "title": "Code specification",
   "description": "CSS token mapping with syntax highlighting showing all design token bindings",
   "sections": {
     "tokens": "Flat array of type+text pairs for syntax-highlighted code. Show the component's primary CSS selector with all token bindings: height, padding, colors (background, border, text), typography (font-family, font-size, line-height, letter-spacing), border-radius, transitions. Use var(--zen-*) for token values with resolved pixel/color values in comments."

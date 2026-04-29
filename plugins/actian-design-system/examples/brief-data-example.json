@@ -12,10 +12,14 @@
     "duration": "45s"
   },
   "card1_header": {
+    "cardTitle": "Page header",
+    "cardSubtitle": "Component name and description",
     "name": "Link",
     "description": "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design standards for clarity and usability."
   },
   "card2_component": {
+    "cardTitle": "Component",
+    "cardSubtitle": "Live component across all states and theme modes",
     "variantAxes": [
       {
         "axis": "State",
@@ -63,6 +67,8 @@
     "themeVariant": "State=Enabled"
   },
   "card3_anatomy": {
+    "cardTitle": "Anatomy",
+    "cardSubtitle": "Component structure, dimensions, interactive states, and part-level token mapping",
     "parts": [
       {
         "letter": "A",
@@ -125,6 +131,8 @@
     ]
   },
   "card4_tokens": {
+    "cardTitle": "Design tokens",
+    "cardSubtitle": "Color, sizing, and typography tokens",
     "colorTokens": [
       {
         "state": "Enabled",
@@ -259,6 +267,8 @@
     ]
   },
   "card5_api": {
+    "cardTitle": "Component API",
+    "cardSubtitle": "Properties, types, defaults, and allowed values",
     "props": [
       {
         "required": true,
@@ -319,6 +329,8 @@
     ]
   },
   "card6_usage": {
+    "cardTitle": "Usage guidelines",
+    "cardSubtitle": "When and how to use this component",
     "whenToUse": [
       "Navigation to internal or external destinations (pages, sections, resources)",
       "Inline contextual navigation within body text or descriptions",
@@ -351,6 +363,8 @@
     ]
   },
   "card7_content": {
+    "cardTitle": "Content guidelines",
+    "cardSubtitle": "Copy rules with do/don't examples plus terminology",
     "rules": [
       {
         "title": "Use clear and descriptive link text",
@@ -401,6 +415,8 @@
     ]
   },
   "card8_accessibility": {
+    "cardTitle": "Accessibility",
+    "cardSubtitle": "WCAG 2.1 AA requirements, keyboard, ARIA, and contrast",
     "requirements": [
       {
         "title": "Default state: underlined",
@@ -735,6 +751,8 @@
     ]
   },
   "card9_code": {
+    "cardTitle": "Code specification",
+    "cardSubtitle": "CSS custom properties",
     "language": "css",
     "tokens": [
       {

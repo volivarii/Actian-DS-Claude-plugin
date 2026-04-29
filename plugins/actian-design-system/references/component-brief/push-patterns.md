@@ -65,27 +65,33 @@ return { genLogId: inst.id };
 
 Every card (except GenLog) uses the Brief Card component. Import it, select variant, detach, then set title/subtitle on the **nested Card Header instance** (which stays live after detach).
 
+**Title/subtitle are data-driven** — read `cardTitle` and `cardSubtitle` from the card object in `brief-data.json`. Never hardcode card titles in the push step (regression risk: "Anatomy" leaking across all 9 cards). Recipe titles in `recipes/brief/cardN-*.json` are the canonical source — Step 2 propagates them into the data model.
+
 ```js
+// Inputs from your data model — e.g., briefData.card3_anatomy
+const cardTitle = card.cardTitle;       // "Anatomy"
+const cardSubtitle = card.cardSubtitle; // "Component structure, dimensions, ..."
+
 // Import briefCard set and create variant instance
 const set = await figma.importComponentSetByKeyAsync("3dbb732730af0754210cde7af35e5236a2502843");
 let variant = set.findChild(n => n.name === "Mode=DS, Type=Standard");
 if (!variant) variant = set.defaultVariant || set.children[0];
 const inst = variant.createInstance();
-inst.name = "Card Title";
-const card = inst.detachInstance();
+inst.name = cardTitle;
+const cardFrame = inst.detachInstance();
 
 // Card Header stays as a live instance — set properties on it
-const cardHeader = card.findOne(n => n.name === "Card Header" && n.type === "INSTANCE");
+const cardHeader = cardFrame.findOne(n => n.name === "Card Header" && n.type === "INSTANCE");
 if (cardHeader) {
   cardHeader.setProperties({
-    "Title#140:0": "Card Title",
-    "Subtitle#140:1": "Card subtitle description",
-    "Show Subtitle#140:2": true
+    "Title#140:0": cardTitle,
+    "Subtitle#140:1": cardSubtitle,
+    "Show Subtitle#140:2": Boolean(cardSubtitle)
   });
 }
 
 // Find content slot for child injection
-const contentSlot = card.findOne(n => n.name === "Content");
+const contentSlot = cardFrame.findOne(n => n.name === "Content");
 if (contentSlot) {
   contentSlot.layoutMode = "VERTICAL";
   contentSlot.itemSpacing = 16;
@@ -97,12 +103,12 @@ if (contentSlot) {
 
 // Append to wrapper
 const wrapper = await figma.getNodeByIdAsync("<wrapperId>");
-wrapper.appendChild(card);
+wrapper.appendChild(cardFrame);
 
-return { cardId: card.id, contentSlotId: contentSlot?.id || card.id };
+return { cardId: cardFrame.id, contentSlotId: contentSlot?.id || cardFrame.id };
 ```
 
-**Card Header stays live after detach.** Use `setProperties` with `Title#140:0`, `Subtitle#140:1`, `Show Subtitle#140:2`. For Page Header variant, use `"Mode=DS, Type=Page Header"` and set `"Component Name#7:2"` and `"Description#7:3"` instead.
+**Card Header stays live after detach.** Use `setProperties` with `Title#140:0`, `Subtitle#140:1`, `Show Subtitle#140:2`. For the Page Header variant (card1), use `"Mode=DS, Type=Page Header"` and set `"Component Name#7:2"` (= `card.name`) and `"Description#7:3"` (= `card.description`) instead. The `cardTitle`/`cardSubtitle` fields still apply but are not surfaced visually on Page Header.
 
 ---
 
@@ -199,7 +205,34 @@ return { swatchId: swatch.id };
 
 **CRITICAL:** The Color Swatch component is a flat 12×12 instance with NO children — set `.fills` directly on the swatch instance itself. Do NOT use `findOne` to look for a "Dot" or "Color" child — it will return null and the fill will never be set.
 
-**Table layout:** Build as a header row (state + column names) + data rows. Each data row: state label text + N swatch cells. Each swatch cell: auto-layout HORIZONTAL frame containing Color Swatch instance + token name text. Batch 2-3 rows per `use_figma` call.
+**Cell sizing (REQUIRED — prevents hex clipping):** The swatch cell wraps a 12px swatch + a stacked text block (token name 15px + hex 13px ≈ 30px tall). The cell must Hug its content vertically — never fix the height to the swatch dot. Each cell MUST set:
+
+```js
+const cell = figma.createFrame();
+cell.layoutMode = "HORIZONTAL";
+cell.itemSpacing = 8;
+cell.counterAxisAlignItems = "CENTER";          // vertically center swatch + text block
+cell.primaryAxisSizingMode = "AUTO";            // Hug width
+cell.counterAxisSizingMode = "AUTO";            // Hug height — fits the 30px text stack
+cell.fills = [];
+
+// Swatch (12×12 instance, fills set per above)
+cell.appendChild(swatch);
+
+// Text stack (token name on top, hex below)
+const textStack = figma.createFrame();
+textStack.layoutMode = "VERTICAL";
+textStack.itemSpacing = 2;
+textStack.primaryAxisSizingMode = "AUTO";
+textStack.counterAxisSizingMode = "AUTO";
+textStack.fills = [];
+// ... append token-name text node + hex text node ...
+cell.appendChild(textStack);
+```
+
+Regression guard: if the cell or its parent row uses `counterAxisSizingMode = "FIXED"` or sets a hard `cell.resize(_, 20)`, the second line clips. Always Hug.
+
+**Table layout:** Build as a header row (state + column names) + data rows. Each data row: state label text + N swatch cells. The data row frame should use `layoutMode = "HORIZONTAL"`, `counterAxisAlignItems = "CENTER"`, and `counterAxisSizingMode = "AUTO"` so it grows to the tallest cell. Batch 2-3 rows per `use_figma` call.
 
 ---
 

@@ -1,6 +1,6 @@
 {
   "card": "card1_header",
-  "title": "Page Header",
+  "title": "Page header",
   "description": "Component name and description — the brief's title card",
   "sections": {
     "name": "Exact component name as it appears in the Figma library. No abbreviations, no prefixes.",

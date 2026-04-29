@@ -1,6 +1,6 @@
 {
   "card": "card7_content",
-  "title": "Content Guidelines",
+  "title": "Content guidelines",
   "description": "Copy rules with do/don't examples plus terminology table",
   "sections": {
     "rules": "One entry per content rule from the component's Figma documentation. Each rule has: title (the rule name), description (what the rule means), do/dont text (correct vs incorrect label text), doExample/dontExample (concrete example strings shown in the Do/Don't boxes). Must include ALL rules — never summarize or skip.",

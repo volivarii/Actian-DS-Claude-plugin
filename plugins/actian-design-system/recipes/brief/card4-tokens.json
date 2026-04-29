@@ -1,6 +1,6 @@
 {
   "card": "card4_tokens",
-  "title": "Design Tokens",
+  "title": "Design tokens",
   "description": "Color, sizing, and typography token bindings by component state",
   "sections": {
     "colorTokens": "State-by-state color breakdown. Columns: one per visual element that has a color (Border, Label, Background, Icon, etc). Rows: one per interactive state. Include Default, Focused, Error, Disabled at minimum. More states if the component has them (Hovered, Active, Selected).",

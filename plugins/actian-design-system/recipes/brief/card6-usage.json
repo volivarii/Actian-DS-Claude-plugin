@@ -1,6 +1,6 @@
 {
   "card": "card6_usage",
-  "title": "Usage Guidelines",
+  "title": "Usage guidelines",
   "description": "When to use, when not to use, and do/don't pairs with concrete UI examples",
   "sections": {
     "whenToUse": "2-4 bullet points describing scenarios where this component is the right choice. Focus on the user's task, not abstract descriptions. Each bullet should be a specific scenario.",

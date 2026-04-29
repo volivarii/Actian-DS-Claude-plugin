@@ -267,8 +267,9 @@
     }
 
     return cardShell(
-      "Component",
-      "Live component across all states and theme modes",
+      (component && component.cardTitle) || "Component",
+      (component && component.cardSubtitle) ||
+        "Live component across all states and theme modes",
       parts.join(""),
     );
   }
@@ -372,8 +373,9 @@
     }
 
     return cardShell(
-      "Anatomy",
-      "Component structure, dimensions, interactive states, and part-level token mapping",
+      (anatomy && anatomy.cardTitle) || "Anatomy",
+      (anatomy && anatomy.cardSubtitle) ||
+        "Component structure, dimensions, interactive states, and part-level token mapping",
       parts.join(""),
     );
   }
@@ -442,8 +444,9 @@
     }
 
     return cardShell(
-      "Design tokens",
-      "Color, sizing, spacing, and typography tokens",
+      (tokens && tokens.cardTitle) || "Design tokens",
+      (tokens && tokens.cardSubtitle) ||
+        "Color, sizing, spacing, and typography tokens",
       parts.join(""),
     );
   }
@@ -461,8 +464,9 @@
       ];
     });
     return cardShell(
-      "Component API",
-      "Properties, types, defaults, and allowed values",
+      (api && api.cardTitle) || "Component API",
+      (api && api.cardSubtitle) ||
+        "Properties, types, defaults, and allowed values",
       specTable(["", "Property", "Type", "Default", "Values", "Notes"], rows),
     );
   }
@@ -512,8 +516,8 @@
     }
 
     return cardShell(
-      "Usage guidelines",
-      "When and how to use this component",
+      (usage && usage.cardTitle) || "Usage guidelines",
+      (usage && usage.cardSubtitle) || "When and how to use this component",
       parts.join(""),
     );
   }
@@ -550,7 +554,11 @@
       );
     }
 
-    return cardShell("Content guidelines", "Label copy rules", parts.join(""));
+    return cardShell(
+      (content && content.cardTitle) || "Content guidelines",
+      (content && content.cardSubtitle) || "Label copy rules",
+      parts.join(""),
+    );
   }
 
   function renderCard8(a11y) {
@@ -627,8 +635,9 @@
     }
 
     return cardShell(
-      "Accessibility",
-      "WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios",
+      (a11y && a11y.cardTitle) || "Accessibility",
+      (a11y && a11y.cardSubtitle) ||
+        "WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios",
       parts.join(""),
     );
   }
@@ -636,8 +645,8 @@
   function renderCard9(code) {
     if (!code || !code.tokens || !code.tokens.length) return "";
     return cardShell(
-      "Code specification",
-      "CSS custom properties",
+      (code && code.cardTitle) || "Code specification",
+      (code && code.cardSubtitle) || "CSS custom properties",
       '<div class="code-block" data-name="Code block"><pre>' +
         tokenizedCode(code.tokens) +
         "</pre></div>",
@@ -677,10 +686,18 @@
         "</div></div>";
     });
     html += "</div>";
+    var fm2Title = (comp && comp.cardTitle) || "Actual component";
+    var fm2Sub = (comp && comp.cardSubtitle) || "Locked component variants";
     return (
-      '<div class="card" data-name="Actual component">' +
-      '<div class="card-header"><div class="card-header__title">Actual component</div>' +
-      '<div class="card-header__subtitle">Locked component variants</div></div>' +
+      '<div class="card" data-name="' +
+      esc(fm2Title) +
+      '">' +
+      '<div class="card-header"><div class="card-header__title">' +
+      esc(fm2Title) +
+      "</div>" +
+      '<div class="card-header__subtitle">' +
+      esc(fm2Sub) +
+      "</div></div>" +
       '<div class="card-content">' +
       html +
       "</div></div>"
@@ -701,9 +718,14 @@
         );
       })
       .join("");
+    var fm3Title = (guidelines && guidelines.cardTitle) || "Design guidelines";
     return (
-      '<div class="card" data-name="Design guidelines">' +
-      '<div class="card-header"><div class="card-header__title">Design guidelines</div></div>' +
+      '<div class="card" data-name="' +
+      esc(fm3Title) +
+      '">' +
+      '<div class="card-header"><div class="card-header__title">' +
+      esc(fm3Title) +
+      "</div></div>" +
       '<div class="card-content">' +
       html +
       "</div></div>"
@@ -737,9 +759,14 @@
         );
       });
     }
+    var fm4Title = (content && content.cardTitle) || "Content guidelines";
     return (
-      '<div class="card" data-name="Content guidelines">' +
-      '<div class="card-header"><div class="card-header__title">Content guidelines</div></div>' +
+      '<div class="card" data-name="' +
+      esc(fm4Title) +
+      '">' +
+      '<div class="card-header"><div class="card-header__title">' +
+      esc(fm4Title) +
+      "</div></div>" +
       '<div class="card-content">' +
       parts.join("") +
       "</div></div>"
@@ -764,9 +791,14 @@
       });
       parts.push(specTable(["#", "Element", "Description"], pRows));
     }
+    var fm5Title = (anatomy && anatomy.cardTitle) || "Anatomy";
     return (
-      '<div class="card" data-name="Anatomy">' +
-      '<div class="card-header"><div class="card-header__title">Anatomy</div></div>' +
+      '<div class="card" data-name="' +
+      esc(fm5Title) +
+      '">' +
+      '<div class="card-header"><div class="card-header__title">' +
+      esc(fm5Title) +
+      "</div></div>" +
       '<div class="card-content">' +
       parts.join("") +
       "</div></div>"

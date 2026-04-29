@@ -73,6 +73,8 @@ If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5")
 
 **Recipe guidance:** Before generating each card's data, read `recipes/brief/_index.json` and the recipe for each selected card from `recipes/brief/`. Follow the recipe's `sections` guidance, `qualityRules` for correctness, and `minimums` for completeness. The component guidelines JSON provides the content; the recipe defines the structure and quality bar.
 
+**Card title + subtitle (required):** Every card object MUST include `cardTitle` and `cardSubtitle`. Source from the recipe: `cardTitle` = recipe `title`, `cardSubtitle` = recipe `description` (abridge to one line if long). Both renderers (HTML + Figma push) consume these fields directly — never hardcode card titles in the renderer or push step. Sentence case for both.
+
 Generate the complete `brief-data.json` directly. Reference `references/component-brief/data-schema.md` (already loaded in Step 1) and `examples/brief-data-example.json` for expected structure. Include only selected cards.
 
 Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
@@ -85,10 +87,12 @@ Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
 
 **Inline validation after writing:** Check the file you just wrote:
 - Every selected card key exists and is non-empty
+- Every selected card object has `cardTitle` AND `cardSubtitle` populated (regression guard for the title-leak bug)
 - No `"..."`, `"etc"`, or `"and more"` in any value (truncation signals)
 - All token names use `--zen-` prefix (DS Kit) or `--fm-` prefix (FM)
 - No hardcoded hex values in token fields
 - `card8_accessibility.requirements` has exactly 6 items (if card 8 selected)
+- **Code values use ASCII operators only** — `=>` not `⇒` (U+21D2), `->` not `→`, `<=` not `≤`, `>=` not `≥`, `!==` not `≠`. Especially watch `card5_api.props[].values` (e.g. `"(event) => void"`) and `card9_code.tokens[].text`. Pretty-typography breaks copy-paste into source code.
 If P0 issues found, fix them immediately before proceeding.
 
 ## Step 2.5 — Present push options (copy verbatim)
@@ -122,7 +126,7 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
 1. Create wrapper frame (Pattern 0 from component-brief/push-patterns.md — MUST be HORIZONTAL)
 2. Create GenLog instance (Pattern 0b — import by key, set 6 meta props, append to wrapper)
 3. For each card in the data model:
-   a. Create card shell (import briefCard set, set variant + title + subtitle, detach, find content slot)
+   a. Create card shell (Pattern 1). Read `card.cardTitle` and `card.cardSubtitle` from the data model — pass them straight to `setProperties` as `Title#140:0` and `Subtitle#140:1`. Do NOT hardcode card titles. Do NOT reuse a single title literal across multiple cards (regression guard for the "all cards titled Anatomy" bug).
    b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
    c. Card 3 anatomy: use the anatomy diagram pattern (~4-6KB inline call)
    d. Card 4 tokens: compact grid table — one row per state, Color Swatch per cell. Set `.fills` directly on swatch instance (flat, no children). Use `setProperties` for Section Headers (Pattern 2).

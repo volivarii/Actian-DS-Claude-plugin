@@ -42,10 +42,18 @@ Rigid JSON schema for component-brief output. Generated in Step 1.5, consumed by
 
 All fields required. `generatedAt` is ISO 8601. `duration` is measured from prompt to file write.
 
+## Per-card header fields
+
+Every card object MUST include `cardTitle` and `cardSubtitle`. Source these from `recipes/brief/cardN-*.json`: `cardTitle` = recipe `title`, `cardSubtitle` = recipe `description` (or a 1-line abridged version). Both renderers (HTML + Figma push) read these fields directly — never hardcode card titles in the renderer or push step.
+
+Sentence case for both, per Figma content guideline (section/page headers are sentence case).
+
 ## `card1_header` — Page header
 
 ```json
 {
+  "cardTitle": "Page header",
+  "cardSubtitle": "Component name and description",
   "name": "Text Input",
   "description": "Form field for single-line text entry with floating label, validation states, and helper text."
 }
@@ -58,6 +66,8 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 
 ```json
 {
+  "cardTitle": "Component",
+  "cardSubtitle": "Live component across all states and theme modes",
   "variantAxes": [
     { "axis": "State", "values": ["Default", "Hovered", "Focused", "Active", "Filled", "Error", "Disabled", "Read-only"] },
     { "axis": "Type", "values": ["Standard", "Outlined"] }
@@ -87,6 +97,8 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 
 ```json
 {
+  "cardTitle": "Anatomy",
+  "cardSubtitle": "Component structure, dimensions, interactive states, and part-level token mapping",
   "parts": [
     { "letter": "A", "name": "Container", "description": "Border + border-radius + background fill", "figmaLayerName": "Container" },
     { "letter": "B", "name": "Floating label", "description": "Animates from placeholder position to top", "figmaLayerName": "Label" },
@@ -111,6 +123,8 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 
 ```json
 {
+  "cardTitle": "Design tokens",
+  "cardSubtitle": "Color, sizing, and typography tokens",
   "colorTokens": [
     {
       "state": "Default",
@@ -150,6 +164,8 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 
 ```json
 {
+  "cardTitle": "Component API",
+  "cardSubtitle": "Properties, types, defaults, and allowed values",
   "props": [
     { "required": true, "name": "type", "type": "enum", "default": "\"text\"", "values": "\"text\" | \"email\" | \"password\"", "notes": "HTML input type" },
     { "required": true, "name": "label", "type": "string", "default": "—", "values": "any string", "notes": "Visible label text" },
@@ -165,6 +181,8 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 
 ```json
 {
+  "cardTitle": "Usage guidelines",
+  "cardSubtitle": "When and how to use this component",
   "whenToUse": [
     "Single-line text entry (names, emails, search queries)",
     "When the expected input is short (under ~80 characters)"
@@ -191,6 +209,8 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 
 ```json
 {
+  "cardTitle": "Content guidelines",
+  "cardSubtitle": "Copy rules with do/don't examples plus terminology",
   "rules": [
     {
       "title": "Use sentence case for labels",
@@ -218,6 +238,8 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 
 ```json
 {
+  "cardTitle": "Accessibility",
+  "cardSubtitle": "WCAG 2.1 AA requirements, keyboard, ARIA, and contrast",
   "requirements": [
     {
       "title": "Role & semantics",
@@ -256,6 +278,8 @@ All fields required. `generatedAt` is ISO 8601. `duration` is measured from prom
 
 ```json
 {
+  "cardTitle": "Code specification",
+  "cardSubtitle": "CSS custom properties",
   "language": "css",
   "tokens": [
     { "type": "selector", "text": ".zen-text-input" },
@@ -338,6 +362,8 @@ FM mode uses a simpler 5-card schema. The `meta.library` field is `"fm"` — ren
 
 ```json
 {
+  "cardTitle": "Page header",
+  "cardSubtitle": "Component name and description",
   "source": "Fat Marker Wireframe Kit",
   "name": "FM Button",
   "description": "Action trigger with Primary, Secondary, and Outline types."
@@ -352,6 +378,8 @@ FM mode uses a simpler 5-card schema. The `meta.library` field is `"fm"` — ren
 
 ```json
 {
+  "cardTitle": "Component",
+  "cardSubtitle": "FM library variants",
   "gridColumns": 3,
   "variants": [
     { "variantName": "Type=Primary", "label": "Primary" },
@@ -368,6 +396,8 @@ FM mode uses a simpler 5-card schema. The `meta.library` field is `"fm"` — ren
 
 ```json
 {
+  "cardTitle": "Design guidelines",
+  "cardSubtitle": "Behavior, accessibility, and interaction patterns",
   "sections": [
     { "title": "Behavior", "body": "Buttons trigger an immediate action when clicked. They should not be used for navigation — use links instead." },
     { "title": "Accessibility", "body": "All buttons must be focusable via Tab key. Provide aria-label when the button contains only an icon." },
@@ -383,6 +413,8 @@ FM mode uses a simpler 5-card schema. The `meta.library` field is `"fm"` — ren
 
 ```json
 {
+  "cardTitle": "Content guidelines",
+  "cardSubtitle": "Copy patterns and label rules",
   "whenToUse": "Use buttons to trigger actions like submitting a form, opening a dialog, or confirming a destructive operation. Do not use buttons for navigation.",
   "doDont": [
     { "do": "Use short, action-oriented labels like \"Save\" or \"Submit\".", "dont": "Don't use vague labels like \"Click here\" or \"OK\"." },
@@ -398,6 +430,8 @@ FM mode uses a simpler 5-card schema. The `meta.library` field is `"fm"` — ren
 
 ```json
 {
+  "cardTitle": "Anatomy",
+  "cardSubtitle": "Structural breakdown",
   "parts": [
     { "number": 1, "name": "Container", "description": "The outer boundary. Uses FM primary fill (#333333) for primary variant, FM stroke (#B0B0B0) border for secondary." },
     { "number": 2, "name": "Leading icon", "description": "Optional icon before the label. 16px size, inherits text color." },
