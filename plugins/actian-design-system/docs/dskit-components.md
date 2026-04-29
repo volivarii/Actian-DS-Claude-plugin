@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `docs/dskit.json` by `scripts/render-component-reference.js`.
-107 components.
+118 components.
 
 ---
 
@@ -25,7 +25,7 @@ Auto-generated from `docs/dskit.json` by `scripts/render-component-reference.js`
 - Variants: **Color:** `Full color` · `White`
 - Node: `7764:7688` | Key: `84e6abe2e5b7dbe96a859397f557249922560413`
 
-### Alert-banner
+### ✍️ Alert-banner
 
 Static, high-visibility message placed at the top of a page or section.
 
@@ -47,12 +47,22 @@ Visual representation of a user or entity.
 - Variants: **State:** `Default` · `Hovered` · `Focused` · `Pressed` · `Disabled` · `Selected` | **Type:** `One group` · `Two groups` · `Default`
 - Node: `7384:14212` | Key: `67e11f5d63bbe3cb24cae7d38ab5e90ee506d266`
 
-### Badge
+### background-explore
 
-Small status or numerical indicator (e.g., "Active", "New", "+5").
+- Single component (no variants)
+- Node: `16494:19414` | Key: `5167be1b2727b54509c3c10a770545b04972d16c`
+
+### ✍️ Badge
+
+Small status or numerical indicator.
 
 - Variants: **Type:** `Number` · `Dot`
 - Node: `12159:16447` | Key: `e8d93a3432951bd42d9b0bb20287eb61262ae10e`
+
+### ⛔️ Bar graph
+
+- Variants: **Property 1:** `Default`
+- Node: `15473:49489` | Key: `6ea07622a616f54b591da8eb26515332b9d02c31`
 
 ### Breadcrumbs
 
@@ -63,12 +73,12 @@ Use to show the user's current location within a hierarchical multi-level struct
 
 ### Button
 
-Primary trigger for a specific action or form submission. Use "Primary" for the main task, "Secondary" for alternative a
+Primary trigger for a specific action or form submission. Use "Primary" for the main task, "Secondary" for alternative actions, and "Ghost/Tertiary" for low-priority tasks.
 
-- Variants: **Type:** `Primary` · `Secondary` · `Tertiary` · `Icon` · `Critical primary` · `Critical secondary` | **Size:** `Default` · `Small` | **State:** `Default` · `Hovered` · `Focused` · `Pressed` · `Selected` · `Disabled`
+- Variants: **Type:** `Primary` · `Secondary` · `Tertiary` · `Icon` · `Critical primary` · `Critical secondary` · `Low emphasis` | **Size:** `Default` · `Small` | **State:** `Default` · `Hovered` · `Focused` · `Pressed` · `Selected` · `Disabled`
 - Text overrides: `Label#724:10`
 - **Required overrides:** `Label#724:10` (default `"Button"` is a placeholder)
-- Boolean properties: `Leading icon show#809:73` (default: true) — set to `false` to hide · `Trailing icon show#13807:82` (default: true) — set to `false` to hide
+- Boolean properties: `Show leading icon#809:73` (default: true) — set to `false` to hide · `Show trailing icon#13807:82` (default: true) — set to `false` to hide · `Show label#15988:3` (default: true) — set to `false` to hide
 - Node: `7206:2643` | Key: `5a6d10d26bef3cc83955bf32a318c6b4682f25d3`
 
 ### Calendar
@@ -84,6 +94,7 @@ Primary trigger for a specific action or form submission. Use "Primary" for the 
 ### Card
 
 - Variants: **Property 1:** `Default`
+- Boolean properties: `Show header#15927:2` (default: true) — set to `false` to hide
 - Node: `14782:29281` | Key: `3b8d2c7adc118fdd5f31e68440fa35e952fee92e`
 
 ### .card header
@@ -98,6 +109,33 @@ Primary trigger for a specific action or form submission. Use "Primary" for the 
 - Text overrides: `Text#10442:0`
 - Node: `10442:1855` | Key: `29570f59b76e836279c8d76f2309652181042c4d`
 
+### .Chat content/Thinking
+
+Animated thinking indicator with 3 dots that pulse sequentially.
+
+- Variants: **Step:** `1` · `2` · `3`
+- Node: `15698:171` | Key: `fcde406fa58d7f0d8c60089ea7acd4e4d0f48999`
+
+### Chat with AI Steward
+
+- Variants: **size:** `Default` · `Drawer` | **history:** `Closed` · `Open`
+- Node: `15464:24509` | Key: `8ba9d4d075ffab728d03d5bf771173f39d41e5ac`
+
+### .Chat with AI Steward Chat area
+
+- Variants: **State:** `Default`
+- Node: `15464:23434` | Key: `063f24ad64965b56cfae2522e44d97e5d69dee54`
+
+### .Chat with AI Steward Footer
+
+- Variants: **State:** `Default` · `Active` · `Thinking`
+- Node: `15464:24015` | Key: `dd5fb067291dcca54b2c29584584b6858a2d119e`
+
+### .Chat with AI Steward Header
+
+- Variants: **State:** `Default` · `Maximized` · `Open`
+- Node: `15464:23527` | Key: `7dad5ddb534dbf98ecd717ec8b4d887b6edea55e`
+
 ### .Checkbox
 
 - Variants: **Selected:** `Unselected` · `Indeterminate` · `Selected` | **State:** `Enabled` · `Hovered` · `Focused` · `Pressed` · `Disabled`
@@ -110,11 +148,11 @@ Used for binary choices (on/off) or when a user can select multiple options from
 - Variants: **Selected:** `Yes` · `Indeterminate` · `No` | **State:** `Enabled` · `Hovered` · `Focused` · `Pressed` · `Disabled`
 - Node: `9478:17216` | Key: `f88de6fe161264680045b2b5ec77d311b1b3adb6`
 
-### Collapse-accordion
+### ✍️ Collapse-accordion
 
 Use to hide/show secondary information to reduce vertical clutter.
 
-- Variants: **State:** `Closed` · `Open`
+- Variants: **State:** `Collapsed` · `Expanede`
 - Node: `8292:80` | Key: `8253d19d70a3b835653049d90b4fdf97b26a31c8`
 
 ### Component 1
@@ -219,7 +257,7 @@ Use for identification keys.
 
 ### Input
 
-Used for single-line alphanumeric data entry (e.g., Name, Email, Phone).
+Used for single-line alphanumeric data entry.
 
 - Variants: **States:** `Default` · `Hovered` · `Focused` · `Active` · `Filled` · `Error` · `Disabled` · `Read-only`
 - Text overrides: `Label text#9633:0`, `Description text#9633:17`, `Placeholder text#9633:34`, `Helper text#9633:51`, `Input text#9633:68`
@@ -239,6 +277,11 @@ Used for selecting a single date, a date range, or a specific point in time.
 
 - Variants: **Property:** `Default` · `Side nav collapsed` · `Side nav expanded`
 - Node: `12054:30598` | Key: `8601f7461f9b21847400f69ebb63d7f591119987`
+
+### ⛔️ Line graph
+
+- Variants: **Property 1:** `Default`
+- Node: `15473:49490` | Key: `e365ff8c88faf24f3cadf6166127e97dbc8771fb`
 
 ### Lineage connecting line
 
@@ -262,7 +305,12 @@ Used for selecting a single date, a date range, or a specific point in time.
 - Boolean properties: `Show Identification key#14518:0` (default: true) — set to `false` to hide · `Show Indicator left#14518:4` (default: true) — set to `false` to hide · `Show Indicator right#14518:6` (default: true) — set to `false` to hide
 - Node: `14747:20078` | Key: `bb9837cd08cd8613856a2693a9a92ea178b8e5cf`
 
-### Lineage widget
+### Lineage grouped node
+
+- Variants: **State:** `Default` · `Expanded` | **Type:** `Main item` · `Sub item`
+- Node: `15634:17895` | Key: `f1cafad1f47132058587042da7ec1e46e4eeffdd`
+
+### Lineage individual node
 
 - Variants: **Type:** `Main item` · `Sub item` | **State:** `Default` · `Selected` · `Disabled` | **Fields:** `Collapsed` · `Expanded`
 - Boolean properties: `Show left control#14691:0` (default: true) — set to `false` to hide
@@ -295,6 +343,11 @@ Indicates a background process is active. Use Skeleton for page-level transition
 
 - Variants: **Transition:** `1` · `2`
 - Node: `14294:8086` | Key: `b798100889bf79e5b9b3c0bb28bafe9713342871`
+
+### .local status tag
+
+- Variants: **Status:** `Ready` · `In progress` · `Legacy` · `Concept only` · `Not started`
+- Node: `15470:154` | Key: `ae1677a5094ebf94037c363301331b42c49451f5`
 
 ### M grid
 
@@ -391,7 +444,7 @@ The title area of a specific page.
 - Variants: **Label:** `Number` · `Text` · `Token` | **Line:** `Up` · `Down` · `Left` · `Right`
 - Node: `7148:410` | Key: `4d02ff8d5a86a66d96adf3497dab35e7ef75c2fa`
 
-### Popover
+### ⛔️ Popover
 
 A non-modal floating container triggered by a click.
 
@@ -415,7 +468,7 @@ Visualizes the completion percentage of a task.
 
 Used for mutually exclusive choices where the user must select exactly one option from a small list (2–5 items).
 
-- Variants: **Format:** `Default` · `Card format` | **State:** `Hovered` · `Focused` · `Pressed` · `Disabled` · `Default` | **Selected:** `No` · `Yes`
+- Variants: **Format:** `Default` · `Card format` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Boolean properties: `Show Helper text#13981:32` (default: true) — set to `false` to hide · `Show Icon#14119:0` (default: true) — set to `false` to hide
 - Node: `9474:16884` | Key: `9ceb34116fd119a17b08b9b445a204de28f9d249`
 
@@ -462,7 +515,7 @@ A collection of inputs used to narrow down a dataset or search results.
 
 A specialized card variant optimized for scannability during a search.
 
-- Variants: **App:** `Explorer` · `Studio` | **State:** `Default`
+- Variants: **App:** `Explorer` · `Studio` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Selected`
 - Node: `12932:3259` | Key: `0549dc90f04862d64b5b4f8808f26f4968327ce9`
 
 ### Segmented control
@@ -480,7 +533,7 @@ Use for mutually exclusive options that impact the immediate view.
 - Boolean properties: `Icon2#13811:135` (default: true) — set to `false` to hide
 - Node: `7618:5084` | Key: `6dc9d9ea5a991e5310dc5a4bb8be4bdbfcc8d0fb`
 
-### Side nav
+### ✍️ Side nav
 
 Vertical navigation for primary application modules.
 
@@ -508,6 +561,11 @@ Use to guide a user through a linear process with defined steps (e.g., Onboardin
 - Boolean properties: `Show Body#14072:0` (default: true) — set to `false` to hide
 - Node: `7676:4492` | Key: `9d73595077c798866bf42c87a53893bbdc8d4ce0`
 
+### Stepper buttons
+
+- Single component (no variants)
+- Node: `15946:885` | Key: `8e1f6f072c44845ca6f1b562c3d6196f78312c36`
+
 ### Sticky footer
 
 A persistent container at the bottom of the viewport used for high-priority global actions.
@@ -524,16 +582,16 @@ Secondary tabs label and icon building blocks
 - Boolean properties: `Icon#1020:0` (default: true) — set to `false` to hide · `Number#7369:0` (default: true) — set to `false` to hide
 - Node: `7279:3166` | Key: `96cfc367aba35f003e9394b76dc2d78ef78ffd9e`
 
-### Table
+### ✍️ Table
 
 Use for large datasets requiring comparison, sorting, and filtering.
 
-- Variants: **Type:** `Default`
+- Variants: **Built type:** `By columns` · `By rows`
 - Node: `15295:14902` | Key: `62d235b35d44ddafd58cb1a060107b4f69ab234e`
 
 ### .Table cell
 
-- Variants: **Type:** `Header` · `Text` · `Tag` · `Action` · `Skeleton`
+- Variants: **Type:** `Header` · `Text` · `Tag` · `Action` · `Skeleton` · `Avatar`
 - Boolean properties: `Show Button 1#14076:10` (default: true) — set to `false` to hide · `Show Button 2#14076:15` (default: true) — set to `false` to hide · `Show Button 3#14076:20` (default: true) — set to `false` to hide
 - Node: `15295:14869` | Key: `a9e134186026b7479ee62e4d3b313d275df639af`
 
@@ -549,7 +607,7 @@ Use for large datasets requiring comparison, sorting, and filtering.
 
 ### .table-row-body
 
-- Variants: **Property 1:** `Default`
+- Variants: **Property 1:** `Default` · `Hover` · `Focus` · `Pressed` · `Selected`
 - Node: `15295:14948` | Key: `f221e68b091946e42cf3002729a1b19fdb25e3b0`
 
 ### .table-row-header
@@ -565,21 +623,21 @@ Use to switch between related views within the same context without navigating t
 - Boolean properties: `Show Avatar#14797:0` (default: true) — set to `false` to hide
 - Node: `14747:14818` | Key: `dbd33845613381780e5364600815d9bc983d5230`
 
-### Tag, Catalog
+### ✍️ Tag, Catalog
 
 Use for catalog types.
 
 - Variants: **Type:** `Default`
 - Node: `13812:22309` | Key: `a28b5c2f8b2b9fe218a7fc6674e43c3baacb24c2`
 
-### Tag, Catalog item type
+### ✍️ Tag, Catalog item type
 
 Use for physical metamodel item types.
 
 - Variants: **Type:** `Category` · `Dataset` · `Data process` · `Data product` · `Field` · `Output port` · `Use case` · `Visualization`
 - Node: `11300:8312` | Key: `40393216be9b998d35ac0b4bd63929ccbc4de25e`
 
-### Tag, Default
+### ✍️ Tag, Default
 
 Use for categorizing or labeling items.
 
@@ -589,20 +647,20 @@ Use for categorizing or labeling items.
 - Boolean properties: `Leading icon show#7276:0` (default: true) — set to `false` to hide
 - Node: `7257:3037` | Key: `69c8a031b8b1f1703474cc000eaeb14611f0319c`
 
-### Tag, Glossary item type
+### ✍️ Tag, Glossary item type
 
 Use for glossary item types.
 
 - Variants: **Property 1:** `Default`
 - Node: `13812:22308` | Key: `639773a27d790a489c5e115360b64c7d05a45ac3`
 
-### Tag, Interactive
+### ✍️ Tag, Interactive
 
 - Variants: **State:** `Default` · `Hovered` · `Pressed` · `Selected` · `Disabled` · `Focused`
 - Boolean properties: `Trailing icon show#13846:28` (default: true) — set to `false` to hide
 - Node: `13845:33759` | Key: `19d8ed0dd3f5dc406017130026a6229f121f169d`
 
-### Tag, Stage
+### ✍️ Tag, Stage
 
 Use for data lifecycle stages.
 
@@ -610,14 +668,14 @@ Use for data lifecycle stages.
 - Boolean properties: `Leading icon#13844:7` (default: true) — set to `false` to hide
 - Node: `8655:10279` | Key: `2f4ae1cc7f2d610179a68b2c1b6e25d4900bd8bc`
 
-### Tag, Status
+### ✍️ Tag, Status
 
 Use for status.
 
 - Variants: **Status:** `Fail` · `Warning` · `Success` · `Loading` · `Maintenance` · `Scheduled` · `Queued` · `Stopped` · `Sleeping` · `Offline` · `Pending`
 - Node: `7257:3705` | Key: `1663e13e4fe1648aeef7bf6978f7faeea14a4c17`
 
-### Tag, Updated
+### ✍️ Tag, Updated
 
 Use for indicating something is recently updated.
 
@@ -633,15 +691,15 @@ Use for indicating something is recently updated.
 
 A flexible container for grouping related information.
 
-- Variants: **Type:** `Catalog` · `Item` · `item type` · `Glossary type` · `Topic` | **State:** `Default` · `Hovered` · `Focused` · `Pressed`
+- Variants: **Type:** `Catalog` · `Item` · `item type` · `Glossary type` · `Topic` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Selected`
 - Boolean properties: `Show AI ready#14853:0` (default: true) — set to `false` to hide
 - Node: `7613:7853` | Key: `95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30`
 
 ### Toggle
 
-Used for an immediate "on/off" state change that doesn't require a "Submit" button to take effect.
+Used for an immediate "on/off" state change.
 
-- Variants: **Toggle location:** `Left` · `Right` | **State:** `Hovered` · `Focused` · `Pressed` · `Disabled` · `Default` | **Selected:** `No` · `Yes`
+- Variants: **Toggle location:** `Left` · `Right` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Boolean properties: `Show Helper text#13981:32` (default: true) — set to `false` to hide
 - Node: `14000:4395` | Key: `4e7793f094eed660e01d8f7c804f2391e72115d2`
 
@@ -656,7 +714,7 @@ Used for an immediate "on/off" state change that doesn't require a "Submit" butt
 - Boolean properties: `Show View scale#14335:0` (default: true) — set to `false` to hide
 - Node: `14335:16907` | Key: `96683d78ad981aacc04a5b6c7c2b0f0f1d631516`
 
-### Tooltip
+### ⚠️ Tooltip
 
 - Variants: **Type:** `Default`
 - Text overrides: `Body#7038:10`

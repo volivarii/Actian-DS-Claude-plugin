@@ -1,7 +1,7 @@
 # Meta Kit — Component Reference
 
 Auto-generated from `docs/metakit.json` by `scripts/render-component-reference.js`.
-25 components.
+28 components.
 
 ---
 
@@ -203,3 +203,28 @@ Horizontal divider line between card sections. Set layoutSizingHorizontal = 'FIL
 
 - Single component (no variants)
 - Node: `4:2` | Key: `f4d778e1cf9bb61a33712c791486f54bb1c095b7`
+
+### Meta / Template / State Column
+
+Hidden template for state grid columns.
+
+- Single component (no variants)
+- Text overrides: `title#85:0`
+- Node: `75:12` | Key: `4f782d1a8541b4474858767209f99dce1428784b`
+
+### Meta / Template / Table Data Row
+
+Hidden template for table data rows.
+
+- Single component (no variants)
+- Text overrides: `label#84:0`, `value#84:1`
+- **Required overrides:** `label#84:0` (default `"Label"` is a placeholder)
+- Node: `74:12` | Key: `3a1fae22dd85936f81565122888efd8a50e37180`
+
+### Meta / Template / Table Header Row
+
+Hidden template for table header rows.
+
+- Single component (no variants)
+- Text overrides: `label#83:0`
+- Node: `73:12` | Key: `0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e`

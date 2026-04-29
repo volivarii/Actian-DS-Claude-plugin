@@ -1,7 +1,7 @@
 # Fat Marker Kit — Component Reference
 
 Auto-generated from `docs/fmkit.json` by `scripts/render-component-reference.js`.
-44 components.
+43 components.
 
 ---
 
@@ -138,7 +138,7 @@ Empty or zero-data state placeholder. Default = centered with icon and text. Com
 
 Page title area with optional subtitle and action buttons.
 
-- Variants: **Type:** `Title only` · `Title + Subtitle` · `Title + Actions`
+- Variants: **Type:** `Title only` · `Title + Subtitle` · `Title + Actions` · `Placeholder`
 - Text overrides: `Title#979:22`, `Subtitle#979:23`
 - **Required overrides:** `Title#979:22` (default `"Page Title"` is a placeholder), `Subtitle#979:23` (default `"Description text"` is a placeholder)
 - Node: `979:3117` | Key: `ae1f8684a4a89aa74463d439e4e8c1e7a48137fe`
@@ -258,11 +258,6 @@ On/off toggle switch. Use for immediate binary actions. Pair with a text label u
 
 - Single component (no variants)
 - Node: `215:3048` | Key: `0d7ad22ff52dfd1ebf3ef099e3dd573e99ac7020`
-
-### icon-placeholder
-
-- Single component (no variants)
-- Node: `9:1404` | Key: `ae4cb8ae57725689509e57001cfaf83a28ee1c85`
 
 ### Sticky note
 

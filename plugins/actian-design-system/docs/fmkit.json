@@ -1,8 +1,8 @@
 {
   "library": "fm",
   "fileKey": "X2JSEUyLvxyNCx22ucOexn",
-  "lastSynced": "2026-04-11T00:00:00.000Z",
-  "componentCount": 44,
+  "lastSynced": "2026-04-29T14:09:00.804Z",
+  "componentCount": 43,
   "components": {
     "sticky-note": {
       "name": "Sticky note",
@@ -12,7 +12,10 @@
       "page": "Fat Marker",
       "description": "",
       "variants": {
-        "Property 1": ["Default", "Critical"]
+        "Property 1": [
+          "Default",
+          "Critical"
+        ]
       },
       "properties": {}
     },
@@ -24,7 +27,12 @@
       "page": "_comp",
       "description": "Top-level application header bar. Contains the Actian logo, product label, and user avatar. Use at the top of every screen mockup.",
       "variants": {
-        "Type": ["Admin", "Explorer", "Studio", "Actian"]
+        "Type": [
+          "Admin",
+          "Explorer",
+          "Studio",
+          "Actian"
+        ]
       },
       "properties": {
         "Show Context inputs#186:0": {
@@ -41,8 +49,16 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Size": ["Small", "Medium", "Large"],
-        "Type": ["Icon", "Number", "Number Expand"]
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ],
+        "Type": [
+          "Icon",
+          "Number",
+          "Number Expand"
+        ]
       },
       "properties": {}
     },
@@ -51,24 +67,19 @@
       "key": "368b62312ca941c80ea8eeed84a57d33bb470b09",
       "nodeId": "8:21044",
       "importMethod": "set",
-      "page": "_comp",
       "description": "",
-      "variants": {
-        "Size": ["md", "sm"],
-        "Shape": ["Regular", "Pill"],
-        "Type": ["Primary", "Secondary", "Outline", "Destructive"],
-        "State": ["Default", "Disabled"]
-      },
+      "lastSynced": "2026-04-29T14:09:00.804Z",
+      "page": "_comp",
       "properties": {
         "Leading Icon#1410:0": {
           "type": "INSTANCE_SWAP",
           "default": "9:1404"
         },
-        "👁 Leading Icon#1410:3": {
+        "\ud83d\udc41 Leading Icon#1410:3": {
           "type": "BOOLEAN",
           "default": true
         },
-        "👁 Trailing Icon#1410:6": {
+        "\ud83d\udc41 Trailing Icon#1410:6": {
           "type": "BOOLEAN",
           "default": true
         },
@@ -80,6 +91,28 @@
           "type": "TEXT",
           "default": "Button label"
         }
+      },
+      "nestedComponents": [],
+      "guidelinesFile": null,
+      "variants": {
+        "Size": [
+          "md",
+          "sm"
+        ],
+        "Shape": [
+          "Regular",
+          "Pill"
+        ],
+        "Type": [
+          "Primary",
+          "Secondary",
+          "Outline",
+          "Destructive"
+        ],
+        "State": [
+          "Default",
+          "Disabled"
+        ]
       }
     },
     "fm-chip": {
@@ -90,14 +123,17 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Outline": ["False", "True"]
+        "Outline": [
+          "False",
+          "True"
+        ]
       },
       "properties": {
         "Icon#163:337": {
           "type": "BOOLEAN",
           "default": true
         },
-        "↳ Icon#163:340": {
+        "\u21b3 Icon#163:340": {
           "type": "INSTANCE_SWAP",
           "default": "9:1404"
         }
@@ -111,8 +147,14 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": ["Off", "On"],
-        "Style": ["Default", "Disabled"]
+        "State": [
+          "Off",
+          "On"
+        ],
+        "Style": [
+          "Default",
+          "Disabled"
+        ]
       },
       "properties": {}
     },
@@ -124,9 +166,18 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Format": ["Default", "Card"],
-        "State": ["On", "Off"],
-        "Style": ["Default", "Disabled"]
+        "Format": [
+          "Default",
+          "Card"
+        ],
+        "State": [
+          "On",
+          "Off"
+        ],
+        "Style": [
+          "Default",
+          "Disabled"
+        ]
       },
       "properties": {
         "Show Label#1072:0": {
@@ -143,8 +194,14 @@
       "page": "_comp",
       "description": "On/off toggle switch. Use for immediate binary actions. Pair with a text label using fm-custom-toggle-row layout. Disabled style reduces opacity.",
       "variants": {
-        "State": ["Off", "On"],
-        "Style": ["Default", "Disabled"]
+        "State": [
+          "Off",
+          "On"
+        ],
+        "Style": [
+          "Default",
+          "Disabled"
+        ]
       },
       "properties": {}
     },
@@ -156,7 +213,13 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Progress": ["0%", "25%", "50%", "75%", "100%"]
+        "Progress": [
+          "0%",
+          "25%",
+          "50%",
+          "75%",
+          "100%"
+        ]
       },
       "properties": {}
     },
@@ -168,7 +231,12 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Cursor Type": ["Link", "Pointer", "Dragging", "Text"]
+        "Cursor Type": [
+          "Link",
+          "Pointer",
+          "Dragging",
+          "Text"
+        ]
       },
       "properties": {}
     },
@@ -180,7 +248,10 @@
       "page": "_comp",
       "description": "Empty or zero-data state placeholder. Default = centered with icon and text. Compact = smaller, for inline use. Include onboarding hint text to guide the user.",
       "variants": {
-        "Type": ["Default", "Compact"]
+        "Type": [
+          "Default",
+          "Compact"
+        ]
       },
       "properties": {}
     },
@@ -192,8 +263,15 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Type": ["Primary", "Secondary", "Outline"],
-        "State": ["Default", "Disabled"]
+        "Type": [
+          "Primary",
+          "Secondary",
+          "Outline"
+        ],
+        "State": [
+          "Default",
+          "Disabled"
+        ]
       },
       "properties": {
         "Icon#1470:32": {
@@ -210,7 +288,12 @@
       "page": "_comp",
       "description": "Single-select dropdown. Placeholder = empty, Filled = value selected, Open = showing options, Disabled = non-interactive.",
       "variants": {
-        "Type": ["Placeholder", "Open", "Disabled", "Filled"]
+        "Type": [
+          "Placeholder",
+          "Open",
+          "Disabled",
+          "Filled"
+        ]
       },
       "properties": {
         "Show label#176:13": {
@@ -254,7 +337,12 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Type": ["Empty", "Placeholder", "Default", "Disabled"]
+        "Type": [
+          "Empty",
+          "Placeholder",
+          "Default",
+          "Disabled"
+        ]
       },
       "properties": {
         "Show label#176:0": {
@@ -273,11 +361,11 @@
           "type": "TEXT",
           "default": "Input text"
         },
-        "👁 Leading Icon#1411:74": {
+        "\ud83d\udc41 Leading Icon#1411:74": {
           "type": "BOOLEAN",
           "default": false
         },
-        "👁 Trailing Icon#1411:76": {
+        "\ud83d\udc41 Trailing Icon#1411:76": {
           "type": "BOOLEAN",
           "default": false
         }
@@ -291,7 +379,11 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Content": ["None", "Placeholder", "Filled"]
+        "Content": [
+          "None",
+          "Placeholder",
+          "Filled"
+        ]
       },
       "properties": {
         "Show label#176:5": {
@@ -308,7 +400,11 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Type": ["Empty", "Placeholder", "Filled"]
+        "Type": [
+          "Empty",
+          "Placeholder",
+          "Filled"
+        ]
       },
       "properties": {
         "Show label#176:9": {
@@ -329,7 +425,11 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": ["Default", "Open", "Placeholder"]
+        "State": [
+          "Default",
+          "Open",
+          "Placeholder"
+        ]
       },
       "properties": {
         "Input Text#1451:1": {
@@ -369,7 +469,11 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": ["Default", "Hover", "Active"]
+        "State": [
+          "Default",
+          "Hover",
+          "Active"
+        ]
       },
       "properties": {}
     },
@@ -381,7 +485,11 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": ["On", "Off", "User Off"]
+        "State": [
+          "On",
+          "Off",
+          "User Off"
+        ]
       },
       "properties": {
         "Dropdown item text#1428:2": {
@@ -398,7 +506,10 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Property 1": ["Default", "Slim"]
+        "Property 1": [
+          "Default",
+          "Slim"
+        ]
       },
       "properties": {}
     },
@@ -410,7 +521,11 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "State": ["On", "Off", "Placeholder"]
+        "State": [
+          "On",
+          "Off",
+          "Placeholder"
+        ]
       },
       "properties": {
         "Show icon#166:0": {
@@ -461,7 +576,12 @@
       "page": "_comp",
       "description": "Table cell for data tables. Header = column title, Text = data value, Pill = status badge, Placeholder = future column.",
       "variants": {
-        "Type": ["Header", "Text", "Pill", "Placeholder"]
+        "Type": [
+          "Header",
+          "Text",
+          "Pill",
+          "Placeholder"
+        ]
       },
       "properties": {}
     },
@@ -473,7 +593,11 @@
       "page": "_comp",
       "description": "Tab for switching between views within the same context. On = active tab, Off = inactive, Placeholder = future/reserved tab slot.",
       "variants": {
-        "State": ["On", "Off", "Placeholder"]
+        "State": [
+          "On",
+          "Off",
+          "Placeholder"
+        ]
       },
       "properties": {
         "Show Icon#20:0": {
@@ -490,14 +614,18 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Style": ["Filled", "Outline", "Light"]
+        "Style": [
+          "Filled",
+          "Outline",
+          "Light"
+        ]
       },
       "properties": {
         "Icon Right#50:0": {
           "type": "BOOLEAN",
           "default": false
         },
-        "↳ Icon R#50:8": {
+        "\u21b3 Icon R#50:8": {
           "type": "INSTANCE_SWAP",
           "default": "9:1404"
         },
@@ -505,7 +633,7 @@
           "type": "BOOLEAN",
           "default": true
         },
-        "↳ Icon L#163:347": {
+        "\u21b3 Icon L#163:347": {
           "type": "INSTANCE_SWAP",
           "default": "9:1404"
         }
@@ -519,7 +647,10 @@
       "page": "_comp",
       "description": "",
       "variants": {
-        "Style": ["Standard", "Outline"]
+        "Style": [
+          "Standard",
+          "Outline"
+        ]
       },
       "properties": {
         "Icon#1485:2": {
@@ -556,7 +687,7 @@
           "type": "BOOLEAN",
           "default": false
         },
-        "↳ Icon#163:324": {
+        "\u21b3 Icon#163:324": {
           "type": "INSTANCE_SWAP",
           "default": "2:5"
         }
@@ -567,12 +698,9 @@
       "key": "a39aa1c7cb593f7d26b7659e4cbe4e419e00c766",
       "nodeId": "23:1207",
       "importMethod": "set",
-      "page": "Fat Marker",
       "description": "",
-      "variants": {
-        "Disabled": ["No", "Yes"],
-        "Type": ["Text", "Placeholder"]
-      },
+      "lastSynced": "2026-04-29T14:09:00.804Z",
+      "page": "Fat Marker",
       "properties": {
         "Caption#1555:9": {
           "type": "BOOLEAN",
@@ -590,6 +718,18 @@
           "type": "TEXT",
           "default": "Caption"
         }
+      },
+      "nestedComponents": [],
+      "guidelinesFile": null,
+      "variants": {
+        "Disabled": [
+          "No",
+          "Yes"
+        ],
+        "Type": [
+          "Text",
+          "Placeholder"
+        ]
       }
     },
     "fm-page-header": {
@@ -597,11 +737,9 @@
       "key": "ae1f8684a4a89aa74463d439e4e8c1e7a48137fe",
       "nodeId": "979:3117",
       "importMethod": "set",
-      "page": "Container",
       "description": "Page title area with optional subtitle and action buttons.",
-      "variants": {
-        "Type": ["Title only", "Title + Subtitle", "Title + Actions"]
-      },
+      "lastSynced": "2026-04-29T14:09:00.804Z",
+      "page": "Container",
       "properties": {
         "Title#979:22": {
           "type": "TEXT",
@@ -611,6 +749,16 @@
           "type": "TEXT",
           "default": "Description text"
         }
+      },
+      "nestedComponents": [],
+      "guidelinesFile": null,
+      "variants": {
+        "Type": [
+          "Title only",
+          "Title + Subtitle",
+          "Title + Actions",
+          "Placeholder"
+        ]
       }
     },
     "fm-alert": {
@@ -619,9 +767,13 @@
       "nodeId": "1052:9637",
       "importMethod": "set",
       "page": "Fat Marker",
-      "description": "Inline feedback message for success, error, or warning states. Use for persistent status messages — for brief confirmations, use FM Toast instead.",
+      "description": "Inline feedback message for success, error, or warning states. Use for persistent status messages \u2014 for brief confirmations, use FM Toast instead.",
       "variants": {
-        "Type": ["Success", "Error", "Warning"]
+        "Type": [
+          "Success",
+          "Error",
+          "Warning"
+        ]
       },
       "properties": {}
     },
@@ -631,9 +783,13 @@
       "nodeId": "1052:9653",
       "importMethod": "set",
       "page": "Fat Marker",
-      "description": "Step indicator for multi-step wizard flows. Place in a horizontal row — one instance per step. Active = current step, Complete = done, Upcoming = not yet reached.",
+      "description": "Step indicator for multi-step wizard flows. Place in a horizontal row \u2014 one instance per step. Active = current step, Complete = done, Upcoming = not yet reached.",
       "variants": {
-        "State": ["Active", "Complete", "Upcoming"]
+        "State": [
+          "Active",
+          "Complete",
+          "Upcoming"
+        ]
       },
       "properties": {}
     },
@@ -733,16 +889,6 @@
       "nodeId": "215:3048",
       "importMethod": "single",
       "page": "Fat Marker",
-      "description": "",
-      "variants": {},
-      "properties": {}
-    },
-    "icon-placeholder": {
-      "name": "icon-placeholder",
-      "key": "ae4cb8ae57725689509e57001cfaf83a28ee1c85",
-      "nodeId": "9:1404",
-      "importMethod": "single",
-      "page": "_comp",
       "description": "",
       "variants": {},
       "properties": {}
