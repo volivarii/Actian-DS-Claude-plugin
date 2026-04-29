@@ -93,6 +93,12 @@ Report the changelog output to the user. If the previous manifest doesn't exist 
 
 After the fix loop ends, write a `.last-push.json` file to the appropriate directory.
 
+**`pushedNodes[].screenId` (v1.56.0+):** when writing each `pushedNodes` entry, set
+`screenId` to the matching `screens[i].id` from `flow-data.json`. Index parity:
+`pushedNodes[i]` corresponds to `screens[i]` in push order. This field is required for
+B-refine.2 refine resolution (`scripts/resolve-unit.js`); refines against manifests that
+omit it fall through to greenfield with a documented warning.
+
 **Schema:**
 
 ```json
