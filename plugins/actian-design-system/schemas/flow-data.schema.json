@@ -139,7 +139,7 @@
               },
               "fingerprint": {
                 "type": "object",
-                "description": "C-vision (v1.57.0+) structural fingerprint extracted by vision pipeline. Persisted across pushes/refines; refine path reuses when ref URL is unchanged. All sub-fields optional — partial fingerprints are valid (e.g., layout_archetype dropped due to invalid enum, density survived).",
+                "description": "Structural fingerprint extracted from the reference image. All sub-fields optional — partial fingerprints are valid.",
                 "properties": {
                   "density": {
                     "type": "string",
@@ -159,7 +159,7 @@
                   },
                   "layout_archetype": {
                     "type": "string",
-                    "description": "Recipe archetype from recipes/flow/_index.json. Validated at runtime against scripts/fingerprint-schema.js RECIPE_IDS."
+                    "description": "Recipe archetype from recipes/flow/_index.json. Enum membership enforced at runtime, not by this schema."
                   },
                   "extracted_at": {
                     "type": "string",

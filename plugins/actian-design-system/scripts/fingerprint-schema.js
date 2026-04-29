@@ -6,8 +6,6 @@ var path = require("path");
 var RECIPE_IDS = (function loadRecipeIds() {
   var p = path.join(__dirname, "..", "recipes", "flow", "_index.json");
   var idx = JSON.parse(fs.readFileSync(p, "utf8"));
-  // _index.json is an array of { file, archetype, pattern, tags }; the canonical
-  // enum value is the `archetype` field on each entry.
   var ids = [];
   for (var i = 0; i < idx.length; i++) {
     if (idx[i] && typeof idx[i].archetype === "string") {
@@ -16,12 +14,6 @@ var RECIPE_IDS = (function loadRecipeIds() {
   }
   return ids;
 })();
-
-var STALE_REASON = {
-  MISSING: "missing",
-  URL_CHANGED: "url-changed",
-  SCHEMA_DRIFT: "schema-drift",
-};
 
 var DENSITY_ENUM = ["high", "medium", "low"];
 
@@ -51,26 +43,16 @@ function validateFingerprint(obj) {
       }
     }
   }
-  if ("layout_archetype" in obj && RECIPE_IDS.indexOf(obj.layout_archetype) === -1) {
-    errors.push(
-      "layout_archetype must be one of: " + RECIPE_IDS.join(", "),
-    );
+  if (
+    "layout_archetype" in obj &&
+    RECIPE_IDS.indexOf(obj.layout_archetype) === -1
+  ) {
+    errors.push("layout_archetype must be one of: " + RECIPE_IDS.join(", "));
   }
   return { valid: errors.length === 0, errors: errors };
 }
 
-function checkStaleness(cachedFingerprint) {
-  if (cachedFingerprint === null || cachedFingerprint === undefined) {
-    return STALE_REASON.MISSING;
-  }
-  var v = validateFingerprint(cachedFingerprint);
-  if (!v.valid) return STALE_REASON.SCHEMA_DRIFT;
-  return null; // fresh
-}
-
 module.exports = {
   RECIPE_IDS: RECIPE_IDS,
-  STALE_REASON: STALE_REASON,
   validateFingerprint: validateFingerprint,
-  checkStaleness: checkStaleness,
 };

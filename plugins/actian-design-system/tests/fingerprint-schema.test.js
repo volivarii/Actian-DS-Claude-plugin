@@ -26,14 +26,6 @@ describe("RECIPE_IDS", function () {
   });
 });
 
-describe("STALE_REASON", function () {
-  it("exposes MISSING, URL_CHANGED, and SCHEMA_DRIFT constants", function () {
-    assert.strictEqual(fp.STALE_REASON.MISSING, "missing");
-    assert.strictEqual(fp.STALE_REASON.URL_CHANGED, "url-changed");
-    assert.strictEqual(fp.STALE_REASON.SCHEMA_DRIFT, "schema-drift");
-  });
-});
-
 describe("validateFingerprint", function () {
   it("accepts a fully-valid fingerprint", function () {
     var v = fp.validateFingerprint({
@@ -68,16 +60,30 @@ describe("validateFingerprint", function () {
   it("rejects invalid density enum", function () {
     var v = fp.validateFingerprint({ density: "ultra" });
     assert.strictEqual(v.valid, false);
-    assert.ok(v.errors.some(function (e) {
-      return e.indexOf("density") !== -1;
-    }));
+    assert.ok(
+      v.errors.some(function (e) {
+        return e.indexOf("density") !== -1;
+      }),
+    );
   });
 
   it("rejects out-of-range hierarchy_depth", function () {
-    assert.strictEqual(fp.validateFingerprint({ hierarchy_depth: 0 }).valid, false);
-    assert.strictEqual(fp.validateFingerprint({ hierarchy_depth: 9 }).valid, false);
-    assert.strictEqual(fp.validateFingerprint({ hierarchy_depth: 1.5 }).valid, false);
-    assert.strictEqual(fp.validateFingerprint({ hierarchy_depth: "deep" }).valid, false);
+    assert.strictEqual(
+      fp.validateFingerprint({ hierarchy_depth: 0 }).valid,
+      false,
+    );
+    assert.strictEqual(
+      fp.validateFingerprint({ hierarchy_depth: 9 }).valid,
+      false,
+    );
+    assert.strictEqual(
+      fp.validateFingerprint({ hierarchy_depth: 1.5 }).valid,
+      false,
+    );
+    assert.strictEqual(
+      fp.validateFingerprint({ hierarchy_depth: "deep" }).valid,
+      false,
+    );
   });
 
   it("rejects non-array primary_components", function () {
@@ -98,41 +104,21 @@ describe("validateFingerprint", function () {
   it("rejects layout_archetype not in RECIPE_IDS", function () {
     var v = fp.validateFingerprint({ layout_archetype: "command-palette" });
     assert.strictEqual(v.valid, false);
-    assert.ok(v.errors.some(function (e) {
-      return e.indexOf("layout_archetype") !== -1;
-    }));
+    assert.ok(
+      v.errors.some(function (e) {
+        return e.indexOf("layout_archetype") !== -1;
+      }),
+    );
   });
 
   it("accepts every member of RECIPE_IDS as a valid layout_archetype", function () {
     for (var i = 0; i < fp.RECIPE_IDS.length; i++) {
       var v = fp.validateFingerprint({ layout_archetype: fp.RECIPE_IDS[i] });
       assert.strictEqual(
-        v.valid, true,
+        v.valid,
+        true,
         "RECIPE_IDS[" + i + "] = " + fp.RECIPE_IDS[i] + " should validate",
       );
     }
-  });
-});
-
-describe("checkStaleness", function () {
-  it("returns MISSING for null/undefined", function () {
-    assert.strictEqual(fp.checkStaleness(null), fp.STALE_REASON.MISSING);
-    assert.strictEqual(fp.checkStaleness(undefined), fp.STALE_REASON.MISSING);
-  });
-
-  it("returns null (fresh) for a valid cached fingerprint", function () {
-    var cached = {
-      density: "high",
-      layout_archetype: fp.RECIPE_IDS[0],
-    };
-    assert.strictEqual(fp.checkStaleness(cached), null);
-  });
-
-  it("returns SCHEMA_DRIFT for a cached fingerprint failing current schema", function () {
-    var cached = { density: "ultra-dense" }; // invalid enum
-    assert.strictEqual(
-      fp.checkStaleness(cached),
-      fp.STALE_REASON.SCHEMA_DRIFT,
-    );
   });
 });

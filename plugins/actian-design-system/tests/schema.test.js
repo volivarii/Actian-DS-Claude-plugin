@@ -505,6 +505,12 @@ function makeFlowWithFingerprint(fingerprint) {
   };
 }
 
+function nonDeprecatedErrors(data) {
+  return validate(data, schemas["flow-data.schema.json"]).filter(
+    (e) => !e.includes("deprecated"),
+  );
+}
+
 // 1. Fully-populated fingerprint validates
 const fpValidFull = makeFlowWithFingerprint({
   density: "high",
@@ -513,10 +519,7 @@ const fpValidFull = makeFlowWithFingerprint({
   layout_archetype: "table-list",
   extracted_at: "2026-04-29T12:00:00Z",
 });
-const fpValidFullErrs = validate(
-  fpValidFull,
-  schemas["flow-data.schema.json"],
-).filter((e) => !e.includes("deprecated"));
+const fpValidFullErrs = nonDeprecatedErrors(fpValidFull);
 assert(
   fpValidFullErrs.length === 0,
   "accepts a fully-populated fingerprint (no errors: got " +
@@ -535,10 +538,7 @@ const fpAbsent = {
   },
   screens: [{ name: "Screen 1", content: [] }],
 };
-const fpAbsentErrs = validate(
-  fpAbsent,
-  schemas["flow-data.schema.json"],
-).filter((e) => !e.includes("deprecated"));
+const fpAbsentErrs = nonDeprecatedErrors(fpAbsent);
 assert(
   fpAbsentErrs.length === 0,
   "accepts a reference without fingerprint (back-compat)",
@@ -546,9 +546,7 @@ assert(
 
 // 3. Empty fingerprint object validates (vacuous; partial extraction allowed)
 const fpEmpty = makeFlowWithFingerprint({});
-const fpEmptyErrs = validate(fpEmpty, schemas["flow-data.schema.json"]).filter(
-  (e) => !e.includes("deprecated"),
-);
+const fpEmptyErrs = nonDeprecatedErrors(fpEmpty);
 assert(fpEmptyErrs.length === 0, "accepts an empty fingerprint object");
 
 // 4. Invalid density enum rejected
@@ -583,10 +581,7 @@ assert(
 // only enforces type, enum, required, pattern, and minItems — not format keywords.
 // Runtime consumers (vision pipeline) are responsible for ISO 8601 enforcement.
 const fpBadDate = makeFlowWithFingerprint({ extracted_at: "not-a-date" });
-const fpBadDateErrs = validate(
-  fpBadDate,
-  schemas["flow-data.schema.json"],
-).filter((e) => !e.includes("deprecated"));
+const fpBadDateErrs = nonDeprecatedErrors(fpBadDate);
 assert(
   fpBadDateErrs.length === 0,
   "schema layer does NOT enforce extracted_at format (format:date-time is a hint only; runtime-enforced)",
@@ -598,10 +593,7 @@ assert(
 const fpUnknownArchetype = makeFlowWithFingerprint({
   layout_archetype: "made-up-archetype",
 });
-const fpUnknownArchetypeErrs = validate(
-  fpUnknownArchetype,
-  schemas["flow-data.schema.json"],
-).filter((e) => !e.includes("deprecated"));
+const fpUnknownArchetypeErrs = nonDeprecatedErrors(fpUnknownArchetype);
 assert(
   fpUnknownArchetypeErrs.length === 0,
   "schema does NOT enforce layout_archetype enum (runtime concern)",
