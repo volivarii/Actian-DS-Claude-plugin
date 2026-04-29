@@ -158,6 +158,7 @@ function findBannedTextRaw(data) {
           severity: "P0",
           check: "banned-text",
           screen: screenName,
+          screenId: screen.id || "",
           path: "pageHeader.title",
           value: screen.pageHeader.title,
         });
@@ -170,6 +171,7 @@ function findBannedTextRaw(data) {
           severity: "P0",
           check: "banned-text",
           screen: screenName,
+          screenId: screen.id || "",
           path: "pageHeader.subtitle",
           value: screen.pageHeader.subtitle,
         });
@@ -192,6 +194,7 @@ function findBannedTextRaw(data) {
             severity: "P0",
             check: "banned-text",
             screen: sName,
+            screenId: screen.id || "",
             path: nPath + ".content",
             value: node.content,
           });
@@ -209,6 +212,7 @@ function findBannedTextRaw(data) {
                 severity: "P0",
                 check: "banned-text",
                 screen: sName,
+                screenId: screen.id || "",
                 path: nPath + ".props." + propKey,
                 value: node.props[propKey],
               });
@@ -289,6 +293,7 @@ function findUnresolvedTokensRaw(data) {
                   severity: "P1",
                   check: "token",
                   screen: sName,
+                  screenId: screen.id || "",
                   path: nPath + "." + field,
                   value: "var(" + refs[r] + ") not found in tokens.css",
                 });
@@ -356,6 +361,7 @@ function findTerminologyIssuesRaw(data) {
           severity: "P1",
           check: "terminology",
           screen: screenName,
+          screenId: screen.id || "",
           path: nodePath,
           value: text,
           found: rules[r].wrong,
@@ -428,7 +434,7 @@ function checkTierJustification(screen, findings) {
     findings.push({
       severity: "error",
       kind: "missing-justification",
-      screen: screen.name,
+      screen: screen.id || "",
       message:
         'Tier "' +
         screen.tier +
@@ -555,6 +561,7 @@ function findHardcodedColorsRaw(data) {
             severity: "P0",
             check: "hardcoded-color",
             screen: sName,
+            screenId: screen.id || "",
             path: p,
             value: value,
           });
@@ -684,6 +691,7 @@ function findUnmutedChromeRaw(data) {
             severity: "P1",
             check: "unmuted-chrome",
             screen: sName,
+            screenId: screen.id || "",
             path: p,
             ref: instNode.ref,
             value: labelValue,
@@ -795,6 +803,7 @@ function findIntentMismatchRaw(data) {
             severity: rule.severity === "error" ? "P0" : "P1",
             check: "intent-mismatch",
             screen: sName,
+            screenId: screen.id || "",
             path: p,
             ref: node.ref,
             intent: effective,
@@ -837,6 +846,7 @@ function findIntentMismatchRaw(data) {
               severity: "P1",
               check: "intent-mismatch",
               screen: sName,
+              screenId: screen.id || "",
               path: p,
               ref: node.type,
               intent: effective,
@@ -853,6 +863,7 @@ function findIntentMismatchRaw(data) {
               severity: "P1",
               check: "intent-mismatch",
               screen: sName,
+              screenId: screen.id || "",
               path: p,
               ref: node.type,
               intent: effective,
@@ -912,7 +923,7 @@ function checkRecipeAdherence(screen, findings) {
       findings.push({
         severity: severityForTier("soft-deviation", screen.tier),
         kind: "soft-deviation",
-        screen: screen.name,
+        screen: screen.id || "",
         message: "Content node deviates from matched recipe shape",
       });
     }
@@ -934,6 +945,20 @@ function validate(data, opts) {
   var findings = [];
   if (!data || typeof data !== "object") return { findings: findings };
 
+  // Always-stamp rule (B-refine.1): every screen gets a stable id before
+  // any check runs. Idempotent — preserves user-supplied ids; derives
+  // <feature-slug>-<index> for missing ones.
+  require("./screen-id.js").stampScreenIds(data);
+
+  // Helper: derive screen.id from a finding path like "screens[2].content[3]..."
+  function screenIdFromPath(p) {
+    if (!p || !Array.isArray(data.screens)) return "";
+    var m = /^screens\[(\d+)\]/.exec(p);
+    if (!m) return "";
+    var s = data.screens[parseInt(m[1], 10)];
+    return (s && s.id) || "";
+  }
+
   // Tier-level checks (existing — unchanged behavior)
   if (Array.isArray(data.screens)) {
     for (var si = 0; si < data.screens.length; si++) {
@@ -946,12 +971,14 @@ function validate(data, opts) {
   var registry = getCombinedRegistry();
   if (data.screens) {
     walkInstanceNodes(data.screens, "screens", function (instNode, p) {
+      var sId = screenIdFromPath(p);
       var componentDef = registry[instNode.ref];
       if (!componentDef) {
         findings.push({
           kind: "unknown-component",
           severity: "error",
           path: p + ".ref",
+          screen: sId,
           message:
             "Component ref '" +
             instNode.ref +
@@ -967,6 +994,7 @@ function validate(data, opts) {
             kind: "missing-required-override",
             severity: "error",
             path: p + ".props",
+            screen: sId,
             message:
               "Component '" +
               instNode.ref +
@@ -987,6 +1015,7 @@ function validate(data, opts) {
             kind: "default-true-boolean-unset",
             severity: "warning",
             path: p + ".props",
+            screen: sId,
             message:
               "Component '" +
               instNode.ref +
@@ -1007,6 +1036,7 @@ function validate(data, opts) {
           kind: "placeholder-text",
           severity: "error",
           path: p,
+          screen: screenIdFromPath(p),
           message: "Placeholder default leaked: " + JSON.stringify(str),
           value: str,
         });
@@ -1022,6 +1052,7 @@ function validate(data, opts) {
         kind: "banned-text",
         severity: "error",
         path: banned[bi].path,
+        screen: banned[bi].screenId,
         message: "Banned placeholder text: " + JSON.stringify(banned[bi].value),
         // preserve legacy fields for adapter reconstruction
         _legacy: banned[bi],
@@ -1037,6 +1068,7 @@ function validate(data, opts) {
         kind: "unresolved-token",
         severity: "warning",
         path: tokens[ti].path,
+        screen: tokens[ti].screenId,
         message: tokens[ti].value,
         // preserve legacy fields for adapter reconstruction
         _legacy: tokens[ti],
@@ -1053,6 +1085,7 @@ function validate(data, opts) {
         kind: "hardcoded-color",
         severity: "error",
         path: hex[hi].path,
+        screen: hex[hi].screenId,
         message:
           "Hardcoded color " +
           JSON.stringify(hex[hi].value) +
@@ -1071,6 +1104,7 @@ function validate(data, opts) {
         kind: "unmuted-chrome",
         severity: "warning",
         path: unmuted[ui].path,
+        screen: unmuted[ui].screenId,
         message:
           "Chrome '" +
           unmuted[ui].ref +
@@ -1091,6 +1125,7 @@ function validate(data, opts) {
         kind: "intent-mismatch",
         severity: intentIssues[ii].severity === "P0" ? "error" : "warning",
         path: intentIssues[ii].path,
+        screen: intentIssues[ii].screenId,
         message:
           "DS '" +
           intentIssues[ii].ref +
@@ -1113,6 +1148,7 @@ function validate(data, opts) {
         kind: "terminology-issue",
         severity: "warning",
         path: terms[ri].path,
+        screen: terms[ri].screenId,
         message: terms[ri].value,
         // preserve legacy fields for adapter reconstruction
         _legacy: terms[ri],
@@ -1213,6 +1249,19 @@ module.exports = {
   validate: validate,
   severityForTier: severityForTier,
   checkRecipeAdherence: checkRecipeAdherence,
+  // B-refine.1: scope-aware-runner contract
+  gateConfig: {
+    // Validator never skips — findings are too valuable to drop wholesale.
+    // Filter only.
+    filterFindingsByScope: function (f, scope) {
+      if (scope.kind === "full") return true;
+      if (!f.screen) return true; // schema/file-level findings always pass
+      return scope.ids.indexOf(f.screen) !== -1;
+    },
+  },
+  run: function (data, opts) {
+    return validate(data, opts);
+  },
 };
 
 if (require.main === module) {
@@ -1227,6 +1276,11 @@ if (require.main === module) {
           description: "Skip token reference validation",
         },
         { name: "--skip-terminology", description: "Skip terminology check" },
+        {
+          name: "--scope <s>",
+          description:
+            "Filter findings by scope: 'full' (default) | 'single-unit:<id>' | 'multi-unit:[<id>,<id>]'",
+        },
         { name: "--json", description: "Output issues as JSON" },
         { name: "--help", description: "Show this help" },
       ],
@@ -1246,6 +1300,9 @@ if (require.main === module) {
   var skipTokens = flags.indexOf("--skip-tokens") !== -1;
   var skipTerminology = flags.indexOf("--skip-terminology") !== -1;
   var jsonOutput = flags.indexOf("--json") !== -1;
+  var scopeIdx = flags.indexOf("--scope");
+  var scope =
+    scopeIdx !== -1 && flags[scopeIdx + 1] ? flags[scopeIdx + 1] : "full";
 
   var data;
   try {
@@ -1271,9 +1328,11 @@ if (require.main === module) {
     "missing-justification": true,
   };
 
-  var result = validate(data, {
+  var runGate = require("./scope-aware-runner.js").runGate;
+  var result = runGate(module.exports, data, {
     skipTokens: skipTokens,
     skipTerminology: skipTerminology,
+    scope: scope,
   });
 
   var allIssues = [];
@@ -1283,12 +1342,13 @@ if (require.main === module) {
     if (f._legacy) {
       allIssues.push(f._legacy);
     } else {
-      // Tier-justification findings carry typed fields directly.
+      // Findings without _legacy carry typed fields directly. Map
+      // severity error → P0, warning/info → P1 for the legacy CLI shape.
       allIssues.push({
-        severity: "P0",
+        severity: f.severity === "error" ? "P0" : "P1",
         check: f.kind,
         screen: f.screen || "(unknown)",
-        path: "tier/justification",
+        path: f.path || "tier/justification",
         value: f.message,
       });
     }

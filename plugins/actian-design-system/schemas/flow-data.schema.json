@@ -53,6 +53,11 @@
           "const": "generate-flow",
           "description": "Skill identifier"
         },
+        "mode": {
+          "type": "string",
+          "enum": ["full", "refine"],
+          "description": "How the artifact was produced. 'full' (default) is generation-from-scratch; 'refine' indicates a partial patch over a prior push. Drives downstream gate behavior alongside the runtime --scope flag."
+        },
         "research": {
           "type": "object",
           "description": "Optional research findings - triggers Research Frame card",
@@ -241,6 +246,11 @@
         "type": "object",
         "required": ["name", "content"],
         "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$",
+            "description": "Stable kebab-case identifier. Used by unitMap and refine resolution. Auto-derived as <feature-slug>-<index> when omitted (validate-time stamp). Always optional in schema; always present after validate()."
+          },
           "name": {
             "type": "string",
             "description": "Screen name (e.g. Screen 1: Dashboard)"

@@ -410,6 +410,80 @@ assert(
 );
 
 // ---------------------------------------------------------------------------
+// Test: B-refine.1 — screen.id and meta.mode schema additions
+// ---------------------------------------------------------------------------
+
+process.stdout.write("\nB-refine.1 — screen.id and meta.mode\n");
+
+// screen.id present, kebab-case → valid
+const idOk = {
+  meta: { feature: "T" },
+  screens: [{ id: "test-1", name: "S", content: [] }],
+};
+const idOkErrs = validate(idOk, schemas["flow-data.schema.json"]).filter(
+  (e) => !e.includes("deprecated"),
+);
+assert(idOkErrs.length === 0, "accepts screen.id when present and kebab-case");
+
+// screen.id with uppercase → rejected
+const idBadCase = {
+  meta: { feature: "T" },
+  screens: [{ id: "Test_1", name: "S", content: [] }],
+};
+const idBadCaseErrs = validate(idBadCase, schemas["flow-data.schema.json"]);
+assert(
+  idBadCaseErrs.some((e) => e.toLowerCase().includes("pattern")),
+  "rejects screen.id with uppercase or underscores",
+);
+
+// screen.id absent → still valid (always-optional in schema; validator stamps)
+const idAbsent = {
+  meta: { feature: "T" },
+  screens: [{ name: "S", content: [] }],
+};
+const idAbsentErrs = validate(
+  idAbsent,
+  schemas["flow-data.schema.json"],
+).filter((e) => !e.includes("deprecated"));
+assert(
+  idAbsentErrs.length === 0,
+  "accepts screen with no id (validator stamps)",
+);
+
+// meta.mode = "full" → valid
+const modeFull = {
+  meta: { feature: "T", mode: "full" },
+  screens: [{ name: "S", content: [] }],
+};
+const modeFullErrs = validate(
+  modeFull,
+  schemas["flow-data.schema.json"],
+).filter((e) => !e.includes("deprecated"));
+assert(modeFullErrs.length === 0, 'accepts meta.mode = "full"');
+
+// meta.mode = "refine" → valid
+const modeRefine = {
+  meta: { feature: "T", mode: "refine" },
+  screens: [{ name: "S", content: [] }],
+};
+const modeRefineErrs = validate(
+  modeRefine,
+  schemas["flow-data.schema.json"],
+).filter((e) => !e.includes("deprecated"));
+assert(modeRefineErrs.length === 0, 'accepts meta.mode = "refine"');
+
+// meta.mode = "patch" (unknown) → rejected
+const modeBad = {
+  meta: { feature: "T", mode: "patch" },
+  screens: [{ name: "S", content: [] }],
+};
+const modeBadErrs = validate(modeBad, schemas["flow-data.schema.json"]);
+assert(
+  modeBadErrs.some((e) => e.toLowerCase().includes("enum")),
+  "rejects unknown meta.mode value",
+);
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 

@@ -1523,6 +1523,172 @@ describe("validate-flow-data", function () {
     });
   });
 
+  describe("gateConfig.filterFindingsByScope (B-refine.1)", function () {
+    var { runGate } = require("../scripts/scope-aware-runner.js");
+
+    function makeData() {
+      return {
+        meta: { feature: "T" },
+        screens: [
+          {
+            id: "t-1",
+            name: "S1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Button label" },
+              },
+            ],
+          },
+          {
+            id: "t-2",
+            name: "S2",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Save" },
+              },
+            ],
+          },
+          {
+            id: "t-3",
+            name: "S3",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Description text" },
+              },
+            ],
+          },
+        ],
+      };
+    }
+
+    it("scope=full returns all banned-text findings", function () {
+      var result = runGate(validate, makeData(), { scope: "full" });
+      var banned = result.findings.filter(function (f) {
+        return f.kind === "banned-text";
+      });
+      assert.strictEqual(banned.length, 2);
+    });
+
+    it("scope=single-unit:t-2 returns no banned-text (s2 is clean)", function () {
+      var result = runGate(validate, makeData(), {
+        scope: "single-unit:t-2",
+      });
+      var banned = result.findings.filter(function (f) {
+        return f.kind === "banned-text";
+      });
+      assert.strictEqual(banned.length, 0);
+    });
+
+    it("scope=single-unit:t-1 returns only s1 banned-text", function () {
+      var result = runGate(validate, makeData(), {
+        scope: "single-unit:t-1",
+      });
+      var banned = result.findings.filter(function (f) {
+        return f.kind === "banned-text";
+      });
+      assert.strictEqual(banned.length, 1);
+      assert.strictEqual(banned[0].screen, "t-1");
+    });
+
+    it("scope=multi-unit:[t-1,t-3] returns banned-text from both", function () {
+      var result = runGate(validate, makeData(), {
+        scope: "multi-unit:[t-1,t-3]",
+      });
+      var banned = result.findings.filter(function (f) {
+        return f.kind === "banned-text";
+      });
+      assert.strictEqual(banned.length, 2);
+    });
+
+    it("placeholder-text findings (INSTANCE-walker) also scope-filter via screenIdFromPath", function () {
+      var data = {
+        meta: { feature: "T" },
+        screens: [
+          {
+            id: "t-1",
+            name: "S1",
+            content: [{ type: "TEXT", content: "Page Title" }],
+          },
+          {
+            id: "t-2",
+            name: "S2",
+            content: [{ type: "TEXT", content: "Real text" }],
+          },
+        ],
+      };
+      var result = runGate(validate, data, { scope: "single-unit:t-2" });
+      var placeholder = result.findings.filter(function (f) {
+        return f.kind === "placeholder-text";
+      });
+      assert.strictEqual(placeholder.length, 0);
+    });
+  });
+
+  describe("screen.id stamping (B-refine.1)", function () {
+    it("stamps derived ids when missing", function () {
+      var data = {
+        meta: { feature: "Test Feature" },
+        screens: [
+          { name: "S1", content: [] },
+          { name: "S2", content: [] },
+        ],
+      };
+      validate.validate(data);
+      assert.strictEqual(data.screens[0].id, "test-feature-1");
+      assert.strictEqual(data.screens[1].id, "test-feature-2");
+    });
+
+    it("preserves user-supplied id, stamps the rest", function () {
+      var data = {
+        meta: { feature: "Catalog" },
+        screens: [
+          { id: "custom", name: "S1", content: [] },
+          { name: "S2", content: [] },
+        ],
+      };
+      validate.validate(data);
+      assert.strictEqual(data.screens[0].id, "custom");
+      assert.strictEqual(data.screens[1].id, "catalog-2");
+    });
+
+    it("stamps single-screen flows too (always-stamp rule)", function () {
+      var data = {
+        meta: { feature: "Solo Screen" },
+        screens: [{ name: "S", content: [] }],
+      };
+      validate.validate(data);
+      assert.strictEqual(data.screens[0].id, "solo-screen-1");
+    });
+
+    it("is idempotent — re-running validate does not change ids", function () {
+      var data = {
+        meta: { feature: "Repeat" },
+        screens: [
+          { name: "S1", content: [] },
+          { name: "S2", content: [] },
+        ],
+      };
+      validate.validate(data);
+      var snapshot = data.screens.map(function (s) {
+        return s.id;
+      });
+      validate.validate(data);
+      validate.validate(data);
+      assert.deepStrictEqual(
+        data.screens.map(function (s) {
+          return s.id;
+        }),
+        snapshot,
+      );
+    });
+  });
+
   describe("intent fixtures (integration)", function () {
     var fs = require("fs");
     var path = require("path");
@@ -1740,6 +1906,89 @@ describe("validate-flow-data", function () {
         ),
         "expected canonical reporter line; got: " + result.stderr,
       );
+    });
+
+    it("--scope single-unit:<id> filters CLI findings by screen id (B-refine.1)", function () {
+      // 3-screen flow with banned text on screens 1 + 3, clean on 2
+      var data = {
+        meta: { feature: "ScopedCli" },
+        screens: [
+          {
+            id: "scopedcli-1",
+            name: "S1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Button label" },
+              },
+            ],
+          },
+          {
+            id: "scopedcli-2",
+            name: "S2",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Save" },
+              },
+            ],
+          },
+          {
+            id: "scopedcli-3",
+            name: "S3",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Description text" },
+              },
+            ],
+          },
+        ],
+      };
+      var os = require("os");
+      var { spawnSync } = require("node:child_process");
+      var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
+      var dataPath = path.join(tmpDir, "flow-data.json");
+      fs.writeFileSync(dataPath, JSON.stringify(data));
+      var script = path.join(PLUGIN_ROOT, "scripts", "validate-flow-data.js");
+
+      // scope=single-unit:scopedcli-2 → no banned (s2 is clean) → exit 0
+      var r2 = spawnSync(
+        process.execPath,
+        [script, dataPath, "--scope", "single-unit:scopedcli-2"],
+        { encoding: "utf8" },
+      );
+      assert.strictEqual(
+        r2.status,
+        0,
+        "expected exit 0 with scope=s2; got " +
+          r2.status +
+          " stderr: " +
+          r2.stderr,
+      );
+
+      // scope=single-unit:scopedcli-1 → banned in s1 → exit 1
+      var r1 = spawnSync(
+        process.execPath,
+        [script, dataPath, "--scope", "single-unit:scopedcli-1"],
+        { encoding: "utf8" },
+      );
+      assert.strictEqual(
+        r1.status,
+        1,
+        "expected exit 1 with scope=s1; got " + r1.status,
+      );
+
+      // scope=full → 2 banned (s1 + s3) → exit 1
+      var rFull = spawnSync(process.execPath, [script, dataPath], {
+        encoding: "utf8",
+      });
+      assert.strictEqual(rFull.status, 1, "expected exit 1 with no scope flag");
+
+      fs.rmSync(tmpDir, { recursive: true, force: true });
     });
 
     it("--json mode emits an array of issue objects", function () {
