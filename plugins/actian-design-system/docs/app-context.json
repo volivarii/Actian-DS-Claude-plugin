@@ -3,7 +3,12 @@
     "studio": {
       "label": "Studio",
       "purpose": "Data governance, catalog management, stewardship, lineage, glossary admin, metadata enrichment",
-      "users": ["Data steward", "Data engineer", "Data architect", "Domain expert"],
+      "users": [
+        "Data steward",
+        "Data engineer",
+        "Data architect",
+        "Domain expert"
+      ],
       "header": { "type": "Studio" },
       "sidebar": [
         { "label": "Dashboard", "id": "dashboard" },
@@ -14,7 +19,24 @@
         { "label": "Catalog design", "id": "catalog-design" },
         { "label": "Analytics", "id": "analytics" }
       ],
-      "signals": ["steward", "govern", "curate", "lineage", "glossary admin", "metadata", "enrich", "template", "ontology", "knowledge graph", "catalog management", "import", "topics", "watchlist", "analytics", "catalog design"]
+      "signals": [
+        "steward",
+        "govern",
+        "curate",
+        "lineage",
+        "glossary admin",
+        "metadata",
+        "enrich",
+        "template",
+        "ontology",
+        "knowledge graph",
+        "catalog management",
+        "import",
+        "topics",
+        "watchlist",
+        "analytics",
+        "catalog design"
+      ]
     },
     "explorer": {
       "label": "Explorer",
@@ -22,7 +44,20 @@
       "users": ["Business user", "Analyst", "Data consumer"],
       "header": { "type": "Explorer" },
       "sidebar": [],
-      "signals": ["browse", "discover", "search", "marketplace", "consume", "request access", "data product", "business glossary", "explore", "ask AI", "suggestion", "favorite"]
+      "signals": [
+        "browse",
+        "discover",
+        "search",
+        "marketplace",
+        "consume",
+        "request access",
+        "data product",
+        "business glossary",
+        "explore",
+        "ask AI",
+        "suggestion",
+        "favorite"
+      ]
     },
     "administration": {
       "label": "Administration",
@@ -39,14 +74,39 @@
         { "label": "Policies", "id": "policies" },
         { "label": "Maintenance mode", "id": "maintenance-mode" }
       ],
-      "signals": ["users", "permissions", "connections", "connectors", "settings", "configuration", "system", "LDAP", "SSO", "roles", "groups", "scanners", "API keys", "maintenance", "catalogs"]
+      "signals": [
+        "users",
+        "permissions",
+        "connections",
+        "connectors",
+        "settings",
+        "configuration",
+        "system",
+        "LDAP",
+        "SSO",
+        "roles",
+        "groups",
+        "scanners",
+        "API keys",
+        "maintenance",
+        "catalogs"
+      ]
     }
   },
   "entities": {
     "catalog-object": {
       "label": "Catalog Object",
       "description": "Any indexed item. Types: Dataset, Field, Visualization, Data Process, Data Product, Glossary Item, Custom Item, Category",
-      "properties": ["name", "description", "type", "completion level", "quality status", "owner", "contacts", "last modified"],
+      "properties": [
+        "name",
+        "description",
+        "type",
+        "completion level",
+        "quality status",
+        "owner",
+        "contacts",
+        "last modified"
+      ],
       "relationships": {
         "belongsTo": "domain",
         "hasMetadata": "metadata",
@@ -71,7 +131,16 @@
     "data-product": {
       "label": "Data Product",
       "description": "Curated, business-ready asset. Contains Input Ports and Output Ports. Published to marketplace.",
-      "properties": ["name", "description", "status", "input ports", "output ports", "datasets", "contacts", "attachments"],
+      "properties": [
+        "name",
+        "description",
+        "status",
+        "input ports",
+        "output ports",
+        "datasets",
+        "contacts",
+        "attachments"
+      ],
       "relationships": {
         "hasInputPorts": "input-port",
         "hasOutputPorts": "output-port",
@@ -82,7 +151,12 @@
     "data-contract": {
       "label": "Data Contract",
       "description": "Formal agreement on an Output Port defining quality thresholds, access permissions, validation rules",
-      "properties": ["name", "quality thresholds", "access rules", "validation rules"],
+      "properties": [
+        "name",
+        "quality thresholds",
+        "access rules",
+        "validation rules"
+      ],
       "relationships": {
         "attachedTo": "output-port"
       },
@@ -167,7 +241,14 @@
     "access-request": {
       "label": "Access Request",
       "description": "Consumer request for data product/item access with policy-driven approval workflow",
-      "properties": ["requester", "item", "use case", "reason", "status", "created at"],
+      "properties": [
+        "requester",
+        "item",
+        "use case",
+        "reason",
+        "status",
+        "created at"
+      ],
       "relationships": {
         "targetsOutputPort": "output-port"
       },
@@ -457,6 +538,21 @@
       "label": "Actian MCP Server",
       "description": "7 tools for AI integrations (Find Glossary, Semantic Search, Get Data Model, etc.).",
       "apps": ["studio", "explorer"]
+    },
+    "filter-groups-form": {
+      "label": "Filter-groups edit form with sticky footer",
+      "description": "Edit-group / permission / role configuration pattern. Page header + top inputs section + one or more collapsible filter-group sections, each containing label rows with toggle switches, plus optional slot cards for nested config (Checkbox + Toggle stacks). Sticky footer pinned at the bottom for save/cancel actions. Used when administrators configure access bundles or named groups with many fine-grained permissions.",
+      "apps": ["administration"]
+    },
+    "search-filtered-table": {
+      "label": "Search-filtered list table",
+      "description": "List table with an inline Search input directly above it (no separate filter sidebar). Common for member directories, group lists, scanner inventories, connection lists. Pairs Page header → Search → Table. Search filters table contents in place; no other facets.",
+      "apps": ["administration", "studio", "explorer"]
+    },
+    "table-with-tabs": {
+      "label": "Tab-filtered dashboard table",
+      "description": "Page header → Tabs → Table layout. Tabs split the table by status (Active / Pending / Archived), type (My / Shared / All), or role-scoped view. Used for admin dashboards, queue views, and any list where users mentally pre-filter by category before scanning rows.",
+      "apps": ["administration", "studio"]
     }
   }
 }
