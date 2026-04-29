@@ -760,6 +760,123 @@ if (fs.existsSync(PRES_INDEX_PATH)) {
   }
 }
 
+// ── intent annotations on recipes ──────────────────────────────────
+
+var validIntents = [
+  "destructive-action",
+  "success-confirmation",
+  "error-state",
+  "default",
+];
+
+function collectIntents(node, out) {
+  if (!node || typeof node !== "object") return;
+  if (Array.isArray(node)) {
+    node.forEach(function (n) {
+      collectIntents(n, out);
+    });
+    return;
+  }
+  if (node.intent !== undefined) out.push(node.intent);
+  if (node.children) collectIntents(node.children, out);
+}
+
+// Test: overlay.json confirmationSkeleton uses valid intent values
+var overlayTestErrors = [];
+var overlayRecipe;
+try {
+  overlayRecipe = JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "..", "recipes", "flow", "overlay.json"),
+      "utf8",
+    ),
+  );
+} catch (err) {
+  overlayTestErrors.push(`Failed to load overlay.json: ${err.message}`);
+}
+
+if (!overlayTestErrors.length && !overlayRecipe.confirmationSkeleton) {
+  overlayTestErrors.push("confirmationSkeleton block missing");
+}
+
+if (!overlayTestErrors.length) {
+  var overlayIntents = [];
+  collectIntents(overlayRecipe.confirmationSkeleton.content, overlayIntents);
+  if (overlayIntents.length === 0) {
+    overlayTestErrors.push("expected at least one intent annotation");
+  } else {
+    overlayIntents.forEach(function (i) {
+      if (validIntents.indexOf(i) === -1) {
+        overlayTestErrors.push("invalid intent: " + i);
+      }
+    });
+    if (overlayIntents.indexOf("destructive-action") === -1) {
+      overlayTestErrors.push(
+        "expected destructive-action somewhere in confirmationSkeleton",
+      );
+    }
+  }
+}
+
+if (overlayTestErrors.length === 0) {
+  console.log("PASS  overlay.json confirmationSkeleton intent annotations");
+  passed++;
+} else {
+  console.log("FAIL  overlay.json confirmationSkeleton intent annotations");
+  overlayTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
+// Test: sticky-footer.json destructiveSkeleton uses valid intent values
+var stickyTestErrors = [];
+var stickyRecipe;
+try {
+  stickyRecipe = JSON.parse(
+    fs.readFileSync(
+      path.join(__dirname, "..", "recipes", "flow", "sticky-footer.json"),
+      "utf8",
+    ),
+  );
+} catch (err) {
+  stickyTestErrors.push(`Failed to load sticky-footer.json: ${err.message}`);
+}
+
+if (!stickyTestErrors.length && !stickyRecipe.destructiveSkeleton) {
+  stickyTestErrors.push("destructiveSkeleton block missing");
+}
+
+if (!stickyTestErrors.length) {
+  var stickyIntents = [];
+  collectIntents(stickyRecipe.destructiveSkeleton.content, stickyIntents);
+  if (stickyIntents.length === 0) {
+    stickyTestErrors.push("expected at least one intent annotation");
+  } else {
+    stickyIntents.forEach(function (i) {
+      if (validIntents.indexOf(i) === -1) {
+        stickyTestErrors.push("invalid intent: " + i);
+      }
+    });
+    if (stickyIntents.indexOf("destructive-action") === -1) {
+      stickyTestErrors.push(
+        "expected destructive-action in destructiveSkeleton",
+      );
+    }
+  }
+}
+
+if (stickyTestErrors.length === 0) {
+  console.log(
+    "PASS  sticky-footer.json destructiveSkeleton intent annotations",
+  );
+  passed++;
+} else {
+  console.log(
+    "FAIL  sticky-footer.json destructiveSkeleton intent annotations",
+  );
+  stickyTestErrors.forEach((e) => console.log(`        ${e}`));
+  failed++;
+}
+
 // ── summary ──────────────────────────────────────────────────────────
 
 console.log("");
