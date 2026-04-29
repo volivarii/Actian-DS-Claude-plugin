@@ -1255,41 +1255,43 @@ if (require.main === module) {
     process.exit(1);
   }
 
+  // Single validate() call — emits all finding kinds in one traversal.
+  // Filter to the kinds the legacy CLI surfaces (exact behavioral parity).
+  // Orphan kinds emitted by validate() (placeholder-text, missing-required-override,
+  // unknown-component, default-true-boolean-unset, soft-deviation) are intentionally
+  // skipped here to preserve current CLI behavior; programmatic consumers use
+  // validate() directly to see them.
+  var LEGACY_CLI_KINDS = {
+    "banned-text": true,
+    "unresolved-token": true,
+    "hardcoded-color": true,
+    "unmuted-chrome": true,
+    "intent-mismatch": true,
+    "terminology-issue": true,
+    "missing-justification": true,
+  };
+
+  var result = validate(data, {
+    skipTokens: skipTokens,
+    skipTerminology: skipTerminology,
+  });
+
   var allIssues = [];
-
-  // Check 1: Banned text
-  allIssues = allIssues.concat(findBannedText(data));
-
-  // Check 3: Token references
-  if (!skipTokens) {
-    allIssues = allIssues.concat(findUnresolvedTokens(data));
-    // Check 3b: Hardcoded color literals (P0 — tokens-only rule)
-    allIssues = allIssues.concat(findHardcodedColors(data));
-  }
-
-  // Check 4: Terminology
-  if (!skipTerminology) {
-    allIssues = allIssues.concat(findTerminologyIssues(data));
-  }
-
-  // Check 4b: Unmuted-chrome heuristic (P1 — soft warning)
-  allIssues = allIssues.concat(findUnmutedChrome(data));
-
-  // Check 4c: Intent mismatch (hifi-tier only — P0 + P1)
-  allIssues = allIssues.concat(findIntentMismatch(data));
-
-  // Check 5: Tier justification (B1 fallback ladder).
-  // Map to legacy CLI shape so the existing reporter handles them uniformly.
-  var tierFindings = findMissingJustifications(data);
-  for (var ti = 0; ti < tierFindings.length; ti++) {
-    var f = tierFindings[ti];
-    allIssues.push({
-      severity: "P0",
-      check: f.kind,
-      screen: f.screen || "(unknown)",
-      path: "tier/justification",
-      value: f.message,
-    });
+  for (var fi = 0; fi < result.findings.length; fi++) {
+    var f = result.findings[fi];
+    if (!LEGACY_CLI_KINDS[f.kind]) continue;
+    if (f._legacy) {
+      allIssues.push(f._legacy);
+    } else {
+      // Tier-justification findings carry typed fields directly.
+      allIssues.push({
+        severity: "P0",
+        check: f.kind,
+        screen: f.screen || "(unknown)",
+        path: "tier/justification",
+        value: f.message,
+      });
+    }
   }
 
   // Report

@@ -1707,5 +1707,76 @@ describe("validate-flow-data", function () {
         "expected exit 0 (FM tier silent), got " + result.status,
       );
     });
+
+    it("reporter format: severity [check] screen → path = value", function () {
+      // Parity guard: the post-v1.54.1 single-validate consolidation must
+      // produce reporter lines in the same shape the legacy multi-call CLI did.
+      var data = {
+        meta: { feature: "Reporter Format" },
+        screens: [
+          {
+            name: "Screen 1: Test",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Button label" },
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(result.status, 1, "expected exit 1 (P0 banned)");
+      // Header line
+      assert.ok(
+        /validate-flow-data: \d+ issue\(s\) found/.test(result.stderr),
+        "expected count header in stderr; got: " + result.stderr,
+      );
+      // At least one issue line in the canonical shape
+      assert.ok(
+        /^P0 \[banned-text\] Screen 1: Test → .* = "Button label"$/m.test(
+          result.stderr,
+        ),
+        "expected canonical reporter line; got: " + result.stderr,
+      );
+    });
+
+    it("--json mode emits an array of issue objects", function () {
+      var data = {
+        meta: { feature: "Json Mode" },
+        screens: [
+          {
+            name: "S1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                props: { Label: "Button label" },
+              },
+            ],
+          },
+        ],
+      };
+      var os = require("os");
+      var { spawnSync } = require("node:child_process");
+      var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
+      var dataPath = path.join(tmpDir, "flow-data.json");
+      fs.writeFileSync(dataPath, JSON.stringify(data));
+      var script = path.join(PLUGIN_ROOT, "scripts", "validate-flow-data.js");
+      var result = spawnSync(process.execPath, [script, dataPath, "--json"], {
+        encoding: "utf8",
+      });
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+      var parsed = JSON.parse(result.stdout);
+      assert.ok(Array.isArray(parsed), "expected array");
+      assert.ok(parsed.length >= 1, "expected at least one issue");
+      var hit = parsed.find(function (i) {
+        return i.check === "banned-text";
+      });
+      assert.ok(hit, "expected a banned-text issue");
+      assert.strictEqual(hit.severity, "P0");
+      assert.strictEqual(hit.value, "Button label");
+    });
   });
 });
