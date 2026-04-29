@@ -1523,6 +1523,48 @@ describe("validate-flow-data", function () {
     });
   });
 
+  describe("intent fixtures (integration)", function () {
+    var fs = require("fs");
+    var path = require("path");
+    function loadFixture(name) {
+      return JSON.parse(
+        fs.readFileSync(path.join(__dirname, "fixtures", name), "utf8"),
+      );
+    }
+
+    it("intent-fm-destructive.json — FM tier silent (no findings)", function () {
+      var issues = validate.findIntentMismatch(
+        loadFixture("intent-fm-destructive.json"),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("intent-hifi-positive.json — clean", function () {
+      var issues = validate.findIntentMismatch(
+        loadFixture("intent-hifi-positive.json"),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("intent-hifi-mismatch.json — error finding for the Type=Primary button", function () {
+      var issues = validate.findIntentMismatch(
+        loadFixture("intent-hifi-mismatch.json"),
+      );
+      var errors = issues.filter(function (i) {
+        return i.severity === "P0";
+      });
+      assert.strictEqual(errors.length, 1);
+      assert.strictEqual(errors[0].ref, "button");
+    });
+
+    it("intent-hifi-default.json — no findings (no intent set)", function () {
+      var issues = validate.findIntentMismatch(
+        loadFixture("intent-hifi-default.json"),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+  });
+
   describe("CLI exit codes (contract lock)", function () {
     var fs = require("fs");
     var os = require("os");
