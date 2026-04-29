@@ -104,6 +104,7 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
     {
       "id": "<node-id>",
       "label": "<human-readable label>",
+      "screenId": "<kebab-case-screen-id>",
       "tier": "recognized|adapted|improvised",
       "confidence": 0.85,
       "matchedRecipe": "<recipe-id>" | null,
@@ -133,6 +134,7 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
 - `pushedNodes` — one entry per node pushed. Each entry contains:
   - `id` (string, required) — Figma node ID of the pushed unit root
   - `label` (string, required) — human-readable name shown in the Figma layers panel
+  - `screenId` (string|null, optional, since v1.56.0) — kebab-case data-model id from `flow-data.json.screens[].id`. Required for B-refine.2 refine resolution (`scripts/resolve-unit.js`). Manifests written before v1.56.0 omit this; refines against those manifests fall through to greenfield generation with a documented warning.
   - `tier` (string, optional) — classifier output: `"recognized"` | `"adapted"` | `"improvised"`
   - `confidence` (number, optional) — 0.0 to 1.0; classifier confidence
   - `matchedRecipe` (string|null, optional) — recipe ID at tier 1; at tier 2 (deviation sub-case) the deviated-from recipe ID; null when tier 2 is a composition or when tier 3
@@ -164,6 +166,19 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
 | `create-component` | `{project_dir}/components/{name}/.last-push.json` |
 
 Write the manifest as the final step. Do not prompt the designer for confirmation before writing it.
+
+### Snapshot sidecar (v1.56.0+)
+
+Alongside `.last-push.json`, a sibling file `flow-data.snapshot.json` carries the full
+`flow-data.json` snapshot at push time. The `/generate-flow` skill writes it via
+`scripts/snapshot-store.js` as the very last step of the push sequence (after
+`.last-push.json`). The refine path (`SKILL.md` Refine shape Behavior) reads it via
+`snapshot-store.read()` to load the prior data model for AI editing.
+
+Schema: identical to `flow-data.json` (no envelope, no metadata wrapper). Pure passthrough.
+
+Lifetime: rewritten on every successful push. Missing or corrupt → refine treats as miss
+and falls through to greenfield. Out-of-band cleanup not needed.
 
 ### Computing hashes and collecting keys
 
