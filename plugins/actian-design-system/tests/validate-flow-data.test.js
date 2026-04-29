@@ -2029,3 +2029,90 @@ describe("validate-flow-data", function () {
     });
   });
 });
+
+describe("refine pipeline integration (B-refine.2)", function () {
+  var fs = require("fs");
+  var path = require("path");
+  var { deriveScope } = require("../scripts/derive-scope.js");
+  var { runGate } = require("../scripts/scope-aware-runner.js");
+
+  function load(name) {
+    return JSON.parse(
+      fs.readFileSync(path.join(__dirname, "fixtures", name), "utf8"),
+    );
+  }
+
+  it("derives single-unit scope, validator filters findings to that screen", function () {
+    var before = load("refine-before.json");
+    var after = load("refine-after-single.json");
+
+    // Derive scope from the real diff BEFORE injecting any noise.
+    // refine-after-single only changes screen 1 (notification-preferences-2).
+    var scope = deriveScope(before, after);
+    assert.strictEqual(scope, "single-unit:notification-preferences-2");
+
+    // Now inject a banned-text P0 onto screen 0 (untouched, notification-preferences-1)
+    // and screen 1 (touched, notification-preferences-2).
+    // pageHeader.title is directly checked by findBannedTextRaw.
+    after.screens[0].pageHeader = { title: "Page Title" };
+    after.screens[1].pageHeader = { title: "Page Title" };
+
+    var unscoped = validate.validate(after);
+    var unscopedBanned = unscoped.findings.filter(function (f) {
+      return f.kind === "banned-text";
+    });
+    assert.strictEqual(unscopedBanned.length, 2);
+
+    var scoped = runGate(validate, after, { scope: scope });
+    var scopedBanned = scoped.findings.filter(function (f) {
+      return f.kind === "banned-text";
+    });
+    assert.strictEqual(scopedBanned.length, 1);
+    assert.strictEqual(scopedBanned[0].screen, "notification-preferences-2");
+  });
+
+  it("derives multi-unit scope, drops untouched-screen findings, keeps touched-screen findings", function () {
+    var before = load("refine-before.json");
+    var after = load("refine-after-multi.json");
+
+    // Derive scope from the real diff BEFORE injecting any noise.
+    // refine-after-multi changes screens 1 and 2 (notification-preferences-2 and -3).
+    var scope = deriveScope(before, after);
+    assert.strictEqual(
+      scope,
+      "multi-unit:[notification-preferences-2,notification-preferences-3]",
+    );
+
+    // Inject banned text on:
+    //   screen 0 — notification-preferences-1, UNTOUCHED → should drop
+    //   screen 1 — notification-preferences-2, TOUCHED → should survive
+    //   screen 2 — notification-preferences-3, TOUCHED → should survive
+    after.screens[0].pageHeader = { title: "Page Title" };
+    after.screens[1].pageHeader = { title: "Page Title" };
+    after.screens[2].pageHeader = { title: "Page Title" };
+
+    // Sanity check: unscoped run sees all 3 findings (proves injection mechanism).
+    var unscoped = validate.validate(after);
+    var unscopedBanned = unscoped.findings.filter(function (f) {
+      return f.kind === "banned-text";
+    });
+    assert.strictEqual(unscopedBanned.length, 3);
+
+    // Scoped run: the screen-0 finding is dropped; screen-1 and screen-2 survive.
+    var scoped = runGate(validate, after, { scope: scope });
+    var banned = scoped.findings.filter(function (f) {
+      return f.kind === "banned-text";
+    });
+    assert.strictEqual(banned.length, 2);
+
+    var screensWithFindings = banned
+      .map(function (f) {
+        return f.screen;
+      })
+      .sort();
+    assert.deepStrictEqual(screensWithFindings, [
+      "notification-preferences-2",
+      "notification-preferences-3",
+    ]);
+  });
+});
