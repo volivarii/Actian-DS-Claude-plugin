@@ -102,52 +102,35 @@ claude plugin update actian-design-system@actian-design-system
 
 ## How to work with the companion
 
-Just describe what you need. Share a Figma URL, ask a question, or describe a task. The companion figures out what to do.
+Three input shapes cover almost everything. The companion routes; you don't memorize commands.
 
-### Fix issues
+| Shape | Looks like | What you get |
+|-------|------------|--------------|
+| **Prompt** | "Design a connection setup wizard for Administration" | One screen or a flow, lo-fi or hifi, with the right app chrome |
+| **URL + intent** | `<figma url>` + "rename CTA to Publish" / "make it hifi" / "audit the copy" | Surgical refine, hifi convert, scoped audit, branch, or iterate — picked from your prose |
+| **URL + URL** | `<v1 url>` + `<v2 url>` + "compare these" | Side-by-side analysis routed to `/compare-flows` |
 
-```
-https://figma.com/design/FILEKEY/File?node-id=123-456
-the spacing in this card feels off
-```
-
-```
-https://figma.com/design/FILEKEY/File?node-id=123-456
-check the contrast on this form
-```
+### Your first 30 minutes
 
 ```
-Is this button using the right token?
-https://figma.com/design/FILEKEY/File?node-id=123-456
+Design a connection setup wizard for Administration
+push
+<screen-3 url>  rename "Submit" to "Connect" and tighten the help text
+make it hifi
+audit this --scope copy --fix all
 ```
 
-The companion reads the Figma node, checks it against DS rules, and fixes what's wrong — or asks when it's ambiguous.
+Sketch → push → refine one screen → hifi → auto-fix copy. Every step is a single message. **Full walkthrough in [USAGE.md](USAGE.md#a-feature-from-sketch-to-ship--worked-example).**
 
-### Design screens and flows
-
-```
-Mock up a data product publishing flow in Studio
-```
-
-```
-Design a settings page for Administration
-```
-
-```
-Create an Explorer homepage with search hero, marketplace tiles, and topic cards
-```
+### A few starting prompts
 
 ```
 Design a Studio dashboard with popular items and watchlists
 ```
 
 ```
-How would a data steward create a metadata quality policy?
+Show me three takes on the data contract creation page
 ```
-
-The companion knows the canonical layout patterns for each screen type (dashboard, detail, browse, creation form, table view, data visualization, explorer homepage, overlays) and uses recipe skeletons for consistent structure while keeping full creative freedom.
-
-### Review copy
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
@@ -155,53 +138,18 @@ review the copy in this screen
 ```
 
 ```
-Write better empty state text for the connections page
-```
-
-### Research patterns
-
-```
-How do data platforms like Atlan and Collibra handle onboarding?
+How do data platforms like Atlan and Collibra handle data lineage?
 ```
 
 ```
-What's the best practice for wizard vs. inline form for multi-step setup?
+Find every empty state we use across DS Kit
 ```
-
-### Document components
 
 ```
 Brief the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
 ```
 
-```
-Spec the Text Input component
-```
-
-### Compare designs
-
-```
-Which version is better for onboarding?
-v1: https://figma.com/design/FILEKEY/File?node-id=111-222
-v2: https://figma.com/design/FILEKEY/File?node-id=333-444
-```
-
-### Create components
-
-```
-Create a Data Product Card with Default, Hover, Selected states
-Properties: title, description, quality score, owner avatar, domain tag
-```
-
-### Sync from Figma
-
-```
-Sync the design system
-```
-
-```
-Sync the Button guidelines
-```
+The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (107 DS Kit + 44 FM Kit + 25 Meta Kit), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
 
 ---
 

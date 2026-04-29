@@ -74,82 +74,103 @@ The companion routes to `/compare-flows` and produces a side-by-side diff.
 
 ---
 
-## Worked examples
+## A feature from sketch to ship — worked example
 
-### Single-screen prompt (n=1 first-class)
+A complete designer flow for adding a connection setup wizard to Administration. Each numbered step is a single message to the companion.
+
+### 1. Sketch the flow
 
 ```
-Mock me an empty state for the catalog page
+Design a connection setup wizard for Administration — type picker, credentials, scope review, success
 ```
 
-The companion produces one screen. No flow ceremony, no multi-screen overhead.
+The companion proposes 4 screens, asks if you want competitor research, and surfaces the screen list before generating anything.
 
-### Refine: targeted edit on prior work
+> **Researcher's path:** say "yes" to research and you get findings on how Atlan, Collibra, and Stripe handle credential flows — with source URLs — presented before any screen is drafted. The research also lands as a card in the Figma output.
 
-After any push, the result lives in `.last-push.json`. Paste the pushed URL and describe the edit:
+### 2. Approve and push
+
+```
+push
+```
+
+Lo-fi screens land in Figma — Fat Marker frames with the right Administration chrome (header, nav, page title) structured around recipes (`form-create` for input screens, `confirmation` for success). Each screen gets a stable `screenId` stamped into `.last-push.json` so later refines target the right one.
+
+### 3. Refine one screen — surgical edit
+
+You spot something off on screen 3. Paste the screen-frame URL:
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=42-100
-swap the CTA position to the right side and use "Publish" instead of "Save"
+rename "Submit" to "Connect" and tighten the help text under the password field
 ```
 
-The skill detects the URL in the unitMap, loads the cached data model for that screen, applies the edit, and pushes only the affected unit. Faster than regeneration; preserves everything else.
+`resolve-unit.js` maps the URL to a `pushedNodes` entry → derives `single-unit:<id>` scope → loads the cached data model from `flow-data.snapshot.json` → applies the edit → recreates only that screen frame. Other screens stay byte-identical. Validator findings stay scoped to the changed screen so you don't drown in noise from screens you didn't touch.
 
-### Variants: structurally-distinct alternatives
-
-```
-Show me three takes on the data contract creation page
-```
-
-Routes to `/generate-flow ... --variants 3`. Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5; n>5 is refused.
-
-### Branch: fork a flow for a variant audience
+### 4. Convert to hifi
 
 ```
+make this hifi
+```
+
+Routes to `/convert-to-hifi`. The FM wireframe becomes DS Kit hifi — real components, real tokens, mapped via `fm-to-ds-map.json`. The original wireframe is never modified; the hifi version lands alongside.
+
+### 5. Audit before ship
+
+```
+audit this
+```
+
+Runs `/design-audit` — tokens, contrast, copy, heuristics — with confidence-scored findings. Auto-fix what's safe, flag what needs judgment.
+
+> **Content designer's path:** `audit this --scope copy --fix all` rewrites strings against `docs/content-guidelines.md` — sentence case, action verbs, error-message patterns, empty-state CTAs — applied automatically.
+>
+> **A11y specialist's path:** `audit this --scope a11y` focuses on contrast (4.5:1 normal, 3:1 large), focus order, and target sizes (44×44px min). Other findings stay quiet.
+
+### 6. Branch a variant
+
+The team wants to compare wizard vs. inline form. Paste the wizard URL:
+
+```
+https://figma.com/design/FILEKEY/File?node-id=42-99
+branch this as the inline variant
+```
+
+A sibling frame appears: `[Original] — inline variant`. Then diff:
+
+```
+Compare these two approaches:
+https://figma.com/design/FILEKEY/File?node-id=42-99
 https://figma.com/design/FILEKEY/File?node-id=99-200
-branch this for the steward role
 ```
 
-Routes to `/generate-flow --from <url> --branch steward`. Produces a sibling frame named `[Original] — steward`. Use `/compare-flows` to diff branches.
+### 7. Match a reference (vision-grounded)
 
-### Reference: bias generation toward an existing style
-
-Drop in one or more Figma URLs whose structure you want to echo:
+A PM shares a Stripe screenshot. Paste it into a Figma frame, then point the companion at it:
 
 ```
-Design a command palette in Studio. Match this style:
-https://figma.com/design/REF/File?node-id=10-20
+Generate the credentials screen but match the density of this:
+https://figma.com/design/REF/File?node-id=99-1
 ```
 
-Routes to `/generate-flow ... --ref <url>`. v1 accepts Figma URLs only — for external references (Linear, Stripe), screenshot into a Figma frame first.
+The companion screenshots the reference, vision-extracts a 4-field structural fingerprint (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`), validates it, and biases the generation. The fingerprint persists on `meta.references[].fingerprint` and is reused on later refines of the same URL — no re-extraction cost.
 
-### State coverage: empty, error, loading, etc.
-
-```
-https://figma.com/design/FILEKEY/File?node-id=42-100
-add empty + error states
-```
-
-Routes to `/generate-flow <url> --states empty,error`. Generates each state as additional screens.
+That's the spine. Each step is one message. The doc below is just expansion on the parts you'll use most.
 
 ---
 
-## Working together
+## Three small habits
 
 ### Point at something, get help
 
-Share a Figma URL and describe what you need — the companion reads the design, checks it against DS rules, and either fixes it directly (obvious violations) or asks when there's a judgment call.
+Share a Figma URL and describe what you need. The companion reads the design, checks it against DS rules, and either fixes it directly (obvious violations) or asks when there's a judgment call.
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
 the spacing in this card feels off
 ```
 
-### Ask a question
-
-No URL needed — just describe what you're working on or ask.
-
-### Ask a question
+### Ask a question — no URL needed
 
 ```
 What's the correct spacing between cards in a grid?
@@ -163,50 +184,38 @@ How do competitors handle multi-step onboarding?
 Is there a Tab component in the FM Kit?
 ```
 
+### Look up the library inline
+
+The companion reads the registries directly — no skill invocation needed.
+
+```
+Find every empty state we use across DS Kit
+```
+
+```
+Where do we use FilterChip in the product?
+```
+
+```
+Show me all the components that have a destructive variant
+```
+
 ---
 
 ## What the companion helps with
 
 ### Spot fixes — wrong tokens, spacing, auto-layout
 
-Share a URL + describe what looks wrong. The companion fixes obvious violations directly (wrong color, spacing off-scale, missing auto-layout) and asks about ambiguous ones.
-
-```
-https://figma.com/design/FILEKEY/File?node-id=123-456
-this doesn't look right
-```
+Share a URL + describe what looks wrong. The companion fixes obvious violations (wrong color, spacing off-scale, missing auto-layout) directly and asks on ambiguous ones.
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456
 check the tokens on this component
 ```
 
-```
-https://figma.com/design/FILEKEY/File?node-id=123-456
-the colors seem inconsistent here
-```
-
 ### Flows and screens — from idea to Figma
 
-Describe a feature, user story, or task. The companion plans screens, generates an HTML preview, and pushes to Figma. It uses canonical layout patterns from the real product to get the structure right on the first try.
-
-```
-Create a connection setup wizard for Administration
-```
-
-```
-Generate a catalog browsing experience in Explorer
-```
-
-```
-Quick draft of user registration
-```
-
-```
-Production flow for data contracts with all states and edge cases
-```
-
-**Layout-aware generation** — the companion knows the canonical patterns for each screen type:
+The worked example above is the canonical shape: prompt → preview → push → refine → audit. The companion knows canonical layout patterns for each screen type — naming the pattern in your prompt gets you the right skeleton on the first try:
 
 ```
 Design a Studio dashboard with popular items cards and watchlists
@@ -246,6 +255,59 @@ At every level, only the feature you're designing gets detailed content — side
 **HiFi conversion:** Add `--hifi` to also generate a DS Kit high-fidelity version alongside the wireframe. Or convert an existing wireframe later with `/convert-to-hifi`.
 
 **Prototype wiring:** Say "push and wire" and your flow becomes playable in Figma Presentation mode.
+
+### Variants — explore alternatives side-by-side
+
+```
+Show me three takes on the data contract creation page
+```
+
+Routes to `/generate-flow ... --variants 3`. Each variant uses a different recipe or composition, laid out side-by-side. Range 2–5 (n=1 is just generation; n>5 is refused). Useful for early-stage shape-finding before committing to a direction.
+
+### State coverage and responsive breakpoints
+
+```
+https://figma.com/design/FILEKEY/File?node-id=42-100
+add empty + error states
+```
+
+Routes to `/generate-flow <url> --states empty,error,loading`. Generates each state as additional screens.
+
+```
+Design a Studio dashboard with popular items, breakpoints tablet,mobile
+```
+
+Routes to `/generate-flow ... --breakpoints tablet,mobile`. Lo-fi level = structural decisions only (collapse, stack). Hifi level applies the structural decisions to DS Kit responsive variants.
+
+### Vision-grounded references — match a reference's structure
+
+```
+Match the density of this screenshot:
+https://figma.com/design/REF/File?node-id=99-1
+```
+
+The companion screenshots the reference, vision-extracts a 4-field fingerprint (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`), validates it against the recipe registry, and biases generation toward that structure. The fingerprint persists on `meta.references[].fingerprint` and is reused on later refines of the same URL — extraction runs once.
+
+For external references (Stripe, Linear, Atlan), screenshot into a Figma frame first. Direct image URL support is planned.
+
+### Tier review — what got recognized vs. improvised
+
+After a push, every screen is classified into one of three tiers:
+
+| Tier | Meaning |
+|------|---------|
+| **Recognized** | Screen matched a recipe directly — uses the canonical skeleton |
+| **Adapted** | Screen matched a recipe but composes 2-3 archetype patterns (e.g., detail + audit-log) |
+| **Improvised** | No recipe fit — the AI proposed a structure with explicit justification |
+
+Ask for the deviations explicitly:
+
+```
+https://figma.com/design/FILEKEY/File?node-id=42-99
+review tier-3 screens
+```
+
+Companion reads `.last-push.json` and surfaces every `improvised` (or `adapted` with a recipe match) screen with its `justification` text — so you can decide whether to override, refine, or accept the AI's reasoning.
 
 ### Copy review — content guidelines applied
 
@@ -293,18 +355,12 @@ Research wizard patterns for multi-step configuration
 
 ### Convert wireframes to hifi — FM → DS Kit
 
-Point at an existing Fat Marker wireframe and get a production-ready DS Kit version. The companion reads the FM frame, identifies components, maps them to DS Kit equivalents, and pushes a new hifi frame alongside the original.
-
-```
-/convert-to-hifi https://figma.com/design/FILEKEY/File?node-id=123-456
-```
-
 ```
 Convert this wireframe to high-fidelity
 https://figma.com/design/FILEKEY/File?node-id=123-456
 ```
 
-The pipeline: extract FM tree → deterministic transform (component mappings derived from registries) → LLM polish for unmapped components and layout → push. The original wireframe is never modified.
+Pipeline: extract FM tree → deterministic transform via `fm-to-ds-map.json` → LLM polish for unmapped components and layout → push DS Kit hifi alongside the original. The wireframe is never modified.
 
 ### Component specs — brief, document, create
 
@@ -382,7 +438,7 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/generate-flow --from [URL]` | Iterate — re-roll the same flow |
 | `/generate-flow --from [URL] --branch [name]` | Branch — fork into a sibling frame |
 | `/generate-flow [description] --variants 3` | Three structurally-distinct alternatives |
-| `/generate-flow [description] --ref [URL]` | Bias generation toward a reference (Figma URLs only in v1) |
+| `/generate-flow [description] --ref [URL]` | Vision-grounded reference — fingerprint extraction biases recipe + density (Figma URLs only; image URLs planned) |
 | `/generate-flow [URL] --states empty,error` | Add state coverage to a pushed flow |
 | `/generate-flow [description] --breakpoints tablet,mobile` | Add responsive breakpoint variants |
 | `/generate-flow [description] --hifi --audit` | Lo-fi → hifi → audit chain |
