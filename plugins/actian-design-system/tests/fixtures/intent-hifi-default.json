@@ -1,0 +1,9 @@
+{
+  "meta": { "feature": "View dataset", "mode": "hifi" },
+  "screens": [{
+    "name": "Screen 1: Detail",
+    "content": [
+      { "type": "INSTANCE", "ref": "button", "variant": "Type=Primary", "props": { "Label": "Save" } }
+    ]
+  }]
+}

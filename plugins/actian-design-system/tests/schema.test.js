@@ -305,6 +305,111 @@ try {
 }
 
 // ---------------------------------------------------------------------------
+// Test: Content node intent field
+// ---------------------------------------------------------------------------
+
+process.stdout.write("\nContent node intent field\n");
+
+const intentFrameData = {
+  meta: { feature: "Delete confirmation" },
+  screens: [
+    {
+      name: "Screen 1",
+      content: [
+        {
+          type: "FRAME",
+          intent: "destructive-action",
+          children: [
+            {
+              type: "INSTANCE",
+              ref: "fmButton",
+              variant: "Type=Destructive",
+              props: { Label: "Delete" },
+            },
+          ],
+        },
+      ],
+    },
+  ],
+};
+const intentFrameErrors = validate(
+  intentFrameData,
+  schemas["flow-data.schema.json"],
+);
+const intentFrameRealErrors = intentFrameErrors.filter(
+  (e) => !e.includes("deprecated"),
+);
+assert(
+  intentFrameRealErrors.length === 0,
+  "accepts contentNode with intent set on FRAME",
+);
+
+const intentInstanceData = {
+  meta: { feature: "Test" },
+  screens: [
+    {
+      name: "Screen 1",
+      content: [
+        {
+          type: "INSTANCE",
+          ref: "fmButton",
+          variant: "Type=Destructive",
+          intent: "destructive-action",
+          props: { Label: "Delete" },
+        },
+      ],
+    },
+  ],
+};
+const intentInstanceErrors = validate(
+  intentInstanceData,
+  schemas["flow-data.schema.json"],
+);
+const intentInstanceRealErrors = intentInstanceErrors.filter(
+  (e) => !e.includes("deprecated"),
+);
+assert(
+  intentInstanceRealErrors.length === 0,
+  "accepts contentNode with intent set on INSTANCE",
+);
+
+const invalidIntentData = {
+  meta: { feature: "Test" },
+  screens: [
+    {
+      name: "Screen 1",
+      content: [{ type: "FRAME", intent: "bogus-intent", children: [] }],
+    },
+  ],
+};
+const invalidIntentErrors = validate(
+  invalidIntentData,
+  schemas["flow-data.schema.json"],
+);
+assert(
+  invalidIntentErrors.some((e) => e.includes("not in enum")),
+  "rejects invalid intent enum value",
+);
+
+const noIntentData = {
+  meta: { feature: "Test" },
+  screens: [
+    {
+      name: "Screen 1",
+      content: [{ type: "FRAME", children: [] }],
+    },
+  ],
+};
+const noIntentErrors = validate(noIntentData, schemas["flow-data.schema.json"]);
+const noIntentRealErrors = noIntentErrors.filter(
+  (e) => !e.includes("deprecated"),
+);
+assert(
+  noIntentRealErrors.length === 0,
+  "accepts contentNode without intent (absence is valid)",
+);
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 

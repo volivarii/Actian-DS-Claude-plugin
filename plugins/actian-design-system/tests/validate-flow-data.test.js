@@ -1159,6 +1159,412 @@ describe("validate-flow-data", function () {
     });
   });
 
+  describe("findIntentMismatch", function () {
+    function fmFixture(content) {
+      return {
+        meta: { feature: "Test" },
+        screens: [{ name: "S1", content: content }],
+      };
+    }
+    function hifiFixture(content) {
+      return {
+        meta: { feature: "Test", mode: "hifi" },
+        screens: [{ name: "S1", content: content }],
+      };
+    }
+
+    it("FM tier — does NOT fire even on mismatched data", function () {
+      var issues = validate.findIntentMismatch(
+        fmFixture([
+          {
+            type: "INSTANCE",
+            ref: "button",
+            intent: "destructive-action",
+            variant: "Type=Primary",
+            props: { Label: "Delete" },
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("hifi DS button + destructive-action + Type=Primary → error", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "button",
+            intent: "destructive-action",
+            variant: "Type=Primary",
+            props: { Label: "Delete" },
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].severity, "P0");
+      assert.strictEqual(issues[0].check, "intent-mismatch");
+      assert.strictEqual(issues[0].ref, "button");
+      assert.strictEqual(issues[0].intent, "destructive-action");
+    });
+
+    it("hifi DS button + destructive-action + Type=Critical primary → no finding", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "button",
+            intent: "destructive-action",
+            variant: "Type=Critical primary",
+            props: { Label: "Delete" },
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("hifi DS button + destructive-action + Type=Critical secondary → no finding", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "button",
+            intent: "destructive-action",
+            variant: "Type=Critical secondary",
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("hifi default intent → no enforcement", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "button",
+            variant: "Type=Primary",
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("hifi DS button + success-confirmation + Type=Primary → no finding", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "button",
+            intent: "success-confirmation",
+            variant: "Type=Primary",
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("hifi DS button + success-confirmation + Type=Critical primary → warning", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "button",
+            intent: "success-confirmation",
+            variant: "Type=Critical primary",
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].severity, "P1");
+    });
+
+    it("hifi DS button + error-state + Type=Critical secondary → no finding", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "button",
+            intent: "error-state",
+            variant: "Type=Critical secondary",
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("hifi DS button + error-state + Type=Primary → warning", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "button",
+            intent: "error-state",
+            variant: "Type=Primary",
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].severity, "P1");
+    });
+
+    it("hifi DS modal + destructive-action + Size & Type=450px confirm → no finding", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "modal",
+            intent: "destructive-action",
+            variant: "Size & Type=450px confirm",
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("hifi DS modal + destructive-action + Size & Type=1200px → warning", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "INSTANCE",
+            ref: "modal",
+            intent: "destructive-action",
+            variant: "Size & Type=1200px",
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].severity, "P1");
+    });
+
+    it("nested FRAME with destructive-action: child INSTANCE inherits and is checked", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Primary",
+                props: { Label: "Delete" },
+              },
+            ],
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 1);
+      assert.strictEqual(issues[0].intent, "destructive-action");
+    });
+
+    it("leaf intent overrides ancestor intent", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                intent: "default",
+                variant: "Type=Primary",
+              },
+            ],
+          },
+        ]),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("sibling rule — destructive container with one Critical primary + one Tertiary → no finding", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Tertiary",
+                props: { Label: "Cancel" },
+              },
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Critical primary",
+                props: { Label: "Delete" },
+              },
+            ],
+          },
+        ]),
+      );
+      var siblingIssues = issues.filter(function (i) {
+        return /sibling/.test(i.expected || "");
+      });
+      assert.strictEqual(siblingIssues.length, 0);
+    });
+
+    it("sibling rule — destructive container with all Critical primary → warning (ambiguous)", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Critical primary",
+                props: { Label: "Delete A" },
+              },
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Critical primary",
+                props: { Label: "Delete B" },
+              },
+            ],
+          },
+        ]),
+      );
+      var siblingIssues = issues.filter(function (i) {
+        return /sibling/.test(i.expected || "");
+      });
+      assert.strictEqual(siblingIssues.length, 1);
+      assert.strictEqual(siblingIssues[0].severity, "P1");
+    });
+
+    it("sibling rule — destructive container with no Critical primary at all → warning", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Tertiary",
+                props: { Label: "Cancel" },
+              },
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Primary",
+                props: { Label: "Delete" },
+              },
+            ],
+          },
+        ]),
+      );
+      var siblingIssues = issues.filter(function (i) {
+        return /sibling/.test(i.expected || "");
+      });
+      assert.strictEqual(siblingIssues.length, 1);
+    });
+
+    it("sibling rule — single button in destructive container, not flagged for sibling rule", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Critical primary",
+                props: { Label: "Delete" },
+              },
+            ],
+          },
+        ]),
+      );
+      var siblingIssues = issues.filter(function (i) {
+        return /sibling/.test(i.expected || "");
+      });
+      assert.strictEqual(siblingIssues.length, 0);
+    });
+
+    it("sibling rule — destructive container with Critical secondary + Tertiary cancel → no finding", function () {
+      var issues = validate.findIntentMismatch(
+        hifiFixture([
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Critical secondary",
+                props: { Label: "Delete" },
+              },
+              {
+                type: "INSTANCE",
+                ref: "button",
+                variant: "Type=Tertiary",
+                props: { Label: "Cancel" },
+              },
+            ],
+          },
+        ]),
+      );
+      var siblingIssues = issues.filter(function (i) {
+        return /sibling/.test(i.expected || "");
+      });
+      assert.strictEqual(
+        siblingIssues.length,
+        0,
+        "Critical secondary should count as a Critical button — got: " +
+          JSON.stringify(siblingIssues),
+      );
+    });
+  });
+
+  describe("intent fixtures (integration)", function () {
+    var fs = require("fs");
+    var path = require("path");
+    function loadFixture(name) {
+      return JSON.parse(
+        fs.readFileSync(path.join(__dirname, "fixtures", name), "utf8"),
+      );
+    }
+
+    it("intent-fm-destructive.json — FM tier silent (no findings)", function () {
+      var issues = validate.findIntentMismatch(
+        loadFixture("intent-fm-destructive.json"),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("intent-hifi-positive.json — clean", function () {
+      var issues = validate.findIntentMismatch(
+        loadFixture("intent-hifi-positive.json"),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+
+    it("intent-hifi-mismatch.json — error finding for the Type=Primary button", function () {
+      var issues = validate.findIntentMismatch(
+        loadFixture("intent-hifi-mismatch.json"),
+      );
+      var errors = issues.filter(function (i) {
+        return i.severity === "P0";
+      });
+      assert.strictEqual(errors.length, 1);
+      assert.strictEqual(errors[0].ref, "button");
+    });
+
+    it("intent-hifi-default.json — no findings (no intent set)", function () {
+      var issues = validate.findIntentMismatch(
+        loadFixture("intent-hifi-default.json"),
+      );
+      assert.strictEqual(issues.length, 0);
+    });
+  });
+
   describe("CLI exit codes (contract lock)", function () {
     var fs = require("fs");
     var os = require("os");
@@ -1221,6 +1627,84 @@ describe("validate-flow-data", function () {
         result.status,
         1,
         "expected exit 1, got " + result.status,
+      );
+    });
+
+    it("exits 1 on intent-mismatch error (hifi destructive + Type=Primary)", function () {
+      var data = {
+        meta: { feature: "Test", mode: "hifi" },
+        screens: [
+          {
+            name: "S1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                intent: "destructive-action",
+                variant: "Type=Primary",
+                props: { Label: "Delete" },
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(
+        result.status,
+        1,
+        "expected exit 1, got " + result.status,
+      );
+    });
+
+    it("exits 2 on intent-mismatch warning only (hifi success + Type=Critical primary)", function () {
+      var data = {
+        meta: { feature: "Test", mode: "hifi" },
+        screens: [
+          {
+            name: "S1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                intent: "success-confirmation",
+                variant: "Type=Critical primary",
+                props: { Label: "OK" },
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(
+        result.status,
+        2,
+        "expected exit 2, got " + result.status,
+      );
+    });
+
+    it("exits 0 on FM tier even with mismatched intent data", function () {
+      var data = {
+        meta: { feature: "Test" },
+        screens: [
+          {
+            name: "S1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "button",
+                intent: "destructive-action",
+                variant: "Type=Primary",
+                props: { Label: "Delete" },
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(
+        result.status,
+        0,
+        "expected exit 0 (FM tier silent), got " + result.status,
       );
     });
   });

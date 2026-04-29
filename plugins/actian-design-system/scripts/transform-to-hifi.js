@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
 /**
  * transform-to-hifi.js — Deterministic Stage 2 transform core.
@@ -18,16 +18,17 @@
  *   node scripts/transform-to-hifi.js <input.json> -o <output.json>
  */
 
-var fs = require('fs');
-var path = require('path');
+var fs = require("fs");
+var path = require("path");
+var resolver = require("./intent-resolver.js");
 
 // ---------------------------------------------------------------------------
 // Paths
 // ---------------------------------------------------------------------------
 
-var DOCS_DIR = path.resolve(__dirname, '..', 'docs');
-var MAP_PATH = path.join(DOCS_DIR, 'fm-to-ds-map.json');
-var DS_REGISTRY_PATH = path.join(DOCS_DIR, 'dskit.json');
+var DOCS_DIR = path.resolve(__dirname, "..", "docs");
+var MAP_PATH = path.join(DOCS_DIR, "fm-to-ds-map.json");
+var DS_REGISTRY_PATH = path.join(DOCS_DIR, "dskit.json");
 
 // ---------------------------------------------------------------------------
 // Variant helpers
@@ -42,13 +43,13 @@ var DS_REGISTRY_PATH = path.join(DOCS_DIR, 'dskit.json');
  */
 function parseVariant(str) {
   var result = {};
-  if (!str || typeof str !== 'string') return result;
+  if (!str || typeof str !== "string") return result;
 
-  var pairs = str.split(',');
+  var pairs = str.split(",");
   for (var i = 0; i < pairs.length; i++) {
     var pair = pairs[i].trim();
     if (!pair) continue;
-    var eqIdx = pair.indexOf('=');
+    var eqIdx = pair.indexOf("=");
     if (eqIdx === -1) continue;
     var axis = pair.substring(0, eqIdx).trim();
     var value = pair.substring(eqIdx + 1).trim();
@@ -67,13 +68,13 @@ function parseVariant(str) {
  * @returns {string} Serialized variant string
  */
 function serializeVariant(obj) {
-  if (!obj || typeof obj !== 'object') return '';
+  if (!obj || typeof obj !== "object") return "";
   var keys = Object.keys(obj).sort();
   var parts = [];
   for (var i = 0; i < keys.length; i++) {
-    parts.push(keys[i] + '=' + obj[keys[i]]);
+    parts.push(keys[i] + "=" + obj[keys[i]]);
   }
-  return parts.join(', ');
+  return parts.join(", ");
 }
 
 // ---------------------------------------------------------------------------
@@ -94,9 +95,9 @@ function serializeVariant(obj) {
  * @returns {string}
  */
 function slugToRef(slug) {
-  if (!slug) return '';
-  var parts = slug.split('-');
-  var ref = 'ds';
+  if (!slug) return "";
+  var parts = slug.split("-");
+  var ref = "ds";
   for (var i = 0; i < parts.length; i++) {
     var part = parts[i];
     if (part.length > 0) {
@@ -116,9 +117,10 @@ function slugToRef(slug) {
  * @param {object} node - INSTANCE node with ref, variant, props
  * @param {object} mapData - Parsed fm-to-ds-map.json
  * @param {object} dsRegistry - Parsed dskit.json
+ * @param {string} effectiveIntent - Effective intent resolved from node and ancestors, or "default".
  * @returns {object} Transformed node (new object, original not mutated)
  */
-function transformInstance(node, mapData, dsRegistry) {
+function transformInstance(node, mapData, dsRegistry, effectiveIntent) {
   var ref = node.ref;
   var mappings = mapData.mappings || {};
   var unmappable = mapData.unmappable || {};
@@ -155,7 +157,8 @@ function transformInstance(node, mapData, dsRegistry) {
       fallbackNode[fKeys[f]] = node[fKeys[f]];
     }
     fallbackNode.unmapped = true;
-    fallbackNode.unmappedReason = 'DS slug "' + dsSlug + '" not found in dskit.json registry';
+    fallbackNode.unmappedReason =
+      'DS slug "' + dsSlug + '" not found in dskit.json registry';
     fallbackNode.originalRef = ref;
     return fallbackNode;
   }
@@ -194,7 +197,13 @@ function transformInstance(node, mapData, dsRegistry) {
       var mappedValue = axisMap[srcValue];
       if (mappedValue !== undefined) {
         // Find which DS axis this mapped value belongs to
-        var targetAxis = findTargetAxis(srcAxis, mappedValue, defaultVariant, dsVariants, variantMap);
+        var targetAxis = findTargetAxis(
+          srcAxis,
+          mappedValue,
+          defaultVariant,
+          dsVariants,
+          variantMap,
+        );
         resultVariant[targetAxis] = mappedValue;
       }
       // If no mapped value, the FM value is unknown — skip silently
@@ -208,6 +217,17 @@ function transformInstance(node, mapData, dsRegistry) {
         // else: FM value doesn't exist in DS axis — keep default
       }
       // else: DS doesn't have this axis at all — drop silently
+    }
+  }
+
+  // Intent-override pass — runs after variantMap so intent has highest priority
+  // for axes it specifies. Axes not in intentVariants keep their variantMap-resolved values.
+  var intentVariants = mapping.intentVariants || {};
+  var intentOverride = intentVariants[effectiveIntent];
+  if (intentOverride && typeof intentOverride === "object") {
+    var ioKeys = Object.keys(intentOverride);
+    for (var io = 0; io < ioKeys.length; io++) {
+      resultVariant[ioKeys[io]] = intentOverride[ioKeys[io]];
     }
   }
 
@@ -234,10 +254,10 @@ function transformInstance(node, mapData, dsRegistry) {
 
   // Build transformed node
   var result = {
-    type: 'INSTANCE',
+    type: "INSTANCE",
     ref: dsRef,
-    library: 'ds',
-    dsSlug: dsSlug
+    library: "ds",
+    dsSlug: dsSlug,
   };
 
   // Preserve name if present
@@ -274,7 +294,13 @@ function transformInstance(node, mapData, dsRegistry) {
  * @param {object} variantMap - The variant map from the mapping
  * @returns {string} Target DS axis name
  */
-function findTargetAxis(srcAxis, mappedValue, defaultVariant, dsVariants, variantMap) {
+function findTargetAxis(
+  srcAxis,
+  mappedValue,
+  defaultVariant,
+  dsVariants,
+  variantMap,
+) {
   // First check: does defaultVariant have an axis whose default is being
   // replaced by mappedValue, and is it different from srcAxis?
   // Look for the axis in dsVariants that contains mappedValue.
@@ -321,28 +347,38 @@ function findTargetAxis(srcAxis, mappedValue, defaultVariant, dsVariants, varian
  * @param {Array} nodes - Array of flow-data nodes
  * @param {object} mapData - Parsed fm-to-ds-map.json
  * @param {object} dsRegistry - Parsed dskit.json
+ * @param {string|null} ancestorIntent - Inherited intent from parent FRAME, or null at screen root.
  * @returns {Array} Transformed nodes (new array, originals not mutated)
  */
-function transformNodes(nodes, mapData, dsRegistry) {
+function transformNodes(nodes, mapData, dsRegistry, ancestorIntent) {
   if (!Array.isArray(nodes)) return [];
 
   var result = [];
   for (var i = 0; i < nodes.length; i++) {
     var node = nodes[i];
-    if (!node || typeof node !== 'object') {
+    if (!node || typeof node !== "object") {
       result.push(node);
       continue;
     }
+    var effective = resolver.resolveEffectiveIntent(
+      node.intent,
+      ancestorIntent,
+    );
 
-    if (node.type === 'INSTANCE') {
-      result.push(transformInstance(node, mapData, dsRegistry));
+    if (node.type === "INSTANCE") {
+      result.push(transformInstance(node, mapData, dsRegistry, effective));
     } else if (node.children && Array.isArray(node.children)) {
       // FRAME, GROUP, or any container — copy and recurse into children
       var copy = {};
       var keys = Object.keys(node);
       for (var k = 0; k < keys.length; k++) {
-        if (keys[k] === 'children') {
-          copy.children = transformNodes(node.children, mapData, dsRegistry);
+        if (keys[k] === "children") {
+          copy.children = transformNodes(
+            node.children,
+            mapData,
+            dsRegistry,
+            effective,
+          );
         } else {
           copy[keys[k]] = node[keys[k]];
         }
@@ -379,18 +415,18 @@ function transform(flowData, options) {
   var mapData = options.mapData;
   if (!mapData) {
     if (!fs.existsSync(MAP_PATH)) {
-      throw new Error('Mapping table not found: ' + MAP_PATH);
+      throw new Error("Mapping table not found: " + MAP_PATH);
     }
-    mapData = JSON.parse(fs.readFileSync(MAP_PATH, 'utf8'));
+    mapData = JSON.parse(fs.readFileSync(MAP_PATH, "utf8"));
   }
 
   // Load DS registry
   var dsRegistry = options.dsRegistry;
   if (!dsRegistry) {
     if (!fs.existsSync(DS_REGISTRY_PATH)) {
-      throw new Error('DS registry not found: ' + DS_REGISTRY_PATH);
+      throw new Error("DS registry not found: " + DS_REGISTRY_PATH);
     }
-    dsRegistry = JSON.parse(fs.readFileSync(DS_REGISTRY_PATH, 'utf8'));
+    dsRegistry = JSON.parse(fs.readFileSync(DS_REGISTRY_PATH, "utf8"));
   }
 
   // Deep-copy meta and set mode
@@ -401,7 +437,7 @@ function transform(flowData, options) {
       meta[metaKeys[m]] = flowData.meta[metaKeys[m]];
     }
   }
-  meta.mode = 'hifi';
+  meta.mode = "hifi";
   meta.transformedAt = new Date().toISOString();
 
   // Transform each screen
@@ -411,7 +447,12 @@ function transform(flowData, options) {
 
   for (var i = 0; i < screens.length; i++) {
     var screen = screens[i];
-    var transformedContent = transformNodes(screen.content || [], mapData, dsRegistry);
+    var transformedContent = transformNodes(
+      screen.content || [],
+      mapData,
+      dsRegistry,
+      null,
+    );
 
     // Count stats
     countNodes(transformedContent, stats);
@@ -419,7 +460,7 @@ function transform(flowData, options) {
     var transformedScreen = {};
     var sKeys = Object.keys(screen);
     for (var s = 0; s < sKeys.length; s++) {
-      if (sKeys[s] === 'content') {
+      if (sKeys[s] === "content") {
         transformedScreen.content = transformedContent;
       } else {
         transformedScreen[sKeys[s]] = screen[sKeys[s]];
@@ -432,7 +473,7 @@ function transform(flowData, options) {
 
   return {
     meta: meta,
-    screens: transformedScreens
+    screens: transformedScreens,
   };
 }
 
@@ -445,8 +486,8 @@ function countNodes(nodes, stats) {
   if (!Array.isArray(nodes)) return;
   for (var i = 0; i < nodes.length; i++) {
     var node = nodes[i];
-    if (!node || typeof node !== 'object') continue;
-    if (node.type === 'INSTANCE') {
+    if (!node || typeof node !== "object") continue;
+    if (node.type === "INSTANCE") {
       stats.total++;
       if (node.unmapped) {
         stats.unmapped++;
@@ -471,11 +512,11 @@ function parseArgs(argv) {
 
   while (i < argv.length) {
     var arg = argv[i];
-    if ((arg === '-o' || arg === '--output') && i + 1 < argv.length) {
+    if ((arg === "-o" || arg === "--output") && i + 1 < argv.length) {
       args.output = argv[++i];
-    } else if (arg === '--help') {
+    } else if (arg === "--help") {
       args.help = true;
-    } else if (arg.charAt(0) !== '-') {
+    } else if (arg.charAt(0) !== "-") {
       positionals.push(arg);
     }
     i++;
@@ -492,39 +533,54 @@ if (require.main === module) {
   var args = parseArgs(process.argv);
 
   if (args.help) {
-    process.stdout.write(JSON.stringify({
-      name: 'transform-to-hifi',
-      description: 'Transform flow-data FM component refs to DS Kit refs.',
-      usage: 'node scripts/transform-to-hifi.js <input.json> -o <output.json>',
-      flags: [
-        { name: '-o / --output', required: true, description: 'Output JSON file path' },
-        { name: '--help', required: false, description: 'Show this help' }
-      ]
-    }, null, 2) + '\n');
+    process.stdout.write(
+      JSON.stringify(
+        {
+          name: "transform-to-hifi",
+          description: "Transform flow-data FM component refs to DS Kit refs.",
+          usage:
+            "node scripts/transform-to-hifi.js <input.json> -o <output.json>",
+          flags: [
+            {
+              name: "-o / --output",
+              required: true,
+              description: "Output JSON file path",
+            },
+            { name: "--help", required: false, description: "Show this help" },
+          ],
+        },
+        null,
+        2,
+      ) + "\n",
+    );
     process.exit(0);
   }
 
   if (!args.input) {
-    process.stderr.write('ERROR: Missing input JSON file.\n');
-    process.stderr.write('Usage: node scripts/transform-to-hifi.js <input.json> -o <output.json>\n');
+    process.stderr.write("ERROR: Missing input JSON file.\n");
+    process.stderr.write(
+      "Usage: node scripts/transform-to-hifi.js <input.json> -o <output.json>\n",
+    );
     process.exit(1);
   }
   if (!args.output) {
-    process.stderr.write('ERROR: Missing -o / --output argument.\n');
-    process.stderr.write('Usage: node scripts/transform-to-hifi.js <input.json> -o <output.json>\n');
+    process.stderr.write("ERROR: Missing -o / --output argument.\n");
+    process.stderr.write(
+      "Usage: node scripts/transform-to-hifi.js <input.json> -o <output.json>\n",
+    );
     process.exit(1);
   }
 
   var inputPath = path.resolve(args.input);
   if (!fs.existsSync(inputPath)) {
-    process.stderr.write('ERROR: Input file not found: ' + inputPath + '\n');
+    process.stderr.write("ERROR: Input file not found: " + inputPath + "\n");
     process.exit(1);
   }
 
-  process.stderr.write('Reading: ' + inputPath + '\n');
-  var flowData = JSON.parse(fs.readFileSync(inputPath, 'utf8'));
+  process.stderr.write("Reading: " + inputPath + "\n");
+  var flowData = JSON.parse(fs.readFileSync(inputPath, "utf8"));
 
-  process.stderr.write('Transforming FM refs to DS refs...\n');
+  process.stderr.write("Transforming FM refs to DS refs...\n");
   var result = transform(flowData);
 
   var outputPath = path.resolve(args.output);
@@ -532,11 +588,19 @@ if (require.main === module) {
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
-  fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), 'utf8');
+  fs.writeFileSync(outputPath, JSON.stringify(result, null, 2), "utf8");
 
   var stats = result.meta.transformStats;
-  process.stderr.write('Done: ' + outputPath + '\n');
-  process.stderr.write('  Instances: ' + stats.total + ' total, ' + stats.mapped + ' mapped, ' + stats.unmapped + ' unmapped\n');
+  process.stderr.write("Done: " + outputPath + "\n");
+  process.stderr.write(
+    "  Instances: " +
+      stats.total +
+      " total, " +
+      stats.mapped +
+      " mapped, " +
+      stats.unmapped +
+      " unmapped\n",
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -548,5 +612,5 @@ module.exports = {
   transformInstance: transformInstance,
   transformNodes: transformNodes,
   parseVariant: parseVariant,
-  serializeVariant: serializeVariant
+  serializeVariant: serializeVariant,
 };

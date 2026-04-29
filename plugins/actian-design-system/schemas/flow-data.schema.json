@@ -428,6 +428,16 @@
         "letterSpacing": {
           "type": "object",
           "description": "Letter spacing configuration"
+        },
+        "intent": {
+          "type": "string",
+          "enum": [
+            "destructive-action",
+            "success-confirmation",
+            "error-state",
+            "default"
+          ],
+          "description": "Semantic intent for variant selection in hifi conversion. Optional. Inherited by descendants unless overridden at a leaf."
         }
       }
     }

@@ -1,0 +1,15 @@
+{
+  "meta": { "feature": "Delete dataset confirmation", "mode": "hifi" },
+  "screens": [{
+    "name": "Screen 1: Confirm delete",
+    "content": [{
+      "type": "FRAME",
+      "name": "Confirmation modal",
+      "intent": "destructive-action",
+      "children": [
+        { "type": "INSTANCE", "ref": "button", "variant": "Type=Critical secondary", "props": { "Label": "Cancel" } },
+        { "type": "INSTANCE", "ref": "button", "variant": "Type=Primary",            "props": { "Label": "Delete" } }
+      ]
+    }]
+  }]
+}

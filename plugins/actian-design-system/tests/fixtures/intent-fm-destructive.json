@@ -1,0 +1,17 @@
+{
+  "meta": { "feature": "Delete dataset confirmation" },
+  "screens": [{
+    "name": "Screen 1: Confirm delete",
+    "content": [{
+      "type": "FRAME",
+      "name": "Confirmation modal",
+      "intent": "destructive-action",
+      "children": [
+        { "type": "TEXT", "content": "Delete this dataset?" },
+        { "type": "TEXT", "content": "This cannot be undone." },
+        { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline",     "props": { "Label": "Cancel" } },
+        { "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Destructive", "props": { "Label": "Delete" } }
+      ]
+    }]
+  }]
+}

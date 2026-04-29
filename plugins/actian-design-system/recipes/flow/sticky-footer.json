@@ -20,24 +20,103 @@
         "layout": { "mode": "VERTICAL", "spacing": 16 },
         "sizing": { "horizontal": "FILL", "vertical": "FILL" },
         "children": [
-          { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+6lines", "props": {} }
+          {
+            "type": "INSTANCE",
+            "ref": "fmPlaceholder",
+            "variant": "Type=Label+6lines",
+            "props": {}
+          }
         ]
       },
       {
         "type": "FRAME",
         "name": "Sticky footer",
-        "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 32, 16, 32], "primaryAxisAlignItems": "MAX" },
+        "layout": {
+          "mode": "HORIZONTAL",
+          "spacing": 8,
+          "padding": [16, 32, 16, 32],
+          "primaryAxisAlignItems": "MAX"
+        },
         "fills": ["#FFFFFF"],
         "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
         "sizing": { "horizontal": "FILL", "vertical": 64 },
         "children": [
           {
-            "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=md, Shape=Regular, State=Default",
-            "props": { "Label": "Discard", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+            "type": "INSTANCE",
+            "ref": "fmButton",
+            "variant": "Type=Outline, Size=md, Shape=Regular, State=Default",
+            "props": {
+              "Label": "Discard",
+              "👁 Leading Icon": false,
+              "👁 Trailing Icon": false
+            }
           },
           {
-            "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
-            "props": { "Label": "Save", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+            "type": "INSTANCE",
+            "ref": "fmButton",
+            "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
+            "props": {
+              "Label": "Save",
+              "👁 Leading Icon": false,
+              "👁 Trailing Icon": false
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "destructiveSkeleton": {
+    "_purpose": "Variant of the sticky-footer skeleton used when the primary action is destructive (e.g., bulk delete confirmation footer).",
+    "chrome": "standard",
+    "pageHeader": { "title": "{{page_title}}" },
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Page content placeholder",
+        "layout": { "mode": "VERTICAL", "spacing": 16 },
+        "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+        "children": [
+          {
+            "type": "INSTANCE",
+            "ref": "fmPlaceholder",
+            "variant": "Type=Label+6lines",
+            "props": {}
+          }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Sticky footer (destructive)",
+        "intent": "destructive-action",
+        "layout": {
+          "mode": "HORIZONTAL",
+          "spacing": 8,
+          "padding": [16, 32, 16, 32],
+          "primaryAxisAlignItems": "MAX"
+        },
+        "fills": ["#FFFFFF"],
+        "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+        "sizing": { "horizontal": "FILL", "vertical": 64 },
+        "children": [
+          {
+            "type": "INSTANCE",
+            "ref": "fmButton",
+            "variant": "Type=Outline, Size=md, Shape=Regular, State=Default",
+            "props": {
+              "Label": "Cancel",
+              "👁 Leading Icon": false,
+              "👁 Trailing Icon": false
+            }
+          },
+          {
+            "type": "INSTANCE",
+            "ref": "fmButton",
+            "variant": "Type=Destructive, Size=md, Shape=Regular, State=Default",
+            "props": {
+              "Label": "{{destructive_action}}",
+              "👁 Leading Icon": false,
+              "👁 Trailing Icon": false
+            }
           }
         ]
       }

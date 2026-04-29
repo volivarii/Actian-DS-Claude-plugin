@@ -80,12 +80,14 @@ describe("Transform-to-Hifi Tests", function () {
     });
 
     it("parses a four-axis variant string", function () {
-      var result = t.parseVariant("Type=Primary, Size=md, Shape=Regular, State=Default");
+      var result = t.parseVariant(
+        "Type=Primary, Size=md, Shape=Regular, State=Default",
+      );
       assert.deepStrictEqual(result, {
         Type: "Primary",
         Size: "md",
         Shape: "Regular",
-        State: "Default"
+        State: "Default",
       });
     });
   });
@@ -96,7 +98,11 @@ describe("Transform-to-Hifi Tests", function () {
 
   describe("Part 2: serializeVariant", function () {
     it("serializes an object to a sorted key=value string", function () {
-      var result = t.serializeVariant({ Size: "Default", Type: "Primary", State: "Default" });
+      var result = t.serializeVariant({
+        Size: "Default",
+        Type: "Primary",
+        State: "Default",
+      });
       // Keys sorted alphabetically: Size, State, Type
       assert.strictEqual(result, "Size=Default, State=Default, Type=Primary");
     });
@@ -134,7 +140,7 @@ describe("Transform-to-Hifi Tests", function () {
       type: "INSTANCE",
       ref: "fmButton",
       variant: "Type=Primary, Size=md, Shape=Regular, State=Default",
-      props: { Label: "Click me" }
+      props: { Label: "Click me" },
     };
 
     var result;
@@ -191,7 +197,7 @@ describe("Transform-to-Hifi Tests", function () {
       type: "INSTANCE",
       ref: "fmStickyNote",
       variant: "Color=Yellow",
-      props: { text: "review me" }
+      props: { text: "review me" },
     };
 
     it("sets unmapped: true for an explicitly unmappable ref", function () {
@@ -208,7 +214,7 @@ describe("Transform-to-Hifi Tests", function () {
       var out = xformInstance(stickyNote);
       assert.ok(
         typeof out.unmappedReason === "string" && out.unmappedReason.length > 0,
-        "unmappedReason should be a non-empty string"
+        "unmappedReason should be a non-empty string",
       );
     });
 
@@ -223,7 +229,7 @@ describe("Transform-to-Hifi Tests", function () {
         type: "INSTANCE",
         ref: "fmUnknownWidget",
         variant: "Type=X",
-        props: {}
+        props: {},
       };
       var out = xformInstance(unknownNode);
       assert.strictEqual(out.unmapped, true);
@@ -244,15 +250,15 @@ describe("Transform-to-Hifi Tests", function () {
           type: "INSTANCE",
           ref: "fmTextInput",
           variant: "Type=Empty",
-          props: { "Show label": "Email" }
+          props: { "Show label": "Email" },
         },
         {
           type: "INSTANCE",
           ref: "fmCheckbox",
           variant: "State=Off, Style=Default",
-          props: {}
-        }
-      ]
+          props: {},
+        },
+      ],
     };
 
     var result;
@@ -322,7 +328,12 @@ describe("Transform-to-Hifi Tests", function () {
     it("handles a mixed array: TEXT + INSTANCE", function () {
       var nodes = [
         { type: "TEXT", text: "Label" },
-        { type: "INSTANCE", ref: "fmButton", variant: "Type=Primary, Size=md", props: { Label: "Go" } }
+        {
+          type: "INSTANCE",
+          ref: "fmButton",
+          variant: "Type=Primary, Size=md",
+          props: { Label: "Go" },
+        },
       ];
       var out = xformNodes(nodes);
       assert.strictEqual(out.length, 2);
@@ -342,7 +353,7 @@ describe("Transform-to-Hifi Tests", function () {
         type: "INSTANCE",
         ref: "fmButton",
         variant: "Type=Primary, Size=md",
-        props: { "\ud83d\udc41 Leading Icon": true }
+        props: { "\ud83d\udc41 Leading Icon": true },
       };
       var out = xformInstance(buttonNode);
       assert.strictEqual(out.props["Leading icon show"], true);
@@ -354,7 +365,7 @@ describe("Transform-to-Hifi Tests", function () {
         type: "INSTANCE",
         ref: "fmButton",
         variant: "Type=Primary, Size=md",
-        props: { "\ud83d\udc41 Trailing Icon": false }
+        props: { "\ud83d\udc41 Trailing Icon": false },
       };
       var out = xformInstance(buttonNode);
       assert.strictEqual(out.props["Trailing icon show"], false);
@@ -366,7 +377,7 @@ describe("Transform-to-Hifi Tests", function () {
         type: "INSTANCE",
         ref: "fmButton",
         variant: "Type=Primary, Size=md",
-        props: { Label: "Submit", someCustomProp: "value" }
+        props: { Label: "Submit", someCustomProp: "value" },
       };
       var out = xformInstance(buttonNode);
       assert.strictEqual(out.props.Label, "Submit");
@@ -390,37 +401,53 @@ describe("Transform-to-Hifi Tests", function () {
               type: "INSTANCE",
               ref: "fmButton",
               variant: "Type=Primary, Size=md",
-              props: { Label: "Submit" }
-            }
-          ]
-        }
-      ]
+              props: { Label: "Submit" },
+            },
+          ],
+        },
+      ],
     };
 
     it("result has meta.mode === 'hifi'", function () {
-      var out = t.transform(flowData, { mapData: mapData, dsRegistry: dsRegistry });
+      var out = t.transform(flowData, {
+        mapData: mapData,
+        dsRegistry: dsRegistry,
+      });
       assert.strictEqual(out.meta.mode, "hifi");
     });
 
     it("result has meta.transformedAt as an ISO date string", function () {
-      var out = t.transform(flowData, { mapData: mapData, dsRegistry: dsRegistry });
+      var out = t.transform(flowData, {
+        mapData: mapData,
+        dsRegistry: dsRegistry,
+      });
       assert.ok(
-        typeof out.meta.transformedAt === "string" && out.meta.transformedAt.length > 0,
-        "meta.transformedAt should be a non-empty string"
+        typeof out.meta.transformedAt === "string" &&
+          out.meta.transformedAt.length > 0,
+        "meta.transformedAt should be a non-empty string",
       );
       // Should parse as a valid date
       var d = new Date(out.meta.transformedAt);
-      assert.ok(!isNaN(d.getTime()), "meta.transformedAt should be a valid ISO date");
+      assert.ok(
+        !isNaN(d.getTime()),
+        "meta.transformedAt should be a valid ISO date",
+      );
     });
 
     it("preserves original meta fields alongside new ones", function () {
-      var out = t.transform(flowData, { mapData: mapData, dsRegistry: dsRegistry });
+      var out = t.transform(flowData, {
+        mapData: mapData,
+        dsRegistry: dsRegistry,
+      });
       assert.strictEqual(out.meta.version, "1.0");
       assert.strictEqual(out.meta.author, "Vincent");
     });
 
     it("result has meta.transformStats with total, mapped, unmapped counts", function () {
-      var out = t.transform(flowData, { mapData: mapData, dsRegistry: dsRegistry });
+      var out = t.transform(flowData, {
+        mapData: mapData,
+        dsRegistry: dsRegistry,
+      });
       var stats = out.meta.transformStats;
       assert.ok(stats !== undefined, "meta.transformStats should be present");
       assert.strictEqual(typeof stats.total, "number");
@@ -429,14 +456,20 @@ describe("Transform-to-Hifi Tests", function () {
     });
 
     it("counts 1 mapped instance (the button) in transformStats", function () {
-      var out = t.transform(flowData, { mapData: mapData, dsRegistry: dsRegistry });
+      var out = t.transform(flowData, {
+        mapData: mapData,
+        dsRegistry: dsRegistry,
+      });
       assert.strictEqual(out.meta.transformStats.total, 1);
       assert.strictEqual(out.meta.transformStats.mapped, 1);
       assert.strictEqual(out.meta.transformStats.unmapped, 0);
     });
 
     it("result has a screens array matching the input screen count", function () {
-      var out = t.transform(flowData, { mapData: mapData, dsRegistry: dsRegistry });
+      var out = t.transform(flowData, {
+        mapData: mapData,
+        dsRegistry: dsRegistry,
+      });
       assert.ok(Array.isArray(out.screens), "screens should be an array");
       assert.strictEqual(out.screens.length, 1);
     });
@@ -445,6 +478,194 @@ describe("Transform-to-Hifi Tests", function () {
       var original = JSON.stringify(flowData);
       t.transform(flowData, { mapData: mapData, dsRegistry: dsRegistry });
       assert.strictEqual(JSON.stringify(flowData), original);
+    });
+  });
+
+  describe("intent threading", function () {
+    var mapData = {
+      mappings: {
+        fmButton: {
+          dsSlug: "button",
+          defaultVariant: { Type: "Primary", Size: "Large", State: "Idle" },
+          variantMap: {
+            Type: { Primary: "Primary", Destructive: "Critical primary" },
+            Size: { md: "Large", sm: "Small" },
+            State: { Default: "Idle" },
+          },
+          intentVariants: {
+            "destructive-action": { Type: "Critical primary" },
+            default: null,
+          },
+        },
+      },
+    };
+    var dsRegistry = {
+      components: {
+        button: {
+          variants: {
+            Type: ["Primary", "Critical primary", "Critical secondary"],
+            Size: ["Large", "Small"],
+            State: ["Idle"],
+          },
+        },
+      },
+    };
+
+    it("FRAME intent inherits to child INSTANCE, applies intentVariants", function () {
+      var result = t.transformNodes(
+        [
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                variant: "Type=Primary, Size=md, State=Default",
+                props: { Label: "Delete" },
+              },
+            ],
+          },
+        ],
+        mapData,
+        dsRegistry,
+        null,
+      );
+      var inst = result[0].children[0];
+      assert.strictEqual(inst.dsSlug, "button");
+      assert.ok(
+        inst.variant.indexOf("Type=Critical primary") !== -1,
+        "got: " + inst.variant,
+      );
+    });
+
+    it("leaf intent overrides ancestor intent", function () {
+      var result = t.transformNodes(
+        [
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                intent: "default",
+                variant: "Type=Primary, Size=md, State=Default",
+                props: { Label: "OK" },
+              },
+            ],
+          },
+        ],
+        mapData,
+        dsRegistry,
+        null,
+      );
+      var inst = result[0].children[0];
+      assert.ok(
+        inst.variant.indexOf("Type=Primary") !== -1,
+        "got: " + inst.variant,
+      );
+    });
+
+    it("axis not in intentVariants falls through to variantMap", function () {
+      var result = t.transformNodes(
+        [
+          {
+            type: "INSTANCE",
+            ref: "fmButton",
+            intent: "destructive-action",
+            variant: "Type=Primary, Size=sm, State=Default",
+            props: {},
+          },
+        ],
+        mapData,
+        dsRegistry,
+        null,
+      );
+      var inst = result[0];
+      assert.ok(inst.variant.indexOf("Type=Critical primary") !== -1);
+      assert.ok(
+        inst.variant.indexOf("Size=Small") !== -1,
+        "got: " + inst.variant,
+      );
+    });
+
+    it("default intent does not override (intentVariants entry is null)", function () {
+      var result = t.transformNodes(
+        [
+          {
+            type: "INSTANCE",
+            ref: "fmButton",
+            intent: "default",
+            variant: "Type=Primary, Size=md, State=Default",
+            props: {},
+          },
+        ],
+        mapData,
+        dsRegistry,
+        null,
+      );
+      var inst = result[0];
+      assert.ok(inst.variant.indexOf("Type=Primary") !== -1);
+    });
+
+    it("INSTANCE intent dropped from hifi output", function () {
+      var result = t.transformNodes(
+        [
+          {
+            type: "INSTANCE",
+            ref: "fmButton",
+            intent: "destructive-action",
+            variant: "Type=Primary, Size=md, State=Default",
+            props: {},
+          },
+        ],
+        mapData,
+        dsRegistry,
+        null,
+      );
+      assert.strictEqual(
+        result[0].intent,
+        undefined,
+        "intent should be dropped from INSTANCE output",
+      );
+    });
+
+    it("FRAME intent preserved in hifi output", function () {
+      var result = t.transformNodes(
+        [
+          {
+            type: "FRAME",
+            intent: "destructive-action",
+            children: [],
+          },
+        ],
+        mapData,
+        dsRegistry,
+        null,
+      );
+      assert.strictEqual(
+        result[0].intent,
+        "destructive-action",
+        "FRAME intent should be preserved",
+      );
+    });
+
+    it("missing intent / no intentVariants does nothing", function () {
+      var result = t.transformNodes(
+        [
+          {
+            type: "INSTANCE",
+            ref: "fmButton",
+            variant: "Type=Primary, Size=md, State=Default",
+            props: {},
+          },
+        ],
+        mapData,
+        dsRegistry,
+        null,
+      );
+      assert.ok(result[0].variant.indexOf("Type=Primary") !== -1);
     });
   });
 });

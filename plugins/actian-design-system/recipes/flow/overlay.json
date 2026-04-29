@@ -22,37 +22,170 @@
           {
             "type": "FRAME",
             "name": "Panel header",
-            "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 24, 16, 24], "primaryAxisAlignItems": "SPACE_BETWEEN" },
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 8,
+              "padding": [16, 24, 16, 24],
+              "primaryAxisAlignItems": "SPACE_BETWEEN"
+            },
             "sizing": { "horizontal": "FILL", "vertical": "HUG" },
             "children": [
-              { "type": "TEXT", "content": "{{panel_title}}", "font": "Inter:Semi Bold", "size": 18, "color": "#1A1A2E" },
-              { "type": "INSTANCE", "ref": "fmIconButtons", "variant": "Type=Outline, State=Default", "name": "Close", "props": {} }
+              {
+                "type": "TEXT",
+                "content": "{{panel_title}}",
+                "font": "Inter:Semi Bold",
+                "size": 18,
+                "color": "#1A1A2E"
+              },
+              {
+                "type": "INSTANCE",
+                "ref": "fmIconButtons",
+                "variant": "Type=Outline, State=Default",
+                "name": "Close",
+                "props": {}
+              }
             ]
           },
           { "type": "DIVIDER" },
           {
             "type": "FRAME",
             "name": "Panel body",
-            "layout": { "mode": "VERTICAL", "spacing": 16, "padding": [24, 24, 24, 24] },
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 16,
+              "padding": [24, 24, 24, 24]
+            },
             "sizing": { "horizontal": "FILL", "vertical": "FILL" },
             "children": [
-              { "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+6lines", "props": {} }
+              {
+                "type": "INSTANCE",
+                "ref": "fmPlaceholder",
+                "variant": "Type=Label+6lines",
+                "props": {}
+              }
             ]
           },
           { "type": "DIVIDER" },
           {
             "type": "FRAME",
             "name": "Panel footer",
-            "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [16, 24, 16, 24], "primaryAxisAlignItems": "MAX" },
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 8,
+              "padding": [16, 24, 16, 24],
+              "primaryAxisAlignItems": "MAX"
+            },
             "sizing": { "horizontal": "FILL", "vertical": "HUG" },
             "children": [
               {
-                "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Outline, Size=md, Shape=Regular, State=Default",
-                "props": { "Label": "Cancel", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+                "type": "INSTANCE",
+                "ref": "fmButton",
+                "variant": "Type=Outline, Size=md, Shape=Regular, State=Default",
+                "props": {
+                  "Label": "Cancel",
+                  "👁 Leading Icon": false,
+                  "👁 Trailing Icon": false
+                }
               },
               {
-                "type": "INSTANCE", "ref": "fmButton", "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
-                "props": { "Label": "{{primary_action}}", "👁 Leading Icon": false, "👁 Trailing Icon": false }
+                "type": "INSTANCE",
+                "ref": "fmButton",
+                "variant": "Type=Primary, Size=md, Shape=Regular, State=Default",
+                "props": {
+                  "Label": "{{primary_action}}",
+                  "👁 Leading Icon": false,
+                  "👁 Trailing Icon": false
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "confirmationSkeleton": {
+    "_purpose": "Variant of the overlay skeleton used for destructive confirmation modals (small modal: Cancel + Destructive). Use when the overlay's purpose is to confirm a destructive action.",
+    "chrome": "none",
+    "pageHeader": null,
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Confirmation modal (450px)",
+        "intent": "destructive-action",
+        "layout": { "mode": "VERTICAL", "spacing": 0 },
+        "fills": ["#FFFFFF"],
+        "sizing": { "horizontal": 450, "vertical": "HUG" },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Modal header",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 8,
+              "padding": [16, 24, 16, 24],
+              "primaryAxisAlignItems": "SPACE_BETWEEN"
+            },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "TEXT",
+                "content": "{{confirm_title}}",
+                "font": "Inter:Semi Bold",
+                "size": 18,
+                "color": "#1A1A2E"
+              },
+              {
+                "type": "INSTANCE",
+                "ref": "fmIconButtons",
+                "variant": "Type=Outline, State=Default",
+                "name": "Close",
+                "props": {}
+              }
+            ]
+          },
+          { "type": "DIVIDER" },
+          {
+            "type": "FRAME",
+            "name": "Modal body",
+            "layout": {
+              "mode": "VERTICAL",
+              "spacing": 12,
+              "padding": [16, 24, 16, 24]
+            },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [{ "type": "TEXT", "content": "{{confirm_body}}" }]
+          },
+          { "type": "DIVIDER" },
+          {
+            "type": "FRAME",
+            "name": "Modal footer",
+            "layout": {
+              "mode": "HORIZONTAL",
+              "spacing": 8,
+              "padding": [16, 24, 16, 24],
+              "primaryAxisAlignItems": "MAX"
+            },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "INSTANCE",
+                "ref": "fmButton",
+                "variant": "Type=Outline, Size=md, Shape=Regular, State=Default",
+                "props": {
+                  "Label": "Cancel",
+                  "👁 Leading Icon": false,
+                  "👁 Trailing Icon": false
+                }
+              },
+              {
+                "type": "INSTANCE",
+                "ref": "fmButton",
+                "variant": "Type=Destructive, Size=md, Shape=Regular, State=Default",
+                "props": {
+                  "Label": "{{destructive_action}}",
+                  "👁 Leading Icon": false,
+                  "👁 Trailing Icon": false
+                }
               }
             ]
           }

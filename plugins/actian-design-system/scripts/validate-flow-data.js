@@ -6,6 +6,7 @@ var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 var rules = require(path.join(__dirname, "component-property-rules.js"));
+var resolver = require(path.join(__dirname, "intent-resolver.js"));
 
 // ---------------------------------------------------------------------------
 // Pass 1: registry helpers + INSTANCE-node walker
@@ -701,6 +702,179 @@ function findUnmutedChromeRaw(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 5d: Intent mismatch (v1.54.0 — Sprint B3 component-context)
+// ---------------------------------------------------------------------------
+//
+// Hifi-tier only (`meta.mode === "hifi"`). Walks INSTANCE nodes via
+// walkWithIntent, looks up the per-component rule for the effective intent,
+// and flags variant mismatches. FM-tier is silent — intent at FM tier is
+// metadata for downstream conversion, not enforcement.
+
+var INTENT_RULES = {
+  // ref → intent → { severity, axis, allowed | substringMatch, expectedDescription }
+  button: {
+    "destructive-action": {
+      severity: "error",
+      axis: "Type",
+      allowed: ["Critical primary", "Critical secondary"],
+      expectedDescription: "Type ∈ {Critical primary, Critical secondary}",
+    },
+    "success-confirmation": {
+      severity: "warning",
+      axis: "Type",
+      allowed: ["Primary"],
+      expectedDescription: "Type=Primary",
+    },
+    "error-state": {
+      severity: "warning",
+      axis: "Type",
+      allowed: ["Critical secondary"],
+      expectedDescription: "Type=Critical secondary",
+    },
+  },
+  modal: {
+    "destructive-action": {
+      severity: "warning",
+      axis: "Size & Type",
+      substringMatch: ["confirm", "warning"],
+      expectedDescription: 'Size & Type contains "confirm" or "warning"',
+    },
+  },
+};
+
+function lookupIntentRule(ref, effectiveIntent) {
+  if (!ref || effectiveIntent === "default") return null;
+  var refRules = INTENT_RULES[ref];
+  if (!refRules) return null;
+  return refRules[effectiveIntent] || null;
+}
+
+function parseVariantString(variant) {
+  if (typeof variant !== "string" || !variant) return {};
+  var out = {};
+  var parts = variant.split(",");
+  for (var i = 0; i < parts.length; i++) {
+    var kv = parts[i].split("=");
+    if (kv.length === 2) out[kv[0].trim()] = kv[1].trim();
+  }
+  return out;
+}
+
+function variantMatchesRule(variantObj, rule) {
+  var actual = variantObj[rule.axis];
+  if (!actual) return false;
+  if (rule.allowed) return rule.allowed.indexOf(actual) !== -1;
+  if (rule.substringMatch) {
+    var lower = actual.toLowerCase();
+    for (var i = 0; i < rule.substringMatch.length; i++) {
+      if (lower.indexOf(rule.substringMatch[i]) !== -1) return true;
+    }
+    return false;
+  }
+  return false;
+}
+
+function findIntentMismatchRaw(data) {
+  if (!data || !Array.isArray(data.screens)) return [];
+  if (!data.meta || data.meta.mode !== "hifi") return [];
+  var issues = [];
+
+  for (var si = 0; si < data.screens.length; si++) {
+    var screen = data.screens[si];
+    var screenName = screen.name || "Screen " + (si + 1);
+    resolver.walkWithIntent(
+      screen.content,
+      (function (sName) {
+        return function (node, effective, p) {
+          if (!node || node.type !== "INSTANCE") return;
+          var rule = lookupIntentRule(node.ref, effective);
+          if (!rule) return;
+          var variantObj = parseVariantString(node.variant);
+          if (variantMatchesRule(variantObj, rule)) return;
+          issues.push({
+            severity: rule.severity === "error" ? "P0" : "P1",
+            check: "intent-mismatch",
+            screen: sName,
+            path: p,
+            ref: node.ref,
+            intent: effective,
+            actualVariant: node.variant || "(none)",
+            expected: rule.expectedDescription,
+            value:
+              (node.variant || "(none)") +
+              " (expected: " +
+              rule.expectedDescription +
+              ")",
+          });
+        };
+      })(screenName),
+      null,
+      "screens[" + si + "].content",
+    );
+
+    // Sibling pass — destructive-action FRAMEs with 2+ DS button INSTANCEs.
+    resolver.walkWithIntent(
+      screen.content,
+      (function (sName) {
+        return function (node, effective, p) {
+          if (!node || !node.children || effective !== "destructive-action")
+            return;
+          var dsButtonChildren = node.children.filter(function (c) {
+            return c && c.type === "INSTANCE" && c.ref === "button";
+          });
+          if (dsButtonChildren.length < 2) return;
+          var criticalCount = 0;
+          for (var c = 0; c < dsButtonChildren.length; c++) {
+            var v = parseVariantString(dsButtonChildren[c].variant);
+            if (
+              v.Type === "Critical primary" ||
+              v.Type === "Critical secondary"
+            )
+              criticalCount++;
+          }
+          if (criticalCount === 0) {
+            issues.push({
+              severity: "P1",
+              check: "intent-mismatch",
+              screen: sName,
+              path: p,
+              ref: node.type,
+              intent: effective,
+              actualVariant: "(container)",
+              expected:
+                "sibling rule: destructive-action container should have a Critical primary or Critical secondary button",
+              value:
+                "destructive-action container with " +
+                dsButtonChildren.length +
+                " buttons, none Critical",
+            });
+          } else if (criticalCount === dsButtonChildren.length) {
+            issues.push({
+              severity: "P1",
+              check: "intent-mismatch",
+              screen: sName,
+              path: p,
+              ref: node.type,
+              intent: effective,
+              actualVariant: "(container)",
+              expected:
+                "sibling rule: destructive-action container ambiguous — all buttons are Critical (primary or secondary); consider Tertiary/Secondary cancel buttons for coherent pattern",
+              value:
+                "destructive-action container with all " +
+                criticalCount +
+                " buttons Critical (ambiguous)",
+            });
+          }
+        };
+      })(screenName),
+      null,
+      "screens[" + si + "].content",
+    );
+  }
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
 // Check 6: Severity-tiered soft-deviation checks (Sprint B1 — fallback ladder)
 // ---------------------------------------------------------------------------
 //
@@ -909,6 +1083,28 @@ function validate(data, opts) {
     }
   }
 
+  // Intent mismatch (hifi tier only) — v1.54.0 / B3
+  if (data && Array.isArray(data.screens)) {
+    var intentIssues = findIntentMismatchRaw(data);
+    for (var ii = 0; ii < intentIssues.length; ii++) {
+      findings.push({
+        kind: "intent-mismatch",
+        severity: intentIssues[ii].severity === "P0" ? "error" : "warning",
+        path: intentIssues[ii].path,
+        message:
+          "DS '" +
+          intentIssues[ii].ref +
+          "' with intent '" +
+          intentIssues[ii].intent +
+          "' has variant " +
+          JSON.stringify(intentIssues[ii].actualVariant) +
+          " — expected " +
+          intentIssues[ii].expected,
+        _legacy: intentIssues[ii],
+      });
+    }
+  }
+
   // Terminology check (folded from legacy findTerminologyIssuesRaw)
   if (!opts.skipTerminology && data && Array.isArray(data.screens)) {
     var terms = findTerminologyIssuesRaw(data);
@@ -992,6 +1188,16 @@ function findMissingJustifications(data) {
   });
 }
 
+function findIntentMismatch(data) {
+  return validate(data, { skipTokens: true, skipTerminology: true })
+    .findings.filter(function (f) {
+      return f.kind === "intent-mismatch";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
 // ---------------------------------------------------------------------------
 // Exports (for testing) and CLI
 // ---------------------------------------------------------------------------
@@ -1003,6 +1209,7 @@ module.exports = {
   findUnmutedChrome: findUnmutedChrome,
   findTerminologyIssues: findTerminologyIssues,
   findMissingJustifications: findMissingJustifications,
+  findIntentMismatch: findIntentMismatch,
   validate: validate,
   severityForTier: severityForTier,
   checkRecipeAdherence: checkRecipeAdherence,
@@ -1067,6 +1274,9 @@ if (require.main === module) {
 
   // Check 4b: Unmuted-chrome heuristic (P1 — soft warning)
   allIssues = allIssues.concat(findUnmutedChrome(data));
+
+  // Check 4c: Intent mismatch (hifi-tier only — P0 + P1)
+  allIssues = allIssues.concat(findIntentMismatch(data));
 
   // Check 5: Tier justification (B1 fallback ladder).
   // Map to legacy CLI shape so the existing reporter handles them uniformly.
