@@ -29,6 +29,40 @@ You will receive:
 - **Screen details** — per-screen: name, template, activeNavItem, navItems, pageHeader, content description
 - **Output path** for the partial JSON (e.g., `.partial/screens-4-6.json`)
 - **Meta object** to include in the partial
+- **Reference fingerprints** (C-vision, v1.57.0+) — array of `{ url, weight, fingerprint }` entries when the dispatcher passed `meta.references[]` with fingerprints attached. Empty/omitted when the run had no `--ref` URLs. Used to bias recipe selection per the precedence rule below.
+
+## Reference fingerprints (C-vision input)
+
+When the dispatcher passes `meta.references[]` with fingerprints attached, the input includes:
+
+```
+[
+  {
+    "url": "https://figma.com/design/<key>/?node-id=<n>",
+    "weight": 1.0,
+    "fingerprint": {
+      "density": "high" | "medium" | "low",
+      "hierarchy_depth": <integer 1-8>,
+      "primary_components": ["toolbar", "table", ...],
+      "layout_archetype": "<recipe-id from recipes/flow/_index.json>"
+    }
+  },
+  ...
+]
+```
+
+Treat these fingerprints as **soft hints biasing your structural choices**. Apply the precedence rule below.
+
+### Reference-fingerprint precedence rule
+
+When reference fingerprints are present in your input:
+
+- **Prompt wins on feature intent.** A prompt that says "settings page" picks a settings-family recipe (e.g., `detail-view`) even if the fingerprint's `layout_archetype` is `table-list`. The feature word from the prompt is authoritative — do not override it with the fingerprint.
+- **Fingerprint biases LAYOUT decisions.** Within the recipe family chosen by the prompt, lean toward the fingerprint's `density`, `hierarchy_depth`, and `primary_components` when filling content. A high-density reference → more rows per table, more columns per row, denser content per screen. A low-density reference → more whitespace, fewer items per page, hero-style sections.
+- **Fingerprint TIE-BREAKS recipe choice.** When the prompt's feature word is ambiguous (e.g., "dashboard" could fit either the `dashboard` recipe or a `table-list` composition), prefer the recipe matching the fingerprint's `layout_archetype`.
+- **Multi-ref:** if multiple fingerprints disagree, use the one whose `weight` is highest. If weights are equal, judge per-screen based on which ref's archetype is closest to the screen's apparent function (e.g., apply the table-archetype ref to the table-shaped screens, the hero-archetype ref to the landing screen).
+
+When the fingerprint pushes you off the obvious tier-1 recipe and the screen ends up tier-2 (adapted), document the bias in your `justification` field — e.g., *"Reference fingerprint suggested table-list density; tier-1 dashboard would have produced 2x4 KPI cards, but the reference's high density argues for 8 KPI cards in a single row plus a deep table — adapted dashboard with table-list composition."*
 
 ## Process
 
