@@ -30,6 +30,8 @@ Each named frame follows the same pattern:
 
 ## Phase 1 — Components
 
+> **⚙️ AUTO-HANDLED — manual fallback only.** This phase runs nightly via `.github/workflows/sync-from-figma.yml` (Sprint 1 v1.59.0+). The orchestrator at `scripts/sync-from-figma.js` regenerates `docs/dskit.json`, `docs/fmkit.json`, `docs/metakit.json` from the Figma REST API and opens an auto-merging PR for additive diffs. Run the steps below only if the workflow is broken, you need to write the human-readable markdown mirrors (`dskit-components.md` etc.), or you're debugging locally.
+
 Extract component sets, variant axes, properties, and keys from DS Kit, FM Kit, and Meta Kit libraries.
 
 **Two modes:** full sync (rewrites entire file) or incremental sync (patches only changed entries). Default to incremental for DS Kit (77+ components); use full sync for FM Kit and Meta Kit (small enough for one call).
@@ -594,6 +596,8 @@ Formatting: color table has per-mode columns; non-color has single Value column.
 ---
 
 ## Phase 3 — Styles
+
+> **⚙️ AUTO-HANDLED — manual fallback only.** Text + effect styles auto-sync nightly via `.github/workflows/sync-from-figma.yml`; the orchestrator writes `docs/meta-kit/styles.json`. The steps below regenerate the human-readable markdown mirrors (`text-styles.md` + `effect-styles.md`); run them when you need the markdown form or the workflow is broken.
 
 Extract text styles and effect styles from DS Kit.
 

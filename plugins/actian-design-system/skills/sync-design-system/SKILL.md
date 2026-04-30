@@ -9,6 +9,10 @@ argument-hint: "[phase name, component name, 'all', or 'validate']"
 
 Extract design system data directly from Figma libraries via MCP tools. Single-hop: Figma → Plugin (`docs/` + `tokens/`). Read-only on Figma, writes static files locally.
 
+> **Primary purpose: Phase 2 (variables sync) + Phase 4 (token regen).** Phase 2 cannot run in CI because Figma's Variables REST API is gated to Enterprise plans, so this skill is the only path. Run when DS Kit variables change in Figma — typically monthly.
+>
+> **Phases 1 and 3 auto-sync nightly** via `.github/workflows/sync-from-figma.yml` (Sprint 1 v1.59.0). Use the manual phase paths below only as fallback if the workflow is broken or for local debugging. Phases 5 and 6 still run through this skill until Wave 2 (v1.60.0) ships.
+
 ## Input
 
 | User says | Phases | Estimated calls |
@@ -39,12 +43,12 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 
 | Phase | Name | MCP calls | Output |
 |-------|------|-----------|--------|
-| 1 | Components | 1-3 incremental / ~10-20 full | `docs/dskit-components.md`, `docs/fm-components.md`, `docs/meta-kit/components.md`, JSON registries |
-| 2 | Variables | 2 `use_figma` | `docs/meta-kit/variables.md` |
-| 3 | Styles | 2 `use_figma` | `docs/meta-kit/text-styles.md`, `docs/meta-kit/effect-styles.md` |
+| 1 | Components ⚙️ auto-handled | 1-3 incremental / ~10-20 full | `docs/dskit.json`, `docs/fmkit.json`, `docs/metakit.json` (auto-sync nightly via REST workflow; this skill writes the markdown mirrors as fallback) |
+| 2 | Variables | 2 `use_figma` | `docs/meta-kit/variables.md` (Enterprise-gated REST — manual only) |
+| 3 | Styles ⚙️ auto-handled | 2 `use_figma` | `docs/meta-kit/styles.json` (auto-sync nightly); `text-styles.md` + `effect-styles.md` are fallback markdown mirrors |
 | 4 | Token files | 0 (transforms Phase 2) | `docs/token-reference.md`, `tokens/tokens.css`, `tokens/actian-ds.tokens.json` |
-| 5 | Guidelines | ~5 + ~30 `get_design_context` incremental | `docs/component-guidelines/*.json` |
-| 6 | Foundations | ~3 + ~15 `get_design_context` incremental | `docs/foundations/*.json`, `docs/content-guidelines.md`, `docs/accessibility-guidelines.md` |
+| 5 | Guidelines | ~5 + ~30 `get_design_context` incremental | `docs/component-guidelines/*.json` (Wave 2 candidate — still manual until v1.60.0) |
+| 6 | Foundations | ~3 + ~15 `get_design_context` incremental | `docs/foundations/*.json`, `docs/content-guidelines.md`, `docs/accessibility-guidelines.md` (Wave 2 candidate) |
 | 7 | Validation | 0 (git diff) | `release-notes/sync-YYYY-MM-DD.md` |
 
 **Phase dependencies:** Phase 4 requires Phase 2 data. All other phases are independent.
