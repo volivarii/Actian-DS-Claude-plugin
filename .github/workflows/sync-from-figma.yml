@@ -1,0 +1,122 @@
+name: Sync from Figma
+
+# Sprint 1 Wave 1 — nightly Figma → JSON auto-sync. The orchestrator at
+# plugins/actian-design-system/scripts/sync-from-figma.js fetches the
+# DS Kit / FM Kit / Meta Kit registries and DS Kit text+effect styles
+# via Figma's REST API, classifies the diff, and writes a changelog.
+# Additive diffs auto-merge; breaking diffs are labeled `review-required`.
+#
+# Required repo secrets:
+#   FIGMA_PAT        — Figma Personal Access Token (Pro tier sufficient)
+#   FIGMA_KEYS_JSON  — JSON string of file keys; mirrors the local
+#                      plugins/actian-design-system/.figma-keys.json file.
+#                      That file is gitignored, so CI must materialize it
+#                      from this secret on each run.
+#
+# Required repo settings:
+#   Settings → General → Pull Requests → Allow auto-merge → ENABLED
+#     (Required for the `gh pr merge --auto` step to enable GitHub's
+#      built-in auto-merge once branch protection / CI passes.)
+
+on:
+  schedule:
+    - cron: '0 7 * * *'  # 07:00 UTC daily
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: 'Sync phase'
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - registries
+          - styles
+
+jobs:
+  sync:
+    name: Sync Figma → JSON
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Materialize .figma-keys.json from secret
+        env:
+          FIGMA_KEYS_JSON: ${{ secrets.FIGMA_KEYS_JSON }}
+        run: |
+          if [ -z "$FIGMA_KEYS_JSON" ]; then
+            echo "::error::FIGMA_KEYS_JSON secret is not set. See workflow file header for setup."
+            exit 1
+          fi
+          printf '%s' "$FIGMA_KEYS_JSON" > plugins/actian-design-system/.figma-keys.json
+          echo "Wrote .figma-keys.json ($(wc -c < plugins/actian-design-system/.figma-keys.json) bytes)"
+
+      - name: Run sync orchestrator
+        id: sync
+        continue-on-error: true
+        env:
+          FIGMA_PAT: ${{ secrets.FIGMA_PAT }}
+        run: |
+          PHASE="${{ github.event.inputs.phase || 'all' }}"
+          node plugins/actian-design-system/scripts/sync-from-figma.js \
+            --phase "$PHASE" \
+            --plugin-dir plugins/actian-design-system
+
+      - name: Read verdict
+        id: verdict
+        run: |
+          if [ -f /tmp/sync-verdict.txt ]; then
+            VERDICT=$(tr -d '[:space:]' < /tmp/sync-verdict.txt)
+          else
+            VERDICT=error
+          fi
+          echo "category=$VERDICT" >> "$GITHUB_OUTPUT"
+          echo "date=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+          echo "Sync verdict: $VERDICT"
+
+      - name: Open pull request
+        id: cpr
+        if: steps.verdict.outputs.category == 'additive' || steps.verdict.outputs.category == 'breaking'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "sync(figma): ${{ steps.verdict.outputs.category }} refresh ${{ steps.verdict.outputs.date }}"
+          title: "sync(figma): ${{ steps.verdict.outputs.category }} — ${{ steps.verdict.outputs.date }}"
+          body-path: /tmp/sync-changelog.md
+          branch: "sync/figma-${{ steps.verdict.outputs.date }}"
+          labels: ${{ steps.verdict.outputs.category == 'additive' && 'sync,auto-merge' || 'sync,review-required' }}
+          delete-branch: true
+          add-paths: |
+            plugins/actian-design-system/docs/**
+
+      - name: Enable auto-merge for additive PRs
+        if: steps.verdict.outputs.category == 'additive' && steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge "${{ steps.cpr.outputs.pull-request-number }}" --auto --squash --repo "${{ github.repository }}"
+
+      - name: Summarize
+        if: always()
+        run: |
+          echo "### Sync result: ${{ steps.verdict.outputs.category }}" >> "$GITHUB_STEP_SUMMARY"
+          if [ -n "${{ steps.cpr.outputs.pull-request-number }}" ]; then
+            echo "PR: #${{ steps.cpr.outputs.pull-request-number }} — ${{ steps.cpr.outputs.pull-request-url }}" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ -f /tmp/sync-changelog.md ]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            cat /tmp/sync-changelog.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Fail job on sync error
+        if: steps.verdict.outputs.category == 'error'
+        run: |
+          echo "::error::Sync orchestrator reported errors. See logs above."
+          exit 1
