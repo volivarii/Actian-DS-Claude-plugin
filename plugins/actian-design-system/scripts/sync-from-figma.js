@@ -59,7 +59,8 @@ function filterStandalones(componentsList) {
   return (componentsList || []).filter(function (c) {
     if (!c || typeof c.name !== "string") return false;
     if (c.name.startsWith(".")) return false;
-    if (c.containing_frame && c.containing_frame.containingComponentSet) return false;
+    if (c.containing_frame && c.containing_frame.containingComponentSet)
+      return false;
     return true;
   });
 }
@@ -82,7 +83,7 @@ function fetchNodesMap(rest, fileKey, ids) {
         var nodes = (resp && resp.nodes) || {};
         if (nodes[id]) out[id] = nodes[id];
       });
-    })
+    }),
   ).then(function () {
     return out;
   });
@@ -93,22 +94,34 @@ function fetchNodesMap(rest, fileKey, ids) {
 async function syncRegistry(opts, kitId) {
   var meta = KIT_MAP[kitId];
   var fileKey = opts.keys[kitId];
-  if (!fileKey) throw new Error("Missing file key for kit '" + kitId + "' in figma keys file");
+  if (!fileKey)
+    throw new Error(
+      "Missing file key for kit '" + kitId + "' in figma keys file",
+    );
   var outputPath = path.join(opts.outputDir, meta.outputFile);
 
   var beforeFile = readJsonOrNull(outputPath);
-  var before = beforeFile || { library: meta.library, fileKey: fileKey, components: {} };
+  var before = beforeFile || {
+    library: meta.library,
+    fileKey: fileKey,
+    components: {},
+  };
 
   // Fetch lightweight metadata
   var csResp = await opts.rest.getComponentSets(fileKey);
   var cResp = await opts.rest.getComponents(fileKey);
-  var componentSets = (csResp && csResp.meta && csResp.meta.component_sets) || [];
+  var componentSets =
+    (csResp && csResp.meta && csResp.meta.component_sets) || [];
   var componentsList = (cResp && cResp.meta && cResp.meta.components) || [];
   var standalones = filterStandalones(componentsList);
 
   // Fetch node payloads (componentPropertyDefinitions) in parallel
-  var setIds = componentSets.map(function (s) { return s.node_id; });
-  var standaloneIds = standalones.map(function (s) { return s.node_id; });
+  var setIds = componentSets.map(function (s) {
+    return s.node_id;
+  });
+  var standaloneIds = standalones.map(function (s) {
+    return s.node_id;
+  });
   var [componentSetNodes, standaloneNodes] = await Promise.all([
     fetchNodesMap(opts.rest, fileKey, setIds),
     fetchNodesMap(opts.rest, fileKey, standaloneIds),
@@ -128,36 +141,74 @@ async function syncRegistry(opts, kitId) {
     after.templates = beforeFile.templates;
   }
 
-  var verdict = classify({ fileKind: "registry", before: before, after: after });
-  writeJson(outputPath, after);
-  return { kitId: kitId, fileLabel: meta.outputFile, verdict: verdict };
+  var verdict = classify({
+    fileKind: "registry",
+    before: before,
+    after: after,
+  });
+  // Skip the write when nothing meaningful changed AND the file already exists.
+  // Otherwise `lastSynced` timestamps drift every run and the GH workflow
+  // would open a no-op PR every night.
+  var wrote = false;
+  if (verdict.category !== "unchanged" || !fs.existsSync(outputPath)) {
+    writeJson(outputPath, after);
+    wrote = true;
+  }
+  return {
+    kitId: kitId,
+    fileLabel: meta.outputFile,
+    verdict: verdict,
+    wrote: wrote,
+  };
 }
 
 async function syncStyles(opts, kitId) {
   var fileKey = opts.keys[kitId];
-  if (!fileKey) throw new Error("Missing file key for kit '" + kitId + "' in figma keys file");
+  if (!fileKey)
+    throw new Error(
+      "Missing file key for kit '" + kitId + "' in figma keys file",
+    );
   var outputPath = path.join(opts.outputDir, "meta-kit", "styles.json");
 
-  var before = readJsonOrNull(outputPath) || { textStyles: [], effectStyles: [] };
+  var before = readJsonOrNull(outputPath) || {
+    textStyles: [],
+    effectStyles: [],
+  };
 
   var stylesPayload = await opts.rest.getStyles(fileKey);
-  var styleEntries = (stylesPayload && stylesPayload.meta && stylesPayload.meta.styles) || [];
-  var styleIds = styleEntries.map(function (s) { return s.node_id; });
+  var styleEntries =
+    (stylesPayload && stylesPayload.meta && stylesPayload.meta.styles) || [];
+  var styleIds = styleEntries.map(function (s) {
+    return s.node_id;
+  });
   var nodes = await fetchNodesMap(opts.rest, fileKey, styleIds);
 
   var after = transformStyles({ stylesPayload: stylesPayload, nodes: nodes });
   var verdict = classify({ fileKind: "styles", before: before, after: after });
-  writeJson(outputPath, after);
-  return { kitId: kitId, fileLabel: "meta-kit/styles.json", verdict: verdict };
+  var wrote = false;
+  if (verdict.category !== "unchanged" || !fs.existsSync(outputPath)) {
+    writeJson(outputPath, after);
+    wrote = true;
+  }
+  return {
+    kitId: kitId,
+    fileLabel: "meta-kit/styles.json",
+    verdict: verdict,
+    wrote: wrote,
+  };
 }
 
 // ---- Verdict aggregation ----
 
 function aggregateVerdict(results, errors) {
   if (errors.length > 0) return "error";
-  var anyBreaking = results.some(function (r) { return r.verdict.category === "breaking"; });
+  var anyBreaking = results.some(function (r) {
+    return r.verdict.category === "breaking";
+  });
   if (anyBreaking) return "breaking";
-  var anyAdditive = results.some(function (r) { return r.verdict.category === "additive"; });
+  var anyAdditive = results.some(function (r) {
+    return r.verdict.category === "additive";
+  });
   if (anyAdditive) return "additive";
   return "unchanged";
 }
@@ -174,7 +225,11 @@ function buildChangelog(date, category, results, errors) {
   var lines = [];
   lines.push("# Sync " + date + " — " + category);
   lines.push("");
-  lines.push("Auto-generated by `scripts/sync-from-figma.js` at " + new Date().toISOString() + ".");
+  lines.push(
+    "Auto-generated by `scripts/sync-from-figma.js` at " +
+      new Date().toISOString() +
+      ".",
+  );
   lines.push("");
   results.forEach(function (r) {
     lines.push("## " + r.fileLabel + " — " + r.verdict.category);
@@ -200,7 +255,8 @@ async function run(opts) {
   var pluginDir = opts.pluginDir || path.resolve(__dirname, "..");
   var rest = opts.rest || defaultRest;
   var outputDir = opts.outputDir || path.join(pluginDir, "docs");
-  var releaseNotesDir = opts.releaseNotesDir || path.join(pluginDir, "release-notes");
+  var releaseNotesDir =
+    opts.releaseNotesDir || path.join(pluginDir, "release-notes");
   var keysFile = opts.keysFile || path.join(pluginDir, ".figma-keys.json");
   var artifactsDir = opts.artifactsDir || "/tmp";
   var phase = opts.phase || "all";
@@ -229,7 +285,13 @@ async function run(opts) {
       var kit = REGISTRY_KITS[i];
       // Bind kit into the closure
       // eslint-disable-next-line no-loop-func
-      await runWithGuard("registry:" + kit, ((k) => () => syncRegistry(orchOpts, k))(kit));
+      await runWithGuard(
+        "registry:" + kit,
+        (
+          (k) => () =>
+            syncRegistry(orchOpts, k)
+        )(kit),
+      );
     }
   }
 
@@ -237,7 +299,13 @@ async function run(opts) {
     for (var j = 0; j < STYLES_KITS.length; j++) {
       var sKit = STYLES_KITS[j];
       // eslint-disable-next-line no-loop-func
-      await runWithGuard("styles:" + sKit, ((k) => () => syncStyles(orchOpts, k))(sKit));
+      await runWithGuard(
+        "styles:" + sKit,
+        (
+          (k) => () =>
+            syncStyles(orchOpts, k)
+        )(sKit),
+      );
     }
   }
 
@@ -252,8 +320,16 @@ async function run(opts) {
 
   // Workflow handoff artifacts
   fs.mkdirSync(artifactsDir, { recursive: true });
-  fs.writeFileSync(path.join(artifactsDir, "sync-verdict.txt"), category + "\n", "utf8");
-  fs.writeFileSync(path.join(artifactsDir, "sync-changelog.md"), changelog, "utf8");
+  fs.writeFileSync(
+    path.join(artifactsDir, "sync-verdict.txt"),
+    category + "\n",
+    "utf8",
+  );
+  fs.writeFileSync(
+    path.join(artifactsDir, "sync-changelog.md"),
+    changelog,
+    "utf8",
+  );
 
   return {
     category: category,
@@ -271,7 +347,9 @@ function parseArgs(argv) {
   var out = { phase: "all" };
   for (var i = 0; i < argv.length; i++) {
     var a = argv[i];
-    var next = function () { return argv[++i]; };
+    var next = function () {
+      return argv[++i];
+    };
     if (a === "--phase") out.phase = next();
     else if (a === "--output-dir") out.outputDir = next();
     else if (a === "--release-notes-dir") out.releaseNotesDir = next();
@@ -289,7 +367,9 @@ if (require.main === module) {
       console.log("[sync] verdict=" + r.category + " exit=" + r.exitCode);
       if (r.errors.length > 0) {
         r.errors.forEach(function (e) {
-          console.error("[sync]   error in " + e.label + ": " + e.error.message);
+          console.error(
+            "[sync]   error in " + e.label + ": " + e.error.message,
+          );
         });
       }
       console.log("[sync] release notes: " + r.releasePath);
@@ -298,7 +378,7 @@ if (require.main === module) {
     function (err) {
       console.error("[sync] FATAL:", err.message);
       process.exit(2);
-    }
+    },
   );
 }
 

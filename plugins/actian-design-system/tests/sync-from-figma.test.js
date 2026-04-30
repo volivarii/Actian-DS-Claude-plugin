@@ -28,7 +28,11 @@ var BUTTON_NODE = {
     name: "Button",
     type: "COMPONENT_SET",
     componentPropertyDefinitions: {
-      "Type": { type: "VARIANT", defaultValue: "Primary", variantOptions: ["Primary", "Secondary"] },
+      Type: {
+        type: "VARIANT",
+        defaultValue: "Primary",
+        variantOptions: ["Primary", "Secondary"],
+      },
       "Label#1:0": { type: "TEXT", defaultValue: "Button" },
     },
     children: [],
@@ -75,14 +79,30 @@ function buildBasicData() {
     components: { dsk: [], fmk: [], mtk: [] },
     styles: {
       dsk: [
-        { key: "tk1", node_id: "100:1", style_type: "TEXT", name: "body", description: "" },
-        { key: "ek1", node_id: "200:1", style_type: "EFFECT", name: "shadow", description: "" },
+        {
+          key: "tk1",
+          node_id: "100:1",
+          style_type: "TEXT",
+          name: "body",
+          description: "",
+        },
+        {
+          key: "ek1",
+          node_id: "200:1",
+          style_type: "EFFECT",
+          name: "shadow",
+          description: "",
+        },
       ],
       fmk: [],
       mtk: [],
     },
     nodes: {
-      dsk: { "1:1": BUTTON_NODE, "100:1": TEXT_STYLE_NODE, "200:1": EFFECT_STYLE_NODE },
+      dsk: {
+        "1:1": BUTTON_NODE,
+        "100:1": TEXT_STYLE_NODE,
+        "200:1": EFFECT_STYLE_NODE,
+      },
       fmk: {},
       mtk: {},
     },
@@ -94,16 +114,20 @@ var BASIC_KEYS = { dsKit: "dsk", fmKit: "fmk", metaKit: "mtk" };
 function buildMockRest(data) {
   return {
     getComponentSets: function (k) {
-      return Promise.resolve({ meta: { component_sets: (data.componentSets[k]) || [] } });
+      return Promise.resolve({
+        meta: { component_sets: data.componentSets[k] || [] },
+      });
     },
     getComponents: function (k) {
-      return Promise.resolve({ meta: { components: (data.components[k]) || [] } });
+      return Promise.resolve({
+        meta: { components: data.components[k] || [] },
+      });
     },
     getStyles: function (k) {
-      return Promise.resolve({ meta: { styles: (data.styles[k]) || [] } });
+      return Promise.resolve({ meta: { styles: data.styles[k] || [] } });
     },
     getNode: function (k, id) {
-      var nodesForKey = (data.nodes[k]) || {};
+      var nodesForKey = data.nodes[k] || {};
       var out = {};
       if (nodesForKey[id]) out[id] = nodesForKey[id];
       return Promise.resolve({ nodes: out });
@@ -130,7 +154,7 @@ function baseOpts(dirs, overrides) {
       artifactsDir: dirs.artifactsDir,
       date: "2026-04-30",
     },
-    overrides || {}
+    overrides || {},
   );
 }
 
@@ -142,21 +166,41 @@ describe("sync-from-figma", function () {
     var result;
 
     it("writes 3 registry files + meta-kit/styles.json", async function () {
-      result = await sync.run(baseOpts(dirs, { rest: buildMockRest(buildBasicData()) }));
-      assert.ok(fs.existsSync(path.join(dirs.outputDir, "dskit.json")), "dskit.json not written");
-      assert.ok(fs.existsSync(path.join(dirs.outputDir, "fmkit.json")), "fmkit.json not written");
-      assert.ok(fs.existsSync(path.join(dirs.outputDir, "metakit.json")), "metakit.json not written");
-      assert.ok(fs.existsSync(path.join(dirs.outputDir, "meta-kit", "styles.json")), "styles.json not written");
+      result = await sync.run(
+        baseOpts(dirs, { rest: buildMockRest(buildBasicData()) }),
+      );
+      assert.ok(
+        fs.existsSync(path.join(dirs.outputDir, "dskit.json")),
+        "dskit.json not written",
+      );
+      assert.ok(
+        fs.existsSync(path.join(dirs.outputDir, "fmkit.json")),
+        "fmkit.json not written",
+      );
+      assert.ok(
+        fs.existsSync(path.join(dirs.outputDir, "metakit.json")),
+        "metakit.json not written",
+      );
+      assert.ok(
+        fs.existsSync(path.join(dirs.outputDir, "meta-kit", "styles.json")),
+        "styles.json not written",
+      );
     });
 
     it("writes release notes file with date in name", function () {
-      assert.ok(fs.existsSync(path.join(dirs.releaseNotesDir, "sync-2026-04-30.md")));
+      assert.ok(
+        fs.existsSync(path.join(dirs.releaseNotesDir, "sync-2026-04-30.md")),
+      );
     });
 
     it("writes /artifacts/sync-verdict.txt and sync-changelog.md for GH workflow", function () {
-      var verdict = fs.readFileSync(path.join(dirs.artifactsDir, "sync-verdict.txt"), "utf8").trim();
+      var verdict = fs
+        .readFileSync(path.join(dirs.artifactsDir, "sync-verdict.txt"), "utf8")
+        .trim();
       assert.strictEqual(verdict, "additive");
-      assert.ok(fs.existsSync(path.join(dirs.artifactsDir, "sync-changelog.md")));
+      assert.ok(
+        fs.existsSync(path.join(dirs.artifactsDir, "sync-changelog.md")),
+      );
     });
 
     it("verdict = additive, exitCode = 0 (because Button + 2 styles are net new)", function () {
@@ -165,7 +209,9 @@ describe("sync-from-figma", function () {
     });
 
     it("DS Kit registry contains Button slug with expected fields", function () {
-      var ds = JSON.parse(fs.readFileSync(path.join(dirs.outputDir, "dskit.json"), "utf8"));
+      var ds = JSON.parse(
+        fs.readFileSync(path.join(dirs.outputDir, "dskit.json"), "utf8"),
+      );
       assert.strictEqual(ds.library, "ds");
       assert.strictEqual(ds.fileKey, "dsk");
       assert.ok("button" in ds.components);
@@ -174,7 +220,12 @@ describe("sync-from-figma", function () {
     });
 
     it("styles.json contains both text and effect styles", function () {
-      var styles = JSON.parse(fs.readFileSync(path.join(dirs.outputDir, "meta-kit", "styles.json"), "utf8"));
+      var styles = JSON.parse(
+        fs.readFileSync(
+          path.join(dirs.outputDir, "meta-kit", "styles.json"),
+          "utf8",
+        ),
+      );
       assert.strictEqual(styles.textStyles.length, 1);
       assert.strictEqual(styles.effectStyles.length, 1);
       assert.strictEqual(styles.textStyles[0].name, "body");
@@ -185,17 +236,31 @@ describe("sync-from-figma", function () {
   describe("--phase registries (skips styles)", function () {
     it("does not write styles.json", async function () {
       var dirs = freshDirs();
-      await sync.run(baseOpts(dirs, { rest: buildMockRest(buildBasicData()), phase: "registries" }));
+      await sync.run(
+        baseOpts(dirs, {
+          rest: buildMockRest(buildBasicData()),
+          phase: "registries",
+        }),
+      );
       assert.ok(fs.existsSync(path.join(dirs.outputDir, "dskit.json")));
-      assert.ok(!fs.existsSync(path.join(dirs.outputDir, "meta-kit", "styles.json")));
+      assert.ok(
+        !fs.existsSync(path.join(dirs.outputDir, "meta-kit", "styles.json")),
+      );
     });
   });
 
   describe("--phase styles (skips registries)", function () {
     it("does not write registry files", async function () {
       var dirs = freshDirs();
-      await sync.run(baseOpts(dirs, { rest: buildMockRest(buildBasicData()), phase: "styles" }));
-      assert.ok(fs.existsSync(path.join(dirs.outputDir, "meta-kit", "styles.json")));
+      await sync.run(
+        baseOpts(dirs, {
+          rest: buildMockRest(buildBasicData()),
+          phase: "styles",
+        }),
+      );
+      assert.ok(
+        fs.existsSync(path.join(dirs.outputDir, "meta-kit", "styles.json")),
+      );
       assert.ok(!fs.existsSync(path.join(dirs.outputDir, "dskit.json")));
     });
   });
@@ -209,6 +274,35 @@ describe("sync-from-figma", function () {
       assert.strictEqual(second.category, "unchanged");
       assert.strictEqual(second.exitCode, 0);
     });
+
+    it("does not rewrite registry/styles files when unchanged (avoids GH PR churn)", async function () {
+      var dirs = freshDirs();
+      var rest = buildMockRest(buildBasicData());
+      await sync.run(baseOpts(dirs, { rest: rest }));
+
+      var dskPath = path.join(dirs.outputDir, "dskit.json");
+      var stylesPath = path.join(dirs.outputDir, "meta-kit", "styles.json");
+      var dskBefore = fs.readFileSync(dskPath, "utf8");
+      var stylesBefore = fs.readFileSync(stylesPath, "utf8");
+
+      var second = await sync.run(baseOpts(dirs, { rest: rest }));
+
+      assert.strictEqual(
+        fs.readFileSync(dskPath, "utf8"),
+        dskBefore,
+        "dskit.json should not be rewritten",
+      );
+      assert.strictEqual(
+        fs.readFileSync(stylesPath, "utf8"),
+        stylesBefore,
+        "styles.json should not be rewritten",
+      );
+      // Also surface the wrote flag in the per-file result for workflow logging.
+      var dskResult = second.results.find(function (r) {
+        return r.fileLabel === "dskit.json";
+      });
+      assert.strictEqual(dskResult.wrote, false);
+    });
   });
 
   describe("breaking diff (component removed)", function () {
@@ -220,7 +314,9 @@ describe("sync-from-figma", function () {
       var data2 = buildBasicData();
       data2.componentSets.dsk = [];
       delete data2.nodes.dsk["1:1"];
-      var second = await sync.run(baseOpts(dirs, { rest: buildMockRest(data2) }));
+      var second = await sync.run(
+        baseOpts(dirs, { rest: buildMockRest(data2) }),
+      );
       assert.strictEqual(second.category, "breaking");
       assert.strictEqual(second.exitCode, 1);
     });
@@ -238,8 +334,14 @@ describe("sync-from-figma", function () {
       var r = await sync.run(baseOpts(dirs, { rest: rest }));
       assert.strictEqual(r.category, "error");
       assert.strictEqual(r.exitCode, 2);
-      assert.ok(fs.existsSync(path.join(dirs.outputDir, "dskit.json")), "dskit.json should still be written despite fmkit failure");
-      assert.ok(!fs.existsSync(path.join(dirs.outputDir, "fmkit.json")), "fmkit.json should NOT be written when its fetch failed");
+      assert.ok(
+        fs.existsSync(path.join(dirs.outputDir, "dskit.json")),
+        "dskit.json should still be written despite fmkit failure",
+      );
+      assert.ok(
+        !fs.existsSync(path.join(dirs.outputDir, "fmkit.json")),
+        "fmkit.json should NOT be written when its fetch failed",
+      );
     });
   });
 
@@ -255,9 +357,15 @@ describe("sync-from-figma", function () {
         components: {},
         templates: { "section-header": { key: "tplkey", nodeId: "9:9" } },
       };
-      fs.writeFileSync(path.join(dirs.outputDir, "metakit.json"), JSON.stringify(existing, null, 2), "utf8");
+      fs.writeFileSync(
+        path.join(dirs.outputDir, "metakit.json"),
+        JSON.stringify(existing, null, 2),
+        "utf8",
+      );
       await sync.run(baseOpts(dirs, { rest: buildMockRest(buildBasicData()) }));
-      var after = JSON.parse(fs.readFileSync(path.join(dirs.outputDir, "metakit.json"), "utf8"));
+      var after = JSON.parse(
+        fs.readFileSync(path.join(dirs.outputDir, "metakit.json"), "utf8"),
+      );
       assert.deepStrictEqual(after.templates, existing.templates);
     });
   });
@@ -265,11 +373,16 @@ describe("sync-from-figma", function () {
   describe("CLI parseArgs", function () {
     it("parses --phase, --output-dir, --release-notes-dir, --keys-file, --artifacts-dir", function () {
       var p = sync.parseArgs([
-        "--phase", "registries",
-        "--output-dir", "/foo/docs",
-        "--release-notes-dir", "/foo/notes",
-        "--keys-file", "/foo/keys.json",
-        "--artifacts-dir", "/tmp/sync",
+        "--phase",
+        "registries",
+        "--output-dir",
+        "/foo/docs",
+        "--release-notes-dir",
+        "/foo/notes",
+        "--keys-file",
+        "/foo/keys.json",
+        "--artifacts-dir",
+        "/tmp/sync",
       ]);
       assert.strictEqual(p.phase, "registries");
       assert.strictEqual(p.outputDir, "/foo/docs");
