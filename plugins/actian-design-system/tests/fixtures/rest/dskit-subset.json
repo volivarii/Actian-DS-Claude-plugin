@@ -1,0 +1,733 @@
+{
+  "componentSets": [
+    {
+      "key": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
+      "file_key": "l8biHxfarNi1I2RMvVxVOK",
+      "node_id": "7206:2643",
+      "name": "Button",
+      "description": "Primary trigger for a specific action or form submission. Use \"Primary\" for the main task, \"Secondary\" for alternative actions, and \"Ghost/Tertiary\" for low-priority tasks.\n\nPrimary: \"Use as the single most important action on a screen. Limit to one per view (e.g., 'Submit', 'Pay Now').\"\nSecondary: \"Use for supporting actions that are not the main goal of the page (e.g., 'Cancel', 'Back').\"\nTertiary/Ghost: \"Use for low-emphasis actions or repeated items in a list (e.g., 'View Details', 'Learn More').\"\nCritical: \"Use specifically for actions that result in data loss or permanent changes. Usually styled in Red.\"",
+      "containing_frame": {
+        "name": "Components",
+        "nodeId": "12856:82904",
+        "pageId": "9085:24375",
+        "pageName": "     ✍️ Button",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      }
+    }
+  ],
+  "nodes": {
+    "7206:2643": {
+      "document": {
+        "id": "7206:2643",
+        "name": "Button",
+        "type": "COMPONENT_SET",
+        "componentPropertyDefinitions": {
+          "Leading icon#724:0": {
+            "type": "INSTANCE_SWAP",
+            "defaultValue": "7206:3772",
+            "preferredValues": [
+              {
+                "type": "COMPONENT",
+                "key": "29fb5fefe52ae790a3320410fe39e7fa32806eb8"
+              }
+            ]
+          },
+          "Label#724:10": {
+            "type": "TEXT",
+            "defaultValue": "Button"
+          },
+          "Show leading icon#809:73": {
+            "type": "BOOLEAN",
+            "defaultValue": true
+          },
+          "Trailing icon#13805:43": {
+            "type": "INSTANCE_SWAP",
+            "defaultValue": "7207:2839",
+            "preferredValues": [
+              {
+                "type": "COMPONENT",
+                "key": "43009d0b38b304e97c5716c0a32ccc3951851872"
+              }
+            ]
+          },
+          "Show trailing icon#13807:82": {
+            "type": "BOOLEAN",
+            "defaultValue": true
+          },
+          "Show label#15988:3": {
+            "type": "BOOLEAN",
+            "defaultValue": true
+          },
+          "Type": {
+            "type": "VARIANT",
+            "defaultValue": "Primary",
+            "variantOptions": [
+              "Primary",
+              "Secondary",
+              "Tertiary",
+              "Icon",
+              "Critical primary",
+              "Critical secondary",
+              "Low emphasis"
+            ]
+          },
+          "Size": {
+            "type": "VARIANT",
+            "defaultValue": "Default",
+            "variantOptions": [
+              "Default",
+              "Small"
+            ]
+          },
+          "State": {
+            "type": "VARIANT",
+            "defaultValue": "Default",
+            "variantOptions": [
+              "Default",
+              "Hovered",
+              "Focused",
+              "Pressed",
+              "Selected",
+              "Disabled"
+            ]
+          }
+        },
+        "children": [
+          {
+            "id": "7206:2656",
+            "name": "Type=Primary, Size=Default, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8706",
+            "name": "Type=Primary, Size=Small, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7206:2686",
+            "name": "Type=Primary, Size=Default, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7206:2668",
+            "name": "Type=Secondary, Size=Default, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8788",
+            "name": "Type=Secondary, Size=Small, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7206:2740",
+            "name": "Type=Primary, Size=Default, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7206:2766",
+            "name": "Type=Primary, Size=Default, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8547",
+            "name": "Type=Primary, Size=Default, State=Selected",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7206:2791",
+            "name": "Type=Primary, Size=Default, State=Disabled",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7206:2716",
+            "name": "Type=Secondary, Size=Default, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8710",
+            "name": "Type=Primary, Size=Small, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8792",
+            "name": "Type=Secondary, Size=Small, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8715",
+            "name": "Type=Primary, Size=Small, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8721",
+            "name": "Type=Primary, Size=Small, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7206:2830",
+            "name": "Type=Secondary, Size=Default, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7206:2803",
+            "name": "Type=Secondary, Size=Default, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8552",
+            "name": "Type=Secondary, Size=Default, State=Selected",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7206:2854",
+            "name": "Type=Secondary, Size=Default, State=Disabled",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8726",
+            "name": "Type=Primary, Size=Small, State=Selected",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8731",
+            "name": "Type=Primary, Size=Small, State=Disabled",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8797",
+            "name": "Type=Secondary, Size=Small, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8802",
+            "name": "Type=Secondary, Size=Small, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8808",
+            "name": "Type=Secondary, Size=Small, State=Selected",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13805:8813",
+            "name": "Type=Secondary, Size=Small, State=Disabled",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:2987",
+            "name": "Type=Tertiary, Size=Default, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:2999",
+            "name": "Type=Tertiary, Size=Small, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "15988:7606",
+            "name": "Type=Low emphasis, Size=Small, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3005",
+            "name": "Type=Icon, Size=Default, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3041",
+            "name": "Type=Tertiary, Size=Default, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3013",
+            "name": "Type=Icon, Size=Small, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3057",
+            "name": "Type=Tertiary, Size=Small, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "15988:7610",
+            "name": "Type=Low emphasis, Size=Small, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3123",
+            "name": "Type=Tertiary, Size=Default, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3065",
+            "name": "Type=Icon, Size=Default, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3093",
+            "name": "Type=Icon, Size=Small, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3169",
+            "name": "Type=Tertiary, Size=Small, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "15988:7615",
+            "name": "Type=Low emphasis, Size=Small, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3193",
+            "name": "Type=Icon, Size=Default, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3305",
+            "name": "Type=Tertiary, Size=Default, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3249",
+            "name": "Type=Icon, Size=Small, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3267",
+            "name": "Type=Tertiary, Size=Default, State=Selected",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3351",
+            "name": "Type=Tertiary, Size=Small, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "15988:7620",
+            "name": "Type=Low emphasis, Size=Small, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3297",
+            "name": "Type=Tertiary, Size=Small, State=Selected",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "15988:7626",
+            "name": "Type=Low emphasis, Size=Small, State=Selected",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3313",
+            "name": "Type=Icon, Size=Default, State=Selected",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3319",
+            "name": "Type=Tertiary, Size=Default, State=Disabled",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3339",
+            "name": "Type=Icon, Size=Small, State=Selected",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3359",
+            "name": "Type=Tertiary, Size=Small, State=Disabled",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "15988:7631",
+            "name": "Type=Low emphasis, Size=Small, State=Disabled",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3365",
+            "name": "Type=Icon, Size=Default, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3371",
+            "name": "Type=Icon, Size=Default, State=Disabled",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3385",
+            "name": "Type=Icon, Size=Small, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3391",
+            "name": "Type=Icon, Size=Small, State=Disabled",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3395",
+            "name": "Type=Critical primary, Size=Default, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3398",
+            "name": "Type=Critical primary, Size=Default, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3402",
+            "name": "Type=Critical primary, Size=Default, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "7364:3406",
+            "name": "Type=Critical primary, Size=Default, State=Pressed",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13877:5372",
+            "name": "Type=Critical secondary, Size=Default, State=Default",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13877:5375",
+            "name": "Type=Critical secondary, Size=Default, State=Hovered",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13877:5379",
+            "name": "Type=Critical secondary, Size=Default, State=Focused",
+            "type": "COMPONENT"
+          },
+          {
+            "id": "13877:5384",
+            "name": "Type=Critical secondary, Size=Default, State=Pressed",
+            "type": "COMPONENT"
+          }
+        ]
+      },
+      "components": {
+        "7206:2656": {
+          "name": "Type=Primary, Size=Default, State=Default",
+          "key": "89511c62b855774612665f5b912084bc92638807",
+          "description": ""
+        },
+        "7206:3772": {
+          "name": "add",
+          "key": "33ab1534db5a1d5619a29735d2a0ac87514819b9",
+          "description": ""
+        },
+        "7207:2839": {
+          "name": "arrow-down",
+          "key": "43009d0b38b304e97c5716c0a32ccc3951851872",
+          "description": ""
+        },
+        "13805:8706": {
+          "name": "Type=Primary, Size=Small, State=Default",
+          "key": "ec2b8238a17e6cb38f7bd0bb6c8fca0d13f51472",
+          "description": ""
+        },
+        "7206:2686": {
+          "name": "Type=Primary, Size=Default, State=Hovered",
+          "key": "3be5dc30508fef5d8389b9e059022ddb8b90ec2e",
+          "description": ""
+        },
+        "7206:2668": {
+          "name": "Type=Secondary, Size=Default, State=Default",
+          "key": "6c04d34ca580f1ab2a565894f7ac150ba0250998",
+          "description": ""
+        },
+        "13805:8788": {
+          "name": "Type=Secondary, Size=Small, State=Default",
+          "key": "b55879fa077f77eb5eea1328f91bb78f0c28d1f9",
+          "description": ""
+        },
+        "7206:2740": {
+          "name": "Type=Primary, Size=Default, State=Focused",
+          "key": "d9c842f84049e904be4d20104daaa043a5d2ff34",
+          "description": ""
+        },
+        "7206:2766": {
+          "name": "Type=Primary, Size=Default, State=Pressed",
+          "key": "da4fa235e14eb46fc360ad3bc974617f9411608a",
+          "description": ""
+        },
+        "13805:8547": {
+          "name": "Type=Primary, Size=Default, State=Selected",
+          "key": "b44a6cdb7d73827e7c9b7953b64bcd2f44cc1a78",
+          "description": ""
+        },
+        "7206:2791": {
+          "name": "Type=Primary, Size=Default, State=Disabled",
+          "key": "7f67a165d4460ca3a5b51226b09c79c70596207b",
+          "description": ""
+        },
+        "7206:2716": {
+          "name": "Type=Secondary, Size=Default, State=Hovered",
+          "key": "fc1e75f2337e75b9395e06c98ecec69628170c21",
+          "description": ""
+        },
+        "13805:8710": {
+          "name": "Type=Primary, Size=Small, State=Hovered",
+          "key": "89060512fdc80b34f1b8affed61f6abc817e17dc",
+          "description": ""
+        },
+        "13805:8792": {
+          "name": "Type=Secondary, Size=Small, State=Hovered",
+          "key": "1ef63dc3d082f6c063d374f0ce07818869513012",
+          "description": ""
+        },
+        "13805:8715": {
+          "name": "Type=Primary, Size=Small, State=Focused",
+          "key": "f3b6d6757f922ae264c8b4feee082772dbea2f9f",
+          "description": ""
+        },
+        "13805:8721": {
+          "name": "Type=Primary, Size=Small, State=Pressed",
+          "key": "3d89d748978867d93b1d654ec998f3f67648f488",
+          "description": ""
+        },
+        "7206:2830": {
+          "name": "Type=Secondary, Size=Default, State=Pressed",
+          "key": "7580f70fcf20470ca1a6b9b35c471973dc3601f4",
+          "description": ""
+        },
+        "7206:2803": {
+          "name": "Type=Secondary, Size=Default, State=Focused",
+          "key": "cb9cd8d532d5b111425bea49efe112131467f6dc",
+          "description": ""
+        },
+        "13805:8552": {
+          "name": "Type=Secondary, Size=Default, State=Selected",
+          "key": "c5bf6fea6519f360d17badd504c5d83bf968a724",
+          "description": ""
+        },
+        "7206:2854": {
+          "name": "Type=Secondary, Size=Default, State=Disabled",
+          "key": "157507ee4e0d304eaad706785deab05d99d6eb71",
+          "description": ""
+        },
+        "13805:8726": {
+          "name": "Type=Primary, Size=Small, State=Selected",
+          "key": "c3f9f2b68a19ae3e82243d3d1f9b746e8b2117af",
+          "description": ""
+        },
+        "13805:8731": {
+          "name": "Type=Primary, Size=Small, State=Disabled",
+          "key": "bf94406a97305f5e601033c73728123b5554428a",
+          "description": ""
+        },
+        "13805:8797": {
+          "name": "Type=Secondary, Size=Small, State=Pressed",
+          "key": "36cfc1b52d4d3c169e4326532ab7de83f79e4d28",
+          "description": ""
+        },
+        "13805:8802": {
+          "name": "Type=Secondary, Size=Small, State=Focused",
+          "key": "a31bea51fcdfbb2cbf5baeb2db6b5213f1c2010d",
+          "description": ""
+        },
+        "13805:8808": {
+          "name": "Type=Secondary, Size=Small, State=Selected",
+          "key": "ba0428d1409b33223facde99cca220be44b812e3",
+          "description": ""
+        },
+        "13805:8813": {
+          "name": "Type=Secondary, Size=Small, State=Disabled",
+          "key": "cc2bcdbb227a97607bf5083b44d9a7a87e03e35b",
+          "description": ""
+        },
+        "7364:2987": {
+          "name": "Type=Tertiary, Size=Default, State=Default",
+          "key": "b00c66bbc2c1624eabc21e616abc31446734a17c",
+          "description": ""
+        },
+        "7364:2999": {
+          "name": "Type=Tertiary, Size=Small, State=Default",
+          "key": "b0f151b1b5b0fa7dc895c6a9e1d7f96015cf593a",
+          "description": ""
+        },
+        "15988:7606": {
+          "name": "Type=Low emphasis, Size=Small, State=Default",
+          "key": "a0fef3e28854705010cecd2a01683317ab7ab7bd",
+          "description": ""
+        },
+        "7364:3005": {
+          "name": "Type=Icon, Size=Default, State=Default",
+          "key": "6bd0fa7714f94b26c84cefe3b513b4771fe17bd5",
+          "description": ""
+        },
+        "7364:3041": {
+          "name": "Type=Tertiary, Size=Default, State=Hovered",
+          "key": "992b57d29a243acda3301a10fdf64ced72288ada",
+          "description": ""
+        },
+        "7364:3013": {
+          "name": "Type=Icon, Size=Small, State=Default",
+          "key": "57f5ecfdc45ba5c35cfcbb6c50980826590a60a4",
+          "description": ""
+        },
+        "7364:3057": {
+          "name": "Type=Tertiary, Size=Small, State=Hovered",
+          "key": "a13407bbfb73363202396431f30bf3539462862c",
+          "description": ""
+        },
+        "15988:7610": {
+          "name": "Type=Low emphasis, Size=Small, State=Hovered",
+          "key": "f74bb877e4452738ececb524bc11d2a929d3b438",
+          "description": ""
+        },
+        "7364:3123": {
+          "name": "Type=Tertiary, Size=Default, State=Pressed",
+          "key": "917531d9c76535c1162787d277a3b8116336be95",
+          "description": ""
+        },
+        "7364:3065": {
+          "name": "Type=Icon, Size=Default, State=Hovered",
+          "key": "d009d0a924c6b3e6075ee8b4e105e9e745de13c1",
+          "description": ""
+        },
+        "7364:3093": {
+          "name": "Type=Icon, Size=Small, State=Hovered",
+          "key": "1a8752f9e5f317ac5b585cb42e2fc0c38472f0b1",
+          "description": ""
+        },
+        "7364:3169": {
+          "name": "Type=Tertiary, Size=Small, State=Pressed",
+          "key": "677a753e27dd6ca214791b0c5d1352f8ab1f86a8",
+          "description": ""
+        },
+        "15988:7615": {
+          "name": "Type=Low emphasis, Size=Small, State=Pressed",
+          "key": "373ecfdb90b66f2a7721b4c2ca077dcad1115e18",
+          "description": ""
+        },
+        "7364:3193": {
+          "name": "Type=Icon, Size=Default, State=Pressed",
+          "key": "dc57a89b7630bee7beca75b7d7f096710ff1158f",
+          "description": ""
+        },
+        "7364:3305": {
+          "name": "Type=Tertiary, Size=Default, State=Focused",
+          "key": "683da9120fc99ac355451b4ee48a742748b305de",
+          "description": ""
+        },
+        "7364:3249": {
+          "name": "Type=Icon, Size=Small, State=Pressed",
+          "key": "24a1f30fc042d7351d7887587b6b249809721ec7",
+          "description": ""
+        },
+        "7364:3267": {
+          "name": "Type=Tertiary, Size=Default, State=Selected",
+          "key": "660d244e7685518439cc2bb2499e0b6261bf71d4",
+          "description": ""
+        },
+        "7364:3351": {
+          "name": "Type=Tertiary, Size=Small, State=Focused",
+          "key": "2da1f8ed5a0f503dc57c0b04009612add716a1e1",
+          "description": ""
+        },
+        "15988:7620": {
+          "name": "Type=Low emphasis, Size=Small, State=Focused",
+          "key": "1a31bef7504511df431ce0b83398b97361bda2c2",
+          "description": ""
+        },
+        "7364:3297": {
+          "name": "Type=Tertiary, Size=Small, State=Selected",
+          "key": "037d4172f826a544a9d41ea0e962f4da854cf8d9",
+          "description": ""
+        },
+        "15988:7626": {
+          "name": "Type=Low emphasis, Size=Small, State=Selected",
+          "key": "81476929a445130ce49bf35c14b51a147a536662",
+          "description": ""
+        },
+        "7364:3313": {
+          "name": "Type=Icon, Size=Default, State=Selected",
+          "key": "8a38b7d1481dc465e3d840a4553c1c41143e53c9",
+          "description": ""
+        },
+        "7364:3319": {
+          "name": "Type=Tertiary, Size=Default, State=Disabled",
+          "key": "681b73b6a87df7d7de2e082022f1b4e22d4bbb78",
+          "description": ""
+        },
+        "7364:3339": {
+          "name": "Type=Icon, Size=Small, State=Selected",
+          "key": "0140f4bdcee73bde80769b6089fe28696235e0ed",
+          "description": ""
+        },
+        "7364:3359": {
+          "name": "Type=Tertiary, Size=Small, State=Disabled",
+          "key": "266858288e4da56fdc8539717de645f71fa37db5",
+          "description": ""
+        },
+        "15988:7631": {
+          "name": "Type=Low emphasis, Size=Small, State=Disabled",
+          "key": "7438864938ddc02c4aaeffc67884382c5126714f",
+          "description": ""
+        },
+        "7364:3365": {
+          "name": "Type=Icon, Size=Default, State=Focused",
+          "key": "fa954a415356a4a6ce998a2ad2288dfd168e686e",
+          "description": ""
+        },
+        "7364:3371": {
+          "name": "Type=Icon, Size=Default, State=Disabled",
+          "key": "3427a5f411a0e336066aedae21f6a364f0381d65",
+          "description": ""
+        },
+        "7364:3385": {
+          "name": "Type=Icon, Size=Small, State=Focused",
+          "key": "a5ae7bdf7bcf1ad9391dbc58fddb2d74e5cf35ce",
+          "description": ""
+        },
+        "7364:3391": {
+          "name": "Type=Icon, Size=Small, State=Disabled",
+          "key": "c24eb2d008e2caf8783f8295263092a8cbfbde27",
+          "description": ""
+        },
+        "7364:3395": {
+          "name": "Type=Critical primary, Size=Default, State=Default",
+          "key": "102fe069b903c4c965e7e6b38040976b47be2b33",
+          "description": ""
+        },
+        "7364:3398": {
+          "name": "Type=Critical primary, Size=Default, State=Hovered",
+          "key": "9f4e02afc444e0787770de91bbe89079b1b46b83",
+          "description": ""
+        },
+        "7364:3402": {
+          "name": "Type=Critical primary, Size=Default, State=Focused",
+          "key": "39974d6a30dd6e89b591df0201f1cb61db65c0b1",
+          "description": ""
+        },
+        "7364:3406": {
+          "name": "Type=Critical primary, Size=Default, State=Pressed",
+          "key": "a5fdf5ee5df41444cf95a7a4e35214c8f95f4b7d",
+          "description": ""
+        },
+        "13877:5372": {
+          "name": "Type=Critical secondary, Size=Default, State=Default",
+          "key": "df1b7db08b3c217e7d9fe49bee720fcfb80e8648",
+          "description": ""
+        },
+        "13877:5375": {
+          "name": "Type=Critical secondary, Size=Default, State=Hovered",
+          "key": "2ee0a739658a46239ff9e45c39db72f4b9a683b6",
+          "description": ""
+        },
+        "13877:5379": {
+          "name": "Type=Critical secondary, Size=Default, State=Focused",
+          "key": "380d54e58421d488e947f5548a70dc60778bbfde",
+          "description": ""
+        },
+        "13877:5384": {
+          "name": "Type=Critical secondary, Size=Default, State=Pressed",
+          "key": "01bd071600e4be61aa5c448728228b64dd0b729a",
+          "description": ""
+        }
+      }
+    }
+  },
+  "fileKey": "l8biHxfarNi1I2RMvVxVOK"
+}
