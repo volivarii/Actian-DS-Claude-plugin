@@ -126,10 +126,12 @@ function buildMockRest(data) {
     getStyles: function (k) {
       return Promise.resolve({ meta: { styles: data.styles[k] || [] } });
     },
-    getNode: function (k, id) {
+    getNodes: function (k, ids) {
       var nodesForKey = data.nodes[k] || {};
       var out = {};
-      if (nodesForKey[id]) out[id] = nodesForKey[id];
+      (ids || []).forEach(function (id) {
+        if (nodesForKey[id]) out[id] = nodesForKey[id];
+      });
       return Promise.resolve({ nodes: out });
     },
   };
@@ -370,9 +372,10 @@ describe("sync-from-figma", function () {
     });
   });
 
-  describe("node fetch concurrency cap", function () {
-    it("never exceeds NODE_FETCH_CONCURRENCY=2 when fetching many nodes", async function () {
-      // Build a kit with 20 component sets so the concurrency limit matters.
+  describe("node fetch batching", function () {
+    it("calls rest.getNodes once per phase (not once per id)", async function () {
+      // 20 component sets — without batching that's 20 separate calls.
+      // With batching it should collapse to a single rest.getNodes call.
       var componentSets = [];
       var nodes = {};
       for (var i = 0; i < 20; i++) {
@@ -401,38 +404,28 @@ describe("sync-from-figma", function () {
         nodes: { dsk: nodes, fmk: {}, mtk: {} },
       };
 
-      var inFlight = 0;
-      var maxInFlight = 0;
       var rest = buildMockRest(data);
-      var origGetNode = rest.getNode;
-      rest.getNode = function (k, id) {
-        inFlight++;
-        if (inFlight > maxInFlight) maxInFlight = inFlight;
-        return new Promise(function (resolve) {
-          setTimeout(function () {
-            inFlight--;
-            resolve(origGetNode(k, id));
-          }, 5);
-        });
+      var origGetNodes = rest.getNodes;
+      var calls = [];
+      rest.getNodes = function (k, ids) {
+        calls.push({ key: k, idCount: (ids || []).length });
+        return origGetNodes(k, ids);
       };
 
-      var prevEnv = process.env.NODE_FETCH_CONCURRENCY;
-      process.env.NODE_FETCH_CONCURRENCY = "2";
-      try {
-        var dirs = freshDirs();
-        await sync.run(baseOpts(dirs, { rest: rest, phase: "registries" }));
-        assert.ok(
-          maxInFlight <= 2,
-          "maxInFlight should be ≤ 2, got " + maxInFlight,
-        );
-        assert.ok(
-          maxInFlight >= 1,
-          "should have at least 1 in flight at the peak (" + maxInFlight + ")",
-        );
-      } finally {
-        if (prevEnv === undefined) delete process.env.NODE_FETCH_CONCURRENCY;
-        else process.env.NODE_FETCH_CONCURRENCY = prevEnv;
-      }
+      var dirs = freshDirs();
+      await sync.run(baseOpts(dirs, { rest: rest, phase: "registries" }));
+
+      // Empty arrays short-circuit in fetchNodesMap, so empty-input kits
+      // (fmk, mtk standalones, dsk standalones) don't call getNodes at all.
+      var dsCalls = calls.filter(function (c) {
+        return c.key === "dsk";
+      });
+      assert.strictEqual(
+        dsCalls.length,
+        1,
+        "DS Kit should batch all 20 component sets into 1 getNodes call",
+      );
+      assert.strictEqual(dsCalls[0].idCount, 20);
     });
   });
 

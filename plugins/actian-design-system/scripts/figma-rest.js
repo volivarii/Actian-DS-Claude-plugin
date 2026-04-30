@@ -127,15 +127,55 @@ function getFile(fileKey, opts) {
   return request(url);
 }
 
+// Default batch size for getNodes. Figma accepts comma-separated ids on the
+// `/nodes?ids=...` endpoint; 50 keeps URL length comfortably under 8KB while
+// reducing a 300-id sync from 300 calls to 6.
+var DEFAULT_NODES_BATCH_SIZE = 50;
+
 function getNode(fileKey, nodeId) {
   if (!nodeId) return Promise.reject(new Error("getNode requires a nodeId"));
-  var url =
-    BASE +
-    "/v1/files/" +
-    encodeURIComponent(fileKey) +
-    "/nodes?ids=" +
-    encodeURIComponent(nodeId);
-  return request(url);
+  return getNodes(fileKey, [nodeId]);
+}
+
+// Fetch many nodes in batches. Returns merged `{ nodes: { id: payload, … } }`
+// across batches. Batches are issued sequentially to avoid Figma's per-second
+// rate limit — empirically 3 parallel /nodes requests was still enough to
+// trigger 429s, so we go fully sequential here.
+function getNodes(fileKey, nodeIds, opts) {
+  if (!Array.isArray(nodeIds))
+    return Promise.reject(new Error("getNodes requires an array of nodeIds"));
+  if (nodeIds.length === 0) return Promise.resolve({ nodes: {} });
+
+  opts = opts || {};
+  var batchSize = opts.batchSize || DEFAULT_NODES_BATCH_SIZE;
+
+  var batches = [];
+  for (var i = 0; i < nodeIds.length; i += batchSize) {
+    batches.push(nodeIds.slice(i, i + batchSize));
+  }
+
+  var merged = {};
+  return batches
+    .reduce(function (prev, batch) {
+      return prev.then(function () {
+        var idsParam = batch.map(encodeURIComponent).join(",");
+        var url =
+          BASE +
+          "/v1/files/" +
+          encodeURIComponent(fileKey) +
+          "/nodes?ids=" +
+          idsParam;
+        return request(url).then(function (resp) {
+          var nodes = (resp && resp.nodes) || {};
+          Object.keys(nodes).forEach(function (id) {
+            merged[id] = nodes[id];
+          });
+        });
+      });
+    }, Promise.resolve())
+    .then(function () {
+      return { nodes: merged };
+    });
 }
 
 function getStyles(fileKey) {
@@ -176,6 +216,7 @@ function _resetBackoffDelays() {
 module.exports = {
   getFile: getFile,
   getNode: getNode,
+  getNodes: getNodes,
   getStyles: getStyles,
   getComponents: getComponents,
   getComponentSets: getComponentSets,

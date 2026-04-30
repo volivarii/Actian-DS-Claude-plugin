@@ -107,7 +107,7 @@ describe("figma-rest", function () {
       });
     });
 
-    it("getNode includes ids query param", function () {
+    it("getNode includes ids query param (single id, delegates to getNodes)", function () {
       var capturedUrl = null;
       mockFetch(function (url) {
         capturedUrl = url;
@@ -119,6 +119,72 @@ describe("figma-rest", function () {
           capturedUrl,
           /\/v1\/files\/filekey123\/nodes\?ids=12685(%3A|:)19373/,
         );
+      });
+    });
+
+    it("getNodes joins multiple ids with comma in single call when under batchSize", function () {
+      var capturedUrls = [];
+      mockFetch(function (url) {
+        capturedUrls.push(url);
+        return jsonResponse(200, { nodes: {} });
+      });
+      var rest = loadFreshRest();
+      return rest
+        .getNodes("filekey123", ["1:1", "2:2", "3:3"])
+        .then(function () {
+          assert.strictEqual(
+            capturedUrls.length,
+            1,
+            "should be one batched call",
+          );
+          // Comma-separated, with each id URL-encoded
+          assert.match(
+            capturedUrls[0],
+            /\/v1\/files\/filekey123\/nodes\?ids=1(%3A|:)1,2(%3A|:)2,3(%3A|:)3/,
+          );
+        });
+    });
+
+    it("getNodes splits into multiple sequential batches when over batchSize", function () {
+      var capturedUrls = [];
+      mockFetch(function (url) {
+        capturedUrls.push(url);
+        // Return one node per id requested
+        var match = url.match(/ids=([^&]+)/);
+        var ids = match[1].split(",").map(decodeURIComponent);
+        var nodes = {};
+        ids.forEach(function (id) {
+          nodes[id] = { document: { id: id } };
+        });
+        return jsonResponse(200, { nodes: nodes });
+      });
+      var ids = [];
+      for (var i = 0; i < 7; i++) ids.push(i + ":0");
+      var rest = loadFreshRest();
+      return rest
+        .getNodes("filekey123", ids, { batchSize: 3 })
+        .then(function (resp) {
+          assert.strictEqual(
+            capturedUrls.length,
+            3,
+            "7 ids / batchSize 3 = 3 batches",
+          );
+          assert.strictEqual(Object.keys(resp.nodes).length, 7);
+          assert.ok(resp.nodes["0:0"]);
+          assert.ok(resp.nodes["6:0"]);
+        });
+    });
+
+    it("getNodes returns empty map for empty ids array (no network call)", function () {
+      var calls = 0;
+      mockFetch(function () {
+        calls++;
+        return jsonResponse(200, { nodes: {} });
+      });
+      var rest = loadFreshRest();
+      return rest.getNodes("filekey123", []).then(function (resp) {
+        assert.strictEqual(calls, 0);
+        assert.deepStrictEqual(resp, { nodes: {} });
       });
     });
 
