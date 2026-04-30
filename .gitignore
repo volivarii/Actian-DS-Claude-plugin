@@ -7,6 +7,7 @@ settings.json
 
 # Generated output (teammates create their own via skills)
 components/
+flows/
 presentations/
 prototypes/
 
