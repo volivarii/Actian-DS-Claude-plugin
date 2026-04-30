@@ -38,6 +38,8 @@ var KNOWN_SYNC_OUTPUTS = [
   "docs/meta-kit/meta-kit-reference.md",
   "tokens/actian-ds.tokens.css",
   "docs/foundations/_index.json",
+  // Sprint 1 Wave 1: REST orchestrator output, populated on first nightly run.
+  "docs/meta-kit/styles.json",
 ];
 
 // Known root-relative prefixes (resolve from plugin root)
@@ -245,22 +247,42 @@ for (var f = 0; f < allMdFiles.length; f++) {
 // ---------------------------------------------------------------------------
 
 describe("Path Validation", function () {
-  describe("Scanning " + allMdFiles.length + " .md files for path references", function () {
-    it("all " + totalPaths + " path references resolve to existing files", function () {
-      if (brokenPaths.length > 0) {
-        var details = brokenPaths.map(function (bp) {
-          return bp.source + ":" + bp.line + " — " + bp.path + " → " + bp.resolved + " (not found)";
-        }).join("\n  ");
-        assert.fail("Broken path references:\n  " + details);
-      }
-      // If we get here, all paths resolved
-    });
+  describe(
+    "Scanning " + allMdFiles.length + " .md files for path references",
+    function () {
+      it(
+        "all " + totalPaths + " path references resolve to existing files",
+        function () {
+          if (brokenPaths.length > 0) {
+            var details = brokenPaths
+              .map(function (bp) {
+                return (
+                  bp.source +
+                  ":" +
+                  bp.line +
+                  " — " +
+                  bp.path +
+                  " → " +
+                  bp.resolved +
+                  " (not found)"
+                );
+              })
+              .join("\n  ");
+            assert.fail("Broken path references:\n  " + details);
+          }
+          // If we get here, all paths resolved
+        },
+      );
 
-    if (skippedSyncOutputs.length > 0) {
-      it("sync output paths are expected to be missing (skipped)", function () {
-        // These paths only exist after /sync-design-system — always passes
-        assert.ok(true, skippedSyncOutputs.length + " sync output paths skipped");
-      });
-    }
-  });
+      if (skippedSyncOutputs.length > 0) {
+        it("sync output paths are expected to be missing (skipped)", function () {
+          // These paths only exist after /sync-design-system — always passes
+          assert.ok(
+            true,
+            skippedSyncOutputs.length + " sync output paths skipped",
+          );
+        });
+      }
+    },
+  );
 });
