@@ -88,7 +88,7 @@ Serve, present review report, accept feedback or "push".
 ## Key rules
 
 - All content uses DS Kit tokens (`--zen-*` prefix), Roboto font
-- Charts use `--zen-color-category-N-strong` — never hardcode chart colors
+- Charts rotate through semantic palette tokens (`--zen-color-primary-500`, `--zen-color-success-500`, `--zen-color-warning-500`, `--zen-color-error-500`, `--zen-color-annotation-annotation`, `--zen-color-neutral-600`) — never hardcode chart colors
 - 1 message per slide, headlines as conclusions ("So what?" test), max 6 bullets or 150 words
 - All slide copy follows `../../docs/presentation-guide.md`
 

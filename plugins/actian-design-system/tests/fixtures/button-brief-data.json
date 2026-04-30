@@ -210,7 +210,7 @@
       { "type": "punctuation", "text": " { " },
       { "type": "property", "text": "background" },
       { "type": "punctuation", "text": ": " },
-      { "type": "value", "text": "var(--zen-theme-primary)" },
+      { "type": "value", "text": "var(--zen-color-primary-500)" },
       { "type": "punctuation", "text": "; }" }
     ]
   }

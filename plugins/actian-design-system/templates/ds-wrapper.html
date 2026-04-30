@@ -52,9 +52,9 @@
         --zen-color-text-primary: #000000;
         --zen-color-text-secondary: #3f3f4a;
         --zen-color-text-tertiary: #595968;
-        --zen-color-background-bg-default: #ffffff;
-        --zen-color-background-bg-grey-2: #f5f5fa;
-        --zen-color-border-default: #e4e4f0;
+        --zen-color-bg-default: #ffffff;
+        --zen-color-bg-muted: #f5f5fa;
+        --zen-border-default: #e4e4f0;
         --zen-color-status-success-primary: #047800;
         --zen-color-status-error-primary: #c10c0d;
         --zen-spacing-2xs: 4px;
@@ -63,9 +63,9 @@
         --zen-spacing-md: 16px;
         --zen-size-lg: 24px;
         --zen-size-xl: 32px;
-        --zen-radius-default: 6px;
-        --zen-width-default: 1px;
-        --zen-width-focus: 2px;
+        --zen-border-radius-sm: 6px;
+        --zen-border-width-md: 1px;
+        --zen-border-width-lg: 2px;
       }
 
       /* ============================================================
@@ -254,7 +254,7 @@
         gap: 16px;
         padding: 24px 32px;
         background: #fafafa;
-        border: 1px solid var(--zen-color-border-default);
+        border: 1px solid var(--zen-border-default);
         border-radius: 12px;
       }
       .theme-card__label {
@@ -343,7 +343,7 @@
       .anatomy-component {
         position: relative;
         padding: 28px 32px;
-        border: 2px dashed var(--zen-color-border-default);
+        border: 2px dashed var(--zen-border-default);
         border-radius: 12px;
       }
       .anatomy-component__label {
@@ -409,7 +409,7 @@
         font-weight: 600;
         padding: 12px 16px;
         background: #f5f5fa;
-        border-bottom: 1px solid var(--zen-color-border-default);
+        border-bottom: 1px solid var(--zen-border-default);
         color: var(--zen-color-text-secondary);
         font-size: 13px;
       }
@@ -443,7 +443,7 @@
         padding: 24px;
         background: #fafafa;
         border-radius: 12px;
-        border: 1px solid var(--zen-color-border-default);
+        border: 1px solid var(--zen-border-default);
       }
       .a11y-card__icon {
         width: 36px;
@@ -646,7 +646,7 @@
         padding: 10px 12px;
         text-align: center;
         background: #f5f5fa;
-        border-bottom: 1px solid var(--zen-color-border-default);
+        border-bottom: 1px solid var(--zen-border-default);
       }
       .variant-matrix th:first-child {
         text-align: left;

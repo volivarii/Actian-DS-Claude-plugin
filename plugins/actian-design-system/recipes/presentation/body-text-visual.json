@@ -11,7 +11,7 @@
     "Text and visual must reinforce the same message — don't show unrelated content",
     "Text side: max 4 bullets or 100 words (less than body-full since space is split)",
     "Visual side should be the primary focus — text supports the visual, not the other way around",
-    "Charts use --zen-color-category-N-strong tokens",
+    "Charts rotate through semantic palette tokens (--zen-color-primary-500, --zen-color-success-500, --zen-color-warning-500, --zen-color-error-500, --zen-color-annotation-annotation, --zen-color-neutral-600), never hardcoded colors",
     "Split is typically 40/60 or 50/50 — visual side gets equal or more space",
     "All text uses Roboto font family"
   ],

@@ -105,7 +105,7 @@ Builds a fully styled specification table with header row and data rows, appende
 
 | Element | Value | Token |
 |---------|-------|-------|
-| Header background | `#F5F5FA` | `--zen-color-background-bg-grey-2` |
+| Header background | `#F5F5FA` | `--zen-color-bg-muted` |
 | Header text color | `#3F3F4A` | `--zen-color-text-secondary` |
 | Header font | Inter 13px Semi Bold | — |
 | Cell text color | `#2D3648` | — |

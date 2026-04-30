@@ -11,7 +11,7 @@
     "Headlines must be conclusions ('So what?' test), not topic labels",
     "Max 6 bullet points or 150 words per slide",
     "Stat cards: 2-4 per row, each with label + value + optional trend indicator",
-    "Charts use --zen-color-category-N-strong tokens, never hardcoded colors",
+    "Charts rotate through semantic palette tokens (--zen-color-primary-500, --zen-color-success-500, --zen-color-warning-500, --zen-color-error-500, --zen-color-annotation-annotation, --zen-color-neutral-600), never hardcoded colors",
     "Tables: max 5 columns, max 6 rows — simplify or split if more data",
     "All text uses Roboto font family"
   ],

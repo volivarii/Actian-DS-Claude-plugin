@@ -202,7 +202,7 @@ const tokenMap = {
   enabled: [
     '--zen-color-theme-primary',
     '--zen-color-interactive-enabled-inverse',
-    '--zen-radius-sm',
+    '--zen-border-radius-sm',
     '--zen-spacing-xs'
   ],
   hovered: [
@@ -211,7 +211,7 @@ const tokenMap = {
   ],
   focused: [
     '--zen-color-interactive-focused-stroke-default',
-    '--zen-width-focus'
+    '--zen-border-width-lg'
   ],
   disabled: [
     '--zen-color-interactive-disabled-primary',

@@ -63,7 +63,7 @@ Example for slides 5-8:
 - Generate ONLY the assigned slides — do not generate slides outside your batch
 - Follow figma-spec-builder.md for slide types and content structure
 - All content uses DS Kit tokens (`--zen-*` prefix), Roboto font
-- Charts use `--zen-color-category-N-strong` — never hardcode chart colors
+- Charts rotate through semantic palette tokens (`--zen-color-primary-500`, `--zen-color-success-500`, `--zen-color-warning-500`, `--zen-color-error-500`, `--zen-color-annotation-annotation`, `--zen-color-neutral-600`) — never hardcode chart colors
 - 1 message per slide, headlines as conclusions ("So what?" test), max 6 bullets or 150 words
 - Write the file silently — do not output the JSON to chat
 - If you cannot generate a slide (missing content), include a minimal placeholder slide and report DONE_WITH_CONCERNS

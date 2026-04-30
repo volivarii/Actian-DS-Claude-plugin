@@ -107,7 +107,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
   ],
   "states": ["Default", "Focused", "Error", "Disabled"],
   "partsTable": [
-    { "part": "A", "element": "Container", "token": "--zen-radius-xs, --zen-spacing-sm", "notes": "4px border-radius, 12px padding, 48px height" },
+    { "part": "A", "element": "Container", "token": "--zen-border-radius-xs, --zen-spacing-sm", "notes": "4px border-radius, 12px padding, 48px height" },
     { "part": "B", "element": "Floating label", "token": "--zen-font-body-micro", "notes": "Roboto 400 11px/14px when floated" },
     { "part": "C", "element": "Input value", "token": "--zen-font-body-standard", "notes": "Roboto 400 14px/20px, 0.2px tracking" },
     { "part": "D", "element": "Helper text", "token": "--zen-font-body-subtle", "notes": "Roboto 400 12px/16px, 0.3px tracking" }

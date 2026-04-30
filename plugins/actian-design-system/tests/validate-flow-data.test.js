@@ -146,7 +146,7 @@ describe("validate-flow-data", function () {
             content: [
               {
                 type: "FRAME",
-                fills: ["var(--zen-color-brand-primary)"],
+                fills: ["var(--zen-color-primary-500)"],
               },
             ],
           },
@@ -253,9 +253,9 @@ describe("validate-flow-data", function () {
     it("accepts var(--zen-…) and var(--fm-…) references", function () {
       var issues = validate.findHardcodedColors(
         fixture([
-          { type: "FRAME", fills: ["var(--zen-color-brand-primary)"] },
+          { type: "FRAME", fills: ["var(--zen-color-primary-500)"] },
           { type: "FRAME", fills: ["var(--fm-bg-default)"] },
-          { type: "TEXT", content: "x", color: "var(--zen-text-default)" },
+          { type: "TEXT", content: "x", color: "var(--zen-color-text-primary)" },
         ]),
       );
       assert.strictEqual(issues.length, 0);

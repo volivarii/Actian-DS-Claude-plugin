@@ -146,16 +146,16 @@ No JavaScript dependencies:
 - **Comparison tables** — side-by-side features
 - **Before/after cards** — two stat cards with arrow
 
-All charts use `--zen-color-category-N-strong` tokens. Never hardcode chart colors.
+Charts rotate through semantic palette tokens (`--zen-color-primary-500`, `--zen-color-success-500`, `--zen-color-warning-500`, `--zen-color-error-500`, `--zen-color-annotation-annotation`, `--zen-color-neutral-600`). Never hardcode chart colors.
 
 ## Figma output — slide types
 
 Each slide: **1920 x 1080 px**, auto-layout inside. Font: **Roboto**.
 
-- **Cover**: `theme-primary` gradient, inverse text 48px bold + 24px subtitle
-- **Body (Text + Visual)**: `background-bg-default`, two-column, heading 32px bold, body 18px
-- **Section divider**: `background-bg-grey-2`, centered 36px bold
-- **Back cover**: `theme-primary` gradient, inverse text
+- **Cover**: `primary-500` gradient, reverse text 48px bold + 24px subtitle
+- **Body (Text + Visual)**: `bg-default`, two-column, heading 32px bold, body 18px
+- **Section divider**: `bg-muted`, centered 36px bold
+- **Back cover**: `primary-500` gradient, reverse text
 
 Token binding: `../../references/figma-output.md` § "Token binding". Variable keys: `../../docs/meta-kit/variables.md`.
 Shared components: `../../docs/meta-kit/components.md` (Do-Don't Pair, Code Block).
@@ -163,7 +163,7 @@ Tables: `../../docs/meta-kit/builders.md` (`buildSpecTable`).
 
 ### Charts in `use_figma`
 
-- **Bar charts** — rectangles using `category-N-strong` hex
+- **Bar charts** — rectangles using semantic palette hex (primary/success/warning/error/annotation/neutral-600)
 - **Data tables** — horizontal auto-layout with header + data rows
 - **Complex charts** — placeholder frame labeled `"Chart: [description]"`
 

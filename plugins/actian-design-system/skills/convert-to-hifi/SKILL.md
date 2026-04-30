@@ -147,8 +147,8 @@ If the user chose "skip unmapped", omit those nodes entirely.
 
 Apply DS spacing tokens and layout rules to every container before pushing:
 - Auto Layout on all frames — `VERTICAL` or `HORIZONTAL` per context
-- Item spacing: `--zen-space-4` (16px) for content rows, `--zen-space-6` (24px) for section gaps
-- Padding: `--zen-space-5` (20px) horizontal, `--zen-space-4` (16px) vertical on screen body
+- Item spacing: `--zen-spacing-md` (16px) for content rows, `--zen-spacing-lg` (24px) for section gaps
+- Padding: `--zen-spacing-lg` (20px) horizontal, `--zen-spacing-md` (16px) vertical on screen body
 - Typography: map FM text sizes to DS text style tokens (body, label, heading tiers)
 - See `references/component-instance-rules.md` for property-setting rules
 

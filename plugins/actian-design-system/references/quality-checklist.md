@@ -98,7 +98,7 @@ Items specific to the `generate-presentation` skill, in addition to Universal.
 |---|-------|---------------|
 | 1 | **Slide count matches outline** | Final deck has the planned number of slides — no missing or extra slides. |
 | 2 | **Cover slide complete** | Cover has title, subtitle, date, and creators fields filled. |
-| 3 | **Charts use category tokens** | All chart series colors use `category-N-strong` tokens (or `--zen-color-category-N-strong` in CSS). Never hardcoded chart colors. |
+| 3 | **Charts use semantic palette tokens** | Chart series rotate through `primary-500`, `success-500`, `warning-500`, `error-500`, `annotation-annotation`, `neutral-600` (CSS form: `--zen-color-{name}`). Never hardcoded chart colors. |
 | 4 | **Review report completed** | Step 5 review report presented and approved before Figma output. |
 | 5 | **Content follows guidelines** | Every headline passes "So what?" test. 1 message per slide. Active voice. Max 6 bullets or 150 words per text area. Every metric has context. |
 | 6 | **Slide templates correct** | Cover and Back cover use gradient backgrounds. Section dividers use light gradient. Body slides use white background. |

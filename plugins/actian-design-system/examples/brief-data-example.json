@@ -776,7 +776,7 @@
       },
       {
         "type": "value",
-        "text": "var(--zen-theme-primary)"
+        "text": "var(--zen-color-primary-500)"
       },
       {
         "type": "punctuation",
@@ -934,7 +934,7 @@
       },
       {
         "type": "value",
-        "text": "var(--zen-theme-primary-hover)"
+        "text": "var(--zen-color-primary-600)"
       },
       {
         "type": "punctuation",
@@ -993,7 +993,7 @@
       },
       {
         "type": "value",
-        "text": "2px solid var(--zen-theme-primary)"
+        "text": "2px solid var(--zen-color-primary-500)"
       },
       {
         "type": "punctuation",
@@ -1031,7 +1031,7 @@
       },
       {
         "type": "value",
-        "text": "var(--zen-radius-xs)"
+        "text": "var(--zen-border-radius-xs)"
       },
       {
         "type": "punctuation",
@@ -1071,7 +1071,7 @@
       },
       {
         "type": "value",
-        "text": "var(--zen-text-disabled)"
+        "text": "var(--zen-color-text-disabled)"
       },
       {
         "type": "punctuation",
