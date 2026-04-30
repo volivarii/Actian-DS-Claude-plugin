@@ -11,7 +11,9 @@ Extract design system data directly from Figma libraries via MCP tools. Single-h
 
 > **Primary purpose: Phase 2 (variables sync) + Phase 4 (token regen).** Phase 2 cannot run in CI because Figma's Variables REST API is gated to Enterprise plans, so this skill is the only path. Run when DS Kit variables change in Figma — typically monthly.
 >
-> **Phases 1 and 3 auto-sync nightly** via `.github/workflows/sync-from-figma.yml` (Sprint 1 v1.59.0). Use the manual phase paths below only as fallback if the workflow is broken or for local debugging. Phases 5 and 6 still run through this skill until Wave 2 (v1.60.0) ships.
+> **Phases 1 and 3 auto-sync nightly** via `.github/workflows/sync-from-figma.yml` (Sprint 1 v1.59.0). Use the manual phase paths below only as fallback if the workflow is broken or for local debugging.
+>
+> **Phases 5 and 6 stay manual by design.** Component guidelines and foundations are hand-curated content (term/rule/examples nesting, do/don't pairs, hand-written prose) where Figma frame text isn't the source of truth — humans are. Auto-sync's natural scope ends at pure REST-extractable data. The auto pipeline owns registries + styles; this skill owns variables + tokens + guidelines + foundations. One pipeline per data type, no shared file ownership. Re-evaluate only if Figma adds (a) Variables API on Pro tier or (b) structured semantic extraction that would make guideline reproduction faithful.
 
 ## Input
 
@@ -47,8 +49,8 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 | 2 | Variables | 2 `use_figma` | `docs/meta-kit/variables.md` (Enterprise-gated REST — manual only) |
 | 3 | Styles ⚙️ auto-handled | 2 `use_figma` | `docs/meta-kit/styles.json` (auto-sync nightly); `text-styles.md` + `effect-styles.md` are fallback markdown mirrors |
 | 4 | Token files | 0 (transforms Phase 2) | `docs/token-reference.md`, `tokens/tokens.css`, `tokens/actian-ds.tokens.json` |
-| 5 | Guidelines | ~5 + ~30 `get_design_context` incremental | `docs/component-guidelines/*.json` (Wave 2 candidate — still manual until v1.60.0) |
-| 6 | Foundations | ~3 + ~15 `get_design_context` incremental | `docs/foundations/*.json`, `docs/content-guidelines.md`, `docs/accessibility-guidelines.md` (Wave 2 candidate) |
+| 5 | Guidelines | ~5 + ~30 `get_design_context` incremental | `docs/component-guidelines/*.json` (manual by design — curated content) |
+| 6 | Foundations | ~3 + ~15 `get_design_context` incremental | `docs/foundations/*.json`, `docs/content-guidelines.md`, `docs/accessibility-guidelines.md` (manual by design — curated content) |
 | 7 | Validation | 0 (git diff) | `release-notes/sync-YYYY-MM-DD.md` |
 
 **Phase dependencies:** Phase 4 requires Phase 2 data. All other phases are independent.

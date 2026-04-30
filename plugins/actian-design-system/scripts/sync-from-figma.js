@@ -9,7 +9,9 @@
 // Wave 1 scope: Phase 1 (registries: dsKit/fmKit/metaKit) + Phase 3 (text +
 // effect styles, written to docs/meta-kit/styles.json).
 //
-// Wave 2 (Tasks 4 + 5) will add component guidelines + foundations.
+// Phases 5 + 6 (component guidelines + foundations) stay manual via the
+// /sync-design-system skill — they're hand-curated content, not pure data.
+// See SKILL.md for the architectural rationale.
 //
 // Exit codes:
 //   0 — verdict additive or unchanged
