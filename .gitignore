@@ -27,6 +27,12 @@ node_modules/
 # Figma file keys (sensitive — create from .figma-keys.json.example)
 plugins/*/.figma-keys.json
 
+# Secrets / API tokens (Figma PAT, etc.) — create from .env.example
+.env
+.env.local
+plugins/*/.env
+plugins/*/.env.local
+
 # Test prompts (local reference only)
 plugins/*/TEST-PROMPTS.md
 
