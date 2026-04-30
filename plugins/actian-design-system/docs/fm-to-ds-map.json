@@ -3,7 +3,7 @@
     "description": "FM Kit to DS Kit component mapping for hifi conversion",
     "fmRegistry": "docs/fmkit.json",
     "dsRegistry": "docs/dskit.json",
-    "lastUpdated": "2026-04-09"
+    "lastUpdated": "2026-04-30"
   },
   "mappings": {
     "fmButton": {
@@ -220,29 +220,6 @@
         }
       },
       "notes": "FM 'Property 1' maps to DS 'View' axis. DS 'App' axis has no FM equivalent (default Admin)."
-    },
-    "fmNavItem": {
-      "dsSlug": "nav-item",
-      "defaultVariant": {
-        "Level": "Top",
-        "Opened/Closed": "N/A",
-        "State": "Default"
-      },
-      "variantMap": {
-        "State": {
-          "On": "Selected",
-          "Off": "Default",
-          "Placeholder": "Disabled"
-        }
-      },
-      "propertyMap": {
-        "Show icon": "Icon left",
-        "Show Label": "Label",
-        "Label": "Name",
-        "Icon": "Icon left2",
-        "Chevron": "Icon right"
-      },
-      "notes": "FM State On/Off/Placeholder maps to DS State Selected/Default/Disabled."
     },
     "fmPageHeader": {
       "dsSlug": "page-header",
@@ -490,6 +467,7 @@
     "fmInputLabel": "FM-only label helper. DS input components have built-in label properties -- set label boolean/text on the DS input directly.",
     "fmBanner": "Not yet in fmkit.json registry. When synced, map to DS alert-banner.",
     "fmSpinner": "Not yet in fmkit.json registry. When synced, map to DS spinner.",
-    "fmTabs": "Not yet in fmkit.json registry. When synced, map to DS tabs container."
+    "fmTabs": "Not yet in fmkit.json registry. When synced, map to DS tabs container.",
+    "fmNavItem": "FM Nav Item is a single nav row. The standalone `nav item` component_set in DS Kit is intentionally hidden from publishing — designers want consumers to compose Side nav via instances rather than the row directly. During hifi conversion, replace FM Nav Item instances with rows inside an instance of `side-nav` (set 13599:20120, axes App=Admin/Studio, View=Collapsed/Expanded). FM State On/Off/Placeholder corresponds to the row-level Selected/Default/Disabled, but those rows aren't directly addressable through the published DS API."
   }
 }
