@@ -28,10 +28,16 @@ function jsonResponse(status, body) {
     ok: status >= 200 && status < 300,
     status: status,
     headers: {
-      get: function () { return null; },
+      get: function () {
+        return null;
+      },
     },
-    json: function () { return Promise.resolve(body); },
-    text: function () { return Promise.resolve(JSON.stringify(body)); },
+    json: function () {
+      return Promise.resolve(body);
+    },
+    text: function () {
+      return Promise.resolve(JSON.stringify(body));
+    },
   });
 }
 
@@ -63,10 +69,12 @@ describe("figma-rest", function () {
       delete process.env.FIGMA_PAT;
       var rest = loadFreshRest();
       return rest.getComponentSets("abc").then(
-        function () { assert.fail("should have thrown"); },
+        function () {
+          assert.fail("should have thrown");
+        },
         function (err) {
           assert.match(err.message, /FIGMA_PAT/);
-        }
+        },
       );
     });
   });
@@ -92,7 +100,10 @@ describe("figma-rest", function () {
       });
       var rest = loadFreshRest();
       return rest.getFile("filekey123", { depth: 0 }).then(function () {
-        assert.ok(capturedUrl.indexOf("depth=") === -1, "depth param should be absent for full-tree fetch");
+        assert.ok(
+          capturedUrl.indexOf("depth=") === -1,
+          "depth param should be absent for full-tree fetch",
+        );
       });
     });
 
@@ -104,7 +115,10 @@ describe("figma-rest", function () {
       });
       var rest = loadFreshRest();
       return rest.getNode("filekey123", "12685:19373").then(function () {
-        assert.match(capturedUrl, /\/v1\/files\/filekey123\/nodes\?ids=12685(%3A|:)19373/);
+        assert.match(
+          capturedUrl,
+          /\/v1\/files\/filekey123\/nodes\?ids=12685(%3A|:)19373/,
+        );
       });
     });
 
@@ -129,7 +143,9 @@ describe("figma-rest", function () {
 
   describe("response handling", function () {
     it("returns parsed JSON on 200", function () {
-      mockFetch(function () { return jsonResponse(200, { foo: "bar" }); });
+      mockFetch(function () {
+        return jsonResponse(200, { foo: "bar" });
+      });
       var rest = loadFreshRest();
       return rest.getComponentSets("k").then(function (data) {
         assert.deepStrictEqual(data, { foo: "bar" });
@@ -144,11 +160,13 @@ describe("figma-rest", function () {
       });
       var rest = loadFreshRest();
       return rest.getComponentSets("k").then(
-        function () { assert.fail("should have thrown"); },
+        function () {
+          assert.fail("should have thrown");
+        },
         function (err) {
           assert.strictEqual(calls, 1, "should NOT retry on 403");
           assert.match(err.message, /403/);
-        }
+        },
       );
     });
 
@@ -160,11 +178,13 @@ describe("figma-rest", function () {
       });
       var rest = loadFreshRest();
       return rest.getComponentSets("k").then(
-        function () { assert.fail("should have thrown"); },
+        function () {
+          assert.fail("should have thrown");
+        },
         function (err) {
           assert.strictEqual(calls, 1);
           assert.match(err.message, /404/);
-        }
+        },
       );
     });
   });
@@ -180,11 +200,17 @@ describe("figma-rest", function () {
       // Disable real backoff for fast test
       rest._setBackoffDelays([0, 0, 0]);
       return rest.getComponentSets("k").then(
-        function () { assert.fail("should have thrown"); },
+        function () {
+          assert.fail("should have thrown");
+        },
         function (err) {
-          assert.strictEqual(calls, 4, "1 initial attempt + 3 retries = 4 calls");
+          assert.strictEqual(
+            calls,
+            4,
+            "1 initial attempt + 3 retries = 4 calls",
+          );
           assert.match(err.message, /500/);
-        }
+        },
       );
     });
 
@@ -203,21 +229,59 @@ describe("figma-rest", function () {
       });
     });
 
-    it("retries 429 once with backoff then throws if still 429", function () {
+    it("retries 429 up to 3 times with backoff then throws if still 429", function () {
       var calls = 0;
       mockFetch(function () {
         calls++;
         return jsonResponse(429, { err: "Rate limited" });
       });
       var rest = loadFreshRest();
-      rest._setBackoffDelays([0, 0, 0]);
+      rest._setBackoffDelays([0, 0, 0], [0, 0, 0]);
       return rest.getComponentSets("k").then(
-        function () { assert.fail("should have thrown"); },
+        function () {
+          assert.fail("should have thrown");
+        },
         function (err) {
-          assert.ok(calls >= 2, "should retry on 429 at least once, got " + calls + " calls");
+          assert.strictEqual(
+            calls,
+            4,
+            "1 initial attempt + 3 retries = 4 calls",
+          );
           assert.match(err.message, /429/);
-        }
+        },
       );
+    });
+
+    it("retries 429 and succeeds on 3rd attempt", function () {
+      var calls = 0;
+      mockFetch(function () {
+        calls++;
+        if (calls < 3) return jsonResponse(429, { err: "Rate limited" });
+        return jsonResponse(200, { ok: true });
+      });
+      var rest = loadFreshRest();
+      rest._setBackoffDelays([0, 0, 0], [0, 0, 0]);
+      return rest.getComponentSets("k").then(function (data) {
+        assert.strictEqual(calls, 3);
+        assert.deepStrictEqual(data, { ok: true });
+      });
+    });
+
+    it("5xx and 429 retry budgets are independent", function () {
+      // Sequence: 503, 429, 503, 200 — 1 5xx retry + 1 429 retry, both succeed.
+      var calls = 0;
+      var sequence = [503, 429, 503, 200];
+      mockFetch(function () {
+        var status = sequence[calls++];
+        if (status === 200) return jsonResponse(200, { ok: true });
+        return jsonResponse(status, { err: "transient" });
+      });
+      var rest = loadFreshRest();
+      rest._setBackoffDelays([0, 0, 0], [0, 0, 0]);
+      return rest.getComponentSets("k").then(function (data) {
+        assert.strictEqual(calls, 4);
+        assert.deepStrictEqual(data, { ok: true });
+      });
     });
   });
 });

@@ -65,10 +65,19 @@ function filterStandalones(componentsList) {
   });
 }
 
-// Fetch /nodes for each id in parallel via the wrapper's getNode (single-id
-// per call). Wave 1 nightly volume is small enough that this is fine; if it
-// becomes a hot spot, swap to a batched helper inside figma-rest.js.
-function fetchNodesMap(rest, fileKey, ids) {
+// Default concurrency for /nodes fetches. Figma's REST rate limit is sensitive
+// to short bursts — DS Kit alone has ~330 nodes to fetch, and unbounded parallel
+// requests trigger 429s within seconds. 3 concurrent works empirically; tune
+// via `NODE_FETCH_CONCURRENCY` env var if needed.
+var DEFAULT_NODE_CONCURRENCY = 3;
+
+// Fetch /nodes for each id with a concurrency cap (the wrapper's getNode is
+// single-id per call). Returns a map of nodeId → node payload.
+function fetchNodesMap(rest, fileKey, ids, concurrency) {
+  if (!concurrency) {
+    var envLimit = parseInt(process.env.NODE_FETCH_CONCURRENCY, 10);
+    concurrency = envLimit > 0 ? envLimit : DEFAULT_NODE_CONCURRENCY;
+  }
   var unique = [];
   var seen = {};
   for (var i = 0; i < ids.length; i++) {
@@ -77,14 +86,22 @@ function fetchNodesMap(rest, fileKey, ids) {
     unique.push(ids[i]);
   }
   var out = {};
-  return Promise.all(
-    unique.map(function (id) {
-      return rest.getNode(fileKey, id).then(function (resp) {
+  var cursor = 0;
+  function worker() {
+    if (cursor >= unique.length) return Promise.resolve();
+    var id = unique[cursor++];
+    return rest
+      .getNode(fileKey, id)
+      .then(function (resp) {
         var nodes = (resp && resp.nodes) || {};
         if (nodes[id]) out[id] = nodes[id];
-      });
-    }),
-  ).then(function () {
+      })
+      .then(worker);
+  }
+  var pool = [];
+  var poolSize = Math.min(concurrency, unique.length);
+  for (var w = 0; w < poolSize; w++) pool.push(worker());
+  return Promise.all(pool).then(function () {
     return out;
   });
 }

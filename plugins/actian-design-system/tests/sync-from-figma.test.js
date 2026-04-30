@@ -370,6 +370,72 @@ describe("sync-from-figma", function () {
     });
   });
 
+  describe("node fetch concurrency cap", function () {
+    it("never exceeds NODE_FETCH_CONCURRENCY=2 when fetching many nodes", async function () {
+      // Build a kit with 20 component sets so the concurrency limit matters.
+      var componentSets = [];
+      var nodes = {};
+      for (var i = 0; i < 20; i++) {
+        var nodeId = "9:" + i;
+        componentSets.push({
+          key: "k" + i,
+          node_id: nodeId,
+          name: "Comp" + i,
+          description: "",
+          containing_frame: { pageName: "Page" },
+        });
+        nodes[nodeId] = {
+          document: {
+            id: nodeId,
+            name: "Comp" + i,
+            type: "COMPONENT_SET",
+            componentPropertyDefinitions: {},
+            children: [],
+          },
+        };
+      }
+      var data = {
+        componentSets: { dsk: componentSets, fmk: [], mtk: [] },
+        components: { dsk: [], fmk: [], mtk: [] },
+        styles: { dsk: [], fmk: [], mtk: [] },
+        nodes: { dsk: nodes, fmk: {}, mtk: {} },
+      };
+
+      var inFlight = 0;
+      var maxInFlight = 0;
+      var rest = buildMockRest(data);
+      var origGetNode = rest.getNode;
+      rest.getNode = function (k, id) {
+        inFlight++;
+        if (inFlight > maxInFlight) maxInFlight = inFlight;
+        return new Promise(function (resolve) {
+          setTimeout(function () {
+            inFlight--;
+            resolve(origGetNode(k, id));
+          }, 5);
+        });
+      };
+
+      var prevEnv = process.env.NODE_FETCH_CONCURRENCY;
+      process.env.NODE_FETCH_CONCURRENCY = "2";
+      try {
+        var dirs = freshDirs();
+        await sync.run(baseOpts(dirs, { rest: rest, phase: "registries" }));
+        assert.ok(
+          maxInFlight <= 2,
+          "maxInFlight should be ≤ 2, got " + maxInFlight,
+        );
+        assert.ok(
+          maxInFlight >= 1,
+          "should have at least 1 in flight at the peak (" + maxInFlight + ")",
+        );
+      } finally {
+        if (prevEnv === undefined) delete process.env.NODE_FETCH_CONCURRENCY;
+        else process.env.NODE_FETCH_CONCURRENCY = prevEnv;
+      }
+    });
+  });
+
   describe("CLI parseArgs", function () {
     it("parses --phase, --output-dir, --release-notes-dir, --keys-file, --artifacts-dir", function () {
       var p = sync.parseArgs([
