@@ -12,7 +12,7 @@
       "justification": null
     }
   ],
-  "htmlFile": "components/flows/notification-prefs/notification-prefs-flow.html",
+  "htmlFile": "flows/notification-prefs/notification-prefs-flow.html",
   "prototypeFile": null,
   "pushedAt": "2026-04-28T12:00:00Z",
   "sourceHash": "abc123",

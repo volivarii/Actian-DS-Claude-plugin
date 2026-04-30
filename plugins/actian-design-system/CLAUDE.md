@@ -10,9 +10,9 @@ Follow these rules for every task in this project.
 
 ```bash
 # Correct: project directory
-{project_working_directory}/components/flows/my-flow.html
+{project_working_directory}/flows/my-flow.html
 # Wrong: plugin cache
-components/flows/my-flow.html
+flows/my-flow.html
 ```
 
 `ensure-server.sh` must also serve the project directory, never `.`.

@@ -166,7 +166,7 @@ omit it fall through to greenfield with a documented warning.
 
 | Skill | Manifest path |
 |---|---|
-| `generate-flow` | `{project_dir}/components/flows/.last-push.json` |
+| `generate-flow` | `{project_dir}/flows/.last-push.json` |
 | `component-brief` | `{project_dir}/components/{name}/.last-push.json` |
 | `generate-presentation` | `{project_dir}/presentations/{slug}/.last-push.json` |
 | `create-component` | `{project_dir}/components/{name}/.last-push.json` |

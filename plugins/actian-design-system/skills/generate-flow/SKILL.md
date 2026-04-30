@@ -82,7 +82,7 @@ If any condition fails, fall back per the table below.
 
 1. **Resolve URL.** Run `scripts/resolve-unit.js` `resolveByUrl(url, manifestPath)`.
    The manifest path is inferred from the URL's enclosing project flow directory
-   (typically `{project_working_directory}/components/flows/<feature>/.last-push.json`).
+   (typically `{project_working_directory}/flows/<feature>/.last-push.json`).
    - `kind === "miss"` → fall through per the failure table; emit the message tied to `reason`.
    - `kind === "single-unit"` → proceed with single-screen refine; `screenId` + `figmaNodeId` are returned.
    - `kind === "full"` → proceed; designer pasted the wrapper URL → whole-flow refine.
@@ -109,7 +109,7 @@ If any condition fails, fall back per the table below.
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
-     {project_working_directory}/components/flows/<feature>/flow-data.json \
+     {project_working_directory}/flows/<feature>/flow-data.json \
      --scope <scope-tag>
    ```
    Findings filtered to changed screens. P0s → patch in place per existing 3-strike protocol;
@@ -196,15 +196,15 @@ If any condition fails, fall back per the table below.
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
      "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/merge-partials.js" \
-       --type flow --partials-dir {project_working_directory}/components/flows/.partial \
-       --output {project_working_directory}/components/flows/flow-data.json
+       --type flow --partials-dir {project_working_directory}/flows/.partial \
+       --output {project_working_directory}/flows/flow-data.json
      ```
      Sequential mode (<6 screens): build flow-data.json directly — but FIRST classify each screen per the agent's Step 0 (above). When `meta.references[]` has fingerprints, the AI reads them inline from the in-memory flow-data when picking recipes.
 6. **Validate flow data** — run the validation script before pushing:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
-     {project_working_directory}/components/flows/flow-data.json
+     {project_working_directory}/flows/flow-data.json
    ```
    - Exit 1 (P0s found): fix all banned placeholder text before pushing. Common P0s: `"Page Title"`, `"Button label"`, `"Description text"`, `"Label"`, `"Nav Item"`.
    - Exit 2 (P1s only): report terminology or token warnings to user, proceed with push.
@@ -215,12 +215,12 @@ If any condition fails, fall back per the table below.
    ```bash
    # Single-screen refine
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
-     {project_working_directory}/components/flows/flow-data.json \
+     {project_working_directory}/flows/flow-data.json \
      --scope single-unit:notification-preferences-2
 
    # Multi-screen refine
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
-     {project_working_directory}/components/flows/flow-data.json \
+     {project_working_directory}/flows/flow-data.json \
      --scope multi-unit:[notification-preferences-1,notification-preferences-3]
    ```
 
@@ -246,7 +246,7 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
 8. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/components/flows/[feature]-flow.html
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/flows/[feature]-flow.html
    BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
    ```
 9. Parity check (opt-in) → `references/parity-check.md` + `references/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
