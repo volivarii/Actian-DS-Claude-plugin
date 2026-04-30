@@ -1,0 +1,400 @@
+{
+  "textStyles": [
+    {
+      "name": "label-micro",
+      "key": "1abb2bafb770f181a96123707f8fd4b1199c5341",
+      "fontFamily": "Roboto",
+      "fontStyle": "Medium",
+      "fontSize": 10,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 14
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.4000000059604645
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "label-subtle",
+      "key": "48d53e9b9fca2555a64713c9c6eca3f0be96058e",
+      "fontFamily": "Roboto",
+      "fontStyle": "Medium",
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.30000001192092896
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "label-standard",
+      "key": "693f5c1da87bf4ac6c00821229e0c47cea40ccd7",
+      "fontFamily": "Roboto",
+      "fontStyle": "Medium",
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.20000000298023224
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "heading-prominent",
+      "key": "6fe718b74016ab3a13b59f00020ad605edc82f55",
+      "fontFamily": "Roboto",
+      "fontStyle": "SemiBold",
+      "fontSize": 18,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 26
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "heading-micro",
+      "key": "9847fe1277845ce86f97157b5ba8342ecaf3f180",
+      "fontFamily": "Roboto",
+      "fontStyle": "SemiBold",
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.30000001192092896
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "body-micro",
+      "key": "9862f620e4c4e2114aeb1bd35838174be5098103",
+      "fontFamily": "Roboto",
+      "fontStyle": "Regular",
+      "fontSize": 10,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 14
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.4000000059604645
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "body-prominent",
+      "key": "9997e4e40cb87b1902f1c832dfef7589175e0226",
+      "fontFamily": "Roboto",
+      "fontStyle": "Regular",
+      "fontSize": 16,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 24
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.10000000149011612
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "heading-display",
+      "key": "a14c21c5bc8ae3817de4f44cf89ac193e067bac7",
+      "fontFamily": "Roboto",
+      "fontStyle": "SemiBold",
+      "fontSize": 24,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 32
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "heading-subtle",
+      "key": "c8c9880fd0f780b4e9a558f336c83131abe3447f",
+      "fontFamily": "Roboto",
+      "fontStyle": "SemiBold",
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.20000000298023224
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "body-stardard",
+      "key": "e2d890ede4702bfa4815b6805f53ac812caef4ad",
+      "fontFamily": "Roboto",
+      "fontStyle": "Regular",
+      "fontSize": 14,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 20
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.20000000298023224
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "body-subtle",
+      "key": "e91a526042a6328e2e9b33b8aaa493a7d456d96e",
+      "fontFamily": "Roboto",
+      "fontStyle": "Regular",
+      "fontSize": 12,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 16
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.30000001192092896
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    },
+    {
+      "name": "heading-standard",
+      "key": "ea7401fa6fba7514c1aca93e911581cd3f16a1d8",
+      "fontFamily": "Roboto",
+      "fontStyle": "SemiBold",
+      "fontSize": 16,
+      "lineHeight": {
+        "unit": "PIXELS",
+        "value": 24
+      },
+      "letterSpacing": {
+        "unit": "PIXELS",
+        "value": 0.10000000149011612
+      },
+      "textDecoration": "NONE",
+      "textCase": "ORIGINAL"
+    }
+  ],
+  "effectStyles": [
+    {
+      "name": "shadow-sm",
+      "key": "3bdec05719c6a80952f2a909b2ee818bf23dc8b6",
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.0784313753247261,
+            "a": 0.07999999821186066
+          },
+          "offset": {
+            "x": 0,
+            "y": 1
+          },
+          "radius": 7,
+          "spread": 3,
+          "visible": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.12156862765550613,
+            "a": 0.11999999731779099
+          },
+          "offset": {
+            "x": 0,
+            "y": 1
+          },
+          "radius": 3,
+          "spread": 1,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "shadow-lg",
+      "key": "50793d1ceb271d09ec2ae79cb188b8d7c8ea85ba",
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.14901961386203766,
+            "a": 0.15000000596046448
+          },
+          "offset": {
+            "x": 0,
+            "y": 6
+          },
+          "radius": 10,
+          "spread": 4,
+          "visible": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.3019607961177826,
+            "a": 0.30000001192092896
+          },
+          "offset": {
+            "x": 0,
+            "y": 2
+          },
+          "radius": 3,
+          "spread": 0,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "shadow-md",
+      "key": "a2b3143e1394d5cf10c76cd5cfa67ee3a769415e",
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.3019607961177826,
+            "a": 0.30000001192092896
+          },
+          "offset": {
+            "x": 0,
+            "y": 1
+          },
+          "radius": 3,
+          "spread": 0,
+          "visible": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.14901961386203766,
+            "a": 0.15000000596046448
+          },
+          "offset": {
+            "x": 0,
+            "y": 4
+          },
+          "radius": 8,
+          "spread": 3,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "shadow-xs",
+      "key": "e5e6f1d0c3aabfd9ff4aab0978c489771e7efcce",
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.05882352963089943,
+            "a": 0.05999999865889549
+          },
+          "offset": {
+            "x": 0,
+            "y": 1
+          },
+          "radius": 3,
+          "spread": 1,
+          "visible": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.07058823853731155,
+            "a": 0.07000000029802322
+          },
+          "offset": {
+            "x": 0,
+            "y": 1
+          },
+          "radius": 5,
+          "spread": 0,
+          "visible": true
+        }
+      ]
+    },
+    {
+      "name": "shadow-xl",
+      "key": "ed326603bcb9d1ce54a00ae66352cdbdf9645a93",
+      "effects": [
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.14901961386203766,
+            "a": 0.15000000596046448
+          },
+          "offset": {
+            "x": 0,
+            "y": 8
+          },
+          "radius": 12,
+          "spread": 6,
+          "visible": true
+        },
+        {
+          "type": "DROP_SHADOW",
+          "color": {
+            "r": 0,
+            "g": 0,
+            "b": 0.3019607961177826,
+            "a": 0.30000001192092896
+          },
+          "offset": {
+            "x": 0,
+            "y": 4
+          },
+          "radius": 4,
+          "spread": 0,
+          "visible": true
+        }
+      ]
+    }
+  ]
+}
