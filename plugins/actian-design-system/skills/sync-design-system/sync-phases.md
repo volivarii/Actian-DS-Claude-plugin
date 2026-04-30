@@ -513,9 +513,11 @@ return JSON.stringify(nonColor, null, 2);
 
 Expected: Spacing (6), Border (12), Size (7), Breakpoint (4) = 29 vars. Fits in one call (~3KB).
 
-### Step 2: Extract color variables with inline resolution (1 call)
+### Step 2: Extract color variables with cross-collection alias resolution (1 call)
 
-Combine extraction + alias resolution + hex conversion in a single `use_figma` call:
+DS Kit color variables are aliases into a remote primitive palette (the "Zen colors" library). The resolver uses `figma.variables.getVariableByIdAsync` which transparently fetches remote-library variables when DS Kit subscribes to them, returning the resolved variable's full `valuesByMode`.
+
+**Critical fix (2026-04-30):** the resolver must use **first-mode fallback** when the source-mode key isn't in the resolved target's `valuesByMode`. DS Kit's modes are `Actian/Studio/Explorer` (modeIds `7195:0`, `13617:0`, `14007:0`), but Zen-colors primitives are single-mode (`2003:0`). Indexing the target's `valuesByMode[modeId]` with DS Kit's modeId returns undefined → the original resolver hit a dead end and reported `UNRESOLVED`. The fix is one line: when the source mode isn't present, take the first available mode's value. Verified end-to-end against real DS Kit data: 88/88 colors × 3 modes = 264/264 resolved with zero UNRESOLVED.
 
 ```js
 const collections = await figma.variables.getLocalVariableCollectionsAsync();
@@ -530,10 +532,18 @@ function rgbaToHex(rgba) {
   return hex;
 }
 
-async function resolve(value, modeId) {
-  if (value && value.type === 'VARIABLE_ALIAS') {
-    const v = await figma.variables.getVariableByIdAsync(value.id);
-    return resolve(v.valuesByMode[modeId], modeId);
+async function resolveAlias(value, modeId, depth) {
+  if (depth > 8) return null;
+  if (!value) return null;
+  if (typeof value === 'object' && value.type === 'VARIABLE_ALIAS') {
+    const target = await figma.variables.getVariableByIdAsync(value.id);
+    if (!target || !target.valuesByMode) return null;
+    // Critical: source-mode fallback. DS Kit's modeId may not exist in remote-library
+    // primitive variables (which are typically single-mode). Fall back to first mode.
+    const targetValue = target.valuesByMode[modeId] !== undefined
+      ? target.valuesByMode[modeId]
+      : Object.values(target.valuesByMode)[0];
+    return resolveAlias(targetValue, modeId, depth + 1);
   }
   return value;
 }
@@ -542,17 +552,17 @@ const result = [];
 for (const v of colorVars) {
   const resolved = {};
   for (const mode of colorCol.modes) {
-    const val = await resolve(v.valuesByMode[mode.modeId], mode.modeId);
-    resolved[mode.name] = val ? rgbaToHex(val) : 'UNRESOLVED';
+    const val = await resolveAlias(v.valuesByMode[mode.modeId], mode.modeId, 0);
+    resolved[mode.name] = (val && typeof val === 'object' && 'r' in val) ? rgbaToHex(val) : 'UNRESOLVED';
   }
   result.push({ name: v.name, key: v.key, scopes: v.scopes, description: v.description, values: resolved });
 }
-return JSON.stringify(result, null, 2);
+return JSON.stringify(result);
 ```
 
-Expected: 86 color variables × 3 modes = 258 resolved hex values. Output is ~15KB (fits in 20KB limit because hex strings are compact vs raw RGBA objects).
+Expected: 88 color variables × 3 modes = 264 resolved hex values. Output ~12-15KB. Fits in 20KB.
 
-**Fallback:** If 86 vars exceed 20KB (unlikely with hex-only output), split by variable name prefix: `background-*`, `theme-*`/`interactive-*`, `status-*`/`category-*`.
+**Validation:** the skill MUST check the response for any `"UNRESOLVED"` strings. If any are present: log them, abort the sync (do NOT proceed to write token files), report which variables/modes failed. With the modeId fallback in place, UNRESOLVED should never occur on a healthy Figma library.
 
 ### Step 3: Format output
 
