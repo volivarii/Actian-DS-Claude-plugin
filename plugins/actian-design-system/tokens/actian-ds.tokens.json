@@ -4,912 +4,2404 @@
   "$metadata": {
     "source": "Figma MCP direct extraction",
     "figmaFile": "Actian Design System 2026",
-    "figmaFileKey": "<DS Kit_FILE_KEY>",
+    "figmaFileKey": "l8biHxfarNi1I2RMvVxVOK",
     "generatedBy": "/sync-design-system",
-    "generatedDate": "2026-03-26"
+    "generatedDate": "2026-04-30"
   },
   "color": {
-    "$type": "color",
-    "annotation-annotation": {
-      "$value": "#d71d6d",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#d71d6d",
-          "studio": "#d71d6d",
-          "explorer": "#d71d6d"
-        }
-      }
-    },
-    "background-bg-default": {
-      "$value": "#ffffff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ffffff",
-          "studio": "#ffffff",
-          "explorer": "#ffffff"
-        }
-      }
-    },
-    "background-bg-disabled": {
-      "$value": "#f5f5fa",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#f5f5fa",
-          "studio": "#ebebeb",
-          "explorer": "#ebebeb"
-        }
-      }
-    },
-    "background-bg-grey-1": {
-      "$value": "#fbfbff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#fbfbff",
-          "studio": "#fcfcfc",
-          "explorer": "#fcfcfc"
-        }
-      }
-    },
-    "background-bg-grey-2": {
-      "$value": "#f5f5fa",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#f5f5fa",
-          "studio": "#ebebeb",
-          "explorer": "#ebebeb"
-        }
-      }
-    },
-    "background-bg-reverse": {
-      "$value": "#12131f",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#12131f",
-          "studio": "#505050",
-          "explorer": "#505050"
-        }
-      }
-    },
-    "border-default": {
-      "$value": "#f5f5fa",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#f5f5fa",
-          "studio": "#ebebeb",
-          "explorer": "#ebebeb"
-        }
-      }
-    },
-    "border-disabled": {
-      "$value": "#9898a7",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#9898a7",
-          "studio": "#a9a9a9",
-          "explorer": "#a9a9a9"
-        }
-      }
-    },
-    "brand-primary": {
-      "$value": "#0550dc",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#0550dc",
-          "studio": "#0283be",
-          "explorer": "#049b98"
-        }
-      }
-    },
-    "brand-secondary": {
-      "$value": "#edf6ff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#edf6ff",
-          "studio": "#ecffff",
-          "explorer": "#ecffff"
-        }
-      }
-    },
-    "category-1-low": {
-      "$value": "#dde6ec",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#dde6ec",
-          "studio": "#dde6ec",
-          "explorer": "#dde6ec"
-        }
-      }
-    },
-    "category-1-lower": {
-      "$value": "#f7fdff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#f7fdff",
-          "studio": "#f7fdff",
-          "explorer": "#f7fdff"
-        }
-      }
-    },
-    "category-1-strong": {
-      "$value": "#4a6470",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#4a6470",
-          "studio": "#4a6470",
-          "explorer": "#4a6470"
-        }
-      }
-    },
-    "category-1-stronger": {
-      "$value": "#3c515a",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#3c515a",
-          "studio": "#3c515a",
-          "explorer": "#3c515a"
-        }
-      }
-    },
-    "category-2-low": {
-      "$value": "#cfeafd",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#cfeafd",
-          "studio": "#cfeafd",
-          "explorer": "#cfeafd"
-        }
-      }
-    },
-    "category-2-lower": {
-      "$value": "#ecffff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ecffff",
-          "studio": "#ecffff",
-          "explorer": "#ecffff"
-        }
-      }
-    },
-    "category-2-strong": {
-      "$value": "#00699f",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#00699f",
-          "studio": "#00699f",
-          "explorer": "#00699f"
-        }
-      }
-    },
-    "category-2-stronger": {
-      "$value": "#00547d",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#00547d",
-          "studio": "#00547d",
-          "explorer": "#00547d"
-        }
-      }
-    },
-    "category-3-low": {
-      "$value": "#d0efed",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#d0efed",
-          "studio": "#d0efed",
-          "explorer": "#d0efed"
-        }
-      }
-    },
-    "category-3-lower": {
-      "$value": "#ecffff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ecffff",
-          "studio": "#ecffff",
-          "explorer": "#ecffff"
-        }
-      }
-    },
-    "category-3-strong": {
-      "$value": "#007e7b",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#007e7b",
-          "studio": "#007e7b",
-          "explorer": "#007e7b"
-        }
-      }
-    },
-    "category-3-stronger": {
-      "$value": "#006563",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#006563",
-          "studio": "#006563",
-          "explorer": "#006563"
-        }
-      }
-    },
-    "category-4-low": {
-      "$value": "#eed7ff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#eed7ff",
-          "studio": "#eed7ff",
-          "explorer": "#eed7ff"
-        }
-      }
-    },
-    "category-4-lower": {
-      "$value": "#fff5ff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#fff5ff",
-          "studio": "#fff5ff",
-          "explorer": "#fff5ff"
-        }
-      }
-    },
-    "category-4-strong": {
-      "$value": "#7900cb",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#7900cb",
-          "studio": "#7900cb",
-          "explorer": "#7900cb"
-        }
-      }
-    },
-    "category-4-stronger": {
-      "$value": "#5f0c9e",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#5f0c9e",
-          "studio": "#5f0c9e",
-          "explorer": "#5f0c9e"
-        }
-      }
-    },
-    "category-5-low": {
-      "$value": "#ffd5dd",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ffd5dd",
-          "studio": "#ffd5dd",
-          "explorer": "#ffd5dd"
-        }
-      }
-    },
-    "category-5-lower": {
-      "$value": "#fff1f5",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#fff1f5",
-          "studio": "#fff1f5",
-          "explorer": "#fff1f5"
-        }
-      }
-    },
-    "category-5-strong": {
-      "$value": "#c4004c",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#c4004c",
-          "studio": "#c4004c",
-          "explorer": "#c4004c"
-        }
-      }
-    },
-    "category-5-stronger": {
-      "$value": "#9a083e",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#9a083e",
-          "studio": "#9a083e",
-          "explorer": "#9a083e"
-        }
-      }
-    },
-    "category-6-low": {
-      "$value": "#d3efcd",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#d3efcd",
-          "studio": "#d3efcd",
-          "explorer": "#d3efcd"
-        }
-      }
-    },
-    "category-6-lower": {
-      "$value": "#f0ffec",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#f0ffec",
-          "studio": "#f0ffec",
-          "explorer": "#f0ffec"
-        }
-      }
-    },
-    "category-6-strong": {
-      "$value": "#047800",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#047800",
-          "studio": "#047800",
-          "explorer": "#047800"
-        }
-      }
-    },
-    "category-6-stronger": {
-      "$value": "#145f04",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#145f04",
-          "studio": "#145f04",
-          "explorer": "#145f04"
-        }
-      }
-    },
-    "category-7-low": {
-      "$value": "#ffdacf",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ffdacf",
-          "studio": "#ffdacf",
-          "explorer": "#ffdacf"
-        }
-      }
-    },
-    "category-7-lower": {
-      "$value": "#fff4ec",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#fff4ec",
-          "studio": "#fff4ec",
-          "explorer": "#fff4ec"
-        }
-      }
-    },
-    "category-7-strong": {
-      "$value": "#c12c11",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#c12c11",
-          "studio": "#c12c11",
-          "explorer": "#c12c11"
-        }
-      }
-    },
-    "category-7-stronger": {
-      "$value": "#982a18",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#982a18",
-          "studio": "#982a18",
-          "explorer": "#982a18"
-        }
-      }
-    },
-    "category-8-low": {
-      "$value": "#ffebce",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ffebce",
-          "studio": "#ffebce",
-          "explorer": "#ffebce"
-        }
-      }
-    },
-    "category-8-lower": {
-      "$value": "#fff9e5",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#fff9e5",
-          "studio": "#fff9e5",
-          "explorer": "#fff9e5"
-        }
-      }
-    },
-    "category-8-strong": {
-      "$value": "#a76605",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#a76605",
-          "studio": "#d27b00",
-          "explorer": "#d27b00"
-        }
-      }
-    },
-    "category-8-stronger": {
-      "$value": "#a76605",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#a76605",
-          "studio": "#a76605",
-          "explorer": "#a76605"
-        }
-      }
-    },
-    "category-9-low": {
-      "$value": "#feeddc",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#feeddc",
-          "studio": "#feeddc",
-          "explorer": "#feeddc"
-        }
-      }
-    },
-    "category-9-lower": {
-      "$value": "#fffbef",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#fffbef",
-          "studio": "#fffbef",
-          "explorer": "#fffbef"
-        }
-      }
-    },
-    "category-9-strong": {
-      "$value": "#b78a55",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#b78a55",
-          "studio": "#b78a55",
-          "explorer": "#b78a55"
-        }
-      }
-    },
-    "category-9-stronger": {
-      "$value": "#937148",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#937148",
-          "studio": "#937148",
-          "explorer": "#937148"
-        }
-      }
-    },
-    "icon-default": {
-      "$value": "#000000",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#000000",
-          "studio": "#000000",
-          "explorer": "#000000"
-        }
-      }
-    },
-    "icon-disabled": {
-      "$value": "#9898a7",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#9898a7",
-          "studio": "#a9a9a9",
-          "explorer": "#a9a9a9"
-        }
-      }
-    },
-    "icon-primary": {
-      "$value": "#0550dc",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#0550dc",
-          "studio": "#0283be",
-          "explorer": "#049b98"
-        }
-      }
-    },
-    "icon-reverse": {
-      "$value": "#ffffff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ffffff",
-          "studio": "#ffffff",
-          "explorer": "#ffffff"
-        }
-      }
-    },
-    "icon-secondary": {
-      "$value": "#595968",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#595968",
-          "studio": "#7b7b7b",
-          "explorer": "#7b7b7b"
-        }
-      }
-    },
-    "interactive-disabled-primary": {
-      "$value": "#9898a7",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#9898a7",
-          "studio": "#a9a9a9",
-          "explorer": "#a9a9a9"
-        }
-      }
-    },
-    "interactive-disabled-secodary": {
-      "$value": "#f5f5fa",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#f5f5fa",
-          "studio": "#ebebeb",
-          "explorer": "#f5f5fa"
-        }
-      }
-    },
-    "interactive-dragged-primary": {
-      "$value": "#0029a9",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#0029a9",
-          "studio": "#0079b6",
-          "explorer": "#00908e"
-        }
-      }
-    },
-    "interactive-enabled-inverse": {
-      "$value": "#ffffff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ffffff",
-          "studio": "#ffffff",
-          "explorer": "#ffffff"
-        }
-      }
-    },
-    "interactive-enabled-primary": {
-      "$value": "#0550dc",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#0550dc",
-          "studio": "#0283be",
-          "explorer": "#049b98"
-        }
-      }
-    },
-    "interactive-focused-primary": {
-      "$value": "rgba(63, 63, 74, 0.30)",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "rgba(63, 63, 74, 0.30)",
-          "studio": "rgba(63, 63, 74, 0.30)",
-          "explorer": "rgba(63, 63, 74, 0.30)"
-        }
-      }
-    },
-    "interactive-focused-secodary": {
-      "$value": "rgba(228, 228, 240, 0.30)",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "rgba(228, 228, 240, 0.30)",
-          "studio": "rgba(228, 228, 240, 0.30)",
-          "explorer": "rgba(228, 228, 240, 0.30)"
-        }
-      }
-    },
-    "interactive-focused-stroke-default": {
-      "$value": "#000000",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#000000",
-          "studio": "#000000",
-          "explorer": "#000000"
-        }
-      }
-    },
-    "interactive-focused-stroke-inverse": {
-      "$value": "#fbfbff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#fbfbff",
-          "studio": "#fcfcfc",
-          "explorer": "#fcfcfc"
-        }
-      }
-    },
-    "interactive-hovered-primary": {
-      "$value": "rgba(63, 63, 74, 0.30)",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "rgba(63, 63, 74, 0.30)",
-          "studio": "rgba(63, 63, 74, 0.30)",
-          "explorer": "rgba(63, 63, 74, 0.30)"
-        }
-      }
-    },
-    "interactive-hovered-secodary": {
-      "$value": "rgba(228, 228, 240, 0.30)",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "rgba(228, 228, 240, 0.30)",
-          "studio": "rgba(228, 228, 240, 0.30)",
-          "explorer": "rgba(228, 228, 240, 0.30)"
-        }
-      }
-    },
-    "interactive-pressed-primary": {
-      "$value": "rgba(63, 63, 74, 0.50)",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "rgba(63, 63, 74, 0.50)",
-          "studio": "rgba(63, 63, 74, 0.50)",
-          "explorer": "rgba(63, 63, 74, 0.50)"
-        }
-      }
-    },
-    "interactive-pressed-secodary": {
-      "$value": "rgba(228, 228, 240, 0.50)",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "rgba(228, 228, 240, 0.50)",
-          "studio": "rgba(228, 228, 240, 0.50)",
-          "explorer": "rgba(228, 228, 240, 0.50)"
-        }
-      }
-    },
-    "interactive-selected-primary": {
-      "$value": "#0029a9",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#0029a9",
-          "studio": "#0079b6",
-          "explorer": "#00908e"
-        }
-      }
-    },
-    "interactive-selected-secodary": {
-      "$value": "#edf6ff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#edf6ff",
-          "studio": "#ecffff",
-          "explorer": "#ecffff"
-        }
-      }
-    },
-    "overlay-default": {
-      "$value": "rgba(101, 101, 116, 0.70)",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "rgba(101, 101, 116, 0.70)",
-          "studio": "rgba(153, 153, 153, 0.70)",
-          "explorer": "rgba(153, 153, 153, 0.70)"
-        }
-      }
-    },
-    "status-error-primary": {
-      "$value": "#c12c11",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#c12c11",
-          "studio": "#c12c11",
-          "explorer": "#c12c11"
-        }
-      }
-    },
-    "status-error-secondary": {
-      "$value": "#ffdacf",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ffdacf",
-          "studio": "#ffdacf",
-          "explorer": "#ffdacf"
-        }
-      }
-    },
-    "status-inactive-primary": {
-      "$value": "#33333d",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#33333d",
-          "studio": "#7b7b7b",
-          "explorer": "#7b7b7b"
-        }
-      }
-    },
-    "status-inactive-secondary": {
-      "$value": "#f5f5fa",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#f5f5fa",
-          "studio": "#ebebeb",
-          "explorer": "#ebebeb"
-        }
-      }
-    },
-    "status-info-primary": {
-      "$value": "#00699f",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#00699f",
-          "studio": "#00699f",
-          "explorer": "#00699f"
-        }
-      }
-    },
-    "status-info-secondary": {
-      "$value": "#cfeafd",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#cfeafd",
-          "studio": "#cfeafd",
-          "explorer": "#cfeafd"
-        }
-      }
-    },
-    "status-success-primary": {
-      "$value": "#047800",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#047800",
-          "studio": "#047800",
-          "explorer": "#047800"
-        }
-      }
-    },
-    "status-success-secondary": {
-      "$value": "#d3efcd",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#d3efcd",
-          "studio": "#d3efcd",
-          "explorer": "#d3efcd"
-        }
-      }
-    },
-    "status-warning-primary": {
-      "$value": "#d27b00",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#d27b00",
-          "studio": "#d27b00",
-          "explorer": "#d27b00"
-        }
-      }
-    },
-    "status-warning-secondary": {
-      "$value": "#ffebce",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ffebce",
-          "studio": "#ffebce",
-          "explorer": "#ffebce"
-        }
-      }
-    },
-    "text-disabled": {
-      "$value": "#9898a7",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#9898a7",
-          "studio": "#a9a9a9",
-          "explorer": "#a9a9a9"
-        }
-      }
-    },
-    "text-error": {
-      "$value": "#c12c11",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#c12c11",
-          "studio": "#c12c11",
-          "explorer": "#c12c11"
-        }
-      }
-    },
-    "text-placeholder": {
-      "$value": "#595968",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#595968",
-          "studio": "#999999",
-          "explorer": "#999999"
-        }
-      }
-    },
-    "text-primary": {
-      "$value": "#000000",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#000000",
-          "studio": "#000000",
-          "explorer": "#000000"
-        }
-      }
-    },
-    "text-reverse": {
-      "$value": "#ffffff",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#ffffff",
-          "studio": "#ffffff",
-          "explorer": "#ffffff"
-        }
-      }
-    },
-    "text-secondary": {
-      "$value": "#3f3f4a",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#3f3f4a",
-          "studio": "#8d8d8d",
-          "explorer": "#8d8d8d"
-        }
-      }
-    },
-    "text-success": {
-      "$value": "#047800",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#047800",
-          "studio": "#047800",
-          "explorer": "#047800"
-        }
-      }
-    },
-    "text-tertiary": {
-      "$value": "#595968",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#595968",
-          "studio": "#999999",
-          "explorer": "#999999"
-        }
-      }
-    },
-    "text-warning": {
-      "$value": "#d27b00",
-      "$extensions": {
-        "com.actian.themes": {
-          "actian": "#d27b00",
-          "studio": "#d27b00",
-          "explorer": "#d27b00"
+    "annotation": {
+      "annotation": {
+        "$type": "color",
+        "$value": "#D71D6D",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "f7ad3100ff05e64ccaead66803680ff5981ae474",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#D71D6D",
+            "studio": "#D71D6D",
+            "explorer": "#D71D6D"
+          }
+        }
+      }
+    },
+    "bg": {
+      "default": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "805afec875092b89deebe685e17992963d603974",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFFFFF",
+            "studio": "#FFFFFF",
+            "explorer": "#FFFFFF"
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "#F5F5FA",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "3f3f05ce2b1febb9e2d3f26652d01aa1461f9f46",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F5F5FA",
+            "studio": "#EBEBEB",
+            "explorer": "#EBEBEB"
+          }
+        }
+      },
+      "emphasis": {
+        "$type": "color",
+        "$value": "#0550DC",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "c7b1bb63e5920d9d3b56524d03361608d7d10251",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#0550DC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "#FFF4EC",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "f6168bd882ddcd1798778083a8a7982568375198",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFF4EC",
+            "studio": "#FFF4EC",
+            "explorer": "#FFF4EC"
+          }
+        }
+      },
+      "info": {
+        "$type": "color",
+        "$value": "#EDF6FF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "265560b979e11fb3d3cd7b742c8e0fb5abd68ada",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#EDF6FF",
+            "studio": "#ECFFFF",
+            "explorer": "#ECFFFF"
+          }
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": "#F5F5FA",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "2d7f893d1d1f5807dfc84b7b6e057eff8fd2ae31",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F5F5FA",
+            "studio": "#EBEBEB",
+            "explorer": "#EBEBEB"
+          }
+        }
+      },
+      "overlay": {
+        "$type": "color",
+        "$value": "#00000066",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e71aa33e2a20b2df834a1aca3634ecfddc7a2aee",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#00000066",
+            "studio": "#00000066",
+            "explorer": "#00000066"
+          }
+        }
+      },
+      "selected": {
+        "$type": "color",
+        "$value": "#E0F0FF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "7175ca0067adbaa2c4a04286054fd8d2be111dc2",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#E0F0FF",
+            "studio": "#CFEAFD",
+            "explorer": "#D0EFED"
+          }
+        }
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "#FBFBFF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "62257cce2f8b13cca0c39739e79569c69f22b028",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FBFBFF",
+            "studio": "#FCFCFC",
+            "explorer": "#FCFCFC"
+          }
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#F0FFEC",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "62a1a15b3fc26c2bc1733e099cbe41eb231622ea",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F0FFEC",
+            "studio": "#F0FFEC",
+            "explorer": "#F0FFEC"
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#FFF9E5",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "4bd8ca7520a12576c5c40b9a5d8b70851e5af952",
+            "scopes": [
+              "FRAME_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFF9E5",
+            "studio": "#FFF9E5",
+            "explorer": "#FFF9E5"
+          }
+        }
+      }
+    },
+    "error": {
+      "25": {
+        "$type": "color",
+        "$value": "#FFF4EC",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "752fb8a735debc3415f7f001814f7b0ce109c5a6",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFF4EC",
+            "studio": "#FFF4EC",
+            "explorer": "#FFF4EC"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#FFDACF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "bfccfa6f22e64cb84d49bb5332c97d45833fb0e2",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFDACF",
+            "studio": "#FFDACF",
+            "explorer": "#FFDACF"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FFC1B3",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "5b1cb211471a7b6e46e82e79b5f363b068fd484b",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFC1B3",
+            "studio": "#FFC1B3",
+            "explorer": "#FFC1B3"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#FFA38F",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "358be7e75b2ee471eb17f21387970f5fd891f894",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFA38F",
+            "studio": "#FFA38F",
+            "explorer": "#FFA38F"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#F88973",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "1c24ae475b1f878252ddaec2282af3f7465cd99d",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F88973",
+            "studio": "#F88973",
+            "explorer": "#F88973"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#EF6B53",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "1d222c9385fe0543ef1fe7e7b6818f50a25d9e96",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#EF6B53",
+            "studio": "#EF6B53",
+            "explorer": "#EF6B53"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#E6492D",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "393558481c0009f1085d0b1b86ba8110da12ea95",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#E6492D",
+            "studio": "#E6492D",
+            "explorer": "#E6492D"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#DC3514",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e015a67615380a1415326a35150ee91befb39598",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#DC3514",
+            "studio": "#DC3514",
+            "explorer": "#DC3514"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#C12C11",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "bfa0f0606d8bf941402e3ab242e82c8af9b492e0",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#C12C11",
+            "studio": "#C12C11",
+            "explorer": "#C12C11"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#982A18",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "84317479a16d5c25d0eed2b9d8586c0b0b10b29f",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#982A18",
+            "studio": "#982A18",
+            "explorer": "#982A18"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#762A1C",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "b0b680e4cc8c7a88f8467869ba595a64a46dee59",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#762A1C",
+            "studio": "#762A1C",
+            "explorer": "#762A1C"
+          }
+        }
+      }
+    },
+    "icon": {
+      "default": {
+        "$type": "color",
+        "$value": "#000000",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "3dcaaa7ab47eefe274129f94647b3649bde36778",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#000000",
+            "studio": "#000000",
+            "explorer": "#000000"
+          }
+        }
+      },
+      "disabled": {
+        "$type": "color",
+        "$value": "#9898A7",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "930c476be7cb644ff8c317fe5fc9b2d8a68ad06f",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#9898A7",
+            "studio": "#A9A9A9",
+            "explorer": "#A9A9A9"
+          }
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "#DC3514",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "4728e69ad553fd73ac6b0ff7122433865be06858",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#DC3514",
+            "studio": "#DC3514",
+            "explorer": "#DC3514"
+          }
+        }
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "#0550DC",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "3babe95aab2440a14c4c9abcf5a2dde38e8279c8",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#0550DC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "reverse": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "b9657ab94410a39cb9b6ab9b9d6ae445b3ceb4de",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFFFFF",
+            "studio": "#FFFFFF",
+            "explorer": "#FFFFFF"
+          }
+        }
+      },
+      "subtle": {
+        "$type": "color",
+        "$value": "#3F3F4A",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "233d892048c9042fd57f82b0d48ae9b6d247586c",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#3F3F4A",
+            "studio": "#8D8D8D",
+            "explorer": "#8D8D8D"
+          }
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#098900",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "0dace0dc11a0f6f627c27597c094dcb0ad2c2a15",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#098900",
+            "studio": "#098900",
+            "explorer": "#098900"
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#EF8D00",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "bf3484c3eb8f87720c4ecdfd79306fa021cf6b3c",
+            "scopes": [
+              "SHAPE_FILL",
+              "STROKE_COLOR"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#EF8D00",
+            "studio": "#EF8D00",
+            "explorer": "#EF8D00"
+          }
+        }
+      }
+    },
+    "neutral": {
+      "25": {
+        "$type": "color",
+        "$value": "#FBFBFF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d032b41f6a2fd16b7a379d3d11281fc6b19d6af1",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FBFBFF",
+            "studio": "#FCFCFC",
+            "explorer": "#FCFCFC"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#F5F5FA",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "ae0a574eb0faad13ab5105c977dd122bb813abbd",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F5F5FA",
+            "studio": "#EBEBEB",
+            "explorer": "#EBEBEB"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#E4E4F0",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e935403e850e3d74231fca4bae97af17c7aa1e1a",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#E4E4F0",
+            "studio": "#DADADA",
+            "explorer": "#DADADA"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#D3D3E5",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "0be63f8d189d0c4dba4bf0798ab72098bd391b9c",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#D3D3E5",
+            "studio": "#C9C9C9",
+            "explorer": "#C9C9C9"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#B9B9CD",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d582906a82e5e431d29cba1246aca61173b0b341",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#B9B9CD",
+            "studio": "#B9B9B9",
+            "explorer": "#B9B9B9"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#9898A7",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6f3e021b7060c44efc6733f4e94ebce51147bf68",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#9898A7",
+            "studio": "#A9A9A9",
+            "explorer": "#A9A9A9"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#656574",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "975f14468c0396f238fab0a4d8a5ec23d67ac452",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#656574",
+            "studio": "#999999",
+            "explorer": "#999999"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#3F3F4A",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "74774559c7ac6ef334f045b8c866c45904ebe848",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#3F3F4A",
+            "studio": "#8D8D8D",
+            "explorer": "#8D8D8D"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#33333D",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "cd135f5777e849908453421e9337f030203e5b9f",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#33333D",
+            "studio": "#7B7B7B",
+            "explorer": "#7B7B7B"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#2A2A30",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d217ff24d2569bf6f7a5001d2449c76b4ad16f86",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#2A2A30",
+            "studio": "#636363",
+            "explorer": "#636363"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#12131F",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "176702046d18969a57b6eba5e7fa95ca98437eae",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#12131F",
+            "studio": "#505050",
+            "explorer": "#505050"
+          }
+        }
+      }
+    },
+    "primary": {
+      "25": {
+        "$type": "color",
+        "$value": "#EDF6FF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "5f7c971b8a2b554781a19b14afab8f912727fde4",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#EDF6FF",
+            "studio": "#ECFFFF",
+            "explorer": "#ECFFFF"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#E0F0FF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "c88179510c2749c82615db8f457bb1678bb7f8b7",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#E0F0FF",
+            "studio": "#CFEAFD",
+            "explorer": "#D0EFED"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#9DCDFF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6d07c6b9271f944d34e9fdced6b7e3e7387d67fd",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#9DCDFF",
+            "studio": "#B1D5EE",
+            "explorer": "#B5DDDB"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#6FAFFD",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "9345f12e6c5f10bff1c9b2c3a0574f6e3449da8b",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#6FAFFD",
+            "studio": "#8BC0E6",
+            "explorer": "#90CECB"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#3C91FF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "fa9b1b487d583d83398bf1f66c6c999bcb51ff86",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#3C91FF",
+            "studio": "#6BACD7",
+            "explorer": "#72BCB9"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#2679FF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "571c3113502ee3db28d15a0a904721a5f2bd6176",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#2679FF",
+            "studio": "#4598CB",
+            "explorer": "#4AACA9"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#0550DC",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "a256595115f6048a1e1c843e3099a79a5c259288",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#0550DC",
+            "studio": "#0283BE",
+            "explorer": "#049B98"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#043ACE",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "da974a979d33999ef1aaf887fce141b5cfb1fba2",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#043ACE",
+            "studio": "#0079B6",
+            "explorer": "#00908E"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#0029A9",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "688df60fb4e8a2ff461f88fa8e92abce97727043",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#0029A9",
+            "studio": "#00699F",
+            "explorer": "#007E7B"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#000078",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6f47aefd86adc94fd2df93dc7f3643b606f7006b",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#000078",
+            "studio": "#00547D",
+            "explorer": "#006563"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#090952",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "20eb8ee672f97453640123b7d6d039a86f757322",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#090952",
+            "studio": "#114361",
+            "explorer": "#15504E"
+          }
+        }
+      }
+    },
+    "success": {
+      "25": {
+        "$type": "color",
+        "$value": "#F0FFEC",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6c1d33645d721054d4025d4c19232fdaed610ace",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#F0FFEC",
+            "studio": "#F0FFEC",
+            "explorer": "#F0FFEC"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#D3EFCD",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "eaf02fa14f074b9a12ce50324eb6b97ad4831022",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#D3EFCD",
+            "studio": "#D3EFCD",
+            "explorer": "#D3EFCD"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#B5DCAF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "34bf1ab1ca3e0b87565ea5f9231c64ddcf6b3f98",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#B5DCAF",
+            "studio": "#B5DCAF",
+            "explorer": "#B5DCAF"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#92CC89",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "654d3548bf4a841bdf089d2ad75bbaaee4119220",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#92CC89",
+            "studio": "#92CC89",
+            "explorer": "#92CC89"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#75B86B",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "638dea6d2f7577177ce160a4a9dfada0d5211e51",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#75B86B",
+            "studio": "#75B86B",
+            "explorer": "#75B86B"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#53A647",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "0edf2fdef18c21b5ab5ec280ebf71faafac15d41",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#53A647",
+            "studio": "#53A647",
+            "explorer": "#53A647"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#299315",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "2e4ac92b8ed5fb7412cacc2d1146c5d57cb42113",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#299315",
+            "studio": "#299315",
+            "explorer": "#299315"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#098900",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "7e46b979e4b3106e8dd5db17df40eea5c4ba6732",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#098900",
+            "studio": "#098900",
+            "explorer": "#098900"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#047800",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "9877db29cc9fbeb8dc4571862add2e60ef0889d3",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#047800",
+            "studio": "#047800",
+            "explorer": "#047800"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#145F04",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "9e46e0827f8cdd80280a166705f3ec3d92751ec5",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#145F04",
+            "studio": "#145F04",
+            "explorer": "#145F04"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#1A4B14",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "522eeb0c698b6ea6acbec638f2d2bcc0e8656abc",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#1A4B14",
+            "studio": "#1A4B14",
+            "explorer": "#1A4B14"
+          }
+        }
+      }
+    },
+    "text": {
+      "disabled": {
+        "$type": "color",
+        "$value": "#656574",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "46c4b4f0f65db6a2cf513ef25f32230fae75e562",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#656574",
+            "studio": "#999999",
+            "explorer": "#999999"
+          }
+        }
+      },
+      "error": {
+        "$type": "color",
+        "$value": "#DC3514",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "ed6e1faaa56109df25c6587e8b9d2b70c80dbb53",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#DC3514",
+            "studio": "#DC3514",
+            "explorer": "#DC3514"
+          }
+        }
+      },
+      "link": {
+        "default": {
+          "$type": "color",
+          "$value": "#0550DC",
+          "$extensions": {
+            "com.figma": {
+              "variableKey": "14984a19865d6030d17e9023285f495fe5a357a2",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            },
+            "com.actian.themes": {
+              "actian": "#0550DC",
+              "studio": "#0283BE",
+              "explorer": "#049B98"
+            }
+          }
+        },
+        "reverse": {
+          "$type": "color",
+          "$value": "#FFFFFF",
+          "$extensions": {
+            "com.figma": {
+              "variableKey": "fa5eaf7fd3da05f710f4565674afb9c39392859d",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            },
+            "com.actian.themes": {
+              "actian": "#FFFFFF",
+              "studio": "#FFFFFF",
+              "explorer": "#FFFFFF"
+            }
+          }
+        },
+        "visited": {
+          "$type": "color",
+          "$value": "#0029A9",
+          "$extensions": {
+            "com.figma": {
+              "variableKey": "4badbc49ff3e6001f736a52f091378c2aff35c02",
+              "scopes": [
+                "ALL_SCOPES"
+              ]
+            },
+            "com.actian.themes": {
+              "actian": "#0029A9",
+              "studio": "#00699F",
+              "explorer": "#007E7B"
+            }
+          }
+        }
+      },
+      "placeholder": {
+        "$type": "color",
+        "$value": "#3F3F4A",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e34e7702643edf1bb8f17ad77aafbd8874f89017",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#3F3F4A",
+            "studio": "#8D8D8D",
+            "explorer": "#8D8D8D"
+          }
+        }
+      },
+      "placeholder-subtle": {
+        "$type": "color",
+        "$value": "#9898A7",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "3929813e3e7fbabcd5a00642e8ace7def906e4af",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#9898A7",
+            "studio": "#A9A9A9",
+            "explorer": "#A9A9A9"
+          }
+        }
+      },
+      "primary": {
+        "$type": "color",
+        "$value": "#000000",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "cb3cf6a8b661f3a2ff12835120957f3278d329d0",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#000000",
+            "studio": "#000000",
+            "explorer": "#000000"
+          }
+        }
+      },
+      "reverse": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d5b2b08fd5bab41595edb892bf4707cb94bae50a",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFFFFF",
+            "studio": "#FFFFFF",
+            "explorer": "#FFFFFF"
+          }
+        }
+      },
+      "secondary": {
+        "$type": "color",
+        "$value": "#2A2A30",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "54d9d36f7653380d99e9aadbad21e14f9dcdb295",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#2A2A30",
+            "studio": "#636363",
+            "explorer": "#636363"
+          }
+        }
+      },
+      "success": {
+        "$type": "color",
+        "$value": "#098900",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "cdfa8e816f9db4a7edce3065e4de86e5d04b257d",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#098900",
+            "studio": "#098900",
+            "explorer": "#098900"
+          }
+        }
+      },
+      "tertiary": {
+        "$type": "color",
+        "$value": "#33333D",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d56575506dae345c45ea1563df6b81ca041c8c4f",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#33333D",
+            "studio": "#7B7B7B",
+            "explorer": "#7B7B7B"
+          }
+        }
+      },
+      "warning": {
+        "$type": "color",
+        "$value": "#EF8D00",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "3d65bc80eba197437afc12c196b05fe9501e2c8a",
+            "scopes": [
+              "TEXT_FILL"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#EF8D00",
+            "studio": "#EF8D00",
+            "explorer": "#EF8D00"
+          }
+        }
+      }
+    },
+    "warning": {
+      "25": {
+        "$type": "color",
+        "$value": "#FFF9E5",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d5dfc2fea219d9b013761480609914eaba024b7b",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFF9E5",
+            "studio": "#FFF9E5",
+            "explorer": "#FFF9E5"
+          }
+        }
+      },
+      "50": {
+        "$type": "color",
+        "$value": "#FFEBCE",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "badc6dc1ed596b84bf9f7dbd0f00704dc05cdfbc",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFEBCE",
+            "studio": "#FFEBCE",
+            "explorer": "#FFEBCE"
+          }
+        }
+      },
+      "100": {
+        "$type": "color",
+        "$value": "#FFDDB6",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "7d60387082271bfba8d3a51f37787afed3566b7c",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFDDB6",
+            "studio": "#FFDDB6",
+            "explorer": "#FFDDB6"
+          }
+        }
+      },
+      "200": {
+        "$type": "color",
+        "$value": "#FFCD92",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e788618ece5fb4ce9e81fdd4df1bf0641e2a1d6c",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFCD92",
+            "studio": "#FFCD92",
+            "explorer": "#FFCD92"
+          }
+        }
+      },
+      "300": {
+        "$type": "color",
+        "$value": "#FFBE78",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "46213949fe93213251583a3073703a751f13f627",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFBE78",
+            "studio": "#FFBE78",
+            "explorer": "#FFBE78"
+          }
+        }
+      },
+      "400": {
+        "$type": "color",
+        "$value": "#FFAF53",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "23c50b84abdad96374b697fb5c1e15e82c0949a5",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FFAF53",
+            "studio": "#FFAF53",
+            "explorer": "#FFAF53"
+          }
+        }
+      },
+      "500": {
+        "$type": "color",
+        "$value": "#FC9F1D",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "7c6d966243a84e1968a24e75400616da8e46ef52",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#FC9F1D",
+            "studio": "#FC9F1D",
+            "explorer": "#FC9F1D"
+          }
+        }
+      },
+      "600": {
+        "$type": "color",
+        "$value": "#EF8D00",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "ae943bd794ef78d84a80dd3afb2c7e5a08d84d6f",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#EF8D00",
+            "studio": "#EF8D00",
+            "explorer": "#EF8D00"
+          }
+        }
+      },
+      "700": {
+        "$type": "color",
+        "$value": "#D27B00",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d3ec74975ed5673dde61522380f3a5d0860bbaae",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#D27B00",
+            "studio": "#D27B00",
+            "explorer": "#D27B00"
+          }
+        }
+      },
+      "800": {
+        "$type": "color",
+        "$value": "#A76605",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6da04b99ae6f54a6f9715fbe7eaed6373dafd8ee",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#A76605",
+            "studio": "#A76605",
+            "explorer": "#A76605"
+          }
+        }
+      },
+      "900": {
+        "$type": "color",
+        "$value": "#83551F",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "5a7eebd7870c681ef7054e5827e6caf1678245a1",
+            "scopes": [
+              "ALL_SCOPES"
+            ]
+          },
+          "com.actian.themes": {
+            "actian": "#83551F",
+            "studio": "#83551F",
+            "explorer": "#83551F"
+          }
         }
       }
     }
   },
   "spacing": {
-    "$type": "dimension",
-    "2xs": { "$value": "4px" },
-    "lg": { "$value": "24px" },
-    "md": { "$value": "16px" },
-    "sm": { "$value": "12px" },
-    "xl": { "$value": "32px" },
-    "xs": { "$value": "8px" }
+    "3xs": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "9dea6a6ecbacd8ab5b5d132ed64149202a929cba",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "2xs": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "5a7e452ee094abaac62002b0b0e3dd02776e0330",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "xs": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "9c98ee0ee8b9464165738d761e12dbdba0f60a09",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "e02968bd3fca3e90211bbfaea4f00abc573c842e",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "0ed0efbb23a84581762b07154031014525c51a2a",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "ac5c5c8d7ba29924dcbdc4734dd5b8d91767d007",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "25f333ee5dde5e89b28afa9cb249018b760089fa",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "48px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "8bcda0862c5e53105f3af078eb241c09d19f91cb",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": "64px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "5a19a6047298296c74c8b2c9ba41946df7c2f036",
+          "scopes": [
+            "GAP"
+          ]
+        }
+      }
+    }
   },
   "border": {
-    "$type": "dimension",
-    "radius-2xs": { "$value": "2px" },
-    "radius-default": { "$value": "6px" },
-    "radius-full": { "$value": "9999px" },
-    "radius-lg": { "$value": "10px" },
-    "radius-md": { "$value": "8px" },
-    "radius-sm": { "$value": "6px" },
-    "radius-xl": { "$value": "12px" },
-    "radius-xs": { "$value": "4px" },
-    "width-default": { "$value": "1px" },
-    "width-focus": { "$value": "2px" },
-    "width-lg": { "$value": "2px" },
-    "width-md": { "$value": "1px" }
+    "radius": {
+      "2xs": {
+        "$type": "dimension",
+        "$value": "2px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "36267b0223009e715411b9c9ca145d28ab68d655",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "full": {
+        "$type": "dimension",
+        "$value": "9999px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "96f69added0e5e58d02f4aaef4b05f02d6158cec",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "10px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "8e4f8cdd91158975e5fb846243d02d6561a62ea8",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "8px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e3f39f7ca717955288264ed80bc99027564b31fe",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "6px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "70601bc06e07e748704235e617b4f7ca9ea8fb81",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "12px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "cd2ee903810decb6b2f3339cd028b99584a94e73",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      },
+      "xs": {
+        "$type": "dimension",
+        "$value": "4px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e86ac4c8021b3e15db45761ae05a0d415e08d737",
+            "scopes": [
+              "CORNER_RADIUS"
+            ]
+          }
+        }
+      }
+    },
+    "width": {
+      "lg": {
+        "$type": "dimension",
+        "$value": "2px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "6461e7ac1c7ffae2dda9586dc0c89c3d7d0ea524",
+            "scopes": [
+              "STROKE_FLOAT"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "1px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "91cb850d543fa1caaa9f9ba095a19b1c506baadb",
+            "scopes": [
+              "STROKE_FLOAT"
+            ]
+          }
+        }
+      }
+    },
+    "default": {
+      "$type": "color",
+      "$value": "#E4E4F0",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "66a64687a41ae343d4b02fc25464cd05f967a9fd",
+          "scopes": [
+            "STROKE_COLOR"
+          ]
+        },
+        "com.actian.themes": {
+          "actian": "#E4E4F0",
+          "studio": "#E4E4F0",
+          "explorer": "#E4E4F0"
+        }
+      }
+    },
+    "disabled": {
+      "$type": "color",
+      "$value": "#E4E4F0",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "efa60d3fff3b5dab2fc6c41c3a5690c8f8247287",
+          "scopes": [
+            "STROKE_COLOR"
+          ]
+        },
+        "com.actian.themes": {
+          "actian": "#E4E4F0",
+          "studio": "#E4E4F0",
+          "explorer": "#E4E4F0"
+        }
+      }
+    },
+    "error": {
+      "$type": "color",
+      "$value": "#E6492D",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "1c5e7d5f7c51d5e19e1d5c8ca3aeb9cc5c1ad6e8",
+          "scopes": [
+            "STROKE_COLOR"
+          ]
+        },
+        "com.actian.themes": {
+          "actian": "#E6492D",
+          "studio": "#E6492D",
+          "explorer": "#E6492D"
+        }
+      }
+    },
+    "selected": {
+      "$type": "color",
+      "$value": "#0550DC",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "c9816fd5506a77d42d9d7c59ab9bf170667f57f7",
+          "scopes": [
+            "STROKE_COLOR"
+          ]
+        },
+        "com.actian.themes": {
+          "actian": "#0550DC",
+          "studio": "#0283BE",
+          "explorer": "#049B98"
+        }
+      }
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "#F5F5FA",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "ebb62fed2a17034855a5a6fb1bfdd4a56f16ba38",
+          "scopes": [
+            "STROKE_COLOR"
+          ]
+        },
+        "com.actian.themes": {
+          "actian": "#F5F5FA",
+          "studio": "#F5F5FA",
+          "explorer": "#F5F5FA"
+        }
+      }
+    }
   },
   "size": {
-    "$type": "dimension",
-    "2xl": { "$value": "40px" },
-    "3xl": { "$value": "44px" },
-    "lg": { "$value": "24px" },
-    "md": { "$value": "16px" },
-    "sm": { "$value": "8px" },
-    "sx": { "$value": "4px" },
-    "xl": { "$value": "32px" }
+    "sx": {
+      "$type": "dimension",
+      "$value": "4px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "a3bb28c3ad6cca9243e2246178a246cfa742ba68",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "8px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "ee3ef7cabc07275346ec0e0828dadedafd71c53e",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "27370a3d0443dac20588a321a5dc6fddb8d79d2a",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "8e8b332993e629e50e11184d297276995d9a53af",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "32px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "5d33f18eea164e63cf9c9307a6e257949b7bae8f",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "40px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "c632aed239c9073ab8c91d703402ab0665fbac80",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": "44px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "4f72317fbd0e7be2bdd367085c4d3c4578307b28",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    }
   },
   "breakpoint": {
-    "$type": "dimension",
-    "lg": { "$value": "1200px" },
-    "md": { "$value": "840px" },
-    "sm": { "$value": "600px" },
-    "xl": { "$value": "1920px" }
+    "sm": {
+      "$type": "dimension",
+      "$value": "600px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "0643748db4edbad386d5442d827591d3b606907c",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "840px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "dac0d3173d307e4e8cfbd3b20d0e160fad776b70",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "1200px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "ab8056c3475bcd0ee63062869e4d7c2dbca8147e",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "1920px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "10d0543fd8217786cf982aaa9edc216203592f91",
+          "scopes": [
+            "WIDTH_HEIGHT"
+          ]
+        }
+      }
+    }
+  },
+  "focus-ring": {
+    "offset": {
+      "$type": "dimension",
+      "$value": "2px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "3903270cbfbaacdb780be69bc7fa2a7e0db06afa",
+          "scopes": [
+            "WIDTH_HEIGHT",
+            "GAP"
+          ]
+        }
+      }
+    },
+    "error": {
+      "$type": "color",
+      "$value": "#E6492D",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "0558bb294e6232ec53d951d37f724968af86ed9c",
+          "scopes": [
+            "STROKE_COLOR"
+          ]
+        },
+        "com.actian.themes": {
+          "actian": "#E6492D",
+          "studio": "#E6492D",
+          "explorer": "#E6492D"
+        }
+      }
+    },
+    "primary": {
+      "$type": "color",
+      "$value": "#0550DC",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "50671a856564fb0299bfd5348c36463af6c2b2cb",
+          "scopes": [
+            "STROKE_COLOR"
+          ]
+        },
+        "com.actian.themes": {
+          "actian": "#0550DC",
+          "studio": "#0283BE",
+          "explorer": "#049B98"
+        }
+      }
+    }
+  },
+  "font": {
+    "family": {
+      "brand": {
+        "$type": "fontFamily",
+        "$value": "AllRpungGothic",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "8ad6ceb7a6c5afd97cc89e95b07a5d62f2c774b4",
+            "scopes": [
+              "FONT_FAMILY"
+            ]
+          }
+        }
+      },
+      "mono": {
+        "$type": "fontFamily",
+        "$value": "Roboto Mono",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "2ff56b5d9669c0f8b1269df6ef605eb66c74b81b",
+            "scopes": [
+              "FONT_FAMILY"
+            ]
+          }
+        }
+      },
+      "text": {
+        "$type": "fontFamily",
+        "$value": "Roboto",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "40d20a7d60d5db924df9e5e6648180bf7e9c40a8",
+            "scopes": [
+              "FONT_FAMILY"
+            ]
+          }
+        }
+      }
+    },
+    "weight": {
+      "regular": {
+        "$type": "fontWeight",
+        "$value": 400,
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "43473f279ee258f286f158c73b43100027efdfe5",
+            "scopes": [
+              "FONT_WEIGHT"
+            ]
+          }
+        }
+      },
+      "medium": {
+        "$type": "fontWeight",
+        "$value": 500,
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "19a1696a54d7449050b75b407a8b35ead94cce41",
+            "scopes": [
+              "FONT_WEIGHT"
+            ]
+          }
+        }
+      },
+      "semibold": {
+        "$type": "fontWeight",
+        "$value": 600,
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "193a2827098dda6aa0719a898fbe27e9df4f2f68",
+            "scopes": [
+              "FONT_WEIGHT"
+            ]
+          }
+        }
+      },
+      "bold": {
+        "$type": "fontWeight",
+        "$value": 700,
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e1c0d238faae46b5dfb6b13751effaf7f1dfaaae",
+            "scopes": [
+              "FONT_WEIGHT"
+            ]
+          }
+        }
+      }
+    },
+    "size": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "10px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "cae490dd475e0e46b01395d482d57b601b1de273",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "12px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "52de705fdbef5396472563719a9a364f483897f5",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "14px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "e8c9ae08720756e95794dd5be5707dc355558e3f",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "bc026e5576296de7ef463631896000ebca5a3f01",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "18px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "d0b5b1d6474828074157d4761621af5b5ae23d70",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "c6abd4f7317a658ef2f840f790931d26b2f49840",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "3xl": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "971529fa3d8e2f240e93d12d26ac8333c372da20",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      },
+      "4xl": {
+        "$type": "dimension",
+        "$value": "30px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "a73a3fb060f4ea226d2bdc8aed6bc2e0d1b790e1",
+            "scopes": [
+              "FONT_SIZE"
+            ]
+          }
+        }
+      }
+    },
+    "lineheight": {
+      "xs": {
+        "$type": "dimension",
+        "$value": "14px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "799b23131a58bbdd3f6e97a283fdc93de90e0b38",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "sm": {
+        "$type": "dimension",
+        "$value": "16px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "c3d02edfbf3c9e5ec119eabcef7eb0d38aa5cf21",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "md": {
+        "$type": "dimension",
+        "$value": "20px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "38cff3504a97357910fe12de774117b9ba8ff55f",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "lg": {
+        "$type": "dimension",
+        "$value": "24px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "c2e6f143ba794add7b2f0ebc9037cc9cb0ffdd5d",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "xl": {
+        "$type": "dimension",
+        "$value": "26px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "1c5ac5d36f5416862803dd45c47fd97de4e2217e",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      },
+      "2xl": {
+        "$type": "dimension",
+        "$value": "32px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "0cf23a76e9caf5c6a5ec66ace4638bdf9ab6ae10",
+            "scopes": [
+              "LINE_HEIGHT"
+            ]
+          }
+        }
+      }
+    },
+    "letterspacing": {
+      "normal": {
+        "$type": "dimension",
+        "$value": "0px",
+        "$extensions": {
+          "com.figma": {
+            "variableKey": "20228f4843139ad580b637e80969410730f7a2aa",
+            "scopes": [
+              "LETTER_SPACING"
+            ]
+          }
+        }
+      },
+      "wide": {
+        "1": {
+          "$type": "dimension",
+          "$value": "0.1px",
+          "$extensions": {
+            "com.figma": {
+              "variableKey": "b58a12ab63199f09b5a0365b963ca266196cf9ef",
+              "scopes": [
+                "LETTER_SPACING"
+              ]
+            }
+          }
+        },
+        "2": {
+          "$type": "dimension",
+          "$value": "0.2px",
+          "$extensions": {
+            "com.figma": {
+              "variableKey": "2f375d4df1725ceab14cd46c0e22f15c80c58c12",
+              "scopes": [
+                "LETTER_SPACING"
+              ]
+            }
+          }
+        },
+        "3": {
+          "$type": "dimension",
+          "$value": "0.3px",
+          "$extensions": {
+            "com.figma": {
+              "variableKey": "2e6ee23fae4ad7e4a04311dcf453f1983264097c",
+              "scopes": [
+                "LETTER_SPACING"
+              ]
+            }
+          }
+        },
+        "4": {
+          "$type": "dimension",
+          "$value": "0.4px",
+          "$extensions": {
+            "com.figma": {
+              "variableKey": "7c8337cd66acb052f8d2355dce45ce53fd2284d6",
+              "scopes": [
+                "LETTER_SPACING"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "icon": {
+    "xs": {
+      "$type": "dimension",
+      "$value": "12px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "fae7625516f487a690c641f24db5654859e2813f",
+          "scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": "16px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "ab607d333ba43ae5eea404e13f2fb049ed7f56b4",
+          "scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": "20px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "457a7f69457606d4f75afb8504c53db79acb4682",
+          "scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "24px",
+      "$extensions": {
+        "com.figma": {
+          "variableKey": "985b2ca68ae075e126b50bc53b377b13fd31a298",
+          "scopes": [
+            "ALL_SCOPES"
+          ]
+        }
+      }
+    }
   }
 }
