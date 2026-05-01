@@ -114,10 +114,95 @@ function writeOutputs(output, outputDir) {
   return written;
 }
 
+function parseArgs(argv) {
+  var args = {};
+  for (var i = 2; i < argv.length; i++) {
+    var a = argv[i];
+    if (a === "--check") args.check = true;
+    else if (a === "--md") args.md = argv[++i];
+    else if (a === "--map") args.map = argv[++i];
+    else if (a === "--out") args.out = argv[++i];
+  }
+  return args;
+}
+
+function defaultPaths() {
+  var pluginRoot = path.resolve(__dirname, "..");
+  return {
+    md: path.join(pluginRoot, "docs", "foundations.md"),
+    map: path.join(pluginRoot, "scripts", "foundations.parser.json"),
+    out: path.join(pluginRoot, "docs", "foundations"),
+  };
+}
+
+function loadParserMap(mapPath) {
+  var raw = JSON.parse(fs.readFileSync(mapPath, "utf-8"));
+  // Strip _comment* keys so they don't accidentally match a heading number.
+  var clean = {};
+  Object.keys(raw).forEach(function (k) {
+    if (k.indexOf("_") === 0) return;
+    clean[k] = raw[k];
+  });
+  return clean;
+}
+
+function runCli(argv) {
+  var args = parseArgs(argv);
+  var defaults = defaultPaths();
+  var mdPath = args.md || defaults.md;
+  var mapPath = args.map || defaults.map;
+  var outDir = args.out || defaults.out;
+
+  var md = fs.readFileSync(mdPath, "utf-8");
+  var parserMap = loadParserMap(mapPath);
+
+  var output = deriveFromMarkdown(md, parserMap, {
+    logger: {
+      warn: function (m) {
+        console.warn("[derive-foundations] " + m);
+      },
+    },
+  });
+
+  if (args.check) {
+    var drifts = [];
+    var files = Object.keys(output);
+    for (var i = 0; i < files.length; i++) {
+      var name = files[i];
+      var expected =
+        JSON.stringify(addMetaHeader(output[name]), null, 2) + "\n";
+      var dest = path.join(outDir, name);
+      var actual = fs.existsSync(dest) ? fs.readFileSync(dest, "utf-8") : "";
+      if (actual !== expected) drifts.push(name);
+    }
+    if (drifts.length === 0) {
+      console.log("[derive-foundations] no drift");
+      return 0;
+    }
+    console.error(
+      "[derive-foundations] drift detected in: " + drifts.join(", "),
+    );
+    console.error("Run `npm run derive:foundations` to regenerate.");
+    return 1;
+  }
+
+  var written = writeOutputs(output, outDir);
+  console.log(
+    "[derive-foundations] wrote " + written.length + " files to " + outDir,
+  );
+  return 0;
+}
+
+if (require.main === module) {
+  process.exit(runCli(process.argv));
+}
+
 module.exports = {
   deriveFromMarkdown,
   buildSectionPayload,
   applyStatusToRows,
   addMetaHeader,
   writeOutputs,
+  runCli,
+  parseArgs,
 };

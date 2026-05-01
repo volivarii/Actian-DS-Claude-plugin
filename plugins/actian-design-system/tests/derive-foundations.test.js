@@ -514,3 +514,80 @@ describe("derive-foundations: writeOutputs", function () {
     fs.rmSync(tmpDir, { recursive: true, force: true });
   });
 });
+
+var { spawnSync } = require("child_process");
+
+describe("derive-foundations CLI", function () {
+  it("--check exits 0 when output is in sync, 1 when drifted", function () {
+    var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "foundations-cli-"));
+    var fixture = path.join(
+      __dirname,
+      "fixtures",
+      "foundations-parser",
+      "sample.md",
+    );
+    var parserMap = path.join(tmpDir, "parser.json");
+    var outputDir = path.join(tmpDir, "out");
+    fs.writeFileSync(
+      parserMap,
+      JSON.stringify({ 2.7: { file: "spacing.json" } }),
+    );
+
+    var SCRIPT = path.resolve(
+      __dirname,
+      "..",
+      "scripts",
+      "derive-foundations.js",
+    );
+
+    // Generate fresh output.
+    var gen = spawnSync(
+      process.execPath,
+      [SCRIPT, "--md", fixture, "--map", parserMap, "--out", outputDir],
+      { encoding: "utf-8" },
+    );
+    assert.strictEqual(gen.status, 0, "gen failed: " + gen.stderr);
+
+    // --check on identical state should pass.
+    var check1 = spawnSync(
+      process.execPath,
+      [
+        SCRIPT,
+        "--md",
+        fixture,
+        "--map",
+        parserMap,
+        "--out",
+        outputDir,
+        "--check",
+      ],
+      { encoding: "utf-8" },
+    );
+    assert.strictEqual(
+      check1.status,
+      0,
+      "expected --check to pass on synced state, stderr: " + check1.stderr,
+    );
+
+    // Mutate the output file and verify --check fails.
+    fs.writeFileSync(path.join(outputDir, "spacing.json"), '{"hand":"edited"}');
+    var check2 = spawnSync(
+      process.execPath,
+      [
+        SCRIPT,
+        "--md",
+        fixture,
+        "--map",
+        parserMap,
+        "--out",
+        outputDir,
+        "--check",
+      ],
+      { encoding: "utf-8" },
+    );
+    assert.strictEqual(check2.status, 1, "expected --check to fail on drift");
+    assert.match(check2.stderr + check2.stdout, /drift/i);
+
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  });
+});
