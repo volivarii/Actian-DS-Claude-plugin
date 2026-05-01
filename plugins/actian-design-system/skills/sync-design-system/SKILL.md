@@ -50,7 +50,7 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 | 3 | Styles ⚙️ auto-handled | 2 `use_figma` | `docs/meta-kit/styles.json` (auto-sync nightly); `text-styles.md` + `effect-styles.md` are fallback markdown mirrors |
 | 4 | Token files | 0 (transforms Phase 2) | `docs/token-reference.md`, `tokens/tokens.css`, `tokens/actian-ds.tokens.json` |
 | 5 | Guidelines | ~5 + ~30 `get_design_context` incremental | `docs/component-guidelines/*.json` (manual by design — curated content) |
-| 6 | Foundations | ~3 + ~15 `get_design_context` incremental | `docs/foundations/*.json`, `docs/content-guidelines.md`, `docs/accessibility-guidelines.md` (manual by design — curated content) |
+| 6 | Foundations | 0 (MD-as-SoT) | `docs/foundations.md` (UX team source) → `docs/generated/foundations/*.json` (CI-derived); `docs/content-guidelines.md`, `docs/accessibility-guidelines.md` (manual; Wave 2 candidates for MD-as-SoT) |
 | 7 | Validation | 0 (git diff) | `release-notes/sync-YYYY-MM-DD.md` |
 
 **Phase dependencies:** Phase 4 requires Phase 2 data. All other phases are independent.

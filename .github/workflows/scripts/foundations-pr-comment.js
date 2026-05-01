@@ -18,7 +18,7 @@ function gitShow(rev, file) {
 
 function listChangedFiles() {
   var out = execSync(
-    "git diff --name-only HEAD~1 HEAD -- plugins/actian-design-system/docs/foundations/",
+    "git diff --name-only HEAD~1 HEAD -- plugins/actian-design-system/docs/generated/foundations/",
     { encoding: "utf-8" }
   );
   return out.trim().split("\n").filter(Boolean);
@@ -90,7 +90,7 @@ function renderComment(summaries) {
   lines.push("CI re-derived the foundation JSONs from `docs/foundations.md`. Summary of semantic changes:");
   lines.push("");
   summaries.forEach(function (s) {
-    var shortFile = s.file.replace("plugins/actian-design-system/docs/foundations/", "");
+    var shortFile = s.file.replace("plugins/actian-design-system/docs/generated/foundations/", "");
     lines.push("**`" + shortFile + "`** — " +
       s.added + " added, " + s.removed + " removed, " + s.changed + " changed");
     if (s.detail.changed.length > 0 && s.detail.changed.length <= 10) {

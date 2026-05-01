@@ -18,7 +18,7 @@ You can also edit it in any Markdown editor (Typora, iA Writer, Obsidian, etc.) 
 
 When you open or update a PR that touches `foundations.md`:
 1. CI runs a parser script.
-2. It regenerates 8 JSON files in `docs/foundations/` automatically.
+2. It regenerates 8 JSON files in `docs/generated/foundations/` automatically.
 3. It commits the JSON changes back to your branch with the message `chore(foundations): regenerate JSONs from foundations.md`.
 4. It posts a comment on the PR summarizing what changed in plain language (e.g., "3 token values changed in `color.json`: blue-500, blue-600, blue-700").
 
@@ -83,7 +83,7 @@ Sections 5 (Handoff Protocol) and 6 (Related Guidelines) are intentionally not p
 
 ## What you don't need to do
 
-- Don't edit any JSON file in `docs/foundations/`. They're auto-generated. CI will revert your edits and push back the regenerated version.
+- Don't edit any JSON file in `docs/generated/foundations/`. They're auto-generated. CI will revert your edits and push back the regenerated version.
 - Don't edit `scripts/foundations.parser.json` unless you understand the parser map.
 - Don't install Node or run any script locally.
 
