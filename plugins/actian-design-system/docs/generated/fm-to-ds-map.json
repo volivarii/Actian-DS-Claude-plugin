@@ -1,8 +1,8 @@
 {
   "_meta": {
     "description": "FM Kit to DS Kit component mapping for hifi conversion",
-    "fmRegistry": "docs/fmkit.json",
-    "dsRegistry": "docs/dskit.json",
+    "fmRegistry": "docs/generated/fmkit.json",
+    "dsRegistry": "docs/generated/dskit.json",
     "lastUpdated": "2026-04-30"
   },
   "mappings": {

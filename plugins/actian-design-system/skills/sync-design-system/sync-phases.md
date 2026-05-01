@@ -30,7 +30,7 @@ Each named frame follows the same pattern:
 
 ## Phase 1 — Components
 
-> **⚙️ AUTO-HANDLED — manual fallback only.** This phase runs nightly via `.github/workflows/sync-from-figma.yml` (Sprint 1 v1.59.0+). The orchestrator at `scripts/sync-from-figma.js` regenerates `docs/dskit.json`, `docs/fmkit.json`, `docs/metakit.json` from the Figma REST API and opens an auto-merging PR for additive diffs. Run the steps below only if the workflow is broken, you need to write the human-readable markdown mirrors (`dskit-components.md` etc.), or you're debugging locally.
+> **⚙️ AUTO-HANDLED — manual fallback only.** This phase runs nightly via `.github/workflows/sync-from-figma.yml` (Sprint 1 v1.59.0+). The orchestrator at `scripts/sync-from-figma.js` regenerates `docs/generated/dskit.json`, `docs/generated/fmkit.json`, `docs/generated/metakit.json` from the Figma REST API and opens an auto-merging PR for additive diffs. Run the steps below only if the workflow is broken, you need to write the human-readable markdown mirrors (`dskit-components.md` etc.), or you're debugging locally.
 
 Extract component sets, variant axes, properties, and keys from DS Kit, FM Kit, and Meta Kit libraries.
 
@@ -142,7 +142,7 @@ The AI does NOT auto-sync new pages. It reports them and waits for user directio
 
 #### Step I2: Parse local file into comparable format
 
-Read the existing `docs/dskit-components.md` (or `fm-components.md` / `meta-kit/components.md`). For each `### Component Name` entry, extract:
+Read the existing `docs/generated/dskit-components.md` (or `fm-components.md` / `meta-kit/components.md`). For each `### Component Name` entry, extract:
 
 - `name` — from the heading
 - `key` — from the `Key: \`...\`` line
@@ -329,9 +329,9 @@ Use page counts from Step 1 to decide: DS Kit (77 sets) needs chunking. FM Kit (
 > source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/render-component-reference.js" --kit all
 > ```
 >
-> This rewrites `docs/fm-components.md`, `docs/dskit-components.md`, `docs/meta-kit/components.md` from the JSON. The Markdown is a human-readable mirror; JSON registries remain the source of truth. The formatting rules below describe the renderer's output format.
+> This rewrites `docs/generated/fm-components.md`, `docs/generated/dskit-components.md`, `docs/generated/meta-kit/components.md` from the JSON. The Markdown is a human-readable mirror; JSON registries remain the source of truth. The formatting rules below describe the renderer's output format.
 
-**DS Kit format** (`docs/dskit-components.md`):
+**DS Kit format** (`docs/generated/dskit-components.md`):
 
 ```markdown
 # Actian Design System 2026 — Component Reference
@@ -353,8 +353,8 @@ Primary trigger for a specific action...
 - Node: `7206:2643` | Key: `5a6d10d26bef3cc83955bf32a318c6b4682f25d3`
 ```
 
-**FM Kit format** (`docs/fm-components.md`): Same structure, adapted for FM Kit names.
-**Meta Kit format** (`docs/meta-kit/components.md`): Same structure, adapted for Meta Kit names.
+**FM Kit format** (`docs/generated/fm-components.md`): Same structure, adapted for FM Kit names.
+**Meta Kit format** (`docs/generated/meta-kit/components.md`): Same structure, adapted for Meta Kit names.
 
 Formatting rules:
 - Group components by page using `## Page Name` headings
@@ -450,7 +450,7 @@ function toRegistryEntry(comp) {
 
 4. **Meta Kit special handling:** Preserve the `templates` section from the existing `metakit.json` — do not overwrite template keys during sync. Read the existing file first, merge: keep all template entries unchanged, update only the `components` section from extraction.
 
-5. Generate `docs/meta-kit/meta-kit-reference.md` as auto-generated human-readable table:
+5. Generate `docs/generated/meta-kit/meta-kit-reference.md` as auto-generated human-readable table:
 
 ```markdown
 # Meta Kit Registry Reference
@@ -473,13 +473,13 @@ function toRegistryEntry(comp) {
 ```
 
 **Output files per library:**
-- DS Kit: `docs/dskit.json` (full registry with keys, variants, properties)
-- FM Kit: `docs/fmkit.json` (full registry with keys, variants, properties)
-- Meta Kit: `docs/metakit.json` (full registry with keys, templates, properties)
+- DS Kit: `docs/generated/dskit.json` (full registry with keys, variants, properties)
+- FM Kit: `docs/generated/fmkit.json` (full registry with keys, variants, properties)
+- Meta Kit: `docs/generated/metakit.json` (full registry with keys, templates, properties)
 
 #### Step 4: Regenerate component reference Markdown
 
-Run `source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/render-component-reference.js" --kit all`. Three files are rewritten: `docs/fm-components.md`, `docs/dskit-components.md`, `docs/meta-kit/components.md`. If the script exits non-zero, report the failure and do not proceed to Phase 2.
+Run `source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/render-component-reference.js" --kit all`. Three files are rewritten: `docs/generated/fm-components.md`, `docs/generated/dskit-components.md`, `docs/generated/meta-kit/components.md`. If the script exits non-zero, report the failure and do not proceed to Phase 2.
 
 ---
 
@@ -568,7 +568,7 @@ Expected: 88 color variables × 3 modes = 264 resolved hex values. Output ~12-15
 
 ### Step 3: Format output
 
-Write `docs/meta-kit/variables.md` with ALL 115 variables by collection:
+Write `docs/generated/meta-kit/variables.md` with ALL 115 variables by collection:
 
 ```markdown
 # Meta Kit Variable Keys
@@ -597,7 +597,7 @@ Formatting: color table has per-mode columns; non-color has single Value column.
 
 ## Phase 3 — Styles
 
-> **⚙️ AUTO-HANDLED — manual fallback only.** Text + effect styles auto-sync nightly via `.github/workflows/sync-from-figma.yml`; the orchestrator writes `docs/meta-kit/styles.json`. The steps below regenerate the human-readable markdown mirrors (`text-styles.md` + `effect-styles.md`); run them when you need the markdown form or the workflow is broken.
+> **⚙️ AUTO-HANDLED — manual fallback only.** Text + effect styles auto-sync nightly via `.github/workflows/sync-from-figma.yml`; the orchestrator writes `docs/generated/meta-kit/styles.json`. The steps below regenerate the human-readable markdown mirrors (`text-styles.md` + `effect-styles.md`); run them when you need the markdown form or the workflow is broken.
 
 Extract text styles and effect styles from DS Kit.
 
@@ -642,7 +642,7 @@ Expected: 5 effect styles (shadow-xs through shadow-xl), each with 2 DROP_SHADOW
 
 ### Step 3: Format text styles output
 
-Write `docs/meta-kit/text-styles.md`:
+Write `docs/generated/meta-kit/text-styles.md`:
 
 ```markdown
 # Meta Kit — Text Styles
@@ -655,7 +655,7 @@ Formatting: `lineHeight` as `Npx` or `Auto`, `letterSpacing` as `Npx` or `N%`. S
 
 ### Step 4: Format effect styles output
 
-Write `docs/meta-kit/effect-styles.md`:
+Write `docs/generated/meta-kit/effect-styles.md`:
 
 Summary table: `TYPE(x,y,blur,spread,rgba(...))` notation, multiple effects joined with ` + `.
 Detail sub-tables: one row per effect per style.
@@ -1120,7 +1120,7 @@ Parse the git diff content (not just `--stat`) to produce a human-readable chang
 **How to generate each section:**
 
 #### Tokens
-Parse `git diff tokens/actian-ds.tokens.json` and `git diff docs/token-reference.md`:
+Parse `git diff tokens/actian-ds.tokens.json` and `git diff docs/generated/token-reference.md`:
 - **Changed:** Compare old vs new `$value` for each token. Report: token name, old value → new value, per-theme if color.
 - **Added:** Tokens present in new file but not old.
 - **Removed:** Tokens present in old file but not new.
@@ -1133,7 +1133,7 @@ Parse `git diff tokens/actian-ds.tokens.json` and `git diff docs/token-reference
 ```
 
 #### Components
-Parse `git diff docs/dskit-components.md` and `git diff docs/fm-components.md`:
+Parse `git diff docs/generated/dskit-components.md` and `git diff docs/generated/fm-components.md`:
 - **New component:** Component heading exists in new but not old.
 - **Removed component:** Component heading exists in old but not new.
 - **New variant:** Variant axis values differ (more values in new).
@@ -1170,7 +1170,7 @@ Parse `git diff docs/foundations/*.json`, `docs/content-guidelines.md`, `docs/ac
 ```
 
 #### Styles
-Parse `git diff docs/meta-kit/text-styles.md` and `docs/meta-kit/effect-styles.md`:
+Parse `git diff docs/generated/meta-kit/text-styles.md` and `docs/generated/meta-kit/effect-styles.md`:
 - Report added/changed/removed styles with key properties.
 
 ```markdown

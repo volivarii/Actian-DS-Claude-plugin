@@ -10,9 +10,12 @@ var rules = require(
 );
 
 var KIT_HEADERS = {
-  fm: { title: "Fat Marker Kit", source: "docs/fmkit.json" },
-  ds: { title: "Actian Design System 2026", source: "docs/dskit.json" },
-  meta: { title: "Meta Kit", source: "docs/metakit.json" },
+  fm: { title: "Fat Marker Kit", source: "docs/generated/fmkit.json" },
+  ds: {
+    title: "Actian Design System 2026",
+    source: "docs/generated/dskit.json",
+  },
+  meta: { title: "Meta Kit", source: "docs/generated/metakit.json" },
 };
 
 function formatVariants(variants) {
@@ -146,7 +149,7 @@ module.exports = {
 if (require.main === module) {
   var args = process.argv.slice(2);
   var kitArg = "all";
-  var outDir = path.join(PLUGIN_ROOT, "docs");
+  var outDir = path.join(PLUGIN_ROOT, "docs", "generated");
 
   for (var i = 0; i < args.length; i++) {
     if (args[i] === "--kit" && i + 1 < args.length) {
@@ -181,7 +184,12 @@ if (require.main === module) {
       process.stderr.write("Unknown kit: " + kit + "\n");
       process.exit(1);
     }
-    var registryPath = path.join(PLUGIN_ROOT, "docs", spec.registry);
+    var registryPath = path.join(
+      PLUGIN_ROOT,
+      "docs",
+      "generated",
+      spec.registry,
+    );
     var registry;
     try {
       registry = JSON.parse(fs.readFileSync(registryPath, "utf8"));

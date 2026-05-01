@@ -50,9 +50,9 @@ Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is sou
 
 **Key data files** — JSON registries are SoT; `*-components.md` are auto-regenerated mirrors via `/sync-design-system` Phase 1:
 - `docs/component-guidelines/*.json` — 44 component guidelines
-- `docs/fmkit.json` / `docs/dskit.json` / `docs/metakit.json` — component registries (keys, variants, properties, defaults)
-- `docs/fm-components.md` / `docs/dskit-components.md` / `docs/meta-kit/components.md` — human-readable mirrors with required-override callouts
-- `docs/app-context.json` — structured app context (apps, entities, terminology, patterns)
+- `docs/generated/fmkit.json` / `docs/generated/dskit.json` / `docs/generated/metakit.json` — component registries (keys, variants, properties, defaults)
+- `docs/generated/fm-components.md` / `docs/generated/dskit-components.md` / `docs/generated/meta-kit/components.md` — human-readable mirrors with required-override callouts
+- `docs/generated/app-context.json` — structured app context (apps, entities, terminology, patterns)
 - `tokens/actian-ds.tokens.json` — W3C DTCG tokens (3 themes)
 
 **Scripts** (utilities — NOT used for Figma push):

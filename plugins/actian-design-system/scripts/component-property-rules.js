@@ -175,7 +175,7 @@ if (require.main === module) {
         "Looks up required-override TEXT props and default-true booleans per slug.\n",
       );
       process.stdout.write(
-        "fm* slugs read from docs/fmkit.json; others read from docs/dskit.json.\n",
+        "fm* slugs read from docs/generated/fmkit.json; others read from docs/generated/dskit.json.\n",
       );
       process.exit(0);
     }
@@ -192,7 +192,10 @@ if (require.main === module) {
   function loadKit(file) {
     try {
       return JSON.parse(
-        fs.readFileSync(path.join(PLUGIN_ROOT, "docs", file), "utf8"),
+        fs.readFileSync(
+          path.join(PLUGIN_ROOT, "docs", "generated", file),
+          "utf8",
+        ),
       );
     } catch (e) {
       return { components: {} };

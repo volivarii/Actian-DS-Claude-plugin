@@ -68,7 +68,7 @@ When the fingerprint pushes you off the obvious tier-1 recipe and the screen end
 
 ## Step -1: Property completeness pre-check
 
-**Run this once per screen before writing INSTANCE nodes.** Do NOT do per-component registry dumps with python or repeated reads of `docs/fmkit.json` / `docs/dskit.json` — use the CLI helper:
+**Run this once per screen before writing INSTANCE nodes.** Do NOT do per-component registry dumps with python or repeated reads of `docs/generated/fmkit.json` / `docs/generated/dskit.json` — use the CLI helper:
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
@@ -103,7 +103,7 @@ Use the output to write each `{ type: "INSTANCE", ref: "<slug>", props: {...} }`
 
    - **Recipe match** — does any single recipe in `recipes/flow/_index.json` (entries WITHOUT `kind: "composition"`) cleanly fit the screen's purpose?
    - **Composition fit** — does the screen need 2 recipes composed? Check `recipes/flow/_index.json` entries WITH `kind: "composition"`. The composition's `composes` array names the base recipes; if both base recipes describe parts of the screen, this composition is a fit.
-   - **App-context precedent** — read `docs/app-context.json`. Does the feature have precedent in Studio / Explorer / Administration? Strong precedent → tier 1; no precedent → tier 3.
+   - **App-context precedent** — read `docs/generated/app-context.json`. Does the feature have precedent in Studio / Explorer / Administration? Strong precedent → tier 1; no precedent → tier 3.
    - **Reference URLs (`--ref` from prompt)** — if the prompt provides reference URLs, weigh whether they confirm the matched recipe (tier 1 still valid) or signal deviation desire (tier 2 minimum).
    - **Domain novelty** — is the feature in app-context's entity set, or new? Novel domain → tier 3.
 
@@ -170,7 +170,7 @@ Apply different rules for content generation per the classified tier:
 ### Tier 1 — Recognized
 
 - Follow the `matchedRecipe` skeleton exactly. Don't add or remove top-level sections.
-- Variant selection, copy, density follow defaults from `docs/app-context.json` and `docs/component-guidelines/*.json`.
+- Variant selection, copy, density follow defaults from `docs/generated/app-context.json` and `docs/component-guidelines/*.json`.
 - Minor deviations within slots (column count in a table, button order in a toolbar) allowed without justification — these are creative latitude, not soft deviation.
 - **Boundary:** "minor" means the change does not add or remove a content section from the recipe's top-level slots. If you find yourself adding a slot that wasn't in the recipe (e.g., a sidebar to a `table-list` recipe), that's no longer minor — escalate to tier 2 deviation and justify, or pick a different (composition) recipe.
 
@@ -222,7 +222,7 @@ Example for screens 4-6:
 - All buttons must set `"👁 Leading Icon": false, "👁 Trailing Icon": false`
 - Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for push-apart layouts — never Spacer frames
 - **Glossary:** If `meta._glossary` is present, use it as the single source for entity names in page headers/breadcrumbs/body text, action verbs in button labels/CTAs, and the active sidebar item. Never invent alternative phrasings for glossary terms.
-- **Entity properties:** If generating form fields, table columns, or detail page content for a known entity, read `docs/app-context.json` → `entities[entityId].properties` for standard field names. Use these instead of generic placeholders.
+- **Entity properties:** If generating form fields, table columns, or detail page content for a known entity, read `docs/generated/app-context.json` → `entities[entityId].properties` for standard field names. Use these instead of generic placeholders.
 - Feature focus: spotlight the feature, placeholder everything else. **Concrete enforcement:** for any `fmNavItem` / `fmTab` that is NOT the active marker for the screen's feature, use `variant: "State=Placeholder"` (or substitute an `fmPlaceholder` instance). Only the single nav-item whose label matches `meta._glossary.sidebarActive` may carry `State=On` with a real label. The validator enforces this as `unmuted-chrome` warning at push time. **For destructive flows** (delete confirmations, bulk-remove footers, account-deletion modals): set `intent: "destructive-action"` on the dialog/section FRAME — descendants inherit. The Cancel button stays at default (inherits cluster intent). For success-confirmation toasts and error banners, set `intent: "success-confirmation"` or `"error-state"` on the relevant FRAME. The `intent` field is metadata only at FM tier — `/convert-to-hifi` reads it to pick correct DS variants, and the hifi-tier validator enforces consistency.
 - **`screen.id` (auto-stamped, B-refine.1):** You MAY emit a kebab-case `id` field on each screen, but the validator (`scripts/validate-flow-data.js`) stamps `<feature-slug>-<index>` automatically when omitted. User-supplied ids are preserved unchanged. The id is the stable handle for refine + scope-aware gating + bulk ops; downstream consumers always see one populated.
 - Write the file silently — do not output the JSON to chat

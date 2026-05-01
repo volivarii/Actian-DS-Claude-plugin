@@ -7,7 +7,7 @@
 //   node scripts/sync-from-figma.js --phase all
 //
 // Wave 1 scope: Phase 1 (registries: dsKit/fmKit/metaKit) + Phase 3 (text +
-// effect styles, written to docs/meta-kit/styles.json).
+// effect styles, written to docs/generated/meta-kit/styles.json).
 //
 // Phases 5 + 6 (component guidelines + foundations) stay manual via the
 // /sync-design-system skill — they're hand-curated content, not pure data.
@@ -250,7 +250,7 @@ async function run(opts) {
   opts = opts || {};
   var pluginDir = opts.pluginDir || path.resolve(__dirname, "..");
   var rest = opts.rest || defaultRest;
-  var outputDir = opts.outputDir || path.join(pluginDir, "docs");
+  var outputDir = opts.outputDir || path.join(pluginDir, "docs", "generated");
   var releaseNotesDir =
     opts.releaseNotesDir || path.join(pluginDir, "release-notes");
   var keysFile = opts.keysFile || path.join(pluginDir, ".figma-keys.json");

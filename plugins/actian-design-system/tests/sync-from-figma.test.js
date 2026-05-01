@@ -141,7 +141,7 @@ function freshDirs() {
   var root = fs.mkdtempSync(path.join(os.tmpdir(), "sync-test-"));
   return {
     root: root,
-    outputDir: path.join(root, "docs"),
+    outputDir: path.join(root, "docs", "generated"),
     releaseNotesDir: path.join(root, "release-notes"),
     artifactsDir: path.join(root, "artifacts"),
   };

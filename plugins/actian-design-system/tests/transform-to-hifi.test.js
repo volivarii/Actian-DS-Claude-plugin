@@ -31,8 +31,8 @@ var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 var t = require(path.join(PLUGIN_ROOT, "scripts", "transform-to-hifi"));
-var mapData = require(path.join(PLUGIN_ROOT, "docs", "fm-to-ds-map.json"));
-var dsRegistry = require(path.join(PLUGIN_ROOT, "docs", "dskit.json"));
+var mapData = require(path.join(PLUGIN_ROOT, "docs", "generated", "fm-to-ds-map.json"));
+var dsRegistry = require(path.join(PLUGIN_ROOT, "docs", "generated", "dskit.json"));
 
 // Shorthand helpers for single-instance transforms
 function xformInstance(node) {
