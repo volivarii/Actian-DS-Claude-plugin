@@ -161,3 +161,36 @@ describe("ast-walk: sliceSectionContent", function () {
     assert.strictEqual(paragraphs.length, 2);
   });
 });
+
+var {
+  extractStatus,
+} = require("../scripts/foundations-parser/status-emoji.js");
+
+describe("status-emoji: extractStatus", function () {
+  it("maps known emojis to canonical status strings", function () {
+    assert.strictEqual(extractStatus("✅"), null);
+    assert.strictEqual(extractStatus("⚠️"), "proposed");
+    assert.strictEqual(extractStatus("❌"), "deprecated");
+    assert.strictEqual(extractStatus("🚧"), "in-progress");
+  });
+
+  it("trims surrounding whitespace before matching", function () {
+    assert.strictEqual(extractStatus("  ⚠️  "), "proposed");
+  });
+
+  it("strips status emoji from a value-bearing string and returns both parts", function () {
+    var res = extractStatus.fromValueCell("⚠️ #AD88C1");
+    assert.strictEqual(res.value, "#AD88C1");
+    assert.strictEqual(res.status, "proposed");
+  });
+
+  it("returns null status for unflagged values", function () {
+    var res = extractStatus.fromValueCell("#0078A8");
+    assert.strictEqual(res.value, "#0078A8");
+    assert.strictEqual(res.status, null);
+  });
+
+  it("treats unknown emojis as no-status (does not throw)", function () {
+    assert.strictEqual(extractStatus("🎉"), null);
+  });
+});
