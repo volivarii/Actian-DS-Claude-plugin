@@ -1,44 +1,57 @@
 {
-  "foundation": "Icons",
-  "page_id": "7370:3775",
-  "extracted_at": "2026-03-25T17:00:00Z",
-  "frames": [
-    "Design guidelines",
-    ".local - page header with body",
-    "Actual icons",
-    "inner-path",
-    "add",
-    "add",
-    "add",
-    "Vector"
-  ],
-  "sections": [
+  "_meta": {
+    "auto_generated": true,
+    "source": "docs/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "rows": [
     {
-      "heading": "Design guidelines",
-      "content": []
+      "Token": "--zen-color-icon-default",
+      "Suggested Value": "--zen-color-black",
+      "Usage": "Default icon color",
+      "status_note": "🟡 Proposed"
     },
     {
-      "heading": "Size and scale",
-      "content": [
-        "Each icon is rendered with a 1.5px stroke weight at 24px and drawn for alignment to the icon grid (below). It can easily be scaled proportionally to desire size. The standard sizes are 16, 24, and 32px. However, in the limited space, 12px is allowed at the minimum. For larger size, you may consider other graphics like illustration. \n\nStandard size: 12, 16, 20, 24, and 32px\nLarger size: Consider other graphics like illustration"
-      ]
+      "Token": "--zen-color-icon-subtle",
+      "Suggested Value": "--zen-color-neutral-600",
+      "Usage": "De-emphasized icons",
+      "status_note": "🟡 Proposed"
     },
     {
-      "heading": "Icon grid",
-      "content": []
+      "Token": "--zen-color-icon-disabled",
+      "Suggested Value": "--zen-color-neutral-400",
+      "Usage": "Disabled icon state (no filter — uses explicit color)",
+      "status_note": "🟡 Proposed"
     },
     {
-      "heading": "Icons",
-      "content": []
+      "Token": "--zen-color-icon-primary",
+      "Suggested Value": "--zen-color-primary-600",
+      "Usage": "Primary action icons",
+      "status_note": "🟡 Proposed"
     },
     {
-      "heading": "The design system icon set is composed of IBM’s Carbon icons and custom icons that are created in the same style as IBMs. In the future, more icons can be added as required.",
-      "content": []
+      "Token": "--zen-color-icon-error",
+      "Suggested Value": "--zen-color-error-600",
+      "Usage": "Error state icons",
+      "status_note": "🟡 Proposed"
     },
     {
-      "heading": "Actual icons",
-      "content": []
+      "Token": "--zen-color-icon-success",
+      "Suggested Value": "--zen-color-success-600",
+      "Usage": "Success state icons",
+      "status_note": "🟡 Proposed"
+    },
+    {
+      "Token": "--zen-color-icon-warning",
+      "Suggested Value": "--zen-color-warning-600",
+      "Usage": "Warning state icons",
+      "status_note": "🟡 Proposed"
+    },
+    {
+      "Token": "--zen-color-icon-reverse",
+      "Suggested Value": "--zen-color-white",
+      "Usage": "Icons on dark or primary-colored backgrounds",
+      "status_note": "🟡 Proposed"
     }
-  ],
-  "text_count": 7
+  ]
 }
