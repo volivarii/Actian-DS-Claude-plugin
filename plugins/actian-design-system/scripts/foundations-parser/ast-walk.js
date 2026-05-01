@@ -29,5 +29,16 @@ function findNumberedHeadings(tokens) {
   return out;
 }
 
+function sliceSectionContent(tokens, heading) {
+  var out = [];
+  for (var i = heading.tokenIndex + 1; i < tokens.length; i++) {
+    var token = tokens[i];
+    if (token.type === "heading" && token.depth <= heading.depth) break;
+    out.push(token);
+  }
+  return out;
+}
+
 module.exports.parseMarkdown = parseMarkdown;
 module.exports.findNumberedHeadings = findNumberedHeadings;
+module.exports.sliceSectionContent = sliceSectionContent;

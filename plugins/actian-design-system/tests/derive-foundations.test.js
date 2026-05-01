@@ -89,3 +89,75 @@ describe("ast-walk: findNumberedHeadings", function () {
     );
   });
 });
+
+var {
+  sliceSectionContent,
+} = require("../scripts/foundations-parser/ast-walk.js");
+
+describe("ast-walk: sliceSectionContent", function () {
+  it("returns tokens between a heading and the next same-or-higher-depth heading", function () {
+    var tokens = parseMarkdown(
+      "## 2.1 First\n\npara1\n\n* item\n\n## 2.2 Second\n\npara2\n",
+    );
+    var headings = findNumberedHeadings(tokens);
+    var content = sliceSectionContent(tokens, headings[0]);
+    var types = content.map(function (t) {
+      return t.type;
+    });
+    assert.ok(types.indexOf("paragraph") !== -1, "expected a paragraph");
+    assert.ok(types.indexOf("list") !== -1, "expected a list");
+    // Should NOT include the next heading (## 2.2)
+    var hasNextHeading = content.some(function (t) {
+      return t.type === "heading" && t.depth === 2;
+    });
+    assert.strictEqual(hasNextHeading, false);
+  });
+
+  it("includes deeper headings as content (e.g., H3 under H2)", function () {
+    var tokens = parseMarkdown(
+      "## 1. Outer\n\n### 1.1 Inner\n\nbody\n\n## 2. Next\n",
+    );
+    var headings = findNumberedHeadings(tokens);
+    var outer = headings[0]; // depth 2
+    var content = sliceSectionContent(tokens, outer);
+    // The H3 (1.1 Inner) is part of outer's content because it's deeper.
+    var hasInnerHeading = content.some(function (t) {
+      return t.type === "heading" && t.depth === 3;
+    });
+    assert.strictEqual(hasInnerHeading, true);
+    // But the next H2 (2. Next) should NOT be included.
+    var hasNextH2 = content.some(function (t) {
+      return t.type === "heading" && t.depth === 2;
+    });
+    assert.strictEqual(hasNextH2, false);
+  });
+
+  it("stops at a same-depth heading", function () {
+    var tokens = parseMarkdown("### 2.1 First\n\nbody\n\n### 2.2 Second\n");
+    var headings = findNumberedHeadings(tokens);
+    var first = headings[0]; // depth 3
+    var content = sliceSectionContent(tokens, first);
+    // No heading at all should appear in content (next heading is depth 3, same).
+    var hasHeading = content.some(function (t) {
+      return t.type === "heading";
+    });
+    assert.strictEqual(hasHeading, false);
+  });
+
+  it("returns empty array when the section has no following content", function () {
+    var tokens = parseMarkdown("## 1. Empty\n\n## 2. Next\n");
+    var headings = findNumberedHeadings(tokens);
+    var content = sliceSectionContent(tokens, headings[0]);
+    assert.deepStrictEqual(content, []);
+  });
+
+  it("returns content through end-of-document when no following heading exists", function () {
+    var tokens = parseMarkdown("## 1. Last\n\nbody\n\nmore body\n");
+    var headings = findNumberedHeadings(tokens);
+    var content = sliceSectionContent(tokens, headings[0]);
+    var paragraphs = content.filter(function (t) {
+      return t.type === "paragraph";
+    });
+    assert.strictEqual(paragraphs.length, 2);
+  });
+});
