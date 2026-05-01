@@ -45,10 +45,10 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 
 | Phase | Name | MCP calls | Output |
 |-------|------|-----------|--------|
-| 1 | Components ⚙️ auto-handled | 1-3 incremental / ~10-20 full | `docs/dskit.json`, `docs/fmkit.json`, `docs/metakit.json` (auto-sync nightly via REST workflow; this skill writes the markdown mirrors as fallback) |
-| 2 | Variables | 2 `use_figma` | `docs/meta-kit/variables.md` (Enterprise-gated REST — manual only) |
-| 3 | Styles ⚙️ auto-handled | 2 `use_figma` | `docs/meta-kit/styles.json` (auto-sync nightly); `text-styles.md` + `effect-styles.md` are fallback markdown mirrors |
-| 4 | Token files | 0 (transforms Phase 2) | `docs/token-reference.md`, `tokens/tokens.css`, `tokens/actian-ds.tokens.json` |
+| 1 | Components ⚙️ auto-handled | 1-3 incremental / ~10-20 full | `docs/generated/dskit.json`, `docs/generated/fmkit.json`, `docs/generated/metakit.json` (auto-sync nightly via REST workflow; this skill writes the markdown mirrors as fallback) |
+| 2 | Variables | 2 `use_figma` | `docs/generated/meta-kit/variables.md` (Enterprise-gated REST — manual only) |
+| 3 | Styles ⚙️ auto-handled | 2 `use_figma` | `docs/generated/meta-kit/styles.json` (auto-sync nightly); `text-styles.md` + `effect-styles.md` are fallback markdown mirrors |
+| 4 | Token files | 0 (transforms Phase 2) | `docs/generated/token-reference.md`, `tokens/tokens.css`, `tokens/actian-ds.tokens.json` |
 | 5 | Guidelines | ~5 + ~30 `get_design_context` incremental | `docs/component-guidelines/*.json` (manual by design — curated content) |
 | 6 | Foundations | 0 (MD-as-SoT) | `docs/foundations.md` (UX team source) → `docs/generated/foundations/*.json` (CI-derived); `docs/content-guidelines.md`, `docs/accessibility-guidelines.md` (manual; Wave 2 candidates for MD-as-SoT) |
 | 7 | Validation | 0 (git diff) | `release-notes/sync-YYYY-MM-DD.md` |

@@ -38,7 +38,12 @@ function buildKeyNameCache() {
   _keyNameCache = {};
   var registries = ["fmkit", "dskit", "metakit"];
   for (var r = 0; r < registries.length; r++) {
-    var filePath = path.join(PLUGIN_ROOT, "docs", registries[r] + ".json");
+    var filePath = path.join(
+      PLUGIN_ROOT,
+      "docs",
+      "generated",
+      registries[r] + ".json",
+    );
     try {
       var registry = JSON.parse(fs.readFileSync(filePath, "utf8"));
       var store = registry.components || {};

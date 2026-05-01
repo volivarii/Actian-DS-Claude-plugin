@@ -4,8 +4,8 @@
 
 Per-component token lookups are in the synced JSON files — do NOT hardcode from memory:
 - **Per-component guidelines:** `docs/component-guidelines/*.json` (44 components — content rules, design rules, variants)
-- **All token values:** `tokens/actian-ds.tokens.json` (W3C DTCG, 3 themes) + `docs/token-reference.md`
-- **Variable keys for Figma binding:** `docs/meta-kit/variables.md` (115 keys)
+- **All token values:** `tokens/actian-ds.tokens.json` (W3C DTCG, 3 themes) + `docs/generated/token-reference.md`
+- **Variable keys for Figma binding:** `docs/generated/meta-kit/variables.md` (115 keys)
 - **FM palette:** `references/fm-css-reference.md`
 
 Skills read these at runtime. When building any component, look up its tokens from the JSON — never use hardcoded values.

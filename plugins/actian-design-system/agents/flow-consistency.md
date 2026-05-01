@@ -60,7 +60,7 @@ For each screen, verify:
 
 ### 4. Check terminology
 
-Scan all visible text in the HTML for terminology violations. Load `docs/app-context.json` → `terminology` section. For each term, check if any `notUse` values appear in visible text (case-insensitive word-boundary match):
+Scan all visible text in the HTML for terminology violations. Load `docs/generated/app-context.json` → `terminology` section. For each term, check if any `notUse` values appear in visible text (case-insensitive word-boundary match):
 
 | Wrong | Correct |
 |-------|---------|

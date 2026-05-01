@@ -10,9 +10,9 @@ Direct Figma Plugin API patterns for pushing content to Figma. Each pattern is a
 
 | Registry | File | Contents |
 |----------|------|----------|
-| FM Kit | `docs/fmkit.json` | 33 wireframe components with keys, variants, and properties |
-| Meta Kit | `docs/metakit.json` | 25 components + 3 templates |
-| DS Kit | `docs/dskit.json` | 107 design system components with keys, variants, and properties |
+| FM Kit | `docs/generated/fmkit.json` | 33 wireframe components with keys, variants, and properties |
+| Meta Kit | `docs/generated/metakit.json` | 25 components + 3 templates |
+| DS Kit | `docs/generated/dskit.json` | 107 design system components with keys, variants, and properties |
 
 Each registry entry contains: `key`, `importMethod` ("set" for `importComponentSetByKeyAsync`, "single" for `importComponentByKeyAsync`), `variants`, and `properties` (with exact hash-suffixed names for `setProperties()`).
 
@@ -228,7 +228,7 @@ const subtitleText = inst.findOne(n => n.type === "TEXT" && n.name === "Subtitle
 if (subtitleText) subtitleText.characters = "Manage team members and permissions";
 ```
 
-**FM Kit property reference** (exact `#hash` property names are in `docs/fmkit.json` — use `setProperties()`):
+**FM Kit property reference** (exact `#hash` property names are in `docs/generated/fmkit.json` — use `setProperties()`):
 
 - **FM Button** — `"Label#1411:32"`: TEXT (default: "Button label"), `"👁 Leading Icon#1410:3"`: BOOLEAN (default: true → **set false**), `"👁 Trailing Icon#1410:6"`: BOOLEAN (default: true → **set false**). Variants: `Size=md|sm`, `Shape=Regular|Pill`, `Type=Primary|Secondary|Outline|Destructive`, `State=Default|Disabled`
 - **FM Text input field** — `"Input Text#1411:57"`: TEXT (default: "Input text"), `"Show label#176:0"`: BOOLEAN, `"👁 Leading Icon#1411:74"`: BOOLEAN (default: false), `"👁 Trailing Icon#1411:76"`: BOOLEAN (default: false). Variants: `Type=Empty|Placeholder|Default|Disabled`. **Nested FM Input Label** exposes: `"Label Text#1555:11"`, `"Caption Text#1555:12"`, `"Caption#1555:9"`: BOOLEAN, `"Required#1555:10"`: BOOLEAN — set on the INPUT instance, not separately.

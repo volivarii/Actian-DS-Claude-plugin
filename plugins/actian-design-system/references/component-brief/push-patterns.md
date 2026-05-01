@@ -631,7 +631,7 @@ return { blockId: block.id };
 
 1. **Each `use_figma` call creates 1-3 nodes max** — keep calls small (200-2000 bytes typical, up to 6KB for anatomy diagram).
 2. **Return IDs from every call** — use them in subsequent calls to append children.
-3. **Prefer `setProperties` over detach+findOne** — use hash-suffixed property names from `docs/metakit.json`. Only detach when you need to append children into content slots (briefCard, a11yCard). Templates like Swatch Row, A11y Spec Row, Code Block work best as live instances.
+3. **Prefer `setProperties` over detach+findOne** — use hash-suffixed property names from `docs/generated/metakit.json`. Only detach when you need to append children into content slots (briefCard, a11yCard). Templates like Swatch Row, A11y Spec Row, Code Block work best as live instances.
 4. **No interpreter, no codegen scripts** — push directly from data model.
 5. **Detach only when needed** — briefCard and a11yCard must be detached before appending children to content slots. Do NOT detach Swatch Row, A11y Spec Row, Contrast Badge, or Code Block.
-6. **Set ALL properties** — never leave default placeholder text. Check `docs/metakit.json` for exact property names with `#hash` suffixes.
+6. **Set ALL properties** — never leave default placeholder text. Check `docs/generated/metakit.json` for exact property names with `#hash` suffixes.

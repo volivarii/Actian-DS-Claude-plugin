@@ -26,7 +26,7 @@ var path = require("path");
 // ---------------------------------------------------------------------------
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
-var DOCS_DIR = path.join(PLUGIN_ROOT, "docs");
+var DOCS_DIR = path.join(PLUGIN_ROOT, "docs", "generated");
 
 // ---------------------------------------------------------------------------
 // Load registries

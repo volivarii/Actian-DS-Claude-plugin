@@ -53,7 +53,7 @@ describe("changelog", function () {
 
   describe("resolveKeyName", function () {
     it("resolves a known FM Kit component key", function () {
-      var fmkit = require(path.join(PLUGIN_ROOT, "docs", "fmkit.json"));
+      var fmkit = require(path.join(PLUGIN_ROOT, "docs", "generated", "fmkit.json"));
       var firstSlug = Object.keys(fmkit.components)[0];
       var firstKey = fmkit.components[firstSlug].key;
       var name = changelog.resolveKeyName(firstKey);

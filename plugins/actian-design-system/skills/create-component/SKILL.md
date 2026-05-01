@@ -14,7 +14,7 @@ Determine: component name (FM prefix for Fat Marker), library (FM = Inter, DS Ki
 
 ## Step 2 — Check existing components
 
-Check `../../docs/dskit-components.md` and `../../docs/fm-components.md`. If it exists, suggest modifying instead. Load `../../docs/component-guidelines/<slug>.json` for content/design guidelines if available.
+Check `../../docs/generated/dskit-components.md` and `../../docs/generated/fm-components.md`. If it exists, suggest modifying instead. Load `../../docs/component-guidelines/<slug>.json` for content/design guidelines if available.
 
 ## Step 3 — Research (optional)
 
@@ -78,5 +78,5 @@ After creation, offer: "Want me to generate a component brief?" If accepted, inv
 - `references/figma-output.md` — Figma URL parsing, token binding
 - `references/quality-checklist.md` — cleanup pass checklist
 - `references/parity-check.md` — post-push parity check procedure
-- `docs/meta-kit/variables.md` — DS Kit variable keys
+- `docs/generated/meta-kit/variables.md` — DS Kit variable keys
 - `references/fm-css-reference.md` — FM hex palette

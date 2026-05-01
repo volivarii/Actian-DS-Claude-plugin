@@ -15,7 +15,7 @@ var resolver = require(path.join(__dirname, "intent-resolver.js"));
 function loadKitRegistry(kit) {
   var fileName =
     kit === "fm" ? "fmkit.json" : kit === "ds" ? "dskit.json" : "metakit.json";
-  var registryPath = path.join(__dirname, "..", "docs", fileName);
+  var registryPath = path.join(__dirname, "..", "docs", "generated", fileName);
   try {
     return JSON.parse(fs.readFileSync(registryPath, "utf8"));
   } catch (e) {
@@ -313,7 +313,12 @@ function findUnresolvedTokensRaw(data) {
 // ---------------------------------------------------------------------------
 
 function loadTerminology() {
-  var appContextPath = path.join(PLUGIN_ROOT, "docs", "app-context.json");
+  var appContextPath = path.join(
+    PLUGIN_ROOT,
+    "docs",
+    "generated",
+    "app-context.json",
+  );
   try {
     var appContext = JSON.parse(fs.readFileSync(appContextPath, "utf8"));
     return appContext.terminology || {};

@@ -1,6 +1,6 @@
 # Actian Design System 2026 — Component Reference
 
-Auto-generated from `docs/dskit.json` by `scripts/render-component-reference.js`.
+Auto-generated from `docs/generated/dskit.json` by `scripts/render-component-reference.js`.
 118 components.
 
 ---

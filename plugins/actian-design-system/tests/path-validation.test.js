@@ -35,11 +35,11 @@ var SCAN_FILES = [path.join(PLUGIN_ROOT, "CLAUDE.md")];
 // These are expected outputs referenced in sync skill docs — skip them in assertions
 // but still log them so they stay visible.
 var KNOWN_SYNC_OUTPUTS = [
-  "docs/meta-kit/meta-kit-reference.md",
+  "docs/generated/meta-kit/meta-kit-reference.md",
   "tokens/actian-ds.tokens.css",
   "docs/foundations/_index.json",
   // Sprint 1 Wave 1: REST orchestrator output, populated on first nightly run.
-  "docs/meta-kit/styles.json",
+  "docs/generated/meta-kit/styles.json",
 ];
 
 // Known root-relative prefixes (resolve from plugin root)
