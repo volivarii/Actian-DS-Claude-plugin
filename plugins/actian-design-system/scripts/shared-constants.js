@@ -133,26 +133,32 @@ function buildKeyMapFromRegistry(registryName, prefix, section, overrides) {
 // Ref-name → registry-slug mappings (only source of duplication)
 // ---------------------------------------------------------------------------
 
+// Slug values match the canonical keys in docs/metakit.json. The REST sync
+// orchestrator (Sprint 1) normalizes Figma component names through a single
+// slugify pass that collapses runs of non-alphanumeric chars to "-", which
+// dropped the legacy "meta-/-X-/-Y" form on 2026-04-30. Keep this table in
+// step with metakit.json — adding a slug here that doesn't exist there will
+// cause buildKeyMap to silently drop the entry.
 const META_SLUGS = {
-  genLog: "meta-/-chrome-/-generation-log",
-  divider: "meta-/-utility-/-card-divider",
-  codeBlock: "meta-/-content-/-code-block",
-  flowCoverCard: "meta-/-chrome-/-flow-cover-card",
-  researchFrame: "meta-/-content-/-research-frame",
-  feedback: "meta-/-chrome-/-feedback",
-  flowScreen: "meta-/-chrome-/-flow-screen",
+  genLog: "meta-chrome-generation-log",
+  divider: "meta-utility-card-divider",
+  codeBlock: "meta-content-code-block",
+  flowCoverCard: "meta-chrome-flow-cover-card",
+  researchFrame: "meta-content-research-frame",
+  feedback: "meta-chrome-feedback",
+  flowScreen: "meta-chrome-flow-screen",
 };
 
 const BRIEF_SLUGS = {
-  briefCard: "meta-/-chrome-/-brief-card",
-  doDontPair: "meta-/-content-/-do-don't-pair",
-  contrastBadge: "meta-/-content-/-contrast-badge",
-  pointerBadge: "meta-/-content-/-pointer-badge",
-  dimAnnotation: "meta-/-content-/-dimension-annotation",
-  a11yCard: "meta-/-chrome-/-accessibility-card",
-  colorSwatch: "meta-/-content-/-color-swatch",
-  themeCard: "meta-/-chrome-/-theme-card",
-  statCard: "meta-/-content-/-stat-card",
+  briefCard: "meta-chrome-brief-card",
+  doDontPair: "meta-content-do-don-t-pair",
+  contrastBadge: "meta-content-contrast-badge",
+  pointerBadge: "meta-content-pointer-badge",
+  dimAnnotation: "meta-content-dimension-annotation",
+  a11yCard: "meta-chrome-accessibility-card",
+  colorSwatch: "meta-content-color-swatch",
+  themeCard: "meta-chrome-theme-card",
+  statCard: "meta-content-stat-card",
 };
 
 const TEMPLATE_SLUGS = {
@@ -162,11 +168,11 @@ const TEMPLATE_SLUGS = {
 };
 
 const SLIDE_SLUGS = {
-  slideCover: "meta-/-slide-/-cover",
-  slideBodyFull: "meta-/-slide-/-body-full",
-  slideBodyTV: "meta-/-slide-/-body-text-visual",
-  slideSection: "meta-/-slide-/-section",
-  slideBack: "meta-/-slide-/-back-cover",
+  slideCover: "meta-slide-cover",
+  slideBodyFull: "meta-slide-body-full",
+  slideBodyTV: "meta-slide-body-text-visual",
+  slideSection: "meta-slide-section",
+  slideBack: "meta-slide-back-cover",
 };
 
 const FM_SLUGS = buildSlugMap("fmkit", "fm");

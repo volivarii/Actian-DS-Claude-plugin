@@ -21,6 +21,7 @@
 var fs = require("fs");
 var path = require("path");
 var resolver = require("./intent-resolver.js");
+var shared = require("./shared-constants.js");
 
 // ---------------------------------------------------------------------------
 // Paths
@@ -78,36 +79,6 @@ function serializeVariant(obj) {
 }
 
 // ---------------------------------------------------------------------------
-// Slug-to-ref helper
-// ---------------------------------------------------------------------------
-
-/**
- * Convert a DS slug like "button" or "dropdown-select-default" to a DS ref name.
- * Pattern: "ds" + PascalCase(slug)
- *
- * Examples:
- *   "button"                  → "dsButton"
- *   "dropdown-select-default" → "dsDropdownSelectDefault"
- *   "checkbox-with-label"     → "dsCheckboxWithLabel"
- *   "alert-banner"            → "dsAlertBanner"
- *
- * @param {string} slug
- * @returns {string}
- */
-function slugToRef(slug) {
-  if (!slug) return "";
-  var parts = slug.split("-");
-  var ref = "ds";
-  for (var i = 0; i < parts.length; i++) {
-    var part = parts[i];
-    if (part.length > 0) {
-      ref += part.charAt(0).toUpperCase() + part.substring(1);
-    }
-  }
-  return ref;
-}
-
-// ---------------------------------------------------------------------------
 // Core transform: single INSTANCE node
 // ---------------------------------------------------------------------------
 
@@ -144,9 +115,12 @@ function transformInstance(node, mapData, dsRegistry, effectiveIntent) {
     return unmappedNode;
   }
 
-  // Build DS ref name from slug
+  // Build DS ref name from slug — shared.slugToRef strips a leading "ds-"
+  // prefix if present, then PascalCases the rest. dsSlug values in
+  // fm-to-ds-map.json don't currently start with "ds-" but the shared
+  // helper handles that case correctly if a future entry does.
   var dsSlug = mapping.dsSlug;
-  var dsRef = slugToRef(dsSlug);
+  var dsRef = shared.slugToRef(dsSlug, "ds");
 
   // Validate that the DS component exists in the registry
   var dsComponents = dsRegistry.components || {};
