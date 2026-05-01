@@ -1,0 +1,36 @@
+{
+  "_comment": "Section number -> output target. Devs maintain. Designers never edit.",
+  "_dropped": [
+    "2 (parent H2) — content covered by 2.1-2.12",
+    "3 (parent H2) — content covered by 3.1-3.6",
+    "4 (parent H2) — content covered by 4.1-4.3",
+    "5.* (Handoff Protocol) — process docs, out of scope for foundations data",
+    "6.* (Related Guidelines) — pointers to accessibility-guidelines.md and content-guidelines.md"
+  ],
+
+  "1":    { "file": "color.json", "key": "primitives" },
+
+  "2.1":  { "file": "color.json", "key": "global" },
+  "2.2":  { "file": "color.json", "key": "text" },
+  "2.3":  { "file": "borders.json" },
+  "2.4":  { "file": "breakpoint-grid-structure.json" },
+  "2.5":  { "file": "color.json", "key": "focus" },
+  "2.6":  { "file": "elevation.json" },
+  "2.7":  { "file": "spacing.json" },
+  "2.8":  { "file": "typography.json" },
+  "2.9":  { "file": "interaction-motion.json" },
+  "2.10": { "file": "color.json", "key": "background" },
+  "2.11": { "file": "spacing.json", "key": "size" },
+  "2.12": { "file": "icons.json" },
+
+  "3.1":  { "file": "color.json", "key": "rules" },
+  "3.2":  { "file": "typography.json", "key": "rules" },
+  "3.3":  { "file": "spacing.json", "key": "rules" },
+  "3.4":  { "file": "elevation.json", "key": "rules" },
+  "3.5":  { "file": "interaction-motion.json", "key": "brightness_filter" },
+  "3.6":  { "file": "breakpoint-grid-structure.json", "key": "rules" },
+
+  "4.1":  { "file": "color.json", "key": "focus_ring_rules" },
+  "4.2":  { "file": "borders.json", "key": "rules" },
+  "4.3":  { "file": "typography.json", "key": "placeholder" }
+}

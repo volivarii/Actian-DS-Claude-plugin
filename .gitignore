@@ -47,6 +47,7 @@ token-drift.json
 
 # Superpowers working files
 docs/superpowers/
+.superpowers/
 
 # Root-level scratch docs
 /docs/
