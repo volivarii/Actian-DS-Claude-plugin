@@ -35,4 +35,16 @@ function extractTable(tableToken) {
   return out;
 }
 
-module.exports = { extractTable, cellText };
+function extractFencedBlock(codeToken) {
+  if (!codeToken || codeToken.type !== "code") return null;
+  var lang = codeToken.lang ? String(codeToken.lang).toLowerCase() : null;
+  // marked may leave lang as empty string for fences with no language tag
+  if (lang === "") lang = null;
+  return {
+    lang: lang,
+    value: typeof codeToken.text === "string" ? codeToken.text : "",
+  };
+}
+
+module.exports = { extractTable, cellText, extractFencedBlock };
+module.exports.extractFencedBlock = extractFencedBlock;

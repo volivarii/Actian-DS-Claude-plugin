@@ -195,7 +195,10 @@ describe("status-emoji: extractStatus", function () {
   });
 });
 
-var { extractTable } = require("../scripts/foundations-parser/extractors.js");
+var {
+  extractTable,
+  extractFencedBlock,
+} = require("../scripts/foundations-parser/extractors.js");
 
 describe("extractors: extractTable", function () {
   it("converts a table to an array of objects keyed by header", function () {
@@ -242,5 +245,41 @@ describe("extractors: extractTable", function () {
     });
     var rows = extractTable(table);
     assert.strictEqual(rows[0].A, "spaced");
+  });
+});
+
+describe("extractors: extractFencedBlock", function () {
+  it("returns raw value with lang for a code block", function () {
+    var tokens = parseMarkdown("```yaml\nfoo: bar\n```\n");
+    var code = tokens.find(function (t) {
+      return t.type === "code";
+    });
+    var result = extractFencedBlock(code);
+    assert.strictEqual(result.lang, "yaml");
+    assert.strictEqual(result.value, "foo: bar");
+  });
+
+  it("normalizes lang to lowercase", function () {
+    var tokens = parseMarkdown('```JSON\n{"a":1}\n```\n');
+    var code = tokens.find(function (t) {
+      return t.type === "code";
+    });
+    var result = extractFencedBlock(code);
+    assert.strictEqual(result.lang, "json");
+  });
+
+  it("returns null lang when no language tag is present", function () {
+    var tokens = parseMarkdown("```\nplain\n```\n");
+    var code = tokens.find(function (t) {
+      return t.type === "code";
+    });
+    var result = extractFencedBlock(code);
+    assert.strictEqual(result.lang, null);
+    assert.strictEqual(result.value, "plain");
+  });
+
+  it("returns null for non-code input", function () {
+    assert.strictEqual(extractFencedBlock(null), null);
+    assert.strictEqual(extractFencedBlock({ type: "paragraph" }), null);
   });
 });
