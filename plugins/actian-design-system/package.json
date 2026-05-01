@@ -1,7 +1,14 @@
 {
   "private": true,
+  "devDependencies": {
+    "mdast-util-from-markdown": "^2.0.1",
+    "mdast-util-gfm": "^3.0.0",
+    "micromark-extension-gfm": "^3.0.0"
+  },
   "scripts": {
     "test": "node tests/codegen-snapshots.test.js",
-    "update-snapshots": "UPDATE_SNAPSHOTS=1 node tests/codegen-snapshots.test.js"
+    "update-snapshots": "UPDATE_SNAPSHOTS=1 node tests/codegen-snapshots.test.js",
+    "derive:foundations": "node scripts/derive-foundations.js",
+    "derive:foundations:check": "node scripts/derive-foundations.js --check"
   }
 }
