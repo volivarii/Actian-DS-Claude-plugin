@@ -194,3 +194,53 @@ describe("status-emoji: extractStatus", function () {
     assert.strictEqual(extractStatus("🎉"), null);
   });
 });
+
+var { extractTable } = require("../scripts/foundations-parser/extractors.js");
+
+describe("extractors: extractTable", function () {
+  it("converts a table to an array of objects keyed by header", function () {
+    var tokens = parseMarkdown(
+      "| Token | Value |\n|---|---|\n| `--zen-color-blue-500` | `#0078A8` |\n| `--zen-color-blue-600` | `#005C82` |\n",
+    );
+    var table = tokens.find(function (t) {
+      return t.type === "table";
+    });
+    var rows = extractTable(table);
+    assert.strictEqual(rows.length, 2);
+    assert.strictEqual(rows[0].Token, "--zen-color-blue-500");
+    assert.strictEqual(rows[0].Value, "#0078A8");
+    assert.strictEqual(rows[1].Token, "--zen-color-blue-600");
+  });
+
+  it("preserves a Status column verbatim (downstream extracts the emoji)", function () {
+    var tokens = parseMarkdown("| Token | Status |\n|---|---|\n| x | ⚠️ |\n");
+    var table = tokens.find(function (t) {
+      return t.type === "table";
+    });
+    var rows = extractTable(table);
+    assert.strictEqual(rows[0].Status, "⚠️");
+  });
+
+  it("returns empty array for a table with only a header", function () {
+    var tokens = parseMarkdown("| A | B |\n|---|---|\n");
+    var table = tokens.find(function (t) {
+      return t.type === "table";
+    });
+    var rows = extractTable(table);
+    assert.deepStrictEqual(rows, []);
+  });
+
+  it("returns empty array for a non-table input (defensive)", function () {
+    assert.deepStrictEqual(extractTable(null), []);
+    assert.deepStrictEqual(extractTable({ type: "paragraph" }), []);
+  });
+
+  it("trims cell text", function () {
+    var tokens = parseMarkdown("| A |\n|---|\n|   spaced   |\n");
+    var table = tokens.find(function (t) {
+      return t.type === "table";
+    });
+    var rows = extractTable(table);
+    assert.strictEqual(rows[0].A, "spaced");
+  });
+});
