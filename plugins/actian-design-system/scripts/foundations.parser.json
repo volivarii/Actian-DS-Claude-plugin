@@ -1,0 +1,17 @@
+{
+  "_comment": "Section number → output target. Maintained by devs. Designers never edit.",
+  "_comment2": "This skeleton will be tuned in Task 13 against the real foundations.md.",
+  "1": { "file": "color.json", "key": "primitives" },
+  "2.1": { "file": "color.json", "key": "global" },
+  "2.2": { "file": "color.json", "key": "text" },
+  "2.3": { "file": "borders.json" },
+  "2.4": { "file": "breakpoint-grid-structure.json" },
+  "2.5": { "file": "color.json", "key": "focus" },
+  "2.6": { "file": "elevation.json" },
+  "2.7": { "file": "spacing.json" },
+  "2.8": { "file": "typography.json" },
+  "2.9": { "file": "interaction-motion.json" },
+  "2.10": { "file": "color.json", "key": "background" },
+  "2.11": { "file": "spacing.json", "key": "size" },
+  "2.12": { "file": "icons.json", "key": "color" }
+}

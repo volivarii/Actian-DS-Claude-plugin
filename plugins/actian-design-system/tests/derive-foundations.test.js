@@ -346,3 +346,113 @@ describe("extractors: extractProse", function () {
     assert.strictEqual(extractProse({ type: "heading" }), "");
   });
 });
+
+var { deriveFromMarkdown } = require("../scripts/derive-foundations.js");
+
+describe("derive-foundations: deriveFromMarkdown", function () {
+  it("dispatches numbered sections to the correct output file", function () {
+    var md = [
+      "## 2.7 Spacing",
+      "",
+      "| Token | Value |",
+      "|---|---|",
+      "| `--zen-spacing-100` | `4px` |",
+      "",
+      "## 2.6 Elevation",
+      "",
+      "| Token | Value |",
+      "|---|---|",
+      "| `--zen-elevation-1` | `0 1px 2px rgba(0,0,0,0.1)` |",
+      "",
+    ].join("\n");
+
+    var parserMap = {
+      2.6: { file: "elevation.json" },
+      2.7: { file: "spacing.json" },
+    };
+    var result = deriveFromMarkdown(md, parserMap);
+    assert.ok(result["spacing.json"], "expected spacing.json output");
+    assert.ok(result["elevation.json"], "expected elevation.json output");
+    assert.deepStrictEqual(result["spacing.json"].rows, [
+      { Token: "--zen-spacing-100", Value: "4px" },
+    ]);
+  });
+
+  it("nests under 'key' when parser map specifies one", function () {
+    var md =
+      "## 2.1 Color — Global\n\n| Token | Value |\n|---|---|\n| `--c-1` | `#fff` |\n";
+    var parserMap = { 2.1: { file: "color.json", key: "global" } };
+    var result = deriveFromMarkdown(md, parserMap);
+    assert.ok(result["color.json"]);
+    assert.ok(result["color.json"].global);
+    assert.deepStrictEqual(result["color.json"].global.rows, [
+      { Token: "--c-1", Value: "#fff" },
+    ]);
+  });
+
+  it("ignores numbered headings absent from the parser map (warns to provided logger)", function () {
+    var warns = [];
+    var logger = {
+      warn: function (m) {
+        warns.push(m);
+      },
+    };
+    var md = "## 2.1 Mapped\n\nbody\n\n## 99 Unmapped\n\nbody\n";
+    var parserMap = { 2.1: { file: "mapped.json" } };
+    var result = deriveFromMarkdown(md, parserMap, { logger: logger });
+    assert.ok(result["mapped.json"]);
+    assert.ok(!result["unmapped.json"]);
+    assert.strictEqual(warns.length, 1);
+    assert.match(warns[0], /99/);
+  });
+
+  it("converts Status column emoji to top-level status field", function () {
+    var md = [
+      "## 2.1 Test",
+      "",
+      "| Token | Value | Status |",
+      "|---|---|---|",
+      "| `--a` | `#fff` | ✅ |",
+      "| `--b` | `#000` | ⚠️ |",
+      "| `--c` | `#888` | ❌ |",
+      "",
+    ].join("\n");
+    var parserMap = { 2.1: { file: "test.json" } };
+    var result = deriveFromMarkdown(md, parserMap);
+    var rows = result["test.json"].rows;
+    assert.strictEqual(rows.length, 3);
+    // ✅ → no status field
+    assert.strictEqual(rows[0].Status, undefined);
+    assert.strictEqual(rows[0].status, undefined);
+    assert.strictEqual(rows[0].Token, "--a");
+    // ⚠️ → status: "proposed"
+    assert.strictEqual(rows[1].Status, undefined);
+    assert.strictEqual(rows[1].status, "proposed");
+    // ❌ → status: "deprecated"
+    assert.strictEqual(rows[2].status, "deprecated");
+  });
+
+  it("collects bullet lists, code blocks, and prose into the section payload", function () {
+    var md = [
+      "## 2.1 Test",
+      "",
+      "Some intro prose.",
+      "",
+      "- bullet one",
+      "- bullet two",
+      "",
+      "```yaml",
+      "key: value",
+      "```",
+      "",
+    ].join("\n");
+    var parserMap = { 2.1: { file: "test.json" } };
+    var result = deriveFromMarkdown(md, parserMap);
+    var section = result["test.json"];
+    assert.match(section.description, /Some intro prose/);
+    assert.deepStrictEqual(section.lists, [["bullet one", "bullet two"]]);
+    assert.strictEqual(section.code.length, 1);
+    assert.strictEqual(section.code[0].lang, "yaml");
+    assert.strictEqual(section.code[0].value, "key: value");
+  });
+});
