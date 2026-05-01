@@ -283,3 +283,66 @@ describe("extractors: extractFencedBlock", function () {
     assert.strictEqual(extractFencedBlock({ type: "paragraph" }), null);
   });
 });
+
+var {
+  extractList,
+  extractProse,
+} = require("../scripts/foundations-parser/extractors.js");
+
+describe("extractors: extractList", function () {
+  it("returns array of plain-text strings from a bullet list", function () {
+    var tokens = parseMarkdown(
+      "- first item\n- second item\n- **third** item\n",
+    );
+    var list = tokens.find(function (t) {
+      return t.type === "list";
+    });
+    var items = extractList(list);
+    assert.deepStrictEqual(items, ["first item", "second item", "third item"]);
+  });
+
+  it("strips inline code backticks from list items", function () {
+    var tokens = parseMarkdown("- use `--zen-color-blue-500`\n");
+    var list = tokens.find(function (t) {
+      return t.type === "list";
+    });
+    var items = extractList(list);
+    assert.strictEqual(items[0], "use --zen-color-blue-500");
+  });
+
+  it("returns empty array for non-list input (defensive)", function () {
+    assert.deepStrictEqual(extractList(null), []);
+    assert.deepStrictEqual(extractList({ type: "paragraph" }), []);
+  });
+});
+
+describe("extractors: extractProse", function () {
+  it("returns paragraph text", function () {
+    var tokens = parseMarkdown("This is a paragraph.\n");
+    var p = tokens.find(function (t) {
+      return t.type === "paragraph";
+    });
+    assert.strictEqual(extractProse(p), "This is a paragraph.");
+  });
+
+  it("strips inline code backticks", function () {
+    var tokens = parseMarkdown("Use `--zen-color-blue-500` here.\n");
+    var p = tokens.find(function (t) {
+      return t.type === "paragraph";
+    });
+    assert.strictEqual(extractProse(p), "Use --zen-color-blue-500 here.");
+  });
+
+  it("strips bold/italic markers (text content only)", function () {
+    var tokens = parseMarkdown("Some **bold** and *italic* text.\n");
+    var p = tokens.find(function (t) {
+      return t.type === "paragraph";
+    });
+    assert.strictEqual(extractProse(p), "Some bold and italic text.");
+  });
+
+  it("returns empty string for non-paragraph input", function () {
+    assert.strictEqual(extractProse(null), "");
+    assert.strictEqual(extractProse({ type: "heading" }), "");
+  });
+});
