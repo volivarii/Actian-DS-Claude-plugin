@@ -87,7 +87,7 @@
       "Token": "--zen-border-error",
       "Value": "1px solid --zen-color-error-500",
       "Usage": "Error state inputs",
-      "status_note": "🟡 Proposed"
+      "status_note": "🟢 Shipped"
     }
   ],
   "rules": {

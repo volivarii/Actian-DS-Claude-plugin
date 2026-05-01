@@ -621,7 +621,7 @@ The `--zen-color-primary-*` tokens resolve per product theme. All other semantic
 | `--zen-border-subtle` | `1px solid grey-50` | Separators | 🟢 Shipped |
 | `--zen-border-disabled` | `1px solid grey-100` | Disabled state of components | 🟢 Shipped |
 | `--zen-border-selected` | `2px solid --zen-color-primary-500` | Selected state of components | 🟡 Proposed |
-| `--zen-border-error` | `1px solid --zen-color-error-500` | Error state inputs | 🟡 Proposed |
+| `--zen-border-error` | `1px solid --zen-color-error-500` | Error state inputs | 🟢 Shipped |
 
 ### 2.4 Breakpoints
 
