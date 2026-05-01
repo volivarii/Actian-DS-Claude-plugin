@@ -591,3 +591,79 @@ describe("derive-foundations CLI", function () {
     fs.rmSync(tmpDir, { recursive: true, force: true });
   });
 });
+
+describe("derive-foundations: status column handling (case + leading-emoji)", function () {
+  it("matches Status column case-insensitively (status / STATUS)", function () {
+    var md = "## 2.1 Test\n\n| Token | status |\n|---|---|\n| --a | ⚠️ |\n";
+    var parserMap = { 2.1: { file: "test.json" } };
+    var result = deriveFromMarkdown(md, parserMap);
+    assert.strictEqual(result["test.json"].rows[0].status, "proposed");
+  });
+
+  it("handles leading-emoji-with-text in status cell", function () {
+    var md =
+      "## 2.1 Test\n\n| Token | Status |\n|---|---|\n| --a | ⚠️ proposed pending review |\n";
+    var parserMap = { 2.1: { file: "test.json" } };
+    var result = deriveFromMarkdown(md, parserMap);
+    var row = result["test.json"].rows[0];
+    assert.strictEqual(row.status, "proposed");
+    assert.strictEqual(row.status_note, "proposed pending review");
+  });
+
+  it("does not warn when status cell is text-only without emoji (treated as note)", function () {
+    var warns = [];
+    var logger = {
+      warn: function (m) {
+        warns.push(m);
+      },
+    };
+    var md = "## 2.1 Test\n\n| Token | Status |\n|---|---|\n| --a | wat |\n";
+    var parserMap = { 2.1: { file: "test.json" } };
+    var result = deriveFromMarkdown(md, parserMap, { logger: logger });
+    // No warn — cell content is preserved as status_note instead
+    assert.strictEqual(warns.length, 0);
+    // Confirm text is preserved as status_note
+    assert.strictEqual(result["test.json"].rows[0].status_note, "wat");
+  });
+});
+
+describe("derive-foundations: dispatcher collision detection (issue #6)", function () {
+  it("warns when two sections map to the same file+key (collision)", function () {
+    var warns = [];
+    var logger = {
+      warn: function (m) {
+        warns.push(m);
+      },
+    };
+    var md =
+      "## 2.1 First\n\n| A |\n|---|\n| 1 |\n\n## 2.2 Second\n\n| A |\n|---|\n| 2 |\n";
+    var parserMap = {
+      2.1: { file: "test.json", key: "shared" },
+      2.2: { file: "test.json", key: "shared" },
+    };
+    deriveFromMarkdown(md, parserMap, { logger: logger });
+    var collisionWarns = warns.filter(function (w) {
+      return /collision|overwrites/i.test(w);
+    });
+    assert.strictEqual(collisionWarns.length, 1);
+  });
+});
+
+describe("ast-walk: findNumberedHeadings — heading regex tightening (issue #7)", function () {
+  it("does not match year-like headings (4-digit numbers)", function () {
+    var tokens = parseMarkdown("## 2026 retrospective\n\n## 1. Real section\n");
+    var headings = findNumberedHeadings(tokens);
+    assert.strictEqual(headings.length, 1);
+    assert.strictEqual(headings[0].number, "1");
+  });
+
+  it("matches up to 2-digit components (e.g., 2.10, 1.99) but not 3-digit (100.)", function () {
+    var tokens = parseMarkdown(
+      "## 2.10 Tokens\n\n## 1.99 Edge\n\n## 100. Too many digits\n",
+    );
+    var headings = findNumberedHeadings(tokens);
+    assert.strictEqual(headings.length, 2);
+    assert.strictEqual(headings[0].number, "2.10");
+    assert.strictEqual(headings[1].number, "1.99");
+  });
+});

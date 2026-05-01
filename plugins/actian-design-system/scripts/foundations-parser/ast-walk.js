@@ -9,7 +9,7 @@ function parseMarkdown(source) {
 // Match leading numbering like "1.", "2.1", "2.10", etc. The trailing
 // dot after a single number is optional (so "1. Foo" and "1 Foo" both work,
 // matching Mathieu's existing MD style).
-var NUMBERED_HEADING_RE = /^(\d+(?:\.\d+)*)\.?\s+(.+?)\s*$/;
+var NUMBERED_HEADING_RE = /^(\d{1,2}(?:\.\d{1,2})*)\.?\s+(.+?)\s*$/;
 
 function findNumberedHeadings(tokens) {
   var out = [];

@@ -6,26 +6,58 @@ var astWalk = require("./foundations-parser/ast-walk.js");
 var extractors = require("./foundations-parser/extractors.js");
 var statusEmoji = require("./foundations-parser/status-emoji.js");
 
-function applyStatusToRows(rows) {
+function applyStatusToRows(rows, sectionNumber, logger) {
   return rows.map(function (row) {
     var copy = {};
     var status = null;
     var keys = Object.keys(row);
+    var statusColRaw = null;
     for (var i = 0; i < keys.length; i++) {
       var k = keys[i];
       var v = row[k];
-      if (k === "Status") {
-        status = statusEmoji.extractStatus(v);
+      if (k.toLowerCase() === "status") {
+        statusColRaw = v;
+        var parsed = statusEmoji.extractStatus.fromValueCell(v);
+        status = parsed.status;
+        // fromValueCell returns status===null both for recognized null-status emojis
+        // (e.g. ✅ "current") and for completely unrecognized content. Distinguish
+        // them by checking whether the cell had a known emoji at all.
+        var emojiRecognized =
+          statusEmoji.extractStatus(String(v).trim()) !== null ||
+          Object.prototype.hasOwnProperty.call(
+            statusEmoji.extractStatus.STATUS_MAP,
+            String(v).trim(),
+          );
+        // If there's leftover text after the emoji, preserve it as status_note.
+        if (parsed.value && parsed.value.length > 0) {
+          copy.status_note = parsed.value;
+        }
+        if (!emojiRecognized) {
+          // Mark as unrecognized so the warn logic below can fire.
+          statusColRaw = v;
+        } else {
+          statusColRaw = null; // suppress warn for recognized emojis
+        }
         continue;
       }
       copy[k] = v;
     }
     if (status) copy.status = status;
+    // Warn if a status column was present with unrecognized content and no preserved note.
+    if (statusColRaw && status === null && !copy.status_note && logger) {
+      logger.warn(
+        "Section '" +
+          sectionNumber +
+          "' row had unrecognized status cell: '" +
+          statusColRaw +
+          "'",
+      );
+    }
     return copy;
   });
 }
 
-function buildSectionPayload(contentTokens) {
+function buildSectionPayload(contentTokens, sectionNumber, logger) {
   var payload = { rows: [], lists: [], code: [], description: null };
   var descLines = [];
 
@@ -33,7 +65,9 @@ function buildSectionPayload(contentTokens) {
     var token = contentTokens[i];
     if (token.type === "table") {
       var rows = extractors.extractTable(token);
-      payload.rows = payload.rows.concat(applyStatusToRows(rows));
+      payload.rows = payload.rows.concat(
+        applyStatusToRows(rows, sectionNumber, logger),
+      );
     } else if (token.type === "list") {
       payload.lists.push(extractors.extractList(token));
     } else if (token.type === "code") {
@@ -76,11 +110,25 @@ function deriveFromMarkdown(mdSource, parserMap, opts) {
       continue;
     }
     var content = astWalk.sliceSectionContent(tokens, heading);
-    var payload = buildSectionPayload(content);
+    var payload = buildSectionPayload(content, heading.number, logger);
 
     if (!output[target.file]) output[target.file] = {};
-    if (target.key) output[target.file][target.key] = payload;
-    else Object.assign(output[target.file], payload);
+    if (target.key) {
+      if (output[target.file][target.key]) {
+        logger.warn(
+          "Section '" +
+            heading.number +
+            "' overwrites existing output at " +
+            target.file +
+            ":" +
+            target.key +
+            " (multiple sections mapped to same target)",
+        );
+      }
+      output[target.file][target.key] = payload;
+    } else {
+      Object.assign(output[target.file], payload);
+    }
   }
   return output;
 }
