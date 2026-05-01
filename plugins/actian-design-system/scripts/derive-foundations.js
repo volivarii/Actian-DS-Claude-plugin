@@ -1,5 +1,7 @@
 "use strict";
 
+var fs = require("fs");
+var path = require("path");
 var astWalk = require("./foundations-parser/ast-walk.js");
 var extractors = require("./foundations-parser/extractors.js");
 var statusEmoji = require("./foundations-parser/status-emoji.js");
@@ -65,8 +67,11 @@ function deriveFromMarkdown(mdSource, parserMap, opts) {
     var target = parserMap[heading.number];
     if (!target) {
       logger.warn(
-        "Numbered heading '" + heading.number + " " + heading.text +
-        "' has no parser map entry; skipping."
+        "Numbered heading '" +
+          heading.number +
+          " " +
+          heading.text +
+          "' has no parser map entry; skipping.",
       );
       continue;
     }
@@ -80,4 +85,39 @@ function deriveFromMarkdown(mdSource, parserMap, opts) {
   return output;
 }
 
-module.exports = { deriveFromMarkdown, buildSectionPayload, applyStatusToRows };
+function addMetaHeader(payload) {
+  var meta = {
+    auto_generated: true,
+    source: "docs/foundations.md",
+    do_not_edit: "Edit the source MD; CI regenerates this file.",
+  };
+  // Place _meta first by constructing a new object key-by-key.
+  var out = { _meta: meta };
+  var keys = Object.keys(payload);
+  for (var i = 0; i < keys.length; i++) {
+    out[keys[i]] = payload[keys[i]];
+  }
+  return out;
+}
+
+function writeOutputs(output, outputDir) {
+  if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+  var written = [];
+  var files = Object.keys(output);
+  for (var i = 0; i < files.length; i++) {
+    var name = files[i];
+    var payload = addMetaHeader(output[name]);
+    var dest = path.join(outputDir, name);
+    fs.writeFileSync(dest, JSON.stringify(payload, null, 2) + "\n");
+    written.push(dest);
+  }
+  return written;
+}
+
+module.exports = {
+  deriveFromMarkdown,
+  buildSectionPayload,
+  applyStatusToRows,
+  addMetaHeader,
+  writeOutputs,
+};

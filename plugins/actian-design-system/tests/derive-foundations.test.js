@@ -347,7 +347,14 @@ describe("extractors: extractProse", function () {
   });
 });
 
-var { deriveFromMarkdown } = require("../scripts/derive-foundations.js");
+var {
+  deriveFromMarkdown,
+  writeOutputs,
+  addMetaHeader,
+} = require("../scripts/derive-foundations.js");
+var fs = require("fs");
+var path = require("path");
+var os = require("os");
 
 describe("derive-foundations: deriveFromMarkdown", function () {
   it("dispatches numbered sections to the correct output file", function () {
@@ -454,5 +461,56 @@ describe("derive-foundations: deriveFromMarkdown", function () {
     assert.strictEqual(section.code.length, 1);
     assert.strictEqual(section.code[0].lang, "yaml");
     assert.strictEqual(section.code[0].value, "key: value");
+  });
+});
+
+describe("derive-foundations: addMetaHeader", function () {
+  it("injects _meta.auto_generated marker", function () {
+    var withMeta = addMetaHeader({ a: 1 });
+    assert.strictEqual(withMeta._meta.auto_generated, true);
+    assert.strictEqual(withMeta._meta.source, "docs/foundations.md");
+    assert.match(withMeta._meta.do_not_edit, /Edit the source/);
+    assert.strictEqual(withMeta.a, 1);
+  });
+
+  it("places _meta first when JSON-serialized", function () {
+    var withMeta = addMetaHeader({ a: 1 });
+    var keys = Object.keys(withMeta);
+    assert.strictEqual(keys[0], "_meta");
+  });
+});
+
+describe("derive-foundations: writeOutputs", function () {
+  it("writes one JSON file per output entry, with header guard", function () {
+    var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "foundations-"));
+    var output = {
+      "color.json": { rows: [{ Token: "--c-1", Value: "#fff" }] },
+      "spacing.json": { rows: [{ Token: "--s-1", Value: "4px" }] },
+    };
+    var written = writeOutputs(output, tmpDir);
+    assert.strictEqual(written.length, 2);
+    var color = JSON.parse(
+      fs.readFileSync(path.join(tmpDir, "color.json"), "utf-8"),
+    );
+    assert.strictEqual(color._meta.auto_generated, true);
+    assert.deepStrictEqual(color.rows, [{ Token: "--c-1", Value: "#fff" }]);
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  });
+
+  it("creates the output directory if it doesn't exist", function () {
+    var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "foundations-"));
+    var nested = path.join(tmpDir, "nested", "deeper");
+    var output = { "test.json": { rows: [] } };
+    writeOutputs(output, nested);
+    assert.ok(fs.existsSync(path.join(nested, "test.json")));
+    fs.rmSync(tmpDir, { recursive: true, force: true });
+  });
+
+  it("ends each file with a newline", function () {
+    var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "foundations-"));
+    writeOutputs({ "x.json": { a: 1 } }, tmpDir);
+    var content = fs.readFileSync(path.join(tmpDir, "x.json"), "utf-8");
+    assert.strictEqual(content[content.length - 1], "\n");
+    fs.rmSync(tmpDir, { recursive: true, force: true });
   });
 });
