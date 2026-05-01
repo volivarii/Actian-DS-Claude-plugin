@@ -1,0 +1,144 @@
+{
+  "_meta": {
+    "auto_generated": true,
+    "source": "docs/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "rows": [
+    {
+      "Token": "--zen-spacing-3xs",
+      "Value": "`0.125rem` (2px)",
+      "Usage": "Tightest spacing, hairline gaps",
+      "status_note": "🟡 Proposed"
+    },
+    {
+      "Token": "--zen-spacing-2xs",
+      "Value": "`0.25rem` (4px)",
+      "Usage": "Between elements within a small component",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-spacing-xs",
+      "Value": "`0.5rem` (8px)",
+      "Usage": "Default spacing between components",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-spacing-sm",
+      "Value": "`0.75rem` (12px)",
+      "Usage": "Padding in a large component",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-spacing-md",
+      "Value": "`1rem` (16px)",
+      "Usage": "Padding in a large component; spacing between components",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-spacing-lg",
+      "Value": "`1.5rem` (24px)",
+      "Usage": "Spacing between sections",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-spacing-xl",
+      "Value": "`2rem` (32px)",
+      "Usage": "Use when a clear separation is needed",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-spacing-2xl",
+      "Value": "`3rem` (48px)",
+      "Usage": "Major section breaks, page padding",
+      "status_note": "🟡 Proposed"
+    },
+    {
+      "Token": "--zen-spacing-3xl",
+      "Value": "`4rem` (64px)",
+      "Usage": "Hero sections, full-page layout",
+      "status_note": "🟡 Proposed"
+    }
+  ],
+  "size": {
+    "rows": [
+      {
+        "Token": "--zen-size-height-xs",
+        "Value": "24px",
+        "Usage": "Compact chips, dense table rows",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-size-height-sm",
+        "Value": "32px",
+        "Usage": "Small buttons, secondary inputs",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-size-height-md",
+        "Value": "40px",
+        "Usage": "Default button, input, select",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-size-height-lg",
+        "Value": "48px",
+        "Usage": "Large buttons, prominent inputs",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-size-height-xl",
+        "Value": "56px",
+        "Usage": "Hero inputs, large touch surfaces",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-size-trigger-min",
+        "Value": "24px",
+        "Usage": "Minimum interactive target area for desktop (WCAG 2.5.5 Level AA)",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-size-trigger-min-mobile",
+        "Value": "44px",
+        "Usage": "Minimum interactive target area for mobile (WCAG 2.5.5 Level AA)",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-icon-size-xs",
+        "Value": "12px",
+        "Usage": "Tight UI contexts, dense tables, badges",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-icon-size-sm",
+        "Value": "16px",
+        "Usage": "Inline icons, compact components",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-icon-size-md",
+        "Value": "20px",
+        "Usage": "Default icon size",
+        "status_note": "🟡 Proposed"
+      },
+      {
+        "Token": "--zen-icon-size-lg",
+        "Value": "24px",
+        "Usage": "Standalone icons, feature icons",
+        "status_note": "🟡 Proposed"
+      }
+    ]
+  },
+  "rules": {
+    "lists": [
+      [
+        "2xs–xs for internal element spacing (icon-to-label, checkbox-to-text)",
+        "sm–md for internal component padding",
+        "lg–xl for spacing between sections and groups",
+        "2xl–3xl (proposed) for page-level layout breathing room"
+      ]
+    ],
+    "description": "Use spacing tokens for all margin, padding, and gap values. The scale is:\n\nNever use arbitrary pixel values for spacing. If a layout needs something outside the scale, it&#39;s a signal to propose a new token."
+  }
+}
