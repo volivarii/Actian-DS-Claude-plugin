@@ -179,7 +179,7 @@ function defaultPaths() {
   return {
     md: path.join(pluginRoot, "docs", "foundations.md"),
     map: path.join(pluginRoot, "scripts", "foundations.parser.json"),
-    out: path.join(pluginRoot, "docs", "foundations"),
+    out: path.join(pluginRoot, "docs", "generated", "foundations"),
   };
 }
 

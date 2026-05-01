@@ -1077,7 +1077,7 @@ Same schema as Phase 5 index. Track `status`, `extractedOn`, `frameSignature` pe
 For each page (except Accessibility and Content guidelines):
 1. List top-level frames via `use_figma`
 2. Extract via `get_design_context` with `excludeScreenshot: true`
-3. Transform to JSON → `docs/foundations/*.json`
+3. Transform to JSON → `docs/generated/foundations/*.json`
 
 ### Step 2: Extract content guidelines
 
@@ -1085,7 +1085,7 @@ Page `7397:3249` (2 children). Extract both frames, transform to Markdown, write
 
 ### Step 3: Extract accessibility guidelines
 
-Page `12685:19373` (23 children, all named "Design guidelines"). Differentiate by heading text within each frame. Group by topic, write to `docs/accessibility-guidelines.md` + `docs/foundations/accessibility.json`.
+Page `12685:19373` (23 children, all named "Design guidelines"). Differentiate by heading text within each frame. Group by topic, write to `docs/accessibility-guidelines.md` (Wave 2 candidate for MD-as-SoT pipeline).
 
 ### Rate limit strategy
 
