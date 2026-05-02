@@ -1,18 +1,12 @@
 ---
 name: component-brief
 description: Generate a structured brief for a DS component with cards (variants, tokens, API, usage, a11y). Accepts Figma URL or component name.
-argument-hint: "[Figma URL or component name] [generate N,N,N] [--include-states]"
+argument-hint: "[Figma URL or component name] [generate N,N,N] [research all|<list>]"
 ---
 
 # Component Brief
 
 Generate a structured component brief with HTML spec page and Figma output. Pipeline: research → data model → present options → push.
-
-## Flags
-
-| Flag | Type | Default | Behavior |
-|------|------|---------|----------|
-| `--include-states` | bool | off | Appends a state matrix card to the brief, generated from the component's documented states. Card lays out all interactive + content states (default, hover, focus, active, disabled, loading, empty, error, populated) using real component instances from the registry. |
 
 ## Mode detection
 
@@ -33,23 +27,25 @@ Parse URL (`fileKey` + `nodeId` per `../../references/figma-output.md`). ONE mes
 
 Before generating the data model, present the available cards and let the user choose. Present the card list for the detected mode:
 
-**DS Kit mode (9 cards):**
+**DS Kit mode (7 cards):**
 ```
-Component brief for [Name] — 9 cards available:
+Component brief for [Name] — 7 cards available:
 
-| # | Card | Content |
-|---|------|---------|
-| 1 | Header | Component name, description, status, metadata |
-| 2 | Component | Real library instances — all variants |
-| 3 | Anatomy | Structural breakdown with labeled parts |
-| 4 | Tokens | Design token bindings (colors, spacing, typography) |
-| 5 | API | Component properties, variants, types |
-| 6 | Usage | Do/don't examples, when to use, when not to |
-| 7 | Content | Copy guidelines, label patterns, error text |
-| 8 | Accessibility | WCAG compliance, keyboard, screen reader |
-| 9 | Code | Implementation reference with token mapping |
+| # | Card           | Content                                          |
+|---|----------------|--------------------------------------------------|
+| 1 | Header         | Component name, description, status, metadata   |
+| 2 | Component      | Real library instances — all variants           |
+| 3 | Anatomy        | Structural breakdown with labeled parts         |
+| 4 | Tokens         | Design token bindings (colors, spacing, type)   |
+| 5 | Usage          | Do/don't, when to use, when not to              |
+| 6 | Content        | Copy guidelines, label patterns, error text     |
+| 7 | Accessibility  | WCAG compliance, keyboard, screen reader        |
 
-Generate **all 9** or pick specific cards (e.g., "2,4,6").
+Cards: generate **all 7** or pick specific (e.g., "2,4,6").
+Research: cross-DS patterns can be researched before generating cards 5, 6, 7
+          to surface insights, recommendations, and divergences from existing
+          context. Skip by default (faster, lower token cost).
+          Reply: "research all" / "research usage,content" / nothing to skip.
 ```
 
 **FM mode (5 cards):**
@@ -67,41 +63,89 @@ Component brief for [Name] (Fat Marker) — 5 cards available:
 Generate **all 5** or pick specific cards (e.g., "1,2,5").
 ```
 
-If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5"), skip this gate and generate only those cards.
+If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5"), skip this gate and generate only those cards. The research scope can also ride the prompt: "brief Button cards 2,4,5 research content" → 3 cards + research only on card_content.
 
-## Step 2 — Generate data model
+Parser rules for the response:
+- Empty (just enter) → all 7 cards, no research
+- `"all"` → all 7 cards, no research
+- `"2,4,6"` → cards 2/4/6 only, no research
+- `"all research all"` → all 7 cards + research on cards 5/6/7
+- `"all research usage,content"` → all 7 + research on cards 5+6 only
+- `"2,4,6 research content"` → cards 2/4/6 + research only on card 6
+- `"research all"` (no card list) → treats as `"all research all"`
+- Invalid card number (e.g., 99) → re-prompt with "Card 99 doesn't exist. Valid: 1-7."
+- Invalid research scope (e.g., `research foo`) → re-prompt with "Unknown research scope `foo`. Valid: all, usage, content, accessibility."
+- Gate is re-enterable on parse failure (3 retry attempts then abort).
 
-**Recipe guidance:** Before generating each card's data, read `recipes/brief/_index.json` and the recipe for each selected card from `recipes/brief/`. Follow the recipe's `sections` guidance, `qualityRules` for correctness, and `minimums` for completeness. The component guidelines JSON provides the content; the recipe defines the structure and quality bar.
+## Step 1.6 — Cross-DS research (opt-in)
 
-**Card title + subtitle (required):** Every card object MUST include `cardTitle` and `cardSubtitle`. Source from the recipe: `cardTitle` = recipe `title`, `cardSubtitle` = recipe `description` (abridge to one line if long). Both renderers (HTML + Figma push) consume these fields directly — never hardcode card titles in the renderer or push step. Sentence case for both.
+If the Step 1.5 response opted in to research (e.g., `research all`, `research usage,content`):
 
-**`meta` block — source every field, never copy from examples.** Same failure pattern as the title leak: literal values in `data-schema.md` and `examples/` are placeholders, not defaults. Specifically:
-- `meta.pluginVersion` — read from `plugins/actian-design-system/.claude-plugin/plugin.json` `version` field at generation time. Copying any version string from the schema doc or example file produces a stale GenLog.
-- `meta.model` — your actual runtime model name (e.g., `claude-opus-4-7`).
-- `meta.generatedAt` — ISO 8601 of now.
-- `meta.duration` — measured between prompt receipt and file write.
-- `meta.component`, `meta.fileKey`, `meta.nodeId`, `meta.componentKey` — sourced from the user's request and `figma-keys.json`.
+1. Parse the research scope from the response (default `["card_usage", "card_content", "card_accessibility"]` for `research all`).
+2. Dispatch the `brief-researcher` agent with:
+   - Component name + slug
+   - Scoped cards (intersect requested research with research-applicable cards: card_usage, card_content, card_accessibility)
+   - Existing context inlined: `component-guidelines/<slug>.json`, `docs/foundations.md` (relevant excerpts), `docs/content-guidelines.md`, `docs/accessibility-guidelines.md`
+   - Output path: `{project_working_directory}/components/[name]/[name]-research-findings.json`
+3. Wait for the agent's DONE / DONE_WITH_CONCERNS / ERROR signal.
+4. On ERROR: ask the user "Research failed: <reason>. Continue without research? (yes/no)". On `yes`, proceed without `research-findings.json`. On `no`, abort.
+5. On DONE / DONE_WITH_CONCERNS: load the findings JSON; pass to Phase B in Step 2.
 
-Generate the complete `brief-data.json` directly. Reference `references/component-brief/data-schema.md` (already loaded in Step 1) and `examples/brief-data-example.json` for expected structure. Include only selected cards.
+If Step 1.5 did not opt in to research, skip Step 1.6 silently and proceed to Step 2.
+
+## Step 2 — Resolve sources + two-pass generation
+
+**Step 2.0 — Resolve sources.** For each selected card key, read its recipe (`recipes/brief/<file>` per `_index.json`). Use `scripts/brief-sourcing.js` `resolveSection(cardKey, ctx, recipe)` to route:
+- `transcribe` recipes → bucket as Phase A
+- `generate` recipes → bucket as Phase B
+
+Build `ctx`:
+```
+ctx = {
+  component, slug, fileKey, nodeId,
+  nodeDescription,        // from dskit.json[slug].description (primary), MCP node.description (fallback)
+  guidelinesJson,         // parsed docs/component-guidelines/<slug>.json
+  selectedCards           // ["card_header", "card_tokens", ...]
+}
+```
+
+**Phase A — Transcription (sequential, inline).** For each Phase A card:
+- If `resolveSection` returned `{ source: "figma", content }`: call `formatForBrief(cardKey, result, ctx)` and write directly into `brief-data.json`. Card object includes `_source: "figma"`.
+- If `resolveSection` returned `{ source: null, fallback: true, fallbackReason }`: invoke yourself (the main agent) inline to generate the missing content using the recipe's `sections` + `qualityRules` as guidance. Stamp `_source: "generated"`, `_fallback: true`, `_fallbackReason`. Do NOT dispatch the card-generator agent for this — Phase A fallbacks are inline.
+
+**Phase B — Generation (parallel).** Dispatch the `card-generator` agent on Phase B cards only. Agent prompt MUST include:
+- Recipe data per card (with `grounding` array)
+- **Inlined contents** of each grounding file as REQUIRED reference
+- If research was opted in for any of these cards: inlined `research-findings.json` content scoped to those cards
+- The reconciliation directive (already in the agent prompt) — existing context wins on conflicts
+
+Output of Phase B is merged via `scripts/merge-partials.js` (existing). Every Phase B card has `_source: "generated"`. Cards with research applied also have `_research_applied: true` and a `research_insights` sub-section.
+
+**Card title + subtitle (required) — preserved from prior Step 2:** Every card object MUST include `cardTitle` and `cardSubtitle`. Source from the recipe: `cardTitle` = recipe `title`, `cardSubtitle` = recipe `description` (abridge to one line if long). Both renderers (HTML + Figma push) consume these fields directly — never hardcode card titles.
+
+**`meta` block — preserved from prior Step 2.** Same rules apply: source every field, never copy from examples. `meta.pluginVersion` from `plugin.json`, `meta.model` runtime, `meta.generatedAt` ISO 8601, `meta.duration` measured, `meta.component`/`meta.fileKey`/`meta.nodeId`/`meta.componentKey` from request + `figma-keys.json`.
 
 Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
 
-**Critical — avoid truncation:** Each card's data must be complete. Common truncation traps:
-- `card2_component.variantMatrix` — include ALL variant rows, not just 2-3 examples
-- `card4_tokens.colorTokens` — include ALL token bindings for the component
-- `card5_api.properties` — include ALL properties from the component guidelines
-- `card8_accessibility.requirements` — must have exactly 6 items (2 per column × 3 rows)
+**Critical — avoid truncation:** Each card's data must be complete. Common truncation traps (Phase B cards):
+- `card_component.variantMatrix` — include ALL variant rows
+- `card_tokens.colorTokens` — include ALL token bindings for the component
+- `card_accessibility.requirements` — must have exactly 6 items (2 per column × 3 rows)
 
 **Inline validation after writing:** Check the file you just wrote:
 - Every selected card key exists and is non-empty
-- Every selected card object has `cardTitle` AND `cardSubtitle` populated (regression guard for the title-leak bug)
+- Every selected card object has `cardTitle` AND `cardSubtitle` populated
+- Every selected card has `_source: "figma" | "generated"` (NEW — sub-project B)
+- Cards with `_source: "figma"` must have non-empty content unless `_fallback: true` (NEW)
+- No `card_api`, `card_code`, `card_states` keys (regression guards for retired cards)
 - No `"..."`, `"etc"`, or `"and more"` in any value (truncation signals)
 - All token names use `--zen-` prefix (DS Kit) or `--fm-` prefix (FM)
 - No hardcoded hex values in token fields
-- `card8_accessibility.requirements` has exactly 6 items (if card 8 selected)
-- **Code values use ASCII operators only** — `=>` not `⇒` (U+21D2), `->` not `→`, `<=` not `≤`, `>=` not `≥`, `!==` not `≠`. Especially watch `card5_api.props[].values` (e.g. `"(event) => void"`) and `card9_code.tokens[].text`. Pretty-typography breaks copy-paste into source code.
-- **`meta.pluginVersion` matches the project's `plugin.json` `version`** — read the file, do not transcribe from any example. If the value differs from the actual `plugin.json`, fix it before push (this catches stale-version leaks like `v1.17.0` when the plugin is on `1.57.x`).
-If P0 issues found, fix them immediately before proceeding.
+- `card_accessibility.requirements` has exactly 6 items (if card 7 selected)
+- **Code values use ASCII operators only** — `=>` not `⇒` (U+21D2), `->` not `→`, `<=` not `≤`, `>=` not `≥`, `!==` not `≠`. Especially watch generated content.
+- **`meta.pluginVersion` matches the project's `plugin.json` `version`** — read the file, do not transcribe from any example. If the value differs from the actual `plugin.json`, fix it before push.
+
+If P0 issues found, fix them immediately before proceeding. The new `_source` and forbidden-key checks should be run via `validateBriefData()` from `scripts/validate-schema.js`.
 
 ## Step 2.5 — Present push options (copy verbatim)
 
@@ -136,9 +180,9 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
 3. For each card in the data model:
    a. Create card shell (Pattern 1). Read `card.cardTitle` and `card.cardSubtitle` from the data model — pass them straight to `setProperties` as `Title#140:0` and `Subtitle#140:1`. Do NOT hardcode card titles. Do NOT reuse a single title literal across multiple cards (regression guard for the "all cards titled Anatomy" bug).
    b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
-   c. Card 3 anatomy: use the anatomy diagram pattern (~4-6KB inline call)
-   d. Card 4 tokens: compact grid table — one row per state, Color Swatch per cell. Set `.fills` directly on swatch instance (flat, no children). Use `setProperties` for Section Headers (Pattern 2).
-   e. Card 8 accessibility: MUST create Requirements grid (Pattern 6) with all 6 a11y cards at 512px wide BEFORE the contrast/ARIA tables — do NOT skip the requirement cards. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties`.
+   c. Anatomy card (`card_anatomy`): use the anatomy diagram pattern (~4-6KB inline call)
+   d. Tokens card (`card_tokens`): compact grid table — one row per state, Color Swatch per cell. Set `.fills` directly on swatch instance (flat, no children). Use `setProperties` for Section Headers (Pattern 2).
+   e. Accessibility card (`card_accessibility`): MUST create Requirements grid (Pattern 6) with all 6 a11y cards at 512px wide BEFORE the contrast/ARIA tables — do NOT skip the requirement cards. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties`.
 4. After all cards pushed, report to user with count
 
 **Rules:**
@@ -147,7 +191,7 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
 - If a call fails, skip that element and continue
 - Do NOT run `brief-to-figma.js` — push directly from your data model
 - Do NOT read any `.js` files, manifests, or scaffolds
-- Code blocks (Cards 8, 9) render as monochrome — single color `#BABED8`, no per-token coloring
+- Code blocks render as monochrome — single color `#BABED8`, no per-token coloring
 
 ### Pushing specific cards only
 
