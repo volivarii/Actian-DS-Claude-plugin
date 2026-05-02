@@ -317,4 +317,40 @@ describe("shared-constants", function () {
       assert.ok(sc.FM_KEYS.fmButton.method, "fmButton has no method");
     });
   });
+
+  describe("slugFromKey", function () {
+    it("returns the slug for a known DS Kit key", function () {
+      // Pick the Button key — known stable component used elsewhere in tests
+      var slug = sc.slugFromKey(
+        "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
+        "ds",
+      );
+      assert.strictEqual(slug, "button");
+    });
+
+    it("returns the slug for a known FM Kit key", function () {
+      var fmRegistry = sc.loadRegistry("fmkit");
+      var fmButton = fmRegistry.components["fm-button"];
+      assert.ok(
+        fmButton && fmButton.key,
+        "fmkit registry must include fm-button",
+      );
+      var slug = sc.slugFromKey(fmButton.key, "fm");
+      assert.strictEqual(slug, "fm-button");
+    });
+
+    it("returns null for an unknown key", function () {
+      var slug = sc.slugFromKey(
+        "0000000000000000000000000000000000000000",
+        "ds",
+      );
+      assert.strictEqual(slug, null);
+    });
+
+    it("returns null for null/undefined/empty input", function () {
+      assert.strictEqual(sc.slugFromKey(null, "ds"), null);
+      assert.strictEqual(sc.slugFromKey(undefined, "ds"), null);
+      assert.strictEqual(sc.slugFromKey("", "ds"), null);
+    });
+  });
 });
