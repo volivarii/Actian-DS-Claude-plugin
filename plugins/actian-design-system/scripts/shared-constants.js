@@ -30,6 +30,47 @@ function loadRegistry(name) {
   return _registryCache[name];
 }
 
+// ---------------------------------------------------------------------------
+// Reverse key index — { key: slug } per kit, lazily built and cached
+// ---------------------------------------------------------------------------
+
+const _keyIndexCache = { ds: null, fm: null, meta: null };
+
+function _kitToRegistry(kit) {
+  if (kit === "ds") return "dskit";
+  if (kit === "fm") return "fmkit";
+  if (kit === "meta") return "metakit";
+  throw new Error(
+    'slugFromKey: unknown kit "' + kit + '" (expected "ds", "fm", or "meta")',
+  );
+}
+
+/**
+ * Resolve a Figma component key to its current registry slug.
+ * Returns null for unknown keys or empty input.
+ *
+ * @param {string} key - Figma component_set or component key
+ * @param {string} kit - "ds" | "fm" | "meta"
+ * @returns {string|null}
+ */
+function slugFromKey(key, kit) {
+  if (!key) return null;
+  if (!_keyIndexCache[kit]) {
+    var registry = loadRegistry(_kitToRegistry(kit));
+    var index = {};
+    var components = registry.components || {};
+    var slugs = Object.keys(components);
+    for (var i = 0; i < slugs.length; i++) {
+      var entry = components[slugs[i]];
+      if (entry && entry.key) {
+        index[entry.key] = slugs[i];
+      }
+    }
+    _keyIndexCache[kit] = index;
+  }
+  return _keyIndexCache[kit][key] || null;
+}
+
 /**
  * Build a { refName: { key, method } } map from a registry + slug mapping.
  * @param {string} registryName - "metakit", "fmkit", or "dskit"
@@ -369,6 +410,7 @@ module.exports = {
   loadRegistry,
   getProperties,
   slugToRef,
+  slugFromKey,
   buildSlugMap,
   buildKeyMapFromRegistry,
   TOKEN_COLORS,

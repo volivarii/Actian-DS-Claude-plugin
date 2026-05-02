@@ -481,6 +481,21 @@ function toRegistryEntry(comp) {
 
 Run `source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/render-component-reference.js" --kit all`. Three files are rewritten: `docs/generated/fm-components.md`, `docs/generated/dskit-components.md`, `docs/generated/meta-kit/components.md`. If the script exits non-zero, report the failure and do not proceed to Phase 2.
 
+#### Step 5: Reconcile fm-to-ds-map.json
+
+After `dskit.json` is rewritten, reconcile the FM→DS mapping table. The script backfills missing `dsKey` fields (one-time migration for legacy entries) and refreshes any `dsSlug` value that drifted from the immutable `dsKey`:
+
+```bash
+source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/sync-fm-to-ds-map.js"
+```
+
+The script prints a per-entry report (`backfilled`, `refreshed`, `warnings`). It exits with code 1 if any warnings are emitted — typical causes:
+
+- `dsKey` no longer resolves in `dskit.json` — the DS component was hidden from publishing or renamed without a key match. Surface this to the designer; they should move the entry to `unmappable` with a composition note (see existing precedent on `fmNavItem`, `fmTab`, `fmMenuItem`, `fmTableCell`).
+- Entry has neither `dsKey` nor `dsSlug` — schema violation; investigate.
+
+Exit code 0 with no warnings means `fm-to-ds-map.json` is in sync with the freshly-written `dskit.json`. If the script wrote any changes, commit `fm-to-ds-map.json` as part of the sync output.
+
 ---
 
 ## Phase 2 — Variables

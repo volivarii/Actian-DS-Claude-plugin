@@ -115,16 +115,11 @@ function transformInstance(node, mapData, dsRegistry, effectiveIntent) {
     return unmappedNode;
   }
 
-  // Build DS ref name from slug — shared.slugToRef strips a leading "ds-"
-  // prefix if present, then PascalCases the rest. dsSlug values in
-  // fm-to-ds-map.json don't currently start with "ds-" but the shared
-  // helper handles that case correctly if a future entry does.
-  var dsSlug = mapping.dsSlug;
-  var dsRef = shared.slugToRef(dsSlug, "ds");
-
-  // Validate that the DS component exists in the registry
+  // Resolve current DS slug from immutable dsKey. dsSlug on the mapping is
+  // derived/cached by /sync-design-system; we never trust it at runtime.
+  var dsSlug = shared.slugFromKey(mapping.dsKey, "ds");
   var dsComponents = dsRegistry.components || {};
-  if (!dsComponents[dsSlug]) {
+  if (!dsSlug || !dsComponents[dsSlug]) {
     var fallbackNode = {};
     var fKeys = Object.keys(node);
     for (var f = 0; f < fKeys.length; f++) {
@@ -132,10 +127,12 @@ function transformInstance(node, mapData, dsRegistry, effectiveIntent) {
     }
     fallbackNode.unmapped = true;
     fallbackNode.unmappedReason =
-      'DS slug "' + dsSlug + '" not found in dskit.json registry';
+      'DS key "' + mapping.dsKey + '" does not resolve in dskit.json registry';
     fallbackNode.originalRef = ref;
     return fallbackNode;
   }
+
+  var dsRef = shared.slugToRef(dsSlug, "ds");
 
   // --- Transform variant ---
   var srcVariant = node.variant ? parseVariant(node.variant) : {};

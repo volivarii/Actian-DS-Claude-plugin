@@ -20,6 +20,7 @@ var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
+var shared = require(path.resolve(__dirname, "..", "scripts", "shared-constants.js"));
 
 // ---------------------------------------------------------------------------
 // Paths
@@ -41,14 +42,15 @@ var map = JSON.parse(fs.readFileSync(path.join(DOCS_DIR, "fm-to-ds-map.json"), "
 // ---------------------------------------------------------------------------
 
 describe("FM-to-DS Map Tests", function () {
-  describe("Part 1: dsSlug exists in dskit.json", function () {
+  describe("Part 1: dsKey resolves to a current dskit.json component", function () {
     for (var ref1 in map.mappings) {
       (function (fmSlug) {
         var entry = map.mappings[fmSlug];
-        it(fmSlug + " → dsSlug '" + entry.dsSlug + "' exists in dskit.json", function () {
+        it(fmSlug + " → dsKey '" + entry.dsKey + "' resolves to a dskit slug", function () {
+          var resolved = shared.slugFromKey(entry.dsKey, "ds");
           assert.ok(
-            dsRegistry.components[entry.dsSlug] !== undefined,
-            fmSlug + ": dsSlug '" + entry.dsSlug + "' not found in dskit.json"
+            resolved && dsRegistry.components[resolved],
+            fmSlug + ": dsKey '" + entry.dsKey + "' does not resolve in dskit.json"
           );
         });
       })(ref1);
@@ -63,7 +65,8 @@ describe("FM-to-DS Map Tests", function () {
     for (var ref2 in map.mappings) {
       (function (fmSlug) {
         var entry = map.mappings[fmSlug];
-        var dsComp = dsRegistry.components[entry.dsSlug];
+        var dsSlug = shared.slugFromKey(entry.dsKey, "ds");
+        var dsComp = dsSlug ? dsRegistry.components[dsSlug] : null;
         if (!dsComp || !entry.defaultVariant) return;
 
         for (var axis2 in entry.defaultVariant) {
@@ -96,7 +99,8 @@ describe("FM-to-DS Map Tests", function () {
     for (var ref3 in map.mappings) {
       (function (fmSlug) {
         var entry = map.mappings[fmSlug];
-        var dsComp = dsRegistry.components[entry.dsSlug];
+        var dsSlug = shared.slugFromKey(entry.dsKey, "ds");
+        var dsComp = dsSlug ? dsRegistry.components[dsSlug] : null;
         if (!dsComp || !entry.variantMap) return;
 
         for (var axis3 in entry.variantMap) {
@@ -176,5 +180,27 @@ describe("FM-to-DS Map Tests", function () {
       assert.ok(map.mappings !== undefined, "map.mappings is missing");
       assert.ok(map.unmappable !== undefined, "map.unmappable is missing");
     });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Part 5: dsSlug matches slugFromKey(dsKey)
+  // ---------------------------------------------------------------------------
+
+  describe("Part 5: dsSlug matches slugFromKey(dsKey)", function () {
+    for (var ref5 in map.mappings) {
+      (function (fmSlug) {
+        var entry = map.mappings[fmSlug];
+        it(fmSlug + ": dsSlug matches slugFromKey(dsKey)", function () {
+          var derived = shared.slugFromKey(entry.dsKey, "ds");
+          assert.strictEqual(
+            entry.dsSlug,
+            derived,
+            fmSlug + ": dsSlug '" + entry.dsSlug +
+            "' out of sync with derived '" + derived +
+            "' — re-run /sync-design-system to refresh"
+          );
+        });
+      })(ref5);
+    }
   });
 });
