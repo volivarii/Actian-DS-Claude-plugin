@@ -485,6 +485,7 @@ describe("Transform-to-Hifi Tests", function () {
     var mapData = {
       mappings: {
         fmButton: {
+          dsKey: "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
           dsSlug: "button",
           defaultVariant: { Type: "Primary", Size: "Large", State: "Idle" },
           variantMap: {
