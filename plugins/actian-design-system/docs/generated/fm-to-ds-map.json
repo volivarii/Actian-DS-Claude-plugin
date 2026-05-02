@@ -31,8 +31,12 @@
         }
       },
       "intentVariants": {
-        "destructive-action": { "Type": "Critical primary" },
-        "error-state": { "Type": "Critical secondary" },
+        "destructive-action": {
+          "Type": "Critical primary"
+        },
+        "error-state": {
+          "Type": "Critical secondary"
+        },
         "success-confirmation": null,
         "default": null
       },
@@ -43,7 +47,10 @@
         "👁 Trailing Icon": "Trailing icon show",
         "Trailing Icon": "Trailing icon"
       },
-      "dropVariants": ["Shape"]
+      "dropVariants": [
+        "Shape"
+      ],
+      "dsKey": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3"
     },
     "fmIconButtons": {
       "dsSlug": "button",
@@ -64,19 +71,26 @@
         }
       },
       "intentVariants": {
-        "destructive-action": { "Type": "Critical primary" },
-        "error-state": { "Type": "Critical secondary" },
+        "destructive-action": {
+          "Type": "Critical primary"
+        },
+        "error-state": {
+          "Type": "Critical secondary"
+        },
         "success-confirmation": null,
         "default": null
       },
       "propertyMap": {
         "Icon": "Leading icon"
       },
-      "notes": "FM icon buttons collapse all types into DS Icon type; FM Type is dropped"
+      "notes": "FM icon buttons collapse all types into DS Icon type; FM Type is dropped",
+      "dsKey": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3"
     },
     "fmTextInput": {
       "dsSlug": "input",
-      "defaultVariant": { "States": "Default" },
+      "defaultVariant": {
+        "States": "Default"
+      },
       "variantMap": {
         "Type": {
           "Empty": "Default",
@@ -90,25 +104,36 @@
         "Input Text": "Placeholder text",
         "👁 Trailing Icon": "Trailing icon"
       },
-      "notes": "FM 'Type' axis maps to DS 'States' axis. FM combines state+content into one axis."
+      "notes": "FM 'Type' axis maps to DS 'States' axis. FM combines state+content into one axis.",
+      "dsKey": "9245f434d92d2a5d54962c51d7e374c87251fc4b"
     },
     "fmDialog": {
       "dsSlug": "modal",
       "_note": "FM-side has no intent-bearing variants today; intentVariants reserved for future expansion when fmDialog gains variants in a Figma sync.",
-      "defaultVariant": { "Size & Type": "700px setting" },
+      "defaultVariant": {
+        "Size & Type": "700px setting"
+      },
       "variantMap": {},
       "intentVariants": {
-        "destructive-action": { "Size & Type": "450px confirm" },
-        "error-state": { "Size & Type": "450px warning" },
+        "destructive-action": {
+          "Size & Type": "450px confirm"
+        },
+        "error-state": {
+          "Size & Type": "450px warning"
+        },
         "success-confirmation": null,
         "default": null
       },
       "propertyMap": {},
-      "dropVariants": []
+      "dropVariants": [],
+      "dsKey": "2a2b287c2eb1c1c5e071d190e49f19891c937993"
     },
     "fmDropdown": {
       "dsSlug": "dropdown-select-default",
-      "defaultVariant": { "Type": "Default", "State": "Default" },
+      "defaultVariant": {
+        "Type": "Default",
+        "State": "Default"
+      },
       "variantMap": {
         "Type": {
           "Placeholder": "Default",
@@ -120,11 +145,15 @@
       "propertyMap": {
         "Show label": "Show Label"
       },
-      "notes": "FM 'Type' conflates state and type; maps to DS 'State' axis with DS Type=Default"
+      "notes": "FM 'Type' conflates state and type; maps to DS 'State' axis with DS Type=Default",
+      "dsKey": "1140aec3d572e3fbda362723cd7137ac2f0ce9bd"
     },
     "fmMultiSelectDropdown": {
       "dsSlug": "dropdown-select-default",
-      "defaultVariant": { "Type": "Search/Multiple", "State": "Default" },
+      "defaultVariant": {
+        "Type": "Search/Multiple",
+        "State": "Default"
+      },
       "variantMap": {
         "Type": {
           "Placeholder": "Default",
@@ -138,11 +167,15 @@
         "Show label": "Show Label",
         "Dropdown Text": "Show description"
       },
-      "notes": "Always maps to DS Type=Search/Multiple. FM 'Type' maps to DS 'State' axis."
+      "notes": "Always maps to DS Type=Search/Multiple. FM 'Type' maps to DS 'State' axis.",
+      "dsKey": "1140aec3d572e3fbda362723cd7137ac2f0ce9bd"
     },
     "fmCheckbox": {
       "dsSlug": "checkbox-with-label",
-      "defaultVariant": { "Selected": "No", "State": "Default" },
+      "defaultVariant": {
+        "Selected": "No",
+        "State": "Default"
+      },
       "variantMap": {
         "State": {
           "Off": "No",
@@ -153,10 +186,11 @@
           "Disabled": "Disabled"
         }
       },
-      "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis (Default | Hover | Focus | Pressed | Disabled)."
+      "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis (Default | Hover | Focus | Pressed | Disabled).",
+      "dsKey": "f88de6fe161264680045b2b5ec77d311b1b3adb6"
     },
     "fmRadioButton": {
-      "dsSlug": "radio-button-radio-button",
+      "dsSlug": "radio-button",
       "defaultVariant": {
         "Format": "Default",
         "State": "Default",
@@ -175,10 +209,11 @@
       "propertyMap": {
         "Show Label": "Show Helper text"
       },
-      "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis."
+      "notes": "FM 'State' (On/Off) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis.",
+      "dsKey": "9ceb34116fd119a17b08b9b445a204de28f9d249"
     },
     "fmToggle": {
-      "dsSlug": "toggle",
+      "dsSlug": "toglge",
       "defaultVariant": {
         "Toggle location": "Left",
         "State": "Default",
@@ -194,11 +229,15 @@
           "Disabled": "Disabled"
         }
       },
-      "notes": "FM 'State' (Off/On) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis."
+      "notes": "FM 'State' (Off/On) maps to DS 'Selected' axis. FM 'Style' maps to DS 'State' axis.",
+      "dsKey": "4e7793f094eed660e01d8f7c804f2391e72115d2"
     },
     "fmAppHeader": {
       "dsSlug": "global-header",
-      "defaultVariant": { "App type": "Explorer", "Breakpoints": "XL" },
+      "defaultVariant": {
+        "App type": "Explorer",
+        "Breakpoints": "XL"
+      },
       "variantMap": {
         "Type": {
           "Admin": "Admin",
@@ -209,22 +248,29 @@
       },
       "propertyMap": {},
       "dropVariants": [],
-      "notes": "FM 'Type' maps to DS 'App type'. FM 'Actian' has no DS match; falls back to Explorer. DS adds Breakpoints axis (default XL)."
+      "notes": "FM 'Type' maps to DS 'App type'. FM 'Actian' has no DS match; falls back to Explorer. DS adds Breakpoints axis (default XL).",
+      "dsKey": "e3e1e5d29f092fbd6ba5f0f40141ba55473548a8"
     },
     "fmNavBar": {
       "dsSlug": "side-nav",
-      "defaultVariant": { "App": "Admin", "View": "Expanded" },
+      "defaultVariant": {
+        "App": "Admin",
+        "View": "Expanded"
+      },
       "variantMap": {
         "Property 1": {
           "Default": "Expanded",
           "Slim": "Collapsed"
         }
       },
-      "notes": "FM 'Property 1' maps to DS 'View' axis. DS 'App' axis has no FM equivalent (default Admin)."
+      "notes": "FM 'Property 1' maps to DS 'View' axis. DS 'App' axis has no FM equivalent (default Admin).",
+      "dsKey": "3606cc19247f989332aac33953ffdf57c9d1bbdd"
     },
     "fmPageHeader": {
       "dsSlug": "page-header",
-      "defaultVariant": { "Type": "Default" },
+      "defaultVariant": {
+        "Type": "Default"
+      },
       "variantMap": {
         "Type": {
           "Title only": "Default",
@@ -233,11 +279,15 @@
         }
       },
       "propertyMap": {},
-      "notes": "DS page-header has limited Type variants (Default, Details page, Explorer home, Explorer detail). All FM types map to Default."
+      "notes": "DS page-header has limited Type variants (Default, Details page, Explorer home, Explorer detail). All FM types map to Default.",
+      "dsKey": "ec2418807ba81bd52ab103d34c1bffd82fc0b92c"
     },
     "fmSearchInput": {
       "dsSlug": "search",
-      "defaultVariant": { "Type": "Inline", "State": "Default" },
+      "defaultVariant": {
+        "Type": "Inline",
+        "State": "Default"
+      },
       "variantMap": {
         "Type": {
           "Empty": "Default",
@@ -249,11 +299,15 @@
         "Show label": "AI icon",
         "Input Text": null
       },
-      "notes": "FM 'Type' conflates content state; maps to DS 'State' axis with DS Type=Inline. Note DS has typo 'Dsiabled' for disabled state."
+      "notes": "FM 'Type' conflates content state; maps to DS 'State' axis with DS Type=Inline. Note DS has typo 'Dsiabled' for disabled state.",
+      "dsKey": "1b7cd9f309d84560098a2506089a77da8972d470"
     },
     "fmDateInput": {
       "dsSlug": "input-date",
-      "defaultVariant": { "Type": "Single date", "States": "Enabled" },
+      "defaultVariant": {
+        "Type": "Single date",
+        "States": "Enabled"
+      },
       "variantMap": {
         "State": {
           "Default": "Enabled",
@@ -264,11 +318,15 @@
       "propertyMap": {
         "Input Text": null
       },
-      "notes": "FM 'State' maps to DS 'States' axis. Note DS uses 'Activ' (typo) for active state and 'Fille' (typo) for filled."
+      "notes": "FM 'State' maps to DS 'States' axis. Note DS uses 'Activ' (typo) for active state and 'Fille' (typo) for filled.",
+      "dsKey": "9eafdb6242837b591ba5f39959150b53e40ef02d"
     },
     "fmAlert": {
       "dsSlug": "alert-banner",
-      "defaultVariant": { "Type": "Primary", "Orientation'": "Horizontal" },
+      "defaultVariant": {
+        "Type": "Primary",
+        "Orientation'": "Horizontal"
+      },
       "variantMap": {
         "Type": {
           "Primary": "Primary",
@@ -277,11 +335,14 @@
           "Warning": "Warning"
         }
       },
-      "notes": "DS 'Orientation'' axis has trailing apostrophe (typo in Figma). FM Error maps to DS Danger."
+      "notes": "DS 'Orientation'' axis has trailing apostrophe (typo in Figma). FM Error maps to DS Danger.",
+      "dsKey": "9717f500f425975f63c0eb2f9c1e434ff010f24b"
     },
     "fmToast": {
       "dsSlug": "notification",
-      "defaultVariant": { "Type": "Default" },
+      "defaultVariant": {
+        "Type": "Default"
+      },
       "variantMap": {
         "Style": {
           "Standard": "Default",
@@ -289,11 +350,14 @@
         }
       },
       "propertyMap": {},
-      "notes": "DS notification has only Default and Critial (typo) types. Both FM styles map to Default."
+      "notes": "DS notification has only Default and Critial (typo) types. Both FM styles map to Default.",
+      "dsKey": "590d2373b688235e8da72732919d2f874eee6cda"
     },
     "fmBadge": {
       "dsSlug": "badge",
-      "defaultVariant": { "Type": "Number" },
+      "defaultVariant": {
+        "Type": "Number"
+      },
       "variantMap": {
         "Type": {
           "Icon": "Dot",
@@ -301,12 +365,17 @@
           "Number Expand": "Number"
         }
       },
-      "dropVariants": ["Size"],
-      "notes": "DS badge has only Number and Dot types. FM Size axis (Small/Medium/Large) has no DS equivalent."
+      "dropVariants": [
+        "Size"
+      ],
+      "notes": "DS badge has only Number and Dot types. FM Size axis (Small/Medium/Large) has no DS equivalent.",
+      "dsKey": "e8d93a3432951bd42d9b0bb20287eb61262ae10e"
     },
     "fmChip": {
       "dsSlug": "tag-interactive",
-      "defaultVariant": { "State": "Default" },
+      "defaultVariant": {
+        "State": "Default"
+      },
       "variantMap": {
         "Outline": {
           "False": "Default",
@@ -317,12 +386,17 @@
         "Icon": "Leading icon show",
         "↙ Icon": "Leading icon"
       },
-      "dropVariants": ["Outline"],
-      "notes": "No DS chip component exists. Tag, Interactive is the closest equivalent. FM Outline axis has no DS mapping."
+      "dropVariants": [
+        "Outline"
+      ],
+      "notes": "No DS chip component exists. Tag, Interactive is the closest equivalent. FM Outline axis has no DS mapping.",
+      "dsKey": "19d8ed0dd3f5dc406017130026a6229f121f169d"
     },
     "fmTag": {
       "dsSlug": "tag-default",
-      "defaultVariant": { "Color": "Default" },
+      "defaultVariant": {
+        "Color": "Default"
+      },
       "variantMap": {
         "Style": {
           "Filled": "Default",
@@ -336,12 +410,17 @@
         "Icon Right": "Trailing icon show",
         "↙ Icon R": "Trailing icon"
       },
-      "dropVariants": ["Style"],
-      "notes": "DS tag-default uses Color axis instead of Style. FM Style axis has no direct mapping."
+      "dropVariants": [
+        "Style"
+      ],
+      "notes": "DS tag-default uses Color axis instead of Style. FM Style axis has no direct mapping.",
+      "dsKey": "69c8a031b8b1f1703474cc000eaeb14611f0319c"
     },
     "fmStepper": {
       "dsSlug": "stepper",
-      "defaultVariant": { "State": "Default" },
+      "defaultVariant": {
+        "State": "Default"
+      },
       "variantMap": {
         "State": {
           "Active": "Active",
@@ -349,22 +428,29 @@
           "Upcoming": "Default"
         }
       },
-      "notes": "FM Upcoming maps to DS Default. DS also has State5 which is unused."
+      "notes": "FM Upcoming maps to DS Default. DS also has State5 which is unused.",
+      "dsKey": "9d73595077c798866bf42c87a53893bbdc8d4ce0"
     },
     "fmEmptyState": {
       "dsSlug": "empty-state",
-      "defaultVariant": { "Size": "Medium" },
+      "defaultVariant": {
+        "Size": "Medium"
+      },
       "variantMap": {
         "Type": {
           "Default": "Medium",
           "Compact": "Small"
         }
       },
-      "notes": "FM 'Type' axis maps to DS 'Size' axis. DS also has Large."
+      "notes": "FM 'Type' axis maps to DS 'Size' axis. DS also has Large.",
+      "dsKey": "0adc6b54a212315ebb16db7f5eea388276a1587b"
     },
     "fmProgressBar": {
       "dsSlug": "progress-bar-small",
-      "defaultVariant": { "Size": "Default", "Completeness": "50%" },
+      "defaultVariant": {
+        "Size": "Default",
+        "Completeness": "50%"
+      },
       "variantMap": {
         "Completion": {
           "10%": "0%",
@@ -379,18 +465,26 @@
           "100%": "100%"
         }
       },
-      "notes": "DS has only 0%, 50%, 100% completeness. FM granular percentages are bucketed to nearest DS value."
+      "notes": "DS has only 0%, 50%, 100% completeness. FM granular percentages are bucketed to nearest DS value.",
+      "dsKey": "3ad726123245a1052e193ff80b894ba98b9a3e52"
     },
     "fmTooltip": {
       "dsSlug": "tooltip",
-      "defaultVariant": { "Type": "Default" },
+      "defaultVariant": {
+        "Type": "Default"
+      },
       "variantMap": {},
-      "dropVariants": ["Position"],
-      "notes": "DS tooltip has only Type=Default with no position variants. FM Position axis is dropped."
+      "dropVariants": [
+        "Position"
+      ],
+      "notes": "DS tooltip has only Type=Default with no position variants. FM Position axis is dropped.",
+      "dsKey": "558adad968a5b5e1e3714307fb19de73d1ac6d21"
     },
     "fmTextArea": {
       "dsSlug": "rich-text",
-      "defaultVariant": { "State": "Default" },
+      "defaultVariant": {
+        "State": "Default"
+      },
       "variantMap": {
         "Content": {
           "None": "Default",
@@ -401,7 +495,8 @@
       "propertyMap": {
         "Show label": null
       },
-      "notes": "No direct DS textarea exists. Rich text is the closest multi-line input. FM Content axis maps loosely to DS State axis."
+      "notes": "No direct DS textarea exists. Rich text is the closest multi-line input. FM Content axis maps loosely to DS State axis.",
+      "dsKey": "e904c7b5c3ef6d223d9743546484e5a99b7a7808"
     }
   },
   "unmappable": {
