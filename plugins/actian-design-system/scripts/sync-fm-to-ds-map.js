@@ -58,8 +58,10 @@ function reconcile(map, dsRegistry) {
         changes.backfilled.push(fmRef + ": dsKey ← " + component.key);
       } else {
         changes.warnings.push(
-          fmRef + ': dsSlug "' + entry.dsSlug +
-          '" not found in dskit.json — cannot backfill dsKey. Consider moving to unmappable.'
+          fmRef +
+            ': dsSlug "' +
+            entry.dsSlug +
+            '" not found in dskit.json — cannot backfill dsKey. Consider moving to unmappable.',
         );
       }
       continue;
@@ -70,14 +72,16 @@ function reconcile(map, dsRegistry) {
       var resolved = keyIndex[entry.dsKey];
       if (!resolved) {
         changes.warnings.push(
-          fmRef + ': dsKey "' + entry.dsKey +
-          '" not found in dskit.json. Component may have been hidden from publishing or removed. Consider moving to unmappable with a composition note.'
+          fmRef +
+            ': dsKey "' +
+            entry.dsKey +
+            '" not found in dskit.json. Component may have been hidden from publishing or removed. Consider moving to unmappable with a composition note.',
         );
         continue;
       }
       if (entry.dsSlug !== resolved) {
         changes.refreshed.push(
-          fmRef + ': dsSlug "' + entry.dsSlug + '" → "' + resolved + '"'
+          fmRef + ': dsSlug "' + entry.dsSlug + '" → "' + resolved + '"',
         );
         entry.dsSlug = resolved;
       }
@@ -99,12 +103,21 @@ function reconcileFromDisk(mapPath, registryPath) {
   var map = JSON.parse(fs.readFileSync(mapPath, "utf8"));
   var registry = JSON.parse(fs.readFileSync(registryPath, "utf8"));
   var result = reconcile(map, registry);
-  if (map._meta) map._meta.lastUpdated = new Date().toISOString().slice(0, 10);
-  fs.writeFileSync(mapPath, JSON.stringify(map, null, 2) + "\n");
+  var hasChanges =
+    result.changes.backfilled.length > 0 || result.changes.refreshed.length > 0;
+  if (hasChanges) {
+    if (map._meta)
+      map._meta.lastUpdated = new Date().toISOString().slice(0, 10);
+    fs.writeFileSync(mapPath, JSON.stringify(map, null, 2) + "\n");
+  }
   return result;
 }
 
-module.exports = { reconcile: reconcile, buildKeyIndex: buildKeyIndex, reconcileFromDisk: reconcileFromDisk };
+module.exports = {
+  reconcile: reconcile,
+  buildKeyIndex: buildKeyIndex,
+  reconcileFromDisk: reconcileFromDisk,
+};
 
 // CLI: node sync-fm-to-ds-map.js
 if (require.main === module) {
@@ -115,10 +128,16 @@ if (require.main === module) {
   var c = result.changes;
   console.log("fm-to-ds-map reconcile complete:");
   console.log("  backfilled: " + c.backfilled.length);
-  c.backfilled.forEach(function (s) { console.log("    " + s); });
+  c.backfilled.forEach(function (s) {
+    console.log("    " + s);
+  });
   console.log("  refreshed:  " + c.refreshed.length);
-  c.refreshed.forEach(function (s) { console.log("    " + s); });
+  c.refreshed.forEach(function (s) {
+    console.log("    " + s);
+  });
   console.log("  warnings:   " + c.warnings.length);
-  c.warnings.forEach(function (s) { console.log("    " + s); });
+  c.warnings.forEach(function (s) {
+    console.log("    " + s);
+  });
   if (c.warnings.length > 0) process.exit(1);
 }

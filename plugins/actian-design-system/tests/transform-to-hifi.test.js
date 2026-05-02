@@ -235,6 +235,45 @@ describe("Transform-to-Hifi Tests", function () {
       assert.strictEqual(out.unmapped, true);
       assert.strictEqual(out.originalRef, "fmUnknownWidget");
     });
+
+    it("sets unmapped: true when mapping.dsKey does not resolve in dskit.json", function () {
+      // Synthetic mapData with a single mapping whose dsKey is bogus —
+      // exercises the post-resolution fallback branch in transformInstance
+      // where slugFromKey or dsRegistry.components[slug] yields nothing.
+      var fmRef = "fmGhostComponent";
+      var syntheticMapData = {
+        mappings: {
+          fmGhostComponent: {
+            dsKey: "BOGUS-KEY-DOES-NOT-EXIST",
+            defaultVariant: {},
+            variantMap: {},
+            dropVariants: [],
+          },
+        },
+        unmappable: {},
+      };
+      var node = {
+        type: "INSTANCE",
+        ref: fmRef,
+        variant: "",
+        props: {},
+      };
+      var out = t.transformInstance(
+        node,
+        syntheticMapData,
+        dsRegistry,
+        "default",
+      );
+      assert.strictEqual(out.unmapped, true);
+      assert.strictEqual(out.originalRef, fmRef);
+      assert.ok(
+        typeof out.unmappedReason === "string" &&
+          out.unmappedReason.indexOf(
+            "does not resolve in dskit.json registry",
+          ) !== -1,
+        "unmappedReason should mention 'does not resolve in dskit.json registry'",
+      );
+    });
   });
 
   // ---------------------------------------------------------------------------
