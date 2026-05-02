@@ -1,0 +1,20 @@
+{
+  "component": "Button",
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Terminology for button labeling",
+        "content": [
+          { "term": "Cancel vs Close", "rule": "Use 'Cancel' to back out when information has been entered. Use 'Close' for read-only messages." },
+          { "term": "Create vs Add", "rule": "Use 'Create' for brand-new objects. Use 'Add' for inserting existing objects." }
+        ]
+      },
+      {
+        "heading": "Stepper buttons",
+        "content": [
+          { "rule": "Use verb + object for the creation button. Verb should usually be 'Create'.", "do": "Create integration", "dont": "Integration" }
+        ]
+      }
+    ]
+  }
+}
