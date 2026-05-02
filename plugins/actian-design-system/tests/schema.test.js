@@ -600,6 +600,116 @@ assert(
 );
 
 // ---------------------------------------------------------------------------
+// Test: validateBriefData — Sub-project B _source contract
+// ---------------------------------------------------------------------------
+
+process.stdout.write("\nvalidateBriefData — Sub-project B _source contract\n");
+
+function test(label, fn) {
+  try {
+    fn();
+  } catch (e) {
+    failed++;
+    failures.push(label + " (threw: " + e.message + ")");
+    process.stdout.write("  ✗ " + label + "\n");
+    return;
+  }
+}
+
+var assert_ok = function (cond, msg) {
+  if (cond) {
+    passed++;
+    process.stdout.write("  ✓ " + msg + "\n");
+  } else {
+    failed++;
+    failures.push(msg);
+    process.stdout.write("  ✗ " + msg + "\n");
+    throw new Error(msg);
+  }
+};
+
+test("brief schema — every card object has _source field", function () {
+  var schema = require("../scripts/validate-schema.js");
+  var data = {
+    meta: {},
+    card_header: { name: "Button", description: "x" }, // missing _source
+    card_tokens: { _source: "generated", colors: [] },
+  };
+  var result = schema.validateBriefData(data);
+  assert_ok(
+    result.findings.some(function (f) {
+      return f.kind === "missing-source-field" && f.card === "card_header";
+    }),
+    "expected missing-source-field finding for card_header",
+  );
+});
+
+test("brief schema — _source value must be 'figma' or 'generated'", function () {
+  var schema = require("../scripts/validate-schema.js");
+  var data = {
+    meta: {},
+    card_header: { _source: "wrong-value", name: "Button", description: "x" },
+  };
+  var result = schema.validateBriefData(data);
+  assert_ok(
+    result.findings.some(function (f) {
+      return f.kind === "invalid-source-value";
+    }),
+    "expected invalid-source-value finding",
+  );
+});
+
+test("brief schema — transcribed card with empty content + no _fallback flag → finding", function () {
+  var schema = require("../scripts/validate-schema.js");
+  var data = {
+    meta: {},
+    card_header: { _source: "figma", name: "Button", description: "" }, // empty + claims figma source
+  };
+  var result = schema.validateBriefData(data);
+  assert_ok(
+    result.findings.some(function (f) {
+      return f.kind === "empty-figma-source";
+    }),
+    "expected empty-figma-source finding",
+  );
+});
+
+test("brief schema — forbidden card keys card_api / card_code / card_states → finding", function () {
+  var schema = require("../scripts/validate-schema.js");
+  var data = {
+    meta: {},
+    card_api: { _source: "generated", props: [] },
+  };
+  var result = schema.validateBriefData(data);
+  assert_ok(
+    result.findings.some(function (f) {
+      return f.kind === "forbidden-card-key" && f.card === "card_api";
+    }),
+    "expected forbidden-card-key finding for card_api",
+  );
+});
+
+test("brief schema — _fallback: true with no _fallbackReason → finding", function () {
+  var schema = require("../scripts/validate-schema.js");
+  var data = {
+    meta: {},
+    card_header: {
+      _source: "generated",
+      _fallback: true,
+      name: "Button",
+      description: "x",
+    },
+  };
+  var result = schema.validateBriefData(data);
+  assert_ok(
+    result.findings.some(function (f) {
+      return f.kind === "fallback-without-reason";
+    }),
+    "expected fallback-without-reason finding",
+  );
+});
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 

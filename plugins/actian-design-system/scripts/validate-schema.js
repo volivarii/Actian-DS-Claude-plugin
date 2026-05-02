@@ -171,6 +171,108 @@ function validate(data, schema, _rootSchema, _path) {
 
 module.exports = validate;
 
+// ---------------------------------------------------------------------------
+// validateBriefData — Sub-project B _source contract enforcer
+//
+// Checks every card_ key in a brief data object for:
+//   1. missing-source-field   — card object has no _source property
+//   2. invalid-source-value   — _source is not 'figma' or 'generated'
+//   3. empty-figma-source     — figma-sourced card has empty content + no _fallback
+//   4. forbidden-card-key     — retired card keys (card_api, card_code, card_states)
+//   5. fallback-without-reason — _fallback: true with no _fallbackReason
+//
+// Returns: { findings: Array<{ kind, severity, card, message }> }
+// ---------------------------------------------------------------------------
+
+var BRIEF_VALID_SOURCES = ["figma", "generated"];
+var BRIEF_FORBIDDEN_KEYS = ["card_api", "card_code", "card_states"];
+
+function validateBriefData(data) {
+  var findings = [];
+  if (!data || typeof data !== "object") {
+    findings.push({
+      kind: "invalid-data",
+      severity: "error",
+      message: "data must be an object",
+    });
+    return { findings: findings };
+  }
+  var keys = Object.keys(data);
+  for (var i = 0; i < keys.length; i++) {
+    var k = keys[i];
+    if (k.indexOf("card_") !== 0) continue;
+    var card = data[k];
+    if (!card || typeof card !== "object") continue;
+
+    if (BRIEF_FORBIDDEN_KEYS.indexOf(k) !== -1) {
+      findings.push({
+        kind: "forbidden-card-key",
+        severity: "error",
+        card: k,
+        message: k + " was retired in sub-project B",
+      });
+      continue;
+    }
+
+    if (!Object.prototype.hasOwnProperty.call(card, "_source")) {
+      findings.push({
+        kind: "missing-source-field",
+        severity: "error",
+        card: k,
+        message: "card object must have _source field",
+      });
+      continue;
+    }
+
+    if (BRIEF_VALID_SOURCES.indexOf(card._source) === -1) {
+      findings.push({
+        kind: "invalid-source-value",
+        severity: "error",
+        card: k,
+        message: "_source must be 'figma' or 'generated', got: " + card._source,
+      });
+    }
+
+    if (card._fallback === true && !card._fallbackReason) {
+      findings.push({
+        kind: "fallback-without-reason",
+        severity: "warning",
+        card: k,
+        message: "_fallback: true requires _fallbackReason",
+      });
+    }
+
+    // Empty-content check for figma-sourced transcribe cards
+    if (card._source === "figma" && card._fallback !== true) {
+      if (
+        k === "card_header" &&
+        (!card.description || String(card.description).trim() === "")
+      ) {
+        findings.push({
+          kind: "empty-figma-source",
+          severity: "error",
+          card: k,
+          message: "card_header claims figma source but description is empty",
+        });
+      }
+      if (
+        k === "card_content" &&
+        (!Array.isArray(card.rules) || card.rules.length === 0)
+      ) {
+        findings.push({
+          kind: "empty-figma-source",
+          severity: "error",
+          card: k,
+          message: "card_content claims figma source but rules array is empty",
+        });
+      }
+    }
+  }
+  return { findings: findings };
+}
+
+module.exports.validateBriefData = validateBriefData;
+
 // CLI mode
 if (require.main === module) {
   if (process.argv.length < 4) {
