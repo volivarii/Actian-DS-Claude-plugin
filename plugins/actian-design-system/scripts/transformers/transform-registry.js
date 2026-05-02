@@ -42,6 +42,9 @@ function pageNameFromContainingFrame(cf) {
 
 function trimDescription(s) {
   s = s || "";
+  // Normalize whitespace-only strings to empty string so callers can do a
+  // simple truthiness check: `entry.description || fallback`.
+  if (s.trim() === "") return "";
   return s.length > DESCRIPTION_MAX ? s.slice(0, DESCRIPTION_MAX) : s;
 }
 
@@ -138,3 +141,4 @@ function transformRegistry(input) {
 module.exports = transformRegistry;
 module.exports._slugify = slugify;
 module.exports._splitVariantAndProperties = splitVariantAndProperties;
+module.exports._trimDescription = trimDescription;
