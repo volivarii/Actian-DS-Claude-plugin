@@ -135,7 +135,7 @@ If any condition fails, fall back per the table below.
 
 ## Pipeline (3 gates, then build + push uninterrupted) — for prompt + greenfield generation
 
-1. Read `references/app-context.md` → determine app (Studio/Explorer/Administration)
+1. Read `references/context/app-context.md` → determine app (Studio/Explorer/Administration)
 2. **Gate 1 — Research** (present verbatim, see below)
 3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
 4. **Gate 3 — Screen list + detail level** (single gate, both choices, see below)
@@ -327,7 +327,7 @@ After the screen list is approved, build a `_glossary` object and set it on `met
 
 **Build from:**
 1. Feature description → extract the primary entity name (e.g., "Data Product", "Dataset", "Scanner")
-2. App context (from Gate 1) → verify the entity name matches `references/app-context.md` terminology (e.g., "Data product" not "dataset" when curated)
+2. App context (from Gate 1) → verify the entity name matches `references/context/app-context.md` terminology (e.g., "Data product" not "dataset" when curated)
 3. Approved screen list → extract page titles and CTA labels already visible in screen names
 
 **Glossary fields:**
@@ -443,8 +443,8 @@ Push-apart row: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "H
 - `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API templates
 - `references/generate-flow/research-guide.md` — competitor research, reference analysis
 - `references/ds-rules/quality-tiers.md` — Draft / Standard / Production concrete rules
-- `references/app-context.md` — app inference, entity model, terminology
-- `references/ux-patterns.md` — SaaS UX pattern library by flow type
+- `references/context/app-context.md` — app inference, entity model, terminology
+- `references/context/ux-patterns.md` — SaaS UX pattern library by flow type
 - `references/ds-rules/layout-patterns.md` — canonical page layouts
 - `references/figma/parity-check.md` — post-push parity check
 - `references/ds-rules/quality-checklist.md` — cleanup pass checklist

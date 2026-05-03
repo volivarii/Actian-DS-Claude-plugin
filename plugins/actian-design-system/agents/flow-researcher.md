@@ -41,7 +41,7 @@ You will receive:
 
 ### 1. Actian product context
 
-Read `references/app-context.md` and extract:
+Read `references/context/app-context.md` and extract:
 - Which app this flow belongs to (Studio/Explorer/Administration)
 - Which entities are involved (catalog objects, data products, contracts, etc.)
 - Established UI patterns that apply (right drawer, 360-degree view, marketplace browsing, etc.)
@@ -49,7 +49,7 @@ Read `references/app-context.md` and extract:
 
 ### 2. UX pattern matching
 
-Read `references/ux-patterns.md` and:
+Read `references/context/ux-patterns.md` and:
 - Identify the flow type family: discovery, creation, configuration, visualization, or governance
 - Pull the 3-5 most applicable patterns from that family
 - Pull relevant cross-cutting principles (progressive disclosure, empty states, trust signals, etc.)

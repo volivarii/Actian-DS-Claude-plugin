@@ -12,7 +12,7 @@ Read `../../docs/presentation-guide.md` before generating any slides — primary
 
 ## Step 1 — Gather content
 
-Read all input material (files, URLs, Figma nodes). Infer audience (default: team update), goal (default: inform). Read `../../references/app-context.md` for correct terminology. Only ask if input is genuinely empty.
+Read all input material (files, URLs, Figma nodes). Infer audience (default: team update), goal (default: inform). Read `../../references/context/app-context.md` for correct terminology. Only ask if input is genuinely empty.
 
 ## Step 1.5 — Research gate
 
@@ -97,6 +97,6 @@ Serve, present review report, accept feedback or "push".
 - `references/generate-presentation/templates.md` — 8 CSS chart types, slide type details
 - `references/ds-rules/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `docs/presentation-guide.md` — voice & tone, narrative arc, review report format
-- `references/app-context.md` — Actian terminology
+- `references/context/app-context.md` — Actian terminology
 - `references/figma/parity-check.md` — post-push parity check procedure
 - `references/ds-rules/quality-checklist.md` — cleanup pass checklist

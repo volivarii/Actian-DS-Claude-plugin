@@ -98,7 +98,7 @@ Full guidelines: `docs/content-guidelines.md`
 | Glossary term | Business definition attached to datasets/fields |
 | Data product | Curated, governed dataset published for consumption |
 
-Full context: `references/app-context.md`
+Full context: `references/context/app-context.md`
 
 ## Component Inventory
 
@@ -131,7 +131,7 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 | Accessibility standards | `docs/accessibility-guidelines.md` |
 | Foundation (typography, color, etc.) | `docs/foundations/{topic}.json` |
 | FM CSS values (wireframes) | `references/ds-rules/fm-css-reference.md` |
-| UX patterns by flow type | `references/ux-patterns.md` |
+| UX patterns by flow type | `references/context/ux-patterns.md` |
 | Page layout patterns | `references/ds-rules/layout-patterns.md` |
 | Token variable keys (Figma binding) | `docs/generated/meta-kit/variables.md` |
 | Quality tiers (Draft/Standard/Production) | `references/ds-rules/quality-tiers.md` |
