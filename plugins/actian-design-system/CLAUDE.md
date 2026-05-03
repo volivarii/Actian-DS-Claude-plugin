@@ -71,7 +71,7 @@ Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is sou
 - **Reference doc that's used by ≥2 skills?** Goes in `references/figma/`, `references/ds-rules/`, or `references/context/` depending on subject. Workflow → `figma/`, system constraints → `ds-rules/`, knowledge base → `context/`.
 - **Reference doc specific to one skill?** Goes in `references/<skill-name>/`.
 - **New skill?** Follow the checklist in `ARCHITECTURE.md` Section 4. New skill = new `skills/<name>/`, new `references/<name>/` (only if it has skill-specific docs), entry added to `ARCHITECTURE.md` Section 2.
-- **Script bucketing** (`scripts/sync/`, `scripts/validation/`, etc.) and **test bucketing** are described in `ARCHITECTURE.md` Section 3 once PRs 2 and 3 land.
+- **Script bucketing** (`scripts/<bucket>/`) and **test bucketing** are described in `ARCHITECTURE.md` Section 3 once PRs 2 and 3 land.
 
 When generating code or docs in this plugin, consult `ARCHITECTURE.md` for placement and update Section 2 if you add a new artifact.
 
