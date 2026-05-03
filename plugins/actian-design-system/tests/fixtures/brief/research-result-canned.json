@@ -1,0 +1,21 @@
+{
+  "research_quality": "Strong consensus across 5 DSs.",
+  "card_usage": {
+    "patterns_observed": ["Primary buttons reserved for the single most-important action per surface"],
+    "recommendations": ["Reserve Primary variant for one CTA per surface."],
+    "divergences_from_existing": [],
+    "sources": [{ "ds": "Material 3", "url": "https://example.com/material" }]
+  },
+  "card_content": {
+    "patterns_observed": ["Verb-first labels"],
+    "recommendations": ["Use verb-first labels for action buttons."],
+    "divergences_from_existing": [],
+    "sources": [{ "ds": "Polaris", "url": "https://example.com/polaris" }]
+  },
+  "card_accessibility": {
+    "patterns_observed": ["Min 44px touch target"],
+    "recommendations": ["Maintain 44px min touch target on all interactive buttons."],
+    "divergences_from_existing": [],
+    "sources": [{ "ds": "WCAG 2.1", "url": "https://example.com/wcag" }]
+  }
+}

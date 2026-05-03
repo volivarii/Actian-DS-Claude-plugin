@@ -1,0 +1,16 @@
+{
+  "research_quality": "Mixed signals on primary action position.",
+  "card_usage": {
+    "patterns_observed": ["Left-aligned primary in 4/5 surveyed DSs"],
+    "recommendations": ["Maintain Actian convention; flag for designer review."],
+    "divergences_from_existing": [
+      {
+        "field": "primary_action_position",
+        "existing": "right-aligned per content-guidelines.md",
+        "research": "left-aligned in 4/5 surveyed DSs",
+        "note": "Designer review needed"
+      }
+    ],
+    "sources": [{ "ds": "Material 3", "url": "https://example.com/material" }]
+  }
+}
