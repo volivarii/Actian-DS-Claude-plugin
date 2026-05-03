@@ -33,7 +33,7 @@ Validate a `brief-data.json` file against the data schema to catch missing field
 
 You will receive:
 - **Path to brief-data.json** — the file to validate
-- **Mode** — "ds" (Actian DS, 9 cards) or "fm" (Fat Marker, 5 cards)
+- **Mode** — "ds" (Actian DS, 7 cards) or "fm" (Fat Marker, 5 cards)
 
 ## Process
 
@@ -49,19 +49,22 @@ Read `references/component-brief/data-schema.md` for the expected structure.
 
 Check every required field for the given mode:
 
-**DS mode (9 cards):**
+**DS mode (7 cards):**
 
 | Card | Key | Required checks |
 |------|-----|-----------------|
-| 1 | `card1_header` | `name`, `description`, `status` present and non-empty |
-| 2 | `card2_component` | `variantMatrix` is an array with >= 1 row. No row has empty `variant` or `description` |
-| 3 | `card3_anatomy` | `parts` is an array with >= 1 item. Each part has `name`, `description`, `figmaLayerName` |
-| 4 | `card4_tokens` | `colorTokens` has >= 1 entry. Each token has `name`, `value`, `usage` |
-| 5 | `card5_api` | `properties` has >= 1 entry. Each has `name`, `type`, `default`, `description` |
-| 6 | `card6_usage` | `dos` and `donts` each have >= 1 item |
-| 7 | `card7_content` | `rules` has >= 1 item |
-| 8 | `card8_accessibility` | `requirements` has exactly 6 items (2x3 grid) |
-| 9 | `card9_code` | `tokens` array present. Each token has `type` and `text` fields |
+| 1 | `card_header` | `_source` present (`"figma"` or `"generated"`). `name`, `description` present and non-empty |
+| 2 | `card_component` | `_source` present. `variantMatrix` is an array with >= 1 row. No row has empty `variant` or `description` |
+| 3 | `card_anatomy` | `_source` present. `parts` is an array with >= 1 item. Each part has `name`, `description`, `figmaLayerName` |
+| 4 | `card_tokens` | `_source` present. `colorTokens` has >= 1 entry. Each token has `name`, `value`, `usage` |
+| 5 | `card_usage` | `_source` present. `dos` and `donts` each have >= 1 item |
+| 6 | `card_content` | `_source` present (`"figma"` or `"generated"`). `rules` has >= 1 item |
+| 7 | `card_accessibility` | `_source` present. `requirements` has exactly 6 items (2x3 grid) |
+
+**Retired DS cards (must NOT appear in brief-data.json):**
+- `card_api` / `card5_api` — retired in sub-project B
+- `card_code` / `card9_code` — retired in sub-project B
+- `card_states` — retired in sub-project B
 
 **FM mode (5 cards):**
 
@@ -75,17 +78,17 @@ Check every required field for the given mode:
 
 ### 4. Validate token names
 
-For any token name referenced in `card4_tokens` or `card9_code`:
+For any token name referenced in `card_tokens` (DS mode) or any code token field:
 - DS mode: must start with `--zen-` prefix
 - FM mode: must start with `--fm-` prefix
 - Flag any hardcoded hex values (`#` followed by 3-8 hex chars) in token value fields
 
 ### 5. Validate consistency
 
-- `card1_header.name` should match the filename pattern (`[name]-brief-data.json`)
-- Variant count in `card2_component.variantMatrix` should match the actual number of rows (not truncated with "..." or "etc")
-- Anatomy parts in `card3_anatomy` should each have unique `figmaLayerName` values
-- `card8_accessibility.requirements` must have exactly 6 items — no more, no less
+- `card_header.name` should match the filename pattern (`[name]-brief-data.json`)
+- Variant count in `card_component.variantMatrix` should match the actual number of rows (not truncated with "..." or "etc")
+- Anatomy parts in `card_anatomy` should each have unique `figmaLayerName` values
+- `card_accessibility.requirements` must have exactly 6 items — no more, no less
 
 ### 6. Check for truncation signals
 
@@ -108,12 +111,12 @@ Search the entire JSON for:
 
 | # | Severity | Card | Field | Issue |
 |---|----------|------|-------|-------|
-| 1 | P0 | card4_tokens | colorTokens[2].value | Hardcoded hex #3B82F6 — must use token name |
-| 2 | P1 | card8_accessibility | requirements | Has 4 items, expected exactly 6 |
-| 3 | P1 | card2_component | variantMatrix | Possible truncation — only 2 rows for a component with 5+ variants |
+| 1 | P0 | card_tokens | colorTokens[2].value | Hardcoded hex #3B82F6 — must use token name |
+| 2 | P1 | card_accessibility | requirements | Has 4 items, expected exactly 6 |
+| 3 | P1 | card_component | variantMatrix | Possible truncation — only 2 rows for a component with 5+ variants |
 
 ### Summary
-- Cards validated: N/9 (or N/5 for FM)
+- Cards validated: N/7 (or N/5 for FM)
 - Fields checked: N
 - Token names validated: N
 - Truncation signals found: N

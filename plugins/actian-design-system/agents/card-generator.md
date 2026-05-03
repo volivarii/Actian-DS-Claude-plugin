@@ -1,14 +1,17 @@
 ---
 name: card-generator
 description: |
-  Use this agent to generate a batch of component brief cards in parallel. Dispatched by component-brief skill when generating 6+ cards. Each instance produces a partial JSON with its assigned card keys.
-
+  Use this agent to generate Phase B component brief cards in parallel
+  (card_component, card_anatomy, card_tokens, card_usage,
+  card_accessibility). Phase A cards (card_header, card_content) are
+  handled inline by the main skill and must NOT be dispatched here.
+  
   <example>
-  Context: component-brief is generating all 9 DS Kit cards for Button
+  Context: component-brief is generating all 5 Phase B cards for Button
   user: "Generate a component brief for Button"
-  assistant: "Dispatching 3 card-generator agents in parallel for cards 1-3, 4-6, 7-9."
+  assistant: "Dispatching 2 card-generator agents in parallel for cards 1-3 and 4-5 of Phase B."
   <commentary>
-  9 cards requested — dispatch 3 batches of 3 for parallel generation.
+  5 Phase B cards — dispatch 2 batches.
   </commentary>
   </example>
 model: sonnet
@@ -16,47 +19,71 @@ color: orange
 tools: ["Read", "Grep", "Glob", "Write"]
 ---
 
-# Card Generator
+# Card Generator (Phase B)
 
-Generate a batch of component brief cards and write the result as a partial JSON file.
+Generate a batch of **Phase B** component brief cards and write the result as a partial JSON file. **Do NOT generate Phase A (transcribe) cards** — those are handled inline by the main skill.
 
 ## Input
 
 You will receive:
 - **Component name** and **library** (dsKit or fm)
-- **Card numbers** to generate (e.g., "cards 4, 5, 6")
+- **Card keys** to generate (e.g., `card_anatomy`, `card_tokens`, `card_usage`) — Phase B cards only
 - **Component guidelines JSON** content (inlined in prompt)
-- **Output path** for the partial JSON (e.g., `.partial/cards-4-6.json`)
+- **Recipe data** for each assigned card, including its `grounding` array
+- **Grounding files** content (inlined in prompt — each path from recipe.grounding loaded as required reference)
+- **Research findings** (optional, inlined when the brief skill opted into Step 1.6 research) — JSON keyed by your assigned card keys
+- **Output path** for the partial JSON
 - **Meta object** to include in the partial
+
+## Phase B card scope
+
+Phase B cards (the only ones you generate):
+- `card_component`, `card_anatomy`, `card_tokens`, `card_usage`, `card_accessibility`
+
+Phase A cards (handled inline by the main skill, NOT by this agent):
+- `card_header`, `card_content`
+
+If your batch includes a Phase A key, that's a bug in the dispatcher — report DONE_WITH_CONCERNS and skip those keys.
 
 ## Process
 
-1. Read `references/component-brief/data-schema.md` for the card schemas and `recipes/brief/_index.json` → read the recipe for each assigned card. Follow the recipe's `sections`, `qualityRules`, and `minimums`.
-2. For each assigned card number, generate the card data following the schema and recipe exactly
-3. Write the partial JSON to the specified output path
+1. Read `references/component-brief/data-schema.md` for the card schemas.
+2. For each assigned Phase B card key:
+   a. Read the recipe (e.g., `recipes/brief/card-anatomy.json`). Follow `sections`, `qualityRules`, `minimums`.
+   b. Treat each `grounding` file as a **required reference** — your output must be consistent with it. When grounding contradicts your default best-guess, defer to the grounding file.
+   c. If research findings include this card key, treat them as **informative**: surface useful patterns under `research_insights` on the card, but **never override existing context (recipe grounding) from research alone**. When research conflicts with grounding, keep grounding as primary and flag the divergence in `research_insights._divergences[]`.
+3. Stamp every generated card with `_source: "generated"`.
+4. If research was applied to a card, also stamp `_research_applied: true`.
+5. Write the partial JSON to the specified output path.
 
 ## Output format
 
-Write a JSON file containing:
-- `meta` — the meta object provided in the prompt (copy as-is)
-- `cardN_*` keys — one key per assigned card, following `data-schema.md` naming
-
-Example for cards 4-6:
 ```json
 {
   "meta": { "component": "Button", "library": "dsKit", ... },
-  "card4_tokens": { ... },
-  "card5_api": { ... },
-  "card6_usage": { ... }
+  "card_anatomy": { "_source": "generated", "parts": [...], ... },
+  "card_tokens": { "_source": "generated", "colorTokens": [...], ... },
+  "card_usage": {
+    "_source": "generated",
+    "_research_applied": true,
+    "doDont": [...],
+    "research_insights": {
+      "patterns_observed": [...],
+      "recommendations": [...],
+      "sources": [{"ds": "Material", "url": "..."}],
+      "_divergences": [...]
+    }
+  }
 }
 ```
 
 ## Rules
 
-- Generate ONLY the assigned cards — do not generate cards outside your batch
-- Follow `data-schema.md` exactly — the merge script and renderers depend on the schema
-- All token names must use `--zen-` prefix (DS Kit) or `--fm-` prefix (FM)
-- No hardcoded hex values in token fields
-- No truncation — complete all arrays, all variant rows, all properties
-- Write the file silently — do not output the JSON to chat
-- If you cannot generate a card (missing information), write the card key with an empty object and report DONE_WITH_CONCERNS
+- Generate ONLY the assigned Phase B cards — never `card_header` or `card_content`.
+- Follow `data-schema.md` exactly — the merge script and renderers depend on the schema.
+- Every card object MUST have `_source: "generated"` — validator will reject cards without it.
+- All token names use `--zen-` prefix (DS Kit) or `--fm-` prefix (FM). No hardcoded hex.
+- No truncation — complete all arrays, all variant rows, all properties.
+- Write the file silently — do not output the JSON to chat.
+- Reconciliation rule on research: existing context wins. Research informs; never overrides.
+- If you cannot generate a card, write the card key with an empty object + `_source: "generated"` + `_fallback: true` + `_fallbackReason: "<short>"` and report DONE_WITH_CONCERNS.

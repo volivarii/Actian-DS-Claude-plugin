@@ -11,17 +11,17 @@ Rigid JSON schema for component-brief output. Generated in Step 1.5, consumed by
 ```json
 {
   "meta": { ... },
-  "card1_header": { ... },
-  "card2_component": { ... },
-  "card3_anatomy": { ... },
-  "card4_tokens": { ... },
-  "card5_api": { ... },
-  "card6_usage": { ... },
-  "card7_content": { ... },
-  "card8_accessibility": { ... },
-  "card9_code": { ... }
+  "card_header": { ... },
+  "card_component": { ... },
+  "card_anatomy": { ... },
+  "card_tokens": { ... },
+  "card_usage": { ... },
+  "card_content": { ... },
+  "card_accessibility": { ... }
 }
 ```
+
+Cards: **Header**, **Component**, **Anatomy**, **Tokens**, **Usage**, **Content**, **Accessibility** (7 cards total).
 
 ## `meta` — Generation metadata
 
@@ -48,7 +48,7 @@ Every card object MUST include `cardTitle` and `cardSubtitle`. Source these from
 
 Sentence case for both, per Figma content guideline (section/page headers are sentence case).
 
-## `card1_header` — Page header
+## `card_header` — Page header
 
 ```json
 {
@@ -62,7 +62,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `name`: component display name
 - `description`: 1-3 sentences. Becomes `<p class="card-body">` in HTML, `Description` property in Figma Brief Card Page Header
 
-## `card2_component` — Component
+## `card_component` — Component
 
 ```json
 {
@@ -93,7 +93,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `variantMatrix` must include ALL variants shown in the HTML — never truncate.
 - `themeVariant`: variant name to display in theme comparison (e.g., `"State=Default"`). The script renders 3 frames (Actian, Studio, Explorer) each containing a real component instance with the corresponding theme's variable mode.
 
-## `card3_anatomy` — Anatomy
+## `card_anatomy` — Anatomy
 
 ```json
 {
@@ -119,7 +119,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `states`: list of state names for the States section. Figma renders real component instances (LOCAL_INSTANCE with variant switching) in a horizontal row. HTML renders state labels.
 - `partsTable`: rows for the Specs table. Each row links back to a part letter. Columns: part letter, element name, token name, notes.
 
-## `card4_tokens` — Design tokens
+## `card_tokens` — Design tokens
 
 ```json
 {
@@ -160,24 +160,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `hex` is REQUIRED for Color Swatch fill (set `.fills` directly on the 12×12 instance — it has NO children).
 - `sizingTokens` and `typography` are fixed-column tables.
 
-## `card5_api` — Component API
-
-```json
-{
-  "cardTitle": "Component API",
-  "cardSubtitle": "Properties, types, defaults, and allowed values",
-  "props": [
-    { "required": true, "name": "type", "type": "enum", "default": "\"text\"", "values": "\"text\" | \"email\" | \"password\"", "notes": "HTML input type" },
-    { "required": true, "name": "label", "type": "string", "default": "—", "values": "any string", "notes": "Visible label text" },
-    { "required": false, "name": "disabled", "type": "boolean", "default": "false", "values": "true | false", "notes": "Disables interaction" }
-  ]
-}
-```
-
-- `required`: true = REQ badge (red), false = OPT badge (grey). Both renderers apply the same colors.
-- All string values — no further interpretation needed.
-
-## `card6_usage` — Usage guidelines
+## `card_usage` — Usage guidelines
 
 ```json
 {
@@ -205,7 +188,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `whenToUse` / `whenNotToUse`: string arrays. HTML renders as green +/red − bullet rows. Figma renders as text nodes with colored prefix.
 - `doDont`: array of pairs. HTML uses `.do-dont-row` divs. Figma uses `Meta / Content / Do-Don't Pair` component (Mode=DS) with `setProp` for all 4 text fields.
 
-## `card7_content` — Content guidelines
+## `card_content` — Content guidelines
 
 ```json
 {
@@ -234,7 +217,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - Figma renders each rule as Section Header template + Do-Don't Pair component.
 - `terminology`: optional table. Empty array = section omitted.
 
-## `card8_accessibility` — Accessibility
+## `card_accessibility` — Accessibility
 
 ```json
 {
@@ -274,34 +257,9 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `contrastTable`: rows for WCAG contrast table. `wcag` is "Pass", "Fail", or "Exempt".
 - `ariaTable`: ARIA specification rows for the structured a11y table (Phase 3 feature).
 
-## `card9_code` — Code specification
-
-```json
-{
-  "cardTitle": "Code specification",
-  "cardSubtitle": "CSS custom properties",
-  "language": "css",
-  "tokens": [
-    { "type": "selector", "text": ".zen-text-input" },
-    { "type": "punctuation", "text": " {" },
-    { "type": "newline" },
-    { "type": "property", "text": "  height" },
-    { "type": "punctuation", "text": ": " },
-    { "type": "value", "text": "var(--zen-size-3xl)" },
-    { "type": "punctuation", "text": ";" },
-    { "type": "newline" },
-    { "type": "comment", "text": "  /* 48px */" },
-    { "type": "newline" },
-    { "type": "punctuation", "text": "}" }
-  ]
-}
-```
-
-- `tokens`: flat array of type+text pairs. `newline` tokens become literal `\n` in both outputs.
-
 ## Syntax token color map
 
-Both renderers use this mapping for all tokenized code (Card 8 inline + Card 9 full):
+Both renderers use this mapping for all tokenized code (card_accessibility inline code blocks):
 
 | Token type | HTML class | Figma fill hex |
 |-----------|-----------|---------------|
@@ -318,7 +276,7 @@ Both renderers use this mapping for all tokenized code (Card 8 inline + Card 9 f
 | `text` | (none) | `#BABED8` |
 | `newline` | `\n` | — |
 
-**Figma rendering note:** Code tokens in Cards 8 and 9 render as monochrome text (`#BABED8`) in Figma output. The HTML preview retains per-token syntax coloring via CSS classes.
+**Figma rendering note:** Code tokens in `card_accessibility` inline code blocks render as monochrome text (`#BABED8`) in Figma output. The HTML preview retains per-token syntax coloring via CSS classes.
 
 ## Rendering contract
 
@@ -327,6 +285,29 @@ Both renderers use this mapping for all tokenized code (Card 8 inline + Card 9 f
 - **Booleans** → conditional: REQ vs OPT badge styling
 - **Empty arrays** → section omitted in both renderers
 - **Tokenized code** → map: type → CSS class (HTML) or fill color (Figma)
+
+---
+
+## Provenance fields (every card object)
+
+Every brief card object MUST include `_source`. Cards in transcribe phase may also include `_fallback` + `_fallbackReason`. Research-applicable cards (Usage, Content, Accessibility) may include `_research_applied` + `research_insights`.
+
+| Field | Type | Required | Description |
+|---|---|---|---|
+| `_source` | `"figma" \| "generated"` | yes | Where the card content came from. `figma` = transcribed from Figma source (component description metadata for Header; component-guidelines.content_guidelines.sections for Content; never set for Phase B cards). `generated` = produced by Claude (Phase A fallback or Phase B normal). |
+| `_fallback` | `boolean` | only when source is empty | Set on Phase A cards when the Figma source was empty and content was inline-generated as fallback. Always paired with `_fallbackReason`. |
+| `_fallbackReason` | `string` | when `_fallback: true` | Short, designer-actionable reason ("Figma component description empty — author canonical version in Figma"). Surfaces in the amber badge. |
+| `_research_applied` | `boolean` | when research opted in | True for cards where Step 1.6 research findings were threaded into the agent prompt. |
+| `research_insights` | object | when `_research_applied: true` | Cross-DS findings sub-section (patterns_observed, recommendations, _divergences, sources). |
+
+### Forbidden card keys (sub-project B regression guard)
+
+These card keys were retired in sub-project B and must NEVER appear in brief-data.json:
+- `card_api` — was Card 5 (API reference). Deleted.
+- `card_code` — was Card 9 (Code reference). Deleted.
+- `card_states` — was the optional state matrix card behind `--include-states`. Deleted.
+
+Validator emits `forbidden-card-key` finding (severity: error) if any of these appear.
 
 ---
 

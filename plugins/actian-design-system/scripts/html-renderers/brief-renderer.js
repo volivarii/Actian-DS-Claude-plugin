@@ -47,7 +47,81 @@
     );
   }
 
-  function cardShell(title, subtitle, contentHtml, dataName) {
+  function renderSourceBadge(card) {
+    if (!card || !card._source) return "";
+    if (card._source === "figma") {
+      return '<span class="brief-source-badge brief-source-badge--figma" title="Source: Figma component description">Source: Figma</span>';
+    }
+    if (card._source === "generated" && card._fallback === true) {
+      var reason = card._fallbackReason
+        ? " — " + esc(card._fallbackReason)
+        : "";
+      return (
+        '<span class="brief-source-badge brief-source-badge--fallback" title="Auto-generated fallback">Source: Claude (placeholder)' +
+        reason +
+        "</span>"
+      );
+    }
+    if (card._source === "generated") {
+      return '<span class="brief-source-badge brief-source-badge--generated" title="Generated, grounded in source files">Source: Claude</span>';
+    }
+    return "";
+  }
+
+  function renderResearchInsights(card) {
+    if (!card || card._research_applied !== true) return "";
+    var ri = card.research_insights;
+    if (!ri) return "";
+    var html = '<div class="research-insights"><h4>Cross-DS research</h4>';
+    if (Array.isArray(ri.patterns_observed) && ri.patterns_observed.length) {
+      html += "<h5>Patterns observed</h5><ul>";
+      for (var i = 0; i < ri.patterns_observed.length; i++)
+        html += "<li>" + esc(ri.patterns_observed[i]) + "</li>";
+      html += "</ul>";
+    }
+    if (Array.isArray(ri.recommendations) && ri.recommendations.length) {
+      html += "<h5>Recommendations</h5><ul>";
+      for (var j = 0; j < ri.recommendations.length; j++)
+        html += "<li>" + esc(ri.recommendations[j]) + "</li>";
+      html += "</ul>";
+    }
+    if (Array.isArray(ri._divergences) && ri._divergences.length) {
+      html +=
+        '<div class="research-divergences"><h5>Designer review needed</h5><ul>';
+      for (var k = 0; k < ri._divergences.length; k++) {
+        var d = ri._divergences[k];
+        html +=
+          "<li><strong>" +
+          esc(d.field) +
+          ":</strong> existing — " +
+          esc(d.existing) +
+          "; research — " +
+          esc(d.research) +
+          " <em>(" +
+          esc(d.note) +
+          ")</em></li>";
+      }
+      html += "</ul></div>";
+    }
+    if (Array.isArray(ri.sources) && ri.sources.length) {
+      html += '<p class="research-sources">Sources: ';
+      for (var m = 0; m < ri.sources.length; m++) {
+        var s = ri.sources[m];
+        html +=
+          (m ? ", " : "") +
+          '<a href="' +
+          esc(s.url) +
+          '">' +
+          esc(s.ds) +
+          "</a>";
+      }
+      html += "</p>";
+    }
+    html += "</div>";
+    return html;
+  }
+
+  function cardShell(title, subtitle, contentHtml, dataName, card) {
     return (
       '<div class="brief-card" data-name="' +
       esc(dataName || title) +
@@ -55,6 +129,7 @@
       '<div class="card-section-header">' +
       '<div class="card-section-header__title">' +
       esc(title) +
+      (card ? renderSourceBadge(card) : "") +
       "</div>" +
       (subtitle
         ? '<div class="card-section-header__subtitle">' +
@@ -64,6 +139,7 @@
       "</div>" +
       '<div class="card-content">' +
       contentHtml +
+      (card ? renderResearchInsights(card) : "") +
       "</div>" +
       "</div>"
     );
@@ -271,6 +347,8 @@
       (component && component.cardSubtitle) ||
         "Live component across all states and theme modes",
       parts.join(""),
+      null,
+      comp,
     );
   }
 
@@ -377,6 +455,8 @@
       (anatomy && anatomy.cardSubtitle) ||
         "Component structure, dimensions, interactive states, and part-level token mapping",
       parts.join(""),
+      null,
+      anatomy,
     );
   }
 
@@ -448,6 +528,8 @@
       (tokens && tokens.cardSubtitle) ||
         "Color, sizing, spacing, and typography tokens",
       parts.join(""),
+      null,
+      tokens,
     );
   }
 
@@ -468,6 +550,8 @@
       (api && api.cardSubtitle) ||
         "Properties, types, defaults, and allowed values",
       specTable(["", "Property", "Type", "Default", "Values", "Notes"], rows),
+      null,
+      api,
     );
   }
 
@@ -519,6 +603,8 @@
       (usage && usage.cardTitle) || "Usage guidelines",
       (usage && usage.cardSubtitle) || "When and how to use this component",
       parts.join(""),
+      null,
+      usage,
     );
   }
 
@@ -558,6 +644,8 @@
       (content && content.cardTitle) || "Content guidelines",
       (content && content.cardSubtitle) || "Label copy rules",
       parts.join(""),
+      null,
+      content,
     );
   }
 
@@ -639,6 +727,8 @@
       (a11y && a11y.cardSubtitle) ||
         "WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios",
       parts.join(""),
+      null,
+      a11y,
     );
   }
 
@@ -650,6 +740,8 @@
       '<div class="code-block" data-name="Code block"><pre>' +
         tokenizedCode(code.tokens) +
         "</pre></div>",
+      null,
+      code,
     );
   }
 
@@ -822,26 +914,44 @@
     var isFm =
       data.meta && (data.meta.library === "fm" || data.meta.mode === "fm");
 
+    // Support both new-style flat keys (card_header) and old-style numbered keys (card1_header)
+    var d = {
+      header: data.card_header || data.card1_header,
+      component: data.card_component || data.card2_component,
+      anatomy: data.card_anatomy || data.card3_anatomy,
+      tokens: data.card_tokens || data.card4_tokens,
+      api: data.card_api || data.card5_api,
+      usage: data.card_usage || data.card6_usage,
+      content: data.card_content || data.card7_content,
+      accessibility: data.card_accessibility || data.card8_accessibility,
+      code: data.card_code || data.card9_code,
+      // FM keys
+      designGuidelines:
+        data.card_design_guidelines || data.card3_design_guidelines,
+      contentGuidelines:
+        data.card_content_guidelines || data.card4_content_guidelines,
+    };
+
     var cards;
     if (isFm) {
       cards = [
-        renderFmCard1(data.card1_header),
-        renderFmCard2(data.card2_component, componentHtml),
-        renderFmCard3(data.card3_design_guidelines),
-        renderFmCard4(data.card4_content_guidelines),
-        renderFmCard5(data.card5_anatomy, componentHtml),
+        renderFmCard1(d.header),
+        renderFmCard2(d.component, componentHtml),
+        renderFmCard3(d.designGuidelines),
+        renderFmCard4(d.contentGuidelines),
+        renderFmCard5(d.anatomy, componentHtml),
       ];
     } else {
       cards = [
-        renderCard1(data.card1_header),
-        renderCard2(data.card2_component, componentHtml),
-        renderCard3(data.card3_anatomy, componentHtml),
-        renderCard4(data.card4_tokens),
-        renderCard5(data.card5_api),
-        renderCard6(data.card6_usage),
-        renderCard7(data.card7_content),
-        renderCard8(data.card8_accessibility),
-        renderCard9(data.card9_code),
+        renderCard1(d.header),
+        renderCard2(d.component, componentHtml),
+        renderCard3(d.anatomy, componentHtml),
+        renderCard4(d.tokens),
+        renderCard5(d.api),
+        renderCard6(d.usage),
+        renderCard7(d.content),
+        renderCard8(d.accessibility),
+        renderCard9(d.code),
       ];
     }
 

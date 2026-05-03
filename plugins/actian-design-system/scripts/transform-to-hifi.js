@@ -27,9 +27,9 @@ var shared = require("./shared-constants.js");
 // Paths
 // ---------------------------------------------------------------------------
 
-var DOCS_DIR = path.resolve(__dirname, "..", "docs");
-var MAP_PATH = path.join(DOCS_DIR, "fm-to-ds-map.json");
-var DS_REGISTRY_PATH = path.join(DOCS_DIR, "dskit.json");
+var GENERATED_DIR = path.resolve(__dirname, "..", "docs", "generated");
+var MAP_PATH = path.join(GENERATED_DIR, "fm-to-ds-map.json");
+var DS_REGISTRY_PATH = path.join(GENERATED_DIR, "dskit.json");
 
 // ---------------------------------------------------------------------------
 // Variant helpers

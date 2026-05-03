@@ -1,7 +1,13 @@
 {
-  "card": "card8_accessibility",
+  "card": "card_accessibility",
   "title": "Accessibility",
   "description": "6 requirement cards in 2x3 grid, contrast table, ARIA specification table",
+  "phase": "generate",
+  "grounding": ["docs/accessibility-guidelines.md"],
+  "research": {
+    "applicable": true,
+    "focus": ["a11y-patterns", "wcag-interpretation", "keyboard-screenreader"]
+  },
   "sections": {
     "requirements": "Exactly 6 cards in a 2x3 grid layout. Each card has: title, icon color (red/blue/green/grey/orange), body text explaining the requirement, and optional code snippet with syntax-highlighted tokens. The 6 cards must cover these topics (adapt to component): Role & semantics, Keyboard navigation, Screen reader announcements, Focus management, Color & contrast, Touch targets / motion / responsive.",
     "contrastTable": "WCAG contrast check for every foreground/background color pair in the component. Include: element name, foreground hex, background hex, contrast ratio, and Pass/Fail/Exempt verdict. Disabled states are Exempt.",

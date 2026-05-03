@@ -4,7 +4,7 @@
   "title": "Brief Data",
   "description": "Schema for brief-data.json consumed by brief-to-figma.js",
   "type": "object",
-  "required": ["meta", "card1_header"],
+  "required": ["meta", "card_header"],
   "properties": {
     "mode": {
       "type": "string",
@@ -59,9 +59,9 @@
         }
       }
     },
-    "card1_header": {
+    "card_header": {
       "type": "object",
-      "description": "Page header card",
+      "description": "Page header card (DS mode)",
       "required": ["name", "description"],
       "properties": {
         "source": {
@@ -78,7 +78,7 @@
         }
       }
     },
-    "card2_component": {
+    "card_component": {
       "type": "object",
       "description": "Component variants and theme comparison",
       "properties": {
@@ -137,7 +137,7 @@
         }
       }
     },
-    "card3_anatomy": {
+    "card_anatomy": {
       "type": "object",
       "description": "Anatomy card (DS mode)",
       "properties": {
@@ -201,7 +201,7 @@
         }
       }
     },
-    "card4_tokens": {
+    "card_tokens": {
       "type": "object",
       "description": "Design tokens card (DS mode)",
       "properties": {
@@ -272,7 +272,8 @@
     },
     "card5_api": {
       "type": "object",
-      "description": "Component API card (DS mode)",
+      "description": "Component API card (DS mode — retired, use card_api is forbidden)",
+      "deprecated": true,
       "properties": {
         "props": {
           "type": "array",
@@ -307,7 +308,7 @@
         }
       }
     },
-    "card6_usage": {
+    "card_usage": {
       "type": "object",
       "description": "Usage guidelines card (DS mode)",
       "properties": {
@@ -333,7 +334,7 @@
         }
       }
     },
-    "card7_content": {
+    "card_content": {
       "type": "object",
       "description": "Content guidelines card (DS mode)",
       "properties": {
@@ -369,7 +370,7 @@
         }
       }
     },
-    "card8_accessibility": {
+    "card_accessibility": {
       "type": "object",
       "description": "Accessibility card (DS mode)",
       "properties": {
@@ -431,7 +432,8 @@
     },
     "card9_code": {
       "type": "object",
-      "description": "Code specification card (DS mode)",
+      "description": "Code specification card (DS mode — retired)",
+      "deprecated": true,
       "properties": {
         "language": {
           "type": "string",

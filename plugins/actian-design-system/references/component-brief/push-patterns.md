@@ -117,6 +117,34 @@ return { cardId: cardFrame.id, contentSlotId: contentSlot?.id || cardFrame.id };
 
 ---
 
+## 1b. Source Badge Pattern
+
+Every card shell push gains a small text node bound to `card._source`. Add this AFTER Pattern 1 (Card Shell), inside the card title row:
+
+```js
+// After card shell created (Pattern 1), inside the card title row:
+mcp_use_figma({
+  skillNames: "figma-use",
+  message: `
+    var titleRow = await figma.getNodeByIdAsync('<TITLE_ROW_ID>');
+    var badge = figma.createText();
+    badge.fontName = { family: "Inter", style: "Medium" };
+    badge.characters = card._source === "figma" ? "Source: Figma" :
+                        (card._fallback ? "Source: Claude (placeholder)" : "Source: Claude");
+    badge.fontSize = 10;
+    var color = card._source === "figma" ?
+      { r: 0.10, g: 0.36, b: 0.13 } :       // green-700
+      (card._fallback ? { r: 0.90, g: 0.32, b: 0 } : { r: 0.42, g: 0.42, b: 0.42 });
+    badge.fills = [{ type: 'SOLID', color: color }];
+    titleRow.appendChild(badge);
+  `
+});
+```
+
+The badge is informational, not interactive. Renders inline next to card title.
+
+---
+
 ## 2. Section Header Pattern
 
 ```js
@@ -624,6 +652,172 @@ return { blockId: block.id };
 ```
 
 **Do NOT detach** — use `setProperties` with hash-suffixed names. Set `"Show Header#8:0": false` to hide the filename bar. Code text renders monochrome automatically.
+
+---
+
+## 13. Research Insights Sub-section Pattern
+
+When `card._research_applied === true`, push a research insights frame INSIDE the card body, AFTER the primary content.
+
+Frame structure:
+```
+ResearchInsights (Frame, AUTO_LAYOUT vertical, 12px gap, 12px padding)
+├── "Cross-DS research" Title (Text, 13px, weight 600)
+├── PatternsObserved (Frame, vertical, 4px gap)
+│   ├── "Patterns observed" Subtitle
+│   └── Bullet list (one Text per pattern)
+├── Recommendations (Frame, vertical, 4px gap)
+│   └── (same shape as PatternsObserved)
+├── Divergences (Frame, AUTO_LAYOUT vertical, amber bg, 8px padding) — only if non-empty
+│   ├── "Designer review needed" Subtitle
+│   └── For each divergence: "{field}: existing — {existing}; research — {research} ({note})"
+└── Sources (Text, 11px, gray) — comma-separated DS names
+```
+
+Use Pattern 0 (wrapper frame) approach: small individual `use_figma` calls (~200-2000 bytes each).
+
+```js
+// 1. Create the ResearchInsights container
+const researchFrame = figma.createFrame();
+researchFrame.name = "ResearchInsights";
+researchFrame.layoutMode = "VERTICAL";
+researchFrame.itemSpacing = 12;
+researchFrame.paddingTop = 12;
+researchFrame.paddingBottom = 12;
+researchFrame.paddingLeft = 12;
+researchFrame.paddingRight = 12;
+researchFrame.primaryAxisSizingMode = "AUTO";
+researchFrame.counterAxisSizingMode = "AUTO";
+researchFrame.fills = [{ type: "SOLID", color: { r: 0.97, g: 0.97, b: 1.0 } }]; // light blue-tinted bg
+researchFrame.cornerRadius = 6;
+
+await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+
+const title = figma.createText();
+title.characters = "Cross-DS research";
+title.fontSize = 13;
+title.fontName = { family: "Inter", style: "Semi Bold" };
+title.fills = [{ type: "SOLID", color: { r: 0.13, g: 0.13, b: 0.29 } }];
+researchFrame.appendChild(title);
+
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+parent.appendChild(researchFrame);
+researchFrame.layoutSizingHorizontal = "FILL";
+
+return { researchFrameId: researchFrame.id };
+```
+
+```js
+// 2. Patterns observed sub-frame (one call per sub-section)
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
+await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+
+const insights = card.research_insights; // from brief-data.json
+const researchFrame = await figma.getNodeByIdAsync("<researchFrameId>");
+
+function buildSubSection(label, items) {
+  const frame = figma.createFrame();
+  frame.name = label;
+  frame.layoutMode = "VERTICAL";
+  frame.itemSpacing = 4;
+  frame.primaryAxisSizingMode = "AUTO";
+  frame.counterAxisSizingMode = "AUTO";
+  frame.fills = [];
+  const sub = figma.createText();
+  sub.characters = label;
+  sub.fontSize = 11;
+  sub.fontName = { family: "Inter", style: "Semi Bold" };
+  sub.fills = [{ type: "SOLID", color: hexToRgb("#595968") }];
+  frame.appendChild(sub);
+  for (const item of items) {
+    const bullet = figma.createText();
+    bullet.characters = "• " + item;
+    bullet.fontSize = 12;
+    bullet.fontName = { family: "Inter", style: "Regular" };
+    bullet.fills = [{ type: "SOLID", color: hexToRgb("#3A3A4A") }];
+    frame.appendChild(bullet);
+    bullet.layoutSizingHorizontal = "FILL";
+  }
+  return frame;
+}
+
+if (insights.patterns_observed?.length) {
+  const pf = buildSubSection("Patterns observed", insights.patterns_observed);
+  researchFrame.appendChild(pf);
+  pf.layoutSizingHorizontal = "FILL";
+}
+if (insights.recommendations?.length) {
+  const rf = buildSubSection("Recommendations", insights.recommendations);
+  researchFrame.appendChild(rf);
+  rf.layoutSizingHorizontal = "FILL";
+}
+
+return { subsectionsAdded: true };
+```
+
+```js
+// 3. Divergences frame (only if non-empty) + Sources line
+await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+
+const insights = card.research_insights;
+const researchFrame = await figma.getNodeByIdAsync("<researchFrameId>");
+
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
+
+if (insights._divergences?.length) {
+  const df = figma.createFrame();
+  df.name = "Divergences";
+  df.layoutMode = "VERTICAL";
+  df.itemSpacing = 4;
+  df.paddingTop = 8;
+  df.paddingBottom = 8;
+  df.paddingLeft = 8;
+  df.paddingRight = 8;
+  df.primaryAxisSizingMode = "AUTO";
+  df.counterAxisSizingMode = "AUTO";
+  df.fills = [{ type: "SOLID", color: hexToRgb("#FEF3C7") }]; // amber-100
+  df.cornerRadius = 4;
+  const dlabel = figma.createText();
+  dlabel.characters = "Designer review needed";
+  dlabel.fontSize = 11;
+  dlabel.fontName = { family: "Inter", style: "Semi Bold" };
+  dlabel.fills = [{ type: "SOLID", color: hexToRgb("#92400E") }];
+  df.appendChild(dlabel);
+  for (const d of insights._divergences) {
+    const drow = figma.createText();
+    drow.characters = d.field + ": existing — " + d.existing + "; research — " + d.research + " (" + d.note + ")";
+    drow.fontSize = 11;
+    drow.fontName = { family: "Inter", style: "Regular" };
+    drow.fills = [{ type: "SOLID", color: hexToRgb("#78350F") }];
+    df.appendChild(drow);
+    drow.layoutSizingHorizontal = "FILL";
+  }
+  researchFrame.appendChild(df);
+  df.layoutSizingHorizontal = "FILL";
+}
+
+// Sources line
+if (insights.sources?.length) {
+  const src = figma.createText();
+  src.characters = "Sources: " + insights.sources.join(", ");
+  src.fontSize = 11;
+  src.fontName = { family: "Inter", style: "Regular" };
+  src.fills = [{ type: "SOLID", color: { r: 0.60, g: 0.60, b: 0.65 } }];
+  researchFrame.appendChild(src);
+  src.layoutSizingHorizontal = "FILL";
+}
+
+return { divergencesAndSourcesDone: true };
+```
 
 ---
 

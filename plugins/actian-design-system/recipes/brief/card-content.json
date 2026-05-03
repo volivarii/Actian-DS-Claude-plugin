@@ -1,7 +1,17 @@
 {
-  "card": "card7_content",
+  "card": "card_content",
   "title": "Content guidelines",
   "description": "Copy rules with do/don't examples plus terminology table",
+  "phase": "transcribe",
+  "source": {
+    "primary": { "type": "guidelines-content-sections", "registry": "docs/component-guidelines/<slug>.json", "field": "content_guidelines.sections" },
+    "fallback": "claude-generate",
+    "grounding": ["docs/content-guidelines.md"]
+  },
+  "research": {
+    "applicable": true,
+    "focus": ["content-patterns", "label-conventions", "voice-tone"]
+  },
   "sections": {
     "rules": "One entry per content rule from the component's Figma documentation. Each rule has: title (the rule name), description (what the rule means), do/dont text (correct vs incorrect label text), doExample/dontExample (concrete example strings shown in the Do/Don't boxes). Must include ALL rules — never summarize or skip.",
     "terminology": "Optional table of terms specific to this component. Each entry: term name + how to use it correctly. Empty array if no component-specific terminology."
