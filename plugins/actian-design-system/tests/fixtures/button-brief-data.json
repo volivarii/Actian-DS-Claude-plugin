@@ -8,11 +8,13 @@
     "model": "claude-sonnet-4-6",
     "pluginVersion": "1.22.0"
   },
-  "card1_header": {
+  "card_header": {
+    "_source": "figma",
     "name": "Button",
     "description": "A button component for triggering actions."
   },
-  "card2_component": {
+  "card_component": {
+    "_source": "generated",
     "variantMatrix": [
       {
         "row": "Size",
@@ -34,7 +36,8 @@
       }
     }
   },
-  "card3_anatomy": {
+  "card_anatomy": {
+    "_source": "generated",
     "parts": [
       { "letter": "A", "name": "Container" },
       { "letter": "B", "name": "Label" }
@@ -59,7 +62,8 @@
       }
     ]
   },
-  "card4_tokens": {
+  "card_tokens": {
+    "_source": "generated",
     "colorTokens": [
       {
         "state": "Default",
@@ -82,35 +86,8 @@
       }
     ]
   },
-  "card5_api": {
-    "props": [
-      {
-        "required": true,
-        "name": "label",
-        "type": "string",
-        "default": "",
-        "values": "any string",
-        "notes": "Button label text"
-      },
-      {
-        "required": false,
-        "name": "variant",
-        "type": "string",
-        "default": "primary",
-        "values": "primary | secondary | ghost",
-        "notes": "Visual style"
-      },
-      {
-        "required": false,
-        "name": "disabled",
-        "type": "boolean",
-        "default": "false",
-        "values": "true | false",
-        "notes": "Disabled state"
-      }
-    ]
-  },
-  "card6_usage": {
+  "card_usage": {
+    "_source": "generated",
     "whenToUse": [
       "Use for primary actions that complete a task.",
       "Use when the action is the most important on the page."
@@ -128,7 +105,8 @@
       }
     ]
   },
-  "card7_content": {
+  "card_content": {
+    "_source": "figma",
     "rules": [
       {
         "title": "Label clarity",
@@ -144,7 +122,8 @@
       { "term": "Submit", "use": "When sending a form for processing." }
     ]
   },
-  "card8_accessibility": {
+  "card_accessibility": {
+    "_source": "generated",
     "requirements": [
       {
         "title": "Keyboard access",
@@ -201,17 +180,6 @@
         "ratio": "8.6:1",
         "wcag": "Pass"
       }
-    ]
-  },
-  "card9_code": {
-    "language": "css",
-    "tokens": [
-      { "type": "selector", "text": ".btn" },
-      { "type": "punctuation", "text": " { " },
-      { "type": "property", "text": "background" },
-      { "type": "punctuation", "text": ": " },
-      { "type": "value", "text": "var(--zen-color-primary-500)" },
-      { "type": "punctuation", "text": "; }" }
     ]
   }
 }

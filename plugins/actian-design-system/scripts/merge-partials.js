@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-'use strict';
+"use strict";
 
 /**
  * merge-partials.js — Merge partial JSON outputs into a single file.
@@ -8,7 +8,7 @@
  *   node merge-partials.js --type brief|flow|presentation --partials-dir <dir> --output <file> [--partial]
  *
  * Three merge strategies:
- *   brief:        flat object merge of card keys; validates all 9 DS card keys unless --partial
+ *   brief:        flat object merge of card keys; validates all 7 DS card keys unless --partial
  *   flow:         sorts partials by _index, concatenates screens[] arrays
  *   presentation: sorts partials by _index, concatenates slides[] arrays
  *
@@ -16,23 +16,21 @@
  * empty array (flow/presentation).
  */
 
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
 const DS_CARD_KEYS = [
-  'card1_header',
-  'card2_component',
-  'card3_anatomy',
-  'card4_tokens',
-  'card5_api',
-  'card6_usage',
-  'card7_content',
-  'card8_accessibility',
-  'card9_code',
+  "card_header",
+  "card_component",
+  "card_anatomy",
+  "card_tokens",
+  "card_usage",
+  "card_content",
+  "card_accessibility",
 ];
 
 // ---------------------------------------------------------------------------
@@ -42,10 +40,15 @@ const DS_CARD_KEYS = [
 function parseArgs(argv) {
   const args = {};
   for (let i = 2; i < argv.length; i++) {
-    if (argv[i] === '--type') { args.type = argv[++i]; }
-    else if (argv[i] === '--partials-dir') { args.partialsDir = argv[++i]; }
-    else if (argv[i] === '--output') { args.output = argv[++i]; }
-    else if (argv[i] === '--partial') { args.partial = true; }
+    if (argv[i] === "--type") {
+      args.type = argv[++i];
+    } else if (argv[i] === "--partials-dir") {
+      args.partialsDir = argv[++i];
+    } else if (argv[i] === "--output") {
+      args.output = argv[++i];
+    } else if (argv[i] === "--partial") {
+      args.partial = true;
+    }
   }
   return args;
 }
@@ -55,21 +58,22 @@ function parseArgs(argv) {
 // ---------------------------------------------------------------------------
 
 function die(msg) {
-  process.stderr.write('merge-partials: ERROR — ' + msg + '\n');
+  process.stderr.write("merge-partials: ERROR — " + msg + "\n");
   process.exit(1);
 }
 
 function log(msg) {
-  process.stderr.write('merge-partials: ' + msg + '\n');
+  process.stderr.write("merge-partials: " + msg + "\n");
 }
 
 function readPartials(dir) {
-  const files = fs.readdirSync(dir)
-    .filter(f => f.endsWith('.json') && f !== 'output.json')
+  const files = fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith(".json") && f !== "output.json")
     .sort();
-  if (files.length === 0) die('no partials found in ' + dir);
-  return files.map(f => {
-    const raw = fs.readFileSync(path.join(dir, f), 'utf8');
+  if (files.length === 0) die("no partials found in " + dir);
+  return files.map((f) => {
+    const raw = fs.readFileSync(path.join(dir, f), "utf8");
     return JSON.parse(raw);
   });
 }
@@ -85,30 +89,32 @@ function mergeBrief(partials, partial) {
   for (const p of partials) {
     if (p.meta && !meta) meta = p.meta;
     for (const [key, value] of Object.entries(p)) {
-      if (key === 'meta') continue;
+      if (key === "meta") continue;
       merged[key] = value;
     }
   }
 
-  if (!meta) die('no meta found in any partial');
+  if (!meta) die("no meta found in any partial");
 
   // Validate all card keys present unless --partial
   if (!partial) {
-    const missing = DS_CARD_KEYS.filter(k => !(k in merged));
+    const missing = DS_CARD_KEYS.filter((k) => !(k in merged));
     if (missing.length > 0) {
-      die('missing card keys: ' + missing.join(', '));
+      die("missing card keys: " + missing.join(", "));
     }
   }
 
   const result = { meta, ...merged };
   const cardCount = Object.keys(result).length - 1; // minus meta
-  log('Merged ' + partials.length + ' partials \u2192 ' + cardCount + ' cards');
+  log("Merged " + partials.length + " partials \u2192 " + cardCount + " cards");
   return result;
 }
 
 function mergeArray(partials, arrayKey) {
   // Sort by _index
-  const sorted = partials.slice().sort((a, b) => (a._index || 0) - (b._index || 0));
+  const sorted = partials
+    .slice()
+    .sort((a, b) => (a._index || 0) - (b._index || 0));
 
   let meta = null;
   const items = [];
@@ -121,11 +127,18 @@ function mergeArray(partials, arrayKey) {
     }
   }
 
-  if (!meta) die('no meta found in any partial');
-  if (items.length === 0) die('empty ' + arrayKey + ' array after merge');
+  if (!meta) die("no meta found in any partial");
+  if (items.length === 0) die("empty " + arrayKey + " array after merge");
 
   const result = { meta, [arrayKey]: items };
-  log('Merged ' + partials.length + ' partials \u2192 ' + items.length + ' ' + arrayKey);
+  log(
+    "Merged " +
+      partials.length +
+      " partials \u2192 " +
+      items.length +
+      " " +
+      arrayKey,
+  );
   return result;
 }
 
@@ -136,25 +149,25 @@ function mergeArray(partials, arrayKey) {
 function main() {
   const args = parseArgs(process.argv);
 
-  if (!args.type) die('--type is required (brief|flow|presentation)');
-  if (!args.partialsDir) die('--partials-dir is required');
-  if (!args.output) die('--output is required');
+  if (!args.type) die("--type is required (brief|flow|presentation)");
+  if (!args.partialsDir) die("--partials-dir is required");
+  if (!args.output) die("--output is required");
 
   const partials = readPartials(args.partialsDir);
   let result;
 
   switch (args.type) {
-    case 'brief':
+    case "brief":
       result = mergeBrief(partials, args.partial);
       break;
-    case 'flow':
-      result = mergeArray(partials, 'screens');
+    case "flow":
+      result = mergeArray(partials, "screens");
       break;
-    case 'presentation':
-      result = mergeArray(partials, 'slides');
+    case "presentation":
+      result = mergeArray(partials, "slides");
       break;
     default:
-      die('unknown type: ' + args.type + ' (expected brief|flow|presentation)');
+      die("unknown type: " + args.type + " (expected brief|flow|presentation)");
   }
 
   // Ensure output directory exists

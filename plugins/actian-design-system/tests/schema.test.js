@@ -245,8 +245,8 @@ process.stdout.write("\nBrief schema specifics\n");
 const badBrief = { meta: { component: "X", skill: "component-brief" } };
 const briefErrors = validate(badBrief, schemas["brief-data.schema.json"]);
 assert(
-  briefErrors.some((e) => e.includes('missing required field "card1_header"')),
-  "Brief requires card1_header",
+  briefErrors.some((e) => e.includes('missing required field "card_header"')),
+  "Brief requires card_header",
 );
 
 // ---------------------------------------------------------------------------

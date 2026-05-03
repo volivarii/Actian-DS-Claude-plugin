@@ -213,7 +213,7 @@ try {
 
 assert.ok(Array.isArray(briefIndex), "brief/_index.json must be an array");
 
-const CARD_PATTERN = /^card[1-9]_/;
+const CARD_PATTERN = /^card_[a-z][a-z_]*$/;
 
 for (const entry of briefIndex) {
   const label = `brief/${entry.file || "(unknown)"}`;
@@ -224,7 +224,7 @@ for (const entry of briefIndex) {
     errors.push('index entry missing "file" (string)');
   if (typeof entry.card !== "string" || !CARD_PATTERN.test(entry.card)) {
     errors.push(
-      'index entry "card" must be a string matching card[1-9]_ pattern',
+      'index entry "card" must be a string matching card_<name> pattern (e.g. card_header)',
     );
   }
 
