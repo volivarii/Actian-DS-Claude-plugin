@@ -108,7 +108,7 @@ If any condition fails, fall back per the table below.
 5. **Validate.** Run validator with the derived scope:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/<feature>/flow-data.json \
      --scope <scope-tag>
    ```
@@ -144,7 +144,7 @@ If any condition fails, fall back per the table below.
    ```bash
    # Load the canonical RECIPE_IDS for vision-prompt parameterization:
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-   "$NODE_BIN" -e 'console.log(require("'${CLAUDE_PLUGIN_ROOT}'/scripts/fingerprint-schema.js").RECIPE_IDS.join(", "))'
+   "$NODE_BIN" -e 'console.log(require("'${CLAUDE_PLUGIN_ROOT}'/scripts/sync/fingerprint-schema.js").RECIPE_IDS.join(", "))'
    ```
 
    For each entry in `meta.references[]`:
@@ -152,7 +152,7 @@ If any condition fails, fall back per the table below.
    1. **Cache check** (refine path): if `meta.references[i].fingerprint` already exists AND the snapshot's prior URL for this index matches the current URL → reuse the cached fingerprint. Skip to the next ref. (B-refine.2's `flow-data.snapshot.json` preserves the prior `meta.references[]` shape.)
    2. Otherwise, call `mcp__claude_ai_Figma__get_screenshot` with the ref URL → image bytes.
    3. Run the vision-extraction prompt below on the screenshot, parameterized with the RECIPE_IDS list from the bash command above.
-   4. Validate the output via `scripts/fingerprint-schema.js` `validateFingerprint`. If invalid: retry once with a "your previous output was invalid; emit STRICT JSON" reminder. If still invalid: drop the invalid fields, persist the rest. (Empty fingerprint objects are valid.)
+   4. Validate the output via `scripts/sync/fingerprint-schema.js` `validateFingerprint`. If invalid: retry once with a "your previous output was invalid; emit STRICT JSON" reminder. If still invalid: drop the invalid fields, persist the rest. (Empty fingerprint objects are valid.)
    5. Persist on `meta.references[i].fingerprint`, including `extracted_at` as the current ISO timestamp.
 
    **Vision-extraction prompt template:**
@@ -203,7 +203,7 @@ If any condition fails, fall back per the table below.
 6. **Validate flow data** — run the validation script before pushing:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/flow-data.json
    ```
    - Exit 1 (P0s found): fix all banned placeholder text before pushing. Common P0s: `"Page Title"`, `"Button label"`, `"Description text"`, `"Label"`, `"Nav Item"`.
@@ -214,12 +214,12 @@ If any condition fails, fall back per the table below.
 
    ```bash
    # Single-screen refine
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/flow-data.json \
      --scope single-unit:notification-preferences-2
 
    # Multi-screen refine
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/flow-data.json \
      --scope multi-unit:[notification-preferences-1,notification-preferences-3]
    ```

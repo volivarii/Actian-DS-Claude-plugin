@@ -145,7 +145,7 @@ Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
 - **Code values use ASCII operators only** — `=>` not `⇒` (U+21D2), `->` not `→`, `<=` not `≤`, `>=` not `≥`, `!==` not `≠`. Especially watch generated content.
 - **`meta.pluginVersion` matches the project's `plugin.json` `version`** — read the file, do not transcribe from any example. If the value differs from the actual `plugin.json`, fix it before push.
 
-If P0 issues found, fix them immediately before proceeding. The new `_source` and forbidden-key checks should be run via `validateBriefData()` from `scripts/validate-schema.js`.
+If P0 issues found, fix them immediately before proceeding. The new `_source` and forbidden-key checks should be run via `validateBriefData()` from `scripts/validation/validate-schema.js`.
 
 ## Step 2.5 — Present push options (copy verbatim)
 

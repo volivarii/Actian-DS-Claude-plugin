@@ -11,7 +11,7 @@
           },
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/sync-check.sh\"",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/sync/sync-check.sh\"",
             "timeout": 15
           }
         ]

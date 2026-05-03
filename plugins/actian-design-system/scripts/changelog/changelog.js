@@ -5,7 +5,9 @@ var fs = require("fs");
 var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
-var rules = require(path.join(__dirname, "..", "component-property-rules.js"));
+var rules = require(
+  path.join(__dirname, "..", "validation", "component-property-rules.js"),
+);
 
 // ---------------------------------------------------------------------------
 // Component key diffing

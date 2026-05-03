@@ -7,7 +7,12 @@ var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 var rules = require(
-  path.join(PLUGIN_ROOT, "scripts", "component-property-rules.js"),
+  path.join(
+    PLUGIN_ROOT,
+    "scripts",
+    "validation",
+    "component-property-rules.js",
+  ),
 );
 
 describe("component-property-rules", function () {

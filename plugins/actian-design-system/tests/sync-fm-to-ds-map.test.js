@@ -4,7 +4,9 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var path = require("path");
-var reconcile = require(path.resolve(__dirname, "..", "scripts", "sync-fm-to-ds-map.js"));
+var reconcile = require(
+  path.resolve(__dirname, "..", "scripts", "sync", "sync-fm-to-ds-map.js"),
+);
 
 // Build a minimal fixture registry — only what reconcile needs.
 function makeRegistry() {
@@ -12,8 +14,8 @@ function makeRegistry() {
     components: {
       button: { key: "KEY-BUTTON", nodeId: "1:1" },
       "radio-button": { key: "KEY-RADIO-NEW", nodeId: "2:1" },
-      toglge: { key: "KEY-TOGGLE-NEW", nodeId: "3:1" }
-    }
+      toglge: { key: "KEY-TOGGLE-NEW", nodeId: "3:1" },
+    },
   };
 }
 
@@ -22,9 +24,9 @@ describe("sync-fm-to-ds-map reconcile", function () {
     var map = {
       _meta: {},
       mappings: {
-        fmButton: { dsSlug: "button", defaultVariant: {} }
+        fmButton: { dsSlug: "button", defaultVariant: {} },
       },
-      unmappable: {}
+      unmappable: {},
     };
     var result = reconcile.reconcile(map, makeRegistry());
     assert.strictEqual(result.changes.backfilled.length, 1);
@@ -38,11 +40,11 @@ describe("sync-fm-to-ds-map reconcile", function () {
       mappings: {
         fmRadioButton: {
           dsKey: "KEY-RADIO-NEW",
-          dsSlug: "radio-button-radio-button",  // stale
-          defaultVariant: {}
-        }
+          dsSlug: "radio-button-radio-button", // stale
+          defaultVariant: {},
+        },
       },
-      unmappable: {}
+      unmappable: {},
     };
     var result = reconcile.reconcile(map, makeRegistry());
     assert.strictEqual(result.changes.refreshed.length, 1);
@@ -53,9 +55,9 @@ describe("sync-fm-to-ds-map reconcile", function () {
     var map = {
       _meta: {},
       mappings: {
-        fmGhost: { dsKey: "KEY-DOES-NOT-EXIST", dsSlug: "ghost" }
+        fmGhost: { dsKey: "KEY-DOES-NOT-EXIST", dsSlug: "ghost" },
       },
-      unmappable: {}
+      unmappable: {},
     };
     var result = reconcile.reconcile(map, makeRegistry());
     assert.strictEqual(result.changes.warnings.length, 1);
@@ -68,9 +70,9 @@ describe("sync-fm-to-ds-map reconcile", function () {
     var map = {
       _meta: {},
       mappings: {
-        fmButton: { dsKey: "KEY-BUTTON", dsSlug: "button", defaultVariant: {} }
+        fmButton: { dsKey: "KEY-BUTTON", dsSlug: "button", defaultVariant: {} },
       },
-      unmappable: {}
+      unmappable: {},
     };
     var result = reconcile.reconcile(map, makeRegistry());
     assert.strictEqual(result.changes.backfilled.length, 0);
@@ -82,9 +84,9 @@ describe("sync-fm-to-ds-map reconcile", function () {
     var map = {
       _meta: {},
       mappings: {
-        fmOrphan: { defaultVariant: {} }
+        fmOrphan: { defaultVariant: {} },
       },
-      unmappable: {}
+      unmappable: {},
     };
     var result = reconcile.reconcile(map, makeRegistry());
     assert.strictEqual(result.changes.warnings.length, 1);
