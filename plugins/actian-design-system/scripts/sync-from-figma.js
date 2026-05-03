@@ -23,7 +23,7 @@ var path = require("path");
 
 var transformRegistry = require("./transformers/transform-registry.js");
 var transformStyles = require("./transformers/transform-styles.js");
-var classify = require("./changelog-classifier.js");
+var classify = require("./changelog/changelog-classifier.js");
 var defaultRest = require("./figma-rest.js");
 
 var KIT_MAP = {

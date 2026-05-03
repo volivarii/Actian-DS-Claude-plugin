@@ -59,7 +59,7 @@ Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is sou
 - `scripts/assemble-preview.js` — generates HTML previews from data models
 - `scripts/lib/shared-constants.js` — dynamic registry loaders, key maps, palette, buildGenLog
 - `scripts/validate-flow-data.js` — pipeline validation (banned text, tokens, terminology)
-- `scripts/changelog.js` — design changelog (push-to-push diffing)
+- `scripts/changelog/changelog.js` — design changelog (push-to-push diffing)
 - `scripts/fm-tree-to-flow-data.js` — converts FM Figma tree to flow-data.json
 
 ---

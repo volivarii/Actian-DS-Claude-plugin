@@ -81,7 +81,7 @@ If a `.last-push.json` already exists at the manifest location, run the changelo
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/changelog.js" \
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/changelog/changelog.js" \
   --previous <manifest-path>/.last-push.json \
   --source <source-data-file> \
   --tokens "${CLAUDE_PLUGIN_ROOT}/tokens/actian-ds.tokens.json"
@@ -160,7 +160,7 @@ omit it fall through to greenfield with a documented warning.
 - `sourceHash` — SHA-256 hex digest of the source data file (e.g., `flow-data.json`, `brief-data.json`) at push time. Enables detecting if source data changed since last push.
 - `componentKeys` — deduplicated array of Figma component keys imported during this push. Enables usage analytics and changelog diffs between pushes.
 - `tokenHash` — SHA-256 hex digest of `tokens/actian-ds.tokens.json` at push time. Enables detecting token drift — if tokens changed since last push, outputs may need regeneration.
-- `propertyDefaultsHash` — per-kit SHA-256 hex digests of component property defaults (text/boolean default values) at push time. Computed via `computePropertyDefaultsHashes({ fm, ds, meta })` from `scripts/changelog.js`. Enables detecting when a designer edits component default values upstream between syncs.
+- `propertyDefaultsHash` — per-kit SHA-256 hex digests of component property defaults (text/boolean default values) at push time. Computed via `computePropertyDefaultsHashes({ fm, ds, meta })` from `scripts/changelog/changelog.js`. Enables detecting when a designer edits component default values upstream between syncs.
 
 **Manifest locations by skill:**
 
@@ -195,7 +195,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 SOURCE_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('$SOURCE_FILE')).digest('hex'))")
 TOKEN_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('${CLAUDE_PLUGIN_ROOT}/tokens/actian-ds.tokens.json')).digest('hex'))")
 PROPERTY_DEFAULTS_HASH=$("$NODE_BIN" -e "
-var changelog = require('${CLAUDE_PLUGIN_ROOT}/scripts/changelog.js');
+var changelog = require('${CLAUDE_PLUGIN_ROOT}/scripts/changelog/changelog.js');
 var path = require('path');
 var fs = require('fs');
 var root = '${CLAUDE_PLUGIN_ROOT}';
