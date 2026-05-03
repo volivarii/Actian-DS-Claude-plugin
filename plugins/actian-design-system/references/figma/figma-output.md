@@ -421,7 +421,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 - **Figma output must match HTML preview exactly.** The Figma push is a 1:1 translation of the approved HTML — not a reinterpretation. If the HTML uses placeholder bars, the Figma uses Placeholder component variants. If the HTML shows only one active nav item, the Figma shows only one active nav item. Do not add detail, color, or content that wasn't in the HTML.
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed.
-- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../docs/generated/fm-components.md` (FM) or `../../docs/generated/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `library-gap-detection.md` for the full detection procedure.
+- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../docs/generated/fm-components.md` (FM) or `../../docs/generated/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `../ds-rules/library-gap-detection.md` for the full detection procedure.
 
 ## HUG Sizing Default
 
