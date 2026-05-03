@@ -1,6 +1,6 @@
 # Component Brief — Figma Output Reference
 
-Detailed Figma output requirements for Step 3 of the component-brief skill. Read `../figma-output.md` for shared patterns (token binding, generation metadata, auto-layout).
+Detailed Figma output requirements for Step 3 of the component-brief skill. Read `../figma/figma-output.md` for shared patterns (token binding, generation metadata, auto-layout).
 
 ## Data Model-Driven Rendering (MANDATORY)
 
@@ -116,7 +116,7 @@ For `buildSpecTable`, `buildStateGrid`, see `../../docs/generated/meta-kit/build
 
 ## Variable binding
 
-Follow `../figma-output.md` § "Token binding". Discover keys via `search_design_system`:
+Follow `../figma/figma-output.md` § "Token binding". Discover keys via `search_design_system`:
 - **DS Kit**: color variables, text styles (`textStyleId`), effect styles (`effectStyleId`)
 - **FM**: color styles (`fillStyleId`), text styles (`textStyleId`)
 - **Fallback**: hex only if file isn't connected to library

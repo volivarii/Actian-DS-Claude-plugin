@@ -135,7 +135,7 @@ If any condition fails, fall back per the table below.
 
 ## Pipeline (3 gates, then build + push uninterrupted) — for prompt + greenfield generation
 
-1. Read `references/app-context.md` → determine app (Studio/Explorer/Administration)
+1. Read `references/context/app-context.md` → determine app (Studio/Explorer/Administration)
 2. **Gate 1 — Research** (present verbatim, see below)
 3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
 4. **Gate 3 — Screen list + detail level** (single gate, both choices, see below)
@@ -238,7 +238,7 @@ If any condition fails, fall back per the table below.
 
 For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `terminology-issue`, `unmuted-chrome`): exit 2, push proceeds. Findings surface in the GenLog text node.
 
-**`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker (the one whose label matches `meta._glossary.sidebarActive`). This honors the rule that non-feature chrome is ALWAYS placeholder — see `references/quality-tiers.md`.
+**`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker (the one whose label matches `meta._glossary.sidebarActive`). This honors the rule that non-feature chrome is ALWAYS placeholder — see `references/ds-rules/quality-tiers.md`.
 
 **`intent-mismatch` recovery (hifi tier only):** When the validator flags `intent-mismatch` findings on hifi-converted data, either change the variant to match the expected variant for the effective intent (e.g., `Type=Critical primary` for `destructive-action` on a DS button), OR change the `intent` field at the responsible node to reflect the actual screen role. For sibling-rule warnings ("destructive-action container ambiguous" or "missing Critical primary"), restructure the button group: exactly one Critical primary action button, with Tertiary or Secondary cancel/dismiss siblings.
 
@@ -249,7 +249,7 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/flows/[feature]-flow.html
    BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
    ```
-9. Parity check (opt-in) → `references/parity-check.md` + `references/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
+9. Parity check (opt-in) → `references/figma/parity-check.md` + `references/ds-rules/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
 
 ---
 
@@ -319,7 +319,7 @@ Does this work, or would you like to adjust?
 
 Parse the user's response for both screen approval AND detail level. Default to **Standard**.
 
-**FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
+**FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/ds-rules/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
 
 ## Step 3.5 — Build flow glossary
 
@@ -327,7 +327,7 @@ After the screen list is approved, build a `_glossary` object and set it on `met
 
 **Build from:**
 1. Feature description → extract the primary entity name (e.g., "Data Product", "Dataset", "Scanner")
-2. App context (from Gate 1) → verify the entity name matches `references/app-context.md` terminology (e.g., "Data product" not "dataset" when curated)
+2. App context (from Gate 1) → verify the entity name matches `references/context/app-context.md` terminology (e.g., "Data product" not "dataset" when curated)
 3. Approved screen list → extract page titles and CTA labels already visible in screen names
 
 **Glossary fields:**
@@ -363,7 +363,7 @@ Set `meta._glossary` before dispatching screen-generators or building flow-data 
 
 ## Push to Figma
 
-Read `references/figma-push-patterns.md` for component keys and patterns. Push from `flow-data.json` using small `use_figma` calls. Always pass `skillNames: "figma-use"`.
+Read `references/figma/figma-push-patterns.md` for component keys and patterns. Push from `flow-data.json` using small `use_figma` calls. Always pass `skillNames: "figma-use"`.
 
 **Push sequence:**
 
@@ -440,14 +440,14 @@ Push-apart row: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "H
 
 ## References
 
-- `references/figma-push-patterns.md` — component keys, push patterns, Plugin API templates
+- `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API templates
 - `references/generate-flow/research-guide.md` — competitor research, reference analysis
-- `references/quality-tiers.md` — Draft / Standard / Production concrete rules
-- `references/app-context.md` — app inference, entity model, terminology
-- `references/ux-patterns.md` — SaaS UX pattern library by flow type
-- `references/layout-patterns.md` — canonical page layouts
-- `references/parity-check.md` — post-push parity check
-- `references/quality-checklist.md` — cleanup pass checklist
-- `references/prototype-reference.md` — interactive HTML prototype (opt-in)
-- `references/prototype-wiring.md` — Figma prototype wiring (opt-in)
+- `references/ds-rules/quality-tiers.md` — Draft / Standard / Production concrete rules
+- `references/context/app-context.md` — app inference, entity model, terminology
+- `references/context/ux-patterns.md` — SaaS UX pattern library by flow type
+- `references/ds-rules/layout-patterns.md` — canonical page layouts
+- `references/figma/parity-check.md` — post-push parity check
+- `references/ds-rules/quality-checklist.md` — cleanup pass checklist
+- `references/figma/prototype-reference.md` — interactive HTML prototype (opt-in)
+- `references/figma/prototype-wiring.md` — Figma prototype wiring (opt-in)
 - `recipes/flow/_index.json` — archetype recipe catalog

@@ -243,7 +243,7 @@ Each output skill adds the following step text at the end of its procedure, afte
 ```
 ## Step N: Parity check
 
-Read reference: @references/parity-check.md
+Read reference: @references/figma/parity-check.md
 
 Run the full post-push parity check procedure:
 1. Screenshot each pushed node with get_screenshot

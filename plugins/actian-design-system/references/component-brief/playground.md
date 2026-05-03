@@ -10,7 +10,7 @@ Opt-in interactive state playground for testing component variants before pushin
 
 ## Generation process
 
-1. Read `../../references/prototype-reference.md` § "Component playgrounds" for generation rules
+1. Read `../../references/figma/prototype-reference.md` § "Component playgrounds" for generation rules
 2. Read `../../templates/component-playground-wrapper.html` for the base template
 3. Extract variant axes from `get_design_context` data collected in Step 1:
    - Each Figma property (State, Selected, Size, Type, etc.) becomes a control group

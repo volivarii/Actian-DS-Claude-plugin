@@ -12,7 +12,7 @@ Read `../../docs/presentation-guide.md` before generating any slides — primary
 
 ## Step 1 — Gather content
 
-Read all input material (files, URLs, Figma nodes). Infer audience (default: team update), goal (default: inform). Read `../../references/app-context.md` for correct terminology. Only ask if input is genuinely empty.
+Read all input material (files, URLs, Figma nodes). Infer audience (default: team update), goal (default: inform). Read `../../references/context/app-context.md` for correct terminology. Only ask if input is genuinely empty.
 
 ## Step 1.5 — Research gate
 
@@ -50,7 +50,7 @@ Deck outline: N slides (cover + N body + back cover). Reply:
      ```
      Sequential mode (<6 slides): build slide-data.json directly as today.
 2. Write to: `{project_working_directory}/presentations/[topic-slug]/slide-data.json`
-4. Push to Figma — read `references/figma-push-patterns.md` for component keys and patterns. Read your `slide-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
+4. Push to Figma — read `references/figma/figma-push-patterns.md` for component keys and patterns. Read your `slide-data.json` and push incrementally using small `use_figma` calls. Always pass `skillNames: "figma-use"` to every call.
 
    **Push sequence** (each step is one small `use_figma` call):
    1. Navigate to target page + create wrapper frame (name: "Presentation: [title]")
@@ -69,10 +69,10 @@ Deck outline: N slides (cover + N body + back cover). Reply:
    - If a call fails, skip that slide and continue
    - Do NOT run `slide-to-figma.js` — push directly from your data model
    - Do NOT read any `.js` files, manifests, or scaffolds
-5. Parity check per `../../references/parity-check.md`
-Manifest includes `sourceHash`, `componentKeys`, and `tokenHash`. See `references/parity-check.md` for computation.
+5. Parity check per `../../references/figma/parity-check.md`
+Manifest includes `sourceHash`, `componentKeys`, and `tokenHash`. See `references/figma/parity-check.md` for computation.
 
-Write small direct Figma Plugin API calls using patterns from `references/figma-push-patterns.md`. Fix slide-data.json and re-push if something is wrong.
+Write small direct Figma Plugin API calls using patterns from `references/figma/figma-push-patterns.md`. Fix slide-data.json and re-push if something is wrong.
 
 ### HTML preview (opt-in, trigger: "preview")
 
@@ -95,8 +95,8 @@ Serve, present review report, accept feedback or "push".
 ## References
 
 - `references/generate-presentation/templates.md` — 8 CSS chart types, slide type details
-- `references/quality-tiers.md` — Draft / Standard / Production tier definitions
+- `references/ds-rules/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `docs/presentation-guide.md` — voice & tone, narrative arc, review report format
-- `references/app-context.md` — Actian terminology
-- `references/parity-check.md` — post-push parity check procedure
-- `references/quality-checklist.md` — cleanup pass checklist
+- `references/context/app-context.md` — Actian terminology
+- `references/figma/parity-check.md` — post-push parity check procedure
+- `references/ds-rules/quality-checklist.md` — cleanup pass checklist

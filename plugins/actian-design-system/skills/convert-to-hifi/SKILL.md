@@ -25,7 +25,7 @@ Upgrade a Fat Marker wireframe to a high-fidelity DS Kit frame. Three-stage pipe
 
 ## Stage 1 — Extract FM tree from Figma
 
-Parse the Figma URL per `references/figma-output.md` (convert `-` to `:` in nodeId). Always pass `skillNames: "figma-use"`.
+Parse the Figma URL per `references/figma/figma-output.md` (convert `-` to `:` in nodeId). Always pass `skillNames: "figma-use"`.
 
 **CRITICAL — large frames overflow the use_figma response limit.** Use the two-pass approach below.
 
@@ -128,7 +128,7 @@ Do not proceed until the user replies.
 
 ## Stage 3 — LLM polish + push
 
-After confirmation, build and push uninterrupted. Read `references/figma-push-patterns.md` for component keys and patterns. Always pass `skillNames: "figma-use"` to every `use_figma` call.
+After confirmation, build and push uninterrupted. Read `references/figma/figma-push-patterns.md` for component keys and patterns. Always pass `skillNames: "figma-use"` to every `use_figma` call.
 
 ### Handling unmapped nodes
 
@@ -150,7 +150,7 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 - Item spacing: `--zen-spacing-md` (16px) for content rows, `--zen-spacing-lg` (24px) for section gaps
 - Padding: `--zen-spacing-lg` (20px) horizontal, `--zen-spacing-md` (16px) vertical on screen body
 - Typography: map FM text sizes to DS text style tokens (body, label, heading tiers)
-- See `references/component-instance-rules.md` for property-setting rules
+- See `references/ds-rules/component-instance-rules.md` for property-setting rules
 
 ### Push sequence (one small `use_figma` call per step)
 
@@ -160,7 +160,7 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 4. **For each screen / section in hifi-data.json:**
    a. Import DS Kit components needed for this section (batch per section)
    b. Create content frame with auto layout
-   c. Instantiate each DS component, set ALL properties (variant, text, boolean) per `references/component-instance-rules.md`
+   c. Instantiate each DS component, set ALL properties (variant, text, boolean) per `references/ds-rules/component-instance-rules.md`
    d. Append to content frame, append content frame to hifi frame
 5. **Report** — after all pushes complete, report node count and any skipped nodes to user. Then suggest the next loop step: "Audit this hifi frame? Run `/design-audit <pushed-url>` to check tokens, a11y, and DS rules — or `/design-audit <pushed-url> --fix all` to auto-fix P0/P1 findings."
 
@@ -189,5 +189,5 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 - `docs/generated/fmkit.json` — FM Kit component registry (keys, variants, properties)
 - `scripts/fm-tree-to-flow-data.js` — converts raw Figma tree to flow-data format (resolves componentKey → FM ref names via FM_SLUGS)
 - `scripts/transform-to-hifi.js` — deterministic Stage 2 transform (CLI + module API)
-- `references/figma-push-patterns.md` — component keys, push patterns, Plugin API call templates
-- `references/component-instance-rules.md` — rules for setting component properties correctly
+- `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API call templates
+- `references/ds-rules/component-instance-rules.md` — rules for setting component properties correctly

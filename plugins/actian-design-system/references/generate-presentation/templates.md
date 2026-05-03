@@ -157,7 +157,7 @@ Each slide: **1920 x 1080 px**, auto-layout inside. Font: **Roboto**.
 - **Section divider**: `bg-muted`, centered 36px bold
 - **Back cover**: `primary-500` gradient, reverse text
 
-Token binding: `../../references/figma-output.md` § "Token binding". Variable keys: `../../docs/generated/meta-kit/variables.md`.
+Token binding: `../../references/figma/figma-output.md` § "Token binding". Variable keys: `../../docs/generated/meta-kit/variables.md`.
 Shared components: `../../docs/generated/meta-kit/components.md` (Do-Don't Pair, Code Block).
 Tables: `../../docs/generated/meta-kit/builders.md` (`buildSpecTable`).
 

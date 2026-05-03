@@ -44,7 +44,7 @@ Read the provided HTML file. Identify all screens (each screen is a top-level fl
 
 ### 2. Read Actian app context
 
-Read `references/app-context.md`. Focus on the app-specific chrome section for the given app context.
+Read `references/context/app-context.md`. Focus on the app-specific chrome section for the given app context.
 
 ### 3. Check chrome correctness
 
@@ -75,7 +75,7 @@ Scan all visible text in the HTML for terminology violations. Load `docs/generat
 
 ### 5. Check UX patterns
 
-Verify the flow follows applicable patterns from `references/ux-patterns.md`:
+Verify the flow follows applicable patterns from `references/context/ux-patterns.md`:
 
 | Check | When it applies | Severity |
 |-------|----------------|----------|

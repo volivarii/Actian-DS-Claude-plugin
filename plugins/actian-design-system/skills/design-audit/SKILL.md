@@ -17,7 +17,7 @@ Audit a Figma file or section against the Actian Design System 2026 and/or Fat M
 
 ## Pipeline
 
-1. Parse URL → extract `fileKey` + `nodeId` (per `../../references/figma-output.md`)
+1. Parse URL → extract `fileKey` + `nodeId` (per `../../references/figma/figma-output.md`)
 2. Classify node via `use_figma` (see figma-output.md) → get type, name, children. Route: if PAGE/SECTION/GROUP, pick the target frame/component from children.
 3. `get_screenshot` of resolved target → visual reference
 4. `get_design_context` on resolved target → inspect tokens, typography, spacing, components
@@ -71,6 +71,6 @@ Fix types, evidence standard, confidence scores, JSON output format, and verific
 ## References
 
 - `references/design-audit/evidence-and-fixes.md` — confidence scores, evidence standard, JSON output, fix types, verification
-- `references/figma-output.md` — Figma URL parsing, token binding
-- `references/quality-checklist.md` — cleanup pass checklist
-- `references/parity-check.md` — post-fix verification
+- `references/figma/figma-output.md` — Figma URL parsing, token binding
+- `references/ds-rules/quality-checklist.md` — cleanup pass checklist
+- `references/figma/parity-check.md` — post-fix verification

@@ -64,6 +64,19 @@ Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is sou
 
 ---
 
+## Where things go
+
+`ARCHITECTURE.md` (plugin root) is the canonical map. When unsure where a new artifact belongs, consult it first. Quick rules:
+
+- **Reference doc that's used by ≥2 skills?** Goes in `references/figma/`, `references/ds-rules/`, or `references/context/` depending on subject. Workflow → `figma/`, system constraints → `ds-rules/`, knowledge base → `context/`.
+- **Reference doc specific to one skill?** Goes in `references/<skill-name>/`.
+- **New skill?** Follow the checklist in `ARCHITECTURE.md` Section 4. New skill = new `skills/<name>/`, new `references/<name>/` (only if it has skill-specific docs), entry added to `ARCHITECTURE.md` Section 2.
+- **Script bucketing** (`scripts/<bucket>/`) and **test bucketing** are described in `ARCHITECTURE.md` Section 3 once PRs 2 and 3 land.
+
+When generating code or docs in this plugin, consult `ARCHITECTURE.md` for placement and update Section 2 if you add a new artifact.
+
+---
+
 ## Versioning
 
 Semver in `.claude-plugin/plugin.json`. PATCH = fixes, MINOR = features, MAJOR = breaking. Bump as part of the feature/fix commit, not separately. Batch related changes.
@@ -82,9 +95,9 @@ Every output includes a generation card (first element) with: skill name, prompt
 - **Content guidelines:** `docs/content-guidelines.md`
 - **Accessibility:** `docs/accessibility-guidelines.md` — WCAG 2.1 AA
 - **Never hardcode:** colors, fonts, spacing, radius, shadows, icons. Use tokens. FM outputs use `--fm-*` variables only.
-- **Component instances:** set ALL properties (variants, text, booleans, nested). See `references/component-instance-rules.md`.
-- **Library gaps:** check catalog before custom frames. See `references/library-gap-detection.md`.
-- **Forms layout:** 480px max-width for simple inputs, full-width for tables/tiles. See `references/layout-patterns.md`.
+- **Component instances:** set ALL properties (variants, text, booleans, nested). See `references/ds-rules/component-instance-rules.md`.
+- **Library gaps:** check catalog before custom frames. See `references/ds-rules/library-gap-detection.md`.
+- **Forms layout:** 480px max-width for simple inputs, full-width for tables/tiles. See `references/ds-rules/layout-patterns.md`.
 
 ---
 
@@ -95,25 +108,25 @@ Every output includes a generation card (first element) with: skill name, prompt
 - WCAG AA contrast on all text/background pairs
 - 100% token binding — zero hardcoded values
 
-Full checklist: `references/quality-checklist.md`
+Full checklist: `references/ds-rules/quality-checklist.md`
 
 ---
 
 ## Figma MCP Flow
 
-1. `get_design_context` first. 2. `get_metadata` if response too large. 3. `get_screenshot` for visual ref. 4. Push to Figma using small direct `use_figma` calls (200-2000 bytes each, one operation per call) — see `references/figma-push-patterns.md` for component keys and patterns. Always pass `skillNames: "figma-use"`. 5. Validate against screenshot. See `references/figma-output.md`.
+1. `get_design_context` first. 2. `get_metadata` if response too large. 3. `get_screenshot` for visual ref. 4. Push to Figma using small direct `use_figma` calls (200-2000 bytes each, one operation per call) — see `references/figma/figma-push-patterns.md` for component keys and patterns. Always pass `skillNames: "figma-use"`. 5. Validate against screenshot. See `references/figma/figma-output.md`.
 
 ---
 
 ## Local Server
 
-Use `ensure-server.sh` for all preview serving. Never manually run servers or kill processes. Always pass the project directory, never `.`. See `references/annotation-reference.md` for browser annotations. See `references/prototype-reference.md` for interactive prototypes.
+Use `ensure-server.sh` for all preview serving. Never manually run servers or kill processes. Always pass the project directory, never `.`. See `references/figma/annotation-reference.md` for browser annotations. See `references/figma/prototype-reference.md` for interactive prototypes.
 
 ---
 
 ## Parity Check
 
-Parity check is **opt-in** — only run when the user asks ("check parity", "verify output"). When triggered: screenshot → check for clipping, empty text, missing children → fix P0s. See `references/parity-check.md`.
+Parity check is **opt-in** — only run when the user asks ("check parity", "verify output"). When triggered: screenshot → check for clipping, empty text, missing children → fix P0s. See `references/figma/parity-check.md`.
 
 ---
 
