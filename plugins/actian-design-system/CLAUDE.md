@@ -82,9 +82,9 @@ Every output includes a generation card (first element) with: skill name, prompt
 - **Content guidelines:** `docs/content-guidelines.md`
 - **Accessibility:** `docs/accessibility-guidelines.md` — WCAG 2.1 AA
 - **Never hardcode:** colors, fonts, spacing, radius, shadows, icons. Use tokens. FM outputs use `--fm-*` variables only.
-- **Component instances:** set ALL properties (variants, text, booleans, nested). See `references/component-instance-rules.md`.
-- **Library gaps:** check catalog before custom frames. See `references/library-gap-detection.md`.
-- **Forms layout:** 480px max-width for simple inputs, full-width for tables/tiles. See `references/layout-patterns.md`.
+- **Component instances:** set ALL properties (variants, text, booleans, nested). See `references/ds-rules/component-instance-rules.md`.
+- **Library gaps:** check catalog before custom frames. See `references/ds-rules/library-gap-detection.md`.
+- **Forms layout:** 480px max-width for simple inputs, full-width for tables/tiles. See `references/ds-rules/layout-patterns.md`.
 
 ---
 
@@ -95,7 +95,7 @@ Every output includes a generation card (first element) with: skill name, prompt
 - WCAG AA contrast on all text/background pairs
 - 100% token binding — zero hardcoded values
 
-Full checklist: `references/quality-checklist.md`
+Full checklist: `references/ds-rules/quality-checklist.md`
 
 ---
 

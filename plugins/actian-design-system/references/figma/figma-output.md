@@ -247,7 +247,7 @@ Cache the keys within a single `use_figma` call — import once, apply to many n
 
 If `search_design_system` returns no results (file not connected to a library), fall back to:
 - DS Kit: hex from `../../docs/generated/token-reference.md` with token name comments
-- FM: hex from `../../references/fm-css-reference.md` with token name comments
+- FM: hex from `../../references/ds-rules/fm-css-reference.md` with token name comments
 
 ## Generation metadata frame
 

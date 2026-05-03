@@ -341,7 +341,7 @@ The annotation layer targets elements with `data-name` attributes. Add `data-nam
 
 ## Styling rules
 
-- Read `../fm-css-reference.md` — copy exact styles, do not approximate
+- Read `../ds-rules/fm-css-reference.md` — copy exact styles, do not approximate
 - Load Inter font from Google Fonts
 - Screen labels: 12px, #888
 
@@ -384,4 +384,4 @@ Does NOT need detaching — `contentArea.appendChild()` works. See `../../docs/g
 ## Token reference
 
 - **`use_figma`**: `../figma/figma-output.md` § "Token binding"
-- **HTML**: `--fm-*` from `../fm-css-reference.md` (FM) or `--zen-*` from `../../tokens/tokens.css` (DS Kit)
+- **HTML**: `--fm-*` from `../ds-rules/fm-css-reference.md` (FM) or `--zen-*` from `../../tokens/tokens.css` (DS Kit)

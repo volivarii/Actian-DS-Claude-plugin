@@ -581,7 +581,7 @@ function findHardcodedColorsRaw(data) {
 // Check 5c: Unmuted-chrome heuristic (v1.53.4 — FM focus principle)
 // ---------------------------------------------------------------------------
 //
-// references/quality-tiers.md:14 — "Non-feature chrome is ALWAYS placeholder."
+// references/ds-rules/quality-tiers.md:14 — "Non-feature chrome is ALWAYS placeholder."
 // fm-nav-item and fm-tab carry a `State` variant axis with a `Placeholder`
 // value precisely for this — when the model writes real-looking labels on
 // State=On/Off and the feature isn't navigation/tabs, that's the symptom.

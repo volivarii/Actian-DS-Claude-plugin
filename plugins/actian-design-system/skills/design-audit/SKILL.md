@@ -72,5 +72,5 @@ Fix types, evidence standard, confidence scores, JSON output format, and verific
 
 - `references/design-audit/evidence-and-fixes.md` — confidence scores, evidence standard, JSON output, fix types, verification
 - `references/figma/figma-output.md` — Figma URL parsing, token binding
-- `references/quality-checklist.md` — cleanup pass checklist
+- `references/ds-rules/quality-checklist.md` — cleanup pass checklist
 - `references/figma/parity-check.md` — post-fix verification

@@ -95,8 +95,8 @@ Serve, present review report, accept feedback or "push".
 ## References
 
 - `references/generate-presentation/templates.md` — 8 CSS chart types, slide type details
-- `references/quality-tiers.md` — Draft / Standard / Production tier definitions
+- `references/ds-rules/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `docs/presentation-guide.md` — voice & tone, narrative arc, review report format
 - `references/app-context.md` — Actian terminology
 - `references/figma/parity-check.md` — post-push parity check procedure
-- `references/quality-checklist.md` — cleanup pass checklist
+- `references/ds-rules/quality-checklist.md` — cleanup pass checklist

@@ -238,7 +238,7 @@ If any condition fails, fall back per the table below.
 
 For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `terminology-issue`, `unmuted-chrome`): exit 2, push proceeds. Findings surface in the GenLog text node.
 
-**`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker (the one whose label matches `meta._glossary.sidebarActive`). This honors the rule that non-feature chrome is ALWAYS placeholder — see `references/quality-tiers.md`.
+**`unmuted-chrome` warning recovery (FM focus principle):** When the validator flags `fmNavItem` or `fmTab` instances as unmuted chrome on a non-chrome-feature screen, replace the variant with `State=Placeholder` (or use `fmPlaceholder` directly) for all instances except the canonical active marker (the one whose label matches `meta._glossary.sidebarActive`). This honors the rule that non-feature chrome is ALWAYS placeholder — see `references/ds-rules/quality-tiers.md`.
 
 **`intent-mismatch` recovery (hifi tier only):** When the validator flags `intent-mismatch` findings on hifi-converted data, either change the variant to match the expected variant for the effective intent (e.g., `Type=Critical primary` for `destructive-action` on a DS button), OR change the `intent` field at the responsible node to reflect the actual screen role. For sibling-rule warnings ("destructive-action container ambiguous" or "missing Critical primary"), restructure the button group: exactly one Critical primary action button, with Tertiary or Secondary cancel/dismiss siblings.
 
@@ -249,7 +249,7 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/flows/[feature]-flow.html
    BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
    ```
-9. Parity check (opt-in) → `references/figma/parity-check.md` + `references/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
+9. Parity check (opt-in) → `references/figma/parity-check.md` + `references/ds-rules/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
 
 ---
 
@@ -319,7 +319,7 @@ Does this work, or would you like to adjust?
 
 Parse the user's response for both screen approval AND detail level. Default to **Standard**.
 
-**FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
+**FM focus principle (all tiers):** Non-feature chrome is ALWAYS placeholder. The tier controls how detailed the **feature-relevant** content is. See `references/ds-rules/quality-tiers.md` for concrete per-tier rules (Draft uses fmPlaceholder, Standard uses full contextual content, Production adds all states).
 
 ## Step 3.5 — Build flow glossary
 
@@ -442,12 +442,12 @@ Push-apart row: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "H
 
 - `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API templates
 - `references/generate-flow/research-guide.md` — competitor research, reference analysis
-- `references/quality-tiers.md` — Draft / Standard / Production concrete rules
+- `references/ds-rules/quality-tiers.md` — Draft / Standard / Production concrete rules
 - `references/app-context.md` — app inference, entity model, terminology
 - `references/ux-patterns.md` — SaaS UX pattern library by flow type
-- `references/layout-patterns.md` — canonical page layouts
+- `references/ds-rules/layout-patterns.md` — canonical page layouts
 - `references/figma/parity-check.md` — post-push parity check
-- `references/quality-checklist.md` — cleanup pass checklist
+- `references/ds-rules/quality-checklist.md` — cleanup pass checklist
 - `references/figma/prototype-reference.md` — interactive HTML prototype (opt-in)
 - `references/figma/prototype-wiring.md` — Figma prototype wiring (opt-in)
 - `recipes/flow/_index.json` — archetype recipe catalog

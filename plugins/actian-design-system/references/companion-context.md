@@ -61,7 +61,7 @@ Full reference: `docs/generated/token-reference.md` | Source of truth: `tokens/a
 
 FM outputs use `--fm-*` CSS variables, **NOT** `--zen-*` DS tokens. This is intentional — the "never hardcode" rule applies to DS Kit outputs only. FM palette is deliberately constrained.
 
-See: `references/fm-css-reference.md`
+See: `references/ds-rules/fm-css-reference.md`
 
 ## Content Rules
 
@@ -130,8 +130,8 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 | Specific component rules | `docs/component-guidelines/{name}.json` |
 | Accessibility standards | `docs/accessibility-guidelines.md` |
 | Foundation (typography, color, etc.) | `docs/foundations/{topic}.json` |
-| FM CSS values (wireframes) | `references/fm-css-reference.md` |
+| FM CSS values (wireframes) | `references/ds-rules/fm-css-reference.md` |
 | UX patterns by flow type | `references/ux-patterns.md` |
-| Page layout patterns | `references/layout-patterns.md` |
+| Page layout patterns | `references/ds-rules/layout-patterns.md` |
 | Token variable keys (Figma binding) | `docs/generated/meta-kit/variables.md` |
-| Quality tiers (Draft/Standard/Production) | `references/quality-tiers.md` |
+| Quality tiers (Draft/Standard/Production) | `references/ds-rules/quality-tiers.md` |
