@@ -21,7 +21,7 @@ Keywords: `"preview"` → HTML; `"playground"` → explorer.
 
 ## Step 1 — Research (ONE parallel batch)
 
-Parse URL (`fileKey` + `nodeId` per `../../references/figma-output.md`). ONE message: (1) classify-node via `use_figma` (see figma-output.md — returns node type, name, children), (2) `docs/component-guidelines/<slug>.json`, (3) `references/component-brief/data-schema.md`. Then: route based on node type — if PAGE, pick the COMPONENT_SET child from the classification response; if COMPONENT_SET, use directly. Call `get_design_context` on the resolved target. Fallback: `get_screenshot`.
+Parse URL (`fileKey` + `nodeId` per `../../references/figma/figma-output.md`). ONE message: (1) classify-node via `use_figma` (see figma-output.md — returns node type, name, children), (2) `docs/component-guidelines/<slug>.json`, (3) `references/component-brief/data-schema.md`. Then: route based on node type — if PAGE, pick the COMPONENT_SET child from the classification response; if COMPONENT_SET, use directly. Call `get_design_context` on the resolved target. Fallback: `get_screenshot`.
 
 ## Step 1.5 — Present card selection
 
@@ -171,7 +171,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
 
 ## Step 3 — Push to Figma (direct calls)
 
-Read your `brief-data.json` and push directly to Figma using small `use_figma` calls. Read `../../references/component-brief/push-patterns.md` for all patterns. Read `../../references/figma-push-patterns.md` for core patterns (wrapper frame, hexToRgb, etc.). Always pass `skillNames: "figma-use"` to every call.
+Read your `brief-data.json` and push directly to Figma using small `use_figma` calls. Read `../../references/component-brief/push-patterns.md` for all patterns. Read `../../references/figma/figma-push-patterns.md` for core patterns (wrapper frame, hexToRgb, etc.). Always pass `skillNames: "figma-use"` to every call.
 
 **Push sequence** (each step is one small `use_figma` call, ~200-2000 bytes; anatomy diagram ~4-6KB):
 
@@ -202,11 +202,11 @@ Read only the relevant card keys from `brief-data.json` and push those cards. Sk
 To fix a specific card: edit the data model, then re-push just that card using the same patterns. Use `figma.getNodeByIdAsync` to find and remove the old card frame before pushing the replacement.
 
 ## Step 4 — Parity check (opt-in)
-Manifest includes `sourceHash` (of brief-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file). See `references/parity-check.md` for hash computation.
+Manifest includes `sourceHash` (of brief-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file). See `references/figma/parity-check.md` for hash computation.
 
 Only run if the user says "check parity", "screenshot check", or "verify output". Do NOT run automatically after push.
 
-When triggered: per `../../references/parity-check.md` — screenshot each card, dispatch `parity-analyzer`, fix P0s.
+When triggered: per `../../references/figma/parity-check.md` — screenshot each card, dispatch `parity-analyzer`, fix P0s.
 
 ## Key rules
 

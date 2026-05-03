@@ -38,7 +38,7 @@ You will receive:
 
 ## Process
 
-Follow the analysis algorithm in `references/prototype-wiring.md` exactly:
+Follow the analysis algorithm in `references/figma/prototype-wiring.md` exactly:
 
 ### Step 1 — Classify every direct child node
 

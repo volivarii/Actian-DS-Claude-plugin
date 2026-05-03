@@ -10,7 +10,7 @@ Create a new Figma component (with variants) from a text description or by exten
 
 ## Step 1 — Understand the component
 
-Determine: component name (FM prefix for Fat Marker), library (FM = Inter, DS Kit = Roboto), variants, content, layout, properties. If a Figma URL is provided, parse per `../../references/figma-output.md` — classify node first via `use_figma`, route to the correct target, then `get_design_context` + `get_screenshot`. Infer as much as possible; only ask if the request is too vague to proceed.
+Determine: component name (FM prefix for Fat Marker), library (FM = Inter, DS Kit = Roboto), variants, content, layout, properties. If a Figma URL is provided, parse per `../../references/figma/figma-output.md` — classify node first via `use_figma`, route to the correct target, then `get_design_context` + `get_screenshot`. Infer as much as possible; only ask if the request is too vague to proceed.
 
 ## Step 2 — Check existing components
 
@@ -38,7 +38,7 @@ Wait for response. Draft tier: skip this gate.
 ## Step 5 — Build in Figma (interpreter)
 
 1. Read `../../references/create-component/push-patterns.md` — direct push patterns
-2. Read `../../references/figma-push-patterns.md` — core patterns (wrapper frame, hexToRgb, etc.)
+2. Read `../../references/figma/figma-push-patterns.md` — core patterns (wrapper frame, hexToRgb, etc.)
 3. Resolve dependencies per `../../references/create-component/research-and-dependencies.md`
 4. Push to Figma using small direct `use_figma` calls. Always pass `skillNames: "figma-use"`.
 
@@ -59,7 +59,7 @@ Every component exposes: text properties (titles, labels), boolean properties (o
 
 ## Step 6 — Cleanup + parity check
 
-Run `../../references/quality-checklist.md` (Universal + Create Component sections). Then parity check per `../../references/parity-check.md`: screenshot, dispatch `parity-analyzer`, fix P0s, write `.last-push.json`. Manifest includes `sourceHash`, `componentKeys`, and `tokenHash` — see `references/parity-check.md` for computation.
+Run `../../references/quality-checklist.md` (Universal + Create Component sections). Then parity check per `../../references/figma/parity-check.md`: screenshot, dispatch `parity-analyzer`, fix P0s, write `.last-push.json`. Manifest includes `sourceHash`, `componentKeys`, and `tokenHash` — see `references/figma/parity-check.md` for computation.
 
 After creation, offer: "Want me to generate a component brief?" If accepted, invoke `component-brief`. Remind user to run `/sync-design-system` to update local references.
 
@@ -75,8 +75,8 @@ After creation, offer: "Want me to generate a component brief?" If accepted, inv
 - `references/create-component/push-patterns.md` — direct push patterns for component creation
 - `references/quality-tiers.md` — Draft / Standard / Production tier definitions
 - `references/create-component/research-and-dependencies.md` — research procedure, dependency resolution
-- `references/figma-output.md` — Figma URL parsing, token binding
+- `references/figma/figma-output.md` — Figma URL parsing, token binding
 - `references/quality-checklist.md` — cleanup pass checklist
-- `references/parity-check.md` — post-push parity check procedure
+- `references/figma/parity-check.md` — post-push parity check procedure
 - `docs/generated/meta-kit/variables.md` — DS Kit variable keys
 - `references/fm-css-reference.md` — FM hex palette

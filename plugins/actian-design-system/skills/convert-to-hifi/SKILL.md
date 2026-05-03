@@ -25,7 +25,7 @@ Upgrade a Fat Marker wireframe to a high-fidelity DS Kit frame. Three-stage pipe
 
 ## Stage 1 — Extract FM tree from Figma
 
-Parse the Figma URL per `references/figma-output.md` (convert `-` to `:` in nodeId). Always pass `skillNames: "figma-use"`.
+Parse the Figma URL per `references/figma/figma-output.md` (convert `-` to `:` in nodeId). Always pass `skillNames: "figma-use"`.
 
 **CRITICAL — large frames overflow the use_figma response limit.** Use the two-pass approach below.
 
@@ -128,7 +128,7 @@ Do not proceed until the user replies.
 
 ## Stage 3 — LLM polish + push
 
-After confirmation, build and push uninterrupted. Read `references/figma-push-patterns.md` for component keys and patterns. Always pass `skillNames: "figma-use"` to every `use_figma` call.
+After confirmation, build and push uninterrupted. Read `references/figma/figma-push-patterns.md` for component keys and patterns. Always pass `skillNames: "figma-use"` to every `use_figma` call.
 
 ### Handling unmapped nodes
 
@@ -189,5 +189,5 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 - `docs/generated/fmkit.json` — FM Kit component registry (keys, variants, properties)
 - `scripts/fm-tree-to-flow-data.js` — converts raw Figma tree to flow-data format (resolves componentKey → FM ref names via FM_SLUGS)
 - `scripts/transform-to-hifi.js` — deterministic Stage 2 transform (CLI + module API)
-- `references/figma-push-patterns.md` — component keys, push patterns, Plugin API call templates
+- `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API call templates
 - `references/component-instance-rules.md` — rules for setting component properties correctly

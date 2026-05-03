@@ -60,5 +60,5 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 - 20KB response limit per `use_figma` — split large extractions
 - VARIABLE_ALIAS: resolve alias chains to final RGBA/hex per mode
 - Sequential `use_figma` only — never parallel
-- `get_design_context` needs frame-level IDs — classify node first per `../../references/figma-output.md` (use_figma one-liner), or use `get_metadata` for bulk structure discovery
+- `get_design_context` needs frame-level IDs — classify node first per `../../references/figma/figma-output.md` (use_figma one-liner), or use `get_metadata` for bulk structure discovery
 - Accessibility page: 23 frames all named "Design guidelines" — use heading text to differentiate

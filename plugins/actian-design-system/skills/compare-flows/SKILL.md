@@ -10,7 +10,7 @@ Compare two Figma flows or screens and provide structured UX recommendations. Ru
 
 ## Pipeline
 
-1. Parse each URL per `../../references/figma-output.md` (extract `fileKey`, `nodeId`). Classify each node via `use_figma` (see figma-output.md), route to resolved targets, then get screenshots.
+1. Parse each URL per `../../references/figma/figma-output.md` (extract `fileKey`, `nodeId`). Classify each node via `use_figma` (see figma-output.md), route to resolved targets, then get screenshots.
 2. `get_design_context` on key screens in each flow
 3. Analyze across all dimensions below
 4. Self-review: verify every dimension evaluated, every issue has severity + location
@@ -60,7 +60,7 @@ A flow with fewer P0s is generally stronger regardless of P1/P2 counts.
 
 ## References
 
-- `references/figma-output.md` — Figma URL parsing
+- `references/figma/figma-output.md` — Figma URL parsing
 - `references/quality-checklist.md` — cleanup pass checklist (applied to both flows)
 - `docs/content-guidelines.md` — content guideline checks
 - `docs/accessibility-guidelines.md` — accessibility checks

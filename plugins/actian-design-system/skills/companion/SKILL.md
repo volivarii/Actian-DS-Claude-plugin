@@ -17,7 +17,7 @@ Designers learn three input shapes; the companion does the rest:
 ## Step 1 — Load context
 
 1. Read `../../references/companion-context.md` — always-loaded DS summary
-2. If Figma URL(s) shared: extract fileKey + nodeId, classify node via `use_figma` (see `../../references/figma-output.md`), then `get_design_context` + `get_screenshot`
+2. If Figma URL(s) shared: extract fileKey + nodeId, classify node via `use_figma` (see `../../references/figma/figma-output.md`), then `get_design_context` + `get_screenshot`
 3. Note app context (Studio/Explorer/Administration)
 
 ## Step 2 — Classify intent

@@ -249,7 +249,7 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/flows/[feature]-flow.html
    BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
    ```
-9. Parity check (opt-in) → `references/parity-check.md` + `references/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
+9. Parity check (opt-in) → `references/figma/parity-check.md` + `references/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
 
 ---
 
@@ -363,7 +363,7 @@ Set `meta._glossary` before dispatching screen-generators or building flow-data 
 
 ## Push to Figma
 
-Read `references/figma-push-patterns.md` for component keys and patterns. Push from `flow-data.json` using small `use_figma` calls. Always pass `skillNames: "figma-use"`.
+Read `references/figma/figma-push-patterns.md` for component keys and patterns. Push from `flow-data.json` using small `use_figma` calls. Always pass `skillNames: "figma-use"`.
 
 **Push sequence:**
 
@@ -440,14 +440,14 @@ Push-apart row: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "H
 
 ## References
 
-- `references/figma-push-patterns.md` — component keys, push patterns, Plugin API templates
+- `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API templates
 - `references/generate-flow/research-guide.md` — competitor research, reference analysis
 - `references/quality-tiers.md` — Draft / Standard / Production concrete rules
 - `references/app-context.md` — app inference, entity model, terminology
 - `references/ux-patterns.md` — SaaS UX pattern library by flow type
 - `references/layout-patterns.md` — canonical page layouts
-- `references/parity-check.md` — post-push parity check
+- `references/figma/parity-check.md` — post-push parity check
 - `references/quality-checklist.md` — cleanup pass checklist
-- `references/prototype-reference.md` — interactive HTML prototype (opt-in)
-- `references/prototype-wiring.md` — Figma prototype wiring (opt-in)
+- `references/figma/prototype-reference.md` — interactive HTML prototype (opt-in)
+- `references/figma/prototype-wiring.md` — Figma prototype wiring (opt-in)
 - `recipes/flow/_index.json` — archetype recipe catalog
