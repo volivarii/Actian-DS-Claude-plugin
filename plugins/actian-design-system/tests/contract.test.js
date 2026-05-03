@@ -28,7 +28,7 @@ var execSync = require("child_process").execSync;
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 var SCRIPTS_DIR = path.join(PLUGIN_ROOT, "scripts");
-var RENDERERS_DIR = path.join(SCRIPTS_DIR, "html-renderers");
+var RENDERERS_DIR = path.join(SCRIPTS_DIR, "renderers", "html-renderers");
 var TEMPLATES_DIR = path.join(PLUGIN_ROOT, "templates");
 
 // ---------------------------------------------------------------------------
@@ -214,7 +214,7 @@ describe("Contract Tests", function () {
   describe("Part 4: --help output contracts", function () {
     var helpScripts = [
       {
-        script: path.join(SCRIPTS_DIR, "assemble-preview.js"),
+        script: path.join(SCRIPTS_DIR, "renderers", "assemble-preview.js"),
         expectedName: "assemble-preview",
       },
     ];

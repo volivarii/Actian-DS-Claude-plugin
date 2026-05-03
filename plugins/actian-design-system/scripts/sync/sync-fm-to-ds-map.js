@@ -121,7 +121,7 @@ module.exports = {
 
 // CLI: node sync-fm-to-ds-map.js
 if (require.main === module) {
-  var pluginRoot = path.resolve(__dirname, "..");
+  var pluginRoot = path.resolve(__dirname, "../..");
   var mapPath = path.join(pluginRoot, "docs", "generated", "fm-to-ds-map.json");
   var registryPath = path.join(pluginRoot, "docs", "generated", "dskit.json");
   var result = reconcileFromDisk(mapPath, registryPath);

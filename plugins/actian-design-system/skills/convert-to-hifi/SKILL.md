@@ -86,8 +86,8 @@ Assemble the flat node list into a tree structure (group by path) and write as `
 The raw Figma tree uses `componentKey` fields. Convert to the flow-data format expected by the transform script using the converter:
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/fm-tree-to-flow-data.js" \
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/fm-tree-to-flow-data.js" \
   {project_working_directory}/components/hifi/[frame-name]-fm-tree.json \
   -o {project_working_directory}/components/hifi/[frame-name]-flow-data.json
 ```
@@ -101,7 +101,7 @@ This resolves `componentKey` → FM ref names (e.g., `fmNavItem`) using the FM K
 Run `transform-to-hifi.js` on the **converted flow-data** (not the raw FM tree):
 
 ```bash
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transform-to-hifi.js" \
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/transform-to-hifi.js" \
   {project_working_directory}/components/hifi/[frame-name]-flow-data.json \
   -o {project_working_directory}/components/hifi/[frame-name]-hifi-data.json
 ```
@@ -187,7 +187,7 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 - `docs/generated/fm-to-ds-map.json` — FM component key → DS component mapping table with variant axis maps
 - `docs/generated/dskit.json` — DS Kit component registry (keys, variants, properties, descriptions)
 - `docs/generated/fmkit.json` — FM Kit component registry (keys, variants, properties)
-- `scripts/fm-tree-to-flow-data.js` — converts raw Figma tree to flow-data format (resolves componentKey → FM ref names via FM_SLUGS)
-- `scripts/transform-to-hifi.js` — deterministic Stage 2 transform (CLI + module API)
+- `scripts/transformers/fm-tree-to-flow-data.js` — converts raw Figma tree to flow-data format (resolves componentKey → FM ref names via FM_SLUGS)
+- `scripts/transformers/transform-to-hifi.js` — deterministic Stage 2 transform (CLI + module API)
 - `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API call templates
 - `references/ds-rules/component-instance-rules.md` — rules for setting component properties correctly

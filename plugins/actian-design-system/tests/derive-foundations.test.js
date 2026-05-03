@@ -2,7 +2,9 @@
 
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
-var { parseMarkdown } = require("../scripts/foundations-parser/ast-walk.js");
+var {
+  parseMarkdown,
+} = require("../scripts/foundations/foundations-parser/ast-walk.js");
 
 describe("ast-walk: parseMarkdown", function () {
   it("returns a flat token array for valid markdown", function () {
@@ -39,7 +41,7 @@ describe("ast-walk: parseMarkdown", function () {
 
 var {
   findNumberedHeadings,
-} = require("../scripts/foundations-parser/ast-walk.js");
+} = require("../scripts/foundations/foundations-parser/ast-walk.js");
 
 describe("ast-walk: findNumberedHeadings", function () {
   it("extracts the leading number from H2/H3 headings", function () {
@@ -92,7 +94,7 @@ describe("ast-walk: findNumberedHeadings", function () {
 
 var {
   sliceSectionContent,
-} = require("../scripts/foundations-parser/ast-walk.js");
+} = require("../scripts/foundations/foundations-parser/ast-walk.js");
 
 describe("ast-walk: sliceSectionContent", function () {
   it("returns tokens between a heading and the next same-or-higher-depth heading", function () {
@@ -164,7 +166,7 @@ describe("ast-walk: sliceSectionContent", function () {
 
 var {
   extractStatus,
-} = require("../scripts/foundations-parser/status-emoji.js");
+} = require("../scripts/foundations/foundations-parser/status-emoji.js");
 
 describe("status-emoji: extractStatus", function () {
   it("maps known emojis to canonical status strings", function () {
@@ -198,7 +200,7 @@ describe("status-emoji: extractStatus", function () {
 var {
   extractTable,
   extractFencedBlock,
-} = require("../scripts/foundations-parser/extractors.js");
+} = require("../scripts/foundations/foundations-parser/extractors.js");
 
 describe("extractors: extractTable", function () {
   it("converts a table to an array of objects keyed by header", function () {
@@ -287,7 +289,7 @@ describe("extractors: extractFencedBlock", function () {
 var {
   extractList,
   extractProse,
-} = require("../scripts/foundations-parser/extractors.js");
+} = require("../scripts/foundations/foundations-parser/extractors.js");
 
 describe("extractors: extractList", function () {
   it("returns array of plain-text strings from a bullet list", function () {
@@ -351,7 +353,7 @@ var {
   deriveFromMarkdown,
   writeOutputs,
   addMetaHeader,
-} = require("../scripts/derive-foundations.js");
+} = require("../scripts/foundations/derive-foundations.js");
 var fs = require("fs");
 var path = require("path");
 var os = require("os");
@@ -537,6 +539,7 @@ describe("derive-foundations CLI", function () {
       __dirname,
       "..",
       "scripts",
+      "foundations",
       "derive-foundations.js",
     );
 

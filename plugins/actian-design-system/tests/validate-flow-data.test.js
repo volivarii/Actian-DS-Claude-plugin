@@ -7,7 +7,7 @@ var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 var validate = require(
-  path.join(PLUGIN_ROOT, "scripts", "validate-flow-data.js"),
+  path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js"),
 );
 
 describe("validate-flow-data", function () {
@@ -255,7 +255,11 @@ describe("validate-flow-data", function () {
         fixture([
           { type: "FRAME", fills: ["var(--zen-color-primary-500)"] },
           { type: "FRAME", fills: ["var(--fm-bg-default)"] },
-          { type: "TEXT", content: "x", color: "var(--zen-color-text-primary)" },
+          {
+            type: "TEXT",
+            content: "x",
+            color: "var(--zen-color-text-primary)",
+          },
         ]),
       );
       assert.strictEqual(issues.length, 0);
@@ -1127,7 +1131,9 @@ describe("validate-flow-data", function () {
       // all warnings. Use the actual prop names from the registry.
       var booleanProps = {};
       // Read registry to get default-true boolean names dynamically
-      var registry = require(path.join(PLUGIN_ROOT, "docs", "generated", "fmkit.json"));
+      var registry = require(
+        path.join(PLUGIN_ROOT, "docs", "generated", "fmkit.json"),
+      );
       var fmButton = registry.components["fm-button"];
       var props = fmButton.properties;
       var keys = Object.keys(props);
@@ -1524,7 +1530,7 @@ describe("validate-flow-data", function () {
   });
 
   describe("gateConfig.filterFindingsByScope (B-refine.1)", function () {
-    var { runGate } = require("../scripts/scope-aware-runner.js");
+    var { runGate } = require("../scripts/lib/scope-aware-runner.js");
 
     function makeData() {
       return {
@@ -1740,7 +1746,7 @@ describe("validate-flow-data", function () {
       var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
       var dataPath = path.join(tmpDir, "flow-data.json");
       fs.writeFileSync(dataPath, JSON.stringify(data));
-      var script = path.join(PLUGIN_ROOT, "scripts", "validate-flow-data.js");
+      var script = path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js");
       var result = spawnSync(process.execPath, [script, dataPath], {
         encoding: "utf8",
       });
@@ -1953,7 +1959,7 @@ describe("validate-flow-data", function () {
       var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
       var dataPath = path.join(tmpDir, "flow-data.json");
       fs.writeFileSync(dataPath, JSON.stringify(data));
-      var script = path.join(PLUGIN_ROOT, "scripts", "validate-flow-data.js");
+      var script = path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js");
 
       // scope=single-unit:scopedcli-2 → no banned (s2 is clean) → exit 0
       var r2 = spawnSync(
@@ -2012,7 +2018,7 @@ describe("validate-flow-data", function () {
       var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
       var dataPath = path.join(tmpDir, "flow-data.json");
       fs.writeFileSync(dataPath, JSON.stringify(data));
-      var script = path.join(PLUGIN_ROOT, "scripts", "validate-flow-data.js");
+      var script = path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js");
       var result = spawnSync(process.execPath, [script, dataPath, "--json"], {
         encoding: "utf8",
       });
@@ -2033,8 +2039,8 @@ describe("validate-flow-data", function () {
 describe("refine pipeline integration (B-refine.2)", function () {
   var fs = require("fs");
   var path = require("path");
-  var { deriveScope } = require("../scripts/derive-scope.js");
-  var { runGate } = require("../scripts/scope-aware-runner.js");
+  var { deriveScope } = require("../scripts/lib/derive-scope.js");
+  var { runGate } = require("../scripts/lib/scope-aware-runner.js");
 
   function load(name) {
     return JSON.parse(

@@ -3,7 +3,7 @@
 
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
-var { deriveScreenId, stampScreenIds } = require("../scripts/screen-id.js");
+var { deriveScreenId, stampScreenIds } = require("../scripts/lib/screen-id.js");
 
 describe("deriveScreenId", function () {
   it("kebabs feature + 1-based index", function () {

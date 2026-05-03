@@ -7,7 +7,7 @@ var {
   parseScope,
   runGate,
   matchesPattern,
-} = require("../scripts/scope-aware-runner.js");
+} = require("../scripts/lib/scope-aware-runner.js");
 
 describe("parseScope", function () {
   it("parses 'full'", function () {

@@ -7,8 +7,8 @@ var assert = require("node:assert");
 // Path manipulation: require fresh each time because module caches a
 // reference to globalThis.fetch and process.env at load.
 function loadFreshRest() {
-  delete require.cache[require.resolve("../scripts/figma-rest.js")];
-  return require("../scripts/figma-rest.js");
+  delete require.cache[require.resolve("../scripts/sync/figma-rest.js")];
+  return require("../scripts/sync/figma-rest.js");
 }
 
 // Capture original env / fetch so each test can restore.

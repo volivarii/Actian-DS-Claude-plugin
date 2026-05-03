@@ -47,7 +47,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 
 ## Refine shape
 
-Refine is a shape the skill detects, not a flag. When detected (v1.56.0+), it runs a targeted edit through the engine in `scripts/resolve-unit.js`, `scripts/snapshot-store.js`, and `scripts/derive-scope.js`, with the validator running scope-filtered (B-refine.1). It skips the standard 3-gate pipeline and pushes only the affected screen frames.
+Refine is a shape the skill detects, not a flag. When detected (v1.56.0+), it runs a targeted edit through the engine in `scripts/lib/resolve-unit.js`, `scripts/lib/snapshot-store.js`, and `scripts/lib/derive-scope.js`, with the validator running scope-filtered (B-refine.1). It skips the standard 3-gate pipeline and pushes only the affected screen frames.
 
 ### Detection (all must match)
 
@@ -80,7 +80,7 @@ If any condition fails, fall back per the table below.
 > If you need to keep manual edits inside a frame, don't refine it; copy the frame to a
 > new wrapper first.
 
-1. **Resolve URL.** Run `scripts/resolve-unit.js` `resolveByUrl(url, manifestPath)`.
+1. **Resolve URL.** Run `scripts/lib/resolve-unit.js` `resolveByUrl(url, manifestPath)`.
    The manifest path is inferred from the URL's enclosing project flow directory
    (typically `{project_working_directory}/flows/<feature>/.last-push.json`).
    - `kind === "miss"` → fall through per the failure table; emit the message tied to `reason`.
@@ -88,7 +88,7 @@ If any condition fails, fall back per the table below.
    - `kind === "full"` → proceed; designer pasted the wrapper URL → whole-flow refine.
 
 2. **Load snapshot.** Read `flow-data.snapshot.json` from the same manifest dir via
-   `scripts/snapshot-store.js` `read()`. If `null` → fall through to greenfield with the
+   `scripts/lib/snapshot-store.js` `read()`. If `null` → fall through to greenfield with the
    documented warning ("no usable snapshot found, treating as new flow").
 
 3. **Apply edit inline.** AI reads prose + snapshot in context. Mutate the targeted screen
@@ -101,14 +101,14 @@ If any condition fails, fall back per the table below.
    vision-extract) only when a ref URL changed. The targeted edit may also add or remove
    refs entirely, in which case re-analysis follows the standard step 4.5 flow.
 
-4. **Derive scope.** Run `scripts/derive-scope.js` `deriveScope(snapshot, newData)`.
+4. **Derive scope.** Run `scripts/lib/derive-scope.js` `deriveScope(snapshot, newData)`.
    - Returns a scope tag (`single-unit:<id>` | `multi-unit:[…]` | `full`) → continue.
    - Returns `null` → abort with `"no changes detected; nothing to push."` Don't push or rewrite manifest.
 
 5. **Validate.** Run validator with the derived scope:
    ```bash
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/<feature>/flow-data.json \
      --scope <scope-tag>
    ```
@@ -131,7 +131,7 @@ If any condition fails, fall back per the table below.
 7. **Rewrite manifest + snapshot.** Update `.last-push.json`: refresh entries for changed
    screens (new Figma node ids, new tier/justification if changed), preserve untouched
    entries verbatim, refresh `sourceHash` / `pushedAt` / `componentKeys` / hash fields.
-   Then call `scripts/snapshot-store.js` `write(manifestDir, newFlowData)` as the last step.
+   Then call `scripts/lib/snapshot-store.js` `write(manifestDir, newFlowData)` as the last step.
 
 ## Pipeline (3 gates, then build + push uninterrupted) — for prompt + greenfield generation
 
@@ -143,8 +143,8 @@ If any condition fails, fall back per the table below.
 
    ```bash
    # Load the canonical RECIPE_IDS for vision-prompt parameterization:
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-   "$NODE_BIN" -e 'console.log(require("'${CLAUDE_PLUGIN_ROOT}'/scripts/fingerprint-schema.js").RECIPE_IDS.join(", "))'
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+   "$NODE_BIN" -e 'console.log(require("'${CLAUDE_PLUGIN_ROOT}'/scripts/sync/fingerprint-schema.js").RECIPE_IDS.join(", "))'
    ```
 
    For each entry in `meta.references[]`:
@@ -152,7 +152,7 @@ If any condition fails, fall back per the table below.
    1. **Cache check** (refine path): if `meta.references[i].fingerprint` already exists AND the snapshot's prior URL for this index matches the current URL → reuse the cached fingerprint. Skip to the next ref. (B-refine.2's `flow-data.snapshot.json` preserves the prior `meta.references[]` shape.)
    2. Otherwise, call `mcp__claude_ai_Figma__get_screenshot` with the ref URL → image bytes.
    3. Run the vision-extraction prompt below on the screenshot, parameterized with the RECIPE_IDS list from the bash command above.
-   4. Validate the output via `scripts/fingerprint-schema.js` `validateFingerprint`. If invalid: retry once with a "your previous output was invalid; emit STRICT JSON" reminder. If still invalid: drop the invalid fields, persist the rest. (Empty fingerprint objects are valid.)
+   4. Validate the output via `scripts/sync/fingerprint-schema.js` `validateFingerprint`. If invalid: retry once with a "your previous output was invalid; emit STRICT JSON" reminder. If still invalid: drop the invalid fields, persist the rest. (Empty fingerprint objects are valid.)
    5. Persist on `meta.references[i].fingerprint`, including `extracted_at` as the current ISO timestamp.
 
    **Vision-extraction prompt template:**
@@ -194,16 +194,16 @@ If any condition fails, fall back per the table below.
    - Read `recipes/flow/_index.json` — if an archetype matches the screen, use its skeleton. Recipes are accelerators, not constraints.
    - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in batches of 2-3. **When `meta.references[]` has fingerprints attached (C-vision step 4.5)**, copy the full `meta.references[]` array into each batch's dispatch prompt as a "Reference fingerprints" input block — see `agents/screen-generator.md`. Without this, the agent will report empty fingerprints even though step 4.5 persisted them. Merge with:
      ```bash
-     source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/merge-partials.js" \
+     source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
        --type flow --partials-dir {project_working_directory}/flows/.partial \
        --output {project_working_directory}/flows/flow-data.json
      ```
      Sequential mode (<6 screens): build flow-data.json directly — but FIRST classify each screen per the agent's Step 0 (above). When `meta.references[]` has fingerprints, the AI reads them inline from the in-memory flow-data when picking recipes.
 6. **Validate flow data** — run the validation script before pushing:
    ```bash
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/flow-data.json
    ```
    - Exit 1 (P0s found): fix all banned placeholder text before pushing. Common P0s: `"Page Title"`, `"Button label"`, `"Description text"`, `"Label"`, `"Nav Item"`.
@@ -214,12 +214,12 @@ If any condition fails, fall back per the table below.
 
    ```bash
    # Single-screen refine
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/flow-data.json \
      --scope single-unit:notification-preferences-2
 
    # Multi-screen refine
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validate-flow-data.js" \
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
      {project_working_directory}/flows/flow-data.json \
      --scope multi-unit:[notification-preferences-1,notification-preferences-3]
    ```
@@ -245,9 +245,9 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
 7. Push to Figma (see Push section below)
 8. Preview (opt-in):
    ```bash
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/flows/[feature]-flow.html
-   BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/flows/[feature]-flow.html
+   BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/renderers/ensure-server.sh "{project_working_directory}" 8765)
    ```
 9. Parity check (opt-in) → `references/figma/parity-check.md` + `references/ds-rules/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
 
@@ -369,7 +369,7 @@ Read `references/figma/figma-push-patterns.md` for component keys and patterns. 
 
 1. Navigate to target page + create wrapper frame
 2. GenLog — import by key `a9653f30925367e96dea90093d750bfe70849571`, `setProperties` with `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Plugin Version = `v1.55.0`** (read from plugin.json, never hardcode)
-3. Tier Summary (if any screen has a `tier` field) — call `buildTierSummary(screens)` from `scripts/shared-constants.js`. If it returns a TEXT node spec (not null), push the TEXT node into the wrapper as a sibling of the GenLog instance, immediately following it. Skip when `buildTierSummary` returns null (none of the screens are tiered).
+3. Tier Summary (if any screen has a `tier` field) — call `buildTierSummary(screens)` from `scripts/lib/shared-constants.js`. If it returns a TEXT node spec (not null), push the TEXT node into the wrapper as a sibling of the GenLog instance, immediately following it. Skip when `buildTierSummary` returns null (none of the screens are tiered).
 3b. **Scope tag (B-refine.1, v1.55.0+)** — when this run was scoped (`--scope single-unit:<id>` or `multi-unit:[…]`), push an additional TEXT node sibling immediately after Tier Summary with content `"Scope: <scope-tag>"` (e.g., `"Scope: single-unit:notification-preferences-2"`). Use the same TEXT styling as Tier Summary. Skip when scope is `"full"` (the default; producing no annotation matches v1.54.x behavior). The skill holds scope in its own runtime state — passed to the validator via `--scope` and to this push step in parallel.
 4. Research card (if opted-in) — import Research Frame `e671618f2b4c6ea406a995fdc3012ac54eadfe56`, `setProperties` with `"Title#48:10"`, `"Source#48:11"`, detach, inject findings into Content slot. **Must contain the exact same content as the chat findings** — same competitors, patterns, recommendations, source URLs. Card is the persistent record of what informed the design.
 5. Cover Card — import `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave defaults

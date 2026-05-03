@@ -3,7 +3,7 @@
 
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
-var fp = require("../scripts/fingerprint-schema.js");
+var fp = require("../scripts/sync/fingerprint-schema.js");
 
 describe("RECIPE_IDS", function () {
   it("is a non-empty array", function () {

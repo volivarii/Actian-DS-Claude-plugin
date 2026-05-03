@@ -1,7 +1,7 @@
 name: Sync from Figma
 
 # Sprint 1 Wave 1 — nightly Figma → JSON auto-sync. The orchestrator at
-# plugins/actian-design-system/scripts/sync-from-figma.js fetches the
+# plugins/actian-design-system/scripts/sync/sync-from-figma.js fetches the
 # DS Kit / FM Kit / Meta Kit registries and DS Kit text+effect styles
 # via Figma's REST API, classifies the diff, and writes a changelog.
 # Additive diffs auto-merge; breaking diffs are labeled `review-required`.
@@ -66,7 +66,7 @@ jobs:
           FIGMA_PAT: ${{ secrets.FIGMA_PAT }}
         run: |
           PHASE="${{ github.event.inputs.phase || 'all' }}"
-          node plugins/actian-design-system/scripts/sync-from-figma.js \
+          node plugins/actian-design-system/scripts/sync/sync-from-figma.js \
             --phase "$PHASE" \
             --plugin-dir plugins/actian-design-system
 

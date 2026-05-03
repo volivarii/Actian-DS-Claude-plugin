@@ -43,8 +43,8 @@ Deck outline: N slides (cover + N body + back cover). Reply:
 1. Build `slide-data.json`: `meta` (title, targetNodeId, prompt, duration, model, pluginVersion, generatedAt, skill) + `slides[]` (type + type-specific data, structured `content[]` nodes for charts). Reference `examples/slide-data-example.json` for expected structure. Before generating each slide, read `recipes/presentation/_index.json` and the corresponding slide type recipe for structure guidance, quality rules, and content constraints.
    - **Parallel mode (6+ slides):** Dispatch `slide-generator` agents in parallel, splitting slides into batches of 3-4. Each agent receives: batch index, slide details (type, title, content description), presentation context, meta object, output path to `.partial/`. After all complete, merge:
      ```bash
-     source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/merge-partials.js" \
+     source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
        --type presentation --partials-dir {project_working_directory}/presentations/[topic-slug]/.partial \
        --output {project_working_directory}/presentations/[topic-slug]/slide-data.json
      ```
@@ -77,8 +77,8 @@ Write small direct Figma Plugin API calls using patterns from `references/figma/
 ### HTML preview (opt-in, trigger: "preview")
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" \
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
   slide-data.json --type presentation \
   -o {project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html
 ```

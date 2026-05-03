@@ -4,7 +4,7 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
-var classify = require("../scripts/changelog-classifier.js");
+var classify = require("../scripts/changelog/changelog-classifier.js");
 
 function registryWith(components) {
   return {

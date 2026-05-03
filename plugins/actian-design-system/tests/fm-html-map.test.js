@@ -10,7 +10,7 @@
 
 const path = require("path");
 const { renderFMComponent, parseVariant } = require(
-  path.join(__dirname, "../scripts/html-renderers/fm-html-map.js"),
+  path.join(__dirname, "../scripts/renderers/html-renderers/fm-html-map.js"),
 );
 
 // ---------------------------------------------------------------------------

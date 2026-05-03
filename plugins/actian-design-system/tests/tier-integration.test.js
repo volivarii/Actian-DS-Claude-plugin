@@ -5,14 +5,14 @@
  * tier-integration.test.js — End-to-end tier metadata flow:
  * fixture → validator → buildTierSummary → flow-renderer screen() badge
  *
- * Run: source scripts/resolve-node.sh && "$NODE_BIN" tests/tier-integration.test.js
+ * Run: source scripts/lib/resolve-node.sh && "$NODE_BIN" tests/tier-integration.test.js
  */
 
 const fs = require("fs");
 const path = require("path");
 
-const { validate } = require("../scripts/validate-flow-data.js");
-const sc = require("../scripts/shared-constants.js");
+const { validate } = require("../scripts/validation/validate-flow-data.js");
+const sc = require("../scripts/lib/shared-constants.js");
 
 let passed = 0;
 let failed = 0;
@@ -53,7 +53,7 @@ function loadFixture(name) {
 
 const RENDERER_PATH = path.join(
   __dirname,
-  "../scripts/html-renderers/flow-renderer.js",
+  "../scripts/renderers/html-renderers/flow-renderer.js",
 );
 const rendererCode = fs.readFileSync(RENDERER_PATH, "utf8");
 
@@ -67,7 +67,7 @@ const mockDocument = {
   },
 };
 
-const fmHtmlMap = require("../scripts/html-renderers/fm-html-map");
+const fmHtmlMap = require("../scripts/renderers/html-renderers/fm-html-map");
 const mockWindow = { fmHtmlMap: fmHtmlMap };
 
 new Function("window", "document", rendererCode)(mockWindow, mockDocument);

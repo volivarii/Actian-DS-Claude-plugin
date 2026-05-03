@@ -24,10 +24,15 @@ var path = require("path");
 // Paths
 // ---------------------------------------------------------------------------
 
-var PLUGIN_ROOT = path.resolve(__dirname, "..");
+var PLUGIN_ROOT = path.resolve(__dirname, "../..");
 
 var TEMPLATES_DIR = path.join(PLUGIN_ROOT, "templates");
-var RENDERERS_DIR = path.join(PLUGIN_ROOT, "scripts", "html-renderers");
+var RENDERERS_DIR = path.join(
+  PLUGIN_ROOT,
+  "scripts",
+  "renderers",
+  "html-renderers",
+);
 
 // ---------------------------------------------------------------------------
 // Type configurations

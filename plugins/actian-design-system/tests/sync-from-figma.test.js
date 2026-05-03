@@ -10,7 +10,7 @@ var fs = require("fs");
 var path = require("path");
 var os = require("os");
 
-var sync = require("../scripts/sync-from-figma.js");
+var sync = require("../scripts/sync/sync-from-figma.js");
 
 // ---- Fixtures ----
 

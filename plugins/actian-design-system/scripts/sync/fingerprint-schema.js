@@ -4,7 +4,7 @@ var fs = require("fs");
 var path = require("path");
 
 var RECIPE_IDS = (function loadRecipeIds() {
-  var p = path.join(__dirname, "..", "recipes", "flow", "_index.json");
+  var p = path.join(__dirname, "..", "..", "recipes", "flow", "_index.json");
   var idx = JSON.parse(fs.readFileSync(p, "utf8"));
   var ids = [];
   for (var i = 0; i < idx.length; i++) {

@@ -20,7 +20,13 @@ var path = require("path");
 // Helpers
 // ---------------------------------------------------------------------------
 
-var RENDERERS_DIR = path.join(__dirname, "..", "scripts", "html-renderers");
+var RENDERERS_DIR = path.join(
+  __dirname,
+  "..",
+  "scripts",
+  "renderers",
+  "html-renderers",
+);
 
 /**
  * Extract static CSS class names from a JS file.

@@ -95,7 +95,7 @@ If Step 1.5 did not opt in to research, skip Step 1.6 silently and proceed to St
 
 ## Step 2 — Resolve sources + two-pass generation
 
-**Step 2.0 — Resolve sources.** For each selected card key, read its recipe (`recipes/brief/<file>` per `_index.json`). Use `scripts/brief-sourcing.js` `resolveSection(cardKey, ctx, recipe)` to route:
+**Step 2.0 — Resolve sources.** For each selected card key, read its recipe (`recipes/brief/<file>` per `_index.json`). Use `scripts/transformers/brief-sourcing.js` `resolveSection(cardKey, ctx, recipe)` to route:
 - `transcribe` recipes → bucket as Phase A
 - `generate` recipes → bucket as Phase B
 
@@ -119,7 +119,7 @@ ctx = {
 - If research was opted in for any of these cards: inlined `research-findings.json` content scoped to those cards
 - The reconciliation directive (already in the agent prompt) — existing context wins on conflicts
 
-Output of Phase B is merged via `scripts/merge-partials.js` (existing). Every Phase B card has `_source: "generated"`. Cards with research applied also have `_research_applied: true` and a `research_insights` sub-section.
+Output of Phase B is merged via `scripts/transformers/merge-partials.js` (existing). Every Phase B card has `_source: "generated"`. Cards with research applied also have `_research_applied: true` and a `research_insights` sub-section.
 
 **Card title + subtitle (required) — preserved from prior Step 2:** Every card object MUST include `cardTitle` and `cardSubtitle`. Source from the recipe: `cardTitle` = recipe `title`, `cardSubtitle` = recipe `description` (abridge to one line if long). Both renderers (HTML + Figma push) consume these fields directly — never hardcode card titles.
 
@@ -145,7 +145,7 @@ Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
 - **Code values use ASCII operators only** — `=>` not `⇒` (U+21D2), `->` not `→`, `<=` not `≤`, `>=` not `≥`, `!==` not `≠`. Especially watch generated content.
 - **`meta.pluginVersion` matches the project's `plugin.json` `version`** — read the file, do not transcribe from any example. If the value differs from the actual `plugin.json`, fix it before push.
 
-If P0 issues found, fix them immediately before proceeding. The new `_source` and forbidden-key checks should be run via `validateBriefData()` from `scripts/validate-schema.js`.
+If P0 issues found, fix them immediately before proceeding. The new `_source` and forbidden-key checks should be run via `validateBriefData()` from `scripts/validation/validate-schema.js`.
 
 ## Step 2.5 — Present push options (copy verbatim)
 
@@ -163,8 +163,8 @@ Brief ready (N cards). Reply:
 ## Step 2.75 — Render HTML
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" \
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
   {project_working_directory}/components/[name]/[name]-brief-data.json \
   --type brief -o {project_working_directory}/components/[name]/[name]-spec.html
 ```

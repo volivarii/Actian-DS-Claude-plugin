@@ -27,7 +27,7 @@ On Desktop, `node` is rarely in PATH. **Two hard rules — these apply to every 
 2. **Never use bare `$NODE_BIN` either.** It's empty until `resolve-node.sh` is sourced — bash will then read your command as `"" -e "..."` and fail with `: command not found`. Always prepend the source line in the same Bash call:
 
 ```bash
-source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/some-script.js" ...
+source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/some-script.js" ...
 ```
 
 **Anti-pattern (will fail on Desktop):**
@@ -37,7 +37,7 @@ source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLU
 
 **Correct (works everywhere):**
 ```bash
-source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" -e "console.log(require('./schema.json'))"
+source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && "$NODE_BIN" -e "console.log(require('./schema.json'))"
 ```
 
 This applies to freelance diagnostics too — if you're tempted to `node -e` something to inspect a schema, registry, or manifest mid-skill, source first or don't run it.
@@ -56,11 +56,11 @@ Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is sou
 - `tokens/actian-ds.tokens.json` — W3C DTCG tokens (3 themes)
 
 **Scripts** (utilities — NOT used for Figma push):
-- `scripts/assemble-preview.js` — generates HTML previews from data models
-- `scripts/shared-constants.js` — dynamic registry loaders, key maps, palette, buildGenLog
-- `scripts/validate-flow-data.js` — pipeline validation (banned text, tokens, terminology)
-- `scripts/changelog.js` — design changelog (push-to-push diffing)
-- `scripts/fm-tree-to-flow-data.js` — converts FM Figma tree to flow-data.json
+- `scripts/renderers/assemble-preview.js` — generates HTML previews from data models
+- `scripts/lib/shared-constants.js` — dynamic registry loaders, key maps, palette, buildGenLog
+- `scripts/validation/validate-flow-data.js` — pipeline validation (banned text, tokens, terminology)
+- `scripts/changelog/changelog.js` — design changelog (push-to-push diffing)
+- `scripts/transformers/fm-tree-to-flow-data.js` — converts FM Figma tree to flow-data.json
 
 ---
 

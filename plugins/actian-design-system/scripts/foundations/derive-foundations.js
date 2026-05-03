@@ -175,10 +175,15 @@ function parseArgs(argv) {
 }
 
 function defaultPaths() {
-  var pluginRoot = path.resolve(__dirname, "..");
+  var pluginRoot = path.resolve(__dirname, "..", "..");
   return {
     md: path.join(pluginRoot, "docs", "foundations.md"),
-    map: path.join(pluginRoot, "scripts", "foundations.parser.json"),
+    map: path.join(
+      pluginRoot,
+      "scripts",
+      "foundations",
+      "foundations.parser.json",
+    ),
     out: path.join(pluginRoot, "docs", "generated", "foundations"),
   };
 }

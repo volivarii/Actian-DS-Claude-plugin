@@ -20,7 +20,7 @@ fi
 # Allow override if NODE_BIN= is explicitly assigned inline (rare, but valid).
 if echo "$command" | grep -qE '\$NODE_BIN' && \
    ! echo "$command" | grep -qE 'resolve-node\.sh|NODE_BIN='; then
-  echo '{"decision":"block","reason":"Bare $NODE_BIN is empty without sourcing resolve-node.sh first. Use: source \"$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh\" && \"$NODE_BIN\" ..."}'
+  echo '{"decision":"block","reason":"Bare $NODE_BIN is empty without sourcing resolve-node.sh first. Use: source \"$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh\" && \"$NODE_BIN\" ..."}'
   exit 2
 fi
 

@@ -20,7 +20,7 @@ var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
-var shared = require(path.resolve(__dirname, "..", "scripts", "shared-constants.js"));
+var shared = require(path.resolve(__dirname, "..", "scripts", "lib", "shared-constants.js"));
 
 // ---------------------------------------------------------------------------
 // Paths

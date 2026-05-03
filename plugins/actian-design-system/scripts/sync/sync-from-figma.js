@@ -21,9 +21,9 @@
 var fs = require("fs");
 var path = require("path");
 
-var transformRegistry = require("./transformers/transform-registry.js");
-var transformStyles = require("./transformers/transform-styles.js");
-var classify = require("./changelog-classifier.js");
+var transformRegistry = require("../transformers/transformers/transform-registry.js");
+var transformStyles = require("../transformers/transformers/transform-styles.js");
+var classify = require("../changelog/changelog-classifier.js");
 var defaultRest = require("./figma-rest.js");
 
 var KIT_MAP = {
@@ -248,7 +248,7 @@ function buildChangelog(date, category, results, errors) {
 
 async function run(opts) {
   opts = opts || {};
-  var pluginDir = opts.pluginDir || path.resolve(__dirname, "..");
+  var pluginDir = opts.pluginDir || path.resolve(__dirname, "../..");
   var rest = opts.rest || defaultRest;
   var outputDir = opts.outputDir || path.join(pluginDir, "docs", "generated");
   var releaseNotesDir =

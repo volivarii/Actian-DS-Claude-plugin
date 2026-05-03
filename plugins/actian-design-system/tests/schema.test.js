@@ -40,7 +40,9 @@ const schemasDir = path.join(ROOT, "schemas");
 const scriptsDir = path.join(ROOT, "scripts");
 const fixturesDir = path.join(ROOT, "tests", "fixtures");
 
-const validate = require(path.join(scriptsDir, "validate-schema"));
+const validate = require(
+  path.join(scriptsDir, "validation", "validate-schema"),
+);
 
 // ---------------------------------------------------------------------------
 // Test: Schema files parse as valid JSON
@@ -284,7 +286,7 @@ process.stdout.write("\nCLI mode\n");
 try {
   const cliOut = execSync(
     "node " +
-      path.join(scriptsDir, "validate-schema.js") +
+      path.join(scriptsDir, "validation", "validate-schema.js") +
       " " +
       path.join(fixturesDir, "admin-dashboard.json") +
       " " +
@@ -589,7 +591,7 @@ assert(
 
 // 7. Schema does NOT enforce layout_archetype enum (RECIPE_IDS validated at runtime)
 // The schema-layer validation only checks type=string. RECIPE_IDS membership is
-// enforced by scripts/fingerprint-schema.js validateFingerprint at runtime.
+// enforced by scripts/sync/fingerprint-schema.js validateFingerprint at runtime.
 const fpUnknownArchetype = makeFlowWithFingerprint({
   layout_archetype: "made-up-archetype",
 });
@@ -629,7 +631,7 @@ var assert_ok = function (cond, msg) {
 };
 
 test("brief schema — every card object has _source field", function () {
-  var schema = require("../scripts/validate-schema.js");
+  var schema = require("../scripts/validation/validate-schema.js");
   var data = {
     meta: {},
     card_header: { name: "Button", description: "x" }, // missing _source
@@ -645,7 +647,7 @@ test("brief schema — every card object has _source field", function () {
 });
 
 test("brief schema — _source value must be 'figma' or 'generated'", function () {
-  var schema = require("../scripts/validate-schema.js");
+  var schema = require("../scripts/validation/validate-schema.js");
   var data = {
     meta: {},
     card_header: { _source: "wrong-value", name: "Button", description: "x" },
@@ -660,7 +662,7 @@ test("brief schema — _source value must be 'figma' or 'generated'", function (
 });
 
 test("brief schema — transcribed card with empty content + no _fallback flag → finding", function () {
-  var schema = require("../scripts/validate-schema.js");
+  var schema = require("../scripts/validation/validate-schema.js");
   var data = {
     meta: {},
     card_header: { _source: "figma", name: "Button", description: "" }, // empty + claims figma source
@@ -675,7 +677,7 @@ test("brief schema — transcribed card with empty content + no _fallback flag �
 });
 
 test("brief schema — forbidden card keys card_api / card_code / card_states → finding", function () {
-  var schema = require("../scripts/validate-schema.js");
+  var schema = require("../scripts/validation/validate-schema.js");
   var data = {
     meta: {},
     card_api: { _source: "generated", props: [] },
@@ -690,7 +692,7 @@ test("brief schema — forbidden card keys card_api / card_code / card_states �
 });
 
 test("brief schema — _fallback: true with no _fallbackReason → finding", function () {
-  var schema = require("../scripts/validate-schema.js");
+  var schema = require("../scripts/validation/validate-schema.js");
   var data = {
     meta: {},
     card_header: {

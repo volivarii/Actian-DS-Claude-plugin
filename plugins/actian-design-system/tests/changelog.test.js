@@ -6,7 +6,9 @@ var assert = require("node:assert");
 var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
-var changelog = require(path.join(PLUGIN_ROOT, "scripts", "changelog.js"));
+var changelog = require(
+  path.join(PLUGIN_ROOT, "scripts", "changelog", "changelog.js"),
+);
 
 describe("changelog", function () {
   describe("diffComponentKeys", function () {
@@ -53,7 +55,9 @@ describe("changelog", function () {
 
   describe("resolveKeyName", function () {
     it("resolves a known FM Kit component key", function () {
-      var fmkit = require(path.join(PLUGIN_ROOT, "docs", "generated", "fmkit.json"));
+      var fmkit = require(
+        path.join(PLUGIN_ROOT, "docs", "generated", "fmkit.json"),
+      );
       var firstSlug = Object.keys(fmkit.components)[0];
       var firstKey = fmkit.components[firstSlug].key;
       var name = changelog.resolveKeyName(firstKey);

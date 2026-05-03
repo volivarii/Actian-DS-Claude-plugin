@@ -3,8 +3,8 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var path = require("path");
 var fs = require("fs");
-var sourcing = require("../scripts/brief-sourcing.js");
-var schema = require("../scripts/validate-schema.js");
+var sourcing = require("../scripts/transformers/brief-sourcing.js");
+var schema = require("../scripts/validation/validate-schema.js");
 
 var FIX = path.resolve(__dirname, "fixtures", "brief");
 var RECIPE_DIR = path.resolve(__dirname, "..", "recipes", "brief");

@@ -5,7 +5,7 @@ var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var path = require("path");
 var fs = require("fs");
-var derive = require("../scripts/derive-scope.js");
+var derive = require("../scripts/lib/derive-scope.js");
 
 function load(name) {
   return JSON.parse(

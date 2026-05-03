@@ -71,8 +71,8 @@ When the fingerprint pushes you off the obvious tier-1 recipe and the screen end
 **Run this once per screen before writing INSTANCE nodes.** Do NOT do per-component registry dumps with python or repeated reads of `docs/generated/fmkit.json` / `docs/generated/dskit.json` — use the CLI helper:
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/component-property-rules.js" \
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/component-property-rules.js" \
   --inspect <slug1>,<slug2>,<slug3>,...
 ```
 
@@ -95,7 +95,7 @@ Use the output to write each `{ type: "INSTANCE", ref: "<slug>", props: {...} }`
    - If the design does NOT need it visible: set `props["<exact prop name>"]: false`
    - Omitting these produces a warning at the validator gate (not an error, but visible in GenLog).
 
-**Why this matters:** the validator (`scripts/validate-flow-data.js`) enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings (`"Page Title"`, etc.) in any string content → P0. Default-true booleans unset → P1 warning. **One CLI call per screen replaces dozens of registry reads.**
+**Why this matters:** the validator (`scripts/validation/validate-flow-data.js`) enforces this at the gate. Missing required overrides → P0 (blocks push). Default placeholder strings (`"Page Title"`, etc.) in any string content → P0. Default-true booleans unset → P1 warning. **One CLI call per screen replaces dozens of registry reads.**
 
 0. **Classify each screen into a tier before generating.**
 
@@ -145,7 +145,7 @@ Use the output to write each `{ type: "INSTANCE", ref: "<slug>", props: {...} }`
    - **Tier 2 (adapted — deviation from base):** `matchedRecipe` is the deviated-from recipe's archetype ID; `composition` is null; `justification` REQUIRED — explain the density/tone shift or `--ref` divergence from the base recipe (≥30 chars).
    - **Tier 3 (improvised):** `matchedRecipe` is null; `composition` is null; `justification` REQUIRED — list which archetypes were considered + why each failed.
 
-   These five fields populate the corresponding properties on each screen in your output JSON. The schema (`schemas/flow-data.schema.json`) accepts them as optional fields; the validator (`scripts/validate-flow-data.js`) enforces tier-2 and tier-3 justifications.
+   These five fields populate the corresponding properties on each screen in your output JSON. The schema (`schemas/flow-data.schema.json`) accepts them as optional fields; the validator (`scripts/validation/validate-flow-data.js`) enforces tier-2 and tier-3 justifications.
 
    ### Examples
 
@@ -224,6 +224,6 @@ Example for screens 4-6:
 - **Glossary:** If `meta._glossary` is present, use it as the single source for entity names in page headers/breadcrumbs/body text, action verbs in button labels/CTAs, and the active sidebar item. Never invent alternative phrasings for glossary terms.
 - **Entity properties:** If generating form fields, table columns, or detail page content for a known entity, read `docs/generated/app-context.json` → `entities[entityId].properties` for standard field names. Use these instead of generic placeholders.
 - Feature focus: spotlight the feature, placeholder everything else. **Concrete enforcement:** for any `fmNavItem` / `fmTab` that is NOT the active marker for the screen's feature, use `variant: "State=Placeholder"` (or substitute an `fmPlaceholder` instance). Only the single nav-item whose label matches `meta._glossary.sidebarActive` may carry `State=On` with a real label. The validator enforces this as `unmuted-chrome` warning at push time. **For destructive flows** (delete confirmations, bulk-remove footers, account-deletion modals): set `intent: "destructive-action"` on the dialog/section FRAME — descendants inherit. The Cancel button stays at default (inherits cluster intent). For success-confirmation toasts and error banners, set `intent: "success-confirmation"` or `"error-state"` on the relevant FRAME. The `intent` field is metadata only at FM tier — `/convert-to-hifi` reads it to pick correct DS variants, and the hifi-tier validator enforces consistency.
-- **`screen.id` (auto-stamped, B-refine.1):** You MAY emit a kebab-case `id` field on each screen, but the validator (`scripts/validate-flow-data.js`) stamps `<feature-slug>-<index>` automatically when omitted. User-supplied ids are preserved unchanged. The id is the stable handle for refine + scope-aware gating + bulk ops; downstream consumers always see one populated.
+- **`screen.id` (auto-stamped, B-refine.1):** You MAY emit a kebab-case `id` field on each screen, but the validator (`scripts/validation/validate-flow-data.js`) stamps `<feature-slug>-<index>` automatically when omitted. User-supplied ids are preserved unchanged. The id is the stable handle for refine + scope-aware gating + bulk ops; downstream consumers always see one populated.
 - Write the file silently — do not output the JSON to chat
 - If you cannot generate a screen (missing information), include a minimal placeholder screen and report DONE_WITH_CONCERNS

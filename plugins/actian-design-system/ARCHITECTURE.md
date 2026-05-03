@@ -65,9 +65,20 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 - Skill only consumes cross-cutting docs → no subdir needed
 - Don't preempt: only create the subdir when there's a file to put in it.
 
-### `scripts/` and `tests/`
+### `scripts/` subdirs
 
-These will be filled in by PRs 2 and 3 of the reorg.
+- `hooks/` — PreToolUse / PostToolUse shell guards (one `.sh` each). Wired in `hooks/hooks.json`. New PreToolUse guards go here.
+- `sync/` — Figma ↔ registry sync. `sync-from-figma.js` is the entrypoint. New code that talks to Figma (REST or write-side) goes here.
+- `validation/` — Pipeline validators (banned text, tokens, terminology, schema). New validators go here.
+- `renderers/` — HTML/preview output. `assemble-preview.js`, the local preview server, and the `html-renderers/` adapters. New preview/render code goes here.
+- `transformers/` — Data shape transformations between source formats (Figma → flow-data, flow-data → hifi, recipe partials → final). Includes a nested `transformers/` subdir holding `transform-registry.js` and `transform-styles.js` (the path-doubling is a known quirk; flatten-cleanup tracked as a follow-up).
+- `foundations/` — Foundations.md → JSON registries derivation. Owned by the MD-as-SoT pipeline.
+- `changelog/` — Push-to-push design changelog generator and classifier.
+- `lib/` — Shared utilities used by 2+ scripts (constants, ID stamping, scope derivation, snapshot store, intent resolver, unit resolver, Node binary resolver). New shared utilities go here.
+
+### `tests/` subdirs
+
+(Will be filled in by PR-3 once tests/ is mirrored to scripts/ structure.)
 
 ---
 

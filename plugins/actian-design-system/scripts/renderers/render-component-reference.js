@@ -4,9 +4,14 @@
 var fs = require("fs");
 var path = require("path");
 
-var PLUGIN_ROOT = path.resolve(__dirname, "..");
+var PLUGIN_ROOT = path.resolve(__dirname, "../..");
 var rules = require(
-  path.join(PLUGIN_ROOT, "scripts", "component-property-rules.js"),
+  path.join(
+    PLUGIN_ROOT,
+    "scripts",
+    "validation",
+    "component-property-rules.js",
+  ),
 );
 
 var KIT_HEADERS = {
@@ -122,7 +127,7 @@ function renderRegistry(registry, kit) {
   out.push(
     "Auto-generated from `" +
       header.source +
-      "` by `scripts/render-component-reference.js`.",
+      "` by `scripts/renderers/render-component-reference.js`.",
   );
   out.push(slugs.length + " components.");
   out.push("");

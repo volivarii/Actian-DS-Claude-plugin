@@ -30,7 +30,7 @@ Each named frame follows the same pattern:
 
 ## Phase 1 — Components
 
-> **⚙️ AUTO-HANDLED — manual fallback only.** This phase runs nightly via `.github/workflows/sync-from-figma.yml` (Sprint 1 v1.59.0+). The orchestrator at `scripts/sync-from-figma.js` regenerates `docs/generated/dskit.json`, `docs/generated/fmkit.json`, `docs/generated/metakit.json` from the Figma REST API and opens an auto-merging PR for additive diffs. Run the steps below only if the workflow is broken, you need to write the human-readable markdown mirrors (`dskit-components.md` etc.), or you're debugging locally.
+> **⚙️ AUTO-HANDLED — manual fallback only.** This phase runs nightly via `.github/workflows/sync-from-figma.yml` (Sprint 1 v1.59.0+). The orchestrator at `scripts/sync/sync-from-figma.js` regenerates `docs/generated/dskit.json`, `docs/generated/fmkit.json`, `docs/generated/metakit.json` from the Figma REST API and opens an auto-merging PR for additive diffs. Run the steps below only if the workflow is broken, you need to write the human-readable markdown mirrors (`dskit-components.md` etc.), or you're debugging locally.
 
 Extract component sets, variant axes, properties, and keys from DS Kit, FM Kit, and Meta Kit libraries.
 
@@ -326,7 +326,7 @@ Use page counts from Step 1 to decide: DS Kit (77 sets) needs chunking. FM Kit (
 > **Auto-regenerated from JSON registries.** After Phase 1 writes the JSON registries, run:
 >
 > ```bash
-> source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/render-component-reference.js" --kit all
+> source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/renderers/render-component-reference.js" --kit all
 > ```
 >
 > This rewrites `docs/generated/fm-components.md`, `docs/generated/dskit-components.md`, `docs/generated/meta-kit/components.md` from the JSON. The Markdown is a human-readable mirror; JSON registries remain the source of truth. The formatting rules below describe the renderer's output format.
@@ -479,14 +479,14 @@ function toRegistryEntry(comp) {
 
 #### Step 4: Regenerate component reference Markdown
 
-Run `source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/render-component-reference.js" --kit all`. Three files are rewritten: `docs/generated/fm-components.md`, `docs/generated/dskit-components.md`, `docs/generated/meta-kit/components.md`. If the script exits non-zero, report the failure and do not proceed to Phase 2.
+Run `source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/renderers/render-component-reference.js" --kit all`. Three files are rewritten: `docs/generated/fm-components.md`, `docs/generated/dskit-components.md`, `docs/generated/meta-kit/components.md`. If the script exits non-zero, report the failure and do not proceed to Phase 2.
 
 #### Step 5: Reconcile fm-to-ds-map.json
 
 After `dskit.json` is rewritten, reconcile the FM→DS mapping table. The script backfills missing `dsKey` fields (one-time migration for legacy entries) and refreshes any `dsSlug` value that drifted from the immutable `dsKey`:
 
 ```bash
-source "$CLAUDE_PLUGIN_ROOT/scripts/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/sync-fm-to-ds-map.js"
+source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/sync/sync-fm-to-ds-map.js"
 ```
 
 The script prints a per-entry report (`backfilled`, `refreshed`, `warnings`). It exits with code 1 if any warnings are emitted — typical causes:

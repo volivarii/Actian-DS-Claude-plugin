@@ -53,7 +53,7 @@ If you add an emoji not in the list above, it'll be preserved as text but won't 
 
 ## Section numbering
 
-The numbers at the start of each H2/H3 heading (`## 2.1`, `### 2.2`) are how the parser knows which JSON file each section feeds. **You can change the heading text after the number freely.** But if you renumber sections (e.g., move what was `2.1` to `2.7`), please coordinate with engineering — they'll need to update the parser map at `scripts/foundations.parser.json`.
+The numbers at the start of each H2/H3 heading (`## 2.1`, `### 2.2`) are how the parser knows which JSON file each section feeds. **You can change the heading text after the number freely.** But if you renumber sections (e.g., move what was `2.1` to `2.7`), please coordinate with engineering — they'll need to update the parser map at `scripts/foundations/foundations.parser.json`.
 
 If you add a brand new section with a number not yet in the parser map, the parser will skip it with a warning. Engineering then adds the mapping, after which the section starts producing JSON.
 
@@ -84,11 +84,11 @@ Sections 5 (Handoff Protocol) and 6 (Related Guidelines) are intentionally not p
 ## What you don't need to do
 
 - Don't edit any JSON file in `docs/generated/foundations/`. They're auto-generated. CI will revert your edits and push back the regenerated version.
-- Don't edit `scripts/foundations.parser.json` unless you understand the parser map.
+- Don't edit `scripts/foundations/foundations.parser.json` unless you understand the parser map.
 - Don't install Node or run any script locally.
 
 ## More info
 
-- Engineering reference: [`scripts/foundations.parser.json`](../scripts/foundations.parser.json) — section number → JSON target mapping
-- Parser source: [`scripts/derive-foundations.js`](../scripts/derive-foundations.js)
+- Engineering reference: [`scripts/foundations/foundations.parser.json`](../scripts/foundations/foundations.parser.json) — section number → JSON target mapping
+- Parser source: [`scripts/foundations/derive-foundations.js`](../scripts/foundations/derive-foundations.js)
 - Spec: [`docs/superpowers/specs/2026-05-01-md-as-sot-foundations-design.md`](../../../docs/superpowers/specs/2026-05-01-md-as-sot-foundations-design.md)
