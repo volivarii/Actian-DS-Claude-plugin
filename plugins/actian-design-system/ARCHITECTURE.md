@@ -78,7 +78,14 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 
 ### `tests/` subdirs
 
-(Will be filled in by PR-3 once tests/ is mirrored to scripts/ structure.)
+Tests mirror `scripts/` 1:1 — open `scripts/<bucket>/foo.js`, the test lives at `tests/<bucket>/foo.test.js`. Plus a cross-cutting `integration/` bucket for tests that exercise multiple scripts/skills.
+
+- `sync/`, `validation/`, `renderers/`, `transformers/`, `foundations/`, `changelog/`, `lib/` — unit tests for the corresponding `scripts/<bucket>/` modules.
+- `integration/` — cross-cutting tests not bound to a single script: recipe shape contracts, schema/tier integration, path-validation across the whole tree, CSS-staleness checks, brief-flow end-to-end, etc. New tests that span ≥2 buckets go here.
+- `fixtures/` — shared test fixtures (unchanged location; tests reach via `__dirname/../fixtures/...`).
+- `snapshots/` — golden snapshot files (unchanged location).
+
+No `tests/hooks/` — shell guards aren't unit-tested.
 
 ---
 
