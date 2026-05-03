@@ -20,14 +20,14 @@
 
 var fs = require("fs");
 var path = require("path");
-var resolver = require("./lib/intent-resolver.js");
-var shared = require("./lib/shared-constants.js");
+var resolver = require("../lib/intent-resolver.js");
+var shared = require("../lib/shared-constants.js");
 
 // ---------------------------------------------------------------------------
 // Paths
 // ---------------------------------------------------------------------------
 
-var GENERATED_DIR = path.resolve(__dirname, "..", "docs", "generated");
+var GENERATED_DIR = path.resolve(__dirname, "../..", "docs", "generated");
 var MAP_PATH = path.join(GENERATED_DIR, "fm-to-ds-map.json");
 var DS_REGISTRY_PATH = path.join(GENERATED_DIR, "dskit.json");
 

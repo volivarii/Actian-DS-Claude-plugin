@@ -21,8 +21,8 @@
 var fs = require("fs");
 var path = require("path");
 
-var transformRegistry = require("../transformers/transform-registry.js");
-var transformStyles = require("../transformers/transform-styles.js");
+var transformRegistry = require("../transformers/transformers/transform-registry.js");
+var transformStyles = require("../transformers/transformers/transform-styles.js");
 var classify = require("../changelog/changelog-classifier.js");
 var defaultRest = require("./figma-rest.js");
 

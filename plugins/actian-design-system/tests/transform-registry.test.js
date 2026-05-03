@@ -6,7 +6,7 @@ var assert = require("node:assert");
 var path = require("path");
 var fs = require("fs");
 
-var transform = require("../scripts/transformers/transform-registry.js");
+var transform = require("../scripts/transformers/transformers/transform-registry.js");
 
 var subset = JSON.parse(fs.readFileSync(
   path.join(__dirname, "fixtures", "rest", "dskit-subset.json"),

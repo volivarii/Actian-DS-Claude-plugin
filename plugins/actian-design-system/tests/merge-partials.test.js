@@ -36,7 +36,7 @@ function assert(condition, message) {
 // ---------------------------------------------------------------------------
 
 const ROOT = path.resolve(__dirname, "..");
-const SCRIPT = path.join(ROOT, "scripts", "merge-partials.js");
+const SCRIPT = path.join(ROOT, "scripts", "transformers", "merge-partials.js");
 const TEST_DIR = path.join(__dirname, ".test-partials");
 
 // ---------------------------------------------------------------------------

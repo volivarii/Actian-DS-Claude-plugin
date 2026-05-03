@@ -8,7 +8,7 @@ var fs = require("fs");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 var renderer = require(
-  path.join(PLUGIN_ROOT, "scripts", "render-component-reference.js"),
+  path.join(PLUGIN_ROOT, "scripts", "renderers", "render-component-reference.js"),
 );
 
 var FIXTURE_DIR = path.join(

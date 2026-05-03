@@ -4,7 +4,7 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
-var transform = require("../scripts/transformers/transform-styles.js");
+var transform = require("../scripts/transformers/transformers/transform-styles.js");
 
 // Sample REST /styles entry shapes
 var SAMPLE_STYLES_PAYLOAD = {

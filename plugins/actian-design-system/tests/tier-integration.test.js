@@ -53,7 +53,7 @@ function loadFixture(name) {
 
 const RENDERER_PATH = path.join(
   __dirname,
-  "../scripts/html-renderers/flow-renderer.js",
+  "../scripts/renderers/html-renderers/flow-renderer.js",
 );
 const rendererCode = fs.readFileSync(RENDERER_PATH, "utf8");
 
@@ -67,7 +67,7 @@ const mockDocument = {
   },
 };
 
-const fmHtmlMap = require("../scripts/html-renderers/fm-html-map");
+const fmHtmlMap = require("../scripts/renderers/html-renderers/fm-html-map");
 const mockWindow = { fmHtmlMap: fmHtmlMap };
 
 new Function("window", "document", rendererCode)(mockWindow, mockDocument);

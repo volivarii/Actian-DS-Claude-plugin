@@ -44,7 +44,7 @@ Deck outline: N slides (cover + N body + back cover). Reply:
    - **Parallel mode (6+ slides):** Dispatch `slide-generator` agents in parallel, splitting slides into batches of 3-4. Each agent receives: batch index, slide details (type, title, content description), presentation context, meta object, output path to `.partial/`. After all complete, merge:
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/merge-partials.js" \
+     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
        --type presentation --partials-dir {project_working_directory}/presentations/[topic-slug]/.partial \
        --output {project_working_directory}/presentations/[topic-slug]/slide-data.json
      ```
@@ -78,7 +78,7 @@ Write small direct Figma Plugin API calls using patterns from `references/figma/
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" \
+"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
   slide-data.json --type presentation \
   -o {project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.html
 ```

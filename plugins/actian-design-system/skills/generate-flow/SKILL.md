@@ -195,7 +195,7 @@ If any condition fails, fall back per the table below.
    - **Parallel mode (6+ screens):** Dispatch `screen-generator` agents in batches of 2-3. **When `meta.references[]` has fingerprints attached (C-vision step 4.5)**, copy the full `meta.references[]` array into each batch's dispatch prompt as a "Reference fingerprints" input block — see `agents/screen-generator.md`. Without this, the agent will report empty fingerprints even though step 4.5 persisted them. Merge with:
      ```bash
      source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/merge-partials.js" \
+     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
        --type flow --partials-dir {project_working_directory}/flows/.partial \
        --output {project_working_directory}/flows/flow-data.json
      ```
@@ -246,8 +246,8 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
 8. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/flows/[feature]-flow.html
-   BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/ensure-server.sh "{project_working_directory}" 8765)
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/flows/[feature]-flow.html
+   BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/renderers/ensure-server.sh "{project_working_directory}" 8765)
    ```
 9. Parity check (opt-in) → `references/figma/parity-check.md` + `references/ds-rules/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
 

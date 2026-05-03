@@ -54,7 +54,7 @@ function section(name) {
 
 const RENDERER_PATH = path.join(
   __dirname,
-  "../scripts/html-renderers/flow-renderer.js",
+  "../scripts/renderers/html-renderers/flow-renderer.js",
 );
 const code = fs.readFileSync(RENDERER_PATH, "utf8");
 
@@ -70,7 +70,7 @@ const mockDocument = {
 };
 
 // Pre-load fm-html-map so flow-renderer can resolve shared functions
-const fmHtmlMap = require("../scripts/html-renderers/fm-html-map");
+const fmHtmlMap = require("../scripts/renderers/html-renderers/fm-html-map");
 const mockWindow = { fmHtmlMap: fmHtmlMap };
 
 // Execute the IIFE with mocked globals

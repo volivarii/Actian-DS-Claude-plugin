@@ -19,7 +19,7 @@ var fs = require("fs");
 // Paths
 // ---------------------------------------------------------------------------
 
-var SCRIPT = path.join(__dirname, "..", "scripts", "assemble-preview.js");
+var SCRIPT = path.join(__dirname, "..", "scripts", "renderers", "assemble-preview.js");
 var FIXTURES = path.join(__dirname, "fixtures");
 var FLOW_FIXTURE = path.join(FIXTURES, "admin-dashboard.json");
 var BRIEF_FIXTURE = path.join(FIXTURES, "button-brief-data.json");

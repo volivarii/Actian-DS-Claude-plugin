@@ -18,7 +18,7 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
-var transform = require("../scripts/transformers/transform-registry.js");
+var transform = require("../scripts/transformers/transformers/transform-registry.js");
 var trimDescription = transform._trimDescription;
 
 // ---------- helpers ----------
