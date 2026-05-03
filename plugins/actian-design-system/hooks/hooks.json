@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/check-update.sh\"",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/check-update.sh\"",
             "timeout": 5
           },
           {
@@ -23,7 +23,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/allow-internal-reads.sh\"",
+            "command": "\"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/allow-internal-reads.sh\"",
             "async": false
           }
         ]
@@ -33,12 +33,12 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/check-bare-node.sh\"",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/check-bare-node.sh\"",
             "async": false
           },
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/check-server-dir.sh\"",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/check-server-dir.sh\"",
             "async": false
           }
         ]
@@ -48,7 +48,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/check-output-path.sh\"",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/check-output-path.sh\"",
             "async": false
           }
         ]
