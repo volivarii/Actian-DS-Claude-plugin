@@ -17,7 +17,7 @@ var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 var DOCS_DIR = path.join(PLUGIN_ROOT, "docs", "generated");
-var shared = require("./shared-constants");
+var shared = require("./lib/shared-constants");
 
 // Build reverse lookup: componentKey → FM ref name
 function buildKeyToRefMap() {

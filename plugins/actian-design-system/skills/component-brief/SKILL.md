@@ -163,7 +163,7 @@ Brief ready (N cards). Reply:
 ## Step 2.75 — Render HTML
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/assemble-preview.js" \
   {project_working_directory}/components/[name]/[name]-brief-data.json \
   --type brief -o {project_working_directory}/components/[name]/[name]-spec.html

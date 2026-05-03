@@ -12,7 +12,7 @@ const fs = require("fs");
 const path = require("path");
 
 const { validate } = require("../scripts/validate-flow-data.js");
-const sc = require("../scripts/shared-constants.js");
+const sc = require("../scripts/lib/shared-constants.js");
 
 let passed = 0;
 let failed = 0;

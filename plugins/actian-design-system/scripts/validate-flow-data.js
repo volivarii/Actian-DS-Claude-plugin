@@ -6,7 +6,7 @@ var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 var rules = require(path.join(__dirname, "component-property-rules.js"));
-var resolver = require(path.join(__dirname, "intent-resolver.js"));
+var resolver = require(path.join(__dirname, "lib", "intent-resolver.js"));
 
 // ---------------------------------------------------------------------------
 // Pass 1: registry helpers + INSTANCE-node walker
@@ -953,7 +953,7 @@ function validate(data, opts) {
   // Always-stamp rule (B-refine.1): every screen gets a stable id before
   // any check runs. Idempotent — preserves user-supplied ids; derives
   // <feature-slug>-<index> for missing ones.
-  require("./screen-id.js").stampScreenIds(data);
+  require("./lib/screen-id.js").stampScreenIds(data);
 
   // Helper: derive screen.id from a finding path like "screens[2].content[3]..."
   function screenIdFromPath(p) {
@@ -1333,7 +1333,7 @@ if (require.main === module) {
     "missing-justification": true,
   };
 
-  var runGate = require("./scope-aware-runner.js").runGate;
+  var runGate = require("./lib/scope-aware-runner.js").runGate;
   var result = runGate(module.exports, data, {
     skipTokens: skipTokens,
     skipTerminology: skipTerminology,

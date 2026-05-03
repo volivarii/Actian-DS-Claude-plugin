@@ -7,7 +7,9 @@ var path = require("path");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..");
 
-var sc = require(path.join(PLUGIN_ROOT, "scripts", "shared-constants.js"));
+var sc = require(
+  path.join(PLUGIN_ROOT, "scripts", "lib", "shared-constants.js"),
+);
 
 describe("shared-constants", function () {
   describe("FM_SLUGS", function () {
@@ -24,7 +26,9 @@ describe("shared-constants", function () {
     });
 
     it("has entries for all FM components in registry (or fallback)", function () {
-      var fmkit = require(path.join(PLUGIN_ROOT, "docs", "generated", "fmkit.json"));
+      var fmkit = require(
+        path.join(PLUGIN_ROOT, "docs", "generated", "fmkit.json"),
+      );
       var registrySlugs = Object.keys(fmkit.components);
       var mappedSlugs = Object.values(sc.FM_SLUGS);
       // Slugs covered by hardcoded fallback keys are expected to be missing
@@ -67,7 +71,9 @@ describe("shared-constants", function () {
     });
 
     it("has valid registry references", function () {
-      var dskit = require(path.join(PLUGIN_ROOT, "docs", "generated", "dskit.json"));
+      var dskit = require(
+        path.join(PLUGIN_ROOT, "docs", "generated", "dskit.json"),
+      );
       var registrySlugs = Object.keys(dskit.components);
       var mappedSlugs = Object.values(sc.DS_SLUGS);
       var invalid = mappedSlugs.filter(function (slug) {

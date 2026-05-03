@@ -4,7 +4,7 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var path = require("path");
-var resolve = require("../scripts/resolve-unit.js");
+var resolve = require("../scripts/lib/resolve-unit.js");
 
 var FIXTURE = path.join(__dirname, "fixtures", "refine-manifest.json");
 var FIXTURE_PRE = path.join(

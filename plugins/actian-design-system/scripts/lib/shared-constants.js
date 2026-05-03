@@ -21,6 +21,7 @@ function loadRegistry(name) {
     const filePath = path.join(
       __dirname,
       "..",
+      "..",
       "docs",
       "generated",
       name + ".json",

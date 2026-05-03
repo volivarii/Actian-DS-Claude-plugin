@@ -6,7 +6,7 @@ var assert = require("node:assert");
 var path = require("path");
 
 var resolver = require(
-  path.resolve(__dirname, "..", "scripts", "intent-resolver.js"),
+  path.resolve(__dirname, "..", "scripts", "lib", "intent-resolver.js"),
 );
 
 describe("intent-resolver", function () {

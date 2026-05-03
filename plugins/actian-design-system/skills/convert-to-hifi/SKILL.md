@@ -86,7 +86,7 @@ Assemble the flat node list into a tree structure (group by path) and write as `
 The raw Figma tree uses `componentKey` fields. Convert to the flow-data format expected by the transform script using the converter:
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/fm-tree-to-flow-data.js" \
   {project_working_directory}/components/hifi/[frame-name]-fm-tree.json \
   -o {project_working_directory}/components/hifi/[frame-name]-flow-data.json

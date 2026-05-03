@@ -1524,7 +1524,7 @@ describe("validate-flow-data", function () {
   });
 
   describe("gateConfig.filterFindingsByScope (B-refine.1)", function () {
-    var { runGate } = require("../scripts/scope-aware-runner.js");
+    var { runGate } = require("../scripts/lib/scope-aware-runner.js");
 
     function makeData() {
       return {
@@ -2033,8 +2033,8 @@ describe("validate-flow-data", function () {
 describe("refine pipeline integration (B-refine.2)", function () {
   var fs = require("fs");
   var path = require("path");
-  var { deriveScope } = require("../scripts/derive-scope.js");
-  var { runGate } = require("../scripts/scope-aware-runner.js");
+  var { deriveScope } = require("../scripts/lib/derive-scope.js");
+  var { runGate } = require("../scripts/lib/scope-aware-runner.js");
 
   function load(name) {
     return JSON.parse(

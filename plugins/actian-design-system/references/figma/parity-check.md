@@ -80,7 +80,7 @@ Never re-run the full checklist for nodes that already passed. Only re-check the
 If a `.last-push.json` already exists at the manifest location, run the changelog script before overwriting:
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/changelog.js" \
   --previous <manifest-path>/.last-push.json \
   --source <source-data-file> \
@@ -96,7 +96,7 @@ After the fix loop ends, write a `.last-push.json` file to the appropriate direc
 **`pushedNodes[].screenId` (v1.56.0+):** when writing each `pushedNodes` entry, set
 `screenId` to the matching `screens[i].id` from `flow-data.json`. Index parity:
 `pushedNodes[i]` corresponds to `screens[i]` in push order. This field is required for
-B-refine.2 refine resolution (`scripts/resolve-unit.js`); refines against manifests that
+B-refine.2 refine resolution (`scripts/lib/resolve-unit.js`); refines against manifests that
 omit it fall through to greenfield with a documented warning.
 
 **Schema:**
@@ -140,7 +140,7 @@ omit it fall through to greenfield with a documented warning.
 - `pushedNodes` — one entry per node pushed. Each entry contains:
   - `id` (string, required) — Figma node ID of the pushed unit root
   - `label` (string, required) — human-readable name shown in the Figma layers panel
-  - `screenId` (string|null, optional, since v1.56.0) — kebab-case data-model id from `flow-data.json.screens[].id`. Required for B-refine.2 refine resolution (`scripts/resolve-unit.js`). Manifests written before v1.56.0 omit this; refines against those manifests fall through to greenfield generation with a documented warning.
+  - `screenId` (string|null, optional, since v1.56.0) — kebab-case data-model id from `flow-data.json.screens[].id`. Required for B-refine.2 refine resolution (`scripts/lib/resolve-unit.js`). Manifests written before v1.56.0 omit this; refines against those manifests fall through to greenfield generation with a documented warning.
   - `tier` (string, optional) — classifier output: `"recognized"` | `"adapted"` | `"improvised"`
   - `confidence` (number, optional) — 0.0 to 1.0; classifier confidence
   - `matchedRecipe` (string|null, optional) — recipe ID at tier 1; at tier 2 (deviation sub-case) the deviated-from recipe ID; null when tier 2 is a composition or when tier 3
@@ -177,7 +177,7 @@ Write the manifest as the final step. Do not prompt the designer for confirmatio
 
 Alongside `.last-push.json`, a sibling file `flow-data.snapshot.json` carries the full
 `flow-data.json` snapshot at push time. The `/generate-flow` skill writes it via
-`scripts/snapshot-store.js` as the very last step of the push sequence (after
+`scripts/lib/snapshot-store.js` as the very last step of the push sequence (after
 `.last-push.json`). The refine path (`SKILL.md` Refine shape Behavior) reads it via
 `snapshot-store.read()` to load the prior data model for AI editing.
 
@@ -191,7 +191,7 @@ and falls through to greenfield. Out-of-band cleanup not needed.
 Before writing the manifest, compute the enrichment fields:
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 SOURCE_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('$SOURCE_FILE')).digest('hex'))")
 TOKEN_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('${CLAUDE_PLUGIN_ROOT}/tokens/actian-ds.tokens.json')).digest('hex'))")
 PROPERTY_DEFAULTS_HASH=$("$NODE_BIN" -e "

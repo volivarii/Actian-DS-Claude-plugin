@@ -20,8 +20,8 @@
 
 var fs = require("fs");
 var path = require("path");
-var resolver = require("./intent-resolver.js");
-var shared = require("./shared-constants.js");
+var resolver = require("./lib/intent-resolver.js");
+var shared = require("./lib/shared-constants.js");
 
 // ---------------------------------------------------------------------------
 // Paths

@@ -71,7 +71,7 @@ When the fingerprint pushes you off the obvious tier-1 recipe and the screen end
 **Run this once per screen before writing INSTANCE nodes.** Do NOT do per-component registry dumps with python or repeated reads of `docs/generated/fmkit.json` / `docs/generated/dskit.json` — use the CLI helper:
 
 ```bash
-source "${CLAUDE_PLUGIN_ROOT}/scripts/resolve-node.sh"
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/component-property-rules.js" \
   --inspect <slug1>,<slug2>,<slug3>,...
 ```

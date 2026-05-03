@@ -6,7 +6,7 @@ var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
 var os = require("os");
-var store = require("../scripts/snapshot-store.js");
+var store = require("../scripts/lib/snapshot-store.js");
 
 var tmpDir;
 
