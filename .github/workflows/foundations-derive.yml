@@ -12,9 +12,9 @@ on:
   pull_request:
     paths:
       - 'plugins/actian-design-system/docs/foundations.md'
-      - 'plugins/actian-design-system/scripts/derive-foundations.js'
-      - 'plugins/actian-design-system/scripts/foundations-parser/**'
-      - 'plugins/actian-design-system/scripts/foundations.parser.json'
+      - 'plugins/actian-design-system/scripts/foundations/derive-foundations.js'
+      - 'plugins/actian-design-system/scripts/foundations/foundations-parser/**'
+      - 'plugins/actian-design-system/scripts/foundations/foundations.parser.json'
 
 jobs:
   derive:
@@ -42,7 +42,7 @@ jobs:
 
       - name: Derive foundations JSONs
         working-directory: plugins/actian-design-system
-        run: node scripts/derive-foundations.js
+        run: node scripts/foundations/derive-foundations.js
 
       - name: Detect changes
         id: diff
