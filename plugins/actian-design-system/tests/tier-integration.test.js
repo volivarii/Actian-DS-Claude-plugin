@@ -5,7 +5,7 @@
  * tier-integration.test.js — End-to-end tier metadata flow:
  * fixture → validator → buildTierSummary → flow-renderer screen() badge
  *
- * Run: source scripts/resolve-node.sh && "$NODE_BIN" tests/tier-integration.test.js
+ * Run: source scripts/lib/resolve-node.sh && "$NODE_BIN" tests/tier-integration.test.js
  */
 
 const fs = require("fs");
