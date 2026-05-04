@@ -383,6 +383,14 @@ async function run(opts) {
         indexPath: indexFile,
       });
       stubsGenerated = stubResult.generated;
+    } else {
+      console.warn(
+        "[sync] auto-stub skipped: missing " +
+          (fs.existsSync(registryFile)
+            ? ""
+            : "registry (" + registryFile + ") ") +
+          (fs.existsSync(indexFile) ? "" : "index (" + indexFile + ")"),
+      );
     }
   }
 

@@ -643,6 +643,37 @@ describe("sync-from-figma", function () {
       assert.deepStrictEqual(r.stubsGenerated, []);
     });
 
+    it("warns and skips when guidelinesDir exists but _index.json is missing", async function () {
+      var dirs = freshDirs();
+      var gd = path.join(dirs.root, "docs", "component-guidelines");
+      fs.mkdirSync(gd, { recursive: true });
+      // intentionally do NOT write _index.json
+      var warnings = [];
+      var origWarn = console.warn;
+      console.warn = function (msg) {
+        warnings.push(msg);
+      };
+      try {
+        var r = await sync.run(
+          baseOpts(dirs, {
+            rest: buildMockRest(buildBasicData()),
+            pluginDir: dirs.root,
+            guidelinesDir: gd,
+          }),
+        );
+        assert.strictEqual(r.category, "additive");
+        assert.deepStrictEqual(r.stubsGenerated, []);
+        assert.ok(
+          warnings.some(function (w) {
+            return /auto-stub skipped/.test(w) && /index/.test(w);
+          }),
+          "should warn about missing index",
+        );
+      } finally {
+        console.warn = origWarn;
+      }
+    });
+
     it("REGRESSION GUARD — does NOT generate stubs when guidelinesDir is omitted, even on additive verdict", async function () {
       // Mirrors the v1.63.1 auto-bump regression guard. Tests omit
       // guidelinesDir; the hook must be silently skipped, not fall back
