@@ -55,6 +55,17 @@ Read `sync-phases.md` for the implementation details of the phase you are execut
 
 **Phase dependencies:** Phase 4 requires Phase 2 data. All other phases are independent.
 
+## After sync — bump plugin.json
+
+When this skill writes any generated file (Phase 1, 3, 4 outputs), Cowork's plugin cache won't pick up the change until `plugin.json` version bumps. **Bump `plugin.json` patch (e.g., `1.63.1` → `1.63.2`) before committing** — otherwise designers running on Cowork keep reading stale cached registries/tokens until the next manual ship. The auto-sync GitHub workflow handles this for nightly REST runs (Phases 1 + 3); for manual `/sync-design-system` runs, the bump is your responsibility per `feedback_version_bump.md`.
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/scripts/lib/bump-version.js" \
+  "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/plugin.json" patch
+```
+
+Skip the bump only if the sync was a verification noop (no files actually changed).
+
 ## Extraction constraints
 
 - 20KB response limit per `use_figma` — split large extractions

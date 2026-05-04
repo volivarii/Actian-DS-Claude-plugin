@@ -95,6 +95,7 @@ jobs:
           delete-branch: true
           add-paths: |
             plugins/actian-design-system/docs/**
+            plugins/actian-design-system/.claude-plugin/plugin.json
 
       - name: Enable auto-merge for additive PRs
         if: steps.verdict.outputs.category == 'additive' && steps.cpr.outputs.pull-request-number

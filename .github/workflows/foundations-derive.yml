@@ -56,13 +56,20 @@ jobs:
             git diff --stat -- plugins/actian-design-system/docs/generated/foundations/
           fi
 
+      - name: Auto-bump plugin.json patch
+        if: steps.diff.outputs.changed == 'true'
+        working-directory: plugins/actian-design-system
+        run: |
+          node scripts/lib/bump-version.js .claude-plugin/plugin.json patch
+
       - name: Commit derived JSONs back to PR
         if: steps.diff.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add plugins/actian-design-system/docs/generated/foundations/
-          git commit -m "chore(foundations): regenerate JSONs from foundations.md"
+          git add plugins/actian-design-system/docs/generated/foundations/ \
+                  plugins/actian-design-system/.claude-plugin/plugin.json
+          git commit -m "chore(foundations): regenerate JSONs from foundations.md + bump patch"
           git push
 
       - name: Post semantic-diff comment
