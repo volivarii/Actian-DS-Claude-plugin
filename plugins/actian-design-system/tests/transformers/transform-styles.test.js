@@ -4,19 +4,55 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
-var transform = require("../../scripts/transformers/transformers/transform-styles.js");
+var transform = require("../../scripts/transformers/transform-styles.js");
 
 // Sample REST /styles entry shapes
 var SAMPLE_STYLES_PAYLOAD = {
   meta: {
     styles: [
-      { key: "effect-key-1", node_id: "100:1", style_type: "EFFECT", name: "shadow-sm", description: "" },
-      { key: "effect-key-2", node_id: "100:2", style_type: "EFFECT", name: "shadow-md", description: "" },
-      { key: "text-key-1",   node_id: "200:1", style_type: "TEXT",   name: "heading-display", description: "" },
-      { key: "text-key-2",   node_id: "200:2", style_type: "TEXT",   name: "body-standard", description: "" },
+      {
+        key: "effect-key-1",
+        node_id: "100:1",
+        style_type: "EFFECT",
+        name: "shadow-sm",
+        description: "",
+      },
+      {
+        key: "effect-key-2",
+        node_id: "100:2",
+        style_type: "EFFECT",
+        name: "shadow-md",
+        description: "",
+      },
+      {
+        key: "text-key-1",
+        node_id: "200:1",
+        style_type: "TEXT",
+        name: "heading-display",
+        description: "",
+      },
+      {
+        key: "text-key-2",
+        node_id: "200:2",
+        style_type: "TEXT",
+        name: "body-standard",
+        description: "",
+      },
       // Non-effect, non-text — should be ignored
-      { key: "fill-key",     node_id: "300:1", style_type: "FILL",   name: "primary-fill", description: "" },
-      { key: "grid-key",     node_id: "300:2", style_type: "GRID",   name: "12-col grid", description: "" },
+      {
+        key: "fill-key",
+        node_id: "300:1",
+        style_type: "FILL",
+        name: "primary-fill",
+        description: "",
+      },
+      {
+        key: "grid-key",
+        node_id: "300:2",
+        style_type: "GRID",
+        name: "12-col grid",
+        description: "",
+      },
     ],
   },
 };
@@ -29,12 +65,22 @@ var SAMPLE_NODES = {
       name: "shadow-sm",
       type: "RECTANGLE",
       effects: [
-        { type: "DROP_SHADOW", visible: true,
+        {
+          type: "DROP_SHADOW",
+          visible: true,
           color: { r: 0, g: 0, b: 0.078, a: 0.08 },
-          offset: { x: 0, y: 1 }, radius: 7, spread: 3 },
-        { type: "DROP_SHADOW", visible: true,
+          offset: { x: 0, y: 1 },
+          radius: 7,
+          spread: 3,
+        },
+        {
+          type: "DROP_SHADOW",
+          visible: true,
           color: { r: 0, g: 0, b: 0.122, a: 0.12 },
-          offset: { x: 0, y: 1 }, radius: 3, spread: 1 },
+          offset: { x: 0, y: 1 },
+          radius: 3,
+          spread: 1,
+        },
       ],
     },
   },
@@ -44,9 +90,14 @@ var SAMPLE_NODES = {
       name: "shadow-md",
       type: "RECTANGLE",
       effects: [
-        { type: "DROP_SHADOW", visible: true,
-          color: { r: 0, g: 0, b: 0.302, a: 0.30 },
-          offset: { x: 0, y: 1 }, radius: 3, spread: 0 },
+        {
+          type: "DROP_SHADOW",
+          visible: true,
+          color: { r: 0, g: 0, b: 0.302, a: 0.3 },
+          offset: { x: 0, y: 1 },
+          radius: 3,
+          spread: 0,
+        },
       ],
     },
   },
@@ -92,29 +143,43 @@ var SAMPLE_NODES = {
 
 describe("transform-styles", function () {
   describe("output shape", function () {
-    var result = transform({ stylesPayload: SAMPLE_STYLES_PAYLOAD, nodes: SAMPLE_NODES });
+    var result = transform({
+      stylesPayload: SAMPLE_STYLES_PAYLOAD,
+      nodes: SAMPLE_NODES,
+    });
 
     it("returns { textStyles, effectStyles } only", function () {
-      assert.deepStrictEqual(Object.keys(result).sort(), ["effectStyles", "textStyles"]);
+      assert.deepStrictEqual(Object.keys(result).sort(), [
+        "effectStyles",
+        "textStyles",
+      ]);
     });
 
     it("ignores FILL/GRID styles", function () {
-      var allKeys = result.textStyles.concat(result.effectStyles).map(s => s.key);
+      var allKeys = result.textStyles
+        .concat(result.effectStyles)
+        .map((s) => s.key);
       assert.ok(allKeys.indexOf("fill-key") === -1);
       assert.ok(allKeys.indexOf("grid-key") === -1);
     });
   });
 
   describe("effect styles", function () {
-    var result = transform({ stylesPayload: SAMPLE_STYLES_PAYLOAD, nodes: SAMPLE_NODES });
+    var result = transform({
+      stylesPayload: SAMPLE_STYLES_PAYLOAD,
+      nodes: SAMPLE_NODES,
+    });
 
     it("extracts both effect entries", function () {
       assert.strictEqual(result.effectStyles.length, 2);
-      assert.deepStrictEqual(result.effectStyles.map(e => e.name).sort(), ["shadow-md", "shadow-sm"]);
+      assert.deepStrictEqual(result.effectStyles.map((e) => e.name).sort(), [
+        "shadow-md",
+        "shadow-sm",
+      ]);
     });
 
     it("preserves effect array shape (type/color/offset/radius/spread/visible)", function () {
-      var sm = result.effectStyles.find(e => e.name === "shadow-sm");
+      var sm = result.effectStyles.find((e) => e.name === "shadow-sm");
       assert.strictEqual(sm.key, "effect-key-1");
       assert.strictEqual(sm.effects.length, 2);
       var first = sm.effects[0];
@@ -129,14 +194,17 @@ describe("transform-styles", function () {
   });
 
   describe("text styles", function () {
-    var result = transform({ stylesPayload: SAMPLE_STYLES_PAYLOAD, nodes: SAMPLE_NODES });
+    var result = transform({
+      stylesPayload: SAMPLE_STYLES_PAYLOAD,
+      nodes: SAMPLE_NODES,
+    });
 
     it("extracts both text entries", function () {
       assert.strictEqual(result.textStyles.length, 2);
     });
 
     it("converts lineHeight + letterSpacing to {unit, value} shape", function () {
-      var hd = result.textStyles.find(s => s.name === "heading-display");
+      var hd = result.textStyles.find((s) => s.name === "heading-display");
       assert.strictEqual(hd.fontFamily, "Roboto");
       assert.strictEqual(hd.fontStyle, "SemiBold");
       assert.strictEqual(hd.fontSize, 24);
@@ -145,13 +213,13 @@ describe("transform-styles", function () {
     });
 
     it("preserves textDecoration + textCase when explicitly set", function () {
-      var bs = result.textStyles.find(s => s.name === "body-standard");
+      var bs = result.textStyles.find((s) => s.name === "body-standard");
       assert.strictEqual(bs.textDecoration, "UNDERLINE");
       assert.strictEqual(bs.textCase, "UPPER");
     });
 
     it("defaults textDecoration=NONE and textCase=ORIGINAL when absent", function () {
-      var hd = result.textStyles.find(s => s.name === "heading-display");
+      var hd = result.textStyles.find((s) => s.name === "heading-display");
       assert.strictEqual(hd.textDecoration, "NONE");
       assert.strictEqual(hd.textCase, "ORIGINAL");
     });
@@ -159,16 +227,29 @@ describe("transform-styles", function () {
 
   describe("error handling", function () {
     it("returns empty arrays when stylesPayload has no styles", function () {
-      var result = transform({ stylesPayload: { meta: { styles: [] } }, nodes: {} });
+      var result = transform({
+        stylesPayload: { meta: { styles: [] } },
+        nodes: {},
+      });
       assert.deepStrictEqual(result, { textStyles: [], effectStyles: [] });
     });
 
     it("skips style entries whose node payload is missing", function () {
       // Effect style listed in /styles but missing from /nodes — skip silently
       var result = transform({
-        stylesPayload: { meta: { styles: [
-          { key: "k1", node_id: "X:Y", style_type: "EFFECT", name: "missing", description: "" },
-        ] } },
+        stylesPayload: {
+          meta: {
+            styles: [
+              {
+                key: "k1",
+                node_id: "X:Y",
+                style_type: "EFFECT",
+                name: "missing",
+                description: "",
+              },
+            ],
+          },
+        },
         nodes: {}, // no node entry for X:Y
       });
       assert.strictEqual(result.effectStyles.length, 0);

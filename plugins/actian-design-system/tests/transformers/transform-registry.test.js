@@ -6,12 +6,14 @@ var assert = require("node:assert");
 var path = require("path");
 var fs = require("fs");
 
-var transform = require("../../scripts/transformers/transformers/transform-registry.js");
+var transform = require("../../scripts/transformers/transform-registry.js");
 
-var subset = JSON.parse(fs.readFileSync(
-  path.join(__dirname, "..", "fixtures", "rest", "dskit-subset.json"),
-  "utf8"
-));
+var subset = JSON.parse(
+  fs.readFileSync(
+    path.join(__dirname, "..", "fixtures", "rest", "dskit-subset.json"),
+    "utf8",
+  ),
+);
 
 describe("transform-registry", function () {
   describe("output shape", function () {
@@ -50,8 +52,19 @@ describe("transform-registry", function () {
     var button = result.components.button;
 
     it("has all required fields", function () {
-      var expectedKeys = ["name", "key", "nodeId", "importMethod", "description",
-        "lastSynced", "page", "properties", "nestedComponents", "guidelinesFile", "variants"];
+      var expectedKeys = [
+        "name",
+        "key",
+        "nodeId",
+        "importMethod",
+        "description",
+        "lastSynced",
+        "page",
+        "properties",
+        "nestedComponents",
+        "guidelinesFile",
+        "variants",
+      ];
       expectedKeys.forEach(function (k) {
         assert.ok(k in button, "missing key: " + k);
       });
@@ -59,7 +72,10 @@ describe("transform-registry", function () {
 
     it("identity fields match REST source", function () {
       assert.strictEqual(button.name, "Button");
-      assert.strictEqual(button.key, "5a6d10d26bef3cc83955bf32a318c6b4682f25d3");
+      assert.strictEqual(
+        button.key,
+        "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
+      );
       assert.strictEqual(button.nodeId, "7206:2643");
       assert.strictEqual(button.importMethod, "set");
     });
@@ -88,7 +104,11 @@ describe("transform-registry", function () {
       assert.ok(button.properties);
       // VARIANT typed props (Type/Size/State) should NOT appear in properties
       var keys = Object.keys(button.properties);
-      assert.ok(!keys.some(function (k) { return k === "Type" || k === "Size" || k === "State"; }));
+      assert.ok(
+        !keys.some(function (k) {
+          return k === "Type" || k === "Size" || k === "State";
+        }),
+      );
     });
 
     it("properties preserve hash-suffixed keys", function () {
@@ -126,12 +146,40 @@ describe("transform-registry", function () {
         library: "ds",
         fileKey: "abc",
         componentSets: [
-          { key: "k1", node_id: "1:1", name: "Button", description: "", containing_frame: { pageName: "Button" } },
-          { key: "k2", node_id: "2:2", name: ".Internal", description: "", containing_frame: { pageName: "Internal" } },
+          {
+            key: "k1",
+            node_id: "1:1",
+            name: "Button",
+            description: "",
+            containing_frame: { pageName: "Button" },
+          },
+          {
+            key: "k2",
+            node_id: "2:2",
+            name: ".Internal",
+            description: "",
+            containing_frame: { pageName: "Internal" },
+          },
         ],
         componentSetNodes: {
-          "1:1": { document: { id: "1:1", name: "Button", type: "COMPONENT_SET", componentPropertyDefinitions: {}, children: [] } },
-          "2:2": { document: { id: "2:2", name: ".Internal", type: "COMPONENT_SET", componentPropertyDefinitions: {}, children: [] } },
+          "1:1": {
+            document: {
+              id: "1:1",
+              name: "Button",
+              type: "COMPONENT_SET",
+              componentPropertyDefinitions: {},
+              children: [],
+            },
+          },
+          "2:2": {
+            document: {
+              id: "2:2",
+              name: ".Internal",
+              type: "COMPONENT_SET",
+              componentPropertyDefinitions: {},
+              children: [],
+            },
+          },
         },
         standalones: [],
         standaloneNodes: {},
@@ -149,12 +197,38 @@ describe("transform-registry", function () {
         componentSets: [],
         componentSetNodes: {},
         standalones: [
-          { key: "k1", node_id: "1:1", name: ".Hidden", description: "", containing_frame: { pageName: "Foo" } },
-          { key: "k2", node_id: "2:2", name: "Logo", description: "", containing_frame: { pageName: "Brand" } },
+          {
+            key: "k1",
+            node_id: "1:1",
+            name: ".Hidden",
+            description: "",
+            containing_frame: { pageName: "Foo" },
+          },
+          {
+            key: "k2",
+            node_id: "2:2",
+            name: "Logo",
+            description: "",
+            containing_frame: { pageName: "Brand" },
+          },
         ],
         standaloneNodes: {
-          "1:1": { document: { id: "1:1", name: ".Hidden", type: "COMPONENT", componentPropertyDefinitions: {} } },
-          "2:2": { document: { id: "2:2", name: "Logo", type: "COMPONENT", componentPropertyDefinitions: {} } },
+          "1:1": {
+            document: {
+              id: "1:1",
+              name: ".Hidden",
+              type: "COMPONENT",
+              componentPropertyDefinitions: {},
+            },
+          },
+          "2:2": {
+            document: {
+              id: "2:2",
+              name: "Logo",
+              type: "COMPONENT",
+              componentPropertyDefinitions: {},
+            },
+          },
         },
       };
       var result = transform(input);
@@ -171,18 +245,35 @@ describe("transform-registry", function () {
         componentSets: [],
         componentSetNodes: {},
         standalones: [
-          { key: "k1", node_id: "1:1", name: "Logo", description: "Brand mark", containing_frame: { pageName: "Brand" } },
+          {
+            key: "k1",
+            node_id: "1:1",
+            name: "Logo",
+            description: "Brand mark",
+            containing_frame: { pageName: "Brand" },
+          },
         ],
         standaloneNodes: {
-          "1:1": { document: { id: "1:1", name: "Logo", type: "COMPONENT", componentPropertyDefinitions: {
-            "Theme#100:0": { type: "BOOLEAN", defaultValue: false },
-          } } },
+          "1:1": {
+            document: {
+              id: "1:1",
+              name: "Logo",
+              type: "COMPONENT",
+              componentPropertyDefinitions: {
+                "Theme#100:0": { type: "BOOLEAN", defaultValue: false },
+              },
+            },
+          },
         },
       };
       var result = transform(input);
       var logo = result.components.logo;
       assert.strictEqual(logo.importMethod, "single");
-      assert.strictEqual(logo.variants, undefined, "single components should not have variants object");
+      assert.strictEqual(
+        logo.variants,
+        undefined,
+        "single components should not have variants object",
+      );
       assert.ok("Theme#100:0" in logo.properties);
     });
   });
@@ -194,10 +285,24 @@ describe("transform-registry", function () {
         library: "ds",
         fileKey: "abc",
         componentSets: [
-          { key: "k1", node_id: "1:1", name: "Long", description: long, containing_frame: { pageName: "Foo" } },
+          {
+            key: "k1",
+            node_id: "1:1",
+            name: "Long",
+            description: long,
+            containing_frame: { pageName: "Foo" },
+          },
         ],
         componentSetNodes: {
-          "1:1": { document: { id: "1:1", name: "Long", type: "COMPONENT_SET", componentPropertyDefinitions: {}, children: [] } },
+          "1:1": {
+            document: {
+              id: "1:1",
+              name: "Long",
+              type: "COMPONENT_SET",
+              componentPropertyDefinitions: {},
+              children: [],
+            },
+          },
         },
         standalones: [],
         standaloneNodes: {},

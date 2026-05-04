@@ -18,7 +18,7 @@
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
-var transform = require("../../scripts/transformers/transformers/transform-registry.js");
+var transform = require("../../scripts/transformers/transform-registry.js");
 var trimDescription = transform._trimDescription;
 
 // ---------- helpers ----------
@@ -82,11 +82,17 @@ describe("sync-description-capture", function () {
     var entry = result.components.button;
 
     it("entry has description field", function () {
-      assert.ok("description" in entry, "description field missing from registry entry");
+      assert.ok(
+        "description" in entry,
+        "description field missing from registry entry",
+      );
     });
 
     it("entry.description matches the source node.description", function () {
-      assert.strictEqual(entry.description, "Primary trigger for a specific action.");
+      assert.strictEqual(
+        entry.description,
+        "Primary trigger for a specific action.",
+      );
     });
   });
 
@@ -103,7 +109,11 @@ describe("sync-description-capture", function () {
     var entry = result.components.badge;
 
     it("entry.description defaults to empty string (not null or undefined)", function () {
-      assert.strictEqual(entry.description, "", "expected empty string for missing description");
+      assert.strictEqual(
+        entry.description,
+        "",
+        "expected empty string for missing description",
+      );
     });
   });
 
@@ -125,7 +135,10 @@ describe("sync-description-capture", function () {
   });
 
   describe("standalone component with description", function () {
-    var meta = makeSingleMeta("Logo", "Actian brand mark. Use in header and splash screens.");
+    var meta = makeSingleMeta(
+      "Logo",
+      "Actian brand mark. Use in header and splash screens.",
+    );
     var result = transform({
       library: "ds",
       fileKey: "filekey123",
@@ -137,11 +150,17 @@ describe("sync-description-capture", function () {
     var entry = result.components.logo;
 
     it("standalone entry has description field", function () {
-      assert.ok("description" in entry, "description field missing from standalone registry entry");
+      assert.ok(
+        "description" in entry,
+        "description field missing from standalone registry entry",
+      );
     });
 
     it("standalone entry.description matches source", function () {
-      assert.strictEqual(entry.description, "Actian brand mark. Use in header and splash screens.");
+      assert.strictEqual(
+        entry.description,
+        "Actian brand mark. Use in header and splash screens.",
+      );
     });
   });
 
