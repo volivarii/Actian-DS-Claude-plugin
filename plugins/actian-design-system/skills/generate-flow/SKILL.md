@@ -1,7 +1,7 @@
 ---
 name: generate-flow
 description: Generate one or more lo-fi screens — single screen or multi-screen flow — from a feature idea, user story, or single-screen prompt. Also handles refine (URL + instruction), iterate (URL only), branch (URL + new variant), prototype wiring, and hifi conversion. Pushes to Figma.
-argument-hint: "[feature description or Figma URL] [prose instruction] [--hifi --audit --variants N --ref <url> --breakpoints tablet,mobile --from <url> --branch <name> --states empty,error]"
+argument-hint: "[feature description or Figma URL] [prose instruction] [--hifi --audit --variants N --ref <url> --breakpoints tablet,mobile --from <url> --branch <name> --states empty,error --no-prompt]"
 ---
 
 # Generate Fat Marker Flow
@@ -32,6 +32,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | `--from <url>` | URL | none | URL-type detected. **Figma URL** → iterate on existing flow (preserves data model, re-rolls recipes). **Jira/Confluence/Google doc URL** → spec input (extracts user story, acceptance criteria). **Image URL** → primary visual reference. |
 | `--branch <name>` | string | none | Requires `--from <url>`. Forks the flow into a sibling frame named `[original] — <name>`. Provenance in `.last-push.json` so `/compare-flows` works between branches. |
 | `--states <list>` | string list | none | State coverage: `empty`, `error`, `loading`, `no-permission`, `populated`, `partial-data`. Generates each as additional screens or variants. |
+| `--no-prompt` | boolean | false | Skip the interactive pre-gen gate (Step 0.5) AND post-push audit gate (Step 7.5). Use defaults for any unset flags. See `references/ds-rules/interactive-gates.md`. Refine path is unaffected (already explicit). |
 
 ### Flag interaction matrix
 
@@ -45,9 +46,62 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | `--ref <url> --states empty,error` | Reference biases base layout; states inherit the same reference treatment. |
 | `--states X` without `--from` | Generates flow + states from prompt (greenfield). |
 
+## Step 0 — Parse args + classify input shape
+
+Parse args. Note which flags are explicitly passed:
+- `--no-prompt` — parsed via `scripts/lib/parse-no-prompt.js`. Suppresses Step 0.5 + Step 7.5.
+- `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set.
+- `--from <url>`, `--branch <name>` — special cases. Not gated. Detected by companion or absent by default.
+
+Classify input shape (Prompt / Refine / Iterate per the table above). **Refine and Iterate paths skip Step 0.5 entirely** — URL + prose (refine) or `--from <url>` (iterate) are already explicit intent.
+
+## Step 0.5 — Pre-gen gate (interactive, greenfield-only)
+
+**Skipped if:** input is Refine or Iterate shape, OR all of `--hifi`, `--variants`, `--ref`, `--breakpoints`, `--states` are explicitly passed, OR `--no-prompt` is set.
+
+**Pre-flight prose detection** (run before showing the gate; suppresses gate questions for any flag whose value can be confidently inferred from prose):
+- "ship-ready", "production", "make it real" → infer `--hifi`
+- "alternatives", "show me variants", "different angles" → infer `--variants 3`
+- Trailing Figma URLs after the feature prompt → infer `--ref <urls>`
+- "responsive", "tablet", "mobile" → infer `--breakpoints` accordingly
+- "with empty state", "add error state", "loading state" → infer `--states <list>`
+
+After pre-flight inference, if any of the 5 gateable flags are STILL missing, present this prompt verbatim:
+
+```
+Configure generation for <feature>:
+
+Output:        lo-fi (default) | hi-fi
+Variants:      1 (default) | 2 | 3
+References:    none (default) | <paste Figma URL(s) or image URL(s)>
+Breakpoints:   desktop (default) | + tablet | + mobile | all
+State coverage: none (default) | empty | error | loading | populated | all
+
+Reply: enter for all defaults, or specify any subset.
+Examples:
+  hifi 3
+  ref:https://figma.com/design/abc/foo?node-id=1-2
+  hifi tablet,mobile
+  3 ref:https://stripe.com/screen.png
+  empty,error
+  hifi 3 empty,error
+```
+
+Parser:
+- Empty / "enter" → all defaults
+- `hifi` token → `--hifi`
+- Bare integer 1-3 → `--variants <N>`
+- `ref:<url>` (repeatable, space-separated) → `--ref <url1>,<url2>,...`
+- One of `tablet`, `mobile`, `tablet,mobile`, `all` (without `ref:` prefix) → `--breakpoints <list>` (`all` = `tablet,mobile,desktop`)
+- One or more of `empty`, `error`, `loading`, `populated` (comma-separated, no `ref:` prefix) → `--states <list>`
+- Invalid token → re-prompt with: "Unknown token `foo`. Valid: hifi, 1-3, ref:<url>, tablet, mobile, all, empty, error, loading, populated."
+- 3 retries → abort with: "Aborting. Run again with `--no-prompt` to use defaults, or pass flags directly."
+
+Once resolved, proceed to the pipeline.
+
 ## Refine shape
 
-Refine is a shape the skill detects, not a flag. When detected (v1.56.0+), it runs a targeted edit through the engine in `scripts/lib/resolve-unit.js`, `scripts/lib/snapshot-store.js`, and `scripts/lib/derive-scope.js`, with the validator running scope-filtered (B-refine.1). It skips the standard 3-gate pipeline and pushes only the affected screen frames.
+Refine is a shape the skill detects, not a flag. When detected (v1.56.0+), it runs a targeted edit through the engine in `scripts/lib/resolve-unit.js`, `scripts/lib/snapshot-store.js`, and `scripts/lib/derive-scope.js`, with the validator running scope-filtered (B-refine.1). It skips the standard 3-gate pipeline AND the Step 0.5 pre-gen gate, and pushes only the affected screen frames.
 
 ### Detection (all must match)
 
@@ -243,6 +297,7 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
 **`intent-mismatch` recovery (hifi tier only):** When the validator flags `intent-mismatch` findings on hifi-converted data, either change the variant to match the expected variant for the effective intent (e.g., `Type=Critical primary` for `destructive-action` on a DS button), OR change the `intent` field at the responsible node to reflect the actual screen role. For sibling-rule warnings ("destructive-action container ambiguous" or "missing Critical primary"), restructure the button group: exactly one Critical primary action button, with Tertiary or Secondary cancel/dismiss siblings.
 
 7. Push to Figma (see Push section below)
+7.5. **Post-push gate** (interactive — see Step 7.5 below) — runs the audit if `--audit` is set OR designer opts in via gate.
 8. Preview (opt-in):
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -250,6 +305,31 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
    BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/renderers/ensure-server.sh "{project_working_directory}" 8765)
    ```
 9. Parity check (opt-in) → `references/figma/parity-check.md` + `references/ds-rules/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
+
+---
+
+## Step 7.5 — Post-push audit gate (interactive)
+
+**Skipped if:** `--audit` is explicitly passed (audit runs automatically), OR `--no-prompt` is set, OR refine/iterate path (designer-driven, no extra prompts).
+
+After push completes successfully and the result is reported to the designer, present this prompt verbatim:
+
+```
+Flow pushed. Audit it now?
+
+  no (default) — finished, no further action
+  yes          — runs /design-audit on the pushed result; reports findings
+
+Reply: enter for no, or "yes".
+```
+
+Parser:
+- Empty / "no" / "skip" → done; exit cleanly
+- "yes" / "audit" → invoke `/design-audit <pushed-url>` per row 10 of companion intent table
+- Invalid → re-prompt
+- 3 retries → abort with: "Aborting. Run again with `--no-prompt` to skip, or pass `--audit` to auto-run."
+
+When `--audit` is set explicitly, skip this gate and run the audit pipeline immediately after push (existing behavior preserved).
 
 ---
 
