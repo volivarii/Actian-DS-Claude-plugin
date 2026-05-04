@@ -355,6 +355,37 @@ async function run(opts) {
     );
   }
 
+  // Auto-stub: generate guideline stubs for any new set-importable
+  // components that landed in this sync. No-op on unchanged. Idempotent —
+  // existing guideline files are never overwritten (skip-if-exists in
+  // generateStubs). Stubs land in the same PR as the registry diff via
+  // peter-evans add-paths (already includes docs/**).
+  //
+  // Only fires when opts.guidelinesDir is set explicitly (CLI passes it;
+  // tests omit it). Mirrors the auto-bump opt-in pattern above — keeps
+  // test fixtures from polluting the real plugin's docs/component-guidelines/
+  // directory when their mock REST data produces additive/breaking diffs.
+  var stubsGenerated = [];
+  var guidelinesDir = opts.guidelinesDir || null;
+  if (
+    guidelinesDir &&
+    (category === "additive" || category === "breaking") &&
+    fs.existsSync(guidelinesDir)
+  ) {
+    var registryFile = path.join(outputDir, "dskit.json");
+    var indexFile = path.join(guidelinesDir, "_index.json");
+    if (fs.existsSync(registryFile) && fs.existsSync(indexFile)) {
+      var generateStubs =
+        require("../foundations/generate-guideline-stubs.js").generateStubs;
+      var stubResult = generateStubs({
+        registryPath: registryFile,
+        guidelinesDir: guidelinesDir,
+        indexPath: indexFile,
+      });
+      stubsGenerated = stubResult.generated;
+    }
+  }
+
   return {
     category: category,
     exitCode: exitCode,
@@ -364,6 +395,7 @@ async function run(opts) {
     changelog: changelog,
     bumpedFrom: bumpedFrom,
     bumpedTo: bumpedTo,
+    stubsGenerated: stubsGenerated,
   };
 }
 
@@ -383,6 +415,7 @@ function parseArgs(argv) {
     else if (a === "--artifacts-dir") out.artifactsDir = next();
     else if (a === "--plugin-dir") out.pluginDir = next();
     else if (a === "--plugin-json-path") out.pluginJsonPath = next();
+    else if (a === "--guidelines-dir") out.guidelinesDir = next();
   }
   return out;
 }
@@ -394,13 +427,24 @@ if (require.main === module) {
   // wiring. Programmatic callers (tests, scripts) must opt in by passing
   // pluginJsonPath explicitly — keeps test fixtures from polluting the
   // real plugin.json on additive/breaking verdicts from mock data.
+  var resolvedPluginDir = cliOpts.pluginDir || path.resolve(__dirname, "../..");
   if (!cliOpts.pluginJsonPath) {
-    var resolvedPluginDir =
-      cliOpts.pluginDir || path.resolve(__dirname, "../..");
     cliOpts.pluginJsonPath = path.join(
       resolvedPluginDir,
       ".claude-plugin",
       "plugin.json",
+    );
+  }
+  // Same pattern as pluginJsonPath above: CLI mode defaults guidelinesDir to
+  // <pluginDir>/docs/component-guidelines so auto-stub fires without explicit
+  // wiring. Programmatic callers (tests, scripts) must opt in by passing
+  // guidelinesDir explicitly — keeps test fixtures from polluting the real
+  // docs/component-guidelines/ directory on additive/breaking verdicts.
+  if (!cliOpts.guidelinesDir) {
+    cliOpts.guidelinesDir = path.join(
+      resolvedPluginDir,
+      "docs",
+      "component-guidelines",
     );
   }
   run(cliOpts).then(
