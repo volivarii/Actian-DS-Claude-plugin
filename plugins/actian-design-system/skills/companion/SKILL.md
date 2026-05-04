@@ -52,28 +52,37 @@ The companion is the API. Match the user's prose against this table; pick the mo
 |---|---------------|------|-----------|
 | 1 | "design me X" / "mock me X" / "create a screen for X" | no | `/generate-flow X` (single screen) |
 | 2 | "design a flow for X" / "create the X flow" / "wizard for X" | no | `/generate-flow X` (multi-screen) |
-| 3 | "build me X end-to-end" / "ship-ready X" / "production version of X" | no | `/generate-flow X --hifi --audit` |
-| 4 | "show me alternatives" / "different angles" / "variants of X" / "three ways to do X" | no | `/generate-flow X --variants 3` |
+| 3 | "build me X end-to-end" / "ship-ready X" / "production version of X" | no | `/generate-flow X --hifi --audit --no-prompt` |
+| 4 | "show me alternatives" / "different angles" / "variants of X" / "three ways to do X" | no | `/generate-flow X --variants 3 --no-prompt` |
 | 5 | "edit this" / "change X to Y" / "swap" / "move" / "rename" / "fix" | yes | `/generate-flow <url> "instruction"` (refine shape — surgical: only changed screen frames are recreated, untouched screens stay byte-identical via `flow-data.snapshot.json`; validator findings stay scoped via `--scope single-unit:<id>` or `multi-unit:[…]`; B-refine.1+B-refine.2, v1.55.0–v1.56.0+) |
 | 6 | "try a different angle on this" / "what else" / "another version" | yes | `/generate-flow --from <url>` (iterate, no instruction) |
 | 7 | "branch this for X variant" / "fork this as Y" | yes | `/generate-flow --from <url> --branch X` |
 | 8 | "make it hifi" / "convert to hifi" / "DS version" / "polish this up" | yes | `/convert-to-hifi <url>` |
-| 9 | "make it feel like X" / "match this style" / "match the density of this" + ref URLs | yes + refs | `/generate-flow X --ref <refs>` or `/convert-to-hifi <url> --ref <refs>` (v1.57.0+: vision-extracts a 4-field structural fingerprint per ref and biases recipe + density; cached on `meta.references[].fingerprint` for refine reuse) |
+| 9 | "make it feel like X" / "match this style" / "match the density of this" + ref URLs | yes + refs | `/generate-flow X --ref <refs>` (gates on remaining flags) or `/convert-to-hifi <url> --ref <refs> --no-prompt` (v1.57.0+: vision-extracts a 4-field structural fingerprint per ref and biases recipe + density; cached on `meta.references[].fingerprint` for refine reuse) |
 | 10 | "is this any good?" / "review this" / "audit this" | yes | `/design-audit <url>` |
-| 11 | "is the copy ok?" / "review the copy" / "content check" | yes | `/design-audit <url> --scope copy` |
-| 12 | "fix the copy" / "rewrite the text" | yes | `/design-audit <url> --scope copy --fix all` |
-| 13 | "UX-wise, how does this read?" / "heuristic check" / "usability review" | yes | `/design-audit <url> --scope heuristic` |
-| 14 | "fix #N" (in audit context) | yes | `/design-audit --fix N` |
+| 11 | "is the copy ok?" / "review the copy" / "content check" | yes | `/design-audit <url> --scope copy --no-prompt` |
+| 12 | "fix the copy" / "rewrite the text" | yes | `/design-audit <url> --scope copy --fix all --no-prompt` |
+| 13 | "UX-wise, how does this read?" / "heuristic check" / "usability review" | yes | `/design-audit <url> --scope heuristic --no-prompt` |
+| 14 | "fix #N" (in audit context) | yes | `/design-audit --fix N --no-prompt` |
 | 15 | "compare X and Y" / "diff these two" | 2 URLs | `/compare-flows <url1> <url2>` |
 | 16 | "find every empty state" / "where do we use FilterChip" / "show me all X in our library" | optional | answer inline (no skill invocation) |
 | 17 | Ticket URL (Jira / Confluence / Google doc) | yes (non-Figma) | `/generate-flow --from <url>` (URL-type detection → spec mode) |
-| 18 | "add empty + error states" / "state coverage for X" | yes | `/generate-flow <url> --states empty,error` |
+| 18 | "add empty + error states" / "state coverage for X" | yes | `/generate-flow <url> --states empty,error --no-prompt` |
 | 19 | "make this realistic" / "use real data" / "fill with proper content" | yes | `/generate-flow <url> "use realistic data drawn from app-context"` (refine) |
-| 20 | "responsive" / "for tablet" / "mobile version" | yes | `/generate-flow <url> --breakpoints tablet,mobile` |
+| 20 | "responsive" / "for tablet" / "mobile version" | yes | `/generate-flow <url> --breakpoints tablet,mobile --no-prompt` |
 | 21 | "document this component" / "brief for this" | yes (component) | `/component-brief <url>` |
 | 22 | "sync the design system" / "pull tokens from Figma" / "refresh registries" | optional | `/sync-design-system` |
 
 Invoke the chosen skill via the Skill tool with the user's message as argument. If no row fits, proceed to Step 4 (direct help).
+
+### 3.0 The `--no-prompt` rule (interactive gates)
+
+`/generate-flow`, `/design-audit`, `/convert-to-hifi` adopt the interactive-gate convention defined in `references/ds-rules/interactive-gates.md`. Each gates on missing flags by default.
+
+When companion routes:
+- **Append `--no-prompt`** when ALL flags relevant to the row's intent are extracted from prose. This suppresses the downstream gate and uses defaults for any unset flags (since intent is fully captured). See rows 3, 4, 9 (convert-to-hifi half), 11, 12, 13, 14, 18, 20 — they all carry `--no-prompt`.
+- **Don't append `--no-prompt`** when intent is vague or partial. Let the downstream skill gate the designer through the missing options. Rows 1, 2, 8, 9 (generate-flow half), 10, 17 fall back to gates — designers benefit from option discovery.
+- **Refine paths** (rows 5, 6, 7, 19) — already explicit (URL + prose); no gate fires regardless.
 
 ### 3.1 URL classification
 

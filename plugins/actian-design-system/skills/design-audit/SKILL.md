@@ -1,7 +1,7 @@
 ---
 name: design-audit
 description: Audit a Figma design against DS rules — tokens, spacing, a11y, component usage, copy, heuristic UX. Finds inconsistencies and can fix specific findings.
-argument-hint: "[Figma URL] [--scope copy|tokens|a11y|heuristic|all] [--fix <id|all>]"
+argument-hint: "[Figma URL] [--scope copy|tokens|a11y|heuristic|all] [--fix <id|all>] [--no-prompt]"
 ---
 
 # Design System Audit
@@ -14,6 +14,40 @@ Audit a Figma file or section against the Actian Design System 2026 and/or Fat M
 |------|------|---------|----------|
 | `--scope <list>` | string list | `all` | Limits findings to a subset: `copy`, `tokens`, `a11y`, `heuristic`, `all`. Multi-value supported (`--scope copy,tokens`). `heuristic` is a new finding category covering UX principles, IA clarity, task efficiency — full implementation is engine work; for now, surfaces a placeholder section in the report. |
 | `--fix <id\|all>` | string | none | Auto-applies fixes. `id` = single finding number (e.g., `--fix 3`). `all` = all P0 + P1 findings where `autoFixable: true`. Without `--fix`, the audit reports without modifying the design (passive audit is the default). |
+| `--no-prompt` | boolean | false | Skip the interactive scope + fix gates (Step 0.5 + Step 5.5). Use defaults for any unset flags. See `references/ds-rules/interactive-gates.md`. |
+
+## Step 0 — Parse args
+
+Parse args. Note whether `--scope`, `--fix`, and `--no-prompt` were explicitly passed. The `--no-prompt` flag is parsed via `scripts/lib/parse-no-prompt.js`.
+
+## Step 0.5 — Scope gate (interactive)
+
+**Skipped if:** `--scope` is explicitly passed OR `--no-prompt` is set.
+
+Otherwise, present this prompt verbatim before running any audit checks:
+
+```
+Audit scope for <target>:
+
+  all (default) — copy + tokens + a11y + heuristic
+  copy          — content guidelines, banned terms, label patterns
+  tokens        — color/spacing/radius binding, hardcoded values
+  a11y          — WCAG 2.1 AA, contrast, ARIA, keyboard
+  heuristic     — UX patterns, layout, intent
+
+Reply: scope name, comma-separated list, or enter for all.
+Examples:
+  copy
+  copy,a11y
+  tokens
+```
+
+Parser:
+- Empty / "all" → `--scope all`
+- One token from {copy, tokens, a11y, heuristic} → `--scope <token>`
+- Comma-separated list of valid tokens → `--scope <list>`
+- Invalid token → re-prompt with the valid set
+- 3 retries → abort with: "Aborting. Run again with `--no-prompt` to use scope=all, or `--scope <list>` to set directly."
 
 ## Pipeline
 
@@ -22,7 +56,9 @@ Audit a Figma file or section against the Actian Design System 2026 and/or Fat M
 3. `get_screenshot` of resolved target → visual reference
 4. `get_design_context` on resolved target → inspect tokens, typography, spacing, components
 5. Check each dimension below → structured report with severity (P0/P1/P2)
-6. Present findings; user can request fixes ("fix #3", "fix all auto-fixable")
+6. Present findings to user
+7. **Step 5.5 — Fix gate** (see below) → resolve `--fix` value
+8. Apply fixes per resolved value
 
 ## What to check
 
@@ -53,9 +89,32 @@ When `--scope` is set, run only the listed dimensions; otherwise run all.
 | 1 | P0 | 0.95 | Button uses hardcoded #0550DC | Zero hardcoded hex | Bind theme-primary variable |
 ```
 
-## Fixing findings
+## Step 5.5 — Fix gate (interactive)
 
-After the audit report, the user can request fixes via flags or prose:
+**Skipped if:** `--fix` is explicitly passed OR `--no-prompt` is set OR no findings to fix.
+
+Otherwise, after presenting findings, present this prompt verbatim:
+
+```
+N findings (P0: A, P1: B, P2: C). Fix?
+
+  skip (default) — report only, no edits
+  N              — fix finding number N (e.g. "3")
+  all            — fix all auto-fixable findings (P0 + P1)
+
+Reply: skip / N / all
+```
+
+Parser:
+- Empty / "skip" → no fixes (exit cleanly with the report)
+- Integer matching a finding number → `--fix <N>`
+- "all" → `--fix all`
+- Invalid → re-prompt
+- 3 retries → abort with: "Aborting. Run again with `--no-prompt` to skip fixes, or `--fix N|all` to set directly."
+
+## Fixing findings (flag form)
+
+The user can also request fixes via prose or flags directly:
 - `--fix 3` or `"fix #3"` — fix a specific finding
 - `--fix all` or `"fix all auto-fixable"` — batch fix all `autoFixable: true` findings (P0 + P1)
 - Free-text: `"fix the hardcoded blue on the login button"`

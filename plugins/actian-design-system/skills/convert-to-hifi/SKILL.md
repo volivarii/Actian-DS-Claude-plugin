@@ -1,7 +1,7 @@
 ---
 name: convert-to-hifi
 description: Convert a Fat Marker wireframe screen or flow into high-fidelity using DS Kit components. Reads FM instances from a Figma frame, maps to DS equivalents, applies layout polish, and pushes a new hifi frame.
-argument-hint: "<figma-url> [--ref <figma-url>[,<figma-url>]]"
+argument-hint: "<figma-url> [--ref <figma-url>[,<figma-url>]] [--no-prompt]"
 ---
 
 # Convert to HiFi
@@ -13,6 +13,36 @@ Upgrade a Fat Marker wireframe to a high-fidelity DS Kit frame. Three-stage pipe
 | Flag | Type | Default | Behavior |
 |------|------|---------|----------|
 | `--ref <url[,url]>` | URL list | none | **v1: Figma URLs only.** Reference frames influence hifi-specific decisions: component variant selection (compact vs. comfortable density), hierarchy emphasis, toolbar/empty-state choices. Multi-URL = blended influence. For external references (Linear, Stripe, etc.), screenshot into a Figma frame first and pass that URL. Image-URL support targeted for v2 alongside the vision pipeline. Until the engine pipeline lands, `--ref` URLs are surfaced to the LLM as `get_screenshot` reference images during Stage 3 polish. |
+| `--no-prompt` | boolean | false | Skip the interactive ref gate (Step 0.5). Use defaults for any unset flags. See `references/ds-rules/interactive-gates.md`. |
+
+## Step 0 — Parse args
+
+Parse the args. Note whether `--ref` and `--no-prompt` were explicitly passed. The `--no-prompt` flag is parsed via `scripts/lib/parse-no-prompt.js`.
+
+## Step 0.5 — Ref gate (interactive)
+
+**Skipped if:** `--ref` is explicitly passed OR `--no-prompt` is set.
+
+Otherwise, present this prompt verbatim (do NOT proceed until the user replies):
+
+```
+Convert <source frame name> to hifi.
+
+Reference (optional): paste a Figma URL or image URL to bias density/style,
+or press enter to use registry defaults.
+
+Examples:
+  https://figma.com/design/abc/foo?node-id=1-2
+  https://figma.com/design/x/y?node-id=3-4 https://figma.com/design/x/z?node-id=5-6
+```
+
+Parser:
+- Empty / "enter" → no ref, proceed with defaults
+- One or more space-separated URLs → set `--ref <url1>,<url2>,…`
+- Anything else (non-URL token) → re-prompt with "I need URL(s) or enter for no ref. Got: <input>"
+- 3 retry attempts → abort with: "Aborting. Run again with `--no-prompt` to skip this gate, or `--ref <url>` to pass a ref directly."
+
+Once a value is resolved (from flag or gate), proceed to the pipeline.
 
 ## Pipeline
 

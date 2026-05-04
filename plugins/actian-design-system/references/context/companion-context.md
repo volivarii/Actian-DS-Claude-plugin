@@ -112,6 +112,10 @@ Before building custom frames, check: `docs/generated/dskit-components.md`, `doc
 
 **Common FM wireframe components:** fmButton, fmTextInput, fmDropdown, fmSearchInput, fmTableCell, fmCheckbox, fmRadioButton, fmToggle, fmAlert, fmBanner, fmDialog, fmEmptyState, fmPlaceholder, fmTab, fmStepper, fmBadge, fmTag, fmToast, fmPageHeader, fmAppHeader, fmNavItem
 
+## Interactive Gates
+
+`/generate-flow`, `/design-audit`, and `/convert-to-hifi` use interactive gates to surface options to designers without removing the `--flag` API. Companion appends `--no-prompt` when ALL relevant flags are extracted from prose; otherwise lets the downstream skill gate the designer. Convention: `references/ds-rules/interactive-gates.md`.
+
 ## Figma Output
 
 All skills push to Figma using direct `use_figma` calls. No codegen scripts at push time.
