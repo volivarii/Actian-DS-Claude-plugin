@@ -453,5 +453,124 @@ describe("sync-from-figma", function () {
     it("defaults phase to 'all'", function () {
       assert.strictEqual(sync.parseArgs([]).phase, "all");
     });
+
+    it("parses --plugin-json-path", function () {
+      var p = sync.parseArgs([
+        "--plugin-json-path",
+        "/foo/.claude-plugin/plugin.json",
+      ]);
+      assert.strictEqual(p.pluginJsonPath, "/foo/.claude-plugin/plugin.json");
+    });
+  });
+
+  // Auto-bump regression guards. The orchestrator's bump branch must:
+  //   - fire only when opts.pluginJsonPath is explicitly provided AND
+  //     verdict is additive or breaking
+  //   - never touch the real plugin.json from test fixtures (the bug that
+  //     made me catch this whole thing — fixtures bumped real plugin.json
+  //     9 times during a single full-suite run)
+  describe("auto-bump on data sync", function () {
+    function makePluginJson(dirs, version) {
+      var pluginJsonDir = path.join(dirs.root, ".claude-plugin");
+      fs.mkdirSync(pluginJsonDir, { recursive: true });
+      var pluginJsonPath = path.join(pluginJsonDir, "plugin.json");
+      fs.writeFileSync(
+        pluginJsonPath,
+        JSON.stringify({ name: "test", version: version }, null, 2) + "\n",
+      );
+      return pluginJsonPath;
+    }
+
+    function readVersion(pluginJsonPath) {
+      return JSON.parse(fs.readFileSync(pluginJsonPath, "utf8")).version;
+    }
+
+    it("bumps plugin.json patch when verdict is additive AND pluginJsonPath set", async function () {
+      var dirs = freshDirs();
+      var pluginJsonPath = makePluginJson(dirs, "1.0.0");
+      var rest = buildMockRest(buildBasicData());
+      // Initial sync writes registries (verdict=additive vs empty before)
+      var r = await sync.run(
+        baseOpts(dirs, { rest: rest, pluginJsonPath: pluginJsonPath }),
+      );
+      assert.strictEqual(r.category, "additive");
+      assert.strictEqual(r.bumpedFrom, "1.0.0");
+      assert.strictEqual(r.bumpedTo, "1.0.1");
+      assert.strictEqual(readVersion(pluginJsonPath), "1.0.1");
+    });
+
+    it("bumps plugin.json patch when verdict is breaking AND pluginJsonPath set", async function () {
+      var dirs = freshDirs();
+      var pluginJsonPath = makePluginJson(dirs, "2.5.7");
+      // Seed: do an initial run so before-files exist
+      await sync.run(baseOpts(dirs, { rest: buildMockRest(buildBasicData()) }));
+      // Now run with data that removes Button → verdict=breaking
+      var dataWithoutButton = buildBasicData();
+      delete dataWithoutButton.componentSets.dsk[0]; // mutate carefully
+      dataWithoutButton.componentSets.dsk =
+        dataWithoutButton.componentSets.dsk.filter(Boolean);
+      var r = await sync.run(
+        baseOpts(dirs, {
+          rest: buildMockRest(dataWithoutButton),
+          pluginJsonPath: pluginJsonPath,
+        }),
+      );
+      assert.strictEqual(r.category, "breaking");
+      assert.strictEqual(r.bumpedFrom, "2.5.7");
+      assert.strictEqual(r.bumpedTo, "2.5.8");
+      assert.strictEqual(readVersion(pluginJsonPath), "2.5.8");
+    });
+
+    it("does NOT bump on unchanged verdict, even when pluginJsonPath set", async function () {
+      var dirs = freshDirs();
+      var pluginJsonPath = makePluginJson(dirs, "1.0.0");
+      // Seed
+      await sync.run(baseOpts(dirs, { rest: buildMockRest(buildBasicData()) }));
+      // Same data again → verdict=unchanged
+      var r = await sync.run(
+        baseOpts(dirs, {
+          rest: buildMockRest(buildBasicData()),
+          pluginJsonPath: pluginJsonPath,
+        }),
+      );
+      assert.strictEqual(r.category, "unchanged");
+      assert.strictEqual(r.bumpedFrom, null);
+      assert.strictEqual(r.bumpedTo, null);
+      assert.strictEqual(readVersion(pluginJsonPath), "1.0.0");
+    });
+
+    it("REGRESSION GUARD — does NOT bump when pluginJsonPath is omitted, even on additive verdict", async function () {
+      // This is the exact scenario that polluted the real plugin.json 9
+      // times during a full suite run. Tests omit pluginJsonPath; bump
+      // must be silently skipped, not fall back to a default path.
+      var dirs = freshDirs();
+      var rest = buildMockRest(buildBasicData());
+      var r = await sync.run(baseOpts(dirs, { rest: rest })); // no pluginJsonPath
+      assert.strictEqual(r.category, "additive");
+      assert.strictEqual(
+        r.bumpedFrom,
+        null,
+        "must not bump without explicit pluginJsonPath",
+      );
+      assert.strictEqual(
+        r.bumpedTo,
+        null,
+        "must not bump without explicit pluginJsonPath",
+      );
+    });
+
+    it("does NOT bump when pluginJsonPath points to a missing file (graceful skip)", async function () {
+      var dirs = freshDirs();
+      var missingPath = path.join(dirs.root, "nonexistent", "plugin.json");
+      var r = await sync.run(
+        baseOpts(dirs, {
+          rest: buildMockRest(buildBasicData()),
+          pluginJsonPath: missingPath,
+        }),
+      );
+      assert.strictEqual(r.category, "additive");
+      assert.strictEqual(r.bumpedFrom, null);
+      assert.strictEqual(r.bumpedTo, null);
+    });
   });
 });

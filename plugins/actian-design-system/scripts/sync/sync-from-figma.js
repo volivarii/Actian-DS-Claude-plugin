@@ -327,6 +327,34 @@ async function run(opts) {
     "utf8",
   );
 
+  // Auto-bump plugin.json patch when generated data actually changed.
+  // Cowork (cloud) re-pulls plugin per session and reads from the bumped
+  // version; without this, designers see stale registries/styles until the
+  // next manual ship. Skip on `unchanged` (no diff) and `error` (failed run).
+  //
+  // Only fires when opts.pluginJsonPath is set explicitly (CLI passes it;
+  // tests omit it). This keeps test fixtures from polluting the real
+  // plugin.json when their mock REST data produces additive/breaking diffs.
+  var bumpedFrom = null;
+  var bumpedTo = null;
+  var pluginJsonPath = opts.pluginJsonPath || null;
+  if (
+    pluginJsonPath &&
+    (category === "additive" || category === "breaking") &&
+    fs.existsSync(pluginJsonPath)
+  ) {
+    var bumpVersion = require("../lib/bump-version.js");
+    var plugin = JSON.parse(fs.readFileSync(pluginJsonPath, "utf8"));
+    bumpedFrom = plugin.version;
+    bumpedTo = bumpVersion(bumpedFrom, "patch");
+    plugin.version = bumpedTo;
+    fs.writeFileSync(
+      pluginJsonPath,
+      JSON.stringify(plugin, null, 2) + "\n",
+      "utf8",
+    );
+  }
+
   return {
     category: category,
     exitCode: exitCode,
@@ -334,6 +362,8 @@ async function run(opts) {
     errors: errors,
     releasePath: releasePath,
     changelog: changelog,
+    bumpedFrom: bumpedFrom,
+    bumpedTo: bumpedTo,
   };
 }
 
@@ -352,12 +382,27 @@ function parseArgs(argv) {
     else if (a === "--keys-file") out.keysFile = next();
     else if (a === "--artifacts-dir") out.artifactsDir = next();
     else if (a === "--plugin-dir") out.pluginDir = next();
+    else if (a === "--plugin-json-path") out.pluginJsonPath = next();
   }
   return out;
 }
 
 if (require.main === module) {
   var cliOpts = parseArgs(process.argv.slice(2));
+  // CLI mode (e.g., GitHub Action) defaults pluginJsonPath to plugin.json
+  // under the resolved pluginDir, so auto-bump fires without explicit
+  // wiring. Programmatic callers (tests, scripts) must opt in by passing
+  // pluginJsonPath explicitly — keeps test fixtures from polluting the
+  // real plugin.json on additive/breaking verdicts from mock data.
+  if (!cliOpts.pluginJsonPath) {
+    var resolvedPluginDir =
+      cliOpts.pluginDir || path.resolve(__dirname, "../..");
+    cliOpts.pluginJsonPath = path.join(
+      resolvedPluginDir,
+      ".claude-plugin",
+      "plugin.json",
+    );
+  }
   run(cliOpts).then(
     function (r) {
       console.log("[sync] verdict=" + r.category + " exit=" + r.exitCode);
