@@ -1746,7 +1746,12 @@ describe("validate-flow-data", function () {
       var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
       var dataPath = path.join(tmpDir, "flow-data.json");
       fs.writeFileSync(dataPath, JSON.stringify(data));
-      var script = path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js");
+      var script = path.join(
+        PLUGIN_ROOT,
+        "scripts",
+        "validation",
+        "validate-flow-data.js",
+      );
       var result = spawnSync(process.execPath, [script, dataPath], {
         encoding: "utf8",
       });
@@ -1959,7 +1964,12 @@ describe("validate-flow-data", function () {
       var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
       var dataPath = path.join(tmpDir, "flow-data.json");
       fs.writeFileSync(dataPath, JSON.stringify(data));
-      var script = path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js");
+      var script = path.join(
+        PLUGIN_ROOT,
+        "scripts",
+        "validation",
+        "validate-flow-data.js",
+      );
 
       // scope=single-unit:scopedcli-2 → no banned (s2 is clean) → exit 0
       var r2 = spawnSync(
@@ -2018,7 +2028,12 @@ describe("validate-flow-data", function () {
       var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
       var dataPath = path.join(tmpDir, "flow-data.json");
       fs.writeFileSync(dataPath, JSON.stringify(data));
-      var script = path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js");
+      var script = path.join(
+        PLUGIN_ROOT,
+        "scripts",
+        "validation",
+        "validate-flow-data.js",
+      );
       var result = spawnSync(process.execPath, [script, dataPath, "--json"], {
         encoding: "utf8",
       });
@@ -2181,5 +2196,105 @@ describe("meta.references[].fingerprint pass-through (C-vision)", function () {
       after,
       "validator mutated the fingerprint — must remain pure",
     );
+  });
+
+  describe("stub-aware validation", function () {
+    var validateFn = validate.validate || validate;
+
+    it("downgrades warning to info when guideline is a stub", function () {
+      // Synthesize a finding-emitting flow + injected stub loader.
+      var data = {
+        meta: { feature: "test" },
+        screens: [
+          {
+            id: "test-1",
+            name: "Test",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "tooltip",
+                props: {},
+              },
+            ],
+          },
+        ],
+      };
+      var result = validateFn(data, {
+        loadGuideline: function (slug) {
+          if (slug === "tooltip") return { _stub: true };
+          return null;
+        },
+        skipTokens: true,
+        skipTerminology: true,
+      });
+      // The stub-aware pass must emit at least one stub-guideline-used finding
+      var stubFinding = result.findings.find(function (f) {
+        return f.kind === "stub-guideline-used";
+      });
+      assert.ok(stubFinding, "should emit stub-guideline-used finding");
+      assert.strictEqual(stubFinding.severity, "info");
+      assert.match(stubFinding.message, /tooltip/);
+    });
+
+    it("does NOT downgrade error severity (P0 stays P0)", function () {
+      var data = {
+        meta: { feature: "test" },
+        screens: [
+          {
+            id: "test-1",
+            name: "Test",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "nonexistent-ref-xyz", // unknown component triggers error
+                props: {},
+              },
+            ],
+          },
+        ],
+      };
+      var result = validateFn(data, {
+        loadGuideline: function (slug) {
+          if (slug === "nonexistent-ref-xyz") return { _stub: true };
+          return null;
+        },
+        skipTokens: true,
+        skipTerminology: true,
+      });
+      var unknown = result.findings.find(function (f) {
+        return f.kind === "unknown-component";
+      });
+      if (unknown) {
+        assert.strictEqual(
+          unknown.severity,
+          "error",
+          "errors should not be downgraded",
+        );
+      }
+    });
+
+    it("does NOT emit stub-guideline-used when no stub-backed components are used", function () {
+      var data = {
+        meta: { feature: "test" },
+        screens: [
+          {
+            id: "test-1",
+            name: "Test",
+            content: [{ type: "INSTANCE", ref: "fmButton", props: {} }],
+          },
+        ],
+      };
+      var result = validateFn(data, {
+        loadGuideline: function () {
+          return null;
+        }, // never a stub
+        skipTokens: true,
+        skipTerminology: true,
+      });
+      var stubFinding = result.findings.find(function (f) {
+        return f.kind === "stub-guideline-used";
+      });
+      assert.ok(!stubFinding, "no stub finding when no stub guidelines used");
+    });
   });
 });

@@ -573,4 +573,126 @@ describe("sync-from-figma", function () {
       assert.strictEqual(r.bumpedTo, null);
     });
   });
+
+  describe("auto-stub on data sync", function () {
+    function makeGuidelinesDir(dirs) {
+      var gd = path.join(dirs.root, "docs", "component-guidelines");
+      fs.mkdirSync(gd, { recursive: true });
+      fs.writeFileSync(
+        path.join(gd, "_index.json"),
+        JSON.stringify(
+          {
+            extracted_at: "2026-01-01T00:00:00Z",
+            total_components: 0,
+            components: [],
+          },
+          null,
+          2,
+        ),
+      );
+      return gd;
+    }
+
+    it("generates stubs for newly-synced set-importable components on additive verdict", async function () {
+      var dirs = freshDirs();
+      var guidelinesDir = makeGuidelinesDir(dirs);
+      var rest = buildMockRest(buildBasicData());
+      var r = await sync.run(
+        baseOpts(dirs, {
+          rest: rest,
+          guidelinesDir: guidelinesDir,
+        }),
+      );
+      assert.strictEqual(r.category, "additive");
+      // buildBasicData() has Button as a set-importable component.
+      assert.ok(
+        fs.existsSync(path.join(guidelinesDir, "button.json")),
+        "button.json stub should be created",
+      );
+      var stub = JSON.parse(
+        fs.readFileSync(path.join(guidelinesDir, "button.json"), "utf8"),
+      );
+      assert.strictEqual(stub._stub, true);
+      assert.ok(r.stubsGenerated.includes("button"));
+    });
+
+    it("does NOT generate stubs on unchanged verdict", async function () {
+      var dirs = freshDirs();
+      var guidelinesDir = makeGuidelinesDir(dirs);
+      // Seed first
+      await sync.run(
+        baseOpts(dirs, {
+          rest: buildMockRest(buildBasicData()),
+          guidelinesDir: guidelinesDir,
+        }),
+      );
+      // Remove the seeded stub to detect a regenerate
+      fs.unlinkSync(path.join(guidelinesDir, "button.json"));
+      // Same data again → unchanged
+      var r = await sync.run(
+        baseOpts(dirs, {
+          rest: buildMockRest(buildBasicData()),
+          guidelinesDir: guidelinesDir,
+        }),
+      );
+      assert.strictEqual(r.category, "unchanged");
+      assert.ok(
+        !fs.existsSync(path.join(guidelinesDir, "button.json")),
+        "stub should not be regenerated on unchanged",
+      );
+      assert.deepStrictEqual(r.stubsGenerated, []);
+    });
+
+    it("warns and skips when guidelinesDir exists but _index.json is missing", async function () {
+      var dirs = freshDirs();
+      var gd = path.join(dirs.root, "docs", "component-guidelines");
+      fs.mkdirSync(gd, { recursive: true });
+      // intentionally do NOT write _index.json
+      var warnings = [];
+      var origWarn = console.warn;
+      console.warn = function (msg) {
+        warnings.push(msg);
+      };
+      try {
+        var r = await sync.run(
+          baseOpts(dirs, {
+            rest: buildMockRest(buildBasicData()),
+            pluginDir: dirs.root,
+            guidelinesDir: gd,
+          }),
+        );
+        assert.strictEqual(r.category, "additive");
+        assert.deepStrictEqual(r.stubsGenerated, []);
+        assert.ok(
+          warnings.some(function (w) {
+            return /auto-stub skipped/.test(w) && /index/.test(w);
+          }),
+          "should warn about missing index",
+        );
+      } finally {
+        console.warn = origWarn;
+      }
+    });
+
+    it("REGRESSION GUARD — does NOT generate stubs when guidelinesDir is omitted, even on additive verdict", async function () {
+      // Mirrors the v1.63.1 auto-bump regression guard. Tests omit
+      // guidelinesDir; the hook must be silently skipped, not fall back
+      // to a default path that points at the real plugin tree.
+      // (Empirically: without this guard, the "node fetch batching" test
+      // creates 20 stub files under the real docs/component-guidelines/.)
+      var dirs = freshDirs();
+      var r = await sync.run(
+        baseOpts(dirs, {
+          rest: buildMockRest(buildBasicData()),
+          // guidelinesDir intentionally omitted
+        }),
+      );
+      assert.strictEqual(r.category, "additive");
+      assert.deepStrictEqual(
+        r.stubsGenerated,
+        [],
+        "must not generate stubs without explicit guidelinesDir",
+      );
+    });
+  });
 });

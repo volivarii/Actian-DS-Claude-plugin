@@ -1,0 +1,37 @@
+{
+  "component": "Lineage connecting line",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "14747:20085",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Direction": [
+        "Down",
+        "Straight",
+        "up",
+        "Up"
+      ],
+      "State": [
+        "Default",
+        "Selected",
+        "Disabled"
+      ]
+    },
+    "totalVariants": 12
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

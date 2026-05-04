@@ -42,6 +42,23 @@ function transcribeContentGuidelines(guidelinesJson) {
 
 function resolveSection(cardKey, ctx, recipe) {
   if (!recipe) throw new Error("resolveSection: missing recipe");
+
+  // Stub guidelines have no Figma-extracted curated content. Route every
+  // card to Phase B (generate) so card-generator agents lean on
+  // registry-derived structural data instead of expecting transcription
+  // content. Carries a `fallback` flag + reason so existing consumers that
+  // check for fallbacks still see one.
+  if (ctx && ctx.guidelinesJson && ctx.guidelinesJson._stub === true) {
+    return {
+      phase: "B",
+      source: null,
+      fallback: true,
+      fallbackReason:
+        "guideline is a stub (no curated content); routing to Phase B",
+      grounding: (recipe && recipe.grounding) || [],
+    };
+  }
+
   if (recipe.phase === "generate") {
     return { phase: "B", grounding: recipe.grounding || [] };
   }
@@ -53,18 +70,27 @@ function resolveSection(cardKey, ctx, recipe) {
   var fallbackReason = null;
   if (cardKey === "card_header") {
     primary = transcribeFigmaDescription(ctx);
-    fallbackReason = "Figma component description empty — author canonical version in Figma component properties";
+    fallbackReason =
+      "Figma component description empty — author canonical version in Figma component properties";
   } else if (cardKey === "card_content") {
     primary = transcribeContentGuidelines(ctx && ctx.guidelinesJson);
-    fallbackReason = "content_guidelines empty in component-guidelines JSON — Jeff to author Content frame in Figma + re-sync";
+    fallbackReason =
+      "content_guidelines empty in component-guidelines JSON — Jeff to author Content frame in Figma + re-sync";
   } else {
-    throw new Error("resolveSection: no transcription rule for cardKey '" + cardKey + "'");
+    throw new Error(
+      "resolveSection: no transcription rule for cardKey '" + cardKey + "'",
+    );
   }
 
   if (primary) {
     return { phase: "A", source: "figma", content: primary.content };
   }
-  return { phase: "A", source: null, fallback: true, fallbackReason: fallbackReason };
+  return {
+    phase: "A",
+    source: null,
+    fallback: true,
+    fallbackReason: fallbackReason,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -75,8 +101,9 @@ function formatForBrief(cardKey, sourceResult, ctx) {
   if (cardKey === "card_header") {
     return {
       name: ctx && ctx.component ? ctx.component : "",
-      description: typeof sourceResult.content === "string" ? sourceResult.content : "",
-      _source: sourceResult.source || "generated"
+      description:
+        typeof sourceResult.content === "string" ? sourceResult.content : "",
+      _source: sourceResult.source || "generated",
     };
   }
   if (cardKey === "card_content") {
@@ -94,7 +121,7 @@ function formatForBrief(cardKey, sourceResult, ctx) {
     return {
       rules: rules,
       terminology: [],
-      _source: sourceResult.source || "generated"
+      _source: sourceResult.source || "generated",
     };
   }
   throw new Error("formatForBrief: unknown cardKey '" + cardKey + "'");
@@ -104,5 +131,5 @@ module.exports = {
   transcribeFigmaDescription: transcribeFigmaDescription,
   transcribeContentGuidelines: transcribeContentGuidelines,
   resolveSection: resolveSection,
-  formatForBrief: formatForBrief
+  formatForBrief: formatForBrief,
 };

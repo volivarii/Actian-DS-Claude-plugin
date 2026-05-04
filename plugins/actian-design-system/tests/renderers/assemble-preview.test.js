@@ -19,7 +19,14 @@ var fs = require("fs");
 // Paths
 // ---------------------------------------------------------------------------
 
-var SCRIPT = path.join(__dirname, "..", "..", "scripts", "renderers", "assemble-preview.js");
+var SCRIPT = path.join(
+  __dirname,
+  "..",
+  "..",
+  "scripts",
+  "renderers",
+  "assemble-preview.js",
+);
 var FIXTURES = path.join(__dirname, "..", "fixtures");
 var FLOW_FIXTURE = path.join(FIXTURES, "admin-dashboard.json");
 var BRIEF_FIXTURE = path.join(FIXTURES, "button-brief-data.json");
@@ -32,7 +39,11 @@ var PRES_FIXTURE = path.join(FIXTURES, "sample-presentation.json");
 function run(args) {
   var outputFile = path.join(
     os.tmpdir(),
-    "assemble-preview-test-" + Date.now() + "-" + Math.random().toString(36).slice(2, 8) + ".html"
+    "assemble-preview-test-" +
+      Date.now() +
+      "-" +
+      Math.random().toString(36).slice(2, 8) +
+      ".html",
   );
   var fullArgs = [SCRIPT].concat(args).concat(["-o", outputFile]);
   var result = spawnSync("node", fullArgs, { encoding: "utf8" });
@@ -41,7 +52,12 @@ function run(args) {
     html = fs.readFileSync(outputFile, "utf8");
     fs.unlinkSync(outputFile);
   }
-  return { status: result.status, stdout: result.stdout, stderr: result.stderr, html: html };
+  return {
+    status: result.status,
+    stdout: result.stdout,
+    stderr: result.stderr,
+    html: html,
+  };
 }
 
 // ---------------------------------------------------------------------------
@@ -55,21 +71,42 @@ describe("assemble-preview", function () {
       assert.strictEqual(r.status, 0, "exits cleanly");
       assert.ok(r.html.includes("<!DOCTYPE html>"), "starts with DOCTYPE");
       assert.ok(r.html.includes('id="spec-data"'), "has #spec-data script tag");
-      assert.ok(r.html.includes('id="flow-container"'), "has flow container div");
-      assert.ok(r.html.includes("/* fm-html-map.js */"), "has fm-html-map renderer marker");
-      assert.ok(r.html.includes("/* flow-renderer.js */"), "has flow-renderer marker");
+      assert.ok(
+        r.html.includes('id="flow-container"'),
+        "has flow container div",
+      );
+      assert.ok(
+        r.html.includes("/* fm-html-map.js */"),
+        "has fm-html-map renderer marker",
+      );
+      assert.ok(
+        r.html.includes("/* flow-renderer.js */"),
+        "has flow-renderer marker",
+      );
       assert.ok(r.html.includes("alpinejs@3.14.9"), "has Alpine CDN");
       assert.ok(r.html.includes("annotation-layer"), "has annotation layer");
-      assert.ok(r.html.includes('id="anno-root"'), "has annotation layer markup");
-      assert.ok(r.html.includes("fonts.googleapis.com"), "has Google Fonts link");
+      assert.ok(
+        r.html.includes('id="anno-root"'),
+        "has annotation layer markup",
+      );
+      assert.ok(
+        r.html.includes("fonts.googleapis.com"),
+        "has Google Fonts link",
+      );
       assert.ok(r.html.includes("family=Inter"), "loads Inter font");
       assert.ok(r.html.includes("--fm-"), "CSS contains FM tokens");
     });
 
     it("derives title from meta.feature and meta.app", function () {
       var r = run([FLOW_FIXTURE, "--type", "flow"]);
-      assert.ok(r.html.includes("<title>Admin Dashboard"), "title includes feature name");
-      assert.ok(r.html.includes("Administration</title>"), "title includes app name");
+      assert.ok(
+        r.html.includes("<title>Admin Dashboard"),
+        "title includes feature name",
+      );
+      assert.ok(
+        r.html.includes("Administration</title>"),
+        "title includes app name",
+      );
     });
   });
 
@@ -77,17 +114,79 @@ describe("assemble-preview", function () {
     it("generates valid HTML with brief-specific markers", function () {
       var r = run([BRIEF_FIXTURE, "--type", "brief"]);
       assert.strictEqual(r.status, 0, "exits cleanly");
-      assert.ok(r.html.includes('id="cards-container"'), "has cards container div");
+      assert.ok(
+        r.html.includes('id="cards-container"'),
+        "has cards container div",
+      );
       assert.ok(r.html.includes("brief-row"), "has brief-row wrapper");
-      assert.ok(r.html.includes("/* fm-html-map.js */"), "has fm-html-map renderer marker");
-      assert.ok(r.html.includes("/* brief-renderer.js */"), "has brief-renderer marker");
+      assert.ok(
+        r.html.includes("/* fm-html-map.js */"),
+        "has fm-html-map renderer marker",
+      );
+      assert.ok(
+        r.html.includes("/* brief-renderer.js */"),
+        "has brief-renderer marker",
+      );
       assert.ok(r.html.includes("family=Inter"), "loads Inter font");
     });
 
     it("derives title from component name", function () {
       var r = run([BRIEF_FIXTURE, "--type", "brief"]);
-      assert.ok(r.html.includes("<title>Button"), "title includes component name");
-      assert.ok(r.html.includes("Component Brief</title>"), "title includes brief suffix");
+      assert.ok(
+        r.html.includes("<title>Button"),
+        "title includes component name",
+      );
+      assert.ok(
+        r.html.includes("Component Brief</title>"),
+        "title includes brief suffix",
+      );
+    });
+
+    it("stub footer code path is inlined in the embedded brief-renderer", function () {
+      // brief-renderer.js runs client-side in the browser; the test verifies
+      // the source code containing the stub-footer branch is present in the
+      // assembled HTML so it will execute when meta._stubGuideline === true.
+      var r = run([BRIEF_FIXTURE, "--type", "brief"]);
+      assert.strictEqual(r.status, 0, "exits cleanly");
+      assert.ok(
+        r.html.includes("_stubGuideline"),
+        "embedded renderer references meta._stubGuideline",
+      );
+      assert.ok(
+        r.html.includes("Guidance pending curation"),
+        "embedded renderer contains the stub-footer copy",
+      );
+    });
+
+    it("brief render with meta._stubGuideline=true succeeds + embeds the flag", function () {
+      // Smoke-test the stub branch end-to-end: a stub-marked fixture should
+      // assemble cleanly and the meta._stubGuideline=true flag should appear
+      // in the embedded JSON so the client renders the footer at runtime.
+      var tmpJson = path.join(
+        os.tmpdir(),
+        "stub-brief-test-" + Date.now() + ".json",
+      );
+      var payload = {
+        meta: {
+          component: "Tooltip",
+          slug: "tooltip",
+          _stubGuideline: true,
+          pluginVersion: "1.64.0",
+          skill: "component-brief",
+          generatedAt: "2026-05-04T00:00:00Z",
+          duration: "1s",
+          model: "claude-opus-4-7",
+        },
+        card_header: { name: "Tooltip", description: "Brief popup" },
+      };
+      fs.writeFileSync(tmpJson, JSON.stringify(payload), "utf8");
+      var r = run([tmpJson, "--type", "brief"]);
+      fs.unlinkSync(tmpJson);
+      assert.strictEqual(r.status, 0, "exits cleanly with stub meta");
+      assert.ok(
+        r.html.indexOf('"_stubGuideline":true') !== -1,
+        "embedded JSON carries meta._stubGuideline:true",
+      );
     });
   });
 
@@ -95,15 +194,27 @@ describe("assemble-preview", function () {
     it("generates valid HTML with presentation-specific markers", function () {
       var r = run([PRES_FIXTURE, "--type", "presentation"]);
       assert.strictEqual(r.status, 0, "exits cleanly");
-      assert.ok(r.html.includes('id="deck-container"'), "has deck container div");
-      assert.ok(r.html.includes("/* presentation-renderer.js */"), "has presentation-renderer marker");
+      assert.ok(
+        r.html.includes('id="deck-container"'),
+        "has deck container div",
+      );
+      assert.ok(
+        r.html.includes("/* presentation-renderer.js */"),
+        "has presentation-renderer marker",
+      );
       assert.ok(r.html.includes("family=Roboto"), "loads Roboto font");
     });
 
     it("derives title from meta.title", function () {
       var r = run([PRES_FIXTURE, "--type", "presentation"]);
-      assert.ok(r.html.includes("<title>Design System Progress"), "title includes presentation title");
-      assert.ok(r.html.includes("Presentation</title>"), "title includes presentation suffix");
+      assert.ok(
+        r.html.includes("<title>Design System Progress"),
+        "title includes presentation title",
+      );
+      assert.ok(
+        r.html.includes("Presentation</title>"),
+        "title includes presentation suffix",
+      );
     });
   });
 
@@ -129,7 +240,7 @@ describe("assemble-preview", function () {
         assert.ok(parsed !== null, "embedded JSON is parseable");
         assert.ok(
           parsed && parsed.meta && parsed.meta.feature === "Admin Dashboard",
-          "embedded JSON data is correct"
+          "embedded JSON data is correct",
         );
       }
     });
@@ -139,11 +250,11 @@ describe("assemble-preview", function () {
     it("</script> in data is escaped and does not break the HTML", function () {
       var tmpJson = path.join(
         os.tmpdir(),
-        "escape-test-" + Date.now() + ".json"
+        "escape-test-" + Date.now() + ".json",
       );
       var payload = {
         meta: { feature: "Test</script>XSS", app: "App" },
-        screens: []
+        screens: [],
       };
       fs.writeFileSync(tmpJson, JSON.stringify(payload), "utf8");
 
@@ -160,11 +271,11 @@ describe("assemble-preview", function () {
         var specDataContent = r.html.substring(jsonStart, nextClose);
         assert.ok(
           specDataContent.indexOf("</script>") === -1,
-          "</script> is escaped in embedded JSON"
+          "</script> is escaped in embedded JSON",
         );
         assert.ok(
           specDataContent.includes("<\\/script>"),
-          "uses <\\/ escaping"
+          "uses <\\/ escaping",
         );
       }
     });
@@ -172,25 +283,46 @@ describe("assemble-preview", function () {
 
   describe("Error handling", function () {
     it("exits with error and useful message when input is missing", function () {
-      var r1 = spawnSync("node", [SCRIPT, "--type", "flow", "-o", "/tmp/x.html"], { encoding: "utf8" });
+      var r1 = spawnSync(
+        "node",
+        [SCRIPT, "--type", "flow", "-o", "/tmp/x.html"],
+        { encoding: "utf8" },
+      );
       assert.ok(r1.status !== 0, "exits with error when input missing");
-      assert.ok(r1.stderr.includes("Missing input"), "stderr mentions missing input");
+      assert.ok(
+        r1.stderr.includes("Missing input"),
+        "stderr mentions missing input",
+      );
     });
 
     it("exits with error and useful message when --type is missing", function () {
-      var r2 = spawnSync("node", [SCRIPT, FLOW_FIXTURE, "-o", "/tmp/x.html"], { encoding: "utf8" });
+      var r2 = spawnSync("node", [SCRIPT, FLOW_FIXTURE, "-o", "/tmp/x.html"], {
+        encoding: "utf8",
+      });
       assert.ok(r2.status !== 0, "exits with error when --type missing");
-      assert.ok(r2.stderr.includes("Missing --type"), "stderr mentions missing --type");
+      assert.ok(
+        r2.stderr.includes("Missing --type"),
+        "stderr mentions missing --type",
+      );
     });
 
     it("exits with error for unknown type", function () {
-      var r3 = spawnSync("node", [SCRIPT, FLOW_FIXTURE, "--type", "bogus", "-o", "/tmp/x.html"], { encoding: "utf8" });
+      var r3 = spawnSync(
+        "node",
+        [SCRIPT, FLOW_FIXTURE, "--type", "bogus", "-o", "/tmp/x.html"],
+        { encoding: "utf8" },
+      );
       assert.ok(r3.status !== 0, "exits with error for unknown type");
-      assert.ok(r3.stderr.includes("Unknown type"), "stderr mentions unknown type");
+      assert.ok(
+        r3.stderr.includes("Unknown type"),
+        "stderr mentions unknown type",
+      );
     });
 
     it("exits with error when -o is missing", function () {
-      var r4 = spawnSync("node", [SCRIPT, FLOW_FIXTURE, "--type", "flow"], { encoding: "utf8" });
+      var r4 = spawnSync("node", [SCRIPT, FLOW_FIXTURE, "--type", "flow"], {
+        encoding: "utf8",
+      });
       assert.ok(r4.status !== 0, "exits with error when -o missing");
       assert.ok(r4.stderr.includes("Missing -o"), "stderr mentions missing -o");
     });

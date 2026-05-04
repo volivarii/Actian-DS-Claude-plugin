@@ -30,6 +30,39 @@ function loadKitRegistry(kit) {
   }
 }
 
+// Stub-aware validation helpers (v1.64.0+).
+// Lookup component-guideline JSON by slug; cache per-process to avoid
+// repeated disk reads on flows that use the same component many times.
+var _guidelineCache = {};
+function _kebab(s) {
+  if (typeof s !== "string") return s;
+  return s.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+}
+function loadGuidelineForSlug(refOrSlug, opts) {
+  if (opts && typeof opts.loadGuideline === "function") {
+    // Test injection — bypass cache + disk
+    return opts.loadGuideline(refOrSlug);
+  }
+  var slug = _kebab(refOrSlug);
+  if (Object.prototype.hasOwnProperty.call(_guidelineCache, slug)) {
+    return _guidelineCache[slug];
+  }
+  var p = path.join(
+    PLUGIN_ROOT,
+    "docs",
+    "component-guidelines",
+    slug + ".json",
+  );
+  var data = null;
+  try {
+    data = JSON.parse(fs.readFileSync(p, "utf8"));
+  } catch (e) {
+    data = null;
+  }
+  _guidelineCache[slug] = data;
+  return data;
+}
+
 var _registryCache = null;
 function getCombinedRegistry() {
   if (_registryCache) return _registryCache;
@@ -1167,6 +1200,62 @@ function validate(data, opts) {
       });
     }
   }
+
+  // Stub-aware severity downgrade (v1.64.0+).
+  // For any warning-level finding tagged with a component slug that has a
+  // stub guideline, downgrade to info. Errors stay errors.
+  // Also emit one info-level stub-guideline-used finding per unique stub
+  // slug used by this flow, so designers can see backlog candidates.
+  var stubSlugsUsed = {};
+  var stubKinds = {
+    "intent-mismatch": true,
+    "missing-required-override": true,
+    "default-true-boolean-unset": true,
+  };
+  findings.forEach(function (f) {
+    // Derive slug from finding when available; fall back to scanning data
+    var slug = f._legacy && f._legacy.ref ? f._legacy.ref : null;
+    if (!slug && f.message) {
+      // intent-mismatch / missing-required-override embed the ref in message
+      var m = /Component '([^']+)'|DS '([^']+)'/.exec(f.message);
+      if (m) slug = m[1] || m[2];
+    }
+    if (!slug) return;
+    if (!stubKinds[f.kind]) return;
+    var g = loadGuidelineForSlug(slug, opts);
+    if (g && g._stub === true) {
+      stubSlugsUsed[_kebab(slug)] = true;
+      if (f.severity === "warning") {
+        f.severity = "info";
+        f.note =
+          (f.note ? f.note + " " : "") + "[downgraded — guideline is a stub]";
+      }
+    }
+  });
+
+  // Pass: walk INSTANCE refs to ensure stub-using flows always get a
+  // stub-guideline-used finding even when no other check fired.
+  if (Array.isArray(data.screens)) {
+    walkInstanceNodes(data.screens, "screens", function (instNode) {
+      if (!instNode || typeof instNode.ref !== "string") return;
+      var g = loadGuidelineForSlug(instNode.ref, opts);
+      if (g && g._stub === true) {
+        stubSlugsUsed[_kebab(instNode.ref)] = true;
+      }
+    });
+  }
+  Object.keys(stubSlugsUsed).forEach(function (slug) {
+    findings.push({
+      kind: "stub-guideline-used",
+      severity: "info",
+      message:
+        "Component '" +
+        slug +
+        "' uses a stub guideline. Curated content pending — see docs/component-guidelines/" +
+        slug +
+        ".json",
+    });
+  });
 
   return { findings: findings };
 }

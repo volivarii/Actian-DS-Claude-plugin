@@ -1,0 +1,34 @@
+{
+  "component": "✍️ Tag, Interactive",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "13845:33759",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "State": [
+        "Default",
+        "Hovered",
+        "Pressed",
+        "Selected",
+        "Disabled",
+        "Focused"
+      ]
+    },
+    "totalVariants": 6
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

@@ -964,5 +964,28 @@
     }
 
     container.innerHTML = cards.filter(Boolean).join("\n");
+
+    // Stub footer cue (v1.64.0+): surfaced when meta._stubGuideline is true so
+    // designers know the brief is registry-derived only and the DS team owes
+    // a curated guideline for this component.
+    if (briefRow && data.meta && data.meta._stubGuideline === true) {
+      var slug = esc(data.meta.slug || "this-component");
+      var footer = document.createElement("div");
+      footer.className = "stub-footer";
+      footer.style.cssText =
+        "margin-top: 24px; padding: 16px 20px; " +
+        "background: var(--zen-color-background-grey-1, #fbfbff); " +
+        "border-left: 3px solid var(--zen-color-status-warning, #d27b00); " +
+        "color: var(--zen-color-text-secondary, #3f3f4a); font-size: 13px;";
+      footer.innerHTML =
+        "<strong>Guidance pending curation.</strong> " +
+        "This brief is based on registry data only. The DS team has not yet " +
+        "curated content / design / a11y guidelines for this component. " +
+        "Briefs will improve once the guideline is fleshed out at " +
+        "<code>docs/component-guidelines/" +
+        slug +
+        ".json</code>.";
+      briefRow.appendChild(footer);
+    }
   });
 })(); // end IIFE

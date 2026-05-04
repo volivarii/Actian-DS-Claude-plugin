@@ -1,0 +1,37 @@
+{
+  "component": "✍️ Tag, Default",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "7257:3037",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Color": [
+        "Default",
+        "Pink",
+        "Purple",
+        "Indigo",
+        "Yellow",
+        "Lime",
+        "Teal",
+        "Orange",
+        "Gray"
+      ]
+    },
+    "totalVariants": 9
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

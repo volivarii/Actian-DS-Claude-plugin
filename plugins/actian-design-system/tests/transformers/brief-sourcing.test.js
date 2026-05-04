@@ -27,9 +27,18 @@ test("transcribeFigmaDescription — returns null when description null", functi
 });
 
 test("transcribeFigmaDescription — returns null when description empty/whitespace", function () {
-  assert.equal(sourcing.transcribeFigmaDescription({ nodeDescription: "" }), null);
-  assert.equal(sourcing.transcribeFigmaDescription({ nodeDescription: "   " }), null);
-  assert.equal(sourcing.transcribeFigmaDescription({ nodeDescription: undefined }), null);
+  assert.equal(
+    sourcing.transcribeFigmaDescription({ nodeDescription: "" }),
+    null,
+  );
+  assert.equal(
+    sourcing.transcribeFigmaDescription({ nodeDescription: "   " }),
+    null,
+  );
+  assert.equal(
+    sourcing.transcribeFigmaDescription({ nodeDescription: undefined }),
+    null,
+  );
 });
 
 // transcribeContentGuidelines
@@ -47,8 +56,16 @@ test("transcribeContentGuidelines — returns null when content_guidelines is nu
 });
 
 test("transcribeContentGuidelines — returns null when content_guidelines.sections is missing/empty", function () {
-  assert.equal(sourcing.transcribeContentGuidelines({ content_guidelines: {} }), null);
-  assert.equal(sourcing.transcribeContentGuidelines({ content_guidelines: { sections: [] } }), null);
+  assert.equal(
+    sourcing.transcribeContentGuidelines({ content_guidelines: {} }),
+    null,
+  );
+  assert.equal(
+    sourcing.transcribeContentGuidelines({
+      content_guidelines: { sections: [] },
+    }),
+    null,
+  );
   assert.equal(sourcing.transcribeContentGuidelines({}), null);
 });
 
@@ -58,7 +75,11 @@ test("resolveSection — header card with description present → figma result",
   var recipe = {
     card: "card_header",
     phase: "transcribe",
-    source: { primary: { type: "registry-description" }, secondary: { type: "figma-mcp" }, fallback: "claude-generate" }
+    source: {
+      primary: { type: "registry-description" },
+      secondary: { type: "figma-mcp" },
+      fallback: "claude-generate",
+    },
   };
   var result = sourcing.resolveSection("card_header", ctx, recipe);
   assert.equal(result.phase, "A");
@@ -71,7 +92,11 @@ test("resolveSection — header card with no description → fallback signal", f
   var recipe = {
     card: "card_header",
     phase: "transcribe",
-    source: { primary: { type: "registry-description" }, secondary: { type: "figma-mcp" }, fallback: "claude-generate" }
+    source: {
+      primary: { type: "registry-description" },
+      secondary: { type: "figma-mcp" },
+      fallback: "claude-generate",
+    },
   };
   var result = sourcing.resolveSection("card_header", ctx, recipe);
   assert.equal(result.phase, "A");
@@ -85,7 +110,7 @@ test("resolveSection — generate recipe → returns Phase B marker, no transcri
   var recipe = {
     card: "card_anatomy",
     phase: "generate",
-    grounding: ["docs/foundations.md"]
+    grounding: ["docs/foundations.md"],
   };
   var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
@@ -94,13 +119,17 @@ test("resolveSection — generate recipe → returns Phase B marker, no transcri
 
 test("resolveSection — content card with rich guidelines → figma result", function () {
   var ctx = {
-    component: "Button", slug: "button",
-    guidelinesJson: loadFixture("button-component-guidelines-rich.json")
+    component: "Button",
+    slug: "button",
+    guidelinesJson: loadFixture("button-component-guidelines-rich.json"),
   };
   var recipe = {
     card: "card_content",
     phase: "transcribe",
-    source: { primary: { type: "guidelines-content-sections" }, fallback: "claude-generate" }
+    source: {
+      primary: { type: "guidelines-content-sections" },
+      fallback: "claude-generate",
+    },
   };
   var result = sourcing.resolveSection("card_content", ctx, recipe);
   assert.equal(result.source, "figma");
@@ -109,13 +138,17 @@ test("resolveSection — content card with rich guidelines → figma result", fu
 
 test("resolveSection — content card with empty guidelines → fallback", function () {
   var ctx = {
-    component: "Button", slug: "button",
-    guidelinesJson: loadFixture("button-component-guidelines-empty.json")
+    component: "Button",
+    slug: "button",
+    guidelinesJson: loadFixture("button-component-guidelines-empty.json"),
   };
   var recipe = {
     card: "card_content",
     phase: "transcribe",
-    source: { primary: { type: "guidelines-content-sections" }, fallback: "claude-generate" }
+    source: {
+      primary: { type: "guidelines-content-sections" },
+      fallback: "claude-generate",
+    },
   };
   var result = sourcing.resolveSection("card_content", ctx, recipe);
   assert.equal(result.source, null);
@@ -128,19 +161,99 @@ test("resolveSection — unknown phase throws", function () {
   }, /unknown phase/i);
 });
 
+// Stub-aware routing — _stub: true forces Phase B regardless of recipe
+test("resolveSection — stub guideline forces Phase B fallback (transcribe recipe)", function () {
+  var ctx = {
+    component: "Tooltip",
+    slug: "tooltip",
+    guidelinesJson: {
+      component: "Tooltip",
+      _stub: true,
+      content_guidelines: null,
+      design_guidelines: null,
+    },
+  };
+  var recipe = {
+    card: "card_content",
+    phase: "transcribe",
+    source: {
+      primary: { type: "guidelines-content-sections" },
+      fallback: "claude-generate",
+    },
+  };
+  var result = sourcing.resolveSection("card_content", ctx, recipe);
+  assert.equal(result.phase, "B", "stub should route to Phase B");
+  assert.equal(result.source, null);
+  assert.equal(result.fallback, true);
+  assert.match(result.fallbackReason, /stub/i);
+});
+
+test("resolveSection — stub guideline forces Phase B even on generate recipe (preserves grounding)", function () {
+  var ctx = {
+    component: "Tooltip",
+    slug: "tooltip",
+    guidelinesJson: { _stub: true },
+  };
+  var recipe = {
+    card: "card_anatomy",
+    phase: "generate",
+    grounding: ["docs/foundations.md"],
+  };
+  var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
+  assert.equal(result.phase, "B");
+  assert.deepEqual(result.grounding, ["docs/foundations.md"]);
+  assert.equal(result.fallback, true);
+});
+
+test("resolveSection — non-stub guideline routes normally (regression guard)", function () {
+  var ctx = {
+    component: "Button",
+    slug: "button",
+    guidelinesJson: {
+      component: "Button",
+      content_guidelines: { sections: [{ heading: "X", content: ["rule 1"] }] },
+    },
+  };
+  var recipe = {
+    card: "card_content",
+    phase: "transcribe",
+    source: {
+      primary: { type: "guidelines-content-sections" },
+      fallback: "claude-generate",
+    },
+  };
+  var result = sourcing.resolveSection("card_content", ctx, recipe);
+  assert.equal(result.source, "figma", "non-stub should still route to figma");
+  assert.equal(result.phase, "A");
+});
+
 // formatForBrief — shaping helpers
 test("formatForBrief — header content shapes name + description fields", function () {
   var ctx = loadFixture("button-with-figma-description.json");
-  var result = sourcing.formatForBrief("card_header", { source: "figma", content: ctx.nodeDescription }, ctx);
+  var result = sourcing.formatForBrief(
+    "card_header",
+    { source: "figma", content: ctx.nodeDescription },
+    ctx,
+  );
   assert.equal(result.name, "Button");
   assert.ok(result.description.length > 0);
   assert.equal(result._source, "figma");
 });
 
 test("formatForBrief — content card shapes content_guidelines.sections into rules array", function () {
-  var ctx = { component: "Button", slug: "button", guidelinesJson: loadFixture("button-component-guidelines-rich.json") };
-  var content = sourcing.transcribeContentGuidelines(ctx.guidelinesJson).content;
-  var result = sourcing.formatForBrief("card_content", { source: "figma", content: content }, ctx);
+  var ctx = {
+    component: "Button",
+    slug: "button",
+    guidelinesJson: loadFixture("button-component-guidelines-rich.json"),
+  };
+  var content = sourcing.transcribeContentGuidelines(
+    ctx.guidelinesJson,
+  ).content;
+  var result = sourcing.formatForBrief(
+    "card_content",
+    { source: "figma", content: content },
+    ctx,
+  );
   assert.ok(Array.isArray(result.rules));
   assert.ok(result.rules.length > 0);
   assert.equal(result._source, "figma");
