@@ -16,17 +16,17 @@ Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruc
 
 ## Supporting capabilities
 
-- Generate 9-card component briefs with real library instances from Figma — direct push using `setProperties` on live MetaKit instances (colored swatches, a11y requirement grids, contrast badges)
+- Generate 7-card component briefs with provenance badges and cross-DS research insights — Phase A transcribes from synced guidelines, Phase B fills gaps with optional research (Material, Carbon, Polaris, Atlassian, Stripe). Direct push using `setProperties` on live MetaKit instances (colored swatches, a11y requirement grids, contrast badges).
 - Create new Figma components with variants, properties, and correct token binding
 - Review and rewrite copy against DS content guidelines (`/design-audit --scope copy`)
 - Compare two competing designs side by side (also works between branches and variants)
 - Research UX patterns and competitor approaches on demand
 - Build presentations using Actian slide templates
-- Sync tokens, components, and guidelines directly from Figma
+- Sync tokens, components, foundations, and guidelines directly from Figma — auto-stubs missing component guidelines and auto-bumps the plugin version on data change
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.57.0** · 9 skills (with tiered generation: recognized / adapted / improvised) · 8 agents · 25 recipes · 115 design tokens · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references
+**v1.64.0** · 9 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · MD-as-SoT foundations
 
 ---
 
@@ -149,7 +149,7 @@ Find every empty state we use across DS Kit
 Brief the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
 ```
 
-The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (107 DS Kit + 44 FM Kit + 25 Meta Kit), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
+The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (322 DS Kit + 287 FM Kit + 28 Meta Kit components — 82 / 33 / 11 component sets), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
 
 ---
 
@@ -161,7 +161,7 @@ Every capability is also available as a direct command. Use these when you know 
 
 | Command | What it does |
 |---------|-------------|
-| `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Flags: `--hifi` (chain to hifi), `--audit` (chain to audit), `--variants N` (2–5 structurally-distinct), `--ref <url>` (v1.57.0+: vision-grounded — screenshot the reference, extract a structural fingerprint, bias recipe + density), `--from <url>` (iterate), `--from <url> --branch X` (fork), `--states empty,error` (state coverage), `--breakpoints tablet,mobile` (responsive variants). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). |
+| `/generate-flow` | Sketch — one or more lo-fi screens (n≥1), Fat Marker, correct app chrome. Interactive gates (v1.63.0+) replace most CLI flags: variants, ref, states, breakpoints, hifi/audit chaining are picked through prompt-flow. Still flag-callable: `--from <url>` (iterate), `--from <url> --branch X` (fork). URL + prose = refine shape (v1.56.0+: surgical — only changed screen frames are recreated, validator findings stay scoped). Vision-grounded `--ref <url>` (v1.57.0+) extracts a structural fingerprint and biases recipe + density. |
 | `/convert-to-hifi` | Hifi — convert FM wireframe to DS Kit hifi. `--ref <url>` biases density/variant choices. |
 | `/design-audit` | Audit — tokens, contrast, copy, a11y, heuristic. `--scope <copy\|tokens\|a11y\|heuristic>` narrows; `--fix N\|all` auto-applies. |
 
@@ -169,11 +169,11 @@ Every capability is also available as a direct command. Use these when you know 
 
 | Command | What it does |
 |---------|-------------|
-| `/component-brief` | 9-card component spec — anatomy, variants, states, tokens, content rules, accessibility, real library instances. `--include-states` adds a state matrix card. |
+| `/component-brief` | 7-card component spec — header, component, anatomy, tokens, usage, content, accessibility. Two-pass (v1.62.0+): Phase A transcribes synced guidelines into the data model with provenance badges; Phase B fills gaps and (opt-in) attaches cross-DS research insights. Stub-aware: components with auto-generated stub guidelines route through Phase B fallback and surface a stub footer cue. |
 | `/create-component` | Build Figma components with variants and correct token binding, with a build plan review before push |
 | `/compare-flows` | Side-by-side analysis of two Figma flows — v1 vs v2, competing approaches, branches, variants |
 | `/generate-presentation` | Slide deck with Actian templates, token-bound backgrounds, and chart support |
-| `/sync-design-system` | Extract tokens, components, and guidelines directly from Figma via MCP |
+| `/sync-design-system` | Extract tokens, components, foundations, and guidelines directly from Figma via MCP. Auto-stubs missing component guidelines on additive/breaking verdicts, auto-bumps `plugin.json` on data change. |
 
 ---
 
@@ -207,12 +207,14 @@ Works at every preview gate across all skills.
 
 The companion has always-loaded knowledge of:
 
-- **Tokens** — spacing scale (4/8/12/16/24/28/32), 115 design tokens in W3C DTCG format, 3 theme modes, CSS custom properties (`--zen-*`)
+- **Tokens** — 155 design tokens in W3C DTCG format across 8 collections (color, spacing, border, size, breakpoint, focus-ring, font, icon), 3 theme modes, CSS custom properties (`--zen-*`)
+- **Foundations** — `foundations.md` is the source of truth (v1.60.0+): a CI workflow regenerates 8 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change, with PR comments confirming the regen
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
-- **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — structured as queryable JSON with 16 entities, 33 terminology rules, 20 UI patterns
-- **Component inventory** — 107 DS Kit + 44 FM Kit + 25 Meta Kit components (dynamically derived from synced registries)
+- **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — structured as queryable JSON with entities, terminology rules, and UI patterns
+- **Component inventory** — 322 DS Kit + 287 FM Kit + 28 Meta Kit components (82 / 33 / 11 sets) — dynamically derived from synced registries
+- **Component guidelines** — 85 per-component guideline JSONs (45 fully covered, 40 auto-stubs for set components awaiting authoring)
 
-It loads detailed references on demand: per-component guidelines (44 components), accessibility standards, UX patterns, foundation docs.
+It loads detailed references on demand: per-component guidelines, accessibility standards, UX patterns, foundation docs.
 
 ---
 
@@ -225,9 +227,10 @@ Agents are dispatched automatically by skills — they run as background subproc
 | `flow-researcher` | Research UX patterns and competitors | Flow generation (opt-in research phase) |
 | `flow-consistency` | Check HTML for chrome/terminology correctness | Flow generation (after HTML) |
 | `wiring-analyzer` | Analyze flow structure for prototype wiring | Flow push (wire step) |
+| `brief-researcher` | Research cross-DS patterns (Material, Carbon, Polaris, Atlassian, Stripe) for brief gap-fill | Brief generation (opt-in via research gate) |
 | `brief-data-validator` | Validate component brief data model | Brief generation (after data model) |
 | `parity-analyzer` | Check Figma output for rendering issues | All skills (after push) |
-| `card-generator` | Generate brief cards in parallel batches | Brief generation (6+ DS cards) |
+| `card-generator` | Generate brief cards in parallel batches (Phase B only) | Brief generation (5+ Phase B cards) |
 | `screen-generator` | Generate flow screens in parallel batches | Flow generation (6+ screens) |
 | `slide-generator` | Generate presentation slides in parallel batches | Presentation generation (6+ slides) |
 
@@ -238,11 +241,13 @@ Agents are dispatched automatically by skills — they run as background subproc
 Figma libraries are the single source of truth. `/sync-design-system` extracts directly via MCP.
 
 ```
-Figma libraries (DS Kit + FM Kit + Meta Kit)
+Figma libraries (DS Kit + FM Kit + Meta Kit) + foundations.md (UX-authored)
     |
 /sync-design-system (Figma MCP)
     |
-Plugin docs/ + tokens/ (static reference files)
+docs/generated/  -- registries, app-context, fm-to-ds-map, foundations JSONs
+docs/component-guidelines/  -- per-component (full + auto-stub)
+tokens/  -- W3C DTCG + CSS custom properties
     |
 Companion + skills read at runtime
 ```
@@ -251,54 +256,67 @@ Companion + skills read at runtime
 
 | Layer | Font | Components | Used for |
 |-------|------|-----------|----------|
-| **Fat Marker (lo-fi)** | Inter | 44 FM Kit components | Wireframe flows |
-| **DS Kit (hi-fi)** | Roboto | 107 component sets | Component briefs, audits |
-| **Meta Kit** | Inter | 25 components + 3 templates | All output skills |
+| **Fat Marker (lo-fi)** | Inter | 287 FM Kit components (33 sets) | Wireframe flows |
+| **DS Kit (hi-fi)** | Roboto | 322 DS Kit components (82 sets) | Component briefs, audits, hifi conversion |
+| **Meta Kit** | Inter | 28 Meta Kit components (11 sets) | All output skills (cards, headers, badges) |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
 
 **Pipeline quality gates:**
+- **Foundations MD-as-SoT** (v1.60.0+) — `foundations.md` is the editable source; CI regenerates 8 derived JSONs and posts a PR comment confirming the regen.
 - **Flow glossary** — before generating screens, the skill builds a shared vocabulary (`_glossary`) with entity names, action verbs, and CTA labels. All parallel screen-generators use it, ensuring consistent terminology across screens.
 - **Validation** — `validate-flow-data.js` runs before every push: banned placeholder text (P0, blocks push), unresolved token references (P1), and terminology violations checked against `app-context.json` (P1).
+- **Stub-aware brief validation** (v1.64.0+) — when a brief is generated against an auto-stub guideline, the validator downgrades severity for missing-content findings and adds a `stub-guideline-used` finding so the designer sees "this came from a stub" rather than "this is broken."
 - **Scope-aware filtering** (v1.55.0+) — refines pass `--scope single-unit:<id>` so findings on untouched screens don't drown out findings on the screen the designer actually edited.
 - **Refine engine** (v1.56.0+) — `resolve-unit.js` maps a Figma URL to a `pushedNodes` entry, `snapshot-store.js` reads/writes a `flow-data.snapshot.json` sidecar, `derive-scope.js` diffs before/after by `screens[].id` to produce the canonical scope tag. Surgical push deletes and recreates only the changed screen frames.
-- **Vision-grounded references** (v1.57.0+) — `--ref <figma-url>` triggers SKILL step 4.5: `get_screenshot` → vision-extract a 4-field structural fingerprint (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`) → validate against `RECIPE_IDS` → persist on `meta.references[].fingerprint`. The screen-generator agent reads it as a precedence-ruled bias (prompt wins on feature intent; fingerprint biases layout/density and tie-breaks recipe selection). Refine path reuses the cached fingerprint when the URL is unchanged.
+- **Vision-grounded references** (v1.57.0+) — `--ref <figma-url>` triggers a structural fingerprint extraction (`density`, `hierarchy_depth`, `primary_components`, `layout_archetype`) that biases recipe + density. Refine path reuses the cached fingerprint when the URL is unchanged.
+- **Brief two-pass routing** (v1.62.0+) — Phase A transcribes the synced guideline into the brief data model and tags fields with `_source: figma | guideline | derived`; Phase B generates remaining cards, with optional `brief-researcher` insights tagged on `_research`. Provenance badges + research-insights sub-sections render in the brief output.
+- **Auto-bump on sync** (v1.63.1+) — sync detects additive/breaking verdicts and bumps `plugin.json` automatically; missing component-guideline files are auto-stubbed (v1.64.0+) so new components land with a placeholder ready for authoring.
 - **Design changelog** — `changelog.js` compares the current push against the previous `.last-push.json` manifest, reporting source data changes, token drift, and component additions/removals.
 
-**FM → HiFi pipeline:** `/convert-to-hifi` reads an FM wireframe from Figma, maps FM components to DS Kit equivalents via `fm-to-ds-map.json`, and pushes a production-ready frame. Unmapped components are handled creatively by the LLM using DS Kit descriptions.
+**FM → HiFi pipeline:** `/convert-to-hifi` reads an FM wireframe from Figma, maps FM components to DS Kit equivalents via `fm-to-ds-map.json` (resolved at runtime via immutable `dsKey`, v1.61.1+), and pushes a production-ready frame. Unmapped components are handled creatively by the LLM using DS Kit descriptions.
 
 ---
 
 ## Project structure
 
+`ARCHITECTURE.md` (plugin root) is the canonical map — skill→artifacts table, placement rules, and the source of truth when adding new skills, scripts, or references.
+
 ```
 actian-design-system-plugin/
-+-- plugins/actian-design-system/
-|   +-- .claude-plugin/plugin.json
-|   +-- CLAUDE.md
-|   +-- skills/                          # 9 skills (companion + 8 specialized)
-|   +-- agents/                          # 8 agents (5 validation + 3 parallel generation)
-|   +-- scripts/
-|   |   +-- shared-constants.js          # Registry loaders, dynamic key maps, palette, buildGenLog
-|   |   +-- assemble-preview.js          # HTML preview generator from data models
-|   |   +-- validate-flow-data.js        # Pipeline validation (banned text, tokens, terminology)
-|   |   +-- changelog.js                 # Design changelog (push-to-push diffing)
-|   |   +-- transform-to-hifi.js         # FM refs → DS Kit refs (deterministic transform)
-|   |   +-- fm-tree-to-flow-data.js      # Raw Figma tree → flow-data format (key → ref resolution)
-|   |   +-- merge-partials.js            # Merge parallel agent outputs
-|   |   +-- templates.json               # Screen templates (admin, mobile, etc.)
-|   |   +-- html-renderers/              # Client-side renderers for preview
-|   +-- recipes/                         # Archetype skeletons for consistent output
-|   |   +-- flow/                        # 9 flow screen archetypes
-|   |   +-- brief/                       # 9 DS Kit card templates
-|   |   +-- presentation/                # 5 slide type templates
-|   +-- references/                      # DS context + skill-specific references
-|   |   +-- companion-context.md         # Always-loaded DS summary
-|   +-- templates/                       # CSS wrappers, annotation layer
-|   +-- tokens/                          # W3C DTCG + CSS custom properties
-|   +-- docs/                            # Synced reference files + component registries (*.json)
-|   |   +-- app-context.json             # Structured app context (apps, entities, terminology, patterns)
-+-- USAGE.md                             # Detailed usage guide
+├── plugins/actian-design-system/
+│   ├── .claude-plugin/plugin.json
+│   ├── ARCHITECTURE.md                    # canonical map (read first)
+│   ├── CLAUDE.md
+│   ├── skills/                            # 9 skills (companion + 8 specialized)
+│   ├── agents/                            # 9 agents (6 validation/research + 3 parallel generation)
+│   ├── recipes/                           # 23 recipes (11 flow, 7 brief cards, 5 presentation)
+│   ├── scripts/
+│   │   ├── lib/                           # shared-constants, registry loaders, palette, buildGenLog
+│   │   ├── hooks/                         # Claude Code hook guards
+│   │   ├── sync/                          # /sync-design-system phases + helpers
+│   │   ├── foundations/                   # foundations.md → JSON regeneration
+│   │   ├── validation/                    # validate-flow-data, validate-schema, validateBriefData
+│   │   ├── transformers/                  # fm-tree-to-flow-data, transform-to-hifi, sync-fm-to-ds-map
+│   │   ├── renderers/                     # assemble-preview + html-renderers
+│   │   └── changelog/                     # push-to-push diffing
+│   ├── references/
+│   │   ├── figma/                         # MCP workflow, push patterns, parity, prototype, annotations
+│   │   ├── ds-rules/                      # tokens, layout, component-instance rules, quality checklist
+│   │   ├── context/                       # companion-context.md, knowledge bases
+│   │   ├── component-brief/               # skill-specific
+│   │   ├── create-component/              # skill-specific
+│   │   ├── design-audit/                  # skill-specific
+│   │   ├── generate-flow/                 # skill-specific
+│   │   └── generate-presentation/         # skill-specific
+│   ├── tokens/                            # W3C DTCG + CSS custom properties
+│   └── docs/
+│       ├── foundations.md                 # editable source of truth
+│       ├── content-guidelines.md
+│       ├── accessibility-guidelines.md
+│       ├── component-guidelines/          # 85 per-component JSONs (45 full, 40 auto-stub)
+│       └── generated/                     # registries (dskit/fmkit/metakit), app-context, fm-to-ds-map, foundations JSONs
+└── USAGE.md                               # detailed usage guide
 ```
 
 ---
@@ -324,11 +342,11 @@ claude --plugin-dir plugins/actian-design-system
 
 | What changed | What to do |
 |-------------|------------|
-| Tokens/components in Figma | `/sync-design-system all` |
+| Tokens/components in Figma | `/sync-design-system all` (auto-bumps plugin.json on data change) |
 | Single component's guidelines | `/sync-design-system Button` |
-| Foundation docs | `/sync-design-system foundations` |
-| New skill | Add `skills/<name>/SKILL.md` |
-| Version bump | Update `.claude-plugin/plugin.json` |
+| Foundation docs | edit `docs/foundations.md` — CI regenerates derived JSONs on PR |
+| New skill | Add `skills/<name>/SKILL.md` and update `ARCHITECTURE.md` Section 2 |
+| Version bump | Handled automatically by `/sync-design-system` on additive/breaking verdicts; manual bumps in `.claude-plugin/plugin.json` |
 
 ---
 
