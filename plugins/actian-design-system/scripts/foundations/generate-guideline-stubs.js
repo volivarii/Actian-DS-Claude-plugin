@@ -11,6 +11,12 @@
 // CLI:
 //   node scripts/foundations/generate-guideline-stubs.js [--dry-run] [--report]
 //
+// Flags are independent and combinable:
+//   --dry-run        prints the planned stub list without writing
+//   --report         prints generated/skipped/denylisted counts
+//   --dry-run --report   prints both (planned list + counts)
+//   (no flags)       writes stubs and prints "Generated N stubs."
+//
 // Programmatic:
 //   var { generateStubs } = require("./generate-guideline-stubs.js");
 //   generateStubs({ registryPath, guidelinesDir, indexPath, dryRun? }) -> result
@@ -22,23 +28,25 @@ var path = require("path");
 // layout grids, typos). Add to this list as new patterns surface; each
 // addition is a one-line PR.
 var DENYLIST_PATTERNS = [
-  /-logo$/,           // brand assets
-  /-favicon$/,        // brand assets
-  /-grid$/,           // layout primitives (xs-grid, xl-grid, etc.)
-  /^actian-/,         // brand assets (actian-data-intelligence-dev-logo, etc.)
-  /^zeenea-/,         // brand assets
-  /^white-label-/,    // brand assets
-  /^component-\d+$/,  // generic placeholders (component-1, component-2, etc.)
+  /-logo$/, // brand assets
+  /-favicon$/, // brand assets
+  /-grid$/, // layout primitives (xs-grid, xl-grid, etc.)
+  /^actian-/, // brand assets (actian-data-intelligence-dev-logo, etc.)
+  /^zeenea-/, // brand assets
+  /^white-label-/, // brand assets
+  /^component-\d+$/, // generic placeholders (component-1, component-2, etc.)
 ];
 
 var DENYLIST_EXACT = new Set([
   "illustration",
-  "toglge",  // Figma typo (per project_sprint_1_wip.md)
+  "toglge", // Figma typo (per project_sprint_1_wip.md)
 ]);
 
 function isDenylisted(slug) {
   if (DENYLIST_EXACT.has(slug)) return true;
-  return DENYLIST_PATTERNS.some(function (re) { return re.test(slug); });
+  return DENYLIST_PATTERNS.some(function (re) {
+    return re.test(slug);
+  });
 }
 
 function computeTotalVariants(axes) {
@@ -103,15 +111,31 @@ function buildIndexEntry(slug, registryEntry, nowIso) {
 
 function generateStubs(opts) {
   var registry = JSON.parse(fs.readFileSync(opts.registryPath, "utf8"));
+  if (
+    !registry ||
+    typeof registry.components !== "object" ||
+    registry.components === null
+  ) {
+    throw new Error(
+      "Invalid registry at " +
+        opts.registryPath +
+        ": missing or non-object 'components' key",
+    );
+  }
   var guidelinesDir = opts.guidelinesDir;
   var indexPath = opts.indexPath;
   var dryRun = !!opts.dryRun;
   var nowIso = (opts.now || new Date()).toISOString();
 
   var existingFiles = new Set(
-    fs.readdirSync(guidelinesDir)
-      .filter(function (f) { return f.endsWith(".json") && f !== "_index.json"; })
-      .map(function (f) { return f.replace(/\.json$/, ""); }),
+    fs
+      .readdirSync(guidelinesDir)
+      .filter(function (f) {
+        return f.endsWith(".json") && f !== "_index.json";
+      })
+      .map(function (f) {
+        return f.replace(/\.json$/, "");
+      }),
   );
 
   var generated = [];
@@ -121,13 +145,33 @@ function generateStubs(opts) {
   Object.keys(registry.components).forEach(function (slug) {
     var entry = registry.components[slug];
     if (entry.importMethod !== "set") return; // singles are out of scope, silently
-    if (isDenylisted(slug)) { denylisted.push(slug); return; }
-    if (existingFiles.has(slug)) { skipped.push(slug); return; }
+    if (isDenylisted(slug)) {
+      denylisted.push(slug);
+      return;
+    }
+    if (existingFiles.has(slug)) {
+      skipped.push(slug);
+      return;
+    }
     generated.push(slug);
   });
 
   if (dryRun) {
-    return { generated: generated, skipped: skipped, denylisted: denylisted, indexUpdated: false };
+    return {
+      generated: generated,
+      skipped: skipped,
+      denylisted: denylisted,
+      indexUpdated: false,
+    };
+  }
+
+  // Fail-fast: read + parse index BEFORE writing any stubs. If the index is
+  // missing or malformed, an early throw prevents orphaned stub files from
+  // being left on disk (where they'd be invisible to consumers reading the
+  // index).
+  var index = null;
+  if (generated.length > 0) {
+    index = JSON.parse(fs.readFileSync(indexPath, "utf8"));
   }
 
   // Write stub files
@@ -144,8 +188,11 @@ function generateStubs(opts) {
   // Update _index.json (append stub entries)
   var indexUpdated = false;
   if (generated.length > 0) {
-    var index = JSON.parse(fs.readFileSync(indexPath, "utf8"));
-    var existingSlugs = new Set(index.components.map(function (c) { return c.slug; }));
+    var existingSlugs = new Set(
+      index.components.map(function (c) {
+        return c.slug;
+      }),
+    );
     generated.forEach(function (slug) {
       if (existingSlugs.has(slug)) return; // safety
       var entry = registry.components[slug];
@@ -157,7 +204,12 @@ function generateStubs(opts) {
     indexUpdated = true;
   }
 
-  return { generated: generated, skipped: skipped, denylisted: denylisted, indexUpdated: indexUpdated };
+  return {
+    generated: generated,
+    skipped: skipped,
+    denylisted: denylisted,
+    indexUpdated: indexUpdated,
+  };
 }
 
 module.exports = { generateStubs: generateStubs, isDenylisted: isDenylisted };
@@ -180,16 +232,26 @@ if (require.main === module) {
     dryRun: dryRun,
   });
 
+  if (dryRun) {
+    process.stdout.write("[dry-run] Would generate stubs for:\n");
+    result.generated.forEach(function (s) {
+      process.stdout.write("  - " + s + "\n");
+    });
+  }
   if (report) {
     process.stdout.write(
-      "Stubs generated: " + result.generated.length + "\n" +
-      "Already covered: " + result.skipped.length + "\n" +
-      "Denylisted: " + result.denylisted.length + "\n",
+      "Stubs generated: " +
+        result.generated.length +
+        "\n" +
+        "Already covered: " +
+        result.skipped.length +
+        "\n" +
+        "Denylisted: " +
+        result.denylisted.length +
+        "\n",
     );
-  } else if (dryRun) {
-    process.stdout.write("[dry-run] Would generate stubs for:\n");
-    result.generated.forEach(function (s) { process.stdout.write("  - " + s + "\n"); });
-  } else {
+  }
+  if (!dryRun && !report) {
     process.stdout.write("Generated " + result.generated.length + " stubs.\n");
   }
 }

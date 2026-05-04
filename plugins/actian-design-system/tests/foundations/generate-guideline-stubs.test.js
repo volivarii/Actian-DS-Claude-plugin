@@ -21,20 +21,47 @@ var fs = require("fs");
 var path = require("path");
 var os = require("os");
 
-var generateStubs = require("../../scripts/foundations/generate-guideline-stubs.js").generateStubs;
+var generateStubs =
+  require("../../scripts/foundations/generate-guideline-stubs.js").generateStubs;
 var REGISTRY_FIXTURE = require("./fixtures/dskit-stub-test.json");
 
 function freshGuidelinesDir() {
   var dir = fs.mkdtempSync(path.join(os.tmpdir(), "stubs-test-"));
   fs.writeFileSync(
     path.join(dir, "_index.json"),
-    JSON.stringify({ extracted_at: "2026-01-01T00:00:00Z", total_components: 1, components: [
-      { slug: "button", component: "Button", has_content_guidelines: true, has_design_guidelines: false, has_examples: false, has_screenshots: false, has_behavior: false, frames_found: [], frames_missing: [] },
-    ] }, null, 2),
+    JSON.stringify(
+      {
+        extracted_at: "2026-01-01T00:00:00Z",
+        total_components: 1,
+        components: [
+          {
+            slug: "button",
+            component: "Button",
+            has_content_guidelines: true,
+            has_design_guidelines: false,
+            has_examples: false,
+            has_screenshots: false,
+            has_behavior: false,
+            frames_found: [],
+            frames_missing: [],
+          },
+        ],
+      },
+      null,
+      2,
+    ),
   );
   fs.writeFileSync(
     path.join(dir, "button.json"),
-    JSON.stringify({ component: "Button", page_id: "1:1", content_guidelines: { sections: [] } }, null, 2),
+    JSON.stringify(
+      {
+        component: "Button",
+        page_id: "1:1",
+        content_guidelines: { sections: [] },
+      },
+      null,
+      2,
+    ),
   );
   return dir;
 }
@@ -57,6 +84,9 @@ describe("generate-guideline-stubs", function () {
         indexPath: path.join(dir, "_index.json"),
       });
     });
+    after(function () {
+      fs.rmSync(dir, { recursive: true, force: true });
+    });
 
     it("writes a stub for set-importable + uncovered + not denylisted (tooltip)", function () {
       var p = path.join(dir, "tooltip.json");
@@ -75,8 +105,12 @@ describe("generate-guideline-stubs", function () {
     });
 
     it("denylists brand-asset slug (actian-data-intelligence-dev-logo)", function () {
-      assert.ok(!result.generated.includes("actian-data-intelligence-dev-logo"));
-      assert.ok(result.denylisted.includes("actian-data-intelligence-dev-logo"));
+      assert.ok(
+        !result.generated.includes("actian-data-intelligence-dev-logo"),
+      );
+      assert.ok(
+        result.denylisted.includes("actian-data-intelligence-dev-logo"),
+      );
     });
 
     it("denylists -grid suffix (xs-grid)", function () {
@@ -95,16 +129,26 @@ describe("generate-guideline-stubs", function () {
         guidelinesDir: dir,
         indexPath: path.join(dir, "_index.json"),
       });
-      stubData = JSON.parse(fs.readFileSync(path.join(dir, "tooltip.json"), "utf8"));
+      stubData = JSON.parse(
+        fs.readFileSync(path.join(dir, "tooltip.json"), "utf8"),
+      );
+    });
+    after(function () {
+      fs.rmSync(dir, { recursive: true, force: true });
     });
 
     it("stub has _stub:true + _stubGeneratedAt as ISO timestamp", function () {
       assert.strictEqual(stubData._stub, true);
-      assert.match(stubData._stubGeneratedAt, /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/);
+      assert.match(
+        stubData._stubGeneratedAt,
+        /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}/,
+      );
     });
 
     it("variants populated from registry (axes + totalVariants computed)", function () {
-      assert.deepStrictEqual(stubData.variants.axes, { Position: ["Top", "Bottom"] });
+      assert.deepStrictEqual(stubData.variants.axes, {
+        Position: ["Top", "Bottom"],
+      });
       assert.strictEqual(stubData.variants.totalVariants, 2);
     });
 
@@ -120,48 +164,105 @@ describe("generate-guideline-stubs", function () {
   describe("_index.json updates", function () {
     it("appends stub entries to components[] with has_*: false flags + _stub:true", function () {
       var dir = freshGuidelinesDir();
-      var registryPath = writeRegistryToTemp(dir);
-      generateStubs({
-        registryPath: registryPath,
-        guidelinesDir: dir,
-        indexPath: path.join(dir, "_index.json"),
-      });
-      var idx = JSON.parse(fs.readFileSync(path.join(dir, "_index.json"), "utf8"));
-      var tooltipEntry = idx.components.find(function (c) { return c.slug === "tooltip"; });
-      assert.ok(tooltipEntry, "tooltip entry should exist in _index.json");
-      assert.strictEqual(tooltipEntry._stub, true);
-      assert.strictEqual(tooltipEntry.has_content_guidelines, false);
-      assert.strictEqual(tooltipEntry.has_design_guidelines, false);
+      try {
+        var registryPath = writeRegistryToTemp(dir);
+        generateStubs({
+          registryPath: registryPath,
+          guidelinesDir: dir,
+          indexPath: path.join(dir, "_index.json"),
+        });
+        var idx = JSON.parse(
+          fs.readFileSync(path.join(dir, "_index.json"), "utf8"),
+        );
+        var tooltipEntry = idx.components.find(function (c) {
+          return c.slug === "tooltip";
+        });
+        assert.ok(tooltipEntry, "tooltip entry should exist in _index.json");
+        assert.strictEqual(tooltipEntry._stub, true);
+        assert.strictEqual(tooltipEntry.has_content_guidelines, false);
+        assert.strictEqual(tooltipEntry.has_design_guidelines, false);
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
     });
   });
 
   describe("idempotency", function () {
     it("re-running does not overwrite existing files", function () {
       var dir = freshGuidelinesDir();
-      var registryPath = writeRegistryToTemp(dir);
-      generateStubs({ registryPath: registryPath, guidelinesDir: dir, indexPath: path.join(dir, "_index.json") });
-      var firstStub = fs.readFileSync(path.join(dir, "tooltip.json"), "utf8");
-      // Mutate the stub to detect overwrite
-      fs.writeFileSync(path.join(dir, "tooltip.json"), firstStub.replace('"_stub": true', '"_stub": "MUTATED"'));
-      var secondResult = generateStubs({ registryPath: registryPath, guidelinesDir: dir, indexPath: path.join(dir, "_index.json") });
-      var secondStub = fs.readFileSync(path.join(dir, "tooltip.json"), "utf8");
-      assert.match(secondStub, /"_stub": "MUTATED"/, "stub should not be overwritten");
-      assert.ok(!secondResult.generated.includes("tooltip"));
+      try {
+        var registryPath = writeRegistryToTemp(dir);
+        generateStubs({
+          registryPath: registryPath,
+          guidelinesDir: dir,
+          indexPath: path.join(dir, "_index.json"),
+        });
+        var firstStub = fs.readFileSync(path.join(dir, "tooltip.json"), "utf8");
+        // Mutate the stub to detect overwrite
+        fs.writeFileSync(
+          path.join(dir, "tooltip.json"),
+          firstStub.replace('"_stub": true', '"_stub": "MUTATED"'),
+        );
+        var secondResult = generateStubs({
+          registryPath: registryPath,
+          guidelinesDir: dir,
+          indexPath: path.join(dir, "_index.json"),
+        });
+        var secondStub = fs.readFileSync(
+          path.join(dir, "tooltip.json"),
+          "utf8",
+        );
+        assert.match(
+          secondStub,
+          /"_stub": "MUTATED"/,
+          "stub should not be overwritten",
+        );
+        assert.ok(!secondResult.generated.includes("tooltip"));
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
     });
   });
 
   describe("--dry-run mode", function () {
     it("returns planned stubs without writing files", function () {
       var dir = freshGuidelinesDir();
-      var registryPath = writeRegistryToTemp(dir);
-      var result = generateStubs({
-        registryPath: registryPath,
-        guidelinesDir: dir,
-        indexPath: path.join(dir, "_index.json"),
-        dryRun: true,
-      });
-      assert.ok(result.generated.includes("tooltip"));
-      assert.ok(!fs.existsSync(path.join(dir, "tooltip.json")), "no file should be written in dry-run");
+      try {
+        var registryPath = writeRegistryToTemp(dir);
+        var result = generateStubs({
+          registryPath: registryPath,
+          guidelinesDir: dir,
+          indexPath: path.join(dir, "_index.json"),
+          dryRun: true,
+        });
+        assert.ok(result.generated.includes("tooltip"));
+        assert.ok(
+          !fs.existsSync(path.join(dir, "tooltip.json")),
+          "no file should be written in dry-run",
+        );
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
+    });
+  });
+
+  describe("invalid registry input", function () {
+    it("throws on registry missing 'components' key", function () {
+      var dir = fs.mkdtempSync(path.join(os.tmpdir(), "stubs-bad-"));
+      try {
+        fs.writeFileSync(path.join(dir, "_index.json"), '{"components":[]}');
+        var bad = path.join(dir, "bad.json");
+        fs.writeFileSync(bad, JSON.stringify({ library: "x" }));
+        assert.throws(function () {
+          generateStubs({
+            registryPath: bad,
+            guidelinesDir: dir,
+            indexPath: path.join(dir, "_index.json"),
+          });
+        }, /missing or non-object 'components' key/);
+      } finally {
+        fs.rmSync(dir, { recursive: true, force: true });
+      }
     });
   });
 });
