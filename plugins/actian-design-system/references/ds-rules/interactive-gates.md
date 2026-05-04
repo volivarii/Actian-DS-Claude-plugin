@@ -54,7 +54,7 @@ Gates are batched per **pipeline phase**, not per flag. Reasons:
 The proven precedent: `/component-brief` Step 1.5 batches card selection + research scope into one prompt with one combined parser. This convention generalizes that.
 
 **Per-skill batching:**
-- `/generate-flow`: 2 phases — pre-generation gate (4 flags), post-generation gate (2 flags). Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
+- `/generate-flow`: 2 phases — pre-generation gate (5 flags: `--hifi`, `--variants`, `--ref`, `--breakpoints`, `--states`), post-push gate (1 flag: `--audit`). Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
 - `/design-audit`: 2 single-flag gates — scope at start, fix after findings reported.
 - `/convert-to-hifi`: 1 single-flag gate — ref at start.
 
