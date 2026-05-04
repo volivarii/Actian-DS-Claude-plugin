@@ -1,0 +1,39 @@
+{
+  "component": "Input, date",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "8194:7305",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Type": [
+        "Single date",
+        "Date range"
+      ],
+      "States": [
+        "Enabled",
+        "Hovered",
+        "Focused",
+        "Error",
+        "Disabled",
+        "Fille",
+        "Activ"
+      ]
+    },
+    "totalVariants": 14
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

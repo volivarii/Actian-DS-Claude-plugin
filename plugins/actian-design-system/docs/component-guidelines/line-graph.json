@@ -1,0 +1,29 @@
+{
+  "component": "⛔️ Line graph",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "15473:49490",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Property 1": [
+        "Default"
+      ]
+    },
+    "totalVariants": 1
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

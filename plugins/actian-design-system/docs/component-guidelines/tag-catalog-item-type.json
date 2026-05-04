@@ -1,0 +1,36 @@
+{
+  "component": "✍️ Tag, Catalog item type",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "11300:8312",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Type": [
+        "Category",
+        "Dataset",
+        "Data process",
+        "Data product",
+        "Field",
+        "Output port",
+        "Use case",
+        "Visualization"
+      ]
+    },
+    "totalVariants": 8
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

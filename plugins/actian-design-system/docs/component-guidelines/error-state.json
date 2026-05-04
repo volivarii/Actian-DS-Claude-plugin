@@ -1,0 +1,30 @@
+{
+  "component": "Error state",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "13087:34544",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Size": [
+        "Large",
+        "Medium"
+      ]
+    },
+    "totalVariants": 2
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

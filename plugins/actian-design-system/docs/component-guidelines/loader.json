@@ -1,0 +1,31 @@
+{
+  "component": "Loader",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "7372:2195",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Percent": [
+        "99%",
+        "10%",
+        "Percent3"
+      ]
+    },
+    "totalVariants": 3
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

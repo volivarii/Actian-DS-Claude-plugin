@@ -1,0 +1,39 @@
+{
+  "component": "✍️ Tag, Status",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "7257:3705",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Status": [
+        "Fail",
+        "Warning",
+        "Success",
+        "Loading",
+        "Maintenance",
+        "Scheduled",
+        "Queued",
+        "Stopped",
+        "Sleeping",
+        "Offline",
+        "Pending"
+      ]
+    },
+    "totalVariants": 11
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}
