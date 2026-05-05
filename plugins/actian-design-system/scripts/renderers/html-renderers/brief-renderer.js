@@ -1113,7 +1113,10 @@
           renderFmCard5(d.anatomy, componentHtml),
         ];
       } else {
-        // Section order (Brief Refresh v2 Phase 2 — v1.67.0):
+        // Section order (Brief Refresh v2 Phase 2 — v1.67.0).
+        // Spec: comms/SPEC-brief-6-section-restructure.md
+        // Plan: comms/PLAN-brief-6-section-restructure.md
+        //
         //   Header                       (always)
         //   Section 1 supercard          (Anatomy + Variation + Tokens + Specs merged)
         //   Section 2 — Usages           (always if data)
@@ -1122,12 +1125,12 @@
         //   Section 5 — Accessibility    (always)
         //   Section 6 — Real examples    (deferred entirely; not rendered)
         cards = [
-          renderCard1(d.header),
-          renderSection1(d.component, d.anatomy, d.tokens, componentHtml),
-          renderCard6(d.usage),
-          renderCard7(d.content),
-          renderCardMotion(d.motion),
-          renderCard8(d.accessibility),
+          renderCard1(d.header), // Header
+          renderSection1(d.component, d.anatomy, d.tokens, componentHtml), // Section 1
+          renderCard6(d.usage), // Section 2
+          renderCard7(d.content), // Section 3
+          renderCardMotion(d.motion), // Section 4 (conditional)
+          renderCard8(d.accessibility), // Section 5
         ];
       }
 

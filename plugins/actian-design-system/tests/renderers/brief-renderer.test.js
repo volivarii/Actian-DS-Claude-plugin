@@ -92,10 +92,12 @@ test("renderSection1 + sibling renders together produce 6-card sequence (DS mode
   ].filter(Boolean);
 
   // Button fixture has no card_motion → renderCardMotion returns "" → filtered out.
-  // So expect 5 visible cards.
-  assert.ok(
-    cards.length === 5 || cards.length === 6,
-    "5 or 6 cards depending on motion presence",
+  // So expect EXACTLY 5 cards. (If a future fixture adds motion, write a
+  // separate test asserting === 6 — don't loosen this one to OR.)
+  assert.equal(
+    cards.length,
+    5,
+    "exactly 5 cards (no motion in Button fixture)",
   );
 
   // Joined HTML should contain exactly one Section 1 supercard title.
