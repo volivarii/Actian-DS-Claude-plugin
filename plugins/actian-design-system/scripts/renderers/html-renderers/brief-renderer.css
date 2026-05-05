@@ -256,6 +256,25 @@ td code {
   color: #101828;
 }
 
+/* Per-sub-section Draft badge (Brief Refresh v2 / v1.67.0). Renders next to a
+   sub-section heading inside Section 1 when the underlying card data is
+   AI-generated and not yet human-authored. Suppressed when _authored: true. */
+.subsection-draft-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--zen-color-text-secondary, #717d96);
+  background: var(--zen-color-surface-subtle, #f5f5fa);
+  border: 1px solid var(--zen-color-border-subtle, #edf0f7);
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
 /* Inline pattern slug pill on the Behavior & motion card */
 .pattern-slug {
   display: inline-block;

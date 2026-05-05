@@ -27,25 +27,27 @@ Parse URL (`fileKey` + `nodeId` per `../../references/figma/figma-output.md`). O
 
 Before generating the data model, present the available cards and let the user choose. Present the card list for the detected mode:
 
-**DS Kit mode (7 cards, organized into 6 sections):**
+**DS Kit mode (5 cards):**
 ```
-Component brief for [Name] — 7 cards available:
+Component brief for [Name] — 5 cards available:
 
-| # | Section            | Card           | Content                                          |
-|---|--------------------|----------------|--------------------------------------------------|
-| 1 | Header             | Header         | Component name, description, metadata           |
-| 2 | 1. Anatomy + tokens| Component      | Real library instances — all variants           |
-| 3 | 1. Anatomy + tokens| Anatomy        | Structural breakdown with labeled parts         |
-| 4 | 1. Anatomy + tokens| Tokens         | Design token bindings (colors, spacing, type)   |
-| 5 | 2. Usages          | Usage          | Do/don't, when to use, when not to              |
-| 6 | 3. Content         | Content        | Copy guidelines, label patterns, error text     |
-| 7 | 5. Accessibility   | Accessibility  | WCAG compliance, keyboard, screen reader        |
+| # | Section                    | Card                   | Content                                          |
+|---|----------------------------|------------------------|--------------------------------------------------|
+| 1 | Header                     | Header                 | Component name, description, metadata           |
+| 2 | 1. Anatomy/var/tokens/specs | Section 1 (supercard) | Variation matrix, anatomy parts, token tables, dimension specs |
+| 3 | 2. Usages                  | Usage                  | When to use, when not to use, do/don't pairs    |
+| 4 | 3. Content                 | Content                | Copy guidelines, label patterns, terminology    |
+| — | 4. Motion (auto)           | Motion                 | Added automatically when a motion pattern exists |
+| 5 | 5. Accessibility           | Accessibility          | Keyboard, ARIA, contrast                        |
 
-Section 4 (Motion) is added automatically when the component has a curated motion pattern.
-Section 6 (Real platform examples) is not yet implemented — pending authoring contract.
+Section 4 (Motion) is auto-added (not user-selectable in this gate) when the component has a curated motion pattern.
+Section 6 (Real platform examples) is deferred — not generated yet.
 
-Cards: generate **all 7** or pick specific (e.g., "2,4,6").
-Research: cross-DS patterns can be researched before generating cards 5, 6, 7
+Cards: generate **all 5** or pick specific (e.g., "2,4").
+       Card numbering matches the gate; the data model still uses card_header,
+       card_component, card_anatomy, card_tokens, card_usage, card_content,
+       card_motion, card_accessibility keys (no schema migration in v1.67.0).
+Research: cross-DS patterns can be researched before generating cards 3, 4, 5
           to surface insights, recommendations, and divergences from existing
           context. Skip by default (faster, lower token cost).
           Reply: "research all" / "research usage,content" / nothing to skip.
@@ -69,14 +71,14 @@ Generate **all 5** or pick specific cards (e.g., "1,2,5").
 If the user pre-specifies cards in the prompt (e.g., "brief Button cards 2,4,5"), skip this gate and generate only those cards. The research scope can also ride the prompt: "brief Button cards 2,4,5 research content" → 3 cards + research only on card_content.
 
 Parser rules for the response:
-- Empty (just enter) → all 7 cards, no research
-- `"all"` → all 7 cards, no research
-- `"2,4,6"` → cards 2/4/6 only, no research
-- `"all research all"` → all 7 cards + research on cards 5/6/7
-- `"all research usage,content"` → all 7 + research on cards 5+6 only
-- `"2,4,6 research content"` → cards 2/4/6 + research only on card 6
+- Empty (just enter) → all 5 cards, no research
+- `"all"` → all 5 cards, no research
+- `"2,4"` → cards 2/4 only, no research
+- `"all research all"` → all 5 cards + research on cards 3/4/5
+- `"all research usage,content"` → all 5 + research on cards 3+4 only
+- `"2,4 research content"` → cards 2/4 + research only on card 4
 - `"research all"` (no card list) → treats as `"all research all"`
-- Invalid card number (e.g., 99) → re-prompt with "Card 99 doesn't exist. Valid: 1-7."
+- Invalid card number (e.g., 99) → re-prompt with "Card 99 doesn't exist. Valid: 1-5."
 - Invalid research scope (e.g., `research foo`) → re-prompt with "Unknown research scope `foo`. Valid: all, usage, content, accessibility."
 - Gate is re-enterable on parse failure (3 retry attempts then abort).
 
@@ -184,14 +186,13 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
 
 1. Create wrapper frame (Pattern 0 from component-brief/push-patterns.md — MUST be HORIZONTAL)
 2. Create GenLog instance (Pattern 0b — import by key, set 6 meta props, append to wrapper)
-3. **Card 1 — Page Header — create EXACTLY ONCE.** Use Pattern 1 with variant `"Mode=DS, Type=Page Header"`. **Set ALL three text properties** in a single `setProperties` call: `"Component Name#7:2"` = `card_header.name`, `"Description#7:3"` = `card_header.description`, `"Source#7:4"` = `"DS Kit"` (or appropriate library label). If you don't override these, Meta Kit's Page Header variant defaults leak through — you'll see "Button" / "The Button component is a surface-level element..." regardless of which component you're documenting (regression: see PR #23 follow-up). After creating + appending the Page Header, do NOT recreate it under any condition — proceed directly to card 2.
-4. For each remaining card in the data model (cards 2-N, skip `card_header`):
+3. **Card 1 — Page Header — create EXACTLY ONCE.** Use Pattern 1 with variant `"Mode=DS, Type=Page Header"`. **Set ALL three text properties** in a single `setProperties` call: `"Component Name#7:2"` = `card_header.name`, `"Description#7:3"` = `card_header.description`, `"Source#7:4"` = `"DS Kit"` (or appropriate library label). If you don't override these, Meta Kit's Page Header variant defaults leak through — you'll see "Button" / "The Button component is a surface-level element..." regardless of which component you're documenting (regression: see PR #23 follow-up). After creating + appending the Page Header, do NOT recreate it under any condition — proceed directly to Section 1.
+4. **Section 1 supercard — create EXACTLY ONCE (replaces former Cards 2/3/4).** Use Pattern 1 with variant `"Mode=DS, Type=Standard"`. Card title: `"Anatomy, variation, tokens & specs"`. Card subtitle: `"Structural breakdown, variants, token bindings, and dimension specs"` (both overridable from data model `card.cardTitle` / `card.cardSubtitle` if set). Inside the contentSlot, build four nested sub-frames per Pattern 1d: Anatomy / Variation / Tokens / Specs. Each sub-frame gets a 16px Semibold heading; if the corresponding source card (`card_anatomy` / `card_component` / `card_tokens` / `card_anatomy` for Specs) has `_source: "generated"` AND `_authored !== true`, append a small DRAFT tag next to the heading. Specs sub-frame is included only when `card_anatomy.specs` is non-empty.
+5. For each remaining card in the data model (Section 2 Usage, Section 3 Content, Section 4 Motion if present, Section 5 Accessibility — skip `card_header`, `card_component`, `card_anatomy`, `card_tokens`):
    a. Create card shell (Pattern 1). Read `card.cardTitle` and `card.cardSubtitle` from the data model — pass them straight to `setProperties` as `Title#140:0` and `Subtitle#140:1`. Do NOT hardcode card titles. **Default-leak detection (post-v1.66.0):** the Meta Kit Card Header now defaults to the generic placeholders `"Card title"` / `"Subtitle text"`. If a pushed card displays either string verbatim, `setProperties` silently failed (wrong property ID, wrong nested instance, or unresolved Card Header lookup) — fix the push call rather than ignoring the leak.
    b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
-   c. Anatomy card (`card_anatomy`): use the anatomy diagram pattern (~4-6KB inline call)
-   d. Tokens card (`card_tokens`): compact grid table — one row per state, Color Swatch per cell. Set `.fills` directly on swatch instance (flat, no children). Use `setProperties` for Section Headers (Pattern 2).
-   e. Accessibility card (`card_accessibility`): use the simplified Pattern 6 — render `requirements` as a vertical bulleted list with bold-title + plain-body rows (one row per requirement, no per-card frames, no embedded code blocks). This replaces the 2×3 a11y-card grid retired in v1.66.3. Then render the Contrast table and ARIA table after the requirements list. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties` for the table rows.
-4. After all cards pushed, report to user with count
+   c. Accessibility card (`card_accessibility`): use the simplified Pattern 6 — render `requirements` as a vertical bulleted list with bold-title + plain-body rows (one row per requirement, no per-card frames, no embedded code blocks). This replaces the 2×3 a11y-card grid retired in v1.66.3. Then render the Contrast table and ARIA table after the requirements list. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties` for the table rows.
+6. After all cards pushed, report to user with count
 
 **Rules:**
 - Each `use_figma` call creates 1-3 nodes max — keep calls small

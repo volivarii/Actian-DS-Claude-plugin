@@ -149,6 +149,24 @@
     return '<div class="section-title">' + esc(title) + "</div>";
   }
 
+  // Sub-section heading with optional Draft badge. The badge appears only
+  // when the source card is AI-generated AND not flagged as human-authored.
+  // Hybrid contract from spec Q8=C.
+  function subsectionTitle(label, sourceCard) {
+    var draft = "";
+    if (
+      sourceCard &&
+      sourceCard._source === "generated" &&
+      sourceCard._authored !== true
+    ) {
+      // Spacing handled by .subsection-draft-badge { margin-left: 8px }.
+      draft =
+        '<span class="subsection-draft-badge" ' +
+        'title="AI-drafted; not yet human-authored">Draft</span>';
+    }
+    return '<div class="section-title">' + esc(label) + draft + "</div>";
+  }
+
   function cardDivider() {
     return '<div class="card-divider"></div>';
   }
@@ -278,11 +296,12 @@
     );
   }
 
-  function renderCard2(comp, componentHtml) {
+  // Section 1 sub-section: Variation. Returns the inner content body — no
+  // cardShell wrapper. Reused by renderCard2 (back-compat) and renderSection1.
+  function renderVariationContent(comp, componentHtml) {
     if (!comp) return "";
     var parts = [];
 
-    // Variant matrix
     if (comp.variantMatrix && comp.variantMatrix.length) {
       var cols = comp.variantMatrix[0].columns;
       var matrixHtml = '<table class="variant-matrix"><thead><tr><th>Type</th>';
@@ -306,12 +325,12 @@
       matrixHtml += "</tbody></table>";
       parts.push(
         '<div class="section" data-name="Variant matrix">' +
+          subsectionTitle("Variation", comp) +
           matrixHtml +
           "</div>",
       );
     }
 
-    // Theme comparison (HTML can't do Figma variable modes — show labeled placeholders)
     if (comp.themeComparison) {
       var themes = ["Actian", "Studio", "Explorer"];
       var themeHtml = '<div class="theme-row">';
@@ -338,21 +357,27 @@
       );
     }
 
+    return parts.join("");
+  }
+
+  function renderCard2(comp, componentHtml) {
+    if (!comp) return "";
     return cardShell(
       (comp && comp.cardTitle) || "Component",
       (comp && comp.cardSubtitle) ||
         "Live component across all states and theme modes",
-      parts.join(""),
+      renderVariationContent(comp, componentHtml),
       null,
       comp,
     );
   }
 
-  function renderCard3(anatomy, componentHtml) {
+  // Section 1 sub-section: Anatomy (parts diagram + parts table + states).
+  // Specs are intentionally separated — see renderSpecsContent.
+  function renderAnatomyContent(anatomy, componentHtml) {
     if (!anatomy) return "";
     var parts = [];
 
-    // Structure
     if (anatomy.parts && anatomy.parts.length) {
       var structHtml =
         '<div class="anatomy-box"><div class="anatomy-component">' +
@@ -371,42 +396,13 @@
       });
       structHtml += "</div></div>";
       parts.push(
-        '<div class="section" data-name="Structure">' +
-          sectionTitle("Structure") +
+        '<div class="section" data-name="Anatomy">' +
+          subsectionTitle("Anatomy", anatomy) +
           structHtml +
           "</div>",
       );
     }
 
-    // Specs (dimension annotations — simplified for HTML preview)
-    if (anatomy.specs && anatomy.specs.length) {
-      var specsHtml =
-        '<div class="anatomy-box">' +
-        '<div class="anatomy-component">' +
-        '<span class="anatomy-component__label">Specs</span>' +
-        componentHtml("default") +
-        '</div><div class="anatomy-props">';
-      anatomy.specs.forEach(function (s) {
-        specsHtml +=
-          '<div class="anatomy-prop">' +
-          '<div class="anatomy-badge anatomy-badge--dim">' +
-          esc(s.value) +
-          "</div>" +
-          '<div class="anatomy-prop__label">' +
-          esc(s.layerName || s.orientation || s.direction || "") +
-          "</div></div>";
-      });
-      specsHtml += "</div></div>";
-      parts.push(
-        cardDivider() +
-          '<div class="section" data-name="Specs">' +
-          sectionTitle("Specs") +
-          specsHtml +
-          "</div>",
-      );
-    }
-
-    // States
     if (anatomy.states && anatomy.states.length) {
       var statesHtml = '<div class="state-grid">';
       anatomy.states.forEach(function (state) {
@@ -427,7 +423,6 @@
       );
     }
 
-    // Parts reference table
     if (anatomy.partsTable && anatomy.partsTable.length) {
       var pRows = anatomy.partsTable.map(function (r) {
         return [
@@ -446,6 +441,53 @@
       );
     }
 
+    return parts.join("");
+  }
+
+  // Section 1 sub-section: Specs (dimension annotations).
+  // Reads anatomy.specs; previously nested inside renderCard3, now its own helper.
+  function renderSpecsContent(anatomy, componentHtml) {
+    if (!anatomy || !anatomy.specs || !anatomy.specs.length) return "";
+    var specsHtml =
+      '<div class="anatomy-box">' +
+      '<div class="anatomy-component">' +
+      '<span class="anatomy-component__label">Specs</span>' +
+      componentHtml("default") +
+      '</div><div class="anatomy-props">';
+    anatomy.specs.forEach(function (s) {
+      specsHtml +=
+        '<div class="anatomy-prop">' +
+        '<div class="anatomy-badge anatomy-badge--dim">' +
+        esc(s.value) +
+        "</div>" +
+        '<div class="anatomy-prop__label">' +
+        esc(s.layerName || s.orientation || s.direction || "") +
+        "</div></div>";
+    });
+    specsHtml += "</div></div>";
+    return (
+      '<div class="section" data-name="Specs">' +
+      subsectionTitle("Specs", anatomy) +
+      specsHtml +
+      "</div>"
+    );
+  }
+
+  // Back-compat wrapper. Pre-refactor renderCard3 emitted Specs BETWEEN
+  // States and Parts reference (middle of the card). Post-refactor Specs
+  // renders at the end of the card. This positional change is acceptable
+  // because (a) Task 4 replaces renderCard3 in the default DOM array with
+  // renderSection1, where Specs is intentionally the 4th sub-section
+  // (last), and (b) renderCard3 is only on a back-compat code path. If a
+  // future caller relies on the historical mid-card Specs position, split
+  // renderAnatomyContent into Structure / States / Parts helpers and
+  // interleave Specs between States and Parts here.
+  function renderCard3(anatomy, componentHtml) {
+    if (!anatomy) return "";
+    var anatomyParts = renderAnatomyContent(anatomy, componentHtml);
+    var specsParts = renderSpecsContent(anatomy, componentHtml);
+    var parts = [anatomyParts];
+    if (specsParts) parts.push(cardDivider() + specsParts);
     return cardShell(
       (anatomy && anatomy.cardTitle) || "Anatomy",
       (anatomy && anatomy.cardSubtitle) ||
@@ -456,11 +498,11 @@
     );
   }
 
-  function renderCard4(tokens) {
+  // Section 1 sub-section: Tokens (color + sizing + typography tables).
+  function renderTokensContent(tokens) {
     if (!tokens) return "";
     var parts = [];
 
-    // Color tokens table — grid: one row per state, swatch dot per column
     if (tokens.colorTokens && tokens.colorTokens.length) {
       var headers = ["Variant · State"].concat(
         tokens.colorTokens[0].columns.map(function (c) {
@@ -475,14 +517,13 @@
         );
       });
       parts.push(
-        '<div class="section" data-name="Color tokens">' +
-          sectionTitle("Color tokens") +
+        '<div class="section" data-name="Tokens">' +
+          subsectionTitle("Tokens", tokens) +
           specTable(headers, rows) +
           "</div>",
       );
     }
 
-    // Sizing tokens table
     if (tokens.sizingTokens && tokens.sizingTokens.length) {
       var sRows = tokens.sizingTokens.map(function (r) {
         return [
@@ -500,7 +541,6 @@
       );
     }
 
-    // Typography
     if (tokens.typography && tokens.typography.length) {
       var tRows = tokens.typography.map(function (t) {
         return [
@@ -519,14 +559,82 @@
       );
     }
 
+    return parts.join("");
+  }
+
+  function renderCard4(tokens) {
+    if (!tokens) return "";
     return cardShell(
       (tokens && tokens.cardTitle) || "Design tokens",
       (tokens && tokens.cardSubtitle) ||
         "Color, sizing, spacing, and typography tokens",
-      parts.join(""),
+      renderTokensContent(tokens),
       null,
       tokens,
     );
+  }
+
+  // Section 1 supercard — Brief Refresh v2 / Kristina's must-have list.
+  // Composes Anatomy + Variation + Tokens + Specs into a single card frame.
+  // Sub-sections separated by cardDivider(); each one only renders if the
+  // corresponding input data is populated.
+  function renderSection1(component, anatomy, tokens, componentHtml) {
+    var anatomyHtml = renderAnatomyContent(anatomy, componentHtml);
+    var variationHtml = renderVariationContent(component, componentHtml);
+    var tokensHtml = renderTokensContent(tokens);
+    var specsHtml = renderSpecsContent(anatomy, componentHtml);
+
+    if (!anatomyHtml && !variationHtml && !tokensHtml && !specsHtml) return "";
+
+    var parts = [];
+    function appendSubsection(html) {
+      if (!html) return;
+      if (parts.length) parts.push(cardDivider());
+      parts.push(html);
+    }
+    appendSubsection(anatomyHtml);
+    appendSubsection(variationHtml);
+    appendSubsection(tokensHtml);
+    appendSubsection(specsHtml);
+
+    // Pick a representative card object for source-badge / research insights.
+    // Per spec: "most permissive wins" — figma > generated > generated+fallback.
+    var representative = pickSection1Provenance(component, anatomy, tokens);
+
+    // Default title and subtitle. If the representative card (the provenance
+    // winner from pickSection1Provenance) carries cardTitle/cardSubtitle from
+    // its recipe, those override the defaults below.
+    var title =
+      (representative && representative.cardTitle) ||
+      "Anatomy, variation, tokens & specs";
+    var subtitle =
+      (representative && representative.cardSubtitle) ||
+      "Structural breakdown, variants, token bindings, and dimension specs";
+
+    return cardShell(title, subtitle, parts.join(""), null, representative);
+  }
+
+  // Pick the "most permissive" provenance among Section 1's three input cards.
+  // Used to drive the single source badge on the supercard.
+  function pickSection1Provenance(component, anatomy, tokens) {
+    var inputs = [component, anatomy, tokens].filter(Boolean);
+    if (!inputs.length) return null;
+
+    // figma wins
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i]._source === "figma") return inputs[i];
+    }
+    // all fallback?
+    var allFallback = inputs.every(function (c) {
+      return c._fallback === true;
+    });
+    if (allFallback) return inputs[0];
+    // pick any generated (non-fallback)
+    for (var j = 0; j < inputs.length; j++) {
+      if (inputs[j]._source === "generated" && !inputs[j]._fallback)
+        return inputs[j];
+    }
+    return inputs[0]; // default: first input — covers cards with no _source set
   }
 
   // Card 5 (numbered) — Behavior & motion. Conditional: returns "" when the
@@ -980,100 +1088,124 @@
 
   // --- Entry Point ---
 
-  document.addEventListener("DOMContentLoaded", function () {
-    var dataEl = document.getElementById("spec-data");
-    if (!dataEl) return;
-    var data = JSON.parse(dataEl.textContent);
-    var container = document.getElementById("cards-container");
-    if (!container) return;
+  if (typeof document !== "undefined") {
+    document.addEventListener("DOMContentLoaded", function () {
+      var dataEl = document.getElementById("spec-data");
+      if (!dataEl) return;
+      var data = JSON.parse(dataEl.textContent);
+      var container = document.getElementById("cards-container");
+      if (!container) return;
 
-    var componentHtml =
-      window.componentHtml ||
-      function () {
-        return '<div style="padding:20px;background:#f5f5f5;border-radius:8px;color:#888;text-align:center;">Component preview</div>';
+      var componentHtml =
+        window.componentHtml ||
+        function () {
+          return '<div style="padding:20px;background:#f5f5f5;border-radius:8px;color:#888;text-align:center;">Component preview</div>';
+        };
+      var isFm =
+        data.meta && (data.meta.library === "fm" || data.meta.mode === "fm");
+
+      // Support both new-style flat keys (card_header) and old-style numbered keys (card1_header)
+      // card_api (was card5) and card_code (was card9) retired; validator blocks them.
+      var d = {
+        header: data.card_header || data.card1_header,
+        component: data.card_component || data.card2_component,
+        anatomy: data.card_anatomy || data.card3_anatomy,
+        tokens: data.card_tokens || data.card4_tokens,
+        motion: data.card_motion,
+        usage: data.card_usage || data.card6_usage,
+        content: data.card_content || data.card7_content,
+        accessibility: data.card_accessibility || data.card8_accessibility,
+        // FM keys
+        designGuidelines:
+          data.card_design_guidelines || data.card3_design_guidelines,
+        contentGuidelines:
+          data.card_content_guidelines || data.card4_content_guidelines,
       };
-    var isFm =
-      data.meta && (data.meta.library === "fm" || data.meta.mode === "fm");
 
-    // Support both new-style flat keys (card_header) and old-style numbered keys (card1_header)
-    // card_api (was card5) and card_code (was card9) retired; validator blocks them.
-    var d = {
-      header: data.card_header || data.card1_header,
-      component: data.card_component || data.card2_component,
-      anatomy: data.card_anatomy || data.card3_anatomy,
-      tokens: data.card_tokens || data.card4_tokens,
-      motion: data.card_motion,
-      usage: data.card_usage || data.card6_usage,
-      content: data.card_content || data.card7_content,
-      accessibility: data.card_accessibility || data.card8_accessibility,
-      // FM keys
-      designGuidelines:
-        data.card_design_guidelines || data.card3_design_guidelines,
-      contentGuidelines:
-        data.card_content_guidelines || data.card4_content_guidelines,
+      var cards;
+      if (isFm) {
+        cards = [
+          renderFmCard1(d.header),
+          renderFmCard2(d.component, componentHtml),
+          renderFmCard3(d.designGuidelines),
+          renderFmCard4(d.contentGuidelines),
+          renderFmCard5(d.anatomy, componentHtml),
+        ];
+      } else {
+        // Section order (Brief Refresh v2 Phase 2 — v1.67.0).
+        // Spec: comms/SPEC-brief-6-section-restructure.md
+        // Plan: comms/PLAN-brief-6-section-restructure.md
+        //
+        //   Header                       (always)
+        //   Section 1 supercard          (Anatomy + Variation + Tokens + Specs merged)
+        //   Section 2 — Usages           (always if data)
+        //   Section 3 — Content          (always if data)
+        //   Section 4 — Motion           (conditional)
+        //   Section 5 — Accessibility    (always)
+        //   Section 6 — Real examples    (deferred entirely; not rendered)
+        cards = [
+          renderCard1(d.header), // Header
+          renderSection1(d.component, d.anatomy, d.tokens, componentHtml), // Section 1
+          renderCard6(d.usage), // Section 2
+          renderCard7(d.content), // Section 3
+          renderCardMotion(d.motion), // Section 4 (conditional)
+          renderCard8(d.accessibility), // Section 5
+        ];
+      }
+
+      // Insert gen card before the cards container (as sibling in brief-row)
+      var briefRow = container.parentElement;
+      if (briefRow && data.meta) {
+        var genCardEl = document.createElement("div");
+        genCardEl.innerHTML = genCard(data.meta);
+        briefRow.insertBefore(genCardEl.firstChild, container);
+      }
+
+      container.innerHTML = cards.filter(Boolean).join("\n");
+
+      // Stub footer cue (v1.64.0+): surfaced when meta._stubGuideline is true so
+      // designers know the brief is registry-derived only and the DS team owes
+      // a curated guideline for this component.
+      if (briefRow && data.meta && data.meta._stubGuideline === true) {
+        var slug = esc(data.meta.slug || "this-component");
+        var footer = document.createElement("div");
+        footer.className = "stub-footer";
+        footer.style.cssText =
+          "margin-top: 24px; padding: 16px 20px; " +
+          "background: var(--zen-color-background-grey-1, #fbfbff); " +
+          "border-left: 3px solid var(--zen-color-status-warning, #d27b00); " +
+          "color: var(--zen-color-text-secondary, #3f3f4a); font-size: 13px;";
+        footer.innerHTML =
+          "<strong>Guidance pending curation.</strong> " +
+          "This brief is based on registry data only. The DS team has not yet " +
+          "curated content / design / a11y guidelines for this component. " +
+          "Briefs will improve once the guideline is fleshed out at " +
+          "<code>docs/component-guidelines/" +
+          slug +
+          ".json</code>.";
+        briefRow.appendChild(footer);
+      }
+    });
+  } // end typeof document guard
+
+  // Node-compatible exports — mirror fm-html-map.js so tests can require this module.
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = {
+      renderCard1: renderCard1,
+      renderCard2: renderCard2,
+      renderCard3: renderCard3,
+      renderCard4: renderCard4,
+      renderCardMotion: renderCardMotion,
+      renderCard6: renderCard6,
+      renderCard7: renderCard7,
+      renderCard8: renderCard8,
+      renderVariationContent: renderVariationContent,
+      renderAnatomyContent: renderAnatomyContent,
+      renderTokensContent: renderTokensContent,
+      renderSpecsContent: renderSpecsContent,
+      renderSection1: renderSection1,
+      pickSection1Provenance: pickSection1Provenance,
+      subsectionTitle: subsectionTitle,
     };
-
-    var cards;
-    if (isFm) {
-      cards = [
-        renderFmCard1(d.header),
-        renderFmCard2(d.component, componentHtml),
-        renderFmCard3(d.designGuidelines),
-        renderFmCard4(d.contentGuidelines),
-        renderFmCard5(d.anatomy, componentHtml),
-      ];
-    } else {
-      // Section order (Brief Refresh v2 Phase 1):
-      //   Header
-      //   Section 1 — Anatomy, variation, tokens, specs   (Component / Anatomy / Tokens)
-      //   Section 2 — Usages
-      //   Section 3 — Content guidelines & examples
-      //   Section 4 — Motion (microinteraction, when applicable)
-      //   Section 5 — Accessibility
-      //   Section 6 — Real platform examples               (held — Kristina pending)
-      cards = [
-        renderCard1(d.header),
-        renderCard2(d.component, componentHtml),
-        renderCard3(d.anatomy, componentHtml),
-        renderCard4(d.tokens),
-        renderCard6(d.usage),
-        renderCard7(d.content),
-        renderCardMotion(d.motion),
-        renderCard8(d.accessibility),
-      ];
-    }
-
-    // Insert gen card before the cards container (as sibling in brief-row)
-    var briefRow = container.parentElement;
-    if (briefRow && data.meta) {
-      var genCardEl = document.createElement("div");
-      genCardEl.innerHTML = genCard(data.meta);
-      briefRow.insertBefore(genCardEl.firstChild, container);
-    }
-
-    container.innerHTML = cards.filter(Boolean).join("\n");
-
-    // Stub footer cue (v1.64.0+): surfaced when meta._stubGuideline is true so
-    // designers know the brief is registry-derived only and the DS team owes
-    // a curated guideline for this component.
-    if (briefRow && data.meta && data.meta._stubGuideline === true) {
-      var slug = esc(data.meta.slug || "this-component");
-      var footer = document.createElement("div");
-      footer.className = "stub-footer";
-      footer.style.cssText =
-        "margin-top: 24px; padding: 16px 20px; " +
-        "background: var(--zen-color-background-grey-1, #fbfbff); " +
-        "border-left: 3px solid var(--zen-color-status-warning, #d27b00); " +
-        "color: var(--zen-color-text-secondary, #3f3f4a); font-size: 13px;";
-      footer.innerHTML =
-        "<strong>Guidance pending curation.</strong> " +
-        "This brief is based on registry data only. The DS team has not yet " +
-        "curated content / design / a11y guidelines for this component. " +
-        "Briefs will improve once the guideline is fleshed out at " +
-        "<code>docs/component-guidelines/" +
-        slug +
-        ".json</code>.";
-      briefRow.appendChild(footer);
-    }
-  });
+  }
 })(); // end IIFE
