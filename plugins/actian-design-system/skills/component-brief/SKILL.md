@@ -184,12 +184,13 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
 
 1. Create wrapper frame (Pattern 0 from component-brief/push-patterns.md — MUST be HORIZONTAL)
 2. Create GenLog instance (Pattern 0b — import by key, set 6 meta props, append to wrapper)
-3. For each card in the data model:
+3. **Card 1 — Page Header — create EXACTLY ONCE.** Use Pattern 1 with variant `"Mode=DS, Type=Page Header"`. **Set ALL three text properties** in a single `setProperties` call: `"Component Name#7:2"` = `card_header.name`, `"Description#7:3"` = `card_header.description`, `"Source#7:4"` = `"DS Kit"` (or appropriate library label). If you don't override these, Meta Kit's Page Header variant defaults leak through — you'll see "Button" / "The Button component is a surface-level element..." regardless of which component you're documenting (regression: see PR #23 follow-up). After creating + appending the Page Header, do NOT recreate it under any condition — proceed directly to card 2.
+4. For each remaining card in the data model (cards 2-N, skip `card_header`):
    a. Create card shell (Pattern 1). Read `card.cardTitle` and `card.cardSubtitle` from the data model — pass them straight to `setProperties` as `Title#140:0` and `Subtitle#140:1`. Do NOT hardcode card titles. **Default-leak detection (post-v1.66.0):** the Meta Kit Card Header now defaults to the generic placeholders `"Card title"` / `"Subtitle text"`. If a pushed card displays either string verbatim, `setProperties` silently failed (wrong property ID, wrong nested instance, or unresolved Card Header lookup) — fix the push call rather than ignoring the leak.
    b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
    c. Anatomy card (`card_anatomy`): use the anatomy diagram pattern (~4-6KB inline call)
    d. Tokens card (`card_tokens`): compact grid table — one row per state, Color Swatch per cell. Set `.fills` directly on swatch instance (flat, no children). Use `setProperties` for Section Headers (Pattern 2).
-   e. Accessibility card (`card_accessibility`): MUST create Requirements grid (Pattern 6) with all 6 a11y cards at 512px wide BEFORE the contrast/ARIA tables — do NOT skip the requirement cards. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties`.
+   e. Accessibility card (`card_accessibility`): use the simplified Pattern 6 — render `requirements` as a vertical bulleted list with bold-title + plain-body rows (one row per requirement, no per-card frames, no embedded code blocks). This replaces the 2×3 a11y-card grid retired in v1.66.3. Then render the Contrast table and ARIA table after the requirements list. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties` for the table rows.
 4. After all cards pushed, report to user with count
 
 **Rules:**
