@@ -143,6 +143,72 @@ return { cardId: cardFrame.id, contentSlotId: contentSlot?.id || cardFrame.id };
 
 **Card Header stays live after detach.** Use `setProperties` with `Title#140:0`, `Subtitle#140:1`, `Show Subtitle#140:2`. For the Page Header variant (card1), use `"Mode=DS, Type=Page Header"` and set `"Component Name#7:2"` (= `card.name`) and `"Description#7:3"` (= `card.description`) instead. The `cardTitle`/`cardSubtitle` fields still apply but are not surfaced visually on Page Header.
 
+### 1d. Section 1 supercard (v1.67.0+)
+
+Section 1 is ONE card with four nested sub-frames inside, not three separate cards. After Pattern 1 creates the card and contentSlot, build sub-frames in the slot:
+
+```js
+// Inputs from data: briefData.card_component, .card_anatomy, .card_tokens
+// Use cardTitle "Anatomy, variation, tokens & specs" (default in renderer; recipe-overridable).
+
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+await figma.loadFontAsync({ family: "Inter", style: "Semibold" });
+
+const slot = await figma.getNodeByIdAsync("<contentSlotId>");
+
+async function appendSubFrame(label, sourceCard) {
+  const sub = figma.createFrame();
+  sub.name = label;
+  sub.layoutMode = "VERTICAL";
+  sub.itemSpacing = 12;
+  sub.primaryAxisSizingMode = "AUTO";
+  sub.counterAxisSizingMode = "AUTO";
+  sub.fills = [];
+
+  // Heading row — label + optional Draft badge
+  const heading = figma.createText();
+  heading.fontName = { family: "Inter", style: "Semibold" };
+  heading.fontSize = 16;
+  heading.characters = label;
+  sub.appendChild(heading);
+
+  if (sourceCard && sourceCard._source === "generated" && sourceCard._authored !== true) {
+    // Append a small "DRAFT" tag next to the heading.
+    // Implementation: a separate text node with monospace upper case styling,
+    // placed in a HORIZONTAL wrapper around heading + tag.
+    // Pattern mirrors Pattern 1b source-badge approach — see that section
+    // for the inline-tag construction details.
+  }
+
+  // Append body content per sub-section type:
+  // label === "Anatomy"   → variant matrix component instance + parts table
+  // label === "Variation" → use existing variant-matrix push from old Card 2 pattern
+  // label === "Tokens"    → reuse old Card 4 push (color rows + sizing/typography tables)
+  // label === "Specs"     → dimension annotations from card_anatomy.specs
+
+  slot.appendChild(sub);
+  return sub;
+}
+
+// Order matches HTML renderer:
+const anatomyFrame = await appendSubFrame("Anatomy", briefData.card_anatomy);
+const divider1 = figma.createLine();  // horizontal divider; or reuse cardDivider styling
+slot.appendChild(divider1);
+
+const variationFrame = await appendSubFrame("Variation", briefData.card_component);
+slot.appendChild(figma.createLine());
+
+const tokensFrame = await appendSubFrame("Tokens", briefData.card_tokens);
+if (briefData.card_anatomy && briefData.card_anatomy.specs && briefData.card_anatomy.specs.length) {
+  slot.appendChild(figma.createLine());
+  await appendSubFrame("Specs", briefData.card_anatomy);
+}
+```
+
+The supercard's outer Card Header (Title #140:0 / Subtitle #140:1) is set on the cardHeader instance once via Pattern 1, using "Anatomy, variation, tokens & specs" / "Structural breakdown, variants, token bindings, and dimension specs" — or the recipe overrides if specified.
+
+Pattern 1b (Source Badge) applies to the supercard as a whole, derived using the same "most permissive wins" logic the HTML renderer uses (see `pickSection1Provenance` in brief-renderer.js).
+
 ---
 
 ## 1b. Source Badge Pattern
