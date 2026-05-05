@@ -980,100 +980,117 @@
 
   // --- Entry Point ---
 
-  document.addEventListener("DOMContentLoaded", function () {
-    var dataEl = document.getElementById("spec-data");
-    if (!dataEl) return;
-    var data = JSON.parse(dataEl.textContent);
-    var container = document.getElementById("cards-container");
-    if (!container) return;
+  if (typeof document !== "undefined") {
+    document.addEventListener("DOMContentLoaded", function () {
+      var dataEl = document.getElementById("spec-data");
+      if (!dataEl) return;
+      var data = JSON.parse(dataEl.textContent);
+      var container = document.getElementById("cards-container");
+      if (!container) return;
 
-    var componentHtml =
-      window.componentHtml ||
-      function () {
-        return '<div style="padding:20px;background:#f5f5f5;border-radius:8px;color:#888;text-align:center;">Component preview</div>';
+      var componentHtml =
+        window.componentHtml ||
+        function () {
+          return '<div style="padding:20px;background:#f5f5f5;border-radius:8px;color:#888;text-align:center;">Component preview</div>';
+        };
+      var isFm =
+        data.meta && (data.meta.library === "fm" || data.meta.mode === "fm");
+
+      // Support both new-style flat keys (card_header) and old-style numbered keys (card1_header)
+      // card_api (was card5) and card_code (was card9) retired; validator blocks them.
+      var d = {
+        header: data.card_header || data.card1_header,
+        component: data.card_component || data.card2_component,
+        anatomy: data.card_anatomy || data.card3_anatomy,
+        tokens: data.card_tokens || data.card4_tokens,
+        motion: data.card_motion,
+        usage: data.card_usage || data.card6_usage,
+        content: data.card_content || data.card7_content,
+        accessibility: data.card_accessibility || data.card8_accessibility,
+        // FM keys
+        designGuidelines:
+          data.card_design_guidelines || data.card3_design_guidelines,
+        contentGuidelines:
+          data.card_content_guidelines || data.card4_content_guidelines,
       };
-    var isFm =
-      data.meta && (data.meta.library === "fm" || data.meta.mode === "fm");
 
-    // Support both new-style flat keys (card_header) and old-style numbered keys (card1_header)
-    // card_api (was card5) and card_code (was card9) retired; validator blocks them.
-    var d = {
-      header: data.card_header || data.card1_header,
-      component: data.card_component || data.card2_component,
-      anatomy: data.card_anatomy || data.card3_anatomy,
-      tokens: data.card_tokens || data.card4_tokens,
-      motion: data.card_motion,
-      usage: data.card_usage || data.card6_usage,
-      content: data.card_content || data.card7_content,
-      accessibility: data.card_accessibility || data.card8_accessibility,
-      // FM keys
-      designGuidelines:
-        data.card_design_guidelines || data.card3_design_guidelines,
-      contentGuidelines:
-        data.card_content_guidelines || data.card4_content_guidelines,
+      var cards;
+      if (isFm) {
+        cards = [
+          renderFmCard1(d.header),
+          renderFmCard2(d.component, componentHtml),
+          renderFmCard3(d.designGuidelines),
+          renderFmCard4(d.contentGuidelines),
+          renderFmCard5(d.anatomy, componentHtml),
+        ];
+      } else {
+        // Section order (Brief Refresh v2 Phase 1):
+        //   Header
+        //   Section 1 — Anatomy, variation, tokens, specs   (Component / Anatomy / Tokens)
+        //   Section 2 — Usages
+        //   Section 3 — Content guidelines & examples
+        //   Section 4 — Motion (microinteraction, when applicable)
+        //   Section 5 — Accessibility
+        //   Section 6 — Real platform examples               (held — Kristina pending)
+        cards = [
+          renderCard1(d.header),
+          renderCard2(d.component, componentHtml),
+          renderCard3(d.anatomy, componentHtml),
+          renderCard4(d.tokens),
+          renderCard6(d.usage),
+          renderCard7(d.content),
+          renderCardMotion(d.motion),
+          renderCard8(d.accessibility),
+        ];
+      }
+
+      // Insert gen card before the cards container (as sibling in brief-row)
+      var briefRow = container.parentElement;
+      if (briefRow && data.meta) {
+        var genCardEl = document.createElement("div");
+        genCardEl.innerHTML = genCard(data.meta);
+        briefRow.insertBefore(genCardEl.firstChild, container);
+      }
+
+      container.innerHTML = cards.filter(Boolean).join("\n");
+
+      // Stub footer cue (v1.64.0+): surfaced when meta._stubGuideline is true so
+      // designers know the brief is registry-derived only and the DS team owes
+      // a curated guideline for this component.
+      if (briefRow && data.meta && data.meta._stubGuideline === true) {
+        var slug = esc(data.meta.slug || "this-component");
+        var footer = document.createElement("div");
+        footer.className = "stub-footer";
+        footer.style.cssText =
+          "margin-top: 24px; padding: 16px 20px; " +
+          "background: var(--zen-color-background-grey-1, #fbfbff); " +
+          "border-left: 3px solid var(--zen-color-status-warning, #d27b00); " +
+          "color: var(--zen-color-text-secondary, #3f3f4a); font-size: 13px;";
+        footer.innerHTML =
+          "<strong>Guidance pending curation.</strong> " +
+          "This brief is based on registry data only. The DS team has not yet " +
+          "curated content / design / a11y guidelines for this component. " +
+          "Briefs will improve once the guideline is fleshed out at " +
+          "<code>docs/component-guidelines/" +
+          slug +
+          ".json</code>.";
+        briefRow.appendChild(footer);
+      }
+    });
+  } // end typeof document guard
+
+  // Node-compatible exports — mirror fm-html-map.js so tests can require this module.
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = {
+      renderCard1: renderCard1,
+      renderCard2: renderCard2,
+      renderCard3: renderCard3,
+      renderCard4: renderCard4,
+      renderCardMotion: renderCardMotion,
+      renderCard6: renderCard6,
+      renderCard7: renderCard7,
+      renderCard8: renderCard8,
+      // helpers added in Task 2 will be appended here
     };
-
-    var cards;
-    if (isFm) {
-      cards = [
-        renderFmCard1(d.header),
-        renderFmCard2(d.component, componentHtml),
-        renderFmCard3(d.designGuidelines),
-        renderFmCard4(d.contentGuidelines),
-        renderFmCard5(d.anatomy, componentHtml),
-      ];
-    } else {
-      // Section order (Brief Refresh v2 Phase 1):
-      //   Header
-      //   Section 1 — Anatomy, variation, tokens, specs   (Component / Anatomy / Tokens)
-      //   Section 2 — Usages
-      //   Section 3 — Content guidelines & examples
-      //   Section 4 — Motion (microinteraction, when applicable)
-      //   Section 5 — Accessibility
-      //   Section 6 — Real platform examples               (held — Kristina pending)
-      cards = [
-        renderCard1(d.header),
-        renderCard2(d.component, componentHtml),
-        renderCard3(d.anatomy, componentHtml),
-        renderCard4(d.tokens),
-        renderCard6(d.usage),
-        renderCard7(d.content),
-        renderCardMotion(d.motion),
-        renderCard8(d.accessibility),
-      ];
-    }
-
-    // Insert gen card before the cards container (as sibling in brief-row)
-    var briefRow = container.parentElement;
-    if (briefRow && data.meta) {
-      var genCardEl = document.createElement("div");
-      genCardEl.innerHTML = genCard(data.meta);
-      briefRow.insertBefore(genCardEl.firstChild, container);
-    }
-
-    container.innerHTML = cards.filter(Boolean).join("\n");
-
-    // Stub footer cue (v1.64.0+): surfaced when meta._stubGuideline is true so
-    // designers know the brief is registry-derived only and the DS team owes
-    // a curated guideline for this component.
-    if (briefRow && data.meta && data.meta._stubGuideline === true) {
-      var slug = esc(data.meta.slug || "this-component");
-      var footer = document.createElement("div");
-      footer.className = "stub-footer";
-      footer.style.cssText =
-        "margin-top: 24px; padding: 16px 20px; " +
-        "background: var(--zen-color-background-grey-1, #fbfbff); " +
-        "border-left: 3px solid var(--zen-color-status-warning, #d27b00); " +
-        "color: var(--zen-color-text-secondary, #3f3f4a); font-size: 13px;";
-      footer.innerHTML =
-        "<strong>Guidance pending curation.</strong> " +
-        "This brief is based on registry data only. The DS team has not yet " +
-        "curated content / design / a11y guidelines for this component. " +
-        "Briefs will improve once the guideline is fleshed out at " +
-        "<code>docs/component-guidelines/" +
-        slug +
-        ".json</code>.";
-      briefRow.appendChild(footer);
-    }
-  });
+  }
 })(); // end IIFE
