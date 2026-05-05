@@ -26,7 +26,7 @@ Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruc
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.64.0** · 9 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · MD-as-SoT foundations
+**v1.66.0** · 9 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · MD-as-SoT foundations · 6-section component briefs (anatomy + tokens / usages / content / motion / accessibility / real examples)
 
 ---
 
@@ -169,7 +169,7 @@ Every capability is also available as a direct command. Use these when you know 
 
 | Command | What it does |
 |---------|-------------|
-| `/component-brief` | 7-card component spec — header, component, anatomy, tokens, usage, content, accessibility. Two-pass (v1.62.0+): Phase A transcribes synced guidelines into the data model with provenance badges; Phase B fills gaps and (opt-in) attaches cross-DS research insights. Stub-aware: components with auto-generated stub guidelines route through Phase B fallback and surface a stub footer cue. |
+| `/component-brief` | Component spec organized into 6 sections (v1.66.0+): Header → §1 Anatomy / variation / tokens / specs → §2 Usages → §3 Content guidelines & examples → §4 Motion (conditional, only when applicable) → §5 Accessibility → §6 Real platform examples. Two-pass (v1.62.0+): Phase A transcribes synced guidelines into the data model with provenance badges; Phase B fills gaps and (opt-in) attaches cross-DS research insights. Stub-aware: components with auto-generated stub guidelines route through Phase B fallback and surface a stub footer cue. |
 | `/create-component` | Build Figma components with variants and correct token binding, with a build plan review before push |
 | `/compare-flows` | Side-by-side analysis of two Figma flows — v1 vs v2, competing approaches, branches, variants |
 | `/generate-presentation` | Slide deck with Actian templates, token-bound backgrounds, and chart support |
@@ -212,7 +212,7 @@ The companion has always-loaded knowledge of:
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
 - **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — structured as queryable JSON with entities, terminology rules, and UI patterns
 - **Component inventory** — 322 DS Kit + 287 FM Kit + 28 Meta Kit components (82 / 33 / 11 sets) — dynamically derived from synced registries
-- **Component guidelines** — 85 per-component guideline JSONs (45 fully covered, 40 auto-stubs for set components awaiting authoring)
+- **Component guidelines** — 85 per-component guideline JSONs (44 fully curated, 41 auto-stubs for set components awaiting authoring)
 
 It loads detailed references on demand: per-component guidelines, accessibility standards, UX patterns, foundation docs.
 
