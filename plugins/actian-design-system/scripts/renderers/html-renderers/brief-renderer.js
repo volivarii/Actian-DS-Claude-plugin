@@ -278,11 +278,12 @@
     );
   }
 
-  function renderCard2(comp, componentHtml) {
+  // Section 1 sub-section: Variation. Returns the inner content body — no
+  // cardShell wrapper. Reused by renderCard2 (back-compat) and renderSection1.
+  function renderVariationContent(comp, componentHtml) {
     if (!comp) return "";
     var parts = [];
 
-    // Variant matrix
     if (comp.variantMatrix && comp.variantMatrix.length) {
       var cols = comp.variantMatrix[0].columns;
       var matrixHtml = '<table class="variant-matrix"><thead><tr><th>Type</th>';
@@ -311,7 +312,6 @@
       );
     }
 
-    // Theme comparison (HTML can't do Figma variable modes — show labeled placeholders)
     if (comp.themeComparison) {
       var themes = ["Actian", "Studio", "Explorer"];
       var themeHtml = '<div class="theme-row">';
@@ -338,21 +338,27 @@
       );
     }
 
+    return parts.join("");
+  }
+
+  function renderCard2(comp, componentHtml) {
+    if (!comp) return "";
     return cardShell(
       (comp && comp.cardTitle) || "Component",
       (comp && comp.cardSubtitle) ||
         "Live component across all states and theme modes",
-      parts.join(""),
+      renderVariationContent(comp, componentHtml),
       null,
       comp,
     );
   }
 
-  function renderCard3(anatomy, componentHtml) {
+  // Section 1 sub-section: Anatomy (parts diagram + parts table + states).
+  // Specs are intentionally separated — see renderSpecsContent.
+  function renderAnatomyContent(anatomy, componentHtml) {
     if (!anatomy) return "";
     var parts = [];
 
-    // Structure
     if (anatomy.parts && anatomy.parts.length) {
       var structHtml =
         '<div class="anatomy-box"><div class="anatomy-component">' +
@@ -378,35 +384,6 @@
       );
     }
 
-    // Specs (dimension annotations — simplified for HTML preview)
-    if (anatomy.specs && anatomy.specs.length) {
-      var specsHtml =
-        '<div class="anatomy-box">' +
-        '<div class="anatomy-component">' +
-        '<span class="anatomy-component__label">Specs</span>' +
-        componentHtml("default") +
-        '</div><div class="anatomy-props">';
-      anatomy.specs.forEach(function (s) {
-        specsHtml +=
-          '<div class="anatomy-prop">' +
-          '<div class="anatomy-badge anatomy-badge--dim">' +
-          esc(s.value) +
-          "</div>" +
-          '<div class="anatomy-prop__label">' +
-          esc(s.layerName || s.orientation || s.direction || "") +
-          "</div></div>";
-      });
-      specsHtml += "</div></div>";
-      parts.push(
-        cardDivider() +
-          '<div class="section" data-name="Specs">' +
-          sectionTitle("Specs") +
-          specsHtml +
-          "</div>",
-      );
-    }
-
-    // States
     if (anatomy.states && anatomy.states.length) {
       var statesHtml = '<div class="state-grid">';
       anatomy.states.forEach(function (state) {
@@ -427,7 +404,6 @@
       );
     }
 
-    // Parts reference table
     if (anatomy.partsTable && anatomy.partsTable.length) {
       var pRows = anatomy.partsTable.map(function (r) {
         return [
@@ -446,6 +422,44 @@
       );
     }
 
+    return parts.join("");
+  }
+
+  // Section 1 sub-section: Specs (dimension annotations).
+  // Reads anatomy.specs; previously nested inside renderCard3, now its own helper.
+  function renderSpecsContent(anatomy, componentHtml) {
+    if (!anatomy || !anatomy.specs || !anatomy.specs.length) return "";
+    var specsHtml =
+      '<div class="anatomy-box">' +
+      '<div class="anatomy-component">' +
+      '<span class="anatomy-component__label">Specs</span>' +
+      componentHtml("default") +
+      '</div><div class="anatomy-props">';
+    anatomy.specs.forEach(function (s) {
+      specsHtml +=
+        '<div class="anatomy-prop">' +
+        '<div class="anatomy-badge anatomy-badge--dim">' +
+        esc(s.value) +
+        "</div>" +
+        '<div class="anatomy-prop__label">' +
+        esc(s.layerName || s.orientation || s.direction || "") +
+        "</div></div>";
+    });
+    specsHtml += "</div></div>";
+    return (
+      '<div class="section" data-name="Specs">' +
+      sectionTitle("Specs") +
+      specsHtml +
+      "</div>"
+    );
+  }
+
+  function renderCard3(anatomy, componentHtml) {
+    if (!anatomy) return "";
+    var anatomyParts = renderAnatomyContent(anatomy, componentHtml);
+    var specsParts = renderSpecsContent(anatomy, componentHtml);
+    var parts = [anatomyParts];
+    if (specsParts) parts.push(cardDivider() + specsParts);
     return cardShell(
       (anatomy && anatomy.cardTitle) || "Anatomy",
       (anatomy && anatomy.cardSubtitle) ||
@@ -456,11 +470,11 @@
     );
   }
 
-  function renderCard4(tokens) {
+  // Section 1 sub-section: Tokens (color + sizing + typography tables).
+  function renderTokensContent(tokens) {
     if (!tokens) return "";
     var parts = [];
 
-    // Color tokens table — grid: one row per state, swatch dot per column
     if (tokens.colorTokens && tokens.colorTokens.length) {
       var headers = ["Variant · State"].concat(
         tokens.colorTokens[0].columns.map(function (c) {
@@ -482,7 +496,6 @@
       );
     }
 
-    // Sizing tokens table
     if (tokens.sizingTokens && tokens.sizingTokens.length) {
       var sRows = tokens.sizingTokens.map(function (r) {
         return [
@@ -500,7 +513,6 @@
       );
     }
 
-    // Typography
     if (tokens.typography && tokens.typography.length) {
       var tRows = tokens.typography.map(function (t) {
         return [
@@ -519,11 +531,16 @@
       );
     }
 
+    return parts.join("");
+  }
+
+  function renderCard4(tokens) {
+    if (!tokens) return "";
     return cardShell(
       (tokens && tokens.cardTitle) || "Design tokens",
       (tokens && tokens.cardSubtitle) ||
         "Color, sizing, spacing, and typography tokens",
-      parts.join(""),
+      renderTokensContent(tokens),
       null,
       tokens,
     );
@@ -1090,7 +1107,10 @@
       renderCard6: renderCard6,
       renderCard7: renderCard7,
       renderCard8: renderCard8,
-      // helpers added in Task 2 will be appended here
+      renderVariationContent: renderVariationContent,
+      renderAnatomyContent: renderAnatomyContent,
+      renderTokensContent: renderTokensContent,
+      renderSpecsContent: renderSpecsContent,
     };
   }
 })(); // end IIFE
