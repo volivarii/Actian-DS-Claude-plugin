@@ -49,7 +49,7 @@ This applies to freelance diagnostics too — if you're tempted to `node -e` som
 Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is source of truth; Markdown is for human review.
 
 **Key data files** — JSON registries are SoT; `*-components.md` are auto-regenerated mirrors via `/sync-design-system` Phase 1:
-- `docs/component-guidelines/*.json` — 44 component guidelines
+- `docs/component-guidelines/*.json` — 85 component guidelines (44 fully curated + 41 auto-stubs awaiting authoring; stubs carry `_stub: true`)
 - `docs/generated/fmkit.json` / `docs/generated/dskit.json` / `docs/generated/metakit.json` — component registries (keys, variants, properties, defaults)
 - `docs/generated/fm-components.md` / `docs/generated/dskit-components.md` / `docs/generated/meta-kit/components.md` — human-readable mirrors with required-override callouts
 - `docs/generated/app-context.json` — structured app context (apps, entities, terminology, patterns)
