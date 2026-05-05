@@ -27,8 +27,15 @@ function shouldSurfaceFrame(frameNode, anatomyParts, isTopLevel) {
   });
 }
 
-function resolveSpacingValue(numericPx, boundVariableId, variableLookup) {
-  throw new Error("not implemented");
+async function resolveSpacingValue(numericPx, boundVariableId, variableLookup) {
+  if (!boundVariableId) return { px: numericPx, token: null };
+  try {
+    var variable = await variableLookup(boundVariableId);
+    if (!variable || !variable.name) return { px: numericPx, token: null };
+    return { px: numericPx, token: variable.name };
+  } catch (e) {
+    return { px: numericPx, token: null };
+  }
 }
 
 function formatAnnotationLabel(value) {
