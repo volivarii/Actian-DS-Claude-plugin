@@ -1,0 +1,60 @@
+name: PR checks
+
+# Tier 1 PR gates for the Actian Design System plugin.
+# Three parallel jobs:
+#   1. test            — runs the plugin's full test suite
+#   2. json-syntax     — validates that all checked-in JSON files parse
+#   3. version-bump    — ensures plugin.json is bumped when source changes
+#
+# Path-filtered to plugins/actian-design-system/** so unrelated PRs (docs/,
+# comms/, .github/ on its own) don't waste CI minutes.
+#
+# Tiered plan + rationale: see memory/project_ci_pr_checks.md.
+
+on:
+  pull_request:
+    paths:
+      - 'plugins/actian-design-system/**'
+
+jobs:
+  test:
+    name: Test suite
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Install plugin deps
+        working-directory: plugins/actian-design-system
+        run: npm install --no-audit --no-fund
+      - name: Run test suite
+        working-directory: plugins/actian-design-system
+        run: |
+          set -euo pipefail
+          find tests -name '*.test.js' -type f -print0 \
+            | xargs -0 node --test
+
+  json-syntax:
+    name: JSON syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Validate JSON files parse
+        run: node .github/workflows/scripts/check-json-syntax.js
+
+  version-bump:
+    name: plugin.json bumped
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Verify plugin.json version bump
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: node .github/workflows/scripts/check-version-bump.js
