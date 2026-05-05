@@ -159,8 +159,9 @@
       sourceCard._source === "generated" &&
       sourceCard._authored !== true
     ) {
+      // Spacing handled by .subsection-draft-badge { margin-left: 8px }.
       draft =
-        ' <span class="subsection-draft-badge" ' +
+        '<span class="subsection-draft-badge" ' +
         'title="AI-drafted; not yet human-authored">Draft</span>';
     }
     return '<div class="section-title">' + esc(label) + draft + "</div>";
@@ -395,7 +396,7 @@
       });
       structHtml += "</div></div>";
       parts.push(
-        '<div class="section" data-name="Structure">' +
+        '<div class="section" data-name="Anatomy">' +
           subsectionTitle("Anatomy", anatomy) +
           structHtml +
           "</div>",
@@ -516,7 +517,7 @@
         );
       });
       parts.push(
-        '<div class="section" data-name="Color tokens">' +
+        '<div class="section" data-name="Tokens">' +
           subsectionTitle("Tokens", tokens) +
           specTable(headers, rows) +
           "</div>",
