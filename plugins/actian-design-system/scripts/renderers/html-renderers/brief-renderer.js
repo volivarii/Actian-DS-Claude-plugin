@@ -454,6 +454,15 @@
     );
   }
 
+  // Back-compat wrapper. Pre-refactor renderCard3 emitted Specs BETWEEN
+  // States and Parts reference (middle of the card). Post-refactor Specs
+  // renders at the end of the card. This positional change is acceptable
+  // because (a) Task 4 replaces renderCard3 in the default DOM array with
+  // renderSection1, where Specs is intentionally the 4th sub-section
+  // (last), and (b) renderCard3 is only on a back-compat code path. If a
+  // future caller relies on the historical mid-card Specs position, split
+  // renderAnatomyContent into Structure / States / Parts helpers and
+  // interleave Specs between States and Parts here.
   function renderCard3(anatomy, componentHtml) {
     if (!anatomy) return "";
     var anatomyParts = renderAnatomyContent(anatomy, componentHtml);
