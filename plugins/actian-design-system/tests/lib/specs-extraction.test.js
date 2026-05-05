@@ -138,3 +138,69 @@ describe("formatAnnotationLabel", function () {
     assert.strictEqual(mod.formatAnnotationLabel({ px: 8 }), "8px");
   });
 });
+
+describe("dimensionAnnotationVariant", function () {
+  it("paddingLeft is Horizontal regardless of autolayout", function () {
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("paddingLeft", "HORIZONTAL"),
+      "Horizontal",
+    );
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("paddingLeft", "VERTICAL"),
+      "Horizontal",
+    );
+  });
+
+  it("paddingRight is Horizontal regardless of autolayout", function () {
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("paddingRight", "HORIZONTAL"),
+      "Horizontal",
+    );
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("paddingRight", "VERTICAL"),
+      "Horizontal",
+    );
+  });
+
+  it("paddingTop is Vertical regardless of autolayout", function () {
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("paddingTop", "HORIZONTAL"),
+      "Vertical",
+    );
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("paddingTop", "VERTICAL"),
+      "Vertical",
+    );
+  });
+
+  it("paddingBottom is Vertical regardless of autolayout", function () {
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("paddingBottom", "HORIZONTAL"),
+      "Vertical",
+    );
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("paddingBottom", "VERTICAL"),
+      "Vertical",
+    );
+  });
+
+  it("itemSpacing follows autolayout direction (HORIZONTAL → Horizontal)", function () {
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("itemSpacing", "HORIZONTAL"),
+      "Horizontal",
+    );
+  });
+
+  it("itemSpacing follows autolayout direction (VERTICAL → Vertical)", function () {
+    assert.strictEqual(
+      mod.dimensionAnnotationVariant("itemSpacing", "VERTICAL"),
+      "Vertical",
+    );
+  });
+
+  it("throws on unknown property", function () {
+    assert.throws(function () {
+      mod.dimensionAnnotationVariant("strokeWidth", "HORIZONTAL");
+    }, /Unknown property: strokeWidth/);
+  });
+});

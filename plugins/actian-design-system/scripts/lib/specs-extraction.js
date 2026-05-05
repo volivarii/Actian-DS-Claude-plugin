@@ -44,7 +44,14 @@ function formatAnnotationLabel(value) {
 }
 
 function dimensionAnnotationVariant(propertyName, autolayoutMode) {
-  throw new Error("not implemented");
+  if (propertyName === "paddingLeft" || propertyName === "paddingRight")
+    return "Horizontal";
+  if (propertyName === "paddingTop" || propertyName === "paddingBottom")
+    return "Vertical";
+  if (propertyName === "itemSpacing") {
+    return autolayoutMode === "HORIZONTAL" ? "Horizontal" : "Vertical";
+  }
+  throw new Error("Unknown property: " + propertyName);
 }
 
 module.exports = {
