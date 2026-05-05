@@ -258,3 +258,92 @@ test("formatForBrief — content card shapes content_guidelines.sections into ru
   assert.ok(result.rules.length > 0);
   assert.equal(result._source, "figma");
 });
+
+// ---------------------------------------------------------------------------
+// card_motion — Decision 4 / Brief Refresh v2 / v1.65.0
+// ---------------------------------------------------------------------------
+
+var DRAWER_PATTERN = {
+  name: "Drawer (open/close)",
+  phases: [
+    {
+      Phase: "Open",
+      Duration: "duration-slow",
+      Easing: "ease-entrance",
+      Behavior: "Slides in from the right",
+    },
+    {
+      Phase: "Close",
+      Duration: "duration-base",
+      Easing: "ease-exit",
+      Behavior: "Slides out to the right",
+    },
+  ],
+};
+
+test("card_motion — resolveSection returns figma source when guideline declares a known pattern", function () {
+  var ctx = {
+    component: "Drawer",
+    guidelinesJson: { behavior: { motion: { pattern: "drawer" } } },
+    motionPatterns: { drawer: DRAWER_PATTERN },
+  };
+  var result = sourcing.resolveSection("card_motion", ctx, {
+    phase: "transcribe",
+    grounding: ["docs/foundations.md"],
+  });
+  assert.equal(result.phase, "A");
+  assert.equal(result.source, "figma");
+  assert.equal(result.content.patternSlug, "drawer");
+  assert.equal(result.content.phases.length, 2);
+});
+
+test("card_motion — skipCard when guideline has no behavior.motion", function () {
+  var ctx = {
+    guidelinesJson: { behavior: null },
+    motionPatterns: { drawer: DRAWER_PATTERN },
+  };
+  var result = sourcing.resolveSection("card_motion", ctx, {
+    phase: "transcribe",
+    grounding: ["docs/foundations.md"],
+  });
+  assert.equal(result.phase, "A");
+  assert.equal(result.source, null);
+  assert.equal(result.skipCard, true);
+});
+
+test("card_motion — fallback when slug references unknown pattern", function () {
+  var ctx = {
+    guidelinesJson: {
+      behavior: { motion: { pattern: "nonexistent-pattern" } },
+    },
+    motionPatterns: { drawer: DRAWER_PATTERN },
+  };
+  var result = sourcing.resolveSection("card_motion", ctx, {
+    phase: "transcribe",
+    grounding: ["docs/foundations.md"],
+  });
+  assert.equal(result.phase, "A");
+  assert.equal(result.fallback, true);
+  assert.match(result.fallbackReason, /not found in foundations/);
+});
+
+test("card_motion — formatForBrief preserves phase rows + adds optional fields", function () {
+  var motionResult = {
+    source: "figma",
+    content: {
+      patternSlug: "drawer",
+      patternName: "Drawer (open/close)",
+      phases: DRAWER_PATTERN.phases,
+      logic_and_accessibility: ["Reduced motion: disable fades"],
+      notes: ["Note A"],
+      overrides: "Side nav variant uses faster close",
+    },
+  };
+  var formatted = sourcing.formatForBrief("card_motion", motionResult, {});
+  assert.equal(formatted.patternSlug, "drawer");
+  assert.equal(formatted.phases.length, 2);
+  assert.equal(formatted.logic_and_accessibility.length, 1);
+  assert.equal(formatted.notes.length, 1);
+  assert.equal(formatted.overrides, "Side nav variant uses faster close");
+  assert.equal(formatted._source, "figma");
+});

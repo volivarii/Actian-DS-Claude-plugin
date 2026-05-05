@@ -672,3 +672,194 @@ describe("ast-walk: findNumberedHeadings — heading regex tightening (issue #7)
     assert.strictEqual(headings[1].number, "1.99");
   });
 });
+
+var {
+  buildMotionPayload,
+  slugifyPatternName,
+} = require("../../scripts/foundations/derive-foundations.js");
+
+describe("derive-foundations: slugifyPatternName", function () {
+  it("kebab-cases simple names", function () {
+    assert.strictEqual(slugifyPatternName("Drawer"), "drawer");
+    assert.strictEqual(slugifyPatternName("Success Toast"), "success-toast");
+  });
+
+  it("drops content in parentheses", function () {
+    assert.strictEqual(
+      slugifyPatternName("Drawer (open/close)"),
+      "drawer",
+    );
+    assert.strictEqual(
+      slugifyPatternName("Accordion (expand/collapse)"),
+      "accordion",
+    );
+  });
+
+  it("drops content after em-dash", function () {
+    assert.strictEqual(
+      slugifyPatternName("Layered Overlays — Modals"),
+      "layered-overlays",
+    );
+    assert.strictEqual(
+      slugifyPatternName("Staggered Entrance — Lists, Table Rows, Search Cards"),
+      "staggered-entrance",
+    );
+  });
+
+  it("strips quotes and 'The ' prefix", function () {
+    assert.strictEqual(
+      slugifyPatternName('The "Anchor" Motion — Dropdowns'),
+      "anchor-motion",
+    );
+  });
+
+  it("decodes HTML entities before slugging", function () {
+    assert.strictEqual(
+      slugifyPatternName("The &quot;Anchor&quot; Motion — Dropdowns"),
+      "anchor-motion",
+    );
+  });
+});
+
+describe("derive-foundations: buildMotionPayload", function () {
+  function payloadFromMd(md) {
+    var tokens = parseMarkdown(md);
+    // Slice from the 2.9 heading through end (or next ###/##).
+    var headings = findNumberedHeadings(tokens);
+    var motion = headings.find(function (h) {
+      return h.number === "2.9";
+    });
+    var content = [];
+    for (var i = motion.tokenIndex + 1; i < tokens.length; i++) {
+      var t = tokens[i];
+      if (t.type === "heading" && t.depth <= motion.depth) break;
+      content.push(t);
+    }
+    return buildMotionPayload(content, { warn: function () {} });
+  }
+
+  it("groups duration/easing/delay token tables under tokens.<key>", function () {
+    var md = [
+      "### 2.9 Motion",
+      "",
+      "Intro paragraph.",
+      "",
+      "#### Duration",
+      "",
+      "| Token | Value |",
+      "|-------|-------|",
+      "| `--zen-motion-duration-instant` | `100ms` |",
+      "",
+      "#### Easing",
+      "",
+      "| Token | Value |",
+      "|-------|-------|",
+      "| `--zen-motion-ease-entrance` | `ease-out` |",
+      "",
+      "#### Delay",
+      "",
+      "| Token | Value |",
+      "|-------|-------|",
+      "| `--zen-motion-delay-stagger` | `20ms` |",
+      "",
+    ].join("\n");
+    var p = payloadFromMd(md);
+    assert.strictEqual(p.description, "Intro paragraph.");
+    assert.ok(p.tokens.duration.rows[0].Token === "--zen-motion-duration-instant");
+    assert.ok(p.tokens.easing.rows[0].Token === "--zen-motion-ease-entrance");
+    assert.ok(p.tokens.delay.rows[0].Token === "--zen-motion-delay-stagger");
+  });
+
+  it("indexes named patterns by slug under patterns.<slug>", function () {
+    var md = [
+      "### 2.9 Motion",
+      "",
+      "#### Component Motion Guide",
+      "",
+      "**Drawer (open/close)**",
+      "",
+      "| Phase | Duration |",
+      "|-------|----------|",
+      "| Open | `duration-slow` |",
+      "",
+      "**Success Toast**",
+      "",
+      "| Phase | Duration |",
+      "|-------|----------|",
+      "| Entry | `duration-base` |",
+      "",
+    ].join("\n");
+    var p = payloadFromMd(md);
+    assert.deepStrictEqual(Object.keys(p.patterns), ["drawer", "success-toast"]);
+    assert.strictEqual(p.patterns.drawer.name, "Drawer (open/close)");
+    assert.strictEqual(p.patterns.drawer.phases[0].Phase, "Open");
+    assert.strictEqual(p.patterns["success-toast"].name, "Success Toast");
+  });
+
+  it("attaches Logic & Accessibility list to current pattern, not as new pattern", function () {
+    var md = [
+      "### 2.9 Motion",
+      "",
+      "#### Component Motion Guide",
+      "",
+      "**Anchor Motion**",
+      "",
+      "| Phase | Duration |",
+      "|-------|----------|",
+      "| Open | `duration-base` |",
+      "",
+      "**Logic & Accessibility**",
+      "",
+      "- Intentionality: apply delay-intent",
+      "- Reduced motion: disable fades",
+      "",
+    ].join("\n");
+    var p = payloadFromMd(md);
+    assert.deepStrictEqual(Object.keys(p.patterns), ["anchor-motion"]);
+    assert.strictEqual(
+      p.patterns["anchor-motion"].logic_and_accessibility.length,
+      2,
+    );
+  });
+
+  it("decodes HTML entities in pattern names", function () {
+    var md = [
+      "### 2.9 Motion",
+      "",
+      "#### Component Motion Guide",
+      "",
+      '**The "Anchor" Motion — Dropdowns**',
+      "",
+      "| Phase | Duration |",
+      "|-------|----------|",
+      "| Open | `duration-base` |",
+      "",
+    ].join("\n");
+    var p = payloadFromMd(md);
+    assert.strictEqual(
+      p.patterns["anchor-motion"].name,
+      'The "Anchor" Motion — Dropdowns',
+    );
+  });
+
+  it("attaches non-bold paragraphs as notes on the current pattern", function () {
+    var md = [
+      "### 2.9 Motion",
+      "",
+      "#### Component Motion Guide",
+      "",
+      "**Staggered Entrance**",
+      "",
+      "| Item | Delay |",
+      "|------|-------|",
+      "| 1 | 0ms |",
+      "",
+      "Cascading effect guides the eye downward.",
+      "",
+    ].join("\n");
+    var p = payloadFromMd(md);
+    assert.deepStrictEqual(p.patterns["staggered-entrance"].notes, [
+      "Cascading effect guides the eye downward.",
+    ]);
+  });
+});

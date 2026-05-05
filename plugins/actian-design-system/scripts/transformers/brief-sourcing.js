@@ -36,6 +36,42 @@ function transcribeContentGuidelines(guidelinesJson) {
   return { source: "figma", content: { sections: sections } };
 }
 
+// Motion is a registry-derived card (pattern data lives in
+// docs/generated/foundations/interaction-motion.json under #patterns.<slug>).
+// The component-guideline only declares which pattern + optional overrides;
+// the canonical phase data comes from foundations. Caller passes
+// ctx.motionPatterns (the patterns object from interaction-motion.json).
+function transcribeMotionPattern(guidelinesJson, motionPatterns) {
+  if (!guidelinesJson || !guidelinesJson.behavior) return null;
+  var motion = guidelinesJson.behavior.motion;
+  if (!motion || typeof motion.pattern !== "string" || !motion.pattern) {
+    return null;
+  }
+  var slug = motion.pattern;
+  var pattern =
+    motionPatterns && Object.prototype.hasOwnProperty.call(motionPatterns, slug)
+      ? motionPatterns[slug]
+      : null;
+  if (!pattern) {
+    return {
+      source: null,
+      missingPattern: true,
+      slug: slug,
+    };
+  }
+  return {
+    source: "figma",
+    content: {
+      patternSlug: slug,
+      patternName: pattern.name || slug,
+      phases: Array.isArray(pattern.phases) ? pattern.phases : [],
+      logic_and_accessibility: pattern.logic_and_accessibility || null,
+      notes: pattern.notes || null,
+      overrides: typeof motion.overrides === "string" ? motion.overrides : null,
+    },
+  };
+}
+
 // ---------------------------------------------------------------------------
 // Dispatcher
 // ---------------------------------------------------------------------------
@@ -76,6 +112,29 @@ function resolveSection(cardKey, ctx, recipe) {
     primary = transcribeContentGuidelines(ctx && ctx.guidelinesJson);
     fallbackReason =
       "content_guidelines empty in component-guidelines JSON — Jeff to author Content frame in Figma + re-sync";
+  } else if (cardKey === "card_motion") {
+    var motionResult = transcribeMotionPattern(
+      ctx && ctx.guidelinesJson,
+      ctx && ctx.motionPatterns,
+    );
+    if (motionResult && motionResult.source === "figma") {
+      return { phase: "A", source: "figma", content: motionResult.content };
+    }
+    if (motionResult && motionResult.missingPattern) {
+      // Loud fallback: the component declares a pattern slug that doesn't
+      // exist in foundations. Surface it so the brief generator can decide.
+      return {
+        phase: "A",
+        source: null,
+        fallback: true,
+        fallbackReason:
+          "behavior.motion.pattern '" +
+          motionResult.slug +
+          "' not found in foundations interaction-motion.json#patterns — fix the slug or author the pattern",
+      };
+    }
+    // Component has no motion — suppress the card. Caller skips emitting it.
+    return { phase: "A", source: null, skipCard: true };
   } else {
     throw new Error(
       "resolveSection: no transcription rule for cardKey '" + cardKey + "'",
@@ -124,12 +183,28 @@ function formatForBrief(cardKey, sourceResult, ctx) {
       _source: sourceResult.source || "generated",
     };
   }
+  if (cardKey === "card_motion") {
+    var m = sourceResult.content || {};
+    var card = {
+      patternSlug: m.patternSlug || "",
+      patternName: m.patternName || "",
+      phases: Array.isArray(m.phases) ? m.phases : [],
+      _source: sourceResult.source || "generated",
+    };
+    if (Array.isArray(m.logic_and_accessibility))
+      card.logic_and_accessibility = m.logic_and_accessibility;
+    if (Array.isArray(m.notes)) card.notes = m.notes;
+    if (typeof m.overrides === "string" && m.overrides.length > 0)
+      card.overrides = m.overrides;
+    return card;
+  }
   throw new Error("formatForBrief: unknown cardKey '" + cardKey + "'");
 }
 
 module.exports = {
   transcribeFigmaDescription: transcribeFigmaDescription,
   transcribeContentGuidelines: transcribeContentGuidelines,
+  transcribeMotionPattern: transcribeMotionPattern,
   resolveSection: resolveSection,
   formatForBrief: formatForBrief,
 };

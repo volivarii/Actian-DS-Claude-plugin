@@ -529,6 +529,113 @@
     );
   }
 
+  // Card 5 (numbered) — Behavior & motion. Conditional: returns "" when the
+  // component has no curated motion pattern. Source data comes from
+  // foundations/interaction-motion.json#patterns.<slug>; component-guideline
+  // declares the slug + optional overrides.
+  function renderCardMotion(motion) {
+    if (!motion) return "";
+    var phases = Array.isArray(motion.phases) ? motion.phases : [];
+    if (phases.length === 0 && !motion.overrides) return "";
+    var parts = [];
+
+    // Pattern reference line
+    if (motion.patternName || motion.patternSlug) {
+      parts.push(
+        '<div class="section" data-name="Pattern">' +
+          sectionTitle("Pattern reference") +
+          '<div class="section-body"><p>' +
+          esc(motion.patternName || motion.patternSlug) +
+          (motion.patternSlug
+            ? ' &nbsp;<code class="pattern-slug">' +
+              esc(motion.patternSlug) +
+              "</code>"
+            : "") +
+          "</p></div></div>",
+      );
+    }
+
+    // Phase rows — table headers derived from row keys (patterns have varying
+    // shapes: Phase/Duration/Easing/Behavior is most common, but skeleton +
+    // staggered-entrance use different columns)
+    if (phases.length) {
+      var headers = Object.keys(phases[0]);
+      var rows = phases.map(function (p) {
+        return headers.map(function (h) {
+          var v = p[h];
+          if (typeof v === "string" && /^[a-z][\w-]*$/.test(v)) {
+            // Looks like a token slug — render in code style
+            return "<code>" + esc(v) + "</code>";
+          }
+          return esc(typeof v === "string" ? v : "");
+        });
+      });
+      parts.push(
+        cardDivider() +
+          '<div class="section" data-name="Phases">' +
+          sectionTitle("Phases") +
+          specTable(headers, rows) +
+          "</div>",
+      );
+    }
+
+    // Optional notes
+    if (Array.isArray(motion.notes) && motion.notes.length) {
+      parts.push(
+        cardDivider() +
+          '<div class="section" data-name="Notes">' +
+          sectionTitle("Notes") +
+          '<div class="section-body"><ul>' +
+          motion.notes
+            .map(function (n) {
+              return "<li>" + esc(n) + "</li>";
+            })
+            .join("") +
+          "</ul></div></div>",
+      );
+    }
+
+    // Optional logic & accessibility
+    if (
+      Array.isArray(motion.logic_and_accessibility) &&
+      motion.logic_and_accessibility.length
+    ) {
+      parts.push(
+        cardDivider() +
+          '<div class="section" data-name="Logic and accessibility">' +
+          sectionTitle("Logic & accessibility") +
+          '<div class="section-body"><ul>' +
+          motion.logic_and_accessibility
+            .map(function (n) {
+              return "<li>" + esc(n) + "</li>";
+            })
+            .join("") +
+          "</ul></div></div>",
+      );
+    }
+
+    // Optional component-specific overrides
+    if (typeof motion.overrides === "string" && motion.overrides.length) {
+      parts.push(
+        cardDivider() +
+          '<div class="section" data-name="Overrides">' +
+          sectionTitle("Component-specific overrides") +
+          '<div class="section-body"><p>' +
+          esc(motion.overrides) +
+          "</p></div></div>",
+      );
+    }
+
+    return cardShell(
+      (motion && motion.cardTitle) || "Behavior & motion",
+      (motion && motion.cardSubtitle) ||
+        "Phases, durations, easings, and accessibility behavior",
+      parts.join(""),
+      null,
+      motion,
+    );
+  }
+
   function renderCard6(usage) {
     if (!usage) return "";
     var parts = [];
@@ -882,6 +989,7 @@
       component: data.card_component || data.card2_component,
       anatomy: data.card_anatomy || data.card3_anatomy,
       tokens: data.card_tokens || data.card4_tokens,
+      motion: data.card_motion,
       usage: data.card_usage || data.card6_usage,
       content: data.card_content || data.card7_content,
       accessibility: data.card_accessibility || data.card8_accessibility,
@@ -907,6 +1015,7 @@
         renderCard2(d.component, componentHtml),
         renderCard3(d.anatomy, componentHtml),
         renderCard4(d.tokens),
+        renderCardMotion(d.motion),
         renderCard6(d.usage),
         renderCard7(d.content),
         renderCard8(d.accessibility),

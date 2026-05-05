@@ -134,5 +134,11 @@
       "Grouped by size: 1200px, 900px, 700px, 500px, 450px, 400px with multiple real use case screenshots each"
     ]
   },
-  "behavior": null
+  "behavior": {
+    "motion": {
+      "pattern": "layered-overlays",
+      "overrides": null,
+      "notes": "Modal uses Layered Overlays pattern. Open: scales 95→100% + scrim fades in over duration-slow with ease-entrance. Close: scales 100→95% + fades + scrim fades, all duration-fast with ease-exit. The slow open communicates entering a new context; the quick close stays out of the user's way."
+    }
+  }
 }

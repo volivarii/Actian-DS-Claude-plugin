@@ -266,6 +266,19 @@ function validateBriefData(data) {
           message: "card_content claims figma source but rules array is empty",
         });
       }
+      if (
+        k === "card_motion" &&
+        (!Array.isArray(card.phases) || card.phases.length === 0) &&
+        (typeof card.overrides !== "string" || card.overrides.length === 0)
+      ) {
+        findings.push({
+          kind: "empty-figma-source",
+          severity: "error",
+          card: k,
+          message:
+            "card_motion claims figma source but phases array is empty and no overrides set",
+        });
+      }
     }
   }
   return { findings: findings };
