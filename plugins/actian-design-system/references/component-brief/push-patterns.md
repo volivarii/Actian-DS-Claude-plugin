@@ -294,72 +294,56 @@ return { pairId: pair.id };
 
 ## 6. Accessibility Card Pattern
 
-**Layout:** The 6 a11y requirement cards MUST be arranged in a **2×3 grid** (2 columns, 3 rows). Create a grid container frame first, then add cards to it.
+**Layout (v1.66.3+):** Requirements render as a **simple vertical bulleted list** — bold title + plain body, one per row. The previous 2×3 a11y-card grid is retired (visual noise without proportional information density). This matches the simplified HTML renderer (Brief Refresh v2 Phase 1).
 
 ```js
-// First: create the 2-column grid container
-const grid = figma.createFrame();
-grid.name = "Requirements grid";
-grid.layoutMode = "HORIZONTAL";
-grid.layoutWrap = "WRAP";
-grid.itemSpacing = 16;
-grid.counterAxisSpacing = 16;
-grid.primaryAxisSizingMode = "FIXED";
-grid.counterAxisSizingMode = "AUTO";
-grid.resize(1040, 10);
-grid.fills = [];
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+await figma.loadFontAsync({ family: "Inter", style: "Semibold" });
 
-const parent = await figma.getNodeByIdAsync("<contentSlotId>");
-parent.appendChild(grid);
-grid.layoutSizingHorizontal = "FILL";
-grid.layoutSizingVertical = "HUG";  // ← auto-grow to fit rows
-
-return { gridId: grid.id };
-```
-
-Then for each of the 6 requirement cards, create and append to the grid. **CRITICAL: resize each card to 512px wide** so two fit per row in the 1040px grid (512 + 16 gap + 512 = 1040).
-
-```js
-const set = await figma.importComponentSetByKeyAsync("b4779a13f4097d682413a669eaaf9ead1b49f115");
-let variant = set.findChild(n => n.name === "Mode=DS");
-if (!variant) variant = set.defaultVariant || set.children[0];
-const inst = variant.createInstance();
-inst.setProperties({ "Title#47:2": "Role & semantics" });
-const card = inst.detachInstance();
-card.layoutSizingHorizontal = "FIXED";
-card.resize(512, card.height);  // ← MUST be 512px for 2-column grid
-card.clipsContent = false;
-
-// Remove placeholder text, find content area
-const content = card.findOne(n => n.name === "Content");
-if (content) {
-  const ph = content.findOne(n => n.type === "TEXT" && n.characters && n.characters.includes("Content goes here"));
-  if (ph) ph.remove();
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return {
+    r: parseInt(h.substring(0,2),16)/255,
+    g: parseInt(h.substring(2,4),16)/255,
+    b: parseInt(h.substring(4,6),16)/255
+  };
 }
 
-// Body text
-await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-const body = figma.createText();
-body.characters = "Use native HTML <input> element...";
-body.fontSize = 13;
-body.fontName = { family: "Inter", style: "Regular" };
-body.fills = [{ type: "SOLID", color: hexToRgb("#3A3A4A") }];
-if (content) { content.appendChild(body); body.layoutSizingHorizontal = "FILL"; }
+const list = figma.createFrame();
+list.name = "Requirements";
+list.layoutMode = "VERTICAL";
+list.itemSpacing = 8;
+list.primaryAxisSizingMode = "AUTO";
+list.counterAxisSizingMode = "AUTO";
+list.fills = [];
 
-// Code block via setProperties (do NOT detach)
-const codeComp = await figma.importComponentByKeyAsync("1bf10eee1751a46da5f90a9671be6c9abf0073b7");
-const codeInst = codeComp.createInstance();
-codeInst.setProperties({
-  "Show Header#8:0": false,
-  "Code#8:2": '<label for="name">Name</label>'
-});
-if (content) { content.appendChild(codeInst); codeInst.layoutSizingHorizontal = "FILL"; }
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
+parent.appendChild(list);
+list.layoutSizingHorizontal = "FILL";
 
-const grid = await figma.getNodeByIdAsync("<gridId>");
-grid.appendChild(card);
+// One row per requirement: "Title — body description". The title portion
+// is bold; the rest is regular body weight.
+for (const req of requirements) {
+  const t = figma.createText();
+  t.fontName = { family: "Inter", style: "Regular" };
+  t.fontSize = 14;
+  t.lineHeight = { unit: "PERCENT", value: 160 };
+  t.fills = [{ type: "SOLID", color: hexToRgb("#2d3648") }];
+  const sep = " — ";
+  t.characters = req.title + sep + req.body;
+  // Bold + darker color for the title portion only.
+  t.setRangeFontName(0, req.title.length, { family: "Inter", style: "Semibold" });
+  t.setRangeFills(0, req.title.length, [{ type: "SOLID", color: hexToRgb("#101828") }]);
+  list.appendChild(t);
+  t.layoutSizingHorizontal = "FILL";
+}
 
-return { a11yCardId: card.id };
+return { listId: list.id };
 ```
+
+**No more 6-card grid, no per-card code blocks.** The `code` field on each requirement (still in the data schema for back-compat) is ignored by this pattern. If a requirement genuinely needs a code example, surface it in the body text or move it to the ARIA table — don't bring back the grid.
+
+After the requirements list, render the Contrast and ARIA tables (unchanged — Patterns 4 / 8 etc.).
 
 ---
 
