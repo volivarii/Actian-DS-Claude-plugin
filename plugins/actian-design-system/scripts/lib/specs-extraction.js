@@ -39,7 +39,8 @@ async function resolveSpacingValue(numericPx, boundVariableId, variableLookup) {
 }
 
 function formatAnnotationLabel(value) {
-  throw new Error("not implemented");
+  if (value && value.token) return value.px + "px — " + value.token;
+  return value.px + "px";
 }
 
 function dimensionAnnotationVariant(propertyName, autolayoutMode) {

@@ -118,3 +118,23 @@ describe("resolveSpacingValue", function () {
     assert.deepStrictEqual(result, { px: 2, token: null });
   });
 });
+
+describe("formatAnnotationLabel", function () {
+  it("includes token when present", function () {
+    assert.strictEqual(
+      mod.formatAnnotationLabel({ px: 16, token: "--zen-spacing-md" }),
+      "16px — --zen-spacing-md",
+    );
+  });
+
+  it("returns plain px when token is null", function () {
+    assert.strictEqual(
+      mod.formatAnnotationLabel({ px: 16, token: null }),
+      "16px",
+    );
+  });
+
+  it("returns plain px when token is undefined", function () {
+    assert.strictEqual(mod.formatAnnotationLabel({ px: 8 }), "8px");
+  });
+});
