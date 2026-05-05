@@ -149,6 +149,23 @@
     return '<div class="section-title">' + esc(title) + "</div>";
   }
 
+  // Sub-section heading with optional Draft badge. The badge appears only
+  // when the source card is AI-generated AND not flagged as human-authored.
+  // Hybrid contract from spec Q8=C.
+  function subsectionTitle(label, sourceCard) {
+    var draft = "";
+    if (
+      sourceCard &&
+      sourceCard._source === "generated" &&
+      sourceCard._authored !== true
+    ) {
+      draft =
+        ' <span class="subsection-draft-badge" ' +
+        'title="AI-drafted; not yet human-authored">Draft</span>';
+    }
+    return '<div class="section-title">' + esc(label) + draft + "</div>";
+  }
+
   function cardDivider() {
     return '<div class="card-divider"></div>';
   }
@@ -307,6 +324,7 @@
       matrixHtml += "</tbody></table>";
       parts.push(
         '<div class="section" data-name="Variant matrix">' +
+          subsectionTitle("Variation", comp) +
           matrixHtml +
           "</div>",
       );
@@ -378,7 +396,7 @@
       structHtml += "</div></div>";
       parts.push(
         '<div class="section" data-name="Structure">' +
-          sectionTitle("Structure") +
+          subsectionTitle("Anatomy", anatomy) +
           structHtml +
           "</div>",
       );
@@ -448,7 +466,7 @@
     specsHtml += "</div></div>";
     return (
       '<div class="section" data-name="Specs">' +
-      sectionTitle("Specs") +
+      subsectionTitle("Specs", anatomy) +
       specsHtml +
       "</div>"
     );
@@ -499,7 +517,7 @@
       });
       parts.push(
         '<div class="section" data-name="Color tokens">' +
-          sectionTitle("Color tokens") +
+          subsectionTitle("Tokens", tokens) +
           specTable(headers, rows) +
           "</div>",
       );
@@ -1186,6 +1204,7 @@
       renderSpecsContent: renderSpecsContent,
       renderSection1: renderSection1,
       pickSection1Provenance: pickSection1Provenance,
+      subsectionTitle: subsectionTitle,
     };
   }
 })(); // end IIFE

@@ -30,20 +30,34 @@ test("renderSection1 returns one supercard with 4 sub-section headings", functio
   var cardFrameMatches = html.match(/<div class="brief-card"/g) || [];
   assert.equal(cardFrameMatches.length, 1, "exactly one .brief-card frame");
 
-  // All four sub-section headings present
-  assert.ok(html.includes(">Structure<"), "Anatomy structure heading");
-  assert.ok(html.includes(">States<"), "Anatomy states heading");
-  assert.ok(html.includes(">Specs<"), "Specs heading");
+  // All four sub-section headings present. First headings per sub-section now
+  // carry Draft badges (when _source is "generated"), so text is followed by a
+  // space and a <span> — check for ">Anatomy " and ">Variation " etc.
+  // Note: renderAnatomyContent now emits "Anatomy" as the first heading (was
+  // "Structure"); inner headings "States" and "Parts reference" are unchanged.
   assert.ok(
-    html.includes(">Color tokens<") ||
+    html.includes(">Anatomy<") || html.includes(">Anatomy "),
+    "Anatomy heading (first sub-section)",
+  );
+  assert.ok(html.includes(">States<"), "Anatomy states heading");
+  assert.ok(
+    html.includes(">Specs<") || html.includes(">Specs "),
+    "Specs heading",
+  );
+  // renderTokensContent now emits "Tokens" as the first heading (was
+  // "Color tokens"); inner headings "Sizing & spacing" / "Typography" are
+  // unchanged.
+  assert.ok(
+    html.includes(">Tokens<") ||
+      html.includes(">Tokens ") ||
       html.includes(">Sizing & spacing<") ||
       html.includes(">Typography<"),
     "at least one Tokens table heading",
   );
-  // Variant matrix is data-name only (no sectionTitle today), so check that:
+  // Variant matrix now has a "Variation" sectionTitle heading.
   assert.ok(
-    html.includes('data-name="Variant matrix"'),
-    "Variation block present",
+    html.includes(">Variation<") || html.includes(">Variation "),
+    "Variation heading present",
   );
 
   // Default card title ("Anatomy, variation, tokens & specs") visible
@@ -69,9 +83,71 @@ test("renderSection1 omits Specs sub-section when anatomy.specs absent", functio
   );
   // Specs heading should be absent
   assert.equal(html.indexOf(">Specs<"), -1);
+  assert.equal(html.indexOf(">Specs "), -1);
   // Other sub-sections should still be present
+  // Note: first Tokens heading is now "Tokens" (not "Color tokens").
   assert.ok(
-    html.includes(">Color tokens<") || html.includes(">Sizing & spacing<"),
+    html.includes(">Tokens<") ||
+      html.includes(">Tokens ") ||
+      html.includes(">Sizing & spacing<"),
+  );
+});
+
+test("Draft badge appears for generated sub-sections without _authored flag", function () {
+  // Button fixture is AI-generated (Phase B), no _authored flags.
+  var html = renderer.renderSection1(
+    fix.card_component,
+    fix.card_anatomy,
+    fix.card_tokens,
+    ph,
+  );
+  // Expect at least 3 Draft badges (one per sub-section heading where source is set)
+  var matches = html.match(/class="subsection-draft-badge"/g) || [];
+  assert.ok(
+    matches.length >= 3,
+    "at least 3 Draft badges (Anatomy / Variation / Tokens / Specs minus any missing)",
+  );
+});
+
+test("Draft badge suppressed when sub-section card has _authored: true", function () {
+  // Mark anatomy as authored. Anatomy and Specs both source from card_anatomy,
+  // so both their sub-section headings should drop the badge.
+  var anatomyAuthored = Object.assign({}, fix.card_anatomy, {
+    _authored: true,
+  });
+  var html = renderer.renderSection1(
+    fix.card_component,
+    anatomyAuthored,
+    fix.card_tokens,
+    ph,
+  );
+  // Variation and Tokens still draft → 2 badges remain
+  var matches = html.match(/class="subsection-draft-badge"/g) || [];
+  assert.equal(
+    matches.length,
+    2,
+    "Anatomy + Specs badges suppressed; Variation + Tokens still drafted",
+  );
+});
+
+test("Draft badge suppressed when sub-section card has _source: 'figma'", function () {
+  // Figma-sourced sub-section is treated as canonical; no badge.
+  var componentFigma = Object.assign({}, fix.card_component, {
+    _source: "figma",
+  });
+  var html = renderer.renderSection1(
+    componentFigma,
+    fix.card_anatomy,
+    fix.card_tokens,
+    ph,
+  );
+  // Variation badge suppressed; Anatomy + Tokens + Specs still draft (assuming
+  // their _source remains "generated"). Specs derives from anatomy so it gets
+  // anatomy's source state — counted with Anatomy.
+  var matches = html.match(/class="subsection-draft-badge"/g) || [];
+  assert.ok(
+    matches.length >= 2 && matches.length <= 3,
+    "Variation badge suppressed; others still draft (Specs may or may not)",
   );
 });
 
