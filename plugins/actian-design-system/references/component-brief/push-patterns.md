@@ -97,16 +97,15 @@ if (cardHeader) {
   });
 }
 
-// Find content slot for child injection
+// Find content slot for child injection.
+// IMPORTANT (v1.66.2+): do NOT override padding / itemSpacing / layoutMode
+// here. The detached frame inherits Meta Kit's auto-layout values, and
+// those are the source of truth — overriding them in code makes Meta Kit
+// edits invisible (the "Card padding doesn't pick up" symptom).
+// If a content slot lands without auto-layout (rare, only on legacy
+// instances), fix the Meta Kit component rather than re-introducing
+// hardcoded values here.
 const contentSlot = cardFrame.findOne(n => n.name === "Content");
-if (contentSlot) {
-  contentSlot.layoutMode = "VERTICAL";
-  contentSlot.itemSpacing = 16;
-  contentSlot.paddingTop = 48;
-  contentSlot.paddingBottom = 48;
-  contentSlot.paddingLeft = 80;
-  contentSlot.paddingRight = 80;
-}
 
 // Append to wrapper
 const wrapper = await figma.getNodeByIdAsync("<wrapperId>");

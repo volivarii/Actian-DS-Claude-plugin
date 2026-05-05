@@ -223,10 +223,17 @@ td code {
   overflow: hidden;
   flex-shrink: 0;
   background: white;
-  padding: 48px;
+  padding: 80px;
 }
 .card-section-header {
-  padding: 48px 48px 0;
+  padding: 80px 80px 0;
+}
+/* Scoped to DS-mode brief cards — keep FM .card-content untouched. */
+.brief-card .card-content {
+  padding: 80px;
+}
+.brief-card .card-divider {
+  margin: 0 80px;
 }
 .card-section-header__title {
   font-weight: 600;
@@ -260,6 +267,7 @@ td code {
   font-family:
     "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
+/* Default divider margin — overridden to 80px inside .brief-card scope above. */
 .card-divider {
   height: 1px;
   background: #e2e7f0;
