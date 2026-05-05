@@ -196,10 +196,10 @@ async function appendSubFrame(label, sourceCard) {
   }
 
   // Append body content per sub-section type:
-  // label === "Anatomy"   → variant matrix component instance + parts table (see Pattern 8 + Pattern 3)
+  // label === "Anatomy"   → Pattern 9 (Anatomy Diagram with badges + leader lines) + Pattern 3 (parts table)
   // label === "Variation" → variant matrix push (see Pattern 8 — Variant Instance)
   // label === "Tokens"    → color swatch grid + sizing/typography tables (see Pattern 4 + Pattern 3)
-  // label === "Specs"     → dimension annotations from card_anatomy.specs
+  // label === "Specs"     → Pattern 14 (Specs Redline — auto-extracted from instance, with optional card_anatomy.specs override)
 
   slot.appendChild(sub);
   return sub;
