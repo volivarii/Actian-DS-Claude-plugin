@@ -32,6 +32,9 @@ var fs = require("fs");
 var path = require("path");
 var { execFileSync } = require("child_process");
 
+// Repo root, derived from __dirname so the script works from any cwd
+// (CI runs from $GITHUB_WORKSPACE; locally we may run from anywhere).
+var REPO_ROOT = path.resolve(__dirname, "..", "..", "..");
 var PLUGIN_PREFIX = "plugins/actian-design-system/";
 var MANIFEST_REL = ".claude-plugin/plugin.json";
 var MANIFEST_PATH = PLUGIN_PREFIX + MANIFEST_REL;
@@ -45,7 +48,7 @@ var IGNORED_PREFIXES = [
 
 function git() {
   var args = Array.prototype.slice.call(arguments);
-  return execFileSync("git", args, { encoding: "utf8" });
+  return execFileSync("git", args, { encoding: "utf8", cwd: REPO_ROOT });
 }
 
 function changedPlatformSourceFiles(baseSha, headSha) {
@@ -89,7 +92,7 @@ function readManifestVersion(sha) {
 }
 
 function readManifestVersionFromDisk() {
-  var p = path.resolve(MANIFEST_PATH);
+  var p = path.join(REPO_ROOT, MANIFEST_PATH);
   var raw = fs.readFileSync(p, "utf8");
   return JSON.parse(raw).version || null;
 }

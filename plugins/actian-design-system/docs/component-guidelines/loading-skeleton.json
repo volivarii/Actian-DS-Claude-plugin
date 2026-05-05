@@ -17,14 +17,17 @@
   "design_guidelines": null,
   "variants": {
     "axes": {
-      "Transition": [
-        "1",
-        "2"
-      ]
+      "Transition": ["1", "2"]
     },
     "totalVariants": 2
   },
   "examples": null,
   "screenshots": null,
-  "behavior": null
+  "behavior": {
+    "motion": {
+      "pattern": "skeleton-loading",
+      "overrides": null,
+      "notes": "Continuous 2000ms linear shimmer (looping); not tokenized — value is fixed. Provides visual confirmation the system is active and reduces perceived wait time for data-heavy views. Note: this guideline is a stub — motion data is forward-compatible."
+    }
+  }
 }
