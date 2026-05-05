@@ -87,14 +87,41 @@ const inst = variant.createInstance();
 inst.name = cardTitle;
 const cardFrame = inst.detachInstance();
 
-// Card Header stays as a live instance — set properties on it
-const cardHeader = cardFrame.findOne(n => n.name === "Card Header" && n.type === "INSTANCE");
-if (cardHeader) {
-  cardHeader.setProperties({
-    "Title#140:0": cardTitle,
-    "Subtitle#140:1": cardSubtitle,
-    "Show Subtitle#140:2": Boolean(cardSubtitle)
-  });
+// Card Header stays as a live instance — set properties on it.
+// IMPORTANT (v1.66.4+): match the Card Header instance by NAME SUBSTRING, not
+// exact equality. Depending on Meta Kit publish state, the instance may be
+// named "Card Header", "Brief Card Header", or "Meta / Chrome / Brief Card
+// Header" (full library path). An exact-match selector silently fails, the
+// `if (cardHeader)` branch is skipped, no setProperties call runs, and the
+// neutral Meta Kit defaults ("Card title" / "Subtitle text") leak into the
+// brief.
+const cardHeader = cardFrame.findOne(n =>
+  n.type === "INSTANCE" && /Card Header/i.test(n.name)
+);
+if (!cardHeader) {
+  // Loud fail rather than silent leak — Meta Kit structure may have changed.
+  throw new Error(
+    "Card Shell push: no nested Card Header instance found in detached " +
+    "frame. Expected name to contain 'Card Header'. Inspect the variant " +
+    "structure and update this selector."
+  );
+}
+cardHeader.setProperties({
+  "Title#140:0": cardTitle,
+  "Subtitle#140:1": cardSubtitle,
+  "Show Subtitle#140:2": Boolean(cardSubtitle)
+});
+
+// Read-back verification — catch silent setProperties failures (e.g. property
+// IDs renamed in a future Meta Kit publish). If the title still equals the
+// neutral default, the property assignment didn't take effect.
+const titleNode = cardHeader.findOne(n => n.type === "TEXT" && /^Title$/i.test(n.name));
+if (titleNode && titleNode.characters === "Card title") {
+  throw new Error(
+    "Card Header title shows the Meta Kit default ('Card title') after " +
+    "setProperties — the assignment didn't apply. Check property IDs " +
+    "(#140:0 / #140:1) against the current Meta Kit publish."
+  );
 }
 
 // Find content slot for child injection.
