@@ -711,6 +711,50 @@ test("brief schema — _fallback: true with no _fallbackReason → finding", fun
   );
 });
 
+test("brief schema — card_motion with figma source but missing patternSlug → finding (v1.65.0)", function () {
+  var schema = require("../../scripts/validation/validate-schema.js");
+  var data = {
+    meta: {},
+    card_header: { _source: "figma", description: "x" },
+    card_motion: {
+      _source: "figma",
+      // patternSlug intentionally missing
+      phases: [{ Phase: "Open", Duration: "duration-slow" }],
+    },
+  };
+  var result = schema.validateBriefData(data);
+  assert_ok(
+    result.findings.some(function (f) {
+      return (
+        f.kind === "empty-figma-source" &&
+        f.card === "card_motion" &&
+        /patternSlug is missing/.test(f.message)
+      );
+    }),
+    "expected empty-figma-source finding citing patternSlug for card_motion",
+  );
+});
+
+test("brief schema — card_motion with valid patternSlug + phases → no finding (v1.65.0)", function () {
+  var schema = require("../../scripts/validation/validate-schema.js");
+  var data = {
+    meta: {},
+    card_header: { _source: "figma", description: "x" },
+    card_motion: {
+      _source: "figma",
+      patternSlug: "drawer",
+      phases: [{ Phase: "Open", Duration: "duration-slow" }],
+    },
+  };
+  var result = schema.validateBriefData(data);
+  assert_ok(
+    !result.findings.some(function (f) {
+      return f.card === "card_motion";
+    }),
+    "expected no findings for valid card_motion",
+  );
+});
+
 // ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------

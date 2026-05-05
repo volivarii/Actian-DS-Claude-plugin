@@ -223,6 +223,14 @@ function buildMotionPayload(contentTokens, logger) {
   if (!payload.description) delete payload.description;
   if (Object.keys(payload.tokens).length === 0) delete payload.tokens;
   if (Object.keys(payload.patterns).length === 0) delete payload.patterns;
+
+  // Defensive: strip any leftover _pendingSubsection markers that didn't get
+  // resolved (e.g., if a sub-section label is followed by no list).
+  Object.keys(payload.patterns || {}).forEach(function (slug) {
+    if (payload.patterns[slug] && payload.patterns[slug]._pendingSubsection) {
+      delete payload.patterns[slug]._pendingSubsection;
+    }
+  });
   return payload;
 }
 

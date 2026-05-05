@@ -563,8 +563,10 @@
       var rows = phases.map(function (p) {
         return headers.map(function (h) {
           var v = p[h];
-          if (typeof v === "string" && /^[a-z][\w-]*$/.test(v)) {
-            // Looks like a token slug — render in code style
+          // Token slugs follow `category-name` shape (duration-slow,
+          // ease-entrance, delay-stagger). Require at least one hyphen so
+          // bare CSS keywords like `linear` aren't wrapped in <code>.
+          if (typeof v === "string" && /^[a-z][\w-]*-[\w-]+$/.test(v)) {
             return "<code>" + esc(v) + "</code>";
           }
           return esc(typeof v === "string" ? v : "");

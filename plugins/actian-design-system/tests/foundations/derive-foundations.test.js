@@ -863,3 +863,40 @@ describe("derive-foundations: buildMotionPayload", function () {
     ]);
   });
 });
+
+describe("derive-foundations: defensive cleanup", function () {
+  it("strips _pendingSubsection from output even if no list followed the sub-label", function () {
+    var md = [
+      "### 2.9 Motion",
+      "",
+      "#### Component Motion Guide",
+      "",
+      "**Anchor Motion**",
+      "",
+      "| Phase | Duration |",
+      "|-------|----------|",
+      "| Open | `duration-base` |",
+      "",
+      "**Logic & Accessibility**",
+      "",
+      // Section ends here — no list follows the sub-label.
+    ].join("\n");
+    var tokens = parseMarkdown(md);
+    var headings = findNumberedHeadings(tokens);
+    var motion = headings.find(function (h) {
+      return h.number === "2.9";
+    });
+    var content = [];
+    for (var i = motion.tokenIndex + 1; i < tokens.length; i++) {
+      content.push(tokens[i]);
+    }
+    var p = buildMotionPayload(content, { warn: function () {} });
+    assert.ok(
+      !Object.prototype.hasOwnProperty.call(
+        p.patterns["anchor-motion"],
+        "_pendingSubsection",
+      ),
+      "_pendingSubsection should not leak into output",
+    );
+  });
+});

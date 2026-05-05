@@ -279,6 +279,18 @@ function validateBriefData(data) {
             "card_motion claims figma source but phases array is empty and no overrides set",
         });
       }
+      if (
+        k === "card_motion" &&
+        (typeof card.patternSlug !== "string" || card.patternSlug.trim() === "")
+      ) {
+        findings.push({
+          kind: "empty-figma-source",
+          severity: "error",
+          card: k,
+          message:
+            "card_motion claims figma source but patternSlug is missing or empty (recipe contract: patternSlug must match a key in interaction-motion.json#patterns)",
+        });
+      }
     }
   }
   return { findings: findings };
