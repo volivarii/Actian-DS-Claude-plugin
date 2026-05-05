@@ -568,19 +568,23 @@
     if (!anatomyHtml && !variationHtml && !tokensHtml && !specsHtml) return "";
 
     var parts = [];
-    if (anatomyHtml) parts.push(anatomyHtml);
-    if (variationHtml)
-      parts.push((parts.length ? cardDivider() : "") + variationHtml);
-    if (tokensHtml)
-      parts.push((parts.length ? cardDivider() : "") + tokensHtml);
-    if (specsHtml) parts.push((parts.length ? cardDivider() : "") + specsHtml);
+    function appendSubsection(html) {
+      if (!html) return;
+      if (parts.length) parts.push(cardDivider());
+      parts.push(html);
+    }
+    appendSubsection(anatomyHtml);
+    appendSubsection(variationHtml);
+    appendSubsection(tokensHtml);
+    appendSubsection(specsHtml);
 
     // Pick a representative card object for source-badge / research insights.
     // Per spec: "most permissive wins" — figma > generated > generated+fallback.
     var representative = pickSection1Provenance(component, anatomy, tokens);
 
-    // Default title and subtitle (overridable by recipe via component.cardTitle etc.,
-    // but we read from the representative card if it carries one).
+    // Default title and subtitle. If the representative card (the provenance
+    // winner from pickSection1Provenance) carries cardTitle/cardSubtitle from
+    // its recipe, those override the defaults below.
     var title =
       (representative && representative.cardTitle) ||
       "Anatomy, variation, tokens & specs";
@@ -611,7 +615,7 @@
       if (inputs[j]._source === "generated" && !inputs[j]._fallback)
         return inputs[j];
     }
-    return inputs[0];
+    return inputs[0]; // default: first input — covers cards with no _source set
   }
 
   // Card 5 (numbered) — Behavior & motion. Conditional: returns "" when the
