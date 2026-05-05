@@ -3,6 +3,7 @@
   { "file": "card-component.json", "card": "card_component" },
   { "file": "card-anatomy.json", "card": "card_anatomy" },
   { "file": "card-tokens.json", "card": "card_tokens" },
+  { "file": "card-motion.json", "card": "card_motion" },
   { "file": "card-usage.json", "card": "card_usage" },
   { "file": "card-content.json", "card": "card_content" },
   { "file": "card-accessibility.json", "card": "card_accessibility" }

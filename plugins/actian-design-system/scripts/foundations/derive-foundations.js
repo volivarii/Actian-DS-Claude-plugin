@@ -57,6 +57,183 @@ function applyStatusToRows(rows, sectionNumber, logger) {
   });
 }
 
+// Section 2.9 (Motion) needs a structured payload — tokens grouped by category
+// (duration / easing / delay) and named patterns indexed by slug — so the
+// brief renderer can look up `patterns.drawer` etc. The generic
+// rows/lists/code/description shape collapses this structure.
+function isBoldOnlyParagraph(token) {
+  if (!token || token.type !== "paragraph" || !Array.isArray(token.tokens))
+    return false;
+  var significant = token.tokens.filter(function (t) {
+    if (t.type === "text") return String(t.text || "").trim().length > 0;
+    return true;
+  });
+  return significant.length === 1 && significant[0].type === "strong";
+}
+
+// marked emits HTML-encoded entities in inline text (e.g. `&quot;`, `&amp;`).
+// We need decoded strings for slug + display.
+function decodeHtmlEntities(s) {
+  return String(s || "")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">");
+}
+
+function slugifyPatternName(name) {
+  // Decode HTML entities first so "&quot;" doesn't leak into the slug.
+  // Trim quotes and "The " prefix; drop content in parens and after em-dash.
+  var s = decodeHtmlEntities(name)
+    .replace(/^The\s+/i, "")
+    .replace(/["“”]/g, "")
+    .replace(/\(.*?\)/g, "")
+    .replace(/—.*$/, "")
+    .trim()
+    .toLowerCase();
+  s = s.replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  return s;
+}
+
+// Bold-paragraph labels that look like patterns but are actually sub-sections
+// of the *previous* pattern. Currently only "Logic & Accessibility" qualifies
+// (it's nested under the Anchor Motion pattern in foundations.md). Add new
+// names here if more sub-section conventions emerge.
+function isPatternSubsectionLabel(decodedName) {
+  return /^\s*logic\s*&\s*accessibility\s*$/i.test(decodedName);
+}
+
+function buildMotionPayload(contentTokens, logger) {
+  var payload = { description: null, tokens: {}, patterns: {} };
+  var introLines = [];
+  var mode = "intro"; // intro | duration | easing | delay | guide
+  var currentPatternSlug = null;
+
+  function ensureTokenBucket(key) {
+    if (!payload.tokens[key]) payload.tokens[key] = {};
+    return payload.tokens[key];
+  }
+
+  for (var i = 0; i < contentTokens.length; i++) {
+    var tok = contentTokens[i];
+
+    if (tok.type === "heading" && tok.depth === 4) {
+      var h = String(tok.text || "")
+        .toLowerCase()
+        .trim();
+      if (h === "duration") mode = "duration";
+      else if (h === "easing") mode = "easing";
+      else if (h === "delay") mode = "delay";
+      else if (h === "component motion guide") {
+        mode = "guide";
+        currentPatternSlug = null;
+      } else {
+        // Unknown h4 — stay in current mode but reset pattern context
+        currentPatternSlug = null;
+      }
+      continue;
+    }
+
+    if (mode === "intro" && tok.type === "paragraph") {
+      var prose = extractors.extractProse(tok);
+      if (prose) introLines.push(prose);
+      continue;
+    }
+
+    if (mode === "duration" || mode === "easing" || mode === "delay") {
+      var bucket = ensureTokenBucket(mode);
+      if (tok.type === "table") {
+        var rows = extractors.extractTable(tok);
+        bucket.rows = applyStatusToRows(rows, "2.9", logger);
+      } else if (tok.type === "paragraph") {
+        var p = extractors.extractProse(tok);
+        if (p)
+          bucket.description = bucket.description
+            ? bucket.description + "\n\n" + p
+            : p;
+      }
+      continue;
+    }
+
+    if (mode === "guide") {
+      if (tok.type === "paragraph") {
+        if (isBoldOnlyParagraph(tok)) {
+          var rawName = extractors.extractProse(tok).trim();
+          var name = decodeHtmlEntities(rawName);
+          // "Logic & Accessibility" and similar are sub-section labels of the
+          // current pattern, not new patterns. Mark a pending key so the next
+          // list/table attaches under the right field.
+          if (isPatternSubsectionLabel(name) && currentPatternSlug) {
+            payload.patterns[currentPatternSlug]._pendingSubsection =
+              "logic_and_accessibility";
+            continue;
+          }
+          var slug = slugifyPatternName(rawName);
+          if (!slug) {
+            logger.warn(
+              "Section '2.9' pattern paragraph '" +
+                name +
+                "' produced empty slug; skipping",
+            );
+            currentPatternSlug = null;
+            continue;
+          }
+          if (payload.patterns[slug]) {
+            logger.warn(
+              "Section '2.9' duplicate pattern slug '" +
+                slug +
+                "' — keeping first",
+            );
+            currentPatternSlug = null;
+            continue;
+          }
+          payload.patterns[slug] = { name: name, phases: [] };
+          currentPatternSlug = slug;
+          continue;
+        }
+        // Non-bold paragraph inside guide — note for current pattern, or guide intro
+        var notesText = decodeHtmlEntities(extractors.extractProse(tok));
+        if (notesText && currentPatternSlug) {
+          var pat = payload.patterns[currentPatternSlug];
+          if (!pat.notes) pat.notes = [];
+          pat.notes.push(notesText);
+        }
+        continue;
+      }
+      if (tok.type === "table" && currentPatternSlug) {
+        payload.patterns[currentPatternSlug].phases =
+          extractors.extractTable(tok);
+        continue;
+      }
+      if (tok.type === "list" && currentPatternSlug) {
+        var listItems = extractors.extractList(tok).map(decodeHtmlEntities);
+        var pendingKey =
+          payload.patterns[currentPatternSlug]._pendingSubsection ||
+          "logic_and_accessibility";
+        payload.patterns[currentPatternSlug][pendingKey] = listItems;
+        delete payload.patterns[currentPatternSlug]._pendingSubsection;
+        continue;
+      }
+      // hr, blockquote, etc. — ignore inside guide
+    }
+  }
+
+  if (introLines.length) payload.description = introLines.join("\n\n");
+  if (!payload.description) delete payload.description;
+  if (Object.keys(payload.tokens).length === 0) delete payload.tokens;
+  if (Object.keys(payload.patterns).length === 0) delete payload.patterns;
+
+  // Defensive: strip any leftover _pendingSubsection markers that didn't get
+  // resolved (e.g., if a sub-section label is followed by no list).
+  Object.keys(payload.patterns || {}).forEach(function (slug) {
+    if (payload.patterns[slug] && payload.patterns[slug]._pendingSubsection) {
+      delete payload.patterns[slug]._pendingSubsection;
+    }
+  });
+  return payload;
+}
+
 function buildSectionPayload(contentTokens, sectionNumber, logger) {
   var payload = { rows: [], lists: [], code: [], description: null };
   var descLines = [];
@@ -110,7 +287,10 @@ function deriveFromMarkdown(mdSource, parserMap, opts) {
       continue;
     }
     var content = astWalk.sliceSectionContent(tokens, heading);
-    var payload = buildSectionPayload(content, heading.number, logger);
+    var payload =
+      heading.number === "2.9"
+        ? buildMotionPayload(content, logger)
+        : buildSectionPayload(content, heading.number, logger);
 
     if (!output[target.file]) output[target.file] = {};
     if (target.key) {
@@ -253,6 +433,8 @@ if (require.main === module) {
 module.exports = {
   deriveFromMarkdown,
   buildSectionPayload,
+  buildMotionPayload,
+  slugifyPatternName,
   applyStatusToRows,
   addMetaHeader,
   writeOutputs,

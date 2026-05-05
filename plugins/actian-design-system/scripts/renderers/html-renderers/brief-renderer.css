@@ -247,6 +247,18 @@ td code {
   font-size: 16px;
   color: #101828;
 }
+
+/* Inline pattern slug pill on the Behavior & motion card */
+.pattern-slug {
+  display: inline-block;
+  padding: 2px 8px;
+  background: #f4f6fb;
+  color: #475467;
+  border-radius: 4px;
+  font-size: 12px;
+  font-family:
+    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
 .card-divider {
   height: 1px;
   background: #e2e7f0;

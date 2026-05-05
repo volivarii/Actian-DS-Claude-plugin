@@ -430,6 +430,41 @@
         }
       }
     },
+    "card_motion": {
+      "type": "object",
+      "description": "Behavior & motion card (DS mode) — conditional. Only present when the component has a curated motion pattern (component-guidelines/<slug>.json behavior.motion.pattern is set). Pattern data is sourced from docs/generated/foundations/interaction-motion.json.",
+      "properties": {
+        "_source": {
+          "type": "string",
+          "enum": ["figma", "generated", "scaffold"]
+        },
+        "patternSlug": {
+          "type": "string",
+          "description": "Slug into foundations interaction-motion.json#patterns, e.g. 'drawer', 'modal', 'success-toast'"
+        },
+        "patternName": {
+          "type": "string",
+          "description": "Human-readable name (e.g. 'Drawer (open/close)')"
+        },
+        "phases": {
+          "type": "array",
+          "description": "Phase rows from the canonical motion pattern (Phase / Duration / Easing / Behavior, or pattern-specific columns)",
+          "items": { "type": "object" }
+        },
+        "logic_and_accessibility": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "notes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "overrides": {
+          "type": "string",
+          "description": "Optional component-specific deviations from the canonical pattern (free-text)"
+        }
+      }
+    },
     "card9_code": {
       "type": "object",
       "description": "Code specification card (DS mode — retired)",

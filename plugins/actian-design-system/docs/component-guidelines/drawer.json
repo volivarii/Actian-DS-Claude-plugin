@@ -2,10 +2,7 @@
   "component": "Drawer / Side panel",
   "page_id": "12054:49858",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "frames_found": [
-    "Components",
-    "Screenshots of current use cases"
-  ],
+  "frames_found": ["Components", "Screenshots of current use cases"],
   "frames_missing": [
     "Content guidelines",
     "Design guidelines",
@@ -17,10 +14,7 @@
   "design_guidelines": null,
   "variants": {
     "axes": {
-      "App": [
-        "Studio",
-        "Explorer"
-      ]
+      "App": ["Studio", "Explorer"]
     }
   },
   "examples": null,
@@ -31,5 +25,11 @@
       "Frame 2: 9 screenshots showing Explorer drawer use cases (2026-03-12)"
     ]
   },
-  "behavior": null
+  "behavior": {
+    "motion": {
+      "pattern": "drawer",
+      "overrides": null,
+      "notes": "Canonical drawer choreography. Open uses duration-slow + ease-entrance (responsive feel that settles); close uses duration-base + ease-exit (clears out faster)."
+    }
+  }
 }
