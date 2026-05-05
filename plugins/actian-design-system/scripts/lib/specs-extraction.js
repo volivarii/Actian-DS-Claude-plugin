@@ -9,7 +9,22 @@
  */
 
 function shouldSurfaceFrame(frameNode, anatomyParts, isTopLevel) {
-  throw new Error("not implemented");
+  if (isTopLevel) return true;
+  if (
+    !frameNode ||
+    !Array.isArray(frameNode.children) ||
+    frameNode.children.length === 0
+  ) {
+    return false;
+  }
+  var partNames = new Set(
+    (anatomyParts || []).map(function (p) {
+      return p.figmaLayerName;
+    }),
+  );
+  return frameNode.children.some(function (c) {
+    return partNames.has(c.name);
+  });
 }
 
 function resolveSpacingValue(numericPx, boundVariableId, variableLookup) {
