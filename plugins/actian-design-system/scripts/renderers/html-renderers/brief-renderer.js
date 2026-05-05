@@ -1113,19 +1113,17 @@
           renderFmCard5(d.anatomy, componentHtml),
         ];
       } else {
-        // Section order (Brief Refresh v2 Phase 1):
-        //   Header
-        //   Section 1 — Anatomy, variation, tokens, specs   (Component / Anatomy / Tokens)
-        //   Section 2 — Usages
-        //   Section 3 — Content guidelines & examples
-        //   Section 4 — Motion (microinteraction, when applicable)
-        //   Section 5 — Accessibility
-        //   Section 6 — Real platform examples               (held — Kristina pending)
+        // Section order (Brief Refresh v2 Phase 2 — v1.67.0):
+        //   Header                       (always)
+        //   Section 1 supercard          (Anatomy + Variation + Tokens + Specs merged)
+        //   Section 2 — Usages           (always if data)
+        //   Section 3 — Content          (always if data)
+        //   Section 4 — Motion           (conditional)
+        //   Section 5 — Accessibility    (always)
+        //   Section 6 — Real examples    (deferred entirely; not rendered)
         cards = [
           renderCard1(d.header),
-          renderCard2(d.component, componentHtml),
-          renderCard3(d.anatomy, componentHtml),
-          renderCard4(d.tokens),
+          renderSection1(d.component, d.anatomy, d.tokens, componentHtml),
           renderCard6(d.usage),
           renderCard7(d.content),
           renderCardMotion(d.motion),
