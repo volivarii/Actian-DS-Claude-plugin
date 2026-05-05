@@ -1769,7 +1769,8 @@ describe("validate-flow-data", function () {
               {
                 type: "INSTANCE",
                 ref: "fmButton",
-                props: { Label: "Save" },
+                // canonical prop name — required-override check matches by full key
+                props: { "Label#1411:32": "Save" },
               },
             ],
           },
@@ -1845,7 +1846,8 @@ describe("validate-flow-data", function () {
                 ref: "button",
                 intent: "success-confirmation",
                 variant: "Type=Critical primary",
-                props: { Label: "OK" },
+                // canonical prop name (DS button) — required-override check
+                props: { "Label#724:10": "OK" },
               },
             ],
           },
@@ -1871,7 +1873,8 @@ describe("validate-flow-data", function () {
                 ref: "button",
                 intent: "destructive-action",
                 variant: "Type=Primary",
-                props: { Label: "Delete" },
+                // canonical prop name (DS button)
+                props: { "Label#724:10": "Delete" },
               },
             ],
           },
@@ -1942,7 +1945,8 @@ describe("validate-flow-data", function () {
               {
                 type: "INSTANCE",
                 ref: "fmButton",
-                props: { Label: "Save" },
+                // canonical prop name — required-override check matches by full key
+                props: { "Label#1411:32": "Save" },
               },
             ],
           },
@@ -2295,6 +2299,144 @@ describe("meta.references[].fingerprint pass-through (C-vision)", function () {
         return f.kind === "stub-guideline-used";
       });
       assert.ok(!stubFinding, "no stub finding when no stub guidelines used");
+    });
+  });
+
+  // -------------------------------------------------------------------------
+  // CLI surfacing of previously-suppressed findings (v1.65.2)
+  // -------------------------------------------------------------------------
+
+  describe("CLI surfacing — previously-suppressed kinds (v1.65.2)", function () {
+    var fs = require("fs");
+    var os = require("os");
+    var { spawnSync } = require("node:child_process");
+
+    function runCli(data) {
+      var tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "validate-cli-"));
+      var dataPath = path.join(tmpDir, "flow-data.json");
+      fs.writeFileSync(dataPath, JSON.stringify(data));
+      var script = path.join(
+        PLUGIN_ROOT,
+        "scripts",
+        "validation",
+        "validate-flow-data.js",
+      );
+      var result = spawnSync(process.execPath, [script, dataPath], {
+        encoding: "utf8",
+      });
+      fs.rmSync(tmpDir, { recursive: true, force: true });
+      return result;
+    }
+
+    it("surfaces missing-required-override as P0 in CLI output", function () {
+      var data = {
+        meta: { feature: "Required Override Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "fmButton",
+                // intentionally omit Label override
+                props: {},
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(result.status, 1, "expected exit 1 (P0)");
+      assert.ok(
+        /P0 \[missing-required-override\]/.test(result.stderr),
+        "expected missing-required-override line in CLI; got: " + result.stderr,
+      );
+    });
+
+    it("surfaces unknown-component as P0 in CLI output", function () {
+      var data = {
+        meta: { feature: "Unknown Component Test" },
+        screens: [
+          {
+            name: "Screen 1",
+            content: [
+              { type: "INSTANCE", ref: "totally-not-a-component", props: {} },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      assert.strictEqual(result.status, 1, "expected exit 1 (P0)");
+      assert.ok(
+        /P0 \[unknown-component\]/.test(result.stderr),
+        "expected unknown-component line in CLI; got: " + result.stderr,
+      );
+    });
+
+    it("surfaces stub-guideline-used as info-level (mapped to P2 in CLI)", function () {
+      // Synthetic check via validate() — the CLI surfacing path uses the same
+      // result pipeline. We assert the severity tier mapping directly.
+      var validateFn = validate.validate || validate;
+      var data = {
+        meta: { feature: "Stub Test" },
+        screens: [
+          {
+            id: "stub-1",
+            name: "Screen 1",
+            content: [{ type: "INSTANCE", ref: "tooltip", props: {} }],
+          },
+        ],
+      };
+      var result = validateFn(data, {
+        loadGuideline: function (slug) {
+          if (slug === "tooltip") return { _stub: true };
+          return null;
+        },
+        skipTokens: true,
+        skipTerminology: true,
+      });
+      var stubFinding = result.findings.find(function (f) {
+        return f.kind === "stub-guideline-used";
+      });
+      assert.ok(stubFinding, "stub-guideline-used should fire");
+      assert.strictEqual(
+        stubFinding.severity,
+        "info",
+        "stub-guideline-used should be info-level (mapped to P2 in CLI)",
+      );
+    });
+
+    it("walkStringValues skips structural fields (ref, intent, variant, etc.)", function () {
+      // ref: "button" matches /^Button$/i in PLACEHOLDER_PATTERNS — should NOT fire
+      // because ref is a structural field, not user-visible text.
+      var data = {
+        meta: { feature: "Structural Skip Test" },
+        screens: [
+          {
+            id: "structural-1",
+            name: "Screen 1",
+            content: [
+              {
+                type: "INSTANCE",
+                ref: "button", // <- would match /^Button$/i if not skipped
+                intent: "primary-action", // <- would match nothing but check anyway
+                variant: "Type=Primary",
+                props: { "Label#724:10": "Save" },
+              },
+            ],
+          },
+        ],
+      };
+      var result = runCli(data);
+      var lines = (result.stderr + result.stdout).split("\n");
+      var placeholderHits = lines.filter(function (l) {
+        return /\[placeholder-text\]/.test(l) && /"button"/.test(l);
+      });
+      assert.strictEqual(
+        placeholderHits.length,
+        0,
+        "ref:'button' should not trigger placeholder-text — structural field",
+      );
     });
   });
 });

@@ -107,22 +107,56 @@ function walkInstanceNodes(node, currentPath, callback) {
   }
 }
 
-function walkStringValues(node, currentPath, callback) {
+// Structural fields whose values are identifiers, not user-visible text.
+// Skipping these prevents the placeholder/banned walker from firing on
+// component refs (e.g., ref: "button" matches /^Button$/i), kebab-case
+// intent slugs, variant axes, screen ids, and the like.
+var STRUCTURAL_FIELD_KEYS = {
+  ref: true,
+  id: true,
+  type: true,
+  intent: true,
+  variant: true,
+  variantName: true,
+  archetype: true,
+  recipe: true,
+  pattern: true,
+  source: true,
+  mode: true,
+  tier: true,
+  kind: true,
+  app: true,
+  view: true,
+  layoutMode: true,
+};
+
+function walkStringValues(node, currentPath, callback, parentKey) {
   if (node === null || node === undefined) return;
   if (typeof node === "string") {
+    if (parentKey && STRUCTURAL_FIELD_KEYS[parentKey]) return;
     callback(node, currentPath);
     return;
   }
   if (Array.isArray(node)) {
     for (var i = 0; i < node.length; i++) {
-      walkStringValues(node[i], currentPath + "[" + i + "]", callback);
+      walkStringValues(
+        node[i],
+        currentPath + "[" + i + "]",
+        callback,
+        parentKey,
+      );
     }
     return;
   }
   if (typeof node === "object") {
     var keys = Object.keys(node);
     for (var k = 0; k < keys.length; k++) {
-      walkStringValues(node[keys[k]], currentPath + "." + keys[k], callback);
+      walkStringValues(
+        node[keys[k]],
+        currentPath + "." + keys[k],
+        callback,
+        keys[k],
+      );
     }
   }
 }
@@ -1414,12 +1448,20 @@ if (require.main === module) {
   }
 
   // Single validate() call — emits all finding kinds in one traversal.
-  // Filter to the kinds the legacy CLI surfaces (exact behavioral parity).
-  // Orphan kinds emitted by validate() (placeholder-text, missing-required-override,
-  // unknown-component, default-true-boolean-unset, soft-deviation) are intentionally
-  // skipped here to preserve current CLI behavior; programmatic consumers use
-  // validate() directly to see them.
-  var LEGACY_CLI_KINDS = {
+  // Surfaced in the CLI so designers see actionable findings. Originally
+  // this was a back-compat allowlist of 7 kinds (sub-project B, when the
+  // dual-API consolidation rolled out); v1.65.x added 5 more so that P0
+  // errors (placeholder-text, missing-required-override, unknown-component)
+  // stop being silently dropped, soft-deviation surfaces, and info-level
+  // findings (stub-guideline-used, added v1.64.0) reach designers as P2
+  // informational lines.
+  //
+  // default-true-boolean-unset stays suppressed: it fires per-fmButton
+  // whenever icon-show booleans aren't explicitly set, which is the
+  // common case for AI-generated flows. It would dominate the output
+  // signal-to-noise. Programmatic consumers can still see it via
+  // validate(data).findings[].
+  var CLI_VISIBLE_KINDS = {
     "banned-text": true,
     "unresolved-token": true,
     "hardcoded-color": true,
@@ -1427,6 +1469,11 @@ if (require.main === module) {
     "intent-mismatch": true,
     "terminology-issue": true,
     "missing-justification": true,
+    "placeholder-text": true,
+    "missing-required-override": true,
+    "unknown-component": true,
+    "soft-deviation": true,
+    "stub-guideline-used": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;
@@ -1436,17 +1483,25 @@ if (require.main === module) {
     scope: scope,
   });
 
+  // Severity tier mapping for the legacy CLI shape:
+  //   error   → P0 (blocking; exit 1)
+  //   warning → P1 (designer attention; exit 2)
+  //   info    → P2 (informational; exit 0)
+  function mapTier(sev) {
+    if (sev === "error") return "P0";
+    if (sev === "warning") return "P1";
+    return "P2";
+  }
+
   var allIssues = [];
   for (var fi = 0; fi < result.findings.length; fi++) {
     var f = result.findings[fi];
-    if (!LEGACY_CLI_KINDS[f.kind]) continue;
+    if (!CLI_VISIBLE_KINDS[f.kind]) continue;
     if (f._legacy) {
       allIssues.push(f._legacy);
     } else {
-      // Findings without _legacy carry typed fields directly. Map
-      // severity error → P0, warning/info → P1 for the legacy CLI shape.
       allIssues.push({
-        severity: f.severity === "error" ? "P0" : "P1",
+        severity: mapTier(f.severity),
         check: f.kind,
         screen: f.screen || "(unknown)",
         path: f.path || "tier/justification",
@@ -1489,5 +1544,7 @@ if (require.main === module) {
   var hasP1 = allIssues.some(function (issue) {
     return issue.severity === "P1";
   });
+  // P2 findings (info-level, e.g. stub-guideline-used) are visible but do
+  // not fail CI — they're advisory, not blocking.
   process.exit(hasP0 ? 1 : hasP1 ? 2 : 0);
 }
