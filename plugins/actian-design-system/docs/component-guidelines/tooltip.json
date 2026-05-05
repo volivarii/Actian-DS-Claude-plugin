@@ -2,9 +2,7 @@
   "component": "Tooltip",
   "page_id": "9253:37504",
   "extracted_at": "2026-03-26T00:00:00Z",
-  "frames_found": [
-    "Design guidelines"
-  ],
+  "frames_found": ["Design guidelines"],
   "frames_missing": [
     "Content guidelines",
     "Components",
@@ -21,27 +19,12 @@
         "heading": "Elements",
         "tables": [
           {
-            "headers": [
-              "Element name",
-              "Values"
-            ],
+            "headers": ["Element name", "Values"],
             "rows": [
-              [
-                "Title (optional)",
-                "Heading 2XS"
-              ],
-              [
-                "Body",
-                "Body SM"
-              ],
-              [
-                "Actions (optional)",
-                "TBD (small ghost buttons)"
-              ],
-              [
-                "Container",
-                "CoolGrey90, radius 4px"
-              ]
+              ["Title (optional)", "Heading 2XS"],
+              ["Body", "Body SM"],
+              ["Actions (optional)", "TBD (small ghost buttons)"],
+              ["Container", "CoolGrey90, radius 4px"]
             ]
           }
         ]
@@ -86,9 +69,7 @@
       },
       {
         "heading": "Clearance",
-        "items": [
-          "Keep 2px clearance between the target area and the tooltip."
-        ]
+        "items": ["Keep 2px clearance between the target area and the tooltip."]
       },
       {
         "heading": "Spacing",
@@ -102,9 +83,7 @@
       },
       {
         "heading": "Maximum width",
-        "items": [
-          "The maximum width of the tooltip is 200px."
-        ]
+        "items": ["The maximum width of the tooltip is 200px."]
       },
       {
         "heading": "Positioning",
@@ -119,5 +98,11 @@
   "variants": null,
   "examples": null,
   "screenshots": null,
-  "behavior": null
+  "behavior": {
+    "motion": {
+      "pattern": "anchor-motion",
+      "overrides": null,
+      "notes": "Tooltip is the canonical anchor-motion case. Open: duration-base + ease-entrance, fades in + scales up from trigger. Close: duration-fast + ease-standard. Apply delay-intent (300ms) for hover-triggered tooltips to prevent accidental triggers; keyboard focus (Tab) ignores the delay."
+    }
+  }
 }

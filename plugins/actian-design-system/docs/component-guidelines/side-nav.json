@@ -2,9 +2,7 @@
   "component": "Side nav",
   "page_id": "13599:19122",
   "extracted_at": "2026-03-25T00:00:00Z",
-  "frames_found": [
-    "Behavior demo"
-  ],
+  "frames_found": ["Behavior demo"],
   "frames_missing": [
     "Content guidelines",
     "design guidelines",
@@ -17,5 +15,11 @@
   "variants": null,
   "examples": null,
   "screenshots": null,
-  "behavior": null
+  "behavior": {
+    "motion": {
+      "pattern": "drawer",
+      "overrides": null,
+      "notes": "Side nav uses the canonical drawer choreography. Open: duration-slow + ease-entrance; close: duration-base + ease-exit. Collapse-to-rail variant follows the same timing but animates width instead of x-translation."
+    }
+  }
 }
