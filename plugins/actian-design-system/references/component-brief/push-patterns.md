@@ -70,7 +70,9 @@ return { genLogId: inst.id };
 
 Every card (except GenLog) uses the Brief Card component. Import it, select variant, detach, then set title/subtitle on the **nested Card Header instance** (which stays live after detach).
 
-**Title/subtitle are data-driven** — read `cardTitle` and `cardSubtitle` from the card object in `brief-data.json`. Never hardcode card titles in the push step (regression risk: "Anatomy" leaking across all 9 cards). Recipe titles in `recipes/brief/cardN-*.json` are the canonical source — Step 2 propagates them into the data model.
+**Title/subtitle are data-driven** — read `cardTitle` and `cardSubtitle` from the card object in `brief-data.json`. Never hardcode card titles in the push step. Recipe titles in `recipes/brief/cardN-*.json` are the canonical source — Step 2 propagates them into the data model.
+
+**Detecting silent setProperties failures (post-v1.66.0).** Meta Kit defaults for the Card Header are now the neutral placeholders `"Card title"` / `"Subtitle text"`. Earlier defaults were real strings (e.g. `"Anatomy"`) which masked failed `setProperties` calls — one failed card looked indistinguishable from a real Anatomy card. With the new neutral defaults, any leak is obvious and identifies the failure precisely. If a pushed card shows `"Card title"` or `"Subtitle text"` verbatim, the failure is upstream — investigate before continuing.
 
 ```js
 // Inputs from your data model — e.g., briefData.card3_anatomy

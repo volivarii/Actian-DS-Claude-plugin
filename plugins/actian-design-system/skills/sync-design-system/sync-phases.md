@@ -112,7 +112,8 @@ After extracting the `pageCatalog`, compare against the known page list below. R
 | Page pattern | Synced by | Purpose |
 |-------------|-----------|---------|
 | Component pages (double-indented names) | Phases 1-5 | DS Kit / FM Kit / Meta Kit component docs |
-| `Foundations/*` or foundation-related | Phase 6 | Accessibility, typography, color, spacing docs |
+| Content guidelines, Accessibility | Phase 6 | Hand-curated MDs (Wave 2 candidates for MD-as-SoT) |
+| Color, Typography, Spacing, Elevation, Borders, Icons, Breakpoint, Motion | foundations.md → CI derive | Owned by `docs/foundations.md` (v1.60.0+) — do NOT extract from Figma |
 | `Cover`, `---` (divider pages) | Ignored | Figma organizational pages |
 
 **Discovery logic** (no extra MCP call — uses `pageCatalog` from Step I1):
@@ -1000,25 +1001,26 @@ Output `_index.json` with per-component extraction status and date.
 
 ---
 
-## Phase 6 — Foundations + Content + Accessibility
+## Phase 6 — Content + Accessibility (Foundations are MD-as-SoT)
 
-**Two modes:** incremental (default — extract only changed pages) or full (re-extract everything).
+> **MD-as-SoT gate (v1.60.0+).** Eight foundation domains — `color`, `typography`, `spacing`, `elevation`, `borders`, `icons`, `breakpoint-grid-structure`, `interaction-motion` — are no longer extracted from Figma. They are derived from `docs/foundations.md` by `scripts/foundations/derive-foundations.js`, run automatically by `.github/workflows/foundations-derive.yml` on any PR that touches the source MD or the parser. **DO NOT re-extract these domains in Phase 6 — doing so would overwrite the MD-derived JSONs and corrupt the source of truth (e.g. `interaction-motion.json`, which the brief Motion card reads from).**
+>
+> Phase 6 today extracts only the two remaining hand-curated MDs: `docs/content-guidelines.md` and `docs/accessibility-guidelines.md`. Both are Wave 2 candidates for the MD-as-SoT pipeline; once they flip, Phase 6 becomes a no-op entirely.
 
-### Foundation pages
+### Pages still extracted by this skill
 
-| Page | Node ID | Expected children |
-|------|---------|-------------------|
-| Accessibility | `12685:19373` | 23 |
-| Borders | `13321:12804` | — |
-| Breakpoint/grid/structure | `12217:457` | — |
-| Color | `12054:27511` | — |
-| Content guidelines | `7397:3249` | 2 |
-| Elevation | `12054:27514` | — |
-| Icons | `7370:3775` | — |
-| Interaction & motion | `12054:27512` | — |
-| Spacing | `12054:27513` | — |
-| Typography | `12054:26789` | — |
-| Usage example | `12957:2843` | — |
+| Page | Node ID | Expected children | Output |
+|------|---------|-------------------|--------|
+| Content guidelines | `7397:3249` | 2 | `docs/content-guidelines.md` |
+| Accessibility | `12685:19373` | 23 | `docs/accessibility-guidelines.md` |
+
+### Pages owned by foundations.md (do not extract)
+
+For reference only — these node IDs must not appear in any Phase 6 manifest call:
+
+`12054:27511` (Color), `12054:26789` (Typography), `12054:27513` (Spacing), `12054:27514` (Elevation), `13321:12804` (Borders), `7370:3775` (Icons), `12217:457` (Breakpoint/grid/structure), `12054:27512` (Interaction & motion), `12957:2843` (Usage example).
+
+If a designer asks "why didn't Phase 6 update color tokens?" — color foundations live in `docs/foundations.md`. Edit that file in a PR; CI regenerates the JSON automatically.
 
 ---
 
@@ -1026,14 +1028,10 @@ Output `_index.json` with per-component extraction status and date.
 
 #### Step I1: Extract foundation page manifest
 
-One `use_figma` call to get all foundation pages with frame signatures:
+One `use_figma` call, scoped to the 2 remaining pages only:
 
 ```js
-const foundationPageIds = [
-  '12685:19373', '13321:12804', '12217:457', '12054:27511',
-  '7397:3249', '12054:27514', '7370:3775', '12054:27512',
-  '12054:27513', '12054:26789', '12957:2843'
-];
+const foundationPageIds = ['7397:3249', '12685:19373'];  // Content + A11y only
 const manifest = [];
 for (const pid of foundationPageIds) {
   const page = figma.root.children.find(p => p.id === pid);
@@ -1064,14 +1062,14 @@ Read `docs/foundations/_index.json`. Same diff logic as Phase 5:
 | In `_index.json` but not manifest | **Removed** |
 | `status: "partial"` or `"error"` | **Retry** |
 
-Report diff summary. If all unchanged: "Foundations up to date", skip extraction.
+Report diff summary. If both pages unchanged: "Foundations up to date", skip extraction.
 
 #### Step I3: Extract changed pages only
 
 Same pattern as Phase 5 Step I3:
 1. Discover frames via `use_figma` (batch changed pages)
 2. Extract content via `get_design_context` per frame
-3. Transform to JSON / Markdown
+3. Transform to Markdown
 
 **Special handling:**
 - **Accessibility** (23 frames, all named "Design guidelines"): Always compare by `frameCount`. If count changed, re-extract all 23 frames. If unchanged, skip entirely.
@@ -1081,31 +1079,24 @@ Same pattern as Phase 5 Step I3:
 
 Same schema as Phase 5 index. Track `status`, `extractedOn`, `frameSignature` per page.
 
-**Call budget:** 1 manifest call + 1-2 frame discovery + ~8-15 `get_design_context` = **~12-18 total** (vs ~56 for full).
+**Call budget:** 1 manifest call + 1 frame discovery + ~3-6 `get_design_context` = **~5-8 total** (was ~12-18 before MD-as-SoT shrunk the scope).
 
 ---
 
 ### Full sync (fallback)
 
-### Step 1: Extract foundation page content
+### Step 1: Extract content guidelines
 
-For each page (except Accessibility and Content guidelines):
-1. List top-level frames via `use_figma`
-2. Extract via `get_design_context` with `excludeScreenshot: true`
-3. Transform to JSON → `docs/generated/foundations/*.json`
+Page `7397:3249` (2 children). Extract both frames via `get_design_context`, transform to Markdown, write to `docs/content-guidelines.md`.
 
-### Step 2: Extract content guidelines
+### Step 2: Extract accessibility guidelines
 
-Page `7397:3249` (2 children). Extract both frames, transform to Markdown, write to `docs/content-guidelines.md`.
-
-### Step 3: Extract accessibility guidelines
-
-Page `12685:19373` (23 children, all named "Design guidelines"). Differentiate by heading text within each frame. Group by topic, write to `docs/accessibility-guidelines.md` (Wave 2 candidate for MD-as-SoT pipeline).
+Page `12685:19373` (23 children, all named "Design guidelines"). Differentiate by heading text within each frame. Group by topic, write to `docs/accessibility-guidelines.md`.
 
 ### Rate limit strategy
 
-~56 calls for Phase 6. Combined with Phase 5: ~188 total (near Pro limit of 200).
-Priority order: Content guidelines → Accessibility → Color → Typography → Spacing → rest.
+~25 calls for Phase 6 (full). Combined with Phase 5: ~155 total — well under Pro limit of 200.
+Priority order: Content guidelines → Accessibility.
 Track progress in `docs/foundations/_index.json`. Support resumption.
 
 ### Error handling

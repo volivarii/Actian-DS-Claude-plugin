@@ -736,18 +736,29 @@
     if (!a11y) return "";
     var parts = [];
 
-    // Requirements grid (2x3)
+    // Requirements as a plain bulleted list (Brief Refresh v2 Phase 1: dropped
+    // the dense 2x3 a11y-card grid in favor of plain text). The data still
+    // carries `icon` + `code` for any future re-elevation, but the renderer
+    // ignores them — keep the JSON shape stable.
     if (a11y.requirements && a11y.requirements.length) {
+      var reqHtml = '<ul class="a11y-req-list">';
+      a11y.requirements.forEach(function (req) {
+        reqHtml +=
+          "<li>" +
+          '<span class="a11y-req-list__title">' +
+          esc(req.title) +
+          "</span>" +
+          (req.body
+            ? ' <span class="a11y-req-list__body">' + esc(req.body) + "</span>"
+            : "") +
+          "</li>";
+      });
+      reqHtml += "</ul>";
       parts.push(
         '<div class="section" data-name="Requirements">' +
           sectionTitle("Requirements") +
-          '<div class="a11y-grid">' +
-          a11y.requirements
-            .map(function (req) {
-              return a11yCard(req);
-            })
-            .join("") +
-          "</div></div>",
+          reqHtml +
+          "</div>",
       );
     }
 
@@ -1012,14 +1023,22 @@
         renderFmCard5(d.anatomy, componentHtml),
       ];
     } else {
+      // Section order (Brief Refresh v2 Phase 1):
+      //   Header
+      //   Section 1 — Anatomy, variation, tokens, specs   (Component / Anatomy / Tokens)
+      //   Section 2 — Usages
+      //   Section 3 — Content guidelines & examples
+      //   Section 4 — Motion (microinteraction, when applicable)
+      //   Section 5 — Accessibility
+      //   Section 6 — Real platform examples               (held — Kristina pending)
       cards = [
         renderCard1(d.header),
         renderCard2(d.component, componentHtml),
         renderCard3(d.anatomy, componentHtml),
         renderCard4(d.tokens),
-        renderCardMotion(d.motion),
         renderCard6(d.usage),
         renderCard7(d.content),
+        renderCardMotion(d.motion),
         renderCard8(d.accessibility),
       ];
     }

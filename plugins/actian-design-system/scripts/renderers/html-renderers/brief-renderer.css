@@ -231,8 +231,9 @@ td code {
 .card-section-header__title {
   font-weight: 600;
   font-size: 28px;
+  line-height: 1.36;
   color: #101828;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
 }
 .card-section-header__subtitle {
   font-weight: 400;
@@ -650,6 +651,27 @@ td code {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 16px;
+}
+/* Brief Refresh v2 Phase 1 — plain requirements list replaces the old 2x3 grid. */
+.a11y-req-list {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #2d3648;
+  line-height: 1.6;
+}
+.a11y-req-list li {
+  margin-bottom: 8px;
+}
+.a11y-req-list li:last-child {
+  margin-bottom: 0;
+}
+.a11y-req-list__title {
+  font-weight: 600;
+  color: #101828;
+}
+.a11y-req-list__body {
+  color: #475467;
 }
 .code-block {
   background: #1a202c;
