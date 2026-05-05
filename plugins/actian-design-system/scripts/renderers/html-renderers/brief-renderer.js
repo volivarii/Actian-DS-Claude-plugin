@@ -189,12 +189,6 @@
     return '<span class="badge-exempt">&#10007; Fail</span>';
   }
 
-  function reqBadge(required) {
-    return required
-      ? '<span class="prop-required">REQ</span>'
-      : '<span class="prop-optional">OPT</span>';
-  }
-
   function doDontPair(pair) {
     return (
       '<div class="do-dont-row">' +
@@ -272,12 +266,14 @@
       '<div class="card-title-row">' +
       '<div class="card-title" data-name="Component name">' +
       esc(header.name) +
+      renderSourceBadge(header) +
       "</div>" +
       '<svg class="card-logo" width="40" height="40" viewBox="0 0 40 40"><rect width="40" height="40" rx="4" fill="#0550DC"/></svg>' +
       "</div>" +
       '<p class="card-body">' +
       esc(header.description) +
       "</p>" +
+      renderResearchInsights(header) +
       "</div>"
     );
   }
@@ -343,8 +339,8 @@
     }
 
     return cardShell(
-      (component && component.cardTitle) || "Component",
-      (component && component.cardSubtitle) ||
+      (comp && comp.cardTitle) || "Component",
+      (comp && comp.cardSubtitle) ||
         "Live component across all states and theme modes",
       parts.join(""),
       null,
@@ -533,28 +529,6 @@
     );
   }
 
-  function renderCard5(api) {
-    if (!api || !api.props || !api.props.length) return "";
-    var rows = api.props.map(function (p) {
-      return [
-        reqBadge(p.required),
-        '<span class="prop-name">' + esc(p.name) + "</span>",
-        '<span class="prop-type">' + esc(p.type) + "</span>",
-        '<span class="prop-default">' + esc(p.default) + "</span>",
-        '<span class="prop-values">' + esc(p.values) + "</span>",
-        esc(p.notes),
-      ];
-    });
-    return cardShell(
-      (api && api.cardTitle) || "Component API",
-      (api && api.cardSubtitle) ||
-        "Properties, types, defaults, and allowed values",
-      specTable(["", "Property", "Type", "Default", "Values", "Notes"], rows),
-      null,
-      api,
-    );
-  }
-
   function renderCard6(usage) {
     if (!usage) return "";
     var parts = [];
@@ -732,19 +706,6 @@
     );
   }
 
-  function renderCard9(code) {
-    if (!code || !code.tokens || !code.tokens.length) return "";
-    return cardShell(
-      (code && code.cardTitle) || "Code specification",
-      (code && code.cardSubtitle) || "CSS custom properties",
-      '<div class="code-block" data-name="Code block"><pre>' +
-        tokenizedCode(code.tokens) +
-        "</pre></div>",
-      null,
-      code,
-    );
-  }
-
   // --- FM Card Renderers ---
 
   function renderFmCard1(header) {
@@ -915,16 +876,15 @@
       data.meta && (data.meta.library === "fm" || data.meta.mode === "fm");
 
     // Support both new-style flat keys (card_header) and old-style numbered keys (card1_header)
+    // card_api (was card5) and card_code (was card9) retired; validator blocks them.
     var d = {
       header: data.card_header || data.card1_header,
       component: data.card_component || data.card2_component,
       anatomy: data.card_anatomy || data.card3_anatomy,
       tokens: data.card_tokens || data.card4_tokens,
-      api: data.card_api || data.card5_api,
       usage: data.card_usage || data.card6_usage,
       content: data.card_content || data.card7_content,
       accessibility: data.card_accessibility || data.card8_accessibility,
-      code: data.card_code || data.card9_code,
       // FM keys
       designGuidelines:
         data.card_design_guidelines || data.card3_design_guidelines,
@@ -947,11 +907,9 @@
         renderCard2(d.component, componentHtml),
         renderCard3(d.anatomy, componentHtml),
         renderCard4(d.tokens),
-        renderCard5(d.api),
         renderCard6(d.usage),
         renderCard7(d.content),
         renderCard8(d.accessibility),
-        renderCard9(d.code),
       ];
     }
 
