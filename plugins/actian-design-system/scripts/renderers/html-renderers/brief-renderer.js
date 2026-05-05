@@ -555,6 +555,65 @@
     );
   }
 
+  // Section 1 supercard — Brief Refresh v2 / Kristina's must-have list.
+  // Composes Anatomy + Variation + Tokens + Specs into a single card frame.
+  // Sub-sections separated by cardDivider(); each one only renders if the
+  // corresponding input data is populated.
+  function renderSection1(component, anatomy, tokens, componentHtml) {
+    var anatomyHtml = renderAnatomyContent(anatomy, componentHtml);
+    var variationHtml = renderVariationContent(component, componentHtml);
+    var tokensHtml = renderTokensContent(tokens);
+    var specsHtml = renderSpecsContent(anatomy, componentHtml);
+
+    if (!anatomyHtml && !variationHtml && !tokensHtml && !specsHtml) return "";
+
+    var parts = [];
+    if (anatomyHtml) parts.push(anatomyHtml);
+    if (variationHtml)
+      parts.push((parts.length ? cardDivider() : "") + variationHtml);
+    if (tokensHtml)
+      parts.push((parts.length ? cardDivider() : "") + tokensHtml);
+    if (specsHtml) parts.push((parts.length ? cardDivider() : "") + specsHtml);
+
+    // Pick a representative card object for source-badge / research insights.
+    // Per spec: "most permissive wins" — figma > generated > generated+fallback.
+    var representative = pickSection1Provenance(component, anatomy, tokens);
+
+    // Default title and subtitle (overridable by recipe via component.cardTitle etc.,
+    // but we read from the representative card if it carries one).
+    var title =
+      (representative && representative.cardTitle) ||
+      "Anatomy, variation, tokens & specs";
+    var subtitle =
+      (representative && representative.cardSubtitle) ||
+      "Structural breakdown, variants, token bindings, and dimension specs";
+
+    return cardShell(title, subtitle, parts.join(""), null, representative);
+  }
+
+  // Pick the "most permissive" provenance among Section 1's three input cards.
+  // Used to drive the single source badge on the supercard.
+  function pickSection1Provenance(component, anatomy, tokens) {
+    var inputs = [component, anatomy, tokens].filter(Boolean);
+    if (!inputs.length) return null;
+
+    // figma wins
+    for (var i = 0; i < inputs.length; i++) {
+      if (inputs[i]._source === "figma") return inputs[i];
+    }
+    // all fallback?
+    var allFallback = inputs.every(function (c) {
+      return c._fallback === true;
+    });
+    if (allFallback) return inputs[0];
+    // pick any generated (non-fallback)
+    for (var j = 0; j < inputs.length; j++) {
+      if (inputs[j]._source === "generated" && !inputs[j]._fallback)
+        return inputs[j];
+    }
+    return inputs[0];
+  }
+
   // Card 5 (numbered) — Behavior & motion. Conditional: returns "" when the
   // component has no curated motion pattern. Source data comes from
   // foundations/interaction-motion.json#patterns.<slug>; component-guideline
@@ -1120,6 +1179,8 @@
       renderAnatomyContent: renderAnatomyContent,
       renderTokensContent: renderTokensContent,
       renderSpecsContent: renderSpecsContent,
+      renderSection1: renderSection1,
+      pickSection1Provenance: pickSection1Provenance,
     };
   }
 })(); // end IIFE
