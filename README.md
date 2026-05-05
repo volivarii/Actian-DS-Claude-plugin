@@ -16,7 +16,7 @@ Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruc
 
 ## Supporting capabilities
 
-- Generate 7-card component briefs with provenance badges and cross-DS research insights — Phase A transcribes from synced guidelines, Phase B fills gaps with optional research (Material, Carbon, Polaris, Atlassian, Stripe). Direct push using `setProperties` on live MetaKit instances (colored swatches, a11y requirement grids, contrast badges).
+- Generate 6-section component briefs with provenance badges, per-sub-section Draft tags, and cross-DS research insights — Phase A transcribes from synced guidelines, Phase B fills gaps with optional research (Material, Carbon, Polaris, Atlassian, Stripe). Section 1 (Anatomy / Variation / Tokens / Specs) is rendered as a single supercard. Direct push using `setProperties` on live MetaKit instances (colored swatches, a11y requirement grids, contrast badges).
 - Create new Figma components with variants, properties, and correct token binding
 - Review and rewrite copy against DS content guidelines (`/design-audit --scope copy`)
 - Compare two competing designs side by side (also works between branches and variants)
@@ -26,7 +26,7 @@ Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruc
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.66.0** · 9 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · MD-as-SoT foundations · 6-section component briefs (anatomy + tokens / usages / content / motion / accessibility / real examples)
+**v1.67.0** · 9 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · MD-as-SoT foundations · 6-section component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility / real examples)
 
 ---
 
@@ -169,7 +169,7 @@ Every capability is also available as a direct command. Use these when you know 
 
 | Command | What it does |
 |---------|-------------|
-| `/component-brief` | Component spec organized into 6 sections (v1.66.0+): Header → §1 Anatomy / variation / tokens / specs → §2 Usages → §3 Content guidelines & examples → §4 Motion (conditional, only when applicable) → §5 Accessibility → §6 Real platform examples. Two-pass (v1.62.0+): Phase A transcribes synced guidelines into the data model with provenance badges; Phase B fills gaps and (opt-in) attaches cross-DS research insights. Stub-aware: components with auto-generated stub guidelines route through Phase B fallback and surface a stub footer cue. |
+| `/component-brief` | Component spec organized into 6 sections (v1.67.0+): Header → §1 Anatomy / Variation / Tokens / Specs (single supercard with sub-section dividers and Draft tags on generated content) → §2 Usages → §3 Content guidelines & examples → §4 Motion (conditional, only when a motion pattern exists) → §5 Accessibility → §6 Real platform examples (deferred). Two-pass (v1.62.0+): Phase A transcribes synced guidelines into the data model with provenance badges; Phase B fills gaps and (opt-in) attaches cross-DS research insights. Stub-aware: components with auto-generated stub guidelines route through Phase B fallback and surface a stub footer cue. |
 | `/create-component` | Build Figma components with variants and correct token binding, with a build plan review before push |
 | `/compare-flows` | Side-by-side analysis of two Figma flows — v1 vs v2, competing approaches, branches, variants |
 | `/generate-presentation` | Slide deck with Actian templates, token-bound backgrounds, and chart support |
