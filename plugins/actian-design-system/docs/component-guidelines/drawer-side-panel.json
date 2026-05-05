@@ -17,14 +17,17 @@
   "design_guidelines": null,
   "variants": {
     "axes": {
-      "App": [
-        "Studio",
-        "Explorer"
-      ]
+      "App": ["Studio", "Explorer"]
     },
     "totalVariants": 2
   },
   "examples": null,
   "screenshots": null,
-  "behavior": null
+  "behavior": {
+    "motion": {
+      "pattern": "drawer",
+      "overrides": null,
+      "notes": "Same canonical drawer choreography as the Drawer component (open: duration-slow + ease-entrance, close: duration-base + ease-exit). Note: this guideline is a stub — the motion data is forward-compatible; brief output requires the stub to be curated first OR card_motion routing to be updated to bypass the stub short-circuit."
+    }
+  }
 }

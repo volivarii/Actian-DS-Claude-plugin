@@ -520,7 +520,7 @@
       "has_design_guidelines": false,
       "has_examples": false,
       "has_screenshots": true,
-      "has_behavior": false,
+      "has_behavior": true,
       "frames_found": ["Components", "Screenshots of current use cases"],
       "frames_missing": [
         "Content guidelines",
@@ -657,7 +657,7 @@
       "has_design_guidelines": false,
       "has_examples": false,
       "has_screenshots": false,
-      "has_behavior": false,
+      "has_behavior": true,
       "frames_found": ["Behavior demo"],
       "frames_missing": [
         "Content guidelines",
@@ -804,7 +804,7 @@
       "has_design_guidelines": true,
       "has_examples": false,
       "has_screenshots": true,
-      "has_behavior": false,
+      "has_behavior": true,
       "frames_found": [
         "Design guidelines",
         "Components",
@@ -1222,7 +1222,7 @@
       "has_design_guidelines": false,
       "has_examples": false,
       "has_screenshots": false,
-      "has_behavior": false,
+      "has_behavior": true,
       "frames_found": [],
       "frames_missing": [
         "Design guidelines",
@@ -1348,7 +1348,7 @@
       "has_design_guidelines": false,
       "has_examples": false,
       "has_screenshots": false,
-      "has_behavior": false,
+      "has_behavior": true,
       "frames_found": [],
       "frames_missing": [
         "Design guidelines",
