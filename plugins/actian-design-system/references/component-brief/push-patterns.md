@@ -75,7 +75,7 @@ Every card (except GenLog) uses the Brief Card component. Import it, select vari
 **Detecting silent setProperties failures (post-v1.66.0).** Meta Kit defaults for the Card Header are now the neutral placeholders `"Card title"` / `"Subtitle text"`. Earlier defaults were real strings (e.g. `"Anatomy"`) which masked failed `setProperties` calls — one failed card looked indistinguishable from a real Anatomy card. With the new neutral defaults, any leak is obvious and identifies the failure precisely. If a pushed card shows `"Card title"` or `"Subtitle text"` verbatim, the failure is upstream — investigate before continuing.
 
 ```js
-// Inputs from your data model — e.g., briefData.card3_anatomy
+// Inputs from your data model — e.g., briefData.card_anatomy
 const cardTitle = card.cardTitle;       // "Anatomy"
 const cardSubtitle = card.cardSubtitle; // "Component structure, dimensions, ..."
 
@@ -170,20 +170,35 @@ async function appendSubFrame(label, sourceCard) {
   heading.fontName = { family: "Inter", style: "Semibold" };
   heading.fontSize = 16;
   heading.characters = label;
-  sub.appendChild(heading);
 
   if (sourceCard && sourceCard._source === "generated" && sourceCard._authored !== true) {
     // Append a small "DRAFT" tag next to the heading.
-    // Implementation: a separate text node with monospace upper case styling,
-    // placed in a HORIZONTAL wrapper around heading + tag.
-    // Pattern mirrors Pattern 1b source-badge approach — see that section
-    // for the inline-tag construction details.
+    // Wrap heading + tag in a HORIZONTAL frame so they sit on the same row.
+    // Note: Pattern 1b's badge construction lives in a separate use_figma
+    // call scope and cannot be copy-pasted here — build the tag inline:
+    const headerRow = figma.createFrame();
+    headerRow.layoutMode = "HORIZONTAL";
+    headerRow.itemSpacing = 8;
+    headerRow.primaryAxisSizingMode = "AUTO";
+    headerRow.counterAxisSizingMode = "AUTO";
+    headerRow.counterAxisAlignItems = "CENTER";
+    headerRow.fills = [];
+    headerRow.appendChild(heading);
+    const tag = figma.createText();
+    tag.fontName = { family: "Inter", style: "Semibold" };
+    tag.fontSize = 10;
+    tag.characters = "DRAFT";
+    tag.fills = [{ type: "SOLID", color: { r: 0.44, g: 0.49, b: 0.59 } }];
+    headerRow.appendChild(tag);
+    sub.appendChild(headerRow);
+  } else {
+    sub.appendChild(heading);
   }
 
   // Append body content per sub-section type:
-  // label === "Anatomy"   → variant matrix component instance + parts table
-  // label === "Variation" → use existing variant-matrix push from old Card 2 pattern
-  // label === "Tokens"    → reuse old Card 4 push (color rows + sizing/typography tables)
+  // label === "Anatomy"   → variant matrix component instance + parts table (see Pattern 8 + Pattern 3)
+  // label === "Variation" → variant matrix push (see Pattern 8 — Variant Instance)
+  // label === "Tokens"    → color swatch grid + sizing/typography tables (see Pattern 4 + Pattern 3)
   // label === "Specs"     → dimension annotations from card_anatomy.specs
 
   slot.appendChild(sub);

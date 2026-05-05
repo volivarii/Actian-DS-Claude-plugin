@@ -37,9 +37,10 @@ Component brief for [Name] — 5 cards available:
 | 2 | 1. Anatomy/var/tokens/specs | Section 1 (supercard) | Variation matrix, anatomy parts, token tables, dimension specs |
 | 3 | 2. Usages                  | Usage                  | When to use, when not to use, do/don't pairs    |
 | 4 | 3. Content                 | Content                | Copy guidelines, label patterns, terminology    |
+| — | 4. Motion (auto)           | Motion                 | Added automatically when a motion pattern exists |
 | 5 | 5. Accessibility           | Accessibility          | Keyboard, ARIA, contrast                        |
 
-Section 4 (Motion) is added automatically when the component has a curated motion pattern.
+Section 4 (Motion) is auto-added (not user-selectable in this gate) when the component has a curated motion pattern.
 Section 6 (Real platform examples) is deferred — not generated yet.
 
 Cards: generate **all 5** or pick specific (e.g., "2,4").
