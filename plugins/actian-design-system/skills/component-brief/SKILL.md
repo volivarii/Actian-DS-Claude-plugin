@@ -27,19 +27,22 @@ Parse URL (`fileKey` + `nodeId` per `../../references/figma/figma-output.md`). O
 
 Before generating the data model, present the available cards and let the user choose. Present the card list for the detected mode:
 
-**DS Kit mode (7 cards):**
+**DS Kit mode (7 cards, organized into 6 sections):**
 ```
 Component brief for [Name] — 7 cards available:
 
-| # | Card           | Content                                          |
-|---|----------------|--------------------------------------------------|
-| 1 | Header         | Component name, description, status, metadata   |
-| 2 | Component      | Real library instances — all variants           |
-| 3 | Anatomy        | Structural breakdown with labeled parts         |
-| 4 | Tokens         | Design token bindings (colors, spacing, type)   |
-| 5 | Usage          | Do/don't, when to use, when not to              |
-| 6 | Content        | Copy guidelines, label patterns, error text     |
-| 7 | Accessibility  | WCAG compliance, keyboard, screen reader        |
+| # | Section            | Card           | Content                                          |
+|---|--------------------|----------------|--------------------------------------------------|
+| 1 | Header             | Header         | Component name, description, metadata           |
+| 2 | 1. Anatomy + tokens| Component      | Real library instances — all variants           |
+| 3 | 1. Anatomy + tokens| Anatomy        | Structural breakdown with labeled parts         |
+| 4 | 1. Anatomy + tokens| Tokens         | Design token bindings (colors, spacing, type)   |
+| 5 | 2. Usages          | Usage          | Do/don't, when to use, when not to              |
+| 6 | 3. Content         | Content        | Copy guidelines, label patterns, error text     |
+| 7 | 5. Accessibility   | Accessibility  | WCAG compliance, keyboard, screen reader        |
+
+Section 4 (Motion) is added automatically when the component has a curated motion pattern.
+Section 6 (Real platform examples) is not yet implemented — pending authoring contract.
 
 Cards: generate **all 7** or pick specific (e.g., "2,4,6").
 Research: cross-DS patterns can be researched before generating cards 5, 6, 7
@@ -182,7 +185,7 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
 1. Create wrapper frame (Pattern 0 from component-brief/push-patterns.md — MUST be HORIZONTAL)
 2. Create GenLog instance (Pattern 0b — import by key, set 6 meta props, append to wrapper)
 3. For each card in the data model:
-   a. Create card shell (Pattern 1). Read `card.cardTitle` and `card.cardSubtitle` from the data model — pass them straight to `setProperties` as `Title#140:0` and `Subtitle#140:1`. Do NOT hardcode card titles. Do NOT reuse a single title literal across multiple cards (regression guard for the "all cards titled Anatomy" bug).
+   a. Create card shell (Pattern 1). Read `card.cardTitle` and `card.cardSubtitle` from the data model — pass them straight to `setProperties` as `Title#140:0` and `Subtitle#140:1`. Do NOT hardcode card titles. **Default-leak detection (post-v1.66.0):** the Meta Kit Card Header now defaults to the generic placeholders `"Card title"` / `"Subtitle text"`. If a pushed card displays either string verbatim, `setProperties` silently failed (wrong property ID, wrong nested instance, or unresolved Card Header lookup) — fix the push call rather than ignoring the leak.
    b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
    c. Anatomy card (`card_anatomy`): use the anatomy diagram pattern (~4-6KB inline call)
    d. Tokens card (`card_tokens`): compact grid table — one row per state, Color Swatch per cell. Set `.fills` directly on swatch instance (flat, no children). Use `setProperties` for Section Headers (Pattern 2).
