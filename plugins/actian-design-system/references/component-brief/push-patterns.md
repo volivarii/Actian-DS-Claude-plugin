@@ -1351,6 +1351,8 @@ let boundVariablesCount = 0;
 let unresolvedVariables = 0;
 let tokenTagsRendered = 0;
 let annotationCollisions = 0;
+let droppedSpecs = 0;
+let authorOverrideCount = 0;
 const placedAnnotations = []; // for collision detection
 
 // v1.70.1: gutter-rendering helper used by BOTH auto-extract path (Pass 2 below)
@@ -1442,98 +1444,16 @@ async function buildGutterFromEntries(entries, surface) {
   return entries.length;
 }
 
-// Pass 1 — collect all annotation entries per surface
-const entriesPerSurface = new Map();
-for (const surface of surfaces) {
-  if (surface.layoutMode === "NONE") continue;
-  extractedFrames += 1;
-
-  const surfaceEntries = [];
-  const props = ["paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "itemSpacing"];
-  for (const prop of props) {
-    const px = surface[prop];
-    if (!px || px === 0) continue;
-    const boundId = surface.boundVariables?.[prop]?.id || null;
-    const value = await resolveValue(px, boundId);
-    if (value.token) boundVariablesCount += 1;
-    else if (boundId) unresolvedVariables += 1;
-    const anchorY = computeAnchorY(surface, prop, container);
-    surfaceEntries.push({ prop, px, value, anchorY, surface });
-  }
-  if (surfaceEntries.length > 0) entriesPerSurface.set(surface, surfaceEntries);
-}
-
-// Pass 2 — render each surface's entries (gutter mode if N > 1, inline if N = 1)
+// v1.70.2: override path (when card_anatomy.specs[] is non-empty) BYPASSES
+// the auto-extract surface walk entirely. Author intent (the specs[] array)
+// drives which measurements to show. Both branches feed the same
+// buildGutterFromEntries helper for visual consistency.
+const useOverridePath =
+  card_anatomy && card_anatomy.specs && card_anatomy.specs.length > 0;
 const gutterEntriesPerSurface = [];
-for (const [surface, surfaceEntries] of entriesPerSurface) {
-  if (surfaceEntries.length === 1) {
-    // Inline mode — preserve v1.69.0 single-annotation placement
-    const e = surfaceEntries[0];
-    const orientation = annotationVariant(e.prop, surface.layoutMode);
-    const annotation = buildDimensionAnnotation(e.px, orientation, formatLabel(e.value));
-    tokenTagsRendered += 1;
-    const sbb = surface.absoluteBoundingBox;
-    const cbb = container.absoluteBoundingBox;
-    const sx = sbb.x - cbb.x;
-    const sy = sbb.y - cbb.y;
-    const GAP = 8;
-    if (e.prop === "paddingLeft") {
-      annotation.x = sx - annotation.width - GAP;
-      annotation.y = sy + sbb.height / 2 - annotation.height / 2;
-    } else if (e.prop === "paddingRight") {
-      annotation.x = sx + sbb.width + GAP;
-      annotation.y = sy + sbb.height / 2 - annotation.height / 2;
-    } else if (e.prop === "paddingTop") {
-      annotation.x = sx + sbb.width / 2 - annotation.width / 2;
-      annotation.y = sy - annotation.height - GAP;
-    } else if (e.prop === "paddingBottom") {
-      annotation.x = sx + sbb.width / 2 - annotation.width / 2;
-      annotation.y = sy + sbb.height + GAP;
-    } else if (e.prop === "itemSpacing") {
-      annotation.x = sx + sbb.width / 2 - annotation.width / 2;
-      annotation.y = sy + sbb.height / 2 - annotation.height / 2;
-    }
-    container.appendChild(annotation);
-    gutterEntriesPerSurface.push(0);
-  } else {
-    // Gutter mode — N > 1 annotations on this surface
-    // v1.70.1: extracted to buildGutterFromEntries helper (defined above)
-    // so the override path can reuse the same gutter renderer.
-    surfaceEntries.sort((a, b) => a.anchorY - b.anchorY);
-    const placedCount = await buildGutterFromEntries(surfaceEntries, surface);
-    tokenTagsRendered += placedCount;
-    gutterEntriesPerSurface.push(placedCount);
-  }
-}
 
-const parent = await figma.getNodeByIdAsync("<specsSubFrameId>");
-parent.appendChild(container);
-
-return {
-  redlineId: container.id,
-  pattern14: {
-    extractedFrames,
-    boundVariables: boundVariablesCount,
-    unresolvedVariables,
-    authorOverrides: 0,
-    annotationCollisions,
-    tokenTagsRendered,
-    gutterEntriesPerSurface,
-  },
-};
-```
-
-**Author override path (v1.70.1+):** when `card_anatomy.specs[]` is non-empty, BYPASS the surface walk + auto-extract logic above. Build entries directly from author-supplied specs and render them through the same `buildGutterFromEntries` helper. This guarantees the override produces real gutter geometry (not a static text table).
-
-Insert this block AFTER the auto-extract render loop completes (after the `for (const [surface, surfaceEntries] of entriesPerSurface)` loop), BEFORE the manifest return statement:
-
-```js
-// v1.70.1: author override path — render card_anatomy.specs[] as a gutter on the
-// top-level instance. Bypasses surface walk; entries come directly from author
-// specs. Same buildGutterFromEntries helper used by auto-extract path above.
-let droppedSpecs = 0;
-let authorOverrideCount = 0;
-if (card_anatomy && card_anatomy.specs && card_anatomy.specs.length > 0) {
+if (useOverridePath) {
+  // Override path — render card_anatomy.specs[] as a gutter on the top-level instance
   const overrideEntries = [];
   const cbb = container.absoluteBoundingBox;
   for (const spec of card_anatomy.specs) {
@@ -1556,12 +1476,71 @@ if (card_anatomy && card_anatomy.specs && card_anatomy.specs.length > 0) {
     tokenTagsRendered += placed;
     authorOverrideCount = placed;
   }
+} else {
+  // Auto-extract path — Pass 1 collect, Pass 2 render
+  const entriesPerSurface = new Map();
+  for (const surface of surfaces) {
+    if (surface.layoutMode === "NONE") continue;
+    extractedFrames += 1;
+
+    const surfaceEntries = [];
+    const props = ["paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "itemSpacing"];
+    for (const prop of props) {
+      const px = surface[prop];
+      if (!px || px === 0) continue;
+      const boundId = surface.boundVariables?.[prop]?.id || null;
+      const value = await resolveValue(px, boundId);
+      if (value.token) boundVariablesCount += 1;
+      else if (boundId) unresolvedVariables += 1;
+      const anchorY = computeAnchorY(surface, prop, container);
+      surfaceEntries.push({ prop, px, value, anchorY, surface });
+    }
+    if (surfaceEntries.length > 0) entriesPerSurface.set(surface, surfaceEntries);
+  }
+
+  for (const [surface, surfaceEntries] of entriesPerSurface) {
+    if (surfaceEntries.length === 1) {
+      // Inline mode — preserve v1.69.0 single-annotation placement
+      const e = surfaceEntries[0];
+      const orientation = annotationVariant(e.prop, surface.layoutMode);
+      const annotation = buildDimensionAnnotation(e.px, orientation, formatLabel(e.value));
+      tokenTagsRendered += 1;
+      const sbb = surface.absoluteBoundingBox;
+      const cbb = container.absoluteBoundingBox;
+      const sx = sbb.x - cbb.x;
+      const sy = sbb.y - cbb.y;
+      const GAP = 8;
+      if (e.prop === "paddingLeft") {
+        annotation.x = sx - annotation.width - GAP;
+        annotation.y = sy + sbb.height / 2 - annotation.height / 2;
+      } else if (e.prop === "paddingRight") {
+        annotation.x = sx + sbb.width + GAP;
+        annotation.y = sy + sbb.height / 2 - annotation.height / 2;
+      } else if (e.prop === "paddingTop") {
+        annotation.x = sx + sbb.width / 2 - annotation.width / 2;
+        annotation.y = sy - annotation.height - GAP;
+      } else if (e.prop === "paddingBottom") {
+        annotation.x = sx + sbb.width / 2 - annotation.width / 2;
+        annotation.y = sy + sbb.height + GAP;
+      } else if (e.prop === "itemSpacing") {
+        annotation.x = sx + sbb.width / 2 - annotation.width / 2;
+        annotation.y = sy + sbb.height / 2 - annotation.height / 2;
+      }
+      container.appendChild(annotation);
+      gutterEntriesPerSurface.push(0);
+    } else {
+      // Gutter mode — N > 1 annotations on this surface
+      surfaceEntries.sort((a, b) => a.anchorY - b.anchorY);
+      const placedCount = await buildGutterFromEntries(surfaceEntries, surface);
+      tokenTagsRendered += placedCount;
+      gutterEntriesPerSurface.push(placedCount);
+    }
+  }
 }
-```
 
-Then update the manifest return to surface the new fields:
+const parent = await figma.getNodeByIdAsync("<specsSubFrameId>");
+parent.appendChild(container);
 
-```js
 return {
   redlineId: container.id,
   pattern14: {
@@ -1576,6 +1555,8 @@ return {
   },
 };
 ```
+
+**Author override path (v1.70.2+):** when `card_anatomy.specs[]` is non-empty, the override branch in the main code above BYPASSES the surface walk + auto-extract logic. Entries are built directly from author-supplied specs and rendered through the same `buildGutterFromEntries` helper. This guarantees the override produces real gutter geometry (not a static text table) — the render code is in the main block, not a separate documentation snippet, so there is no instruction-to-coordinate-elsewhere ambiguity.
 
 The override path uses the same gutter geometry as auto-extract — vector lines, label pills, ticks at the component's left edge. Author intent (specs[] entries) drives WHICH measurements to show; the renderer guarantees HOW they look. No improvisation surface for the AI.
 
