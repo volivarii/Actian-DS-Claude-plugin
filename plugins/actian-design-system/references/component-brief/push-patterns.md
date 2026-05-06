@@ -914,13 +914,13 @@ return { divergencesAndSourcesDone: true };
 
 ---
 
-## 14. Specs Redline Pattern (Section 1 Specs sub-frame, v1.68.0+)
+## 14. Specs Redline Pattern (Section 1 Specs sub-frame, v1.69.0+)
 
-Auto-extracted dimension annotations from the live component instance. Imports `Meta / Content / Dimension Annotation` and `Meta / Content / Pointer Badge` (both already in Meta Kit). Walks the instance for padding/itemSpacing, resolves bound variables to design-token names, falls back to raw px when unbound.
+Auto-extracted dimension annotations from the live component instance. Generates dimension lines from Plugin API primitives at runtime — `figma.createVector` for the line, two `figma.createLine` endcaps, `figma.createFrame` + `figma.createText` for the label pill. Replaces the v1.68.0 Meta Kit `Dimension Annotation` component path, which was blocked by the Plugin API's `resize()` limitation on component-instance children. Mirrors figma-measure (https://github.com/ph1p/figma-measure, MIT).
 
 The `card_anatomy.specs[]` field in `brief-data.json` is an **optional override** — if non-empty, those entries drive placement instead of the auto-extracted set. Default flow leaves it empty.
 
-Single ~4-6KB `use_figma` call. Mirrors Pattern 9's bounding-box approach.
+Single ~5-7KB `use_figma` call.
 
 ```js
 function hexToRgb(hex) {
@@ -928,17 +928,143 @@ function hexToRgb(hex) {
   return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
 }
 
-const PADDING = 64;  // larger than Pattern 9's 48px to give annotations room
-const DIMENSION_KEY = "49bf6a1b210a403ba145a3fdee9b1994eb54069a";  // Meta / Content / Dimension Annotation
-const POINTER_KEY   = "7e066fc21d9a2bbbcd1149113787cf59140162d4";  // Meta / Content / Pointer Badge
+const PADDING = 64;                              // larger than Pattern 9's 48px to give annotations room
+const REDLINE_COLOR = hexToRgb("#FF4D8E");       // pink — industry standard for redlines
+const STROKE_WEIGHT = 1;
+const ENDCAP_LENGTH = STROKE_WEIGHT + 6;         // figma-measure convention
+const LABEL_GAP = 4;                             // gap between line and label
 
-// 1. Container
+await figma.loadFontAsync({ family: "Inter", style: "Medium" });
+
+// --- Inline pure functions (mirrors scripts/lib/dimension-line.js + token-tag.js) ---
+
+function vectorPathFor(distance, orientation) {
+  if (orientation === "horizontal") return "M 0 0 L " + distance + " 0 Z";
+  return "M 0 0 L 0 " + distance + " Z";
+}
+
+function endcapPositionsFor(distance, orientation) {
+  if (orientation === "horizontal") {
+    return {
+      cap1: { x: 0, y: -ENDCAP_LENGTH / 2, rotation: 90 },
+      cap2: { x: distance, y: -ENDCAP_LENGTH / 2, rotation: 90 },
+    };
+  }
+  return {
+    cap1: { x: -ENDCAP_LENGTH / 2, y: 0, rotation: 0 },
+    cap2: { x: -ENDCAP_LENGTH / 2, y: distance, rotation: 0 },
+  };
+}
+
+function labelAnchor(distance, orientation, labelW, labelH) {
+  if (orientation === "horizontal") {
+    return { x: (distance - labelW) / 2, y: -labelH - LABEL_GAP };
+  }
+  return { x: LABEL_GAP, y: (distance - labelH) / 2 };
+}
+
+function tokenTagSpec(text) {
+  return {
+    text: text,
+    bgColor: { r: 0.941, g: 0.949, b: 0.984 }, // ~#F0F2FA
+    fgColor: { r: 0.020, g: 0.314, b: 0.863 }, // ~#0550DC
+    fontName: { family: "Inter", style: "Medium" },
+    fontSize: 12,
+    paddingX: 5,
+    paddingY: 2,
+    cornerRadius: 3,
+  };
+}
+
+function annotationVariant(prop, autolayout) {
+  if (prop === "paddingLeft" || prop === "paddingRight") return "horizontal";
+  if (prop === "paddingTop" || prop === "paddingBottom") return "vertical";
+  if (prop === "itemSpacing") return autolayout === "HORIZONTAL" ? "horizontal" : "vertical";
+  throw new Error("Unknown property: " + prop);
+}
+
+function formatLabel(value) {
+  return value.token ? `${value.px}px — ${value.token}` : `${value.px}px`;
+}
+
+// --- Build a single dimension annotation (line + caps + label pill) ---
+
+function buildDimensionAnnotation(distance, orientation, labelText) {
+  const wrapper = figma.createFrame();
+  wrapper.layoutMode = "NONE";
+  wrapper.fills = [];
+  wrapper.clipsContent = false;
+
+  // Line vector
+  const line = figma.createVector();
+  line.vectorPaths = [{ windingRule: "NONE", data: vectorPathFor(distance, orientation) }];
+  line.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+  line.strokeWeight = STROKE_WEIGHT;
+  if (orientation === "horizontal") line.resize(distance, STROKE_WEIGHT);
+  else line.resize(STROKE_WEIGHT, distance);
+  line.x = 0;
+  line.y = 0;
+  wrapper.appendChild(line);
+
+  // Endcap ticks
+  const caps = endcapPositionsFor(distance, orientation);
+  function makeCap(c) {
+    const cap = figma.createLine();
+    cap.resize(ENDCAP_LENGTH, 0);
+    cap.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+    cap.strokeWeight = STROKE_WEIGHT;
+    cap.rotation = c.rotation;
+    cap.x = c.x;
+    cap.y = c.y;
+    wrapper.appendChild(cap);
+  }
+  makeCap(caps.cap1);
+  makeCap(caps.cap2);
+
+  // Label pill
+  const spec = tokenTagSpec(labelText);
+  const labelFrame = figma.createFrame();
+  labelFrame.layoutMode = "HORIZONTAL";
+  labelFrame.primaryAxisSizingMode = "AUTO";
+  labelFrame.counterAxisSizingMode = "AUTO";
+  labelFrame.paddingLeft = spec.paddingX;
+  labelFrame.paddingRight = spec.paddingX;
+  labelFrame.paddingTop = spec.paddingY;
+  labelFrame.paddingBottom = spec.paddingY;
+  labelFrame.cornerRadius = spec.cornerRadius;
+  labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
+
+  const labelText_ = figma.createText();
+  labelText_.fontName = spec.fontName;
+  labelText_.fontSize = spec.fontSize;
+  labelText_.characters = spec.text;
+  labelText_.fills = [{ type: "SOLID", color: spec.fgColor }];
+  labelFrame.appendChild(labelText_);
+  wrapper.appendChild(labelFrame);
+
+  // Position label after auto-layout has sized it
+  const anchor = labelAnchor(distance, orientation, labelFrame.width, labelFrame.height);
+  labelFrame.x = anchor.x;
+  labelFrame.y = anchor.y;
+
+  // Wrapper sizing — bound the visible area
+  if (orientation === "horizontal") {
+    wrapper.resize(Math.max(distance, labelFrame.width), labelFrame.height + LABEL_GAP + ENDCAP_LENGTH);
+  } else {
+    wrapper.resize(labelFrame.width + LABEL_GAP + ENDCAP_LENGTH, Math.max(distance, labelFrame.height));
+  }
+
+  return wrapper;
+}
+
+// --- Walk the target instance + place annotations ---
+
 const container = figma.createFrame();
 container.name = "Specs redline";
 container.fills = [{ type: "SOLID", color: hexToRgb("#FAFAFF") }];
-container.layoutMode = "NONE";  // freeform — annotations placed by absolute math
+container.layoutMode = "NONE";
+container.clipsContent = false;
 
-// 2. Target instance (same variant rule as Pattern 9)
 const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
 let variantComp;
 if (targetNode.type === "COMPONENT_SET") {
@@ -953,10 +1079,8 @@ inst.x = PADDING;
 inst.y = PADDING;
 container.resize(inst.width + PADDING * 2, inst.height + PADDING * 2);
 
-// 3. Walk frames — collect surface candidates
-// Top-level always surfaces; nested surfaces only when a direct child name matches an anatomy part.
-// Skip deeper nesting.
-const anatomyParts = card_anatomy.parts || [];  // from brief-data.json
+// Auto-extraction default path (override path described below)
+const anatomyParts = card_anatomy.parts || [];
 const partNameSet = new Set(anatomyParts.map(p => p.figmaLayerName));
 
 function shouldSurface(node, isTopLevel) {
@@ -973,7 +1097,6 @@ function walk(node, isTopLevel) {
 }
 walk(inst, true);
 
-// 4. For each surface, collect spacing values + bind ids, then resolve to token names
 async function resolveValue(numericPx, boundId) {
   if (!boundId) return { px: numericPx, token: null };
   try {
@@ -985,26 +1108,15 @@ async function resolveValue(numericPx, boundId) {
   }
 }
 
-function annotationVariant(prop, autolayout) {
-  if (prop === "paddingLeft" || prop === "paddingRight") return "Horizontal";
-  if (prop === "paddingTop" || prop === "paddingBottom") return "Vertical";
-  if (prop === "itemSpacing") return autolayout === "HORIZONTAL" ? "Horizontal" : "Vertical";
-  throw new Error("Unknown property: " + prop);
-}
-
-function formatLabel(v) {
-  return v.token ? `${v.px}px — ${v.token}` : `${v.px}px`;
-}
-
-// 5. Place Dimension Annotations per surface
-const dimSet = await figma.importComponentSetByKeyAsync(DIMENSION_KEY);
-let collisions = 0;
 let extractedFrames = 0;
 let boundVariablesCount = 0;
 let unresolvedVariables = 0;
+let tokenTagsRendered = 0;
+let annotationCollisions = 0;
+const placedAnnotations = []; // for collision detection
 
 for (const surface of surfaces) {
-  if (surface.layoutMode === "NONE") continue;  // not autolayout — skip
+  if (surface.layoutMode === "NONE") continue;
   extractedFrames += 1;
 
   const props = ["paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "itemSpacing"];
@@ -1017,44 +1129,46 @@ for (const surface of surfaces) {
     if (value.token) boundVariablesCount += 1;
     else if (boundId) unresolvedVariables += 1;
 
-    const variantName = "Orientation=" + annotationVariant(prop, surface.layoutMode);
-    const variant = dimSet.findChild(n => n.name === variantName) ||
-                    dimSet.defaultVariant ||
-                    dimSet.children[0];
-    const ann = variant.createInstance();
-    ann.setProperties({ "Value#45:7": formatLabel(value) });
+    const orientation = annotationVariant(prop, surface.layoutMode);
+    const annotation = buildDimensionAnnotation(px, orientation, formatLabel(value));
+    tokenTagsRendered += 1;
 
-    // Position the annotation against the surface's bounding box.
-    // Convention: paddingLeft → annotation left of left edge; paddingRight → right of right edge;
-    //             paddingTop → above top edge; paddingBottom → below bottom edge;
-    //             itemSpacing → centered between first two children along the autolayout axis.
+    // Position annotation against the surface's bounding box
     const sbb = surface.absoluteBoundingBox;
     const cbb = container.absoluteBoundingBox;
     const sx = sbb.x - cbb.x;
     const sy = sbb.y - cbb.y;
     const GAP = 8;
     if (prop === "paddingLeft") {
-      ann.x = sx - ann.width - GAP;
-      ann.y = sy + sbb.height / 2 - ann.height / 2;
+      annotation.x = sx - annotation.width - GAP;
+      annotation.y = sy + sbb.height / 2 - annotation.height / 2;
     } else if (prop === "paddingRight") {
-      ann.x = sx + sbb.width + GAP;
-      ann.y = sy + sbb.height / 2 - ann.height / 2;
+      annotation.x = sx + sbb.width + GAP;
+      annotation.y = sy + sbb.height / 2 - annotation.height / 2;
     } else if (prop === "paddingTop") {
-      ann.x = sx + sbb.width / 2 - ann.width / 2;
-      ann.y = sy - ann.height - GAP;
+      annotation.x = sx + sbb.width / 2 - annotation.width / 2;
+      annotation.y = sy - annotation.height - GAP;
     } else if (prop === "paddingBottom") {
-      ann.x = sx + sbb.width / 2 - ann.width / 2;
-      ann.y = sy + sbb.height + GAP;
+      annotation.x = sx + sbb.width / 2 - annotation.width / 2;
+      annotation.y = sy + sbb.height + GAP;
     } else if (prop === "itemSpacing") {
-      // Place at the center of the surface — this is approximate; refine in Phase 2 if it overlaps content.
-      ann.x = sx + sbb.width / 2 - ann.width / 2;
-      ann.y = sy + sbb.height / 2 - ann.height / 2;
+      annotation.x = sx + sbb.width / 2 - annotation.width / 2;
+      annotation.y = sy + sbb.height / 2 - annotation.height / 2;
     }
-    container.appendChild(ann);
+
+    // Collision detection — increment counter when within 8px of an existing annotation
+    for (const placed of placedAnnotations) {
+      if (Math.abs(annotation.x - placed.x) < 8 && Math.abs(annotation.y - placed.y) < 8) {
+        annotationCollisions += 1;
+        break;
+      }
+    }
+    placedAnnotations.push({ x: annotation.x, y: annotation.y });
+
+    container.appendChild(annotation);
   }
 }
 
-// 6. Append the redline container to the Specs sub-frame
 const parent = await figma.getNodeByIdAsync("<specsSubFrameId>");
 parent.appendChild(container);
 
@@ -1065,21 +1179,35 @@ return {
     boundVariables: boundVariablesCount,
     unresolvedVariables,
     authorOverrides: 0,
-    annotationCollisions: collisions
-  }
+    annotationCollisions,
+    tokenTagsRendered,
+  },
 };
 ```
 
-**When `card_anatomy.specs[]` is non-empty (author override):** skip step 3 (frame walk) and place one Dimension Annotation per `specs[i]` instead, anchored by `specs[i].layerName` (drop the entry if the layer doesn't exist in the rendered variant — log to manifest). Use `specs[i].value` and `specs[i].tokenName` directly without resolution. Set `pattern14.authorOverrides` to the count placed.
+**When `card_anatomy.specs[]` is non-empty (author override path):** skip the surface walk above and emit one annotation per `specs[i]` entry instead. For each entry, find the layer named `specs[i].layerName` in the rendered instance via `inst.findOne(n => n.name === specs[i].layerName)`. If the layer is missing, drop the entry and increment a `droppedSpecs` counter for the manifest. Otherwise read the layer's relevant dimension (`specs[i].value`) and call `buildDimensionAnnotation(specs[i].value, specs[i].orientation || "horizontal", formatLabel({ px: specs[i].value, token: specs[i].tokenName || null }))`. Append the annotation to the container at the layer's bounding-box edge per `specs[i].side`. Set `pattern14.authorOverrides` to the placed count.
 
-**Failure modes** (from Phase 1 design spec):
+**Pointer Badge sizing path** — for components with explicit `width` or `height` token bindings on the top-level instance frame, emit a "pointer badge" pill instead of a dimension line. The pointer badge is a single Token Tag pill (no line, no caps) anchored at the instance's closest edge. Build with the same `tokenTagSpec` helper:
 
-- Component has no autolayout → render text-table fallback (`Pattern 3`) with note "Auto-extraction unavailable — no autolayout."
+```js
+const wbid = inst.boundVariables?.width?.id || null;
+const hbid = inst.boundVariables?.height?.id || null;
+if (wbid || hbid) {
+  const wValue = await resolveValue(inst.width, wbid);
+  const hValue = await resolveValue(inst.height, hbid);
+  // emit pointer-style Token Tag at edge — see Pattern 8 / Pattern 4 for token tag construction details
+  // (caller composes the same labelFrame as inside buildDimensionAnnotation, positions at instance edge)
+}
+```
+
+Skip if both are unbound (most common case).
+
+**Failure modes** (from Phase 2 design spec):
+
+- Component has no autolayout → skip redline render. Emit a primitive text node footnote in the Specs sub-frame: "Auto-extraction unavailable — no autolayout detected on this component."
 - `getVariableByIdAsync` returns null → keep raw px, increment `unresolvedVariables`.
-- Layer referenced by author-supplied spec doesn't exist → drop spec entry, log to manifest.
-- Annotations would overlap → reduce `Value#45:7` font to 9pt before colliding (Phase 2 will add proper collision routing).
-
-**Pointer Badge sizing annotations:** for components with explicit `width`/`height` token bindings on the top-level frame, place a `Meta / Content / Pointer Badge` instead of a Dimension Annotation, with `Direction` matching the closest container edge and `Label#45:4 = formatLabel(value)`. Skip if dimensions are unbound (most common case).
+- Layer referenced by author-supplied spec doesn't exist → drop spec entry, increment `droppedSpecs` in manifest.
+- Two annotations within 8px of each other → increment `annotationCollisions` in manifest. Phase 3 adds proper collision routing.
 
 ---
 
