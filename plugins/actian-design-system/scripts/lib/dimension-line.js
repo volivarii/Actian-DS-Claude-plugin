@@ -15,7 +15,9 @@
  */
 
 function vectorPathFor(distance, orientation) {
-  throw new Error("not implemented");
+  if (orientation === "horizontal") return "M 0 0 L " + distance + " 0 Z";
+  if (orientation === "vertical") return "M 0 0 L 0 " + distance + " Z";
+  throw new Error("Unknown orientation: " + orientation);
 }
 
 function endcapPositions(distance, orientation, strokeWeight) {
