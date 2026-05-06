@@ -1291,6 +1291,9 @@ container.clipsContent = false;
 const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
 let variantComp;
 if (targetNode.type === "COMPONENT_SET") {
+  // <diagramVariant> is runtime-substituted (e.g. "App=Admin, View=Expanded").
+  // Components with no State dimension (e.g. Side nav — App/View axes only) return null here;
+  // the fallback to defaultVariant / children[0] is the load-bearing safety for those cases.
   variantComp = targetNode.findChild(n => n.name === "<diagramVariant>");
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
