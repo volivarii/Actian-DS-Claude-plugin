@@ -10,6 +10,9 @@
  * this logic for Figma sandbox execution; this module exists for unit testing.
  */
 
+var TOKEN_TAG_PADDING_X = 5;
+var TOKEN_TAG_PADDING_Y = 2;
+
 function tokenTagSpec(text) {
   return {
     text: text,
@@ -17,17 +20,22 @@ function tokenTagSpec(text) {
     fgColor: { r: 0.02, g: 0.314, b: 0.863 }, // ~#0550DC — primary blue
     fontName: { family: "Inter", style: "Medium" },
     fontSize: 12,
-    paddingX: 5,
-    paddingY: 2,
+    paddingX: TOKEN_TAG_PADDING_X,
+    paddingY: TOKEN_TAG_PADDING_Y,
     cornerRadius: 3,
   };
 }
 
+/**
+ * Heuristic estimator — uses fontMetrics.avgCharWidth × text.length, NOT
+ * Figma's actual glyph metrics. Use for layout planning only; for precise
+ * sizing, create the actual text node and read .width/.height after Figma
+ * has rendered it.
+ */
 function tokenTagDimensions(text, fontMetrics) {
-  var paddingX = 5;
-  var paddingY = 2;
-  var width = (text || "").length * fontMetrics.avgCharWidth + 2 * paddingX;
-  var height = fontMetrics.lineHeight + 2 * paddingY;
+  var width =
+    (text || "").length * fontMetrics.avgCharWidth + 2 * TOKEN_TAG_PADDING_X;
+  var height = fontMetrics.lineHeight + 2 * TOKEN_TAG_PADDING_Y;
   return { width: width, height: height };
 }
 
