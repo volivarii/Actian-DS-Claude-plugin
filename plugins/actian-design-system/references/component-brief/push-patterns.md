@@ -958,13 +958,17 @@ return { divergencesAndSourcesDone: true };
 
 ---
 
-## 14. Specs Redline Pattern (Section 1 Specs sub-frame, v1.69.0+)
+## 14. Specs Redline Pattern (Section 1 Specs sub-frame, v1.70.0+)
 
-Auto-extracted dimension annotations from the live component instance. Generates dimension lines from Plugin API primitives at runtime — `figma.createVector` for the line, two `figma.createLine` endcaps, `figma.createFrame` + `figma.createText` for the label pill. Replaces the v1.68.0 Meta Kit `Dimension Annotation` component path, which was blocked by the Plugin API's `resize()` limitation on component-instance children. Mirrors figma-measure (https://github.com/ph1p/figma-measure, MIT).
+Auto-extracted dimension annotations rendered in a left-gutter ordinate lane. Replaces the v1.69.0 per-edge placement model which produced label-on-component collisions when N > 1 annotations existed on the same surface (Phase 1 + PR 1 smoke).
+
+**Architecture:** all annotations for a surface are routed to a 220px column to the LEFT of the component. Within that column, label pills are stacked vertically, sorted by the Y-coordinate of the edge they annotate. Each entry is `[Token Tag pill] ──── │` (label + horizontal leader + tick at the component's left edge). Top/bottom annotations get an L-shaped leader (horizontal from gutter, vertical witness to the actual edge). Greedy sort-and-stack guarantees zero collisions by construction. Pattern proven by Zeplin redlines, Carbon Design System anatomy pages, Material 3 anatomy diagrams, and CAD ordinate dimensioning.
+
+**Gutter mode** is the default for N > 1 annotations on a surface. **Inline mode** (the v1.69.0 `buildDimensionAnnotation` algorithm) is preserved as a fallback for N = 1 annotations and for measuring spans BETWEEN two elements (different use case from padding-on-one-frame).
 
 The `card_anatomy.specs[]` field in `brief-data.json` is an **optional override** — if non-empty, those entries drive placement instead of the auto-extracted set. Default flow leaves it empty.
 
-Single ~5-7KB `use_figma` call.
+Single ~7-9KB `use_figma` call.
 
 ```js
 function hexToRgb(hex) {
@@ -972,11 +976,15 @@ function hexToRgb(hex) {
   return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
 }
 
-const PADDING = 64;                              // larger than Pattern 9's 48px to give annotations room
+const PADDING = 64;
 const REDLINE_COLOR = hexToRgb("#FF4D8E");       // pink — industry standard for redlines
 const STROKE_WEIGHT = 1;
-const ENDCAP_LENGTH = STROKE_WEIGHT + 6;         // figma-measure convention
-const LABEL_GAP = 4;                             // gap between line and label
+const ENDCAP_LENGTH = STROKE_WEIGHT + 6;         // figma-measure convention (inline mode only)
+const LABEL_GAP = 4;
+const GUTTER_WIDTH = 220;                        // px — fits longest token label "--zen-spacing-xxxxx" at Inter 12px
+const GUTTER_GAP = 24;                           // px — between gutter right edge and component left edge
+const ENTRY_HEIGHT = 28;                         // px — pill ~24 + 4px gap
+const TICK_LENGTH = 6;                           // px — short horizontal tick at component left edge
 
 await figma.loadFontAsync({ family: "Inter", style: "Medium" });
 
@@ -1029,6 +1037,42 @@ function annotationVariant(prop, autolayout) {
 
 function formatLabel(value) {
   return value.token ? `${value.px}px — ${value.token}` : `${value.px}px`;
+}
+
+function computeGutterSlots(entries, entryHeight) {
+  const slots = [];
+  let nextY = 0;
+  for (const e of entries) {
+    const idealY = e.anchorY - entryHeight / 2;
+    let slotY = Math.max(nextY, idealY);
+    if (slotY < 0) slotY = 0;
+    slots.push({ slotY, anchorY: e.anchorY });
+    nextY = slotY + entryHeight;
+  }
+  return slots;
+}
+
+function buildLeaderPath(slotY, anchorY, gutterWidth, gutterGap, tickLength, pillHeight) {
+  const labelCenterY = slotY + pillHeight / 2;
+  const bendX = gutterWidth + gutterGap;
+  const horizontalLine = { x: 0, y: labelCenterY, length: bendX, orientation: "horizontal" };
+  let witnessLine = null;
+  const diff = Math.abs(labelCenterY - anchorY);
+  if (diff > 2) {
+    witnessLine = { x: bendX, y: Math.min(labelCenterY, anchorY), length: diff, orientation: "vertical" };
+  }
+  const tick = { x: bendX, y: anchorY, length: tickLength, orientation: "horizontal" };
+  return { horizontalLine, witnessLine, tick };
+}
+
+function computeAnchorY(surface, prop, container) {
+  const sbb = surface.absoluteBoundingBox;
+  const cbb = container.absoluteBoundingBox;
+  const sy = sbb.y - cbb.y;
+  if (prop === "paddingTop") return sy;
+  if (prop === "paddingBottom") return sy + sbb.height;
+  // paddingLeft, paddingRight, itemSpacing — anchor at vertical center of surface
+  return sy + sbb.height / 2;
 }
 
 // --- Build a single dimension annotation (line + caps + label pill) ---
@@ -1159,57 +1203,141 @@ let tokenTagsRendered = 0;
 let annotationCollisions = 0;
 const placedAnnotations = []; // for collision detection
 
+// Pass 1 — collect all annotation entries per surface
+const entriesPerSurface = new Map();
 for (const surface of surfaces) {
   if (surface.layoutMode === "NONE") continue;
   extractedFrames += 1;
 
+  const surfaceEntries = [];
   const props = ["paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "itemSpacing"];
   for (const prop of props) {
     const px = surface[prop];
     if (!px || px === 0) continue;
-
     const boundId = surface.boundVariables?.[prop]?.id || null;
     const value = await resolveValue(px, boundId);
     if (value.token) boundVariablesCount += 1;
     else if (boundId) unresolvedVariables += 1;
+    const anchorY = computeAnchorY(surface, prop, container);
+    surfaceEntries.push({ prop, px, value, anchorY, surface });
+  }
+  if (surfaceEntries.length > 0) entriesPerSurface.set(surface, surfaceEntries);
+}
 
-    const orientation = annotationVariant(prop, surface.layoutMode);
-    const annotation = buildDimensionAnnotation(px, orientation, formatLabel(value));
+// Pass 2 — render each surface's entries (gutter mode if N > 1, inline if N = 1)
+const gutterEntriesPerSurface = [];
+for (const [surface, surfaceEntries] of entriesPerSurface) {
+  if (surfaceEntries.length === 1) {
+    // Inline mode — preserve v1.69.0 single-annotation placement
+    const e = surfaceEntries[0];
+    const orientation = annotationVariant(e.prop, surface.layoutMode);
+    const annotation = buildDimensionAnnotation(e.px, orientation, formatLabel(e.value));
     tokenTagsRendered += 1;
-
-    // Position annotation against the surface's bounding box
     const sbb = surface.absoluteBoundingBox;
     const cbb = container.absoluteBoundingBox;
     const sx = sbb.x - cbb.x;
     const sy = sbb.y - cbb.y;
     const GAP = 8;
-    if (prop === "paddingLeft") {
+    if (e.prop === "paddingLeft") {
       annotation.x = sx - annotation.width - GAP;
       annotation.y = sy + sbb.height / 2 - annotation.height / 2;
-    } else if (prop === "paddingRight") {
+    } else if (e.prop === "paddingRight") {
       annotation.x = sx + sbb.width + GAP;
       annotation.y = sy + sbb.height / 2 - annotation.height / 2;
-    } else if (prop === "paddingTop") {
+    } else if (e.prop === "paddingTop") {
       annotation.x = sx + sbb.width / 2 - annotation.width / 2;
       annotation.y = sy - annotation.height - GAP;
-    } else if (prop === "paddingBottom") {
+    } else if (e.prop === "paddingBottom") {
       annotation.x = sx + sbb.width / 2 - annotation.width / 2;
       annotation.y = sy + sbb.height + GAP;
-    } else if (prop === "itemSpacing") {
+    } else if (e.prop === "itemSpacing") {
       annotation.x = sx + sbb.width / 2 - annotation.width / 2;
       annotation.y = sy + sbb.height / 2 - annotation.height / 2;
     }
-
-    // Collision detection — increment counter when within 8px of an existing annotation
-    for (const placed of placedAnnotations) {
-      if (Math.abs(annotation.x - placed.x) < 8 && Math.abs(annotation.y - placed.y) < 8) {
-        annotationCollisions += 1;
-        break;
-      }
-    }
-    placedAnnotations.push({ x: annotation.x, y: annotation.y });
-
     container.appendChild(annotation);
+    gutterEntriesPerSurface.push(0);
+  } else {
+    // Gutter mode — N > 1 annotations on this surface
+    surfaceEntries.sort((a, b) => a.anchorY - b.anchorY);
+    const slots = computeGutterSlots(surfaceEntries, ENTRY_HEIGHT);
+
+    // Build gutter frame to the left of the component
+    const sbb = surface.absoluteBoundingBox;
+    const cbb = container.absoluteBoundingBox;
+    const surfaceX = sbb.x - cbb.x;
+    const totalGutterHeight = Math.max(
+      slots[slots.length - 1].slotY + ENTRY_HEIGHT,
+      sbb.height
+    );
+    const gutterFrame = figma.createFrame();
+    gutterFrame.name = "Specs gutter (" + surfaceEntries.length + " annotations)";
+    gutterFrame.layoutMode = "NONE";
+    gutterFrame.fills = [];
+    gutterFrame.clipsContent = false;
+    gutterFrame.resize(GUTTER_WIDTH + GUTTER_GAP + TICK_LENGTH, totalGutterHeight);
+    gutterFrame.x = surfaceX - GUTTER_WIDTH - GUTTER_GAP;
+    gutterFrame.y = sbb.y - cbb.y;
+
+    for (let i = 0; i < surfaceEntries.length; i++) {
+      const e = surfaceEntries[i];
+      const slot = slots[i];
+
+      // Build label pill via tokenTagSpec
+      const spec = tokenTagSpec(formatLabel(e.value));
+      const labelFrame = figma.createFrame();
+      labelFrame.layoutMode = "HORIZONTAL";
+      labelFrame.primaryAxisSizingMode = "AUTO";
+      labelFrame.counterAxisSizingMode = "AUTO";
+      labelFrame.paddingLeft = spec.paddingX;
+      labelFrame.paddingRight = spec.paddingX;
+      labelFrame.paddingTop = spec.paddingY;
+      labelFrame.paddingBottom = spec.paddingY;
+      labelFrame.cornerRadius = spec.cornerRadius;
+      labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
+      const labelText = figma.createText();
+      labelText.fontName = spec.fontName;
+      labelText.fontSize = spec.fontSize;
+      labelText.characters = spec.text;
+      labelText.fills = [{ type: "SOLID", color: spec.fgColor }];
+      labelFrame.appendChild(labelText);
+      labelFrame.x = 0;
+      labelFrame.y = slot.slotY;
+      gutterFrame.appendChild(labelFrame);
+      tokenTagsRendered += 1;
+
+      // Build leader (horizontal + optional witness + tick)
+      const path = buildLeaderPath(slot.slotY, slot.anchorY - (sbb.y - cbb.y), GUTTER_WIDTH, GUTTER_GAP, TICK_LENGTH, labelFrame.height);
+
+      const hLine = figma.createLine();
+      hLine.resize(path.horizontalLine.length, 0);
+      hLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+      hLine.strokeWeight = STROKE_WEIGHT;
+      hLine.x = path.horizontalLine.x;
+      hLine.y = path.horizontalLine.y;
+      gutterFrame.appendChild(hLine);
+
+      if (path.witnessLine) {
+        const wLine = figma.createLine();
+        wLine.resize(path.witnessLine.length, 0);
+        wLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+        wLine.strokeWeight = STROKE_WEIGHT;
+        wLine.rotation = 90;
+        wLine.x = path.witnessLine.x;
+        wLine.y = path.witnessLine.y;
+        gutterFrame.appendChild(wLine);
+      }
+
+      const tick = figma.createLine();
+      tick.resize(path.tick.length, 0);
+      tick.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+      tick.strokeWeight = STROKE_WEIGHT;
+      tick.x = path.tick.x;
+      tick.y = path.tick.y;
+      gutterFrame.appendChild(tick);
+    }
+
+    container.appendChild(gutterFrame);
+    gutterEntriesPerSurface.push(surfaceEntries.length);
   }
 }
 
@@ -1225,6 +1353,7 @@ return {
     authorOverrides: 0,
     annotationCollisions,
     tokenTagsRendered,
+    gutterEntriesPerSurface,
   },
 };
 ```
