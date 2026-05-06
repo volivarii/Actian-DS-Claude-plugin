@@ -301,7 +301,7 @@ describe("Contract Tests", function () {
 // can be unit-tested. Pin those module exports here — catches accidental
 // breakage in the Pattern 14 push-pattern code path.
 
-describe("Pattern 14 runtime-primitive module exports", function () {
+describe("Pattern 14 + Pattern 9 module exports", function () {
   it("dimension-line.js exports the three pure functions", function () {
     var mod = require(
       path.join(PLUGIN_ROOT, "scripts", "lib", "dimension-line.js"),
@@ -315,5 +315,28 @@ describe("Pattern 14 runtime-primitive module exports", function () {
     var mod = require(path.join(PLUGIN_ROOT, "scripts", "lib", "token-tag.js"));
     assert.strictEqual(typeof mod.tokenTagSpec, "function");
     assert.strictEqual(typeof mod.tokenTagDimensions, "function");
+  });
+
+  it("gutter-layout.js exports the two pure functions (v1.70.0+)", function () {
+    var mod = require(
+      path.join(PLUGIN_ROOT, "scripts", "lib", "gutter-layout.js"),
+    );
+    assert.strictEqual(typeof mod.computeGutterSlots, "function");
+    assert.strictEqual(typeof mod.buildLeaderPath, "function");
+  });
+
+  it("anatomy-scale.js exports pickScale (v1.70.0+)", function () {
+    var mod = require(
+      path.join(PLUGIN_ROOT, "scripts", "lib", "anatomy-scale.js"),
+    );
+    assert.strictEqual(typeof mod.pickScale, "function");
+  });
+
+  it("anatomy-filter.js exports the two pure functions (v1.70.0+)", function () {
+    var mod = require(
+      path.join(PLUGIN_ROOT, "scripts", "lib", "anatomy-filter.js"),
+    );
+    assert.strictEqual(typeof mod.filterPartsByLayerExistence, "function");
+    assert.strictEqual(typeof mod.pickClosestEdge, "function");
   });
 });

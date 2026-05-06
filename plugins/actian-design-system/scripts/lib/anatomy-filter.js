@@ -1,0 +1,60 @@
+"use strict";
+
+/**
+ * Pure decision functions for component-brief Pattern 9 (Anatomy Diagram).
+ *
+ * filterPartsByLayerExistence — given anatomy parts and the set of layer
+ * names actually present in the rendered Enabled-state instance, returns
+ * which parts are visible (badges go on the diagram) vs absent (footnoted
+ * in the parts table). Implements the cross-DS convention from Carbon /
+ * Material 3 / Polaris: state-conditional parts (focus ring, hover surface)
+ * never appear on the primary anatomy diagram.
+ *
+ * pickClosestEdge — closest-edge math with EightShapes left-then-top
+ * tiebreaker for badge placement.
+ */
+
+function filterPartsByLayerExistence(parts, layerNamesPresent) {
+  var visible = [];
+  var absent = [];
+  for (var i = 0; i < parts.length; i++) {
+    var p = parts[i];
+    if (layerNamesPresent.has(p.figmaLayerName)) {
+      visible.push(p);
+    } else {
+      absent.push(p);
+    }
+  }
+  return { visible: visible, absent: absent };
+}
+
+function pickClosestEdge(box, container, leftFirst) {
+  var distLeft = box.x - container.x;
+  var distTop = box.y - container.y;
+  var distRight = container.x + container.width - (box.x + box.width);
+  var distBottom = container.y + container.height - (box.y + box.height);
+  var ordered =
+    leftFirst === false
+      ? [
+          ["right", distRight],
+          ["bottom", distBottom],
+          ["left", distLeft],
+          ["top", distTop],
+        ]
+      : [
+          ["left", distLeft],
+          ["top", distTop],
+          ["right", distRight],
+          ["bottom", distBottom],
+        ];
+  var winner = ordered[0];
+  for (var i = 1; i < ordered.length; i++) {
+    if (ordered[i][1] < winner[1]) winner = ordered[i];
+  }
+  return winner[0];
+}
+
+module.exports = {
+  filterPartsByLayerExistence,
+  pickClosestEdge,
+};

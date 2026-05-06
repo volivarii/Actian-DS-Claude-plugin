@@ -27,6 +27,13 @@ wrapper.x = 0;
 wrapper.y = maxY + 200;
 wrapper.setSharedPluginData("ds", "wrapperId", wrapper.id);
 
+// CARD WIDTH HUG (v1.70.0+): Both primary AND counter axis sizing must be
+// AUTO so the wrapper grows to fit the widest card AND the tallest card.
+// Phase 1 + PR 1 smoke (2026-05-06) showed tables clipping at the right
+// edge because some intermediate container had FIXED counter-axis sizing.
+// The fix is at every level — wrapper (here), supercard outer frame
+// (Pattern 1), and content slot (Pattern 1, v1.69.0+).
+
 return { wrapperId: wrapper.id };
 ```
 
@@ -86,6 +93,19 @@ if (!variant) variant = set.defaultVariant || set.children[0];
 const inst = variant.createInstance();
 inst.name = cardTitle;
 const cardFrame = inst.detachInstance();
+
+// CARD WIDTH HUG (v1.70.0+): The detached card frame inherits Meta Kit's
+// auto-layout settings, but its counter-axis (vertical) sizing may be
+// FIXED if the Meta Kit briefCard component was constrained. Force AUTO
+// at the supercard outer frame level so the card grows to fit content.
+// Phase 1 + PR 1 smoke showed tables clipping despite content-slot AUTO
+// — the fix needed to propagate up to the supercard outer frame too.
+if (typeof cardFrame.primaryAxisSizingMode !== "undefined") {
+  cardFrame.primaryAxisSizingMode = "AUTO";
+}
+if (typeof cardFrame.counterAxisSizingMode !== "undefined") {
+  cardFrame.counterAxisSizingMode = "AUTO";
+}
 
 // Card Header stays as a live instance — set properties on it.
 // IMPORTANT (v1.66.4+): match the Card Header instance by NAME SUBSTRING, not
@@ -356,6 +376,19 @@ async function appendTokenTagCell(parentRow, tokenText) {
   labelFrame.appendChild(text);
 
   parentRow.appendChild(labelFrame);
+
+  // HUG-after-append guard (v1.70.0+): table rows with text-cell width
+  // constraints crush child frames to 1px height. Force AUTO sizing on
+  // the labelFrame after append to override inherited FIXED. Phase 2 PR 1
+  // smoke (2026-05-06) showed Checkbox token-tag cells crushed to ~1px
+  // because parent row had FIXED counter-axis sizing.
+  if (typeof labelFrame.layoutSizingVertical !== "undefined") {
+    labelFrame.layoutSizingVertical = "HUG";
+  }
+  if (typeof labelFrame.layoutSizingHorizontal !== "undefined") {
+    labelFrame.layoutSizingHorizontal = "HUG";
+  }
+
   return labelFrame;
 }
 ```
@@ -416,7 +449,9 @@ cell.appendChild(textStack);
 
 Regression guard: if the cell or its parent row uses `counterAxisSizingMode = "FIXED"` or sets a hard `cell.resize(_, 20)`, the second line clips. Always Hug.
 
-**Token Tag styling (v1.69.0+):** The token-name text below the swatch dot must use the Token Tag pill style — same construction as Pattern 3's `appendTokenTagCell`. The hex value text below the token name stays as plain monospace text (it's not a token reference). Replace the `// token-name text node` placeholder with a call to `appendTokenTagCell(textStack, tokenName)` or the inline equivalent.
+**Token Tag styling (v1.69.0+, with v1.70.0+ HUG guard):** The token-name text below the swatch dot must use the Token Tag pill style — same construction as Pattern 3's `appendTokenTagCell`. The hex value text below the token name stays as plain monospace text (it's not a token reference). Replace the `// token-name text node` placeholder with a call to `appendTokenTagCell(textStack, tokenName)` or the inline equivalent.
+
+**Regression guard (v1.70.0+):** After appending the labelFrame to the textStack, force `labelFrame.layoutSizingVertical = "HUG"` and `labelFrame.layoutSizingHorizontal = "HUG"` (with `typeof !== "undefined"` defensive check). Without this guard, table rows with text-cell width constraints crush child frames to ~1px height — observed in Phase 2 PR 1 smoke (Checkbox token cells were invisible).
 
 **Table layout:** Build as a header row (state + column names) + data rows. Each data row: state label text + N swatch cells. The data row frame should use `layoutMode = "HORIZONTAL"`, `counterAxisAlignItems = "CENTER"`, and `counterAxisSizingMode = "AUTO"` so it grows to the tallest cell. Batch 2-3 rows per `use_figma` call.
 
@@ -579,9 +614,26 @@ if (colorCol) {
 }
 ```
 
+**Variation Matrix construction (v1.70.0+):** When building a 2D state matrix for the Section 1 Variation sub-frame (e.g., Checkbox state matrix with rows = No/Yes/Indeterminate × columns = Default/Hover/Focus/Pressed/Disabled), each cell contains a real component instance. Cells are children of HORIZONTAL row frames. The same regression that bit `appendTokenTagCell` bites here: row sizing crushes child instances to 1px.
+
+```js
+async function appendVariationCell(parentRow, instance) {
+  parentRow.appendChild(instance);
+  if (typeof instance.layoutSizingVertical !== "undefined") {
+    instance.layoutSizingVertical = "HUG";
+  }
+  if (typeof instance.layoutSizingHorizontal !== "undefined") {
+    instance.layoutSizingHorizontal = "HUG";
+  }
+  return instance;
+}
+```
+
+Apply this to every cell in the Variation matrix. Without the guard, Phase 2 PR 1 smoke showed Checkbox cells rendering as ~1px tall horizontal lines instead of the actual 24×24 Checkbox instance.
+
 ---
 
-## 9. Anatomy Diagram Pattern (Card 3)
+## 9. Anatomy Diagram Pattern (Section 1 Anatomy sub-frame, v1.70.0+)
 
 Single ~4-6KB call. Creates component instance, reads bounding boxes, computes badge positions, draws badges + leader lines.
 
@@ -604,27 +656,75 @@ const container = figma.createFrame();
 container.name = "Anatomy diagram";
 container.fills = [{ type: "SOLID", color: hexToRgb("#FAFAFF") }];
 
-// 2. Create target component instance
+// 2. Create target component instance — render the Enabled/Default state.
+//    Per cross-DS convention (Carbon, Material 3, Polaris, Atlassian, Apple HIG),
+//    anatomy diagrams always show the resting state. State-conditional parts
+//    (focus ring, hover surface) are dropped from the diagram and footnoted
+//    in the parts table.
 const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
 let variantComp;
 if (targetNode.type === "COMPONENT_SET") {
-  variantComp = targetNode.findChild(n => n.name === "<diagramVariant>");
+  // Prefer Enabled / Default state; fall back to defaultVariant or first child
+  variantComp = targetNode.findChild(n => /State=Default|State=Enabled/.test(n.name));
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
   variantComp = targetNode;
 }
 const inst = variantComp.createInstance();
 container.appendChild(inst);
+
+// 2a. Pick scale factor — heuristic per pickScale (mirrors scripts/lib/anatomy-scale.js):
+//     smallest scale in {1,2,3,4} where the smaller axis × scale exceeds 80px.
+//     Override via card_anatomy.anatomyScale or component-guidelines/<slug>.json
+//     anatomyScale field.
+function pickScale(width, height, override) {
+  if (override !== null && override !== undefined) {
+    if (!Number.isInteger(override) || override < 1 || override > 4) {
+      throw new Error("Invalid anatomyScale override: " + override);
+    }
+    return override;
+  }
+  const smaller = Math.min(width, height);
+  for (let s = 1; s <= 4; s++) {
+    if (smaller * s > 80) return s;
+  }
+  return 4;
+}
+const scaleOverride = card_anatomy?.anatomyScale ?? null;
+const scale = pickScale(inst.width, inst.height, scaleOverride);
+
+// Apply scale by wrapping in a fixed-size frame and resizing.
+// (instance.scale() may not be supported on instances in all Plugin API versions.)
 inst.x = PADDING;
 inst.y = PADDING;
+if (scale > 1) {
+  const origW = inst.width;
+  const origH = inst.height;
+  inst.resize(origW * scale, origH * scale);
+}
 const iw = inst.width;
 const ih = inst.height;
 container.resize(iw + PADDING * 2, ih + PADDING * 2);
 
-// 3. Read bounding boxes for each part
-const parts = [/* from data model: {letter, figmaLayerName} */];
+// 2b. Filter anatomy parts: only those whose figmaLayerName is present in the
+//     rendered Enabled state get badges; absent parts get footnoted rows in the
+//     parts table.
+const allLayerNames = new Set();
+function collectNames(node) {
+  if (node.name) allLayerNames.add(node.name);
+  for (const c of (node.children || [])) collectNames(c);
+}
+collectNames(inst);
+const visibleParts = [];
+const absentParts = [];
+for (const p of (card_anatomy.parts || [])) {
+  if (allLayerNames.has(p.figmaLayerName)) visibleParts.push(p);
+  else absentParts.push(p);
+}
+
+// 3. Read bounding boxes for visible parts (absent parts handled separately)
 const partData = [];
-for (const p of parts) {
+for (const p of visibleParts) {
   const layer = inst.findOne(n => n.name === p.figmaLayerName);
   if (!layer) continue;
   const bb = layer.absoluteBoundingBox;
@@ -633,16 +733,18 @@ for (const p of parts) {
   const relY = bb.y - cbb.y;
   const cx = relX + bb.width / 2;
   const cy = relY + bb.height / 2;
-  // Closest edge
-  const distTop = relY;
-  const distBottom = (PADDING + ih) - (relY + bb.height);
+  // Closest edge — left-then-top tiebreaker (EightShapes Specs convention).
+  // Mirrors scripts/lib/anatomy-filter.js pickClosestEdge.
   const distLeft = relX;
+  const distTop = relY;
   const distRight = (PADDING + iw) - (relX + bb.width);
-  const minDist = Math.min(distTop, distBottom, distLeft, distRight);
-  let side = "top";
-  if (minDist === distRight) side = "right";
-  else if (minDist === distBottom) side = "bottom";
-  else if (minDist === distLeft) side = "left";
+  const distBottom = (PADDING + ih) - (relY + bb.height);
+  const ordered = [["left", distLeft], ["top", distTop], ["right", distRight], ["bottom", distBottom]];
+  let side = ordered[0][0];
+  let minDist = ordered[0][1];
+  for (let oi = 1; oi < ordered.length; oi++) {
+    if (ordered[oi][1] < minDist) { side = ordered[oi][0]; minDist = ordered[oi][1]; }
+  }
   partData.push({ ...p, cx, cy, relX, relY, w: bb.width, h: bb.height, side });
 }
 
@@ -721,11 +823,44 @@ for (const pd of sides.left) {
   createBadge(pd, PADDING - offset, pd.cy, pd.relX, pd.cy);
 }
 
+// 7. Footnote absent parts in the parts table — adds a small text node listing
+//    which anatomy parts are state-only and not rendered on the primary diagram.
+//    Cross-DS convention (Carbon, M3): state-conditional parts go in a separate
+//    "States" subsection; for now we surface them as table footnotes.
+if (absentParts.length > 0) {
+  await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+  const footnoteFrame = figma.createFrame();
+  footnoteFrame.name = "Anatomy state-only parts footnote";
+  footnoteFrame.layoutMode = "VERTICAL";
+  footnoteFrame.itemSpacing = 2;
+  footnoteFrame.primaryAxisSizingMode = "AUTO";
+  footnoteFrame.counterAxisSizingMode = "AUTO";
+  footnoteFrame.fills = [];
+  footnoteFrame.paddingTop = 8;
+  for (const ap of absentParts) {
+    const t = figma.createText();
+    t.fontName = { family: "Inter", style: "Regular" };
+    t.fontSize = 11;
+    t.fills = [{ type: "SOLID", color: { r: 0.42, g: 0.42, b: 0.49 } }];
+    t.characters = `${ap.letter}. ${ap.name} — only present in interactive states (Hover/Focus/Pressed); see component-guidelines for state-scoped parts`;
+    footnoteFrame.appendChild(t);
+  }
+  container.appendChild(footnoteFrame);
+}
+
 // Append container to content slot
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(container);
 
-return { diagramId: container.id };
+return {
+  diagramId: container.id,
+  pattern9: {
+    scaleApplied: scale,
+    scaleSource: scaleOverride !== null ? "override" : "heuristic",
+    partsVisible: visibleParts.length,
+    partsAbsent: absentParts.length,
+  },
+};
 ```
 
 Fill in `parts` array and `<targetNodeId>` / `<diagramVariant>` from `brief-data.json.card3_anatomy`.
@@ -958,13 +1093,17 @@ return { divergencesAndSourcesDone: true };
 
 ---
 
-## 14. Specs Redline Pattern (Section 1 Specs sub-frame, v1.69.0+)
+## 14. Specs Redline Pattern (Section 1 Specs sub-frame, v1.70.0+)
 
-Auto-extracted dimension annotations from the live component instance. Generates dimension lines from Plugin API primitives at runtime — `figma.createVector` for the line, two `figma.createLine` endcaps, `figma.createFrame` + `figma.createText` for the label pill. Replaces the v1.68.0 Meta Kit `Dimension Annotation` component path, which was blocked by the Plugin API's `resize()` limitation on component-instance children. Mirrors figma-measure (https://github.com/ph1p/figma-measure, MIT).
+Auto-extracted dimension annotations rendered in a left-gutter ordinate lane. Replaces the v1.69.0 per-edge placement model which produced label-on-component collisions when N > 1 annotations existed on the same surface (Phase 1 + PR 1 smoke).
+
+**Architecture:** all annotations for a surface are routed to a 220px column to the LEFT of the component. Within that column, label pills are stacked vertically, sorted by the Y-coordinate of the edge they annotate. Each entry is `[Token Tag pill] ──── │` (label + horizontal leader + tick at the component's left edge). Top/bottom annotations get an L-shaped leader (horizontal from gutter, vertical witness to the actual edge). Greedy sort-and-stack guarantees zero collisions by construction. Pattern proven by Zeplin redlines, Carbon Design System anatomy pages, Material 3 anatomy diagrams, and CAD ordinate dimensioning.
+
+**Gutter mode** is the default for N > 1 annotations on a surface. **Inline mode** (the v1.69.0 `buildDimensionAnnotation` algorithm) is preserved as a fallback for N = 1 annotations and for measuring spans BETWEEN two elements (different use case from padding-on-one-frame).
 
 The `card_anatomy.specs[]` field in `brief-data.json` is an **optional override** — if non-empty, those entries drive placement instead of the auto-extracted set. Default flow leaves it empty.
 
-Single ~5-7KB `use_figma` call.
+Single ~7-9KB `use_figma` call.
 
 ```js
 function hexToRgb(hex) {
@@ -972,11 +1111,15 @@ function hexToRgb(hex) {
   return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
 }
 
-const PADDING = 64;                              // larger than Pattern 9's 48px to give annotations room
+const PADDING = 64;
 const REDLINE_COLOR = hexToRgb("#FF4D8E");       // pink — industry standard for redlines
 const STROKE_WEIGHT = 1;
-const ENDCAP_LENGTH = STROKE_WEIGHT + 6;         // figma-measure convention
-const LABEL_GAP = 4;                             // gap between line and label
+const ENDCAP_LENGTH = STROKE_WEIGHT + 6;         // figma-measure convention (inline mode only)
+const LABEL_GAP = 4;
+const GUTTER_WIDTH = 220;                        // px — fits longest token label "--zen-spacing-xxxxx" at Inter 12px
+const GUTTER_GAP = 24;                           // px — between gutter right edge and component left edge
+const ENTRY_HEIGHT = 28;                         // px — pill ~24 + 4px gap
+const TICK_LENGTH = 6;                           // px — short horizontal tick at component left edge
 
 await figma.loadFontAsync({ family: "Inter", style: "Medium" });
 
@@ -1029,6 +1172,42 @@ function annotationVariant(prop, autolayout) {
 
 function formatLabel(value) {
   return value.token ? `${value.px}px — ${value.token}` : `${value.px}px`;
+}
+
+function computeGutterSlots(entries, entryHeight) {
+  const slots = [];
+  let nextY = 0;
+  for (const e of entries) {
+    const idealY = e.anchorY - entryHeight / 2;
+    let slotY = Math.max(nextY, idealY);
+    if (slotY < 0) slotY = 0;
+    slots.push({ slotY, anchorY: e.anchorY });
+    nextY = slotY + entryHeight;
+  }
+  return slots;
+}
+
+function buildLeaderPath(slotY, anchorY, gutterWidth, gutterGap, tickLength, pillHeight) {
+  const labelCenterY = slotY + pillHeight / 2;
+  const bendX = gutterWidth + gutterGap;
+  const horizontalLine = { x: 0, y: labelCenterY, length: bendX, orientation: "horizontal" };
+  let witnessLine = null;
+  const diff = Math.abs(labelCenterY - anchorY);
+  if (diff > 2) {
+    witnessLine = { x: bendX, y: Math.min(labelCenterY, anchorY), length: diff, orientation: "vertical" };
+  }
+  const tick = { x: bendX, y: anchorY, length: tickLength, orientation: "horizontal" };
+  return { horizontalLine, witnessLine, tick };
+}
+
+function computeAnchorY(surface, prop, container) {
+  const sbb = surface.absoluteBoundingBox;
+  const cbb = container.absoluteBoundingBox;
+  const sy = sbb.y - cbb.y;
+  if (prop === "paddingTop") return sy;
+  if (prop === "paddingBottom") return sy + sbb.height;
+  // paddingLeft, paddingRight, itemSpacing — anchor at vertical center of surface
+  return sy + sbb.height / 2;
 }
 
 // --- Build a single dimension annotation (line + caps + label pill) ---
@@ -1112,6 +1291,9 @@ container.clipsContent = false;
 const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
 let variantComp;
 if (targetNode.type === "COMPONENT_SET") {
+  // <diagramVariant> is runtime-substituted (e.g. "App=Admin, View=Expanded").
+  // Components with no State dimension (e.g. Side nav — App/View axes only) return null here;
+  // the fallback to defaultVariant / children[0] is the load-bearing safety for those cases.
   variantComp = targetNode.findChild(n => n.name === "<diagramVariant>");
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
@@ -1159,57 +1341,141 @@ let tokenTagsRendered = 0;
 let annotationCollisions = 0;
 const placedAnnotations = []; // for collision detection
 
+// Pass 1 — collect all annotation entries per surface
+const entriesPerSurface = new Map();
 for (const surface of surfaces) {
   if (surface.layoutMode === "NONE") continue;
   extractedFrames += 1;
 
+  const surfaceEntries = [];
   const props = ["paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "itemSpacing"];
   for (const prop of props) {
     const px = surface[prop];
     if (!px || px === 0) continue;
-
     const boundId = surface.boundVariables?.[prop]?.id || null;
     const value = await resolveValue(px, boundId);
     if (value.token) boundVariablesCount += 1;
     else if (boundId) unresolvedVariables += 1;
+    const anchorY = computeAnchorY(surface, prop, container);
+    surfaceEntries.push({ prop, px, value, anchorY, surface });
+  }
+  if (surfaceEntries.length > 0) entriesPerSurface.set(surface, surfaceEntries);
+}
 
-    const orientation = annotationVariant(prop, surface.layoutMode);
-    const annotation = buildDimensionAnnotation(px, orientation, formatLabel(value));
+// Pass 2 — render each surface's entries (gutter mode if N > 1, inline if N = 1)
+const gutterEntriesPerSurface = [];
+for (const [surface, surfaceEntries] of entriesPerSurface) {
+  if (surfaceEntries.length === 1) {
+    // Inline mode — preserve v1.69.0 single-annotation placement
+    const e = surfaceEntries[0];
+    const orientation = annotationVariant(e.prop, surface.layoutMode);
+    const annotation = buildDimensionAnnotation(e.px, orientation, formatLabel(e.value));
     tokenTagsRendered += 1;
-
-    // Position annotation against the surface's bounding box
     const sbb = surface.absoluteBoundingBox;
     const cbb = container.absoluteBoundingBox;
     const sx = sbb.x - cbb.x;
     const sy = sbb.y - cbb.y;
     const GAP = 8;
-    if (prop === "paddingLeft") {
+    if (e.prop === "paddingLeft") {
       annotation.x = sx - annotation.width - GAP;
       annotation.y = sy + sbb.height / 2 - annotation.height / 2;
-    } else if (prop === "paddingRight") {
+    } else if (e.prop === "paddingRight") {
       annotation.x = sx + sbb.width + GAP;
       annotation.y = sy + sbb.height / 2 - annotation.height / 2;
-    } else if (prop === "paddingTop") {
+    } else if (e.prop === "paddingTop") {
       annotation.x = sx + sbb.width / 2 - annotation.width / 2;
       annotation.y = sy - annotation.height - GAP;
-    } else if (prop === "paddingBottom") {
+    } else if (e.prop === "paddingBottom") {
       annotation.x = sx + sbb.width / 2 - annotation.width / 2;
       annotation.y = sy + sbb.height + GAP;
-    } else if (prop === "itemSpacing") {
+    } else if (e.prop === "itemSpacing") {
       annotation.x = sx + sbb.width / 2 - annotation.width / 2;
       annotation.y = sy + sbb.height / 2 - annotation.height / 2;
     }
-
-    // Collision detection — increment counter when within 8px of an existing annotation
-    for (const placed of placedAnnotations) {
-      if (Math.abs(annotation.x - placed.x) < 8 && Math.abs(annotation.y - placed.y) < 8) {
-        annotationCollisions += 1;
-        break;
-      }
-    }
-    placedAnnotations.push({ x: annotation.x, y: annotation.y });
-
     container.appendChild(annotation);
+    gutterEntriesPerSurface.push(0);
+  } else {
+    // Gutter mode — N > 1 annotations on this surface
+    surfaceEntries.sort((a, b) => a.anchorY - b.anchorY);
+    const slots = computeGutterSlots(surfaceEntries, ENTRY_HEIGHT);
+
+    // Build gutter frame to the left of the component
+    const sbb = surface.absoluteBoundingBox;
+    const cbb = container.absoluteBoundingBox;
+    const surfaceX = sbb.x - cbb.x;
+    const totalGutterHeight = Math.max(
+      slots[slots.length - 1].slotY + ENTRY_HEIGHT,
+      sbb.height
+    );
+    const gutterFrame = figma.createFrame();
+    gutterFrame.name = "Specs gutter (" + surfaceEntries.length + " annotations)";
+    gutterFrame.layoutMode = "NONE";
+    gutterFrame.fills = [];
+    gutterFrame.clipsContent = false;
+    gutterFrame.resize(GUTTER_WIDTH + GUTTER_GAP + TICK_LENGTH, totalGutterHeight);
+    gutterFrame.x = surfaceX - GUTTER_WIDTH - GUTTER_GAP;
+    gutterFrame.y = sbb.y - cbb.y;
+
+    for (let i = 0; i < surfaceEntries.length; i++) {
+      const e = surfaceEntries[i];
+      const slot = slots[i];
+
+      // Build label pill via tokenTagSpec
+      const spec = tokenTagSpec(formatLabel(e.value));
+      const labelFrame = figma.createFrame();
+      labelFrame.layoutMode = "HORIZONTAL";
+      labelFrame.primaryAxisSizingMode = "AUTO";
+      labelFrame.counterAxisSizingMode = "AUTO";
+      labelFrame.paddingLeft = spec.paddingX;
+      labelFrame.paddingRight = spec.paddingX;
+      labelFrame.paddingTop = spec.paddingY;
+      labelFrame.paddingBottom = spec.paddingY;
+      labelFrame.cornerRadius = spec.cornerRadius;
+      labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
+      const labelText = figma.createText();
+      labelText.fontName = spec.fontName;
+      labelText.fontSize = spec.fontSize;
+      labelText.characters = spec.text;
+      labelText.fills = [{ type: "SOLID", color: spec.fgColor }];
+      labelFrame.appendChild(labelText);
+      labelFrame.x = 0;
+      labelFrame.y = slot.slotY;
+      gutterFrame.appendChild(labelFrame);
+      tokenTagsRendered += 1;
+
+      // Build leader (horizontal + optional witness + tick)
+      const path = buildLeaderPath(slot.slotY, slot.anchorY - (sbb.y - cbb.y), GUTTER_WIDTH, GUTTER_GAP, TICK_LENGTH, labelFrame.height);
+
+      const hLine = figma.createLine();
+      hLine.resize(path.horizontalLine.length, 0);
+      hLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+      hLine.strokeWeight = STROKE_WEIGHT;
+      hLine.x = path.horizontalLine.x;
+      hLine.y = path.horizontalLine.y;
+      gutterFrame.appendChild(hLine);
+
+      if (path.witnessLine) {
+        const wLine = figma.createLine();
+        wLine.resize(path.witnessLine.length, 0);
+        wLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+        wLine.strokeWeight = STROKE_WEIGHT;
+        wLine.rotation = 90;
+        wLine.x = path.witnessLine.x;
+        wLine.y = path.witnessLine.y;
+        gutterFrame.appendChild(wLine);
+      }
+
+      const tick = figma.createLine();
+      tick.resize(path.tick.length, 0);
+      tick.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+      tick.strokeWeight = STROKE_WEIGHT;
+      tick.x = path.tick.x;
+      tick.y = path.tick.y;
+      gutterFrame.appendChild(tick);
+    }
+
+    container.appendChild(gutterFrame);
+    gutterEntriesPerSurface.push(surfaceEntries.length);
   }
 }
 
@@ -1225,6 +1491,7 @@ return {
     authorOverrides: 0,
     annotationCollisions,
     tokenTagsRendered,
+    gutterEntriesPerSurface,
   },
 };
 ```

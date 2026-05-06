@@ -433,3 +433,21 @@ FM mode uses a simpler 5-card schema. The `meta.library` field is `"fm"` — ren
 - FM page header is a **dark card** (#2D3648 background)
 - FM anatomy uses **numbered badges** (1, 2, 3) not lettered (A, B, C)
 - FM Do/Don't uses **2-column grid** with color-coded bars (green/red)
+
+## Component-guideline `anatomyScale` field (v1.70.0+)
+
+Optional integer field on `docs/component-guidelines/<slug>.json`. Overrides the Pattern 9 anatomy diagram's automatic scale heuristic. Valid values: 1, 2, 3, or 4.
+
+The default heuristic in `scripts/lib/anatomy-scale.js` `pickScale(width, height)` picks the smallest scale where the smaller instance dimension exceeds 80px (e.g., 16×16 Checkbox → 4×, 60×60 → 2×, 200×200 → 1×). The override is useful when the heuristic produces too-small a diagram for a specific component family.
+
+Example:
+
+```json
+{
+  "slug": "tooltip",
+  "anatomyScale": 3,
+  ...
+}
+```
+
+Invalid values (non-integer, ≤ 0, > 4) cause the push pattern to throw an error — author bug, fail loudly at validation.
