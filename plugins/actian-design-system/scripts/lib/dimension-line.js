@@ -21,7 +21,22 @@ function vectorPathFor(distance, orientation) {
 }
 
 function endcapPositions(distance, orientation, strokeWeight) {
-  throw new Error("not implemented");
+  var length = strokeWeight + 6;
+  if (orientation === "horizontal") {
+    return {
+      length: length,
+      cap1: { x: 0, y: -length / 2, rotation: 90 },
+      cap2: { x: distance, y: -length / 2, rotation: 90 },
+    };
+  }
+  if (orientation === "vertical") {
+    return {
+      length: length,
+      cap1: { x: -length / 2, y: 0, rotation: 0 },
+      cap2: { x: -length / 2, y: distance, rotation: 0 },
+    };
+  }
+  throw new Error("Unknown orientation: " + orientation);
 }
 
 function labelAnchorFor(distance, orientation, labelDimensions) {

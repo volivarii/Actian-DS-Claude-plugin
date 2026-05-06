@@ -32,3 +32,46 @@ describe("vectorPathFor", function () {
     }, /Unknown orientation: diagonal/);
   });
 });
+
+describe("endcapPositions", function () {
+  it("horizontal — cap1 at x=0, cap2 at x=distance, both rotated 90°", function () {
+    var caps = mod.endcapPositions(16, "horizontal", 1);
+    assert.strictEqual(caps.cap1.x, 0);
+    assert.strictEqual(caps.cap2.x, 16);
+    assert.strictEqual(caps.cap1.rotation, 90);
+    assert.strictEqual(caps.cap2.rotation, 90);
+  });
+
+  it("horizontal — caps centered vertically on the line (y = -length/2)", function () {
+    var caps = mod.endcapPositions(16, "horizontal", 1);
+    var expectedLength = 1 + 6; // strokeWeight + 6
+    assert.strictEqual(caps.cap1.y, -expectedLength / 2);
+    assert.strictEqual(caps.cap2.y, -expectedLength / 2);
+  });
+
+  it("vertical — cap1 at y=0, cap2 at y=distance, both rotated 0°", function () {
+    var caps = mod.endcapPositions(24, "vertical", 1);
+    assert.strictEqual(caps.cap1.y, 0);
+    assert.strictEqual(caps.cap2.y, 24);
+    assert.strictEqual(caps.cap1.rotation, 0);
+    assert.strictEqual(caps.cap2.rotation, 0);
+  });
+
+  it("vertical — caps centered horizontally on the line (x = -length/2)", function () {
+    var caps = mod.endcapPositions(24, "vertical", 1);
+    var expectedLength = 1 + 6;
+    assert.strictEqual(caps.cap1.x, -expectedLength / 2);
+    assert.strictEqual(caps.cap2.x, -expectedLength / 2);
+  });
+
+  it("length scales with strokeWeight (cap = strokeWeight + 6)", function () {
+    var caps = mod.endcapPositions(16, "horizontal", 2);
+    assert.strictEqual(caps.length, 8); // 2 + 6
+  });
+
+  it("throws on unknown orientation", function () {
+    assert.throws(function () {
+      mod.endcapPositions(16, "diagonal", 1);
+    }, /Unknown orientation: diagonal/);
+  });
+});
