@@ -40,7 +40,20 @@ function endcapPositions(distance, orientation, strokeWeight) {
 }
 
 function labelAnchorFor(distance, orientation, labelDimensions) {
-  throw new Error("not implemented");
+  var LABEL_GAP = 4;
+  if (orientation === "horizontal") {
+    return {
+      x: (distance - labelDimensions.width) / 2,
+      y: -labelDimensions.height - LABEL_GAP,
+    };
+  }
+  if (orientation === "vertical") {
+    return {
+      x: LABEL_GAP,
+      y: (distance - labelDimensions.height) / 2,
+    };
+  }
+  throw new Error("Unknown orientation: " + orientation);
 }
 
 module.exports = {

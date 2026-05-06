@@ -75,3 +75,39 @@ describe("endcapPositions", function () {
     }, /Unknown orientation: diagonal/);
   });
 });
+
+describe("labelAnchorFor", function () {
+  it("horizontal — label centered horizontally above the line", function () {
+    var anchor = mod.labelAnchorFor(100, "horizontal", {
+      width: 40,
+      height: 20,
+    });
+    assert.strictEqual(anchor.x, 30); // (100 - 40) / 2 = 30
+    assert.strictEqual(anchor.y, -24); // -labelHeight - LABEL_GAP = -20 - 4
+  });
+
+  it("vertical — label positioned to the right of the line, centered vertically", function () {
+    var anchor = mod.labelAnchorFor(100, "vertical", { width: 40, height: 20 });
+    assert.strictEqual(anchor.x, 4); // LABEL_GAP
+    assert.strictEqual(anchor.y, 40); // (100 - 20) / 2 = 40
+  });
+
+  it("horizontal — handles label wider than line (negative x is acceptable)", function () {
+    var anchor = mod.labelAnchorFor(20, "horizontal", {
+      width: 60,
+      height: 20,
+    });
+    assert.strictEqual(anchor.x, -20); // (20 - 60) / 2 = -20
+  });
+
+  it("vertical — handles label taller than line", function () {
+    var anchor = mod.labelAnchorFor(10, "vertical", { width: 40, height: 30 });
+    assert.strictEqual(anchor.y, -10); // (10 - 30) / 2 = -10
+  });
+
+  it("throws on unknown orientation", function () {
+    assert.throws(function () {
+      mod.labelAnchorFor(100, "diagonal", { width: 40, height: 20 });
+    }, /Unknown orientation: diagonal/);
+  });
+});
