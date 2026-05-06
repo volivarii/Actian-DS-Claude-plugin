@@ -13,7 +13,19 @@
  */
 
 function pickScale(width, height, override) {
-  throw new Error("not implemented");
+  if (override !== null && override !== undefined) {
+    if (!Number.isInteger(override) || override < 1 || override > 4) {
+      throw new Error(
+        "Invalid anatomyScale override: " + override + " (must be integer 1-4)",
+      );
+    }
+    return override;
+  }
+  var smaller = Math.min(width, height);
+  for (var scale = 1; scale <= 4; scale++) {
+    if (smaller * scale > 80) return scale;
+  }
+  return 4;
 }
 
 module.exports = {
