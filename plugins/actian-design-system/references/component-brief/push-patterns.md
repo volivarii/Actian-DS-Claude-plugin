@@ -132,7 +132,18 @@ if (titleNode && titleNode.characters === "Card title") {
 // If a content slot lands without auto-layout (rare, only on legacy
 // instances), fix the Meta Kit component rather than re-introducing
 // hardcoded values here.
+//
+// CARD WIDTH HUG FIX (v1.69.0+): the content slot's primary axis sizing
+// must be AUTO so the supercard grows to fit the widest table. Phase 1
+// smoke (2026-05-06) showed Tokens tables clipping at the right edge
+// because the content slot was inheriting a FIXED width from Meta Kit.
+// Override here at slot level only — Meta Kit's padding/itemSpacing stay
+// intact.
 const contentSlot = cardFrame.findOne(n => n.name === "Content");
+if (contentSlot) {
+  contentSlot.primaryAxisSizingMode = "AUTO";
+  contentSlot.counterAxisSizingMode = "AUTO";
+}
 
 // Append to wrapper
 const wrapper = await figma.getNodeByIdAsync("<wrapperId>");
