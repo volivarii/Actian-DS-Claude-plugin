@@ -16,7 +16,7 @@ Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruc
 
 ## Supporting capabilities
 
-- Generate component briefs with provenance badges, per-sub-section Draft tags, and cross-DS research insights — Phase A transcribes from synced guidelines, Phase B fills gaps with optional research (Material, Carbon, Polaris, Atlassian, Stripe). Section 1 (Anatomy / Variation / Tokens / Specs) renders as a single supercard. Direct push using `setProperties` on live MetaKit instances (colored swatches, a11y requirement grids, contrast badges).
+- Generate component briefs with anatomy, tokens, specs, usage & content guidelines, accessibility requirements.
 - Create new Figma components with variants, properties, and correct token binding
 - Review and rewrite copy against DS content guidelines (`/design-audit --scope copy`)
 - Compare two competing designs side by side (also works between branches and variants)
