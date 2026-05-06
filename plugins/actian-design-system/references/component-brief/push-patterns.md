@@ -1517,7 +1517,63 @@ return {
 };
 ```
 
-**When `card_anatomy.specs[]` is non-empty (author override path):** skip the surface walk above and emit one annotation per `specs[i]` entry instead. For each entry, find the layer named `specs[i].layerName` in the rendered instance via `inst.findOne(n => n.name === specs[i].layerName)`. If the layer is missing, drop the entry and increment a `droppedSpecs` counter for the manifest. Otherwise read the layer's relevant dimension (`specs[i].value`) and call `buildDimensionAnnotation(specs[i].value, specs[i].orientation || "horizontal", formatLabel({ px: specs[i].value, token: specs[i].tokenName || null }))`. Append the annotation to the container at the layer's bounding-box edge per `specs[i].side`. Set `pattern14.authorOverrides` to the placed count.
+**Author override path (v1.70.1+):** when `card_anatomy.specs[]` is non-empty, BYPASS the surface walk + auto-extract logic above. Build entries directly from author-supplied specs and render them through the same `buildGutterFromEntries` helper. This guarantees the override produces real gutter geometry (not a static text table).
+
+Insert this block AFTER the auto-extract render loop completes (after the `for (const [surface, surfaceEntries] of entriesPerSurface)` loop), BEFORE the manifest return statement:
+
+```js
+// v1.70.1: author override path — render card_anatomy.specs[] as a gutter on the
+// top-level instance. Bypasses surface walk; entries come directly from author
+// specs. Same buildGutterFromEntries helper used by auto-extract path above.
+let droppedSpecs = 0;
+let authorOverrideCount = 0;
+if (card_anatomy && card_anatomy.specs && card_anatomy.specs.length > 0) {
+  const overrideEntries = [];
+  const cbb = container.absoluteBoundingBox;
+  for (const spec of card_anatomy.specs) {
+    const layer = inst.findOne(n => n.name === spec.layerName);
+    if (!layer) {
+      droppedSpecs += 1;
+      continue;
+    }
+    // Anchor at the layer's vertical center, relative to container.
+    const lbb = layer.absoluteBoundingBox;
+    const anchorY = (lbb.y - cbb.y) + lbb.height / 2;
+    // Parse the value — accept "24px", "24", or numeric directly.
+    const numericPx = parseFloat(String(spec.value).replace(/px$/i, "")) || 0;
+    const value = { px: numericPx, token: spec.tokenName || null };
+    overrideEntries.push({ value, anchorY });
+  }
+  if (overrideEntries.length > 0) {
+    overrideEntries.sort((a, b) => a.anchorY - b.anchorY);
+    const placed = await buildGutterFromEntries(overrideEntries, inst);
+    tokenTagsRendered += placed;
+    authorOverrideCount = placed;
+  }
+}
+```
+
+Then update the manifest return to surface the new fields:
+
+```js
+return {
+  redlineId: container.id,
+  pattern14: {
+    extractedFrames,
+    boundVariables: boundVariablesCount,
+    unresolvedVariables,
+    authorOverrides: authorOverrideCount,
+    droppedSpecs,
+    annotationCollisions,
+    tokenTagsRendered,
+    gutterEntriesPerSurface,
+  },
+};
+```
+
+The override path uses the same gutter geometry as auto-extract — vector lines, label pills, ticks at the component's left edge. Author intent (specs[] entries) drives WHICH measurements to show; the renderer guarantees HOW they look. No improvisation surface for the AI.
+
+If the override entries reference layers that don't exist in the rendered instance (e.g., "Focus ring" in a Default-state Checkbox), they're silently dropped and counted in `droppedSpecs`. Designer can verify via the manifest field.
 
 **Pointer Badge sizing path** — for components with explicit `width` or `height` token bindings on the top-level instance frame, emit a "pointer badge" pill instead of a dimension line. The pointer badge is a single Token Tag pill (no line, no caps) anchored at the instance's closest edge. Build with the same `tokenTagSpec` helper:
 
