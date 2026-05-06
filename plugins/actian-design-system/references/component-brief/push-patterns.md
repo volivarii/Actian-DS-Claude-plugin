@@ -27,6 +27,13 @@ wrapper.x = 0;
 wrapper.y = maxY + 200;
 wrapper.setSharedPluginData("ds", "wrapperId", wrapper.id);
 
+// CARD WIDTH HUG (v1.70.0+): Both primary AND counter axis sizing must be
+// AUTO so the wrapper grows to fit the widest card AND the tallest card.
+// Phase 1 + PR 1 smoke (2026-05-06) showed tables clipping at the right
+// edge because some intermediate container had FIXED counter-axis sizing.
+// The fix is at every level — wrapper (here), supercard outer frame
+// (Pattern 1), and content slot (Pattern 1, v1.69.0+).
+
 return { wrapperId: wrapper.id };
 ```
 
@@ -86,6 +93,19 @@ if (!variant) variant = set.defaultVariant || set.children[0];
 const inst = variant.createInstance();
 inst.name = cardTitle;
 const cardFrame = inst.detachInstance();
+
+// CARD WIDTH HUG (v1.70.0+): The detached card frame inherits Meta Kit's
+// auto-layout settings, but its counter-axis (vertical) sizing may be
+// FIXED if the Meta Kit briefCard component was constrained. Force AUTO
+// at the supercard outer frame level so the card grows to fit content.
+// Phase 1 + PR 1 smoke showed tables clipping despite content-slot AUTO
+// — the fix needed to propagate up to the supercard outer frame too.
+if (typeof cardFrame.primaryAxisSizingMode !== "undefined") {
+  cardFrame.primaryAxisSizingMode = "AUTO";
+}
+if (typeof cardFrame.counterAxisSizingMode !== "undefined") {
+  cardFrame.counterAxisSizingMode = "AUTO";
+}
 
 // Card Header stays as a live instance — set properties on it.
 // IMPORTANT (v1.66.4+): match the Card Header instance by NAME SUBSTRING, not
