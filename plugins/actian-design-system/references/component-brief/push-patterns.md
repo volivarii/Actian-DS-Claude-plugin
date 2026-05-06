@@ -711,6 +711,12 @@ container.resize(iw + PADDING * 2, ih + PADDING * 2);
 //     parts table.
 const allLayerNames = new Set();
 function collectNames(node) {
+  // v1.70.1: skip invisible layers entirely. Without this guard, layers that
+  // exist but are hidden in the rendered state (e.g., Checkbox's Check icon
+  // in the Unchecked variant) get their name added to allLayerNames, the
+  // "drop absent parts" filter passes them through, and badges are placed
+  // pointing at empty space.
+  if (node.visible === false) return;
   if (node.name) allLayerNames.add(node.name);
   for (const c of (node.children || [])) collectNames(c);
 }
@@ -1301,9 +1307,15 @@ if (targetNode.type === "COMPONENT_SET") {
 }
 const inst = variantComp.createInstance();
 container.appendChild(inst);
-inst.x = PADDING;
+// v1.70.1: shift inst right by (GUTTER_WIDTH + GUTTER_GAP) so the left-gutter
+// has room INSIDE the container at positive x. Without this shift, the gutter
+// lands at negative x and is clipped by the container's default clipsContent=true.
+inst.x = GUTTER_WIDTH + GUTTER_GAP + PADDING;
 inst.y = PADDING;
-container.resize(inst.width + PADDING * 2, inst.height + PADDING * 2);
+container.resize(
+  inst.width + GUTTER_WIDTH + GUTTER_GAP + PADDING * 2,
+  inst.height + PADDING * 2
+);
 
 // Auto-extraction default path (override path described below)
 const anatomyParts = card_anatomy.parts || [];
@@ -1340,6 +1352,95 @@ let unresolvedVariables = 0;
 let tokenTagsRendered = 0;
 let annotationCollisions = 0;
 const placedAnnotations = []; // for collision detection
+
+// v1.70.1: gutter-rendering helper used by BOTH auto-extract path (Pass 2 below)
+// AND override path (when card_anatomy.specs[] is non-empty).
+async function buildGutterFromEntries(entries, surface) {
+  // entries pre-sorted by anchorY; surface provides bounding-box reference.
+  const slots = computeGutterSlots(entries, ENTRY_HEIGHT);
+  const sbb = surface.absoluteBoundingBox;
+  const cbb = container.absoluteBoundingBox;
+  const surfaceX = sbb.x - cbb.x;
+  const totalGutterHeight = Math.max(
+    slots[slots.length - 1].slotY + ENTRY_HEIGHT,
+    sbb.height
+  );
+  const gutterFrame = figma.createFrame();
+  gutterFrame.name = "Specs gutter (" + entries.length + " annotations)";
+  gutterFrame.layoutMode = "NONE";
+  gutterFrame.fills = [];
+  gutterFrame.clipsContent = false;
+  gutterFrame.resize(GUTTER_WIDTH + GUTTER_GAP + TICK_LENGTH, totalGutterHeight);
+  gutterFrame.x = surfaceX - GUTTER_WIDTH - GUTTER_GAP;
+  gutterFrame.y = sbb.y - cbb.y;
+
+  for (let i = 0; i < entries.length; i++) {
+    const e = entries[i];
+    const slot = slots[i];
+
+    // Build label pill via tokenTagSpec
+    const spec = tokenTagSpec(formatLabel(e.value));
+    const labelFrame = figma.createFrame();
+    labelFrame.layoutMode = "HORIZONTAL";
+    labelFrame.primaryAxisSizingMode = "AUTO";
+    labelFrame.counterAxisSizingMode = "AUTO";
+    labelFrame.paddingLeft = spec.paddingX;
+    labelFrame.paddingRight = spec.paddingX;
+    labelFrame.paddingTop = spec.paddingY;
+    labelFrame.paddingBottom = spec.paddingY;
+    labelFrame.cornerRadius = spec.cornerRadius;
+    labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
+    const labelText = figma.createText();
+    labelText.fontName = spec.fontName;
+    labelText.fontSize = spec.fontSize;
+    labelText.characters = spec.text;
+    labelText.fills = [{ type: "SOLID", color: spec.fgColor }];
+    labelFrame.appendChild(labelText);
+    labelFrame.x = 0;
+    labelFrame.y = slot.slotY;
+    gutterFrame.appendChild(labelFrame);
+
+    // Build leader (horizontal + optional witness + tick)
+    const path = buildLeaderPath(
+      slot.slotY,
+      slot.anchorY - (sbb.y - cbb.y),
+      GUTTER_WIDTH,
+      GUTTER_GAP,
+      TICK_LENGTH,
+      labelFrame.height
+    );
+
+    const hLine = figma.createLine();
+    hLine.resize(path.horizontalLine.length, 0);
+    hLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+    hLine.strokeWeight = STROKE_WEIGHT;
+    hLine.x = path.horizontalLine.x;
+    hLine.y = path.horizontalLine.y;
+    gutterFrame.appendChild(hLine);
+
+    if (path.witnessLine) {
+      const wLine = figma.createLine();
+      wLine.resize(path.witnessLine.length, 0);
+      wLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+      wLine.strokeWeight = STROKE_WEIGHT;
+      wLine.rotation = 90;
+      wLine.x = path.witnessLine.x;
+      wLine.y = path.witnessLine.y;
+      gutterFrame.appendChild(wLine);
+    }
+
+    const tick = figma.createLine();
+    tick.resize(path.tick.length, 0);
+    tick.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+    tick.strokeWeight = STROKE_WEIGHT;
+    tick.x = path.tick.x;
+    tick.y = path.tick.y;
+    gutterFrame.appendChild(tick);
+  }
+
+  container.appendChild(gutterFrame);
+  return entries.length;
+}
 
 // Pass 1 — collect all annotation entries per surface
 const entriesPerSurface = new Map();
@@ -1396,86 +1497,12 @@ for (const [surface, surfaceEntries] of entriesPerSurface) {
     gutterEntriesPerSurface.push(0);
   } else {
     // Gutter mode — N > 1 annotations on this surface
+    // v1.70.1: extracted to buildGutterFromEntries helper (defined above)
+    // so the override path can reuse the same gutter renderer.
     surfaceEntries.sort((a, b) => a.anchorY - b.anchorY);
-    const slots = computeGutterSlots(surfaceEntries, ENTRY_HEIGHT);
-
-    // Build gutter frame to the left of the component
-    const sbb = surface.absoluteBoundingBox;
-    const cbb = container.absoluteBoundingBox;
-    const surfaceX = sbb.x - cbb.x;
-    const totalGutterHeight = Math.max(
-      slots[slots.length - 1].slotY + ENTRY_HEIGHT,
-      sbb.height
-    );
-    const gutterFrame = figma.createFrame();
-    gutterFrame.name = "Specs gutter (" + surfaceEntries.length + " annotations)";
-    gutterFrame.layoutMode = "NONE";
-    gutterFrame.fills = [];
-    gutterFrame.clipsContent = false;
-    gutterFrame.resize(GUTTER_WIDTH + GUTTER_GAP + TICK_LENGTH, totalGutterHeight);
-    gutterFrame.x = surfaceX - GUTTER_WIDTH - GUTTER_GAP;
-    gutterFrame.y = sbb.y - cbb.y;
-
-    for (let i = 0; i < surfaceEntries.length; i++) {
-      const e = surfaceEntries[i];
-      const slot = slots[i];
-
-      // Build label pill via tokenTagSpec
-      const spec = tokenTagSpec(formatLabel(e.value));
-      const labelFrame = figma.createFrame();
-      labelFrame.layoutMode = "HORIZONTAL";
-      labelFrame.primaryAxisSizingMode = "AUTO";
-      labelFrame.counterAxisSizingMode = "AUTO";
-      labelFrame.paddingLeft = spec.paddingX;
-      labelFrame.paddingRight = spec.paddingX;
-      labelFrame.paddingTop = spec.paddingY;
-      labelFrame.paddingBottom = spec.paddingY;
-      labelFrame.cornerRadius = spec.cornerRadius;
-      labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
-      const labelText = figma.createText();
-      labelText.fontName = spec.fontName;
-      labelText.fontSize = spec.fontSize;
-      labelText.characters = spec.text;
-      labelText.fills = [{ type: "SOLID", color: spec.fgColor }];
-      labelFrame.appendChild(labelText);
-      labelFrame.x = 0;
-      labelFrame.y = slot.slotY;
-      gutterFrame.appendChild(labelFrame);
-      tokenTagsRendered += 1;
-
-      // Build leader (horizontal + optional witness + tick)
-      const path = buildLeaderPath(slot.slotY, slot.anchorY - (sbb.y - cbb.y), GUTTER_WIDTH, GUTTER_GAP, TICK_LENGTH, labelFrame.height);
-
-      const hLine = figma.createLine();
-      hLine.resize(path.horizontalLine.length, 0);
-      hLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
-      hLine.strokeWeight = STROKE_WEIGHT;
-      hLine.x = path.horizontalLine.x;
-      hLine.y = path.horizontalLine.y;
-      gutterFrame.appendChild(hLine);
-
-      if (path.witnessLine) {
-        const wLine = figma.createLine();
-        wLine.resize(path.witnessLine.length, 0);
-        wLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
-        wLine.strokeWeight = STROKE_WEIGHT;
-        wLine.rotation = 90;
-        wLine.x = path.witnessLine.x;
-        wLine.y = path.witnessLine.y;
-        gutterFrame.appendChild(wLine);
-      }
-
-      const tick = figma.createLine();
-      tick.resize(path.tick.length, 0);
-      tick.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
-      tick.strokeWeight = STROKE_WEIGHT;
-      tick.x = path.tick.x;
-      tick.y = path.tick.y;
-      gutterFrame.appendChild(tick);
-    }
-
-    container.appendChild(gutterFrame);
-    gutterEntriesPerSurface.push(surfaceEntries.length);
+    const placedCount = await buildGutterFromEntries(surfaceEntries, surface);
+    tokenTagsRendered += placedCount;
+    gutterEntriesPerSurface.push(placedCount);
   }
 }
 
@@ -1496,7 +1523,63 @@ return {
 };
 ```
 
-**When `card_anatomy.specs[]` is non-empty (author override path):** skip the surface walk above and emit one annotation per `specs[i]` entry instead. For each entry, find the layer named `specs[i].layerName` in the rendered instance via `inst.findOne(n => n.name === specs[i].layerName)`. If the layer is missing, drop the entry and increment a `droppedSpecs` counter for the manifest. Otherwise read the layer's relevant dimension (`specs[i].value`) and call `buildDimensionAnnotation(specs[i].value, specs[i].orientation || "horizontal", formatLabel({ px: specs[i].value, token: specs[i].tokenName || null }))`. Append the annotation to the container at the layer's bounding-box edge per `specs[i].side`. Set `pattern14.authorOverrides` to the placed count.
+**Author override path (v1.70.1+):** when `card_anatomy.specs[]` is non-empty, BYPASS the surface walk + auto-extract logic above. Build entries directly from author-supplied specs and render them through the same `buildGutterFromEntries` helper. This guarantees the override produces real gutter geometry (not a static text table).
+
+Insert this block AFTER the auto-extract render loop completes (after the `for (const [surface, surfaceEntries] of entriesPerSurface)` loop), BEFORE the manifest return statement:
+
+```js
+// v1.70.1: author override path — render card_anatomy.specs[] as a gutter on the
+// top-level instance. Bypasses surface walk; entries come directly from author
+// specs. Same buildGutterFromEntries helper used by auto-extract path above.
+let droppedSpecs = 0;
+let authorOverrideCount = 0;
+if (card_anatomy && card_anatomy.specs && card_anatomy.specs.length > 0) {
+  const overrideEntries = [];
+  const cbb = container.absoluteBoundingBox;
+  for (const spec of card_anatomy.specs) {
+    const layer = inst.findOne(n => n.name === spec.layerName);
+    if (!layer) {
+      droppedSpecs += 1;
+      continue;
+    }
+    // Anchor at the layer's vertical center, relative to container.
+    const lbb = layer.absoluteBoundingBox;
+    const anchorY = (lbb.y - cbb.y) + lbb.height / 2;
+    // Parse the value — accept "24px", "24", or numeric directly.
+    const numericPx = parseFloat(String(spec.value).replace(/px$/i, "")) || 0;
+    const value = { px: numericPx, token: spec.tokenName || null };
+    overrideEntries.push({ value, anchorY });
+  }
+  if (overrideEntries.length > 0) {
+    overrideEntries.sort((a, b) => a.anchorY - b.anchorY);
+    const placed = await buildGutterFromEntries(overrideEntries, inst);
+    tokenTagsRendered += placed;
+    authorOverrideCount = placed;
+  }
+}
+```
+
+Then update the manifest return to surface the new fields:
+
+```js
+return {
+  redlineId: container.id,
+  pattern14: {
+    extractedFrames,
+    boundVariables: boundVariablesCount,
+    unresolvedVariables,
+    authorOverrides: authorOverrideCount,
+    droppedSpecs,
+    annotationCollisions,
+    tokenTagsRendered,
+    gutterEntriesPerSurface,
+  },
+};
+```
+
+The override path uses the same gutter geometry as auto-extract — vector lines, label pills, ticks at the component's left edge. Author intent (specs[] entries) drives WHICH measurements to show; the renderer guarantees HOW they look. No improvisation surface for the AI.
+
+If the override entries reference layers that don't exist in the rendered instance (e.g., "Focus ring" in a Default-state Checkbox), they're silently dropped and counted in `droppedSpecs`. Designer can verify via the manifest field.
 
 **Pointer Badge sizing path** — for components with explicit `width` or `height` token bindings on the top-level instance frame, emit a "pointer badge" pill instead of a dimension line. The pointer badge is a single Token Tag pill (no line, no caps) anchored at the instance's closest edge. Build with the same `tokenTagSpec` helper:
 
