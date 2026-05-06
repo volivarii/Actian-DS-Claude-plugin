@@ -196,10 +196,10 @@ async function appendSubFrame(label, sourceCard) {
   }
 
   // Append body content per sub-section type:
-  // label === "Anatomy"   → variant matrix component instance + parts table (see Pattern 8 + Pattern 3)
+  // label === "Anatomy"   → Pattern 9 (Anatomy Diagram with badges + leader lines) + Pattern 3 (parts table)
   // label === "Variation" → variant matrix push (see Pattern 8 — Variant Instance)
   // label === "Tokens"    → color swatch grid + sizing/typography tables (see Pattern 4 + Pattern 3)
-  // label === "Specs"     → dimension annotations from card_anatomy.specs
+  // label === "Specs"     → Pattern 14 (Specs Redline — auto-extracted from instance, with optional card_anatomy.specs override)
 
   slot.appendChild(sub);
   return sub;
@@ -911,6 +911,175 @@ if (insights.sources?.length) {
 
 return { divergencesAndSourcesDone: true };
 ```
+
+---
+
+## 14. Specs Redline Pattern (Section 1 Specs sub-frame, v1.68.0+)
+
+Auto-extracted dimension annotations from the live component instance. Imports `Meta / Content / Dimension Annotation` and `Meta / Content / Pointer Badge` (both already in Meta Kit). Walks the instance for padding/itemSpacing, resolves bound variables to design-token names, falls back to raw px when unbound.
+
+The `card_anatomy.specs[]` field in `brief-data.json` is an **optional override** — if non-empty, those entries drive placement instead of the auto-extracted set. Default flow leaves it empty.
+
+Single ~4-6KB `use_figma` call. Mirrors Pattern 9's bounding-box approach.
+
+```js
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
+
+const PADDING = 64;  // larger than Pattern 9's 48px to give annotations room
+const DIMENSION_KEY = "49bf6a1b210a403ba145a3fdee9b1994eb54069a";  // Meta / Content / Dimension Annotation
+const POINTER_KEY   = "7e066fc21d9a2bbbcd1149113787cf59140162d4";  // Meta / Content / Pointer Badge
+
+// 1. Container
+const container = figma.createFrame();
+container.name = "Specs redline";
+container.fills = [{ type: "SOLID", color: hexToRgb("#FAFAFF") }];
+container.layoutMode = "NONE";  // freeform — annotations placed by absolute math
+
+// 2. Target instance (same variant rule as Pattern 9)
+const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
+let variantComp;
+if (targetNode.type === "COMPONENT_SET") {
+  variantComp = targetNode.findChild(n => n.name === "<diagramVariant>");
+  if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
+} else {
+  variantComp = targetNode;
+}
+const inst = variantComp.createInstance();
+container.appendChild(inst);
+inst.x = PADDING;
+inst.y = PADDING;
+container.resize(inst.width + PADDING * 2, inst.height + PADDING * 2);
+
+// 3. Walk frames — collect surface candidates
+// Top-level always surfaces; nested surfaces only when a direct child name matches an anatomy part.
+// Skip deeper nesting.
+const anatomyParts = card_anatomy.parts || [];  // from brief-data.json
+const partNameSet = new Set(anatomyParts.map(p => p.figmaLayerName));
+
+function shouldSurface(node, isTopLevel) {
+  if (isTopLevel) return true;
+  if (!node.children || node.children.length === 0) return false;
+  return node.children.some(c => partNameSet.has(c.name));
+}
+
+const surfaces = [];
+function walk(node, isTopLevel) {
+  if (node.type !== "FRAME" && node.type !== "INSTANCE" && node.type !== "COMPONENT") return;
+  if (shouldSurface(node, isTopLevel)) surfaces.push(node);
+  for (const c of (node.children || [])) walk(c, false);
+}
+walk(inst, true);
+
+// 4. For each surface, collect spacing values + bind ids, then resolve to token names
+async function resolveValue(numericPx, boundId) {
+  if (!boundId) return { px: numericPx, token: null };
+  try {
+    const v = await figma.variables.getVariableByIdAsync(boundId);
+    if (!v || !v.name) return { px: numericPx, token: null };
+    return { px: numericPx, token: v.name };
+  } catch (e) {
+    return { px: numericPx, token: null };
+  }
+}
+
+function annotationVariant(prop, autolayout) {
+  if (prop === "paddingLeft" || prop === "paddingRight") return "Horizontal";
+  if (prop === "paddingTop" || prop === "paddingBottom") return "Vertical";
+  if (prop === "itemSpacing") return autolayout === "HORIZONTAL" ? "Horizontal" : "Vertical";
+  throw new Error("Unknown property: " + prop);
+}
+
+function formatLabel(v) {
+  return v.token ? `${v.px}px — ${v.token}` : `${v.px}px`;
+}
+
+// 5. Place Dimension Annotations per surface
+const dimSet = await figma.importComponentSetByKeyAsync(DIMENSION_KEY);
+let collisions = 0;
+let extractedFrames = 0;
+let boundVariablesCount = 0;
+let unresolvedVariables = 0;
+
+for (const surface of surfaces) {
+  if (surface.layoutMode === "NONE") continue;  // not autolayout — skip
+  extractedFrames += 1;
+
+  const props = ["paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "itemSpacing"];
+  for (const prop of props) {
+    const px = surface[prop];
+    if (!px || px === 0) continue;
+
+    const boundId = surface.boundVariables?.[prop]?.id || null;
+    const value = await resolveValue(px, boundId);
+    if (value.token) boundVariablesCount += 1;
+    else if (boundId) unresolvedVariables += 1;
+
+    const variantName = "Orientation=" + annotationVariant(prop, surface.layoutMode);
+    const variant = dimSet.findChild(n => n.name === variantName) ||
+                    dimSet.defaultVariant ||
+                    dimSet.children[0];
+    const ann = variant.createInstance();
+    ann.setProperties({ "Value#45:7": formatLabel(value) });
+
+    // Position the annotation against the surface's bounding box.
+    // Convention: paddingLeft → annotation left of left edge; paddingRight → right of right edge;
+    //             paddingTop → above top edge; paddingBottom → below bottom edge;
+    //             itemSpacing → centered between first two children along the autolayout axis.
+    const sbb = surface.absoluteBoundingBox;
+    const cbb = container.absoluteBoundingBox;
+    const sx = sbb.x - cbb.x;
+    const sy = sbb.y - cbb.y;
+    const GAP = 8;
+    if (prop === "paddingLeft") {
+      ann.x = sx - ann.width - GAP;
+      ann.y = sy + sbb.height / 2 - ann.height / 2;
+    } else if (prop === "paddingRight") {
+      ann.x = sx + sbb.width + GAP;
+      ann.y = sy + sbb.height / 2 - ann.height / 2;
+    } else if (prop === "paddingTop") {
+      ann.x = sx + sbb.width / 2 - ann.width / 2;
+      ann.y = sy - ann.height - GAP;
+    } else if (prop === "paddingBottom") {
+      ann.x = sx + sbb.width / 2 - ann.width / 2;
+      ann.y = sy + sbb.height + GAP;
+    } else if (prop === "itemSpacing") {
+      // Place at the center of the surface — this is approximate; refine in Phase 2 if it overlaps content.
+      ann.x = sx + sbb.width / 2 - ann.width / 2;
+      ann.y = sy + sbb.height / 2 - ann.height / 2;
+    }
+    container.appendChild(ann);
+  }
+}
+
+// 6. Append the redline container to the Specs sub-frame
+const parent = await figma.getNodeByIdAsync("<specsSubFrameId>");
+parent.appendChild(container);
+
+return {
+  redlineId: container.id,
+  pattern14: {
+    extractedFrames,
+    boundVariables: boundVariablesCount,
+    unresolvedVariables,
+    authorOverrides: 0,
+    annotationCollisions: collisions
+  }
+};
+```
+
+**When `card_anatomy.specs[]` is non-empty (author override):** skip step 3 (frame walk) and place one Dimension Annotation per `specs[i]` instead, anchored by `specs[i].layerName` (drop the entry if the layer doesn't exist in the rendered variant — log to manifest). Use `specs[i].value` and `specs[i].tokenName` directly without resolution. Set `pattern14.authorOverrides` to the count placed.
+
+**Failure modes** (from Phase 1 design spec):
+
+- Component has no autolayout → render text-table fallback (`Pattern 3`) with note "Auto-extraction unavailable — no autolayout."
+- `getVariableByIdAsync` returns null → keep raw px, increment `unresolvedVariables`.
+- Layer referenced by author-supplied spec doesn't exist → drop spec entry, log to manifest.
+- Annotations would overlap → reduce `Value#45:7` font to 9pt before colliding (Phase 2 will add proper collision routing).
+
+**Pointer Badge sizing annotations:** for components with explicit `width`/`height` token bindings on the top-level frame, place a `Meta / Content / Pointer Badge` instead of a Dimension Annotation, with `Direction` matching the closest container edge and `Label#45:4 = formatLabel(value)`. Skip if dimensions are unbound (most common case).
 
 ---
 
