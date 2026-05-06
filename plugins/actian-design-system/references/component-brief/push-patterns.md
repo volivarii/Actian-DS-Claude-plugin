@@ -581,7 +581,7 @@ if (colorCol) {
 
 ---
 
-## 9. Anatomy Diagram Pattern (Card 3)
+## 9. Anatomy Diagram Pattern (Section 1 Anatomy sub-frame, v1.70.0+)
 
 Single ~4-6KB call. Creates component instance, reads bounding boxes, computes badge positions, draws badges + leader lines.
 
@@ -604,27 +604,75 @@ const container = figma.createFrame();
 container.name = "Anatomy diagram";
 container.fills = [{ type: "SOLID", color: hexToRgb("#FAFAFF") }];
 
-// 2. Create target component instance
+// 2. Create target component instance — render the Enabled/Default state.
+//    Per cross-DS convention (Carbon, Material 3, Polaris, Atlassian, Apple HIG),
+//    anatomy diagrams always show the resting state. State-conditional parts
+//    (focus ring, hover surface) are dropped from the diagram and footnoted
+//    in the parts table.
 const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
 let variantComp;
 if (targetNode.type === "COMPONENT_SET") {
-  variantComp = targetNode.findChild(n => n.name === "<diagramVariant>");
+  // Prefer Enabled / Default state; fall back to defaultVariant or first child
+  variantComp = targetNode.findChild(n => /State=Default|State=Enabled/.test(n.name));
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
   variantComp = targetNode;
 }
 const inst = variantComp.createInstance();
 container.appendChild(inst);
+
+// 2a. Pick scale factor — heuristic per pickScale (mirrors scripts/lib/anatomy-scale.js):
+//     smallest scale in {1,2,3,4} where the smaller axis × scale exceeds 80px.
+//     Override via card_anatomy.anatomyScale or component-guidelines/<slug>.json
+//     anatomyScale field.
+function pickScale(width, height, override) {
+  if (override !== null && override !== undefined) {
+    if (!Number.isInteger(override) || override < 1 || override > 4) {
+      throw new Error("Invalid anatomyScale override: " + override);
+    }
+    return override;
+  }
+  const smaller = Math.min(width, height);
+  for (let s = 1; s <= 4; s++) {
+    if (smaller * s > 80) return s;
+  }
+  return 4;
+}
+const scaleOverride = card_anatomy?.anatomyScale ?? null;
+const scale = pickScale(inst.width, inst.height, scaleOverride);
+
+// Apply scale by wrapping in a fixed-size frame and resizing.
+// (instance.scale() may not be supported on instances in all Plugin API versions.)
 inst.x = PADDING;
 inst.y = PADDING;
+if (scale > 1) {
+  const origW = inst.width;
+  const origH = inst.height;
+  inst.resize(origW * scale, origH * scale);
+}
 const iw = inst.width;
 const ih = inst.height;
 container.resize(iw + PADDING * 2, ih + PADDING * 2);
 
-// 3. Read bounding boxes for each part
-const parts = [/* from data model: {letter, figmaLayerName} */];
+// 2b. Filter anatomy parts: only those whose figmaLayerName is present in the
+//     rendered Enabled state get badges; absent parts get footnoted rows in the
+//     parts table.
+const allLayerNames = new Set();
+function collectNames(node) {
+  if (node.name) allLayerNames.add(node.name);
+  for (const c of (node.children || [])) collectNames(c);
+}
+collectNames(inst);
+const visibleParts = [];
+const absentParts = [];
+for (const p of (card_anatomy.parts || [])) {
+  if (allLayerNames.has(p.figmaLayerName)) visibleParts.push(p);
+  else absentParts.push(p);
+}
+
+// 3. Read bounding boxes for visible parts (absent parts handled separately)
 const partData = [];
-for (const p of parts) {
+for (const p of visibleParts) {
   const layer = inst.findOne(n => n.name === p.figmaLayerName);
   if (!layer) continue;
   const bb = layer.absoluteBoundingBox;
@@ -633,16 +681,18 @@ for (const p of parts) {
   const relY = bb.y - cbb.y;
   const cx = relX + bb.width / 2;
   const cy = relY + bb.height / 2;
-  // Closest edge
-  const distTop = relY;
-  const distBottom = (PADDING + ih) - (relY + bb.height);
+  // Closest edge — left-then-top tiebreaker (EightShapes Specs convention).
+  // Mirrors scripts/lib/anatomy-filter.js pickClosestEdge.
   const distLeft = relX;
+  const distTop = relY;
   const distRight = (PADDING + iw) - (relX + bb.width);
-  const minDist = Math.min(distTop, distBottom, distLeft, distRight);
-  let side = "top";
-  if (minDist === distRight) side = "right";
-  else if (minDist === distBottom) side = "bottom";
-  else if (minDist === distLeft) side = "left";
+  const distBottom = (PADDING + ih) - (relY + bb.height);
+  const ordered = [["left", distLeft], ["top", distTop], ["right", distRight], ["bottom", distBottom]];
+  let side = ordered[0][0];
+  let minDist = ordered[0][1];
+  for (let oi = 1; oi < ordered.length; oi++) {
+    if (ordered[oi][1] < minDist) { side = ordered[oi][0]; minDist = ordered[oi][1]; }
+  }
   partData.push({ ...p, cx, cy, relX, relY, w: bb.width, h: bb.height, side });
 }
 
@@ -721,11 +771,44 @@ for (const pd of sides.left) {
   createBadge(pd, PADDING - offset, pd.cy, pd.relX, pd.cy);
 }
 
+// 7. Footnote absent parts in the parts table — adds a small text node listing
+//    which anatomy parts are state-only and not rendered on the primary diagram.
+//    Cross-DS convention (Carbon, M3): state-conditional parts go in a separate
+//    "States" subsection; for now we surface them as table footnotes.
+if (absentParts.length > 0) {
+  await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+  const footnoteFrame = figma.createFrame();
+  footnoteFrame.name = "Anatomy state-only parts footnote";
+  footnoteFrame.layoutMode = "VERTICAL";
+  footnoteFrame.itemSpacing = 2;
+  footnoteFrame.primaryAxisSizingMode = "AUTO";
+  footnoteFrame.counterAxisSizingMode = "AUTO";
+  footnoteFrame.fills = [];
+  footnoteFrame.paddingTop = 8;
+  for (const ap of absentParts) {
+    const t = figma.createText();
+    t.fontName = { family: "Inter", style: "Regular" };
+    t.fontSize = 11;
+    t.fills = [{ type: "SOLID", color: { r: 0.42, g: 0.42, b: 0.49 } }];
+    t.characters = `${ap.letter}. ${ap.name} — only present in interactive states (Hover/Focus/Pressed); see component-guidelines for state-scoped parts`;
+    footnoteFrame.appendChild(t);
+  }
+  container.appendChild(footnoteFrame);
+}
+
 // Append container to content slot
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(container);
 
-return { diagramId: container.id };
+return {
+  diagramId: container.id,
+  pattern9: {
+    scaleApplied: scale,
+    scaleSource: scaleOverride !== null ? "override" : "heuristic",
+    partsVisible: visibleParts.length,
+    partsAbsent: absentParts.length,
+  },
+};
 ```
 
 Fill in `parts` array and `<targetNodeId>` / `<diagramVariant>` from `brief-data.json.card3_anatomy`.
