@@ -15,7 +15,17 @@
  */
 
 function filterPartsByLayerExistence(parts, layerNamesPresent) {
-  throw new Error("not implemented");
+  var visible = [];
+  var absent = [];
+  for (var i = 0; i < parts.length; i++) {
+    var p = parts[i];
+    if (layerNamesPresent.has(p.figmaLayerName)) {
+      visible.push(p);
+    } else {
+      absent.push(p);
+    }
+  }
+  return { visible: visible, absent: absent };
 }
 
 function pickClosestEdge(box, container, leftFirst) {
