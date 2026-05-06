@@ -36,7 +36,35 @@ function buildLeaderPath(
   tickLength,
   pillHeight,
 ) {
-  throw new Error("not implemented");
+  var labelCenterY = slotY + pillHeight / 2;
+  var bendX = gutterWidth + gutterGap;
+  var horizontalLine = {
+    x: 0,
+    y: labelCenterY,
+    length: bendX,
+    orientation: "horizontal",
+  };
+  var witnessLine = null;
+  var diff = Math.abs(labelCenterY - anchorY);
+  if (diff > 2) {
+    witnessLine = {
+      x: bendX,
+      y: Math.min(labelCenterY, anchorY),
+      length: diff,
+      orientation: "vertical",
+    };
+  }
+  var tick = {
+    x: bendX,
+    y: anchorY,
+    length: tickLength,
+    orientation: "horizontal",
+  };
+  return {
+    horizontalLine: horizontalLine,
+    witnessLine: witnessLine,
+    tick: tick,
+  };
 }
 
 module.exports = {
