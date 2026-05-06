@@ -320,6 +320,37 @@ headerRow.layoutSizingHorizontal = "FILL";
 return { tableId: headerRow.id };
 ```
 
+**Token Tag styling (v1.69.0+):** When a table cell contains a `--zen-*` token name, render the cell as a Token Tag pill instead of plain text. Use the same construction as Pattern 14's `tokenTagSpec`:
+
+```js
+async function appendTokenTagCell(parentRow, tokenText) {
+  await figma.loadFontAsync({ family: "Inter", style: "Medium" });
+  const labelFrame = figma.createFrame();
+  labelFrame.name = "Token: " + tokenText;
+  labelFrame.layoutMode = "HORIZONTAL";
+  labelFrame.primaryAxisSizingMode = "AUTO";
+  labelFrame.counterAxisSizingMode = "AUTO";
+  labelFrame.paddingLeft = 5;
+  labelFrame.paddingRight = 5;
+  labelFrame.paddingTop = 2;
+  labelFrame.paddingBottom = 2;
+  labelFrame.cornerRadius = 3;
+  labelFrame.fills = [{ type: "SOLID", color: { r: 0.941, g: 0.949, b: 0.984 } }]; // ~#F0F2FA
+
+  const text = figma.createText();
+  text.fontName = { family: "Inter", style: "Medium" };
+  text.fontSize = 12;
+  text.characters = tokenText;
+  text.fills = [{ type: "SOLID", color: { r: 0.020, g: 0.314, b: 0.863 } }]; // ~#0550DC
+  labelFrame.appendChild(text);
+
+  parentRow.appendChild(labelFrame);
+  return labelFrame;
+}
+```
+
+Use this for token-name cells in: parts table (Pattern 9 anatomy parts table), sizing table (Card 1 supercard Tokens sub-frame), typography table (same), contrast row token columns. Plain-text cells remain for non-token columns (Element name, Notes, Value).
+
 ---
 
 ## 4. Color Swatch Cell Pattern (Card 4 Color Token Grid)
@@ -373,6 +404,8 @@ cell.appendChild(textStack);
 ```
 
 Regression guard: if the cell or its parent row uses `counterAxisSizingMode = "FIXED"` or sets a hard `cell.resize(_, 20)`, the second line clips. Always Hug.
+
+**Token Tag styling (v1.69.0+):** The token-name text below the swatch dot must use the Token Tag pill style — same construction as Pattern 3's `appendTokenTagCell`. The hex value text below the token name stays as plain monospace text (it's not a token reference). Replace the `// token-name text node` placeholder with a call to `appendTokenTagCell(textStack, tokenName)` or the inline equivalent.
 
 **Table layout:** Build as a header row (state + column names) + data rows. Each data row: state label text + N swatch cells. The data row frame should use `layoutMode = "HORIZONTAL"`, `counterAxisAlignItems = "CENTER"`, and `counterAxisSizingMode = "AUTO"` so it grows to the tallest cell. Batch 2-3 rows per `use_figma` call.
 
