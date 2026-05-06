@@ -594,6 +594,23 @@ if (colorCol) {
 }
 ```
 
+**Variation Matrix construction (v1.70.0+):** When building a 2D state matrix for the Section 1 Variation sub-frame (e.g., Checkbox state matrix with rows = No/Yes/Indeterminate × columns = Default/Hover/Focus/Pressed/Disabled), each cell contains a real component instance. Cells are children of HORIZONTAL row frames. The same regression that bit `appendTokenTagCell` bites here: row sizing crushes child instances to 1px.
+
+```js
+async function appendVariationCell(parentRow, instance) {
+  parentRow.appendChild(instance);
+  if (typeof instance.layoutSizingVertical !== "undefined") {
+    instance.layoutSizingVertical = "HUG";
+  }
+  if (typeof instance.layoutSizingHorizontal !== "undefined") {
+    instance.layoutSizingHorizontal = "HUG";
+  }
+  return instance;
+}
+```
+
+Apply this to every cell in the Variation matrix. Without the guard, Phase 2 PR 1 smoke showed Checkbox cells rendering as ~1px tall horizontal lines instead of the actual 24×24 Checkbox instance.
+
 ---
 
 ## 9. Anatomy Diagram Pattern (Section 1 Anatomy sub-frame, v1.70.0+)
