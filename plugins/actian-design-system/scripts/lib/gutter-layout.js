@@ -15,10 +15,27 @@
  */
 
 function computeGutterSlots(entries, entryHeight) {
-  throw new Error("not implemented");
+  var slots = [];
+  var nextY = 0;
+  for (var i = 0; i < entries.length; i++) {
+    var e = entries[i];
+    var idealY = e.anchorY - entryHeight / 2;
+    var slotY = Math.max(nextY, idealY);
+    if (slotY < 0) slotY = 0;
+    slots.push({ slotY: slotY, anchorY: e.anchorY });
+    nextY = slotY + entryHeight;
+  }
+  return slots;
 }
 
-function buildLeaderPath(slotY, anchorY, gutterWidth, gutterGap, tickLength, pillHeight) {
+function buildLeaderPath(
+  slotY,
+  anchorY,
+  gutterWidth,
+  gutterGap,
+  tickLength,
+  pillHeight,
+) {
   throw new Error("not implemented");
 }
 
