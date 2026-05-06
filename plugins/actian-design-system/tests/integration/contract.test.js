@@ -291,52 +291,29 @@ describe("Contract Tests", function () {
 });
 
 // ---------------------------------------------------------------------------
-// Part 5: Meta Kit redline component key contracts
+// Part 5: Pattern 14 runtime-primitive module contracts (v1.69.0+)
 // ---------------------------------------------------------------------------
 //
-// Pattern 14 (Specs Redline) imports two Meta Kit components by key. If a
-// future Meta Kit sync renames or republishes these components, the keys
-// silently change and Pattern 14 falls over at push time. Pin both keys here.
+// Pattern 14 (Specs Redline) was rewritten in v1.69.0 to use runtime
+// primitives (createVector + createLine + createFrame) instead of Meta Kit
+// component instances. The rewrite extracted pure decision logic into
+// scripts/lib/dimension-line.js and scripts/lib/token-tag.js so the algorithm
+// can be unit-tested. Pin those module exports here — catches accidental
+// breakage in the Pattern 14 push-pattern code path.
 
-describe("Pattern 14 redline component keys", function () {
-  var pushPatternsPath = path.join(
-    PLUGIN_ROOT,
-    "references",
-    "component-brief",
-    "push-patterns.md",
-  );
-  var pushPatterns = fs.readFileSync(pushPatternsPath, "utf8");
-
-  it("references Meta / Content / Dimension Annotation key", function () {
-    assert.ok(
-      pushPatterns.includes("49bf6a1b210a403ba145a3fdee9b1994eb54069a"),
-      "push-patterns.md must reference the Dimension Annotation component key",
+describe("Pattern 14 runtime-primitive module exports", function () {
+  it("dimension-line.js exports the three pure functions", function () {
+    var mod = require(
+      path.join(PLUGIN_ROOT, "scripts", "lib", "dimension-line.js"),
     );
+    assert.strictEqual(typeof mod.vectorPathFor, "function");
+    assert.strictEqual(typeof mod.endcapPositions, "function");
+    assert.strictEqual(typeof mod.labelAnchorFor, "function");
   });
 
-  it("references Meta / Content / Pointer Badge key", function () {
-    assert.ok(
-      pushPatterns.includes("7e066fc21d9a2bbbcd1149113787cf59140162d4"),
-      "push-patterns.md must reference the Pointer Badge component key",
-    );
-  });
-
-  it("Meta Kit registry still ships both components", function () {
-    var registryPath = path.join(
-      PLUGIN_ROOT,
-      "docs",
-      "generated",
-      "metakit.json",
-    );
-    var registry = JSON.parse(fs.readFileSync(registryPath, "utf8"));
-    var dim = registry.components["meta-content-dimension-annotation"];
-    var ptr = registry.components["meta-content-pointer-badge"];
-    assert.ok(
-      dim,
-      "metakit.json must include meta-content-dimension-annotation",
-    );
-    assert.ok(ptr, "metakit.json must include meta-content-pointer-badge");
-    assert.strictEqual(dim.key, "49bf6a1b210a403ba145a3fdee9b1994eb54069a");
-    assert.strictEqual(ptr.key, "7e066fc21d9a2bbbcd1149113787cf59140162d4");
+  it("token-tag.js exports the two pure functions", function () {
+    var mod = require(path.join(PLUGIN_ROOT, "scripts", "lib", "token-tag.js"));
+    assert.strictEqual(typeof mod.tokenTagSpec, "function");
+    assert.strictEqual(typeof mod.tokenTagDimensions, "function");
   });
 });
