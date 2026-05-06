@@ -1347,6 +1347,95 @@ let tokenTagsRendered = 0;
 let annotationCollisions = 0;
 const placedAnnotations = []; // for collision detection
 
+// v1.70.1: gutter-rendering helper used by BOTH auto-extract path (Pass 2 below)
+// AND override path (when card_anatomy.specs[] is non-empty).
+async function buildGutterFromEntries(entries, surface) {
+  // entries pre-sorted by anchorY; surface provides bounding-box reference.
+  const slots = computeGutterSlots(entries, ENTRY_HEIGHT);
+  const sbb = surface.absoluteBoundingBox;
+  const cbb = container.absoluteBoundingBox;
+  const surfaceX = sbb.x - cbb.x;
+  const totalGutterHeight = Math.max(
+    slots[slots.length - 1].slotY + ENTRY_HEIGHT,
+    sbb.height
+  );
+  const gutterFrame = figma.createFrame();
+  gutterFrame.name = "Specs gutter (" + entries.length + " annotations)";
+  gutterFrame.layoutMode = "NONE";
+  gutterFrame.fills = [];
+  gutterFrame.clipsContent = false;
+  gutterFrame.resize(GUTTER_WIDTH + GUTTER_GAP + TICK_LENGTH, totalGutterHeight);
+  gutterFrame.x = surfaceX - GUTTER_WIDTH - GUTTER_GAP;
+  gutterFrame.y = sbb.y - cbb.y;
+
+  for (let i = 0; i < entries.length; i++) {
+    const e = entries[i];
+    const slot = slots[i];
+
+    // Build label pill via tokenTagSpec
+    const spec = tokenTagSpec(formatLabel(e.value));
+    const labelFrame = figma.createFrame();
+    labelFrame.layoutMode = "HORIZONTAL";
+    labelFrame.primaryAxisSizingMode = "AUTO";
+    labelFrame.counterAxisSizingMode = "AUTO";
+    labelFrame.paddingLeft = spec.paddingX;
+    labelFrame.paddingRight = spec.paddingX;
+    labelFrame.paddingTop = spec.paddingY;
+    labelFrame.paddingBottom = spec.paddingY;
+    labelFrame.cornerRadius = spec.cornerRadius;
+    labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
+    const labelText = figma.createText();
+    labelText.fontName = spec.fontName;
+    labelText.fontSize = spec.fontSize;
+    labelText.characters = spec.text;
+    labelText.fills = [{ type: "SOLID", color: spec.fgColor }];
+    labelFrame.appendChild(labelText);
+    labelFrame.x = 0;
+    labelFrame.y = slot.slotY;
+    gutterFrame.appendChild(labelFrame);
+
+    // Build leader (horizontal + optional witness + tick)
+    const path = buildLeaderPath(
+      slot.slotY,
+      slot.anchorY - (sbb.y - cbb.y),
+      GUTTER_WIDTH,
+      GUTTER_GAP,
+      TICK_LENGTH,
+      labelFrame.height
+    );
+
+    const hLine = figma.createLine();
+    hLine.resize(path.horizontalLine.length, 0);
+    hLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+    hLine.strokeWeight = STROKE_WEIGHT;
+    hLine.x = path.horizontalLine.x;
+    hLine.y = path.horizontalLine.y;
+    gutterFrame.appendChild(hLine);
+
+    if (path.witnessLine) {
+      const wLine = figma.createLine();
+      wLine.resize(path.witnessLine.length, 0);
+      wLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+      wLine.strokeWeight = STROKE_WEIGHT;
+      wLine.rotation = 90;
+      wLine.x = path.witnessLine.x;
+      wLine.y = path.witnessLine.y;
+      gutterFrame.appendChild(wLine);
+    }
+
+    const tick = figma.createLine();
+    tick.resize(path.tick.length, 0);
+    tick.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
+    tick.strokeWeight = STROKE_WEIGHT;
+    tick.x = path.tick.x;
+    tick.y = path.tick.y;
+    gutterFrame.appendChild(tick);
+  }
+
+  container.appendChild(gutterFrame);
+  return entries.length;
+}
+
 // Pass 1 — collect all annotation entries per surface
 const entriesPerSurface = new Map();
 for (const surface of surfaces) {
@@ -1402,86 +1491,12 @@ for (const [surface, surfaceEntries] of entriesPerSurface) {
     gutterEntriesPerSurface.push(0);
   } else {
     // Gutter mode — N > 1 annotations on this surface
+    // v1.70.1: extracted to buildGutterFromEntries helper (defined above)
+    // so the override path can reuse the same gutter renderer.
     surfaceEntries.sort((a, b) => a.anchorY - b.anchorY);
-    const slots = computeGutterSlots(surfaceEntries, ENTRY_HEIGHT);
-
-    // Build gutter frame to the left of the component
-    const sbb = surface.absoluteBoundingBox;
-    const cbb = container.absoluteBoundingBox;
-    const surfaceX = sbb.x - cbb.x;
-    const totalGutterHeight = Math.max(
-      slots[slots.length - 1].slotY + ENTRY_HEIGHT,
-      sbb.height
-    );
-    const gutterFrame = figma.createFrame();
-    gutterFrame.name = "Specs gutter (" + surfaceEntries.length + " annotations)";
-    gutterFrame.layoutMode = "NONE";
-    gutterFrame.fills = [];
-    gutterFrame.clipsContent = false;
-    gutterFrame.resize(GUTTER_WIDTH + GUTTER_GAP + TICK_LENGTH, totalGutterHeight);
-    gutterFrame.x = surfaceX - GUTTER_WIDTH - GUTTER_GAP;
-    gutterFrame.y = sbb.y - cbb.y;
-
-    for (let i = 0; i < surfaceEntries.length; i++) {
-      const e = surfaceEntries[i];
-      const slot = slots[i];
-
-      // Build label pill via tokenTagSpec
-      const spec = tokenTagSpec(formatLabel(e.value));
-      const labelFrame = figma.createFrame();
-      labelFrame.layoutMode = "HORIZONTAL";
-      labelFrame.primaryAxisSizingMode = "AUTO";
-      labelFrame.counterAxisSizingMode = "AUTO";
-      labelFrame.paddingLeft = spec.paddingX;
-      labelFrame.paddingRight = spec.paddingX;
-      labelFrame.paddingTop = spec.paddingY;
-      labelFrame.paddingBottom = spec.paddingY;
-      labelFrame.cornerRadius = spec.cornerRadius;
-      labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
-      const labelText = figma.createText();
-      labelText.fontName = spec.fontName;
-      labelText.fontSize = spec.fontSize;
-      labelText.characters = spec.text;
-      labelText.fills = [{ type: "SOLID", color: spec.fgColor }];
-      labelFrame.appendChild(labelText);
-      labelFrame.x = 0;
-      labelFrame.y = slot.slotY;
-      gutterFrame.appendChild(labelFrame);
-      tokenTagsRendered += 1;
-
-      // Build leader (horizontal + optional witness + tick)
-      const path = buildLeaderPath(slot.slotY, slot.anchorY - (sbb.y - cbb.y), GUTTER_WIDTH, GUTTER_GAP, TICK_LENGTH, labelFrame.height);
-
-      const hLine = figma.createLine();
-      hLine.resize(path.horizontalLine.length, 0);
-      hLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
-      hLine.strokeWeight = STROKE_WEIGHT;
-      hLine.x = path.horizontalLine.x;
-      hLine.y = path.horizontalLine.y;
-      gutterFrame.appendChild(hLine);
-
-      if (path.witnessLine) {
-        const wLine = figma.createLine();
-        wLine.resize(path.witnessLine.length, 0);
-        wLine.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
-        wLine.strokeWeight = STROKE_WEIGHT;
-        wLine.rotation = 90;
-        wLine.x = path.witnessLine.x;
-        wLine.y = path.witnessLine.y;
-        gutterFrame.appendChild(wLine);
-      }
-
-      const tick = figma.createLine();
-      tick.resize(path.tick.length, 0);
-      tick.strokes = [{ type: "SOLID", color: REDLINE_COLOR }];
-      tick.strokeWeight = STROKE_WEIGHT;
-      tick.x = path.tick.x;
-      tick.y = path.tick.y;
-      gutterFrame.appendChild(tick);
-    }
-
-    container.appendChild(gutterFrame);
-    gutterEntriesPerSurface.push(surfaceEntries.length);
+    const placedCount = await buildGutterFromEntries(surfaceEntries, surface);
+    tokenTagsRendered += placedCount;
+    gutterEntriesPerSurface.push(placedCount);
   }
 }
 
