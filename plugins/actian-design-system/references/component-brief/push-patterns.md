@@ -1301,9 +1301,15 @@ if (targetNode.type === "COMPONENT_SET") {
 }
 const inst = variantComp.createInstance();
 container.appendChild(inst);
-inst.x = PADDING;
+// v1.70.1: shift inst right by (GUTTER_WIDTH + GUTTER_GAP) so the left-gutter
+// has room INSIDE the container at positive x. Without this shift, the gutter
+// lands at negative x and is clipped by the container's default clipsContent=true.
+inst.x = GUTTER_WIDTH + GUTTER_GAP + PADDING;
 inst.y = PADDING;
-container.resize(inst.width + PADDING * 2, inst.height + PADDING * 2);
+container.resize(
+  inst.width + GUTTER_WIDTH + GUTTER_GAP + PADDING * 2,
+  inst.height + PADDING * 2
+);
 
 // Auto-extraction default path (override path described below)
 const anatomyParts = card_anatomy.parts || [];
