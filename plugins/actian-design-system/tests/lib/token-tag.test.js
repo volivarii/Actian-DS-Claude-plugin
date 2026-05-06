@@ -46,3 +46,49 @@ describe("tokenTagSpec", function () {
     assert.strictEqual(spec.text, "");
   });
 });
+
+describe("tokenTagDimensions", function () {
+  // Standard fontMetrics for Inter Medium 12px — avgCharWidth ≈ 6.5, lineHeight ≈ 18
+  var STANDARD = { avgCharWidth: 6.5, lineHeight: 18 };
+
+  it("width grows linearly with text length", function () {
+    var short = mod.tokenTagDimensions("ab", STANDARD);
+    var long = mod.tokenTagDimensions("abcdefgh", STANDARD);
+    assert.ok(long.width > short.width, "longer text → wider tag");
+    // 6 extra chars × 6.5 avgCharWidth = 39px wider
+    assert.ok(long.width - short.width >= 39 && long.width - short.width <= 40);
+  });
+
+  it("includes horizontal padding (5px each side = 10px)", function () {
+    var dims = mod.tokenTagDimensions("a", STANDARD);
+    // 1 char × 6.5 avgCharWidth + 10 padding = 16.5
+    assert.ok(dims.width >= 16 && dims.width <= 17);
+  });
+
+  it("height is constant — lineHeight + 2*paddingY (regardless of text length)", function () {
+    var short = mod.tokenTagDimensions("a", STANDARD);
+    var long = mod.tokenTagDimensions("--zen-spacing-very-long-name", STANDARD);
+    assert.strictEqual(short.height, long.height);
+    // lineHeight 18 + 2*paddingY 2 = 22
+    assert.strictEqual(short.height, 22);
+  });
+
+  it("handles empty text — width is just padding (10)", function () {
+    var dims = mod.tokenTagDimensions("", STANDARD);
+    assert.strictEqual(dims.width, 10);
+  });
+
+  it("uses provided fontMetrics — different metrics produce different widths", function () {
+    var narrow = mod.tokenTagDimensions("hello", {
+      avgCharWidth: 5,
+      lineHeight: 18,
+    });
+    var wide = mod.tokenTagDimensions("hello", {
+      avgCharWidth: 8,
+      lineHeight: 18,
+    });
+    assert.ok(wide.width > narrow.width);
+    // 5 chars × (8-5) = 15px difference
+    assert.strictEqual(wide.width - narrow.width, 15);
+  });
+});

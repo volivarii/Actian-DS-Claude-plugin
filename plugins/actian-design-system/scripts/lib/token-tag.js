@@ -24,7 +24,11 @@ function tokenTagSpec(text) {
 }
 
 function tokenTagDimensions(text, fontMetrics) {
-  throw new Error("not implemented");
+  var paddingX = 5;
+  var paddingY = 2;
+  var width = (text || "").length * fontMetrics.avgCharWidth + 2 * paddingX;
+  var height = fontMetrics.lineHeight + 2 * paddingY;
+  return { width: width, height: height };
 }
 
 module.exports = {
