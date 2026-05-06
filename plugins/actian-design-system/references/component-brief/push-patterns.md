@@ -711,6 +711,12 @@ container.resize(iw + PADDING * 2, ih + PADDING * 2);
 //     parts table.
 const allLayerNames = new Set();
 function collectNames(node) {
+  // v1.70.1: skip invisible layers entirely. Without this guard, layers that
+  // exist but are hidden in the rendered state (e.g., Checkbox's Check icon
+  // in the Unchecked variant) get their name added to allLayerNames, the
+  // "drop absent parts" filter passes them through, and badges are placed
+  // pointing at empty space.
+  if (node.visible === false) return;
   if (node.name) allLayerNames.add(node.name);
   for (const c of (node.children || [])) collectNames(c);
 }
