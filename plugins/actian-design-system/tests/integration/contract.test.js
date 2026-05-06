@@ -318,18 +318,24 @@ describe("Pattern 14 + Pattern 9 module exports", function () {
   });
 
   it("gutter-layout.js exports the two pure functions (v1.70.0+)", function () {
-    var mod = require(path.join(PLUGIN_ROOT, "scripts", "lib", "gutter-layout.js"));
+    var mod = require(
+      path.join(PLUGIN_ROOT, "scripts", "lib", "gutter-layout.js"),
+    );
     assert.strictEqual(typeof mod.computeGutterSlots, "function");
     assert.strictEqual(typeof mod.buildLeaderPath, "function");
   });
 
   it("anatomy-scale.js exports pickScale (v1.70.0+)", function () {
-    var mod = require(path.join(PLUGIN_ROOT, "scripts", "lib", "anatomy-scale.js"));
+    var mod = require(
+      path.join(PLUGIN_ROOT, "scripts", "lib", "anatomy-scale.js"),
+    );
     assert.strictEqual(typeof mod.pickScale, "function");
   });
 
   it("anatomy-filter.js exports the two pure functions (v1.70.0+)", function () {
-    var mod = require(path.join(PLUGIN_ROOT, "scripts", "lib", "anatomy-filter.js"));
+    var mod = require(
+      path.join(PLUGIN_ROOT, "scripts", "lib", "anatomy-filter.js"),
+    );
     assert.strictEqual(typeof mod.filterPartsByLayerExistence, "function");
     assert.strictEqual(typeof mod.pickClosestEdge, "function");
   });
