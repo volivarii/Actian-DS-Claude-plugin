@@ -11,7 +11,16 @@
  */
 
 function tokenTagSpec(text) {
-  throw new Error("not implemented");
+  return {
+    text: text,
+    bgColor: { r: 0.941, g: 0.949, b: 0.984 }, // ~#F0F2FA — light blue tint
+    fgColor: { r: 0.02, g: 0.314, b: 0.863 }, // ~#0550DC — primary blue
+    fontName: { family: "Inter", style: "Medium" },
+    fontSize: 12,
+    paddingX: 5,
+    paddingY: 2,
+    cornerRadius: 3,
+  };
 }
 
 function tokenTagDimensions(text, fontMetrics) {
