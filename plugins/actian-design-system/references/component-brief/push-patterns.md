@@ -356,6 +356,19 @@ async function appendTokenTagCell(parentRow, tokenText) {
   labelFrame.appendChild(text);
 
   parentRow.appendChild(labelFrame);
+
+  // HUG-after-append guard (v1.70.0+): table rows with text-cell width
+  // constraints crush child frames to 1px height. Force AUTO sizing on
+  // the labelFrame after append to override inherited FIXED. Phase 2 PR 1
+  // smoke (2026-05-06) showed Checkbox token-tag cells crushed to ~1px
+  // because parent row had FIXED counter-axis sizing.
+  if (typeof labelFrame.layoutSizingVertical !== "undefined") {
+    labelFrame.layoutSizingVertical = "HUG";
+  }
+  if (typeof labelFrame.layoutSizingHorizontal !== "undefined") {
+    labelFrame.layoutSizingHorizontal = "HUG";
+  }
+
   return labelFrame;
 }
 ```
@@ -416,7 +429,9 @@ cell.appendChild(textStack);
 
 Regression guard: if the cell or its parent row uses `counterAxisSizingMode = "FIXED"` or sets a hard `cell.resize(_, 20)`, the second line clips. Always Hug.
 
-**Token Tag styling (v1.69.0+):** The token-name text below the swatch dot must use the Token Tag pill style — same construction as Pattern 3's `appendTokenTagCell`. The hex value text below the token name stays as plain monospace text (it's not a token reference). Replace the `// token-name text node` placeholder with a call to `appendTokenTagCell(textStack, tokenName)` or the inline equivalent.
+**Token Tag styling (v1.69.0+, with v1.70.0+ HUG guard):** The token-name text below the swatch dot must use the Token Tag pill style — same construction as Pattern 3's `appendTokenTagCell`. The hex value text below the token name stays as plain monospace text (it's not a token reference). Replace the `// token-name text node` placeholder with a call to `appendTokenTagCell(textStack, tokenName)` or the inline equivalent.
+
+**Regression guard (v1.70.0+):** After appending the labelFrame to the textStack, force `labelFrame.layoutSizingVertical = "HUG"` and `labelFrame.layoutSizingHorizontal = "HUG"` (with `typeof !== "undefined"` defensive check). Without this guard, table rows with text-cell width constraints crush child frames to ~1px height — observed in Phase 2 PR 1 smoke (Checkbox token cells were invisible).
 
 **Table layout:** Build as a header row (state + column names) + data rows. Each data row: state label text + N swatch cells. The data row frame should use `layoutMode = "HORIZONTAL"`, `counterAxisAlignItems = "CENTER"`, and `counterAxisSizingMode = "AUTO"` so it grows to the tallest cell. Batch 2-3 rows per `use_figma` call.
 
