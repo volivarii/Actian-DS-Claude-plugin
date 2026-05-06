@@ -29,7 +29,29 @@ function filterPartsByLayerExistence(parts, layerNamesPresent) {
 }
 
 function pickClosestEdge(box, container, leftFirst) {
-  throw new Error("not implemented");
+  var distLeft = box.x - container.x;
+  var distTop = box.y - container.y;
+  var distRight = container.x + container.width - (box.x + box.width);
+  var distBottom = container.y + container.height - (box.y + box.height);
+  var ordered =
+    leftFirst === false
+      ? [
+          ["right", distRight],
+          ["bottom", distBottom],
+          ["left", distLeft],
+          ["top", distTop],
+        ]
+      : [
+          ["left", distLeft],
+          ["top", distTop],
+          ["right", distRight],
+          ["bottom", distBottom],
+        ];
+  var winner = ordered[0];
+  for (var i = 1; i < ordered.length; i++) {
+    if (ordered[i][1] < winner[1]) winner = ordered[i];
+  }
+  return winner[0];
 }
 
 module.exports = {
