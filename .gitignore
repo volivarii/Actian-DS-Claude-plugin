@@ -36,8 +36,10 @@ plugins/*/.env.local
 # Test prompts (local reference only)
 plugins/*/TEST-PROMPTS.md
 
-# Evals (large transcripts, local dev only)
-plugins/*/evals/
+# Evals: ignore workspace outputs (regenerated per run) and stray transcripts,
+# but track eval lane definitions (fixtures, evals.json, grader.md, README.md)
+plugins/actian-design-system/evals/**/workspace/
+plugins/actian-design-system/evals/**/*.transcript.json
 
 # Release notes (local drafts for Slack)
 release-notes/

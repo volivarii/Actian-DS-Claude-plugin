@@ -1,0 +1,246 @@
+{
+  "meta": {
+    "component": "Checkbox",
+    "library": "dsKit",
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "9478:17216",
+    "componentKey": "f88de6fe161264680045b2b5ec77d311b1b3adb6",
+    "generatedAt": "2026-05-07T00:00:00Z",
+    "skill": "component-brief",
+    "pluginVersion": "1.71.1",
+    "model": "claude-opus-4-7",
+    "duration": "0m 45s"
+  },
+  "card_header": {
+    "_source": "figma",
+    "name": "Checkbox",
+    "description": "A binary or tri-state input control letting users select one or multiple options. Supports labeled, indeterminate, and disabled states across all DS themes."
+  },
+  "card_component": {
+    "_source": "generated",
+    "cardTitle": "Component",
+    "cardSubtitle": "Real library instances showing all variants plus themed component comparison across Actian, Studio, and Explorer",
+    "variantAxes": [
+      { "axis": "Selected", "values": ["Yes", "Indeterminate", "No"] },
+      {
+        "axis": "State",
+        "values": ["Default", "Hover", "Focus", "Pressed", "Disabled"]
+      }
+    ],
+    "variantMatrix": [
+      {
+        "row": "No",
+        "columns": [
+          { "variantName": "Selected=No, State=Default", "label": "Default" },
+          { "variantName": "Selected=No, State=Hover", "label": "Hover" },
+          { "variantName": "Selected=No, State=Focus", "label": "Focus" },
+          { "variantName": "Selected=No, State=Pressed", "label": "Pressed" },
+          { "variantName": "Selected=No, State=Disabled", "label": "Disabled" }
+        ]
+      },
+      {
+        "row": "Yes",
+        "columns": [
+          { "variantName": "Selected=Yes, State=Default", "label": "Default" },
+          { "variantName": "Selected=Yes, State=Hover", "label": "Hover" },
+          { "variantName": "Selected=Yes, State=Focus", "label": "Focus" },
+          { "variantName": "Selected=Yes, State=Pressed", "label": "Pressed" },
+          { "variantName": "Selected=Yes, State=Disabled", "label": "Disabled" }
+        ]
+      },
+      {
+        "row": "Indeterminate",
+        "columns": [
+          {
+            "variantName": "Selected=Indeterminate, State=Default",
+            "label": "Default"
+          },
+          {
+            "variantName": "Selected=Indeterminate, State=Hover",
+            "label": "Hover"
+          },
+          {
+            "variantName": "Selected=Indeterminate, State=Focus",
+            "label": "Focus"
+          },
+          {
+            "variantName": "Selected=Indeterminate, State=Pressed",
+            "label": "Pressed"
+          },
+          {
+            "variantName": "Selected=Indeterminate, State=Disabled",
+            "label": "Disabled"
+          }
+        ]
+      }
+    ],
+    "themeVariant": "Selected=No, State=Default"
+  },
+  "card_anatomy": {
+    "_source": "generated",
+    "cardTitle": "Anatomy",
+    "cardSubtitle": "Component structure, dimensions, interactive states, and part-level token mapping",
+    "parts": [
+      {
+        "letter": "A",
+        "name": "Box",
+        "description": "24×24 square container with border, fill, and rounded corners. Holds the indicator when selected.",
+        "figmaLayerName": "Box"
+      },
+      {
+        "letter": "B",
+        "name": "Indicator",
+        "description": "Checkmark glyph for Selected=Yes, horizontal bar for Selected=Indeterminate. Hidden when Selected=No.",
+        "figmaLayerName": "Indicator"
+      },
+      {
+        "letter": "C",
+        "name": "Label",
+        "description": "Inline text describing the option. Vertically centered with the box.",
+        "figmaLayerName": "Label"
+      }
+    ],
+    "specs": [
+      {
+        "value": "24px",
+        "layerName": "Box",
+        "type": "dimension",
+        "orientation": "Horizontal"
+      },
+      {
+        "value": "24px",
+        "layerName": "Box",
+        "type": "dimension",
+        "orientation": "Vertical"
+      },
+      {
+        "value": "4px",
+        "layerName": "Label",
+        "type": "pointer",
+        "direction": "Left"
+      }
+    ],
+    "states": ["Default", "Hover", "Focus", "Pressed", "Disabled"],
+    "partsTable": [
+      {
+        "part": "A",
+        "element": "Box",
+        "token": "--zen-size-lg, --zen-border-radius-xs, --zen-border-width-md",
+        "notes": "24×24 size, 4px radius, 1px border"
+      },
+      {
+        "part": "B",
+        "element": "Indicator",
+        "token": "--zen-icon-reverse",
+        "notes": "12×12 checkmark / 8×2 horizontal bar (indeterminate)"
+      },
+      {
+        "part": "C",
+        "element": "Label",
+        "token": "--zen-font-body-standard",
+        "notes": "Roboto 400 14px/20px, 0.2px tracking, vertically centered with Box"
+      }
+    ]
+  },
+  "card_tokens": {
+    "_source": "generated",
+    "cardTitle": "Design tokens",
+    "cardSubtitle": "Color, sizing, and typography tokens",
+    "colorTokens": [
+      {
+        "state": "Default (No)",
+        "columns": [
+          { "header": "Border", "token": "border-default", "hex": "#E4E4F0" },
+          { "header": "Box fill", "token": "bg-default", "hex": "#FFFFFF" },
+          { "header": "Indicator", "token": "—", "hex": "#FFFFFF" },
+          { "header": "Label", "token": "text-primary", "hex": "#000000" }
+        ]
+      },
+      {
+        "state": "Default (Yes)",
+        "columns": [
+          { "header": "Border", "token": "border-selected", "hex": "#0550DC" },
+          { "header": "Box fill", "token": "bg-emphasis", "hex": "#0550DC" },
+          { "header": "Indicator", "token": "icon-reverse", "hex": "#FFFFFF" },
+          { "header": "Label", "token": "text-primary", "hex": "#000000" }
+        ]
+      },
+      {
+        "state": "Focus",
+        "columns": [
+          { "header": "Border", "token": "border-selected", "hex": "#0550DC" },
+          { "header": "Box fill", "token": "bg-default", "hex": "#FFFFFF" },
+          { "header": "Indicator", "token": "—", "hex": "#FFFFFF" },
+          { "header": "Label", "token": "text-primary", "hex": "#000000" }
+        ]
+      },
+      {
+        "state": "Error",
+        "columns": [
+          { "header": "Border", "token": "border-error", "hex": "#E6492D" },
+          { "header": "Box fill", "token": "bg-error", "hex": "#FFF4EC" },
+          { "header": "Indicator", "token": "icon-error", "hex": "#DC3514" },
+          { "header": "Label", "token": "text-error", "hex": "#DC3514" }
+        ]
+      },
+      {
+        "state": "Disabled",
+        "columns": [
+          { "header": "Border", "token": "border-disabled", "hex": "#E4E4F0" },
+          { "header": "Box fill", "token": "bg-disabled", "hex": "#F5F5FA" },
+          { "header": "Indicator", "token": "icon-disabled", "hex": "#9898A7" },
+          { "header": "Label", "token": "text-disabled", "hex": "#656574" }
+        ]
+      }
+    ],
+    "sizingTokens": [
+      { "property": "Box width", "token": "--zen-size-lg", "value": "24px" },
+      { "property": "Box height", "token": "--zen-size-lg", "value": "24px" },
+      {
+        "property": "Border radius",
+        "token": "--zen-border-radius-xs",
+        "value": "4px"
+      },
+      {
+        "property": "Border width",
+        "token": "--zen-border-width-md",
+        "value": "1px"
+      },
+      {
+        "property": "Focus ring offset",
+        "token": "--zen-focus-ring-offset",
+        "value": "2px"
+      },
+      {
+        "property": "Gap (box to label)",
+        "token": "--zen-spacing-2xs",
+        "value": "4px"
+      },
+      {
+        "property": "Gap (group items)",
+        "token": "--zen-spacing-xs",
+        "value": "8px"
+      }
+    ],
+    "typography": [
+      {
+        "element": "Label",
+        "token": "body-standard",
+        "font": "Roboto Regular 14px/20px",
+        "tracking": "0.2px"
+      },
+      {
+        "element": "Group label",
+        "token": "body-standard-bold",
+        "font": "Roboto Medium 14px/20px",
+        "tracking": "0.2px"
+      },
+      {
+        "element": "Group description",
+        "token": "body-subtle",
+        "font": "Roboto Regular 12px/16px",
+        "tracking": "0.3px"
+      }
+    ]
+  }
+}
