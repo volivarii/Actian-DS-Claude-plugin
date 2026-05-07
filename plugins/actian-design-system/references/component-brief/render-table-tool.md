@@ -1,10 +1,10 @@
 # renderTable tool — reference
 
-**Status:** Phase 1 of pattern-harness migration (v1.71.0+). The driving design spec lives as a working artifact under `docs/superpowers/specs/` and is intentionally untracked per the project's no-commit-specs convention.
+> **Status: experimental (v1.71.1).** The interpreter, schema, validator, and HTML preview path are correct and unit-tested (27 tests passing). **AI-side adoption is unverified.** The v1.71.0 Cowork smoke confirmed the AI did not invoke the tool on a live brief and fell back to inlining, reproducing the v1.70.4 squash regression. Until a smoke pass on a real component (Checkbox at `FaBwMaNkvdrcQIo3fl8I4D#1067-2614`) shows frame names like `Table (renderTable)` and `Token: --zen-…` in the output metadata, treat this tool as available-but-not-canonical. **The canonical path remains Pattern 3 + Pattern 4 in `push-patterns.md`** (with the `appendTokenTagCell` helper restored in v1.71.1). See `MIGRATIONS.md` for the parallel-change discipline that keeps both paths alive.
 
-**Replaces:** `Pattern 3 (Table Pattern)` and the table-shaped portion of `Pattern 4 (Color Swatch Cell Pattern)` in `push-patterns.md`. The `appendTokenTagCell` helper is folded into the interpreter and is no longer authored by the AI.
+**Intended scope (when adoption is proven):** every table-shaped surface in a component brief — the Sizing, Color, and Typography token tables in the Tokens sub-frame, and the Anatomy parts table in the Anatomy sub-frame.
 
-**Scope:** Use this tool for every table-shaped surface in a component brief: the **Sizing**, **Color**, and **Typography** token tables in the Tokens sub-frame, and the **Anatomy parts** table in the Anatomy sub-frame.
+The driving design spec lives as a working artifact under `docs/superpowers/specs/` and is intentionally untracked per the project's no-commit-specs convention.
 
 ---
 
@@ -56,15 +56,23 @@ Cell discriminator types (the `type` field always comes first):
 
 The interpreter ships as a Node CLI. The AI calls it via Bash, captures stdout, and passes the emitted JS to `mcp_use_figma`.
 
+**Use the project's standard Node-resolution pattern** — bare `node` fails on Claude Desktop (Node is not on `PATH`) and is blocked by a PreToolUse hook (`scripts/hooks/check-bare-node.sh`). Always source `resolve-node.sh` and use `$NODE_BIN` in the same Bash call:
+
 ```bash
-# stdin form
-echo "$SPEC_JSON" | node "$PLUGIN_ROOT/scripts/renderers/figma-table/render-figma.js" \
-  --parent-id "<contentSlotId>"
+# stdin form (one Bash call — source MUST be in the same call as the node invocation)
+echo "$SPEC_JSON" | (
+  source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" &&
+  "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/renderers/figma-table/render-figma.js" \
+    --parent-id "<contentSlotId>"
+)
 
 # file form
-node "$PLUGIN_ROOT/scripts/renderers/figma-table/render-figma.js" \
-  --spec /tmp/spec.json --parent-id "<contentSlotId>"
+source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && \
+  "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/renderers/figma-table/render-figma.js" \
+    --spec /tmp/spec.json --parent-id "<contentSlotId>"
 ```
+
+`$CLAUDE_PLUGIN_ROOT` is set by the Claude harness to the plugin's installed root. Do not substitute `$PLUGIN_ROOT` — that variable is unset in skill invocations and the path will resolve to `/scripts/...`.
 
 **Output contract:**
 
@@ -73,7 +81,7 @@ node "$PLUGIN_ROOT/scripts/renderers/figma-table/render-figma.js" \
 
 The error report is structured. On a validation failure the AI corrects the spec and re-runs the tool — never edit the emitted JS directly.
 
-The HTML preview is produced by the sister script `render-html.js` from the same spec; the brief renderer wires it in automatically.
+The HTML preview is produced by the sister script `render-html.js` from the same spec; the brief renderer wires it in automatically (no AI invocation needed for the preview path — that part is already proven working).
 
 ---
 
