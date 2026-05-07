@@ -25,6 +25,7 @@ Audit a Figma file or section against the Actian Design System 2026 and/or Fat M
 - **Flow structure:** Dark cover card with Feature/Flow/User, screen naming `[Persona] - [Page] - [State]`, 1440x960 or 1440x700, left-to-right reading order
 - **Forms layout:** Simple inputs 480px max-width, extended elements full-width, action footer sticky bottom with primary right
 - **Missing states:** Empty, error, loading, confirmation states; form validation, disabled, required indicators
+- **Copy and labels:** Check visible text against `../../docs/content-guidelines.md` — sentence case on all UI text, action-verb button labels, error messages that say what went wrong and how to fix it, placeholder text that models input (never repeats the label), no banned words (please, sorry, ensure, execute, abort, sign in, disabled)
 - **Accessibility:** WCAG AA contrast, visible focus states, no text below 11px
 
 ## Output format

@@ -58,5 +58,6 @@ Example for cards 4-6:
 - All token names must use `--zen-` prefix (DS Kit) or `--fm-` prefix (FM)
 - No hardcoded hex values in token fields
 - No truncation — complete all arrays, all variant rows, all properties
+- **Content cards copy:** For `card_content` (DS Kit) and `card4_content_guidelines` (FM), all example copy must comply with `docs/content-guidelines.md` — sentence case, verb + object buttons, no banned words, realistic placeholder text
 - Write the file silently — do not output the JSON to chat
 - If you cannot generate a card (missing information), write the card key with an empty object and report DONE_WITH_CONCERNS

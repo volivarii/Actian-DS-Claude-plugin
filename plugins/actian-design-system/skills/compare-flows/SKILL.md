@@ -22,6 +22,7 @@ Compare two Figma flows or screens and provide structured UX recommendations. Ru
 - **Component usage:** Which FM components in each, components in one but not other, ad-hoc elements that should be library components
 - **Consistency:** Layout patterns, typography, spacing, color token usage between the two flows
 - **Forms layout:** Simple inputs 480px max-width, extended elements full-width, action footer sticky bottom primary right
+- **Copy and labels:** Sentence case, action-verb buttons, error message quality, empty state completeness — reference `../../docs/content-guidelines.md`
 - **UX patterns:** Information hierarchy, progressive disclosure, user effort (fewer steps = better), error recovery
 - **Accessibility:** Contrast, touch targets, focus order
 

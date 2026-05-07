@@ -67,6 +67,7 @@ Example for screens 4-6:
 - Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for push-apart layouts — never Spacer frames
 - **Glossary:** If `meta._glossary` is present, use it as the single source for entity names in page headers/breadcrumbs/body text, action verbs in button labels/CTAs, and the active sidebar item. Never invent alternative phrasings for glossary terms.
 - **Entity properties:** If generating form fields, table columns, or detail page content for a known entity, read `docs/app-context.json` → `entities[entityId].properties` for standard field names. Use these instead of generic placeholders.
+- **Copy:** All visible text must follow Actian content guidelines — sentence case everywhere, verb + object button labels ("Create data product", "Delete connection"), no banned words (please, sorry, ensure, execute, abort, sign in), empty states include a headline + body + CTA, placeholder text models input and never repeats the label. Reference `docs/content-guidelines.md` for the full rules.
 - Feature focus: spotlight the feature, placeholder everything else
 - Write the file silently — do not output the JSON to chat
 - If you cannot generate a screen (missing information), include a minimal placeholder screen and report DONE_WITH_CONCERNS

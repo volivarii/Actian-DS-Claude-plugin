@@ -1,131 +1,280 @@
 {
   "foundation": "Content guidelines",
   "page_id": "7397:3249",
-  "extracted_at": "2026-03-25T17:00:00Z",
-  "frames": [
-    "Content style and usage",
-    "Content Checklist",
-    "Notes/Feedback"
-  ],
+  "extracted_at": "2026-05-06T00:00:00Z",
+  "source_document": "Actian_Content_Guidelines_Claude3.docx",
+  "source_path": "C:\\Users\\jlevitt\\OneDrive - Actian Software\\Documents\\zeenea\\content guidelines\\Actian_Content_Guidelines_Claude3.docx",
+  "project_files": "{project_working_directory}/content-guidelines/",
+  "live_site": "https://levita99zeenea.github.io/actian-content-guidelines",
+  "index_file": "content-index.md",
   "sections": [
     {
-      "heading": "Content guidelines",
-      "content": []
+      "id": 1,
+      "heading": "Global guidelines",
+      "file": "global-guidelines.md",
+      "subsections": ["Voice and tone", "Writing style", "Capitalization", "Words to avoid", "Punctuation", "Numerical formatting", "Prepositions", "Acronyms", "Plurals", "Abbreviations and articles"],
+      "status": "complete"
     },
     {
-      "heading": "Table of contents\nChecklist\nWords to avoid\r\nCapitalization\r\nWriting style\nNumerical formatting\r\nPunctuation\r\nPrepositions\r\nAcronyms\r\nPlurals\r\nAbbreviations and articles",
-      "content": []
+      "id": 2,
+      "heading": "Buttons",
+      "file": "buttons.md",
+      "subsections": ["When to use", "Style", "Behavior", "Do/Don't", "Terminology for button labeling"],
+      "status": "complete"
     },
     {
-      "heading": "Content guidelines checklist",
-      "content": []
+      "id": 3,
+      "heading": "Links",
+      "file": "links.md",
+      "subsections": ["When to use", "Style", "Behavior", "Clear and descriptive link text", "Consistency"],
+      "status": "complete"
     },
     {
-      "heading": "Use this handy checklist to confirm content is in the right state for reviews. Before meeting with Jeff or Jessie, or asking for review, ensure you’ve fixed any content issues during design and checked them off here.",
-      "content": []
+      "id": 4,
+      "heading": "Checkboxes",
+      "file": "checkboxes.md",
+      "subsections": ["Default format", "Card format"],
+      "status": "complete"
     },
     {
-      "heading": "Words to avoid",
-      "content": []
+      "id": 5,
+      "heading": "Dropdown / Select",
+      "file": "dropdown-select.md",
+      "subsections": ["Behavior", "Style", "Do/Don't"],
+      "status": "complete"
     },
     {
-      "heading": "Guidance on what content works best, including text, imagery, and messaging.",
-      "content": []
+      "id": 6,
+      "heading": "Filters",
+      "file": "filters.md",
+      "subsections": ["When to use", "Style", "Behavior"],
+      "status": "complete"
     },
     {
-      "heading": "Capitalization",
-      "content": []
+      "id": 7,
+      "heading": "Cards",
+      "file": "cards.md",
+      "subsections": ["Card - Item", "Card - Selectable", "Card - Topic"],
+      "status": "complete"
     },
     {
-      "heading": "Don’t overuse capitalization as it makes copy harder to read and de-emphasizes the important content.",
-      "content": []
+      "id": 8,
+      "heading": "Empty and system states",
+      "file": "empty-and-system-states.md",
+      "subsections": ["Empty state", "Error state", "Maintenance state", "Success state"],
+      "status": "complete"
     },
     {
-      "heading": "Writing style",
-      "content": []
+      "id": 9,
+      "heading": "Forms",
+      "file": "forms.md",
+      "subsections": ["General form guidelines", "Input labels and helper text", "Dropdown", "Calendar", "Toggle", "Radio button", "Radio button card format"],
+      "status": "complete"
     },
     {
-      "heading": "Use present, active tense in all possible cases.  In some cases, you can use passive voice, if the focus needs to be on a system instead of a person, for example.",
-      "content": []
+      "id": 10,
+      "heading": "Sticky footer",
+      "file": "sticky-footer.md",
+      "subsections": ["When to use", "Button hierarchy", "Button labels", "Steppers"],
+      "status": "complete"
     },
     {
-      "heading": "Numerical formatting",
-      "content": []
+      "id": 11,
+      "heading": "Modal",
+      "file": "modal.md",
+      "subsections": ["When to use", "Style", "Do/Don't"],
+      "status": "complete"
     },
     {
-      "heading": "---",
-      "content": []
+      "id": 12,
+      "heading": "Search",
+      "file": "search.md",
+      "subsections": ["When to use", "Placeholder text", "Behavior"],
+      "status": "complete"
     },
     {
-      "heading": "Punctuation",
-      "content": []
+      "id": 13,
+      "heading": "Text input",
+      "file": "text-input.md",
+      "subsections": ["Behavior", "Placeholder text", "Do/Don't"],
+      "status": "complete"
     },
     {
-      "heading": "To help readers scan text at a glance, avoid using punctuation in places where it isn't necessary.",
-      "content": []
+      "id": 14,
+      "heading": "Notifications and messaging",
+      "file": "notifications-and-messaging.md",
+      "subsections": ["Notification", "Tooltip", "Toast / Snackbar"],
+      "status": "complete"
     },
     {
-      "heading": "Prepositions",
-      "content": []
+      "id": 15,
+      "heading": "Navigation",
+      "file": "navigation.md",
+      "subsections": ["Global header", "Side nav", "Breadcrumbs", "Tabs", "Pagination"],
+      "status": "complete"
     },
     {
-      "heading": "Prepositions indicate relationships between different elements, actions, or concepts. Proper use of prepositions helps maintain clarity and precision, while misuse can lead to confusion or overly complex sentences. This section provides guidelines for how to effectively and consistently use prepositions across the product.",
-      "content": []
+      "id": 16,
+      "heading": "Loading and progress",
+      "file": "loading-and-progress.md",
+      "subsections": ["Loading indicator", "Progress indicator"],
+      "status": "complete"
     },
     {
-      "heading": "Acronyms",
-      "content": []
+      "id": 17,
+      "heading": "Tags, badges, and status indicators",
+      "file": "tags-badges-status-indicators.md",
+      "subsections": ["Tags", "Badges"],
+      "status": "complete"
     },
     {
-      "heading": "---",
-      "content": []
+      "id": 18,
+      "heading": "Dialogs and confirmations",
+      "file": "dialogs-and-confirmations.md",
+      "subsections": ["Confirmation dialog", "Inline banner"],
+      "status": "complete"
     },
     {
-      "heading": "Plurals",
-      "content": []
+      "id": 19,
+      "heading": "Onboarding",
+      "file": "onboarding.md",
+      "subsections": ["When to use", "Style", "Wizard step titles"],
+      "status": "complete"
     },
     {
-      "heading": "---",
-      "content": []
+      "id": 20,
+      "heading": "What's new",
+      "file": "whats-new.md",
+      "subsections": ["Style", "Do/Don't"],
+      "status": "complete"
     },
     {
-      "heading": "Abbreviations and articles",
-      "content": []
+      "id": 21,
+      "heading": "Alerts",
+      "file": "alerts.md",
+      "subsections": ["When to use", "Style", "Behavior", "Do/Don't"],
+      "status": "complete"
     },
     {
-      "heading": "---",
-      "content": []
+      "id": 22,
+      "heading": "Combo box",
+      "file": "combo-box.md",
+      "subsections": ["When to use", "Style", "Behavior", "Do/Don't"],
+      "status": "complete"
     },
     {
-      "heading": "💬 Backlog",
-      "content": []
+      "id": 23,
+      "heading": "Data tables",
+      "file": "data-tables.md",
+      "subsections": ["When to use", "Column headers", "Cell content", "Bulk actions"],
+      "status": "complete"
     },
     {
-      "heading": "Colors",
-      "content": []
+      "id": 24,
+      "heading": "Grid and spacing",
+      "file": "grid-and-spacing.md",
+      "subsections": ["Content implications", "Density considerations"],
+      "status": "complete"
     },
     {
-      "heading": "[Optional] Important note goes here",
-      "content": []
+      "id": 25,
+      "heading": "Icons",
+      "file": "icons.md",
+      "subsections": ["When to use", "Style", "Accessibility"],
+      "status": "complete"
     },
     {
-      "heading": "[Optional] Objective, use case, requirements, timeline, link to confluence or jira, etc.",
-      "content": []
+      "id": 26,
+      "heading": "Inline toast",
+      "file": "inline-toast.md",
+      "subsections": ["When to use", "Style", "Examples"],
+      "status": "complete"
     },
     {
-      "heading": "[Optional] Add a supporting image",
-      "content": []
+      "id": 27,
+      "heading": "Lineage-specific UI",
+      "file": "lineage-specific-ui.md",
+      "subsections": ["When to use", "Node labels", "Edge and relationship labels", "Terminology"],
+      "status": "complete"
     },
     {
-      "heading": "Content guidelines checklist",
-      "content": []
+      "id": 28,
+      "heading": "Multi-select",
+      "file": "multi-select.md",
+      "subsections": ["When to use", "Style", "Behavior", "Do/Don't"],
+      "status": "complete"
     },
     {
-      "heading": "Use this handy checklist to confirm content is in the right state for reviews. Before meeting with Jeff or Jessie, or asking for review, ensure you’ve fixed any content issues during design and checked them off here.",
-      "content": [
-        "Notes: Kristina/Harrison (Feb/5/26)\n\nDefault 1200 width ✅\nUse whole width for tables ✅\n48px table header default ✅\n\nAsk Jeff:\nFeedback on layout\nShorten descriptions to fit into 2 lines (header)\n10 sub-topics: Can they be grouped into less sections"
-      ]
+      "id": 29,
+      "heading": "Object preview panels",
+      "file": "object-preview-panels.md",
+      "subsections": ["When to use", "Style", "Attribute label examples"],
+      "status": "complete"
+    },
+    {
+      "id": 30,
+      "heading": "Popover",
+      "file": "popover.md",
+      "subsections": ["When to use", "Style", "Behavior"],
+      "status": "complete"
+    },
+    {
+      "id": 31,
+      "heading": "Related content panels",
+      "file": "related-content-panels.md",
+      "subsections": ["When to use", "Style", "Do/Don't"],
+      "status": "complete"
+    },
+    {
+      "id": 32,
+      "heading": "Stepper",
+      "file": "stepper.md",
+      "subsections": ["When to use", "Step titles", "Navigation buttons", "Do/Don't"],
+      "status": "complete"
+    },
+    {
+      "id": 33,
+      "heading": "Switch",
+      "file": "switch.md",
+      "subsections": ["When to use", "Style", "Do/Don't"],
+      "status": "complete"
+    },
+    {
+      "id": 34,
+      "heading": "Tables",
+      "file": "tables.md",
+      "subsections": ["When to use", "Style"],
+      "status": "complete"
+    },
+    {
+      "id": 35,
+      "heading": "Uploads",
+      "file": "uploads.md",
+      "subsections": ["When to use", "Style", "Progress and status", "Do/Don't"],
+      "status": "complete"
+    },
+    {
+      "id": 36,
+      "heading": "Validation messages",
+      "file": "validation-messages.md",
+      "subsections": ["When to use", "Style", "Do/Don't"],
+      "status": "complete"
+    },
+    {
+      "id": 37,
+      "heading": "Wizards",
+      "file": "wizards.md",
+      "subsections": ["When to use", "Step titles", "In-step content", "Confirmation and summary step", "Navigation buttons", "Do/Don't"],
+      "status": "complete"
     }
   ],
-  "text_count": 30
+  "key_rules": {
+    "casing": "Sentence case for all UI text",
+    "style_guide": "IBM Style conventions",
+    "banned_words": ["please", "sorry", "ensure", "execute", "abort", "master", "slave", "blacklist", "whitelist", "sign in", "signin", "CTA", "agnostic", "disabled (as state label)"],
+    "button_formula": "verb + object",
+    "validation_timing": "on blur (field exit), not on keystroke",
+    "empty_cell_value": "— (em dash)",
+    "placeholder_rule": "examples only, never substitute for label"
+  }
 }
