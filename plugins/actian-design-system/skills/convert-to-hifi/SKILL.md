@@ -131,9 +131,10 @@ This resolves `componentKey` → FM ref names (e.g., `fmNavItem`) using the FM K
 Run `transform-to-hifi.js` on the **converted flow-data** (not the raw FM tree):
 
 ```bash
-"$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/transform-to-hifi.js" \
-  {project_working_directory}/components/hifi/[frame-name]-flow-data.json \
-  -o {project_working_directory}/components/hifi/[frame-name]-hifi-data.json
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && \
+  "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/transform-to-hifi.js" \
+    {project_working_directory}/components/hifi/[frame-name]-flow-data.json \
+    -o {project_working_directory}/components/hifi/[frame-name]-hifi-data.json
 ```
 
 The script reads `docs/generated/fm-to-ds-map.json` and `docs/generated/dskit.json`, rewrites every FM `ref` to its DS Kit equivalent, preserves variant mappings where defined, and embeds `meta.transformStats` in the output (`total`, `mapped`, `unmapped`).

@@ -31,6 +31,9 @@ source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && "$NODE_BIN" "$CLAUDE
 ```
 
 **Anti-pattern (will fail on Desktop):**
+
+<!-- doc-lint:ignore-block — this is an intentional anti-pattern example. -->
+
 ```bash
 "$NODE_BIN" -e "console.log(require('./schema.json'))"   # ← $NODE_BIN is empty
 ```

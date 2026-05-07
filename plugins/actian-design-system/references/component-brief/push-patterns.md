@@ -227,9 +227,9 @@ async function appendSubFrame(label, sourceCard) {
   }
 
   // Append body content per sub-section type:
-  // label === "Anatomy"   → Pattern 9 (Anatomy Diagram with badges + leader lines) + renderTable (parts table — see render-table-tool.md)
+  // label === "Anatomy"   → Pattern 9 (Anatomy Diagram with badges + leader lines) + Pattern 3 (parts table)
   // label === "Variation" → variant matrix push (see Pattern 8 — Variant Instance)
-  // label === "Tokens"    → renderTable for the color grid, sizing table, and typography table (see render-table-tool.md)
+  // label === "Tokens"    → color swatch grid + sizing/typography tables (see Pattern 4 + Pattern 3)
   // label === "Specs"     → Pattern 14 (Specs Redline — auto-extracted from instance, with optional card_anatomy.specs override)
 
   slot.appendChild(sub);
@@ -308,29 +308,171 @@ return { headerId: header.id };
 
 ## 3. Table Pattern (API, Sizing, Typography, ARIA, Contrast)
 
-**Use the `renderTable` strict tool — see [`render-table-tool.md`](./render-table-tool.md).**
+> **Status (v1.71.1 recovery):** This pattern is the canonical path for table-shaped surfaces. The `renderTable` strict tool shipped in v1.71.0 (see `render-table-tool.md`) is **experimental** and AI-side adoption has not been smoke-verified — the v1.71.0 Cowork smoke showed the AI did not invoke the tool and fell back to inlining, reproducing the v1.70.4 squash. Do not delete this pattern again until the renderTable path is observed working end-to-end on a real component. (See `MIGRATIONS.md` for the parallel-change discipline this revival enforces.)
 
-As of v1.71.0 (Phase 1 of the pattern-harness migration), every table-shaped surface in a brief is rendered through a deterministic interpreter, not by inlining Figma Plugin API calls from this pattern. The AI emits a domain-level JSON spec (`text` / `token-pill` / `code` / `badge` / `color-swatch` / `empty` cells), invokes `scripts/renderers/figma-table/render-figma.js`, captures the emitted JS, and passes it to `mcp_use_figma`. The same spec drives the HTML preview via `render-html.js`.
+Build tables row-by-row. Each row is an auto-layout frame with text cells.
 
-Rationale: the v1.70.0–v1.70.4 retry loop landed five separate patches against the recurring 1px token-tag squash, each missed because the AI was improvising layout math. Moving table rendering out of the prose pattern into the interpreter eliminated the improvisation surface. The `appendTokenTagCell` helper is now folded into the interpreter and is no longer called from skills.
+```js
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
 
-**Surfaces that use `renderTable`:** Sizing tokens, Color tokens grid, Typography tokens, Anatomy parts table, Contrast tables (Pattern 10), ARIA spec rows (Pattern 11).
+await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
+await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });
 
-**Anti-patterns the boundary validator will reject:** setting `layoutMode` or any Figma vocabulary in the spec, adding cell fields the schema disallows (e.g. `color` on a `text` cell), inlining row construction outside the tool. Read the validator error, fix the spec, re-run.
+const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 
-See `render-table-tool.md` for the full spec, invocation contract, and worked examples for all four target tables.
+// Header row
+const headerRow = figma.createFrame();
+headerRow.name = "Header Row";
+headerRow.layoutMode = "HORIZONTAL";
+headerRow.itemSpacing = 0;
+headerRow.fills = [{ type: "SOLID", color: hexToRgb("#F5F5FA") }];
+headerRow.primaryAxisSizingMode = "AUTO";
+headerRow.counterAxisSizingMode = "AUTO";
+
+const headers = ["", "Property", "Type", "Default", "Values", "Notes"];
+const widths = [50, 140, 100, 120, 200, 350];
+for (let i = 0; i < headers.length; i++) {
+  const cell = figma.createText();
+  cell.characters = headers[i];
+  cell.fontName = { family: "Inter", style: "Semi Bold" };
+  cell.fontSize = 12;
+  cell.fills = [{ type: "SOLID", color: hexToRgb("#595968") }];
+  cell.resize(widths[i], cell.height);
+  headerRow.appendChild(cell);
+}
+parent.appendChild(headerRow);
+headerRow.layoutSizingHorizontal = "FILL";
+
+// Data rows — one call per row or batch
+// Each row: same layout, different text content, "Inter:Regular" font
+// REQ/OPT badge: small frame with colored fill + text
+return { tableId: headerRow.id };
+```
+
+**Token Tag styling (v1.69.0+, with v1.70.4+ HUG guard restored in v1.71.1):** When a table cell contains a `--zen-*` token name, render the cell as a Token Tag pill instead of plain text. Use the `appendTokenTagCell` helper below — calling it is materially safer than inlining the same construction (smoke history: when the AI inlined the token-tag layout, every variant of the construction crushed cells to 1px; calling the helper directly is the only path that's been smoke-clean).
+
+```js
+async function appendTokenTagCell(parentRow, tokenText) {
+  await figma.loadFontAsync({ family: "Inter", style: "Medium" });
+  const labelFrame = figma.createFrame();
+  labelFrame.name = "Token: " + tokenText;
+  labelFrame.layoutMode = "HORIZONTAL";
+  labelFrame.primaryAxisSizingMode = "AUTO";
+  labelFrame.counterAxisSizingMode = "AUTO";
+  labelFrame.paddingLeft = 5;
+  labelFrame.paddingRight = 5;
+  labelFrame.paddingTop = 2;
+  labelFrame.paddingBottom = 2;
+  labelFrame.cornerRadius = 3;
+  labelFrame.fills = [{ type: "SOLID", color: { r: 0.941, g: 0.949, b: 0.984 } }]; // ~#F0F2FA
+
+  const text = figma.createText();
+  text.fontName = { family: "Inter", style: "Medium" };
+  text.fontSize = 12;
+  text.characters = tokenText;
+  text.fills = [{ type: "SOLID", color: { r: 0.020, g: 0.314, b: 0.863 } }]; // ~#0550DC
+  labelFrame.appendChild(text);
+
+  parentRow.appendChild(labelFrame);
+
+  // HUG-after-append guards (v1.70.4+):
+  //   1. labelFrame hugs its own content (intrinsic ~17px tall).
+  //   2. parentRow MUST hug its tallest child too — this is the load-bearing
+  //      fix. Without (2), any row whose cells were sized via cell.resize(w, h)
+  //      ends up with FIXED counter-axis sizing (or short intrinsic height
+  //      from a single-line text node), and parent.clipsContent = true (frame
+  //      default) clips the labelFrame to the row's old ~1px height.
+  //
+  //      v1.70.0/1/2 patches set HUG on labelFrame only — the labelFrame grew
+  //      internally, but the parent row never expanded, so the cell still
+  //      visually rendered as a 1px line (the recurring Checkbox/Variation
+  //      /Tokens/Sizing/Typography squash observed across multiple smokes).
+  if (typeof labelFrame.layoutSizingVertical !== "undefined") {
+    labelFrame.layoutSizingVertical = "HUG";
+  }
+  if (typeof labelFrame.layoutSizingHorizontal !== "undefined") {
+    labelFrame.layoutSizingHorizontal = "HUG";
+  }
+  if (parentRow.layoutMode === "NONE") {
+    parentRow.layoutMode = "HORIZONTAL";
+  }
+  parentRow.counterAxisSizingMode = "AUTO";
+  parentRow.counterAxisAlignItems = "CENTER";
+  if (typeof parentRow.layoutSizingVertical !== "undefined") {
+    parentRow.layoutSizingVertical = "HUG";
+  }
+
+  return labelFrame;
+}
+```
+
+Use this for token-name cells in: parts table (Pattern 9 anatomy parts table), sizing table (Card 1 supercard Tokens sub-frame), typography table (same), contrast row token columns. Plain-text cells remain for non-token columns (Element name, Notes, Value).
 
 ---
 
 ## 4. Color Swatch Cell Pattern (Card 4 Color Token Grid)
 
-**Use the `renderTable` strict tool with `color-swatch` cells — see [`render-table-tool.md`](./render-table-tool.md).**
+> **Status (v1.71.1 recovery):** This pattern is the canonical path for the Card 4 color grid; the `renderTable` `color-swatch` cell type (see `render-table-tool.md`) is **experimental** until smoke-verified. The v1.71.0 Cowork smoke confirmed the AI does not adopt the new tool; until that changes, do not delete this pattern.
 
-As of v1.71.0, the Card 4 color grid is rendered through `renderTable`. Each cell is a `color-swatch` discriminator with `color`, optional `tokenName`, and optional `hex`; the interpreter draws the 12×12 dot, the token-pill row, and the hex line — no AI-side construction, no `importComponentSetByKeyAsync`, no hex-clipping guard, no parent-row HUG dance.
+**MANDATORY for Card 4 (Design Tokens) color table.** Build a compact grid: one row per state, one Color Swatch + token name per column. This keeps the table dense and readable.
 
-A worked example for the color grid is in `render-table-tool.md` under "Color tokens grid".
+Each color cell is a small frame containing: Color Swatch instance (colored dot) + token name text.
 
-**Note on the Color Swatch component:** the `color-swatch` cell renders a flat 12×12 frame with the requested fill — NOT an instance of the published Color Swatch component (`da3369932f710386b76ca91a40ebd48d94e3f2e0`). Skipping `importComponentSetByKeyAsync` keeps rendering hermetic and removes a known footgun (the published component is a flat 12×12 instance with NO children — setting `.fills` on a "Dot" child returns null). If a future surface needs the actual published component, import it directly and set `.fills` on the instance itself; do not chase a non-existent child.
+```js
+function hexToRgb(hex) {
+  const h = hex.replace("#", "");
+  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
+}
+
+const set = await figma.importComponentSetByKeyAsync("da3369932f710386b76ca91a40ebd48d94e3f2e0");
+let variant = set.findChild(n => n.name === "Size=Small");
+if (!variant) variant = set.defaultVariant || set.children[0];
+const swatch = variant.createInstance();
+
+// Set fill color — the swatch IS the dot (flat 12×12 instance, NO children)
+swatch.fills = [{ type: "SOLID", color: hexToRgb("#0550DC") }];
+
+return { swatchId: swatch.id };
+```
+
+**CRITICAL:** The Color Swatch component is a flat 12×12 instance with NO children — set `.fills` directly on the swatch instance itself. Do NOT use `findOne` to look for a "Dot" or "Color" child — it will return null and the fill will never be set.
+
+**Cell sizing (REQUIRED — prevents hex clipping):** The swatch cell wraps a 12px swatch + a stacked text block (token name 15px + hex 13px ≈ 30px tall). The cell must Hug its content vertically — never fix the height to the swatch dot. Each cell MUST set:
+
+```js
+const cell = figma.createFrame();
+cell.layoutMode = "HORIZONTAL";
+cell.itemSpacing = 8;
+cell.counterAxisAlignItems = "CENTER";          // vertically center swatch + text block
+cell.primaryAxisSizingMode = "AUTO";            // Hug width
+cell.counterAxisSizingMode = "AUTO";            // Hug height — fits the 30px text stack
+cell.fills = [];
+
+// Swatch (12×12 instance, fills set per above)
+cell.appendChild(swatch);
+
+// Text stack (token name on top, hex below)
+const textStack = figma.createFrame();
+textStack.layoutMode = "VERTICAL";
+textStack.itemSpacing = 2;
+textStack.primaryAxisSizingMode = "AUTO";
+textStack.counterAxisSizingMode = "AUTO";
+textStack.fills = [];
+// ... append token-name text node + hex text node ...
+cell.appendChild(textStack);
+```
+
+Regression guard: if the cell or its parent row uses `counterAxisSizingMode = "FIXED"` or sets a hard `cell.resize(_, 20)`, the second line clips. Always Hug.
+
+**Token Tag styling (v1.69.0+, with v1.70.4+ HUG guard):** The token-name text below the swatch dot must use the Token Tag pill style — same construction as Pattern 3's `appendTokenTagCell`. The hex value text below the token name stays as plain monospace text (it's not a token reference). Replace the `// token-name text node` placeholder with a call to `appendTokenTagCell(textStack, tokenName)` or the inline equivalent.
+
+**Regression guard (v1.70.4+, supersedes v1.70.0):** When inlining the token-tag construction (i.e., not calling `appendTokenTagCell` directly), apply the SAME guards the helper applies — both on the labelFrame (HUG on both axes) AND on the textStack/parentRow (`counterAxisSizingMode = "AUTO"`, `layoutSizingVertical = "HUG"`). v1.70.0–1.70.2 patched only the labelFrame; the parent row stayed at its old ~1px height and clipped the labelFrame visually (the recurring Checkbox/Variation/Tokens/Sizing/Typography squash). The fix MUST hit the parent.
+
+**Table layout:** Build as a header row (state + column names) + data rows. Each data row: state label text + N swatch cells. The data row frame should use `layoutMode = "HORIZONTAL"`, `counterAxisAlignItems = "CENTER"`, and `counterAxisSizingMode = "AUTO"` so it grows to the tallest cell. Batch 2-3 rows per `use_figma` call.
 
 ---
 
@@ -491,7 +633,7 @@ if (colorCol) {
 }
 ```
 
-**Variation Matrix construction (v1.70.0+):** When building a 2D state matrix for the Section 1 Variation sub-frame (e.g., Checkbox state matrix with rows = No/Yes/Indeterminate × columns = Default/Hover/Focus/Pressed/Disabled), each cell contains a real component instance. Cells are children of HORIZONTAL row frames. The same regression that bit token-tag cells before they moved into `renderTable` bites here: row sizing crushes child instances to 1px. (Phase 3 of the pattern-harness migration replaces this with `renderVariationMatrix`; until then apply the HUG guards inline.)
+**Variation Matrix construction (v1.70.0+):** When building a 2D state matrix for the Section 1 Variation sub-frame (e.g., Checkbox state matrix with rows = No/Yes/Indeterminate × columns = Default/Hover/Focus/Pressed/Disabled), each cell contains a real component instance. Cells are children of HORIZONTAL row frames. The same regression that bit `appendTokenTagCell` bites here: row sizing crushes child instances to 1px.
 
 ```js
 async function appendVariationCell(parentRow, instance) {
