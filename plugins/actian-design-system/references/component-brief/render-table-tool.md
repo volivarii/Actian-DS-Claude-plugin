@@ -1,6 +1,6 @@
 # renderTable tool — reference
 
-**Status:** Phase 1 of pattern-harness migration (v1.71.0+, per `docs/superpowers/specs/2026-05-07-pattern-harness-migration-design.md`).
+**Status:** Phase 1 of pattern-harness migration (v1.71.0+). The driving design spec lives as a working artifact under `docs/superpowers/specs/` and is intentionally untracked per the project's no-commit-specs convention.
 
 **Replaces:** `Pattern 3 (Table Pattern)` and the table-shaped portion of `Pattern 4 (Color Swatch Cell Pattern)` in `push-patterns.md`. The `appendTokenTagCell` helper is folded into the interpreter and is no longer authored by the AI.
 
