@@ -4,37 +4,58 @@
     {
       "id": 0,
       "eval_name": "checkbox-table-heavy",
-      "prompt": "Generate a component brief for Checkbox using the brief-data at plugins/actian-design-system/evals/component-brief/fixtures/checkbox-brief-data.json. Push the resulting frame to Figma file FaBwMaNkvdrcQIo3fl8I4D, page TBD-EVAL-PAGE-ID. Return the resulting frame's node ID as the last line of your output, prefixed with 'FRAME_NODE_ID='.",
+      "prompt": "Generate a component brief for Checkbox using the brief-data at plugins/actian-design-system/evals/component-brief/fixtures/checkbox-brief-data.json. Push the resulting frame to Figma file FaBwMaNkvdrcQIo3fl8I4D, page 1143:12 (Eval — Component Brief). Return the resulting frame's node ID as the last line of your output, prefixed with 'FRAME_NODE_ID='.",
       "fixture_path": "plugins/actian-design-system/evals/component-brief/fixtures/checkbox-brief-data.json",
       "expected_output": "A component brief frame on the test page, with all Phase 1 token tables rendered at >=32px row heights, real frame names (not generic 'Frame'), Anatomy badges A and B present, Specs sub-frame present.",
       "files": [
         "plugins/actian-design-system/evals/component-brief/fixtures/checkbox-brief-data.json"
       ],
       "assertions": [
-        {"text": "A1: Frame names contain real component-part names", "fixture": "checkbox"},
-        {"text": "A2: No row in Phase 1 token tables crushes below 32px", "fixture": "checkbox"},
-        {"text": "A3: Variation matrix renders rows >= 40px", "fixture": "checkbox"},
-        {"text": "A4: No token typo regression", "fixture": "checkbox"},
-        {"text": "A5: Specs sub-frame exists", "fixture": "checkbox"},
-        {"text": "A6: Anatomy badges A and B exist", "fixture": "checkbox"}
+        {
+          "text": "A1: Frame names contain real component-part names",
+          "fixture": "checkbox"
+        },
+        {
+          "text": "A2: No row in Phase 1 token tables crushes below 32px",
+          "fixture": "checkbox"
+        },
+        {
+          "text": "A3: Variation matrix renders rows >= 40px",
+          "fixture": "checkbox"
+        },
+        { "text": "A4: No token typo regression", "fixture": "checkbox" },
+        { "text": "A5: Specs sub-frame exists", "fixture": "checkbox" },
+        { "text": "A6: Anatomy badges A and B exist", "fixture": "checkbox" }
       ]
     },
     {
       "id": 1,
       "eval_name": "button-variant-heavy",
-      "prompt": "Generate a component brief for Button using the brief-data at plugins/actian-design-system/evals/component-brief/fixtures/button-brief-data.json. Push the resulting frame to Figma file FaBwMaNkvdrcQIo3fl8I4D, page TBD-EVAL-PAGE-ID. Return the resulting frame's node ID as the last line of your output, prefixed with 'FRAME_NODE_ID='.",
+      "prompt": "Generate a component brief for Button using the brief-data at plugins/actian-design-system/evals/component-brief/fixtures/button-brief-data.json. Push the resulting frame to Figma file FaBwMaNkvdrcQIo3fl8I4D, page 1143:12 (Eval — Component Brief). Return the resulting frame's node ID as the last line of your output, prefixed with 'FRAME_NODE_ID='.",
       "fixture_path": "plugins/actian-design-system/evals/component-brief/fixtures/button-brief-data.json",
       "expected_output": "A component brief frame on the test page, with the Variation matrix rendering all variants from the fixture, real frame names, no token typos, Specs sub-frame present.",
       "files": [
         "plugins/actian-design-system/evals/component-brief/fixtures/button-brief-data.json"
       ],
       "assertions": [
-        {"text": "A1: Frame names contain real component-part names", "fixture": "button"},
-        {"text": "A2: No row in Phase 1 token tables crushes below 32px", "fixture": "button"},
-        {"text": "A3: Variation matrix renders rows >= 40px", "fixture": "button"},
-        {"text": "A4: No token typo regression", "fixture": "button"},
-        {"text": "A5: Specs sub-frame exists", "fixture": "button"},
-        {"text": "A7: Variation matrix row count matches fixture", "fixture": "button"}
+        {
+          "text": "A1: Frame names contain real component-part names",
+          "fixture": "button"
+        },
+        {
+          "text": "A2: No row in Phase 1 token tables crushes below 32px",
+          "fixture": "button"
+        },
+        {
+          "text": "A3: Variation matrix renders rows >= 40px",
+          "fixture": "button"
+        },
+        { "text": "A4: No token typo regression", "fixture": "button" },
+        { "text": "A5: Specs sub-frame exists", "fixture": "button" },
+        {
+          "text": "A7: Variation matrix row count matches fixture",
+          "fixture": "button"
+        }
       ]
     }
   ]
