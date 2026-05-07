@@ -87,6 +87,29 @@ bearing, not ceremonial.
 If the PR is a refactor / docs-only / test-only change with no AI-facing
 behavioral effect, mark the section `N/A — <one-line reason>` and proceed.
 
+### Component-brief / push-pattern PRs: automated eval lane
+
+For PRs that touch `references/component-brief/`,
+`scripts/renderers/figma-table/`, or the brief skill itself, the smoke
+evidence is the output of the component-brief eval lane:
+
+```bash
+plugins/actian-design-system/scripts/evals/run-component-brief.sh plan
+# dispatch the printed subagent prompts via the Agent tool, then:
+plugins/actian-design-system/scripts/evals/run-component-brief.sh aggregate <iteration-id>
+```
+
+Paste the resulting `benchmark.md` into the Smoke evidence section. See
+`evals/component-brief/README.md` for the full operator workflow.
+
+**Marketplace-cache constraint:** `/component-brief` reads its skill code
+from the installed plugin marketplace cache, NOT from the feature
+branch. So the eval tests the LATEST released version of the brief
+skill. For brief-skill-changing PRs, the smoke evidence has to come
+from a run made AFTER marketplace propagation of that PR's commit.
+Pre-merge eval runs against feature branches catch eval-infra
+regressions, not skill-behavior regressions.
+
 ## Rule 4 — Doc/runtime convention parity
 
 Any Bash code block in committed docs that invokes Node MUST follow the
