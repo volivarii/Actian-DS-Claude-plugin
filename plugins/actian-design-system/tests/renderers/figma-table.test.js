@@ -7,8 +7,9 @@ var figma = require("../../scripts/renderers/figma-table/render-figma.js");
 var html = require("../../scripts/renderers/figma-table/render-html.js");
 
 // ---------------------------------------------------------------------------
-// Token name set used for tests (avoid loading live registry to keep tests
-// hermetic; live registry validation is exercised in CLI smoke).
+// Hermetic token set used by most tests so failures don't depend on the live
+// registry shape. Two dedicated tests below exercise loadTokenNames() against
+// tokens/actian-ds.tokens.json directly.
 // ---------------------------------------------------------------------------
 
 var TEST_TOKENS = new Set([
@@ -316,4 +317,175 @@ test("parity: same spec produces N rows in both Figma emit + HTML render", funct
   assert.ok(bodyMatch);
   var rowCount = (bodyMatch[1].match(/<tr>/g) || []).length;
   assert.equal(rowCount, 3);
+});
+
+// ---------------------------------------------------------------------------
+// additionalProperties enforcement — schema declares it, validator must too.
+// Stray fields are improvisation surface and break the determinism guarantee.
+// ---------------------------------------------------------------------------
+
+test("validate rejects unexpected field on spec root", function () {
+  var s = spec([], { headers: ["A"] });
+  s.madeUpField = true;
+  var errors = figma.validate(s, TEST_TOKENS);
+  var match = errors.find(function (e) {
+    return e.path === "$.madeUpField";
+  });
+  assert.ok(match, "expected $.madeUpField error");
+  assert.match(match.suggestion, /Allowed:/);
+});
+
+test("validate rejects unexpected field on row", function () {
+  var s = spec([{ cells: [{ type: "text", value: "x" }], orphan: 1 }], {
+    headers: ["A"],
+  });
+  var errors = figma.validate(s, TEST_TOKENS);
+  var match = errors.find(function (e) {
+    return e.path === "rows[0].orphan";
+  });
+  assert.ok(match);
+  assert.match(match.message, /Unexpected field on row/);
+});
+
+test("validate rejects stray field on text cell", function () {
+  // Bug class: AI improvises a 'color' field on text cells. The schema bans
+  // it; the validator must catch it before the interpreter runs.
+  var s = spec([{ cells: [{ type: "text", value: "x", color: "#fff" }] }], {
+    headers: ["A"],
+  });
+  var errors = figma.validate(s, TEST_TOKENS);
+  var match = errors.find(function (e) {
+    return e.path === "rows[0].cells[0].color";
+  });
+  assert.ok(match);
+  assert.match(match.suggestion, /Allowed: type, value, weight/);
+});
+
+test("validate rejects stray field on token-pill / code / badge / color-swatch / empty", function () {
+  // One per cell type — guards against future additions to CELL_ALLOWED_KEYS
+  // forgetting a discriminator.
+  var cases = [
+    { type: "token-pill", value: "--zen-spacing-lg", stray: "stray" },
+    { type: "code", value: "x", stray: "stray" },
+    { type: "badge", variant: "req", stray: "stray" },
+    {
+      type: "color-swatch",
+      color: "#0550DC",
+      tokenName: "--zen-color-bg-emphasis",
+      stray: "stray",
+    },
+    { type: "empty", stray: "stray" },
+  ];
+  cases.forEach(function (cell, i) {
+    var s = spec([{ cells: [cell] }], { headers: ["A"] });
+    var errors = figma.validate(s, TEST_TOKENS);
+    var match = errors.find(function (e) {
+      return e.path === "rows[0].cells[0].stray";
+    });
+    assert.ok(match, "case " + i + " (" + cell.type + ") should reject stray");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Footnote ↔ footnoteRef cross-reference. Dangling refs render as superscripts
+// pointing nowhere — silent UX bug. The validator catches them at the boundary.
+// ---------------------------------------------------------------------------
+
+test("validate rejects dangling footnoteRef with no footnotes[]", function () {
+  var s = spec([{ cells: [{ type: "text", value: "x" }], footnoteRef: "*" }], {
+    headers: ["A"],
+  });
+  var errors = figma.validate(s, TEST_TOKENS);
+  var match = errors.find(function (e) {
+    return e.path === "rows[0].footnoteRef";
+  });
+  assert.ok(match);
+  assert.match(match.message, /not defined in footnotes/);
+  assert.ok(match.suggestion);
+});
+
+test("validate rejects footnoteRef that doesn't match any footnotes[] entry", function () {
+  var s = spec([{ cells: [{ type: "text", value: "x" }], footnoteRef: "†" }], {
+    headers: ["A"],
+  });
+  s.footnotes = [{ ref: "*", text: "asterisk note" }];
+  var errors = figma.validate(s, TEST_TOKENS);
+  var match = errors.find(function (e) {
+    return e.path === "rows[0].footnoteRef";
+  });
+  assert.ok(match);
+  assert.match(match.message, /"†" not defined/);
+});
+
+test("validate accepts footnoteRef when a matching footnotes[] entry exists", function () {
+  var s = spec([{ cells: [{ type: "text", value: "x" }], footnoteRef: "*" }], {
+    headers: ["A"],
+  });
+  s.footnotes = [{ ref: "*", text: "asterisk note" }];
+  var errors = figma.validate(s, TEST_TOKENS);
+  assert.deepEqual(errors, []);
+});
+
+test("validate rejects footnotes[] entry missing ref or text", function () {
+  var s = spec([], { headers: ["A"] });
+  s.footnotes = [{ ref: "*" }, { text: "no ref" }];
+  var errors = figma.validate(s, TEST_TOKENS);
+  assert.ok(
+    errors.some(function (e) {
+      return e.path === "footnotes[0].text";
+    }),
+  );
+  assert.ok(
+    errors.some(function (e) {
+      return e.path === "footnotes[1].ref";
+    }),
+  );
+});
+
+test("validate rejects unexpected field on footnote", function () {
+  var s = spec([], { headers: ["A"] });
+  s.footnotes = [{ ref: "*", text: "note", priority: "high" }];
+  var errors = figma.validate(s, TEST_TOKENS);
+  var match = errors.find(function (e) {
+    return e.path === "footnotes[0].priority";
+  });
+  assert.ok(match);
+});
+
+// ---------------------------------------------------------------------------
+// Live-registry validation — proves loadTokenNames() walks the actual DTCG
+// token file correctly. The other validate tests use a hardcoded TEST_TOKENS
+// Set for hermeticism; this test confirms the walker handles the real shape.
+// ---------------------------------------------------------------------------
+
+test("loadTokenNames parses the live tokens/actian-ds.tokens.json registry", function () {
+  var names = figma.loadTokenNames();
+  assert.ok(names instanceof Set, "expected a Set");
+  assert.ok(names.size > 100, "expected >100 tokens, got " + names.size);
+  // Three known tokens that the brief generator references in production.
+  // If any of these disappear, briefs will break — so this triples as a
+  // canary for accidental token deletions.
+  assert.ok(names.has("--zen-spacing-lg"));
+  assert.ok(names.has("--zen-color-bg-emphasis"));
+  assert.ok(names.has("--zen-border-radius-xs"));
+});
+
+test("validate against live registry: known token passes, typo fails", function () {
+  var names = figma.loadTokenNames();
+  var ok = spec(
+    [{ cells: [{ type: "token-pill", value: "--zen-color-bg-emphasis" }] }],
+    { headers: ["Token"] },
+  );
+  assert.deepEqual(figma.validate(ok, names), []);
+
+  var typo = spec(
+    [{ cells: [{ type: "token-pill", value: "--zen-color-bg-emphsis" }] }],
+    { headers: ["Token"] },
+  );
+  var errors = figma.validate(typo, names);
+  assert.ok(
+    errors.some(function (e) {
+      return /not found in registry/i.test(e.message);
+    }),
+  );
 });

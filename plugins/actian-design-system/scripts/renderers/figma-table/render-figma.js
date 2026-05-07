@@ -42,7 +42,7 @@ function parseArgv(argv) {
     else if (argv[i] === "--spec") args.specPath = argv[++i];
     else if (argv[i] === "--help" || argv[i] === "-h") {
       process.stderr.write(
-        "Usage: render-figma.js [--spec <file>] [--parent-id <id>]\n"
+        "Usage: render-figma.js [--spec <file>] [--parent-id <id>]\n",
       );
       process.exit(0);
     }
@@ -102,8 +102,48 @@ function walkTokens(node, prefix, out) {
   }
 }
 
-var CELL_TYPES = ["text", "token-pill", "code", "badge", "color-swatch", "empty"];
+var CELL_TYPES = [
+  "text",
+  "token-pill",
+  "code",
+  "badge",
+  "color-swatch",
+  "empty",
+];
 var BADGE_VARIANTS = ["req", "opt", "draft", "stub", "canonical"];
+
+// additionalProperties: false enforcement — mirrors the schema. Stray fields
+// are improvisation surface; the schema bans them, the hand-rolled validator
+// must too, otherwise the determinism guarantee leaks.
+var SPEC_ALLOWED_KEYS = [
+  "schemaVersion",
+  "headers",
+  "columnAlignments",
+  "rows",
+  "footnotes",
+];
+var ROW_ALLOWED_KEYS = ["cells", "footnoteRef"];
+var FOOTNOTE_ALLOWED_KEYS = ["ref", "text"];
+var CELL_ALLOWED_KEYS = {
+  text: ["type", "value", "weight"],
+  "token-pill": ["type", "value"],
+  code: ["type", "value"],
+  badge: ["type", "variant", "label"],
+  "color-swatch": ["type", "color", "tokenName", "hex"],
+  empty: ["type"],
+};
+
+function unexpectedKeys(obj, allowed) {
+  var out = [];
+  for (var k in obj) {
+    if (
+      Object.prototype.hasOwnProperty.call(obj, k) &&
+      allowed.indexOf(k) === -1
+    )
+      out.push(k);
+  }
+  return out;
+}
 
 function validate(spec, tokenNames) {
   var errors = [];
@@ -125,11 +165,22 @@ function validate(spec, tokenNames) {
       },
     ];
 
-  if (typeof spec.schemaVersion !== "string" || !/^2026\.0[5-9]/.test(spec.schemaVersion))
+  unexpectedKeys(spec, SPEC_ALLOWED_KEYS).forEach(function (k) {
+    err(
+      "$." + k,
+      "Unexpected field on spec root",
+      "Allowed: " + SPEC_ALLOWED_KEYS.join(", "),
+    );
+  });
+
+  if (
+    typeof spec.schemaVersion !== "string" ||
+    !/^2026\.0[5-9]/.test(spec.schemaVersion)
+  )
     err(
       "schemaVersion",
       "Required string matching ^2026\\.0[5-9]",
-      'Set to "2026.05" (current schema version)'
+      'Set to "2026.05" (current schema version)',
     );
 
   if (!Array.isArray(spec.headers) || spec.headers.length < 1)
@@ -149,15 +200,24 @@ function validate(spec, tokenNames) {
         err("rows[" + r + "]", "Required object with .cells array", null);
         return;
       }
+      unexpectedKeys(row, ROW_ALLOWED_KEYS).forEach(function (k) {
+        err(
+          "rows[" + r + "]." + k,
+          "Unexpected field on row",
+          "Allowed: " + ROW_ALLOWED_KEYS.join(", "),
+        );
+      });
       if (row.cells.length !== nCols)
         err(
           "rows[" + r + "].cells",
           "Cell count " + row.cells.length + " ≠ headers count " + nCols,
-          "Add missing cells (use {type: 'empty'} for blanks) or trim"
+          "Add missing cells (use {type: 'empty'} for blanks) or trim",
         );
       row.cells.forEach(function (cell, c) {
         validateCell(cell, "rows[" + r + "].cells[" + c + "]", tokenNames, err);
       });
+      if (row.footnoteRef !== undefined && typeof row.footnoteRef !== "string")
+        err("rows[" + r + "].footnoteRef", "Must be a string if present", null);
     });
   }
 
@@ -167,12 +227,52 @@ function validate(spec, tokenNames) {
     else
       spec.columnAlignments.forEach(function (a, i) {
         if (a !== "left" && a !== "center" && a !== "right")
-          err(
-            "columnAlignments[" + i + "]",
-            "Must be left|center|right",
-            null
-          );
+          err("columnAlignments[" + i + "]", "Must be left|center|right", null);
       });
+  }
+
+  // Footnotes shape — required by spec when present.
+  var definedFootnoteRefs = new Set();
+  if (spec.footnotes !== undefined) {
+    if (!Array.isArray(spec.footnotes))
+      err("footnotes", "Must be an array if present", null);
+    else
+      spec.footnotes.forEach(function (fn, i) {
+        if (!fn || typeof fn !== "object") {
+          err("footnotes[" + i + "]", "Must be an object", null);
+          return;
+        }
+        unexpectedKeys(fn, FOOTNOTE_ALLOWED_KEYS).forEach(function (k) {
+          err(
+            "footnotes[" + i + "]." + k,
+            "Unexpected field on footnote",
+            "Allowed: " + FOOTNOTE_ALLOWED_KEYS.join(", "),
+          );
+        });
+        if (typeof fn.ref !== "string")
+          err("footnotes[" + i + "].ref", "Required string", null);
+        else definedFootnoteRefs.add(fn.ref);
+        if (typeof fn.text !== "string")
+          err("footnotes[" + i + "].text", "Required string", null);
+      });
+  }
+
+  // Cross-reference: every row.footnoteRef must resolve to a footnotes[] entry.
+  // A dangling ref renders as a superscript pointing nowhere — silent UX bug.
+  if (Array.isArray(spec.rows)) {
+    spec.rows.forEach(function (row, r) {
+      if (
+        row &&
+        typeof row === "object" &&
+        typeof row.footnoteRef === "string" &&
+        !definedFootnoteRefs.has(row.footnoteRef)
+      )
+        err(
+          "rows[" + r + "].footnoteRef",
+          'Footnote ref "' + row.footnoteRef + '" not defined in footnotes[]',
+          "Add a footnotes[] entry with matching ref, or remove the row.footnoteRef",
+        );
+    });
   }
 
   return errors;
@@ -182,17 +282,26 @@ function validateCell(cell, p, tokenNames, err) {
   if (!cell || typeof cell !== "object")
     return err(p, "Cell must be an object with a .type field", null);
   if (CELL_TYPES.indexOf(cell.type) === -1)
-    return err(
-      p + ".type",
-      "Must be one of: " + CELL_TYPES.join(", "),
-      null
+    return err(p + ".type", "Must be one of: " + CELL_TYPES.join(", "), null);
+
+  var allowed = CELL_ALLOWED_KEYS[cell.type];
+  unexpectedKeys(cell, allowed).forEach(function (k) {
+    err(
+      p + "." + k,
+      "Unexpected field on " + cell.type + " cell",
+      "Allowed: " + allowed.join(", "),
     );
+  });
 
   switch (cell.type) {
     case "text":
       if (typeof cell.value !== "string")
         err(p + ".value", "Required string", null);
-      if (cell.weight && cell.weight !== "regular" && cell.weight !== "semibold")
+      if (
+        cell.weight &&
+        cell.weight !== "regular" &&
+        cell.weight !== "semibold"
+      )
         err(p + ".weight", "Must be regular|semibold", null);
       break;
     case "token-pill":
@@ -202,13 +311,13 @@ function validateCell(cell, p, tokenNames, err) {
         err(
           p + ".value",
           "Must start with '--zen-'",
-          "Use the CSS variable form, e.g. --zen-spacing-lg"
+          "Use the CSS variable form, e.g. --zen-spacing-lg",
         );
       else if (tokenNames && !tokenNames.has(cell.value))
         err(
           p + ".value",
           "Token '" + cell.value + "' not found in registry",
-          "Check tokens/actian-ds.tokens.json — possible typo or missing token"
+          "Check tokens/actian-ds.tokens.json — possible typo or missing token",
         );
       break;
     case "code":
@@ -220,7 +329,7 @@ function validateCell(cell, p, tokenNames, err) {
         err(
           p + ".variant",
           "Must be one of: " + BADGE_VARIANTS.join(", "),
-          null
+          null,
         );
       if (cell.label && typeof cell.label !== "string")
         err(p + ".label", "Must be a string if present", null);
@@ -234,7 +343,7 @@ function validateCell(cell, p, tokenNames, err) {
         err(
           p + ".tokenName",
           "Token '" + cell.tokenName + "' not found in registry",
-          null
+          null,
         );
       if (cell.hex && !/^#[0-9A-Fa-f]{6}$/.test(cell.hex))
         err(p + ".hex", "Must be hex color #RRGGBB if present", null);
@@ -293,16 +402,28 @@ function emit(spec, parentIdPlaceholder) {
   });
 
   // Header / utility — emitted once
-  lines.push("// renderTable — deterministic emit (schema " + spec.schemaVersion + ")");
-  lines.push('await figma.loadFontAsync({ family: "Inter", style: "Regular" });');
-  lines.push('await figma.loadFontAsync({ family: "Inter", style: "Medium" });');
-  lines.push('await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });');
+  lines.push(
+    "// renderTable — deterministic emit (schema " + spec.schemaVersion + ")",
+  );
+  lines.push(
+    'await figma.loadFontAsync({ family: "Inter", style: "Regular" });',
+  );
+  lines.push(
+    'await figma.loadFontAsync({ family: "Inter", style: "Medium" });',
+  );
+  lines.push(
+    'await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });',
+  );
   if (spec.rows.some(rowHasCellType(spec, "code")))
-    lines.push('await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });');
+    lines.push(
+      'await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });',
+    );
   lines.push("");
   lines.push("function hexToRgb(hex) {");
   lines.push('  var h = hex.replace("#", "");');
-  lines.push("  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };");
+  lines.push(
+    "  return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };",
+  );
   lines.push("}");
   lines.push("");
   lines.push('var parent = await figma.getNodeByIdAsync("' + parentId + '");');
@@ -321,7 +442,13 @@ function emit(spec, parentIdPlaceholder) {
   lines.push("");
 
   // Header row
-  emitRow(lines, "header", spec.headers, /* isHeader */ true, spec.columnAlignments);
+  emitRow(
+    lines,
+    "header",
+    spec.headers,
+    /* isHeader */ true,
+    spec.columnAlignments,
+  );
 
   // Data rows
   spec.rows.forEach(function (row, idx) {
@@ -329,7 +456,9 @@ function emit(spec, parentIdPlaceholder) {
     stats.rowsEmitted += 1;
     if (row.footnoteRef) {
       // Append a tiny superscript text node to first cell — emit comment for now
-      lines.push('// row ' + idx + ' has footnote ref: "' + row.footnoteRef + '"');
+      lines.push(
+        "// row " + idx + ' has footnote ref: "' + row.footnoteRef + '"',
+      );
     }
   });
 
@@ -341,9 +470,11 @@ function emit(spec, parentIdPlaceholder) {
       lines.push("var footnote = figma.createText();");
       lines.push('footnote.fontName = { family: "Inter", style: "Regular" };');
       lines.push("footnote.fontSize = 11;");
-      lines.push("footnote.fills = [{ type: \"SOLID\", color: hexToRgb(\"#595968\") }];");
       lines.push(
-        "footnote.characters = " + jsString(fn.ref + " " + fn.text) + ";"
+        'footnote.fills = [{ type: "SOLID", color: hexToRgb("#595968") }];',
+      );
+      lines.push(
+        "footnote.characters = " + jsString(fn.ref + " " + fn.text) + ";",
       );
       lines.push("table.appendChild(footnote);");
       lines.push('footnote.layoutSizingHorizontal = "FILL";');
@@ -374,7 +505,7 @@ function emitRow(lines, varSuffix, headerStrings, isHeader, alignments) {
     v +
       '.fills = [{ type: "SOLID", color: ' +
       hexLit(STYLE.HEADER_FILL) +
-      " }];"
+      " }];",
   );
   lines.push(v + ".paddingTop = 8;");
   lines.push(v + ".paddingBottom = 8;");
@@ -391,19 +522,24 @@ function emitRow(lines, varSuffix, headerStrings, isHeader, alignments) {
     lines.push("var " + cellVar + " = figma.createText();");
     lines.push(cellVar + ".characters = " + jsString(h) + ";");
     lines.push(
-      cellVar + '.fontName = { family: "Inter", style: "Semi Bold" };'
+      cellVar + '.fontName = { family: "Inter", style: "Semi Bold" };',
     );
     lines.push(cellVar + ".fontSize = 12;");
     lines.push(
       cellVar +
         '.fills = [{ type: "SOLID", color: ' +
         hexLit(STYLE.HEADER_TEXT) +
-        " }];"
+        " }];",
     );
     lines.push(v + ".appendChild(" + cellVar + ");");
     lines.push(cellVar + '.layoutSizingHorizontal = "FILL";');
     if (alignments && alignments[i]) {
-      var align = alignments[i] === "left" ? "LEFT" : alignments[i] === "center" ? "CENTER" : "RIGHT";
+      var align =
+        alignments[i] === "left"
+          ? "LEFT"
+          : alignments[i] === "center"
+            ? "CENTER"
+            : "RIGHT";
       lines.push(cellVar + ".textAlignHorizontal = " + jsString(align) + ";");
     }
   });
@@ -473,20 +609,28 @@ function emitTextCell(lines, cellVar, parentVar, cell, alignment) {
   var weight = cell.weight === "semibold" ? "Semi Bold" : "Regular";
   lines.push("var " + cellVar + " = figma.createText();");
   lines.push(
-    cellVar + '.fontName = { family: "Inter", style: ' + jsString(weight) + " };"
+    cellVar +
+      '.fontName = { family: "Inter", style: ' +
+      jsString(weight) +
+      " };",
   );
   lines.push(cellVar + ".fontSize = 14;");
   lines.push(
     cellVar +
       '.fills = [{ type: "SOLID", color: ' +
       hexLit(STYLE.TEXT_DEFAULT) +
-      " }];"
+      " }];",
   );
   lines.push(cellVar + ".characters = " + jsString(cell.value) + ";");
   lines.push(wrap + ".appendChild(" + cellVar + ");");
   lines.push(cellVar + '.layoutSizingHorizontal = "FILL";');
   if (alignment) {
-    var align = alignment === "left" ? "LEFT" : alignment === "center" ? "CENTER" : "RIGHT";
+    var align =
+      alignment === "left"
+        ? "LEFT"
+        : alignment === "center"
+          ? "CENTER"
+          : "RIGHT";
     lines.push(cellVar + ".textAlignHorizontal = " + jsString(align) + ";");
   }
 }
@@ -517,7 +661,7 @@ function emitTokenPillCell(lines, cellVar, parentVar, cell) {
     pillVar +
       '.fills = [{ type: "SOLID", color: ' +
       hexLit(STYLE.TOKEN_PILL_BG) +
-      " }];"
+      " }];",
   );
   lines.push("var " + cellVar + " = figma.createText();");
   lines.push(cellVar + '.fontName = { family: "Inter", style: "Medium" };');
@@ -527,7 +671,7 @@ function emitTokenPillCell(lines, cellVar, parentVar, cell) {
     cellVar +
       '.fills = [{ type: "SOLID", color: ' +
       hexLit(STYLE.TOKEN_PILL_FG) +
-      " }];"
+      " }];",
   );
   lines.push(pillVar + ".appendChild(" + cellVar + ");");
   lines.push(wrap + ".appendChild(" + pillVar + ");");
@@ -540,7 +684,7 @@ function emitCodeCell(lines, cellVar, parentVar, cell) {
     wrap +
       '.fills = [{ type: "SOLID", color: ' +
       hexLit(STYLE.CODE_BG) +
-      " }];"
+      " }];",
   );
   lines.push(wrap + '.layoutMode = "HORIZONTAL";');
   lines.push(wrap + ".paddingLeft = 6;");
@@ -554,13 +698,15 @@ function emitCodeCell(lines, cellVar, parentVar, cell) {
   lines.push(wrap + '.layoutSizingHorizontal = "FILL";');
 
   lines.push("var " + cellVar + " = figma.createText();");
-  lines.push(cellVar + '.fontName = { family: "Fira Code", style: "Regular" };');
+  lines.push(
+    cellVar + '.fontName = { family: "Fira Code", style: "Regular" };',
+  );
   lines.push(cellVar + ".fontSize = 12;");
   lines.push(
     cellVar +
       '.fills = [{ type: "SOLID", color: ' +
       hexLit(STYLE.CODE_FG) +
-      " }];"
+      " }];",
   );
   lines.push(cellVar + ".characters = " + jsString(cell.value) + ";");
   lines.push(wrap + ".appendChild(" + cellVar + ");");
@@ -593,17 +739,14 @@ function emitBadgeCell(lines, cellVar, parentVar, cell) {
   lines.push(badgeVar + ".paddingBottom = 2;");
   lines.push(badgeVar + ".cornerRadius = 3;");
   lines.push(
-    badgeVar +
-      '.fills = [{ type: "SOLID", color: ' +
-      hexLit(bg) +
-      " }];"
+    badgeVar + '.fills = [{ type: "SOLID", color: ' + hexLit(bg) + " }];",
   );
   lines.push("var " + cellVar + " = figma.createText();");
   lines.push(cellVar + '.fontName = { family: "Inter", style: "Semi Bold" };');
   lines.push(cellVar + ".fontSize = 10;");
   lines.push(cellVar + ".characters = " + jsString(label) + ";");
   lines.push(
-    cellVar + '.fills = [{ type: "SOLID", color: ' + hexLit(fg) + " }];"
+    cellVar + '.fills = [{ type: "SOLID", color: ' + hexLit(fg) + " }];",
   );
   lines.push(badgeVar + ".appendChild(" + cellVar + ");");
   lines.push(wrap + ".appendChild(" + badgeVar + ");");
@@ -628,16 +771,13 @@ function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
   lines.push(dotVar + ".resize(12, 12);");
   lines.push(dotVar + ".cornerRadius = 6;");
   lines.push(
-    dotVar +
-      '.fills = [{ type: "SOLID", color: ' +
-      hexLit(cell.color) +
-      " }];"
+    dotVar + '.fills = [{ type: "SOLID", color: ' + hexLit(cell.color) + " }];",
   );
   lines.push(
     dotVar +
       '.strokes = [{ type: "SOLID", color: ' +
       hexLit(STYLE.COLOR_SWATCH_BORDER) +
-      " }];"
+      " }];",
   );
   lines.push(dotVar + ".strokeWeight = 1;");
   lines.push(wrap + ".appendChild(" + dotVar + ");");
@@ -668,22 +808,20 @@ function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
       pillVar +
         '.fills = [{ type: "SOLID", color: ' +
         hexLit(STYLE.TOKEN_PILL_BG) +
-        " }];"
+        " }];",
     );
     lines.push("var " + cellVar + "_tn = figma.createText();");
     lines.push(
-      cellVar + '_tn.fontName = { family: "Inter", style: "Medium" };'
+      cellVar + '_tn.fontName = { family: "Inter", style: "Medium" };',
     );
     lines.push(cellVar + "_tn.fontSize = 11;");
     lines.push(
       cellVar +
-        "_tn.fills = [{ type: \"SOLID\", color: " +
+        '_tn.fills = [{ type: "SOLID", color: ' +
         hexLit(STYLE.TOKEN_PILL_FG) +
-        " }];"
+        " }];",
     );
-    lines.push(
-      cellVar + "_tn.characters = " + jsString(cell.tokenName) + ";"
-    );
+    lines.push(cellVar + "_tn.characters = " + jsString(cell.tokenName) + ";");
     lines.push(pillVar + ".appendChild(" + cellVar + "_tn);");
     lines.push(stackVar + ".appendChild(" + pillVar + ");");
   }
@@ -692,13 +830,15 @@ function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
   var hex = cell.hex || cell.color;
   var hexTextVar = cellVar + "_hx";
   lines.push("var " + hexTextVar + " = figma.createText();");
-  lines.push(hexTextVar + '.fontName = { family: "Fira Code", style: "Regular" };');
+  lines.push(
+    hexTextVar + '.fontName = { family: "Fira Code", style: "Regular" };',
+  );
   lines.push(hexTextVar + ".fontSize = 11;");
   lines.push(
     hexTextVar +
       '.fills = [{ type: "SOLID", color: ' +
       hexLit("#595968") +
-      " }];"
+      " }];",
   );
   lines.push(hexTextVar + ".characters = " + jsString(hex) + ";");
   lines.push(stackVar + ".appendChild(" + hexTextVar + ");");
@@ -728,8 +868,13 @@ function main() {
     process.stderr.write(
       JSON.stringify({
         ok: false,
-        errors: [{ path: "$", message: "Empty spec input — provide via stdin or --spec" }],
-      }) + "\n"
+        errors: [
+          {
+            path: "$",
+            message: "Empty spec input — provide via stdin or --spec",
+          },
+        ],
+      }) + "\n",
     );
     process.exit(1);
   }
@@ -742,7 +887,7 @@ function main() {
       JSON.stringify({
         ok: false,
         errors: [{ path: "$", message: "JSON parse error: " + e.message }],
-      }) + "\n"
+      }) + "\n",
     );
     process.exit(1);
   }
@@ -750,14 +895,16 @@ function main() {
   var tokenNames = loadTokenNames();
   var errors = validate(spec, tokenNames);
   if (errors.length) {
-    process.stderr.write(JSON.stringify({ ok: false, errors: errors }, null, 2) + "\n");
+    process.stderr.write(
+      JSON.stringify({ ok: false, errors: errors }, null, 2) + "\n",
+    );
     process.exit(1);
   }
 
   var result = emit(spec, args.parentId);
   process.stdout.write(result.code);
   process.stderr.write(
-    JSON.stringify({ ok: true, manifest: result.manifest }, null, 2) + "\n"
+    JSON.stringify({ ok: true, manifest: result.manifest }, null, 2) + "\n",
   );
 }
 
