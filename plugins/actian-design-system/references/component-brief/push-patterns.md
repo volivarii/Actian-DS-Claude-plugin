@@ -6,6 +6,26 @@ All calls MUST include `skillNames: "figma-use"`.
 
 ---
 
+## CRITICAL — Frame naming is non-optional
+
+Every `figma.createFrame()` call MUST be followed by an explicit
+`.name = "..."` assignment. Frames without explicit names default
+to the literal string "Frame" in Figma; mass-anonymity is the v1.71.0
+regression tell that the eval lane gates on (assertion A1, ≤5%
+literal "Frame").
+
+When you adapt a snippet from this doc, copy the `.name` line. When
+you write new frames inline, name them with their role
+(e.g. `"Token cell — color swatch"`, `"Variation row — Primary"`,
+`"Anatomy badge A"`, `"Gutter pill — 8px — --zen-spacing-sm"`).
+Generic names like `"Frame"`, `"Container"`, `"Wrapper"` fail the
+eval — pick something that reads like a sensible Figma layer label.
+
+This rule applies to component-brief recipes only. Other patterns
+(flow generation, hifi conversion) have their own conventions.
+
+---
+
 ## 0. Wrapper Frame (FIRST CALL — copy exactly)
 
 ```js
@@ -208,6 +228,7 @@ async function appendSubFrame(label, sourceCard) {
     // Note: Pattern 1b's badge construction lives in a separate use_figma
     // call scope and cannot be copy-pasted here — build the tag inline:
     const headerRow = figma.createFrame();
+    headerRow.name = "Heading + DRAFT tag";
     headerRow.layoutMode = "HORIZONTAL";
     headerRow.itemSpacing = 8;
     headerRow.primaryAxisSizingMode = "AUTO";
@@ -445,6 +466,7 @@ return { swatchId: swatch.id };
 
 ```js
 const cell = figma.createFrame();
+cell.name = "Token cell — color swatch";
 cell.layoutMode = "HORIZONTAL";
 cell.itemSpacing = 8;
 cell.counterAxisAlignItems = "CENTER";          // vertically center swatch + text block
@@ -457,6 +479,7 @@ cell.appendChild(swatch);
 
 // Text stack (token name on top, hex below)
 const textStack = figma.createFrame();
+textStack.name = "Token name + hex";
 textStack.layoutMode = "VERTICAL";
 textStack.itemSpacing = 2;
 textStack.primaryAxisSizingMode = "AUTO";
@@ -567,6 +590,7 @@ const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 
 // Green "+" bullet for "when to use"
 const row = figma.createFrame();
+row.name = "Usage row — when to use";
 row.layoutMode = "HORIZONTAL";
 row.itemSpacing = 8;
 row.primaryAxisSizingMode = "AUTO";
@@ -1239,6 +1263,7 @@ function computeAnchorY(surface, prop, container) {
 
 function buildDimensionAnnotation(distance, orientation, labelText) {
   const wrapper = figma.createFrame();
+  wrapper.name = "Dimension annotation — " + labelText;
   wrapper.layoutMode = "NONE";
   wrapper.fills = [];
   wrapper.clipsContent = false;
@@ -1272,6 +1297,7 @@ function buildDimensionAnnotation(distance, orientation, labelText) {
   // Label pill
   const spec = tokenTagSpec(labelText);
   const labelFrame = figma.createFrame();
+  labelFrame.name = "Spec label pill — " + labelText;
   labelFrame.layoutMode = "HORIZONTAL";
   labelFrame.primaryAxisSizingMode = "AUTO";
   labelFrame.counterAxisSizingMode = "AUTO";
@@ -1402,6 +1428,7 @@ async function buildGutterFromEntries(entries, surface) {
     // Build label pill via tokenTagSpec
     const spec = tokenTagSpec(formatLabel(e.value));
     const labelFrame = figma.createFrame();
+    labelFrame.name = "Gutter pill — " + spec.text;
     labelFrame.layoutMode = "HORIZONTAL";
     labelFrame.primaryAxisSizingMode = "AUTO";
     labelFrame.counterAxisSizingMode = "AUTO";
