@@ -377,16 +377,31 @@ async function appendTokenTagCell(parentRow, tokenText) {
 
   parentRow.appendChild(labelFrame);
 
-  // HUG-after-append guard (v1.70.0+): table rows with text-cell width
-  // constraints crush child frames to 1px height. Force AUTO sizing on
-  // the labelFrame after append to override inherited FIXED. Phase 2 PR 1
-  // smoke (2026-05-06) showed Checkbox token-tag cells crushed to ~1px
-  // because parent row had FIXED counter-axis sizing.
+  // HUG-after-append guards (v1.70.4+):
+  //   1. labelFrame hugs its own content (intrinsic ~17px tall).
+  //   2. parentRow MUST hug its tallest child too — this is the load-bearing
+  //      fix. Without (2), any row whose cells were sized via cell.resize(w, h)
+  //      ends up with FIXED counter-axis sizing (or short intrinsic height
+  //      from a single-line text node), and parent.clipsContent = true (frame
+  //      default) clips the labelFrame to the row's old ~1px height.
+  //
+  //      v1.70.0/1/2 patches set HUG on labelFrame only — the labelFrame grew
+  //      internally, but the parent row never expanded, so the cell still
+  //      visually rendered as a 1px line (the recurring Checkbox/Variation
+  //      /Tokens/Sizing/Typography squash observed across multiple smokes).
   if (typeof labelFrame.layoutSizingVertical !== "undefined") {
     labelFrame.layoutSizingVertical = "HUG";
   }
   if (typeof labelFrame.layoutSizingHorizontal !== "undefined") {
     labelFrame.layoutSizingHorizontal = "HUG";
+  }
+  if (parentRow.layoutMode === "NONE") {
+    parentRow.layoutMode = "HORIZONTAL";
+  }
+  parentRow.counterAxisSizingMode = "AUTO";
+  parentRow.counterAxisAlignItems = "CENTER";
+  if (typeof parentRow.layoutSizingVertical !== "undefined") {
+    parentRow.layoutSizingVertical = "HUG";
   }
 
   return labelFrame;
@@ -449,9 +464,9 @@ cell.appendChild(textStack);
 
 Regression guard: if the cell or its parent row uses `counterAxisSizingMode = "FIXED"` or sets a hard `cell.resize(_, 20)`, the second line clips. Always Hug.
 
-**Token Tag styling (v1.69.0+, with v1.70.0+ HUG guard):** The token-name text below the swatch dot must use the Token Tag pill style — same construction as Pattern 3's `appendTokenTagCell`. The hex value text below the token name stays as plain monospace text (it's not a token reference). Replace the `// token-name text node` placeholder with a call to `appendTokenTagCell(textStack, tokenName)` or the inline equivalent.
+**Token Tag styling (v1.69.0+, with v1.70.4+ HUG guard):** The token-name text below the swatch dot must use the Token Tag pill style — same construction as Pattern 3's `appendTokenTagCell`. The hex value text below the token name stays as plain monospace text (it's not a token reference). Replace the `// token-name text node` placeholder with a call to `appendTokenTagCell(textStack, tokenName)` or the inline equivalent.
 
-**Regression guard (v1.70.0+):** After appending the labelFrame to the textStack, force `labelFrame.layoutSizingVertical = "HUG"` and `labelFrame.layoutSizingHorizontal = "HUG"` (with `typeof !== "undefined"` defensive check). Without this guard, table rows with text-cell width constraints crush child frames to ~1px height — observed in Phase 2 PR 1 smoke (Checkbox token cells were invisible).
+**Regression guard (v1.70.4+, supersedes v1.70.0):** When inlining the token-tag construction (i.e., not calling `appendTokenTagCell` directly), apply the SAME guards the helper applies — both on the labelFrame (HUG on both axes) AND on the textStack/parentRow (`counterAxisSizingMode = "AUTO"`, `layoutSizingVertical = "HUG"`). v1.70.0–1.70.2 patched only the labelFrame; the parent row stayed at its old ~1px height and clipped the labelFrame visually (the recurring Checkbox/Variation/Tokens/Sizing/Typography squash). The fix MUST hit the parent.
 
 **Table layout:** Build as a header row (state + column names) + data rows. Each data row: state label text + N swatch cells. The data row frame should use `layoutMode = "HORIZONTAL"`, `counterAxisAlignItems = "CENTER"`, and `counterAxisSizingMode = "AUTO"` so it grows to the tallest cell. Batch 2-3 rows per `use_figma` call.
 
