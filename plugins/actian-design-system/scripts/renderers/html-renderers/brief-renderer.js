@@ -23,6 +23,16 @@
         .replace(/"/g, "&quot;");
     };
 
+  // renderTable HTML interpreter (Phase 1 pattern-harness migration). The
+  // four target tables — sizing, color grid, typography, anatomy parts —
+  // route through this so the brief preview matches what the Figma push
+  // emits via the same spec. Browser path is set up by assemble-preview.js
+  // (the UMD module exposes window.renderTableHtml).
+  var renderTableHtml =
+    (typeof window !== "undefined" && window.renderTableHtml) ||
+    (typeof require !== "undefined" && require("../figma-table/render-html")) ||
+    null;
+
   function genCard(meta) {
     return (
       '<div class="gen-card" data-name="Generation log">' +
@@ -197,6 +207,104 @@
       esc(hex) +
       ';"></span></span>'
     );
+  }
+
+  // -------------------------------------------------------------------------
+  // renderTable spec builders (Phase 1 pattern-harness migration).
+  // Each builder converts a brief data-model shape into the domain-level
+  // renderTable spec consumed by render-html.js (preview) and render-figma.js
+  // (Figma push). Same spec, two interpreters — proves the abstraction stays
+  // domain-level. See references/component-brief/render-table-tool.md.
+  // -------------------------------------------------------------------------
+
+  // tokenCell — emits a token-pill for properly-prefixed --zen-* values, a
+  // code cell otherwise. The HTML interpreter never validates, but the same
+  // spec flows through render-figma.js (which DOES) — so falling back to a
+  // code cell for non-conforming values keeps the preview rendering while
+  // surfacing the issue at the Figma boundary instead of silently passing
+  // garbage as a "token".
+  function tokenCell(value) {
+    var v = String(value == null ? "" : value);
+    if (/^--zen-/.test(v)) return { type: "token-pill", value: v };
+    if (v) return { type: "code", value: v };
+    return { type: "empty" };
+  }
+
+  function buildColorTokenSpec(colorTokens) {
+    if (!colorTokens || !colorTokens.length) return null;
+    var headers = ["Variant · State"].concat(
+      colorTokens[0].columns.map(function (c) {
+        return c.header;
+      }),
+    );
+    var rows = colorTokens.map(function (row) {
+      return {
+        cells: [{ type: "text", value: row.state, weight: "semibold" }].concat(
+          row.columns.map(function (col) {
+            return {
+              type: "color-swatch",
+              color: col.hex,
+              tokenName: col.token,
+              hex: col.hex,
+            };
+          }),
+        ),
+      };
+    });
+    return { schemaVersion: "2026.05", headers: headers, rows: rows };
+  }
+
+  function buildSizingTokenSpec(sizingTokens) {
+    if (!sizingTokens || !sizingTokens.length) return null;
+    return {
+      schemaVersion: "2026.05",
+      headers: ["Property", "Token", "Value"],
+      rows: sizingTokens.map(function (r) {
+        return {
+          cells: [
+            { type: "text", value: r.property || "" },
+            tokenCell(r.token),
+            { type: "text", value: r.value || "" },
+          ],
+        };
+      }),
+    };
+  }
+
+  function buildTypographySpec(typography) {
+    if (!typography || !typography.length) return null;
+    return {
+      schemaVersion: "2026.05",
+      headers: ["Element", "Token", "Font", "Tracking"],
+      rows: typography.map(function (t) {
+        return {
+          cells: [
+            { type: "text", value: t.element || "" },
+            tokenCell(t.token),
+            { type: "text", value: t.font || "" },
+            { type: "text", value: t.tracking || "" },
+          ],
+        };
+      }),
+    };
+  }
+
+  function buildAnatomyPartsSpec(partsTable) {
+    if (!partsTable || !partsTable.length) return null;
+    return {
+      schemaVersion: "2026.05",
+      headers: ["Part", "Element", "Token", "Notes"],
+      rows: partsTable.map(function (r) {
+        return {
+          cells: [
+            { type: "text", value: r.part || "" },
+            { type: "text", value: r.element || "" },
+            tokenCell(r.token),
+            { type: "text", value: r.notes || "" },
+          ],
+        };
+      }),
+    };
   }
 
   function contrastBadge(status) {
@@ -423,20 +531,13 @@
       );
     }
 
-    if (anatomy.partsTable && anatomy.partsTable.length) {
-      var pRows = anatomy.partsTable.map(function (r) {
-        return [
-          esc(r.part),
-          esc(r.element),
-          "<code>" + esc(r.token) + "</code>",
-          esc(r.notes),
-        ];
-      });
+    var partsSpec = buildAnatomyPartsSpec(anatomy.partsTable);
+    if (partsSpec) {
       parts.push(
         cardDivider() +
           '<div class="section" data-name="Parts reference">' +
           sectionTitle("Parts reference") +
-          specTable(["Part", "Element", "Token", "Notes"], pRows) +
+          renderTableHtml.render(partsSpec) +
           "</div>",
       );
     }
@@ -499,62 +600,41 @@
   }
 
   // Section 1 sub-section: Tokens (color + sizing + typography tables).
+  // Phase 1 pattern-harness: each table is built as a renderTable spec and
+  // rendered via the shared HTML interpreter — same spec also drives the
+  // Figma push, so the preview and the pushed brief stay structurally aligned.
   function renderTokensContent(tokens) {
     if (!tokens) return "";
     var parts = [];
 
-    if (tokens.colorTokens && tokens.colorTokens.length) {
-      var headers = ["Variant · State"].concat(
-        tokens.colorTokens[0].columns.map(function (c) {
-          return c.header;
-        }),
-      );
-      var rows = tokens.colorTokens.map(function (row) {
-        return [esc(row.state)].concat(
-          row.columns.map(function (col) {
-            return swatchDot(col.hex) + " <code>" + esc(col.token) + "</code>";
-          }),
-        );
-      });
+    var colorSpec = buildColorTokenSpec(tokens.colorTokens);
+    if (colorSpec) {
       parts.push(
         '<div class="section" data-name="Tokens">' +
           subsectionTitle("Tokens", tokens) +
-          specTable(headers, rows) +
+          renderTableHtml.render(colorSpec) +
           "</div>",
       );
     }
 
-    if (tokens.sizingTokens && tokens.sizingTokens.length) {
-      var sRows = tokens.sizingTokens.map(function (r) {
-        return [
-          esc(r.property),
-          "<code>" + esc(r.token) + "</code>",
-          esc(r.value),
-        ];
-      });
+    var sizingSpec = buildSizingTokenSpec(tokens.sizingTokens);
+    if (sizingSpec) {
       parts.push(
         cardDivider() +
           '<div class="section" data-name="Sizing & spacing">' +
           sectionTitle("Sizing & spacing") +
-          specTable(["Property", "Token", "Value"], sRows) +
+          renderTableHtml.render(sizingSpec) +
           "</div>",
       );
     }
 
-    if (tokens.typography && tokens.typography.length) {
-      var tRows = tokens.typography.map(function (t) {
-        return [
-          esc(t.element),
-          "<code>" + esc(t.token) + "</code>",
-          esc(t.font),
-          esc(t.tracking),
-        ];
-      });
+    var typographySpec = buildTypographySpec(tokens.typography);
+    if (typographySpec) {
       parts.push(
         cardDivider() +
           '<div class="section" data-name="Typography">' +
           sectionTitle("Typography") +
-          specTable(["Element", "Token", "Font", "Tracking"], tRows) +
+          renderTableHtml.render(typographySpec) +
           "</div>",
       );
     }

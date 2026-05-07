@@ -33,6 +33,12 @@ var RENDERERS_DIR = path.join(
   "renderers",
   "html-renderers",
 );
+var FIGMA_TABLE_DIR = path.join(
+  PLUGIN_ROOT,
+  "scripts",
+  "renderers",
+  "figma-table",
+);
 
 // ---------------------------------------------------------------------------
 // Type configurations
@@ -62,6 +68,9 @@ var TYPE_CONFIGS = {
     ],
     renderers: [
       path.join(RENDERERS_DIR, "fm-html-map.js"),
+      // renderTableHtml UMD must load BEFORE brief-renderer.js so the IIFE
+      // can pick it up via window.renderTableHtml during card rendering.
+      path.join(FIGMA_TABLE_DIR, "render-html.js"),
       path.join(RENDERERS_DIR, "brief-renderer.js"),
     ],
     containerHtml:

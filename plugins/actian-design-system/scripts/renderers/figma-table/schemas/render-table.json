@@ -1,0 +1,150 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "actian.brief/renderTable/2026.05",
+  "title": "renderTable spec",
+  "description": "Domain-level spec for a deterministic table render. Same spec drives Figma + HTML interpreters. Phase 1 of pattern-harness migration (2026-05-07-pattern-harness-migration-design.md).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "headers", "rows"],
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "pattern": "^2026\\.0[5-9]|^2026\\.1[0-2]|^202[7-9]\\.[0-1][0-9]",
+      "description": "Calendar-versioned schema (YYYY.MM, DTCG-style). Pin per call. Interpreter handles backward-compat for old shapes."
+    },
+    "headers": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1,
+      "description": "Column header labels. Length determines column count; every row's cells array length must match."
+    },
+    "columnAlignments": {
+      "type": "array",
+      "items": { "type": "string", "enum": ["left", "center", "right"] },
+      "description": "Optional per-column alignment. If omitted, defaults to left."
+    },
+    "rows": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["cells"],
+        "properties": {
+          "cells": {
+            "type": "array",
+            "minItems": 1,
+            "description": "Cell content. Array length must match headers.length.",
+            "items": { "$ref": "#/definitions/cell" }
+          },
+          "footnoteRef": {
+            "type": "string",
+            "description": "Optional footnote marker (e.g. '*', '†'). Renders as superscript at end of first cell."
+          }
+        }
+      }
+    },
+    "footnotes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["ref", "text"],
+        "properties": {
+          "ref": { "type": "string" },
+          "text": { "type": "string" }
+        }
+      },
+      "description": "Optional footnotes referenced by row.footnoteRef. Rendered below the table."
+    }
+  },
+  "definitions": {
+    "cell": {
+      "oneOf": [
+        { "$ref": "#/definitions/textCell" },
+        { "$ref": "#/definitions/tokenPillCell" },
+        { "$ref": "#/definitions/codeCell" },
+        { "$ref": "#/definitions/badgeCell" },
+        { "$ref": "#/definitions/colorSwatchCell" },
+        { "$ref": "#/definitions/emptyCell" }
+      ]
+    },
+    "textCell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "value"],
+      "properties": {
+        "type": { "const": "text" },
+        "value": { "type": "string", "description": "Display text. Multi-line via \\n." },
+        "weight": { "type": "string", "enum": ["regular", "semibold"], "default": "regular" }
+      }
+    },
+    "tokenPillCell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "value"],
+      "properties": {
+        "type": { "const": "token-pill" },
+        "value": {
+          "type": "string",
+          "pattern": "^--zen-",
+          "description": "Token name. Validated against tokens/actian-ds.tokens.json at boundary."
+        }
+      }
+    },
+    "codeCell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "value"],
+      "properties": {
+        "type": { "const": "code" },
+        "value": { "type": "string", "description": "Code snippet. Rendered in Fira Code monospace." }
+      }
+    },
+    "badgeCell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "variant"],
+      "properties": {
+        "type": { "const": "badge" },
+        "variant": {
+          "type": "string",
+          "enum": ["req", "opt", "draft", "stub", "canonical"]
+        },
+        "label": {
+          "type": "string",
+          "description": "Optional override label. Defaults: REQ, OPT, DRAFT, STUB, CANONICAL."
+        }
+      }
+    },
+    "colorSwatchCell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "color"],
+      "properties": {
+        "type": { "const": "color-swatch" },
+        "color": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "Resolved hex color (renderers don't resolve tokens — caller does)."
+        },
+        "tokenName": {
+          "type": "string",
+          "pattern": "^--zen-",
+          "description": "Optional token reference. Validated against tokens at boundary."
+        },
+        "hex": {
+          "type": "string",
+          "pattern": "^#[0-9A-Fa-f]{6}$",
+          "description": "Optional displayed hex (defaults to .color if omitted)."
+        }
+      }
+    },
+    "emptyCell": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type"],
+      "properties": {
+        "type": { "const": "empty" }
+      }
+    }
+  }
+}
