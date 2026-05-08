@@ -67,6 +67,8 @@ Every brief MUST start with a GenLog card as the first child of the wrapper. Imp
 
 **Source values from `brief-data.json.meta`, never from this example.** The values shown below are placeholders — using them literally produces wrong GenLog content (e.g., a stale plugin version). The data-model values were sourced in Step 2 from authoritative inputs (`plugin.json`, the runtime model name, etc.) — pass them through verbatim.
 
+**CRITICAL — property keys MUST be hash-suffixed.** GenLog's properties are typed as `Skill#3:0`, `Prompt#3:1`, `Date#3:2`, `Duration#3:3`, `Model#3:4`, `Plugin Version#3:5`. Bare keys (`"Skill"`, `"Prompt"`, etc.) silently fail with `setProperties` errors and require a recovery round-trip via `node.componentProperties` introspection. Use the suffixed keys verbatim — they are stable across Meta Kit publishes (tracked in `docs/generated/metakit.json`).
+
 ```js
 // IMPORTANT: read these from your brief-data.json `meta` block, not from the example below.
 const meta = briefData.meta;
@@ -75,12 +77,12 @@ const comp = await figma.importComponentByKeyAsync("a9653f30925367e96dea90093d75
 const inst = comp.createInstance();
 inst.name = "Generation Log";
 inst.setProperties({
-  "Skill": "Skill: " + meta.skill,                         // "component-brief"
-  "Prompt": "Prompt: component-brief " + meta.component,   // "Prompt: component-brief Button"
-  "Date": meta.generatedAt,                                // ISO 8601
-  "Duration": "Duration: " + meta.duration,
-  "Model": meta.model,
-  "Plugin Version": "v" + meta.pluginVersion              // e.g. "v1.57.2" — MUST come from project plugin.json, never invented
+  "Skill#3:0": "Skill: " + meta.skill,                         // "component-brief"
+  "Prompt#3:1": "Prompt: component-brief " + meta.component,   // "Prompt: component-brief Button"
+  "Date#3:2": meta.generatedAt,                                // ISO 8601
+  "Duration#3:3": "Duration: " + meta.duration,
+  "Model#3:4": meta.model,
+  "Plugin Version#3:5": "v" + meta.pluginVersion              // e.g. "v1.57.2" — MUST come from project plugin.json, never invented
 });
 
 const wrapper = await figma.getNodeByIdAsync("<wrapperId>");
