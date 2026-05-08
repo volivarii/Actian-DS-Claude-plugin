@@ -26,6 +26,31 @@ This rule applies to component-brief recipes only. Other patterns
 
 ---
 
+## CRITICAL — Pattern 3 + Pattern 4 are fallback documentation only
+
+**The canonical path for every table-shaped surface is the
+`renderTable` tool — see [render-table-tool.md](./render-table-tool.md).**
+
+- **ALWAYS** invoke `render-figma.js` via the Bash CLI pattern
+  documented in `render-table-tool.md` for: Sizing token tables,
+  Color token grids (Card 4), Typography token tables, Anatomy
+  parts tables.
+- **NEVER** inline table construction (token-pill cells, color
+  swatches, anatomy rows) directly in
+  `mcp__claude_ai_Figma__use_figma`. Inlining reproduces the
+  v1.70.x cell-squash regression that five consecutive doc-layer
+  patches failed to fix.
+- **FAILURE to invoke `renderTable` is measured by the v1.73.0
+  eval lane A8 assertion** — `--runs 5` × 2 fixtures, every
+  per-measurement file must report adoption rate ≥ 80%.
+- Pattern 3 + Pattern 4 below remain as fallback documentation per
+  `MIGRATIONS.md` Rule 1 (parallel change). They are NOT the
+  recommended path; they are preserved against the unverified case
+  where the renderTable tool itself fails for a reason unrelated
+  to AI adoption.
+
+---
+
 ## 0. Wrapper Frame (FIRST CALL — copy exactly)
 
 ```js
@@ -331,7 +356,7 @@ return { headerId: header.id };
 
 ## 3. Table Pattern (API, Sizing, Typography, ARIA, Contrast)
 
-> **Status (v1.71.1 recovery):** This pattern is the canonical path for table-shaped surfaces. The `renderTable` strict tool shipped in v1.71.0 (see `render-table-tool.md`) is **experimental** and AI-side adoption has not been smoke-verified — the v1.71.0 Cowork smoke showed the AI did not invoke the tool and fell back to inlining, reproducing the v1.70.4 squash. Do not delete this pattern again until the renderTable path is observed working end-to-end on a real component. (See `MIGRATIONS.md` for the parallel-change discipline this revival enforces.)
+> **Status (v1.73.0 — A3+ experimental gate):** This pattern is **fallback documentation only**. The canonical path for every table-shaped surface is the `renderTable` tool (see `render-table-tool.md`). **ALWAYS** invoke `render-figma.js` via the Bash CLI pattern; **NEVER** inline `appendTokenTagCell` or equivalent construction directly in `mcp__claude_ai_Figma__use_figma`. Inlining reproduces the v1.70.x cell-squash regression that five consecutive patches failed to fix and the v1.72.1 eval lane empirically measured as inter-run variance. This block remains in the document only because of `MIGRATIONS.md` Rule 1 (parallel change) — the helper is preserved as a documented fallback until A3+ adoption is smoke-verified, NOT as a recommended path. The v1.73.0 ship gate requires the eval lane (`--runs 5` × 2 fixtures = 10 measurements) to report renderTable adoption rate ≥ 80% on every measurement.
 
 Build tables row-by-row. Each row is an auto-layout frame with text cells.
 
@@ -439,7 +464,7 @@ Use this for token-name cells in: parts table (Pattern 9 anatomy parts table), s
 
 ## 4. Color Swatch Cell Pattern (Card 4 Color Token Grid)
 
-> **Status (v1.71.1 recovery):** This pattern is the canonical path for the Card 4 color grid; the `renderTable` `color-swatch` cell type (see `render-table-tool.md`) is **experimental** until smoke-verified. The v1.71.0 Cowork smoke confirmed the AI does not adopt the new tool; until that changes, do not delete this pattern.
+> **Status (v1.73.0 — A3+ experimental gate):** This pattern is **fallback documentation only** for the Card 4 color grid. The canonical path is the `renderTable` `color-swatch` cell type (see `render-table-tool.md`). **ALWAYS** invoke the renderTable tool; **NEVER** inline color-grid construction. Same regression class as Pattern 3 — the v1.72.1 eval lane measured the failure mode as inter-run variance. Preserved per `MIGRATIONS.md` Rule 1 only.
 
 **MANDATORY for Card 4 (Design Tokens) color table.** Build a compact grid: one row per state, one Color Swatch + token name per column. This keeps the table dense and readable.
 
