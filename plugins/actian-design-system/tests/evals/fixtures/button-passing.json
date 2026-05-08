@@ -1,0 +1,74 @@
+{
+  "nodes": {
+    "FaBwMaNkvdrcQIo3fl8I4D:1411:1": {
+      "document": {
+        "id": "1411:1",
+        "name": "Component brief — Button",
+        "type": "FRAME",
+        "absoluteBoundingBox": { "x": 0, "y": 0, "width": 1200, "height": 6000 },
+        "children": [
+          {
+            "id": "1411:25",
+            "name": "Specs sub-frame",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 80, "y": 5149, "width": 1108, "height": 255 },
+            "children": []
+          },
+          {
+            "id": "1411:40",
+            "name": "Variation matrix — Button",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 80, "y": 700, "width": 800, "height": 280 },
+            "children": [
+              { "id": "1411:41", "name": "Primary row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 40 }, "children": [] },
+              { "id": "1411:42", "name": "Secondary row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 40 }, "children": [] },
+              { "id": "1411:43", "name": "Tertiary row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 40 }, "children": [] },
+              { "id": "1411:44", "name": "Ghost row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 40 }, "children": [] },
+              { "id": "1411:45", "name": "Danger row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 40 }, "children": [] },
+              { "id": "1411:46", "name": "Link row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 40 }, "children": [] }
+            ]
+          },
+          {
+            "id": "1411:50",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 80, "y": 900, "width": 800, "height": 200 },
+            "children": [
+              { "id": "1411:51", "name": "Header row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 32 }, "children": [] }
+            ]
+          },
+          {
+            "id": "1411:60",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 80, "y": 1100, "width": 800, "height": 200 },
+            "children": [
+              { "id": "1411:61", "name": "Header row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 32 }, "children": [] }
+            ]
+          },
+          {
+            "id": "1411:70",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 80, "y": 1300, "width": 800, "height": 200 },
+            "children": [
+              { "id": "1411:71", "name": "Header row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 32 }, "children": [] }
+            ]
+          },
+          {
+            "id": "1411:80",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 80, "y": 1500, "width": 800, "height": 200 },
+            "children": [
+              { "id": "1411:81", "name": "Header row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 32 }, "children": [] }
+            ]
+          }
+        ]
+      },
+      "components": {},
+      "schemaVersion": 0,
+      "styles": {}
+    }
+  }
+}

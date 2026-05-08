@@ -1,0 +1,332 @@
+{
+  "nodes": {
+    "FaBwMaNkvdrcQIo3fl8I4D:1311:1": {
+      "document": {
+        "id": "1311:1",
+        "name": "Component brief — Checkbox",
+        "type": "FRAME",
+        "absoluteBoundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1200,
+          "height": 6000
+        },
+        "children": [
+          {
+            "id": "1311:25",
+            "name": "Specs sub-frame",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": 80,
+              "y": 5149,
+              "width": 1108,
+              "height": 255
+            },
+            "children": []
+          },
+          {
+            "id": "1311:30",
+            "name": "Anatomy diagram",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": 80,
+              "y": 200,
+              "width": 600,
+              "height": 400
+            },
+            "children": [
+              {
+                "id": "1311:31",
+                "name": "Anatomy badge text A",
+                "type": "TEXT",
+                "characters": "A",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 12,
+                  "height": 12
+                }
+              },
+              {
+                "id": "1311:32",
+                "name": "Anatomy badge text B",
+                "type": "TEXT",
+                "characters": "B",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 12,
+                  "height": 12
+                }
+              }
+            ]
+          },
+          {
+            "id": "1311:40",
+            "name": "Variation matrix — Checkbox 3 selected x 5 states",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": 80,
+              "y": 700,
+              "width": 800,
+              "height": 200
+            },
+            "children": [
+              {
+                "id": "1311:41",
+                "name": "Header row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 40
+                },
+                "children": []
+              },
+              {
+                "id": "1311:42",
+                "name": "Selected=No row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 40
+                },
+                "children": []
+              },
+              {
+                "id": "1311:43",
+                "name": "Selected=Yes row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 40
+                },
+                "children": []
+              },
+              {
+                "id": "1311:44",
+                "name": "Selected=Indeterminate row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 40
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1311:90",
+            "name": "Color tokens",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": 80,
+              "y": 1700,
+              "width": 800,
+              "height": 200
+            },
+            "children": [
+              {
+                "id": "1311:91",
+                "name": "Color row 1",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 36
+                },
+                "children": []
+              },
+              {
+                "id": "1311:92",
+                "name": "Color row 2",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 40
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1311:50",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": 80,
+              "y": 900,
+              "width": 800,
+              "height": 200
+            },
+            "children": [
+              {
+                "id": "1311:51",
+                "name": "Header row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 32
+                },
+                "children": []
+              },
+              {
+                "id": "1311:52",
+                "name": "Data row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 36
+                },
+                "children": [
+                  {
+                    "id": "1311:53",
+                    "name": "Cell — token-pill",
+                    "type": "FRAME",
+                    "absoluteBoundingBox": {
+                      "x": 0,
+                      "y": 0,
+                      "width": 200,
+                      "height": 36
+                    },
+                    "children": [
+                      {
+                        "id": "1311:54",
+                        "name": "Token: --zen-spacing-lg",
+                        "type": "FRAME",
+                        "absoluteBoundingBox": {
+                          "x": 0,
+                          "y": 0,
+                          "width": 100,
+                          "height": 20
+                        },
+                        "children": [
+                          {
+                            "id": "1311:55",
+                            "name": "Token text",
+                            "type": "TEXT",
+                            "characters": "--zen-spacing-lg",
+                            "absoluteBoundingBox": {
+                              "x": 0,
+                              "y": 0,
+                              "width": 100,
+                              "height": 14
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "1311:60",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": 80,
+              "y": 1100,
+              "width": 800,
+              "height": 200
+            },
+            "children": [
+              {
+                "id": "1311:61",
+                "name": "Header row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 32
+                },
+                "children": []
+              },
+              {
+                "id": "1311:62",
+                "name": "Data row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 36
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1311:70",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": 80,
+              "y": 1300,
+              "width": 800,
+              "height": 200
+            },
+            "children": [
+              {
+                "id": "1311:71",
+                "name": "Header row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 32
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "1311:80",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": {
+              "x": 80,
+              "y": 1500,
+              "width": 800,
+              "height": 200
+            },
+            "children": [
+              {
+                "id": "1311:81",
+                "name": "Header row",
+                "type": "FRAME",
+                "absoluteBoundingBox": {
+                  "x": 0,
+                  "y": 0,
+                  "width": 800,
+                  "height": 32
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      "components": {},
+      "schemaVersion": 0,
+      "styles": {}
+    }
+  }
+}

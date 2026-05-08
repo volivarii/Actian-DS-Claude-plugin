@@ -5,6 +5,14 @@ with-skill subagent has just invoked `/component-brief` against a
 fixture brief-data.json and pushed a Figma frame. Your job is to
 inspect that frame and return a structured pass/fail per assertion.
 
+> **Default grader is now programmatic** (`scripts/evals/grade-locally.js`).
+> The procedure below is the **fallback subagent grader** retained for cases
+> where the local grader can't run (no `FIGMA_PAT`, REST 4xx, or assertion
+> requires LLM judgment that the local grader doesn't yet implement). All
+> A1–A8 assertions are implemented locally as of v1.74.0. Per
+> `project_eval_lane_cost_economics.md`, the local grader halves eval-cycle
+> cost; reserve subagent dispatch for genuine fallback.
+
 ## Inputs
 
 You receive:
@@ -36,7 +44,7 @@ the AI created them generically without setting names.
 - **Fail:** > 5%
 - **Evidence:** count + total frames + ratio
 
-### A2: No row in the Phase 1 token tables crushes below 32px
+### A2: No row in Phase 1 token tables crushes below 32px
 
 Find frames whose name contains `Color`, `Sizing`, `Typography`, or
 `Anatomy parts`. For each, count direct row children and assert each
@@ -47,7 +55,7 @@ row's `absoluteBoundingBox.height >= 32`.
 - **Evidence:** list of (table, row index, height) for any < 32px row;
   empty list on pass
 
-### A3: Variation matrix renders rows ≥ 40px
+### A3: Variation matrix renders rows >= 40px
 
 Find a frame whose name contains `Variation`. Same height check at
 40px threshold (variation rows are taller than token rows).
@@ -56,7 +64,7 @@ Find a frame whose name contains `Variation`. Same height check at
   which is allowed for fixtures without one)
 - **Fail:** any variation row < 40px
 
-### A4: No token typo regression in any text node
+### A4: No token typo regression
 
 Walk all `TEXT` nodes; concatenate their `characters` field. Search
 for any of:
@@ -80,7 +88,7 @@ the section is present.
 - **Fail:** none
 - **Evidence:** frame name(s) found, or empty
 
-### A8: renderTable invocation rate ≥ 80% (interpreter-named frames)
+### A8: renderTable invocation rate >= 80% (interpreter-named frames)
 
 This assertion measures whether the AI invoked the `renderTable`
 deterministic interpreter (via Bash CLI per
@@ -144,7 +152,7 @@ in `scripts/evals/summarize.js`, NOT in the grader.
 
 ## Checkbox-specific assertions
 
-### A6: Anatomy badges A and B exist as text nodes
+### A6: Anatomy badges A and B exist
 
 Find the Anatomy diagram frame (name contains `Anatomy` and is NOT
 the `Anatomy parts` token table). Inside it, look for TEXT nodes

@@ -24,8 +24,10 @@ WORKSPACE_DIR="$EVALS_DIR/workspace"
 usage() {
   cat <<'USAGE'
 Usage:
-  run-component-brief.sh plan [--runs N]   # print run plan + subagent prompts
-                                           # (N defaults to 1; use 3 for variance-aware)
+  run-component-brief.sh plan [--runs N] [--grader local|subagent]
+                                          # N defaults to 1; grader defaults to local
+                                          # local = run scripts/evals/grade-locally.js
+                                          # subagent = dispatch grader subagents (legacy)
   run-component-brief.sh summarize <iter>  # per-assertion pass-rate summary
 USAGE
 }
@@ -44,6 +46,25 @@ $EVALS_DIR/evals.json eval id=$eval_id ("$eval_name") and execute the
 prompt exactly. Save outputs to $out_dir/outputs/. End your final
 response with FRAME_NODE_ID=<file-key>:<node-id> as the LAST line.
 PROMPT
+  echo
+}
+
+# emit_grader_local_command <fixture> <eval_name> <expected_tables> <run_n> <runs_total> <out_dir>
+emit_grader_local_command() {
+  local fixture="$1" eval_name="$2" expected_tables="$3" run_n="$4" runs_total="$5" out_dir="$6"
+  local fixture_capitalized
+  fixture_capitalized="$(echo "${fixture:0:1}" | tr '[:lower:]' '[:upper:]')${fixture:1}"
+  echo "===== Grade $fixture_capitalized (run $run_n/$runs_total) ====="
+  cat <<CMD
+# After with-skill subagent run $run_n returns FRAME_NODE_ID=<file-key>:<node-id>,
+# substitute it into the command below and run it (NO subagent dispatch).
+source "\$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" && "\$NODE_BIN" $PLUGIN_ROOT/scripts/evals/grade-locally.js \\
+  --frame-id=<paste-FRAME_NODE_ID-here> \\
+  --eval-name=$fixture \\
+  --fixture=$EVALS_DIR/fixtures/$fixture-brief-data.json \\
+  --expected-tables=$expected_tables \\
+  --out=$out_dir
+CMD
   echo
 }
 
@@ -67,6 +88,7 @@ cmd="${1:-}"; shift || true
 case "$cmd" in
   plan)
     runs=1
+    grader="local"
     while [ "${1:-}" != "" ]; do
       case "$1" in
         --runs)
@@ -75,6 +97,14 @@ case "$cmd" in
           ;;
         --runs=*)
           runs="${1#--runs=}"
+          shift
+          ;;
+        --grader)
+          grader="${2:?--grader requires a value}"
+          shift 2
+          ;;
+        --grader=*)
+          grader="${1#--grader=}"
           shift
           ;;
         *)
@@ -86,6 +116,10 @@ case "$cmd" in
     done
     if ! [[ "$runs" =~ ^[1-9][0-9]*$ ]]; then
       echo "--runs must be a positive integer (got: $runs)" >&2
+      exit 1
+    fi
+    if [[ "$grader" != "local" && "$grader" != "subagent" ]]; then
+      echo "--grader must be 'local' or 'subagent' (got: $grader)" >&2
       exit 1
     fi
 
@@ -112,16 +146,28 @@ case "$cmd" in
       done
     done
 
-    echo "After ALL with-skill subagents return FRAME_NODE_ID values, dispatch graders:"
+    echo "After ALL with-skill subagents return FRAME_NODE_ID values:"
     echo
-    echo "--- grader subagents ($((runs * 2)) total) ---"
-    echo
-    for fixture in checkbox button; do
-      for n in $(seq 1 "$runs"); do
-        out_dir="$iter_dir/eval-$fixture/run-$n/with_skill"
-        emit_grader_prompt "$fixture" "$n" "$runs" "$out_dir"
+    if [[ "$grader" == "local" ]]; then
+      echo "--- local grader commands ($((runs * 2)) total) ---"
+      echo
+      for fixture in checkbox button; do
+        # expected_render_tables_count is 4 for both fixtures (per evals.json)
+        for n in $(seq 1 "$runs"); do
+          out_dir="$iter_dir/eval-$fixture/run-$n/with_skill"
+          emit_grader_local_command "$fixture" "$fixture" 4 "$n" "$runs" "$out_dir"
+        done
       done
-    done
+    else
+      echo "--- grader subagents ($((runs * 2)) total) ---"
+      echo
+      for fixture in checkbox button; do
+        for n in $(seq 1 "$runs"); do
+          out_dir="$iter_dir/eval-$fixture/run-$n/with_skill"
+          emit_grader_prompt "$fixture" "$n" "$runs" "$out_dir"
+        done
+      done
+    fi
 
     echo "Then run: $0 summarize $iter"
     ;;
