@@ -1,6 +1,24 @@
 # renderTable tool — reference
 
-> **Status: experimental (v1.71.1).** The interpreter, schema, validator, and HTML preview path are correct and unit-tested (27 tests passing). **AI-side adoption is unverified.** The v1.71.0 Cowork smoke confirmed the AI did not invoke the tool on a live brief and fell back to inlining, reproducing the v1.70.4 squash regression. Until a smoke pass on a real component (Checkbox at `FaBwMaNkvdrcQIo3fl8I4D#1067-2614`) shows frame names like `Table (renderTable)` and `Token: --zen-…` in the output metadata, treat this tool as available-but-not-canonical. **The canonical path remains Pattern 3 + Pattern 4 in `push-patterns.md`** (with the `appendTokenTagCell` helper restored in v1.71.1). See `MIGRATIONS.md` for the parallel-change discipline that keeps both paths alive.
+> **Status: REQUIRED (v1.73.0).** This tool is the canonical path
+> for every table-shaped surface in a component brief. **ALWAYS**
+> invoke `render-figma.js` via the Bash CLI pattern below. **NEVER**
+> inline token-table construction directly in
+> `mcp__claude_ai_Figma__use_figma` — the v1.70.x retry loop produced
+> five separate patches against the inlined-construction failure
+> mode (cells crushed to 1px) and the v1.72.1 eval lane measured
+> inter-run variance on identical inputs. **FAILURE to invoke this
+> tool reproduces a known regression** that doc-layer fixes cannot
+> resolve.
+>
+> Pattern 3 (`appendTokenTagCell`) and Pattern 4 (color grid) remain
+> in `push-patterns.md` per `MIGRATIONS.md` Rule 1 (parallel change),
+> but they are fallback documentation only — not the canonical
+> rendering path. New brief generation MUST go through this tool.
+> The eval lane A8 assertion measures invocation rate per fixture
+> (`evals/component-brief/grader.md`). The v1.73.0 ship gate
+> requires every per-measurement file (`--runs 5` × 2 fixtures =
+> 10 grading.json files) to report adoption rate ≥ 80%.
 
 **Intended scope (when adoption is proven):** every table-shaped surface in a component brief — the Sizing, Color, and Typography token tables in the Tokens sub-frame, and the Anatomy parts table in the Anatomy sub-frame.
 
