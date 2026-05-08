@@ -7,105 +7,132 @@
 #
 #   1. Print the run plan (which evals, where workspace lives)
 #   2. Print copy-paste subagent prompts the maintainer dispatches
-#   3. After subagent runs complete, aggregate benchmark + open viewer
+#   3. After grader runs complete, summarize per-assertion pass rates
 #
-# This split is intentional: the Anthropic skill-creator framework
-# assumes the orchestrator is Claude Code itself. We can't shell-out
-# to "claude --dangerous-no-permissions"; the maintainer drives it.
+# Multi-run support (--runs N): each fixture is run N times against the
+# same prompt+skill. The summarizer reports pass/total per assertion so
+# inter-run variance shows up as e.g. "A2: 1/3 pass — flaky" rather
+# than a single deceptive pass/fail. Default is 1 run for cheap smoke;
+# 3 runs is the standard for variance-aware gating.
 
 set -euo pipefail
 
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 EVALS_DIR="$PLUGIN_ROOT/evals/component-brief"
 WORKSPACE_DIR="$EVALS_DIR/workspace"
-SKILL_CREATOR="$HOME/.claude/plugins/cache/claude-plugins-official/skill-creator/unknown/skills/skill-creator"
 
 usage() {
   cat <<'USAGE'
 Usage:
-  run-component-brief.sh plan            # print the run plan + subagent prompts
-  run-component-brief.sh aggregate <iter># aggregate iteration-N into benchmark
-  run-component-brief.sh view <iter>     # open the eval-viewer for iteration-N
+  run-component-brief.sh plan [--runs N]   # print run plan + subagent prompts
+                                           # (N defaults to 1; use 3 for variance-aware)
+  run-component-brief.sh summarize <iter>  # per-assertion pass-rate summary
 USAGE
+}
+
+# emit_with_skill_prompt <fixture> <eval_id> <eval_name> <run_n> <runs_total> <out_dir>
+emit_with_skill_prompt() {
+  local fixture="$1" eval_id="$2" eval_name="$3" run_n="$4" runs_total="$5" out_dir="$6"
+  local fixture_capitalized
+  fixture_capitalized="$(echo "${fixture:0:1}" | tr '[:lower:]' '[:upper:]')${fixture:1}"
+  echo "===== $eval_name (run $run_n / $runs_total) ====="
+  cat <<PROMPT
+Description: Run component-brief eval — $fixture_capitalized (run $run_n/$runs_total)
+Prompt:
+You are the with-skill subagent for the component-brief eval (run $run_n of $runs_total). Read
+$EVALS_DIR/evals.json eval id=$eval_id ("$eval_name") and execute the
+prompt exactly. Save outputs to $out_dir/outputs/. End your final
+response with FRAME_NODE_ID=<file-key>:<node-id> as the LAST line.
+PROMPT
+  echo
+}
+
+# emit_grader_prompt <fixture> <run_n> <runs_total> <out_dir>
+emit_grader_prompt() {
+  local fixture="$1" run_n="$2" runs_total="$3" out_dir="$4"
+  local fixture_capitalized
+  fixture_capitalized="$(echo "${fixture:0:1}" | tr '[:lower:]' '[:upper:]')${fixture:1}"
+  cat <<PROMPT
+Description: Grade $fixture_capitalized eval result (run $run_n/$runs_total)
+Prompt:
+You are the grader subagent. Read $EVALS_DIR/grader.md. Inputs:
+frame_node_id=<paste from run $run_n with-skill output>, fixture_path=$EVALS_DIR/fixtures/$fixture-brief-data.json,
+eval_name=$fixture. Write grading.json to $out_dir/.
+PROMPT
+  echo
 }
 
 cmd="${1:-}"; shift || true
 
 case "$cmd" in
   plan)
+    runs=1
+    while [ "${1:-}" != "" ]; do
+      case "$1" in
+        --runs)
+          runs="${2:?--runs requires a value}"
+          shift 2
+          ;;
+        --runs=*)
+          runs="${1#--runs=}"
+          shift
+          ;;
+        *)
+          echo "unknown arg: $1" >&2
+          usage
+          exit 1
+          ;;
+      esac
+    done
+    if ! [[ "$runs" =~ ^[1-9][0-9]*$ ]]; then
+      echo "--runs must be a positive integer (got: $runs)" >&2
+      exit 1
+    fi
+
     iter="iteration-$(date +%Y%m%d-%H%M%S)"
     iter_dir="$WORKSPACE_DIR/$iter"
     mkdir -p "$iter_dir"
 
     echo "Workspace: $iter_dir"
+    echo "Runs per fixture: $runs"
     echo
-    echo "Dispatch one Agent per eval. Use these exact prompts:"
+    echo "Dispatch one Agent per with-skill row, then one per grader row."
     echo
-    echo "===== checkbox-table-heavy ====="
-    cat <<PROMPT
-Description: Run component-brief eval — Checkbox
-Prompt:
-You are the with-skill subagent for the component-brief eval. Read
-$EVALS_DIR/evals.json eval id=0 ("checkbox-table-heavy") and execute
-the prompt exactly. Save outputs to $iter_dir/eval-checkbox/with_skill/
-outputs/. Capture timing.json with total_tokens and duration_ms.
-PROMPT
+    echo "--- with-skill subagents ($((runs * 2)) total) ---"
     echo
-    echo "===== button-variant-heavy ====="
-    cat <<PROMPT
-Description: Run component-brief eval — Button
-Prompt:
-You are the with-skill subagent for the component-brief eval. Read
-$EVALS_DIR/evals.json eval id=1 ("button-variant-heavy") and execute
-the prompt exactly. Save outputs to $iter_dir/eval-button/with_skill/
-outputs/. Capture timing.json with total_tokens and duration_ms.
-PROMPT
+    for fixture in checkbox button; do
+      if [ "$fixture" = "checkbox" ]; then
+        eval_id=0; eval_name="checkbox-table-heavy"
+      else
+        eval_id=1; eval_name="button-variant-heavy"
+      fi
+      for n in $(seq 1 "$runs"); do
+        out_dir="$iter_dir/eval-$fixture/run-$n/with_skill"
+        emit_with_skill_prompt "$fixture" "$eval_id" "$eval_name" "$n" "$runs" "$out_dir"
+      done
+    done
+
+    echo "After ALL with-skill subagents return FRAME_NODE_ID values, dispatch graders:"
     echo
-    echo "After both subagents complete and report FRAME_NODE_ID values,"
-    echo "dispatch the grader subagent for each:"
+    echo "--- grader subagents ($((runs * 2)) total) ---"
     echo
-    cat <<PROMPT
-Description: Grade Checkbox eval result
-Prompt:
-You are the grader subagent. Read $EVALS_DIR/grader.md. Inputs:
-frame_node_id=<paste from previous run>, fixture_path=$EVALS_DIR/
-fixtures/checkbox-brief-data.json, eval_name=checkbox. Write
-grading.json to $iter_dir/eval-checkbox/with_skill/.
-PROMPT
-    echo
-    cat <<PROMPT
-Description: Grade Button eval result
-Prompt:
-You are the grader subagent. Read $EVALS_DIR/grader.md. Inputs:
-frame_node_id=<paste from previous run>, fixture_path=$EVALS_DIR/
-fixtures/button-brief-data.json, eval_name=button. Write
-grading.json to $iter_dir/eval-button/with_skill/.
-PROMPT
-    echo
-    echo "Then run: $0 aggregate $iter"
+    for fixture in checkbox button; do
+      for n in $(seq 1 "$runs"); do
+        out_dir="$iter_dir/eval-$fixture/run-$n/with_skill"
+        emit_grader_prompt "$fixture" "$n" "$runs" "$out_dir"
+      done
+    done
+
+    echo "Then run: $0 summarize $iter"
     ;;
 
-  aggregate)
+  summarize)
     iter="${1:?iteration required}"
     iter_dir="$WORKSPACE_DIR/$iter"
     [ -d "$iter_dir" ] || { echo "no such iteration: $iter_dir" >&2; exit 1; }
-    cd "$SKILL_CREATOR"
-    python3 -m scripts.aggregate_benchmark "$iter_dir" --skill-name component-brief
-    echo
-    echo "benchmark.md:"
-    cat "$iter_dir/benchmark.md"
-    ;;
-
-  view)
-    iter="${1:?iteration required}"
-    iter_dir="$WORKSPACE_DIR/$iter"
-    [ -f "$iter_dir/benchmark.json" ] || { echo "run aggregate first" >&2; exit 1; }
-    nohup python3 "$SKILL_CREATOR/eval-viewer/generate_review.py" \
-      "$iter_dir" \
-      --skill-name component-brief \
-      --benchmark "$iter_dir/benchmark.json" \
-      > "$iter_dir/viewer.log" 2>&1 &
-    echo "Viewer PID $!. Logs at $iter_dir/viewer.log."
+    # shellcheck disable=SC1091
+    source "$PLUGIN_ROOT/scripts/lib/resolve-node.sh"
+    "$NODE_BIN" "$PLUGIN_ROOT/scripts/evals/summarize.js" "$iter_dir"
     ;;
 
   *)
