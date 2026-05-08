@@ -24,6 +24,13 @@ Each registry entry contains: `key`, `importMethod` ("set" for `importComponentS
 
 ## 2. Core Patterns
 
+> **Never reparent across `use_figma` calls.** Build the wrapper first in
+> call N, then build each child node directly inside it in call N+1 by
+> retrieving the wrapper with `getNodeByIdAsync` and appending the NEW node
+> within that same call. Cross-call `appendChild` on a node fetched by ID
+> silently fails and produces orphaned frames.
+> (Source: figma-generate-design/SKILL.md:203)
+
 ## 0. Auto-Layout Defaults
 
 **Any row containing text MUST use `sizing: { horizontal: "FILL" }` with text children at `Hug` sizing.** Never set fixed widths on text-bearing rows.
@@ -147,17 +154,50 @@ inst.name = "Primary Button";
 return { instanceId: inst.id };
 ```
 
-### Pattern 4: Append children to frame by ID
+### Pattern 4: Append new children to a wrapper by ID
+
+> **Never reparent across `use_figma` calls.** Build the wrapper first, then
+> build each section directly inside it. Cross-call `appendChild` silently
+> fails and produces orphaned frames.
+> (Source: figma-generate-design/SKILL.md:203)
+
+**Correct — create new nodes and append them within the same call:**
 
 ```js
-// Append previously-created nodes into a parent frame.
+// Retrieve the wrapper created in the previous call, create new children
+// inside it in this call. child1 and child2 are NEW nodes — never fetched
+// by getNodeByIdAsync from a prior call.
 const parent = await figma.getNodeByIdAsync("1234:5678");
-const child1 = await figma.getNodeByIdAsync("1234:5679");
-const child2 = await figma.getNodeByIdAsync("1234:5680");
+
+const child1 = figma.createFrame();
+child1.name = "Section A";
+child1.layoutMode = "VERTICAL";
+child1.primaryAxisSizingMode = "AUTO";
+child1.counterAxisSizingMode = "AUTO";
+child1.fills = [];
 parent.appendChild(child1);
+
+const child2 = figma.createFrame();
+child2.name = "Section B";
+child2.layoutMode = "VERTICAL";
+child2.primaryAxisSizingMode = "AUTO";
+child2.counterAxisSizingMode = "AUTO";
+child2.fills = [];
 parent.appendChild(child2);
 
-return { parentId: parent.id, childCount: parent.children.length };
+return { parentId: parent.id, child1Id: child1.id, child2Id: child2.id };
+```
+
+**Wrong — DO NOT retrieve nodes by ID and reparent them across calls:**
+
+```js
+// ❌ FORBIDDEN: previously-created nodes fetched by ID then reparented.
+//    appendChild silently fails; both nodes become orphaned frames.
+const parent = await figma.getNodeByIdAsync("1234:5678");
+const child1 = await figma.getNodeByIdAsync("1234:5679");  // ← created in prior call
+const child2 = await figma.getNodeByIdAsync("1234:5680");  // ← created in prior call
+parent.appendChild(child1);  // ← silently fails
+parent.appendChild(child2);  // ← silently fails
 ```
 
 ### Pattern 5: Create text node
