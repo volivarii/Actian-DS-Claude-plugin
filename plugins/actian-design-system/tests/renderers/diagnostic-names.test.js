@@ -105,4 +105,89 @@ describe("render-figma diagnostic names", function () {
       'stdout must contain a `.name = "Token: " + "--zen-…";` concatenation — the eval-lane A8 assertion reads the runtime concatenated value via get_metadata, but the test pins the source emit form.',
     );
   });
+
+  it("emits a named dot frame for color-swatch cells", function () {
+    var spec = {
+      schemaVersion: "2026.05",
+      headers: ["Token", "Color"],
+      rows: [
+        {
+          cells: [
+            { type: "text", value: "Primary" },
+            {
+              type: "color-swatch",
+              color: "#0066ff",
+              hex: "#0066ff",
+              tokenName: "--zen-color-bg-default",
+            },
+          ],
+        },
+      ],
+    };
+    var result = runRendererWithSpec(spec, "0:1");
+    assert.strictEqual(
+      result.status,
+      0,
+      "renderer exited non-zero. stderr=" + result.stderr,
+    );
+    assert.match(
+      result.stdout,
+      /\.name\s*=\s*"Swatch dot";/,
+      'stdout must contain `.name = "Swatch dot";` — A1 grader counts unnamed frames as anonymity, and the swatch dot is one of three sub-frames inside emitColorSwatchCell.',
+    );
+  });
+
+  it("emits a named stack frame for color-swatch cells", function () {
+    var spec = {
+      schemaVersion: "2026.05",
+      headers: ["Token", "Color"],
+      rows: [
+        {
+          cells: [
+            { type: "text", value: "Primary" },
+            {
+              type: "color-swatch",
+              color: "#0066ff",
+              hex: "#0066ff",
+              tokenName: "--zen-color-bg-default",
+            },
+          ],
+        },
+      ],
+    };
+    var result = runRendererWithSpec(spec, "0:1");
+    assert.strictEqual(result.status, 0);
+    assert.match(
+      result.stdout,
+      /\.name\s*=\s*"Swatch stack";/,
+      'stdout must contain `.name = "Swatch stack";` — the vertical text-stack inside emitColorSwatchCell.',
+    );
+  });
+
+  it("emits a Token-named pill frame inside color-swatch cells when tokenName is set", function () {
+    var spec = {
+      schemaVersion: "2026.05",
+      headers: ["Token", "Color"],
+      rows: [
+        {
+          cells: [
+            { type: "text", value: "Primary" },
+            {
+              type: "color-swatch",
+              color: "#0066ff",
+              hex: "#0066ff",
+              tokenName: "--zen-color-bg-default",
+            },
+          ],
+        },
+      ],
+    };
+    var result = runRendererWithSpec(spec, "0:1");
+    assert.strictEqual(result.status, 0);
+    assert.match(
+      result.stdout,
+      /_pill\.name\s*=\s*"Token: "\s*\+\s*"--zen-color-bg-default";/,
+      'stdout must contain `_pill.name = "Token: " + "--zen-color-bg-default";` — keeps the swatch pill consistent with emitTokenPillCell so A8\'s secondary "Token: --zen-…" pill count is uniform.',
+    );
+  });
 });
