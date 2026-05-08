@@ -1,7 +1,7 @@
 {
   "name": "actian-design-system",
   "description": "Actian Design System toolkit — sync tokens from Figma, generate wireframe flows with prototype wiring, create component briefs, audit designs, compare flows, and build presentations. 9 skills (with tiered generation: recognized / adapted / improvised), 8 agents, 155 tokens (3 themes, 8 collections), WCAG 2.1 AA.",
-  "version": "1.72.4",
+  "version": "1.73.0",
   "author": {
     "name": "Actian UX Team"
   },
