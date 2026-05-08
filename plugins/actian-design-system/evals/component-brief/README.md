@@ -9,20 +9,46 @@ opening any PR that touches `references/component-brief/`,
 In a Claude Code session at the plugin root:
 
 ```bash
+# Single-run smoke (fast, ~15-20 min total). One signal per assertion.
 plugins/actian-design-system/scripts/evals/run-component-brief.sh plan
+
+# Variance-aware run (slower, ~45-60 min total). Three signals per
+# assertion; flaky assertions surface as "1/3 pass" or similar.
+plugins/actian-design-system/scripts/evals/run-component-brief.sh plan --runs 3
 ```
 
-The script prints two with-skill subagent prompts and two grader
-prompts. Dispatch them via the Agent tool, then:
+The script prints `2 × N` with-skill subagent prompts and `2 × N`
+grader prompts where N = `--runs` (default 1). Dispatch them via the
+Agent tool, then:
 
 ```bash
-plugins/actian-design-system/scripts/evals/run-component-brief.sh aggregate <iteration-id>
-plugins/actian-design-system/scripts/evals/run-component-brief.sh view <iteration-id>
+plugins/actian-design-system/scripts/evals/run-component-brief.sh summarize <iteration-id>
 ```
 
-The aggregator emits `benchmark.md`. **Paste benchmark.md into the
-PR description's Smoke Evidence section.** That IS the smoke gate
-(per `MIGRATIONS.md` Rule 3).
+`summarize` reads every `grading.json` produced for the iteration and
+emits a markdown table per fixture: assertion → verdict (`PASS` /
+`FAIL` / `2/3 pass — flaky`) → per-run check marks. Output is also
+saved to `<iteration-id>/summary.md`.
+
+**Paste `summary.md` into the PR description's Smoke Evidence
+section.** That IS the smoke gate (per `MIGRATIONS.md` Rule 3).
+
+### When to use `--runs 3`
+
+- Any PR that materially changes a brief-skill push pattern (Pattern
+  3, 4, 8, 9, 14)
+- After a regression fix — verifying the fix holds across runs
+- When investigating whether a failure is real or inter-run variance
+
+Single-run is fine for infra-only PRs (eval lane code, runner script,
+README updates) where the skill behavior is unchanged.
+
+### What "flaky" means
+
+Inter-run variance: same prompt, same fixture, same skill version,
+different output. The brief skill's recipe interpretation drifts
+across runs. A doc-level fix probably won't stabilize it; treat as
+harness territory per `project_deterministic_harness_architecture.md`.
 
 ## Marketplace-cache constraint
 
