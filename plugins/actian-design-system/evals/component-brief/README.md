@@ -50,6 +50,19 @@ different output. The brief skill's recipe interpretation drifts
 across runs. A doc-level fix probably won't stabilize it; treat as
 harness territory per `project_deterministic_harness_architecture.md`.
 
+## Graders
+
+- **`--grader local` (default, ~0 grader tokens):** runs
+  `scripts/evals/grade-locally.js` per (fixture, run) — one Figma REST call,
+  pure-JS assertions. Requires `FIGMA_PAT` in env. Implements A1–A8.
+- **`--grader subagent` (~100K tokens per grader):** dispatches a grader
+  subagent per (fixture, run) following `grader.md`. Use only when the local
+  grader cannot run.
+
+The default flipped to `local` in v1.74.0 alongside the swatch sub-cell
+naming patch. See `memory/project_eval_lane_cost_economics.md` for the
+cost analysis that motivated this.
+
 ## Marketplace-cache constraint
 
 `/component-brief` reads its skill code from the installed plugin

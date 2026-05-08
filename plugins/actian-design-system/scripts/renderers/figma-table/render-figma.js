@@ -773,6 +773,7 @@ function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
   // which would require an importComponentSetByKeyAsync call we control internally).
   var dotVar = cellVar + "_dot";
   lines.push("var " + dotVar + " = figma.createFrame();");
+  lines.push(dotVar + '.name = "Swatch dot";');
   lines.push(dotVar + ".resize(12, 12);");
   lines.push(dotVar + ".cornerRadius = 6;");
   lines.push(
@@ -790,6 +791,7 @@ function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
   // Text stack
   var stackVar = cellVar + "_stack";
   lines.push("var " + stackVar + " = figma.createFrame();");
+  lines.push(stackVar + '.name = "Swatch stack";');
   lines.push(stackVar + ".fills = [];");
   lines.push(stackVar + '.layoutMode = "VERTICAL";');
   lines.push(stackVar + ".itemSpacing = 2;");
@@ -801,6 +803,9 @@ function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
   if (cell.tokenName) {
     var pillVar = cellVar + "_pill";
     lines.push("var " + pillVar + " = figma.createFrame();");
+    lines.push(
+      pillVar + '.name = "Token: " + ' + jsString(cell.tokenName) + ";",
+    );
     lines.push(pillVar + '.layoutMode = "HORIZONTAL";');
     lines.push(pillVar + '.primaryAxisSizingMode = "AUTO";');
     lines.push(pillVar + '.counterAxisSizingMode = "AUTO";');

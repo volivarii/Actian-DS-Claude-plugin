@@ -1,0 +1,71 @@
+{
+  "nodes": {
+    "FaBwMaNkvdrcQIo3fl8I4D:9999:1": {
+      "document": {
+        "id": "9999:1",
+        "name": "Component brief — Broken Checkbox",
+        "type": "FRAME",
+        "absoluteBoundingBox": { "x": 0, "y": 0, "width": 1200, "height": 6000 },
+        "children": [
+          { "id": "9999:2", "name": "Frame", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 100, "height": 100 }, "children": [] },
+          { "id": "9999:3", "name": "Frame", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 100, "height": 100 }, "children": [] },
+          { "id": "9999:4", "name": "Frame", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 100, "height": 100 }, "children": [] },
+          { "id": "9999:5", "name": "Frame", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 100, "height": 100 }, "children": [] },
+          {
+            "id": "9999:10",
+            "name": "Color tokens",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 200 },
+            "children": [
+              { "id": "9999:11", "name": "Crushed row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 20 }, "children": [] }
+            ]
+          },
+          {
+            "id": "9999:20",
+            "name": "Variation matrix — Broken",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 100 },
+            "children": [
+              { "id": "9999:21", "name": "Crushed variation row", "type": "FRAME", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 28 }, "children": [] }
+            ]
+          },
+          {
+            "id": "9999:30",
+            "name": "Anatomy diagram",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 0, "width": 600, "height": 400 },
+            "children": [
+              { "id": "9999:31", "name": "Anatomy badge text A", "type": "TEXT", "characters": "A", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 12, "height": 12 } }
+            ]
+          },
+          {
+            "id": "9999:40",
+            "name": "Token typo holder",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 0, "width": 200, "height": 50 },
+            "children": [
+              { "id": "9999:41", "name": "Token text", "type": "TEXT", "characters": "--zen-font-body-stardard", "absoluteBoundingBox": { "x": 0, "y": 0, "width": 100, "height": 14 } }
+            ]
+          },
+          {
+            "id": "9999:50",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 200 },
+            "children": []
+          },
+          {
+            "id": "9999:60",
+            "name": "Table (renderTable)",
+            "type": "FRAME",
+            "absoluteBoundingBox": { "x": 0, "y": 0, "width": 800, "height": 200 },
+            "children": []
+          }
+        ]
+      },
+      "components": {},
+      "schemaVersion": 0,
+      "styles": {}
+    }
+  }
+}
