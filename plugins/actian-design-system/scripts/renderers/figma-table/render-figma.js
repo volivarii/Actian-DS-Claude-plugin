@@ -599,6 +599,7 @@ function emitTextCell(lines, cellVar, parentVar, cell, alignment) {
   // and HUG vertical so the row grows to fit multi-line content.
   var wrap = cellVar + "_w";
   lines.push("var " + wrap + " = figma.createFrame();");
+  lines.push(wrap + '.name = "Cell — text";');
   lines.push(wrap + ".fills = [];");
   lines.push(wrap + '.layoutMode = "VERTICAL";');
   lines.push(wrap + '.primaryAxisSizingMode = "AUTO";');
@@ -639,6 +640,7 @@ function emitTokenPillCell(lines, cellVar, parentVar, cell) {
   // Wrap so the column width distributes; pill HUGs its content inside the wrap.
   var wrap = cellVar + "_w";
   lines.push("var " + wrap + " = figma.createFrame();");
+  lines.push(wrap + '.name = "Cell — token-pill";');
   lines.push(wrap + ".fills = [];");
   lines.push(wrap + '.layoutMode = "HORIZONTAL";');
   lines.push(wrap + '.primaryAxisSizingMode = "AUTO";');
@@ -680,6 +682,7 @@ function emitTokenPillCell(lines, cellVar, parentVar, cell) {
 function emitCodeCell(lines, cellVar, parentVar, cell) {
   var wrap = cellVar + "_w";
   lines.push("var " + wrap + " = figma.createFrame();");
+  lines.push(wrap + '.name = "Cell — code";');
   lines.push(
     wrap +
       '.fills = [{ type: "SOLID", color: ' +
@@ -721,6 +724,7 @@ function emitBadgeCell(lines, cellVar, parentVar, cell) {
 
   var wrap = cellVar + "_w";
   lines.push("var " + wrap + " = figma.createFrame();");
+  lines.push(wrap + '.name = "Cell — badge";');
   lines.push(wrap + ".fills = [];");
   lines.push(wrap + '.layoutMode = "HORIZONTAL";');
   lines.push(wrap + '.primaryAxisSizingMode = "AUTO";');
@@ -755,6 +759,7 @@ function emitBadgeCell(lines, cellVar, parentVar, cell) {
 function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
   var wrap = cellVar + "_w";
   lines.push("var " + wrap + " = figma.createFrame();");
+  lines.push(wrap + '.name = "Cell — color-swatch";');
   lines.push(wrap + ".fills = [];");
   lines.push(wrap + '.layoutMode = "HORIZONTAL";');
   lines.push(wrap + ".itemSpacing = 8;");
@@ -849,6 +854,7 @@ function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
 
 function emitEmptyCell(lines, cellVar, parentVar) {
   lines.push("var " + cellVar + " = figma.createFrame();");
+  lines.push(cellVar + '.name = "Cell — empty";');
   lines.push(cellVar + ".fills = [];");
   lines.push(cellVar + '.layoutMode = "HORIZONTAL";');
   lines.push(cellVar + '.primaryAxisSizingMode = "AUTO";');

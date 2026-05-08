@@ -40,6 +40,17 @@ This rule applies to component-brief recipes only. Other patterns
   `mcp__claude_ai_Figma__use_figma`. Inlining reproduces the
   v1.70.x cell-squash regression that five consecutive doc-layer
   patches failed to fix.
+- **NEVER rename frames returned by `render-figma.js`** — the
+  interpreter sets the table frame's `.name` to exactly
+  `"Table (renderTable)"` so the eval lane can detect interpreter
+  invocation. Do NOT add suffixes (`"Table (renderTable) — Sizing"`,
+  `"Anatomy parts table (renderTable)"`, etc.) and do NOT replace
+  the name. The v1.73.0 eval lane measured a 70% renaming rate
+  that broke the A8 strict-equality gate; v1.73.1 makes this rule
+  explicit. Pass the interpreter's emitted JS verbatim into
+  `use_figma`. If you want to label the table for the canvas,
+  set the name on the *parent sub-frame* (e.g. the Tokens sub-
+  frame's "Sizing" label heading), not on the renderTable frame.
 - **FAILURE to invoke `renderTable` is measured by the v1.73.0
   eval lane A8 assertion** — `--runs 5` × 2 fixtures, every
   per-measurement file must report adoption rate ≥ 80%.

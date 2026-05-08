@@ -19,6 +19,21 @@
 > (`evals/component-brief/grader.md`). The v1.73.0 ship gate
 > requires every per-measurement file (`--runs 5` × 2 fixtures =
 > 10 grading.json files) to report adoption rate ≥ 80%.
+>
+> **NEVER rename the `Table (renderTable)` frame name** that
+> `render-figma.js` emits. The eval lane A8 assertion uses strict
+> string equality on this exact name as the diagnostic that the
+> interpreter ran. The v1.73.0 eval measured 7/10 runs renaming
+> the table frame with descriptive suffixes (e.g.
+> `"Anatomy parts table (renderTable)"`,
+> `"Table (renderTable) — Sizing"`), breaking the gate even
+> though the interpreter ran in all 10 runs. v1.73.1 makes this
+> rule explicit: pass the emitted JS **verbatim** into
+> `mcp__claude_ai_Figma__use_figma`. Do NOT edit. Do NOT
+> interpolate. Do NOT add suffixes. If you want to label the
+> table for the canvas, set the name on the *parent sub-frame*
+> (e.g. the Tokens sub-frame's heading), not on the renderTable
+> frame.
 
 **Intended scope (when adoption is proven):** every table-shaped surface in a component brief — the Sizing, Color, and Typography token tables in the Tokens sub-frame, and the Anatomy parts table in the Anatomy sub-frame.
 
