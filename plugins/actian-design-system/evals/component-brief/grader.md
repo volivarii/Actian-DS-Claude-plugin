@@ -80,6 +80,68 @@ the section is present.
 - **Fail:** none
 - **Evidence:** frame name(s) found, or empty
 
+### A8: renderTable invocation rate ≥ 80% (interpreter-named frames)
+
+This assertion measures whether the AI invoked the `renderTable`
+deterministic interpreter (via Bash CLI per
+`references/component-brief/render-table-tool.md`) instead of inlining
+table construction directly in `mcp__claude_ai_Figma__use_figma`.
+The interpreter produces diagnostic frame names that no inlined
+construction would emit:
+
+- `"Table (renderTable)"` — exactly one per table render (top-level
+  table frame, see `scripts/renderers/figma-table/render-figma.js:434`).
+- `"Token: --zen-…"` — one per token-pill cell (see
+  `scripts/renderers/figma-table/render-figma.js:651`).
+
+These literal strings are pinned by
+`tests/renderers/diagnostic-names.test.js`. Drift in the interpreter
+breaks CI before it breaks this assertion.
+
+**Inputs** (in addition to the universal grader inputs):
+
+- `expected_render_tables_count` — read from the matching eval entry
+  in `evals/component-brief/evals.json`. 4 for both Checkbox and
+  Button.
+
+**Procedure:**
+
+1. Walk the frame tree fetched by `mcp__claude_ai_Figma__get_metadata`.
+2. Count frames whose `name` field is **exactly** `Table (renderTable)`
+   (string equality, no substring). Call this `tables_via_interpreter`.
+3. Compute `adoption_rate = tables_via_interpreter / expected_render_tables_count`.
+4. Optional secondary signal: count frames whose `name` field starts
+   with `Token: --zen-`. Report the count under `evidence` but do NOT
+   gate on it (a fixture's exact token-pill count is not centrally
+   declared).
+
+**Pass:** `adoption_rate >= 0.80`. The integer math: with
+`expected_count = 4`, that means `tables_via_interpreter >= 4`
+(80% of 4 = 3.2 → effectively requires 4). Per-measurement bar
+designed to require *all* expected tables to render through the
+interpreter on the run being graded.
+
+**Fail:** `adoption_rate < 0.80`.
+
+**Evidence (JSON):**
+
+```json
+{
+  "tables_via_interpreter": 4,
+  "expected_render_tables_count": 4,
+  "adoption_rate": 1.00,
+  "token_pill_frames": 12,
+  "named_table_frames": ["Table (renderTable)", "Table (renderTable)", "Table (renderTable)", "Table (renderTable)"]
+}
+```
+
+**Why per-measurement, not averaged across runs:** the v1.72.1 eval
+caught inter-run variance — same skill version, same fixture, different
+sizing outcomes across runs. A simple average would mask flakiness;
+the per-measurement bar (every grading.json file's `adoption_rate >= 0.80`)
+is what catches the variance class. Cross-run aggregation happens later
+in `scripts/evals/summarize.js`, NOT in the grader.
+
 ## Checkbox-specific assertions
 
 ### A6: Anatomy badges A and B exist as text nodes
