@@ -7,6 +7,7 @@
       "prompt": "Generate a component brief for Checkbox using the brief-data at plugins/actian-design-system/evals/component-brief/fixtures/checkbox-brief-data.json. Push the resulting frame to Figma file FaBwMaNkvdrcQIo3fl8I4D, page 1143:12 (Eval — Component Brief). Return the resulting frame's node ID as the last line of your output, prefixed with 'FRAME_NODE_ID='.",
       "fixture_path": "plugins/actian-design-system/evals/component-brief/fixtures/checkbox-brief-data.json",
       "expected_output": "A component brief frame on the test page, with all Phase 1 token tables rendered at >=32px row heights, real frame names (not generic 'Frame'), Anatomy badges A and B present, Specs sub-frame present.",
+      "expected_render_tables_count": 4,
       "files": [
         "plugins/actian-design-system/evals/component-brief/fixtures/checkbox-brief-data.json"
       ],
@@ -25,7 +26,11 @@
         },
         { "text": "A4: No token typo regression", "fixture": "checkbox" },
         { "text": "A5: Specs sub-frame exists", "fixture": "checkbox" },
-        { "text": "A6: Anatomy badges A and B exist", "fixture": "checkbox" }
+        { "text": "A6: Anatomy badges A and B exist", "fixture": "checkbox" },
+        {
+          "text": "A8: renderTable invocation rate >= 80% (interpreter-named frames)",
+          "fixture": "checkbox"
+        }
       ]
     },
     {
@@ -34,6 +39,7 @@
       "prompt": "Generate a component brief for Button using the brief-data at plugins/actian-design-system/evals/component-brief/fixtures/button-brief-data.json. Push the resulting frame to Figma file FaBwMaNkvdrcQIo3fl8I4D, page 1143:12 (Eval — Component Brief). Return the resulting frame's node ID as the last line of your output, prefixed with 'FRAME_NODE_ID='.",
       "fixture_path": "plugins/actian-design-system/evals/component-brief/fixtures/button-brief-data.json",
       "expected_output": "A component brief frame on the test page, with the Variation matrix rendering all variants from the fixture, real frame names, no token typos, Specs sub-frame present.",
+      "expected_render_tables_count": 4,
       "files": [
         "plugins/actian-design-system/evals/component-brief/fixtures/button-brief-data.json"
       ],
@@ -54,6 +60,10 @@
         { "text": "A5: Specs sub-frame exists", "fixture": "button" },
         {
           "text": "A7: Variation matrix row count matches fixture",
+          "fixture": "button"
+        },
+        {
+          "text": "A8: renderTable invocation rate >= 80% (interpreter-named frames)",
           "fixture": "button"
         }
       ]
