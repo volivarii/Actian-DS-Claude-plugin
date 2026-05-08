@@ -116,10 +116,13 @@ const comp = await figma.importComponentByKeyAsync("a9653f30925367e96dea90093d75
 const inst = comp.createInstance();
 inst.name = "Generation Log";
 
-// Set component properties (text, booleans, instance swaps)
+// Set component properties (text, booleans, instance swaps).
+// IMPORTANT: GenLog property keys are hash-suffixed (`Skill#3:0` etc.).
+// Bare keys silently fail. Look up exact suffixes in `docs/generated/metakit.json`
+// for any imported component before calling setProperties.
 inst.setProperties({
-  "Skill": "Skill: generate-flow",
-  "Date": "2026-04-08T00:00:00Z"
+  "Skill#3:0": "Skill: generate-flow",
+  "Date#3:2": "2026-04-08T00:00:00Z"
 });
 
 return { instanceId: inst.id };
