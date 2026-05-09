@@ -73,13 +73,13 @@ for (const child of page.children) {
   if (bottom > maxY) maxY = bottom;
 }
 
-const wrapper = figma.createFrame();
+const wrapper = figma.createAutoLayout('HORIZONTAL', {  // ← MUST be HORIZONTAL, cards go side by side
+  itemSpacing: 32,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 wrapper.name = "Component Name — Component Brief";
-wrapper.layoutMode = "HORIZONTAL";  // ← MUST be HORIZONTAL, cards go side by side
-wrapper.itemSpacing = 32;
-wrapper.primaryAxisSizingMode = "AUTO";
-wrapper.counterAxisSizingMode = "AUTO";
-wrapper.fills = [];
 wrapper.x = 0;
 wrapper.y = maxY + 200;
 wrapper.setSharedPluginData("ds", "wrapperId", wrapper.id);
@@ -147,7 +147,7 @@ const cardSubtitle = card.cardSubtitle; // "Component structure, dimensions, ...
 
 // Import briefCard set and create variant instance
 const set = await figma.importComponentSetByKeyAsync("3dbb732730af0754210cde7af35e5236a2502843");
-let variant = set.findChild(n => n.name === "Mode=DS, Type=Standard");
+let variant = set.query('[name="Mode=DS, Type=Standard"]').first();
 if (!variant) variant = set.defaultVariant || set.children[0];
 const inst = variant.createInstance();
 inst.name = cardTitle;
@@ -174,9 +174,7 @@ if (typeof cardFrame.counterAxisSizingMode !== "undefined") {
 // `if (cardHeader)` branch is skipped, no setProperties call runs, and the
 // neutral Meta Kit defaults ("Card title" / "Subtitle text") leak into the
 // brief.
-const cardHeader = cardFrame.findOne(n =>
-  n.type === "INSTANCE" && /Card Header/i.test(n.name)
-);
+const cardHeader = cardFrame.query('INSTANCE[name*="Card Header"]').first();
 if (!cardHeader) {
   // Loud fail rather than silent leak — Meta Kit structure may have changed.
   throw new Error(
@@ -194,7 +192,7 @@ cardHeader.setProperties({
 // Read-back verification — catch silent setProperties failures (e.g. property
 // IDs renamed in a future Meta Kit publish). If the title still equals the
 // neutral default, the property assignment didn't take effect.
-const titleNode = cardHeader.findOne(n => n.type === "TEXT" && /^Title$/i.test(n.name));
+const titleNode = cardHeader.query('TEXT[name="Title"]').first();
 if (titleNode && titleNode.characters === "Card title") {
   throw new Error(
     "Card Header title shows the Meta Kit default ('Card title') after " +
@@ -218,7 +216,7 @@ if (titleNode && titleNode.characters === "Card title") {
 // because the content slot was inheriting a FIXED width from Meta Kit.
 // Override here at slot level only — Meta Kit's padding/itemSpacing stay
 // intact.
-const contentSlot = cardFrame.findOne(n => n.name === "Content");
+const contentSlot = cardFrame.query('[name="Content"]').first();
 if (contentSlot) {
   contentSlot.primaryAxisSizingMode = "AUTO";
   contentSlot.counterAxisSizingMode = "AUTO";
@@ -251,13 +249,13 @@ await figma.loadFontAsync({ family: "Inter", style: "Semibold" });
 const slot = await figma.getNodeByIdAsync("<contentSlotId>");
 
 async function appendSubFrame(label, sourceCard) {
-  const sub = figma.createFrame();
+  const sub = figma.createAutoLayout('VERTICAL', {
+    itemSpacing: 12,
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    fills: [],
+  });
   sub.name = label;
-  sub.layoutMode = "VERTICAL";
-  sub.itemSpacing = 12;
-  sub.primaryAxisSizingMode = "AUTO";
-  sub.counterAxisSizingMode = "AUTO";
-  sub.fills = [];
 
   // Heading row — label + optional Draft badge
   const heading = figma.createText();
@@ -270,14 +268,14 @@ async function appendSubFrame(label, sourceCard) {
     // Wrap heading + tag in a HORIZONTAL frame so they sit on the same row.
     // Note: Pattern 1b's badge construction lives in a separate use_figma
     // call scope and cannot be copy-pasted here — build the tag inline:
-    const headerRow = figma.createFrame();
+    const headerRow = figma.createAutoLayout('HORIZONTAL', {
+      itemSpacing: 8,
+      primaryAxisSizingMode: 'AUTO',
+      counterAxisSizingMode: 'AUTO',
+      counterAxisAlignItems: 'CENTER',
+      fills: [],
+    });
     headerRow.name = "Heading + DRAFT tag";
-    headerRow.layoutMode = "HORIZONTAL";
-    headerRow.itemSpacing = 8;
-    headerRow.primaryAxisSizingMode = "AUTO";
-    headerRow.counterAxisSizingMode = "AUTO";
-    headerRow.counterAxisAlignItems = "CENTER";
-    headerRow.fills = [];
     headerRow.appendChild(heading);
     const tag = figma.createText();
     tag.fontName = { family: "Inter", style: "Semibold" };
@@ -389,13 +387,13 @@ await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 
 // Header row
-const headerRow = figma.createFrame();
+const headerRow = figma.createAutoLayout('HORIZONTAL', {
+  itemSpacing: 0,
+  fills: [{ type: "SOLID", color: hexToRgb("#F5F5FA") }],
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+});
 headerRow.name = "Header Row";
-headerRow.layoutMode = "HORIZONTAL";
-headerRow.itemSpacing = 0;
-headerRow.fills = [{ type: "SOLID", color: hexToRgb("#F5F5FA") }];
-headerRow.primaryAxisSizingMode = "AUTO";
-headerRow.counterAxisSizingMode = "AUTO";
 
 const headers = ["", "Property", "Type", "Default", "Values", "Notes"];
 const widths = [50, 140, 100, 120, 200, 350];
@@ -422,17 +420,17 @@ return { createdNodeIds: [headerRow.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```js
 async function appendTokenTagCell(parentRow, tokenText) {
   await figma.loadFontAsync({ family: "Inter", style: "Medium" });
-  const labelFrame = figma.createFrame();
+  const labelFrame = figma.createAutoLayout('HORIZONTAL', {
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
+    cornerRadius: 3,
+    fills: [{ type: "SOLID", color: { r: 0.941, g: 0.949, b: 0.984 } }], // ~#F0F2FA
+  });
   labelFrame.name = "Token: " + tokenText;
-  labelFrame.layoutMode = "HORIZONTAL";
-  labelFrame.primaryAxisSizingMode = "AUTO";
-  labelFrame.counterAxisSizingMode = "AUTO";
-  labelFrame.paddingLeft = 5;
-  labelFrame.paddingRight = 5;
-  labelFrame.paddingTop = 2;
-  labelFrame.paddingBottom = 2;
-  labelFrame.cornerRadius = 3;
-  labelFrame.fills = [{ type: "SOLID", color: { r: 0.941, g: 0.949, b: 0.984 } }]; // ~#F0F2FA
 
   const text = figma.createText();
   text.fontName = { family: "Inter", style: "Medium" };
@@ -493,7 +491,7 @@ function hexToRgb(hex) {
 }
 
 const set = await figma.importComponentSetByKeyAsync("da3369932f710386b76ca91a40ebd48d94e3f2e0");
-let variant = set.findChild(n => n.name === "Size=Small");
+let variant = set.query('[name="Size=Small"]').first();
 if (!variant) variant = set.defaultVariant || set.children[0];
 const swatch = variant.createInstance();
 
@@ -508,26 +506,26 @@ return { createdNodeIds: [swatch.id], mutatedNodeIds: [] };
 **Cell sizing (REQUIRED — prevents hex clipping):** The swatch cell wraps a 12px swatch + a stacked text block (token name 15px + hex 13px ≈ 30px tall). The cell must Hug its content vertically — never fix the height to the swatch dot. Each cell MUST set:
 
 ```js
-const cell = figma.createFrame();
+const cell = figma.createAutoLayout('HORIZONTAL', {
+  itemSpacing: 8,
+  counterAxisAlignItems: 'CENTER',          // vertically center swatch + text block
+  primaryAxisSizingMode: 'AUTO',            // Hug width
+  counterAxisSizingMode: 'AUTO',            // Hug height — fits the 30px text stack
+  fills: [],
+});
 cell.name = "Token cell — color swatch";
-cell.layoutMode = "HORIZONTAL";
-cell.itemSpacing = 8;
-cell.counterAxisAlignItems = "CENTER";          // vertically center swatch + text block
-cell.primaryAxisSizingMode = "AUTO";            // Hug width
-cell.counterAxisSizingMode = "AUTO";            // Hug height — fits the 30px text stack
-cell.fills = [];
 
 // Swatch (12×12 instance, fills set per above)
 cell.appendChild(swatch);
 
 // Text stack (token name on top, hex below)
-const textStack = figma.createFrame();
+const textStack = figma.createAutoLayout('VERTICAL', {
+  itemSpacing: 2,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 textStack.name = "Token name + hex";
-textStack.layoutMode = "VERTICAL";
-textStack.itemSpacing = 2;
-textStack.primaryAxisSizingMode = "AUTO";
-textStack.counterAxisSizingMode = "AUTO";
-textStack.fills = [];
 // ... append token-name text node + hex text node ...
 cell.appendChild(textStack);
 ```
@@ -546,7 +544,7 @@ Regression guard: if the cell or its parent row uses `counterAxisSizingMode = "F
 
 ```js
 const set = await figma.importComponentSetByKeyAsync("28edfacf13e50706586172bd48f8a3ad84d7c263");
-let variant = set.findChild(n => n.name === "Mode=DS");
+let variant = set.query('[name="Mode=DS"]').first();
 if (!variant) variant = set.defaultVariant || set.children[0];
 const pair = variant.createInstance();
 pair.setProperties({
@@ -581,13 +579,13 @@ function hexToRgb(hex) {
   };
 }
 
-const list = figma.createFrame();
+const list = figma.createAutoLayout('VERTICAL', {
+  itemSpacing: 8,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 list.name = "Requirements";
-list.layoutMode = "VERTICAL";
-list.itemSpacing = 8;
-list.primaryAxisSizingMode = "AUTO";
-list.counterAxisSizingMode = "AUTO";
-list.fills = [];
 
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(list);
@@ -632,13 +630,13 @@ function hexToRgb(hex) {
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 
 // Green "+" bullet for "when to use"
-const row = figma.createFrame();
+const row = figma.createAutoLayout('HORIZONTAL', {
+  itemSpacing: 8,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 row.name = "Usage row — when to use";
-row.layoutMode = "HORIZONTAL";
-row.itemSpacing = 8;
-row.primaryAxisSizingMode = "AUTO";
-row.counterAxisSizingMode = "AUTO";
-row.fills = [];
 
 const prefix = figma.createText();
 prefix.characters = "+";
@@ -672,7 +670,7 @@ const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
 // For component sets: find specific variant
 let variantComp;
 if (targetNode.type === "COMPONENT_SET") {
-  variantComp = targetNode.findChild(n => n.name === "Type=Standard, State=Default");
+  variantComp = targetNode.query('[name="Type=Standard, State=Default"]').first();
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
   variantComp = targetNode;
@@ -746,7 +744,7 @@ Apply this to every cell in the Variation matrix. Without the guard, Phase 2 PR 
 
 Single ~4-6KB call. Creates component instance, reads bounding boxes, computes badge positions, draws badges + leader lines.
 
-**CRITICAL: `figmaLayerName` accuracy.** The badge placement algorithm uses `findOne(n => n.name === figmaLayerName)` to locate each part within the component instance. If a layer name doesn't match, the badge won't be positioned correctly. Before building the data model, use `get_metadata` or `get_design_context` on the target component to read the actual layer names. Common patterns: "Label", "Container", "Icon", "Helper text" — but ALWAYS verify against the real Figma structure.
+**CRITICAL: `figmaLayerName` accuracy.** The badge placement algorithm uses `query('[name="<figmaLayerName>"]').first()` to locate each part within the component instance. If a layer name doesn't match, the badge won't be positioned correctly. Before building the data model, use `get_metadata` or `get_design_context` on the target component to read the actual layer names. Common patterns: "Label", "Container", "Icon", "Helper text" — but ALWAYS verify against the real Figma structure.
 
 ```js
 function hexToRgb(hex) {
@@ -774,7 +772,7 @@ const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
 let variantComp;
 if (targetNode.type === "COMPONENT_SET") {
   // Prefer Enabled / Default state; fall back to defaultVariant or first child
-  variantComp = targetNode.findChild(n => /State=Default|State=Enabled/.test(n.name));
+  variantComp = targetNode.query('[name*="State=Default"], [name*="State=Enabled"]').first();
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
   variantComp = targetNode;
@@ -853,7 +851,7 @@ for (const p of (card_anatomy.parts || [])) {
 // 3. Read bounding boxes for visible parts (absent parts handled separately)
 const partData = [];
 for (const p of visibleParts) {
-  const layer = inst.findOne(n => n.name === p.figmaLayerName);
+  const layer = inst.query(`[name="${p.figmaLayerName}"]`).first();
   if (!layer) continue;
   const bb = layer.absoluteBoundingBox;
   const cbb = container.absoluteBoundingBox;
@@ -957,14 +955,14 @@ for (const pd of sides.left) {
 //    "States" subsection; for now we surface them as table footnotes.
 if (absentParts.length > 0) {
   await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-  const footnoteFrame = figma.createFrame();
+  const footnoteFrame = figma.createAutoLayout('VERTICAL', {
+    itemSpacing: 2,
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    fills: [],
+    paddingTop: 8,
+  });
   footnoteFrame.name = "Anatomy state-only parts footnote";
-  footnoteFrame.layoutMode = "VERTICAL";
-  footnoteFrame.itemSpacing = 2;
-  footnoteFrame.primaryAxisSizingMode = "AUTO";
-  footnoteFrame.counterAxisSizingMode = "AUTO";
-  footnoteFrame.fills = [];
-  footnoteFrame.paddingTop = 8;
   for (const ap of absentParts) {
     const t = figma.createText();
     t.fontName = { family: "Inter", style: "Regular" };
@@ -1001,7 +999,7 @@ Fill in `parts` array and `<targetNodeId>` / `<diagramVariant>` from `brief-data
 ```js
 // Each row: element name + foreground swatch + background swatch + ratio text + WCAG badge
 const badgeSet = await figma.importComponentSetByKeyAsync("941756541adc6ce21e32e848c2039c64fece0fcf");
-let badgeVariant = badgeSet.findChild(n => n.name === "Status=Pass");
+let badgeVariant = badgeSet.query('[name="Status=Pass"]').first();
 if (!badgeVariant) badgeVariant = badgeSet.defaultVariant || badgeSet.children[0];
 const badge = badgeVariant.createInstance();
 badge.setProperties({ "Label#44:3": "Pass" });
@@ -1079,18 +1077,18 @@ Use Pattern 0 (wrapper frame) approach: small individual `use_figma` calls (~200
 
 ```js
 // 1. Create the ResearchInsights container
-const researchFrame = figma.createFrame();
+const researchFrame = figma.createAutoLayout('VERTICAL', {
+  itemSpacing: 12,
+  paddingTop: 12,
+  paddingBottom: 12,
+  paddingLeft: 12,
+  paddingRight: 12,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [{ type: "SOLID", color: { r: 0.97, g: 0.97, b: 1.0 } }], // light blue-tinted bg
+  cornerRadius: 6,
+});
 researchFrame.name = "ResearchInsights";
-researchFrame.layoutMode = "VERTICAL";
-researchFrame.itemSpacing = 12;
-researchFrame.paddingTop = 12;
-researchFrame.paddingBottom = 12;
-researchFrame.paddingLeft = 12;
-researchFrame.paddingRight = 12;
-researchFrame.primaryAxisSizingMode = "AUTO";
-researchFrame.counterAxisSizingMode = "AUTO";
-researchFrame.fills = [{ type: "SOLID", color: { r: 0.97, g: 0.97, b: 1.0 } }]; // light blue-tinted bg
-researchFrame.cornerRadius = 6;
 
 await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
 await figma.loadFontAsync({ family: "Inter", style: "Regular" });
@@ -1122,13 +1120,13 @@ const insights = card.research_insights; // from brief-data.json
 const researchFrame = await figma.getNodeByIdAsync("<researchFrameId>");
 
 function buildSubSection(label, items) {
-  const frame = figma.createFrame();
+  const frame = figma.createAutoLayout('VERTICAL', {
+    itemSpacing: 4,
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    fills: [],
+  });
   frame.name = label;
-  frame.layoutMode = "VERTICAL";
-  frame.itemSpacing = 4;
-  frame.primaryAxisSizingMode = "AUTO";
-  frame.counterAxisSizingMode = "AUTO";
-  frame.fills = [];
   const sub = figma.createText();
   sub.characters = label;
   sub.fontSize = 11;
@@ -1177,18 +1175,18 @@ function hexToRgb(hex) {
 }
 
 if (insights._divergences?.length) {
-  const df = figma.createFrame();
+  const df = figma.createAutoLayout('VERTICAL', {
+    itemSpacing: 4,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 8,
+    paddingRight: 8,
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    fills: [{ type: "SOLID", color: hexToRgb("#FEF3C7") }], // amber-100
+    cornerRadius: 4,
+  });
   df.name = "Divergences";
-  df.layoutMode = "VERTICAL";
-  df.itemSpacing = 4;
-  df.paddingTop = 8;
-  df.paddingBottom = 8;
-  df.paddingLeft = 8;
-  df.paddingRight = 8;
-  df.primaryAxisSizingMode = "AUTO";
-  df.counterAxisSizingMode = "AUTO";
-  df.fills = [{ type: "SOLID", color: hexToRgb("#FEF3C7") }]; // amber-100
-  df.cornerRadius = 4;
   const dlabel = figma.createText();
   dlabel.characters = "Designer review needed";
   dlabel.fontSize = 11;
@@ -1388,17 +1386,17 @@ function buildDimensionAnnotation(distance, orientation, labelText) {
 
   // Label pill
   const spec = tokenTagSpec(labelText);
-  const labelFrame = figma.createFrame();
+  const labelFrame = figma.createAutoLayout('HORIZONTAL', {
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    paddingLeft: spec.paddingX,
+    paddingRight: spec.paddingX,
+    paddingTop: spec.paddingY,
+    paddingBottom: spec.paddingY,
+    cornerRadius: spec.cornerRadius,
+    fills: [{ type: "SOLID", color: spec.bgColor }],
+  });
   labelFrame.name = "Spec label pill — " + labelText;
-  labelFrame.layoutMode = "HORIZONTAL";
-  labelFrame.primaryAxisSizingMode = "AUTO";
-  labelFrame.counterAxisSizingMode = "AUTO";
-  labelFrame.paddingLeft = spec.paddingX;
-  labelFrame.paddingRight = spec.paddingX;
-  labelFrame.paddingTop = spec.paddingY;
-  labelFrame.paddingBottom = spec.paddingY;
-  labelFrame.cornerRadius = spec.cornerRadius;
-  labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
 
   const labelText_ = figma.createText();
   labelText_.fontName = spec.fontName;
@@ -1437,7 +1435,7 @@ if (targetNode.type === "COMPONENT_SET") {
   // <diagramVariant> is runtime-substituted (e.g. "App=Admin, View=Expanded").
   // Components with no State dimension (e.g. Side nav — App/View axes only) return null here;
   // the fallback to defaultVariant / children[0] is the load-bearing safety for those cases.
-  variantComp = targetNode.findChild(n => n.name === "<diagramVariant>");
+  variantComp = targetNode.query('[name="<diagramVariant>"]').first();
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
   variantComp = targetNode;
@@ -1530,17 +1528,17 @@ async function buildGutterFromEntries(entries, surface) {
 
     // Build label pill via tokenTagSpec
     const spec = tokenTagSpec(formatLabel(e.value));
-    const labelFrame = figma.createFrame();
+    const labelFrame = figma.createAutoLayout('HORIZONTAL', {
+      primaryAxisSizingMode: 'AUTO',
+      counterAxisSizingMode: 'AUTO',
+      paddingLeft: spec.paddingX,
+      paddingRight: spec.paddingX,
+      paddingTop: spec.paddingY,
+      paddingBottom: spec.paddingY,
+      cornerRadius: spec.cornerRadius,
+      fills: [{ type: "SOLID", color: spec.bgColor }],
+    });
     labelFrame.name = "Gutter pill — " + spec.text;
-    labelFrame.layoutMode = "HORIZONTAL";
-    labelFrame.primaryAxisSizingMode = "AUTO";
-    labelFrame.counterAxisSizingMode = "AUTO";
-    labelFrame.paddingLeft = spec.paddingX;
-    labelFrame.paddingRight = spec.paddingX;
-    labelFrame.paddingTop = spec.paddingY;
-    labelFrame.paddingBottom = spec.paddingY;
-    labelFrame.cornerRadius = spec.cornerRadius;
-    labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
     const labelText = figma.createText();
     labelText.fontName = spec.fontName;
     labelText.fontSize = spec.fontSize;
@@ -1606,7 +1604,7 @@ if (useOverridePath) {
   const overrideEntries = [];
   const cbb = container.absoluteBoundingBox;
   for (const spec of card_anatomy.specs) {
-    const layer = inst.findOne(n => n.name === spec.layerName);
+    const layer = inst.query(`[name="${spec.layerName}"]`).first();
     if (!layer) {
       droppedSpecs += 1;
       continue;
