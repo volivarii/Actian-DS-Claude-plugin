@@ -1,0 +1,270 @@
+{
+  "_meta": {
+    "auto_generated": true,
+    "source": "docs/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "rows": [
+    {
+      "Token": "--zen-font-family-text",
+      "Value": "Roboto",
+      "Usage": "Default — headings and body",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-family-mono",
+      "Value": "&quot;Roboto Mono&quot;",
+      "Usage": "Code and data",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-weight-regular",
+      "Value": "400",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-weight-medium",
+      "Value": "500",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-weight-semibold",
+      "Value": "600",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-weight-bold",
+      "Value": "700",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-size-xs",
+      "Value": "`11px` *(update from 10px)*",
+      "Usage": "Hint",
+      "status_note": "🟡 Proposed"
+    },
+    {
+      "Token": "--zen-font-size-sm",
+      "Value": "`0.75rem` (12px)",
+      "Usage": "Body, section subtitle",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-size-md",
+      "Value": "`0.875rem` (14px)",
+      "Usage": "Page subtitle, card header (small)",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-size-lg",
+      "Value": "`1rem` (16px)",
+      "Usage": "Section title, card header (default)",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-size-xl",
+      "Value": "`1.125rem` (18px)",
+      "Usage": "—",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-size-2xl",
+      "Value": "`1.25rem` (20px)",
+      "Usage": "—",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-size-3xl",
+      "Value": "`1.5rem` (24px)",
+      "Usage": "Page title",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-size-4xl",
+      "Value": "`1.875rem` (30px)",
+      "Usage": "—",
+      "status_note": "🟢 Shipped"
+    },
+    {
+      "Token": "--zen-font-letterspacing-normal",
+      "Value": "0px",
+      "Usage": "Font sizes larger than 16px",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-letterspacing-wide-1",
+      "Value": "0.1px",
+      "Usage": "Font size 16px",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-letterspacing-wide-2",
+      "Value": "0.2px",
+      "Usage": "Font size 14px",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-letterspacing-wide-3",
+      "Value": "0.3px",
+      "Usage": "Font size 12px",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-letterspacing-wide-4",
+      "Value": "0.4px",
+      "Usage": "Font size 11px and smaller",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-lineheight-xs",
+      "Value": "14px / 0.875rem",
+      "Usage": "Font size 11px or smaller",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-lineheight-sm",
+      "Value": "16px / 1rem",
+      "Usage": "Font size 12px",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-lineheight-md",
+      "Value": "20px / 1.25rem",
+      "Usage": "Font size 14px",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-lineheight-lg",
+      "Value": "24px / 1.5rem",
+      "Usage": "Font size 16px",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-lineheight-xl",
+      "Value": "26px / 1.625rem",
+      "Usage": "Font size 18px",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-font-lineheight-2xl",
+      "Value": "32px / 2rem",
+      "Usage": "Font size 24px",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-heading-display",
+      "Weight": "semibold",
+      "Size": "3xl",
+      "Letter Spacing": "letterspacing-normal",
+      "Line Height": "2xl",
+      "Usage": "Primary header, display font",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-heading-prominent",
+      "Weight": "semibold",
+      "Size": "xl",
+      "Letter Spacing": "letterspacing-normal",
+      "Line Height": "xl",
+      "Usage": "Secondary header, default page header",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-heading-standard",
+      "Weight": "semibold",
+      "Size": "lg",
+      "Letter Spacing": "letterspacing-wide-1",
+      "Line Height": "lg",
+      "Usage": "Tertiary header, section header",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-heading-subtle",
+      "Weight": "semibold",
+      "Size": "md",
+      "Letter Spacing": "letterspacing-wide-2",
+      "Line Height": "md",
+      "Usage": "Subsection header",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-heading-micro",
+      "Weight": "semibold",
+      "Size": "sm",
+      "Letter Spacing": "letterspacing-wide-3",
+      "Line Height": "sm",
+      "Usage": "Low-emphasis header",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-body-prominent",
+      "Weight": "regular",
+      "Size": "lg",
+      "Letter Spacing": "letterspacing-wide-1",
+      "Line Height": "lg",
+      "Usage": "Intro, highlighted paragraph",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-body-standard",
+      "Weight": "regular",
+      "Size": "md",
+      "Letter Spacing": "letterspacing-wide-2",
+      "Line Height": "md",
+      "Usage": "Main content",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-body-subtle",
+      "Weight": "regular",
+      "Size": "sm",
+      "Letter Spacing": "letterspacing-wide-3",
+      "Line Height": "sm",
+      "Usage": "Secondary content",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-body-micro",
+      "Weight": "regular",
+      "Size": "xs",
+      "Letter Spacing": "letterspacing-wide-4",
+      "Line Height": "xs",
+      "Usage": "Footnotes, microcopy",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-label-standard",
+      "Weight": "medium",
+      "Size": "md",
+      "Letter Spacing": "letterspacing-wide-2",
+      "Line Height": "md",
+      "Usage": "Default button, form label",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-label-subtle",
+      "Weight": "medium",
+      "Size": "sm",
+      "Letter Spacing": "letterspacing-wide-3",
+      "Line Height": "sm",
+      "Usage": "Less prominent actions, secondary info label",
+      "status_note": "🔵 In Review"
+    },
+    {
+      "Token": "--zen-text-label-micro",
+      "Weight": "medium",
+      "Size": "xs",
+      "Letter Spacing": "letterspacing-wide-4",
+      "Line Height": "xs",
+      "Usage": "Microcopy",
+      "status_note": "🔵 In Review"
+    }
+  ],
+  "description": "These are semantic aliases that combine weight + size + letter spacing + line height into a single named style. Use these in components rather than assembling the primitives manually.",
+  "rules": {
+    "description": "Use --zen-font-family-text (Roboto) as the default for all UI text. Use --zen-font-family-mono for code snippets, data tables with identifiers, and technical strings.\n\nDon&#39;t create one-off font sizes. If your design needs a size between tokens, first check whether a token can be used, then raise it as a proposed token addition."
+  },
+  "placeholder": {
+    "description": "Two tiers of placeholder exist for inputs: --zen-color-text-placeholder is the standard placeholder (grey-600). --zen-color-text-placeholder-subtle (grey-400) is used in search fields where less visual weight is appropriate."
+  }
+}

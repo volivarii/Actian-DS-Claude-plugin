@@ -1,0 +1,93 @@
+name: Vendor knowledge-repo snapshot
+
+# Federation Phase 1.4a — pulls a pinned snapshot of volivarii/actian-ds-knowledge
+# into plugins/actian-design-system/vendor/. Triggered manually for now;
+# Phase 1.4b will rewrite consumer paths to point at vendor/, at which point
+# we can wire this to release CI for automatic at-bump-time vendoring.
+#
+# Required repo settings:
+#   Settings → Actions → General → Workflow permissions → Allow GH Actions
+#     to create and approve pull requests (already enabled for sync-from-figma)
+
+on:
+  workflow_dispatch:
+    inputs:
+      sha:
+        description: 'Knowledge repo SHA to vendor (defaults to current vendored.json#knowledge_repo_sha)'
+        required: false
+        type: string
+
+jobs:
+  vendor:
+    name: Pull knowledge-repo snapshot
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+
+      - name: Resolve target SHA
+        id: target
+        run: |
+          INPUT_SHA="${{ github.event.inputs.sha }}"
+          if [ -z "$INPUT_SHA" ]; then
+            # No explicit SHA — pull latest main from knowledge repo.
+            LATEST=$(curl -sSL "https://api.github.com/repos/volivarii/actian-ds-knowledge/commits/main" | jq -r '.sha')
+            echo "Resolved knowledge-repo main → $LATEST"
+            echo "sha=$LATEST" >> "$GITHUB_OUTPUT"
+          else
+            echo "Using explicit SHA → $INPUT_SHA"
+            echo "sha=$INPUT_SHA" >> "$GITHUB_OUTPUT"
+          fi
+          echo "short_sha=$(echo "${INPUT_SHA:-$LATEST}" | cut -c1-7)" >> "$GITHUB_OUTPUT"
+
+      - name: Pull vendor snapshot
+        working-directory: plugins/actian-design-system
+        run: node scripts/vendor/vendor-snapshot.js --sha ${{ steps.target.outputs.sha }}
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet -- plugins/actian-design-system/vendor/ plugins/actian-design-system/vendored.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "Vendor already at SHA ${{ steps.target.outputs.sha }} — no changes."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Vendor diff:"
+            git diff --stat -- plugins/actian-design-system/vendor/ plugins/actian-design-system/vendored.json
+          fi
+
+      - name: Open pull request
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          commit-message: "vendor(knowledge): refresh to ${{ steps.target.outputs.short_sha }}"
+          title: "vendor(knowledge): refresh to ${{ steps.target.outputs.short_sha }}"
+          body: |
+            Vendored snapshot of `volivarii/actian-ds-knowledge` updated to SHA `${{ steps.target.outputs.sha }}`.
+
+            See https://github.com/volivarii/actian-ds-knowledge/tree/${{ steps.target.outputs.sha }} for source state.
+
+            Plugin still reads from `docs/`, `tokens/`, etc. at runtime — Phase 1.4b will rewrite consumer paths to read from `vendor/` instead.
+          branch: "vendor/refresh-${{ steps.target.outputs.short_sha }}"
+          labels: vendor,knowledge-snapshot
+          delete-branch: true
+          add-paths: |
+            plugins/actian-design-system/vendor/**
+            plugins/actian-design-system/vendored.json
+
+      - name: Summarize
+        if: always()
+        run: |
+          if [ "${{ steps.diff.outputs.changed }}" = "true" ]; then
+            echo "### Vendor refreshed: ${{ steps.target.outputs.short_sha }}" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### Vendor: no changes (already at ${{ steps.target.outputs.short_sha }})" >> "$GITHUB_STEP_SUMMARY"
+          fi
