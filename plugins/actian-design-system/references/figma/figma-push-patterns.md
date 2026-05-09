@@ -31,6 +31,12 @@ Each registry entry contains: `key`, `importMethod` ("set" for `importComponentS
 > silently fails and produces orphaned frames.
 > (Source: figma-generate-design/SKILL.md:203)
 
+> **Critical Rule 15: return ALL created/mutated node IDs as a structured object.**
+> Every push pattern MUST end with `return { createdNodeIds: [...], mutatedNodeIds: [...] };`.
+> The orchestrating skill uses these IDs to chain subsequent `use_figma` calls.
+> Single-ID returns like `{ frameId }` or `{ instanceId }` are a Rule 15 violation.
+> (Source: figma-use/SKILL.md:38)
+
 ## 0. Auto-Layout Defaults
 
 **Any row containing text MUST use `sizing: { horizontal: "FILL" }` with text children at `Hug` sizing.** Never set fixed widths on text-bearing rows.
@@ -112,7 +118,11 @@ wrapper.y = maxY + 200;
 // Store the wrapper ID so subsequent calls can append to it
 wrapper.setSharedPluginData("ds", "wrapperId", wrapper.id);
 
-return { wrapperId: wrapper.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [wrapper.id],
+  mutatedNodeIds: [],
+};
 ```
 
 ### Pattern 2: Import single component + create instance
@@ -132,7 +142,11 @@ inst.setProperties({
   "Date#3:2": "2026-04-08T00:00:00Z"
 });
 
-return { instanceId: inst.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [inst.id],
+  mutatedNodeIds: [],
+};
 ```
 
 ### Pattern 3: Import component set + create variant instance
@@ -151,7 +165,11 @@ if (!variant) variant = set.defaultVariant || set.children[0];
 const inst = variant.createInstance();
 inst.name = "Primary Button";
 
-return { instanceId: inst.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [inst.id],
+  mutatedNodeIds: [],
+};
 ```
 
 ### Pattern 4: Append new children to a wrapper by ID
@@ -185,7 +203,11 @@ child2.counterAxisSizingMode = "AUTO";
 child2.fills = [];
 parent.appendChild(child2);
 
-return { parentId: parent.id, child1Id: child1.id, child2Id: child2.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [child1.id, child2.id],
+  mutatedNodeIds: [parent.id],
+};
 ```
 
 **Wrong — DO NOT retrieve nodes by ID and reparent them across calls:**
@@ -214,7 +236,11 @@ text.fills = [{ type: "SOLID", color: { r: 0.1, g: 0.1, b: 0.18 } }];
 // For slides, use Roboto instead:
 // await figma.loadFontAsync({ family: "Roboto", style: "Regular" });
 
-return { textId: text.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [text.id],
+  mutatedNodeIds: [],
+};
 ```
 
 ### Pattern 6: Create auto-layout frame
@@ -234,7 +260,11 @@ frame.counterAxisSizingMode = "AUTO";
 frame.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];
 frame.cornerRadius = 8;
 
-return { frameId: frame.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [frame.id],
+  mutatedNodeIds: [],
+};
 ```
 
 ### Pattern 7: Set ALL instance properties (CRITICAL — never leave defaults)
@@ -339,7 +369,7 @@ function hexToRgb(hex) {
 1. **Always pass `skillNames: "figma-use"`** with every `use_figma` call.
 2. **NEVER leave default property values (P0 BLOCKER)** -- scan your data model for banned defaults BEFORE pushing. These strings must NEVER appear in Figma output: `"Page Title"`, `"Description text"`, `"Button label"`, `"Label"` (standalone), `"Nav Item"`, `"Tag"`, `"Header"` (standalone), `"Feature Name"`, `"Flow Description"`, `"User Persona"`. Replace every one with real contextual content. Use `setProperties()` and `findOne()` per Pattern 7.
 3. **One operation per call** -- create a frame OR import components OR populate content. Not all three.
-4. **Return IDs from every call** -- use them in subsequent calls to append children.
+4. **Return `{ createdNodeIds, mutatedNodeIds }` from every call (Critical Rule 15)** -- use the IDs in subsequent calls to append children. Single-ID shapes like `{ frameId }` are violations.
 5. **Keep calls under 2KB** -- if code is longer, split into multiple calls.
 6. **Fonts before text** -- call `loadFontAsync` before setting `.characters`.
 7. **Colors are 0-1 range** -- `{ r: 0.1, g: 0.1, b: 0.18 }` not `{ r: 26, g: 26, b: 46 }`.
