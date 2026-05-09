@@ -1,0 +1,37 @@
+{
+  "component": "Notification / Toast",
+  "page_id": "13868:11578",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "frames_found": ["Components", "Screenshots of use cases"],
+  "frames_missing": [
+    "Content guidelines",
+    "Design guidelines",
+    "ready made examples",
+    "Screenshots of current use cases",
+    "Behavior demo"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Type": ["Default", "Critical"]
+    }
+  },
+  "examples": null,
+  "screenshots": {
+    "count": 4,
+    "contexts": [
+      "Screenshot 2026-02-19 at 4.07.28 PM",
+      "Screenshot 2026-02-19 at 4.03.40 PM",
+      "Screenshot 2026-02-19 at 4.03.24 PM",
+      "Screenshot 2026-02-19 at 4.18.36 PM"
+    ]
+  },
+  "behavior": {
+    "motion": {
+      "pattern": "success-toast",
+      "overrides": null,
+      "notes": "Three-phase toast choreography: Entry (slide in from bottom, duration-base + ease-entrance) → Hold (delay-long settle, ~4000ms total at the product level) → Exit (fade out, duration-fast + ease-exit). Hold duration is product-level, not a motion token — delay-long is the unit, full hold is configured per call site."
+    }
+  }
+}

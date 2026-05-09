@@ -1,0 +1,38 @@
+{
+  "component": "Digram, Topic",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "14128:3800",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Type": [
+        "Light purple",
+        "Dark purple",
+        "Light blue",
+        "Dark blue",
+        "Light green",
+        "Dark green",
+        "Yellow",
+        "Orange",
+        "Red",
+        "Dark orange"
+      ]
+    },
+    "totalVariants": 10
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

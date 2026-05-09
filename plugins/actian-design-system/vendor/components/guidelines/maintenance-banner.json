@@ -1,0 +1,33 @@
+{
+  "component": "Maintenance banner",
+  "page_id": "13868:11327",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "frames_found": [
+    "Components",
+    "Screenshots of use cases"
+  ],
+  "frames_missing": [
+    "Content guidelines",
+    "Design guidelines",
+    "ready made examples",
+    "Screenshots of current use cases",
+    "Behavior demo"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Type": [
+        "Default"
+      ]
+    }
+  },
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": [
+      "Storybook documentation screenshot: MaintenanceBannerComponent"
+    ]
+  },
+  "behavior": null
+}

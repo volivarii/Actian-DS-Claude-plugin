@@ -67,14 +67,14 @@ Parser:
 
 When `--scope` is set, run only the listed dimensions; otherwise run all.
 
-- **Component guidelines** (scope: `tokens`, `all`): Read `../../docs/component-guidelines/<slug>.json` for per-component content/design rules
+- **Component guidelines** (scope: `tokens`, `all`): Read `../../vendor/components/guidelines/<slug>.json` for per-component content/design rules
 - **Component consistency** (scope: `tokens`, `all`): FM-prefixed components used consistently, no detached instances or ad-hoc recreations, names match catalog (`../../docs/generated/fm-components.md`)
 - **Token usage** (scope: `tokens`, `all`): No hardcoded hex colors, typography uses Inter (FM) or Roboto (DS Kit) text style tokens, spacing on scale (4/8/12/16/24/28/32), border radius uses radius tokens
 - **Flow structure** (scope: `all`): Dark cover card with Feature/Flow/User, screen naming `[Persona] - [Page] - [State]`, 1440x960 or 1440x700, left-to-right reading order
 - **Forms layout** (scope: `all`): Simple inputs 480px max-width, extended elements full-width, action footer sticky bottom with primary right
 - **Missing states** (scope: `heuristic`, `all`): Empty, error, loading, confirmation states; form validation, disabled, required indicators
 - **Accessibility** (scope: `a11y`, `all`): WCAG AA contrast, visible focus states, no text below 11px
-- **Copy review** (scope: `copy`, `all`): Sentence case, action-oriented CTA verbs, no jargon, terminology consistent with `docs/generated/app-context.json` glossary, error messages explain what to do next
+- **Copy review** (scope: `copy`, `all`): Sentence case, action-oriented CTA verbs, no jargon, terminology consistent with `vendor/app-context/app-context.json` glossary, error messages explain what to do next
 - **Heuristic UX** (scope: `heuristic`, `all`) — *placeholder, full impl is engine work*: Surface a section in the report titled "Heuristic findings (preview)" describing IA clarity, task efficiency, and feedback patterns. Findings here are advisory until the engine work lands.
 
 ## Output format

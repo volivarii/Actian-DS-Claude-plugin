@@ -1260,9 +1260,11 @@
           "This brief is based on registry data only. The DS team has not yet " +
           "curated content / design / a11y guidelines for this component. " +
           "Briefs will improve once the guideline is fleshed out at " +
-          "<code>docs/component-guidelines/" +
+          "<code>vendor/components/guidelines/" +
           slug +
-          ".json</code>.";
+          ".json</code> (in plugin) / <code>components/guidelines/" +
+          slug +
+          ".json</code> (in actian-ds-knowledge).";
         briefRow.appendChild(footer);
       }
     });

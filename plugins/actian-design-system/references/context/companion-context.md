@@ -55,7 +55,7 @@ Read this on every companion activation. For detailed info, read the full refere
 
 **Theme overrides:** Studio `theme-primary` = `#0283BE`. Explorer `theme-primary` = `#049B98`. Most text/border tokens also differ — always use token names, never hardcode hex.
 
-Full reference: `docs/generated/token-reference.md` | Source of truth: `tokens/actian-ds.tokens.json`
+Full reference: `docs/generated/token-reference.md` | Source of truth: `vendor/tokens/tokens.json`
 
 ## FM Outputs (lo-fi wireframes)
 
@@ -77,7 +77,7 @@ See: `references/ds-rules/fm-css-reference.md`
 | Lists | Oxford comma, parallel structure | Mixed structures |
 | Tone | Professional, clear, helpful | Cute, clever, apologetic |
 
-Full guidelines: `docs/content-guidelines.md`
+Full guidelines: `vendor/content/content.md`
 
 ## Actian Apps
 
@@ -108,7 +108,7 @@ Full context: `references/context/app-context.md`
 | FM Kit | 44 components | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 25 components + 3 templates | Inter | Generation output, annotation markers |
 
-Before building custom frames, check: `docs/generated/dskit-components.md`, `docs/generated/fm-components.md`, `docs/component-guidelines/{name}.json`
+Before building custom frames, check: `docs/generated/dskit-components.md`, `docs/generated/fm-components.md`, `vendor/components/guidelines/{name}.json`
 
 **Common FM wireframe components:** fmButton, fmTextInput, fmDropdown, fmSearchInput, fmTableCell, fmCheckbox, fmRadioButton, fmToggle, fmAlert, fmBanner, fmDialog, fmEmptyState, fmPlaceholder, fmTab, fmStepper, fmBadge, fmTag, fmToast, fmPageHeader, fmAppHeader, fmNavItem
 
@@ -131,9 +131,9 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 
 | Topic | File |
 |-------|------|
-| Specific component rules | `docs/component-guidelines/{name}.json` |
-| Accessibility standards | `docs/accessibility-guidelines.md` |
-| Foundation (typography, color, etc.) | `docs/foundations/{topic}.json` |
+| Specific component rules | `vendor/components/guidelines/{name}.json` |
+| Accessibility standards | `vendor/accessibility/accessibility.md` |
+| Foundation (typography, color, etc.) | `vendor/foundations/{topic}.json` |
 | FM CSS values (wireframes) | `references/ds-rules/fm-css-reference.md` |
 | UX patterns by flow type | `references/context/ux-patterns.md` |
 | Page layout patterns | `references/ds-rules/layout-patterns.md` |

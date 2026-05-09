@@ -1,0 +1,39 @@
+{
+  "component": "Lineage individual node",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "14747:19902",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Type": [
+        "Main item",
+        "Sub item"
+      ],
+      "State": [
+        "Default",
+        "Selected",
+        "Disabled"
+      ],
+      "Fields": [
+        "Collapsed",
+        "Expanded"
+      ]
+    },
+    "totalVariants": 12
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

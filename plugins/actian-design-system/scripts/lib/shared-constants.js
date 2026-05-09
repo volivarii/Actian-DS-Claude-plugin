@@ -4,7 +4,8 @@
  * shared-constants.js — Single source of truth for constants used across codegen scripts.
  *
  * Imported by flow-to-figma.js, brief-to-figma.js, and slide-to-figma.js.
- * Component keys and methods are read from registry JSON files (docs/*.json).
+ * Component keys and methods are read from registry JSON files
+ * (vendor/components/registries/*.json — vendored from actian-ds-knowledge).
  * Only the ref-name → slug mapping is maintained here.
  */
 
@@ -12,7 +13,10 @@ const fs = require("fs");
 const path = require("path");
 
 // ---------------------------------------------------------------------------
-// Registry loader — reads JSON registries from docs/generated/
+// Registry loader — reads JSON registries from vendor/components/registries/
+// (Federation Phase 1.4b: vendored from volivarii/actian-ds-knowledge.
+// See vendored.json for the pinned SHA. Run scripts/vendor/vendor-snapshot.js
+// or trigger the vendor-snapshot.yml workflow to refresh.)
 // ---------------------------------------------------------------------------
 
 const _registryCache = {};
@@ -22,8 +26,9 @@ function loadRegistry(name) {
       __dirname,
       "..",
       "..",
-      "docs",
-      "generated",
+      "vendor",
+      "components",
+      "registries",
       name + ".json",
     );
     _registryCache[name] = JSON.parse(fs.readFileSync(filePath, "utf8"));

@@ -1,0 +1,88 @@
+{
+  "component": "Tag / Identification key",
+  "page_id": "9253:34505",
+  "extracted_at": "2026-03-26T00:00:00Z",
+  "frames_found": [
+    "Design guidelines"
+  ],
+  "frames_missing": [
+    "Content guidelines",
+    "Components",
+    "ready made examples",
+    "Screenshots of use cases",
+    "Screenshots of current use cases",
+    "Behavior demo"
+  ],
+  "content_guidelines": null,
+  "has_design_guidelines": true,
+  "design_guidelines": {
+    "sections": [
+      {
+        "heading": "Anatomy",
+        "items": [
+          "Leading icon, Label, Trailing icon, Container."
+        ]
+      },
+      {
+        "heading": "Specs",
+        "items": [
+          "Tag height: 24px.",
+          "Horizontal padding (left/right): 8px (spacing-xs).",
+          "Vertical padding (top/bottom): 4px (spacing-2xs).",
+          "Gap between icon and label: 4px (spacing-2xs).",
+          "Gap between label and trailing icon: 4px (spacing-2xs)."
+        ]
+      },
+      {
+        "heading": "Variations - Interactive",
+        "items": [
+          "Sort: Use a group of interactive chips as quick filter or sort.",
+          "Filters: Tags can be used as filters.",
+          "Stage or status update: Stage or status can be updated with dropdown."
+        ]
+      },
+      {
+        "heading": "Variations - Read-only",
+        "items": [
+          "General: Use the default tag to indicate category or property.",
+          "Stage: Use the stage tag to indicate different stages.",
+          "Status: Use the status tag to indicate progressive status.",
+          "Updated: Use the updated tag to indicate something is new or updated."
+        ]
+      },
+      {
+        "heading": "Limits",
+        "items": [
+          "The maximum width of the tag is 10 rem (160px), which can contain up to 20 characters.",
+          "The label truncates automatically when it exceeds the maximum width of 10 rem (160px).",
+          "For a property tag, truncate both the property label and value, giving them equal space within the maximum tag width."
+        ]
+      },
+      {
+        "heading": "Behavior",
+        "items": [
+          "Hovering over tags brings up a tooltip with the full tag content."
+        ]
+      },
+      {
+        "heading": "Layout",
+        "items": [
+          "Keep 4px (--zen-spacing-2xs) clearance between tags."
+        ]
+      },
+      {
+        "heading": "Usage",
+        "items": [
+          "Do: Place tags immediately beneath and close to the items they describe.",
+          "Don't: Place tags away from the item that they are categorizing and change the layout.",
+          "Do: Use colors and icons to distinguish between different types of tags for easier scanning.",
+          "Don't: Use the same color or styling for multiple tags if they are supposed to be different."
+        ]
+      }
+    ]
+  },
+  "variants": null,
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

@@ -75,7 +75,7 @@ Row shape:
 Cell discriminator types (the `type` field always comes first):
 
 - **`text`** — `{ type, value, weight? }` — `weight` is `"regular"` (default) or `"semibold"`.
-- **`token-pill`** — `{ type, value }` — `value` must start with `--zen-` and exists in `tokens/actian-ds.tokens.json`.
+- **`token-pill`** — `{ type, value }` — `value` must start with `--zen-` and exists in `vendor/tokens/tokens.json`.
 - **`code`** — `{ type, value }` — rendered in Fira Code monospace.
 - **`badge`** — `{ type, variant, label? }` — `variant` is `req | opt | draft | stub | canonical`.
 - **`color-swatch`** — `{ type, color, tokenName?, hex? }` — `color` is the swatch dot fill (hex `#RRGGBB`); `tokenName` optionally renders a token-pill above the hex line.
@@ -124,7 +124,7 @@ Before emitting JS, the interpreter validates:
 
 - JSON Schema conformance (shape, required fields, enum values).
 - `additionalProperties: false` on spec root, rows, footnotes, and every cell discriminator.
-- Token names (`token-pill.value`, `color-swatch.tokenName`) against `tokens/actian-ds.tokens.json`.
+- Token names (`token-pill.value`, `color-swatch.tokenName`) against `vendor/tokens/tokens.json`.
 - Cell-count per row matches `headers.length`.
 - Every `row.footnoteRef` resolves to a `footnotes[].ref` entry.
 

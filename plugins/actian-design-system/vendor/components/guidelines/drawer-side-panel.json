@@ -1,0 +1,33 @@
+{
+  "component": "Drawer, side panel",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "14294:5758",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "App": ["Studio", "Explorer"]
+    },
+    "totalVariants": 2
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": {
+    "motion": {
+      "pattern": "drawer",
+      "overrides": null,
+      "notes": "Same canonical drawer choreography as the Drawer component (open: duration-slow + ease-entrance, close: duration-base + ease-exit). Note: this guideline is a stub — the motion data is forward-compatible; brief output requires the stub to be curated first OR card_motion routing to be updated to bypass the stub short-circuit."
+    }
+  }
+}

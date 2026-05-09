@@ -52,11 +52,11 @@ This applies to freelance diagnostics too — if you're tempted to `node -e` som
 Data flows: `Figma -> /sync-design-system (MCP) -> docs/ + tokens/`. JSON is source of truth; Markdown is for human review.
 
 **Key data files** — JSON registries are SoT; `*-components.md` are auto-regenerated mirrors via `/sync-design-system` Phase 1:
-- `docs/component-guidelines/*.json` — 85 component guidelines (44 fully curated + 41 auto-stubs awaiting authoring; stubs carry `_stub: true`)
-- `docs/generated/fmkit.json` / `docs/generated/dskit.json` / `docs/generated/metakit.json` — component registries (keys, variants, properties, defaults)
+- `vendor/components/guidelines/*.json` — 85 component guidelines (44 fully curated + 41 auto-stubs awaiting authoring; stubs carry `_stub: true`)
+- `vendor/components/registries/fmkit.json` / `vendor/components/registries/dskit.json` / `vendor/components/registries/metakit.json` — component registries (keys, variants, properties, defaults)
 - `docs/generated/fm-components.md` / `docs/generated/dskit-components.md` / `docs/generated/meta-kit/components.md` — human-readable mirrors with required-override callouts
-- `docs/generated/app-context.json` — structured app context (apps, entities, terminology, patterns)
-- `tokens/actian-ds.tokens.json` — W3C DTCG tokens (3 themes)
+- `vendor/app-context/app-context.json` — structured app context (apps, entities, terminology, patterns)
+- `vendor/tokens/tokens.json` — W3C DTCG tokens (3 themes)
 
 **Scripts** (utilities — NOT used for Figma push):
 - `scripts/renderers/assemble-preview.js` — generates HTML previews from data models
@@ -94,9 +94,9 @@ Every output includes a generation card (first element) with: skill name, prompt
 
 ## Design System Rules
 
-- **Tokens:** `tokens/actian-ds.tokens.json` (source of truth). For HTML: `var(--zen-color-theme-primary)`, never hardcoded hex.
-- **Content guidelines:** `docs/content-guidelines.md`
-- **Accessibility:** `docs/accessibility-guidelines.md` — WCAG 2.1 AA
+- **Tokens:** `vendor/tokens/tokens.json` (source of truth). For HTML: `var(--zen-color-theme-primary)`, never hardcoded hex.
+- **Content guidelines:** `vendor/content/content.md`
+- **Accessibility:** `vendor/accessibility/accessibility.md` — WCAG 2.1 AA
 - **Never hardcode:** colors, fonts, spacing, radius, shadows, icons. Use tokens. FM outputs use `--fm-*` variables only.
 - **Component instances:** set ALL properties (variants, text, booleans, nested). See `references/ds-rules/component-instance-rules.md`.
 - **Library gaps:** check catalog before custom frames. See `references/ds-rules/library-gap-detection.md`.
