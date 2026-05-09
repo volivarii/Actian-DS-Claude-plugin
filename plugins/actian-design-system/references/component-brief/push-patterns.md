@@ -709,7 +709,9 @@ if (colorCol) {
 > ```js
 > const _fonts = instance.findAll(n => n.type === "TEXT")
 >   .map(t => t.fontName)
->   .filter((fn, i, arr) => fn && arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+>   .filter((fn, i, arr) =>
+    fn && typeof fn === 'object' &&
+    arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
 > await Promise.all(_fonts.map(fn => figma.loadFontAsync(fn)));
 > await appendVariationCell(parentRow, instance);
 > ```
@@ -786,7 +788,9 @@ const inst = variantComp.createInstance();
 // the instance (intermittent failures on supercards with pre-existing instances).
 const _instFonts = inst.findAll(n => n.type === "TEXT")
   .map(t => t.fontName)
-  .filter((fn, i, arr) => fn && arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+  .filter((fn, i, arr) =>
+    fn && typeof fn === 'object' &&
+    arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
 await Promise.all(_instFonts.map(fn => figma.loadFontAsync(fn)));
 
 container.appendChild(inst);
@@ -1445,7 +1449,9 @@ const inst = variantComp.createInstance();
 // Collect unique fontNames from inst subtree and preload before appending.
 const _instFonts14 = inst.findAll(n => n.type === "TEXT")
   .map(t => t.fontName)
-  .filter((fn, i, arr) => fn && arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+  .filter((fn, i, arr) =>
+    fn && typeof fn === 'object' &&
+    arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
 await Promise.all(_instFonts14.map(fn => figma.loadFontAsync(fn)));
 
 container.appendChild(inst);

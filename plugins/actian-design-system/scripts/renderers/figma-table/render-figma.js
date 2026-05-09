@@ -482,7 +482,11 @@ function emit(spec, parentIdPlaceholder) {
   }
 
   lines.push("");
-  lines.push("return { createdNodeIds: [table.id], mutatedNodeIds: [] };");
+  lines.push(
+    'return { createdNodeIds: [table.id], mutatedNodeIds: ["' +
+      parentId +
+      '"] };',
+  );
 
   return { code: lines.join("\n"), manifest: stats };
 }
