@@ -40,6 +40,130 @@ Each registry entry contains: `key`, `importMethod` ("set" for `importComponentS
 > Single-ID returns like `{ frameId }` or `{ instanceId }` are a Rule 15 violation.
 > (Source: figma-use/SKILL.md:38)
 
+## Critical Rules
+
+These rules come from `figma-use` SKILL.md (current version, 2026-04-28).
+Skipping any of them produces hard-to-debug failures. The rules in `## 2.
+Core Patterns` above (skillNames mandatory-load, never-reparent, return
+all node IDs) are also Critical Rules and remain in their current position
+for prominence; the rules below are the rest of the canonical set.
+
+> **Rule 3a — `getPluginData`/`setPluginData` are NOT supported in `use_figma`. Use `getSharedPluginData`/`setSharedPluginData` instead.**
+> The shared variant takes a namespace + key and works inside `use_figma`.
+> If you need to persist plugin metadata on a node, always use the shared
+> variant.
+> (Source: figma-use/SKILL.md Rule 3a)
+
+> **Rule 8 — Font preload is mandatory before any operation on text-bearing subtrees.**
+> Per the v2.1.26 expansion (2026-04-27): you MUST `loadFontAsync` before
+> `appendChild`, `insertChild`, `setBoundVariable`, `setExplicitVariableModeForCollection`,
+> `setValueForMode`, AND `findAll` callbacks if any node in the touched
+> subtree contains unloaded fonts. Pre-existing component instances often
+> carry unloaded fonts. Reference fix shape:
+>
+> ```js
+> const fonts = subtree.findAll(n => n.type === 'TEXT')
+>   .map(t => t.fontName)
+>   .filter((fn, i, arr) =>
+>     fn && typeof fn === 'object' &&
+>     arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i
+>   );
+> await Promise.all(fonts.map(fn => figma.loadFontAsync(fn)));
+> parent.appendChild(subtree);
+> ```
+>
+> The `typeof fn === 'object'` guard excludes `figma.mixed` (a Symbol) which
+> is truthy but produces `undefined` from `JSON.stringify`. Without the
+> guard, `loadFontAsync(figma.mixed)` throws.
+> (Source: figma-use/SKILL.md Rule 8 — expanded v2.1.26)
+
+> **Rule 13 — Position new top-level nodes away from (0,0).**
+> Top-level nodes (children of `figma.currentPage`) must be positioned at
+> non-(0,0) coordinates — Figma reserves the origin region for collapsed
+> overlay state. Auto-layout-nested nodes (children of frames with
+> `layoutMode = "HORIZONTAL"` or `"VERTICAL"`) are exempt; only page-level
+> nodes need explicit positioning. Pattern 0 (wrapper frame) follows this
+> already by setting `wrapper.x = currentPage.maxY + 200`.
+> (Source: figma-use/SKILL.md Rule 13)
+
+> **Rule 14 — Atomic on error: STOP, do not immediately retry.**
+> A failed `use_figma` script makes ZERO changes — Figma rolls back the
+> entire script. STOP, diagnose the error, then re-issue with the fix.
+> Retrying the same script on transient-looking errors is the wrong move:
+> if the script failed once it will fail again, and silent retries waste
+> tokens. Atomic-on-error is what makes diagnose-then-fix safe.
+> (Source: figma-use/SKILL.md Rule 14)
+
+> **Rule 16 — Always set `variable.scopes` explicitly.**
+> The default `ALL_SCOPES` "pollutes every property picker — almost never
+> what you want." Set scopes per the variable's intended use:
+> - Color tokens: `["FRAME_FILL", "SHAPE_FILL", "TEXT_FILL", "STROKE_COLOR"]`
+> - Spacing tokens: `["GAP", "WIDTH_HEIGHT"]`
+> - Typography tokens: see `figma-use/references/variable-patterns.md` for
+>   the full enumeration.
+> (Source: figma-use/SKILL.md Rule 16)
+
+> **Rule 17 — `await` every Promise.**
+> Unawaited `loadFontAsync`, `setCurrentPageAsync`, `importComponentByKeyAsync`,
+> `setFillStyleIdAsync`, etc. cause silent failures. Use `await` even when
+> you don't read the return value. Promise.all is the right shape when
+> loading many things in parallel; never fire-and-forget.
+> (Source: figma-use/SKILL.md Rule 17)
+
+### Editor Mode
+
+`use_figma` works in **design mode only**. Figma supports multiple editor
+modes (Design, FigJam, Slides, Sites) and our skill cannot author canvas
+content in non-design modes. Specifically blocked node types in design
+mode:
+
+- `STICKY` (FigJam)
+- `CONNECTOR` (FigJam)
+- `SHAPE_WITH_TEXT` (FigJam)
+- `CODE_BLOCK` (FigJam)
+- `SLIDE` (Slides)
+- `SLIDE_ROW` (Slides)
+- `WEBPAGE` (Sites)
+
+If the user sends a `figma.com/board/`, `figma.com/slides/`, `figma.com/make/`,
+or `figma.com/sites/` URL, hand off to the appropriate read-only flow
+(`get_figjam`, `get_design_context` with mode warning) — do not attempt
+`use_figma` writes.
+
+(Source: figma-use/SKILL.md Section 4)
+
+### ToolSearch batch-load
+
+When invoking multiple Figma MCP tools in a single context (e.g.
+`use_figma` + `get_metadata` + `get_screenshot` + `create_new_file`),
+load ALL their schemas in ONE `ToolSearch` call:
+
+```
+ToolSearch query="select:use_figma,get_figjam,get_screenshot,get_metadata,create_new_file"
+```
+
+Loading them one at a time is wasteful and fragments the agent's context
+window. Load all at the start of the work; each schema costs ~1-2K tokens
+once.
+
+(Source: figma-use/SKILL.md v2.1.30)
+
+### Working with Design Systems — start at `wwds.md`
+
+Whenever the work involves an existing DS (which is most of our work —
+DS Kit, FM Kit, Meta Kit), Figma's official entry point is:
+
+```
+figma-use/references/working-with-design-systems/wwds.md
+```
+
+This file routes to per-topic sub-references (creating-with vs using
+components, variables, effect styles, text styles). Read it first when
+starting any DS-touching push task. Our patterns reflect its guidance
+but the upstream is authoritative for any case our patterns don't cover.
+
+(Source: figma-use/SKILL.md line 19)
+
 ## 0. Auto-Layout Defaults
 
 **Any row containing text MUST use `sizing: { horizontal: "FILL" }` with text children at `Hug` sizing.** Never set fixed widths on text-bearing rows.
