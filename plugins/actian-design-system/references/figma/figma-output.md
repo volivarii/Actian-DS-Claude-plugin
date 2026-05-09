@@ -288,7 +288,7 @@ When Meta Kit template components are available, use clone-and-fill instead of c
 
 ### How it works
 
-1. **Read registry:** Load `../../docs/generated/metakit.json` at the start of the skill (before `use_figma`)
+1. **Read registry:** Load `../../vendor/components/registries/metakit.json` at the start of the skill (before `use_figma`)
 2. **Import template:** `figma.importComponentByKeyAsync(registry.templates['table-header-row'].key)`
 3. **Clone and detach:** `comp.createInstance()` → `instance.detachInstance()` — gives a mutable frame
 4. **Show:** Set `visible = true` on the detached frame (templates are hidden by default)
@@ -323,7 +323,7 @@ function fillSlots(frame, slots) {
 
 Templates are hidden components in the Meta Kit Figma library. Each has stable, semantic layer names (e.g., `label`, `value`, `title`) that serve as the contract between the registry and builder scripts.
 
-Registry location: `../../docs/generated/metakit.json`
+Registry location: `../../vendor/components/registries/metakit.json`
 
 Available templates:
 - `table-header-row` — table header cells (slots: `label`)

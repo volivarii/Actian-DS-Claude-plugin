@@ -289,7 +289,7 @@ If any condition fails, fall back per the table below.
 - For each `placeholder-text` finding: replace the placeholder string at the indicated path with the real content (typically derivable from `screens[N].name` or the user prompt).
 - For each `missing-required-override` finding: add the missing prop to the INSTANCE node's `props` object with a real value.
 - For each `unknown-component` finding: correct the `ref` slug (the validator suggests near matches via Levenshtein when applicable).
-- For each `hardcoded-color` finding: replace the hex/rgb/`{r,g,b}` literal at the indicated path with a `var(--zen-…)` or `var(--fm-…)` token reference. **Never push hardcoded colors** — see `tokens/actian-ds.tokens.json` for the available token names.
+- For each `hardcoded-color` finding: replace the hex/rgb/`{r,g,b}` literal at the indicated path with a `var(--zen-…)` or `var(--fm-…)` token reference. **Never push hardcoded colors** — see `vendor/tokens/tokens.json` for the available token names.
 - **Do NOT re-dispatch screen-generator agents.** Patch in-place with Edit, then re-run the validator.
 - **Retry cap:** if the same finding kind on the same path persists across 3 consecutive validator runs, stop and surface the validator output to the user. Do not loop further.
 
@@ -434,7 +434,7 @@ After the screen list is approved, build a `_glossary` object and set it on `met
 }
 ```
 
-**Entity properties lookup:** After building the glossary, slugify the entity name (lowercase, replace spaces with hyphens) and look it up in `docs/generated/app-context.json` → `entities[slug]`. If found, set `_glossary.entityProperties` to the entity's `properties` array. Screen-generators use these for form field labels, table column headers, and detail page content instead of generic placeholders.
+**Entity properties lookup:** After building the glossary, slugify the entity name (lowercase, replace spaces with hyphens) and look it up in `vendor/app-context/app-context.json` → `entities[slug]`. If found, set `_glossary.entityProperties` to the entity's `properties` array. Screen-generators use these for form field labels, table column headers, and detail page content instead of generic placeholders.
 
 Example: entity "Data Product" → slug "data-product" → `entities["data-product"].properties` → `["name", "description", "status", "input ports", "output ports", "datasets", "contacts", "attachments"]`
 
@@ -495,7 +495,7 @@ Read `references/figma/figma-push-patterns.md` for component keys and patterns. 
 
 ### HiFi conversion (if --hifi flag)
 
-After FM push completes, delegate to `/convert-to-hifi`. Pass the pushed flow's Figma URL — the skill reads the FM frame, maps to DS Kit using `docs/generated/fm-to-ds-map.json`, applies layout polish, and pushes a sibling frame named `[Flow name] — HiFi`. Generation card carries `mode: "hifi"`.
+After FM push completes, delegate to `/convert-to-hifi`. Pass the pushed flow's Figma URL — the skill reads the FM frame, maps to DS Kit using `vendor/fm-to-ds-map/fm-to-ds-map.json`, applies layout polish, and pushes a sibling frame named `[Flow name] — HiFi`. Generation card carries `mode: "hifi"`.
 
 If `--audit` is also set, run `/design-audit` on the hifi frame after conversion completes (see Flag interaction matrix).
 

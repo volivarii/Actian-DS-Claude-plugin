@@ -84,7 +84,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/changelog/changelog.js" \
   --previous <manifest-path>/.last-push.json \
   --source <source-data-file> \
-  --tokens "${CLAUDE_PLUGIN_ROOT}/tokens/actian-ds.tokens.json"
+  --tokens "${CLAUDE_PLUGIN_ROOT}/vendor/tokens/tokens.json"
 ```
 
 Report the changelog output to the user. If the previous manifest doesn't exist (first push), the script outputs "First push — no changelog" and exits cleanly.
@@ -159,7 +159,7 @@ omit it fall through to greenfield with a documented warning.
 - `pushedAt` — ISO 8601 timestamp at the moment the manifest is written (e.g. `2026-03-27T14:32:00Z`)
 - `sourceHash` — SHA-256 hex digest of the source data file (e.g., `flow-data.json`, `brief-data.json`) at push time. Enables detecting if source data changed since last push.
 - `componentKeys` — deduplicated array of Figma component keys imported during this push. Enables usage analytics and changelog diffs between pushes.
-- `tokenHash` — SHA-256 hex digest of `tokens/actian-ds.tokens.json` at push time. Enables detecting token drift — if tokens changed since last push, outputs may need regeneration.
+- `tokenHash` — SHA-256 hex digest of `vendor/tokens/tokens.json` at push time. Enables detecting token drift — if tokens changed since last push, outputs may need regeneration.
 - `propertyDefaultsHash` — per-kit SHA-256 hex digests of component property defaults (text/boolean default values) at push time. Computed via `computePropertyDefaultsHashes({ fm, ds, meta })` from `scripts/changelog/changelog.js`. Enables detecting when a designer edits component default values upstream between syncs.
 
 **Manifest locations by skill:**
@@ -193,7 +193,7 @@ Before writing the manifest, compute the enrichment fields:
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 SOURCE_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('$SOURCE_FILE')).digest('hex'))")
-TOKEN_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('${CLAUDE_PLUGIN_ROOT}/tokens/actian-ds.tokens.json')).digest('hex'))")
+TOKEN_HASH=$("$NODE_BIN" -e "process.stdout.write(require('crypto').createHash('sha256').update(require('fs').readFileSync('${CLAUDE_PLUGIN_ROOT}/vendor/tokens/tokens.json')).digest('hex'))")
 PROPERTY_DEFAULTS_HASH=$("$NODE_BIN" -e "
 var changelog = require('${CLAUDE_PLUGIN_ROOT}/scripts/changelog/changelog.js');
 var path = require('path');

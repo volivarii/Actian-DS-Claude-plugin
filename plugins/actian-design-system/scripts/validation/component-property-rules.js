@@ -175,7 +175,7 @@ if (require.main === module) {
         "Looks up required-override TEXT props and default-true booleans per slug.\n",
       );
       process.stdout.write(
-        "fm* slugs read from docs/generated/fmkit.json; others read from docs/generated/dskit.json.\n",
+        "fm* slugs read from vendor/components/registries/fmkit.json; others read from vendor/components/registries/dskit.json.\n",
       );
       process.exit(0);
     }

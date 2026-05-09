@@ -15,12 +15,18 @@ var rules = require(
 );
 
 var KIT_HEADERS = {
-  fm: { title: "Fat Marker Kit", source: "docs/generated/fmkit.json" },
+  fm: {
+    title: "Fat Marker Kit",
+    source: "vendor/components/registries/fmkit.json",
+  },
   ds: {
     title: "Actian Design System 2026",
-    source: "docs/generated/dskit.json",
+    source: "vendor/components/registries/dskit.json",
   },
-  meta: { title: "Meta Kit", source: "docs/generated/metakit.json" },
+  meta: {
+    title: "Meta Kit",
+    source: "vendor/components/registries/metakit.json",
+  },
 };
 
 function formatVariants(variants) {

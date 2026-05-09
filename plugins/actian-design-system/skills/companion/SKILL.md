@@ -111,9 +111,9 @@ All three operate on existing URLs. Pick by prose:
 ## Step 4 — Direct help (no skill needed)
 
 - **Design ops:** List findings (current vs. correct value). Spot fixes (wrong token, spacing, auto-layout): fix via `use_figma`, report what changed. Ambiguous fixes: present options first.
-- **Content designer:** Read text from selection, check against `docs/content-guidelines.md`, suggest rewrites with reasoning.
+- **Content designer:** Read text from selection, check against `vendor/content/content.md`, suggest rewrites with reasoning.
 - **A11y specialist:** Check contrast (4.5:1 normal, 3:1 large), touch targets (44x44px min), focus order. For full audit, recommend `/design-audit`.
 - **UX researcher:** Load `references/context/ux-patterns.md`, search by flow type, optionally web search. Ground recommendations in Actian product context.
 - **System librarian:** Draft guideline in existing format, show draft, user approves before any file edit.
 - **Tier review** (signals: "review tier-3", "show improvised screens", "what got improvised", "show deviations" + Figma URL): Read `.last-push.json` for the URL's flow page; for each `pushedNodes` entry where `tier === "improvised"`, or where `tier === "adapted"` with `matchedRecipe` set and `composition` null, print `label`: `justification`. No skill routing — companion handles directly.
-- **Library lookup** (row 16: "find every empty state", "where do we use X", "show me all Y"): grep registries (`docs/generated/dskit.json`, `docs/generated/fmkit.json`, `docs/generated/metakit.json`) and component guidelines, answer inline. No skill needed.
+- **Library lookup** (row 16: "find every empty state", "where do we use X", "show me all Y"): grep registries (`vendor/components/registries/dskit.json`, `vendor/components/registries/fmkit.json`, `vendor/components/registries/metakit.json`) and component guidelines, answer inline. No skill needed.

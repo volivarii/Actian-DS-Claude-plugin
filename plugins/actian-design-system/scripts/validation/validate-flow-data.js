@@ -1285,9 +1285,11 @@ function validate(data, opts) {
       message:
         "Component '" +
         slug +
-        "' uses a stub guideline. Curated content pending — see docs/component-guidelines/" +
+        "' uses a stub guideline. Curated content pending — see vendor/components/guidelines/" +
         slug +
-        ".json",
+        ".json (in plugin) / components/guidelines/" +
+        slug +
+        ".json (in actian-ds-knowledge)",
     });
   });
 
