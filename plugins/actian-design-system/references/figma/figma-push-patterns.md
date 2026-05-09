@@ -2,6 +2,9 @@
 
 Direct Figma Plugin API patterns for pushing content to Figma. Each pattern is a standalone `use_figma` call (200-2000 bytes). No interpreter, no JSON specs, no Node scripts at push time.
 
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures. This rule supersedes Push Rule #1 below — every code block in this document assumes `skillNames: "figma-use"` is set on the call wrapping it.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
 ---
 
 ## 1. Component Keys
@@ -23,6 +26,19 @@ Each registry entry contains: `key`, `importMethod` ("set" for `importComponentS
 ---
 
 ## 2. Core Patterns
+
+> **Never reparent across `use_figma` calls.** Build the wrapper first in
+> call N, then build each child node directly inside it in call N+1 by
+> retrieving the wrapper with `getNodeByIdAsync` and appending the NEW node
+> within that same call. Cross-call `appendChild` on a node fetched by ID
+> silently fails and produces orphaned frames.
+> (Source: figma-generate-design/SKILL.md:203)
+
+> **Critical Rule 15: return ALL created/mutated node IDs as a structured object.**
+> Every push pattern MUST end with `return { createdNodeIds: [...], mutatedNodeIds: [...] };`.
+> The orchestrating skill uses these IDs to chain subsequent `use_figma` calls.
+> Single-ID returns like `{ frameId }` or `{ instanceId }` are a Rule 15 violation.
+> (Source: figma-use/SKILL.md:38)
 
 ## 0. Auto-Layout Defaults
 
@@ -105,7 +121,11 @@ wrapper.y = maxY + 200;
 // Store the wrapper ID so subsequent calls can append to it
 wrapper.setSharedPluginData("ds", "wrapperId", wrapper.id);
 
-return { wrapperId: wrapper.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [wrapper.id],
+  mutatedNodeIds: [],
+};
 ```
 
 ### Pattern 2: Import single component + create instance
@@ -125,7 +145,11 @@ inst.setProperties({
   "Date#3:2": "2026-04-08T00:00:00Z"
 });
 
-return { instanceId: inst.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [inst.id],
+  mutatedNodeIds: [],
+};
 ```
 
 ### Pattern 3: Import component set + create variant instance
@@ -144,20 +168,61 @@ if (!variant) variant = set.defaultVariant || set.children[0];
 const inst = variant.createInstance();
 inst.name = "Primary Button";
 
-return { instanceId: inst.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [inst.id],
+  mutatedNodeIds: [],
+};
 ```
 
-### Pattern 4: Append children to frame by ID
+### Pattern 4: Append new children to a wrapper by ID
+
+> **Never reparent across `use_figma` calls.** Build the wrapper first, then
+> build each section directly inside it. Cross-call `appendChild` silently
+> fails and produces orphaned frames.
+> (Source: figma-generate-design/SKILL.md:203)
+
+**Correct — create new nodes and append them within the same call:**
 
 ```js
-// Append previously-created nodes into a parent frame.
+// Retrieve the wrapper created in the previous call, create new children
+// inside it in this call. child1 and child2 are NEW nodes — never fetched
+// by getNodeByIdAsync from a prior call.
 const parent = await figma.getNodeByIdAsync("1234:5678");
-const child1 = await figma.getNodeByIdAsync("1234:5679");
-const child2 = await figma.getNodeByIdAsync("1234:5680");
+
+const child1 = figma.createFrame();
+child1.name = "Section A";
+child1.layoutMode = "VERTICAL";
+child1.primaryAxisSizingMode = "AUTO";
+child1.counterAxisSizingMode = "AUTO";
+child1.fills = [];
 parent.appendChild(child1);
+
+const child2 = figma.createFrame();
+child2.name = "Section B";
+child2.layoutMode = "VERTICAL";
+child2.primaryAxisSizingMode = "AUTO";
+child2.counterAxisSizingMode = "AUTO";
+child2.fills = [];
 parent.appendChild(child2);
 
-return { parentId: parent.id, childCount: parent.children.length };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [child1.id, child2.id],
+  mutatedNodeIds: [parent.id],
+};
+```
+
+**Wrong — DO NOT retrieve nodes by ID and reparent them across calls:**
+
+```js
+// ❌ FORBIDDEN: previously-created nodes fetched by ID then reparented.
+//    appendChild silently fails; both nodes become orphaned frames.
+const parent = await figma.getNodeByIdAsync("1234:5678");
+const child1 = await figma.getNodeByIdAsync("1234:5679");  // ← created in prior call
+const child2 = await figma.getNodeByIdAsync("1234:5680");  // ← created in prior call
+parent.appendChild(child1);  // ← silently fails
+parent.appendChild(child2);  // ← silently fails
 ```
 
 ### Pattern 5: Create text node
@@ -174,7 +239,11 @@ text.fills = [{ type: "SOLID", color: { r: 0.1, g: 0.1, b: 0.18 } }];
 // For slides, use Roboto instead:
 // await figma.loadFontAsync({ family: "Roboto", style: "Regular" });
 
-return { textId: text.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [text.id],
+  mutatedNodeIds: [],
+};
 ```
 
 ### Pattern 6: Create auto-layout frame
@@ -194,7 +263,11 @@ frame.counterAxisSizingMode = "AUTO";
 frame.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];
 frame.cornerRadius = 8;
 
-return { frameId: frame.id };
+// Return all created/mutated node IDs per Critical Rule 15
+return {
+  createdNodeIds: [frame.id],
+  mutatedNodeIds: [],
+};
 ```
 
 ### Pattern 7: Set ALL instance properties (CRITICAL — never leave defaults)
@@ -299,7 +372,7 @@ function hexToRgb(hex) {
 1. **Always pass `skillNames: "figma-use"`** with every `use_figma` call.
 2. **NEVER leave default property values (P0 BLOCKER)** -- scan your data model for banned defaults BEFORE pushing. These strings must NEVER appear in Figma output: `"Page Title"`, `"Description text"`, `"Button label"`, `"Label"` (standalone), `"Nav Item"`, `"Tag"`, `"Header"` (standalone), `"Feature Name"`, `"Flow Description"`, `"User Persona"`. Replace every one with real contextual content. Use `setProperties()` and `findOne()` per Pattern 7.
 3. **One operation per call** -- create a frame OR import components OR populate content. Not all three.
-4. **Return IDs from every call** -- use them in subsequent calls to append children.
+4. **Return `{ createdNodeIds, mutatedNodeIds }` from every call (Critical Rule 15)** -- use the IDs in subsequent calls to append children. Single-ID shapes like `{ frameId }` are violations.
 5. **Keep calls under 2KB** -- if code is longer, split into multiple calls.
 6. **Fonts before text** -- call `loadFontAsync` before setting `.characters`.
 7. **Colors are 0-1 range** -- `{ r: 0.1, g: 0.1, b: 0.18 }` not `{ r: 26, g: 26, b: 46 }`.

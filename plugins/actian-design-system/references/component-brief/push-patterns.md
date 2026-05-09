@@ -2,7 +2,8 @@
 
 Direct Figma Plugin API patterns for pushing component briefs. Each pattern is a standalone `use_figma` call. Read your `brief-data.json` and translate each card to these patterns.
 
-All calls MUST include `skillNames: "figma-use"`.
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures. Every code block in this document assumes `skillNames: "figma-use"` is set on the call wrapping it.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
 
 ---
 
@@ -90,7 +91,7 @@ wrapper.setSharedPluginData("ds", "wrapperId", wrapper.id);
 // The fix is at every level — wrapper (here), supercard outer frame
 // (Pattern 1), and content slot (Pattern 1, v1.69.0+).
 
-return { wrapperId: wrapper.id };
+return { createdNodeIds: [wrapper.id], mutatedNodeIds: [] };
 ```
 
 **DO NOT use VERTICAL. Brief cards display in a HORIZONTAL row.**
@@ -124,7 +125,7 @@ inst.setProperties({
 const wrapper = await figma.getNodeByIdAsync("<wrapperId>");
 wrapper.appendChild(inst);
 
-return { genLogId: inst.id };
+return { createdNodeIds: [inst.id], mutatedNodeIds: ["<wrapperId>"] };
 ```
 
 **Fill all 6 properties from `brief-data.json.meta`.** Do NOT skip this card. Do NOT type any value as a literal — every value must originate in the data model.
@@ -227,7 +228,11 @@ if (contentSlot) {
 const wrapper = await figma.getNodeByIdAsync("<wrapperId>");
 wrapper.appendChild(cardFrame);
 
-return { cardId: cardFrame.id, contentSlotId: contentSlot?.id || cardFrame.id };
+return {
+  createdNodeIds: [cardFrame.id],
+  mutatedNodeIds: ["<wrapperId>", ...(contentSlot ? [contentSlot.id] : [])],
+  contentSlotId: contentSlot?.id || cardFrame.id,
+};
 ```
 
 **Card Header stays live after detach.** Use `setProperties` with `Title#140:0`, `Subtitle#140:1`, `Show Subtitle#140:2`. For the Page Header variant (card1), use `"Mode=DS, Type=Page Header"` and set `"Component Name#7:2"` (= `card.name`) and `"Description#7:3"` (= `card.description`) instead. The `cardTitle`/`cardSubtitle` fields still apply but are not surfaced visually on Page Header.
@@ -358,7 +363,7 @@ header.setProperties({
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(header);
 header.layoutSizingHorizontal = "FILL";
-return { headerId: header.id };
+return { createdNodeIds: [header.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```
 
 **Do NOT detach.** Use `setProperties` with hash-suffixed names. Set `"Show Subtitle#138:0": false` to hide the subtitle, `true` to show it.
@@ -409,7 +414,7 @@ headerRow.layoutSizingHorizontal = "FILL";
 // Data rows — one call per row or batch
 // Each row: same layout, different text content, "Inter:Regular" font
 // REQ/OPT badge: small frame with colored fill + text
-return { tableId: headerRow.id };
+return { createdNodeIds: [headerRow.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```
 
 **Token Tag styling (v1.69.0+, with v1.70.4+ HUG guard restored in v1.71.1):** When a table cell contains a `--zen-*` token name, render the cell as a Token Tag pill instead of plain text. Use the `appendTokenTagCell` helper below — calling it is materially safer than inlining the same construction (smoke history: when the AI inlined the token-tag layout, every variant of the construction crushed cells to 1px; calling the helper directly is the only path that's been smoke-clean).
@@ -495,7 +500,7 @@ const swatch = variant.createInstance();
 // Set fill color — the swatch IS the dot (flat 12×12 instance, NO children)
 swatch.fills = [{ type: "SOLID", color: hexToRgb("#0550DC") }];
 
-return { swatchId: swatch.id };
+return { createdNodeIds: [swatch.id], mutatedNodeIds: [] };
 ```
 
 **CRITICAL:** The Color Swatch component is a flat 12×12 instance with NO children — set `.fills` directly on the swatch instance itself. Do NOT use `findOne` to look for a "Dot" or "Color" child — it will return null and the fill will never be set.
@@ -554,7 +559,7 @@ pair.setProperties({
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(pair);
 pair.layoutSizingHorizontal = "FILL";
-return { pairId: pair.id };
+return { createdNodeIds: [pair.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```
 
 ---
@@ -605,7 +610,7 @@ for (const req of requirements) {
   t.layoutSizingHorizontal = "FILL";
 }
 
-return { listId: list.id };
+return { createdNodeIds: [list.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```
 
 **No more 6-card grid, no per-card code blocks.** The `code` field on each requirement (still in the data schema for back-compat) is ignored by this pattern. If a requirement genuinely needs a code example, surface it in the body text or move it to the ARIA table — don't bring back the grid.
@@ -653,7 +658,7 @@ parent.appendChild(row);
 row.layoutSizingHorizontal = "FILL";
 
 // For "when NOT to use", use "−" prefix with hexToRgb("#DC2626") (red)
-return { rowId: row.id };
+return { createdNodeIds: [row.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```
 
 ---
@@ -676,7 +681,7 @@ if (targetNode.type === "COMPONENT_SET") {
 const inst = variantComp.createInstance();
 inst.name = "Default variant";
 
-return { instanceId: inst.id };
+return { createdNodeIds: [inst.id], mutatedNodeIds: [] };
 ```
 
 For theme comparison frames, set `variableMode` after creating the frame:
@@ -697,6 +702,21 @@ if (colorCol) {
 
 **Variation Matrix construction (v1.70.0+):** When building a 2D state matrix for the Section 1 Variation sub-frame (e.g., Checkbox state matrix with rows = No/Yes/Indeterminate × columns = Default/Hover/Focus/Pressed/Disabled), each cell contains a real component instance. Cells are children of HORIZONTAL row frames. The same regression that bit `appendTokenTagCell` bites here: row sizing crushes child instances to 1px.
 
+> **Rule 8 (figma-use v2.1.26):** Font preload is mandatory before `appendChild` on a
+> component instance — the instance carries the component's fonts which may be unloaded.
+> The CALLER of `appendVariationCell` MUST preload the instance's fonts before passing it
+> to this function. Use the pattern:
+> ```js
+> const _fonts = instance.findAll(n => n.type === "TEXT")
+>   .map(t => t.fontName)
+>   .filter((fn, i, arr) =>
+    fn && typeof fn === 'object' &&
+    arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+> await Promise.all(_fonts.map(fn => figma.loadFontAsync(fn)));
+> await appendVariationCell(parentRow, instance);
+> ```
+> (Source: figma-use/SKILL.md:8)
+
 ```js
 async function appendVariationCell(parentRow, instance) {
   parentRow.appendChild(instance);
@@ -715,6 +735,14 @@ Apply this to every cell in the Variation matrix. Without the guard, Phase 2 PR 
 ---
 
 ## 9. Anatomy Diagram Pattern (Section 1 Anatomy sub-frame, v1.70.0+)
+
+> **Rule 8 (figma-use v2.1.26):** Font preload is mandatory before any of
+> `appendChild`, `insertChild`, `setBoundVariable`, `setExplicitVariableModeForCollection`,
+> `setValueForMode`, or `findAll` callbacks if the touched subtree contains
+> unloaded fonts. Pre-existing component instances often carry unloaded fonts.
+> Pattern 9 creates a component instance from a pre-existing DS component — the
+> font preload block below (before `container.appendChild(inst)`) is load-bearing.
+> (Source: figma-use/SKILL.md:8)
 
 Single ~4-6KB call. Creates component instance, reads bounding boxes, computes badge positions, draws badges + leader lines.
 
@@ -752,6 +780,19 @@ if (targetNode.type === "COMPONENT_SET") {
   variantComp = targetNode;
 }
 const inst = variantComp.createInstance();
+
+// Rule 8 (figma-use v2.1.26): font preload is mandatory before appendChild on a
+// pre-existing component instance — the instance carries the component's fonts which
+// may be unloaded. Collect unique fontNames from the instance subtree and load them
+// all before appending. Without this, Figma silently fails on text operations inside
+// the instance (intermittent failures on supercards with pre-existing instances).
+const _instFonts = inst.findAll(n => n.type === "TEXT")
+  .map(t => t.fontName)
+  .filter((fn, i, arr) =>
+    fn && typeof fn === 'object' &&
+    arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+await Promise.all(_instFonts.map(fn => figma.loadFontAsync(fn)));
+
 container.appendChild(inst);
 
 // 2a. Pick scale factor — heuristic per pickScale (mirrors scripts/lib/anatomy-scale.js):
@@ -940,7 +981,8 @@ const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(container);
 
 return {
-  diagramId: container.id,
+  createdNodeIds: [container.id],
+  mutatedNodeIds: ["<contentSlotId>"],
   pattern9: {
     scaleApplied: scale,
     scaleSource: scaleOverride !== null ? "override" : "heuristic",
@@ -964,7 +1006,7 @@ if (!badgeVariant) badgeVariant = badgeSet.defaultVariant || badgeSet.children[0
 const badge = badgeVariant.createInstance();
 badge.setProperties({ "Label#44:3": "Pass" });
 
-return { badgeId: badge.id };
+return { createdNodeIds: [badge.id], mutatedNodeIds: [] };
 ```
 
 ---
@@ -986,7 +1028,7 @@ row.setProperties({
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(row);
 row.layoutSizingHorizontal = "FILL";
-return { rowId: row.id };
+return { createdNodeIds: [row.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```
 
 **Do NOT detach** — use `setProperties` with hash-suffixed property names. No font loading needed.
@@ -1007,7 +1049,7 @@ block.setProperties({
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(block);
 block.layoutSizingHorizontal = "FILL";
-return { blockId: block.id };
+return { createdNodeIds: [block.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```
 
 **Do NOT detach** — use `setProperties` with hash-suffixed names. Set `"Show Header#8:0": false` to hide the filename bar. Code text renders monochrome automatically.
@@ -1064,7 +1106,7 @@ const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(researchFrame);
 researchFrame.layoutSizingHorizontal = "FILL";
 
-return { researchFrameId: researchFrame.id };
+return { createdNodeIds: [researchFrame.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```
 
 ```js
@@ -1116,7 +1158,9 @@ if (insights.recommendations?.length) {
   rf.layoutSizingHorizontal = "FILL";
 }
 
-return { subsectionsAdded: true };
+// Collect the IDs of sub-section frames actually appended (pf and/or rf may be absent when list is empty).
+const createdSubIds = [...(insights.patterns_observed?.length ? [pf.id] : []), ...(insights.recommendations?.length ? [rf.id] : [])];
+return { createdNodeIds: createdSubIds, mutatedNodeIds: ["<researchFrameId>"] };
 ```
 
 ```js
@@ -1175,12 +1219,22 @@ if (insights.sources?.length) {
   src.layoutSizingHorizontal = "FILL";
 }
 
-return { divergencesAndSourcesDone: true };
+const createdIds = [...(insights._divergences?.length ? [df.id] : []), ...(insights.sources?.length ? [src.id] : [])];
+return { createdNodeIds: createdIds, mutatedNodeIds: ["<researchFrameId>"] };
 ```
 
 ---
 
 ## 14. Specs Redline Pattern (Section 1 Specs sub-frame, v1.70.0+)
+
+> **Rule 8 (figma-use v2.1.26):** Font preload is mandatory before any of
+> `appendChild`, `insertChild`, `setBoundVariable`, `setExplicitVariableModeForCollection`,
+> `setValueForMode`, or `findAll` callbacks if the touched subtree contains
+> unloaded fonts. Pre-existing component instances often carry unloaded fonts.
+> Pattern 14 creates a component instance from a pre-existing DS component — the
+> font preload block below (before `container.appendChild(inst)`) is load-bearing
+> and distinct from the annotation font load earlier in the pattern.
+> (Source: figma-use/SKILL.md:8)
 
 Auto-extracted dimension annotations rendered in a left-gutter ordinate lane. Replaces the v1.69.0 per-edge placement model which produced label-on-component collisions when N > 1 annotations existed on the same surface (Phase 1 + PR 1 smoke).
 
@@ -1389,6 +1443,17 @@ if (targetNode.type === "COMPONENT_SET") {
   variantComp = targetNode;
 }
 const inst = variantComp.createInstance();
+
+// Rule 8 (figma-use v2.1.26): font preload before appendChild on component instance.
+// The instance carries the target component's fonts which may be unloaded.
+// Collect unique fontNames from inst subtree and preload before appending.
+const _instFonts14 = inst.findAll(n => n.type === "TEXT")
+  .map(t => t.fontName)
+  .filter((fn, i, arr) =>
+    fn && typeof fn === 'object' &&
+    arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+await Promise.all(_instFonts14.map(fn => figma.loadFontAsync(fn)));
+
 container.appendChild(inst);
 // v1.70.1: shift inst right by (GUTTER_WIDTH + GUTTER_GAP) so the left-gutter
 // has room INSIDE the container at positive x. Without this shift, the gutter
@@ -1626,7 +1691,8 @@ const parent = await figma.getNodeByIdAsync("<specsSubFrameId>");
 parent.appendChild(container);
 
 return {
-  redlineId: container.id,
+  createdNodeIds: [container.id],
+  mutatedNodeIds: ["<specsSubFrameId>"],
   pattern14: {
     extractedFrames,
     boundVariables: boundVariablesCount,

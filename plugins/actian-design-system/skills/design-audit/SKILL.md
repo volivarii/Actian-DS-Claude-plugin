@@ -8,6 +8,9 @@ argument-hint: "[Figma URL] [--scope copy|tokens|a11y|heuristic|all] [--fix <id|
 
 Audit a Figma file or section against the Actian Design System 2026 and/or Fat Marker conventions. Determine which library the file uses (FM = Workflow A, DS Kit = Workflow B), then apply corresponding rules.
 
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
 ## Flags
 
 | Flag | Type | Default | Behavior |

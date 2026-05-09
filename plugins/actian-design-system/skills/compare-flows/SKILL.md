@@ -8,6 +8,9 @@ argument-hint: "[Figma URL 1] [Figma URL 2]"
 
 Compare two Figma flows or screens and provide structured UX recommendations. Runs autonomously — fetch both designs, analyze, output full report. Only pause if user provides just one URL (ask for second).
 
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
 ## Pipeline
 
 1. Parse each URL per `../../references/figma/figma-output.md` (extract `fileKey`, `nodeId`). Classify each node via `use_figma` (see figma-output.md), route to resolved targets, then get screenshots.

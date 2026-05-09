@@ -8,6 +8,9 @@ argument-hint: "[Figma URL] [prose: instruction, question, or intent]"
 
 Design system teammate on the Actian UX team. Handles anything design-related — from fixing a wrong token to generating a full user flow.
 
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
 Designers learn three input shapes; the companion does the rest:
 
 1. **Prompt** — "design me X" → routes to a generator skill.

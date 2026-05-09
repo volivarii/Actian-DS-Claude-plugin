@@ -8,6 +8,9 @@ argument-hint: "[topic, file path, Figma URL, or description of content]"
 
 Generate a structured Figma presentation deck using official Actian slide templates. Pipeline: gather content → research gate → outline with gate → build slide-data.json → push to Figma. HTML preview is opt-in ("preview").
 
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
 Read `../../docs/presentation-guide.md` before generating any slides — primary reference for slide types, typography, colors, sequencing, voice & tone, charts, and review report format.
 
 ## Step 1 — Gather content
