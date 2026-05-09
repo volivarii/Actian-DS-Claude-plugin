@@ -697,6 +697,19 @@ if (colorCol) {
 
 **Variation Matrix construction (v1.70.0+):** When building a 2D state matrix for the Section 1 Variation sub-frame (e.g., Checkbox state matrix with rows = No/Yes/Indeterminate × columns = Default/Hover/Focus/Pressed/Disabled), each cell contains a real component instance. Cells are children of HORIZONTAL row frames. The same regression that bit `appendTokenTagCell` bites here: row sizing crushes child instances to 1px.
 
+> **Rule 8 (figma-use v2.1.26):** Font preload is mandatory before `appendChild` on a
+> component instance — the instance carries the component's fonts which may be unloaded.
+> The CALLER of `appendVariationCell` MUST preload the instance's fonts before passing it
+> to this function. Use the pattern:
+> ```js
+> const _fonts = instance.findAll(n => n.type === "TEXT")
+>   .map(t => t.fontName)
+>   .filter((fn, i, arr) => fn && arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+> await Promise.all(_fonts.map(fn => figma.loadFontAsync(fn)));
+> await appendVariationCell(parentRow, instance);
+> ```
+> (Source: figma-use/SKILL.md:8)
+
 ```js
 async function appendVariationCell(parentRow, instance) {
   parentRow.appendChild(instance);
@@ -715,6 +728,14 @@ Apply this to every cell in the Variation matrix. Without the guard, Phase 2 PR 
 ---
 
 ## 9. Anatomy Diagram Pattern (Section 1 Anatomy sub-frame, v1.70.0+)
+
+> **Rule 8 (figma-use v2.1.26):** Font preload is mandatory before any of
+> `appendChild`, `insertChild`, `setBoundVariable`, `setExplicitVariableModeForCollection`,
+> `setValueForMode`, or `findAll` callbacks if the touched subtree contains
+> unloaded fonts. Pre-existing component instances often carry unloaded fonts.
+> Pattern 9 creates a component instance from a pre-existing DS component — the
+> font preload block below (before `container.appendChild(inst)`) is load-bearing.
+> (Source: figma-use/SKILL.md:8)
 
 Single ~4-6KB call. Creates component instance, reads bounding boxes, computes badge positions, draws badges + leader lines.
 
@@ -752,6 +773,17 @@ if (targetNode.type === "COMPONENT_SET") {
   variantComp = targetNode;
 }
 const inst = variantComp.createInstance();
+
+// Rule 8 (figma-use v2.1.26): font preload is mandatory before appendChild on a
+// pre-existing component instance — the instance carries the component's fonts which
+// may be unloaded. Collect unique fontNames from the instance subtree and load them
+// all before appending. Without this, Figma silently fails on text operations inside
+// the instance (intermittent failures on supercards with pre-existing instances).
+const _instFonts = inst.findAll(n => n.type === "TEXT")
+  .map(t => t.fontName)
+  .filter((fn, i, arr) => fn && arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+await Promise.all(_instFonts.map(fn => figma.loadFontAsync(fn)));
+
 container.appendChild(inst);
 
 // 2a. Pick scale factor — heuristic per pickScale (mirrors scripts/lib/anatomy-scale.js):
@@ -1182,6 +1214,15 @@ return { divergencesAndSourcesDone: true };
 
 ## 14. Specs Redline Pattern (Section 1 Specs sub-frame, v1.70.0+)
 
+> **Rule 8 (figma-use v2.1.26):** Font preload is mandatory before any of
+> `appendChild`, `insertChild`, `setBoundVariable`, `setExplicitVariableModeForCollection`,
+> `setValueForMode`, or `findAll` callbacks if the touched subtree contains
+> unloaded fonts. Pre-existing component instances often carry unloaded fonts.
+> Pattern 14 creates a component instance from a pre-existing DS component — the
+> font preload block below (before `container.appendChild(inst)`) is load-bearing
+> and distinct from the annotation font load earlier in the pattern.
+> (Source: figma-use/SKILL.md:8)
+
 Auto-extracted dimension annotations rendered in a left-gutter ordinate lane. Replaces the v1.69.0 per-edge placement model which produced label-on-component collisions when N > 1 annotations existed on the same surface (Phase 1 + PR 1 smoke).
 
 **Architecture:** all annotations for a surface are routed to a 220px column to the LEFT of the component. Within that column, label pills are stacked vertically, sorted by the Y-coordinate of the edge they annotate. Each entry is `[Token Tag pill] ──── │` (label + horizontal leader + tick at the component's left edge). Top/bottom annotations get an L-shaped leader (horizontal from gutter, vertical witness to the actual edge). Greedy sort-and-stack guarantees zero collisions by construction. Pattern proven by Zeplin redlines, Carbon Design System anatomy pages, Material 3 anatomy diagrams, and CAD ordinate dimensioning.
@@ -1389,6 +1430,15 @@ if (targetNode.type === "COMPONENT_SET") {
   variantComp = targetNode;
 }
 const inst = variantComp.createInstance();
+
+// Rule 8 (figma-use v2.1.26): font preload before appendChild on component instance.
+// The instance carries the target component's fonts which may be unloaded.
+// Collect unique fontNames from inst subtree and preload before appending.
+const _instFonts14 = inst.findAll(n => n.type === "TEXT")
+  .map(t => t.fontName)
+  .filter((fn, i, arr) => fn && arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+await Promise.all(_instFonts14.map(fn => figma.loadFontAsync(fn)));
+
 container.appendChild(inst);
 // v1.70.1: shift inst right by (GUTTER_WIDTH + GUTTER_GAP) so the left-gutter
 // has room INSIDE the container at positive x. Without this shift, the gutter
