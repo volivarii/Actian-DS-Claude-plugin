@@ -73,13 +73,13 @@ for (const child of page.children) {
   if (bottom > maxY) maxY = bottom;
 }
 
-const wrapper = figma.createFrame();
+const wrapper = figma.createAutoLayout('HORIZONTAL', {  // ← MUST be HORIZONTAL, cards go side by side
+  itemSpacing: 32,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 wrapper.name = "Component Name — Component Brief";
-wrapper.layoutMode = "HORIZONTAL";  // ← MUST be HORIZONTAL, cards go side by side
-wrapper.itemSpacing = 32;
-wrapper.primaryAxisSizingMode = "AUTO";
-wrapper.counterAxisSizingMode = "AUTO";
-wrapper.fills = [];
 wrapper.x = 0;
 wrapper.y = maxY + 200;
 wrapper.setSharedPluginData("ds", "wrapperId", wrapper.id);
@@ -251,13 +251,13 @@ await figma.loadFontAsync({ family: "Inter", style: "Semibold" });
 const slot = await figma.getNodeByIdAsync("<contentSlotId>");
 
 async function appendSubFrame(label, sourceCard) {
-  const sub = figma.createFrame();
+  const sub = figma.createAutoLayout('VERTICAL', {
+    itemSpacing: 12,
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    fills: [],
+  });
   sub.name = label;
-  sub.layoutMode = "VERTICAL";
-  sub.itemSpacing = 12;
-  sub.primaryAxisSizingMode = "AUTO";
-  sub.counterAxisSizingMode = "AUTO";
-  sub.fills = [];
 
   // Heading row — label + optional Draft badge
   const heading = figma.createText();
@@ -270,14 +270,14 @@ async function appendSubFrame(label, sourceCard) {
     // Wrap heading + tag in a HORIZONTAL frame so they sit on the same row.
     // Note: Pattern 1b's badge construction lives in a separate use_figma
     // call scope and cannot be copy-pasted here — build the tag inline:
-    const headerRow = figma.createFrame();
+    const headerRow = figma.createAutoLayout('HORIZONTAL', {
+      itemSpacing: 8,
+      primaryAxisSizingMode: 'AUTO',
+      counterAxisSizingMode: 'AUTO',
+      counterAxisAlignItems: 'CENTER',
+      fills: [],
+    });
     headerRow.name = "Heading + DRAFT tag";
-    headerRow.layoutMode = "HORIZONTAL";
-    headerRow.itemSpacing = 8;
-    headerRow.primaryAxisSizingMode = "AUTO";
-    headerRow.counterAxisSizingMode = "AUTO";
-    headerRow.counterAxisAlignItems = "CENTER";
-    headerRow.fills = [];
     headerRow.appendChild(heading);
     const tag = figma.createText();
     tag.fontName = { family: "Inter", style: "Semibold" };
@@ -389,13 +389,13 @@ await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 
 // Header row
-const headerRow = figma.createFrame();
+const headerRow = figma.createAutoLayout('HORIZONTAL', {
+  itemSpacing: 0,
+  fills: [{ type: "SOLID", color: hexToRgb("#F5F5FA") }],
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+});
 headerRow.name = "Header Row";
-headerRow.layoutMode = "HORIZONTAL";
-headerRow.itemSpacing = 0;
-headerRow.fills = [{ type: "SOLID", color: hexToRgb("#F5F5FA") }];
-headerRow.primaryAxisSizingMode = "AUTO";
-headerRow.counterAxisSizingMode = "AUTO";
 
 const headers = ["", "Property", "Type", "Default", "Values", "Notes"];
 const widths = [50, 140, 100, 120, 200, 350];
@@ -422,17 +422,17 @@ return { createdNodeIds: [headerRow.id], mutatedNodeIds: ["<contentSlotId>"] };
 ```js
 async function appendTokenTagCell(parentRow, tokenText) {
   await figma.loadFontAsync({ family: "Inter", style: "Medium" });
-  const labelFrame = figma.createFrame();
+  const labelFrame = figma.createAutoLayout('HORIZONTAL', {
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    paddingLeft: 5,
+    paddingRight: 5,
+    paddingTop: 2,
+    paddingBottom: 2,
+    cornerRadius: 3,
+    fills: [{ type: "SOLID", color: { r: 0.941, g: 0.949, b: 0.984 } }], // ~#F0F2FA
+  });
   labelFrame.name = "Token: " + tokenText;
-  labelFrame.layoutMode = "HORIZONTAL";
-  labelFrame.primaryAxisSizingMode = "AUTO";
-  labelFrame.counterAxisSizingMode = "AUTO";
-  labelFrame.paddingLeft = 5;
-  labelFrame.paddingRight = 5;
-  labelFrame.paddingTop = 2;
-  labelFrame.paddingBottom = 2;
-  labelFrame.cornerRadius = 3;
-  labelFrame.fills = [{ type: "SOLID", color: { r: 0.941, g: 0.949, b: 0.984 } }]; // ~#F0F2FA
 
   const text = figma.createText();
   text.fontName = { family: "Inter", style: "Medium" };
@@ -508,26 +508,26 @@ return { createdNodeIds: [swatch.id], mutatedNodeIds: [] };
 **Cell sizing (REQUIRED — prevents hex clipping):** The swatch cell wraps a 12px swatch + a stacked text block (token name 15px + hex 13px ≈ 30px tall). The cell must Hug its content vertically — never fix the height to the swatch dot. Each cell MUST set:
 
 ```js
-const cell = figma.createFrame();
+const cell = figma.createAutoLayout('HORIZONTAL', {
+  itemSpacing: 8,
+  counterAxisAlignItems: 'CENTER',          // vertically center swatch + text block
+  primaryAxisSizingMode: 'AUTO',            // Hug width
+  counterAxisSizingMode: 'AUTO',            // Hug height — fits the 30px text stack
+  fills: [],
+});
 cell.name = "Token cell — color swatch";
-cell.layoutMode = "HORIZONTAL";
-cell.itemSpacing = 8;
-cell.counterAxisAlignItems = "CENTER";          // vertically center swatch + text block
-cell.primaryAxisSizingMode = "AUTO";            // Hug width
-cell.counterAxisSizingMode = "AUTO";            // Hug height — fits the 30px text stack
-cell.fills = [];
 
 // Swatch (12×12 instance, fills set per above)
 cell.appendChild(swatch);
 
 // Text stack (token name on top, hex below)
-const textStack = figma.createFrame();
+const textStack = figma.createAutoLayout('VERTICAL', {
+  itemSpacing: 2,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 textStack.name = "Token name + hex";
-textStack.layoutMode = "VERTICAL";
-textStack.itemSpacing = 2;
-textStack.primaryAxisSizingMode = "AUTO";
-textStack.counterAxisSizingMode = "AUTO";
-textStack.fills = [];
 // ... append token-name text node + hex text node ...
 cell.appendChild(textStack);
 ```
@@ -581,13 +581,13 @@ function hexToRgb(hex) {
   };
 }
 
-const list = figma.createFrame();
+const list = figma.createAutoLayout('VERTICAL', {
+  itemSpacing: 8,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 list.name = "Requirements";
-list.layoutMode = "VERTICAL";
-list.itemSpacing = 8;
-list.primaryAxisSizingMode = "AUTO";
-list.counterAxisSizingMode = "AUTO";
-list.fills = [];
 
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 parent.appendChild(list);
@@ -632,13 +632,13 @@ function hexToRgb(hex) {
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 
 // Green "+" bullet for "when to use"
-const row = figma.createFrame();
+const row = figma.createAutoLayout('HORIZONTAL', {
+  itemSpacing: 8,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 row.name = "Usage row — when to use";
-row.layoutMode = "HORIZONTAL";
-row.itemSpacing = 8;
-row.primaryAxisSizingMode = "AUTO";
-row.counterAxisSizingMode = "AUTO";
-row.fills = [];
 
 const prefix = figma.createText();
 prefix.characters = "+";
@@ -957,14 +957,14 @@ for (const pd of sides.left) {
 //    "States" subsection; for now we surface them as table footnotes.
 if (absentParts.length > 0) {
   await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-  const footnoteFrame = figma.createFrame();
+  const footnoteFrame = figma.createAutoLayout('VERTICAL', {
+    itemSpacing: 2,
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    fills: [],
+    paddingTop: 8,
+  });
   footnoteFrame.name = "Anatomy state-only parts footnote";
-  footnoteFrame.layoutMode = "VERTICAL";
-  footnoteFrame.itemSpacing = 2;
-  footnoteFrame.primaryAxisSizingMode = "AUTO";
-  footnoteFrame.counterAxisSizingMode = "AUTO";
-  footnoteFrame.fills = [];
-  footnoteFrame.paddingTop = 8;
   for (const ap of absentParts) {
     const t = figma.createText();
     t.fontName = { family: "Inter", style: "Regular" };
@@ -1079,18 +1079,18 @@ Use Pattern 0 (wrapper frame) approach: small individual `use_figma` calls (~200
 
 ```js
 // 1. Create the ResearchInsights container
-const researchFrame = figma.createFrame();
+const researchFrame = figma.createAutoLayout('VERTICAL', {
+  itemSpacing: 12,
+  paddingTop: 12,
+  paddingBottom: 12,
+  paddingLeft: 12,
+  paddingRight: 12,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [{ type: "SOLID", color: { r: 0.97, g: 0.97, b: 1.0 } }], // light blue-tinted bg
+  cornerRadius: 6,
+});
 researchFrame.name = "ResearchInsights";
-researchFrame.layoutMode = "VERTICAL";
-researchFrame.itemSpacing = 12;
-researchFrame.paddingTop = 12;
-researchFrame.paddingBottom = 12;
-researchFrame.paddingLeft = 12;
-researchFrame.paddingRight = 12;
-researchFrame.primaryAxisSizingMode = "AUTO";
-researchFrame.counterAxisSizingMode = "AUTO";
-researchFrame.fills = [{ type: "SOLID", color: { r: 0.97, g: 0.97, b: 1.0 } }]; // light blue-tinted bg
-researchFrame.cornerRadius = 6;
 
 await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
 await figma.loadFontAsync({ family: "Inter", style: "Regular" });
@@ -1122,13 +1122,13 @@ const insights = card.research_insights; // from brief-data.json
 const researchFrame = await figma.getNodeByIdAsync("<researchFrameId>");
 
 function buildSubSection(label, items) {
-  const frame = figma.createFrame();
+  const frame = figma.createAutoLayout('VERTICAL', {
+    itemSpacing: 4,
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    fills: [],
+  });
   frame.name = label;
-  frame.layoutMode = "VERTICAL";
-  frame.itemSpacing = 4;
-  frame.primaryAxisSizingMode = "AUTO";
-  frame.counterAxisSizingMode = "AUTO";
-  frame.fills = [];
   const sub = figma.createText();
   sub.characters = label;
   sub.fontSize = 11;
@@ -1177,18 +1177,18 @@ function hexToRgb(hex) {
 }
 
 if (insights._divergences?.length) {
-  const df = figma.createFrame();
+  const df = figma.createAutoLayout('VERTICAL', {
+    itemSpacing: 4,
+    paddingTop: 8,
+    paddingBottom: 8,
+    paddingLeft: 8,
+    paddingRight: 8,
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    fills: [{ type: "SOLID", color: hexToRgb("#FEF3C7") }], // amber-100
+    cornerRadius: 4,
+  });
   df.name = "Divergences";
-  df.layoutMode = "VERTICAL";
-  df.itemSpacing = 4;
-  df.paddingTop = 8;
-  df.paddingBottom = 8;
-  df.paddingLeft = 8;
-  df.paddingRight = 8;
-  df.primaryAxisSizingMode = "AUTO";
-  df.counterAxisSizingMode = "AUTO";
-  df.fills = [{ type: "SOLID", color: hexToRgb("#FEF3C7") }]; // amber-100
-  df.cornerRadius = 4;
   const dlabel = figma.createText();
   dlabel.characters = "Designer review needed";
   dlabel.fontSize = 11;
@@ -1388,17 +1388,17 @@ function buildDimensionAnnotation(distance, orientation, labelText) {
 
   // Label pill
   const spec = tokenTagSpec(labelText);
-  const labelFrame = figma.createFrame();
+  const labelFrame = figma.createAutoLayout('HORIZONTAL', {
+    primaryAxisSizingMode: 'AUTO',
+    counterAxisSizingMode: 'AUTO',
+    paddingLeft: spec.paddingX,
+    paddingRight: spec.paddingX,
+    paddingTop: spec.paddingY,
+    paddingBottom: spec.paddingY,
+    cornerRadius: spec.cornerRadius,
+    fills: [{ type: "SOLID", color: spec.bgColor }],
+  });
   labelFrame.name = "Spec label pill — " + labelText;
-  labelFrame.layoutMode = "HORIZONTAL";
-  labelFrame.primaryAxisSizingMode = "AUTO";
-  labelFrame.counterAxisSizingMode = "AUTO";
-  labelFrame.paddingLeft = spec.paddingX;
-  labelFrame.paddingRight = spec.paddingX;
-  labelFrame.paddingTop = spec.paddingY;
-  labelFrame.paddingBottom = spec.paddingY;
-  labelFrame.cornerRadius = spec.cornerRadius;
-  labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
 
   const labelText_ = figma.createText();
   labelText_.fontName = spec.fontName;
@@ -1530,17 +1530,17 @@ async function buildGutterFromEntries(entries, surface) {
 
     // Build label pill via tokenTagSpec
     const spec = tokenTagSpec(formatLabel(e.value));
-    const labelFrame = figma.createFrame();
+    const labelFrame = figma.createAutoLayout('HORIZONTAL', {
+      primaryAxisSizingMode: 'AUTO',
+      counterAxisSizingMode: 'AUTO',
+      paddingLeft: spec.paddingX,
+      paddingRight: spec.paddingX,
+      paddingTop: spec.paddingY,
+      paddingBottom: spec.paddingY,
+      cornerRadius: spec.cornerRadius,
+      fills: [{ type: "SOLID", color: spec.bgColor }],
+    });
     labelFrame.name = "Gutter pill — " + spec.text;
-    labelFrame.layoutMode = "HORIZONTAL";
-    labelFrame.primaryAxisSizingMode = "AUTO";
-    labelFrame.counterAxisSizingMode = "AUTO";
-    labelFrame.paddingLeft = spec.paddingX;
-    labelFrame.paddingRight = spec.paddingX;
-    labelFrame.paddingTop = spec.paddingY;
-    labelFrame.paddingBottom = spec.paddingY;
-    labelFrame.cornerRadius = spec.cornerRadius;
-    labelFrame.fills = [{ type: "SOLID", color: spec.bgColor }];
     const labelText = figma.createText();
     labelText.fontName = spec.fontName;
     labelText.fontSize = spec.fontSize;

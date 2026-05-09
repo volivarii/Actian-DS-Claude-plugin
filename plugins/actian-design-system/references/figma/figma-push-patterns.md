@@ -166,6 +166,18 @@ but the upstream is authoritative for any case our patterns don't cover.
 
 ## 0. Auto-Layout Defaults
 
+> **Prefer `figma.createAutoLayout(direction, props)` over `figma.createFrame()` + manual `layoutMode` + sizing-mode assignments.**
+> Per `figma-use/SKILL.md` Section 5 ("Efficient APIs"), `createAutoLayout`
+> collapses 5–7 lines of boilerplate into one call, eliminates the
+> "forgot to set `primaryAxisSizingMode` / `counterAxisSizingMode`" class
+> of bug, and via Critical Rule 11 auto-orders `layoutMode` BEFORE
+> `width`/`height` regardless of object key order. The 1-arg form
+> `createAutoLayout({...})` is also valid when direction is set inside
+> the props object. Reach for `createFrame()` only when you genuinely
+> need `layoutMode = "NONE"` (e.g., absolute-positioned annotation
+> containers) or no layout at all. See also
+> `references/figma/figma-api-traps.md` for the trap catalogue.
+
 **Any row containing text MUST use `sizing: { horizontal: "FILL" }` with text children at `Hug` sizing.** Never set fixed widths on text-bearing rows.
 
 This prevents the row-clipping symptom seen during the Sprint B1 smoke test (long descriptive text overflowing fixed-width parent frames).
@@ -232,13 +244,13 @@ for (const child of page.children) {
   if (bottom > maxY) maxY = bottom;
 }
 
-const wrapper = figma.createFrame();
+const wrapper = figma.createAutoLayout('HORIZONTAL', {
+  itemSpacing: 32,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 wrapper.name = "My Output";
-wrapper.layoutMode = "HORIZONTAL";
-wrapper.itemSpacing = 32;
-wrapper.primaryAxisSizingMode = "AUTO";
-wrapper.counterAxisSizingMode = "AUTO";
-wrapper.fills = [];
 wrapper.x = 0;
 wrapper.y = maxY + 200;
 
@@ -314,20 +326,20 @@ return {
 // by getNodeByIdAsync from a prior call.
 const parent = await figma.getNodeByIdAsync("1234:5678");
 
-const child1 = figma.createFrame();
+const child1 = figma.createAutoLayout('VERTICAL', {
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 child1.name = "Section A";
-child1.layoutMode = "VERTICAL";
-child1.primaryAxisSizingMode = "AUTO";
-child1.counterAxisSizingMode = "AUTO";
-child1.fills = [];
 parent.appendChild(child1);
 
-const child2 = figma.createFrame();
+const child2 = figma.createAutoLayout('VERTICAL', {
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [],
+});
 child2.name = "Section B";
-child2.layoutMode = "VERTICAL";
-child2.primaryAxisSizingMode = "AUTO";
-child2.counterAxisSizingMode = "AUTO";
-child2.fills = [];
 parent.appendChild(child2);
 
 // Return all created/mutated node IDs per Critical Rule 15
@@ -374,18 +386,18 @@ return {
 
 ```js
 // Create a frame with auto-layout for containing child elements.
-const frame = figma.createFrame();
+const frame = figma.createAutoLayout('VERTICAL', {
+  itemSpacing: 16,
+  paddingTop: 24,
+  paddingBottom: 24,
+  paddingLeft: 24,
+  paddingRight: 24,
+  primaryAxisSizingMode: 'AUTO',
+  counterAxisSizingMode: 'AUTO',
+  fills: [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }],
+  cornerRadius: 8,
+});
 frame.name = "Card Container";
-frame.layoutMode = "VERTICAL";
-frame.itemSpacing = 16;
-frame.paddingTop = 24;
-frame.paddingBottom = 24;
-frame.paddingLeft = 24;
-frame.paddingRight = 24;
-frame.primaryAxisSizingMode = "AUTO";
-frame.counterAxisSizingMode = "AUTO";
-frame.fills = [{ type: "SOLID", color: { r: 1, g: 1, b: 1 } }];
-frame.cornerRadius = 8;
 
 // Return all created/mutated node IDs per Critical Rule 15
 return {
