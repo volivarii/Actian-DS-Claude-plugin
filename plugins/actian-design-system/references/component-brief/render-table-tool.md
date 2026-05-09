@@ -37,7 +37,7 @@
 
 **Intended scope (when adoption is proven):** every table-shaped surface in a component brief — the Sizing, Color, and Typography token tables in the Tokens sub-frame, and the Anatomy parts table in the Anatomy sub-frame.
 
-The driving design spec lives as a working artifact under `docs/superpowers/specs/` and is intentionally untracked per the project's no-commit-specs convention.
+The driving design spec lives as a working artifact (untracked per the project's no-commit-specs convention).
 
 ---
 
