@@ -5,7 +5,8 @@ exist inside `use_figma`. Use this as a checklist when reviewing push
 patterns.
 
 Source: `figma-use/references/api-reference.md` (canonical) + Actian
-Sprint 1b PR-A audits (`docs/superpowers/audits/2026-05-09-pr-a-findings.md`).
+Sprint 1b PR-A audits (commits 98fa34e, 13a087d, a93f28a, 9c0fd71,
+4efc89b on `main`).
 
 ---
 
