@@ -68,7 +68,7 @@ return { labelKey };
 const comp = await figma.getNodeByIdAsync("<compId>");
 const labelKey = "<labelKey>"; // from previous call
 
-const textNode = comp.findOne(n => n.type === "TEXT" && n.name === "Label");
+const textNode = comp.query('TEXT[name="Label"]').first();
 if (textNode) {
   textNode.componentPropertyReferences = { characters: labelKey };
 }

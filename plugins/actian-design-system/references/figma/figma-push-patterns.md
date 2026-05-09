@@ -295,9 +295,7 @@ return {
 const set = await figma.importComponentSetByKeyAsync("368b62312ca941c80ea8eeed84a57d33bb470b09");
 
 // Find the desired variant by name (comma-separated property=value pairs)
-let variant = set.findChild(n =>
-  n.type === "COMPONENT" && n.name === "Type=Primary, Size=md"
-);
+let variant = set.query('COMPONENT[name="Type=Primary, Size=md"]').first();
 // Fallback: defaultVariant or first child
 if (!variant) variant = set.defaultVariant || set.children[0];
 
@@ -413,7 +411,7 @@ After creating any component instance, you MUST override every text and boolean 
 ```js
 // STEP 1: Create the instance (see Patterns 2 or 3)
 const set = await figma.importComponentSetByKeyAsync("KEY");
-let variant = set.findChild(n => n.name === "Type=Primary, Size=md, State=Default");
+let variant = set.query('[name="Type=Primary, Size=md, State=Default"]').first();
 if (!variant) variant = set.defaultVariant || set.children[0];
 const inst = variant.createInstance();
 
@@ -433,10 +431,10 @@ inst.setProperties({
 
 // STEP 3: For text NOT exposed as properties, find the nested text layer and override
 await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-const titleText = inst.findOne(n => n.type === "TEXT" && n.name === "Title");
+const titleText = inst.query('TEXT[name="Title"]').first();
 if (titleText) titleText.characters = "User Management";
 
-const subtitleText = inst.findOne(n => n.type === "TEXT" && n.name === "Subtitle");
+const subtitleText = inst.query('TEXT[name="Subtitle"]').first();
 if (subtitleText) subtitleText.characters = "Manage team members and permissions";
 ```
 
@@ -484,7 +482,7 @@ if (subtitleText) subtitleText.characters = "Manage team members and permissions
 **Slide Kit (generate-presentation):** (uses Roboto font, not Inter)
 - **slideCover / slideBodyFull / slideBodyTV / slideSection / slideBack** — all single components (not sets). Content via nested `findOne` — find "Title", "Subtitle", "Body" text layers.
 
-**Rule: Use `setProperties()` with exact hash-suffixed names for exposed properties. Use `findOne(n => n.type === "TEXT" && n.name === "LayerName")` for nested text. Load the correct font before setting `.characters`. NEVER leave default placeholder text.**
+**Rule: Use `setProperties()` with exact hash-suffixed names for exposed properties. Use `query('TEXT[name="LayerName"]').first()` for nested text. Load the correct font before setting `.characters`. NEVER leave default placeholder text.**
 
 ### Pattern 8: hexToRgb helper
 
@@ -506,7 +504,7 @@ function hexToRgb(hex) {
 ## 3. Push Rules
 
 1. **Always pass `skillNames: "figma-use"`** with every `use_figma` call.
-2. **NEVER leave default property values (P0 BLOCKER)** -- scan your data model for banned defaults BEFORE pushing. These strings must NEVER appear in Figma output: `"Page Title"`, `"Description text"`, `"Button label"`, `"Label"` (standalone), `"Nav Item"`, `"Tag"`, `"Header"` (standalone), `"Feature Name"`, `"Flow Description"`, `"User Persona"`. Replace every one with real contextual content. Use `setProperties()` and `findOne()` per Pattern 7.
+2. **NEVER leave default property values (P0 BLOCKER)** -- scan your data model for banned defaults BEFORE pushing. These strings must NEVER appear in Figma output: `"Page Title"`, `"Description text"`, `"Button label"`, `"Label"` (standalone), `"Nav Item"`, `"Tag"`, `"Header"` (standalone), `"Feature Name"`, `"Flow Description"`, `"User Persona"`. Replace every one with real contextual content. Use `setProperties()` and `query()` per Pattern 7.
 3. **One operation per call** -- create a frame OR import components OR populate content. Not all three.
 4. **Return `{ createdNodeIds, mutatedNodeIds }` from every call (Critical Rule 15)** -- use the IDs in subsequent calls to append children. Single-ID shapes like `{ frameId }` are violations.
 5. **Keep calls under 2KB** -- if code is longer, split into multiple calls.

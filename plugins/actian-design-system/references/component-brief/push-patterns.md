@@ -147,7 +147,7 @@ const cardSubtitle = card.cardSubtitle; // "Component structure, dimensions, ...
 
 // Import briefCard set and create variant instance
 const set = await figma.importComponentSetByKeyAsync("3dbb732730af0754210cde7af35e5236a2502843");
-let variant = set.findChild(n => n.name === "Mode=DS, Type=Standard");
+let variant = set.query('[name="Mode=DS, Type=Standard"]').first();
 if (!variant) variant = set.defaultVariant || set.children[0];
 const inst = variant.createInstance();
 inst.name = cardTitle;
@@ -174,9 +174,7 @@ if (typeof cardFrame.counterAxisSizingMode !== "undefined") {
 // `if (cardHeader)` branch is skipped, no setProperties call runs, and the
 // neutral Meta Kit defaults ("Card title" / "Subtitle text") leak into the
 // brief.
-const cardHeader = cardFrame.findOne(n =>
-  n.type === "INSTANCE" && /Card Header/i.test(n.name)
-);
+const cardHeader = cardFrame.query('INSTANCE[name*="Card Header"]').first();
 if (!cardHeader) {
   // Loud fail rather than silent leak — Meta Kit structure may have changed.
   throw new Error(
@@ -194,7 +192,7 @@ cardHeader.setProperties({
 // Read-back verification — catch silent setProperties failures (e.g. property
 // IDs renamed in a future Meta Kit publish). If the title still equals the
 // neutral default, the property assignment didn't take effect.
-const titleNode = cardHeader.findOne(n => n.type === "TEXT" && /^Title$/i.test(n.name));
+const titleNode = cardHeader.query('TEXT[name="Title"]').first();
 if (titleNode && titleNode.characters === "Card title") {
   throw new Error(
     "Card Header title shows the Meta Kit default ('Card title') after " +
@@ -218,7 +216,7 @@ if (titleNode && titleNode.characters === "Card title") {
 // because the content slot was inheriting a FIXED width from Meta Kit.
 // Override here at slot level only — Meta Kit's padding/itemSpacing stay
 // intact.
-const contentSlot = cardFrame.findOne(n => n.name === "Content");
+const contentSlot = cardFrame.query('[name="Content"]').first();
 if (contentSlot) {
   contentSlot.primaryAxisSizingMode = "AUTO";
   contentSlot.counterAxisSizingMode = "AUTO";
@@ -493,7 +491,7 @@ function hexToRgb(hex) {
 }
 
 const set = await figma.importComponentSetByKeyAsync("da3369932f710386b76ca91a40ebd48d94e3f2e0");
-let variant = set.findChild(n => n.name === "Size=Small");
+let variant = set.query('[name="Size=Small"]').first();
 if (!variant) variant = set.defaultVariant || set.children[0];
 const swatch = variant.createInstance();
 
@@ -546,7 +544,7 @@ Regression guard: if the cell or its parent row uses `counterAxisSizingMode = "F
 
 ```js
 const set = await figma.importComponentSetByKeyAsync("28edfacf13e50706586172bd48f8a3ad84d7c263");
-let variant = set.findChild(n => n.name === "Mode=DS");
+let variant = set.query('[name="Mode=DS"]').first();
 if (!variant) variant = set.defaultVariant || set.children[0];
 const pair = variant.createInstance();
 pair.setProperties({
@@ -672,7 +670,7 @@ const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
 // For component sets: find specific variant
 let variantComp;
 if (targetNode.type === "COMPONENT_SET") {
-  variantComp = targetNode.findChild(n => n.name === "Type=Standard, State=Default");
+  variantComp = targetNode.query('[name="Type=Standard, State=Default"]').first();
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
   variantComp = targetNode;
@@ -746,7 +744,7 @@ Apply this to every cell in the Variation matrix. Without the guard, Phase 2 PR 
 
 Single ~4-6KB call. Creates component instance, reads bounding boxes, computes badge positions, draws badges + leader lines.
 
-**CRITICAL: `figmaLayerName` accuracy.** The badge placement algorithm uses `findOne(n => n.name === figmaLayerName)` to locate each part within the component instance. If a layer name doesn't match, the badge won't be positioned correctly. Before building the data model, use `get_metadata` or `get_design_context` on the target component to read the actual layer names. Common patterns: "Label", "Container", "Icon", "Helper text" — but ALWAYS verify against the real Figma structure.
+**CRITICAL: `figmaLayerName` accuracy.** The badge placement algorithm uses `query('[name="<figmaLayerName>"]').first()` to locate each part within the component instance. If a layer name doesn't match, the badge won't be positioned correctly. Before building the data model, use `get_metadata` or `get_design_context` on the target component to read the actual layer names. Common patterns: "Label", "Container", "Icon", "Helper text" — but ALWAYS verify against the real Figma structure.
 
 ```js
 function hexToRgb(hex) {
@@ -774,7 +772,7 @@ const targetNode = await figma.getNodeByIdAsync("<targetNodeId>");
 let variantComp;
 if (targetNode.type === "COMPONENT_SET") {
   // Prefer Enabled / Default state; fall back to defaultVariant or first child
-  variantComp = targetNode.findChild(n => /State=Default|State=Enabled/.test(n.name));
+  variantComp = targetNode.query('[name*="State=Default"], [name*="State=Enabled"]').first();
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
   variantComp = targetNode;
@@ -853,7 +851,7 @@ for (const p of (card_anatomy.parts || [])) {
 // 3. Read bounding boxes for visible parts (absent parts handled separately)
 const partData = [];
 for (const p of visibleParts) {
-  const layer = inst.findOne(n => n.name === p.figmaLayerName);
+  const layer = inst.query(`[name="${p.figmaLayerName}"]`).first();
   if (!layer) continue;
   const bb = layer.absoluteBoundingBox;
   const cbb = container.absoluteBoundingBox;
@@ -1001,7 +999,7 @@ Fill in `parts` array and `<targetNodeId>` / `<diagramVariant>` from `brief-data
 ```js
 // Each row: element name + foreground swatch + background swatch + ratio text + WCAG badge
 const badgeSet = await figma.importComponentSetByKeyAsync("941756541adc6ce21e32e848c2039c64fece0fcf");
-let badgeVariant = badgeSet.findChild(n => n.name === "Status=Pass");
+let badgeVariant = badgeSet.query('[name="Status=Pass"]').first();
 if (!badgeVariant) badgeVariant = badgeSet.defaultVariant || badgeSet.children[0];
 const badge = badgeVariant.createInstance();
 badge.setProperties({ "Label#44:3": "Pass" });
@@ -1437,7 +1435,7 @@ if (targetNode.type === "COMPONENT_SET") {
   // <diagramVariant> is runtime-substituted (e.g. "App=Admin, View=Expanded").
   // Components with no State dimension (e.g. Side nav — App/View axes only) return null here;
   // the fallback to defaultVariant / children[0] is the load-bearing safety for those cases.
-  variantComp = targetNode.findChild(n => n.name === "<diagramVariant>");
+  variantComp = targetNode.query('[name="<diagramVariant>"]').first();
   if (!variantComp) variantComp = targetNode.defaultVariant || targetNode.children[0];
 } else {
   variantComp = targetNode;
@@ -1606,7 +1604,7 @@ if (useOverridePath) {
   const overrideEntries = [];
   const cbb = container.absoluteBoundingBox;
   for (const spec of card_anatomy.specs) {
-    const layer = inst.findOne(n => n.name === spec.layerName);
+    const layer = inst.query(`[name="${spec.layerName}"]`).first();
     if (!layer) {
       droppedSpecs += 1;
       continue;
