@@ -119,6 +119,39 @@ Full checklist: `references/ds-rules/quality-checklist.md`
 
 1. `get_design_context` first. 2. `get_metadata` if response too large. 3. `get_screenshot` for visual ref. 4. Push to Figma using small direct `use_figma` calls (200-2000 bytes each, one operation per call) — see `references/figma/figma-push-patterns.md` for component keys and patterns. Always pass `skillNames: "figma-use"`. 5. Validate against screenshot. See `references/figma/figma-output.md`.
 
+### Critical Plugin API Rules
+
+Every `use_figma` invocation must respect these. Full callouts in
+`references/figma/figma-push-patterns.md` `## Critical Rules`; trap
+catalogue in `references/figma/figma-api-traps.md`.
+
+- **`skillNames: "figma-use"` mandatory** on every call (Figma's
+  official contract).
+- **Never reparent across calls** — `appendChild` on a node from a
+  prior call silently fails; build wrappers first, append in-call.
+- **Return `{ createdNodeIds, mutatedNodeIds }`** from every call
+  (Rule 15) — no single-ID shapes.
+- **Font preload (Rule 8 expansion)** — `await loadFontAsync` for
+  every font in the touched subtree BEFORE `appendChild`/`insertChild`/
+  `setBoundVariable`/`findAll` over text-bearing nodes.
+- **Atomic on error: STOP** — failed scripts roll back fully; do not
+  immediately retry.
+- **`await` every Promise** — `loadFontAsync`, `setCurrentPageAsync`,
+  `importComponentByKeyAsync`, async setters.
+- **Position top-level nodes away from (0,0)** — auto-layout-nested
+  exempt; only page-level needs explicit positioning.
+- **Set `variable.scopes` explicitly** — default `ALL_SCOPES`
+  pollutes property pickers.
+- **Editor Mode**: `use_figma` is design-mode only. Block-list:
+  Sticky, Connector, ShapeWithText, CodeBlock, Slide, SlideRow,
+  Webpage. Use `get_figjam` for FigJam URLs.
+- **DS work**: start at `figma-use/references/working-with-design-systems/wwds.md`.
+- **Use `getSharedPluginData`** — `getPluginData`/`setPluginData` are
+  not supported in `use_figma`.
+
+For the trap catalogue (methods that don't exist, fields that aren't
+bindable, patterns that silently fail), see `references/figma/figma-api-traps.md`.
+
 ---
 
 ## Local Server
