@@ -6,10 +6,12 @@
 settings.json
 
 # Generated output (teammates create their own via skills)
-components/
-flows/
-presentations/
-prototypes/
+# Anchored to repo root so they don't accidentally match nested
+# directories like plugins/*/vendor/components/.
+/components/
+/flows/
+/presentations/
+/prototypes/
 
 # Annotation files (browser preview artifacts)
 .annotations.json

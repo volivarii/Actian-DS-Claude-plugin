@@ -1,0 +1,135 @@
+{
+  "component": "Link",
+  "page_id": "12054:32076",
+  "extracted_at": "2026-03-26T00:00:00Z",
+  "frames_found": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components"
+  ],
+  "frames_missing": [
+    "ready made examples",
+    "Screenshots of use cases",
+    "Behavior demo"
+  ],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "When to use",
+        "content": [
+          {
+            "rule": "Use for navigation to internal or external destinations."
+          },
+          {
+            "rule": "Use for inline standalone contextual actions."
+          },
+          {
+            "dont": "Use links for actions; use ghost buttons instead."
+          }
+        ]
+      },
+      {
+        "heading": "Button vs Link",
+        "content": [
+          {
+            "rule": "Use links for navigation. Use buttons for actions.",
+            "examples": [
+              "A link for 'View more articles', a button for form submit."
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Style",
+        "content": [
+          {
+            "rule": "Use meaningful, descriptive text (e.g., 'View pipeline details', not 'Click here')."
+          },
+          {
+            "dont": "Use standalone icons as links."
+          },
+          {
+            "rule": "Use sentence case and no terminal punctuation."
+          }
+        ]
+      },
+      {
+        "heading": "Behavior",
+        "content": [
+          {
+            "rule": "Opens in same tab unless explicitly labeled as external."
+          },
+          {
+            "rule": "Underline on hover."
+          },
+          {
+            "rule": "Visited state should be visually distinct."
+          }
+        ]
+      },
+      {
+        "heading": "Clear and Descriptive Link Text",
+        "content": [
+          {
+            "do": "View your order details",
+            "dont": "Click here"
+          },
+          {
+            "dont": "Use URLs as link text."
+          }
+        ]
+      },
+      {
+        "heading": "Action-Oriented Language",
+        "content": [
+          {
+            "do": "Download report",
+            "dont": "Get report"
+          },
+          {
+            "do": "Explore features",
+            "dont": "Click to learn more"
+          }
+        ]
+      },
+      {
+        "heading": "Consistency in Link Text",
+        "content": [
+          {
+            "do": "View our services",
+            "dont": "Click here to view our list of services"
+          }
+        ]
+      },
+      {
+        "heading": "Avoid Linking Full Sentences",
+        "content": [
+          {
+            "do": "Read our user experience design blog.",
+            "dont": "Click here to read our blog about user experience design"
+          }
+        ]
+      }
+    ]
+  },
+  "has_design_guidelines": true,
+  "design_guidelines": {
+    "sections": [
+      {
+        "heading": "Accessibility",
+        "items": [
+          "Default State: Underlined. Standard practice is to underline links in their default state. This ensures the link is distinguishable from surrounding text by a visual cue other than color alone.",
+          "Exception: Non-Underlined Links. In specific instances where links are not underlined by default, they must meet the following WCAG 2.1 Level AA requirements:",
+          "Contrast with Surrounding Text: The link text must have at least a 3:1 contrast ratio against the surrounding body text.",
+          "Contrast with Background: The link text must maintain at least a 4.5:1 contrast ratio against the background color.",
+          "Hover/Focus Requirement: A non-color visual indicator (typically an underline) must appear when the link is hovered with a mouse or focused via keyboard."
+        ]
+      }
+    ]
+  },
+  "variants": null,
+  "examples": null,
+  "screenshots": null,
+  "behavior": null,
+  "_note": "Metadata for variants could not be retrieved due to Figma MCP tool call limit. Re-run extraction when limit resets to populate variants and screenshots."
+}

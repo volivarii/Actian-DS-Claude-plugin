@@ -1,0 +1,50 @@
+{
+  "component": "Collapse / Accordion",
+  "page_id": "9253:20890",
+  "extracted_at": "2026-03-26T00:00:00Z",
+  "frames_found": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components"
+  ],
+  "frames_missing": [
+    "ready made examples",
+    "Screenshots of use cases",
+    "Behavior demo"
+  ],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Content",
+        "content": [
+          {
+            "rule": "Use clear, action-oriented headers ('Show details', 'Advanced settings')."
+          },
+          {
+            "rule": "Keep titles concise and scannable."
+          },
+          {
+            "rule": "Include summary text when collapsed if helpful."
+          }
+        ]
+      }
+    ]
+  },
+  "has_design_guidelines": true,
+  "design_guidelines": {
+    "sections": [
+      {
+        "heading": "Behavior",
+        "items": [
+          "With few exceptions, only one section should be open at a time. Opening one should close the currently open one.",
+          "Transitions should be smooth. Avoid layout shift.",
+          "Arrow/chevron icon should rotate to indicate open and closed states."
+        ]
+      }
+    ]
+  },
+  "variants": null,
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

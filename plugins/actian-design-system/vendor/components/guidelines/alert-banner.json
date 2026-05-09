@@ -1,0 +1,92 @@
+{
+  "component": "Alert / banner",
+  "page_id": "9253:21058",
+  "extracted_at": "2026-03-26T00:00:00Z",
+  "frames_found": [
+    "Design guidelines",
+    "Components"
+  ],
+  "frames_missing": [
+    "Content guidelines",
+    "ready made examples",
+    "Screenshots of use cases",
+    "Screenshots of current use cases",
+    "Behavior demo"
+  ],
+  "content_guidelines": null,
+  "has_design_guidelines": true,
+  "design_guidelines": {
+    "sections": [
+      {
+        "heading": "Types",
+        "items": [
+          "Four alert banner types: Primary (Info), Success, Warning, and Danger (Error)."
+        ]
+      },
+      {
+        "heading": "Specs",
+        "items": [
+          "Horizontal orientation with icon, text, optional action button, and optional close button.",
+          "Internal gap between elements: --zen-spacing-xs (8px).",
+          "Icon size: 16px.",
+          "Min height: 40px.",
+          "Border radius: --zen-radius-default (6px).",
+          "Horizontal padding: 36px; vertical padding: --zen-spacing-xs (8px)."
+        ]
+      },
+      {
+        "heading": "Icon and color mapping",
+        "tables": [
+          {
+            "headers": [
+              "Icon",
+              "Color token"
+            ],
+            "rows": [
+              [
+                "info-filled",
+                "--zen-color-primary-700"
+              ],
+              [
+                "success-filled",
+                "--zen-color-success-700"
+              ],
+              [
+                "warning-filled",
+                "--zen-color-warning-700"
+              ],
+              [
+                "error-filled",
+                "--zen-color-error-700"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "heading": "Layout",
+        "items": [
+          "In between alert banners, keep 8px (spacing-xs).",
+          "Suggested spacing between alert banners and surrounding elements is 16px (spacing-md), but this can be reduced if space is limited or the element is directly related to the banner."
+        ]
+      }
+    ]
+  },
+  "variants": {
+    "axes": {
+      "Type": [
+        "Primary",
+        "Success",
+        "Warning",
+        "Danger"
+      ],
+      "Orientation": [
+        "Horizontal",
+        "Vertical"
+      ]
+    }
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

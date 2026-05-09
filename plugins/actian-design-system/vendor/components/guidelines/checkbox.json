@@ -1,0 +1,109 @@
+{
+  "component": "Checkbox",
+  "page_id": "12070:77593",
+  "extracted_at": "2026-03-26T00:00:00Z",
+  "frames_found": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of current use cases"
+  ],
+  "frames_missing": [
+    "ready made examples",
+    "Behavior demo"
+  ],
+  "content_guidelines": {
+    "sections": [
+      {
+        "heading": "Default format - When to use",
+        "content": [
+          {
+            "rule": "Allow users to select multiple options."
+          },
+          {
+            "rule": "Binary settings independent of other choices."
+          },
+          {
+            "rule": "Filtering/refining data."
+          }
+        ]
+      },
+      {
+        "heading": "Default format - Style",
+        "content": [
+          {
+            "rule": "Use clear, direct labels."
+          },
+          {
+            "do": "Show archived items",
+            "dont": "Don't hide archived items"
+          },
+          {
+            "rule": "Group related checkboxes under group label."
+          }
+        ]
+      },
+      {
+        "heading": "Card format - When to use",
+        "content": [
+          {
+            "rule": "When each option needs rich context (title, description, image, metadata)."
+          },
+          {
+            "rule": "Primary decision points."
+          }
+        ]
+      },
+      {
+        "heading": "Card format - Behavior",
+        "content": [
+          {
+            "rule": "Indicate selected state visually."
+          },
+          {
+            "rule": "Click anywhere on tile to toggle."
+          },
+          {
+            "rule": "Multi-select: checkbox behavior. Single-select: radio group behavior."
+          }
+        ]
+      }
+    ]
+  },
+  "has_design_guidelines": true,
+  "design_guidelines": {
+    "sections": [
+      {
+        "heading": "Anatomy",
+        "items": [
+          "1. Checkbox (24px square with rounded corners, --zen-radius-default)",
+          "2. Label (inline text, vertically centered with checkbox)"
+        ]
+      },
+      {
+        "heading": "Specs",
+        "items": [
+          "Checkbox size: 24px x 24px.",
+          "Gap between checkbox and label: 4px (--zen-spacing-2xs).",
+          "Label is vertically centered with the checkbox."
+        ]
+      },
+      {
+        "heading": "Checkbox group layout",
+        "items": [
+          "Group label and description separated by 4px gap.",
+          "Gap between group header (label + description) and first checkbox item: 8px.",
+          "Gap between individual checkbox items in a group: 8px."
+        ]
+      }
+    ]
+  },
+  "variants": null,
+  "examples": null,
+  "screenshots": {
+    "count": 1,
+    "contexts": []
+  },
+  "behavior": null,
+  "_note": "Variant metadata could not be retrieved due to Figma MCP tool call limit. Re-run extraction when limit resets."
+}

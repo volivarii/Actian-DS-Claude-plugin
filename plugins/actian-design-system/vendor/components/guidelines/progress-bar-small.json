@@ -1,0 +1,35 @@
+{
+  "component": "Progress bar small",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "14136:1615",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Size": [
+        "Default",
+        "Large"
+      ],
+      "Completeness": [
+        "0%",
+        "100%",
+        "50%"
+      ]
+    },
+    "totalVariants": 6
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}

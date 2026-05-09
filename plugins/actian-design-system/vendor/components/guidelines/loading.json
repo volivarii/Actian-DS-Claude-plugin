@@ -1,0 +1,22 @@
+{
+  "component": "Loading / Loader / Spinner / Skeleton",
+  "page_id": "9253:29118",
+  "extracted_at": "2026-03-25T00:00:00Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Content guidelines",
+    "Design guidelines",
+    "Components",
+    "ready made examples",
+    "Screenshots of use cases",
+    "Screenshots of current use cases",
+    "Behavior demo"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": null,
+  "examples": null,
+  "screenshots": null,
+  "behavior": null,
+  "_note": "Figma MCP connection lost before metadata could be retrieved for this page. Re-run extraction when API quota resets."
+}

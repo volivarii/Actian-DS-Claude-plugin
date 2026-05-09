@@ -1,0 +1,40 @@
+{
+  "component": "Dropdown, Select, default",
+  "_stub": true,
+  "_stubGeneratedAt": "2026-05-04T14:37:24.649Z",
+  "page_id": "13972:708",
+  "extracted_at": "2026-05-04T14:37:24.649Z",
+  "frames_found": [],
+  "frames_missing": [
+    "Design guidelines",
+    "Content guidelines",
+    "Components",
+    "Screenshots of use cases",
+    "Behavior demo",
+    "ready made examples"
+  ],
+  "content_guidelines": null,
+  "design_guidelines": null,
+  "variants": {
+    "axes": {
+      "Type": [
+        "Default",
+        "Search/Multiple",
+        "With avatar",
+        "Compact/Custom"
+      ],
+      "State": [
+        "Default",
+        "Hovered",
+        "Focused",
+        "Active",
+        "Filled",
+        "Disabled"
+      ]
+    },
+    "totalVariants": 24
+  },
+  "examples": null,
+  "screenshots": null,
+  "behavior": null
+}
