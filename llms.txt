@@ -1,0 +1,48 @@
+# Actian Design System
+
+> Actian's design system, packaged as a Claude Code plugin. 9 skills for authoring and auditing Figma designs against the Actian DS via the official Figma MCP server. 155 tokens (3 themes, 8 collections), 107 DS Kit components, 33 FM Kit wireframe components, 25 Meta Kit + 3 templates.
+
+The Actian DS is in a federated transition (2026-05-09): knowledge layer is currently bundled with the plugin but moving to a dedicated `actian-ds-knowledge` repo in Phase 1. Until then, this `llms.txt` indexes content at GitHub raw URLs on the `main` branch.
+
+## Docs
+
+- [AI agent orientation](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/llms-overview.md): start here — explains how DS knowledge is organized across tokens, registries, guidelines, and skills
+- [Plugin README](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/README.md): repo-level overview
+- [Plugin usage guide](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/USAGE.md): how to invoke the 9 skills
+
+## Knowledge — Foundations
+
+- [Foundations canonical doc](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/foundations.md): MD-as-SoT for spacing, typography, color, motion
+- [Foundations authoring guide](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/foundations-authoring.md): how to update foundations
+- [Tokens (DTCG JSON)](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/tokens/actian-ds.tokens.json): 155 tokens, 3 themes
+- [Tokens (CSS)](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/tokens/actian-ds.tokens.css): CSS custom property form
+
+## Knowledge — Content & Accessibility
+
+- [Content guidelines](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/content-guidelines.md): voice, tone, copy patterns
+- [Accessibility guidelines](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/accessibility-guidelines.md): WCAG 2.1 AA conformance
+
+## Knowledge — Components
+
+- [DS Kit registry](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/generated/dskit.json): 107 design system components with keys, variants, and properties
+- [DS Kit components (MD)](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/generated/dskit-components.md): human-readable mirror with required-override callouts
+- [FM Kit registry](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/generated/fmkit.json): 33 wireframe components
+- [FM Kit components (MD)](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/generated/fm-components.md): human-readable mirror
+- [Meta Kit registry](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/generated/metakit.json): 25 components + 3 templates
+- [App context](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/generated/app-context.json): apps, entities, terminology, patterns
+- [FM↔DS map](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/generated/fm-to-ds-map.json): wireframe-to-DS component mapping
+
+## Knowledge — Push patterns (Figma authoring)
+
+- [Figma push patterns](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/references/figma/figma-push-patterns.md): core Plugin API patterns + Critical Rules + figma-use compliance
+- [Figma API traps](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/references/figma/figma-api-traps.md): catalogue of methods that throw, properties not bindable, silently-fail patterns
+- [Component-brief push patterns](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/references/component-brief/push-patterns.md): brief-specific patterns (Pattern 0-14)
+- [Create-component push patterns](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/references/create-component/push-patterns.md): component authoring patterns
+
+## Optional
+
+- [CLAUDE.md (always-loaded plugin context)](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/CLAUDE.md)
+- [Plugin architecture map](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/ARCHITECTURE.md)
+- [Component guidelines (85 JSON files, 44 curated)](https://github.com/volivarii/Actian-DS-Claude-plugin/tree/main/plugins/actian-design-system/docs/component-guidelines): per-component guideline JSONs
+- [Foundations subtree (8 JSON files)](https://github.com/volivarii/Actian-DS-Claude-plugin/tree/main/plugins/actian-design-system/docs/foundations): per-foundation JSON authored docs
+- [Presentation guide](https://raw.githubusercontent.com/volivarii/Actian-DS-Claude-plugin/main/plugins/actian-design-system/docs/presentation-guide.md): generate-presentation skill content patterns

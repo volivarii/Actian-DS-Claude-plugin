@@ -2,6 +2,8 @@
 
 > A design system teammate for the Actian UX team.
 
+> **For AI agents:** Start at [`/llms.txt`](./llms.txt) for the canonical content index.
+
 Built on Claude and connected directly to Figma, the Actian DS Plugin knows the design system — tokens, components, design & content guidelines, and the specific context of our apps. It can act on that knowledge and answer questions about it.
 
 ## The core loop
