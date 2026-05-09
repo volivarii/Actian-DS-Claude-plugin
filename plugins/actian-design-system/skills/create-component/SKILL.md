@@ -8,6 +8,9 @@ argument-hint: "[component description or Figma URL]"
 
 Create a new Figma component (with variants) from a text description or by extending an existing component. Pipeline: understand → check existing → research (optional) → build plan gate → resolve dependencies → build via interpreter → cleanup → parity check.
 
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
 ## Step 1 — Understand the component
 
 Determine: component name (FM prefix for Fat Marker), library (FM = Inter, DS Kit = Roboto), variants, content, layout, properties. If a Figma URL is provided, parse per `../../references/figma/figma-output.md` — classify node first via `use_figma`, route to the correct target, then `get_design_context` + `get_screenshot`. Infer as much as possible; only ask if the request is too vague to proceed.

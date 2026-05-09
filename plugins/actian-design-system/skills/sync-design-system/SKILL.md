@@ -9,6 +9,9 @@ argument-hint: "[phase name, component name, 'all', or 'validate']"
 
 Extract design system data directly from Figma libraries via MCP tools. Single-hop: Figma → Plugin (`docs/` + `tokens/`). Read-only on Figma, writes static files locally.
 
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
 > **Primary purpose: Phase 2 (variables sync) + Phase 4 (token regen).** Phase 2 cannot run in CI because Figma's Variables REST API is gated to Enterprise plans, so this skill is the only path. Run when DS Kit variables change in Figma — typically monthly.
 >
 > **Phases 1 and 3 auto-sync nightly** via `.github/workflows/sync-from-figma.yml` (Sprint 1 v1.59.0). Use the manual phase paths below only as fallback if the workflow is broken or for local debugging.

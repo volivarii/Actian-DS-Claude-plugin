@@ -2,7 +2,8 @@
 
 Direct Figma Plugin API patterns for pushing component briefs. Each pattern is a standalone `use_figma` call. Read your `brief-data.json` and translate each card to these patterns.
 
-All calls MUST include `skillNames: "figma-use"`.
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures. Every code block in this document assumes `skillNames: "figma-use"` is set on the call wrapping it.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
 
 ---
 

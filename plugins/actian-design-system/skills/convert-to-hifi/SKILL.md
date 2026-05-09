@@ -8,6 +8,9 @@ argument-hint: "<figma-url> [--ref <figma-url>[,<figma-url>]] [--no-prompt]"
 
 Upgrade a Fat Marker wireframe to a high-fidelity DS Kit frame. Three-stage pipeline: extract FM tree from Figma → deterministic transform → LLM polish + push. Runs autonomously after Stage 2 confirmation — no other pauses.
 
+> **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
+> (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
+
 ## Flags
 
 | Flag | Type | Default | Behavior |
@@ -55,7 +58,7 @@ Once a value is resolved (from flag or gate), proceed to the pipeline.
 
 ## Stage 1 — Extract FM tree from Figma
 
-Parse the Figma URL per `references/figma/figma-output.md` (convert `-` to `:` in nodeId). Always pass `skillNames: "figma-use"`.
+Parse the Figma URL per `references/figma/figma-output.md` (convert `-` to `:` in nodeId). Always pass `skillNames: "figma-use"` (see top-of-skill callout).
 
 **CRITICAL — large frames overflow the use_figma response limit.** Use the two-pass approach below.
 
