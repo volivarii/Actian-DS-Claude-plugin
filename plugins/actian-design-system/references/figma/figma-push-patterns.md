@@ -164,6 +164,13 @@ but the upstream is authoritative for any case our patterns don't cover.
 
 (Source: figma-use/SKILL.md line 19)
 
+> **Use `node.set({...})` to batch property updates** — figma-use SKILL.md
+> Section 5. Auto-orders `layoutMode` before `width`/`height` (Critical
+> Rule 11), routes width/height through `resize()` automatically, and
+> chains by returning `this`. Prefer when assigning 3+ properties to a
+> single node. Individual setters remain fine for 1-2 properties.
+> Combine with `createAutoLayout` for the full efficient form.
+
 ## 0. Auto-Layout Defaults
 
 > **Prefer `figma.createAutoLayout(direction, props)` over `figma.createFrame()` + manual `layoutMode` + sizing-mode assignments.**
@@ -366,9 +373,13 @@ parent.appendChild(child2);  // ← silently fails
 await figma.loadFontAsync({ family: "Inter", style: "Regular" });
 
 const text = figma.createText();
-text.characters = "Hello, world";
-text.fontSize = 14;
-text.fills = [{ type: "SOLID", color: { r: 0.1, g: 0.1, b: 0.18 } }];
+// node.set({...}) batches 3+ property assignments — auto-orders layoutMode,
+// routes width/height through resize(). loadFontAsync must precede this call.
+text.set({
+  characters: "Hello, world",
+  fontSize: 14,
+  fills: [{ type: "SOLID", color: { r: 0.1, g: 0.1, b: 0.18 } }],
+});
 
 // For slides, use Roboto instead:
 // await figma.loadFontAsync({ family: "Roboto", style: "Regular" });
