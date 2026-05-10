@@ -40,10 +40,10 @@ You will receive:
 - **Component name** and **slug** (e.g., "Button" / "button")
 - **Scoped cards** — array of card keys to research (subset of `card_usage`, `card_content`, `card_accessibility`)
 - **Existing context** — inlined contents of:
-  - `docs/component-guidelines/<slug>.json`
-  - `docs/foundations.md` (relevant excerpts)
-  - `docs/content-guidelines.md`
-  - `docs/accessibility-guidelines.md`
+  - `vendor/components/guidelines/<slug>.json`
+  - `vendor/foundations/foundations.md` (relevant excerpts)
+  - `vendor/content/content.md`
+  - `vendor/accessibility/accessibility.md`
 - **Output path** for the findings JSON
 
 ## Research targets
@@ -90,7 +90,7 @@ Use `WebSearch` for discovery, `WebFetch` for the canonical doc page per DS.
     "divergences_from_existing": [
       {
         "field": "primary_action_position",
-        "existing": "right-aligned per docs/content-guidelines.md",
+        "existing": "right-aligned per vendor/content/content.md",
         "research": "left-aligned in 4/5 surveyed DSs",
         "note": "Designer review needed"
       }

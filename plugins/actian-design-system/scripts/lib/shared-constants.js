@@ -186,7 +186,7 @@ function buildKeyMapFromRegistry(registryName, prefix, section, overrides) {
 // Ref-name → registry-slug mappings (only source of duplication)
 // ---------------------------------------------------------------------------
 
-// Slug values match the canonical keys in docs/generated/metakit.json. The REST sync
+// Slug values match the canonical keys in vendor/components/registries/metakit.json. The REST sync
 // orchestrator (Sprint 1) normalizes Figma component names through a single
 // slugify pass that collapses runs of non-alphanumeric chars to "-", which
 // dropped the legacy "meta-/-X-/-Y" form on 2026-04-30. Keep this table in

@@ -64,7 +64,7 @@ Every component exposes: text properties (titles, labels), boolean properties (o
 
 Run `../../references/ds-rules/quality-checklist.md` (Universal + Create Component sections). Then parity check per `../../references/figma/parity-check.md`: screenshot, dispatch `parity-analyzer`, fix P0s, write `.last-push.json`. Manifest includes `sourceHash`, `componentKeys`, and `tokenHash` — see `references/figma/parity-check.md` for computation.
 
-After creation, offer: "Want me to generate a component brief?" If accepted, invoke `component-brief`. Remind user to run `/sync-design-system` to update local references.
+After creation, offer: "Want me to generate a component brief?" If accepted, invoke `component-brief`. Remind user that the next nightly `vendor-snapshot.yml` run will pull the new component into `vendor/components/` once it's published in the knowledge repo's Figma sync.
 
 ## Key rules
 
@@ -72,6 +72,7 @@ After creation, offer: "Want me to generate a component brief?" If accepted, inv
 - Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for push-apart layouts, never Spacer frames
 - Button booleans: `"👁 Leading Icon": false, "👁 Trailing Icon": false` by default
 - Never leave variableScopes as `ALL_SCOPES`
+- **Default text values:** Set all default text properties to copy that complies with `vendor/content/content.md` — sentence case, verb + object for action labels, realistic placeholder text that models input. Never ship "Label", "Text", "Lorem ipsum", or labels that just repeat the field name as defaults.
 
 ## References
 

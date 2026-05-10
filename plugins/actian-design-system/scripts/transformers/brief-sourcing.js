@@ -37,7 +37,7 @@ function transcribeContentGuidelines(guidelinesJson) {
 }
 
 // Motion is a registry-derived card (pattern data lives in
-// docs/generated/foundations/interaction-motion.json under #patterns.<slug>).
+// vendor/foundations/interaction-motion.json under #patterns.<slug>).
 // The component-guideline only declares which pattern + optional overrides;
 // the canonical phase data comes from foundations. Caller passes
 // ctx.motionPatterns (the patterns object from interaction-motion.json).

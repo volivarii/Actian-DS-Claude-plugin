@@ -3,7 +3,10 @@
   "title": "Usage guidelines",
   "description": "When to use, when not to use, and do/don't pairs with concrete UI examples",
   "phase": "generate",
-  "grounding": ["docs/content-guidelines.md", "docs/component-guidelines/<slug>.json"],
+  "grounding": [
+    "vendor/content/content.md",
+    "vendor/components/guidelines/<slug>.json"
+  ],
   "research": {
     "applicable": true,
     "focus": ["usage-patterns", "when-to-use", "do-dont"]

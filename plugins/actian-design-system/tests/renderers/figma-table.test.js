@@ -9,7 +9,7 @@ var html = require("../../scripts/renderers/figma-table/render-html.js");
 // ---------------------------------------------------------------------------
 // Hermetic token set used by most tests so failures don't depend on the live
 // registry shape. Two dedicated tests below exercise loadTokenNames() against
-// tokens/actian-ds.tokens.json directly.
+// vendor/tokens/tokens.json directly.
 // ---------------------------------------------------------------------------
 
 var TEST_TOKENS = new Set([
@@ -458,7 +458,7 @@ test("validate rejects unexpected field on footnote", function () {
 // Set for hermeticism; this test confirms the walker handles the real shape.
 // ---------------------------------------------------------------------------
 
-test("loadTokenNames parses the live tokens/actian-ds.tokens.json registry", function () {
+test("loadTokenNames parses the live vendor/tokens/tokens.json registry", function () {
   var names = figma.loadTokenNames();
   assert.ok(names instanceof Set, "expected a Set");
   assert.ok(names.size > 100, "expected >100 tokens, got " + names.size);

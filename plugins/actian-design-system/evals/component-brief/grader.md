@@ -72,7 +72,7 @@ for any of:
 - `--zen-font-body-stardard` (the v1.71.0 typo)
 - `--zen-color-them` (truncation seen in some failed runs)
 - Any `--zen-` prefix followed by a word containing a doubled letter
-  pair that doesn't appear in `tokens/actian-ds.tokens.json`
+  pair that doesn't appear in `vendor/tokens/tokens.json`
 
 - **Pass:** no matches
 - **Fail:** any match

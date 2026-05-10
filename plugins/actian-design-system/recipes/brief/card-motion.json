@@ -1,18 +1,18 @@
 {
   "card": "card_motion",
   "title": "Behavior & motion",
-  "description": "Conditional card. Renders only when the component has behavior.motion.pattern set in its component-guidelines JSON. Pulls phase rows from docs/generated/foundations/interaction-motion.json#patterns.<slug>.",
+  "description": "Conditional card. Renders only when the component has behavior.motion.pattern set in its component-guidelines JSON. Pulls phase rows from vendor/foundations/interaction-motion.json#patterns.<slug>.",
   "phase": "transcribe",
   "source": {
     "primary": {
       "type": "motion-pattern-lookup",
-      "registry": "docs/component-guidelines/<slug>.json",
+      "registry": "vendor/components/guidelines/<slug>.json",
       "field": "behavior.motion.pattern",
-      "patternRegistry": "docs/generated/foundations/interaction-motion.json",
+      "patternRegistry": "vendor/foundations/interaction-motion.json",
       "patternKey": "patterns.<pattern>"
     },
     "fallback": "skip-card",
-    "grounding": ["docs/foundations.md"]
+    "grounding": ["vendor/foundations/foundations.md"]
   },
   "research": {
     "applicable": false

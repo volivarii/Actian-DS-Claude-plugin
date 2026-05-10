@@ -16,7 +16,7 @@
 //     standaloneNodes:   Object<nodeId, NodePayload>  // batched /nodes for standalones
 //   }
 //
-// Output: registry JSON, same shape as docs/generated/dskit.json / fmkit.json / metakit.json.
+// Output: registry JSON, same shape as vendor/components/registries/{dskit,fmkit,metakit}.json.
 
 var DESCRIPTION_MAX = 200; // matches project_sync_skill_enhancements.md item #2
 
