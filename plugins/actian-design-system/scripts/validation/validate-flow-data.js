@@ -4,7 +4,7 @@
 var fs = require("fs");
 var path = require("path");
 
-var PLUGIN_ROOT = path.resolve(__dirname, "../..");
+var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
 var rules = require(path.join(__dirname, "component-property-rules.js"));
 var resolver = require(path.join(__dirname, "..", "lib", "intent-resolver.js"));
 
@@ -13,17 +13,7 @@ var resolver = require(path.join(__dirname, "..", "lib", "intent-resolver.js"));
 // ---------------------------------------------------------------------------
 
 function loadKitRegistry(kit) {
-  var fileName =
-    kit === "fm" ? "fmkit.json" : kit === "ds" ? "dskit.json" : "metakit.json";
-  var registryPath = path.join(
-    __dirname,
-    "..",
-    "..",
-    "vendor",
-    "components",
-    "registries",
-    fileName,
-  );
+  var registryPath = PATHS.components.registries.byKit(kit);
   try {
     return JSON.parse(fs.readFileSync(registryPath, "utf8"));
   } catch (e) {
@@ -48,13 +38,7 @@ function loadGuidelineForSlug(refOrSlug, opts) {
   if (Object.prototype.hasOwnProperty.call(_guidelineCache, slug)) {
     return _guidelineCache[slug];
   }
-  var p = path.join(
-    PLUGIN_ROOT,
-    "vendor",
-    "components",
-    "guidelines",
-    slug + ".json",
-  );
+  var p = PATHS.components.guideline(slug);
   var data = null;
   try {
     data = JSON.parse(fs.readFileSync(p, "utf8"));
@@ -307,7 +291,7 @@ function findBannedTextRaw(data) {
 // ---------------------------------------------------------------------------
 
 function loadTokenNames() {
-  var cssPath = path.join(PLUGIN_ROOT, "vendor", "tokens", "tokens.css");
+  var cssPath = PATHS.tokens.css;
   try {
     var css = fs.readFileSync(cssPath, "utf8");
     var names = {};
@@ -389,12 +373,7 @@ function findUnresolvedTokensRaw(data) {
 // ---------------------------------------------------------------------------
 
 function loadTerminology() {
-  var appContextPath = path.join(
-    PLUGIN_ROOT,
-    "vendor",
-    "app-context",
-    "app-context.json",
-  );
+  var appContextPath = PATHS.appContext;
   try {
     var appContext = JSON.parse(fs.readFileSync(appContextPath, "utf8"));
     return appContext.terminology || {};

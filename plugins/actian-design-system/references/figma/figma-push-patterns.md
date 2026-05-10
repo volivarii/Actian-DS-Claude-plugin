@@ -9,7 +9,7 @@ Direct Figma Plugin API patterns for pushing content to Figma. Each pattern is a
 
 ## 1. Component Keys
 
-**Source of truth: registry JSON files** (synced from Figma via `/sync-design-system`).
+**Source of truth: registry JSON files** (vendored from `volivarii/actian-ds-knowledge`; the knowledge repo's `sync-from-figma.yml` CI keeps them fresh nightly).
 
 | Registry | File | Contents |
 |----------|------|----------|

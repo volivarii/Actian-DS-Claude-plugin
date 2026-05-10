@@ -1,7 +1,7 @@
 {
   "_meta": {
     "auto_generated": true,
-    "source": "docs/foundations.md",
+    "source": "foundations/foundations.md",
     "do_not_edit": "Edit the source MD; CI regenerates this file."
   },
   "primitives": {

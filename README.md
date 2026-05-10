@@ -176,7 +176,6 @@ Every capability is also available as a direct command. Use these when you know 
 | `/create-component` | Build Figma components with variants and correct token binding, with a build plan review before push |
 | `/compare-flows` | Side-by-side analysis of two Figma flows — v1 vs v2, competing approaches, branches, variants |
 | `/generate-presentation` | Slide deck with Actian templates, token-bound backgrounds, and chart support |
-| `/sync-design-system` | Extract tokens, components, foundations, and guidelines directly from Figma via MCP. Auto-stubs missing component guidelines on additive/breaking verdicts, auto-bumps `plugin.json` on data change. |
 
 ---
 
@@ -241,16 +240,19 @@ Agents are dispatched automatically by skills — they run as background subproc
 
 ## Data architecture
 
-Figma libraries are the single source of truth. `/sync-design-system` extracts directly via MCP.
+Figma libraries are the single source of truth. `volivarii/actian-ds-knowledge` CI runs the syncs (`sync-from-figma.yml` daily at 07:00 UTC for registries, tokens, and foundations); the plugin vendors a pinned snapshot nightly (`vendor-snapshot.yml` at 09:00 UTC).
 
 ```
 Figma libraries (DS Kit + FM Kit + Meta Kit) + foundations.md (UX-authored)
     |
-/sync-design-system (Figma MCP)
+volivarii/actian-ds-knowledge CI (sync-from-figma + foundations-derive)
     |
-docs/generated/  -- registries, app-context, fm-to-ds-map, foundations JSONs
-docs/component-guidelines/  -- per-component (full + auto-stub)
-tokens/  -- W3C DTCG + CSS custom properties
+plugin's vendor/ snapshot (refreshed nightly via vendor-snapshot.yml)
+    ├─ vendor/components/registries/  -- DS Kit + FM Kit + Meta Kit registries
+    ├─ vendor/components/guidelines/  -- per-component guidelines (44 curated + 41 auto-stubs)
+    ├─ vendor/foundations/            -- foundations.md + 8 derived JSONs
+    ├─ vendor/tokens/                 -- DTCG + CSS custom properties
+    ├─ vendor/{content,accessibility,presentation,app-context,fm-to-ds-map}/
     |
 Companion + skills read at runtime
 ```
@@ -291,17 +293,16 @@ actian-design-system-plugin/
 │   ├── .claude-plugin/plugin.json
 │   ├── ARCHITECTURE.md                    # canonical map (read first)
 │   ├── CLAUDE.md
-│   ├── skills/                            # 9 skills (companion + 8 specialized)
-│   ├── agents/                            # 9 agents (6 validation/research + 3 parallel generation)
-│   ├── recipes/                           # 23 recipes (11 flow, 7 brief cards, 5 presentation)
+│   ├── skills/                            # 8 skills (companion + 7 specialized)
+│   ├── agents/                            # parallel-generation + validation/research agents
+│   ├── recipes/                           # flow + brief + presentation recipes
 │   ├── scripts/
-│   │   ├── lib/                           # shared-constants, registry loaders, palette, buildGenLog
+│   │   ├── lib/                           # paths.js, shared-constants, registry loaders, palette, buildGenLog
 │   │   ├── hooks/                         # Claude Code hook guards
-│   │   ├── sync/                          # /sync-design-system phases + helpers
-│   │   ├── foundations/                   # foundations.md → JSON regeneration
+│   │   ├── vendor/                        # vendor-snapshot pipeline (pulls knowledge repo)
 │   │   ├── validation/                    # validate-flow-data, validate-schema, validateBriefData
-│   │   ├── transformers/                  # fm-tree-to-flow-data, transform-to-hifi, sync-fm-to-ds-map
-│   │   ├── renderers/                     # assemble-preview + html-renderers
+│   │   ├── transformers/                  # fm-tree-to-flow-data, transform-to-hifi
+│   │   ├── renderers/                     # assemble-preview + html-renderers + render-component-reference
 │   │   └── changelog/                     # push-to-push diffing
 │   ├── references/
 │   │   ├── figma/                         # MCP workflow, push patterns, parity, prototype, annotations
@@ -345,11 +346,11 @@ claude --plugin-dir plugins/actian-design-system
 
 | What changed | What to do |
 |-------------|------------|
-| Tokens/components in Figma | `/sync-design-system all` (auto-bumps plugin.json on data change) |
-| Single component's guidelines | `/sync-design-system Button` |
-| Foundation docs | edit `docs/foundations.md` — CI regenerates derived JSONs on PR |
+| Tokens/components in Figma | Knowledge repo's `sync-from-figma.yml` runs nightly (07:00 UTC) and opens an additive PR; the plugin's `vendor-snapshot.yml` then propagates it (09:00 UTC) and auto-bumps `plugin.json`. To force a refresh, manually trigger `vendor-snapshot.yml` in the plugin repo. |
+| Single component's guidelines | Edit upstream in `volivarii/actian-ds-knowledge` (`components/guidelines/<slug>.json`); the next vendor-snapshot pulls the change. |
+| Foundation docs | Edit upstream in `volivarii/actian-ds-knowledge` (`foundations/foundations.md`); CI regenerates derived JSONs on PR; the next vendor-snapshot pulls them. |
 | New skill | Add `skills/<name>/SKILL.md` and update `ARCHITECTURE.md` Section 2 |
-| Version bump | Handled automatically by `/sync-design-system` on additive/breaking verdicts; manual bumps in `.claude-plugin/plugin.json` |
+| Version bump | Handled automatically by `vendor-snapshot.yml` on knowledge-repo data change; manual bumps in `.claude-plugin/plugin.json` |
 
 ---
 

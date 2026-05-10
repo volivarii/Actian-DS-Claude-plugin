@@ -123,7 +123,7 @@ audit this
 
 Runs `/design-audit` — tokens, contrast, copy, heuristics — with confidence-scored findings. Auto-fix what's safe, flag what needs judgment.
 
-> **Content designer's path:** `audit this --scope copy --fix all` rewrites strings against `docs/content-guidelines.md` — sentence case, action verbs, error-message patterns, empty-state CTAs — applied automatically.
+> **Content designer's path:** `audit this --scope copy --fix all` rewrites strings against `vendor/content/content.md` — sentence case, action verbs, error-message patterns, empty-state CTAs — applied automatically.
 >
 > **A11y specialist's path:** `audit this --scope a11y` focuses on contrast (4.5:1 normal, 3:1 large), focus order, and target sizes (44×44px min). Other findings stay quiet.
 
@@ -448,7 +448,6 @@ Every capability is also a direct command. Use these when you know exactly what 
 | `/create-component [description]` | Jump to component creation |
 | `/compare-flows [URL1] [URL2]` | Side-by-side diff (also works between branches/variants) |
 | `/generate-presentation [topic]` | Jump to deck creation |
-| `/sync-design-system [scope]` | Jump to sync |
 
 ---
 
