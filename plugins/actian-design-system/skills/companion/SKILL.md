@@ -74,9 +74,10 @@ The companion is the API. Match the user's prose against this table; pick the mo
 | 19 | "make this realistic" / "use real data" / "fill with proper content" | yes | `/generate-flow <url> "use realistic data drawn from app-context"` (refine) |
 | 20 | "responsive" / "for tablet" / "mobile version" | yes | `/generate-flow <url> --breakpoints tablet,mobile --no-prompt` |
 | 21 | "document this component" / "brief for this" | yes (component) | `/component-brief <url>` |
-| 22 | "sync the design system" / "pull tokens from Figma" / "refresh registries" | optional | `/sync-design-system` |
 
 Invoke the chosen skill via the Skill tool with the user's message as argument. If no row fits, proceed to Step 4 (direct help).
+
+> Note: design-system content syncs are now automated via `volivarii/actian-ds-knowledge` CI + the plugin's nightly `vendor-snapshot.yml`. There is no user-facing sync skill — if a user asks to "sync the design system," explain that the knowledge repo's nightly cron handles it and point them at the plugin's `vendor-snapshot.yml` for manual triggers.
 
 ### 3.0 The `--no-prompt` rule (interactive gates)
 

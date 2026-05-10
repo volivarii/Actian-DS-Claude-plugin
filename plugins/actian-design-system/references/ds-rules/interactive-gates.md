@@ -144,5 +144,5 @@ When adopting this convention in a new skill:
 ## Out of scope for this convention
 
 - `/component-brief` Step 1.5 already batches its gates; it does NOT need `--no-prompt` until a future iteration adds it for parity.
-- `/sync-design-system`, `/compare-flows`, `/create-component` don't currently have gateable flags — adopt the convention if/when they grow them.
+- `/compare-flows`, `/create-component` don't currently have gateable flags — adopt the convention if/when they grow them.
 - Gates inside refine flows (URL + prose) — refine intent is already explicit; no gate needed.

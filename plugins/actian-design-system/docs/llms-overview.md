@@ -51,9 +51,9 @@ Phase 1 of the federation arc is shipping incrementally:
 - ✅ Phase 1.3 — tokens + content + accessibility + app-context + fm-to-ds-map
 - ✅ Phase 1.4a — vendoring infrastructure (v1.77.0)
 - ✅ Phase 1.4b — path remap (v1.78.0, plugin code reads from `vendor/`)
-- ⏳ Phase 1.5 — `/sync-design-system` decommission (after Smoke pass #2; multi-week parallel-change discipline)
+- ✅ Phase 1.5 — `/sync-design-system` decommission (v1.79.0, 2026-05-10)
 
-Knowledge repo CI workflows (sync-from-figma.yml, foundations-derive.yml) keep the content fresh in parallel with the plugin's existing `/sync-design-system` skill until decommission completes.
+Knowledge repo CI workflows (sync-from-figma.yml, foundations-derive.yml) keep the content fresh; the plugin's nightly vendor-snapshot.yml propagates updates to `vendor/` and auto-bumps `plugin.json`.
 
 ## Plugin substrate
 

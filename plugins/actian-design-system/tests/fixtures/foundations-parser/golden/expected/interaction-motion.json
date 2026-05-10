@@ -1,7 +1,7 @@
 {
   "_meta": {
     "auto_generated": true,
-    "source": "docs/foundations.md",
+    "source": "foundations/foundations.md",
     "do_not_edit": "Edit the source MD; CI regenerates this file."
   },
   "description": "Motion tokens cover three dimensions: duration (how long), easing (how it accelerates), and delay (when it starts). All three must be specified together for any animated component.",

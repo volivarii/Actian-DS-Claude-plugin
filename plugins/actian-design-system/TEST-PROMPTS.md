@@ -405,7 +405,6 @@ abort                                                            # Stop
 /compare-flows https://figma.com/design/FILEKEY/File?node-id=111-222 https://figma.com/design/FILEKEY/File?node-id=333-444
 /generate-presentation Q1 design system review
 /create-component Status Badge with info, success, warning, error types
-/sync-design-system all
 /release-notes
 ```
 
