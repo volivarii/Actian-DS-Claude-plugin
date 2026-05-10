@@ -1,8 +1,8 @@
 # Accessibility Guidelines — Actian Design System 2026
 
-<!-- AUTO-GENERATED from docs/foundations/accessibility.json -->
-<!-- To update: run /sync-guidelines or /sync-design-system -->
-<!-- Do not edit manually — changes will be overwritten -->
+<!-- Source-of-truth doc. Hand-edited; not auto-generated. -->
+<!-- The plugin vendors this file via vendor-snapshot.yml. -->
+<!-- Edit here in volivarii/actian-ds-knowledge — never in the plugin's vendor/ tree. -->
 
 Source: [Accessibility page](https://www.figma.com/design/<DS Kit_FILE_KEY>?node-id=12685:19373)
 Generated: 2026-03-26
