@@ -11,10 +11,17 @@ name: Vendor knowledge-repo snapshot
 #   Settings → Actions → General → Workflow permissions → Allow GH Actions
 #     to create and approve pull requests (already enabled)
 #   Settings → General → Pull Requests → Allow auto-merge → ENABLED
+#   Settings → General → Pull Requests → Allow squash merging → ENABLED
+#   Settings → Branches → branch-protection on main: required status
+#     checks must be configured + passing for auto-merge to fire
+#     (otherwise `gh pr merge --auto` queues silently and never merges)
 
 on:
   schedule:
-    - cron: '0 7 * * *'  # 07:00 UTC daily — matches old sync cadence
+    # 09:00 UTC — runs ~2h after volivarii/actian-ds-knowledge's
+    # sync-from-figma.yml (07:00 UTC) so we vendor a fully-rendered
+    # snapshot rather than racing the upstream sync.
+    - cron: '0 9 * * *'
   workflow_dispatch:
     inputs:
       sha:
@@ -58,6 +65,10 @@ jobs:
         run: node scripts/vendor/vendor-snapshot.js --sha ${{ steps.target.outputs.sha }}
 
       - name: Regenerate *-components.md from vendored registries
+        # Replaces any *-components.md the snapshot may have placed
+        # under vendor/components/ — the knowledge repo should NOT
+        # vendor these files; this step is the single source-of-truth
+        # generator for the human-readable component mirrors.
         working-directory: plugins/actian-design-system
         run: |
           node scripts/renderers/render-component-reference.js \
