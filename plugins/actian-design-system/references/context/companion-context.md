@@ -55,7 +55,7 @@ Read this on every companion activation. For detailed info, read the full refere
 
 **Theme overrides:** Studio `theme-primary` = `#0283BE`. Explorer `theme-primary` = `#049B98`. Most text/border tokens also differ — always use token names, never hardcode hex.
 
-Full reference: `docs/generated/token-reference.md` | Source of truth: `vendor/tokens/tokens.json`
+Full reference: `vendor/tokens/token-reference.md` | Source of truth: `vendor/tokens/tokens.json`
 
 ## FM Outputs (lo-fi wireframes)
 
@@ -108,7 +108,7 @@ Full context: `references/context/app-context.md`
 | FM Kit | 44 components | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 25 components + 3 templates | Inter | Generation output, annotation markers |
 
-Before building custom frames, check: `docs/generated/dskit-components.md`, `docs/generated/fm-components.md`, `vendor/components/guidelines/{name}.json`
+Before building custom frames, check: `vendor/components/dskit-components.md`, `vendor/components/fm-components.md`, `vendor/components/guidelines/{name}.json`
 
 **Common FM wireframe components:** fmButton, fmTextInput, fmDropdown, fmSearchInput, fmTableCell, fmCheckbox, fmRadioButton, fmToggle, fmAlert, fmBanner, fmDialog, fmEmptyState, fmPlaceholder, fmTab, fmStepper, fmBadge, fmTag, fmToast, fmPageHeader, fmAppHeader, fmNavItem
 
@@ -137,5 +137,5 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 | FM CSS values (wireframes) | `references/ds-rules/fm-css-reference.md` |
 | UX patterns by flow type | `references/context/ux-patterns.md` |
 | Page layout patterns | `references/ds-rules/layout-patterns.md` |
-| Token variable keys (Figma binding) | `docs/generated/meta-kit/variables.md` |
+| Token variable keys (Figma binding) | runtime via `figma.variables.getLocalVariableCollectionsAsync()` — see `references/figma/figma-output.md` § "Variable binding by name" |
 | Quality tiers (Draft/Standard/Production) | `references/ds-rules/quality-tiers.md` |

@@ -161,11 +161,11 @@ function setProp(inst, prefix, value) {
 setProp(instance, "Title", "Design tokens");
 ```
 
-Look up component keys in `../../docs/generated/fm-components.md` (FM Kit), `../../docs/generated/dskit-components.md` (DS Kit), or `../../docs/generated/meta-kit/components.md` (Meta Kit).
+Look up component keys in `../../vendor/components/fm-components.md` (FM Kit), `../../vendor/components/dskit-components.md` (DS Kit), or `../../vendor/components/meta-kit/components.md` (Meta Kit).
 
 ### Meta Kit components
 
-For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../../docs/generated/meta-kit/components.md` for keys and properties.
+For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../../vendor/components/meta-kit/components.md` for keys and properties.
 
 When a Meta Kit component exists for an element, **always import it**. The component IS the spec.
 
@@ -186,7 +186,17 @@ When a Meta Kit component exists for an element, **always import it**. The compo
 
 DS Kit publishes **color variables** (for theme switching), **text styles** (typography), and **effect styles** (shadows). Use all three:
 
-**Color variables** (see `../../docs/generated/meta-kit/variables.md` for keys):
+> **Variable binding by name (no precomputed keys).** Use
+> `figma.variables.getLocalVariableCollectionsAsync()` to enumerate
+> collections, find the variable by name, then call
+> `node.setBoundVariable(field, variable)`. The `figma-use` skill
+> documents this pattern in its `variable-patterns.md` reference.
+> (Federation Phase 1.5: a precomputed `variables.md` file was dropped
+> because Figma's Variables API is Enterprise-gated and the old
+> `/sync-design-system` Phase 2 was manual-only — no automated refresh
+> path. Runtime lookup is the canonical Figma pattern.)
+
+**Color variables** (find by name at runtime via the API above):
 
 ```js
 const vars = {};
@@ -246,7 +256,7 @@ Cache the keys within a single `use_figma` call — import once, apply to many n
 ### Fallback
 
 If `search_design_system` returns no results (file not connected to a library), fall back to:
-- DS Kit: hex from `../../docs/generated/token-reference.md` with token name comments
+- DS Kit: hex from `../../vendor/tokens/token-reference.md` with token name comments
 - FM: hex from `../../references/ds-rules/fm-css-reference.md` with token name comments
 
 ## Generation metadata frame
@@ -276,7 +286,7 @@ Skills run in two phases. Track time across both:
 
 ## Builder functions
 
-For dynamic content (tables with variable rows, state grids with variable columns), use the builder functions in `../../docs/generated/meta-kit/builders.md`. Copy the needed function into your `use_figma` call and invoke it.
+For dynamic content (tables with variable rows, state grids with variable columns), use the builder functions in `./builders.md`. Copy the needed function into your `use_figma` call and invoke it.
 
 Available builders:
 - `buildSpecTable(parent, headers, rows, options)` — data tables with header row + N data rows
@@ -334,7 +344,7 @@ Available templates:
 
 ### Fallback
 
-If `metakit.json` has `"PENDING"` keys (templates not yet built in Figma), fall back to the legacy builders in `../../docs/generated/meta-kit/builders.md`.
+If `metakit.json` has `"PENDING"` keys (templates not yet built in Figma), fall back to the legacy builders in `./builders.md`.
 
 ## Two-Tier Extraction
 
@@ -421,7 +431,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 - **Figma output must match HTML preview exactly.** The Figma push is a 1:1 translation of the approved HTML — not a reinterpretation. If the HTML uses placeholder bars, the Figma uses Placeholder component variants. If the HTML shows only one active nav item, the Figma shows only one active nav item. Do not add detail, color, or content that wasn't in the HTML.
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed.
-- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../docs/generated/fm-components.md` (FM) or `../../docs/generated/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `../ds-rules/library-gap-detection.md` for the full detection procedure.
+- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../vendor/components/fm-components.md` (FM) or `../../vendor/components/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `../ds-rules/library-gap-detection.md` for the full detection procedure.
 
 ## HUG Sizing Default
 

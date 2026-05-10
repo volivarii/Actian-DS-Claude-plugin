@@ -19,8 +19,9 @@ function loadKitRegistry(kit) {
     __dirname,
     "..",
     "..",
-    "docs",
-    "generated",
+    "vendor",
+    "components",
+    "registries",
     fileName,
   );
   try {
@@ -49,8 +50,9 @@ function loadGuidelineForSlug(refOrSlug, opts) {
   }
   var p = path.join(
     PLUGIN_ROOT,
-    "docs",
-    "component-guidelines",
+    "vendor",
+    "components",
+    "guidelines",
     slug + ".json",
   );
   var data = null;
@@ -305,7 +307,7 @@ function findBannedTextRaw(data) {
 // ---------------------------------------------------------------------------
 
 function loadTokenNames() {
-  var cssPath = path.join(PLUGIN_ROOT, "tokens", "tokens.css");
+  var cssPath = path.join(PLUGIN_ROOT, "vendor", "tokens", "tokens.css");
   try {
     var css = fs.readFileSync(cssPath, "utf8");
     var names = {};
@@ -389,8 +391,8 @@ function findUnresolvedTokensRaw(data) {
 function loadTerminology() {
   var appContextPath = path.join(
     PLUGIN_ROOT,
-    "docs",
-    "generated",
+    "vendor",
+    "app-context",
     "app-context.json",
   );
   try {

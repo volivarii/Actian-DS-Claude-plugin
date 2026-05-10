@@ -200,9 +200,9 @@ var path = require('path');
 var fs = require('fs');
 var root = '${CLAUDE_PLUGIN_ROOT}';
 var registries = {
-  fm:   JSON.parse(fs.readFileSync(path.join(root, 'docs', 'fmkit.json'), 'utf8')),
-  ds:   JSON.parse(fs.readFileSync(path.join(root, 'docs', 'dskit.json'), 'utf8')),
-  meta: JSON.parse(fs.readFileSync(path.join(root, 'docs', 'metakit.json'), 'utf8'))
+  fm:   JSON.parse(fs.readFileSync(path.join(root, 'vendor', 'components', 'registries', 'fmkit.json'), 'utf8')),
+  ds:   JSON.parse(fs.readFileSync(path.join(root, 'vendor', 'components', 'registries', 'dskit.json'), 'utf8')),
+  meta: JSON.parse(fs.readFileSync(path.join(root, 'vendor', 'components', 'registries', 'metakit.json'), 'utf8'))
 };
 process.stdout.write(JSON.stringify(changelog.computePropertyDefaultsHashes(registries)));
 ")

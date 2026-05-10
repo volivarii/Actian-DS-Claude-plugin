@@ -1,19 +1,31 @@
 name: Vendor knowledge-repo snapshot
 
-# Federation Phase 1.4a — pulls a pinned snapshot of volivarii/actian-ds-knowledge
-# into plugins/actian-design-system/vendor/. Triggered manually for now;
-# Phase 1.4b will rewrite consumer paths to point at vendor/, at which point
-# we can wire this to release CI for automatic at-bump-time vendoring.
+# Federation Phase 1.5 — pulls a pinned snapshot of
+# volivarii/actian-ds-knowledge into plugins/actian-design-system/vendor/.
+# Runs nightly via cron + manual via workflow_dispatch. Regenerates the
+# *-components.md mirrors via render-component-reference.js after each
+# pull. Auto-bumps plugin.json patch when there's a content diff so the
+# marketplace cache propagates new content to designers.
 #
 # Required repo settings:
 #   Settings → Actions → General → Workflow permissions → Allow GH Actions
-#     to create and approve pull requests (already enabled for sync-from-figma)
+#     to create and approve pull requests (already enabled)
+#   Settings → General → Pull Requests → Allow auto-merge → ENABLED
+#   Settings → General → Pull Requests → Allow squash merging → ENABLED
+#   Settings → Branches → branch-protection on main: required status
+#     checks must be configured + passing for auto-merge to fire
+#     (otherwise `gh pr merge --auto` queues silently and never merges)
 
 on:
+  schedule:
+    # 09:00 UTC — runs ~2h after volivarii/actian-ds-knowledge's
+    # sync-from-figma.yml (07:00 UTC) so we vendor a fully-rendered
+    # snapshot rather than racing the upstream sync.
+    - cron: '0 9 * * *'
   workflow_dispatch:
     inputs:
       sha:
-        description: 'Knowledge repo SHA to vendor (defaults to current vendored.json#knowledge_repo_sha)'
+        description: 'Knowledge repo SHA to vendor (defaults to current vendored.json#knowledge_repo_sha or main HEAD)'
         required: false
         type: string
 
@@ -38,19 +50,30 @@ jobs:
         run: |
           INPUT_SHA="${{ github.event.inputs.sha }}"
           if [ -z "$INPUT_SHA" ]; then
-            # No explicit SHA — pull latest main from knowledge repo.
             LATEST=$(curl -sSL "https://api.github.com/repos/volivarii/actian-ds-knowledge/commits/main" | jq -r '.sha')
             echo "Resolved knowledge-repo main → $LATEST"
             echo "sha=$LATEST" >> "$GITHUB_OUTPUT"
+            echo "short_sha=$(echo "$LATEST" | cut -c1-7)" >> "$GITHUB_OUTPUT"
           else
             echo "Using explicit SHA → $INPUT_SHA"
             echo "sha=$INPUT_SHA" >> "$GITHUB_OUTPUT"
+            echo "short_sha=$(echo "$INPUT_SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
           fi
-          echo "short_sha=$(echo "${INPUT_SHA:-$LATEST}" | cut -c1-7)" >> "$GITHUB_OUTPUT"
 
       - name: Pull vendor snapshot
         working-directory: plugins/actian-design-system
         run: node scripts/vendor/vendor-snapshot.js --sha ${{ steps.target.outputs.sha }}
+
+      - name: Regenerate *-components.md from vendored registries
+        # Replaces any *-components.md the snapshot may have placed
+        # under vendor/components/ — the knowledge repo should NOT
+        # vendor these files; this step is the single source-of-truth
+        # generator for the human-readable component mirrors.
+        working-directory: plugins/actian-design-system
+        run: |
+          node scripts/renderers/render-component-reference.js \
+            --kit all \
+            --output vendor/components
 
       - name: Detect changes
         id: diff
@@ -64,30 +87,52 @@ jobs:
             git diff --stat -- plugins/actian-design-system/vendor/ plugins/actian-design-system/vendored.json
           fi
 
+      - name: Auto-bump plugin.json patch
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          CURRENT=$(jq -r '.version' plugins/actian-design-system/.claude-plugin/plugin.json)
+          MAJOR=$(echo "$CURRENT" | cut -d. -f1)
+          MINOR=$(echo "$CURRENT" | cut -d. -f2)
+          PATCH=$(echo "$CURRENT" | cut -d. -f3)
+          NEW_PATCH=$((PATCH + 1))
+          NEW="$MAJOR.$MINOR.$NEW_PATCH"
+          jq ".version = \"$NEW\"" plugins/actian-design-system/.claude-plugin/plugin.json > /tmp/plugin.json
+          mv /tmp/plugin.json plugins/actian-design-system/.claude-plugin/plugin.json
+          echo "Bumped $CURRENT → $NEW"
+
       - name: Open pull request
         if: steps.diff.outputs.changed == 'true'
+        id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "vendor(knowledge): refresh to ${{ steps.target.outputs.short_sha }}"
+          commit-message: "vendor(knowledge): refresh to ${{ steps.target.outputs.short_sha }} + bump"
           title: "vendor(knowledge): refresh to ${{ steps.target.outputs.short_sha }}"
           body: |
             Vendored snapshot of `volivarii/actian-ds-knowledge` updated to SHA `${{ steps.target.outputs.sha }}`.
 
             See https://github.com/volivarii/actian-ds-knowledge/tree/${{ steps.target.outputs.sha }} for source state.
 
-            Plugin still reads from `docs/`, `tokens/`, etc. at runtime — Phase 1.4b will rewrite consumer paths to read from `vendor/` instead.
+            Auto-bumps plugin.json patch so the marketplace cache propagates the new content to designers.
           branch: "vendor/refresh-${{ steps.target.outputs.short_sha }}"
-          labels: vendor,knowledge-snapshot
+          labels: vendor,knowledge-snapshot,auto-merge
           delete-branch: true
           add-paths: |
             plugins/actian-design-system/vendor/**
             plugins/actian-design-system/vendored.json
+            plugins/actian-design-system/.claude-plugin/plugin.json
+
+      - name: Enable auto-merge
+        if: steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr merge "${{ steps.cpr.outputs.pull-request-number }}" --auto --squash --repo "${{ github.repository }}"
 
       - name: Summarize
         if: always()
         run: |
           if [ "${{ steps.diff.outputs.changed }}" = "true" ]; then
-            echo "### Vendor refreshed: ${{ steps.target.outputs.short_sha }}" >> "$GITHUB_STEP_SUMMARY"
+            echo "### Vendor refreshed: ${{ steps.target.outputs.short_sha }} (auto-bump applied)" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "### Vendor: no changes (already at ${{ steps.target.outputs.short_sha }})" >> "$GITHUB_STEP_SUMMARY"
           fi

@@ -111,8 +111,8 @@ const content = card.findOne(n => n.name === "Content");
 
 Do NOT leave cards named `"Meta / Chrome / Brief Card"`. Do NOT build raw frames as card shells.
 
-For `setProp` helper and component keys, see `../../docs/generated/meta-kit/components.md`.
-For `buildSpecTable`, `buildStateGrid`, see `../../docs/generated/meta-kit/builders.md`.
+For `setProp` helper and component keys, see `../../vendor/components/meta-kit/components.md`.
+For `buildSpecTable`, `buildStateGrid`, see `../figma/builders.md`.
 
 ## Variable binding
 

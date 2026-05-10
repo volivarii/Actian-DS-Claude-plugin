@@ -27,7 +27,7 @@ describe("shared-constants", function () {
 
     it("has entries for all FM components in registry (or fallback)", function () {
       var fmkit = require(
-        path.join(PLUGIN_ROOT, "docs", "generated", "fmkit.json"),
+        path.join(PLUGIN_ROOT, "vendor", "components", "registries", "fmkit.json"),
       );
       var registrySlugs = Object.keys(fmkit.components);
       var mappedSlugs = Object.values(sc.FM_SLUGS);
@@ -72,7 +72,7 @@ describe("shared-constants", function () {
 
     it("has valid registry references", function () {
       var dskit = require(
-        path.join(PLUGIN_ROOT, "docs", "generated", "dskit.json"),
+        path.join(PLUGIN_ROOT, "vendor", "components", "registries", "dskit.json"),
       );
       var registrySlugs = Object.keys(dskit.components);
       var mappedSlugs = Object.values(sc.DS_SLUGS);

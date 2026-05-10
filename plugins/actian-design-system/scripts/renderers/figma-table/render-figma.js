@@ -29,7 +29,7 @@ var path = require("path");
 var SCRIPT_DIR = __dirname;
 var SCHEMA_PATH = path.join(SCRIPT_DIR, "schemas", "render-table.json");
 var PLUGIN_ROOT = path.resolve(SCRIPT_DIR, "../../..");
-var TOKENS_PATH = path.join(PLUGIN_ROOT, "tokens", "actian-ds.tokens.json");
+var TOKENS_PATH = path.join(PLUGIN_ROOT, "vendor", "tokens", "tokens.json");
 
 // ---------------------------------------------------------------------------
 // CLI
@@ -317,7 +317,7 @@ function validateCell(cell, p, tokenNames, err) {
         err(
           p + ".value",
           "Token '" + cell.value + "' not found in registry",
-          "Check tokens/actian-ds.tokens.json — possible typo or missing token",
+          "Check vendor/tokens/tokens.json — possible typo or missing token",
         );
       break;
     case "code":

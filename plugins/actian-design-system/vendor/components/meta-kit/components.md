@@ -1,6 +1,6 @@
 # Meta Kit — Component Reference
 
-Auto-generated from `docs/generated/metakit.json` by `scripts/renderers/render-component-reference.js`.
+Auto-generated from `vendor/components/registries/metakit.json` by `scripts/renderers/render-component-reference.js`.
 28 components.
 
 ---
@@ -18,13 +18,12 @@ Container for WCAG requirements with severity badges. Used in component-brief Ca
 Card shell for component spec pages. 4 variants: DS Standard (1200px grey header), DS Page Header (1200px white with logo), FM Standard (820px grey header), FM Page Header (820px dark).
 
 - Variants: **Mode:** `DS` · `FM` | **Type:** `Standard` · `Page Header`
-- Text overrides: `Title#7:0`, `Subtitle#7:1`, `Component Name#7:2`, `Description#7:3`, `Source#7:4`
-- **Required overrides:** `Component Name#7:2` (default `"Button"` is a placeholder)
+- Text overrides: `Component Name#7:2`, `Description#7:3`, `Source#7:4`
 - Node: `7:2` | Key: `3dbb732730af0754210cde7af35e5236a2502843`
 
 ### Meta / Chrome / Brief Card Header
 
-Card header for component briefs. Nested inside Brief Card Standard variants — stays live after Brief Card detach. Set Title, Subtitle, Show Subtitle via properties.
+Card header for component briefs. Used as first child inside Brief Card shells. Set Title, Subtitle, and Show Subtitle via properties — do not detach.
 
 - Single component (no variants)
 - Text overrides: `Title#140:0`, `Subtitle#140:1`
@@ -181,13 +180,21 @@ Presentation slide template. Used by generate-presentation skill.
 
 ### Meta / Template / Section Header
 
-Section header with title and optional subtitle. Use setProperties — do not detach. Toggle subtitle visibility with Show Subtitle boolean.
+Hidden template for section headers with title and subtitle. Skills clone and fill text slots. Do not use directly.
 
 - Single component (no variants)
 - Text overrides: `title#86:0`, `subtitle#86:1`
 - **Required overrides:** `title#86:0` (default `"Section Title"` is a placeholder)
 - Boolean properties: `Show Subtitle#138:0` (default: true) — set to `false` to hide
 - Node: `76:12` | Key: `f4fd576001f4f1f4606a4efb051d1e4492e378c4`
+
+### Meta / Template / State Column
+
+Hidden template for state grid columns. Skills clone, fill title, replace content placeholder. Do not use directly.
+
+- Single component (no variants)
+- Text overrides: `title#85:0`
+- Node: `75:12` | Key: `4f782d1a8541b4474858767209f99dce1428784b`
 
 ### Meta / Template / Swatch Row
 
@@ -197,24 +204,9 @@ Hidden template for color swatch rows. Skills clone, fill text slots, bind swatc
 - Text overrides: `name#87:0`, `value#87:1`, `hex#87:2`
 - Node: `77:12` | Key: `96647364b6cb5c55b7ced72106708daaa33afb7f`
 
-### Meta / Utility / Card Divider
-
-Horizontal divider line between card sections. Set layoutSizingHorizontal = 'FILL' on instances to fill parent width.
-
-- Single component (no variants)
-- Node: `4:2` | Key: `f4d778e1cf9bb61a33712c791486f54bb1c095b7`
-
-### Meta / Template / State Column
-
-Hidden template for state grid columns.
-
-- Single component (no variants)
-- Text overrides: `title#85:0`
-- Node: `75:12` | Key: `4f782d1a8541b4474858767209f99dce1428784b`
-
 ### Meta / Template / Table Data Row
 
-Hidden template for table data rows.
+Hidden template for table data rows. Skills clone and fill text slots via the template engine. Do not use directly.
 
 - Single component (no variants)
 - Text overrides: `label#84:0`, `value#84:1`
@@ -223,8 +215,15 @@ Hidden template for table data rows.
 
 ### Meta / Template / Table Header Row
 
-Hidden template for table header rows.
+Hidden template for table header rows. Skills clone and fill text slots via the template engine. Do not use directly.
 
 - Single component (no variants)
 - Text overrides: `label#83:0`
 - Node: `73:12` | Key: `0754accfc4bc79ce9a68ff8fe7a108f1b41b9b2e`
+
+### Meta / Utility / Card Divider
+
+Horizontal divider line between card sections. Set layoutSizingHorizontal = 'FILL' on instances to fill parent width.
+
+- Single component (no variants)
+- Node: `4:2` | Key: `f4d778e1cf9bb61a33712c791486f54bb1c095b7`

@@ -10,7 +10,7 @@ HTML template structure, FM component rules, and Figma output details for the ge
 
 ## Available components
 
-Refer to `../../docs/generated/fm-components.md` for the full Figma library inventory with component keys.
+Refer to `../../vendor/components/fm-components.md` for the full Figma library inventory with component keys.
 
 ### Figma library components (importable via `use_figma`)
 
@@ -141,7 +141,7 @@ Set the FM Input Label's Caption Text to the error message and color it red.
 When no FM component fits, build custom elements inline.
 
 **Rules:**
-1. **FM first** — check `../../docs/generated/fm-components.md` before going custom
+1. **FM first** — check `../../vendor/components/fm-components.md` before going custom
 2. **Follow FM conventions** — `--fm-*` CSS vars, FM spacing scale (4-32px), Inter font, FM radius/border
 3. **Prefix with `fm-custom-`** — e.g., `fm-custom-chart`, `fm-custom-timeline`
 4. **Comment what it represents** — `<!-- Custom: [what and why] -->`
@@ -362,7 +362,7 @@ const screen = stdVariant.createInstance();
 const contentArea = screen.findOne(n => n.name === "Content Area");
 ```
 
-Does NOT need detaching — `contentArea.appendChild()` works. See `../../docs/generated/meta-kit/components.md`.
+Does NOT need detaching — `contentArea.appendChild()` works. See `../../vendor/components/meta-kit/components.md`.
 
 ### Rules for `use_figma` code
 
@@ -384,4 +384,4 @@ Does NOT need detaching — `contentArea.appendChild()` works. See `../../docs/g
 ## Token reference
 
 - **`use_figma`**: `../figma/figma-output.md` § "Token binding"
-- **HTML**: `--fm-*` from `../ds-rules/fm-css-reference.md` (FM) or `--zen-*` from `../../tokens/tokens.css` (DS Kit)
+- **HTML**: `--fm-*` from `../ds-rules/fm-css-reference.md` (FM) or `--zen-*` from `../../vendor/tokens/tokens.css` (DS Kit)

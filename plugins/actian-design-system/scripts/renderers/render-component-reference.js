@@ -160,7 +160,13 @@ module.exports = {
 if (require.main === module) {
   var args = process.argv.slice(2);
   var kitArg = "all";
-  var outDir = path.join(PLUGIN_ROOT, "docs", "generated");
+  var outDir = path.join(PLUGIN_ROOT, "vendor", "components");
+  var registriesDir = path.join(
+    PLUGIN_ROOT,
+    "vendor",
+    "components",
+    "registries",
+  );
 
   for (var i = 0; i < args.length; i++) {
     if (args[i] === "--kit" && i + 1 < args.length) {
@@ -169,9 +175,12 @@ if (require.main === module) {
     } else if (args[i] === "--output" && i + 1 < args.length) {
       outDir = path.resolve(args[i + 1]);
       i++;
+    } else if (args[i] === "--registries" && i + 1 < args.length) {
+      registriesDir = path.resolve(args[i + 1]);
+      i++;
     } else if (args[i] === "--help") {
       process.stdout.write(
-        "Usage: render-component-reference.js [--kit fm|ds|meta|all] [--output <dir>]\n",
+        "Usage: render-component-reference.js [--kit fm|ds|meta|all] [--output <dir>] [--registries <dir>]\n",
       );
       process.exit(0);
     }
@@ -195,12 +204,7 @@ if (require.main === module) {
       process.stderr.write("Unknown kit: " + kit + "\n");
       process.exit(1);
     }
-    var registryPath = path.join(
-      PLUGIN_ROOT,
-      "docs",
-      "generated",
-      spec.registry,
-    );
+    var registryPath = path.join(registriesDir, spec.registry);
     var registry;
     try {
       registry = JSON.parse(fs.readFileSync(registryPath, "utf8"));
