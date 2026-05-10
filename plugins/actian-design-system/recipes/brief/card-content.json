@@ -4,9 +4,13 @@
   "description": "Copy rules with do/don't examples plus terminology table",
   "phase": "transcribe",
   "source": {
-    "primary": { "type": "guidelines-content-sections", "registry": "docs/component-guidelines/<slug>.json", "field": "content_guidelines.sections" },
+    "primary": {
+      "type": "guidelines-content-sections",
+      "registry": "vendor/components/guidelines/<slug>.json",
+      "field": "content_guidelines.sections"
+    },
     "fallback": "claude-generate",
-    "grounding": ["docs/content-guidelines.md"]
+    "grounding": ["vendor/content/content.md"]
   },
   "research": {
     "applicable": true,

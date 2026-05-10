@@ -3,7 +3,7 @@
   "title": "Accessibility",
   "description": "6 requirement cards in 2x3 grid, contrast table, ARIA specification table",
   "phase": "generate",
-  "grounding": ["docs/accessibility-guidelines.md"],
+  "grounding": ["vendor/accessibility/accessibility.md"],
   "research": {
     "applicable": true,
     "focus": ["a11y-patterns", "wcag-interpretation", "keyboard-screenreader"]

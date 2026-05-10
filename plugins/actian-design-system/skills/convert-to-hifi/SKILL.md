@@ -186,6 +186,16 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 - Typography: map FM text sizes to DS text style tokens (body, label, heading tiers)
 - See `references/ds-rules/component-instance-rules.md` for property-setting rules
 
+### Copy polish
+
+Before pushing, audit all visible text against `vendor/content/content.md`:
+- Sentence case on all UI text (buttons, labels, headings, column headers, placeholders)
+- Buttons: verb + object ("Save changes", not "Save Changes" and not bare "Save")
+- No banned words: please, sorry, ensure, execute, abort, sign in, signin, disabled
+- Error messages: state what went wrong + how to fix it (never just "Invalid" or "Error")
+- Empty states: headline + one-sentence body + one CTA button
+- Placeholder text: models expected input — never repeats the field label
+
 ### Push sequence (one small `use_figma` call per step)
 
 1. **Create wrapper frame** — same parent as original, named `"[Original name] — HiFi wrapper"`, `HORIZONTAL` auto layout, gap 32, no fills. This holds the gen card and hifi frame side by side.

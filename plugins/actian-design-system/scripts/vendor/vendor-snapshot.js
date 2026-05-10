@@ -11,10 +11,10 @@
 //   node scripts/vendor/vendor-snapshot.js               (pulls SHA from vendored.json)
 //   node scripts/vendor/vendor-snapshot.js --sha <sha>   (override SHA, also rewrites vendored.json)
 //
-// Phase 1.4b will rewrite consumer paths (e.g. docs/foundations.md →
-// vendor/foundations/foundations.md) so vendored content actually
-// becomes the source of truth at runtime. For Phase 1.4a, vendor/ is
-// populated but unused — plugin still reads from docs/, tokens/, etc.
+// Phase 1.5 (shipped) rewrote all consumer paths to read from vendor/
+// — the plugin no longer maintains its own docs/ or tokens/ trees.
+// vendored.json#knowledge_repo_sha pins the snapshot; vendor-snapshot.yml
+// refreshes it nightly and bumps plugin.json patch on diff.
 
 var fs = require("fs");
 var path = require("path");
@@ -69,14 +69,17 @@ function fetchTarball(sha, destPath) {
   // GitHub returns a tarball at this URL for any SHA on a public repo. No auth
   // needed. The .tar.gz contains a single top-level directory like
   // `actian-ds-knowledge-<full-sha>/` with the repo content inside.
-  var url = "https://github.com/" + KNOWLEDGE_REPO + "/archive/" + sha + ".tar.gz";
+  var url =
+    "https://github.com/" + KNOWLEDGE_REPO + "/archive/" + sha + ".tar.gz";
   process.stdout.write("[vendor] fetching " + url + "\n");
   execFileSync("curl", ["-sSL", "-o", destPath, url], { stdio: "inherit" });
 }
 
 function extractTarball(tarballPath, destDir) {
   fs.mkdirSync(destDir, { recursive: true });
-  execFileSync("tar", ["-xzf", tarballPath, "-C", destDir], { stdio: "inherit" });
+  execFileSync("tar", ["-xzf", tarballPath, "-C", destDir], {
+    stdio: "inherit",
+  });
   // After extraction, destDir contains a single subdir like
   // `actian-ds-knowledge-<sha>/`. Return its absolute path.
   var entries = fs.readdirSync(destDir).filter(function (e) {
@@ -84,7 +87,8 @@ function extractTarball(tarballPath, destDir) {
   });
   if (entries.length !== 1) {
     throw new Error(
-      "[vendor] expected exactly one top-level dir in tarball, got " + entries.length,
+      "[vendor] expected exactly one top-level dir in tarball, got " +
+        entries.length,
     );
   }
   return path.join(destDir, entries[0]);

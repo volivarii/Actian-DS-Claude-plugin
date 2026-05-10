@@ -4,7 +4,11 @@
   "description": "Component name and description — the brief's title card",
   "phase": "transcribe",
   "source": {
-    "primary": { "type": "registry-description", "registry": "docs/generated/dskit.json", "field": "description" },
+    "primary": {
+      "type": "registry-description",
+      "registry": "vendor/components/registries/dskit.json",
+      "field": "description"
+    },
     "secondary": { "type": "figma-mcp", "field": "node.description" },
     "fallback": "claude-generate",
     "grounding": []

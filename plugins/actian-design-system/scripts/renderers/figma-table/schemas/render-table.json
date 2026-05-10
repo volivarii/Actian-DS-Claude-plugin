@@ -73,8 +73,15 @@
       "required": ["type", "value"],
       "properties": {
         "type": { "const": "text" },
-        "value": { "type": "string", "description": "Display text. Multi-line via \\n." },
-        "weight": { "type": "string", "enum": ["regular", "semibold"], "default": "regular" }
+        "value": {
+          "type": "string",
+          "description": "Display text. Multi-line via \\n."
+        },
+        "weight": {
+          "type": "string",
+          "enum": ["regular", "semibold"],
+          "default": "regular"
+        }
       }
     },
     "tokenPillCell": {
@@ -86,7 +93,7 @@
         "value": {
           "type": "string",
           "pattern": "^--zen-",
-          "description": "Token name. Validated against tokens/actian-ds.tokens.json at boundary."
+          "description": "Token name. Validated against vendor/tokens/tokens.json at boundary."
         }
       }
     },
@@ -96,7 +103,10 @@
       "required": ["type", "value"],
       "properties": {
         "type": { "const": "code" },
-        "value": { "type": "string", "description": "Code snippet. Rendered in Fira Code monospace." }
+        "value": {
+          "type": "string",
+          "description": "Code snippet. Rendered in Fira Code monospace."
+        }
       }
     },
     "badgeCell": {

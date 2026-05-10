@@ -24,11 +24,12 @@ Iterate inside the loop with **refine** (paste a screen-frame URL + edit instruc
 - Compare two competing designs side by side (also works between branches and variants)
 - Research UX patterns and competitor approaches on demand
 - Build presentations using Actian slide templates
-- Sync tokens, components, foundations, and guidelines directly from Figma — auto-stubs missing component guidelines and auto-bumps the plugin version on data change
 
 The guidelines hold throughout — tokens, spacing, content rules, accessibility — but the output stays creative within them.
 
-**v1.67.0** · 9 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · MD-as-SoT foundations · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
+DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
+
+**v1.79.1** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
 
 ---
 

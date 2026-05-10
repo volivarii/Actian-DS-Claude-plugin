@@ -16,7 +16,7 @@ sections below are authoritative as of v1.62.1.
 | `.claude-plugin/` | Plugin manifest (`plugin.json`) — name, version, marketplace metadata. |
 | `agents/` | Subagents dispatched by skills. One `.md` per agent. |
 | `commands/` | (none currently — slash commands are co-located with skills) |
-| `docs/` | Source-of-truth design docs. `foundations.md`, `content-guidelines.md`, `accessibility-guidelines.md`, plus `component-guidelines/` (per-component MDs) and `generated/` (auto-derived JSON registries). |
+| `vendor/` | Vendored snapshot of `volivarii/actian-ds-knowledge` — design docs (`foundations/`, `content/`, `accessibility/`), per-component guidelines (`components/guidelines/`), component registries (`components/registries/`), tokens (`tokens/`), app context (`app-context/`), FM↔DS map (`fm-to-ds-map/`), presentation guide (`presentation/`). Refreshed nightly via `vendor-snapshot.yml`. Treat as read-only — edits belong upstream. |
 | `examples/` | Reference outputs for skills (sample flows, briefs, presentations). |
 | `evals/` | Eval suites for skills. |
 | `hooks/` | `hooks.json` — PreToolUse/PostToolUse hooks wired to scripts under `scripts/` (will move to `scripts/hooks/` in PR-2). |
@@ -28,7 +28,7 @@ sections below are authoritative as of v1.62.1.
 | `skills/` | One subdir per user-facing skill, each with a `SKILL.md`. |
 | `templates/` | Per-skill HTML/JSON templates. |
 | `tests/` | Bun test suite. PR-3 will mirror `scripts/` structure. |
-| `tokens/` | DTCG design tokens (`actian-ds.tokens.json`). |
+| `vendored.json` | Pinned knowledge-repo SHA + sync metadata for the current vendor snapshot. |
 
 ---
 

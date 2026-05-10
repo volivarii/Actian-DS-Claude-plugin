@@ -31,25 +31,19 @@ var SCAN_DIRS = [
 
 var SCAN_FILES = [path.join(PLUGIN_ROOT, "CLAUDE.md")];
 
-// Paths that only exist after running /sync-design-system, or are
-// gitignored secrets/local-only files. These are referenced in skill docs
-// — skip them in assertions but still log them so they stay visible.
+// Paths that are gitignored secrets/local-only files. These are referenced
+// in skill docs — skip them in assertions but still log them so they stay
+// visible.
 var KNOWN_SYNC_OUTPUTS = [
-  "docs/generated/meta-kit/meta-kit-reference.md",
-  "tokens/actian-ds.tokens.css",
-  "docs/foundations/_index.json",
-  // Sprint 1 Wave 1: REST orchestrator output, populated on first nightly run.
-  "docs/generated/meta-kit/styles.json",
   // Gitignored: contains the Figma PAT. Materialized from FIGMA_KEYS_JSON
-  // secret in the sync-from-figma workflow; never committed.
+  // secret in the knowledge-repo's sync-from-figma workflow; never committed.
   ".figma-keys.json",
 ];
 
 // Known root-relative prefixes (resolve from plugin root)
 var ROOT_PREFIXES = [
   "scripts/",
-  "docs/",
-  "tokens/",
+  "vendor/",
   "templates/",
   "references/",
   "skills/",

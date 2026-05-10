@@ -3,7 +3,7 @@
   "title": "Anatomy",
   "description": "Component structure with positioned leader-line badges, dimension annotations with real Meta Kit components, specs table with token cross-references, and interactive state row",
   "phase": "generate",
-  "grounding": ["docs/foundations.md"],
+  "grounding": ["vendor/foundations/foundations.md"],
   "sections": {
     "parts": "Letter-labeled callouts (A, B, C...) for every visible sub-element. figmaLayerName must match actual Figma layer names — badges are positioned by reading layer bounding boxes. Include container, text elements, icons, dividers — anything a developer needs to know about.",
     "specs": "Dimension annotations positioned on the component using Meta / Content / Dimension Annotation (Horizontal/Vertical) and Meta / Content / Pointer Badge (Left/Right/Up/Down) components. Each entry has: value (e.g. '24px', '4px'), layerName (Figma layer to anchor to), orientation (Horizontal/Vertical for Dimension Annotation) OR direction (Left/Right/Up/Down for Pointer Badge), and optional side/offset for positioning.",

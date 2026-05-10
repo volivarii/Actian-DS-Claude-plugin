@@ -110,11 +110,11 @@ test("resolveSection — generate recipe → returns Phase B marker, no transcri
   var recipe = {
     card: "card_anatomy",
     phase: "generate",
-    grounding: ["docs/foundations.md"],
+    grounding: ["vendor/foundations/foundations.md"],
   };
   var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
-  assert.deepEqual(result.grounding, ["docs/foundations.md"]);
+  assert.deepEqual(result.grounding, ["vendor/foundations/foundations.md"]);
 });
 
 test("resolveSection — content card with rich guidelines → figma result", function () {
@@ -197,11 +197,11 @@ test("resolveSection — stub guideline forces Phase B even on generate recipe (
   var recipe = {
     card: "card_anatomy",
     phase: "generate",
-    grounding: ["docs/foundations.md"],
+    grounding: ["vendor/foundations/foundations.md"],
   };
   var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
-  assert.deepEqual(result.grounding, ["docs/foundations.md"]);
+  assert.deepEqual(result.grounding, ["vendor/foundations/foundations.md"]);
   assert.equal(result.fallback, true);
 });
 
@@ -289,7 +289,7 @@ test("card_motion — resolveSection returns figma source when guideline declare
   };
   var result = sourcing.resolveSection("card_motion", ctx, {
     phase: "transcribe",
-    grounding: ["docs/foundations.md"],
+    grounding: ["vendor/foundations/foundations.md"],
   });
   assert.equal(result.phase, "A");
   assert.equal(result.source, "figma");
@@ -304,7 +304,7 @@ test("card_motion — skipCard when guideline has no behavior.motion", function 
   };
   var result = sourcing.resolveSection("card_motion", ctx, {
     phase: "transcribe",
-    grounding: ["docs/foundations.md"],
+    grounding: ["vendor/foundations/foundations.md"],
   });
   assert.equal(result.phase, "A");
   assert.equal(result.source, null);
@@ -320,7 +320,7 @@ test("card_motion — fallback when slug references unknown pattern", function (
   };
   var result = sourcing.resolveSection("card_motion", ctx, {
     phase: "transcribe",
-    grounding: ["docs/foundations.md"],
+    grounding: ["vendor/foundations/foundations.md"],
   });
   assert.equal(result.phase, "A");
   assert.equal(result.fallback, true);
