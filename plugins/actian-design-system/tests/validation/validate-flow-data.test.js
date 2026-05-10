@@ -1132,7 +1132,7 @@ describe("validate-flow-data", function () {
       var booleanProps = {};
       // Read registry to get default-true boolean names dynamically
       var registry = require(
-        path.join(PLUGIN_ROOT, "docs", "generated", "fmkit.json"),
+        path.join(PLUGIN_ROOT, "vendor", "components", "registries", "fmkit.json"),
       );
       var fmButton = registry.components["fm-button"];
       var props = fmButton.properties;

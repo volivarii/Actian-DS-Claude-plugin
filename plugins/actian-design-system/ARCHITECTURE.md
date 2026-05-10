@@ -46,7 +46,8 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 | `/companion` | `skills/companion/SKILL.md` | (none) | (none) | (none) | (none) | (none) | `references/figma/figma-output.md`, `references/context/{companion-context,ux-patterns}.md` |
 | `/convert-to-hifi` | `skills/convert-to-hifi/SKILL.md` | (none) | (none) | (none) | (none) | (none) | `references/figma/{figma-output,figma-push-patterns}.md`, `references/ds-rules/component-instance-rules.md` |
 | `/compare-flows` | `skills/compare-flows/SKILL.md` | (none) | (none) | (none) | (none) | (none) | `references/figma/figma-output.md`, `references/ds-rules/quality-checklist.md` |
-| `/sync-design-system` | `skills/sync-design-system/SKILL.md` | (none) | (none) | (none) | (none) | (none) | `references/figma/figma-output.md` |
+
+> **`/sync-design-system` was decommissioned in Federation Phase 1.5 (v1.79.0).** DS knowledge now lives in [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) and is vendored into `plugins/actian-design-system/vendor/` via the `vendor-snapshot.yml` workflow (nightly cron + manual). The knowledge repo's CI runs the Figma sync.
 
 ---
 
@@ -68,12 +69,13 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 ### `scripts/` subdirs
 
 - `hooks/` — PreToolUse / PostToolUse shell guards (one `.sh` each). Wired in `hooks/hooks.json`. New PreToolUse guards go here.
-- `sync/` — Figma ↔ registry sync. `sync-from-figma.js` is the entrypoint. New code that talks to Figma (REST or write-side) goes here.
+- `vendor/` — Vendor-snapshot tooling. `vendor-snapshot.js` pulls a pinned snapshot from `volivarii/actian-ds-knowledge` into `vendor/`. New vendor-pipeline code goes here.
 - `validation/` — Pipeline validators (banned text, tokens, terminology, schema). New validators go here.
-- `renderers/` — HTML/preview output. `assemble-preview.js`, the local preview server, and the `html-renderers/` adapters. New preview/render code goes here.
+- `renderers/` — HTML/preview output. `assemble-preview.js`, the local preview server, the `html-renderers/` adapters, and `render-component-reference.js` (called post-vendor-pull to regenerate `*-components.md` mirrors).
 - `transformers/` — Data shape transformations between source formats (Figma → flow-data, flow-data → hifi, recipe partials → final).
-- `foundations/` — Foundations.md → JSON registries derivation. Owned by the MD-as-SoT pipeline.
-- `changelog/` — Push-to-push design changelog generator and classifier.
+- `evals/` — Eval lane scripts (component-brief: grading-assertions, grade-locally, run-component-brief).
+
+> **Removed in Federation Phase 1.5 (v1.79.0):** `sync/`, `foundations/`, `changelog/` — moved to `volivarii/actian-ds-knowledge` CI.
 - `lib/` — Shared utilities used by 2+ scripts (constants, ID stamping, scope derivation, snapshot store, intent resolver, unit resolver, Node binary resolver). New shared utilities go here.
 
 ### `tests/` subdirs

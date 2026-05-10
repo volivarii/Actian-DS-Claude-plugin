@@ -20,22 +20,39 @@ var { describe, it } = require("node:test");
 var assert = require("node:assert");
 var fs = require("fs");
 var path = require("path");
-var shared = require(path.resolve(__dirname, "..", "..", "scripts", "lib", "shared-constants.js"));
+var shared = require(
+  path.resolve(__dirname, "..", "..", "scripts", "lib", "shared-constants.js"),
+);
 
 // ---------------------------------------------------------------------------
 // Paths
 // ---------------------------------------------------------------------------
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
-var DOCS_DIR = path.join(PLUGIN_ROOT, "docs", "generated");
+var REGISTRIES_DIR = path.join(
+  PLUGIN_ROOT,
+  "vendor",
+  "components",
+  "registries",
+);
+var FM_TO_DS_MAP_PATH = path.join(
+  PLUGIN_ROOT,
+  "vendor",
+  "fm-to-ds-map",
+  "fm-to-ds-map.json",
+);
 
 // ---------------------------------------------------------------------------
-// Load registries
+// Load registries (vendored from volivarii/actian-ds-knowledge)
 // ---------------------------------------------------------------------------
 
-var dsRegistry = JSON.parse(fs.readFileSync(path.join(DOCS_DIR, "dskit.json"), "utf8"));
-var fmRegistry = JSON.parse(fs.readFileSync(path.join(DOCS_DIR, "fmkit.json"), "utf8"));
-var map = JSON.parse(fs.readFileSync(path.join(DOCS_DIR, "fm-to-ds-map.json"), "utf8"));
+var dsRegistry = JSON.parse(
+  fs.readFileSync(path.join(REGISTRIES_DIR, "dskit.json"), "utf8"),
+);
+var fmRegistry = JSON.parse(
+  fs.readFileSync(path.join(REGISTRIES_DIR, "fmkit.json"), "utf8"),
+);
+var map = JSON.parse(fs.readFileSync(FM_TO_DS_MAP_PATH, "utf8"));
 
 // ---------------------------------------------------------------------------
 // Part 1: Every mapping's dsSlug exists in dskit.json
@@ -46,13 +63,19 @@ describe("FM-to-DS Map Tests", function () {
     for (var ref1 in map.mappings) {
       (function (fmSlug) {
         var entry = map.mappings[fmSlug];
-        it(fmSlug + " → dsKey '" + entry.dsKey + "' resolves to a dskit slug", function () {
-          var resolved = shared.slugFromKey(entry.dsKey, "ds");
-          assert.ok(
-            resolved && dsRegistry.components[resolved],
-            fmSlug + ": dsKey '" + entry.dsKey + "' does not resolve in dskit.json"
-          );
-        });
+        it(
+          fmSlug + " → dsKey '" + entry.dsKey + "' resolves to a dskit slug",
+          function () {
+            var resolved = shared.slugFromKey(entry.dsKey, "ds");
+            assert.ok(
+              resolved && dsRegistry.components[resolved],
+              fmSlug +
+                ": dsKey '" +
+                entry.dsKey +
+                "' does not resolve in dskit.json",
+            );
+          },
+        );
       })(ref1);
     }
   });
@@ -71,20 +94,33 @@ describe("FM-to-DS Map Tests", function () {
 
         for (var axis2 in entry.defaultVariant) {
           (function (axisName, axisValue) {
-            it(fmSlug + " defaultVariant['" + axisName + "'] = '" + axisValue + "' is valid in DS", function () {
-              // Only validate if DS component has variants for this axis
-              if (!dsComp.variants || !dsComp.variants[axisName]) {
-                // Axis not present in DS variants — skip validation (may be a real DS axis
-                // with a single implicit value or the axis name has a known typo in Figma)
-                return;
-              }
-              var validValues = dsComp.variants[axisName];
-              assert.ok(
-                validValues.indexOf(axisValue) !== -1,
-                fmSlug + " defaultVariant['" + axisName + "'] = '" + axisValue +
-                "' not found in DS variants. Valid: " + validValues.join(", ")
-              );
-            });
+            it(
+              fmSlug +
+                " defaultVariant['" +
+                axisName +
+                "'] = '" +
+                axisValue +
+                "' is valid in DS",
+              function () {
+                // Only validate if DS component has variants for this axis
+                if (!dsComp.variants || !dsComp.variants[axisName]) {
+                  // Axis not present in DS variants — skip validation (may be a real DS axis
+                  // with a single implicit value or the axis name has a known typo in Figma)
+                  return;
+                }
+                var validValues = dsComp.variants[axisName];
+                assert.ok(
+                  validValues.indexOf(axisValue) !== -1,
+                  fmSlug +
+                    " defaultVariant['" +
+                    axisName +
+                    "'] = '" +
+                    axisValue +
+                    "' not found in DS variants. Valid: " +
+                    validValues.join(", "),
+                );
+              },
+            );
           })(axis2, entry.defaultVariant[axis2]);
         }
       })(ref2);
@@ -116,30 +152,57 @@ describe("FM-to-DS Map Tests", function () {
                 // Null target values are explicit drops — skip validation
                 if (dsValue === null) return;
 
-                it(fmSlug + " variantMap['" + axisName + "']['" + fmValue + "'] = '" + dsValue + "' is valid in DS", function () {
-                  if (!dsComp.variants) {
-                    assert.fail(fmSlug + ": DS component '" + entry.dsSlug + "' has no variants");
-                  }
-
-                  // Find the DS axis whose values array contains dsValue
-                  var foundInAxis = null;
-                  var dsAxes = Object.keys(dsComp.variants);
-                  for (var ai = 0; ai < dsAxes.length; ai++) {
-                    if (dsComp.variants[dsAxes[ai]].indexOf(dsValue) !== -1) {
-                      foundInAxis = dsAxes[ai];
-                      break;
+                it(
+                  fmSlug +
+                    " variantMap['" +
+                    axisName +
+                    "']['" +
+                    fmValue +
+                    "'] = '" +
+                    dsValue +
+                    "' is valid in DS",
+                  function () {
+                    if (!dsComp.variants) {
+                      assert.fail(
+                        fmSlug +
+                          ": DS component '" +
+                          entry.dsSlug +
+                          "' has no variants",
+                      );
                     }
-                  }
 
-                  assert.ok(
-                    foundInAxis !== null,
-                    fmSlug + " variantMap['" + axisName + "']['" + fmValue + "'] target '" + dsValue +
-                    "' not found in any DS variant axis for '" + entry.dsSlug +
-                    "'. DS axes: " + dsAxes.map(function (a) {
-                      return a + "=[" + dsComp.variants[a].join(", ") + "]";
-                    }).join("; ")
-                  );
-                });
+                    // Find the DS axis whose values array contains dsValue
+                    var foundInAxis = null;
+                    var dsAxes = Object.keys(dsComp.variants);
+                    for (var ai = 0; ai < dsAxes.length; ai++) {
+                      if (dsComp.variants[dsAxes[ai]].indexOf(dsValue) !== -1) {
+                        foundInAxis = dsAxes[ai];
+                        break;
+                      }
+                    }
+
+                    assert.ok(
+                      foundInAxis !== null,
+                      fmSlug +
+                        " variantMap['" +
+                        axisName +
+                        "']['" +
+                        fmValue +
+                        "'] target '" +
+                        dsValue +
+                        "' not found in any DS variant axis for '" +
+                        entry.dsSlug +
+                        "'. DS axes: " +
+                        dsAxes
+                          .map(function (a) {
+                            return (
+                              a + "=[" + dsComp.variants[a].join(", ") + "]"
+                            );
+                          })
+                          .join("; "),
+                    );
+                  },
+                );
               })(fmVal, axisMap[fmVal]);
             }
           })(axis3);
@@ -160,18 +223,23 @@ describe("FM-to-DS Map Tests", function () {
       assert.ok(
         total >= 20,
         "Expected >= 20 FM components covered (mappings + unmappable), got " +
-        total + " (" + mappingCount + " mapped + " + unmappableCount + " unmappable)"
+          total +
+          " (" +
+          mappingCount +
+          " mapped + " +
+          unmappableCount +
+          " unmappable)",
       );
     });
 
     it("map.mappings is a non-empty object", function () {
       assert.ok(
         map.mappings && typeof map.mappings === "object",
-        "map.mappings must be an object"
+        "map.mappings must be an object",
       );
       assert.ok(
         Object.keys(map.mappings).length > 0,
-        "map.mappings must not be empty"
+        "map.mappings must not be empty",
       );
     });
 
@@ -195,9 +263,12 @@ describe("FM-to-DS Map Tests", function () {
           assert.strictEqual(
             entry.dsSlug,
             derived,
-            fmSlug + ": dsSlug '" + entry.dsSlug +
-            "' out of sync with derived '" + derived +
-            "' — re-run /sync-design-system to refresh"
+            fmSlug +
+              ": dsSlug '" +
+              entry.dsSlug +
+              "' out of sync with derived '" +
+              derived +
+              "' — re-run /sync-design-system to refresh",
           );
         });
       })(ref5);
