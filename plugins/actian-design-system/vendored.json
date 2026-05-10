@@ -1,8 +1,8 @@
 {
   "knowledge_repo": "volivarii/actian-ds-knowledge",
-  "knowledge_repo_sha": "935c5e9af06ca41a2cfc23632dd688cd07f0035f",
-  "knowledge_repo_short_sha": "935c5e9",
-  "vendored_at": "2026-05-09T16:15:33.804Z",
+  "knowledge_repo_sha": "8c4d615a5c7bf2faca5a98ac381124f8656484cd",
+  "knowledge_repo_short_sha": "8c4d615",
+  "vendored_at": "2026-05-10T00:35:49.481Z",
   "vendored_entries": [
     "accessibility",
     "app-context",
@@ -10,6 +10,7 @@
     "content",
     "fm-to-ds-map",
     "foundations",
+    "presentation",
     "tokens"
   ],
   "excluded_entries": [
@@ -25,5 +26,5 @@
     "package.json",
     "scripts"
   ],
-  "vendor_url": "https://github.com/volivarii/actian-ds-knowledge/tree/935c5e9af06ca41a2cfc23632dd688cd07f0035f"
+  "vendor_url": "https://github.com/volivarii/actian-ds-knowledge/tree/8c4d615a5c7bf2faca5a98ac381124f8656484cd"
 }
