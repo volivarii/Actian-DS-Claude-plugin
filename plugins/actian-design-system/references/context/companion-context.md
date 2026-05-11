@@ -108,7 +108,7 @@ Full context: `references/context/app-context.md`
 | FM Kit | 44 components | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 25 components + 3 templates | Inter | Generation output, annotation markers |
 
-Before building custom frames, check: `vendor/components/dskit-components.md`, `vendor/components/fm-components.md`, `vendor/components/guidelines/{name}.json`
+Before building custom frames, check: `vendor/components/dist/dskit-components.md`, `vendor/components/dist/fm-components.md`, `vendor/components/src/guidelines/{name}.json`
 
 **Common FM wireframe components:** fmButton, fmTextInput, fmDropdown, fmSearchInput, fmTableCell, fmCheckbox, fmRadioButton, fmToggle, fmAlert, fmBanner, fmDialog, fmEmptyState, fmPlaceholder, fmTab, fmStepper, fmBadge, fmTag, fmToast, fmPageHeader, fmAppHeader, fmNavItem
 
@@ -131,7 +131,7 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 
 | Topic | File |
 |-------|------|
-| Specific component rules | `vendor/components/guidelines/{name}.json` |
+| Specific component rules | `vendor/components/src/guidelines/{name}.json` |
 | Accessibility standards | `vendor/accessibility/accessibility.md` |
 | Foundation (typography, color, etc.) | `vendor/foundations/{topic}.json` |
 | FM CSS values (wireframes) | `references/ds-rules/fm-css-reference.md` |

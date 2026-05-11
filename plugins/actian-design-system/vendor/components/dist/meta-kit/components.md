@@ -1,6 +1,6 @@
 # Meta Kit — Component Reference
 
-Auto-generated from `vendor/components/registries/metakit.json` by `scripts/renderers/render-component-reference.js`.
+Auto-generated from `vendor/components/dist/registries/metakit.json` by `scripts/renderers/render-component-reference.js`.
 28 components.
 
 ---

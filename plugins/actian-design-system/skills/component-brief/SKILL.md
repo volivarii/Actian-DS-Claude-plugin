@@ -24,7 +24,7 @@ Keywords: `"preview"` → HTML; `"playground"` → explorer.
 
 ## Step 1 — Research (ONE parallel batch)
 
-Parse URL (`fileKey` + `nodeId` per `../../references/figma/figma-output.md`). ONE message: (1) classify-node via `use_figma` (see figma-output.md — returns node type, name, children), (2) `vendor/components/guidelines/<slug>.json`, (3) `references/component-brief/data-schema.md`. Then: route based on node type — if PAGE, pick the COMPONENT_SET child from the classification response; if COMPONENT_SET, use directly. Call `get_design_context` on the resolved target. Fallback: `get_screenshot`.
+Parse URL (`fileKey` + `nodeId` per `../../references/figma/figma-output.md`). ONE message: (1) classify-node via `use_figma` (see figma-output.md — returns node type, name, children), (2) `vendor/components/src/guidelines/<slug>.json`, (3) `references/component-brief/data-schema.md`. Then: route based on node type — if PAGE, pick the COMPONENT_SET child from the classification response; if COMPONENT_SET, use directly. Call `get_design_context` on the resolved target. Fallback: `get_screenshot`.
 
 ## Step 1.5 — Present card selection
 
@@ -93,7 +93,7 @@ If the Step 1.5 response opted in to research (e.g., `research all`, `research u
 2. Dispatch the `brief-researcher` agent with:
    - Component name + slug
    - Scoped cards (intersect requested research with research-applicable cards: card_usage, card_content, card_accessibility)
-   - Existing context inlined: `component-guidelines/<slug>.json`, `vendor/foundations/foundations.md` (relevant excerpts), `vendor/content/content.md`, `vendor/accessibility/accessibility.md`
+   - Existing context inlined: `component-guidelines/<slug>.json`, `vendor/foundations/src/foundations.md` (relevant excerpts), `vendor/content/content.md`, `vendor/accessibility/accessibility.md`
    - Output path: `{project_working_directory}/components/[name]/[name]-research-findings.json`
 3. Wait for the agent's DONE / DONE_WITH_CONCERNS / ERROR signal.
 4. On ERROR: ask the user "Research failed: <reason>. Continue without research? (yes/no)". On `yes`, proceed without `research-findings.json`. On `no`, abort.
@@ -112,7 +112,7 @@ Build `ctx`:
 ctx = {
   component, slug, fileKey, nodeId,
   nodeDescription,        // from dskit.json[slug].description (primary), MCP node.description (fallback)
-  guidelinesJson,         // parsed vendor/components/guidelines/<slug>.json
+  guidelinesJson,         // parsed vendor/components/src/guidelines/<slug>.json
   selectedCards           // ["card_header", "card_tokens", ...]
 }
 ```

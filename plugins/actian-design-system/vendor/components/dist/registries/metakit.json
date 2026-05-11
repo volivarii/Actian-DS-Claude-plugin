@@ -1,4 +1,9 @@
 {
+  "_meta": {
+    "hybrid": true,
+    "hybrid_field": "templates",
+    "hybrid_note": "The 'templates' object at the bottom of this file is hand-curated and preserved across syncs by scripts/sync/sync-from-figma.js. Everything else is regenerated from Figma. Edit only the templates block."
+  },
   "library": "meta-kit",
   "fileKey": "osoeCLcrWqfoq8TvLQoyh0",
   "lastSynced": "2026-05-09T15:47:21.183Z",
@@ -25,11 +30,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Trend": [
-          "Up",
-          "Down",
-          "Neutral"
-        ]
+        "Trend": ["Up", "Down", "Neutral"]
       }
     },
     "meta-chrome-theme-card": {
@@ -44,11 +45,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Theme": [
-          "Actian",
-          "Studio",
-          "Explorer"
-        ]
+        "Theme": ["Actian", "Studio", "Explorer"]
       }
     },
     "meta-chrome-feedback": {
@@ -63,10 +60,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Type": [
-          "Designer",
-          "System"
-        ]
+        "Type": ["Designer", "System"]
       }
     },
     "meta-content-do-don-t-pair": {
@@ -98,10 +92,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Mode": [
-          "DS",
-          "FM"
-        ]
+        "Mode": ["DS", "FM"]
       }
     },
     "meta-chrome-brief-card": {
@@ -129,14 +120,8 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Mode": [
-          "DS",
-          "FM"
-        ],
-        "Type": [
-          "Standard",
-          "Page Header"
-        ]
+        "Mode": ["DS", "FM"],
+        "Type": ["Standard", "Page Header"]
       }
     },
     "meta-chrome-flow-screen": {
@@ -151,10 +136,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Size": [
-          "Standard",
-          "Compact"
-        ]
+        "Size": ["Standard", "Compact"]
       }
     },
     "meta-chrome-accessibility-card": {
@@ -174,10 +156,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Mode": [
-          "DS",
-          "FM"
-        ]
+        "Mode": ["DS", "FM"]
       }
     },
     "meta-content-dimension-annotation": {
@@ -197,10 +176,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Orientation": [
-          "Horizontal",
-          "Vertical"
-        ]
+        "Orientation": ["Horizontal", "Vertical"]
       }
     },
     "meta-content-pointer-badge": {
@@ -220,12 +196,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Direction": [
-          "Left",
-          "Right",
-          "Up",
-          "Down"
-        ]
+        "Direction": ["Left", "Right", "Up", "Down"]
       }
     },
     "meta-content-contrast-badge": {
@@ -245,11 +216,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Status": [
-          "Pass",
-          "Exempt",
-          "Fail"
-        ]
+        "Status": ["Pass", "Exempt", "Fail"]
       }
     },
     "meta-content-color-swatch": {
@@ -264,11 +231,7 @@
       "nestedComponents": [],
       "guidelinesFile": null,
       "variants": {
-        "Size": [
-          "Small",
-          "Medium",
-          "Large"
-        ]
+        "Size": ["Small", "Medium", "Large"]
       }
     },
     "meta-template-table-data-row": {
@@ -672,21 +635,14 @@
     "section-header": {
       "key": "f4fd576001f4f1f4606a4efb051d1e4492e378c4",
       "nodeId": "76:12",
-      "textSlots": [
-        "title",
-        "subtitle"
-      ],
+      "textSlots": ["title", "subtitle"],
       "visibility": "template-only",
       "category": "layout"
     },
     "swatch-row": {
       "key": "96647364b6cb5c55b7ced72106708daaa33afb7f",
       "nodeId": "77:12",
-      "textSlots": [
-        "name",
-        "value",
-        "hex"
-      ],
+      "textSlots": ["name", "value", "hex"],
       "visibility": "template-only",
       "category": "tokens"
     },

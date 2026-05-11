@@ -67,8 +67,8 @@ Parser:
 
 When `--scope` is set, run only the listed dimensions; otherwise run all.
 
-- **Component guidelines** (scope: `tokens`, `all`): Read `../../vendor/components/guidelines/<slug>.json` for per-component content/design rules
-- **Component consistency** (scope: `tokens`, `all`): FM-prefixed components used consistently, no detached instances or ad-hoc recreations, names match catalog (`../../vendor/components/fm-components.md`)
+- **Component guidelines** (scope: `tokens`, `all`): Read `../../vendor/components/src/guidelines/<slug>.json` for per-component content/design rules
+- **Component consistency** (scope: `tokens`, `all`): FM-prefixed components used consistently, no detached instances or ad-hoc recreations, names match catalog (`../../vendor/components/dist/fm-components.md`)
 - **Token usage** (scope: `tokens`, `all`): No hardcoded hex colors, typography uses Inter (FM) or Roboto (DS Kit) text style tokens, spacing on scale (4/8/12/16/24/28/32), border radius uses radius tokens
 - **Flow structure** (scope: `all`): Dark cover card with Feature/Flow/User, screen naming `[Persona] - [Page] - [State]`, 1440x960 or 1440x700, left-to-right reading order
 - **Forms layout** (scope: `all`): Simple inputs 480px max-width, extended elements full-width, action footer sticky bottom with primary right

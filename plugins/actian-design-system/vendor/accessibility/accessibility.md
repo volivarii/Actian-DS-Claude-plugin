@@ -4,7 +4,7 @@
 <!-- The plugin vendors this file via vendor-snapshot.yml. -->
 <!-- Edit here in volivarii/actian-ds-knowledge — never in the plugin's vendor/ tree. -->
 
-Source: [Accessibility page](https://www.figma.com/design/<DS Kit_FILE_KEY>?node-id=12685:19373)
+Source: [Accessibility page](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK?node-id=12685:19373)
 Generated: 2026-03-26
 
 ---

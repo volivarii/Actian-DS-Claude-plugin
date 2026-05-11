@@ -158,7 +158,7 @@ Each slide: **1920 x 1080 px**, auto-layout inside. Font: **Roboto**.
 - **Back cover**: `primary-500` gradient, reverse text
 
 Token binding: `../../references/figma/figma-output.md` § "Token binding" + § "Variable binding by name" (runtime API; precomputed key list dropped in Federation Phase 1.5).
-Shared components: `../../vendor/components/meta-kit/components.md` (Do-Don't Pair, Code Block).
+Shared components: `../../vendor/components/dist/meta-kit/components.md` (Do-Don't Pair, Code Block).
 Tables: `../figma/builders.md` (`buildSpecTable`).
 
 ### Charts in `use_figma`

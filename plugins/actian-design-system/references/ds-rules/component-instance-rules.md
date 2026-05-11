@@ -3,7 +3,7 @@
 ## Token mapping
 
 Per-component token lookups are in the synced JSON files — do NOT hardcode from memory:
-- **Per-component guidelines:** `vendor/components/guidelines/*.json` (44 components — content rules, design rules, variants)
+- **Per-component guidelines:** `vendor/components/src/guidelines/*.json` (44 components — content rules, design rules, variants)
 - **All token values:** `vendor/tokens/tokens.json` (W3C DTCG, 3 themes) + `vendor/tokens/token-reference.md`
 - **Variable keys for Figma binding:** enumerate at runtime via `figma.variables.getLocalVariableCollectionsAsync()` and bind by name. See `../figma/figma-output.md` § "Variable binding by name".
 - **FM palette:** `references/ds-rules/fm-css-reference.md`

@@ -64,7 +64,7 @@ Use WebSearch to find how 2-3 best-in-class SaaS apps handle this specific flow:
 
 ### 4. Component guidelines
 
-Check if `vendor/components/guidelines/<relevant>.json` exists for components involved in this flow. Extract design rules and content rules that apply.
+Check if `vendor/components/src/guidelines/<relevant>.json` exists for components involved in this flow. Extract design rules and content rules that apply.
 
 ## Output format
 

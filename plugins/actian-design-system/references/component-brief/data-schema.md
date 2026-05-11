@@ -436,7 +436,7 @@ FM mode uses a simpler 5-card schema. The `meta.library` field is `"fm"` — ren
 
 ## Component-guideline `anatomyScale` field (v1.70.0+)
 
-Optional integer field on `vendor/components/guidelines/<slug>.json`. Overrides the Pattern 9 anatomy diagram's automatic scale heuristic. Valid values: 1, 2, 3, or 4.
+Optional integer field on `vendor/components/src/guidelines/<slug>.json`. Overrides the Pattern 9 anatomy diagram's automatic scale heuristic. Valid values: 1, 2, 3, or 4.
 
 The default heuristic in `scripts/lib/anatomy-scale.js` `pickScale(width, height)` picks the smallest scale where the smaller instance dimension exceeds 80px (e.g., 16×16 Checkbox → 4×, 60×60 → 2×, 200×200 → 1×). The override is useful when the heuristic produces too-small a diagram for a specific component family.
 

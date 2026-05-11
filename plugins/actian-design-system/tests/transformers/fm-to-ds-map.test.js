@@ -33,6 +33,7 @@ var REGISTRIES_DIR = path.join(
   PLUGIN_ROOT,
   "vendor",
   "components",
+  "dist",
   "registries",
 );
 var FM_TO_DS_MAP_PATH = path.join(

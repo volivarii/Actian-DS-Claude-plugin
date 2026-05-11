@@ -17,15 +17,15 @@ var rules = require(
 var KIT_HEADERS = {
   fm: {
     title: "Fat Marker Kit",
-    source: "vendor/components/registries/fmkit.json",
+    source: "vendor/components/dist/registries/fmkit.json",
   },
   ds: {
     title: "Actian Design System 2026",
-    source: "vendor/components/registries/dskit.json",
+    source: "vendor/components/dist/registries/dskit.json",
   },
   meta: {
     title: "Meta Kit",
-    source: "vendor/components/registries/metakit.json",
+    source: "vendor/components/dist/registries/metakit.json",
   },
 };
 
@@ -160,11 +160,12 @@ module.exports = {
 if (require.main === module) {
   var args = process.argv.slice(2);
   var kitArg = "all";
-  var outDir = path.join(PLUGIN_ROOT, "vendor", "components");
+  var outDir = path.join(PLUGIN_ROOT, "vendor", "components", "dist");
   var registriesDir = path.join(
     PLUGIN_ROOT,
     "vendor",
     "components",
+    "dist",
     "registries",
   );
 
