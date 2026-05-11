@@ -93,7 +93,12 @@ If the Step 1.5 response opted in to research (e.g., `research all`, `research u
 2. Dispatch the `brief-researcher` agent with:
    - Component name + slug
    - Scoped cards (intersect requested research with research-applicable cards: card_usage, card_content, card_accessibility)
-   - Existing context inlined: `component-guidelines/<slug>.json`, `vendor/foundations/src/foundations.md` (relevant excerpts), `vendor/content/dist/content.md`, `vendor/accessibility/accessibility.md`
+   - Existing context inlined:
+     - `component-guidelines/<slug>.json` (component-specific brief context)
+     - `vendor/foundations/src/foundations.md` (relevant excerpts)
+     - `vendor/content/src/content-index.md` + the matching `vendor/content/src/<topic-slug>.md` (canonical UI-copy guidance for the component — see `agents/brief-researcher.md` for the routing table)
+     - `vendor/content/dist/content.md` (fallback for cross-cutting voice/tone, and when no per-topic file matches)
+     - `vendor/accessibility/accessibility.md`
    - Output path: `{project_working_directory}/components/[name]/[name]-research-findings.json`
 3. Wait for the agent's DONE / DONE_WITH_CONCERNS / ERROR signal.
 4. On ERROR: ask the user "Research failed: <reason>. Continue without research? (yes/no)". On `yes`, proceed without `research-findings.json`. On `no`, abort.

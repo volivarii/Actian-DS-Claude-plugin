@@ -39,12 +39,28 @@ Research cross-DS patterns for the specified component, scoped to the cards the 
 You will receive:
 - **Component name** and **slug** (e.g., "Button" / "button")
 - **Scoped cards** — array of card keys to research (subset of `card_usage`, `card_content`, `card_accessibility`)
-- **Existing context** — inlined contents of:
-  - `vendor/components/src/guidelines/<slug>.json`
+- **Existing context** — files inlined:
+  - `vendor/components/src/guidelines/<slug>.json` — component-specific brief context. Its embedded `content_guidelines` field is historical extracted notes; treat it as supplementary, not authoritative.
   - `vendor/foundations/src/foundations.md` (relevant excerpts)
-  - `vendor/content/dist/content.md`
+  - `vendor/content/src/content-index.md` — inventory of UI-copy topic files
+  - `vendor/content/src/<topic-slug>.md` — per-topic UI-copy file. **This is the source of truth for component-specific copy guidance.** Use the content-index to map component → topic. See routing examples below.
+  - `vendor/content/dist/content.md` — consolidated reference. Use the `Global guidelines` section for cross-cutting voice/tone rules, and as fallback when no per-topic file matches.
   - `vendor/accessibility/accessibility.md`
 - **Output path** for the findings JSON
+
+### Topic-file routing
+
+Map the component to its content topic via `content-index.md`. Examples:
+
+| Component(s) | Topic file |
+|---|---|
+| Button | `buttons.md` |
+| Checkbox, Checkbox-with-label | `checkboxes.md` |
+| Tag, Badge | `tags-badges-status-indicators.md` |
+| Dialog, Confirmation | `dialogs-and-confirmations.md` |
+| Empty / Error / Maintenance / Success state | `empty-and-system-states.md` |
+
+If no clean match exists for the component, omit the per-topic file, rely on `content/dist/content.md` for content rules, and add a note in the output's `research_quality` field (e.g., `"content_routing": "no per-topic file matched; consolidated only"`).
 
 ## Research targets
 
@@ -90,7 +106,7 @@ Use `WebSearch` for discovery, `WebFetch` for the canonical doc page per DS.
     "divergences_from_existing": [
       {
         "field": "primary_action_position",
-        "existing": "right-aligned per vendor/content/dist/content.md",
+        "existing": "right-aligned per vendor/content/src/buttons.md",
         "research": "left-aligned in 4/5 surveyed DSs",
         "note": "Designer review needed"
       }
