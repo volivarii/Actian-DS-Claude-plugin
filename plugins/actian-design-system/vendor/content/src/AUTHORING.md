@@ -70,7 +70,7 @@ The `global-guidelines.md` and `content-index.md` files are exceptions — they 
 ## What lives elsewhere
 
 - **`content/content.md`** — consolidated summary index. Currently hand-maintained; will be auto-generated from `content/src/*.md` in a later phase. Don't edit it; edit the per-component files instead.
-- **`foundations/src/foundations.md`** — primitives, tokens, scales (Kristina's domain).
+- **`foundations/src/foundations.md`** — primitives, tokens, scales (Design system lead's domain).
 - **`tokens/`** — DTCG W3C-format design tokens.
 - **`accessibility/accessibility.md`** — WCAG 2.2 AA guidance.
 - **`app-context/app-context.json`** — per-app patterns, persona, terminology.

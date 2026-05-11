@@ -1,6 +1,6 @@
 # `foundations/dist/` — AUTO-GENERATED, DO NOT EDIT
 
-The 8 JSON files in this directory are derived by CI from `foundations/src/foundations.md` (Kristina's MD-as-SoT). Hand edits here are reverted on the next CI run.
+The 8 JSON files in this directory are derived by CI from `foundations/src/foundations.md` (Design system lead's MD-as-SoT). Hand edits here are reverted on the next CI run.
 
 | File | Source section in `foundations.md` |
 |---|---|

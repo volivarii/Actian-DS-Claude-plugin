@@ -1,12 +1,12 @@
 {
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.3.7",
+  "knowledge_version": "0.3.8",
   "paths": {
     "foundations.md": {
       "path": "foundations/src/foundations.md",
       "type": "markdown",
       "origin": "human",
-      "description": "Master reference for Actian DS — primitives, tokens, scales (Kristina, MD-as-SoT)"
+      "description": "Master reference for Actian DS — primitives, tokens, scales (Design system lead, MD-as-SoT)"
     },
     "foundations.authoring": {
       "path": "foundations/src/AUTHORING.md",
@@ -189,7 +189,7 @@
       "pattern": "{slug}.md",
       "type": "markdown",
       "origin": "human",
-      "description": "Per-component content guidelines (Jeff, folded in 2026-05-11). 37 component files + global-guidelines.md (voice + words-to-avoid) + content-index.md (AI query guide) + format-spec.md (markdown structure + Figma/Word output mapping). Each component file follows When-to-use → Style → Behavior → Do/Don't."
+      "description": "Per-component content guidelines (Content lead, folded in 2026-05-11). 37 component files + global-guidelines.md (voice + words-to-avoid) + content-index.md (AI query guide) + format-spec.md (markdown structure + Figma/Word output mapping). Each component file follows When-to-use → Style → Behavior → Do/Don't."
     }
   },
   "aliases": {}
