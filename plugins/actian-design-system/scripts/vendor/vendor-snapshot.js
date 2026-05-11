@@ -28,19 +28,28 @@ var KNOWLEDGE_REPO = "volivarii/actian-ds-knowledge";
 
 // Top-level entries in the knowledge repo NOT to vendor — knowledge-repo's
 // own infrastructure (CI scripts, workflows, package manifests, meta files)
-// has no place inside the plugin.
+// + contributor-facing docs (CLAUDE.md, AGENTS.md, etc.) have no place
+// inside the plugin. Consumers reference logical names via
+// vendor/paths-manifest.json, which IS vendored.
 var EXCLUDE_TOP_LEVEL = new Set([
   ".git",
   ".github",
   ".gitignore",
   "node_modules",
   "scripts",
+  "tests",
   "package.json",
   "package-lock.json",
   ".figma-keys.json.example",
   "SMOKE_LOG.md",
   "LICENSE.txt",
   "README.md",
+  // Contributor-facing AI surface files (Move B). The plugin doesn't read
+  // these — they're for humans / agents authoring INSIDE the knowledge repo.
+  "AGENTS.md",
+  "CLAUDE.md",
+  "CONTRIBUTING.md",
+  "llms.txt",
 ]);
 
 function parseArgs(argv) {
