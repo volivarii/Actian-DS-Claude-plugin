@@ -6,15 +6,19 @@ name: PR checks
 #   2. json-syntax     — validates that all checked-in JSON files parse
 #   3. version-bump    — ensures plugin.json is bumped when source changes
 #
-# Path-filtered to plugins/actian-design-system/** so unrelated PRs (docs/,
-# comms/, .github/ on its own) don't waste CI minutes.
+# Runs on EVERY PR (no paths: filter). Avoids the path-filtered-required-
+# check dead-PR gotcha: required status checks with paths: filters create a
+# permanent "pending" state for unrelated PRs (e.g., docs-only or root-file-
+# only changes) that don't trigger the workflow.
+#
+# version-bump is graceful — returns early when no plugin source files
+# changed (see scripts/check-version-bump.js:111). json-syntax + test suite
+# both run quickly (~2s combined); cost on non-plugin PRs is negligible.
 #
 # Tiered plan + rationale: see memory/project_ci_pr_checks.md.
 
 on:
   pull_request:
-    paths:
-      - 'plugins/actian-design-system/**'
 
 jobs:
   test:
