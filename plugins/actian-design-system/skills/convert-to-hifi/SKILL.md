@@ -188,7 +188,7 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 
 ### Copy polish
 
-Before pushing, audit all visible text against `vendor/content/content.md`:
+Before pushing, audit all visible text against `vendor/content/dist/content.md`:
 - Sentence case on all UI text (buttons, labels, headings, column headers, placeholders)
 - Buttons: verb + object ("Save changes", not "Save Changes" and not bare "Save")
 - No banned words: please, sorry, ensure, execute, abort, sign in, signin, disabled

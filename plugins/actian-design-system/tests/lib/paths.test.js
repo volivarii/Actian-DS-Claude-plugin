@@ -125,9 +125,104 @@ test("paths.js plugin-derived mirrors overlay", async (t) => {
 
   await t.test("mirrors.metaKit resolves to meta-kit/components.md", () => {
     assert.ok(
-      PATHS.components.mirrors.metaKit.endsWith(
-        "dist/meta-kit/components.md",
+      PATHS.components.mirrors.metaKit.endsWith("dist/meta-kit/components.md"),
+    );
+  });
+});
+
+test("paths.js normalizeVersion strips v-prefix", async (t) => {
+  const { normalizeVersion } = require("../../scripts/lib/paths.js");
+  await t.test("strips leading v", () => {
+    assert.equal(normalizeVersion("v0.3.1"), "0.3.1");
+  });
+  await t.test("no-op when no prefix", () => {
+    assert.equal(normalizeVersion("0.3.1"), "0.3.1");
+  });
+  await t.test("returns null for null/undefined", () => {
+    assert.equal(normalizeVersion(null), null);
+    assert.equal(normalizeVersion(undefined), null);
+  });
+});
+
+test("paths.js verifyVendorIntegrity", async (t) => {
+  const os = require("node:os");
+  const { verifyVendorIntegrity } = require("../../scripts/lib/paths.js");
+
+  function writeTmpVendored(payload) {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "vendor-integrity-"));
+    const file = path.join(dir, "vendored.json");
+    fs.writeFileSync(file, JSON.stringify(payload));
+    return file;
+  }
+
+  await t.test("missing vendored.json — skipped silently", () => {
+    assert.doesNotThrow(() =>
+      verifyVendorIntegrity(
+        { knowledge_version: "0.3.1" },
+        path.join(os.tmpdir(), "definitely-does-not-exist-vendored.json"),
       ),
+    );
+  });
+
+  await t.test("resolved_version null — skipped silently", () => {
+    const file = writeTmpVendored({ knowledge_repo_resolved_version: null });
+    assert.doesNotThrow(() =>
+      verifyVendorIntegrity({ knowledge_version: "0.3.1" }, file),
+    );
+  });
+
+  await t.test("match (with v-prefix on resolved) — passes", () => {
+    const file = writeTmpVendored({
+      knowledge_repo_resolved_version: "v0.3.1",
+    });
+    assert.doesNotThrow(() =>
+      verifyVendorIntegrity({ knowledge_version: "0.3.1" }, file),
+    );
+  });
+
+  await t.test("match (no v-prefix) — passes", () => {
+    const file = writeTmpVendored({ knowledge_repo_resolved_version: "0.3.1" });
+    assert.doesNotThrow(() =>
+      verifyVendorIntegrity({ knowledge_version: "0.3.1" }, file),
+    );
+  });
+
+  await t.test("mismatch — throws with both versions in message", () => {
+    const file = writeTmpVendored({
+      knowledge_repo_resolved_version: "v0.2.0",
+    });
+    assert.throws(
+      () => verifyVendorIntegrity({ knowledge_version: "0.3.1" }, file),
+      /knowledge_version='0\.3\.1'.*resolved_version='v0\.2\.0'/,
+    );
+  });
+
+  await t.test("malformed vendored.json — skipped silently", () => {
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "vendor-integrity-"));
+    const file = path.join(dir, "vendored.json");
+    fs.writeFileSync(file, "{ not valid json");
+    assert.doesNotThrow(() =>
+      verifyVendorIntegrity({ knowledge_version: "0.3.1" }, file),
+    );
+  });
+});
+
+test("paths.js content.bySlug alias", async (t) => {
+  const PATHS = require("../../scripts/lib/paths.js");
+
+  await t.test("bySlug is a function (mirrors content.section)", () => {
+    assert.equal(typeof PATHS.content.bySlug, "function");
+    assert.equal(PATHS.content.bySlug, PATHS.content.section);
+  });
+
+  await t.test("bySlug resolves to vendor/content/src/{slug}.md", () => {
+    assert.ok(
+      PATHS.content.bySlug("buttons").endsWith("content/src/buttons.md"),
+    );
+    assert.ok(
+      PATHS.content
+        .bySlug("empty-and-system-states")
+        .endsWith("content/src/empty-and-system-states.md"),
     );
   });
 });

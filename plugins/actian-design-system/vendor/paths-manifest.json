@@ -1,7 +1,6 @@
 {
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.2.0",
-  "generated_at": "2026-05-11T00:00:00Z",
+  "knowledge_version": "0.3.2",
   "paths": {
     "foundations.md": {
       "path": "foundations/src/foundations.md",
@@ -138,11 +137,12 @@
       "origin": "hybrid",
       "description": "Component coverage index (84 entries; CI appends, humans flip _stub on curate)"
     },
-    "content": {
-      "path": "content/content.md",
+    "content.md": {
+      "path": "content/dist/content.md",
       "type": "markdown",
-      "origin": "human",
-      "description": "UI copy guidelines — sentence case, action verbs, error messages, empty states (Jeff)"
+      "origin": "ci",
+      "generator": "scripts/content/derive-content.js",
+      "description": "UI copy guidelines — consolidated reference auto-generated from content/src/*.md (Phase 2). Key renamed from 'content' to 'content.md' in v0.3.2 to resolve dot-notation collision with the 'content.section' collection; mirrors the existing 'foundations.md' precedent. Section order tracks content/src/content-index.md."
     },
     "accessibility": {
       "path": "accessibility/accessibility.md",
@@ -176,6 +176,13 @@
       "type": "json",
       "origin": "hybrid",
       "description": "Per-component guideline JSON (44 hand-curated + 41 auto-stubs as of 2026-05-10). _index.json sibling tracks coverage."
+    },
+    "content.section": {
+      "dir": "content/src",
+      "pattern": "{slug}.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "Per-component content guidelines (Jeff, folded in 2026-05-11). 37 component files + global-guidelines.md (voice + words-to-avoid) + content-index.md (AI query guide) + format-spec.md (markdown structure + Figma/Word output mapping). Each component file follows When-to-use → Style → Behavior → Do/Don't."
     }
   },
   "aliases": {}

@@ -1,0 +1,265 @@
+---
+title: "Global guidelines"
+nav_order: 2
+---
+# Global guidelines
+
+Actian Data Intelligence speaks to data professionals: engineers, analysts, and catalog administrators. The voice is direct, precise, and professional without being formal or stiff.
+
+---
+
+## Voice and tone
+
+**When to use:** Apply these guidelines to all UI copy, including labels, tooltips, empty states, error messages, and notifications.
+
+### Style
+
+- Use active voice. "Export the dataset" not "The dataset can be exported."
+- Use present tense. "Saves automatically" not "Will save automatically."
+- Use sentence case for all UI text, including headings and button labels.
+- Do not use exclamation points except in genuine success states.
+- Do not use "please" or "sorry" — they add length without value.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Export the dataset | The dataset will be exported |
+| Something went wrong | We're sorry, something went wrong |
+| Log in | Sign in / Signin |
+{: .do-dont-table}
+
+---
+
+## Writing style
+
+Use present, active tense in all possible cases. In some cases, you can use passive voice if the focus needs to be on a system instead of a person.
+
+### Tense and voice
+
+| Voice | When and how to use | Example |
+|---|---|---|
+| Active | All cases except where passive is needed | Only an administrator can create a warehouse. |
+| Passive | Use only when focus is not on a person | The database needs to be shut down. |
+
+### Tone
+
+- Be direct, active, and consistent.
+- Be friendly and helpful.
+- Use the simplest terms. Don't try to "beautify" with alternatives.
+- Do not personify the product as the subject of the text.
+- Avoid humor; it rarely translates.
+- Avoid idioms, sarcasm, metaphors, slang, colloquialisms, and jargon.
+- Do not use racial, gender, or cultural-biased language.
+- Use gender-neutral pronouns to help make text inclusive.
+- Use the second person: "you." Don't use "I," "we," or "us" to refer to the user.
+
+| Do | Don't |
+|---|---|
+| Submit form | Click here to submit the form |
+{: .do-dont-table}
+
+### Personification
+
+Do not personify the product as the subject of the text. Keep the user in focus, rather than the product.
+
+| Do — User focus | Don't — Product focus |
+|---|---|
+| In the Delivery Information window, specify the name of the sender. | The Delivery Information window allows you to specify the name of the sender. |
+| Use this menu to create diagrams. | This menu enables you to create diagrams. |
+{: .do-dont-table}
+
+---
+
+## Capitalization
+
+Don't overuse capitalization — it makes copy harder to read and de-emphasizes the important content.
+
+### When to use each case
+
+| Title case | Sentence case | All caps |
+|---|---|---|
+| Top-level navigation | In-line and standalone links | Functional text |
+| Main page headers only | Section headers, checkboxes, radios, badges, sliders, toggles, tooltips, tags, pills, toasts, loading indicators | Acronyms (API, not Api) |
+| Menu titles | Placeholder text inside form fields | |
+| Menu items | Labels | |
+| Proper nouns | Buttons | |
+| Names of people or products | Column headers | |
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Add a row to the catalog. List it on the page. | Add a row to the Catalog. List it on the Page. |
+| Add a row to the MyCatalog page. | Add a row to the MyCatalog Page. |
+| Selects an item type. | Select an Item Type. |
+{: .do-dont-table}
+
+---
+
+## Words to avoid
+
+Guidance on what content works best, including text, imagery, and messaging.
+
+| Example | Do | Don't |
+|---|---|---|
+| Never say "Please" or "Sorry" — they are unnecessary. | Contact Support | Please Contact Support |
+| Don't refer to Actian as "we" or "us." | Actian recommends | We recommend |
+| Don't use "Execute" or "Abort." | The process was cancelled/stopped | The process was aborted. |
+| Don't use "Master" or "Slave." | Primary and Secondary servers | Master and Slave servers |
+| Don't use "Blacklist" or "Whitelist." | Add a row to the Allow/Deny List | Add a row to the Black/Whitelist |
+| Don't use "Press" or "Type" as verbs. | Click "OK", Enter/Provide a name | Press "OK", Type a name |
+| Never use developer-speak. | Click the **OK** button. | Click the OK CTA. |
+| Don't use "Caution" or "Danger." | Remember: Restart the server first. | Danger: Stop the server first. |
+| Don't use "Ensure." | Verify that the value is provided. | Ensure you provided the correct value. |
+| Don't use "Disabled." | This setting is blocked/off | This setting is disabled |
+| Don't use "Agnostic." | This feature is platform independent | This feature is platform agnostic |
+| Don't use "Sign in" or "Signin." | Log in to begin | Signin to begin |
+
+---
+
+## Punctuation
+
+To help readers scan text at a glance, avoid using punctuation in places where it isn't necessary.
+
+### Ampersands ("&")
+
+Avoid using ampersands in place of "and" except for common abbreviations (e.g. Q&A) or when the ampersand is part of an organization's formal name (e.g. H&R Block, AT&T). In those cases, follow the organization's formal spacing style.
+
+| Do | Don't |
+|---|---|
+| Common abbreviations: Q&A. Organization formal names: H&R Block, AT&T | Using & in place of "and" in general copy |
+{: .do-dont-table}
+
+### Periods (".")
+
+Avoid using periods on solitary sentences within these UI elements:
+
+| Use periods | Don't use periods |
+|---|---|
+| Multiple sentences | Labels |
+| A sentence followed by a link | Hover text |
+| Description text | Tooltips |
+| | Placeholder text |
+| | Radios |
+| | Loading indicators |
+
+### Commas (",")
+
+Use a comma after the second-to-last item in a series, before the conjunction (serial/Oxford comma).
+
+### Exclamation points ("!")
+
+Use exclamation marks only positively, not negatively. Use no more than one exclamation mark per page or window.
+
+---
+
+## Numerical formatting
+
+### Currency and phone numbers
+
+- Currency: `$1,000,000.00`
+- Phone numbers: `+1 (212) 123 4567`
+
+### Dates and times
+
+| Type | When and how to use | Example |
+|---|---|---|
+| Time | Within the current day, use uppercase AM or PM without periods | 2:00 PM |
+| 24-hour clock | Display the time without AM/PM | 14:00 |
+| Date | Show the date with the year. If it's within the current calendar year, don't show the year. | January 14 / Jan 3, 2012 / 10/23/2022 |
+| Timestamp | Display an exact time | 2:36:17 PM PST |
+| Approximate time | Round down to the largest and most recent date or time | In 5 minutes / 3 days ago |
+
+---
+
+## Prepositions
+
+Prepositions indicate relationships between different elements, actions, or concepts. Proper use maintains clarity and precision; misuse leads to confusion.
+
+### Conciseness — avoid overuse
+
+Minimize unnecessary prepositions. Omit them when they don't add meaning.
+
+| Do | Don't |
+|---|---|
+| Manage notification settings. | The settings for managing notifications on your profile. |
+| Contact Support | Contact to Support |
+{: .do-dont-table}
+
+### Accuracy and clarity
+
+Use prepositions that clearly express the relationship between actions, objects, or concepts.
+
+| Do | Don't |
+|---|---|
+| Upload to the server | Upload on the server |
+| Details on how to configure settings | Information about settings |
+{: .do-dont-table}
+
+### Keep prepositional phrases short
+
+Avoid long prepositional chains — break them up for clarity.
+
+| Do | Don't |
+|---|---|
+| Click the link in your email to view your order details. | Click on the link in the email for information about your order. |
+{: .do-dont-table}
+
+### Consistency
+
+Standardize common prepositional phrases and use them consistently throughout the product.
+
+| Do | Don't |
+|---|---|
+| Save the changes to your profile. | Save the changes on your profile. |
+| Drag the file into the folder | Drag the file to the folder |
+| Tap the icon | Tap on the icon |
+{: .do-dont-table}
+
+---
+
+## Acronyms
+
+Spell out an acronym the first time it's mentioned. On subsequent references, use the abbreviation. If the abbreviation isn't clearly related to the full version, specify it in parentheses after the spelled-out version in the first instance.
+
+Fully capitalize all letters in abbreviations:
+
+- PDF
+- AM/PM
+- FAQ
+- HTML
+- OK (not Ok or Okay)
+- HCL
+
+If there's a chance that an abbreviation might not be known to the target audience, spell it out in full the first time you use it. However, don't spell out commonly known abbreviations. If the abbreviation or acronym is well-known to the average client (for example, CIC or CDE), use it on the first reference without spelling it out.
+
+---
+
+## Plurals
+
+Make sure items are correctly used as plural or singular nouns as appropriate.
+
+Do not use "(s)" or "/s" after a noun to make it plural. If you must indicate both forms, use "one or more."
+
+---
+
+## Abbreviations and articles
+
+### Abbreviations
+
+Do not use "i.e." or "e.g." in UI copy. Avoid using a slash between two words to mean "and/or" — use the word "or" instead.
+
+| Do | Don't |
+|---|---|
+| You can select green, blue, or both. | You can select green/blue. |
+{: .do-dont-table}
+
+### Articles
+
+Don't speak like a robot — use "a," "an," and "the" articles.
+
+| Do | Don't |
+|---|---|
+| Use the default JRE to run a shell instance. | Use default JRE to run shell instance. |
+{: .do-dont-table}

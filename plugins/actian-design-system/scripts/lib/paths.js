@@ -21,8 +21,49 @@ var path = require("path");
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
 var VENDOR = path.join(PLUGIN_ROOT, "vendor");
 var MANIFEST_PATH = path.join(VENDOR, "paths-manifest.json");
+var VENDORED_JSON_PATH = path.join(PLUGIN_ROOT, "vendored.json");
 
 var SUPPORTED_SCHEMA_VERSION = "v1";
+
+// Strip leading "v" so git tag "v0.3.1" compares equal to
+// package.json#version "0.3.1".
+function normalizeVersion(v) {
+  if (v == null) return null;
+  return String(v).replace(/^v/, "");
+}
+
+// Vendor-integrity check — confirms the vendored manifest's
+// knowledge_version matches what vendored.json says it pulled.
+// Catches partial / corrupted / out-of-band-modified vendor snapshots.
+// Skipped silently when:
+//   - vendored.json is missing (legacy plugin layout pre-v1.79.5), OR
+//   - resolved_version is null (snapshot done via --sha for incident
+//     recovery, not via tag-range resolution)
+function verifyVendorIntegrity(manifest, vendoredJsonPath) {
+  if (!fs.existsSync(vendoredJsonPath)) return;
+  var vendored;
+  try {
+    vendored = JSON.parse(fs.readFileSync(vendoredJsonPath, "utf8"));
+  } catch (err) {
+    // Don't compound errors — let downstream JSON validation surface this.
+    return;
+  }
+  var resolved = vendored.knowledge_repo_resolved_version;
+  if (!resolved) return;
+  var manifestV = normalizeVersion(manifest.knowledge_version);
+  var resolvedV = normalizeVersion(resolved);
+  if (manifestV !== resolvedV) {
+    throw new Error(
+      "paths.js: vendor-integrity check failed — manifest says " +
+        "knowledge_version='" +
+        manifest.knowledge_version +
+        "' but vendored.json says resolved_version='" +
+        resolved +
+        "'. Vendor snapshot may be partial, corrupted, or modified out " +
+        "of band. Re-run scripts/vendor/vendor-snapshot.js --range.",
+    );
+  }
+}
 
 function setNested(obj, parts, value) {
   var cursor = obj;
@@ -73,9 +114,7 @@ function buildPathsFromManifest(manifest, vendorRoot) {
       throw new Error("paths.js: entry '" + name + "' missing 'type' field");
     }
     if (!entry.origin) {
-      throw new Error(
-        "paths.js: entry '" + name + "' missing 'origin' field",
-      );
+      throw new Error("paths.js: entry '" + name + "' missing 'origin' field");
     }
     if (!entry.description) {
       throw new Error(
@@ -133,6 +172,7 @@ function loadAndBuildPaths() {
         err.message,
     );
   }
+  verifyVendorIntegrity(manifest, VENDORED_JSON_PATH);
   return buildPathsFromManifest(manifest, VENDOR);
 }
 
@@ -162,6 +202,15 @@ PATHS.components.registries.byKit = function (kit) {
   );
 };
 
+// Content section resolver alias. The manifest's `content.section`
+// collection auto-builds PATHS.content.section as a (slug) => path
+// function. Expose it as `bySlug` to mirror the `byKit` ergonomics
+// callers already know.
+PATHS.content = PATHS.content || {};
+if (typeof PATHS.content.section === "function") {
+  PATHS.content.bySlug = PATHS.content.section;
+}
+
 // Top-level convenience constants (not in manifest — direct access for plugin internals).
 PATHS.pluginRoot = PLUGIN_ROOT;
 PATHS.vendor = VENDOR;
@@ -172,4 +221,6 @@ PATHS.foundations.distDir = path.join(VENDOR, "foundations", "dist");
 
 module.exports = PATHS;
 module.exports.buildPathsFromManifest = buildPathsFromManifest;
+module.exports.verifyVendorIntegrity = verifyVendorIntegrity;
+module.exports.normalizeVersion = normalizeVersion;
 module.exports.SUPPORTED_SCHEMA_VERSION = SUPPORTED_SCHEMA_VERSION;

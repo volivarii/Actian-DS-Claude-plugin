@@ -72,7 +72,7 @@ After creation, offer: "Want me to generate a component brief?" If accepted, inv
 - Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for push-apart layouts, never Spacer frames
 - Button booleans: `"👁 Leading Icon": false, "👁 Trailing Icon": false` by default
 - Never leave variableScopes as `ALL_SCOPES`
-- **Default text values:** Set all default text properties to copy that complies with `vendor/content/content.md` — sentence case, verb + object for action labels, realistic placeholder text that models input. Never ship "Label", "Text", "Lorem ipsum", or labels that just repeat the field name as defaults.
+- **Default text values:** Set all default text properties to copy that complies with `vendor/content/dist/content.md` — sentence case, verb + object for action labels, realistic placeholder text that models input. Never ship "Label", "Text", "Lorem ipsum", or labels that just repeat the field name as defaults.
 
 ## References
 
