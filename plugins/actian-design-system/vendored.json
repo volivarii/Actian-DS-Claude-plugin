@@ -1,7 +1,8 @@
 {
   "knowledge_repo": "volivarii/actian-ds-knowledge",
-  "knowledge_repo_sha": "e9c5668ee7994bafec897e942c6451d7c9570a13",
-  "knowledge_repo_short_sha": "e9c5668",
+  "knowledge_repo_version_range": "~0.1.0",
+  "knowledge_repo_resolved_version": null,
+  "knowledge_repo_resolved_sha": "e9c5668ee7994bafec897e942c6451d7c9570a13",
   "vendored_at": "2026-05-10T10:11:59.177Z",
   "vendored_entries": [
     "accessibility",

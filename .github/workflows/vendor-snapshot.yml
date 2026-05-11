@@ -25,7 +25,11 @@ on:
   workflow_dispatch:
     inputs:
       sha:
-        description: 'Knowledge repo SHA to vendor (defaults to current vendored.json#knowledge_repo_sha or main HEAD)'
+        description: 'Knowledge repo SHA to vendor (override; default resolves version range from vendored.json)'
+        required: false
+        type: string
+      range:
+        description: 'Override the semver range from vendored.json (e.g. "~0.2.0")'
         required: false
         type: string
 
@@ -45,19 +49,43 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Resolve target SHA
+      - name: Resolve target tag and SHA
         id: target
+        working-directory: plugins/actian-design-system
         run: |
           INPUT_SHA="${{ github.event.inputs.sha }}"
-          if [ -z "$INPUT_SHA" ]; then
-            LATEST=$(curl -sSL "https://api.github.com/repos/volivarii/actian-ds-knowledge/commits/main" | jq -r '.sha')
-            echo "Resolved knowledge-repo main → $LATEST"
-            echo "sha=$LATEST" >> "$GITHUB_OUTPUT"
-            echo "short_sha=$(echo "$LATEST" | cut -c1-7)" >> "$GITHUB_OUTPUT"
-          else
+          INPUT_RANGE="${{ github.event.inputs.range }}"
+
+          if [ -n "$INPUT_SHA" ]; then
+            # Manual SHA override — bypasses range resolution
             echo "Using explicit SHA → $INPUT_SHA"
             echo "sha=$INPUT_SHA" >> "$GITHUB_OUTPUT"
+            echo "version=" >> "$GITHUB_OUTPUT"
             echo "short_sha=$(echo "$INPUT_SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
+            echo "label=$(echo "$INPUT_SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
+          else
+            # Range resolution — read range from vendored.json (or input override)
+            if [ -n "$INPUT_RANGE" ]; then
+              OUT=$(node scripts/vendor/vendor-snapshot.js --range "$INPUT_RANGE" --resolve-only)
+            else
+              OUT=$(node scripts/vendor/vendor-snapshot.js --resolve-only)
+            fi
+            echo "$OUT"
+            SHA=$(echo "$OUT" | sed -n 's/^sha=//p')
+            VERSION=$(echo "$OUT" | sed -n 's/^version=//p')
+            if [ -z "$SHA" ]; then
+              echo "::error::Failed to resolve target SHA from output"
+              exit 1
+            fi
+            echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "short_sha=$(echo "$SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
+            # Label preference: tag version > short SHA
+            if [ -n "$VERSION" ]; then
+              echo "label=$VERSION" >> "$GITHUB_OUTPUT"
+            else
+              echo "label=$(echo "$SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
+            fi
           fi
 
       - name: Pull vendor snapshot
@@ -105,10 +133,10 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
-          commit-message: "vendor(knowledge): refresh to ${{ steps.target.outputs.short_sha }} + bump"
-          title: "vendor(knowledge): refresh to ${{ steps.target.outputs.short_sha }}"
+          commit-message: "vendor(knowledge): refresh to ${{ steps.target.outputs.label }} + bump"
+          title: "vendor(knowledge): refresh to ${{ steps.target.outputs.label }}"
           body: |
-            Vendored snapshot of `volivarii/actian-ds-knowledge` updated to SHA `${{ steps.target.outputs.sha }}`.
+            Vendored snapshot of `volivarii/actian-ds-knowledge` updated to `${{ steps.target.outputs.label }}` (SHA `${{ steps.target.outputs.sha }}`).
 
             See https://github.com/volivarii/actian-ds-knowledge/tree/${{ steps.target.outputs.sha }} for source state.
 
@@ -132,7 +160,7 @@ jobs:
         if: always()
         run: |
           if [ "${{ steps.diff.outputs.changed }}" = "true" ]; then
-            echo "### Vendor refreshed: ${{ steps.target.outputs.short_sha }} (auto-bump applied)" >> "$GITHUB_STEP_SUMMARY"
+            echo "### Vendor refreshed: ${{ steps.target.outputs.label }} (auto-bump applied)" >> "$GITHUB_STEP_SUMMARY"
           else
-            echo "### Vendor: no changes (already at ${{ steps.target.outputs.short_sha }})" >> "$GITHUB_STEP_SUMMARY"
+            echo "### Vendor: no changes (already at ${{ steps.target.outputs.label }})" >> "$GITHUB_STEP_SUMMARY"
           fi
