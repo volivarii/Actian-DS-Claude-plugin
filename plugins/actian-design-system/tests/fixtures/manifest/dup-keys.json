@@ -1,0 +1,20 @@
+{
+  "manifest_schema_version": "v1",
+  "knowledge_version": "0.2.0",
+  "paths": {
+    "foundations.color": {
+      "path": "foundations/dist/color.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Color tokens"
+    },
+    "foundations.color.primary": {
+      "path": "foundations/dist/color-primary.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Primary color"
+    }
+  },
+  "collections": {},
+  "aliases": {}
+}

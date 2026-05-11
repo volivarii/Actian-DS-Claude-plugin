@@ -1,0 +1,30 @@
+{
+  "manifest_schema_version": "v1",
+  "knowledge_version": "0.2.0",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "paths": {
+    "foundations.color": {
+      "path": "foundations/dist/color.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Color tokens"
+    },
+    "tokens.json": {
+      "path": "tokens/tokens.json",
+      "type": "json",
+      "origin": "human",
+      "description": "DTCG tokens (frozen)"
+    }
+  },
+  "collections": {
+    "components.guideline": {
+      "dir": "components/src/guidelines",
+      "pattern": "{slug}.json",
+      "type": "json",
+      "origin": "hybrid",
+      "description": "Per-component guidelines"
+    }
+  },
+  "aliases": {}
+}
