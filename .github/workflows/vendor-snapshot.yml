@@ -49,59 +49,52 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Resolve target tag and SHA
-        id: target
+      - name: Pull vendor snapshot
         working-directory: plugins/actian-design-system
         run: |
           INPUT_SHA="${{ github.event.inputs.sha }}"
           INPUT_RANGE="${{ github.event.inputs.range }}"
-
           if [ -n "$INPUT_SHA" ]; then
-            # Manual SHA override — bypasses range resolution
-            echo "Using explicit SHA → $INPUT_SHA"
-            echo "sha=$INPUT_SHA" >> "$GITHUB_OUTPUT"
-            echo "version=" >> "$GITHUB_OUTPUT"
-            echo "short_sha=$(echo "$INPUT_SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
-            echo "label=$(echo "$INPUT_SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
+            # Manual SHA override — bypasses range resolution.
+            # resolved_version stays null because we don't know which tag
+            # this SHA corresponds to.
+            node scripts/vendor/vendor-snapshot.js --sha "$INPUT_SHA"
+          elif [ -n "$INPUT_RANGE" ]; then
+            # Range override (e.g., for testing a different range without
+            # modifying vendored.json).
+            node scripts/vendor/vendor-snapshot.js --range "$INPUT_RANGE"
           else
-            # Range resolution — read range from vendored.json (or input override)
-            if [ -n "$INPUT_RANGE" ]; then
-              OUT=$(node scripts/vendor/vendor-snapshot.js --range "$INPUT_RANGE" --resolve-only)
-            else
-              OUT=$(node scripts/vendor/vendor-snapshot.js --resolve-only)
-            fi
-            echo "$OUT"
-            SHA=$(echo "$OUT" | sed -n 's/^sha=//p')
-            VERSION=$(echo "$OUT" | sed -n 's/^version=//p')
-            if [ -z "$SHA" ]; then
-              echo "::error::Failed to resolve target SHA from output"
-              exit 1
-            fi
-            echo "sha=$SHA" >> "$GITHUB_OUTPUT"
-            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-            echo "short_sha=$(echo "$SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
-            # Label preference: tag version > short SHA
-            if [ -n "$VERSION" ]; then
-              echo "label=$VERSION" >> "$GITHUB_OUTPUT"
-            else
-              echo "label=$(echo "$SHA" | cut -c1-7)" >> "$GITHUB_OUTPUT"
-            fi
+            # Default — read range from vendored.json. The script resolves
+            # the range internally and writes resolved_version correctly.
+            node scripts/vendor/vendor-snapshot.js
           fi
 
-      - name: Pull vendor snapshot
+      - name: Read resolved values
+        id: target
         working-directory: plugins/actian-design-system
-        run: node scripts/vendor/vendor-snapshot.js --sha ${{ steps.target.outputs.sha }}
+        run: |
+          SHA=$(jq -r '.knowledge_repo_resolved_sha' vendored.json)
+          VERSION=$(jq -r '.knowledge_repo_resolved_version // ""' vendored.json)
+          SHORT_SHA=$(echo "$SHA" | cut -c1-7)
+          LABEL="${VERSION:-$SHORT_SHA}"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "short_sha=$SHORT_SHA" >> "$GITHUB_OUTPUT"
+          echo "label=$LABEL" >> "$GITHUB_OUTPUT"
+          echo "Resolved: $LABEL ($SHORT_SHA)"
 
       - name: Regenerate *-components.md from vendored registries
         # Replaces any *-components.md the snapshot may have placed
-        # under vendor/components/ — the knowledge repo should NOT
+        # under vendor/components/dist/ — the knowledge repo should NOT
         # vendor these files; this step is the single source-of-truth
-        # generator for the human-readable component mirrors.
+        # generator for the human-readable component mirrors. Post-Move-B:
+        # mirrors land in vendor/components/dist/ (alongside the registries
+        # they're derived from).
         working-directory: plugins/actian-design-system
         run: |
           node scripts/renderers/render-component-reference.js \
             --kit all \
-            --output vendor/components
+            --output vendor/components/dist
 
       - name: Detect changes
         id: diff
