@@ -77,7 +77,7 @@ See: `references/ds-rules/fm-css-reference.md`
 | Lists | Oxford comma, parallel structure | Mixed structures |
 | Tone | Professional, clear, helpful | Cute, clever, apologetic |
 
-Full guidelines: `vendor/content/content.md`
+Full guidelines: `vendor/content/dist/content.md`
 
 ## Actian Apps
 

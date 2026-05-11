@@ -27,7 +27,7 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 | Component registries | `vendor/components/registries/{fmkit,dskit,metakit}.json` | `components/registries/` | JSON | Component keys, variants, properties |
 | Component guidelines | `vendor/components/guidelines/*.json` | `components/guidelines/` | JSON | 85 components (44 curated + 41 stubs) |
 | Foundations | `vendor/foundations/foundations.md` + `vendor/foundations/*.json` | `foundations/` | MD + JSON | Spacing, typography, color, motion (8 derived) |
-| Content guidelines | `vendor/content/content.md` | `content/` | MD | Voice, tone, copy patterns |
+| Content guidelines | `vendor/content/dist/content.md` | `content/` | MD | Voice, tone, copy patterns |
 | Accessibility | `vendor/accessibility/accessibility.md` | `accessibility/` | MD | WCAG 2.1 AA conformance rules |
 | App context | `vendor/app-context/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
 | FM↔DS map | `vendor/fm-to-ds-map/fm-to-ds-map.json` | `fm-to-ds-map/` | JSON | Wireframe-to-DS component mapping |

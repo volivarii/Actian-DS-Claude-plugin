@@ -10,7 +10,7 @@
       "field": "content_guidelines.sections"
     },
     "fallback": "claude-generate",
-    "grounding": ["vendor/content/content.md"]
+    "grounding": ["vendor/content/dist/content.md"]
   },
   "research": {
     "applicable": true,

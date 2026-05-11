@@ -42,7 +42,7 @@ You will receive:
 - **Existing context** — inlined contents of:
   - `vendor/components/src/guidelines/<slug>.json`
   - `vendor/foundations/src/foundations.md` (relevant excerpts)
-  - `vendor/content/content.md`
+  - `vendor/content/dist/content.md`
   - `vendor/accessibility/accessibility.md`
 - **Output path** for the findings JSON
 
@@ -90,7 +90,7 @@ Use `WebSearch` for discovery, `WebFetch` for the canonical doc page per DS.
     "divergences_from_existing": [
       {
         "field": "primary_action_position",
-        "existing": "right-aligned per vendor/content/content.md",
+        "existing": "right-aligned per vendor/content/dist/content.md",
         "research": "left-aligned in 4/5 surveyed DSs",
         "note": "Designer review needed"
       }

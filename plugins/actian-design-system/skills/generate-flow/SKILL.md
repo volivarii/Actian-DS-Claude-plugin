@@ -520,7 +520,7 @@ Push-apart row: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "H
 - **Feature focus:** Spotlight the feature, placeholder everything else; build sidebar from navItems in flow-data.json
 - **Small direct calls:** Keep each `use_figma` call under 2KB
 - **No contentHtml:** Use structured content[] nodes (FRAME, TEXT, INSTANCE, DIVIDER) only
-- **Copy:** All visible text follows `vendor/content/content.md` — sentence case for all UI text, verb + object button labels ("Create data product"), no banned words (please, sorry, ensure, execute, abort, sign in, disabled), placeholder text models input (never repeats the field label), empty states include a headline + body + CTA
+- **Copy:** All visible text follows `vendor/content/dist/content.md` — sentence case for all UI text, verb + object button labels ("Create data product"), no banned words (please, sorry, ensure, execute, abort, sign in, disabled), placeholder text models input (never repeats the field label), empty states include a headline + body + CTA
 
 ## References
 
