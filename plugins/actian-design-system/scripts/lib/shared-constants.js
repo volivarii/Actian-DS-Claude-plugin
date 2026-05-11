@@ -19,19 +19,26 @@ const path = require("path");
 // or trigger the vendor-snapshot.yml workflow to refresh.)
 // ---------------------------------------------------------------------------
 
+// Lazy require to avoid circular load — paths.js doesn't depend on this
+// file, but importing it eagerly creates an ordering issue with tests that
+// mock fs.
+function getPaths() {
+  return require("./paths.js");
+}
+
 const _registryCache = {};
 function loadRegistry(name) {
   if (!_registryCache[name]) {
-    const filePath = path.join(
-      __dirname,
-      "..",
-      "..",
-      "vendor",
-      "components",
-      "registries",
-      name + ".json",
-    );
-    _registryCache[name] = JSON.parse(fs.readFileSync(filePath, "utf8"));
+    var PATHS = getPaths();
+    var lookup = PATHS.components.registries[name];
+    if (!lookup) {
+      throw new Error(
+        "shared-constants.loadRegistry: unknown registry '" +
+          name +
+          "' (expected 'dskit', 'fmkit', or 'metakit')",
+      );
+    }
+    _registryCache[name] = JSON.parse(fs.readFileSync(lookup, "utf8"));
   }
   return _registryCache[name];
 }

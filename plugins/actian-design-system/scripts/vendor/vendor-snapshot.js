@@ -138,19 +138,44 @@ function fetchTagsFromGitHub(repo) {
   });
 }
 
-// Resolve a tag name → SHA via GitHub API. Tag must exist.
+// Resolve a tag name → COMMIT SHA via GitHub API. Tag must exist.
+// Handles lightweight tags (object.type === "commit") AND annotated tags
+// (object.type === "tag", requires a second hop to dereference to commit).
 function resolveTagSha(repo, tag) {
   var versionOnly = tag.replace(/^v/, "");
-  var url =
+  var refUrl =
     "https://api.github.com/repos/" + repo + "/git/refs/tags/v" + versionOnly;
-  var raw = execFileSync("curl", ["-sSL", url], { encoding: "utf8" });
-  var parsed = JSON.parse(raw);
-  if (!parsed || !parsed.object || !parsed.object.sha) {
+  var rawRef = execFileSync("curl", ["-sSL", refUrl], { encoding: "utf8" });
+  var parsedRef = JSON.parse(rawRef);
+  if (!parsedRef || !parsedRef.object || !parsedRef.object.sha) {
     throw new Error(
-      "Cannot resolve tag '" + tag + "' to SHA. Response: " + raw.slice(0, 200),
+      "Cannot resolve tag '" +
+        tag +
+        "' to SHA. Response: " +
+        rawRef.slice(0, 200),
     );
   }
-  return parsed.object.sha;
+  // Lightweight tag — points directly at a commit.
+  if (parsedRef.object.type !== "tag") {
+    return parsedRef.object.sha;
+  }
+  // Annotated tag — dereference the tag object to get the commit SHA.
+  var tagUrl =
+    "https://api.github.com/repos/" +
+    repo +
+    "/git/tags/" +
+    parsedRef.object.sha;
+  var rawTag = execFileSync("curl", ["-sSL", tagUrl], { encoding: "utf8" });
+  var parsedTag = JSON.parse(rawTag);
+  if (!parsedTag || !parsedTag.object || !parsedTag.object.sha) {
+    throw new Error(
+      "Cannot dereference annotated tag '" +
+        tag +
+        "' to commit SHA. Response: " +
+        rawTag.slice(0, 200),
+    );
+  }
+  return parsedTag.object.sha;
 }
 
 function readVendoredJson() {

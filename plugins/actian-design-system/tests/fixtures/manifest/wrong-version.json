@@ -1,0 +1,9 @@
+{
+  "manifest_schema_version": "v99",
+  "knowledge_version": "0.2.0",
+  "paths": {
+    "x": { "path": "x.md", "type": "markdown", "origin": "human", "description": "x" }
+  },
+  "collections": {},
+  "aliases": {}
+}

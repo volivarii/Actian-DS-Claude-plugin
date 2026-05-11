@@ -37,7 +37,14 @@ var mapData = require(
   path.join(PLUGIN_ROOT, "vendor", "fm-to-ds-map", "fm-to-ds-map.json"),
 );
 var dsRegistry = require(
-  path.join(PLUGIN_ROOT, "vendor", "components", "registries", "dskit.json"),
+  path.join(
+    PLUGIN_ROOT,
+    "vendor",
+    "components",
+    "dist",
+    "registries",
+    "dskit.json",
+  ),
 );
 
 // Shorthand helpers for single-instance transforms

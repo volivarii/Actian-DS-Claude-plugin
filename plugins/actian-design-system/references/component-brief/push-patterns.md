@@ -104,7 +104,7 @@ Every brief MUST start with a GenLog card as the first child of the wrapper. Imp
 
 **Source values from `brief-data.json.meta`, never from this example.** The values shown below are placeholders — using them literally produces wrong GenLog content (e.g., a stale plugin version). The data-model values were sourced in Step 2 from authoritative inputs (`plugin.json`, the runtime model name, etc.) — pass them through verbatim.
 
-**CRITICAL — property keys MUST be hash-suffixed.** GenLog's properties are typed as `Skill#3:0`, `Prompt#3:1`, `Date#3:2`, `Duration#3:3`, `Model#3:4`, `Plugin Version#3:5`. Bare keys (`"Skill"`, `"Prompt"`, etc.) silently fail with `setProperties` errors and require a recovery round-trip via `node.componentProperties` introspection. Use the suffixed keys verbatim — they are stable across Meta Kit publishes (tracked in `vendor/components/registries/metakit.json`).
+**CRITICAL — property keys MUST be hash-suffixed.** GenLog's properties are typed as `Skill#3:0`, `Prompt#3:1`, `Date#3:2`, `Duration#3:3`, `Model#3:4`, `Plugin Version#3:5`. Bare keys (`"Skill"`, `"Prompt"`, etc.) silently fail with `setProperties` errors and require a recovery round-trip via `node.componentProperties` introspection. Use the suffixed keys verbatim — they are stable across Meta Kit publishes (tracked in `vendor/components/dist/registries/metakit.json`).
 
 ```js
 // IMPORTANT: read these from your brief-data.json `meta` block, not from the example below.
@@ -1738,7 +1738,7 @@ Skip if both are unbound (most common case).
 
 1. **Each `use_figma` call creates 1-3 nodes max** — keep calls small (200-2000 bytes typical, up to 6KB for anatomy diagram).
 2. **Return IDs from every call** — use them in subsequent calls to append children.
-3. **Prefer `setProperties` over detach+findOne** — use hash-suffixed property names from `vendor/components/registries/metakit.json`. Only detach when you need to append children into content slots (briefCard, a11yCard). Templates like Swatch Row, A11y Spec Row, Code Block work best as live instances.
+3. **Prefer `setProperties` over detach+findOne** — use hash-suffixed property names from `vendor/components/dist/registries/metakit.json`. Only detach when you need to append children into content slots (briefCard, a11yCard). Templates like Swatch Row, A11y Spec Row, Code Block work best as live instances.
 4. **No interpreter, no codegen scripts** — push directly from data model.
 5. **Detach only when needed** — briefCard and a11yCard must be detached before appending children to content slots. Do NOT detach Swatch Row, A11y Spec Row, Contrast Badge, or Code Block.
-6. **Set ALL properties** — never leave default placeholder text. Check `vendor/components/registries/metakit.json` for exact property names with `#hash` suffixes.
+6. **Set ALL properties** — never leave default placeholder text. Check `vendor/components/dist/registries/metakit.json` for exact property names with `#hash` suffixes.

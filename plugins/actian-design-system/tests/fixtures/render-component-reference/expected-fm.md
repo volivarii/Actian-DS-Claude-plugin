@@ -1,6 +1,6 @@
 # Fat Marker Kit — Component Reference
 
-Auto-generated from `vendor/components/registries/fmkit.json` by `scripts/renderers/render-component-reference.js`.
+Auto-generated from `vendor/components/dist/registries/fmkit.json` by `scripts/renderers/render-component-reference.js`.
 3 components.
 
 ---

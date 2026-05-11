@@ -4,7 +4,8 @@
 var fs = require("fs");
 var path = require("path");
 
-var PLUGIN_ROOT = path.resolve(__dirname, "../..");
+var PATHS = require("../lib/paths.js");
+var PLUGIN_ROOT = PATHS.pluginRoot;
 var rules = require(
   path.join(
     PLUGIN_ROOT,
@@ -14,18 +15,24 @@ var rules = require(
   ),
 );
 
+// Display-source strings derived from PATHS so the indirection layer
+// stays the single source of truth.
+function relFromPlugin(absPath) {
+  return path.relative(PLUGIN_ROOT, absPath);
+}
+
 var KIT_HEADERS = {
   fm: {
     title: "Fat Marker Kit",
-    source: "vendor/components/registries/fmkit.json",
+    source: relFromPlugin(PATHS.components.registries.fmkit),
   },
   ds: {
     title: "Actian Design System 2026",
-    source: "vendor/components/registries/dskit.json",
+    source: relFromPlugin(PATHS.components.registries.dskit),
   },
   meta: {
     title: "Meta Kit",
-    source: "vendor/components/registries/metakit.json",
+    source: relFromPlugin(PATHS.components.registries.metakit),
   },
 };
 
@@ -160,13 +167,11 @@ module.exports = {
 if (require.main === module) {
   var args = process.argv.slice(2);
   var kitArg = "all";
-  var outDir = path.join(PLUGIN_ROOT, "vendor", "components");
-  var registriesDir = path.join(
-    PLUGIN_ROOT,
-    "vendor",
-    "components",
-    "registries",
-  );
+  // outDir derives from PATHS.components.mirrors so a single PATHS update
+  // moves both where consumers READ mirror files from AND where this script
+  // WRITES them. They share a parent dir.
+  var outDir = path.dirname(PATHS.components.mirrors.ds);
+  var registriesDir = path.dirname(PATHS.components.registries.dskit);
 
   for (var i = 0; i < args.length; i++) {
     if (args[i] === "--kit" && i + 1 < args.length) {

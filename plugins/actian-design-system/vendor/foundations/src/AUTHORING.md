@@ -91,4 +91,3 @@ Sections 5 (Handoff Protocol) and 6 (Related Guidelines) are intentionally not p
 
 - Engineering reference: [`scripts/foundations/foundations.parser.json`](../scripts/foundations/foundations.parser.json) — section number → JSON target mapping
 - Parser source: [`scripts/foundations/derive-foundations.js`](../scripts/foundations/derive-foundations.js)
-- Spec: [`docs/superpowers/specs/2026-05-01-md-as-sot-foundations-design.md`](../../../docs/superpowers/specs/2026-05-01-md-as-sot-foundations-design.md)

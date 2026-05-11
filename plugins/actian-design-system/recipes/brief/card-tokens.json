@@ -4,7 +4,7 @@
   "description": "Color, sizing, and typography token bindings by component state",
   "phase": "generate",
   "grounding": [
-    "vendor/foundations/foundations.md",
+    "vendor/foundations/src/foundations.md",
     "vendor/tokens/tokens.json"
   ],
   "sections": {

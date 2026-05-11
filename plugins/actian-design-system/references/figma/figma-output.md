@@ -161,11 +161,11 @@ function setProp(inst, prefix, value) {
 setProp(instance, "Title", "Design tokens");
 ```
 
-Look up component keys in `../../vendor/components/fm-components.md` (FM Kit), `../../vendor/components/dskit-components.md` (DS Kit), or `../../vendor/components/meta-kit/components.md` (Meta Kit).
+Look up component keys in `../../vendor/components/dist/fm-components.md` (FM Kit), `../../vendor/components/dist/dskit-components.md` (DS Kit), or `../../vendor/components/dist/meta-kit/components.md` (Meta Kit).
 
 ### Meta Kit components
 
-For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../../vendor/components/meta-kit/components.md` for keys and properties.
+For shared visual elements (card chrome, code blocks, do/don't pairs, generation cards), import Meta Kit library components instead of building inline. See `../../vendor/components/dist/meta-kit/components.md` for keys and properties.
 
 When a Meta Kit component exists for an element, **always import it**. The component IS the spec.
 
@@ -298,7 +298,7 @@ When Meta Kit template components are available, use clone-and-fill instead of c
 
 ### How it works
 
-1. **Read registry:** Load `../../vendor/components/registries/metakit.json` at the start of the skill (before `use_figma`)
+1. **Read registry:** Load `../../vendor/components/dist/registries/metakit.json` at the start of the skill (before `use_figma`)
 2. **Import template:** `figma.importComponentByKeyAsync(registry.templates['table-header-row'].key)`
 3. **Clone and detach:** `comp.createInstance()` → `instance.detachInstance()` — gives a mutable frame
 4. **Show:** Set `visible = true` on the detached frame (templates are hidden by default)
@@ -333,7 +333,7 @@ function fillSlots(frame, slots) {
 
 Templates are hidden components in the Meta Kit Figma library. Each has stable, semantic layer names (e.g., `label`, `value`, `title`) that serve as the contract between the registry and builder scripts.
 
-Registry location: `../../vendor/components/registries/metakit.json`
+Registry location: `../../vendor/components/dist/registries/metakit.json`
 
 Available templates:
 - `table-header-row` — table header cells (slots: `label`)
@@ -431,7 +431,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 - **Figma output must match HTML preview exactly.** The Figma push is a 1:1 translation of the approved HTML — not a reinterpretation. If the HTML uses placeholder bars, the Figma uses Placeholder component variants. If the HTML shows only one active nav item, the Figma shows only one active nav item. Do not add detail, color, or content that wasn't in the HTML.
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed.
-- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../vendor/components/fm-components.md` (FM) or `../../vendor/components/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `../ds-rules/library-gap-detection.md` for the full detection procedure.
+- **Check library before building custom.** Before creating any custom frame for a UI element, check `../../vendor/components/dist/fm-components.md` (FM) or `../../vendor/components/dist/dskit-components.md` (DS Kit) for an existing library component. If one exists, import it — even if a variant is missing. See `../ds-rules/library-gap-detection.md` for the full detection procedure.
 
 ## HUG Sizing Default
 

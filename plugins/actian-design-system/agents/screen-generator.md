@@ -68,7 +68,7 @@ When the fingerprint pushes you off the obvious tier-1 recipe and the screen end
 
 ## Step -1: Property completeness pre-check
 
-**Run this once per screen before writing INSTANCE nodes.** Do NOT do per-component registry dumps with python or repeated reads of `vendor/components/registries/fmkit.json` / `vendor/components/registries/dskit.json` — use the CLI helper:
+**Run this once per screen before writing INSTANCE nodes.** Do NOT do per-component registry dumps with python or repeated reads of `vendor/components/dist/registries/fmkit.json` / `vendor/components/dist/registries/dskit.json` — use the CLI helper:
 
 ```bash
 source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -170,7 +170,7 @@ Apply different rules for content generation per the classified tier:
 ### Tier 1 — Recognized
 
 - Follow the `matchedRecipe` skeleton exactly. Don't add or remove top-level sections.
-- Variant selection, copy, density follow defaults from `vendor/app-context/app-context.json` and `vendor/components/guidelines/*.json`.
+- Variant selection, copy, density follow defaults from `vendor/app-context/app-context.json` and `vendor/components/src/guidelines/*.json`.
 - Minor deviations within slots (column count in a table, button order in a toolbar) allowed without justification — these are creative latitude, not soft deviation.
 - **Boundary:** "minor" means the change does not add or remove a content section from the recipe's top-level slots. If you find yourself adding a slot that wasn't in the recipe (e.g., a sidebar to a `table-list` recipe), that's no longer minor — escalate to tier 2 deviation and justify, or pick a different (composition) recipe.
 

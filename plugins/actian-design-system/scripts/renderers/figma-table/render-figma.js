@@ -28,8 +28,8 @@ var path = require("path");
 
 var SCRIPT_DIR = __dirname;
 var SCHEMA_PATH = path.join(SCRIPT_DIR, "schemas", "render-table.json");
-var PLUGIN_ROOT = path.resolve(SCRIPT_DIR, "../../..");
-var TOKENS_PATH = path.join(PLUGIN_ROOT, "vendor", "tokens", "tokens.json");
+var PATHS = require("../../lib/paths.js");
+var TOKENS_PATH = PATHS.tokens.json;
 
 // ---------------------------------------------------------------------------
 // CLI

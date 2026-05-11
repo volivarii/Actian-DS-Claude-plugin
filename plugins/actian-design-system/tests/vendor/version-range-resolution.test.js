@@ -56,6 +56,10 @@ test("vendor-snapshot range resolution", async (t) => {
     assert.equal(resolveTargetTag(tags, "~0.2.0"), null);
   });
 
+  await t.test("resolveTargetTag returns null for empty tag list", () => {
+    assert.equal(resolveTargetTag([], "~0.1.0"), null);
+  });
+
   await t.test("resolveTargetTag ignores tags with invalid semver", () => {
     const tags = ["v0.1.0", "garbage", "v0.1.1", "not-a-tag"];
     assert.equal(resolveTargetTag(tags, "~0.1.0"), "v0.1.1");

@@ -3,7 +3,7 @@
   "title": "Component",
   "description": "Real library instances showing all variants plus themed component comparison across Actian, Studio, and Explorer",
   "phase": "generate",
-  "grounding": ["vendor/components/guidelines/<slug>.json"],
+  "grounding": ["vendor/components/src/guidelines/<slug>.json"],
   "sections": {
     "variantAxes": "List ALL variant axes from the component set. Common axes: Type, State, Size, Style. Never omit axes even if they have only 2 values.",
     "variantMatrix": "Rows = primary axis (usually Type or Style), columns = secondary axis (usually State). Must include EVERY variant combination — never truncate. If the matrix would exceed 8 columns, split into multiple rows per primary axis value.",

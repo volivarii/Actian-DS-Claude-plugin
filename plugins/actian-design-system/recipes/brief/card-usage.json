@@ -5,7 +5,7 @@
   "phase": "generate",
   "grounding": [
     "vendor/content/content.md",
-    "vendor/components/guidelines/<slug>.json"
+    "vendor/components/src/guidelines/<slug>.json"
   ],
   "research": {
     "applicable": true,

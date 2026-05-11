@@ -17,7 +17,7 @@ Determine: component name (FM prefix for Fat Marker), library (FM = Inter, DS Ki
 
 ## Step 2 — Check existing components
 
-Check `../../vendor/components/dskit-components.md` and `../../vendor/components/fm-components.md`. If it exists, suggest modifying instead. Load `../../vendor/components/guidelines/<slug>.json` for content/design guidelines if available.
+Check `../../vendor/components/dist/dskit-components.md` and `../../vendor/components/dist/fm-components.md`. If it exists, suggest modifying instead. Load `../../vendor/components/src/guidelines/<slug>.json` for content/design guidelines if available.
 
 ## Step 3 — Research (optional)
 

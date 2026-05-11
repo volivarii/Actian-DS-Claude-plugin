@@ -40,8 +40,8 @@ You will receive:
 - **Component name** and **slug** (e.g., "Button" / "button")
 - **Scoped cards** — array of card keys to research (subset of `card_usage`, `card_content`, `card_accessibility`)
 - **Existing context** — inlined contents of:
-  - `vendor/components/guidelines/<slug>.json`
-  - `vendor/foundations/foundations.md` (relevant excerpts)
+  - `vendor/components/src/guidelines/<slug>.json`
+  - `vendor/foundations/src/foundations.md` (relevant excerpts)
   - `vendor/content/content.md`
   - `vendor/accessibility/accessibility.md`
 - **Output path** for the findings JSON

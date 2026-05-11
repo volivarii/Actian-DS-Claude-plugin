@@ -6,7 +6,7 @@
   "source": {
     "primary": {
       "type": "guidelines-content-sections",
-      "registry": "vendor/components/guidelines/<slug>.json",
+      "registry": "vendor/components/src/guidelines/<slug>.json",
       "field": "content_guidelines.sections"
     },
     "fallback": "claude-generate",

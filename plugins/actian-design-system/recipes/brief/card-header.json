@@ -6,7 +6,7 @@
   "source": {
     "primary": {
       "type": "registry-description",
-      "registry": "vendor/components/registries/dskit.json",
+      "registry": "vendor/components/dist/registries/dskit.json",
       "field": "description"
     },
     "secondary": { "type": "figma-mcp", "field": "node.description" },

@@ -1,0 +1,182 @@
+{
+  "manifest_schema_version": "v1",
+  "knowledge_version": "0.2.0",
+  "generated_at": "2026-05-11T00:00:00Z",
+  "paths": {
+    "foundations.md": {
+      "path": "foundations/src/foundations.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "Master reference for Actian DS — primitives, tokens, scales (Kristina, MD-as-SoT)"
+    },
+    "foundations.authoring": {
+      "path": "foundations/src/AUTHORING.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "How to edit foundations.md (UX team guide)"
+    },
+    "foundations.color": {
+      "path": "foundations/dist/color.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Color tokens derived from foundations.md sections 1, 2.1, 2.2, 2.5, 2.10, 3.1, 4.1"
+    },
+    "foundations.borders": {
+      "path": "foundations/dist/borders.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Border tokens derived from foundations.md sections 2.3, 4.2"
+    },
+    "foundations.spacing": {
+      "path": "foundations/dist/spacing.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Spacing + size tokens derived from foundations.md sections 2.7, 2.11, 3.3"
+    },
+    "foundations.typography": {
+      "path": "foundations/dist/typography.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Typography tokens derived from foundations.md sections 2.8, 3.2, 4.3"
+    },
+    "foundations.elevation": {
+      "path": "foundations/dist/elevation.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Elevation tokens derived from foundations.md sections 2.6, 3.4"
+    },
+    "foundations.icons": {
+      "path": "foundations/dist/icons.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Icon color tokens derived from foundations.md section 2.12"
+    },
+    "foundations.motion": {
+      "path": "foundations/dist/interaction-motion.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Motion + brightness filter tokens derived from foundations.md sections 2.9, 3.5"
+    },
+    "foundations.breakpointGridStructure": {
+      "path": "foundations/dist/breakpoint-grid-structure.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Breakpoint + grid tokens derived from foundations.md sections 2.4, 3.6"
+    },
+    "tokens.json": {
+      "path": "tokens/tokens.json",
+      "type": "json",
+      "origin": "human",
+      "description": "DTCG W3C-format design tokens (frozen snapshot until successor generator returns)"
+    },
+    "tokens.css": {
+      "path": "tokens/tokens.css",
+      "type": "css",
+      "origin": "human",
+      "description": "CSS custom properties (--zen-*) — frozen snapshot"
+    },
+    "tokens.reference": {
+      "path": "tokens/token-reference.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/render-token-reference.js",
+      "description": "Human-readable token catalog (auto-generated from tokens.json)"
+    },
+    "components.registries.dskit": {
+      "path": "components/dist/registries/dskit.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "DS Kit component registry (Figma REST sync)"
+    },
+    "components.registries.fmkit": {
+      "path": "components/dist/registries/fmkit.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "FM (wireframe) Kit component registry (Figma REST sync)"
+    },
+    "components.registries.metakit": {
+      "path": "components/dist/registries/metakit.json",
+      "type": "json",
+      "origin": "hybrid",
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "Meta Kit component registry — templates block hand-curated, preserved across syncs"
+    },
+    "components.registries.styles": {
+      "path": "components/dist/registries/meta-kit/styles.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "DS Kit text + effect styles (Figma REST sync)"
+    },
+    "components.styles.text": {
+      "path": "components/dist/text-styles.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/styles-to-md.js",
+      "description": "DS Kit text styles (human-readable catalog)"
+    },
+    "components.styles.effect": {
+      "path": "components/dist/effect-styles.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/styles-to-md.js",
+      "description": "DS Kit effect (shadow, blur) styles"
+    },
+    "components.guidelinesIndex": {
+      "path": "components/src/guidelines/_index.json",
+      "type": "json",
+      "origin": "hybrid",
+      "description": "Component coverage index (84 entries; CI appends, humans flip _stub on curate)"
+    },
+    "content": {
+      "path": "content/content.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "UI copy guidelines — sentence case, action verbs, error messages, empty states (Jeff)"
+    },
+    "accessibility": {
+      "path": "accessibility/accessibility.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "WCAG 2.2 AA guidance for the Actian DS"
+    },
+    "presentation": {
+      "path": "presentation/presentation-guide.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "Slide templates + chart patterns for /generate-presentation"
+    },
+    "appContext": {
+      "path": "app-context/app-context.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Per-app patterns + persona + terminology"
+    },
+    "fmToDsMap": {
+      "path": "fm-to-ds-map/fm-to-ds-map.json",
+      "type": "json",
+      "origin": "human",
+      "description": "FM Kit → DS Kit component mapping for hifi conversion"
+    }
+  },
+  "collections": {
+    "components.guideline": {
+      "dir": "components/src/guidelines",
+      "pattern": "{slug}.json",
+      "type": "json",
+      "origin": "hybrid",
+      "description": "Per-component guideline JSON (44 hand-curated + 41 auto-stubs as of 2026-05-10). _index.json sibling tracks coverage."
+    }
+  },
+  "aliases": {}
+}

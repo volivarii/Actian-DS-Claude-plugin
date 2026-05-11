@@ -1,0 +1,12 @@
+{
+  "manifest_schema_version": "v1",
+  "knowledge_version": "0.2.0",
+  "paths": {
+    "foundations.color": {
+      "path": "foundations/dist/color.json",
+      "origin": "ci"
+    }
+  },
+  "collections": {},
+  "aliases": {}
+}

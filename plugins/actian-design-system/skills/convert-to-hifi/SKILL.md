@@ -140,7 +140,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && \
     -o {project_working_directory}/components/hifi/[frame-name]-hifi-data.json
 ```
 
-The script reads `vendor/fm-to-ds-map/fm-to-ds-map.json` and `vendor/components/registries/dskit.json`, rewrites every FM `ref` to its DS Kit equivalent, preserves variant mappings where defined, and embeds `meta.transformStats` in the output (`total`, `mapped`, `unmapped`).
+The script reads `vendor/fm-to-ds-map/fm-to-ds-map.json` and `vendor/components/dist/registries/dskit.json`, rewrites every FM `ref` to its DS Kit equivalent, preserves variant mappings where defined, and embeds `meta.transformStats` in the output (`total`, `mapped`, `unmapped`).
 
 **Confirmation gate** — present verbatim after the script completes:
 
@@ -167,12 +167,12 @@ After confirmation, build and push uninterrupted. Read `references/figma/figma-p
 ### Handling unmapped nodes
 
 For each node flagged `unmapped: true`:
-1. Read `vendor/components/registries/dskit.json` — scan component descriptions and variant axes
+1. Read `vendor/components/dist/registries/dskit.json` — scan component descriptions and variant axes
 2. Infer the best DS Kit match by shape, purpose, and label text
 3. Substitute with the inferred component; log the substitution in the generation card notes
 
 **Common utility components** (not in FM Kit registry but frequently appear):
-- `Meta / Utility / Card Divider` — import by key from `vendor/components/registries/metakit.json`, use as a DS divider
+- `Meta / Utility / Card Divider` — import by key from `vendor/components/dist/registries/metakit.json`, use as a DS divider
 - Manual rectangles used as dividers — replace with a 1px frame, fill `#E2E7F0`, `FILL` width
 
 If the user chose "skip unmapped", omit those nodes entirely.
@@ -199,7 +199,7 @@ Before pushing, audit all visible text against `vendor/content/content.md`:
 ### Push sequence (one small `use_figma` call per step)
 
 1. **Create wrapper frame** — same parent as original, named `"[Original name] — HiFi wrapper"`, `HORIZONTAL` auto layout, gap 32, no fills. This holds the gen card and hifi frame side by side.
-2. **Generation card** — import genLog by key from `vendor/components/registries/metakit.json`, create instance, set props with `mode: "hifi"`, `skill: "convert-to-hifi"`, ISO date, prompt excerpt; append to **wrapper** (NOT inside the hifi frame)
+2. **Generation card** — import genLog by key from `vendor/components/dist/registries/metakit.json`, create instance, set props with `mode: "hifi"`, `skill: "convert-to-hifi"`, ISO date, prompt excerpt; append to **wrapper** (NOT inside the hifi frame)
 3. **Create hifi frame** — named `"[Original name] — HiFi"`, 1440×960, `VERTICAL` auto layout; append to **wrapper**
 4. **For each screen / section in hifi-data.json:**
    a. Import DS Kit components needed for this section (batch per section)
@@ -229,8 +229,8 @@ Before pushing, audit all visible text against `vendor/content/content.md`:
 ## References
 
 - `vendor/fm-to-ds-map/fm-to-ds-map.json` — FM component key → DS component mapping table with variant axis maps
-- `vendor/components/registries/dskit.json` — DS Kit component registry (keys, variants, properties, descriptions)
-- `vendor/components/registries/fmkit.json` — FM Kit component registry (keys, variants, properties)
+- `vendor/components/dist/registries/dskit.json` — DS Kit component registry (keys, variants, properties, descriptions)
+- `vendor/components/dist/registries/fmkit.json` — FM Kit component registry (keys, variants, properties)
 - `scripts/transformers/fm-tree-to-flow-data.js` — converts raw Figma tree to flow-data format (resolves componentKey → FM ref names via FM_SLUGS)
 - `scripts/transformers/transform-to-hifi.js` — deterministic Stage 2 transform (CLI + module API)
 - `references/figma/figma-push-patterns.md` — component keys, push patterns, Plugin API call templates
