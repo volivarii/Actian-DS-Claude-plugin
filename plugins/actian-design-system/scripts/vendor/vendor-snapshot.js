@@ -47,8 +47,110 @@ function parseArgs(argv) {
   var out = {};
   for (var i = 0; i < argv.length; i++) {
     if (argv[i] === "--sha") out.sha = argv[++i];
+    // Move A2: resolve via semver range (e.g., "~0.1.0") instead of SHA.
+    // Range is read from vendored.json.knowledge_repo_version_range when
+    // --range is passed without a value (or omit --range entirely).
+    else if (argv[i] === "--range") out.range = argv[++i];
+    // Resolve-only mode: print the resolved tag + SHA and exit. Used by
+    // vendor-snapshot.yml to log which tag it's about to pull.
+    else if (argv[i] === "--resolve-only") out.resolveOnly = true;
   }
   return out;
+}
+
+// Pure semver range resolver. Supports tilde (~), caret (^), and exact
+// version strings. Pre-1.0 caret behaves like tilde (patches only) per
+// npm convention.
+function matchesRange(version, range) {
+  var parseV = function (v) {
+    return String(v).split(".").map(Number);
+  };
+  var reqMajor, reqMinor, reqPatch;
+  if (range.charAt(0) === "~") {
+    var parts = parseV(range.slice(1));
+    reqMajor = parts[0];
+    reqMinor = parts[1];
+    reqPatch = parts[2] || 0;
+    var v = parseV(version);
+    return v[0] === reqMajor && v[1] === reqMinor && v[2] >= reqPatch;
+  }
+  if (range.charAt(0) === "^") {
+    var cparts = parseV(range.slice(1));
+    reqMajor = cparts[0];
+    reqMinor = cparts[1];
+    reqPatch = cparts[2] || 0;
+    var cv = parseV(version);
+    if (reqMajor === 0) {
+      // Pre-1.0: caret = tilde (only patches)
+      return cv[0] === reqMajor && cv[1] === reqMinor && cv[2] >= reqPatch;
+    }
+    return (
+      cv[0] === reqMajor &&
+      (cv[1] > reqMinor || (cv[1] === reqMinor && cv[2] >= reqPatch))
+    );
+  }
+  return version === range;
+}
+
+// Compare two semver strings; returns -1, 0, or 1.
+function compareSemver(a, b) {
+  var pa = String(a).split(".").map(Number);
+  var pb = String(b).split(".").map(Number);
+  for (var i = 0; i < 3; i++) {
+    if (pa[i] !== pb[i]) return pa[i] - pb[i] < 0 ? -1 : 1;
+  }
+  return 0;
+}
+
+// Filter, validate, and select the highest tag matching a range.
+// Returns the tag name (with "v" prefix) or null.
+function resolveTargetTag(tags, range) {
+  var candidates = tags
+    .map(function (t) {
+      return String(t).replace(/^v/, "");
+    })
+    .filter(function (v) {
+      // Strict semver (X.Y.Z numeric), no pre-release suffix
+      return /^[0-9]+\.[0-9]+\.[0-9]+$/.test(v);
+    })
+    .filter(function (v) {
+      return matchesRange(v, range);
+    });
+  if (candidates.length === 0) return null;
+  candidates.sort(compareSemver);
+  return "v" + candidates[candidates.length - 1];
+}
+
+// Fetch all tags from a public GitHub repo via the API. No auth needed
+// for public repos; uses curl which is always available in CI runners.
+function fetchTagsFromGitHub(repo) {
+  var url = "https://api.github.com/repos/" + repo + "/tags?per_page=100";
+  var raw = execFileSync("curl", ["-sSL", url], { encoding: "utf8" });
+  var parsed = JSON.parse(raw);
+  if (!Array.isArray(parsed)) {
+    throw new Error(
+      "GitHub tags API returned non-array: " +
+        JSON.stringify(parsed).slice(0, 200),
+    );
+  }
+  return parsed.map(function (t) {
+    return t.name;
+  });
+}
+
+// Resolve a tag name → SHA via GitHub API. Tag must exist.
+function resolveTagSha(repo, tag) {
+  var versionOnly = tag.replace(/^v/, "");
+  var url =
+    "https://api.github.com/repos/" + repo + "/git/refs/tags/v" + versionOnly;
+  var raw = execFileSync("curl", ["-sSL", url], { encoding: "utf8" });
+  var parsed = JSON.parse(raw);
+  if (!parsed || !parsed.object || !parsed.object.sha) {
+    throw new Error(
+      "Cannot resolve tag '" + tag + "' to SHA. Response: " + raw.slice(0, 200),
+    );
+  }
+  return parsed.object.sha;
 }
 
 function readVendoredJson() {
@@ -136,13 +238,59 @@ function vendorContent(extractedRepoRoot) {
 function main() {
   var args = parseArgs(process.argv.slice(2));
   var current = readVendoredJson();
-  var sha = args.sha || current.knowledge_repo_sha;
+
+  // Move A2: tag-range resolution. Precedence:
+  //   1. --sha <sha>     → use SHA directly (back-compat for manual override)
+  //   2. --range <range> → resolve via that range
+  //   3. vendored.json.knowledge_repo_version_range → resolve via stored range
+  //   4. vendored.json.knowledge_repo_sha → legacy fallback (deprecated)
+  var sha = args.sha;
+  var resolvedVersion = null;
+  var resolvedRange =
+    args.range || current.knowledge_repo_version_range || null;
+
+  if (!sha && resolvedRange) {
+    var tags = fetchTagsFromGitHub(KNOWLEDGE_REPO);
+    var matchedTag = resolveTargetTag(tags, resolvedRange);
+    if (!matchedTag) {
+      process.stderr.write(
+        "[vendor] no tag matches range '" +
+          resolvedRange +
+          "'. Available: " +
+          tags.join(", ") +
+          "\n",
+      );
+      process.exit(1);
+    }
+    sha = resolveTagSha(KNOWLEDGE_REPO, matchedTag);
+    resolvedVersion = matchedTag;
+    process.stdout.write(
+      "[vendor] resolved range '" +
+        resolvedRange +
+        "' → " +
+        matchedTag +
+        " (" +
+        sha.slice(0, 7) +
+        ")\n",
+    );
+  }
+
+  if (!sha) {
+    sha = current.knowledge_repo_sha; // legacy fallback
+  }
 
   if (!sha) {
     process.stderr.write(
-      "[vendor] no SHA available — pass --sha <sha> or populate vendored.json\n",
+      "[vendor] no SHA available — pass --sha, --range, or set knowledge_repo_version_range in vendored.json\n",
     );
     process.exit(1);
+  }
+
+  if (args.resolveOnly) {
+    process.stdout.write("range=" + (resolvedRange || "") + "\n");
+    process.stdout.write("version=" + (resolvedVersion || "") + "\n");
+    process.stdout.write("sha=" + sha + "\n");
+    return;
   }
 
   // Fetch + extract into a tempdir so we don't pollute the plugin tree on
@@ -166,12 +314,15 @@ function main() {
 
     var manifest = {
       knowledge_repo: KNOWLEDGE_REPO,
-      knowledge_repo_sha: sha,
-      knowledge_repo_short_sha: sha.slice(0, 7),
+      knowledge_repo_version_range: resolvedRange || null,
+      knowledge_repo_resolved_version: resolvedVersion || null,
+      knowledge_repo_resolved_sha: sha,
       vendored_at: new Date().toISOString(),
       vendored_entries: vendored.sort(),
       excluded_entries: Array.from(EXCLUDE_TOP_LEVEL).sort(),
-      vendor_url: "https://github.com/" + KNOWLEDGE_REPO + "/tree/" + sha,
+      vendor_url: resolvedVersion
+        ? "https://github.com/" + KNOWLEDGE_REPO + "/tree/" + resolvedVersion
+        : "https://github.com/" + KNOWLEDGE_REPO + "/tree/" + sha,
     };
     writeVendoredJson(manifest);
     process.stdout.write("[vendor] wrote " + VENDORED_JSON_PATH + "\n");
@@ -190,4 +341,9 @@ if (require.main === module) {
   }
 }
 
-module.exports = { main: main };
+module.exports = {
+  main: main,
+  matchesRange: matchesRange,
+  compareSemver: compareSemver,
+  resolveTargetTag: resolveTargetTag,
+};
