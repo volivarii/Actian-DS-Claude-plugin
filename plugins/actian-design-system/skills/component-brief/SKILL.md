@@ -95,8 +95,9 @@ If the Step 1.5 response opted in to research (e.g., `research all`, `research u
    - Scoped cards (intersect requested research with research-applicable cards: card_usage, card_content, card_accessibility)
    - Existing context inlined:
      - `component-guidelines/<slug>.json` (component-specific brief context)
+     - `vendor/components/dist/categories.json` (DS Kit category lookup — feeds the brief-researcher's topic-routing fallback; see `agents/brief-researcher.md` for the resolution rules)
      - `vendor/foundations/src/foundations.md` (relevant excerpts)
-     - `vendor/content/src/content-index.md` + the matching `vendor/content/src/<topic-slug>.md` (canonical UI-copy guidance for the component — see `agents/brief-researcher.md` for the routing table)
+     - `vendor/content/src/content-index.md` + the matching `vendor/content/src/<topic-slug>.md` (canonical UI-copy guidance for the component — resolved via slug → category → global per `agents/brief-researcher.md`)
      - `vendor/content/dist/content.md` (fallback for cross-cutting voice/tone, and when no per-topic file matches)
      - `vendor/accessibility/accessibility.md`
    - Output path: `{project_working_directory}/components/[name]/[name]-research-findings.json`

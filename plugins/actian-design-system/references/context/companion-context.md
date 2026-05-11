@@ -110,6 +110,21 @@ Full context: `references/context/app-context.md`
 
 Before building custom frames, check: `vendor/components/dist/dskit-components.md`, `vendor/components/dist/fm-components.md`, `vendor/components/src/guidelines/{name}.json`
 
+### DS Kit Categories
+
+DS Kit components are grouped into 6 categories (synced from the design team's Figma Pages-panel naming). Use this when designers ask DS-org questions ("which components are in Form?", "what category is X?", "show me all Feedback components").
+
+| Category | Components | Examples |
+|---|---|---|
+| **Action** | 3 | button, link, sticky-footer |
+| **Form (input & selection)** | 11 | input, text-input, checkbox-with-label, radio-button, dropdown-select-default, search, toggle, calendar |
+| **Navigation** | 11 | breadcrumbs, side-nav, tabs, global-header, stepper, account-dropdown, app-switcher-dropdown |
+| **Data Display** | 31 | card, table, badge, tag-*, avatar, segmented-control, page-header, toolbar, lineage-*, line-graph |
+| **Feedback** | 11 | alert-banner, notification, empty-state, error-state, loader, spinner, loading-skeleton |
+| **Overlays** | 5 | modal, popover, tooltip, drawer-side-panel, chat-with-ai-steward |
+
+Counts and full membership: `vendor/components/dist/categories.json` (source of truth — synced from Figma). Some components carry `status` (`in-progress` ✍️, `deprecated` ⛔️, `warn` ⚠️) — surface this when answering questions about a component's readiness.
+
 **Common FM wireframe components:** fmButton, fmTextInput, fmDropdown, fmSearchInput, fmTableCell, fmCheckbox, fmRadioButton, fmToggle, fmAlert, fmBanner, fmDialog, fmEmptyState, fmPlaceholder, fmTab, fmStepper, fmBadge, fmTag, fmToast, fmPageHeader, fmAppHeader, fmNavItem
 
 ## Interactive Gates

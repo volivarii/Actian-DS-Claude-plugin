@@ -41,26 +41,68 @@ You will receive:
 - **Scoped cards** — array of card keys to research (subset of `card_usage`, `card_content`, `card_accessibility`)
 - **Existing context** — files inlined:
   - `vendor/components/src/guidelines/<slug>.json` — component-specific brief context. Its embedded `content_guidelines` field is historical extracted notes; treat it as supplementary, not authoritative.
+  - `vendor/components/dist/categories.json` — DS Kit component categorization (Action, Form, Navigation, Data Display, Feedback, Overlays). Use to resolve the component's category for the topic-routing fallback (see below) and to surface mis-categorization in `research_quality`.
   - `vendor/foundations/src/foundations.md` (relevant excerpts)
   - `vendor/content/src/content-index.md` — inventory of UI-copy topic files
-  - `vendor/content/src/<topic-slug>.md` — per-topic UI-copy file. **This is the source of truth for component-specific copy guidance.** Use the content-index to map component → topic. See routing examples below.
+  - `vendor/content/src/<topic-slug>.md` — per-topic UI-copy file. **This is the source of truth for component-specific copy guidance.** Resolve via the routing rules below.
   - `vendor/content/dist/content.md` — consolidated reference. Use the `Global guidelines` section for cross-cutting voice/tone rules, and as fallback when no per-topic file matches.
   - `vendor/accessibility/accessibility.md`
 - **Output path** for the findings JSON
 
 ### Topic-file routing
 
-Map the component to its content topic via `content-index.md`. Examples:
+Resolve the per-topic content file deterministically — **slug match → category fallback → global**. The component's `category` field comes from `vendor/components/dist/categories.json` (DS Kit only; FM/Meta components fall through to the category fallback or global).
 
-| Component(s) | Topic file |
+#### Step 1 — Slug match (most specific wins)
+
+| Component slug(s) | Topic file |
 |---|---|
-| Button | `buttons.md` |
-| Checkbox, Checkbox-with-label | `checkboxes.md` |
-| Tag, Badge | `tags-badges-status-indicators.md` |
-| Dialog, Confirmation | `dialogs-and-confirmations.md` |
-| Empty / Error / Maintenance / Success state | `empty-and-system-states.md` |
+| `button` | `buttons.md` |
+| `link` | `links.md` |
+| `sticky-footer` | `sticky-footer.md` |
+| `checkbox-with-label` | `checkboxes.md` |
+| `dropdown-select-default` | `dropdown-select.md` |
+| `input`, `input-date`, `calendar`, `rich-text` | `text-input.md` |
+| `search`, `search-dropdown-menu` | `search.md` |
+| `search-filters` | `filters.md` |
+| `toglge` (sic — Toggle in Figma) | `switch.md` |
+| `radio-button` | `forms.md` |
+| `breadcrumbs`, `global-header`, `side-nav`, `tabs`, `account-dropdown`, `app-switcher-dropdown`, `traffic-light` | `navigation.md` |
+| `notification-dropdown`, `notification`, `alert-banner` | `notifications-and-messaging.md` *(alert-banner uses `alerts.md` when scope is alert-specific)* |
+| `stepper`, `stepper-buttons` | `stepper.md` |
+| `whats-new-dropdown` | `whats-new.md` |
+| `card`, `perimeter-card`, `search-result-card` | `cards.md` |
+| `table` | `tables.md` *(also reference `data-tables.md` for sort/filter/bulk-action specifics)* |
+| `tag-default`, `tag-catalog`, `tag-catalog-item-type`, `tag-glossary-item-type`, `tag-interactive`, `tag-stage`, `tag-status`, `tag-updated`, `badge` | `tags-badges-status-indicators.md` |
+| `lineage-connecting-line`, `lineage-grouped-node`, `lineage-individual-node` | `lineage-specific-ui.md` |
+| `progress-bar-small`, `loader`, `loader-with-logo`, `loading-skeleton`, `spinner` | `loading-and-progress.md` |
+| `confirmation` | `dialogs-and-confirmations.md` |
+| `empty-state`, `error-state`, `maintenance-banner`, `maintenance-state` | `empty-and-system-states.md` |
+| `modal` | `modal.md` |
+| `popover`, `tooltip` | `popover.md` |
 
-If no clean match exists for the component, omit the per-topic file, rely on `content/dist/content.md` for content rules, and add a note in the output's `research_quality` field (e.g., `"content_routing": "no per-topic file matched; consolidated only"`).
+#### Step 2 — Category fallback (when slug doesn't match)
+
+Look up the component's category in `vendor/components/dist/categories.json` and use the category's default topic:
+
+| Category | Default topic |
+|---|---|
+| Action | `buttons.md` |
+| Form (input & selection) | `forms.md` |
+| Navigation | `navigation.md` |
+| Feedback | `notifications-and-messaging.md` |
+| Overlays | `dialogs-and-confirmations.md` |
+| Data Display | *(no clean default — fall through to Step 3)* |
+
+#### Step 3 — Global fallback
+
+If neither Step 1 nor Step 2 yields a topic file, omit the per-topic file. Rely on `content/dist/content.md` (`Global guidelines` section) and add a note in `research_quality`:
+
+```
+"content_routing": "<slug>: no per-topic match, category=<cat or 'uncategorized'>; consolidated only"
+```
+
+The category is informational metadata even when no topic file is loaded — surface it in the output so designers can spot mis-categorization.
 
 ## Research targets
 
