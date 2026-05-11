@@ -1,6 +1,6 @@
 {
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.3.2",
+  "knowledge_version": "0.3.6",
   "paths": {
     "foundations.md": {
       "path": "foundations/src/foundations.md",
@@ -95,6 +95,13 @@
       "origin": "ci",
       "generator": "scripts/sync/sync-from-figma.js",
       "description": "DS Kit component registry (Figma REST sync)"
+    },
+    "components.categories": {
+      "path": "components/dist/categories.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "DS Kit component category groupings (Action, Form (input & selection), Navigation, Data Display, Feedback, Overlays) derived from the Figma Pages panel naming convention. Generated nightly by the Figma sync."
     },
     "components.registries.fmkit": {
       "path": "components/dist/registries/fmkit.json",

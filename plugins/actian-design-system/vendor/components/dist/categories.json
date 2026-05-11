@@ -1,0 +1,111 @@
+{
+  "library": "ds",
+  "generatedAt": "2026-05-11T13:55:57.788Z",
+  "categories": {
+    "Form (input & selection)": {
+      "components": [
+        "calendar",
+        "checkbox-with-label",
+        "dropdown-select-default",
+        "input",
+        "input-date",
+        "radio-button",
+        "rich-text",
+        "search",
+        "search-dropdown-menu",
+        "search-filters",
+        "toglge"
+      ],
+      "count": 11
+    },
+    "Navigation": {
+      "components": [
+        "account-dropdown",
+        "app-switcher-dropdown",
+        "breadcrumbs",
+        "global-header",
+        "notification-dropdown",
+        "side-nav",
+        "stepper",
+        "stepper-buttons",
+        "tabs",
+        "traffic-light",
+        "whats-new-dropdown"
+      ],
+      "count": 11
+    },
+    "Data Display": {
+      "components": [
+        "avatar",
+        "badge",
+        "bar-graph",
+        "card",
+        "collapse-accordion",
+        "digram-item-types",
+        "digram-topic",
+        "glossary-item-hierarchy-diagram",
+        "identification-key",
+        "line-graph",
+        "lineage-connecting-line",
+        "lineage-grouped-node",
+        "lineage-individual-node",
+        "metamodel-widget",
+        "page-header",
+        "perimeter-card",
+        "progress-bar-small",
+        "scroll-bar",
+        "search-result-card",
+        "segmented-control",
+        "table",
+        "tag-catalog",
+        "tag-catalog-item-type",
+        "tag-default",
+        "tag-glossary-item-type",
+        "tag-interactive",
+        "tag-stage",
+        "tag-status",
+        "tag-updated",
+        "tile-item",
+        "toolbar"
+      ],
+      "count": 31
+    },
+    "Feedback": {
+      "components": [
+        "alert-banner",
+        "confirmation",
+        "empty-state",
+        "error-state",
+        "loader",
+        "loader-with-logo",
+        "loading-skeleton",
+        "maintenance-banner",
+        "maintenance-state",
+        "notification",
+        "spinner"
+      ],
+      "count": 11
+    },
+    "Overlays": {
+      "components": [
+        "chat-with-ai-steward",
+        "drawer-side-panel",
+        "modal",
+        "popover",
+        "tooltip"
+      ],
+      "count": 5
+    },
+    "Action": {
+      "components": [
+        "button",
+        "link",
+        "sticky-footer"
+      ],
+      "count": 3
+    }
+  },
+  "uncategorized": {
+    "count": 250
+  }
+}
