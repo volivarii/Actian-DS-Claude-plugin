@@ -49,6 +49,19 @@ jobs:
         with:
           node-version: '22'
 
+      # Mint a token from the actian-ds-bot GitHub App so the PR appears
+      # authored by the App, not by github-actions[bot]. The default
+      # GITHUB_TOKEN suppresses downstream workflow triggers (flakily —
+      # see specs/2026-05-11-plugin-vendor-bot-identity.md for forensics),
+      # leaving bot PRs in BLOCKED state when the ruleset requires named
+      # status checks. App-authored PRs fire pull_request events normally.
+      - name: Mint App token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ vars.BOT_APP_ID }}
+          private-key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
       - name: Pull vendor snapshot
         working-directory: plugins/actian-design-system
         run: |
@@ -126,6 +139,10 @@ jobs:
         id: cpr
         uses: peter-evans/create-pull-request@v7
         with:
+          # App token (not default GITHUB_TOKEN) so the PR fires
+          # pull_request workflows like pr-checks.yml against its head
+          # SHA. Required for the ruleset's named status checks.
+          token: ${{ steps.app-token.outputs.token }}
           commit-message: "vendor(knowledge): refresh to ${{ steps.target.outputs.label }} + bump"
           title: "vendor(knowledge): refresh to ${{ steps.target.outputs.label }}"
           body: |
@@ -145,7 +162,8 @@ jobs:
       - name: Enable auto-merge
         if: steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Same App token — gh CLI auto-merge call attributes to the App.
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           gh pr merge "${{ steps.cpr.outputs.pull-request-number }}" --auto --squash --repo "${{ github.repository }}"
 
