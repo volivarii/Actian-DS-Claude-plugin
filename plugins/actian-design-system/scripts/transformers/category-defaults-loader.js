@@ -104,13 +104,7 @@ function loadDefaultsForCategory(input) {
 // recursive collection in the manifest but isn't exposed as a named
 // leaf — construct the path from PATHS.vendor.
 function _motionPath() {
-  return path.join(
-    PATHS.vendor,
-    "foundations",
-    "dist",
-    "tokens",
-    "motion.json",
-  );
+  return path.join(PATHS.foundations.distDir, "tokens", "motion.json");
 }
 
 function _loadMotionPatterns() {
@@ -120,7 +114,17 @@ function _loadMotionPatterns() {
     motionPatternsCache = {};
     return motionPatternsCache;
   }
-  var data = JSON.parse(fs.readFileSync(motionPath, "utf8"));
+  var data;
+  try {
+    data = JSON.parse(fs.readFileSync(motionPath, "utf8"));
+  } catch (err) {
+    throw new Error(
+      "category-defaults-loader: failed to parse " +
+        motionPath +
+        ": " +
+        err.message,
+    );
+  }
   motionPatternsCache = data.patterns || {};
   return motionPatternsCache;
 }
@@ -154,7 +158,16 @@ function _loadA11yIndex() {
     a11yIndexCache = { sections: [] };
     return a11yIndexCache;
   }
-  a11yIndexCache = JSON.parse(fs.readFileSync(idxPath, "utf8"));
+  try {
+    a11yIndexCache = JSON.parse(fs.readFileSync(idxPath, "utf8"));
+  } catch (err) {
+    throw new Error(
+      "category-defaults-loader: failed to parse " +
+        idxPath +
+        ": " +
+        err.message,
+    );
+  }
   return a11yIndexCache;
 }
 
