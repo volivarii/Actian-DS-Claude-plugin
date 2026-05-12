@@ -3,7 +3,7 @@
   "knowledge_repo_version_range": "~0.3.0",
   "knowledge_repo_resolved_version": "v0.3.8",
   "knowledge_repo_resolved_sha": "77c77febd837ac79edad5e9e7ae78f88ab384614",
-  "vendored_at": "2026-05-11T17:35:40.866Z",
+  "vendored_at": "2026-05-12T11:19:40.736Z",
   "vendored_entries": [
     "accessibility",
     "app-context",
