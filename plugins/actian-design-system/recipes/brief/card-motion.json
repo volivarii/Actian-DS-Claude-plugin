@@ -1,14 +1,14 @@
 {
   "card": "card_motion",
   "title": "Behavior & motion",
-  "description": "Conditional card. Renders only when the component has behavior.motion.pattern set in its component-guidelines JSON. Pulls phase rows from vendor/foundations/dist/interaction-motion.json#patterns.<slug>.",
+  "description": "Conditional card. Renders only when the component has behavior.motion.pattern set in its component-guidelines JSON. Pulls phase rows from vendor/foundations/dist/tokens/motion.json#patterns.<slug>.",
   "phase": "transcribe",
   "source": {
     "primary": {
       "type": "motion-pattern-lookup",
       "registry": "vendor/components/src/guidelines/<slug>.json",
       "field": "behavior.motion.pattern",
-      "patternRegistry": "vendor/foundations/dist/interaction-motion.json",
+      "patternRegistry": "vendor/foundations/dist/tokens/motion.json",
       "patternKey": "patterns.<pattern>"
     },
     "fallback": "skip-card",
@@ -18,17 +18,17 @@
     "applicable": false
   },
   "sections": {
-    "patternSlug": "Slug of the motion pattern referenced from foundations.md (e.g. 'drawer', 'layered-overlays', 'success-toast'). Must exist in interaction-motion.json#patterns.",
-    "patternName": "Human-readable pattern name copied from interaction-motion.json (e.g. 'Drawer (open/close)'). Used as a card subtitle.",
-    "phases": "Array of phase rows pulled verbatim from interaction-motion.json#patterns.<slug>.phases. Columns vary by pattern (Phase / Duration / Easing / Behavior, or pattern-specific shapes).",
-    "logic_and_accessibility": "Optional — array of strings copied from interaction-motion.json#patterns.<slug>.logic_and_accessibility. Per-pattern accessibility/intent notes (e.g. 'Reduced motion: disable fades').",
-    "notes": "Optional — array of strings copied from interaction-motion.json#patterns.<slug>.notes. Pattern-level notes (cascading effects, hold timing, etc).",
+    "patternSlug": "Slug of the motion pattern referenced from foundations.md (e.g. 'drawer', 'layered-overlays', 'success-toast'). Must exist in tokens/motion.json#patterns.",
+    "patternName": "Human-readable pattern name copied from tokens/motion.json (e.g. 'Drawer (open/close)'). Used as a card subtitle.",
+    "phases": "Array of phase rows pulled verbatim from tokens/motion.json#patterns.<slug>.phases. Columns vary by pattern (Phase / Duration / Easing / Behavior, or pattern-specific shapes).",
+    "logic_and_accessibility": "Optional — array of strings copied from tokens/motion.json#patterns.<slug>.logic_and_accessibility. Per-pattern accessibility/intent notes (e.g. 'Reduced motion: disable fades').",
+    "notes": "Optional — array of strings copied from tokens/motion.json#patterns.<slug>.notes. Pattern-level notes (cascading effects, hold timing, etc).",
     "overrides": "Optional free-text. Component-specific deviations from the canonical pattern, copied from <slug>.json behavior.motion.overrides."
   },
   "qualityRules": [
-    "Phases must come verbatim from interaction-motion.json — never invent durations or easings",
+    "Phases must come verbatim from tokens/motion.json — never invent durations or easings",
     "When the component has no behavior.motion.pattern, suppress the card entirely (do not emit empty card_motion)",
-    "patternSlug must match a key in interaction-motion.json#patterns; fail loudly if not"
+    "patternSlug must match a key in tokens/motion.json#patterns; fail loudly if not"
   ],
   "minimums": {
     "phases": 1

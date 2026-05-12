@@ -288,7 +288,7 @@ function validateBriefData(data) {
           severity: "error",
           card: k,
           message:
-            "card_motion claims figma source but patternSlug is missing or empty (recipe contract: patternSlug must match a key in interaction-motion.json#patterns)",
+            "card_motion claims figma source but patternSlug is missing or empty (recipe contract: patternSlug must match a key in foundations/dist/tokens/motion.json#patterns)",
         });
       }
     }

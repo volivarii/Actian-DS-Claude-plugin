@@ -37,10 +37,10 @@ function transcribeContentGuidelines(guidelinesJson) {
 }
 
 // Motion is a registry-derived card (pattern data lives in
-// vendor/foundations/interaction-motion.json under #patterns.<slug>).
+// vendor/foundations/dist/tokens/motion.json under #patterns.<slug>).
 // The component-guideline only declares which pattern + optional overrides;
 // the canonical phase data comes from foundations. Caller passes
-// ctx.motionPatterns (the patterns object from interaction-motion.json).
+// ctx.motionPatterns (the patterns object from foundations/dist/tokens/motion.json).
 function transcribeMotionPattern(guidelinesJson, motionPatterns) {
   if (!guidelinesJson || !guidelinesJson.behavior) return null;
   var motion = guidelinesJson.behavior.motion;
@@ -130,7 +130,7 @@ function resolveSection(cardKey, ctx, recipe) {
         fallbackReason:
           "behavior.motion.pattern '" +
           motionResult.slug +
-          "' not found in foundations interaction-motion.json#patterns — fix the slug or author the pattern",
+          "' not found in foundations tokens/motion.json#patterns — fix the slug or author the pattern",
       };
     }
     // Component has no motion — suppress the card. Caller skips emitting it.
