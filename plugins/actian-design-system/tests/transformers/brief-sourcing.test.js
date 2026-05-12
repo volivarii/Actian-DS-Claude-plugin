@@ -347,3 +347,135 @@ test("card_motion — formatForBrief preserves phase rows + adds optional fields
   assert.equal(formatted.overrides, "Side nav variant uses faster close");
   assert.equal(formatted._source, "figma");
 });
+
+// --- Phase 2c — category defaults wiring ---
+
+var CATEGORY_DEFAULTS_FIXTURE = {
+  slug: "form-input-selection",
+  card_anatomy: {
+    parts: [
+      { name: "Label", description: "control label" },
+      { name: "Control", description: "the input" },
+    ],
+  },
+  card_component: {
+    variantAxes: [{ axis: "State", values: ["default", "focus", "error"] }],
+  },
+  card_motion: {
+    patternRefs: [{ ref: "state-transitions", note: "focus feedback" }],
+  },
+  card_accessibility: {
+    requirementRefs: [{ ref: "keyboard-focus" }, { ref: "color-contrast" }],
+  },
+};
+
+test("resolveSection — Phase B card with ctx.categoryDefaults attaches it to result", function () {
+  var ctx = {
+    guidelinesJson: { _stub: true },
+    category: "form-input-selection",
+    categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
+  };
+  var recipe = { phase: "generate", grounding: ["vendor/foo.md"] };
+  var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
+  assert.equal(result.phase, "B");
+  assert.ok(result.categoryDefaults, "categoryDefaults must be attached");
+  assert.equal(result.categoryDefaults.slug, "form-input-selection");
+  assert.ok(
+    result.categoryDefaults.card_anatomy,
+    "anatomy section must be present",
+  );
+});
+
+test("resolveSection — card_tokens Phase B does NOT receive categoryDefaults (no mapping in defaults file)", function () {
+  var ctx = {
+    guidelinesJson: { _stub: true },
+    category: "form-input-selection",
+    categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
+  };
+  var recipe = { phase: "generate", grounding: [] };
+  var result = sourcing.resolveSection("card_tokens", ctx, recipe);
+  assert.equal(result.phase, "B");
+  assert.equal(
+    result.categoryDefaults,
+    undefined,
+    "card_tokens has no category-level defaults",
+  );
+});
+
+test("resolveSection — card_usage Phase B does NOT receive categoryDefaults (no mapping)", function () {
+  var ctx = {
+    guidelinesJson: { _stub: true },
+    category: "form-input-selection",
+    categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
+  };
+  var recipe = { phase: "generate", grounding: [] };
+  var result = sourcing.resolveSection("card_usage", ctx, recipe);
+  assert.equal(result.phase, "B");
+  assert.equal(result.categoryDefaults, undefined);
+});
+
+test("resolveSection — Phase B with no ctx.categoryDefaults leaves categoryDefaults undefined", function () {
+  var ctx = { guidelinesJson: { _stub: true } };
+  var recipe = { phase: "generate", grounding: [] };
+  var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
+  assert.equal(result.phase, "B");
+  assert.equal(result.categoryDefaults, undefined);
+});
+
+test("resolveSection — card_motion Phase A: no component pattern + categoryDefaults present → fallback to category motion ref", function () {
+  var STATE_TRANSITIONS = {
+    slug: "state-transitions",
+    name: "State Transitions",
+    phases: [{ Phase: "hover", Duration: "100ms" }],
+  };
+  var ctx = {
+    guidelinesJson: { behavior: { motion: null } },
+    categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
+    motionRefResolver: function (slug) {
+      return slug === "state-transitions" ? STATE_TRANSITIONS : null;
+    },
+  };
+  var recipe = { phase: "transcribe" };
+  var result = sourcing.resolveSection("card_motion", ctx, recipe);
+  assert.equal(result.phase, "A");
+  assert.equal(
+    result.source,
+    "figma",
+    "category fallback still counts as transcribed",
+  );
+  assert.equal(result.fallback, true);
+  assert.equal(result.fallbackReason, "category-motion-default");
+  assert.equal(result.content.patternSlug, "state-transitions");
+  assert.equal(result.content.patternName, "State Transitions");
+});
+
+test("resolveSection — card_motion: no component pattern, no categoryDefaults → still skipCard (regression guard)", function () {
+  var ctx = { guidelinesJson: { behavior: { motion: null } } };
+  var recipe = { phase: "transcribe" };
+  var result = sourcing.resolveSection("card_motion", ctx, recipe);
+  assert.equal(result.phase, "A");
+  assert.equal(result.skipCard, true, "no fallback when no categoryDefaults");
+});
+
+test("resolveSection — card_motion: component HAS pattern → existing path wins over category default", function () {
+  var DRAWER_PATTERN = {
+    slug: "drawer-open-close",
+    name: "Drawer (open/close)",
+    phases: [{ Phase: "open", Duration: "240ms" }],
+  };
+  var ctx = {
+    guidelinesJson: { behavior: { motion: { pattern: "drawer" } } },
+    motionPatterns: { drawer: DRAWER_PATTERN },
+    categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
+  };
+  var recipe = { phase: "transcribe" };
+  var result = sourcing.resolveSection("card_motion", ctx, recipe);
+  assert.equal(result.phase, "A");
+  assert.equal(result.source, "figma");
+  assert.equal(result.content.patternName, "Drawer (open/close)");
+  assert.notEqual(
+    result.fallback,
+    true,
+    "must not flag as category fallback when component pattern exists",
+  );
+});
