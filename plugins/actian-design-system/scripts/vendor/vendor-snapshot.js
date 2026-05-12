@@ -19,7 +19,7 @@
 var fs = require("fs");
 var path = require("path");
 var os = require("os");
-var { execFileSync } = require("child_process");
+var { execFileSync, spawnSync } = require("child_process");
 
 var PLUGIN_ROOT = path.resolve(__dirname, "..", "..");
 var VENDORED_JSON_PATH = path.join(PLUGIN_ROOT, "vendored.json");
@@ -250,6 +250,50 @@ function clearVendorDir() {
   fs.rmSync(VENDOR_DIR, { recursive: true, force: true });
 }
 
+// CI parity: vendor-snapshot.yml runs render-component-reference.js as a
+// separate step AFTER the snapshot copy to regenerate the three plugin-side
+// component mirrors (dskit-components.md, fm-components.md, meta-kit/
+// components.md). Local invocations of this script bypassed that step and
+// left fresh clones with missing mirrors, which broke path-validation
+// tests. Run the renderer here so CI and local behave identically.
+//
+// If the renderer fails, the vendor tree on disk is still useful — we log a
+// warning and set a non-zero exitCode rather than rolling back.
+function runComponentReferenceRenderer() {
+  var rendererPath = path.join(
+    PLUGIN_ROOT,
+    "scripts",
+    "renderers",
+    "render-component-reference.js",
+  );
+  if (!fs.existsSync(rendererPath)) {
+    process.stderr.write(
+      "[vendor] WARNING: renderer not found at " +
+        rendererPath +
+        " — skipping mirror regeneration (rare; check plugin install)\n",
+    );
+    return false;
+  }
+  process.stdout.write(
+    "[vendor] regenerating component mirrors via render-component-reference.js --kit all\n",
+  );
+  var result = spawnSync(process.execPath, [rendererPath, "--kit", "all"], {
+    stdio: "inherit",
+  });
+  if (result.status !== 0) {
+    process.stderr.write(
+      "[vendor] WARNING: render-component-reference.js exited with status " +
+        result.status +
+        ". Vendor snapshot is on disk but component mirrors " +
+        "(dskit-components.md / fm-components.md / meta-kit/components.md) " +
+        "may be stale. Run the renderer manually to recover.\n",
+    );
+    process.exitCode = 1;
+    return false;
+  }
+  return true;
+}
+
 function vendorContent(extractedRepoRoot) {
   fs.mkdirSync(VENDOR_DIR, { recursive: true });
   var entries = fs.readdirSync(extractedRepoRoot, { withFileTypes: true });
@@ -360,6 +404,11 @@ function main() {
     };
     writeVendoredJson(manifest);
     process.stdout.write("[vendor] wrote " + VENDORED_JSON_PATH + "\n");
+
+    // CI/local parity — regenerate the three plugin-side component mirrors
+    // that vendor-snapshot.yml regenerates in a separate step.
+    runComponentReferenceRenderer();
+
     process.stdout.write("[vendor] OK\n");
   } finally {
     fs.rmSync(tmpRoot, { recursive: true, force: true });
