@@ -17,12 +17,14 @@ You can also edit it in any Markdown editor (Typora, iA Writer, Obsidian, etc.) 
 ## What happens after you commit
 
 When you open or update a PR that touches `foundations.md`:
-1. CI runs a parser script.
-2. It regenerates 8 JSON files in `foundations/dist/` automatically.
-3. It commits the JSON changes back to your branch with the message `chore(foundations): regenerate JSONs from foundations.md`.
-4. It posts a comment on the PR summarizing what changed in plain language (e.g., "3 token values changed in `color.json`: blue-500, blue-600, blue-700").
+1. CI runs the schema-less hierarchical parser.
+2. It regenerates the `foundations/dist/` tree automatically (Pattern H — one JSON per leaf section, `_index.json` per directory, a `foundations.bundle.json` roll-up, plus a verbatim `.md` copy).
+3. It commits the regenerated tree back to your branch with the message `chore(foundations): regenerate JSONs from foundations.md`.
+4. It posts a comment on the PR summarizing what changed in plain language (e.g., "3 token values changed in `tokens/color-global-tokens/semantic-aliases.json`").
 
 You don't need to install Node, run any script, or touch the JSON files. The PR appears with both your MD changes and the auto-generated JSON changes side by side.
+
+You can rename, renumber, reorder, or restructure sections freely — the parser tracks MD structure, not section numbers. The output tree adapts.
 
 ## Adding a token
 
@@ -77,17 +79,18 @@ Sections 5 (Handoff Protocol) and 6 (Related Guidelines) are intentionally not p
 
 ## When something goes wrong
 
-- **PR comment says JSON didn't change but you expected it to:** the parser may not be reading your section. Check the heading numbering. If it's a new section, ping engineering to add a parser map entry.
+- **PR comment says JSON didn't change but you expected it to:** the parser walks heading structure — make sure your section is under an H2/H3 inside the in-scope top-level sections (Handoff Protocol and Related Guidelines are skipped on purpose).
 - **Auto-commit didn't appear:** the workflow only runs when `foundations.md` (or the parser scripts) change in the PR. If you only changed something else, no regeneration is triggered.
 - **CI failed:** open the workflow run from the PR's checks tab. The parser logs warnings for unmapped sections — these are non-fatal. A real error stops the run.
 
 ## What you don't need to do
 
-- Don't edit any JSON file in `foundations/dist/`. The `*.json` files are auto-generated from `foundations/src/foundations.md`. CI will revert your edits and push back the regenerated version.
-- Don't edit `scripts/foundations/foundations.parser.json` unless you understand the parser map.
+- Don't edit any JSON file in `foundations/dist/` (including `_index.json` files). They're auto-generated from `foundations/src/foundations.md`. CI will revert your edits and push back the regenerated version.
+- Don't edit `foundations/dist/foundations.md` — it's a verbatim copy of the source.
 - Don't install Node or run any script locally.
 
 ## More info
 
-- Engineering reference: [`scripts/foundations/foundations.parser.json`](../scripts/foundations/foundations.parser.json) — section number → JSON target mapping
-- Parser source: [`scripts/foundations/derive-foundations.js`](../scripts/foundations/derive-foundations.js)
+- Parser source: [`scripts/foundations/derive-foundations.js`](../../scripts/foundations/derive-foundations.js) — hierarchical Pattern H derive
+- AST helpers: [`scripts/foundations/foundations-parser/`](../../scripts/foundations/foundations-parser/)
+- Output layout reference: [`foundations/dist/README.md`](../dist/README.md)

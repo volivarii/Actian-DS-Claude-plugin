@@ -1,4 +1,5 @@
 {
+  "_schema_version": 1,
   "_meta": {
     "description": "FM Kit to DS Kit component mapping for hifi conversion",
     "fmRegistry": "components/registries/fmkit.json",
@@ -47,7 +48,9 @@
         "👁 Trailing Icon": "Trailing icon show",
         "Trailing Icon": "Trailing icon"
       },
-      "dropVariants": ["Shape"],
+      "dropVariants": [
+        "Shape"
+      ],
       "dsKey": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3"
     },
     "fmIconButtons": {
@@ -363,7 +366,9 @@
           "Number Expand": "Number"
         }
       },
-      "dropVariants": ["Size"],
+      "dropVariants": [
+        "Size"
+      ],
       "notes": "DS badge has only Number and Dot types. FM Size axis (Small/Medium/Large) has no DS equivalent.",
       "dsKey": "e8d93a3432951bd42d9b0bb20287eb61262ae10e"
     },
@@ -382,7 +387,9 @@
         "Icon": "Leading icon show",
         "↙ Icon": "Leading icon"
       },
-      "dropVariants": ["Outline"],
+      "dropVariants": [
+        "Outline"
+      ],
       "notes": "No DS chip component exists. Tag, Interactive is the closest equivalent. FM Outline axis has no DS mapping.",
       "dsKey": "19d8ed0dd3f5dc406017130026a6229f121f169d"
     },
@@ -404,7 +411,9 @@
         "Icon Right": "Trailing icon show",
         "↙ Icon R": "Trailing icon"
       },
-      "dropVariants": ["Style"],
+      "dropVariants": [
+        "Style"
+      ],
       "notes": "DS tag-default uses Color axis instead of Style. FM Style axis has no direct mapping.",
       "dsKey": "69c8a031b8b1f1703474cc000eaeb14611f0319c"
     },
@@ -466,7 +475,9 @@
         "Type": "Default"
       },
       "variantMap": {},
-      "dropVariants": ["Position"],
+      "dropVariants": [
+        "Position"
+      ],
       "notes": "DS tooltip has only Type=Default with no position variants. FM Position axis is dropped.",
       "dsKey": "558adad968a5b5e1e3714307fb19de73d1ac6d21"
     },

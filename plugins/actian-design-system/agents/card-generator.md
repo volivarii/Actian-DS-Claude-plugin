@@ -56,12 +56,60 @@ If your batch includes a Phase A key, that's a bug in the dispatcher — report 
 4. If research was applied to a card, also stamp `_research_applied: true`.
 5. Write the partial JSON to the specified output path.
 
+## Category defaults (Phase 2c)
+
+When the main skill resolves a `category` for the component (from the
+DS Kit registry's `category` field), it loads the matching
+`vendor/components/dist/categories/<slug>-defaults.json` and passes the
+parsed contents to relevant Phase B cards as `categoryDefaults` in the
+recipe payload. Three cards receive it: `card_anatomy`, `card_component`,
+`card_accessibility`. (`card_tokens` and `card_usage` are not categorized
+in the defaults shape.)
+
+When `categoryDefaults` is present:
+
+1. **Adapt, don't echo.** Treat the category defaults as a structural
+   baseline, not boilerplate to copy. The category gives you 5-7 anatomy
+   parts that apply across the category (e.g., every form input has
+   Label / Control / Helper / Validation); your job is to:
+   - Keep parts that genuinely apply to THIS component
+   - Drop parts that don't (e.g., a Toggle has no Helper text)
+   - Add component-specific parts not in the category baseline (e.g., a
+     Toggle has a Thumb)
+   - Sharpen descriptions toward the specific component, not the
+     category
+
+2. **Treat refs as informational, not authoritative.** `motion_refs` and
+   `accessibility` requirementRefs in `categoryDefaults` point at
+   foundation slugs. The main skill resolves them and may pass the
+   resolved content alongside; if not, look up the slug yourself in
+   `vendor/foundations/dist/tokens/motion.json#patterns` (match by
+   `.slug`) or `vendor/accessibility/dist/a11y-index.json` (match by
+   `.slug`).
+
+3. **Reconciliation rule:** existing context (component-guidelines JSON,
+   recipe grounding files) still wins on conflict — category defaults are
+   one layer of grounding, not the top of the stack.
+
+4. **Confidence levels.** `categoryDefaults.confidence` carries
+   `low/medium/high` per dimension. Don't surface the values verbatim
+   in the brief, but use them to weight your trust: high motion
+   confidence + curated foundations data should yield motion content that
+   matches the pattern exactly; medium anatomy confidence is permission
+   to deviate when the component truly differs.
+
+5. **Stamp `_category_grounded: true`** on any card that took shape from
+   category defaults (in addition to `_source: "generated"`). Reviewers
+   use the flag to spot regressions: a stub-component card without
+   `_category_grounded: true` when category defaults were available
+   suggests the generator improvised instead of adapting.
+
 ## Output format
 
 ```json
 {
   "meta": { "component": "Button", "library": "dsKit", ... },
-  "card_anatomy": { "_source": "generated", "parts": [...], ... },
+  "card_anatomy": { "_source": "generated", "_category_grounded": true, "parts": [...], ... },
   "card_tokens": { "_source": "generated", "colorTokens": [...], ... },
   "card_usage": {
     "_source": "generated",

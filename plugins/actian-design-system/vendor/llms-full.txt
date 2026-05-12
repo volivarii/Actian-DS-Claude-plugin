@@ -1,0 +1,3888 @@
+# Actian Design System — Full Knowledge Dump
+
+## Foundations
+
+# Actian Design System — Master Reference
+
+> **Built on Zen**
+> The Actian Design System is built on top of the **Zen Design System** — Zen provides the underlying token architecture, color primitives, spacing scale, typography, and component logic that Actian inherits and extends. Where Actian-specific decisions diverge from or expand on Zen, they are noted explicitly. When in doubt, Zen is the foundation.
+
+> **How to use this doc**
+> This is the authoritative reference for the Actian design system. It covers current primitives, existing tokens (in both Figma/hex and engineering/OKLCH formats), and foundational usage rules. Sections marked **⚠️ Proposed** are not yet in production — they are design-side proposals to be addressed with engineering before implementation.
+>
+> **What's authoritative:** Tokens listed under "Current Tokens" reflect the live state in both Figma and code as of April 2026. Figma was recently updated to align with engineering.
+>
+> **What to do when something's missing:** If you need a value not covered here, flag it in the Token Changelog section and loop in engineering before using a one-off value.
+
+---
+
+**Last updated:** April 22, 2026
+**Maintained by:** Design Systems team
+**Underlying system:** Zen Design System
+**Figma library:** Zen Colors (aligned with eng)
+**Engineering implementation:** CSS custom properties (`--zen-*`), OKLCH color space
+
+---
+
+## Table of Contents
+
+1. [Color Primitives & Themes](#1-color-primitives--themes)
+   - OKLCH Shade Formula
+   - Primitives (all palettes, 25–900)
+   - Semantic Tokens
+   - Product Themes
+
+2. [Tokens](#2-tokens)
+   - Status Key
+   - 2.1 Color — Global Tokens
+   - 2.2 Color — Text Tokens
+   - 2.3 Border Tokens
+   - 2.4 Breakpoints
+   - 2.5 Focus Rings
+   - 2.6 Elevation (Shadows)
+   - 2.7 Spacing
+   - 2.8 Typography
+   - 2.9 Motion
+   - 2.10 Background Tokens
+   - 2.11 Size Tokens (Component Heights, Trigger Area, Icon Sizes)
+   - 2.12 Icon Color Tokens
+
+3. [Foundations](#3-foundations)
+   - 3.1 Color Usage Rules
+   - 3.2 Typography Rules
+   - 3.3 Spacing Rules
+   - 3.4 Elevation Rules
+   - 3.5 Brightness Filter Convention — Interactive States
+   - 3.6 Breakpoints
+
+4. [Component Specs](#4-component-specs)
+   - 4.1 Focus Ring Rules
+   - 4.2 Border Usage
+   - 4.3 Placeholder Text
+
+5. [Handoff Protocol](#5-handoff-protocol)
+   - 5.1 Before You Hand Off
+   - 5.2 Figma Handoff Checklist
+   - 5.3 What to Include in Every Handoff
+   - 5.4 When Something Is Missing from the Token System
+
+6. [Related Guidelines](#6-related-guidelines)
+   - 6.1 Accessibility Guidelines
+   - 6.2 Content Guidelines
+
+---
+
+## 1. Color Primitives & Themes
+
+All color palettes follow a shared OKLCH shade formula. Each palette has a named base (500), and all other shades are derived from it. Figma stores these as hex; engineering implements them as OKLCH with relative color syntax.
+
+### OKLCH Shade Formula
+
+Engineering derives all shades from the 500 base using the following formula:
+
+| Shade | Lightness (L) | Chroma (C) |
+|-------|--------------|------------|
+| 25 | `0.99` | `calc(c * 0.2)` |
+| 50 | `calc(l + (0.99 - l) * 5/6)` | `calc(c * 0.3)` |
+| 100 | `calc(l + (0.99 - l) * 4/6)` | `calc(c * 0.4)` |
+| 200 | `calc(l + (0.99 - l) / 2)` | `calc(c * 0.6)` |
+| 300 | `calc(l + (0.99 - l) * 2/6)` | `calc(c * 0.7)` |
+| 400 | `calc(l + (0.99 - l) * 1/6)` | `calc(c * 0.85)` |
+| **500** | **Base** | **Base** |
+| 600 | `calc(l * 0.94)` | `calc(c * 1.05)` |
+| 700 | `calc(l * 0.85)` | `calc(c * 0.95)` |
+| 800 | `calc(l * 0.73)` | `calc(c * 0.75)` |
+| 900 | `calc(l * 0.63)` | `calc(c * 0.55)` |
+
+> **Note on Figma vs Eng:** Figma stores colors as hex values. Engineering uses OKLCH with the formula above. There can be minor visual differences between platforms — always defer to the Figma file for design decisions and engineering code for production output.
+
+---
+
+### Primitives
+
+All color primitives across the system. Every palette follows the same OKLCH shade formula (25–900). Semantic roles and theme assignments are defined in the sections below.
+
+#### Green
+OKLCH 500 base: `oklch(0.5812 0.1816 141.19)` — *Success semantic role*
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-green-25` | `#F0FFEC` | `oklch(0.99 0.0363 141.19)` |
+| 50 | `--zen-color-green-50` | `#D3EFCD` | `oklch(0.8677 0.0545 141.19)` |
+| 100 | `--zen-color-green-100` | `#B5DCAF` | `oklch(0.8211 0.0726 141.19)` |
+| 200 | `--zen-color-green-200` | `#92CC89` | `oklch(0.7812 0.1090 141.19)` |
+| 300 | `--zen-color-green-300` | `#75B86B` | `oklch(0.7346 0.1271 141.19)` |
+| 400 | `--zen-color-green-400` | `#53A647` | `oklch(0.6879 0.1544 141.19)` |
+| **500** | **`--zen-color-green-500`** | **`#299315`** | **`oklch(0.5812 0.1816 141.19)`** |
+| 600 | `--zen-color-green-600` | `#098900` | `oklch(0.5463 0.1907 141.19)` |
+| 700 | `--zen-color-green-700` | `#047800` | `oklch(0.494 0.1725 141.19)` |
+| 800 | `--zen-color-green-800` | `#145F04` | `oklch(0.4243 0.1362 141.19)` |
+| 900 | `--zen-color-green-900` | `#1A4B14` | `oklch(0.3662 0.0999 141.19)` |
+
+#### Orange
+OKLCH 500 base: `oklch(0.7775 0.166 66.57)` — *Warning semantic role*
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-orange-25` | `#FFF9E5` | `oklch(0.99 0.0332 66.57)` |
+| 50 | `--zen-color-orange-50` | `#FFEBCE` | `oklch(0.9479 0.0498 66.57)` |
+| 100 | `--zen-color-orange-100` | `#FFDDB6` | `oklch(0.9183 0.0664 66.57)` |
+| 200 | `--zen-color-orange-200` | `#FFCD92` | `oklch(0.8888 0.0996 66.57)` |
+| 300 | `--zen-color-orange-300` | `#FFBE78` | `oklch(0.8592 0.1162 66.57)` |
+| 400 | `--zen-color-orange-400` | `#FFAF53` | `oklch(0.8296 0.1411 66.57)` |
+| **500** | **`--zen-color-orange-500`** | **`#FC9F1D`** | **`oklch(0.7775 0.166 66.57)`** |
+| 600 | `--zen-color-orange-600` | `#EF8D00` | `oklch(0.7309 0.1743 66.57)` |
+| 700 | `--zen-color-orange-700` | `#D27B00` | `oklch(0.6609 0.1577 66.57)` |
+| 800 | `--zen-color-orange-800` | `#A76605` | `oklch(0.5676 0.1245 66.57)` |
+| 900 | `--zen-color-orange-900` | `#83551F` | `oklch(0.4898 0.0913 66.57)` |
+
+#### Red
+OKLCH 500 base: `oklch(0.6243 0.1982 32.45)` — *Error semantic role*
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-red-25` | `#FFF4EC` | `oklch(0.99 0.0396 32.45)` |
+| 50 | `--zen-color-red-50` | `#FFDACF` | `oklch(0.9202 0.0595 32.45)` |
+| 100 | `--zen-color-red-100` | `#FFC1B3` | `oklch(0.8828 0.0793 32.45)` |
+| 200 | `--zen-color-red-200` | `#FFA38F` | `oklch(0.8121 0.1189 32.45)` |
+| 300 | `--zen-color-red-300` | `#F88973` | `oklch(0.7747 0.1387 32.45)` |
+| 400 | `--zen-color-red-400` | `#EF6B53` | `oklch(0.7114 0.1685 32.45)` |
+| **500** | **`--zen-color-red-500`** | **`#E6492D`** | **`oklch(0.6243 0.1982 32.45)`** |
+| 600 | `--zen-color-red-600` | `#DC3514` | `oklch(0.5868 0.2081 32.45)` |
+| 700 | `--zen-color-red-700` | `#C12C11` | `oklch(0.5307 0.1883 32.45)` |
+| 800 | `--zen-color-red-800` | `#982A18` | `oklch(0.4557 0.1487 32.45)` |
+| 900 | `--zen-color-red-900` | `#762A1C` | `oklch(0.3933 0.109 32.45)` |
+
+#### Grey
+OKLCH 500 base: `oklch(0.683 0 0)` — *Neutral semantic role*
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-grey-25` | `#FCFCFC` | `oklch(0.99 0 0)` |
+| 50 | `--zen-color-grey-50` | `#EBEBEB` | `oklch(0.9358 0 0)` |
+| 100 | `--zen-color-grey-100` | `#DADADA` | `oklch(0.8887 0 0)` |
+| 200 | `--zen-color-grey-200` | `#C9C9C9` | `oklch(0.8415 0 0)` |
+| 300 | `--zen-color-grey-300` | `#B9B9B9` | `oklch(0.7943 0 0)` |
+| 400 | `--zen-color-grey-400` | `#A9A9A9` | `oklch(0.7472 0 0)` |
+| **500** | **`--zen-color-grey-500`** | **`#999999`** | **`oklch(0.683 0 0)`** |
+| 600 | `--zen-color-grey-600` | `#8D8D8D` | `oklch(0.642 0 0)` |
+| 700 | `--zen-color-grey-700` | `#7B7B7B` | `oklch(0.5806 0 0)` |
+| 800 | `--zen-color-grey-800` | `#636363` | `oklch(0.4986 0 0)` |
+| 900 | `--zen-color-grey-900` | `#505050` | `oklch(0.4303 0 0)` |
+
+#### Royal Blue
+500 base: `#0550DC` — *(No OKLCH base defined)* 🔵 In Review — *Actian theme primary*
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-royal-blue-25` | `#EDF6FF` | — |
+| 50 | `--zen-color-royal-blue-50` | `#E0F0FF` | — |
+| 100 | `--zen-color-royal-blue-100` | `#9DCDFF` | — |
+| 200 | `--zen-color-royal-blue-200` | `#6FAFFD` | — |
+| 300 | `--zen-color-royal-blue-300` | `#3C91FF` | — |
+| 400 | `--zen-color-royal-blue-400` | `#2679FF` | — |
+| **500** | **`--zen-color-royal-blue-500`** | **`#0550DC`** | — |
+| 600 | `--zen-color-royal-blue-600` | `#043ACE` | — |
+| 700 | `--zen-color-royal-blue-700` | `#0029A9` | — |
+| 800 | `--zen-color-royal-blue-800` | `#000078` | — |
+| 900 | `--zen-color-royal-blue-900` | `#090952` | — |
+
+#### Blue
+OKLCH 500 base: `oklch(0.58 0.130062 238.7173)` — *Studio & Admin theme primary*
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-blue-25` | `#ECFFFF` | `oklch(0.99 0.026 238.72)` |
+| 50 | `--zen-color-blue-50` | `#CFEAFD` | `oklch(0.9297 0.039 238.72)` |
+| 100 | `--zen-color-blue-100` | `#B1D5EE` | `oklch(0.8827 0.052 238.72)` |
+| 200 | `--zen-color-blue-200` | `#8BC0E6` | `oklch(0.79 0.078 238.72)` |
+| 300 | `--zen-color-blue-300` | `#6BACD7` | `oklch(0.7297 0.091 238.72)` |
+| 400 | `--zen-color-blue-400` | `#4598CB` | `oklch(0.6648 0.1106 238.72)` |
+| **500** | **`--zen-color-blue-500`** | **`#0283BE`** | **`oklch(0.58 0.130062 238.7173)`** |
+| 600 | `--zen-color-blue-600` | `#0079B6` | `oklch(0.5452 0.1366 238.72)` |
+| 700 | `--zen-color-blue-700` | `#00699F` | `oklch(0.493 0.1236 238.72)` |
+| 800 | `--zen-color-blue-800` | `#00547D` | `oklch(0.4234 0.0976 238.72)` |
+| 900 | `--zen-color-blue-900` | `#114361` | `oklch(0.3654 0.0715 238.72)` |
+
+#### Turquoise
+OKLCH 500 base: `oklch(0.6233 0.1066 192.34)` — *Explorer theme primary*
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-turquoise-25` | `#ECFFFF` | `oklch(0.99 0.0213 192.34)` |
+| 50 | `--zen-color-turquoise-50` | `#D0EFED` | `oklch(0.9189 0.032 192.34)` |
+| 100 | `--zen-color-turquoise-100` | `#B5DDDB` | `oklch(0.8755 0.0426 192.34)` |
+| 200 | `--zen-color-turquoise-200` | `#90CECB` | `oklch(0.812 0.064 192.34)` |
+| 300 | `--zen-color-turquoise-300` | `#72BCB9` | `oklch(0.7622 0.0746 192.34)` |
+| 400 | `--zen-color-turquoise-400` | `#4AACA9` | `oklch(0.6928 0.0906 192.34)` |
+| **500** | **`--zen-color-turquoise-500`** | **`#049B98`** | **`oklch(0.6233 0.1066 192.34)`** |
+| 600 | `--zen-color-turquoise-600` | `#00908E` | `oklch(0.5859 0.1119 192.34)` |
+| 700 | `--zen-color-turquoise-700` | `#007E7B` | `oklch(0.5298 0.1013 192.34)` |
+| 800 | `--zen-color-turquoise-800` | `#006563` | `oklch(0.455 0.0800 192.34)` |
+| 900 | `--zen-color-turquoise-900` | `#15504E` | `oklch(0.3927 0.0586 192.34)` |
+
+#### Purple
+OKLCH 500 base: `oklch(0.6798 0.0933 313.67)` — *Former primary; available for data viz, tags*
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-purple-25` | `#FFF9FF` | `oklch(0.99 0.0187 313.67)` |
+| 50 | `--zen-color-purple-50` | `#F2E6F8` | `oklch(0.9415 0.028 313.67)` |
+| 100 | `--zen-color-purple-100` | `#E3D3EC` | `oklch(0.8932 0.0373 313.67)` |
+| 200 | `--zen-color-purple-200` | `#D7BFE4` | `oklch(0.8399 0.056 313.67)` |
+| 300 | `--zen-color-purple-300` | `#C7ADD7` | `oklch(0.7866 0.0653 313.67)` |
+| 400 | `--zen-color-purple-400` | `#BA9ACC` | `oklch(0.7332 0.0793 313.67)` |
+| **500** | **`--zen-color-purple-500`** | **`#AD88C1`** | **`oklch(0.6798 0.0933 313.67)`** |
+| 600 | `--zen-color-purple-600` | `#A17AB6` | `oklch(0.639 0.098 313.67)` |
+| 700 | `--zen-color-purple-700` | `#8C6A9F` | `oklch(0.5778 0.0886 313.67)` |
+| 800 | `--zen-color-purple-800` | `#71567F` | `oklch(0.4963 0.07 313.67)` |
+| 900 | `--zen-color-purple-900` | `#5A4764` | `oklch(0.4283 0.0512 313.67)` |
+
+#### Blue Grey
+OKLCH 500 base: `oklch(0.5724 0.0397 229.02)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-blue-grey-25` | `#F7FDFF` | `oklch(0.99 0.0079 229.02)` |
+| 50 | `--zen-color-blue-grey-50` | `#DDE6EC` | `oklch(0.9287 0.0119 229.02)` |
+| 100 | `--zen-color-blue-grey-100` | `#C4D0D7` | `oklch(0.8816 0.0159 229.02)` |
+| 200 | `--zen-color-blue-grey-200` | `#AABCC4` | `oklch(0.8062 0.0238 229.02)` |
+| 300 | `--zen-color-blue-grey-300` | `#91A6B0` | `oklch(0.7486 0.0278 229.02)` |
+| 400 | `--zen-color-blue-grey-400` | `#78929D` | `oklch(0.6912 0.0338 229.02)` |
+| **500** | **`--zen-color-blue-grey-500`** | **`#607D8C`** | **`oklch(0.5724 0.0397 229.02)`** |
+| 600 | `--zen-color-blue-grey-600` | `#547482` | `oklch(0.538 0.0417 229.02)` |
+| 700 | `--zen-color-blue-grey-700` | `#4A6470` | `oklch(0.4865 0.0377 229.02)` |
+| 800 | `--zen-color-blue-grey-800` | `#3C515A` | `oklch(0.4179 0.0298 229.02)` |
+| 900 | `--zen-color-blue-grey-900` | `#323F47` | `oklch(0.3606 0.0218 229.02)` |
+
+#### Yellow
+OKLCH 500 base: `oklch(0.8699 0.1453 89.43)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-yellow-25` | `#FFFCE7` | `oklch(0.99 0.029 89.43)` |
+| 50 | `--zen-color-yellow-50` | `#FFF5D5` | `oklch(0.9499 0.0436 89.43)` |
+| 100 | `--zen-color-yellow-100` | `#FEEDC3` | `oklch(0.9166 0.0581 89.43)` |
+| 200 | `--zen-color-yellow-200` | `#FFE6A5` | `oklch(0.8849 0.0872 89.43)` |
+| 300 | `--zen-color-yellow-300` | `#FCDF91` | `oklch(0.8533 0.1017 89.43)` |
+| 400 | `--zen-color-yellow-400` | `#FBD776` | `oklch(0.8616 0.1235 89.43)` |
+| **500** | **`--zen-color-yellow-500`** | **`#FACF55`** | **`oklch(0.8699 0.1453 89.43)`** |
+| 600 | `--zen-color-yellow-600` | `#EABD34` | `oklch(0.8177 0.1526 89.43)` |
+| 700 | `--zen-color-yellow-700` | `#CDA52C` | `oklch(0.7394 0.1381 89.43)` |
+| 800 | `--zen-color-yellow-800` | `#A58732` | `oklch(0.6351 0.1090 89.43)` |
+| 900 | `--zen-color-yellow-900` | `#836F37` | `oklch(0.5481 0.0799 89.43)` |
+
+#### Olive Green
+OKLCH 500 base: `oklch(0.58 0.137262 119.6914)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-olive-green-25` | `#F9FFEA` | `oklch(0.99 0.0275 119.69)` |
+| 50 | `--zen-color-olive-green-50` | `#E1EACB` | `oklch(0.9213 0.0412 119.69)` |
+| 100 | `--zen-color-olive-green-100` | `#CAD5AD` | `oklch(0.8627 0.055 119.69)` |
+| 200 | `--zen-color-olive-green-200` | `#B2C186` | `oklch(0.79 0.0824 119.69)` |
+| 300 | `--zen-color-olive-green-300` | `#9CAD67` | `oklch(0.7313 0.0961 119.69)` |
+| 400 | `--zen-color-olive-green-400` | `#879940` | `oklch(0.669 0.1167 119.69)` |
+| **500** | **`--zen-color-olive-green-500`** | **`#718601`** | **`oklch(0.58 0.137262 119.6914)`** |
+| 600 | `--zen-color-olive-green-600` | `#677B00` | `oklch(0.5452 0.1441 119.69)` |
+| 700 | `--zen-color-olive-green-700` | `#5A6B00` | `oklch(0.493 0.1304 119.69)` |
+| 800 | `--zen-color-olive-green-800` | `#475500` | `oklch(0.4234 0.103 119.69)` |
+| 900 | `--zen-color-olive-green-900` | `#3A440F` | `oklch(0.3654 0.0755 119.69)` |
+
+#### Pacific Blue
+OKLCH 500 base: `oklch(0.3803 0.1386 258.03)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-pacific-blue-25` | `#F1FDFF` | `oklch(0.99 0.0277 258.03)` |
+| 50 | `--zen-color-pacific-blue-50` | `#CADCF7` | `oklch(0.9134 0.0416 258.03)` |
+| 100 | `--zen-color-pacific-blue-100` | `#A5BCDE` | `oklch(0.8468 0.0554 258.03)` |
+| 200 | `--zen-color-pacific-blue-200` | `#7A9CCD` | `oklch(0.7469 0.0832 258.03)` |
+| 300 | `--zen-color-pacific-blue-300` | `#577CB4` | `oklch(0.6803 0.097 258.03)` |
+| 400 | `--zen-color-pacific-blue-400` | `#315EA0` | `oklch(0.5802 0.1178 258.03)` |
+| **500** | **`--zen-color-pacific-blue-500`** | **`#023E8A`** | **`oklch(0.3803 0.1386 258.03)`** |
+| 600 | `--zen-color-pacific-blue-600` | `#003786` | `oklch(0.3575 0.1455 258.03)` |
+| 700 | `--zen-color-pacific-blue-700` | `#002F75` | `oklch(0.3233 0.1317 258.03)` |
+| 800 | `--zen-color-pacific-blue-800` | `#00255A` | `oklch(0.2776 0.1040 258.03)` |
+| 900 | `--zen-color-pacific-blue-900` | `#041E42` | `oklch(0.2396 0.0762 258.03)` |
+
+#### Pomegranate Red
+OKLCH 500 base: `oklch(0.5253 0.155 17.61)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-pomegranate-red-25` | `#FFF5F6` | `oklch(0.99 0.031 17.61)` |
+| 50 | `--zen-color-pomegranate-red-50` | `#FFD6D8` | `oklch(0.9176 0.0465 17.61)` |
+| 100 | `--zen-color-pomegranate-red-100` | `#EEB9BC` | `oklch(0.862 0.062 17.61)` |
+| 200 | `--zen-color-pomegranate-red-200` | `#E4979E` | `oklch(0.7877 0.093 17.61)` |
+| 300 | `--zen-color-pomegranate-red-300` | `#D27A83` | `oklch(0.7302 0.1085 17.61)` |
+| 400 | `--zen-color-pomegranate-red-400` | `#C25A67` | `oklch(0.6461 0.1318 17.61)` |
+| **500** | **`--zen-color-pomegranate-red-500`** | **`#B1374D`** | **`oklch(0.5253 0.155 17.61)`** |
+| 600 | `--zen-color-pomegranate-red-600` | `#A82743` | `oklch(0.4938 0.1628 17.61)` |
+| 700 | `--zen-color-pomegranate-red-700` | `#932139` | `oklch(0.4465 0.1473 17.61)` |
+| 800 | `--zen-color-pomegranate-red-800` | `#73202F` | `oklch(0.3835 0.1163 17.61)` |
+| 900 | `--zen-color-pomegranate-red-900` | `#591E27` | `oklch(0.3309 0.0853 17.61)` |
+
+#### Kickstart Purple
+OKLCH 500 base: `oklch(0.6113 0.1162 278.98)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-kickstart-purple-25` | `#F9FBFF` | `oklch(0.99 0.0232 278.98)` |
+| 50 | `--zen-color-kickstart-purple-50` | `#E1E5FF` | `oklch(0.9295 0.0349 278.98)` |
+| 100 | `--zen-color-kickstart-purple-100` | `#CBD0F2` | `oklch(0.8776 0.0465 278.98)` |
+| 200 | `--zen-color-kickstart-purple-200` | `#B4BAEB` | `oklch(0.7973 0.0697 278.98)` |
+| 300 | `--zen-color-kickstart-purple-300` | `#9FA5DD` | `oklch(0.7354 0.0813 278.98)` |
+| 400 | `--zen-color-kickstart-purple-400` | `#8A90D3` | `oklch(0.6734 0.0988 278.98)` |
+| **500** | **`--zen-color-kickstart-purple-500`** | **`#757BC8`** | **`oklch(0.6113 0.1162 278.98)`** |
+| 600 | `--zen-color-kickstart-purple-600` | `#6A6FBF` | `oklch(0.5746 0.122 278.98)` |
+| 700 | `--zen-color-kickstart-purple-700` | `#5C61A7` | `oklch(0.5196 0.1104 278.98)` |
+| 800 | `--zen-color-kickstart-purple-800` | `#4A4E84` | `oklch(0.4463 0.0872 278.98)` |
+| 900 | `--zen-color-kickstart-purple-900` | `#3C4066` | `oklch(0.3851 0.0639 278.98)` |
+
+#### Glint Green
+OKLCH 500 base: `oklch(0.9292 0.0635 130.94)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-glint-green-25` | `#F9FEF5` | `oklch(0.99 0.0127 130.94)` |
+| 50 | `--zen-color-glint-green-50` | `#F4FBEE` | `oklch(0.9744 0.019 130.94)` |
+| 100 | `--zen-color-glint-green-100` | `#EFF9E8` | `oklch(0.9621 0.0254 130.94)` |
+| 200 | `--zen-color-glint-green-200` | `#E9F7DD` | `oklch(0.9496 0.0381 130.94)` |
+| 300 | `--zen-color-glint-green-300` | `#E4F6D6` | `oklch(0.9371 0.0445 130.94)` |
+| 400 | `--zen-color-glint-green-400` | `#DFF4CE` | `oklch(0.9246 0.054 130.94)` |
+| **500** | **`--zen-color-glint-green-500`** | **`#DAF1C5`** | **`oklch(0.9292 0.0635 130.94)`** |
+| 600 | `--zen-color-glint-green-600` | `#C6DFB2` | `oklch(0.8734 0.0667 130.94)` |
+| 700 | `--zen-color-glint-green-700` | `#AEC49B` | `oklch(0.7898 0.0603 130.94)` |
+| 800 | `--zen-color-glint-green-800` | `#8E9F80` | `oklch(0.6783 0.0476 130.94)` |
+| 900 | `--zen-color-glint-green-900` | `#75806B` | `oklch(0.5854 0.0349 130.94)` |
+
+#### Clematis Purple
+OKLCH 500 base: `oklch(0.5474 0.0688 308.11)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-clematis-purple-25` | `#FFFAFF` | `oklch(0.99 0.0138 308.11)` |
+| 50 | `--zen-color-clematis-purple-50` | `#E7E0EE` | `oklch(0.9229 0.0206 308.11)` |
+| 100 | `--zen-color-clematis-purple-100` | `#D1C7D9` | `oklch(0.8762 0.0275 308.11)` |
+| 200 | `--zen-color-clematis-purple-200` | `#BBAEC9` | `oklch(0.8037 0.0413 308.11)` |
+| 300 | `--zen-color-clematis-purple-300` | `#A695B4` | `oklch(0.7470 0.0482 308.11)` |
+| 400 | `--zen-color-clematis-purple-400` | `#907DA3` | `oklch(0.6703 0.0585 308.11)` |
+| **500** | **`--zen-color-clematis-purple-500`** | **`#7D6690`** | **`oklch(0.5474 0.0688 308.11)`** |
+| 600 | `--zen-color-clematis-purple-600` | `#745C88` | `oklch(0.5145 0.0722 308.11)` |
+| 700 | `--zen-color-clematis-purple-700` | `#644F77` | `oklch(0.4653 0.0654 308.11)` |
+| 800 | `--zen-color-clematis-purple-800` | `#4F405D` | `oklch(0.3996 0.0516 308.11)` |
+| 900 | `--zen-color-clematis-purple-900` | `#3F3548` | `oklch(0.3449 0.0378 308.11)` |
+
+#### Mellow Melon Pink
+OKLCH 500 base: `oklch(0.6062 0.2298 9.63)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-mellow-melon-pink-25` | `#FFF1F5` | `oklch(0.99 0.046 9.63)` |
+| 50 | `--zen-color-mellow-melon-pink-50` | `#FFD5DD` | `oklch(0.9219 0.069 9.63)` |
+| 100 | `--zen-color-mellow-melon-pink-100` | `#FFB9C4` | `oklch(0.8657 0.092 9.63)` |
+| 200 | `--zen-color-mellow-melon-pink-200` | `#FF96AA` | `oklch(0.7918 0.1379 9.63)` |
+| 300 | `--zen-color-mellow-melon-pink-300` | `#FC7993` | `oklch(0.7349 0.1609 9.63)` |
+| 400 | `--zen-color-mellow-melon-pink-400` | `#F3557B` | `oklch(0.6706 0.1953 9.63)` |
+| **500** | **`--zen-color-mellow-melon-pink-500`** | **`#E91E64`** | **`oklch(0.6062 0.2298 9.63)`** |
+| 600 | `--zen-color-mellow-melon-pink-600` | `#E00058` | `oklch(0.5698 0.2413 9.63)` |
+| 700 | `--zen-color-mellow-melon-pink-700` | `#C4004C` | `oklch(0.5153 0.2183 9.63)` |
+| 800 | `--zen-color-mellow-melon-pink-800` | `#9A083E` | `oklch(0.4425 0.1724 9.63)` |
+| 900 | `--zen-color-mellow-melon-pink-900` | `#771A34` | `oklch(0.3819 0.1264 9.63)` |
+
+#### Zima Blue
+OKLCH 500 base: `oklch(0.7602 0.1358 220.59)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-zima-blue-25` | `#E9FFFF` | `oklch(0.99 0.0272 220.59)` |
+| 50 | `--zen-color-zima-blue-50` | `#D2F6FF` | `oklch(0.9481 0.0407 220.59)` |
+| 100 | `--zen-color-zima-blue-100` | `#BBEBFC` | `oklch(0.9095 0.0543 220.59)` |
+| 200 | `--zen-color-zima-blue-200` | `#99E3FC` | `oklch(0.8451 0.0815 220.59)` |
+| 300 | `--zen-color-zima-blue-300` | `#7FD8F5` | `oklch(0.7941 0.0951 220.59)` |
+| 400 | `--zen-color-zima-blue-400` | `#58CFF1` | `oklch(0.7471 0.1155 220.59)` |
+| **500** | **`--zen-color-zima-blue-500`** | **`#1BC4ED`** | **`oklch(0.7602 0.1358 220.59)`** |
+| 600 | `--zen-color-zima-blue-600` | `#00B6E1` | `oklch(0.7146 0.1426 220.59)` |
+| 700 | `--zen-color-zima-blue-700` | `#009FC5` | `oklch(0.6462 0.1290 220.59)` |
+| 800 | `--zen-color-zima-blue-800` | `#00809D` | `oklch(0.5550 0.1019 220.59)` |
+| 900 | `--zen-color-zima-blue-900` | `#21677B` | `oklch(0.4789 0.0747 220.59)` |
+
+#### Singapore Orchid Purple
+OKLCH 500 base: `oklch(0.5473 0.2685 302.74)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-singapore-orchid-purple-25` | `#FFF5FF` | `oklch(0.99 0.0537 302.74)` |
+| 50 | `--zen-color-singapore-orchid-purple-50` | `#EED7FF` | `oklch(0.9206 0.0806 302.74)` |
+| 100 | `--zen-color-singapore-orchid-purple-100` | `#D9BBFF` | `oklch(0.8606 0.1074 302.74)` |
+| 200 | `--zen-color-singapore-orchid-purple-200` | `#C898FF` | `oklch(0.7739 0.1611 302.74)` |
+| 300 | `--zen-color-singapore-orchid-purple-300` | `#B47BFC` | `oklch(0.7072 0.188 302.74)` |
+| 400 | `--zen-color-singapore-orchid-purple-400` | `#A456F4` | `oklch(0.6273 0.2282 302.74)` |
+| **500** | **`--zen-color-singapore-orchid-purple-500`** | **`#9321ED`** | **`oklch(0.5473 0.2685 302.74)`** |
+| 600 | `--zen-color-singapore-orchid-purple-600` | `#8B00E8` | `oklch(0.5145 0.2819 302.74)` |
+| 700 | `--zen-color-singapore-orchid-purple-700` | `#7900CB` | `oklch(0.4652 0.2551 302.74)` |
+| 800 | `--zen-color-singapore-orchid-purple-800` | `#5F0C9E` | `oklch(0.3995 0.2014 302.74)` |
+| 900 | `--zen-color-singapore-orchid-purple-900` | `#4A1A76` | `oklch(0.3448 0.1477 302.74)` |
+
+#### Dropped Brick Red
+OKLCH 500 base: `oklch(0.5292 0.1745 37.67)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-dropped-brick-red-25` | `#FFF6EC` | `oklch(0.99 0.0349 37.67)` |
+| 50 | `--zen-color-dropped-brick-red-50` | `#FFD7CA` | `oklch(0.9178 0.0524 37.67)` |
+| 100 | `--zen-color-dropped-brick-red-100` | `#F3BBA9` | `oklch(0.8617 0.0698 37.67)` |
+| 200 | `--zen-color-dropped-brick-red-200` | `#EB9980` | `oklch(0.7877 0.1047 37.67)` |
+| 300 | `--zen-color-dropped-brick-red-300` | `#DA7C61` | `oklch(0.7296 0.1222 37.67)` |
+| 400 | `--zen-color-dropped-brick-red-400` | `#CB5D3B` | `oklch(0.6450 0.1483 37.67)` |
+| **500** | **`--zen-color-dropped-brick-red-500`** | **`#BA3800`** | **`oklch(0.5292 0.1745 37.67)`** |
+| 600 | `--zen-color-dropped-brick-red-600` | `#B22700` | `oklch(0.4974 0.1832 37.67)` |
+| 700 | `--zen-color-dropped-brick-red-700` | `#9C2000` | `oklch(0.4498 0.1658 37.67)` |
+| 800 | `--zen-color-dropped-brick-red-800` | `#7B2000` | `oklch(0.3863 0.1309 37.67)` |
+| 900 | `--zen-color-dropped-brick-red-900` | `#5D1F0B` | `oklch(0.3334 0.0960 37.67)` |
+
+#### Viva Gold Orange
+OKLCH 500 base: `oklch(0.7828 0.0942 70.44)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-viva-gold-orange-25` | `#FFFBEF` | `oklch(0.99 0.0188 70.44)` |
+| 50 | `--zen-color-viva-gold-orange-50` | `#FEEDDC` | `oklch(0.9456 0.0283 70.44)` |
+| 100 | `--zen-color-viva-gold-orange-100` | `#F5E1CA` | `oklch(0.9068 0.0377 70.44)` |
+| 200 | `--zen-color-viva-gold-orange-200` | `#F2D4B2` | `oklch(0.8564 0.0565 70.44)` |
+| 300 | `--zen-color-viva-gold-orange-300` | `#EBC8A0` | `oklch(0.8061 0.066 70.44)` |
+| 400 | `--zen-color-viva-gold-orange-400` | `#E5BB8B` | `oklch(0.7564 0.0801 70.44)` |
+| **500** | **`--zen-color-viva-gold-orange-500`** | **`#E0AE74`** | **`oklch(0.7828 0.0942 70.44)`** |
+| 600 | `--zen-color-viva-gold-orange-600` | `#D29F62` | `oklch(0.7358 0.0989 70.44)` |
+| 700 | `--zen-color-viva-gold-orange-700` | `#B78A55` | `oklch(0.6654 0.0895 70.44)` |
+| 800 | `--zen-color-viva-gold-orange-800` | `#937148` | `oklch(0.5715 0.0707 70.44)` |
+| 900 | `--zen-color-viva-gold-orange-900` | `#755D40` | `oklch(0.4932 0.0518 70.44)` |
+
+#### Shutters Green
+OKLCH 500 base: `oklch(0.5349 0.0308 118.85)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-shutters-green-25` | `#FCFDF8` | `oklch(0.99 0.0062 118.85)` |
+| 50 | `--zen-color-shutters-green-50` | `#E2E4DD` | `oklch(0.9132 0.0092 118.85)` |
+| 100 | `--zen-color-shutters-green-100` | `#C9CBC2` | `oklch(0.8665 0.0123 118.85)` |
+| 200 | `--zen-color-shutters-green-200` | `#B0B4A7` | `oklch(0.7898 0.0185 118.85)` |
+| 300 | `--zen-color-shutters-green-300` | `#989D8E` | `oklch(0.7298 0.0216 118.85)` |
+| 400 | `--zen-color-shutters-green-400` | `#818674` | `oklch(0.6531 0.0262 118.85)` |
+| **500** | **`--zen-color-shutters-green-500`** | **`#6B705C`** | **`oklch(0.5349 0.0308 118.85)`** |
+| 600 | `--zen-color-shutters-green-600` | `#626752` | `oklch(0.5028 0.0323 118.85)` |
+| 700 | `--zen-color-shutters-green-700` | `#555947` | `oklch(0.4547 0.0293 118.85)` |
+| 800 | `--zen-color-shutters-green-800` | `#43473A` | `oklch(0.3905 0.0231 118.85)` |
+| 900 | `--zen-color-shutters-green-900` | `#37392F` | `oklch(0.337 0.0169 118.85)` |
+
+#### Frosted Glass Green
+OKLCH 500 base: `oklch(0.5035 0.0743 171.63)`
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-frosted-glass-green-25` | `#F3FFFB` | `oklch(0.99 0.0149 171.63)` |
+| 50 | `--zen-color-frosted-glass-green-50` | `#D3E7E0` | `oklch(0.9106 0.0223 171.63)` |
+| 100 | `--zen-color-frosted-glass-green-100` | `#B4CEC5` | `oklch(0.8558 0.0297 171.63)` |
+| 200 | `--zen-color-frosted-glass-green-200` | `#91B7A9` | `oklch(0.7768 0.0446 171.63)` |
+| 300 | `--zen-color-frosted-glass-green-300` | `#749F90` | `oklch(0.7121 0.052 171.63)` |
+| 400 | `--zen-color-frosted-glass-green-400` | `#538877` | `oklch(0.6268 0.0631 171.63)` |
+| **500** | **`--zen-color-frosted-glass-green-500`** | **`#30725F`** | **`oklch(0.5035 0.0743 171.63)`** |
+| 600 | `--zen-color-frosted-glass-green-600` | `#216B57` | `oklch(0.4733 0.078 171.63)` |
+| 700 | `--zen-color-frosted-glass-green-700` | `#1C5C4B` | `oklch(0.428 0.0706 171.63)` |
+| 800 | `--zen-color-frosted-glass-green-800` | `#1A493B` | `oklch(0.3676 0.0557 171.63)` |
+| 900 | `--zen-color-frosted-glass-green-900` | `#1B3930` | `oklch(0.3172 0.0408 171.63)` |
+
+#### Cool Grey
+500 base: `#656574` — *(No OKLCH base defined)* 🔵 In Review
+
+| Shade | Token | Hex (Figma) | OKLCH (Eng) |
+|-------|-------|------------|-------------|
+| 25 | `--zen-color-cool-grey-25` | `#FBFBFF` | — |
+| 50 | `--zen-color-cool-grey-50` | `#F5F5FA` | — |
+| 100 | `--zen-color-cool-grey-100` | `#E4E4F0` | — |
+| 200 | `--zen-color-cool-grey-200` | `#D3D3E5` | — |
+| 300 | `--zen-color-cool-grey-300` | `#B9B9CD` | — |
+| 400 | `--zen-color-cool-grey-400` | `#9898A7` | — |
+| **500** | **`--zen-color-cool-grey-500`** | **`#656574`** | — |
+| 600 | `--zen-color-cool-grey-600` | `#3F3F4A` | — |
+| 700 | `--zen-color-cool-grey-700` | `#33333D` | — |
+| 800 | `--zen-color-cool-grey-800` | `#2A2A30` | — |
+| 900 | `--zen-color-cool-grey-900` | `#12131F` | — |
+
+---
+
+### Semantic Tokens
+
+Semantic tokens map fixed roles to specific primitives. These do not change per theme. All components should reference these tokens rather than raw primitive tokens.
+
+| Role | Semantic Token | Primitive | Hex (500) | OKLCH (500) |
+|------|---------------|-----------|-----------|-------------|
+| Success | `--zen-color-success-500` | `--zen-color-green-500` | `#299315` | `oklch(0.5812 0.1816 141.19)` |
+| Warning | `--zen-color-warning-500` | `--zen-color-orange-500` | `#FC9F1D` | `oklch(0.7775 0.166 66.57)` |
+| Error | `--zen-color-error-500` | `--zen-color-red-500` | `#E6492D` | `oklch(0.6243 0.1982 32.45)` |
+| Neutral | `--zen-color-neutral-500` | `--zen-color-grey-500` | `#999999` | `oklch(0.683 0 0)` |
+
+All shades (25–900) follow the same alias pattern, e.g. `--zen-color-success-100` → `--zen-color-green-100`.
+
+---
+
+### Product Themes
+
+The Actian Design System uses a **per-product theming model**. Each product has its own primary color. All components reference `--zen-color-primary-*` tokens — theming is applied by setting those tokens at the root level using a CSS theme class. No component-level overrides needed.
+
+| Theme class | Product | Primary color | Token alias | 500 Base (Hex) | OKLCH Base | Status |
+|-------------|---------|--------------|-------------|----------------|------------|--------|
+| `.theme-actian` | Actian (platform/default) | Royal Blue | `--zen-color-royal-blue-500` | `#0550DC` | *(No OKLCH base defined)* | 🔵 In Review |
+| `.theme-studio` | Studio, Admin | Blue | `--zen-color-blue-500` | `#0283BE` | `oklch(0.58 0.130062 238.7173)` | 🟢 Shipped |
+| `.theme-explorer` | Explorer | Turquoise | `--zen-color-turquoise-500` | `#049B98` | `oklch(0.6233 0.1066 192.34)` | 🟢 Shipped |
+
+> **Royal Blue OKLCH gap.** Royal Blue (`#0550DC`) is the primary color for the default Actian theme but has no OKLCH base value defined yet. Engineering must define and implement this OKLCH base as part of the `.theme-actian` In Review work.
+
+All other `--zen-color-primary-*` shades (25–900) are derived from the 500 base using the standard OKLCH shade formula, so the full scale updates automatically when the base is swapped.
+
+---
+
+## 2. Tokens
+
+All tokens are implemented as CSS custom properties under the `--zen-` namespace and as Figma variables in the Zen Colors library.
+
+**Token status key**
+
+| Status | Meaning |
+|--------|---------|
+| 🟢 Shipped | Live in engineering and Figma. Safe to use in production. |
+| 🔵 In Review | Discussed with eng; defined in Figma; pending implementation in code. |
+| 🟡 Proposed | Design has spec'd this; not yet discussed with eng. |
+
+---
+
+### 2.1 Color — Global Tokens
+
+#### White & Black
+
+| Token | Value | Status |
+|-------|-------|--------|
+| `--zen-color-white` | `oklch(1 0 0)` / `#FFFFFF` | 🟢 Shipped |
+| `--zen-color-black` | `oklch(0 0 0)` / `#000000` | 🟢 Shipped |
+
+#### Semantic Aliases
+
+The `--zen-color-primary-*` tokens resolve per product theme. All other semantic roles are fixed across themes.
+
+| Token | Default (Actian) | Studio | Explorer | Status |
+|-------|-----------------|--------|----------|--------|
+| `--zen-color-primary-500` | `--zen-color-royal-blue-500` | `--zen-color-blue-500` | `--zen-color-turquoise-500` | 🔵 In Review (Actian) / 🟢 Shipped (Studio, Explorer) |
+| `--zen-color-success-500` | `--zen-color-green-500` | ← same | ← same | 🟢 Shipped |
+| `--zen-color-warning-500` | `--zen-color-orange-500` | ← same | ← same | 🟢 Shipped |
+| `--zen-color-error-500` | `--zen-color-red-500` | ← same | ← same | 🟢 Shipped |
+| `--zen-color-neutral-500` | `--zen-color-grey-500` | ← same | ← same | 🟢 Shipped |
+
+### 2.2 Color — Text Tokens
+
+| Token | Resolves To | Usage | Status |
+|-------|------------|-------|--------|
+| `--zen-color-text-primary` | `--zen-color-black` | Titles, labels, body text | 🟢 Shipped |
+| `--zen-color-text-secondary` | `--zen-color-grey-800` | Hints, subtext | 🟢 Shipped |
+| `--zen-color-text-tertiary` | `--zen-color-grey-700` | Subtitles, alternate texts | 🟢 Shipped |
+| `--zen-color-text-placeholder` | `--zen-color-grey-600` | Input placeholders | 🟢 Shipped |
+| `--zen-color-text-placeholder-subtle` | `--zen-color-grey-400` | Secondary placeholders (e.g. search fields) | 🟢 Shipped |
+| `--zen-color-text-disabled` | `--zen-color-grey-500` | Disabled inputs, buttons, form elements | 🟢 Shipped |
+| `--zen-color-text-error` | `--zen-color-error-600` | Error messages | 🟢 Shipped |
+| `--zen-color-text-warning` | `--zen-color-warning-600` | Warning messages | 🟢 Shipped |
+| `--zen-color-text-success` | `--zen-color-success-600` | Success messages | 🟢 Shipped |
+| `--zen-color-text-reverse` | `--zen-color-white` | Text on dark or primary-colored backgrounds | 🟡 Proposed |
+| `--zen-color-text-link-default` | `--zen-color-primary-500` | Default link color | 🟡 Proposed |
+| `--zen-color-text-link-visited` | `--zen-color-primary-700` | Visited link color | 🟡 Proposed |
+| `--zen-color-text-link-reverse` | `--zen-color-white` | Links on dark or primary-colored backgrounds | 🟡 Proposed |
+
+### 2.3 Border Tokens
+
+#### Radius
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-border-radius-2xs` | `2px` | | 🟢 Shipped |
+| `--zen-border-radius-xs` | `4px` | | 🟢 Shipped |
+| `--zen-border-radius-sm` | `6px` | **Default** | 🟢 Shipped |
+| `--zen-border-radius-md` | `8px` | | 🟢 Shipped |
+| `--zen-border-radius-lg` | `10px` | | 🟢 Shipped |
+| `--zen-border-radius-xl` | `12px` | | 🟢 Shipped |
+| `--zen-border-radius-full` | `9999px` | Pills, avatars, tags | 🟢 Shipped |
+
+#### Width
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-border-width-md` | `1px` | Default | 🟢 Shipped |
+| `--zen-border-width-lg` | `2px` | Focus rings, emphasis | 🟢 Shipped |
+
+#### Style (Composite)
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-border-default` | `1px solid grey-100` | Default border for containers | 🟢 Shipped |
+| `--zen-border-subtle` | `1px solid grey-50` | Separators | 🟢 Shipped |
+| `--zen-border-disabled` | `1px solid grey-100` | Disabled state of components | 🟢 Shipped |
+| `--zen-border-selected` | `2px solid --zen-color-primary-500` | Selected state of components | 🟡 Proposed |
+| `--zen-border-error` | `1px solid --zen-color-error-500` | Error state inputs | 🟢 Shipped |
+
+### 2.4 Breakpoints
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-breakpoint-sm` | `600px` | Phone landscape | 🟢 Shipped |
+| `--zen-breakpoint-md` | `840px` | Tablet landscape | 🟢 Shipped |
+| `--zen-breakpoint-lg` | `1200px` | Desktop | 🟢 Shipped |
+| `--zen-breakpoint-xl` | `1920px` | Larger screens | 🟢 Shipped |
+
+### 2.5 Focus Rings
+
+Outlined focus rings must be applied with an offset on interactive elements. For inputs and textareas, use outline without offset.
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-focus-ring-primary` | `2px solid --zen-color-primary-500` | Buttons, toggles, checkboxes, radios, avatars, breadcrumbs, tags, tabs | 🟢 Shipped |
+| `--zen-focus-ring-error` | `2px solid red-500` | Destructive button links, error inputs | 🟢 Shipped |
+| `--zen-focus-ring-offset` | `2px` | Used with outlined focus states | 🟢 Shipped |
+
+### 2.6 Elevation (Shadows)
+
+> Elevation must only be used to define layering between elements when required. Use drop shadows only — do not use bevels, borders, or opacity to depict layering.
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-shadow-xs` | `0px 1px 3px 1px #0F, 0px 1px 5px 0px #12` | Dropdowns, elevated button (default), card hover | 🟢 Shipped |
+| `--zen-shadow-sm` | `0px 1px 7px 3px #14, 0px 1px 3px 1px #1F` | App header, navigation menu, elevated button hover | 🟢 Shipped |
+| `--zen-shadow-md` | `0px 1px 3px 0px #4D, 0px 4px 8px 3px #26` | Notification message, snackbar | 🟢 Shipped |
+| `--zen-shadow-lg` | `0px 2px 3px 0px #4D, 0px 6px 10px 4px #26` | — | 🟢 Shipped |
+| `--zen-shadow-xl` | `0px 4px 4px 0px #4D, 0px 8px 12px 6px #26` | Dialogs, toasts, overview panel | 🟢 Shipped |
+
+### 2.7 Spacing
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-spacing-3xs` | `0.125rem` (2px) | Tightest spacing, hairline gaps | 🟡 Proposed |
+| `--zen-spacing-2xs` | `0.25rem` (4px) | Between elements within a small component | 🟢 Shipped |
+| `--zen-spacing-xs` | `0.5rem` (8px) | Default spacing between components | 🟢 Shipped |
+| `--zen-spacing-sm` | `0.75rem` (12px) | Padding in a large component | 🟢 Shipped |
+| `--zen-spacing-md` | `1rem` (16px) | Padding in a large component; spacing between components | 🟢 Shipped |
+| `--zen-spacing-lg` | `1.5rem` (24px) | Spacing between sections | 🟢 Shipped |
+| `--zen-spacing-xl` | `2rem` (32px) | Use when a clear separation is needed | 🟢 Shipped |
+| `--zen-spacing-2xl` | `3rem` (48px) | Major section breaks, page padding | 🟡 Proposed |
+| `--zen-spacing-3xl` | `4rem` (64px) | Hero sections, full-page layout | 🟡 Proposed |
+
+### 2.8 Typography
+
+#### Font Family
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-font-family-text` | `Roboto` | Default — headings and body | 🟢 Shipped |
+| `--zen-font-family-mono` | `"Roboto Mono"` | Code and data | 🟢 Shipped |
+
+#### Font Weight
+
+| Token | Value | Status |
+|-------|-------|--------|
+| `--zen-font-weight-regular` | `400` | 🟢 Shipped |
+| `--zen-font-weight-medium` | `500` | 🟢 Shipped |
+| `--zen-font-weight-semibold` | `600` | 🟢 Shipped |
+| `--zen-font-weight-bold` | `700` | 🟢 Shipped |
+
+#### Font Size
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-font-size-xs` | `11px` *(update from 10px)* | Hint | 🟡 Proposed |
+| `--zen-font-size-sm` | `0.75rem` (12px) | Body, section subtitle | 🟢 Shipped |
+| `--zen-font-size-md` | `0.875rem` (14px) | Page subtitle, card header (small) | 🟢 Shipped |
+| `--zen-font-size-lg` | `1rem` (16px) | Section title, card header (default) | 🟢 Shipped |
+| `--zen-font-size-xl` | `1.125rem` (18px) | — | 🟢 Shipped |
+| `--zen-font-size-2xl` | `1.25rem` (20px) | — | 🟢 Shipped |
+| `--zen-font-size-3xl` | `1.5rem` (24px) | Page title | 🟢 Shipped |
+| `--zen-font-size-4xl` | `1.875rem` (30px) | — | 🟢 Shipped |
+
+#### Letter Spacing
+
+> **⚠️ Token name correction:** These tokens were previously named `--zen-font-lettingspacing-*` (typo). The correct name is `--zen-font-letterspacing-*`. Engineering must update the token names in the codebase as part of the In Review implementation.
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-font-letterspacing-normal` | `0px` | Font sizes larger than 16px | 🔵 In Review |
+| `--zen-font-letterspacing-wide-1` | `0.1px` | Font size 16px | 🔵 In Review |
+| `--zen-font-letterspacing-wide-2` | `0.2px` | Font size 14px | 🔵 In Review |
+| `--zen-font-letterspacing-wide-3` | `0.3px` | Font size 12px | 🔵 In Review |
+| `--zen-font-letterspacing-wide-4` | `0.4px` | Font size 11px and smaller | 🔵 In Review |
+
+#### Line Height
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-font-lineheight-xs` | `14px / 0.875rem` | Font size 11px or smaller | 🔵 In Review |
+| `--zen-font-lineheight-sm` | `16px / 1rem` | Font size 12px | 🔵 In Review |
+| `--zen-font-lineheight-md` | `20px / 1.25rem` | Font size 14px | 🔵 In Review |
+| `--zen-font-lineheight-lg` | `24px / 1.5rem` | Font size 16px | 🔵 In Review |
+| `--zen-font-lineheight-xl` | `26px / 1.625rem` | Font size 18px | 🔵 In Review |
+| `--zen-font-lineheight-2xl` | `32px / 2rem` | Font size 24px | 🔵 In Review |
+
+#### Text Style Tokens (Composite)
+
+These are semantic aliases that combine weight + size + letter spacing + line height into a single named style. Use these in components rather than assembling the primitives manually.
+
+| Token | Weight | Size | Letter Spacing | Line Height | Usage | Status |
+|-------|--------|------|---------------|-------------|-------|--------|
+| `--zen-text-heading-display` | semibold | 3xl | letterspacing-normal | 2xl | Primary header, display font | 🔵 In Review |
+| `--zen-text-heading-prominent` | semibold | xl | letterspacing-normal | xl | Secondary header, default page header | 🔵 In Review |
+| `--zen-text-heading-standard` | semibold | lg | letterspacing-wide-1 | lg | Tertiary header, section header | 🔵 In Review |
+| `--zen-text-heading-subtle` | semibold | md | letterspacing-wide-2 | md | Subsection header | 🔵 In Review |
+| `--zen-text-heading-micro` | semibold | sm | letterspacing-wide-3 | sm | Low-emphasis header | 🔵 In Review |
+| `--zen-text-body-prominent` | regular | lg | letterspacing-wide-1 | lg | Intro, highlighted paragraph | 🔵 In Review |
+| `--zen-text-body-standard` | regular | md | letterspacing-wide-2 | md | Main content | 🔵 In Review |
+| `--zen-text-body-subtle` | regular | sm | letterspacing-wide-3 | sm | Secondary content | 🔵 In Review |
+| `--zen-text-body-micro` | regular | xs | letterspacing-wide-4 | xs | Footnotes, microcopy | 🔵 In Review |
+| `--zen-text-label-standard` | medium | md | letterspacing-wide-2 | md | Default button, form label | 🔵 In Review |
+| `--zen-text-label-subtle` | medium | sm | letterspacing-wide-3 | sm | Less prominent actions, secondary info label | 🔵 In Review |
+| `--zen-text-label-micro` | medium | xs | letterspacing-wide-4 | xs | Microcopy | 🔵 In Review |
+
+### 2.9 Motion
+
+> **Status:** All motion tokens are 🟡 Proposed. They are defined in Figma and have not yet been implemented in engineering.
+
+Motion tokens cover three dimensions: **duration** (how long), **easing** (how it accelerates), and **delay** (when it starts). All three must be specified together for any animated component.
+
+#### Duration
+
+Duration controls the speed of a transition. Smaller, simpler components move faster; larger, complex surfaces take slightly more time to respect their physical weight.
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-motion-duration-instant` | `100ms` | Micro-feedback: button hovers, checkbox toggles, radio buttons, focus rings | 🟡 Proposed |
+| `--zen-motion-duration-fast` | `200ms` | Small scale: tooltip fade-ins, dropdown/select expansions, tag dismissals | 🟡 Proposed |
+| `--zen-motion-duration-base` | `300ms` | Structural changes: collapse/accordion expanding, toast notifications sliding in | 🟡 Proposed |
+| `--zen-motion-duration-slow` | `400ms` | Large surfaces: modal scaling in, drawer (side panel) sliding in | 🟡 Proposed |
+
+#### Easing
+
+Easing curves give motion a natural, physical feel.
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-motion-ease-entrance` | `ease-out` | Fast start, slow finish. Objects entering the screen (e.g. modals, drawers). Feels responsive but settles smoothly. | 🟡 Proposed |
+| `--zen-motion-ease-exit` | `ease-in` | Slow start, fast finish. Objects leaving the screen (e.g. closing a side nav, dismissing a toast). Gets out of the user's way quickly. | 🟡 Proposed |
+| `--zen-motion-ease-standard` | `ease-in-out` | Smooth start and finish. Elements moving from point A to B, or expanding internally (e.g. accordions opening, progress bars filling). | 🟡 Proposed |
+
+#### Delay
+
+Delay dictates the pause before the motion duration begins.
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-motion-delay-stagger` | `20ms` | Choreography: applied incrementally to list items, table rows, or search result cards as they enter the screen | 🟡 Proposed |
+| `--zen-motion-delay-intent` | `300ms` | Hover protection: standard wait time before revealing a tooltip or complex glossary popover. Prevents accidental visual noise. | 🟡 Proposed |
+| `--zen-motion-delay-long` | `500ms` | Feedback holding: used for temporary success states before they auto-dismiss (e.g. a toast lingering before sliding out) | 🟡 Proposed |
+
+---
+
+#### Component Motion Guide
+
+Reference patterns for how motion tokens combine in common components. These define the expected behavior — engineering should implement these exactly.
+
+---
+
+**Drawer (open/close)**
+
+| Phase | Duration | Easing | Behavior |
+|-------|----------|--------|----------|
+| Open | `duration-slow` | `ease-entrance` | Slides in from the right |
+| Close | `duration-base` | `ease-exit` | Slides out to the right |
+
+---
+
+**Accordion (expand/collapse)**
+
+| Phase | Duration | Easing | Behavior |
+|-------|----------|--------|----------|
+| Expand | `duration-base` | `ease-standard` | Height animates open; content fades in (0→100% opacity) during final 150ms |
+| Collapse | `duration-base` | `ease-standard` | Height animates closed; content fades out (100→0% opacity) during initial 100ms |
+
+---
+
+**Success Toast**
+
+| Phase | Duration | Easing | Behavior |
+|-------|----------|--------|----------|
+| Entry | `duration-base` | `ease-entrance` | Slides in from the bottom |
+| Hold | `delay-long` (500ms as token; 4000ms total hold) | — | Settle time after entry completes before auto-dismiss timer begins |
+| Exit | `duration-fast` | `ease-exit` | Fades out quickly |
+
+> Note: The `--zen-motion-delay-long` token value is 500ms and represents the *token unit* for the holding pattern. The full 4000ms hold period is a product-level decision, not a motion token.
+
+---
+
+**The "Anchor" Motion — Dropdowns, Popovers, and Tooltips**
+
+| Phase | Duration | Easing | Behavior |
+|-------|----------|--------|----------|
+| Open | `duration-base` | `ease-entrance` | Fades in (0→100% opacity) over full duration; element scales up from its trigger point while fading in |
+| Close | `duration-fast` | `ease-standard` | Fades out (100→0% opacity) over full duration; element scales down and retracts back to its trigger point |
+
+**Logic & Accessibility**
+
+- **Intentionality:** Apply `--zen-motion-delay-intent` (300ms) for Tooltip opening on hover to prevent accidental triggers
+- **Immediate Focus:** Keyboard focus (Tab) ignores delays and triggers the open motion immediately
+- **Reduced Motion:** When `prefers-reduced-motion: reduce` is detected, fade transitions are disabled and elements toggle visibility instantly
+
+---
+
+**Layered Overlays — Modals**
+
+| Phase | Duration | Easing | Behavior |
+|-------|----------|--------|----------|
+| Open | `duration-slow` | `ease-entrance` | Modal scales 95%→100% while background scrim fades in. The slow duration communicates that the user has entered a new, temporary top-level context. |
+| Close | `duration-fast` | `ease-exit` | Modal scales 100%→95% and fades 100%→0%. Scrim fades 100%→0%, synchronized. Slower on open to help users track context; dismisses quickly once the decision is made. |
+
+---
+
+**Skeleton Loading**
+
+| Duration | Easing | Behavior |
+|----------|--------|----------|
+| `2000ms` (looping) | `linear` | A continuous, subtle gradient shimmer moving left-to-right. Not tokenized — value is fixed. Provides visual confirmation the system is active and reduces perceived wait time for data-heavy views. |
+
+---
+
+**Staggered Entrance — Lists, Table Rows, Search Cards**
+
+| Per-item duration | Easing | Delay per item |
+|------------------|--------|---------------|
+| `duration-fast` | `ease-entrance` | `delay-stagger` × item index (item 1: 0ms, item 2: 20ms, item 3: 40ms…) |
+
+The cascading effect guides the eye naturally downward and prevents the screen feeling "flashed" with too much at once.
+
+---
+
+**State Transitions**
+
+| State | Duration | Easing | Behavior |
+|-------|----------|--------|----------|
+| Hover | `duration-instant` | `ease-standard` | Subtle background color shift via brightness filter |
+| Focus | — | — | No motion tokens — instant high-contrast ring/border for accessibility and speed |
+| Pressed | `duration-instant` | `ease-exit` | Subtle scale or brightness darkening |
+| → Selected | `duration-fast` | `ease-standard` | Subtle background color shift and side stroke draw-in |
+| → Unselected | `duration-instant` | `ease-exit` | Rapid fade and stroke collapse |
+
+---
+
+---
+
+### 2.10 Background Tokens
+
+| Token | Suggested Value | Usage | Status |
+|-------|----------------|-------|--------|
+| `--zen-color-bg-default` | `--zen-color-white` | Default page background | 🟡 Proposed |
+| `--zen-color-bg-subtle` | `--zen-color-grey-25` | Subtle section backgrounds, sidebars | 🟡 Proposed |
+| `--zen-color-bg-muted` | `--zen-color-grey-50` | Cards, input fills, table rows | 🟡 Proposed |
+| `--zen-color-bg-disabled` | `--zen-color-grey-50` | Disabled state backgrounds | 🟡 Proposed |
+| `--zen-color-bg-selected` | `--zen-color-primary-50` | Selected row or item background | 🟡 Proposed |
+| `--zen-color-bg-overlay` | `--zen-color-black` at 40% opacity | Modal/dialog backdrop | 🟡 Proposed |
+| `--zen-color-bg-emphasis` | `--zen-color-primary-500` | CTA banners, primary filled areas | 🟡 Proposed |
+| `--zen-color-bg-success` | `--zen-color-success-25` | Success alert backgrounds | 🟡 Proposed |
+| `--zen-color-bg-warning` | `--zen-color-warning-25` | Warning alert backgrounds | 🟡 Proposed |
+| `--zen-color-bg-error` | `--zen-color-error-25` | Error alert backgrounds | 🟡 Proposed |
+| `--zen-color-bg-info` | `--zen-color-primary-25` | Info alert backgrounds | 🟡 Proposed |
+
+### 2.11 Size Tokens
+
+#### Component Heights
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-size-height-xs` | `24px` | Compact chips, dense table rows | 🟡 Proposed |
+| `--zen-size-height-sm` | `32px` | Small buttons, secondary inputs | 🟡 Proposed |
+| `--zen-size-height-md` | `40px` | Default button, input, select | 🟡 Proposed |
+| `--zen-size-height-lg` | `48px` | Large buttons, prominent inputs | 🟡 Proposed |
+| `--zen-size-height-xl` | `56px` | Hero inputs, large touch surfaces | 🟡 Proposed |
+
+#### Trigger Area
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-size-trigger-min` | `24px` | Minimum interactive target area for desktop (WCAG 2.5.5 Level AA) | 🟡 Proposed |
+| `--zen-size-trigger-min-mobile` | `44px` | Minimum interactive target area for mobile (WCAG 2.5.5 Level AA) | 🟡 Proposed |
+
+#### Icon Sizes
+
+| Token | Value | Usage | Status |
+|-------|-------|-------|--------|
+| `--zen-icon-size-xs` | `12px` | Tight UI contexts, dense tables, badges | 🟡 Proposed |
+| `--zen-icon-size-sm` | `16px` | Inline icons, compact components | 🟡 Proposed |
+| `--zen-icon-size-md` | `20px` | Default icon size | 🟡 Proposed |
+| `--zen-icon-size-lg` | `24px` | Standalone icons, feature icons | 🟡 Proposed |
+
+### 2.12 Icon Color Tokens
+
+| Token | Suggested Value | Usage | Status |
+|-------|----------------|-------|--------|
+| `--zen-color-icon-default` | `--zen-color-black` | Default icon color | 🟡 Proposed |
+| `--zen-color-icon-subtle` | `--zen-color-neutral-600` | De-emphasized icons | 🟡 Proposed |
+| `--zen-color-icon-disabled` | `--zen-color-neutral-400` | Disabled icon state (no filter — uses explicit color) | 🟡 Proposed |
+| `--zen-color-icon-primary` | `--zen-color-primary-600` | Primary action icons | 🟡 Proposed |
+| `--zen-color-icon-error` | `--zen-color-error-600` | Error state icons | 🟡 Proposed |
+| `--zen-color-icon-success` | `--zen-color-success-600` | Success state icons | 🟡 Proposed |
+| `--zen-color-icon-warning` | `--zen-color-warning-600` | Warning state icons | 🟡 Proposed |
+| `--zen-color-icon-reverse` | `--zen-color-white` | Icons on dark or primary-colored backgrounds | 🟡 Proposed |
+
+---
+
+## 3. Foundations
+
+### 3.1 Color Usage Rules
+
+**Semantic over primitive.** Always use a semantic token (e.g. `--zen-color-text-primary`) rather than a raw palette token (e.g. `--zen-color-grey-900`) unless you're building a new token. This ensures theming works correctly.
+
+**Contrast.** Text on backgrounds must meet WCAG AA minimum (4.5:1 for body text, 3:1 for large text). Use the following pairings as reference:
+
+- `text-primary` on `bg-default` ✅
+- `text-secondary` on `bg-subtle` ✅
+- `text-disabled` should never be used on interactive elements that require action
+
+**Semantic color intent.** Color conveys meaning — don't use `success-*` colors for non-success contexts, even if the green looks right.
+
+### 3.2 Typography Rules
+
+Use `--zen-font-family-text` (Roboto) as the default for all UI text. Use `--zen-font-family-mono` for code snippets, data tables with identifiers, and technical strings.
+
+Don't create one-off font sizes. If your design needs a size between tokens, first check whether a token can be used, then raise it as a proposed token addition.
+
+### 3.3 Spacing Rules
+
+Use spacing tokens for all margin, padding, and gap values. The scale is:
+
+- **2xs–xs** for internal element spacing (icon-to-label, checkbox-to-text)
+- **sm–md** for internal component padding
+- **lg–xl** for spacing between sections and groups
+- **2xl–3xl** (proposed) for page-level layout breathing room
+
+Never use arbitrary pixel values for spacing. If a layout needs something outside the scale, it's a signal to propose a new token.
+
+### 3.4 Elevation Rules
+
+Elevation communicates depth and layer hierarchy — not decoration. Only use drop shadows to convey that an element is above another. Never stack multiple shadows, and don't apply elevation to elements sitting on the same visual plane.
+
+Common layer levels: `xs` → `sm` → `md` → `lg` → `xl` (each level suggests greater visual separation from the base surface).
+
+### 3.5 Brightness Filter Convention — Interactive States
+
+Interactive color states (hover, pressed/active, disabled) are **not handled with tokens**. Engineering implements these using CSS brightness filters at the component level.
+
+| State | Filter | Notes |
+|-------|--------|-------|
+| Hover | `filter: brightness(0.92)` | Subtle darkening |
+| Pressed / Active | `filter: brightness(0.85)` | More pronounced |
+| Disabled | `opacity: 0.4` | Combined with `cursor: not-allowed` |
+
+The only tokenized interactive state is **focus** — see `--zen-focus-ring-primary` and `--zen-focus-ring-error` in Section 2.5.
+
+### 3.6 Breakpoints
+
+Design mobile-first. Breakpoints define where layouts *expand*, not where they collapse. The four breakpoints cover phone landscape (sm), tablet (md), desktop (lg), and large screens (xl).
+
+---
+
+## 4. Component Specs
+
+> This section will grow as components are documented. Each component entry should include: anatomy, states, behavior rules, and do/don't guidance.
+
+### 4.1 Focus Ring Rules
+
+**Applies to:** Buttons, links, checkboxes, radios, avatars, breadcrumbs, tags, toggles, tabs
+
+Use `--zen-focus-ring-primary` with `--zen-focus-ring-offset` (2px) as an `outline-offset`.
+
+**Applies to:** Inputs, textareas
+
+Use `--zen-focus-ring-primary` as `outline` with no offset. The border of the input itself acts as the boundary.
+
+**Applies to:** Destructive actions and error-state interactive elements
+
+Use `--zen-focus-ring-error` instead of primary.
+
+**Do not** use `box-shadow` to simulate focus rings — it won't work correctly in high-contrast mode.
+
+### 4.2 Border Usage
+
+Use `--zen-border-default` for standard container borders (cards, panels, inputs at rest). Use `--zen-border-subtle` for dividers and separators between rows or sections. Use `--zen-border-disabled` for any input, button, or form element in a disabled state.
+
+### 4.3 Placeholder Text
+
+Two tiers of placeholder exist for inputs: `--zen-color-text-placeholder` is the standard placeholder (grey-600). `--zen-color-text-placeholder-subtle` (grey-400) is used in search fields where less visual weight is appropriate.
+
+---
+
+## 5. Handoff Protocol
+
+### 5.1 Before You Hand Off
+
+Before marking a design ready for engineering:
+
+- All colors reference Zen tokens (no raw hex or one-offs)
+- All spacing uses Zen spacing tokens
+- All typography uses Zen type tokens
+- Component states are fully specified: default, hover, focus, active, disabled, error
+- Responsive behavior is documented for each breakpoint
+
+### 5.2 Figma Handoff Checklist
+
+- [ ] Frame is named clearly (component name + variant)
+- [ ] All layers are named (no "Rectangle 47")
+- [ ] Auto-layout is used for all resizable containers
+- [ ] Components use library components, not detached copies
+- [ ] Prototype flows are linked where interaction context matters
+- [ ] Annotations added for non-obvious behavior (animations, edge cases, empty states)
+
+### 5.3 What to Include in Every Handoff
+
+Provide engineering with:
+
+1. **Link to Figma frame** — not a screenshot
+2. **Token references** — call out which tokens drive which properties if non-obvious
+3. **State inventory** — list all interactive states explicitly
+4. **Edge cases** — what happens with long text, empty data, loading, error?
+5. **Accessibility notes** — color contrast, keyboard behavior, screen reader label if custom
+
+### 5.4 When Something Is Missing from the Token System
+
+If you need a value that doesn't exist as a token:
+
+1. Don't use a raw value in production design
+2. Flag it in the design review with the `#design-systems` channel or equivalent
+3. Work with engineering to agree on the token before implementation
+
+---
+
+## 6. Related Guidelines
+
+The following topics are intentionally maintained as separate documents. They are kept separate to allow independent versioning and to serve their respective audiences without adding scope to this token and handoff reference.
+
+### 6.1 Accessibility Guidelines
+
+Covers WCAG compliance, color contrast requirements, keyboard navigation, focus management, touch target sizing, screen reader behavior, ARIA usage, and reduced motion requirements.
+
+> **Document:** Actian Accessibility Guidelines *(to be created)*
+
+### 6.2 Content Guidelines
+
+Covers voice and tone, capitalization rules, button and label copy, error message writing, empty state copy, and microcopy patterns.
+
+> **Document:** Actian Content Guidelines *(to be created)*
+
+---
+
+*End of document. Questions or updates? Open a GitHub issue or bring them to the design systems sync.*
+
+
+## Content
+
+# Content guidelines — Actian Data Intelligence
+
+> **Auto-generated** by `scripts/content/derive-content.js` from `content/src/*.md`. Do not edit this file directly — edit the per-component source files.
+>
+> **Per-component sources:** `content/src/{slug}.md` (37 sections)
+> **Section order:** `content/src/content-index.md` ("All sections" anchors)
+> **Authoring guide:** `content/src/AUTHORING.md`
+
+---
+
+## Global guidelines
+
+Actian Data Intelligence speaks to data professionals: engineers, analysts, and catalog administrators. The voice is direct, precise, and professional without being formal or stiff.
+
+---
+
+### Voice and tone
+
+**When to use:** Apply these guidelines to all UI copy, including labels, tooltips, empty states, error messages, and notifications.
+
+#### Style
+
+- Use active voice. "Export the dataset" not "The dataset can be exported."
+- Use present tense. "Saves automatically" not "Will save automatically."
+- Use sentence case for all UI text, including headings and button labels.
+- Do not use exclamation points except in genuine success states.
+- Do not use "please" or "sorry" — they add length without value.
+
+#### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Export the dataset | The dataset will be exported |
+| Something went wrong | We're sorry, something went wrong |
+| Log in | Sign in / Signin |
+---
+
+### Writing style
+
+Use present, active tense in all possible cases. In some cases, you can use passive voice if the focus needs to be on a system instead of a person.
+
+#### Tense and voice
+
+| Voice | When and how to use | Example |
+|---|---|---|
+| Active | All cases except where passive is needed | Only an administrator can create a warehouse. |
+| Passive | Use only when focus is not on a person | The database needs to be shut down. |
+
+#### Tone
+
+- Be direct, active, and consistent.
+- Be friendly and helpful.
+- Use the simplest terms. Don't try to "beautify" with alternatives.
+- Do not personify the product as the subject of the text.
+- Avoid humor; it rarely translates.
+- Avoid idioms, sarcasm, metaphors, slang, colloquialisms, and jargon.
+- Do not use racial, gender, or cultural-biased language.
+- Use gender-neutral pronouns to help make text inclusive.
+- Use the second person: "you." Don't use "I," "we," or "us" to refer to the user.
+
+| Do | Don't |
+|---|---|
+| Submit form | Click here to submit the form |
+#### Personification
+
+Do not personify the product as the subject of the text. Keep the user in focus, rather than the product.
+
+| Do — User focus | Don't — Product focus |
+|---|---|
+| In the Delivery Information window, specify the name of the sender. | The Delivery Information window allows you to specify the name of the sender. |
+| Use this menu to create diagrams. | This menu enables you to create diagrams. |
+---
+
+### Capitalization
+
+Don't overuse capitalization — it makes copy harder to read and de-emphasizes the important content.
+
+#### When to use each case
+
+| Title case | Sentence case | All caps |
+|---|---|---|
+| Top-level navigation | In-line and standalone links | Functional text |
+| Main page headers only | Section headers, checkboxes, radios, badges, sliders, toggles, tooltips, tags, pills, toasts, loading indicators | Acronyms (API, not Api) |
+| Menu titles | Placeholder text inside form fields | |
+| Menu items | Labels | |
+| Proper nouns | Buttons | |
+| Names of people or products | Column headers | |
+
+#### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Add a row to the catalog. List it on the page. | Add a row to the Catalog. List it on the Page. |
+| Add a row to the MyCatalog page. | Add a row to the MyCatalog Page. |
+| Selects an item type. | Select an Item Type. |
+---
+
+### Words to avoid
+
+Guidance on what content works best, including text, imagery, and messaging.
+
+| Example | Do | Don't |
+|---|---|---|
+| Never say "Please" or "Sorry" — they are unnecessary. | Contact Support | Please Contact Support |
+| Don't refer to Actian as "we" or "us." | Actian recommends | We recommend |
+| Don't use "Execute" or "Abort." | The process was cancelled/stopped | The process was aborted. |
+| Don't use "Master" or "Slave." | Primary and Secondary servers | Master and Slave servers |
+| Don't use "Blacklist" or "Whitelist." | Add a row to the Allow/Deny List | Add a row to the Black/Whitelist |
+| Don't use "Press" or "Type" as verbs. | Click "OK", Enter/Provide a name | Press "OK", Type a name |
+| Never use developer-speak. | Click the **OK** button. | Click the OK CTA. |
+| Don't use "Caution" or "Danger." | Remember: Restart the server first. | Danger: Stop the server first. |
+| Don't use "Ensure." | Verify that the value is provided. | Ensure you provided the correct value. |
+| Don't use "Disabled." | This setting is blocked/off | This setting is disabled |
+| Don't use "Agnostic." | This feature is platform independent | This feature is platform agnostic |
+| Don't use "Sign in" or "Signin." | Log in to begin | Signin to begin |
+
+---
+
+### Punctuation
+
+To help readers scan text at a glance, avoid using punctuation in places where it isn't necessary.
+
+#### Ampersands ("&")
+
+Avoid using ampersands in place of "and" except for common abbreviations (e.g. Q&A) or when the ampersand is part of an organization's formal name (e.g. H&R Block, AT&T). In those cases, follow the organization's formal spacing style.
+
+| Do | Don't |
+|---|---|
+| Common abbreviations: Q&A. Organization formal names: H&R Block, AT&T | Using & in place of "and" in general copy |
+#### Periods (".")
+
+Avoid using periods on solitary sentences within these UI elements:
+
+| Use periods | Don't use periods |
+|---|---|
+| Multiple sentences | Labels |
+| A sentence followed by a link | Hover text |
+| Description text | Tooltips |
+| | Placeholder text |
+| | Radios |
+| | Loading indicators |
+
+#### Commas (",")
+
+Use a comma after the second-to-last item in a series, before the conjunction (serial/Oxford comma).
+
+#### Exclamation points ("!")
+
+Use exclamation marks only positively, not negatively. Use no more than one exclamation mark per page or window.
+
+---
+
+### Numerical formatting
+
+#### Currency and phone numbers
+
+- Currency: `$1,000,000.00`
+- Phone numbers: `+1 (212) 123 4567`
+
+#### Dates and times
+
+| Type | When and how to use | Example |
+|---|---|---|
+| Time | Within the current day, use uppercase AM or PM without periods | 2:00 PM |
+| 24-hour clock | Display the time without AM/PM | 14:00 |
+| Date | Show the date with the year. If it's within the current calendar year, don't show the year. | January 14 / Jan 3, 2012 / 10/23/2022 |
+| Timestamp | Display an exact time | 2:36:17 PM PST |
+| Approximate time | Round down to the largest and most recent date or time | In 5 minutes / 3 days ago |
+
+---
+
+### Prepositions
+
+Prepositions indicate relationships between different elements, actions, or concepts. Proper use maintains clarity and precision; misuse leads to confusion.
+
+#### Conciseness — avoid overuse
+
+Minimize unnecessary prepositions. Omit them when they don't add meaning.
+
+| Do | Don't |
+|---|---|
+| Manage notification settings. | The settings for managing notifications on your profile. |
+| Contact Support | Contact to Support |
+#### Accuracy and clarity
+
+Use prepositions that clearly express the relationship between actions, objects, or concepts.
+
+| Do | Don't |
+|---|---|
+| Upload to the server | Upload on the server |
+| Details on how to configure settings | Information about settings |
+#### Keep prepositional phrases short
+
+Avoid long prepositional chains — break them up for clarity.
+
+| Do | Don't |
+|---|---|
+| Click the link in your email to view your order details. | Click on the link in the email for information about your order. |
+#### Consistency
+
+Standardize common prepositional phrases and use them consistently throughout the product.
+
+| Do | Don't |
+|---|---|
+| Save the changes to your profile. | Save the changes on your profile. |
+| Drag the file into the folder | Drag the file to the folder |
+| Tap the icon | Tap on the icon |
+---
+
+### Acronyms
+
+Spell out an acronym the first time it's mentioned. On subsequent references, use the abbreviation. If the abbreviation isn't clearly related to the full version, specify it in parentheses after the spelled-out version in the first instance.
+
+Fully capitalize all letters in abbreviations:
+
+- PDF
+- AM/PM
+- FAQ
+- HTML
+- OK (not Ok or Okay)
+- HCL
+
+If there's a chance that an abbreviation might not be known to the target audience, spell it out in full the first time you use it. However, don't spell out commonly known abbreviations. If the abbreviation or acronym is well-known to the average client (for example, CIC or CDE), use it on the first reference without spelling it out.
+
+---
+
+### Plurals
+
+Make sure items are correctly used as plural or singular nouns as appropriate.
+
+Do not use "(s)" or "/s" after a noun to make it plural. If you must indicate both forms, use "one or more."
+
+---
+
+### Abbreviations and articles
+
+#### Abbreviations
+
+Do not use "i.e." or "e.g." in UI copy. Avoid using a slash between two words to mean "and/or" — use the word "or" instead.
+
+| Do | Don't |
+|---|---|
+| You can select green, blue, or both. | You can select green/blue. |
+#### Articles
+
+Don't speak like a robot — use "a," "an," and "the" articles.
+
+| Do | Don't |
+|---|---|
+| Use the default JRE to run a shell instance. | Use default JRE to run shell instance. |
+
+---
+
+---
+title: "Buttons"
+nav_order: 4
+---
+## Buttons
+
+Buttons trigger actions. They are the primary mechanism for users to submit forms, confirm choices, navigate, and initiate processes within the platform.
+
+---
+
+### When to use
+
+- Use buttons for actions, not navigation. For navigation, use [links](links).
+- Use a primary button for the main action on a page or modal.
+- Use secondary buttons for alternative or less critical actions.
+- Use ghost or tertiary buttons for low-priority or destructive actions that should not draw immediate attention.
+
+### Style
+
+- Use sentence case for all button labels.
+- Use the verb + object formula whenever possible (for example, **Create report**, **Delete dataset**).
+- Keep labels concise - ideally two to four words.
+- Do not end button labels with punctuation.
+- Do not use articles (a, an, the) in button labels unless necessary for clarity.
+
+### Behavior
+
+- Disable the primary button until all required fields are complete.
+- Show a loading indicator on the button when an action is in progress.
+- Return focus to the triggering element after a modal or dialog closes.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Create report | Report |
+| Delete dataset | Delete |
+| Add connection | Add a connection |
+| Save changes | Save Changes |
+---
+
+### Terminology for button labeling
+
+Use the following term pairs consistently across the platform. Choosing the wrong term creates confusion when the same action appears under different labels in different contexts.
+
+| Term or term pair | Usage |
+|---|---|
+| Cancel vs Close | Use **Cancel** when the user is backing out of a page or modal where information has been entered or a confirmation is required. Cancel returns the user to the previous state without saving. Use **Close** for read-only messages or screens. |
+| Create vs Add vs Insert | Use **Create** when the user is making something brand new. Use **Add** when bringing in similar information that already exists elsewhere. Use **Insert** when bringing in similar information and the ordering is important. The plus (+) icon is only needed when creating a new object to add to something else. When adding an existing object to a list, the icon is not needed. |
+| OK | Use **OK** for read-only pages that are not legally required to be accepted. |
+| Accept vs Decline | Use **Accept** when legal terms of service need to be acknowledged before the user can proceed. **Accept** can also be paired with **Decline** when the user must choose whether to implement proposed changes from someone else or from AI. |
+| Got it! | Use **Got it!** when providing information confirmation modals where the user does not have to take any action. |
+| Select vs Choose | Use **Select** when the user is picking from a list with limited options. Use **Choose** when the user is picking from a large number of options or making an open-ended decision. |
+| Submit vs Send vs Save | Use **Submit** for a form. Use **Send** only for email. Use **Save** when the user is adding or changing selections on a modal. |
+| View vs See | Use **View** as a noun (for example, **Table view**). Use **See** as a verb, but only with a modifier (for example, **See more**). |
+| Stepper buttons | Use verb + object for the creation button. With few exceptions, the verb should be **Create**. Use only the verb (without the object) when finishing a stepper (for example, **Create** not **Create integration**). In modals and steppers, the initial button and the final button should use the same term in most cases. Exceptions include using **Save** on the final step of a wizard. |
+
+---
+
+---
+title: "Links"
+nav_order: 18
+---
+## Links
+
+A link visually represents clickable text or elements that navigate users to other pages, sections, or resources. Links appear colored to indicate interactivity and follow accessibility and design standards for clarity and usability.
+
+---
+
+### When to use
+
+- For navigation to internal or external destinations. Use external link icon in the latter case.
+- For inline standalone contextual actions (for example, **Learn more**).
+- Avoid using links for actions; use [ghost buttons](buttons) instead.
+
+### Should I use a button or a link?
+
+A link should be used when navigating between pages, while a button should be used for actions like submitting a form, downloading a file, or triggering a task.
+
+- Use a link for **View more articles**.
+- Use a button for **Submit form**.
+
+### Style
+
+- Use meaningful, descriptive link text.
+
+| Do | Don't |
+|---|---|
+| View pipeline details | Click here |
+- Avoid standalone icons as links unless accompanied by an accessible label.
+- Use sentence case and no terminal punctuation.
+- Keep links clear, concise, accessible, and consistent.
+
+### Behavior
+
+- Links open in the same tab unless explicitly labeled as external.
+- Underline on hover for clarity.
+- Visited state should be visually distinct whether inline or standalone.
+
+### Clear and descriptive link text
+
+Link text should clearly describe the destination or action. Avoid vague text that does not convey enough information to the user or to assistive technologies.
+
+| Do | Don't |
+|---|---|
+| View your order details | Click here |
+| Visit our home page | http://example.com |
+| Download report | Get report |
+| Explore features | Click to learn more |
+| View our services | Click here to view our list of services |
+### Action-oriented language
+
+Use action verbs for links that load tasks. Action-oriented language guides the user on what to expect. This is especially helpful for calls to action. Avoid passive or generic terms and phrases. Always provide clarity on what will happen or what the user will achieve by clicking.
+
+### Consistency in link text
+
+Use consistent link phrases for similar actions. Similar actions should use the same link text to help users develop familiarity and expectations. For example, if you use **Learn more** for accessing detailed content in one area, avoid switching to **Read details** elsewhere. Keep link text brief but meaningful.
+
+### Avoid linking full sentences or paragraphs
+
+Link only the specific, relevant portion of text. Avoid linking entire sentences or paragraphs, as this can overwhelm the user and reduce readability.
+
+| Do | Don't |
+|---|---|
+| Read our [user experience design blog](). | [Click here to read our blog about user experience design](). |
+
+---
+
+---
+title: "Checkboxes"
+nav_order: 6
+---
+## Checkboxes
+
+Checkboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms.
+
+---
+
+### Default format
+
+#### When to use
+
+- To allow users to select multiple options in a group.
+- For binary settings that are independent of other choices. For example, **Enable notifications**.
+- When a task involves filtering or refining data. For example, applying multiple filters to a search.
+
+#### Style
+
+- Use clear, direct labels that describe what happens if the box is checked.
+- Write labels in positive form.
+
+| Do | Don't |
+|---|---|
+| Show archived items | Don't hide archived items |
+- Group related checkboxes under a group label when possible for context.
+- Keep labels parallel in style and length for readability.
+- Avoid jargon and abbreviations.
+
+#### Behavior
+
+Allow users to select by clicking either the box or the label.
+
+#### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Enable notifications | Notifications enabled (noun-first label) |
+| Show archived items | Don't hide archived items |
+| Agree to terms and conditions | Agreement with terms and conditions |
+---
+
+### Card format
+
+Use card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label.
+
+#### When to use
+
+- Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.
+- Examples: pricing tiers, template selections (for example, use cases), or layout choices.
+
+#### Behavior
+
+- Indicate selected state visually (`Selected` highlight border, and so on).
+- Click anywhere on the tile to toggle selection.
+- For multi-select: use checkbox behavior. For single-select: use radio group behavior.
+- Maintain selection across steps if part of a multi-step process.
+- Title: short, descriptive, and consistent across tiles.
+- Supporting text: use only in the large variant.
+
+---
+
+---
+title: "Dropdown / Select"
+nav_order: 10
+---
+## Dropdown / Select
+
+Dropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times.
+
+---
+
+### Behavior
+
+- Menu opens on click, not on hover.
+- Close the menu on Escape key press or on outside click.
+
+### Style
+
+- Label the button with a clear action or noun. For example, **Actions** or **More**.
+- Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.
+- Use sentence case for all menu items.
+- Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Actions | Click here |
+| Download PDF | PDF download |
+| Add tag | Tag adding |
+
+---
+
+---
+title: "Filters"
+nav_order: 12
+---
+## Filters
+
+Filters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products.
+
+---
+
+### When to use
+
+- When a dataset or list is large enough that users need to narrow results to find what they need.
+- When multiple filter criteria can be applied simultaneously.
+- Do not use filters for permanent data modifications - filters only affect the current view.
+
+### Style
+
+- Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.
+- Use sentence case for all filter labels and option values.
+- Show the active filter count when filters are collapsed. For example, `Filters (3)`.
+- Use consistent terminology across all filter controls in the same view.
+
+### Behavior
+
+- Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.
+- Provide a **Clear all** or **Reset filters** action when filters are active.
+- Persist filter state when users navigate away and return to the same view.
+
+---
+
+---
+title: "Cards"
+nav_order: 5
+---
+## Cards
+
+Cards present information in compact, scannable formats and allow users to interact or navigate efficiently.
+
+---
+
+### Card - Item
+
+#### When to use
+
+- On dashboards and detail pages where items need to be viewed or opened quickly.
+- To display individual items such as datasets, visualizations, or catalog entries in a clickable format.
+
+#### Style
+
+- Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.
+- Include metadata (type, owner, last modified) using short labels.
+- Use sentence case throughout.
+
+#### Behavior
+
+- The entire card is clickable and navigates to the item detail page.
+- Contextual actions (such as **Edit**, **Delete**) appear on hover or via an overflow menu.
+
+---
+
+### Card - Selectable
+
+#### When to use
+
+- When users need to choose between options by clicking anywhere on the card.
+- Use the large variant when additional context is needed (title, description, image, metadata).
+- Use the small variant when space is limited.
+- Cards can function as radio buttons (single select) or checkboxes (multi-select).
+
+#### Style
+
+- Title: short noun phrase describing the option. Sentence case.
+- Description: one sentence maximum. Plain language.
+- Do not include instructional text inside a selectable card.
+
+---
+
+### Card - Topic
+
+#### When to use
+
+- To represent curated groupings or domains, such as data topics.
+- As gateways to collections in Explorer.
+
+#### Style
+
+- Use a noun or noun phrase as the topic title.
+- Keep the description to one sentence that explains the scope of the topic.
+
+---
+
+---
+title: "Empty and system states"
+nav_order: 11
+---
+## Empty and system states
+
+System states communicate the current condition of the platform or a specific view. Clear, direct copy helps users understand what happened and what to do next.
+
+---
+
+### Empty state
+
+#### When to use
+
+- When users have not yet created or uploaded items.
+- When [filters](filters) result in no visible results.
+- To encourage engagement with a clear next action.
+
+#### Style
+
+- Use a short, instructive headline (noun phrase or imperative verb).
+- Follow with one concise sentence that explains what the user can do.
+- Provide one primary action (for example, **Create dataset**).
+- Do not use `No results found` as a standalone message without guidance.
+
+#### Do / Don't
+
+| Do | Don't |
+|---|---|
+| No items found / Add your first dataset to start exploring. | No results. |
+| Nothing here yet / Create a connection to get started. | There are no items to display at this time. |
+#### Example
+
+| Element | Example text |
+|---|---|
+| Title | No items found |
+| Body | Add your first dataset to start exploring. |
+| CTA | Create dataset |
+
+---
+
+### Error state
+
+#### When to use
+
+- When something fails or a resource cannot be loaded.
+- When a user action fails to complete.
+
+#### Style
+
+- Be specific about what went wrong where possible.
+- Offer a resolution step or next action.
+- Do not use technical error codes as the primary message.
+- Do not blame the user.
+
+#### Example
+
+| Element | Example text |
+|---|---|
+| Title | Something went wrong |
+| Body | There was an error creating your item. Try again or contact support if the problem continues. |
+| Primary CTA | Try again |
+
+---
+
+### Maintenance state
+
+#### Style
+
+- Explain what is affected and for how long.
+- Provide an estimated time to resolution when available.
+- Include a single action if there is something the user can do (for example, **Refresh**).
+
+#### Example
+
+| Element | Example text |
+|---|---|
+| Title | Scheduled maintenance in progress |
+| Body | Reports may be unavailable until 12:00 PM EST. |
+| CTA | Refresh |
+
+---
+
+### Success state
+
+#### Style
+
+- Confirm what was completed, not just that it succeeded.
+- Keep copy brief. One line is usually sufficient.
+- Offer a logical next action.
+
+#### Example
+
+| Element | Example text |
+|---|---|
+| Title | Items imported |
+| Body | Your datasets are ready to explore. |
+| Primary CTA | Open catalog |
+
+---
+
+---
+title: "Forms"
+nav_order: 13
+---
+## Forms
+
+Forms collect or update user data. Consistent structure, clear labels, and helpful guidance reduce friction and prevent errors.
+
+---
+
+### When to use
+
+- To collect user input that affects data, configuration, or permissions.
+- To edit or update existing records or entities.
+- To guide users through multi-step flows where input drives behavior.
+- To allow users to provide comments and suggestions, or to confirm, approve, or reject requests that require context.
+
+### Types of forms
+
+| Type | Usage | Examples |
+|---|---|---|
+| Single page or simple form | Data entry for simple workflows | Editing a dataset name or description |
+| Stepper or multi-page form | Task-based workflows | Creating a data connection or access request |
+| Modal form | Short, focused tasks that require user confirmation | Adding a note or setting permissions |
+
+---
+
+### General form guidelines
+
+#### How to use
+
+- Be concise and directive: each label or helper text should clearly describe the required action.
+- Use sentence case for labels and titles.
+
+| Do | Don't |
+|---|---|
+| Group name | Group Name |
+- Clarify optional vs. required fields: mark required fields consistently using the asterisk (*) symbol or text label.
+- Avoid redundancy: if a section title already establishes context, field labels can be shorter.
+- Provide context when needed: helper text should explain the "why," never just restate the label.
+- Error text should guide correction.
+
+| Do | Don't |
+|---|---|
+| Enter a valid date | Invalid input |
+- Success or confirmation text should be brief, reassuring, and specific. For example, `The policy was successfully created`.
+- Use progressive disclosure for field entry assistance: Label → Tooltip → Descriptive text → Link to docs.
+
+#### Structure
+
+- Group related fields together under sections.
+- Always place the primary CTA at the bottom right for consistency.
+- Avoid multi-column layouts when possible - single column is easier to read. Exceptions such as separate fields for first and last names are acceptable.
+
+#### Behavior
+
+- Labels should be visible even when the field is in focus.
+- Include placeholder text only when it provides value - never to just repeat the label.
+- The primary CTA should be disabled until all required fields are filled.
+- Validate fields inline and provide red error text below the field. See [validation messages](validation-messages) for error text guidelines.
+
+---
+
+### Input labels and helper text
+
+#### Style
+
+- Labels describe the purpose of the field. They are always visible.
+- Helper text provides brief instruction or clarification below the field. Use it sparingly.
+- Placeholder text is a hint only - never a substitute for a label. It disappears when the user starts typing.
+
+#### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Label: Connection name / Helper: Use a unique name to identify this connection. | Placeholder: Enter connection name (no visible label) |
+| Helper: Must be 8–32 characters. | Helper: Please enter a valid password. |
+---
+
+### Dropdown
+
+#### When to use
+
+- For lists of 5 to 20 options.
+- When the full list does not need to be visible at all times.
+
+#### Style
+
+- Label the dropdown clearly. The label should describe the category of options, not the action.
+- Close after selection.
+- Keep option phrasing consistent within the same dropdown.
+- Use sentence case for all options.
+
+---
+
+### Calendar
+
+The calendar component is used for any interaction involving date ranges, filtering, or scheduling.
+
+#### When to use
+
+For any interaction involving date ranges, filtering, or scheduling.
+
+#### Style
+
+- Use labels like `From` and `To`, or `Start date` and `End date` for range fields. Do not leave any fields unlabeled.
+- Display date formats clearly (MM/DD/YYYY or regional format) with placeholders or hints where appropriate.
+- Do not pre-fill dates for users.
+
+#### Behavior
+
+- Support both typing and calendar picking.
+- Auto-close the calendar when the selection is complete.
+- Highlight today, weekends, and blocked dates visually when appropriate.
+- Visually display any selected range in the calendar.
+
+---
+
+### Toggle
+
+#### Style
+
+- Label the toggle next to or above the control. For example, **Enable alerts**.
+- Show the label for the state that is currently active. For example, show `Off` when off, `On` when on - but not both at the same time.
+
+#### Behavior
+
+- The action should happen on toggle with no confirmation step.
+- Left = off, right = on.
+- Should update instantly unless a delay is unavoidable - show a loading indicator if delayed.
+- Do not use toggles for destructive or irreversible actions.
+
+#### Toggle vs Checkbox vs Radio button
+
+**Use a toggle when:**
+- The action takes effect immediately.
+- It represents a system state (for example, ON/OFF, enabled/disabled).
+- It is a binary setting that persists (for example, dark mode, notifications).
+
+**Use a [checkbox](checkboxes) when:**
+- The user is selecting one or more items.
+- The action does not take effect immediately (typically part of a form or group submission).
+- It is a yes/no decision that is reviewed later. For example, **Agree to terms and conditions** or **Subscribe to newsletter**.
+
+---
+
+### Radio button
+
+#### When to use
+
+- When the user must select exactly one option from a short visible list (typically two to six options).
+- When all choices should be visible up front rather than hidden in a dropdown.
+
+#### Style
+
+- Use short, descriptive labels that clearly state each option.
+- Write labels as direct answers to the group's prompt or question. For example, **Yes / No** instead of `Select yes if you agree`.
+- Ensure the group label or question is always visible next to the options.
+- Avoid jargon or abbreviations.
+- Keep labels parallel in structure - all nouns, or all verb phrases.
+
+---
+
+### Radio button card format
+
+Use card-format radio buttons instead of traditional radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label.
+
+#### When to use
+
+- Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.
+- Examples: pricing tiers, template selections (for example, use cases), or layout choices.
+
+#### Behavior
+
+- Indicate selected state visually (`Selected` highlight border, and so on).
+- Click anywhere on the tile to toggle selection.
+- For multi-select: use checkbox behavior. For single-select: use radio group behavior.
+- Maintain selection across steps if part of a multi-step process.
+- Title: short, descriptive, and consistent across tiles.
+- Supporting text: use only in the large variant.
+
+---
+
+---
+title: "Sticky footer"
+nav_order: 30
+---
+## Sticky footer
+
+The sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom.
+
+---
+
+### When to use
+
+- When a page or drawer contains primary actions that must remain available during scrolling.
+- When users complete steppers or multi-field forms that extend beyond the current view.
+- When the action affects the entire page, drawer, or form state.
+
+### Button hierarchy
+
+- The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.
+- An optional secondary action can be included.
+- Limit to a maximum of three buttons. More actions increase cognitive load.
+
+### Button labels
+
+Use clear verbs that describe the outcome. Labels should describe what will happen, not what the button is.
+
+| Recommended labels | Avoid |
+|---|---|
+| Save | Done |
+| Update | OK |
+| Create | Submit (except on forms) |
+| Confirm | Yes |
+| Delete | Remove (for destructive permanent actions) |
+| Continue (as part of a defined stepper) | Next (in sticky footers outside steppers) |
+### Steppers
+
+When used as part of a stepper, use the following label terminology consistently:
+
+- **Back** for the previous step.
+- **Next** for intermediate steps.
+- **Submit** for the final step.
+
+Do not mix **Continue** and **Next**, or **Finish** and **Submit** within the same flow.
+
+---
+
+---
+title: "Modal"
+nav_order: 20
+---
+## Modal
+
+Modals interrupt the current flow to require the user's attention for a confirmation, input, or critical action. Use them sparingly - overuse degrades their impact.
+
+---
+
+### When to use
+
+- To confirm destructive or irreversible actions. For full confirmation dialog patterns, see [dialogs and confirmations](dialogs-and-confirmations).
+- To collect a small amount of input before completing an action.
+- Do not use modals for purely informational content - use inline messages or tooltips instead.
+
+### Style
+
+- Modal title should match the label of the button or link that triggered it.
+- Keep body copy short and actionable. One to two sentences.
+- Use a primary and secondary button pair. Align with the [button terminology guidelines](buttons).
+- Do not nest modals.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Title: Delete dataset | Title: OK |
+| This will permanently delete the dataset and cannot be undone. | Are you sure you want to do this? |
+| Primary CTA: Delete / Secondary CTA: Cancel | Primary CTA: Yes / Secondary CTA: No |
+
+---
+
+---
+title: "Search"
+nav_order: 28
+---
+## Search
+
+Search allows users to find assets quickly. Placeholder text should provide a hint as to what is being searched and help the user understand the scope of the search.
+
+---
+
+### When to use
+
+- As a global entry point for finding any data asset.
+- As a scoped filter within a specific view or catalog section.
+
+### Placeholder text
+
+- Placeholder text should provide a hint as to what is being searched.
+- Do not include a period at the end of placeholder text.
+- When search is meant to retrieve assets based on keywords found in metadata, use `Search in [asset names]` (plural).
+- When in doubt, `Search [asset names]` (also plural) is always a safe default.
+
+### Placeholder text examples
+
+| Context | Placeholder text |
+|---|---|
+| Global search | Search items |
+| Topic search | Search topics |
+| User search | Search users |
+| Contact search | Search contacts |
+| Property search | Search properties |
+| Glossary search | Search glossary types |
+
+### Behavior
+
+- Execute search on Enter or on suggestion click.
+- Maintain the last query when the user returns to the search view.
+- Support keyboard navigation through results.
+
+---
+
+---
+title: "Text input"
+nav_order: 34
+---
+## Text input
+
+Text inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list.
+
+---
+
+### Behavior
+
+Error validation should happen at the latest when the user clicks out of the text entry field (on blur).
+
+### Placeholder text
+
+- Placeholder text provides a brief example of the expected input content.
+- Use placeholder text only to model good input - not to convey instructions or restrictions for the field.
+- Placeholder text should never simply repeat the field label or description.
+
+#### When to use placeholder text
+
+- When an example would model the correct input.
+- When naming conventions or restrictions should be reinforced.
+- When the field label could be interpreted in different ways and an example would reduce that ambiguity.
+- Never use placeholder text if the label text is sufficient on its own.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Label: Dataset name / Placeholder: e.g. Q4_sales_report | Placeholder: Enter dataset name |
+| Placeholder: e.g. john.doe@company.com | Placeholder: Enter your email address |
+
+---
+
+---
+title: "Notifications and messaging"
+nav_order: 23
+---
+## Notifications and messaging
+
+---
+
+### Notification
+
+#### When to use
+
+To inform users of updates, background task completions, or events that require their attention.
+
+#### Style
+
+- Use direct, concise language. One to two sentences.
+- Include a timestamp.
+- Include a link or action if the user must do something in response.
+- Do not use generic text like `You have a new notification`.
+
+---
+
+### Tooltip
+
+#### When to use
+
+- To provide short contextual help on hover or focus.
+- For icon-only controls that require a label.
+- Do not use tooltips for critical information - users should not be required to hover to understand the UI.
+
+#### Style
+
+- Limit to a few words or one concise sentence.
+- Do not repeat the label of the element being described.
+- For multi-sentence explanations, use a popover or inline help text instead.
+
+---
+
+### Toast / Snackbar
+
+#### When to use
+
+- To confirm that a background action completed.
+- To surface non-critical errors or warnings that do not block the user.
+
+#### Style
+
+- Keep to one short sentence.
+- Include an undo action where relevant.
+- Do not use toasts for actions that require user input.
+
+#### Examples
+
+| Scenario | Toast text |
+|---|---|
+| Dataset deleted | Dataset deleted. Undo |
+| Export complete | Export ready. Download |
+| Connection failed | Connection failed. Try again |
+
+---
+
+---
+title: "Navigation"
+nav_order: 22
+---
+## Navigation
+
+---
+
+### Global header
+
+#### When to use
+
+Permanently anchored to the top of the screen across all pages and apps, for access when users:
+- Switch between product areas or catalogs.
+- Access global tools such as [search](search) or notifications.
+- View account and profile options.
+
+#### Style
+
+- Only the branded title and navigation context change between applications.
+- Utility icons (notifications, help, profile) should be unlabeled but include tooltips.
+
+#### Behavior
+
+Nav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on).
+
+---
+
+### Side nav
+
+#### When to use
+
+Permanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product.
+
+#### Style
+
+- Clarity: use short, descriptive labels that match the text used in page headers.
+- Consistency: keep naming and order consistent across the platform.
+- Use plain language and common industry terms.
+
+#### Behavior
+
+- Highlight the current section (and its parent if applicable) in the hierarchy.
+- The side nav collapses and expands in response to different screen sizes.
+
+---
+
+### Breadcrumbs
+
+#### Usage
+
+Follow the pattern: Main component / Sub component / Specific item or page name.
+
+#### Style
+
+- Use the exact page or item name at each level.
+- Do not truncate unless space is severely limited.
+- The current page is not a link - it is plain text at the end of the breadcrumb trail.
+
+---
+
+### Tabs
+
+#### When to use
+
+To switch between related views on the same page without full navigation.
+
+#### Style
+
+- Tab labels are short nouns or noun phrases. For example, **Overview**, **Lineage**, **Settings**.
+- Use sentence case.
+- Avoid verbs in tab labels.
+
+---
+
+### Pagination
+
+#### Style
+
+- Label page controls plainly. Use **Previous** and **Next**.
+- Show total result count when relevant. For example, `Showing 1–25 of 340 results`.
+
+---
+
+---
+title: "Loading and progress"
+nav_order: 19
+---
+## Loading and progress
+
+---
+
+### Loading indicator
+
+#### When to use
+
+During transitions, page loads, or background processes.
+
+#### Style
+
+- Use a loading message only when the wait is likely to exceed three seconds.
+- Keep loading messages brief and present-tense. For example, `Loading datasets...`
+- Do not use `Please wait`.
+
+---
+
+### Progress indicator
+
+#### When to use
+
+- For multi-step flows such as wizards or onboarding sequences.
+- For file uploads or long-running background processes.
+
+#### Style
+
+- Label each step in a stepper with a short noun or verb phrase.
+- Show current step and total step count. For example, `Step 2 of 4`.
+- For upload progress, show percentage or file size transferred.
+
+---
+
+---
+title: "Tags, badges, and status indicators"
+nav_order: 33
+---
+## Tags, badges, and status indicators
+
+---
+
+### Tags
+
+#### When to use
+
+To categorize or label items with metadata values such as topics, types, or user-defined attributes.
+
+#### Style
+
+- Use sentence case.
+- Keep tag text to one to three words.
+- Do not use tags as action triggers - they are labels, not buttons.
+
+---
+
+### Badges
+
+#### When to use
+
+To indicate a count (for example, unread notifications) or a status qualifier on an item.
+
+#### Style
+
+- Badge labels are single words or short abbreviations.
+- Use standard status vocabulary: New, Updated, Draft, Published, Deprecated.
+
+---
+
+---
+title: "Dialogs and confirmations"
+nav_order: 9
+---
+## Dialogs and confirmations
+
+---
+
+### Confirmation dialog
+
+#### When to use
+
+Before irreversible or destructive actions (delete, remove, reset).
+
+#### Style
+
+- Title: name the action, not the outcome.
+
+| Do | Don't |
+|---|---|
+| Delete connection | This is permanent |
+- Body: one sentence stating what will happen and whether it can be undone.
+- Primary CTA: matches the title verb. For example, **Delete**.
+- Secondary CTA: **Cancel**.
+
+#### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Delete connection / This will remove the connection and cannot be undone. / Delete \| Cancel | Warning! Are you sure? This action is permanent. / Yes \| No |
+---
+
+### Inline banner
+
+#### When to use
+
+To display persistent warnings, errors, or informational messages within a page or [form](forms).
+
+#### Style
+
+- State the issue and what the user should do. Keep to one to two sentences.
+- Include a link or action if applicable.
+
+---
+
+---
+title: "Onboarding"
+nav_order: 25
+---
+## Onboarding
+
+Onboarding helps users understand the platform and reach their first success quickly. Copy should be encouraging without being patronizing.
+
+---
+
+### When to use
+
+- On first login or when a user accesses a new product area for the first time.
+- As part of [wizard](wizards) flows for complex setup tasks.
+
+### Style
+
+- Lead with what the user can do, not what the product does.
+- Keep each step focused on one task.
+- Use action-oriented **CTAs**. For example, **Set up your first connection**.
+- Do not use marketing language in onboarding flows.
+
+### Wizard step titles
+
+- Step titles are short imperative phrases. For example, `Choose a data source`, `Configure access`.
+- Do not number the step in the title text - the stepper component handles that.
+
+---
+
+---
+title: "What's new"
+nav_order: 37
+---
+## What's new
+
+The What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful.
+
+---
+
+### Style
+
+- Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).
+- Use past tense to describe what changed. For example, "Added support for..." or "Fixed an issue where..."
+- Do not use marketing adjectives like "powerful," "seamless," or "game-changing."
+- Keep each item to one to two sentences.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Added support for bulk dataset import. | We've supercharged the import experience with powerful new bulk capabilities! |
+| Fixed an issue where filters were not preserved on page reload. | Bug fixes and performance improvements. |
+
+---
+
+---
+title: "Alerts"
+nav_order: 3
+---
+## Alerts
+
+Alerts communicate important information that requires the user's attention. They can be informational, confirmatory, cautionary, or indicate an error. Unlike toasts, alerts are persistent and remain visible until dismissed or resolved.
+
+---
+
+### When to use
+
+- To warn the user of a condition that may affect their work or data - before an action is taken.
+- To confirm that a significant action was completed and the user should be aware of the result.
+- To surface a system-level error that requires action to resolve.
+- Do not use alerts for routine confirmations - use [toast notifications](notifications-and-messaging) instead.
+- Do not stack multiple alerts. Consolidate if possible.
+
+### Style
+
+- Keep alert text to one to two sentences.
+- Lead with the most important information.
+- Use the appropriate severity: informational, success, warning, or error.
+- Include a clear action link or button when the user needs to do something.
+- Do not use `Alert:` or `Warning:` as a prefix in the message body - the icon and color convey severity.
+
+### Behavior
+
+- Informational and success alerts can be dismissible.
+- Warning and error alerts should persist until the underlying issue is resolved or the user explicitly dismisses them.
+- Alerts should appear at the top of the affected area, not in the center of the page.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Your connection expired. Log in again to continue. | Alert: There has been an authentication error. Please log in. |
+| Some datasets are read-only. Contact your administrator to request edit access. | Warning: Permission issue detected. |
+| Import failed. Check the file format and try again. | Error. |
+
+---
+
+---
+title: "Combo box"
+nav_order: 7
+---
+## Combo box
+
+A combo box combines a text input with a dropdown list, allowing users to either type a value or select from predefined options. It is used when the list of options is long or when freeform input alongside suggestions is needed.
+
+---
+
+### When to use
+
+- When the user needs to select from a large list (20+ items) and filtering by typing improves efficiency.
+- When freeform input is valid alongside suggested options.
+- Do not use a combo box when the list is short and fixed - use a standard dropdown instead.
+
+### Style
+
+- Label the combo box with a short noun phrase describing what the user is selecting.
+- Use placeholder text to indicate the expected input type. For example, `Search or select a schema`.
+- Keep option labels consistent in format and sentence case.
+- Do not use `Type to filter` as placeholder text - it states the obvious. Instead describe what is being searched.
+
+### Behavior
+
+- Filter results dynamically as the user types.
+- Show a `No results found` message when there are no matches - do not show an empty dropdown.
+- Allow selection by clicking or pressing Enter.
+- Clear the input on selection unless the selected value is displayed in the input field.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Search or select a data source | Type to filter... |
+| No results found for "xyz" | (empty dropdown) |
+
+---
+
+---
+title: "Data tables"
+nav_order: 8
+---
+## Data tables
+
+Data tables display structured information in rows and columns. They are the primary way users view, compare, and act on datasets, connections, catalog entries, and other list-based content in the platform.
+
+---
+
+### When to use
+
+- To display multiple items with shared attributes that benefit from comparison.
+- When users need to sort, filter, or act on rows individually or in bulk.
+- Do not use a data table for fewer than three columns or when a simple list suffices.
+
+### Column headers
+
+- Use short, descriptive noun phrases. Two to three words maximum.
+- Use sentence case.
+- Do not use abbreviations unless they are universally understood (for example, "ID," "URL").
+- Do not end column headers with punctuation.
+- Align header labels with the data they describe - left-align text columns, right-align numeric columns.
+
+#### Column header examples
+
+| Use | Avoid |
+|---|---|
+| Last modified | Last Modification Date |
+| Owner | Assigned to / Owned by |
+| Status | Current status |
+| Row count | No. of rows |
+### Cell content
+
+- Keep cell values concise. Truncate long values with an ellipsis and show the full value on hover via tooltip.
+- Use consistent date and number formatting across the table.
+- Use "None" or "-" (em dash) for empty values - not blank, "N/A," or "null."
+- Status values use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.
+
+### Bulk actions
+
+- Label bulk action buttons with a verb that applies to all selected items. For example, **Delete selected** or **Export**.
+- Show the count of selected items near the action. For example, `3 items selected`.
+
+---
+
+---
+title: "Grid and spacing"
+nav_order: 14
+---
+## Grid and spacing
+
+Grid and spacing guidelines govern the visual rhythm of the interface. Consistent spatial decisions make the UI easier to scan and reduce cognitive load.
+
+---
+
+### Content implications
+
+- Short labels and values work best in tight grid contexts. Avoid wrapping text in narrow columns.
+- When content must appear in a constrained space, abbreviate predictably or truncate with a tooltip.
+- Do not force content into a fixed width by using non-breaking spaces or artificial line breaks.
+
+### Density considerations
+
+- Default density is appropriate for most catalog views.
+- Compact density is appropriate for power users working with large datasets where row count matters.
+- Do not vary density within the same table or list view.
+
+---
+
+---
+title: "Icons"
+nav_order: 15
+---
+## Icons
+
+Icons support communication by providing visual cues alongside or instead of text. They should reinforce meaning, not replace it, unless paired with a tooltip or accessible label.
+
+---
+
+### When to use
+
+- To supplement a text label and help users scan faster.
+- For icon-only controls (such as toolbar buttons) that have a visible tooltip or aria-label.
+- Do not use an icon as the only affordance for a critical action - always pair with a text label or tooltip.
+
+### Style
+
+- Use icons from the approved Actian icon set only.
+- Do not add decorative icons that have no functional meaning.
+- Icon labels (tooltips or aria-labels) use sentence case and follow the same verb/noun conventions as button labels.
+
+### Accessibility
+
+- Every icon-only control must have an accessible name via aria-label or a visually hidden text label.
+- Decorative icons must be marked `aria-hidden="true"` so screen readers skip them.
+- Do not rely on color alone to convey the meaning of an icon.
+
+---
+
+---
+title: "Inline toast"
+nav_order: 16
+---
+## Inline toast
+
+An inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to.
+
+---
+
+### When to use
+
+- To confirm a localized action, such as copying a value or saving a field inline.
+- To surface a validation warning directly below or beside a specific form field.
+- Do not use an inline toast for global events - use the global toast or snackbar instead.
+
+### Style
+
+- One short sentence maximum. Ideally fewer than ten words.
+- Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.
+- Do not use inline toasts for error messages that require user action - use inline validation instead.
+
+### Examples
+
+| Scenario | Inline toast text |
+|---|---|
+| Value copied to clipboard | Copied |
+| Field saved inline | Saved |
+| Tag added to asset | Tag added |
+| Link generated | Link created |
+
+---
+
+---
+title: "Lineage-specific UI"
+nav_order: 17
+---
+## Lineage-specific UI
+
+Lineage views display the origin, transformation history, and downstream dependencies of data assets. The UI uses graph-based visualizations with nodes and edges. Copy in this context must be precise and unambiguous to support data governance workflows.
+
+---
+
+### When to use
+
+- On dataset and column detail pages where traceability is relevant.
+- In audit and governance workflows where users need to trace data origin or impact.
+
+### Node labels
+
+- Use the exact asset name as the node label - do not paraphrase or abbreviate.
+- Include the asset type as a secondary label below the name. For example, `Orders` with `Table` below it.
+- Use sentence case for all labels.
+
+### Edge and relationship labels
+
+- Describe the relationship with a short verb phrase. For example, `Reads from`, `Writes to`, `Transforms`.
+- Avoid technical jargon that non-engineer users will not understand.
+
+### Terminology
+
+| Term | Definition |
+|---|---|
+| Upstream | Assets that provide data to the selected asset |
+| Downstream | Assets that consume data from the selected asset |
+| Source | The originating system or dataset |
+| Transformation | A processing step that modifies or aggregates data |
+| Impact | The downstream effect of a change to this asset |
+
+---
+
+---
+title: "Multi-select"
+nav_order: 21
+---
+## Multi-select
+
+Multi-select allows users to choose more than one option from a list. It is used in filters, tag assignment, bulk operations, and configuration flows where multiple simultaneous selections are valid.
+
+---
+
+### When to use
+
+- When users need to apply multiple filters at the same time.
+- When assigning multiple tags, owners, or categories to an asset.
+- Do not use multi-select when only one selection is valid - use a single-select dropdown or radio buttons instead.
+
+### Style
+
+- Label the control with a short noun phrase describing the category being selected. For example, **Data domains** or **Owners**.
+- Show selected values as chips or tokens inside the input field.
+- Keep chip labels concise - use the item name only, not additional metadata.
+- Use **Select all** and **Clear all** as action labels when applicable.
+
+### Behavior
+
+- Show a count of selected items when the list collapses. For example, `3 selected`.
+- Allow individual chip removal via a close icon on each chip.
+- Keep the dropdown open until the user clicks outside or presses Escape.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| 3 selected | 3 items have been selected |
+| Clear all | Remove all selections |
+| Select all | Check all |
+
+---
+
+---
+title: "Object preview panels"
+nav_order: 24
+---
+## Object preview panels
+
+Object preview panels display a summary of an asset's key attributes without requiring full navigation to the detail page. They appear as side panels or overlays and are used to support quick inspection workflows.
+
+---
+
+### When to use
+
+- When a user hovers over or clicks an item in a list or search result and wants a quick view of its properties.
+- To reduce context switching during browsing or review tasks.
+
+### Style
+
+- Panel title is the asset name. Use the exact name - do not rephrase.
+- Use short attribute labels (one to two words) followed by their values.
+- Group related attributes under a subheading where the panel is long.
+- Include a **View full details** link at the bottom to navigate to the full detail page.
+
+### Attribute label examples
+
+| Use | Avoid |
+|---|---|
+| Owner | Assigned owner |
+| Last modified | Date of last modification |
+| Type | Object type |
+| Description | Asset description |
+
+---
+
+---
+title: "Popover"
+nav_order: 26
+---
+## Popover
+
+Popovers display richer contextual content than a tooltip. They appear on click and can contain formatted text, links, and actions. Use them when the information is too long or interactive for a tooltip.
+
+---
+
+### When to use
+
+- To explain a concept or term inline, without leaving the current page.
+- To show a small set of related actions in a compact overlay (also called an action popover).
+- To provide definitions or help text for complex fields.
+- Do not use popovers for critical error messages - use inline alerts or validation messages.
+
+### Style
+
+- Popover title: short noun phrase in sentence case. Optional but recommended for longer content.
+- Body: plain prose, two to four sentences maximum.
+- Avoid bullet lists inside popovers - keep content scannable through short sentences.
+- Link text within a popover follows the same descriptive link text guidelines as inline links.
+
+### Behavior
+
+- Opens on click, closes on click outside or Escape.
+- Do not open popovers on hover - use tooltips for hover-triggered content.
+- Trap focus inside the popover while it is open for accessibility.
+
+---
+
+---
+title: "Related content panels"
+nav_order: 27
+---
+## Related content panels
+
+Related content panels surface assets or resources connected to the currently viewed item. They help users discover relevant datasets, reports, lineage connections, or documentation without leaving their current context.
+
+---
+
+### When to use
+
+- On asset detail pages to surface downstream or upstream dependencies.
+- To show related documentation, reports, or catalog entries.
+- Do not use related content panels for primary navigation - they are supplementary.
+
+### Style
+
+- Panel heading describes the relationship type. For example, `Related datasets`, `Used in reports`.
+- Each item in the panel shows the asset name as a link, plus one or two metadata attributes (type, owner, or last modified).
+- If the panel is empty, show a brief empty state message. For example, `No related datasets found`.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Related datasets | Other items |
+| No related datasets found. | (empty panel with no message) |
+| Used in 3 reports | Reports: 3 |
+
+---
+
+---
+title: "Stepper"
+nav_order: 29
+---
+## Stepper
+
+A stepper guides users through a multi-step process in a defined sequence. Each step represents a discrete task that must be completed before moving to the next. Steppers are used in onboarding flows, connection setup, and wizards.
+
+---
+
+### When to use
+
+- When a process has three or more distinct steps that must be completed in order.
+- When it is important for users to understand their progress through a workflow.
+- Do not use a stepper for simple two-step confirmations - use a [modal](modal) instead.
+
+### Step titles
+
+- Use short imperative verb phrases. For example, `Choose a data source`, `Configure settings`, `Review and create`.
+- Do not include the step number in the title text - the stepper component displays that.
+- Keep titles parallel in structure across all steps.
+
+### Navigation buttons
+
+- Use **Back** for the previous step button. Do not use **Previous**.
+- Use **Next** for all intermediate steps.
+- Use **Create** (or the appropriate object-specific verb) for the final step - not **Finish**, **Done**, or **Submit**.
+- See the [Buttons](buttons) section for full stepper button terminology.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Choose a data source | Step 1: Data source selection |
+| Create (final step) | Finish / Done / Submit |
+| Back | Previous |
+
+---
+
+---
+title: "Switch"
+nav_order: 31
+---
+## Switch
+
+A switch is a binary control that toggles a setting on or off. Unlike a toggle control in a form context, a switch typically takes immediate effect without requiring a save action.
+
+---
+
+### When to use
+
+- For enabling or disabling a feature, setting, or permission that takes effect immediately.
+- Do not use a switch when the change requires a save action to apply - use a checkbox or toggle within a form instead.
+
+### Style
+
+- Label the switch for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.
+- If the on and off states have meaningfully different consequences, add a short description below the switch label.
+- Use sentence case.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Email notifications | Enable email notifications |
+| Public access | Turn on public access |
+| Auto-refresh | Auto-refresh: ON |
+
+---
+
+---
+title: "Tables"
+nav_order: 32
+---
+## Tables
+
+Tables display structured data in a grid of rows and columns. This section covers general table content guidelines. For data table-specific guidelines including sorting, filtering, and bulk actions, see [23. Data tables](23-data-tables.md).
+
+---
+
+### When to use
+
+- To present structured information with clear relationships between attributes.
+- When comparison across rows is important.
+- Do not use tables for content that is better expressed as a list or prose.
+
+### Style
+
+- Column headers: short noun phrases, sentence case, no terminal punctuation.
+- Cell values: consistent formatting within each column.
+- Empty cells: use "-" (em dash) for genuinely absent values, not blank or "N/A."
+- Numeric values: right-align and use consistent decimal and thousands formatting.
+- Dates: use a consistent format throughout the product. ISO 8601 (YYYY-MM-DD) is preferred for unambiguous display.
+
+---
+
+---
+title: "Uploads"
+nav_order: 35
+---
+## Uploads
+
+Upload components allow users to add files to the platform. They appear in dataset import flows, connection setup, and file attachment contexts.
+
+---
+
+### When to use
+
+When users need to import data files, certificates, configuration files, or attachments.
+
+### Style
+
+- Drop zone label: use an action phrase plus the accepted file types. For example, "Drag and drop a CSV file, or browse."
+- Browse link text: **Browse** or **Choose file** - not **Click here**.
+- File type restrictions: list the accepted formats explicitly. For example, "Accepts `.csv`, `.json`, and `.xlsx` files."
+- File size limit: state the limit in plain language. For example, "Maximum file size: `50 MB`".
+
+### Progress and status
+
+- During upload: show filename, progress bar, and percentage.
+- On success: show filename with a success indicator. For example, "`data_export.csv` - Uploaded."
+- On error: show filename with a specific error. For example, "`data_export.csv` - File exceeds the 50 MB size limit."
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Drag and drop a CSV file, or browse. | Click here to upload your file. |
+| Accepts .csv, .json, and .xlsx files. | Only certain file types are supported. |
+| data.csv - File exceeds the 50 MB size limit. | Upload failed. |
+
+---
+
+---
+title: "Validation messages"
+nav_order: 36
+---
+## Validation messages
+
+Validation messages appear inline with [form](forms) fields to help users correct input errors. They are the primary mechanism for communicating what went wrong and how to fix it.
+
+---
+
+### When to use
+
+- On field blur (when the user leaves a field), not on every keystroke.
+- On form submission when required fields are empty or invalid.
+- Do not show validation errors before the user has interacted with a field.
+
+### Style
+
+- Be specific: say what is wrong and how to fix it.
+- Use plain language - do not expose technical error codes or internal validation rule names.
+- Keep messages to one sentence.
+- Do not use "Invalid" as a standalone message - explain why it is invalid.
+- Do not blame the user. Use neutral, factual language.
+- Do not use "Please" - omit it.
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Enter a valid email address. | Invalid email. |
+| Connection name is required. | Please fill out this field. |
+| Password must be 8–32 characters. | Password does not meet requirements. |
+| This name is already in use. Choose a different name. | Duplicate entry error. |
+| Select at least one data domain. | You must make a selection. |
+
+---
+
+---
+title: "Wizards"
+nav_order: 38
+---
+## Wizards
+
+Wizards are guided multi-step flows that walk users through complex setup or configuration tasks. They combine steppers, forms, and confirmation screens into a linear sequence with clear progression.
+
+---
+
+### When to use
+
+- For complex setup tasks that cannot be completed on a single form - for example, creating a connection, configuring a pipeline, or onboarding a new dataset.
+- When the steps have a natural sequence and later steps depend on earlier choices.
+- Do not use a wizard for simple tasks that can be completed in a single form or modal.
+
+### Step titles
+
+- Short imperative verb phrases. For example, `Choose a connector`, `Set connection details`, `Test and save`.
+- Parallel structure across all steps.
+- Do not repeat the wizard title in each step title.
+
+### In-step content
+
+- Use a short paragraph at the top of each step to explain what the user is about to do and why.
+- Keep explanatory text to two sentences maximum.
+- Use inline help (popovers or helper text) for field-level guidance rather than long step-level explanations.
+
+### Confirmation and summary step
+
+- The final step before submission should present a summary of the user's choices.
+- Label the summary step `Review` or `Review and create`.
+- Use the same attribute labels as the preceding form fields - do not rephrase.
+- Show an edit link next to each section so the user can go back and change specific settings.
+
+### Navigation buttons
+
+Follow the [stepper button terminology guidelines](stepper). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**).
+
+### Do / Don't
+
+| Do | Don't |
+|---|---|
+| Choose a connector | Connector selection step |
+| Review and create | Confirmation |
+| Create connection | Finish / Submit / Done |
+| Connect to your data source. This will allow the platform to read and write data on your behalf. | Please complete all required fields in this step before proceeding. |
+
+
+## Accessibility
+
+# Accessibility Guidelines — Actian Design System 2026
+
+<!-- Source-of-truth doc. Hand-edited; not auto-generated. -->
+<!-- The plugin vendors this file via vendor-snapshot.yml. -->
+<!-- Edit here in volivarii/actian-ds-knowledge — never in the plugin's vendor/ tree. -->
+
+Source: [Accessibility page](https://www.figma.com/design/l8biHxfarNi1I2RMvVxVOK?node-id=12685:19373)
+Generated: 2026-03-26
+
+---
+
+> Accessibility ensures our products are usable by everyone. We aim to meet WCAG 2.2 AA standards across all experiences.
+>
+> **Resources:**
+> - [WCAG 2.2 guidelines](https://www.w3.org/TR/WCAG22/)
+> - [WebAIM Accessibility Guidelines](https://webaim.org/)
+> - [Deque University Free Accessibility Courses](https://dequeuniversity.com/)
+>
+> **Focus on section:**
+> - Text Alternatives (1.1) — Alt text for images, icons, and media.
+> - Time-based Media (1.2) — Captions, transcripts, audio descriptions.
+> - Adaptable / Distinguishable Content (1.3 & 1.4) — Color contrast, readable text, resizing, focus indicators.
+> - Keyboard & Navigation (2.1, 2.4) — Keyboard operability, focus order, skip links.
+> - Input & Interaction (2.2, 2.3) — Dragging alternatives, timing, animations.
+> - Error Prevention & Feedback (3.3) — Forms, validation, error messages.
+
+---
+
+## WCAG Principles
+
+### WCAG 2.2 AA Principles
+
+| Principle | Requirement |
+|-----------|-------------|
+| **Perceivable** | Users must be able to see or hear content (text, images, video) clearly |
+| **Operable** | Users must be able to interact with all UI elements (keyboard, gestures) |
+| **Understandable** | Content and interface must be predictable and readable |
+| **Robust** | Content must work across browsers, assistive technologies, and future devices |
+
+---
+
+## Color & Contrast
+
+| Check | Ratio |
+|-------|-------|
+| Body text (< 18pt) | **4.5:1** minimum |
+| Large text (≥ 18pt or 14pt bold) | **3:1** minimum |
+| UI components, icons, focus indicators | **3:1** minimum |
+
+Rules:
+- Use accessible color palettes and tokens — never hardcode
+- Do not rely on color alone to convey meaning
+- Provide secondary indicators (icons, text, patterns)
+
+---
+
+## Typography & Readability
+
+- Default body text size is **14px**
+- Minimum body text size is **12px**
+- **11px** is only acceptable for non-essential UI
+- Use defined type styles (avoid light weight)
+- Maintain readable line height and spacing
+- Text line length is **544px** at max with 16px text
+- Text line length is **480px** at max with 14px text
+- Text line length is **424px** at max with 12px text
+- Avoid placeholder-only labels
+- Avoid long blocks of dense text
+- Text must be resizable up to 200% without loss of content
+- Paragraph width: 60–75 characters max for readability
+
+---
+
+## Layout & Responsiveness
+
+- Content reflows at **400% zoom**
+- No horizontal scrolling for text content
+- Logical reading and focus order preserved
+- Touch targets: **44px ideal / 24px minimum** with sufficient spacing (WCAG 2.5.8)
+- No content clipped or hidden at 200% zoom
+
+---
+
+## Keyboard & Focus
+
+### Keyboard
+
+- All interactive elements are keyboard accessible
+- No keyboard traps
+- Logical focus order
+
+### Key Rules
+
+- Use `Tab` for forward and `Shift+Tab` for backward
+- Only focusable items that are visually visible should be in the tab order
+- Use `Enter` or `Space` to trigger links and expand/collapse buttons
+- Support `Enter` or `Space` to activate links and toggles
+- `Esc` should close open sub-menus or an expanded sidebar
+
+### Focus
+
+- Focus styles must be visible
+- Focus must not be obscured by sticky UI
+- Never remove focus outlines without replacement
+- Focus indicator: **2px solid `--zen-color-interactive-focused-stroke-default`** (#000000), never suppressed
+- `:focus-visible` must always be styled — never use `outline: none` without a replacement
+
+---
+
+## Interactions
+
+- Dragging interactions should also provide single-pointer or keyboard alternative. A single-pointer alternative means the action can be done with simple clicks or taps (no holding, no dragging).
+- Avoid time limits. Provide extensions if needed.
+- Tooltips must be accessible also by keyboard.
+
+---
+
+## Required States
+
+Every interactive component must have these states designed:
+
+| State | Requirement |
+|-------|-------------|
+| **Default** | Base visual appearance |
+| **Hover** | Visual change on mouse hover |
+| **Focus** | Visible focus indicator (keyboard) — never remove |
+| **Active/Pressed** | Visual feedback during click/tap |
+| **Disabled** | Visually distinct, `aria-disabled="true"` preferred over HTML `disabled` |
+| **Error / Success** | For form elements — error message + visual indicator |
+
+---
+
+## Feedback & Errors
+
+- **Explain what happened** and **how to fix it**
+- Error messages appear **near the field** they relate to
+- Use `aria-live="polite"` for non-critical status updates
+- Use `aria-live="assertive"` only for critical, time-sensitive errors
+- Status changes must not rely on color alone — include icon + text
+- Toasts/alerts auto-dismiss: minimum **5 seconds** display time
+
+---
+
+## Forms & Data Entry
+
+- Labels are **always visible** (no placeholder-only labels)
+- Required vs optional is **clearly indicated** (asterisk `*` for required)
+- Errors appear **near the field** with explanation
+- Inline validation is helpful, not disruptive
+- Timeouts include **warnings and recovery options**
+- Group related fields with `fieldset`/`legend`
+- Logical tab order follows visual layout
+
+---
+
+## Motion & Media
+
+- Motion is never the only feedback
+- Reduce motion or provide toggle for sensitive users
+- Avoid auto-play without controls
+- Keep animations subtle and purposeful
+
+---
+
+## Component-Specific Checklists
+
+### P0 Critical: Function & Infrastructure
+
+> Critical items are the structural essentials. If Navigation, Forms, or Buttons fail, the user is physically blocked. These are the paths and entry points required to actually use the product.
+>
+> - **Navigation:** Defines the entire site structure and landmarks.
+> - **Forms (Patterns & Inputs):** The primary way users provide data.
+> - **Modals:** High risk for focus traps and keyboard locking.
+> - **Buttons:** The primary triggers for all actions.
+
+---
+
+#### Button
+
+> Buttons translate user intent into system action. If buttons fail (are unclear or broken), the workflow hits a dead end, leaving users physically unable to complete tasks.
+
+**Accessibility checklist**
+
+Button semantics
+- [ ] Uses a native button element or proper button role
+- [ ] Name clearly describes the action (verb-based)
+
+Keyboard interaction
+- [ ] Focusable via Tab
+- [ ] Activated with Enter and Space
+- [ ] Disabled buttons are not focusable
+
+Target size
+- [ ] Recommended: 44x44 px minimum
+- [ ] Absolute minimum: 24x24 px with sufficient spacing
+- [ ] Hit area is not reduced by visual styling
+
+States
+- [ ] Default, hover, focus, active, disabled states are defined
+- [ ] Loading state prevents duplicate activation
+- [ ] Disabled state is visually and programmatically disabled
+
+Icon-only buttons
+- [ ] Has an accessible name (e.g. aria-label)
+- [ ] Purpose is understandable without visual context
+
+Toggle buttons
+- [ ] Toggle state is programmatically exposed
+- [ ] State change is perceivable without color alone
+
+Screen reader expectations
+- [ ] Announced as "button" with a clear name
+- [ ] Loading or state changes are announced when relevant
+- [ ] Toggle buttons announce current state (pressed / not pressed)
+
+Do not
+- [ ] Do not use links for actions
+- [ ] Do not rely on hover only
+- [ ] Do not remove focus styles
+
+**WCAG criteria:** 2.1.1 Keyboard, 2.4.3 Focus Order, 2.4.7 Focus Visible, 3.3.2 Labels or Instructions, 4.1.2 Name Role Value, 1.4.1 Use of Color, 2.5.5 Target Size (2.2)
+
+---
+
+#### Navigation (header, sidebar, breadcrumbs)
+
+> Navigation patterns define the structural map of your product. If navigation fails, users feel disoriented and abandon the application because they literally cannot find the features they need to do their job.
+
+**Accessibility checklist**
+
+General Navigation
+- [ ] Landmark roles are used correctly (`<nav>`, `<header>`, `<main>`, `<footer>`)
+- [ ] Multiple navigation blocks on a page have unique labels (e.g., `aria-label="Main"` vs `aria-label="Breadcrumb"`)
+- [ ] "Skip to main content" link is available and becomes visible on focus
+- [ ] The current page is visually and programmatically identified (e.g., `aria-current="page"`)
+
+Header & Main Menu
+- [ ] Navigation links have a minimum target size of 44x44px (or 24px with spacing)
+- [ ] Dropdown menus are operable via keyboard (Space/Enter to open, Arrow keys to navigate)
+- [ ] Menu triggers clearly indicate their state (e.g., `aria-expanded="true/false"`)
+- [ ] Sub-menus can be dismissed with the Esc key
+
+Sidebar
+- [ ] Sidebar can be collapsed/expanded, and the state is programmatically exposed
+- [ ] When collapsed to an icon-only view, tooltips or accessible names are provided
+- [ ] On mobile/narrow viewports, the sidebar behaves like a Modal (Focus trap/Esc to close)
+- [ ] Active parent categories are clearly distinguished from active child items
+
+Breadcrumbs
+- [ ] Breadcrumbs are wrapped in a `<nav>` element with a label (e.g., `aria-label="Breadcrumb"`)
+- [ ] Breadcrumbs are structured as an ordered list (`<ol>`)
+- [ ] The last item (current page) is not a clickable link and uses `aria-current="page"`
+- [ ] Separators (like `/` or `>`) are hidden from screen readers using `aria-hidden="true"` or CSS
+
+Do not
+- [ ] Do not rely on hover alone to reveal sub-navigation (must work on click/focus)
+- [ ] Do not use "hamburger" menus on desktop if space allows for visible links
+- [ ] Do not lose the user's focus when a navigation item disappears (e.g., when closing a drawer)
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 2.1.1 Keyboard, 2.4.1 Bypass Blocks, 2.4.3 Focus Order, 2.4.4 Link Purpose (In Context), 3.2.3 Consistent Navigation, 4.1.2 Name Role Value
+
+---
+
+#### Forms
+
+> Forms serve as the primary bridge for data collection. If forms fail (poor validation or labels), users experience high friction and error rates, resulting in abandoned processes and lost data.
+
+**Accessibility checklist**
+
+Structure and Flow
+- [ ] Logical tab order follows the visual layout
+- [ ] Related fields are grouped together (using fieldsets/legends)
+- [ ] Form does not have a strict time limit (or provides an extension)
+- [ ] Multi-step forms have a progress indicator
+
+Labels and Instructions
+- [ ] Every input has a permanent, visible label (not just placeholder text)
+- [ ] Instructions or formatting hints are programmatically linked to inputs
+- [ ] Required fields are clearly identified via text and `aria-required`
+- [ ] Form level instructions are provided at the start, not the end
+
+Touch and Interaction
+- [ ] Proximity between label and input is close enough for low-vision users
+- [ ] Inputs have a minimum height/width (standard: 44px) for easy tapping
+- [ ] Clicking a label places focus into the corresponding input field
+
+Error Handling
+- [ ] Errors are identified in text, not just by color changes
+- [ ] Error messages are programmatically linked to the input (using `aria-describedby`)
+- [ ] Error messages provide specific suggestions on how to fix the issue
+- [ ] Focus is moved to the error summary or the first invalid field upon submission
+
+Submission and Feedback
+- [ ] Submit button is clearly labeled and easy to find
+- [ ] Success messages are announced by screen readers (using `aria-live`)
+- [ ] Confirmations are provided before irreversible "destructive" actions
+
+Do not
+- [ ] Do not use placeholder text as a replacement for labels
+- [ ] Do not automatically move focus (auto-tab) once a field is completed
+- [ ] Do not use "Reset" or "Clear Form" buttons (they are high-risk for accidental deletion)
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 1.3.5 Identify Input Purpose, 2.1.1 Keyboard, 2.4.3 Focus Order, 3.3.1 Error Identification, 3.3.2 Labels or Instructions, 3.3.3 Error Suggestion, 4.1.2 Name Role Value
+
+---
+
+#### Modal
+
+> Modals demand immediate attention by interrupting the workflow. If modals fail (e.g., keyboard traps), users become physically stuck in the layer and cannot return to the main content to finish their work.
+
+**Accessibility checklist**
+
+Structure and Flow
+- [ ] Logical tab order follows the visual layout
+- [ ] Related fields are grouped together (using fieldsets/legends)
+- [ ] Form does not have a strict time limit (or provides an extension)
+- [ ] Multi-step forms have a progress indicator
+
+Labels and Instructions
+- [ ] Every input has a permanent, visible label
+- [ ] Instructions or formatting hints are programmatically linked to inputs
+- [ ] Required fields are identified via text and `aria-required`
+- [ ] Form-level instructions are provided at the start of the flow
+
+Touch and Interaction
+- [ ] Touch targets are at least 44x44px (or 24px with sufficient spacing)
+- [ ] Proximity between label and input is close for low-vision users
+- [ ] Clicking a label places focus into the corresponding input field
+
+Error Handling
+- [ ] Errors are identified in text, not just by color changes
+- [ ] Error messages are programmatically linked to the input via `aria-describedby`
+- [ ] Error messages provide specific suggestions on how to fix the issue
+- [ ] Focus is moved to the error summary or first invalid field upon submission
+
+Do not
+- [ ] Do not use placeholder text as a replacement for labels
+- [ ] Do not automatically move focus (auto-tab) once a field is completed
+- [ ] Do not use "Reset" or "Clear Form" buttons
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 1.3.5 Identify Input Purpose, 2.1.1 Keyboard, 2.4.3 Focus Order, 2.5.8 Target Size (Minimum), 3.3.1 Error Identification, 3.3.2 Labels or Instructions, 3.3.3 Error Suggestion, 4.1.2 Name Role Value
+
+---
+
+### P1 High Impact: Communication
+
+> High Impact items act as the system's voice. They provide necessary feedback and organization so the user knows what is happening. Without them, the user feels lost, ignored, or confused.
+>
+> - **Alerts, Banners & Toasts:** Essential for error recovery and status updates.
+> - **Dropdowns, Menus & Popovers:** Complex interaction layers.
+> - **Data Tables:** Critical for information-heavy applications.
+> - **Loading & Empty States:** Provides necessary system feedback.
+
+---
+
+#### Alerts, Toasts, Banners
+
+> Feedback mechanisms communicate the outcome of interactions. If feedback fails, users are left guessing if their action worked, leading to repeated clicks, anxiety, and mistrust in the system.
+
+**Accessibility checklist**
+
+General Messaging
+- [ ] Messages use appropriate color contrast for text and icons
+- [ ] Icons used to indicate status (Error, Success, Warning) have text alternatives
+- [ ] Importance of the message is conveyed through text, not just color
+- [ ] Critical alerts are placed where they are visually and programmatically easy to find
+
+Global Banners (In-page)
+- [ ] Banners are placed at the top of the page or section they relate to
+- [ ] Banners are programmatically identified using `role="region"` or `role="status"`
+- [ ] If the banner is a "System Alert" (e.g., "Site maintenance in 10 mins"), it uses `role="alert"`
+- [ ] Persistent banners include a clear "Dismiss" button if they can be closed
+
+Toasts
+- [ ] Toasts use `role="status"` (polite) for non-critical feedback (e.g., "Settings saved")
+- [ ] Toasts do not contain critical actions (links/buttons) as they disappear too fast
+- [ ] Display time is sufficient for users to read (minimum 5-10 seconds)
+- [ ] Users can disable or extend the duration of auto-expiring messages
+- [ ] Toasts do not block interaction with the rest of the page
+
+Inline Alerts
+- [ ] Alerts are placed in close proximity to the related content (e.g., near the Submit button)
+- [ ] Dynamic alerts (appearing after an action) use `aria-live` to be announced immediately
+- [ ] Alert remains visible until the user resolves the issue or dismisses it
+
+Do not
+- [ ] Do not use auto-dismissing toasts for critical errors or information
+- [ ] Do not use "Assertive" live regions for non-urgent updates (it interrupts the screen reader mid-sentence)
+- [ ] Do not put focusable elements (like links) inside a toast that auto-dismisses
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 1.4.1 Use of Color, 2.2.1 Timing Adjustable, 3.3.1 Error Identification, 4.1.2 Name Role Value, 4.1.3 Status Messages
+
+---
+
+#### Dropdowns, Menus, and Popovers
+
+> Dropdowns manage screen real estate by collapsing options. If dropdowns fail, essential features remain hidden or become impossible to reach for users relying on keyboards.
+
+**Accessibility checklist**
+
+Triggers & States
+- [ ] Trigger clearly indicates its state via `aria-expanded="true/false"`
+- [ ] The relationship between the trigger and the container is linked via `aria-controls` or `aria-owns`
+- [ ] Focus is visible on the trigger when active
+- [ ] If the menu contains a list of choices, the trigger has `aria-haspopup="menu"` (or `"listbox"` for selects)
+
+Keyboard interaction
+- [ ] Open: Space or Enter opens the menu
+- [ ] Close: Esc key closes the menu and returns focus to the trigger
+- [ ] Navigation: Arrow keys move focus between items within the menu
+- [ ] Dismissal: Clicking outside the container or moving focus away closes the popover
+
+Popovers & Tooltips
+- [ ] Popovers do not open on hover alone (must be triggerable by click or focus)
+- [ ] Content remains visible and "hoverable" so users can move their mouse over the popover without it disappearing
+- [ ] Tooltips that appear on focus are dismissible via Esc without moving focus
+
+Screen reader expectations
+- [ ] Menu items are identified as a list or group
+- [ ] Current selection is programmatically identified (e.g., `aria-selected="true"`)
+- [ ] Disabled items are announced as disabled and are not focusable
+
+Do not
+- [ ] Do not use "Auto-tab" or move focus automatically when a selection is made
+- [ ] Do not hide important information inside a hover-only tooltip
+- [ ] Do not allow the popover to be cut off by the browser edge (ensuring visibility for zoomed-in users)
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 1.4.13 Content on Hover or Focus, 2.1.1 Keyboard, 2.4.3 Focus Order, 3.2.1 On Focus, 4.1.2 Name Role Value
+
+---
+
+#### Data Tables
+
+> Data tables organize high-density information for scanning. If tables fail, complex data becomes an unreadable wall of text, preventing users from comparing values or making informed decisions.
+
+**Accessibility checklist**
+
+Structure & Semantics
+- [ ] Proper table markup is used (`<table>`, `<thead>`, `<tbody>`, `<tr>`)
+- [ ] Header cells are defined using `<th>` and data cells using `<td>`
+- [ ] Header cells use the `scope` attribute (`col` or `row`) to define their direction
+- [ ] Complex tables with multiple levels of headers use `id` and `headers` attributes
+- [ ] A `<caption>` is provided to describe the table's content and purpose
+
+Keyboard Interaction
+- [ ] Sortable Headers: Sorting triggers are keyboard-focusable and clearly labeled
+- [ ] Interactive Elements: Buttons or links within cells are reachable via Tab
+- [ ] Scrollable Containers: If the table overflows horizontally, the container is keyboard-focusable so it can be scrolled
+
+Screen Reader Expectations
+- [ ] Sorting state is announced (e.g., `aria-sort="ascending"`)
+- [ ] Row and column counts are accurate and announced
+- [ ] Hidden or decorative elements within cells are hidden from assistive technology
+- [ ] If the table is empty, a clear message is provided within a table row or as a replacement state
+
+Visual Design
+- [ ] Text within cells meets contrast requirements (4.5:1)
+- [ ] Row highlights (on hover or focus) assist with horizontal tracking
+- [ ] Alignment is consistent (e.g., numeric data is right-aligned) to aid readability
+
+Do not
+- [ ] Do not use tables for layout purposes; only use them for tabular data
+- [ ] Do not use images of tables; use real text and markup
+- [ ] Do not nest tables within tables whenever possible
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 1.3.2 Meaningful Sequence, 2.1.1 Keyboard, 2.4.3 Focus Order, 4.1.2 Name Role Value
+
+---
+
+#### Loading Patterns (Table)
+
+> Table loading patterns dictate how users navigate large datasets. If these fail, users lose their context or become trapped in scroll loops, physically preventing them from reaching the data.
+
+**Accessibility checklist**
+
+Pagination
+- [ ] Provides a clear "Page X of Y" text indicator
+- [ ] "Previous" and "Next" buttons have clear labels and are disabled when at the start/end
+- [ ] The current page is programmatically identified using `aria-current="page"`
+- [ ] Focus is moved to the top of the table (or the table caption) after a page change
+- [ ] Navigation links are wrapped in a `<nav>` element with an `aria-label="Pagination"`
+
+Load More
+- [ ] The "Load More" button is located immediately after the table
+- [ ] New rows are appended to the existing table structure, not replacing it
+- [ ] Focus remains on the "Load More" button after clicking to allow for consecutive loading
+- [ ] A status message announces the result of the load (e.g., "10 more rows added, 50 total")
+- [ ] A loading indicator appears within or near the button while the request is in progress
+
+Infinite Scroll (Table)
+- [ ] Keyboard Fallback: A manual "Load More" button or pagination is provided for keyboard users
+- [ ] Screen readers are notified when new content is added via an `aria-live` region
+- [ ] Users can still access the page footer via keyboard without being "trapped" by infinite loading
+- [ ] A "Back to Top" link is provided if the table becomes exceptionally long
+
+Do not
+- [ ] Do not use infinite scroll as the only way to access data for keyboard users
+- [ ] Do not lose the user's focus or scroll position when new data is injected
+- [ ] Do not use pagination for very small datasets (usually under 25 items)
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 2.1.1 Keyboard, 2.4.3 Focus Order, 3.2.3 Consistent Navigation, 4.1.2 Name Role Value, 4.1.3 Status Messages
+
+---
+
+#### Loading Patterns (Feedback/content)
+
+> Loading patterns communicate system status and manage perceived wait times. If these indicators fail, users assume the application is frozen, leading to frustration, "rage clicks," or abandonment.
+
+**Accessibility checklist**
+
+Visual & Interaction
+- [ ] Loading indicators are visible and not obscured by other UI elements
+- [ ] Content does not "jump" unexpectedly when loading is complete (use skeleton screens for layout stability)
+- [ ] Interactive elements (buttons, inputs) are disabled during critical loading to prevent duplicate actions
+- [ ] For long waits (over 10 seconds), a progress bar with a percentage is provided instead of an infinite spinner
+- [ ] Focus is maintained and not lost if a loading state replaces the current content
+
+Screen Reader Expectations
+- [ ] Live Regions: Use `aria-busy="true"` on the container currently loading
+- [ ] Status updates use `aria-live="polite"` to announce "Loading..." or "Processing..."
+- [ ] When loading is finished, `aria-busy` is set to false and the new content is announced
+- [ ] Spinners or loaders have an accessible label (e.g., `aria-label="Fetching data"`)
+
+Motion
+- [ ] Animation respects the `prefers-reduced-motion` media query (slow down or stop rotation)
+- [ ] Loading animations do not flash more than three times per second
+
+Do not
+- [ ] Do not use `aria-live="assertive"` for standard loading as it interrupts current screen reader speech
+- [ ] Do not leave the user in an "infinite" loading state without a timeout or error message
+- [ ] Do not use color alone to indicate that a process is complete
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 2.2.1 Timing Adjustable, 2.2.2 Pause Stop Hide, 2.3.1 Three Flashes or Below Threshold, 4.1.2 Name Role Value, 4.1.3 Status Messages
+
+---
+
+#### Empty States
+
+> Empty states turn a "zero-data" moment into an onboarding opportunity. If empty states fail (showing just a blank page), users face a dead end with no clue how to initiate the first step.
+
+**Accessibility checklist**
+
+Content & Context
+- [ ] Clear heading describes why the area is empty (e.g., "No results found")
+- [ ] Helpful body text provides a next step or explanation
+- [ ] Primary action button is clearly labeled and follows Button guidelines
+- [ ] Informational images or illustrations are hidden from screen readers (`alt=""` or `aria-hidden="true"`)
+
+Focus & Navigation
+- [ ] Focus is managed logically if the empty state appears dynamically (e.g., after a search)
+- [ ] Empty state is contained within the appropriate landmark (e.g., inside the `<main>` or a specific `<section>`)
+- [ ] Non-interactive "placeholder" graphics are not focusable
+
+Screen reader expectations
+- [ ] The change from "loading" or "populated" to "empty" is announced if it happens dynamically
+- [ ] Heading levels follow the page hierarchy (usually an `<h3>` or `<h4>`)
+- [ ] If the empty state is a result of a filter, the status is announced (e.g., "0 items match your filters")
+
+Do not
+- [ ] Do not use "cute" or vague copy that fails to explain the state (e.g., "Oops, nothing here!")
+- [ ] Do not use images to convey the only "Empty" message without a text fallback
+- [ ] Do not leave the user with no "path back" (always provide a reset or "Go home" action)
+
+**WCAG criteria:** 1.1.1 Non-text Content, 1.3.1 Info and Relationships, 2.4.3 Focus Order, 2.4.6 Headings and Labels, 4.1.3 Status Messages
+
+---
+
+### P2 Medium Impact: Refinement
+
+> Medium Impact items are the "quality of life" features. They manage space and provide extra utility to make the UI feel intuitive. They don't stop the work, but they make it feel significantly faster and more efficient.
+>
+> - **Tabs:** Organizes content within a page.
+> - **Icons:** Visual support for meaning.
+> - **Tooltips, Truncation & Overflow:** Handles space constraints.
+> - **Drag & Drop:** Usually has a simpler alternative interaction.
+> - **AI Output:** Highly specific to modern generative features.
+
+---
+
+#### Tabs
+
+> Tabs organize content into logical, parallel views. If tabs fail, users miss critical content hidden in other panels or lose context of where they are in the hierarchy.
+
+**Accessibility checklist**
+
+Structure & Relationships
+- [ ] The tab container is identified with `role="tablist"`
+- [ ] Each tab trigger has `role="tab"` and is contained within the tablist
+- [ ] Each content panel has `role="tabpanel"`
+- [ ] Tabs are programmatically linked to their panels via `aria-controls`
+- [ ] The active tab is identified using `aria-selected="true"`
+
+Keyboard Interaction
+- [ ] Tab key: Moves focus into the tablist (to the active tab) and then out to the active panel
+- [ ] Arrow keys: Left/Right (or Up/Down) moves focus between the tabs in the list
+- [ ] Home/End: Moves focus to the first and last tab respectively
+- [ ] Space/Enter: Activates the focused tab (if not using automatic activation)
+
+Visual Design
+- [ ] The active tab has a clear visual distinction (not just color)
+- [ ] The focus indicator is highly visible on the tab triggers
+- [ ] Layout remains functional and readable when text is resized or zoomed
+
+Do not
+- [ ] Do not nest tab sets inside other tab sets
+- [ ] Do not use tabs for primary page navigation (use a Navigation pattern instead)
+- [ ] Do not force the user to "Tab" through every single tab in the list to reach the content panel (use Arrow keys for list navigation)
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 2.1.1 Keyboard, 2.4.3 Focus Order, 2.4.7 Focus Visible, 4.1.2 Name Role Value
+
+---
+
+#### Icons
+
+> Icons provide a universal visual shorthand. If icons fail (are ambiguous or lack labels), users are forced to guess the function, increasing cognitive load and error rates.
+
+**Accessibility checklist**
+
+Decorative Icons
+- [ ] Icons that repeat a visible text label are hidden using `aria-hidden="true"`
+- [ ] SVGs used for decoration include `focusable="false"` to prevent IE/Edge focus bugs
+- [ ] Purely aesthetic icons (like background flourishes) are ignored by screen readers
+
+Functional & Informational Icons
+- [ ] Icon-only buttons (e.g., a "trash can" icon) have a clear `aria-label` or title
+- [ ] Icons that convey status (e.g., an "Error" exclamation mark) have a text alternative
+- [ ] Interactive icons meet the minimum touch target of 44x44px (or 24px with spacing)
+- [ ] Standalone icons have a `<title>` element inside the SVG linked via `aria-labelledby`
+
+Visual Design
+- [ ] Icons meet color contrast requirements (3:1 for graphical objects)
+- [ ] Icons remain sharp and legible when the interface is zoomed to 400%
+- [ ] Meaning is not conveyed by color alone (e.g., a "Success" checkmark is distinct from an "Error" X by shape)
+
+Do not
+- [ ] Do not use alt text for icons that are already described by adjacent text
+- [ ] Do not use complex icons that lose meaning when scaled down
+- [ ] Do not leave SVGs "naked" without roles or labels if they are interactive
+
+**WCAG criteria:** 1.1.1 Non-text Content, 1.4.1 Use of Color, 1.4.11 Non-text Contrast, 2.1.1 Keyboard, 4.1.2 Name Role Value
+
+---
+
+#### Tooltips
+
+> Tooltips deliver contextual assistance on demand. If tooltips fail (don't trigger or won't dismiss), they either obscure content or leave users confused about complex terminology.
+
+**Accessibility checklist**
+
+Trigger & Display
+- [ ] Tooltips appear on both hover and focus.
+- [ ] Tooltips are dismissible: The user can close the tooltip (e.g., via Esc key) without moving focus or hover.
+- [ ] Tooltips are hoverable: The user can move the mouse pointer over the tooltip content without it disappearing.
+- [ ] Tooltips are persistent: The content remains visible until the hover/focus is removed or the user dismisses it.
+- [ ] No critical information is hidden exclusively inside a tooltip.
+
+Screen Reader Expectations
+- [ ] The tooltip text is programmatically linked to the trigger using `aria-describedby`.
+- [ ] For icon-only buttons, the tooltip provides the `aria-label` or name (using `aria-labelledby`).
+
+Do not
+- [ ] Do not use tooltips for interactive content (links, buttons) as they are hard to access for some users.
+- [ ] Do not add a delay before the tooltip appears for keyboard users.
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 1.4.4 Resize Text, 1.4.10 Reflow, 1.4.13 Content on Hover or Focus, 2.1.1 Keyboard, 4.1.2 Name Role Value
+
+---
+
+#### Text Truncation & Overflow
+
+> Truncation manages variable content length within fixed layouts. If truncation fails (without a "show more" option), vital information is cut off and permanently lost to the user.
+
+**Accessibility checklist**
+
+Visual & Interaction
+- [ ] Truncated text (using ellipses `...`) provides a way to see the full content (e.g., via a tooltip or expanding the container).
+- [ ] If truncation occurs on a link or button, the accessible name still contains the full, un-truncated text.
+- [ ] Text is not cut off in a way that changes its meaning (e.g., "$1,000" becoming "$1...").
+
+Responsive Behavior
+- [ ] Layout containers allow for text reflow without loss of content or functionality at up to 400% zoom.
+- [ ] Containers do not have a fixed height that causes text to overflow and overlap other elements.
+
+Horizontal Overflow
+- [ ] If a region (like a code block or table) must scroll horizontally, the scrollable area is keyboard focusable (`tabindex="0"`).
+- [ ] Focusable scroll areas have a descriptive label (e.g., `aria-label="Code snippet scrollable region"`).
+
+Do not
+- [ ] Do not use `text-overflow: ellipsis` on critical instructional text or headings without a "view more" option.
+- [ ] Do not rely on "Title" attributes as the only way to see truncated text (they are not accessible to mobile or keyboard-only users).
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 1.4.4 Resize Text, 1.4.10 Reflow, 1.4.13 Content on Hover or Focus, 2.1.1 Keyboard, 4.1.2 Name Role Value
+
+---
+
+#### Drag & Drop
+
+> Drag and drop mimics physical object manipulation. If this interaction fails (lacking a click-based alternative), users with motor impairments are completely blocked from organizing or moving items.
+
+**Accessibility checklist**
+
+Keyboard Interaction
+- [ ] Alternative Input: A keyboard-equivalent (e.g., an "Action" menu or "Move up/down" buttons) is provided
+- [ ] Initiation: Focusable handles or items can be "picked up" using Space or Enter
+- [ ] Navigation: Arrow keys move the item between valid drop targets
+- [ ] Confirmation: Space or Enter drops the item in the new location
+- [ ] Cancellation: Esc cancels the move and returns the item to its original position
+
+Screen Reader Expectations
+- [ ] State is announced when an item is "Grabbed," "Moved," "Dropped," or "Canceled"
+- [ ] Live Regions: An `aria-live` region announces the current position and available drop targets
+- [ ] Help Text: Clear instructions are provided before the interaction (e.g., "Use arrow keys to reorder")
+- [ ] Grabbed state is programmatically exposed using `aria-grabbed` or `aria-current="true"`
+
+Visual Affordance
+- [ ] Drag handles have a minimum touch target of 44x44px
+- [ ] Clear visual feedback indicates which item is currently being moved
+- [ ] Valid drop zones are visually highlighted during the "drag" state
+- [ ] The cursor changes to a "grabbing" hand or appropriate directional icon
+
+Do not
+- [ ] Do not rely solely on mouse movements to reorder or move items
+- [ ] Do not hide the "Move" actions inside a hover-only state
+- [ ] Do not trigger the move automatically without a confirmation keypress
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 2.1.1 Keyboard, 2.1.3 Keyboard (No Exception), 2.5.2 Pointer Cancellation, 2.5.7 Dragging Movements (WCAG 2.2), 4.1.2 Name Role Value, 4.1.3 Status Messages
+
+---
+
+#### AI Output & Suggestions
+
+**Accessibility checklist**
+
+Transparency & Identification
+- [ ] AI-generated content is visually and programmatically identified (e.g., using a "Sparkle" icon with an `aria-label="Generated by AI"`)
+- [ ] Suggestions are clearly distinguished from primary page content
+- [ ] Confidence scores or "Source" links are provided to allow users to verify information
+- [ ] A disclaimer regarding AI accuracy is provided and easily discoverable
+
+Interaction & Controls
+- [ ] AI suggestions (like autocomplete or smart replies) are reachable and dismissible via keyboard
+- [ ] Users can easily "Accept," "Regenerate," or "Discard" AI outputs
+- [ ] Feedback mechanisms (Thumbs up/down) have clear accessible names
+- [ ] Stop/Cancel buttons are available for long-running generative tasks
+
+Screen Reader Expectations
+- [ ] New AI output is announced via `aria-live="polite"` so users know when generation is complete
+- [ ] Typing/streaming animations (like "AI is thinking...") use `aria-busy="true"` and are announced to screen readers
+- [ ] Suggested text in inputs (ghost text) is not announced as part of the current value until accepted
+- [ ] Large blocks of AI text use proper heading structures to allow for easy skimming
+
+Motion & Loading
+- [ ] Streaming text (typewriter effect) respects `prefers-reduced-motion` and can be disabled
+- [ ] "Thinking" animations do not use high-frequency flashes
+
+Do not
+- [ ] Do not automatically inject AI content into the user's focus path without warning
+- [ ] Do not rely on color-only gradients (like "AI purple") to signal that content is generated
+- [ ] Do not make AI suggestions mandatory; users must be able to bypass them to complete a task
+
+**WCAG criteria:** 1.3.1 Info and Relationships, 1.4.1 Use of Color, 2.1.1 Keyboard, 2.2.2 Pause Stop Hide, 4.1.2 Name Role Value, 4.1.3 Status Messages
+
+---
+
+## ARIA Guidance
+
+### Accessible Names (Labeling)
+
+- [ ] Visible Labels: Every interactive element has a visible text label.
+- [ ] Label Persistence: Labels remain visible when the field is focused or filled (no placeholder-only labels).
+- [ ] The 1:1 Rule: The `aria-label` or accessible name must contain the visible text of the element.
+- [ ] Contextual Clarity: Labels like "Click here" or "View" are replaced with descriptive text (e.g., "View order history").
+
+### ARIA Usage
+
+- [ ] First Rule of ARIA: If you can use a native HTML element (like `<button>` or `<nav>`), use it instead of ARIA roles.
+- [ ] Role Accuracy: Elements have the correct role for their behavior (e.g., `role="dialog"` for modals).
+- [ ] State Indicators: Dynamic states use properties like `aria-expanded`, `aria-selected`, or `aria-checked`.
+- [ ] Relation Linking: Use `aria-labelledby` for names and `aria-describedby` for supplementary info or error messages.
+
+### Live Regions
+
+- [ ] Dynamic Updates: Use `aria-live` for content that updates without a page refresh.
+- [ ] Polite vs. Assertive: Use `polite` by default; use `assertive` only for critical, time-sensitive errors.
+
+### Landmark Roles
+
+- Use `<nav>`, `<header>`, `<main>`, `<footer>` for page landmarks
+- Multiple navigation blocks have **unique labels** (`aria-label="Main navigation"`)
+
+---
+
+## General Checklist
+
+> Use this before design handoff or review.
+
+### Color & Contrast
+- [ ] Meets contrast requirements (4.5:1 for body text, 3:1 for UI components)
+- [ ] Color is not the only indicator
+
+### Typography & Readability
+- [ ] Minimum body text size is 12px
+- [ ] Avoid a too long paragraph width (60-75 characters)
+
+### Layout & Responsiveness
+- [ ] Works at 200-400% zoom
+- [ ] No horizontal scrolling for text
+- [ ] Touch targets are large enough
+
+### Keyboard & Focus
+- [ ] All interactions work via keyboard
+- [ ] Focus order is logical
+- [ ] Focus is visible and not removed
+
+### Screen Reader
+- [ ] Clear accessible name (label, aria-label, or text)
+- [ ] State changes are announced (loading, error, success)
+- [ ] Relationship to trigger/content is clear
+
+### States & Feedback
+- [ ] All states are designed (hover, focus, error, disabled)
+- [ ] Loading, empty, error states are accessible
+- [ ] Disabled state is distinguishable from enabled
+- [ ] Status changes aren't color-only
+
+### Forms & Errors
+- [ ] All fields have visible labels
+- [ ] Errors explain what happened and how to fix
+- [ ] Required vs optional is clear
+
+### Motion
+- [ ] Motion isn't required to understand content
+- [ ] Reduced motion is respected
+
+---
+
+## Additional Rules (hand-authored)
+
+The following items were present in the hand-authored guidelines and supplement the JSON source.
+
+### Key Bindings by Component (quick reference)
+
+| Component | Keys |
+|-----------|------|
+| Button | `Tab` to focus, `Enter` or `Space` to activate |
+| Link | `Tab` to focus, `Enter` to activate |
+| Dropdown/Select | `Tab` to focus, `Space`/`Enter` to open, `Arrow` to navigate, `Escape` to close |
+| Modal | `Tab` cycles within modal (focus trap), `Escape` to close |
+| Tabs | `Tab` to tab list, `Arrow Left/Right` to switch tabs |
+| Menu | `Enter`/`Space` to open, `Arrow` to navigate, `Escape` to close |
+| Data table | `Tab` between interactive cells, `Arrow` for cell navigation |
+
+### Token References for Typography
+
+- Default body text size: **14px** (`--zen-font-body-standard`)
+- Minimum body text size: **12px** (`--zen-font-body-subtle`)
+- **11px** only acceptable for non-essential UI (`--zen-font-body-micro`)
+
+### Disabled State Guidance
+
+- `aria-disabled="true"` preferred over HTML `disabled` attribute
+- Disabled elements are exempt from contrast requirements but must be visually distinguishable
+
+### Focus Indicator Token
+
+- Focus indicator: **2px solid `--zen-color-interactive-focused-stroke-default`** (#000000)
+

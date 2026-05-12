@@ -1,0 +1,106 @@
+{
+  "_schema_version": 1,
+  "id": "tokens",
+  "title": "Tokens",
+  "path": [
+    "tokens"
+  ],
+  "parent": "",
+  "anchors": {
+    "h2": "tokens"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 543,
+    "endLine": 965
+  },
+  "children": [
+    {
+      "id": "tokens/global-color",
+      "title": "Global Color",
+      "order": 1
+    },
+    {
+      "id": "tokens/typography",
+      "title": "Typography",
+      "order": 2
+    },
+    {
+      "id": "tokens/borders",
+      "title": "Borders",
+      "order": 3
+    },
+    {
+      "id": "tokens/breakpoints",
+      "title": "Breakpoints",
+      "order": 4
+    },
+    {
+      "id": "tokens/focus-rings",
+      "title": "Focus Rings",
+      "order": 5
+    },
+    {
+      "id": "tokens/elevation",
+      "title": "Elevation",
+      "order": 6
+    },
+    {
+      "id": "tokens/spacing",
+      "title": "Spacing",
+      "order": 7
+    },
+    {
+      "id": "tokens/backgrounds",
+      "title": "Backgrounds",
+      "order": 8
+    },
+    {
+      "id": "tokens/heights-and-trigger-areas",
+      "title": "Heights and Trigger Areas",
+      "order": 9
+    },
+    {
+      "id": "tokens/icons",
+      "title": "Icons",
+      "order": 10
+    },
+    {
+      "id": "tokens/motion",
+      "title": "Motion",
+      "order": 11
+    }
+  ],
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "All tokens are implemented as CSS custom properties under the --zen- namespace and as Figma variables in the Zen Colors library.\n\nToken status key",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Status",
+        "Meaning"
+      ],
+      "rows": [
+        {
+          "status_note": "Shipped",
+          "Meaning": "Live in engineering and Figma. Safe to use in production.",
+          "status": "shipped"
+        },
+        {
+          "status_note": "In Review",
+          "Meaning": "Discussed with eng; defined in Figma; pending implementation in code.",
+          "status": "in-review"
+        },
+        {
+          "status_note": "Proposed",
+          "Meaning": "Design has spec'd this; not yet discussed with eng.",
+          "status": "proposed"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "_schema_version": 1,
+  "id": "tokens/typography/font-family",
+  "title": "Font Family",
+  "path": [
+    "tokens",
+    "typography",
+    "font-family"
+  ],
+  "parent": "tokens/typography",
+  "anchors": {
+    "h2": "tokens",
+    "h3": "typography",
+    "h4": "font-family"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 588,
+    "endLine": 594
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Token",
+        "Value",
+        "Usage",
+        "Status"
+      ],
+      "rows": [
+        {
+          "Token": "--zen-font-family-text",
+          "Value": "Roboto",
+          "Usage": "Default — headings and body",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-font-family-mono",
+          "Value": "&quot;Roboto Mono&quot;",
+          "Usage": "Code and data",
+          "status_note": "Shipped",
+          "status": "shipped"
+        }
+      ]
+    }
+  ]
+}

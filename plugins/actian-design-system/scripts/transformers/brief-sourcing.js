@@ -37,10 +37,10 @@ function transcribeContentGuidelines(guidelinesJson) {
 }
 
 // Motion is a registry-derived card (pattern data lives in
-// vendor/foundations/interaction-motion.json under #patterns.<slug>).
+// vendor/foundations/dist/tokens/motion.json under #patterns.<slug>).
 // The component-guideline only declares which pattern + optional overrides;
 // the canonical phase data comes from foundations. Caller passes
-// ctx.motionPatterns (the patterns object from interaction-motion.json).
+// ctx.motionPatterns (the patterns object from foundations/dist/tokens/motion.json).
 function transcribeMotionPattern(guidelinesJson, motionPatterns) {
   if (!guidelinesJson || !guidelinesJson.behavior) return null;
   var motion = guidelinesJson.behavior.motion;
@@ -72,6 +72,42 @@ function transcribeMotionPattern(guidelinesJson, motionPatterns) {
   };
 }
 
+// Phase 2c — category fallback for card_motion. Used when the component's
+// guideline has no behavior.motion.pattern but ctx.categoryDefaults
+// declares one or more motion_refs (patternRefs in dist projection).
+// Takes a resolver function so the dispatcher can supply either the
+// category-defaults-loader or a test stub.
+function transcribeCategoryMotionFallback(categoryDefaults, motionRefResolver) {
+  if (!categoryDefaults || !categoryDefaults.card_motion) return null;
+  var refs = categoryDefaults.card_motion.patternRefs;
+  if (!Array.isArray(refs) || refs.length === 0) return null;
+  if (typeof motionRefResolver !== "function") return null;
+  // Use the first ref as the canonical fallback. Additional refs in the
+  // category defaults are advisory and surface via Phase B grounding.
+  var first = refs[0];
+  if (!first || typeof first.ref !== "string") return null;
+  var pattern = motionRefResolver(first.ref);
+  if (!pattern) return null;
+  return {
+    patternSlug: pattern.slug || first.ref,
+    patternName: pattern.name || first.ref,
+    phases: Array.isArray(pattern.phases) ? pattern.phases : [],
+    logic_and_accessibility: pattern.logic_and_accessibility || null,
+    notes: pattern.notes || null,
+    overrides: null,
+    _categoryNote: typeof first.note === "string" ? first.note : null,
+  };
+}
+
+// Phase 2c — which Phase B cards receive categoryDefaults grounding.
+// card_tokens and card_usage have no category-level mapping in the
+// defaults file shape, so they are intentionally excluded.
+var CATEGORY_DEFAULTS_PHASE_B_CARDS = {
+  card_anatomy: true,
+  card_component: true,
+  card_accessibility: true,
+};
+
 // ---------------------------------------------------------------------------
 // Dispatcher
 // ---------------------------------------------------------------------------
@@ -79,13 +115,9 @@ function transcribeMotionPattern(guidelinesJson, motionPatterns) {
 function resolveSection(cardKey, ctx, recipe) {
   if (!recipe) throw new Error("resolveSection: missing recipe");
 
-  // Stub guidelines have no Figma-extracted curated content. Route every
-  // card to Phase B (generate) so card-generator agents lean on
-  // registry-derived structural data instead of expecting transcription
-  // content. Carries a `fallback` flag + reason so existing consumers that
-  // check for fallbacks still see one.
+  // Stub guidelines short-circuit ALL cards to Phase B.
   if (ctx && ctx.guidelinesJson && ctx.guidelinesJson._stub === true) {
-    return {
+    var stubResult = {
       phase: "B",
       source: null,
       fallback: true,
@@ -93,15 +125,31 @@ function resolveSection(cardKey, ctx, recipe) {
         "guideline is a stub (no curated content); routing to Phase B",
       grounding: (recipe && recipe.grounding) || [],
     };
+    if (
+      ctx.categoryDefaults &&
+      CATEGORY_DEFAULTS_PHASE_B_CARDS[cardKey] === true
+    ) {
+      stubResult.categoryDefaults = ctx.categoryDefaults;
+    }
+    return stubResult;
   }
 
   if (recipe.phase === "generate") {
-    return { phase: "B", grounding: recipe.grounding || [] };
+    var genResult = { phase: "B", grounding: recipe.grounding || [] };
+    if (
+      ctx &&
+      ctx.categoryDefaults &&
+      CATEGORY_DEFAULTS_PHASE_B_CARDS[cardKey] === true
+    ) {
+      genResult.categoryDefaults = ctx.categoryDefaults;
+    }
+    return genResult;
   }
   if (recipe.phase !== "transcribe") {
     throw new Error("resolveSection: unknown phase '" + recipe.phase + "'");
   }
-  // Phase A — dispatch by cardKey to the right transcription primitive
+
+  // Phase A
   var primary = null;
   var fallbackReason = null;
   if (cardKey === "card_header") {
@@ -121,8 +169,6 @@ function resolveSection(cardKey, ctx, recipe) {
       return { phase: "A", source: "figma", content: motionResult.content };
     }
     if (motionResult && motionResult.missingPattern) {
-      // Loud fallback: the component declares a pattern slug that doesn't
-      // exist in foundations. Surface it so the brief generator can decide.
       return {
         phase: "A",
         source: null,
@@ -130,10 +176,25 @@ function resolveSection(cardKey, ctx, recipe) {
         fallbackReason:
           "behavior.motion.pattern '" +
           motionResult.slug +
-          "' not found in foundations interaction-motion.json#patterns — fix the slug or author the pattern",
+          "' not found in foundations tokens/motion.json#patterns — fix the slug or author the pattern",
       };
     }
-    // Component has no motion — suppress the card. Caller skips emitting it.
+    // No component pattern. Try category fallback before skipping.
+    if (ctx && ctx.categoryDefaults) {
+      var fallback = transcribeCategoryMotionFallback(
+        ctx.categoryDefaults,
+        ctx.motionRefResolver,
+      );
+      if (fallback) {
+        return {
+          phase: "A",
+          source: "figma",
+          content: fallback,
+          fallback: true,
+          fallbackReason: "category-motion-default",
+        };
+      }
+    }
     return { phase: "A", source: null, skipCard: true };
   } else {
     throw new Error(
@@ -205,6 +266,8 @@ module.exports = {
   transcribeFigmaDescription: transcribeFigmaDescription,
   transcribeContentGuidelines: transcribeContentGuidelines,
   transcribeMotionPattern: transcribeMotionPattern,
+  transcribeCategoryMotionFallback: transcribeCategoryMotionFallback,
   resolveSection: resolveSection,
   formatForBrief: formatForBrief,
+  CATEGORY_DEFAULTS_PHASE_B_CARDS: CATEGORY_DEFAULTS_PHASE_B_CARDS,
 };

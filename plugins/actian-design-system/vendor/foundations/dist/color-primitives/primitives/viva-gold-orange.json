@@ -1,0 +1,106 @@
+{
+  "_schema_version": 1,
+  "id": "color-primitives/primitives/viva-gold-orange",
+  "title": "Viva Gold Orange",
+  "path": [
+    "color-primitives",
+    "primitives",
+    "viva-gold-orange"
+  ],
+  "parent": "color-primitives/primitives",
+  "anchors": {
+    "h2": "color-primitives",
+    "h3": "primitives",
+    "h4": "viva-gold-orange"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 467,
+    "endLine": 484
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "OKLCH 500 base: oklch(0.7828 0.0942 70.44)",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Shade",
+        "Token",
+        "Hex (Figma)",
+        "OKLCH (Eng)"
+      ],
+      "rows": [
+        {
+          "Shade": "25",
+          "Token": "--zen-color-viva-gold-orange-25",
+          "Hex (Figma)": "`#F7F5F1` 🟡",
+          "OKLCH (Eng)": "`oklch(0.97 0.005 70.44)` 🟡"
+        },
+        {
+          "Shade": "50",
+          "Token": "--zen-color-viva-gold-orange-50",
+          "Hex (Figma)": "#FEEDDC",
+          "OKLCH (Eng)": "oklch(0.9456 0.0283 70.44)"
+        },
+        {
+          "Shade": "100",
+          "Token": "--zen-color-viva-gold-orange-100",
+          "Hex (Figma)": "#F5E1CA",
+          "OKLCH (Eng)": "oklch(0.9068 0.0377 70.44)"
+        },
+        {
+          "Shade": "200",
+          "Token": "--zen-color-viva-gold-orange-200",
+          "Hex (Figma)": "#F2D4B2",
+          "OKLCH (Eng)": "oklch(0.8564 0.0565 70.44)"
+        },
+        {
+          "Shade": "300",
+          "Token": "--zen-color-viva-gold-orange-300",
+          "Hex (Figma)": "#EBC8A0",
+          "OKLCH (Eng)": "oklch(0.8061 0.066 70.44)"
+        },
+        {
+          "Shade": "400",
+          "Token": "--zen-color-viva-gold-orange-400",
+          "Hex (Figma)": "#E5BB8B",
+          "OKLCH (Eng)": "oklch(0.7564 0.0801 70.44)"
+        },
+        {
+          "Shade": "**500**",
+          "Token": "**`--zen-color-viva-gold-orange-500`**",
+          "Hex (Figma)": "**`#E0AE74`**",
+          "OKLCH (Eng)": "**`oklch(0.7828 0.0942 70.44)`**"
+        },
+        {
+          "Shade": "600",
+          "Token": "--zen-color-viva-gold-orange-600",
+          "Hex (Figma)": "#D29F62",
+          "OKLCH (Eng)": "oklch(0.7358 0.0989 70.44)"
+        },
+        {
+          "Shade": "700",
+          "Token": "--zen-color-viva-gold-orange-700",
+          "Hex (Figma)": "#B78A55",
+          "OKLCH (Eng)": "oklch(0.6654 0.0895 70.44)"
+        },
+        {
+          "Shade": "800",
+          "Token": "--zen-color-viva-gold-orange-800",
+          "Hex (Figma)": "#937148",
+          "OKLCH (Eng)": "oklch(0.5715 0.0707 70.44)"
+        },
+        {
+          "Shade": "900",
+          "Token": "--zen-color-viva-gold-orange-900",
+          "Hex (Figma)": "#755D40",
+          "OKLCH (Eng)": "oklch(0.4932 0.0518 70.44)"
+        }
+      ]
+    }
+  ]
+}

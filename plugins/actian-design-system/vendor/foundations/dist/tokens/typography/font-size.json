@@ -1,0 +1,95 @@
+{
+  "_schema_version": 1,
+  "id": "tokens/typography/font-size",
+  "title": "Font Size",
+  "path": [
+    "tokens",
+    "typography",
+    "font-size"
+  ],
+  "parent": "tokens/typography",
+  "anchors": {
+    "h2": "tokens",
+    "h3": "typography",
+    "h4": "font-size"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 604,
+    "endLine": 616
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Token",
+        "Value",
+        "Usage",
+        "Status"
+      ],
+      "rows": [
+        {
+          "Token": "--zen-font-size-xs",
+          "Value": "`0.6875rem` (11px) *(update from 10px)*",
+          "Usage": "Hint",
+          "status_note": "Proposed",
+          "status": "proposed"
+        },
+        {
+          "Token": "--zen-font-size-sm",
+          "Value": "`0.75rem` (12px)",
+          "Usage": "Body, section subtitle",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-font-size-md",
+          "Value": "`0.875rem` (14px)",
+          "Usage": "Page subtitle, card header (small)",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-font-size-lg",
+          "Value": "`1rem` (16px)",
+          "Usage": "Section title, card header (default)",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-font-size-xl",
+          "Value": "`1.125rem` (18px)",
+          "Usage": "—",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-font-size-2xl",
+          "Value": "`1.25rem` (20px)",
+          "Usage": "—",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-font-size-3xl",
+          "Value": "`1.5rem` (24px)",
+          "Usage": "Page title",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-font-size-4xl",
+          "Value": "`1.875rem` (30px)",
+          "Usage": "—",
+          "status_note": "Shipped",
+          "status": "shipped"
+        }
+      ]
+    }
+  ]
+}

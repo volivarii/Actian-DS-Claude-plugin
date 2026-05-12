@@ -1,0 +1,35 @@
+{
+  "_schema_version": 1,
+  "id": "",
+  "title": "Actian Design Foundation",
+  "path": [],
+  "parent": null,
+  "children": [
+    {
+      "id": "color-primitives",
+      "title": "Color Primitives",
+      "order": 1
+    },
+    {
+      "id": "tokens",
+      "title": "Tokens",
+      "order": 2
+    },
+    {
+      "id": "design-guidelines",
+      "title": "Design Guidelines",
+      "order": 3
+    }
+  ],
+  "anchors": {
+    "h1": "foundations"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  }
+}

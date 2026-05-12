@@ -719,7 +719,7 @@
 
   // Card 5 (numbered) — Behavior & motion. Conditional: returns "" when the
   // component has no curated motion pattern. Source data comes from
-  // foundations/interaction-motion.json#patterns.<slug>; component-guideline
+  // foundations/dist/tokens/motion.json#patterns.<slug>; component-guideline
   // declares the slug + optional overrides.
   function renderCardMotion(motion) {
     if (!motion) return "";

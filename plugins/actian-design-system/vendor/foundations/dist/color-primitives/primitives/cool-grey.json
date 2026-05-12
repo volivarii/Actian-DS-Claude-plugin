@@ -1,0 +1,106 @@
+{
+  "_schema_version": 1,
+  "id": "color-primitives/primitives/cool-grey",
+  "title": "Cool Grey",
+  "path": [
+    "color-primitives",
+    "primitives",
+    "cool-grey"
+  ],
+  "parent": "color-primitives/primitives",
+  "anchors": {
+    "h2": "color-primitives",
+    "h3": "primitives",
+    "h4": "cool-grey"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 521,
+    "endLine": 542
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "OKLCH 500 base: oklch(0.5121 0.0235 285.54) — 🟢 Shipped",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Shade",
+        "Token",
+        "Hex (Figma)",
+        "OKLCH (Eng)"
+      ],
+      "rows": [
+        {
+          "Shade": "25",
+          "Token": "--zen-color-cool-grey-25",
+          "Hex (Figma)": "`#F5F5F8` 🟡",
+          "OKLCH (Eng)": "`oklch(0.97 0.005 285.54)` 🟡"
+        },
+        {
+          "Shade": "50",
+          "Token": "--zen-color-cool-grey-50",
+          "Hex (Figma)": "#e1e1e6",
+          "OKLCH (Eng)": "oklch(0.9103 0.0070 285.54)"
+        },
+        {
+          "Shade": "100",
+          "Token": "--zen-color-cool-grey-100",
+          "Hex (Figma)": "#c7c7ce",
+          "OKLCH (Eng)": "oklch(0.8307 0.0094 285.54)"
+        },
+        {
+          "Shade": "200",
+          "Token": "--zen-color-cool-grey-200",
+          "Hex (Figma)": "#adadb7",
+          "OKLCH (Eng)": "oklch(0.7510 0.0141 285.54)"
+        },
+        {
+          "Shade": "300",
+          "Token": "--zen-color-cool-grey-300",
+          "Hex (Figma)": "#9494a0",
+          "OKLCH (Eng)": "oklch(0.6714 0.0164 285.54)"
+        },
+        {
+          "Shade": "400",
+          "Token": "--zen-color-cool-grey-400",
+          "Hex (Figma)": "#7c7c8a",
+          "OKLCH (Eng)": "oklch(0.5917 0.0200 285.54)"
+        },
+        {
+          "Shade": "**500**",
+          "Token": "**`--zen-color-cool-grey-500`**",
+          "Hex (Figma)": "**`#656574`**",
+          "OKLCH (Eng)": "**`oklch(0.5121 0.0235 285.54)`**"
+        },
+        {
+          "Shade": "600",
+          "Token": "--zen-color-cool-grey-600",
+          "Hex (Figma)": "#5c5c6c",
+          "OKLCH (Eng)": "oklch(0.4814 0.0247 285.54)"
+        },
+        {
+          "Shade": "700",
+          "Token": "--zen-color-cool-grey-700",
+          "Hex (Figma)": "#50505d",
+          "OKLCH (Eng)": "oklch(0.4353 0.0223 285.54)"
+        },
+        {
+          "Shade": "800",
+          "Token": "--zen-color-cool-grey-800",
+          "Hex (Figma)": "#40404a",
+          "OKLCH (Eng)": "oklch(0.3738 0.0176 285.54)"
+        },
+        {
+          "Shade": "900",
+          "Token": "--zen-color-cool-grey-900",
+          "Hex (Figma)": "#33333a",
+          "OKLCH (Eng)": "oklch(0.3226 0.0129 285.54)"
+        }
+      ]
+    }
+  ]
+}

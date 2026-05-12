@@ -1,0 +1,92 @@
+{
+  "_schema_version": 1,
+  "id": "color-primitives/oklch-shade-formula",
+  "title": "OKLCH Shade Formula",
+  "path": [
+    "color-primitives",
+    "oklch-shade-formula"
+  ],
+  "parent": "color-primitives",
+  "anchors": {
+    "h2": "color-primitives",
+    "h3": "oklch-shade-formula"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 70,
+    "endLine": 94
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "Engineering derives all shades from the 500 base using the following formula:\n\n> Note on Figma vs Eng: Figma stores colors as hex values. Engineering uses OKLCH with the formula above. There can be minor visual differences between platforms — always defer to the Figma file for design decisions and engineering code for production output.",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Shade",
+        "Lightness (L)",
+        "Chroma (C)"
+      ],
+      "rows": [
+        {
+          "Shade": "25",
+          "Lightness (L)": "`0.97` 🟡 Proposed *(update from 0.99)*",
+          "Chroma (C)": "`calc(c * 0.005)` 🟡 Proposed *(update from c * 0.2)*"
+        },
+        {
+          "Shade": "50",
+          "Lightness (L)": "calc(l + (0.99 - l) * 5/6)",
+          "Chroma (C)": "calc(c * 0.3)"
+        },
+        {
+          "Shade": "100",
+          "Lightness (L)": "calc(l + (0.99 - l) * 4/6)",
+          "Chroma (C)": "calc(c * 0.4)"
+        },
+        {
+          "Shade": "200",
+          "Lightness (L)": "calc(l + (0.99 - l) / 2)",
+          "Chroma (C)": "calc(c * 0.6)"
+        },
+        {
+          "Shade": "300",
+          "Lightness (L)": "calc(l + (0.99 - l) * 2/6)",
+          "Chroma (C)": "calc(c * 0.7)"
+        },
+        {
+          "Shade": "400",
+          "Lightness (L)": "calc(l + (0.99 - l) * 1/6)",
+          "Chroma (C)": "calc(c * 0.85)"
+        },
+        {
+          "Shade": "**500**",
+          "Lightness (L)": "**Base**",
+          "Chroma (C)": "**Base**"
+        },
+        {
+          "Shade": "600",
+          "Lightness (L)": "calc(l * 0.94)",
+          "Chroma (C)": "calc(c * 1.05)"
+        },
+        {
+          "Shade": "700",
+          "Lightness (L)": "calc(l * 0.85)",
+          "Chroma (C)": "calc(c * 0.95)"
+        },
+        {
+          "Shade": "800",
+          "Lightness (L)": "calc(l * 0.73)",
+          "Chroma (C)": "calc(c * 0.75)"
+        },
+        {
+          "Shade": "900",
+          "Lightness (L)": "calc(l * 0.63)",
+          "Chroma (C)": "calc(c * 0.55)"
+        }
+      ]
+    }
+  ]
+}

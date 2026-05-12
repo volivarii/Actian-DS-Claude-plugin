@@ -1,0 +1,106 @@
+{
+  "_schema_version": 1,
+  "id": "color-primitives/primitives/blue-grey",
+  "title": "Blue Grey",
+  "path": [
+    "color-primitives",
+    "primitives",
+    "blue-grey"
+  ],
+  "parent": "color-primitives/primitives",
+  "anchors": {
+    "h2": "color-primitives",
+    "h3": "primitives",
+    "h4": "blue-grey"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 251,
+    "endLine": 268
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "OKLCH 500 base: oklch(0.5724 0.0397 229.02)",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Shade",
+        "Token",
+        "Hex (Figma)",
+        "OKLCH (Eng)"
+      ],
+      "rows": [
+        {
+          "Shade": "25",
+          "Token": "--zen-color-blue-grey-25",
+          "Hex (Figma)": "`#F2F6F8` 🟡",
+          "OKLCH (Eng)": "`oklch(0.97 0.005 229.02)` 🟡"
+        },
+        {
+          "Shade": "50",
+          "Token": "--zen-color-blue-grey-50",
+          "Hex (Figma)": "#DDE6EC",
+          "OKLCH (Eng)": "oklch(0.9287 0.0119 229.02)"
+        },
+        {
+          "Shade": "100",
+          "Token": "--zen-color-blue-grey-100",
+          "Hex (Figma)": "#C4D0D7",
+          "OKLCH (Eng)": "oklch(0.8816 0.0159 229.02)"
+        },
+        {
+          "Shade": "200",
+          "Token": "--zen-color-blue-grey-200",
+          "Hex (Figma)": "#AABCC4",
+          "OKLCH (Eng)": "oklch(0.8062 0.0238 229.02)"
+        },
+        {
+          "Shade": "300",
+          "Token": "--zen-color-blue-grey-300",
+          "Hex (Figma)": "#91A6B0",
+          "OKLCH (Eng)": "oklch(0.7486 0.0278 229.02)"
+        },
+        {
+          "Shade": "400",
+          "Token": "--zen-color-blue-grey-400",
+          "Hex (Figma)": "#78929D",
+          "OKLCH (Eng)": "oklch(0.6912 0.0338 229.02)"
+        },
+        {
+          "Shade": "**500**",
+          "Token": "**`--zen-color-blue-grey-500`**",
+          "Hex (Figma)": "**`#607D8C`**",
+          "OKLCH (Eng)": "**`oklch(0.5724 0.0397 229.02)`**"
+        },
+        {
+          "Shade": "600",
+          "Token": "--zen-color-blue-grey-600",
+          "Hex (Figma)": "#547482",
+          "OKLCH (Eng)": "oklch(0.538 0.0417 229.02)"
+        },
+        {
+          "Shade": "700",
+          "Token": "--zen-color-blue-grey-700",
+          "Hex (Figma)": "#4A6470",
+          "OKLCH (Eng)": "oklch(0.4865 0.0377 229.02)"
+        },
+        {
+          "Shade": "800",
+          "Token": "--zen-color-blue-grey-800",
+          "Hex (Figma)": "#3C515A",
+          "OKLCH (Eng)": "oklch(0.4179 0.0298 229.02)"
+        },
+        {
+          "Shade": "900",
+          "Token": "--zen-color-blue-grey-900",
+          "Hex (Figma)": "#323F47",
+          "OKLCH (Eng)": "oklch(0.3606 0.0218 229.02)"
+        }
+      ]
+    }
+  ]
+}

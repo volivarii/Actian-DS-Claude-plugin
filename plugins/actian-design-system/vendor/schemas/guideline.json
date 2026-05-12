@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/guideline.json",
+  "title": "Component guideline",
+  "description": "Per-component guideline JSON. Lives at components/src/guidelines/<slug>.json. Two shapes are accepted: (1) curated authored content (rich content_guidelines / design_guidelines / examples) and (2) auto-generated stubs (carry _stub:true, mostly-null content fields). The _index.json sibling has a distinct shape and is validated separately.",
+  "type": "object",
+  "required": ["component"],
+  "additionalProperties": true,
+  "properties": {
+    "component": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display name of the component as it appears in Figma. May include emoji prefixes (e.g. ⛔️ for stubs). Stored as-authored; not slug-normalized.",
+      "examples": ["Button", "Alert / banner", "⛔️ Bar graph"]
+    },
+    "_stub": {
+      "type": "boolean",
+      "description": "Marks the file as an auto-generated stub (no curated content yet). Curated files omit this field or set it to false. CI uses this to skip stubs in coverage reports.",
+      "examples": [true, false]
+    },
+    "_stubGeneratedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the stub was auto-generated. Only meaningful when _stub is true.",
+      "examples": ["2026-05-04T14:37:24.649Z"]
+    },
+    "page_id": {
+      "type": "string",
+      "description": "Figma page node ID where this component's documentation lives. Used by the Figma sync to re-fetch frames.",
+      "examples": ["9085:24375", "15473:49489"]
+    },
+    "extracted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the most recent Figma extraction for this component.",
+      "examples": ["2026-03-25T12:00:00Z"]
+    },
+    "frames_found": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Names of documentation frames present in Figma for this component (Content guidelines, Design guidelines, Components, etc.).",
+      "examples": [["Content guidelines", "Components", "Screenshots of use cases"]]
+    },
+    "frames_missing": {
+      "type": "array",
+      "items": {"type": "string"},
+      "description": "Names of documentation frames NOT yet authored in Figma. Coverage signal for the design team.",
+      "examples": [["Design guidelines", "ready made examples", "Behavior demo"]]
+    },
+    "content_guidelines": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "object"}
+      ],
+      "description": "Voice + copy guidance for this component. null on stubs. Curated shape carries a sections[] array of headings/rules. Schema intentionally permissive — content shape varies across components.",
+      "examples": [null, {"sections": [{"heading": "Terminology", "content": []}]}]
+    },
+    "design_guidelines": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "object"}
+      ],
+      "description": "Visual + structural design conventions for this component. null on stubs. Curated shape varies — anatomy, do/don't, sizing rules, etc.",
+      "examples": [null, {"anatomy": [], "doDont": []}]
+    },
+    "variants": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "object"}
+      ],
+      "description": "Component variant matrix (axes + total count). Populated by Figma sync from the component-set property definitions.",
+      "examples": [null, {"axes": {"Size": ["sm", "md", "lg"]}, "totalVariants": 3}]
+    },
+    "examples": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "array"},
+        {"type": "object"}
+      ],
+      "description": "Ready-made usage examples. Curated content links to Figma frames or describes scenarios.",
+      "examples": [null, []]
+    },
+    "behavior": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "object"},
+        {"type": "array"}
+      ],
+      "description": "Interaction + state-transition behavior notes. Often references motion patterns by slug (Phase 2 convention).",
+      "examples": [null, {}]
+    },
+    "notes": {
+      "anyOf": [
+        {"type": "null"},
+        {"type": "string"},
+        {"type": "array"}
+      ],
+      "description": "Free-form author notes — caveats, open questions, links to source-of-truth Figma frames.",
+      "examples": [null, "See Figma frame XYZ for canonical anatomy."]
+    }
+  }
+}

@@ -154,3 +154,44 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 | Page layout patterns | `references/ds-rules/layout-patterns.md` |
 | Token variable keys (Figma binding) | runtime via `figma.variables.getLocalVariableCollectionsAsync()` — see `references/figma/figma-output.md` § "Variable binding by name" |
 | Quality tiers (Draft/Standard/Production) | `references/ds-rules/quality-tiers.md` |
+
+## Category defaults (Phase 2c)
+
+The knowledge repo ships per-category structural defaults at
+`vendor/components/dist/categories/<slug>-defaults.json` (one file per
+category: action, form-input-selection, navigation, data-display,
+feedback, overlays) plus a `categories.bundle.json` roll-up. Each file
+declares the anatomy/variants/motion-refs/a11y-refs that apply across
+every component in the category. Stub components (those with auto-stub
+guidelines, ~41 of 85) lift these defaults into the brief grounding
+payload via `scripts/transformers/category-defaults-loader.js`.
+
+**Authoring workflow** lives in the knowledge repo at
+`components/src/categories/<slug>.md` (YAML frontmatter — the data —
+plus a freeform body — the why). Edit those sources; CI regenerates the
+dist JSONs on merge; plugin's nightly vendor-snapshot pulls the new
+content. Category defaults are seeded engineering drafts at
+`authoring_status: engineer-seed`; design system lead + content lead
+refine via PRs that flip the field to `team-reviewed` or
+`team-authored`.
+
+**When the plugin reads defaults at brief time:**
+
+1. `ctx.category` is normalized from the dskit registry's `category`
+   field (e.g., "Form (input & selection)" → "form-input-selection")
+   via `category-defaults-loader.normalizeCategorySlug`.
+2. `ctx.categoryDefaults` is loaded via
+   `category-defaults-loader.loadDefaultsForCategory(ctx.category)`.
+3. Phase B cards (`card_anatomy`, `card_component`, `card_accessibility`)
+   receive defaults as additional grounding. The card-generator adapts
+   rather than echoes (see `agents/card-generator.md` for the exact
+   rule).
+4. `card_motion` falls back to the category's first `motion_refs` ref
+   when the component-guideline has no `behavior.motion.pattern`. Motion
+   patterns are resolved against `vendor/foundations/dist/tokens/motion.json#patterns`
+   by `.slug` (motion patterns are keyed by short name like `drawer` but
+   carry a separate slug like `drawer-open-close` — the loader matches
+   by the slug).
+5. Accessibility refs in the defaults are slugs into
+   `vendor/accessibility/dist/a11y-index.json#sections[*].slug`.
+   Unresolved refs return null gracefully.

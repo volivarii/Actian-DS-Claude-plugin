@@ -1,0 +1,106 @@
+{
+  "_schema_version": 1,
+  "id": "color-primitives/primitives/clematis-purple",
+  "title": "Clematis Purple",
+  "path": [
+    "color-primitives",
+    "primitives",
+    "clematis-purple"
+  ],
+  "parent": "color-primitives/primitives",
+  "anchors": {
+    "h2": "color-primitives",
+    "h3": "primitives",
+    "h4": "clematis-purple"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 377,
+    "endLine": 394
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "OKLCH 500 base: oklch(0.5474 0.0688 308.11)",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Shade",
+        "Token",
+        "Hex (Figma)",
+        "OKLCH (Eng)"
+      ],
+      "rows": [
+        {
+          "Shade": "25",
+          "Token": "--zen-color-clematis-purple-25",
+          "Hex (Figma)": "`#F6F4F8` 🟡",
+          "OKLCH (Eng)": "`oklch(0.97 0.005 308.11)` 🟡"
+        },
+        {
+          "Shade": "50",
+          "Token": "--zen-color-clematis-purple-50",
+          "Hex (Figma)": "#E7E0EE",
+          "OKLCH (Eng)": "oklch(0.9229 0.0206 308.11)"
+        },
+        {
+          "Shade": "100",
+          "Token": "--zen-color-clematis-purple-100",
+          "Hex (Figma)": "#D1C7D9",
+          "OKLCH (Eng)": "oklch(0.8762 0.0275 308.11)"
+        },
+        {
+          "Shade": "200",
+          "Token": "--zen-color-clematis-purple-200",
+          "Hex (Figma)": "#BBAEC9",
+          "OKLCH (Eng)": "oklch(0.8037 0.0413 308.11)"
+        },
+        {
+          "Shade": "300",
+          "Token": "--zen-color-clematis-purple-300",
+          "Hex (Figma)": "#A695B4",
+          "OKLCH (Eng)": "oklch(0.7470 0.0482 308.11)"
+        },
+        {
+          "Shade": "400",
+          "Token": "--zen-color-clematis-purple-400",
+          "Hex (Figma)": "#907DA3",
+          "OKLCH (Eng)": "oklch(0.6703 0.0585 308.11)"
+        },
+        {
+          "Shade": "**500**",
+          "Token": "**`--zen-color-clematis-purple-500`**",
+          "Hex (Figma)": "**`#7D6690`**",
+          "OKLCH (Eng)": "**`oklch(0.5474 0.0688 308.11)`**"
+        },
+        {
+          "Shade": "600",
+          "Token": "--zen-color-clematis-purple-600",
+          "Hex (Figma)": "#745C88",
+          "OKLCH (Eng)": "oklch(0.5145 0.0722 308.11)"
+        },
+        {
+          "Shade": "700",
+          "Token": "--zen-color-clematis-purple-700",
+          "Hex (Figma)": "#644F77",
+          "OKLCH (Eng)": "oklch(0.4653 0.0654 308.11)"
+        },
+        {
+          "Shade": "800",
+          "Token": "--zen-color-clematis-purple-800",
+          "Hex (Figma)": "#4F405D",
+          "OKLCH (Eng)": "oklch(0.3996 0.0516 308.11)"
+        },
+        {
+          "Shade": "900",
+          "Token": "--zen-color-clematis-purple-900",
+          "Hex (Figma)": "#3F3548",
+          "OKLCH (Eng)": "oklch(0.3449 0.0378 308.11)"
+        }
+      ]
+    }
+  ]
+}

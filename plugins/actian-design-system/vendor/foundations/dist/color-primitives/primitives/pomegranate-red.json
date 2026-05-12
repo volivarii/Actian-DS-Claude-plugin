@@ -1,0 +1,106 @@
+{
+  "_schema_version": 1,
+  "id": "color-primitives/primitives/pomegranate-red",
+  "title": "Pomegranate Red",
+  "path": [
+    "color-primitives",
+    "primitives",
+    "pomegranate-red"
+  ],
+  "parent": "color-primitives/primitives",
+  "anchors": {
+    "h2": "color-primitives",
+    "h3": "primitives",
+    "h4": "pomegranate-red"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 323,
+    "endLine": 340
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "OKLCH 500 base: oklch(0.5253 0.155 17.61)",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Shade",
+        "Token",
+        "Hex (Figma)",
+        "OKLCH (Eng)"
+      ],
+      "rows": [
+        {
+          "Shade": "25",
+          "Token": "--zen-color-pomegranate-red-25",
+          "Hex (Figma)": "`#F8F4F4` 🟡",
+          "OKLCH (Eng)": "`oklch(0.97 0.005 17.61)` 🟡"
+        },
+        {
+          "Shade": "50",
+          "Token": "--zen-color-pomegranate-red-50",
+          "Hex (Figma)": "#FFD6D8",
+          "OKLCH (Eng)": "oklch(0.9176 0.0465 17.61)"
+        },
+        {
+          "Shade": "100",
+          "Token": "--zen-color-pomegranate-red-100",
+          "Hex (Figma)": "#EEB9BC",
+          "OKLCH (Eng)": "oklch(0.862 0.062 17.61)"
+        },
+        {
+          "Shade": "200",
+          "Token": "--zen-color-pomegranate-red-200",
+          "Hex (Figma)": "#E4979E",
+          "OKLCH (Eng)": "oklch(0.7877 0.093 17.61)"
+        },
+        {
+          "Shade": "300",
+          "Token": "--zen-color-pomegranate-red-300",
+          "Hex (Figma)": "#D27A83",
+          "OKLCH (Eng)": "oklch(0.7302 0.1085 17.61)"
+        },
+        {
+          "Shade": "400",
+          "Token": "--zen-color-pomegranate-red-400",
+          "Hex (Figma)": "#C25A67",
+          "OKLCH (Eng)": "oklch(0.6461 0.1318 17.61)"
+        },
+        {
+          "Shade": "**500**",
+          "Token": "**`--zen-color-pomegranate-red-500`**",
+          "Hex (Figma)": "**`#B1374D`**",
+          "OKLCH (Eng)": "**`oklch(0.5253 0.155 17.61)`**"
+        },
+        {
+          "Shade": "600",
+          "Token": "--zen-color-pomegranate-red-600",
+          "Hex (Figma)": "#A82743",
+          "OKLCH (Eng)": "oklch(0.4938 0.1628 17.61)"
+        },
+        {
+          "Shade": "700",
+          "Token": "--zen-color-pomegranate-red-700",
+          "Hex (Figma)": "#932139",
+          "OKLCH (Eng)": "oklch(0.4465 0.1473 17.61)"
+        },
+        {
+          "Shade": "800",
+          "Token": "--zen-color-pomegranate-red-800",
+          "Hex (Figma)": "#73202F",
+          "OKLCH (Eng)": "oklch(0.3835 0.1163 17.61)"
+        },
+        {
+          "Shade": "900",
+          "Token": "--zen-color-pomegranate-red-900",
+          "Hex (Figma)": "#591E27",
+          "OKLCH (Eng)": "oklch(0.3309 0.0853 17.61)"
+        }
+      ]
+    }
+  ]
+}

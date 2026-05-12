@@ -1,4 +1,22 @@
 {
+  "_schema_version": 1,
+  "id": "tokens/motion",
+  "title": "Motion",
+  "path": [
+    "tokens",
+    "motion"
+  ],
+  "parent": "tokens",
+  "kind": "motion",
+  "anchors": {
+    "h2": "tokens",
+    "h3": "motion"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 806,
+    "endLine": 965
+  },
   "_meta": {
     "auto_generated": true,
     "source": "foundations/src/foundations.md",
@@ -13,25 +31,29 @@
           "Token": "--zen-motion-duration-instant",
           "Value": "100ms",
           "Usage": "Micro-feedback: button hovers, checkbox toggles, radio buttons, focus rings",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         },
         {
           "Token": "--zen-motion-duration-fast",
           "Value": "200ms",
           "Usage": "Small scale: tooltip fade-ins, dropdown/select expansions, tag dismissals",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         },
         {
           "Token": "--zen-motion-duration-base",
           "Value": "300ms",
           "Usage": "Structural changes: collapse/accordion expanding, toast notifications sliding in",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         },
         {
           "Token": "--zen-motion-duration-slow",
           "Value": "400ms",
           "Usage": "Large surfaces: modal scaling in, drawer (side panel) sliding in",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         }
       ]
     },
@@ -42,19 +64,22 @@
           "Token": "--zen-motion-ease-entrance",
           "Value": "ease-out",
           "Usage": "Fast start, slow finish. Objects entering the screen (e.g. modals, drawers). Feels responsive but settles smoothly.",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         },
         {
           "Token": "--zen-motion-ease-exit",
           "Value": "ease-in",
           "Usage": "Slow start, fast finish. Objects leaving the screen (e.g. closing a side nav, dismissing a toast). Gets out of the user's way quickly.",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         },
         {
           "Token": "--zen-motion-ease-standard",
           "Value": "ease-in-out",
           "Usage": "Smooth start and finish. Elements moving from point A to B, or expanding internally (e.g. accordions opening, progress bars filling).",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         }
       ]
     },
@@ -65,25 +90,29 @@
           "Token": "--zen-motion-delay-stagger",
           "Value": "20ms",
           "Usage": "Choreography: applied incrementally to list items, table rows, or search result cards as they enter the screen",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         },
         {
           "Token": "--zen-motion-delay-intent",
           "Value": "300ms",
           "Usage": "Hover protection: standard wait time before revealing a tooltip or complex glossary popover. Prevents accidental visual noise.",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         },
         {
           "Token": "--zen-motion-delay-long",
           "Value": "500ms",
           "Usage": "Feedback holding: used for temporary success states before they auto-dismiss (e.g. a toast lingering before sliding out)",
-          "status_note": "🟡 Proposed"
+          "status_note": "Proposed",
+          "status": "proposed"
         }
       ]
     }
   },
   "patterns": {
     "drawer": {
+      "slug": "drawer-open-close",
       "name": "Drawer (open/close)",
       "phases": [
         {
@@ -101,6 +130,7 @@
       ]
     },
     "accordion": {
+      "slug": "accordion-expand-collapse",
       "name": "Accordion (expand/collapse)",
       "phases": [
         {
@@ -118,6 +148,7 @@
       ]
     },
     "success-toast": {
+      "slug": "success-toast",
       "name": "Success Toast",
       "phases": [
         {
@@ -141,6 +172,7 @@
       ]
     },
     "anchor-motion": {
+      "slug": "anchor-motion",
       "name": "The \"Anchor\" Motion — Dropdowns, Popovers, and Tooltips",
       "phases": [
         {
@@ -163,6 +195,7 @@
       ]
     },
     "layered-overlays": {
+      "slug": "layered-overlays-modals",
       "name": "Layered Overlays — Modals",
       "phases": [
         {
@@ -180,6 +213,7 @@
       ]
     },
     "skeleton-loading": {
+      "slug": "skeleton-loading",
       "name": "Skeleton Loading",
       "phases": [
         {
@@ -190,6 +224,7 @@
       ]
     },
     "staggered-entrance": {
+      "slug": "staggered-entrance",
       "name": "Staggered Entrance — Lists, Table Rows, Search Cards",
       "phases": [
         {
@@ -203,6 +238,7 @@
       ]
     },
     "state-transitions": {
+      "slug": "state-transitions",
       "name": "State Transitions",
       "phases": [
         {
@@ -237,25 +273,5 @@
         }
       ]
     }
-  },
-  "brightness_filter": {
-    "rows": [
-      {
-        "State": "Hover",
-        "Filter": "filter: brightness(0.92)",
-        "Notes": "Subtle darkening"
-      },
-      {
-        "State": "Pressed / Active",
-        "Filter": "filter: brightness(0.85)",
-        "Notes": "More pronounced"
-      },
-      {
-        "State": "Disabled",
-        "Filter": "opacity: 0.4",
-        "Notes": "Combined with `cursor: not-allowed`"
-      }
-    ],
-    "description": "Interactive color states (hover, pressed/active, disabled) are not handled with tokens. Engineering implements these using CSS brightness filters at the component level.\n\nThe only tokenized interactive state is focus — see --zen-focus-ring-primary and --zen-focus-ring-error in Section 2.5."
   }
 }

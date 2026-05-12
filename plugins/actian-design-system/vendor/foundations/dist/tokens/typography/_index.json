@@ -1,0 +1,61 @@
+{
+  "_schema_version": 1,
+  "id": "tokens/typography",
+  "title": "Typography",
+  "path": [
+    "tokens",
+    "typography"
+  ],
+  "parent": "tokens",
+  "anchors": {
+    "h2": "tokens",
+    "h3": "typography"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 570,
+    "endLine": 660
+  },
+  "children": [
+    {
+      "id": "tokens/typography/text-color-tokens",
+      "title": "Text Color Tokens",
+      "order": 1
+    },
+    {
+      "id": "tokens/typography/font-family",
+      "title": "Font Family",
+      "order": 2
+    },
+    {
+      "id": "tokens/typography/font-weight",
+      "title": "Font Weight",
+      "order": 3
+    },
+    {
+      "id": "tokens/typography/font-size",
+      "title": "Font Size",
+      "order": 4
+    },
+    {
+      "id": "tokens/typography/letter-spacing",
+      "title": "Letter Spacing",
+      "order": 5
+    },
+    {
+      "id": "tokens/typography/line-height",
+      "title": "Line Height",
+      "order": 6
+    },
+    {
+      "id": "tokens/typography/text-style-tokens-composite",
+      "title": "Text Style Tokens (Composite)",
+      "order": 7
+    }
+  ],
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  }
+}

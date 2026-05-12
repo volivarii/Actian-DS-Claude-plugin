@@ -42,8 +42,14 @@ test("categories.json — structure", () => {
   const c = loadJSON(PATHS.components.categories);
   assert.equal(c.library, "ds", "categories.json is DS-Kit-only");
   assert.ok(typeof c.generatedAt === "string", "generatedAt is set");
-  assert.ok(c.categories && typeof c.categories === "object", "categories present");
-  assert.ok(c.uncategorized && typeof c.uncategorized.count === "number", "uncategorized.count present");
+  assert.ok(
+    c.categories && typeof c.categories === "object",
+    "categories present",
+  );
+  assert.ok(
+    c.uncategorized && typeof c.uncategorized.count === "number",
+    "uncategorized.count present",
+  );
 });
 
 test("categories.json — every category is in KNOWN_CATEGORIES", () => {
@@ -85,11 +91,15 @@ test("DS Kit registry — every component with a category is cross-referenced in
     if (!entry.category) continue;
     const cat = c.categories[entry.category];
     if (!cat) {
-      orphans.push(`${slug} -> category='${entry.category}' (category absent from categories.json)`);
+      orphans.push(
+        `${slug} -> category='${entry.category}' (category absent from categories.json)`,
+      );
       continue;
     }
     if (!cat.components.includes(slug)) {
-      orphans.push(`${slug} -> registry says '${entry.category}' but slug not in that category's components[]`);
+      orphans.push(
+        `${slug} -> registry says '${entry.category}' but slug not in that category's components[]`,
+      );
     }
   }
   assert.equal(
@@ -123,4 +133,122 @@ test("categories.json — counts reconcile with registry", () => {
       `category '${name}' has count=${entry.count} but components[].length=${entry.components.length}`,
     );
   }
+});
+
+// --- Phase 2c (knowledge v0.4.x+ / plugin v1.82.0+) ---
+
+const loader = require("../../scripts/transformers/category-defaults-loader.js");
+
+test("category-defaults — all 6 dist files exist", () => {
+  const slugs = [
+    "action",
+    "form-input-selection",
+    "navigation",
+    "data-display",
+    "feedback",
+    "overlays",
+  ];
+  const missing = [];
+  for (const slug of slugs) {
+    const d = loader.loadDefaultsForCategory(slug);
+    if (!d) missing.push(slug);
+  }
+  assert.deepEqual(
+    missing,
+    [],
+    `category defaults missing from vendor: ${missing.join(", ")}. ` +
+      `Run scripts/vendor/vendor-snapshot.js --range to refresh.`,
+  );
+});
+
+test("category-defaults — bundle file exists at registered manifest path", () => {
+  const fs = require("fs");
+  // PATHS.components.categoryDefaults.bundle is the manifest-registered bundle path.
+  // (Sibling of PATHS.components.categoryDefaults.byKey which is the collection function.)
+  assert.ok(
+    PATHS.components &&
+      PATHS.components.categoryDefaults &&
+      PATHS.components.categoryDefaults.bundle,
+    "manifest must register components.categoryDefaults.bundle",
+  );
+  const bundlePath = PATHS.components.categoryDefaults.bundle;
+  assert.equal(typeof bundlePath, "string", "bundle path must be a string");
+  assert.ok(fs.existsSync(bundlePath), `bundle not found at ${bundlePath}`);
+  const bundle = JSON.parse(fs.readFileSync(bundlePath, "utf8"));
+  assert.ok(bundle.categories, "bundle.categories must exist");
+  assert.equal(
+    Object.keys(bundle.categories).length,
+    6,
+    "bundle must contain all 6 categories",
+  );
+});
+
+test("category-defaults — every motion_refs slug resolves against tokens/motion.json", () => {
+  loader._resetCache();
+  const slugs = [
+    "action",
+    "form-input-selection",
+    "navigation",
+    "data-display",
+    "feedback",
+    "overlays",
+  ];
+  const unresolved = [];
+  for (const slug of slugs) {
+    const d = loader.loadDefaultsForCategory(slug);
+    const refs = (d && d.card_motion && d.card_motion.patternRefs) || [];
+    for (const r of refs) {
+      if (!loader.resolveMotionRef(r.ref)) {
+        unresolved.push(`${slug} → motion ref '${r.ref}'`);
+      }
+    }
+  }
+  assert.deepEqual(
+    unresolved,
+    [],
+    `Unresolved motion refs (upstream slug rename suspected):\n  ${unresolved.join("\n  ")}`,
+  );
+});
+
+test("category-defaults — every accessibility ref slug resolves against a11y-index.json", () => {
+  loader._resetCache();
+  const slugs = [
+    "action",
+    "form-input-selection",
+    "navigation",
+    "data-display",
+    "feedback",
+    "overlays",
+  ];
+  const unresolved = [];
+  for (const slug of slugs) {
+    const d = loader.loadDefaultsForCategory(slug);
+    const refs =
+      (d && d.card_accessibility && d.card_accessibility.requirementRefs) || [];
+    for (const r of refs) {
+      if (!loader.resolveAccessibilityRef(r.ref)) {
+        unresolved.push(`${slug} → a11y ref '${r.ref}'`);
+      }
+    }
+  }
+  assert.deepEqual(
+    unresolved,
+    [],
+    `Unresolved a11y refs (upstream slug rename suspected):\n  ${unresolved.join("\n  ")}`,
+  );
+});
+
+test("category-defaults — every dskit registry category label normalizes to an existing defaults slug", () => {
+  const c = loadJSON(PATHS.components.categories);
+  const unmapped = [];
+  for (const label of Object.keys(c.categories)) {
+    const slug = loader.normalizeCategorySlug(label);
+    const d = loader.loadDefaultsForCategory(slug);
+    if (!d) unmapped.push(`'${label}' → '${slug}' (no defaults file)`);
+  }
+  assert.deepEqual(
+    unmapped,
+    [],
+    `dskit category labels with no matching defaults file:\n  ${unmapped.join("\n  ")}`,
+  );
 });
