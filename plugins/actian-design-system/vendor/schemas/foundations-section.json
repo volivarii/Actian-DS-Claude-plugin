@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/foundations-section.json",
+  "title": "Foundations section (Pattern H hierarchical derive)",
+  "description": "Per-leaf or per-branch JSON emitted by scripts/foundations/derive-foundations.js. The Pattern H tree mirrors heading paths from foundations/src/foundations.md. Leaves carry blocks[]; branches (_index.json) carry children[]. Schema is permissive (additionalProperties:true) because the derive script may add new metadata fields without breaking the contract.",
+  "type": "object",
+  "required": ["_schema_version", "id", "title", "path", "anchors", "source"],
+  "additionalProperties": true,
+  "properties": {
+    "_schema_version": {
+      "type": "number",
+      "minimum": 1,
+      "description": "Schema version for the section JSON shape. Currently 1. Bumps require coordinated plugin-side reader updates.",
+      "examples": [1]
+    },
+    "id": {
+      "type": "string",
+      "description": "Slash-separated path identifier for the section (matches heading slugs). Empty string for the root _index.",
+      "examples": [
+        "",
+        "tokens",
+        "tokens/spacing",
+        "color-primitives/primitives"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable section title, as authored in the MD heading.",
+      "examples": ["Tokens", "Spacing", "Actian Design Foundation"]
+    },
+    "path": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ordered slug segments from root to this section. Empty array for the root. Mirrors the directory layout under foundations/dist/.",
+      "examples": [[], ["tokens"], ["tokens", "spacing"]]
+    },
+    "order": {
+      "type": "number",
+      "description": "Sibling ordering hint (1-based) reflecting authored heading order in the source MD. Auto-assigned by derive. Only present on child-list entries; per-leaf files inherit ordering from their parent _index.json children[].",
+      "examples": [1, 2, 3]
+    },
+    "parent": {
+      "anyOf": [{ "type": "null" }, { "type": "string" }],
+      "description": "Slug of the parent section, or null for the root _index.",
+      "examples": [null, "tokens", "color-primitives"]
+    },
+    "anchors": {
+      "type": "object",
+      "description": "Heading anchors for cross-document linking. Each level (h1..h4) carries the slug used in MD anchor links.",
+      "examples": [
+        { "h1": "foundations" },
+        { "h2": "tokens", "h3": "spacing" }
+      ],
+      "additionalProperties": { "type": "string" }
+    },
+    "source": {
+      "type": "object",
+      "required": ["file"],
+      "description": "Provenance — points back to the authored source MD + (for leaves) the line range.",
+      "examples": [
+        {
+          "file": "foundations/src/foundations.md",
+          "startLine": 731,
+          "endLine": 744
+        }
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "description": "Path to the source MD file (repo-relative).",
+          "examples": ["foundations/src/foundations.md"]
+        },
+        "startLine": {
+          "type": "number",
+          "description": "Line number where this section's heading appears in the source MD. Omitted on the root _index.",
+          "examples": [731]
+        },
+        "endLine": {
+          "type": "number",
+          "description": "Line number where this section ends (before the next sibling/parent heading). Omitted on the root _index.",
+          "examples": [744]
+        }
+      },
+      "additionalProperties": true
+    },
+    "body": {
+      "type": "string",
+      "description": "Section's prose body (markdown). Empty when the section is purely structural.",
+      "examples": ["Use the spacing scale for all margin and padding values."]
+    },
+    "blocks": {
+      "type": "array",
+      "description": "Structured blocks extracted from the section (tables, code fences, lists). Leaves carry blocks[]; branches typically don't. Each block has a type discriminator.",
+      "examples": [
+        [{ "type": "table", "headers": ["Token", "Value"], "rows": [] }]
+      ],
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "additionalProperties": true,
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Block kind. Common values: table, code, list, paragraph.",
+            "examples": ["table", "code", "list"]
+          }
+        }
+      }
+    },
+    "children": {
+      "type": "array",
+      "description": "Child section index entries (id + title + order). Present only on _index.json files. Sibling files under the same dir provide full content per child.",
+      "examples": [
+        [{ "id": "color-primitives", "title": "Color Primitives", "order": 1 }]
+      ],
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "order"],
+        "additionalProperties": true,
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Child section slug.",
+            "examples": ["tokens", "spacing"]
+          },
+          "title": {
+            "type": "string",
+            "description": "Child section human-readable title.",
+            "examples": ["Tokens", "Spacing"]
+          },
+          "order": {
+            "type": "number",
+            "description": "Child's sibling ordering (1-based).",
+            "examples": [1, 2]
+          }
+        }
+      }
+    },
+    "_meta": {
+      "type": "object",
+      "description": "Auto-generation marker. Authors must not hand-edit derived files; this object documents that.",
+      "examples": [
+        {
+          "auto_generated": true,
+          "source": "foundations/src/foundations.md",
+          "do_not_edit": "Edit the source MD; CI regenerates this file."
+        }
+      ],
+      "additionalProperties": true
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/categories/data-display.md",
+    "do_not_edit": "Edit the MD source; CI regenerates this file."
+  },
+  "_schema_version": 1,
+  "slug": "data-display",
+  "label": "Data Display",
+  "authoring_status": "engineer-seed",
+  "confidence": {
+    "anatomy": "low",
+    "variants": "medium",
+    "motion": "medium",
+    "a11y": "high"
+  },
+  "last_reviewed": "2026-05-12",
+  "card_anatomy": {
+    "parts": [
+      {
+        "name": "Container",
+        "description": "the bounding surface — frames the data presentation"
+      },
+      {
+        "name": "Title or heading (optional)",
+        "description": "identifies what the data represents"
+      },
+      {
+        "name": "Primary content",
+        "description": "the data itself — text, value, chart, table cells, badge label"
+      },
+      {
+        "name": "Supporting metadata (optional)",
+        "description": "timestamps, units, counts, attribution"
+      },
+      {
+        "name": "Visual indicator (optional)",
+        "description": "color dot, icon, badge, or status pill"
+      },
+      {
+        "name": "Action affordance (optional)",
+        "description": "expand, drill-in, dismiss, or copy"
+      }
+    ]
+  },
+  "card_component": {
+    "variantAxes": [
+      {
+        "axis": "Density",
+        "values": [
+          "compact",
+          "comfortable",
+          "spacious"
+        ]
+      },
+      {
+        "axis": "Status",
+        "values": [
+          "neutral",
+          "info",
+          "success",
+          "warning",
+          "error"
+        ]
+      },
+      {
+        "axis": "State",
+        "values": [
+          "default",
+          "hover",
+          "selected",
+          "loading",
+          "empty"
+        ]
+      }
+    ]
+  },
+  "card_motion": {
+    "patternRefs": [
+      {
+        "ref": "skeleton-loading",
+        "note": "rows/cards reveal with skeleton placeholders during load"
+      },
+      {
+        "ref": "staggered-entrance",
+        "note": "lists, tables, search-result-cards enter with staggered fades"
+      },
+      {
+        "ref": "accordion-expand-collapse",
+        "note": "collapsible cards/sections expand at the accordion pace"
+      }
+    ]
+  },
+  "card_accessibility": {
+    "requirementRefs": [
+      {
+        "ref": "color-contrast",
+        "note": "status colors must have a non-color cue (icon, label, pattern)"
+      },
+      {
+        "ref": "typography-readability"
+      },
+      {
+        "ref": "layout-responsiveness",
+        "note": "tables and graphs must reflow or scroll horizontally; never clip"
+      },
+      {
+        "ref": "aria-guidance",
+        "note": "tables use thead/tbody/scope; charts expose data tables for screen readers"
+      },
+      {
+        "ref": "keyboard-focus"
+      }
+    ]
+  },
+  "_sourceFile": "components/src/categories/data-display.md"
+}

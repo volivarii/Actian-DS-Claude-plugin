@@ -1,6 +1,9 @@
 {
+  "_schema_version": 1,
+  "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
+  "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.3.8",
+  "knowledge_version": "0.5.1",
   "paths": {
     "foundations.md": {
       "path": "foundations/src/foundations.md",
@@ -13,62 +16,6 @@
       "type": "markdown",
       "origin": "human",
       "description": "How to edit foundations.md (UX team guide)"
-    },
-    "foundations.color": {
-      "path": "foundations/dist/color.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Color tokens derived from foundations.md sections 1, 2.1, 2.2, 2.5, 2.10, 3.1, 4.1"
-    },
-    "foundations.borders": {
-      "path": "foundations/dist/borders.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Border tokens derived from foundations.md sections 2.3, 4.2"
-    },
-    "foundations.spacing": {
-      "path": "foundations/dist/spacing.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Spacing + size tokens derived from foundations.md sections 2.7, 2.11, 3.3"
-    },
-    "foundations.typography": {
-      "path": "foundations/dist/typography.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Typography tokens derived from foundations.md sections 2.8, 3.2, 4.3"
-    },
-    "foundations.elevation": {
-      "path": "foundations/dist/elevation.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Elevation tokens derived from foundations.md sections 2.6, 3.4"
-    },
-    "foundations.icons": {
-      "path": "foundations/dist/icons.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Icon color tokens derived from foundations.md section 2.12"
-    },
-    "foundations.motion": {
-      "path": "foundations/dist/interaction-motion.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Motion + brightness filter tokens derived from foundations.md sections 2.9, 3.5"
-    },
-    "foundations.breakpointGridStructure": {
-      "path": "foundations/dist/breakpoint-grid-structure.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Breakpoint + grid tokens derived from foundations.md sections 2.4, 3.6"
     },
     "tokens.json": {
       "path": "tokens/tokens.json",
@@ -151,11 +98,18 @@
       "generator": "scripts/content/derive-content.js",
       "description": "UI copy guidelines — consolidated reference auto-generated from content/src/*.md (Phase 2). Key renamed from 'content' to 'content.md' in v0.3.2 to resolve dot-notation collision with the 'content.section' collection; mirrors the existing 'foundations.md' precedent. Section order tracks content/src/content-index.md."
     },
-    "accessibility": {
+    "accessibility.guide": {
       "path": "accessibility/accessibility.md",
       "type": "markdown",
       "origin": "human",
       "description": "WCAG 2.2 AA guidance for the Actian DS"
+    },
+    "accessibility.index": {
+      "path": "accessibility/dist/a11y-index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/accessibility/derive-a11y-index.js",
+      "description": "Slug → WCAG mapping for accessibility sections; consumed by Phase 2 category defaults + future MCP server."
     },
     "presentation": {
       "path": "presentation/presentation-guide.md",
@@ -174,6 +128,97 @@
       "type": "json",
       "origin": "human",
       "description": "FM Kit → DS Kit component mapping for hifi conversion"
+    },
+    "foundations.bundle": {
+      "path": "foundations/dist/foundations.bundle.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Full nested foundations tree (hierarchical Pattern H roll-up). One-shot LLM consumption: every section/leaf reachable from this single file."
+    },
+    "foundations.index": {
+      "path": "foundations/dist/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Root foundations metadata + top-level child list. Navigate from here to per-H2 directories."
+    },
+    "foundations.source": {
+      "path": "foundations/dist/foundations.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Verbatim copy of foundations/src/foundations.md (Stripe .md URL pattern). Auto-synced; do not edit."
+    },
+    "foundations.color-primitives": {
+      "path": "foundations/dist/color-primitives/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Hierarchical _index for foundations section 'Color Primitives'. Children listed inside; sibling files under foundations/dist/color-primitives/."
+    },
+    "foundations.tokens": {
+      "path": "foundations/dist/tokens/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Hierarchical _index for foundations section 'Tokens'. Children listed inside; sibling files under foundations/dist/tokens/."
+    },
+    "foundations.design-guidelines": {
+      "path": "foundations/dist/design-guidelines/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Hierarchical _index for foundations section 'Design Guidelines'. Children listed inside; sibling files under foundations/dist/design-guidelines/."
+    },
+    "components.categoryDefaults.bundle": {
+      "path": "components/dist/categories/categories.bundle.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/categories/derive-categories.js",
+      "description": "Roll-up of all 6 category-defaults JSONs keyed by slug. One-shot LLM consumption for category-aware brief enrichment."
+    },
+    "components.categoryDefaults.action": {
+      "path": "components/dist/categories/action-defaults.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/categories/derive-categories.js",
+      "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'action' category. Consumed by the component-brief skill for stub components."
+    },
+    "components.categoryDefaults.data-display": {
+      "path": "components/dist/categories/data-display-defaults.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/categories/derive-categories.js",
+      "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'data-display' category. Consumed by the component-brief skill for stub components."
+    },
+    "components.categoryDefaults.feedback": {
+      "path": "components/dist/categories/feedback-defaults.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/categories/derive-categories.js",
+      "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'feedback' category. Consumed by the component-brief skill for stub components."
+    },
+    "components.categoryDefaults.form-input-selection": {
+      "path": "components/dist/categories/form-input-selection-defaults.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/categories/derive-categories.js",
+      "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'form-input-selection' category. Consumed by the component-brief skill for stub components."
+    },
+    "components.categoryDefaults.navigation": {
+      "path": "components/dist/categories/navigation-defaults.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/categories/derive-categories.js",
+      "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'navigation' category. Consumed by the component-brief skill for stub components."
+    },
+    "components.categoryDefaults.overlays": {
+      "path": "components/dist/categories/overlays-defaults.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/categories/derive-categories.js",
+      "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'overlays' category. Consumed by the component-brief skill for stub components."
     }
   },
   "collections": {
@@ -190,7 +235,33 @@
       "type": "markdown",
       "origin": "human",
       "description": "Per-component content guidelines (Content lead, folded in 2026-05-11). 37 component files + global-guidelines.md (voice + words-to-avoid) + content-index.md (AI query guide) + format-spec.md (markdown structure + Figma/Word output mapping). Each component file follows When-to-use → Style → Behavior → Do/Don't."
+    },
+    "foundations.leaf": {
+      "dir": "foundations/dist",
+      "pattern": "<topSlug>/.../<slug>.json",
+      "recursive": true,
+      "type": "json",
+      "origin": "ci",
+      "description": "Per-leaf foundations JSONs in hierarchical Pattern H layout. Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at foundations.bundle. Recursive: any file under foundations/dist/ is covered by this collection."
+    },
+    "components.categoryDefaults.byKey": {
+      "dir": "components/dist/categories",
+      "pattern": "{slug}-defaults.json",
+      "type": "json",
+      "origin": "ci",
+      "description": "Per-category defaults (Phase 2 v2). 6 categories: action, form-input-selection, navigation, data-display, feedback, overlays. See also bundle entry components.categoryDefaults.bundle for the roll-up. Renamed from components.categoryDefaults in v0.5.1 to honor leaf-XOR-namespace manifest convention."
+    },
+    "components.categoriesSrc": {
+      "dir": "components/src/categories",
+      "pattern": "{slug}.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "Authoring surface for category defaults. YAML frontmatter governed by schemas/category-defaults.json; freeform body for design rationale. See AUTHORING.md."
     }
   },
-  "aliases": {}
+  "aliases": {},
+  "_notes": {
+    "foundations_auto": "foundations.* entries are auto-regenerated by scripts/foundations/derive-foundations.js. Do not hand-edit. Hierarchical layout: bundle for one-shot, per-H2 _index entries for navigation; full per-leaf tree lives under foundations/dist/<slug>/.",
+    "categories_auto": "components.categoryDefaults.* entries are auto-regenerated by scripts/categories/derive-categories.js. Do not hand-edit. Per-category dist JSONs + a single bundle + collection entries."
+  }
 }

@@ -26,7 +26,7 @@ Generated: 2026-03-26
 
 ---
 
-## WCAG Principles
+## WCAG Principles {#wcag-principles}
 
 ### WCAG 2.2 AA Principles
 
@@ -39,7 +39,7 @@ Generated: 2026-03-26
 
 ---
 
-## Color & Contrast
+## Color & Contrast {#color-contrast}
 
 | Check | Ratio |
 |-------|-------|
@@ -54,7 +54,7 @@ Rules:
 
 ---
 
-## Typography & Readability
+## Typography & Readability {#typography-readability}
 
 - Default body text size is **14px**
 - Minimum body text size is **12px**
@@ -71,7 +71,7 @@ Rules:
 
 ---
 
-## Layout & Responsiveness
+## Layout & Responsiveness {#layout-responsiveness}
 
 - Content reflows at **400% zoom**
 - No horizontal scrolling for text content
@@ -81,7 +81,7 @@ Rules:
 
 ---
 
-## Keyboard & Focus
+## Keyboard & Focus {#keyboard-focus}
 
 ### Keyboard
 
@@ -107,7 +107,7 @@ Rules:
 
 ---
 
-## Interactions
+## Interactions {#interactions}
 
 - Dragging interactions should also provide single-pointer or keyboard alternative. A single-pointer alternative means the action can be done with simple clicks or taps (no holding, no dragging).
 - Avoid time limits. Provide extensions if needed.
@@ -115,7 +115,7 @@ Rules:
 
 ---
 
-## Required States
+## Required States {#required-states}
 
 Every interactive component must have these states designed:
 
@@ -130,7 +130,7 @@ Every interactive component must have these states designed:
 
 ---
 
-## Feedback & Errors
+## Feedback & Errors {#feedback-errors}
 
 - **Explain what happened** and **how to fix it**
 - Error messages appear **near the field** they relate to
@@ -141,7 +141,7 @@ Every interactive component must have these states designed:
 
 ---
 
-## Forms & Data Entry
+## Forms & Data Entry {#forms-data-entry}
 
 - Labels are **always visible** (no placeholder-only labels)
 - Required vs optional is **clearly indicated** (asterisk `*` for required)
@@ -153,7 +153,7 @@ Every interactive component must have these states designed:
 
 ---
 
-## Motion & Media
+## Motion & Media {#motion-media}
 
 - Motion is never the only feedback
 - Reduce motion or provide toggle for sensitive users
@@ -162,7 +162,7 @@ Every interactive component must have these states designed:
 
 ---
 
-## Component-Specific Checklists
+## Component-Specific Checklists {#component-specific-checklists}
 
 ### P0 Critical: Function & Infrastructure
 
@@ -762,7 +762,7 @@ Do not
 
 ---
 
-## ARIA Guidance
+## ARIA Guidance {#aria-guidance}
 
 ### Accessible Names (Labeling)
 
@@ -790,7 +790,7 @@ Do not
 
 ---
 
-## General Checklist
+## General Checklist {#general-checklist}
 
 > Use this before design handoff or review.
 
@@ -834,7 +834,7 @@ Do not
 
 ---
 
-## Additional Rules (hand-authored)
+## Additional Rules (hand-authored) {#additional-rules}
 
 The following items were present in the hand-authored guidelines and supplement the JSON source.
 

@@ -1,0 +1,185 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/category-defaults.json",
+  "title": "Category defaults (Phase 2 v2 frontmatter)",
+  "description": "Schema for the YAML frontmatter of components/src/categories/<slug>.md files. Six category MDs total (action, form-input-selection, navigation, data-display, feedback, overlays). Cross-references (motion_refs, accessibility) use slugs, not quoted names, so name drift is invisible to consumers. NOTE: CI enforcement of this schema lands with PR δ (Phase 2 v2); the schema lives here so it's available for IDE preview + AI-agent consumption ahead of the runtime.",
+  "type": "object",
+  "required": [
+    "_schema_version",
+    "slug",
+    "label",
+    "authoring_status",
+    "confidence",
+    "last_reviewed",
+    "anatomy",
+    "variants",
+    "motion_refs",
+    "accessibility"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "const": 1,
+      "description": "Schema version pin. Currently locked to 1. Bumps require coordinated transformer + plugin reader updates.",
+      "examples": [1]
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 40,
+      "description": "Kebab-case identifier; alphanumeric + hyphens; starts with letter. Doubles as the filename (minus .md) and the cross-reference target from component-level files.",
+      "examples": ["form-input-selection", "navigation", "action"]
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable category name. Shown in tooling UIs and briefs.",
+      "examples": ["Form (input & selection)", "Action", "Data display"]
+    },
+    "authoring_status": {
+      "enum": ["engineer-seed", "team-reviewed", "team-authored"],
+      "description": "Provenance state. engineer-seed = AI-drafted initial pass; team-reviewed = design-system lead has reviewed and accepted; team-authored = owned by the design-system lead end-to-end.",
+      "examples": ["engineer-seed", "team-reviewed", "team-authored"]
+    },
+    "confidence": {
+      "type": "object",
+      "required": ["anatomy", "variants", "motion", "a11y"],
+      "additionalProperties": false,
+      "description": "Per-card confidence levels. Authors lower individual cards when uncertain; brief consumers can downweight low-confidence defaults.",
+      "examples": [{"anatomy": "medium", "variants": "medium", "motion": "high", "a11y": "high"}],
+      "properties": {
+        "anatomy": {
+          "enum": ["low", "medium", "high"],
+          "description": "Confidence in the anatomy parts list.",
+          "examples": ["medium", "high"]
+        },
+        "variants": {
+          "enum": ["low", "medium", "high"],
+          "description": "Confidence in the variant axes.",
+          "examples": ["medium"]
+        },
+        "motion": {
+          "enum": ["low", "medium", "high"],
+          "description": "Confidence in the motion references.",
+          "examples": ["high"]
+        },
+        "a11y": {
+          "enum": ["low", "medium", "high"],
+          "description": "Confidence in the accessibility references.",
+          "examples": ["high"]
+        }
+      }
+    },
+    "last_reviewed": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date (YYYY-MM-DD) of the most recent review. Updated whenever a human revises the file.",
+      "examples": ["2026-05-11"]
+    },
+    "anatomy": {
+      "type": "array",
+      "minItems": 2,
+      "description": "Parts list for this category. Every category has at least container + label. Components in the category may extend (e.g. clear button, toggle thumb).",
+      "examples": [[{"name": "Label", "description": "caller-supplied text, bound to control via for/aria-labelledby"}]],
+      "items": {
+        "type": "object",
+        "required": ["name", "description"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Anatomy part name (Title Case typical).",
+            "examples": ["Label", "Required indicator", "Control"]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Brief description of what the part is and how it behaves. Keep to one sentence.",
+            "examples": ["caller-supplied text, bound to control via for/aria-labelledby"]
+          }
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Variant axes shared across the category. Components in the category may add their own axes.",
+      "examples": [[{"axis": "State", "values": ["default", "focus", "error", "disabled", "read-only"]}]],
+      "items": {
+        "type": "object",
+        "required": ["axis", "values"],
+        "additionalProperties": false,
+        "properties": {
+          "axis": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Axis name (Title Case typical).",
+            "examples": ["State", "Size", "Label position"]
+          },
+          "values": {
+            "type": "array",
+            "minItems": 2,
+            "items": {"type": "string", "minLength": 1},
+            "description": "Allowed values along this axis. Minimum 2 (an axis with only one value isn't an axis).",
+            "examples": [["default", "focus", "error", "disabled", "read-only"], ["small", "medium", "large"]]
+          }
+        }
+      }
+    },
+    "motion_refs": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Motion pattern references by slug. Resolved against foundations/dist/tokens/motion.json at plugin read-time. Slug system protects against name drift.",
+      "examples": [[{"ref": "state-transitions", "note": "focus-ring fade-in on focus; opacity transition on disabled"}]],
+      "items": {
+        "type": "object",
+        "required": ["ref"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "description": "Motion pattern slug. Must exist in interaction-motion.json.",
+            "examples": ["state-transitions", "page-transitions"]
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional component-specific note layered on top of the generic pattern.",
+            "examples": ["focus-ring fade-in on focus; opacity transition on disabled"]
+          }
+        }
+      }
+    },
+    "accessibility": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 8,
+      "description": "Accessibility requirement references by slug. Range 3-8 provides WCAG-evolution headroom while preventing dump-everything anti-pattern. Resolved against accessibility/dist/a11y-index.json at plugin read-time.",
+      "examples": [[{"ref": "label-association"}, {"ref": "error-announcement"}, {"ref": "required-indication"}, {"ref": "keyboard-operability"}, {"ref": "focus-visible"}, {"ref": "color-independence"}]],
+      "items": {
+        "type": "object",
+        "required": ["ref"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "description": "Accessibility requirement slug. Must exist in accessibility/dist/a11y-index.json.",
+            "examples": ["label-association", "error-announcement", "keyboard-operability"]
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional component-specific override of the generic accessibility guidance.",
+            "examples": ["optional component-specific override of generic guidance"]
+          }
+        }
+      }
+    },
+    "_extends": {
+      "type": "string",
+      "description": "Reserved for future component-level overrides (component file extending its category default). Not yet implemented; documented as TBD.",
+      "examples": []
+    }
+  }
+}

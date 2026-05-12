@@ -1,0 +1,152 @@
+{
+  "_schema_version": 1,
+  "id": "color-primitives/primitives",
+  "title": "Primitives",
+  "path": [
+    "color-primitives",
+    "primitives"
+  ],
+  "parent": "color-primitives",
+  "anchors": {
+    "h2": "color-primitives",
+    "h3": "primitives"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 95,
+    "endLine": 542
+  },
+  "children": [
+    {
+      "id": "color-primitives/primitives/white-black",
+      "title": "White & Black",
+      "order": 1
+    },
+    {
+      "id": "color-primitives/primitives/green",
+      "title": "Green",
+      "order": 2
+    },
+    {
+      "id": "color-primitives/primitives/orange",
+      "title": "Orange",
+      "order": 3
+    },
+    {
+      "id": "color-primitives/primitives/red",
+      "title": "Red",
+      "order": 4
+    },
+    {
+      "id": "color-primitives/primitives/grey",
+      "title": "Grey",
+      "order": 5
+    },
+    {
+      "id": "color-primitives/primitives/royal-blue",
+      "title": "Royal Blue",
+      "order": 6
+    },
+    {
+      "id": "color-primitives/primitives/blue",
+      "title": "Blue",
+      "order": 7
+    },
+    {
+      "id": "color-primitives/primitives/turquoise",
+      "title": "Turquoise",
+      "order": 8
+    },
+    {
+      "id": "color-primitives/primitives/purple",
+      "title": "Purple",
+      "order": 9
+    },
+    {
+      "id": "color-primitives/primitives/blue-grey",
+      "title": "Blue Grey",
+      "order": 10
+    },
+    {
+      "id": "color-primitives/primitives/yellow",
+      "title": "Yellow",
+      "order": 11
+    },
+    {
+      "id": "color-primitives/primitives/olive-green",
+      "title": "Olive Green",
+      "order": 12
+    },
+    {
+      "id": "color-primitives/primitives/pacific-blue",
+      "title": "Pacific Blue",
+      "order": 13
+    },
+    {
+      "id": "color-primitives/primitives/pomegranate-red",
+      "title": "Pomegranate Red",
+      "order": 14
+    },
+    {
+      "id": "color-primitives/primitives/kickstart-purple",
+      "title": "Kickstart Purple",
+      "order": 15
+    },
+    {
+      "id": "color-primitives/primitives/glint-green",
+      "title": "Glint Green",
+      "order": 16
+    },
+    {
+      "id": "color-primitives/primitives/clematis-purple",
+      "title": "Clematis Purple",
+      "order": 17
+    },
+    {
+      "id": "color-primitives/primitives/mellow-melon-pink",
+      "title": "Mellow Melon Pink",
+      "order": 18
+    },
+    {
+      "id": "color-primitives/primitives/zima-blue",
+      "title": "Zima Blue",
+      "order": 19
+    },
+    {
+      "id": "color-primitives/primitives/singapore-orchid-purple",
+      "title": "Singapore Orchid Purple",
+      "order": 20
+    },
+    {
+      "id": "color-primitives/primitives/dropped-brick-red",
+      "title": "Dropped Brick Red",
+      "order": 21
+    },
+    {
+      "id": "color-primitives/primitives/viva-gold-orange",
+      "title": "Viva Gold Orange",
+      "order": 22
+    },
+    {
+      "id": "color-primitives/primitives/shutters-green",
+      "title": "Shutters Green",
+      "order": 23
+    },
+    {
+      "id": "color-primitives/primitives/frosted-glass-green",
+      "title": "Frosted Glass Green",
+      "order": 24
+    },
+    {
+      "id": "color-primitives/primitives/cool-grey",
+      "title": "Cool Grey",
+      "order": 25
+    }
+  ],
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "All color primitives across the system. Every palette follows the same OKLCH shade formula (25–900). Semantic roles are defined in the Semantic Tokens section below."
+}

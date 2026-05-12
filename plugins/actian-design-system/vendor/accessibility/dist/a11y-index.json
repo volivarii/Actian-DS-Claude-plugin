@@ -1,0 +1,127 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/accessibility.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "sections": [
+    {
+      "slug": "wcag-principles",
+      "title": "WCAG Principles",
+      "wcag": [],
+      "body_excerpt": "Principle Requirement ------------------------ Perceivable Users must be able to see or hear content (text, images, video) clearly Operable Users must be able to interact with all UI elements (keyboar"
+    },
+    {
+      "slug": "color-contrast",
+      "title": "Color & Contrast",
+      "wcag": [],
+      "body_excerpt": "Check Ratio -------------- Body text (< 18pt) 4.5:1 minimum Large text (≥ 18pt or 14pt bold) 3:1 minimum UI components, icons, focus indicators 3:1 minimum Rules: - Use accessible color palettes and t"
+    },
+    {
+      "slug": "typography-readability",
+      "title": "Typography & Readability",
+      "wcag": [],
+      "body_excerpt": "- Default body text size is 14px - Minimum body text size is 12px - 11px is only acceptable for non-essential UI - Use defined type styles (avoid light weight) - Maintain readable line height and spac"
+    },
+    {
+      "slug": "layout-responsiveness",
+      "title": "Layout & Responsiveness",
+      "wcag": [
+        "2.5.8"
+      ],
+      "body_excerpt": "- Content reflows at 400% zoom - No horizontal scrolling for text content - Logical reading and focus order preserved - Touch targets: 44px ideal / 24px minimum with sufficient spacing (WCAG 2.5.8) -"
+    },
+    {
+      "slug": "keyboard-focus",
+      "title": "Keyboard & Focus",
+      "wcag": [],
+      "body_excerpt": "- All interactive elements are keyboard accessible - No keyboard traps - Logical focus order - Use Tab for forward and Shift+Tab for backward - Only focusable items that are visually visible should be"
+    },
+    {
+      "slug": "interactions",
+      "title": "Interactions",
+      "wcag": [],
+      "body_excerpt": "- Dragging interactions should also provide single-pointer or keyboard alternative. A single-pointer alternative means the action can be done with simple clicks or taps (no holding, no dragging). - Av"
+    },
+    {
+      "slug": "required-states",
+      "title": "Required States",
+      "wcag": [],
+      "body_excerpt": "Every interactive component must have these states designed: State Requirement -------------------- Default Base visual appearance Hover Visual change on mouse hover Focus Visible focus indicator (key"
+    },
+    {
+      "slug": "feedback-errors",
+      "title": "Feedback & Errors",
+      "wcag": [],
+      "body_excerpt": "- Explain what happened and how to fix it - Error messages appear near the field they relate to - Use aria-live=\"polite\" for non-critical status updates - Use aria-live=\"assertive\" only for critical,"
+    },
+    {
+      "slug": "forms-data-entry",
+      "title": "Forms & Data Entry",
+      "wcag": [],
+      "body_excerpt": "- Labels are always visible (no placeholder-only labels) - Required vs optional is clearly indicated (asterisk for required) - Errors appear near the field with explanation - Inline validation is help"
+    },
+    {
+      "slug": "motion-media",
+      "title": "Motion & Media",
+      "wcag": [],
+      "body_excerpt": "- Motion is never the only feedback - Reduce motion or provide toggle for sensitive users - Avoid auto-play without controls - Keep animations subtle and purposeful ---"
+    },
+    {
+      "slug": "component-specific-checklists",
+      "title": "Component-Specific Checklists",
+      "wcag": [
+        "2.1.1",
+        "2.4.3",
+        "2.4.7",
+        "3.3.2",
+        "4.1.2",
+        "1.4.1",
+        "2.5.5",
+        "1.3.1",
+        "2.4.1",
+        "2.4.4",
+        "3.2.3",
+        "1.3.5",
+        "3.3.1",
+        "3.3.3",
+        "2.5.8",
+        "2.2.1",
+        "4.1.3",
+        "1.4.13",
+        "3.2.1",
+        "1.3.2",
+        "2.2.2",
+        "2.3.1",
+        "1.1.1",
+        "2.4.6",
+        "1.4.11",
+        "1.4.4",
+        "1.4.10",
+        "2.1.3",
+        "2.5.2",
+        "2.5.7"
+      ],
+      "body_excerpt": "> Critical items are the structural essentials. If Navigation, Forms, or Buttons fail, the user is physically blocked. These are the paths and entry points required to actually use the product. > > -"
+    },
+    {
+      "slug": "aria-guidance",
+      "title": "ARIA Guidance",
+      "wcag": [],
+      "body_excerpt": "- Visible Labels: Every interactive element has a visible text label. - Label Persistence: Labels remain visible when the field is focused or filled (no placeholder-only labels). - The 1:1 Rule: The a"
+    },
+    {
+      "slug": "general-checklist",
+      "title": "General Checklist",
+      "wcag": [],
+      "body_excerpt": "> Use this before design handoff or review. - Meets contrast requirements (4.5:1 for body text, 3:1 for UI components) - Color is not the only indicator - Minimum body text size is 12px - Avoid a too"
+    },
+    {
+      "slug": "additional-rules",
+      "title": "Additional Rules (hand-authored)",
+      "wcag": [],
+      "body_excerpt": "The following items were present in the hand-authored guidelines and supplement the JSON source. Component Keys ----------------- Button Tab to focus, Enter or Space to activate Link Tab to focus, Ent"
+    }
+  ]
+}

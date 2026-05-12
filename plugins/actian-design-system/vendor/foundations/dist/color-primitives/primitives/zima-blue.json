@@ -1,0 +1,106 @@
+{
+  "_schema_version": 1,
+  "id": "color-primitives/primitives/zima-blue",
+  "title": "Zima Blue",
+  "path": [
+    "color-primitives",
+    "primitives",
+    "zima-blue"
+  ],
+  "parent": "color-primitives/primitives",
+  "anchors": {
+    "h2": "color-primitives",
+    "h3": "primitives",
+    "h4": "zima-blue"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 413,
+    "endLine": 430
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "OKLCH 500 base: oklch(0.7602 0.1358 220.59)",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Shade",
+        "Token",
+        "Hex (Figma)",
+        "OKLCH (Eng)"
+      ],
+      "rows": [
+        {
+          "Shade": "25",
+          "Token": "--zen-color-zima-blue-25",
+          "Hex (Figma)": "`#F2F6F7` 🟡",
+          "OKLCH (Eng)": "`oklch(0.97 0.005 220.59)` 🟡"
+        },
+        {
+          "Shade": "50",
+          "Token": "--zen-color-zima-blue-50",
+          "Hex (Figma)": "#D2F6FF",
+          "OKLCH (Eng)": "oklch(0.9481 0.0407 220.59)"
+        },
+        {
+          "Shade": "100",
+          "Token": "--zen-color-zima-blue-100",
+          "Hex (Figma)": "#BBEBFC",
+          "OKLCH (Eng)": "oklch(0.9095 0.0543 220.59)"
+        },
+        {
+          "Shade": "200",
+          "Token": "--zen-color-zima-blue-200",
+          "Hex (Figma)": "#99E3FC",
+          "OKLCH (Eng)": "oklch(0.8451 0.0815 220.59)"
+        },
+        {
+          "Shade": "300",
+          "Token": "--zen-color-zima-blue-300",
+          "Hex (Figma)": "#7FD8F5",
+          "OKLCH (Eng)": "oklch(0.7941 0.0951 220.59)"
+        },
+        {
+          "Shade": "400",
+          "Token": "--zen-color-zima-blue-400",
+          "Hex (Figma)": "#58CFF1",
+          "OKLCH (Eng)": "oklch(0.7471 0.1155 220.59)"
+        },
+        {
+          "Shade": "**500**",
+          "Token": "**`--zen-color-zima-blue-500`**",
+          "Hex (Figma)": "**`#1BC4ED`**",
+          "OKLCH (Eng)": "**`oklch(0.7602 0.1358 220.59)`**"
+        },
+        {
+          "Shade": "600",
+          "Token": "--zen-color-zima-blue-600",
+          "Hex (Figma)": "#00B6E1",
+          "OKLCH (Eng)": "oklch(0.7146 0.1426 220.59)"
+        },
+        {
+          "Shade": "700",
+          "Token": "--zen-color-zima-blue-700",
+          "Hex (Figma)": "#009FC5",
+          "OKLCH (Eng)": "oklch(0.6462 0.1290 220.59)"
+        },
+        {
+          "Shade": "800",
+          "Token": "--zen-color-zima-blue-800",
+          "Hex (Figma)": "#00809D",
+          "OKLCH (Eng)": "oklch(0.5550 0.1019 220.59)"
+        },
+        {
+          "Shade": "900",
+          "Token": "--zen-color-zima-blue-900",
+          "Hex (Figma)": "#21677B",
+          "OKLCH (Eng)": "oklch(0.4789 0.0747 220.59)"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,116 @@
+{
+  "_schema_version": 1,
+  "id": "tokens/typography/text-color-tokens",
+  "title": "Text Color Tokens",
+  "path": [
+    "tokens",
+    "typography",
+    "text-color-tokens"
+  ],
+  "parent": "tokens/typography",
+  "anchors": {
+    "h2": "tokens",
+    "h3": "typography",
+    "h4": "text-color-tokens"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 572,
+    "endLine": 587
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Token",
+        "Resolves To",
+        "Usage",
+        "Status"
+      ],
+      "rows": [
+        {
+          "Token": "--zen-color-text-default",
+          "Resolves To": "--zen-color-black",
+          "Usage": "Titles, labels, body text",
+          "status_note": "Proposed *(rename from `text-primary` — eng update required)*",
+          "status": "proposed"
+        },
+        {
+          "Token": "--zen-color-text-secondary",
+          "Resolves To": "--zen-color-neutral-800",
+          "Usage": "Hints, subtext",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-color-text-tertiary",
+          "Resolves To": "--zen-color-neutral-700",
+          "Usage": "Subtitles, alternate texts",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-color-text-placeholder",
+          "Resolves To": "--zen-color-neutral-600",
+          "Usage": "Input placeholders",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-color-text-placeholder-subtle",
+          "Resolves To": "--zen-color-neutral-400",
+          "Usage": "Secondary placeholders (e.g. search fields)",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-color-text-disabled",
+          "Resolves To": "--zen-color-neutral-500",
+          "Usage": "Disabled inputs, buttons, form elements",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-color-text-primary",
+          "Resolves To": "--zen-color-primary-500",
+          "Usage": "Interactive text",
+          "status_note": "Proposed *(named `primary` to align with primary color convention)*",
+          "status": "proposed"
+        },
+        {
+          "Token": "--zen-color-text-error",
+          "Resolves To": "--zen-color-error-600",
+          "Usage": "Error messages",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-color-text-warning",
+          "Resolves To": "--zen-color-warning-600",
+          "Usage": "Warning messages",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-color-text-success",
+          "Resolves To": "--zen-color-success-600",
+          "Usage": "Success messages",
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-color-text-reverse",
+          "Resolves To": "--zen-color-white",
+          "Usage": "Text on dark or primary-colored backgrounds",
+          "status_note": "Proposed",
+          "status": "proposed"
+        }
+      ]
+    }
+  ]
+}

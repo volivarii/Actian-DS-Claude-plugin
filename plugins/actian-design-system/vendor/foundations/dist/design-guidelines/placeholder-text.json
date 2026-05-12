@@ -1,0 +1,25 @@
+{
+  "_schema_version": 1,
+  "id": "design-guidelines/placeholder-text",
+  "title": "Placeholder Text",
+  "path": [
+    "design-guidelines",
+    "placeholder-text"
+  ],
+  "parent": "design-guidelines",
+  "anchors": {
+    "h2": "design-guidelines",
+    "h3": "placeholder-text"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 1066,
+    "endLine": 1073
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "Two tiers of placeholder exist for inputs: --zen-color-text-placeholder is the standard placeholder (grey-600). --zen-color-text-placeholder-subtle (grey-400) is used in search fields where less visual weight is appropriate."
+}
