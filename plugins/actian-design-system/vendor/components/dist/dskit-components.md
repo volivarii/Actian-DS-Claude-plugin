@@ -94,7 +94,7 @@ Menu: -4 Density
 Menus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.
 
 🛠 Additional options 
-Menu list item - can be edite
+Menu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.
 
 - Single component (no variants)
 - Node: `9118:17666` | Key: `09baf67bef9191d0b5303b52c1c3159eefba3843`
@@ -246,7 +246,10 @@ Use to show the user's current location within a hierarchical multi-level struct
 
 Primary trigger for a specific action or form submission. Use "Primary" for the main task, "Secondary" for alternative actions, and "Ghost/Tertiary" for low-priority tasks.
 
-Primary: "Use as the singl
+Primary: "Use as the single most important action on a screen. Limit to one per view (e.g., 'Submit', 'Pay Now')."
+Secondary: "Use for supporting actions that are not the main goal of the page (e.g., 'Cancel', 'Back')."
+Tertiary/Ghost: "Use for low-emphasis actions or repeated items in a list (e.g., 'View Details', 'Learn More')."
+Critical: "Use specifically for actions that result in data loss or permanent changes. Usually styled in Red."
 
 - Variants: **Type:** `Primary` · `Secondary` · `Tertiary` · `Icon` · `Critical primary` · `Critical secondary` | **Size:** `Default` · `Small` | **State:** `Default` · `Hovered` · `Focused` · `Pressed` · `Selected` · `Disabled`
 - Text overrides: `Label#724:10`
@@ -881,7 +884,9 @@ Used for selecting a single date, a date range, or a specific point in time. Bes
 
 ### Link
 
-A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design stan
+A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design standards for clarity and usability.
+
+Used for navigation to a different page, an external URL, or to trigger a secondary action within a sentence. Not to be used for primary form submissions.
 
 - Variants: **State:** `Disabled` · `Enabled` · `Focused` · `Hovered` · `Once clicked` · `Pressed`
 - Node: `8346:6897` | Key: `433bc17e08514c14ee821f2b03421bad865e0a0e`
@@ -1448,7 +1453,7 @@ A persistent container at the bottom of the viewport used for high-priority glob
 
 Use for large datasets requiring comparison, sorting, and filtering. Supports complex rows with multi-type data (text, badges, actions).
 
-"If data is null, display the 'Empty State' illustration varia
+"If data is null, display the 'Empty State' illustration variant with a 'Create New' call to action."
 
 - Variants: **Built type:** `By columns` · `By rows`
 - Node: `15295:14902` | Key: `62d235b35d44ddafd58cb1a060107b4f69ab234e`

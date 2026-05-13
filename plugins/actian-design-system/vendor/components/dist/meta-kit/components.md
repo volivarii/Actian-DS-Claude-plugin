@@ -32,7 +32,7 @@ Card header for component briefs. Used as first child inside Brief Card shells. 
 
 ### Meta / Chrome / Feedback
 
-Annotation component for designer feedback and library gap markers. Designer variant: place next to issues for /refine comments. System variant: auto-placed when plugin improvises around a library gap
+Annotation component for designer feedback and library gap markers. Designer variant: place next to issues for /refine comments. System variant: auto-placed when plugin improvises around a library gap.
 
 - Variants: **Type:** `Designer` · `System`
 - Node: `66:20` | Key: `d5cba21bc3dbf36578665bac89834fbe1ca29ed0`

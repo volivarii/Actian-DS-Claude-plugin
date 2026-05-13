@@ -1,13 +1,8 @@
 {
   "_schema_version": 1,
-  "_meta": {
-    "hybrid": true,
-    "hybrid_field": "templates",
-    "hybrid_note": "The 'templates' object at the bottom of this file is hand-curated and preserved across syncs by scripts/sync/sync-from-figma.js. Everything else is regenerated from Figma. Edit only the templates block."
-  },
   "library": "meta-kit",
   "fileKey": "osoeCLcrWqfoq8TvLQoyh0",
-  "lastSynced": "2026-05-09T15:47:21.183Z",
+  "lastSynced": "2026-05-13T10:38:45.333Z",
   "componentCount": 28,
   "components": {
     "meta-content-stat-card": {
@@ -16,7 +11,7 @@
       "nodeId": "46:29",
       "importMethod": "set",
       "description": "Data callout card with value, trend indicator, and label. Used in presentations for KPI highlights.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "Value#46:6": {
@@ -44,7 +39,7 @@
       "nodeId": "47:43",
       "importMethod": "set",
       "description": "Theme-branded card with colored accent bar. Used in component-brief for theme comparison views (Actian/Studio/Explorer). Detach to append content.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {},
       "nestedComponents": [],
@@ -62,8 +57,8 @@
       "key": "d5cba21bc3dbf36578665bac89834fbe1ca29ed0",
       "nodeId": "66:20",
       "importMethod": "set",
-      "description": "Annotation component for designer feedback and library gap markers. Designer variant: place next to issues for /refine comments. System variant: auto-placed when plugin improvises around a library gap",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "description": "Annotation component for designer feedback and library gap markers. Designer variant: place next to issues for /refine comments. System variant: auto-placed when plugin improvises around a library gap.",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Shared",
       "properties": {},
       "nestedComponents": [],
@@ -81,7 +76,7 @@
       "nodeId": "9:24",
       "importMethod": "set",
       "description": "Side-by-side Do and Don't examples with green/red color bars. Used in component-brief Cards 6-7 and presentation best-practice slides.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "Do Label#9:8": {
@@ -116,7 +111,7 @@
       "nodeId": "7:2",
       "importMethod": "set",
       "description": "Card shell for component spec pages. 4 variants: DS Standard (1200px grey header), DS Page Header (1200px white with logo), FM Standard (820px grey header), FM Page Header (820px dark).",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "Component Name#7:2": {
@@ -151,7 +146,7 @@
       "nodeId": "21:1198",
       "importMethod": "set",
       "description": "Screen frame for wireframe flows. Composes FM App_header + FM Side navigation bar + Content Area. Standard (1440x960) and Compact (1440x700).",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Flow",
       "properties": {},
       "nestedComponents": [],
@@ -169,7 +164,7 @@
       "nodeId": "47:24",
       "importMethod": "set",
       "description": "Container for WCAG requirements with severity badges. Used in component-brief Cards 7-8. Detach instance before appending content to the Content slot.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "Title#47:2": {
@@ -192,7 +187,7 @@
       "nodeId": "45:37",
       "importMethod": "set",
       "description": "Measurement annotation with endcaps and value label. Used in component-brief Card 3 (Anatomy - Specs) for dimension callouts between elements.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "Value#45:7": {
@@ -215,7 +210,7 @@
       "nodeId": "45:26",
       "importMethod": "set",
       "description": "Dimension callout label with directional line. Used in component-brief Card 3 (Anatomy) for pink dimension annotations.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "Label#45:4": {
@@ -240,7 +235,7 @@
       "nodeId": "44:20",
       "importMethod": "set",
       "description": "WCAG contrast result badge (Pass/Exempt/Fail). Used in component-brief Card 8 accessibility contrast table.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "Label#44:3": {
@@ -264,7 +259,7 @@
       "nodeId": "42:17",
       "importMethod": "set",
       "description": "Circular color indicator. Used in component-brief Card 4 (token tables) and Card 8 (contrast tables). Bind fill to a DS2026 variable at runtime.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {},
       "nestedComponents": [],
@@ -283,7 +278,7 @@
       "nodeId": "74:12",
       "importMethod": "single",
       "description": "Hidden template for table data rows. Skills clone and fill text slots via the template engine. Do not use directly.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "label#84:0": {
@@ -304,7 +299,7 @@
       "nodeId": "75:12",
       "importMethod": "single",
       "description": "Hidden template for state grid columns. Skills clone, fill title, replace content placeholder. Do not use directly.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "title#85:0": {
@@ -321,7 +316,7 @@
       "nodeId": "48:31",
       "importMethod": "single",
       "description": "Container for research findings in presentations. Shows title, source attribution, and content area.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Presentation",
       "properties": {
         "Title#48:10": {
@@ -342,7 +337,7 @@
       "nodeId": "4:2",
       "importMethod": "single",
       "description": "Horizontal divider line between card sections. Set layoutSizingHorizontal = 'FILL' on instances to fill parent width.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Shared",
       "properties": {},
       "nestedComponents": [],
@@ -354,7 +349,7 @@
       "nodeId": "96:12",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "element#105:0": {
@@ -391,7 +386,7 @@
       "nodeId": "140:12",
       "importMethod": "single",
       "description": "Card header for component briefs. Used as first child inside Brief Card shells. Set Title, Subtitle, and Show Subtitle via properties — do not detach.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "Title#140:0": {
@@ -416,7 +411,7 @@
       "nodeId": "76:12",
       "importMethod": "single",
       "description": "Hidden template for section headers with title and subtitle. Skills clone and fill text slots. Do not use directly.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "title#86:0": {
@@ -441,7 +436,7 @@
       "nodeId": "3:2",
       "importMethod": "single",
       "description": "Generation metadata card. First element in every AI-generated output. Shows skill name, prompt, timestamp, duration, model, and plugin version.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Shared",
       "properties": {
         "Skill#3:0": {
@@ -478,7 +473,7 @@
       "nodeId": "112:15",
       "importMethod": "single",
       "description": "Presentation slide template. Used by generate-presentation skill.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Presentation",
       "properties": {
         "Title#112:5": {
@@ -495,7 +490,7 @@
       "nodeId": "112:14",
       "importMethod": "single",
       "description": "Presentation slide template. Used by generate-presentation skill.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Presentation",
       "properties": {
         "Topic#112:0": {
@@ -528,7 +523,7 @@
       "nodeId": "112:16",
       "importMethod": "single",
       "description": "Presentation slide template. Used by generate-presentation skill.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Presentation",
       "properties": {
         "Title#112:6": {
@@ -549,7 +544,7 @@
       "nodeId": "112:18",
       "importMethod": "single",
       "description": "Presentation slide template. Used by generate-presentation skill.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Presentation",
       "properties": {
         "Title#112:10": {
@@ -566,7 +561,7 @@
       "nodeId": "112:17",
       "importMethod": "single",
       "description": "Presentation slide template. Used by generate-presentation skill.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Presentation",
       "properties": {
         "Topic#112:8": {
@@ -587,7 +582,7 @@
       "nodeId": "8:2",
       "importMethod": "single",
       "description": "Dark code block for CSS, HTML, ARIA code examples. Used in component-brief Card 9 and presentation code slides. Toggle Show Header for filename/language label.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "Show Header#8:0": {
@@ -612,7 +607,7 @@
       "nodeId": "73:12",
       "importMethod": "single",
       "description": "Hidden template for table header rows. Skills clone and fill text slots via the template engine. Do not use directly.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "label#83:0": {
@@ -629,7 +624,7 @@
       "nodeId": "46:344",
       "importMethod": "single",
       "description": "Dark cover card at the start of each sub-flow. Shows Feature, Flow, and User fields on a dark background.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Flow",
       "properties": {
         "Feature#46:8": {
@@ -654,7 +649,7 @@
       "nodeId": "77:12",
       "importMethod": "single",
       "description": "Hidden template for color swatch rows. Skills clone, fill text slots, bind swatch fill to variable. Do not use directly.",
-      "lastSynced": "2026-05-09T15:47:21.183Z",
+      "lastSynced": "2026-05-13T10:38:45.333Z",
       "page": "Brief",
       "properties": {
         "name#87:0": {
@@ -710,5 +705,10 @@
       "visibility": "template-only",
       "category": "a11y"
     }
+  },
+  "_meta": {
+    "hybrid": true,
+    "hybrid_field": "templates",
+    "hybrid_note": "The 'templates' object at the bottom of this file is hand-curated and preserved across syncs by scripts/sync/sync-from-figma.js. Everything else is regenerated from Figma. Edit only the templates block."
   }
 }
