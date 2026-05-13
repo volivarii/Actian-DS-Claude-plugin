@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-05-11T13:55:57.781Z",
+  "lastSynced": "2026-05-13T11:19:02.348Z",
   "componentCount": 322,
   "components": {
     "xs-grid": {
@@ -11,10 +11,10 @@
       "nodeId": "14744:8073",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Breakpoint, grid & structure",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
         "Property 1": [
@@ -28,11 +28,11 @@
       "nodeId": "9478:17216",
       "importMethod": "set",
       "description": "Used for binary choices (on/off) or when a user can select multiple options from a list of related items.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Checkbox",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/checkbox-with-label.json",
       "category": "Form (input & selection)",
       "variants": {
         "Selected": [
@@ -55,11 +55,11 @@
       "nodeId": "13792:15247",
       "importMethod": "set",
       "description": "Use to show the user's current location within a hierarchical multi-level structure. Enables 1-click navigation back to parent pages.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Breadcrumbs",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/breadcrumbs.json",
       "category": "Navigation",
       "variants": {
         "Type": [
@@ -73,7 +73,6 @@
       "nodeId": "14747:19902",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Data viz: lineage",
       "properties": {
         "Show left control#14691:0": {
@@ -82,7 +81,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/lineage-individual-node.json",
       "category": "Data Display",
       "variants": {
         "Type": [
@@ -106,7 +106,6 @@
       "nodeId": "13812:22308",
       "importMethod": "set",
       "description": "Use for glossary item types. Can be interactive (removable) or static metadata.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Tag (Identification key)",
       "properties": {
         "Show Counter#14128:9": {
@@ -115,7 +114,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tag-glossary-item-type.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -130,7 +130,6 @@
       "nodeId": "14782:29281",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Card",
       "properties": {
         "Slot#15927:0": {
@@ -148,7 +147,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/card.json",
       "category": "Data Display",
       "variants": {
         "Property 1": [
@@ -162,11 +162,11 @@
       "nodeId": "9480:17723",
       "importMethod": "set",
       "description": "A multi-line input field that allows for text formatting (bold, links, lists). Use for long-form content like descriptions or comments.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Rich text (existing)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/rich-text.json",
       "category": "Form (input & selection)",
       "variants": {
         "State": [
@@ -181,10 +181,10 @@
       "nodeId": "15609:14859",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "White-label services",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null,
       "variants": {
@@ -201,11 +201,11 @@
       "nodeId": "13868:11535",
       "importMethod": "set",
       "description": "A specialized Alert variant for scheduled downtime or degraded performance.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Maintenance banner",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/maintenance-banner.json",
       "category": "Feedback",
       "variants": {
         "Type": [
@@ -219,10 +219,10 @@
       "nodeId": "7764:7617",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Product logos",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null,
       "variants": {
@@ -244,7 +244,6 @@
       "nodeId": "14000:4395",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Toggle control",
       "properties": {
         "Show Helper text#13981:32": {
@@ -253,6 +252,7 @@
         }
       },
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": "Form (input & selection)",
       "variants": {
@@ -279,7 +279,6 @@
       "nodeId": "13845:33759",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Tag (Identification key)",
       "properties": {
         "Leading icon show#13846:14": {
@@ -300,7 +299,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tag-interactive.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -320,11 +320,11 @@
       "nodeId": "9114:15379",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Global header",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/notification-dropdown.json",
       "category": "Navigation",
       "variants": {
         "Property 1": [
@@ -339,10 +339,10 @@
       "nodeId": "12770:6651",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Product logos",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null,
       "variants": {
@@ -365,10 +365,10 @@
       "nodeId": "8837:9945",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Illustrations & graphics",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null,
       "variants": {
@@ -389,10 +389,10 @@
       "nodeId": "8927:9233",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Product logos",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null,
       "variants": {
@@ -408,10 +408,10 @@
       "nodeId": "12770:6655",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Product logos",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null,
       "variants": {
@@ -428,7 +428,6 @@
       "nodeId": "7038:351",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "⚠️ Tooltip",
       "properties": {
         "Body#7038:10": {
@@ -437,7 +436,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tooltip.json",
       "category": "Overlays",
       "status": "warn",
       "variants": {
@@ -452,10 +452,10 @@
       "nodeId": "12054:30623",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Breakpoint, grid & structure",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
         "Property": [
@@ -471,11 +471,11 @@
       "nodeId": "9114:16794",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Global header",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/whats-new-dropdown.json",
       "category": "Navigation",
       "variants": {
         "Property 1": [
@@ -492,7 +492,6 @@
       "nodeId": "7257:3037",
       "importMethod": "set",
       "description": "Use for categorizing or labeling items (e.g., \"Design\", \"In Progress\"). Can be interactive (removable) or static metadata.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Tag (Identification key)",
       "properties": {
         "Label#257:0": {
@@ -517,7 +516,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tag-default.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -540,7 +540,6 @@
       "nodeId": "14747:23588",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Data viz: metamodel",
       "properties": {
         "Show Section#8582:0": {
@@ -549,7 +548,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/metamodel-widget.json",
       "category": "Data Display",
       "variants": {
         "Type": [
@@ -567,11 +567,11 @@
       "nodeId": "14747:30242",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Data viz: glossary item hierarchy",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/glossary-item-hierarchy-diagram.json",
       "category": "Data Display",
       "variants": {
         "Type": [
@@ -585,11 +585,11 @@
       "nodeId": "12932:3259",
       "importMethod": "set",
       "description": "A specialized card variant optimized for scannability during a search. Highlights relevant metadata and matching keywords.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Search result card",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/search-result-card.json",
       "category": "Data Display",
       "variants": {
         "App": [
@@ -611,11 +611,11 @@
       "nodeId": "15464:24509",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Chat with AI Steward",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/chat-with-ai-steward.json",
       "category": "Overlays",
       "status": "in-progress",
       "variants": {
@@ -635,11 +635,11 @@
       "nodeId": "14007:23209",
       "importMethod": "set",
       "description": "Works like tags but contains only 2 letters (initials of category name)",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Digram",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/digram-item-types.json",
       "category": "Data Display",
       "variants": {
         "Item type": [
@@ -684,11 +684,11 @@
       "nodeId": "14136:1615",
       "importMethod": "set",
       "description": "Visualizes the completion percentage of a task.  Use as a static visualization like a bar graph to show the completeness.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Data viz: progressive bar",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/progress-bar-small.json",
       "category": "Data Display",
       "variants": {
         "Size": [
@@ -708,7 +708,6 @@
       "nodeId": "14294:7345",
       "importMethod": "set",
       "description": "A non-modal floating container triggered by a click. Use for displaying a small menu or related content that doesn't fit in a tooltip. Stays open until a user clicks outside.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "⛔️ Popover",
       "properties": {
         "Show info icon#14294:20": {
@@ -717,7 +716,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/popover.json",
       "category": "Overlays",
       "status": "deprecated",
       "variants": {
@@ -733,11 +733,11 @@
       "nodeId": "13871:32310",
       "importMethod": "set",
       "description": "A placeholder shown when success. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Empty state",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/confirmation.json",
       "category": "Feedback",
       "variants": {
         "Size": [
@@ -751,11 +751,11 @@
       "nodeId": "7384:14212",
       "importMethod": "set",
       "description": "Visual representation of a user or entity. Use \"Image\" variant if a photo exists, or \"Initials\" as a fallback.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Avatar",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/avatar.json",
       "category": "Data Display",
       "variants": {
         "State": [
@@ -779,11 +779,11 @@
       "nodeId": "14747:17639",
       "importMethod": "set",
       "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Scroll bar",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/scroll-bar.json",
       "category": "Data Display",
       "variants": {
         "Property 1": [
@@ -797,10 +797,10 @@
       "nodeId": "14744:8072",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Breakpoint, grid & structure",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
         "Property 1": [
@@ -814,11 +814,11 @@
       "nodeId": "13797:13103",
       "importMethod": "set",
       "description": "A status indicator (Red, Amber, Green). Use to communicate system health, task urgency, or a quick \"Pass/Fail\" summary.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Traffic light",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/traffic-light.json",
       "category": "Navigation",
       "variants": {
         "Type": [
@@ -835,7 +835,6 @@
       "nodeId": "9474:16884",
       "importMethod": "set",
       "description": "Used for mutually exclusive choices where the user must select exactly one option from a small list (2–5 items).",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Radio button",
       "properties": {
         "Show Helper text#13981:32": {
@@ -848,7 +847,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/radio-button.json",
       "category": "Form (input & selection)",
       "variants": {
         "Format": [
@@ -874,11 +874,11 @@
       "nodeId": "7618:5187",
       "importMethod": "set",
       "description": "Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., \"Week / Month / Year\").",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Segmented control (Button group)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/segmented-control.json",
       "category": "Data Display",
       "variants": {
         "Type": [
@@ -892,7 +892,6 @@
       "nodeId": "11300:8312",
       "importMethod": "set",
       "description": "Use for physical metamodel item types. Can be interactive (removable) or static metadata.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Tag (Identification key)",
       "properties": {
         "Show counter#14128:0": {
@@ -901,7 +900,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tag-catalog-item-type.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -923,11 +923,11 @@
       "nodeId": "14349:15323",
       "importMethod": "set",
       "description": "Use for identification keys. Can be interactive (removable) or static metadata.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Tag (Identification key)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/identification-key.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -942,11 +942,11 @@
       "nodeId": "14294:8086",
       "importMethod": "set",
       "description": "Indicates a background process is active. Use Skeleton for page-level transitions to reduce perceived wait time.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Loading (Loader, Spinner, Skeleton)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/loading-skeleton.json",
       "category": "Feedback",
       "variants": {
         "Transition": [
@@ -961,7 +961,6 @@
       "nodeId": "14747:14818",
       "importMethod": "set",
       "description": "Use to switch between related views within the same context without navigating to a new page. Ideal for organizing content at the same level.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Tab",
       "properties": {
         "Show Avatar#14797:0": {
@@ -970,7 +969,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tabs.json",
       "category": "Navigation",
       "variants": {
         "Property 1": [
@@ -984,7 +984,6 @@
       "nodeId": "7676:4492",
       "importMethod": "set",
       "description": "Use to guide a user through a linear process with defined steps (e.g., Onboarding). Indicates current, completed, and upcoming steps.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Stepper",
       "properties": {
         "Show Body#14072:0": {
@@ -997,7 +996,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/stepper.json",
       "category": "Navigation",
       "variants": {
         "State": [
@@ -1014,10 +1014,10 @@
       "nodeId": "12054:30576",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Breakpoint, grid & structure",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
         "Property 1": [
@@ -1032,10 +1032,10 @@
       "nodeId": "12054:30598",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Breakpoint, grid & structure",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
         "Property": [
@@ -1051,11 +1051,11 @@
       "nodeId": "13812:22309",
       "importMethod": "set",
       "description": "Use for catalog types. Can be interactive (removable) or static metadata.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Tag (Identification key)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tag-catalog.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -1070,11 +1070,11 @@
       "nodeId": "7257:3705",
       "importMethod": "set",
       "description": "Use for status. Can be interactive (removable) or static metadata.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Tag (Identification key)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tag-status.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -1099,11 +1099,11 @@
       "nodeId": "7384:22554",
       "importMethod": "set",
       "description": "The persistent top-level container for branding, primary site-wide navigation, and user-specific actions (e.g., Profile, Logout).",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Global header",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/global-header.json",
       "category": "Navigation",
       "variants": {
         "App type": [
@@ -1126,11 +1126,11 @@
       "nodeId": "14783:7565",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Card",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/perimeter-card.json",
       "category": "Data Display",
       "variants": {
         "Property 1": [
@@ -1144,7 +1144,6 @@
       "nodeId": "14294:5758",
       "importMethod": "set",
       "description": "A container that slides from right side of the screen. Use for secondary tasks that require high focus but need to maintain the context of the main page.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Drawer (Side panel)",
       "properties": {
         "Show Back#14294:18": {
@@ -1153,7 +1152,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/drawer-side-panel.json",
       "category": "Overlays",
       "variants": {
         "App": [
@@ -1168,7 +1168,6 @@
       "nodeId": "8194:7305",
       "importMethod": "set",
       "description": "Used for selecting a single date, a date range, or a specific point in time. Best for scheduling or historical data entry.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Calendar",
       "properties": {
         "Helper#458:9": {
@@ -1189,7 +1188,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/input-date.json",
       "category": "Form (input & selection)",
       "variants": {
         "Type": [
@@ -1213,7 +1213,6 @@
       "nodeId": "8589:11055",
       "importMethod": "set",
       "description": "A specialized text input designed to query a database or filter a page's content in real-time.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Search",
       "properties": {
         "AI icon#8589:0": {
@@ -1222,7 +1221,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/search.json",
       "category": "Form (input & selection)",
       "variants": {
         "Type": [
@@ -1246,11 +1246,11 @@
       "nodeId": "13599:20120",
       "importMethod": "set",
       "description": "Vertical navigation for primary application modules. Use when the app has many top-level sections or needs to show sub-navigation.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️  Side nav",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/side-nav.json",
       "category": "Navigation",
       "status": "in-progress",
       "variants": {
@@ -1270,11 +1270,11 @@
       "nodeId": "15473:49489",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "⛔️ Data viz: WIP all others",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/bar-graph.json",
       "category": "Data Display",
       "status": "deprecated",
       "variants": {
@@ -1289,10 +1289,10 @@
       "nodeId": "14294:7650",
       "importMethod": "set",
       "description": "Indicates a background process is active. Use loader with logo in transition between apps or logging in or out to reduce perceived wait time",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Loading (Loader, Spinner, Skeleton)",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": "Feedback",
       "variants": {
@@ -1310,11 +1310,11 @@
       "nodeId": "8211:6664",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Calendar",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/calendar.json",
       "category": "Form (input & selection)",
       "variants": {
         "Type": [
@@ -1336,7 +1336,6 @@
       "nodeId": "13972:708",
       "importMethod": "set",
       "description": "Use when there are 5+ options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Dropdown / Select",
       "properties": {
         "Show description#13978:0": {
@@ -1361,7 +1360,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/dropdown-select-default.json",
       "category": "Form (input & selection)",
       "variants": {
         "Type": [
@@ -1386,11 +1386,11 @@
       "nodeId": "8756:9994",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Search",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/search-dropdown-menu.json",
       "category": "Form (input & selection)",
       "variants": {
         "Type": [
@@ -1407,11 +1407,11 @@
       "nodeId": "14128:3800",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Digram",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/digram-topic.json",
       "category": "Data Display",
       "variants": {
         "Type": [
@@ -1434,7 +1434,6 @@
       "nodeId": "8655:10279",
       "importMethod": "set",
       "description": "Use for data lifecycle stages. Can be interactive (removable) or static metadata.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Tag (Identification key)",
       "properties": {
         "Trailing icon#13844:0": {
@@ -1447,7 +1446,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tag-stage.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -1469,11 +1469,11 @@
       "nodeId": "13812:22307",
       "importMethod": "set",
       "description": "Use for indicating something is recently updated. Can be interactive (removable) or static metadata.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Tag (Identification key)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tag-updated.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -1488,11 +1488,11 @@
       "nodeId": "13871:32311",
       "importMethod": "set",
       "description": "A placeholder shown when maintenance. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Empty state",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/maintenance-state.json",
       "category": "Feedback",
       "variants": {
         "Size": [
@@ -1506,11 +1506,11 @@
       "nodeId": "7372:2195",
       "importMethod": "set",
       "description": "Indicates a background process is active. Use loader for large components or large section within a page",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Loading (Loader, Spinner, Skeleton)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/loader.json",
       "category": "Feedback",
       "variants": {
         "Percent": [
@@ -1525,12 +1525,12 @@
       "key": "433bc17e08514c14ee821f2b03421bad865e0a0e",
       "nodeId": "8346:6897",
       "importMethod": "set",
-      "description": "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design stan",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
+      "description": "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources. It appears colored to indicate interactivity and follows accessibility and design standards for clarity and usability.\n\nUsed for navigation to a different page, an external URL, or to trigger a secondary action within a sentence. Not to be used for primary form submissions.",
       "page": "✅ Link",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/link.json",
       "category": "Action",
       "variants": {
         "State": [
@@ -1549,10 +1549,10 @@
       "nodeId": "7764:7671",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Product logos",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null,
       "variants": {
@@ -1572,10 +1572,10 @@
       "nodeId": "7764:7688",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Product logos",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null,
       "variants": {
@@ -1591,11 +1591,11 @@
       "nodeId": "7372:2170",
       "importMethod": "set",
       "description": "Indicates a background process is active. Use Spinner for small, localized actions like button clicks.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Loading (Loader, Spinner, Skeleton)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/spinner.json",
       "category": "Feedback",
       "variants": {
         "Complete": [
@@ -1612,11 +1612,11 @@
       "nodeId": "12159:16447",
       "importMethod": "set",
       "description": "Small status or numerical indicator (e.g., \"Active\", \"New\", \"+5\"). Use for counts or short, non-interactive status labels.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Badge",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/badge.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -1632,7 +1632,6 @@
       "nodeId": "14175:14426",
       "importMethod": "set",
       "description": "A centered dialog that blocks the main content. Use for critical \"Stop and Think\" actions, confirmations, or complex data entry that must be completed or cancelled before moving on.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Modal",
       "properties": {
         "Body#16715:0": {
@@ -1646,7 +1645,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/modal.json",
       "category": "Overlays",
       "variants": {
         "Size & Type": [
@@ -1669,7 +1669,6 @@
       "nodeId": "14747:20085",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Data viz: lineage",
       "properties": {
         "Show icon#14697:0": {
@@ -1678,7 +1677,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/lineage-connecting-line.json",
       "category": "Data Display",
       "variants": {
         "Direction": [
@@ -1700,11 +1700,11 @@
       "nodeId": "13868:11595",
       "importMethod": "set",
       "description": "Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., \"Item saved\"). Automatically dismisses after 3–5 seconds.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Notification (Toast)",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/notification.json",
       "category": "Feedback",
       "variants": {
         "Type": [
@@ -1718,12 +1718,12 @@
       "key": "62d235b35d44ddafd58cb1a060107b4f69ab234e",
       "nodeId": "15295:14902",
       "importMethod": "set",
-      "description": "Use for large datasets requiring comparison, sorting, and filtering. Supports complex rows with multi-type data (text, badges, actions).\n\n\"If data is null, display the 'Empty State' illustration varia",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
+      "description": "Use for large datasets requiring comparison, sorting, and filtering. Supports complex rows with multi-type data (text, badges, actions).\n\n\"If data is null, display the 'Empty State' illustration variant with a 'Create New' call to action.\"",
       "page": "✍️ Table",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/table.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -1739,11 +1739,11 @@
       "nodeId": "9660:49637",
       "importMethod": "set",
       "description": "A collection of inputs used to narrow down a dataset or search results. Should be placed above or to the left of the content it controls.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Filters",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/search-filters.json",
       "category": "Form (input & selection)",
       "variants": {
         "Type": [
@@ -1758,7 +1758,6 @@
       "nodeId": "7238:2487",
       "importMethod": "set",
       "description": "Used for single-line alphanumeric data entry (e.g., Name, Email, Phone). Specify the \"type\" attribute if applicable.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Text input",
       "properties": {
         "Helper#458:9": {
@@ -1815,7 +1814,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/input.json",
       "category": "Form (input & selection)",
       "variants": {
         "States": [
@@ -1836,7 +1836,6 @@
       "nodeId": "14335:16907",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Data viz: toolbar",
       "properties": {
         "Show View scale#14335:0": {
@@ -1845,7 +1844,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/toolbar.json",
       "category": "Data Display",
       "variants": {
         "Type": [
@@ -1865,7 +1865,6 @@
       "nodeId": "13732:3056",
       "importMethod": "set",
       "description": "Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Alert (banner)",
       "properties": {
         "Show Icon#14881:0": {
@@ -1882,7 +1881,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/alert-banner.json",
       "category": "Feedback",
       "status": "in-progress",
       "variants": {
@@ -1904,11 +1904,11 @@
       "nodeId": "13087:34544",
       "importMethod": "set",
       "description": "A placeholder shown when a container has an error. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Empty state",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/error-state.json",
       "category": "Feedback",
       "variants": {
         "Size": [
@@ -1923,11 +1923,11 @@
       "nodeId": "14747:9839",
       "importMethod": "set",
       "description": "A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Sticky footer",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/sticky-footer.json",
       "category": "Action",
       "variants": {
         "Property 1": [
@@ -1941,11 +1941,11 @@
       "nodeId": "15473:49490",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "⛔️ Data viz: WIP all others",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/line-graph.json",
       "category": "Data Display",
       "status": "deprecated",
       "variants": {
@@ -1960,11 +1960,11 @@
       "nodeId": "12923:2794",
       "importMethod": "set",
       "description": "The title area of a specific page. Should include the Page Title, optional Breadcrumbs, and page-specific primary actions.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Page header",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/page-header.json",
       "category": "Data Display",
       "variants": {
         "Type": [
@@ -1981,11 +1981,11 @@
       "nodeId": "15634:17895",
       "importMethod": "set",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Data viz: lineage",
       "properties": {},
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/lineage-grouped-node.json",
       "category": "Data Display",
       "variants": {
         "State": [
@@ -2004,7 +2004,6 @@
       "nodeId": "9230:22073",
       "importMethod": "set",
       "description": "A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Empty state",
       "properties": {
         "Medium illustration#9230:4": {
@@ -2045,7 +2044,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/empty-state.json",
       "category": "Feedback",
       "variants": {
         "Size": [
@@ -2060,8 +2060,7 @@
       "key": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
       "nodeId": "7206:2643",
       "importMethod": "set",
-      "description": "Primary trigger for a specific action or form submission. Use \"Primary\" for the main task, \"Secondary\" for alternative actions, and \"Ghost/Tertiary\" for low-priority tasks.\n\nPrimary: \"Use as the singl",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
+      "description": "Primary trigger for a specific action or form submission. Use \"Primary\" for the main task, \"Secondary\" for alternative actions, and \"Ghost/Tertiary\" for low-priority tasks.\n\nPrimary: \"Use as the single most important action on a screen. Limit to one per view (e.g., 'Submit', 'Pay Now').\"\nSecondary: \"Use for supporting actions that are not the main goal of the page (e.g., 'Cancel', 'Back').\"\nTertiary/Ghost: \"Use for low-emphasis actions or repeated items in a list (e.g., 'View Details', 'Learn More').\"\nCritical: \"Use specifically for actions that result in data loss or permanent changes. Usually styled in Red.\"",
       "page": "✍️ Button",
       "properties": {
         "Leading icon#724:0": {
@@ -2090,7 +2089,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/button.json",
       "category": "Action",
       "status": "in-progress",
       "variants": {
@@ -2122,7 +2122,6 @@
       "nodeId": "8292:80",
       "importMethod": "set",
       "description": "Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✍️ Collapse (Accordion)",
       "properties": {
         "Slot#15956:0": {
@@ -2136,7 +2135,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/collapse-accordion.json",
       "category": "Data Display",
       "status": "in-progress",
       "variants": {
@@ -2152,7 +2152,6 @@
       "nodeId": "7613:7853",
       "importMethod": "set",
       "description": "A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Card",
       "properties": {
         "Show AI ready#14853:0": {
@@ -2161,7 +2160,8 @@
         }
       },
       "nestedComponents": [],
-      "guidelinesFile": null,
+      "documentationLinks": [],
+      "guidelinesFile": "components/src/guidelines/tile-item.json",
       "category": "Data Display",
       "variants": {
         "Type": [
@@ -2186,10 +2186,10 @@
       "nodeId": "8400:25103",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "kafka": {
@@ -2198,10 +2198,10 @@
       "nodeId": "8400:25091",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "dataiku": {
@@ -2210,10 +2210,10 @@
       "nodeId": "8400:25051",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "mysql": {
@@ -2222,10 +2222,10 @@
       "nodeId": "8400:25109",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "thumbs-down": {
@@ -2234,10 +2234,10 @@
       "nodeId": "10089:786",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "use-with-care": {
@@ -2246,10 +2246,10 @@
       "nodeId": "14703:19805",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "safyr-sap-bw": {
@@ -2258,10 +2258,10 @@
       "nodeId": "8504:23906",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "zoom-to-fit": {
@@ -2270,10 +2270,10 @@
       "nodeId": "7378:5032",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "orc": {
@@ -2282,10 +2282,10 @@
       "nodeId": "8400:25132",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "postgresql": {
@@ -2294,10 +2294,10 @@
       "nodeId": "7173:1882",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "splunk": {
@@ -2306,10 +2306,10 @@
       "nodeId": "8400:25172",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "azure-purview": {
@@ -2318,10 +2318,10 @@
       "nodeId": "8400:25214",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "adobe-analytics": {
@@ -2330,10 +2330,10 @@
       "nodeId": "8400:25195",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "process": {
@@ -2342,10 +2342,10 @@
       "nodeId": "7378:5603",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "cognos-bi": {
@@ -2354,10 +2354,10 @@
       "nodeId": "8400:25224",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "bigquery": {
@@ -2366,10 +2366,10 @@
       "nodeId": "8400:25218",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "elasticsearch": {
@@ -2378,10 +2378,10 @@
       "nodeId": "8400:25063",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "hbase": {
@@ -2390,10 +2390,10 @@
       "nodeId": "8400:25075",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "zoom-out": {
@@ -2402,10 +2402,10 @@
       "nodeId": "7378:5026",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "zoom-in": {
@@ -2414,10 +2414,10 @@
       "nodeId": "7378:5055",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "csv-custom-item": {
@@ -2426,10 +2426,10 @@
       "nodeId": "8400:25232",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "more": {
@@ -2438,10 +2438,10 @@
       "nodeId": "14335:17217",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "db2": {
@@ -2450,10 +2450,10 @@
       "nodeId": "8400:25055",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "aws-glue-etl": {
@@ -2462,10 +2462,10 @@
       "nodeId": "7173:1782",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "help-circle": {
@@ -2474,10 +2474,10 @@
       "nodeId": "8504:23049",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "jdbc": {
@@ -2486,10 +2486,10 @@
       "nodeId": "8400:25087",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "export": {
@@ -2498,10 +2498,10 @@
       "nodeId": "7378:5538",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "atlas": {
@@ -2510,10 +2510,10 @@
       "nodeId": "8400:25203",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "data-model": {
@@ -2522,10 +2522,10 @@
       "nodeId": "7294:705",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "avro": {
@@ -2534,10 +2534,10 @@
       "nodeId": "8400:25205",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "process-csv": {
@@ -2546,10 +2546,10 @@
       "nodeId": "8400:25144",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "snowflake": {
@@ -2558,10 +2558,10 @@
       "nodeId": "8504:23447",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "powerbi": {
@@ -2570,10 +2570,10 @@
       "nodeId": "7168:767",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "cognos": {
@@ -2582,10 +2582,10 @@
       "nodeId": "8400:25226",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "palantir": {
@@ -2594,10 +2594,10 @@
       "nodeId": "8400:25134",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "opendatagouv": {
@@ -2606,10 +2606,10 @@
       "nodeId": "8400:25128",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "sqlserver": {
@@ -2618,10 +2618,10 @@
       "nodeId": "8400:25174",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "mapr": {
@@ -2630,10 +2630,10 @@
       "nodeId": "8400:25099",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "spline": {
@@ -2642,10 +2642,10 @@
       "nodeId": "8400:25170",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "microstrategy": {
@@ -2654,10 +2654,10 @@
       "nodeId": "8400:25105",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "openapi": {
@@ -2666,10 +2666,10 @@
       "nodeId": "8400:25126",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "safyr-ebs": {
@@ -2678,10 +2678,10 @@
       "nodeId": "8400:25152",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "powerbireportserver": {
@@ -2690,10 +2690,10 @@
       "nodeId": "8400:25142",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "impala": {
@@ -2702,10 +2702,10 @@
       "nodeId": "8400:25081",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "mariadb": {
@@ -2714,10 +2714,10 @@
       "nodeId": "8400:25101",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "thumbs-up": {
@@ -2726,10 +2726,10 @@
       "nodeId": "10089:787",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "adlsgen1": {
@@ -2738,10 +2738,10 @@
       "nodeId": "8400:25193",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "paragraph-justify": {
@@ -2750,10 +2750,10 @@
       "nodeId": "7378:5049",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "awsredshift": {
@@ -2762,10 +2762,10 @@
       "nodeId": "8400:25209",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "qlik-sense": {
@@ -2774,10 +2774,10 @@
       "nodeId": "8400:25146",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "mail": {
@@ -2786,10 +2786,10 @@
       "nodeId": "8012:1308",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "user-single": {
@@ -2798,10 +2798,10 @@
       "nodeId": "7378:5029",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "talend": {
@@ -2810,10 +2810,10 @@
       "nodeId": "8400:25180",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "azure-cosmosdb": {
@@ -2822,10 +2822,10 @@
       "nodeId": "8400:25211",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "greenplum": {
@@ -2834,10 +2834,10 @@
       "nodeId": "8400:25073",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "soda": {
@@ -2846,10 +2846,10 @@
       "nodeId": "8400:25188",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "safyr-peoplesoft": {
@@ -2858,10 +2858,10 @@
       "nodeId": "8400:25156",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "simple-check": {
@@ -2870,10 +2870,10 @@
       "nodeId": "7271:6256",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "xml": {
@@ -2882,10 +2882,10 @@
       "nodeId": "8400:25191",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "safyr-salesforce": {
@@ -2894,10 +2894,10 @@
       "nodeId": "8400:25158",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "looker": {
@@ -2906,10 +2906,10 @@
       "nodeId": "8400:25097",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "mongodb": {
@@ -2918,10 +2918,10 @@
       "nodeId": "8400:25107",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "erwin-data-modeler": {
@@ -2930,10 +2930,10 @@
       "nodeId": "8400:25065",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "denodo": {
@@ -2942,10 +2942,10 @@
       "nodeId": "8400:25059",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "safyr-dynamicsax": {
@@ -2954,10 +2954,10 @@
       "nodeId": "8400:25150",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "azure-datafactory": {
@@ -2966,10 +2966,10 @@
       "nodeId": "8400:25212",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "safyr-siebel": {
@@ -2978,10 +2978,10 @@
       "nodeId": "8400:25162",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "tibco-datavirtualization": {
@@ -2990,10 +2990,10 @@
       "nodeId": "8400:25186",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "oracle": {
@@ -3002,10 +3002,10 @@
       "nodeId": "8400:25130",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "data-structured": {
@@ -3014,10 +3014,10 @@
       "nodeId": "8504:23301",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "catalogs": {
@@ -3026,10 +3026,10 @@
       "nodeId": "14115:8084",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "arrow-alt": {
@@ -3038,10 +3038,10 @@
       "nodeId": "8504:23323",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "user-add": {
@@ -3050,10 +3050,10 @@
       "nodeId": "7378:5027",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "award-04": {
@@ -3062,10 +3062,10 @@
       "nodeId": "8655:10107",
       "importMethod": "single",
       "description": "award, medal, certification, certificate, badge",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "image": {
@@ -3074,10 +3074,10 @@
       "nodeId": "7908:5402",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "list-bullets": {
@@ -3086,10 +3086,10 @@
       "nodeId": "7622:5395",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "map": {
@@ -3098,10 +3098,10 @@
       "nodeId": "7378:5048",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "teradata": {
@@ -3110,10 +3110,10 @@
       "nodeId": "8400:25182",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "safyr-jdedwards": {
@@ -3122,10 +3122,10 @@
       "nodeId": "8400:25154",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "content-checklist": {
@@ -3134,10 +3134,10 @@
       "nodeId": "7651:6637",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Content guidelines",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "account-dropdown": {
@@ -3146,10 +3146,10 @@
       "nodeId": "9118:17382",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Global header",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": "Navigation"
     },
@@ -3159,10 +3159,10 @@
       "nodeId": "15946:885",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Stepper",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": "Navigation"
     },
@@ -3172,10 +3172,10 @@
       "nodeId": "8400:25230",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "parquet": {
@@ -3184,10 +3184,10 @@
       "nodeId": "8400:25136",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "azure": {
@@ -3196,10 +3196,10 @@
       "nodeId": "7173:1783",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "ms-teams": {
@@ -3208,10 +3208,10 @@
       "nodeId": "8784:159680",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "hive": {
@@ -3220,10 +3220,10 @@
       "nodeId": "8400:25079",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "cosmosdb": {
@@ -3232,10 +3232,10 @@
       "nodeId": "8400:25228",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "dbt": {
@@ -3244,10 +3244,10 @@
       "nodeId": "8400:25057",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "amazons3": {
@@ -3256,10 +3256,10 @@
       "nodeId": "8400:25199",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "dictionnary": {
@@ -3268,10 +3268,10 @@
       "nodeId": "8400:25061",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "db2-database-1": {
@@ -3280,10 +3280,10 @@
       "nodeId": "9907:9511",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "netezza": {
@@ -3292,10 +3292,10 @@
       "nodeId": "8400:25111",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "json": {
@@ -3304,10 +3304,10 @@
       "nodeId": "8400:25089",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "tableau": {
@@ -3316,10 +3316,10 @@
       "nodeId": "7168:748",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "databricks": {
@@ -3328,10 +3328,10 @@
       "nodeId": "8400:25049",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "alteryx": {
@@ -3340,10 +3340,10 @@
       "nodeId": "8400:25197",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "cloud-upload": {
@@ -3352,10 +3352,10 @@
       "nodeId": "7908:5403",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "chevron-left": {
@@ -3364,10 +3364,10 @@
       "nodeId": "7207:2837",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "notes-feedback": {
@@ -3376,10 +3376,10 @@
       "nodeId": "8662:6474",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Local components",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null
     },
@@ -3389,10 +3389,10 @@
       "nodeId": "7439:4678",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "history": {
@@ -3401,10 +3401,10 @@
       "nodeId": "8742:13219",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "arrow-down": {
@@ -3413,10 +3413,10 @@
       "nodeId": "7207:2839",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "suggestion": {
@@ -3425,10 +3425,10 @@
       "nodeId": "7279:3164",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "info": {
@@ -3437,10 +3437,10 @@
       "nodeId": "7207:2838",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "error-filled": {
@@ -3449,10 +3449,10 @@
       "nodeId": "7378:5468",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "cursor-hand": {
@@ -3461,10 +3461,10 @@
       "nodeId": "8404:1949",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "api-key": {
@@ -3473,10 +3473,10 @@
       "nodeId": "7378:3969",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "open": {
@@ -3485,10 +3485,10 @@
       "nodeId": "7293:667",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "background-explore": {
@@ -3497,10 +3497,10 @@
       "nodeId": "16494:19414",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "Illustrations & graphics",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": null
     },
@@ -3509,11 +3509,11 @@
       "key": "09baf67bef9191d0b5303b52c1c3159eefba3843",
       "nodeId": "9118:17666",
       "importMethod": "single",
-      "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edite",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
+      "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
       "page": "✅ Global header",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null,
       "category": "Navigation"
     },
@@ -3523,10 +3523,10 @@
       "nodeId": "8576:4926",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "view": {
@@ -3535,10 +3535,10 @@
       "nodeId": "14697:19193",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "output": {
@@ -3547,10 +3547,10 @@
       "nodeId": "8504:23029",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "directory": {
@@ -3559,10 +3559,10 @@
       "nodeId": "8189:4595",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "filter": {
@@ -3571,10 +3571,10 @@
       "nodeId": "14335:17202",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "view-details": {
@@ -3583,10 +3583,10 @@
       "nodeId": "12222:5799",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "event-time-type": {
@@ -3595,10 +3595,10 @@
       "nodeId": "8504:23298",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "view-card": {
@@ -3607,10 +3607,10 @@
       "nodeId": "7622:5375",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "dots": {
@@ -3619,10 +3619,10 @@
       "nodeId": "7378:3729",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "database-check": {
@@ -3631,10 +3631,10 @@
       "nodeId": "8504:23088",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "user-group": {
@@ -3643,10 +3643,10 @@
       "nodeId": "7378:5131",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "chart-bar": {
@@ -3655,10 +3655,10 @@
       "nodeId": "9246:14002",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "icon-query-queue": {
@@ -3667,10 +3667,10 @@
       "nodeId": "7311:2825",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "exit": {
@@ -3679,10 +3679,10 @@
       "nodeId": "7301:2777",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "boolean-type": {
@@ -3691,10 +3691,10 @@
       "nodeId": "8504:23295",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "rotate-back": {
@@ -3703,10 +3703,10 @@
       "nodeId": "7378:5031",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "glossary": {
@@ -3715,10 +3715,10 @@
       "nodeId": "10613:30347",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "checkmark-outline": {
@@ -3727,10 +3727,10 @@
       "nodeId": "7310:2896",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "layers-front-curator-indicator": {
@@ -3739,10 +3739,10 @@
       "nodeId": "8820:13322",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "help-bubble": {
@@ -3751,10 +3751,10 @@
       "nodeId": "7207:2832",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "database": {
@@ -3763,10 +3763,10 @@
       "nodeId": "7378:3700",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "minimize": {
@@ -3775,10 +3775,10 @@
       "nodeId": "8298:5067",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "filter-text": {
@@ -3787,10 +3787,10 @@
       "nodeId": "7378:5053",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "pending": {
@@ -3799,10 +3799,10 @@
       "nodeId": "7996:5346",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "favorite-filled": {
@@ -3811,10 +3811,10 @@
       "nodeId": "7378:3696",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "drag": {
@@ -3823,10 +3823,10 @@
       "nodeId": "7378:5050",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "menu": {
@@ -3835,10 +3835,10 @@
       "nodeId": "7893:4605",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "brightness-contrast": {
@@ -3847,10 +3847,10 @@
       "nodeId": "7537:1569",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "data-product-output-port": {
@@ -3859,10 +3859,10 @@
       "nodeId": "8504:23087",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "schema": {
@@ -3871,10 +3871,10 @@
       "nodeId": "7378:5038",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "settings": {
@@ -3883,10 +3883,10 @@
       "nodeId": "7378:4812",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "task-list-multiple": {
@@ -3895,10 +3895,10 @@
       "nodeId": "8504:23376",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "bin-type": {
@@ -3907,10 +3907,10 @@
       "nodeId": "14292:5730",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "close": {
@@ -3919,10 +3919,10 @@
       "nodeId": "7293:24",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "trash": {
@@ -3931,10 +3931,10 @@
       "nodeId": "7378:5056",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "target-type": {
@@ -3943,10 +3943,10 @@
       "nodeId": "8504:23302",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "add-circle": {
@@ -3955,10 +3955,10 @@
       "nodeId": "14703:19709",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "arrow": {
@@ -3967,10 +3967,10 @@
       "nodeId": "7207:2841",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "user-lock": {
@@ -3979,10 +3979,10 @@
       "nodeId": "8820:13324",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "warning-filled": {
@@ -3991,10 +3991,10 @@
       "nodeId": "14719:1075",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "calendar-2": {
@@ -4003,10 +4003,10 @@
       "nodeId": "7313:3194",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "catalog-design": {
@@ -4015,10 +4015,10 @@
       "nodeId": "7439:4619",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "misuse-outline": {
@@ -4027,10 +4027,10 @@
       "nodeId": "8415:1389",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "shield-lock": {
@@ -4039,10 +4039,10 @@
       "nodeId": "7378:3967",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "tools": {
@@ -4051,10 +4051,10 @@
       "nodeId": "7311:2826",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "add": {
@@ -4063,10 +4063,10 @@
       "nodeId": "7378:3994",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "analytics": {
@@ -4075,10 +4075,10 @@
       "nodeId": "7378:3747",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "text-type": {
@@ -4087,10 +4087,10 @@
       "nodeId": "8504:23299",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "edit": {
@@ -4099,10 +4099,10 @@
       "nodeId": "7207:2827",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "link-type": {
@@ -4111,10 +4111,10 @@
       "nodeId": "7378:5042",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "relation": {
@@ -4123,10 +4123,10 @@
       "nodeId": "8587:44312",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "lineage": {
@@ -4135,10 +4135,10 @@
       "nodeId": "7378:5706",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "local-filesystem": {
@@ -4147,10 +4147,10 @@
       "nodeId": "7173:1784",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "back": {
@@ -4159,10 +4159,10 @@
       "nodeId": "8504:23035",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "task-list": {
@@ -4171,10 +4171,10 @@
       "nodeId": "8504:23375",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "tags-add": {
@@ -4183,10 +4183,10 @@
       "nodeId": "14691:426",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "book-bookmark": {
@@ -4195,10 +4195,10 @@
       "nodeId": "7378:5700",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "download": {
@@ -4207,10 +4207,10 @@
       "nodeId": "7439:4645",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "user-info": {
@@ -4219,10 +4219,10 @@
       "nodeId": "8820:13334",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "applications": {
@@ -4231,10 +4231,10 @@
       "nodeId": "7378:5025",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "alert": {
@@ -4243,10 +4243,10 @@
       "nodeId": "7207:2820",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "pii": {
@@ -4255,10 +4255,10 @@
       "nodeId": "8517:23021",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "pin": {
@@ -4267,10 +4267,10 @@
       "nodeId": "7378:5040",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "discussion": {
@@ -4279,10 +4279,10 @@
       "nodeId": "7378:5054",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "home": {
@@ -4291,10 +4291,10 @@
       "nodeId": "7378:5034",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "book-edit": {
@@ -4303,10 +4303,10 @@
       "nodeId": "8504:23324",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "layers-front": {
@@ -4315,10 +4315,10 @@
       "nodeId": "8504:23326",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "help-laptop": {
@@ -4327,10 +4327,10 @@
       "nodeId": "14691:457",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "chevron-sort": {
@@ -4339,10 +4339,10 @@
       "nodeId": "7207:2836",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "null-sign": {
@@ -4351,10 +4351,10 @@
       "nodeId": "8504:23300",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "favorite": {
@@ -4363,10 +4363,10 @@
       "nodeId": "7378:3698",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "chevron-up": {
@@ -4375,10 +4375,10 @@
       "nodeId": "7207:2842",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "dashboard": {
@@ -4387,10 +4387,10 @@
       "nodeId": "7439:4602",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "move": {
@@ -4399,10 +4399,10 @@
       "nodeId": "7378:5154",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "dataset": {
@@ -4411,10 +4411,10 @@
       "nodeId": "8504:23086",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "chevron-sort-down": {
@@ -4423,10 +4423,10 @@
       "nodeId": "7207:2833",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "warning-alt": {
@@ -4435,10 +4435,10 @@
       "nodeId": "7310:2892",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "task-list-settings": {
@@ -4447,10 +4447,10 @@
       "nodeId": "8504:23325",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "float-type": {
@@ -4459,10 +4459,10 @@
       "nodeId": "8504:23304",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "maintenance": {
@@ -4471,10 +4471,10 @@
       "nodeId": "7378:4004",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "chevron-sort-up": {
@@ -4483,10 +4483,10 @@
       "nodeId": "7207:2835",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "exploration": {
@@ -4495,10 +4495,10 @@
       "nodeId": "7294:702",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "geo-point-type": {
@@ -4507,10 +4507,10 @@
       "nodeId": "8504:23303",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "integer-type": {
@@ -4519,10 +4519,10 @@
       "nodeId": "8504:23296",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "text-file": {
@@ -4531,10 +4531,10 @@
       "nodeId": "7378:5045",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "scanner": {
@@ -4543,10 +4543,10 @@
       "nodeId": "7378:3979",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "data-file-question": {
@@ -4555,10 +4555,10 @@
       "nodeId": "8820:13520",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "security-services": {
@@ -4567,10 +4567,10 @@
       "nodeId": "7378:3968",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "data-access-request": {
@@ -4579,10 +4579,10 @@
       "nodeId": "13315:9277",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "info-filled": {
@@ -4591,10 +4591,10 @@
       "nodeId": "7471:3918",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "chart-pie": {
@@ -4603,10 +4603,10 @@
       "nodeId": "9246:14001",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "stop-outline": {
@@ -4615,10 +4615,10 @@
       "nodeId": "7310:2895",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "relation-incoming": {
@@ -4627,10 +4627,10 @@
       "nodeId": "8504:23150",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "relation-outgoing": {
@@ -4639,10 +4639,10 @@
       "nodeId": "8504:23151",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "maximize": {
@@ -4651,10 +4651,10 @@
       "nodeId": "8483:1558",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "unknown-type": {
@@ -4663,10 +4663,10 @@
       "nodeId": "8504:23297",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "lifecycle-policy": {
@@ -4675,10 +4675,10 @@
       "nodeId": "13315:9276",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "circle-dash": {
@@ -4687,10 +4687,10 @@
       "nodeId": "7310:2897",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "graph-merge": {
@@ -4699,10 +4699,10 @@
       "nodeId": "8576:4931",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "list-numbers": {
@@ -4711,10 +4711,10 @@
       "nodeId": "7378:5046",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "rocket-1": {
@@ -4723,10 +4723,10 @@
       "nodeId": "9085:20152",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "stars": {
@@ -4735,10 +4735,10 @@
       "nodeId": "7220:3430",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "view-table": {
@@ -4747,10 +4747,10 @@
       "nodeId": "7622:5374",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "asleep": {
@@ -4759,10 +4759,10 @@
       "nodeId": "7310:2900",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "undo": {
@@ -4771,10 +4771,10 @@
       "nodeId": "7469:5248",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "cursor-arrow": {
@@ -4783,10 +4783,10 @@
       "nodeId": "8404:1905",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "connected": {
@@ -4795,10 +4795,10 @@
       "nodeId": "7378:5604",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "hdfs": {
@@ -4807,10 +4807,10 @@
       "nodeId": "8400:25077",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "informatica": {
@@ -4819,10 +4819,10 @@
       "nodeId": "8400:25085",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "sybaseiq": {
@@ -4831,10 +4831,10 @@
       "nodeId": "8400:25176",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "azure-synapse": {
@@ -4843,10 +4843,10 @@
       "nodeId": "8400:25216",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "gcp": {
@@ -4855,10 +4855,10 @@
       "nodeId": "7692:5000",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "sparkdb": {
@@ -4867,10 +4867,10 @@
       "nodeId": "8400:25168",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "gcpcloudstorage": {
@@ -4879,10 +4879,10 @@
       "nodeId": "8400:25067",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "sas-database": {
@@ -4891,10 +4891,10 @@
       "nodeId": "8400:25164",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "zoom-reset": {
@@ -4903,10 +4903,10 @@
       "nodeId": "7378:5606",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "influxdb": {
@@ -4915,10 +4915,10 @@
       "nodeId": "8400:25083",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "cassandra": {
@@ -4927,10 +4927,10 @@
       "nodeId": "8400:25220",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "generic-jdbc": {
@@ -4939,10 +4939,10 @@
       "nodeId": "8400:25069",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "alert-circle": {
@@ -4951,10 +4951,10 @@
       "nodeId": "14719:551",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "thoughtspot": {
@@ -4963,10 +4963,10 @@
       "nodeId": "8400:25184",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "safyr-dynamics365": {
@@ -4975,10 +4975,10 @@
       "nodeId": "8400:25148",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "disconnected": {
@@ -4987,10 +4987,10 @@
       "nodeId": "7378:5601",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "google-cloud": {
@@ -4999,10 +4999,10 @@
       "nodeId": "8400:25071",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "api": {
@@ -5011,10 +5011,10 @@
       "nodeId": "8400:25201",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "csv": {
@@ -5023,10 +5023,10 @@
       "nodeId": "8400:25047",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "success-filled": {
@@ -5035,10 +5035,10 @@
       "nodeId": "7378:5490",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "ckan": {
@@ -5047,10 +5047,10 @@
       "nodeId": "8400:25222",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     },
     "expand": {
@@ -5059,10 +5059,10 @@
       "nodeId": "15563:24467",
       "importMethod": "single",
       "description": "",
-      "lastSynced": "2026-05-11T13:55:57.781Z",
       "page": "✅ Icons",
       "properties": {},
       "nestedComponents": [],
+      "documentationLinks": [],
       "guidelinesFile": null
     }
   }
