@@ -74,17 +74,18 @@ function matchesRange(version, range) {
   var parseV = function (v) {
     return String(v).split(".").map(Number);
   };
+  var trimmed = String(range).trim();
   var reqMajor, reqMinor, reqPatch;
-  if (range.charAt(0) === "~") {
-    var parts = parseV(range.slice(1));
+  if (trimmed.charAt(0) === "~") {
+    var parts = parseV(trimmed.slice(1));
     reqMajor = parts[0];
     reqMinor = parts[1];
     reqPatch = parts[2] || 0;
     var v = parseV(version);
     return v[0] === reqMajor && v[1] === reqMinor && v[2] >= reqPatch;
   }
-  if (range.charAt(0) === "^") {
-    var cparts = parseV(range.slice(1));
+  if (trimmed.charAt(0) === "^") {
+    var cparts = parseV(trimmed.slice(1));
     reqMajor = cparts[0];
     reqMinor = cparts[1];
     reqPatch = cparts[2] || 0;
@@ -98,7 +99,18 @@ function matchesRange(version, range) {
       (cv[1] > reqMinor || (cv[1] === reqMinor && cv[2] >= reqPatch))
     );
   }
-  return version === range;
+  // Less-than operators (<X.Y.Z, <=X.Y.Z). Lets consumers opt into
+  // "anything up to the next major" without per-minor re-pin (Design E in
+  // project_sync_pipeline_improvements_2026_05_13.md). Compound ranges
+  // (>=A.B.C <X.Y.Z) intentionally not supported — keep the parser small;
+  // floors are theoretical for forward-only knowledge tags.
+  var ltMatch = trimmed.match(/^<(=?)\s*(\d+\.\d+\.\d+)$/);
+  if (ltMatch) {
+    var inclusive = ltMatch[1] === "=";
+    var cmp = compareSemver(version, ltMatch[2]);
+    return inclusive ? cmp <= 0 : cmp < 0;
+  }
+  return version === trimmed;
 }
 
 // Compare two semver strings; returns -1, 0, or 1.
@@ -128,6 +140,40 @@ function resolveTargetTag(tags, range) {
   if (candidates.length === 0) return null;
   candidates.sort(compareSemver);
   return "v" + candidates[candidates.length - 1];
+}
+
+// Compare the resolved tag against the highest available tag across ALL
+// strict-semver tags (regardless of range). If a newer tag exists outside
+// the range, emit a GitHub Actions ::warning:: directive so the workflow
+// summary surfaces the gap. Designer can then decide whether to widen the
+// range in vendored.json. No side effects beyond stdout.
+//
+// Returns true when a warning was emitted; false otherwise (useful for tests).
+// Design E in project_sync_pipeline_improvements_2026_05_13.md +
+// project_vendor_stable_channel_architecture.md.
+function notifyIfNewerAvailable(tags, currentRange, resolvedTag) {
+  var allVersions = tags
+    .map(function (t) {
+      return String(t).replace(/^v/, "");
+    })
+    .filter(function (v) {
+      return /^[0-9]+\.[0-9]+\.[0-9]+$/.test(v);
+    });
+  if (allVersions.length === 0) return false;
+  allVersions.sort(compareSemver);
+  var highest = allVersions[allVersions.length - 1];
+  var resolved = String(resolvedTag).replace(/^v/, "");
+  if (highest === resolved) return false;
+  process.stdout.write(
+    "::warning::Newer knowledge release available: v" +
+      highest +
+      " (current range '" +
+      currentRange +
+      "' resolves to v" +
+      resolved +
+      "). Update vendored.json#knowledge_repo_version_range when ready to adopt.\n",
+  );
+  return true;
 }
 
 // Fetch all tags from a public GitHub repo via the API. No auth needed
@@ -351,6 +397,10 @@ function main() {
         sha.slice(0, 7) +
         ")\n",
     );
+    // Surface a workflow warning if a newer-tag exists outside the range.
+    // Lets designers see range staleness in the CI summary instead of
+    // discovering it via user-reported drift (today's failure mode).
+    notifyIfNewerAvailable(tags, resolvedRange, matchedTag);
   }
 
   if (!sha) {
@@ -429,4 +479,5 @@ module.exports = {
   matchesRange: matchesRange,
   compareSemver: compareSemver,
   resolveTargetTag: resolveTargetTag,
+  notifyIfNewerAvailable: notifyIfNewerAvailable,
 };
