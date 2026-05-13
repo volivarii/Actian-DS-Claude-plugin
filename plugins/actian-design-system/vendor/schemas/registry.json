@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/registry.json",
+  "title": "Component registry",
+  "description": "Schema for components/dist/registries/{dskit,fmkit,metakit}.json. Locks the registry contract introduced by ζ.0–ζ.3 (uncapped description, wired guidelinesFile, documentationLinks, three-axis section/category/group, populated nestedComponents).",
+  "type": "object",
+  "required": ["library", "fileKey", "lastSynced", "components"],
+  "additionalProperties": true,
+  "properties": {
+    "library": {
+      "type": "string",
+      "enum": ["ds", "fm", "meta-kit"],
+      "description": "Identifies which Figma kit this registry was synced from.",
+      "examples": ["ds", "fm", "meta-kit"]
+    },
+    "fileKey": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Figma file key — the URL fragment between /design/ and the file name. Used to construct Figma URLs and to fetch the file via REST.",
+      "examples": ["l8biHxfarNi1I2RMvVxVOK"]
+    },
+    "lastSynced": {
+      "type": "string",
+      "description": "ISO-8601 timestamp of when this registry was generated. Registry-level only; per-component lastSynced was removed in ζ.1 (was diff-noise, no consumers).",
+      "examples": ["2026-05-13T12:55:12.732Z"]
+    },
+    "componentCount": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Cached count of entries under components. Convenience field; consumers can also Object.keys(components).length.",
+      "examples": [322]
+    },
+    "components": {
+      "type": "object",
+      "additionalProperties": { "$ref": "#/$defs/componentEntry" },
+      "description": "Map of component slug (kebab-case slugified name) to component entry.",
+      "examples": [{ "button": { "name": "Button" } }]
+    },
+    "templates": {
+      "type": "object",
+      "description": "Meta Kit hand-curated templates block. Preserved across sync runs (sync orchestrator's metakit branch carries this forward).",
+      "examples": [{ "section-header": { "key": "..." } }]
+    },
+    "_meta": {
+      "type": "object",
+      "description": "Meta Kit metadata documenting hybrid-curation surface. Preserved across sync.",
+      "examples": [{ "hybrid": true, "hybrid_field": "templates" }]
+    }
+  },
+  "$defs": {
+    "componentEntry": {
+      "type": "object",
+      "required": [
+        "name",
+        "key",
+        "nodeId",
+        "importMethod",
+        "description",
+        "page",
+        "properties",
+        "nestedComponents",
+        "documentationLinks",
+        "guidelinesFile"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable component name from Figma.",
+          "examples": ["Button", "Tag, Default"]
+        },
+        "key": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Figma component key (the long hex identifier). Stable across renames; used as the primary identity in the classifier's rename-detection logic and as the lookup key when resolving INSTANCE_SWAP defaults.",
+          "examples": ["433bc17e08514c14ee821f2b03421bad865e0a0e"]
+        },
+        "nodeId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Figma node id of the component (or component set). Used in Figma URLs and as the lookup key when resolving hardcoded INSTANCE children in nestedComponents.",
+          "examples": ["8346:6897"]
+        },
+        "importMethod": {
+          "type": "string",
+          "enum": ["set", "single"],
+          "description": "'set' for component sets (variants present); 'single' for standalone components. variants field is only emitted when this is 'set'.",
+          "examples": ["set", "single"]
+        },
+        "description": {
+          "type": "string",
+          "description": "Designer-authored description of the component, from Figma's properties panel. Uncapped in ζ.0; can include markdown line breaks. Consumed by docs site Overview section and plugin brief generator.",
+          "examples": [
+            "A Link visually represents clickable text or elements that navigate users to other pages, sections, or resources."
+          ]
+        },
+        "page": {
+          "type": "string",
+          "description": "Raw Figma page name (with status emoji prefix preserved). Use `group` for the cleaned-name version when present.",
+          "examples": ["✅ Button", "✍️ Tag (Identification key)"]
+        },
+        "section": {
+          "type": "string",
+          "description": "Top-level Figma marker (ζ.2). 'Components' / 'Foundations' / 'Brand Assets' etc. Omitted when documentChildren not supplied (fmkit/metakit syncs).",
+          "examples": ["Components", "Foundations", "Brand Assets"]
+        },
+        "category": {
+          "type": "string",
+          "description": "Curated value for Components items (Action / Form / ...); page clean-name for Foundations/Brand items (Icons / Marketing icons / ...). Pre-ζ.2 was null for non-COMPONENTS; ζ.2 populates for all entries with documentChildren.",
+          "examples": ["Data Display", "Icons", "Marketing icons"]
+        },
+        "group": {
+          "type": "string",
+          "description": "Third-level grouping (ζ.2). Page clean-name for Components (e.g., 'Tag (Identification key)' for all 9 Tag variants); containing_frame.name for Foundations icons. Docs sidebar IA uses this to collapse multi-component pages into one nav node.",
+          "examples": ["Tag (Identification key)", "Navigation icons", "Button"]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["in-progress", "warn", "deprecated"],
+          "description": "Derived from page-name status emoji (✍️ / ⚠️ / ⛔️). Omitted entirely for ✅ pages (stable) to match the foundations-status precedent.",
+          "examples": ["in-progress", "warn", "deprecated"]
+        },
+        "properties": {
+          "type": "object",
+          "description": "Non-VARIANT componentPropertyDefinitions keyed by Figma's hash-suffixed identifier. Each value is { type, default }. Used for setProperties on imported instances.",
+          "examples": [{ "Icon#15:0": { "type": "INSTANCE_SWAP", "default": "k-icon-info" } }]
+        },
+        "variants": {
+          "type": "object",
+          "description": "VARIANT axes, only present when importMethod === 'set'. Map of axis name to ordered values array.",
+          "examples": [{ "State": ["Default", "Hovered", "Pressed"] }]
+        },
+        "nestedComponents": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/nestedComponentRef" },
+          "description": "Component refs nested inside this component (ζ.3). Populated from two signal sources: INSTANCE_SWAP property defaults (curated slots) + hardcoded child INSTANCE nodes (anatomy via tree walk). Empty array when no in-kit refs found.",
+          "examples": [[{ "slug": "icon-info", "role": "LeadingIcon", "source": "instance-swap" }]]
+        },
+        "documentationLinks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/documentationLink" },
+          "description": "Pass-through of Figma's COMPONENT_SET documentationLinks field (ζ.1). Designer-authored URLs to external documentation. Empty array when none supplied.",
+          "examples": [[{ "uri": "https://docs.actian.com/components/button" }]]
+        },
+        "guidelinesFile": {
+          "type": ["string", "null"],
+          "description": "Path (repo-root-relative) to the curated guideline JSON when one exists for this slug (ζ.1). Resolved from components/src/guidelines/_index.json; null otherwise.",
+          "examples": ["components/src/guidelines/button.json", null]
+        }
+      }
+    },
+    "nestedComponentRef": {
+      "type": "object",
+      "required": ["slug", "role", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "slug": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Slug of the nested component, resolved within the same registry. Cross-kit refs and external-library refs are dropped (not emitted).",
+          "examples": ["icon-info", "tag-default"]
+        },
+        "role": {
+          "type": ["string", "null"],
+          "description": "Property name for instance-swap entries (hash suffix stripped); null for child-instance entries (tree-walked, no semantic role attached).",
+          "examples": ["LeadingIcon", "Icon", null]
+        },
+        "source": {
+          "type": "string",
+          "enum": ["instance-swap", "child-instance"],
+          "description": "How this nesting was discovered. instance-swap = from componentPropertyDefinitions default (curated slot); child-instance = from doc.children tree walk (hardcoded anatomy).",
+          "examples": ["instance-swap", "child-instance"]
+        }
+      }
+    },
+    "documentationLink": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "External documentation URL (designer-authored in Figma's component description panel).",
+          "examples": ["https://docs.actian.com/components/button"]
+        }
+      }
+    }
+  }
+}
