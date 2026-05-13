@@ -25,13 +25,38 @@ const PATHS = require("../../scripts/lib/paths");
 // KNOWN_CATEGORIES in the knowledge repo's
 // scripts/transformers/transform-categories.js. Keep in sync when the
 // design team adds a new category in Figma.
-const KNOWN_CATEGORIES = new Set([
+//
+// COMPONENTS-section categories — these have curated *-defaults.json
+// files under vendor/components/dist/categories/. The
+// category-defaults-loader test enforces that mapping.
+const COMPONENTS_CATEGORIES = new Set([
   "Action",
   "Form (input & selection)",
   "Navigation",
   "Data Display",
   "Feedback",
   "Overlays",
+]);
+
+// ζ.2 (knowledge v0.7.0+, 2026-05-13) — `category` is now populated for
+// items outside the COMPONENTS section too: Foundations pages (icons,
+// breakpoints, etc.) and Brand assets pages. These values come straight
+// from the Figma page clean-name. No defaults files exist for them yet
+// (category-defaults are scoped to the curated Components set above);
+// the category-defaults-loader test below skips these by design.
+const NON_COMPONENTS_CATEGORIES = new Set([
+  "Breakpoint, grid & structure",
+  "Content guidelines",
+  "Icons",
+  "Illustrations & graphics",
+  "Local components",
+  "Product logos",
+  "White-label services",
+]);
+
+const KNOWN_CATEGORIES = new Set([
+  ...COMPONENTS_CATEGORIES,
+  ...NON_COMPONENTS_CATEGORIES,
 ]);
 
 function loadJSON(p) {
@@ -238,10 +263,16 @@ test("category-defaults — every accessibility ref slug resolves against a11y-i
   );
 });
 
-test("category-defaults — every dskit registry category label normalizes to an existing defaults slug", () => {
+test("category-defaults — every COMPONENTS-section category normalizes to an existing defaults slug", () => {
+  // ζ.2 (2026-05-13): scoped to COMPONENTS-section categories. Foundations
+  // and Brand-section categories (Icons, Marketing icons, etc.) intentionally
+  // have no defaults file — the loader falls through to null and per-component
+  // guideline content still renders cleanly. Add to COMPONENTS_CATEGORIES if
+  // we author defaults for any of the new Foundations/Brand categories.
   const c = loadJSON(PATHS.components.categories);
   const unmapped = [];
   for (const label of Object.keys(c.categories)) {
+    if (!COMPONENTS_CATEGORIES.has(label)) continue;
     const slug = loader.normalizeCategorySlug(label);
     const d = loader.loadDefaultsForCategory(slug);
     if (!d) unmapped.push(`'${label}' → '${slug}' (no defaults file)`);
@@ -249,6 +280,6 @@ test("category-defaults — every dskit registry category label normalizes to an
   assert.deepEqual(
     unmapped,
     [],
-    `dskit category labels with no matching defaults file:\n  ${unmapped.join("\n  ")}`,
+    `COMPONENTS-section category labels with no matching defaults file:\n  ${unmapped.join("\n  ")}`,
   );
 });
