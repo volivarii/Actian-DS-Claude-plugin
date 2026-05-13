@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "fm",
   "fileKey": "X2JSEUyLvxyNCx22ucOexn",
-  "lastSynced": "2026-05-13T11:19:05.646Z",
+  "lastSynced": "2026-05-13T13:45:38.242Z",
   "componentCount": 287,
   "components": {
     "fm-search-input": {
@@ -22,7 +22,13 @@
           "default": "my search terms"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "search",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -70,7 +76,13 @@
           "default": "Dropdown item"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "fm-user",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -116,7 +128,13 @@
           "default": "8:20570"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "check-circle",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -180,7 +198,13 @@
           "default": "9:1404"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -269,7 +293,13 @@
           "default": false
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "eye",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -310,7 +340,13 @@
       "description": "",
       "page": "Fat Marker",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -362,7 +398,28 @@
           "default": "Select"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "chevron-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "x",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "fm-user",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -406,7 +463,28 @@
           "default": "MM / DD / YYYY"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "calendar",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-left",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-right",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -442,7 +520,13 @@
           "default": "9:1404"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -487,7 +571,13 @@
           "default": "8:20614"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "plus-circle",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -549,7 +639,18 @@
       "description": "",
       "page": "Fat Marker",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-right",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -591,7 +692,33 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "fm-tabs",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "view-grid",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "search",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -651,7 +778,13 @@
           "default": "Button label"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -688,7 +821,18 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "chevron-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -708,7 +852,13 @@
       "description": "Table cell for data tables. Header = column title, Text = data value, Pill = status badge, Placeholder = future column.",
       "page": "Fat Marker",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -751,7 +901,13 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -813,7 +969,18 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-right",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -841,7 +1008,13 @@
           "default": "Description text"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
       "variants": {
@@ -1096,7 +1269,13 @@
       "description": "",
       "page": "Fat Marker",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null
     },
@@ -3892,7 +4071,13 @@
       "description": "",
       "page": "Fat Marker",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null
     },
@@ -3909,7 +4094,53 @@
           "default": "Rich text editor."
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "bold",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "italic",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "strikethrough",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "bulleted-list",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "numbered-list",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "block-quote",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "code",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "paper-airplane",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null
     },
@@ -3921,7 +4152,13 @@
       "description": "",
       "page": "Fat Marker",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null
     },
@@ -3933,7 +4170,18 @@
       "description": "",
       "page": "Fat Marker",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "check-circle",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "icon-placeholder",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null
     }

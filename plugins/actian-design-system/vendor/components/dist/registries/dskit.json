@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-05-13T11:19:02.348Z",
+  "lastSynced": "2026-05-13T13:45:34.648Z",
   "componentCount": 322,
   "components": {
     "xs-grid": {
@@ -16,6 +16,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Breakpoint, grid & structure",
+      "group": "Design guidelines",
       "variants": {
         "Property 1": [
           "Default"
@@ -33,7 +36,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/checkbox-with-label.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Checkbox",
       "variants": {
         "Selected": [
           "Yes",
@@ -60,7 +65,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/breadcrumbs.json",
+      "section": "Components",
       "category": "Navigation",
+      "group": "Breadcrumbs",
       "variants": {
         "Type": [
           "Default"
@@ -80,10 +87,33 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "powerbi",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "text-type",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/lineage-individual-node.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Data viz: lineage",
       "variants": {
         "Type": [
           "Main item",
@@ -116,7 +146,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tag-glossary-item-type.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Tag (Identification key)",
       "status": "in-progress",
       "variants": {
         "Property 1": [
@@ -146,10 +178,23 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "dataset",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "help-circle",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/card.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Card",
       "variants": {
         "Property 1": [
           "Default"
@@ -167,7 +212,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/rich-text.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Rich text (existing)",
       "variants": {
         "State": [
           "Expanded",
@@ -186,7 +233,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null,
+      "section": "Other Resources",
+      "category": "White-label services",
+      "group": "Merck assets (we created on Apr/10/26)",
       "variants": {
         "Property 1": [
           "Merck-favicon-admin",
@@ -206,7 +255,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/maintenance-banner.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Maintenance banner",
       "variants": {
         "Type": [
           "Default"
@@ -224,7 +275,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null,
+      "section": "Brand Assets",
+      "category": "Product logos",
+      "group": "Logos",
       "variants": {
         "Type": [
           "Explorer",
@@ -254,7 +307,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Toggle control",
       "variants": {
         "Toggle location": [
           "Left",
@@ -298,10 +353,18 @@
           "default": "7207:2839"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tag-interactive.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Tag (Identification key)",
       "status": "in-progress",
       "variants": {
         "State": [
@@ -322,10 +385,18 @@
       "description": "",
       "page": "✅ Global header",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "checkmark-outline",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/notification-dropdown.json",
+      "section": "Components",
       "category": "Navigation",
+      "group": "Global header",
       "variants": {
         "Property 1": [
           "Empty",
@@ -344,7 +415,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null,
+      "section": "Brand Assets",
+      "category": "Product logos",
+      "group": "Logos",
       "variants": {
         "Type": [
           "Dev Logo Explorer",
@@ -370,7 +443,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null,
+      "section": "Brand Assets",
+      "category": "Illustrations & graphics",
+      "group": "Illustrations",
       "variants": {
         "Type": [
           "Empty state large",
@@ -394,7 +469,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null,
+      "section": "Brand Assets",
+      "category": "Product logos",
+      "group": "Logos",
       "variants": {
         "Layout": [
           "Horizontal",
@@ -413,7 +490,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null,
+      "section": "Brand Assets",
+      "category": "Product logos",
+      "group": "Logos",
       "variants": {
         "Property 1": [
           "Dev Actian Data Intelligence Admin",
@@ -438,7 +517,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tooltip.json",
+      "section": "Components",
       "category": "Overlays",
+      "group": "Tooltip",
       "status": "warn",
       "variants": {
         "Type": [
@@ -457,6 +538,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Breakpoint, grid & structure",
+      "group": "Design guidelines",
       "variants": {
         "Property": [
           "Default",
@@ -473,10 +557,23 @@
       "description": "",
       "page": "✅ Global header",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-left",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/whats-new-dropdown.json",
+      "section": "Components",
       "category": "Navigation",
+      "group": "Global header",
       "variants": {
         "Property 1": [
           "Drilldown1",
@@ -515,10 +612,18 @@
           "default": "7207:2839"
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tag-default.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Tag (Identification key)",
       "status": "in-progress",
       "variants": {
         "Color": [
@@ -547,10 +652,18 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/metamodel-widget.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Data viz: metamodel",
       "variants": {
         "Type": [
           "Dataset",
@@ -569,10 +682,48 @@
       "description": "",
       "page": "✅ Data viz: glossary item hierarchy",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "list-bullets",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-to-fit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-reset",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-in",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-out",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "more",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "export",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/glossary-item-hierarchy-diagram.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Data viz: glossary item hierarchy",
       "variants": {
         "Type": [
           "Default"
@@ -587,10 +738,28 @@
       "description": "A specialized card variant optimized for scannability during a search. Highlights relevant metadata and matching keywords.",
       "page": "✅ Search result card",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "favorite",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "directory",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/search-result-card.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Search result card",
       "variants": {
         "App": [
           "Explorer",
@@ -613,10 +782,28 @@
       "description": "",
       "page": "✍️ Chat with AI Steward",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "expand",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/chat-with-ai-steward.json",
+      "section": "Components",
       "category": "Overlays",
+      "group": "Chat with AI Steward",
       "status": "in-progress",
       "variants": {
         "size": [
@@ -640,7 +827,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/digram-item-types.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Digram",
       "variants": {
         "Item type": [
           "Dataset",
@@ -689,7 +878,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/progress-bar-small.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Data viz: progressive bar",
       "variants": {
         "Size": [
           "Default",
@@ -715,10 +906,78 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-sort",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-out",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-in",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-to-fit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "trash",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "help-bubble",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "checkmark-outline",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "circle-dash",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "edit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/popover.json",
+      "section": "Components",
       "category": "Overlays",
+      "group": "Popover",
       "status": "deprecated",
       "variants": {
         "Type": [
@@ -738,7 +997,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/confirmation.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Empty state",
       "variants": {
         "Size": [
           "Large"
@@ -756,7 +1017,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/avatar.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Avatar",
       "variants": {
         "State": [
           "Default",
@@ -784,7 +1047,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/scroll-bar.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Scroll bar",
       "variants": {
         "Property 1": [
           "Default"
@@ -802,6 +1067,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Breakpoint, grid & structure",
+      "group": "Design guidelines",
       "variants": {
         "Property 1": [
           "Default"
@@ -819,7 +1087,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/traffic-light.json",
+      "section": "Components",
       "category": "Navigation",
+      "group": "Traffic light",
       "variants": {
         "Type": [
           "Default",
@@ -846,10 +1116,18 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "tableau",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/radio-button.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Radio button",
       "variants": {
         "Format": [
           "Default",
@@ -876,10 +1154,18 @@
       "description": "Use for mutually exclusive options that impact the immediate view. Best for 2–4 options (e.g., \"Week / Month / Year\").",
       "page": "✅ Segmented control (Button group)",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "view-table",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/segmented-control.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Segmented control (Button group)",
       "variants": {
         "Type": [
           "Default"
@@ -902,7 +1188,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tag-catalog-item-type.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Tag (Identification key)",
       "status": "in-progress",
       "variants": {
         "Type": [
@@ -928,7 +1216,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/identification-key.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Tag (Identification key)",
       "status": "in-progress",
       "variants": {
         "Property 1": [
@@ -947,7 +1237,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/loading-skeleton.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Loading (Loader, Spinner, Skeleton)",
       "variants": {
         "Transition": [
           "1",
@@ -968,10 +1260,18 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "home",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tabs.json",
+      "section": "Components",
       "category": "Navigation",
+      "group": "Tab",
       "variants": {
         "Property 1": [
           "Default"
@@ -998,7 +1298,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/stepper.json",
+      "section": "Components",
       "category": "Navigation",
+      "group": "Stepper",
       "variants": {
         "State": [
           "Complete",
@@ -1019,6 +1321,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Breakpoint, grid & structure",
+      "group": "Design guidelines",
       "variants": {
         "Property 1": [
           "Default",
@@ -1037,6 +1342,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Breakpoint, grid & structure",
+      "group": "Design guidelines",
       "variants": {
         "Property": [
           "Default",
@@ -1053,10 +1361,18 @@
       "description": "Use for catalog types. Can be interactive (removable) or static metadata.",
       "page": "✍️ Tag (Identification key)",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "directory",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tag-catalog.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Tag (Identification key)",
       "status": "in-progress",
       "variants": {
         "Type": [
@@ -1072,10 +1388,63 @@
       "description": "Use for status. Can be interactive (removable) or static metadata.",
       "page": "✍️ Tag (Identification key)",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "misuse-outline",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "warning-alt",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "checkmark-outline",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "tools",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "calendar-2",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "icon-query-queue",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stop-outline",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "asleep",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "circle-dash",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "pending",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tag-status.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Tag (Identification key)",
       "status": "in-progress",
       "variants": {
         "Status": [
@@ -1101,10 +1470,43 @@
       "description": "The persistent top-level container for branding, primary site-wide navigation, and user-specific actions (e.g., Profile, Logout).",
       "page": "✅ Global header",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "alert",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "applications",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "data-access-request",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/global-header.json",
+      "section": "Components",
       "category": "Navigation",
+      "group": "Global header",
       "variants": {
         "App type": [
           "Explorer",
@@ -1131,7 +1533,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/perimeter-card.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Card",
       "variants": {
         "Property 1": [
           "Default"
@@ -1151,10 +1555,58 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "chevron-left",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "view-details",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "home",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "favorite",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stars",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "integer-type",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/drawer-side-panel.json",
+      "section": "Components",
       "category": "Overlays",
+      "group": "Drawer (Side panel)",
       "variants": {
         "App": [
           "Studio",
@@ -1187,10 +1639,18 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/input-date.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Calendar",
       "variants": {
         "Type": [
           "Single date",
@@ -1220,10 +1680,28 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stars",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/search.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Search",
       "variants": {
         "Type": [
           "Explorer home",
@@ -1248,10 +1726,98 @@
       "description": "Vertical navigation for primary application modules. Use when the app has many top-level sections or needs to show sub-navigation.",
       "page": "✍️  Side nav",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "dashboard",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "download",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "add",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "data-access-request",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "catalog-design",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "analytics",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-left",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "user-group",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "shield-lock",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "database",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "api-key",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "scanner",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "security-services",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "maintenance",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/side-nav.json",
+      "section": "Components",
       "category": "Navigation",
+      "group": "Side nav",
       "status": "in-progress",
       "variants": {
         "App": [
@@ -1272,10 +1838,18 @@
       "description": "",
       "page": "⛔️ Data viz: WIP all others",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/bar-graph.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Data viz: WIP all others",
       "status": "deprecated",
       "variants": {
         "Property 1": [
@@ -1294,7 +1868,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
+      "section": "Components",
       "category": "Feedback",
+      "group": "Loading (Loader, Spinner, Skeleton)",
       "variants": {
         "App": [
           "Actian Data Intelligence",
@@ -1312,10 +1888,33 @@
       "description": "",
       "page": "✅ Calendar",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-left",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/calendar.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Calendar",
       "variants": {
         "Type": [
           "Single date select",
@@ -1359,10 +1958,33 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/dropdown-select-default.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Dropdown / Select",
       "variants": {
         "Type": [
           "Default",
@@ -1388,10 +2010,18 @@
       "description": "",
       "page": "✅ Search",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/search-dropdown-menu.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Search",
       "variants": {
         "Type": [
           "No result",
@@ -1412,7 +2042,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/digram-topic.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Digram",
       "variants": {
         "Type": [
           "Light purple",
@@ -1445,10 +2077,18 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tag-stage.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Tag (Identification key)",
       "status": "in-progress",
       "variants": {
         "Color": [
@@ -1474,7 +2114,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tag-updated.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Tag (Identification key)",
       "status": "in-progress",
       "variants": {
         "Type": [
@@ -1493,7 +2135,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/maintenance-state.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Empty state",
       "variants": {
         "Size": [
           "Large"
@@ -1511,7 +2155,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/loader.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Loading (Loader, Spinner, Skeleton)",
       "variants": {
         "Percent": [
           "99%",
@@ -1531,7 +2177,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/link.json",
+      "section": "Components",
       "category": "Action",
+      "group": "Link",
       "variants": {
         "State": [
           "Disabled",
@@ -1554,7 +2202,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null,
+      "section": "Brand Assets",
+      "category": "Product logos",
+      "group": "Logos",
       "variants": {
         "Color": [
           "Full colo",
@@ -1577,7 +2227,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null,
+      "section": "Brand Assets",
+      "category": "Product logos",
+      "group": "Logos",
       "variants": {
         "Color": [
           "Full color",
@@ -1596,7 +2248,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/spinner.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Loading (Loader, Spinner, Skeleton)",
       "variants": {
         "Complete": [
           "50%",
@@ -1617,7 +2271,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/badge.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Badge",
       "status": "in-progress",
       "variants": {
         "Type": [
@@ -1644,10 +2300,58 @@
           }
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "task-list",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "text-file",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "link-type",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "paragraph-justify",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "list-numbers",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "task-list-multiple",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/modal.json",
+      "section": "Components",
       "category": "Overlays",
+      "group": "Modal",
       "variants": {
         "Size & Type": [
           "700px setting",
@@ -1676,10 +2380,18 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "tableau",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/lineage-connecting-line.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Data viz: lineage",
       "variants": {
         "Direction": [
           "Down",
@@ -1705,7 +2417,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/notification.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Notification (Toast)",
       "variants": {
         "Type": [
           "Default",
@@ -1721,10 +2435,73 @@
       "description": "Use for large datasets requiring comparison, sorting, and filtering. Supports complex rows with multi-type data (text, badges, actions).\n\n\"If data is null, display the 'Empty State' illustration variant with a 'Create New' call to action.\"",
       "page": "✍️ Table",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "view-table",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stars",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "filter",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "add",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-sort",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "checkmark-outline",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "edit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "trash",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "chevron-left",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/table.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Table",
       "status": "in-progress",
       "variants": {
         "Built type": [
@@ -1741,10 +2518,33 @@
       "description": "A collection of inputs used to narrow down a dataset or search results. Should be placed above or to the left of the content it controls.",
       "page": "✅ Filters",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stars",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/search-filters.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Filters",
       "variants": {
         "Type": [
           "Explorer",
@@ -1813,10 +2613,38 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "simple-check",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/input.json",
+      "section": "Components",
       "category": "Form (input & selection)",
+      "group": "Text input",
       "variants": {
         "States": [
           "Default",
@@ -1843,10 +2671,48 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "export",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-to-fit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-reset",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-in",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-out",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "map",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "filter",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/toolbar.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Data viz: toolbar",
       "variants": {
         "Type": [
           "Single",
@@ -1880,10 +2746,38 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "info-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "success-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "warning-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/alert-banner.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Alert (banner)",
       "status": "in-progress",
       "variants": {
         "Type": [
@@ -1909,7 +2803,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/error-state.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Empty state",
       "variants": {
         "Size": [
           "Large",
@@ -1928,7 +2824,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/sticky-footer.json",
+      "section": "Components",
       "category": "Action",
+      "group": "Sticky footer",
       "variants": {
         "Property 1": [
           "Default"
@@ -1943,10 +2841,18 @@
       "description": "",
       "page": "⛔️ Data viz: WIP all others",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/line-graph.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Data viz: WIP all others",
       "status": "deprecated",
       "variants": {
         "Property 1": [
@@ -1962,10 +2868,48 @@
       "description": "The title area of a specific page. Should include the Page Title, optional Breadcrumbs, and page-specific primary actions.",
       "page": "✅ Page header",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "open",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "suggestion",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "favorite",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "directory",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "powerbi",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/page-header.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Page header",
       "variants": {
         "Type": [
           "Default",
@@ -1983,10 +2927,28 @@
       "description": "",
       "page": "✅ Data viz: lineage",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "powerbi",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/lineage-grouped-node.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Data viz: lineage",
       "variants": {
         "State": [
           "Default",
@@ -2046,7 +3008,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/empty-state.json",
+      "section": "Components",
       "category": "Feedback",
+      "group": "Empty state",
       "variants": {
         "Size": [
           "Large",
@@ -2091,7 +3055,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/button.json",
+      "section": "Components",
       "category": "Action",
+      "group": "Button",
       "status": "in-progress",
       "variants": {
         "Type": [
@@ -2134,10 +3100,18 @@
           }
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/collapse-accordion.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Collapse (Accordion)",
       "status": "in-progress",
       "variants": {
         "State": [
@@ -2159,10 +3133,33 @@
           "default": true
         }
       },
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "directory",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "favorite",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stars",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": "components/src/guidelines/tile-item.json",
+      "section": "Components",
       "category": "Data Display",
+      "group": "Card",
       "variants": {
         "Type": [
           "Catalog",
@@ -2190,7 +3187,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "kafka": {
       "name": "kafka",
@@ -2202,7 +3202,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "dataiku": {
       "name": "dataiku",
@@ -2214,7 +3217,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "mysql": {
       "name": "mysql",
@@ -2226,7 +3232,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "thumbs-down": {
       "name": "thumbs-down",
@@ -2238,7 +3247,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "use-with-care": {
       "name": "use-with-care",
@@ -2250,7 +3262,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "safyr-sap-bw": {
       "name": "safyr-sap-bw",
@@ -2262,7 +3277,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "zoom-to-fit": {
       "name": "zoom-to-fit",
@@ -2274,7 +3292,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "orc": {
       "name": "orc",
@@ -2286,7 +3307,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "postgresql": {
       "name": "PostgreSQL",
@@ -2298,7 +3322,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "splunk": {
       "name": "splunk",
@@ -2310,7 +3337,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "azure-purview": {
       "name": "azure-purview",
@@ -2322,7 +3352,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "adobe-analytics": {
       "name": "adobe-analytics",
@@ -2334,7 +3367,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "process": {
       "name": "process",
@@ -2346,7 +3382,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "cognos-bi": {
       "name": "cognos-bi",
@@ -2358,7 +3397,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "bigquery": {
       "name": "bigquery",
@@ -2370,7 +3412,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "elasticsearch": {
       "name": "elasticsearch",
@@ -2382,7 +3427,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "hbase": {
       "name": "hbase",
@@ -2394,7 +3442,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "zoom-out": {
       "name": "zoom-out",
@@ -2406,7 +3457,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "zoom-in": {
       "name": "zoom-in",
@@ -2418,7 +3472,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "csv-custom-item": {
       "name": "csv-custom-item",
@@ -2430,7 +3487,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "more": {
       "name": "more",
@@ -2442,7 +3502,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "db2": {
       "name": "db2",
@@ -2454,7 +3517,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "aws-glue-etl": {
       "name": "Aws-glue-etl",
@@ -2466,7 +3532,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "help-circle": {
       "name": "help-circle",
@@ -2478,7 +3547,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "jdbc": {
       "name": "jdbc",
@@ -2490,7 +3562,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "export": {
       "name": "export",
@@ -2502,7 +3577,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "atlas": {
       "name": "atlas",
@@ -2514,7 +3592,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "data-model": {
       "name": "data-model",
@@ -2526,7 +3607,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "avro": {
       "name": "avro",
@@ -2538,7 +3622,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "process-csv": {
       "name": "process csv",
@@ -2550,7 +3637,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "snowflake": {
       "name": "Snowflake",
@@ -2562,7 +3652,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "powerbi": {
       "name": "Powerbi",
@@ -2574,7 +3667,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "cognos": {
       "name": "cognos",
@@ -2586,7 +3682,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "palantir": {
       "name": "palantir",
@@ -2598,7 +3697,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "opendatagouv": {
       "name": "opendatagouv",
@@ -2610,7 +3712,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "sqlserver": {
       "name": "sqlserver",
@@ -2622,7 +3727,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "mapr": {
       "name": "mapr",
@@ -2634,7 +3742,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "spline": {
       "name": "spline",
@@ -2646,7 +3757,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "microstrategy": {
       "name": "microstrategy",
@@ -2658,7 +3772,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "openapi": {
       "name": "openapi",
@@ -2670,7 +3787,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "safyr-ebs": {
       "name": "safyr-ebs",
@@ -2682,7 +3802,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "powerbireportserver": {
       "name": "powerbireportserver",
@@ -2694,7 +3817,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "impala": {
       "name": "impala",
@@ -2706,7 +3832,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "mariadb": {
       "name": "mariadb",
@@ -2718,7 +3847,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "thumbs-up": {
       "name": "thumbs-up",
@@ -2730,7 +3862,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "adlsgen1": {
       "name": "adlsgen1",
@@ -2742,7 +3877,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "paragraph-justify": {
       "name": "paragraph-justify",
@@ -2754,7 +3892,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "awsredshift": {
       "name": "awsredshift",
@@ -2766,7 +3907,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "qlik-sense": {
       "name": "qlik-sense",
@@ -2778,7 +3922,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "mail": {
       "name": "mail",
@@ -2790,7 +3937,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "user-single": {
       "name": "user-single",
@@ -2802,7 +3952,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "talend": {
       "name": "talend",
@@ -2814,7 +3967,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "azure-cosmosdb": {
       "name": "azure-cosmosdb",
@@ -2826,7 +3982,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "greenplum": {
       "name": "greenplum",
@@ -2838,7 +3997,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "soda": {
       "name": "soda",
@@ -2850,7 +4012,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "safyr-peoplesoft": {
       "name": "safyr-peoplesoft",
@@ -2862,7 +4027,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "simple-check": {
       "name": "simple-check",
@@ -2874,7 +4042,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "xml": {
       "name": "xml",
@@ -2886,7 +4057,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "safyr-salesforce": {
       "name": "safyr-salesforce",
@@ -2898,7 +4072,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "looker": {
       "name": "looker",
@@ -2910,7 +4087,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "mongodb": {
       "name": "mongodb",
@@ -2922,7 +4102,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "erwin-data-modeler": {
       "name": "erwin-data-modeler",
@@ -2934,7 +4117,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "denodo": {
       "name": "denodo",
@@ -2946,7 +4132,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "safyr-dynamicsax": {
       "name": "safyr-dynamicsax",
@@ -2958,7 +4147,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "azure-datafactory": {
       "name": "azure-datafactory",
@@ -2970,7 +4162,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "safyr-siebel": {
       "name": "safyr-siebel",
@@ -2982,7 +4177,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "tibco-datavirtualization": {
       "name": "tibco-datavirtualization",
@@ -2994,7 +4192,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "oracle": {
       "name": "oracle",
@@ -3006,7 +4207,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "data-structured": {
       "name": "data--structured",
@@ -3018,7 +4222,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "catalogs": {
       "name": "catalogs",
@@ -3030,7 +4237,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "arrow-alt": {
       "name": "arrow-alt",
@@ -3042,7 +4252,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "user-add": {
       "name": "user-add",
@@ -3054,7 +4267,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "award-04": {
       "name": "award-04",
@@ -3066,7 +4282,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "image": {
       "name": "image",
@@ -3078,7 +4297,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "list-bullets": {
       "name": "list-bullets",
@@ -3090,7 +4312,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "map": {
       "name": "map",
@@ -3102,7 +4327,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "teradata": {
       "name": "teradata",
@@ -3114,7 +4342,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "safyr-jdedwards": {
       "name": "safyr-jdedwards",
@@ -3126,7 +4357,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "content-checklist": {
       "name": "Content Checklist",
@@ -3138,7 +4372,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Content guidelines",
+      "group": "Content guidelines"
     },
     "account-dropdown": {
       "name": "Account dropdown",
@@ -3148,10 +4385,28 @@
       "description": "",
       "page": "✅ Global header",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "help-bubble",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "exit",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": "Navigation"
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Global header"
     },
     "stepper-buttons": {
       "name": "Stepper buttons",
@@ -3164,7 +4419,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": "Navigation"
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Stepper"
     },
     "couchbase": {
       "name": "couchbase",
@@ -3176,7 +4433,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "parquet": {
       "name": "parquet",
@@ -3188,7 +4448,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "azure": {
       "name": "Azure",
@@ -3200,7 +4463,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "ms-teams": {
       "name": "ms-teams",
@@ -3212,7 +4478,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "hive": {
       "name": "hive",
@@ -3224,7 +4493,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "cosmosdb": {
       "name": "cosmosdb",
@@ -3236,7 +4508,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "dbt": {
       "name": "dbt",
@@ -3248,7 +4523,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "amazons3": {
       "name": "amazons3",
@@ -3260,7 +4538,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "dictionnary": {
       "name": "dictionnary",
@@ -3272,7 +4553,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "db2-database-1": {
       "name": "db2--database 1",
@@ -3284,7 +4568,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "netezza": {
       "name": "netezza",
@@ -3296,7 +4583,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "json": {
       "name": "json",
@@ -3308,7 +4598,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "tableau": {
       "name": "Tableau",
@@ -3320,7 +4613,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "databricks": {
       "name": "databricks",
@@ -3332,7 +4628,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "alteryx": {
       "name": "alteryx",
@@ -3344,7 +4643,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "cloud-upload": {
       "name": "cloud--upload",
@@ -3356,7 +4658,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "chevron-left": {
       "name": "chevron--left",
@@ -3368,7 +4673,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "notes-feedback": {
       "name": "Notes/Feedback",
@@ -3381,7 +4689,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null
+      "section": "Other Resources",
+      "category": "Local components",
+      "group": "Local components"
     },
     "upload-file": {
       "name": "upload-file",
@@ -3393,7 +4703,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "history": {
       "name": "history",
@@ -3405,7 +4718,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "arrow-down": {
       "name": "arrow-down",
@@ -3417,7 +4733,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "suggestion": {
       "name": "suggestion",
@@ -3429,7 +4748,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "info": {
       "name": "info",
@@ -3441,7 +4763,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "error-filled": {
       "name": "error-filled",
@@ -3453,7 +4778,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "cursor-hand": {
       "name": "cursor-hand",
@@ -3465,7 +4793,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "api-key": {
       "name": "api-key",
@@ -3477,7 +4808,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "open": {
       "name": "open",
@@ -3489,7 +4823,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "background-explore": {
       "name": "background-explore",
@@ -3502,7 +4839,9 @@
       "nestedComponents": [],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": null
+      "section": "Brand Assets",
+      "category": "Illustrations & graphics",
+      "group": "Graphics"
     },
     "app-switcher-dropdown": {
       "name": "App switcher dropdown",
@@ -3512,10 +4851,23 @@
       "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
       "page": "✅ Global header",
       "properties": {},
-      "nestedComponents": [],
+      "nestedComponents": [
+        {
+          "slug": "settings",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
       "documentationLinks": [],
       "guidelinesFile": null,
-      "category": "Navigation"
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Global header"
     },
     "server-search": {
       "name": "server-search",
@@ -3527,7 +4879,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "view": {
       "name": "view",
@@ -3539,7 +4894,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "output": {
       "name": "output",
@@ -3551,7 +4909,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "directory": {
       "name": "directory",
@@ -3563,7 +4924,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "filter": {
       "name": "filter",
@@ -3575,7 +4939,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "view-details": {
       "name": "view-details",
@@ -3587,7 +4954,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "event-time-type": {
       "name": "event--time-type",
@@ -3599,7 +4969,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "view-card": {
       "name": "view-card",
@@ -3611,7 +4984,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "dots": {
       "name": "dots",
@@ -3623,7 +4999,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "database-check": {
       "name": "database-check",
@@ -3635,7 +5014,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "user-group": {
       "name": "user-group",
@@ -3647,7 +5029,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "chart-bar": {
       "name": "chart--bar",
@@ -3659,7 +5044,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "icon-query-queue": {
       "name": "Icon/query-queue",
@@ -3671,7 +5059,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "exit": {
       "name": "exit",
@@ -3683,7 +5074,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "boolean-type": {
       "name": "boolean-type",
@@ -3695,7 +5089,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "rotate-back": {
       "name": "rotate-back",
@@ -3707,7 +5104,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "glossary": {
       "name": "glossary",
@@ -3719,7 +5119,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "checkmark-outline": {
       "name": "checkmark--outline",
@@ -3731,7 +5134,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "layers-front-curator-indicator": {
       "name": "layers-front (Curator indicator)",
@@ -3743,7 +5149,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "help-bubble": {
       "name": "help-bubble",
@@ -3755,7 +5164,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "database": {
       "name": "database",
@@ -3767,7 +5179,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "minimize": {
       "name": "minimize",
@@ -3779,7 +5194,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "filter-text": {
       "name": "filter-text",
@@ -3791,7 +5209,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "pending": {
       "name": "pending",
@@ -3803,7 +5224,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "favorite-filled": {
       "name": "favorite-filled",
@@ -3815,7 +5239,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "drag": {
       "name": "drag",
@@ -3827,7 +5254,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "menu": {
       "name": "menu",
@@ -3839,7 +5269,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "brightness-contrast": {
       "name": "brightness-contrast",
@@ -3851,7 +5284,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "data-product-output-port": {
       "name": "data-product-output-port",
@@ -3863,7 +5299,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "schema": {
       "name": "schema",
@@ -3875,7 +5314,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "settings": {
       "name": "settings",
@@ -3887,7 +5329,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "task-list-multiple": {
       "name": "task-list-multiple",
@@ -3899,7 +5344,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "bin-type": {
       "name": "bin-type",
@@ -3911,7 +5359,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "close": {
       "name": "close",
@@ -3923,7 +5374,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "trash": {
       "name": "trash",
@@ -3935,7 +5389,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "target-type": {
       "name": "target-type",
@@ -3947,7 +5404,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "add-circle": {
       "name": "add-circle",
@@ -3959,7 +5419,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "arrow": {
       "name": "arrow",
@@ -3971,7 +5434,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "user-lock": {
       "name": "user-lock",
@@ -3983,7 +5449,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "warning-filled": {
       "name": "warning-filled",
@@ -3995,7 +5464,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "calendar-2": {
       "name": "calendar 2",
@@ -4007,7 +5479,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "catalog-design": {
       "name": "catalog-design",
@@ -4019,7 +5494,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "misuse-outline": {
       "name": "misuse--outline",
@@ -4031,7 +5509,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "shield-lock": {
       "name": "shield-lock",
@@ -4043,7 +5524,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "tools": {
       "name": "tools",
@@ -4055,7 +5539,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "add": {
       "name": "add",
@@ -4067,7 +5554,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "analytics": {
       "name": "analytics",
@@ -4079,7 +5569,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "text-type": {
       "name": "text-type",
@@ -4091,7 +5584,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "edit": {
       "name": "edit",
@@ -4103,7 +5599,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "link-type": {
       "name": "link-type",
@@ -4115,7 +5614,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "relation": {
       "name": "relation",
@@ -4127,7 +5629,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "lineage": {
       "name": "lineage",
@@ -4139,7 +5644,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "local-filesystem": {
       "name": "local-filesystem",
@@ -4151,7 +5659,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "back": {
       "name": "back",
@@ -4163,7 +5674,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "task-list": {
       "name": "task-list",
@@ -4175,7 +5689,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "tags-add": {
       "name": "tags-add",
@@ -4187,7 +5704,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "book-bookmark": {
       "name": "book-bookmark",
@@ -4199,7 +5719,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "download": {
       "name": "download",
@@ -4211,7 +5734,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "user-info": {
       "name": "user-info",
@@ -4223,7 +5749,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "applications": {
       "name": "applications",
@@ -4235,7 +5764,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "alert": {
       "name": "alert",
@@ -4247,7 +5779,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "pii": {
       "name": "pii",
@@ -4259,7 +5794,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "pin": {
       "name": "pin",
@@ -4271,7 +5809,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "discussion": {
       "name": "discussion",
@@ -4283,7 +5824,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "home": {
       "name": "home",
@@ -4295,7 +5839,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "book-edit": {
       "name": "book-edit",
@@ -4307,7 +5854,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "layers-front": {
       "name": "layers-front",
@@ -4319,7 +5869,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "help-laptop": {
       "name": "help-laptop",
@@ -4331,7 +5884,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "chevron-sort": {
       "name": "chevron--sort",
@@ -4343,7 +5899,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "null-sign": {
       "name": "null-sign",
@@ -4355,7 +5914,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "favorite": {
       "name": "favorite",
@@ -4367,7 +5929,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "chevron-up": {
       "name": "chevron--up",
@@ -4379,7 +5944,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "dashboard": {
       "name": "dashboard",
@@ -4391,7 +5959,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "move": {
       "name": "move",
@@ -4403,7 +5974,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "dataset": {
       "name": "dataset",
@@ -4415,7 +5989,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "chevron-sort-down": {
       "name": "chevron--sort--down",
@@ -4427,7 +6004,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "warning-alt": {
       "name": "warning--alt",
@@ -4439,7 +6019,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "task-list-settings": {
       "name": "task-list-settings",
@@ -4451,7 +6034,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "float-type": {
       "name": "float-type",
@@ -4463,7 +6049,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "maintenance": {
       "name": "maintenance",
@@ -4475,7 +6064,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "chevron-sort-up": {
       "name": "chevron--sort--up",
@@ -4487,7 +6079,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "exploration": {
       "name": "exploration",
@@ -4499,7 +6094,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "geo-point-type": {
       "name": "geo-point-type",
@@ -4511,7 +6109,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "integer-type": {
       "name": "integer-type",
@@ -4523,7 +6124,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "text-file": {
       "name": "text-file",
@@ -4535,7 +6139,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "scanner": {
       "name": "scanner",
@@ -4547,7 +6154,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "data-file-question": {
       "name": "data-file-question",
@@ -4559,7 +6169,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "security-services": {
       "name": "security-services",
@@ -4571,7 +6184,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "data-access-request": {
       "name": "data-access-request",
@@ -4583,7 +6199,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "info-filled": {
       "name": "info-filled",
@@ -4595,7 +6214,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "chart-pie": {
       "name": "chart--pie",
@@ -4607,7 +6229,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "stop-outline": {
       "name": "stop--outline",
@@ -4619,7 +6244,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "relation-incoming": {
       "name": "relation_incoming",
@@ -4631,7 +6259,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "relation-outgoing": {
       "name": "relation_outgoing",
@@ -4643,7 +6274,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "maximize": {
       "name": "maximize",
@@ -4655,7 +6289,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "unknown-type": {
       "name": "unknown-type",
@@ -4667,7 +6304,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "lifecycle-policy": {
       "name": "lifecycle-policy",
@@ -4679,7 +6319,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "circle-dash": {
       "name": "circle-dash",
@@ -4691,7 +6334,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "graph-merge": {
       "name": "graph-merge",
@@ -4703,7 +6349,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "list-numbers": {
       "name": "list-numbers",
@@ -4715,7 +6364,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "rocket-1": {
       "name": "rocket 1",
@@ -4727,7 +6379,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "stars": {
       "name": "stars",
@@ -4739,7 +6394,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "view-table": {
       "name": "view-table",
@@ -4751,7 +6409,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "asleep": {
       "name": "asleep",
@@ -4763,7 +6424,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "undo": {
       "name": "undo",
@@ -4775,7 +6439,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "cursor-arrow": {
       "name": "cursor-arrow",
@@ -4787,7 +6454,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "connected": {
       "name": "connected",
@@ -4799,7 +6469,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "hdfs": {
       "name": "hdfs",
@@ -4811,7 +6484,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "informatica": {
       "name": "informatica",
@@ -4823,7 +6499,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "sybaseiq": {
       "name": "sybaseiq",
@@ -4835,7 +6514,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "azure-synapse": {
       "name": "azure-synapse",
@@ -4847,7 +6529,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "gcp": {
       "name": "GCP",
@@ -4859,7 +6544,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "sparkdb": {
       "name": "sparkdb",
@@ -4871,7 +6559,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "gcpcloudstorage": {
       "name": "gcpcloudstorage",
@@ -4883,7 +6574,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "sas-database": {
       "name": "sas-database",
@@ -4895,7 +6589,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "zoom-reset": {
       "name": "zoom-reset",
@@ -4907,7 +6604,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "influxdb": {
       "name": "influxdb",
@@ -4919,7 +6619,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "cassandra": {
       "name": "cassandra",
@@ -4931,7 +6634,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "generic-jdbc": {
       "name": "generic-jdbc",
@@ -4943,7 +6649,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "alert-circle": {
       "name": "alert-circle",
@@ -4955,7 +6664,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "thoughtspot": {
       "name": "thoughtspot",
@@ -4967,7 +6679,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "safyr-dynamics365": {
       "name": "safyr-dynamics365",
@@ -4979,7 +6694,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "disconnected": {
       "name": "disconnected",
@@ -4991,7 +6709,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "google-cloud": {
       "name": "google-cloud",
@@ -5003,7 +6724,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "api": {
       "name": "api",
@@ -5015,7 +6739,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "csv": {
       "name": "csv",
@@ -5027,7 +6754,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "success-filled": {
       "name": "success-filled",
@@ -5039,7 +6769,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "ckan": {
       "name": "ckan",
@@ -5051,7 +6784,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     },
     "expand": {
       "name": "expand",
@@ -5063,7 +6799,10 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null
+      "guidelinesFile": null,
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Actual icons"
     }
   }
 }
