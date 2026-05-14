@@ -1,0 +1,54 @@
+{
+  "_schema_version": 1,
+  "id": "design-guidelines/brightness-filter-convention-interactive-states/implementation",
+  "title": "Implementation",
+  "path": [
+    "design-guidelines",
+    "brightness-filter-convention-interactive-states",
+    "implementation"
+  ],
+  "parent": "design-guidelines/brightness-filter-convention-interactive-states",
+  "anchors": {
+    "h2": "design-guidelines",
+    "h3": "brightness-filter-convention-interactive-states",
+    "h4": "implementation"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 1086,
+    "endLine": 1099
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "Interactive color states (hover, pressed/active, disabled) are not handled with tokens. Engineering implements these using CSS brightness filters at the component level.\n\nThe only tokenized interactive state is focus — see --zen-focus-ring-primary and --zen-focus-ring-error in Section 2.5.",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "State",
+        "Filter",
+        "Notes"
+      ],
+      "rows": [
+        {
+          "State": "Hover",
+          "Filter": "filter: brightness(0.92)",
+          "Notes": "Subtle darkening"
+        },
+        {
+          "State": "Pressed / Active",
+          "Filter": "filter: brightness(0.85)",
+          "Notes": "More pronounced"
+        },
+        {
+          "State": "Disabled",
+          "Filter": "opacity: 0.4",
+          "Notes": "Combined with `cursor: not-allowed`"
+        }
+      ]
+    }
+  ]
+}

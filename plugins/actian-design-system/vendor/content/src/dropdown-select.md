@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Dropdown / Select"
 nav_order: 10
 ---

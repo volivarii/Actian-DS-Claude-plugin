@@ -1,6 +1,6 @@
-﻿---
+---
 title: "Modal"
-nav_order: 20
+nav_order: 22
 ---
 # Modal
 
@@ -10,7 +10,7 @@ Modals interrupt the current flow to require the user's attention for a confirma
 
 ## When to use
 
-- To confirm destructive or irreversible actions. For full confirmation dialog patterns, see [dialogs and confirmations](dialogs-and-confirmations).
+- To confirm destructive or irreversible actions. For full confirmation dialog patterns, see [confirmation](confirmation).
 - To collect a small amount of input before completing an action.
 - Do not use modals for purely informational content - use inline messages or tooltips instead.
 
@@ -18,7 +18,7 @@ Modals interrupt the current flow to require the user's attention for a confirma
 
 - Modal title should match the label of the button or link that triggered it.
 - Keep body copy short and actionable. One to two sentences.
-- Use a primary and secondary button pair. Align with the [button terminology guidelines](buttons).
+- Use a primary and secondary button pair. Align with the [button terminology guidelines](button).
 - Do not nest modals.
 
 ## Do / Don't
