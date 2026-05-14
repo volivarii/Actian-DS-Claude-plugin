@@ -1,0 +1,45 @@
+{
+  "_schema_version": 1,
+  "id": "design-guidelines/typography-rules/accessibility",
+  "title": "Accessibility",
+  "path": [
+    "design-guidelines",
+    "typography-rules",
+    "accessibility"
+  ],
+  "parent": "design-guidelines/typography-rules",
+  "anchors": {
+    "h2": "design-guidelines",
+    "h3": "typography-rules",
+    "h4": "accessibility"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 1014,
+    "endLine": 1030
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "Don&#39;t create one-off font sizes. If your design needs a size between tokens, first check whether a token can be used, then raise it as a proposed token addition.",
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Default body text size is 14px",
+        "Minimum body text size is 12px",
+        "11px is only acceptable for non-essential UI",
+        "Use defined type styles (avoid light weight)",
+        "Maintain readable line height and spacing",
+        "Text line length is 544px at max with 16px text",
+        "Text line length is 480px at max with 14px text",
+        "Text line length is 424px at max with 12px text",
+        "Avoid placeholder-only labels",
+        "Avoid long blocks of dense text"
+      ]
+    }
+  ]
+}

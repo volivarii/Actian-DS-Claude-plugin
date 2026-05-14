@@ -1,0 +1,54 @@
+{
+  "_schema_version": 1,
+  "id": "design-guidelines/brightness-filter-convention-interactive-states/types-of-states",
+  "title": "Types of States",
+  "path": [
+    "design-guidelines",
+    "brightness-filter-convention-interactive-states",
+    "types-of-states"
+  ],
+  "parent": "design-guidelines/brightness-filter-convention-interactive-states",
+  "anchors": {
+    "h2": "design-guidelines",
+    "h3": "brightness-filter-convention-interactive-states",
+    "h4": "types-of-states"
+  },
+  "source": {
+    "file": "foundations/src/foundations.md",
+    "startLine": 1055,
+    "endLine": 1085
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "foundations/src/foundations.md",
+    "do_not_edit": "Edit the source MD; CI regenerates this file."
+  },
+  "body": "Interaction States\n\n*Hover states should be suppressed on touch devices to avoid &quot;sticky&quot; visual effects. Conversely, Focus and Pressed states must be supported across all input types to ensure accessibility and tactile feedback.\n\nFeedback &amp; System States",
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Default: The neutral state of an element before any user interaction.",
+        "Hover*: Triggered when a cursor is placed over an interactive element.",
+        "Focus*: Triggered when an element is highlighted via keyboard, voice, or other input methods.",
+        "Pressed*: The momentary state during a physical click or tap.",
+        "Dragged: Active when a user presses and moves an element from its original position.",
+        "Selected: A persistent state indicating an element has been chosen (e.g. via checkbox, tab, or radio button).",
+        "Disabled: An inoperable state where the element cannot be interacted with or focused."
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Loading: Indicates a component is processing an action or fetching data.",
+        "Error: Indicates invalid input or a failed system action, usually via color or icons.",
+        "Success: Indicates valid input or a successfully completed action.",
+        "Warning: Indicates a non-blocking issue or a state requiring user caution.",
+        "Read-Only: Content is legible and focusable for copying, but cannot be edited.",
+        "Indeterminate: A &quot;partial&quot; state, typically for parent checkboxes with mixed child selections."
+      ]
+    }
+  ]
+}

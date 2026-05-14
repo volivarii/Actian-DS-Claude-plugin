@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-05-13T13:45:34.648Z",
+  "lastSynced": "2026-05-13T14:39:18.762Z",
   "componentCount": 322,
   "components": {
     "xs-grid": {
@@ -3190,7 +3190,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "kafka": {
       "name": "kafka",
@@ -3205,7 +3205,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "dataiku": {
       "name": "dataiku",
@@ -3220,7 +3220,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "mysql": {
       "name": "mysql",
@@ -3235,7 +3235,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "thumbs-down": {
       "name": "thumbs-down",
@@ -3250,7 +3250,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "use-with-care": {
       "name": "use-with-care",
@@ -3265,7 +3265,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "safyr-sap-bw": {
       "name": "safyr-sap-bw",
@@ -3280,7 +3280,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "zoom-to-fit": {
       "name": "zoom-to-fit",
@@ -3295,7 +3295,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "orc": {
       "name": "orc",
@@ -3310,7 +3310,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "postgresql": {
       "name": "PostgreSQL",
@@ -3325,7 +3325,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "splunk": {
       "name": "splunk",
@@ -3340,7 +3340,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "azure-purview": {
       "name": "azure-purview",
@@ -3355,7 +3355,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "adobe-analytics": {
       "name": "adobe-analytics",
@@ -3370,7 +3370,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "process": {
       "name": "process",
@@ -3385,7 +3385,10 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph",
+      "secondaryGroups": [
+        "Details"
+      ]
     },
     "cognos-bi": {
       "name": "cognos-bi",
@@ -3400,7 +3403,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "bigquery": {
       "name": "bigquery",
@@ -3415,7 +3418,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "elasticsearch": {
       "name": "elasticsearch",
@@ -3430,7 +3433,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "hbase": {
       "name": "hbase",
@@ -3445,7 +3448,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "zoom-out": {
       "name": "zoom-out",
@@ -3460,7 +3463,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "zoom-in": {
       "name": "zoom-in",
@@ -3475,7 +3478,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "csv-custom-item": {
       "name": "csv-custom-item",
@@ -3490,7 +3493,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "more": {
       "name": "more",
@@ -3505,7 +3508,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "db2": {
       "name": "db2",
@@ -3520,7 +3523,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "aws-glue-etl": {
       "name": "Aws-glue-etl",
@@ -3535,7 +3538,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "help-circle": {
       "name": "help-circle",
@@ -3550,7 +3553,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "jdbc": {
       "name": "jdbc",
@@ -3565,7 +3568,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "export": {
       "name": "export",
@@ -3580,7 +3583,10 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "atlas": {
       "name": "atlas",
@@ -3595,7 +3601,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "data-model": {
       "name": "data-model",
@@ -3610,7 +3616,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "avro": {
       "name": "avro",
@@ -3625,7 +3631,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "process-csv": {
       "name": "process csv",
@@ -3640,7 +3646,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "snowflake": {
       "name": "Snowflake",
@@ -3655,7 +3661,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "powerbi": {
       "name": "Powerbi",
@@ -3670,7 +3676,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "cognos": {
       "name": "cognos",
@@ -3685,7 +3691,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "palantir": {
       "name": "palantir",
@@ -3700,7 +3706,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "opendatagouv": {
       "name": "opendatagouv",
@@ -3715,7 +3721,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "sqlserver": {
       "name": "sqlserver",
@@ -3730,7 +3736,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "mapr": {
       "name": "mapr",
@@ -3745,7 +3751,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "spline": {
       "name": "spline",
@@ -3760,7 +3766,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "microstrategy": {
       "name": "microstrategy",
@@ -3775,7 +3781,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "openapi": {
       "name": "openapi",
@@ -3790,7 +3796,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "safyr-ebs": {
       "name": "safyr-ebs",
@@ -3805,7 +3811,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "powerbireportserver": {
       "name": "powerbireportserver",
@@ -3820,7 +3826,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "impala": {
       "name": "impala",
@@ -3835,7 +3841,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "mariadb": {
       "name": "mariadb",
@@ -3850,7 +3856,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "thumbs-up": {
       "name": "thumbs-up",
@@ -3865,7 +3871,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "adlsgen1": {
       "name": "adlsgen1",
@@ -3880,7 +3886,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "paragraph-justify": {
       "name": "paragraph-justify",
@@ -3895,7 +3901,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "awsredshift": {
       "name": "awsredshift",
@@ -3910,7 +3916,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "qlik-sense": {
       "name": "qlik-sense",
@@ -3925,7 +3931,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "mail": {
       "name": "mail",
@@ -3940,7 +3946,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "user-single": {
       "name": "user-single",
@@ -3955,7 +3961,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "talend": {
       "name": "talend",
@@ -3970,7 +3976,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "azure-cosmosdb": {
       "name": "azure-cosmosdb",
@@ -3985,7 +3991,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "greenplum": {
       "name": "greenplum",
@@ -4000,7 +4006,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "soda": {
       "name": "soda",
@@ -4015,7 +4021,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "safyr-peoplesoft": {
       "name": "safyr-peoplesoft",
@@ -4030,7 +4036,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "simple-check": {
       "name": "simple-check",
@@ -4045,7 +4051,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "xml": {
       "name": "xml",
@@ -4060,7 +4066,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "safyr-salesforce": {
       "name": "safyr-salesforce",
@@ -4075,7 +4081,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "looker": {
       "name": "looker",
@@ -4090,7 +4096,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "mongodb": {
       "name": "mongodb",
@@ -4105,7 +4111,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "erwin-data-modeler": {
       "name": "erwin-data-modeler",
@@ -4120,7 +4126,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "denodo": {
       "name": "denodo",
@@ -4135,7 +4141,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "safyr-dynamicsax": {
       "name": "safyr-dynamicsax",
@@ -4150,7 +4156,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "azure-datafactory": {
       "name": "azure-datafactory",
@@ -4165,7 +4171,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "safyr-siebel": {
       "name": "safyr-siebel",
@@ -4180,7 +4186,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "tibco-datavirtualization": {
       "name": "tibco-datavirtualization",
@@ -4195,7 +4201,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "oracle": {
       "name": "oracle",
@@ -4210,7 +4216,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "data-structured": {
       "name": "data--structured",
@@ -4225,7 +4231,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "catalogs": {
       "name": "catalogs",
@@ -4240,7 +4246,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "arrow-alt": {
       "name": "arrow-alt",
@@ -4255,7 +4261,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "user-add": {
       "name": "user-add",
@@ -4270,7 +4276,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "award-04": {
       "name": "award-04",
@@ -4285,7 +4291,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "image": {
       "name": "image",
@@ -4300,7 +4306,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "list-bullets": {
       "name": "list-bullets",
@@ -4315,7 +4321,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "map": {
       "name": "map",
@@ -4330,7 +4336,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "teradata": {
       "name": "teradata",
@@ -4345,7 +4351,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "safyr-jdedwards": {
       "name": "safyr-jdedwards",
@@ -4360,7 +4366,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "content-checklist": {
       "name": "Content Checklist",
@@ -4436,7 +4442,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "parquet": {
       "name": "parquet",
@@ -4451,7 +4457,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "azure": {
       "name": "Azure",
@@ -4466,7 +4472,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "ms-teams": {
       "name": "ms-teams",
@@ -4481,7 +4487,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "hive": {
       "name": "hive",
@@ -4496,7 +4502,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "cosmosdb": {
       "name": "cosmosdb",
@@ -4511,7 +4517,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "dbt": {
       "name": "dbt",
@@ -4526,7 +4532,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "amazons3": {
       "name": "amazons3",
@@ -4541,7 +4547,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "dictionnary": {
       "name": "dictionnary",
@@ -4556,7 +4562,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "db2-database-1": {
       "name": "db2--database 1",
@@ -4571,7 +4577,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "netezza": {
       "name": "netezza",
@@ -4586,7 +4592,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "json": {
       "name": "json",
@@ -4601,7 +4607,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "tableau": {
       "name": "Tableau",
@@ -4616,7 +4622,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "databricks": {
       "name": "databricks",
@@ -4631,7 +4637,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "alteryx": {
       "name": "alteryx",
@@ -4646,7 +4652,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "cloud-upload": {
       "name": "cloud--upload",
@@ -4661,7 +4667,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "chevron-left": {
       "name": "chevron--left",
@@ -4676,7 +4682,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "notes-feedback": {
       "name": "Notes/Feedback",
@@ -4706,7 +4712,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "history": {
       "name": "history",
@@ -4721,7 +4727,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "arrow-down": {
       "name": "arrow-down",
@@ -4736,7 +4742,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "suggestion": {
       "name": "suggestion",
@@ -4751,7 +4757,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "info": {
       "name": "info",
@@ -4766,7 +4772,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "error-filled": {
       "name": "error-filled",
@@ -4781,7 +4787,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "cursor-hand": {
       "name": "cursor-hand",
@@ -4796,7 +4802,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Cursor"
     },
     "api-key": {
       "name": "api-key",
@@ -4811,7 +4817,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "open": {
       "name": "open",
@@ -4826,7 +4832,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "background-explore": {
       "name": "background-explore",
@@ -4882,7 +4888,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "view": {
       "name": "view",
@@ -4897,7 +4903,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "output": {
       "name": "output",
@@ -4912,7 +4918,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "directory": {
       "name": "directory",
@@ -4927,7 +4933,10 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "filter": {
       "name": "filter",
@@ -4942,7 +4951,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "view-details": {
       "name": "view-details",
@@ -4957,7 +4966,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "event-time-type": {
       "name": "event--time-type",
@@ -4972,7 +4981,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "view-card": {
       "name": "view-card",
@@ -4987,7 +4996,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "dots": {
       "name": "dots",
@@ -5002,7 +5011,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "database-check": {
       "name": "database-check",
@@ -5017,7 +5026,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "user-group": {
       "name": "user-group",
@@ -5032,7 +5041,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "chart-bar": {
       "name": "chart--bar",
@@ -5047,7 +5056,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "icon-query-queue": {
       "name": "Icon/query-queue",
@@ -5062,7 +5071,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "exit": {
       "name": "exit",
@@ -5077,7 +5086,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "boolean-type": {
       "name": "boolean-type",
@@ -5092,7 +5101,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "rotate-back": {
       "name": "rotate-back",
@@ -5107,7 +5116,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "glossary": {
       "name": "glossary",
@@ -5122,7 +5131,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "checkmark-outline": {
       "name": "checkmark--outline",
@@ -5137,7 +5146,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "layers-front-curator-indicator": {
       "name": "layers-front (Curator indicator)",
@@ -5152,7 +5161,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "help-bubble": {
       "name": "help-bubble",
@@ -5167,7 +5176,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "database": {
       "name": "database",
@@ -5182,7 +5191,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "minimize": {
       "name": "minimize",
@@ -5197,7 +5206,10 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Cursor",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "filter-text": {
       "name": "filter-text",
@@ -5212,7 +5224,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "pending": {
       "name": "pending",
@@ -5227,7 +5239,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "favorite-filled": {
       "name": "favorite-filled",
@@ -5242,7 +5254,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "drag": {
       "name": "drag",
@@ -5257,7 +5269,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "menu": {
       "name": "menu",
@@ -5272,7 +5284,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "brightness-contrast": {
       "name": "brightness-contrast",
@@ -5287,7 +5299,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "data-product-output-port": {
       "name": "data-product-output-port",
@@ -5302,7 +5314,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "schema": {
       "name": "schema",
@@ -5317,7 +5329,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "settings": {
       "name": "settings",
@@ -5332,7 +5344,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "task-list-multiple": {
       "name": "task-list-multiple",
@@ -5347,7 +5359,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "bin-type": {
       "name": "bin-type",
@@ -5362,7 +5374,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "close": {
       "name": "close",
@@ -5377,7 +5389,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "trash": {
       "name": "trash",
@@ -5392,7 +5404,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "target-type": {
       "name": "target-type",
@@ -5407,7 +5419,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "add-circle": {
       "name": "add-circle",
@@ -5422,7 +5434,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "arrow": {
       "name": "arrow",
@@ -5437,7 +5449,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "user-lock": {
       "name": "user-lock",
@@ -5452,7 +5464,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "warning-filled": {
       "name": "warning-filled",
@@ -5467,7 +5479,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "calendar-2": {
       "name": "calendar 2",
@@ -5482,7 +5494,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "catalog-design": {
       "name": "catalog-design",
@@ -5497,7 +5509,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "misuse-outline": {
       "name": "misuse--outline",
@@ -5512,7 +5524,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "shield-lock": {
       "name": "shield-lock",
@@ -5527,7 +5539,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "tools": {
       "name": "tools",
@@ -5542,7 +5554,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "add": {
       "name": "add",
@@ -5557,7 +5569,10 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "analytics": {
       "name": "analytics",
@@ -5572,7 +5587,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "text-type": {
       "name": "text-type",
@@ -5587,7 +5602,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "edit": {
       "name": "edit",
@@ -5602,7 +5617,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "link-type": {
       "name": "link-type",
@@ -5617,7 +5632,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "relation": {
       "name": "relation",
@@ -5632,7 +5647,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "lineage": {
       "name": "lineage",
@@ -5647,7 +5662,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "local-filesystem": {
       "name": "local-filesystem",
@@ -5662,7 +5677,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "back": {
       "name": "back",
@@ -5677,7 +5692,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "task-list": {
       "name": "task-list",
@@ -5692,7 +5707,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "tags-add": {
       "name": "tags-add",
@@ -5707,7 +5722,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "book-bookmark": {
       "name": "book-bookmark",
@@ -5722,7 +5737,10 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Details"
+      ]
     },
     "download": {
       "name": "download",
@@ -5737,7 +5755,10 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ]
     },
     "user-info": {
       "name": "user-info",
@@ -5752,7 +5773,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "applications": {
       "name": "applications",
@@ -5767,7 +5788,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "alert": {
       "name": "alert",
@@ -5782,7 +5803,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "pii": {
       "name": "pii",
@@ -5797,7 +5818,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "pin": {
       "name": "pin",
@@ -5812,7 +5833,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "discussion": {
       "name": "discussion",
@@ -5827,7 +5848,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "home": {
       "name": "home",
@@ -5842,7 +5863,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "book-edit": {
       "name": "book-edit",
@@ -5857,7 +5878,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "layers-front": {
       "name": "layers-front",
@@ -5872,7 +5893,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "help-laptop": {
       "name": "help-laptop",
@@ -5887,7 +5908,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "chevron-sort": {
       "name": "chevron--sort",
@@ -5902,7 +5923,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "null-sign": {
       "name": "null-sign",
@@ -5917,7 +5938,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "favorite": {
       "name": "favorite",
@@ -5932,7 +5953,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "chevron-up": {
       "name": "chevron--up",
@@ -5947,7 +5968,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "dashboard": {
       "name": "dashboard",
@@ -5962,7 +5983,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "move": {
       "name": "move",
@@ -5977,7 +5998,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "dataset": {
       "name": "dataset",
@@ -5992,7 +6013,10 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector",
+      "secondaryGroups": [
+        "Details"
+      ]
     },
     "chevron-sort-down": {
       "name": "chevron--sort--down",
@@ -6007,7 +6031,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "warning-alt": {
       "name": "warning--alt",
@@ -6022,7 +6046,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "task-list-settings": {
       "name": "task-list-settings",
@@ -6037,7 +6061,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "float-type": {
       "name": "float-type",
@@ -6052,7 +6076,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "maintenance": {
       "name": "maintenance",
@@ -6067,7 +6091,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "chevron-sort-up": {
       "name": "chevron--sort--up",
@@ -6082,7 +6106,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "exploration": {
       "name": "exploration",
@@ -6097,7 +6121,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Details"
     },
     "geo-point-type": {
       "name": "geo-point-type",
@@ -6112,7 +6136,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "integer-type": {
       "name": "integer-type",
@@ -6127,7 +6151,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "text-file": {
       "name": "text-file",
@@ -6142,7 +6166,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "scanner": {
       "name": "scanner",
@@ -6157,7 +6181,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "data-file-question": {
       "name": "data-file-question",
@@ -6172,7 +6196,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "security-services": {
       "name": "security-services",
@@ -6187,7 +6211,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "data-access-request": {
       "name": "data-access-request",
@@ -6202,7 +6226,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "info-filled": {
       "name": "info-filled",
@@ -6217,7 +6241,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "chart-pie": {
       "name": "chart--pie",
@@ -6232,7 +6256,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "stop-outline": {
       "name": "stop--outline",
@@ -6247,7 +6271,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "relation-incoming": {
       "name": "relation_incoming",
@@ -6262,7 +6286,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "relation-outgoing": {
       "name": "relation_outgoing",
@@ -6277,7 +6301,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "maximize": {
       "name": "maximize",
@@ -6292,7 +6316,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "unknown-type": {
       "name": "unknown-type",
@@ -6307,7 +6331,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Field type"
     },
     "lifecycle-policy": {
       "name": "lifecycle-policy",
@@ -6322,7 +6346,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "circle-dash": {
       "name": "circle-dash",
@@ -6337,7 +6361,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "graph-merge": {
       "name": "graph-merge",
@@ -6352,7 +6376,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Misc"
     },
     "list-numbers": {
       "name": "list-numbers",
@@ -6367,7 +6391,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Property type"
     },
     "rocket-1": {
       "name": "rocket 1",
@@ -6382,7 +6406,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Navigation"
     },
     "stars": {
       "name": "stars",
@@ -6397,7 +6421,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "view-table": {
       "name": "view-table",
@@ -6412,7 +6436,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "asleep": {
       "name": "asleep",
@@ -6427,7 +6451,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "undo": {
       "name": "undo",
@@ -6442,7 +6466,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Common"
     },
     "cursor-arrow": {
       "name": "cursor-arrow",
@@ -6457,7 +6481,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Cursor"
     },
     "connected": {
       "name": "connected",
@@ -6472,7 +6496,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "hdfs": {
       "name": "hdfs",
@@ -6487,7 +6511,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "informatica": {
       "name": "informatica",
@@ -6502,7 +6526,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "sybaseiq": {
       "name": "sybaseiq",
@@ -6517,7 +6541,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "azure-synapse": {
       "name": "azure-synapse",
@@ -6532,7 +6556,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "gcp": {
       "name": "GCP",
@@ -6547,7 +6571,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "sparkdb": {
       "name": "sparkdb",
@@ -6562,7 +6586,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "gcpcloudstorage": {
       "name": "gcpcloudstorage",
@@ -6577,7 +6601,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "sas-database": {
       "name": "sas-database",
@@ -6592,7 +6616,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "zoom-reset": {
       "name": "zoom-reset",
@@ -6607,7 +6631,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "influxdb": {
       "name": "influxdb",
@@ -6622,7 +6646,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "cassandra": {
       "name": "cassandra",
@@ -6637,7 +6661,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "generic-jdbc": {
       "name": "generic-jdbc",
@@ -6652,7 +6676,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "alert-circle": {
       "name": "alert-circle",
@@ -6667,7 +6691,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Status"
     },
     "thoughtspot": {
       "name": "thoughtspot",
@@ -6682,7 +6706,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "safyr-dynamics365": {
       "name": "safyr-dynamics365",
@@ -6697,7 +6721,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "disconnected": {
       "name": "disconnected",
@@ -6712,7 +6736,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Graph"
     },
     "google-cloud": {
       "name": "google-cloud",
@@ -6727,7 +6751,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "api": {
       "name": "api",
@@ -6742,7 +6766,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "csv": {
       "name": "csv",
@@ -6757,7 +6781,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "success-filled": {
       "name": "success-filled",
@@ -6772,7 +6796,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Message"
     },
     "ckan": {
       "name": "ckan",
@@ -6787,7 +6811,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Connector"
     },
     "expand": {
       "name": "expand",
@@ -6802,7 +6826,7 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons"
+      "group": "Cursor"
     }
   }
 }

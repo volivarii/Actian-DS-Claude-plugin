@@ -112,8 +112,14 @@
         },
         "group": {
           "type": "string",
-          "description": "Third-level grouping (ζ.2). Page clean-name for Components (e.g., 'Tag (Identification key)' for all 9 Tag variants); containing_frame.name for Foundations icons. Docs sidebar IA uses this to collapse multi-component pages into one nav node.",
-          "examples": ["Tag (Identification key)", "Navigation icons", "Button"]
+          "description": "Third-level grouping. Page clean-name for Components (e.g., 'Tag (Identification key)' for all 9 Tag variants); containing_frame.name for Foundations items; semantic label from components/src/icon-groups.json for icons (ζ.5 — e.g., 'Connector', 'Status', 'Navigation'). Docs sidebar IA + IconGrid both read this.",
+          "examples": ["Tag (Identification key)", "Connector", "Button"]
+        },
+        "secondaryGroups": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Additional semantic groups when an icon belongs to multiple (ζ.5). Today 8 icons (add / book-bookmark / dataset / directory / download / export / minimize / process) span 2 groups. Docs IconGrid renders the icon under primary `group` AND each entry here.",
+          "examples": [["Common"], ["Details"]]
         },
         "status": {
           "type": "string",
@@ -124,7 +130,11 @@
         "properties": {
           "type": "object",
           "description": "Non-VARIANT componentPropertyDefinitions keyed by Figma's hash-suffixed identifier. Each value is { type, default }. Used for setProperties on imported instances.",
-          "examples": [{ "Icon#15:0": { "type": "INSTANCE_SWAP", "default": "k-icon-info" } }]
+          "examples": [
+            {
+              "Icon#15:0": { "type": "INSTANCE_SWAP", "default": "k-icon-info" }
+            }
+          ]
         },
         "variants": {
           "type": "object",
@@ -135,7 +145,15 @@
           "type": "array",
           "items": { "$ref": "#/$defs/nestedComponentRef" },
           "description": "Component refs nested inside this component (ζ.3). Populated from two signal sources: INSTANCE_SWAP property defaults (curated slots) + hardcoded child INSTANCE nodes (anatomy via tree walk). Empty array when no in-kit refs found.",
-          "examples": [[{ "slug": "icon-info", "role": "LeadingIcon", "source": "instance-swap" }]]
+          "examples": [
+            [
+              {
+                "slug": "icon-info",
+                "role": "LeadingIcon",
+                "source": "instance-swap"
+              }
+            ]
+          ]
         },
         "documentationLinks": {
           "type": "array",
