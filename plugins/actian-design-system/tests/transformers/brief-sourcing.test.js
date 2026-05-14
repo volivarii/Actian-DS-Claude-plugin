@@ -11,6 +11,34 @@ function loadFixture(name) {
   return JSON.parse(fs.readFileSync(path.join(FIX, name), "utf8"));
 }
 
+// Build a minimal v0.9.x merged guideline doc with a given content domain.
+// `contentStatus` drives isStubGuideline; `sections` is the content body.
+function guidelineDoc(contentStatus, sections) {
+  var content = { status: contentStatus };
+  if (contentStatus === "approved" || contentStatus === "draft") {
+    content.owner = "content-team";
+    content.markdown = "# Stub markdown";
+    content.sections = sections || [];
+  }
+  return {
+    _schema_version: 1,
+    _meta: {
+      auto_generated: true,
+      source: "components/src/button/",
+      do_not_edit:
+        "Edit the per-domain source files; CI regenerates this file.",
+    },
+    slug: "button",
+    component: "Button",
+    meta: { category: "action" },
+    domains: {
+      content: content,
+      design: { status: "inherited" },
+      behavior: { status: "inherited" },
+    },
+  };
+}
+
 // transcribeFigmaDescription
 test("transcribeFigmaDescription — returns content + figma source when description present", function () {
   var ctx = loadFixture("button-with-figma-description.json");
@@ -41,8 +69,8 @@ test("transcribeFigmaDescription — returns null when description empty/whitesp
   );
 });
 
-// transcribeContentGuidelines
-test("transcribeContentGuidelines — returns formatted content + figma source when sections present", function () {
+// transcribeContentGuidelines — reads the v0.9.x guideline doc's content domain
+test("transcribeContentGuidelines — returns sections + figma source when content domain is approved", function () {
   var guidelines = loadFixture("button-component-guidelines-rich.json");
   var result = sourcing.transcribeContentGuidelines(guidelines);
   assert.equal(result.source, "figma");
@@ -50,23 +78,34 @@ test("transcribeContentGuidelines — returns formatted content + figma source w
   assert.equal(result.content.sections.length, 2);
 });
 
-test("transcribeContentGuidelines — returns null when content_guidelines is null", function () {
+test("transcribeContentGuidelines — returns null when content domain is not approved/draft", function () {
+  // The "empty" fixture is a present doc whose content domain is not-started.
   var guidelines = loadFixture("button-component-guidelines-empty.json");
   assert.equal(sourcing.transcribeContentGuidelines(guidelines), null);
-});
-
-test("transcribeContentGuidelines — returns null when content_guidelines.sections is missing/empty", function () {
+  // inherited content domain → also null
   assert.equal(
-    sourcing.transcribeContentGuidelines({ content_guidelines: {} }),
+    sourcing.transcribeContentGuidelines(guidelineDoc("inherited")),
     null,
   );
+});
+
+test("transcribeContentGuidelines — returns null when domains / sections missing or empty", function () {
+  assert.equal(sourcing.transcribeContentGuidelines({}), null);
+  assert.equal(sourcing.transcribeContentGuidelines({ domains: {} }), null);
+  // approved but no sections array
   assert.equal(
     sourcing.transcribeContentGuidelines({
-      content_guidelines: { sections: [] },
+      domains: { content: { status: "approved" } },
     }),
     null,
   );
-  assert.equal(sourcing.transcribeContentGuidelines({}), null);
+  // approved with an empty sections array
+  assert.equal(
+    sourcing.transcribeContentGuidelines({
+      domains: { content: { status: "approved", sections: [] } },
+    }),
+    null,
+  );
 });
 
 // resolveSection — dispatcher
@@ -117,7 +156,7 @@ test("resolveSection — generate recipe → returns Phase B marker, no transcri
   assert.deepEqual(result.grounding, ["vendor/foundations/src/foundations.md"]);
 });
 
-test("resolveSection — content card with rich guidelines → figma result", function () {
+test("resolveSection — content card with an approved content domain → figma result", function () {
   var ctx = {
     component: "Button",
     slug: "button",
@@ -127,16 +166,19 @@ test("resolveSection — content card with rich guidelines → figma result", fu
     card: "card_content",
     phase: "transcribe",
     source: {
-      primary: { type: "guidelines-content-sections" },
+      primary: { type: "guideline-doc-content-domain" },
       fallback: "claude-generate",
     },
   };
   var result = sourcing.resolveSection("card_content", ctx, recipe);
+  assert.equal(result.phase, "A");
   assert.equal(result.source, "figma");
   assert.ok(result.content);
 });
 
-test("resolveSection — content card with empty guidelines → fallback", function () {
+test("resolveSection — content card, present doc with no curated content → stub Phase B", function () {
+  // The "empty" fixture is a present-but-stub doc (content not-started). A
+  // present stub short-circuits ALL cards to Phase B.
   var ctx = {
     component: "Button",
     slug: "button",
@@ -146,13 +188,29 @@ test("resolveSection — content card with empty guidelines → fallback", funct
     card: "card_content",
     phase: "transcribe",
     source: {
-      primary: { type: "guidelines-content-sections" },
+      primary: { type: "guideline-doc-content-domain" },
       fallback: "claude-generate",
     },
   };
   var result = sourcing.resolveSection("card_content", ctx, recipe);
+  assert.equal(result.phase, "B");
   assert.equal(result.source, null);
   assert.equal(result.fallback, true);
+  assert.match(result.fallbackReason, /stub/i);
+});
+
+test("resolveSection — no guideline doc at all → card_header still transcribes (no short-circuit)", function () {
+  // A component with no guideline doc (ctx.guidelinesJson absent) is NOT
+  // short-circuited — card_header still transcribes its Figma description.
+  var ctx = loadFixture("button-with-figma-description.json");
+  delete ctx.guidelinesJson;
+  var result = sourcing.resolveSection("card_header", ctx, {
+    card: "card_header",
+    phase: "transcribe",
+    source: { primary: { type: "registry-description" } },
+  });
+  assert.equal(result.phase, "A");
+  assert.equal(result.source, "figma");
 });
 
 test("resolveSection — unknown phase throws", function () {
@@ -161,23 +219,18 @@ test("resolveSection — unknown phase throws", function () {
   }, /unknown phase/i);
 });
 
-// Stub-aware routing — _stub: true forces Phase B regardless of recipe
+// Stub-aware routing — a present-but-stub guideline forces Phase B
 test("resolveSection — stub guideline forces Phase B fallback (transcribe recipe)", function () {
   var ctx = {
     component: "Tooltip",
     slug: "tooltip",
-    guidelinesJson: {
-      component: "Tooltip",
-      _stub: true,
-      content_guidelines: null,
-      design_guidelines: null,
-    },
+    guidelinesJson: guidelineDoc("not-started"),
   };
   var recipe = {
     card: "card_content",
     phase: "transcribe",
     source: {
-      primary: { type: "guidelines-content-sections" },
+      primary: { type: "guideline-doc-content-domain" },
       fallback: "claude-generate",
     },
   };
@@ -192,7 +245,7 @@ test("resolveSection — stub guideline forces Phase B even on generate recipe (
   var ctx = {
     component: "Tooltip",
     slug: "tooltip",
-    guidelinesJson: { _stub: true },
+    guidelinesJson: guidelineDoc("inherited"),
   };
   var recipe = {
     card: "card_anatomy",
@@ -209,22 +262,42 @@ test("resolveSection — non-stub guideline routes normally (regression guard)",
   var ctx = {
     component: "Button",
     slug: "button",
-    guidelinesJson: {
-      component: "Button",
-      content_guidelines: { sections: [{ heading: "X", content: ["rule 1"] }] },
-    },
+    guidelinesJson: guidelineDoc("approved", [
+      { heading: "Style", content: ["Use sentence case."] },
+    ]),
   };
   var recipe = {
     card: "card_content",
     phase: "transcribe",
     source: {
-      primary: { type: "guidelines-content-sections" },
+      primary: { type: "guideline-doc-content-domain" },
       fallback: "claude-generate",
     },
   };
   var result = sourcing.resolveSection("card_content", ctx, recipe);
   assert.equal(result.source, "figma", "non-stub should still route to figma");
   assert.equal(result.phase, "A");
+});
+
+// isStubGuideline — the per-domain-status replacement for the `_stub` boolean
+test("isStubGuideline — true when no doc, true when content not approved/draft, false otherwise", function () {
+  assert.equal(sourcing.isStubGuideline(null), true);
+  assert.equal(sourcing.isStubGuideline(undefined), true);
+  assert.equal(sourcing.isStubGuideline({}), true);
+  assert.equal(sourcing.isStubGuideline(guidelineDoc("not-started")), true);
+  assert.equal(sourcing.isStubGuideline(guidelineDoc("inherited")), true);
+  assert.equal(
+    sourcing.isStubGuideline(
+      guidelineDoc("approved", [{ heading: "X", content: ["y"] }]),
+    ),
+    false,
+  );
+  assert.equal(
+    sourcing.isStubGuideline(
+      guidelineDoc("draft", [{ heading: "X", content: ["y"] }]),
+    ),
+    false,
+  );
 });
 
 // formatForBrief — shaping helpers
@@ -240,7 +313,7 @@ test("formatForBrief — header content shapes name + description fields", funct
   assert.equal(result._source, "figma");
 });
 
-test("formatForBrief — content card shapes content_guidelines.sections into rules array", function () {
+test("formatForBrief — content card maps guideline sections into rules + terminology", function () {
   var ctx = {
     component: "Button",
     slug: "button",
@@ -254,13 +327,58 @@ test("formatForBrief — content card shapes content_guidelines.sections into ru
     { source: "figma", content: content },
     ctx,
   );
+  // rich fixture: section 1 is two { term, rule } items → terminology;
+  // section 2 has one prose string + one { do, dont } → one rule with do/dont.
   assert.ok(Array.isArray(result.rules));
-  assert.ok(result.rules.length > 0);
+  assert.equal(result.terminology.length, 2);
+  assert.equal(result.terminology[0].term, "Cancel vs Close");
+  assert.ok(typeof result.terminology[0].use === "string");
+  var dodontRule = result.rules.filter(function (r) {
+    return r.do && r.dont;
+  })[0];
+  assert.ok(dodontRule, "a rule with a do/dont pair is produced");
+  assert.equal(dodontRule.do, "Create integration");
+  // a terminology-only section produces NO rule (its items all become
+  // terminology entries; proseOf() is empty so no rule is pushed)
+  assert.ok(
+    !result.rules.some(function (r) {
+      return r.title === "Terminology for button labeling";
+    }),
+    "a term-only section must not also emit a rule",
+  );
+  // every rule carries title + description strings (renderCard7 contract)
+  assert.ok(
+    result.rules.every(function (r) {
+      return typeof r.title === "string" && typeof r.description === "string";
+    }),
+  );
   assert.equal(result._source, "figma");
 });
 
+test("transcribeContentGuidelines / isStubGuideline — registry-alias copy is handled like any other doc", function () {
+  // Knowledge ships registry-key alias copies, e.g. checkbox-with-label.json
+  // carrying `_alias_of: "checkbox"`. The plugin loads it by slug like any
+  // guideline doc; the extra `_alias_of` field must be harmlessly ignored.
+  var aliasDoc = guidelineDoc("approved", [
+    { heading: "Style", content: ["Use sentence case for the label."] },
+  ]);
+  aliasDoc._alias_of = "checkbox";
+  aliasDoc.slug = "checkbox"; // alias copies keep the canonical slug
+  assert.equal(sourcing.isStubGuideline(aliasDoc), false);
+  var result = sourcing.transcribeContentGuidelines(aliasDoc);
+  assert.equal(result.source, "figma");
+  assert.equal(result.content.sections.length, 1);
+});
+
 // ---------------------------------------------------------------------------
-// card_motion — Decision 4 / Brief Refresh v2 / v1.65.0
+// transcribeMotionPattern — legacy defensive guard
+//
+// The v0.9.x merged guideline doc carries NO per-component motion (its
+// `domains.behavior` is status-only). transcribeMotionPattern therefore
+// returns null for every real guideline doc, and resolveSection's card_motion
+// branch always resolves via the category fallback (see below). The function
+// is kept as a defensive guard for the retired Figma-scraped `behavior.motion`
+// shape; these tests exercise it directly.
 // ---------------------------------------------------------------------------
 
 var DRAWER_PATTERN = {
@@ -281,53 +399,38 @@ var DRAWER_PATTERN = {
   ],
 };
 
-test("card_motion — resolveSection returns figma source when guideline declares a known pattern", function () {
-  var ctx = {
-    component: "Drawer",
-    guidelinesJson: { behavior: { motion: { pattern: "drawer" } } },
-    motionPatterns: { drawer: DRAWER_PATTERN },
-  };
-  var result = sourcing.resolveSection("card_motion", ctx, {
-    phase: "transcribe",
-    grounding: ["vendor/foundations/src/foundations.md"],
-  });
-  assert.equal(result.phase, "A");
+test("transcribeMotionPattern — legacy shape: returns figma content for a known pattern", function () {
+  var result = sourcing.transcribeMotionPattern(
+    { behavior: { motion: { pattern: "drawer" } } },
+    { drawer: DRAWER_PATTERN },
+  );
   assert.equal(result.source, "figma");
   assert.equal(result.content.patternSlug, "drawer");
   assert.equal(result.content.phases.length, 2);
 });
 
-test("card_motion — skipCard when guideline has no behavior.motion", function () {
-  var ctx = {
-    guidelinesJson: { behavior: null },
-    motionPatterns: { drawer: DRAWER_PATTERN },
-  };
-  var result = sourcing.resolveSection("card_motion", ctx, {
-    phase: "transcribe",
-    grounding: ["vendor/foundations/src/foundations.md"],
-  });
-  assert.equal(result.phase, "A");
+test("transcribeMotionPattern — returns null for the v0.9.x doc shape (no behavior.motion)", function () {
+  // domains.behavior is status-only — there is no top-level `behavior.motion`.
+  assert.equal(
+    sourcing.transcribeMotionPattern(guidelineDoc("approved", []), {
+      drawer: DRAWER_PATTERN,
+    }),
+    null,
+  );
+  assert.equal(sourcing.transcribeMotionPattern({ behavior: null }, {}), null);
+});
+
+test("transcribeMotionPattern — flags missingPattern for an unknown slug", function () {
+  var result = sourcing.transcribeMotionPattern(
+    { behavior: { motion: { pattern: "nonexistent-pattern" } } },
+    { drawer: DRAWER_PATTERN },
+  );
   assert.equal(result.source, null);
-  assert.equal(result.skipCard, true);
+  assert.equal(result.missingPattern, true);
+  assert.equal(result.slug, "nonexistent-pattern");
 });
 
-test("card_motion — fallback when slug references unknown pattern", function () {
-  var ctx = {
-    guidelinesJson: {
-      behavior: { motion: { pattern: "nonexistent-pattern" } },
-    },
-    motionPatterns: { drawer: DRAWER_PATTERN },
-  };
-  var result = sourcing.resolveSection("card_motion", ctx, {
-    phase: "transcribe",
-    grounding: ["vendor/foundations/src/foundations.md"],
-  });
-  assert.equal(result.phase, "A");
-  assert.equal(result.fallback, true);
-  assert.match(result.fallbackReason, /not found in foundations/);
-});
-
-test("card_motion — formatForBrief preserves phase rows + adds optional fields", function () {
+test("formatForBrief — card_motion preserves phase rows + adds optional fields", function () {
   var motionResult = {
     source: "figma",
     content: {
@@ -371,7 +474,7 @@ var CATEGORY_DEFAULTS_FIXTURE = {
 
 test("resolveSection — Phase B card with ctx.categoryDefaults attaches it to result", function () {
   var ctx = {
-    guidelinesJson: { _stub: true },
+    guidelinesJson: guidelineDoc("not-started"),
     category: "form-input-selection",
     categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
   };
@@ -388,7 +491,7 @@ test("resolveSection — Phase B card with ctx.categoryDefaults attaches it to r
 
 test("resolveSection — card_tokens Phase B does NOT receive categoryDefaults (no mapping in defaults file)", function () {
   var ctx = {
-    guidelinesJson: { _stub: true },
+    guidelinesJson: guidelineDoc("not-started"),
     category: "form-input-selection",
     categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
   };
@@ -404,7 +507,7 @@ test("resolveSection — card_tokens Phase B does NOT receive categoryDefaults (
 
 test("resolveSection — card_usage Phase B does NOT receive categoryDefaults (no mapping)", function () {
   var ctx = {
-    guidelinesJson: { _stub: true },
+    guidelinesJson: guidelineDoc("not-started"),
     category: "form-input-selection",
     categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
   };
@@ -415,21 +518,26 @@ test("resolveSection — card_usage Phase B does NOT receive categoryDefaults (n
 });
 
 test("resolveSection — Phase B with no ctx.categoryDefaults leaves categoryDefaults undefined", function () {
-  var ctx = { guidelinesJson: { _stub: true } };
+  var ctx = { guidelinesJson: guidelineDoc("not-started") };
   var recipe = { phase: "generate", grounding: [] };
   var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
   assert.equal(result.categoryDefaults, undefined);
 });
 
-test("resolveSection — card_motion Phase A: no component pattern + categoryDefaults present → fallback to category motion ref", function () {
+test("resolveSection — card_motion Phase A: non-stub doc + categoryDefaults → category motion fallback", function () {
   var STATE_TRANSITIONS = {
     slug: "state-transitions",
     name: "State Transitions",
     phases: [{ Phase: "hover", Duration: "100ms" }],
   };
   var ctx = {
-    guidelinesJson: { behavior: { motion: null } },
+    // a non-stub doc (so resolveSection reaches the card_motion branch); its
+    // domains.behavior is status-only, so transcribeMotionPattern returns null
+    // and the category fallback resolves the pattern.
+    guidelinesJson: guidelineDoc("approved", [
+      { heading: "Style", content: ["Use sentence case."] },
+    ]),
     categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
     motionRefResolver: function (slug) {
       return slug === "state-transitions" ? STATE_TRANSITIONS : null;
@@ -449,33 +557,20 @@ test("resolveSection — card_motion Phase A: no component pattern + categoryDef
   assert.equal(result.content.patternName, "State Transitions");
 });
 
-test("resolveSection — card_motion: no component pattern, no categoryDefaults → still skipCard (regression guard)", function () {
-  var ctx = { guidelinesJson: { behavior: { motion: null } } };
+test("resolveSection — card_motion: non-stub doc, no categoryDefaults → skipCard", function () {
+  var ctx = {
+    guidelinesJson: guidelineDoc("approved", [
+      { heading: "Style", content: ["Use sentence case."] },
+    ]),
+  };
   var recipe = { phase: "transcribe" };
   var result = sourcing.resolveSection("card_motion", ctx, recipe);
   assert.equal(result.phase, "A");
   assert.equal(result.skipCard, true, "no fallback when no categoryDefaults");
 });
 
-test("resolveSection — card_motion: component HAS pattern → existing path wins over category default", function () {
-  var DRAWER_PATTERN = {
-    slug: "drawer-open-close",
-    name: "Drawer (open/close)",
-    phases: [{ Phase: "open", Duration: "240ms" }],
-  };
-  var ctx = {
-    guidelinesJson: { behavior: { motion: { pattern: "drawer" } } },
-    motionPatterns: { drawer: DRAWER_PATTERN },
-    categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
-  };
-  var recipe = { phase: "transcribe" };
-  var result = sourcing.resolveSection("card_motion", ctx, recipe);
-  assert.equal(result.phase, "A");
-  assert.equal(result.source, "figma");
-  assert.equal(result.content.patternName, "Drawer (open/close)");
-  assert.notEqual(
-    result.fallback,
-    true,
-    "must not flag as category fallback when component pattern exists",
-  );
-});
+// NOTE: the pre-v1.84 test "component HAS pattern → existing path wins over
+// category default" is removed — the v0.9.x merged guideline doc carries no
+// per-component motion pattern, so that precedence scenario no longer exists.
+// transcribeMotionPattern's legacy behaviour is covered by the direct unit
+// tests above.

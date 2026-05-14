@@ -892,7 +892,9 @@
             '<div class="section-body">' +
             esc(rule.description) +
             "</div>" +
-            doDontPair({ doLabel: rule.do, dontLabel: rule.dont }) +
+            (rule.do && rule.dont
+              ? doDontPair({ doLabel: rule.do, dontLabel: rule.dont })
+              : "") +
             "</div>",
         );
       });
@@ -1259,12 +1261,13 @@
           "<strong>Guidance pending curation.</strong> " +
           "This brief is based on registry data only. The DS team has not yet " +
           "curated content / design / a11y guidelines for this component. " +
-          "Briefs will improve once the guideline is fleshed out at " +
-          "<code>vendor/components/guidelines/" +
+          "Briefs will improve once a guideline is authored at " +
+          "<code>components/src/" +
           slug +
-          ".json</code> (in plugin) / <code>components/guidelines/" +
+          "/</code> in actian-ds-knowledge — it then surfaces here at " +
+          "<code>vendor/components/dist/guidelines/" +
           slug +
-          ".json</code> (in actian-ds-knowledge).";
+          ".json</code>.";
         briefRow.appendChild(footer);
       }
     });

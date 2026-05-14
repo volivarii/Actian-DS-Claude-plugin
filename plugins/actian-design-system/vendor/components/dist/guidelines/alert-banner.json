@@ -1,0 +1,110 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/alert-banner/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "alert-banner",
+  "component": "Alert / banner",
+  "meta": {
+    "category": "feedback"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Alert / banner\n\nAlerts communicate important information that requires the user's attention. They can be informational, confirmatory, cautionary, or indicate an error. Unlike toasts, alerts are persistent and remain visible until dismissed or resolved.\n\n---\n\n## When to use\n\n- To warn the user of a condition that may affect their work or data - before an action is taken.\n- To confirm that a significant action was completed and the user should be aware of the result.\n- To surface a system-level error that requires action to resolve.\n- Do not use alerts for routine confirmations - use [toast notifications](notification-toast) instead.\n- Do not stack multiple alerts. Consolidate if possible.\n\n## Style\n\n- Keep alert text to one to two sentences.\n- Lead with the most important information.\n- Use the appropriate severity: informational, success, warning, or error.\n- Include a clear action link or button when the user needs to do something.\n- Do not use `Alert:` or `Warning:` as a prefix in the message body - the icon and color convey severity.\n\n## Behavior\n\n- Informational and success alerts can be dismissible.\n- Warning and error alerts should persist until the underlying issue is resolved or the user explicitly dismisses them.\n- Alerts should appear at the top of the affected area, not in the center of the page.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Your connection expired. Log in again to continue. | Alert: There has been an authentication error. Please log in. |\n| Some datasets are read-only. Contact your administrator to request edit access. | Warning: Permission issue detected. |\n| Import failed. Check the file format and try again. | Error. |\n{: .do-dont-table}\n\n---\n\n## Inline banner\n\nAn inline banner displays a persistent warning, error, or informational message within a page or [form](forms). Unlike a global alert, it is scoped to the immediate context.\n\n### When to use\n\n- To display persistent warnings, errors, or informational messages within a page or form.\n\n### Style\n\n- State the issue and what the user should do. Keep to one to two sentences.\n- Include a link or action if applicable.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "note": "Alerts communicate important information that requires the user's attention. They can be informational, confirmatory, cautionary, or indicate an error. Unlike toasts, alerts are persistent and remain visible until dismissed or resolved."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            "To warn the user of a condition that may affect their work or data - before an action is taken.",
+            "To confirm that a significant action was completed and the user should be aware of the result.",
+            "To surface a system-level error that requires action to resolve.",
+            "Do not use alerts for routine confirmations - use [toast notifications](notification-toast) instead.",
+            "Do not stack multiple alerts. Consolidate if possible."
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            "Keep alert text to one to two sentences.",
+            "Lead with the most important information.",
+            "Use the appropriate severity: informational, success, warning, or error.",
+            "Include a clear action link or button when the user needs to do something.",
+            "Do not use `Alert:` or `Warning:` as a prefix in the message body - the icon and color convey severity."
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            "Informational and success alerts can be dismissible.",
+            "Warning and error alerts should persist until the underlying issue is resolved or the user explicitly dismisses them.",
+            "Alerts should appear at the top of the affected area, not in the center of the page."
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Your connection expired. Log in again to continue.",
+              "dont": "Alert: There has been an authentication error. Please log in."
+            },
+            {
+              "do": "Some datasets are read-only. Contact your administrator to request edit access.",
+              "dont": "Warning: Permission issue detected."
+            },
+            {
+              "do": "Import failed. Check the file format and try again.",
+              "dont": "Error."
+            }
+          ]
+        },
+        {
+          "heading": "Inline banner",
+          "content": [
+            {
+              "note": "An inline banner displays a persistent warning, error, or informational message within a page or [form](forms). Unlike a global alert, it is scoped to the immediate context."
+            }
+          ],
+          "subsections": [
+            {
+              "subheading": "When to use",
+              "content": [
+                "To display persistent warnings, errors, or informational messages within a page or form."
+              ]
+            },
+            {
+              "subheading": "Style",
+              "content": [
+                "State the issue and what the user should do. Keep to one to two sentences.",
+                "Include a link or action if applicable."
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  }
+}

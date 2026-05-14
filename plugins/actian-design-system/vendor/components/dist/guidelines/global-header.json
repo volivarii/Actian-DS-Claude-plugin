@@ -1,0 +1,65 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/global-header/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "global-header",
+  "component": "Global header",
+  "meta": {
+    "category": "navigation"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Global header\n\nPermanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options.\n\n---\n\n## When to use\n\n- To switch between product areas or catalogs.\n- To access global tools such as [search](search) or notifications.\n- To view account and profile options.\n\n## Style\n\n- Only the branded title and navigation context change between applications.\n- Utility icons (notifications, help, profile) should be unlabeled but include tooltips.\n\n## Behavior\n\nNav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on).",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "note": "Permanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            "To switch between product areas or catalogs.",
+            "To access global tools such as [search](search) or notifications.",
+            "To view account and profile options."
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            "Only the branded title and navigation context change between applications.",
+            "Utility icons (notifications, help, profile) should be unlabeled but include tooltips."
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            {
+              "note": "Nav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on)."
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  }
+}

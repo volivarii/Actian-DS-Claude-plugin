@@ -1,0 +1,105 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/search/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "search",
+  "component": "Search",
+  "meta": {
+    "category": "form-input-selection"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Search\n\nSearch allows users to find assets quickly. Placeholder text should provide a hint as to what is being searched and help the user understand the scope of the search.\n\n---\n\n## When to use\n\n- As a global entry point for finding any data asset.\n- As a scoped filter within a specific view or catalog section.\n\n## Placeholder text\n\n- Placeholder text should provide a hint as to what is being searched.\n- Do not include a period at the end of placeholder text.\n- When search is meant to retrieve assets based on keywords found in metadata, use `Search in [asset names]` (plural).\n- When in doubt, `Search [asset names]` (also plural) is always a safe default.\n\n## Placeholder text examples\n\n| Context | Placeholder text |\n|---|---|\n| Global search | Search items |\n| Topic search | Search topics |\n| User search | Search users |\n| Contact search | Search contacts |\n| Property search | Search properties |\n| Glossary search | Search glossary types |\n\n## Behavior\n\n- Execute search on Enter or on suggestion click.\n- Maintain the last query when the user returns to the search view.\n- Support keyboard navigation through results.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "note": "Search allows users to find assets quickly. Placeholder text should provide a hint as to what is being searched and help the user understand the scope of the search."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            "As a global entry point for finding any data asset.",
+            "As a scoped filter within a specific view or catalog section."
+          ]
+        },
+        {
+          "heading": "Placeholder text",
+          "content": [
+            "Placeholder text should provide a hint as to what is being searched.",
+            "Do not include a period at the end of placeholder text.",
+            "When search is meant to retrieve assets based on keywords found in metadata, use `Search in [asset names]` (plural).",
+            "When in doubt, `Search [asset names]` (also plural) is always a safe default."
+          ]
+        },
+        {
+          "heading": "Placeholder text examples",
+          "content": [
+            {
+              "table": {
+                "headers": [
+                  "Context",
+                  "Placeholder text"
+                ],
+                "rows": [
+                  [
+                    "Global search",
+                    "Search items"
+                  ],
+                  [
+                    "Topic search",
+                    "Search topics"
+                  ],
+                  [
+                    "User search",
+                    "Search users"
+                  ],
+                  [
+                    "Contact search",
+                    "Search contacts"
+                  ],
+                  [
+                    "Property search",
+                    "Search properties"
+                  ],
+                  [
+                    "Glossary search",
+                    "Search glossary types"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            "Execute search on Enter or on suggestion click.",
+            "Maintain the last query when the user returns to the search view.",
+            "Support keyboard navigation through results."
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  }
+}

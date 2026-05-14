@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-05-13T14:39:18.779Z",
+  "generatedAt": "2026-05-14T09:32:23.863Z",
   "categories": {
     "Breakpoint, grid & structure": {
       "components": [
@@ -378,12 +378,6 @@
       ],
       "count": 234
     },
-    "Content guidelines": {
-      "components": [
-        "content-checklist"
-      ],
-      "count": 1
-    },
     "Local components": {
       "components": [
         "notes-feedback"
@@ -392,6 +386,6 @@
     }
   },
   "uncategorized": {
-    "count": 0
+    "count": 1
   }
 }

@@ -1,0 +1,2881 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/*/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this bundle."
+  },
+  "components": {
+    "alert-banner": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/alert-banner/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "alert-banner",
+      "component": "Alert / banner",
+      "meta": {
+        "category": "feedback"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Alert / banner\n\nAlerts communicate important information that requires the user's attention. They can be informational, confirmatory, cautionary, or indicate an error. Unlike toasts, alerts are persistent and remain visible until dismissed or resolved.\n\n---\n\n## When to use\n\n- To warn the user of a condition that may affect their work or data - before an action is taken.\n- To confirm that a significant action was completed and the user should be aware of the result.\n- To surface a system-level error that requires action to resolve.\n- Do not use alerts for routine confirmations - use [toast notifications](notification-toast) instead.\n- Do not stack multiple alerts. Consolidate if possible.\n\n## Style\n\n- Keep alert text to one to two sentences.\n- Lead with the most important information.\n- Use the appropriate severity: informational, success, warning, or error.\n- Include a clear action link or button when the user needs to do something.\n- Do not use `Alert:` or `Warning:` as a prefix in the message body - the icon and color convey severity.\n\n## Behavior\n\n- Informational and success alerts can be dismissible.\n- Warning and error alerts should persist until the underlying issue is resolved or the user explicitly dismisses them.\n- Alerts should appear at the top of the affected area, not in the center of the page.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Your connection expired. Log in again to continue. | Alert: There has been an authentication error. Please log in. |\n| Some datasets are read-only. Contact your administrator to request edit access. | Warning: Permission issue detected. |\n| Import failed. Check the file format and try again. | Error. |\n{: .do-dont-table}\n\n---\n\n## Inline banner\n\nAn inline banner displays a persistent warning, error, or informational message within a page or [form](forms). Unlike a global alert, it is scoped to the immediate context.\n\n### When to use\n\n- To display persistent warnings, errors, or informational messages within a page or form.\n\n### Style\n\n- State the issue and what the user should do. Keep to one to two sentences.\n- Include a link or action if applicable.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Alerts communicate important information that requires the user's attention. They can be informational, confirmatory, cautionary, or indicate an error. Unlike toasts, alerts are persistent and remain visible until dismissed or resolved."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To warn the user of a condition that may affect their work or data - before an action is taken.",
+                "To confirm that a significant action was completed and the user should be aware of the result.",
+                "To surface a system-level error that requires action to resolve.",
+                "Do not use alerts for routine confirmations - use [toast notifications](notification-toast) instead.",
+                "Do not stack multiple alerts. Consolidate if possible."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Keep alert text to one to two sentences.",
+                "Lead with the most important information.",
+                "Use the appropriate severity: informational, success, warning, or error.",
+                "Include a clear action link or button when the user needs to do something.",
+                "Do not use `Alert:` or `Warning:` as a prefix in the message body - the icon and color convey severity."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Informational and success alerts can be dismissible.",
+                "Warning and error alerts should persist until the underlying issue is resolved or the user explicitly dismisses them.",
+                "Alerts should appear at the top of the affected area, not in the center of the page."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Your connection expired. Log in again to continue.",
+                  "dont": "Alert: There has been an authentication error. Please log in."
+                },
+                {
+                  "do": "Some datasets are read-only. Contact your administrator to request edit access.",
+                  "dont": "Warning: Permission issue detected."
+                },
+                {
+                  "do": "Import failed. Check the file format and try again.",
+                  "dont": "Error."
+                }
+              ]
+            },
+            {
+              "heading": "Inline banner",
+              "content": [
+                {
+                  "note": "An inline banner displays a persistent warning, error, or informational message within a page or [form](forms). Unlike a global alert, it is scoped to the immediate context."
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    "To display persistent warnings, errors, or informational messages within a page or form."
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    "State the issue and what the user should do. Keep to one to two sentences.",
+                    "Include a link or action if applicable."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "badge": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/badge/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "badge",
+      "component": "Badges",
+      "meta": {
+        "category": "data-display"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Badges\n\nBadges indicate a count or a status qualifier on an item — for example, unread notifications or a new-item label.\n\n---\n\n## When to use\n\n- To show a numeric count on an item (for example, unread notifications).\n- To apply a status qualifier that does not fit inline as a tag.\n\n## Style\n\n- Badge labels are single words or short abbreviations.\n- Use standard status vocabulary: New, Updated, Draft, Published, Deprecated.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Badges indicate a count or a status qualifier on an item — for example, unread notifications or a new-item label."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To show a numeric count on an item (for example, unread notifications).",
+                "To apply a status qualifier that does not fit inline as a tag."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Badge labels are single words or short abbreviations.",
+                "Use standard status vocabulary: New, Updated, Draft, Published, Deprecated."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "breadcrumbs": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/breadcrumbs/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "breadcrumbs",
+      "component": "Breadcrumbs",
+      "meta": {
+        "category": "navigation"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Breadcrumbs\n\nBreadcrumbs show the user's location within the product hierarchy and allow navigation back up the tree.\n\n---\n\n## Usage\n\nFollow the pattern: Main component / Sub component / Specific item or page name.\n\n## Style\n\n- Use the exact page or item name at each level.\n- Do not truncate unless space is severely limited.\n- The current page is not a link — it is plain text at the end of the breadcrumb trail.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Breadcrumbs show the user's location within the product hierarchy and allow navigation back up the tree."
+                }
+              ]
+            },
+            {
+              "heading": "Usage",
+              "content": [
+                {
+                  "note": "Follow the pattern: Main component / Sub component / Specific item or page name."
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Use the exact page or item name at each level.",
+                "Do not truncate unless space is severely limited.",
+                "The current page is not a link — it is plain text at the end of the breadcrumb trail."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "button": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/button/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "button",
+      "component": "Buttons",
+      "meta": {
+        "category": "action"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Buttons\n\nButtons trigger actions. They are the primary mechanism for users to submit forms, confirm choices, navigate, and initiate processes within the platform.\n\n---\n\n## When to use\n\n- Use buttons for actions, not navigation. For navigation, use [links](link).\n- Use a primary button for the main action on a page or modal.\n- Use secondary buttons for alternative or less critical actions.\n- Use ghost or tertiary buttons for low-priority or destructive actions that should not draw immediate attention.\n\n## Style\n\n- Use sentence case for all button labels.\n- Use the verb + object formula whenever possible (for example, **Create report**, **Delete dataset**).\n- Keep labels concise - ideally two to four words.\n- Do not end button labels with punctuation.\n- Do not use articles (a, an, the) in button labels unless necessary for clarity.\n\n## Behavior\n\n- Disable the primary button until all required fields are complete.\n- Show a loading indicator on the button when an action is in progress.\n- Return focus to the triggering element after a modal or dialog closes.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Create report | Report |\n| Delete dataset | Delete |\n| Add connection | Add a connection |\n| Save changes | Save Changes |\n{: .do-dont-table}\n\n---\n\n## Terminology for button labeling\n\nUse the following term pairs consistently across the platform. Choosing the wrong term creates confusion when the same action appears under different labels in different contexts.\n\n| Term or term pair | Usage |\n|---|---|\n| Cancel vs Close | Use **Cancel** when the user is backing out of a page or modal where information has been entered or a confirmation is required. Cancel returns the user to the previous state without saving. Use **Close** for read-only messages or screens. |\n| Create vs Add vs Insert | Use **Create** when the user is making something brand new. Use **Add** when bringing in similar information that already exists elsewhere. Use **Insert** when bringing in similar information and the ordering is important. The plus (+) icon is only needed when creating a new object to add to something else. When adding an existing object to a list, the icon is not needed. |\n| OK | Use **OK** for read-only pages that are not legally required to be accepted. |\n| Accept vs Decline | Use **Accept** when legal terms of service need to be acknowledged before the user can proceed. **Accept** can also be paired with **Decline** when the user must choose whether to implement proposed changes from someone else or from AI. |\n| Got it! | Use **Got it!** when providing information confirmation modals where the user does not have to take any action. |\n| Select vs Choose | Use **Select** when the user is picking from a list with limited options. Use **Choose** when the user is picking from a large number of options or making an open-ended decision. |\n| Submit vs Send vs Save | Use **Submit** for a form. Use **Send** only for email. Use **Save** when the user is adding or changing selections on a modal. |\n| View vs See | Use **View** as a noun (for example, **Table view**). Use **See** as a verb, but only with a modifier (for example, **See more**). |\n| Stepper buttons | Use verb + object for the creation button. With few exceptions, the verb should be **Create**. Use only the verb (without the object) when finishing a stepper (for example, **Create** not **Create integration**). In modals and steppers, the initial button and the final button should use the same term in most cases. Exceptions include using **Save** on the final step of a wizard. |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Buttons trigger actions. They are the primary mechanism for users to submit forms, confirm choices, navigate, and initiate processes within the platform."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "Use buttons for actions, not navigation. For navigation, use [links](link).",
+                "Use a primary button for the main action on a page or modal.",
+                "Use secondary buttons for alternative or less critical actions.",
+                "Use ghost or tertiary buttons for low-priority or destructive actions that should not draw immediate attention."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Use sentence case for all button labels.",
+                "Use the verb + object formula whenever possible (for example, **Create report**, **Delete dataset**).",
+                "Keep labels concise - ideally two to four words.",
+                "Do not end button labels with punctuation.",
+                "Do not use articles (a, an, the) in button labels unless necessary for clarity."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Disable the primary button until all required fields are complete.",
+                "Show a loading indicator on the button when an action is in progress.",
+                "Return focus to the triggering element after a modal or dialog closes."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Create report",
+                  "dont": "Report"
+                },
+                {
+                  "do": "Delete dataset",
+                  "dont": "Delete"
+                },
+                {
+                  "do": "Add connection",
+                  "dont": "Add a connection"
+                },
+                {
+                  "do": "Save changes",
+                  "dont": "Save Changes"
+                }
+              ]
+            },
+            {
+              "heading": "Terminology for button labeling",
+              "content": [
+                {
+                  "note": "Use the following term pairs consistently across the platform. Choosing the wrong term creates confusion when the same action appears under different labels in different contexts."
+                },
+                {
+                  "term": "Cancel vs Close",
+                  "rule": "Use **Cancel** when the user is backing out of a page or modal where information has been entered or a confirmation is required. Cancel returns the user to the previous state without saving. Use **Close** for read-only messages or screens."
+                },
+                {
+                  "term": "Create vs Add vs Insert",
+                  "rule": "Use **Create** when the user is making something brand new. Use **Add** when bringing in similar information that already exists elsewhere. Use **Insert** when bringing in similar information and the ordering is important. The plus (+) icon is only needed when creating a new object to add to something else. When adding an existing object to a list, the icon is not needed."
+                },
+                {
+                  "term": "OK",
+                  "rule": "Use **OK** for read-only pages that are not legally required to be accepted."
+                },
+                {
+                  "term": "Accept vs Decline",
+                  "rule": "Use **Accept** when legal terms of service need to be acknowledged before the user can proceed. **Accept** can also be paired with **Decline** when the user must choose whether to implement proposed changes from someone else or from AI."
+                },
+                {
+                  "term": "Got it!",
+                  "rule": "Use **Got it!** when providing information confirmation modals where the user does not have to take any action."
+                },
+                {
+                  "term": "Select vs Choose",
+                  "rule": "Use **Select** when the user is picking from a list with limited options. Use **Choose** when the user is picking from a large number of options or making an open-ended decision."
+                },
+                {
+                  "term": "Submit vs Send vs Save",
+                  "rule": "Use **Submit** for a form. Use **Send** only for email. Use **Save** when the user is adding or changing selections on a modal."
+                },
+                {
+                  "term": "View vs See",
+                  "rule": "Use **View** as a noun (for example, **Table view**). Use **See** as a verb, but only with a modifier (for example, **See more**)."
+                },
+                {
+                  "term": "Stepper buttons",
+                  "rule": "Use verb + object for the creation button. With few exceptions, the verb should be **Create**. Use only the verb (without the object) when finishing a stepper (for example, **Create** not **Create integration**). In modals and steppers, the initial button and the final button should use the same term in most cases. Exceptions include using **Save** on the final step of a wizard."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "card": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/card/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "card",
+      "component": "Cards",
+      "meta": {
+        "category": "data-display"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Cards\n\nCards present information in compact, scannable formats and allow users to interact or navigate efficiently.\n\n---\n\n## Card - Item\n\n### When to use\n\n- On dashboards and detail pages where items need to be viewed or opened quickly.\n- To display individual items such as datasets, visualizations, or catalog entries in a clickable format.\n\n### Style\n\n- Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.\n- Include metadata (type, owner, last modified) using short labels.\n- Use sentence case throughout.\n\n### Behavior\n\n- The entire card is clickable and navigates to the item detail page.\n- Contextual actions (such as **Edit**, **Delete**) appear on hover or via an overflow menu.\n\n---\n\n## Card - Selectable\n\n### When to use\n\n- When users need to choose between options by clicking anywhere on the card.\n- Use the large variant when additional context is needed (title, description, image, metadata).\n- Use the small variant when space is limited.\n- Cards can function as radio buttons (single select) or checkboxes (multi-select).\n\n### Style\n\n- Title: short noun phrase describing the option. Sentence case.\n- Description: one sentence maximum. Plain language.\n- Do not include instructional text inside a selectable card.\n\n---\n\n## Card - Topic\n\n### When to use\n\n- To represent curated groupings or domains, such as data topics.\n- As gateways to collections in Explorer.\n\n### Style\n\n- Use a noun or noun phrase as the topic title.\n- Keep the description to one sentence that explains the scope of the topic.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Cards present information in compact, scannable formats and allow users to interact or navigate efficiently."
+                }
+              ]
+            },
+            {
+              "heading": "Card - Item",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    "On dashboards and detail pages where items need to be viewed or opened quickly.",
+                    "To display individual items such as datasets, visualizations, or catalog entries in a clickable format."
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    "Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.",
+                    "Include metadata (type, owner, last modified) using short labels.",
+                    "Use sentence case throughout."
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    "The entire card is clickable and navigates to the item detail page.",
+                    "Contextual actions (such as **Edit**, **Delete**) appear on hover or via an overflow menu."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Card - Selectable",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    "When users need to choose between options by clicking anywhere on the card.",
+                    "Use the large variant when additional context is needed (title, description, image, metadata).",
+                    "Use the small variant when space is limited.",
+                    "Cards can function as radio buttons (single select) or checkboxes (multi-select)."
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    "Title: short noun phrase describing the option. Sentence case.",
+                    "Description: one sentence maximum. Plain language.",
+                    "Do not include instructional text inside a selectable card."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Card - Topic",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    "To represent curated groupings or domains, such as data topics.",
+                    "As gateways to collections in Explorer."
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    "Use a noun or noun phrase as the topic title.",
+                    "Keep the description to one sentence that explains the scope of the topic."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "checkbox": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/checkbox/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "checkbox",
+      "component": "Checkboxes",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Checkboxes\n\nCheckboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms.\n\n---\n\n## Default format\n\n### When to use\n\n- To allow users to select multiple options in a group.\n- For binary settings that are independent of other choices. For example, **Enable notifications**.\n- When a task involves filtering or refining data. For example, applying multiple filters to a search.\n\n### Style\n\n- Use clear, direct labels that describe what happens if the box is checked.\n- Write labels in positive form.\n\n| Do | Don't |\n|---|---|\n| Show archived items | Don't hide archived items |\n{: .do-dont-table}\n- Group related checkboxes under a group label when possible for context.\n- Keep labels parallel in style and length for readability.\n- Avoid jargon and abbreviations.\n\n### Behavior\n\nAllow users to select by clicking either the box or the label.\n\n### Do / Don't\n\n| Do | Don't |\n|---|---|\n| Enable notifications | Notifications enabled (noun-first label) |\n| Show archived items | Don't hide archived items |\n| Agree to terms and conditions | Agreement with terms and conditions |\n{: .do-dont-table}\n\n---\n\n## Card format\n\nUse card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label.\n\n### When to use\n\n- Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.\n- Examples: pricing tiers, template selections (for example, use cases), or layout choices.\n\n### Behavior\n\n- Indicate selected state visually (`Selected` highlight border, and so on).\n- Click anywhere on the tile to toggle selection.\n- For multi-select: use checkbox behavior. For single-select: use radio group behavior.\n- Maintain selection across steps if part of a multi-step process.\n- Title: short, descriptive, and consistent across tiles.\n- Supporting text: use only in the large variant.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Checkboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms."
+                }
+              ]
+            },
+            {
+              "heading": "Default format",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    "To allow users to select multiple options in a group.",
+                    "For binary settings that are independent of other choices. For example, **Enable notifications**.",
+                    "When a task involves filtering or refining data. For example, applying multiple filters to a search."
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    "Use clear, direct labels that describe what happens if the box is checked.",
+                    "Write labels in positive form.",
+                    {
+                      "do": "Show archived items",
+                      "dont": "Don't hide archived items"
+                    },
+                    "Group related checkboxes under a group label when possible for context.",
+                    "Keep labels parallel in style and length for readability.",
+                    "Avoid jargon and abbreviations."
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "note": "Allow users to select by clicking either the box or the label."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Do / Don't",
+                  "content": [
+                    {
+                      "do": "Enable notifications",
+                      "dont": "Notifications enabled (noun-first label)"
+                    },
+                    {
+                      "do": "Show archived items",
+                      "dont": "Don't hide archived items"
+                    },
+                    {
+                      "do": "Agree to terms and conditions",
+                      "dont": "Agreement with terms and conditions"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Card format",
+              "content": [
+                {
+                  "note": "Use card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label."
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    "Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.",
+                    "Examples: pricing tiers, template selections (for example, use cases), or layout choices."
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    "Indicate selected state visually (`Selected` highlight border, and so on).",
+                    "Click anywhere on the tile to toggle selection.",
+                    "For multi-select: use checkbox behavior. For single-select: use radio group behavior.",
+                    "Maintain selection across steps if part of a multi-step process.",
+                    "Title: short, descriptive, and consistent across tiles.",
+                    "Supporting text: use only in the large variant."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "checkbox-with-label": {
+      "_schema_version": 1,
+      "_alias_of": "checkbox",
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/checkbox/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "checkbox",
+      "component": "Checkboxes",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Checkboxes\n\nCheckboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms.\n\n---\n\n## Default format\n\n### When to use\n\n- To allow users to select multiple options in a group.\n- For binary settings that are independent of other choices. For example, **Enable notifications**.\n- When a task involves filtering or refining data. For example, applying multiple filters to a search.\n\n### Style\n\n- Use clear, direct labels that describe what happens if the box is checked.\n- Write labels in positive form.\n\n| Do | Don't |\n|---|---|\n| Show archived items | Don't hide archived items |\n{: .do-dont-table}\n- Group related checkboxes under a group label when possible for context.\n- Keep labels parallel in style and length for readability.\n- Avoid jargon and abbreviations.\n\n### Behavior\n\nAllow users to select by clicking either the box or the label.\n\n### Do / Don't\n\n| Do | Don't |\n|---|---|\n| Enable notifications | Notifications enabled (noun-first label) |\n| Show archived items | Don't hide archived items |\n| Agree to terms and conditions | Agreement with terms and conditions |\n{: .do-dont-table}\n\n---\n\n## Card format\n\nUse card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label.\n\n### When to use\n\n- Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.\n- Examples: pricing tiers, template selections (for example, use cases), or layout choices.\n\n### Behavior\n\n- Indicate selected state visually (`Selected` highlight border, and so on).\n- Click anywhere on the tile to toggle selection.\n- For multi-select: use checkbox behavior. For single-select: use radio group behavior.\n- Maintain selection across steps if part of a multi-step process.\n- Title: short, descriptive, and consistent across tiles.\n- Supporting text: use only in the large variant.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Checkboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms."
+                }
+              ]
+            },
+            {
+              "heading": "Default format",
+              "content": [],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    "To allow users to select multiple options in a group.",
+                    "For binary settings that are independent of other choices. For example, **Enable notifications**.",
+                    "When a task involves filtering or refining data. For example, applying multiple filters to a search."
+                  ]
+                },
+                {
+                  "subheading": "Style",
+                  "content": [
+                    "Use clear, direct labels that describe what happens if the box is checked.",
+                    "Write labels in positive form.",
+                    {
+                      "do": "Show archived items",
+                      "dont": "Don't hide archived items"
+                    },
+                    "Group related checkboxes under a group label when possible for context.",
+                    "Keep labels parallel in style and length for readability.",
+                    "Avoid jargon and abbreviations."
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    {
+                      "note": "Allow users to select by clicking either the box or the label."
+                    }
+                  ]
+                },
+                {
+                  "subheading": "Do / Don't",
+                  "content": [
+                    {
+                      "do": "Enable notifications",
+                      "dont": "Notifications enabled (noun-first label)"
+                    },
+                    {
+                      "do": "Show archived items",
+                      "dont": "Don't hide archived items"
+                    },
+                    {
+                      "do": "Agree to terms and conditions",
+                      "dont": "Agreement with terms and conditions"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Card format",
+              "content": [
+                {
+                  "note": "Use card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label."
+                }
+              ],
+              "subsections": [
+                {
+                  "subheading": "When to use",
+                  "content": [
+                    "Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.",
+                    "Examples: pricing tiers, template selections (for example, use cases), or layout choices."
+                  ]
+                },
+                {
+                  "subheading": "Behavior",
+                  "content": [
+                    "Indicate selected state visually (`Selected` highlight border, and so on).",
+                    "Click anywhere on the tile to toggle selection.",
+                    "For multi-select: use checkbox behavior. For single-select: use radio group behavior.",
+                    "Maintain selection across steps if part of a multi-step process.",
+                    "Title: short, descriptive, and consistent across tiles.",
+                    "Supporting text: use only in the large variant."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "combo-box": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/combo-box/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "combo-box",
+      "component": "Combo box",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Combo box\n\nA combo box combines a text input with a dropdown list, allowing users to either type a value or select from predefined options. It is used when the list of options is long or when freeform input alongside suggestions is needed.\n\n---\n\n## When to use\n\n- When the user needs to select from a large list (20+ items) and filtering by typing improves efficiency.\n- When freeform input is valid alongside suggested options.\n- Do not use a combo box when the list is short and fixed - use a standard dropdown instead.\n\n## Style\n\n- Label the combo box with a short noun phrase describing what the user is selecting.\n- Use placeholder text to indicate the expected input type. For example, `Search or select a schema`.\n- Keep option labels consistent in format and sentence case.\n- Do not use `Type to filter` as placeholder text - it states the obvious. Instead describe what is being searched.\n\n## Behavior\n\n- Filter results dynamically as the user types.\n- Show a `No results found` message when there are no matches - do not show an empty dropdown.\n- Allow selection by clicking or pressing Enter.\n- Clear the input on selection unless the selected value is displayed in the input field.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Search or select a data source | Type to filter... |\n| No results found for \"xyz\" | (empty dropdown) |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "A combo box combines a text input with a dropdown list, allowing users to either type a value or select from predefined options. It is used when the list of options is long or when freeform input alongside suggestions is needed."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "When the user needs to select from a large list (20+ items) and filtering by typing improves efficiency.",
+                "When freeform input is valid alongside suggested options.",
+                "Do not use a combo box when the list is short and fixed - use a standard dropdown instead."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Label the combo box with a short noun phrase describing what the user is selecting.",
+                "Use placeholder text to indicate the expected input type. For example, `Search or select a schema`.",
+                "Keep option labels consistent in format and sentence case.",
+                "Do not use `Type to filter` as placeholder text - it states the obvious. Instead describe what is being searched."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Filter results dynamically as the user types.",
+                "Show a `No results found` message when there are no matches - do not show an empty dropdown.",
+                "Allow selection by clicking or pressing Enter.",
+                "Clear the input on selection unless the selected value is displayed in the input field."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Search or select a data source",
+                  "dont": "Type to filter..."
+                },
+                {
+                  "do": "No results found for \"xyz\"",
+                  "dont": "(empty dropdown)"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "confirmation": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/confirmation/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "confirmation",
+      "component": "Confirmation",
+      "meta": {
+        "category": "feedback"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Confirmation\n\nConfirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone.\n\n---\n\n## When to use\n\nBefore irreversible or destructive actions (delete, remove, reset).\n\n## Style\n\n- Title: name the action, not the outcome.\n\n| Do | Don't |\n|---|---|\n| Delete connection | This is permanent |\n{: .do-dont-table}\n\n- Body: one sentence stating what will happen and whether it can be undone.\n- Primary CTA: matches the title verb. For example, **Delete**.\n- Secondary CTA: **Cancel**.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Delete connection / This will remove the connection and cannot be undone. / Delete \\| Cancel | Warning! Are you sure? This action is permanent. / Yes \\| No |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Confirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "note": "Before irreversible or destructive actions (delete, remove, reset)."
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Title: name the action, not the outcome.",
+                {
+                  "do": "Delete connection",
+                  "dont": "This is permanent"
+                },
+                "Body: one sentence stating what will happen and whether it can be undone.",
+                "Primary CTA: matches the title verb. For example, **Delete**.",
+                "Secondary CTA: **Cancel**."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Delete connection / This will remove the connection and cannot be undone. / Delete | Cancel",
+                  "dont": "Warning! Are you sure? This action is permanent. / Yes | No"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "dropdown-select": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/dropdown-select/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "dropdown-select",
+      "component": "Dropdown / Select",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Dropdown / Select\n\nDropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times.\n\n---\n\n## Behavior\n\n- Menu opens on click, not on hover.\n- Close the menu on Escape key press or on outside click.\n\n## Style\n\n- Label the button with a clear action or noun. For example, **Actions** or **More**.\n- Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.\n- Use sentence case for all menu items.\n- Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Actions | Click here |\n| Download PDF | PDF download |\n| Add tag | Tag adding |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Dropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times."
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Menu opens on click, not on hover.",
+                "Close the menu on Escape key press or on outside click."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Label the button with a clear action or noun. For example, **Actions** or **More**.",
+                "Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.",
+                "Use sentence case for all menu items.",
+                "Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Actions",
+                  "dont": "Click here"
+                },
+                {
+                  "do": "Download PDF",
+                  "dont": "PDF download"
+                },
+                {
+                  "do": "Add tag",
+                  "dont": "Tag adding"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "dropdown-select-default": {
+      "_schema_version": 1,
+      "_alias_of": "dropdown-select",
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/dropdown-select/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "dropdown-select",
+      "component": "Dropdown / Select",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Dropdown / Select\n\nDropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times.\n\n---\n\n## Behavior\n\n- Menu opens on click, not on hover.\n- Close the menu on Escape key press or on outside click.\n\n## Style\n\n- Label the button with a clear action or noun. For example, **Actions** or **More**.\n- Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.\n- Use sentence case for all menu items.\n- Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Actions | Click here |\n| Download PDF | PDF download |\n| Add tag | Tag adding |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Dropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times."
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Menu opens on click, not on hover.",
+                "Close the menu on Escape key press or on outside click."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Label the button with a clear action or noun. For example, **Actions** or **More**.",
+                "Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.",
+                "Use sentence case for all menu items.",
+                "Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Actions",
+                  "dont": "Click here"
+                },
+                {
+                  "do": "Download PDF",
+                  "dont": "PDF download"
+                },
+                {
+                  "do": "Add tag",
+                  "dont": "Tag adding"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "filters": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/filters/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "filters",
+      "component": "Filters",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Filters\n\nFilters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products.\n\n---\n\n## When to use\n\n- When a dataset or list is large enough that users need to narrow results to find what they need.\n- When multiple filter criteria can be applied simultaneously.\n- Do not use filters for permanent data modifications - filters only affect the current view.\n\n## Style\n\n- Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.\n- Use sentence case for all filter labels and option values.\n- Show the active filter count when filters are collapsed. For example, `Filters (3)`.\n- Use consistent terminology across all filter controls in the same view.\n\n## Behavior\n\n- Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.\n- Provide a **Clear all** or **Reset filters** action when filters are active.\n- Persist filter state when users navigate away and return to the same view.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Filters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "When a dataset or list is large enough that users need to narrow results to find what they need.",
+                "When multiple filter criteria can be applied simultaneously.",
+                "Do not use filters for permanent data modifications - filters only affect the current view."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.",
+                "Use sentence case for all filter labels and option values.",
+                "Show the active filter count when filters are collapsed. For example, `Filters (3)`.",
+                "Use consistent terminology across all filter controls in the same view."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.",
+                "Provide a **Clear all** or **Reset filters** action when filters are active.",
+                "Persist filter state when users navigate away and return to the same view."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "global-header": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/global-header/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "global-header",
+      "component": "Global header",
+      "meta": {
+        "category": "navigation"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Global header\n\nPermanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options.\n\n---\n\n## When to use\n\n- To switch between product areas or catalogs.\n- To access global tools such as [search](search) or notifications.\n- To view account and profile options.\n\n## Style\n\n- Only the branded title and navigation context change between applications.\n- Utility icons (notifications, help, profile) should be unlabeled but include tooltips.\n\n## Behavior\n\nNav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on).",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Permanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To switch between product areas or catalogs.",
+                "To access global tools such as [search](search) or notifications.",
+                "To view account and profile options."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Only the branded title and navigation context change between applications.",
+                "Utility icons (notifications, help, profile) should be unlabeled but include tooltips."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                {
+                  "note": "Nav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on)."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "inline-toast": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/inline-toast/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "inline-toast",
+      "component": "Inline toast",
+      "meta": {
+        "category": "feedback"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Inline toast\n\nAn inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to.\n\n---\n\n## When to use\n\n- To confirm a localized action, such as copying a value or saving a field inline.\n- To surface a validation warning directly below or beside a specific form field.\n- Do not use an inline toast for global events - use the global toast or snackbar instead.\n\n## Style\n\n- One short sentence maximum. Ideally fewer than ten words.\n- Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.\n- Do not use inline toasts for error messages that require user action - use inline validation instead.\n\n## Examples\n\n| Scenario | Inline toast text |\n|---|---|\n| Value copied to clipboard | Copied |\n| Field saved inline | Saved |\n| Tag added to asset | Tag added |\n| Link generated | Link created |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "An inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To confirm a localized action, such as copying a value or saving a field inline.",
+                "To surface a validation warning directly below or beside a specific form field.",
+                "Do not use an inline toast for global events - use the global toast or snackbar instead."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "One short sentence maximum. Ideally fewer than ten words.",
+                "Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.",
+                "Do not use inline toasts for error messages that require user action - use inline validation instead."
+              ]
+            },
+            {
+              "heading": "Examples",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Scenario",
+                      "Inline toast text"
+                    ],
+                    "rows": [
+                      [
+                        "Value copied to clipboard",
+                        "Copied"
+                      ],
+                      [
+                        "Field saved inline",
+                        "Saved"
+                      ],
+                      [
+                        "Tag added to asset",
+                        "Tag added"
+                      ],
+                      [
+                        "Link generated",
+                        "Link created"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "input": {
+      "_schema_version": 1,
+      "_alias_of": "text-input",
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/text-input/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "text-input",
+      "component": "Text input",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Text input\n\nText inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list.\n\n---\n\n## Behavior\n\nError validation should happen at the latest when the user clicks out of the text entry field (on blur).\n\n## Placeholder text\n\n- Placeholder text provides a brief example of the expected input content.\n- Use placeholder text only to model good input - not to convey instructions or restrictions for the field.\n- Placeholder text should never simply repeat the field label or description.\n\n### When to use placeholder text\n\n- When an example would model the correct input.\n- When naming conventions or restrictions should be reinforced.\n- When the field label could be interpreted in different ways and an example would reduce that ambiguity.\n- Never use placeholder text if the label text is sufficient on its own.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Label: Dataset name / Placeholder: e.g. Q4_sales_report | Placeholder: Enter dataset name |\n| Placeholder: e.g. john.doe@company.com | Placeholder: Enter your email address |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Text inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list."
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                {
+                  "note": "Error validation should happen at the latest when the user clicks out of the text entry field (on blur)."
+                }
+              ]
+            },
+            {
+              "heading": "Placeholder text",
+              "content": [
+                "Placeholder text provides a brief example of the expected input content.",
+                "Use placeholder text only to model good input - not to convey instructions or restrictions for the field.",
+                "Placeholder text should never simply repeat the field label or description."
+              ],
+              "subsections": [
+                {
+                  "subheading": "When to use placeholder text",
+                  "content": [
+                    "When an example would model the correct input.",
+                    "When naming conventions or restrictions should be reinforced.",
+                    "When the field label could be interpreted in different ways and an example would reduce that ambiguity.",
+                    "Never use placeholder text if the label text is sufficient on its own."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Label: Dataset name / Placeholder: e.g. Q4_sales_report",
+                  "dont": "Placeholder: Enter dataset name"
+                },
+                {
+                  "do": "Placeholder: e.g. john.doe@company.com",
+                  "dont": "Placeholder: Enter your email address"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "link": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/link/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "link",
+      "component": "Links",
+      "meta": {
+        "category": "action"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Links\n\nA link visually represents clickable text or elements that navigate users to other pages, sections, or resources. Links appear colored to indicate interactivity and follow accessibility and design standards for clarity and usability.\n\n---\n\n## When to use\n\n- For navigation to internal or external destinations. Use external link icon in the latter case.\n- For inline standalone contextual actions (for example, **Learn more**).\n- Avoid using links for actions; use [ghost buttons](button) instead.\n\n## Should I use a button or a link?\n\nA link should be used when navigating between pages, while a button should be used for actions like submitting a form, downloading a file, or triggering a task.\n\n- Use a link for **View more articles**.\n- Use a button for **Submit form**.\n\n## Style\n\n- Use meaningful, descriptive link text.\n\n| Do | Don't |\n|---|---|\n| View pipeline details | Click here |\n{: .do-dont-table}\n- Avoid standalone icons as links unless accompanied by an accessible label.\n- Use sentence case and no terminal punctuation.\n- Keep links clear, concise, accessible, and consistent.\n\n## Behavior\n\n- Links open in the same tab unless explicitly labeled as external.\n- Underline on hover for clarity.\n- Visited state should be visually distinct whether inline or standalone.\n\n## Clear and descriptive link text\n\nLink text should clearly describe the destination or action. Avoid vague text that does not convey enough information to the user or to assistive technologies.\n\n| Do | Don't |\n|---|---|\n| View your order details | Click here |\n| Visit our home page | http://example.com |\n| Download report | Get report |\n| Explore features | Click to learn more |\n| View our services | Click here to view our list of services |\n{: .do-dont-table}\n\n## Action-oriented language\n\nUse action verbs for links that load tasks. Action-oriented language guides the user on what to expect. This is especially helpful for calls to action. Avoid passive or generic terms and phrases. Always provide clarity on what will happen or what the user will achieve by clicking.\n\n## Consistency in link text\n\nUse consistent link phrases for similar actions. Similar actions should use the same link text to help users develop familiarity and expectations. For example, if you use **Learn more** for accessing detailed content in one area, avoid switching to **Read details** elsewhere. Keep link text brief but meaningful.\n\n## Avoid linking full sentences or paragraphs\n\nLink only the specific, relevant portion of text. Avoid linking entire sentences or paragraphs, as this can overwhelm the user and reduce readability.\n\n| Do | Don't |\n|---|---|\n| Read our [user experience design blog](). | [Click here to read our blog about user experience design](). |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "A link visually represents clickable text or elements that navigate users to other pages, sections, or resources. Links appear colored to indicate interactivity and follow accessibility and design standards for clarity and usability."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "For navigation to internal or external destinations. Use external link icon in the latter case.",
+                "For inline standalone contextual actions (for example, **Learn more**).",
+                "Avoid using links for actions; use [ghost buttons](button) instead."
+              ]
+            },
+            {
+              "heading": "Should I use a button or a link?",
+              "content": [
+                {
+                  "note": "A link should be used when navigating between pages, while a button should be used for actions like submitting a form, downloading a file, or triggering a task."
+                },
+                "Use a link for **View more articles**.",
+                "Use a button for **Submit form**."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Use meaningful, descriptive link text.",
+                {
+                  "do": "View pipeline details",
+                  "dont": "Click here"
+                },
+                "Avoid standalone icons as links unless accompanied by an accessible label.",
+                "Use sentence case and no terminal punctuation.",
+                "Keep links clear, concise, accessible, and consistent."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Links open in the same tab unless explicitly labeled as external.",
+                "Underline on hover for clarity.",
+                "Visited state should be visually distinct whether inline or standalone."
+              ]
+            },
+            {
+              "heading": "Clear and descriptive link text",
+              "content": [
+                {
+                  "note": "Link text should clearly describe the destination or action. Avoid vague text that does not convey enough information to the user or to assistive technologies."
+                },
+                {
+                  "do": "View your order details",
+                  "dont": "Click here"
+                },
+                {
+                  "do": "Visit our home page",
+                  "dont": "http://example.com"
+                },
+                {
+                  "do": "Download report",
+                  "dont": "Get report"
+                },
+                {
+                  "do": "Explore features",
+                  "dont": "Click to learn more"
+                },
+                {
+                  "do": "View our services",
+                  "dont": "Click here to view our list of services"
+                }
+              ]
+            },
+            {
+              "heading": "Action-oriented language",
+              "content": [
+                {
+                  "note": "Use action verbs for links that load tasks. Action-oriented language guides the user on what to expect. This is especially helpful for calls to action. Avoid passive or generic terms and phrases. Always provide clarity on what will happen or what the user will achieve by clicking."
+                }
+              ]
+            },
+            {
+              "heading": "Consistency in link text",
+              "content": [
+                {
+                  "note": "Use consistent link phrases for similar actions. Similar actions should use the same link text to help users develop familiarity and expectations. For example, if you use **Learn more** for accessing detailed content in one area, avoid switching to **Read details** elsewhere. Keep link text brief but meaningful."
+                }
+              ]
+            },
+            {
+              "heading": "Avoid linking full sentences or paragraphs",
+              "content": [
+                {
+                  "note": "Link only the specific, relevant portion of text. Avoid linking entire sentences or paragraphs, as this can overwhelm the user and reduce readability."
+                },
+                {
+                  "do": "Read our [user experience design blog]().",
+                  "dont": "[Click here to read our blog about user experience design]()."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "modal": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/modal/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "modal",
+      "component": "Modal",
+      "meta": {
+        "category": "overlays"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Modal\n\nModals interrupt the current flow to require the user's attention for a confirmation, input, or critical action. Use them sparingly - overuse degrades their impact.\n\n---\n\n## When to use\n\n- To confirm destructive or irreversible actions. For full confirmation dialog patterns, see [confirmation](confirmation).\n- To collect a small amount of input before completing an action.\n- Do not use modals for purely informational content - use inline messages or tooltips instead.\n\n## Style\n\n- Modal title should match the label of the button or link that triggered it.\n- Keep body copy short and actionable. One to two sentences.\n- Use a primary and secondary button pair. Align with the [button terminology guidelines](button).\n- Do not nest modals.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Title: Delete dataset | Title: OK |\n| This will permanently delete the dataset and cannot be undone. | Are you sure you want to do this? |\n| Primary CTA: Delete / Secondary CTA: Cancel | Primary CTA: Yes / Secondary CTA: No |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Modals interrupt the current flow to require the user's attention for a confirmation, input, or critical action. Use them sparingly - overuse degrades their impact."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To confirm destructive or irreversible actions. For full confirmation dialog patterns, see [confirmation](confirmation).",
+                "To collect a small amount of input before completing an action.",
+                "Do not use modals for purely informational content - use inline messages or tooltips instead."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Modal title should match the label of the button or link that triggered it.",
+                "Keep body copy short and actionable. One to two sentences.",
+                "Use a primary and secondary button pair. Align with the [button terminology guidelines](button).",
+                "Do not nest modals."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Title: Delete dataset",
+                  "dont": "Title: OK"
+                },
+                {
+                  "do": "This will permanently delete the dataset and cannot be undone.",
+                  "dont": "Are you sure you want to do this?"
+                },
+                {
+                  "do": "Primary CTA: Delete / Secondary CTA: Cancel",
+                  "dont": "Primary CTA: Yes / Secondary CTA: No"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "multi-select": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/multi-select/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "multi-select",
+      "component": "Multi-select",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Multi-select\n\nMulti-select allows users to choose more than one option from a list. It is used in filters, tag assignment, bulk operations, and configuration flows where multiple simultaneous selections are valid.\n\n---\n\n## When to use\n\n- When users need to apply multiple filters at the same time.\n- When assigning multiple tags, owners, or categories to an asset.\n- Do not use multi-select when only one selection is valid - use a single-select dropdown or radio buttons instead.\n\n## Style\n\n- Label the control with a short noun phrase describing the category being selected. For example, **Data domains** or **Owners**.\n- Show selected values as chips or tokens inside the input field.\n- Keep chip labels concise - use the item name only, not additional metadata.\n- Use **Select all** and **Clear all** as action labels when applicable.\n\n## Behavior\n\n- Show a count of selected items when the list collapses. For example, `3 selected`.\n- Allow individual chip removal via a close icon on each chip.\n- Keep the dropdown open until the user clicks outside or presses Escape.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| 3 selected | 3 items have been selected |\n| Clear all | Remove all selections |\n| Select all | Check all |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Multi-select allows users to choose more than one option from a list. It is used in filters, tag assignment, bulk operations, and configuration flows where multiple simultaneous selections are valid."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "When users need to apply multiple filters at the same time.",
+                "When assigning multiple tags, owners, or categories to an asset.",
+                "Do not use multi-select when only one selection is valid - use a single-select dropdown or radio buttons instead."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Label the control with a short noun phrase describing the category being selected. For example, **Data domains** or **Owners**.",
+                "Show selected values as chips or tokens inside the input field.",
+                "Keep chip labels concise - use the item name only, not additional metadata.",
+                "Use **Select all** and **Clear all** as action labels when applicable."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Show a count of selected items when the list collapses. For example, `3 selected`.",
+                "Allow individual chip removal via a close icon on each chip.",
+                "Keep the dropdown open until the user clicks outside or presses Escape."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "3 selected",
+                  "dont": "3 items have been selected"
+                },
+                {
+                  "do": "Clear all",
+                  "dont": "Remove all selections"
+                },
+                {
+                  "do": "Select all",
+                  "dont": "Check all"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "notification": {
+      "_schema_version": 1,
+      "_alias_of": "inline-toast",
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/inline-toast/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "inline-toast",
+      "component": "Inline toast",
+      "meta": {
+        "category": "feedback"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Inline toast\n\nAn inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to.\n\n---\n\n## When to use\n\n- To confirm a localized action, such as copying a value or saving a field inline.\n- To surface a validation warning directly below or beside a specific form field.\n- Do not use an inline toast for global events - use the global toast or snackbar instead.\n\n## Style\n\n- One short sentence maximum. Ideally fewer than ten words.\n- Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.\n- Do not use inline toasts for error messages that require user action - use inline validation instead.\n\n## Examples\n\n| Scenario | Inline toast text |\n|---|---|\n| Value copied to clipboard | Copied |\n| Field saved inline | Saved |\n| Tag added to asset | Tag added |\n| Link generated | Link created |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "An inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To confirm a localized action, such as copying a value or saving a field inline.",
+                "To surface a validation warning directly below or beside a specific form field.",
+                "Do not use an inline toast for global events - use the global toast or snackbar instead."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "One short sentence maximum. Ideally fewer than ten words.",
+                "Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.",
+                "Do not use inline toasts for error messages that require user action - use inline validation instead."
+              ]
+            },
+            {
+              "heading": "Examples",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Scenario",
+                      "Inline toast text"
+                    ],
+                    "rows": [
+                      [
+                        "Value copied to clipboard",
+                        "Copied"
+                      ],
+                      [
+                        "Field saved inline",
+                        "Saved"
+                      ],
+                      [
+                        "Tag added to asset",
+                        "Tag added"
+                      ],
+                      [
+                        "Link generated",
+                        "Link created"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "popover": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/popover/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "popover",
+      "component": "Popover",
+      "meta": {
+        "category": "overlays"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Popover\n\nPopovers display richer contextual content than a tooltip. They appear on click and can contain formatted text, links, and actions. Use them when the information is too long or interactive for a tooltip.\n\n---\n\n## When to use\n\n- To explain a concept or term inline, without leaving the current page.\n- To show a small set of related actions in a compact overlay (also called an action popover).\n- To provide definitions or help text for complex fields.\n- Do not use popovers for critical error messages - use inline alerts or validation messages.\n\n## Style\n\n- Popover title: short noun phrase in sentence case. Optional but recommended for longer content.\n- Body: plain prose, two to four sentences maximum.\n- Avoid bullet lists inside popovers - keep content scannable through short sentences.\n- Link text within a popover follows the same descriptive link text guidelines as inline links.\n\n## Behavior\n\n- Opens on click, closes on click outside or Escape.\n- Do not open popovers on hover - use tooltips for hover-triggered content.\n- Trap focus inside the popover while it is open for accessibility.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Popovers display richer contextual content than a tooltip. They appear on click and can contain formatted text, links, and actions. Use them when the information is too long or interactive for a tooltip."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To explain a concept or term inline, without leaving the current page.",
+                "To show a small set of related actions in a compact overlay (also called an action popover).",
+                "To provide definitions or help text for complex fields.",
+                "Do not use popovers for critical error messages - use inline alerts or validation messages."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Popover title: short noun phrase in sentence case. Optional but recommended for longer content.",
+                "Body: plain prose, two to four sentences maximum.",
+                "Avoid bullet lists inside popovers - keep content scannable through short sentences.",
+                "Link text within a popover follows the same descriptive link text guidelines as inline links."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Opens on click, closes on click outside or Escape.",
+                "Do not open popovers on hover - use tooltips for hover-triggered content.",
+                "Trap focus inside the popover while it is open for accessibility."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "search": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/search/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "search",
+      "component": "Search",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Search\n\nSearch allows users to find assets quickly. Placeholder text should provide a hint as to what is being searched and help the user understand the scope of the search.\n\n---\n\n## When to use\n\n- As a global entry point for finding any data asset.\n- As a scoped filter within a specific view or catalog section.\n\n## Placeholder text\n\n- Placeholder text should provide a hint as to what is being searched.\n- Do not include a period at the end of placeholder text.\n- When search is meant to retrieve assets based on keywords found in metadata, use `Search in [asset names]` (plural).\n- When in doubt, `Search [asset names]` (also plural) is always a safe default.\n\n## Placeholder text examples\n\n| Context | Placeholder text |\n|---|---|\n| Global search | Search items |\n| Topic search | Search topics |\n| User search | Search users |\n| Contact search | Search contacts |\n| Property search | Search properties |\n| Glossary search | Search glossary types |\n\n## Behavior\n\n- Execute search on Enter or on suggestion click.\n- Maintain the last query when the user returns to the search view.\n- Support keyboard navigation through results.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Search allows users to find assets quickly. Placeholder text should provide a hint as to what is being searched and help the user understand the scope of the search."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "As a global entry point for finding any data asset.",
+                "As a scoped filter within a specific view or catalog section."
+              ]
+            },
+            {
+              "heading": "Placeholder text",
+              "content": [
+                "Placeholder text should provide a hint as to what is being searched.",
+                "Do not include a period at the end of placeholder text.",
+                "When search is meant to retrieve assets based on keywords found in metadata, use `Search in [asset names]` (plural).",
+                "When in doubt, `Search [asset names]` (also plural) is always a safe default."
+              ]
+            },
+            {
+              "heading": "Placeholder text examples",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Context",
+                      "Placeholder text"
+                    ],
+                    "rows": [
+                      [
+                        "Global search",
+                        "Search items"
+                      ],
+                      [
+                        "Topic search",
+                        "Search topics"
+                      ],
+                      [
+                        "User search",
+                        "Search users"
+                      ],
+                      [
+                        "Contact search",
+                        "Search contacts"
+                      ],
+                      [
+                        "Property search",
+                        "Search properties"
+                      ],
+                      [
+                        "Glossary search",
+                        "Search glossary types"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Execute search on Enter or on suggestion click.",
+                "Maintain the last query when the user returns to the search view.",
+                "Support keyboard navigation through results."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "search-filters": {
+      "_schema_version": 1,
+      "_alias_of": "filters",
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/filters/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "filters",
+      "component": "Filters",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Filters\n\nFilters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products.\n\n---\n\n## When to use\n\n- When a dataset or list is large enough that users need to narrow results to find what they need.\n- When multiple filter criteria can be applied simultaneously.\n- Do not use filters for permanent data modifications - filters only affect the current view.\n\n## Style\n\n- Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.\n- Use sentence case for all filter labels and option values.\n- Show the active filter count when filters are collapsed. For example, `Filters (3)`.\n- Use consistent terminology across all filter controls in the same view.\n\n## Behavior\n\n- Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.\n- Provide a **Clear all** or **Reset filters** action when filters are active.\n- Persist filter state when users navigate away and return to the same view.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Filters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "When a dataset or list is large enough that users need to narrow results to find what they need.",
+                "When multiple filter criteria can be applied simultaneously.",
+                "Do not use filters for permanent data modifications - filters only affect the current view."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.",
+                "Use sentence case for all filter labels and option values.",
+                "Show the active filter count when filters are collapsed. For example, `Filters (3)`.",
+                "Use consistent terminology across all filter controls in the same view."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.",
+                "Provide a **Clear all** or **Reset filters** action when filters are active.",
+                "Persist filter state when users navigate away and return to the same view."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "side-nav": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/side-nav/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "side-nav",
+      "component": "Side nav",
+      "meta": {
+        "category": "navigation"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Side nav\n\nPermanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product.\n\n---\n\n## When to use\n\n- For persistent access to primary sections of the product.\n\n## Style\n\n- Clarity: use short, descriptive labels that match the text used in page headers.\n- Consistency: keep naming and order consistent across the platform.\n- Use plain language and common industry terms.\n\n## Behavior\n\n- Highlight the current section (and its parent if applicable) in the hierarchy.\n- The side nav collapses and expands in response to different screen sizes.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Permanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "For persistent access to primary sections of the product."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Clarity: use short, descriptive labels that match the text used in page headers.",
+                "Consistency: keep naming and order consistent across the platform.",
+                "Use plain language and common industry terms."
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                "Highlight the current section (and its parent if applicable) in the hierarchy.",
+                "The side nav collapses and expands in response to different screen sizes."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "stepper": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/stepper/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "stepper",
+      "component": "Stepper",
+      "meta": {
+        "category": "navigation"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Stepper\n\nA stepper guides users through a multi-step process in a defined sequence. Each step represents a discrete task that must be completed before moving to the next. Steppers are used in onboarding flows, connection setup, and wizards.\n\n---\n\n## When to use\n\n- When a process has three or more distinct steps that must be completed in order.\n- When it is important for users to understand their progress through a workflow.\n- Do not use a stepper for simple two-step confirmations - use a [modal](modal) instead.\n\n## Step titles\n\n- Use short imperative verb phrases. For example, `Choose a data source`, `Configure settings`, `Review and create`.\n- Do not include the step number in the title text - the stepper component displays that.\n- Keep titles parallel in structure across all steps.\n\n## Navigation buttons\n\n- Use **Back** for the previous step button. Do not use **Previous**.\n- Use **Next** for all intermediate steps.\n- Use **Create** (or the appropriate object-specific verb) for the final step - not **Finish**, **Done**, or **Submit**.\n- See the [Buttons](button) section for full stepper button terminology.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Choose a data source | Step 1: Data source selection |\n| Create (final step) | Finish / Done / Submit |\n| Back | Previous |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "A stepper guides users through a multi-step process in a defined sequence. Each step represents a discrete task that must be completed before moving to the next. Steppers are used in onboarding flows, connection setup, and wizards."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "When a process has three or more distinct steps that must be completed in order.",
+                "When it is important for users to understand their progress through a workflow.",
+                "Do not use a stepper for simple two-step confirmations - use a [modal](modal) instead."
+              ]
+            },
+            {
+              "heading": "Step titles",
+              "content": [
+                "Use short imperative verb phrases. For example, `Choose a data source`, `Configure settings`, `Review and create`.",
+                "Do not include the step number in the title text - the stepper component displays that.",
+                "Keep titles parallel in structure across all steps."
+              ]
+            },
+            {
+              "heading": "Navigation buttons",
+              "content": [
+                "Use **Back** for the previous step button. Do not use **Previous**.",
+                "Use **Next** for all intermediate steps.",
+                "Use **Create** (or the appropriate object-specific verb) for the final step - not **Finish**, **Done**, or **Submit**.",
+                "See the [Buttons](button) section for full stepper button terminology."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Choose a data source",
+                  "dont": "Step 1: Data source selection"
+                },
+                {
+                  "do": "Create (final step)",
+                  "dont": "Finish / Done / Submit"
+                },
+                {
+                  "do": "Back",
+                  "dont": "Previous"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "sticky-footer": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/sticky-footer/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "sticky-footer",
+      "component": "Sticky footer",
+      "meta": {
+        "category": "action"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Sticky footer\n\nThe sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom.\n\n---\n\n## When to use\n\n- When a page or drawer contains primary actions that must remain available during scrolling.\n- When users complete steppers or multi-field forms that extend beyond the current view.\n- When the action affects the entire page, drawer, or form state.\n\n## Button hierarchy\n\n- The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.\n- An optional secondary action can be included.\n- Limit to a maximum of three buttons. More actions increase cognitive load.\n\n## Button labels\n\nUse clear verbs that describe the outcome. Labels should describe what will happen, not what the button is.\n\n| Recommended labels | Avoid |\n|---|---|\n| Save | Done |\n| Update | OK |\n| Create | Submit (except on forms) |\n| Confirm | Yes |\n| Delete | Remove (for destructive permanent actions) |\n| Continue (as part of a defined stepper) | Next (in sticky footers outside steppers) |\n{: .do-dont-table}\n\n## Steppers\n\nWhen used as part of a stepper, use the following label terminology consistently:\n\n- **Back** for the previous step.\n- **Next** for intermediate steps.\n- **Submit** for the final step.\n\nDo not mix **Continue** and **Next**, or **Finish** and **Submit** within the same flow.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "The sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "When a page or drawer contains primary actions that must remain available during scrolling.",
+                "When users complete steppers or multi-field forms that extend beyond the current view.",
+                "When the action affects the entire page, drawer, or form state."
+              ]
+            },
+            {
+              "heading": "Button hierarchy",
+              "content": [
+                "The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.",
+                "An optional secondary action can be included.",
+                "Limit to a maximum of three buttons. More actions increase cognitive load."
+              ]
+            },
+            {
+              "heading": "Button labels",
+              "content": [
+                {
+                  "note": "Use clear verbs that describe the outcome. Labels should describe what will happen, not what the button is."
+                },
+                {
+                  "table": {
+                    "headers": [
+                      "Recommended labels",
+                      "Avoid"
+                    ],
+                    "rows": [
+                      [
+                        "Save",
+                        "Done"
+                      ],
+                      [
+                        "Update",
+                        "OK"
+                      ],
+                      [
+                        "Create",
+                        "Submit (except on forms)"
+                      ],
+                      [
+                        "Confirm",
+                        "Yes"
+                      ],
+                      [
+                        "Delete",
+                        "Remove (for destructive permanent actions)"
+                      ],
+                      [
+                        "Continue (as part of a defined stepper)",
+                        "Next (in sticky footers outside steppers)"
+                      ],
+                      [
+                        "",
+                        ""
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "heading": "Steppers",
+              "content": [
+                {
+                  "note": "When used as part of a stepper, use the following label terminology consistently:"
+                },
+                "**Back** for the previous step.",
+                "**Next** for intermediate steps.",
+                "**Submit** for the final step.",
+                {
+                  "note": "Do not mix **Continue** and **Next**, or **Finish** and **Submit** within the same flow."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "table": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/table/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "table",
+      "component": "Table",
+      "meta": {
+        "category": "data-display"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Table\n\nThe table component displays structured information in rows and columns. It is the primary way users view, compare, and act on datasets, connections, catalog entries, and other list-based content in the platform.\n\n---\n\n## When to use\n\n- To display multiple items with shared attributes that benefit from comparison.\n- When users need to sort, filter, or act on rows individually or in bulk.\n- Do not use a table for fewer than three columns or when a simple list or prose suffices.\n\n## Column headers\n\n- Use short, descriptive noun phrases. Two to three words maximum.\n- Use sentence case.\n- Do not use abbreviations unless they are universally understood (for example, \"ID,\" \"URL\").\n- Do not end column headers with punctuation.\n- Align header labels with the data they describe — left-align text columns, right-align numeric columns.\n\n### Column header examples\n\n| Use | Avoid |\n|---|---|\n| Last modified | Last Modification Date |\n| Owner | Assigned to / Owned by |\n| Status | Current status |\n| Row count | No. of rows |\n{: .do-dont-table}\n\n## Cell content\n\n- Keep cell values concise. Truncate long values with an ellipsis and show the full value on hover via tooltip.\n- Use consistent formatting within each column — do not mix date formats or number formats across rows.\n- Dates: use ISO 8601 (YYYY-MM-DD) unless the product context requires a locale-specific format.\n- Use \"None\" or \"–\" (em dash) for empty values — not blank, \"N/A,\" or \"null.\"\n- Status values use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.\n\n## Bulk actions\n\n- Label bulk action buttons with a verb that applies to all selected items. For example, **Delete selected** or **Export**.\n- Show the count of selected items near the action. For example, `3 items selected`.\n\n## Pagination\n\n- Label page controls plainly. Use **Previous** and **Next**.\n- Show total result count when relevant. For example, `Showing 1–25 of 340 results`.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "The table component displays structured information in rows and columns. It is the primary way users view, compare, and act on datasets, connections, catalog entries, and other list-based content in the platform."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To display multiple items with shared attributes that benefit from comparison.",
+                "When users need to sort, filter, or act on rows individually or in bulk.",
+                "Do not use a table for fewer than three columns or when a simple list or prose suffices."
+              ]
+            },
+            {
+              "heading": "Column headers",
+              "content": [
+                "Use short, descriptive noun phrases. Two to three words maximum.",
+                "Use sentence case.",
+                "Do not use abbreviations unless they are universally understood (for example, \"ID,\" \"URL\").",
+                "Do not end column headers with punctuation.",
+                "Align header labels with the data they describe — left-align text columns, right-align numeric columns."
+              ],
+              "subsections": [
+                {
+                  "subheading": "Column header examples",
+                  "content": [
+                    {
+                      "table": {
+                        "headers": [
+                          "Use",
+                          "Avoid"
+                        ],
+                        "rows": [
+                          [
+                            "Last modified",
+                            "Last Modification Date"
+                          ],
+                          [
+                            "Owner",
+                            "Assigned to / Owned by"
+                          ],
+                          [
+                            "Status",
+                            "Current status"
+                          ],
+                          [
+                            "Row count",
+                            "No. of rows"
+                          ],
+                          [
+                            "",
+                            ""
+                          ]
+                        ]
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Cell content",
+              "content": [
+                "Keep cell values concise. Truncate long values with an ellipsis and show the full value on hover via tooltip.",
+                "Use consistent formatting within each column — do not mix date formats or number formats across rows.",
+                "Dates: use ISO 8601 (YYYY-MM-DD) unless the product context requires a locale-specific format.",
+                "Use \"None\" or \"–\" (em dash) for empty values — not blank, \"N/A,\" or \"null.\"",
+                "Status values use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+              ]
+            },
+            {
+              "heading": "Bulk actions",
+              "content": [
+                "Label bulk action buttons with a verb that applies to all selected items. For example, **Delete selected** or **Export**.",
+                "Show the count of selected items near the action. For example, `3 items selected`."
+              ]
+            },
+            {
+              "heading": "Pagination",
+              "content": [
+                "Label page controls plainly. Use **Previous** and **Next**.",
+                "Show total result count when relevant. For example, `Showing 1–25 of 340 results`."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "tabs": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/tabs/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "tabs",
+      "component": "Tabs",
+      "meta": {
+        "category": "navigation"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Tabs\n\nTabs switch between related views on the same page without full navigation.\n\n---\n\n## When to use\n\n- To switch between related views on the same page without full navigation.\n\n## Style\n\n- Tab labels are short nouns or noun phrases. For example, **Overview**, **Lineage**, **Settings**.\n- Use sentence case.\n- Avoid verbs in tab labels.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Tabs switch between related views on the same page without full navigation."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To switch between related views on the same page without full navigation."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Tab labels are short nouns or noun phrases. For example, **Overview**, **Lineage**, **Settings**.",
+                "Use sentence case.",
+                "Avoid verbs in tab labels."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "tag": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/tag/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "tag",
+      "component": "Tags",
+      "meta": {
+        "category": "data-display"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated.\n\n---\n\n## When to use\n\n- To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n- Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n- Use sentence case.\n- Keep tag text to one to three words.\n- Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
+                "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Use sentence case.",
+                "Keep tag text to one to three words.",
+                "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "tag-default": {
+      "_schema_version": 1,
+      "_alias_of": "tag",
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/tag/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "tag",
+      "component": "Tags",
+      "meta": {
+        "category": "data-display"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated.\n\n---\n\n## When to use\n\n- To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n- Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n- Use sentence case.\n- Keep tag text to one to three words.\n- Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
+                "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Use sentence case.",
+                "Keep tag text to one to three words.",
+                "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "text-input": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/text-input/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "text-input",
+      "component": "Text input",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Text input\n\nText inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list.\n\n---\n\n## Behavior\n\nError validation should happen at the latest when the user clicks out of the text entry field (on blur).\n\n## Placeholder text\n\n- Placeholder text provides a brief example of the expected input content.\n- Use placeholder text only to model good input - not to convey instructions or restrictions for the field.\n- Placeholder text should never simply repeat the field label or description.\n\n### When to use placeholder text\n\n- When an example would model the correct input.\n- When naming conventions or restrictions should be reinforced.\n- When the field label could be interpreted in different ways and an example would reduce that ambiguity.\n- Never use placeholder text if the label text is sufficient on its own.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Label: Dataset name / Placeholder: e.g. Q4_sales_report | Placeholder: Enter dataset name |\n| Placeholder: e.g. john.doe@company.com | Placeholder: Enter your email address |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Text inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list."
+                }
+              ]
+            },
+            {
+              "heading": "Behavior",
+              "content": [
+                {
+                  "note": "Error validation should happen at the latest when the user clicks out of the text entry field (on blur)."
+                }
+              ]
+            },
+            {
+              "heading": "Placeholder text",
+              "content": [
+                "Placeholder text provides a brief example of the expected input content.",
+                "Use placeholder text only to model good input - not to convey instructions or restrictions for the field.",
+                "Placeholder text should never simply repeat the field label or description."
+              ],
+              "subsections": [
+                {
+                  "subheading": "When to use placeholder text",
+                  "content": [
+                    "When an example would model the correct input.",
+                    "When naming conventions or restrictions should be reinforced.",
+                    "When the field label could be interpreted in different ways and an example would reduce that ambiguity.",
+                    "Never use placeholder text if the label text is sufficient on its own."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Label: Dataset name / Placeholder: e.g. Q4_sales_report",
+                  "dont": "Placeholder: Enter dataset name"
+                },
+                {
+                  "do": "Placeholder: e.g. john.doe@company.com",
+                  "dont": "Placeholder: Enter your email address"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "toggle-control": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/toggle-control/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "toggle-control",
+      "component": "Toggle control",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Toggle control\n\nToggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead.\n\n---\n\n## When to use\n\n- For enabling or disabling a feature, setting, or permission that takes effect immediately.\n- Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead.\n\n## Style\n\n- Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.\n- If the on and off states have meaningfully different consequences, add a short description below the toggle label.\n- Use sentence case.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Email notifications | Enable email notifications |\n| Public access | Turn on public access |\n| Auto-refresh | Auto-refresh: ON |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Toggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "For enabling or disabling a feature, setting, or permission that takes effect immediately.",
+                "Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.",
+                "If the on and off states have meaningfully different consequences, add a short description below the toggle label.",
+                "Use sentence case."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Email notifications",
+                  "dont": "Enable email notifications"
+                },
+                {
+                  "do": "Public access",
+                  "dont": "Turn on public access"
+                },
+                {
+                  "do": "Auto-refresh",
+                  "dont": "Auto-refresh: ON"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "toglge": {
+      "_schema_version": 1,
+      "_alias_of": "toggle-control",
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/toggle-control/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "toggle-control",
+      "component": "Toggle control",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Toggle control\n\nToggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead.\n\n---\n\n## When to use\n\n- For enabling or disabling a feature, setting, or permission that takes effect immediately.\n- Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead.\n\n## Style\n\n- Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.\n- If the on and off states have meaningfully different consequences, add a short description below the toggle label.\n- Use sentence case.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Email notifications | Enable email notifications |\n| Public access | Turn on public access |\n| Auto-refresh | Auto-refresh: ON |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "Toggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                "For enabling or disabling a feature, setting, or permission that takes effect immediately.",
+                "Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead."
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.",
+                "If the on and off states have meaningfully different consequences, add a short description below the toggle label.",
+                "Use sentence case."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Email notifications",
+                  "dont": "Enable email notifications"
+                },
+                {
+                  "do": "Public access",
+                  "dont": "Turn on public access"
+                },
+                {
+                  "do": "Auto-refresh",
+                  "dont": "Auto-refresh: ON"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "whats-new": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/whats-new/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "whats-new",
+      "component": "What's new",
+      "meta": {
+        "category": "navigation"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# What's new\n\nThe What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful.\n\n---\n\n## Style\n\n- Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).\n- Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"\n- Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"\n- Keep each item to one to two sentences.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Added support for bulk dataset import. | We've supercharged the import experience with powerful new bulk capabilities! |\n| Fixed an issue where filters were not preserved on page reload. | Bug fixes and performance improvements. |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "The What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful."
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).",
+                "Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"",
+                "Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"",
+                "Keep each item to one to two sentences."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Added support for bulk dataset import.",
+                  "dont": "We've supercharged the import experience with powerful new bulk capabilities!"
+                },
+                {
+                  "do": "Fixed an issue where filters were not preserved on page reload.",
+                  "dont": "Bug fixes and performance improvements."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    },
+    "whats-new-dropdown": {
+      "_schema_version": 1,
+      "_alias_of": "whats-new",
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/whats-new/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "whats-new",
+      "component": "What's new",
+      "meta": {
+        "category": "navigation"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# What's new\n\nThe What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful.\n\n---\n\n## Style\n\n- Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).\n- Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"\n- Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"\n- Keep each item to one to two sentences.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Added support for bulk dataset import. | We've supercharged the import experience with powerful new bulk capabilities! |\n| Fixed an issue where filters were not preserved on page reload. | Bug fixes and performance improvements. |\n{: .do-dont-table}",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "note": "The What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful."
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                "Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).",
+                "Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"",
+                "Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"",
+                "Keep each item to one to two sentences."
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Added support for bulk dataset import.",
+                  "dont": "We've supercharged the import experience with powerful new bulk capabilities!"
+                },
+                {
+                  "do": "Fixed an issue where filters were not preserved on page reload.",
+                  "dont": "Bug fixes and performance improvements."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      }
+    }
+  }
+}

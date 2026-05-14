@@ -1,0 +1,121 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/table/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "table",
+  "component": "Table",
+  "meta": {
+    "category": "data-display"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Table\n\nThe table component displays structured information in rows and columns. It is the primary way users view, compare, and act on datasets, connections, catalog entries, and other list-based content in the platform.\n\n---\n\n## When to use\n\n- To display multiple items with shared attributes that benefit from comparison.\n- When users need to sort, filter, or act on rows individually or in bulk.\n- Do not use a table for fewer than three columns or when a simple list or prose suffices.\n\n## Column headers\n\n- Use short, descriptive noun phrases. Two to three words maximum.\n- Use sentence case.\n- Do not use abbreviations unless they are universally understood (for example, \"ID,\" \"URL\").\n- Do not end column headers with punctuation.\n- Align header labels with the data they describe — left-align text columns, right-align numeric columns.\n\n### Column header examples\n\n| Use | Avoid |\n|---|---|\n| Last modified | Last Modification Date |\n| Owner | Assigned to / Owned by |\n| Status | Current status |\n| Row count | No. of rows |\n{: .do-dont-table}\n\n## Cell content\n\n- Keep cell values concise. Truncate long values with an ellipsis and show the full value on hover via tooltip.\n- Use consistent formatting within each column — do not mix date formats or number formats across rows.\n- Dates: use ISO 8601 (YYYY-MM-DD) unless the product context requires a locale-specific format.\n- Use \"None\" or \"–\" (em dash) for empty values — not blank, \"N/A,\" or \"null.\"\n- Status values use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.\n\n## Bulk actions\n\n- Label bulk action buttons with a verb that applies to all selected items. For example, **Delete selected** or **Export**.\n- Show the count of selected items near the action. For example, `3 items selected`.\n\n## Pagination\n\n- Label page controls plainly. Use **Previous** and **Next**.\n- Show total result count when relevant. For example, `Showing 1–25 of 340 results`.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "note": "The table component displays structured information in rows and columns. It is the primary way users view, compare, and act on datasets, connections, catalog entries, and other list-based content in the platform."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            "To display multiple items with shared attributes that benefit from comparison.",
+            "When users need to sort, filter, or act on rows individually or in bulk.",
+            "Do not use a table for fewer than three columns or when a simple list or prose suffices."
+          ]
+        },
+        {
+          "heading": "Column headers",
+          "content": [
+            "Use short, descriptive noun phrases. Two to three words maximum.",
+            "Use sentence case.",
+            "Do not use abbreviations unless they are universally understood (for example, \"ID,\" \"URL\").",
+            "Do not end column headers with punctuation.",
+            "Align header labels with the data they describe — left-align text columns, right-align numeric columns."
+          ],
+          "subsections": [
+            {
+              "subheading": "Column header examples",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Use",
+                      "Avoid"
+                    ],
+                    "rows": [
+                      [
+                        "Last modified",
+                        "Last Modification Date"
+                      ],
+                      [
+                        "Owner",
+                        "Assigned to / Owned by"
+                      ],
+                      [
+                        "Status",
+                        "Current status"
+                      ],
+                      [
+                        "Row count",
+                        "No. of rows"
+                      ],
+                      [
+                        "",
+                        ""
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Cell content",
+          "content": [
+            "Keep cell values concise. Truncate long values with an ellipsis and show the full value on hover via tooltip.",
+            "Use consistent formatting within each column — do not mix date formats or number formats across rows.",
+            "Dates: use ISO 8601 (YYYY-MM-DD) unless the product context requires a locale-specific format.",
+            "Use \"None\" or \"–\" (em dash) for empty values — not blank, \"N/A,\" or \"null.\"",
+            "Status values use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+          ]
+        },
+        {
+          "heading": "Bulk actions",
+          "content": [
+            "Label bulk action buttons with a verb that applies to all selected items. For example, **Delete selected** or **Export**.",
+            "Show the count of selected items near the action. For example, `3 items selected`."
+          ]
+        },
+        {
+          "heading": "Pagination",
+          "content": [
+            "Label page controls plainly. Use **Previous** and **Next**.",
+            "Show total result count when relevant. For example, `Showing 1–25 of 340 results`."
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  }
+}

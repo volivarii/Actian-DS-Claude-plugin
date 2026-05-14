@@ -894,6 +894,7 @@ The cascading effect guides the eye naturally downward and prevents the screen f
 
 ---
 
+
 ## 3. Design Guidelines
 
 ### 3.1 Color Usage Rules
@@ -910,7 +911,40 @@ The cascading effect guides the eye naturally downward and prevents the screen f
 
 ### 3.2 Typography Rules
 
-Use `--zen-font-family-text` (Roboto) as the default for all UI text. Use `--zen-font-family-mono` for code snippets, data tables with identifiers, and technical strings.
+#### Typeface
+
+Use `--zen-font-family-text` (Roboto) as the default for all UI text. Use `--zen-font-family-mono` (Roboto Mono) for code snippets, data tables with identifiers, and technical strings. Roobert is the brand typeface only for marketing and communication materials like website, PPTs, and flyers.
+
+#### Language Support
+
+Provide Noto as a font when your product is being consumed by users who read languages with tall or dense scripts.
+
+#### Minimum Size
+
+Must not use type sizes smaller than 11px. You may use 11px text in labels, tags, data visualizations, and supporting text with icon.
+
+#### Line Length
+
+- Text line length is 544px at max with 16px text
+- Text line length is 480px at max with 14px text
+- Text line length is 424px at max with 12px text
+
+#### Paragraph Spacing
+
+At default, the paragraph spacing is 8px.
+
+#### Accessibility
+
+- Default body text size is 14px
+- Minimum body text size is 12px
+- 11px is only acceptable for non-essential UI
+- Use defined type styles (avoid light weight)
+- Maintain readable line height and spacing
+- Text line length is 544px at max with 16px text
+- Text line length is 480px at max with 14px text
+- Text line length is 424px at max with 12px text
+- Avoid placeholder-only labels
+- Avoid long blocks of dense text
 
 Don't create one-off font sizes. If your design needs a size between tokens, first check whether a token can be used, then raise it as a proposed token addition.
 
@@ -933,6 +967,33 @@ Common layer levels: `xs` → `sm` → `md` → `lg` → `xl` (each level sugges
 
 ### 3.5 Brightness Filter Convention — Interactive States
 
+#### Types of States
+
+**Interaction States**
+
+- **Default:** The neutral state of an element before any user interaction.
+- **Hover\*:** Triggered when a cursor is placed over an interactive element.
+- **Focus\*:** Triggered when an element is highlighted via keyboard, voice, or other input methods.
+- **Pressed\*:** The momentary state during a physical click or tap.
+- **Dragged:** Active when a user presses and moves an element from its original position.
+- **Selected:** A persistent state indicating an element has been chosen (e.g. via checkbox, tab, or radio button).
+- **Disabled:** An inoperable state where the element cannot be interacted with or focused.
+
+*\*Hover states should be suppressed on touch devices to avoid "sticky" visual effects. Conversely, Focus and Pressed states must be supported across all input types to ensure accessibility and tactile feedback.*
+
+**Feedback & System States**
+
+- **Loading:** Indicates a component is processing an action or fetching data.
+- **Error:** Indicates invalid input or a failed system action, usually via color or icons.
+- **Success:** Indicates valid input or a successfully completed action.
+- **Warning:** Indicates a non-blocking issue or a state requiring user caution.
+- **Read-Only:** Content is legible and focusable for copying, but cannot be edited.
+- **Indeterminate:** A "partial" state, typically for parent checkboxes with mixed child selections.
+
+---
+
+#### Implementation
+
 Interactive color states (hover, pressed/active, disabled) are **not handled with tokens**. Engineering implements these using CSS brightness filters at the component level.
 
 | State | Filter | Notes |
@@ -946,6 +1007,26 @@ The only tokenized interactive state is **focus** — see `--zen-focus-ring-prim
 ### 3.6 Breakpoints
 
 The majority of Actian users are on desktop. Desktop (lg) is the primary design target. However, pages should be responsive and tested across the full breakpoint range — from xl (large screens) down to sm (phone landscape) — to ensure usability across contexts.
+
+#### Columns, Gutters, and Margins
+
+Layouts are built on a column grid with three key measurements:
+
+1. **Columns** — guide what the content aligns to
+2. **Gutters** — fixed spacing between columns
+3. **Margins** — negative space beyond the content area
+
+#### Grid Settings
+
+Target XL and until S. XS is not considered at this moment.
+
+| Grid type | Breakpoint | Token | Total columns | Column | Margin | Gutter | Body |
+|-----------|-----------|-------|--------------|--------|--------|--------|------|
+| XS | Under 600px | — | 4 | Fluid | 16px | 16px | Fluid |
+| S | 600px | `--zen-breakpoint-sm` | 8 | Fluid | 16px | 16px | Fluid |
+| M | 840px | `--zen-breakpoint-md` | 16 | Fluid | 24px | 16px | Fluid |
+| L | 1200px | `--zen-breakpoint-lg` | 16 | Fluid | 24px | 16px | Fluid |
+| XL | 1920px | `--zen-breakpoint-xl` | 16 | 85px | 40px | 16px | 1600px |
 
 ---
 
@@ -974,6 +1055,7 @@ Use `--zen-border-default` for standard container borders (cards, panels, inputs
 ### 3.9 Placeholder Text
 
 Two tiers of placeholder exist for inputs: `--zen-color-text-placeholder` is the standard placeholder (grey-600). `--zen-color-text-placeholder-subtle` (grey-400) is used in search fields where less visual weight is appropriate.
+
 
 ---
 
@@ -1035,11 +1117,11 @@ Covers voice and tone, capitalization rules, button and label copy, error messag
 
 # Content guidelines — Actian Data Intelligence
 
-> **Auto-generated** by `scripts/content/derive-content.js` from `content/src/*.md`. Do not edit this file directly — edit the per-component source files.
+> **Auto-generated** by `scripts/content/derive-content.js`. Do not edit this file directly — edit the per-section source files.
 >
-> **Per-component sources:** `content/src/{slug}.md` (50 sections)
+> **Sources** (50 sections): component-scoped content lives in `components/src/{slug}/content.md`; global / cross-cutting topics live in `content/src/{slug}.md`.
 > **Section order:** `content/src/content-index.md` ("All sections" anchors)
-> **Authoring guide:** `content/src/AUTHORING.md`
+> **Authoring guides:** `components/src/AUTHORING.md` (per-component) · `content/src/AUTHORING.md` (global)
 
 ---
 

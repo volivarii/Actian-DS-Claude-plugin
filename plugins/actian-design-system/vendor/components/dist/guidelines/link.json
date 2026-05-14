@@ -1,0 +1,137 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/link/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "link",
+  "component": "Links",
+  "meta": {
+    "category": "action"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Links\n\nA link visually represents clickable text or elements that navigate users to other pages, sections, or resources. Links appear colored to indicate interactivity and follow accessibility and design standards for clarity and usability.\n\n---\n\n## When to use\n\n- For navigation to internal or external destinations. Use external link icon in the latter case.\n- For inline standalone contextual actions (for example, **Learn more**).\n- Avoid using links for actions; use [ghost buttons](button) instead.\n\n## Should I use a button or a link?\n\nA link should be used when navigating between pages, while a button should be used for actions like submitting a form, downloading a file, or triggering a task.\n\n- Use a link for **View more articles**.\n- Use a button for **Submit form**.\n\n## Style\n\n- Use meaningful, descriptive link text.\n\n| Do | Don't |\n|---|---|\n| View pipeline details | Click here |\n{: .do-dont-table}\n- Avoid standalone icons as links unless accompanied by an accessible label.\n- Use sentence case and no terminal punctuation.\n- Keep links clear, concise, accessible, and consistent.\n\n## Behavior\n\n- Links open in the same tab unless explicitly labeled as external.\n- Underline on hover for clarity.\n- Visited state should be visually distinct whether inline or standalone.\n\n## Clear and descriptive link text\n\nLink text should clearly describe the destination or action. Avoid vague text that does not convey enough information to the user or to assistive technologies.\n\n| Do | Don't |\n|---|---|\n| View your order details | Click here |\n| Visit our home page | http://example.com |\n| Download report | Get report |\n| Explore features | Click to learn more |\n| View our services | Click here to view our list of services |\n{: .do-dont-table}\n\n## Action-oriented language\n\nUse action verbs for links that load tasks. Action-oriented language guides the user on what to expect. This is especially helpful for calls to action. Avoid passive or generic terms and phrases. Always provide clarity on what will happen or what the user will achieve by clicking.\n\n## Consistency in link text\n\nUse consistent link phrases for similar actions. Similar actions should use the same link text to help users develop familiarity and expectations. For example, if you use **Learn more** for accessing detailed content in one area, avoid switching to **Read details** elsewhere. Keep link text brief but meaningful.\n\n## Avoid linking full sentences or paragraphs\n\nLink only the specific, relevant portion of text. Avoid linking entire sentences or paragraphs, as this can overwhelm the user and reduce readability.\n\n| Do | Don't |\n|---|---|\n| Read our [user experience design blog](). | [Click here to read our blog about user experience design](). |\n{: .do-dont-table}",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "note": "A link visually represents clickable text or elements that navigate users to other pages, sections, or resources. Links appear colored to indicate interactivity and follow accessibility and design standards for clarity and usability."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            "For navigation to internal or external destinations. Use external link icon in the latter case.",
+            "For inline standalone contextual actions (for example, **Learn more**).",
+            "Avoid using links for actions; use [ghost buttons](button) instead."
+          ]
+        },
+        {
+          "heading": "Should I use a button or a link?",
+          "content": [
+            {
+              "note": "A link should be used when navigating between pages, while a button should be used for actions like submitting a form, downloading a file, or triggering a task."
+            },
+            "Use a link for **View more articles**.",
+            "Use a button for **Submit form**."
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            "Use meaningful, descriptive link text.",
+            {
+              "do": "View pipeline details",
+              "dont": "Click here"
+            },
+            "Avoid standalone icons as links unless accompanied by an accessible label.",
+            "Use sentence case and no terminal punctuation.",
+            "Keep links clear, concise, accessible, and consistent."
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            "Links open in the same tab unless explicitly labeled as external.",
+            "Underline on hover for clarity.",
+            "Visited state should be visually distinct whether inline or standalone."
+          ]
+        },
+        {
+          "heading": "Clear and descriptive link text",
+          "content": [
+            {
+              "note": "Link text should clearly describe the destination or action. Avoid vague text that does not convey enough information to the user or to assistive technologies."
+            },
+            {
+              "do": "View your order details",
+              "dont": "Click here"
+            },
+            {
+              "do": "Visit our home page",
+              "dont": "http://example.com"
+            },
+            {
+              "do": "Download report",
+              "dont": "Get report"
+            },
+            {
+              "do": "Explore features",
+              "dont": "Click to learn more"
+            },
+            {
+              "do": "View our services",
+              "dont": "Click here to view our list of services"
+            }
+          ]
+        },
+        {
+          "heading": "Action-oriented language",
+          "content": [
+            {
+              "note": "Use action verbs for links that load tasks. Action-oriented language guides the user on what to expect. This is especially helpful for calls to action. Avoid passive or generic terms and phrases. Always provide clarity on what will happen or what the user will achieve by clicking."
+            }
+          ]
+        },
+        {
+          "heading": "Consistency in link text",
+          "content": [
+            {
+              "note": "Use consistent link phrases for similar actions. Similar actions should use the same link text to help users develop familiarity and expectations. For example, if you use **Learn more** for accessing detailed content in one area, avoid switching to **Read details** elsewhere. Keep link text brief but meaningful."
+            }
+          ]
+        },
+        {
+          "heading": "Avoid linking full sentences or paragraphs",
+          "content": [
+            {
+              "note": "Link only the specific, relevant portion of text. Avoid linking entire sentences or paragraphs, as this can overwhelm the user and reduce readability."
+            },
+            {
+              "do": "Read our [user experience design blog]().",
+              "dont": "[Click here to read our blog about user experience design]()."
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  }
+}

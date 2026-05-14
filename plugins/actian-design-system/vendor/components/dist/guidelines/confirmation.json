@@ -1,0 +1,72 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/confirmation/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "confirmation",
+  "component": "Confirmation",
+  "meta": {
+    "category": "feedback"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Confirmation\n\nConfirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone.\n\n---\n\n## When to use\n\nBefore irreversible or destructive actions (delete, remove, reset).\n\n## Style\n\n- Title: name the action, not the outcome.\n\n| Do | Don't |\n|---|---|\n| Delete connection | This is permanent |\n{: .do-dont-table}\n\n- Body: one sentence stating what will happen and whether it can be undone.\n- Primary CTA: matches the title verb. For example, **Delete**.\n- Secondary CTA: **Cancel**.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Delete connection / This will remove the connection and cannot be undone. / Delete \\| Cancel | Warning! Are you sure? This action is permanent. / Yes \\| No |\n{: .do-dont-table}",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "note": "Confirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "note": "Before irreversible or destructive actions (delete, remove, reset)."
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            "Title: name the action, not the outcome.",
+            {
+              "do": "Delete connection",
+              "dont": "This is permanent"
+            },
+            "Body: one sentence stating what will happen and whether it can be undone.",
+            "Primary CTA: matches the title verb. For example, **Delete**.",
+            "Secondary CTA: **Cancel**."
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Delete connection / This will remove the connection and cannot be undone. / Delete | Cancel",
+              "dont": "Warning! Are you sure? This action is permanent. / Yes | No"
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  }
+}

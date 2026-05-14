@@ -50,6 +50,10 @@ var EXCLUDE_TOP_LEVEL = new Set([
   "CLAUDE.md",
   "CONTRIBUTING.md",
   "llms.txt",
+  // CODEOWNERS governs review ownership of the knowledge repo itself; it is
+  // meaningless inside the plugin's read-only vendor snapshot (matches the
+  // docs repo, which also excludes it).
+  "CODEOWNERS",
 ]);
 
 function parseArgs(argv) {

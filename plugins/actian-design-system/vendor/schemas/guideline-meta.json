@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/guideline-meta.json",
+  "title": "Per-component guideline _meta.yml (author-facing)",
+  "description": "Schema for components/src/<slug>/_meta.yml — the per-component metadata + domain status matrix. One file per component directory. `domains` declares the status of every guideline domain; the deriver uses it to decide which domain source files to expect and how to project each domain.",
+  "type": "object",
+  "required": ["component", "domains"],
+  "additionalProperties": false,
+  "properties": {
+    "component": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable component name.",
+      "examples": ["Button", "Alert / banner", "Text input"]
+    },
+    "category": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "Category slug. Joins to the category-defaults inheritance source. Optional — when omitted the deriver resolves it from the component registry.",
+      "examples": ["action", "form-input-selection", "feedback"]
+    },
+    "section": {
+      "type": "string",
+      "description": "Top-level Figma section the component lives under.",
+      "examples": ["COMPONENTS", "FOUNDATIONS", "BRAND ASSETS"]
+    },
+    "related": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+      "description": "Related component slugs for cross-linking.",
+      "examples": [["link", "icon"]]
+    },
+    "domains": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The per-domain status matrix. Any domain may be omitted (treated as not-started). For draft|approved domains the matching source file must exist; for inherited|not-started it must not.",
+      "examples": [
+        {
+          "content": { "status": "approved", "owner": "content-team", "updatedAt": "2026-05-10" },
+          "design": { "status": "inherited" }
+        }
+      ],
+      "properties": {
+        "content": {
+          "$ref": "#/$defs/domainEntry",
+          "description": "Content guidelines domain status.",
+          "examples": [{ "status": "approved", "owner": "content-team", "updatedAt": "2026-05-10" }]
+        },
+        "usage": {
+          "$ref": "#/$defs/domainEntry",
+          "description": "Usage guidelines domain status.",
+          "examples": [{ "status": "draft", "owner": "design", "updatedAt": "2026-05-12" }]
+        },
+        "design": {
+          "$ref": "#/$defs/domainEntry",
+          "description": "Design guidelines domain status.",
+          "examples": [{ "status": "inherited" }]
+        },
+        "behavior": {
+          "$ref": "#/$defs/domainEntry",
+          "description": "Behavior / a11y / implementation domain status.",
+          "examples": [{ "status": "inherited" }]
+        },
+        "tokens": {
+          "$ref": "#/$defs/domainEntry",
+          "description": "Component-specific tokens domain status.",
+          "examples": [{ "status": "not-started" }]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "domainEntry": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "description": "Status declaration for one domain.",
+      "properties": {
+        "status": {
+          "enum": ["not-started", "draft", "approved", "inherited"],
+          "description": "not-started = declared but empty; draft = authored, unreviewed; approved = team-signed-off; inherited = intentionally not component-specific, resolves to category-defaults.",
+          "examples": ["approved", "inherited"]
+        },
+        "owner": {
+          "type": "string",
+          "description": "Owning team/person for this domain.",
+          "examples": ["content-team", "design", "eng"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date the domain source was last revised.",
+          "examples": ["2026-05-10"]
+        }
+      }
+    }
+  }
+}

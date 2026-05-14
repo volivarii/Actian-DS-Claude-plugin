@@ -1,0 +1,63 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/side-nav/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "side-nav",
+  "component": "Side nav",
+  "meta": {
+    "category": "navigation"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Side nav\n\nPermanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product.\n\n---\n\n## When to use\n\n- For persistent access to primary sections of the product.\n\n## Style\n\n- Clarity: use short, descriptive labels that match the text used in page headers.\n- Consistency: keep naming and order consistent across the platform.\n- Use plain language and common industry terms.\n\n## Behavior\n\n- Highlight the current section (and its parent if applicable) in the hierarchy.\n- The side nav collapses and expands in response to different screen sizes.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "note": "Permanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            "For persistent access to primary sections of the product."
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            "Clarity: use short, descriptive labels that match the text used in page headers.",
+            "Consistency: keep naming and order consistent across the platform.",
+            "Use plain language and common industry terms."
+          ]
+        },
+        {
+          "heading": "Behavior",
+          "content": [
+            "Highlight the current section (and its parent if applicable) in the hierarchy.",
+            "The side nav collapses and expands in response to different screen sizes."
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  }
+}
