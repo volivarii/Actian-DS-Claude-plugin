@@ -257,13 +257,18 @@ function validateBriefData(data) {
       }
       if (
         k === "card_content" &&
-        (!Array.isArray(card.rules) || card.rules.length === 0)
+        (!Array.isArray(card.rules) || card.rules.length === 0) &&
+        (!Array.isArray(card.terminology) || card.terminology.length === 0)
       ) {
+        // A transcribed content card carries rules and/or terminology — a
+        // guideline whose content is purely a terminology table has no
+        // rules. Empty only when BOTH are empty.
         findings.push({
           kind: "empty-figma-source",
           severity: "error",
           card: k,
-          message: "card_content claims figma source but rules array is empty",
+          message:
+            "card_content claims figma source but both rules and terminology are empty",
         });
       }
       if (

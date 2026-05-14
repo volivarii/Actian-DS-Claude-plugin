@@ -216,8 +216,13 @@ test("paths.js content.bySlug alias", async (t) => {
   });
 
   await t.test("bySlug resolves to vendor/content/src/{slug}.md", () => {
+    // content/src/ holds the global content topics (voice-and-tone,
+    // capitalization, ...). Per-component content moved to the merged
+    // guideline docs at v0.9.x — slugs like "button" no longer resolve here.
     assert.ok(
-      PATHS.content.bySlug("buttons").endsWith("content/src/buttons.md"),
+      PATHS.content
+        .bySlug("voice-and-tone")
+        .endsWith("content/src/voice-and-tone.md"),
     );
     assert.ok(
       PATHS.content

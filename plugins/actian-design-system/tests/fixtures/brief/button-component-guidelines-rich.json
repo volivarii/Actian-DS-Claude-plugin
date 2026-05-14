@@ -1,20 +1,44 @@
 {
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/button/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "button",
   "component": "Button",
-  "content_guidelines": {
-    "sections": [
-      {
-        "heading": "Terminology for button labeling",
-        "content": [
-          { "term": "Cancel vs Close", "rule": "Use 'Cancel' to back out when information has been entered. Use 'Close' for read-only messages." },
-          { "term": "Create vs Add", "rule": "Use 'Create' for brand-new objects. Use 'Add' for inserting existing objects." }
-        ]
-      },
-      {
-        "heading": "Stepper buttons",
-        "content": [
-          { "rule": "Use verb + object for the creation button. Verb should usually be 'Create'.", "do": "Create integration", "dont": "Integration" }
-        ]
-      }
-    ]
+  "meta": { "category": "action" },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Button\n\n## Terminology for button labeling\n\nUse the term pairs consistently.\n\n## Stepper buttons\n\nUse verb + object for the creation button.",
+      "sections": [
+        {
+          "heading": "Terminology for button labeling",
+          "content": [
+            {
+              "term": "Cancel vs Close",
+              "rule": "Use 'Cancel' to back out when information has been entered. Use 'Close' for read-only messages."
+            },
+            {
+              "term": "Create vs Add",
+              "rule": "Use 'Create' for brand-new objects. Use 'Add' for inserting existing objects."
+            }
+          ]
+        },
+        {
+          "heading": "Stepper buttons",
+          "content": [
+            "Use verb + object for the creation button. Verb should usually be 'Create'.",
+            { "do": "Create integration", "dont": "Integration" }
+          ]
+        }
+      ]
+    },
+    "usage": { "status": "not-started" },
+    "design": { "status": "inherited" },
+    "behavior": { "status": "inherited" },
+    "tokens": { "status": "not-started" }
   }
 }

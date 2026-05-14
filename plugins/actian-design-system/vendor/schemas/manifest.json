@@ -74,7 +74,13 @@
     },
     "aliases": {
       "type": "object",
-      "description": "Optional alias map (from-key → canonical-key) for backwards-compatibility renames.",
+      "description": "Optional alias map (from-key → canonical-key) for backwards-compatibility renames of paths/collections keys.",
+      "additionalProperties": { "type": "string" },
+      "examples": [{}]
+    },
+    "registryAliases": {
+      "type": "object",
+      "description": "Optional cross-namespace alias map (registry component key → components.guidelineDoc.byKey slug). Bridges the gap where a Figma/registry component key (e.g. 'checkbox-with-label') differs from the slug its guideline doc is authored under (e.g. 'checkbox'). Distinct from 'aliases', which renames keys within paths/collections. Hand-maintained; interim — see components/src/AUTHORING.md 'Slug naming'.",
       "additionalProperties": { "type": "string" },
       "examples": [{}]
     },

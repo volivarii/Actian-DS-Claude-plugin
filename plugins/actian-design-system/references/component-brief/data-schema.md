@@ -211,7 +211,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 }
 ```
 
-- `rules`: MUST include ALL content rules from the component's Figma page. Do not summarize or skip.
+- `rules`: MUST include ALL content rules from the component's guideline doc (`domains.content`). Do not summarize or skip.
 - `doExample`/`dontExample`: concrete example text shown in the Do/Don't example boxes. Optional — falls back to empty.
 - HTML renders each rule as section-title + section-body + inline do-dont pair.
 - Figma renders each rule as Section Header template + Do-Don't Pair component.
@@ -294,7 +294,7 @@ Every brief card object MUST include `_source`. Cards in transcribe phase may al
 
 | Field | Type | Required | Description |
 |---|---|---|---|
-| `_source` | `"figma" \| "generated"` | yes | Where the card content came from. `figma` = transcribed from Figma source (component description metadata for Header; component-guidelines.content_guidelines.sections for Content; never set for Phase B cards). `generated` = produced by Claude (Phase A fallback or Phase B normal). |
+| `_source` | `"figma" \| "generated"` | yes | Where the card content came from. `figma` = transcribed from curated source material (the Figma component description for Header; the merged guideline doc's `domains.content` for Content; never set for Phase B cards). The value name `"figma"` is legacy — Content now transcribes from the knowledge repo's authored markdown, not the Figma file. `generated` = produced by Claude (Phase A fallback or Phase B normal). |
 | `_fallback` | `boolean` | only when source is empty | Set on Phase A cards when the Figma source was empty and content was inline-generated as fallback. Always paired with `_fallbackReason`. |
 | `_fallbackReason` | `string` | when `_fallback: true` | Short, designer-actionable reason ("Figma component description empty — author canonical version in Figma"). Surfaces in the amber badge. |
 | `_research_applied` | `boolean` | when research opted in | True for cards where Step 1.6 research findings were threaded into the agent prompt. |

@@ -16,7 +16,7 @@ sections below are authoritative as of v1.62.1.
 | `.claude-plugin/` | Plugin manifest (`plugin.json`) — name, version, marketplace metadata. |
 | `agents/` | Subagents dispatched by skills. One `.md` per agent. |
 | `commands/` | (none currently — slash commands are co-located with skills) |
-| `vendor/` | Vendored snapshot of `volivarii/actian-ds-knowledge` — design docs (`foundations/`, `content/`, `accessibility/`), per-component guidelines (`components/guidelines/`), component registries (`components/registries/`), tokens (`tokens/`), app context (`app-context/`), FM↔DS map (`fm-to-ds-map/`), presentation guide (`presentation/`). Refreshed nightly via `vendor-snapshot.yml`. Treat as read-only — edits belong upstream. |
+| `vendor/` | Vendored snapshot of `volivarii/actian-ds-knowledge` — design docs (`foundations/`, `content/`, `accessibility/`), merged per-component multi-domain guideline docs (`components/dist/guidelines/`, resolved via `PATHS.components.guidelineDoc.byKey`; the legacy scraped `components/src/guidelines/` is transitional), component registries (`components/registries/`), tokens (`tokens/`), app context (`app-context/`), FM↔DS map (`fm-to-ds-map/`), presentation guide (`presentation/`). Refreshed nightly via `vendor-snapshot.yml`. Treat as read-only — edits belong upstream. |
 | `examples/` | Reference outputs for skills (sample flows, briefs, presentations). |
 | `evals/` | Eval suites for skills. |
 | `hooks/` | `hooks.json` — PreToolUse/PostToolUse hooks wired to scripts under `scripts/` (will move to `scripts/hooks/` in PR-2). |

@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-05-13T14:39:18.762Z",
+  "lastSynced": "2026-05-14T09:32:23.846Z",
   "componentCount": 322,
   "components": {
     "xs-grid": {
@@ -3190,7 +3190,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "kafka": {
       "name": "kafka",
@@ -3205,7 +3206,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "dataiku": {
       "name": "dataiku",
@@ -3220,7 +3222,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "mysql": {
       "name": "mysql",
@@ -3235,7 +3238,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "thumbs-down": {
       "name": "thumbs-down",
@@ -3250,7 +3254,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "use-with-care": {
       "name": "use-with-care",
@@ -3265,7 +3270,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "safyr-sap-bw": {
       "name": "safyr-sap-bw",
@@ -3280,7 +3286,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "zoom-to-fit": {
       "name": "zoom-to-fit",
@@ -3295,7 +3302,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "orc": {
       "name": "orc",
@@ -3310,7 +3318,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "postgresql": {
       "name": "PostgreSQL",
@@ -3325,7 +3334,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "splunk": {
       "name": "splunk",
@@ -3340,7 +3350,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure-purview": {
       "name": "azure-purview",
@@ -3355,7 +3366,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "adobe-analytics": {
       "name": "adobe-analytics",
@@ -3370,7 +3382,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "process": {
       "name": "process",
@@ -3388,7 +3401,8 @@
       "group": "Graph",
       "secondaryGroups": [
         "Details"
-      ]
+      ],
+      "status": "in-progress"
     },
     "cognos-bi": {
       "name": "cognos-bi",
@@ -3403,7 +3417,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "bigquery": {
       "name": "bigquery",
@@ -3418,7 +3433,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "elasticsearch": {
       "name": "elasticsearch",
@@ -3433,7 +3449,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "hbase": {
       "name": "hbase",
@@ -3448,7 +3465,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "zoom-out": {
       "name": "zoom-out",
@@ -3463,7 +3481,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "zoom-in": {
       "name": "zoom-in",
@@ -3478,7 +3497,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "csv-custom-item": {
       "name": "csv-custom-item",
@@ -3493,7 +3513,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "more": {
       "name": "more",
@@ -3508,7 +3529,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "db2": {
       "name": "db2",
@@ -3523,7 +3545,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "aws-glue-etl": {
       "name": "Aws-glue-etl",
@@ -3538,7 +3561,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "help-circle": {
       "name": "help-circle",
@@ -3553,7 +3577,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "jdbc": {
       "name": "jdbc",
@@ -3568,7 +3593,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "export": {
       "name": "export",
@@ -3586,7 +3612,8 @@
       "group": "Graph",
       "secondaryGroups": [
         "Common"
-      ]
+      ],
+      "status": "in-progress"
     },
     "atlas": {
       "name": "atlas",
@@ -3601,7 +3628,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "data-model": {
       "name": "data-model",
@@ -3616,7 +3644,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "avro": {
       "name": "avro",
@@ -3631,7 +3660,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "process-csv": {
       "name": "process csv",
@@ -3646,7 +3676,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "snowflake": {
       "name": "Snowflake",
@@ -3661,7 +3692,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "powerbi": {
       "name": "Powerbi",
@@ -3676,7 +3708,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "cognos": {
       "name": "cognos",
@@ -3691,7 +3724,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "palantir": {
       "name": "palantir",
@@ -3706,7 +3740,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "opendatagouv": {
       "name": "opendatagouv",
@@ -3721,7 +3756,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "sqlserver": {
       "name": "sqlserver",
@@ -3736,7 +3772,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "mapr": {
       "name": "mapr",
@@ -3751,7 +3788,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "spline": {
       "name": "spline",
@@ -3766,7 +3804,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "microstrategy": {
       "name": "microstrategy",
@@ -3781,7 +3820,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "openapi": {
       "name": "openapi",
@@ -3796,7 +3836,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-ebs": {
       "name": "safyr-ebs",
@@ -3811,7 +3852,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "powerbireportserver": {
       "name": "powerbireportserver",
@@ -3826,7 +3868,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "impala": {
       "name": "impala",
@@ -3841,7 +3884,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "mariadb": {
       "name": "mariadb",
@@ -3856,7 +3900,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "thumbs-up": {
       "name": "thumbs-up",
@@ -3871,7 +3916,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "adlsgen1": {
       "name": "adlsgen1",
@@ -3886,7 +3932,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "paragraph-justify": {
       "name": "paragraph-justify",
@@ -3901,7 +3948,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "awsredshift": {
       "name": "awsredshift",
@@ -3916,7 +3964,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "qlik-sense": {
       "name": "qlik-sense",
@@ -3931,7 +3980,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "mail": {
       "name": "mail",
@@ -3946,7 +3996,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "user-single": {
       "name": "user-single",
@@ -3961,7 +4012,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "talend": {
       "name": "talend",
@@ -3976,7 +4028,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure-cosmosdb": {
       "name": "azure-cosmosdb",
@@ -3991,7 +4044,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "greenplum": {
       "name": "greenplum",
@@ -4006,7 +4060,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "soda": {
       "name": "soda",
@@ -4021,7 +4076,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-peoplesoft": {
       "name": "safyr-peoplesoft",
@@ -4036,7 +4092,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "simple-check": {
       "name": "simple-check",
@@ -4051,7 +4108,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "xml": {
       "name": "xml",
@@ -4066,7 +4124,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-salesforce": {
       "name": "safyr-salesforce",
@@ -4081,7 +4140,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "looker": {
       "name": "looker",
@@ -4096,7 +4156,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "mongodb": {
       "name": "mongodb",
@@ -4111,7 +4172,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "erwin-data-modeler": {
       "name": "erwin-data-modeler",
@@ -4126,7 +4188,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "denodo": {
       "name": "denodo",
@@ -4141,7 +4204,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-dynamicsax": {
       "name": "safyr-dynamicsax",
@@ -4156,7 +4220,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure-datafactory": {
       "name": "azure-datafactory",
@@ -4171,7 +4236,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-siebel": {
       "name": "safyr-siebel",
@@ -4186,7 +4252,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "tibco-datavirtualization": {
       "name": "tibco-datavirtualization",
@@ -4201,7 +4268,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "oracle": {
       "name": "oracle",
@@ -4216,7 +4284,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "data-structured": {
       "name": "data--structured",
@@ -4231,7 +4300,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "catalogs": {
       "name": "catalogs",
@@ -4246,7 +4316,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "arrow-alt": {
       "name": "arrow-alt",
@@ -4261,7 +4332,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "user-add": {
       "name": "user-add",
@@ -4276,7 +4348,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "award-04": {
       "name": "award-04",
@@ -4291,7 +4364,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "image": {
       "name": "image",
@@ -4306,7 +4380,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "list-bullets": {
       "name": "list-bullets",
@@ -4321,7 +4396,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "map": {
       "name": "map",
@@ -4336,7 +4412,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "teradata": {
       "name": "teradata",
@@ -4351,7 +4428,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-jdedwards": {
       "name": "safyr-jdedwards",
@@ -4366,7 +4444,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "content-checklist": {
       "name": "Content Checklist",
@@ -4378,10 +4457,7 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
-      "section": "Foundations",
-      "category": "Content guidelines",
-      "group": "Content guidelines"
+      "guidelinesFile": null
     },
     "account-dropdown": {
       "name": "Account dropdown",
@@ -4442,7 +4518,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "parquet": {
       "name": "parquet",
@@ -4457,7 +4534,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure": {
       "name": "Azure",
@@ -4472,7 +4550,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "ms-teams": {
       "name": "ms-teams",
@@ -4487,7 +4566,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "hive": {
       "name": "hive",
@@ -4502,7 +4582,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "cosmosdb": {
       "name": "cosmosdb",
@@ -4517,7 +4598,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "dbt": {
       "name": "dbt",
@@ -4532,7 +4614,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "amazons3": {
       "name": "amazons3",
@@ -4547,7 +4630,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "dictionnary": {
       "name": "dictionnary",
@@ -4562,7 +4646,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "db2-database-1": {
       "name": "db2--database 1",
@@ -4577,7 +4662,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "netezza": {
       "name": "netezza",
@@ -4592,7 +4678,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "json": {
       "name": "json",
@@ -4607,7 +4694,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "tableau": {
       "name": "Tableau",
@@ -4622,7 +4710,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "databricks": {
       "name": "databricks",
@@ -4637,7 +4726,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "alteryx": {
       "name": "alteryx",
@@ -4652,7 +4742,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "cloud-upload": {
       "name": "cloud--upload",
@@ -4667,7 +4758,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "chevron-left": {
       "name": "chevron--left",
@@ -4682,7 +4774,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "notes-feedback": {
       "name": "Notes/Feedback",
@@ -4712,7 +4805,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "history": {
       "name": "history",
@@ -4727,7 +4821,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "arrow-down": {
       "name": "arrow-down",
@@ -4742,7 +4837,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "suggestion": {
       "name": "suggestion",
@@ -4757,7 +4853,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "info": {
       "name": "info",
@@ -4772,7 +4869,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "error-filled": {
       "name": "error-filled",
@@ -4787,7 +4885,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Message"
+      "group": "Message",
+      "status": "in-progress"
     },
     "cursor-hand": {
       "name": "cursor-hand",
@@ -4802,7 +4901,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Cursor"
+      "group": "Cursor",
+      "status": "in-progress"
     },
     "api-key": {
       "name": "api-key",
@@ -4817,7 +4917,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "open": {
       "name": "open",
@@ -4832,7 +4933,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "background-explore": {
       "name": "background-explore",
@@ -4888,7 +4990,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "view": {
       "name": "view",
@@ -4903,7 +5006,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "output": {
       "name": "output",
@@ -4918,7 +5022,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "directory": {
       "name": "directory",
@@ -4936,7 +5041,8 @@
       "group": "Navigation",
       "secondaryGroups": [
         "Common"
-      ]
+      ],
+      "status": "in-progress"
     },
     "filter": {
       "name": "filter",
@@ -4951,7 +5057,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "view-details": {
       "name": "view-details",
@@ -4966,7 +5073,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "event-time-type": {
       "name": "event--time-type",
@@ -4981,7 +5089,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "view-card": {
       "name": "view-card",
@@ -4996,7 +5105,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "dots": {
       "name": "dots",
@@ -5011,7 +5121,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "database-check": {
       "name": "database-check",
@@ -5026,7 +5137,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "user-group": {
       "name": "user-group",
@@ -5041,7 +5153,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "chart-bar": {
       "name": "chart--bar",
@@ -5056,7 +5169,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "icon-query-queue": {
       "name": "Icon/query-queue",
@@ -5071,7 +5185,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "exit": {
       "name": "exit",
@@ -5086,7 +5201,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "boolean-type": {
       "name": "boolean-type",
@@ -5101,7 +5217,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "rotate-back": {
       "name": "rotate-back",
@@ -5116,7 +5233,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "glossary": {
       "name": "glossary",
@@ -5131,7 +5249,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "checkmark-outline": {
       "name": "checkmark--outline",
@@ -5146,7 +5265,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "layers-front-curator-indicator": {
       "name": "layers-front (Curator indicator)",
@@ -5161,7 +5281,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "help-bubble": {
       "name": "help-bubble",
@@ -5176,7 +5297,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "database": {
       "name": "database",
@@ -5191,7 +5313,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "minimize": {
       "name": "minimize",
@@ -5209,7 +5332,8 @@
       "group": "Cursor",
       "secondaryGroups": [
         "Common"
-      ]
+      ],
+      "status": "in-progress"
     },
     "filter-text": {
       "name": "filter-text",
@@ -5224,7 +5348,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "pending": {
       "name": "pending",
@@ -5239,7 +5364,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "favorite-filled": {
       "name": "favorite-filled",
@@ -5254,7 +5380,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "drag": {
       "name": "drag",
@@ -5269,7 +5396,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "menu": {
       "name": "menu",
@@ -5284,7 +5412,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "brightness-contrast": {
       "name": "brightness-contrast",
@@ -5299,7 +5428,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "data-product-output-port": {
       "name": "data-product-output-port",
@@ -5314,7 +5444,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "schema": {
       "name": "schema",
@@ -5329,7 +5460,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "settings": {
       "name": "settings",
@@ -5344,7 +5476,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "task-list-multiple": {
       "name": "task-list-multiple",
@@ -5359,7 +5492,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "bin-type": {
       "name": "bin-type",
@@ -5374,7 +5508,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "close": {
       "name": "close",
@@ -5389,7 +5524,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "trash": {
       "name": "trash",
@@ -5404,7 +5540,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "target-type": {
       "name": "target-type",
@@ -5419,7 +5556,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "add-circle": {
       "name": "add-circle",
@@ -5434,7 +5572,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "arrow": {
       "name": "arrow",
@@ -5449,7 +5588,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "user-lock": {
       "name": "user-lock",
@@ -5464,7 +5604,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "warning-filled": {
       "name": "warning-filled",
@@ -5479,7 +5620,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Message"
+      "group": "Message",
+      "status": "in-progress"
     },
     "calendar-2": {
       "name": "calendar 2",
@@ -5494,7 +5636,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "catalog-design": {
       "name": "catalog-design",
@@ -5509,7 +5652,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "misuse-outline": {
       "name": "misuse--outline",
@@ -5524,7 +5668,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "shield-lock": {
       "name": "shield-lock",
@@ -5539,7 +5684,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "tools": {
       "name": "tools",
@@ -5554,7 +5700,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "add": {
       "name": "add",
@@ -5572,7 +5719,8 @@
       "group": "Navigation",
       "secondaryGroups": [
         "Common"
-      ]
+      ],
+      "status": "in-progress"
     },
     "analytics": {
       "name": "analytics",
@@ -5587,7 +5735,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "text-type": {
       "name": "text-type",
@@ -5602,7 +5751,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "edit": {
       "name": "edit",
@@ -5617,7 +5767,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "link-type": {
       "name": "link-type",
@@ -5632,7 +5783,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "relation": {
       "name": "relation",
@@ -5647,7 +5799,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "lineage": {
       "name": "lineage",
@@ -5662,7 +5815,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "local-filesystem": {
       "name": "local-filesystem",
@@ -5677,7 +5831,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "back": {
       "name": "back",
@@ -5692,7 +5847,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "task-list": {
       "name": "task-list",
@@ -5707,7 +5863,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "tags-add": {
       "name": "tags-add",
@@ -5722,7 +5879,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "book-bookmark": {
       "name": "book-bookmark",
@@ -5740,7 +5898,8 @@
       "group": "Navigation",
       "secondaryGroups": [
         "Details"
-      ]
+      ],
+      "status": "in-progress"
     },
     "download": {
       "name": "download",
@@ -5758,7 +5917,8 @@
       "group": "Navigation",
       "secondaryGroups": [
         "Common"
-      ]
+      ],
+      "status": "in-progress"
     },
     "user-info": {
       "name": "user-info",
@@ -5773,7 +5933,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "applications": {
       "name": "applications",
@@ -5788,7 +5949,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "alert": {
       "name": "alert",
@@ -5803,7 +5965,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "pii": {
       "name": "pii",
@@ -5818,7 +5981,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "pin": {
       "name": "pin",
@@ -5833,7 +5997,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "discussion": {
       "name": "discussion",
@@ -5848,7 +6013,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "home": {
       "name": "home",
@@ -5863,7 +6029,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "book-edit": {
       "name": "book-edit",
@@ -5878,7 +6045,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "layers-front": {
       "name": "layers-front",
@@ -5893,7 +6061,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "help-laptop": {
       "name": "help-laptop",
@@ -5908,7 +6077,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "chevron-sort": {
       "name": "chevron--sort",
@@ -5923,7 +6093,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "null-sign": {
       "name": "null-sign",
@@ -5938,7 +6109,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "favorite": {
       "name": "favorite",
@@ -5953,7 +6125,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "chevron-up": {
       "name": "chevron--up",
@@ -5968,7 +6141,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "dashboard": {
       "name": "dashboard",
@@ -5983,7 +6157,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "move": {
       "name": "move",
@@ -5998,7 +6173,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "dataset": {
       "name": "dataset",
@@ -6016,7 +6192,8 @@
       "group": "Connector",
       "secondaryGroups": [
         "Details"
-      ]
+      ],
+      "status": "in-progress"
     },
     "chevron-sort-down": {
       "name": "chevron--sort--down",
@@ -6031,7 +6208,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "warning-alt": {
       "name": "warning--alt",
@@ -6046,7 +6224,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "task-list-settings": {
       "name": "task-list-settings",
@@ -6061,7 +6240,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "float-type": {
       "name": "float-type",
@@ -6076,7 +6256,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "maintenance": {
       "name": "maintenance",
@@ -6091,7 +6272,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "chevron-sort-up": {
       "name": "chevron--sort--up",
@@ -6106,7 +6288,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "exploration": {
       "name": "exploration",
@@ -6121,7 +6304,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Details"
+      "group": "Details",
+      "status": "in-progress"
     },
     "geo-point-type": {
       "name": "geo-point-type",
@@ -6136,7 +6320,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "integer-type": {
       "name": "integer-type",
@@ -6151,7 +6336,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "text-file": {
       "name": "text-file",
@@ -6166,7 +6352,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "scanner": {
       "name": "scanner",
@@ -6181,7 +6368,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "data-file-question": {
       "name": "data-file-question",
@@ -6196,7 +6384,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "security-services": {
       "name": "security-services",
@@ -6211,7 +6400,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "data-access-request": {
       "name": "data-access-request",
@@ -6226,7 +6416,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "info-filled": {
       "name": "info-filled",
@@ -6241,7 +6432,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Message"
+      "group": "Message",
+      "status": "in-progress"
     },
     "chart-pie": {
       "name": "chart--pie",
@@ -6256,7 +6448,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "stop-outline": {
       "name": "stop--outline",
@@ -6271,7 +6464,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "relation-incoming": {
       "name": "relation_incoming",
@@ -6286,7 +6480,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "relation-outgoing": {
       "name": "relation_outgoing",
@@ -6301,7 +6496,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "maximize": {
       "name": "maximize",
@@ -6316,7 +6512,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "unknown-type": {
       "name": "unknown-type",
@@ -6331,7 +6528,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Field type"
+      "group": "Field type",
+      "status": "in-progress"
     },
     "lifecycle-policy": {
       "name": "lifecycle-policy",
@@ -6346,7 +6544,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "circle-dash": {
       "name": "circle-dash",
@@ -6361,7 +6560,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "graph-merge": {
       "name": "graph-merge",
@@ -6376,7 +6576,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Misc"
+      "group": "Misc",
+      "status": "in-progress"
     },
     "list-numbers": {
       "name": "list-numbers",
@@ -6391,7 +6592,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Property type"
+      "group": "Property type",
+      "status": "in-progress"
     },
     "rocket-1": {
       "name": "rocket 1",
@@ -6406,7 +6608,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Navigation"
+      "group": "Navigation",
+      "status": "in-progress"
     },
     "stars": {
       "name": "stars",
@@ -6421,7 +6624,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "view-table": {
       "name": "view-table",
@@ -6436,7 +6640,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "asleep": {
       "name": "asleep",
@@ -6451,7 +6656,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "undo": {
       "name": "undo",
@@ -6466,7 +6672,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Common"
+      "group": "Common",
+      "status": "in-progress"
     },
     "cursor-arrow": {
       "name": "cursor-arrow",
@@ -6481,7 +6688,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Cursor"
+      "group": "Cursor",
+      "status": "in-progress"
     },
     "connected": {
       "name": "connected",
@@ -6496,7 +6704,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "hdfs": {
       "name": "hdfs",
@@ -6511,7 +6720,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "informatica": {
       "name": "informatica",
@@ -6526,7 +6736,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "sybaseiq": {
       "name": "sybaseiq",
@@ -6541,7 +6752,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "azure-synapse": {
       "name": "azure-synapse",
@@ -6556,7 +6768,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "gcp": {
       "name": "GCP",
@@ -6571,7 +6784,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "sparkdb": {
       "name": "sparkdb",
@@ -6586,7 +6800,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "gcpcloudstorage": {
       "name": "gcpcloudstorage",
@@ -6601,7 +6816,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "sas-database": {
       "name": "sas-database",
@@ -6616,7 +6832,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "zoom-reset": {
       "name": "zoom-reset",
@@ -6631,7 +6848,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "influxdb": {
       "name": "influxdb",
@@ -6646,7 +6864,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "cassandra": {
       "name": "cassandra",
@@ -6661,7 +6880,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "generic-jdbc": {
       "name": "generic-jdbc",
@@ -6676,7 +6896,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "alert-circle": {
       "name": "alert-circle",
@@ -6691,7 +6912,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status"
+      "group": "Status",
+      "status": "in-progress"
     },
     "thoughtspot": {
       "name": "thoughtspot",
@@ -6706,7 +6928,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "safyr-dynamics365": {
       "name": "safyr-dynamics365",
@@ -6721,7 +6944,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "disconnected": {
       "name": "disconnected",
@@ -6736,7 +6960,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Graph"
+      "group": "Graph",
+      "status": "in-progress"
     },
     "google-cloud": {
       "name": "google-cloud",
@@ -6751,7 +6976,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "api": {
       "name": "api",
@@ -6766,7 +6992,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "csv": {
       "name": "csv",
@@ -6781,7 +7008,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "success-filled": {
       "name": "success-filled",
@@ -6796,7 +7024,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Message"
+      "group": "Message",
+      "status": "in-progress"
     },
     "ckan": {
       "name": "ckan",
@@ -6811,7 +7040,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Connector"
+      "group": "Connector",
+      "status": "in-progress"
     },
     "expand": {
       "name": "expand",
@@ -6826,7 +7056,8 @@
       "guidelinesFile": null,
       "section": "Foundations",
       "category": "Icons",
-      "group": "Cursor"
+      "group": "Cursor",
+      "status": "in-progress"
     }
   }
 }

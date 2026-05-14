@@ -1,0 +1,430 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/guideline-component.json",
+  "title": "Per-component multi-domain guideline (derived)",
+  "description": "Schema for the CI-derived merged per-component guideline object at components/dist/guidelines/<slug>.json. One object per component, holding any subset of five OPTIONAL domains (content, usage, design, behavior, tokens). Authored as file-per-domain markdown/YAML under components/src/<slug>/; merged by scripts/components/derive-guidelines.js. Strict (additionalProperties:false) — this is a CI-derived contract, not an author-facing shape.",
+  "type": "object",
+  "required": [
+    "_schema_version",
+    "_meta",
+    "slug",
+    "component",
+    "meta",
+    "domains"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "const": 1,
+      "description": "Schema version pin. Bumps require coordinated transformer + consumer updates.",
+      "examples": [1]
+    },
+    "_alias_of": {
+      "type": "string",
+      "description": "Present only on registry-alias copies (components/dist/guidelines/<registryKey>.json). Value is the canonical guideline slug this file duplicates. The deriver emits one alias copy per paths-manifest.json#registryAliases entry so consumers can look a guideline up by registry key OR canonical slug with no per-consumer resolution logic. A real per-component object never carries this key.",
+      "examples": ["checkbox"]
+    },
+    "_meta": {
+      "type": "object",
+      "required": ["auto_generated", "source", "do_not_edit"],
+      "additionalProperties": false,
+      "description": "Provenance block. Mirrors the foundations/categories pipeline convention. No timestamps — idempotency requires byte-stable output across runs.",
+      "examples": [
+        {
+          "auto_generated": true,
+          "source": "components/src/button/",
+          "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+        }
+      ],
+      "properties": {
+        "auto_generated": {
+          "const": true,
+          "description": "Always true — this object is CI-derived."
+        },
+        "source": {
+          "type": "string",
+          "description": "Source directory, repo-relative.",
+          "examples": ["components/src/button/"]
+        },
+        "do_not_edit": {
+          "type": "string",
+          "description": "Edit-warning string.",
+          "examples": [
+            "Edit the per-domain source files; CI regenerates this file."
+          ]
+        }
+      }
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 60,
+      "description": "Kebab-case component identifier. Doubles as the source directory name and the join key to the component registry.",
+      "examples": ["button", "alert-banner", "text-input"]
+    },
+    "component": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable component name, as authored in _meta.yml.",
+      "examples": ["Button", "Alert / banner", "Text input"]
+    },
+    "meta": {
+      "type": "object",
+      "required": ["category"],
+      "additionalProperties": false,
+      "description": "Component classification + relationships, sourced from _meta.yml (category falls back to a registry lookup when omitted).",
+      "examples": [
+        {
+          "category": "action",
+          "section": "COMPONENTS",
+          "related": ["link", "icon"]
+        }
+      ],
+      "properties": {
+        "category": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "Category slug. Joins to components/dist/categories/<category>-defaults.json — the inheritance source for `inherited` domains.",
+          "examples": ["action", "form-input-selection", "feedback"]
+        },
+        "section": {
+          "type": "string",
+          "description": "Top-level Figma section the component lives under.",
+          "examples": ["COMPONENTS", "FOUNDATIONS", "BRAND ASSETS"]
+        },
+        "related": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
+          "description": "Related component slugs for cross-linking.",
+          "examples": [["link", "icon"]]
+        }
+      }
+    },
+    "domains": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "The five guideline domains. Every domain is OPTIONAL — absence means the component carries no declaration for it. Each present domain carries at minimum a `status`.",
+      "examples": [
+        {
+          "content": {
+            "status": "approved",
+            "markdown": "...",
+            "sections": []
+          },
+          "design": { "status": "inherited" }
+        }
+      ],
+      "properties": {
+        "content": {
+          "$ref": "#/$defs/proseDomain",
+          "description": "Content guidelines domain — UX writing.",
+          "examples": [
+            {
+              "status": "approved",
+              "markdown": "## Style\n\n- ...",
+              "sections": []
+            }
+          ]
+        },
+        "usage": {
+          "$ref": "#/$defs/proseDomain",
+          "description": "Usage guidelines domain — when to use, variant selection.",
+          "examples": [
+            {
+              "status": "draft",
+              "markdown": "## When to use\n\n- ...",
+              "sections": []
+            }
+          ]
+        },
+        "design": {
+          "$ref": "#/$defs/proseDomain",
+          "description": "Design guidelines domain — anatomy, layout, visual rules.",
+          "examples": [{ "status": "inherited" }]
+        },
+        "behavior": {
+          "$ref": "#/$defs/proseDomain",
+          "description": "Behavior / a11y / implementation domain.",
+          "examples": [{ "status": "inherited" }]
+        },
+        "tokens": {
+          "$ref": "#/$defs/tokensDomain",
+          "description": "Component-specific tokens domain.",
+          "examples": [
+            {
+              "status": "approved",
+              "bindings": [
+                { "token": "button-height-md", "context": "Minimum height" }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "proseDomain": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "description": "A prose-bearing domain (content / usage / design / behavior). When status is draft|approved it carries the verbatim `markdown` plus the structured `sections` projection. When status is inherited|not-started it carries only `status` (+ optional meta).",
+      "properties": {
+        "status": {
+          "enum": ["not-started", "draft", "approved", "inherited"],
+          "description": "Per-domain maturity. not-started = declared but empty; draft = authored, unreviewed; approved = team-signed-off; inherited = intentionally not component-specific, consumers resolve the body from the component's category-defaults.",
+          "examples": ["approved", "inherited"]
+        },
+        "owner": {
+          "type": "string",
+          "description": "Owning team/person for this domain (from _meta.yml).",
+          "examples": ["content-team", "design", "eng"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date the domain source was last revised.",
+          "examples": ["2026-05-10"]
+        },
+        "markdown": {
+          "type": "string",
+          "description": "Verbatim domain markdown body (frontmatter stripped). The prose view for LLM consumers. Present only for draft|approved.",
+          "examples": [
+            "## When to use\n\n- Use buttons for actions, not navigation."
+          ]
+        },
+        "sections": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/section" },
+          "description": "Structured projection of the markdown body. The queryable view for the docs renderer + plugin brief-sourcing. Present only for draft|approved.",
+          "examples": [
+            [
+              {
+                "heading": "When to use",
+                "content": ["Use buttons for actions."]
+              }
+            ]
+          ]
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "enum": ["draft", "approved"] } }
+          },
+          "then": { "required": ["status", "markdown", "sections"] }
+        },
+        {
+          "if": {
+            "properties": { "status": { "enum": ["inherited", "not-started"] } }
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                { "required": ["markdown"] },
+                { "required": ["sections"] }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "tokensDomain": {
+      "type": "object",
+      "required": ["status"],
+      "additionalProperties": false,
+      "description": "The component-specific tokens domain. When status is draft|approved it carries `bindings` — a list of token-name references (resolving into tokens/tokens.json) plus usage-context labels. Never embeds token values. When inherited|not-started it carries only `status`.",
+      "properties": {
+        "status": {
+          "enum": ["not-started", "draft", "approved", "inherited"],
+          "description": "Per-domain maturity. Same enum as prose domains.",
+          "examples": ["approved", "inherited"]
+        },
+        "owner": {
+          "type": "string",
+          "description": "Owning team/person for this domain (from _meta.yml).",
+          "examples": ["eng", "design"]
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date",
+          "description": "ISO 8601 date the tokens.yml source was last revised.",
+          "examples": ["2026-05-09"]
+        },
+        "bindings": {
+          "type": "array",
+          "description": "Component-specific token bindings. Each is a reference into the global token file plus a human-readable context label. Present only for draft|approved.",
+          "examples": [
+            [{ "token": "button-height-md", "context": "Minimum height" }]
+          ],
+          "items": {
+            "type": "object",
+            "required": ["token", "context"],
+            "additionalProperties": false,
+            "properties": {
+              "token": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Token name. MUST resolve to a known token in tokens/tokens.json.",
+                "examples": ["button-height-md", "corner-radius-full"]
+              },
+              "context": {
+                "type": "string",
+                "minLength": 1,
+                "description": "What the component uses this token for.",
+                "examples": ["Minimum height", "Corner rounding"]
+              }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "status": { "enum": ["draft", "approved"] } }
+          },
+          "then": { "required": ["status", "bindings"] }
+        },
+        {
+          "if": {
+            "properties": { "status": { "enum": ["inherited", "not-started"] } }
+          },
+          "then": { "not": { "required": ["bindings"] } }
+        }
+      ]
+    },
+    "section": {
+      "type": "object",
+      "required": ["heading", "content"],
+      "additionalProperties": false,
+      "description": "One `## ` heading and its content. May carry one reserved level of `### ` nesting via `subsections`.",
+      "properties": {
+        "heading": {
+          "type": "string",
+          "description": "Section heading text. Empty string for content that preceded the first heading.",
+          "examples": ["When to use", "Style", "Do / Don't", "Terminology"]
+        },
+        "content": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/contentItem" },
+          "description": "Ordered content items for this section.",
+          "examples": [
+            [
+              "Use buttons for actions.",
+              { "do": "Create report", "dont": "Report" }
+            ]
+          ]
+        },
+        "subsections": {
+          "type": "array",
+          "description": "Reserved one-level nesting for `### ` subheadings.",
+          "examples": [
+            [
+              {
+                "subheading": "Variant selection",
+                "content": ["Primary first."]
+              }
+            ]
+          ],
+          "items": {
+            "type": "object",
+            "required": ["subheading", "content"],
+            "additionalProperties": false,
+            "properties": {
+              "subheading": {
+                "type": "string",
+                "description": "Subsection heading text.",
+                "examples": ["Variant selection", "Keyboard"]
+              },
+              "content": {
+                "type": "array",
+                "items": { "$ref": "#/$defs/contentItem" },
+                "description": "Ordered content items for this subsection.",
+                "examples": [["Primary for the main action."]]
+              }
+            }
+          }
+        }
+      }
+    },
+    "contentItem": {
+      "description": "A single content item. Either a plain string (a rule/bullet) or one of the structured shapes the consumers bucket. Adding a NEW shape is a coordinated schema + renderer change (see the architecture spec).",
+      "examples": [
+        "Use buttons for actions.",
+        { "do": "Create report", "dont": "Report" }
+      ],
+      "oneOf": [
+        {
+          "type": "string",
+          "description": "A plain rule / bullet."
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "minProperties": 1,
+          "description": "A structured content item.",
+          "properties": {
+            "do": {
+              "type": "string",
+              "description": "A 'do' example.",
+              "examples": ["Create report"]
+            },
+            "dont": {
+              "type": "string",
+              "description": "A 'don't' example.",
+              "examples": ["Report"]
+            },
+            "rule": {
+              "type": "string",
+              "description": "A rule, optionally paired with do/dont.",
+              "examples": ["Use verb + object for button labels."]
+            },
+            "term": {
+              "type": "string",
+              "description": "A terminology entry term.",
+              "examples": ["Cancel vs Close"]
+            },
+            "note": {
+              "type": "string",
+              "description": "A callout / note paragraph.",
+              "examples": ["Buttons trigger actions."]
+            },
+            "example": {
+              "type": "string",
+              "description": "A code/example block.",
+              "examples": ["aria-label=\"Close dialog\""]
+            },
+            "examples": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "A list of example strings.",
+              "examples": [["Create report", "Add note"]]
+            },
+            "table": {
+              "type": "object",
+              "required": ["headers", "rows"],
+              "additionalProperties": false,
+              "description": "A generic table that did not match a known shape.",
+              "examples": [
+                { "headers": ["Prop", "Value"], "rows": [["height", "32px"]] }
+              ],
+              "properties": {
+                "headers": {
+                  "type": "array",
+                  "items": { "type": "string" },
+                  "description": "Table header cells.",
+                  "examples": [["Prop", "Value"]]
+                },
+                "rows": {
+                  "type": "array",
+                  "items": { "type": "array", "items": { "type": "string" } },
+                  "description": "Table body rows.",
+                  "examples": [[["height", "32px"]]]
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

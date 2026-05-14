@@ -1,13 +1,13 @@
 {
   "card": "card_motion",
   "title": "Behavior & motion",
-  "description": "Conditional card. Renders only when the component has behavior.motion.pattern set in its component-guidelines JSON. Pulls phase rows from vendor/foundations/dist/tokens/motion.json#patterns.<slug>.",
+  "description": "Conditional card. The multi-domain guideline doc carries no per-component motion (domains.behavior is status-only), so motion resolves from the component's category-defaults: when categoryDefaults.card_motion has a patternRefs[0], the card renders that pattern; otherwise it is skipped. Phase rows come from vendor/foundations/dist/tokens/motion.json#patterns.<slug>.",
   "phase": "transcribe",
   "source": {
     "primary": {
-      "type": "motion-pattern-lookup",
-      "registry": "vendor/components/src/guidelines/<slug>.json",
-      "field": "behavior.motion.pattern",
+      "type": "category-motion-default",
+      "registry": "vendor/components/dist/categories/<category>-defaults.json",
+      "field": "card_motion.patternRefs[0].ref",
       "patternRegistry": "vendor/foundations/dist/tokens/motion.json",
       "patternKey": "patterns.<pattern>"
     },
@@ -23,11 +23,11 @@
     "phases": "Array of phase rows pulled verbatim from tokens/motion.json#patterns.<slug>.phases. Columns vary by pattern (Phase / Duration / Easing / Behavior, or pattern-specific shapes).",
     "logic_and_accessibility": "Optional — array of strings copied from tokens/motion.json#patterns.<slug>.logic_and_accessibility. Per-pattern accessibility/intent notes (e.g. 'Reduced motion: disable fades').",
     "notes": "Optional — array of strings copied from tokens/motion.json#patterns.<slug>.notes. Pattern-level notes (cascading effects, hold timing, etc).",
-    "overrides": "Optional free-text. Component-specific deviations from the canonical pattern, copied from <slug>.json behavior.motion.overrides."
+    "overrides": "Optional free-text. Reserved for component-specific deviations from the canonical pattern; the category-default motion path leaves this null."
   },
   "qualityRules": [
     "Phases must come verbatim from tokens/motion.json — never invent durations or easings",
-    "When the component has no behavior.motion.pattern, suppress the card entirely (do not emit empty card_motion)",
+    "When neither the component's category-defaults nor any source declares a motion pattern, suppress the card entirely (do not emit empty card_motion)",
     "patternSlug must match a key in tokens/motion.json#patterns; fail loudly if not"
   ],
   "minimums": {

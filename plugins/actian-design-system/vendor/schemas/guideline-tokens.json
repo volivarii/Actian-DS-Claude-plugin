@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/guideline-tokens.json",
+  "title": "Per-component token bindings tokens.yml (author-facing)",
+  "description": "Schema for components/src/<slug>/tokens.yml — the component-specific token bindings. Each binding is a REFERENCE into the global token file (tokens/tokens.json) plus a human-readable usage-context label. Never embeds token values; never duplicates definitions.",
+  "type": "object",
+  "required": ["bindings"],
+  "additionalProperties": false,
+  "properties": {
+    "bindings": {
+      "type": "array",
+      "minItems": 1,
+      "description": "The tokens this component binds, with usage context.",
+      "examples": [
+        [
+          { "token": "button-height-md", "context": "Minimum height" },
+          { "token": "corner-radius-full", "context": "Corner rounding" }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "required": ["token", "context"],
+        "additionalProperties": false,
+        "properties": {
+          "token": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Token name. MUST resolve to a known token in tokens/tokens.json.",
+            "examples": ["button-height-md", "corner-radius-full"]
+          },
+          "context": {
+            "type": "string",
+            "minLength": 1,
+            "description": "What the component uses this token for.",
+            "examples": ["Minimum height", "Corner rounding"]
+          }
+        }
+      }
+    }
+  }
+}
