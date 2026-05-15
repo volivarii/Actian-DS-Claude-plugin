@@ -215,19 +215,33 @@ test("paths.js content.bySlug alias", async (t) => {
     assert.equal(PATHS.content.bySlug, PATHS.content.section);
   });
 
-  await t.test("bySlug resolves to vendor/content/src/{slug}.md", () => {
-    // content/src/ holds the global content topics (voice-and-tone,
-    // capitalization, ...). Per-component content moved to the merged
-    // guideline docs at v0.9.x — slugs like "button" no longer resolve here.
-    assert.ok(
-      PATHS.content
-        .bySlug("voice-and-tone")
-        .endsWith("content/src/voice-and-tone.md"),
-    );
-    assert.ok(
-      PATHS.content
-        .bySlug("empty-and-system-states")
-        .endsWith("content/src/empty-and-system-states.md"),
-    );
+  await t.test(
+    "bySlug walks content/src/<bucket>/ sub-dirs to find the file (v0.10.x sub-bucket layout)",
+    () => {
+      // content/src/ holds global content topics, sub-bucketed at v0.10.x into
+      // writing/ (strict grammar/voice rules), patterns/ (universal UX
+      // patterns), product/ (Actian product-surface rules). bySlug walks
+      // these sub-dirs to find the {slug}.md file — slugs are unique across
+      // buckets. Per-component content lives at components/dist/guidelines/.
+      assert.ok(
+        PATHS.content
+          .bySlug("voice-and-tone")
+          .endsWith("content/src/writing/voice-and-tone.md"),
+      );
+      assert.ok(
+        PATHS.content
+          .bySlug("empty-and-system-states")
+          .endsWith("content/src/patterns/empty-and-system-states.md"),
+      );
+      assert.ok(
+        PATHS.content
+          .bySlug("lineage-specific-ui")
+          .endsWith("content/src/product/lineage-specific-ui.md"),
+      );
+    },
+  );
+
+  await t.test("bySlug returns null for an unknown slug", () => {
+    assert.equal(PATHS.content.bySlug("does-not-exist-anywhere"), null);
   });
 });

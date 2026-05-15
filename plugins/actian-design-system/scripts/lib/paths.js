@@ -143,7 +143,28 @@ function buildPathsFromManifest(manifest, vendorRoot) {
       collName.split("."),
       (function (collDir, pattern) {
         return function (slug) {
-          return path.join(collDir, pattern.replace("{slug}", slug));
+          // Substitute {slug}; if no other placeholders remain, join + return.
+          var resolved = pattern.replace("{slug}", slug);
+          if (!/\{[^}]+\}/.test(resolved)) {
+            return path.join(collDir, resolved);
+          }
+          // Pattern has additional placeholders (e.g. {bucket}/{slug}.md for
+          // recursive collections). Walk one level of sub-dirs and return the
+          // first match. Slugs are unique across sub-buckets by convention —
+          // if that ever changes, this needs to return all matches instead.
+          var entries = fs.existsSync(collDir) ? fs.readdirSync(collDir) : [];
+          for (var i = 0; i < entries.length; i++) {
+            var entry = entries[i];
+            var sub = path.join(collDir, entry);
+            try {
+              if (!fs.statSync(sub).isDirectory()) continue;
+            } catch (e) {
+              continue;
+            }
+            var candidate = path.join(sub, slug + ".md");
+            if (fs.existsSync(candidate)) return candidate;
+          }
+          return null;
         };
       })(dir, coll.pattern),
     );
