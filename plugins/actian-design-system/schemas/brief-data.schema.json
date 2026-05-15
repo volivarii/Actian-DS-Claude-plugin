@@ -432,7 +432,7 @@
     },
     "card_motion": {
       "type": "object",
-      "description": "Behavior & motion card (DS mode) — conditional. Only present when the component has a curated motion pattern (vendor/components/src/guidelines/<slug>.json behavior.motion.pattern is set). Pattern data is sourced from vendor/foundations/dist/tokens/motion.json.",
+      "description": "Behavior & motion card (DS mode) — conditional. Only present when the component has a curated motion pattern (vendor/components/dist/guidelines/<slug>.json `domains.behavior.motion.pattern` is set). Pattern data is sourced from vendor/foundations/dist/tokens/motion.json.",
       "properties": {
         "_source": {
           "type": "string",

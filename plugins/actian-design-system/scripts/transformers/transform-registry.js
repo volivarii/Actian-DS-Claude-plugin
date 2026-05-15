@@ -89,7 +89,6 @@ function buildEntry(meta, node, importMethod, lastSyncedIso) {
     page: pageNameFromContainingFrame(meta.containing_frame),
     properties: split.properties,
     nestedComponents: [],
-    guidelinesFile: null,
   };
   if (importMethod === "set") {
     entry.variants = split.variants || {};

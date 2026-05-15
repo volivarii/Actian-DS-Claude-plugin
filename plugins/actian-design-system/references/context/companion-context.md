@@ -77,7 +77,7 @@ See: `references/ds-rules/fm-css-reference.md`
 | Lists | Oxford comma, parallel structure | Mixed structures |
 | Tone | Professional, clear, helpful | Cute, clever, apologetic |
 
-Full guidelines: `vendor/content/dist/content.md`
+Full guidelines: `vendor/content/dist/global.md` (cross-cutting voice/tone) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content`
 
 ## Actian Apps
 
@@ -108,7 +108,7 @@ Full context: `references/context/app-context.md`
 | FM Kit | 44 components | Inter | Lo-fi wireframes, FM palette |
 | Meta Kit | 25 components + 3 templates | Inter | Generation output, annotation markers |
 
-Before building custom frames, check: `vendor/components/dist/dskit-components.md`, `vendor/components/dist/fm-components.md`, `vendor/components/src/guidelines/{name}.json`
+Before building custom frames, check: `vendor/components/dist/dskit-components.md`, `vendor/components/dist/fm-components.md`, `vendor/components/dist/guidelines/{slug}.json`
 
 ### DS Kit Categories
 
@@ -146,7 +146,7 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 
 | Topic | File |
 |-------|------|
-| Specific component rules | `vendor/components/src/guidelines/{name}.json` |
+| Specific component rules | `vendor/components/dist/guidelines/{slug}.json` (`domains.*`) |
 | Accessibility standards | `vendor/accessibility/accessibility.md` |
 | Foundation (typography, color, etc.) | `vendor/foundations/{topic}.json` |
 | FM CSS values (wireframes) | `references/ds-rules/fm-css-reference.md` |

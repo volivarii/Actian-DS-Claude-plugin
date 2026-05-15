@@ -4,5 +4,5 @@
   "fileKey": "test-file-key",
   "nodeId": "1:1",
   "nodeDescription": null,
-  "guidelinesJsonPath": "vendor/components/src/guidelines/button.json"
+  "guidelinesJsonPath": "vendor/components/dist/guidelines/button.json"
 }

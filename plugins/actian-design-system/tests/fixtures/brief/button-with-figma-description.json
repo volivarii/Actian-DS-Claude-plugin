@@ -4,5 +4,5 @@
   "fileKey": "test-file-key",
   "nodeId": "1:1",
   "nodeDescription": "Primary action element. Use for the main call-to-action on a page or modal. Distinct from Link (semantic navigation) and Icon Button (compact icon-only action).",
-  "guidelinesJsonPath": "vendor/components/src/guidelines/button.json"
+  "guidelinesJsonPath": "vendor/components/dist/guidelines/button.json"
 }

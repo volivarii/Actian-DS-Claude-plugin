@@ -25,9 +25,9 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 |---|---|---|---|---|
 | Tokens | `vendor/tokens/tokens.json` + `tokens.css` | `tokens/` | DTCG JSON + CSS | 155 tokens, 3 themes, 8 collections |
 | Component registries | `vendor/components/registries/{fmkit,dskit,metakit}.json` | `components/registries/` | JSON | Component keys, variants, properties |
-| Component guidelines | `vendor/components/guidelines/*.json` | `components/guidelines/` | JSON | 85 components (44 curated + 41 stubs) |
+| Component guidelines | `vendor/components/dist/guidelines/<slug>.json` (`domains.*` shape) | `components/dist/guidelines/` | JSON | Per-component multi-domain merged docs |
 | Foundations | `vendor/foundations/foundations.md` + `vendor/foundations/*.json` | `foundations/` | MD + JSON | Spacing, typography, color, motion (8 derived) |
-| Content guidelines | `vendor/content/dist/content.md` | `content/` | MD | Voice, tone, copy patterns |
+| Content guidelines | `vendor/content/dist/global.md` + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` | `content/` + `components/` | MD + JSON | Voice, tone, copy patterns |
 | Accessibility | `vendor/accessibility/accessibility.md` | `accessibility/` | MD | WCAG 2.1 AA conformance rules |
 | App context | `vendor/app-context/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
 | FM↔DS map | `vendor/fm-to-ds-map/fm-to-ds-map.json` | `fm-to-ds-map/` | JSON | Wireframe-to-DS component mapping |

@@ -10,6 +10,25 @@ var validate = require(
   path.join(PLUGIN_ROOT, "scripts", "validation", "validate-flow-data.js"),
 );
 
+// Stub guideline-doc fixture in the post-Phase-5 multi-domain shape. The
+// retired Figma-scraped JSON used a `_stub: true` boolean at root; the merged
+// guideline doc (components/dist/guidelines/<slug>.json) reads as a stub when
+// `domains.content.status` is not `approved`/`draft` (i.e. `not-started` or
+// `inherited`). brief-sourcing.isStubGuideline() is the canonical check.
+function stubGuidelineDoc(slug) {
+  return {
+    _schema_version: 1,
+    slug: slug,
+    domains: {
+      content: { status: "not-started" },
+      usage: { status: "not-started" },
+      design: { status: "inherited" },
+      behavior: { status: "inherited" },
+      tokens: { status: "not-started" },
+    },
+  };
+}
+
 describe("validate-flow-data", function () {
   describe("findBannedText", function () {
     it("detects banned text in props.Label", function () {
@@ -2232,7 +2251,7 @@ describe("meta.references[].fingerprint pass-through (C-vision)", function () {
       };
       var result = validateFn(data, {
         loadGuideline: function (slug) {
-          if (slug === "tooltip") return { _stub: true };
+          if (slug === "tooltip") return stubGuidelineDoc("tooltip");
           return null;
         },
         skipTokens: true,
@@ -2266,7 +2285,8 @@ describe("meta.references[].fingerprint pass-through (C-vision)", function () {
       };
       var result = validateFn(data, {
         loadGuideline: function (slug) {
-          if (slug === "nonexistent-ref-xyz") return { _stub: true };
+          if (slug === "nonexistent-ref-xyz")
+            return stubGuidelineDoc("nonexistent-ref-xyz");
           return null;
         },
         skipTokens: true,
@@ -2396,7 +2416,7 @@ describe("meta.references[].fingerprint pass-through (C-vision)", function () {
       };
       var result = validateFn(data, {
         loadGuideline: function (slug) {
-          if (slug === "tooltip") return { _stub: true };
+          if (slug === "tooltip") return stubGuidelineDoc("tooltip");
           return null;
         },
         skipTokens: true,

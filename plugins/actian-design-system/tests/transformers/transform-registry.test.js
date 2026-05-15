@@ -62,7 +62,6 @@ describe("transform-registry", function () {
         "page",
         "properties",
         "nestedComponents",
-        "guidelinesFile",
         "variants",
       ];
       expectedKeys.forEach(function (k) {
@@ -130,9 +129,12 @@ describe("transform-registry", function () {
       assert.strictEqual(leadingIcon.default, "7206:3772");
     });
 
-    it("nestedComponents and guidelinesFile default to empty/null", function () {
+    it("nestedComponents defaults to empty (guidelinesFile retired Phase 5)", function () {
       assert.deepStrictEqual(button.nestedComponents, []);
-      assert.strictEqual(button.guidelinesFile, null);
+      assert.ok(
+        !("guidelinesFile" in button),
+        "guidelinesFile field was retired with the scraped-guideline layer",
+      );
     });
 
     it("per-component lastSynced populated", function () {

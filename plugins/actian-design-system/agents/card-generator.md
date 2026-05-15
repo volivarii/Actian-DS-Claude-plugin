@@ -132,7 +132,7 @@ When `categoryDefaults` is present:
 - Every card object MUST have `_source: "generated"` — validator will reject cards without it.
 - All token names use `--zen-` prefix (DS Kit) or `--fm-` prefix (FM). No hardcoded hex.
 - No truncation — complete all arrays, all variant rows, all properties.
-- **Example copy:** Any example/specimen text inside generated cards (button labels, error messages, placeholder text, table cells, tooltips) must comply with `vendor/content/dist/content.md` — sentence case, verb + object button labels, no banned words (please, sorry, ensure, execute, abort, sign in, disabled), realistic placeholders that model input rather than repeating the field label.
+- **Example copy:** Any example/specimen text inside generated cards (button labels, error messages, placeholder text, table cells, tooltips) must comply with `vendor/content/dist/global.md` (cross-cutting voice/tone) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` — sentence case, verb + object button labels, no banned words (please, sorry, ensure, execute, abort, sign in, disabled), realistic placeholders that model input rather than repeating the field label.
 - Write the file silently — do not output the JSON to chat.
 - Reconciliation rule on research: existing context wins. Research informs; never overrides.
 - If you cannot generate a card, write the card key with an empty object + `_source: "generated"` + `_fallback: true` + `_fallbackReason: "<short>"` and report DONE_WITH_CONCERNS.
