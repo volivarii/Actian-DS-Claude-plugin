@@ -7,6 +7,10 @@ var path = require("path");
 var PATHS = require(path.join(__dirname, "..", "lib", "paths.js"));
 var rules = require(path.join(__dirname, "component-property-rules.js"));
 var resolver = require(path.join(__dirname, "..", "lib", "intent-resolver.js"));
+var briefSourcing = require(
+  path.join(__dirname, "..", "transformers", "brief-sourcing.js"),
+);
+var isStubGuideline = briefSourcing.isStubGuideline;
 
 // ---------------------------------------------------------------------------
 // Pass 1: registry helpers + INSTANCE-node walker
@@ -21,9 +25,12 @@ function loadKitRegistry(kit) {
   }
 }
 
-// Stub-aware validation helpers (v1.64.0+).
-// Lookup component-guideline JSON by slug; cache per-process to avoid
-// repeated disk reads on flows that use the same component many times.
+// Stub-aware validation helpers.
+// Lookup the per-component multi-domain guideline doc by slug; cache
+// per-process to avoid repeated disk reads on flows that use the same
+// component many times. Phase 5 (v1.85.0): reads
+// PATHS.components.guidelineDoc.byKey (components/dist/guidelines/<slug>.json,
+// `domains.*` shape) — the retired components/src/guidelines layer is gone.
 var _guidelineCache = {};
 function _kebab(s) {
   if (typeof s !== "string") return s;
@@ -38,7 +45,7 @@ function loadGuidelineForSlug(refOrSlug, opts) {
   if (Object.prototype.hasOwnProperty.call(_guidelineCache, slug)) {
     return _guidelineCache[slug];
   }
-  var p = PATHS.components.guideline(slug);
+  var p = PATHS.components.guidelineDoc.byKey(slug);
   var data = null;
   try {
     data = JSON.parse(fs.readFileSync(p, "utf8"));
@@ -1238,7 +1245,7 @@ function validate(data, opts) {
     if (!slug) return;
     if (!stubKinds[f.kind]) return;
     var g = loadGuidelineForSlug(slug, opts);
-    if (g && g._stub === true) {
+    if (g && isStubGuideline(g)) {
       stubSlugsUsed[_kebab(slug)] = true;
       if (f.severity === "warning") {
         f.severity = "info";
@@ -1254,7 +1261,7 @@ function validate(data, opts) {
     walkInstanceNodes(data.screens, "screens", function (instNode) {
       if (!instNode || typeof instNode.ref !== "string") return;
       var g = loadGuidelineForSlug(instNode.ref, opts);
-      if (g && g._stub === true) {
+      if (g && isStubGuideline(g)) {
         stubSlugsUsed[_kebab(instNode.ref)] = true;
       }
     });
@@ -1266,11 +1273,11 @@ function validate(data, opts) {
       message:
         "Component '" +
         slug +
-        "' uses a stub guideline. Curated content pending — see vendor/components/guidelines/" +
+        "' uses a stub guideline (no approved/draft content yet). Curated content pending — see vendor/components/dist/guidelines/" +
         slug +
-        ".json (in plugin) / components/guidelines/" +
+        ".json `domains.content.status` (plugin snapshot) / components/src/" +
         slug +
-        ".json (in actian-ds-knowledge)",
+        "/content.md (source, in actian-ds-knowledge)",
     });
   });
 
