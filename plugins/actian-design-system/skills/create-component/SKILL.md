@@ -17,7 +17,7 @@ Determine: component name (FM prefix for Fat Marker), library (FM = Inter, DS Ki
 
 ## Step 2 — Check existing components
 
-Check `../../vendor/components/dist/dskit-components.md` and `../../vendor/components/dist/fm-components.md`. If it exists, suggest modifying instead. Load `../../vendor/components/src/guidelines/<slug>.json` for content/design guidelines if available.
+Check `../../vendor/components/dist/dskit-components.md` and `../../vendor/components/dist/fm-components.md`. If it exists, suggest modifying instead. Load `../../vendor/components/dist/guidelines/<slug>.json` for content/design/behavior guidelines if available — read `domains.content` for copy rules, `domains.design` and `domains.behavior` for visual/interaction rules (statuses `inherited`/`not-started` resolve to category-defaults).
 
 ## Step 3 — Research (optional)
 
@@ -72,7 +72,7 @@ After creation, offer: "Want me to generate a component brief?" If accepted, inv
 - Use `primaryAxisAlignItems: "SPACE_BETWEEN"` for push-apart layouts, never Spacer frames
 - Button booleans: `"👁 Leading Icon": false, "👁 Trailing Icon": false` by default
 - Never leave variableScopes as `ALL_SCOPES`
-- **Default text values:** Set all default text properties to copy that complies with `vendor/content/dist/content.md` — sentence case, verb + object for action labels, realistic placeholder text that models input. Never ship "Label", "Text", "Lorem ipsum", or labels that just repeat the field name as defaults.
+- **Default text values:** Set all default text properties to copy that complies with `vendor/content/dist/global.md` — sentence case, verb + object for action labels, realistic placeholder text that models input. Never ship "Label", "Text", "Lorem ipsum", or labels that just repeat the field name as defaults.
 
 ## References
 
