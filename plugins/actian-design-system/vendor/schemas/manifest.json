@@ -107,7 +107,7 @@
           "examples": ["foundations/src/foundations.md", "tokens/tokens.json"]
         },
         "type": {
-          "enum": ["markdown", "json", "css", "yaml", "text"],
+          "enum": ["markdown", "json", "css", "yaml", "text", "binary"],
           "description": "File format. Affects how consumers parse the file.",
           "examples": ["markdown", "json"]
         },
@@ -151,7 +151,7 @@
           "examples": [true, false]
         },
         "type": {
-          "enum": ["markdown", "json", "css", "yaml", "text"],
+          "enum": ["markdown", "json", "css", "yaml", "text", "binary"],
           "description": "Member file format.",
           "examples": ["json", "markdown"]
         },

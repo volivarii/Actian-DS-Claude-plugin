@@ -12,8 +12,8 @@ The Actian Design System knowledge layer: tokens, content guidelines, accessibil
 |---|---|---|
 | **Foundations** (color/type/spacing/motion/elevation/icons) | `foundations/src/foundations.md` | `foundations/dist/*.json` (8) |
 | **Tokens** | `tokens/tokens.json` (frozen snapshot) | `tokens/tokens.css`, `tokens/token-reference.md` |
-| **Components** | `components/src/guidelines/*.json` (85; 44 curated + 41 stubs) + `components/src/categories/*.md` (6, NEW Phase 2) | `components/dist/registries/*` (3, Figma sync) + `components/dist/categories/*.json` (6, derived) + `components/dist/categories.json` (Phase 0) |
-| **Content guidelines** | `content/src/*.md` (37 files) | `content/dist/content.md` |
+| **Components** | `components/src/<slug>/{_meta.yml,content.md,usage.md,design.md,behavior.md,tokens.yml}` (per-component multi-domain authoring) + `components/src/categories/*.md` (6 category defaults) | `components/dist/guidelines/<slug>.json` (per-component merged docs, `domains.*` shape) + `components/dist/registries/*` (3, Figma sync) + `components/dist/categories/*.json` (6) + `components/dist/categories.json` |
+| **Content guidelines** | `content/src/{writing,patterns,product}/*.md` + root-level meta files (Phase 2c sub-buckets) | `content/dist/global.md` (component-scoped content lives per-component in `components/dist/guidelines/<slug>.json` `domains.content`) |
 | **Accessibility** | `accessibility/accessibility.md` (with stable `{#slug}` anchors) | `accessibility/dist/a11y-index.json` (slug→WCAG map) |
 | **Other** | `app-context/app-context.json`, `fm-to-ds-map/fm-to-ds-map.json`, `presentation/presentation-guide.md` | — |
 
@@ -52,10 +52,14 @@ You don't need a local toolchain. Edit via the GitHub web UI; CI does the rest.
 A "derive-diff bot comment" (showing which dist files your PR will change in plain language) is planned as a follow-up enhancement.
 
 **Schema files** live at `schemas/`:
-- `guideline.json` — `components/src/guidelines/*.json`
+- `guideline.json` — `components/dist/guidelines/<slug>.json` (per-component merged docs)
+- `guideline-meta.json` — `components/src/<slug>/_meta.yml` (per-component domain-status frontmatter)
+- `guideline-tokens.json` — `components/src/<slug>/tokens.yml`
+- `guideline-component.json` — legacy lock-in for the merged-doc shape
 - `foundations-section.json` — `foundations/dist/**/*.json` (post-derive)
 - `manifest.json` — `paths-manifest.json` structural shape
 - `category-defaults.json` — Phase 2 v2 category frontmatter for `components/src/categories/*.md`
+- `registry.json` — `components/dist/registries/*.json` (post-sync)
 
 Don't worry about the technical bits — focus on the content; CI will surface anything structural.
 
@@ -75,7 +79,7 @@ The slug system protects against name drift; canonical names live in their autho
 
 ## Adding new content
 
-- New component guideline: copy a curated one as template; flip `_stub` to false; PR with content
+- New component guideline: create `components/src/<slug>/_meta.yml` + the per-domain files you want to author (`content.md`, `usage.md`, `design.md`, `behavior.md`, `tokens.yml`). See `components/src/AUTHORING.md`.
 - New foundation token: edit `foundations/src/foundations.md`; CI regenerates the hierarchical `foundations/dist/` tree (Pattern H) on PR
 - New category default content: edit `components/src/categories/<slug>.md`; CI regenerates dist
 - New domain (rare): consult the plugin lead; new directory + paths-manifest entry + CI workflow

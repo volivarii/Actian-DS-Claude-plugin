@@ -24,7 +24,6 @@
       },
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Trend": [
           "Up",
@@ -43,7 +42,6 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Theme": [
           "Actian",
@@ -62,7 +60,6 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Type": [
           "Designer",
@@ -97,7 +94,6 @@
       },
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Mode": [
           "DS",
@@ -134,7 +130,6 @@
         }
       ],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Mode": [
           "DS",
@@ -156,7 +151,6 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Size": [
           "Standard",
@@ -179,7 +173,6 @@
       },
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Mode": [
           "DS",
@@ -202,7 +195,6 @@
       },
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Orientation": [
           "Horizontal",
@@ -225,7 +217,6 @@
       },
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Direction": [
           "Left",
@@ -250,7 +241,6 @@
       },
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Status": [
           "Pass",
@@ -269,7 +259,6 @@
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
-      "guidelinesFile": null,
       "variants": {
         "Size": [
           "Small",
@@ -296,8 +285,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-template-state-column": {
       "name": "Meta / Template / State Column",
@@ -313,8 +301,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-content-research-frame": {
       "name": "Meta / Content / Research Frame",
@@ -334,8 +321,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-utility-card-divider": {
       "name": "Meta / Utility / Card Divider",
@@ -346,8 +332,7 @@
       "page": "Shared",
       "properties": {},
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-template-a11y-spec-row": {
       "name": "Meta / Template / A11y Spec Row",
@@ -383,8 +368,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-chrome-brief-card-header": {
       "name": "Meta / Chrome / Brief Card Header",
@@ -408,8 +392,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-template-section-header": {
       "name": "Meta / Template / Section Header",
@@ -433,8 +416,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-chrome-generation-log": {
       "name": "Meta / Chrome / Generation Log",
@@ -470,8 +452,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-slide-body-full": {
       "name": "Meta / Slide / Body Full",
@@ -487,8 +468,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-slide-cover": {
       "name": "Meta / Slide / Cover",
@@ -520,8 +500,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-slide-body-text-visual": {
       "name": "Meta / Slide / Body Text Visual",
@@ -541,8 +520,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-slide-back-cover": {
       "name": "Meta / Slide / Back Cover",
@@ -558,8 +536,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-slide-section": {
       "name": "Meta / Slide / Section",
@@ -579,8 +556,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-content-code-block": {
       "name": "Meta / Content / Code Block",
@@ -604,8 +580,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-template-table-header-row": {
       "name": "Meta / Template / Table Header Row",
@@ -621,8 +596,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-chrome-flow-cover-card": {
       "name": "Meta / Chrome / Flow Cover Card",
@@ -646,8 +620,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     },
     "meta-template-swatch-row": {
       "name": "Meta / Template / Swatch Row",
@@ -671,8 +644,7 @@
         }
       },
       "nestedComponents": [],
-      "documentationLinks": [],
-      "guidelinesFile": null
+      "documentationLinks": []
     }
   },
   "templates": {
