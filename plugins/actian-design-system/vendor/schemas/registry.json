@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://actian-ds.example.com/schemas/registry.json",
   "title": "Component registry",
-  "description": "Schema for components/dist/registries/{dskit,fmkit,metakit}.json. Locks the registry contract introduced by ζ.0–ζ.3 (uncapped description, wired guidelinesFile, documentationLinks, three-axis section/category/group, populated nestedComponents).",
+  "description": "Schema for components/dist/registries/{dskit,fmkit,metakit}.json. Locks the registry contract introduced by ζ.0–ζ.3 (uncapped description, documentationLinks, three-axis section/category/group, populated nestedComponents). Phase 5 (knowledge v0.11.0): the `guidelinesFile` field was retired with the scraped-guideline layer; consumers now resolve per-component guideline docs by slug via components.guidelineDoc in paths-manifest.json.",
   "type": "object",
   "required": ["library", "fileKey", "lastSynced", "components"],
   "additionalProperties": true,
@@ -59,8 +59,7 @@
         "page",
         "properties",
         "nestedComponents",
-        "documentationLinks",
-        "guidelinesFile"
+        "documentationLinks"
       ],
       "additionalProperties": false,
       "properties": {
@@ -160,11 +159,6 @@
           "items": { "$ref": "#/$defs/documentationLink" },
           "description": "Pass-through of Figma's COMPONENT_SET documentationLinks field (ζ.1). Designer-authored URLs to external documentation. Empty array when none supplied.",
           "examples": [[{ "uri": "https://docs.actian.com/components/button" }]]
-        },
-        "guidelinesFile": {
-          "type": ["string", "null"],
-          "description": "Path (repo-root-relative) to the curated guideline JSON when one exists for this slug (ζ.1). Resolved from components/src/guidelines/_index.json; null otherwise.",
-          "examples": ["components/src/guidelines/button.json", null]
         }
       }
     },
