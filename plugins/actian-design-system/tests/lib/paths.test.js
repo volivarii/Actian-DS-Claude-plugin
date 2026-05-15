@@ -32,10 +32,10 @@ test("paths.js buildPathsFromManifest — happy path", async (t) => {
   await t.test("collection key builds a resolver function", () => {
     const VENDOR = "/fake/vendor";
     const PATHS = buildPathsFromManifest(loadFixture("valid"), VENDOR);
-    assert.equal(typeof PATHS.components.guideline, "function");
+    assert.equal(typeof PATHS.components.guidelineDoc.byKey, "function");
     assert.equal(
-      PATHS.components.guideline("button"),
-      path.join(VENDOR, "components/src/guidelines/button.json"),
+      PATHS.components.guidelineDoc.byKey("button"),
+      path.join(VENDOR, "components/dist/guidelines/button.json"),
     );
   });
 
@@ -43,8 +43,8 @@ test("paths.js buildPathsFromManifest — happy path", async (t) => {
     const VENDOR = "/fake/vendor";
     const PATHS = buildPathsFromManifest(loadFixture("valid"), VENDOR);
     assert.equal(
-      PATHS.components.guideline("any-slug-here"),
-      path.join(VENDOR, "components/src/guidelines/any-slug-here.json"),
+      PATHS.components.guidelineDoc.byKey("any-slug-here"),
+      path.join(VENDOR, "components/dist/guidelines/any-slug-here.json"),
     );
   });
 

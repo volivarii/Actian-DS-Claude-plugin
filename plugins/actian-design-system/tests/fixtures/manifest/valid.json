@@ -18,12 +18,12 @@
     }
   },
   "collections": {
-    "components.guideline": {
-      "dir": "components/src/guidelines",
+    "components.guidelineDoc.byKey": {
+      "dir": "components/dist/guidelines",
       "pattern": "{slug}.json",
       "type": "json",
-      "origin": "hybrid",
-      "description": "Per-component guidelines"
+      "origin": "ci",
+      "description": "Per-component merged multi-domain guideline objects"
     }
   },
   "aliases": {}
