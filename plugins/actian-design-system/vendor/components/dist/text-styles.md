@@ -6,12 +6,12 @@ Total: 12 text styles.
 
 | Style | Key | Font | Weight | Size | Line Height | Letter Spacing |
 |-------|-----|------|--------|------|-------------|----------------|
-| label-micro | `1abb2bafb770f181a96123707f8fd4b1199c5341` | Roboto | Medium | 10px | 14px | 0.4px |
+| label-micro | `1abb2bafb770f181a96123707f8fd4b1199c5341` | Roboto | Medium | 11px | 14px | 0.4px |
 | label-subtle | `48d53e9b9fca2555a64713c9c6eca3f0be96058e` | Roboto | Medium | 12px | 16px | 0.3px |
 | label-standard | `693f5c1da87bf4ac6c00821229e0c47cea40ccd7` | Roboto | Medium | 14px | 20px | 0.2px |
 | heading-prominent | `6fe718b74016ab3a13b59f00020ad605edc82f55` | Roboto | SemiBold | 18px | 26px | 0px |
 | heading-micro | `9847fe1277845ce86f97157b5ba8342ecaf3f180` | Roboto | SemiBold | 12px | 16px | 0.3px |
-| body-micro | `9862f620e4c4e2114aeb1bd35838174be5098103` | Roboto | Regular | 10px | 14px | 0.4px |
+| body-micro | `9862f620e4c4e2114aeb1bd35838174be5098103` | Roboto | Regular | 11px | 14px | 0.4px |
 | body-prominent | `9997e4e40cb87b1902f1c832dfef7589175e0226` | Roboto | Regular | 16px | 24px | 0.1px |
 | heading-display | `a14c21c5bc8ae3817de4f44cf89ac193e067bac7` | Roboto | SemiBold | 24px | 32px | 0px |
 | heading-subtle | `c8c9880fd0f780b4e9a558f336c83131abe3447f` | Roboto | SemiBold | 14px | 20px | 0.2px |

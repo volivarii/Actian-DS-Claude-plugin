@@ -1,14 +1,18 @@
 # Content guidelines — authoring guide
 
-> **Phase 2b (2026-05):** `content/src/` now holds **global / cross-cutting**
-> content topics only — writing principles (voice, tone, capitalization,
-> words to avoid) and UX-pattern topics (empty/system states, loading,
-> notifications, validation messages, onboarding, wizards, uploads, and a
-> few app-pattern topics). Component-scoped content lives per-component in
-> `components/src/<slug>/content.md` — see `components/src/AUTHORING.md` for
-> that workflow. The deriver emits `content/dist/global.md` (these topics)
-> and `content/dist/content.md` (the full transitional concat). The
-> section-structure guidance below applies to every content file.
+> **This directory holds global / cross-cutting content guidelines only.** Component-scoped copy lives per-component at `components/src/<slug>/content.md` — see `components/src/AUTHORING.md` for that workflow. The section-structure guidance below applies to every content file regardless of bucket.
+
+## Three sub-buckets
+
+Files in `content/src/` are organized into three sub-buckets. Pick a bucket by asking:
+
+1. **Is the file a strict grammar / voice / style rule?** (e.g., "use sentence case", "avoid 'please'", "abbreviate predictably in tight grids") → `writing/`
+2. **Is the file a universal UX pattern with copy guidance?** (e.g., forms, empty states, notifications, onboarding, wizards) → `patterns/`
+3. **Is the file copy guidance specific to an Actian product surface?** (e.g., lineage views, preview panels, related-content surfaces) → `product/`
+
+When unsure: prefer `patterns/`. Re-classify later if a file accumulates Actian-specific content — `git mv` is cheap.
+
+Meta files (overview, format spec, index, this guide) stay at `content/src/` root.
 
 This directory holds the **source of truth** for Actian Data Intelligence global UI-copy guidance. Designers and writers edit files here directly; plugin skills and AI agents read them at runtime.
 
@@ -72,10 +76,12 @@ The `global-guidelines.md` and `content-index.md` files are exceptions — they 
 
 ## Adding a new file
 
-1. Drop a new `.md` file into `content/src/` following the naming + structure conventions above.
-2. The `content.section` collection in `paths-manifest.json` picks it up automatically — no manifest edit needed.
-3. The `validate-manifest.yml` CI workflow confirms it on PR.
-4. The plugin's nightly `vendor-snapshot` pulls it into the plugin's `vendor/` tree.
+1. Pick the right sub-bucket (`writing/`, `patterns/`, or `product/`) using the [decision tree at the top of this guide](#three-sub-buckets). Meta files (overview, format spec, index) stay at the `content/src/` root.
+2. Drop a new `.md` file into `content/src/<bucket>/` following the naming + structure conventions above.
+3. Add the slug to `content-index.md` so the deriver picks it up.
+4. The `content.section` collection in `paths-manifest.json` covers it automatically — no manifest edit needed.
+5. The `validate-manifest.yml` CI workflow confirms it on PR.
+6. The plugin's nightly `vendor-snapshot` pulls it into the plugin's `vendor/` tree.
 
 ## What lives elsewhere
 

@@ -28,7 +28,13 @@ to expect.
 component: Button            # human-readable name (required)
 category: action             # category slug — joins to category-defaults
 section: COMPONENTS          # optional — Figma section
-related: [link, icon]        # optional — related component slugs
+related: [link, icon]        # optional — related component slugs (for 'See also' nav)
+examples:                    # optional — canonical references
+  - label: "Primary button (default)"
+    figmaNode: "302:5142"
+  - label: "Button group composition"
+    figmaNode: "302:5189"
+lastReviewed: 2026-05-15     # optional — date you last reviewed this guidance (YYYY-MM-DD)
 domains:
   content:  { status: approved, owner: content-team, updatedAt: 2026-05-10 }
   usage:    { status: draft, owner: design, updatedAt: 2026-05-12 }
@@ -52,6 +58,22 @@ A domain omitted from `domains` is omitted from the derived object entirely.
 where category-defaults actually carry the domain (Behavior → motion + a11y,
 Design → anatomy + variant axes); Usage and Tokens have no category-level
 default, so they use `not-started` until authored.
+
+### Optional metadata
+
+Three optional fields surface discovery + freshness signals. All are
+forward-compatible — absent fields generate no warnings; the convention is to
+fill them as you author, not retroactively backfill.
+
+| Field | Type | Purpose |
+|---|---|---|
+| `related` | list of component slugs | Powers "See also" nav on the docs site + cross-component context in the plugin's component-brief. Each entry must match `^[a-z][a-z0-9-]*$`. |
+| `examples` | list of `{ label, figmaNode \| url }` | Canonical references. Plugin's component-brief deep-links to these; docs site renders them as an "Examples" section. Each entry needs a `label` plus at least one of `figmaNode` (Figma node id, `<page>:<id>` form) or `url` (absolute URL). |
+| `lastReviewed` | ISO date (YYYY-MM-DD) | When a domain owner last sanity-checked this component's guidance. Surfaced in `coverage.md` as a staleness signal. Bump it when you edit any domain file for the component. |
+
+All three pass through verbatim to the derived
+`components/dist/guidelines/<slug>.json` under `meta.*` — no consumer-side
+resolution is required.
 
 ## Domain markdown files (`content.md`, `usage.md`, `design.md`, `behavior.md`)
 
