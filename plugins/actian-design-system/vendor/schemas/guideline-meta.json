@@ -27,8 +27,58 @@
     "related": {
       "type": "array",
       "items": { "type": "string", "pattern": "^[a-z][a-z0-9-]*$" },
-      "description": "Related component slugs for cross-linking.",
-      "examples": [["link", "icon"]]
+      "description": "Related component slugs for cross-linking. Optional. Powers 'See also' nav on the docs site and cross-component context in the plugin's component-brief.",
+      "examples": [
+        ["link", "icon"],
+        ["link", "icon-button"]
+      ]
+    },
+    "examples": {
+      "type": "array",
+      "description": "Canonical examples — Figma nodes or live URLs. Each entry needs a label plus at least one of {figmaNode, url}. Optional. Consumers (docs site, plugin) render these as an 'Examples' section / deep-links.",
+      "examples": [
+        [
+          { "label": "Primary button (default)", "figmaNode": "302:5142" },
+          {
+            "label": "Documentation page",
+            "url": "https://docs.example/button"
+          }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "required": ["label"],
+        "additionalProperties": false,
+        "description": "One canonical example reference.",
+        "examples": [{ "label": "Primary button", "figmaNode": "302:5142" }],
+        "anyOf": [{ "required": ["figmaNode"] }, { "required": ["url"] }],
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable label for the example.",
+            "examples": ["Primary button (default)", "Button group composition"]
+          },
+          "figmaNode": {
+            "type": "string",
+            "pattern": "^[0-9]+:[0-9]+$",
+            "description": "Figma node id (file-local), in `<page>:<id>` form.",
+            "examples": ["302:5142"]
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Absolute URL to a live/documented example.",
+            "examples": ["https://docs.example/button"]
+          }
+        }
+      }
+    },
+    "lastReviewed": {
+      "type": "string",
+      "format": "date",
+      "description": "Date a domain owner last sanity-checked this component's guidance (ISO 8601: YYYY-MM-DD). Optional. Surfaced in coverage.md as a staleness signal.",
+      "examples": ["2026-05-15"]
     },
     "domains": {
       "type": "object",
@@ -36,7 +86,11 @@
       "description": "The per-domain status matrix. Any domain may be omitted (treated as not-started). For draft|approved domains the matching source file must exist; for inherited|not-started it must not.",
       "examples": [
         {
-          "content": { "status": "approved", "owner": "content-team", "updatedAt": "2026-05-10" },
+          "content": {
+            "status": "approved",
+            "owner": "content-team",
+            "updatedAt": "2026-05-10"
+          },
           "design": { "status": "inherited" }
         }
       ],
@@ -44,12 +98,20 @@
         "content": {
           "$ref": "#/$defs/domainEntry",
           "description": "Content guidelines domain status.",
-          "examples": [{ "status": "approved", "owner": "content-team", "updatedAt": "2026-05-10" }]
+          "examples": [
+            {
+              "status": "approved",
+              "owner": "content-team",
+              "updatedAt": "2026-05-10"
+            }
+          ]
         },
         "usage": {
           "$ref": "#/$defs/domainEntry",
           "description": "Usage guidelines domain status.",
-          "examples": [{ "status": "draft", "owner": "design", "updatedAt": "2026-05-12" }]
+          "examples": [
+            { "status": "draft", "owner": "design", "updatedAt": "2026-05-12" }
+          ]
         },
         "design": {
           "$ref": "#/$defs/domainEntry",

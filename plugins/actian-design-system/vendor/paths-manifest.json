@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.9.4",
+  "knowledge_version": "0.10.1",
   "paths": {
     "foundations.md": {
       "path": "foundations/src/foundations.md",
@@ -109,7 +109,7 @@
       "type": "markdown",
       "origin": "ci",
       "generator": "scripts/content/derive-content.js",
-      "description": "Global / cross-cutting content guidelines only (voice, tone, capitalization, words to avoid, UX-pattern topics) — auto-generated from content/src/*.md. The docs /content page and the markdown-consuming plugin skills read this; component-scoped content guidance lives per-component in components/dist/guidelines/{slug}.json instead."
+      "description": "Global / cross-cutting content guidelines only (voice, tone, capitalization, words to avoid, UX-pattern topics, Actian product-surface rules) — auto-generated from content/src/{writing,patterns,product}/*.md plus root-level meta files. The docs /content page and the markdown-consuming plugin skills read this; component-scoped content guidance lives per-component in components/dist/guidelines/{slug}.json instead."
     },
     "accessibility.guide": {
       "path": "accessibility/accessibility.md",
@@ -141,6 +141,48 @@
       "type": "json",
       "origin": "human",
       "description": "FM Kit → DS Kit component mapping for hifi conversion"
+    },
+    "foundations.bundle": {
+      "path": "foundations/dist/foundations.bundle.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Full nested foundations tree (hierarchical Pattern H roll-up). One-shot LLM consumption: every section/leaf reachable from this single file."
+    },
+    "foundations.index": {
+      "path": "foundations/dist/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Root foundations metadata + top-level child list. Navigate from here to per-H2 directories."
+    },
+    "foundations.source": {
+      "path": "foundations/dist/foundations.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Verbatim copy of foundations/src/foundations.md (Stripe .md URL pattern). Auto-synced; do not edit."
+    },
+    "foundations.color-primitives": {
+      "path": "foundations/dist/color-primitives/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Hierarchical _index for foundations section 'Color Primitives'. Children listed inside; sibling files under foundations/dist/color-primitives/."
+    },
+    "foundations.tokens": {
+      "path": "foundations/dist/tokens/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Hierarchical _index for foundations section 'Tokens'. Children listed inside; sibling files under foundations/dist/tokens/."
+    },
+    "foundations.design-guidelines": {
+      "path": "foundations/dist/design-guidelines/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Hierarchical _index for foundations section 'Design Guidelines'. Children listed inside; sibling files under foundations/dist/design-guidelines/."
     },
     "components.categoryDefaults.bundle": {
       "path": "components/dist/categories/categories.bundle.json",
@@ -190,48 +232,6 @@
       "origin": "ci",
       "generator": "scripts/categories/derive-categories.js",
       "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'overlays' category. Consumed by the component-brief skill for stub components."
-    },
-    "foundations.bundle": {
-      "path": "foundations/dist/foundations.bundle.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Full nested foundations tree (hierarchical Pattern H roll-up). One-shot LLM consumption: every section/leaf reachable from this single file."
-    },
-    "foundations.index": {
-      "path": "foundations/dist/_index.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Root foundations metadata + top-level child list. Navigate from here to per-H2 directories."
-    },
-    "foundations.source": {
-      "path": "foundations/dist/foundations.md",
-      "type": "markdown",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Verbatim copy of foundations/src/foundations.md (Stripe .md URL pattern). Auto-synced; do not edit."
-    },
-    "foundations.color-primitives": {
-      "path": "foundations/dist/color-primitives/_index.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Hierarchical _index for foundations section 'Color Primitives'. Children listed inside; sibling files under foundations/dist/color-primitives/."
-    },
-    "foundations.tokens": {
-      "path": "foundations/dist/tokens/_index.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Hierarchical _index for foundations section 'Tokens'. Children listed inside; sibling files under foundations/dist/tokens/."
-    },
-    "foundations.design-guidelines": {
-      "path": "foundations/dist/design-guidelines/_index.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Hierarchical _index for foundations section 'Design Guidelines'. Children listed inside; sibling files under foundations/dist/design-guidelines/."
     },
     "components.guidelineDoc.bundle": {
       "path": "components/dist/guidelines/guidelines.bundle.json",
@@ -440,10 +440,19 @@
     },
     "content.section": {
       "dir": "content/src",
-      "pattern": "{slug}.md",
+      "pattern": "{bucket}/{slug}.md",
+      "recursive": true,
       "type": "markdown",
       "origin": "human",
-      "description": "Global / cross-cutting content guidelines (Content lead): writing principles (voice, tone, capitalization, words to avoid, etc.) plus UX-pattern topics (empty/system states, loading, notifications, validation messages, onboarding, wizards, uploads). Phase 2b flattened the former content/src/_global/ subdir up to here once component-scoped content moved to components/src/<slug>/content.md. Each file follows When-to-use -> Style -> Behavior -> Do/Don't."
+      "description": "Global / cross-cutting content guidelines (Content lead). Three sub-buckets: writing/ (strict grammar/voice/style rules), patterns/ (universal UX patterns), product/ (Actian product-surface copy rules). Meta files (global-guidelines.md, content-index.md, format-spec.md) sit at the content/src/ root. Each file follows When-to-use -> Style -> Behavior -> Do/Don't."
+    },
+    "components.images": {
+      "dir": "components/src",
+      "pattern": "{slug}/images/{filename}",
+      "recursive": true,
+      "type": "binary",
+      "origin": "human",
+      "description": "Per-component static visual assets (anatomy callouts, hand-made diagrams). Optional per component — authors drop PNGs/SVGs into components/src/<slug>/images/ alongside their MD files. Consumed by docs site + plugin via manifest indirection."
     },
     "foundations.leaf": {
       "dir": "foundations/dist",

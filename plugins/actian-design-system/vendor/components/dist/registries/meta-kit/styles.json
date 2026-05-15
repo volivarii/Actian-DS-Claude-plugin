@@ -1,11 +1,12 @@
 {
+  "_schema_version": 1,
   "textStyles": [
     {
       "name": "label-micro",
       "key": "1abb2bafb770f181a96123707f8fd4b1199c5341",
       "fontFamily": "Roboto",
       "fontStyle": "Medium",
-      "fontSize": 10,
+      "fontSize": 11,
       "lineHeight": {
         "unit": "PIXELS",
         "value": 14
@@ -90,7 +91,7 @@
       "key": "9862f620e4c4e2114aeb1bd35838174be5098103",
       "fontFamily": "Roboto",
       "fontStyle": "Regular",
-      "fontSize": 10,
+      "fontSize": 11,
       "lineHeight": {
         "unit": "PIXELS",
         "value": 14
