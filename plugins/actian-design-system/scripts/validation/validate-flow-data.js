@@ -1245,6 +1245,12 @@ function validate(data, opts) {
     if (!slug) return;
     if (!stubKinds[f.kind]) return;
     var g = loadGuidelineForSlug(slug, opts);
+    // The `g &&` is intentional even though isStubGuideline() treats null as
+    // a stub: this validation context wants the PRESENT-but-stub semantic.
+    // Many fmKit refs (e.g. fmButton -> fm-button) have no dist/ guideline
+    // doc at all, and we don't want to downgrade their warnings or emit
+    // stub-guideline-used for them. Mirrors the brief-sourcing short-circuit
+    // at scripts/transformers/brief-sourcing.js:155.
     if (g && isStubGuideline(g)) {
       stubSlugsUsed[_kebab(slug)] = true;
       if (f.severity === "warning") {
@@ -1261,6 +1267,7 @@ function validate(data, opts) {
     walkInstanceNodes(data.screens, "screens", function (instNode) {
       if (!instNode || typeof instNode.ref !== "string") return;
       var g = loadGuidelineForSlug(instNode.ref, opts);
+      // `g &&` intentional — present-but-stub only; see comment above.
       if (g && isStubGuideline(g)) {
         stubSlugsUsed[_kebab(instNode.ref)] = true;
       }
