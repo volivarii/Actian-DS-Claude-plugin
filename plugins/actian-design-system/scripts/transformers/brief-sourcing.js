@@ -282,12 +282,23 @@ function formatForBrief(cardKey, sourceResult, ctx) {
     var terminology = [];
 
     function proseOf(items) {
+      // Concat the narrative bits of a section into one description string.
+      // Handles all parser shapes that carry prose-like text:
+      //   - {prose}              standalone paragraph (current parser)
+      //   - {bullets:[...]}      one list, items joined (current parser)
+      //   - {note}               blockquote/callout (current + legacy)
+      //   - string               legacy bare bullet (pre-prose JSON)
+      // Other shapes (do/dont/term/table/example) are not narrative and are
+      // handled by the caller's ingest() walk below.
       var bits = [];
       for (var n = 0; n < items.length; n++) {
         var it = items[n];
         if (typeof it === "string") bits.push(it);
-        else if (it && typeof it === "object" && it.note != null)
-          bits.push(it.note);
+        else if (it && typeof it === "object") {
+          if (typeof it.prose === "string") bits.push(it.prose);
+          else if (Array.isArray(it.bullets)) bits.push(it.bullets.join(" "));
+          else if (it.note != null) bits.push(it.note);
+        }
       }
       return bits.join(" ");
     }
