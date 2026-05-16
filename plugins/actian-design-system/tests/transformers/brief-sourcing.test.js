@@ -355,6 +355,47 @@ test("formatForBrief — content card maps guideline sections into rules + termi
   assert.equal(result._source, "figma");
 });
 
+test("formatForBrief — content card extracts prose from new {prose} and {bullets} shapes", function () {
+  // Knowledge parser v2 emits {prose} (was {note}) for paragraphs and
+  // {bullets:[...]} (was bare strings) for lists. The plugin reads vendored
+  // JSON which will eventually carry these new shapes — proseOf() must
+  // surface them as section descriptions, not silently drop them.
+  var doc = {
+    _schema_version: 1,
+    slug: "x",
+    component: "X",
+    meta: { category: "action" },
+    domains: {
+      content: {
+        status: "approved",
+        markdown: "",
+        sections: [
+          {
+            heading: "Stepper labels",
+            content: [
+              { prose: "Use the following label terminology consistently:" },
+              { bullets: ["Back for previous.", "Next for intermediate."] },
+              { prose: "Do not mix Continue and Next in the same flow." },
+            ],
+          },
+        ],
+      },
+    },
+  };
+  var ctx = { component: "X", slug: "x", guidelinesJson: doc };
+  var content = sourcing.transcribeContentGuidelines(doc).content;
+  var result = sourcing.formatForBrief(
+    "card_content",
+    { source: "figma", content: content },
+    ctx,
+  );
+  assert.equal(result.rules.length, 1);
+  var desc = result.rules[0].description;
+  assert.match(desc, /label terminology consistently/);
+  assert.match(desc, /Back for previous\./);
+  assert.match(desc, /Do not mix Continue and Next/);
+});
+
 test("transcribeContentGuidelines / isStubGuideline — registry-alias copy is handled like any other doc", function () {
   // Knowledge ships registry-key alias copies, e.g. checkbox-with-label.json
   // carrying `_alias_of: "checkbox"`. The plugin loads it by slug like any
