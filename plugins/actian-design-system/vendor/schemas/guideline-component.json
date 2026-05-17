@@ -388,15 +388,16 @@
       }
     },
     "contentItem": {
-      "description": "A single content item. Either a plain string (a rule/bullet) or one of the structured shapes the consumers bucket. Adding a NEW shape is a coordinated schema + renderer change (see the architecture spec).",
+      "description": "A single content item. Either a plain string (legacy: a bullet from a list — newer parser output uses {bullets:[...]} instead) or one of the structured shapes the consumers bucket. Items appear in authored source order; downstream renderers preserve that order and only merge CONSECUTIVE same-type runs into compound components. Adding a NEW shape is a coordinated schema + renderer change (see the architecture spec).",
       "examples": [
-        "Use buttons for actions.",
+        { "prose": "Buttons trigger actions." },
+        { "bullets": ["Use buttons for actions, not navigation."] },
         { "do": "Create report", "dont": "Report" }
       ],
       "oneOf": [
         {
           "type": "string",
-          "description": "A plain rule / bullet."
+          "description": "Legacy: a plain bullet. Preserved for backwards compatibility with pre-prose/bullets JSON; the current parser emits {bullets:[...]} instead."
         },
         {
           "type": "object",
@@ -404,6 +405,17 @@
           "minProperties": 1,
           "description": "A structured content item.",
           "properties": {
+            "prose": {
+              "type": "string",
+              "description": "A standalone authored paragraph. Renders as plain prose — NOT a callout. To opt into a callout, the author uses a blockquote (`>`), which becomes {note}.",
+              "examples": ["Buttons trigger actions in the page or modal."]
+            },
+            "bullets": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "One markdown list, preserved as a unit so consecutive lists separated by prose remain distinguishable. Renders as one `<ul>`.",
+              "examples": [["Use buttons for actions, not navigation."]]
+            },
             "do": {
               "type": "string",
               "description": "A 'do' example.",
@@ -426,8 +438,10 @@
             },
             "note": {
               "type": "string",
-              "description": "A callout / note paragraph.",
-              "examples": ["Buttons trigger actions."]
+              "description": "A callout / note paragraph. Emitted only from markdown blockquotes (`>`) — author opts in explicitly. Standalone paragraphs become {prose}, not {note}.",
+              "examples": [
+                "Avoid this combination — it conflicts with the destructive variant."
+              ]
             },
             "example": {
               "type": "string",

@@ -568,7 +568,7 @@ A container that slides from right side of the screen. Use for secondary tasks t
 
 Use when there are 5+ options or space is limited. Ideal for selecting one item from a pre-defined list (e.g., Country, State).
 
-- Variants: **Type:** `Default` · `Search/Multiple` · `With avatar` · `Compact/Custom` | **State:** `Default` · `Hovered` · `Focused` · `Active` · `Filled` · `Disabled`
+- Variants: **Type:** `Default` · `Search/Multiple` · `With avatar` · `Compact/Custom` | **State:** `Default` · `Hover` · `Focus` · `Active` · `Filled` · `Disabled`
 - Boolean properties: `Show description#13978:0` (default: true) — set to `false` to hide · `Show asterisk #13978:8` (default: true) — set to `false` to hide · `Show info icon#13978:16` (default: true) — set to `false` to hide · `Show helper text#13978:24` (default: true) — set to `false` to hide · `Show Label#14292:0` (default: true) — set to `false` to hide
 - Node: `13972:708` | Key: `1140aec3d572e3fbda362723cd7137ac2f0ce9bd`
 
@@ -888,7 +888,7 @@ A Link visually represents clickable text or elements that navigate users to oth
 
 Used for navigation to a different page, an external URL, or to trigger a secondary action within a sentence. Not to be used for primary form submissions.
 
-- Variants: **State:** `Disabled` · `Enabled` · `Focused` · `Hovered` · `Once clicked` · `Pressed`
+- Variants: **State:** `Disabled` · `Pressed` · `Focused` · `Hovered` · `Enabled`
 - Node: `8346:6897` | Key: `433bc17e08514c14ee821f2b03421bad865e0a0e`
 
 ### link-type

@@ -28,36 +28,48 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Alerts communicate important information that requires the user's attention. They can be informational, confirmatory, cautionary, or indicate an error. Unlike toasts, alerts are persistent and remain visible until dismissed or resolved."
+                  "prose": "Alerts communicate important information that requires the user's attention. They can be informational, confirmatory, cautionary, or indicate an error. Unlike toasts, alerts are persistent and remain visible until dismissed or resolved."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To warn the user of a condition that may affect their work or data - before an action is taken.",
-                "To confirm that a significant action was completed and the user should be aware of the result.",
-                "To surface a system-level error that requires action to resolve.",
-                "Do not use alerts for routine confirmations - use [toast notifications](notification-toast) instead.",
-                "Do not stack multiple alerts. Consolidate if possible."
+                {
+                  "bullets": [
+                    "To warn the user of a condition that may affect their work or data - before an action is taken.",
+                    "To confirm that a significant action was completed and the user should be aware of the result.",
+                    "To surface a system-level error that requires action to resolve.",
+                    "Do not use alerts for routine confirmations - use [toast notifications](notification-toast) instead.",
+                    "Do not stack multiple alerts. Consolidate if possible."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Keep alert text to one to two sentences.",
-                "Lead with the most important information.",
-                "Use the appropriate severity: informational, success, warning, or error.",
-                "Include a clear action link or button when the user needs to do something.",
-                "Do not use `Alert:` or `Warning:` as a prefix in the message body - the icon and color convey severity."
+                {
+                  "bullets": [
+                    "Keep alert text to one to two sentences.",
+                    "Lead with the most important information.",
+                    "Use the appropriate severity: informational, success, warning, or error.",
+                    "Include a clear action link or button when the user needs to do something.",
+                    "Do not use `Alert:` or `Warning:` as a prefix in the message body - the icon and color convey severity."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Informational and success alerts can be dismissible.",
-                "Warning and error alerts should persist until the underlying issue is resolved or the user explicitly dismisses them.",
-                "Alerts should appear at the top of the affected area, not in the center of the page."
+                {
+                  "bullets": [
+                    "Informational and success alerts can be dismissible.",
+                    "Warning and error alerts should persist until the underlying issue is resolved or the user explicitly dismisses them.",
+                    "Alerts should appear at the top of the affected area, not in the center of the page."
+                  ]
+                }
               ]
             },
             {
@@ -81,21 +93,29 @@
               "heading": "Inline banner",
               "content": [
                 {
-                  "note": "An inline banner displays a persistent warning, error, or informational message within a page or [form](forms). Unlike a global alert, it is scoped to the immediate context."
+                  "prose": "An inline banner displays a persistent warning, error, or informational message within a page or [form](forms). Unlike a global alert, it is scoped to the immediate context."
                 }
               ],
               "subsections": [
                 {
                   "subheading": "When to use",
                   "content": [
-                    "To display persistent warnings, errors, or informational messages within a page or form."
+                    {
+                      "bullets": [
+                        "To display persistent warnings, errors, or informational messages within a page or form."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Style",
                   "content": [
-                    "State the issue and what the user should do. Keep to one to two sentences.",
-                    "Include a link or action if applicable."
+                    {
+                      "bullets": [
+                        "State the issue and what the user should do. Keep to one to two sentences.",
+                        "Include a link or action if applicable."
+                      ]
+                    }
                   ]
                 }
               ]
@@ -138,22 +158,30 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Badges indicate a count or a status qualifier on an item — for example, unread notifications or a new-item label."
+                  "prose": "Badges indicate a count or a status qualifier on an item — for example, unread notifications or a new-item label."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To show a numeric count on an item (for example, unread notifications).",
-                "To apply a status qualifier that does not fit inline as a tag."
+                {
+                  "bullets": [
+                    "To show a numeric count on an item (for example, unread notifications).",
+                    "To apply a status qualifier that does not fit inline as a tag."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Badge labels are single words or short abbreviations.",
-                "Use standard status vocabulary: New, Updated, Draft, Published, Deprecated."
+                {
+                  "bullets": [
+                    "Badge labels are single words or short abbreviations.",
+                    "Use standard status vocabulary: New, Updated, Draft, Published, Deprecated."
+                  ]
+                }
               ]
             }
           ]
@@ -194,7 +222,7 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Breadcrumbs show the user's location within the product hierarchy and allow navigation back up the tree."
+                  "prose": "Breadcrumbs show the user's location within the product hierarchy and allow navigation back up the tree."
                 }
               ]
             },
@@ -202,16 +230,20 @@
               "heading": "Usage",
               "content": [
                 {
-                  "note": "Follow the pattern: Main component / Sub component / Specific item or page name."
+                  "prose": "Follow the pattern: Main component / Sub component / Specific item or page name."
                 }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Use the exact page or item name at each level.",
-                "Do not truncate unless space is severely limited.",
-                "The current page is not a link — it is plain text at the end of the breadcrumb trail."
+                {
+                  "bullets": [
+                    "Use the exact page or item name at each level.",
+                    "Do not truncate unless space is severely limited.",
+                    "The current page is not a link — it is plain text at the end of the breadcrumb trail."
+                  ]
+                }
               ]
             }
           ]
@@ -252,35 +284,47 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Buttons trigger actions. They are the primary mechanism for users to submit forms, confirm choices, navigate, and initiate processes within the platform."
+                  "prose": "Buttons trigger actions. They are the primary mechanism for users to submit forms, confirm choices, navigate, and initiate processes within the platform."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "Use buttons for actions, not navigation. For navigation, use [links](link).",
-                "Use a primary button for the main action on a page or modal.",
-                "Use secondary buttons for alternative or less critical actions.",
-                "Use ghost or tertiary buttons for low-priority or destructive actions that should not draw immediate attention."
+                {
+                  "bullets": [
+                    "Use buttons for actions, not navigation. For navigation, use [links](link).",
+                    "Use a primary button for the main action on a page or modal.",
+                    "Use secondary buttons for alternative or less critical actions.",
+                    "Use ghost or tertiary buttons for low-priority or destructive actions that should not draw immediate attention."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Use sentence case for all button labels.",
-                "Use the verb + object formula whenever possible (for example, **Create report**, **Delete dataset**).",
-                "Keep labels concise - ideally two to four words.",
-                "Do not end button labels with punctuation.",
-                "Do not use articles (a, an, the) in button labels unless necessary for clarity."
+                {
+                  "bullets": [
+                    "Use sentence case for all button labels.",
+                    "Use the verb + object formula whenever possible (for example, **Create report**, **Delete dataset**).",
+                    "Keep labels concise - ideally two to four words.",
+                    "Do not end button labels with punctuation.",
+                    "Do not use articles (a, an, the) in button labels unless necessary for clarity."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Disable the primary button until all required fields are complete.",
-                "Show a loading indicator on the button when an action is in progress.",
-                "Return focus to the triggering element after a modal or dialog closes."
+                {
+                  "bullets": [
+                    "Disable the primary button until all required fields are complete.",
+                    "Show a loading indicator on the button when an action is in progress.",
+                    "Return focus to the triggering element after a modal or dialog closes."
+                  ]
+                }
               ]
             },
             {
@@ -308,7 +352,7 @@
               "heading": "Terminology for button labeling",
               "content": [
                 {
-                  "note": "Use the following term pairs consistently across the platform. Choosing the wrong term creates confusion when the same action appears under different labels in different contexts."
+                  "prose": "Use the following term pairs consistently across the platform. Choosing the wrong term creates confusion when the same action appears under different labels in different contexts."
                 },
                 {
                   "term": "Cancel vs Close",
@@ -386,7 +430,7 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Cards present information in compact, scannable formats and allow users to interact or navigate efficiently."
+                  "prose": "Cards present information in compact, scannable formats and allow users to interact or navigate efficiently."
                 }
               ]
             },
@@ -397,23 +441,35 @@
                 {
                   "subheading": "When to use",
                   "content": [
-                    "On dashboards and detail pages where items need to be viewed or opened quickly.",
-                    "To display individual items such as datasets, visualizations, or catalog entries in a clickable format."
+                    {
+                      "bullets": [
+                        "On dashboards and detail pages where items need to be viewed or opened quickly.",
+                        "To display individual items such as datasets, visualizations, or catalog entries in a clickable format."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Style",
                   "content": [
-                    "Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.",
-                    "Include metadata (type, owner, last modified) using short labels.",
-                    "Use sentence case throughout."
+                    {
+                      "bullets": [
+                        "Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.",
+                        "Include metadata (type, owner, last modified) using short labels.",
+                        "Use sentence case throughout."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Behavior",
                   "content": [
-                    "The entire card is clickable and navigates to the item detail page.",
-                    "Contextual actions (such as **Edit**, **Delete**) appear on hover or via an overflow menu."
+                    {
+                      "bullets": [
+                        "The entire card is clickable and navigates to the item detail page.",
+                        "Contextual actions (such as **Edit**, **Delete**) appear on hover or via an overflow menu."
+                      ]
+                    }
                   ]
                 }
               ]
@@ -425,18 +481,26 @@
                 {
                   "subheading": "When to use",
                   "content": [
-                    "When users need to choose between options by clicking anywhere on the card.",
-                    "Use the large variant when additional context is needed (title, description, image, metadata).",
-                    "Use the small variant when space is limited.",
-                    "Cards can function as radio buttons (single select) or checkboxes (multi-select)."
+                    {
+                      "bullets": [
+                        "When users need to choose between options by clicking anywhere on the card.",
+                        "Use the large variant when additional context is needed (title, description, image, metadata).",
+                        "Use the small variant when space is limited.",
+                        "Cards can function as radio buttons (single select) or checkboxes (multi-select)."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Style",
                   "content": [
-                    "Title: short noun phrase describing the option. Sentence case.",
-                    "Description: one sentence maximum. Plain language.",
-                    "Do not include instructional text inside a selectable card."
+                    {
+                      "bullets": [
+                        "Title: short noun phrase describing the option. Sentence case.",
+                        "Description: one sentence maximum. Plain language.",
+                        "Do not include instructional text inside a selectable card."
+                      ]
+                    }
                   ]
                 }
               ]
@@ -448,15 +512,23 @@
                 {
                   "subheading": "When to use",
                   "content": [
-                    "To represent curated groupings or domains, such as data topics.",
-                    "As gateways to collections in Explorer."
+                    {
+                      "bullets": [
+                        "To represent curated groupings or domains, such as data topics.",
+                        "As gateways to collections in Explorer."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Style",
                   "content": [
-                    "Use a noun or noun phrase as the topic title.",
-                    "Keep the description to one sentence that explains the scope of the topic."
+                    {
+                      "bullets": [
+                        "Use a noun or noun phrase as the topic title.",
+                        "Keep the description to one sentence that explains the scope of the topic."
+                      ]
+                    }
                   ]
                 }
               ]
@@ -499,7 +571,7 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Checkboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms."
+                  "prose": "Checkboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms."
                 }
               ]
             },
@@ -510,30 +582,42 @@
                 {
                   "subheading": "When to use",
                   "content": [
-                    "To allow users to select multiple options in a group.",
-                    "For binary settings that are independent of other choices. For example, **Enable notifications**.",
-                    "When a task involves filtering or refining data. For example, applying multiple filters to a search."
+                    {
+                      "bullets": [
+                        "To allow users to select multiple options in a group.",
+                        "For binary settings that are independent of other choices. For example, **Enable notifications**.",
+                        "When a task involves filtering or refining data. For example, applying multiple filters to a search."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Style",
                   "content": [
-                    "Use clear, direct labels that describe what happens if the box is checked.",
-                    "Write labels in positive form.",
+                    {
+                      "bullets": [
+                        "Use clear, direct labels that describe what happens if the box is checked.",
+                        "Write labels in positive form."
+                      ]
+                    },
                     {
                       "do": "Show archived items",
                       "dont": "Don't hide archived items"
                     },
-                    "Group related checkboxes under a group label when possible for context.",
-                    "Keep labels parallel in style and length for readability.",
-                    "Avoid jargon and abbreviations."
+                    {
+                      "bullets": [
+                        "Group related checkboxes under a group label when possible for context.",
+                        "Keep labels parallel in style and length for readability.",
+                        "Avoid jargon and abbreviations."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Behavior",
                   "content": [
                     {
-                      "note": "Allow users to select by clicking either the box or the label."
+                      "prose": "Allow users to select by clicking either the box or the label."
                     }
                   ]
                 },
@@ -560,26 +644,34 @@
               "heading": "Card format",
               "content": [
                 {
-                  "note": "Use card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label."
+                  "prose": "Use card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label."
                 }
               ],
               "subsections": [
                 {
                   "subheading": "When to use",
                   "content": [
-                    "Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.",
-                    "Examples: pricing tiers, template selections (for example, use cases), or layout choices."
+                    {
+                      "bullets": [
+                        "Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.",
+                        "Examples: pricing tiers, template selections (for example, use cases), or layout choices."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Behavior",
                   "content": [
-                    "Indicate selected state visually (`Selected` highlight border, and so on).",
-                    "Click anywhere on the tile to toggle selection.",
-                    "For multi-select: use checkbox behavior. For single-select: use radio group behavior.",
-                    "Maintain selection across steps if part of a multi-step process.",
-                    "Title: short, descriptive, and consistent across tiles.",
-                    "Supporting text: use only in the large variant."
+                    {
+                      "bullets": [
+                        "Indicate selected state visually (`Selected` highlight border, and so on).",
+                        "Click anywhere on the tile to toggle selection.",
+                        "For multi-select: use checkbox behavior. For single-select: use radio group behavior.",
+                        "Maintain selection across steps if part of a multi-step process.",
+                        "Title: short, descriptive, and consistent across tiles.",
+                        "Supporting text: use only in the large variant."
+                      ]
+                    }
                   ]
                 }
               ]
@@ -623,7 +715,7 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Checkboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms."
+                  "prose": "Checkboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms."
                 }
               ]
             },
@@ -634,30 +726,42 @@
                 {
                   "subheading": "When to use",
                   "content": [
-                    "To allow users to select multiple options in a group.",
-                    "For binary settings that are independent of other choices. For example, **Enable notifications**.",
-                    "When a task involves filtering or refining data. For example, applying multiple filters to a search."
+                    {
+                      "bullets": [
+                        "To allow users to select multiple options in a group.",
+                        "For binary settings that are independent of other choices. For example, **Enable notifications**.",
+                        "When a task involves filtering or refining data. For example, applying multiple filters to a search."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Style",
                   "content": [
-                    "Use clear, direct labels that describe what happens if the box is checked.",
-                    "Write labels in positive form.",
+                    {
+                      "bullets": [
+                        "Use clear, direct labels that describe what happens if the box is checked.",
+                        "Write labels in positive form."
+                      ]
+                    },
                     {
                       "do": "Show archived items",
                       "dont": "Don't hide archived items"
                     },
-                    "Group related checkboxes under a group label when possible for context.",
-                    "Keep labels parallel in style and length for readability.",
-                    "Avoid jargon and abbreviations."
+                    {
+                      "bullets": [
+                        "Group related checkboxes under a group label when possible for context.",
+                        "Keep labels parallel in style and length for readability.",
+                        "Avoid jargon and abbreviations."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Behavior",
                   "content": [
                     {
-                      "note": "Allow users to select by clicking either the box or the label."
+                      "prose": "Allow users to select by clicking either the box or the label."
                     }
                   ]
                 },
@@ -684,26 +788,34 @@
               "heading": "Card format",
               "content": [
                 {
-                  "note": "Use card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label."
+                  "prose": "Use card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label."
                 }
               ],
               "subsections": [
                 {
                   "subheading": "When to use",
                   "content": [
-                    "Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.",
-                    "Examples: pricing tiers, template selections (for example, use cases), or layout choices."
+                    {
+                      "bullets": [
+                        "Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.",
+                        "Examples: pricing tiers, template selections (for example, use cases), or layout choices."
+                      ]
+                    }
                   ]
                 },
                 {
                   "subheading": "Behavior",
                   "content": [
-                    "Indicate selected state visually (`Selected` highlight border, and so on).",
-                    "Click anywhere on the tile to toggle selection.",
-                    "For multi-select: use checkbox behavior. For single-select: use radio group behavior.",
-                    "Maintain selection across steps if part of a multi-step process.",
-                    "Title: short, descriptive, and consistent across tiles.",
-                    "Supporting text: use only in the large variant."
+                    {
+                      "bullets": [
+                        "Indicate selected state visually (`Selected` highlight border, and so on).",
+                        "Click anywhere on the tile to toggle selection.",
+                        "For multi-select: use checkbox behavior. For single-select: use radio group behavior.",
+                        "Maintain selection across steps if part of a multi-step process.",
+                        "Title: short, descriptive, and consistent across tiles.",
+                        "Supporting text: use only in the large variant."
+                      ]
+                    }
                   ]
                 }
               ]
@@ -746,34 +858,46 @@
               "heading": "",
               "content": [
                 {
-                  "note": "A combo box combines a text input with a dropdown list, allowing users to either type a value or select from predefined options. It is used when the list of options is long or when freeform input alongside suggestions is needed."
+                  "prose": "A combo box combines a text input with a dropdown list, allowing users to either type a value or select from predefined options. It is used when the list of options is long or when freeform input alongside suggestions is needed."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "When the user needs to select from a large list (20+ items) and filtering by typing improves efficiency.",
-                "When freeform input is valid alongside suggested options.",
-                "Do not use a combo box when the list is short and fixed - use a standard dropdown instead."
+                {
+                  "bullets": [
+                    "When the user needs to select from a large list (20+ items) and filtering by typing improves efficiency.",
+                    "When freeform input is valid alongside suggested options.",
+                    "Do not use a combo box when the list is short and fixed - use a standard dropdown instead."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Label the combo box with a short noun phrase describing what the user is selecting.",
-                "Use placeholder text to indicate the expected input type. For example, `Search or select a schema`.",
-                "Keep option labels consistent in format and sentence case.",
-                "Do not use `Type to filter` as placeholder text - it states the obvious. Instead describe what is being searched."
+                {
+                  "bullets": [
+                    "Label the combo box with a short noun phrase describing what the user is selecting.",
+                    "Use placeholder text to indicate the expected input type. For example, `Search or select a schema`.",
+                    "Keep option labels consistent in format and sentence case.",
+                    "Do not use `Type to filter` as placeholder text - it states the obvious. Instead describe what is being searched."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Filter results dynamically as the user types.",
-                "Show a `No results found` message when there are no matches - do not show an empty dropdown.",
-                "Allow selection by clicking or pressing Enter.",
-                "Clear the input on selection unless the selected value is displayed in the input field."
+                {
+                  "bullets": [
+                    "Filter results dynamically as the user types.",
+                    "Show a `No results found` message when there are no matches - do not show an empty dropdown.",
+                    "Allow selection by clicking or pressing Enter.",
+                    "Clear the input on selection unless the selected value is displayed in the input field."
+                  ]
+                }
               ]
             },
             {
@@ -827,7 +951,7 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Confirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone."
+                  "prose": "Confirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone."
                 }
               ]
             },
@@ -835,21 +959,29 @@
               "heading": "When to use",
               "content": [
                 {
-                  "note": "Before irreversible or destructive actions (delete, remove, reset)."
+                  "prose": "Before irreversible or destructive actions (delete, remove, reset)."
                 }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Title: name the action, not the outcome.",
+                {
+                  "bullets": [
+                    "Title: name the action, not the outcome."
+                  ]
+                },
                 {
                   "do": "Delete connection",
                   "dont": "This is permanent"
                 },
-                "Body: one sentence stating what will happen and whether it can be undone.",
-                "Primary CTA: matches the title verb. For example, **Delete**.",
-                "Secondary CTA: **Cancel**."
+                {
+                  "bullets": [
+                    "Body: one sentence stating what will happen and whether it can be undone.",
+                    "Primary CTA: matches the title verb. For example, **Delete**.",
+                    "Secondary CTA: **Cancel**."
+                  ]
+                }
               ]
             },
             {
@@ -899,24 +1031,32 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Dropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times."
+                  "prose": "Dropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times."
                 }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Menu opens on click, not on hover.",
-                "Close the menu on Escape key press or on outside click."
+                {
+                  "bullets": [
+                    "Menu opens on click, not on hover.",
+                    "Close the menu on Escape key press or on outside click."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Label the button with a clear action or noun. For example, **Actions** or **More**.",
-                "Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.",
-                "Use sentence case for all menu items.",
-                "Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu."
+                {
+                  "bullets": [
+                    "Label the button with a clear action or noun. For example, **Actions** or **More**.",
+                    "Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.",
+                    "Use sentence case for all menu items.",
+                    "Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu."
+                  ]
+                }
               ]
             },
             {
@@ -975,24 +1115,32 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Dropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times."
+                  "prose": "Dropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times."
                 }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Menu opens on click, not on hover.",
-                "Close the menu on Escape key press or on outside click."
+                {
+                  "bullets": [
+                    "Menu opens on click, not on hover.",
+                    "Close the menu on Escape key press or on outside click."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Label the button with a clear action or noun. For example, **Actions** or **More**.",
-                "Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.",
-                "Use sentence case for all menu items.",
-                "Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu."
+                {
+                  "bullets": [
+                    "Label the button with a clear action or noun. For example, **Actions** or **More**.",
+                    "Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.",
+                    "Use sentence case for all menu items.",
+                    "Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu."
+                  ]
+                }
               ]
             },
             {
@@ -1050,33 +1198,45 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Filters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products."
+                  "prose": "Filters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "When a dataset or list is large enough that users need to narrow results to find what they need.",
-                "When multiple filter criteria can be applied simultaneously.",
-                "Do not use filters for permanent data modifications - filters only affect the current view."
+                {
+                  "bullets": [
+                    "When a dataset or list is large enough that users need to narrow results to find what they need.",
+                    "When multiple filter criteria can be applied simultaneously.",
+                    "Do not use filters for permanent data modifications - filters only affect the current view."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.",
-                "Use sentence case for all filter labels and option values.",
-                "Show the active filter count when filters are collapsed. For example, `Filters (3)`.",
-                "Use consistent terminology across all filter controls in the same view."
+                {
+                  "bullets": [
+                    "Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.",
+                    "Use sentence case for all filter labels and option values.",
+                    "Show the active filter count when filters are collapsed. For example, `Filters (3)`.",
+                    "Use consistent terminology across all filter controls in the same view."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.",
-                "Provide a **Clear all** or **Reset filters** action when filters are active.",
-                "Persist filter state when users navigate away and return to the same view."
+                {
+                  "bullets": [
+                    "Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.",
+                    "Provide a **Clear all** or **Reset filters** action when filters are active.",
+                    "Persist filter state when users navigate away and return to the same view."
+                  ]
+                }
               ]
             }
           ]
@@ -1117,30 +1277,38 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Permanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options."
+                  "prose": "Permanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To switch between product areas or catalogs.",
-                "To access global tools such as [search](search) or notifications.",
-                "To view account and profile options."
+                {
+                  "bullets": [
+                    "To switch between product areas or catalogs.",
+                    "To access global tools such as [search](search) or notifications.",
+                    "To view account and profile options."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Only the branded title and navigation context change between applications.",
-                "Utility icons (notifications, help, profile) should be unlabeled but include tooltips."
+                {
+                  "bullets": [
+                    "Only the branded title and navigation context change between applications.",
+                    "Utility icons (notifications, help, profile) should be unlabeled but include tooltips."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
                 {
-                  "note": "Nav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on)."
+                  "prose": "Nav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on)."
                 }
               ]
             }
@@ -1182,24 +1350,32 @@
               "heading": "",
               "content": [
                 {
-                  "note": "An inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to."
+                  "prose": "An inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To confirm a localized action, such as copying a value or saving a field inline.",
-                "To surface a validation warning directly below or beside a specific form field.",
-                "Do not use an inline toast for global events - use the global toast or snackbar instead."
+                {
+                  "bullets": [
+                    "To confirm a localized action, such as copying a value or saving a field inline.",
+                    "To surface a validation warning directly below or beside a specific form field.",
+                    "Do not use an inline toast for global events - use the global toast or snackbar instead."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "One short sentence maximum. Ideally fewer than ten words.",
-                "Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.",
-                "Do not use inline toasts for error messages that require user action - use inline validation instead."
+                {
+                  "bullets": [
+                    "One short sentence maximum. Ideally fewer than ten words.",
+                    "Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.",
+                    "Do not use inline toasts for error messages that require user action - use inline validation instead."
+                  ]
+                }
               ]
             },
             {
@@ -1272,7 +1448,7 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Text inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list."
+                  "prose": "Text inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list."
                 }
               ]
             },
@@ -1280,25 +1456,33 @@
               "heading": "Behavior",
               "content": [
                 {
-                  "note": "Error validation should happen at the latest when the user clicks out of the text entry field (on blur)."
+                  "prose": "Error validation should happen at the latest when the user clicks out of the text entry field (on blur)."
                 }
               ]
             },
             {
               "heading": "Placeholder text",
               "content": [
-                "Placeholder text provides a brief example of the expected input content.",
-                "Use placeholder text only to model good input - not to convey instructions or restrictions for the field.",
-                "Placeholder text should never simply repeat the field label or description."
+                {
+                  "bullets": [
+                    "Placeholder text provides a brief example of the expected input content.",
+                    "Use placeholder text only to model good input - not to convey instructions or restrictions for the field.",
+                    "Placeholder text should never simply repeat the field label or description."
+                  ]
+                }
               ],
               "subsections": [
                 {
                   "subheading": "When to use placeholder text",
                   "content": [
-                    "When an example would model the correct input.",
-                    "When naming conventions or restrictions should be reinforced.",
-                    "When the field label could be interpreted in different ways and an example would reduce that ambiguity.",
-                    "Never use placeholder text if the label text is sufficient on its own."
+                    {
+                      "bullets": [
+                        "When an example would model the correct input.",
+                        "When naming conventions or restrictions should be reinforced.",
+                        "When the field label could be interpreted in different ways and an example would reduce that ambiguity.",
+                        "Never use placeholder text if the label text is sufficient on its own."
+                      ]
+                    }
                   ]
                 }
               ]
@@ -1354,54 +1538,74 @@
               "heading": "",
               "content": [
                 {
-                  "note": "A link visually represents clickable text or elements that navigate users to other pages, sections, or resources. Links appear colored to indicate interactivity and follow accessibility and design standards for clarity and usability."
+                  "prose": "A link visually represents clickable text or elements that navigate users to other pages, sections, or resources. Links appear colored to indicate interactivity and follow accessibility and design standards for clarity and usability."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "For navigation to internal or external destinations. Use external link icon in the latter case.",
-                "For inline standalone contextual actions (for example, **Learn more**).",
-                "Avoid using links for actions; use [ghost buttons](button) instead."
+                {
+                  "bullets": [
+                    "For navigation to internal or external destinations. Use external link icon in the latter case.",
+                    "For inline standalone contextual actions (for example, **Learn more**).",
+                    "Avoid using links for actions; use [ghost buttons](button) instead."
+                  ]
+                }
               ]
             },
             {
               "heading": "Should I use a button or a link?",
               "content": [
                 {
-                  "note": "A link should be used when navigating between pages, while a button should be used for actions like submitting a form, downloading a file, or triggering a task."
+                  "prose": "A link should be used when navigating between pages, while a button should be used for actions like submitting a form, downloading a file, or triggering a task."
                 },
-                "Use a link for **View more articles**.",
-                "Use a button for **Submit form**."
+                {
+                  "bullets": [
+                    "Use a link for **View more articles**.",
+                    "Use a button for **Submit form**."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Use meaningful, descriptive link text.",
+                {
+                  "bullets": [
+                    "Use meaningful, descriptive link text."
+                  ]
+                },
                 {
                   "do": "View pipeline details",
                   "dont": "Click here"
                 },
-                "Avoid standalone icons as links unless accompanied by an accessible label.",
-                "Use sentence case and no terminal punctuation.",
-                "Keep links clear, concise, accessible, and consistent."
+                {
+                  "bullets": [
+                    "Avoid standalone icons as links unless accompanied by an accessible label.",
+                    "Use sentence case and no terminal punctuation.",
+                    "Keep links clear, concise, accessible, and consistent."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Links open in the same tab unless explicitly labeled as external.",
-                "Underline on hover for clarity.",
-                "Visited state should be visually distinct whether inline or standalone."
+                {
+                  "bullets": [
+                    "Links open in the same tab unless explicitly labeled as external.",
+                    "Underline on hover for clarity.",
+                    "Visited state should be visually distinct whether inline or standalone."
+                  ]
+                }
               ]
             },
             {
               "heading": "Clear and descriptive link text",
               "content": [
                 {
-                  "note": "Link text should clearly describe the destination or action. Avoid vague text that does not convey enough information to the user or to assistive technologies."
+                  "prose": "Link text should clearly describe the destination or action. Avoid vague text that does not convey enough information to the user or to assistive technologies."
                 },
                 {
                   "do": "View your order details",
@@ -1429,7 +1633,7 @@
               "heading": "Action-oriented language",
               "content": [
                 {
-                  "note": "Use action verbs for links that load tasks. Action-oriented language guides the user on what to expect. This is especially helpful for calls to action. Avoid passive or generic terms and phrases. Always provide clarity on what will happen or what the user will achieve by clicking."
+                  "prose": "Use action verbs for links that load tasks. Action-oriented language guides the user on what to expect. This is especially helpful for calls to action. Avoid passive or generic terms and phrases. Always provide clarity on what will happen or what the user will achieve by clicking."
                 }
               ]
             },
@@ -1437,7 +1641,7 @@
               "heading": "Consistency in link text",
               "content": [
                 {
-                  "note": "Use consistent link phrases for similar actions. Similar actions should use the same link text to help users develop familiarity and expectations. For example, if you use **Learn more** for accessing detailed content in one area, avoid switching to **Read details** elsewhere. Keep link text brief but meaningful."
+                  "prose": "Use consistent link phrases for similar actions. Similar actions should use the same link text to help users develop familiarity and expectations. For example, if you use **Learn more** for accessing detailed content in one area, avoid switching to **Read details** elsewhere. Keep link text brief but meaningful."
                 }
               ]
             },
@@ -1445,7 +1649,7 @@
               "heading": "Avoid linking full sentences or paragraphs",
               "content": [
                 {
-                  "note": "Link only the specific, relevant portion of text. Avoid linking entire sentences or paragraphs, as this can overwhelm the user and reduce readability."
+                  "prose": "Link only the specific, relevant portion of text. Avoid linking entire sentences or paragraphs, as this can overwhelm the user and reduce readability."
                 },
                 {
                   "do": "Read our [user experience design blog]().",
@@ -1491,25 +1695,33 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Modals interrupt the current flow to require the user's attention for a confirmation, input, or critical action. Use them sparingly - overuse degrades their impact."
+                  "prose": "Modals interrupt the current flow to require the user's attention for a confirmation, input, or critical action. Use them sparingly - overuse degrades their impact."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To confirm destructive or irreversible actions. For full confirmation dialog patterns, see [confirmation](confirmation).",
-                "To collect a small amount of input before completing an action.",
-                "Do not use modals for purely informational content - use inline messages or tooltips instead."
+                {
+                  "bullets": [
+                    "To confirm destructive or irreversible actions. For full confirmation dialog patterns, see [confirmation](confirmation).",
+                    "To collect a small amount of input before completing an action.",
+                    "Do not use modals for purely informational content - use inline messages or tooltips instead."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Modal title should match the label of the button or link that triggered it.",
-                "Keep body copy short and actionable. One to two sentences.",
-                "Use a primary and secondary button pair. Align with the [button terminology guidelines](button).",
-                "Do not nest modals."
+                {
+                  "bullets": [
+                    "Modal title should match the label of the button or link that triggered it.",
+                    "Keep body copy short and actionable. One to two sentences.",
+                    "Use a primary and secondary button pair. Align with the [button terminology guidelines](button).",
+                    "Do not nest modals."
+                  ]
+                }
               ]
             },
             {
@@ -1567,33 +1779,45 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Multi-select allows users to choose more than one option from a list. It is used in filters, tag assignment, bulk operations, and configuration flows where multiple simultaneous selections are valid."
+                  "prose": "Multi-select allows users to choose more than one option from a list. It is used in filters, tag assignment, bulk operations, and configuration flows where multiple simultaneous selections are valid."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "When users need to apply multiple filters at the same time.",
-                "When assigning multiple tags, owners, or categories to an asset.",
-                "Do not use multi-select when only one selection is valid - use a single-select dropdown or radio buttons instead."
+                {
+                  "bullets": [
+                    "When users need to apply multiple filters at the same time.",
+                    "When assigning multiple tags, owners, or categories to an asset.",
+                    "Do not use multi-select when only one selection is valid - use a single-select dropdown or radio buttons instead."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Label the control with a short noun phrase describing the category being selected. For example, **Data domains** or **Owners**.",
-                "Show selected values as chips or tokens inside the input field.",
-                "Keep chip labels concise - use the item name only, not additional metadata.",
-                "Use **Select all** and **Clear all** as action labels when applicable."
+                {
+                  "bullets": [
+                    "Label the control with a short noun phrase describing the category being selected. For example, **Data domains** or **Owners**.",
+                    "Show selected values as chips or tokens inside the input field.",
+                    "Keep chip labels concise - use the item name only, not additional metadata.",
+                    "Use **Select all** and **Clear all** as action labels when applicable."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Show a count of selected items when the list collapses. For example, `3 selected`.",
-                "Allow individual chip removal via a close icon on each chip.",
-                "Keep the dropdown open until the user clicks outside or presses Escape."
+                {
+                  "bullets": [
+                    "Show a count of selected items when the list collapses. For example, `3 selected`.",
+                    "Allow individual chip removal via a close icon on each chip.",
+                    "Keep the dropdown open until the user clicks outside or presses Escape."
+                  ]
+                }
               ]
             },
             {
@@ -1652,24 +1876,32 @@
               "heading": "",
               "content": [
                 {
-                  "note": "An inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to."
+                  "prose": "An inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To confirm a localized action, such as copying a value or saving a field inline.",
-                "To surface a validation warning directly below or beside a specific form field.",
-                "Do not use an inline toast for global events - use the global toast or snackbar instead."
+                {
+                  "bullets": [
+                    "To confirm a localized action, such as copying a value or saving a field inline.",
+                    "To surface a validation warning directly below or beside a specific form field.",
+                    "Do not use an inline toast for global events - use the global toast or snackbar instead."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "One short sentence maximum. Ideally fewer than ten words.",
-                "Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.",
-                "Do not use inline toasts for error messages that require user action - use inline validation instead."
+                {
+                  "bullets": [
+                    "One short sentence maximum. Ideally fewer than ten words.",
+                    "Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.",
+                    "Do not use inline toasts for error messages that require user action - use inline validation instead."
+                  ]
+                }
               ]
             },
             {
@@ -1741,34 +1973,46 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Popovers display richer contextual content than a tooltip. They appear on click and can contain formatted text, links, and actions. Use them when the information is too long or interactive for a tooltip."
+                  "prose": "Popovers display richer contextual content than a tooltip. They appear on click and can contain formatted text, links, and actions. Use them when the information is too long or interactive for a tooltip."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To explain a concept or term inline, without leaving the current page.",
-                "To show a small set of related actions in a compact overlay (also called an action popover).",
-                "To provide definitions or help text for complex fields.",
-                "Do not use popovers for critical error messages - use inline alerts or validation messages."
+                {
+                  "bullets": [
+                    "To explain a concept or term inline, without leaving the current page.",
+                    "To show a small set of related actions in a compact overlay (also called an action popover).",
+                    "To provide definitions or help text for complex fields.",
+                    "Do not use popovers for critical error messages - use inline alerts or validation messages."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Popover title: short noun phrase in sentence case. Optional but recommended for longer content.",
-                "Body: plain prose, two to four sentences maximum.",
-                "Avoid bullet lists inside popovers - keep content scannable through short sentences.",
-                "Link text within a popover follows the same descriptive link text guidelines as inline links."
+                {
+                  "bullets": [
+                    "Popover title: short noun phrase in sentence case. Optional but recommended for longer content.",
+                    "Body: plain prose, two to four sentences maximum.",
+                    "Avoid bullet lists inside popovers - keep content scannable through short sentences.",
+                    "Link text within a popover follows the same descriptive link text guidelines as inline links."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Opens on click, closes on click outside or Escape.",
-                "Do not open popovers on hover - use tooltips for hover-triggered content.",
-                "Trap focus inside the popover while it is open for accessibility."
+                {
+                  "bullets": [
+                    "Opens on click, closes on click outside or Escape.",
+                    "Do not open popovers on hover - use tooltips for hover-triggered content.",
+                    "Trap focus inside the popover while it is open for accessibility."
+                  ]
+                }
               ]
             }
           ]
@@ -1809,24 +2053,32 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Search allows users to find assets quickly. Placeholder text should provide a hint as to what is being searched and help the user understand the scope of the search."
+                  "prose": "Search allows users to find assets quickly. Placeholder text should provide a hint as to what is being searched and help the user understand the scope of the search."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "As a global entry point for finding any data asset.",
-                "As a scoped filter within a specific view or catalog section."
+                {
+                  "bullets": [
+                    "As a global entry point for finding any data asset.",
+                    "As a scoped filter within a specific view or catalog section."
+                  ]
+                }
               ]
             },
             {
               "heading": "Placeholder text",
               "content": [
-                "Placeholder text should provide a hint as to what is being searched.",
-                "Do not include a period at the end of placeholder text.",
-                "When search is meant to retrieve assets based on keywords found in metadata, use `Search in [asset names]` (plural).",
-                "When in doubt, `Search [asset names]` (also plural) is always a safe default."
+                {
+                  "bullets": [
+                    "Placeholder text should provide a hint as to what is being searched.",
+                    "Do not include a period at the end of placeholder text.",
+                    "When search is meant to retrieve assets based on keywords found in metadata, use `Search in [asset names]` (plural).",
+                    "When in doubt, `Search [asset names]` (also plural) is always a safe default."
+                  ]
+                }
               ]
             },
             {
@@ -1871,9 +2123,13 @@
             {
               "heading": "Behavior",
               "content": [
-                "Execute search on Enter or on suggestion click.",
-                "Maintain the last query when the user returns to the search view.",
-                "Support keyboard navigation through results."
+                {
+                  "bullets": [
+                    "Execute search on Enter or on suggestion click.",
+                    "Maintain the last query when the user returns to the search view.",
+                    "Support keyboard navigation through results."
+                  ]
+                }
               ]
             }
           ]
@@ -1915,33 +2171,45 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Filters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products."
+                  "prose": "Filters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "When a dataset or list is large enough that users need to narrow results to find what they need.",
-                "When multiple filter criteria can be applied simultaneously.",
-                "Do not use filters for permanent data modifications - filters only affect the current view."
+                {
+                  "bullets": [
+                    "When a dataset or list is large enough that users need to narrow results to find what they need.",
+                    "When multiple filter criteria can be applied simultaneously.",
+                    "Do not use filters for permanent data modifications - filters only affect the current view."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.",
-                "Use sentence case for all filter labels and option values.",
-                "Show the active filter count when filters are collapsed. For example, `Filters (3)`.",
-                "Use consistent terminology across all filter controls in the same view."
+                {
+                  "bullets": [
+                    "Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.",
+                    "Use sentence case for all filter labels and option values.",
+                    "Show the active filter count when filters are collapsed. For example, `Filters (3)`.",
+                    "Use consistent terminology across all filter controls in the same view."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.",
-                "Provide a **Clear all** or **Reset filters** action when filters are active.",
-                "Persist filter state when users navigate away and return to the same view."
+                {
+                  "bullets": [
+                    "Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.",
+                    "Provide a **Clear all** or **Reset filters** action when filters are active.",
+                    "Persist filter state when users navigate away and return to the same view."
+                  ]
+                }
               ]
             }
           ]
@@ -1982,29 +2250,41 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Permanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product."
+                  "prose": "Permanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "For persistent access to primary sections of the product."
+                {
+                  "bullets": [
+                    "For persistent access to primary sections of the product."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Clarity: use short, descriptive labels that match the text used in page headers.",
-                "Consistency: keep naming and order consistent across the platform.",
-                "Use plain language and common industry terms."
+                {
+                  "bullets": [
+                    "Clarity: use short, descriptive labels that match the text used in page headers.",
+                    "Consistency: keep naming and order consistent across the platform.",
+                    "Use plain language and common industry terms."
+                  ]
+                }
               ]
             },
             {
               "heading": "Behavior",
               "content": [
-                "Highlight the current section (and its parent if applicable) in the hierarchy.",
-                "The side nav collapses and expands in response to different screen sizes."
+                {
+                  "bullets": [
+                    "Highlight the current section (and its parent if applicable) in the hierarchy.",
+                    "The side nav collapses and expands in response to different screen sizes."
+                  ]
+                }
               ]
             }
           ]
@@ -2045,33 +2325,45 @@
               "heading": "",
               "content": [
                 {
-                  "note": "A stepper guides users through a multi-step process in a defined sequence. Each step represents a discrete task that must be completed before moving to the next. Steppers are used in onboarding flows, connection setup, and wizards."
+                  "prose": "A stepper guides users through a multi-step process in a defined sequence. Each step represents a discrete task that must be completed before moving to the next. Steppers are used in onboarding flows, connection setup, and wizards."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "When a process has three or more distinct steps that must be completed in order.",
-                "When it is important for users to understand their progress through a workflow.",
-                "Do not use a stepper for simple two-step confirmations - use a [modal](modal) instead."
+                {
+                  "bullets": [
+                    "When a process has three or more distinct steps that must be completed in order.",
+                    "When it is important for users to understand their progress through a workflow.",
+                    "Do not use a stepper for simple two-step confirmations - use a [modal](modal) instead."
+                  ]
+                }
               ]
             },
             {
               "heading": "Step titles",
               "content": [
-                "Use short imperative verb phrases. For example, `Choose a data source`, `Configure settings`, `Review and create`.",
-                "Do not include the step number in the title text - the stepper component displays that.",
-                "Keep titles parallel in structure across all steps."
+                {
+                  "bullets": [
+                    "Use short imperative verb phrases. For example, `Choose a data source`, `Configure settings`, `Review and create`.",
+                    "Do not include the step number in the title text - the stepper component displays that.",
+                    "Keep titles parallel in structure across all steps."
+                  ]
+                }
               ]
             },
             {
               "heading": "Navigation buttons",
               "content": [
-                "Use **Back** for the previous step button. Do not use **Previous**.",
-                "Use **Next** for all intermediate steps.",
-                "Use **Create** (or the appropriate object-specific verb) for the final step - not **Finish**, **Done**, or **Submit**.",
-                "See the [Buttons](button) section for full stepper button terminology."
+                {
+                  "bullets": [
+                    "Use **Back** for the previous step button. Do not use **Previous**.",
+                    "Use **Next** for all intermediate steps.",
+                    "Use **Create** (or the appropriate object-specific verb) for the final step - not **Finish**, **Done**, or **Submit**.",
+                    "See the [Buttons](button) section for full stepper button terminology."
+                  ]
+                }
               ]
             },
             {
@@ -2129,69 +2421,63 @@
               "heading": "",
               "content": [
                 {
-                  "note": "The sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom."
+                  "prose": "The sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "When a page or drawer contains primary actions that must remain available during scrolling.",
-                "When users complete steppers or multi-field forms that extend beyond the current view.",
-                "When the action affects the entire page, drawer, or form state."
+                {
+                  "bullets": [
+                    "When a page or drawer contains primary actions that must remain available during scrolling.",
+                    "When users complete steppers or multi-field forms that extend beyond the current view.",
+                    "When the action affects the entire page, drawer, or form state."
+                  ]
+                }
               ]
             },
             {
               "heading": "Button hierarchy",
               "content": [
-                "The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.",
-                "An optional secondary action can be included.",
-                "Limit to a maximum of three buttons. More actions increase cognitive load."
+                {
+                  "bullets": [
+                    "The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.",
+                    "An optional secondary action can be included.",
+                    "Limit to a maximum of three buttons. More actions increase cognitive load."
+                  ]
+                }
               ]
             },
             {
               "heading": "Button labels",
               "content": [
                 {
-                  "note": "Use clear verbs that describe the outcome. Labels should describe what will happen, not what the button is."
+                  "prose": "Use clear verbs that describe the outcome. Labels should describe what will happen, not what the button is."
                 },
                 {
-                  "table": {
-                    "headers": [
-                      "Recommended labels",
-                      "Avoid"
-                    ],
-                    "rows": [
-                      [
-                        "Save",
-                        "Done"
-                      ],
-                      [
-                        "Update",
-                        "OK"
-                      ],
-                      [
-                        "Create",
-                        "Submit (except on forms)"
-                      ],
-                      [
-                        "Confirm",
-                        "Yes"
-                      ],
-                      [
-                        "Delete",
-                        "Remove (for destructive permanent actions)"
-                      ],
-                      [
-                        "Continue (as part of a defined stepper)",
-                        "Next (in sticky footers outside steppers)"
-                      ],
-                      [
-                        "",
-                        ""
-                      ]
-                    ]
-                  }
+                  "do": "Save",
+                  "dont": "Done"
+                },
+                {
+                  "do": "Update",
+                  "dont": "OK"
+                },
+                {
+                  "do": "Create",
+                  "dont": "Submit (except on forms)"
+                },
+                {
+                  "do": "Confirm",
+                  "dont": "Yes"
+                },
+                {
+                  "do": "Delete",
+                  "dont": "Remove (for destructive permanent actions)"
+                },
+                {
+                  "do": "Continue (as part of a defined stepper)",
+                  "dont": "Next (in sticky footers outside steppers)"
                 }
               ]
             },
@@ -2199,13 +2485,17 @@
               "heading": "Steppers",
               "content": [
                 {
-                  "note": "When used as part of a stepper, use the following label terminology consistently:"
+                  "prose": "When used as part of a stepper, use the following label terminology consistently:"
                 },
-                "**Back** for the previous step.",
-                "**Next** for intermediate steps.",
-                "**Submit** for the final step.",
                 {
-                  "note": "Do not mix **Continue** and **Next**, or **Finish** and **Submit** within the same flow."
+                  "bullets": [
+                    "**Back** for the previous step.",
+                    "**Next** for intermediate steps.",
+                    "**Submit** for the final step."
+                  ]
+                },
+                {
+                  "prose": "Do not mix **Continue** and **Next**, or **Finish** and **Submit** within the same flow."
                 }
               ]
             }
@@ -2247,60 +2537,54 @@
               "heading": "",
               "content": [
                 {
-                  "note": "The table component displays structured information in rows and columns. It is the primary way users view, compare, and act on datasets, connections, catalog entries, and other list-based content in the platform."
+                  "prose": "The table component displays structured information in rows and columns. It is the primary way users view, compare, and act on datasets, connections, catalog entries, and other list-based content in the platform."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To display multiple items with shared attributes that benefit from comparison.",
-                "When users need to sort, filter, or act on rows individually or in bulk.",
-                "Do not use a table for fewer than three columns or when a simple list or prose suffices."
+                {
+                  "bullets": [
+                    "To display multiple items with shared attributes that benefit from comparison.",
+                    "When users need to sort, filter, or act on rows individually or in bulk.",
+                    "Do not use a table for fewer than three columns or when a simple list or prose suffices."
+                  ]
+                }
               ]
             },
             {
               "heading": "Column headers",
               "content": [
-                "Use short, descriptive noun phrases. Two to three words maximum.",
-                "Use sentence case.",
-                "Do not use abbreviations unless they are universally understood (for example, \"ID,\" \"URL\").",
-                "Do not end column headers with punctuation.",
-                "Align header labels with the data they describe — left-align text columns, right-align numeric columns."
+                {
+                  "bullets": [
+                    "Use short, descriptive noun phrases. Two to three words maximum.",
+                    "Use sentence case.",
+                    "Do not use abbreviations unless they are universally understood (for example, \"ID,\" \"URL\").",
+                    "Do not end column headers with punctuation.",
+                    "Align header labels with the data they describe — left-align text columns, right-align numeric columns."
+                  ]
+                }
               ],
               "subsections": [
                 {
                   "subheading": "Column header examples",
                   "content": [
                     {
-                      "table": {
-                        "headers": [
-                          "Use",
-                          "Avoid"
-                        ],
-                        "rows": [
-                          [
-                            "Last modified",
-                            "Last Modification Date"
-                          ],
-                          [
-                            "Owner",
-                            "Assigned to / Owned by"
-                          ],
-                          [
-                            "Status",
-                            "Current status"
-                          ],
-                          [
-                            "Row count",
-                            "No. of rows"
-                          ],
-                          [
-                            "",
-                            ""
-                          ]
-                        ]
-                      }
+                      "do": "Last modified",
+                      "dont": "Last Modification Date"
+                    },
+                    {
+                      "do": "Owner",
+                      "dont": "Assigned to / Owned by"
+                    },
+                    {
+                      "do": "Status",
+                      "dont": "Current status"
+                    },
+                    {
+                      "do": "Row count",
+                      "dont": "No. of rows"
                     }
                   ]
                 }
@@ -2309,25 +2593,37 @@
             {
               "heading": "Cell content",
               "content": [
-                "Keep cell values concise. Truncate long values with an ellipsis and show the full value on hover via tooltip.",
-                "Use consistent formatting within each column — do not mix date formats or number formats across rows.",
-                "Dates: use ISO 8601 (YYYY-MM-DD) unless the product context requires a locale-specific format.",
-                "Use \"None\" or \"–\" (em dash) for empty values — not blank, \"N/A,\" or \"null.\"",
-                "Status values use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+                {
+                  "bullets": [
+                    "Keep cell values concise. Truncate long values with an ellipsis and show the full value on hover via tooltip.",
+                    "Use consistent formatting within each column — do not mix date formats or number formats across rows.",
+                    "Dates: use ISO 8601 (YYYY-MM-DD) unless the product context requires a locale-specific format.",
+                    "Use \"None\" or \"–\" (em dash) for empty values — not blank, \"N/A,\" or \"null.\"",
+                    "Status values use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+                  ]
+                }
               ]
             },
             {
               "heading": "Bulk actions",
               "content": [
-                "Label bulk action buttons with a verb that applies to all selected items. For example, **Delete selected** or **Export**.",
-                "Show the count of selected items near the action. For example, `3 items selected`."
+                {
+                  "bullets": [
+                    "Label bulk action buttons with a verb that applies to all selected items. For example, **Delete selected** or **Export**.",
+                    "Show the count of selected items near the action. For example, `3 items selected`."
+                  ]
+                }
               ]
             },
             {
               "heading": "Pagination",
               "content": [
-                "Label page controls plainly. Use **Previous** and **Next**.",
-                "Show total result count when relevant. For example, `Showing 1–25 of 340 results`."
+                {
+                  "bullets": [
+                    "Label page controls plainly. Use **Previous** and **Next**.",
+                    "Show total result count when relevant. For example, `Showing 1–25 of 340 results`."
+                  ]
+                }
               ]
             }
           ]
@@ -2368,22 +2664,30 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Tabs switch between related views on the same page without full navigation."
+                  "prose": "Tabs switch between related views on the same page without full navigation."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To switch between related views on the same page without full navigation."
+                {
+                  "bullets": [
+                    "To switch between related views on the same page without full navigation."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Tab labels are short nouns or noun phrases. For example, **Overview**, **Lineage**, **Settings**.",
-                "Use sentence case.",
-                "Avoid verbs in tab labels."
+                {
+                  "bullets": [
+                    "Tab labels are short nouns or noun phrases. For example, **Overview**, **Lineage**, **Settings**.",
+                    "Use sentence case.",
+                    "Avoid verbs in tab labels."
+                  ]
+                }
               ]
             }
           ]
@@ -2424,23 +2728,31 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated."
+                  "prose": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
-                "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
+                {
+                  "bullets": [
+                    "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
+                    "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Use sentence case.",
-                "Keep tag text to one to three words.",
-                "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+                {
+                  "bullets": [
+                    "Use sentence case.",
+                    "Keep tag text to one to three words.",
+                    "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+                  ]
+                }
               ]
             }
           ]
@@ -2482,23 +2794,31 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated."
+                  "prose": "Tags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
-                "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
+                {
+                  "bullets": [
+                    "To categorize or label items with metadata values such as topics, types, or user-defined attributes.",
+                    "Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Use sentence case.",
-                "Keep tag text to one to three words.",
-                "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+                {
+                  "bullets": [
+                    "Use sentence case.",
+                    "Keep tag text to one to three words.",
+                    "Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error."
+                  ]
+                }
               ]
             }
           ]
@@ -2539,7 +2859,7 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Text inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list."
+                  "prose": "Text inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list."
                 }
               ]
             },
@@ -2547,25 +2867,33 @@
               "heading": "Behavior",
               "content": [
                 {
-                  "note": "Error validation should happen at the latest when the user clicks out of the text entry field (on blur)."
+                  "prose": "Error validation should happen at the latest when the user clicks out of the text entry field (on blur)."
                 }
               ]
             },
             {
               "heading": "Placeholder text",
               "content": [
-                "Placeholder text provides a brief example of the expected input content.",
-                "Use placeholder text only to model good input - not to convey instructions or restrictions for the field.",
-                "Placeholder text should never simply repeat the field label or description."
+                {
+                  "bullets": [
+                    "Placeholder text provides a brief example of the expected input content.",
+                    "Use placeholder text only to model good input - not to convey instructions or restrictions for the field.",
+                    "Placeholder text should never simply repeat the field label or description."
+                  ]
+                }
               ],
               "subsections": [
                 {
                   "subheading": "When to use placeholder text",
                   "content": [
-                    "When an example would model the correct input.",
-                    "When naming conventions or restrictions should be reinforced.",
-                    "When the field label could be interpreted in different ways and an example would reduce that ambiguity.",
-                    "Never use placeholder text if the label text is sufficient on its own."
+                    {
+                      "bullets": [
+                        "When an example would model the correct input.",
+                        "When naming conventions or restrictions should be reinforced.",
+                        "When the field label could be interpreted in different ways and an example would reduce that ambiguity.",
+                        "Never use placeholder text if the label text is sufficient on its own."
+                      ]
+                    }
                   ]
                 }
               ]
@@ -2621,23 +2949,31 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Toggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead."
+                  "prose": "Toggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "For enabling or disabling a feature, setting, or permission that takes effect immediately.",
-                "Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead."
+                {
+                  "bullets": [
+                    "For enabling or disabling a feature, setting, or permission that takes effect immediately.",
+                    "Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.",
-                "If the on and off states have meaningfully different consequences, add a short description below the toggle label.",
-                "Use sentence case."
+                {
+                  "bullets": [
+                    "Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.",
+                    "If the on and off states have meaningfully different consequences, add a short description below the toggle label.",
+                    "Use sentence case."
+                  ]
+                }
               ]
             },
             {
@@ -2696,23 +3032,31 @@
               "heading": "",
               "content": [
                 {
-                  "note": "Toggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead."
+                  "prose": "Toggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead."
                 }
               ]
             },
             {
               "heading": "When to use",
               "content": [
-                "For enabling or disabling a feature, setting, or permission that takes effect immediately.",
-                "Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead."
+                {
+                  "bullets": [
+                    "For enabling or disabling a feature, setting, or permission that takes effect immediately.",
+                    "Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead."
+                  ]
+                }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.",
-                "If the on and off states have meaningfully different consequences, add a short description below the toggle label.",
-                "Use sentence case."
+                {
+                  "bullets": [
+                    "Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.",
+                    "If the on and off states have meaningfully different consequences, add a short description below the toggle label.",
+                    "Use sentence case."
+                  ]
+                }
               ]
             },
             {
@@ -2770,17 +3114,21 @@
               "heading": "",
               "content": [
                 {
-                  "note": "The What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful."
+                  "prose": "The What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful."
                 }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).",
-                "Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"",
-                "Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"",
-                "Keep each item to one to two sentences."
+                {
+                  "bullets": [
+                    "Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).",
+                    "Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"",
+                    "Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"",
+                    "Keep each item to one to two sentences."
+                  ]
+                }
               ]
             },
             {
@@ -2835,17 +3183,21 @@
               "heading": "",
               "content": [
                 {
-                  "note": "The What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful."
+                  "prose": "The What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful."
                 }
               ]
             },
             {
               "heading": "Style",
               "content": [
-                "Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).",
-                "Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"",
-                "Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"",
-                "Keep each item to one to two sentences."
+                {
+                  "bullets": [
+                    "Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).",
+                    "Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"",
+                    "Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"",
+                    "Keep each item to one to two sentences."
+                  ]
+                }
               ]
             },
             {

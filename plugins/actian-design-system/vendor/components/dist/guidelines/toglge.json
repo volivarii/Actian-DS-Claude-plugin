@@ -21,23 +21,31 @@
           "heading": "",
           "content": [
             {
-              "note": "Toggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead."
+              "prose": "Toggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead."
             }
           ]
         },
         {
           "heading": "When to use",
           "content": [
-            "For enabling or disabling a feature, setting, or permission that takes effect immediately.",
-            "Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead."
+            {
+              "bullets": [
+                "For enabling or disabling a feature, setting, or permission that takes effect immediately.",
+                "Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead."
+              ]
+            }
           ]
         },
         {
           "heading": "Style",
           "content": [
-            "Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.",
-            "If the on and off states have meaningfully different consequences, add a short description below the toggle label.",
-            "Use sentence case."
+            {
+              "bullets": [
+                "Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.",
+                "If the on and off states have meaningfully different consequences, add a short description below the toggle label.",
+                "Use sentence case."
+              ]
+            }
           ]
         },
         {

@@ -79,22 +79,104 @@ resolution is required.
 
 Plain markdown. Frontmatter is optional. The deriver keeps the verbatim body
 (for LLM consumers) and also parses it into a structured `sections[]`
-projection (for the docs renderer + the plugin):
+projection that the docs site and the plugin both consume.
 
-- `## Heading` opens a section.
-- `### Subheading` opens one reserved level of nesting. Deeper headings
-  (`####` and below) are flattened into the nearest section's content as
-  `{ note }` items — there is only one reserved nesting level.
-- Bullet lists become string items.
-- A `| Do | Don't |` table becomes `{ do, dont }` items.
-- A terminology table (`| Term | Usage |`) becomes `{ term, rule }` items.
-- Any other table is preserved as a generic `{ table }` item.
-- Paragraphs and blockquotes become `{ note }` items.
-- Fenced code blocks become `{ example }` items.
+### The three rules
 
-You do not need to think about the projection — write normal markdown. The
-verbatim body is always retained, so the structured view is a convenience,
-not a constraint.
+These are the contract — everything below is detail.
+
+1. **What you write is what renders.** Within a section, the docs site
+   preserves authored source order. Bullets stay bullets, prose stays prose,
+   tables stay tables, and they appear in the order you wrote them. The
+   renderer never reorders blocks within a section.
+2. **Callouts are opt-in.** Bare paragraphs render as plain prose. To turn a
+   paragraph into a Callout, prefix it with `>` (a markdown blockquote). If
+   you didn't ask for visual emphasis, you don't get it.
+3. **Two reserved table shapes.** A two-column table with the right headers
+   becomes a `<DoDont>` or `<TermList>` component. Anything else renders as a
+   plain table — including a 2-column table whose headers don't match the
+   reserved vocabulary.
+
+### Structural projection
+
+| Markdown you write                                  | Structured shape          | Docs-site render |
+|-----------------------------------------------------|---------------------------|------------------|
+| `## Heading`                                        | opens a section           | `### Heading`    |
+| `### Subheading`                                    | one reserved subsection level | `#### Subheading` |
+| `#### …` and deeper                                 | `{ note }` flattened into the current section | `<Callout>` |
+| A bullet list                                       | `{ bullets: [...] }`      | one `<ul>` |
+| A standalone paragraph                              | `{ prose }`               | bare `<p>` |
+| A blockquote (`>` …)                                | `{ note }`                | `<Callout variant="note">` |
+| A reserved 2-column table (see below)               | `{ do, dont }` or `{ term, rule }` | `<DoDont>` or `<TermList>` |
+| Any other table                                     | `{ table: { headers, rows } }` | plain markdown table |
+| A fenced code block                                 | `{ example }`             | `**Example:**` + code |
+
+### Reserved table vocabularies
+
+A 2-column table classifies as `<DoDont>` if its **headers** (case-insensitive,
+whitespace ignored) match one column from each set:
+
+| Do side                                                        | Don't side                                  |
+|----------------------------------------------------------------|---------------------------------------------|
+| `Do`, `Dos`, `Use`, `Recommended`, `Recommended labels`, `Good` | `Don't`, `Donts`, `Do not`, `Avoid`, `Not recommended`, `Bad` |
+
+A 2-column table classifies as `<TermList>` if its headers match `Term` (or
+`Term or term pair`, `Term pair`, `Terms`) on the left and `Usage` (or `Rule`,
+`Definition`, `Guidance`) on the right.
+
+Any other table — including 2-column tables outside these vocabularies — keeps
+its headers and renders as a plain markdown table. This is deliberate: don't
+force a `<DoDont>` on a table that isn't really do/don't.
+
+### Adjacent runs collapse into one component
+
+If you write three rows of `| Do | Don't |` in one table, they render as one
+`<DoDont pairs={[…]}>`, not three separate ones. Same for terminology rows
+and consecutive bullet items. **Different** shapes adjacent to each other
+emit as separate blocks, preserving order — e.g. a `<DoDont>` followed by a
+paragraph followed by another `<DoDont>` keeps all three exactly where you
+put them.
+
+### Worked example
+
+```markdown
+## Stepper labels
+
+When used as part of a stepper, use these labels consistently:
+
+- **Back** for the previous step.
+- **Next** for intermediate steps.
+- **Submit** for the final step.
+
+> Do not mix **Continue** and **Next**, or **Finish** and **Submit**, within
+> the same stepper.
+
+| Recommended labels | Avoid |
+|---|---|
+| Continue (in a stepper) | Next (outside a stepper) |
+| Save                    | Done                     |
+```
+
+Renders as (in order):
+
+1. A bare paragraph (`{prose}`).
+2. A bulleted list (`{bullets}`, one `<ul>`).
+3. A `<Callout variant="note">` (`{note}`, opt-in via the `>` blockquote).
+4. A `<DoDont pairs={[…]}>` (the `Recommended labels | Avoid` headers match
+   the reserved vocabulary).
+
+### Things to know
+
+- **You don't have to think about the projection.** Write normal markdown.
+  The verbatim body is retained for LLM consumers, so the structured view is
+  a convenience, not a constraint.
+- **Legacy JSON still works.** Older derived JSON may carry bare strings
+  (instead of `{bullets}`) or `{note}` for paragraphs (instead of `{prose}`).
+  The consumers handle both; the parser only emits the new shapes going
+  forward.
+- **One reserved nesting level only.** `####` and deeper headings flatten as
+  `{ note }` into the current section — if you need real nested structure,
+  break the parent into two `##` sections.
 
 ## `tokens.yml`
 

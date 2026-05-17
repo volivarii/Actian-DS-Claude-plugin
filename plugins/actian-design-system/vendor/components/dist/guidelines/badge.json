@@ -20,22 +20,30 @@
           "heading": "",
           "content": [
             {
-              "note": "Badges indicate a count or a status qualifier on an item — for example, unread notifications or a new-item label."
+              "prose": "Badges indicate a count or a status qualifier on an item — for example, unread notifications or a new-item label."
             }
           ]
         },
         {
           "heading": "When to use",
           "content": [
-            "To show a numeric count on an item (for example, unread notifications).",
-            "To apply a status qualifier that does not fit inline as a tag."
+            {
+              "bullets": [
+                "To show a numeric count on an item (for example, unread notifications).",
+                "To apply a status qualifier that does not fit inline as a tag."
+              ]
+            }
           ]
         },
         {
           "heading": "Style",
           "content": [
-            "Badge labels are single words or short abbreviations.",
-            "Use standard status vocabulary: New, Updated, Draft, Published, Deprecated."
+            {
+              "bullets": [
+                "Badge labels are single words or short abbreviations.",
+                "Use standard status vocabulary: New, Updated, Draft, Published, Deprecated."
+              ]
+            }
           ]
         }
       ]

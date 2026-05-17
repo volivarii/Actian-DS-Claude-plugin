@@ -20,22 +20,30 @@
           "heading": "",
           "content": [
             {
-              "note": "Tabs switch between related views on the same page without full navigation."
+              "prose": "Tabs switch between related views on the same page without full navigation."
             }
           ]
         },
         {
           "heading": "When to use",
           "content": [
-            "To switch between related views on the same page without full navigation."
+            {
+              "bullets": [
+                "To switch between related views on the same page without full navigation."
+              ]
+            }
           ]
         },
         {
           "heading": "Style",
           "content": [
-            "Tab labels are short nouns or noun phrases. For example, **Overview**, **Lineage**, **Settings**.",
-            "Use sentence case.",
-            "Avoid verbs in tab labels."
+            {
+              "bullets": [
+                "Tab labels are short nouns or noun phrases. For example, **Overview**, **Lineage**, **Settings**.",
+                "Use sentence case.",
+                "Avoid verbs in tab labels."
+              ]
+            }
           ]
         }
       ]

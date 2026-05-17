@@ -20,29 +20,41 @@
           "heading": "",
           "content": [
             {
-              "note": "Permanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product."
+              "prose": "Permanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product."
             }
           ]
         },
         {
           "heading": "When to use",
           "content": [
-            "For persistent access to primary sections of the product."
+            {
+              "bullets": [
+                "For persistent access to primary sections of the product."
+              ]
+            }
           ]
         },
         {
           "heading": "Style",
           "content": [
-            "Clarity: use short, descriptive labels that match the text used in page headers.",
-            "Consistency: keep naming and order consistent across the platform.",
-            "Use plain language and common industry terms."
+            {
+              "bullets": [
+                "Clarity: use short, descriptive labels that match the text used in page headers.",
+                "Consistency: keep naming and order consistent across the platform.",
+                "Use plain language and common industry terms."
+              ]
+            }
           ]
         },
         {
           "heading": "Behavior",
           "content": [
-            "Highlight the current section (and its parent if applicable) in the hierarchy.",
-            "The side nav collapses and expands in response to different screen sizes."
+            {
+              "bullets": [
+                "Highlight the current section (and its parent if applicable) in the hierarchy.",
+                "The side nav collapses and expands in response to different screen sizes."
+              ]
+            }
           ]
         }
       ]

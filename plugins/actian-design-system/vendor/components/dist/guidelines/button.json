@@ -20,35 +20,47 @@
           "heading": "",
           "content": [
             {
-              "note": "Buttons trigger actions. They are the primary mechanism for users to submit forms, confirm choices, navigate, and initiate processes within the platform."
+              "prose": "Buttons trigger actions. They are the primary mechanism for users to submit forms, confirm choices, navigate, and initiate processes within the platform."
             }
           ]
         },
         {
           "heading": "When to use",
           "content": [
-            "Use buttons for actions, not navigation. For navigation, use [links](link).",
-            "Use a primary button for the main action on a page or modal.",
-            "Use secondary buttons for alternative or less critical actions.",
-            "Use ghost or tertiary buttons for low-priority or destructive actions that should not draw immediate attention."
+            {
+              "bullets": [
+                "Use buttons for actions, not navigation. For navigation, use [links](link).",
+                "Use a primary button for the main action on a page or modal.",
+                "Use secondary buttons for alternative or less critical actions.",
+                "Use ghost or tertiary buttons for low-priority or destructive actions that should not draw immediate attention."
+              ]
+            }
           ]
         },
         {
           "heading": "Style",
           "content": [
-            "Use sentence case for all button labels.",
-            "Use the verb + object formula whenever possible (for example, **Create report**, **Delete dataset**).",
-            "Keep labels concise - ideally two to four words.",
-            "Do not end button labels with punctuation.",
-            "Do not use articles (a, an, the) in button labels unless necessary for clarity."
+            {
+              "bullets": [
+                "Use sentence case for all button labels.",
+                "Use the verb + object formula whenever possible (for example, **Create report**, **Delete dataset**).",
+                "Keep labels concise - ideally two to four words.",
+                "Do not end button labels with punctuation.",
+                "Do not use articles (a, an, the) in button labels unless necessary for clarity."
+              ]
+            }
           ]
         },
         {
           "heading": "Behavior",
           "content": [
-            "Disable the primary button until all required fields are complete.",
-            "Show a loading indicator on the button when an action is in progress.",
-            "Return focus to the triggering element after a modal or dialog closes."
+            {
+              "bullets": [
+                "Disable the primary button until all required fields are complete.",
+                "Show a loading indicator on the button when an action is in progress.",
+                "Return focus to the triggering element after a modal or dialog closes."
+              ]
+            }
           ]
         },
         {
@@ -76,7 +88,7 @@
           "heading": "Terminology for button labeling",
           "content": [
             {
-              "note": "Use the following term pairs consistently across the platform. Choosing the wrong term creates confusion when the same action appears under different labels in different contexts."
+              "prose": "Use the following term pairs consistently across the platform. Choosing the wrong term creates confusion when the same action appears under different labels in different contexts."
             },
             {
               "term": "Cancel vs Close",

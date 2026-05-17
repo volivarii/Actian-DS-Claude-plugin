@@ -20,69 +20,63 @@
           "heading": "",
           "content": [
             {
-              "note": "The sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom."
+              "prose": "The sticky footer is a persistent action bar that remains visible at the bottom of a page or drawer as the user scrolls. It ensures that primary actions are always accessible without requiring the user to scroll to the bottom."
             }
           ]
         },
         {
           "heading": "When to use",
           "content": [
-            "When a page or drawer contains primary actions that must remain available during scrolling.",
-            "When users complete steppers or multi-field forms that extend beyond the current view.",
-            "When the action affects the entire page, drawer, or form state."
+            {
+              "bullets": [
+                "When a page or drawer contains primary actions that must remain available during scrolling.",
+                "When users complete steppers or multi-field forms that extend beyond the current view.",
+                "When the action affects the entire page, drawer, or form state."
+              ]
+            }
           ]
         },
         {
           "heading": "Button hierarchy",
           "content": [
-            "The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.",
-            "An optional secondary action can be included.",
-            "Limit to a maximum of three buttons. More actions increase cognitive load."
+            {
+              "bullets": [
+                "The sticky footer must contain exactly one primary action. The only exception is an additional destructive button such as Delete.",
+                "An optional secondary action can be included.",
+                "Limit to a maximum of three buttons. More actions increase cognitive load."
+              ]
+            }
           ]
         },
         {
           "heading": "Button labels",
           "content": [
             {
-              "note": "Use clear verbs that describe the outcome. Labels should describe what will happen, not what the button is."
+              "prose": "Use clear verbs that describe the outcome. Labels should describe what will happen, not what the button is."
             },
             {
-              "table": {
-                "headers": [
-                  "Recommended labels",
-                  "Avoid"
-                ],
-                "rows": [
-                  [
-                    "Save",
-                    "Done"
-                  ],
-                  [
-                    "Update",
-                    "OK"
-                  ],
-                  [
-                    "Create",
-                    "Submit (except on forms)"
-                  ],
-                  [
-                    "Confirm",
-                    "Yes"
-                  ],
-                  [
-                    "Delete",
-                    "Remove (for destructive permanent actions)"
-                  ],
-                  [
-                    "Continue (as part of a defined stepper)",
-                    "Next (in sticky footers outside steppers)"
-                  ],
-                  [
-                    "",
-                    ""
-                  ]
-                ]
-              }
+              "do": "Save",
+              "dont": "Done"
+            },
+            {
+              "do": "Update",
+              "dont": "OK"
+            },
+            {
+              "do": "Create",
+              "dont": "Submit (except on forms)"
+            },
+            {
+              "do": "Confirm",
+              "dont": "Yes"
+            },
+            {
+              "do": "Delete",
+              "dont": "Remove (for destructive permanent actions)"
+            },
+            {
+              "do": "Continue (as part of a defined stepper)",
+              "dont": "Next (in sticky footers outside steppers)"
             }
           ]
         },
@@ -90,13 +84,17 @@
           "heading": "Steppers",
           "content": [
             {
-              "note": "When used as part of a stepper, use the following label terminology consistently:"
+              "prose": "When used as part of a stepper, use the following label terminology consistently:"
             },
-            "**Back** for the previous step.",
-            "**Next** for intermediate steps.",
-            "**Submit** for the final step.",
             {
-              "note": "Do not mix **Continue** and **Next**, or **Finish** and **Submit** within the same flow."
+              "bullets": [
+                "**Back** for the previous step.",
+                "**Next** for intermediate steps.",
+                "**Submit** for the final step."
+              ]
+            },
+            {
+              "prose": "Do not mix **Continue** and **Next**, or **Finish** and **Submit** within the same flow."
             }
           ]
         }
