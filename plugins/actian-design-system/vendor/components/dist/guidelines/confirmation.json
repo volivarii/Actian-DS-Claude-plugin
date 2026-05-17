@@ -20,7 +20,7 @@
           "heading": "",
           "content": [
             {
-              "note": "Confirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone."
+              "prose": "Confirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone."
             }
           ]
         },
@@ -28,21 +28,29 @@
           "heading": "When to use",
           "content": [
             {
-              "note": "Before irreversible or destructive actions (delete, remove, reset)."
+              "prose": "Before irreversible or destructive actions (delete, remove, reset)."
             }
           ]
         },
         {
           "heading": "Style",
           "content": [
-            "Title: name the action, not the outcome.",
+            {
+              "bullets": [
+                "Title: name the action, not the outcome."
+              ]
+            },
             {
               "do": "Delete connection",
               "dont": "This is permanent"
             },
-            "Body: one sentence stating what will happen and whether it can be undone.",
-            "Primary CTA: matches the title verb. For example, **Delete**.",
-            "Secondary CTA: **Cancel**."
+            {
+              "bullets": [
+                "Body: one sentence stating what will happen and whether it can be undone.",
+                "Primary CTA: matches the title verb. For example, **Delete**.",
+                "Secondary CTA: **Cancel**."
+              ]
+            }
           ]
         },
         {

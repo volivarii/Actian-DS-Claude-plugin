@@ -20,30 +20,38 @@
           "heading": "",
           "content": [
             {
-              "note": "Permanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options."
+              "prose": "Permanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options."
             }
           ]
         },
         {
           "heading": "When to use",
           "content": [
-            "To switch between product areas or catalogs.",
-            "To access global tools such as [search](search) or notifications.",
-            "To view account and profile options."
+            {
+              "bullets": [
+                "To switch between product areas or catalogs.",
+                "To access global tools such as [search](search) or notifications.",
+                "To view account and profile options."
+              ]
+            }
           ]
         },
         {
           "heading": "Style",
           "content": [
-            "Only the branded title and navigation context change between applications.",
-            "Utility icons (notifications, help, profile) should be unlabeled but include tooltips."
+            {
+              "bullets": [
+                "Only the branded title and navigation context change between applications.",
+                "Utility icons (notifications, help, profile) should be unlabeled but include tooltips."
+              ]
+            }
           ]
         },
         {
           "heading": "Behavior",
           "content": [
             {
-              "note": "Nav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on)."
+              "prose": "Nav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on)."
             }
           ]
         }

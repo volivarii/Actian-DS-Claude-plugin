@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-05-15T09:45:39.985Z",
+  "generatedAt": "2026-05-16T08:46:44.654Z",
   "categories": {
     "Breakpoint, grid & structure": {
       "components": [
@@ -17,17 +17,15 @@
       "components": [
         "calendar",
         "checkbox-with-label",
-        "dropdown-select-default",
         "input",
         "input-date",
         "radio-button",
-        "rich-text",
         "search",
         "search-dropdown-menu",
         "search-filters",
         "toglge"
       ],
-      "count": 11
+      "count": 9
     },
     "Navigation": {
       "components": [
@@ -386,6 +384,6 @@
     }
   },
   "uncategorized": {
-    "count": 1
+    "count": 3
   }
 }

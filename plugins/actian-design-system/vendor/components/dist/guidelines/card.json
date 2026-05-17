@@ -20,7 +20,7 @@
           "heading": "",
           "content": [
             {
-              "note": "Cards present information in compact, scannable formats and allow users to interact or navigate efficiently."
+              "prose": "Cards present information in compact, scannable formats and allow users to interact or navigate efficiently."
             }
           ]
         },
@@ -31,23 +31,35 @@
             {
               "subheading": "When to use",
               "content": [
-                "On dashboards and detail pages where items need to be viewed or opened quickly.",
-                "To display individual items such as datasets, visualizations, or catalog entries in a clickable format."
+                {
+                  "bullets": [
+                    "On dashboards and detail pages where items need to be viewed or opened quickly.",
+                    "To display individual items such as datasets, visualizations, or catalog entries in a clickable format."
+                  ]
+                }
               ]
             },
             {
               "subheading": "Style",
               "content": [
-                "Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.",
-                "Include metadata (type, owner, last modified) using short labels.",
-                "Use sentence case throughout."
+                {
+                  "bullets": [
+                    "Use the item name as the card title. Keep it concise and match the name used elsewhere in the platform.",
+                    "Include metadata (type, owner, last modified) using short labels.",
+                    "Use sentence case throughout."
+                  ]
+                }
               ]
             },
             {
               "subheading": "Behavior",
               "content": [
-                "The entire card is clickable and navigates to the item detail page.",
-                "Contextual actions (such as **Edit**, **Delete**) appear on hover or via an overflow menu."
+                {
+                  "bullets": [
+                    "The entire card is clickable and navigates to the item detail page.",
+                    "Contextual actions (such as **Edit**, **Delete**) appear on hover or via an overflow menu."
+                  ]
+                }
               ]
             }
           ]
@@ -59,18 +71,26 @@
             {
               "subheading": "When to use",
               "content": [
-                "When users need to choose between options by clicking anywhere on the card.",
-                "Use the large variant when additional context is needed (title, description, image, metadata).",
-                "Use the small variant when space is limited.",
-                "Cards can function as radio buttons (single select) or checkboxes (multi-select)."
+                {
+                  "bullets": [
+                    "When users need to choose between options by clicking anywhere on the card.",
+                    "Use the large variant when additional context is needed (title, description, image, metadata).",
+                    "Use the small variant when space is limited.",
+                    "Cards can function as radio buttons (single select) or checkboxes (multi-select)."
+                  ]
+                }
               ]
             },
             {
               "subheading": "Style",
               "content": [
-                "Title: short noun phrase describing the option. Sentence case.",
-                "Description: one sentence maximum. Plain language.",
-                "Do not include instructional text inside a selectable card."
+                {
+                  "bullets": [
+                    "Title: short noun phrase describing the option. Sentence case.",
+                    "Description: one sentence maximum. Plain language.",
+                    "Do not include instructional text inside a selectable card."
+                  ]
+                }
               ]
             }
           ]
@@ -82,15 +102,23 @@
             {
               "subheading": "When to use",
               "content": [
-                "To represent curated groupings or domains, such as data topics.",
-                "As gateways to collections in Explorer."
+                {
+                  "bullets": [
+                    "To represent curated groupings or domains, such as data topics.",
+                    "As gateways to collections in Explorer."
+                  ]
+                }
               ]
             },
             {
               "subheading": "Style",
               "content": [
-                "Use a noun or noun phrase as the topic title.",
-                "Keep the description to one sentence that explains the scope of the topic."
+                {
+                  "bullets": [
+                    "Use a noun or noun phrase as the topic title.",
+                    "Keep the description to one sentence that explains the scope of the topic."
+                  ]
+                }
               ]
             }
           ]

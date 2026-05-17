@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.11.0",
+  "knowledge_version": "0.14.0",
   "paths": {
     "foundations.md": {
       "path": "foundations/src/foundations.md",
@@ -157,12 +157,19 @@
       "generator": "scripts/foundations/derive-foundations.js",
       "description": "Hierarchical _index for foundations section 'Color Primitives'. Children listed inside; sibling files under foundations/dist/color-primitives/."
     },
-    "foundations.tokens": {
+    "foundations.tokens.index": {
       "path": "foundations/dist/tokens/_index.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/foundations/derive-foundations.js",
       "description": "Hierarchical _index for foundations section 'Tokens'. Children listed inside; sibling files under foundations/dist/tokens/."
+    },
+    "foundations.tokens.motion": {
+      "path": "foundations/dist/tokens/motion.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Motion patterns (durations, easings, named patterns) — consumed by per-category motion_refs resolution in the docs site and the plugin's component-brief skill."
     },
     "foundations.design-guidelines": {
       "path": "foundations/dist/design-guidelines/_index.json",
