@@ -42,7 +42,7 @@ Each registry entry contains: `key`, `importMethod` ("set" for `importComponentS
 
 ## Critical Rules
 
-These rules come from `figma-use` SKILL.md (current version, 2026-04-28).
+These rules come from `figma-use` SKILL.md (v2.2.3, 2026-05-15).
 Skipping any of them produces hard-to-debug failures. The rules in `## 2.
 Core Patterns` above (skillNames mandatory-load, never-reparent, return
 all node IDs) are also Critical Rules and remain in their current position
@@ -146,7 +146,7 @@ Loading them one at a time is wasteful and fragments the agent's context
 window. Load all at the start of the work; each schema costs ~1-2K tokens
 once.
 
-(Source: figma-use/SKILL.md v2.1.30)
+(Source: figma-use/SKILL.md v2.2.3)
 
 ### Working with Design Systems — start at `wwds.md`
 
