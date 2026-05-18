@@ -61,6 +61,63 @@
               ]
             }
           ]
+        },
+        {
+          "heading": "",
+          "source": "pattern:object-preview-panels",
+          "content": [
+            {
+              "prose": "Object preview panels display a summary of an asset's key attributes without requiring full navigation to the detail page. They appear as side panels or overlays and are used to support quick inspection workflows."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "source": "pattern:object-preview-panels",
+          "content": [
+            {
+              "bullets": [
+                "When a user hovers over or clicks an item in a list or search result and wants a quick view of its properties.",
+                "To reduce context switching during browsing or review tasks."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "source": "pattern:object-preview-panels",
+          "content": [
+            {
+              "bullets": [
+                "Panel title is the asset name. Use the exact name - do not rephrase.",
+                "Use short attribute labels (one to two words) followed by their values.",
+                "Group related attributes under a subheading where the panel is long.",
+                "Include a **View full details** link at the bottom to navigate to the full detail page."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Attribute label examples",
+          "source": "pattern:object-preview-panels",
+          "content": [
+            {
+              "do": "Owner",
+              "dont": "Assigned owner"
+            },
+            {
+              "do": "Last modified",
+              "dont": "Date of last modification"
+            },
+            {
+              "do": "Type",
+              "dont": "Object type"
+            },
+            {
+              "do": "Description",
+              "dont": "Asset description"
+            }
+          ]
         }
       ]
     },

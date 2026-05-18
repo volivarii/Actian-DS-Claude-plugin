@@ -211,9 +211,15 @@
       "description": "A prose-bearing domain (content / usage / design / behavior). When status is draft|approved it carries the verbatim `markdown` plus the structured `sections` projection. When status is inherited|not-started it carries only `status` (+ optional meta).",
       "properties": {
         "status": {
-          "enum": ["not-started", "draft", "approved", "inherited"],
-          "description": "Per-domain maturity. not-started = declared but empty; draft = authored, unreviewed; approved = team-signed-off; inherited = intentionally not component-specific, consumers resolve the body from the component's category-defaults.",
-          "examples": ["approved", "inherited"]
+          "enum": [
+            "not-started",
+            "draft",
+            "approved",
+            "inherited",
+            "synthesized"
+          ],
+          "description": "Per-domain maturity. not-started = declared but empty; draft = authored, unreviewed; approved = team-signed-off; inherited = intentionally not component-specific, consumers resolve the body from the component's category-defaults (no sections in this object); synthesized = no per-component authored content, body is entirely sourced from pattern fan-out (sections present, each marked with section.source).",
+          "examples": ["approved", "inherited", "synthesized"]
         },
         "owner": {
           "type": "string",
@@ -265,6 +271,16 @@
                 { "required": ["sections"] }
               ]
             }
+          }
+        },
+        {
+          "if": {
+            "properties": { "status": { "const": "synthesized" } },
+            "required": ["status"]
+          },
+          "then": {
+            "required": ["status", "sections"],
+            "not": { "required": ["markdown"] }
           }
         }
       ]
@@ -343,6 +359,12 @@
           "type": "string",
           "description": "Section heading text. Empty string for content that preceded the first heading.",
           "examples": ["When to use", "Style", "Do / Don't", "Terminology"]
+        },
+        "source": {
+          "type": "string",
+          "pattern": "^pattern:[a-z][a-z0-9-]*$",
+          "description": "Provenance marker. Absent on per-component authored sections. Present on sections fanned out from a pattern file in content/src/{patterns,product}/<slug>.md. Value is 'pattern:<pattern-slug>'.",
+          "examples": ["pattern:empty-and-system-states", "pattern:forms"]
         },
         "content": {
           "type": "array",

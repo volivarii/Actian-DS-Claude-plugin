@@ -290,7 +290,7 @@ Empty states appear when users have not yet created items, or when filters retur
 #### When to use
 
 - When users have not yet created or uploaded items.
-- When [filters](filters) result in no visible results.
+- When [filters](/components/form-input-selection/search-filters/) result in no visible results.
 - To encourage engagement with a clear next action.
 
 #### Style
@@ -517,7 +517,7 @@ For any interaction involving date ranges, filtering, or scheduling.
 - It represents a system state (for example, ON/OFF, enabled/disabled).
 - It is a binary setting that persists (for example, dark mode, notifications).
 
-**Use a [checkbox](checkbox) when:**
+**Use a [checkbox](/components/form-input-selection/checkbox-with-label/) when:**
 - The user is selecting one or more items.
 - The action does not take effect immediately (typically part of a form or group submission).
 - It is a yes/no decision that is reviewed later. For example, **Agree to terms and conditions** or **Subscribe to newsletter**.
@@ -704,7 +704,7 @@ Toasts confirm that a background action completed, or surface non-critical error
 - To confirm that a background action completed.
 - To surface non-critical errors or warnings that do not block the user.
 - Do not use toasts for actions that require user input.
-- For routine confirmations that need persistence, use an [alert / banner](alert-banner) instead.
+- For routine confirmations that need persistence, use an [alert / banner](/components/feedback/alert-banner/) instead.
 
 #### Style
 
@@ -735,7 +735,7 @@ Tooltips provide short contextual help on hover or focus. They are best for icon
 
 - Limit to a few words or one concise sentence.
 - Do not repeat the label of the element being described.
-- For multi-sentence explanations, use a [popover](popover) or inline help text instead.
+- For multi-sentence explanations, use a [popover](/components/overlays/popover/) or inline help text instead.
 
 ---
 
@@ -920,7 +920,7 @@ Wizards are guided multi-step flows that walk users through complex setup or con
 
 ### Navigation buttons
 
-Follow the [stepper button terminology guidelines](stepper). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**).
+Follow the [stepper button terminology guidelines](/components/navigation/stepper/stepper/). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**).
 
 ### Do / Don't
 

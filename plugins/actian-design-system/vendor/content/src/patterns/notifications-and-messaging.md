@@ -1,6 +1,8 @@
 ---
 title: "Notifications and messaging"
 nav_order: 34
+# Pattern fan-out — visible-feedback affordances. Jeff: edit/correct/extend.
+relatedComponents: [alert-banner, notification, maintenance-banner]
 ---
 # Notifications and messaging
 
@@ -32,7 +34,7 @@ Toasts confirm that a background action completed, or surface non-critical error
 - To confirm that a background action completed.
 - To surface non-critical errors or warnings that do not block the user.
 - Do not use toasts for actions that require user input.
-- For routine confirmations that need persistence, use an [alert / banner](alert-banner) instead.
+- For routine confirmations that need persistence, use an [alert / banner](/components/feedback/alert-banner/) instead.
 
 ### Style
 
@@ -63,4 +65,4 @@ Tooltips provide short contextual help on hover or focus. They are best for icon
 
 - Limit to a few words or one concise sentence.
 - Do not repeat the label of the element being described.
-- For multi-sentence explanations, use a [popover](popover) or inline help text instead.
+- For multi-sentence explanations, use a [popover](/components/overlays/popover/) or inline help text instead.
