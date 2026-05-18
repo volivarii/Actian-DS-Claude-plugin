@@ -392,6 +392,33 @@ function jsString(s) {
   return JSON.stringify(s);
 }
 
+// Emits a `figma.createAutoLayout(direction, { ...props })` call as one line.
+// Per figma-use SKILL.md v2.2.3 Section 5: createAutoLayout sets layoutMode +
+// HUG sizing on both axes by default, collapsing 5-7 lines of manual setup.
+// `propPairs` is an array of [key, jsCodeString] tuples — values are emitted
+// as JS expressions verbatim, so callers control quoting (e.g. fills carrying
+// hexLit() calls embed raw JS, not JSON).
+function emitAutoLayout(varName, direction, propPairs) {
+  var propsStr =
+    propPairs && propPairs.length
+      ? ", { " +
+        propPairs
+          .map(function (p) {
+            return p[0] + ": " + p[1];
+          })
+          .join(", ") +
+        " }"
+      : "";
+  return (
+    "var " +
+    varName +
+    " = figma.createAutoLayout(" +
+    jsString(direction) +
+    propsStr +
+    ");"
+  );
+}
+
 function emit(spec, parentIdPlaceholder) {
   var parentId = parentIdPlaceholder || "<contentSlotId>";
   var lines = [];
@@ -405,19 +432,21 @@ function emit(spec, parentIdPlaceholder) {
   lines.push(
     "// renderTable — deterministic emit (schema " + spec.schemaVersion + ")",
   );
+  // Promise.all the font loads — parallel network/disk transit beats sequential
+  // awaits at ~5 sites per table (Inter Regular/Medium/Semi Bold + optional Fira Code).
+  var fontLines = [
+    '{ family: "Inter", style: "Regular" }',
+    '{ family: "Inter", style: "Medium" }',
+    '{ family: "Inter", style: "Semi Bold" }',
+  ];
+  if (spec.rows.some(rowHasCellType(spec, "code"))) {
+    fontLines.push('{ family: "Fira Code", style: "Regular" }');
+  }
   lines.push(
-    'await figma.loadFontAsync({ family: "Inter", style: "Regular" });',
+    "await Promise.all([" +
+      fontLines.join(", ") +
+      "].map(function (fn) { return figma.loadFontAsync(fn); }));",
   );
-  lines.push(
-    'await figma.loadFontAsync({ family: "Inter", style: "Medium" });',
-  );
-  lines.push(
-    'await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });',
-  );
-  if (spec.rows.some(rowHasCellType(spec, "code")))
-    lines.push(
-      'await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });',
-    );
   lines.push("");
   lines.push("function hexToRgb(hex) {");
   lines.push('  var h = hex.replace("#", "");');
@@ -429,14 +458,14 @@ function emit(spec, parentIdPlaceholder) {
   lines.push('var parent = await figma.getNodeByIdAsync("' + parentId + '");');
   lines.push("");
 
-  // Outer table frame
-  lines.push("var table = figma.createFrame();");
-  lines.push('table.name = "Table (renderTable)";');
-  lines.push('table.layoutMode = "VERTICAL";');
-  lines.push("table.itemSpacing = 0;");
-  lines.push('table.primaryAxisSizingMode = "AUTO";');
-  lines.push('table.counterAxisSizingMode = "AUTO";');
-  lines.push("table.fills = [];");
+  // Outer table frame — createAutoLayout sets layoutMode + HUG on both axes by default
+  lines.push(
+    emitAutoLayout("table", "VERTICAL", [
+      ["name", jsString("Table (renderTable)")],
+      ["itemSpacing", "0"],
+      ["fills", "[]"],
+    ]),
+  );
   lines.push("parent.appendChild(table);");
   lines.push('table.layoutSizingHorizontal = "FILL";');
   lines.push("");
@@ -501,23 +530,21 @@ function rowHasCellType(spec, type) {
 
 function emitRow(lines, varSuffix, headerStrings, isHeader, alignments) {
   var v = "row_" + varSuffix;
-  lines.push("var " + v + " = figma.createFrame();");
-  lines.push(v + '.name = "Header Row";');
-  lines.push(v + '.layoutMode = "HORIZONTAL";');
-  lines.push(v + ".itemSpacing = 0;");
   lines.push(
-    v +
-      '.fills = [{ type: "SOLID", color: ' +
-      hexLit(STYLE.HEADER_FILL) +
-      " }];",
+    emitAutoLayout(v, "HORIZONTAL", [
+      ["name", jsString("Header Row")],
+      ["itemSpacing", "0"],
+      [
+        "fills",
+        '[{ type: "SOLID", color: ' + hexLit(STYLE.HEADER_FILL) + " }]",
+      ],
+      ["paddingTop", "8"],
+      ["paddingBottom", "8"],
+      ["paddingLeft", "12"],
+      ["paddingRight", "12"],
+      ["counterAxisAlignItems", jsString("CENTER")],
+    ]),
   );
-  lines.push(v + ".paddingTop = 8;");
-  lines.push(v + ".paddingBottom = 8;");
-  lines.push(v + ".paddingLeft = 12;");
-  lines.push(v + ".paddingRight = 12;");
-  lines.push(v + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(v + '.counterAxisSizingMode = "AUTO";');
-  lines.push(v + '.counterAxisAlignItems = "CENTER";');
   lines.push("table.appendChild(" + v + ");");
   lines.push(v + '.layoutSizingHorizontal = "FILL";');
 
@@ -552,19 +579,21 @@ function emitRow(lines, varSuffix, headerStrings, isHeader, alignments) {
 
 function emitDataRow(lines, varSuffix, row, alignments, stats) {
   var v = "row_" + varSuffix;
-  lines.push("var " + v + " = figma.createFrame();");
-  lines.push(v + '.name = "Data Row";');
-  lines.push(v + '.layoutMode = "HORIZONTAL";');
-  lines.push(v + ".itemSpacing = 0;");
-  lines.push(v + ".fills = [];");
-  lines.push(v + ".paddingTop = 8;");
-  lines.push(v + ".paddingBottom = 8;");
-  lines.push(v + ".paddingLeft = 12;");
-  lines.push(v + ".paddingRight = 12;");
-  // CRITICAL — the load-bearing fix from v1.70.4 audit. parent row HUGs its tallest child.
-  lines.push(v + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(v + '.counterAxisSizingMode = "AUTO";');
-  lines.push(v + '.counterAxisAlignItems = "CENTER";');
+  // CRITICAL — the load-bearing fix from v1.70.4 audit: parent row HUGs its tallest child.
+  // createAutoLayout's default AUTO/AUTO sizing preserves this; FILL on the horizontal
+  // axis is set AFTER appendChild per figma-use Critical Rule 12.
+  lines.push(
+    emitAutoLayout(v, "HORIZONTAL", [
+      ["name", jsString("Data Row")],
+      ["itemSpacing", "0"],
+      ["fills", "[]"],
+      ["paddingTop", "8"],
+      ["paddingBottom", "8"],
+      ["paddingLeft", "12"],
+      ["paddingRight", "12"],
+      ["counterAxisAlignItems", jsString("CENTER")],
+    ]),
+  );
   lines.push("table.appendChild(" + v + ");");
   lines.push(v + '.layoutSizingHorizontal = "FILL";');
 
@@ -602,12 +631,12 @@ function emitTextCell(lines, cellVar, parentVar, cell, alignment) {
   // Wrap text in a frame with FILL horizontal so column widths distribute evenly,
   // and HUG vertical so the row grows to fit multi-line content.
   var wrap = cellVar + "_w";
-  lines.push("var " + wrap + " = figma.createFrame();");
-  lines.push(wrap + '.name = "Cell — text";');
-  lines.push(wrap + ".fills = [];");
-  lines.push(wrap + '.layoutMode = "VERTICAL";');
-  lines.push(wrap + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(wrap + '.counterAxisSizingMode = "AUTO";');
+  lines.push(
+    emitAutoLayout(wrap, "VERTICAL", [
+      ["name", jsString("Cell — text")],
+      ["fills", "[]"],
+    ]),
+  );
   lines.push(parentVar + ".appendChild(" + wrap + ");");
   lines.push(wrap + '.layoutSizingHorizontal = "FILL";');
 
@@ -643,31 +672,29 @@ function emitTextCell(lines, cellVar, parentVar, cell, alignment) {
 function emitTokenPillCell(lines, cellVar, parentVar, cell) {
   // Wrap so the column width distributes; pill HUGs its content inside the wrap.
   var wrap = cellVar + "_w";
-  lines.push("var " + wrap + " = figma.createFrame();");
-  lines.push(wrap + '.name = "Cell — token-pill";');
-  lines.push(wrap + ".fills = [];");
-  lines.push(wrap + '.layoutMode = "HORIZONTAL";');
-  lines.push(wrap + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(wrap + '.counterAxisSizingMode = "AUTO";');
+  lines.push(
+    emitAutoLayout(wrap, "HORIZONTAL", [
+      ["name", jsString("Cell — token-pill")],
+      ["fills", "[]"],
+    ]),
+  );
   lines.push(parentVar + ".appendChild(" + wrap + ");");
   lines.push(wrap + '.layoutSizingHorizontal = "FILL";');
 
   var pillVar = cellVar + "_p";
-  lines.push("var " + pillVar + " = figma.createFrame();");
-  lines.push(pillVar + '.name = "Token: " + ' + jsString(cell.value) + ";");
-  lines.push(pillVar + '.layoutMode = "HORIZONTAL";');
-  lines.push(pillVar + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(pillVar + '.counterAxisSizingMode = "AUTO";');
-  lines.push(pillVar + ".paddingLeft = 5;");
-  lines.push(pillVar + ".paddingRight = 5;");
-  lines.push(pillVar + ".paddingTop = 2;");
-  lines.push(pillVar + ".paddingBottom = 2;");
-  lines.push(pillVar + ".cornerRadius = 3;");
   lines.push(
-    pillVar +
-      '.fills = [{ type: "SOLID", color: ' +
-      hexLit(STYLE.TOKEN_PILL_BG) +
-      " }];",
+    emitAutoLayout(pillVar, "HORIZONTAL", [
+      ["name", '"Token: " + ' + jsString(cell.value)],
+      ["paddingLeft", "5"],
+      ["paddingRight", "5"],
+      ["paddingTop", "2"],
+      ["paddingBottom", "2"],
+      ["cornerRadius", "3"],
+      [
+        "fills",
+        '[{ type: "SOLID", color: ' + hexLit(STYLE.TOKEN_PILL_BG) + " }]",
+      ],
+    ]),
   );
   lines.push("var " + cellVar + " = figma.createText();");
   lines.push(cellVar + '.fontName = { family: "Inter", style: "Medium" };');
@@ -685,22 +712,17 @@ function emitTokenPillCell(lines, cellVar, parentVar, cell) {
 
 function emitCodeCell(lines, cellVar, parentVar, cell) {
   var wrap = cellVar + "_w";
-  lines.push("var " + wrap + " = figma.createFrame();");
-  lines.push(wrap + '.name = "Cell — code";');
   lines.push(
-    wrap +
-      '.fills = [{ type: "SOLID", color: ' +
-      hexLit(STYLE.CODE_BG) +
-      " }];",
+    emitAutoLayout(wrap, "HORIZONTAL", [
+      ["name", jsString("Cell — code")],
+      ["fills", '[{ type: "SOLID", color: ' + hexLit(STYLE.CODE_BG) + " }]"],
+      ["paddingLeft", "6"],
+      ["paddingRight", "6"],
+      ["paddingTop", "2"],
+      ["paddingBottom", "2"],
+      ["cornerRadius", "3"],
+    ]),
   );
-  lines.push(wrap + '.layoutMode = "HORIZONTAL";');
-  lines.push(wrap + ".paddingLeft = 6;");
-  lines.push(wrap + ".paddingRight = 6;");
-  lines.push(wrap + ".paddingTop = 2;");
-  lines.push(wrap + ".paddingBottom = 2;");
-  lines.push(wrap + ".cornerRadius = 3;");
-  lines.push(wrap + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(wrap + '.counterAxisSizingMode = "AUTO";');
   lines.push(parentVar + ".appendChild(" + wrap + ");");
   lines.push(wrap + '.layoutSizingHorizontal = "FILL";');
 
@@ -727,27 +749,26 @@ function emitBadgeCell(lines, cellVar, parentVar, cell) {
   var label = cell.label || cell.variant.toUpperCase();
 
   var wrap = cellVar + "_w";
-  lines.push("var " + wrap + " = figma.createFrame();");
-  lines.push(wrap + '.name = "Cell — badge";');
-  lines.push(wrap + ".fills = [];");
-  lines.push(wrap + '.layoutMode = "HORIZONTAL";');
-  lines.push(wrap + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(wrap + '.counterAxisSizingMode = "AUTO";');
+  lines.push(
+    emitAutoLayout(wrap, "HORIZONTAL", [
+      ["name", jsString("Cell — badge")],
+      ["fills", "[]"],
+    ]),
+  );
   lines.push(parentVar + ".appendChild(" + wrap + ");");
   lines.push(wrap + '.layoutSizingHorizontal = "FILL";');
 
   var badgeVar = cellVar + "_b";
-  lines.push("var " + badgeVar + " = figma.createFrame();");
-  lines.push(badgeVar + '.layoutMode = "HORIZONTAL";');
-  lines.push(badgeVar + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(badgeVar + '.counterAxisSizingMode = "AUTO";');
-  lines.push(badgeVar + ".paddingLeft = 6;");
-  lines.push(badgeVar + ".paddingRight = 6;");
-  lines.push(badgeVar + ".paddingTop = 2;");
-  lines.push(badgeVar + ".paddingBottom = 2;");
-  lines.push(badgeVar + ".cornerRadius = 3;");
   lines.push(
-    badgeVar + '.fills = [{ type: "SOLID", color: ' + hexLit(bg) + " }];",
+    emitAutoLayout(badgeVar, "HORIZONTAL", [
+      ["name", '"Badge — " + ' + jsString(cell.variant)],
+      ["paddingLeft", "6"],
+      ["paddingRight", "6"],
+      ["paddingTop", "2"],
+      ["paddingBottom", "2"],
+      ["cornerRadius", "3"],
+      ["fills", '[{ type: "SOLID", color: ' + hexLit(bg) + " }]"],
+    ]),
   );
   lines.push("var " + cellVar + " = figma.createText();");
   lines.push(cellVar + '.fontName = { family: "Inter", style: "Semi Bold" };');
@@ -762,14 +783,14 @@ function emitBadgeCell(lines, cellVar, parentVar, cell) {
 
 function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
   var wrap = cellVar + "_w";
-  lines.push("var " + wrap + " = figma.createFrame();");
-  lines.push(wrap + '.name = "Cell — color-swatch";');
-  lines.push(wrap + ".fills = [];");
-  lines.push(wrap + '.layoutMode = "HORIZONTAL";');
-  lines.push(wrap + ".itemSpacing = 8;");
-  lines.push(wrap + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(wrap + '.counterAxisSizingMode = "AUTO";');
-  lines.push(wrap + '.counterAxisAlignItems = "CENTER";');
+  lines.push(
+    emitAutoLayout(wrap, "HORIZONTAL", [
+      ["name", jsString("Cell — color-swatch")],
+      ["fills", "[]"],
+      ["itemSpacing", "8"],
+      ["counterAxisAlignItems", jsString("CENTER")],
+    ]),
+  );
   lines.push(parentVar + ".appendChild(" + wrap + ");");
   lines.push(wrap + '.layoutSizingHorizontal = "FILL";');
 
@@ -794,35 +815,31 @@ function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
 
   // Text stack
   var stackVar = cellVar + "_stack";
-  lines.push("var " + stackVar + " = figma.createFrame();");
-  lines.push(stackVar + '.name = "Swatch stack";');
-  lines.push(stackVar + ".fills = [];");
-  lines.push(stackVar + '.layoutMode = "VERTICAL";');
-  lines.push(stackVar + ".itemSpacing = 2;");
-  lines.push(stackVar + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(stackVar + '.counterAxisSizingMode = "AUTO";');
+  lines.push(
+    emitAutoLayout(stackVar, "VERTICAL", [
+      ["name", jsString("Swatch stack")],
+      ["fills", "[]"],
+      ["itemSpacing", "2"],
+    ]),
+  );
   lines.push(wrap + ".appendChild(" + stackVar + ");");
 
   // Token pill (if tokenName)
   if (cell.tokenName) {
     var pillVar = cellVar + "_pill";
-    lines.push("var " + pillVar + " = figma.createFrame();");
     lines.push(
-      pillVar + '.name = "Token: " + ' + jsString(cell.tokenName) + ";",
-    );
-    lines.push(pillVar + '.layoutMode = "HORIZONTAL";');
-    lines.push(pillVar + '.primaryAxisSizingMode = "AUTO";');
-    lines.push(pillVar + '.counterAxisSizingMode = "AUTO";');
-    lines.push(pillVar + ".paddingLeft = 5;");
-    lines.push(pillVar + ".paddingRight = 5;");
-    lines.push(pillVar + ".paddingTop = 2;");
-    lines.push(pillVar + ".paddingBottom = 2;");
-    lines.push(pillVar + ".cornerRadius = 3;");
-    lines.push(
-      pillVar +
-        '.fills = [{ type: "SOLID", color: ' +
-        hexLit(STYLE.TOKEN_PILL_BG) +
-        " }];",
+      emitAutoLayout(pillVar, "HORIZONTAL", [
+        ["name", '"Token: " + ' + jsString(cell.tokenName)],
+        ["paddingLeft", "5"],
+        ["paddingRight", "5"],
+        ["paddingTop", "2"],
+        ["paddingBottom", "2"],
+        ["cornerRadius", "3"],
+        [
+          "fills",
+          '[{ type: "SOLID", color: ' + hexLit(STYLE.TOKEN_PILL_BG) + " }]",
+        ],
+      ]),
     );
     lines.push("var " + cellVar + "_tn = figma.createText();");
     lines.push(
@@ -862,12 +879,17 @@ function emitColorSwatchCell(lines, cellVar, parentVar, cell) {
 }
 
 function emitEmptyCell(lines, cellVar, parentVar) {
-  lines.push("var " + cellVar + " = figma.createFrame();");
-  lines.push(cellVar + '.name = "Cell — empty";');
-  lines.push(cellVar + ".fills = [];");
-  lines.push(cellVar + '.layoutMode = "HORIZONTAL";');
-  lines.push(cellVar + '.primaryAxisSizingMode = "AUTO";');
-  lines.push(cellVar + '.counterAxisSizingMode = "AUTO";');
+  // Pre-refactor (createFrame + HORIZONTAL + AUTO/AUTO) and post-refactor (createAutoLayout
+  // defaults) both produce a 0-height frame because there are no children. The cell stretches
+  // horizontally via FILL but contributes 0 to the row's height — the parent row's other
+  // cells govern row height. This is the intended spacer behavior; the validator's
+  // cell-count enforcement prevents an all-empty row from collapsing entirely.
+  lines.push(
+    emitAutoLayout(cellVar, "HORIZONTAL", [
+      ["name", jsString("Cell — empty")],
+      ["fills", "[]"],
+    ]),
+  );
   lines.push(parentVar + ".appendChild(" + cellVar + ");");
   lines.push(cellVar + '.layoutSizingHorizontal = "FILL";');
 }

@@ -68,10 +68,14 @@ describe("render-figma diagnostic names", function () {
       0,
       "renderer exited non-zero. stderr=" + result.stderr,
     );
+    // v1.87.0: name now lives inside createAutoLayout's props object (object-property form),
+    // not the prior `.name = "X";` assignment form. Runtime .name at Figma is unchanged —
+    // createAutoLayout({ name: ... }) sets the property identically — so the A8 grader
+    // (which reads via get_metadata) still works.
     assert.match(
       result.stdout,
-      /\.name\s*=\s*"Table \(renderTable\)";/,
-      'stdout must contain `.name = "Table (renderTable)";` exactly — the eval-lane A8 assertion depends on this literal.',
+      /name:\s*"Table \(renderTable\)"/,
+      'stdout must contain `name: "Table (renderTable)"` in the createAutoLayout props — the eval-lane A8 assertion reads the runtime value via get_metadata.',
     );
   });
 
@@ -99,10 +103,13 @@ describe("render-figma diagnostic names", function () {
     // emits; any change to the emit form (e.g. inlining the literal)
     // will trip this regex and force a coordinated update with the
     // grader procedure in evals/component-brief/grader.md.
+    // v1.87.0: name now lives inside createAutoLayout's props object — the concatenation
+    // expression `"Token: " + tokenName` is unchanged, but the leading `.name =` is now
+    // `name:`. Runtime .name at Figma is identical.
     assert.match(
       result.stdout,
-      /\.name\s*=\s*"Token: "\s*\+\s*"--zen-spacing-lg";/,
-      'stdout must contain a `.name = "Token: " + "--zen-…";` concatenation — the eval-lane A8 assertion reads the runtime concatenated value via get_metadata, but the test pins the source emit form.',
+      /name:\s*"Token: "\s*\+\s*"--zen-spacing-lg"/,
+      'stdout must contain a `name: "Token: " + "--zen-…"` concatenation in the createAutoLayout props — the eval-lane A8 assertion reads the runtime concatenated value via get_metadata.',
     );
   });
 
@@ -157,10 +164,11 @@ describe("render-figma diagnostic names", function () {
     };
     var result = runRendererWithSpec(spec, "0:1");
     assert.strictEqual(result.status, 0);
+    // v1.87.0: name now lives inside createAutoLayout's props object.
     assert.match(
       result.stdout,
-      /\.name\s*=\s*"Swatch stack";/,
-      'stdout must contain `.name = "Swatch stack";` — the vertical text-stack inside emitColorSwatchCell.',
+      /name:\s*"Swatch stack"/,
+      'stdout must contain `name: "Swatch stack"` in the createAutoLayout props — the vertical text-stack inside emitColorSwatchCell.',
     );
   });
 
@@ -184,10 +192,15 @@ describe("render-figma diagnostic names", function () {
     };
     var result = runRendererWithSpec(spec, "0:1");
     assert.strictEqual(result.status, 0);
+    // v1.87.0: name now lives inside the createAutoLayout(...) call for _pill.
+    // The matcher is loosened (no leading `_pill\.`) because the createAutoLayout
+    // call assigns the result to `var <cellVar>_pill`, so the `name:` line appears
+    // in the createAutoLayout props rather than as a separate `_pill.name = ...`
+    // statement. The "Token: ..." concatenation is unchanged.
     assert.match(
       result.stdout,
-      /_pill\.name\s*=\s*"Token: "\s*\+\s*"--zen-color-bg-default";/,
-      'stdout must contain `_pill.name = "Token: " + "--zen-color-bg-default";` — keeps the swatch pill consistent with emitTokenPillCell so A8\'s secondary "Token: --zen-…" pill count is uniform.',
+      /name:\s*"Token: "\s*\+\s*"--zen-color-bg-default"/,
+      'stdout must contain `name: "Token: " + "--zen-color-bg-default"` inside the swatch-cell pill\'s createAutoLayout props — keeps it consistent with emitTokenPillCell so A8\'s secondary pill count is uniform.',
     );
   });
 });

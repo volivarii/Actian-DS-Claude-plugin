@@ -8,7 +8,15 @@ Immediately after all `use_figma` calls complete, before presenting results to t
 
 ### 1. Screenshot each pushed element
 
-Call `get_screenshot` on every node ID that was created or modified during the push. Capture each screenshot individually so it can be compared against the HTML source.
+**Preferred (v1.87.0+): inline screenshot from the same `use_figma` call that created/modified the node.** Per `figma-use` SKILL.md v2.2.3 Section 5, `await node.screenshot()` returns the PNG inline in the tool response — eliminating the separate `get_screenshot` MCP round-trip per node. Confirmed via Spike 1 (2026-05-18): payload is delivered out-of-band as `output_image`, does not count against the 50K code budget or the structured return.
+
+```js
+// At the end of any push call that creates/mutates a card-sized node:
+await node.screenshot();  // agent sees image inline in the tool response
+return { createdNodeIds: [...], mutatedNodeIds: [...] };
+```
+
+**Fallback (still required for prior sessions or out-of-band review):** when there is no live `use_figma` context for the node (e.g., the push completed in a prior session), call `get_screenshot` per node:
 
 ```
 get_screenshot({ fileKey: "<figma-file-key>", nodeId: "<node-id>" })

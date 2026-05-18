@@ -98,9 +98,11 @@ The interpreter produces diagnostic frame names that no inlined
 construction would emit:
 
 - `"Table (renderTable)"` — exactly one per table render (top-level
-  table frame, see `scripts/renderers/figma-table/render-figma.js:434`).
-- `"Token: --zen-…"` — one per token-pill cell (see
-  `scripts/renderers/figma-table/render-figma.js:651`).
+  table frame, emitted by the `emit` function's outer `createAutoLayout`
+  call in `scripts/renderers/figma-table/render-figma.js`).
+- `"Token: --zen-…"` — one per token-pill cell (emitted by
+  `emitTokenPillCell` in
+  `scripts/renderers/figma-table/render-figma.js`).
 
 These literal strings are pinned by
 `tests/renderers/diagnostic-names.test.js`. Drift in the interpreter
