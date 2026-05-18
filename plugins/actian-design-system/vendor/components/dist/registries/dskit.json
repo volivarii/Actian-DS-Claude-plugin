@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-05-16T08:46:44.638Z",
+  "lastSynced": "2026-05-18T08:32:40.989Z",
   "componentCount": 322,
   "components": {
     "xs-grid": {
@@ -3100,7 +3100,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "kafka": {
@@ -3115,7 +3115,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "dataiku": {
@@ -3130,7 +3130,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "mysql": {
@@ -3145,7 +3145,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "thumbs-down": {
@@ -3160,7 +3160,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "use-with-care": {
@@ -3175,7 +3175,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "safyr-sap-bw": {
@@ -3190,7 +3190,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "zoom-to-fit": {
@@ -3205,7 +3205,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "orc": {
@@ -3220,7 +3220,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "postgresql": {
@@ -3235,7 +3235,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "splunk": {
@@ -3250,7 +3250,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "azure-purview": {
@@ -3265,7 +3265,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "adobe-analytics": {
@@ -3280,7 +3280,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "process": {
@@ -3295,7 +3295,10 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
+      "secondaryGroups": [
+        "Details"
+      ],
       "status": "in-progress"
     },
     "cognos-bi": {
@@ -3310,7 +3313,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "bigquery": {
@@ -3325,7 +3328,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "elasticsearch": {
@@ -3340,7 +3343,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "hbase": {
@@ -3355,7 +3358,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "zoom-out": {
@@ -3370,7 +3373,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "zoom-in": {
@@ -3385,7 +3388,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "csv-custom-item": {
@@ -3400,7 +3403,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "more": {
@@ -3415,7 +3418,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "db2": {
@@ -3430,7 +3433,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "aws-glue-etl": {
@@ -3445,7 +3448,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "help-circle": {
@@ -3460,7 +3463,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "jdbc": {
@@ -3475,7 +3478,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "export": {
@@ -3490,7 +3493,10 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
+      "secondaryGroups": [
+        "Common"
+      ],
       "status": "in-progress"
     },
     "atlas": {
@@ -3505,7 +3511,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "data-model": {
@@ -3520,7 +3526,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "avro": {
@@ -3535,7 +3541,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "process-csv": {
@@ -3550,7 +3556,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "snowflake": {
@@ -3565,7 +3571,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "powerbi": {
@@ -3580,7 +3586,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "cognos": {
@@ -3595,7 +3601,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "palantir": {
@@ -3610,7 +3616,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "opendatagouv": {
@@ -3625,7 +3631,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "sqlserver": {
@@ -3640,7 +3646,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "mapr": {
@@ -3655,7 +3661,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "spline": {
@@ -3670,7 +3676,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "microstrategy": {
@@ -3685,7 +3691,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "openapi": {
@@ -3700,7 +3706,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "safyr-ebs": {
@@ -3715,7 +3721,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "powerbireportserver": {
@@ -3730,7 +3736,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "impala": {
@@ -3745,7 +3751,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "mariadb": {
@@ -3760,7 +3766,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "thumbs-up": {
@@ -3775,7 +3781,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "adlsgen1": {
@@ -3790,7 +3796,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "paragraph-justify": {
@@ -3805,7 +3811,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Property type",
       "status": "in-progress"
     },
     "awsredshift": {
@@ -3820,7 +3826,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "qlik-sense": {
@@ -3835,7 +3841,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "mail": {
@@ -3850,7 +3856,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "user-single": {
@@ -3865,7 +3871,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "talend": {
@@ -3880,7 +3886,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "azure-cosmosdb": {
@@ -3895,7 +3901,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "greenplum": {
@@ -3910,7 +3916,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "soda": {
@@ -3925,7 +3931,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "safyr-peoplesoft": {
@@ -3940,7 +3946,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "simple-check": {
@@ -3955,7 +3961,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "xml": {
@@ -3970,7 +3976,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "safyr-salesforce": {
@@ -3985,7 +3991,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "looker": {
@@ -4000,7 +4006,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "mongodb": {
@@ -4015,7 +4021,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "erwin-data-modeler": {
@@ -4030,7 +4036,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "denodo": {
@@ -4045,7 +4051,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "safyr-dynamicsax": {
@@ -4060,7 +4066,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "azure-datafactory": {
@@ -4075,7 +4081,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "safyr-siebel": {
@@ -4090,7 +4096,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "tibco-datavirtualization": {
@@ -4105,7 +4111,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "oracle": {
@@ -4120,7 +4126,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "data-structured": {
@@ -4135,7 +4141,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "catalogs": {
@@ -4150,7 +4156,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "arrow-alt": {
@@ -4165,7 +4171,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "user-add": {
@@ -4180,7 +4186,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "award-04": {
@@ -4195,7 +4201,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "image": {
@@ -4210,7 +4216,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "list-bullets": {
@@ -4225,7 +4231,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "map": {
@@ -4240,7 +4246,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "teradata": {
@@ -4255,7 +4261,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "safyr-jdedwards": {
@@ -4270,7 +4276,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "content-checklist": {
@@ -4340,7 +4346,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "parquet": {
@@ -4355,7 +4361,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "azure": {
@@ -4370,7 +4376,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "ms-teams": {
@@ -4385,7 +4391,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "hive": {
@@ -4400,7 +4406,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "cosmosdb": {
@@ -4415,7 +4421,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "dbt": {
@@ -4430,7 +4436,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "amazons3": {
@@ -4445,7 +4451,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "dictionnary": {
@@ -4460,7 +4466,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "db2-database-1": {
@@ -4475,7 +4481,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "netezza": {
@@ -4490,7 +4496,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "json": {
@@ -4505,7 +4511,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "tableau": {
@@ -4520,7 +4526,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "databricks": {
@@ -4535,7 +4541,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "alteryx": {
@@ -4550,7 +4556,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "cloud-upload": {
@@ -4565,7 +4571,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "chevron-left": {
@@ -4580,7 +4586,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "notes-feedback": {
@@ -4609,7 +4615,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "history": {
@@ -4624,7 +4630,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "arrow-down": {
@@ -4639,7 +4645,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "suggestion": {
@@ -4654,7 +4660,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "info": {
@@ -4669,7 +4675,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "error-filled": {
@@ -4684,7 +4690,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Message",
       "status": "in-progress"
     },
     "cursor-hand": {
@@ -4699,7 +4705,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Cursor",
       "status": "in-progress"
     },
     "api-key": {
@@ -4714,7 +4720,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "open": {
@@ -4729,7 +4735,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "background-explore": {
@@ -4783,7 +4789,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "view": {
@@ -4798,7 +4804,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "output": {
@@ -4813,7 +4819,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "directory": {
@@ -4828,7 +4834,10 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ],
       "status": "in-progress"
     },
     "filter": {
@@ -4843,7 +4852,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "view-details": {
@@ -4858,7 +4867,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "event-time-type": {
@@ -4873,7 +4882,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "view-card": {
@@ -4888,7 +4897,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "dots": {
@@ -4903,7 +4912,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "database-check": {
@@ -4918,7 +4927,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "user-group": {
@@ -4933,7 +4942,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "chart-bar": {
@@ -4948,7 +4957,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "icon-query-queue": {
@@ -4963,7 +4972,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "exit": {
@@ -4978,7 +4987,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "boolean-type": {
@@ -4993,7 +5002,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "rotate-back": {
@@ -5008,7 +5017,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "glossary": {
@@ -5023,7 +5032,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "checkmark-outline": {
@@ -5038,7 +5047,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "layers-front-curator-indicator": {
@@ -5053,7 +5062,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "help-bubble": {
@@ -5068,7 +5077,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "database": {
@@ -5083,7 +5092,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "minimize": {
@@ -5098,7 +5107,10 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Cursor",
+      "secondaryGroups": [
+        "Common"
+      ],
       "status": "in-progress"
     },
     "filter-text": {
@@ -5113,7 +5125,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "pending": {
@@ -5128,7 +5140,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "favorite-filled": {
@@ -5143,7 +5155,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "drag": {
@@ -5158,7 +5170,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "menu": {
@@ -5173,7 +5185,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "brightness-contrast": {
@@ -5188,7 +5200,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "data-product-output-port": {
@@ -5203,7 +5215,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "schema": {
@@ -5218,7 +5230,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "settings": {
@@ -5233,7 +5245,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "task-list-multiple": {
@@ -5248,7 +5260,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Property type",
       "status": "in-progress"
     },
     "bin-type": {
@@ -5263,7 +5275,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "close": {
@@ -5278,7 +5290,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "trash": {
@@ -5293,7 +5305,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "target-type": {
@@ -5308,7 +5320,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "add-circle": {
@@ -5323,7 +5335,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "arrow": {
@@ -5338,7 +5350,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "user-lock": {
@@ -5353,7 +5365,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "warning-filled": {
@@ -5368,7 +5380,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Message",
       "status": "in-progress"
     },
     "calendar-2": {
@@ -5383,7 +5395,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "catalog-design": {
@@ -5398,7 +5410,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "misuse-outline": {
@@ -5413,7 +5425,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "shield-lock": {
@@ -5428,7 +5440,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "tools": {
@@ -5443,7 +5455,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "add": {
@@ -5458,7 +5470,10 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ],
       "status": "in-progress"
     },
     "analytics": {
@@ -5473,7 +5488,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "text-type": {
@@ -5488,7 +5503,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "edit": {
@@ -5503,7 +5518,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "link-type": {
@@ -5518,7 +5533,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Property type",
       "status": "in-progress"
     },
     "relation": {
@@ -5533,7 +5548,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "lineage": {
@@ -5548,7 +5563,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "local-filesystem": {
@@ -5563,7 +5578,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "back": {
@@ -5578,7 +5593,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "task-list": {
@@ -5593,7 +5608,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Property type",
       "status": "in-progress"
     },
     "tags-add": {
@@ -5608,7 +5623,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "book-bookmark": {
@@ -5623,7 +5638,10 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Details"
+      ],
       "status": "in-progress"
     },
     "download": {
@@ -5638,7 +5656,10 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ],
       "status": "in-progress"
     },
     "user-info": {
@@ -5653,7 +5674,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "applications": {
@@ -5668,7 +5689,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "alert": {
@@ -5683,7 +5704,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "pii": {
@@ -5698,7 +5719,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "pin": {
@@ -5713,7 +5734,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "discussion": {
@@ -5728,7 +5749,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "home": {
@@ -5743,7 +5764,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "book-edit": {
@@ -5758,7 +5779,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "layers-front": {
@@ -5773,7 +5794,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "help-laptop": {
@@ -5788,7 +5809,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "chevron-sort": {
@@ -5803,7 +5824,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "null-sign": {
@@ -5818,7 +5839,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "favorite": {
@@ -5833,7 +5854,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "chevron-up": {
@@ -5848,7 +5869,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "dashboard": {
@@ -5863,7 +5884,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "move": {
@@ -5878,7 +5899,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "dataset": {
@@ -5893,7 +5914,10 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
+      "secondaryGroups": [
+        "Details"
+      ],
       "status": "in-progress"
     },
     "chevron-sort-down": {
@@ -5908,7 +5932,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "warning-alt": {
@@ -5923,7 +5947,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "task-list-settings": {
@@ -5938,7 +5962,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "float-type": {
@@ -5953,7 +5977,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "maintenance": {
@@ -5968,7 +5992,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "chevron-sort-up": {
@@ -5983,7 +6007,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "exploration": {
@@ -5998,7 +6022,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Details",
       "status": "in-progress"
     },
     "geo-point-type": {
@@ -6013,7 +6037,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "integer-type": {
@@ -6028,7 +6052,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "text-file": {
@@ -6043,7 +6067,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Property type",
       "status": "in-progress"
     },
     "scanner": {
@@ -6058,7 +6082,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "data-file-question": {
@@ -6073,7 +6097,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "security-services": {
@@ -6088,7 +6112,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "data-access-request": {
@@ -6103,7 +6127,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "info-filled": {
@@ -6118,7 +6142,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Message",
       "status": "in-progress"
     },
     "chart-pie": {
@@ -6133,7 +6157,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "stop-outline": {
@@ -6148,7 +6172,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "relation-incoming": {
@@ -6163,7 +6187,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "relation-outgoing": {
@@ -6178,7 +6202,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "maximize": {
@@ -6193,7 +6217,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "unknown-type": {
@@ -6208,7 +6232,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Field type",
       "status": "in-progress"
     },
     "lifecycle-policy": {
@@ -6223,7 +6247,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "circle-dash": {
@@ -6238,7 +6262,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "graph-merge": {
@@ -6253,7 +6277,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "list-numbers": {
@@ -6268,7 +6292,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Property type",
       "status": "in-progress"
     },
     "rocket-1": {
@@ -6283,7 +6307,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Navigation",
       "status": "in-progress"
     },
     "stars": {
@@ -6298,7 +6322,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "view-table": {
@@ -6313,7 +6337,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "asleep": {
@@ -6328,7 +6352,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "undo": {
@@ -6343,7 +6367,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Common",
       "status": "in-progress"
     },
     "cursor-arrow": {
@@ -6358,7 +6382,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Cursor",
       "status": "in-progress"
     },
     "connected": {
@@ -6373,7 +6397,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "hdfs": {
@@ -6388,7 +6412,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "informatica": {
@@ -6403,7 +6427,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "sybaseiq": {
@@ -6418,7 +6442,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "azure-synapse": {
@@ -6433,7 +6457,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "gcp": {
@@ -6448,7 +6472,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "sparkdb": {
@@ -6463,7 +6487,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "gcpcloudstorage": {
@@ -6478,7 +6502,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "sas-database": {
@@ -6493,7 +6517,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "zoom-reset": {
@@ -6508,7 +6532,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "influxdb": {
@@ -6523,7 +6547,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "cassandra": {
@@ -6538,7 +6562,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "generic-jdbc": {
@@ -6553,7 +6577,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "alert-circle": {
@@ -6568,7 +6592,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Status",
       "status": "in-progress"
     },
     "thoughtspot": {
@@ -6583,7 +6607,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "safyr-dynamics365": {
@@ -6598,7 +6622,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "disconnected": {
@@ -6613,7 +6637,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Graph",
       "status": "in-progress"
     },
     "google-cloud": {
@@ -6628,7 +6652,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "api": {
@@ -6643,7 +6667,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "csv": {
@@ -6658,7 +6682,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "success-filled": {
@@ -6673,7 +6697,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Message",
       "status": "in-progress"
     },
     "ckan": {
@@ -6688,7 +6712,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Connector",
       "status": "in-progress"
     },
     "expand": {
@@ -6703,7 +6727,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Actual icons",
+      "group": "Cursor",
       "status": "in-progress"
     }
   }

@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.14.0",
+  "knowledge_version": "0.15.1",
   "paths": {
     "foundations.md": {
       "path": "foundations/src/foundations.md",
@@ -297,12 +297,33 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'confirmation' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.drawer-side-panel": {
+      "path": "components/dist/guidelines/drawer-side-panel.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'drawer-side-panel' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.dropdown-select": {
       "path": "components/dist/guidelines/dropdown-select.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'dropdown-select' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.empty-state": {
+      "path": "components/dist/guidelines/empty-state.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'empty-state' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.error-state": {
+      "path": "components/dist/guidelines/error-state.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'error-state' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.filters": {
       "path": "components/dist/guidelines/filters.json",
@@ -325,12 +346,54 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'inline-toast' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.input-date": {
+      "path": "components/dist/guidelines/input-date.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'input-date' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.link": {
       "path": "components/dist/guidelines/link.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'link' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.loader": {
+      "path": "components/dist/guidelines/loader.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'loader' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.loader-with-logo": {
+      "path": "components/dist/guidelines/loader-with-logo.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'loader-with-logo' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.loading-skeleton": {
+      "path": "components/dist/guidelines/loading-skeleton.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'loading-skeleton' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.maintenance-banner": {
+      "path": "components/dist/guidelines/maintenance-banner.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'maintenance-banner' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.maintenance-state": {
+      "path": "components/dist/guidelines/maintenance-state.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'maintenance-state' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.modal": {
       "path": "components/dist/guidelines/modal.json",
@@ -353,6 +416,13 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'popover' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.radio-button": {
+      "path": "components/dist/guidelines/radio-button.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'radio-button' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.search": {
       "path": "components/dist/guidelines/search.json",
       "type": "json",
@@ -367,12 +437,26 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'side-nav' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.spinner": {
+      "path": "components/dist/guidelines/spinner.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'spinner' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.stepper": {
       "path": "components/dist/guidelines/stepper.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'stepper' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.stepper-buttons": {
+      "path": "components/dist/guidelines/stepper-buttons.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'stepper-buttons' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.sticky-footer": {
       "path": "components/dist/guidelines/sticky-footer.json",

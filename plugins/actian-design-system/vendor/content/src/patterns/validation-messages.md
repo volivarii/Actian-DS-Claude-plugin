@@ -1,6 +1,10 @@
 ---
 title: "Validation messages"
 nav_order: 47
+# Pattern fan-out — form controls that carry inline validation. Mirrors most of
+# forms.md fan-out but narrower; ordering on the page is forms-then-validation
+# (forms appears first in content-index.md). Jeff: edit/correct/extend.
+relatedComponents: [input, input-date, checkbox-with-label, radio-button, toglge]
 ---
 # Validation messages
 

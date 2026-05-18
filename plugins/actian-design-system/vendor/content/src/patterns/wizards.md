@@ -1,6 +1,9 @@
 ---
 title: "Wizards"
 nav_order: 49
+# Pattern fan-out — Navigation-category multi-step affordances.
+# Jeff: edit/correct/extend.
+relatedComponents: [stepper, stepper-buttons]
 ---
 # Wizards
 
@@ -35,7 +38,7 @@ Wizards are guided multi-step flows that walk users through complex setup or con
 
 ## Navigation buttons
 
-Follow the [stepper button terminology guidelines](stepper). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**).
+Follow the [stepper button terminology guidelines](/components/navigation/stepper/stepper/). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**).
 
 ## Do / Don't
 

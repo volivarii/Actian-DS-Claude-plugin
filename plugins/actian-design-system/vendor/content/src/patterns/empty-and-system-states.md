@@ -1,6 +1,10 @@
 ---
 title: "Empty and system states"
 nav_order: 21
+# Pattern fan-out (see content/src/AUTHORING.md). Each listed slug receives
+# this pattern's sections on its component page + plugin /component-brief.
+# Jeff: review/edit/correct after CI lands the first fan-out run.
+relatedComponents: [empty-state, error-state, maintenance-state]
 ---
 # Empty and system states
 
@@ -15,7 +19,7 @@ Empty states appear when users have not yet created items, or when filters retur
 ### When to use
 
 - When users have not yet created or uploaded items.
-- When [filters](filters) result in no visible results.
+- When [filters](/components/form-input-selection/search-filters/) result in no visible results.
 - To encourage engagement with a clear next action.
 
 ### Style
