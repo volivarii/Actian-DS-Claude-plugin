@@ -695,10 +695,28 @@ return { createdNodeIds: [inst.id], mutatedNodeIds: [] };
 
 For theme comparison frames, set `variableMode` after creating the frame:
 
+> **Rule 8 — Font preload required before `setExplicitVariableModeForCollection`** when the
+> frame's subtree contains text-bearing nodes with unloaded fonts. The mode switch walks the
+> subtree to re-resolve bound variables; if any text node still has unloaded fonts, the call
+> throws. Use the canonical Set-based dedup from `figma-push-patterns.md` Rule 8 before the
+> `setExplicitVariableModeForCollection` call below.
+
 ```js
 const frame = figma.createFrame();
 frame.name = "Theme: Actian";
 // ... add instance as child ...
+
+// Rule 8: preload fonts in the instance subtree before the mode switch.
+const _seenTC = new Set();
+const _fontsTC = [];
+frame.findAll(n => n.type === "TEXT").forEach(t => {
+  const fn = t.fontName;
+  if (!fn || typeof fn !== 'object') return;
+  const key = fn.family + '|' + fn.style;
+  if (_seenTC.has(key)) return;
+  _seenTC.add(key); _fontsTC.push(fn);
+});
+await Promise.all(_fontsTC.map(fn => figma.loadFontAsync(fn)));
 
 // Set variable mode for this frame's scope
 const collections = await figma.variables.getLocalVariableCollectionsAsync();

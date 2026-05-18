@@ -100,8 +100,26 @@ return { setId: set.id };
 
 ## 5. Variable Scoping (optional)
 
+> **Rule 8 — Font preload required before `setExplicitVariableModeForCollection`** when the
+> component set's subtree has text-bearing nodes with unloaded fonts. The mode switch walks
+> the subtree to re-resolve bound variables; an unloaded font in any text descendant throws.
+> See `references/figma/figma-push-patterns.md` Rule 8 for the canonical Set-based preload.
+
 ```js
 const set = await figma.getNodeByIdAsync("<setId>");
+
+// Rule 8: preload fonts in the component set's subtree before the mode switch.
+const _seenVS = new Set();
+const _fontsVS = [];
+set.findAll(n => n.type === "TEXT").forEach(t => {
+  const fn = t.fontName;
+  if (!fn || typeof fn !== 'object') return;
+  const key = fn.family + '|' + fn.style;
+  if (_seenVS.has(key)) return;
+  _seenVS.add(key); _fontsVS.push(fn);
+});
+await Promise.all(_fontsVS.map(fn => figma.loadFontAsync(fn)));
+
 const collections = await figma.variables.getLocalVariableCollectionsAsync();
 const colorCol = collections.find(c => c.name === "Color");
 if (colorCol) {

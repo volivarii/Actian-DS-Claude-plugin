@@ -84,7 +84,11 @@ node.fills = [newPaint, ...node.fills.slice(1)];
 
 ## See also
 
-- `figma-use/SKILL.md` Critical Rules 1-17 — the canonical rule set
+- `figma-use/SKILL.md` Critical Rules 1-17 in v2.2.3 — the canonical rule
+  set. (When citing individual rules elsewhere in the docs, follow the
+  topic-leading convention from `references/figma/figma-push-patterns.md`
+  `## Critical Rules` — quote the upstream topic, bracket the rule number
+  with the version, so renumbering doesn't silently break citations.)
 - `figma-use/references/gotchas.md` — full pitfall catalogue with WRONG/
   CORRECT examples
 - `references/figma/figma-push-patterns.md` `## Critical Rules` section
