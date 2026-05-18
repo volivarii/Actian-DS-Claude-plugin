@@ -30,18 +30,26 @@ function transcribeFigmaDescription(ctx) {
 }
 
 // Reads the `content` domain of the merged per-component guideline doc
-// (components/dist/guidelines/<slug>.json). Only `approved`/`draft` content
-// carries a body; `inherited`/`not-started` (or an absent domain) means there
-// is nothing to transcribe — the card falls through to Phase B.
+// (components/dist/guidelines/<slug>.json). Three content-bearing statuses:
+//   - approved: per-component authored, signed-off
+//   - draft:    per-component authored, unreviewed
+//   - synthesized: no per-component authored content; sections sourced entirely
+//                  from pattern fan-out (each section carries section.source =
+//                  "pattern:<slug>"). See knowledge v0.15.0 +
+//                  scripts/content/fanout-patterns.js.
+// inherited / not-started (or an absent domain) means there is nothing to
+// transcribe — the card falls through to Phase B.
 // NOTE: `source: "figma"` is a legacy value name. It marks "transcribed from
 // curated source material" (vs "generated"); the source is now the knowledge
 // repo's authored markdown, not the Figma file. The schema's _source enum
 // (validate-schema.js BRIEF_VALID_SOURCES) keeps the historical value.
+var CONTENT_BEARING_STATUSES = new Set(["approved", "draft", "synthesized"]);
+
 function transcribeContentGuidelines(guidelinesJson) {
   if (!guidelinesJson || !guidelinesJson.domains) return null;
   var content = guidelinesJson.domains.content;
   if (!content) return null;
-  if (content.status !== "approved" && content.status !== "draft") return null;
+  if (!CONTENT_BEARING_STATUSES.has(content.status)) return null;
   var sections = content.sections;
   if (!Array.isArray(sections) || sections.length === 0) return null;
   return { source: "figma", content: { sections: sections } };
@@ -123,18 +131,20 @@ var CATEGORY_DEFAULTS_PHASE_B_CARDS = {
 
 // A guideline is a "stub" — no curated content to transcribe — when there is
 // no doc at all (ctx.guidelinesJson null, a component with no entry in
-// components/dist/guidelines/) or the doc's `content` domain is not
-// approved/draft (inherited / not-started). Replaces the `_stub` boolean from
-// the retired Figma-scraped guideline layer. Used by the component-brief skill
-// to set `meta._stubGuideline` (drives the "Guidance pending curation" footer
-// cue). Note: resolveSection's all-cards-to-Phase-B short-circuit fires only
-// for the *present-but-stub* case — see the guard there for why a fully absent
-// doc is handled per-card instead.
+// components/dist/guidelines/) or the doc's `content` domain is not in one
+// of the content-bearing statuses (approved/draft/synthesized — synthesized
+// added in knowledge v0.15.0 for pattern-fan-out-only components). Replaces
+// the `_stub` boolean from the retired Figma-scraped guideline layer. Used
+// by the component-brief skill to set `meta._stubGuideline` (drives the
+// "Guidance pending curation" footer cue). Note: resolveSection's
+// all-cards-to-Phase-B short-circuit fires only for the *present-but-stub*
+// case — see the guard there for why a fully absent doc is handled per-card
+// instead.
 function isStubGuideline(guidelinesJson) {
   if (!guidelinesJson || !guidelinesJson.domains) return true;
   var content = guidelinesJson.domains.content;
   if (!content) return true;
-  return content.status !== "approved" && content.status !== "draft";
+  return !CONTENT_BEARING_STATUSES.has(content.status);
 }
 
 // ---------------------------------------------------------------------------
@@ -195,8 +205,9 @@ function resolveSection(cardKey, ctx, recipe) {
   } else if (cardKey === "card_content") {
     primary = transcribeContentGuidelines(ctx && ctx.guidelinesJson);
     fallbackReason =
-      "content domain not approved/draft in the component guideline doc — " +
-      "author components/src/<slug>/content.md in the knowledge repo";
+      "content domain has no content-bearing status in the component guideline doc — " +
+      "author components/src/<slug>/content.md in the knowledge repo " +
+      "(or add the slug to a pattern's relatedComponents frontmatter)";
   } else if (cardKey === "card_motion") {
     var motionResult = transcribeMotionPattern(
       ctx && ctx.guidelinesJson,
