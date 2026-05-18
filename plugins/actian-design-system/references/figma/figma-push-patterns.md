@@ -38,7 +38,7 @@ Each registry entry contains: `key`, `importMethod` ("set" for `importComponentS
 > Every push pattern MUST end with `return { createdNodeIds: [...], mutatedNodeIds: [...] };`.
 > The orchestrating skill uses these IDs to chain subsequent `use_figma` calls.
 > Single-ID returns like `{ frameId }` or `{ instanceId }` are a Rule 15 violation.
-> (Source: figma-use/SKILL.md:38)
+> (Source: figma-use/SKILL.md "Return IDs (CRITICAL)" [Rule 15 in v2.2.3])
 
 ## Critical Rules
 
@@ -48,13 +48,22 @@ Core Patterns` above (skillNames mandatory-load, never-reparent, return
 all node IDs) are also Critical Rules and remain in their current position
 for prominence; the rules below are the rest of the canonical set.
 
-> **Rule 3a — `getPluginData`/`setPluginData` are NOT supported in `use_figma`. Use `getSharedPluginData`/`setSharedPluginData` instead.**
+> **Citation convention (v1.87.1+):** rule citations lead with the upstream
+> *topic* (in quotes), with the version-pinned rule number in brackets — e.g.
+> `(Source: figma-use/SKILL.md "Font preload before appendChild" [Rule 8 in v2.2.3])`.
+> This pattern survives upstream renumbering: the topic remains stable across
+> Figma's rule reshuffles, and the bracketed `[Rule N in vX.Y.Z]` records
+> exactly where the rule lived at vendor-refresh time. When the next vendor
+> refresh lands, refresh the bracketed `[Rule N in vX.Y.Z]` tag and verify the
+> topic still matches; the rest of the citation stays untouched.
+
+> **`getSharedPluginData`/`setSharedPluginData` (not `getPluginData`/`setPluginData`) — the unprefixed variants throw inside `use_figma`.**
 > The shared variant takes a namespace + key and works inside `use_figma`.
 > If you need to persist plugin metadata on a node, always use the shared
 > variant.
-> (Source: figma-use/SKILL.md Rule 3a)
+> (Source: figma-use/SKILL.md "Shared plugin data" [Rule 3a in v2.2.3])
 
-> **Rule 8 — Font preload is mandatory before any operation on text-bearing subtrees.**
+> **Font preload before any operation on text-bearing subtrees.**
 > Per the v2.1.26 expansion (2026-04-27): you MUST `loadFontAsync` before
 > `appendChild`, `insertChild`, `setBoundVariable`, `setExplicitVariableModeForCollection`,
 > `setValueForMode`, AND `findAll` callbacks if any node in the touched
@@ -82,40 +91,40 @@ for prominence; the rules below are the rest of the canonical set.
 > The `typeof fn === 'object'` guard excludes `figma.mixed` (a Symbol) which
 > is truthy but produces `undefined` from `JSON.stringify`. Without the
 > guard, `loadFontAsync(figma.mixed)` throws.
-> (Source: figma-use/SKILL.md Rule 8 — expanded v2.1.26)
+> (Source: figma-use/SKILL.md "Canonical text-edit recipe" [Rule 8 in v2.2.3, expanded v2.1.26])
 
-> **Rule 13 — Position new top-level nodes away from (0,0).**
+> **Position new top-level nodes away from (0,0).**
 > Top-level nodes (children of `figma.currentPage`) must be positioned at
 > non-(0,0) coordinates — Figma reserves the origin region for collapsed
 > overlay state. Auto-layout-nested nodes (children of frames with
 > `layoutMode = "HORIZONTAL"` or `"VERTICAL"`) are exempt; only page-level
 > nodes need explicit positioning. Pattern 0 (wrapper frame) follows this
 > already by setting `wrapper.x = currentPage.maxY + 200`.
-> (Source: figma-use/SKILL.md Rule 13)
+> (Source: figma-use/SKILL.md "Position new top-level nodes away from (0,0)" [Rule 13 in v2.2.3])
 
-> **Rule 14 — Atomic on error: STOP, do not immediately retry.**
+> **Atomic on error: STOP, do not immediately retry.**
 > A failed `use_figma` script makes ZERO changes — Figma rolls back the
 > entire script. STOP, diagnose the error, then re-issue with the fix.
 > Retrying the same script on transient-looking errors is the wrong move:
 > if the script failed once it will fail again, and silent retries waste
 > tokens. Atomic-on-error is what makes diagnose-then-fix safe.
-> (Source: figma-use/SKILL.md Rule 14)
+> (Source: figma-use/SKILL.md "On `use_figma` error, STOP" [Rule 14 in v2.2.3])
 
-> **Rule 16 — Always set `variable.scopes` explicitly.**
+> **Always set `variable.scopes` explicitly.**
 > The default `ALL_SCOPES` "pollutes every property picker — almost never
 > what you want." Set scopes per the variable's intended use:
 > - Color tokens: `["FRAME_FILL", "SHAPE_FILL", "TEXT_FILL", "STROKE_COLOR"]`
 > - Spacing tokens: `["GAP", "WIDTH_HEIGHT"]`
 > - Typography tokens: see `figma-use/references/variable-patterns.md` for
 >   the full enumeration.
-> (Source: figma-use/SKILL.md Rule 16)
+> (Source: figma-use/SKILL.md "Always set `variable.scopes` explicitly" [Rule 16 in v2.2.3])
 
-> **Rule 17 — `await` every Promise.**
+> **`await` every Promise.**
 > Unawaited `loadFontAsync`, `setCurrentPageAsync`, `importComponentByKeyAsync`,
 > `setFillStyleIdAsync`, etc. cause silent failures. Use `await` even when
 > you don't read the return value. Promise.all is the right shape when
 > loading many things in parallel; never fire-and-forget.
-> (Source: figma-use/SKILL.md Rule 17)
+> (Source: figma-use/SKILL.md "`await` every Promise" [Rule 17 in v2.2.3])
 
 ### Editor Mode
 
@@ -137,7 +146,7 @@ or `figma.com/sites/` URL, hand off to the appropriate read-only flow
 (`get_figjam`, `get_design_context` with mode warning) — do not attempt
 `use_figma` writes.
 
-(Source: figma-use/SKILL.md Section 4)
+(Source: figma-use/SKILL.md "Editor Mode" [Section 4 in v2.2.3])
 
 ### ToolSearch batch-load
 
