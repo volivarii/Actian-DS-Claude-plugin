@@ -19,6 +19,15 @@ function guidelineDoc(contentStatus, sections) {
     content.owner = "content-team";
     content.markdown = "# Stub markdown";
     content.sections = sections || [];
+  } else if (contentStatus === "synthesized") {
+    // Pattern fan-out (knowledge v0.15.0+) emits sections with
+    // section.source markers, no markdown, no owner.
+    content.sections = (sections || []).map(function (s) {
+      var out = { heading: s.heading, content: s.content };
+      out.source = s.source || "pattern:test";
+      if (s.subsections) out.subsections = s.subsections;
+      return out;
+    });
   }
   return {
     _schema_version: 1,
@@ -78,7 +87,7 @@ test("transcribeContentGuidelines — returns sections + figma source when conte
   assert.equal(result.content.sections.length, 2);
 });
 
-test("transcribeContentGuidelines — returns null when content domain is not approved/draft", function () {
+test("transcribeContentGuidelines — returns null when content domain has no content-bearing status", function () {
   // The "empty" fixture is a present doc whose content domain is not-started.
   var guidelines = loadFixture("button-component-guidelines-empty.json");
   assert.equal(sourcing.transcribeContentGuidelines(guidelines), null);
@@ -87,6 +96,40 @@ test("transcribeContentGuidelines — returns null when content domain is not ap
     sourcing.transcribeContentGuidelines(guidelineDoc("inherited")),
     null,
   );
+});
+
+test("transcribeContentGuidelines — returns sections when status is 'synthesized' (knowledge v0.15.0+ pattern fan-out)", function () {
+  // Pattern fan-out into a component with no per-component content.md
+  // produces a guideline doc with status=synthesized + sections carrying
+  // section.source markers. Brief-sourcing must surface those sections
+  // alongside approved/draft.
+  var guidelines = guidelineDoc("synthesized", [
+    {
+      heading: "Empty state",
+      source: "pattern:empty-and-system-states",
+      content: [{ prose: "Empty states explain what to do next." }],
+    },
+  ]);
+  var result = sourcing.transcribeContentGuidelines(guidelines);
+  assert.equal(result.source, "figma");
+  assert.equal(result.content.sections.length, 1);
+  assert.equal(
+    result.content.sections[0].source,
+    "pattern:empty-and-system-states",
+  );
+});
+
+test("isStubGuideline — treats 'synthesized' status as NON-stub", function () {
+  // Pattern fan-out content should drive the full transcribe flow, not the
+  // "Guidance pending curation" footer.
+  var doc = guidelineDoc("synthesized", [
+    {
+      heading: "X",
+      source: "pattern:y",
+      content: [{ prose: "z" }],
+    },
+  ]);
+  assert.equal(sourcing.isStubGuideline(doc), false);
 });
 
 test("transcribeContentGuidelines — returns null when domains / sections missing or empty", function () {
