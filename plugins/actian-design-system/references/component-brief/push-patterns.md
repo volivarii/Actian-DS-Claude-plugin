@@ -243,8 +243,12 @@ Section 1 is ONE card with four nested sub-frames inside, not three separate car
 // Inputs from data: briefData.card_component, .card_anatomy, .card_tokens
 // Use cardTitle "Anatomy, variation, tokens & specs" (default in renderer; recipe-overridable).
 
-await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-await figma.loadFontAsync({ family: "Inter", style: "Semibold" });
+// v1.87.0: Promise.all parallelizes the font fetches — one round-trip vs N sequential.
+// "Semi Bold" with a space — Inter's registered style name (figma-use gotchas).
+await Promise.all([
+  { family: "Inter", style: "Regular" },
+  { family: "Inter", style: "Semi Bold" },
+].map(fn => figma.loadFontAsync(fn)));
 
 const slot = await figma.getNodeByIdAsync("<contentSlotId>");
 
@@ -259,7 +263,7 @@ async function appendSubFrame(label, sourceCard) {
 
   // Heading row — label + optional Draft badge
   const heading = figma.createText();
-  heading.fontName = { family: "Inter", style: "Semibold" };
+  heading.fontName = { family: "Inter", style: "Semi Bold" };
   heading.fontSize = 16;
   heading.characters = label;
 
@@ -278,7 +282,7 @@ async function appendSubFrame(label, sourceCard) {
     headerRow.name = "Heading + DRAFT tag";
     headerRow.appendChild(heading);
     const tag = figma.createText();
-    tag.fontName = { family: "Inter", style: "Semibold" };
+    tag.fontName = { family: "Inter", style: "Semi Bold" };
     tag.fontSize = 10;
     tag.characters = "DRAFT";
     tag.fills = [{ type: "SOLID", color: { r: 0.44, g: 0.49, b: 0.59 } }];
@@ -380,9 +384,12 @@ function hexToRgb(hex) {
   return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
 }
 
-await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
-await figma.loadFontAsync({ family: "Fira Code", style: "Regular" });
+// v1.87.0: Promise.all parallelizes the font fetches — one round-trip vs N sequential
+await Promise.all([
+  { family: "Inter", style: "Regular" },
+  { family: "Inter", style: "Semi Bold" },
+  { family: "Fira Code", style: "Regular" },
+].map(fn => figma.loadFontAsync(fn)));
 
 const parent = await figma.getNodeByIdAsync("<contentSlotId>");
 
@@ -567,8 +574,12 @@ return { createdNodeIds: [pair.id], mutatedNodeIds: ["<contentSlotId>"] };
 **Layout (v1.66.3+):** Requirements render as a **simple vertical bulleted list** — bold title + plain body, one per row. The previous 2×3 a11y-card grid is retired (visual noise without proportional information density). This matches the simplified HTML renderer (Brief Refresh v2 Phase 1).
 
 ```js
-await figma.loadFontAsync({ family: "Inter", style: "Regular" });
-await figma.loadFontAsync({ family: "Inter", style: "Semibold" });
+// v1.87.0: Promise.all parallelizes the font fetches — one round-trip vs N sequential
+// "Semi Bold" with a space — Inter's registered style name (figma-use gotchas).
+await Promise.all([
+  { family: "Inter", style: "Regular" },
+  { family: "Inter", style: "Semi Bold" },
+].map(fn => figma.loadFontAsync(fn)));
 
 function hexToRgb(hex) {
   const h = hex.replace("#", "");
@@ -602,7 +613,7 @@ for (const req of requirements) {
   const sep = " — ";
   t.characters = req.title + sep + req.body;
   // Bold + darker color for the title portion only.
-  t.setRangeFontName(0, req.title.length, { family: "Inter", style: "Semibold" });
+  t.setRangeFontName(0, req.title.length, { family: "Inter", style: "Semi Bold" });
   t.setRangeFills(0, req.title.length, [{ type: "SOLID", color: hexToRgb("#101828") }]);
   list.appendChild(t);
   t.layoutSizingHorizontal = "FILL";
@@ -705,11 +716,16 @@ if (colorCol) {
 > The CALLER of `appendVariationCell` MUST preload the instance's fonts before passing it
 > to this function. Use the pattern:
 > ```js
-> const _fonts = instance.findAll(n => n.type === "TEXT")
->   .map(t => t.fontName)
->   .filter((fn, i, arr) =>
-    fn && typeof fn === 'object' &&
-    arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+> // v1.87.0: O(n) Set-based dedup; see figma-push-patterns.md Rule 8 canonical template
+> const _seen = new Set();
+> const _fonts = [];
+> instance.findAll(n => n.type === "TEXT").forEach(t => {
+>   const fn = t.fontName;
+>   if (!fn || typeof fn !== 'object') return;
+>   const key = fn.family + '|' + fn.style;
+>   if (_seen.has(key)) return;
+>   _seen.add(key); _fonts.push(fn);
+> });
 > await Promise.all(_fonts.map(fn => figma.loadFontAsync(fn)));
 > await appendVariationCell(parentRow, instance);
 > ```
@@ -784,11 +800,16 @@ const inst = variantComp.createInstance();
 // may be unloaded. Collect unique fontNames from the instance subtree and load them
 // all before appending. Without this, Figma silently fails on text operations inside
 // the instance (intermittent failures on supercards with pre-existing instances).
-const _instFonts = inst.findAll(n => n.type === "TEXT")
-  .map(t => t.fontName)
-  .filter((fn, i, arr) =>
-    fn && typeof fn === 'object' &&
-    arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+// v1.87.0: O(n) Set-based dedup (was O(n²) JSON.stringify) — see figma-push-patterns.md Rule 8.
+const _seenP9 = new Set();
+const _instFonts = [];
+inst.findAll(n => n.type === "TEXT").forEach(t => {
+  const fn = t.fontName;
+  if (!fn || typeof fn !== 'object') return;
+  const key = fn.family + '|' + fn.style;
+  if (_seenP9.has(key)) return;
+  _seenP9.add(key); _instFonts.push(fn);
+});
 await Promise.all(_instFonts.map(fn => figma.loadFontAsync(fn)));
 
 container.appendChild(inst);
@@ -1090,8 +1111,11 @@ const researchFrame = figma.createAutoLayout('VERTICAL', {
 });
 researchFrame.name = "ResearchInsights";
 
-await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
-await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+// v1.87.0: Promise.all parallelizes the font fetches
+await Promise.all([
+  { family: "Inter", style: "Semi Bold" },
+  { family: "Inter", style: "Regular" },
+].map(fn => figma.loadFontAsync(fn)));
 
 const title = figma.createText();
 title.characters = "Cross-DS research";
@@ -1113,8 +1137,11 @@ function hexToRgb(hex) {
   const h = hex.replace("#", "");
   return { r: parseInt(h.substring(0,2),16)/255, g: parseInt(h.substring(2,4),16)/255, b: parseInt(h.substring(4,6),16)/255 };
 }
-await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
-await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+// v1.87.0: Promise.all parallelizes the font fetches
+await Promise.all([
+  { family: "Inter", style: "Semi Bold" },
+  { family: "Inter", style: "Regular" },
+].map(fn => figma.loadFontAsync(fn)));
 
 const insights = card.research_insights; // from brief-data.json
 const researchFrame = await figma.getNodeByIdAsync("<researchFrameId>");
@@ -1163,8 +1190,11 @@ return { createdNodeIds: createdSubIds, mutatedNodeIds: ["<researchFrameId>"] };
 
 ```js
 // 3. Divergences frame (only if non-empty) + Sources line
-await figma.loadFontAsync({ family: "Inter", style: "Semi Bold" });
-await figma.loadFontAsync({ family: "Inter", style: "Regular" });
+// v1.87.0: Promise.all parallelizes the font fetches
+await Promise.all([
+  { family: "Inter", style: "Semi Bold" },
+  { family: "Inter", style: "Regular" },
+].map(fn => figma.loadFontAsync(fn)));
 
 const insights = card.research_insights;
 const researchFrame = await figma.getNodeByIdAsync("<researchFrameId>");
@@ -1445,11 +1475,16 @@ const inst = variantComp.createInstance();
 // Rule 8 (figma-use v2.1.26): font preload before appendChild on component instance.
 // The instance carries the target component's fonts which may be unloaded.
 // Collect unique fontNames from inst subtree and preload before appending.
-const _instFonts14 = inst.findAll(n => n.type === "TEXT")
-  .map(t => t.fontName)
-  .filter((fn, i, arr) =>
-    fn && typeof fn === 'object' &&
-    arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i);
+// v1.87.0: O(n) Set-based dedup (was O(n²) JSON.stringify) — see figma-push-patterns.md Rule 8.
+const _seenP14 = new Set();
+const _instFonts14 = [];
+inst.findAll(n => n.type === "TEXT").forEach(t => {
+  const fn = t.fontName;
+  if (!fn || typeof fn !== 'object') return;
+  const key = fn.family + '|' + fn.style;
+  if (_seenP14.has(key)) return;
+  _seenP14.add(key); _instFonts14.push(fn);
+});
 await Promise.all(_instFonts14.map(fn => figma.loadFontAsync(fn)));
 
 container.appendChild(inst);

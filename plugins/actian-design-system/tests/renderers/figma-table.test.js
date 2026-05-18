@@ -165,17 +165,25 @@ test("emit Figma code: header row + data rows wired into table parent", function
     },
   ]);
   var out = figma.emit(s, "<contentSlotId>");
-  // Outer table frame, both rows appended
-  assert.match(out.code, /var table = figma.createFrame/);
+  // Outer table frame uses createAutoLayout (v1.87.0 — VERTICAL with AUTO/AUTO sizing default).
+  assert.match(out.code, /var table = figma\.createAutoLayout\("VERTICAL"/);
   assert.match(out.code, /table\.appendChild\(row_header\)/);
   assert.match(out.code, /table\.appendChild\(row_data0\)/);
-  // Header row hugs (interpreter sets the load-bearing modes)
-  assert.match(out.code, /row_header\.counterAxisSizingMode = "AUTO"/);
-  // Data row hugs (load-bearing fix from v1.70.4 audit)
-  assert.match(out.code, /row_data0\.counterAxisSizingMode = "AUTO"/);
+  // Header row hugs via createAutoLayout's default AUTO/AUTO sizing.
+  assert.match(
+    out.code,
+    /var row_header = figma\.createAutoLayout\("HORIZONTAL"/,
+  );
+  // Data row hugs (load-bearing fix from v1.70.4 audit) — createAutoLayout defaults preserve AUTO/AUTO.
+  assert.match(
+    out.code,
+    /var row_data0 = figma\.createAutoLayout\("HORIZONTAL"/,
+  );
+  // FILL on horizontal axis must STILL be set after appendChild (Critical Rule 12).
   assert.match(out.code, /row_data0\.layoutSizingHorizontal = "FILL"/);
-  // Token pill correctly named (matches v1.70.4 registry probe pattern)
-  assert.match(out.code, /\.name = "Token: " \+ "--zen-spacing-lg"/);
+  // Token pill correctly named (matches v1.70.4 registry probe pattern).
+  // v1.87.0: name now lives inside the createAutoLayout props object.
+  assert.match(out.code, /name: "Token: " \+ "--zen-spacing-lg"/);
   // Manifest counts
   assert.equal(out.manifest.rowsEmitted, 1);
   assert.equal(out.manifest.cellsByType["text"], 2);
@@ -192,7 +200,9 @@ test("emit Figma code: code cells trigger Fira Code font load", function () {
     { headers: ["Type"] },
   );
   var out = figma.emit(s, "<contentSlotId>");
-  assert.match(out.code, /loadFontAsync.+Fira Code/);
+  // v1.87.0: fonts are batched into a single Promise.all([...].map(loadFontAsync)) call,
+  // so "Fira Code" appears in the array BEFORE the loadFontAsync invocation. Match both.
+  assert.match(out.code, /Fira Code.+loadFontAsync|loadFontAsync.+Fira Code/);
 });
 
 test("emit Figma code: row data wrappers prevent the v1.70.x squash class", function () {

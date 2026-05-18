@@ -62,12 +62,19 @@ for prominence; the rules below are the rest of the canonical set.
 > carry unloaded fonts. Reference fix shape:
 >
 > ```js
-> const fonts = subtree.findAll(n => n.type === 'TEXT')
->   .map(t => t.fontName)
->   .filter((fn, i, arr) =>
->     fn && typeof fn === 'object' &&
->     arr.findIndex(x => JSON.stringify(x) === JSON.stringify(fn)) === i
->   );
+> // v1.87.0: Set-based dedup keyed by family|style — O(n) vs the prior
+> // O(n²) JSON.stringify filter. Same correctness (figma.mixed excluded
+> // by the typeof guard), much cheaper on large text-bearing subtrees.
+> const seen = new Set();
+> const fonts = [];
+> subtree.findAll(n => n.type === 'TEXT').forEach(t => {
+>   const fn = t.fontName;
+>   if (!fn || typeof fn !== 'object') return;  // excludes figma.mixed
+>   const key = fn.family + '|' + fn.style;
+>   if (seen.has(key)) return;
+>   seen.add(key);
+>   fonts.push(fn);
+> });
 > await Promise.all(fonts.map(fn => figma.loadFontAsync(fn)));
 > parent.appendChild(subtree);
 > ```
