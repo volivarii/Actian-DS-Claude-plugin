@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.15.1",
+  "knowledge_version": "0.16.1",
   "paths": {
     "foundations.md": {
       "path": "foundations/src/foundations.md",
@@ -561,6 +561,14 @@
       "origin": "human",
       "recursive": true,
       "description": "Authoring surface for per-component guidelines. Each {slug}/ directory holds _meta.yml + optional per-domain files (content.md, usage.md, design.md, behavior.md, tokens.yml). Recursive: covers everything under components/src/ — the per-component {slug}/ trees plus the sibling categories/ and guidelines/ source dirs (which also carry their own collections). See components/src/AUTHORING.md."
+    },
+    "components.media.ci": {
+      "dir": "components/dist/media",
+      "pattern": "{slug}/{role}.{ext}",
+      "recursive": true,
+      "type": "binary",
+      "origin": "ci",
+      "description": "Per-component CI-generated visual assets (Figma frame captures, state matrices, motion clips). Authored by the media-preview sync phase (and future media-* phases). Role-based filenames so assets resolve by purpose, not by capture order. The `preview` role is the Figma frame named 'Overview' rendered as PNG; data-side role name follows DS convention. Vendor pull copies the tree; consumer reads the relative path from <guideline>.media.<role>."
     }
   },
   "aliases": {},

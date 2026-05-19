@@ -1,6 +1,5 @@
 {
   "_schema_version": 1,
-  "_alias_of": "text-input",
   "_meta": {
     "auto_generated": true,
     "source": "components/src/text-input/",
@@ -503,5 +502,7 @@
     "tokens": {
       "status": "not-started"
     }
-  }
+  },
+  "updated_at": "2026-05-14T16:07:17+02:00",
+  "_alias_of": "text-input"
 }
