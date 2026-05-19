@@ -265,7 +265,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "badge": {
       "_schema_version": 1,
@@ -329,7 +330,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "breadcrumbs": {
       "_schema_version": 1,
@@ -391,7 +393,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "button": {
       "_schema_version": 1,
@@ -537,7 +540,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -678,7 +682,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "checkbox": {
       "_schema_version": 1,
@@ -1237,11 +1242,11 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "checkbox-with-label": {
       "_schema_version": 1,
-      "_alias_of": "checkbox",
       "_meta": {
         "auto_generated": true,
         "source": "components/src/checkbox/",
@@ -1797,7 +1802,9 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00",
+      "_alias_of": "checkbox"
     },
     "combo-box": {
       "_schema_version": 1,
@@ -1890,7 +1897,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "confirmation": {
       "_schema_version": 1,
@@ -1970,7 +1978,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "drawer-side-panel": {
       "_schema_version": 1,
@@ -2183,11 +2192,11 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "dropdown-select-default": {
       "_schema_version": 1,
-      "_alias_of": "dropdown-select",
       "_meta": {
         "auto_generated": true,
         "source": "components/src/dropdown-select/",
@@ -2267,7 +2276,9 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00",
+      "_alias_of": "dropdown-select"
     },
     "empty-state": {
       "_schema_version": 1,
@@ -3232,7 +3243,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "global-header": {
       "_schema_version": 1,
@@ -3305,7 +3317,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "inline-toast": {
       "_schema_version": 1,
@@ -3533,11 +3546,11 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "input": {
       "_schema_version": 1,
-      "_alias_of": "text-input",
       "_meta": {
         "auto_generated": true,
         "source": "components/src/text-input/",
@@ -4040,7 +4053,9 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00",
+      "_alias_of": "text-input"
     },
     "input-date": {
       "_schema_version": 1,
@@ -4633,7 +4648,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "loader": {
       "_schema_version": 1,
@@ -5366,7 +5382,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "multi-select": {
       "_schema_version": 1,
@@ -5462,11 +5479,11 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "notification": {
       "_schema_version": 1,
-      "_alias_of": "inline-toast",
       "_meta": {
         "auto_generated": true,
         "source": "components/src/inline-toast/",
@@ -5691,7 +5708,9 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00",
+      "_alias_of": "inline-toast"
     },
     "popover": {
       "_schema_version": 1,
@@ -5828,7 +5847,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "radio-button": {
       "_schema_version": 1,
@@ -6381,11 +6401,11 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "search-filters": {
       "_schema_version": 1,
-      "_alias_of": "filters",
       "_meta": {
         "auto_generated": true,
         "source": "components/src/filters/",
@@ -6813,7 +6833,9 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00",
+      "_alias_of": "filters"
     },
     "side-nav": {
       "_schema_version": 1,
@@ -6888,7 +6910,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "spinner": {
       "_schema_version": 1,
@@ -7154,7 +7177,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "stepper-buttons": {
       "_schema_version": 1,
@@ -7383,7 +7407,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "table": {
       "_schema_version": 1,
@@ -7510,7 +7535,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "tabs": {
       "_schema_version": 1,
@@ -7574,7 +7600,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "tag": {
       "_schema_version": 1,
@@ -7639,11 +7666,11 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "tag-default": {
       "_schema_version": 1,
-      "_alias_of": "tag",
       "_meta": {
         "auto_generated": true,
         "source": "components/src/tag/",
@@ -7705,7 +7732,9 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00",
+      "_alias_of": "tag"
     },
     "text-input": {
       "_schema_version": 1,
@@ -8211,7 +8240,8 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "toggle-control": {
       "_schema_version": 1,
@@ -8709,11 +8739,11 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "toglge": {
       "_schema_version": 1,
-      "_alias_of": "toggle-control",
       "_meta": {
         "auto_generated": true,
         "source": "components/src/toggle-control/",
@@ -9208,7 +9238,9 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00",
+      "_alias_of": "toggle-control"
     },
     "whats-new": {
       "_schema_version": 1,
@@ -9276,11 +9308,11 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00"
     },
     "whats-new-dropdown": {
       "_schema_version": 1,
-      "_alias_of": "whats-new",
       "_meta": {
         "auto_generated": true,
         "source": "components/src/whats-new/",
@@ -9345,7 +9377,9 @@
         "tokens": {
           "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-05-14T16:07:17+02:00",
+      "_alias_of": "whats-new"
     }
   }
 }
