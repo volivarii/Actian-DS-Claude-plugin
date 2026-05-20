@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-322 components.
+318 components.
 
 ---
 
@@ -267,11 +267,24 @@ Critical: "Use specifically for actions that result in data loss or permanent ch
 - Single component (no variants)
 - Node: `7313:3194` | Key: `1d990e9286ab35da2957194c28722e72873aec3b`
 
-### Card
+### Card for grouped content
 
 - Variants: **Property 1:** `Default`
 - Boolean properties: `Show header#15927:2` (default: true) — set to `false` to hide
 - Node: `14782:29281` | Key: `3b8d2c7adc118fdd5f31e68440fa35e952fee92e`
+
+### Card for items
+
+A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.
+
+- Variants: **Type:** `Catalog` · `Item` · `item type` · `Glossary type` · `Topic` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Selected`
+- Boolean properties: `Show AI ready#14853:0` (default: true) — set to `false` to hide
+- Node: `7613:7853` | Key: `95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30`
+
+### Card for perimeter
+
+- Variants: **Property 1:** `Default`
+- Node: `14783:7565` | Key: `c1672b025b85c4ed0ddc645d89aa202803a95f07`
 
 ### cassandra
 
@@ -394,11 +407,6 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 - Single component (no variants)
 - Node: `7378:5604` | Key: `1af7f48fd97a924fbefe8516b1f41bc63c25a5dc`
 
-### Content Checklist
-
-- Single component (no variants)
-- Node: `7651:6637` | Key: `0bb0c240447d3cdb04072e7f65b60fe0bb9b8e47`
-
 ### cosmosdb
 
 - Single component (no variants)
@@ -487,7 +495,7 @@ A placeholder shown when success. Must include an illustration, a clear title, a
 ### dataset
 
 - Single component (no variants)
-- Node: `8504:23086` | Key: `63e281850a887cc85989c9fad99761493790915f`
+- Node: `8400:25053` | Key: `080e8e3e95430d11d6aaec7537143d437b0dbd75`
 
 ### db2
 
@@ -631,7 +639,7 @@ A placeholder shown when a container has an error. Must include an illustration,
 ### export
 
 - Single component (no variants)
-- Node: `7378:5538` | Key: `30f1a5a8b08475a4f5a39757da5417cae238f3c1`
+- Node: `7271:2697` | Key: `d6ab31d568212dca630643adb1d54e302535b70f`
 
 ### favorite
 
@@ -952,13 +960,6 @@ Indicates a background process is active. Use Skeleton for page-level transition
 - Single component (no variants)
 - Node: `7378:4004` | Key: `71d837e04ce0a29b69d9e5c67362bbcf0b896e19`
 
-### Maintenance banner
-
-A specialized Alert variant for scheduled downtime or degraded performance.
-
-- Variants: **Type:** `Default`
-- Node: `13868:11535` | Key: `0b2532c1213a748aea1559458099a058bd486959`
-
 ### Maintenance state
 
 A placeholder shown when maintenance. Must include an illustration, a clear title, and a "Call to Action" button to help the user get started.
@@ -1132,11 +1133,6 @@ The title area of a specific page. Should include the Page Title, optional Bread
 
 - Single component (no variants)
 - Node: `7996:5346` | Key: `f312fc0c5b45f54eb9081e0b0878f346801af1a4`
-
-### Perimeter card
-
-- Variants: **Property 1:** `Default`
-- Node: `14783:7565` | Key: `c1672b025b85c4ed0ddc645d89aa202803a95f07`
 
 ### pii
 
@@ -1417,11 +1413,6 @@ Use to guide a user through a linear process with defined steps (e.g., Onboardin
 - Boolean properties: `Show Body#14072:0` (default: true) — set to `false` to hide
 - Node: `7676:4492` | Key: `9d73595077c798866bf42c87a53893bbdc8d4ce0`
 
-### Stepper buttons
-
-- Single component (no variants)
-- Node: `15946:885` | Key: `8e1f6f072c44845ca6f1b562c3d6196f78312c36`
-
 ### Sticky footer
 
 A persistent container at the bottom of the viewport used for high-priority global actions (e.g., Save, Cancel, Next) that must remain visible while scrolling.
@@ -1504,15 +1495,22 @@ Use for glossary item types. Can be interactive (removable) or static metadata.
 
 ### ✍️ Tag, Interactive
 
-- Variants: **State:** `Default` · `Hovered` · `Pressed` · `Selected` · `Disabled` · `Focused`
+- Variants: **State:** `Hovered` · `Pressed` · `Selected` · `Disabled` · `Focused` · `Default`
 - Boolean properties: `Trailing icon show#13846:28` (default: true) — set to `false` to hide
 - Node: `13845:33759` | Key: `19d8ed0dd3f5dc406017130026a6229f121f169d`
+
+### ✍️ Tag, Shared
+
+Use for indicating something is recently updated. Can be interactive (removable) or static metadata.
+
+- Variants: **Property 1:** `Default`
+- Node: `13812:22307` | Key: `7a867b11eaec8c2cffd3a7cd21da62f66516e771`
 
 ### ✍️ Tag, Stage
 
 Use for data lifecycle stages. Can be interactive (removable) or static metadata.
 
-- Variants: **Color:** `Gray` · `Orange` · `Indigo` · `Purple` · `Lime` · `Teal` · `Yellow` · `Pink`
+- Variants: **Color:** `Orange` · `Indigo` · `Purple` · `Lime` · `Teal` · `Yellow` · `Pink` · `Gray`
 - Boolean properties: `Leading icon#13844:7` (default: true) — set to `false` to hide
 - Node: `8655:10279` | Key: `2f4ae1cc7f2d610179a68b2c1b6e25d4900bd8bc`
 
@@ -1520,15 +1518,8 @@ Use for data lifecycle stages. Can be interactive (removable) or static metadata
 
 Use for status. Can be interactive (removable) or static metadata.
 
-- Variants: **Status:** `Fail` · `Warning` · `Success` · `Loading` · `Maintenance` · `Scheduled` · `Queued` · `Stopped` · `Sleeping` · `Offline` · `Pending`
+- Variants: **Status:** `Fail` · `Warning` · `Loading` · `Maintenance` · `Scheduled` · `Queued` · `Stopped` · `Sleeping` · `Offline` · `Pending` · `Success`
 - Node: `7257:3705` | Key: `1663e13e4fe1648aeef7bf6978f7faeea14a4c17`
-
-### ✍️ Tag, Updated
-
-Use for indicating something is recently updated. Can be interactive (removable) or static metadata.
-
-- Variants: **Type:** `Default`
-- Node: `13812:22307` | Key: `7a867b11eaec8c2cffd3a7cd21da62f66516e771`
 
 ### tags-add
 
@@ -1595,14 +1586,6 @@ Use for indicating something is recently updated. Can be interactive (removable)
 - Single component (no variants)
 - Node: `8400:25186` | Key: `c6b80e098e699b0ff94f5722b20ce61170ae7c75`
 
-### Tile, Item
-
-A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.
-
-- Variants: **Type:** `Catalog` · `Item` · `item type` · `Glossary type` · `Topic` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Selected`
-- Boolean properties: `Show AI ready#14853:0` (default: true) — set to `false` to hide
-- Node: `7613:7853` | Key: `95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30`
-
 ### Toglge
 
 - Variants: **Toggle location:** `Left` · `Right` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
@@ -1625,13 +1608,6 @@ A flexible container for grouping related information. Use for dashboard summari
 - Variants: **Type:** `Default`
 - Text overrides: `Body#7038:10`
 - Node: `7038:351` | Key: `558adad968a5b5e1e3714307fb19de73d1ac6d21`
-
-### Traffic light
-
-A status indicator (Red, Amber, Green). Use to communicate system health, task urgency, or a quick "Pass/Fail" summary.
-
-- Variants: **Type:** `Default` · `Green` · `Orange` · `Red`
-- Node: `13797:13103` | Key: `4d34e14670144322fcfb202e843dc75534ff917f`
 
 ### trash
 

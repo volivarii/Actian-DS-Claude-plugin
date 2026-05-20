@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.16.1",
+  "knowledge_version": "0.18.0",
   "paths": {
     "foundations.md": {
       "path": "foundations/src/foundations.md",
@@ -90,6 +90,13 @@
       "type": "json",
       "origin": "human",
       "description": "Icon → semantic group mapping (ζ.5). Curated from the Figma Actual-icons layout; consumed by sync orchestrator to populate registry entries' `group` + `secondaryGroups` fields for items in category === 'Icons'. Key order = priority for primary-group resolution (specific-first)."
+    },
+    "components.media.index": {
+      "path": "components/dist/media/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-media-index.js",
+      "description": "Slug → role-keyed media map for every component with at least one CI-generated asset under components/dist/media/<slug>/. Decoupled from guideline coverage: components without authored or pattern-synthesized guidelines still surface their media here. Consumers (docs MediaAsset, plugin component-brief, future MCP) read this to enumerate media availability without filesystem scans."
     },
     "content.globalMd": {
       "path": "content/dist/global.md",
@@ -381,13 +388,6 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'loading-skeleton' component (content, usage, design, behavior, tokens — each optional)."
     },
-    "components.guidelineDoc.maintenance-banner": {
-      "path": "components/dist/guidelines/maintenance-banner.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'maintenance-banner' component (content, usage, design, behavior, tokens — each optional)."
-    },
     "components.guidelineDoc.maintenance-state": {
       "path": "components/dist/guidelines/maintenance-state.json",
       "type": "json",
@@ -450,13 +450,6 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'stepper' component (content, usage, design, behavior, tokens — each optional)."
-    },
-    "components.guidelineDoc.stepper-buttons": {
-      "path": "components/dist/guidelines/stepper-buttons.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Merged multi-domain guideline object for the 'stepper-buttons' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.sticky-footer": {
       "path": "components/dist/guidelines/sticky-footer.json",
@@ -568,7 +561,7 @@
       "recursive": true,
       "type": "binary",
       "origin": "ci",
-      "description": "Per-component CI-generated visual assets (Figma frame captures, state matrices, motion clips). Authored by the media-preview sync phase (and future media-* phases). Role-based filenames so assets resolve by purpose, not by capture order. The `preview` role is the Figma frame named 'Overview' rendered as PNG; data-side role name follows DS convention. Vendor pull copies the tree; consumer reads the relative path from <guideline>.media.<role>."
+      "description": "Per-component CI-generated visual assets (Figma frame captures, state matrices, motion clips). Authored by the media-preview sync phase (and future media-* phases). Role-based filenames so assets resolve by purpose, not by capture order. The `preview` role is the Figma frame named 'Overview' rendered as PNG; data-side role name follows DS convention. Vendor pull copies the tree; consumers read paths from the media index (components/dist/media/_index.json)."
     }
   },
   "aliases": {},

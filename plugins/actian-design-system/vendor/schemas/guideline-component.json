@@ -147,17 +147,6 @@
       "description": "ISO 8601 timestamp of the most recent commit that touched components/src/<slug>/. CI-derived via `git log -1 --format=%cI`. Omitted on synthesized (pattern-only) components that have no source dir.",
       "examples": ["2026-05-12T14:33:22+00:00"]
     },
-    "media": {
-      "type": "object",
-      "description": "Role-keyed map of CI-generated visual assets, repo-relative paths. Roles arrive in waves (preview → anatomy → state_matrix → motion → code_preview); the renderer is role-generic so adding a role does not require a schema change. Omitted when no media for this component. Note: the `preview` role is sourced from the Figma frame named 'Overview' (designer-side label); the data-side role name follows DS asset-naming convention (hero/preview, never overview).",
-      "examples": [{ "preview": "components/dist/media/button/preview.png" }],
-      "additionalProperties": {
-        "type": "string",
-        "minLength": 1,
-        "description": "Repo-relative path to the asset (e.g. components/dist/media/button/preview.png).",
-        "examples": ["components/dist/media/button/preview.png"]
-      }
-    },
     "domains": {
       "type": "object",
       "additionalProperties": false,
