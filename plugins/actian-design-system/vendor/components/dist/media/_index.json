@@ -1,0 +1,184 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/dist/media/",
+    "do_not_edit": "Edit via scripts/sync/sync-media-* phases; CI regenerates this file."
+  },
+  "media": {
+    "account-dropdown": {
+      "preview": "components/dist/media/account-dropdown/preview.png"
+    },
+    "alert-banner": {
+      "preview": "components/dist/media/alert-banner/preview.png"
+    },
+    "app-switcher-dropdown": {
+      "preview": "components/dist/media/app-switcher-dropdown/preview.png"
+    },
+    "avatar": {
+      "preview": "components/dist/media/avatar/preview.png"
+    },
+    "badge": {
+      "preview": "components/dist/media/badge/preview.png"
+    },
+    "breadcrumbs": {
+      "preview": "components/dist/media/breadcrumbs/preview.png"
+    },
+    "button": {
+      "preview": "components/dist/media/button/preview.png"
+    },
+    "calendar": {
+      "preview": "components/dist/media/calendar/preview.png"
+    },
+    "card": {
+      "preview": "components/dist/media/card/preview.png"
+    },
+    "card-for-grouped-content": {
+      "preview": "components/dist/media/card-for-grouped-content/preview.png"
+    },
+    "card-for-items": {
+      "preview": "components/dist/media/card-for-items/preview.png"
+    },
+    "card-for-perimeter": {
+      "preview": "components/dist/media/card-for-perimeter/preview.png"
+    },
+    "checkbox-with-label": {
+      "preview": "components/dist/media/checkbox-with-label/preview.png"
+    },
+    "collapse-accordion": {
+      "preview": "components/dist/media/collapse-accordion/preview.png"
+    },
+    "confirmation": {
+      "preview": "components/dist/media/confirmation/preview.png"
+    },
+    "digram-item-types": {
+      "preview": "components/dist/media/digram-item-types/preview.png"
+    },
+    "digram-topic": {
+      "preview": "components/dist/media/digram-topic/preview.png"
+    },
+    "drawer-side-panel": {
+      "preview": "components/dist/media/drawer-side-panel/preview.png"
+    },
+    "dropdown-select-default": {
+      "preview": "components/dist/media/dropdown-select-default/preview.png"
+    },
+    "empty-state": {
+      "preview": "components/dist/media/empty-state/preview.png"
+    },
+    "error-state": {
+      "preview": "components/dist/media/error-state/preview.png"
+    },
+    "global-header": {
+      "preview": "components/dist/media/global-header/preview.png"
+    },
+    "glossary-item-hierarchy-diagram": {
+      "preview": "components/dist/media/glossary-item-hierarchy-diagram/preview.png"
+    },
+    "input": {
+      "preview": "components/dist/media/input/preview.png"
+    },
+    "input-date": {
+      "preview": "components/dist/media/input-date/preview.png"
+    },
+    "lineage-connecting-line": {
+      "preview": "components/dist/media/lineage-connecting-line/preview.png"
+    },
+    "lineage-grouped-node": {
+      "preview": "components/dist/media/lineage-grouped-node/preview.png"
+    },
+    "lineage-individual-node": {
+      "preview": "components/dist/media/lineage-individual-node/preview.png"
+    },
+    "link": {
+      "preview": "components/dist/media/link/preview.png"
+    },
+    "loader": {
+      "preview": "components/dist/media/loader/preview.png"
+    },
+    "loader-with-logo": {
+      "preview": "components/dist/media/loader-with-logo/preview.png"
+    },
+    "loading-skeleton": {
+      "preview": "components/dist/media/loading-skeleton/preview.png"
+    },
+    "maintenance-state": {
+      "preview": "components/dist/media/maintenance-state/preview.png"
+    },
+    "metamodel-widget": {
+      "preview": "components/dist/media/metamodel-widget/preview.png"
+    },
+    "modal": {
+      "preview": "components/dist/media/modal/preview.png"
+    },
+    "notification": {
+      "preview": "components/dist/media/notification/preview.png"
+    },
+    "notification-dropdown": {
+      "preview": "components/dist/media/notification-dropdown/preview.png"
+    },
+    "page-header": {
+      "preview": "components/dist/media/page-header/preview.png"
+    },
+    "perimeter-card": {
+      "preview": "components/dist/media/perimeter-card/preview.png"
+    },
+    "popover": {
+      "preview": "components/dist/media/popover/preview.png"
+    },
+    "progress-bar-small": {
+      "preview": "components/dist/media/progress-bar-small/preview.png"
+    },
+    "radio-button": {
+      "preview": "components/dist/media/radio-button/preview.png"
+    },
+    "rich-text": {
+      "preview": "components/dist/media/rich-text/preview.png"
+    },
+    "scroll-bar": {
+      "preview": "components/dist/media/scroll-bar/preview.png"
+    },
+    "search": {
+      "preview": "components/dist/media/search/preview.png"
+    },
+    "search-dropdown-menu": {
+      "preview": "components/dist/media/search-dropdown-menu/preview.png"
+    },
+    "search-filters": {
+      "preview": "components/dist/media/search-filters/preview.png"
+    },
+    "search-result-card": {
+      "preview": "components/dist/media/search-result-card/preview.png"
+    },
+    "segmented-control": {
+      "preview": "components/dist/media/segmented-control/preview.png"
+    },
+    "side-nav": {
+      "preview": "components/dist/media/side-nav/preview.png"
+    },
+    "spinner": {
+      "preview": "components/dist/media/spinner/preview.png"
+    },
+    "stepper": {
+      "preview": "components/dist/media/stepper/preview.png"
+    },
+    "stepper-buttons": {
+      "preview": "components/dist/media/stepper-buttons/preview.png"
+    },
+    "sticky-footer": {
+      "preview": "components/dist/media/sticky-footer/preview.png"
+    },
+    "tabs": {
+      "preview": "components/dist/media/tabs/preview.png"
+    },
+    "tile-item": {
+      "preview": "components/dist/media/tile-item/preview.png"
+    },
+    "toolbar": {
+      "preview": "components/dist/media/toolbar/preview.png"
+    },
+    "whats-new-dropdown": {
+      "preview": "components/dist/media/whats-new-dropdown/preview.png"
+    }
+  }
+}

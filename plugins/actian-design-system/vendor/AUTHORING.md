@@ -52,14 +52,15 @@ You don't need a local toolchain. Edit via the GitHub web UI; CI does the rest.
 A "derive-diff bot comment" (showing which dist files your PR will change in plain language) is planned as a follow-up enhancement.
 
 **Schema files** live at `schemas/`:
-- `guideline.json` — `components/dist/guidelines/<slug>.json` (per-component merged docs)
+- `guideline-component.json` — `components/dist/guidelines/<slug>.json` (per-component merged docs, current canonical shape)
 - `guideline-meta.json` — `components/src/<slug>/_meta.yml` (per-component domain-status frontmatter)
 - `guideline-tokens.json` — `components/src/<slug>/tokens.yml`
-- `guideline-component.json` — legacy lock-in for the merged-doc shape
+- `guideline.json` — legacy scraped layer (retired in Phase 5; kept for spec-archaeology)
 - `foundations-section.json` — `foundations/dist/**/*.json` (post-derive)
 - `manifest.json` — `paths-manifest.json` structural shape
 - `category-defaults.json` — Phase 2 v2 category frontmatter for `components/src/categories/*.md`
 - `registry.json` — `components/dist/registries/*.json` (post-sync)
+- `media-index.json` — `components/dist/media/_index.json` (slug → role-keyed media map, CI-derived)
 
 Don't worry about the technical bits — focus on the content; CI will surface anything structural.
 

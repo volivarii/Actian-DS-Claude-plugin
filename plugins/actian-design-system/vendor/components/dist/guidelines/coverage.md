@@ -24,7 +24,6 @@
 | Loader | synthesized | — | — | — | — |
 | Loader with logo | synthesized | — | — | — | — |
 | Loading skeleton | synthesized | — | — | — | — |
-| Maintenance banner | synthesized | — | — | — | — |
 | Maintenance state | synthesized | — | — | — | — |
 | Modal | approved | not started | inherited | inherited | not started |
 | Multi-select | approved | not started | inherited | inherited | not started |
@@ -34,7 +33,6 @@
 | Side nav | approved | not started | inherited | inherited | not started |
 | Spinner | synthesized | — | — | — | — |
 | Stepper | approved | not started | inherited | inherited | not started |
-| Stepper buttons | synthesized | — | — | — | — |
 | Sticky footer | approved | not started | inherited | inherited | not started |
 | Table | approved | not started | inherited | inherited | not started |
 | Tabs | approved | not started | inherited | inherited | not started |
@@ -48,10 +46,10 @@
 | Domain | Approved | Draft | Inherited | Not started | Absent |
 |---|---|---|---|---|---|
 | content | 26 | 0 | 0 | 0 | 0 |
-| usage | 0 | 0 | 0 | 26 | 12 |
-| design | 0 | 0 | 26 | 0 | 12 |
-| behavior | 0 | 0 | 26 | 0 | 12 |
-| tokens | 0 | 0 | 0 | 26 | 12 |
+| usage | 0 | 0 | 0 | 26 | 10 |
+| design | 0 | 0 | 26 | 0 | 10 |
+| behavior | 0 | 0 | 26 | 0 | 10 |
+| tokens | 0 | 0 | 0 | 26 | 10 |
 
 ## Registry aliases
 

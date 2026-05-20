@@ -920,7 +920,7 @@ Wizards are guided multi-step flows that walk users through complex setup or con
 
 ### Navigation buttons
 
-Follow the [stepper button terminology guidelines](/components/navigation/stepper/stepper/). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**).
+Follow the [stepper button terminology guidelines](/components/navigation/stepper/). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**).
 
 ### Do / Don't
 

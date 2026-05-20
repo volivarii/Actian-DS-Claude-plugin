@@ -145,7 +145,7 @@
           "source": "pattern:wizards",
           "content": [
             {
-              "prose": "Follow the [stepper button terminology guidelines](/components/navigation/stepper/stepper/). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**)."
+              "prose": "Follow the [stepper button terminology guidelines](/components/navigation/stepper/). Use **Back**, **Next**, and the appropriate object-specific verb for the final step (for example, **Create connection**)."
             }
           ]
         },

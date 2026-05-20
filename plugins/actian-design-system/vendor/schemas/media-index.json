@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/media-index.json",
+  "title": "Component media index",
+  "description": "Slug → role-keyed map of media file paths under components/dist/media/. CI-derived from the on-disk dir layout by scripts/components/derive-media-index.js. Decoupled from guideline coverage: components with media but no guideline doc still appear here so consumers can render previews independently. Strict (additionalProperties:false) — CI-derived contract.",
+  "type": "object",
+  "required": ["_schema_version", "_meta", "media"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "const": 1,
+      "description": "Schema version pin. Bumps require coordinated deriver + consumer updates.",
+      "examples": [1]
+    },
+    "_meta": {
+      "type": "object",
+      "required": ["auto_generated", "source", "do_not_edit"],
+      "additionalProperties": false,
+      "description": "Provenance block. Mirrors the foundations/categories/guidelines pipeline convention. No timestamps — idempotency requires byte-stable output across runs.",
+      "examples": [
+        {
+          "auto_generated": true,
+          "source": "components/dist/media/",
+          "do_not_edit": "Edit via scripts/sync/sync-media-* phases; CI regenerates this file."
+        }
+      ],
+      "properties": {
+        "auto_generated": {
+          "const": true,
+          "description": "Always true — this object is CI-derived.",
+          "examples": [true]
+        },
+        "source": {
+          "type": "string",
+          "description": "Source directory, repo-relative.",
+          "examples": ["components/dist/media/"]
+        },
+        "do_not_edit": {
+          "type": "string",
+          "description": "Edit-warning string.",
+          "examples": [
+            "Edit via scripts/sync/sync-media-* phases; CI regenerates this file."
+          ]
+        }
+      }
+    },
+    "media": {
+      "type": "object",
+      "description": "Slug-keyed map of per-component media role maps. Sorted ASCII for byte-stable output.",
+      "examples": [
+        {
+          "avatar": {
+            "preview": "components/dist/media/avatar/preview.png"
+          },
+          "button": {
+            "preview": "components/dist/media/button/preview.png"
+          }
+        }
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "minProperties": 1,
+        "description": "Role-keyed map of repo-relative paths for one component (role → path).",
+        "examples": [{ "preview": "components/dist/media/avatar/preview.png" }],
+        "additionalProperties": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Repo-relative path to the asset (e.g. components/dist/media/avatar/preview.png).",
+          "examples": ["components/dist/media/avatar/preview.png"]
+        }
+      }
+    }
+  }
+}
