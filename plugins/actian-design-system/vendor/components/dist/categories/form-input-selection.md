@@ -29,12 +29,12 @@ motion_refs:
   - { ref: state-transitions, note: focus-ring fade-in on focus; opacity transition on disabled }
 
 accessibility:
-  - { ref: forms-data-entry, note: every control needs a programmatically-associated label + accessible error message }
-  - { ref: required-states }
-  - { ref: feedback-errors }
-  - { ref: keyboard-focus }
+  - { ref: forms, note: every control needs a programmatically-associated label + accessible error message }
+  - { ref: states }
+  - { ref: alerts-toasts-banners }
+  - { ref: focus-keyboard }
   - { ref: color-contrast }
-  - { ref: aria-guidance }
+  - { ref: aria-labels }
 ---
 
 # Form (input & selection) — design rationale
@@ -56,4 +56,4 @@ Inputs and selections converge on Label → Control → Helper → Validation as
 - Specific components may add `Clear button` (search, input with reveal) or `Toggle thumb` (toggle) to the anatomy.
 - `Label position` axis is optional — only relevant when the component supports inline labels.
 - Motion is minimal by design — form interactions should feel instantaneous.
-- For `search` + `search-filters`, the `aria-guidance` ref should be tightened to live-region announcement of result counts.
+- For `search` + `search-filters`, the `aria-labels` ref should be tightened to live-region announcement of result counts.

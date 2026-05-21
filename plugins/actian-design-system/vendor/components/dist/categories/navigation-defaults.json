@@ -86,21 +86,18 @@
   "card_accessibility": {
     "requirementRefs": [
       {
-        "ref": "keyboard-focus",
+        "ref": "focus-keyboard",
         "note": "arrow-key traversal between items; Tab moves to/from the navigation region"
       },
       {
-        "ref": "interactions"
-      },
-      {
-        "ref": "aria-guidance",
+        "ref": "aria-labels",
         "note": "use aria-current=page on the active item; nav landmark on the container"
       },
       {
         "ref": "color-contrast"
       },
       {
-        "ref": "feedback-errors"
+        "ref": "alerts-toasts-banners"
       }
     ]
   },

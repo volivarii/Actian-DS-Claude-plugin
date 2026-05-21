@@ -30,11 +30,11 @@ motion_refs:
   - { ref: state-transitions, note: severity transitions (e.g. error → success) cross-fade rather than swap }
 
 accessibility:
-  - { ref: feedback-errors, note: error severity must be conveyed by text + icon, not color alone }
-  - { ref: aria-guidance, note: transient messages use role=status (polite) or role=alert (assertive) per severity }
+  - { ref: alerts-toasts-banners, note: error severity must be conveyed by text + icon, not color alone }
+  - { ref: aria-labels, note: transient messages use role=status (polite) or role=alert (assertive) per severity }
   - { ref: color-contrast }
-  - { ref: motion-media, note: respect prefers-reduced-motion — disable entrance pulse + slide }
-  - { ref: keyboard-focus, note: focus must not be stolen by toasts; persistent alerts may receive focus when actionable }
+  - { ref: motion, note: respect prefers-reduced-motion — disable entrance pulse + slide }
+  - { ref: focus-keyboard, note: focus must not be stolen by toasts; persistent alerts may receive focus when actionable }
 ---
 
 # Feedback — design rationale

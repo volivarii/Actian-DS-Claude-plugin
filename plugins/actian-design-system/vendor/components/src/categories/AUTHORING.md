@@ -95,20 +95,39 @@ Motion and accessibility entries do **not** quote names directly — they refere
 
 **Accessibility**: slugs come from `accessibility/dist/a11y-index.json` → `sections[].slug`. Currently valid:
 
-- `wcag-principles`
+Top-level sections:
+- `principles`
 - `color-contrast`
-- `typography-readability`
-- `layout-responsiveness`
-- `keyboard-focus`
-- `interactions`
-- `required-states`
-- `feedback-errors`
-- `forms-data-entry`
-- `motion-media`
-- `component-specific-checklists`
-- `aria-guidance`
-- `general-checklist`
-- `additional-rules`
+- `typography`
+- `motion`
+- `focus-keyboard`
+- `aria-labels`
+- `reading-order-landmarks`
+- `touch-pointer`
+- `error-prevention`
+- `session-timeout`
+- `components`
+- `designer-handoff-checklist`
+
+Per-component sub-sections (under Components):
+- `buttons`
+- `navigation`
+- `forms`
+- `modals`
+- `alerts-toasts-banners`
+- `dropdowns-menus-popovers`
+- `data-tables`
+- `loading-patterns`
+- `empty-states`
+- `tabs`
+- `icons`
+- `tooltips`
+- `truncation-overflow`
+- `drag-drop`
+- `ai-output`
+
+Checklist sub-section:
+- `states`
 
 If a needed slug doesn't exist upstream, do one of:
 
