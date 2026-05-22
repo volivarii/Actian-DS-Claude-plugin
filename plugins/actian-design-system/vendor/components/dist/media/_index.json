@@ -19,13 +19,41 @@
       "preview": "components/dist/media/avatar/preview.png"
     },
     "badge": {
-      "preview": "components/dist/media/badge/preview.png"
+      "preview": "components/dist/media/badge/preview.png",
+      "parts": [
+        "components/dist/media/badge/parts-0.png"
+      ],
+      "variations": [
+        "components/dist/media/badge/variations-0.png",
+        "components/dist/media/badge/variations-1.png"
+      ],
+      "spacing": [
+        "components/dist/media/badge/spacing-0.png"
+      ],
+      "behavior": [
+        "components/dist/media/badge/behavior-0.png"
+      ]
     },
     "breadcrumbs": {
       "preview": "components/dist/media/breadcrumbs/preview.png"
     },
     "button": {
-      "preview": "components/dist/media/button/preview.png"
+      "preview": "components/dist/media/button/preview.png",
+      "parts": [
+        "components/dist/media/button/parts-0.png",
+        "components/dist/media/button/parts-1.png",
+        "components/dist/media/button/parts-2.png",
+        "components/dist/media/button/parts-3.png",
+        "components/dist/media/button/parts-4.png",
+        "components/dist/media/button/parts-5.png"
+      ],
+      "variations": [
+        "components/dist/media/button/variations-0.png",
+        "components/dist/media/button/variations-1.png"
+      ],
+      "spacing": [
+        "components/dist/media/button/spacing-0.png"
+      ]
     },
     "calendar": {
       "preview": "components/dist/media/calendar/preview.png"
@@ -42,14 +70,47 @@
     "card-for-perimeter": {
       "preview": "components/dist/media/card-for-perimeter/preview.png"
     },
+    "chat-with-ai-steward": {
+      "behavior": [
+        "components/dist/media/chat-with-ai-steward/behavior-0.png"
+      ]
+    },
     "checkbox-with-label": {
-      "preview": "components/dist/media/checkbox-with-label/preview.png"
+      "preview": "components/dist/media/checkbox-with-label/preview.png",
+      "parts": [
+        "components/dist/media/checkbox-with-label/parts-0.png"
+      ],
+      "spacing": [
+        "components/dist/media/checkbox-with-label/spacing-0.png",
+        "components/dist/media/checkbox-with-label/spacing-1.png"
+      ]
     },
     "collapse-accordion": {
       "preview": "components/dist/media/collapse-accordion/preview.png"
     },
     "confirmation": {
-      "preview": "components/dist/media/confirmation/preview.png"
+      "preview": "components/dist/media/confirmation/preview.png",
+      "parts": [
+        "components/dist/media/confirmation/parts-0.png",
+        "components/dist/media/confirmation/parts-1.png",
+        "components/dist/media/confirmation/parts-2.png"
+      ],
+      "spacing": [
+        "components/dist/media/confirmation/spacing-0.png",
+        "components/dist/media/confirmation/spacing-1.png",
+        "components/dist/media/confirmation/spacing-2.png"
+      ],
+      "behavior": [
+        "components/dist/media/confirmation/behavior-0.png",
+        "components/dist/media/confirmation/behavior-1.png"
+      ],
+      "layout": [
+        "components/dist/media/confirmation/layout-0.png",
+        "components/dist/media/confirmation/layout-1.png",
+        "components/dist/media/confirmation/layout-2.png",
+        "components/dist/media/confirmation/layout-3.png",
+        "components/dist/media/confirmation/layout-4.png"
+      ]
     },
     "digram-item-types": {
       "preview": "components/dist/media/digram-item-types/preview.png"
@@ -64,10 +125,52 @@
       "preview": "components/dist/media/dropdown-select-default/preview.png"
     },
     "empty-state": {
-      "preview": "components/dist/media/empty-state/preview.png"
+      "preview": "components/dist/media/empty-state/preview.png",
+      "parts": [
+        "components/dist/media/empty-state/parts-0.png",
+        "components/dist/media/empty-state/parts-1.png",
+        "components/dist/media/empty-state/parts-2.png"
+      ],
+      "spacing": [
+        "components/dist/media/empty-state/spacing-0.png",
+        "components/dist/media/empty-state/spacing-1.png",
+        "components/dist/media/empty-state/spacing-2.png"
+      ],
+      "behavior": [
+        "components/dist/media/empty-state/behavior-0.png",
+        "components/dist/media/empty-state/behavior-1.png"
+      ],
+      "layout": [
+        "components/dist/media/empty-state/layout-0.png",
+        "components/dist/media/empty-state/layout-1.png",
+        "components/dist/media/empty-state/layout-2.png",
+        "components/dist/media/empty-state/layout-3.png",
+        "components/dist/media/empty-state/layout-4.png"
+      ]
     },
     "error-state": {
-      "preview": "components/dist/media/error-state/preview.png"
+      "preview": "components/dist/media/error-state/preview.png",
+      "parts": [
+        "components/dist/media/error-state/parts-0.png",
+        "components/dist/media/error-state/parts-1.png",
+        "components/dist/media/error-state/parts-2.png"
+      ],
+      "spacing": [
+        "components/dist/media/error-state/spacing-0.png",
+        "components/dist/media/error-state/spacing-1.png",
+        "components/dist/media/error-state/spacing-2.png"
+      ],
+      "behavior": [
+        "components/dist/media/error-state/behavior-0.png",
+        "components/dist/media/error-state/behavior-1.png"
+      ],
+      "layout": [
+        "components/dist/media/error-state/layout-0.png",
+        "components/dist/media/error-state/layout-1.png",
+        "components/dist/media/error-state/layout-2.png",
+        "components/dist/media/error-state/layout-3.png",
+        "components/dist/media/error-state/layout-4.png"
+      ]
     },
     "global-header": {
       "preview": "components/dist/media/global-header/preview.png"
@@ -82,16 +185,31 @@
       "preview": "components/dist/media/input-date/preview.png"
     },
     "lineage-connecting-line": {
-      "preview": "components/dist/media/lineage-connecting-line/preview.png"
+      "preview": "components/dist/media/lineage-connecting-line/preview.png",
+      "behavior": [
+        "components/dist/media/lineage-connecting-line/behavior-0.png"
+      ]
     },
     "lineage-grouped-node": {
-      "preview": "components/dist/media/lineage-grouped-node/preview.png"
+      "preview": "components/dist/media/lineage-grouped-node/preview.png",
+      "behavior": [
+        "components/dist/media/lineage-grouped-node/behavior-0.png"
+      ]
     },
     "lineage-individual-node": {
-      "preview": "components/dist/media/lineage-individual-node/preview.png"
+      "preview": "components/dist/media/lineage-individual-node/preview.png",
+      "behavior": [
+        "components/dist/media/lineage-individual-node/behavior-0.png"
+      ]
     },
     "link": {
-      "preview": "components/dist/media/link/preview.png"
+      "preview": "components/dist/media/link/preview.png",
+      "parts": [
+        "components/dist/media/link/parts-0.png"
+      ],
+      "variations": [
+        "components/dist/media/link/variations-0.png"
+      ]
     },
     "loader": {
       "preview": "components/dist/media/loader/preview.png"
@@ -103,7 +221,28 @@
       "preview": "components/dist/media/loading-skeleton/preview.png"
     },
     "maintenance-state": {
-      "preview": "components/dist/media/maintenance-state/preview.png"
+      "preview": "components/dist/media/maintenance-state/preview.png",
+      "parts": [
+        "components/dist/media/maintenance-state/parts-0.png",
+        "components/dist/media/maintenance-state/parts-1.png",
+        "components/dist/media/maintenance-state/parts-2.png"
+      ],
+      "spacing": [
+        "components/dist/media/maintenance-state/spacing-0.png",
+        "components/dist/media/maintenance-state/spacing-1.png",
+        "components/dist/media/maintenance-state/spacing-2.png"
+      ],
+      "behavior": [
+        "components/dist/media/maintenance-state/behavior-0.png",
+        "components/dist/media/maintenance-state/behavior-1.png"
+      ],
+      "layout": [
+        "components/dist/media/maintenance-state/layout-0.png",
+        "components/dist/media/maintenance-state/layout-1.png",
+        "components/dist/media/maintenance-state/layout-2.png",
+        "components/dist/media/maintenance-state/layout-3.png",
+        "components/dist/media/maintenance-state/layout-4.png"
+      ]
     },
     "metamodel-widget": {
       "preview": "components/dist/media/metamodel-widget/preview.png"
@@ -154,7 +293,14 @@
       "preview": "components/dist/media/segmented-control/preview.png"
     },
     "side-nav": {
-      "preview": "components/dist/media/side-nav/preview.png"
+      "preview": "components/dist/media/side-nav/preview.png",
+      "parts": [
+        "components/dist/media/side-nav/parts-0.png"
+      ],
+      "variations": [
+        "components/dist/media/side-nav/variations-0.png",
+        "components/dist/media/side-nav/variations-1.png"
+      ]
     },
     "spinner": {
       "preview": "components/dist/media/spinner/preview.png"
@@ -166,7 +312,21 @@
       "preview": "components/dist/media/stepper-buttons/preview.png"
     },
     "sticky-footer": {
-      "preview": "components/dist/media/sticky-footer/preview.png"
+      "preview": "components/dist/media/sticky-footer/preview.png",
+      "parts": [
+        "components/dist/media/sticky-footer/parts-0.png"
+      ],
+      "spacing": [
+        "components/dist/media/sticky-footer/spacing-0.png"
+      ],
+      "behavior": [
+        "components/dist/media/sticky-footer/behavior-0.png",
+        "components/dist/media/sticky-footer/behavior-1.png"
+      ],
+      "layout": [
+        "components/dist/media/sticky-footer/layout-0.png",
+        "components/dist/media/sticky-footer/layout-1.png"
+      ]
     },
     "tabs": {
       "preview": "components/dist/media/tabs/preview.png"
