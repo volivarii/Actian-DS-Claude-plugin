@@ -110,10 +110,24 @@ test("resolveMotionRef — null input returns null", function () {
 
 // --- resolveAccessibilityRef ---
 
+// The a11y index restructures across knowledge releases — the Accessibility
+// v1.3.0 rework (knowledge v0.19.4+) replaced the old "aria-guidance"
+// section with finer-grained slugs. Derive the "known slug" from the
+// vendored index itself so this test survives upstream restructures; a
+// hardcoded content slug breaks on every vendor refresh that renames it.
+var fs = require("fs");
+var PATHS = require("../../scripts/lib/paths.js");
+var a11yIndex = JSON.parse(fs.readFileSync(PATHS.accessibility.index, "utf8"));
+var knownA11ySlug = ((a11yIndex.sections || [])[0] || {}).slug;
+
 test("resolveAccessibilityRef — known slug returns section object", function () {
-  var section = loader.resolveAccessibilityRef("aria-guidance");
-  assert.ok(section);
-  assert.equal(section.slug, "aria-guidance");
+  assert.ok(
+    knownA11ySlug,
+    "vendored a11y-index.json must carry at least one section",
+  );
+  var section = loader.resolveAccessibilityRef(knownA11ySlug);
+  assert.ok(section, "known slug '" + knownA11ySlug + "' must resolve");
+  assert.equal(section.slug, knownA11ySlug);
   assert.ok(section.title);
 });
 
