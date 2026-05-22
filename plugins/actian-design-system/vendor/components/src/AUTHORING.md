@@ -110,6 +110,7 @@ These are the contract — everything below is detail.
 | A reserved 2-column table (see below)               | `{ do, dont }` or `{ term, rule }` | `<DoDont>` or `<TermList>` |
 | Any other table                                     | `{ table: { headers, rows } }` | plain markdown table |
 | A fenced code block                                 | `{ example }`             | `**Example:**` + code |
+| `<Media role="parts" layout="grid" />`              | `{ media: { role, layout } }` | `<Media>` component — captured imagery |
 
 ### Reserved table vocabularies
 
@@ -177,6 +178,112 @@ Renders as (in order):
 - **One reserved nesting level only.** `####` and deeper headings flatten as
   `{ note }` into the current section — if you need real nested structure,
   break the parent into two `##` sections.
+
+### The `<Media>` directive
+
+`<Media />` places CI-captured component imagery at a specific point inside a
+domain markdown file. Drop it anywhere inside a section body; the docs renderer
+swaps it for the matching image set at build time.
+
+```markdown
+<Media role="parts" layout="grid" />
+```
+
+**`role` (required)** — identifies which sub-section of the Figma "Design
+guidelines" page the imagery comes from. Accepted values:
+
+| Role         | Figma sub-section it maps to                  |
+|--------------|-----------------------------------------------|
+| `parts`      | Anatomy / parts breakdown                     |
+| `variations` | Variant axes and states                       |
+| `spacing`    | Spacing and sizing rules                      |
+| `behavior`   | Interaction and motion                        |
+| `layout`     | Layout and composition                        |
+
+**`layout` (optional)** — controls how multiple images in the same role are
+arranged. Accepted values:
+
+| Value    | Arrangement                         |
+|----------|-------------------------------------|
+| `stack`  | Images stacked vertically           |
+| `grid`   | Images in an N-up grid              |
+| `inline` | Images placed in the text flow      |
+
+Roles that only ever produce a single image ignore `layout`. When omitted,
+the renderer defaults the arrangement to `stack`.
+
+**What to reference, and what not to.** Authors write a `role` — never a file
+path. CI owns the image files and keeps them current after every Figma sync;
+there are no paths to maintain.
+
+**Auto-append fallback.** If a domain file does not place a `<Media>` tag for
+a role that has captured imagery, the docs renderer appends that imagery at
+the end of the relevant section automatically. Imagery always surfaces — the
+`<Media>` directive is only needed when you want to control placement.
+
+**Captions.** Not currently rendered. Caption support is deferred.
+
+**Example** — positioning anatomy imagery inside `design.md`:
+
+```markdown
+## Anatomy
+
+A button is built from a container, an optional icon, and a label.
+
+<Media role="parts" layout="grid" />
+
+The container clips overflow and defines the minimum tap target.
+```
+
+The `<Media role="parts" layout="grid" />` line is replaced with the captured
+anatomy imagery; the following sentence renders immediately after it.
+
+## Design guidelines — canonical sections
+
+A `design.md` file's `## ` headings should map to one of five canonical section
+names. The docs site renders each canonical section as **one merged page
+section**, pairing the authored prose with an automatically-added structured
+component (parts list, variant table, or motion patterns) and the role-matched
+captured imagery. The five canonical headings are:
+
+| Canonical heading  | Accepted aliases (case-insensitive)                          |
+|--------------------|--------------------------------------------------------------|
+| `Anatomy`          | `anatomy`, `parts`                                           |
+| `Variants`         | `variants`, `variations`                                     |
+| `Spacing & size`   | `spacing & size`, `spacing`, `spacing and size`, `sizing`    |
+| `Behavior`         | `behavior`, `motion`                                         |
+| `Layout`           | `layout`                                                     |
+
+A `## ` heading that matches none of the five still renders — as an extra
+section appended after the five canonical ones — but also emits a build warning,
+so a typo surfaces in CI rather than silently producing a stray section.
+
+### What you write vs. what the docs site adds
+
+**Authors write prose only.** Under each canonical heading, write explanatory
+sentences, bullets, callouts, and `<Media>` tags as you normally would. The
+structured component for that section — the numbered anatomy diagram, the variant
+axis table, the motion-pattern list — is assembled automatically by the docs site
+from the derived JSON. Do not hand-write that structure in the markdown.
+
+### Media roles per canonical section
+
+Each canonical section is paired with one media role. Use the matching role when
+you want to control image placement with `<Media role="…" />`; omitting the tag
+lets the auto-append fallback place the imagery at the end of the section.
+
+| Canonical section  | `<Media>` role  |
+|--------------------|-----------------|
+| Anatomy            | `parts`         |
+| Variants           | `variations`    |
+| Spacing & size     | `spacing`       |
+| Behavior           | `behavior`      |
+| Layout             | `layout`        |
+
+See the `<Media>` directive section above for the full `role` / `layout` API.
+
+For a friendly, example-led walkthrough of writing `design.md` from scratch, see
+[`EDITING-GUIDE.md`](./EDITING-GUIDE.md).
 
 ## `tokens.yml`
 

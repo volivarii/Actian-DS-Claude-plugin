@@ -4,6 +4,6 @@ category: action
 domains:
   content: { status: approved, owner: content-team }
   usage:    { status: not-started }
-  design:   { status: inherited }
+  design:   { status: draft, owner: design }
   behavior: { status: inherited }
   tokens:   { status: not-started }

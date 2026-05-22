@@ -91,22 +91,22 @@
   "card_accessibility": {
     "requirementRefs": [
       {
-        "ref": "feedback-errors",
+        "ref": "alerts-toasts-banners",
         "note": "error severity must be conveyed by text + icon, not color alone"
       },
       {
-        "ref": "aria-guidance",
+        "ref": "aria-labels",
         "note": "transient messages use role=status (polite) or role=alert (assertive) per severity"
       },
       {
         "ref": "color-contrast"
       },
       {
-        "ref": "motion-media",
+        "ref": "motion",
         "note": "respect prefers-reduced-motion — disable entrance pulse + slide"
       },
       {
-        "ref": "keyboard-focus",
+        "ref": "focus-keyboard",
         "note": "focus must not be stolen by toasts; persistent alerts may receive focus when actionable"
       }
     ]
