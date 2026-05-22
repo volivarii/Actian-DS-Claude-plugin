@@ -3,113 +3,19 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.18.0",
+  "knowledge_version": "0.20.6",
   "paths": {
-    "foundations.md": {
-      "path": "foundations/src/foundations.md",
+    "accessibility.authoring": {
+      "path": "accessibility/AUTHORING.md",
       "type": "markdown",
       "origin": "human",
-      "description": "Master reference for Actian DS — primitives, tokens, scales (Design system lead, MD-as-SoT)"
-    },
-    "foundations.authoring": {
-      "path": "foundations/src/AUTHORING.md",
-      "type": "markdown",
-      "origin": "human",
-      "description": "How to edit foundations.md (UX team guide)"
-    },
-    "tokens.json": {
-      "path": "tokens/tokens.json",
-      "type": "json",
-      "origin": "human",
-      "description": "DTCG W3C-format design tokens (frozen snapshot until successor generator returns)"
-    },
-    "tokens.css": {
-      "path": "tokens/tokens.css",
-      "type": "css",
-      "origin": "human",
-      "description": "CSS custom properties (--zen-*) — frozen snapshot"
-    },
-    "tokens.reference": {
-      "path": "tokens/token-reference.md",
-      "type": "markdown",
-      "origin": "ci",
-      "generator": "scripts/render-token-reference.js",
-      "description": "Human-readable token catalog (auto-generated from tokens.json)"
-    },
-    "components.registries.dskit": {
-      "path": "components/dist/registries/dskit.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/sync/sync-from-figma.js",
-      "description": "DS Kit component registry (Figma REST sync)"
-    },
-    "components.categories": {
-      "path": "components/dist/categories.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/sync/sync-from-figma.js",
-      "description": "DS Kit component category groupings (Action, Form (input & selection), Navigation, Data Display, Feedback, Overlays) derived from the Figma Pages panel naming convention. Generated nightly by the Figma sync."
-    },
-    "components.registries.fmkit": {
-      "path": "components/dist/registries/fmkit.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/sync/sync-from-figma.js",
-      "description": "FM (wireframe) Kit component registry (Figma REST sync)"
-    },
-    "components.registries.metakit": {
-      "path": "components/dist/registries/metakit.json",
-      "type": "json",
-      "origin": "hybrid",
-      "generator": "scripts/sync/sync-from-figma.js",
-      "description": "Meta Kit component registry — templates block hand-curated, preserved across syncs"
-    },
-    "components.registries.styles": {
-      "path": "components/dist/registries/meta-kit/styles.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/sync/sync-from-figma.js",
-      "description": "DS Kit text + effect styles (Figma REST sync)"
-    },
-    "components.styles.text": {
-      "path": "components/dist/text-styles.md",
-      "type": "markdown",
-      "origin": "ci",
-      "generator": "scripts/styles-to-md.js",
-      "description": "DS Kit text styles (human-readable catalog)"
-    },
-    "components.styles.effect": {
-      "path": "components/dist/effect-styles.md",
-      "type": "markdown",
-      "origin": "ci",
-      "generator": "scripts/styles-to-md.js",
-      "description": "DS Kit effect (shadow, blur) styles"
-    },
-    "components.iconGroups": {
-      "path": "components/src/icon-groups.json",
-      "type": "json",
-      "origin": "human",
-      "description": "Icon → semantic group mapping (ζ.5). Curated from the Figma Actual-icons layout; consumed by sync orchestrator to populate registry entries' `group` + `secondaryGroups` fields for items in category === 'Icons'. Key order = priority for primary-group resolution (specific-first)."
-    },
-    "components.media.index": {
-      "path": "components/dist/media/_index.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-media-index.js",
-      "description": "Slug → role-keyed media map for every component with at least one CI-generated asset under components/dist/media/<slug>/. Decoupled from guideline coverage: components without authored or pattern-synthesized guidelines still surface their media here. Consumers (docs MediaAsset, plugin component-brief, future MCP) read this to enumerate media availability without filesystem scans."
-    },
-    "content.globalMd": {
-      "path": "content/dist/global.md",
-      "type": "markdown",
-      "origin": "ci",
-      "generator": "scripts/content/derive-content.js",
-      "description": "Global / cross-cutting content guidelines only (voice, tone, capitalization, words to avoid, UX-pattern topics, Actian product-surface rules) — auto-generated from content/src/{writing,patterns,product}/*.md plus root-level meta files. The docs /content page and the markdown-consuming plugin skills read this; component-scoped content guidance lives per-component in components/dist/guidelines/{slug}.json instead."
+      "description": "How to edit accessibility.md (UX team guide)"
     },
     "accessibility.guide": {
       "path": "accessibility/accessibility.md",
       "type": "markdown",
       "origin": "human",
-      "description": "WCAG 2.2 AA guidance for the Actian DS"
+      "description": "WCAG 2.1 AA guidance for the Actian DS"
     },
     "accessibility.index": {
       "path": "accessibility/dist/a11y-index.json",
@@ -118,79 +24,18 @@
       "generator": "scripts/accessibility/derive-a11y-index.js",
       "description": "Slug → WCAG mapping for accessibility sections; consumed by Phase 2 category defaults + future MCP server."
     },
-    "presentation": {
-      "path": "presentation/presentation-guide.md",
-      "type": "markdown",
-      "origin": "human",
-      "description": "Slide templates + chart patterns for /generate-presentation"
-    },
     "appContext": {
       "path": "app-context/app-context.json",
       "type": "json",
       "origin": "human",
       "description": "Per-app patterns + persona + terminology"
     },
-    "fmToDsMap": {
-      "path": "fm-to-ds-map/fm-to-ds-map.json",
-      "type": "json",
-      "origin": "human",
-      "description": "FM Kit → DS Kit component mapping for hifi conversion"
-    },
-    "foundations.bundle": {
-      "path": "foundations/dist/foundations.bundle.json",
+    "components.categories": {
+      "path": "components/dist/categories.json",
       "type": "json",
       "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Full nested foundations tree (hierarchical Pattern H roll-up). One-shot LLM consumption: every section/leaf reachable from this single file."
-    },
-    "foundations.index": {
-      "path": "foundations/dist/_index.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Root foundations metadata + top-level child list. Navigate from here to per-H2 directories."
-    },
-    "foundations.source": {
-      "path": "foundations/dist/foundations.md",
-      "type": "markdown",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Verbatim copy of foundations/src/foundations.md (Stripe .md URL pattern). Auto-synced; do not edit."
-    },
-    "foundations.color-primitives": {
-      "path": "foundations/dist/color-primitives/_index.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Hierarchical _index for foundations section 'Color Primitives'. Children listed inside; sibling files under foundations/dist/color-primitives/."
-    },
-    "foundations.tokens.index": {
-      "path": "foundations/dist/tokens/_index.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Hierarchical _index for foundations section 'Tokens'. Children listed inside; sibling files under foundations/dist/tokens/."
-    },
-    "foundations.tokens.motion": {
-      "path": "foundations/dist/tokens/motion.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Motion patterns (durations, easings, named patterns) — consumed by per-category motion_refs resolution in the docs site and the plugin's component-brief skill."
-    },
-    "foundations.design-guidelines": {
-      "path": "foundations/dist/design-guidelines/_index.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Hierarchical _index for foundations section 'Design Guidelines'. Children listed inside; sibling files under foundations/dist/design-guidelines/."
-    },
-    "components.categoryDefaults.bundle": {
-      "path": "components/dist/categories/categories.bundle.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/categories/derive-categories.js",
-      "description": "Roll-up of all 6 category-defaults JSONs keyed by slug. One-shot LLM consumption for category-aware brief enrichment."
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "DS Kit component category groupings (Action, Form (input & selection), Navigation, Data Display, Feedback, Overlays) derived from the Figma Pages panel naming convention. Generated nightly by the Figma sync."
     },
     "components.categoryDefaults.action": {
       "path": "components/dist/categories/action-defaults.json",
@@ -198,6 +43,13 @@
       "origin": "ci",
       "generator": "scripts/categories/derive-categories.js",
       "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'action' category. Consumed by the component-brief skill for stub components."
+    },
+    "components.categoryDefaults.bundle": {
+      "path": "components/dist/categories/categories.bundle.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/categories/derive-categories.js",
+      "description": "Roll-up of all 6 category-defaults JSONs keyed by slug. One-shot LLM consumption for category-aware brief enrichment."
     },
     "components.categoryDefaults.data-display": {
       "path": "components/dist/categories/data-display-defaults.json",
@@ -234,20 +86,6 @@
       "generator": "scripts/categories/derive-categories.js",
       "description": "Per-category structural defaults (anatomy, variants, motion refs, a11y refs) for the 'overlays' category. Consumed by the component-brief skill for stub components."
     },
-    "components.guidelineDoc.bundle": {
-      "path": "components/dist/guidelines/guidelines.bundle.json",
-      "type": "json",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Roll-up of every per-component multi-domain guideline object, keyed by canonical slug plus any registry-alias keys (alias entries carry _alias_of). One-shot LLM consumption."
-    },
-    "components.guidelineDoc.coverage": {
-      "path": "components/dist/guidelines/coverage.md",
-      "type": "markdown",
-      "origin": "ci",
-      "generator": "scripts/components/derive-guidelines.js",
-      "description": "Component × domain × status coverage matrix — the documentation-debt backlog."
-    },
     "components.guidelineDoc.alert-banner": {
       "path": "components/dist/guidelines/alert-banner.json",
       "type": "json",
@@ -268,6 +106,13 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'breadcrumbs' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.bundle": {
+      "path": "components/dist/guidelines/guidelines.bundle.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Roll-up of every per-component multi-domain guideline object, keyed by canonical slug plus any registry-alias keys (alias entries carry _alias_of). One-shot LLM consumption."
     },
     "components.guidelineDoc.button": {
       "path": "components/dist/guidelines/button.json",
@@ -303,6 +148,13 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'confirmation' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.coverage": {
+      "path": "components/dist/guidelines/coverage.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Component × domain × status coverage matrix — the documentation-debt backlog."
     },
     "components.guidelineDoc.drawer-side-panel": {
       "path": "components/dist/guidelines/drawer-side-panel.json",
@@ -499,32 +351,169 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'whats-new' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.iconGroups": {
+      "path": "components/src/icon-groups.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Icon → semantic group mapping (ζ.5). Curated from the Figma Actual-icons layout; consumed by sync orchestrator to populate registry entries' `group` + `secondaryGroups` fields for items in category === 'Icons'. Key order = priority for primary-group resolution (specific-first)."
+    },
+    "components.media.index": {
+      "path": "components/dist/media/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-media-index.js",
+      "description": "Slug → role-keyed media map for every component with at least one CI-generated asset under components/dist/media/<slug>/. Decoupled from guideline coverage: components without authored or pattern-synthesized guidelines still surface their media here. Consumers (docs MediaAsset, plugin component-brief, future MCP) read this to enumerate media availability without filesystem scans."
+    },
+    "components.registries.dskit": {
+      "path": "components/dist/registries/dskit.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "DS Kit component registry (Figma REST sync)"
+    },
+    "components.registries.fmkit": {
+      "path": "components/dist/registries/fmkit.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "FM (wireframe) Kit component registry (Figma REST sync)"
+    },
+    "components.registries.metakit": {
+      "path": "components/dist/registries/metakit.json",
+      "type": "json",
+      "origin": "hybrid",
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "Meta Kit component registry — templates block hand-curated, preserved across syncs"
+    },
+    "components.registries.styles": {
+      "path": "components/dist/registries/meta-kit/styles.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/sync/sync-from-figma.js",
+      "description": "DS Kit text + effect styles (Figma REST sync)"
+    },
+    "components.styles.effect": {
+      "path": "components/dist/effect-styles.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/styles-to-md.js",
+      "description": "DS Kit effect (shadow, blur) styles"
+    },
+    "components.styles.text": {
+      "path": "components/dist/text-styles.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/styles-to-md.js",
+      "description": "DS Kit text styles (human-readable catalog)"
+    },
+    "content.globalMd": {
+      "path": "content/dist/global.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/content/derive-content.js",
+      "description": "Global / cross-cutting content guidelines only (voice, tone, capitalization, words to avoid, UX-pattern topics, Actian product-surface rules) — auto-generated from content/src/{writing,patterns,product}/*.md plus root-level meta files. The docs /content page and the markdown-consuming plugin skills read this; component-scoped content guidance lives per-component in components/dist/guidelines/{slug}.json instead."
+    },
+    "fmToDsMap": {
+      "path": "fm-to-ds-map/fm-to-ds-map.json",
+      "type": "json",
+      "origin": "human",
+      "description": "FM Kit → DS Kit component mapping for hifi conversion"
+    },
+    "foundations.authoring": {
+      "path": "foundations/src/AUTHORING.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "How to edit foundations.md (UX team guide)"
+    },
+    "foundations.bundle": {
+      "path": "foundations/dist/foundations.bundle.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Full nested foundations tree (hierarchical Pattern H roll-up). One-shot LLM consumption: every section/leaf reachable from this single file."
+    },
+    "foundations.color-primitives": {
+      "path": "foundations/dist/color-primitives/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Hierarchical _index for foundations section 'Color Primitives'. Children listed inside; sibling files under foundations/dist/color-primitives/."
+    },
+    "foundations.design-guidelines": {
+      "path": "foundations/dist/design-guidelines/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Hierarchical _index for foundations section 'Design Guidelines'. Children listed inside; sibling files under foundations/dist/design-guidelines/."
+    },
+    "foundations.index": {
+      "path": "foundations/dist/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Root foundations metadata + top-level child list. Navigate from here to per-H2 directories."
+    },
+    "foundations.md": {
+      "path": "foundations/src/foundations.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "Master reference for Actian DS — primitives, tokens, scales (Design system lead, MD-as-SoT)"
+    },
+    "foundations.source": {
+      "path": "foundations/dist/foundations.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Verbatim copy of foundations/src/foundations.md (Stripe .md URL pattern). Auto-synced; do not edit."
+    },
+    "foundations.tokens.index": {
+      "path": "foundations/dist/tokens/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Hierarchical _index for foundations section 'Tokens'. Children listed inside; sibling files under foundations/dist/tokens/."
+    },
+    "foundations.tokens.motion": {
+      "path": "foundations/dist/tokens/motion.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/foundations/derive-foundations.js",
+      "description": "Structured motion leaf (tokens + patterns) for foundations section 'Tokens'. Resolved directly by motion-ref lookup in the plugin + docs."
+    },
+    "presentation": {
+      "path": "presentation/presentation-guide.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "Slide templates + chart patterns for /generate-presentation"
+    },
+    "tokens.css": {
+      "path": "tokens/tokens.css",
+      "type": "css",
+      "origin": "human",
+      "description": "CSS custom properties (--zen-*) — frozen snapshot"
+    },
+    "tokens.json": {
+      "path": "tokens/tokens.json",
+      "type": "json",
+      "origin": "human",
+      "description": "DTCG W3C-format design tokens (frozen snapshot until successor generator returns)"
+    },
+    "tokens.reference": {
+      "path": "tokens/token-reference.md",
+      "type": "markdown",
+      "origin": "ci",
+      "generator": "scripts/render-token-reference.js",
+      "description": "Human-readable token catalog (auto-generated from tokens.json)"
     }
   },
   "collections": {
-    "content.section": {
-      "dir": "content/src",
-      "pattern": "{bucket}/{slug}.md",
-      "recursive": true,
+    "components.categoriesSrc": {
+      "dir": "components/src/categories",
+      "pattern": "{slug}.md",
       "type": "markdown",
       "origin": "human",
-      "description": "Global / cross-cutting content guidelines (Content lead). Three sub-buckets: writing/ (strict grammar/voice/style rules), patterns/ (universal UX patterns), product/ (Actian product-surface copy rules). Meta files (global-guidelines.md, content-index.md, format-spec.md) sit at the content/src/ root. Each file follows When-to-use -> Style -> Behavior -> Do/Don't."
-    },
-    "components.images": {
-      "dir": "components/src",
-      "pattern": "{slug}/images/{filename}",
-      "recursive": true,
-      "type": "binary",
-      "origin": "human",
-      "description": "Per-component static visual assets (anatomy callouts, hand-made diagrams). Optional per component — authors drop PNGs/SVGs into components/src/<slug>/images/ alongside their MD files. Consumed by docs site + plugin via manifest indirection."
-    },
-    "foundations.leaf": {
-      "dir": "foundations/dist",
-      "pattern": "<topSlug>/.../<slug>.json",
-      "recursive": true,
-      "type": "json",
-      "origin": "ci",
-      "description": "Per-leaf foundations JSONs in hierarchical Pattern H layout. Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at foundations.bundle. Recursive: any file under foundations/dist/ is covered by this collection."
+      "description": "Authoring surface for category defaults. YAML frontmatter governed by schemas/category-defaults.json; freeform body for design rationale. See AUTHORING.md."
     },
     "components.categoryDefaults.byKey": {
       "dir": "components/dist/categories",
@@ -532,13 +521,6 @@
       "type": "json",
       "origin": "ci",
       "description": "Per-category defaults (Phase 2 v2). 6 categories: action, form-input-selection, navigation, data-display, feedback, overlays. See also bundle entry components.categoryDefaults.bundle for the roll-up. Renamed from components.categoryDefaults in v0.5.1 to honor leaf-XOR-namespace manifest convention."
-    },
-    "components.categoriesSrc": {
-      "dir": "components/src/categories",
-      "pattern": "{slug}.md",
-      "type": "markdown",
-      "origin": "human",
-      "description": "Authoring surface for category defaults. YAML frontmatter governed by schemas/category-defaults.json; freeform body for design rationale. See AUTHORING.md."
     },
     "components.guidelineDoc.byKey": {
       "dir": "components/dist/guidelines",
@@ -555,13 +537,37 @@
       "recursive": true,
       "description": "Authoring surface for per-component guidelines. Each {slug}/ directory holds _meta.yml + optional per-domain files (content.md, usage.md, design.md, behavior.md, tokens.yml). Recursive: covers everything under components/src/ — the per-component {slug}/ trees plus the sibling categories/ and guidelines/ source dirs (which also carry their own collections). See components/src/AUTHORING.md."
     },
+    "components.images": {
+      "dir": "components/src",
+      "pattern": "{slug}/images/{filename}",
+      "recursive": true,
+      "type": "binary",
+      "origin": "human",
+      "description": "Per-component static visual assets (anatomy callouts, hand-made diagrams). Optional per component — authors drop PNGs/SVGs into components/src/<slug>/images/ alongside their MD files. Consumed by docs site + plugin via manifest indirection."
+    },
     "components.media.ci": {
       "dir": "components/dist/media",
-      "pattern": "{slug}/{role}.{ext}",
+      "pattern": "{slug}/{role}[-{index}].{ext}",
       "recursive": true,
       "type": "binary",
       "origin": "ci",
-      "description": "Per-component CI-generated visual assets (Figma frame captures, state matrices, motion clips). Authored by the media-preview sync phase (and future media-* phases). Role-based filenames so assets resolve by purpose, not by capture order. The `preview` role is the Figma frame named 'Overview' rendered as PNG; data-side role name follows DS convention. Vendor pull copies the tree; consumers read paths from the media index (components/dist/media/_index.json)."
+      "description": "Per-component CI-generated visual assets (Figma frame captures, state matrices, motion clips). Authored by the media-preview sync phase (and future media-* phases). Single-capture roles (capture:\"first\", e.g. `preview`) produce `<role>.png`; multi-capture roles (capture:\"all\", e.g. `parts`, `variations`, `spacing`, `behavior`, `layout`) produce `<role>-0.png`, `<role>-1.png`, … ordered by Figma frame index. The `preview` role is the Figma frame named 'Overview' rendered as PNG; data-side role name follows DS convention. Vendor pull copies the tree; consumers read paths from the media index (components/dist/media/_index.json)."
+    },
+    "content.section": {
+      "dir": "content/src",
+      "pattern": "{bucket}/{slug}.md",
+      "recursive": true,
+      "type": "markdown",
+      "origin": "human",
+      "description": "Global / cross-cutting content guidelines (Content lead). Three sub-buckets: writing/ (strict grammar/voice/style rules), patterns/ (universal UX patterns), product/ (Actian product-surface copy rules). Meta files (global-guidelines.md, content-index.md, format-spec.md) sit at the content/src/ root. Each file follows When-to-use -> Style -> Behavior -> Do/Don't."
+    },
+    "foundations.leaf": {
+      "dir": "foundations/dist",
+      "pattern": "<topSlug>/.../<slug>.json",
+      "recursive": true,
+      "type": "json",
+      "origin": "ci",
+      "description": "Per-leaf foundations JSONs in hierarchical Pattern H layout. Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at foundations.bundle. Recursive: any file under foundations/dist/ is covered by this collection."
     }
   },
   "aliases": {},

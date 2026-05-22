@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-05-20T10:23:44.543Z",
+  "lastSynced": "2026-05-21T10:38:50.430Z",
   "componentCount": 318,
   "components": {
     "xs-grid": {
@@ -591,40 +591,6 @@
           "Orange",
           "Gray",
           "Default"
-        ]
-      }
-    },
-    "metamodel-widget": {
-      "name": "Metamodel widget",
-      "key": "6b29851b99078abe643d2c6873e8e1a89f8ff0b4",
-      "nodeId": "14747:23588",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Metamodel",
-      "properties": {
-        "Show Section#8582:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Metamodel",
-      "variants": {
-        "Type": [
-          "Dataset",
-          "Business Term",
-          "Data Process",
-          "Field",
-          "Visualisation"
         ]
       }
     },
@@ -1605,7 +1571,7 @@
       "nodeId": "13599:20120",
       "importMethod": "set",
       "description": "Vertical navigation for primary application modules. Use when the app has many top-level sections or needs to show sub-navigation.",
-      "page": "✍️  Side nav",
+      "page": "✅  Side nav",
       "properties": {},
       "nestedComponents": [
         {
@@ -2018,27 +1984,6 @@
         ]
       }
     },
-    "loader": {
-      "name": "Loader",
-      "key": "0cf73cc20fd0120418e60d904cff641ff38f4840",
-      "nodeId": "7372:2195",
-      "importMethod": "set",
-      "description": "Indicates a background process is active. Use loader for large components or large section within a page",
-      "page": "✅ Loading (Loader, Spinner, Skeleton)",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Loading (Loader, Spinner, Skeleton)",
-      "variants": {
-        "Percent": [
-          "99%",
-          "10%",
-          "Percent3"
-        ]
-      }
-    },
     "link": {
       "name": "Link",
       "key": "433bc17e08514c14ee821f2b03421bad865e0a0e",
@@ -2062,6 +2007,27 @@
         ]
       }
     },
+    "loader": {
+      "name": "Loader",
+      "key": "0cf73cc20fd0120418e60d904cff641ff38f4840",
+      "nodeId": "7372:2195",
+      "importMethod": "set",
+      "description": "Indicates a background process is active. Use loader for large components or large section within a page",
+      "page": "✅ Loading (Loader, Spinner, Skeleton)",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Loading (Loader, Spinner, Skeleton)",
+      "variants": {
+        "Percent": [
+          "99%",
+          "10%",
+          "Percent3"
+        ]
+      }
+    },
     "actian-pyramid": {
       "name": "Actian pyramid",
       "key": "84e6abe2e5b7dbe96a859397f557249922560413",
@@ -2079,6 +2045,27 @@
         "Color": [
           "Full color",
           "White"
+        ]
+      }
+    },
+    "badge": {
+      "name": "✍️ Badge",
+      "key": "e8d93a3432951bd42d9b0bb20287eb61262ae10e",
+      "nodeId": "12159:16447",
+      "importMethod": "set",
+      "description": "Small status or numerical indicator (e.g., \"Active\", \"New\", \"+5\"). Use for counts or short, non-interactive status labels.",
+      "page": "✍️ Badge",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Badge",
+      "status": "in-progress",
+      "variants": {
+        "Type": [
+          "Number",
+          "Dot"
         ]
       }
     },
@@ -2101,27 +2088,6 @@
           "75%",
           "100%",
           "25%"
-        ]
-      }
-    },
-    "badge": {
-      "name": "✍️ Badge",
-      "key": "e8d93a3432951bd42d9b0bb20287eb61262ae10e",
-      "nodeId": "12159:16447",
-      "importMethod": "set",
-      "description": "Small status or numerical indicator (e.g., \"Active\", \"New\", \"+5\"). Use for counts or short, non-interactive status labels.",
-      "page": "✍️ Badge",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Badge",
-      "status": "in-progress",
-      "variants": {
-        "Type": [
-          "Number",
-          "Dot"
         ]
       }
     },
@@ -2291,67 +2257,6 @@
         ]
       }
     },
-    "toolbar": {
-      "name": "Toolbar",
-      "key": "96683d78ad981aacc04a5b6c7c2b0f0f1d631516",
-      "nodeId": "14335:16907",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Toolbar",
-      "properties": {
-        "Show View scale#14335:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "zoom-to-fit",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-reset",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-in",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-out",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "map",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "filter",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Toolbar",
-      "variants": {
-        "Type": [
-          "Single",
-          "Combined",
-          "Group"
-        ],
-        "Orientation": [
-          "Horizontal",
-          "Vertical"
-        ]
-      }
-    },
     "error-state": {
       "name": "Error state",
       "key": "a219aa99ab9712f911f391af8dd623c18b281ccb",
@@ -2369,64 +2274,6 @@
         "Size": [
           "Large",
           "Medium"
-        ]
-      }
-    },
-    "lineage-connecting-line": {
-      "name": "Lineage connecting line",
-      "key": "553bdc1ba26f3b30988997771dcf74f275eb12d3",
-      "nodeId": "14747:20085",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Lineage",
-      "properties": {
-        "Show icon#14697:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "tableau",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Lineage",
-      "variants": {
-        "Direction": [
-          "Down",
-          "Straight",
-          "up",
-          "Up"
-        ],
-        "State": [
-          "Default",
-          "Selected",
-          "Disabled"
-        ]
-      }
-    },
-    "notification": {
-      "name": "Notification",
-      "key": "590d2373b688235e8da72732919d2f874eee6cda",
-      "nodeId": "13868:11595",
-      "importMethod": "set",
-      "description": "Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., \"Item saved\"). Automatically dismisses after 3–5 seconds.",
-      "page": "✅ Notification (Toast)",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Notification (Toast)",
-      "variants": {
-        "Type": [
-          "Default",
-          "Critical"
         ]
       }
     },
@@ -2468,6 +2315,181 @@
         "Type": [
           "Explorer",
           "Studio"
+        ]
+      }
+    },
+    "lineage-grouped-node": {
+      "name": "Lineage grouped node",
+      "key": "f1cafad1f47132058587042da7ec1e46e4eeffdd",
+      "nodeId": "15634:17895",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Lineage",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "powerbi",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Lineage",
+      "variants": {
+        "State": [
+          "Default",
+          "Expanded"
+        ],
+        "Type": [
+          "Main item",
+          "Sub item"
+        ]
+      }
+    },
+    "scroll-bar": {
+      "name": "Scroll bar",
+      "key": "374c471abeb21e0693327b61cc12a31a5eeef5ba",
+      "nodeId": "14747:17639",
+      "importMethod": "set",
+      "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
+      "page": "✅ Scroll bar",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Scroll bar",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "tag-shared": {
+      "name": "✍️ Tag, Shared",
+      "key": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
+      "nodeId": "13812:22307",
+      "importMethod": "set",
+      "description": "Use for indicating something is recently updated. Can be interactive (removable) or static metadata.",
+      "page": "✍️ Tag (Identification key)",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Tag (Identification key)",
+      "status": "in-progress",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "button": {
+      "name": "Button",
+      "key": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
+      "nodeId": "7206:2643",
+      "importMethod": "set",
+      "description": "Primary trigger for a specific action or form submission. Use \"Primary\" for the main task, \"Secondary\" for alternative actions, and \"Ghost/Tertiary\" for low-priority tasks.\n\nPrimary: \"Use as the single most important action on a screen. Limit to one per view (e.g., 'Submit', 'Pay Now').\"\nSecondary: \"Use for supporting actions that are not the main goal of the page (e.g., 'Cancel', 'Back').\"\nTertiary/Ghost: \"Use for low-emphasis actions or repeated items in a list (e.g., 'View Details', 'Learn More').\"\nCritical: \"Use specifically for actions that result in data loss or permanent changes. Usually styled in Red.\"",
+      "page": "✍️ Button",
+      "properties": {
+        "Leading icon#724:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "17171:66073"
+        },
+        "Label#724:10": {
+          "type": "TEXT",
+          "default": "Button"
+        },
+        "Show leading icon#809:73": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Trailing icon#13805:43": {
+          "type": "INSTANCE_SWAP",
+          "default": "17172:66154"
+        },
+        "Show trailing icon#13807:82": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show label#15988:3": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Action",
+      "group": "Button",
+      "status": "in-progress",
+      "variants": {
+        "Type": [
+          "Primary",
+          "Secondary",
+          "Tertiary",
+          "Icon",
+          "Critical primary",
+          "Critical secondary"
+        ],
+        "Size": [
+          "Default",
+          "Small"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected",
+          "Disabled"
+        ]
+      }
+    },
+    "metamodel-widget": {
+      "name": "Metamodel widget",
+      "key": "6b29851b99078abe643d2c6873e8e1a89f8ff0b4",
+      "nodeId": "14747:23588",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Metamodel",
+      "properties": {
+        "Show Section#8582:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Metamodel",
+      "variants": {
+        "Type": [
+          "Dataset",
+          "Business Term",
+          "Data Process",
+          "Field",
+          "Visualisation"
         ]
       }
     },
@@ -2576,6 +2598,302 @@
         ]
       }
     },
+    "empty-state": {
+      "name": "Empty state",
+      "key": "0adc6b54a212315ebb16db7f5eea388276a1587b",
+      "nodeId": "9230:22073",
+      "importMethod": "set",
+      "description": "A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+      "page": "✅ Empty state",
+      "properties": {
+        "Medium illustration#9230:4": {
+          "type": "INSTANCE_SWAP",
+          "default": "8991:11401"
+        },
+        "Tertiary button#10964:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Primary button#10964:4": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Title#10964:8": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Body#10964:12": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Large illustration#10964:20": {
+          "type": "INSTANCE_SWAP",
+          "default": "8837:9944"
+        },
+        "Title content#10964:24": {
+          "type": "TEXT",
+          "default": "No policies available"
+        },
+        "Body content#10964:28": {
+          "type": "TEXT",
+          "default": "Create policies to define how your platform operates."
+        },
+        "Small Illustration#10966:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "10966:18012"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Empty state",
+      "variants": {
+        "Size": [
+          "Large",
+          "Medium",
+          "Small"
+        ]
+      }
+    },
+    "card-for-items": {
+      "name": "Card for items",
+      "key": "95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30",
+      "nodeId": "7613:7853",
+      "importMethod": "set",
+      "description": "A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.",
+      "page": "✅ Card",
+      "properties": {
+        "Show AI ready#14853:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "directory",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "favorite",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stars",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Card",
+      "variants": {
+        "Type": [
+          "Catalog",
+          "Item",
+          "item type",
+          "Glossary type",
+          "Topic"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Pressed",
+          "Selected"
+        ]
+      }
+    },
+    "lineage-connecting-line": {
+      "name": "Lineage connecting line",
+      "key": "553bdc1ba26f3b30988997771dcf74f275eb12d3",
+      "nodeId": "14747:20085",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Lineage",
+      "properties": {
+        "Show icon#14697:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "tableau",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Lineage",
+      "variants": {
+        "Direction": [
+          "Down",
+          "Straight",
+          "up",
+          "Up"
+        ],
+        "State": [
+          "Default",
+          "Selected",
+          "Disabled"
+        ]
+      }
+    },
+    "collapse-accordion": {
+      "name": "✍️ Collapse-accordion",
+      "key": "8253d19d70a3b835653049d90b4fdf97b26a31c8",
+      "nodeId": "8292:80",
+      "importMethod": "set",
+      "description": "Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.",
+      "page": "✍️ Collapse (Accordion)",
+      "properties": {
+        "Slot#15956:0": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Collapse (Accordion)",
+      "status": "in-progress",
+      "variants": {
+        "State": [
+          "Collapsed",
+          "Expanede"
+        ]
+      }
+    },
+    "notification": {
+      "name": "Notification",
+      "key": "590d2373b688235e8da72732919d2f874eee6cda",
+      "nodeId": "13868:11595",
+      "importMethod": "set",
+      "description": "Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., \"Item saved\"). Automatically dismisses after 3–5 seconds.",
+      "page": "✅ Notification (Toast)",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Notification (Toast)",
+      "variants": {
+        "Type": [
+          "Default",
+          "Critical"
+        ]
+      }
+    },
+    "line-graph": {
+      "name": "⛔️ Line graph",
+      "key": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
+      "nodeId": "15473:49490",
+      "importMethod": "set",
+      "description": "",
+      "page": "⛔️ WIP data visuzlization",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "WIP data visuzlization",
+      "status": "deprecated",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "toolbar": {
+      "name": "Toolbar",
+      "key": "96683d78ad981aacc04a5b6c7c2b0f0f1d631516",
+      "nodeId": "14335:16907",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Toolbar",
+      "properties": {
+        "Show View scale#14335:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "zoom-to-fit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-reset",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-in",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-out",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "map",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "filter",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Toolbar",
+      "variants": {
+        "Type": [
+          "Single",
+          "Combined",
+          "Group"
+        ],
+        "Orientation": [
+          "Horizontal",
+          "Vertical"
+        ]
+      }
+    },
     "alert-banner": {
       "name": "✍️ Alert-banner",
       "key": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
@@ -2661,32 +2979,6 @@
         ]
       }
     },
-    "line-graph": {
-      "name": "⛔️ Line graph",
-      "key": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
-      "nodeId": "15473:49490",
-      "importMethod": "set",
-      "description": "",
-      "page": "⛔️ WIP data visuzlization",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "dots",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "WIP data visuzlization",
-      "status": "deprecated",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
     "page-header": {
       "name": "Page header",
       "key": "ec2418807ba81bd52ab103d34c1bffd82fc0b92c",
@@ -2742,298 +3034,6 @@
           "Details page",
           "Explorer home",
           "Explorer detail"
-        ]
-      }
-    },
-    "lineage-grouped-node": {
-      "name": "Lineage grouped node",
-      "key": "f1cafad1f47132058587042da7ec1e46e4eeffdd",
-      "nodeId": "15634:17895",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Lineage",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "chevron-up",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "powerbi",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Lineage",
-      "variants": {
-        "State": [
-          "Default",
-          "Expanded"
-        ],
-        "Type": [
-          "Main item",
-          "Sub item"
-        ]
-      }
-    },
-    "scroll-bar": {
-      "name": "Scroll bar",
-      "key": "374c471abeb21e0693327b61cc12a31a5eeef5ba",
-      "nodeId": "14747:17639",
-      "importMethod": "set",
-      "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
-      "page": "✅ Scroll bar",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Scroll bar",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
-    "tag-shared": {
-      "name": "✍️ Tag, Shared",
-      "key": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
-      "nodeId": "13812:22307",
-      "importMethod": "set",
-      "description": "Use for indicating something is recently updated. Can be interactive (removable) or static metadata.",
-      "page": "✍️ Tag (Identification key)",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Tag (Identification key)",
-      "status": "in-progress",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
-    "empty-state": {
-      "name": "Empty state",
-      "key": "0adc6b54a212315ebb16db7f5eea388276a1587b",
-      "nodeId": "9230:22073",
-      "importMethod": "set",
-      "description": "A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "page": "✅ Empty state",
-      "properties": {
-        "Medium illustration#9230:4": {
-          "type": "INSTANCE_SWAP",
-          "default": "8991:11401"
-        },
-        "Tertiary button#10964:0": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Primary button#10964:4": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Title#10964:8": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Body#10964:12": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Large illustration#10964:20": {
-          "type": "INSTANCE_SWAP",
-          "default": "8837:9944"
-        },
-        "Title content#10964:24": {
-          "type": "TEXT",
-          "default": "No policies available"
-        },
-        "Body content#10964:28": {
-          "type": "TEXT",
-          "default": "Create policies to define how your platform operates."
-        },
-        "Small Illustration#10966:0": {
-          "type": "INSTANCE_SWAP",
-          "default": "10966:18012"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Empty state",
-      "variants": {
-        "Size": [
-          "Large",
-          "Medium",
-          "Small"
-        ]
-      }
-    },
-    "button": {
-      "name": "Button",
-      "key": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
-      "nodeId": "7206:2643",
-      "importMethod": "set",
-      "description": "Primary trigger for a specific action or form submission. Use \"Primary\" for the main task, \"Secondary\" for alternative actions, and \"Ghost/Tertiary\" for low-priority tasks.\n\nPrimary: \"Use as the single most important action on a screen. Limit to one per view (e.g., 'Submit', 'Pay Now').\"\nSecondary: \"Use for supporting actions that are not the main goal of the page (e.g., 'Cancel', 'Back').\"\nTertiary/Ghost: \"Use for low-emphasis actions or repeated items in a list (e.g., 'View Details', 'Learn More').\"\nCritical: \"Use specifically for actions that result in data loss or permanent changes. Usually styled in Red.\"",
-      "page": "✍️ Button",
-      "properties": {
-        "Leading icon#724:0": {
-          "type": "INSTANCE_SWAP",
-          "default": "17171:66073"
-        },
-        "Label#724:10": {
-          "type": "TEXT",
-          "default": "Button"
-        },
-        "Show leading icon#809:73": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Trailing icon#13805:43": {
-          "type": "INSTANCE_SWAP",
-          "default": "17172:66154"
-        },
-        "Show trailing icon#13807:82": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Show label#15988:3": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Action",
-      "group": "Button",
-      "status": "in-progress",
-      "variants": {
-        "Type": [
-          "Primary",
-          "Secondary",
-          "Tertiary",
-          "Icon",
-          "Critical primary",
-          "Critical secondary"
-        ],
-        "Size": [
-          "Default",
-          "Small"
-        ],
-        "State": [
-          "Default",
-          "Hovered",
-          "Focused",
-          "Pressed",
-          "Selected",
-          "Disabled"
-        ]
-      }
-    },
-    "collapse-accordion": {
-      "name": "✍️ Collapse-accordion",
-      "key": "8253d19d70a3b835653049d90b4fdf97b26a31c8",
-      "nodeId": "8292:80",
-      "importMethod": "set",
-      "description": "Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.",
-      "page": "✍️ Collapse (Accordion)",
-      "properties": {
-        "Slot#15956:0": {
-          "type": "SLOT",
-          "default": {
-            "guid": {
-              "sessionID": -1,
-              "localID": -1
-            }
-          }
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Collapse (Accordion)",
-      "status": "in-progress",
-      "variants": {
-        "State": [
-          "Collapsed",
-          "Expanede"
-        ]
-      }
-    },
-    "card-for-items": {
-      "name": "Card for items",
-      "key": "95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30",
-      "nodeId": "7613:7853",
-      "importMethod": "set",
-      "description": "A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.",
-      "page": "✅ Card",
-      "properties": {
-        "Show AI ready#14853:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "directory",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "favorite",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "stars",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Card",
-      "variants": {
-        "Type": [
-          "Catalog",
-          "Item",
-          "item type",
-          "Glossary type",
-          "Topic"
-        ],
-        "State": [
-          "Default",
-          "Hover",
-          "Focus",
-          "Pressed",
-          "Selected"
         ]
       }
     },
@@ -3980,36 +3980,6 @@
       "group": "Details",
       "status": "in-progress"
     },
-    "account-dropdown": {
-      "name": "Account dropdown",
-      "key": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
-      "nodeId": "9118:17382",
-      "importMethod": "single",
-      "description": "",
-      "page": "✅ Global header",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "help-bubble",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "exit",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Navigation",
-      "group": "Global header"
-    },
     "safyr-ebs": {
       "name": "safyr-ebs",
       "key": "4f5e070ee223b4d48d5258f4464312cbf5770530",
@@ -4910,21 +4880,6 @@
       "group": "Field type",
       "status": "in-progress"
     },
-    "lifecycle-policy": {
-      "name": "lifecycle-policy",
-      "key": "b1f0c9b1baad043881f1d2401a93aa1c8cce4791",
-      "nodeId": "13315:9276",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
     "denodo": {
       "name": "denodo",
       "key": "b2c1c1149efbd4f9da9aa7f0598e494e2a5f94bf",
@@ -4938,21 +4893,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "circle-dash": {
-      "name": "circle-dash",
-      "key": "b317fa0913e7862fe3f7dbd2e0d8f5f49758c234",
-      "nodeId": "7310:2897",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
       "status": "in-progress"
     },
     "graph-merge": {
@@ -5564,21 +5504,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "pending": {
-      "name": "pending",
-      "key": "f312fc0c5b45f54eb9081e0b0878f346801af1a4",
-      "nodeId": "7996:5346",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
-      "status": "in-progress"
-    },
     "favorite-filled": {
       "name": "favorite-filled",
       "key": "f356489882aa4ddfc7e099e006510d6fdda704df",
@@ -6104,31 +6029,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "app-switcher-dropdown": {
-      "name": "App switcher dropdown",
-      "key": "09baf67bef9191d0b5303b52c1c3159eefba3843",
-      "nodeId": "9118:17666",
-      "importMethod": "single",
-      "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
-      "page": "✅ Global header",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "settings",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Navigation",
-      "group": "Global header"
-    },
     "server-search": {
       "name": "server-search",
       "key": "4b21aa187b1559d7c4ad33b31e477f7fcfc9975a",
@@ -6549,21 +6449,6 @@
       "group": "Message",
       "status": "in-progress"
     },
-    "stop-outline": {
-      "name": "stop--outline",
-      "key": "aca6ed16c1e6d21fe112ab5619570e5a11f1d5e0",
-      "nodeId": "7310:2895",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
-      "status": "in-progress"
-    },
     "maximize": {
       "name": "maximize",
       "key": "b06f115e9d2e0d3544b1b319cc96e501449e5d5f",
@@ -6579,6 +6464,21 @@
       "group": "Common",
       "status": "in-progress"
     },
+    "stop-outline": {
+      "name": "stop--outline",
+      "key": "aca6ed16c1e6d21fe112ab5619570e5a11f1d5e0",
+      "nodeId": "7310:2895",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
     "view-table": {
       "name": "view-table",
       "key": "bfc87e123e2bab1aec590bdfa5799649b37f756a",
@@ -6592,21 +6492,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Common",
-      "status": "in-progress"
-    },
-    "asleep": {
-      "name": "asleep",
-      "key": "c0411afed99b56a1af98f59d40aec05db7c5fb95",
-      "nodeId": "7310:2900",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
       "status": "in-progress"
     },
     "undo": {
@@ -6639,10 +6524,125 @@
       "group": "Cursor",
       "status": "in-progress"
     },
+    "asleep": {
+      "name": "asleep",
+      "key": "c0411afed99b56a1af98f59d40aec05db7c5fb95",
+      "nodeId": "7310:2900",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
     "alert-circle": {
       "name": "alert-circle",
       "key": "750fb2b2080f030bcf753f1c2c18c811c5aeaa8a",
       "nodeId": "14719:551",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
+    "app-switcher-dropdown": {
+      "name": "App switcher dropdown",
+      "key": "09baf67bef9191d0b5303b52c1c3159eefba3843",
+      "nodeId": "9118:17666",
+      "importMethod": "single",
+      "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
+      "page": "✅ Global header",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "settings",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Global header"
+    },
+    "account-dropdown": {
+      "name": "Account dropdown",
+      "key": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
+      "nodeId": "9118:17382",
+      "importMethod": "single",
+      "description": "",
+      "page": "✅ Global header",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "help-bubble",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "exit",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Global header"
+    },
+    "lifecycle-policy": {
+      "name": "lifecycle-policy",
+      "key": "b1f0c9b1baad043881f1d2401a93aa1c8cce4791",
+      "nodeId": "13315:9276",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "circle-dash": {
+      "name": "circle-dash",
+      "key": "b317fa0913e7862fe3f7dbd2e0d8f5f49758c234",
+      "nodeId": "7310:2897",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
+    "pending": {
+      "name": "pending",
+      "key": "f312fc0c5b45f54eb9081e0b0878f346801af1a4",
+      "nodeId": "7996:5346",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",

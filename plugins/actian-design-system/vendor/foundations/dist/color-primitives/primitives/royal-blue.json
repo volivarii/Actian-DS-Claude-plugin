@@ -23,7 +23,7 @@
     "source": "foundations/src/foundations.md",
     "do_not_edit": "Edit the source MD; CI regenerates this file."
   },
-  "body": "OKLCH 500 base: oklch(0.4916 0.2229 262.08) — Actian theme primary",
+  "body": "OKLCH 500 base: oklch(0.5216 0.2044 260.3) — Actian theme primary",
   "blocks": [
     {
       "type": "table",
@@ -38,67 +38,67 @@
           "Shade": "25",
           "Token": "--zen-color-royal-blue-25",
           "Hex (Figma)": "`#F3F5F9` 🟡",
-          "OKLCH (Eng)": "`oklch(0.97 0.005 262.08)` 🟡"
+          "OKLCH (Eng)": "`oklch(0.97 0.005 260.3)` 🟡"
         },
         {
           "Shade": "50",
           "Token": "--zen-color-royal-blue-50",
-          "Hex (Figma)": "#c8e1ff",
-          "OKLCH (Eng)": "oklch(0.9069 0.0669 262.08)"
+          "Hex (Figma)": "#CBE3FF",
+          "OKLCH (Eng)": "oklch(0.9119 0.0613 260.3)"
         },
         {
           "Shade": "100",
           "Token": "--zen-color-royal-blue-100",
-          "Hex (Figma)": "#a6c6ff",
-          "OKLCH (Eng)": "oklch(0.8239 0.0892 262.08)"
+          "Hex (Figma)": "#AACAFE",
+          "OKLCH (Eng)": "oklch(0.8339 0.0818 260.3)"
         },
         {
           "Shade": "200",
           "Token": "--zen-color-royal-blue-200",
-          "Hex (Figma)": "#7caaff",
-          "OKLCH (Eng)": "oklch(0.7408 0.1337 262.08)"
+          "Hex (Figma)": "#82B0FD",
+          "OKLCH (Eng)": "oklch(0.7558 0.1226 260.3)"
         },
         {
           "Shade": "300",
           "Token": "--zen-color-royal-blue-300",
-          "Hex (Figma)": "#5b8ef0",
-          "OKLCH (Eng)": "oklch(0.6577 0.1560 262.08)"
+          "Hex (Figma)": "#6296EF",
+          "OKLCH (Eng)": "oklch(0.6777 0.1431 260.3)"
         },
         {
           "Shade": "400",
           "Token": "--zen-color-royal-blue-400",
-          "Hex (Figma)": "#3571e6",
-          "OKLCH (Eng)": "oklch(0.5747 0.1895 262.08)"
+          "Hex (Figma)": "#3D7CE6",
+          "OKLCH (Eng)": "oklch(0.5997 0.1737 260.3)"
         },
         {
           "Shade": "**500**",
           "Token": "**`--zen-color-royal-blue-500`**",
-          "Hex (Figma)": "**`#0550dc`**",
-          "OKLCH (Eng)": "**`oklch(0.4916 0.2229 262.08)`**"
+          "Hex (Figma)": "**`#0F5FDC`**",
+          "OKLCH (Eng)": "**`oklch(0.5216 0.2044 260.3)`**"
         },
         {
           "Shade": "600",
           "Token": "--zen-color-royal-blue-600",
-          "Hex (Figma)": "#0043d8",
-          "OKLCH (Eng)": "oklch(0.4621 0.2340 262.08)"
+          "Hex (Figma)": "#0053D7",
+          "OKLCH (Eng)": "oklch(0.4903 0.2146 260.3)"
         },
         {
           "Shade": "700",
           "Token": "--zen-color-royal-blue-700",
-          "Hex (Figma)": "#0039bd",
-          "OKLCH (Eng)": "oklch(0.4179 0.2118 262.08)"
+          "Hex (Figma)": "#0047BC",
+          "OKLCH (Eng)": "oklch(0.4434 0.1942 260.3)"
         },
         {
           "Shade": "800",
           "Token": "--zen-color-royal-blue-800",
-          "Hex (Figma)": "#003092",
-          "OKLCH (Eng)": "oklch(0.3589 0.1672 262.08)"
+          "Hex (Figma)": "#033B92",
+          "OKLCH (Eng)": "oklch(0.3808 0.1533 260.3)"
         },
         {
           "Shade": "900",
           "Token": "--zen-color-royal-blue-900",
-          "Hex (Figma)": "#082a6d",
-          "OKLCH (Eng)": "oklch(0.3097 0.1226 262.08)"
+          "Hex (Figma)": "#0D316D",
+          "OKLCH (Eng)": "oklch(0.3286 0.1124 260.3)"
         }
       ]
     }

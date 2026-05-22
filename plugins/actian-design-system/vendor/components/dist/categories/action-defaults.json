@@ -83,21 +83,18 @@
   "card_accessibility": {
     "requirementRefs": [
       {
-        "ref": "keyboard-focus",
+        "ref": "focus-keyboard",
         "note": "must be operable with Enter and Space (button) or Enter (link)"
       },
       {
         "ref": "color-contrast"
       },
       {
-        "ref": "interactions"
-      },
-      {
-        "ref": "feedback-errors",
+        "ref": "alerts-toasts-banners",
         "note": "loading + disabled states must be announced; do not rely on color alone"
       },
       {
-        "ref": "aria-guidance"
+        "ref": "aria-labels"
       }
     ]
   },

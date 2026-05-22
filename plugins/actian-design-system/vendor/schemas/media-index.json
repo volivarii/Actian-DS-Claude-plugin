@@ -63,10 +63,21 @@
         "description": "Role-keyed map of repo-relative paths for one component (role → path).",
         "examples": [{ "preview": "components/dist/media/avatar/preview.png" }],
         "additionalProperties": {
-          "type": "string",
-          "minLength": 1,
-          "description": "Repo-relative path to the asset (e.g. components/dist/media/avatar/preview.png).",
-          "examples": ["components/dist/media/avatar/preview.png"]
+          "description": "A role's media: a single path (preview) or an ordered list of paths (multi-image roles).",
+          "oneOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "description": "Repo-relative path to a single asset."
+            },
+            {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": { "type": "string", "minLength": 1 },
+              "description": "Ordered repo-relative paths for a multi-image role."
+            }
+          ]
         }
       }
     }
