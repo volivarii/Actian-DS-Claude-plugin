@@ -53,6 +53,30 @@ If you write text after the emoji (e.g., `⚠️ pending review`), the parser ke
 
 If you add an emoji not in the list above, it'll be preserved as text but won't trigger a structured `status` field. Coordinate with engineering to add it to the parser's recognized list.
 
+## Adding a motion pattern
+
+Motion patterns live under section `2.9 — Motion` and are written as **bold paragraphs** followed by a phase table:
+
+```markdown
+**Drawer (open/close)** {#drawer-open-close}
+
+| Phase | Duration | Easing | Behavior |
+|-------|----------|--------|----------|
+| Open  | `duration-slow` | `ease-entrance` | Slides in from the right |
+| Close | `duration-base` | `ease-exit`     | Slides out to the right |
+```
+
+The `{#kebab-slug}` after the bold name is the **stable consumer-facing slug**. Plugin code, category refs (`{ ref: drawer-open-close }`), and any downstream consumer addresses the pattern by that anchor — the bold name itself may be re-worded freely.
+
+**Rules:**
+- Every motion pattern bold-paragraph must end with ` {#kebab-slug}`.
+- Slug characters: lowercase a–z, digits, and `-`.
+- Slug must be unique within the motion section.
+- **Leave a blank line** between the bold-paragraph (with anchor) and the table that follows. Without the blank line, marked merges them into one paragraph and the parser misreads it.
+- **Don't anchor `**Logic & Accessibility**` subsection labels** — they're a structural marker, not an addressable pattern.
+
+**Adding a new pattern:** append a new bold + anchor + phase-table block under the Component Motion Guide. The slug becomes the contract; downstream `{ ref: <slug> }` references in `components/src/categories/*.md` resolve automatically.
+
 ## Section numbering
 
 The numbers at the start of each H2/H3 heading (`## 2.1`, `### 2.2`) are how the parser knows which JSON file each section feeds. **You can change the heading text after the number freely.** But if you renumber sections (e.g., move what was `2.1` to `2.7`), please coordinate with engineering — they'll need to update the parser map at `scripts/foundations/foundations.parser.json`.

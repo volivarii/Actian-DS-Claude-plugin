@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.20.6",
+  "knowledge_version": "0.21.0",
   "paths": {
     "accessibility.authoring": {
       "path": "accessibility/AUTHORING.md",
@@ -551,7 +551,7 @@
       "recursive": true,
       "type": "binary",
       "origin": "ci",
-      "description": "Per-component CI-generated visual assets (Figma frame captures, state matrices, motion clips). Authored by the media-preview sync phase (and future media-* phases). Single-capture roles (capture:\"first\", e.g. `preview`) produce `<role>.png`; multi-capture roles (capture:\"all\", e.g. `parts`, `variations`, `spacing`, `behavior`, `layout`) produce `<role>-0.png`, `<role>-1.png`, … ordered by Figma frame index. The `preview` role is the Figma frame named 'Overview' rendered as PNG; data-side role name follows DS convention. Vendor pull copies the tree; consumers read paths from the media index (components/dist/media/_index.json)."
+      "description": "Per-component CI-generated visual assets (Figma frame captures, state matrices, motion clips). Authored by the media-preview sync phase (and future media-* phases). Single-capture roles (capture:\"first\", e.g. `preview`) produce `<role>.webp`; multi-capture roles (capture:\"all\", e.g. `parts`, `variations`, `spacing`, `behavior`, `layout`) produce `<role>-0.webp`, `<role>-1.webp`, … ordered by Figma frame index. Frames are rendered by Figma as PNG and transcoded to WebP locally (the Figma REST API has no WebP format). Vendor pull copies the tree; consumers read paths from the media index (components/dist/media/_index.json)."
     },
     "content.section": {
       "dir": "content/src",
@@ -577,7 +577,7 @@
     "search-filters": "filters",
     "tag-default": "tag",
     "input": "text-input",
-    "toglge": "toggle-control",
+    "toggle": "toggle-control",
     "whats-new-dropdown": "whats-new",
     "notification": "inline-toast"
   },

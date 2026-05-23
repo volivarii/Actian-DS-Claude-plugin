@@ -1,4 +1,12 @@
 {
+  "_schema_version": 1,
+  "_regen": {
+    "source": "figma",
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "12770:19394",
+    "lastSync": "2026-05-13T00:00:00Z",
+    "instructions": "Icon-group definitions sourced from the Figma file's Icons page (Actual icons layout frame). Re-sync when icon groups are added/removed in Figma. Key order is meaningful — the first-listed group containing an icon becomes its primary group; preserve specific-first ordering (e.g. Cursor before Common)."
+  },
   "_naming_convention": "Maps icon slugs to one or more semantic groups derived from the Figma file Actual-icons layout. Key order = primary priority: when an icon belongs to multiple groups, the FIRST-listed group becomes its `group` field (primary); the rest become `secondaryGroups`. Ordering is specific-first (e.g., Cursor before Common) so context-specific groups win over universal ones.",
   "_generated_from": "Figma file l8biHxfarNi1I2RMvVxVOK Icons page (Actual icons layout frame); manually curated 2026-05-13 from node 12770:19394 frame structure.",
   "Connector": [
@@ -133,12 +141,7 @@
     "task-list-multiple",
     "text-file"
   ],
-  "Cursor": [
-    "cursor-arrow",
-    "cursor-hand",
-    "expand",
-    "minimize"
-  ],
+  "Cursor": ["cursor-arrow", "cursor-hand", "expand", "minimize"],
   "Graph": [
     "chart-bar",
     "chart-pie",

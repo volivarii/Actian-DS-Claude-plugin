@@ -2059,9 +2059,14 @@ Follow the [stepper button terminology guidelines](/components/navigation/steppe
 <!-- AUTHORING NOTE: this file = the designer-authored v1.3.0 guidelines + the
      per-component WCAG criteria, screen-reader expectations, and AI Output
      section merged back from the prior version. Author the NEXT version from
-     THIS file so that merged detail is preserved. Section ids are auto-derived
-     from heading text by scripts/accessibility/derive-a11y-index.js — write
-     plain markdown, no manual {#anchor}s. -->
+     THIS file so that merged detail is preserved.
+
+     Section ids are EXPLICIT {#anchor} markers on every H2/H3 heading. They
+     are the cross-consumer reference (plugin, docs, category refs, MCP) —
+     the heading TEXT can change freely, the {#anchor} must remain stable.
+     DO NOT rename or remove an anchor without coordinating with all
+     consumers. Adding a new section: append a new {#kebab-slug} and that
+     slug becomes the contract. (Substrate Doctrine P6; R6 pre-build D1.) -->
 
 **Version:** 1.3.0
 **Last updated:** May 19, 2026
