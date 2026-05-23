@@ -30,11 +30,30 @@ You don't need to install Node, run any script, or touch the JSON. The PR shows 
 - **Component sub-sections** under `## 11. Components` (`### Buttons`, `### Forms`, …) — per-component guidance. Each ends with a `**WCAG criteria:**` line listing the relevant success criteria; the derive step harvests those into the index.
 - **The Designer Handoff Checklist** (`## 12.`) — the pre-handoff review checklist.
 
-## Section ids — write plain markdown, no anchors
+## Section ids — explicit `{#anchor}` per heading
 
-Every `##` and `###` heading automatically becomes an index section. Its **id (slug) is derived from the heading text** — the leading number is dropped, the rest is lowercased and hyphenated (`## 5. Focus & Keyboard` → `focus-keyboard`). You never write `{#anchor}`s by hand — that is the job of `scripts/accessibility/derive-a11y-index.js`.
+Every `##` and `###` heading carries an **explicit `{#kebab-slug}` anchor**, appended at the end of the heading line:
 
-**One caveat:** the per-category accessibility defaults in `components/src/categories/*.md` reference these slugs by name (e.g. `{ ref: focus-keyboard }`). If you **rename a heading**, its slug changes and those references can orphan. The `a11y-section-ids` test guards against this — but if it flags an orphaned ref after a rename, coordinate with whoever maintains the category files so the reference is updated too. Renumbering or reordering sections is always safe; only the heading *text* affects slugs.
+```markdown
+## 5. Focus & Keyboard {#focus-keyboard}
+### Buttons {#buttons}
+```
+
+The anchor is the **stable cross-consumer reference** used by the plugin, the docs site, MCP, and category-default refs (`{ ref: focus-keyboard }`). The heading TEXT may change freely; the anchor must remain stable.
+
+Why explicit anchors and not auto-derived from heading text:
+- Renames stop breaking consumers — change `## 5. Focus & Keyboard` to `## 5. Keyboard & Focus` and the anchor (and every consumer) keeps working.
+- The contract is visible in source — no hidden mapping in a derive script.
+
+**Rules:**
+- Every new H2 (`##`) and H3 (`###`) must end with ` {#some-slug}`.
+- Slug characters: lowercase a–z, digits, and `-`. No uppercase, no `_`, no spaces.
+- Anchors must be unique in this file. (Two headings under different parents currently re-use `{#color-contrast}` and `{#motion}` — that's intentional dedup, not a precedent.)
+- **Never rename or remove an anchor** without coordinating with consumers. The per-category accessibility defaults in `components/src/categories/*.md` reference these slugs (e.g. `{ ref: focus-keyboard }`); the `categories-derive` test catches orphans, but coordinate first to spare a broken PR.
+
+**Adding a new section:** pick a kebab-case anchor, e.g. `### Carousels {#carousels}`. The slug becomes the contract.
+
+**Renumbering or reordering sections** is always safe — only changing the anchor would shift a slug.
 
 ## This file is a merged baseline
 
@@ -47,7 +66,6 @@ The guidelines target **WCAG 2.1 AA**. Keep the version marker (`**Version:**`) 
 ## What you don't need to do
 
 - Don't edit `accessibility/dist/a11y-index.json` — it's auto-generated. CI will revert manual edits and push back the regenerated version.
-- Don't add `{#anchor}`s to headings — slugs are derived automatically.
 - Don't install Node or run any script locally.
 
 ## More info

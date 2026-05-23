@@ -1,0 +1,289 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/app-context.json",
+  "title": "App context — Actian product surface area",
+  "description": "Schema for app-context/app-context.json — the hand-maintained catalogue of Actian apps (Studio, Explorer, Administration), the entities they expose, the canonical product terminology, and the cross-app UX patterns. Consumed by flow generators, content guardrails, and the Knowledge Editor's secondary tier (form-driven editing). The optional `_regen` block records provenance (D4 from R6).",
+  "type": "object",
+  "required": [
+    "_schema_version",
+    "apps",
+    "entities",
+    "terminology",
+    "patterns"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "const": 1,
+      "description": "Substrate schema version. Pinned at 1; bump only on a schema-incompatible change to the file shape."
+    },
+    "_regen": {
+      "$ref": "#/$defs/regenBlock",
+      "description": "Optional provenance block describing how this file is regenerated. See $defs.regenBlock.",
+      "examples": [
+        { "source": "manual", "instructions": "Hand-curated catalogue." }
+      ]
+    },
+    "apps": {
+      "type": "object",
+      "description": "Catalogue of Actian apps keyed by app slug. Each entry describes the app's purpose, primary users, header chrome, sidebar navigation, and routing signals.",
+      "examples": [
+        {
+          "studio": {
+            "label": "Studio",
+            "purpose": "Data governance",
+            "users": ["Data steward"],
+            "header": { "type": "Studio" },
+            "sidebar": [],
+            "signals": ["govern"]
+          }
+        }
+      ],
+      "additionalProperties": { "$ref": "#/$defs/app" }
+    },
+    "entities": {
+      "type": "object",
+      "description": "Catalogue of first-class domain entities keyed by entity slug. Each entry describes the entity's label, definition, attribute set, and which apps surface it.",
+      "examples": [
+        {
+          "data-product": {
+            "label": "Data Product",
+            "description": "Curated, business-ready asset",
+            "properties": ["name"],
+            "relationships": {},
+            "apps": ["studio"]
+          }
+        }
+      ],
+      "additionalProperties": { "$ref": "#/$defs/entity" }
+    },
+    "terminology": {
+      "type": "object",
+      "description": "Approved-vs-discouraged vocabulary keyed by term slug. Each entry pins the canonical spelling, meaning, and aliases to avoid. Used by content validators and copy review.",
+      "examples": [
+        {
+          "studio": {
+            "use": "Studio",
+            "meaning": "Governance app",
+            "notUse": ["admin panel"]
+          }
+        }
+      ],
+      "additionalProperties": { "$ref": "#/$defs/term" }
+    },
+    "patterns": {
+      "type": "object",
+      "description": "Catalogue of recurring UX patterns keyed by pattern slug. Each entry describes the pattern's intent and which apps it appears in. Used by flow generation to pick app-appropriate compositions.",
+      "examples": [
+        {
+          "right-sliding-drawer": {
+            "label": "Right sliding drawer",
+            "description": "Opens from list row click",
+            "apps": ["studio", "explorer"]
+          }
+        }
+      ],
+      "additionalProperties": { "$ref": "#/$defs/pattern" }
+    }
+  },
+  "$defs": {
+    "regenBlock": {
+      "type": "object",
+      "description": "Structured provenance block describing how this file is regenerated (or that it is hand-curated). Shared across Class C JSONs in this substrate.",
+      "required": ["source"],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "enum": ["manual", "figma", "ai-assisted"],
+          "description": "Where the canonical content of this file comes from. `manual` = hand-curated; `figma` = synced from a Figma node; `ai-assisted` = LLM-generated with human review."
+        },
+        "lastSync": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of the most recent sync from `source`. Set by sync tooling for `figma`/`ai-assisted` sources; omit for `manual`.",
+          "examples": ["2026-05-23T00:00:00Z"]
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Free-form prose telling a human author or AI assistant how to update this file responsibly. Surfaced by the Knowledge Editor's 'Regenerate with AI' seam.",
+          "examples": [
+            "Manually curated; update by hand as the product evolves."
+          ]
+        },
+        "fileKey": {
+          "type": "string",
+          "description": "Figma file key, when source = `figma`.",
+          "examples": ["l8biHxfarNi1I2RMvVxVOK"]
+        },
+        "nodeId": {
+          "type": "string",
+          "description": "Figma node id (with a colon separator), when source = `figma`.",
+          "examples": ["12770:19394"]
+        }
+      }
+    },
+    "app": {
+      "type": "object",
+      "description": "Description of a single Actian app surface.",
+      "required": ["label", "purpose", "users", "header", "sidebar", "signals"],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Display name of the app as shown in product chrome and docs.",
+          "examples": ["Studio", "Explorer", "Administration"]
+        },
+        "purpose": {
+          "type": "string",
+          "description": "One-paragraph statement of what the app is for and what jobs it covers.",
+          "examples": [
+            "Data governance, catalog management, stewardship, lineage."
+          ]
+        },
+        "users": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Primary user roles served by this app.",
+          "examples": [["Data steward", "Data engineer"]]
+        },
+        "header": {
+          "type": "object",
+          "description": "Header chrome configuration for this app.",
+          "examples": [{ "type": "Studio" }],
+          "required": ["type"],
+          "additionalProperties": false,
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "Header variant identifier consumed by flow generators (matches the DS `global-header` `App type` axis).",
+              "examples": ["Studio", "Explorer", "Admin"]
+            }
+          }
+        },
+        "sidebar": {
+          "type": "array",
+          "description": "Ordered list of sidebar nav entries shown in this app. Empty array when the app has no left-nav (e.g. Explorer).",
+          "examples": [[{ "label": "Dashboard", "id": "dashboard" }]],
+          "items": {
+            "type": "object",
+            "required": ["label", "id"],
+            "additionalProperties": false,
+            "properties": {
+              "label": {
+                "type": "string",
+                "description": "Visible nav label.",
+                "examples": ["Dashboard", "Catalog"]
+              },
+              "id": {
+                "type": "string",
+                "description": "Stable slug used for routing and analytics.",
+                "examples": ["dashboard", "catalog"]
+              }
+            }
+          }
+        },
+        "signals": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Keywords/phrases that, when present in a user request, route work to this app. Used by skill routing to pick an app context.",
+          "examples": [["steward", "govern", "lineage"]]
+        }
+      }
+    },
+    "entity": {
+      "type": "object",
+      "description": "Description of a single domain entity.",
+      "required": [
+        "label",
+        "description",
+        "properties",
+        "relationships",
+        "apps"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Display name of the entity.",
+          "examples": ["Data Product", "Catalog Object"]
+        },
+        "description": {
+          "type": "string",
+          "description": "One-paragraph definition of the entity.",
+          "examples": ["Curated, business-ready asset with Input/Output Ports."]
+        },
+        "properties": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Common attributes/fields the entity carries.",
+          "examples": [["name", "description", "status"]]
+        },
+        "relationships": {
+          "type": "object",
+          "additionalProperties": { "type": "string" },
+          "description": "Map of relationship name → target entity slug. Keys are verbs like `hasMetadata`, `belongsTo`; values are entity slugs from the `entities` map.",
+          "examples": [{ "hasMetadata": "metadata", "belongsTo": "domain" }]
+        },
+        "apps": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "App slugs (from the `apps` map) where this entity is surfaced.",
+          "examples": [["studio", "explorer"]]
+        }
+      }
+    },
+    "term": {
+      "type": "object",
+      "description": "Canonical-vs-discouraged terminology entry.",
+      "required": ["use", "meaning", "notUse"],
+      "additionalProperties": false,
+      "properties": {
+        "use": {
+          "type": "string",
+          "description": "The approved spelling/phrasing to use in product copy and docs.",
+          "examples": ["Studio", "Data product"]
+        },
+        "meaning": {
+          "type": "string",
+          "description": "What the term denotes — enough to disambiguate.",
+          "examples": ["Governance/catalog app"]
+        },
+        "notUse": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Aliases/synonyms to avoid. Content guardrails flag these in generated copy.",
+          "examples": [["admin panel", "backend"]]
+        }
+      }
+    },
+    "pattern": {
+      "type": "object",
+      "description": "Description of a recurring UX pattern.",
+      "required": ["label", "description", "apps"],
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "description": "Display name of the pattern.",
+          "examples": [
+            "Right sliding drawer",
+            "Interactive graph visualization"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "description": "One-paragraph statement of when and how to use the pattern.",
+          "examples": [
+            "Opens from list row click. Studio: quick edit. Explorer: quick view."
+          ]
+        },
+        "apps": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "App slugs (from the `apps` map) where the pattern appears.",
+          "examples": [["studio", "explorer"]]
+        }
+      }
+    }
+  }
+}

@@ -307,10 +307,7 @@ plugin — look guidelines up by this slug.
 (`components/dist/registries/dskit.json`). Today they diverge: guideline slugs
 were authored independently of the registry keys, so `checkbox` (guideline) has
 to be reconciled with `checkbox-with-label` (registry), `text-input` with
-`input`, `tag` with `tag-default`, and so on. One divergence is not a naming
-choice at all — `toglge` is a misspelling in the registry itself (a Figma
-component-name typo carried through the sync); it will only be fixed by
-correcting the Figma name and re-syncing.
+`input`, `tag` with `tag-default`, `toggle-control` with `toggle`, and so on.
 
 As an **interim** bridge, `paths-manifest.json` carries a `registryAliases`
 block mapping registry key → guideline slug. It is a stopgap, not a pattern to
@@ -322,9 +319,8 @@ grow:
   `multi-select`) — they cannot be aliased and will not surface in the plugin
   until the components exist in the registry under a matching key.
 
-**Follow-up (open):** converge guideline slugs with registry keys (and fix the
-`toglge` typo at the Figma source) so the `registryAliases` block can be
-deleted. Until then, every divergence is a line in that block and a row that
+**Follow-up (open):** converge guideline slugs with registry keys so the
+`registryAliases` block can be deleted. Until then, every divergence is a line in that block and a row that
 needs reconciling. `tests/manifest.test.js` validates that every alias key is a
 real registry key and every value is a real guideline slug — a corrected key
 that orphans an alias will fail CI rather than silently break lookup.

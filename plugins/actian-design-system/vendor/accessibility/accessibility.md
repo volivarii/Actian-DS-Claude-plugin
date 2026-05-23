@@ -6,9 +6,14 @@
 <!-- AUTHORING NOTE: this file = the designer-authored v1.3.0 guidelines + the
      per-component WCAG criteria, screen-reader expectations, and AI Output
      section merged back from the prior version. Author the NEXT version from
-     THIS file so that merged detail is preserved. Section ids are auto-derived
-     from heading text by scripts/accessibility/derive-a11y-index.js — write
-     plain markdown, no manual {#anchor}s. -->
+     THIS file so that merged detail is preserved.
+
+     Section ids are EXPLICIT {#anchor} markers on every H2/H3 heading. They
+     are the cross-consumer reference (plugin, docs, category refs, MCP) —
+     the heading TEXT can change freely, the {#anchor} must remain stable.
+     DO NOT rename or remove an anchor without coordinating with all
+     consumers. Adding a new section: append a new {#kebab-slug} and that
+     slug becomes the contract. (Substrate Doctrine P6; R6 pre-build D1.) -->
 
 **Version:** 1.3.0
 **Last updated:** May 19, 2026
@@ -17,7 +22,7 @@ Target standard: **WCAG 2.1 AA**. References: [WCAG 2.1](https://www.w3.org/TR/W
 
 ---
 
-## 1. Principles
+## 1. Principles {#principles}
 
 The four WCAG principles — **Perceivable, Operable, Understandable, Robust** — define what accessible products do. Designers own perceivable and understandable: contrast, hierarchy, labels, states, and interaction patterns. Engineering owns robust and technical implementation.
 
@@ -30,7 +35,7 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 
 ---
 
-## 2. Color & Contrast
+## 2. Color & Contrast {#color-contrast}
 
 | Content type | Min ratio |
 |-------------|-----------|
@@ -43,7 +48,7 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 
 ---
 
-## 3. Typography
+## 3. Typography {#typography}
 
 - Minimum size: **11px** — only for non-essential UI (tags, data viz). Default body is 14px, minimum body is 12px.
 - Never use light weight (`font-weight: 300`) — fails contrast at small sizes.
@@ -56,7 +61,7 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 
 ---
 
-## 4. Motion
+## 4. Motion {#motion}
 
 - All motion respects `prefers-reduced-motion: reduce` — fade transitions disabled, elements toggle visibility instantly.
 - No content flashes more than 3 times per second (WCAG 2.3.1).
@@ -66,7 +71,7 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 
 ---
 
-## 5. Focus & Keyboard
+## 5. Focus & Keyboard {#focus-keyboard}
 
 Focus is the only interactive state handled by a token. Hover, pressed, and disabled use CSS brightness filters — see the Design Foundation.
 
@@ -100,7 +105,7 @@ Focus is the only interactive state handled by a token. Hover, pressed, and disa
 
 ---
 
-## 6. ARIA & Labels
+## 6. ARIA & Labels {#aria-labels}
 
 Designers annotate specs. Engineering implements.
 
@@ -124,7 +129,7 @@ Designers annotate specs. Engineering implements.
 
 ---
 
-## 7. Reading Order & Landmarks
+## 7. Reading Order & Landmarks {#reading-order-landmarks}
 
 - Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order.
 - Annotate landmark regions in specs: header, nav, main, footer. Screen readers use these to navigate the page.
@@ -133,7 +138,7 @@ Designers annotate specs. Engineering implements.
 
 ---
 
-## 8. Touch & Pointer
+## 8. Touch & Pointer {#touch-pointer}
 
 - Hover-only interactions don't work on touch devices — every hover action needs a touch equivalent.
 - Touch targets must have adequate spacing between them, not just adequate size — crowded targets cause mis-taps.
@@ -141,7 +146,7 @@ Designers annotate specs. Engineering implements.
 
 ---
 
-## 9. Error Prevention
+## 9. Error Prevention {#error-prevention}
 
 - Destructive or irreversible actions (delete, bulk remove, permanent changes) must require a confirmation step (WCAG 3.3.4).
 - Forms with significant data should support undo or review before final submission.
@@ -149,7 +154,7 @@ Designers annotate specs. Engineering implements.
 
 ---
 
-## 10. Session & Timeout Warnings
+## 10. Session & Timeout Warnings {#session-timeout-warnings}
 
 - If a session can expire, users must be warned before it happens and given a way to extend or save their work (WCAG 2.2.1).
 - Timeout warnings must be announced via an ARIA live region — annotate for engineering.
@@ -157,9 +162,9 @@ Designers annotate specs. Engineering implements.
 
 ---
 
-## 11. Components
+## 11. Components {#components}
 
-### Buttons
+### Buttons {#buttons}
 - Use a native button element or proper button role; the name clearly describes the action (verb-based).
 - Visible text label required. Icon-only buttons need a tooltip or `aria-label`, and the purpose must be understandable without visual context.
 - All states designed: default, hover, focus, pressed, disabled. The hit area is not reduced by visual styling.
@@ -173,7 +178,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 2.1.1, 2.4.3, 2.4.7, 3.3.2, 4.1.2, 1.4.1, 2.5.5
 
-### Navigation
+### Navigation {#navigation}
 - Active/current page state uses more than color alone — bold, underline, icon, or `aria-current`.
 - Navigation landmark structure (header, nav, main, footer) annotated in specs.
 - Sidebar collapse trigger is keyboard accessible; collapsed icon-only views provide tooltips or accessible names.
@@ -183,7 +188,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 2.1.1, 2.4.1, 2.4.3, 2.4.4, 3.2.3, 4.1.2
 
-### Forms
+### Forms {#forms}
 - Every input has a visible label above or beside it — never placeholder-only.
 - Required fields marked visually (asterisk) and with `aria-required`.
 - Error messages appear adjacent to the relevant field and describe how to fix the problem.
@@ -195,7 +200,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 1.3.5, 2.1.1, 2.4.3, 3.3.1, 3.3.2, 3.3.3, 4.1.2
 
-### Modals
+### Modals {#modals}
 - Focus moves to the dialog or first interactive element on open.
 - Focus returns to the trigger element on close.
 - Escape always closes the modal.
@@ -207,7 +212,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 1.3.5, 2.1.1, 2.4.3, 2.5.8, 3.3.1, 3.3.2, 3.3.3, 4.1.2
 
-### Alerts, Toasts & Banners
+### Alerts, Toasts & Banners {#alerts-toasts-banners}
 - Status communicated by icon + color — not color alone.
 - Alert text describes what happened and what to do next.
 - Toasts stay visible at least 4 seconds. Do not auto-dismiss if they contain actions.
@@ -217,7 +222,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 1.4.1, 2.2.1, 3.3.1, 4.1.2, 4.1.3
 
-### Dropdowns, Menus & Popovers
+### Dropdowns, Menus & Popovers {#dropdowns-menus-popovers}
 - Trigger has a visible label or `aria-label`.
 - Keyboard: Enter/Space to open · arrow keys to navigate · Escape to close.
 - Menus emerge from their trigger point — not from the screen center.
@@ -228,7 +233,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 1.4.13, 2.1.1, 2.4.3, 3.2.1, 4.1.2
 
-### Data Tables
+### Data Tables {#data-tables}
 - Column headers labeled. Abbreviations have full names via tooltip or `aria-label`.
 - Sort direction indicated beyond color (up/down arrow).
 - Row selection uses a checkbox — not color highlight alone.
@@ -239,7 +244,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 1.3.2, 2.1.1, 2.4.3, 4.1.2
 
-### Loading Patterns
+### Loading Patterns {#loading-patterns}
 - Skeleton loaders match the layout they replace.
 - Spinners have a text alternative ("Loading…") — annotate for engineering.
 - Button loading state changes label (e.g. "Saving…") or has `aria-label`.
@@ -251,7 +256,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 2.1.1, 2.2.1, 2.2.2, 2.3.1, 2.4.3, 3.2.3, 4.1.2, 4.1.3
 
-### Empty States
+### Empty States {#empty-states}
 - Always include: heading, explanation, and primary action.
 - Primary action is a proper button or link — not styled text.
 - Distinguish "first use" vs "no results" — different messages needed.
@@ -260,7 +265,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.1.1, 1.3.1, 2.4.3, 2.4.6, 4.1.3
 
-### Tabs
+### Tabs {#tabs}
 - Active tab uses more than color alone — underline, bold, or background change.
 - Left/right arrows navigate between tabs. Enter/Space activates.
 - Only the active panel is in the tab order.
@@ -269,7 +274,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 2.1.1, 2.4.3, 2.4.7, 4.1.2
 
-### Icons
+### Icons {#icons}
 - Icon-only interactive elements have a visible label, tooltip, or `aria-label`.
 - Decorative icons annotated as decorative (hidden from screen readers).
 - Informational icons have a text alternative.
@@ -279,7 +284,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.1.1, 1.4.1, 1.4.11, 2.1.1, 4.1.2
 
-### Tooltips
+### Tooltips {#tooltips}
 - Triggered by both hover and keyboard focus.
 - Dismiss on Escape or focus leaving the trigger.
 - Content is supplementary only — never the sole place critical information appears.
@@ -288,7 +293,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 1.4.4, 1.4.10, 1.4.13, 2.1.1, 4.1.2
 
-### Truncation & Overflow
+### Truncation & Overflow {#truncation-overflow}
 - Truncated text always has a reveal mechanism — tooltip, expand, or detail view.
 - Never truncate error messages or critical labels.
 - Scrollable containers are keyboard accessible.
@@ -297,7 +302,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 1.4.4, 1.4.10, 1.4.13, 2.1.1, 4.1.2
 
-### Drag & Drop
+### Drag & Drop {#drag-drop}
 - Every drag interaction has a keyboard-operable alternative (arrow keys, reorder control, or cut/paste).
 - Drag and drop target states designed; valid drop zones are visually highlighted during the drag.
 - Drop targets and drag handles meet minimum touch target size (44px on touch).
@@ -305,7 +310,7 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 2.1.1, 2.1.3, 2.5.2, 2.5.7, 4.1.2, 4.1.3
 
-### AI Output & Suggestions
+### AI Output & Suggestions {#ai-output-suggestions}
 
 **Transparency & Identification**
 - AI-generated content is visually and programmatically identified (e.g. a "Sparkle" icon with `aria-label="Generated by AI"`).
@@ -338,35 +343,35 @@ Designers annotate specs. Engineering implements.
 
 ---
 
-## 12. Designer Handoff Checklist
+## 12. Designer Handoff Checklist {#designer-handoff-checklist}
 
 Use before every handoff or design review.
 
-### Color & Contrast
+### Color & Contrast {#color-contrast}
 - [ ] All text meets contrast minimum (4.5:1 normal · 3:1 large)
 - [ ] UI component boundaries meet 3:1 against background
 - [ ] No information conveyed by color alone
 - [ ] Contrast verified in reverse/dark contexts where applicable
 
-### Typography & Content
+### Typography & Content {#typography-content}
 - [ ] No text smaller than 11px
 - [ ] All inputs have visible labels — no placeholder-only fields
 - [ ] Error messages describe the problem and how to fix it
 - [ ] No images of text
 - [ ] Line lengths within limits for the font size
 
-### Focus & Interaction
+### Focus & Interaction {#focus-interaction}
 - [ ] All interactive elements have a designed focus state
 - [ ] Focus order is logical — annotated if non-standard
 - [ ] All actions have a keyboard alternative documented
 - [ ] Touch targets meet minimums (24px desktop · 44px mobile)
 
-### States
+### States {#states}
 - [ ] All interactive states designed: default, hover, focus, pressed, disabled, error
 - [ ] Empty, loading, and error states included for data-driven components
 - [ ] State changes use more than one signal — icon + color, not color alone
 
-### Labels & Annotations
+### Labels & Annotations {#labels-annotations}
 - [ ] Icon-only elements have `aria-label` documented
 - [ ] Decorative icons marked as decorative
 - [ ] Dynamic regions annotated with `aria-live`
@@ -374,13 +379,13 @@ Use before every handoff or design review.
 - [ ] Form groupings and required fields annotated
 - [ ] Drag interactions have keyboard alternatives noted
 
-### Reading Order & Touch
+### Reading Order & Touch {#reading-order-touch}
 - [ ] Visual order matches intended reading order — annotated if non-standard
 - [ ] Landmark regions annotated (header, nav, main, footer)
 - [ ] Heading hierarchy is logical — no skipped levels
 - [ ] Hover interactions have touch equivalents documented
 - [ ] Destructive/irreversible actions have confirmation step noted
 
-### Motion
+### Motion {#motion}
 - [ ] Reduced motion behavior noted for all animated components
 - [ ] No content flashes more than 3 times per second

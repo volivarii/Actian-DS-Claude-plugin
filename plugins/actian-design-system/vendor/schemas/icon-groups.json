@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/icon-groups.json",
+  "title": "Icon groups — semantic group catalogue",
+  "description": "Schema for components/src/icon-groups.json — maps each icon slug to one or more semantic groups (Connector, Status, Common, …). Key order in this file is meaningful: the first-listed group containing an icon becomes its primary group during derive; later groups become secondaryGroups. Hand-maintained from the Figma file's Icons page (Actual icons layout frame). The optional `_regen` block records provenance (D4 from R6).",
+  "type": "object",
+  "required": ["_schema_version"],
+  "properties": {
+    "_schema_version": {
+      "const": 1,
+      "description": "Substrate schema version. Pinned at 1; bump only on a schema-incompatible change to the file shape."
+    },
+    "_regen": {
+      "$ref": "#/$defs/regenBlock",
+      "description": "Optional provenance block describing how this file is regenerated. See $defs.regenBlock.",
+      "examples": [
+        {
+          "source": "figma",
+          "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+          "nodeId": "12770:19394"
+        }
+      ]
+    },
+    "_naming_convention": {
+      "type": "string",
+      "description": "Free-form prose documenting the key-order primary-priority rule (first-listed group wins).",
+      "examples": [
+        "Maps icon slugs to one or more semantic groups; first-listed group becomes primary."
+      ]
+    },
+    "_generated_from": {
+      "type": "string",
+      "description": "Free-form prose recording the Figma source. Superseded by the structured `_regen` block (D4); kept for backwards-compatible prose context. Removal is a deferred follow-up (P5 additive in this PR).",
+      "examples": [
+        "Figma file l8biHxfarNi1I2RMvVxVOK Icons page; manually curated 2026-05-13."
+      ]
+    }
+  },
+  "patternProperties": {
+    "^[A-Z][A-Za-z0-9 ]*$": {
+      "type": "array",
+      "uniqueItems": true,
+      "description": "Group entry: an array of icon slugs belonging to the named semantic group. The group name is the property key (capitalized, e.g. `Connector`, `Status`, `Field type`).",
+      "examples": [["alert-circle", "checkmark-outline", "warning-alt"]],
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z0-9-]+$",
+        "description": "Icon slug — lowercase alphanumeric + hyphens. Matches the icon's name in the DS Icons page.",
+        "examples": ["alert-circle", "aws-glue-etl", "db2-database-1"]
+      }
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "regenBlock": {
+      "type": "object",
+      "description": "Structured provenance block describing how this file is regenerated (or that it is hand-curated). Shared across Class C JSONs in this substrate.",
+      "required": ["source"],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "enum": ["manual", "figma", "ai-assisted"],
+          "description": "Where the canonical content of this file comes from. `manual` = hand-curated; `figma` = synced from a Figma node; `ai-assisted` = LLM-generated with human review."
+        },
+        "lastSync": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of the most recent sync from `source`. Set by sync tooling for `figma`/`ai-assisted` sources; omit for `manual`.",
+          "examples": ["2026-05-23T00:00:00Z"]
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Free-form prose telling a human author or AI assistant how to update this file responsibly. Surfaced by the Knowledge Editor's 'Regenerate with AI' seam.",
+          "examples": ["Re-sync when icon groups are added/removed in Figma."]
+        },
+        "fileKey": {
+          "type": "string",
+          "description": "Figma file key, when source = `figma`.",
+          "examples": ["l8biHxfarNi1I2RMvVxVOK"]
+        },
+        "nodeId": {
+          "type": "string",
+          "description": "Figma node id (with a colon separator), when source = `figma`.",
+          "examples": ["12770:19394"]
+        }
+      }
+    }
+  }
+}

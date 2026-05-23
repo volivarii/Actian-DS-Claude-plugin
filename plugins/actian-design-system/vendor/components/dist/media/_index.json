@@ -7,338 +7,332 @@
   },
   "media": {
     "account-dropdown": {
-      "preview": "components/dist/media/account-dropdown/preview.png"
+      "preview": "components/dist/media/account-dropdown/preview.webp"
     },
     "alert-banner": {
-      "preview": "components/dist/media/alert-banner/preview.png"
+      "preview": "components/dist/media/alert-banner/preview.webp"
     },
     "app-switcher-dropdown": {
-      "preview": "components/dist/media/app-switcher-dropdown/preview.png"
+      "preview": "components/dist/media/app-switcher-dropdown/preview.webp"
     },
     "avatar": {
-      "preview": "components/dist/media/avatar/preview.png"
+      "preview": "components/dist/media/avatar/preview.webp"
     },
     "badge": {
-      "preview": "components/dist/media/badge/preview.png",
+      "preview": "components/dist/media/badge/preview.webp",
       "parts": [
-        "components/dist/media/badge/parts-0.png"
+        "components/dist/media/badge/parts-0.webp"
       ],
       "variations": [
-        "components/dist/media/badge/variations-0.png",
-        "components/dist/media/badge/variations-1.png"
+        "components/dist/media/badge/variations-0.webp",
+        "components/dist/media/badge/variations-1.webp"
       ],
       "spacing": [
-        "components/dist/media/badge/spacing-0.png"
+        "components/dist/media/badge/spacing-0.webp"
       ],
       "behavior": [
-        "components/dist/media/badge/behavior-0.png"
+        "components/dist/media/badge/behavior-0.webp"
       ]
     },
     "breadcrumbs": {
-      "preview": "components/dist/media/breadcrumbs/preview.png"
+      "preview": "components/dist/media/breadcrumbs/preview.webp"
     },
     "button": {
-      "preview": "components/dist/media/button/preview.png",
+      "preview": "components/dist/media/button/preview.webp",
       "parts": [
-        "components/dist/media/button/parts-0.png",
-        "components/dist/media/button/parts-1.png",
-        "components/dist/media/button/parts-2.png",
-        "components/dist/media/button/parts-3.png",
-        "components/dist/media/button/parts-4.png",
-        "components/dist/media/button/parts-5.png"
+        "components/dist/media/button/parts-0.webp",
+        "components/dist/media/button/parts-1.webp",
+        "components/dist/media/button/parts-2.webp",
+        "components/dist/media/button/parts-3.webp",
+        "components/dist/media/button/parts-4.webp",
+        "components/dist/media/button/parts-5.webp"
       ],
       "variations": [
-        "components/dist/media/button/variations-0.png",
-        "components/dist/media/button/variations-1.png"
+        "components/dist/media/button/variations-0.webp",
+        "components/dist/media/button/variations-1.webp"
       ],
       "spacing": [
-        "components/dist/media/button/spacing-0.png"
+        "components/dist/media/button/spacing-0.webp"
       ]
     },
     "calendar": {
-      "preview": "components/dist/media/calendar/preview.png"
-    },
-    "card": {
-      "preview": "components/dist/media/card/preview.png"
+      "preview": "components/dist/media/calendar/preview.webp"
     },
     "card-for-grouped-content": {
-      "preview": "components/dist/media/card-for-grouped-content/preview.png"
+      "preview": "components/dist/media/card-for-grouped-content/preview.webp"
     },
     "card-for-items": {
-      "preview": "components/dist/media/card-for-items/preview.png"
+      "preview": "components/dist/media/card-for-items/preview.webp"
     },
     "card-for-perimeter": {
-      "preview": "components/dist/media/card-for-perimeter/preview.png"
+      "preview": "components/dist/media/card-for-perimeter/preview.webp"
     },
     "chat-with-ai-steward": {
       "behavior": [
-        "components/dist/media/chat-with-ai-steward/behavior-0.png"
+        "components/dist/media/chat-with-ai-steward/behavior-0.webp"
       ]
     },
     "checkbox-with-label": {
-      "preview": "components/dist/media/checkbox-with-label/preview.png",
+      "preview": "components/dist/media/checkbox-with-label/preview.webp",
       "parts": [
-        "components/dist/media/checkbox-with-label/parts-0.png"
+        "components/dist/media/checkbox-with-label/parts-0.webp"
       ],
       "spacing": [
-        "components/dist/media/checkbox-with-label/spacing-0.png",
-        "components/dist/media/checkbox-with-label/spacing-1.png"
+        "components/dist/media/checkbox-with-label/spacing-0.webp",
+        "components/dist/media/checkbox-with-label/spacing-1.webp"
       ]
     },
     "collapse-accordion": {
-      "preview": "components/dist/media/collapse-accordion/preview.png"
+      "preview": "components/dist/media/collapse-accordion/preview.webp"
     },
     "confirmation": {
-      "preview": "components/dist/media/confirmation/preview.png",
+      "preview": "components/dist/media/confirmation/preview.webp",
       "parts": [
-        "components/dist/media/confirmation/parts-0.png",
-        "components/dist/media/confirmation/parts-1.png",
-        "components/dist/media/confirmation/parts-2.png"
+        "components/dist/media/confirmation/parts-0.webp",
+        "components/dist/media/confirmation/parts-1.webp",
+        "components/dist/media/confirmation/parts-2.webp"
       ],
       "spacing": [
-        "components/dist/media/confirmation/spacing-0.png",
-        "components/dist/media/confirmation/spacing-1.png",
-        "components/dist/media/confirmation/spacing-2.png"
+        "components/dist/media/confirmation/spacing-0.webp",
+        "components/dist/media/confirmation/spacing-1.webp",
+        "components/dist/media/confirmation/spacing-2.webp"
       ],
       "behavior": [
-        "components/dist/media/confirmation/behavior-0.png",
-        "components/dist/media/confirmation/behavior-1.png"
+        "components/dist/media/confirmation/behavior-0.webp",
+        "components/dist/media/confirmation/behavior-1.webp"
       ],
       "layout": [
-        "components/dist/media/confirmation/layout-0.png",
-        "components/dist/media/confirmation/layout-1.png",
-        "components/dist/media/confirmation/layout-2.png",
-        "components/dist/media/confirmation/layout-3.png",
-        "components/dist/media/confirmation/layout-4.png"
+        "components/dist/media/confirmation/layout-0.webp",
+        "components/dist/media/confirmation/layout-1.webp",
+        "components/dist/media/confirmation/layout-2.webp",
+        "components/dist/media/confirmation/layout-3.webp",
+        "components/dist/media/confirmation/layout-4.webp"
       ]
     },
     "digram-item-types": {
-      "preview": "components/dist/media/digram-item-types/preview.png"
+      "preview": "components/dist/media/digram-item-types/preview.webp"
     },
     "digram-topic": {
-      "preview": "components/dist/media/digram-topic/preview.png"
+      "preview": "components/dist/media/digram-topic/preview.webp"
     },
     "drawer-side-panel": {
-      "preview": "components/dist/media/drawer-side-panel/preview.png"
+      "preview": "components/dist/media/drawer-side-panel/preview.webp"
     },
     "dropdown-select-default": {
-      "preview": "components/dist/media/dropdown-select-default/preview.png"
+      "preview": "components/dist/media/dropdown-select-default/preview.webp"
     },
     "empty-state": {
-      "preview": "components/dist/media/empty-state/preview.png",
+      "preview": "components/dist/media/empty-state/preview.webp",
       "parts": [
-        "components/dist/media/empty-state/parts-0.png",
-        "components/dist/media/empty-state/parts-1.png",
-        "components/dist/media/empty-state/parts-2.png"
+        "components/dist/media/empty-state/parts-0.webp",
+        "components/dist/media/empty-state/parts-1.webp",
+        "components/dist/media/empty-state/parts-2.webp"
       ],
       "spacing": [
-        "components/dist/media/empty-state/spacing-0.png",
-        "components/dist/media/empty-state/spacing-1.png",
-        "components/dist/media/empty-state/spacing-2.png"
+        "components/dist/media/empty-state/spacing-0.webp",
+        "components/dist/media/empty-state/spacing-1.webp",
+        "components/dist/media/empty-state/spacing-2.webp"
       ],
       "behavior": [
-        "components/dist/media/empty-state/behavior-0.png",
-        "components/dist/media/empty-state/behavior-1.png"
+        "components/dist/media/empty-state/behavior-0.webp",
+        "components/dist/media/empty-state/behavior-1.webp"
       ],
       "layout": [
-        "components/dist/media/empty-state/layout-0.png",
-        "components/dist/media/empty-state/layout-1.png",
-        "components/dist/media/empty-state/layout-2.png",
-        "components/dist/media/empty-state/layout-3.png",
-        "components/dist/media/empty-state/layout-4.png"
+        "components/dist/media/empty-state/layout-0.webp",
+        "components/dist/media/empty-state/layout-1.webp",
+        "components/dist/media/empty-state/layout-2.webp",
+        "components/dist/media/empty-state/layout-3.webp",
+        "components/dist/media/empty-state/layout-4.webp"
       ]
     },
     "error-state": {
-      "preview": "components/dist/media/error-state/preview.png",
+      "preview": "components/dist/media/error-state/preview.webp",
       "parts": [
-        "components/dist/media/error-state/parts-0.png",
-        "components/dist/media/error-state/parts-1.png",
-        "components/dist/media/error-state/parts-2.png"
+        "components/dist/media/error-state/parts-0.webp",
+        "components/dist/media/error-state/parts-1.webp",
+        "components/dist/media/error-state/parts-2.webp"
       ],
       "spacing": [
-        "components/dist/media/error-state/spacing-0.png",
-        "components/dist/media/error-state/spacing-1.png",
-        "components/dist/media/error-state/spacing-2.png"
+        "components/dist/media/error-state/spacing-0.webp",
+        "components/dist/media/error-state/spacing-1.webp",
+        "components/dist/media/error-state/spacing-2.webp"
       ],
       "behavior": [
-        "components/dist/media/error-state/behavior-0.png",
-        "components/dist/media/error-state/behavior-1.png"
+        "components/dist/media/error-state/behavior-0.webp",
+        "components/dist/media/error-state/behavior-1.webp"
       ],
       "layout": [
-        "components/dist/media/error-state/layout-0.png",
-        "components/dist/media/error-state/layout-1.png",
-        "components/dist/media/error-state/layout-2.png",
-        "components/dist/media/error-state/layout-3.png",
-        "components/dist/media/error-state/layout-4.png"
+        "components/dist/media/error-state/layout-0.webp",
+        "components/dist/media/error-state/layout-1.webp",
+        "components/dist/media/error-state/layout-2.webp",
+        "components/dist/media/error-state/layout-3.webp",
+        "components/dist/media/error-state/layout-4.webp"
       ]
     },
     "global-header": {
-      "preview": "components/dist/media/global-header/preview.png"
+      "preview": "components/dist/media/global-header/preview.webp"
     },
     "glossary-item-hierarchy-diagram": {
-      "preview": "components/dist/media/glossary-item-hierarchy-diagram/preview.png"
+      "preview": "components/dist/media/glossary-item-hierarchy-diagram/preview.webp"
     },
     "input": {
-      "preview": "components/dist/media/input/preview.png"
+      "preview": "components/dist/media/input/preview.webp"
     },
     "input-date": {
-      "preview": "components/dist/media/input-date/preview.png"
+      "preview": "components/dist/media/input-date/preview.webp"
     },
     "lineage-connecting-line": {
-      "preview": "components/dist/media/lineage-connecting-line/preview.png",
+      "preview": "components/dist/media/lineage-connecting-line/preview.webp",
       "behavior": [
-        "components/dist/media/lineage-connecting-line/behavior-0.png"
+        "components/dist/media/lineage-connecting-line/behavior-0.webp"
       ]
     },
     "lineage-grouped-node": {
-      "preview": "components/dist/media/lineage-grouped-node/preview.png",
+      "preview": "components/dist/media/lineage-grouped-node/preview.webp",
       "behavior": [
-        "components/dist/media/lineage-grouped-node/behavior-0.png"
+        "components/dist/media/lineage-grouped-node/behavior-0.webp"
       ]
     },
     "lineage-individual-node": {
-      "preview": "components/dist/media/lineage-individual-node/preview.png",
+      "preview": "components/dist/media/lineage-individual-node/preview.webp",
       "behavior": [
-        "components/dist/media/lineage-individual-node/behavior-0.png"
+        "components/dist/media/lineage-individual-node/behavior-0.webp"
       ]
     },
     "link": {
-      "preview": "components/dist/media/link/preview.png",
+      "preview": "components/dist/media/link/preview.webp",
       "parts": [
-        "components/dist/media/link/parts-0.png"
+        "components/dist/media/link/parts-0.webp"
       ],
       "variations": [
-        "components/dist/media/link/variations-0.png"
+        "components/dist/media/link/variations-0.webp"
       ]
     },
     "loader": {
-      "preview": "components/dist/media/loader/preview.png"
+      "preview": "components/dist/media/loader/preview.webp"
     },
     "loader-with-logo": {
-      "preview": "components/dist/media/loader-with-logo/preview.png"
+      "preview": "components/dist/media/loader-with-logo/preview.webp"
     },
     "loading-skeleton": {
-      "preview": "components/dist/media/loading-skeleton/preview.png"
+      "preview": "components/dist/media/loading-skeleton/preview.webp"
     },
     "maintenance-state": {
-      "preview": "components/dist/media/maintenance-state/preview.png",
+      "preview": "components/dist/media/maintenance-state/preview.webp",
       "parts": [
-        "components/dist/media/maintenance-state/parts-0.png",
-        "components/dist/media/maintenance-state/parts-1.png",
-        "components/dist/media/maintenance-state/parts-2.png"
+        "components/dist/media/maintenance-state/parts-0.webp",
+        "components/dist/media/maintenance-state/parts-1.webp",
+        "components/dist/media/maintenance-state/parts-2.webp"
       ],
       "spacing": [
-        "components/dist/media/maintenance-state/spacing-0.png",
-        "components/dist/media/maintenance-state/spacing-1.png",
-        "components/dist/media/maintenance-state/spacing-2.png"
+        "components/dist/media/maintenance-state/spacing-0.webp",
+        "components/dist/media/maintenance-state/spacing-1.webp",
+        "components/dist/media/maintenance-state/spacing-2.webp"
       ],
       "behavior": [
-        "components/dist/media/maintenance-state/behavior-0.png",
-        "components/dist/media/maintenance-state/behavior-1.png"
+        "components/dist/media/maintenance-state/behavior-0.webp",
+        "components/dist/media/maintenance-state/behavior-1.webp"
       ],
       "layout": [
-        "components/dist/media/maintenance-state/layout-0.png",
-        "components/dist/media/maintenance-state/layout-1.png",
-        "components/dist/media/maintenance-state/layout-2.png",
-        "components/dist/media/maintenance-state/layout-3.png",
-        "components/dist/media/maintenance-state/layout-4.png"
+        "components/dist/media/maintenance-state/layout-0.webp",
+        "components/dist/media/maintenance-state/layout-1.webp",
+        "components/dist/media/maintenance-state/layout-2.webp",
+        "components/dist/media/maintenance-state/layout-3.webp",
+        "components/dist/media/maintenance-state/layout-4.webp"
       ]
     },
     "metamodel-widget": {
-      "preview": "components/dist/media/metamodel-widget/preview.png"
+      "preview": "components/dist/media/metamodel-widget/preview.webp"
     },
     "modal": {
-      "preview": "components/dist/media/modal/preview.png"
+      "preview": "components/dist/media/modal/preview.webp"
     },
     "notification": {
-      "preview": "components/dist/media/notification/preview.png"
+      "preview": "components/dist/media/notification/preview.webp"
     },
     "notification-dropdown": {
-      "preview": "components/dist/media/notification-dropdown/preview.png"
+      "preview": "components/dist/media/notification-dropdown/preview.webp"
     },
     "page-header": {
-      "preview": "components/dist/media/page-header/preview.png"
-    },
-    "perimeter-card": {
-      "preview": "components/dist/media/perimeter-card/preview.png"
+      "preview": "components/dist/media/page-header/preview.webp"
     },
     "popover": {
-      "preview": "components/dist/media/popover/preview.png"
+      "preview": "components/dist/media/popover/preview.webp"
     },
     "progress-bar-small": {
-      "preview": "components/dist/media/progress-bar-small/preview.png"
+      "preview": "components/dist/media/progress-bar-small/preview.webp"
     },
     "radio-button": {
-      "preview": "components/dist/media/radio-button/preview.png"
+      "preview": "components/dist/media/radio-button/preview.webp"
     },
     "rich-text": {
-      "preview": "components/dist/media/rich-text/preview.png"
+      "preview": "components/dist/media/rich-text/preview.webp"
     },
     "scroll-bar": {
-      "preview": "components/dist/media/scroll-bar/preview.png"
+      "preview": "components/dist/media/scroll-bar/preview.webp"
     },
     "search": {
-      "preview": "components/dist/media/search/preview.png"
+      "preview": "components/dist/media/search/preview.webp"
     },
     "search-dropdown-menu": {
-      "preview": "components/dist/media/search-dropdown-menu/preview.png"
+      "preview": "components/dist/media/search-dropdown-menu/preview.webp"
     },
     "search-filters": {
-      "preview": "components/dist/media/search-filters/preview.png"
+      "preview": "components/dist/media/search-filters/preview.webp"
     },
     "search-result-card": {
-      "preview": "components/dist/media/search-result-card/preview.png"
+      "preview": "components/dist/media/search-result-card/preview.webp"
     },
     "segmented-control": {
-      "preview": "components/dist/media/segmented-control/preview.png"
+      "preview": "components/dist/media/segmented-control/preview.webp"
     },
     "side-nav": {
-      "preview": "components/dist/media/side-nav/preview.png",
+      "preview": "components/dist/media/side-nav/preview.webp",
       "parts": [
-        "components/dist/media/side-nav/parts-0.png"
+        "components/dist/media/side-nav/parts-0.webp"
       ],
       "variations": [
-        "components/dist/media/side-nav/variations-0.png",
-        "components/dist/media/side-nav/variations-1.png"
+        "components/dist/media/side-nav/variations-0.webp",
+        "components/dist/media/side-nav/variations-1.webp"
       ]
     },
     "spinner": {
-      "preview": "components/dist/media/spinner/preview.png"
+      "preview": "components/dist/media/spinner/preview.webp"
     },
     "stepper": {
-      "preview": "components/dist/media/stepper/preview.png"
-    },
-    "stepper-buttons": {
-      "preview": "components/dist/media/stepper-buttons/preview.png"
+      "preview": "components/dist/media/stepper/preview.webp"
     },
     "sticky-footer": {
-      "preview": "components/dist/media/sticky-footer/preview.png",
+      "preview": "components/dist/media/sticky-footer/preview.webp",
       "parts": [
-        "components/dist/media/sticky-footer/parts-0.png"
+        "components/dist/media/sticky-footer/parts-0.webp"
       ],
       "spacing": [
-        "components/dist/media/sticky-footer/spacing-0.png"
+        "components/dist/media/sticky-footer/spacing-0.webp"
       ],
       "behavior": [
-        "components/dist/media/sticky-footer/behavior-0.png",
-        "components/dist/media/sticky-footer/behavior-1.png"
+        "components/dist/media/sticky-footer/behavior-0.webp",
+        "components/dist/media/sticky-footer/behavior-1.webp"
       ],
       "layout": [
-        "components/dist/media/sticky-footer/layout-0.png",
-        "components/dist/media/sticky-footer/layout-1.png"
+        "components/dist/media/sticky-footer/layout-0.webp",
+        "components/dist/media/sticky-footer/layout-1.webp"
       ]
     },
     "tabs": {
-      "preview": "components/dist/media/tabs/preview.png"
+      "preview": "components/dist/media/tabs/preview.webp"
     },
-    "tile-item": {
-      "preview": "components/dist/media/tile-item/preview.png"
+    "toggle": {
+      "preview": "components/dist/media/toggle/preview.webp",
+      "variations": [
+        "components/dist/media/toggle/variations-0.webp"
+      ]
     },
     "toolbar": {
-      "preview": "components/dist/media/toolbar/preview.png"
+      "preview": "components/dist/media/toolbar/preview.webp"
     },
     "whats-new-dropdown": {
-      "preview": "components/dist/media/whats-new-dropdown/preview.png"
+      "preview": "components/dist/media/whats-new-dropdown/preview.webp"
     }
   }
 }

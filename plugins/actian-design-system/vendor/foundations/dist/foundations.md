@@ -804,7 +804,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Drawer (open/close)**
+**Drawer (open/close)** {#drawer-open-close}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -813,7 +813,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Accordion (expand/collapse)**
+**Accordion (expand/collapse)** {#accordion-expand-collapse}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -822,7 +822,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Success Toast**
+**Success Toast** {#success-toast}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -834,7 +834,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**The "Anchor" Motion — Dropdowns, Popovers, and Tooltips**
+**The "Anchor" Motion — Dropdowns, Popovers, and Tooltips** {#anchor-motion}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -849,7 +849,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Layered Overlays — Modals**
+**Layered Overlays — Modals** {#layered-overlays-modals}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -858,7 +858,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Skeleton Loading**
+**Skeleton Loading** {#skeleton-loading}
 
 | Duration | Easing | Behavior |
 |----------|--------|----------|
@@ -866,7 +866,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Staggered Entrance — Lists, Table Rows, Search Cards**
+**Staggered Entrance — Lists, Table Rows, Search Cards** {#staggered-entrance}
 
 | Per-item duration | Easing | Delay per item |
 |------------------|--------|---------------|
@@ -876,7 +876,7 @@ The cascading effect guides the eye naturally downward and prevents the screen f
 
 ---
 
-**State Transitions**
+**State Transitions** {#state-transitions}
 
 | State | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
