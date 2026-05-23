@@ -537,7 +537,7 @@ Works like tags but contains only 2 letters (initials of category name)
 ### directory
 
 - Single component (no variants)
-- Node: `8189:4595` | Key: `c97a2b5506aafe95c2e4964752e4522b247e609b`
+- Node: `7439:4618` | Key: `64b2045e4c431df3c913363c7ae6d98bc44434d6`
 
 ### disconnected
 
@@ -1586,7 +1586,9 @@ Use for status. Can be interactive (removable) or static metadata.
 - Single component (no variants)
 - Node: `8400:25186` | Key: `c6b80e098e699b0ff94f5722b20ce61170ae7c75`
 
-### Toglge
+### Toggle
+
+Used for an immediate "on/off" state change that doesn't require a "Submit" button to take effect (e.g., System Settings).
 
 - Variants: **Toggle location:** `Left` · `Right` | **Selected:** `No` · `Yes` | **State:** `Default` · `Hover` · `Focus` · `Pressed` · `Disabled`
 - Boolean properties: `Show Helper text#13981:32` (default: true) — set to `false` to hide

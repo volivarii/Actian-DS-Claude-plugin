@@ -63,6 +63,6 @@
 | notification | inline-toast |
 | search-filters | filters |
 | tag-default | tag |
-| toglge | toggle-control |
+| toggle | toggle-control |
 | whats-new-dropdown | whats-new |
 
