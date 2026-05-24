@@ -8,7 +8,10 @@
   "slug": "alert-banner",
   "component": "Alert / banner",
   "meta": {
-    "category": "feedback"
+    "category": "feedback",
+    "section": "COMPONENTS",
+    "related": [],
+    "examples": []
   },
   "domains": {
     "content": {
@@ -258,5 +261,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-05-14T16:07:17+02:00"
+  "updated_at": "2026-05-23T17:10:58+02:00"
 }
