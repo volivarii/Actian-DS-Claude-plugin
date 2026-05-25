@@ -7,9 +7,19 @@
 
 import type { UiSchema } from "@rjsf/utils";
 
+// T1.8 Phase 1: status/owner/updatedAt are no longer author-facing.
+//   - status is auto-derived by the Authoring Workspace from file presence
+//     (file in cart/remote → draft) or the "Use category default" intent
+//     checkbox (→ inherited). `approved` is reserved for a future review
+//     action with audit, never author-self-set.
+//   - owner + updatedAt will be auto-derived from git in T1.8 Phase 2.
+// We keep them in the schema (deriver still reads them); we just stop
+// asking the author. Hidden via RJSF ui:widget=hidden so the form values
+// round-trip on submit without rendering an input.
 const domainSubform: UiSchema = {
-  status: { "ui:widget": "select" },
-  owner: { "ui:placeholder": "e.g. content-team" },
+  status: { "ui:widget": "hidden" },
+  owner: { "ui:widget": "hidden" },
+  updatedAt: { "ui:widget": "hidden" },
 };
 
 export const guidelineMetaUiSchema: UiSchema = {
@@ -34,13 +44,14 @@ export const guidelineMetaUiSchema: UiSchema = {
   },
   category: {
     "ui:title": "Category",
-    "ui:widget": "select",
-    "ui:help": "Picks the section the component lives under in the docs.",
+    "ui:widget": "CategorySelect",
+    "ui:help":
+      "Pick from the canonical category set in components/src/categories/.",
   },
   domains: {
     "ui:title": "Domain status matrix",
     "ui:help":
-      "One row per guideline domain. Status drives docs visibility; owner is the responsible team.",
+      "Status, owner, and last-updated are managed by the Authoring Workspace and git — not edited here. Use the workspace to write or mark a domain as inherited.",
     content: domainSubform,
     usage: domainSubform,
     design: domainSubform,
@@ -49,7 +60,9 @@ export const guidelineMetaUiSchema: UiSchema = {
   },
   related: {
     "ui:title": "Related components",
-    "ui:options": { addable: true, orderable: true, removable: true },
+    "ui:widget": "RelatedMultiSelect",
+    "ui:help":
+      "Search the DS Kit registry + authored components to cross-reference.",
   },
   examples: {
     "ui:title": "Examples",

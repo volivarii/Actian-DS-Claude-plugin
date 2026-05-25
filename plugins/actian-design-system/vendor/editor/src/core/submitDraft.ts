@@ -19,6 +19,7 @@ import { type CommitResult, type Draft, ReadonlyPathError } from "./types";
 import { isReadOnlyPath } from "./validatePaths";
 import { type SchemaMap, validateAgainstSchema } from "./validateAgainstSchema";
 import { createOctokit } from "./octokit";
+import { droppedAnchors, AnchorPreservationError } from "./anchorPreservation";
 
 export interface SubmitDraftConfig {
   owner: string;
@@ -51,6 +52,47 @@ export async function submitDraft(
 ): Promise<CommitResult> {
   for (const file of draft.files) {
     if (isReadOnlyPath(file.path)) throw new ReadonlyPathError(file.path);
+  }
+
+  if (!draft.allowAnchorDrop) {
+    for (const file of draft.files) {
+      if (!file.path.endsWith(".md")) continue;
+      // Refetch remote text. Best-effort: 404 → empty remote (new file).
+      let remoteText = "";
+      try {
+        const res = await (config.octokit ?? createOctokit()).repos.getContent({
+          owner: config.owner,
+          repo: config.repo,
+          path: file.path,
+          ref: config.base,
+        });
+        // Note: GitHub's getContent API returns base64 by default for files
+        // up to 1MB. Larger files come back with encoding="none" and an empty
+        // content body — those need the git.getBlob fallback (we don't support
+        // that yet; would silently skip the guard).
+        if (
+          !Array.isArray(res.data) &&
+          "content" in res.data &&
+          typeof res.data.content === "string" &&
+          res.data.encoding === "base64"
+        ) {
+          // Browser-safe base64 decode (Buffer is not globally available
+          // in the Vite-bundled runtime).
+          const bytes = Uint8Array.from(
+            atob(res.data.content.replace(/\n/g, "")),
+            (c) => c.charCodeAt(0),
+          );
+          remoteText = new TextDecoder("utf-8").decode(bytes);
+        }
+      } catch (err: unknown) {
+        const status = (err as { status?: number }).status;
+        if (status !== 404) throw err;
+      }
+      const dropped = droppedAnchors(remoteText, file.content);
+      if (dropped.length > 0) {
+        throw new AnchorPreservationError(file.path, dropped);
+      }
+    }
   }
 
   for (const file of draft.files) {

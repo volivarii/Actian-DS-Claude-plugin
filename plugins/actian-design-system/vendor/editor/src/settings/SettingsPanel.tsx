@@ -1,35 +1,40 @@
 import { useState } from "react";
-import { Button, Dialog, Flex, Link, Text, TextField } from "@radix-ui/themes";
-import { PATVault } from "./PATVault";
+import {
+  Box,
+  Button,
+  Dialog,
+  Flex,
+  Link,
+  Text,
+  TextField,
+} from "@radix-ui/themes";
+import { getSession, signOut, signInWithPAT } from "../auth";
 
 export interface SettingsPanelProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  vault?: PATVault;
 }
 
 const PAT_HELP_URL = "https://github.com/settings/personal-access-tokens/new";
 
-export function SettingsPanel({
-  open,
-  onOpenChange,
-  vault,
-}: SettingsPanelProps) {
-  const activeVault = vault ?? new PATVault();
+export function SettingsPanel({ open, onOpenChange }: SettingsPanelProps) {
+  const session = getSession();
   const [draft, setDraft] = useState("");
   const [savedAt, setSavedAt] = useState<number | null>(null);
-  const currentToken = activeVault.get();
+  const [saveError, setSaveError] = useState<string | null>(null);
 
   function handleSave() {
     if (!draft.trim()) return;
-    activeVault.set(draft.trim());
-    setDraft("");
-    setSavedAt(Date.now());
-  }
-
-  function handleClear() {
-    activeVault.clear();
-    setSavedAt(Date.now());
+    try {
+      signInWithPAT(draft.trim());
+      setDraft("");
+      setSavedAt(Date.now());
+      setSaveError(null);
+    } catch (err) {
+      setSaveError(
+        err instanceof Error ? err.message : "Failed to save token.",
+      );
+    }
   }
 
   return (
@@ -43,20 +48,37 @@ export function SettingsPanel({
         </Dialog.Description>
 
         <Flex direction="column" gap="3">
+          {session && (
+            <Box
+              mb="3"
+              p="3"
+              style={{ background: "var(--gray-2)", borderRadius: 6 }}
+            >
+              <Text size="2">
+                Signed in via <strong>{session.method.toUpperCase()}</strong>
+                {session.login && (
+                  <>
+                    {" "}
+                    as <strong>{session.login}</strong>
+                  </>
+                )}
+              </Text>
+              <Box mt="2">
+                <Button
+                  variant="soft"
+                  color="gray"
+                  size="1"
+                  onClick={() => signOut()}
+                >
+                  Sign out
+                </Button>
+              </Box>
+            </Box>
+          )}
+
           <Text as="label" size="2" weight="bold" htmlFor="pat-input">
             GitHub Personal Access Token
           </Text>
-
-          {currentToken ? (
-            <Text as="div" size="2" color="grass">
-              Signed in (token: {currentToken.slice(0, 7)}…
-              {currentToken.slice(-4)})
-            </Text>
-          ) : (
-            <Text as="div" size="2" color="gray">
-              No token saved.
-            </Text>
-          )}
 
           <TextField.Root
             id="pat-input"
@@ -78,17 +100,18 @@ export function SettingsPanel({
           </Text>
 
           <Flex gap="2" justify="end" mt="2">
-            {currentToken && (
-              <Button color="ruby" variant="soft" onClick={handleClear}>
-                Sign out
-              </Button>
-            )}
             <Button onClick={handleSave} disabled={!draft.trim()}>
-              {currentToken ? "Replace token" : "Save token"}
+              {session ? "Replace token" : "Save token"}
             </Button>
           </Flex>
 
-          {savedAt && (
+          {saveError && (
+            <Text as="div" size="1" color="red">
+              {saveError}
+            </Text>
+          )}
+
+          {savedAt && !saveError && (
             <Text as="div" size="1" color="gray">
               Updated {new Date(savedAt).toLocaleTimeString()}.
             </Text>

@@ -1,19 +1,20 @@
 import { Octokit } from "@octokit/rest";
-import { PATVault } from "../settings/PATVault";
+import { getSession } from "../auth";
 
-export class MissingPATError extends Error {
+export class MissingAuthError extends Error {
   constructor() {
-    super("No GitHub PAT saved — open Settings and paste a token.");
-    this.name = "MissingPATError";
+    super(
+      "Not signed in. Click 'Sign in with GitHub' or paste a Personal Access Token in Settings.",
+    );
+    this.name = "MissingAuthError";
   }
 }
 
-// Factory so tests can inject a fake; production reads from PATVault.
-export function createOctokit(token?: string): Octokit {
-  const resolved = token ?? new PATVault().get();
-  if (!resolved) throw new MissingPATError();
-  return new Octokit({
-    auth: resolved,
-    userAgent: "actian-ds-knowledge-editor/0.1",
-  });
+// Backwards-compat alias — existing callers reference MissingPATError.
+export const MissingPATError = MissingAuthError;
+
+export function createOctokit(): Octokit {
+  const session = getSession();
+  if (!session) throw new MissingAuthError();
+  return new Octokit({ auth: session.token });
 }
