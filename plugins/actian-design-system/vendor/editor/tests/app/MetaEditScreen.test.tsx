@@ -7,8 +7,8 @@ import { render, screen, cleanup } from "@testing-library/react";
 import { MetaEditScreen } from "../../src/app/MetaEditScreen";
 
 // Bare-minimum fake octokit — never called because the test only exercises
-// the missing-PAT branch. The real Octokit wiring is covered by submitDraft
-// tests.
+// the null-path and loading branches. The real Octokit wiring is covered by
+// submitDraft tests.
 const fakeOctokit = {
   repos: { getContent: async () => ({ data: [] }) },
 } as any;
@@ -17,16 +17,16 @@ function wrap(node: React.ReactNode) {
   return <Theme>{node}</Theme>;
 }
 
-test("MetaEditScreen — renders without throwing when an octokit is injected", () => {
+test("MetaEditScreen — renders without throwing when an octokit is injected (null path)", () => {
   const { container } = render(
-    wrap(<MetaEditScreen octokit={fakeOctokit} />),
+    wrap(<MetaEditScreen path={null} octokit={fakeOctokit} />),
   );
   assert.ok(container);
   cleanup();
 });
 
-test("MetaEditScreen — shows the Component picker label on mount", () => {
-  render(wrap(<MetaEditScreen octokit={fakeOctokit} />));
-  assert.ok(screen.getByText(/Component/i));
+test("MetaEditScreen — shows sidebar prompt when path is null", () => {
+  render(wrap(<MetaEditScreen path={null} octokit={fakeOctokit} />));
+  assert.ok(screen.getByText(/Choose a component in the sidebar/i));
   cleanup();
 });

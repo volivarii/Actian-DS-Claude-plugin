@@ -61,6 +61,11 @@ export interface RJSFFormProps {
   disabled?: boolean;
   submitLabel?: string;
   children?: ComponentProps<typeof Form>["children"];
+  /** Custom RJSF widgets (e.g. CategorySelectWidget, RelatedMultiSelectWidget). */
+  widgets?: ComponentProps<typeof Form>["widgets"];
+  /** Arbitrary context threaded into widget props — used by typed
+   *  pickers to access the Octokit instance for option-set fetches. */
+  formContext?: Record<string, unknown>;
 }
 
 export function RJSFForm({
@@ -72,6 +77,8 @@ export function RJSFForm({
   disabled,
   submitLabel,
   children,
+  widgets,
+  formContext,
 }: RJSFFormProps) {
   return (
     <Form
@@ -80,6 +87,8 @@ export function RJSFForm({
       validator={validator}
       formData={formData}
       disabled={disabled}
+      widgets={widgets}
+      formContext={formContext}
       onChange={(e) => onChange(e.formData)}
       onSubmit={(e) => onSubmit?.(e.formData)}
       showErrorList="bottom"

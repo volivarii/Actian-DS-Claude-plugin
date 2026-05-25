@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Auth Worker smoke test</title>
+    <style>
+      body { font-family: -apple-system, system-ui, sans-serif; max-width: 560px; margin: 40px auto; padding: 0 16px; line-height: 1.5; color: #222; }
+      h1 { margin: 0 0 8px; }
+      p { color: #555; }
+      button { background: #0a0a0a; color: #fff; padding: 10px 20px; border: 0; border-radius: 6px; font-size: 14px; cursor: pointer; }
+      button:hover { background: #333; }
+      pre { background: #f6f6f6; border: 1px solid #ddd; padding: 12px; border-radius: 6px; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+      code { background: #f0f0f0; padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+    </style>
+  </head>
+  <body>
+    <h1>Auth Worker smoke test</h1>
+    <p>
+      Manually verifies the GitHub OAuth round-trip against the deployed Worker.
+      Requires the origin (typically <code>http://localhost:PORT</code>) to be in
+      the Worker's <code>ALLOWED_DOMAINS</code> in <code>wrangler.toml</code>.
+    </p>
+    <button id="signin">Sign in with GitHub</button>
+    <h2>Result</h2>
+    <pre id="out">— click "Sign in with GitHub" —</pre>
+    <script>
+      const WORKER_URL = "https://actian-ds-knowledge-auth.volivari.workers.dev";
+      const out = document.getElementById("out");
+      const log = (msg) => { out.textContent += "\n" + msg; };
+
+      document.getElementById("signin").addEventListener("click", () => {
+        out.textContent = "Opening sign-in popup…";
+
+        const popup = window.open(
+          WORKER_URL + "/auth?provider=github&site_id=" + encodeURIComponent(location.hostname),
+          "github-oauth",
+          "width=600,height=720",
+        );
+        if (!popup) {
+          log("Popup blocked! Allow popups for this page and retry.");
+          return;
+        }
+
+        // Sveltia/Decap handshake:
+        //   1. Popup → opener: "authorizing:github" (with "*" origin)
+        //   2. Opener → popup: "authorizing:github" (with popup's origin)
+        //   3. Popup → opener: "authorization:github:success:<json>" (with opener's origin)
+        function onMessage(event) {
+          if (typeof event.data !== "string") return;
+          if (event.data === "authorizing:github") {
+            log("Handshake received from popup. Responding…");
+            event.source?.postMessage("authorizing:github", event.origin);
+            return;
+          }
+          const match = event.data.match(/^authorization:github:(success|error):(.+)$/);
+          if (match) {
+            window.removeEventListener("message", onMessage);
+            const [, status, payload] = match;
+            try {
+              const parsed = JSON.parse(payload);
+              out.textContent = "Status: " + status + "\n\n" + JSON.stringify(parsed, null, 2);
+              if (parsed.token) {
+                log("\n→ Verify the token with:");
+                log('   curl -H "Authorization: token ' + parsed.token + '" https://api.github.com/user');
+              }
+            } catch (err) {
+              out.textContent = "Status: " + status + "\nRaw payload: " + payload;
+            }
+          }
+        }
+        window.addEventListener("message", onMessage);
+      });
+    </script>
+  </body>
+</html>

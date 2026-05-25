@@ -20,6 +20,12 @@ export interface Draft {
   message: string;
   branch?: string;
   sourceMetadata?: SourceMetadata;
+  /**
+   * If true, skip the anchor-preservation guard. The MarkdownEditScreen
+   * sets this to true after the AnchorWarning modal is confirmed by the
+   * author. Defaults to false / undefined.
+   */
+  allowAnchorDrop?: boolean;
 }
 
 export interface CommitResult {
