@@ -420,7 +420,8 @@
       "examples": [
         { "prose": "Buttons trigger actions." },
         { "bullets": ["Use buttons for actions, not navigation."] },
-        { "do": "Create report", "dont": "Report" }
+        { "do": "Create report", "dont": "Report" },
+        { "media": { "role": "parts", "layout": "grid" } }
       ],
       "oneOf": [
         {
@@ -502,6 +503,41 @@
                   "items": { "type": "array", "items": { "type": "string" } },
                   "description": "Table body rows.",
                   "examples": [[["height", "32px"]]]
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["media"],
+          "description": "A media placeholder item. Emitted from a standalone `<Media role=\"…\" layout=\"…\" />` line in the source markdown. The docs renderer resolves the role to a real asset at build time.",
+          "properties": {
+            "media": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["role", "layout"],
+              "description": "Media placeholder payload.",
+              "examples": [
+                { "role": "parts", "layout": "grid" },
+                { "role": "spacing", "layout": null }
+              ],
+              "properties": {
+                "role": {
+                  "enum": [
+                    "parts",
+                    "variations",
+                    "spacing",
+                    "behavior",
+                    "layout"
+                  ],
+                  "description": "Identifies which design-guideline media asset to render."
+                },
+                "layout": {
+                  "type": ["string", "null"],
+                  "description": "Optional layout hint for the renderer (e.g. \"grid\", \"stack\"). Null when the author omitted the attribute.",
+                  "examples": ["grid", "stack", null]
                 }
               }
             }

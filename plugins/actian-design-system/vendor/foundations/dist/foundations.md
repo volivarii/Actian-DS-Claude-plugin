@@ -161,21 +161,21 @@ OKLCH 500 base: `oklch(0.683 0 0)` — *Neutral semantic role*
 | 900 | `--zen-color-grey-900` | `#505050` | `oklch(0.4303 0 0)` |
 
 #### Royal Blue
-OKLCH 500 base: `oklch(0.4916 0.2229 262.08)` — *Actian theme primary*
+OKLCH 500 base: `oklch(0.5216 0.2044 260.3)` — *Actian theme primary*
 
 | Shade | Token | Hex (Figma) | OKLCH (Eng) |
 |-------|-------|------------|-------------|
-| 25 | `--zen-color-royal-blue-25` | `#F3F5F9` 🟡 | `oklch(0.97 0.005 262.08)` 🟡 |
-| 50 | `--zen-color-royal-blue-50` | `#c8e1ff` | `oklch(0.9069 0.0669 262.08)` |
-| 100 | `--zen-color-royal-blue-100` | `#a6c6ff` | `oklch(0.8239 0.0892 262.08)` |
-| 200 | `--zen-color-royal-blue-200` | `#7caaff` | `oklch(0.7408 0.1337 262.08)` |
-| 300 | `--zen-color-royal-blue-300` | `#5b8ef0` | `oklch(0.6577 0.1560 262.08)` |
-| 400 | `--zen-color-royal-blue-400` | `#3571e6` | `oklch(0.5747 0.1895 262.08)` |
-| **500** | **`--zen-color-royal-blue-500`** | **`#0550dc`** | **`oklch(0.4916 0.2229 262.08)`** |
-| 600 | `--zen-color-royal-blue-600` | `#0043d8` | `oklch(0.4621 0.2340 262.08)` |
-| 700 | `--zen-color-royal-blue-700` | `#0039bd` | `oklch(0.4179 0.2118 262.08)` |
-| 800 | `--zen-color-royal-blue-800` | `#003092` | `oklch(0.3589 0.1672 262.08)` |
-| 900 | `--zen-color-royal-blue-900` | `#082a6d` | `oklch(0.3097 0.1226 262.08)` |
+| 25 | `--zen-color-royal-blue-25` | `#F3F5F9` 🟡 | `oklch(0.97 0.005 260.3)` 🟡 |
+| 50 | `--zen-color-royal-blue-50` | `#CBE3FF` | `oklch(0.9119 0.0613 260.3)` |
+| 100 | `--zen-color-royal-blue-100` | `#AACAFE` | `oklch(0.8339 0.0818 260.3)` |
+| 200 | `--zen-color-royal-blue-200` | `#82B0FD` | `oklch(0.7558 0.1226 260.3)` |
+| 300 | `--zen-color-royal-blue-300` | `#6296EF` | `oklch(0.6777 0.1431 260.3)` |
+| 400 | `--zen-color-royal-blue-400` | `#3D7CE6` | `oklch(0.5997 0.1737 260.3)` |
+| **500** | **`--zen-color-royal-blue-500`** | **`#0F5FDC`** | **`oklch(0.5216 0.2044 260.3)`** |
+| 600 | `--zen-color-royal-blue-600` | `#0053D7` | `oklch(0.4903 0.2146 260.3)` |
+| 700 | `--zen-color-royal-blue-700` | `#0047BC` | `oklch(0.4434 0.1942 260.3)` |
+| 800 | `--zen-color-royal-blue-800` | `#033B92` | `oklch(0.3808 0.1533 260.3)` |
+| 900 | `--zen-color-royal-blue-900` | `#0D316D` | `oklch(0.3286 0.1124 260.3)` |
 
 #### Blue
 OKLCH 500 base: `oklch(0.58 0.130062 238.7173)` — *Studio & Admin theme primary*
@@ -804,7 +804,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Drawer (open/close)**
+**Drawer (open/close)** {#drawer-open-close}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -813,7 +813,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Accordion (expand/collapse)**
+**Accordion (expand/collapse)** {#accordion-expand-collapse}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -822,7 +822,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Success Toast**
+**Success Toast** {#success-toast}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -834,7 +834,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**The "Anchor" Motion — Dropdowns, Popovers, and Tooltips**
+**The "Anchor" Motion — Dropdowns, Popovers, and Tooltips** {#anchor-motion}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -849,7 +849,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Layered Overlays — Modals**
+**Layered Overlays — Modals** {#layered-overlays-modals}
 
 | Phase | Duration | Easing | Behavior |
 |-------|----------|--------|----------|
@@ -858,7 +858,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Skeleton Loading**
+**Skeleton Loading** {#skeleton-loading}
 
 | Duration | Easing | Behavior |
 |----------|--------|----------|
@@ -866,7 +866,7 @@ Reference patterns for how motion tokens combine in common components. These def
 
 ---
 
-**Staggered Entrance — Lists, Table Rows, Search Cards**
+**Staggered Entrance — Lists, Table Rows, Search Cards** {#staggered-entrance}
 
 | Per-item duration | Easing | Delay per item |
 |------------------|--------|---------------|
@@ -876,7 +876,7 @@ The cascading effect guides the eye naturally downward and prevents the screen f
 
 ---
 
-**State Transitions**
+**State Transitions** {#state-transitions}
 
 | State | Duration | Easing | Behavior |
 |-------|----------|--------|----------|

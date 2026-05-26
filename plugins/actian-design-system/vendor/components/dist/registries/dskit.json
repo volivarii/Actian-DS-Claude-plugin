@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-05-20T10:23:44.543Z",
+  "lastSynced": "2026-05-22T14:01:27.231Z",
   "componentCount": 318,
   "components": {
     "xs-grid": {
@@ -126,31 +126,6 @@
         ]
       }
     },
-    "tag-glossary-item-type": {
-      "name": "✍️ Tag, Glossary item type",
-      "key": "639773a27d790a489c5e115360b64c7d05a45ac3",
-      "nodeId": "13812:22308",
-      "importMethod": "set",
-      "description": "Use for glossary item types. Can be interactive (removable) or static metadata.",
-      "page": "✍️ Tag (Identification key)",
-      "properties": {
-        "Show Counter#14128:9": {
-          "type": "BOOLEAN",
-          "default": false
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Tag (Identification key)",
-      "status": "in-progress",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
     "card-for-grouped-content": {
       "name": "Card for grouped content",
       "key": "3b8d2c7adc118fdd5f31e68440fa35e952fee92e",
@@ -257,13 +232,13 @@
         ]
       }
     },
-    "toglge": {
-      "name": "Toglge",
+    "toggle": {
+      "name": "Toggle",
       "key": "4e7793f094eed660e01d8f7c804f2391e72115d2",
       "nodeId": "14000:4395",
       "importMethod": "set",
-      "description": "",
-      "page": "Toggle control",
+      "description": "Used for an immediate \"on/off\" state change that doesn't require a \"Submit\" button to take effect (e.g., System Settings).",
+      "page": "✅ Toggle control",
       "properties": {
         "Show Helper text#13981:32": {
           "type": "BOOLEAN",
@@ -594,90 +569,6 @@
         ]
       }
     },
-    "metamodel-widget": {
-      "name": "Metamodel widget",
-      "key": "6b29851b99078abe643d2c6873e8e1a89f8ff0b4",
-      "nodeId": "14747:23588",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Metamodel",
-      "properties": {
-        "Show Section#8582:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Metamodel",
-      "variants": {
-        "Type": [
-          "Dataset",
-          "Business Term",
-          "Data Process",
-          "Field",
-          "Visualisation"
-        ]
-      }
-    },
-    "glossary-item-hierarchy-diagram": {
-      "name": "Glossary item hierarchy diagram",
-      "key": "ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da",
-      "nodeId": "14747:30242",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Glossary item hierarchy diagram",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "list-bullets",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-to-fit",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-reset",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-in",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-out",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "more",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Glossary item hierarchy diagram",
-      "variants": {
-        "Type": [
-          "Default"
-        ]
-      }
-    },
     "search-result-card": {
       "name": "Search result card",
       "key": "0549dc90f04862d64b5b4f8808f26f4968327ce9",
@@ -694,11 +585,6 @@
         },
         {
           "slug": "favorite",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "directory",
           "role": null,
           "source": "child-instance"
         }
@@ -948,35 +834,6 @@
         ]
       }
     },
-    "avatar": {
-      "name": "Avatar",
-      "key": "67e11f5d63bbe3cb24cae7d38ab5e90ee506d266",
-      "nodeId": "7384:14212",
-      "importMethod": "set",
-      "description": "Visual representation of a user or entity. Use \"Image\" variant if a photo exists, or \"Initials\" as a fallback.",
-      "page": "✅ Avatar",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Avatar",
-      "variants": {
-        "State": [
-          "Default",
-          "Hovered",
-          "Focused",
-          "Pressed",
-          "Disabled",
-          "Selected"
-        ],
-        "Type": [
-          "One group",
-          "Two groups",
-          "Default"
-        ]
-      }
-    },
     "s-grid": {
       "name": "S grid",
       "key": "15772025d13a090b6327442a396f6f9757858031",
@@ -1067,6 +924,26 @@
         ]
       }
     },
+    "identification-key": {
+      "name": "Identification key",
+      "key": "3bf340c5e6f49afc5b73140935558a558b3e8855",
+      "nodeId": "14349:15323",
+      "importMethod": "set",
+      "description": "Use for identification keys. Can be interactive (removable) or static metadata.",
+      "page": "✍️ Tag (Identification key)",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Tag (Identification key)",
+      "status": "in-progress",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
     "tag-catalog-item-type": {
       "name": "✍️ Tag, Catalog item type",
       "key": "40393216be9b998d35ac0b4bd63929ccbc4de25e",
@@ -1096,26 +973,6 @@
           "Output port",
           "Use case",
           "Visualization"
-        ]
-      }
-    },
-    "identification-key": {
-      "name": "Identification key",
-      "key": "3bf340c5e6f49afc5b73140935558a558b3e8855",
-      "nodeId": "14349:15323",
-      "importMethod": "set",
-      "description": "Use for identification keys. Can be interactive (removable) or static metadata.",
-      "page": "✍️ Tag (Identification key)",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Tag (Identification key)",
-      "status": "in-progress",
-      "variants": {
-        "Property 1": [
-          "Default"
         ]
       }
     },
@@ -1249,13 +1106,7 @@
       "description": "Use for catalog types. Can be interactive (removable) or static metadata.",
       "page": "✍️ Tag (Identification key)",
       "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "directory",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
+      "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
       "category": "Data Display",
@@ -1605,7 +1456,7 @@
       "nodeId": "13599:20120",
       "importMethod": "set",
       "description": "Vertical navigation for primary application modules. Use when the app has many top-level sections or needs to show sub-navigation.",
-      "page": "✍️  Side nav",
+      "page": "✅  Side nav",
       "properties": {},
       "nestedComponents": [
         {
@@ -1615,6 +1466,11 @@
         },
         {
           "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "directory",
           "role": null,
           "source": "child-instance"
         },
@@ -1975,25 +1831,6 @@
         ]
       }
     },
-    "maintenance-state": {
-      "name": "Maintenance state",
-      "key": "4c187d32a069682c44d5ccd8744b9fe0709c894a",
-      "nodeId": "13871:32311",
-      "importMethod": "set",
-      "description": "A placeholder shown when maintenance. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "page": "✅ Empty state",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Empty state",
-      "variants": {
-        "Size": [
-          "Large"
-        ]
-      }
-    },
     "actian-data-observability": {
       "name": "Actian Data Observability",
       "key": "5f5d2ac2d74db9854ad09510d7b237090afd8a76",
@@ -2291,67 +2128,6 @@
         ]
       }
     },
-    "toolbar": {
-      "name": "Toolbar",
-      "key": "96683d78ad981aacc04a5b6c7c2b0f0f1d631516",
-      "nodeId": "14335:16907",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Toolbar",
-      "properties": {
-        "Show View scale#14335:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "zoom-to-fit",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-reset",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-in",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-out",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "map",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "filter",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Toolbar",
-      "variants": {
-        "Type": [
-          "Single",
-          "Combined",
-          "Group"
-        ],
-        "Orientation": [
-          "Horizontal",
-          "Vertical"
-        ]
-      }
-    },
     "error-state": {
       "name": "Error state",
       "key": "a219aa99ab9712f911f391af8dd623c18b281ccb",
@@ -2372,22 +2148,27 @@
         ]
       }
     },
-    "lineage-connecting-line": {
-      "name": "Lineage connecting line",
-      "key": "553bdc1ba26f3b30988997771dcf74f275eb12d3",
-      "nodeId": "14747:20085",
+    "lineage-grouped-node": {
+      "name": "Lineage grouped node",
+      "key": "f1cafad1f47132058587042da7ec1e46e4eeffdd",
+      "nodeId": "15634:17895",
       "importMethod": "set",
       "description": "",
       "page": "✅ Lineage",
-      "properties": {
-        "Show icon#14697:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
+      "properties": {},
       "nestedComponents": [
         {
-          "slug": "tableau",
+          "slug": "chevron-up",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "powerbi",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
           "role": null,
           "source": "child-instance"
         }
@@ -2397,77 +2178,114 @@
       "category": "Data Display",
       "group": "Lineage",
       "variants": {
-        "Direction": [
-          "Down",
-          "Straight",
-          "up",
-          "Up"
-        ],
         "State": [
           "Default",
-          "Selected",
-          "Disabled"
+          "Expanded"
+        ],
+        "Type": [
+          "Main item",
+          "Sub item"
         ]
       }
     },
-    "notification": {
-      "name": "Notification",
-      "key": "590d2373b688235e8da72732919d2f874eee6cda",
-      "nodeId": "13868:11595",
+    "scroll-bar": {
+      "name": "Scroll bar",
+      "key": "374c471abeb21e0693327b61cc12a31a5eeef5ba",
+      "nodeId": "14747:17639",
       "importMethod": "set",
-      "description": "Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., \"Item saved\"). Automatically dismisses after 3–5 seconds.",
-      "page": "✅ Notification (Toast)",
+      "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
+      "page": "✅ Scroll bar",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
-      "category": "Feedback",
-      "group": "Notification (Toast)",
+      "category": "Data Display",
+      "group": "Scroll bar",
       "variants": {
-        "Type": [
-          "Default",
-          "Critical"
+        "Property 1": [
+          "Default"
         ]
       }
     },
-    "search-filters": {
-      "name": "Search filters",
-      "key": "919ddc42563055f1d9f34b662fb806eb66763980",
-      "nodeId": "9660:49637",
+    "tag-shared": {
+      "name": "✍️ Tag, Shared",
+      "key": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
+      "nodeId": "13812:22307",
       "importMethod": "set",
-      "description": "A collection of inputs used to narrow down a dataset or search results. Should be placed above or to the left of the content it controls.",
-      "page": "✅ Filters",
+      "description": "Use for indicating something is recently updated. Can be interactive (removable) or static metadata.",
+      "page": "✍️ Tag (Identification key)",
       "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "info",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "close",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "stars",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
+      "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
-      "category": "Form (input & selection)",
-      "group": "Filters",
+      "category": "Data Display",
+      "group": "Tag (Identification key)",
+      "status": "in-progress",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "button": {
+      "name": "Button",
+      "key": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
+      "nodeId": "7206:2643",
+      "importMethod": "set",
+      "description": "Primary trigger for a specific action or form submission. Use \"Primary\" for the main task, \"Secondary\" for alternative actions, and \"Ghost/Tertiary\" for low-priority tasks.\n\nPrimary: \"Use as the single most important action on a screen. Limit to one per view (e.g., 'Submit', 'Pay Now').\"\nSecondary: \"Use for supporting actions that are not the main goal of the page (e.g., 'Cancel', 'Back').\"\nTertiary/Ghost: \"Use for low-emphasis actions or repeated items in a list (e.g., 'View Details', 'Learn More').\"\nCritical: \"Use specifically for actions that result in data loss or permanent changes. Usually styled in Red.\"",
+      "page": "✍️ Button",
+      "properties": {
+        "Leading icon#724:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "17171:66073"
+        },
+        "Label#724:10": {
+          "type": "TEXT",
+          "default": "Button"
+        },
+        "Show leading icon#809:73": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Trailing icon#13805:43": {
+          "type": "INSTANCE_SWAP",
+          "default": "17172:66154"
+        },
+        "Show trailing icon#13807:82": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show label#15988:3": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Action",
+      "group": "Button",
+      "status": "in-progress",
       "variants": {
         "Type": [
-          "Explorer",
-          "Studio"
+          "Primary",
+          "Secondary",
+          "Tertiary",
+          "Icon",
+          "Critical primary",
+          "Critical secondary"
+        ],
+        "Size": [
+          "Default",
+          "Small"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Focused",
+          "Pressed",
+          "Selected",
+          "Disabled"
         ]
       }
     },
@@ -2576,6 +2394,466 @@
         ]
       }
     },
+    "metamodel-widget": {
+      "name": "Metamodel widget",
+      "key": "6b29851b99078abe643d2c6873e8e1a89f8ff0b4",
+      "nodeId": "14747:23588",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Metamodel",
+      "properties": {
+        "Show Section#8582:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Metamodel",
+      "variants": {
+        "Type": [
+          "Dataset",
+          "Business Term",
+          "Data Process",
+          "Field",
+          "Visualisation"
+        ]
+      }
+    },
+    "card-for-items": {
+      "name": "Card for items",
+      "key": "95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30",
+      "nodeId": "7613:7853",
+      "importMethod": "set",
+      "description": "A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.",
+      "page": "✅ Card",
+      "properties": {
+        "Show AI ready#14853:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "favorite",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stars",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Card",
+      "variants": {
+        "Type": [
+          "Catalog",
+          "Item",
+          "item type",
+          "Glossary type",
+          "Topic"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Pressed",
+          "Selected"
+        ]
+      }
+    },
+    "collapse-accordion": {
+      "name": "✍️ Collapse-accordion",
+      "key": "8253d19d70a3b835653049d90b4fdf97b26a31c8",
+      "nodeId": "8292:80",
+      "importMethod": "set",
+      "description": "Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.",
+      "page": "✍️ Collapse (Accordion)",
+      "properties": {
+        "Slot#15956:0": {
+          "type": "SLOT",
+          "default": {
+            "guid": {
+              "sessionID": -1,
+              "localID": -1
+            }
+          }
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Collapse (Accordion)",
+      "status": "in-progress",
+      "variants": {
+        "State": [
+          "Collapsed",
+          "Expanede"
+        ]
+      }
+    },
+    "toolbar": {
+      "name": "Toolbar",
+      "key": "96683d78ad981aacc04a5b6c7c2b0f0f1d631516",
+      "nodeId": "14335:16907",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Toolbar",
+      "properties": {
+        "Show View scale#14335:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "zoom-to-fit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-reset",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-in",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-out",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "map",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "filter",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Toolbar",
+      "variants": {
+        "Type": [
+          "Single",
+          "Combined",
+          "Group"
+        ],
+        "Orientation": [
+          "Horizontal",
+          "Vertical"
+        ]
+      }
+    },
+    "maintenance-state": {
+      "name": "Maintenance state",
+      "key": "4c187d32a069682c44d5ccd8744b9fe0709c894a",
+      "nodeId": "13871:32311",
+      "importMethod": "set",
+      "description": "A placeholder shown when maintenance. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+      "page": "✅ Empty state",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Empty state",
+      "variants": {
+        "Size": [
+          "Large"
+        ]
+      }
+    },
+    "empty-state": {
+      "name": "Empty state",
+      "key": "0adc6b54a212315ebb16db7f5eea388276a1587b",
+      "nodeId": "9230:22073",
+      "importMethod": "set",
+      "description": "A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+      "page": "✅ Empty state",
+      "properties": {
+        "Medium illustration#9230:4": {
+          "type": "INSTANCE_SWAP",
+          "default": "8991:11401"
+        },
+        "Tertiary button#10964:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Primary button#10964:4": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Title#10964:8": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Body#10964:12": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Large illustration#10964:20": {
+          "type": "INSTANCE_SWAP",
+          "default": "8837:9944"
+        },
+        "Title content#10964:24": {
+          "type": "TEXT",
+          "default": "No policies available"
+        },
+        "Body content#10964:28": {
+          "type": "TEXT",
+          "default": "Create policies to define how your platform operates."
+        },
+        "Small Illustration#10966:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "10966:18012"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Empty state",
+      "variants": {
+        "Size": [
+          "Large",
+          "Medium",
+          "Small"
+        ]
+      }
+    },
+    "tag-glossary-item-type": {
+      "name": "✍️ Tag, Glossary item type",
+      "key": "639773a27d790a489c5e115360b64c7d05a45ac3",
+      "nodeId": "13812:22308",
+      "importMethod": "set",
+      "description": "Use for glossary item types. Can be interactive (removable) or static metadata.",
+      "page": "✍️ Tag (Identification key)",
+      "properties": {
+        "Show Counter#14128:9": {
+          "type": "BOOLEAN",
+          "default": false
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Tag (Identification key)",
+      "status": "in-progress",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "lineage-connecting-line": {
+      "name": "Lineage connecting line",
+      "key": "553bdc1ba26f3b30988997771dcf74f275eb12d3",
+      "nodeId": "14747:20085",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Lineage",
+      "properties": {
+        "Show icon#14697:0": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "tableau",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Lineage",
+      "variants": {
+        "Direction": [
+          "Down",
+          "Straight",
+          "up",
+          "Up"
+        ],
+        "State": [
+          "Default",
+          "Selected",
+          "Disabled"
+        ]
+      }
+    },
+    "notification": {
+      "name": "Notification",
+      "key": "590d2373b688235e8da72732919d2f874eee6cda",
+      "nodeId": "13868:11595",
+      "importMethod": "set",
+      "description": "Small, temporary overlay that appears at the edge of the screen. Use for non-critical confirmations (e.g., \"Item saved\"). Automatically dismisses after 3–5 seconds.",
+      "page": "✅ Notification (Toast)",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Notification (Toast)",
+      "variants": {
+        "Type": [
+          "Default",
+          "Critical"
+        ]
+      }
+    },
+    "glossary-item-hierarchy-diagram": {
+      "name": "Glossary item hierarchy diagram",
+      "key": "ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da",
+      "nodeId": "14747:30242",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Glossary item hierarchy diagram",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "list-bullets",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-to-fit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-reset",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-in",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-out",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "more",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Glossary item hierarchy diagram",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      }
+    },
+    "line-graph": {
+      "name": "⛔️ Line graph",
+      "key": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
+      "nodeId": "15473:49490",
+      "importMethod": "set",
+      "description": "",
+      "page": "⛔️ WIP data visuzlization",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "WIP data visuzlization",
+      "status": "deprecated",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "search-filters": {
+      "name": "Search filters",
+      "key": "919ddc42563055f1d9f34b662fb806eb66763980",
+      "nodeId": "9660:49637",
+      "importMethod": "set",
+      "description": "A collection of inputs used to narrow down a dataset or search results. Should be placed above or to the left of the content it controls.",
+      "page": "✅ Filters",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "info",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "stars",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "group": "Filters",
+      "variants": {
+        "Type": [
+          "Explorer",
+          "Studio"
+        ]
+      }
+    },
     "alert-banner": {
       "name": "✍️ Alert-banner",
       "key": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
@@ -2661,32 +2939,6 @@
         ]
       }
     },
-    "line-graph": {
-      "name": "⛔️ Line graph",
-      "key": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
-      "nodeId": "15473:49490",
-      "importMethod": "set",
-      "description": "",
-      "page": "⛔️ WIP data visuzlization",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "dots",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "WIP data visuzlization",
-      "status": "deprecated",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
     "page-header": {
       "name": "Page header",
       "key": "ec2418807ba81bd52ab103d34c1bffd82fc0b92c",
@@ -2708,11 +2960,6 @@
         },
         {
           "slug": "favorite",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "directory",
           "role": null,
           "source": "child-instance"
         },
@@ -2745,295 +2992,32 @@
         ]
       }
     },
-    "lineage-grouped-node": {
-      "name": "Lineage grouped node",
-      "key": "f1cafad1f47132058587042da7ec1e46e4eeffdd",
-      "nodeId": "15634:17895",
+    "avatar": {
+      "name": "Avatar",
+      "key": "67e11f5d63bbe3cb24cae7d38ab5e90ee506d266",
+      "nodeId": "7384:14212",
       "importMethod": "set",
-      "description": "",
-      "page": "✅ Lineage",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "chevron-up",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "powerbi",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Lineage",
-      "variants": {
-        "State": [
-          "Default",
-          "Expanded"
-        ],
-        "Type": [
-          "Main item",
-          "Sub item"
-        ]
-      }
-    },
-    "scroll-bar": {
-      "name": "Scroll bar",
-      "key": "374c471abeb21e0693327b61cc12a31a5eeef5ba",
-      "nodeId": "14747:17639",
-      "importMethod": "set",
-      "description": "Custom UI for indicating and controlling scroll position within a specific container. Only use when standard browser scroll is insufficient.",
-      "page": "✅ Scroll bar",
+      "description": "Visual representation of a user or entity. Use \"Image\" variant if a photo exists, or \"Initials\" as a fallback.",
+      "page": "✅ Avatar",
       "properties": {},
       "nestedComponents": [],
       "documentationLinks": [],
       "section": "Components",
       "category": "Data Display",
-      "group": "Scroll bar",
+      "group": "Avatar",
       "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
-    "tag-shared": {
-      "name": "✍️ Tag, Shared",
-      "key": "7a867b11eaec8c2cffd3a7cd21da62f66516e771",
-      "nodeId": "13812:22307",
-      "importMethod": "set",
-      "description": "Use for indicating something is recently updated. Can be interactive (removable) or static metadata.",
-      "page": "✍️ Tag (Identification key)",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Tag (Identification key)",
-      "status": "in-progress",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
-    "empty-state": {
-      "name": "Empty state",
-      "key": "0adc6b54a212315ebb16db7f5eea388276a1587b",
-      "nodeId": "9230:22073",
-      "importMethod": "set",
-      "description": "A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "page": "✅ Empty state",
-      "properties": {
-        "Medium illustration#9230:4": {
-          "type": "INSTANCE_SWAP",
-          "default": "8991:11401"
-        },
-        "Tertiary button#10964:0": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Primary button#10964:4": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Title#10964:8": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Body#10964:12": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Large illustration#10964:20": {
-          "type": "INSTANCE_SWAP",
-          "default": "8837:9944"
-        },
-        "Title content#10964:24": {
-          "type": "TEXT",
-          "default": "No policies available"
-        },
-        "Body content#10964:28": {
-          "type": "TEXT",
-          "default": "Create policies to define how your platform operates."
-        },
-        "Small Illustration#10966:0": {
-          "type": "INSTANCE_SWAP",
-          "default": "10966:18012"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Empty state",
-      "variants": {
-        "Size": [
-          "Large",
-          "Medium",
-          "Small"
-        ]
-      }
-    },
-    "button": {
-      "name": "Button",
-      "key": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3",
-      "nodeId": "7206:2643",
-      "importMethod": "set",
-      "description": "Primary trigger for a specific action or form submission. Use \"Primary\" for the main task, \"Secondary\" for alternative actions, and \"Ghost/Tertiary\" for low-priority tasks.\n\nPrimary: \"Use as the single most important action on a screen. Limit to one per view (e.g., 'Submit', 'Pay Now').\"\nSecondary: \"Use for supporting actions that are not the main goal of the page (e.g., 'Cancel', 'Back').\"\nTertiary/Ghost: \"Use for low-emphasis actions or repeated items in a list (e.g., 'View Details', 'Learn More').\"\nCritical: \"Use specifically for actions that result in data loss or permanent changes. Usually styled in Red.\"",
-      "page": "✍️ Button",
-      "properties": {
-        "Leading icon#724:0": {
-          "type": "INSTANCE_SWAP",
-          "default": "17171:66073"
-        },
-        "Label#724:10": {
-          "type": "TEXT",
-          "default": "Button"
-        },
-        "Show leading icon#809:73": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Trailing icon#13805:43": {
-          "type": "INSTANCE_SWAP",
-          "default": "17172:66154"
-        },
-        "Show trailing icon#13807:82": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Show label#15988:3": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Action",
-      "group": "Button",
-      "status": "in-progress",
-      "variants": {
-        "Type": [
-          "Primary",
-          "Secondary",
-          "Tertiary",
-          "Icon",
-          "Critical primary",
-          "Critical secondary"
-        ],
-        "Size": [
-          "Default",
-          "Small"
-        ],
         "State": [
           "Default",
           "Hovered",
           "Focused",
           "Pressed",
-          "Selected",
-          "Disabled"
-        ]
-      }
-    },
-    "collapse-accordion": {
-      "name": "✍️ Collapse-accordion",
-      "key": "8253d19d70a3b835653049d90b4fdf97b26a31c8",
-      "nodeId": "8292:80",
-      "importMethod": "set",
-      "description": "Use to hide/show secondary information to reduce vertical clutter. Best for FAQs or detailed settings sections.",
-      "page": "✍️ Collapse (Accordion)",
-      "properties": {
-        "Slot#15956:0": {
-          "type": "SLOT",
-          "default": {
-            "guid": {
-              "sessionID": -1,
-              "localID": -1
-            }
-          }
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Collapse (Accordion)",
-      "status": "in-progress",
-      "variants": {
-        "State": [
-          "Collapsed",
-          "Expanede"
-        ]
-      }
-    },
-    "card-for-items": {
-      "name": "Card for items",
-      "key": "95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30",
-      "nodeId": "7613:7853",
-      "importMethod": "set",
-      "description": "A flexible container for grouping related information. Use for dashboard summaries or items in a grid that require an overview.",
-      "page": "✅ Card",
-      "properties": {
-        "Show AI ready#14853:0": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "directory",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "favorite",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "stars",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Card",
-      "variants": {
-        "Type": [
-          "Catalog",
-          "Item",
-          "item type",
-          "Glossary type",
-          "Topic"
-        ],
-        "State": [
-          "Default",
-          "Hover",
-          "Focus",
-          "Pressed",
+          "Disabled",
           "Selected"
+        ],
+        "Type": [
+          "One group",
+          "Two groups",
+          "Default"
         ]
       }
     },
@@ -3386,21 +3370,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "data-model": {
-      "name": "data-model",
-      "key": "0fcfb9923b572949f296c019646f8ec17d6297b9",
-      "nodeId": "7294:705",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Details",
-      "status": "in-progress"
-    },
     "process-csv": {
       "name": "process csv",
       "key": "115c254d8901c11f5dfc8c8575e0a483cb798d51",
@@ -3459,21 +3428,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "arrow": {
-      "name": "arrow",
-      "key": "1c31323fdcdaafe18878eb8206c3300f36bd6274",
-      "nodeId": "7207:2841",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "palantir": {
@@ -3551,39 +3505,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "tools": {
-      "name": "tools",
-      "key": "2a497ba6f8e5040d5654e86cdc32b90f51eb6849",
-      "nodeId": "7311:2826",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
-      "status": "in-progress"
-    },
-    "add": {
-      "name": "add",
-      "key": "2b10108613a16fe36ada2420f992f0240b076804",
-      "nodeId": "7378:3994",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "secondaryGroups": [
-        "Common"
-      ],
-      "status": "in-progress"
-    },
     "sparkdb": {
       "name": "sparkdb",
       "key": "2b72bcb632f5072df86561f5d01e65ecf65da80b",
@@ -3599,115 +3520,10 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "analytics": {
-      "name": "analytics",
-      "key": "2cd31a798fd279626c6235902e21b17d6850db19",
-      "nodeId": "7378:3747",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "text-type": {
-      "name": "text-type",
-      "key": "2cd429a5df61f046748fc20c9e22aea14db8f9c0",
-      "nodeId": "8504:23299",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Field type",
-      "status": "in-progress"
-    },
-    "help-circle": {
-      "name": "help-circle",
-      "key": "2e8edce02b9198b99fe770fab00b636fb20d2f48",
-      "nodeId": "8504:23049",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
     "jdbc": {
       "name": "jdbc",
       "key": "2eab8c23231f3114d9e6f807aa2c7af59096760b",
       "nodeId": "8400:25087",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Connector",
-      "status": "in-progress"
-    },
-    "link-type": {
-      "name": "link-type",
-      "key": "30958f1f13ddf3866556b37ab570a09de2b2a26c",
-      "nodeId": "7378:5042",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Property type",
-      "status": "in-progress"
-    },
-    "relation": {
-      "name": "relation",
-      "key": "328e40cf262d88c868275a408b432b445bf34888",
-      "nodeId": "8587:44312",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Details",
-      "status": "in-progress"
-    },
-    "lineage": {
-      "name": "lineage",
-      "key": "32f4f89b2ced8ccc35f19f9f68b4b7b3a4386119",
-      "nodeId": "7378:5706",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Details",
-      "status": "in-progress"
-    },
-    "local-filesystem": {
-      "name": "local-filesystem",
-      "key": "333ebe2a0ef4ef3a276b457ef37c1b015c43630e",
-      "nodeId": "7173:1784",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",
@@ -3734,69 +3550,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "back": {
-      "name": "back",
-      "key": "3626cb4ae78e5ad1bbc79bb3b04ef9d0323dbf9f",
-      "nodeId": "8504:23035",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "task-list": {
-      "name": "task-list",
-      "key": "371f35da773bc12bc441d4c36acd98ba8ac23e6e",
-      "nodeId": "8504:23375",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Property type",
-      "status": "in-progress"
-    },
-    "tags-add": {
-      "name": "tags-add",
-      "key": "3736725d4f34af19d9cadeacbac382af2aa4685e",
-      "nodeId": "14691:426",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
-      "status": "in-progress"
-    },
-    "book-bookmark": {
-      "name": "book-bookmark",
-      "key": "37bb27238ac422fd734919a3193c3c7564f1ce7c",
-      "nodeId": "7378:5700",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "secondaryGroups": [
-        "Details"
-      ],
-      "status": "in-progress"
-    },
     "dictionnary": {
       "name": "dictionnary",
       "key": "391bd61cec5cb74f9db7c92fab0afc483c75db5b",
@@ -3810,84 +3563,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "download": {
-      "name": "download",
-      "key": "3a3acebe888e3a87c03831ab720ad5639c358af6",
-      "nodeId": "7439:4645",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "secondaryGroups": [
-        "Common"
-      ],
-      "status": "in-progress"
-    },
-    "arrow-alt": {
-      "name": "arrow-alt",
-      "key": "3a4fe9f03c3754d97f2fc5e8a472052a9fd4c9d7",
-      "nodeId": "8504:23323",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
-      "status": "in-progress"
-    },
-    "user-info": {
-      "name": "user-info",
-      "key": "3b2848d77b98a22dfa31033342ae67f84dee3c0b",
-      "nodeId": "8820:13334",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
-      "status": "in-progress"
-    },
-    "cloud-upload": {
-      "name": "cloud--upload",
-      "key": "3b7f9b2a31b3cabd34d954ee87fda44ea7e1713f",
-      "nodeId": "7908:5403",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "applications": {
-      "name": "applications",
-      "key": "3ba99b342a17c51b99638e6b4aea3a91948ff578",
-      "nodeId": "7378:5025",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
       "status": "in-progress"
     },
     "gcpcloudstorage": {
@@ -3905,21 +3580,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "alert": {
-      "name": "alert",
-      "key": "3ef4d9930695bc99abbbf055d853f986227ae5c5",
-      "nodeId": "7207:2820",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
     "mapr": {
       "name": "mapr",
       "key": "441ba64eaf7ec1455c161e9a521f4bbbc58883c7",
@@ -3934,81 +3594,6 @@
       "category": "Icons",
       "group": "Connector",
       "status": "in-progress"
-    },
-    "pii": {
-      "name": "pii",
-      "key": "442a010032d021c1bc2cd198f611f49466623430",
-      "nodeId": "8517:23021",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
-      "status": "in-progress"
-    },
-    "pin": {
-      "name": "pin",
-      "key": "4433057ddb2e2a901f12781f99e3a64b9db47cac",
-      "nodeId": "7378:5040",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Details",
-      "status": "in-progress"
-    },
-    "discussion": {
-      "name": "discussion",
-      "key": "4544a1b4ee7ecc05c3c18662aabb8b1aa0abebe0",
-      "nodeId": "7378:5054",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Details",
-      "status": "in-progress"
-    },
-    "account-dropdown": {
-      "name": "Account dropdown",
-      "key": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
-      "nodeId": "9118:17382",
-      "importMethod": "single",
-      "description": "",
-      "page": "✅ Global header",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "help-bubble",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "exit",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Navigation",
-      "group": "Global header"
     },
     "safyr-ebs": {
       "name": "safyr-ebs",
@@ -4038,6 +3623,21 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
+      "status": "in-progress"
+    },
+    "pii": {
+      "name": "pii",
+      "key": "442a010032d021c1bc2cd198f611f49466623430",
+      "nodeId": "8517:23021",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
       "status": "in-progress"
     },
     "parquet": {
@@ -4098,36 +3698,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "layers-front": {
-      "name": "layers-front",
-      "key": "548f9b5398eaff3804a4912550fc4c944881b465",
-      "nodeId": "8504:23326",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "chevron-sort": {
-      "name": "chevron--sort",
-      "key": "5687e6bce59274d7ad7e3f2c17a3c2dabb78288d",
-      "nodeId": "7207:2836",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "netezza": {
@@ -4235,21 +3805,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "move": {
-      "name": "move",
-      "key": "62e026e024bd84bf9bcdd4cba5ec039616e6cca8",
-      "nodeId": "7378:5154",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
     "awsredshift": {
       "name": "awsredshift",
       "key": "649bf64d3b0e9c773340edb70013935d1a8bd275",
@@ -4293,21 +3848,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "chevron-sort-down": {
-      "name": "chevron--sort--down",
-      "key": "666ef728fee0b8d31fd69757fdd75b2426abf2c6",
-      "nodeId": "7207:2833",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "list-bullets": {
@@ -4370,21 +3910,6 @@
       "group": "Common",
       "status": "in-progress"
     },
-    "maintenance": {
-      "name": "maintenance",
-      "key": "71d837e04ce0a29b69d9e5c67362bbcf0b896e19",
-      "nodeId": "7378:4004",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
     "talend": {
       "name": "talend",
       "key": "73fddb359e840a1309191c6fee240bf4749cba0c",
@@ -4398,21 +3923,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "chevron-sort-up": {
-      "name": "chevron--sort--up",
-      "key": "749e5cda3c174a61f8dad42b2f9466b1f08325c4",
-      "nodeId": "7207:2835",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "generic-jdbc": {
@@ -4430,10 +3940,10 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "chevron-left": {
-      "name": "chevron--left",
-      "key": "7940e22ca8c7fb72312b009bbc5d622c45dfc58f",
-      "nodeId": "7207:2837",
+    "chevron-sort-up": {
+      "name": "chevron--sort--up",
+      "key": "749e5cda3c174a61f8dad42b2f9466b1f08325c4",
+      "nodeId": "7207:2835",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",
@@ -4490,21 +4000,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "paragraph-justify": {
-      "name": "paragraph-justify",
-      "key": "7dbcda5b9d1a14cd7205b1a1a5faf3b34f9ab22f",
-      "nodeId": "7378:5049",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Property type",
-      "status": "in-progress"
-    },
     "greenplum": {
       "name": "greenplum",
       "key": "7f6e32e201a4930cebf3e0daf022b615c8ff2a74",
@@ -4533,36 +4028,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "exploration": {
-      "name": "exploration",
-      "key": "8220d30e69ebd1f255417f5871137cff0bcd7f99",
-      "nodeId": "7294:702",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Details",
-      "status": "in-progress"
-    },
-    "geo-point-type": {
-      "name": "geo-point-type",
-      "key": "8260b27df19484714fd96a17eef967ad126b8266",
-      "nodeId": "8504:23303",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Field type",
       "status": "in-progress"
     },
     "integer-type": {
@@ -4595,21 +4060,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "text-file": {
-      "name": "text-file",
-      "key": "8f09539f181a4dbe90a86d6ccfe73ac4d41dd8c8",
-      "nodeId": "7378:5045",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Property type",
-      "status": "in-progress"
-    },
     "azure-cosmosdb": {
       "name": "azure-cosmosdb",
       "key": "8fee2e9541d05300c5e325040c728e1cdb1553af",
@@ -4623,21 +4073,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "cursor-hand": {
-      "name": "cursor-hand",
-      "key": "90e85e25cda17c3f4967ef87bffa50a3daba7325",
-      "nodeId": "8404:1949",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Cursor",
       "status": "in-progress"
     },
     "mysql": {
@@ -4655,21 +4090,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "scanner": {
-      "name": "scanner",
-      "key": "92eba2ab6095c5b95bf4b86d1c056f5e1e39e232",
-      "nodeId": "7378:3979",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
     "thumbs-down": {
       "name": "thumbs-down",
       "key": "93686ddb00e20fd0a150c2a9f56986d47abf5db0",
@@ -4683,21 +4103,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Common",
-      "status": "in-progress"
-    },
-    "use-with-care": {
-      "name": "use-with-care",
-      "key": "946ad814c46b04b4a689b3d09f82bb572af76f36",
-      "nodeId": "14703:19805",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
       "status": "in-progress"
     },
     "safyr-peoplesoft": {
@@ -4715,27 +4120,12 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "security-services": {
-      "name": "security-services",
-      "key": "99137e55f852dc4f26cf9aa63f1bb560d4f28a2f",
-      "nodeId": "7378:3968",
+    "use-with-care": {
+      "name": "use-with-care",
+      "key": "946ad814c46b04b4a689b3d09f82bb572af76f36",
+      "nodeId": "14703:19805",
       "importMethod": "single",
       "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "award-04": {
-      "name": "award-04",
-      "key": "9c4aea9aed18f57b7ed4bf55bc71d6910d2d0109",
-      "nodeId": "8655:10107",
-      "importMethod": "single",
-      "description": "award, medal, certification, certificate, badge",
       "page": "✍️ Icons",
       "properties": {},
       "nestedComponents": [],
@@ -4743,21 +4133,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Misc",
-      "status": "in-progress"
-    },
-    "data-access-request": {
-      "name": "data-access-request",
-      "key": "9c4bda0c1c0521899b4019980ff9d248850fa215",
-      "nodeId": "13315:9277",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
       "status": "in-progress"
     },
     "thoughtspot": {
@@ -4805,55 +4180,25 @@
       "group": "Graph",
       "status": "in-progress"
     },
-    "simple-check": {
-      "name": "simple-check",
-      "key": "a660b57404739aba1621b29bbe22ba70f81f4346",
-      "nodeId": "7271:6256",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "chart-pie": {
-      "name": "chart--pie",
-      "key": "a88e1c87f86fa2dc376dfa5b0b890e5a6d3d50f5",
-      "nodeId": "9246:14001",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Graph",
-      "status": "in-progress"
-    },
-    "relation-incoming": {
-      "name": "relation_incoming",
-      "key": "acc0d738122fb3dae02b1941b9909a3d15c0e0f1",
-      "nodeId": "8504:23150",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
-      "status": "in-progress"
-    },
     "erwin-data-modeler": {
       "name": "erwin-data-modeler",
       "key": "aeb340980e131eb2396223b512cf707231dc4186",
       "nodeId": "8400:25065",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Connector",
+      "status": "in-progress"
+    },
+    "denodo": {
+      "name": "denodo",
+      "key": "b2c1c1149efbd4f9da9aa7f0598e494e2a5f94bf",
+      "nodeId": "8400:25059",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",
@@ -4880,21 +4225,6 @@
       "group": "Misc",
       "status": "in-progress"
     },
-    "suggestion": {
-      "name": "suggestion",
-      "key": "b0fdb7c7eb45f51182647cc89b12a5fd6989cafb",
-      "nodeId": "7279:3164",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
     "unknown-type": {
       "name": "unknown-type",
       "key": "b120c4277b392ad79c9b1bfc21015fc8d55453e5",
@@ -4908,141 +4238,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Field type",
-      "status": "in-progress"
-    },
-    "lifecycle-policy": {
-      "name": "lifecycle-policy",
-      "key": "b1f0c9b1baad043881f1d2401a93aa1c8cce4791",
-      "nodeId": "13315:9276",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "denodo": {
-      "name": "denodo",
-      "key": "b2c1c1149efbd4f9da9aa7f0598e494e2a5f94bf",
-      "nodeId": "8400:25059",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Connector",
-      "status": "in-progress"
-    },
-    "circle-dash": {
-      "name": "circle-dash",
-      "key": "b317fa0913e7862fe3f7dbd2e0d8f5f49758c234",
-      "nodeId": "7310:2897",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
-      "status": "in-progress"
-    },
-    "graph-merge": {
-      "name": "graph-merge",
-      "key": "b715dbd163131f360146e6044d9f8743045a973b",
-      "nodeId": "8576:4931",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
-      "status": "in-progress"
-    },
-    "list-numbers": {
-      "name": "list-numbers",
-      "key": "b731322950354840772eadaac3abb71d45aca649",
-      "nodeId": "7378:5046",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Property type",
-      "status": "in-progress"
-    },
-    "rocket-1": {
-      "name": "rocket 1",
-      "key": "b781fde18c452c199f8b699ed092b26d683f9f45",
-      "nodeId": "9085:20152",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "expand": {
-      "name": "expand",
-      "key": "b92ca711225ff8cc4b1068893831456c40e3bc3f",
-      "nodeId": "15563:24467",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Cursor",
-      "status": "in-progress"
-    },
-    "stars": {
-      "name": "stars",
-      "key": "bdea9d42922a4619f8a317ef616d30055eb789ee",
-      "nodeId": "7220:3430",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "catalogs": {
-      "name": "catalogs",
-      "key": "bf59f59271f2a5fb0945e406629aefeb72775468",
-      "nodeId": "14115:8084",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
       "status": "in-progress"
     },
     "safyr-sap-bw": {
@@ -5105,39 +4300,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "misuse-outline": {
-      "name": "misuse--outline",
-      "key": "c7ecb9c454db552f8ca3630707c86a877e13e32c",
-      "nodeId": "8415:1389",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
-      "status": "in-progress"
-    },
-    "directory": {
-      "name": "directory",
-      "key": "c97a2b5506aafe95c2e4964752e4522b247e609b",
-      "nodeId": "8189:4595",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "secondaryGroups": [
-        "Common"
-      ],
-      "status": "in-progress"
-    },
     "databricks": {
       "name": "databricks",
       "key": "cd02bd7ff749c214daaa1784989449d469923b64",
@@ -5168,36 +4330,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "view-details": {
-      "name": "view-details",
-      "key": "cf1033712c94e4f740ae4c8de3f907004dc9380f",
-      "nodeId": "12222:5799",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "event-time-type": {
-      "name": "event--time-type",
-      "key": "d056a594413fcd44887aca52b86d9df25f0cbd0c",
-      "nodeId": "8504:23298",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Field type",
-      "status": "in-progress"
-    },
     "google-cloud": {
       "name": "google-cloud",
       "key": "d12a8061cfd85561bfea6763765c06144bf6e985",
@@ -5211,21 +4343,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "view-card": {
-      "name": "view-card",
-      "key": "d1361c8bdc2347790fcedb0399598585fa4d7054",
-      "nodeId": "7622:5375",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "api": {
@@ -5258,21 +4375,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "success-filled": {
-      "name": "success-filled",
-      "key": "d864426ee65112314a7925eaa9b5bd883a677100",
-      "nodeId": "7378:5490",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Message",
-      "status": "in-progress"
-    },
     "zoom-to-fit": {
       "name": "zoom-to-fit",
       "key": "daac1ce452877e634fcd4d81a9880be63946816a",
@@ -5286,21 +4388,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Graph",
-      "status": "in-progress"
-    },
-    "user-group": {
-      "name": "user-group",
-      "key": "db200734daac36815be3bf52f078c9e528b15da4",
-      "nodeId": "7378:5131",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
       "status": "in-progress"
     },
     "adobe-analytics": {
@@ -5336,148 +4423,40 @@
       ],
       "status": "in-progress"
     },
-    "chart-bar": {
-      "name": "chart--bar",
-      "key": "dde572f16c897c96ae7bc7a82532276fe87b7410",
-      "nodeId": "9246:14002",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Graph",
-      "status": "in-progress"
-    },
-    "icon-query-queue": {
-      "name": "Icon/query-queue",
-      "key": "dfc61677c57161b2031bdce8733cb4bf6fcfd6fa",
-      "nodeId": "7311:2825",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
-      "status": "in-progress"
-    },
-    "exit": {
-      "name": "exit",
-      "key": "e0ea887336f377ba397b25d988a54cf79eec6e4e",
-      "nodeId": "7301:2777",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "glossary": {
-      "name": "glossary",
-      "key": "e47a036e8d2cce3968395f79cc96fdcc70bcf275",
-      "nodeId": "10613:30347",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "checkmark-outline": {
-      "name": "checkmark--outline",
-      "key": "e5b3de9a4f7a367b4ef924486daa999145e62f46",
-      "nodeId": "7310:2896",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
-      "status": "in-progress"
-    },
-    "layers-front-curator-indicator": {
-      "name": "layers-front (Curator indicator)",
-      "key": "e7e0adbbf7e0f8b9b3fc45c839f381b029859715",
-      "nodeId": "8820:13322",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
-      "status": "in-progress"
-    },
-    "help-bubble": {
-      "name": "help-bubble",
-      "key": "e842d2ce342d70cf02719cd42d5243744345c402",
-      "nodeId": "7207:2832",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "database": {
-      "name": "database",
-      "key": "eb4d7d43a2ef5bae16611e36a2da213bd07e27ba",
-      "nodeId": "7378:3700",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "minimize": {
-      "name": "minimize",
-      "key": "ed365ef9760849fa471fb84b4d7603c1052399bf",
-      "nodeId": "8298:5067",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Cursor",
-      "secondaryGroups": [
-        "Common"
-      ],
-      "status": "in-progress"
-    },
     "cognos-bi": {
       "name": "cognos-bi",
       "key": "ee8c45ab057d92ce74a177352d4a9efbd18c6aec",
       "nodeId": "8400:25224",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Connector",
+      "status": "in-progress"
+    },
+    "open": {
+      "name": "open",
+      "key": "f0af6e82dbffbc929018959ff7fbb609226fecaf",
+      "nodeId": "7293:667",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "bigquery": {
+      "name": "bigquery",
+      "key": "f2105b90a8f205ee78b02428b71cc2720fc451f6",
+      "nodeId": "8400:25218",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",
@@ -5502,141 +4481,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Common",
-      "status": "in-progress"
-    },
-    "upload-file": {
-      "name": "upload-file",
-      "key": "ef39179dc6dda4a55166931b2f11f8b60460d58d",
-      "nodeId": "7439:4678",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "open": {
-      "name": "open",
-      "key": "f0af6e82dbffbc929018959ff7fbb609226fecaf",
-      "nodeId": "7293:667",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "api-key": {
-      "name": "api-key",
-      "key": "f0f6ca388b8ac7bb5a0b3dea5b3d5ec30c6d0293",
-      "nodeId": "7378:3969",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "bigquery": {
-      "name": "bigquery",
-      "key": "f2105b90a8f205ee78b02428b71cc2720fc451f6",
-      "nodeId": "8400:25218",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Connector",
-      "status": "in-progress"
-    },
-    "pending": {
-      "name": "pending",
-      "key": "f312fc0c5b45f54eb9081e0b0878f346801af1a4",
-      "nodeId": "7996:5346",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Status",
-      "status": "in-progress"
-    },
-    "favorite-filled": {
-      "name": "favorite-filled",
-      "key": "f356489882aa4ddfc7e099e006510d6fdda704df",
-      "nodeId": "7378:3696",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "drag": {
-      "name": "drag",
-      "key": "f4dd4a86dfd0f91cce381eaa51abaa14a84785d3",
-      "nodeId": "7378:5050",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "brightness-contrast": {
-      "name": "brightness-contrast",
-      "key": "f6cb9d9b6a1a428237a5d845543c565524cd4eb0",
-      "nodeId": "7537:1569",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
-      "status": "in-progress"
-    },
-    "data-product-output-port": {
-      "name": "data-product-output-port",
-      "key": "f74e10a2fe4608a484e1c40f1c1bdf2ad96ead1f",
-      "nodeId": "8504:23087",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Details",
       "status": "in-progress"
     },
     "elasticsearch": {
@@ -5669,21 +4513,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "schema": {
-      "name": "schema",
-      "key": "f8fffb1cbe411321f66142c020a208b000d15e9d",
-      "nodeId": "7378:5038",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Details",
-      "status": "in-progress"
-    },
     "ckan": {
       "name": "ckan",
       "key": "f9c6c20e5ac993e4b8076f57b60fb1e73f1a159b",
@@ -5697,21 +4526,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "settings": {
-      "name": "settings",
-      "key": "fa49ba4ce11934ea568dc702f402f52207703e97",
-      "nodeId": "7378:4812",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Navigation",
       "status": "in-progress"
     },
     "safyr-jdedwards": {
@@ -5729,36 +4543,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "task-list-multiple": {
-      "name": "task-list-multiple",
-      "key": "fb486ea7bd5611848f79a84fd04ede0cc78869a9",
-      "nodeId": "8504:23376",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Property type",
-      "status": "in-progress"
-    },
-    "bin-type": {
-      "name": "bin-type",
-      "key": "fe0c2ab0c4128c555979c33682a6f3df40fb0b76",
-      "nodeId": "14292:5730",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Field type",
-      "status": "in-progress"
-    },
     "zoom-out": {
       "name": "zoom-out",
       "key": "fe8ce8b1dc8f249bb19bbfb2304e20431984452f",
@@ -5772,21 +4556,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Graph",
-      "status": "in-progress"
-    },
-    "info": {
-      "name": "info",
-      "key": "01923eb6557a8612cf500c74a0ba5b32e37317e3",
-      "nodeId": "7207:2838",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "powerbi": {
@@ -5817,21 +4586,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "close": {
-      "name": "close",
-      "key": "09bac5a4cba0cbd89819dbe34afadc5db046f29d",
-      "nodeId": "7293:24",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "dbt": {
@@ -5879,36 +4633,6 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "user-add": {
-      "name": "user-add",
-      "key": "48c0ce663827e3dddb050be67302b9af9ceb74c0",
-      "nodeId": "7378:5027",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "error-filled": {
-      "name": "error-filled",
-      "key": "53bac27f6b0e802b7f07de2c4a853502c6e93475",
-      "nodeId": "7378:5468",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Message",
-      "status": "in-progress"
-    },
     "matillion": {
       "name": "matillion",
       "key": "573cc53c470e350189a4d086626ac5793c6930cf",
@@ -5924,10 +4648,10 @@
       "group": "Connector",
       "status": "in-progress"
     },
-    "warning-alt": {
-      "name": "warning--alt",
-      "key": "675e323d57c331b8b9936f39687cf68450fd105b",
-      "nodeId": "7310:2892",
+    "error-filled": {
+      "name": "error-filled",
+      "key": "53bac27f6b0e802b7f07de2c4a853502c6e93475",
+      "nodeId": "7378:5468",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",
@@ -5936,22 +4660,7 @@
       "documentationLinks": [],
       "section": "Foundations",
       "category": "Icons",
-      "group": "Status",
-      "status": "in-progress"
-    },
-    "task-list-settings": {
-      "name": "task-list-settings",
-      "key": "6d75371c1dd77bd21889e1519f9281dd134dca23",
-      "nodeId": "8504:23325",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
+      "group": "Message",
       "status": "in-progress"
     },
     "zoom-in": {
@@ -5997,21 +4706,6 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Connector",
-      "status": "in-progress"
-    },
-    "image": {
-      "name": "image",
-      "key": "b3f1a7f5ef3d50822c84ce0f6d745428607d9023",
-      "nodeId": "7908:5402",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
       "status": "in-progress"
     },
     "csv-custom-item": {
@@ -6103,31 +4797,6 @@
       "category": "Icons",
       "group": "Connector",
       "status": "in-progress"
-    },
-    "app-switcher-dropdown": {
-      "name": "App switcher dropdown",
-      "key": "09baf67bef9191d0b5303b52c1c3159eefba3843",
-      "nodeId": "9118:17666",
-      "importMethod": "single",
-      "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
-      "page": "✅ Global header",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "settings",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Navigation",
-      "group": "Global header"
     },
     "server-search": {
       "name": "server-search",
@@ -6279,21 +4948,6 @@
       "group": "Common",
       "status": "in-progress"
     },
-    "target-type": {
-      "name": "target-type",
-      "key": "131e2264fa0b24b4715953951f3a50677c6c299a",
-      "nodeId": "8504:23302",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Field type",
-      "status": "in-progress"
-    },
     "add-circle": {
       "name": "add-circle",
       "key": "1aa9aeb58cfd76045aef34c67c9137a659eb4c5d",
@@ -6429,55 +5083,10 @@
       "group": "Misc",
       "status": "in-progress"
     },
-    "help-laptop": {
-      "name": "help-laptop",
-      "key": "54a1684fcc8cba3210f64e17f66d7ef3cbabc737",
-      "nodeId": "14691:457",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Misc",
-      "status": "in-progress"
-    },
-    "null-sign": {
-      "name": "null-sign",
-      "key": "585087e1ea2d421dcaec6ac1db468c8f502ad6d2",
-      "nodeId": "8504:23300",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Field type",
-      "status": "in-progress"
-    },
     "favorite": {
       "name": "favorite",
       "key": "5ab08e77426cace71669963cfecc7164391598b3",
       "nodeId": "7378:3698",
-      "importMethod": "single",
-      "description": "",
-      "page": "✍️ Icons",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Foundations",
-      "category": "Icons",
-      "group": "Common",
-      "status": "in-progress"
-    },
-    "chevron-up": {
-      "name": "chevron--up",
-      "key": "5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4",
-      "nodeId": "7207:2842",
       "importMethod": "single",
       "description": "",
       "page": "✍️ Icons",
@@ -6502,6 +5111,24 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Navigation",
+      "status": "in-progress"
+    },
+    "directory": {
+      "name": "directory",
+      "key": "64b2045e4c431df3c913363c7ae6d98bc44434d6",
+      "nodeId": "7439:4618",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ],
       "status": "in-progress"
     },
     "float-type": {
@@ -6639,6 +5266,595 @@
       "group": "Cursor",
       "status": "in-progress"
     },
+    "lifecycle-policy": {
+      "name": "lifecycle-policy",
+      "key": "b1f0c9b1baad043881f1d2401a93aa1c8cce4791",
+      "nodeId": "13315:9276",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "close": {
+      "name": "close",
+      "key": "09bac5a4cba0cbd89819dbe34afadc5db046f29d",
+      "nodeId": "7293:24",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "cloud-upload": {
+      "name": "cloud--upload",
+      "key": "3b7f9b2a31b3cabd34d954ee87fda44ea7e1713f",
+      "nodeId": "7908:5403",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "alert": {
+      "name": "alert",
+      "key": "3ef4d9930695bc99abbbf055d853f986227ae5c5",
+      "nodeId": "7207:2820",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "user-add": {
+      "name": "user-add",
+      "key": "48c0ce663827e3dddb050be67302b9af9ceb74c0",
+      "nodeId": "7378:5027",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "null-sign": {
+      "name": "null-sign",
+      "key": "585087e1ea2d421dcaec6ac1db468c8f502ad6d2",
+      "nodeId": "8504:23300",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Field type",
+      "status": "in-progress"
+    },
+    "info": {
+      "name": "info",
+      "key": "01923eb6557a8612cf500c74a0ba5b32e37317e3",
+      "nodeId": "7207:2838",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "app-switcher-dropdown": {
+      "name": "App switcher dropdown",
+      "key": "09baf67bef9191d0b5303b52c1c3159eefba3843",
+      "nodeId": "9118:17666",
+      "importMethod": "single",
+      "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
+      "page": "✅ Global header",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "settings",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Global header"
+    },
+    "data-model": {
+      "name": "data-model",
+      "key": "0fcfb9923b572949f296c019646f8ec17d6297b9",
+      "nodeId": "7294:705",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Details",
+      "status": "in-progress"
+    },
+    "target-type": {
+      "name": "target-type",
+      "key": "131e2264fa0b24b4715953951f3a50677c6c299a",
+      "nodeId": "8504:23302",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Field type",
+      "status": "in-progress"
+    },
+    "arrow": {
+      "name": "arrow",
+      "key": "1c31323fdcdaafe18878eb8206c3300f36bd6274",
+      "nodeId": "7207:2841",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "tools": {
+      "name": "tools",
+      "key": "2a497ba6f8e5040d5654e86cdc32b90f51eb6849",
+      "nodeId": "7311:2826",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
+    "add": {
+      "name": "add",
+      "key": "2b10108613a16fe36ada2420f992f0240b076804",
+      "nodeId": "7378:3994",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ],
+      "status": "in-progress"
+    },
+    "analytics": {
+      "name": "analytics",
+      "key": "2cd31a798fd279626c6235902e21b17d6850db19",
+      "nodeId": "7378:3747",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "text-type": {
+      "name": "text-type",
+      "key": "2cd429a5df61f046748fc20c9e22aea14db8f9c0",
+      "nodeId": "8504:23299",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Field type",
+      "status": "in-progress"
+    },
+    "help-circle": {
+      "name": "help-circle",
+      "key": "2e8edce02b9198b99fe770fab00b636fb20d2f48",
+      "nodeId": "8504:23049",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "link-type": {
+      "name": "link-type",
+      "key": "30958f1f13ddf3866556b37ab570a09de2b2a26c",
+      "nodeId": "7378:5042",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Property type",
+      "status": "in-progress"
+    },
+    "relation": {
+      "name": "relation",
+      "key": "328e40cf262d88c868275a408b432b445bf34888",
+      "nodeId": "8587:44312",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Details",
+      "status": "in-progress"
+    },
+    "lineage": {
+      "name": "lineage",
+      "key": "32f4f89b2ced8ccc35f19f9f68b4b7b3a4386119",
+      "nodeId": "7378:5706",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Details",
+      "status": "in-progress"
+    },
+    "local-filesystem": {
+      "name": "local-filesystem",
+      "key": "333ebe2a0ef4ef3a276b457ef37c1b015c43630e",
+      "nodeId": "7173:1784",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Connector",
+      "status": "in-progress"
+    },
+    "back": {
+      "name": "back",
+      "key": "3626cb4ae78e5ad1bbc79bb3b04ef9d0323dbf9f",
+      "nodeId": "8504:23035",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "task-list": {
+      "name": "task-list",
+      "key": "371f35da773bc12bc441d4c36acd98ba8ac23e6e",
+      "nodeId": "8504:23375",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Property type",
+      "status": "in-progress"
+    },
+    "tags-add": {
+      "name": "tags-add",
+      "key": "3736725d4f34af19d9cadeacbac382af2aa4685e",
+      "nodeId": "14691:426",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
+      "status": "in-progress"
+    },
+    "book-bookmark": {
+      "name": "book-bookmark",
+      "key": "37bb27238ac422fd734919a3193c3c7564f1ce7c",
+      "nodeId": "7378:5700",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Details"
+      ],
+      "status": "in-progress"
+    },
+    "download": {
+      "name": "download",
+      "key": "3a3acebe888e3a87c03831ab720ad5639c358af6",
+      "nodeId": "7439:4645",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "secondaryGroups": [
+        "Common"
+      ],
+      "status": "in-progress"
+    },
+    "arrow-alt": {
+      "name": "arrow-alt",
+      "key": "3a4fe9f03c3754d97f2fc5e8a472052a9fd4c9d7",
+      "nodeId": "8504:23323",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
+      "status": "in-progress"
+    },
+    "user-info": {
+      "name": "user-info",
+      "key": "3b2848d77b98a22dfa31033342ae67f84dee3c0b",
+      "nodeId": "8820:13334",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
+      "status": "in-progress"
+    },
+    "applications": {
+      "name": "applications",
+      "key": "3ba99b342a17c51b99638e6b4aea3a91948ff578",
+      "nodeId": "7378:5025",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "pin": {
+      "name": "pin",
+      "key": "4433057ddb2e2a901f12781f99e3a64b9db47cac",
+      "nodeId": "7378:5040",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Details",
+      "status": "in-progress"
+    },
+    "discussion": {
+      "name": "discussion",
+      "key": "4544a1b4ee7ecc05c3c18662aabb8b1aa0abebe0",
+      "nodeId": "7378:5054",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Details",
+      "status": "in-progress"
+    },
+    "account-dropdown": {
+      "name": "Account dropdown",
+      "key": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
+      "nodeId": "9118:17382",
+      "importMethod": "single",
+      "description": "",
+      "page": "✅ Global header",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "help-bubble",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "exit",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Global header"
+    },
+    "layers-front": {
+      "name": "layers-front",
+      "key": "548f9b5398eaff3804a4912550fc4c944881b465",
+      "nodeId": "8504:23326",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "help-laptop": {
+      "name": "help-laptop",
+      "key": "54a1684fcc8cba3210f64e17f66d7ef3cbabc737",
+      "nodeId": "14691:457",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
+      "status": "in-progress"
+    },
+    "chevron-sort": {
+      "name": "chevron--sort",
+      "key": "5687e6bce59274d7ad7e3f2c17a3c2dabb78288d",
+      "nodeId": "7207:2836",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "move": {
+      "name": "move",
+      "key": "62e026e024bd84bf9bcdd4cba5ec039616e6cca8",
+      "nodeId": "7378:5154",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "chevron-sort-down": {
+      "name": "chevron--sort--down",
+      "key": "666ef728fee0b8d31fd69757fdd75b2426abf2c6",
+      "nodeId": "7207:2833",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "maintenance": {
+      "name": "maintenance",
+      "key": "71d837e04ce0a29b69d9e5c67362bbcf0b896e19",
+      "nodeId": "7378:4004",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
     "alert-circle": {
       "name": "alert-circle",
       "key": "750fb2b2080f030bcf753f1c2c18c811c5aeaa8a",
@@ -6652,6 +5868,774 @@
       "section": "Foundations",
       "category": "Icons",
       "group": "Status",
+      "status": "in-progress"
+    },
+    "paragraph-justify": {
+      "name": "paragraph-justify",
+      "key": "7dbcda5b9d1a14cd7205b1a1a5faf3b34f9ab22f",
+      "nodeId": "7378:5049",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Property type",
+      "status": "in-progress"
+    },
+    "exploration": {
+      "name": "exploration",
+      "key": "8220d30e69ebd1f255417f5871137cff0bcd7f99",
+      "nodeId": "7294:702",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Details",
+      "status": "in-progress"
+    },
+    "geo-point-type": {
+      "name": "geo-point-type",
+      "key": "8260b27df19484714fd96a17eef967ad126b8266",
+      "nodeId": "8504:23303",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Field type",
+      "status": "in-progress"
+    },
+    "text-file": {
+      "name": "text-file",
+      "key": "8f09539f181a4dbe90a86d6ccfe73ac4d41dd8c8",
+      "nodeId": "7378:5045",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Property type",
+      "status": "in-progress"
+    },
+    "cursor-hand": {
+      "name": "cursor-hand",
+      "key": "90e85e25cda17c3f4967ef87bffa50a3daba7325",
+      "nodeId": "8404:1949",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Cursor",
+      "status": "in-progress"
+    },
+    "security-services": {
+      "name": "security-services",
+      "key": "99137e55f852dc4f26cf9aa63f1bb560d4f28a2f",
+      "nodeId": "7378:3968",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "data-access-request": {
+      "name": "data-access-request",
+      "key": "9c4bda0c1c0521899b4019980ff9d248850fa215",
+      "nodeId": "13315:9277",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "simple-check": {
+      "name": "simple-check",
+      "key": "a660b57404739aba1621b29bbe22ba70f81f4346",
+      "nodeId": "7271:6256",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "chart-pie": {
+      "name": "chart--pie",
+      "key": "a88e1c87f86fa2dc376dfa5b0b890e5a6d3d50f5",
+      "nodeId": "9246:14001",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Graph",
+      "status": "in-progress"
+    },
+    "relation-incoming": {
+      "name": "relation_incoming",
+      "key": "acc0d738122fb3dae02b1941b9909a3d15c0e0f1",
+      "nodeId": "8504:23150",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
+      "status": "in-progress"
+    },
+    "circle-dash": {
+      "name": "circle-dash",
+      "key": "b317fa0913e7862fe3f7dbd2e0d8f5f49758c234",
+      "nodeId": "7310:2897",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
+    "graph-merge": {
+      "name": "graph-merge",
+      "key": "b715dbd163131f360146e6044d9f8743045a973b",
+      "nodeId": "8576:4931",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
+      "status": "in-progress"
+    },
+    "list-numbers": {
+      "name": "list-numbers",
+      "key": "b731322950354840772eadaac3abb71d45aca649",
+      "nodeId": "7378:5046",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Property type",
+      "status": "in-progress"
+    },
+    "rocket-1": {
+      "name": "rocket 1",
+      "key": "b781fde18c452c199f8b699ed092b26d683f9f45",
+      "nodeId": "9085:20152",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "stars": {
+      "name": "stars",
+      "key": "bdea9d42922a4619f8a317ef616d30055eb789ee",
+      "nodeId": "7220:3430",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "misuse-outline": {
+      "name": "misuse--outline",
+      "key": "c7ecb9c454db552f8ca3630707c86a877e13e32c",
+      "nodeId": "8415:1389",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
+    "view-details": {
+      "name": "view-details",
+      "key": "cf1033712c94e4f740ae4c8de3f907004dc9380f",
+      "nodeId": "12222:5799",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "event-time-type": {
+      "name": "event--time-type",
+      "key": "d056a594413fcd44887aca52b86d9df25f0cbd0c",
+      "nodeId": "8504:23298",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Field type",
+      "status": "in-progress"
+    },
+    "view-card": {
+      "name": "view-card",
+      "key": "d1361c8bdc2347790fcedb0399598585fa4d7054",
+      "nodeId": "7622:5375",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "success-filled": {
+      "name": "success-filled",
+      "key": "d864426ee65112314a7925eaa9b5bd883a677100",
+      "nodeId": "7378:5490",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Message",
+      "status": "in-progress"
+    },
+    "user-group": {
+      "name": "user-group",
+      "key": "db200734daac36815be3bf52f078c9e528b15da4",
+      "nodeId": "7378:5131",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "chart-bar": {
+      "name": "chart--bar",
+      "key": "dde572f16c897c96ae7bc7a82532276fe87b7410",
+      "nodeId": "9246:14002",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Graph",
+      "status": "in-progress"
+    },
+    "icon-query-queue": {
+      "name": "Icon/query-queue",
+      "key": "dfc61677c57161b2031bdce8733cb4bf6fcfd6fa",
+      "nodeId": "7311:2825",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
+    "exit": {
+      "name": "exit",
+      "key": "e0ea887336f377ba397b25d988a54cf79eec6e4e",
+      "nodeId": "7301:2777",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "glossary": {
+      "name": "glossary",
+      "key": "e47a036e8d2cce3968395f79cc96fdcc70bcf275",
+      "nodeId": "10613:30347",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "checkmark-outline": {
+      "name": "checkmark--outline",
+      "key": "e5b3de9a4f7a367b4ef924486daa999145e62f46",
+      "nodeId": "7310:2896",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
+    "layers-front-curator-indicator": {
+      "name": "layers-front (Curator indicator)",
+      "key": "e7e0adbbf7e0f8b9b3fc45c839f381b029859715",
+      "nodeId": "8820:13322",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
+      "status": "in-progress"
+    },
+    "help-bubble": {
+      "name": "help-bubble",
+      "key": "e842d2ce342d70cf02719cd42d5243744345c402",
+      "nodeId": "7207:2832",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "database": {
+      "name": "database",
+      "key": "eb4d7d43a2ef5bae16611e36a2da213bd07e27ba",
+      "nodeId": "7378:3700",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "minimize": {
+      "name": "minimize",
+      "key": "ed365ef9760849fa471fb84b4d7603c1052399bf",
+      "nodeId": "8298:5067",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Cursor",
+      "secondaryGroups": [
+        "Common"
+      ],
+      "status": "in-progress"
+    },
+    "upload-file": {
+      "name": "upload-file",
+      "key": "ef39179dc6dda4a55166931b2f11f8b60460d58d",
+      "nodeId": "7439:4678",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "pending": {
+      "name": "pending",
+      "key": "f312fc0c5b45f54eb9081e0b0878f346801af1a4",
+      "nodeId": "7996:5346",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
+    "favorite-filled": {
+      "name": "favorite-filled",
+      "key": "f356489882aa4ddfc7e099e006510d6fdda704df",
+      "nodeId": "7378:3696",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "drag": {
+      "name": "drag",
+      "key": "f4dd4a86dfd0f91cce381eaa51abaa14a84785d3",
+      "nodeId": "7378:5050",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "brightness-contrast": {
+      "name": "brightness-contrast",
+      "key": "f6cb9d9b6a1a428237a5d845543c565524cd4eb0",
+      "nodeId": "7537:1569",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "data-product-output-port": {
+      "name": "data-product-output-port",
+      "key": "f74e10a2fe4608a484e1c40f1c1bdf2ad96ead1f",
+      "nodeId": "8504:23087",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Details",
+      "status": "in-progress"
+    },
+    "schema": {
+      "name": "schema",
+      "key": "f8fffb1cbe411321f66142c020a208b000d15e9d",
+      "nodeId": "7378:5038",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Details",
+      "status": "in-progress"
+    },
+    "settings": {
+      "name": "settings",
+      "key": "fa49ba4ce11934ea568dc702f402f52207703e97",
+      "nodeId": "7378:4812",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "task-list-multiple": {
+      "name": "task-list-multiple",
+      "key": "fb486ea7bd5611848f79a84fd04ede0cc78869a9",
+      "nodeId": "8504:23376",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Property type",
+      "status": "in-progress"
+    },
+    "bin-type": {
+      "name": "bin-type",
+      "key": "fe0c2ab0c4128c555979c33682a6f3df40fb0b76",
+      "nodeId": "14292:5730",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Field type",
+      "status": "in-progress"
+    },
+    "chevron-up": {
+      "name": "chevron--up",
+      "key": "5b4eaa7ccb12d95aad45cc332dfb5633dd5ce9b4",
+      "nodeId": "7207:2842",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "warning-alt": {
+      "name": "warning--alt",
+      "key": "675e323d57c331b8b9936f39687cf68450fd105b",
+      "nodeId": "7310:2892",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Status",
+      "status": "in-progress"
+    },
+    "task-list-settings": {
+      "name": "task-list-settings",
+      "key": "6d75371c1dd77bd21889e1519f9281dd134dca23",
+      "nodeId": "8504:23325",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
+      "status": "in-progress"
+    },
+    "chevron-left": {
+      "name": "chevron--left",
+      "key": "7940e22ca8c7fb72312b009bbc5d622c45dfc58f",
+      "nodeId": "7207:2837",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "scanner": {
+      "name": "scanner",
+      "key": "92eba2ab6095c5b95bf4b86d1c056f5e1e39e232",
+      "nodeId": "7378:3979",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "award-04": {
+      "name": "award-04",
+      "key": "9c4aea9aed18f57b7ed4bf55bc71d6910d2d0109",
+      "nodeId": "8655:10107",
+      "importMethod": "single",
+      "description": "award, medal, certification, certificate, badge",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Misc",
+      "status": "in-progress"
+    },
+    "suggestion": {
+      "name": "suggestion",
+      "key": "b0fdb7c7eb45f51182647cc89b12a5fd6989cafb",
+      "nodeId": "7279:3164",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "image": {
+      "name": "image",
+      "key": "b3f1a7f5ef3d50822c84ce0f6d745428607d9023",
+      "nodeId": "7908:5402",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Common",
+      "status": "in-progress"
+    },
+    "expand": {
+      "name": "expand",
+      "key": "b92ca711225ff8cc4b1068893831456c40e3bc3f",
+      "nodeId": "15563:24467",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Cursor",
+      "status": "in-progress"
+    },
+    "catalogs": {
+      "name": "catalogs",
+      "key": "bf59f59271f2a5fb0945e406629aefeb72775468",
+      "nodeId": "14115:8084",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
+      "status": "in-progress"
+    },
+    "api-key": {
+      "name": "api-key",
+      "key": "f0f6ca388b8ac7bb5a0b3dea5b3d5ec30c6d0293",
+      "nodeId": "7378:3969",
+      "importMethod": "single",
+      "description": "",
+      "page": "✍️ Icons",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Foundations",
+      "category": "Icons",
+      "group": "Navigation",
       "status": "in-progress"
     }
   }

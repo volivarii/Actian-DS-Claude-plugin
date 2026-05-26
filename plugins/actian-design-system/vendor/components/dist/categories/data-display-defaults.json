@@ -15,7 +15,7 @@
     "a11y": "high"
   },
   "last_reviewed": "2026-05-12",
-  "card_anatomy": {
+  "anatomy": {
     "parts": [
       {
         "name": "Container",
@@ -43,7 +43,7 @@
       }
     ]
   },
-  "card_component": {
+  "variants": {
     "variantAxes": [
       {
         "axis": "Density",
@@ -75,7 +75,7 @@
       }
     ]
   },
-  "card_motion": {
+  "motion": {
     "patternRefs": [
       {
         "ref": "skeleton-loading",
@@ -91,25 +91,25 @@
       }
     ]
   },
-  "card_accessibility": {
+  "accessibility": {
     "requirementRefs": [
       {
         "ref": "color-contrast",
         "note": "status colors must have a non-color cue (icon, label, pattern)"
       },
       {
-        "ref": "typography-readability"
+        "ref": "typography"
       },
       {
-        "ref": "layout-responsiveness",
+        "ref": "data-tables",
         "note": "tables and graphs must reflow or scroll horizontally; never clip"
       },
       {
-        "ref": "aria-guidance",
+        "ref": "aria-labels",
         "note": "tables use thead/tbody/scope; charts expose data tables for screen readers"
       },
       {
-        "ref": "keyboard-focus"
+        "ref": "focus-keyboard"
       }
     ]
   },

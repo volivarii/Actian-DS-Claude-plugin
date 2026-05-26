@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-05-20T10:23:44.557Z",
+  "generatedAt": "2026-05-25T11:08:26.637Z",
   "categories": {
     "Breakpoint, grid & structure": {
       "components": [
@@ -25,7 +25,7 @@
         "search",
         "search-dropdown-menu",
         "search-filters",
-        "toglge"
+        "toggle"
       ],
       "count": 11
     },

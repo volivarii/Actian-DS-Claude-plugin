@@ -7,7 +7,7 @@
 | Alert / banner | approved | not started | inherited | inherited | not started |
 | Badges | approved | not started | inherited | inherited | not started |
 | Breadcrumbs | approved | not started | inherited | inherited | not started |
-| Buttons | approved | not started | inherited | inherited | not started |
+| Buttons | approved | not started | draft | inherited | not started |
 | Cards | approved | not started | inherited | inherited | not started |
 | Checkboxes | approved | not started | inherited | inherited | not started |
 | Combo box | approved | not started | inherited | inherited | not started |
@@ -47,7 +47,7 @@
 |---|---|---|---|---|---|
 | content | 26 | 0 | 0 | 0 | 0 |
 | usage | 0 | 0 | 0 | 26 | 10 |
-| design | 0 | 0 | 26 | 0 | 10 |
+| design | 0 | 1 | 25 | 0 | 10 |
 | behavior | 0 | 0 | 26 | 0 | 10 |
 | tokens | 0 | 0 | 0 | 26 | 10 |
 
@@ -63,6 +63,6 @@
 | notification | inline-toast |
 | search-filters | filters |
 | tag-default | tag |
-| toglge | toggle-control |
+| toggle | toggle-control |
 | whats-new-dropdown | whats-new |
 

@@ -27,11 +27,10 @@ motion_refs:
   - { ref: state-transitions, note: hover/focus/active transitions stay within the 100-200ms band }
 
 accessibility:
-  - { ref: keyboard-focus, note: must be operable with Enter and Space (button) or Enter (link) }
+  - { ref: focus-keyboard, note: must be operable with Enter and Space (button) or Enter (link) }
   - { ref: color-contrast }
-  - { ref: interactions }
-  - { ref: feedback-errors, note: loading + disabled states must be announced; do not rely on color alone }
-  - { ref: aria-guidance }
+  - { ref: alerts-toasts-banners, note: loading + disabled states must be announced; do not rely on color alone }
+  - { ref: aria-labels }
 ---
 
 # Action — design rationale

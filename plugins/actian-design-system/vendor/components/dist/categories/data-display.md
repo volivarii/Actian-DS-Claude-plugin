@@ -31,10 +31,10 @@ motion_refs:
 
 accessibility:
   - { ref: color-contrast, note: status colors must have a non-color cue (icon, label, pattern) }
-  - { ref: typography-readability }
-  - { ref: layout-responsiveness, note: tables and graphs must reflow or scroll horizontally; never clip }
-  - { ref: aria-guidance, note: tables use thead/tbody/scope; charts expose data tables for screen readers }
-  - { ref: keyboard-focus }
+  - { ref: typography }
+  - { ref: data-tables, note: tables and graphs must reflow or scroll horizontally; never clip }
+  - { ref: aria-labels, note: tables use thead/tbody/scope; charts expose data tables for screen readers }
+  - { ref: focus-keyboard }
 ---
 
 # Data Display — design rationale

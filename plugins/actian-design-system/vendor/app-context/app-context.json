@@ -1,5 +1,9 @@
 {
   "_schema_version": 1,
+  "_regen": {
+    "source": "manual",
+    "instructions": "Manually curated catalogue of Actian apps, entities, terminology, and UX patterns. No automated regeneration source; update by hand as the product evolves. Keep entity slugs in `entities.<slug>.relationships` aligned with the keys in `entities`; keep terminology `notUse` lists honest with recent copy reviews."
+  },
   "apps": {
     "studio": {
       "label": "Studio",
@@ -65,11 +69,7 @@
     "explorer": {
       "label": "Explorer",
       "purpose": "Data marketplace, discovery, consumption, business glossary browsing, data product access",
-      "users": [
-        "Business user",
-        "Analyst",
-        "Data consumer"
-      ],
+      "users": ["Business user", "Analyst", "Data consumer"],
       "header": {
         "type": "Explorer"
       },
@@ -92,10 +92,7 @@
     "administration": {
       "label": "Administration",
       "purpose": "User management, connections, catalog configuration, system settings",
-      "users": [
-        "Admin",
-        "IT ops"
-      ],
+      "users": ["Admin", "IT ops"],
       "header": {
         "type": "Admin"
       },
@@ -176,25 +173,16 @@
         "hasSuggestions": "suggestion",
         "hasObservabilitySignals": "observability-signal"
       },
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "domain": {
       "label": "Domain",
       "description": "Organizational/business unit owning a set of data assets",
-      "properties": [
-        "name",
-        "description"
-      ],
+      "properties": ["name", "description"],
       "relationships": {
         "containsCatalogObjects": "catalog-object"
       },
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "data-product": {
       "label": "Data Product",
@@ -214,10 +202,7 @@
         "hasOutputPorts": "output-port",
         "hasDatasets": "dataset"
       },
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "data-contract": {
       "label": "Data Contract",
@@ -231,146 +216,83 @@
       "relationships": {
         "attachedTo": "output-port"
       },
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "glossary-term": {
       "label": "Glossary Term",
       "description": "Business vocabulary entry linked to technical assets",
-      "properties": [
-        "name",
-        "definition",
-        "linked assets"
-      ],
+      "properties": ["name", "definition", "linked assets"],
       "relationships": {
         "linkedTo": "catalog-object"
       },
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "custom-asset": {
       "label": "Custom Asset",
       "description": "User-defined asset type extending the catalog model",
-      "properties": [
-        "name",
-        "description",
-        "type"
-      ],
+      "properties": ["name", "description", "type"],
       "relationships": {},
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "lineage": {
       "label": "Lineage",
       "description": "Field-level transformation tracking from source to downstream",
-      "properties": [
-        "source",
-        "target",
-        "transformation"
-      ],
+      "properties": ["source", "target", "transformation"],
       "relationships": {},
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "governance-policy": {
       "label": "Governance Policy",
       "description": "Access rules, quality rules, compliance constraints",
-      "properties": [
-        "name",
-        "type",
-        "rules"
-      ],
+      "properties": ["name", "type", "rules"],
       "relationships": {
         "appliesTo": "catalog-object",
         "assignedTo": "user-group"
       },
-      "apps": [
-        "studio",
-        "administration"
-      ]
+      "apps": ["studio", "administration"]
     },
     "scanner": {
       "label": "Scanner",
       "description": "External data ingestion agent that discovers and imports metadata from connections",
-      "properties": [
-        "name",
-        "status",
-        "connections"
-      ],
+      "properties": ["name", "status", "connections"],
       "relationships": {
         "usesConnection": "connection"
       },
-      "apps": [
-        "administration"
-      ]
+      "apps": ["administration"]
     },
     "connection": {
       "label": "Connection",
       "description": "Configuration for a data source connector (93+ pre-built)",
-      "properties": [
-        "name",
-        "type",
-        "status",
-        "provider"
-      ],
+      "properties": ["name", "type", "status", "provider"],
       "relationships": {
         "discoversCatalogObjects": "catalog-object"
       },
-      "apps": [
-        "administration"
-      ]
+      "apps": ["administration"]
     },
     "user-group": {
       "label": "User / Group",
       "description": "Identity and role assignments. Groups: Explorer, Data Steward, Super Admin",
-      "properties": [
-        "name",
-        "email",
-        "role",
-        "groups",
-        "permissions"
-      ],
+      "properties": ["name", "email", "role", "groups", "permissions"],
       "relationships": {
         "hasGovernancePolicies": "governance-policy"
       },
-      "apps": [
-        "administration"
-      ]
+      "apps": ["administration"]
     },
     "api-key": {
       "label": "API Key",
       "description": "Machine-to-machine auth with 5 scopes",
-      "properties": [
-        "name",
-        "scope",
-        "expiration date"
-      ],
+      "properties": ["name", "scope", "expiration date"],
       "relationships": {},
-      "apps": [
-        "administration"
-      ]
+      "apps": ["administration"]
     },
     "observability-signal": {
       "label": "Observability Signal",
       "description": "Quality score, freshness, usage stats attached to assets",
-      "properties": [
-        "quality score",
-        "freshness",
-        "usage count"
-      ],
+      "properties": ["quality score", "freshness", "usage count"],
       "relationships": {
         "attachedTo": "catalog-object"
       },
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "access-request": {
       "label": "Access Request",
@@ -386,465 +308,307 @@
       "relationships": {
         "targetsOutputPort": "output-port"
       },
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "watchlist": {
       "label": "Watchlist",
       "description": "Saved filter shortcut on Studio Dashboard",
-      "properties": [
-        "name",
-        "filters",
-        "item count"
-      ],
+      "properties": ["name", "filters", "item count"],
       "relationships": {},
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "discussion-thread": {
       "label": "Discussion Thread",
       "description": "Conversation thread on Dataset detail pages",
-      "properties": [
-        "author",
-        "content",
-        "replies",
-        "created at"
-      ],
+      "properties": ["author", "content", "replies", "created at"],
       "relationships": {
         "on": "catalog-object"
       },
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     }
   },
   "terminology": {
     "data-intelligence-platform": {
       "use": "Data Intelligence Platform",
       "meaning": "The overall product",
-      "notUse": [
-        "the tool",
-        "the app"
-      ]
+      "notUse": ["the tool", "the app"]
     },
     "studio": {
       "use": "Studio",
       "meaning": "Governance/catalog app",
-      "notUse": [
-        "admin panel",
-        "backend"
-      ]
+      "notUse": ["admin panel", "backend"]
     },
     "explorer": {
       "use": "Explorer",
       "meaning": "Consumer/marketplace app",
-      "notUse": [
-        "frontend",
-        "user portal"
-      ]
+      "notUse": ["frontend", "user portal"]
     },
     "administration": {
       "use": "Administration",
       "meaning": "Config/settings app",
-      "notUse": [
-        "admin app"
-      ]
+      "notUse": ["admin app"]
     },
     "catalog-object": {
       "use": "Catalog object",
       "meaning": "Any indexed data asset",
-      "notUse": [
-        "item",
-        "record",
-        "entry"
-      ]
+      "notUse": ["item", "record", "entry"]
     },
     "data-product": {
       "use": "Data product",
       "meaning": "Curated published asset",
-      "notUse": [
-        "dataset"
-      ]
+      "notUse": ["dataset"]
     },
     "data-contract": {
       "use": "Data contract",
       "meaning": "Quality/access agreement",
-      "notUse": [
-        "SLA",
-        "policy"
-      ]
+      "notUse": ["SLA", "policy"]
     },
     "governance-by-design": {
       "use": "Governance-by-design",
       "meaning": "Policies embedded at creation",
-      "notUse": [
-        "governance overlay"
-      ]
+      "notUse": ["governance overlay"]
     },
     "contract-first": {
       "use": "Contract-first",
       "meaning": "Define expectations before building",
-      "notUse": [
-        "quality-first"
-      ]
+      "notUse": ["quality-first"]
     },
     "shift-left": {
       "use": "Shift-left",
       "meaning": "Catch issues at source",
-      "notUse": [
-        "early detection"
-      ]
+      "notUse": ["early detection"]
     },
     "field-level-lineage": {
       "use": "Field-level lineage",
       "meaning": "Column-level transformation tracking",
-      "notUse": [
-        "table lineage"
-      ]
+      "notUse": ["table lineage"]
     },
     "impact-analysis": {
       "use": "Impact analysis",
       "meaning": "Understanding downstream effects of changes",
-      "notUse": [
-        "dependency check"
-      ]
+      "notUse": ["dependency check"]
     },
     "federated-knowledge-graph": {
       "use": "Federated knowledge graph",
       "meaning": "Enterprise metadata architecture",
-      "notUse": [
-        "metadata store"
-      ]
+      "notUse": ["metadata store"]
     },
     "topic": {
       "use": "Topic",
       "meaning": "Curated, filtered collection of catalog items for Explorer",
-      "notUse": [
-        "folder",
-        "category"
-      ]
+      "notUse": ["folder", "category"]
     },
     "connection": {
       "use": "Connection",
       "meaning": "Configured data source connector",
-      "notUse": [
-        "integration"
-      ]
+      "notUse": ["integration"]
     },
     "completion-level": {
       "use": "Completion level",
       "meaning": "Percentage of metadata filled for an item",
-      "notUse": [
-        "progress",
-        "completeness"
-      ]
+      "notUse": ["progress", "completeness"]
     },
     "suggestion": {
       "use": "Suggestion",
       "meaning": "AI-generated metadata enrichment proposal",
-      "notUse": [
-        "recommendation"
-      ]
+      "notUse": ["recommendation"]
     },
     "curator": {
       "use": "Curator",
       "meaning": "Person responsible for curating a catalog item",
-      "notUse": [
-        "owner"
-      ]
+      "notUse": ["owner"]
     },
     "output-port": {
       "use": "Output port",
       "meaning": "Published endpoint/view of a data product",
-      "notUse": [
-        "API",
-        "export"
-      ]
+      "notUse": ["API", "export"]
     },
     "view-360": {
       "use": "View 360",
       "meaning": "Radial knowledge graph centered on an asset",
-      "notUse": [
-        "relationship view"
-      ]
+      "notUse": ["relationship view"]
     },
     "watchlist": {
       "use": "Watchlist",
       "meaning": "Saved filter shortcut on Studio Dashboard",
-      "notUse": [
-        "saved search"
-      ]
+      "notUse": ["saved search"]
     },
     "perimeter": {
       "use": "Perimeter",
       "meaning": "Scope of a curator's item responsibility",
-      "notUse": [
-        "scope"
-      ]
+      "notUse": ["scope"]
     },
     "scanner": {
       "use": "Scanner",
       "meaning": "External data ingestion agent",
-      "notUse": [
-        "crawler",
-        "harvester"
-      ]
+      "notUse": ["crawler", "harvester"]
     },
     "metamodel": {
       "use": "Metamodel",
       "meaning": "System structure/template configuration",
-      "notUse": [
-        "schema",
-        "model"
-      ]
+      "notUse": ["schema", "model"]
     },
     "pii": {
       "use": "PII",
       "meaning": "Personally Identifiable Information flag on fields",
-      "notUse": [
-        "sensitive data"
-      ]
+      "notUse": ["sensitive data"]
     },
     "ask-ai": {
       "use": "Ask AI",
       "meaning": "Natural language query feature in Explorer",
-      "notUse": [
-        "AI search",
-        "chatbot"
-      ]
+      "notUse": ["AI search", "chatbot"]
     },
     "ai-ready": {
       "use": "AI Ready",
       "meaning": "Auto-tag on Topics with well-documented items",
-      "notUse": [
-        "indexed",
-        "searchable"
-      ]
+      "notUse": ["indexed", "searchable"]
     },
     "data-profiling": {
       "use": "Data Profiling",
       "meaning": "Statistical profile of field values",
-      "notUse": [
-        "data analysis"
-      ]
+      "notUse": ["data analysis"]
     },
     "data-sampling": {
       "use": "Data Sampling",
       "meaning": "Sample data rows from a dataset",
-      "notUse": [
-        "data preview"
-      ]
+      "notUse": ["data preview"]
     },
     "input-port": {
       "use": "Input Port",
       "meaning": "Interface for receiving upstream data into a data product",
-      "notUse": [
-        "input",
-        "source"
-      ]
+      "notUse": ["input", "source"]
     },
     "federated-catalog": {
       "use": "Federated Catalog",
       "meaning": "Multi-catalog architecture with scoped permissions",
-      "notUse": [
-        "multi-tenant"
-      ]
+      "notUse": ["multi-tenant"]
     },
     "discussion-thread": {
       "use": "Discussion Thread",
       "meaning": "Conversation on a Dataset detail page",
-      "notUse": [
-        "comment",
-        "note"
-      ]
+      "notUse": ["comment", "note"]
     },
     "access-request-policy": {
       "use": "Access Request Policy",
       "meaning": "Rules governing the approval workflow for data access",
-      "notUse": [
-        "access control"
-      ]
+      "notUse": ["access control"]
     }
   },
   "patterns": {
     "interactive-graph": {
       "label": "Interactive graph visualization",
       "description": "Used for lineage (DAG), View 360 (radial knowledge graph), and Data Model (ER diagram). Nodes are clickable.",
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "template-builder": {
       "label": "Drag-and-drop template builder",
       "description": "Studio feature for creating documentation templates via Catalog Design page.",
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "marketplace-browsing": {
       "label": "Marketplace browsing",
       "description": "Explorer homepage: search-first with curated sections (carousels, filter chips, topic cards).",
-      "apps": [
-        "explorer"
-      ]
+      "apps": ["explorer"]
     },
     "asset-detail-360": {
       "label": "360-degree asset detail view",
       "description": "Every catalog object has a tabbed detail page with property panel/sidebar.",
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "right-sliding-drawer": {
       "label": "Right sliding drawer",
       "description": "Opens from list row click. Studio: quick edit. Explorer: quick view with Request Access.",
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "smart-suggestions": {
       "label": "Smart suggestions",
       "description": "AI-powered metadata enrichment: suggestion counts inline, dedicated Suggestions tab.",
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "import-wizard": {
       "label": "Multi-step import wizard",
       "description": "6-step horizontal stepper (Connection → Items → Curator → Contact → Data Product → Confirm).",
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "type-picker-grid": {
       "label": "Type picker grid",
       "description": "Grid of type tiles with color-coded icons for New Item creation.",
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "analytics-dashboard": {
       "label": "Analytics dashboard",
       "description": "Completion cards, adoption rate charts, popular items, frequent searches.",
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "activity-timeline": {
       "label": "Activity timeline",
       "description": "Chronological timeline with date headers, user avatars, action descriptions.",
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "access-request-management": {
       "label": "Access request management",
       "description": "Table with Requester, Item, Status, Actions. Status tabs: Pending / Done.",
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "notification-system": {
       "label": "Notification system",
       "description": "Bell icon with unread counter. Three notification types with click-to-action redirects.",
-      "apps": [
-        "studio",
-        "explorer",
-        "administration"
-      ]
+      "apps": ["studio", "explorer", "administration"]
     },
     "discussion-threads": {
       "label": "Discussion threads",
       "description": "Available on Dataset detail pages. Users create threads, reply, edit own messages.",
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "ask-ai": {
       "label": "Ask AI",
       "description": "Natural language query search through the knowledge graph with AI-generated summaries.",
-      "apps": [
-        "explorer"
-      ]
+      "apps": ["explorer"]
     },
     "suggestion-workflow": {
       "label": "Suggestion workflow",
       "description": "Explorer users submit suggestions, curators review (accept/decline with comment).",
-      "apps": [
-        "explorer",
-        "studio"
-      ]
+      "apps": ["explorer", "studio"]
     },
     "access-request-workflow": {
       "label": "Access request workflow",
       "description": "Request Access button, form with Use Case dropdown, 6 statuses, policy-driven approval.",
-      "apps": [
-        "explorer",
-        "studio"
-      ]
+      "apps": ["explorer", "studio"]
     },
     "data-profiling-sampling": {
       "label": "Data profiling and sampling",
       "description": "Statistical graphs on fields (profiling) and sample data preview rows (sampling).",
-      "apps": [
-        "studio"
-      ]
+      "apps": ["studio"]
     },
     "federated-catalog": {
       "label": "Federated Catalog",
       "description": "Multi-catalog federation with scoped permissions and cross-catalog search.",
-      "apps": [
-        "administration"
-      ]
+      "apps": ["administration"]
     },
     "federated-knowledge-graph": {
       "label": "Federated knowledge graph",
       "description": "Underlying architecture connecting all metadata with domain-specific ontologies.",
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "mcp-server": {
       "label": "Actian MCP Server",
       "description": "7 tools for AI integrations (Find Glossary, Semantic Search, Get Data Model, etc.).",
-      "apps": [
-        "studio",
-        "explorer"
-      ]
+      "apps": ["studio", "explorer"]
     },
     "filter-groups-form": {
       "label": "Filter-groups edit form with sticky footer",
       "description": "Edit-group / permission / role configuration pattern. Page header + top inputs section + one or more collapsible filter-group sections, each containing label rows with toggle switches, plus optional slot cards for nested config (Checkbox + Toggle stacks). Sticky footer pinned at the bottom for save/cancel actions. Used when administrators configure access bundles or named groups with many fine-grained permissions.",
-      "apps": [
-        "administration"
-      ]
+      "apps": ["administration"]
     },
     "search-filtered-table": {
       "label": "Search-filtered list table",
       "description": "List table with an inline Search input directly above it (no separate filter sidebar). Common for member directories, group lists, scanner inventories, connection lists. Pairs Page header → Search → Table. Search filters table contents in place; no other facets.",
-      "apps": [
-        "administration",
-        "studio",
-        "explorer"
-      ]
+      "apps": ["administration", "studio", "explorer"]
     },
     "table-with-tabs": {
       "label": "Tab-filtered dashboard table",
       "description": "Page header → Tabs → Table layout. Tabs split the table by status (Active / Pending / Archived), type (My / Shared / All), or role-scoped view. Used for admin dashboards, queue views, and any list where users mentally pre-filter by category before scanning rows.",
-      "apps": [
-        "administration",
-        "studio"
-      ]
+      "apps": ["administration", "studio"]
     }
   }
 }

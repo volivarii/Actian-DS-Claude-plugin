@@ -31,10 +31,9 @@ motion_refs:
   - { ref: anchor-motion, note: popover/tooltip anchor open at the trigger with origin transform }
 
 accessibility:
-  - { ref: keyboard-focus, note: focus moves into the overlay on open; trapped while modal-blocking; returns to trigger on close }
-  - { ref: aria-guidance, note: dialogs use role=dialog + aria-modal=true + labelled by header; tooltips use role=tooltip + aria-describedby }
-  - { ref: interactions, note: Escape closes dismissible overlays; outside-click closes popovers but not modals }
-  - { ref: motion-media, note: respect prefers-reduced-motion — disable scale + slide, keep fade }
+  - { ref: focus-keyboard, note: focus moves into the overlay on open, trapped while modal-blocking, returns to trigger on close; Escape closes dismissible overlays, outside-click closes popovers but not modals }
+  - { ref: aria-labels, note: dialogs use role=dialog + aria-modal=true + labelled by header; tooltips use role=tooltip + aria-describedby }
+  - { ref: motion, note: respect prefers-reduced-motion — disable scale + slide, keep fade }
   - { ref: color-contrast }
 ---
 
