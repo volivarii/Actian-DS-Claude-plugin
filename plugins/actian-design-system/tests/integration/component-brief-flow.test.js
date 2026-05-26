@@ -106,31 +106,31 @@ test("flow — full Phase A + simulated Phase B passes validateBriefData", funct
   ctx.guidelinesJson = loadFixture("button-component-guidelines-rich.json");
   var data = runPhaseA(ctx, ["card_header", "card_content"]);
   // Stub Phase B cards (would be populated by card-generator agent in real runs)
-  data.card_component = {
+  data.variants = {
     cardTitle: "Component",
     cardSubtitle: "x",
     _source: "generated",
     variantMatrix: [],
   };
-  data.card_anatomy = {
+  data.anatomy = {
     cardTitle: "Anatomy",
     cardSubtitle: "x",
     _source: "generated",
     parts: [],
   };
-  data.card_tokens = {
+  data.tokens = {
     cardTitle: "Tokens",
     cardSubtitle: "x",
     _source: "generated",
     colorTokens: [],
   };
-  data.card_usage = {
+  data.usage = {
     cardTitle: "Usage",
     cardSubtitle: "x",
     _source: "generated",
     doDont: [],
   };
-  data.card_accessibility = {
+  data.accessibility = {
     cardTitle: "Accessibility",
     cardSubtitle: "x",
     _source: "generated",

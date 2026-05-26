@@ -23,6 +23,7 @@ import {
 import { createOctokit, MissingPATError } from "../core/octokit";
 import { submitDraft } from "../core/submitDraft";
 import { getTextFile } from "./githubApi";
+import { DEFAULT_COORDS } from "../config/coords";
 import { RJSFForm } from "../form-engine/RJSFForm";
 import { guidelineMetaUiSchema } from "../uiSchemas/guidelineMeta";
 import { parseYaml, stringifyYaml } from "../form-engine/yamlSerializer";
@@ -199,8 +200,7 @@ export function MetaEditScreen({
           sourceMetadata: { kind: "human", via: "MetaEditScreen" },
         },
         {
-          owner: "volivarii",
-          repo: "actian-ds-knowledge",
+          ...DEFAULT_COORDS,
           base: "main",
           schemas: {
             "guideline-meta": schema.value as Record<string, unknown>,

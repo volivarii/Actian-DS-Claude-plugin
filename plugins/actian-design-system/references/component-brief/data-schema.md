@@ -12,12 +12,12 @@ Rigid JSON schema for component-brief output. Generated in Step 1.5, consumed by
 {
   "meta": { ... },
   "card_header": { ... },
-  "card_component": { ... },
-  "card_anatomy": { ... },
-  "card_tokens": { ... },
-  "card_usage": { ... },
+  "variants": { ... },
+  "anatomy": { ... },
+  "tokens": { ... },
+  "usage": { ... },
   "card_content": { ... },
-  "card_accessibility": { ... }
+  "accessibility": { ... }
 }
 ```
 
@@ -62,7 +62,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `name`: component display name
 - `description`: 1-3 sentences. Becomes `<p class="card-body">` in HTML, `Description` property in Figma Brief Card Page Header
 
-## `card_component` — Component
+## `variants` — Component
 
 ```json
 {
@@ -93,7 +93,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `variantMatrix` must include ALL variants shown in the HTML — never truncate.
 - `themeVariant`: variant name to display in theme comparison (e.g., `"State=Default"`). The script renders 3 frames (Actian, Studio, Explorer) each containing a real component instance with the corresponding theme's variable mode.
 
-## `card_anatomy` — Anatomy
+## `anatomy` — Anatomy
 
 ```json
 {
@@ -119,7 +119,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `states`: list of state names for the States section. Figma renders real component instances (LOCAL_INSTANCE with variant switching) in a horizontal row. HTML renders state labels.
 - `partsTable`: rows for the Specs table. Each row links back to a part letter. Columns: part letter, element name, token name, notes.
 
-## `card_tokens` — Design tokens
+## `tokens` — Design tokens
 
 ```json
 {
@@ -160,7 +160,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - `hex` is REQUIRED for Color Swatch fill (set `.fills` directly on the 12×12 instance — it has NO children).
 - `sizingTokens` and `typography` are fixed-column tables.
 
-## `card_usage` — Usage guidelines
+## `usage` — Usage guidelines
 
 ```json
 {
@@ -217,7 +217,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 - Figma renders each rule as Section Header template + Do-Don't Pair component.
 - `terminology`: optional table. Empty array = section omitted.
 
-## `card_accessibility` — Accessibility
+## `accessibility` — Accessibility
 
 ```json
 {
@@ -259,7 +259,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 
 ## Syntax token color map
 
-Both renderers use this mapping for all tokenized code (card_accessibility inline code blocks):
+Both renderers use this mapping for all tokenized code (accessibility inline code blocks):
 
 | Token type | HTML class | Figma fill hex |
 |-----------|-----------|---------------|
@@ -276,7 +276,7 @@ Both renderers use this mapping for all tokenized code (card_accessibility inlin
 | `text` | (none) | `#BABED8` |
 | `newline` | `\n` | — |
 
-**Figma rendering note:** Code tokens in `card_accessibility` inline code blocks render as monochrome text (`#BABED8`) in Figma output. The HTML preview retains per-token syntax coloring via CSS classes.
+**Figma rendering note:** Code tokens in `accessibility` inline code blocks render as monochrome text (`#BABED8`) in Figma output. The HTML preview retains per-token syntax coloring via CSS classes.
 
 ## Rendering contract
 

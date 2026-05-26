@@ -9,6 +9,7 @@ import {
   TextField,
 } from "@radix-ui/themes";
 import { getSession, signOut, signInWithPAT } from "../auth";
+import { DEFAULT_COORDS } from "../config/coords";
 
 export interface SettingsPanelProps {
   open: boolean;
@@ -43,7 +44,7 @@ export function SettingsPanel({ open, onOpenChange }: SettingsPanelProps) {
         <Dialog.Title>Settings</Dialog.Title>
         <Dialog.Description size="2" color="gray" mb="4">
           The editor uses a fine-grained GitHub Personal Access Token to open
-          Pull Requests against <code>actian-ds-knowledge</code>. The token is
+          Pull Requests against <code>{DEFAULT_COORDS.repo}</code>. The token is
           stored in this browser&apos;s <code>localStorage</code> only.
         </Dialog.Description>
 
@@ -93,8 +94,11 @@ export function SettingsPanel({ open, onOpenChange }: SettingsPanelProps) {
             <Link href={PAT_HELP_URL} target="_blank" rel="noreferrer">
               Generate a fine-grained token →
             </Link>{" "}
-            Required permissions on <code>volivarii/actian-ds-knowledge</code>:{" "}
-            <strong>Contents — Read and write</strong> +{" "}
+            Required permissions on{" "}
+            <code>
+              {DEFAULT_COORDS.owner}/{DEFAULT_COORDS.repo}
+            </code>
+            : <strong>Contents — Read and write</strong> +{" "}
             <strong>Pull requests — Read and write</strong>. Classic tokens may
             use the broader <code>repo</code> scope instead.
           </Text>

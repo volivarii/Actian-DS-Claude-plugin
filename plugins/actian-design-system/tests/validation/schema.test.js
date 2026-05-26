@@ -635,7 +635,7 @@ test("brief schema — every card object has _source field", function () {
   var data = {
     meta: {},
     card_header: { name: "Button", description: "x" }, // missing _source
-    card_tokens: { _source: "generated", colors: [] },
+    tokens: { _source: "generated", colors: [] },
   };
   var result = schema.validateBriefData(data);
   assert_ok(
@@ -711,12 +711,12 @@ test("brief schema — _fallback: true with no _fallbackReason → finding", fun
   );
 });
 
-test("brief schema — card_motion with figma source but missing patternSlug → finding (v1.65.0)", function () {
+test("brief schema — motion with figma source but missing patternSlug → finding (v1.65.0)", function () {
   var schema = require("../../scripts/validation/validate-schema.js");
   var data = {
     meta: {},
     card_header: { _source: "figma", description: "x" },
-    card_motion: {
+    motion: {
       _source: "figma",
       // patternSlug intentionally missing
       phases: [{ Phase: "Open", Duration: "duration-slow" }],
@@ -727,20 +727,20 @@ test("brief schema — card_motion with figma source but missing patternSlug →
     result.findings.some(function (f) {
       return (
         f.kind === "empty-figma-source" &&
-        f.card === "card_motion" &&
+        f.card === "motion" &&
         /patternSlug is missing/.test(f.message)
       );
     }),
-    "expected empty-figma-source finding citing patternSlug for card_motion",
+    "expected empty-figma-source finding citing patternSlug for motion",
   );
 });
 
-test("brief schema — card_motion with valid patternSlug + phases → no finding (v1.65.0)", function () {
+test("brief schema — motion with valid patternSlug + phases → no finding (v1.65.0)", function () {
   var schema = require("../../scripts/validation/validate-schema.js");
   var data = {
     meta: {},
     card_header: { _source: "figma", description: "x" },
-    card_motion: {
+    motion: {
       _source: "figma",
       patternSlug: "drawer",
       phases: [{ Phase: "Open", Duration: "duration-slow" }],
@@ -749,9 +749,9 @@ test("brief schema — card_motion with valid patternSlug + phases → no findin
   var result = schema.validateBriefData(data);
   assert_ok(
     !result.findings.some(function (f) {
-      return f.card === "card_motion";
+      return f.card === "motion";
     }),
-    "expected no findings for valid card_motion",
+    "expected no findings for valid motion",
   );
 });
 

@@ -15,7 +15,7 @@
     "a11y": "high"
   },
   "last_reviewed": "2026-05-12",
-  "card_anatomy": {
+  "anatomy": {
     "parts": [
       {
         "name": "Trigger",
@@ -47,7 +47,7 @@
       }
     ]
   },
-  "card_component": {
+  "variants": {
     "variantAxes": [
       {
         "axis": "Type",
@@ -78,7 +78,7 @@
       }
     ]
   },
-  "card_motion": {
+  "motion": {
     "patternRefs": [
       {
         "ref": "layered-overlays-modals",
@@ -94,7 +94,7 @@
       }
     ]
   },
-  "card_accessibility": {
+  "accessibility": {
     "requirementRefs": [
       {
         "ref": "focus-keyboard",

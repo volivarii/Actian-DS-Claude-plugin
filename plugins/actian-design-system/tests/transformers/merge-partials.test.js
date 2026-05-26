@@ -80,18 +80,18 @@ process.stdout.write("\nmerge-partials.js\n");
     writePartial("cards-header-anatomy.json", {
       meta: { component: "Button", version: "1.0" },
       card_header: { title: "Button" },
-      card_component: { preview: true },
-      card_anatomy: { parts: ["root", "label"] },
+      variants: { preview: true },
+      anatomy: { parts: ["root", "label"] },
     });
     writePartial("cards-tokens-usage.json", {
       meta: { component: "Button", version: "1.0" },
-      card_tokens: { tokens: [] },
-      card_usage: { dos: [], donts: [] },
+      tokens: { tokens: [] },
+      usage: { dos: [], donts: [] },
     });
     writePartial("cards-content-accessibility.json", {
       meta: { component: "Button", version: "1.0" },
       card_content: { guidelines: "" },
-      card_accessibility: { role: "button" },
+      accessibility: { role: "button" },
     });
 
     const result = runMerge(["--type", "brief", "--partials-dir", TEST_DIR]);
@@ -104,7 +104,7 @@ process.stdout.write("\nmerge-partials.js\n");
     assert(
       keys.includes("meta") &&
         keys.includes("card_header") &&
-        keys.includes("card_accessibility"),
+        keys.includes("accessibility"),
       "brief: contains meta, first, and last card keys",
     );
   } finally {
@@ -119,8 +119,8 @@ process.stdout.write("\nmerge-partials.js\n");
     writePartial("cards-partial.json", {
       meta: { component: "Button" },
       card_header: { title: "Button" },
-      card_component: { preview: true },
-      // missing card_anatomy through card_accessibility
+      variants: { preview: true },
+      // missing anatomy through accessibility
     });
 
     const result = runMerge(
@@ -140,7 +140,7 @@ process.stdout.write("\nmerge-partials.js\n");
     writePartial("subset.json", {
       meta: { component: "Button" },
       card_header: { title: "Button" },
-      card_usage: { dos: [], donts: [] },
+      usage: { dos: [], donts: [] },
     });
 
     const result = runMerge([

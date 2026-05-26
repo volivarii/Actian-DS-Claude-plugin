@@ -9,6 +9,7 @@
 // every accordion expand/collapse cycle.
 
 import type { Octokit } from "@octokit/rest";
+import { DEFAULT_COORDS } from "../config/coords";
 
 export interface CommitInfo {
   /** GitHub login of the commit author. null when the commit author
@@ -30,9 +31,8 @@ interface CachedEntry {
  * Fetch the latest commit touching `path` on main. Returns null when no
  * commit history exists (file not yet committed) or the fetch fails.
  *
- * The owner/repo are hardcoded to volivarii/actian-ds-knowledge to match
- * the rest of the editor; once a multi-repo story exists this should be
- * threaded through.
+ * The owner/repo come from src/config/coords.ts (`DEFAULT_COORDS`); once a
+ * multi-repo story exists, thread coords through the call site.
  */
 export async function fetchLatestCommit(
   gh: Octokit,
@@ -44,8 +44,7 @@ export async function fetchLatestCommit(
 
   try {
     const res = await gh.repos.listCommits({
-      owner: "volivarii",
-      repo: "actian-ds-knowledge",
+      ...DEFAULT_COORDS,
       path,
       per_page: 1,
     });
@@ -56,8 +55,7 @@ export async function fetchLatestCommit(
     }
     const info: CommitInfo = {
       author: commit.author?.login ?? null,
-      date:
-        commit.commit.author?.date ?? commit.commit.committer?.date ?? "",
+      date: commit.commit.author?.date ?? commit.commit.committer?.date ?? "",
     };
     writeCache(cacheKey, info);
     return info;
@@ -105,7 +103,10 @@ function writeCache(key: string, info: CommitInfo | null): void {
  *   <12mo  → "Nmo ago"
  *   else   → "Ny ago"
  */
-export function formatRelativeTime(iso: string, now: number = Date.now()): string {
+export function formatRelativeTime(
+  iso: string,
+  now: number = Date.now(),
+): string {
   const ts = Date.parse(iso);
   if (Number.isNaN(ts)) return "";
   const diffSec = Math.max(0, Math.floor((now - ts) / 1000));

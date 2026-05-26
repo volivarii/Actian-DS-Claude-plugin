@@ -1,5 +1,5 @@
 import type { AuthSession } from "./types";
-import { __setSessionForTesting } from "./index";
+import { _setSession } from "./index";
 
 // Set during Phase A — the deployed Worker URL.
 // Update this string when the OAuth App / Worker move to the Actian org
@@ -109,7 +109,7 @@ export async function signInWithOAuth(): Promise<AuthSession> {
         login,
       };
       persist(session);
-      __setSessionForTesting(session);
+      _setSession(session);
       resolve(session);
     };
     window.addEventListener("message", onMessage);

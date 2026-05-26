@@ -1,5 +1,5 @@
 import type { AuthSession } from "./types";
-import { __setSessionForTesting } from "./index";
+import { _setSession } from "./index";
 
 const STORAGE_KEY = "editor.auth.pat";
 
@@ -14,7 +14,7 @@ export function signInWithPAT(pat: string): AuthSession {
   } catch {
     /* storage may be disabled; session still set in-memory */
   }
-  __setSessionForTesting(session);
+  _setSession(session);
   return session;
 }
 

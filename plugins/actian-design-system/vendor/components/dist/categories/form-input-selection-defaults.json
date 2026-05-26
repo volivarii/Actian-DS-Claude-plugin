@@ -15,7 +15,7 @@
     "a11y": "high"
   },
   "last_reviewed": "2026-05-12",
-  "card_anatomy": {
+  "anatomy": {
     "parts": [
       {
         "name": "Label",
@@ -47,7 +47,7 @@
       }
     ]
   },
-  "card_component": {
+  "variants": {
     "variantAxes": [
       {
         "axis": "State",
@@ -76,7 +76,7 @@
       }
     ]
   },
-  "card_motion": {
+  "motion": {
     "patternRefs": [
       {
         "ref": "state-transitions",
@@ -84,7 +84,7 @@
       }
     ]
   },
-  "card_accessibility": {
+  "accessibility": {
     "requirementRefs": [
       {
         "ref": "forms",

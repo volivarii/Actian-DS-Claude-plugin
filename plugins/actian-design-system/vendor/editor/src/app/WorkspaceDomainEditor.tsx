@@ -26,6 +26,7 @@ import { CodeMirrorEditor } from "../markdown-engine/CodeMirrorEditor";
 import { Preview } from "../markdown-engine/Preview";
 import { AnchorReferencesPopover } from "./AnchorReferencesPopover";
 import { decodeBase64Utf8 } from "./githubApi";
+import { DEFAULT_COORDS } from "../config/coords";
 import { submissionCartSingleton } from "../drafts/store-instance";
 import { useCart } from "../drafts/useCart";
 import { buildMarkdownStub } from "../lib/markdownStubs";
@@ -153,8 +154,7 @@ export function WorkspaceDomainEditor({
         let source: "remote" | "stub";
         try {
           const res = await octokit.repos.getContent({
-            owner: "volivarii",
-            repo: "actian-ds-knowledge",
+            ...DEFAULT_COORDS,
             path,
             ref: "main",
           });

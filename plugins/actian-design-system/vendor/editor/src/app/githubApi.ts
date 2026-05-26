@@ -4,6 +4,7 @@
 // repo-access module — for the vertical slice, keeping them split is fine.
 
 import type { Octokit } from "@octokit/rest";
+import { DEFAULT_COORDS as ORG_COORDS } from "../config/coords";
 
 export interface RepoCoords {
   owner: string;
@@ -11,14 +12,13 @@ export interface RepoCoords {
   ref?: string;
 }
 
-const DEFAULT_COORDS: Required<RepoCoords> = {
-  owner: "volivarii",
-  repo: "actian-ds-knowledge",
+const DEFAULTS_WITH_REF: Required<RepoCoords> = {
+  ...ORG_COORDS,
   ref: "main",
 };
 
 function withDefaults(coords?: RepoCoords): Required<RepoCoords> {
-  return { ...DEFAULT_COORDS, ...(coords ?? {}) };
+  return { ...DEFAULTS_WITH_REF, ...(coords ?? {}) };
 }
 
 export async function listDirectories(

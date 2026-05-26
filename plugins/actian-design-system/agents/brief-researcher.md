@@ -38,7 +38,7 @@ Research cross-DS patterns for the specified component, scoped to the cards the 
 
 You will receive:
 - **Component name** and **slug** (e.g., "Button" / "button")
-- **Scoped cards** — array of card keys to research (subset of `card_usage`, `card_content`, `card_accessibility`)
+- **Scoped cards** — array of card keys to research (subset of `usage`, `card_content`, `accessibility`)
 - **Existing context** — files inlined:
   - `vendor/components/dist/guidelines/<slug>.json` — the merged per-component
     guideline doc. Its `domains.content` (when `status` is `approved` or
@@ -88,7 +88,7 @@ Use `WebSearch` for discovery, `WebFetch` for the canonical doc page per DS.
 
 ## Process
 
-1. For each scoped card, identify the relevant section in each target DS for the component (e.g., for `card_usage` on Button → look for "When to use", "Best practices", "Anatomy" pages).
+1. For each scoped card, identify the relevant section in each target DS for the component (e.g., for `usage` on Button → look for "When to use", "Best practices", "Anatomy" pages).
 2. Extract:
    - **patterns_observed** — recurring rules/conventions across DSs
    - **recommendations** — synthesized advice grounded in those patterns
@@ -104,7 +104,7 @@ Use `WebSearch` for discovery, `WebFetch` for the canonical doc page per DS.
 ```json
 {
   "research_quality": "Strong consensus across 5 DSs for Usage; sparse for Content; inconclusive for Accessibility (varied WCAG interpretations).",
-  "card_usage": {
+  "usage": {
     "patterns_observed": [
       "Primary buttons reserved for the single most-important action per surface (4/5 DSs)",
       "Destructive actions use a distinct visual treatment (5/5 DSs)"
@@ -126,7 +126,7 @@ Use `WebSearch` for discovery, `WebFetch` for the canonical doc page per DS.
     ]
   },
   "card_content": { ... },
-  "card_accessibility": { ... }
+  "accessibility": { ... }
 }
 ```
 

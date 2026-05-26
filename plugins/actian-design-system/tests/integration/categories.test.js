@@ -221,7 +221,7 @@ test("category-defaults — every motion_refs slug resolves against tokens/motio
   const unresolved = [];
   for (const slug of slugs) {
     const d = loader.loadDefaultsForCategory(slug);
-    const refs = (d && d.card_motion && d.card_motion.patternRefs) || [];
+    const refs = (d && d.motion && d.motion.patternRefs) || [];
     for (const r of refs) {
       if (!loader.resolveMotionRef(r.ref)) {
         unresolved.push(`${slug} → motion ref '${r.ref}'`);
@@ -249,7 +249,7 @@ test("category-defaults — every accessibility ref slug resolves against a11y-i
   for (const slug of slugs) {
     const d = loader.loadDefaultsForCategory(slug);
     const refs =
-      (d && d.card_accessibility && d.card_accessibility.requirementRefs) || [];
+      (d && d.accessibility && d.accessibility.requirementRefs) || [];
     for (const r of refs) {
       if (!loader.resolveAccessibilityRef(r.ref)) {
         unresolved.push(`${slug} → a11y ref '${r.ref}'`);

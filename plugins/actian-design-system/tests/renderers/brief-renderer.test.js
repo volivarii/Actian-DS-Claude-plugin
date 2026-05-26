@@ -20,9 +20,9 @@ function ph(name) {
 
 test("renderSection1 returns one supercard with 4 sub-section headings", function () {
   var html = renderer.renderSection1(
-    fix.card_component,
-    fix.card_anatomy,
-    fix.card_tokens,
+    fix.variants,
+    fix.anatomy,
+    fix.tokens,
     ph,
   );
 
@@ -73,12 +73,12 @@ test("renderSection1 returns empty string when all three inputs are empty", func
 });
 
 test("renderSection1 omits Specs sub-section when anatomy.specs absent", function () {
-  var anatomyNoSpecs = Object.assign({}, fix.card_anatomy);
+  var anatomyNoSpecs = Object.assign({}, fix.anatomy);
   delete anatomyNoSpecs.specs;
   var html = renderer.renderSection1(
-    fix.card_component,
+    fix.variants,
     anatomyNoSpecs,
-    fix.card_tokens,
+    fix.tokens,
     ph,
   );
   // Specs heading should be absent
@@ -96,9 +96,9 @@ test("renderSection1 omits Specs sub-section when anatomy.specs absent", functio
 test("Draft badge appears for generated sub-sections without _authored flag", function () {
   // Button fixture is AI-generated (Phase B), no _authored flags.
   var html = renderer.renderSection1(
-    fix.card_component,
-    fix.card_anatomy,
-    fix.card_tokens,
+    fix.variants,
+    fix.anatomy,
+    fix.tokens,
     ph,
   );
   // Expect at least 3 Draft badges (one per sub-section heading where source is set)
@@ -110,15 +110,15 @@ test("Draft badge appears for generated sub-sections without _authored flag", fu
 });
 
 test("Draft badge suppressed when sub-section card has _authored: true", function () {
-  // Mark anatomy as authored. Anatomy and Specs both source from card_anatomy,
+  // Mark anatomy as authored. Anatomy and Specs both source from anatomy,
   // so both their sub-section headings should drop the badge.
-  var anatomyAuthored = Object.assign({}, fix.card_anatomy, {
+  var anatomyAuthored = Object.assign({}, fix.anatomy, {
     _authored: true,
   });
   var html = renderer.renderSection1(
-    fix.card_component,
+    fix.variants,
     anatomyAuthored,
-    fix.card_tokens,
+    fix.tokens,
     ph,
   );
   // Variation and Tokens still draft → 2 badges remain
@@ -132,13 +132,13 @@ test("Draft badge suppressed when sub-section card has _authored: true", functio
 
 test("Draft badge suppressed when sub-section card has _source: 'figma'", function () {
   // Figma-sourced sub-section is treated as canonical; no badge.
-  var componentFigma = Object.assign({}, fix.card_component, {
+  var componentFigma = Object.assign({}, fix.variants, {
     _source: "figma",
   });
   var html = renderer.renderSection1(
     componentFigma,
-    fix.card_anatomy,
-    fix.card_tokens,
+    fix.anatomy,
+    fix.tokens,
     ph,
   );
   // Variation badge suppressed; Anatomy + Tokens + Specs still draft (assuming
@@ -156,18 +156,18 @@ test("renderSection1 + sibling renders together produce 6-card sequence (DS mode
   var cards = [
     renderer.renderCard1(fix.card_header),
     renderer.renderSection1(
-      fix.card_component,
-      fix.card_anatomy,
-      fix.card_tokens,
+      fix.variants,
+      fix.anatomy,
+      fix.tokens,
       ph,
     ),
-    renderer.renderCard6(fix.card_usage),
+    renderer.renderCard6(fix.usage),
     renderer.renderCard7(fix.card_content),
-    renderer.renderCardMotion(fix.card_motion),
-    renderer.renderCard8(fix.card_accessibility),
+    renderer.renderCardMotion(fix.motion),
+    renderer.renderCard8(fix.accessibility),
   ].filter(Boolean);
 
-  // Button fixture has no card_motion → renderCardMotion returns "" → filtered out.
+  // Button fixture has no motion → renderCardMotion returns "" → filtered out.
   // So expect EXACTLY 5 cards. (If a future fixture adds motion, write a
   // separate test asserting === 6 — don't loosen this one to OR.)
   assert.equal(
