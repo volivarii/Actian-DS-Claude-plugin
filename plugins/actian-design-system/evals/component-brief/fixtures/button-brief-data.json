@@ -13,7 +13,7 @@
     "name": "Button",
     "description": "A button component for triggering actions."
   },
-  "card_component": {
+  "variants": {
     "_source": "generated",
     "variantAxes": [
       { "axis": "Intent", "values": ["Primary", "Secondary", "Tertiary"] },
@@ -58,7 +58,7 @@
       }
     }
   },
-  "card_anatomy": {
+  "anatomy": {
     "_source": "generated",
     "parts": [
       { "letter": "A", "name": "Container" },
@@ -84,7 +84,7 @@
       }
     ]
   },
-  "card_tokens": {
+  "tokens": {
     "_source": "generated",
     "colorTokens": [
       {
@@ -108,7 +108,7 @@
       }
     ]
   },
-  "card_usage": {
+  "usage": {
     "_source": "generated",
     "whenToUse": [
       "Use for primary actions that complete a task.",
@@ -144,7 +144,7 @@
       { "term": "Submit", "use": "When sending a form for processing." }
     ]
   },
-  "card_accessibility": {
+  "accessibility": {
     "_source": "generated",
     "requirements": [
       {

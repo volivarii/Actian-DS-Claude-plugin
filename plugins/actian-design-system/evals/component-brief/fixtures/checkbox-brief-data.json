@@ -16,7 +16,7 @@
     "name": "Checkbox",
     "description": "A binary or tri-state input control letting users select one or multiple options. Supports labeled, indeterminate, and disabled states across all DS themes."
   },
-  "card_component": {
+  "variants": {
     "_source": "generated",
     "cardTitle": "Component",
     "cardSubtitle": "Real library instances showing all variants plus themed component comparison across Actian, Studio, and Explorer",
@@ -76,7 +76,7 @@
     ],
     "themeVariant": "Selected=No, State=Default"
   },
-  "card_anatomy": {
+  "anatomy": {
     "_source": "generated",
     "cardTitle": "Anatomy",
     "cardSubtitle": "Component structure, dimensions, interactive states, and part-level token mapping",
@@ -142,7 +142,7 @@
       }
     ]
   },
-  "card_tokens": {
+  "tokens": {
     "_source": "generated",
     "cardTitle": "Design tokens",
     "cardSubtitle": "Color, sizing, and typography tokens",
