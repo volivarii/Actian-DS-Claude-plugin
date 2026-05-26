@@ -182,11 +182,11 @@ refine via PRs that flip the field to `team-reviewed` or
    via `category-defaults-loader.normalizeCategorySlug`.
 2. `ctx.categoryDefaults` is loaded via
    `category-defaults-loader.loadDefaultsForCategory(ctx.category)`.
-3. Phase B cards (`card_anatomy`, `card_component`, `card_accessibility`)
+3. Phase B cards (`anatomy`, `variants`, `accessibility`)
    receive defaults as additional grounding. The card-generator adapts
    rather than echoes (see `agents/card-generator.md` for the exact
    rule).
-4. `card_motion` falls back to the category's first `motion_refs` ref
+4. `motion` falls back to the category's first `motion_refs` ref
    when the component-guideline has no `behavior.motion.pattern`. Motion
    patterns are resolved against `vendor/foundations/dist/tokens/motion.json#patterns`
    by `.slug` (motion patterns are keyed by short name like `drawer` but

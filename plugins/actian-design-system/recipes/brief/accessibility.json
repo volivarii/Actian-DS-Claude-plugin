@@ -1,5 +1,5 @@
 {
-  "card": "card_accessibility",
+  "card": "accessibility",
   "title": "Accessibility",
   "description": "6 requirement cards in 2x3 grid, contrast table, ARIA specification table",
   "phase": "generate",

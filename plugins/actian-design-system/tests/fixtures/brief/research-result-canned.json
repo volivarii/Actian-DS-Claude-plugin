@@ -1,6 +1,6 @@
 {
   "research_quality": "Strong consensus across 5 DSs.",
-  "card_usage": {
+  "usage": {
     "patterns_observed": ["Primary buttons reserved for the single most-important action per surface"],
     "recommendations": ["Reserve Primary variant for one CTA per surface."],
     "divergences_from_existing": [],
@@ -12,7 +12,7 @@
     "divergences_from_existing": [],
     "sources": [{ "ds": "Polaris", "url": "https://example.com/polaris" }]
   },
-  "card_accessibility": {
+  "accessibility": {
     "patterns_observed": ["Min 44px touch target"],
     "recommendations": ["Maintain 44px min touch target on all interactive buttons."],
     "divergences_from_existing": [],

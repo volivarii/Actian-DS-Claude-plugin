@@ -141,7 +141,7 @@ Every card (except GenLog) uses the Brief Card component. Import it, select vari
 **Detecting silent setProperties failures (post-v1.66.0).** Meta Kit defaults for the Card Header are now the neutral placeholders `"Card title"` / `"Subtitle text"`. Earlier defaults were real strings (e.g. `"Anatomy"`) which masked failed `setProperties` calls — one failed card looked indistinguishable from a real Anatomy card. With the new neutral defaults, any leak is obvious and identifies the failure precisely. If a pushed card shows `"Card title"` or `"Subtitle text"` verbatim, the failure is upstream — investigate before continuing.
 
 ```js
-// Inputs from your data model — e.g., briefData.card_anatomy
+// Inputs from your data model — e.g., briefData.anatomy
 const cardTitle = card.cardTitle;       // "Anatomy"
 const cardSubtitle = card.cardSubtitle; // "Component structure, dimensions, ..."
 
@@ -240,7 +240,7 @@ return {
 Section 1 is ONE card with four nested sub-frames inside, not three separate cards. After Pattern 1 creates the card and contentSlot, build sub-frames in the slot:
 
 ```js
-// Inputs from data: briefData.card_component, .card_anatomy, .card_tokens
+// Inputs from data: briefData.variants, .anatomy, .tokens
 // Use cardTitle "Anatomy, variation, tokens & specs" (default in renderer; recipe-overridable).
 
 // v1.87.0: Promise.all parallelizes the font fetches — one round-trip vs N sequential.
@@ -296,24 +296,24 @@ async function appendSubFrame(label, sourceCard) {
   // label === "Anatomy"   → Pattern 9 (Anatomy Diagram with badges + leader lines) + Pattern 3 (parts table)
   // label === "Variation" → variant matrix push (see Pattern 8 — Variant Instance)
   // label === "Tokens"    → color swatch grid + sizing/typography tables (see Pattern 4 + Pattern 3)
-  // label === "Specs"     → Pattern 14 (Specs Redline — auto-extracted from instance, with optional card_anatomy.specs override)
+  // label === "Specs"     → Pattern 14 (Specs Redline — auto-extracted from instance, with optional anatomy.specs override)
 
   slot.appendChild(sub);
   return sub;
 }
 
 // Order matches HTML renderer:
-const anatomyFrame = await appendSubFrame("Anatomy", briefData.card_anatomy);
+const anatomyFrame = await appendSubFrame("Anatomy", briefData.anatomy);
 const divider1 = figma.createLine();  // horizontal divider; or reuse cardDivider styling
 slot.appendChild(divider1);
 
-const variationFrame = await appendSubFrame("Variation", briefData.card_component);
+const variationFrame = await appendSubFrame("Variation", briefData.variants);
 slot.appendChild(figma.createLine());
 
-const tokensFrame = await appendSubFrame("Tokens", briefData.card_tokens);
-if (briefData.card_anatomy && briefData.card_anatomy.specs && briefData.card_anatomy.specs.length) {
+const tokensFrame = await appendSubFrame("Tokens", briefData.tokens);
+if (briefData.anatomy && briefData.anatomy.specs && briefData.anatomy.specs.length) {
   slot.appendChild(figma.createLine());
-  await appendSubFrame("Specs", briefData.card_anatomy);
+  await appendSubFrame("Specs", briefData.anatomy);
 }
 ```
 
@@ -834,7 +834,7 @@ container.appendChild(inst);
 
 // 2a. Pick scale factor — heuristic per pickScale (mirrors scripts/lib/anatomy-scale.js):
 //     smallest scale in {1,2,3,4} where the smaller axis × scale exceeds 80px.
-//     Override via card_anatomy.anatomyScale or component-guidelines/<slug>.json
+//     Override via anatomy.anatomyScale or component-guidelines/<slug>.json
 //     anatomyScale field.
 function pickScale(width, height, override) {
   if (override !== null && override !== undefined) {
@@ -849,7 +849,7 @@ function pickScale(width, height, override) {
   }
   return 4;
 }
-const scaleOverride = card_anatomy?.anatomyScale ?? null;
+const scaleOverride = anatomy?.anatomyScale ?? null;
 const scale = pickScale(inst.width, inst.height, scaleOverride);
 
 // Apply scale by wrapping in a fixed-size frame and resizing.
@@ -882,7 +882,7 @@ function collectNames(node) {
 collectNames(inst);
 const visibleParts = [];
 const absentParts = [];
-for (const p of (card_anatomy.parts || [])) {
+for (const p of (anatomy.parts || [])) {
   if (allLayerNames.has(p.figmaLayerName)) visibleParts.push(p);
   else absentParts.push(p);
 }
@@ -1288,7 +1288,7 @@ Auto-extracted dimension annotations rendered in a left-gutter ordinate lane. Re
 
 **Gutter mode** is the default for N > 1 annotations on a surface. **Inline mode** (the v1.69.0 `buildDimensionAnnotation` algorithm) is preserved as a fallback for N = 1 annotations and for measuring spans BETWEEN two elements (different use case from padding-on-one-frame).
 
-The `card_anatomy.specs[]` field in `brief-data.json` is an **optional override** — if non-empty, those entries drive placement instead of the auto-extracted set. Default flow leaves it empty.
+The `anatomy.specs[]` field in `brief-data.json` is an **optional override** — if non-empty, those entries drive placement instead of the auto-extracted set. Default flow leaves it empty.
 
 Single ~7-9KB `use_figma` call.
 
@@ -1517,7 +1517,7 @@ container.resize(
 );
 
 // Auto-extraction default path (override path described below)
-const anatomyParts = card_anatomy.parts || [];
+const anatomyParts = anatomy.parts || [];
 const partNameSet = new Set(anatomyParts.map(p => p.figmaLayerName));
 
 function shouldSurface(node, isTopLevel) {
@@ -1555,7 +1555,7 @@ let authorOverrideCount = 0;
 const placedAnnotations = []; // for collision detection
 
 // v1.70.1: gutter-rendering helper used by BOTH auto-extract path (Pass 2 below)
-// AND override path (when card_anatomy.specs[] is non-empty).
+// AND override path (when anatomy.specs[] is non-empty).
 async function buildGutterFromEntries(entries, surface) {
   // entries pre-sorted by anchorY; surface provides bounding-box reference.
   const slots = computeGutterSlots(entries, ENTRY_HEIGHT);
@@ -1644,19 +1644,19 @@ async function buildGutterFromEntries(entries, surface) {
   return entries.length;
 }
 
-// v1.70.2: override path (when card_anatomy.specs[] is non-empty) BYPASSES
+// v1.70.2: override path (when anatomy.specs[] is non-empty) BYPASSES
 // the auto-extract surface walk entirely. Author intent (the specs[] array)
 // drives which measurements to show. Both branches feed the same
 // buildGutterFromEntries helper for visual consistency.
 const useOverridePath =
-  card_anatomy && card_anatomy.specs && card_anatomy.specs.length > 0;
+  anatomy && anatomy.specs && anatomy.specs.length > 0;
 const gutterEntriesPerSurface = [];
 
 if (useOverridePath) {
-  // Override path — render card_anatomy.specs[] as a gutter on the top-level instance
+  // Override path — render anatomy.specs[] as a gutter on the top-level instance
   const overrideEntries = [];
   const cbb = container.absoluteBoundingBox;
-  for (const spec of card_anatomy.specs) {
+  for (const spec of anatomy.specs) {
     const layer = inst.query(`[name="${spec.layerName}"]`).first();
     if (!layer) {
       droppedSpecs += 1;
@@ -1757,7 +1757,7 @@ return {
 };
 ```
 
-**Author override path (v1.70.2+):** when `card_anatomy.specs[]` is non-empty, the override branch in the main code above BYPASSES the surface walk + auto-extract logic. Entries are built directly from author-supplied specs and rendered through the same `buildGutterFromEntries` helper. This guarantees the override produces real gutter geometry (not a static text table) — the render code is in the main block, not a separate documentation snippet, so there is no instruction-to-coordinate-elsewhere ambiguity.
+**Author override path (v1.70.2+):** when `anatomy.specs[]` is non-empty, the override branch in the main code above BYPASSES the surface walk + auto-extract logic. Entries are built directly from author-supplied specs and rendered through the same `buildGutterFromEntries` helper. This guarantees the override produces real gutter geometry (not a static text table) — the render code is in the main block, not a separate documentation snippet, so there is no instruction-to-coordinate-elsewhere ambiguity.
 
 The override path uses the same gutter geometry as auto-extract — vector lines, label pills, ticks at the component's left edge. Author intent (specs[] entries) drives WHICH measurements to show; the renderer guarantees HOW they look. No improvisation surface for the AI.
 

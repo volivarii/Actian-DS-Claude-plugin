@@ -1,10 +1,10 @@
 [
   { "file": "card-header.json", "card": "card_header" },
-  { "file": "card-component.json", "card": "card_component" },
-  { "file": "card-anatomy.json", "card": "card_anatomy" },
-  { "file": "card-tokens.json", "card": "card_tokens" },
-  { "file": "card-motion.json", "card": "card_motion" },
-  { "file": "card-usage.json", "card": "card_usage" },
+  { "file": "variants.json", "card": "variants" },
+  { "file": "anatomy.json", "card": "anatomy" },
+  { "file": "tokens.json", "card": "tokens" },
+  { "file": "motion.json", "card": "motion" },
+  { "file": "usage.json", "card": "usage" },
   { "file": "card-content.json", "card": "card_content" },
-  { "file": "card-accessibility.json", "card": "card_accessibility" }
+  { "file": "accessibility.json", "card": "accessibility" }
 ]

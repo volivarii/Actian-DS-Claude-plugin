@@ -1,5 +1,5 @@
 {
-  "card": "card_component",
+  "card": "variants",
   "title": "Component",
   "description": "Real library instances showing all variants plus themed component comparison across Actian, Studio, and Explorer",
   "phase": "generate",

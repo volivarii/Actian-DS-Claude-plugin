@@ -93,14 +93,14 @@ function transcribeMotionPattern(guidelinesJson, motionPatterns) {
   };
 }
 
-// Phase 2c — category fallback for card_motion. Used when the component's
+// Phase 2c — category fallback for motion. Used when the component's
 // guideline has no behavior.motion.pattern but ctx.categoryDefaults
 // declares one or more motion_refs (patternRefs in dist projection).
 // Takes a resolver function so the dispatcher can supply either the
 // category-defaults-loader or a test stub.
 function transcribeCategoryMotionFallback(categoryDefaults, motionRefResolver) {
-  if (!categoryDefaults || !categoryDefaults.card_motion) return null;
-  var refs = categoryDefaults.card_motion.patternRefs;
+  if (!categoryDefaults || !categoryDefaults.motion) return null;
+  var refs = categoryDefaults.motion.patternRefs;
   if (!Array.isArray(refs) || refs.length === 0) return null;
   if (typeof motionRefResolver !== "function") return null;
   // Use the first ref as the canonical fallback. Additional refs in the
@@ -121,12 +121,12 @@ function transcribeCategoryMotionFallback(categoryDefaults, motionRefResolver) {
 }
 
 // Phase 2c — which Phase B cards receive categoryDefaults grounding.
-// card_tokens and card_usage have no category-level mapping in the
+// tokens and usage have no category-level mapping in the
 // defaults file shape, so they are intentionally excluded.
 var CATEGORY_DEFAULTS_PHASE_B_CARDS = {
-  card_anatomy: true,
-  card_component: true,
-  card_accessibility: true,
+  anatomy: true,
+  variants: true,
+  accessibility: true,
 };
 
 // A guideline is a "stub" — no curated content to transcribe — when there is
@@ -160,7 +160,7 @@ function resolveSection(cardKey, ctx, recipe) {
   // is no guideline doc at all (ctx.guidelinesJson absent), do NOT
   // short-circuit: each card's normal flow handles it — card_header still
   // transcribes the Figma description, card_content falls back per-card,
-  // card_motion resolves via the category fallback. (meta._stubGuideline is
+  // motion resolves via the category fallback. (meta._stubGuideline is
   // still set from isStubGuideline() so the footer cue shows either way.)
   if (ctx && ctx.guidelinesJson && isStubGuideline(ctx.guidelinesJson)) {
     var stubResult = {
@@ -208,7 +208,7 @@ function resolveSection(cardKey, ctx, recipe) {
       "content domain has no content-bearing status in the component guideline doc — " +
       "author components/src/<slug>/content.md in the knowledge repo " +
       "(or add the slug to a pattern's relatedComponents frontmatter)";
-  } else if (cardKey === "card_motion") {
+  } else if (cardKey === "motion") {
     var motionResult = transcribeMotionPattern(
       ctx && ctx.guidelinesJson,
       ctx && ctx.motionPatterns,
@@ -375,7 +375,7 @@ function formatForBrief(cardKey, sourceResult, ctx) {
       _source: sourceResult.source || "generated",
     };
   }
-  if (cardKey === "card_motion") {
+  if (cardKey === "motion") {
     var m = sourceResult.content || {};
     var card = {
       patternSlug: m.patternSlug || "",

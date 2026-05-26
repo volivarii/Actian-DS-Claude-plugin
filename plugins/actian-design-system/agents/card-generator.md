@@ -2,8 +2,8 @@
 name: card-generator
 description: |
   Use this agent to generate Phase B component brief cards in parallel
-  (card_component, card_anatomy, card_tokens, card_usage,
-  card_accessibility). Phase A cards (card_header, card_content) are
+  (variants, anatomy, tokens, usage,
+  accessibility). Phase A cards (card_header, card_content) are
   handled inline by the main skill and must NOT be dispatched here.
   
   <example>
@@ -27,7 +27,7 @@ Generate a batch of **Phase B** component brief cards and write the result as a 
 
 You will receive:
 - **Component name** and **library** (dsKit or fm)
-- **Card keys** to generate (e.g., `card_anatomy`, `card_tokens`, `card_usage`) — Phase B cards only
+- **Card keys** to generate (e.g., `anatomy`, `tokens`, `usage`) — Phase B cards only
 - **Component guidelines JSON** content (inlined in prompt)
 - **Recipe data** for each assigned card, including its `grounding` array
 - **Grounding files** content (inlined in prompt — each path from recipe.grounding loaded as required reference)
@@ -38,7 +38,7 @@ You will receive:
 ## Phase B card scope
 
 Phase B cards (the only ones you generate):
-- `card_component`, `card_anatomy`, `card_tokens`, `card_usage`, `card_accessibility`
+- `variants`, `anatomy`, `tokens`, `usage`, `accessibility`
 
 Phase A cards (handled inline by the main skill, NOT by this agent):
 - `card_header`, `card_content`
@@ -49,7 +49,7 @@ If your batch includes a Phase A key, that's a bug in the dispatcher — report 
 
 1. Read `references/component-brief/data-schema.md` for the card schemas.
 2. For each assigned Phase B card key:
-   a. Read the recipe (e.g., `recipes/brief/card-anatomy.json`). Follow `sections`, `qualityRules`, `minimums`.
+   a. Read the recipe (e.g., `recipes/brief/anatomy.json`). Follow `sections`, `qualityRules`, `minimums`.
    b. Treat each `grounding` file as a **required reference** — your output must be consistent with it. When grounding contradicts your default best-guess, defer to the grounding file.
    c. If research findings include this card key, treat them as **informative**: surface useful patterns under `research_insights` on the card, but **never override existing context (recipe grounding) from research alone**. When research conflicts with grounding, keep grounding as primary and flag the divergence in `research_insights._divergences[]`.
 3. Stamp every generated card with `_source: "generated"`.
@@ -62,8 +62,8 @@ When the main skill resolves a `category` for the component (from the
 DS Kit registry's `category` field), it loads the matching
 `vendor/components/dist/categories/<slug>-defaults.json` and passes the
 parsed contents to relevant Phase B cards as `categoryDefaults` in the
-recipe payload. Three cards receive it: `card_anatomy`, `card_component`,
-`card_accessibility`. (`card_tokens` and `card_usage` are not categorized
+recipe payload. Three cards receive it: `anatomy`, `variants`,
+`accessibility`. (`tokens` and `usage` are not categorized
 in the defaults shape.)
 
 When `categoryDefaults` is present:
@@ -109,9 +109,9 @@ When `categoryDefaults` is present:
 ```json
 {
   "meta": { "component": "Button", "library": "dsKit", ... },
-  "card_anatomy": { "_source": "generated", "_category_grounded": true, "parts": [...], ... },
-  "card_tokens": { "_source": "generated", "colorTokens": [...], ... },
-  "card_usage": {
+  "anatomy": { "_source": "generated", "_category_grounded": true, "parts": [...], ... },
+  "tokens": { "_source": "generated", "colorTokens": [...], ... },
+  "usage": {
     "_source": "generated",
     "_research_applied": true,
     "doDont": [...],
