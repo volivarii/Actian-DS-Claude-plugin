@@ -20,6 +20,7 @@ import {
 } from "@radix-ui/themes";
 import { createOctokit, MissingPATError } from "../core/octokit";
 import { decodeBase64Utf8 } from "./githubApi";
+import { DEFAULT_COORDS } from "../config/coords";
 import { submitDraft } from "../core/submitDraft";
 import { AnchorPreservationError } from "../core/anchorPreservation";
 import { ReadonlyPathError, SchemaValidationError } from "../core/types";
@@ -150,8 +151,7 @@ export function MarkdownEditScreen({
         let source: LoadSource;
         try {
           const res = await gh.repos.getContent({
-            owner: "volivarii",
-            repo: "actian-ds-knowledge",
+            ...DEFAULT_COORDS,
             path,
             ref: "main",
           });
@@ -240,8 +240,7 @@ export function MarkdownEditScreen({
             allowAnchorDrop,
           },
           {
-            owner: "volivarii",
-            repo: "actian-ds-knowledge",
+            ...DEFAULT_COORDS,
             base: "main",
             schemas: {},
             octokit: gh,

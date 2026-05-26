@@ -9,6 +9,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { Octokit } from "@octokit/rest";
+import { DEFAULT_COORDS } from "../config/coords";
 import {
   Badge,
   Box,
@@ -57,11 +58,12 @@ const CI_COLOR: Record<CiStatus, "green" | "red" | "amber" | "gray"> = {
   none: "gray",
 };
 
-const STATE_COLOR: Record<SubmissionRow["state"], "green" | "purple" | "gray"> = {
-  open: "green",
-  merged: "purple",
-  closed: "gray",
-};
+const STATE_COLOR: Record<SubmissionRow["state"], "green" | "purple" | "gray"> =
+  {
+    open: "green",
+    merged: "purple",
+    closed: "gray",
+  };
 
 export function RecentSubmissions({
   octokit,
@@ -170,8 +172,7 @@ export function RecentSubmissions({
 async function fetchSubmissions(gh: Octokit): Promise<SubmissionRow[]> {
   const me = await gh.users.getAuthenticated();
   const prs = await gh.pulls.list({
-    owner: "volivarii",
-    repo: "actian-ds-knowledge",
+    ...DEFAULT_COORDS,
     state: "all",
     per_page: 20,
     sort: "created",
@@ -198,8 +199,7 @@ async function fetchSubmissions(gh: Octokit): Promise<SubmissionRow[]> {
 async function fetchCi(gh: Octokit, sha: string): Promise<CiStatus> {
   try {
     const res = await gh.checks.listForRef({
-      owner: "volivarii",
-      repo: "actian-ds-knowledge",
+      ...DEFAULT_COORDS,
       ref: sha,
     });
     return deriveCi(res.data.check_runs);
@@ -217,10 +217,14 @@ export function deriveCi(runs: CheckRunLite[]): CiStatus {
   if (runs.length === 0) return "none";
   if (runs.some((r) => r.status !== "completed")) return "pending";
   // All completed — derive worst conclusion.
-  if (runs.some((r) => r.conclusion === "failure" || r.conclusion === "timed_out"))
+  if (
+    runs.some((r) => r.conclusion === "failure" || r.conclusion === "timed_out")
+  )
     return "failure";
   if (runs.some((r) => r.conclusion === "cancelled")) return "cancelled";
-  if (runs.every((r) => r.conclusion === "success" || r.conclusion === "skipped"))
+  if (
+    runs.every((r) => r.conclusion === "success" || r.conclusion === "skipped")
+  )
     return "success";
   return "neutral";
 }

@@ -5,7 +5,7 @@ import {
   signOut,
   subscribe,
   __resetForTesting,
-  __setSessionForTesting,
+  _setSession,
 } from "../../src/auth";
 
 afterEach(() => {
@@ -17,7 +17,7 @@ test("auth: getSession returns null when no session", () => {
 });
 
 test("auth: signOut clears the session", () => {
-  __setSessionForTesting({ method: "pat", token: "ghp_test" });
+  _setSession({ method: "pat", token: "ghp_test" });
   assert.notEqual(getSession(), null);
   signOut();
   assert.equal(getSession(), null);
@@ -26,7 +26,7 @@ test("auth: signOut clears the session", () => {
 test("auth: subscribe fires on session changes", () => {
   const events: Array<unknown> = [];
   const unsub = subscribe((s: unknown) => events.push(s));
-  __setSessionForTesting({ method: "pat", token: "ghp_test" });
+  _setSession({ method: "pat", token: "ghp_test" });
   signOut();
   unsub();
   assert.equal(events.length, 2);

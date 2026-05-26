@@ -23,7 +23,7 @@
         "a11y": "high"
       },
       "last_reviewed": "2026-05-12",
-      "card_anatomy": {
+      "anatomy": {
         "parts": [
           {
             "name": "Container",
@@ -47,7 +47,7 @@
           }
         ]
       },
-      "card_component": {
+      "variants": {
         "variantAxes": [
           {
             "axis": "Style",
@@ -80,7 +80,7 @@
           }
         ]
       },
-      "card_motion": {
+      "motion": {
         "patternRefs": [
           {
             "ref": "state-transitions",
@@ -88,7 +88,7 @@
           }
         ]
       },
-      "card_accessibility": {
+      "accessibility": {
         "requirementRefs": [
           {
             "ref": "focus-keyboard",
@@ -125,7 +125,7 @@
         "a11y": "high"
       },
       "last_reviewed": "2026-05-12",
-      "card_anatomy": {
+      "anatomy": {
         "parts": [
           {
             "name": "Container",
@@ -153,7 +153,7 @@
           }
         ]
       },
-      "card_component": {
+      "variants": {
         "variantAxes": [
           {
             "axis": "Density",
@@ -185,7 +185,7 @@
           }
         ]
       },
-      "card_motion": {
+      "motion": {
         "patternRefs": [
           {
             "ref": "skeleton-loading",
@@ -201,7 +201,7 @@
           }
         ]
       },
-      "card_accessibility": {
+      "accessibility": {
         "requirementRefs": [
           {
             "ref": "color-contrast",
@@ -242,7 +242,7 @@
         "a11y": "high"
       },
       "last_reviewed": "2026-05-12",
-      "card_anatomy": {
+      "anatomy": {
         "parts": [
           {
             "name": "Container",
@@ -270,7 +270,7 @@
           }
         ]
       },
-      "card_component": {
+      "variants": {
         "variantAxes": [
           {
             "axis": "Severity",
@@ -299,7 +299,7 @@
           }
         ]
       },
-      "card_motion": {
+      "motion": {
         "patternRefs": [
           {
             "ref": "success-toast",
@@ -315,7 +315,7 @@
           }
         ]
       },
-      "card_accessibility": {
+      "accessibility": {
         "requirementRefs": [
           {
             "ref": "alerts-toasts-banners",
@@ -357,7 +357,7 @@
         "a11y": "high"
       },
       "last_reviewed": "2026-05-12",
-      "card_anatomy": {
+      "anatomy": {
         "parts": [
           {
             "name": "Label",
@@ -389,7 +389,7 @@
           }
         ]
       },
-      "card_component": {
+      "variants": {
         "variantAxes": [
           {
             "axis": "State",
@@ -418,7 +418,7 @@
           }
         ]
       },
-      "card_motion": {
+      "motion": {
         "patternRefs": [
           {
             "ref": "state-transitions",
@@ -426,7 +426,7 @@
           }
         ]
       },
-      "card_accessibility": {
+      "accessibility": {
         "requirementRefs": [
           {
             "ref": "forms",
@@ -468,7 +468,7 @@
         "a11y": "high"
       },
       "last_reviewed": "2026-05-12",
-      "card_anatomy": {
+      "anatomy": {
         "parts": [
           {
             "name": "Container",
@@ -496,7 +496,7 @@
           }
         ]
       },
-      "card_component": {
+      "variants": {
         "variantAxes": [
           {
             "axis": "Orientation",
@@ -524,7 +524,7 @@
           }
         ]
       },
-      "card_motion": {
+      "motion": {
         "patternRefs": [
           {
             "ref": "state-transitions",
@@ -536,7 +536,7 @@
           }
         ]
       },
-      "card_accessibility": {
+      "accessibility": {
         "requirementRefs": [
           {
             "ref": "focus-keyboard",
@@ -573,7 +573,7 @@
         "a11y": "high"
       },
       "last_reviewed": "2026-05-12",
-      "card_anatomy": {
+      "anatomy": {
         "parts": [
           {
             "name": "Trigger",
@@ -605,7 +605,7 @@
           }
         ]
       },
-      "card_component": {
+      "variants": {
         "variantAxes": [
           {
             "axis": "Type",
@@ -636,7 +636,7 @@
           }
         ]
       },
-      "card_motion": {
+      "motion": {
         "patternRefs": [
           {
             "ref": "layered-overlays-modals",
@@ -652,7 +652,7 @@
           }
         ]
       },
-      "card_accessibility": {
+      "accessibility": {
         "requirementRefs": [
           {
             "ref": "focus-keyboard",

@@ -10,6 +10,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import type { Octokit } from "@octokit/rest";
+import { DEFAULT_COORDS } from "../config/coords";
 import {
   AlertDialog,
   Box,
@@ -94,8 +95,7 @@ export function SubmissionStaging({
             allowAnchorDrop,
           },
           {
-            owner: "volivarii",
-            repo: "actian-ds-knowledge",
+            ...DEFAULT_COORDS,
             base: "main",
             schemas: {},
             octokit,

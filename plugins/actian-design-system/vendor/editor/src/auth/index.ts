@@ -31,12 +31,15 @@ export function subscribe(
   };
 }
 
-// Test-only escape hatches. Production code never imports these.
-export function __setSessionForTesting(s: AuthSession | null): void {
+// Internal write surface. Production sign-in flows in `oauth.ts` and
+// `pat.ts` call `_setSession`; tests use `__resetForTesting` for cleanup
+// and `_setSession` to seed a session before assertions.
+export function _setSession(s: AuthSession | null): void {
   session = s;
   notify();
 }
 
+// Test-only: clear all state. Production code never imports this.
 export function __resetForTesting(): void {
   session = null;
   listeners.clear();
