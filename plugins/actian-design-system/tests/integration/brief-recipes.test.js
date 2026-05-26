@@ -83,7 +83,7 @@ test("brief recipes — generate recipes have grounding array", function () {
 
 test("brief recipes — usage / content / accessibility have research applicable", function () {
   var idx = JSON.parse(fs.readFileSync(INDEX_PATH, "utf8"));
-  var researchCards = ["card_usage", "card_content", "card_accessibility"];
+  var researchCards = ["usage", "card_content", "accessibility"];
   for (var i = 0; i < idx.length; i++) {
     if (researchCards.indexOf(idx[i].card) === -1) continue;
     var recipe = JSON.parse(

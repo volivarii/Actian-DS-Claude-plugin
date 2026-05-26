@@ -78,7 +78,7 @@
         }
       }
     },
-    "card_component": {
+    "variants": {
       "type": "object",
       "description": "Component variants and theme comparison",
       "properties": {
@@ -137,7 +137,7 @@
         }
       }
     },
-    "card_anatomy": {
+    "anatomy": {
       "type": "object",
       "description": "Anatomy card (DS mode)",
       "properties": {
@@ -201,7 +201,7 @@
         }
       }
     },
-    "card_tokens": {
+    "tokens": {
       "type": "object",
       "description": "Design tokens card (DS mode)",
       "properties": {
@@ -308,7 +308,7 @@
         }
       }
     },
-    "card_usage": {
+    "usage": {
       "type": "object",
       "description": "Usage guidelines card (DS mode)",
       "properties": {
@@ -370,7 +370,7 @@
         }
       }
     },
-    "card_accessibility": {
+    "accessibility": {
       "type": "object",
       "description": "Accessibility card (DS mode)",
       "properties": {
@@ -430,7 +430,7 @@
         }
       }
     },
-    "card_motion": {
+    "motion": {
       "type": "object",
       "description": "Behavior & motion card (DS mode) — conditional. Only present when the component has a curated motion pattern (vendor/components/dist/guidelines/<slug>.json `domains.behavior.motion.pattern` is set). Pattern data is sourced from vendor/foundations/dist/tokens/motion.json.",
       "properties": {

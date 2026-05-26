@@ -48,8 +48,8 @@ Section 6 (Real platform examples) is deferred — not generated yet.
 
 Cards: generate **all 5** or pick specific (e.g., "2,4").
        Card numbering matches the gate; the data model still uses card_header,
-       card_component, card_anatomy, card_tokens, card_usage, card_content,
-       card_motion, card_accessibility keys (no schema migration in v1.67.0).
+       variants, anatomy, tokens, usage, card_content,
+       motion, accessibility keys (no schema migration in v1.67.0).
 Research: cross-DS patterns can be researched before generating cards 3, 4, 5
           to surface insights, recommendations, and divergences from existing
           context. Skip by default (faster, lower token cost).
@@ -89,10 +89,10 @@ Parser rules for the response:
 
 If the Step 1.5 response opted in to research (e.g., `research all`, `research usage,content`):
 
-1. Parse the research scope from the response (default `["card_usage", "card_content", "card_accessibility"]` for `research all`).
+1. Parse the research scope from the response (default `["usage", "card_content", "accessibility"]` for `research all`).
 2. Dispatch the `brief-researcher` agent with:
    - Component name + slug
-   - Scoped cards (intersect requested research with research-applicable cards: card_usage, card_content, card_accessibility)
+   - Scoped cards (intersect requested research with research-applicable cards: usage, card_content, accessibility)
    - Existing context inlined:
      - `vendor/components/dist/guidelines/<slug>.json` (the merged per-component guideline doc — `domains.content` is the authoritative component-specific copy guidance; omit when the component has no guideline doc)
      - `vendor/content/dist/global.md` (global / cross-cutting copy guidance — voice, tone, words to avoid, UX-pattern topics)
@@ -118,7 +118,7 @@ ctx = {
   component, slug, fileKey, nodeId,
   nodeDescription,        // from dskit.json[slug].description (primary), MCP node.description (fallback)
   guidelinesJson,         // parsed vendor/components/dist/guidelines/<slug>.json (merged multi-domain guideline doc — domains.{content,usage,design,behavior,tokens}); null when no guideline doc exists for the component
-  selectedCards,          // ["card_header", "card_tokens", ...]
+  selectedCards,          // ["card_header", "tokens", ...]
   motionPatterns,         // parsed vendor/foundations/dist/tokens/motion.json#patterns (object keyed by short name)
   category,               // dskit.json[slug].category, normalized via category-defaults-loader.normalizeCategorySlug
   categoryDefaults,       // category-defaults-loader.loadDefaultsForCategory(ctx.category) — null when unknown
@@ -130,14 +130,14 @@ ctx = {
 
 **Category defaults (Phase 2c, v1.82.0+).** When `ctx.guidelinesJson` is
 a stub OR generally for Phase B cards, `resolveSection` attaches
-`ctx.categoryDefaults` to the result for `card_anatomy`,
-`card_component`, and `card_accessibility`. Pass it through to the
+`ctx.categoryDefaults` to the result for `anatomy`,
+`variants`, and `accessibility`. Pass it through to the
 card-generator agent prompt as `categoryDefaults: <object>` so the
 generator can adapt from the category baseline rather than improvise.
-`card_motion` always resolves via the category fallback: the multi-domain
+`motion` always resolves via the category fallback: the multi-domain
 guideline doc carries no per-component motion pattern (`domains.behavior`
 is status-only, typically `inherited`), so when
-`categoryDefaults.card_motion` has a `patternRefs[0]`, `resolveSection`
+`categoryDefaults.motion` has a `patternRefs[0]`, `resolveSection`
 returns a Phase A result with `fallback: true`, `fallbackReason:
 "category-motion-default"` and the resolved pattern's content. The card is
 emitted with `_source: "figma"`, `_fallback: true`, `_fallbackReason:
@@ -171,9 +171,9 @@ Output of Phase B is merged via `scripts/transformers/merge-partials.js` (existi
 Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
 
 **Critical — avoid truncation:** Each card's data must be complete. Common truncation traps (Phase B cards):
-- `card_component.variantMatrix` — include ALL variant rows
-- `card_tokens.colorTokens` — include ALL token bindings for the component
-- `card_accessibility.requirements` — must have exactly 6 items (2 per column × 3 rows)
+- `variants.variantMatrix` — include ALL variant rows
+- `tokens.colorTokens` — include ALL token bindings for the component
+- `accessibility.requirements` — must have exactly 6 items (2 per column × 3 rows)
 
 **Inline validation after writing:** Check the file you just wrote:
 - Every selected card key exists and is non-empty
@@ -184,7 +184,7 @@ Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
 - No `"..."`, `"etc"`, or `"and more"` in any value (truncation signals)
 - All token names use `--zen-` prefix (DS Kit) or `--fm-` prefix (FM)
 - No hardcoded hex values in token fields
-- `card_accessibility.requirements` has exactly 6 items (if card 7 selected)
+- `accessibility.requirements` has exactly 6 items (if card 7 selected)
 - **Code values use ASCII operators only** — `=>` not `⇒` (U+21D2), `->` not `→`, `<=` not `≤`, `>=` not `≥`, `!==` not `≠`. Especially watch generated content.
 - **`meta.pluginVersion` matches the project's `plugin.json` `version`** — read the file, do not transcribe from any example. If the value differs from the actual `plugin.json`, fix it before push.
 
@@ -221,11 +221,11 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
 1. Create wrapper frame (Pattern 0 from component-brief/push-patterns.md — MUST be HORIZONTAL)
 2. Create GenLog instance (Pattern 0b — import by key, set 6 meta props, append to wrapper)
 3. **Card 1 — Page Header — create EXACTLY ONCE.** Use Pattern 1 with variant `"Mode=DS, Type=Page Header"`. **Set ALL three text properties** in a single `setProperties` call: `"Component Name#7:2"` = `card_header.name`, `"Description#7:3"` = `card_header.description`, `"Source#7:4"` = `"DS Kit"` (or appropriate library label). If you don't override these, Meta Kit's Page Header variant defaults leak through — you'll see "Button" / "The Button component is a surface-level element..." regardless of which component you're documenting (regression: see PR #23 follow-up). After creating + appending the Page Header, do NOT recreate it under any condition — proceed directly to Section 1.
-4. **Section 1 supercard — create EXACTLY ONCE (replaces former Cards 2/3/4).** Use Pattern 1 with variant `"Mode=DS, Type=Standard"`. Card title: `"Anatomy, variation, tokens & specs"`. Card subtitle: `"Structural breakdown, variants, token bindings, and dimension specs"` (both overridable from data model `card.cardTitle` / `card.cardSubtitle` if set). Inside the contentSlot, build four nested sub-frames per Pattern 1d: Anatomy / Variation / Tokens / Specs. Each sub-frame gets a 16px Semibold heading; if the corresponding source card (`card_anatomy` / `card_component` / `card_tokens` / `card_anatomy` for Specs) has `_source: "generated"` AND `_authored !== true`, append a small DRAFT tag next to the heading. Specs sub-frame is included whenever the target component has autolayout (Pattern 14 auto-extracts spacings); skip the sub-frame only when the component has no autolayout AND `card_anatomy.specs` is empty. **Anatomy sub-frame uses Pattern 9** from `push-patterns.md` (the badge+leader-line algorithm). **The Anatomy parts table and the three Tokens tables (Sizing / Color grid / Typography) MUST be rendered through the `renderTable` strict tool** — see `references/component-brief/render-table-tool.md`. **ALWAYS** invoke `render-figma.js` via the Bash CLI pattern; capture stdout; pass the captured JS **verbatim** into `mcp__claude_ai_Figma__use_figma`. **NEVER rename the `Table (renderTable)` frame** that the interpreter emits — do NOT add descriptive suffixes (`"— Sizing"`, `"Anatomy parts table (renderTable)"`, etc.) and do NOT replace the name. v1.73.0 measured 70% renaming rate which broke the A8 strict-equality gate; v1.73.1 makes this rule explicit. **NEVER** inline token-table or color-grid construction in `use_figma` — inlining reproduces the v1.70.x cell-squash regression that doc-layer patches cannot fix. Pattern 3 + Pattern 4 in `push-patterns.md` (with the `appendTokenTagCell` helper) remain alive per `MIGRATIONS.md` Rule 1 (parallel change) but are explicitly fallback documentation, not the canonical path. The v1.73.x eval lane A8 assertion measures invocation rate per fixture; ship gate is ≥80% on every per-measurement file (`--runs 5` × 2 fixtures = 10 grading.json files). **Specs sub-frame uses Pattern 14** (Specs Redline — gutter ordinate lane in v1.70.0+, inline fallback for N=1). Do NOT render either Anatomy or Specs as a plain text table — that is the v1.67.0 → v1.67.x regression Phase 1 fixes. Pattern 9 (v1.70.0+) renders the Enabled/Default state and drops state-only parts (focus ring, hover surface) with footnoted rows in the parts table — cross-DS convention from Carbon, Material 3, Polaris.
-5. For each remaining card in the data model (Section 2 Usage, Section 3 Content, Section 4 Motion if present, Section 5 Accessibility — skip `card_header`, `card_component`, `card_anatomy`, `card_tokens`):
+4. **Section 1 supercard — create EXACTLY ONCE (replaces former Cards 2/3/4).** Use Pattern 1 with variant `"Mode=DS, Type=Standard"`. Card title: `"Anatomy, variation, tokens & specs"`. Card subtitle: `"Structural breakdown, variants, token bindings, and dimension specs"` (both overridable from data model `card.cardTitle` / `card.cardSubtitle` if set). Inside the contentSlot, build four nested sub-frames per Pattern 1d: Anatomy / Variation / Tokens / Specs. Each sub-frame gets a 16px Semibold heading; if the corresponding source card (`anatomy` / `variants` / `tokens` / `anatomy` for Specs) has `_source: "generated"` AND `_authored !== true`, append a small DRAFT tag next to the heading. Specs sub-frame is included whenever the target component has autolayout (Pattern 14 auto-extracts spacings); skip the sub-frame only when the component has no autolayout AND `anatomy.specs` is empty. **Anatomy sub-frame uses Pattern 9** from `push-patterns.md` (the badge+leader-line algorithm). **The Anatomy parts table and the three Tokens tables (Sizing / Color grid / Typography) MUST be rendered through the `renderTable` strict tool** — see `references/component-brief/render-table-tool.md`. **ALWAYS** invoke `render-figma.js` via the Bash CLI pattern; capture stdout; pass the captured JS **verbatim** into `mcp__claude_ai_Figma__use_figma`. **NEVER rename the `Table (renderTable)` frame** that the interpreter emits — do NOT add descriptive suffixes (`"— Sizing"`, `"Anatomy parts table (renderTable)"`, etc.) and do NOT replace the name. v1.73.0 measured 70% renaming rate which broke the A8 strict-equality gate; v1.73.1 makes this rule explicit. **NEVER** inline token-table or color-grid construction in `use_figma` — inlining reproduces the v1.70.x cell-squash regression that doc-layer patches cannot fix. Pattern 3 + Pattern 4 in `push-patterns.md` (with the `appendTokenTagCell` helper) remain alive per `MIGRATIONS.md` Rule 1 (parallel change) but are explicitly fallback documentation, not the canonical path. The v1.73.x eval lane A8 assertion measures invocation rate per fixture; ship gate is ≥80% on every per-measurement file (`--runs 5` × 2 fixtures = 10 grading.json files). **Specs sub-frame uses Pattern 14** (Specs Redline — gutter ordinate lane in v1.70.0+, inline fallback for N=1). Do NOT render either Anatomy or Specs as a plain text table — that is the v1.67.0 → v1.67.x regression Phase 1 fixes. Pattern 9 (v1.70.0+) renders the Enabled/Default state and drops state-only parts (focus ring, hover surface) with footnoted rows in the parts table — cross-DS convention from Carbon, Material 3, Polaris.
+5. For each remaining card in the data model (Section 2 Usage, Section 3 Content, Section 4 Motion if present, Section 5 Accessibility — skip `card_header`, `variants`, `anatomy`, `tokens`):
    a. Create card shell (Pattern 1). Read `card.cardTitle` and `card.cardSubtitle` from the data model — pass them straight to `setProperties` as `Title#140:0` and `Subtitle#140:1`. Do NOT hardcode card titles. **Default-leak detection (post-v1.66.0):** the Meta Kit Card Header now defaults to the generic placeholders `"Card title"` / `"Subtitle text"`. If a pushed card displays either string verbatim, `setProperties` silently failed (wrong property ID, wrong nested instance, or unresolved Card Header lookup) — fix the push call rather than ignoring the leak.
    b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
-   c. Accessibility card (`card_accessibility`): use the simplified Pattern 6 — render `requirements` as a vertical bulleted list with bold-title + plain-body rows (one row per requirement, no per-card frames, no embedded code blocks). This replaces the 2×3 a11y-card grid retired in v1.66.3. Then render the Contrast table and ARIA table after the requirements list. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties` for the table rows.
+   c. Accessibility card (`accessibility`): use the simplified Pattern 6 — render `requirements` as a vertical bulleted list with bold-title + plain-body rows (one row per requirement, no per-card frames, no embedded code blocks). This replaces the 2×3 a11y-card grid retired in v1.66.3. Then render the Contrast table and ARIA table after the requirements list. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties` for the table rows.
 6. After all cards pushed, report to user with count
 
 **Rules:**

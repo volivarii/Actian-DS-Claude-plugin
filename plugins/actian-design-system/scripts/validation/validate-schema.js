@@ -186,6 +186,19 @@ module.exports = validate;
 
 var BRIEF_VALID_SOURCES = ["figma", "generated"];
 var BRIEF_FORBIDDEN_KEYS = ["card_api", "card_code", "card_states"];
+// Brief slot identifiers. F2 (knowledge 0.22.0) renamed the 6 domain slots
+// to drop the card_ prefix; card_header + card_content stay card-prefixed
+// because they describe brief card UI structure rather than domain data.
+var BRIEF_SLOT_KEYS = [
+  "card_header",
+  "card_content",
+  "anatomy",
+  "variants",
+  "motion",
+  "accessibility",
+  "tokens",
+  "usage",
+];
 
 function validateBriefData(data) {
   var findings = [];
@@ -200,7 +213,14 @@ function validateBriefData(data) {
   var keys = Object.keys(data);
   for (var i = 0; i < keys.length; i++) {
     var k = keys[i];
-    if (k.indexOf("card_") !== 0) continue;
+    // Forbidden keys still validate as a finding (so callers see the retired
+    // key surfaced); everything else not in the BRIEF_SLOT_KEYS allowlist
+    // is skipped.
+    if (
+      BRIEF_SLOT_KEYS.indexOf(k) === -1 &&
+      BRIEF_FORBIDDEN_KEYS.indexOf(k) === -1
+    )
+      continue;
     var card = data[k];
     if (!card || typeof card !== "object") continue;
 
@@ -272,7 +292,7 @@ function validateBriefData(data) {
         });
       }
       if (
-        k === "card_motion" &&
+        k === "motion" &&
         (!Array.isArray(card.phases) || card.phases.length === 0) &&
         (typeof card.overrides !== "string" || card.overrides.length === 0)
       ) {
@@ -281,11 +301,11 @@ function validateBriefData(data) {
           severity: "error",
           card: k,
           message:
-            "card_motion claims figma source but phases array is empty and no overrides set",
+            "motion claims figma source but phases array is empty and no overrides set",
         });
       }
       if (
-        k === "card_motion" &&
+        k === "motion" &&
         (typeof card.patternSlug !== "string" || card.patternSlug.trim() === "")
       ) {
         findings.push({
@@ -293,7 +313,7 @@ function validateBriefData(data) {
           severity: "error",
           card: k,
           message:
-            "card_motion claims figma source but patternSlug is missing or empty (recipe contract: patternSlug must match a key in foundations/dist/tokens/motion.json#patterns)",
+            "motion claims figma source but patternSlug is missing or empty (recipe contract: patternSlug must match a key in foundations/dist/tokens/motion.json#patterns)",
         });
       }
     }

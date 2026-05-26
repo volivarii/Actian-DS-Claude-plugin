@@ -1,13 +1,13 @@
 {
-  "card": "card_motion",
+  "card": "motion",
   "title": "Behavior & motion",
-  "description": "Conditional card. The multi-domain guideline doc carries no per-component motion (domains.behavior is status-only), so motion resolves from the component's category-defaults: when categoryDefaults.card_motion has a patternRefs[0], the card renders that pattern; otherwise it is skipped. Phase rows come from vendor/foundations/dist/tokens/motion.json#patterns.<slug>.",
+  "description": "Conditional card. The multi-domain guideline doc carries no per-component motion (domains.behavior is status-only), so motion resolves from the component's category-defaults: when categoryDefaults.motion has a patternRefs[0], the card renders that pattern; otherwise it is skipped. Phase rows come from vendor/foundations/dist/tokens/motion.json#patterns.<slug>.",
   "phase": "transcribe",
   "source": {
     "primary": {
       "type": "category-motion-default",
       "registry": "vendor/components/dist/categories/<category>-defaults.json",
-      "field": "card_motion.patternRefs[0].ref",
+      "field": "motion.patternRefs[0].ref",
       "patternRegistry": "vendor/foundations/dist/tokens/motion.json",
       "patternKey": "patterns.<pattern>"
     },
@@ -27,7 +27,7 @@
   },
   "qualityRules": [
     "Phases must come verbatim from tokens/motion.json — never invent durations or easings",
-    "When neither the component's category-defaults nor any source declares a motion pattern, suppress the card entirely (do not emit empty card_motion)",
+    "When neither the component's category-defaults nor any source declares a motion pattern, suppress the card entirely (do not emit empty motion)",
     "patternSlug must match a key in tokens/motion.json#patterns; fail loudly if not"
   ],
   "minimums": {

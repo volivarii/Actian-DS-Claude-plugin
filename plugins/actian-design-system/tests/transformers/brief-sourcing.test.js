@@ -190,11 +190,11 @@ test("resolveSection — header card with no description → fallback signal", f
 test("resolveSection — generate recipe → returns Phase B marker, no transcription", function () {
   var ctx = loadFixture("button-with-figma-description.json");
   var recipe = {
-    card: "card_anatomy",
+    card: "anatomy",
     phase: "generate",
     grounding: ["vendor/foundations/src/foundations.md"],
   };
-  var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
+  var result = sourcing.resolveSection("anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
   assert.deepEqual(result.grounding, ["vendor/foundations/src/foundations.md"]);
 });
@@ -291,11 +291,11 @@ test("resolveSection — stub guideline forces Phase B even on generate recipe (
     guidelinesJson: guidelineDoc("inherited"),
   };
   var recipe = {
-    card: "card_anatomy",
+    card: "anatomy",
     phase: "generate",
     grounding: ["vendor/foundations/src/foundations.md"],
   };
-  var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
+  var result = sourcing.resolveSection("anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
   assert.deepEqual(result.grounding, ["vendor/foundations/src/foundations.md"]);
   assert.equal(result.fallback, true);
@@ -459,7 +459,7 @@ test("transcribeContentGuidelines / isStubGuideline — registry-alias copy is h
 //
 // The v0.9.x merged guideline doc carries NO per-component motion (its
 // `domains.behavior` is status-only). transcribeMotionPattern therefore
-// returns null for every real guideline doc, and resolveSection's card_motion
+// returns null for every real guideline doc, and resolveSection's motion
 // branch always resolves via the category fallback (see below). The function
 // is kept as a defensive guard for the retired Figma-scraped `behavior.motion`
 // shape; these tests exercise it directly.
@@ -514,7 +514,7 @@ test("transcribeMotionPattern — flags missingPattern for an unknown slug", fun
   assert.equal(result.slug, "nonexistent-pattern");
 });
 
-test("formatForBrief — card_motion preserves phase rows + adds optional fields", function () {
+test("formatForBrief — motion preserves phase rows + adds optional fields", function () {
   var motionResult = {
     source: "figma",
     content: {
@@ -526,7 +526,7 @@ test("formatForBrief — card_motion preserves phase rows + adds optional fields
       overrides: "Side nav variant uses faster close",
     },
   };
-  var formatted = sourcing.formatForBrief("card_motion", motionResult, {});
+  var formatted = sourcing.formatForBrief("motion", motionResult, {});
   assert.equal(formatted.patternSlug, "drawer");
   assert.equal(formatted.phases.length, 2);
   assert.equal(formatted.logic_and_accessibility.length, 1);
@@ -539,19 +539,19 @@ test("formatForBrief — card_motion preserves phase rows + adds optional fields
 
 var CATEGORY_DEFAULTS_FIXTURE = {
   slug: "form-input-selection",
-  card_anatomy: {
+  anatomy: {
     parts: [
       { name: "Label", description: "control label" },
       { name: "Control", description: "the input" },
     ],
   },
-  card_component: {
+  variants: {
     variantAxes: [{ axis: "State", values: ["default", "focus", "error"] }],
   },
-  card_motion: {
+  motion: {
     patternRefs: [{ ref: "state-transitions", note: "focus feedback" }],
   },
-  card_accessibility: {
+  accessibility: {
     requirementRefs: [{ ref: "keyboard-focus" }, { ref: "color-contrast" }],
   },
 };
@@ -563,40 +563,40 @@ test("resolveSection — Phase B card with ctx.categoryDefaults attaches it to r
     categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
   };
   var recipe = { phase: "generate", grounding: ["vendor/foo.md"] };
-  var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
+  var result = sourcing.resolveSection("anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
   assert.ok(result.categoryDefaults, "categoryDefaults must be attached");
   assert.equal(result.categoryDefaults.slug, "form-input-selection");
   assert.ok(
-    result.categoryDefaults.card_anatomy,
+    result.categoryDefaults.anatomy,
     "anatomy section must be present",
   );
 });
 
-test("resolveSection — card_tokens Phase B does NOT receive categoryDefaults (no mapping in defaults file)", function () {
+test("resolveSection — tokens Phase B does NOT receive categoryDefaults (no mapping in defaults file)", function () {
   var ctx = {
     guidelinesJson: guidelineDoc("not-started"),
     category: "form-input-selection",
     categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
   };
   var recipe = { phase: "generate", grounding: [] };
-  var result = sourcing.resolveSection("card_tokens", ctx, recipe);
+  var result = sourcing.resolveSection("tokens", ctx, recipe);
   assert.equal(result.phase, "B");
   assert.equal(
     result.categoryDefaults,
     undefined,
-    "card_tokens has no category-level defaults",
+    "tokens has no category-level defaults",
   );
 });
 
-test("resolveSection — card_usage Phase B does NOT receive categoryDefaults (no mapping)", function () {
+test("resolveSection — usage Phase B does NOT receive categoryDefaults (no mapping)", function () {
   var ctx = {
     guidelinesJson: guidelineDoc("not-started"),
     category: "form-input-selection",
     categoryDefaults: CATEGORY_DEFAULTS_FIXTURE,
   };
   var recipe = { phase: "generate", grounding: [] };
-  var result = sourcing.resolveSection("card_usage", ctx, recipe);
+  var result = sourcing.resolveSection("usage", ctx, recipe);
   assert.equal(result.phase, "B");
   assert.equal(result.categoryDefaults, undefined);
 });
@@ -604,19 +604,19 @@ test("resolveSection — card_usage Phase B does NOT receive categoryDefaults (n
 test("resolveSection — Phase B with no ctx.categoryDefaults leaves categoryDefaults undefined", function () {
   var ctx = { guidelinesJson: guidelineDoc("not-started") };
   var recipe = { phase: "generate", grounding: [] };
-  var result = sourcing.resolveSection("card_anatomy", ctx, recipe);
+  var result = sourcing.resolveSection("anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
   assert.equal(result.categoryDefaults, undefined);
 });
 
-test("resolveSection — card_motion Phase A: non-stub doc + categoryDefaults → category motion fallback", function () {
+test("resolveSection — motion Phase A: non-stub doc + categoryDefaults → category motion fallback", function () {
   var STATE_TRANSITIONS = {
     slug: "state-transitions",
     name: "State Transitions",
     phases: [{ Phase: "hover", Duration: "100ms" }],
   };
   var ctx = {
-    // a non-stub doc (so resolveSection reaches the card_motion branch); its
+    // a non-stub doc (so resolveSection reaches the motion branch); its
     // domains.behavior is status-only, so transcribeMotionPattern returns null
     // and the category fallback resolves the pattern.
     guidelinesJson: guidelineDoc("approved", [
@@ -628,7 +628,7 @@ test("resolveSection — card_motion Phase A: non-stub doc + categoryDefaults �
     },
   };
   var recipe = { phase: "transcribe" };
-  var result = sourcing.resolveSection("card_motion", ctx, recipe);
+  var result = sourcing.resolveSection("motion", ctx, recipe);
   assert.equal(result.phase, "A");
   assert.equal(
     result.source,
@@ -641,14 +641,14 @@ test("resolveSection — card_motion Phase A: non-stub doc + categoryDefaults �
   assert.equal(result.content.patternName, "State Transitions");
 });
 
-test("resolveSection — card_motion: non-stub doc, no categoryDefaults → skipCard", function () {
+test("resolveSection — motion: non-stub doc, no categoryDefaults → skipCard", function () {
   var ctx = {
     guidelinesJson: guidelineDoc("approved", [
       { heading: "Style", content: ["Use sentence case."] },
     ]),
   };
   var recipe = { phase: "transcribe" };
-  var result = sourcing.resolveSection("card_motion", ctx, recipe);
+  var result = sourcing.resolveSection("motion", ctx, recipe);
   assert.equal(result.phase, "A");
   assert.equal(result.skipCard, true, "no fallback when no categoryDefaults");
 });

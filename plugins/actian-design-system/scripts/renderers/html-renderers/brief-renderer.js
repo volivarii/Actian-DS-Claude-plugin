@@ -1190,13 +1190,13 @@
       // card_api (was card5) and card_code (was card9) retired; validator blocks them.
       var d = {
         header: data.card_header || data.card1_header,
-        component: data.card_component || data.card2_component,
-        anatomy: data.card_anatomy || data.card3_anatomy,
-        tokens: data.card_tokens || data.card4_tokens,
-        motion: data.card_motion,
-        usage: data.card_usage || data.card6_usage,
+        component: data.variants || data.card2_component,
+        anatomy: data.anatomy || data.card3_anatomy,
+        tokens: data.tokens || data.card4_tokens,
+        motion: data.motion,
+        usage: data.usage || data.card6_usage,
         content: data.card_content || data.card7_content,
-        accessibility: data.card_accessibility || data.card8_accessibility,
+        accessibility: data.accessibility || data.card8_accessibility,
         // FM keys
         designGuidelines:
           data.card_design_guidelines || data.card3_design_guidelines,

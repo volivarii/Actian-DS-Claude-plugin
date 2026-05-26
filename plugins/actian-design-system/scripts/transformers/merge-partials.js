@@ -25,12 +25,12 @@ const path = require("path");
 
 const DS_CARD_KEYS = [
   "card_header",
-  "card_component",
-  "card_anatomy",
-  "card_tokens",
-  "card_usage",
+  "variants",
+  "anatomy",
+  "tokens",
+  "usage",
   "card_content",
-  "card_accessibility",
+  "accessibility",
 ];
 
 // ---------------------------------------------------------------------------

@@ -213,7 +213,11 @@ try {
 
 assert.ok(Array.isArray(briefIndex), "brief/_index.json must be an array");
 
-const CARD_PATTERN = /^card_[a-z][a-z_]*$/;
+// Brief slot identifier: domain-anchored names (anatomy, variants, motion,
+// accessibility, tokens, usage) or card_<name> for genuinely card-structural
+// slots (card_header, card_content). F2 (knowledge 0.22.0) renamed the 6
+// domain slots to drop the card_ prefix.
+const CARD_PATTERN = /^(card_)?[a-z][a-z_]*$/;
 
 for (const entry of briefIndex) {
   const label = `brief/${entry.file || "(unknown)"}`;
@@ -224,7 +228,7 @@ for (const entry of briefIndex) {
     errors.push('index entry missing "file" (string)');
   if (typeof entry.card !== "string" || !CARD_PATTERN.test(entry.card)) {
     errors.push(
-      'index entry "card" must be a string matching card_<name> pattern (e.g. card_header)',
+      'index entry "card" must be a string matching a brief slot identifier (e.g. "anatomy", "card_header")',
     );
   }
 

@@ -12,11 +12,28 @@ var FIX = path.resolve(__dirname, "..", "fixtures", "brief");
 function parseStep15(input) {
   if (typeof input !== "string") return { error: "input must be string" };
   var trimmed = input.trim();
-  var allCards = ["card_header", "card_component", "card_anatomy", "card_tokens", "card_usage", "card_content", "card_accessibility"];
-  var researchAll = ["card_usage", "card_content", "card_accessibility"];
-  var byPos = ["card_header", "card_component", "card_anatomy", "card_tokens", "card_usage", "card_content", "card_accessibility"];
+  var allCards = [
+    "card_header",
+    "variants",
+    "anatomy",
+    "tokens",
+    "usage",
+    "card_content",
+    "accessibility",
+  ];
+  var researchAll = ["usage", "card_content", "accessibility"];
+  var byPos = [
+    "card_header",
+    "variants",
+    "anatomy",
+    "tokens",
+    "usage",
+    "card_content",
+    "accessibility",
+  ];
 
-  if (trimmed === "" || trimmed.toLowerCase() === "all") return { selectedCards: allCards, researchScope: null };
+  if (trimmed === "" || trimmed.toLowerCase() === "all")
+    return { selectedCards: allCards, researchScope: null };
 
   var researchScope = null;
   var researchMatch = trimmed.match(/research\s+([a-z, ]+)?$/i);
@@ -27,11 +44,20 @@ function parseStep15(input) {
     if (raw === "all" || raw === "") researchScope = researchAll.slice();
     else {
       var names = raw.split(/[, ]+/).filter(Boolean);
+      // F2 (knowledge 0.22.0) renamed domain slots; card_content kept its
+      // prefix because it's structural to brief card UI. Map short names
+      // to their canonical slot keys.
+      var SHORT_TO_SLOT = {
+        usage: "usage",
+        content: "card_content",
+        accessibility: "accessibility",
+      };
       researchScope = [];
       for (var i = 0; i < names.length; i++) {
         var name = names[i].toLowerCase();
-        if (["usage", "content", "accessibility"].indexOf(name) === -1) return { error: "Unknown research scope `" + name + "`" };
-        researchScope.push("card_" + name);
+        if (!Object.prototype.hasOwnProperty.call(SHORT_TO_SLOT, name))
+          return { error: "Unknown research scope `" + name + "`" };
+        researchScope.push(SHORT_TO_SLOT[name]);
       }
     }
   }
@@ -43,7 +69,8 @@ function parseStep15(input) {
   var selected = [];
   for (var j = 0; j < parts.length; j++) {
     var n = parseInt(parts[j], 10);
-    if (isNaN(n) || n < 1 || n > 7) return { error: "Card " + parts[j] + " doesn't exist. Valid: 1-7." };
+    if (isNaN(n) || n < 1 || n > 7)
+      return { error: "Card " + parts[j] + " doesn't exist. Valid: 1-7." };
     selected.push(byPos[n - 1]);
   }
   return { selectedCards: selected, researchScope: researchScope };
@@ -64,17 +91,17 @@ test("step 1.5 — 'all' → all 7 cards, no research", function () {
 test("step 1.5 — 'all research all' → all 7 + research on all 3 applicable", function () {
   var r = parseStep15("all research all");
   assert.equal(r.selectedCards.length, 7);
-  assert.deepEqual(r.researchScope, ["card_usage", "card_content", "card_accessibility"]);
+  assert.deepEqual(r.researchScope, ["usage", "card_content", "accessibility"]);
 });
 
 test("step 1.5 — 'all research usage,content' → all 7 + research on 2 cards", function () {
   var r = parseStep15("all research usage,content");
-  assert.deepEqual(r.researchScope, ["card_usage", "card_content"]);
+  assert.deepEqual(r.researchScope, ["usage", "card_content"]);
 });
 
 test("step 1.5 — '2,4,6 research content' → 3 cards + research on 1", function () {
   var r = parseStep15("2,4,6 research content");
-  assert.deepEqual(r.selectedCards, ["card_component", "card_tokens", "card_content"]);
+  assert.deepEqual(r.selectedCards, ["variants", "tokens", "card_content"]);
   assert.deepEqual(r.researchScope, ["card_content"]);
 });
 
@@ -89,15 +116,17 @@ test("step 1.5 — invalid research scope returns error", function () {
 });
 
 test("research integration — canned findings thread into card output as research_insights", function () {
-  var canned = JSON.parse(fs.readFileSync(path.join(FIX, "research-result-canned.json"), "utf8"));
-  // Simulated card-generator output: card_usage with research_insights derived from canned findings
+  var canned = JSON.parse(
+    fs.readFileSync(path.join(FIX, "research-result-canned.json"), "utf8"),
+  );
+  // Simulated card-generator output: usage with research_insights derived from canned findings
   var card = {
     cardTitle: "Usage",
     cardSubtitle: "x",
     _source: "generated",
     _research_applied: true,
     doDont: [],
-    research_insights: canned.card_usage
+    research_insights: canned.usage,
   };
   assert.equal(card._research_applied, true);
   assert.ok(card.research_insights.patterns_observed.length > 0);
@@ -105,18 +134,23 @@ test("research integration — canned findings thread into card output as resear
 });
 
 test("research integration — divergence findings render in research_insights._divergences", function () {
-  var canned = JSON.parse(fs.readFileSync(path.join(FIX, "research-divergence-canned.json"), "utf8"));
-  assert.equal(canned.card_usage.divergences_from_existing.length, 1);
+  var canned = JSON.parse(
+    fs.readFileSync(path.join(FIX, "research-divergence-canned.json"), "utf8"),
+  );
+  assert.equal(canned.usage.divergences_from_existing.length, 1);
   // Card should expose this under research_insights._divergences (per shape contract)
   var card = {
     _source: "generated",
     _research_applied: true,
     research_insights: {
-      patterns_observed: canned.card_usage.patterns_observed,
-      recommendations: canned.card_usage.recommendations,
-      _divergences: canned.card_usage.divergences_from_existing,
-      sources: canned.card_usage.sources
-    }
+      patterns_observed: canned.usage.patterns_observed,
+      recommendations: canned.usage.recommendations,
+      _divergences: canned.usage.divergences_from_existing,
+      sources: canned.usage.sources,
+    },
   };
-  assert.equal(card.research_insights._divergences[0].field, "primary_action_position");
+  assert.equal(
+    card.research_insights._divergences[0].field,
+    "primary_action_position",
+  );
 });
