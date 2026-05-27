@@ -30,8 +30,8 @@ test("validatePaths — allows components/src content", () => {
   assert.equal(isReadOnlyPath("components/src/button/_meta.yml"), false);
 });
 
-test("validatePaths — allows accessibility/accessibility.md", () => {
-  assert.equal(isReadOnlyPath("accessibility/accessibility.md"), false);
+test("validatePaths — allows accessibility/src/*.md", () => {
+  assert.equal(isReadOnlyPath("accessibility/src/01-principles.md"), false);
 });
 
 test("validatePaths — allows app-context, fm-to-ds-map, icon-groups (Class C)", () => {

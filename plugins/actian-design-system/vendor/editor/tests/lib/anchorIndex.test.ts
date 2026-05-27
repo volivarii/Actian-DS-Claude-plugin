@@ -79,8 +79,8 @@ function fakeGh(files: Record<string, string>) {
         if (path === "foundations/src") {
           return { data: [{ name: "foundations.md", type: "file" }] };
         }
-        if (path === "accessibility") {
-          return { data: [{ name: "accessibility.md", type: "file" }] };
+        if (path === "accessibility/src") {
+          return { data: [{ name: "01-principles.md", type: "file" }] };
         }
         if (path === "components/src") {
           return { data: [{ name: "button", type: "dir" }] };
@@ -117,7 +117,7 @@ test("loadAnchorIndex: builds index from remote", async () => {
   setCachedIndexForTesting(null);
   const gh = fakeGh({
     "foundations/src/foundations.md": "## Title {#alpha}\n",
-    "accessibility/accessibility.md":
+    "accessibility/src/01-principles.md":
       "## Other {#beta}\n[link](foundations#alpha)\n",
     "components/src/button/content.md": "no anchors here",
     "components/src/button/usage.md": "",
@@ -130,7 +130,9 @@ test("loadAnchorIndex: builds index from remote", async () => {
   assert.deepEqual(findDefinitions("alpha"), [
     "foundations/src/foundations.md",
   ]);
-  assert.deepEqual(findReferences("alpha"), ["accessibility/accessibility.md"]);
+  assert.deepEqual(findReferences("alpha"), [
+    "accessibility/src/01-principles.md",
+  ]);
   assert.equal(index.scannedPaths.length > 0, true);
 });
 
@@ -156,7 +158,7 @@ test("loadAnchorIndex: cartOverrides supersedes remote content", async () => {
 
 test("loadAnchorIndex: bad fetch for one file does not abort the index", async () => {
   setCachedIndexForTesting(null);
-  // accessibility/accessibility.md is missing — fakeGh will 404 it.
+  // accessibility/src/01-principles.md is missing — fakeGh will 404 it.
   const gh = fakeGh({ "foundations/src/foundations.md": "## A {#survives}\n" });
   const index = await loadAnchorIndex(gh, { force: true });
   assert.deepEqual(findDefinitions("survives"), [

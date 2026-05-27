@@ -4,6 +4,30 @@
 
 # Actian Design Foundation
 
+<!--
+  Substrate vs. presentation.
+
+  This file is the agnostic, structured substrate (per GOVERNANCE.md) — it
+  authors token shapes, primitives, scales, and the design rules that govern
+  them. It is NOT the rendered Foundations page on the public docs site.
+
+  The docs site (https://github.com/volivarii/actian-ds-docs) ships an
+  opinionated, hand-authored view of these tokens under
+  `src/content/docs/foundations/*.mdx`. Section names, page order, embedded
+  widgets, and prose flavor are docs-side decisions. Token shapes and
+  data contracts are substrate-side decisions.
+
+  When the docs Foundations layout diverges from this file, that is
+  legitimate per GOVERNANCE.md "Presentation divergence is allowed."
+
+  When making edits here:
+   - Token shapes, primitives, scale ramps, design-guideline rules → live
+     here, in this file.
+   - Section labels on the public docs site, page order, "Brand & feedback
+     colors" vs "Color" naming, what gets embedded with what widget →
+     live in actian-ds-docs MDX.
+-->
+
 > **Built on Zen**
 > The Actian Design System is built on top of the **Zen Design System** — Zen provides the underlying token architecture, color primitives, spacing scale, typography, and component logic that Actian inherits and extends. Where Actian-specific decisions diverge from or expand on Zen, they are noted explicitly. When in doubt, Zen is the foundation.
 
@@ -2053,27 +2077,10 @@ Follow the [stepper button terminology guidelines](/components/navigation/steppe
 
 # Actian Accessibility Guidelines
 
-<!-- Source-of-truth doc. Hand-edited; not auto-generated. -->
-<!-- The plugin vendors this file via vendor-snapshot.yml. -->
-<!-- Edit here in volivarii/actian-ds-knowledge — never in the plugin's vendor/ tree. -->
-<!-- AUTHORING NOTE: this file = the designer-authored v1.3.0 guidelines + the
-     per-component WCAG criteria, screen-reader expectations, and AI Output
-     section merged back from the prior version. Author the NEXT version from
-     THIS file so that merged detail is preserved.
-
-     Section ids are EXPLICIT {#anchor} markers on every H2/H3 heading. They
-     are the cross-consumer reference (plugin, docs, category refs, MCP) —
-     the heading TEXT can change freely, the {#anchor} must remain stable.
-     DO NOT rename or remove an anchor without coordinating with all
-     consumers. Adding a new section: append a new {#kebab-slug} and that
-     slug becomes the contract. (Substrate Doctrine P6; R6 pre-build D1.) -->
-
 **Version:** 1.3.0
 **Last updated:** May 19, 2026
 
 Target standard: **WCAG 2.1 AA**. References: [WCAG 2.1](https://www.w3.org/TR/WCAG21/) · [WebAIM checklist](https://webaim.org/standards/wcag/checklist)
-
----
 
 ## 1. Principles
 
@@ -2086,8 +2093,6 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 | **Understandable** | Content and interface must be predictable and readable |
 | **Robust** | Content must work across browsers, assistive technologies, and future devices |
 
----
-
 ## 2. Color & Contrast
 
 | Content type | Min ratio |
@@ -2098,8 +2103,6 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 | Disabled states | No requirement |
 
 - **Never use color alone to convey information** — always pair with an icon, label, or pattern (WCAG 1.4.1).
-
----
 
 ## 3. Typography
 
@@ -2112,8 +2115,6 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 - Line length maximums: 544px at 16px · 480px at 14px · 424px at 12px.
 - Default paragraph spacing: 8px.
 
----
-
 ## 4. Motion
 
 - All motion respects `prefers-reduced-motion: reduce` — fade transitions disabled, elements toggle visibility instantly.
@@ -2121,8 +2122,6 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 - State changes communicated by more than motion alone.
 - Decorative animations are pauseable.
 - `--zen-motion-delay-intent` (300ms) used on hover-triggered tooltips. Note: all motion tokens are 🟡 Proposed — document the intent; engineering implements when tokens ship.
-
----
 
 ## 5. Focus & Keyboard
 
@@ -2156,8 +2155,6 @@ Focus is the only interactive state handled by a token. Hover, pressed, and disa
 | Menu | Enter/Space to open · Arrow to navigate · Escape to close |
 | Data table | Tab between interactive cells · Arrow for cell navigation |
 
----
-
 ## 6. ARIA & Labels
 
 Designers annotate specs. Engineering implements.
@@ -2180,8 +2177,6 @@ Designers annotate specs. Engineering implements.
 - Grouped inputs (date range, phone + country) have a group label annotated separately.
 - First rule of ARIA: if a native HTML element exists (`<button>`, `<nav>`), use it instead of an ARIA role.
 
----
-
 ## 7. Reading Order & Landmarks
 
 - Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order.
@@ -2189,15 +2184,11 @@ Designers annotate specs. Engineering implements.
 - Multiple navigation blocks on a page have unique labels (`aria-label="Main"` vs `aria-label="Breadcrumb"`).
 - Headings must follow a logical hierarchy (h1 → h2 → h3) — never skip levels for visual styling reasons.
 
----
-
 ## 8. Touch & Pointer
 
 - Hover-only interactions don't work on touch devices — every hover action needs a touch equivalent.
 - Touch targets must have adequate spacing between them, not just adequate size — crowded targets cause mis-taps.
 - Pointer gestures (swipe, pinch) must have a single-pointer alternative (WCAG 2.5.1). A single-pointer alternative means the action can be done with simple clicks or taps — no holding, no dragging.
-
----
 
 ## 9. Error Prevention
 
@@ -2205,15 +2196,11 @@ Designers annotate specs. Engineering implements.
 - Forms with significant data should support undo or review before final submission.
 - Auto-save states must be communicated visually and to screen readers.
 
----
-
 ## 10. Session & Timeout Warnings
 
 - If a session can expire, users must be warned before it happens and given a way to extend or save their work (WCAG 2.2.1).
 - Timeout warnings must be announced via an ARIA live region — annotate for engineering.
 - Do not set session timeouts shorter than 20 hours unless required for security.
-
----
 
 ## 11. Components
 
@@ -2394,8 +2381,6 @@ Designers annotate specs. Engineering implements.
 
 **WCAG criteria:** 1.3.1, 1.4.1, 2.1.1, 2.2.2, 4.1.2, 4.1.3
 
----
-
 ## 12. Designer Handoff Checklist
 
 Use before every handoff or design review.
@@ -2442,4 +2427,3 @@ Use before every handoff or design review.
 ### Motion
 - [ ] Reduced motion behavior noted for all animated components
 - [ ] No content flashes more than 3 times per second
-

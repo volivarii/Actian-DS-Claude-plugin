@@ -121,7 +121,7 @@ When ordering multiple patterns into one component (e.g. `text-input` inherits f
 - **`components/src/<slug>/content.md`** — per-component content guidelines (a different domain — see `components/src/AUTHORING.md`).
 - **`foundations/src/foundations.md`** — primitives, tokens, scales (Design system lead's domain).
 - **`tokens/`** — DTCG W3C-format design tokens.
-- **`accessibility/accessibility.md`** — WCAG 2.2 AA guidance.
+- **`accessibility/src/NN-<slug>.md`** — WCAG 2.1 AA guidance, per-section files.
 - **`app-context/app-context.json`** — per-app patterns, persona, terminology.
 
 ## Style basis

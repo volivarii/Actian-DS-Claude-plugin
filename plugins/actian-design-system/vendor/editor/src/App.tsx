@@ -11,6 +11,7 @@ import {
 } from "@radix-ui/themes";
 import "@radix-ui/themes/styles.css";
 import "./styles/tokens.css";
+import "./styles/dark-theme.css";
 import "./styles/base.css";
 import { SettingsPanel } from "./settings/SettingsPanel";
 import { EditorShell } from "./app/EditorShell";
@@ -215,7 +216,7 @@ export default function App() {
     return base;
   }, [activePath, cartEntries.length, knownSlugs]);
   return (
-    <Theme accentColor="indigo" radius="medium">
+    <Theme accentColor="indigo" radius="medium" appearance="dark">
       <Flex direction="column" style={{ height: "100vh", width: "100vw" }}>
         <Flex
           justify="between"

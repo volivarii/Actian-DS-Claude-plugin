@@ -152,7 +152,7 @@ async function collectMarkdownPaths(gh: Octokit): Promise<string[]> {
         extension: ".md",
         exclude: ["AUTHORING.md"],
       }).catch(() => []),
-      listFilesByGlob(gh, "accessibility", {
+      listFilesByGlob(gh, "accessibility/src", {
         extension: ".md",
         exclude: ["AUTHORING.md"],
       }).catch(() => []),
@@ -173,7 +173,7 @@ async function collectMarkdownPaths(gh: Octokit): Promise<string[]> {
 
   const paths: string[] = [];
   for (const name of foundations) paths.push(`foundations/src/${name}`);
-  for (const name of accessibility) paths.push(`accessibility/${name}`);
+  for (const name of accessibility) paths.push(`accessibility/src/${name}`);
   for (const name of patterns) paths.push(`content/src/patterns/${name}`);
   for (const name of product) paths.push(`content/src/product/${name}`);
   for (const name of writing) paths.push(`content/src/writing/${name}`);

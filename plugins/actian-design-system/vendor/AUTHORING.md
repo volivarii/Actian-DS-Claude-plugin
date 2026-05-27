@@ -14,7 +14,7 @@ The Actian Design System knowledge layer: tokens, content guidelines, accessibil
 | **Tokens** | `tokens/tokens.json` (frozen snapshot) | `tokens/tokens.css`, `tokens/token-reference.md` |
 | **Components** | `components/src/<slug>/{_meta.yml,content.md,usage.md,design.md,behavior.md,tokens.yml}` (per-component multi-domain authoring) + `components/src/categories/*.md` (6 category defaults) | `components/dist/guidelines/<slug>.json` (per-component merged docs, `domains.*` shape) + `components/dist/registries/*` (3, Figma sync) + `components/dist/categories/*.json` (6) + `components/dist/categories.json` |
 | **Content guidelines** | `content/src/{writing,patterns,product}/*.md` + root-level meta files (Phase 2c sub-buckets) | `content/dist/global.md` (component-scoped content lives per-component in `components/dist/guidelines/<slug>.json` `domains.content`) |
-| **Accessibility** | `accessibility/accessibility.md` (with stable `{#slug}` anchors) | `accessibility/dist/a11y-index.json` (slug→WCAG map) |
+| **Accessibility** | `accessibility/src/NN-<slug>.md` per-section files (with stable `{#slug}` anchors) | `accessibility/dist/a11y-index.json` (slug→WCAG map) |
 | **Other** | `app-context/app-context.json`, `fm-to-ds-map/fm-to-ds-map.json`, `presentation/presentation-guide.md` | — |
 
 ## Roles (who owns what)

@@ -75,7 +75,7 @@ export function decodeBase64Utf8(b64: string): string {
 /**
  * List files (not subdirectories) in a directory, optionally filtered by
  * extension and an explicit name-exclusion list. Used by the Sidebar to
- * enumerate foundations/src/*.md and accessibility/*.md (minus AUTHORING.md).
+ * enumerate foundations/src/*.md and accessibility/src/*.md (minus AUTHORING.md).
  */
 export async function listFilesByGlob(
   gh: Octokit,

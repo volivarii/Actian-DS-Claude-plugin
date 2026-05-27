@@ -35,11 +35,36 @@ test("Toolbar: italic wraps selection with *...*", () => {
   cleanup();
 });
 
-test("Toolbar: inline code wraps selection with backticks", () => {
-  const { view } = mountWithView("foo");
-  view.dispatch({ selection: { anchor: 0, head: 3 } });
-  fireEvent.click(screen.getByRole("button", { name: /inline code/i }));
-  assert.equal(view.state.doc.toString(), "`foo`");
+// Inline code button removed in favor of Cmd+E / backtick typing
+// (toolbar redesign). Bold/italic/link remain the inline group.
+
+test("Toolbar: blockquote prefixes current line with '> '", () => {
+  const { view } = mountWithView("a thought");
+  view.dispatch({ selection: { anchor: 0, head: 0 } });
+  fireEvent.click(screen.getByRole("button", { name: /blockquote/i }));
+  assert.equal(view.state.doc.toString(), "> a thought");
+  cleanup();
+});
+
+test("Toolbar: table inserts a 2x2 markdown table at cursor", () => {
+  const { view } = mountWithView("");
+  view.dispatch({ selection: { anchor: 0, head: 0 } });
+  fireEvent.click(screen.getByRole("button", { name: /insert table/i }));
+  assert.match(view.state.doc.toString(), /\| Column 1 \| Column 2 \|/);
+  assert.match(view.state.doc.toString(), /\| --- \| --- \|/);
+  cleanup();
+});
+
+test("Toolbar: Media inserts <Media> JSX skeleton at cursor", () => {
+  const { view } = mountWithView("");
+  view.dispatch({ selection: { anchor: 0, head: 0 } });
+  fireEvent.click(
+    screen.getByRole("button", { name: /insert media component/i }),
+  );
+  assert.match(
+    view.state.doc.toString(),
+    /<Media src="" alt="" caption="" \/>/,
+  );
   cleanup();
 });
 
