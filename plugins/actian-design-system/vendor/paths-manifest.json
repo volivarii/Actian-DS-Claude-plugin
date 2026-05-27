@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.23.1",
+  "knowledge_version": "0.25.0",
   "paths": {
     "accessibility.authoring": {
       "path": "accessibility/AUTHORING.md",
@@ -418,7 +418,7 @@
       "path": "foundations/src/AUTHORING.md",
       "type": "markdown",
       "origin": "human",
-      "description": "How to edit foundations.md (UX team guide)"
+      "description": "How to edit the foundations per-section files (UX team guide)"
     },
     "foundations.bundle": {
       "path": "foundations/dist/foundations.bundle.json",
@@ -448,18 +448,12 @@
       "generator": "scripts/foundations/derive-foundations.js",
       "description": "Root foundations metadata + top-level child list. Navigate from here to per-H2 directories."
     },
-    "foundations.md": {
-      "path": "foundations/src/foundations.md",
-      "type": "markdown",
-      "origin": "human",
-      "description": "Master reference for Actian DS — primitives, tokens, scales (Design system lead, MD-as-SoT)"
-    },
     "foundations.source": {
       "path": "foundations/dist/foundations.md",
       "type": "markdown",
       "origin": "ci",
       "generator": "scripts/foundations/derive-foundations.js",
-      "description": "Verbatim copy of foundations/src/foundations.md (Stripe .md URL pattern). Auto-synced; do not edit."
+      "description": "Synthesized concatenation of foundations/src/ per-section files joined with `\\n\\n---\\n\\n` (Stripe .md URL pattern). Auto-synced; do not edit. The substrate-side SoT is the per-section files; this dist artifact bakes section separators that don't exist in any single source file."
     },
     "foundations.tokens.index": {
       "path": "foundations/dist/tokens/_index.json",
@@ -561,6 +555,13 @@
       "type": "markdown",
       "origin": "human",
       "description": "Global / cross-cutting content guidelines (Content lead). Three sub-buckets: writing/ (strict grammar/voice/style rules), patterns/ (universal UX patterns), product/ (Actian product-surface copy rules). Meta files (global-guidelines.md, content-index.md, format-spec.md) sit at the content/src/ root. Each file follows When-to-use -> Style -> Behavior -> Do/Don't."
+    },
+    "foundations.guide": {
+      "dir": "foundations/src",
+      "pattern": "{order}-{slug}.md",
+      "type": "markdown",
+      "origin": "human",
+      "description": "Master reference for Actian DS — primitives, tokens, scales, design rules. Authored as per-section files. Numeric `NN-` prefix encodes canonical order (00-intro, 01-table-of-contents, 02-color-primitives, 03-tokens, 04-design-guidelines, 05-handoff-protocol, 06-related-guidelines). Consumers read all *.md (excluding AUTHORING.md) sorted alphabetically and concatenate."
     },
     "foundations.leaf": {
       "dir": "foundations/dist",

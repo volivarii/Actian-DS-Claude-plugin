@@ -40,7 +40,7 @@ function fakeGh(
 
 const LISTINGS = {
   "foundations/src": [
-    { name: "foundations.md", type: "file" as const },
+    { name: "02-color-primitives.md", type: "file" as const },
     { name: "AUTHORING.md", type: "file" as const },
   ],
   "accessibility/src": [
@@ -89,7 +89,7 @@ test("Sidebar: renders Foundations + Accessibility entries (after expand)", asyn
   await waitFor(() => screen.getByText("Foundations"));
   toggleSection("Foundations");
   toggleSection("Accessibility");
-  assert.ok(screen.getByText("foundations.md"));
+  assert.ok(screen.getByText("02-color-primitives.md"));
   assert.ok(screen.getByText("01-principles.md"));
 });
 
@@ -106,7 +106,7 @@ test("Sidebar: excludes AUTHORING.md", async () => {
   );
   await waitFor(() => screen.getByText("Foundations"));
   toggleSection("Foundations");
-  assert.ok(screen.getByText("foundations.md"));
+  assert.ok(screen.getByText("02-color-primitives.md"));
   assert.equal(screen.queryByText("AUTHORING.md"), null);
 });
 
@@ -141,8 +141,8 @@ test("Sidebar: click dispatches onSelect with full path", async () => {
   );
   await waitFor(() => screen.getByText("Foundations"));
   toggleSection("Foundations");
-  fireEvent.click(screen.getByText("foundations.md"));
-  assert.deepEqual(calls, ["foundations/src/foundations.md"]);
+  fireEvent.click(screen.getByText("02-color-primitives.md"));
+  assert.deepEqual(calls, ["foundations/src/02-color-primitives.md"]);
 });
 
 test("Sidebar: renders a Coverage entry at the top", async () => {
@@ -167,7 +167,7 @@ test("Sidebar: clicking Coverage calls onSelect with null", async () => {
       <Sidebar
         octokit={fakeGh(LISTINGS)}
         pendingPaths={new Set()}
-        activePath={"foundations/src/foundations.md"}
+        activePath={"foundations/src/02-color-primitives.md"}
         onSelect={(p) => calls.push(p)}
       />,
     ),
@@ -233,7 +233,7 @@ test("Sidebar: all sections collapsed by default", async () => {
   );
   await waitFor(() => screen.getByText("Foundations"));
   // No section items rendered initially
-  assert.equal(screen.queryByText("foundations.md"), null);
+  assert.equal(screen.queryByText("02-color-primitives.md"), null);
   assert.equal(screen.queryByText("01-principles.md"), null);
   assert.equal(screen.queryByText("forms.md"), null);
   assert.equal(screen.queryByText("button"), null);
@@ -271,10 +271,10 @@ test("Sidebar: Foundations section toggles", async () => {
   assert.equal(header.getAttribute("aria-expanded"), "false");
   fireEvent.click(header);
   assert.equal(header.getAttribute("aria-expanded"), "true");
-  assert.ok(screen.getByText("foundations.md"));
+  assert.ok(screen.getByText("02-color-primitives.md"));
   fireEvent.click(header);
   assert.equal(header.getAttribute("aria-expanded"), "false");
-  assert.equal(screen.queryByText("foundations.md"), null);
+  assert.equal(screen.queryByText("02-color-primitives.md"), null);
 });
 
 test("Sidebar: Components section toggles and preserves Show all", async () => {
@@ -348,7 +348,7 @@ test("Sidebar: section collapse state persists via sessionStorage", async () => 
   await waitFor(() => screen.getByText("Foundations"));
   const header = screen.getByText("Foundations").closest('[role="button"]')!;
   assert.equal(header.getAttribute("aria-expanded"), "true");
-  assert.ok(screen.getByText("foundations.md"));
+  assert.ok(screen.getByText("02-color-primitives.md"));
 });
 
 test("Sidebar: hides empty content/src groups (e.g. 404 dirs)", async () => {
@@ -376,7 +376,7 @@ test("Sidebar: hides empty content/src groups (e.g. 404 dirs)", async () => {
 });
 
 test("Sidebar: shows draft-dot for paths in pendingPaths (when expanded)", async () => {
-  const pending = new Set(["foundations/src/foundations.md"]);
+  const pending = new Set(["foundations/src/02-color-primitives.md"]);
   const { container } = render(
     wrap(
       <Sidebar

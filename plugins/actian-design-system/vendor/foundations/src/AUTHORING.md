@@ -1,34 +1,47 @@
 # Foundations authoring guide
 
-This guide is for the UX team. It explains how to update `foundations.md` so that the design plugin automatically picks up your changes.
+This guide is for the UX team. It explains how to update the foundations source so the design plugin automatically picks up your changes.
 
 ## What you edit
 
-**One file:** `foundations/src/foundations.md` in `volivarii/actian-ds-knowledge` (this repo).
+**A directory of per-section files:** `foundations/src/` in `volivarii/actian-ds-knowledge` (this repo). Each top-level section of the Foundation lives in its own file:
 
-Edit it directly on GitHub:
-1. Open [foundations.md](./foundations.md) on GitHub.
+```
+foundations/src/
+├── 00-intro.md                       — title, doctrine, version, last-updated
+├── 01-table-of-contents.md
+├── 02-color-primitives.md            — § 1 (palettes, OKLCH shade formula)
+├── 03-tokens.md                      — § 2 (all token sections 2.1–2.11, including motion patterns)
+├── 04-design-guidelines.md           — § 3 (color/typography/spacing/elevation usage rules)
+├── 05-handoff-protocol.md            — § 4
+└── 06-related-guidelines.md          — § 5 (sibling pointers)
+```
+
+The numeric `NN-` prefix encodes section order. CI walks the directory in alphabetical order, so renaming or renumbering files reorders the derived dist tree.
+
+Edit a file directly on GitHub:
+1. Open the file in `foundations/src/` on GitHub.
 2. Click the pencil icon at the top right.
 3. Make your changes.
 4. Scroll to the bottom, click **Commit changes**, choose **Create a new branch**, and create the PR.
 
-You can also edit it in any Markdown editor (Typora, iA Writer, Obsidian, etc.) and paste the result back into the GitHub web editor.
+You can also edit any file in any Markdown editor (Typora, iA Writer, Obsidian, etc.) and paste the result back into the GitHub web editor.
 
 ## What happens after you commit
 
-When you open or update a PR that touches `foundations.md`:
-1. CI runs the schema-less hierarchical parser.
-2. It regenerates the `foundations/dist/` tree automatically (Pattern H — one JSON per leaf section, `_index.json` per directory, a `foundations.bundle.json` roll-up, plus a verbatim `.md` copy).
-3. It commits the regenerated tree back to your branch with the message `chore(foundations): regenerate JSONs from foundations.md`.
+When you open or update a PR that touches `foundations/src/**`:
+1. CI runs the schema-less hierarchical parser against the concatenated per-section content.
+2. It regenerates the `foundations/dist/` tree automatically (Pattern H — one JSON per leaf section, `_index.json` per directory, a `foundations.bundle.json` roll-up, plus a verbatim `.md` copy at `foundations/dist/foundations.md`).
+3. It commits the regenerated tree back to your branch with the message `chore(foundations): regenerate JSONs from foundations/src/`. Note: `foundations/dist/foundations.md` is a SYNTHESIZED concatenation of the per-section files (joined with `\n\n---\n\n`) — convenient for Stripe-style `.md` URL access, but not byte-identical to any single src file.
 4. It posts a comment on the PR summarizing what changed in plain language (e.g., "3 token values changed in `tokens/color-global-tokens/semantic-aliases.json`").
 
 You don't need to install Node, run any script, or touch the JSON files. The PR appears with both your MD changes and the auto-generated JSON changes side by side.
 
-You can rename, renumber, reorder, or restructure sections freely — the parser tracks MD structure, not section numbers. The output tree adapts.
+You can rename, renumber, reorder, or restructure sections freely (within each file, or across files) — the parser tracks MD structure, not section numbers. The output tree adapts.
 
 ## Adding a token
 
-Find the right table in `foundations.md` (e.g., section `2.1 Color — Global Tokens`). Insert a new row. The columns vary per table — match what's already there.
+Find the right table in `foundations/src/03-tokens.md` (e.g., section `2.1 Color — Global Tokens`). Insert a new row. The columns vary per table — match what's already there.
 
 Example, adding a new color token:
 
@@ -55,7 +68,7 @@ If you add an emoji not in the list above, it'll be preserved as text but won't 
 
 ## Adding a motion pattern
 
-Motion patterns live under section `2.9 — Motion` and are written as **bold paragraphs** followed by a phase table:
+Motion patterns live in `foundations/src/03-tokens.md` under section `2.9 — Motion` and are written as **bold paragraphs** followed by a phase table:
 
 ```markdown
 **Drawer (open/close)** {#drawer-open-close}
@@ -104,13 +117,13 @@ Sections 5 (Handoff Protocol) and 6 (Related Guidelines) are intentionally not p
 ## When something goes wrong
 
 - **PR comment says JSON didn't change but you expected it to:** the parser walks heading structure — make sure your section is under an H2/H3 inside the in-scope top-level sections (Handoff Protocol and Related Guidelines are skipped on purpose).
-- **Auto-commit didn't appear:** the workflow only runs when `foundations.md` (or the parser scripts) change in the PR. If you only changed something else, no regeneration is triggered.
+- **Auto-commit didn't appear:** the workflow only runs when something under `foundations/src/` (or the parser scripts) change in the PR. If you only changed something else, no regeneration is triggered.
 - **CI failed:** open the workflow run from the PR's checks tab. The parser logs warnings for unmapped sections — these are non-fatal. A real error stops the run.
 
 ## What you don't need to do
 
-- Don't edit any JSON file in `foundations/dist/` (including `_index.json` files). They're auto-generated from `foundations/src/foundations.md`. CI will revert your edits and push back the regenerated version.
-- Don't edit `foundations/dist/foundations.md` — it's a verbatim copy of the source.
+- Don't edit any JSON file in `foundations/dist/` (including `_index.json` files). They're auto-generated from `foundations/src/**`. CI will revert your edits and push back the regenerated version.
+- Don't edit `foundations/dist/foundations.md` — it's a CI-synthesized concatenation of the per-section src/ files (with `\n\n---\n\n` joiners).
 - Don't install Node or run any script locally.
 
 ## More info

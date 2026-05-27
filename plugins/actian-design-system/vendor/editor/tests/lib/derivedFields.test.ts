@@ -7,10 +7,7 @@ import {
 
 test("formatRelativeTime: <60s → 'just now'", () => {
   const now = Date.parse("2026-05-24T12:00:00Z");
-  assert.equal(
-    formatRelativeTime("2026-05-24T11:59:30Z", now),
-    "just now",
-  );
+  assert.equal(formatRelativeTime("2026-05-24T11:59:30Z", now), "just now");
 });
 
 test("formatRelativeTime: minutes", () => {
@@ -52,7 +49,10 @@ test("fetchLatestCommit: returns null when no commits found", async () => {
   if (typeof globalThis.sessionStorage !== "undefined") {
     globalThis.sessionStorage.clear();
   }
-  const info = await fetchLatestCommit(gh, "foundations/src/foundations.md");
+  const info = await fetchLatestCommit(
+    gh,
+    "foundations/src/02-color-primitives.md",
+  );
   assert.equal(info, null);
 });
 
@@ -75,10 +75,7 @@ test("fetchLatestCommit: extracts author login + date from latest commit", async
   if (typeof globalThis.sessionStorage !== "undefined") {
     globalThis.sessionStorage.clear();
   }
-  const info = await fetchLatestCommit(
-    gh,
-    "components/src/button/content.md",
-  );
+  const info = await fetchLatestCommit(gh, "components/src/button/content.md");
   assert.deepEqual(info, {
     author: "kristina",
     date: "2026-05-20T10:00:00Z",
@@ -104,10 +101,7 @@ test("fetchLatestCommit: handles missing author gracefully", async () => {
   if (typeof globalThis.sessionStorage !== "undefined") {
     globalThis.sessionStorage.clear();
   }
-  const info = await fetchLatestCommit(
-    gh,
-    "components/src/button/usage.md",
-  );
+  const info = await fetchLatestCommit(gh, "components/src/button/usage.md");
   assert.equal(info?.author, null);
   assert.equal(info?.date, "2026-05-20T10:00:00Z");
 });
@@ -123,9 +117,6 @@ test("fetchLatestCommit: returns null when fetch throws", async () => {
   if (typeof globalThis.sessionStorage !== "undefined") {
     globalThis.sessionStorage.clear();
   }
-  const info = await fetchLatestCommit(
-    gh,
-    "components/src/button/design.md",
-  );
+  const info = await fetchLatestCommit(gh, "components/src/button/design.md");
   assert.equal(info, null);
 });

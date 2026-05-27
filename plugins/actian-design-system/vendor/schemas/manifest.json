@@ -40,17 +40,18 @@
     },
     "paths": {
       "type": "object",
-      "description": "Dictionary of named single-file paths. Keys are dot-notation handles consumers use to reference artifacts (e.g. foundations.md, components.registries.dskit).",
+      "description": "Dictionary of named single-file paths. Keys are dot-notation handles consumers use to reference artifacts (e.g. accessibility.index, components.registries.dskit).",
       "additionalProperties": {
         "$ref": "#/$defs/pathEntry"
       },
       "examples": [
         {
-          "foundations.md": {
-            "path": "foundations/src/foundations.md",
-            "type": "markdown",
-            "origin": "human",
-            "description": "Master reference for Actian DS"
+          "accessibility.index": {
+            "path": "accessibility/dist/a11y-index.json",
+            "type": "json",
+            "origin": "ci",
+            "generator": "scripts/accessibility/derive-a11y-index.js",
+            "description": "Slug → WCAG mapping"
           }
         }
       ]
@@ -104,7 +105,10 @@
         "path": {
           "type": "string",
           "description": "Repo-relative path to the file.",
-          "examples": ["foundations/src/foundations.md", "tokens/tokens.json"]
+          "examples": [
+            "tokens/tokens.json",
+            "accessibility/dist/a11y-index.json"
+          ]
         },
         "type": {
           "enum": ["markdown", "json", "css", "yaml", "text", "binary"],

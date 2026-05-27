@@ -14,14 +14,12 @@
     "h4": "implementation"
   },
   "source": {
-    "file": "foundations/src/foundations.md",
-    "startLine": 1110,
-    "endLine": 1123
+    "file": "foundations/src/"
   },
   "_meta": {
     "auto_generated": true,
-    "source": "foundations/src/foundations.md",
-    "do_not_edit": "Edit the source MD; CI regenerates this file."
+    "source": "foundations/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
   },
   "body": "Interactive color states (hover, pressed/active, disabled) are not handled with tokens. Engineering implements these using CSS brightness filters at the component level.\n\nThe only tokenized interactive state is focus — see --zen-focus-ring-primary and --zen-focus-ring-error in Section 2.5.",
   "blocks": [

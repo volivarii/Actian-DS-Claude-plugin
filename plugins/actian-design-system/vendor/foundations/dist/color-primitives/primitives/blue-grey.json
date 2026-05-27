@@ -14,14 +14,12 @@
     "h4": "blue-grey"
   },
   "source": {
-    "file": "foundations/src/foundations.md",
-    "startLine": 275,
-    "endLine": 292
+    "file": "foundations/src/"
   },
   "_meta": {
     "auto_generated": true,
-    "source": "foundations/src/foundations.md",
-    "do_not_edit": "Edit the source MD; CI regenerates this file."
+    "source": "foundations/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
   },
   "body": "OKLCH 500 base: oklch(0.5724 0.0397 229.02)",
   "blocks": [

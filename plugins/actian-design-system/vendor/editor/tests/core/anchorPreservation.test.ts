@@ -20,7 +20,10 @@ test("droppedAnchors: detects a single dropped anchor", () => {
 test("droppedAnchors: detects multiple dropped anchors (sorted)", () => {
   const remote = "## A {#color}\n## B {#spacing}\n## C {#typography}\n";
   const submission = "## A {#color}\n";
-  assert.deepEqual(droppedAnchors(remote, submission), ["spacing", "typography"]);
+  assert.deepEqual(droppedAnchors(remote, submission), [
+    "spacing",
+    "typography",
+  ]);
 });
 
 test("droppedAnchors: anchors added in submission don't count as dropped", () => {
@@ -34,10 +37,13 @@ test("droppedAnchors: empty remote returns []", () => {
 });
 
 test("AnchorPreservationError is a real Error subclass", () => {
-  const err = new AnchorPreservationError("foundations.md", ["color", "spacing"]);
+  const err = new AnchorPreservationError(
+    "foundations/src/02-color-primitives.md",
+    ["color", "spacing"],
+  );
   assert.ok(err instanceof Error);
   assert.equal(err.name, "AnchorPreservationError");
-  assert.equal(err.path, "foundations.md");
+  assert.equal(err.path, "foundations/src/02-color-primitives.md");
   assert.deepEqual(err.dropped, ["color", "spacing"]);
   assert.match(err.message, /color/);
   assert.match(err.message, /spacing/);

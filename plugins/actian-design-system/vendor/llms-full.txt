@@ -34,8 +34,6 @@
 > **How to use this doc**
 > This is the authoritative reference for the Actian design system. It covers current primitives, existing tokens (in both Figma/hex and engineering/OKLCH formats), and foundational usage rules. Tokens are marked with a status (🟢 Shipped, 🔵 In Review, 🟡 Proposed) throughout Section 2.
 
----
-
 **Version:** 1.2.0
 **Last updated:** May 11, 2026
 
@@ -43,11 +41,11 @@
 
 ## Table of Contents
 
-1. [Color Primitives](#1-color-primitives)
+1. [Color Primitives](./02-color-primitives.md)
    - OKLCH Shade Formula
    - Primitives (all palettes, 25–900)
 
-2. [Tokens](#2-tokens)
+2. [Tokens](./03-tokens.md)
    - Status Key
    - 2.1 Global Color
    - 2.2 Typography
@@ -61,7 +59,7 @@
    - 2.10 Icons
    - 2.11 Motion
 
-3. [Design Guidelines](#3-design-guidelines)
+3. [Design Guidelines](./04-design-guidelines.md)
    - 3.1 Color Usage Rules
    - 3.2 Typography Rules
    - 3.3 Spacing Rules
@@ -69,15 +67,13 @@
    - 3.5 Brightness Filter Convention — Interactive States
    - 3.6 Breakpoints
 
-
-
-4. [Handoff Protocol](#4-handoff-protocol)
+4. [Handoff Protocol](./05-handoff-protocol.md)
    - 4.1 Before You Hand Off
    - 4.2 Figma Handoff Checklist
    - 4.3 What to Include in Every Handoff
    - 4.4 When Something Is Missing
 
-5. [Related Guidelines](#5-related-guidelines)
+5. [Related Guidelines](./06-related-guidelines.md)
    - 5.1 Accessibility Guidelines
    - 5.2 Content Guidelines
 
@@ -528,7 +524,6 @@ OKLCH 500 base: `oklch(0.5121 0.0235 285.54)` — 🟢 Shipped
 | 800 | `--zen-color-cool-grey-800` | `#40404a` | `oklch(0.3738 0.0176 285.54)` |
 | 900 | `--zen-color-cool-grey-900` | `#33333a` | `oklch(0.3226 0.0129 285.54)` |
 
-
 ---
 
 ## 2. Tokens
@@ -916,9 +911,6 @@ The cascading effect guides the eye naturally downward and prevents the screen f
 
 ---
 
----
-
-
 ## 3. Design Guidelines
 
 ### 3.1 Color Usage Rules
@@ -1080,7 +1072,6 @@ Use `--zen-border-default` for standard container borders (cards, panels, inputs
 
 Two tiers of placeholder exist for inputs: `--zen-color-text-placeholder` is the standard placeholder (grey-600). `--zen-color-text-placeholder-subtle` (grey-400) is used in search fields where less visual weight is appropriate.
 
-
 ---
 
 ## 4. Handoff Protocol
@@ -1135,7 +1126,6 @@ Covers WCAG compliance, color contrast requirements, keyboard navigation, focus 
 ### 5.2 Content Guidelines
 
 Covers voice and tone, capitalization rules, button and label copy, error message writing, empty state copy, and microcopy patterns.
-
 
 ## Content
 
@@ -2082,6 +2072,8 @@ Follow the [stepper button terminology guidelines](/components/navigation/steppe
 
 Target standard: **WCAG 2.1 AA**. References: [WCAG 2.1](https://www.w3.org/TR/WCAG21/) · [WebAIM checklist](https://webaim.org/standards/wcag/checklist)
 
+---
+
 ## 1. Principles
 
 The four WCAG principles — **Perceivable, Operable, Understandable, Robust** — define what accessible products do. Designers own perceivable and understandable: contrast, hierarchy, labels, states, and interaction patterns. Engineering owns robust and technical implementation.
@@ -2092,6 +2084,8 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 | **Operable** | Users must be able to interact with all UI elements (keyboard, gestures) |
 | **Understandable** | Content and interface must be predictable and readable |
 | **Robust** | Content must work across browsers, assistive technologies, and future devices |
+
+---
 
 ## 2. Color & Contrast
 
@@ -2104,6 +2098,8 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 
 - **Never use color alone to convey information** — always pair with an icon, label, or pattern (WCAG 1.4.1).
 
+---
+
 ## 3. Typography
 
 - Minimum size: **11px** — only for non-essential UI (tags, data viz). Default body is 14px, minimum body is 12px.
@@ -2115,6 +2111,8 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 - Line length maximums: 544px at 16px · 480px at 14px · 424px at 12px.
 - Default paragraph spacing: 8px.
 
+---
+
 ## 4. Motion
 
 - All motion respects `prefers-reduced-motion: reduce` — fade transitions disabled, elements toggle visibility instantly.
@@ -2122,6 +2120,8 @@ The four WCAG principles — **Perceivable, Operable, Understandable, Robust** �
 - State changes communicated by more than motion alone.
 - Decorative animations are pauseable.
 - `--zen-motion-delay-intent` (300ms) used on hover-triggered tooltips. Note: all motion tokens are 🟡 Proposed — document the intent; engineering implements when tokens ship.
+
+---
 
 ## 5. Focus & Keyboard
 
@@ -2155,6 +2155,8 @@ Focus is the only interactive state handled by a token. Hover, pressed, and disa
 | Menu | Enter/Space to open · Arrow to navigate · Escape to close |
 | Data table | Tab between interactive cells · Arrow for cell navigation |
 
+---
+
 ## 6. ARIA & Labels
 
 Designers annotate specs. Engineering implements.
@@ -2177,6 +2179,8 @@ Designers annotate specs. Engineering implements.
 - Grouped inputs (date range, phone + country) have a group label annotated separately.
 - First rule of ARIA: if a native HTML element exists (`<button>`, `<nav>`), use it instead of an ARIA role.
 
+---
+
 ## 7. Reading Order & Landmarks
 
 - Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order.
@@ -2184,11 +2188,15 @@ Designers annotate specs. Engineering implements.
 - Multiple navigation blocks on a page have unique labels (`aria-label="Main"` vs `aria-label="Breadcrumb"`).
 - Headings must follow a logical hierarchy (h1 → h2 → h3) — never skip levels for visual styling reasons.
 
+---
+
 ## 8. Touch & Pointer
 
 - Hover-only interactions don't work on touch devices — every hover action needs a touch equivalent.
 - Touch targets must have adequate spacing between them, not just adequate size — crowded targets cause mis-taps.
 - Pointer gestures (swipe, pinch) must have a single-pointer alternative (WCAG 2.5.1). A single-pointer alternative means the action can be done with simple clicks or taps — no holding, no dragging.
+
+---
 
 ## 9. Error Prevention
 
@@ -2196,11 +2204,15 @@ Designers annotate specs. Engineering implements.
 - Forms with significant data should support undo or review before final submission.
 - Auto-save states must be communicated visually and to screen readers.
 
+---
+
 ## 10. Session & Timeout Warnings
 
 - If a session can expire, users must be warned before it happens and given a way to extend or save their work (WCAG 2.2.1).
 - Timeout warnings must be announced via an ARIA live region — annotate for engineering.
 - Do not set session timeouts shorter than 20 hours unless required for security.
+
+---
 
 ## 11. Components
 
@@ -2380,6 +2392,8 @@ Designers annotate specs. Engineering implements.
 - Do not make AI suggestions mandatory — users must be able to bypass them to complete a task.
 
 **WCAG criteria:** 1.3.1, 1.4.1, 2.1.1, 2.2.2, 4.1.2, 4.1.3
+
+---
 
 ## 12. Designer Handoff Checklist
 

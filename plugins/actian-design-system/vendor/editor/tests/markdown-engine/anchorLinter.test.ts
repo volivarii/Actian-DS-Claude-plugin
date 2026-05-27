@@ -12,16 +12,29 @@ function primeIndex(slugs: Record<string, { defs: string[]; refs: string[] }>) {
 }
 
 test("computeRenameWarnings: no warning when slug matches the index", () => {
-  primeIndex({ "alpha": { defs: ["foundations/src/foundations.md"], refs: ["x.md"] } });
+  primeIndex({
+    alpha: { defs: ["foundations/src/02-color-primitives.md"], refs: ["x.md"] },
+  });
   const text = "## Title {#alpha}\n";
-  const warnings = computeRenameWarnings("foundations/src/foundations.md", text);
+  const warnings = computeRenameWarnings(
+    "foundations/src/02-color-primitives.md",
+    text,
+  );
   assert.deepEqual(warnings, []);
 });
 
 test("computeRenameWarnings: warns when an indexed slug disappeared", () => {
-  primeIndex({ "alpha": { defs: ["foundations/src/foundations.md"], refs: ["x.md", "y.md"] } });
+  primeIndex({
+    alpha: {
+      defs: ["foundations/src/02-color-primitives.md"],
+      refs: ["x.md", "y.md"],
+    },
+  });
   const text = "## Title {#renamed}\n"; // alpha was renamed → warning
-  const warnings = computeRenameWarnings("foundations/src/foundations.md", text);
+  const warnings = computeRenameWarnings(
+    "foundations/src/02-color-primitives.md",
+    text,
+  );
   assert.equal(warnings.length, 1);
   assert.equal(warnings[0]!.removedSlug, "alpha");
   assert.equal(warnings[0]!.refCount, 2);
@@ -30,6 +43,9 @@ test("computeRenameWarnings: warns when an indexed slug disappeared", () => {
 test("computeRenameWarnings: no warning for a brand-new slug in this draft", () => {
   primeIndex({});
   const text = "## Title {#brand-new}\n";
-  const warnings = computeRenameWarnings("foundations/src/foundations.md", text);
+  const warnings = computeRenameWarnings(
+    "foundations/src/02-color-primitives.md",
+    text,
+  );
   assert.deepEqual(warnings, []);
 });

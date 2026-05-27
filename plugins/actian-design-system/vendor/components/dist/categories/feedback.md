@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=../../../schemas/category-defaults.json
-_schema_version: 1
+_schema_version: 2
 slug: feedback
 label: Feedback
 authoring_status: engineer-seed
@@ -29,7 +29,7 @@ motion_refs:
   - { ref: skeleton-loading, note: loader-with-logo + loading-skeleton inherit the skeleton pulse cadence }
   - { ref: state-transitions, note: severity transitions (e.g. error → success) cross-fade rather than swap }
 
-accessibility:
+a11y_refs:
   - { ref: alerts-toasts-banners, note: error severity must be conveyed by text + icon, not color alone }
   - { ref: aria-labels, note: transient messages use role=status (polite) or role=alert (assertive) per severity }
   - { ref: color-contrast }

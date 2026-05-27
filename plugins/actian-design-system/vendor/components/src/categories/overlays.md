@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=../../../schemas/category-defaults.json
-_schema_version: 1
+_schema_version: 2
 slug: overlays
 label: Overlays
 authoring_status: engineer-seed
@@ -30,7 +30,7 @@ motion_refs:
   - { ref: drawer-open-close, note: drawer-side-panel slides on axis with easing per the drawer pattern }
   - { ref: anchor-motion, note: popover/tooltip anchor open at the trigger with origin transform }
 
-accessibility:
+a11y_refs:
   - { ref: focus-keyboard, note: focus moves into the overlay on open, trapped while modal-blocking, returns to trigger on close; Escape closes dismissible overlays, outside-click closes popovers but not modals }
   - { ref: aria-labels, note: dialogs use role=dialog + aria-modal=true + labelled by header; tooltips use role=tooltip + aria-describedby }
   - { ref: motion, note: respect prefers-reduced-motion — disable scale + slide, keep fade }

@@ -5,12 +5,18 @@ import { DraftStore, type Draft } from "../../src/drafts/DraftStore";
 function makeMemoryStorage(): Storage {
   const map = new Map<string, string>();
   return {
-    get length() { return map.size; },
+    get length() {
+      return map.size;
+    },
     clear: () => map.clear(),
     getItem: (k) => map.get(k) ?? null,
     key: (i) => Array.from(map.keys())[i] ?? null,
-    removeItem: (k) => { map.delete(k); },
-    setItem: (k, v) => { map.set(k, v); },
+    removeItem: (k) => {
+      map.delete(k);
+    },
+    setItem: (k, v) => {
+      map.set(k, v);
+    },
   };
 }
 
@@ -22,9 +28,13 @@ beforeEach(() => {
 });
 
 test("DraftStore.save + load roundtrip", () => {
-  const draft: Draft = { text: "## Hello\n", basedOnSha: "abc123", ts: 1700000000000 };
-  store.save("foundations/src/foundations.md", draft);
-  const got = store.load("foundations/src/foundations.md");
+  const draft: Draft = {
+    text: "## Hello\n",
+    basedOnSha: "abc123",
+    ts: 1700000000000,
+  };
+  store.save("foundations/src/02-color-primitives.md", draft);
+  const got = store.load("foundations/src/02-color-primitives.md");
   assert.deepEqual(got, draft);
 });
 
@@ -56,7 +66,9 @@ test("DraftStore.allPaths returns paths with drafts", () => {
 test("DraftStore.save quota-exceeded returns false (no throw)", () => {
   const quotaStorage: Storage = {
     ...storage,
-    setItem: () => { throw new DOMException("Quota exceeded", "QuotaExceededError"); },
+    setItem: () => {
+      throw new DOMException("Quota exceeded", "QuotaExceededError");
+    },
   };
   const quotaStore = new DraftStore(quotaStorage);
   const ok = quotaStore.save("foo.md", { text: "x", basedOnSha: "s", ts: 1 });

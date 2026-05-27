@@ -10,7 +10,7 @@ The Actian Design System knowledge layer: tokens, content guidelines, accessibil
 
 | Domain | Source (you edit here) | Generated (CI writes) |
 |---|---|---|
-| **Foundations** (color/type/spacing/motion/elevation/icons) | `foundations/src/foundations.md` | `foundations/dist/*.json` (8) |
+| **Foundations** (color/type/spacing/motion/elevation/icons) | `foundations/src/NN-<slug>.md` per-section files | `foundations/dist/*.json` (8 derived) + `foundations/dist/foundations.md` (verbatim concat) |
 | **Tokens** | `tokens/tokens.json` (frozen snapshot) | `tokens/tokens.css`, `tokens/token-reference.md` |
 | **Components** | `components/src/<slug>/{_meta.yml,content.md,usage.md,design.md,behavior.md,tokens.yml}` (per-component multi-domain authoring) + `components/src/categories/*.md` (6 category defaults) | `components/dist/guidelines/<slug>.json` (per-component merged docs, `domains.*` shape) + `components/dist/registries/*` (3, Figma sync) + `components/dist/categories/*.json` (6) + `components/dist/categories.json` |
 | **Content guidelines** | `content/src/{writing,patterns,product}/*.md` + root-level meta files (Phase 2c sub-buckets) | `content/dist/global.md` (component-scoped content lives per-component in `components/dist/guidelines/<slug>.json` `domains.content`) |
@@ -81,7 +81,7 @@ The slug system protects against name drift; canonical names live in their autho
 ## Adding new content
 
 - New component guideline: create `components/src/<slug>/_meta.yml` + the per-domain files you want to author (`content.md`, `usage.md`, `design.md`, `behavior.md`, `tokens.yml`). See `components/src/AUTHORING.md`.
-- New foundation token: edit `foundations/src/foundations.md`; CI regenerates the hierarchical `foundations/dist/` tree (Pattern H) on PR
+- New foundation token: edit the relevant file under `foundations/src/` (typically `03-tokens.md`); CI regenerates the hierarchical `foundations/dist/` tree (Pattern H) on PR
 - New category default content: edit `components/src/categories/<slug>.md`; CI regenerates dist
 - New domain (rare): consult the plugin lead; new directory + paths-manifest entry + CI workflow
 

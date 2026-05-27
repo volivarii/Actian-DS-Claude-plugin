@@ -4,7 +4,7 @@
     "source": "components/src/categories/action.md",
     "do_not_edit": "Edit the MD source; CI regenerates this file."
   },
-  "_schema_version": 1,
+  "_schema_version": 2,
   "slug": "action",
   "label": "Action",
   "authoring_status": "engineer-seed",
@@ -72,7 +72,7 @@
       }
     ]
   },
-  "motion": {
+  "motion_refs": {
     "patternRefs": [
       {
         "ref": "state-transitions",
@@ -80,7 +80,7 @@
       }
     ]
   },
-  "accessibility": {
+  "a11y_refs": {
     "requirementRefs": [
       {
         "ref": "focus-keyboard",

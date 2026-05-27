@@ -548,10 +548,10 @@ var CATEGORY_DEFAULTS_FIXTURE = {
   variants: {
     variantAxes: [{ axis: "State", values: ["default", "focus", "error"] }],
   },
-  motion: {
+  motion_refs: {
     patternRefs: [{ ref: "state-transitions", note: "focus feedback" }],
   },
-  accessibility: {
+  a11y_refs: {
     requirementRefs: [{ ref: "keyboard-focus" }, { ref: "color-contrast" }],
   },
 };

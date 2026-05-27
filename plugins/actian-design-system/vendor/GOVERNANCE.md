@@ -230,7 +230,7 @@ the very split P2 is meant to enable.
 
 What this implies in practice:
 
-- **The substrate is not the rendered website.** `foundations/src/foundations.md`
+- **The substrate is not the rendered website.** `foundations/src/`
   authors token shapes + design rules; the docs site (`actian-ds-docs`) is a
   hand-authored, opinionated view of those shapes. The two layers may diverge
   in section names, ordering, and structural granularity. That divergence is
