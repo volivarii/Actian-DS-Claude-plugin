@@ -192,11 +192,11 @@ test("resolveSection — generate recipe → returns Phase B marker, no transcri
   var recipe = {
     card: "anatomy",
     phase: "generate",
-    grounding: ["vendor/foundations/src/foundations.md"],
+    grounding: ["vendor/foundations/src/03-tokens.md"],
   };
   var result = sourcing.resolveSection("anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
-  assert.deepEqual(result.grounding, ["vendor/foundations/src/foundations.md"]);
+  assert.deepEqual(result.grounding, ["vendor/foundations/src/03-tokens.md"]);
 });
 
 test("resolveSection — content card with an approved content domain → figma result", function () {
@@ -293,11 +293,11 @@ test("resolveSection — stub guideline forces Phase B even on generate recipe (
   var recipe = {
     card: "anatomy",
     phase: "generate",
-    grounding: ["vendor/foundations/src/foundations.md"],
+    grounding: ["vendor/foundations/src/03-tokens.md"],
   };
   var result = sourcing.resolveSection("anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
-  assert.deepEqual(result.grounding, ["vendor/foundations/src/foundations.md"]);
+  assert.deepEqual(result.grounding, ["vendor/foundations/src/03-tokens.md"]);
   assert.equal(result.fallback, true);
 });
 
@@ -567,10 +567,7 @@ test("resolveSection — Phase B card with ctx.categoryDefaults attaches it to r
   assert.equal(result.phase, "B");
   assert.ok(result.categoryDefaults, "categoryDefaults must be attached");
   assert.equal(result.categoryDefaults.slug, "form-input-selection");
-  assert.ok(
-    result.categoryDefaults.anatomy,
-    "anatomy section must be present",
-  );
+  assert.ok(result.categoryDefaults.anatomy, "anatomy section must be present");
 });
 
 test("resolveSection — tokens Phase B does NOT receive categoryDefaults (no mapping in defaults file)", function () {
