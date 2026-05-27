@@ -14,14 +14,12 @@
     "h4": "types-of-states"
   },
   "source": {
-    "file": "foundations/src/foundations.md",
-    "startLine": 1079,
-    "endLine": 1109
+    "file": "foundations/src/"
   },
   "_meta": {
     "auto_generated": true,
-    "source": "foundations/src/foundations.md",
-    "do_not_edit": "Edit the source MD; CI regenerates this file."
+    "source": "foundations/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
   },
   "body": "Interaction States\n\n*Hover states should be suppressed on touch devices to avoid &quot;sticky&quot; visual effects. Conversely, Focus and Pressed states must be supported across all input types to ensure accessibility and tactile feedback.\n\nFeedback &amp; System States",
   "blocks": [

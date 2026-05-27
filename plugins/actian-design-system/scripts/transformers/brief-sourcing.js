@@ -99,8 +99,8 @@ function transcribeMotionPattern(guidelinesJson, motionPatterns) {
 // Takes a resolver function so the dispatcher can supply either the
 // category-defaults-loader or a test stub.
 function transcribeCategoryMotionFallback(categoryDefaults, motionRefResolver) {
-  if (!categoryDefaults || !categoryDefaults.motion) return null;
-  var refs = categoryDefaults.motion.patternRefs;
+  if (!categoryDefaults || !categoryDefaults.motion_refs) return null;
+  var refs = categoryDefaults.motion_refs.patternRefs;
   if (!Array.isArray(refs) || refs.length === 0) return null;
   if (typeof motionRefResolver !== "function") return null;
   // Use the first ref as the canonical fallback. Additional refs in the

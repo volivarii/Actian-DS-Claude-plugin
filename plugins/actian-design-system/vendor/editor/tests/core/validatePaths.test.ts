@@ -40,8 +40,8 @@ test("validatePaths — allows app-context, fm-to-ds-map, icon-groups (Class C)"
   assert.equal(isReadOnlyPath("components/src/icon-groups.json"), false);
 });
 
-test("validatePaths — allows foundations/src/foundations.md (authored)", () => {
-  assert.equal(isReadOnlyPath("foundations/src/foundations.md"), false);
+test("validatePaths — allows foundations/src/*.md (authored)", () => {
+  assert.equal(isReadOnlyPath("foundations/src/02-color-primitives.md"), false);
 });
 
 test("validatePaths — allows content/src/global.md (authored prose)", () => {

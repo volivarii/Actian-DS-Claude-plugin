@@ -51,11 +51,11 @@ test("loadDefaultsForCategory — known category returns parsed dist JSON", func
   var defaults = loader.loadDefaultsForCategory("form-input-selection");
   assert.ok(defaults, "must return a defaults object");
   assert.equal(defaults.slug, "form-input-selection");
-  assert.equal(defaults._schema_version, 1);
+  assert.equal(defaults._schema_version, 2);
   assert.ok(defaults.anatomy);
   assert.ok(defaults.variants);
-  assert.ok(defaults.motion);
-  assert.ok(defaults.accessibility);
+  assert.ok(defaults.motion_refs);
+  assert.ok(defaults.a11y_refs);
 });
 
 test("loadDefaultsForCategory — accepts label, normalizes to slug", function () {
@@ -159,7 +159,7 @@ test("category defaults — every motion_refs.ref resolves against motion.json",
   var unresolved = [];
   slugs.forEach(function (catSlug) {
     var d = loader.loadDefaultsForCategory(catSlug);
-    var refs = (d && d.motion && d.motion.patternRefs) || [];
+    var refs = (d && d.motion_refs && d.motion_refs.patternRefs) || [];
     refs.forEach(function (r) {
       if (!loader.resolveMotionRef(r.ref)) {
         unresolved.push(catSlug + " → " + r.ref);
@@ -185,8 +185,7 @@ test("category defaults — every accessibility.ref resolves against a11y-index"
   var unresolved = [];
   slugs.forEach(function (catSlug) {
     var d = loader.loadDefaultsForCategory(catSlug);
-    var refs =
-      (d && d.accessibility && d.accessibility.requirementRefs) || [];
+    var refs = (d && d.a11y_refs && d.a11y_refs.requirementRefs) || [];
     refs.forEach(function (r) {
       if (!loader.resolveAccessibilityRef(r.ref)) {
         unresolved.push(catSlug + " → " + r.ref);

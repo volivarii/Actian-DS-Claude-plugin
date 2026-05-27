@@ -1,12 +1,7 @@
 import { test, afterEach, beforeEach } from "node:test";
 import assert from "node:assert/strict";
 import "../setup-dom";
-import {
-  render,
-  screen,
-  fireEvent,
-  cleanup,
-} from "@testing-library/react";
+import { render, screen, fireEvent, cleanup } from "@testing-library/react";
 import { Theme } from "@radix-ui/themes";
 import React from "react";
 import { DraftInbox } from "../../src/app/DraftInbox";
@@ -55,7 +50,7 @@ test("DraftInbox: groups entries by component slug", () => {
 
 test("DraftInbox: groups foundations + accessibility separately", () => {
   submissionCartSingleton.add({
-    path: "foundations/src/foundations.md",
+    path: "foundations/src/02-color-primitives.md",
     content: "x",
     basedOnSha: "abc",
     addedAt: Date.now(),
@@ -73,17 +68,19 @@ test("DraftInbox: groups foundations + accessibility separately", () => {
 
 test("DraftInbox: Open → calls onOpenFile with the file path", () => {
   submissionCartSingleton.add({
-    path: "foundations/src/foundations.md",
+    path: "foundations/src/02-color-primitives.md",
     content: "x",
     basedOnSha: "abc",
     addedAt: Date.now(),
   });
   const calls: string[] = [];
   render(
-    wrap(<DraftInbox onOpenFile={(p) => calls.push(p)} onOpenStaging={() => {}} />),
+    wrap(
+      <DraftInbox onOpenFile={(p) => calls.push(p)} onOpenStaging={() => {}} />,
+    ),
   );
   fireEvent.click(screen.getByText("Open →"));
-  assert.deepEqual(calls, ["foundations/src/foundations.md"]);
+  assert.deepEqual(calls, ["foundations/src/02-color-primitives.md"]);
 });
 
 test("DraftInbox: workspace group → 'Open workspace →' navigates to workspace/<slug>", () => {
@@ -95,7 +92,9 @@ test("DraftInbox: workspace group → 'Open workspace →' navigates to workspac
   });
   const calls: string[] = [];
   render(
-    wrap(<DraftInbox onOpenFile={(p) => calls.push(p)} onOpenStaging={() => {}} />),
+    wrap(
+      <DraftInbox onOpenFile={(p) => calls.push(p)} onOpenStaging={() => {}} />,
+    ),
   );
   fireEvent.click(screen.getByText("Open workspace →"));
   assert.deepEqual(calls, ["workspace/button"]);
@@ -149,7 +148,10 @@ test("DraftInbox: 'Open submission batch' calls onOpenStaging", () => {
   let opened = false;
   render(
     wrap(
-      <DraftInbox onOpenFile={() => {}} onOpenStaging={() => (opened = true)} />,
+      <DraftInbox
+        onOpenFile={() => {}}
+        onOpenStaging={() => (opened = true)}
+      />,
     ),
   );
   fireEvent.click(screen.getByText(/Open submission batch/));

@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://actian-ds.example.com/schemas/foundations-section.json",
   "title": "Foundations section (Pattern H hierarchical derive)",
-  "description": "Per-leaf or per-branch JSON emitted by scripts/foundations/derive-foundations.js. The Pattern H tree mirrors heading paths from foundations/src/foundations.md. Leaves carry blocks[]; branches (_index.json) carry children[]. Schema is permissive (additionalProperties:true) because the derive script may add new metadata fields without breaking the contract.",
+  "description": "Per-leaf or per-branch JSON emitted by scripts/foundations/derive-foundations.js. The Pattern H tree mirrors heading paths from the per-section files under foundations/src/ (concatenated at derive time). Leaves carry blocks[]; branches (_index.json) carry children[]. Schema is permissive (additionalProperties:true) because the derive script may add new metadata fields without breaking the contract.",
   "type": "object",
   "required": ["_schema_version", "id", "title", "path", "anchors", "source"],
   "additionalProperties": true,
@@ -60,26 +60,14 @@
       "description": "Provenance — points back to the authored source MD + (for leaves) the line range.",
       "examples": [
         {
-          "file": "foundations/src/foundations.md",
-          "startLine": 731,
-          "endLine": 744
+          "file": "foundations/src/"
         }
       ],
       "properties": {
         "file": {
           "type": "string",
-          "description": "Path to the source MD file (repo-relative).",
-          "examples": ["foundations/src/foundations.md"]
-        },
-        "startLine": {
-          "type": "number",
-          "description": "Line number where this section's heading appears in the source MD. Omitted on the root _index.",
-          "examples": [731]
-        },
-        "endLine": {
-          "type": "number",
-          "description": "Line number where this section ends (before the next sibling/parent heading). Omitted on the root _index.",
-          "examples": [744]
+          "description": "Path to the source MD (repo-relative). Per-section split: this is the src/ directory; authoring lives in the per-section files inside.",
+          "examples": ["foundations/src/"]
         }
       },
       "additionalProperties": true
@@ -143,11 +131,67 @@
       "examples": [
         {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         }
       ],
       "additionalProperties": true
+    },
+    "a11y_refs": {
+      "type": "array",
+      "minItems": 1,
+      "description": "P8 transversal reference taxonomy: WCAG criterion slugs from accessibility/dist/a11y-index.json that this foundations section reinforces or is governed by. Authored as optional YAML frontmatter on the per-section src file; the derive attaches refs to the file's top-level H2 node (file-scoped, Option A — sub-section precision is deferred). Reuses the components/categories ref shape so AI/plugin consumers can resolve uniformly across substrate domains. Symmetric with `motion_refs`.",
+      "examples": [
+        [
+          { "ref": "color-contrast" },
+          {
+            "ref": "focus-keyboard",
+            "note": "applies to all interactive surfaces"
+          }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "required": ["ref"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "description": "Accessibility requirement slug. Must exist in accessibility/dist/a11y-index.json.",
+            "examples": ["color-contrast", "focus-keyboard", "touch-pointer"]
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional foundations-specific note layered on top of the generic a11y guidance.",
+            "examples": ["applies to all hit targets in this section"]
+          }
+        }
+      }
+    },
+    "motion_refs": {
+      "type": "array",
+      "minItems": 1,
+      "description": "P8 transversal reference taxonomy: motion pattern slugs from foundations/dist/tokens/motion.json#patterns that this foundations section reinforces or is governed by. Same authoring + attachment model as `a11y_refs` above. Reuses the components/categories ref shape.",
+      "examples": [[{ "ref": "state-transitions" }]],
+      "items": {
+        "type": "object",
+        "required": ["ref"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "description": "Motion pattern slug. Must exist in foundations/dist/tokens/motion.json#patterns[*].slug.",
+            "examples": ["state-transitions", "drawer-open-close"]
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional foundations-specific note layered on top of the generic motion guidance.",
+            "examples": ["section uses only the linear easing band"]
+          }
+        }
+      }
     }
   }
 }

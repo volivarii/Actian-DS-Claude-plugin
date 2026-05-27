@@ -9,7 +9,7 @@
  *
  * The category-defaults artifacts (one JSON per category at
  * vendor/components/dist/categories/<slug>-defaults.json) carry coarse
- * anatomy + variants + motion_refs + accessibility refs that apply to
+ * anatomy + variants + motion_refs + a11y_refs refs that apply to
  * every component in the category. Stub components with no curated
  * guidelines lift these into the brief grounding payload via
  * brief-sourcing.js, giving Phase B card-generators a baseline to adapt

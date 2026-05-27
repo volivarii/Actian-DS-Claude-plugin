@@ -46,7 +46,7 @@ test("getPathTier: components/src/categories/<x>.md → high-impact-category", (
 
 test("getPathTier: foundations/src/<x>.md → high-impact-foundations", () => {
   assert.equal(
-    getPathTier("foundations/src/foundations.md").tier,
+    getPathTier("foundations/src/02-color-primitives.md").tier,
     "high-impact-foundations",
   );
 });
@@ -69,7 +69,10 @@ test("getPathTier: per-component files → writable", () => {
 test("getPathTier: severity is 'red' for read-only tiers, 'amber' for high-impact", () => {
   assert.equal(getPathTier("tokens/tokens.json").severity, "red");
   assert.equal(getPathTier("paths-manifest.json").severity, "red");
-  assert.equal(getPathTier("foundations/src/foundations.md").severity, "amber");
+  assert.equal(
+    getPathTier("foundations/src/02-color-primitives.md").severity,
+    "amber",
+  );
   assert.equal(
     getPathTier("components/src/categories/action.md").severity,
     "amber",

@@ -14,41 +14,61 @@ afterEach(() => {
 
 function primeIndex(slug: string, refs: string[]) {
   setCachedIndexForTesting({
-    entries: new Map([[slug, { slug, definedIn: ["a.md"], referencedBy: refs }]]),
+    entries: new Map([
+      [slug, { slug, definedIn: ["a.md"], referencedBy: refs }],
+    ]),
     scannedAt: 0,
     scannedPaths: [],
   });
 }
 
 test("AnchorReferencesPopover: shows referencing files", () => {
-  primeIndex("alpha", ["foundations/src/foundations.md", "accessibility/accessibility.md"]);
+  primeIndex("alpha", [
+    "foundations/src/02-color-primitives.md",
+    "accessibility/src/01-principles.md",
+  ]);
   render(
     <Theme>
-      <AnchorReferencesPopover slug="alpha" open onNavigate={() => {}} onOpenChange={() => {}} />
+      <AnchorReferencesPopover
+        slug="alpha"
+        open
+        onNavigate={() => {}}
+        onOpenChange={() => {}}
+      />
     </Theme>,
   );
-  assert.ok(screen.getByText("foundations/src/foundations.md"));
-  assert.ok(screen.getByText("accessibility/accessibility.md"));
+  assert.ok(screen.getByText("foundations/src/02-color-primitives.md"));
+  assert.ok(screen.getByText("accessibility/src/01-principles.md"));
 });
 
 test("AnchorReferencesPopover: shows '0 refs' when unused", () => {
   primeIndex("alpha", []);
   render(
     <Theme>
-      <AnchorReferencesPopover slug="alpha" open onNavigate={() => {}} onOpenChange={() => {}} />
+      <AnchorReferencesPopover
+        slug="alpha"
+        open
+        onNavigate={() => {}}
+        onOpenChange={() => {}}
+      />
     </Theme>,
   );
   assert.ok(screen.getByText(/no references/i));
 });
 
 test("AnchorReferencesPopover: clicking a file dispatches onNavigate", () => {
-  primeIndex("alpha", ["accessibility/accessibility.md"]);
+  primeIndex("alpha", ["accessibility/src/01-principles.md"]);
   const calls: string[] = [];
   render(
     <Theme>
-      <AnchorReferencesPopover slug="alpha" open onNavigate={(p) => calls.push(p)} onOpenChange={() => {}} />
+      <AnchorReferencesPopover
+        slug="alpha"
+        open
+        onNavigate={(p) => calls.push(p)}
+        onOpenChange={() => {}}
+      />
     </Theme>,
   );
-  fireEvent.click(screen.getByText("accessibility/accessibility.md"));
-  assert.deepEqual(calls, ["accessibility/accessibility.md"]);
+  fireEvent.click(screen.getByText("accessibility/src/01-principles.md"));
+  assert.deepEqual(calls, ["accessibility/src/01-principles.md"]);
 });

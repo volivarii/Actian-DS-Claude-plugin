@@ -12,14 +12,12 @@
     "h3": "focus-ring-rules"
   },
   "source": {
-    "file": "foundations/src/foundations.md",
-    "startLine": 1157,
-    "endLine": 1179
+    "file": "foundations/src/"
   },
   "_meta": {
     "auto_generated": true,
-    "source": "foundations/src/foundations.md",
-    "do_not_edit": "Edit the source MD; CI regenerates this file."
+    "source": "foundations/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
   },
   "body": "Applies to: Buttons, links, checkboxes, radios, avatars, breadcrumbs, tags, toggles, tabs\n\nUse --zen-focus-ring-primary with --zen-focus-ring-offset (2px) as an outline-offset.\n\nApplies to: Inputs, textareas\n\nUse --zen-focus-ring-primary as outline with no offset. The border of the input itself acts as the boundary.\n\nApplies to: Destructive actions and error-state interactive elements\n\nUse --zen-focus-ring-error instead of primary.\n\nDo not use box-shadow to simulate focus rings — it won&#39;t work correctly in high-contrast mode."
 }

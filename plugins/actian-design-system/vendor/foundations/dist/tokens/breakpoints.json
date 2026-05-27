@@ -12,14 +12,12 @@
     "h3": "breakpoints"
   },
   "source": {
-    "file": "foundations/src/foundations.md",
-    "startLine": 722,
-    "endLine": 730
+    "file": "foundations/src/"
   },
   "_meta": {
     "auto_generated": true,
-    "source": "foundations/src/foundations.md",
-    "do_not_edit": "Edit the source MD; CI regenerates this file."
+    "source": "foundations/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
   },
   "blocks": [
     {

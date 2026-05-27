@@ -51,11 +51,14 @@ test("MarkdownEditScreen: loads remote and shows file path heading", async () =>
   const { gh } = makeFakeOctokit("## Hello {#hello}\n");
   render(
     wrap(
-      <MarkdownEditScreen path="foundations/src/foundations.md" octokit={gh} />,
+      <MarkdownEditScreen
+        path="foundations/src/02-color-primitives.md"
+        octokit={gh}
+      />,
     ),
   );
   await waitFor(() =>
-    assert.ok(screen.getByText("foundations/src/foundations.md")),
+    assert.ok(screen.getByText("foundations/src/02-color-primitives.md")),
   );
   cleanup();
 });
@@ -65,7 +68,10 @@ test("MarkdownEditScreen: submit opens a PR (happy path)", async () => {
   const { gh, calls } = makeFakeOctokit("## Hello {#hello}\n");
   render(
     wrap(
-      <MarkdownEditScreen path="foundations/src/foundations.md" octokit={gh} />,
+      <MarkdownEditScreen
+        path="foundations/src/02-color-primitives.md"
+        octokit={gh}
+      />,
     ),
   );
   await waitFor(() => screen.getByRole("button", { name: /submit/i }));

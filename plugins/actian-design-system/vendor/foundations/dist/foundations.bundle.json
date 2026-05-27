@@ -2,8 +2,8 @@
   "_schema_version": 1,
   "_meta": {
     "auto_generated": true,
-    "source": "foundations/src/foundations.md",
-    "do_not_edit": "Edit the source MD; CI regenerates this file."
+    "source": "foundations/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
   },
   "_index": {
     "_schema_version": 1,
@@ -32,12 +32,12 @@
       "h1": "foundations"
     },
     "source": {
-      "file": "foundations/src/foundations.md"
+      "file": "foundations/src/"
     },
     "_meta": {
       "auto_generated": true,
-      "source": "foundations/src/foundations.md",
-      "do_not_edit": "Edit the source MD; CI regenerates this file."
+      "source": "foundations/src/",
+      "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
     }
   },
   "color-primitives": {
@@ -53,9 +53,7 @@
         "h2": "color-primitives"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 89,
-        "endLine": 566
+        "file": "foundations/src/"
       },
       "children": [
         {
@@ -71,8 +69,8 @@
       ],
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "All color palettes follow a shared OKLCH shade formula. Each palette has a named base (500), and all other shades are derived from it. Figma stores these as hex; engineering implements them as OKLCH with relative color syntax."
     },
@@ -90,14 +88,12 @@
         "h3": "oklch-shade-formula"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 94,
-        "endLine": 118
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "Engineering derives all shades from the 500 base using the following formula:\n\n> Note on Figma vs Eng: Figma stores colors as hex values. Engineering uses OKLCH with the formula above. There can be minor visual differences between platforms — always defer to the Figma file for design decisions and engineering code for production output.",
       "blocks": [
@@ -183,9 +179,7 @@
           "h3": "primitives"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 119,
-          "endLine": 566
+          "file": "foundations/src/"
         },
         "children": [
           {
@@ -316,8 +310,8 @@
         ],
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "All color primitives across the system. Every palette follows the same OKLCH shade formula (25–900). Semantic roles are defined in the Semantic Tokens section below."
       },
@@ -337,14 +331,12 @@
           "h4": "white-black"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 124,
-          "endLine": 130
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -387,14 +379,12 @@
           "h4": "green"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 131,
-          "endLine": 148
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5812 0.1816 141.19) — Success semantic role",
         "blocks": [
@@ -493,14 +483,12 @@
           "h4": "orange"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 149,
-          "endLine": 166
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.7775 0.166 66.57) — Warning semantic role",
         "blocks": [
@@ -599,14 +587,12 @@
           "h4": "red"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 167,
-          "endLine": 184
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.6243 0.1982 32.45) — Error semantic role",
         "blocks": [
@@ -705,14 +691,12 @@
           "h4": "grey"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 185,
-          "endLine": 202
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.683 0 0) — Neutral semantic role",
         "blocks": [
@@ -811,14 +795,12 @@
           "h4": "royal-blue"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 203,
-          "endLine": 220
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5216 0.2044 260.3) — Actian theme primary",
         "blocks": [
@@ -917,14 +899,12 @@
           "h4": "blue"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 221,
-          "endLine": 238
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.58 0.130062 238.7173) — Studio &amp; Admin theme primary",
         "blocks": [
@@ -1023,14 +1003,12 @@
           "h4": "turquoise"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 239,
-          "endLine": 256
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.6233 0.1066 192.34) — Explorer theme primary",
         "blocks": [
@@ -1129,14 +1107,12 @@
           "h4": "purple"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 257,
-          "endLine": 274
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.6798 0.0933 313.67) — Former primary; available for data viz, tags",
         "blocks": [
@@ -1235,14 +1211,12 @@
           "h4": "blue-grey"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 275,
-          "endLine": 292
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5724 0.0397 229.02)",
         "blocks": [
@@ -1341,14 +1315,12 @@
           "h4": "yellow"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 293,
-          "endLine": 310
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.8699 0.1453 89.43)",
         "blocks": [
@@ -1447,14 +1419,12 @@
           "h4": "olive-green"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 311,
-          "endLine": 328
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.58 0.137262 119.6914)",
         "blocks": [
@@ -1553,14 +1523,12 @@
           "h4": "pacific-blue"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 329,
-          "endLine": 346
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.3803 0.1386 258.03)",
         "blocks": [
@@ -1659,14 +1627,12 @@
           "h4": "pomegranate-red"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 347,
-          "endLine": 364
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5253 0.155 17.61)",
         "blocks": [
@@ -1765,14 +1731,12 @@
           "h4": "kickstart-purple"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 365,
-          "endLine": 382
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.6113 0.1162 278.98)",
         "blocks": [
@@ -1871,14 +1835,12 @@
           "h4": "glint-green"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 383,
-          "endLine": 400
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.9292 0.0635 130.94)",
         "blocks": [
@@ -1977,14 +1939,12 @@
           "h4": "clematis-purple"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 401,
-          "endLine": 418
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5474 0.0688 308.11)",
         "blocks": [
@@ -2083,14 +2043,12 @@
           "h4": "mellow-melon-pink"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 419,
-          "endLine": 436
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.6062 0.2298 9.63)",
         "blocks": [
@@ -2189,14 +2147,12 @@
           "h4": "zima-blue"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 437,
-          "endLine": 454
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.7602 0.1358 220.59)",
         "blocks": [
@@ -2295,14 +2251,12 @@
           "h4": "singapore-orchid-purple"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 455,
-          "endLine": 472
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5473 0.2685 302.74)",
         "blocks": [
@@ -2401,14 +2355,12 @@
           "h4": "dropped-brick-red"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 473,
-          "endLine": 490
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5292 0.1745 37.67)",
         "blocks": [
@@ -2507,14 +2459,12 @@
           "h4": "viva-gold-orange"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 491,
-          "endLine": 508
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.7828 0.0942 70.44)",
         "blocks": [
@@ -2613,14 +2563,12 @@
           "h4": "shutters-green"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 509,
-          "endLine": 526
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5349 0.0308 118.85)",
         "blocks": [
@@ -2719,14 +2667,12 @@
           "h4": "frosted-glass-green"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 527,
-          "endLine": 544
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5035 0.0743 171.63)",
         "blocks": [
@@ -2825,14 +2771,12 @@
           "h4": "cool-grey"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 545,
-          "endLine": 566
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "OKLCH 500 base: oklch(0.5121 0.0235 285.54) — 🟢 Shipped",
         "blocks": [
@@ -2930,9 +2874,7 @@
         "h2": "tokens"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 567,
-        "endLine": 990
+        "file": "foundations/src/"
       },
       "children": [
         {
@@ -2993,8 +2935,8 @@
       ],
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "All tokens are implemented as CSS custom properties under the --zen- namespace and as Figma variables in the Zen Colors library.\n\nToken status key",
       "blocks": [
@@ -3022,6 +2964,55 @@
             }
           ]
         }
+      ],
+      "a11y_refs": [
+        {
+          "ref": "typography",
+          "note": "covers text token rules (§2.2 Typography)"
+        },
+        {
+          "ref": "focus-keyboard",
+          "note": "focus-ring tokens (§2.5) + min-height/trigger-area tokens (§2.9)"
+        },
+        {
+          "ref": "touch-pointer",
+          "note": "min-height + trigger-area tokens (§2.9)"
+        },
+        {
+          "ref": "icons",
+          "note": "icon-size tokens (§2.10)"
+        },
+        {
+          "ref": "motion",
+          "note": "motion tokens (§2.11) honor prefers-reduced-motion"
+        }
+      ],
+      "motion_refs": [
+        {
+          "ref": "drawer-open-close"
+        },
+        {
+          "ref": "accordion-expand-collapse"
+        },
+        {
+          "ref": "success-toast"
+        },
+        {
+          "ref": "anchor-motion"
+        },
+        {
+          "ref": "layered-overlays-modals"
+        },
+        {
+          "ref": "skeleton-loading"
+        },
+        {
+          "ref": "staggered-entrance"
+        },
+        {
+          "ref": "state-transitions",
+          "note": "§2.11 token bands govern all 8 component motion patterns"
+        }
       ]
     },
     "global-color": {
@@ -3038,14 +3029,12 @@
         "h3": "global-color"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 584,
-        "endLine": 593
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "blocks": [
         {
@@ -3105,9 +3094,7 @@
           "h3": "typography"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 594,
-          "endLine": 684
+          "file": "foundations/src/"
         },
         "children": [
           {
@@ -3148,8 +3135,8 @@
         ],
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         }
       },
       "text-color-tokens": {
@@ -3168,14 +3155,12 @@
           "h4": "text-color-tokens"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 596,
-          "endLine": 611
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -3284,14 +3269,12 @@
           "h4": "font-family"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 612,
-          "endLine": 618
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -3337,14 +3320,12 @@
           "h4": "font-weight"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 619,
-          "endLine": 627
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -3399,14 +3380,12 @@
           "h4": "font-size"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 628,
-          "endLine": 640
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -3494,14 +3473,12 @@
           "h4": "letter-spacing"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 641,
-          "endLine": 653
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "> ⚠️ Token name correction: Previously named --zen-font-lettingspacing-* (typo). Correct name is --zen-font-letterspacing-*. Engineering must update in codebase.",
         "blocks": [
@@ -3569,14 +3546,12 @@
           "h4": "line-height"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 654,
-          "endLine": 664
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -3650,14 +3625,12 @@
           "h4": "text-style-tokens-composite"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 665,
-          "endLine": 684
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "These are semantic aliases that combine weight + size + letter spacing + line height into a single named style.",
         "blocks": [
@@ -3813,9 +3786,7 @@
           "h3": "borders"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 685,
-          "endLine": 721
+          "file": "foundations/src/"
         },
         "children": [
           {
@@ -3836,8 +3807,8 @@
         ],
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         }
       },
       "radius": {
@@ -3856,14 +3827,12 @@
           "h4": "radius"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 687,
-          "endLine": 698
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -3944,14 +3913,12 @@
           "h4": "width"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 699,
-          "endLine": 705
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -3997,14 +3964,12 @@
           "h4": "style-composite"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 706,
-          "endLine": 721
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -4112,14 +4077,12 @@
         "h3": "breakpoints"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 722,
-        "endLine": 730
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "blocks": [
         {
@@ -4177,14 +4140,12 @@
         "h3": "focus-rings"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 731,
-        "endLine": 741
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "Outlined focus rings must be applied with an offset on interactive elements. For inputs and textareas, use outline without offset.",
       "blocks": [
@@ -4236,14 +4197,12 @@
         "h3": "elevation"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 742,
-        "endLine": 754
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "> Elevation must only be used to define layering between elements when required. Use drop shadows only — do not use bevels, borders, or opacity to depict layering.",
       "blocks": [
@@ -4309,14 +4268,12 @@
         "h3": "spacing"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 755,
-        "endLine": 768
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "blocks": [
         {
@@ -4409,14 +4366,12 @@
         "h3": "backgrounds"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 769,
-        "endLine": 785
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "blocks": [
         {
@@ -4531,9 +4486,7 @@
           "h3": "heights-and-trigger-areas"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 786,
-          "endLine": 805
+          "file": "foundations/src/"
         },
         "children": [
           {
@@ -4549,8 +4502,8 @@
         ],
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         }
       },
       "component-heights": {
@@ -4569,14 +4522,12 @@
           "h4": "component-heights"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 788,
-          "endLine": 798
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -4650,14 +4601,12 @@
           "h4": "trigger-area"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 799,
-          "endLine": 805
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -4703,9 +4652,7 @@
           "h3": "icons"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 806,
-          "endLine": 829
+          "file": "foundations/src/"
         },
         "children": [
           {
@@ -4721,8 +4668,8 @@
         ],
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         }
       },
       "icon-sizes": {
@@ -4741,14 +4688,12 @@
           "h4": "icon-sizes"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 808,
-          "endLine": 816
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -4808,14 +4753,12 @@
           "h4": "icon-colors"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 817,
-          "endLine": 829
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -4903,14 +4846,12 @@
         "h3": "motion"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 830,
-        "endLine": 990
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "description": "Motion tokens cover three dimensions: duration (how long), easing (how it accelerates), and delay (when it starts). All three must be specified together for any animated component.",
       "tokens": {
@@ -5179,9 +5120,7 @@
         "h2": "design-guidelines"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 991,
-        "endLine": 1193
+        "file": "foundations/src/"
       },
       "children": [
         {
@@ -5232,9 +5171,33 @@
       ],
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
-      }
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+      },
+      "a11y_refs": [
+        {
+          "ref": "color-contrast",
+          "note": "§3.1 semantic-over-primitive rule preserves contrast under theming"
+        },
+        {
+          "ref": "typography",
+          "note": "§3.2 typography rules"
+        },
+        {
+          "ref": "touch-pointer",
+          "note": "§3.3 spacing scale underpins hit-target sizing"
+        },
+        {
+          "ref": "focus-keyboard",
+          "note": "§3.5 brightness filter is the only token-bound interactive state"
+        }
+      ],
+      "motion_refs": [
+        {
+          "ref": "state-transitions",
+          "note": "§3.5 hover/focus/active brightness transitions stay within the 100-200ms band"
+        }
+      ]
     },
     "color-usage-rules": {
       "_schema_version": 1,
@@ -5250,14 +5213,12 @@
         "h3": "color-usage-rules"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 993,
-        "endLine": 1008
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "Semantic over primitive. Always use a semantic token (e.g. --zen-color-text-default) rather than a raw palette token (e.g. --zen-color-grey-900) unless you&#39;re building a new token. This ensures theming works correctly.\n\nContrast. Text on backgrounds must meet WCAG AA minimum (4.5:1 for body text, 3:1 for large text). Use the following pairings as reference:\n\nSemantic color intent. Color conveys meaning — don&#39;t use success-* colors for non-success contexts, even if the green looks right.",
       "blocks": [
@@ -5287,9 +5248,7 @@
           "h3": "typography-rules"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1009,
-          "endLine": 1054
+          "file": "foundations/src/"
         },
         "children": [
           {
@@ -5325,8 +5284,8 @@
         ],
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         }
       },
       "typeface": {
@@ -5345,14 +5304,12 @@
           "h4": "typeface"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1011,
-          "endLine": 1015
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "Use --zen-font-family-text (Roboto) as the default for all UI text. Use --zen-font-family-mono (Roboto Mono) for code snippets, data tables with identifiers, and technical strings. Roobert is the brand typeface only for marketing and communication materials like website, PPTs, and flyers."
       },
@@ -5372,14 +5329,12 @@
           "h4": "language-support"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1016,
-          "endLine": 1020
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "Provide Noto as a font when your product is being consumed by users who read languages with tall or dense scripts."
       },
@@ -5399,14 +5354,12 @@
           "h4": "minimum-size"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1021,
-          "endLine": 1025
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "Must not use type sizes smaller than 11px. You may use 11px text in labels, tags, data visualizations, and supporting text with icon."
       },
@@ -5426,14 +5379,12 @@
           "h4": "line-length"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1026,
-          "endLine": 1032
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "blocks": [
           {
@@ -5463,14 +5414,12 @@
           "h4": "paragraph-spacing"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1033,
-          "endLine": 1037
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "At default, the paragraph spacing is 8px."
       },
@@ -5490,14 +5439,12 @@
           "h4": "accessibility"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1038,
-          "endLine": 1054
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "Don&#39;t create one-off font sizes. If your design needs a size between tokens, first check whether a token can be used, then raise it as a proposed token addition.",
         "blocks": [
@@ -5534,14 +5481,12 @@
         "h3": "spacing-rules"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 1055,
-        "endLine": 1068
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "Use spacing tokens for all margin, padding, and gap values. The scale is:\n\nNever use arbitrary pixel values for spacing. If a layout needs something outside the scale, it&#39;s a signal to propose a new token.",
       "blocks": [
@@ -5571,14 +5516,12 @@
         "h3": "elevation-rules"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 1069,
-        "endLine": 1076
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "Elevation communicates depth and layer hierarchy — not decoration. Only use drop shadows to convey that an element is above another. Never stack multiple shadows, and don&#39;t apply elevation to elements sitting on the same visual plane.\n\nCommon layer levels: xs → sm → md → lg → xl (each level suggests greater visual separation from the base surface)."
     },
@@ -5597,9 +5540,7 @@
           "h3": "brightness-filter-convention-interactive-states"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1077,
-          "endLine": 1123
+          "file": "foundations/src/"
         },
         "children": [
           {
@@ -5615,8 +5556,8 @@
         ],
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         }
       },
       "types-of-states": {
@@ -5635,14 +5576,12 @@
           "h4": "types-of-states"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1079,
-          "endLine": 1109
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "Interaction States\n\n*Hover states should be suppressed on touch devices to avoid &quot;sticky&quot; visual effects. Conversely, Focus and Pressed states must be supported across all input types to ensure accessibility and tactile feedback.\n\nFeedback &amp; System States",
         "blocks": [
@@ -5689,14 +5628,12 @@
           "h4": "implementation"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1110,
-          "endLine": 1123
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "Interactive color states (hover, pressed/active, disabled) are not handled with tokens. Engineering implements these using CSS brightness filters at the component level.\n\nThe only tokenized interactive state is focus — see --zen-focus-ring-primary and --zen-focus-ring-error in Section 2.5.",
         "blocks": [
@@ -5743,9 +5680,7 @@
           "h3": "breakpoints"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1124,
-          "endLine": 1156
+          "file": "foundations/src/"
         },
         "children": [
           {
@@ -5761,8 +5696,8 @@
         ],
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "The majority of Actian users are on desktop. Desktop (lg) is the primary design target. However, pages should be responsive and tested across the full breakpoint range — from xl (large screens) down to sm (phone landscape) — to ensure usability across contexts."
       },
@@ -5782,14 +5717,12 @@
           "h4": "columns-gutters-and-margins"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1129,
-          "endLine": 1138
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "Layouts are built on a column grid with three key measurements:",
         "blocks": [
@@ -5820,14 +5753,12 @@
           "h4": "grid-settings"
         },
         "source": {
-          "file": "foundations/src/foundations.md",
-          "startLine": 1139,
-          "endLine": 1156
+          "file": "foundations/src/"
         },
         "_meta": {
           "auto_generated": true,
-          "source": "foundations/src/foundations.md",
-          "do_not_edit": "Edit the source MD; CI regenerates this file."
+          "source": "foundations/src/",
+          "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
         },
         "body": "Target XL and until S. XS is not considered at this moment.",
         "blocks": [
@@ -5913,14 +5844,12 @@
         "h3": "focus-ring-rules"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 1157,
-        "endLine": 1179
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "Applies to: Buttons, links, checkboxes, radios, avatars, breadcrumbs, tags, toggles, tabs\n\nUse --zen-focus-ring-primary with --zen-focus-ring-offset (2px) as an outline-offset.\n\nApplies to: Inputs, textareas\n\nUse --zen-focus-ring-primary as outline with no offset. The border of the input itself acts as the boundary.\n\nApplies to: Destructive actions and error-state interactive elements\n\nUse --zen-focus-ring-error instead of primary.\n\nDo not use box-shadow to simulate focus rings — it won&#39;t work correctly in high-contrast mode."
     },
@@ -5938,14 +5867,12 @@
         "h3": "border-usage"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 1180,
-        "endLine": 1184
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "Use --zen-border-default for standard container borders (cards, panels, inputs at rest). Use --zen-border-subtle for dividers and separators between rows or sections. Use --zen-border-disabled for any input, button, or form element in a disabled state."
     },
@@ -5963,14 +5890,12 @@
         "h3": "placeholder-text"
       },
       "source": {
-        "file": "foundations/src/foundations.md",
-        "startLine": 1185,
-        "endLine": 1193
+        "file": "foundations/src/"
       },
       "_meta": {
         "auto_generated": true,
-        "source": "foundations/src/foundations.md",
-        "do_not_edit": "Edit the source MD; CI regenerates this file."
+        "source": "foundations/src/",
+        "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
       "body": "Two tiers of placeholder exist for inputs: --zen-color-text-placeholder is the standard placeholder (grey-600). --zen-color-text-placeholder-subtle (grey-400) is used in search fields where less visual weight is appropriate."
     }

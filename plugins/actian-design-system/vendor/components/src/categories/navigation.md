@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=../../../schemas/category-defaults.json
-_schema_version: 1
+_schema_version: 2
 slug: navigation
 label: Navigation
 authoring_status: engineer-seed
@@ -28,7 +28,7 @@ motion_refs:
   - { ref: state-transitions, note: hover/focus transitions on items stay subtle — no large translation }
   - { ref: anchor-motion, note: dropdown triggers (account-dropdown, notification-dropdown, etc.) anchor to their button }
 
-accessibility:
+a11y_refs:
   - { ref: focus-keyboard, note: arrow-key traversal between items; Tab moves to/from the navigation region }
   - { ref: aria-labels, note: use aria-current=page on the active item; nav landmark on the container }
   - { ref: color-contrast }

@@ -12,14 +12,12 @@
     "h3": "border-usage"
   },
   "source": {
-    "file": "foundations/src/foundations.md",
-    "startLine": 1180,
-    "endLine": 1184
+    "file": "foundations/src/"
   },
   "_meta": {
     "auto_generated": true,
-    "source": "foundations/src/foundations.md",
-    "do_not_edit": "Edit the source MD; CI regenerates this file."
+    "source": "foundations/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
   },
   "body": "Use --zen-border-default for standard container borders (cards, panels, inputs at rest). Use --zen-border-subtle for dividers and separators between rows or sections. Use --zen-border-disabled for any input, button, or form element in a disabled state."
 }

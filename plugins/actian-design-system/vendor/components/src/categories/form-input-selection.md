@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=../../../schemas/category-defaults.json
-_schema_version: 1
+_schema_version: 2
 slug: form-input-selection
 label: Form (input & selection)
 authoring_status: engineer-seed
@@ -28,7 +28,7 @@ variants:
 motion_refs:
   - { ref: state-transitions, note: focus-ring fade-in on focus; opacity transition on disabled }
 
-accessibility:
+a11y_refs:
   - { ref: forms, note: every control needs a programmatically-associated label + accessible error message }
   - { ref: states }
   - { ref: alerts-toasts-banners }

@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=../../../schemas/category-defaults.json
-_schema_version: 1
+_schema_version: 2
 slug: data-display
 label: Data Display
 authoring_status: engineer-seed
@@ -29,7 +29,7 @@ motion_refs:
   - { ref: staggered-entrance, note: lists, tables, search-result-cards enter with staggered fades }
   - { ref: accordion-expand-collapse, note: collapsible cards/sections expand at the accordion pace }
 
-accessibility:
+a11y_refs:
   - { ref: color-contrast, note: status colors must have a non-color cue (icon, label, pattern) }
   - { ref: typography }
   - { ref: data-tables, note: tables and graphs must reflow or scroll horizontally; never clip }

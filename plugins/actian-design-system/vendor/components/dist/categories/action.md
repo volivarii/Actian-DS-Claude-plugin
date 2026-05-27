@@ -1,6 +1,6 @@
 ---
 # yaml-language-server: $schema=../../../schemas/category-defaults.json
-_schema_version: 1
+_schema_version: 2
 slug: action
 label: Action
 authoring_status: engineer-seed
@@ -26,7 +26,7 @@ variants:
 motion_refs:
   - { ref: state-transitions, note: hover/focus/active transitions stay within the 100-200ms band }
 
-accessibility:
+a11y_refs:
   - { ref: focus-keyboard, note: must be operable with Enter and Space (button) or Enter (link) }
   - { ref: color-contrast }
   - { ref: alerts-toasts-banners, note: loading + disabled states must be announced; do not rely on color alone }
