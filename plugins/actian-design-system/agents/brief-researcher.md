@@ -60,7 +60,7 @@ You will receive:
     categorization (Action, Form, Navigation, Data Display, Feedback,
     Overlays). The `category` is informational metadata — surface
     mis-categorization in `research_quality`.
-  - `vendor/foundations/src/foundations.md` (relevant excerpts)
+  - `vendor/foundations/src/NN-<slug>.md` (per-section files; the recipe's `grounding` list names which sections to read)
   - `vendor/accessibility/src/NN-<slug>.md` (per-section files; the recipe's `grounding` list names which sections to read)
 - **Output path** for the findings JSON
 

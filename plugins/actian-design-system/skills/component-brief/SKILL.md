@@ -97,7 +97,7 @@ If the Step 1.5 response opted in to research (e.g., `research all`, `research u
      - `vendor/components/dist/guidelines/<slug>.json` (the merged per-component guideline doc — `domains.content` is the authoritative component-specific copy guidance; omit when the component has no guideline doc)
      - `vendor/content/dist/global.md` (global / cross-cutting copy guidance — voice, tone, words to avoid, UX-pattern topics)
      - `vendor/components/dist/categories.json` (DS Kit category lookup — informational metadata for mis-categorization surfacing; see `agents/brief-researcher.md`)
-     - `vendor/foundations/src/foundations.md` (relevant excerpts)
+     - `vendor/foundations/src/NN-<slug>.md` (per-section; the brief recipe's `grounding` lists the relevant files)
      - `vendor/accessibility/src/NN-<slug>.md` (per-section; the brief recipe's `grounding` lists the relevant files)
    - Output path: `{project_working_directory}/components/[name]/[name]-research-findings.json`
 3. Wait for the agent's DONE / DONE_WITH_CONCERNS / ERROR signal.
