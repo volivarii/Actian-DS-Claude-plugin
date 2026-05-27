@@ -66,4 +66,4 @@ A flow with fewer P0s is generally stronger regardless of P1/P2 counts.
 - `references/figma/figma-output.md` — Figma URL parsing
 - `references/ds-rules/quality-checklist.md` — cleanup pass checklist (applied to both flows)
 - `vendor/content/dist/global.md` — cross-cutting content guideline checks (per-component copy lives in `vendor/components/dist/guidelines/<slug>.json` `domains.content`)
-- `vendor/accessibility/accessibility.md` — accessibility checks
+- `vendor/accessibility/src/NN-<slug>.md` — accessibility checks (per-section files; read 02-color-contrast, 05-focus-keyboard, 06-aria-labels, 12-designer-handoff-checklist for review heuristics)

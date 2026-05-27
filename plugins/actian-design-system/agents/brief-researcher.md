@@ -61,7 +61,7 @@ You will receive:
     Overlays). The `category` is informational metadata — surface
     mis-categorization in `research_quality`.
   - `vendor/foundations/src/foundations.md` (relevant excerpts)
-  - `vendor/accessibility/accessibility.md`
+  - `vendor/accessibility/src/NN-<slug>.md` (per-section files; the recipe's `grounding` list names which sections to read)
 - **Output path** for the findings JSON
 
 > **No topic-file routing.** Earlier versions resolved a per-component

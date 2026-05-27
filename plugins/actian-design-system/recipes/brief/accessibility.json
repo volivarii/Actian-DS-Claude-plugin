@@ -3,7 +3,13 @@
   "title": "Accessibility",
   "description": "6 requirement cards in 2x3 grid, contrast table, ARIA specification table",
   "phase": "generate",
-  "grounding": ["vendor/accessibility/accessibility.md"],
+  "grounding": [
+    "vendor/accessibility/src/02-color-contrast.md",
+    "vendor/accessibility/src/05-focus-keyboard.md",
+    "vendor/accessibility/src/06-aria-labels.md",
+    "vendor/accessibility/src/11-components.md",
+    "vendor/accessibility/src/12-designer-handoff-checklist.md"
+  ],
   "research": {
     "applicable": true,
     "focus": ["a11y-patterns", "wcag-interpretation", "keyboard-screenreader"]

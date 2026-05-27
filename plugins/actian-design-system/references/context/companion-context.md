@@ -147,7 +147,7 @@ All skills push to Figma using direct `use_figma` calls. No codegen scripts at p
 | Topic | File |
 |-------|------|
 | Specific component rules | `vendor/components/dist/guidelines/{slug}.json` (`domains.*`) |
-| Accessibility standards | `vendor/accessibility/accessibility.md` |
+| Accessibility standards | `vendor/accessibility/src/NN-<slug>.md` (per-section) |
 | Foundation (typography, color, etc.) | `vendor/foundations/{topic}.json` |
 | FM CSS values (wireframes) | `references/ds-rules/fm-css-reference.md` |
 | UX patterns by flow type | `references/context/ux-patterns.md` |
