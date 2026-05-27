@@ -24,7 +24,7 @@ interface EditorShellProps {
 function isPlainMarkdown(path: string): boolean {
   return (
     (/^foundations\/src\/[^/]+\.md$/.test(path) ||
-      /^accessibility\/[^/]+\.md$/.test(path) ||
+      /^accessibility\/src\/[^/]+\.md$/.test(path) ||
       /^components\/src\/(?!categories\/AUTHORING\.md|AUTHORING\.md|EDITING-GUIDE\.md)[^/]+\/[^/]+\.md$/.test(
         path,
       ) ||
@@ -79,9 +79,17 @@ export function EditorShell({
   );
 
   useEffect(() => {
-    const onFocus = () => setPendingPaths(draftStoreSingleton.allPaths());
-    window.addEventListener("focus", onFocus);
-    return () => window.removeEventListener("focus", onFocus);
+    const refresh = () => setPendingPaths(draftStoreSingleton.allPaths());
+    // React in real time to draft mutations (pending/cleared/saved) so the
+    // sidebar dot updates on discard without waiting for a window focus.
+    const unsubscribe = draftStoreSingleton.subscribe(refresh);
+    // Keep the focus refresh too — covers the cross-tab case where another
+    // tab cleared a draft and emit events don't fire in this tab.
+    window.addEventListener("focus", refresh);
+    return () => {
+      unsubscribe();
+      window.removeEventListener("focus", refresh);
+    };
   }, []);
 
   if (ghError) {

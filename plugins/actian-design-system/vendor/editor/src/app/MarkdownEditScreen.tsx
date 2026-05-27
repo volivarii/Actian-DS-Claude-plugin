@@ -95,6 +95,24 @@ export function MarkdownEditScreen({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [prUrl, setPrUrl] = useState<string | null>(null);
+  // Preview pane visibility — hidden by default to give the editor the
+  // full width. Persisted to localStorage so the user's choice survives
+  // page reloads + cross-file navigation.
+  const PREVIEW_VISIBLE_KEY = "editor.preview.visible:v1";
+  const [showPreview, setShowPreview] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem(PREVIEW_VISIBLE_KEY) === "1";
+    } catch {
+      return false;
+    }
+  });
+  useEffect(() => {
+    try {
+      localStorage.setItem(PREVIEW_VISIBLE_KEY, showPreview ? "1" : "0");
+    } catch {
+      /* localStorage may be unavailable (e.g. private mode); ignore. */
+    }
+  }, [showPreview]);
   const cartEntries = useCart(submissionCartSingleton);
   const inCart = useMemo(
     () => cartEntries.find((e) => e.path === path) ?? null,
@@ -315,6 +333,15 @@ export function MarkdownEditScreen({
               In batch
             </Badge>
           )}
+          <Button
+            size="1"
+            variant={showPreview ? "soft" : "outline"}
+            onClick={() => setShowPreview((v) => !v)}
+            aria-label={showPreview ? "Hide preview pane" : "Show preview pane"}
+            aria-pressed={showPreview}
+          >
+            {showPreview ? "Hide preview" : "Show preview"}
+          </Button>
         </Flex>
       </Flex>
       {renameWarnings.length > 0 && (
@@ -377,23 +404,25 @@ export function MarkdownEditScreen({
             />
           )}
         </Box>
-        <Box
-          flexGrow="1"
-          flexShrink="1"
-          flexBasis="0"
-          style={{
-            border: "1px solid var(--gray-5)",
-            borderRadius: 6,
-            padding: 12,
-            overflow: "auto",
-            minWidth: 0,
-          }}
-        >
-          <Text size="1" color="gray">
-            Preview is informational, not the production renderer.
-          </Text>
-          <Preview text={text} />
-        </Box>
+        {showPreview && (
+          <Box
+            flexGrow="1"
+            flexShrink="1"
+            flexBasis="0"
+            style={{
+              border: "1px solid var(--gray-5)",
+              borderRadius: 6,
+              padding: 12,
+              overflow: "auto",
+              minWidth: 0,
+            }}
+          >
+            <Text size="1" color="gray">
+              Preview is informational, not the production renderer.
+            </Text>
+            <Preview text={text} />
+          </Box>
+        )}
       </Flex>
       <Flex gap="2" justify="end" align="center" wrap="wrap">
         {prUrl && (

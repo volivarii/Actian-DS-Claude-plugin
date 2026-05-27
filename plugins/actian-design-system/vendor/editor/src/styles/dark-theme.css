@@ -1,0 +1,58 @@
+/* Dark theme overrides — applied when data-theme="dark" is set on
+ * <html> (see main.tsx). Inverts surface + text colors while keeping
+ * brand (primary/error/success/warning) hues unchanged. The preview
+ * pane is explicitly re-lit via .md-prose in base.css.
+ *
+ * Kept separate from tokens.css because tokens.css is auto-generated
+ * from tokens/tokens.json by scripts/build-tokens.mjs — adding the
+ * dark block there would be overwritten on every build.
+ */
+
+[data-theme="dark"] {
+  /* Surfaces */
+  --zen-color-bg-default: #12131f;
+  --zen-color-bg-subtle: #1b1c28;
+  --zen-color-bg-muted: #2a2a30;
+  --zen-color-bg-disabled: #2a2a30;
+  --zen-color-bg-overlay: #00000099;
+  --zen-color-bg-selected: #0c2a5e;
+  --zen-color-bg-emphasis: #0550dc;
+  --zen-color-bg-info: #0f2540;
+  --zen-color-bg-success: #0c2a12;
+  --zen-color-bg-warning: #3a2a0a;
+  --zen-color-bg-error: #3a1a12;
+
+  /* Text */
+  --zen-color-text-primary: #fbfbff;
+  --zen-color-text-secondary: #d3d3e5;
+  --zen-color-text-tertiary: #b9b9cd;
+  --zen-color-text-placeholder: #9898a7;
+  --zen-color-text-placeholder-subtle: #656574;
+  --zen-color-text-disabled: #656574;
+  --zen-color-text-reverse: #12131f;
+  --zen-color-text-link-default: #6faffd;
+  --zen-color-text-link-visited: #9dcdff;
+  --zen-color-text-link-reverse: #12131f;
+  --zen-color-text-error: #ffa38f;
+  --zen-color-text-success: #75b86b;
+  --zen-color-text-warning: #ffbe78;
+
+  /* Icons */
+  --zen-color-icon-default: #fbfbff;
+  --zen-color-icon-subtle: #b9b9cd;
+  --zen-color-icon-disabled: #656574;
+  --zen-color-icon-reverse: #12131f;
+  --zen-color-icon-primary: #6faffd;
+  --zen-color-icon-error: #ffa38f;
+  --zen-color-icon-success: #75b86b;
+  --zen-color-icon-warning: #ffbe78;
+
+  /* Borders */
+  --zen-border-default: #33333d;
+  --zen-border-subtle: #2a2a30;
+  --zen-border-disabled: #33333d;
+  --zen-border-error: #ef6b53;
+  --zen-border-selected: #3c91ff;
+
+  /* Focus rings unchanged — brand-driven, work on both light & dark */
+}

@@ -7,10 +7,7 @@ test("getPathTier: tokens/* → Figma-synced read-only", () => {
     getPathTier("tokens/tokens.json").tier,
     "read-only-figma-synced",
   );
-  assert.equal(
-    getPathTier("tokens/tokens.css").tier,
-    "read-only-figma-synced",
-  );
+  assert.equal(getPathTier("tokens/tokens.css").tier, "read-only-figma-synced");
 });
 
 test("getPathTier: registries → Figma-synced read-only", () => {
@@ -54,9 +51,9 @@ test("getPathTier: foundations/src/<x>.md → high-impact-foundations", () => {
   );
 });
 
-test("getPathTier: accessibility/<x>.md → high-impact-accessibility", () => {
+test("getPathTier: accessibility/src/<x>.md → high-impact-accessibility", () => {
   assert.equal(
-    getPathTier("accessibility/accessibility.md").tier,
+    getPathTier("accessibility/src/01-principles.md").tier,
     "high-impact-accessibility",
   );
 });
@@ -66,19 +63,13 @@ test("getPathTier: per-component files → writable", () => {
     getPathTier("components/src/button/content.md").tier,
     "writable",
   );
-  assert.equal(
-    getPathTier("components/src/button/_meta.yml").tier,
-    "writable",
-  );
+  assert.equal(getPathTier("components/src/button/_meta.yml").tier, "writable");
 });
 
 test("getPathTier: severity is 'red' for read-only tiers, 'amber' for high-impact", () => {
   assert.equal(getPathTier("tokens/tokens.json").severity, "red");
   assert.equal(getPathTier("paths-manifest.json").severity, "red");
-  assert.equal(
-    getPathTier("foundations/src/foundations.md").severity,
-    "amber",
-  );
+  assert.equal(getPathTier("foundations/src/foundations.md").severity, "amber");
   assert.equal(
     getPathTier("components/src/categories/action.md").severity,
     "amber",

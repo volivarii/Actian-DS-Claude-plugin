@@ -2,9 +2,317 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-05-22T14:01:27.231Z",
+  "lastSynced": "2026-05-27T10:54:00.755Z",
   "componentCount": 318,
   "components": {
+    "toggle": {
+      "name": "Toggle",
+      "key": "4e7793f094eed660e01d8f7c804f2391e72115d2",
+      "nodeId": "14000:4395",
+      "importMethod": "set",
+      "description": "Used for an immediate \"on/off\" state change that doesn't require a \"Submit\" button to take effect (e.g., System Settings).",
+      "page": "✅ Toggle control",
+      "properties": {
+        "Show Helper text#13981:32": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Form (input & selection)",
+      "group": "Toggle control",
+      "variants": {
+        "Toggle location": [
+          "Left",
+          "Right"
+        ],
+        "Selected": [
+          "No",
+          "Yes"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Focus",
+          "Pressed",
+          "Disabled"
+        ]
+      }
+    },
+    "glossary-item-hierarchy-diagram": {
+      "name": "Glossary item hierarchy diagram",
+      "key": "ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da",
+      "nodeId": "14747:30242",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Glossary item hierarchy diagram",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "list-bullets",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-to-fit",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-reset",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-in",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "zoom-out",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "more",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Glossary item hierarchy diagram",
+      "variants": {
+        "Type": [
+          "Default"
+        ]
+      }
+    },
+    "line-graph": {
+      "name": "⛔️ Line graph",
+      "key": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
+      "nodeId": "15473:49490",
+      "importMethod": "set",
+      "description": "",
+      "page": "⛔️ WIP data visuzlization",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "WIP data visuzlization",
+      "status": "deprecated",
+      "variants": {
+        "Property 1": [
+          "Default"
+        ]
+      }
+    },
+    "maintenance-state": {
+      "name": "Maintenance state",
+      "key": "4c187d32a069682c44d5ccd8744b9fe0709c894a",
+      "nodeId": "13871:32311",
+      "importMethod": "set",
+      "description": "A placeholder shown when maintenance. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+      "page": "✅ Empty state",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Empty state",
+      "variants": {
+        "Size": [
+          "Large"
+        ]
+      }
+    },
+    "alert-banner": {
+      "name": "✍️ Alert-banner",
+      "key": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
+      "nodeId": "13732:3056",
+      "importMethod": "set",
+      "description": "Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.",
+      "page": "✍️ Alert (banner)",
+      "properties": {
+        "Show Icon#14881:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show close button#14881:5": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Show action#14907:5": {
+          "type": "BOOLEAN",
+          "default": true
+        }
+      },
+      "nestedComponents": [
+        {
+          "slug": "info-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "close",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "success-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "warning-filled",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "error-filled",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Alert (banner)",
+      "status": "in-progress",
+      "variants": {
+        "Type": [
+          "Primary",
+          "Success",
+          "Warning",
+          "Danger"
+        ],
+        "Orientation'": [
+          "Horizontal",
+          "Vertical"
+        ]
+      }
+    },
+    "page-header": {
+      "name": "Page header",
+      "key": "ec2418807ba81bd52ab103d34c1bffd82fc0b92c",
+      "nodeId": "12923:2794",
+      "importMethod": "set",
+      "description": "The title area of a specific page. Should include the Page Title, optional Breadcrumbs, and page-specific primary actions.",
+      "page": "✅ Page header",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "open",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "suggestion",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "favorite",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "powerbi",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "dots",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Page header",
+      "variants": {
+        "Type": [
+          "Default",
+          "Details page",
+          "Explorer home",
+          "Explorer detail"
+        ]
+      }
+    },
+    "empty-state": {
+      "name": "Empty state",
+      "key": "0adc6b54a212315ebb16db7f5eea388276a1587b",
+      "nodeId": "9230:22073",
+      "importMethod": "set",
+      "description": "A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
+      "page": "✅ Empty state",
+      "properties": {
+        "Medium illustration#9230:4": {
+          "type": "INSTANCE_SWAP",
+          "default": "8991:11401"
+        },
+        "Tertiary button#10964:0": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Primary button#10964:4": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Title#10964:8": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Body#10964:12": {
+          "type": "BOOLEAN",
+          "default": true
+        },
+        "Large illustration#10964:20": {
+          "type": "INSTANCE_SWAP",
+          "default": "8837:9944"
+        },
+        "Title content#10964:24": {
+          "type": "TEXT",
+          "default": "No policies available"
+        },
+        "Body content#10964:28": {
+          "type": "TEXT",
+          "default": "Create policies to define how your platform operates."
+        },
+        "Small Illustration#10966:0": {
+          "type": "INSTANCE_SWAP",
+          "default": "10966:18012"
+        }
+      },
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Empty state",
+      "variants": {
+        "Size": [
+          "Large",
+          "Medium",
+          "Small"
+        ]
+      }
+    },
     "xs-grid": {
       "name": "XS grid",
       "key": "e939d776621f097562d024535a10d5c011fd493c",
@@ -49,25 +357,6 @@
           "Focus",
           "Pressed",
           "Disabled"
-        ]
-      }
-    },
-    "breadcrumbs": {
-      "name": "Breadcrumbs",
-      "key": "72976d77668b8e085d716fc8c5bc0bd144cb7274",
-      "nodeId": "13792:15247",
-      "importMethod": "set",
-      "description": "Use to show the user's current location within a hierarchical multi-level structure. Enables 1-click navigation back to parent pages.",
-      "page": "✅ Breadcrumbs",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Navigation",
-      "group": "Breadcrumbs",
-      "variants": {
-        "Type": [
-          "Default"
         ]
       }
     },
@@ -123,6 +412,25 @@
         "Fields": [
           "Collapsed",
           "Expanded"
+        ]
+      }
+    },
+    "breadcrumbs": {
+      "name": "Breadcrumbs",
+      "key": "72976d77668b8e085d716fc8c5bc0bd144cb7274",
+      "nodeId": "13792:15247",
+      "importMethod": "set",
+      "description": "Use to show the user's current location within a hierarchical multi-level structure. Enables 1-click navigation back to parent pages.",
+      "page": "✅ Breadcrumbs",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Breadcrumbs",
+      "variants": {
+        "Type": [
+          "Default"
         ]
       }
     },
@@ -229,42 +537,6 @@
         "Orientation": [
           "Horizontal",
           "Vertical"
-        ]
-      }
-    },
-    "toggle": {
-      "name": "Toggle",
-      "key": "4e7793f094eed660e01d8f7c804f2391e72115d2",
-      "nodeId": "14000:4395",
-      "importMethod": "set",
-      "description": "Used for an immediate \"on/off\" state change that doesn't require a \"Submit\" button to take effect (e.g., System Settings).",
-      "page": "✅ Toggle control",
-      "properties": {
-        "Show Helper text#13981:32": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Form (input & selection)",
-      "group": "Toggle control",
-      "variants": {
-        "Toggle location": [
-          "Left",
-          "Right"
-        ],
-        "Selected": [
-          "No",
-          "Yes"
-        ],
-        "State": [
-          "Default",
-          "Hover",
-          "Focus",
-          "Pressed",
-          "Disabled"
         ]
       }
     },
@@ -1733,34 +2005,6 @@
         ]
       }
     },
-    "digram-topic": {
-      "name": "Digram, Topic",
-      "key": "c5cccb155896a560523120f96888c1d64374b562",
-      "nodeId": "14128:3800",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Digram",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Digram",
-      "variants": {
-        "Type": [
-          "Light purple",
-          "Dark purple",
-          "Light blue",
-          "Dark blue",
-          "Light green",
-          "Dark green",
-          "Yellow",
-          "Orange",
-          "Red",
-          "Dark orange"
-        ]
-      }
-    },
     "search-dropdown-menu": {
       "name": "Search dropdown menu",
       "key": "9e267d055429c3f0e586f2fc787fd8b6fced1629",
@@ -1786,6 +2030,34 @@
           "Before typed",
           "After typed",
           "Explorer home"
+        ]
+      }
+    },
+    "digram-topic": {
+      "name": "Digram, Topic",
+      "key": "c5cccb155896a560523120f96888c1d64374b562",
+      "nodeId": "14128:3800",
+      "importMethod": "set",
+      "description": "",
+      "page": "✅ Digram",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Data Display",
+      "group": "Digram",
+      "variants": {
+        "Type": [
+          "Light purple",
+          "Dark purple",
+          "Light blue",
+          "Dark blue",
+          "Light green",
+          "Dark green",
+          "Yellow",
+          "Orange",
+          "Red",
+          "Dark orange"
         ]
       }
     },
@@ -1831,6 +2103,27 @@
         ]
       }
     },
+    "loader": {
+      "name": "Loader",
+      "key": "0cf73cc20fd0120418e60d904cff641ff38f4840",
+      "nodeId": "7372:2195",
+      "importMethod": "set",
+      "description": "Indicates a background process is active. Use loader for large components or large section within a page",
+      "page": "✅ Loading (Loader, Spinner, Skeleton)",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Loading (Loader, Spinner, Skeleton)",
+      "variants": {
+        "Percent": [
+          "99%",
+          "10%",
+          "Percent3"
+        ]
+      }
+    },
     "actian-data-observability": {
       "name": "Actian Data Observability",
       "key": "5f5d2ac2d74db9854ad09510d7b237090afd8a76",
@@ -1852,27 +2145,6 @@
         "Layout": [
           "Vertical",
           "Horizontal"
-        ]
-      }
-    },
-    "loader": {
-      "name": "Loader",
-      "key": "0cf73cc20fd0120418e60d904cff641ff38f4840",
-      "nodeId": "7372:2195",
-      "importMethod": "set",
-      "description": "Indicates a background process is active. Use loader for large components or large section within a page",
-      "page": "✅ Loading (Loader, Spinner, Skeleton)",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Loading (Loader, Spinner, Skeleton)",
-      "variants": {
-        "Percent": [
-          "99%",
-          "10%",
-          "Percent3"
         ]
       }
     },
@@ -1899,6 +2171,32 @@
         ]
       }
     },
+    "spinner": {
+      "name": "Spinner",
+      "key": "c4958a4a5d7aaac4fd262e3609204e7c110e3129",
+      "nodeId": "7372:2170",
+      "importMethod": "set",
+      "description": "Indicates a background process is active. Use Spinner for small, localized actions like button clicks.",
+      "page": "✅ Loading (Loader, Spinner, Skeleton)",
+      "properties": {},
+      "nestedComponents": [],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Feedback",
+      "group": "Loading (Loader, Spinner, Skeleton)",
+      "variants": {
+        "Color mode": [
+          "On light bg",
+          "On dark bg"
+        ],
+        "Complete": [
+          "50%",
+          "75%",
+          "100%",
+          "25%"
+        ]
+      }
+    },
     "actian-pyramid": {
       "name": "Actian pyramid",
       "key": "84e6abe2e5b7dbe96a859397f557249922560413",
@@ -1916,28 +2214,6 @@
         "Color": [
           "Full color",
           "White"
-        ]
-      }
-    },
-    "spinner": {
-      "name": "Spinner",
-      "key": "c4958a4a5d7aaac4fd262e3609204e7c110e3129",
-      "nodeId": "7372:2170",
-      "importMethod": "set",
-      "description": "Indicates a background process is active. Use Spinner for small, localized actions like button clicks.",
-      "page": "✅ Loading (Loader, Spinner, Skeleton)",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Loading (Loader, Spinner, Skeleton)",
-      "variants": {
-        "Complete": [
-          "50%",
-          "75%",
-          "100%",
-          "25%"
         ]
       }
     },
@@ -2285,7 +2561,8 @@
           "Focused",
           "Pressed",
           "Selected",
-          "Disabled"
+          "Disabled",
+          "Loading"
         ]
       }
     },
@@ -2577,83 +2854,6 @@
         ]
       }
     },
-    "maintenance-state": {
-      "name": "Maintenance state",
-      "key": "4c187d32a069682c44d5ccd8744b9fe0709c894a",
-      "nodeId": "13871:32311",
-      "importMethod": "set",
-      "description": "A placeholder shown when maintenance. Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "page": "✅ Empty state",
-      "properties": {},
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Empty state",
-      "variants": {
-        "Size": [
-          "Large"
-        ]
-      }
-    },
-    "empty-state": {
-      "name": "Empty state",
-      "key": "0adc6b54a212315ebb16db7f5eea388276a1587b",
-      "nodeId": "9230:22073",
-      "importMethod": "set",
-      "description": "A placeholder shown when a container has no content (e.g., empty search, no messages). Must include an illustration, a clear title, and a \"Call to Action\" button to help the user get started.",
-      "page": "✅ Empty state",
-      "properties": {
-        "Medium illustration#9230:4": {
-          "type": "INSTANCE_SWAP",
-          "default": "8991:11401"
-        },
-        "Tertiary button#10964:0": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Primary button#10964:4": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Title#10964:8": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Body#10964:12": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Large illustration#10964:20": {
-          "type": "INSTANCE_SWAP",
-          "default": "8837:9944"
-        },
-        "Title content#10964:24": {
-          "type": "TEXT",
-          "default": "No policies available"
-        },
-        "Body content#10964:28": {
-          "type": "TEXT",
-          "default": "Create policies to define how your platform operates."
-        },
-        "Small Illustration#10966:0": {
-          "type": "INSTANCE_SWAP",
-          "default": "10966:18012"
-        }
-      },
-      "nestedComponents": [],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Empty state",
-      "variants": {
-        "Size": [
-          "Large",
-          "Medium",
-          "Small"
-        ]
-      }
-    },
     "tag-glossary-item-type": {
       "name": "✍️ Tag, Glossary item type",
       "key": "639773a27d790a489c5e115360b64c7d05a45ac3",
@@ -2737,82 +2937,6 @@
         ]
       }
     },
-    "glossary-item-hierarchy-diagram": {
-      "name": "Glossary item hierarchy diagram",
-      "key": "ccb3fbc9c238527e5fa4998e8fd6ae9b5c31b7da",
-      "nodeId": "14747:30242",
-      "importMethod": "set",
-      "description": "",
-      "page": "✅ Glossary item hierarchy diagram",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "list-bullets",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-to-fit",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-reset",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-in",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "zoom-out",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "more",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Glossary item hierarchy diagram",
-      "variants": {
-        "Type": [
-          "Default"
-        ]
-      }
-    },
-    "line-graph": {
-      "name": "⛔️ Line graph",
-      "key": "e365ff8c88faf24f3cadf6166127e97dbc8771fb",
-      "nodeId": "15473:49490",
-      "importMethod": "set",
-      "description": "",
-      "page": "⛔️ WIP data visuzlization",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "dots",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "WIP data visuzlization",
-      "status": "deprecated",
-      "variants": {
-        "Property 1": [
-          "Default"
-        ]
-      }
-    },
     "search-filters": {
       "name": "Search filters",
       "key": "919ddc42563055f1d9f34b662fb806eb66763980",
@@ -2854,72 +2978,6 @@
         ]
       }
     },
-    "alert-banner": {
-      "name": "✍️ Alert-banner",
-      "key": "9717f500f425975f63c0eb2f9c1e434ff010f24b",
-      "nodeId": "13732:3056",
-      "importMethod": "set",
-      "description": "Static, high-visibility message placed at the top of a page or section. Use for persistent system-level information (Success, Info, Warning, Error) that doesn't disappear automatically.",
-      "page": "✍️ Alert (banner)",
-      "properties": {
-        "Show Icon#14881:0": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Show close button#14881:5": {
-          "type": "BOOLEAN",
-          "default": true
-        },
-        "Show action#14907:5": {
-          "type": "BOOLEAN",
-          "default": true
-        }
-      },
-      "nestedComponents": [
-        {
-          "slug": "info-filled",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "close",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "success-filled",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "warning-filled",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "error-filled",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Feedback",
-      "group": "Alert (banner)",
-      "status": "in-progress",
-      "variants": {
-        "Type": [
-          "Primary",
-          "Success",
-          "Warning",
-          "Danger"
-        ],
-        "Orientation'": [
-          "Horizontal",
-          "Vertical"
-        ]
-      }
-    },
     "sticky-footer": {
       "name": "Sticky footer",
       "key": "de36372be7d1532ee37fbfc43238aed444f6e7c9",
@@ -2936,59 +2994,6 @@
       "variants": {
         "Property 1": [
           "Default"
-        ]
-      }
-    },
-    "page-header": {
-      "name": "Page header",
-      "key": "ec2418807ba81bd52ab103d34c1bffd82fc0b92c",
-      "nodeId": "12923:2794",
-      "importMethod": "set",
-      "description": "The title area of a specific page. Should include the Page Title, optional Breadcrumbs, and page-specific primary actions.",
-      "page": "✅ Page header",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "open",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "suggestion",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "favorite",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "powerbi",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "dots",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Data Display",
-      "group": "Page header",
-      "variants": {
-        "Type": [
-          "Default",
-          "Details page",
-          "Explorer home",
-          "Explorer detail"
         ]
       }
     },
@@ -5266,6 +5271,61 @@
       "group": "Cursor",
       "status": "in-progress"
     },
+    "app-switcher-dropdown": {
+      "name": "App switcher dropdown",
+      "key": "09baf67bef9191d0b5303b52c1c3159eefba3843",
+      "nodeId": "9118:17666",
+      "importMethod": "single",
+      "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
+      "page": "✅ Global header",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "settings",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Global header"
+    },
+    "account-dropdown": {
+      "name": "Account dropdown",
+      "key": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
+      "nodeId": "9118:17382",
+      "importMethod": "single",
+      "description": "",
+      "page": "✅ Global header",
+      "properties": {},
+      "nestedComponents": [
+        {
+          "slug": "help-bubble",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "arrow-down",
+          "role": null,
+          "source": "child-instance"
+        },
+        {
+          "slug": "exit",
+          "role": null,
+          "source": "child-instance"
+        }
+      ],
+      "documentationLinks": [],
+      "section": "Components",
+      "category": "Navigation",
+      "group": "Global header"
+    },
     "lifecycle-policy": {
       "name": "lifecycle-policy",
       "key": "b1f0c9b1baad043881f1d2401a93aa1c8cce4791",
@@ -5370,31 +5430,6 @@
       "category": "Icons",
       "group": "Common",
       "status": "in-progress"
-    },
-    "app-switcher-dropdown": {
-      "name": "App switcher dropdown",
-      "key": "09baf67bef9191d0b5303b52c1c3159eefba3843",
-      "nodeId": "9118:17666",
-      "importMethod": "single",
-      "description": "Menu: -4 Density \nMenus display a list of choices on a temporary surface. They appear when users interact with a button, action, or other control.\n\n🛠 Additional options \nMenu list item - can be edited by selecting individual list item and  selecting wether it is enabled, selected, and has a divider from the variant properties.",
-      "page": "✅ Global header",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "settings",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Navigation",
-      "group": "Global header"
     },
     "data-model": {
       "name": "data-model",
@@ -5734,36 +5769,6 @@
       "category": "Icons",
       "group": "Details",
       "status": "in-progress"
-    },
-    "account-dropdown": {
-      "name": "Account dropdown",
-      "key": "487b25247d05a6f9d36a4c7b9f5177ca2017348e",
-      "nodeId": "9118:17382",
-      "importMethod": "single",
-      "description": "",
-      "page": "✅ Global header",
-      "properties": {},
-      "nestedComponents": [
-        {
-          "slug": "help-bubble",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "arrow-down",
-          "role": null,
-          "source": "child-instance"
-        },
-        {
-          "slug": "exit",
-          "role": null,
-          "source": "child-instance"
-        }
-      ],
-      "documentationLinks": [],
-      "section": "Components",
-      "category": "Navigation",
-      "group": "Global header"
     },
     "layers-front": {
       "name": "layers-front",

@@ -111,7 +111,7 @@ export function Sidebar({
             extension: ".md",
             exclude: ["AUTHORING.md"],
           }).catch(() => [] as string[]),
-          listFilesByGlob(octokit, "accessibility", {
+          listFilesByGlob(octokit, "accessibility/src", {
             extension: ".md",
             exclude: ["AUTHORING.md"],
           }).catch(() => [] as string[]),
@@ -342,7 +342,7 @@ export function Sidebar({
               aria-labelledby="sidebar-section-accessibility-header"
             >
               {entries.accessibility.map((name) =>
-                row(`accessibility/${name}`, name),
+                row(`accessibility/src/${name}`, name),
               )}
             </Box>
           )}

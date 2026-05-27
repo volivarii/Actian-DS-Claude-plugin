@@ -43,8 +43,8 @@ const LISTINGS = {
     { name: "foundations.md", type: "file" as const },
     { name: "AUTHORING.md", type: "file" as const },
   ],
-  accessibility: [
-    { name: "accessibility.md", type: "file" as const },
+  "accessibility/src": [
+    { name: "01-principles.md", type: "file" as const },
     { name: "AUTHORING.md", type: "file" as const },
   ],
   "content/src/patterns": [
@@ -90,7 +90,7 @@ test("Sidebar: renders Foundations + Accessibility entries (after expand)", asyn
   toggleSection("Foundations");
   toggleSection("Accessibility");
   assert.ok(screen.getByText("foundations.md"));
-  assert.ok(screen.getByText("accessibility.md"));
+  assert.ok(screen.getByText("01-principles.md"));
 });
 
 test("Sidebar: excludes AUTHORING.md", async () => {
@@ -234,7 +234,7 @@ test("Sidebar: all sections collapsed by default", async () => {
   await waitFor(() => screen.getByText("Foundations"));
   // No section items rendered initially
   assert.equal(screen.queryByText("foundations.md"), null);
-  assert.equal(screen.queryByText("accessibility.md"), null);
+  assert.equal(screen.queryByText("01-principles.md"), null);
   assert.equal(screen.queryByText("forms.md"), null);
   assert.equal(screen.queryByText("button"), null);
   // All section headers report aria-expanded=false
@@ -356,7 +356,7 @@ test("Sidebar: hides empty content/src groups (e.g. 404 dirs)", async () => {
   // and the corresponding headings should not render.
   const partial = {
     "foundations/src": LISTINGS["foundations/src"],
-    accessibility: LISTINGS.accessibility,
+    "accessibility/src": LISTINGS["accessibility/src"],
     "components/src": LISTINGS["components/src"],
   };
   render(

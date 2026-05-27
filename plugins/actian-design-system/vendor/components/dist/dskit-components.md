@@ -251,7 +251,7 @@ Secondary: "Use for supporting actions that are not the main goal of the page (e
 Tertiary/Ghost: "Use for low-emphasis actions or repeated items in a list (e.g., 'View Details', 'Learn More')."
 Critical: "Use specifically for actions that result in data loss or permanent changes. Usually styled in Red."
 
-- Variants: **Type:** `Primary` · `Secondary` · `Tertiary` · `Icon` · `Critical primary` · `Critical secondary` | **Size:** `Default` · `Small` | **State:** `Default` · `Hovered` · `Focused` · `Pressed` · `Selected` · `Disabled`
+- Variants: **Type:** `Primary` · `Secondary` · `Tertiary` · `Icon` · `Critical primary` · `Critical secondary` | **Size:** `Default` · `Small` | **State:** `Default` · `Hovered` · `Focused` · `Pressed` · `Selected` · `Disabled` · `Loading`
 - Text overrides: `Label#724:10`
 - **Required overrides:** `Label#724:10` (default `"Button"` is a placeholder)
 - Boolean properties: `Show leading icon#809:73` (default: true) — set to `false` to hide · `Show trailing icon#13807:82` (default: true) — set to `false` to hide · `Show label#15988:3` (default: true) — set to `false` to hide
@@ -1381,7 +1381,7 @@ Vertical navigation for primary application modules. Use when the app has many t
 
 Indicates a background process is active. Use Spinner for small, localized actions like button clicks.
 
-- Variants: **Complete:** `50%` · `75%` · `100%` · `25%`
+- Variants: **Color mode:** `On light bg` · `On dark bg` | **Complete:** `50%` · `75%` · `100%` · `25%`
 - Node: `7372:2170` | Key: `c4958a4a5d7aaac4fd262e3609204e7c110e3129`
 
 ### spline

@@ -26,6 +26,30 @@ body {
 
 /* Preview container — wraps <ReactMarkdown> output. */
 .md-prose {
+  /* Preview pane uses a warm cream "paper" surface that pairs
+     softly against the editor's cool dark chrome — warm/cool contrast
+     separates the two without the harsh light/dark luminance jump
+     that pure white-on-dark creates. Tuned between Solarized base3
+     and Kindle sepia: warm enough to read as paper, restrained
+     enough to feel premium rather than ebook-novelty.
+
+     Reset theme-overridden semantic tokens to coordinated paper-scale
+     warm values so any nested element (table cells, code blocks,
+     borders) reads on the same warm scale. */
+  --zen-color-text-primary: #2a2520;
+  --zen-color-text-secondary: #3f3a32;
+  --zen-color-text-tertiary: #4d4639;
+  --zen-color-text-placeholder: #6b6253;
+  --zen-color-text-link-default: #0550dc;
+  --zen-color-text-link-visited: #0029a9;
+  --zen-color-bg-default: #faf6ea;
+  --zen-color-bg-subtle: #f7f1df;
+  --zen-color-bg-muted: #ede5cf;
+  --zen-color-icon-default: #2a2520;
+  --zen-color-icon-subtle: #4d4639;
+  --zen-border-default: #d8d0bc;
+  --zen-border-subtle: #ebe3cf;
+
   font-family:
     var(--zen-font-family-text),
     system-ui,
@@ -38,7 +62,56 @@ body {
   padding-inline: 32px;
   padding-block: 24px;
   color: var(--zen-color-text-primary);
-  background: var(--zen-color-neutral-50);
+  /* Paper cream background. Slightly less saturated than Kindle
+     sepia; slightly warmer than Solarized base3. */
+  background: #f4ecd6;
+}
+
+/* Frontmatter table (GitHub-style key/value rendering at the top of
+   the preview). Lives inside .md-prose so it inherits the paper-tone
+   semantic tokens — borders + cell backgrounds stay on the warm
+   scale. */
+.md-frontmatter-table {
+  border-collapse: collapse;
+  margin: 0 0 1.5em;
+  font-size: 0.875rem;
+  width: 100%;
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm, 4px);
+  overflow: hidden;
+}
+.md-frontmatter-table th,
+.md-frontmatter-table td {
+  padding: 8px 12px;
+  border: 1px solid var(--zen-border-default);
+  vertical-align: top;
+  text-align: left;
+}
+.md-frontmatter-table th {
+  width: 12em;
+  font-weight: 600;
+  color: var(--zen-color-text-secondary);
+  background: var(--zen-color-bg-subtle);
+}
+.md-frontmatter-table td {
+  color: var(--zen-color-text-primary);
+}
+.md-frontmatter-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.md-frontmatter-chip {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: var(--zen-border-radius-sm, 4px);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  font-size: 0.8125rem;
+  color: var(--zen-color-text-primary);
+}
+.md-frontmatter-empty {
+  color: var(--zen-color-text-placeholder);
 }
 
 .md-prose h1 {
