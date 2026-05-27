@@ -28,7 +28,7 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 | Component guidelines | `vendor/components/dist/guidelines/<slug>.json` (`domains.*` shape) | `components/dist/guidelines/` | JSON | Per-component multi-domain merged docs |
 | Foundations | `vendor/foundations/foundations.md` + `vendor/foundations/*.json` | `foundations/` | MD + JSON | Spacing, typography, color, motion (8 derived) |
 | Content guidelines | `vendor/content/dist/global.md` + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` | `content/` + `components/` | MD + JSON | Voice, tone, copy patterns |
-| Accessibility | `vendor/accessibility/accessibility.md` | `accessibility/` | MD | WCAG 2.1 AA conformance rules |
+| Accessibility | `vendor/accessibility/src/NN-<slug>.md` (per-section) | `accessibility/src/` | MD | WCAG 2.1 AA conformance rules |
 | App context | `vendor/app-context/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
 | FM↔DS map | `vendor/fm-to-ds-map/fm-to-ds-map.json` | `fm-to-ds-map/` | JSON | Wireframe-to-DS component mapping |
 | Skill behavior | `plugins/actian-design-system/skills/*/SKILL.md` | (plugin only) | MD | Per-skill instructions and references |
