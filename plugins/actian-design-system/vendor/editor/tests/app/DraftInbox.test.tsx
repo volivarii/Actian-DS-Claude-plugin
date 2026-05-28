@@ -50,7 +50,7 @@ test("DraftInbox: groups entries by component slug", () => {
 
 test("DraftInbox: groups foundations + accessibility separately", () => {
   submissionCartSingleton.add({
-    path: "foundations/src/02-color-primitives.md",
+    path: "foundations/src/color-primitives.md",
     content: "x",
     basedOnSha: "abc",
     addedAt: Date.now(),
@@ -68,7 +68,7 @@ test("DraftInbox: groups foundations + accessibility separately", () => {
 
 test("DraftInbox: Open → calls onOpenFile with the file path", () => {
   submissionCartSingleton.add({
-    path: "foundations/src/02-color-primitives.md",
+    path: "foundations/src/color-primitives.md",
     content: "x",
     basedOnSha: "abc",
     addedAt: Date.now(),
@@ -80,7 +80,7 @@ test("DraftInbox: Open → calls onOpenFile with the file path", () => {
     ),
   );
   fireEvent.click(screen.getByText("Open →"));
-  assert.deepEqual(calls, ["foundations/src/02-color-primitives.md"]);
+  assert.deepEqual(calls, ["foundations/src/color-primitives.md"]);
 });
 
 test("DraftInbox: workspace group → 'Open workspace →' navigates to workspace/<slug>", () => {

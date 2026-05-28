@@ -186,7 +186,7 @@ test("submitDraft: blocks .md submission when anchors are dropped", async () => 
     id: "test",
     message: "drop anchor",
     files: [
-      { path: "foundations/src/02-color-primitives.md", content: submission },
+      { path: "foundations/src/color-primitives.md", content: submission },
     ],
   };
   await assert.rejects(
@@ -215,7 +215,7 @@ test("submitDraft: passes .md submission when anchors preserved", async () => {
       id: "test",
       message: "preserve",
       files: [
-        { path: "foundations/src/02-color-primitives.md", content: submission },
+        { path: "foundations/src/color-primitives.md", content: submission },
       ],
     },
     { owner: "x", repo: "y", base: "main", schemas: {}, octokit: gh },
@@ -232,7 +232,7 @@ test("submitDraft: allowAnchorDrop bypasses the guard", async () => {
       id: "test",
       message: "drop intentionally",
       files: [
-        { path: "foundations/src/02-color-primitives.md", content: submission },
+        { path: "foundations/src/color-primitives.md", content: submission },
       ],
       allowAnchorDrop: true,
     },

@@ -12,7 +12,7 @@
       "patternKey": "patterns.<pattern>"
     },
     "fallback": "skip-card",
-    "grounding": ["vendor/foundations/src/03-tokens.md"]
+    "grounding": ["vendor/foundations/src/tokens.md"]
   },
   "research": {
     "applicable": false

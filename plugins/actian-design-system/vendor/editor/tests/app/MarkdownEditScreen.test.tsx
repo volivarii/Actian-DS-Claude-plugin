@@ -52,13 +52,13 @@ test("MarkdownEditScreen: loads remote and shows file path heading", async () =>
   render(
     wrap(
       <MarkdownEditScreen
-        path="foundations/src/02-color-primitives.md"
+        path="foundations/src/color-primitives.md"
         octokit={gh}
       />,
     ),
   );
   await waitFor(() =>
-    assert.ok(screen.getByText("foundations/src/02-color-primitives.md")),
+    assert.ok(screen.getByText("foundations/src/color-primitives.md")),
   );
   cleanup();
 });
@@ -69,7 +69,7 @@ test("MarkdownEditScreen: submit opens a PR (happy path)", async () => {
   render(
     wrap(
       <MarkdownEditScreen
-        path="foundations/src/02-color-primitives.md"
+        path="foundations/src/color-primitives.md"
         octokit={gh}
       />,
     ),

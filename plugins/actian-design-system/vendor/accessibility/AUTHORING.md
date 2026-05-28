@@ -4,26 +4,29 @@ This guide is for the UX team. It explains how to update the accessibility guide
 
 ## What you edit
 
-**A directory of per-section files:** `accessibility/src/` in `volivarii/actian-ds-knowledge` (this repo). Each numbered top-level section of the WCAG 2.1 AA guidance lives in its own file:
+**A directory of per-section files:** `accessibility/src/` in `volivarii/actian-ds-knowledge` (this repo). Each top-level section of the WCAG 2.1 AA guidance lives in its own file:
 
 ```
 accessibility/src/
-├── 00-intro.md                       — version, last-updated, target standard
-├── 01-principles.md
-├── 02-color-contrast.md
-├── 03-typography.md
-├── 04-motion.md
-├── 05-focus-keyboard.md
-├── 06-aria-labels.md
-├── 07-reading-order-landmarks.md
-├── 08-touch-pointer.md
-├── 09-error-prevention.md
-├── 10-session-timeout-warnings.md
-├── 11-components.md                  — per-component H3 entries + WCAG criteria
-└── 12-designer-handoff-checklist.md
+├── _order.json                       — section order (canonical sequence as JSON array)
+├── intro.md                          — version, last-updated, target standard
+├── principles.md
+├── color-contrast.md
+├── typography.md
+├── motion.md
+├── focus-keyboard.md
+├── aria-labels.md
+├── reading-order-landmarks.md
+├── touch-pointer.md
+├── error-prevention.md
+├── session-timeout-warnings.md
+├── components.md                     — per-component H3 entries + WCAG criteria
+└── designer-handoff-checklist.md
 ```
 
-The numeric `NN-` prefix encodes section order. CI walks the directory in alphabetical order, so renaming or renumbering files reorders the derived index.
+Section order is encoded in `_order.json` — a JSON array of slugs in canonical sequence. CI reads the manifest to determine concat order; the filename slug (the part before `.md`) is the section identity used in cross-references. Adding a new section means creating `<slug>.md` and appending the slug to `_order.json`; reordering is a one-line edit to the array.
+
+CI hard-errors if `_order.json` and the on-disk file set drift (slug in manifest without a file, or file without a manifest entry).
 
 Edit a file directly on GitHub:
 1. Open the file in `accessibility/src/` on GitHub.
@@ -36,7 +39,7 @@ You can also edit any file in any Markdown editor (Typora, iA Writer, Obsidian, 
 ## What happens after you commit
 
 When you open or update a PR that touches `accessibility/src/**`:
-1. The **Derive a11y-index** workflow concatenates the per-section files (sorted by name) and regenerates `accessibility/dist/a11y-index.json` — a slug-keyed index of every section, used by the plugin to attach the right accessibility guidance to each component.
+1. The **Derive a11y-index** workflow reads `accessibility/src/_order.json`, concatenates the per-section files in that declared order, and regenerates `accessibility/dist/a11y-index.json` — a slug-keyed index of every section, used by the plugin to attach the right accessibility guidance to each component.
 2. It commits the regenerated index back to your branch (`chore(accessibility): regenerate a11y-index.json + bump patch`) and bumps the patch version.
 
 You don't need to install Node, run any script, or touch the JSON. The PR shows your MD changes and the auto-generated index side by side.
@@ -45,9 +48,9 @@ You don't need to install Node, run any script, or touch the JSON. The PR shows 
 
 Each section file has its own H2 (`## N. <Title> {#anchor}`) at the top and may contain H3 sub-sections. Three kinds of content, all authored as plain markdown:
 
-- **Numbered top-level sections** (`## 1. Principles`, `## 2. Color & Contrast`, …) — one per file `01-…md` through `10-…md`. Cross-cutting rules.
-- **Component sub-sections** under `11-components.md` (`### Buttons`, `### Forms`, …) — per-component guidance. Each ends with a `**WCAG criteria:**` line listing the relevant success criteria; the derive step harvests those into the index.
-- **The Designer Handoff Checklist** (`12-designer-handoff-checklist.md`) — the pre-handoff review checklist.
+- **Numbered top-level sections** (`## 1. Principles`, `## 2. Color & Contrast`, …) — one per file (`principles.md`, `color-contrast.md`, …, `session-timeout-warnings.md`). Cross-cutting rules.
+- **Component sub-sections** under `components.md` (`### Buttons`, `### Forms`, …) — per-component guidance. Each ends with a `**WCAG criteria:**` line listing the relevant success criteria; the derive step harvests those into the index.
+- **The Designer Handoff Checklist** (`designer-handoff-checklist.md`) — the pre-handoff review checklist.
 
 ## Section ids — explicit `{#anchor}` per heading
 
@@ -67,12 +70,12 @@ Why explicit anchors and not auto-derived from heading text:
 **Rules:**
 - Every new H2 (`##`) and H3 (`###`) must end with ` {#some-slug}`.
 - Slug characters: lowercase a–z, digits, and `-`. No uppercase, no `_`, no spaces.
-- Anchors must be globally unique across `accessibility/src/**`. (Two H3 headings under `12-designer-handoff-checklist.md` currently re-use `{#color-contrast}` and `{#motion}` to deep-link back to their topic sections — that's intentional dedup, allowlisted in `tests/a11y-anchor-uniqueness.test.js`, not a precedent.)
+- Anchors must be globally unique across `accessibility/src/**`. (Two H3 headings under `designer-handoff-checklist.md` currently re-use `{#color-contrast}` and `{#motion}` to deep-link back to their topic sections — that's intentional dedup, allowlisted in `tests/a11y-anchor-uniqueness.test.js`, not a precedent.)
 - **Never rename or remove an anchor** without coordinating with consumers. The per-category accessibility defaults in `components/src/categories/*.md` reference these slugs (e.g. `{ ref: focus-keyboard }`); the `categories-derive` test catches orphans, but coordinate first to spare a broken PR.
 
-**Adding a new section:** create a new file `accessibility/src/NN-<slug>.md` with a kebab-case anchor on each heading. Pick a `NN-` prefix that places the file in the desired section order.
+**Adding a new section:** create a new file `accessibility/src/<slug>.md` with a kebab-case anchor on each heading, then append the slug to `_order.json` at the desired position.
 
-**Renumbering or reordering** is safe via filename prefix changes — only changing the `{#anchor}` would shift the consumer slug.
+**Reordering** is safe via a one-line edit to `_order.json` — only changing the `{#anchor}` would shift the consumer slug.
 
 ## This file is a merged baseline
 
@@ -80,7 +83,7 @@ The current `accessibility/src/*` was carved out of the designer-authored v1.3.0
 
 ## Standard
 
-The guidelines target **WCAG 2.1 AA**. Keep the version marker (`**Version:**`) and `**Last updated:**` lines in `00-intro.md` current when you make a substantive revision.
+The guidelines target **WCAG 2.1 AA**. Keep the version marker (`**Version:**`) and `**Last updated:**` lines in `intro.md` current when you make a substantive revision.
 
 ## What you don't need to do
 

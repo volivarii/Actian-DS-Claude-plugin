@@ -59,3 +59,30 @@ test("scanHeadings: requires space after #", () => {
   assert.equal(h.length, 1);
   assert.equal(h[0]!.text, "WithSpace");
 });
+
+test("scanHeadings: skips lines inside the YAML frontmatter envelope", () => {
+  const md = `---
+# P8 transversal refs — file-scoped
+# inventory lives in [[doc]]
+a11y_refs:
+  - { ref: typography }
+---
+
+## Real H2
+### Real H3
+`;
+  const h = scanHeadings(md);
+  assert.deepEqual(
+    h.map((x) => x.text),
+    ["Real H2", "Real H3"],
+  );
+});
+
+test("scanHeadings: ignores '---' that is not at the very top (no frontmatter)", () => {
+  const md = `# Intro\n\n---\n\n# After divider should still scan as heading\n`;
+  const h = scanHeadings(md);
+  assert.deepEqual(
+    h.map((x) => x.text),
+    ["Intro", "After divider should still scan as heading"],
+  );
+});

@@ -46,14 +46,14 @@ test("getPathTier: components/src/categories/<x>.md → high-impact-category", (
 
 test("getPathTier: foundations/src/<x>.md → high-impact-foundations", () => {
   assert.equal(
-    getPathTier("foundations/src/02-color-primitives.md").tier,
+    getPathTier("foundations/src/color-primitives.md").tier,
     "high-impact-foundations",
   );
 });
 
 test("getPathTier: accessibility/src/<x>.md → high-impact-accessibility", () => {
   assert.equal(
-    getPathTier("accessibility/src/01-principles.md").tier,
+    getPathTier("accessibility/src/principles.md").tier,
     "high-impact-accessibility",
   );
 });
@@ -70,7 +70,7 @@ test("getPathTier: severity is 'red' for read-only tiers, 'amber' for high-impac
   assert.equal(getPathTier("tokens/tokens.json").severity, "red");
   assert.equal(getPathTier("paths-manifest.json").severity, "red");
   assert.equal(
-    getPathTier("foundations/src/02-color-primitives.md").severity,
+    getPathTier("foundations/src/color-primitives.md").severity,
     "amber",
   );
   assert.equal(

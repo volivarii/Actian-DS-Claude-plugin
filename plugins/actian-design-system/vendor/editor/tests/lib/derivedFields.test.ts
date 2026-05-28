@@ -51,7 +51,7 @@ test("fetchLatestCommit: returns null when no commits found", async () => {
   }
   const info = await fetchLatestCommit(
     gh,
-    "foundations/src/02-color-primitives.md",
+    "foundations/src/color-primitives.md",
   );
   assert.equal(info, null);
 });

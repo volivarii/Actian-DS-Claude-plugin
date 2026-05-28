@@ -1,0 +1,16 @@
+{
+  "_schema_version": 1,
+  "_meta": { "auto_generated": true, "source": "foundations/src/tokens.md" },
+  "patterns": {
+    "state-transitions": {
+      "slug": "state-transitions",
+      "name": "State transitions",
+      "description": "100-200ms band for hover/focus/active."
+    },
+    "drawer-open-close": {
+      "slug": "drawer-open-close",
+      "name": "Drawer open/close",
+      "description": "300ms slide; eased entry, linear exit."
+    }
+  }
+}

@@ -49,6 +49,59 @@ test("Outline: click on heading without a view does not throw", () => {
   assert.ok(true);
 });
 
+test("Outline: connection pill renders count from connectionCounts (H2 only)", () => {
+  const md = `# Top\n\n## Section A\n\n## Section B\n`;
+  const counts = new Map<string, number>([["section-a", 3]]);
+  const opens: Array<{ anchor: string; count: number }> = [];
+  render(
+    wrap(
+      <Outline
+        text={md}
+        view={null}
+        file="foundations/src/x.md"
+        connectionCounts={counts}
+        onOpenConnectionsForSection={(s, el) =>
+          opens.push({
+            anchor: s.anchor,
+            count: parseInt(el.textContent ?? "0"),
+          })
+        }
+      />,
+    ),
+  );
+  // Pill must exist on H2s, not on H1s.
+  assert.ok(screen.getByTestId("connections-pill-section-a"));
+  assert.ok(screen.getByTestId("connections-pill-section-b"));
+  // H1 ("Top") does NOT get a pill.
+  assert.equal(screen.queryByTestId("connections-pill-top"), null);
+});
+
+test("Outline: pill click fires onOpenConnectionsForSection with section + element", () => {
+  const md = `# Top\n\n## Section A\n`;
+  const opens: Array<{ anchor: string }> = [];
+  render(
+    wrap(
+      <Outline
+        text={md}
+        view={null}
+        file="foundations/src/x.md"
+        connectionCounts={new Map([["section-a", 2]])}
+        onOpenConnectionsForSection={(s) => opens.push({ anchor: s.anchor })}
+      />,
+    ),
+  );
+  fireEvent.click(screen.getByTestId("connections-pill-section-a"));
+  assert.equal(opens.length, 1);
+  assert.equal(opens[0]!.anchor, "section-a");
+});
+
+test("Outline: missing onOpenConnectionsForSection hides the pill entirely (legacy callers)", () => {
+  const md = `# Top\n\n## Section A\n`;
+  render(wrap(<Outline text={md} view={null} />));
+  // No file / no callback / no counts → no pill rendered.
+  assert.equal(screen.queryByTestId("connections-pill-section-a"), null);
+});
+
 test("Outline: click on heading WITH a fake view dispatches scroll effect", () => {
   const md = `# Top\n## Section\n`;
   const dispatched: unknown[] = [];

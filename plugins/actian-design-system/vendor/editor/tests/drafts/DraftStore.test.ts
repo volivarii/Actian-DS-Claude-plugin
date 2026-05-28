@@ -33,8 +33,8 @@ test("DraftStore.save + load roundtrip", () => {
     basedOnSha: "abc123",
     ts: 1700000000000,
   };
-  store.save("foundations/src/02-color-primitives.md", draft);
-  const got = store.load("foundations/src/02-color-primitives.md");
+  store.save("foundations/src/color-primitives.md", draft);
+  const got = store.load("foundations/src/color-primitives.md");
   assert.deepEqual(got, draft);
 });
 

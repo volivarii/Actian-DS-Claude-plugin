@@ -1,0 +1,9 @@
+{
+  "_schema_version": 1,
+  "_meta": { "auto_generated": true, "source": "accessibility/src/" },
+  "sections": [
+    { "slug": "color-contrast", "title": "Color contrast", "wcag": ["1.4.3"], "body": "Text on backgrounds must meet WCAG AA: 4.5:1 body / 3:1 large." },
+    { "slug": "typography", "title": "Typography", "wcag": ["1.4.4"], "body": "Text size, line-height, weight scales meet WCAG 1.4.4." },
+    { "slug": "focus-keyboard", "title": "Keyboard focus", "wcag": ["2.4.7"], "body": "Visible focus indicator + keyboard operability." }
+  ]
+}

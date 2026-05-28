@@ -192,11 +192,11 @@ test("resolveSection — generate recipe → returns Phase B marker, no transcri
   var recipe = {
     card: "anatomy",
     phase: "generate",
-    grounding: ["vendor/foundations/src/03-tokens.md"],
+    grounding: ["vendor/foundations/src/tokens.md"],
   };
   var result = sourcing.resolveSection("anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
-  assert.deepEqual(result.grounding, ["vendor/foundations/src/03-tokens.md"]);
+  assert.deepEqual(result.grounding, ["vendor/foundations/src/tokens.md"]);
 });
 
 test("resolveSection — content card with an approved content domain → figma result", function () {
@@ -293,11 +293,11 @@ test("resolveSection — stub guideline forces Phase B even on generate recipe (
   var recipe = {
     card: "anatomy",
     phase: "generate",
-    grounding: ["vendor/foundations/src/03-tokens.md"],
+    grounding: ["vendor/foundations/src/tokens.md"],
   };
   var result = sourcing.resolveSection("anatomy", ctx, recipe);
   assert.equal(result.phase, "B");
-  assert.deepEqual(result.grounding, ["vendor/foundations/src/03-tokens.md"]);
+  assert.deepEqual(result.grounding, ["vendor/foundations/src/tokens.md"]);
   assert.equal(result.fallback, true);
 });
 

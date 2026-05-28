@@ -29,6 +29,16 @@ import { Toolbar } from "../markdown-engine/Toolbar";
 import { Preview } from "../markdown-engine/Preview";
 import { Outline } from "./Outline";
 import { AnchorReferencesPopover } from "./AnchorReferencesPopover";
+import { computeFocusedSection } from "./SectionFocusTracker";
+import { ConnectionsPopover } from "./ConnectionsPopover";
+import type { FocusedSectionContext } from "./EditorShell";
+// NOTE: deep-imported (not via the substrate barrel) to keep the Node-only
+// loader (taxonomy.ts uses node:fs/promises, refGraph.ts uses node:path) out
+// of the browser bundle. Vite's tree-shaker can't see through the barrel's
+// re-exports of node:* modules and surfaces a "readFile is not exported"
+// error at build time if we go through ../substrate.
+import { buildTaxonomyFromAssets } from "../substrate/buildTaxonomyFromAssets";
+import { parseLocalFrontmatter } from "../substrate/parseLocalFrontmatter";
 import {
   draftStoreSingleton,
   submissionCartSingleton,
@@ -36,7 +46,7 @@ import {
 import { useDraft } from "../drafts/useDraft";
 import { useCart } from "../drafts/useCart";
 import { buildMarkdownStub } from "../lib/markdownStubs";
-import { loadAnchorIndex } from "../lib/anchorIndex";
+import { loadAnchorIndex, findReferences } from "../lib/anchorIndex";
 import { computeRenameWarnings } from "../markdown-engine/anchorLinter";
 import { Badge } from "@radix-ui/themes";
 import { TierBanner } from "./TierBanner";
@@ -46,6 +56,11 @@ interface MarkdownEditScreenProps {
   octokit?: Octokit;
   onOpenSettings?: () => void;
   onNavigate?: (path: string) => void;
+  /** Optional outward callback (purely for tests / future analytics) —
+   *  fired whenever the caret's resolved section changes. The cursor
+   *  NO LONGER drives any UI panel — activation is now explicit via the
+   *  Outline pill (the v1.1 fix-up after the persistent-panel bug). */
+  onFocusedSectionChange?: (section: FocusedSectionContext | null) => void;
 }
 
 type LoadSource = "remote" | "cart" | "stub";
@@ -66,6 +81,7 @@ export function MarkdownEditScreen({
   octokit,
   onOpenSettings,
   onNavigate,
+  onFocusedSectionChange,
 }: MarkdownEditScreenProps) {
   const [ghError, setGhError] = useState<string | null>(null);
   const [anchorPopover, setAnchorPopover] = useState<{
@@ -140,11 +156,16 @@ export function MarkdownEditScreen({
     [path, text],
   );
 
+  // Tick whenever anchorIndex finishes loading; drives recomputation of
+  // the incoming-refs counts that feed the Outline pills + popover.
+  const [anchorIndexTick, setAnchorIndexTick] = useState(0);
   useEffect(() => {
     if (!gh) return;
-    void loadAnchorIndex(gh).catch(() => {
-      /* swallow — autocomplete just won't fire */
-    });
+    void loadAnchorIndex(gh)
+      .then(() => setAnchorIndexTick((t) => t + 1))
+      .catch(() => {
+        /* swallow — autocomplete + pill incoming counts just won't fire */
+      });
     setLoad({ kind: "loading" });
     (async () => {
       try {
@@ -218,6 +239,103 @@ export function MarkdownEditScreen({
     },
     [sha, saveText],
   );
+
+  // Cursor tracking is preserved for analytics / future use ONLY — it no
+  // longer drives any visible UI. The v1 right-rail panel was driven by
+  // this signal and felt always-on (cursor lives inside a section almost
+  // continuously when authors are editing). Activation moved to an
+  // explicit Outline pill (see connectionsPopover below).
+  const textRef = useRef(text);
+  useEffect(() => {
+    textRef.current = text;
+  }, [text]);
+  const handleCursorLineChange = useCallback(
+    (line: number) => {
+      if (!onFocusedSectionChange) return;
+      const section = computeFocusedSection(textRef.current, line);
+      const resolved: FocusedSectionContext | null = section
+        ? { file: path, ...section }
+        : null;
+      onFocusedSectionChange(resolved);
+    },
+    [onFocusedSectionChange, path],
+  );
+
+  // Reset analytics callback when the active file changes — the previous
+  // file's cursor-derived section no longer applies.
+  useEffect(() => {
+    onFocusedSectionChange?.(null);
+  }, [path, onFocusedSectionChange]);
+
+  // Build the in-memory taxonomy once per mount. The static JSON imports
+  // are baked at build time (see substrate/taxonomyAssets.ts) so this is
+  // cheap and synchronous — no fetch, no async boundary.
+  const taxonomy = useMemo(() => buildTaxonomyFromAssets(), []);
+
+  // Outgoing connections derived from THIS file's frontmatter. Recomputes
+  // on edit so adding/removing a connection inline reflects immediately.
+  const outgoing = useMemo(
+    () => parseLocalFrontmatter(text, taxonomy),
+    [text, taxonomy],
+  );
+
+  // Per-section connection counts feed the Outline pills. Each H2/H3 in
+  // the current file contributes:
+  //   - OUTGOING (this section's own a11y_refs/motion_refs in frontmatter)
+  //     attached to the file's top H2 per P8 Option A v1.
+  //   - INCOMING (other files that reference this section's anchor) via
+  //     anchorIndex.findReferences — re-runs when the index finishes
+  //     loading (anchorIndexTick).
+  // Pill displays the SUM so definition-only files (no frontmatter
+  // outgoing, just incoming refs from consumers) still surface a count.
+  const connectionCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    const lines = text.split("\n");
+
+    // Walk every line; for each H2/H3 found, set its incoming count from
+    // anchorIndex. Use a Set so the same anchor isn't recounted when the
+    // walker returns it across multiple lines inside the same section.
+    const seenAnchors = new Set<string>();
+    let firstH2Anchor: string | null = null;
+    for (let i = 0; i < lines.length; i++) {
+      const s = computeFocusedSection(text, i);
+      if (!s || seenAnchors.has(s.anchor)) continue;
+      seenAnchors.add(s.anchor);
+      if (s.level === 2 && firstH2Anchor === null) firstH2Anchor = s.anchor;
+      // anchorIndexTick is only here to keep this memo dependent on the
+      // index becoming available — findReferences reads the module cache.
+      const incoming = findReferences(s.anchor).length;
+      if (incoming > 0) counts.set(s.anchor, incoming);
+    }
+
+    // P8 Option A: outgoing refs attach to the file's top H2.
+    if (firstH2Anchor && outgoing.length > 0) {
+      const existing = counts.get(firstH2Anchor) ?? 0;
+      counts.set(firstH2Anchor, existing + outgoing.length);
+    }
+    return counts;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [text, outgoing, anchorIndexTick]);
+
+  // Popover state — explicit, opens only on Outline pill click. The
+  // anchorEl is the pill DOM node; Radix Popover.Anchor positions to it.
+  const [connectionsPopover, setConnectionsPopover] = useState<{
+    section: FocusedSectionContext;
+    anchorEl: HTMLElement;
+  } | null>(null);
+
+  const openConnectionsForSection = useCallback(
+    (section: FocusedSectionContext, anchorEl: HTMLElement) => {
+      setConnectionsPopover({ section, anchorEl });
+    },
+    [],
+  );
+
+  // Close the popover when the active file changes — the prior file's
+  // section context no longer applies.
+  useEffect(() => {
+    setConnectionsPopover(null);
+  }, [path]);
 
   const onRestore = () => {
     const draft = draftStoreSingleton.load(path);
@@ -369,7 +487,13 @@ export function MarkdownEditScreen({
             overflow: "hidden",
           }}
         >
-          <Outline text={text} view={view} />
+          <Outline
+            text={text}
+            view={view}
+            file={path}
+            connectionCounts={connectionCounts}
+            onOpenConnectionsForSection={openConnectionsForSection}
+          />
         </Box>
         <Box
           flexGrow="1"
@@ -390,6 +514,7 @@ export function MarkdownEditScreen({
             onAnchorClick={(slug, el) =>
               setAnchorPopover({ slug, triggerEl: el })
             }
+            onCursorLineChange={handleCursorLineChange}
           />
           {anchorPopover && (
             <AnchorReferencesPopover
@@ -424,6 +549,47 @@ export function MarkdownEditScreen({
           </Box>
         )}
       </Flex>
+      {connectionsPopover && (
+        <ConnectionsPopover
+          sectionTitle={
+            extractHeadingText(text, connectionsPopover.section.line) ||
+            connectionsPopover.section.anchor
+          }
+          text={text}
+          anchorEl={connectionsPopover.anchorEl}
+          // P8 Option A v1: only the file's top H2 owns the file-level
+          // outgoing refs. Sub-section inspectors are read-only incoming
+          // views; the picker + remove affordances surface only on the
+          // top H2. The outgoing prop is still the file-level set (the
+          // SectionInspector hides it when scope === "section"); passing
+          // it unconditionally means the file-scope inspector always sees
+          // the freshly-mutated state without us recomputing per pill.
+          scope={
+            connectionsPopover.section.anchor === firstH2Anchor(text)
+              ? "file"
+              : "section"
+          }
+          outgoing={outgoing}
+          incoming={findReferences(connectionsPopover.section.anchor).map(
+            (file) => ({
+              file,
+              // Incoming references come from anchorIndex which doesn't
+              // distinguish a11y_refs vs motion_refs vs heading-link refs.
+              // The UI treats all incoming uniformly — refType is plumbing.
+              refType: "a11y_refs" as const,
+              note: null,
+            }),
+          )}
+          taxonomy={taxonomy}
+          onTextChange={(next) => {
+            if (!view) return;
+            view.dispatch({
+              changes: { from: 0, to: view.state.doc.length, insert: next },
+            });
+          }}
+          onClose={() => setConnectionsPopover(null)}
+        />
+      )}
       <Flex gap="2" justify="end" align="center" wrap="wrap">
         {prUrl && (
           <Text>
@@ -588,4 +754,31 @@ export function MarkdownEditScreen({
       </AlertDialog.Root>
     </Flex>
   );
+}
+
+// Resolve the file's top H2 anchor. Used to decide whether the section
+// the author opened is the bucket that owns the file-level outgoing refs
+// (P8 Option A) — sub-sections render as read-only incoming views.
+function firstH2Anchor(source: string): string | null {
+  const lines = source.split("\n");
+  for (let i = 0; i < lines.length; i++) {
+    const s = computeFocusedSection(source, i);
+    if (s && s.level === 2) return s.anchor;
+  }
+  return null;
+}
+
+// Pull the human-readable heading text from a markdown source line. Strips
+// the leading hashes, optional number prefix ("2.11 Motion"), and trailing
+// {#anchor} marker. Returns "" when the line doesn't look like a heading
+// (defensive — Outline pill clicks always pass a real heading line).
+function extractHeadingText(source: string, line: number): string {
+  const raw = source.split("\n")[line];
+  if (raw === undefined) return "";
+  const m = raw.match(/^#{2,3}\s+(.+?)\s*$/);
+  if (!m) return "";
+  return (m[1] ?? "")
+    .replace(/\s*\{#[a-z][a-z0-9-]*\}\s*$/, "")
+    .replace(/^\s*\d+(?:\.\d+)*\.?\s+/, "")
+    .trim();
 }
