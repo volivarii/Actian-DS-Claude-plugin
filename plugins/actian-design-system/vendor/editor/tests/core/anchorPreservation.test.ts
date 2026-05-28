@@ -38,12 +38,12 @@ test("droppedAnchors: empty remote returns []", () => {
 
 test("AnchorPreservationError is a real Error subclass", () => {
   const err = new AnchorPreservationError(
-    "foundations/src/02-color-primitives.md",
+    "foundations/src/color-primitives.md",
     ["color", "spacing"],
   );
   assert.ok(err instanceof Error);
   assert.equal(err.name, "AnchorPreservationError");
-  assert.equal(err.path, "foundations/src/02-color-primitives.md");
+  assert.equal(err.path, "foundations/src/color-primitives.md");
   assert.deepEqual(err.dropped, ["color", "spacing"]);
   assert.match(err.message, /color/);
   assert.match(err.message, /spacing/);

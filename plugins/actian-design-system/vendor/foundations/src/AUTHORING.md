@@ -8,16 +8,19 @@ This guide is for the UX team. It explains how to update the foundations source 
 
 ```
 foundations/src/
-├── 00-intro.md                       — title, doctrine, version, last-updated
-├── 01-table-of-contents.md
-├── 02-color-primitives.md            — § 1 (palettes, OKLCH shade formula)
-├── 03-tokens.md                      — § 2 (all token sections 2.1–2.11, including motion patterns)
-├── 04-design-guidelines.md           — § 3 (color/typography/spacing/elevation usage rules)
-├── 05-handoff-protocol.md            — § 4
-└── 06-related-guidelines.md          — § 5 (sibling pointers)
+├── _order.json                       — section order (canonical sequence as JSON array)
+├── intro.md                          — title, doctrine, version, last-updated
+├── table-of-contents.md
+├── color-primitives.md               — § 1 (palettes, OKLCH shade formula)
+├── tokens.md                         — § 2 (all token sections 2.1–2.11, including motion patterns)
+├── design-guidelines.md              — § 3 (color/typography/spacing/elevation usage rules)
+├── handoff-protocol.md               — § 4
+└── related-guidelines.md             — § 5 (sibling pointers)
 ```
 
-The numeric `NN-` prefix encodes section order. CI walks the directory in alphabetical order, so renaming or renumbering files reorders the derived dist tree.
+Section order is encoded in `_order.json` — a JSON array of slugs in canonical sequence. CI reads the manifest to determine concat order; the filename slug (the part before `.md`) is the section identity used in cross-references. Adding a new section means creating `<slug>.md` and appending the slug to `_order.json`; reordering is a one-line edit to the array.
+
+CI hard-errors if `_order.json` and the on-disk file set drift (slug in manifest without a file, or file without a manifest entry).
 
 Edit a file directly on GitHub:
 1. Open the file in `foundations/src/` on GitHub.
@@ -37,11 +40,11 @@ When you open or update a PR that touches `foundations/src/**`:
 
 You don't need to install Node, run any script, or touch the JSON files. The PR appears with both your MD changes and the auto-generated JSON changes side by side.
 
-You can rename, renumber, reorder, or restructure sections freely (within each file, or across files) — the parser tracks MD structure, not section numbers. The output tree adapts.
+You can rename, reorder, or restructure sections freely — the parser tracks MD structure and uses `_order.json` for canonical sequence. The output tree adapts. (Renaming a section slug also requires updating any cross-substrate references; the Tier 2 editor's safe-slug-rename will handle that in v2.)
 
 ## Adding a token
 
-Find the right table in `foundations/src/03-tokens.md` (e.g., section `2.1 Color — Global Tokens`). Insert a new row. The columns vary per table — match what's already there.
+Find the right table in `foundations/src/tokens.md` (e.g., section `2.1 Color — Global Tokens`). Insert a new row. The columns vary per table — match what's already there.
 
 Example, adding a new color token:
 
@@ -68,7 +71,7 @@ If you add an emoji not in the list above, it'll be preserved as text but won't 
 
 ## Adding a motion pattern
 
-Motion patterns live in `foundations/src/03-tokens.md` under section `2.9 — Motion` and are written as **bold paragraphs** followed by a phase table:
+Motion patterns live in `foundations/src/tokens.md` under section `2.9 — Motion` and are written as **bold paragraphs** followed by a phase table:
 
 ```markdown
 **Drawer (open/close)** {#drawer-open-close}

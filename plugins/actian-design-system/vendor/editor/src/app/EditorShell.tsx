@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import type { Octokit } from "@octokit/rest";
-import { Box, Button, Callout, Flex, Text } from "@radix-ui/themes";
+import { Box, Button, Callout, Flex } from "@radix-ui/themes";
 import { createOctokit, MissingPATError } from "../core/octokit";
 import { Sidebar } from "./Sidebar";
 import { MetaEditScreen } from "./MetaEditScreen";
@@ -11,11 +11,21 @@ import { AuthoringWorkspace } from "./AuthoringWorkspace";
 import { DraftInbox } from "./DraftInbox";
 import { draftStoreSingleton } from "../drafts/store-instance";
 
+/** Section currently under the editor caret. MarkdownEditScreen renders
+ *  the Section Inspector as a right-side panel alongside the body editor
+ *  whenever this is non-null. */
+export interface FocusedSectionContext {
+  file: string;
+  anchor: string;
+  level: 2 | 3;
+  line: number;
+}
+
 interface EditorShellProps {
   onOpenSettings?: () => void;
   octokit?: Octokit;
-  activePath: string | null;
-  setActivePath: (path: string | null) => void;
+  activePath?: string | null;
+  setActivePath?: (path: string | null) => void;
   /** Opens the SubmissionStaging dialog (owned by App). Used by the
    *  DraftInbox surface to offer a one-click escalation to submit. */
   onOpenStaging?: () => void;
@@ -57,10 +67,11 @@ function parentWorkspaceOf(path: string): string | null {
 export function EditorShell({
   onOpenSettings,
   octokit,
-  activePath,
+  activePath = null,
   setActivePath,
   onOpenStaging,
 }: EditorShellProps) {
+  const setActivePathSafe = setActivePath ?? (() => {});
   const [ghError, setGhError] = useState<string | null>(null);
   const gh = useMemo<Octokit | null>(() => {
     if (octokit) return octokit;
@@ -92,32 +103,39 @@ export function EditorShell({
     };
   }, []);
 
-  if (ghError) {
-    return (
-      <Callout.Root color="amber">
-        <Callout.Text>{ghError}</Callout.Text>
-      </Callout.Root>
-    );
-  }
-  if (!gh) return null;
-
-  let pane: React.ReactNode;
+  // Compute the File-tab pane content. When auth isn't wired we still
+  // render the tab UI (so authors can see "Section" is contextually
+  // available) but surface the auth error / signed-out state INSIDE the
+  // File tab — the right pane never becomes a blank surface.
   const wsSlug = activePath ? workspaceSlug(activePath) : null;
   const parentWs = activePath ? parentWorkspaceOf(activePath) : null;
   const breadcrumb = parentWs ? (
     <Box mb="2">
-      <Button variant="ghost" size="1" onClick={() => setActivePath(parentWs)}>
+      <Button
+        variant="ghost"
+        size="1"
+        onClick={() => setActivePathSafe(parentWs)}
+      >
         ← Back to workspace
       </Button>
     </Box>
   ) : null;
 
-  if (activePath == null) {
-    pane = <CoverageDashboard octokit={gh} onOpenFile={setActivePath} />;
+  let pane: React.ReactNode;
+  if (ghError) {
+    pane = (
+      <Callout.Root color="amber">
+        <Callout.Text>{ghError}</Callout.Text>
+      </Callout.Root>
+    );
+  } else if (!gh) {
+    pane = null;
+  } else if (activePath == null) {
+    pane = <CoverageDashboard octokit={gh} onOpenFile={setActivePathSafe} />;
   } else if (activePath === "inbox") {
     pane = (
       <DraftInbox
-        onOpenFile={setActivePath}
+        onOpenFile={setActivePathSafe}
         onOpenStaging={() => onOpenStaging?.()}
       />
     );
@@ -126,8 +144,8 @@ export function EditorShell({
       <AuthoringWorkspace
         slug={wsSlug}
         octokit={gh}
-        onNavigate={setActivePath}
-        onBack={() => setActivePath(null)}
+        onNavigate={setActivePathSafe}
+        onBack={() => setActivePathSafe(null)}
       />
     );
   } else if (isMetaYaml(activePath)) {
@@ -136,7 +154,7 @@ export function EditorShell({
         path={activePath}
         octokit={gh}
         onOpenSettings={onOpenSettings}
-        onNavigate={setActivePath}
+        onNavigate={setActivePathSafe}
       />
     );
   } else if (isPlainMarkdown(activePath)) {
@@ -145,12 +163,24 @@ export function EditorShell({
         path={activePath}
         octokit={gh}
         onOpenSettings={onOpenSettings}
-        onNavigate={setActivePath}
+        onNavigate={setActivePathSafe}
       />
     );
   } else {
     pane = (
-      <RefusalBanner path={activePath} onBack={() => setActivePath(null)} />
+      <RefusalBanner path={activePath} onBack={() => setActivePathSafe(null)} />
+    );
+  }
+
+  // When auth hasn't initialised, render the file content standalone (no
+  // sidebar). Production never hits this path — App.tsx only mounts
+  // EditorShell after sign-in.
+  if (!gh) {
+    return (
+      <Box p="3" style={{ height: "100%", minHeight: 0 }}>
+        {breadcrumb}
+        {pane}
+      </Box>
     );
   }
 
@@ -160,7 +190,7 @@ export function EditorShell({
         octokit={gh}
         pendingPaths={pendingPaths}
         activePath={activePath}
-        onSelect={setActivePath}
+        onSelect={setActivePathSafe}
       />
       <Box
         flexGrow="1"

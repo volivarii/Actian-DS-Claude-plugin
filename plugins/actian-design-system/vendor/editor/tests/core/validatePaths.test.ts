@@ -31,7 +31,7 @@ test("validatePaths — allows components/src content", () => {
 });
 
 test("validatePaths — allows accessibility/src/*.md", () => {
-  assert.equal(isReadOnlyPath("accessibility/src/01-principles.md"), false);
+  assert.equal(isReadOnlyPath("accessibility/src/principles.md"), false);
 });
 
 test("validatePaths — allows app-context, fm-to-ds-map, icon-groups (Class C)", () => {
@@ -41,7 +41,7 @@ test("validatePaths — allows app-context, fm-to-ds-map, icon-groups (Class C)"
 });
 
 test("validatePaths — allows foundations/src/*.md (authored)", () => {
-  assert.equal(isReadOnlyPath("foundations/src/02-color-primitives.md"), false);
+  assert.equal(isReadOnlyPath("foundations/src/color-primitives.md"), false);
 });
 
 test("validatePaths — allows content/src/global.md (authored prose)", () => {

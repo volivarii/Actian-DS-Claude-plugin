@@ -24,8 +24,8 @@ function primeIndex(slug: string, refs: string[]) {
 
 test("AnchorReferencesPopover: shows referencing files", () => {
   primeIndex("alpha", [
-    "foundations/src/02-color-primitives.md",
-    "accessibility/src/01-principles.md",
+    "foundations/src/color-primitives.md",
+    "accessibility/src/principles.md",
   ]);
   render(
     <Theme>
@@ -37,8 +37,8 @@ test("AnchorReferencesPopover: shows referencing files", () => {
       />
     </Theme>,
   );
-  assert.ok(screen.getByText("foundations/src/02-color-primitives.md"));
-  assert.ok(screen.getByText("accessibility/src/01-principles.md"));
+  assert.ok(screen.getByText("foundations/src/color-primitives.md"));
+  assert.ok(screen.getByText("accessibility/src/principles.md"));
 });
 
 test("AnchorReferencesPopover: shows '0 refs' when unused", () => {
@@ -57,7 +57,7 @@ test("AnchorReferencesPopover: shows '0 refs' when unused", () => {
 });
 
 test("AnchorReferencesPopover: clicking a file dispatches onNavigate", () => {
-  primeIndex("alpha", ["accessibility/src/01-principles.md"]);
+  primeIndex("alpha", ["accessibility/src/principles.md"]);
   const calls: string[] = [];
   render(
     <Theme>
@@ -69,6 +69,6 @@ test("AnchorReferencesPopover: clicking a file dispatches onNavigate", () => {
       />
     </Theme>,
   );
-  fireEvent.click(screen.getByText("accessibility/src/01-principles.md"));
-  assert.deepEqual(calls, ["accessibility/src/01-principles.md"]);
+  fireEvent.click(screen.getByText("accessibility/src/principles.md"));
+  assert.deepEqual(calls, ["accessibility/src/principles.md"]);
 });

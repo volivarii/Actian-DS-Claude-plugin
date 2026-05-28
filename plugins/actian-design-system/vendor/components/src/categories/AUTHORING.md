@@ -132,7 +132,7 @@ Checklist sub-section:
 If a needed slug doesn't exist upstream, do one of:
 
 1. Pick a closely-related slug + tighten via `note:`
-2. Open a PR to `foundations/src/NN-<slug>.md` or `accessibility/src/NN-<slug>.md` adding the new pattern/section. The slug is then automatically derivable.
+2. Open a PR to `foundations/src/<slug>.md` or `accessibility/src/<slug>.md` adding the new pattern/section (and add the slug to the domain's `_order.json`). The slug is then automatically derivable.
 
 ## Worked example
 

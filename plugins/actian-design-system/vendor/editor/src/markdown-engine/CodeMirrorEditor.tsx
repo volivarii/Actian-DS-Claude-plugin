@@ -26,6 +26,11 @@ export interface CodeMirrorEditorProps {
   onChange: (text: string) => void;
   onReady?: (view: EditorView) => void;
   onAnchorClick?: (slug: string, target: HTMLElement) => void;
+  /** Fires on every selection change with the cursor's 0-indexed line.
+   *  Used by the SectionFocusTracker to derive the right-pane Section
+   *  context. Latched (only fires when the line actually changes) so
+   *  same-line caret movement doesn't churn React state. */
+  onCursorLineChange?: (line: number) => void;
 }
 
 const proseHighlight = HighlightStyle.define([
@@ -83,9 +88,11 @@ export function CodeMirrorEditor({
   onChange,
   onReady,
   onAnchorClick,
+  onCursorLineChange,
 }: CodeMirrorEditorProps) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const viewRef = useRef<EditorView | null>(null);
+  const lastLineRef = useRef<number>(-1);
 
   useEffect(() => {
     if (!hostRef.current) return;
@@ -118,6 +125,14 @@ export function CodeMirrorEditor({
         EditorView.lineWrapping,
         EditorView.updateListener.of((u) => {
           if (u.docChanged) onChange(u.state.doc.toString());
+          if (u.selectionSet || u.docChanged) {
+            const head = u.state.selection.main.head;
+            const line = u.state.doc.lineAt(head).number - 1; // 0-indexed
+            if (line !== lastLineRef.current) {
+              lastLineRef.current = line;
+              onCursorLineChange?.(line);
+            }
+          }
         }),
         EditorView.theme({
           "&": { height: "100%", fontSize: "16px" },
