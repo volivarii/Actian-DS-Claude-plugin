@@ -113,5 +113,20 @@
       }
     ]
   },
-  "_sourceFile": "components/src/categories/data-display.md"
+  "_sourceFile": "components/src/categories/data-display.md",
+  "foundations_refs": {
+    "sectionRefs": [
+      {
+        "ref": "tokens",
+        "note": "spacing, elevation, and radius tokens"
+      },
+      {
+        "ref": "color-primitives",
+        "note": "status and data-category colors"
+      },
+      {
+        "ref": "design-guidelines"
+      }
+    ]
+  }
 }

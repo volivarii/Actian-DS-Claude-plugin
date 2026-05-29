@@ -367,11 +367,33 @@ export function MarkdownEditScreen({
       setSubmitting(true);
       setSubmitError(null);
       try {
+        // When the active file lives in an ordered domain (foundations/src or
+        // accessibility/src), include the cart's pending _order.json so that
+        // a +Add that staged both the new .md and the updated _order.json doesn't
+        // silently omit the manifest and trigger CI drift errors.
+        const orderedMatch = path.match(
+          /^(foundations|accessibility)\/src\/[^/]+\.md$/,
+        );
+        const filesToSubmit: { path: string; content: string }[] = [
+          { path, content: text },
+        ];
+        if (orderedMatch) {
+          const orderPath = `${orderedMatch[1]}/src/_order.json`;
+          const cartOrderEntry = submissionCartSingleton
+            .list()
+            .find((e) => e.path === orderPath && !e.deleted);
+          if (cartOrderEntry) {
+            filesToSubmit.push({
+              path: cartOrderEntry.path,
+              content: cartOrderEntry.content,
+            });
+          }
+        }
         const result = await submitDraft(
           {
             id: `md-${Date.now()}`,
             message: `edit ${path}`,
-            files: [{ path, content: text }],
+            files: filesToSubmit,
             sourceMetadata: { kind: "human", via: "MarkdownEditScreen" },
             allowAnchorDrop,
           },

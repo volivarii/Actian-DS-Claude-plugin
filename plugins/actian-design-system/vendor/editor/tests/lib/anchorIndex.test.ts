@@ -71,6 +71,23 @@ test("scanFileForAnchors: rejects slugs starting with digit or capital", () => {
   assert.deepEqual(result.defines, ["good-slug"]);
 });
 
+test("scanFileForAnchors: picks up JSON-style refs (a11y_refs / motion_refs)", () => {
+  const text = `{"a11y_refs":[{"ref":"tokens","note":"contrast"},{"ref":"focus-keyboard"}],"motion_refs":[{"ref":"reduced-motion"}]}`;
+  const result = scanFileForAnchors(text);
+  assert.deepEqual(result.defines, []);
+  assert.deepEqual(result.references, [
+    "tokens",
+    "focus-keyboard",
+    "reduced-motion",
+  ]);
+});
+
+test("scanFileForAnchors: JSON-style ref with space after colon", () => {
+  const text = `{ "ref": "color-primitives" }`;
+  const result = scanFileForAnchors(text);
+  assert.deepEqual(result.references, ["color-primitives"]);
+});
+
 function fakeGh(files: Record<string, string>) {
   return {
     repos: {
@@ -173,4 +190,69 @@ test("loadAnchorIndex: bad fetch for one file does not abort the index", async (
     "foundations/src/color-primitives.md",
   ]);
   assert.equal(index.scannedPaths.length > 0, true);
+});
+
+// fakeGh variant that includes a dist/guidelines JSON file with JSON-style refs.
+function fakeGhWithJson(files: Record<string, string>) {
+  return {
+    repos: {
+      getContent: async ({ path }: { path: string }) => {
+        if (path === "foundations/src") {
+          return { data: [{ name: "color-primitives.md", type: "file" }] };
+        }
+        if (path === "accessibility/src") {
+          return { data: [] };
+        }
+        if (path === "components/src") {
+          return { data: [] };
+        }
+        if (path === "components/dist/guidelines") {
+          return { data: [{ name: "button.json", type: "file" }] };
+        }
+        if (
+          path === "components/src/categories" ||
+          path === "content/src/patterns" ||
+          path === "content/src/product" ||
+          path === "content/src/writing" ||
+          path === "foundations/dist" ||
+          path === "accessibility/dist"
+        ) {
+          const err = new Error("404") as Error & { status: number };
+          err.status = 404;
+          throw err;
+        }
+        if (files[path] !== undefined) {
+          return {
+            data: {
+              type: "file",
+              encoding: "base64",
+              content: Buffer.from(files[path]!).toString("base64"),
+            },
+          };
+        }
+        const err = new Error("404") as Error & { status: number };
+        err.status = 404;
+        throw err;
+      },
+    },
+  } as any;
+}
+
+test("loadAnchorIndex: JSON substrate refs land in referencedBy", async () => {
+  setCachedIndexForTesting(null);
+  const gh = fakeGhWithJson({
+    "foundations/src/color-primitives.md": "## Tokens {#tokens}\n",
+    "components/dist/guidelines/button.json":
+      '{"a11y_refs":[{"ref":"tokens","note":"contrast"}],"motion_refs":[{"ref":"reduced-motion"}]}',
+  });
+  await loadAnchorIndex(gh, { force: true });
+  assert.deepEqual(findReferences("tokens"), [
+    "components/dist/guidelines/button.json",
+  ]);
+  assert.deepEqual(findReferences("reduced-motion"), [
+    "components/dist/guidelines/button.json",
+  ]);
+  assert.deepEqual(findDefinitions("tokens"), [
+    "foundations/src/color-primitives.md",
+  ]);
 });

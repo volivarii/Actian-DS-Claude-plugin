@@ -1,4 +1,4 @@
-## 4. Handoff Protocol
+## 4. Handoff Protocol {#handoff-protocol}
 
 ### 4.1 Before You Hand Off
 

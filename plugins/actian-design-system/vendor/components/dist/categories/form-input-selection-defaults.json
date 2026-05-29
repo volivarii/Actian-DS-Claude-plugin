@@ -107,5 +107,16 @@
       }
     ]
   },
-  "_sourceFile": "components/src/categories/form-input-selection.md"
+  "_sourceFile": "components/src/categories/form-input-selection.md",
+  "foundations_refs": {
+    "sectionRefs": [
+      {
+        "ref": "tokens",
+        "note": "spacing, radius, and focus-ring tokens"
+      },
+      {
+        "ref": "design-guidelines"
+      }
+    ]
+  }
 }

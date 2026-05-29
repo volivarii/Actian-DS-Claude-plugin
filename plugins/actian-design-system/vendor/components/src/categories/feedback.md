@@ -35,6 +35,11 @@ a11y_refs:
   - { ref: color-contrast }
   - { ref: motion, note: respect prefers-reduced-motion — disable entrance pulse + slide }
   - { ref: focus-keyboard, note: focus must not be stolen by toasts; persistent alerts may receive focus when actionable }
+
+foundations_refs:
+  - { ref: tokens, note: spacing and motion-timing tokens }
+  - { ref: color-primitives, note: severity/status colors must not rely on hue alone }
+  - { ref: design-guidelines }
 ---
 
 # Feedback — design rationale

@@ -1,7 +1,7 @@
 {
   "name": "actian-design-system",
   "description": "Actian Design System toolkit — generate wireframe flows with prototype wiring, create component briefs, audit designs, compare flows, and build presentations. 8 skills (with tiered generation: recognized / adapted / improvised), 8 agents, 155 tokens (3 themes, 8 collections), WCAG 2.1 AA. DS knowledge vendored from volivarii/actian-ds-knowledge.",
-  "version": "1.89.1",
+  "version": "1.89.2",
   "author": {
     "name": "Actian UX Team"
   },

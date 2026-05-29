@@ -1,6 +1,9 @@
 import { test, beforeEach } from "node:test";
 import assert from "node:assert/strict";
-import { SubmissionCart, type CartEntry } from "../../src/drafts/SubmissionCart";
+import {
+  SubmissionCart,
+  type CartEntry,
+} from "../../src/drafts/SubmissionCart";
 
 function makeStorage(): Storage {
   const map = new Map<string, string>();
@@ -21,7 +24,12 @@ function makeStorage(): Storage {
 }
 
 function entry(path: string, t = Date.now()): CartEntry {
-  return { path, content: `body of ${path}`, basedOnSha: "abc1234", addedAt: t };
+  return {
+    path,
+    content: `body of ${path}`,
+    basedOnSha: "abc1234",
+    addedAt: t,
+  };
 }
 
 let cart: SubmissionCart;
@@ -112,4 +120,56 @@ test("SubmissionCart: malformed JSON in storage returns empty list", () => {
   storage.setItem("editor:submission-cart:v1", "not-json");
   const c = new SubmissionCart(storage);
   assert.deepEqual(c.list(), []);
+});
+
+test("SubmissionCart: stores a deletion entry and survives round-trip", () => {
+  const storage = makeStorage();
+  const c = new SubmissionCart(storage);
+  c.add({
+    path: "foundations/src/tokens.md",
+    content: "",
+    basedOnSha: "abc123",
+    addedAt: 1700000000,
+    deleted: true,
+  });
+  const list = c.list();
+  assert.equal(list.length, 1);
+  assert.equal(list[0]!.deleted, true);
+
+  // Round-trip through serialization
+  const c2 = new SubmissionCart(storage);
+  const list2 = c2.list();
+  assert.equal(list2.length, 1);
+  assert.equal(list2[0]!.deleted, true);
+});
+
+test("SubmissionCart: rejects entries with invalid `deleted` types on deserialize", () => {
+  const storage = makeStorage();
+  storage.setItem(
+    "editor:submission-cart:v1",
+    JSON.stringify([
+      {
+        path: "x.md",
+        content: "",
+        basedOnSha: "",
+        addedAt: 1,
+        deleted: "yes",
+      },
+    ]),
+  );
+  const c = new SubmissionCart(storage);
+  assert.equal(c.list().length, 0);
+});
+
+test("SubmissionCart: an entry without `deleted` round-trips with deleted undefined", () => {
+  const storage = makeStorage();
+  const c = new SubmissionCart(storage);
+  c.add({
+    path: "foundations/src/intro.md",
+    content: "# Intro",
+    basedOnSha: "abc",
+    addedAt: 1,
+  });
+  const c2 = new SubmissionCart(storage);
+  assert.equal(c2.list()[0]!.deleted, undefined);
 });

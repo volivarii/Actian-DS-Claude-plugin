@@ -1,4 +1,4 @@
-## 1. Color Primitives
+## 1. Color Primitives {#color-primitives}
 
 All color palettes follow a shared OKLCH shade formula. Each palette has a named base (500), and all other shades are derived from it. Figma stores these as hex; engineering implements them as OKLCH with relative color syntax.
 

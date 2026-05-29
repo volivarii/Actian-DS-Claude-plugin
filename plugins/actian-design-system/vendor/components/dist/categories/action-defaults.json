@@ -98,5 +98,16 @@
       }
     ]
   },
-  "_sourceFile": "components/src/categories/action.md"
+  "_sourceFile": "components/src/categories/action.md",
+  "foundations_refs": {
+    "sectionRefs": [
+      {
+        "ref": "tokens",
+        "note": "spacing, radius, and focus-ring tokens for interactive surfaces"
+      },
+      {
+        "ref": "design-guidelines"
+      }
+    ]
+  }
 }

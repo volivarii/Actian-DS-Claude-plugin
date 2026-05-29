@@ -13,6 +13,13 @@ export interface CartEntry {
   content: string;
   basedOnSha: string;
   addedAt: number;
+  /**
+   * When true, this entry represents a file deletion. `content` is ignored
+   * by the submit pipeline; the entry causes the file to be omitted from
+   * the new git tree (Octokit `git/createTree` "missing blob = delete"
+   * semantics).
+   */
+  deleted?: boolean;
 }
 
 export type CartEvent =
@@ -89,10 +96,14 @@ export class SubmissionCart {
 function isCartEntry(v: unknown): v is CartEntry {
   if (!v || typeof v !== "object") return false;
   const e = v as Record<string, unknown>;
-  return (
-    typeof e.path === "string" &&
-    typeof e.content === "string" &&
-    typeof e.basedOnSha === "string" &&
-    typeof e.addedAt === "number"
-  );
+  if (
+    typeof e.path !== "string" ||
+    typeof e.content !== "string" ||
+    typeof e.basedOnSha !== "string" ||
+    typeof e.addedAt !== "number"
+  ) {
+    return false;
+  }
+  if (e.deleted !== undefined && typeof e.deleted !== "boolean") return false;
+  return true;
 }
