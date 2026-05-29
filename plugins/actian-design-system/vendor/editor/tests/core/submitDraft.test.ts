@@ -50,6 +50,13 @@ function makeFakeOctokit(): { gh: any; calls: Record<string, any[]> } {
           data: { html_url: "https://github.com/x/y/pull/1" },
         }),
       },
+      repos: {
+        getContent: async () => {
+          const err = new Error("not found") as Error & { status: number };
+          err.status = 404;
+          throw err;
+        },
+      },
     },
   };
 }
@@ -263,4 +270,97 @@ test("submitDraft: anchor guard does not run on .yml files", async () => {
     },
   );
   assert.equal(calls["pulls.create"]!.length, 1);
+});
+
+test("submitDraft — file marked deleted emits sha:null tree entry and skips createBlob", async () => {
+  const { gh, calls } = makeFakeOctokit();
+  await submitDraft(
+    {
+      id: "del-1",
+      message: "delete one + keep one",
+      files: [
+        { path: "foundations/src/intro.md", content: "# Intro" },
+        { path: "foundations/src/tokens.md", content: "", deleted: true },
+      ],
+      allowAnchorDrop: true,
+    },
+    {
+      owner: "o",
+      repo: "r",
+      base: "main",
+      schemas: {},
+      octokit: gh,
+    },
+  );
+
+  // One blob for the non-deleted file only
+  assert.equal(calls["git.createBlob"]!.length, 1);
+
+  // One createTree call carrying both entries — kept-file with blob sha, deleted-file with sha:null
+  assert.equal(calls["git.createTree"]!.length, 1);
+  const treeArg = calls["git.createTree"]![0]!;
+  const intro = treeArg.tree.find(
+    (t: any) => t.path === "foundations/src/intro.md",
+  );
+  const tokens = treeArg.tree.find(
+    (t: any) => t.path === "foundations/src/tokens.md",
+  );
+  assert.ok(intro, "intro entry present");
+  assert.equal(intro.sha, "BLOB_SHA");
+  assert.ok(tokens, "tokens entry present");
+  assert.equal(tokens.sha, null);
+});
+
+test("submitDraft — refuses to delete a read-only path", async () => {
+  const { gh, calls } = makeFakeOctokit();
+  await assert.rejects(
+    submitDraft(
+      {
+        id: "del-readonly",
+        message: "x",
+        files: [{ path: "tokens/tokens.json", content: "", deleted: true }],
+      },
+      {
+        owner: "o",
+        repo: "r",
+        base: "main",
+        schemas: {},
+        octokit: gh,
+      },
+    ),
+    (err: unknown) => err instanceof ReadonlyPathError,
+  );
+  // The readonly check is the first gate; no GitHub calls happened
+  assert.equal(calls["git.getRef"]!.length, 0);
+});
+
+test("submitDraft — does not run anchor-preservation or schema guards on deletion entries", async () => {
+  const { gh, calls } = makeFakeOctokit();
+  // schemas map deliberately empty; if schema guard ran on the .yml deletion
+  // it would still pass (no matching schema), so we use an .md path AND
+  // do NOT set allowAnchorDrop, then count getContent calls — the anchor
+  // guard fetches remote text via repos.getContent, the deletion should
+  // SKIP that fetch.
+  const callsBefore = calls["git.createBlob"]!.length;
+  await submitDraft(
+    {
+      id: "del-md",
+      message: "x",
+      files: [{ path: "foundations/src/foo.md", content: "", deleted: true }],
+      // allowAnchorDrop intentionally omitted — guards would normally run
+    },
+    {
+      owner: "o",
+      repo: "r",
+      base: "main",
+      schemas: {},
+      octokit: gh,
+    },
+  );
+  // No blob for the deletion
+  assert.equal(calls["git.createBlob"]!.length - callsBefore, 0);
+  // Tree call carries one entry with sha:null
+  const treeArg = calls["git.createTree"]![0]!;
+  assert.equal(treeArg.tree.length, 1);
+  assert.equal(treeArg.tree[0]!.sha, null);
 });

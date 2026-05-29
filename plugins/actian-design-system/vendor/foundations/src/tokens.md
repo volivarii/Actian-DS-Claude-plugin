@@ -20,7 +20,7 @@ motion_refs:
   - { ref: state-transitions, note: §2.11 token bands govern all 8 component motion patterns }
 ---
 
-## 2. Tokens
+## 2. Tokens {#tokens}
 
 All tokens are implemented as CSS custom properties under the `--zen-` namespace and as Figma variables in the Zen Colors library.
 

@@ -24,7 +24,10 @@ function humanize(slug: string): string {
     .join(" ");
 }
 
-export function buildMarkdownStub(path: string): string {
+export function buildMarkdownStub(
+  path: string,
+  opts?: { title?: string },
+): string {
   const compDomain = COMPONENT_DOMAIN_RE.exec(path);
   if (compDomain) {
     const slug = compDomain[1]!;
@@ -49,13 +52,11 @@ export function buildMarkdownStub(path: string): string {
     ].join("\n");
   }
 
-  // Generic fallback — use the file's basename without extension.
-  const base = path
-    .split("/")
-    .pop()!
-    .replace(/\.md$/, "");
+  // Generic fallback — use opts.title if provided, otherwise derive from basename.
+  const base = path.split("/").pop()!.replace(/\.md$/, "");
+  const heading = opts?.title?.trim() || humanize(base);
   return [
-    `# ${humanize(base)}`,
+    `# ${heading}`,
     "",
     "<!-- Draft authoring stub. Replace with the file's content. -->",
     "",

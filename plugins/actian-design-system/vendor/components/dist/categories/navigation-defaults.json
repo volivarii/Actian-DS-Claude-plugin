@@ -101,5 +101,16 @@
       }
     ]
   },
-  "_sourceFile": "components/src/categories/navigation.md"
+  "_sourceFile": "components/src/categories/navigation.md",
+  "foundations_refs": {
+    "sectionRefs": [
+      {
+        "ref": "tokens",
+        "note": "spacing and elevation tokens"
+      },
+      {
+        "ref": "design-guidelines"
+      }
+    ]
+  }
 }

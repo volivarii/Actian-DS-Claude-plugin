@@ -147,15 +147,20 @@ The reference shape is `{ref: <slug>, note?: <string>}`: the slug addresses
 content in the target's dist; the optional `note` carries application-specific
 context without duplicating canonical content.
 
-Today the substrate has two transversal reference taxonomies in active use:
+Today the substrate has three transversal reference taxonomies in active use:
 
 - **Accessibility** — WCAG 2.1 AA criteria anchored in
   `accessibility/dist/a11y-index.json`; components reference them via
-  `accessibility: [{ref: focus-keyboard, note: "..."}, ...]` in
+  `a11y_refs: [{ref: focus-keyboard, note: "..."}, ...]` in
   category-defaults frontmatter.
 - **Motion patterns** — 8 anchored patterns in
   `foundations/dist/tokens/motion.json#patterns`; components reference them via
   `motion_refs: [{ref: state-transitions, note: "..."}, ...]` in
+  category-defaults frontmatter.
+- **Foundations sections** — the design-foundation sections anchored in
+  `foundations/dist/foundations-index.json#sections[*].slug` (color-primitives,
+  tokens, design-guidelines, handoff-protocol, related-guidelines); components
+  reference them via `foundations_refs: [{ref: tokens, note: "..."}, ...]` in
   category-defaults frontmatter.
 
 The pattern is generalisable. Future transversal domains (candidates: content
@@ -169,14 +174,14 @@ inventing their own reference convention.
   truth that resolves at consumer read-time. Stable slugs (P6) make name
   drift invisible to consumers.
 - **Concrete shape:** the reference array is named after the target domain
-  (e.g. `motion_refs`, `accessibility`); items are `{ref: <slug>}` plus
+  (e.g. `motion_refs`, `a11y_refs`, `foundations_refs`); items are `{ref: <slug>}` plus
   optional `note`. Slugs must exist in the target's dist; derive-time check
   fails fast on missing slugs. (See §4.1 of the foundations split spec for
   the anchor-uniqueness check; the cross-domain version applies the same
   fail-fast philosophy.)
 - **Evidence (existing usage):** `schemas/category-defaults.json` requires
-  both `motion_refs` and `accessibility` arrays — see
-  `components/src/categories/action.md` for concrete example.
+  the `motion_refs` and `a11y_refs` arrays and supports a `foundations_refs`
+  array — see `components/src/categories/action.md` for concrete example.
 - **Provenance:** motivated by 2026-05-27 strategic synthesis recognising the
   transversal pattern already operating in components→a11y and
   components→motion. Vincent (2026-05-27) flagged that accessibility
@@ -184,18 +189,18 @@ inventing their own reference convention.
   design / components. Schema verification revealed motion already
   participates in the same pattern — so this principle generalises the
   convention rather than naming a single domain.
-- **Asymmetric gap (today):** components reference both transversal
-  taxonomies; foundations + content do NOT yet (e.g., foundations color
-  section discusses contrast without referencing `color-contrast`; design
-  guidelines for focus rings don't reference `focus-keyboard`). The
-  post-foundations-split follow-up adds `a11y_refs` and where appropriate
-  `motion_refs` to foundations + content per-section files, completing the
-  symmetry.
-- **Naming note:** the substrate currently uses `motion_refs` (suffix
-  `_refs`) and `accessibility` (bare). Future doctrine pass should
-  standardise — either `<domain>_refs` everywhere, or bare everywhere — once
-  more transversal taxonomies emerge. Not worth a breaking change in
-  isolation; worth catching before more taxonomies arrive.
+- **Asymmetric gap (today):** components reference the transversal
+  taxonomies; content does NOT yet (e.g., content rules discuss tone without
+  pointing into any anchored taxonomy). The post-foundations-split follow-up
+  adds `a11y_refs` and where appropriate `motion_refs` to foundations + content
+  per-section files, completing the symmetry. As of 2026-05-29, foundations
+  also acts as a *referenced* taxonomy: components declare `foundations_refs`
+  into `foundations-index.json`. Content remains un-anchored and un-referenced
+  pending a demonstrated citation need.
+- **Naming note:** the substrate standardised on the `<domain>_refs` suffix
+  in v0.25.0 — `motion_refs`, `a11y_refs` (renamed from bare `accessibility`),
+  and `foundations_refs` — so the reference convention now reads uniformly. New
+  transversal taxonomies adopt the same `<domain>_refs` shape.
 - **Forecloses:** duplicated transversal-domain content (WCAG text in
   tokens; motion-pattern descriptions in components); string-based cross-refs
   that drift on rename; novel ref shapes that diverge from

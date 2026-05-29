@@ -5,6 +5,12 @@
 export interface FileChange {
   path: string;
   content: string;
+  /**
+   * When true, the file is removed from the new tree instead of added.
+   * `content` is ignored. submitDraft skips anchor + schema validation
+   * for deletion entries.
+   */
+  deleted?: boolean;
 }
 
 export interface SourceMetadata {

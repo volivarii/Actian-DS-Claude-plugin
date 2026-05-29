@@ -14,6 +14,9 @@ const BOLD_PARA_ANCHOR_RE = /^\*\*[^*]+\*\*\s+\{#([a-z][a-z0-9-]*)\}\s*$/gm;
 const YAML_REF_RE = /\{\s*ref\s*:\s*([a-z][a-z0-9-]*)/g;
 const LINK_ANCHOR_RE = /\[[^\]]+\]\((?!https?:\/\/)[^)]*#([a-z][a-z0-9-]*)\)/g;
 const FENCED_CODE_RE = /(?:```|~~~)[\s\S]*?(?:```|~~~)/g;
+// Matches `"ref":"<slug>"` and `"ref": "<slug>"` in JSON substrate files
+// (e.g. components/dist/guidelines/*.json a11y_refs / motion_refs arrays).
+const JSON_REF_RE = /"ref"\s*:\s*"([a-z][a-z0-9-]*)"/g;
 
 export interface AnchorEntry {
   slug: string;
@@ -43,7 +46,7 @@ export function scanFileForAnchors(text: string): {
     let m;
     while ((m = re.exec(stripped)) !== null) defines.push(m[1]!);
   }
-  for (const re of [YAML_REF_RE, LINK_ANCHOR_RE]) {
+  for (const re of [YAML_REF_RE, LINK_ANCHOR_RE, JSON_REF_RE]) {
     re.lastIndex = 0;
     let m;
     while ((m = re.exec(stripped)) !== null) references.push(m[1]!);
@@ -81,7 +84,8 @@ export function listSlugs(): string[] {
   return Array.from(cached.entries.keys()).sort();
 }
 
-/** Build (or rebuild) the index by fetching all eligible markdown files.
+/** Build (or rebuild) the index by fetching all eligible markdown files
+ *  and substrate JSON files (for JSON-style "ref":"slug" references).
  *  Dedups concurrent non-forced calls via the in-flight promise. */
 export async function loadAnchorIndex(
   octokit: Octokit,
@@ -91,7 +95,11 @@ export async function loadAnchorIndex(
   if (inflight && !options.force) return inflight;
 
   const build = (async () => {
-    const paths = await collectMarkdownPaths(octokit);
+    const [mdPaths, jsonPaths] = await Promise.all([
+      collectMarkdownPaths(octokit),
+      collectJsonPaths(octokit),
+    ]);
+    const paths = [...mdPaths, ...jsonPaths];
     const cartOverrides = options.cartOverrides ?? new Map();
     const entries = new Map<string, AnchorEntry>();
 
@@ -143,6 +151,28 @@ function ensureEntry(map: Map<string, AnchorEntry>, slug: string): AnchorEntry {
     map.set(slug, entry);
   }
   return entry;
+}
+
+async function collectJsonPaths(gh: Octokit): Promise<string[]> {
+  const [guidelines, foundationsDist, accessibilityDist] = await Promise.all([
+    listFilesByGlob(gh, "components/dist/guidelines", {
+      extension: ".json",
+    }).catch(() => []),
+    listFilesByGlob(gh, "foundations/dist", {
+      extension: ".json",
+    }).catch(() => []),
+    listFilesByGlob(gh, "accessibility/dist", {
+      extension: ".json",
+    }).catch(() => []),
+  ]);
+
+  const paths: string[] = [];
+  for (const name of guidelines)
+    paths.push(`components/dist/guidelines/${name}`);
+  for (const name of foundationsDist) paths.push(`foundations/dist/${name}`);
+  for (const name of accessibilityDist)
+    paths.push(`accessibility/dist/${name}`);
+  return paths;
 }
 
 async function collectMarkdownPaths(gh: Octokit): Promise<string[]> {

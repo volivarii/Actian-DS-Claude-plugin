@@ -10,7 +10,7 @@ motion_refs:
   - { ref: state-transitions, note: §3.5 hover/focus/active brightness transitions stay within the 100-200ms band }
 ---
 
-## 3. Design Guidelines
+## 3. Design Guidelines {#design-guidelines}
 
 ### 3.1 Color Usage Rules
 

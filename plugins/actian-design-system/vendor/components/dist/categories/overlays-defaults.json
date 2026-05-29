@@ -113,5 +113,16 @@
       }
     ]
   },
-  "_sourceFile": "components/src/categories/overlays.md"
+  "_sourceFile": "components/src/categories/overlays.md",
+  "foundations_refs": {
+    "sectionRefs": [
+      {
+        "ref": "tokens",
+        "note": "elevation, radius, and spacing tokens"
+      },
+      {
+        "ref": "design-guidelines"
+      }
+    ]
+  }
 }

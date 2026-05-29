@@ -31,6 +31,10 @@ a11y_refs:
   - { ref: color-contrast }
   - { ref: alerts-toasts-banners, note: loading + disabled states must be announced; do not rely on color alone }
   - { ref: aria-labels }
+
+foundations_refs:
+  - { ref: tokens, note: spacing, radius, and focus-ring tokens for interactive surfaces }
+  - { ref: design-guidelines }
 ---
 
 # Action — design rationale

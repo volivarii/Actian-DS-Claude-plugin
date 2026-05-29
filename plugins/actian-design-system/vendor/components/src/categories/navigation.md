@@ -33,6 +33,10 @@ a11y_refs:
   - { ref: aria-labels, note: use aria-current=page on the active item; nav landmark on the container }
   - { ref: color-contrast }
   - { ref: alerts-toasts-banners }
+
+foundations_refs:
+  - { ref: tokens, note: spacing and elevation tokens }
+  - { ref: design-guidelines }
 ---
 
 # Navigation — design rationale

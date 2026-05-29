@@ -35,6 +35,10 @@ a11y_refs:
   - { ref: focus-keyboard }
   - { ref: color-contrast }
   - { ref: aria-labels }
+
+foundations_refs:
+  - { ref: tokens, note: spacing, radius, and focus-ring tokens }
+  - { ref: design-guidelines }
 ---
 
 # Form (input & selection) — design rationale

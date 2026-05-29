@@ -56,6 +56,7 @@ export async function submitDraft(
 
   if (!draft.allowAnchorDrop) {
     for (const file of draft.files) {
+      if (file.deleted) continue;
       if (!file.path.endsWith(".md")) continue;
       // Refetch remote text. Best-effort: 404 → empty remote (new file).
       let remoteText = "";
@@ -96,6 +97,7 @@ export async function submitDraft(
   }
 
   for (const file of draft.files) {
+    if (file.deleted) continue;
     validateAgainstSchema({
       path: file.path,
       content: file.content,
@@ -123,6 +125,14 @@ export async function submitDraft(
 
   const tree = await Promise.all(
     draft.files.map(async (file) => {
+      if (file.deleted) {
+        return {
+          path: file.path,
+          mode: "100644" as const,
+          type: "blob" as const,
+          sha: null,
+        };
+      }
       const blob = await gh.git.createBlob({
         owner,
         repo,
@@ -142,7 +152,12 @@ export async function submitDraft(
     owner,
     repo,
     base_tree: baseSha,
-    tree,
+    tree: tree as {
+      path: string;
+      mode: "100644";
+      type: "blob";
+      sha: string | null;
+    }[],
   });
 
   const commit = await gh.git.createCommit({

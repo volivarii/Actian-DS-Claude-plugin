@@ -35,6 +35,11 @@ a11y_refs:
   - { ref: data-tables, note: tables and graphs must reflow or scroll horizontally; never clip }
   - { ref: aria-labels, note: tables use thead/tbody/scope; charts expose data tables for screen readers }
   - { ref: focus-keyboard }
+
+foundations_refs:
+  - { ref: tokens, note: spacing, elevation, and radius tokens }
+  - { ref: color-primitives, note: status and data-category colors }
+  - { ref: design-guidelines }
 ---
 
 # Data Display — design rationale

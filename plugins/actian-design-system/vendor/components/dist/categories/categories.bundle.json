@@ -106,7 +106,18 @@
           }
         ]
       },
-      "_sourceFile": "components/src/categories/action.md"
+      "_sourceFile": "components/src/categories/action.md",
+      "foundations_refs": {
+        "sectionRefs": [
+          {
+            "ref": "tokens",
+            "note": "spacing, radius, and focus-ring tokens for interactive surfaces"
+          },
+          {
+            "ref": "design-guidelines"
+          }
+        ]
+      }
     },
     "data-display": {
       "_meta": {
@@ -223,7 +234,22 @@
           }
         ]
       },
-      "_sourceFile": "components/src/categories/data-display.md"
+      "_sourceFile": "components/src/categories/data-display.md",
+      "foundations_refs": {
+        "sectionRefs": [
+          {
+            "ref": "tokens",
+            "note": "spacing, elevation, and radius tokens"
+          },
+          {
+            "ref": "color-primitives",
+            "note": "status and data-category colors"
+          },
+          {
+            "ref": "design-guidelines"
+          }
+        ]
+      }
     },
     "feedback": {
       "_meta": {
@@ -338,7 +364,22 @@
           }
         ]
       },
-      "_sourceFile": "components/src/categories/feedback.md"
+      "_sourceFile": "components/src/categories/feedback.md",
+      "foundations_refs": {
+        "sectionRefs": [
+          {
+            "ref": "tokens",
+            "note": "spacing and motion-timing tokens"
+          },
+          {
+            "ref": "color-primitives",
+            "note": "severity/status colors must not rely on hue alone"
+          },
+          {
+            "ref": "design-guidelines"
+          }
+        ]
+      }
     },
     "form-input-selection": {
       "_meta": {
@@ -449,7 +490,18 @@
           }
         ]
       },
-      "_sourceFile": "components/src/categories/form-input-selection.md"
+      "_sourceFile": "components/src/categories/form-input-selection.md",
+      "foundations_refs": {
+        "sectionRefs": [
+          {
+            "ref": "tokens",
+            "note": "spacing, radius, and focus-ring tokens"
+          },
+          {
+            "ref": "design-guidelines"
+          }
+        ]
+      }
     },
     "navigation": {
       "_meta": {
@@ -554,7 +606,18 @@
           }
         ]
       },
-      "_sourceFile": "components/src/categories/navigation.md"
+      "_sourceFile": "components/src/categories/navigation.md",
+      "foundations_refs": {
+        "sectionRefs": [
+          {
+            "ref": "tokens",
+            "note": "spacing and elevation tokens"
+          },
+          {
+            "ref": "design-guidelines"
+          }
+        ]
+      }
     },
     "overlays": {
       "_meta": {
@@ -671,7 +734,18 @@
           }
         ]
       },
-      "_sourceFile": "components/src/categories/overlays.md"
+      "_sourceFile": "components/src/categories/overlays.md",
+      "foundations_refs": {
+        "sectionRefs": [
+          {
+            "ref": "tokens",
+            "note": "elevation, radius, and spacing tokens"
+          },
+          {
+            "ref": "design-guidelines"
+          }
+        ]
+      }
     }
   }
 }

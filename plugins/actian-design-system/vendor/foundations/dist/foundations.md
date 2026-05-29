@@ -75,7 +75,7 @@
 
 ---
 
-## 1. Color Primitives
+## 1. Color Primitives {#color-primitives}
 
 All color palettes follow a shared OKLCH shade formula. Each palette has a named base (500), and all other shades are derived from it. Figma stores these as hex; engineering implements them as OKLCH with relative color syntax.
 
@@ -522,7 +522,7 @@ OKLCH 500 base: `oklch(0.5121 0.0235 285.54)` — 🟢 Shipped
 
 ---
 
-## 2. Tokens
+## 2. Tokens {#tokens}
 
 All tokens are implemented as CSS custom properties under the `--zen-` namespace and as Figma variables in the Zen Colors library.
 
@@ -907,7 +907,7 @@ The cascading effect guides the eye naturally downward and prevents the screen f
 
 ---
 
-## 3. Design Guidelines
+## 3. Design Guidelines {#design-guidelines}
 
 ### 3.1 Color Usage Rules
 
@@ -1070,7 +1070,7 @@ Two tiers of placeholder exist for inputs: `--zen-color-text-placeholder` is the
 
 ---
 
-## 4. Handoff Protocol
+## 4. Handoff Protocol {#handoff-protocol}
 
 ### 4.1 Before You Hand Off
 
@@ -1111,7 +1111,7 @@ If you need a value that doesn't exist as a token:
 
 ---
 
-## 5. Related Guidelines
+## 5. Related Guidelines {#related-guidelines}
 
 The following topics are intentionally maintained as separate documents. They are kept separate to allow independent versioning and to serve their respective audiences without adding scope to this token and handoff reference.
 

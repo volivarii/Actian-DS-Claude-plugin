@@ -35,6 +35,10 @@ a11y_refs:
   - { ref: aria-labels, note: dialogs use role=dialog + aria-modal=true + labelled by header; tooltips use role=tooltip + aria-describedby }
   - { ref: motion, note: respect prefers-reduced-motion — disable scale + slide, keep fade }
   - { ref: color-contrast }
+
+foundations_refs:
+  - { ref: tokens, note: elevation, radius, and spacing tokens }
+  - { ref: design-guidelines }
 ---
 
 # Overlays — design rationale
