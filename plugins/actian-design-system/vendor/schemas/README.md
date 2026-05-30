@@ -11,7 +11,7 @@ JSON Schemas (draft 2020-12) for artifacts in this knowledge repo. Surfaces:
 | Schema | Validates | Required? |
 |---|---|---|
 | `guideline.json` | `components/src/guidelines/*.json` (44 curated + 41 stubs) — **legacy Figma-scraped layer, retired by the per-component guideline architecture** | Yes, on every PR |
-| `foundations-section.json` | `foundations/dist/**/*.json` (Pattern H tree) | Yes, post-derive |
+| `section.json` | `foundations/dist/**/*.json` (Pattern H tree) — generalized per-section shape, shared across substrate domains (foundations, accessibility, …) | Yes, post-derive |
 | `manifest.json` | `paths-manifest.json` | Yes, on every PR |
 | `category-defaults.json` | `components/src/categories/*.md` frontmatter (Phase 2, PR δ) | Lands with PR δ |
 | `guideline-meta.json` | `components/src/<slug>/_meta.yml` (per-component metadata + domain status matrix) | Yes, post-derive |

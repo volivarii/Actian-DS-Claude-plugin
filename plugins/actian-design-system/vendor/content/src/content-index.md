@@ -33,6 +33,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="combo-box">Combo box</a>
   <a href="confirmation">Confirmation</a>
   <a href="dropdown-select">Dropdown / Select</a>
+  <a href="drawer-side-panel">Drawer / Side panel</a>
   <a href="empty-and-system-states">Empty and system states</a>
   <a href="filters">Filters</a>
   <a href="forms">Forms</a>

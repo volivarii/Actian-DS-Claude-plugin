@@ -1,0 +1,80 @@
+{
+  "_schema_version": 1,
+  "id": "",
+  "title": "Actian Accessibility Guidelines",
+  "path": [],
+  "parent": null,
+  "children": [
+    {
+      "id": "principles",
+      "title": "Principles",
+      "order": 1
+    },
+    {
+      "id": "color-contrast",
+      "title": "Color & Contrast",
+      "order": 2
+    },
+    {
+      "id": "typography",
+      "title": "Typography",
+      "order": 3
+    },
+    {
+      "id": "motion",
+      "title": "Motion",
+      "order": 4
+    },
+    {
+      "id": "focus-keyboard",
+      "title": "Focus & Keyboard",
+      "order": 5
+    },
+    {
+      "id": "aria-labels",
+      "title": "ARIA & Labels",
+      "order": 6
+    },
+    {
+      "id": "reading-order-landmarks",
+      "title": "Reading Order & Landmarks",
+      "order": 7
+    },
+    {
+      "id": "touch-pointer",
+      "title": "Touch & Pointer",
+      "order": 8
+    },
+    {
+      "id": "error-prevention",
+      "title": "Error Prevention",
+      "order": 9
+    },
+    {
+      "id": "session-timeout-warnings",
+      "title": "Session & Timeout Warnings",
+      "order": 10
+    },
+    {
+      "id": "components",
+      "title": "Components",
+      "order": 11
+    },
+    {
+      "id": "designer-handoff-checklist",
+      "title": "Designer Handoff Checklist",
+      "order": 12
+    }
+  ],
+  "anchors": {
+    "h1": "accessibility"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  }
+}

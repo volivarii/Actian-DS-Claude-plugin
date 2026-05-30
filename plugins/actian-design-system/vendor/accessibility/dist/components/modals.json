@@ -1,0 +1,50 @@
+{
+  "_schema_version": 1,
+  "id": "components/modals",
+  "title": "Modals",
+  "path": [
+    "components",
+    "modals"
+  ],
+  "parent": "components",
+  "anchors": {
+    "h2": "components",
+    "h3": "modals"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "body": "WCAG criteria: 1.3.1, 1.3.5, 2.1.1, 2.4.3, 2.5.8, 3.3.1, 3.3.2, 3.3.3, 4.1.2",
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Focus moves to the dialog or first interactive element on open.",
+        "Focus returns to the trigger element on close.",
+        "Escape always closes the modal.",
+        "Close button always present with a clear aria-label.",
+        "Background content is inert while modal is open.",
+        "Don&#39;t auto-dismiss modals containing critical information.",
+        "Touch targets inside the modal are at least 44x44px (or 24px with sufficient spacing).",
+        "Screen reader: announced as a dialog via role=&quot;dialog&quot; named by its heading (aria-labelledby); focus trap and return focus annotated for engineering."
+      ]
+    }
+  ],
+  "wcag": [
+    "1.3.1",
+    "1.3.5",
+    "2.1.1",
+    "2.4.3",
+    "2.5.8",
+    "3.3.1",
+    "3.3.2",
+    "3.3.3",
+    "4.1.2"
+  ]
+}
