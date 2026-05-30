@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://actian-ds.example.com/schemas/foundations-section.json",
-  "title": "Foundations section (Pattern H hierarchical derive)",
-  "description": "Per-leaf or per-branch JSON emitted by scripts/foundations/derive-foundations.js. The Pattern H tree mirrors heading paths from the per-section files under foundations/src/ (concatenated at derive time). Leaves carry blocks[]; branches (_index.json) carry children[]. Schema is permissive (additionalProperties:true) because the derive script may add new metadata fields without breaking the contract.",
+  "$id": "https://actian-ds.example.com/schemas/section.json",
+  "title": "Section (Pattern H hierarchical derive)",
+  "description": "Generalized per-section JSON shape shared across substrate domains (foundations, accessibility, …) emitted by the section-dist derive engine. The Pattern H tree mirrors heading paths from the per-section files under <domain>/src/ (concatenated at derive time). Leaves carry blocks[]; branches (_index.json) carry children[]. Schema is permissive (additionalProperties:true) because the derive script may add new metadata fields without breaking the contract.",
   "type": "object",
   "required": ["_schema_version", "id", "title", "path", "anchors", "source"],
   "additionalProperties": true,
@@ -32,7 +32,7 @@
     "path": {
       "type": "array",
       "items": { "type": "string" },
-      "description": "Ordered slug segments from root to this section. Empty array for the root. Mirrors the directory layout under foundations/dist/.",
+      "description": "Ordered slug segments from root to this section. Empty array for the root. Mirrors the directory layout under <domain>/dist/.",
       "examples": [[], ["tokens"], ["tokens", "spacing"]]
     },
     "order": {
@@ -67,7 +67,7 @@
         "file": {
           "type": "string",
           "description": "Path to the source MD (repo-relative). Per-section split: this is the src/ directory; authoring lives in the per-section files inside.",
-          "examples": ["foundations/src/"]
+          "examples": ["foundations/src/", "accessibility/src/"]
         }
       },
       "additionalProperties": true
@@ -140,7 +140,7 @@
     "a11y_refs": {
       "type": "array",
       "minItems": 1,
-      "description": "P8 transversal reference taxonomy: WCAG criterion slugs from accessibility/dist/a11y-index.json that this foundations section reinforces or is governed by. Authored as optional YAML frontmatter on the per-section src file; the derive attaches refs to the file's top-level H2 node (file-scoped, Option A — sub-section precision is deferred). Reuses the components/categories ref shape so AI/plugin consumers can resolve uniformly across substrate domains. Symmetric with `motion_refs`.",
+      "description": "P8 transversal reference taxonomy: WCAG criterion slugs from accessibility/dist/a11y-index.json that this section reinforces or is governed by. Authored as optional YAML frontmatter on the per-section src file; the derive attaches refs to the file's top-level H2 node (file-scoped, Option A — sub-section precision is deferred). Reuses the components/categories ref shape so AI/plugin consumers can resolve uniformly across substrate domains. Symmetric with `motion_refs`.",
       "examples": [
         [
           { "ref": "color-contrast" },
@@ -163,7 +163,7 @@
           },
           "note": {
             "type": "string",
-            "description": "Optional foundations-specific note layered on top of the generic a11y guidance.",
+            "description": "Optional section-specific note layered on top of the generic a11y guidance.",
             "examples": ["applies to all hit targets in this section"]
           }
         }
@@ -172,7 +172,7 @@
     "motion_refs": {
       "type": "array",
       "minItems": 1,
-      "description": "P8 transversal reference taxonomy: motion pattern slugs from foundations/dist/tokens/motion.json#patterns that this foundations section reinforces or is governed by. Same authoring + attachment model as `a11y_refs` above. Reuses the components/categories ref shape.",
+      "description": "P8 transversal reference taxonomy: motion pattern slugs from foundations/dist/tokens/motion.json#patterns that this section reinforces or is governed by. Same authoring + attachment model as `a11y_refs` above. Reuses the components/categories ref shape.",
       "examples": [[{ "ref": "state-transitions" }]],
       "items": {
         "type": "object",
@@ -187,10 +187,19 @@
           },
           "note": {
             "type": "string",
-            "description": "Optional foundations-specific note layered on top of the generic motion guidance.",
+            "description": "Optional section-specific note layered on top of the generic motion guidance.",
             "examples": ["section uses only the linear easing band"]
           }
         }
+      }
+    },
+    "wcag": {
+      "type": "array",
+      "description": "Optional WCAG success-criterion numbers (e.g. \"1.4.3\") this section maps to. Only relevant to the accessibility domain; foundations sections omit it. Distinct from `a11y_refs` (which references criterion slugs in a11y-index.json) — `wcag` carries the raw dotted criterion numbers.",
+      "examples": [["1.4.3"], ["2.1.1", "2.4.7"]],
+      "items": {
+        "type": "string",
+        "pattern": "^\\d+\\.\\d+\\.\\d+$"
       }
     }
   }

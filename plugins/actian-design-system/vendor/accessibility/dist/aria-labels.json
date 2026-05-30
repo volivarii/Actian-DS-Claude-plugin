@@ -1,0 +1,82 @@
+{
+  "_schema_version": 1,
+  "id": "aria-labels",
+  "title": "ARIA & Labels",
+  "path": [
+    "aria-labels"
+  ],
+  "parent": "",
+  "anchors": {
+    "h2": "aria-labels"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "body": "Designers annotate specs. Engineering implements.",
+  "blocks": [
+    {
+      "type": "table",
+      "headers": [
+        "Attribute",
+        "When to use"
+      ],
+      "rows": [
+        {
+          "Attribute": "aria-label",
+          "When to use": "Element has no visible text (icon buttons, close buttons)"
+        },
+        {
+          "Attribute": "aria-labelledby",
+          "When to use": "A visible element labels another (modal heading → dialog)"
+        },
+        {
+          "Attribute": "aria-describedby",
+          "When to use": "Additional context beyond the label (helper text, error messages)"
+        },
+        {
+          "Attribute": "aria-required",
+          "When to use": "Required form inputs"
+        },
+        {
+          "Attribute": "aria-invalid",
+          "When to use": "Error state inputs"
+        },
+        {
+          "Attribute": "aria-live",
+          "When to use": "Dynamic regions updating without page reload (toasts, alerts, live search)"
+        },
+        {
+          "Attribute": "aria-hidden",
+          "When to use": "Decorative icons or repeated visual elements"
+        },
+        {
+          "Attribute": "aria-current",
+          "When to use": "Active item in navigation, breadcrumbs, tabs"
+        },
+        {
+          "Attribute": "aria-expanded",
+          "When to use": "Triggers for dropdowns, accordions, collapsible panels"
+        },
+        {
+          "Attribute": "aria-disabled",
+          "When to use": "Any interactive element that should remain discoverable but not actionable — inputs, links, tabs, menu items, checkboxes, custom components"
+        }
+      ]
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Labels describe purpose, not appearance — &quot;Submit&quot; not &quot;Blue button&quot;.",
+        "The accessible name must contain the visible text of the element (the 1:1 rule).",
+        "Grouped inputs (date range, phone + country) have a group label annotated separately.",
+        "First rule of ARIA: if a native HTML element exists (&lt;button&gt;, &lt;nav&gt;), use it instead of an ARIA role."
+      ]
+    }
+  ]
+}

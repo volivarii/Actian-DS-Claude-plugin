@@ -12,7 +12,7 @@
 | Checkboxes | approved | not started | inherited | inherited | not started |
 | Combo box | approved | not started | inherited | inherited | not started |
 | Confirmation | approved | not started | inherited | inherited | not started |
-| Drawer, side panel | synthesized | — | — | — | — |
+| Drawer, side panel | approved | not started | inherited | inherited | not started |
 | Dropdown / Select | approved | not started | inherited | inherited | not started |
 | Empty state | synthesized | — | — | — | — |
 | Error state | synthesized | — | — | — | — |
@@ -45,11 +45,11 @@
 
 | Domain | Approved | Draft | Inherited | Not started | Absent |
 |---|---|---|---|---|---|
-| content | 26 | 0 | 0 | 0 | 0 |
-| usage | 0 | 0 | 0 | 26 | 10 |
-| design | 0 | 1 | 25 | 0 | 10 |
-| behavior | 0 | 0 | 26 | 0 | 10 |
-| tokens | 0 | 0 | 0 | 26 | 10 |
+| content | 27 | 0 | 0 | 0 | 0 |
+| usage | 0 | 0 | 0 | 27 | 9 |
+| design | 0 | 1 | 26 | 0 | 9 |
+| behavior | 0 | 0 | 27 | 0 | 9 |
+| tokens | 0 | 0 | 0 | 27 | 9 |
 
 ## Registry aliases
 

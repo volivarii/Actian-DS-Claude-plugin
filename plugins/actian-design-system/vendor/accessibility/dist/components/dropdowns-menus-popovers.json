@@ -1,0 +1,46 @@
+{
+  "_schema_version": 1,
+  "id": "components/dropdowns-menus-popovers",
+  "title": "Dropdowns, Menus & Popovers",
+  "path": [
+    "components",
+    "dropdowns-menus-popovers"
+  ],
+  "parent": "components",
+  "anchors": {
+    "h2": "components",
+    "h3": "dropdowns-menus-popovers"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "body": "WCAG criteria: 1.3.1, 1.4.13, 2.1.1, 2.4.3, 3.2.1, 4.1.2",
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Trigger has a visible label or aria-label.",
+        "Keyboard: Enter/Space to open · arrow keys to navigate · Escape to close.",
+        "Menus emerge from their trigger point — not from the screen center.",
+        "Selected item indicated beyond color alone.",
+        "Popovers close on Escape and on focus leaving — no focus trap.",
+        "Popover content stays &quot;hoverable&quot; so users can move the mouse onto it without it disappearing, and is not clipped by the browser edge.",
+        "Screen reader: trigger exposes state via aria-expanded and aria-haspopup; menu items are announced as a list or group; the current selection (aria-selected) and disabled items are announced."
+      ]
+    }
+  ],
+  "wcag": [
+    "1.3.1",
+    "1.4.13",
+    "2.1.1",
+    "2.4.3",
+    "3.2.1",
+    "4.1.2"
+  ]
+}

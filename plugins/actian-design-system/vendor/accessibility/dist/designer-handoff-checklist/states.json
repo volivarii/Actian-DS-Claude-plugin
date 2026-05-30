@@ -1,0 +1,33 @@
+{
+  "_schema_version": 1,
+  "id": "designer-handoff-checklist/states",
+  "title": "States",
+  "path": [
+    "designer-handoff-checklist",
+    "states"
+  ],
+  "parent": "designer-handoff-checklist",
+  "anchors": {
+    "h2": "designer-handoff-checklist",
+    "h3": "states"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "All interactive states designed: default, hover, focus, pressed, disabled, error",
+        "Empty, loading, and error states included for data-driven components",
+        "State changes use more than one signal — icon + color, not color alone"
+      ]
+    }
+  ]
+}

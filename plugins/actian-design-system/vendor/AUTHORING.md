@@ -56,7 +56,7 @@ A "derive-diff bot comment" (showing which dist files your PR will change in pla
 - `guideline-meta.json` — `components/src/<slug>/_meta.yml` (per-component domain-status frontmatter)
 - `guideline-tokens.json` — `components/src/<slug>/tokens.yml`
 - `guideline.json` — legacy scraped layer (retired in Phase 5; kept for spec-archaeology)
-- `foundations-section.json` — `foundations/dist/**/*.json` (post-derive)
+- `section.json` — `foundations/dist/**/*.json` (post-derive)
 - `manifest.json` — `paths-manifest.json` structural shape
 - `category-defaults.json` — Phase 2 v2 category frontmatter for `components/src/categories/*.md`
 - `registry.json` — `components/dist/registries/*.json` (post-sync)

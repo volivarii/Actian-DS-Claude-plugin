@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-05-29T10:43:52.346Z",
+  "generatedAt": "2026-05-30T09:13:19.653Z",
   "categories": {
     "Form (input & selection)": {
       "components": [
@@ -18,6 +18,30 @@
         "toggle"
       ],
       "count": 11
+    },
+    "Breakpoint, grid & structure": {
+      "components": [
+        "l-grid",
+        "m-grid",
+        "s-grid",
+        "xl-grid",
+        "xs-grid"
+      ],
+      "count": 5
+    },
+    "Navigation": {
+      "components": [
+        "account-dropdown",
+        "app-switcher-dropdown",
+        "breadcrumbs",
+        "global-header",
+        "notification-dropdown",
+        "side-nav",
+        "stepper",
+        "tabs",
+        "whats-new-dropdown"
+      ],
+      "count": 9
     },
     "Data Display": {
       "components": [
@@ -55,6 +79,12 @@
       ],
       "count": 31
     },
+    "White-label services": {
+      "components": [
+        "white-label-merck-favicon"
+      ],
+      "count": 1
+    },
     "Feedback": {
       "components": [
         "alert-banner",
@@ -69,36 +99,6 @@
         "spinner"
       ],
       "count": 10
-    },
-    "Breakpoint, grid & structure": {
-      "components": [
-        "l-grid",
-        "m-grid",
-        "s-grid",
-        "xl-grid",
-        "xs-grid"
-      ],
-      "count": 5
-    },
-    "Navigation": {
-      "components": [
-        "account-dropdown",
-        "app-switcher-dropdown",
-        "breadcrumbs",
-        "global-header",
-        "notification-dropdown",
-        "side-nav",
-        "stepper",
-        "tabs",
-        "whats-new-dropdown"
-      ],
-      "count": 9
-    },
-    "White-label services": {
-      "components": [
-        "white-label-merck-favicon"
-      ],
-      "count": 1
     },
     "Product logos": {
       "components": [

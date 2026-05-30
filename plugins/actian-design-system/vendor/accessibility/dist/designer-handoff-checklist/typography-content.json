@@ -1,0 +1,35 @@
+{
+  "_schema_version": 1,
+  "id": "designer-handoff-checklist/typography-content",
+  "title": "Typography & Content",
+  "path": [
+    "designer-handoff-checklist",
+    "typography-content"
+  ],
+  "parent": "designer-handoff-checklist",
+  "anchors": {
+    "h2": "designer-handoff-checklist",
+    "h3": "typography-content"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "No text smaller than 11px",
+        "All inputs have visible labels — no placeholder-only fields",
+        "Error messages describe the problem and how to fix it",
+        "No images of text",
+        "Line lengths within limits for the font size"
+      ]
+    }
+  ]
+}

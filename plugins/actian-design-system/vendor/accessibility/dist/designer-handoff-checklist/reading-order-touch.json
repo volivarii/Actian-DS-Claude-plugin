@@ -1,0 +1,35 @@
+{
+  "_schema_version": 1,
+  "id": "designer-handoff-checklist/reading-order-touch",
+  "title": "Reading Order & Touch",
+  "path": [
+    "designer-handoff-checklist",
+    "reading-order-touch"
+  ],
+  "parent": "designer-handoff-checklist",
+  "anchors": {
+    "h2": "designer-handoff-checklist",
+    "h3": "reading-order-touch"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Visual order matches intended reading order — annotated if non-standard",
+        "Landmark regions annotated (header, nav, main, footer)",
+        "Heading hierarchy is logical — no skipped levels",
+        "Hover interactions have touch equivalents documented",
+        "Destructive/irreversible actions have confirmation step noted"
+      ]
+    }
+  ]
+}

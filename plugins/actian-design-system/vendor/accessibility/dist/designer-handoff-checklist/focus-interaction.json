@@ -1,0 +1,34 @@
+{
+  "_schema_version": 1,
+  "id": "designer-handoff-checklist/focus-interaction",
+  "title": "Focus & Interaction",
+  "path": [
+    "designer-handoff-checklist",
+    "focus-interaction"
+  ],
+  "parent": "designer-handoff-checklist",
+  "anchors": {
+    "h2": "designer-handoff-checklist",
+    "h3": "focus-interaction"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "All interactive elements have a designed focus state",
+        "Focus order is logical — annotated if non-standard",
+        "All actions have a keyboard alternative documented",
+        "Touch targets meet minimums (24px desktop · 44px mobile)"
+      ]
+    }
+  ]
+}

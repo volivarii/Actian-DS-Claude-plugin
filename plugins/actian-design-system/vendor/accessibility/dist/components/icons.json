@@ -1,0 +1,44 @@
+{
+  "_schema_version": 1,
+  "id": "components/icons",
+  "title": "Icons",
+  "path": [
+    "components",
+    "icons"
+  ],
+  "parent": "components",
+  "anchors": {
+    "h2": "components",
+    "h3": "icons"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "body": "WCAG criteria: 1.1.1, 1.4.1, 1.4.11, 2.1.1, 4.1.2",
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Icon-only interactive elements have a visible label, tooltip, or aria-label.",
+        "Decorative icons annotated as decorative (hidden from screen readers).",
+        "Informational icons have a text alternative.",
+        "Icon color meets 3:1 contrast against its background (WCAG 1.4.11).",
+        "Meaning is not conveyed by color alone — a success checkmark is distinct from an error X by shape.",
+        "Screen reader: icons that repeat adjacent visible text are hidden with aria-hidden=&quot;true&quot;; status icons carry a text alternative; interactive standalone SVGs have a &lt;title&gt; linked via aria-labelledby."
+      ]
+    }
+  ],
+  "wcag": [
+    "1.4.11",
+    "1.1.1",
+    "1.4.1",
+    "2.1.1",
+    "4.1.2"
+  ]
+}

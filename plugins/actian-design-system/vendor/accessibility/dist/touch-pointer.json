@@ -1,0 +1,34 @@
+{
+  "_schema_version": 1,
+  "id": "touch-pointer",
+  "title": "Touch & Pointer",
+  "path": [
+    "touch-pointer"
+  ],
+  "parent": "",
+  "anchors": {
+    "h2": "touch-pointer"
+  },
+  "source": {
+    "file": "accessibility/src/"
+  },
+  "_meta": {
+    "auto_generated": true,
+    "source": "accessibility/src/",
+    "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
+  },
+  "blocks": [
+    {
+      "type": "list",
+      "ordered": false,
+      "items": [
+        "Hover-only interactions don&#39;t work on touch devices — every hover action needs a touch equivalent.",
+        "Touch targets must have adequate spacing between them, not just adequate size — crowded targets cause mis-taps.",
+        "Pointer gestures (swipe, pinch) must have a single-pointer alternative (WCAG 2.5.1). A single-pointer alternative means the action can be done with simple clicks or taps — no holding, no dragging."
+      ]
+    }
+  ],
+  "wcag": [
+    "2.5.1"
+  ]
+}

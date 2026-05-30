@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.25.2",
+  "knowledge_version": "0.25.5",
   "paths": {
     "accessibility.authoring": {
       "path": "accessibility/AUTHORING.md",
@@ -11,12 +11,26 @@
       "origin": "human",
       "description": "How to edit the accessibility per-section files (UX team guide)"
     },
+    "accessibility.bundle": {
+      "path": "accessibility/dist/accessibility.bundle.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/accessibility/derive-a11y-sections.js",
+      "description": "Full nested accessibility tree (hierarchical Pattern H roll-up, mirrors foundations.bundle). One-shot LLM consumption: every section/leaf reachable from this single file."
+    },
     "accessibility.index": {
       "path": "accessibility/dist/a11y-index.json",
       "type": "json",
       "origin": "ci",
       "generator": "scripts/accessibility/derive-a11y-index.js",
       "description": "Slug → WCAG mapping for accessibility sections; consumed by Phase 2 category defaults + future MCP server."
+    },
+    "accessibility.sections": {
+      "path": "accessibility/dist/_index.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/accessibility/derive-a11y-sections.js",
+      "description": "Per-section block-JSON for accessibility (mirrors foundations dist); slug-shared with accessibility.index. Root metadata + top-level child list; navigate from here to per-section directories. Sibling files under accessibility/dist/."
     },
     "appContext": {
       "path": "app-context/app-context.json",
@@ -502,6 +516,14 @@
       "type": "markdown",
       "origin": "human",
       "description": "WCAG 2.1 AA guidance, authored as per-section files (intro, principles, … designer-handoff-checklist). Canonical order is declared in `_order.json` (sibling manifest); consumers either follow that order or fall back to alphabetical. AUTHORING.md is excluded."
+    },
+    "accessibility.leaf": {
+      "dir": "accessibility/dist",
+      "pattern": "<topSlug>/.../<slug>.json",
+      "recursive": true,
+      "type": "json",
+      "origin": "ci",
+      "description": "Per-leaf accessibility section JSONs in hierarchical Pattern H layout (mirrors foundations.leaf). Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at accessibility.bundle. Recursive: any file under accessibility/dist/ is covered by this collection."
     },
     "components.categoriesSrc": {
       "dir": "components/src/categories",
