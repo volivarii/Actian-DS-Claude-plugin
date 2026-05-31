@@ -2,30 +2,40 @@
 
 /* ── Presentation Token Palette ── */
 :root {
-  --pres-bg:          #E8E8EE;
-  --pres-slide-bg:    #FFFFFF;
-  --pres-dark-800:    #2D3648;
-  --pres-dark-700:    #4A5468;
-  --pres-dark-600:    #717D96;
-  --pres-dark-500:    #A0ABC0;
-  --pres-dark-400:    #CBD2E0;
-  --pres-dark-300:    #E2E7F0;
-  --pres-dark-200:    #EDF0F7;
-  --pres-dark-100:    #F5F5FA;
-  --pres-brand:       #0550DC;
-  --pres-brand-dark:  #0029A9;
-  --pres-brand-light: #EDF6FF;
-  --pres-text-primary:   #101828;
-  --pres-text-secondary: #2D3648;
-  --pres-text-tertiary:  #475467;
-  --pres-text-light:     #6D6D6D;
+  --pres-bg: #e8e8ee;
+  --pres-slide-bg: #ffffff;
+  --pres-dark-800: #2d3648;
+  --pres-dark-700: #4a5468;
+  --pres-dark-600: #717d96;
+  --pres-dark-500: #a0abc0;
+  --pres-dark-400: #cbd2e0;
+  --pres-dark-300: #e2e7f0;
+  --pres-dark-200: #edf0f7;
+  --pres-dark-100: #f5f5fa;
+  /* Brand palette resolves from the vendored DS tokens inlined at build time
+     (vendor/tokens/tokens.css). The fallback hexes are the canonical post-rebrand
+     values (royal-blue 500/700; primary-25 kept pre-Proposed) and apply only if the
+     token block is absent — do NOT "correct" them to the older #0550dc-era values. */
+  --pres-brand: var(--zen-color-primary-500, #0f5fdc);
+  --pres-brand-dark: var(--zen-color-primary-700, #0047bc);
+  --pres-brand-light: var(--zen-color-primary-25, #edf6ff);
+  --pres-text-primary: #101828;
+  --pres-text-secondary: #2d3648;
+  --pres-text-tertiary: #475467;
+  --pres-text-light: #6d6d6d;
   --pres-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   background: var(--pres-bg);
   padding: 40px 40px 120px;
   min-height: 100vh;
@@ -56,7 +66,7 @@ body {
   color: var(--pres-text-light);
   letter-spacing: 1.2px;
   text-transform: uppercase;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 /* ── Slide ── */
@@ -75,15 +85,15 @@ body {
 
 /* ── Slide variants — match Actian presentation templates ── */
 .slide--cover {
-  background: linear-gradient(80deg, #090952 2%, #1414B8 107%);
-  color: #FFFFFF;
+  background: linear-gradient(80deg, #090952 2%, #1414b8 107%);
+  color: #ffffff;
   justify-content: flex-end;
   padding: 88px 80px;
 }
 
 .slide--section {
-  background: linear-gradient(80deg, #EEEEFD 2%, #CBDAFF 107%);
-  color: #12131F;
+  background: linear-gradient(80deg, #eeeefd 2%, #cbdaff 107%);
+  color: #12131f;
   justify-content: center;
   padding: 80px 69px;
 }
@@ -158,7 +168,7 @@ body {
   padding: 64px 80px 32px;
   font-size: 56px;
   font-weight: 400;
-  color: #12131F;
+  color: #12131f;
   line-height: 1.2;
 }
 
@@ -169,7 +179,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  background: #F5F5FA;
+  background: #f5f5fa;
   margin: 0 79px 64px;
   border-radius: 4px;
 }
@@ -201,7 +211,7 @@ body {
   display: flex;
   align-items: stretch;
   justify-content: center;
-  background: #F5F5FA;
+  background: #f5f5fa;
   margin: 0 79px 64px 0;
   border-radius: 4px;
 }
@@ -218,7 +228,7 @@ body {
   position: absolute;
   border-radius: 20px;
   opacity: 0.12;
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 .geo-rect--1 {
@@ -248,7 +258,7 @@ body {
 }
 
 .geo-pattern--light .geo-rect {
-  background: #0029A9;
+  background: var(--zen-color-primary-700, #0047bc);
   opacity: 0.06;
 }
 
@@ -370,15 +380,33 @@ body {
 }
 
 /* Series colors 1-9 */
-.bar-chart__fill--1 { background: #0550DC; }
-.bar-chart__fill--2 { background: #7C3AED; }
-.bar-chart__fill--3 { background: #059669; }
-.bar-chart__fill--4 { background: #D97706; }
-.bar-chart__fill--5 { background: #DC2626; }
-.bar-chart__fill--6 { background: #0891B2; }
-.bar-chart__fill--7 { background: #DB2777; }
-.bar-chart__fill--8 { background: #65A30D; }
-.bar-chart__fill--9 { background: #9333EA; }
+.bar-chart__fill--1 {
+  background: var(--pres-brand);
+}
+.bar-chart__fill--2 {
+  background: #7c3aed;
+}
+.bar-chart__fill--3 {
+  background: #059669;
+}
+.bar-chart__fill--4 {
+  background: #d97706;
+}
+.bar-chart__fill--5 {
+  background: #dc2626;
+}
+.bar-chart__fill--6 {
+  background: #0891b2;
+}
+.bar-chart__fill--7 {
+  background: #db2777;
+}
+.bar-chart__fill--8 {
+  background: #65a30d;
+}
+.bar-chart__fill--9 {
+  background: #9333ea;
+}
 
 .bar-chart__value {
   width: 60px;
@@ -463,7 +491,7 @@ body {
 }
 
 .timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 7px;
   top: 8px;

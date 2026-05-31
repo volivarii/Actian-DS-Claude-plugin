@@ -138,8 +138,8 @@ Sentence case for both, per Figma content guideline (section/page headers are se
     {
       "state": "Focused",
       "columns": [
-        { "header": "Border", "token": "theme-primary", "hex": "#0550DC" },
-        { "header": "Label", "token": "theme-primary", "hex": "#0550DC" },
+        { "header": "Border", "token": "theme-primary", "hex": "#0F5FDC" },
+        { "header": "Label", "token": "theme-primary", "hex": "#0F5FDC" },
         { "header": "Input text", "token": "text-primary", "hex": "#000000" },
         { "header": "Background", "token": "bg-default", "hex": "#FFFFFF" }
       ]
