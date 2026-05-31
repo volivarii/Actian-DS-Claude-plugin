@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.25.4",
+  "knowledge_version": "0.25.6",
   "paths": {
     "accessibility.authoring": {
       "path": "accessibility/AUTHORING.md",
@@ -482,6 +482,13 @@
       "origin": "ci",
       "generator": "scripts/foundations/derive-foundations.js",
       "description": "Structured motion leaf (tokens + patterns) for foundations section 'Tokens'. Resolved directly by motion-ref lookup in the plugin + docs."
+    },
+    "graph.bundle": {
+      "path": "graph/dist/graph.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/graph/derive-graph.js",
+      "description": "Derived knowledge graph: typed nodes (component/category/a11y_criterion/foundation_section/motion_pattern/content_topic) + typed edges (in_category, a11y_ref, motion_ref, foundations_ref, related, child). Transversal refs are category-mediated. Consumed by future graph viz + AI agents."
     },
     "presentation": {
       "path": "presentation/presentation-guide.md",
