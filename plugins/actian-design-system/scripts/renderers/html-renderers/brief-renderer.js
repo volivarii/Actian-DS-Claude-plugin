@@ -394,7 +394,7 @@
       esc(header.name) +
       renderSourceBadge(header) +
       "</div>" +
-      '<svg class="card-logo" width="40" height="40" viewBox="0 0 40 40"><rect width="40" height="40" rx="4" fill="#0550DC"/></svg>' +
+      '<svg class="card-logo" width="40" height="40" viewBox="0 0 40 40"><rect width="40" height="40" rx="4" style="fill:var(--zen-color-primary-500,#0f5fdc)"/></svg>' +
       "</div>" +
       '<p class="card-body">' +
       esc(header.description) +
