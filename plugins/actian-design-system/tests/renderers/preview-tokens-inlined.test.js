@@ -78,7 +78,7 @@ describe("preview-tokens-inlined", function () {
       var r = run([BRIEF_FIXTURE, "--type", "brief"]);
       assert.strictEqual(r.status, 0, "exits cleanly");
       assert.ok(
-        r.html.includes("var(--zen-color-text-link-default"),
+        r.html.includes("var(--zen-color-text-link-default"), // prefix match — the resolved value comes from vendored tokens
         "brief HTML contains var(--zen-color-text-link-default for token-pill color",
       );
     });
@@ -98,7 +98,7 @@ describe("preview-tokens-inlined", function () {
       var r = run([PRES_FIXTURE, "--type", "presentation"]);
       assert.strictEqual(r.status, 0, "exits cleanly");
       assert.ok(
-        r.html.includes("var(--zen-color-primary-500"),
+        r.html.includes("var(--zen-color-primary-500"), // prefix match — the resolved value comes from vendored tokens
         "presentation HTML contains var(--zen-color-primary-500 for brand binding",
       );
     });

@@ -12,6 +12,10 @@
   --pres-dark-300: #e2e7f0;
   --pres-dark-200: #edf0f7;
   --pres-dark-100: #f5f5fa;
+  /* Brand palette resolves from the vendored DS tokens inlined at build time
+     (vendor/tokens/tokens.css). The fallback hexes are the canonical post-rebrand
+     values (royal-blue 500/700; primary-25 kept pre-Proposed) and apply only if the
+     token block is absent — do NOT "correct" them to the older #0550dc-era values. */
   --pres-brand: var(--zen-color-primary-500, #0f5fdc);
   --pres-brand-dark: var(--zen-color-primary-700, #0047bc);
   --pres-brand-light: var(--zen-color-primary-25, #edf6ff);
@@ -254,7 +258,7 @@ body {
 }
 
 .geo-pattern--light .geo-rect {
-  background: #0029a9;
+  background: var(--zen-color-primary-700, #0047bc);
   opacity: 0.06;
 }
 
