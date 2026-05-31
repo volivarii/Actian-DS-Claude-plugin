@@ -19,6 +19,7 @@
 
 var fs = require("fs");
 var path = require("path");
+var PATHS = require("../lib/paths");
 
 // ---------------------------------------------------------------------------
 // Paths
@@ -239,9 +240,7 @@ function main() {
 
   // Read static assets
   process.stderr.write("Loading assets for type: " + args.type + "\n");
-  var cssParts = [
-    readFileChecked(path.join(PLUGIN_ROOT, "vendor", "tokens", "tokens.css")),
-  ];
+  var cssParts = [readFileChecked(PATHS.tokens.css)];
   var cssPaths = Array.isArray(config.css) ? config.css : [config.css];
   for (var c = 0; c < cssPaths.length; c++) {
     cssParts.push(readFileChecked(cssPaths[c]));
