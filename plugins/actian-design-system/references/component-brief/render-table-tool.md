@@ -171,9 +171,9 @@ For grid-shaped color layouts (one row per state, multiple swatch columns), use 
     {
       "cells": [
         { "type": "text", "value": "Default", "weight": "semibold" },
-        { "type": "color-swatch", "color": "#0550DC", "tokenName": "--zen-color-bg-emphasis" },
+        { "type": "color-swatch", "color": "#0F5FDC", "tokenName": "--zen-color-bg-emphasis" },
         { "type": "color-swatch", "color": "#FFFFFF", "tokenName": "--zen-color-fg-on-emphasis" },
-        { "type": "color-swatch", "color": "#0550DC", "tokenName": "--zen-color-border-emphasis" }
+        { "type": "color-swatch", "color": "#0F5FDC", "tokenName": "--zen-color-border-emphasis" }
       ]
     }
   ]

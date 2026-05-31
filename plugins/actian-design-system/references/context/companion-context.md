@@ -38,7 +38,7 @@ Read this on every companion activation. For detailed info, read the full refere
 
 | Token | Hex | Use |
 |-------|-----|-----|
-| theme-primary | #0550DC | Primary actions, links, selected states |
+| theme-primary | #0F5FDC | Primary actions, links, selected states |
 | text-primary | #000000 | Body text, headings |
 | text-secondary | #3F3F4A | Secondary labels |
 | text-tertiary | #595968 | Captions, hints |

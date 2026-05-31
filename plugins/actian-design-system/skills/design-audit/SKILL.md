@@ -89,7 +89,7 @@ When `--scope` is set, run only the listed dimensions; otherwise run all.
 ### Findings
 | # | Severity | Confidence | Finding | Rule | Fix |
 |---|----------|------------|---------|------|-----|
-| 1 | P0 | 0.95 | Button uses hardcoded #0550DC | Zero hardcoded hex | Bind theme-primary variable |
+| 1 | P0 | 0.95 | Button uses hardcoded #0F5FDC | Zero hardcoded hex | Bind theme-primary variable |
 ```
 
 ## Step 5.5 — Fix gate (interactive)
