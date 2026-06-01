@@ -2597,4 +2597,20 @@ describe("avoid-word (Move 4)", function () {
       assert.notStrictEqual(f.severity, "error");
     });
   });
+
+  it("findAvoidWords adapter returns legacy rows", function () {
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          pageHeader: { title: "Click Abort to stop" },
+          content: [],
+        },
+      ],
+    };
+    var rows = validate.findAvoidWords(data);
+    assert.ok(Array.isArray(rows) && rows.length >= 1);
+    assert.equal(rows[0].check, "avoid-word");
+    assert.equal(rows[0].found, "abort");
+  });
 });

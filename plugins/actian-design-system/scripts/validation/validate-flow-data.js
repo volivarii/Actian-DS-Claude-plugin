@@ -1476,6 +1476,16 @@ function findTerminologyIssues(data) {
     });
 }
 
+function findAvoidWords(data) {
+  return validate(data, { skipTokens: true, skipTerminology: true })
+    .findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
 function findMissingJustifications(data) {
   return validate(data, {
     skipTokens: true,
@@ -1505,6 +1515,7 @@ module.exports = {
   findHardcodedColors: findHardcodedColors,
   findUnmutedChrome: findUnmutedChrome,
   findTerminologyIssues: findTerminologyIssues,
+  findAvoidWords: findAvoidWords,
   findMissingJustifications: findMissingJustifications,
   findIntentMismatch: findIntentMismatch,
   validate: validate,
@@ -1538,6 +1549,10 @@ if (require.main === module) {
         },
         { name: "--skip-terminology", description: "Skip terminology check" },
         {
+          name: "--skip-avoid-words",
+          description: "Skip the words-to-avoid soft-check",
+        },
+        {
           name: "--scope <s>",
           description:
             "Filter findings by scope: 'full' (default) | 'single-unit:<id>' | 'multi-unit:[<id>,<id>]'",
@@ -1560,6 +1575,7 @@ if (require.main === module) {
   var flags = process.argv.slice(3);
   var skipTokens = flags.indexOf("--skip-tokens") !== -1;
   var skipTerminology = flags.indexOf("--skip-terminology") !== -1;
+  var skipAvoidWords = flags.indexOf("--skip-avoid-words") !== -1;
   var jsonOutput = flags.indexOf("--json") !== -1;
   var scopeIdx = flags.indexOf("--scope");
   var scope =
@@ -1594,6 +1610,7 @@ if (require.main === module) {
     "unmuted-chrome": true,
     "intent-mismatch": true,
     "terminology-issue": true,
+    "avoid-word": true,
     "missing-justification": true,
     "placeholder-text": true,
     "missing-required-override": true,
@@ -1606,6 +1623,7 @@ if (require.main === module) {
   var result = runGate(module.exports, data, {
     skipTokens: skipTokens,
     skipTerminology: skipTerminology,
+    skipAvoidWords: skipAvoidWords,
     scope: scope,
   });
 
