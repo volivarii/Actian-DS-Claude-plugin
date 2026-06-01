@@ -141,11 +141,11 @@ function _loadA11yIndex() {
   if (PATHS.accessibility && typeof PATHS.accessibility.index === "string") {
     idxPath = PATHS.accessibility.index;
   } else {
-    a11yIndexCache = { sections: [] };
+    a11yIndexCache = { bySlug: {} };
     return a11yIndexCache;
   }
   if (!fs.existsSync(idxPath)) {
-    a11yIndexCache = { sections: [] };
+    a11yIndexCache = { bySlug: {} };
     return a11yIndexCache;
   }
   try {
