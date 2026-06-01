@@ -1,0 +1,110 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/words-to-avoid.json",
+  "title": "words-to-avoid",
+  "description": "Schema for content/dist/words-to-avoid.json. CI-derived from content/src/writing/words-to-avoid.md by scripts/content/derive-content.js. Each rule captures the avoid token list (lowercased, quoted words extracted from the Example column), a human-readable reason, and a do/dont example pair. Advisory rows (no quoted terms in the Example column) carry avoid: [].",
+  "type": "object",
+  "required": ["_schema_version", "_source", "rules"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "type": "number",
+      "const": 1,
+      "description": "Schema version pin. Bumps require coordinated deriver + consumer updates."
+    },
+    "_source": {
+      "type": "string",
+      "description": "Repo-relative path to the source markdown file this artifact was derived from.",
+      "examples": ["content/src/writing/words-to-avoid.md"]
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Ordered list of words-to-avoid rules, one per table row in the source file.",
+      "examples": [
+        [
+          {
+            "avoid": ["execute", "abort"],
+            "reason": "Don't use \"Execute\" or \"Abort.\"",
+            "example": {
+              "do": "The process was cancelled/stopped",
+              "dont": "The process was aborted."
+            }
+          }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "required": ["avoid", "reason", "example"],
+        "additionalProperties": false,
+        "description": "A single words-to-avoid rule parsed from one table row.",
+        "examples": [
+          {
+            "avoid": ["execute", "abort"],
+            "reason": "Don't use \"Execute\" or \"Abort.\"",
+            "example": {
+              "do": "The process was cancelled/stopped",
+              "dont": "The process was aborted."
+            }
+          }
+        ],
+        "properties": {
+          "avoid": {
+            "type": "array",
+            "description": "Lowercased token(s) to avoid, extracted from quoted terms in the Example column. Empty array for advisory rows (no quoted terms).",
+            "examples": [["execute", "abort"], ["sign in", "signin"], []],
+            "items": {
+              "type": "string",
+              "description": "A single lowercased word or phrase to avoid.",
+              "examples": ["execute", "abort", "sign in", "signin", "master"]
+            }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable rationale for avoiding the term(s), sourced from the Example column verbatim.",
+            "examples": [
+              "Don't use \"Execute\" or \"Abort.\"",
+              "Never use developer-speak.",
+              "Don't use \"Sign in\" or \"Signin.\""
+            ]
+          },
+          "example": {
+            "type": "object",
+            "required": ["do", "dont"],
+            "additionalProperties": false,
+            "description": "A do/dont example pair illustrating the rule in practice.",
+            "examples": [
+              {
+                "do": "The process was cancelled/stopped",
+                "dont": "The process was aborted."
+              }
+            ],
+            "properties": {
+              "do": {
+                "type": "string",
+                "minLength": 1,
+                "description": "A preferred phrasing (the Do column from the source table).",
+                "examples": [
+                  "The process was cancelled/stopped",
+                  "Click the **OK** button.",
+                  "Log in to begin"
+                ]
+              },
+              "dont": {
+                "type": "string",
+                "minLength": 1,
+                "description": "The discouraged phrasing (the Don't column from the source table).",
+                "examples": [
+                  "The process was aborted.",
+                  "Click the OK CTA.",
+                  "Signin to begin"
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

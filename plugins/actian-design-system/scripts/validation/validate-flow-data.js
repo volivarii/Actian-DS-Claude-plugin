@@ -188,6 +188,39 @@ var BANNED_PROP_KEYS = [
   "User",
 ];
 
+// Lowercase base-key set for avoid-word prop scanning.
+// Only prop values whose base key (the part before any "#" suffix) matches
+// one of these — case-insensitively — are scanned for avoid-words.
+// This prevents structural axes (State, Type, Variant, Size, Mode, etc.) from
+// spuriously triggering avoid-word warnings (e.g. State:"disabled",
+// Type:"primary", State:"press" all contain avoid-list tokens but are not
+// visible copy).
+//
+// Seeded from BANNED_PROP_KEYS (the existing copy-bearing prop allowlist for
+// the banned-text check) plus additional common copy prop names seen in FM Kit
+// and DS Kit: Text, Body, Placeholder, Description, Message, Heading,
+// Helper Text, Content, Tab label, Value.
+// Keep conservative: when in doubt, omit rather than include a structural axis.
+var COPY_PROP_KEYS_LOWER = (function () {
+  var base = BANNED_PROP_KEYS.concat([
+    "Text",
+    "Body",
+    "Placeholder",
+    "Description",
+    "Message",
+    "Heading",
+    "Helper Text",
+    "Content",
+    "Tab label",
+    "Value",
+  ]);
+  var set = {};
+  for (var i = 0; i < base.length; i++) {
+    set[base[i].toLowerCase()] = true;
+  }
+  return set;
+})();
+
 // ---------------------------------------------------------------------------
 // Walk content nodes recursively
 // ---------------------------------------------------------------------------
@@ -462,6 +495,121 @@ function findTerminologyIssuesRaw(data) {
             if (typeof val === "string") {
               checkText(val, sName, nPath + ".props." + propKeys[pk]);
             }
+          }
+        }
+      },
+    );
+  }
+
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
+// Check 4b: Words-to-avoid (Move 4) — soft warnings from the substrate's
+// structured content rules. Mirrors the terminology check: load the vendored
+// JSON, build word-boundary rules from each rule's avoid[] tokens, scan
+// visible copy. Advisory rules (avoid: []) contribute no patterns.
+// ---------------------------------------------------------------------------
+
+function loadWordsToAvoid() {
+  var p = PATHS.content && PATHS.content.wordsToAvoid;
+  if (!p) return null;
+  try {
+    var doc = JSON.parse(fs.readFileSync(p, "utf8"));
+    return Array.isArray(doc.rules) ? doc.rules : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function buildAvoidWordRules(rules) {
+  var out = [];
+  for (var i = 0; i < rules.length; i++) {
+    var rule = rules[i];
+    if (!rule.avoid || rule.avoid.length === 0) continue; // advisory — skip
+    for (var j = 0; j < rule.avoid.length; j++) {
+      var token = String(rule.avoid[j]).trim();
+      // Threshold is 2 (not 3 like the terminology check): "we"/"us" are valid 2-char avoid tokens.
+      if (token.length < 2) continue;
+      var escaped = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      out.push({
+        pattern: new RegExp("\\b" + escaped + "\\b", "i"),
+        wrong: token,
+        reason: rule.reason,
+        suggestion: (rule.example && rule.example.do) || "",
+      });
+    }
+  }
+  return out;
+}
+
+function findAvoidWordsRaw(data) {
+  var rules = loadWordsToAvoid();
+  if (!rules) return [];
+  var avoidRules = buildAvoidWordRules(rules);
+  if (avoidRules.length === 0) return [];
+
+  var issues = [];
+
+  function checkText(text, screenName, screen, nodePath) {
+    if (!text || typeof text !== "string") return;
+    for (var r = 0; r < avoidRules.length; r++) {
+      if (avoidRules[r].pattern.test(text)) {
+        issues.push({
+          severity: "P1",
+          check: "avoid-word",
+          screen: screenName,
+          screenId: screen.id || "",
+          path: nodePath,
+          value: text,
+          found: avoidRules[r].wrong,
+          suggestion: avoidRules[r].suggestion,
+          reason: avoidRules[r].reason,
+        });
+      }
+    }
+  }
+
+  for (var si = 0; si < data.screens.length; si++) {
+    var screen = data.screens[si];
+    var screenName = screen.name || "Screen " + (si + 1);
+
+    if (screen.pageHeader) {
+      checkText(
+        screen.pageHeader.title,
+        screenName,
+        screen,
+        "pageHeader.title",
+      );
+      checkText(
+        screen.pageHeader.subtitle,
+        screenName,
+        screen,
+        "pageHeader.subtitle",
+      );
+    }
+
+    walkNodes(
+      screen.content,
+      screenName,
+      "content",
+      function (node, sName, nPath) {
+        if (node.content)
+          checkText(node.content, sName, screen, nPath + ".content");
+        if (node.props) {
+          var propKeys = Object.keys(node.props);
+          for (var pk = 0; pk < propKeys.length; pk++) {
+            // Only scan copy-bearing props. Strip any "#node-id" suffix (e.g.
+            // "Label#15:0" → "Label") before the case-insensitive lookup.
+            // Structural axes (State, Type, Size, Variant, Mode, etc.) are
+            // excluded, preventing false-positives from values like "disabled",
+            // "press", or "type-a" that are component variant identifiers, not
+            // visible copy.
+            var baseKey = propKeys[pk].split("#")[0];
+            if (!COPY_PROP_KEYS_LOWER[baseKey.toLowerCase()]) continue;
+            var val = node.props[propKeys[pk]];
+            if (typeof val === "string")
+              checkText(val, sName, screen, nPath + ".props." + propKeys[pk]);
           }
         }
       },
@@ -1223,6 +1371,28 @@ function validate(data, opts) {
     }
   }
 
+  // Words-to-avoid check (Move 4) — soft warnings; gated on its own flag.
+  if (!opts.skipAvoidWords && data && Array.isArray(data.screens)) {
+    var avoidHits = findAvoidWordsRaw(data);
+    for (var awi = 0; awi < avoidHits.length; awi++) {
+      findings.push({
+        kind: "avoid-word",
+        severity: "warning",
+        path: avoidHits[awi].path,
+        screen: avoidHits[awi].screenId,
+        message:
+          'Avoid "' +
+          avoidHits[awi].found +
+          '" — ' +
+          avoidHits[awi].reason +
+          (avoidHits[awi].suggestion
+            ? " (e.g. " + JSON.stringify(avoidHits[awi].suggestion) + ")"
+            : ""),
+        _legacy: avoidHits[awi],
+      });
+    }
+  }
+
   // Stub-aware severity downgrade (v1.64.0+).
   // For any warning-level finding tagged with a component slug that has a
   // stub guideline, downgrade to info. Errors stay errors.
@@ -1347,6 +1517,16 @@ function findTerminologyIssues(data) {
     });
 }
 
+function findAvoidWords(data) {
+  return validate(data, { skipTokens: true, skipTerminology: true })
+    .findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    })
+    .map(function (f) {
+      return f._legacy;
+    });
+}
+
 function findMissingJustifications(data) {
   return validate(data, {
     skipTokens: true,
@@ -1376,6 +1556,7 @@ module.exports = {
   findHardcodedColors: findHardcodedColors,
   findUnmutedChrome: findUnmutedChrome,
   findTerminologyIssues: findTerminologyIssues,
+  findAvoidWords: findAvoidWords,
   findMissingJustifications: findMissingJustifications,
   findIntentMismatch: findIntentMismatch,
   validate: validate,
@@ -1409,6 +1590,10 @@ if (require.main === module) {
         },
         { name: "--skip-terminology", description: "Skip terminology check" },
         {
+          name: "--skip-avoid-words",
+          description: "Skip the words-to-avoid soft-check",
+        },
+        {
           name: "--scope <s>",
           description:
             "Filter findings by scope: 'full' (default) | 'single-unit:<id>' | 'multi-unit:[<id>,<id>]'",
@@ -1431,6 +1616,7 @@ if (require.main === module) {
   var flags = process.argv.slice(3);
   var skipTokens = flags.indexOf("--skip-tokens") !== -1;
   var skipTerminology = flags.indexOf("--skip-terminology") !== -1;
+  var skipAvoidWords = flags.indexOf("--skip-avoid-words") !== -1;
   var jsonOutput = flags.indexOf("--json") !== -1;
   var scopeIdx = flags.indexOf("--scope");
   var scope =
@@ -1465,6 +1651,7 @@ if (require.main === module) {
     "unmuted-chrome": true,
     "intent-mismatch": true,
     "terminology-issue": true,
+    "avoid-word": true,
     "missing-justification": true,
     "placeholder-text": true,
     "missing-required-override": true,
@@ -1477,6 +1664,7 @@ if (require.main === module) {
   var result = runGate(module.exports, data, {
     skipTokens: skipTokens,
     skipTerminology: skipTerminology,
+    skipAvoidWords: skipAvoidWords,
     scope: scope,
   });
 

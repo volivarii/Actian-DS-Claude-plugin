@@ -85,7 +85,7 @@ Items specific to the `generate-flow` skill, in addition to Universal.
 | 6 | **Missing states flagged** | Empty, error, loading, and confirmation states are included (or explicitly noted as out of scope). |
 | 7 | **Reading order** | Screens flow left-to-right, top-to-bottom. One row per sub-flow, no wrapping. |
 | 8 | **Custom elements follow FM conventions** | `fm-custom-` prefix, `--fm-*` variables, FM spacing/typography, HTML comment explaining purpose. Lo-fi fidelity. |
-| 9 | **Content guidelines applied** | Sentence case on all UI text (not title case). Buttons are verb + object ("Save changes", not "Save Changes" or bare "Save"). Form labels concise (no colons). Error messages explain what + how to fix. No banned words (please, sorry, ensure, execute, abort, sign in, disabled). Placeholder text models input — never repeats the label. See `../../vendor/content/dist/global.md` (cross-cutting rules) + per-component `../../vendor/components/dist/guidelines/<slug>.json` `domains.content`. |
+| 9 | **Content guidelines applied** | Sentence case on all UI text (not title case). Buttons are verb + object ("Save changes", not "Save Changes" or bare "Save"). Form labels concise (no colons). Error messages explain what + how to fix. Apply the full avoid-list in `../../vendor/content/dist/words-to-avoid.json` (do not inline a subset). Placeholder text models input — never repeats the label. See `../../vendor/content/dist/global.md` (cross-cutting rules) + per-component `../../vendor/components/dist/guidelines/<slug>.json` `domains.content`. |
 | 10 | **Accessibility basics** | Interactive elements have focus indicators. Form inputs have labels. No text below 11px. Color is not the only status indicator. |
 
 ---

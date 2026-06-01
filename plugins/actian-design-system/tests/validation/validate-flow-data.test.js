@@ -2467,3 +2467,250 @@ describe("meta.references[].fingerprint pass-through (C-vision)", function () {
     });
   });
 });
+
+// ---------------------------------------------------------------------------
+// Check 4b: Words-to-avoid (Move 4) — soft warnings from vendored content rules
+// ---------------------------------------------------------------------------
+
+describe("avoid-word (Move 4)", function () {
+  it("flags an avoid token in copy as a non-blocking warning", function () {
+    // "abort" is a standalone avoid token; \babort\b matches the standalone word
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          pageHeader: { title: "Click Abort to stop the process" },
+          content: [],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    var hits = result.findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    });
+    assert.ok(
+      hits.length >= 1,
+      "expected at least one avoid-word finding for standalone 'Abort'",
+    );
+    assert.strictEqual(hits[0].severity, "warning");
+    assert.match(hits[0].message, /abort/i);
+  });
+
+  it("word-boundary: copy containing only 'aborted' produces zero avoid-word findings for the 'abort' token", function () {
+    // 'abort' token uses \\b word-boundary: \\babort\\b does NOT match inside 'aborted'
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          content: [{ type: "TEXT", content: "The job aborted cleanly" }],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    var avoidHits = result.findings.filter(function (f) {
+      return (
+        f.kind === "avoid-word" && f.message && /\babort\b/i.test(f.message)
+      );
+    });
+    // 'aborted' contains 'abort' but word-boundary means the standalone 'abort' token
+    // should not match — the token regex is \babort\b which doesn't match inside 'aborted'
+    assert.strictEqual(
+      avoidHits.length,
+      0,
+      "bare 'abort' token should not match inside 'aborted'",
+    );
+  });
+
+  it("advisory rule (avoid: []) never fires", function () {
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          content: [
+            { type: "TEXT", content: "Avoid developer-speak in all copy" },
+          ],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    assert.strictEqual(
+      result.findings.filter(function (f) {
+        return f.kind === "avoid-word";
+      }).length,
+      0,
+    );
+  });
+
+  it("clean copy produces zero avoid-word findings", function () {
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          pageHeader: { title: "Create data product" },
+          content: [],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    assert.strictEqual(
+      result.findings.filter(function (f) {
+        return f.kind === "avoid-word";
+      }).length,
+      0,
+    );
+  });
+
+  it("never blocks push (no error/P0 severity)", function () {
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          pageHeader: { title: "Please contact support" },
+          content: [],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    var avoidFindings = result.findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    });
+    assert.ok(
+      avoidFindings.length >= 1,
+      "expected at least one avoid-word finding for 'please'",
+    );
+    avoidFindings.forEach(function (f) {
+      assert.notStrictEqual(f.severity, "error");
+    });
+  });
+
+  it("findAvoidWords adapter returns legacy rows", function () {
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          pageHeader: { title: "Click Abort to stop" },
+          content: [],
+        },
+      ],
+    };
+    var rows = validate.findAvoidWords(data);
+    assert.ok(Array.isArray(rows) && rows.length >= 1);
+    assert.equal(rows[0].check, "avoid-word");
+    assert.equal(rows[0].found, "abort");
+  });
+
+  // --- Fix: structural props must NOT fire avoid-word warnings ---
+
+  it("structural prop State=disabled does NOT fire an avoid-word warning", function () {
+    // 'disabled' is in the avoid-list. A structural prop like State:'disabled'
+    // must not trigger an avoid-word finding — only visible copy should be scanned.
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "button",
+              props: { State: "disabled" },
+            },
+          ],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    var avoidHits = result.findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    });
+    assert.strictEqual(
+      avoidHits.length,
+      0,
+      "structural prop State:'disabled' must not fire avoid-word (scans copy props only)",
+    );
+  });
+
+  it("structural prop Type:primary does NOT fire an avoid-word warning", function () {
+    // 'type' is in the avoid-list; structural variant axes must be ignored.
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "button",
+              props: { Type: "Primary" },
+            },
+          ],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    var avoidHits = result.findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    });
+    assert.strictEqual(
+      avoidHits.length,
+      0,
+      "structural prop Type:'Primary' must not fire avoid-word",
+    );
+  });
+
+  it("copy prop Label containing an avoid word DOES fire an avoid-word warning", function () {
+    // Positive path: a copy-bearing prop (Label, in BANNED_PROP_KEYS) that contains
+    // an avoid-word must still fire. This asserts the scoping doesn't over-narrow.
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "button",
+              props: { Label: "Click Abort to cancel" },
+            },
+          ],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    var avoidHits = result.findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    });
+    assert.ok(
+      avoidHits.length >= 1,
+      "copy prop Label:'Click Abort to cancel' must fire avoid-word for 'abort'",
+    );
+    var abortHit = avoidHits.find(function (f) {
+      return f.message && /abort/i.test(f.message);
+    });
+    assert.ok(
+      abortHit,
+      "expected an avoid-word finding specifically for 'abort'",
+    );
+  });
+});
