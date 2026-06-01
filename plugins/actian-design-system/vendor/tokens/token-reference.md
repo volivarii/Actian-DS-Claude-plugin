@@ -14,12 +14,12 @@ Total tokens: 155. Groups: 4.
 | `color.annotation.annotation` | `--zen-color-annotation-annotation` | `#D71D6D` |
 | `color.bg.default` | `--zen-color-bg-default` | `#FFFFFF` |
 | `color.bg.disabled` | `--zen-color-bg-disabled` | `#F5F5FA` |
-| `color.bg.emphasis` | `--zen-color-bg-emphasis` | `#0550DC` |
+| `color.bg.emphasis` | `--zen-color-bg-emphasis` | `#0F5FDC` |
 | `color.bg.error` | `--zen-color-bg-error` | `#FFF4EC` |
 | `color.bg.info` | `--zen-color-bg-info` | `#EDF6FF` |
 | `color.bg.muted` | `--zen-color-bg-muted` | `#F5F5FA` |
 | `color.bg.overlay` | `--zen-color-bg-overlay` | `#00000066` |
-| `color.bg.selected` | `--zen-color-bg-selected` | `#E0F0FF` |
+| `color.bg.selected` | `--zen-color-bg-selected` | `#CBE3FF` |
 | `color.bg.subtle` | `--zen-color-bg-subtle` | `#FBFBFF` |
 | `color.bg.success` | `--zen-color-bg-success` | `#F0FFEC` |
 | `color.bg.warning` | `--zen-color-bg-warning` | `#FFF9E5` |
@@ -37,7 +37,7 @@ Total tokens: 155. Groups: 4.
 | `color.icon.default` | `--zen-color-icon-default` | `#000000` |
 | `color.icon.disabled` | `--zen-color-icon-disabled` | `#9898A7` |
 | `color.icon.error` | `--zen-color-icon-error` | `#DC3514` |
-| `color.icon.primary` | `--zen-color-icon-primary` | `#0550DC` |
+| `color.icon.primary` | `--zen-color-icon-primary` | `#0F5FDC` |
 | `color.icon.reverse` | `--zen-color-icon-reverse` | `#FFFFFF` |
 | `color.icon.subtle` | `--zen-color-icon-subtle` | `#3F3F4A` |
 | `color.icon.success` | `--zen-color-icon-success` | `#098900` |
@@ -54,16 +54,16 @@ Total tokens: 155. Groups: 4.
 | `color.neutral.800` | `--zen-color-neutral-800` | `#2A2A30` |
 | `color.neutral.900` | `--zen-color-neutral-900` | `#12131F` |
 | `color.primary.25` | `--zen-color-primary-25` | `#EDF6FF` |
-| `color.primary.50` | `--zen-color-primary-50` | `#E0F0FF` |
-| `color.primary.100` | `--zen-color-primary-100` | `#9DCDFF` |
-| `color.primary.200` | `--zen-color-primary-200` | `#6FAFFD` |
-| `color.primary.300` | `--zen-color-primary-300` | `#3C91FF` |
-| `color.primary.400` | `--zen-color-primary-400` | `#2679FF` |
-| `color.primary.500` | `--zen-color-primary-500` | `#0550DC` |
-| `color.primary.600` | `--zen-color-primary-600` | `#043ACE` |
-| `color.primary.700` | `--zen-color-primary-700` | `#0029A9` |
-| `color.primary.800` | `--zen-color-primary-800` | `#000078` |
-| `color.primary.900` | `--zen-color-primary-900` | `#090952` |
+| `color.primary.50` | `--zen-color-primary-50` | `#CBE3FF` |
+| `color.primary.100` | `--zen-color-primary-100` | `#AACAFE` |
+| `color.primary.200` | `--zen-color-primary-200` | `#82B0FD` |
+| `color.primary.300` | `--zen-color-primary-300` | `#6296EF` |
+| `color.primary.400` | `--zen-color-primary-400` | `#3D7CE6` |
+| `color.primary.500` | `--zen-color-primary-500` | `#0F5FDC` |
+| `color.primary.600` | `--zen-color-primary-600` | `#0053D7` |
+| `color.primary.700` | `--zen-color-primary-700` | `#0047BC` |
+| `color.primary.800` | `--zen-color-primary-800` | `#033B92` |
+| `color.primary.900` | `--zen-color-primary-900` | `#0D316D` |
 | `color.success.25` | `--zen-color-success-25` | `#F0FFEC` |
 | `color.success.50` | `--zen-color-success-50` | `#D3EFCD` |
 | `color.success.100` | `--zen-color-success-100` | `#B5DCAF` |
@@ -77,9 +77,9 @@ Total tokens: 155. Groups: 4.
 | `color.success.900` | `--zen-color-success-900` | `#1A4B14` |
 | `color.text.disabled` | `--zen-color-text-disabled` | `#656574` |
 | `color.text.error` | `--zen-color-text-error` | `#DC3514` |
-| `color.text.link.default` | `--zen-color-text-link-default` | `#0550DC` |
+| `color.text.link.default` | `--zen-color-text-link-default` | `#0F5FDC` |
 | `color.text.link.reverse` | `--zen-color-text-link-reverse` | `#FFFFFF` |
-| `color.text.link.visited` | `--zen-color-text-link-visited` | `#0029A9` |
+| `color.text.link.visited` | `--zen-color-text-link-visited` | `#0047BC` |
 | `color.text.placeholder` | `--zen-color-text-placeholder` | `#3F3F4A` |
 | `color.text.placeholder-subtle` | `--zen-color-text-placeholder-subtle` | `#9898A7` |
 | `color.text.primary` | `--zen-color-text-primary` | `#000000` |
@@ -102,10 +102,10 @@ Total tokens: 155. Groups: 4.
 | `border.default` | `--zen-border-default` | `#E4E4F0` |
 | `border.disabled` | `--zen-border-disabled` | `#E4E4F0` |
 | `border.error` | `--zen-border-error` | `#E6492D` |
-| `border.selected` | `--zen-border-selected` | `#0550DC` |
+| `border.selected` | `--zen-border-selected` | `#0F5FDC` |
 | `border.subtle` | `--zen-border-subtle` | `#F5F5FA` |
 | `focus-ring.error` | `--zen-focus-ring-error` | `#E6492D` |
-| `focus-ring.primary` | `--zen-focus-ring-primary` | `#0550DC` |
+| `focus-ring.primary` | `--zen-focus-ring-primary` | `#0F5FDC` |
 
 ## Dimension Tokens
 

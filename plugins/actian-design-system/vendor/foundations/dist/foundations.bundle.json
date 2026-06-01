@@ -5104,6 +5104,170 @@
             }
           ]
         }
+      },
+      "bySlug": {
+        "drawer-open-close": {
+          "slug": "drawer-open-close",
+          "name": "Drawer (open/close)",
+          "phases": [
+            {
+              "Phase": "Open",
+              "Duration": "duration-slow",
+              "Easing": "ease-entrance",
+              "Behavior": "Slides in from the right"
+            },
+            {
+              "Phase": "Close",
+              "Duration": "duration-base",
+              "Easing": "ease-exit",
+              "Behavior": "Slides out to the right"
+            }
+          ]
+        },
+        "accordion-expand-collapse": {
+          "slug": "accordion-expand-collapse",
+          "name": "Accordion (expand/collapse)",
+          "phases": [
+            {
+              "Phase": "Expand",
+              "Duration": "duration-base",
+              "Easing": "ease-standard",
+              "Behavior": "Height animates open; content fades in (0→100% opacity) during final 150ms"
+            },
+            {
+              "Phase": "Collapse",
+              "Duration": "duration-base",
+              "Easing": "ease-standard",
+              "Behavior": "Height animates closed; content fades out (100→0% opacity) during initial 100ms"
+            }
+          ]
+        },
+        "success-toast": {
+          "slug": "success-toast",
+          "name": "Success Toast",
+          "phases": [
+            {
+              "Phase": "Entry",
+              "Duration": "duration-base",
+              "Easing": "ease-entrance",
+              "Behavior": "Slides in from the bottom"
+            },
+            {
+              "Phase": "Hold",
+              "Duration": "`delay-long` (500ms as token; 4000ms total hold)",
+              "Easing": "—",
+              "Behavior": "Settle time after entry completes before auto-dismiss timer begins"
+            },
+            {
+              "Phase": "Exit",
+              "Duration": "duration-fast",
+              "Easing": "ease-exit",
+              "Behavior": "Fades out quickly"
+            }
+          ]
+        },
+        "anchor-motion": {
+          "slug": "anchor-motion",
+          "name": "The \"Anchor\" Motion — Dropdowns, Popovers, and Tooltips",
+          "phases": [
+            {
+              "Phase": "Open",
+              "Duration": "duration-base",
+              "Easing": "ease-entrance",
+              "Behavior": "Fades in (0→100% opacity) over full duration; element scales up from its trigger point while fading in"
+            },
+            {
+              "Phase": "Close",
+              "Duration": "duration-fast",
+              "Easing": "ease-standard",
+              "Behavior": "Fades out (100→0% opacity) over full duration; element scales down and retracts back to its trigger point"
+            }
+          ],
+          "logic_and_accessibility": [
+            "Intentionality: Apply --zen-motion-delay-intent (300ms) for Tooltip opening on hover to prevent accidental triggers",
+            "Immediate Focus: Keyboard focus (Tab) ignores delays and triggers the open motion immediately",
+            "Reduced Motion: When prefers-reduced-motion: reduce is detected, fade transitions are disabled and elements toggle visibility instantly"
+          ]
+        },
+        "layered-overlays-modals": {
+          "slug": "layered-overlays-modals",
+          "name": "Layered Overlays — Modals",
+          "phases": [
+            {
+              "Phase": "Open",
+              "Duration": "duration-slow",
+              "Easing": "ease-entrance",
+              "Behavior": "Modal scales 95%→100% while background scrim fades in. The slow duration communicates that the user has entered a new, temporary top-level context."
+            },
+            {
+              "Phase": "Close",
+              "Duration": "duration-fast",
+              "Easing": "ease-exit",
+              "Behavior": "Modal scales 100%→95% and fades 100%→0%. Scrim fades 100%→0%, synchronized. Slower on open to help users track context; dismisses quickly once the decision is made."
+            }
+          ]
+        },
+        "skeleton-loading": {
+          "slug": "skeleton-loading",
+          "name": "Skeleton Loading",
+          "phases": [
+            {
+              "Duration": "`2000ms` (looping)",
+              "Easing": "linear",
+              "Behavior": "A continuous, subtle gradient shimmer moving left-to-right. Not tokenized — value is fixed. Provides visual confirmation the system is active and reduces perceived wait time for data-heavy views."
+            }
+          ]
+        },
+        "staggered-entrance": {
+          "slug": "staggered-entrance",
+          "name": "Staggered Entrance — Lists, Table Rows, Search Cards",
+          "phases": [
+            {
+              "Per-item duration": "duration-fast",
+              "Easing": "ease-entrance",
+              "Delay per item": "`delay-stagger` × item index (item 1: 0ms, item 2: 20ms, item 3: 40ms…)"
+            }
+          ],
+          "notes": [
+            "The cascading effect guides the eye naturally downward and prevents the screen feeling \"flashed\" with too much at once."
+          ]
+        },
+        "state-transitions": {
+          "slug": "state-transitions",
+          "name": "State Transitions",
+          "phases": [
+            {
+              "State": "Hover",
+              "Duration": "duration-instant",
+              "Easing": "ease-standard",
+              "Behavior": "Subtle background color shift via brightness filter"
+            },
+            {
+              "State": "Focus",
+              "Duration": "—",
+              "Easing": "—",
+              "Behavior": "No motion tokens — instant high-contrast ring/border for accessibility and speed"
+            },
+            {
+              "State": "Pressed",
+              "Duration": "duration-instant",
+              "Easing": "ease-exit",
+              "Behavior": "Subtle scale or brightness darkening"
+            },
+            {
+              "State": "→ Selected",
+              "Duration": "duration-fast",
+              "Easing": "ease-standard",
+              "Behavior": "Subtle background color shift and side stroke draw-in"
+            },
+            {
+              "State": "→ Unselected",
+              "Duration": "duration-instant",
+              "Easing": "ease-exit",
+              "Behavior": "Rapid fade and stroke collapse"
+            }
+          ]
+        }
       }
     }
   },

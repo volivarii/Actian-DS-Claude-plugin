@@ -326,5 +326,327 @@
       "wcag": [],
       "body_excerpt": "- Visual order matches intended reading order — annotated if non-standard - Landmark regions annotated (header, nav, main, footer) - Heading hierarchy is logical — no skipped levels - Hover interactio"
     }
-  ]
+  ],
+  "bySlug": {
+    "principles": {
+      "slug": "principles",
+      "title": "1. Principles",
+      "wcag": [],
+      "body_excerpt": "The four WCAG principles — Perceivable, Operable, Understandable, Robust — define what accessible products do. Designers own perceivable and understandable: contrast, hierarchy, labels, states, and in"
+    },
+    "color-contrast": {
+      "slug": "color-contrast",
+      "title": "2. Color & Contrast",
+      "wcag": [
+        "1.4.1"
+      ],
+      "body_excerpt": "Content type Min ratio ------------------------ Normal text (< 18px regular or < 14px bold) 4.5:1 Large text (≥ 18px regular or ≥ 14px bold) 3:1 UI components and icons 3:1 Disabled states No requirem"
+    },
+    "typography": {
+      "slug": "typography",
+      "title": "3. Typography",
+      "wcag": [
+        "1.4.5",
+        "1.4.4"
+      ],
+      "body_excerpt": "- Minimum size: 11px — only for non-essential UI (tags, data viz). Default body is 14px, minimum body is 12px. - Never use light weight (font-weight: 300) — fails contrast at small sizes. - Do not use"
+    },
+    "motion": {
+      "slug": "motion",
+      "title": "4. Motion",
+      "wcag": [
+        "2.3.1"
+      ],
+      "body_excerpt": "- All motion respects prefers-reduced-motion: reduce — fade transitions disabled, elements toggle visibility instantly. - No content flashes more than 3 times per second (WCAG 2.3.1). - State changes"
+    },
+    "focus-keyboard": {
+      "slug": "focus-keyboard",
+      "title": "5. Focus & Keyboard",
+      "wcag": [
+        "2.4.11"
+      ],
+      "body_excerpt": "Focus is the only interactive state handled by a token. Hover, pressed, and disabled use CSS brightness filters — see the Design Foundation. Focus ring rules - --zen-focus-ring-primary (2px solid Roya"
+    },
+    "aria-labels": {
+      "slug": "aria-labels",
+      "title": "6. ARIA & Labels",
+      "wcag": [],
+      "body_excerpt": "Designers annotate specs. Engineering implements. Attribute When to use ----------------------- aria-label Element has no visible text (icon buttons, close buttons) aria-labelledby A visible element l"
+    },
+    "reading-order-landmarks": {
+      "slug": "reading-order-landmarks",
+      "title": "7. Reading Order & Landmarks",
+      "wcag": [],
+      "body_excerpt": "- Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order. - Annotate landmark regions in specs: header, nav, main, footer. Screen readers use th"
+    },
+    "touch-pointer": {
+      "slug": "touch-pointer",
+      "title": "8. Touch & Pointer",
+      "wcag": [
+        "2.5.1"
+      ],
+      "body_excerpt": "- Hover-only interactions don't work on touch devices — every hover action needs a touch equivalent. - Touch targets must have adequate spacing between them, not just adequate size — crowded targets c"
+    },
+    "error-prevention": {
+      "slug": "error-prevention",
+      "title": "9. Error Prevention",
+      "wcag": [
+        "3.3.4"
+      ],
+      "body_excerpt": "- Destructive or irreversible actions (delete, bulk remove, permanent changes) must require a confirmation step (WCAG 3.3.4). - Forms with significant data should support undo or review before final s"
+    },
+    "session-timeout-warnings": {
+      "slug": "session-timeout-warnings",
+      "title": "10. Session & Timeout Warnings",
+      "wcag": [
+        "2.2.1"
+      ],
+      "body_excerpt": "- If a session can expire, users must be warned before it happens and given a way to extend or save their work (WCAG 2.2.1). - Timeout warnings must be announced via an ARIA live region — annotate for"
+    },
+    "components": {
+      "slug": "components",
+      "title": "11. Components",
+      "wcag": [],
+      "body_excerpt": ""
+    },
+    "buttons": {
+      "slug": "buttons",
+      "title": "Buttons",
+      "wcag": [
+        "2.1.1",
+        "2.4.3",
+        "2.4.7",
+        "3.3.2",
+        "4.1.2",
+        "1.4.1",
+        "2.5.5"
+      ],
+      "body_excerpt": "- Use a native button element or proper button role; the name clearly describes the action (verb-based). - Visible text label required. Icon-only buttons need a tooltip or aria-label, and the purpose"
+    },
+    "navigation": {
+      "slug": "navigation",
+      "title": "Navigation",
+      "wcag": [
+        "1.3.1",
+        "2.1.1",
+        "2.4.1",
+        "2.4.3",
+        "2.4.4",
+        "3.2.3",
+        "4.1.2"
+      ],
+      "body_excerpt": "- Active/current page state uses more than color alone — bold, underline, icon, or aria-current. - Navigation landmark structure (header, nav, main, footer) annotated in specs. - Sidebar collapse trig"
+    },
+    "forms": {
+      "slug": "forms",
+      "title": "Forms",
+      "wcag": [
+        "1.3.1",
+        "1.3.5",
+        "2.1.1",
+        "2.4.3",
+        "3.3.1",
+        "3.3.2",
+        "3.3.3",
+        "4.1.2"
+      ],
+      "body_excerpt": "- Every input has a visible label above or beside it — never placeholder-only. - Required fields marked visually (asterisk) and with aria-required. - Error messages appear adjacent to the relevant fie"
+    },
+    "modals": {
+      "slug": "modals",
+      "title": "Modals",
+      "wcag": [
+        "1.3.1",
+        "1.3.5",
+        "2.1.1",
+        "2.4.3",
+        "2.5.8",
+        "3.3.1",
+        "3.3.2",
+        "3.3.3",
+        "4.1.2"
+      ],
+      "body_excerpt": "- Focus moves to the dialog or first interactive element on open. - Focus returns to the trigger element on close. - Escape always closes the modal. - Close button always present with a clear aria-lab"
+    },
+    "alerts-toasts-banners": {
+      "slug": "alerts-toasts-banners",
+      "title": "Alerts, Toasts & Banners",
+      "wcag": [
+        "1.3.1",
+        "1.4.1",
+        "2.2.1",
+        "3.3.1",
+        "4.1.2",
+        "4.1.3"
+      ],
+      "body_excerpt": "- Status communicated by icon + color — not color alone. - Alert text describes what happened and what to do next. - Toasts stay visible at least 4 seconds. Do not auto-dismiss if they contain actions"
+    },
+    "dropdowns-menus-popovers": {
+      "slug": "dropdowns-menus-popovers",
+      "title": "Dropdowns, Menus & Popovers",
+      "wcag": [
+        "1.3.1",
+        "1.4.13",
+        "2.1.1",
+        "2.4.3",
+        "3.2.1",
+        "4.1.2"
+      ],
+      "body_excerpt": "- Trigger has a visible label or aria-label. - Keyboard: Enter/Space to open · arrow keys to navigate · Escape to close. - Menus emerge from their trigger point — not from the screen center. - Selecte"
+    },
+    "data-tables": {
+      "slug": "data-tables",
+      "title": "Data Tables",
+      "wcag": [
+        "2.4.11",
+        "1.3.1",
+        "1.3.2",
+        "2.1.1",
+        "2.4.3",
+        "4.1.2"
+      ],
+      "body_excerpt": "- Column headers labeled. Abbreviations have full names via tooltip or aria-label. - Sort direction indicated beyond color (up/down arrow). - Row selection uses a checkbox — not color highlight alone."
+    },
+    "loading-patterns": {
+      "slug": "loading-patterns",
+      "title": "Loading Patterns",
+      "wcag": [
+        "1.3.1",
+        "2.1.1",
+        "2.2.1",
+        "2.2.2",
+        "2.3.1",
+        "2.4.3",
+        "3.2.3",
+        "4.1.2",
+        "4.1.3"
+      ],
+      "body_excerpt": "- Skeleton loaders match the layout they replace. - Spinners have a text alternative (\"Loading…\") — annotate for engineering. - Button loading state changes label (e.g. \"Saving…\") or has aria-label. -"
+    },
+    "empty-states": {
+      "slug": "empty-states",
+      "title": "Empty States",
+      "wcag": [
+        "1.1.1",
+        "1.3.1",
+        "2.4.3",
+        "2.4.6",
+        "4.1.3"
+      ],
+      "body_excerpt": "- Always include: heading, explanation, and primary action. - Primary action is a proper button or link — not styled text. - Distinguish \"first use\" vs \"no results\" — different messages needed. - Info"
+    },
+    "tabs": {
+      "slug": "tabs",
+      "title": "Tabs",
+      "wcag": [
+        "1.3.1",
+        "2.1.1",
+        "2.4.3",
+        "2.4.7",
+        "4.1.2"
+      ],
+      "body_excerpt": "- Active tab uses more than color alone — underline, bold, or background change. - Left/right arrows navigate between tabs. Enter/Space activates. - Only the active panel is in the tab order. - Home/E"
+    },
+    "icons": {
+      "slug": "icons",
+      "title": "Icons",
+      "wcag": [
+        "1.4.11",
+        "1.1.1",
+        "1.4.1",
+        "2.1.1",
+        "4.1.2"
+      ],
+      "body_excerpt": "- Icon-only interactive elements have a visible label, tooltip, or aria-label. - Decorative icons annotated as decorative (hidden from screen readers). - Informational icons have a text alternative. -"
+    },
+    "tooltips": {
+      "slug": "tooltips",
+      "title": "Tooltips",
+      "wcag": [
+        "1.3.1",
+        "1.4.4",
+        "1.4.10",
+        "1.4.13",
+        "2.1.1",
+        "4.1.2"
+      ],
+      "body_excerpt": "- Triggered by both hover and keyboard focus. - Dismiss on Escape or focus leaving the trigger. - Content is supplementary only — never the sole place critical information appears. - Tooltip content r"
+    },
+    "truncation-overflow": {
+      "slug": "truncation-overflow",
+      "title": "Truncation & Overflow",
+      "wcag": [
+        "1.3.1",
+        "1.4.4",
+        "1.4.10",
+        "1.4.13",
+        "2.1.1",
+        "4.1.2"
+      ],
+      "body_excerpt": "- Truncated text always has a reveal mechanism — tooltip, expand, or detail view. - Never truncate error messages or critical labels. - Scrollable containers are keyboard accessible. - Text is not cut"
+    },
+    "drag-drop": {
+      "slug": "drag-drop",
+      "title": "Drag & Drop",
+      "wcag": [
+        "1.3.1",
+        "2.1.1",
+        "2.1.3",
+        "2.5.2",
+        "2.5.7",
+        "4.1.2",
+        "4.1.3"
+      ],
+      "body_excerpt": "- Every drag interaction has a keyboard-operable alternative (arrow keys, reorder control, or cut/paste). - Drag and drop target states designed; valid drop zones are visually highlighted during the d"
+    },
+    "ai-output-suggestions": {
+      "slug": "ai-output-suggestions",
+      "title": "AI Output & Suggestions",
+      "wcag": [
+        "1.3.1",
+        "1.4.1",
+        "2.1.1",
+        "2.2.2",
+        "4.1.2",
+        "4.1.3"
+      ],
+      "body_excerpt": "Transparency & Identification - AI-generated content is visually and programmatically identified (e.g. a \"Sparkle\" icon with aria-label=\"Generated by AI\"). - Suggestions are clearly distinguished from"
+    },
+    "designer-handoff-checklist": {
+      "slug": "designer-handoff-checklist",
+      "title": "12. Designer Handoff Checklist",
+      "wcag": [],
+      "body_excerpt": "Use before every handoff or design review. - All text meets contrast minimum (4.5:1 normal · 3:1 large) - UI component boundaries meet 3:1 against background - No information conveyed by color alone -"
+    },
+    "typography-content": {
+      "slug": "typography-content",
+      "title": "Typography & Content",
+      "wcag": [],
+      "body_excerpt": "- No text smaller than 11px - All inputs have visible labels — no placeholder-only fields - Error messages describe the problem and how to fix it - No images of text - Line lengths within limits for t"
+    },
+    "focus-interaction": {
+      "slug": "focus-interaction",
+      "title": "Focus & Interaction",
+      "wcag": [],
+      "body_excerpt": "- All interactive elements have a designed focus state - Focus order is logical — annotated if non-standard - All actions have a keyboard alternative documented - Touch targets meet minimums (24px des"
+    },
+    "states": {
+      "slug": "states",
+      "title": "States",
+      "wcag": [],
+      "body_excerpt": "- All interactive states designed: default, hover, focus, pressed, disabled, error - Empty, loading, and error states included for data-driven components - State changes use more than one signal — ico"
+    },
+    "labels-annotations": {
+      "slug": "labels-annotations",
+      "title": "Labels & Annotations",
+      "wcag": [],
+      "body_excerpt": "- Icon-only elements have aria-label documented - Decorative icons marked as decorative - Dynamic regions annotated with aria-live - Modal focus trap and return focus documented - Form groupings and r"
+    },
+    "reading-order-touch": {
+      "slug": "reading-order-touch",
+      "title": "Reading Order & Touch",
+      "wcag": [],
+      "body_excerpt": "- Visual order matches intended reading order — annotated if non-standard - Landmark regions annotated (header, nav, main, footer) - Heading hierarchy is logical — no skipped levels - Hover interactio"
+    }
+  }
 }
