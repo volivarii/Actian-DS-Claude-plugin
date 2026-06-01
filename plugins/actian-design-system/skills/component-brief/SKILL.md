@@ -120,7 +120,7 @@ ctx = {
   guidelinesJson,         // parsed vendor/components/dist/guidelines/<slug>.json (merged multi-domain guideline doc — domains.{content,usage,design,behavior,tokens}); null when no guideline doc exists for the component
   selectedCards,          // ["card_header", "tokens", ...]
   motionPatterns,         // parsed vendor/foundations/dist/tokens/motion.json#patterns (object keyed by short name)
-  category,               // dskit.json[slug].category, normalized via category-defaults-loader.normalizeCategorySlug
+  category,               // dskit.json[slug].categorySlug (substrate-canonical slug, = slugify(category); knowledge #189) — consumed verbatim
   categoryDefaults,       // category-defaults-loader.loadDefaultsForCategory(ctx.category) — null when unknown
   motionRefResolver       // category-defaults-loader.resolveMotionRef — function passed for category motion fallback
 }
@@ -143,9 +143,9 @@ returns a Phase A result with `fallback: true`, `fallbackReason:
 emitted with `_source: "figma"`, `_fallback: true`, `_fallbackReason:
 "category-motion-default"`.
 
-Set `ctx.category` by reading the dskit registry's `category` field for
-the slug and passing it through `category-defaults-loader.normalizeCategorySlug`.
-Set `ctx.categoryDefaults` by calling
+Set `ctx.category` by reading the dskit registry's `categorySlug` field
+directly (the substrate's canonical slug, = slugify(category); knowledge
+#189 — no plugin-side re-derivation). Set `ctx.categoryDefaults` by calling
 `category-defaults-loader.loadDefaultsForCategory(ctx.category)`. Set
 `ctx.motionRefResolver` to `category-defaults-loader.resolveMotionRef`
 so the Phase A motion fallback can resolve the slug.

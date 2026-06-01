@@ -177,9 +177,10 @@ refine via PRs that flip the field to `team-reviewed` or
 
 **When the plugin reads defaults at brief time:**
 
-1. `ctx.category` is normalized from the dskit registry's `category`
-   field (e.g., "Form (input & selection)" → "form-input-selection")
-   via `category-defaults-loader.normalizeCategorySlug`.
+1. `ctx.category` is read directly from the dskit registry's
+   `categorySlug` field (the substrate-canonical slug, = slugify(category),
+   e.g. "form-input-selection"; knowledge #189) — no plugin-side
+   re-derivation from the label.
 2. `ctx.categoryDefaults` is loaded via
    `category-defaults-loader.loadDefaultsForCategory(ctx.category)`.
 3. Phase B cards (`anatomy`, `variants`, `accessibility`)

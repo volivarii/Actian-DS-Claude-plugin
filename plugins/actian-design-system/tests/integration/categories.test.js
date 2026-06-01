@@ -262,23 +262,33 @@ test("category-defaults — every accessibility ref slug resolves against a11y-i
   );
 });
 
-test("category-defaults — every COMPONENTS-section category normalizes to an existing defaults slug", () => {
+test("category-defaults — every COMPONENTS-section category resolves to an existing defaults slug (via registry categorySlug)", () => {
   // ζ.2 (2026-05-13): scoped to COMPONENTS-section categories. Foundations
   // and Brand-section categories (Icons, Marketing icons, etc.) intentionally
   // have no defaults file — the loader falls through to null and per-component
   // guideline content still renders cleanly. Add to COMPONENTS_CATEGORIES if
   // we author defaults for any of the new Foundations/Brand categories.
-  const c = loadJSON(PATHS.components.categories);
+  //
+  // Move 3 (knowledge #189): the slug is the registry's canonical
+  // `entry.categorySlug` (= slugify(category)) — consumed verbatim, not
+  // re-derived from the label. This exercises the real brief-time path.
+  const reg = loadJSON(PATHS.components.registries.dskit);
+  const comps = reg.components || {};
   const unmapped = [];
-  for (const label of Object.keys(c.categories)) {
-    if (!COMPONENTS_CATEGORIES.has(label)) continue;
-    const slug = loader.normalizeCategorySlug(label);
-    const d = loader.loadDefaultsForCategory(slug);
-    if (!d) unmapped.push(`'${label}' → '${slug}' (no defaults file)`);
+  const seen = new Set();
+  for (const slug of Object.keys(comps)) {
+    const entry = comps[slug];
+    if (!entry || !COMPONENTS_CATEGORIES.has(entry.category)) continue;
+    const catSlug = entry.categorySlug;
+    if (!catSlug || seen.has(catSlug)) continue;
+    seen.add(catSlug);
+    if (!loader.loadDefaultsForCategory(catSlug)) {
+      unmapped.push(`'${entry.category}' → '${catSlug}' (no defaults file)`);
+    }
   }
   assert.deepEqual(
     unmapped,
     [],
-    `COMPONENTS-section category labels with no matching defaults file:\n  ${unmapped.join("\n  ")}`,
+    `COMPONENTS-section categories with no matching defaults file:\n  ${unmapped.join("\n  ")}`,
   );
 });

@@ -44,28 +44,16 @@ function _resetCache() {
   a11yIndexCache = null;
 }
 
-// Map a dskit registry `category` label like "Form (input & selection)"
-// to its kebab-case slug "form-input-selection". Idempotent on
-// already-slugged input. Returns null for null/empty.
-function normalizeCategorySlug(input) {
-  if (input == null) return null;
-  var s = String(input).trim();
-  if (s.length === 0) return null;
-  s = s.toLowerCase();
-  // Drop `&` entirely so "Form (input & selection)" → "form-input-selection"
-  // (canonical mapping per dskit registry categories). The remaining
-  // non-alphanumeric collapse handles parens and spaces.
-  s = s.replace(/&/g, " ");
-  // Replace runs of non-alphanumerics with single `-`
-  s = s.replace(/[^a-z0-9]+/g, "-");
-  // Trim leading/trailing `-`
-  s = s.replace(/^-+|-+$/g, "");
-  return s.length === 0 ? null : s;
-}
-
-function loadDefaultsForCategory(input) {
-  var slug = normalizeCategorySlug(input);
-  if (!slug) return null;
+// Load the category-defaults artifact for a category. Takes the dskit
+// registry's canonical `entry.categorySlug` (= slugify(category), emitted
+// by the substrate — knowledge #189) and uses it verbatim. The plugin no
+// longer re-derives the slug from a category label: the registry is the
+// single source of the slug (Move 3). Returns null for null/empty input
+// or an unknown slug (graceful — no curated defaults for that category).
+function loadDefaultsForCategory(categorySlug) {
+  if (categorySlug == null) return null;
+  var slug = String(categorySlug).trim();
+  if (slug.length === 0) return null;
   if (Object.prototype.hasOwnProperty.call(categoryCache, slug)) {
     return categoryCache[slug];
   }
@@ -185,7 +173,6 @@ function resolveAccessibilityRef(slug) {
 }
 
 module.exports = {
-  normalizeCategorySlug: normalizeCategorySlug,
   loadDefaultsForCategory: loadDefaultsForCategory,
   resolveMotionRef: resolveMotionRef,
   resolveAccessibilityRef: resolveAccessibilityRef,
