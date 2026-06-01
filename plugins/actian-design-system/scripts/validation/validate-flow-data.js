@@ -188,6 +188,39 @@ var BANNED_PROP_KEYS = [
   "User",
 ];
 
+// Lowercase base-key set for avoid-word prop scanning.
+// Only prop values whose base key (the part before any "#" suffix) matches
+// one of these — case-insensitively — are scanned for avoid-words.
+// This prevents structural axes (State, Type, Variant, Size, Mode, etc.) from
+// spuriously triggering avoid-word warnings (e.g. State:"disabled",
+// Type:"primary", State:"press" all contain avoid-list tokens but are not
+// visible copy).
+//
+// Seeded from BANNED_PROP_KEYS (the existing copy-bearing prop allowlist for
+// the banned-text check) plus additional common copy prop names seen in FM Kit
+// and DS Kit: Text, Body, Placeholder, Description, Message, Heading,
+// Helper Text, Content, Tab label, Value.
+// Keep conservative: when in doubt, omit rather than include a structural axis.
+var COPY_PROP_KEYS_LOWER = (function () {
+  var base = BANNED_PROP_KEYS.concat([
+    "Text",
+    "Body",
+    "Placeholder",
+    "Description",
+    "Message",
+    "Heading",
+    "Helper Text",
+    "Content",
+    "Tab label",
+    "Value",
+  ]);
+  var set = {};
+  for (var i = 0; i < base.length; i++) {
+    set[base[i].toLowerCase()] = true;
+  }
+  return set;
+})();
+
 // ---------------------------------------------------------------------------
 // Walk content nodes recursively
 // ---------------------------------------------------------------------------
@@ -566,6 +599,14 @@ function findAvoidWordsRaw(data) {
         if (node.props) {
           var propKeys = Object.keys(node.props);
           for (var pk = 0; pk < propKeys.length; pk++) {
+            // Only scan copy-bearing props. Strip any "#node-id" suffix (e.g.
+            // "Label#15:0" → "Label") before the case-insensitive lookup.
+            // Structural axes (State, Type, Size, Variant, Mode, etc.) are
+            // excluded, preventing false-positives from values like "disabled",
+            // "press", or "type-a" that are component variant identifiers, not
+            // visible copy.
+            var baseKey = propKeys[pk].split("#")[0];
+            if (!COPY_PROP_KEYS_LOWER[baseKey.toLowerCase()]) continue;
             var val = node.props[propKeys[pk]];
             if (typeof val === "string")
               checkText(val, sName, screen, nPath + ".props." + propKeys[pk]);

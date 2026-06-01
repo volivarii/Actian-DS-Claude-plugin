@@ -2613,4 +2613,104 @@ describe("avoid-word (Move 4)", function () {
     assert.equal(rows[0].check, "avoid-word");
     assert.equal(rows[0].found, "abort");
   });
+
+  // --- Fix: structural props must NOT fire avoid-word warnings ---
+
+  it("structural prop State=disabled does NOT fire an avoid-word warning", function () {
+    // 'disabled' is in the avoid-list. A structural prop like State:'disabled'
+    // must not trigger an avoid-word finding — only visible copy should be scanned.
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "button",
+              props: { State: "disabled" },
+            },
+          ],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    var avoidHits = result.findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    });
+    assert.strictEqual(
+      avoidHits.length,
+      0,
+      "structural prop State:'disabled' must not fire avoid-word (scans copy props only)",
+    );
+  });
+
+  it("structural prop Type:primary does NOT fire an avoid-word warning", function () {
+    // 'type' is in the avoid-list; structural variant axes must be ignored.
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "button",
+              props: { Type: "Primary" },
+            },
+          ],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    var avoidHits = result.findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    });
+    assert.strictEqual(
+      avoidHits.length,
+      0,
+      "structural prop Type:'Primary' must not fire avoid-word",
+    );
+  });
+
+  it("copy prop Label containing an avoid word DOES fire an avoid-word warning", function () {
+    // Positive path: a copy-bearing prop (Label, in BANNED_PROP_KEYS) that contains
+    // an avoid-word must still fire. This asserts the scoping doesn't over-narrow.
+    var data = {
+      screens: [
+        {
+          name: "S1",
+          content: [
+            {
+              type: "INSTANCE",
+              ref: "button",
+              props: { Label: "Click Abort to cancel" },
+            },
+          ],
+        },
+      ],
+    };
+    var result = validate.validate(data, {
+      skipTokens: true,
+      skipTerminology: true,
+    });
+    var avoidHits = result.findings.filter(function (f) {
+      return f.kind === "avoid-word";
+    });
+    assert.ok(
+      avoidHits.length >= 1,
+      "copy prop Label:'Click Abort to cancel' must fire avoid-word for 'abort'",
+    );
+    var abortHit = avoidHits.find(function (f) {
+      return f.message && /abort/i.test(f.message);
+    });
+    assert.ok(
+      abortHit,
+      "expected an avoid-word finding specifically for 'abort'",
+    );
+  });
 });
