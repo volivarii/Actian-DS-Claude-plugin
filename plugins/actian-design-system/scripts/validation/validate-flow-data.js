@@ -472,6 +472,113 @@ function findTerminologyIssuesRaw(data) {
 }
 
 // ---------------------------------------------------------------------------
+// Check 4b: Words-to-avoid (Move 4) — soft warnings from the substrate's
+// structured content rules. Mirrors the terminology check: load the vendored
+// JSON, build word-boundary rules from each rule's avoid[] tokens, scan
+// visible copy. Advisory rules (avoid: []) contribute no patterns.
+// ---------------------------------------------------------------------------
+
+function loadWordsToAvoid() {
+  var p = PATHS.content && PATHS.content.wordsToAvoid;
+  if (!p) return null;
+  try {
+    var doc = JSON.parse(fs.readFileSync(p, "utf8"));
+    return Array.isArray(doc.rules) ? doc.rules : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function buildAvoidWordRules(rules) {
+  var out = [];
+  for (var i = 0; i < rules.length; i++) {
+    var rule = rules[i];
+    if (!rule.avoid || rule.avoid.length === 0) continue; // advisory — skip
+    for (var j = 0; j < rule.avoid.length; j++) {
+      var token = String(rule.avoid[j]).trim();
+      // Threshold is 2 (not 3 like the terminology check): "we"/"us" are valid 2-char avoid tokens.
+      if (token.length < 2) continue;
+      var escaped = token.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      out.push({
+        pattern: new RegExp("\\b" + escaped + "\\b", "i"),
+        wrong: token,
+        reason: rule.reason,
+        suggestion: (rule.example && rule.example.do) || "",
+      });
+    }
+  }
+  return out;
+}
+
+function findAvoidWordsRaw(data) {
+  var rules = loadWordsToAvoid();
+  if (!rules) return [];
+  var avoidRules = buildAvoidWordRules(rules);
+  if (avoidRules.length === 0) return [];
+
+  var issues = [];
+
+  function checkText(text, screenName, screen, nodePath) {
+    if (!text || typeof text !== "string") return;
+    for (var r = 0; r < avoidRules.length; r++) {
+      if (avoidRules[r].pattern.test(text)) {
+        issues.push({
+          severity: "P1",
+          check: "avoid-word",
+          screen: screenName,
+          screenId: screen.id || "",
+          path: nodePath,
+          value: text,
+          found: avoidRules[r].wrong,
+          suggestion: avoidRules[r].suggestion,
+          reason: avoidRules[r].reason,
+        });
+      }
+    }
+  }
+
+  for (var si = 0; si < data.screens.length; si++) {
+    var screen = data.screens[si];
+    var screenName = screen.name || "Screen " + (si + 1);
+
+    if (screen.pageHeader) {
+      checkText(
+        screen.pageHeader.title,
+        screenName,
+        screen,
+        "pageHeader.title",
+      );
+      checkText(
+        screen.pageHeader.subtitle,
+        screenName,
+        screen,
+        "pageHeader.subtitle",
+      );
+    }
+
+    walkNodes(
+      screen.content,
+      screenName,
+      "content",
+      function (node, sName, nPath) {
+        if (node.content)
+          checkText(node.content, sName, screen, nPath + ".content");
+        if (node.props) {
+          var propKeys = Object.keys(node.props);
+          for (var pk = 0; pk < propKeys.length; pk++) {
+            var val = node.props[propKeys[pk]];
+            if (typeof val === "string")
+              checkText(val, sName, screen, nPath + ".props." + propKeys[pk]);
+          }
+        }
+      },
+    );
+  }
+
+  return issues;
+}
+
+// ---------------------------------------------------------------------------
 // Check 5: Tier justification (Sprint B1 — fallback ladder)
 // ---------------------------------------------------------------------------
 //
@@ -1219,6 +1326,28 @@ function validate(data, opts) {
         message: terms[ri].value,
         // preserve legacy fields for adapter reconstruction
         _legacy: terms[ri],
+      });
+    }
+  }
+
+  // Words-to-avoid check (Move 4) — soft warnings; gated on its own flag.
+  if (!opts.skipAvoidWords && data && Array.isArray(data.screens)) {
+    var avoidHits = findAvoidWordsRaw(data);
+    for (var awi = 0; awi < avoidHits.length; awi++) {
+      findings.push({
+        kind: "avoid-word",
+        severity: "warning",
+        path: avoidHits[awi].path,
+        screen: avoidHits[awi].screenId,
+        message:
+          'Avoid "' +
+          avoidHits[awi].found +
+          '" — ' +
+          avoidHits[awi].reason +
+          (avoidHits[awi].suggestion
+            ? " (e.g. " + JSON.stringify(avoidHits[awi].suggestion) + ")"
+            : ""),
+        _legacy: avoidHits[awi],
       });
     }
   }
