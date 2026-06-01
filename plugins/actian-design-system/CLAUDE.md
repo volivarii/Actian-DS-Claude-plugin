@@ -60,6 +60,7 @@ Data flows: `Figma -> volivarii/actian-ds-knowledge CI -> vendor/ (snapshot pull
 - `vendor/tokens/tokens.json` (DTCG, 3 themes) + `vendor/tokens/tokens.css` + `vendor/tokens/token-reference.md`
 - `vendor/accessibility/src/<slug>.md` (per-section files: principles, color-contrast, typography, motion, focus-keyboard, aria-labels, reading-order-landmarks, touch-pointer, error-prevention, session-timeout-warnings, components, designer-handoff-checklist), ordered via `vendor/accessibility/src/_order.json`
 - `vendor/content/dist/global.md` — global / cross-cutting content guidelines (voice, tone, words to avoid, UX-pattern topics). Component-specific copy lives per-component in `components/dist/guidelines/<slug>.json` `domains.content`. *(The transitional full-concat under `content/dist/` was retired in Phase 5, knowledge v0.11.0.)*
+- `vendor/content/dist/words-to-avoid.json` — structured words-to-avoid rules (content's first JSON dist); each rule = `{ avoid, reason, example: { do, dont } }`, advisory rules carry `avoid: []`. Read by `validate-flow-data.js` (avoid-word soft-check); `global.md` keeps the prose table for humans. Resolve via `PATHS.content.wordsToAvoid`.
 - `vendor/app-context/app-context.json`, `vendor/fm-to-ds-map/fm-to-ds-map.json`
 - `vendor/presentation/presentation-guide.md`
 
@@ -69,7 +70,7 @@ Data flows: `Figma -> volivarii/actian-ds-knowledge CI -> vendor/ (snapshot pull
 - `scripts/renderers/assemble-preview.js` — generates HTML previews from data models
 - `scripts/renderers/render-component-reference.js` — generates `*-components.md` mirrors from vendored registries (called by vendor-snapshot.yml post-pull)
 - `scripts/lib/shared-constants.js` — dynamic registry loaders, key maps, palette
-- `scripts/validation/validate-flow-data.js` — pipeline validation (banned text, tokens, terminology)
+- `scripts/validation/validate-flow-data.js` — pipeline validation (banned text, tokens, terminology) + `avoid-word` soft-check (warnings, non-blocking; `--skip-avoid-words`) against `vendor/content/dist/words-to-avoid.json`
 - `scripts/transformers/fm-tree-to-flow-data.js` — converts FM Figma tree to flow-data.json
 - `scripts/vendor/vendor-snapshot.js` — pulls pinned snapshot from `volivarii/actian-ds-knowledge`
 
@@ -103,7 +104,7 @@ Every output includes a generation card (first element) with: skill name, prompt
 ## Design System Rules
 
 - **Tokens:** `vendor/tokens/tokens.json` (source of truth). For HTML: `var(--zen-color-theme-primary)`, never hardcoded hex.
-- **Content guidelines:** `vendor/content/dist/global.md` (cross-cutting voice/tone/word rules) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content`
+- **Content guidelines:** `vendor/content/dist/global.md` (cross-cutting voice/tone/word rules) + `vendor/content/dist/words-to-avoid.json` (structured avoid-word rules for tooling; `PATHS.content.wordsToAvoid`) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content`
 - **Accessibility:** `vendor/accessibility/src/<slug>.md` (per-section) — WCAG 2.1 AA
 - **Never hardcode:** colors, fonts, spacing, radius, shadows, icons. Use tokens. FM outputs use `--fm-*` variables only.
 - **Component instances:** set ALL properties (variants, text, booleans, nested). See `references/ds-rules/component-instance-rules.md`.
