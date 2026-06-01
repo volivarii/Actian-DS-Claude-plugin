@@ -191,7 +191,7 @@ Apply DS spacing tokens and layout rules to every container before pushing:
 Before pushing, audit all visible text against `vendor/content/dist/global.md` (cross-cutting rules) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content`:
 - Sentence case on all UI text (buttons, labels, headings, column headers, placeholders)
 - Buttons: verb + object ("Save changes", not "Save Changes" and not bare "Save")
-- No banned words: please, sorry, ensure, execute, abort, sign in, signin, disabled
+- No banned words — apply the full avoid-list in `vendor/content/dist/words-to-avoid.json` (do not inline a subset)
 - Error messages: state what went wrong + how to fix it (never just "Invalid" or "Error")
 - Empty states: headline + one-sentence body + one CTA button
 - Placeholder text: models expected input — never repeats the field label

@@ -96,6 +96,7 @@ If the Step 1.5 response opted in to research (e.g., `research all`, `research u
    - Existing context inlined:
      - `vendor/components/dist/guidelines/<slug>.json` (the merged per-component guideline doc — `domains.content` is the authoritative component-specific copy guidance; omit when the component has no guideline doc)
      - `vendor/content/dist/global.md` (global / cross-cutting copy guidance — voice, tone, words to avoid, UX-pattern topics)
+     - `vendor/content/dist/words-to-avoid.json` (structured avoid-list; each rule's `avoid[]` tokens — use this — do not inline a subset)
      - `vendor/components/dist/categories.json` (DS Kit category lookup — informational metadata for mis-categorization surfacing; see `agents/brief-researcher.md`)
      - `vendor/foundations/src/<slug>.md` (per-section; the brief recipe's `grounding` lists the relevant files)
      - `vendor/accessibility/src/<slug>.md` (per-section; the brief recipe's `grounding` lists the relevant files)
