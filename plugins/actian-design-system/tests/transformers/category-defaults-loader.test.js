@@ -17,34 +17,6 @@ test.beforeEach(function () {
   loader._resetCache();
 });
 
-// --- normalizeCategorySlug ---
-
-test("normalizeCategorySlug — known labels map correctly", function () {
-  assert.equal(loader.normalizeCategorySlug("Action"), "action");
-  assert.equal(
-    loader.normalizeCategorySlug("Form (input & selection)"),
-    "form-input-selection",
-  );
-  assert.equal(loader.normalizeCategorySlug("Navigation"), "navigation");
-  assert.equal(loader.normalizeCategorySlug("Data Display"), "data-display");
-  assert.equal(loader.normalizeCategorySlug("Feedback"), "feedback");
-  assert.equal(loader.normalizeCategorySlug("Overlays"), "overlays");
-});
-
-test("normalizeCategorySlug — already-slugged input returns unchanged", function () {
-  assert.equal(
-    loader.normalizeCategorySlug("form-input-selection"),
-    "form-input-selection",
-  );
-  assert.equal(loader.normalizeCategorySlug("data-display"), "data-display");
-});
-
-test("normalizeCategorySlug — null/empty returns null", function () {
-  assert.equal(loader.normalizeCategorySlug(null), null);
-  assert.equal(loader.normalizeCategorySlug(""), null);
-  assert.equal(loader.normalizeCategorySlug(undefined), null);
-});
-
 // --- loadDefaultsForCategory ---
 
 test("loadDefaultsForCategory — known category returns parsed dist JSON", function () {
@@ -58,10 +30,18 @@ test("loadDefaultsForCategory — known category returns parsed dist JSON", func
   assert.ok(defaults.a11y_refs);
 });
 
-test("loadDefaultsForCategory — accepts label, normalizes to slug", function () {
-  var defaults = loader.loadDefaultsForCategory("Form (input & selection)");
-  assert.ok(defaults);
-  assert.equal(defaults.slug, "form-input-selection");
+test("loadDefaultsForCategory — consumes categorySlug verbatim; a raw label no longer resolves", function () {
+  // Move 3: the loader takes the registry's canonical categorySlug
+  // (= slugify(category), knowledge #189) directly — it no longer
+  // re-derives a slug from a human label. A non-slug label returns null.
+  assert.equal(
+    loader.loadDefaultsForCategory("form-input-selection").slug,
+    "form-input-selection",
+  );
+  assert.equal(
+    loader.loadDefaultsForCategory("Form (input & selection)"),
+    null,
+  );
 });
 
 test("loadDefaultsForCategory — unknown slug returns null", function () {

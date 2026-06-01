@@ -109,6 +109,11 @@
           "description": "Curated value for Components items (Action / Form / ...); page clean-name for Foundations/Brand items (Icons / Marketing icons / ...). Pre-ζ.2 was null for non-COMPONENTS; ζ.2 populates for all entries with documentChildren.",
           "examples": ["Data Display", "Icons", "Marketing icons"]
         },
+        "categorySlug": {
+          "type": "string",
+          "description": "Slugified form of category (lowercase kebab-case). Emitted whenever category is present; omitted when category is absent. Consumers can use this for stable CSS class names, URL segments, or filter keys without re-slugifying.",
+          "examples": ["data-display", "icons", "form-input-selection"]
+        },
         "group": {
           "type": "string",
           "description": "Third-level grouping. Page clean-name for Components (e.g., 'Tag (Identification key)' for all 9 Tag variants); containing_frame.name for Foundations items; semantic label from components/src/icon-groups.json for icons (ζ.5 — e.g., 'Connector', 'Status', 'Navigation'). Docs sidebar IA + IconGrid both read this.",

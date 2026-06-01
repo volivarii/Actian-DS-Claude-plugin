@@ -177,9 +177,10 @@ refine via PRs that flip the field to `team-reviewed` or
 
 **When the plugin reads defaults at brief time:**
 
-1. `ctx.category` is normalized from the dskit registry's `category`
-   field (e.g., "Form (input & selection)" → "form-input-selection")
-   via `category-defaults-loader.normalizeCategorySlug`.
+1. `ctx.category` is read directly from the dskit registry's
+   `categorySlug` field (the substrate-canonical slug, = slugify(category),
+   e.g. "form-input-selection"; knowledge #189) — no plugin-side
+   re-derivation from the label.
 2. `ctx.categoryDefaults` is loaded via
    `category-defaults-loader.loadDefaultsForCategory(ctx.category)`.
 3. Phase B cards (`anatomy`, `variants`, `accessibility`)
@@ -188,10 +189,10 @@ refine via PRs that flip the field to `team-reviewed` or
    rule).
 4. `motion` falls back to the category's first `motion_refs` ref
    when the component-guideline has no `behavior.motion.pattern`. Motion
-   patterns are resolved against `vendor/foundations/dist/tokens/motion.json#patterns`
-   by `.slug` (motion patterns are keyed by short name like `drawer` but
-   carry a separate slug like `drawer-open-close` — the loader matches
-   by the slug).
+   patterns are resolved O(1) via the substrate's slug-keyed index
+   `vendor/foundations/dist/tokens/motion.json#bySlug[<slug>]` (knowledge
+   #188 — no scanning; `.patterns` is keyed by short name like `drawer`
+   but `bySlug` is keyed by the slug like `drawer-open-close`).
 5. Accessibility refs in the defaults are slugs into
-   `vendor/accessibility/dist/a11y-index.json#sections[*].slug`.
+   `vendor/accessibility/dist/a11y-index.json#bySlug[<slug>]`.
    Unresolved refs return null gracefully.

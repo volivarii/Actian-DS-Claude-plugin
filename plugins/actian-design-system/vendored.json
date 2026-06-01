@@ -1,9 +1,9 @@
 {
   "knowledge_repo": "volivarii/actian-ds-knowledge",
   "knowledge_repo_version_range": "<1.0.0",
-  "knowledge_repo_resolved_version": "v0.25.6",
-  "knowledge_repo_resolved_sha": "f9e37b6fc725104b80a41cb414acf79015f58fee",
-  "vendored_at": "2026-05-31T10:55:11.135Z",
+  "knowledge_repo_resolved_version": "v0.25.8",
+  "knowledge_repo_resolved_sha": "6614e58528cd41d082b68c8d7ffd30a3ccf09429",
+  "vendored_at": "2026-06-01T07:37:35.323Z",
   "vendored_entries": [
     "AUTHORING.md",
     "GOVERNANCE.md",
@@ -41,5 +41,5 @@
     "scripts",
     "tests"
   ],
-  "vendor_url": "https://github.com/volivarii/actian-ds-knowledge/tree/v0.25.6"
+  "vendor_url": "https://github.com/volivarii/actian-ds-knowledge/tree/v0.25.8"
 }
