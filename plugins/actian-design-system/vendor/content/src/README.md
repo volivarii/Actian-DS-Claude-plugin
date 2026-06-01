@@ -22,6 +22,6 @@ See [`AUTHORING.md`](AUTHORING.md) for the full workflow: file naming, section s
 
 ## How this is consumed
 
-- **Plugin** reads via `paths-manifest.json` `content.section` collection + the derived `content/dist/global.md`. Manifest indirection means the sub-bucket move is transparent.
+- **Plugin** reads via `paths-manifest.json` `content.section` collection + the derived `content/dist/global.md` + `content/dist/words-to-avoid.json` (`content.wordsToAvoid`). Manifest indirection means the sub-bucket move is transparent.
 - **Docs site** reads via the same manifest, regenerated nightly + on PR.
 - **External / future AI** reads via stable `.md` URLs (planned).
