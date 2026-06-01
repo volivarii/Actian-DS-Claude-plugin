@@ -1,7 +1,7 @@
 {
   "card": "motion",
   "title": "Behavior & motion",
-  "description": "Conditional card. The multi-domain guideline doc carries no per-component motion (domains.behavior is status-only), so motion resolves from the component's category-defaults: when categoryDefaults.motion has a patternRefs[0], the card renders that pattern; otherwise it is skipped. Phase rows come from vendor/foundations/dist/tokens/motion.json#patterns.<slug>.",
+  "description": "Conditional card. The multi-domain guideline doc carries no per-component motion (domains.behavior is status-only), so motion resolves from the component's category-defaults: when categoryDefaults.motion has a patternRefs[0], the card renders that pattern; otherwise it is skipped. Phase rows come from the slug-keyed index vendor/foundations/dist/tokens/motion.json#bySlug.<slug>.",
   "phase": "transcribe",
   "source": {
     "primary": {
@@ -9,7 +9,7 @@
       "registry": "vendor/components/dist/categories/<category>-defaults.json",
       "field": "motion.patternRefs[0].ref",
       "patternRegistry": "vendor/foundations/dist/tokens/motion.json",
-      "patternKey": "patterns.<pattern>"
+      "patternKey": "bySlug.<slug>"
     },
     "fallback": "skip-card",
     "grounding": ["vendor/foundations/src/tokens.md"]
@@ -18,17 +18,17 @@
     "applicable": false
   },
   "sections": {
-    "patternSlug": "Slug of the motion pattern referenced from foundations.md (e.g. 'drawer', 'layered-overlays', 'success-toast'). Must exist in tokens/motion.json#patterns.",
+    "patternSlug": "Slug of the motion pattern referenced from foundations.md (e.g. 'drawer', 'layered-overlays', 'success-toast'). Must exist in tokens/motion.json#bySlug.",
     "patternName": "Human-readable pattern name copied from tokens/motion.json (e.g. 'Drawer (open/close)'). Used as a card subtitle.",
-    "phases": "Array of phase rows pulled verbatim from tokens/motion.json#patterns.<slug>.phases. Columns vary by pattern (Phase / Duration / Easing / Behavior, or pattern-specific shapes).",
-    "logic_and_accessibility": "Optional — array of strings copied from tokens/motion.json#patterns.<slug>.logic_and_accessibility. Per-pattern accessibility/intent notes (e.g. 'Reduced motion: disable fades').",
-    "notes": "Optional — array of strings copied from tokens/motion.json#patterns.<slug>.notes. Pattern-level notes (cascading effects, hold timing, etc).",
+    "phases": "Array of phase rows pulled verbatim from tokens/motion.json#bySlug.<slug>.phases. Columns vary by pattern (Phase / Duration / Easing / Behavior, or pattern-specific shapes).",
+    "logic_and_accessibility": "Optional — array of strings copied from tokens/motion.json#bySlug.<slug>.logic_and_accessibility. Per-pattern accessibility/intent notes (e.g. 'Reduced motion: disable fades').",
+    "notes": "Optional — array of strings copied from tokens/motion.json#bySlug.<slug>.notes. Pattern-level notes (cascading effects, hold timing, etc).",
     "overrides": "Optional free-text. Reserved for component-specific deviations from the canonical pattern; the category-default motion path leaves this null."
   },
   "qualityRules": [
     "Phases must come verbatim from tokens/motion.json — never invent durations or easings",
     "When neither the component's category-defaults nor any source declares a motion pattern, suppress the card entirely (do not emit empty motion)",
-    "patternSlug must match a key in tokens/motion.json#patterns; fail loudly if not"
+    "patternSlug must match a key in tokens/motion.json#bySlug; fail loudly if not"
   ],
   "minimums": {
     "phases": 1

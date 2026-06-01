@@ -82,10 +82,11 @@ When `categoryDefaults` is present:
 2. **Treat refs as informational, not authoritative.** `motion_refs` and
    `accessibility` requirementRefs in `categoryDefaults` point at
    foundation slugs. The main skill resolves them and may pass the
-   resolved content alongside; if not, look up the slug yourself in
-   `vendor/foundations/dist/tokens/motion.json#patterns` (match by
-   `.slug`) or `vendor/accessibility/dist/a11y-index.json` (match by
-   `.slug`).
+   resolved content alongside; if not, look the slug up directly in the
+   substrate's slug-keyed indexes —
+   `vendor/foundations/dist/tokens/motion.json#bySlug[<slug>]` or
+   `vendor/accessibility/dist/a11y-index.json#bySlug[<slug>]` (O(1); no
+   scanning by `.slug`).
 
 3. **Reconciliation rule:** existing context (component-guidelines JSON,
    recipe grounding files) still wins on conflict — category defaults are
