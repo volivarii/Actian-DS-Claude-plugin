@@ -200,7 +200,7 @@ Include a live token readout panel that shows which tokens are active for the cu
 ```js
 const tokenMap = {
   enabled: [
-    '--zen-color-theme-primary',
+    '--zen-color-primary-500',
     '--zen-color-interactive-enabled-inverse',
     '--zen-border-radius-sm',
     '--zen-spacing-xs'

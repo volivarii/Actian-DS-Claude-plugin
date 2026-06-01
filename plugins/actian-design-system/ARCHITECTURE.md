@@ -70,7 +70,7 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 
 - `hooks/` — PreToolUse / PostToolUse shell guards (one `.sh` each). Wired in `hooks/hooks.json`. New PreToolUse guards go here.
 - `vendor/` — Vendor-snapshot tooling. `vendor-snapshot.js` pulls a pinned snapshot from `volivarii/actian-ds-knowledge` into `vendor/`. New vendor-pipeline code goes here.
-- `validation/` — Pipeline validators (banned text, tokens, terminology, schema). New validators go here.
+- `validation/` — Pipeline validators (banned text, tokens, terminology, schema, avoid-word soft-check from `vendor/content/dist/words-to-avoid.json`). New validators go here.
 - `renderers/` — HTML/preview output. `assemble-preview.js`, the local preview server, the `html-renderers/` adapters, and `render-component-reference.js` (called post-vendor-pull to regenerate `*-components.md` mirrors).
 - `transformers/` — Data shape transformations between source formats (Figma → flow-data, flow-data → hifi, recipe partials → final).
 - `evals/` — Eval lane scripts (component-brief: grading-assertions, grade-locally, run-component-brief).
