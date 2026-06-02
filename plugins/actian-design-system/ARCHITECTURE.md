@@ -16,7 +16,7 @@ sections below are authoritative as of v1.62.1.
 | `.claude-plugin/` | Plugin manifest (`plugin.json`) — name, version, marketplace metadata. |
 | `agents/` | Subagents dispatched by skills. One `.md` per agent. |
 | `commands/` | (none currently — slash commands are co-located with skills) |
-| `vendor/` | Vendored snapshot of `volivarii/actian-ds-knowledge` — design docs (`foundations/`, `content/`, `accessibility/`), merged per-component multi-domain guideline docs (`components/dist/guidelines/`, resolved via `PATHS.components.guidelineDoc.byKey`; the scraped `components/src/guidelines/` layer was retired in Phase 5, knowledge v0.11.0), component registries (`components/registries/`), tokens (`tokens/`), app context (`app-context/`), FM↔DS map (`fm-to-ds-map/`), presentation guide (`presentation/`). Refreshed nightly via `vendor-snapshot.yml`. Treat as read-only — edits belong upstream. |
+| `vendor/` | Vendored snapshot of `volivarii/actian-ds-knowledge` — design docs (`foundations/`, `content/`, `accessibility/`), merged per-component multi-domain guideline docs (`components/dist/guidelines/`, resolved via `PATHS.components.guidelineDoc.byKey`; the scraped `components/src/guidelines/` layer was retired in Phase 5, knowledge v0.11.0), component registries (`components/dist/registries/`), tokens (`tokens/`), app context (`app-context/`). Refreshed nightly via `vendor-snapshot.yml`. Treat as read-only — edits belong upstream. (The FM↔DS map + presentation guide are no longer vendored — they were evicted to the plugin in Track E; the FM↔DS map now lives at `references/convert-to-hifi/fm-to-ds-map.json`.) |
 | `examples/` | Reference outputs for skills (sample flows, briefs, presentations). |
 | `evals/` | Eval suites for skills. |
 | `hooks/` | `hooks.json` — PreToolUse/PostToolUse hooks wired to scripts under `scripts/` (will move to `scripts/hooks/` in PR-2). |
@@ -83,7 +83,7 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 Tests mirror `scripts/` 1:1 — open `scripts/<bucket>/foo.js`, the test lives at `tests/<bucket>/foo.test.js`. Plus a cross-cutting `integration/` bucket for tests that exercise multiple scripts/skills.
 
 - `sync/`, `validation/`, `renderers/`, `transformers/`, `foundations/`, `changelog/`, `lib/` — unit tests for the corresponding `scripts/<bucket>/` modules.
-- `integration/` — cross-cutting tests not bound to a single script: recipe shape contracts, schema/tier integration, path-validation across the whole tree, CSS-staleness checks, brief-flow end-to-end, etc. New tests that span ≥2 buckets go here.
+- `integration/` — cross-cutting tests not bound to a single script: recipe shape contracts, schema/tier integration, path-validation across the whole tree, CSS-staleness checks, brief-flow end-to-end, etc. New tests that span ≥2 buckets go here. Two vendor-path guards live in `tests/integration/`: `no-bare-vendor-paths.test.js` (code must use `PATHS`, not literals) + `vendor-paths-resolve.test.js` (every `vendor/…` reference in prose/code — skills, references, agents, scripts, plus the plugin's own docs: `CLAUDE.md`, `ARCHITECTURE.md`, `README.md`, `docs/` — must resolve). See CLAUDE.md "Knowledge access".
 - `fixtures/` — shared test fixtures (unchanged location; tests reach via `__dirname/../fixtures/...`).
 - `snapshots/` — golden snapshot files (unchanged location).
 
