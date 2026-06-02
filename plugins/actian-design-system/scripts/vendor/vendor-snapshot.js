@@ -117,6 +117,12 @@ if (require.main === module) {
       postVendorHook: runComponentReferenceRenderer,
     });
   } catch (err) {
+    // exit 2 = any fatal vendor error. The core THROWS the unrecoverable
+    // conditions (no in-range tag / no resolvable SHA) that the pre-shared-client
+    // main() exit(1)'d inline; they now flow here, joining other thrown errors
+    // under one fatal code. (The renderer-warning path is separate: postVendorHook
+    // sets exitCode=1 without throwing — vendor stays on disk.) CI fails on any
+    // non-zero, so the 1→2 shift for those two conditions is immaterial there.
     process.stderr.write("[vendor] FATAL: " + err.message + "\n");
     process.exit(2);
   }
