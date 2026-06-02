@@ -495,7 +495,7 @@ Read `references/figma/figma-push-patterns.md` for component keys and patterns. 
 
 ### HiFi conversion (if --hifi flag)
 
-After FM push completes, delegate to `/convert-to-hifi`. Pass the pushed flow's Figma URL — the skill reads the FM frame, maps to DS Kit using `vendor/fm-to-ds-map/fm-to-ds-map.json`, applies layout polish, and pushes a sibling frame named `[Flow name] — HiFi`. Generation card carries `mode: "hifi"`.
+After FM push completes, delegate to `/convert-to-hifi`. Pass the pushed flow's Figma URL — the skill reads the FM frame, maps to DS Kit using `references/convert-to-hifi/fm-to-ds-map.json`, applies layout polish, and pushes a sibling frame named `[Flow name] — HiFi`. Generation card carries `mode: "hifi"`.
 
 If `--audit` is also set, run `/design-audit` on the hifi frame after conversion completes (see Flag interaction matrix).
 
