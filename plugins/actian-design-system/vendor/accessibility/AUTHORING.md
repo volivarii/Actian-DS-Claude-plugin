@@ -4,7 +4,7 @@ This guide is for the UX team. It explains how to update the accessibility guide
 
 ## What you edit
 
-**A directory of per-section files:** `accessibility/src/` in `volivarii/actian-ds-knowledge` (this repo). Each top-level section of the WCAG 2.1 AA guidance lives in its own file:
+**A directory of per-section files:** `accessibility/src/` in `volivarii/actian-ds-knowledge` (this repo). Each top-level section of the WCAG 2.2 AA guidance lives in its own file:
 
 ```
 accessibility/src/
@@ -83,7 +83,7 @@ The current `accessibility/src/*` was carved out of the designer-authored v1.3.0
 
 ## Standard
 
-The guidelines target **WCAG 2.1 AA**. Keep the version marker (`**Version:**`) and `**Last updated:**` lines in `intro.md` current when you make a substantive revision.
+The guidelines target **WCAG 2.2 AA**. Keep the version marker (`**Version:**`) and `**Last updated:**` lines in `intro.md` current when you make a substantive revision.
 
 ## What you don't need to do
 

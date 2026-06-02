@@ -344,21 +344,62 @@ function runComponentReferenceRenderer() {
   return true;
 }
 
+// Read the substrate's distributable-surface declaration from the extracted
+// tarball. Returns a Set of allowed top-level entry names, or null if the
+// declaration is absent/malformed (old pins pre vendor-include.json → caller
+// falls back to the legacy EXCLUDE_TOP_LEVEL behavior).
+function readVendorInclude(extractedRepoRoot) {
+  var p = path.join(extractedRepoRoot, "vendor-include.json");
+  if (!fs.existsSync(p)) return null;
+  try {
+    var decl = JSON.parse(fs.readFileSync(p, "utf8"));
+    if (decl && Array.isArray(decl.include)) return new Set(decl.include);
+  } catch (e) {
+    /* malformed → fall back */
+  }
+  return null;
+}
+
+// Decide which top-level entries to vendor. Inclusion-first: if the substrate
+// declared an include-set, copy ONLY those (tooling is structurally absent).
+// Otherwise fall back to the legacy exclude-set.
+function selectEntries(names, includeSet, excludeSet) {
+  return names.filter(function (name) {
+    return includeSet ? includeSet.has(name) : !excludeSet.has(name);
+  });
+}
+
 function vendorContent(extractedRepoRoot) {
   fs.mkdirSync(VENDOR_DIR, { recursive: true });
-  var entries = fs.readdirSync(extractedRepoRoot, { withFileTypes: true });
+  var includeSet = readVendorInclude(extractedRepoRoot);
+  if (includeSet) {
+    process.stdout.write(
+      "[vendor] inclusion mode — copying " +
+        includeSet.size +
+        " declared entries (vendor-include.json)\n",
+    );
+  } else {
+    process.stdout.write(
+      "[vendor] exclusion mode (no vendor-include.json in snapshot — legacy pin)\n",
+    );
+  }
+  var allNames = fs
+    .readdirSync(extractedRepoRoot, { withFileTypes: true })
+    .map(function (e) {
+      return e.name;
+    });
+  var selected = selectEntries(allNames, includeSet, EXCLUDE_TOP_LEVEL);
   var vendored = [];
-  for (var i = 0; i < entries.length; i++) {
-    var entry = entries[i];
-    if (EXCLUDE_TOP_LEVEL.has(entry.name)) continue;
-    var srcPath = path.join(extractedRepoRoot, entry.name);
-    var destPath = path.join(VENDOR_DIR, entry.name);
-    if (entry.isDirectory()) {
+  for (var i = 0; i < selected.length; i++) {
+    var name = selected[i];
+    var srcPath = path.join(extractedRepoRoot, name);
+    var destPath = path.join(VENDOR_DIR, name);
+    if (fs.statSync(srcPath).isDirectory()) {
       copyDirectory(srcPath, destPath);
     } else {
       fs.copyFileSync(srcPath, destPath);
     }
-    vendored.push(entry.name);
+    vendored.push(name);
   }
   return vendored;
 }
@@ -484,4 +525,6 @@ module.exports = {
   compareSemver: compareSemver,
   resolveTargetTag: resolveTargetTag,
   notifyIfNewerAvailable: notifyIfNewerAvailable,
+  selectEntries: selectEntries,
+  readVendorInclude: readVendorInclude,
 };

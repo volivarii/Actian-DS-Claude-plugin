@@ -1,0 +1,25 @@
+# Actian Design System knowledge layer
+
+> Knowledge base for the Actian Design System (DS 2026). Tokens, content guidelines, accessibility patterns, component metadata.
+
+## Foundations
+
+- [Foundations spec](foundations/src/): primitives, scales, tokens reference, per-section files
+
+## Content
+
+- [Content guidelines — global topics](content/dist/global.md): voice, tone, capitalization, words to avoid, UX-pattern topics
+- [Per-component content guidelines](components/dist/guidelines/): each `<slug>.json` carries `domains.content` for component-scoped copy rules
+
+## Accessibility
+
+- [WCAG 2.2 AA guidance](accessibility/src/): applied rules + criteria, per-section files
+
+## Components
+
+- [DS Kit registry](components/dist/registries/dskit.json)
+- [Component categories](components/dist/categories.json)
+
+## Manifest
+
+- [paths-manifest.json](paths-manifest.json): machine-readable contract for consumers

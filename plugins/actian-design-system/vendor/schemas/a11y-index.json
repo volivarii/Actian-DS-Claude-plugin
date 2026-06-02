@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/a11y-index.json",
+  "title": "a11y-index",
+  "description": "Schema for accessibility/dist/a11y-index.json — the flat slug→WCAG index derived from accessibility/src/ by scripts/accessibility/derive-a11y-index.js. Consumed by the plugin's category-defaults-loader.js to resolve a11y_refs slugs to WCAG criteria, and by the future MCP server. Carries both an ordered `sections` array and a `bySlug` map of the same entries for O(1) lookup.",
+  "type": "object",
+  "required": ["_schema_version", "sections", "bySlug"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "type": "number",
+      "const": 1,
+      "description": "Schema version pin. Bumps require coordinated deriver + consumer updates."
+    },
+    "_meta": {
+      "type": "object",
+      "description": "System-managed generation metadata (auto_generated, source, do_not_edit).",
+      "examples": [
+        { "auto_generated": true, "source": "accessibility/src/", "do_not_edit": "Edit the per-section src/ files; CI regenerates this file." }
+      ],
+      "additionalProperties": true
+    },
+    "sections": {
+      "type": "array",
+      "description": "One entry per accessibility section, in source order.",
+      "examples": [
+        [{ "slug": "color-contrast", "title": "2. Color & Contrast", "tier": "foundation", "wcag": ["1.4.1"], "body_excerpt": "Content type Min ratio …" }]
+      ],
+      "items": { "$ref": "#/$defs/section" }
+    },
+    "bySlug": {
+      "type": "object",
+      "description": "The same section entries keyed by slug, for O(1) lookup by consumers (e.g. the plugin resolving a11y_refs). Mirrors `sections`.",
+      "examples": [
+        { "color-contrast": { "slug": "color-contrast", "title": "2. Color & Contrast", "tier": "foundation", "wcag": ["1.4.1"], "body_excerpt": "…" } }
+      ],
+      "additionalProperties": { "$ref": "#/$defs/section" }
+    }
+  },
+  "$defs": {
+    "section": {
+      "type": "object",
+      "required": ["slug", "title", "tier", "wcag"],
+      "additionalProperties": true,
+      "description": "A single accessibility section's index entry.",
+      "examples": [
+        { "slug": "color-contrast", "title": "2. Color & Contrast", "tier": "foundation", "wcag": ["1.4.1"], "body_excerpt": "…" }
+      ],
+      "properties": {
+        "slug": {
+          "type": "string",
+          "description": "Stable section slug — the cross-consumer anchor that a11y_refs resolve against. Never derived from editable prose.",
+          "examples": ["principles", "color-contrast", "focus-keyboard"]
+        },
+        "title": {
+          "type": "string",
+          "description": "Human-readable section title (may carry a leading source number).",
+          "examples": ["1. Principles", "2. Color & Contrast"]
+        },
+        "tier": {
+          "type": "string",
+          "description": "Section tier classification (e.g. header vs substantive foundation/component sections).",
+          "examples": ["header", "foundation", "component"]
+        },
+        "wcag": {
+          "type": "array",
+          "description": "WCAG 2.x success-criterion numbers this section maps to. Empty for header sections.",
+          "examples": [["1.4.1"], ["1.4.5", "1.4.10"], []],
+          "items": {
+            "type": "string",
+            "description": "A dotted WCAG success-criterion number.",
+            "examples": ["1.4.1", "2.4.7"]
+          }
+        },
+        "body_excerpt": {
+          "type": "string",
+          "description": "Short plain-text excerpt of the section body, for previews/search.",
+          "examples": ["The four WCAG principles — Perceivable, Operable, Understandable, Robust …"]
+        }
+      }
+    }
+  }
+}

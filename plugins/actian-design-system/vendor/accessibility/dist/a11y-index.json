@@ -9,12 +9,14 @@
     {
       "slug": "principles",
       "title": "1. Principles",
+      "tier": "header",
       "wcag": [],
       "body_excerpt": "The four WCAG principles — Perceivable, Operable, Understandable, Robust — define what accessible products do. Designers own perceivable and understandable: contrast, hierarchy, labels, states, and in"
     },
     {
       "slug": "color-contrast",
       "title": "2. Color & Contrast",
+      "tier": "foundation",
       "wcag": [
         "1.4.1"
       ],
@@ -23,6 +25,7 @@
     {
       "slug": "typography",
       "title": "3. Typography",
+      "tier": "foundation",
       "wcag": [
         "1.4.5",
         "1.4.4"
@@ -32,6 +35,7 @@
     {
       "slug": "motion",
       "title": "4. Motion",
+      "tier": "foundation",
       "wcag": [
         "2.3.1"
       ],
@@ -40,6 +44,7 @@
     {
       "slug": "focus-keyboard",
       "title": "5. Focus & Keyboard",
+      "tier": "foundation",
       "wcag": [
         "2.4.11"
       ],
@@ -48,18 +53,21 @@
     {
       "slug": "aria-labels",
       "title": "6. ARIA & Labels",
+      "tier": "foundation",
       "wcag": [],
       "body_excerpt": "Designers annotate specs. Engineering implements. Attribute When to use ----------------------- aria-label Element has no visible text (icon buttons, close buttons) aria-labelledby A visible element l"
     },
     {
       "slug": "reading-order-landmarks",
       "title": "7. Reading Order & Landmarks",
+      "tier": "foundation",
       "wcag": [],
       "body_excerpt": "- Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order. - Annotate landmark regions in specs: header, nav, main, footer. Screen readers use th"
     },
     {
       "slug": "touch-pointer",
       "title": "8. Touch & Pointer",
+      "tier": "foundation",
       "wcag": [
         "2.5.1"
       ],
@@ -68,6 +76,7 @@
     {
       "slug": "error-prevention",
       "title": "9. Error Prevention",
+      "tier": "foundation",
       "wcag": [
         "3.3.4"
       ],
@@ -76,6 +85,7 @@
     {
       "slug": "session-timeout-warnings",
       "title": "10. Session & Timeout Warnings",
+      "tier": "foundation",
       "wcag": [
         "2.2.1"
       ],
@@ -84,12 +94,14 @@
     {
       "slug": "components",
       "title": "11. Components",
+      "tier": "header",
       "wcag": [],
       "body_excerpt": ""
     },
     {
       "slug": "buttons",
       "title": "Buttons",
+      "tier": "component-pattern",
       "wcag": [
         "2.1.1",
         "2.4.3",
@@ -97,13 +109,14 @@
         "3.3.2",
         "4.1.2",
         "1.4.1",
-        "2.5.5"
+        "2.5.8"
       ],
       "body_excerpt": "- Use a native button element or proper button role; the name clearly describes the action (verb-based). - Visible text label required. Icon-only buttons need a tooltip or aria-label, and the purpose"
     },
     {
       "slug": "navigation",
       "title": "Navigation",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "2.1.1",
@@ -118,6 +131,7 @@
     {
       "slug": "forms",
       "title": "Forms",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.3.5",
@@ -133,6 +147,7 @@
     {
       "slug": "modals",
       "title": "Modals",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.3.5",
@@ -149,6 +164,7 @@
     {
       "slug": "alerts-toasts-banners",
       "title": "Alerts, Toasts & Banners",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.1",
@@ -162,6 +178,7 @@
     {
       "slug": "dropdowns-menus-popovers",
       "title": "Dropdowns, Menus & Popovers",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.13",
@@ -175,6 +192,7 @@
     {
       "slug": "data-tables",
       "title": "Data Tables",
+      "tier": "component-pattern",
       "wcag": [
         "2.4.11",
         "1.3.1",
@@ -188,6 +206,7 @@
     {
       "slug": "loading-patterns",
       "title": "Loading Patterns",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "2.1.1",
@@ -204,6 +223,7 @@
     {
       "slug": "empty-states",
       "title": "Empty States",
+      "tier": "component-pattern",
       "wcag": [
         "1.1.1",
         "1.3.1",
@@ -216,6 +236,7 @@
     {
       "slug": "tabs",
       "title": "Tabs",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "2.1.1",
@@ -228,6 +249,7 @@
     {
       "slug": "icons",
       "title": "Icons",
+      "tier": "component-pattern",
       "wcag": [
         "1.4.11",
         "1.1.1",
@@ -240,6 +262,7 @@
     {
       "slug": "tooltips",
       "title": "Tooltips",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.4",
@@ -253,6 +276,7 @@
     {
       "slug": "truncation-overflow",
       "title": "Truncation & Overflow",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.4",
@@ -266,6 +290,7 @@
     {
       "slug": "drag-drop",
       "title": "Drag & Drop",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "2.1.1",
@@ -280,6 +305,7 @@
     {
       "slug": "ai-output-suggestions",
       "title": "AI Output & Suggestions",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.1",
@@ -293,36 +319,42 @@
     {
       "slug": "designer-handoff-checklist",
       "title": "12. Designer Handoff Checklist",
+      "tier": "header",
       "wcag": [],
       "body_excerpt": "Use before every handoff or design review. - All text meets contrast minimum (4.5:1 normal · 3:1 large) - UI component boundaries meet 3:1 against background - No information conveyed by color alone -"
     },
     {
       "slug": "typography-content",
       "title": "Typography & Content",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- No text smaller than 11px - All inputs have visible labels — no placeholder-only fields - Error messages describe the problem and how to fix it - No images of text - Line lengths within limits for t"
     },
     {
       "slug": "focus-interaction",
       "title": "Focus & Interaction",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- All interactive elements have a designed focus state - Focus order is logical — annotated if non-standard - All actions have a keyboard alternative documented - Touch targets meet minimums (24px des"
     },
     {
       "slug": "states",
       "title": "States",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- All interactive states designed: default, hover, focus, pressed, disabled, error - Empty, loading, and error states included for data-driven components - State changes use more than one signal — ico"
     },
     {
       "slug": "labels-annotations",
       "title": "Labels & Annotations",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- Icon-only elements have aria-label documented - Decorative icons marked as decorative - Dynamic regions annotated with aria-live - Modal focus trap and return focus documented - Form groupings and r"
     },
     {
       "slug": "reading-order-touch",
       "title": "Reading Order & Touch",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- Visual order matches intended reading order — annotated if non-standard - Landmark regions annotated (header, nav, main, footer) - Heading hierarchy is logical — no skipped levels - Hover interactio"
     }
@@ -331,12 +363,14 @@
     "principles": {
       "slug": "principles",
       "title": "1. Principles",
+      "tier": "header",
       "wcag": [],
       "body_excerpt": "The four WCAG principles — Perceivable, Operable, Understandable, Robust — define what accessible products do. Designers own perceivable and understandable: contrast, hierarchy, labels, states, and in"
     },
     "color-contrast": {
       "slug": "color-contrast",
       "title": "2. Color & Contrast",
+      "tier": "foundation",
       "wcag": [
         "1.4.1"
       ],
@@ -345,6 +379,7 @@
     "typography": {
       "slug": "typography",
       "title": "3. Typography",
+      "tier": "foundation",
       "wcag": [
         "1.4.5",
         "1.4.4"
@@ -354,6 +389,7 @@
     "motion": {
       "slug": "motion",
       "title": "4. Motion",
+      "tier": "foundation",
       "wcag": [
         "2.3.1"
       ],
@@ -362,6 +398,7 @@
     "focus-keyboard": {
       "slug": "focus-keyboard",
       "title": "5. Focus & Keyboard",
+      "tier": "foundation",
       "wcag": [
         "2.4.11"
       ],
@@ -370,18 +407,21 @@
     "aria-labels": {
       "slug": "aria-labels",
       "title": "6. ARIA & Labels",
+      "tier": "foundation",
       "wcag": [],
       "body_excerpt": "Designers annotate specs. Engineering implements. Attribute When to use ----------------------- aria-label Element has no visible text (icon buttons, close buttons) aria-labelledby A visible element l"
     },
     "reading-order-landmarks": {
       "slug": "reading-order-landmarks",
       "title": "7. Reading Order & Landmarks",
+      "tier": "foundation",
       "wcag": [],
       "body_excerpt": "- Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order. - Annotate landmark regions in specs: header, nav, main, footer. Screen readers use th"
     },
     "touch-pointer": {
       "slug": "touch-pointer",
       "title": "8. Touch & Pointer",
+      "tier": "foundation",
       "wcag": [
         "2.5.1"
       ],
@@ -390,6 +430,7 @@
     "error-prevention": {
       "slug": "error-prevention",
       "title": "9. Error Prevention",
+      "tier": "foundation",
       "wcag": [
         "3.3.4"
       ],
@@ -398,6 +439,7 @@
     "session-timeout-warnings": {
       "slug": "session-timeout-warnings",
       "title": "10. Session & Timeout Warnings",
+      "tier": "foundation",
       "wcag": [
         "2.2.1"
       ],
@@ -406,12 +448,14 @@
     "components": {
       "slug": "components",
       "title": "11. Components",
+      "tier": "header",
       "wcag": [],
       "body_excerpt": ""
     },
     "buttons": {
       "slug": "buttons",
       "title": "Buttons",
+      "tier": "component-pattern",
       "wcag": [
         "2.1.1",
         "2.4.3",
@@ -419,13 +463,14 @@
         "3.3.2",
         "4.1.2",
         "1.4.1",
-        "2.5.5"
+        "2.5.8"
       ],
       "body_excerpt": "- Use a native button element or proper button role; the name clearly describes the action (verb-based). - Visible text label required. Icon-only buttons need a tooltip or aria-label, and the purpose"
     },
     "navigation": {
       "slug": "navigation",
       "title": "Navigation",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "2.1.1",
@@ -440,6 +485,7 @@
     "forms": {
       "slug": "forms",
       "title": "Forms",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.3.5",
@@ -455,6 +501,7 @@
     "modals": {
       "slug": "modals",
       "title": "Modals",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.3.5",
@@ -471,6 +518,7 @@
     "alerts-toasts-banners": {
       "slug": "alerts-toasts-banners",
       "title": "Alerts, Toasts & Banners",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.1",
@@ -484,6 +532,7 @@
     "dropdowns-menus-popovers": {
       "slug": "dropdowns-menus-popovers",
       "title": "Dropdowns, Menus & Popovers",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.13",
@@ -497,6 +546,7 @@
     "data-tables": {
       "slug": "data-tables",
       "title": "Data Tables",
+      "tier": "component-pattern",
       "wcag": [
         "2.4.11",
         "1.3.1",
@@ -510,6 +560,7 @@
     "loading-patterns": {
       "slug": "loading-patterns",
       "title": "Loading Patterns",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "2.1.1",
@@ -526,6 +577,7 @@
     "empty-states": {
       "slug": "empty-states",
       "title": "Empty States",
+      "tier": "component-pattern",
       "wcag": [
         "1.1.1",
         "1.3.1",
@@ -538,6 +590,7 @@
     "tabs": {
       "slug": "tabs",
       "title": "Tabs",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "2.1.1",
@@ -550,6 +603,7 @@
     "icons": {
       "slug": "icons",
       "title": "Icons",
+      "tier": "component-pattern",
       "wcag": [
         "1.4.11",
         "1.1.1",
@@ -562,6 +616,7 @@
     "tooltips": {
       "slug": "tooltips",
       "title": "Tooltips",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.4",
@@ -575,6 +630,7 @@
     "truncation-overflow": {
       "slug": "truncation-overflow",
       "title": "Truncation & Overflow",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.4",
@@ -588,6 +644,7 @@
     "drag-drop": {
       "slug": "drag-drop",
       "title": "Drag & Drop",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "2.1.1",
@@ -602,6 +659,7 @@
     "ai-output-suggestions": {
       "slug": "ai-output-suggestions",
       "title": "AI Output & Suggestions",
+      "tier": "component-pattern",
       "wcag": [
         "1.3.1",
         "1.4.1",
@@ -615,36 +673,42 @@
     "designer-handoff-checklist": {
       "slug": "designer-handoff-checklist",
       "title": "12. Designer Handoff Checklist",
+      "tier": "header",
       "wcag": [],
       "body_excerpt": "Use before every handoff or design review. - All text meets contrast minimum (4.5:1 normal · 3:1 large) - UI component boundaries meet 3:1 against background - No information conveyed by color alone -"
     },
     "typography-content": {
       "slug": "typography-content",
       "title": "Typography & Content",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- No text smaller than 11px - All inputs have visible labels — no placeholder-only fields - Error messages describe the problem and how to fix it - No images of text - Line lengths within limits for t"
     },
     "focus-interaction": {
       "slug": "focus-interaction",
       "title": "Focus & Interaction",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- All interactive elements have a designed focus state - Focus order is logical — annotated if non-standard - All actions have a keyboard alternative documented - Touch targets meet minimums (24px des"
     },
     "states": {
       "slug": "states",
       "title": "States",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- All interactive states designed: default, hover, focus, pressed, disabled, error - Empty, loading, and error states included for data-driven components - State changes use more than one signal — ico"
     },
     "labels-annotations": {
       "slug": "labels-annotations",
       "title": "Labels & Annotations",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- Icon-only elements have aria-label documented - Decorative icons marked as decorative - Dynamic regions annotated with aria-live - Modal focus trap and return focus documented - Form groupings and r"
     },
     "reading-order-touch": {
       "slug": "reading-order-touch",
       "title": "Reading Order & Touch",
+      "tier": "checklist",
       "wcag": [],
       "body_excerpt": "- Visual order matches intended reading order — annotated if non-standard - Landmark regions annotated (header, nav, main, footer) - Heading hierarchy is logical — no skipped levels - Hover interactio"
     }

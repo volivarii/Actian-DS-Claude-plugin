@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "Drawer, side panel"
 category: overlays
+a11y_refs:
+  - { ref: modals, note: non-modal variant does not trap focus }
 domains:
   content: { status: approved, owner: content-team }
   usage:    { status: not-started }

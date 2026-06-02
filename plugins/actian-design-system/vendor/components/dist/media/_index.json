@@ -39,14 +39,6 @@
     },
     "button": {
       "preview": "components/dist/media/button/preview.webp",
-      "parts": [
-        "components/dist/media/button/parts-0.webp",
-        "components/dist/media/button/parts-1.webp",
-        "components/dist/media/button/parts-2.webp",
-        "components/dist/media/button/parts-3.webp",
-        "components/dist/media/button/parts-4.webp",
-        "components/dist/media/button/parts-5.webp"
-      ],
       "variations": [
         "components/dist/media/button/variations-0.webp",
         "components/dist/media/button/variations-1.webp"

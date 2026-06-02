@@ -1,6 +1,9 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "What's new"
 category: navigation
+a11y_refs:
+  - { ref: navigation }
+  - { ref: dropdowns-menus-popovers }
 domains:
   content: { status: approved, owner: content-team }
   usage:    { status: not-started }
