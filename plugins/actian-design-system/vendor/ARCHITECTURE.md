@@ -14,11 +14,10 @@ which. The same classification is machine-readable in the `_zones` block of
 | **Metadata** | Product/config reference data consumed by tooling. | `app-context/`, `tokens/` (interim, frozen) |
 | **Tooling** | Build machinery — *not consumed by anyone reading the substrate*. | `scripts/`, `tests/`, `editor/`, `auth-worker/` |
 
-> **Pending eviction.** `fm-to-ds-map/` is present today but is
-> **consumer-specific** (a plugin tool's FM↔DS mapping table). It is flagged
-> `_pendingEviction` in `paths-manifest.json` and will move to the plugin
-> (structure-audit Track E). It is not substrate. *(`presentation/` was already
-> evicted to the plugin in the first Track E step.)*
+> **Track E complete.** The consumer-specific artifacts `fm-to-ds-map/` (a
+> plugin tool's FM↔DS mapping table) and `presentation/` (a plugin skill's slide
+> guide) were evicted to the plugin — they were never agnostic substrate. The
+> manifest's `_zones._pendingEviction` is now empty.
 
 Why "zones, not folders": consumers address logical names in
 `paths-manifest.json`, never raw file paths (GOVERNANCE.md P7), so the layout
