@@ -169,7 +169,14 @@ test("resolution check: concrete prefix existence is decidable in a tmp vendor",
 // Source dirs the agent reads (prose) + code + the plugin's own top-level docs.
 // NOT vendor/ (the tree itself). `docs/` + the top-level `.md` files below are
 // scanned too so their vendor refs stay drift-proof alongside skills/references.
-const SCAN_DIRS = ["skills", "references", "agents", "scripts", "docs"];
+const SCAN_DIRS = [
+  "skills",
+  "references",
+  "agents",
+  "scripts",
+  "docs",
+  "evals",
+];
 const SCAN_TOP_FILES = ["CLAUDE.md", "ARCHITECTURE.md", "README.md"];
 const SCAN_EXT = new Set([".md", ".js", ".cjs", ".mjs"]);
 
