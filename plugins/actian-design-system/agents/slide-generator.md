@@ -33,7 +33,7 @@ You will receive:
 ## Process
 
 1. Read `references/generate-presentation/figma-spec-builder.md` for the slide schema and chart patterns
-2. Read `vendor/presentation/presentation-guide.md` for voice & tone, typography, colors
+2. Read `references/generate-presentation/presentation-guide.md` for voice & tone, typography, colors
 3. For each assigned slide, generate the slide object following the schema exactly
 4. Write the partial JSON to the specified output path
 
