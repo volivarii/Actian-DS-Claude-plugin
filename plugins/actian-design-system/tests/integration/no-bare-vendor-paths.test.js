@@ -19,6 +19,11 @@ const ALLOWLIST = new Set([
   "scripts/lib/paths.js",
   "scripts/vendor/vendor-snapshot.js",
 ]);
+// NOTE: walk() below skips any dir named "vendor" (see name === "vendor"), so
+// scripts/vendor/ is not scanned at all — both the entry above and the copied
+// vendor-snapshot-core.js are effectively unscanned here. The core stays
+// path-clean by being a byte-identical copy of the substrate's parameterized
+// canonical (no bare vendor paths by design), enforced by the drift-guard test.
 
 // Patterns that indicate a "bare vendor path" — references that should
 // route through PATHS but don't.
@@ -30,11 +35,7 @@ const BARE_PATTERNS = [
 function walk(dir, results) {
   const entries = fs.readdirSync(dir);
   for (const name of entries) {
-    if (
-      name === "node_modules" ||
-      name === "vendor" ||
-      name.startsWith(".")
-    ) {
+    if (name === "node_modules" || name === "vendor" || name.startsWith(".")) {
       continue;
     }
     const full = path.join(dir, name);
@@ -61,7 +62,9 @@ test("no bare vendor paths in plugin scripts", () => {
       const match = content.match(pattern);
       if (match) {
         const lineNum = content.slice(0, match.index).split("\n").length;
-        violations.push(rel + ":" + lineNum + " — bare vendor path: " + match[0]);
+        violations.push(
+          rel + ":" + lineNum + " — bare vendor path: " + match[0],
+        );
       }
     }
   }
