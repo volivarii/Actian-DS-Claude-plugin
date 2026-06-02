@@ -5,7 +5,7 @@
  *
  * Imported by flow-to-figma.js, brief-to-figma.js, and slide-to-figma.js.
  * Component keys and methods are read from registry JSON files
- * (vendor/components/registries/*.json — vendored from actian-ds-knowledge).
+ * (vendor/components/dist/registries/*.json — vendored from actian-ds-knowledge).
  * Only the ref-name → slug mapping is maintained here.
  */
 
@@ -13,7 +13,7 @@ const fs = require("fs");
 const path = require("path");
 
 // ---------------------------------------------------------------------------
-// Registry loader — reads JSON registries from vendor/components/registries/
+// Registry loader — reads JSON registries from vendor/components/dist/registries/
 // (Federation Phase 1.4b: vendored from volivarii/actian-ds-knowledge.
 // See vendored.json for the pinned SHA. Run scripts/vendor/vendor-snapshot.js
 // or trigger the vendor-snapshot.yml workflow to refresh.)
@@ -193,7 +193,7 @@ function buildKeyMapFromRegistry(registryName, prefix, section, overrides) {
 // Ref-name → registry-slug mappings (only source of duplication)
 // ---------------------------------------------------------------------------
 
-// Slug values match the canonical keys in vendor/components/registries/metakit.json. The REST sync
+// Slug values match the canonical keys in vendor/components/dist/registries/metakit.json. The REST sync
 // orchestrator (Sprint 1) normalizes Figma component names through a single
 // slugify pass that collapses runs of non-alphanumeric chars to "-", which
 // dropped the legacy "meta-/-X-/-Y" form on 2026-04-30. Keep this table in
