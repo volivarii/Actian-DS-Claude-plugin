@@ -8,7 +8,12 @@
   "slug": "sticky-footer",
   "component": "Sticky footer",
   "meta": {
-    "category": "action"
+    "category": "action",
+    "a11y_refs": [
+      {
+        "ref": "buttons"
+      }
+    ]
   },
   "domains": {
     "content": {
@@ -113,5 +118,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-05-14T16:07:17+02:00"
+  "updated_at": "2026-06-01T15:13:47+02:00"
 }

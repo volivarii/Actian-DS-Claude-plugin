@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "Global header"
 category: navigation
+a11y_refs:
+  - { ref: navigation }
 domains:
   content: { status: approved, owner: content-team }
   usage:    { status: not-started }

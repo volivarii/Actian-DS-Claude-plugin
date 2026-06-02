@@ -94,6 +94,24 @@
         }
       ],
       "additionalProperties": { "type": "string" }
+    },
+    "_zones": {
+      "type": "object",
+      "description": "Legibility classification of manifest artifacts by role. Each non-underscore key is a zone name (knowledge | contract | metadata) whose value is an array of top-level manifest-key prefixes. '_pendingEviction' lists consumer-specific prefixes slated to leave the substrate (structure-audit Track E). See ARCHITECTURE.md.",
+      "examples": [
+        {
+          "knowledge": [
+            "accessibility",
+            "components",
+            "content",
+            "foundations"
+          ],
+          "contract": ["graph"],
+          "metadata": ["appContext", "tokens"],
+          "_pendingEviction": ["fmToDsMap", "presentation"]
+        }
+      ],
+      "additionalProperties": { "type": "array", "items": { "type": "string" } }
     }
   },
   "$defs": {

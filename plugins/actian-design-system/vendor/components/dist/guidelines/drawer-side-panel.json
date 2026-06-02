@@ -8,7 +8,13 @@
   "slug": "drawer-side-panel",
   "component": "Drawer, side panel",
   "meta": {
-    "category": "overlays"
+    "category": "overlays",
+    "a11y_refs": [
+      {
+        "ref": "modals",
+        "note": "non-modal variant does not trap focus"
+      }
+    ]
   },
   "domains": {
     "content": {
@@ -206,5 +212,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-05-30T01:51:33+02:00"
+  "updated_at": "2026-06-01T15:13:47+02:00"
 }

@@ -8,7 +8,12 @@
   "slug": "alert-banner",
   "component": "Alert / banner",
   "meta": {
-    "category": "feedback"
+    "category": "feedback",
+    "a11y_refs": [
+      {
+        "ref": "alerts-toasts-banners"
+      }
+    ]
   },
   "domains": {
     "content": {
@@ -258,5 +263,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-05-14T16:07:17+02:00"
+  "updated_at": "2026-06-01T15:13:47+02:00"
 }

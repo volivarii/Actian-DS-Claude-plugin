@@ -1,6 +1,9 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "Popover"
 category: overlays
+a11y_refs:
+  - { ref: dropdowns-menus-popovers }
+  - { ref: tooltips }
 domains:
   content: { status: approved, owner: content-team }
   usage:    { status: not-started }

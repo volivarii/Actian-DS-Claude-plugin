@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "Tags"
 category: data-display
+a11y_refs:
+  - { ref: truncation-overflow }
 domains:
   content: { status: approved, owner: content-team }
   usage:    { status: not-started }

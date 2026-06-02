@@ -686,7 +686,7 @@
         "source": "accessibility/src/",
         "do_not_edit": "Edit the per-section src/ files; CI regenerates this file."
       },
-      "body": "WCAG criteria: 2.1.1, 2.4.3, 2.4.7, 3.3.2, 4.1.2, 1.4.1, 2.5.5",
+      "body": "WCAG criteria: 2.1.1, 2.4.3, 2.4.7, 3.3.2, 4.1.2, 1.4.1, 2.5.8",
       "blocks": [
         {
           "type": "list",
@@ -712,7 +712,7 @@
         "3.3.2",
         "4.1.2",
         "1.4.1",
-        "2.5.5"
+        "2.5.8"
       ]
     },
     "navigation": {

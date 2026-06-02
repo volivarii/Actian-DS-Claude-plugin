@@ -12,7 +12,7 @@
 - Screen reader: announced as "button" with a clear name; loading and toggle state changes (pressed / not pressed) are announced.
 - Do not use links for actions, rely on hover only, or remove focus styles.
 
-**WCAG criteria:** 2.1.1, 2.4.3, 2.4.7, 3.3.2, 4.1.2, 1.4.1, 2.5.5
+**WCAG criteria:** 2.1.1, 2.4.3, 2.4.7, 3.3.2, 4.1.2, 1.4.1, 2.5.8
 
 ### Navigation {#navigation}
 - Active/current page state uses more than color alone — bold, underline, icon, or `aria-current`.

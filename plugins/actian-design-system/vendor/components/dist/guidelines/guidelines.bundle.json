@@ -16,7 +16,12 @@
       "slug": "alert-banner",
       "component": "Alert / banner",
       "meta": {
-        "category": "feedback"
+        "category": "feedback",
+        "a11y_refs": [
+          {
+            "ref": "alerts-toasts-banners"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -266,7 +271,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "badge": {
       "_schema_version": 1,
@@ -278,7 +283,12 @@
       "slug": "badge",
       "component": "Badges",
       "meta": {
-        "category": "data-display"
+        "category": "data-display",
+        "a11y_refs": [
+          {
+            "ref": "icons"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -331,7 +341,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "breadcrumbs": {
       "_schema_version": 1,
@@ -343,7 +353,12 @@
       "slug": "breadcrumbs",
       "component": "Breadcrumbs",
       "meta": {
-        "category": "navigation"
+        "category": "navigation",
+        "a11y_refs": [
+          {
+            "ref": "navigation"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -394,7 +409,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "button": {
       "_schema_version": 1,
@@ -406,7 +421,12 @@
       "slug": "button",
       "component": "Buttons",
       "meta": {
-        "category": "action"
+        "category": "action",
+        "a11y_refs": [
+          {
+            "ref": "buttons"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -622,7 +642,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-21T16:39:45+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -634,7 +654,12 @@
       "slug": "card",
       "component": "Cards",
       "meta": {
-        "category": "data-display"
+        "category": "data-display",
+        "a11y_refs": [
+          {
+            "ref": "truncation-overflow"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -764,7 +789,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "checkbox": {
       "_schema_version": 1,
@@ -776,7 +801,12 @@
       "slug": "checkbox",
       "component": "Checkboxes",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -1324,7 +1354,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "checkbox-with-label": {
       "_schema_version": 1,
@@ -1336,7 +1366,12 @@
       "slug": "checkbox",
       "component": "Checkboxes",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -1884,7 +1919,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00",
+      "updated_at": "2026-06-01T15:13:47+02:00",
       "_alias_of": "checkbox"
     },
     "combo-box": {
@@ -1897,7 +1932,15 @@
       "slug": "combo-box",
       "component": "Combo box",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          },
+          {
+            "ref": "dropdowns-menus-popovers"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -1979,7 +2022,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "confirmation": {
       "_schema_version": 1,
@@ -1991,7 +2034,15 @@
       "slug": "confirmation",
       "component": "Confirmation",
       "meta": {
-        "category": "feedback"
+        "category": "feedback",
+        "a11y_refs": [
+          {
+            "ref": "modals"
+          },
+          {
+            "ref": "alerts-toasts-banners"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -2060,7 +2111,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "drawer-side-panel": {
       "_schema_version": 1,
@@ -2072,7 +2123,13 @@
       "slug": "drawer-side-panel",
       "component": "Drawer, side panel",
       "meta": {
-        "category": "overlays"
+        "category": "overlays",
+        "a11y_refs": [
+          {
+            "ref": "modals",
+            "note": "non-modal variant does not trap focus"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -2270,7 +2327,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-30T01:51:33+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "dropdown-select": {
       "_schema_version": 1,
@@ -2282,7 +2339,15 @@
       "slug": "dropdown-select",
       "component": "Dropdown / Select",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          },
+          {
+            "ref": "dropdowns-menus-popovers"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -2354,7 +2419,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "dropdown-select-default": {
       "_schema_version": 1,
@@ -2366,7 +2431,15 @@
       "slug": "dropdown-select",
       "component": "Dropdown / Select",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          },
+          {
+            "ref": "dropdowns-menus-popovers"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -2438,7 +2511,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00",
+      "updated_at": "2026-06-01T15:13:47+02:00",
       "_alias_of": "dropdown-select"
     },
     "empty-state": {
@@ -2985,7 +3058,12 @@
       "slug": "filters",
       "component": "Filters",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -3405,7 +3483,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "global-header": {
       "_schema_version": 1,
@@ -3417,7 +3495,12 @@
       "slug": "global-header",
       "component": "Global header",
       "meta": {
-        "category": "navigation"
+        "category": "navigation",
+        "a11y_refs": [
+          {
+            "ref": "navigation"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -3479,7 +3562,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "inline-toast": {
       "_schema_version": 1,
@@ -3491,7 +3574,12 @@
       "slug": "inline-toast",
       "component": "Inline toast",
       "meta": {
-        "category": "feedback"
+        "category": "feedback",
+        "a11y_refs": [
+          {
+            "ref": "alerts-toasts-banners"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -3708,7 +3796,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "input": {
       "_schema_version": 1,
@@ -3720,7 +3808,12 @@
       "slug": "text-input",
       "component": "Text input",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -4215,7 +4308,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00",
+      "updated_at": "2026-06-01T15:13:47+02:00",
       "_alias_of": "text-input"
     },
     "input-date": {
@@ -5320,7 +5413,12 @@
       "slug": "modal",
       "component": "Modal",
       "meta": {
-        "category": "overlays"
+        "category": "overlays",
+        "a11y_refs": [
+          {
+            "ref": "modals"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -5393,7 +5491,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "multi-select": {
       "_schema_version": 1,
@@ -5405,7 +5503,15 @@
       "slug": "multi-select",
       "component": "Multi-select",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          },
+          {
+            "ref": "dropdowns-menus-popovers"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -5490,7 +5596,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "notification": {
       "_schema_version": 1,
@@ -5502,7 +5608,12 @@
       "slug": "inline-toast",
       "component": "Inline toast",
       "meta": {
-        "category": "feedback"
+        "category": "feedback",
+        "a11y_refs": [
+          {
+            "ref": "alerts-toasts-banners"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -5719,7 +5830,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00",
+      "updated_at": "2026-06-01T15:13:47+02:00",
       "_alias_of": "inline-toast"
     },
     "popover": {
@@ -5732,7 +5843,15 @@
       "slug": "popover",
       "component": "Popover",
       "meta": {
-        "category": "overlays"
+        "category": "overlays",
+        "a11y_refs": [
+          {
+            "ref": "dropdowns-menus-popovers"
+          },
+          {
+            "ref": "tooltips"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -5858,7 +5977,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "radio-button": {
       "_schema_version": 1,
@@ -6306,7 +6425,12 @@
       "slug": "search",
       "component": "Search",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -6412,7 +6536,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "search-filters": {
       "_schema_version": 1,
@@ -6424,7 +6548,12 @@
       "slug": "filters",
       "component": "Filters",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -6844,7 +6973,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00",
+      "updated_at": "2026-06-01T15:13:47+02:00",
       "_alias_of": "filters"
     },
     "side-nav": {
@@ -6857,7 +6986,12 @@
       "slug": "side-nav",
       "component": "Side nav",
       "meta": {
-        "category": "navigation"
+        "category": "navigation",
+        "a11y_refs": [
+          {
+            "ref": "navigation"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -6921,7 +7055,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "spinner": {
       "_schema_version": 1,
@@ -7010,7 +7144,12 @@
       "slug": "stepper",
       "component": "Stepper",
       "meta": {
-        "category": "navigation"
+        "category": "navigation",
+        "a11y_refs": [
+          {
+            "ref": "navigation"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -7188,7 +7327,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "sticky-footer": {
       "_schema_version": 1,
@@ -7200,7 +7339,12 @@
       "slug": "sticky-footer",
       "component": "Sticky footer",
       "meta": {
-        "category": "action"
+        "category": "action",
+        "a11y_refs": [
+          {
+            "ref": "buttons"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -7305,7 +7449,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "table": {
       "_schema_version": 1,
@@ -7317,7 +7461,15 @@
       "slug": "table",
       "component": "Table",
       "meta": {
-        "category": "data-display"
+        "category": "data-display",
+        "a11y_refs": [
+          {
+            "ref": "data-tables"
+          },
+          {
+            "ref": "truncation-overflow"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -7546,7 +7698,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-21T16:34:40+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "tabs": {
       "_schema_version": 1,
@@ -7558,7 +7710,12 @@
       "slug": "tabs",
       "component": "Tabs",
       "meta": {
-        "category": "navigation"
+        "category": "navigation",
+        "a11y_refs": [
+          {
+            "ref": "tabs"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -7611,7 +7768,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "tag": {
       "_schema_version": 1,
@@ -7623,7 +7780,12 @@
       "slug": "tag",
       "component": "Tags",
       "meta": {
-        "category": "data-display"
+        "category": "data-display",
+        "a11y_refs": [
+          {
+            "ref": "truncation-overflow"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -7677,7 +7839,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "tag-default": {
       "_schema_version": 1,
@@ -7689,7 +7851,12 @@
       "slug": "tag",
       "component": "Tags",
       "meta": {
-        "category": "data-display"
+        "category": "data-display",
+        "a11y_refs": [
+          {
+            "ref": "truncation-overflow"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -7743,7 +7910,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00",
+      "updated_at": "2026-06-01T15:13:47+02:00",
       "_alias_of": "tag"
     },
     "text-input": {
@@ -7756,7 +7923,12 @@
       "slug": "text-input",
       "component": "Text input",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -8251,7 +8423,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "toggle": {
       "_schema_version": 1,
@@ -8263,7 +8435,12 @@
       "slug": "toggle-control",
       "component": "Toggle control",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -8750,7 +8927,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00",
+      "updated_at": "2026-06-01T15:13:47+02:00",
       "_alias_of": "toggle-control"
     },
     "toggle-control": {
@@ -8763,7 +8940,12 @@
       "slug": "toggle-control",
       "component": "Toggle control",
       "meta": {
-        "category": "form-input-selection"
+        "category": "form-input-selection",
+        "a11y_refs": [
+          {
+            "ref": "forms"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -9250,7 +9432,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "whats-new": {
       "_schema_version": 1,
@@ -9262,7 +9444,15 @@
       "slug": "whats-new",
       "component": "What's new",
       "meta": {
-        "category": "navigation"
+        "category": "navigation",
+        "a11y_refs": [
+          {
+            "ref": "navigation"
+          },
+          {
+            "ref": "dropdowns-menus-popovers"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -9319,7 +9509,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00"
+      "updated_at": "2026-06-01T15:13:47+02:00"
     },
     "whats-new-dropdown": {
       "_schema_version": 1,
@@ -9331,7 +9521,15 @@
       "slug": "whats-new",
       "component": "What's new",
       "meta": {
-        "category": "navigation"
+        "category": "navigation",
+        "a11y_refs": [
+          {
+            "ref": "navigation"
+          },
+          {
+            "ref": "dropdowns-menus-popovers"
+          }
+        ]
       },
       "domains": {
         "content": {
@@ -9388,7 +9586,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-05-14T16:07:17+02:00",
+      "updated_at": "2026-06-01T15:13:47+02:00",
       "_alias_of": "whats-new"
     }
   }

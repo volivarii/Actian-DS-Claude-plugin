@@ -1,6 +1,8 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "Modal"
 category: overlays
+a11y_refs:
+  - { ref: modals }
 domains:
   content: { status: approved, owner: content-team }
   usage:    { status: not-started }

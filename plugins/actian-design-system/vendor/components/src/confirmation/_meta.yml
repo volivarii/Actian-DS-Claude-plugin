@@ -1,6 +1,9 @@
 # yaml-language-server: $schema=../../../schemas/guideline-meta.json
 component: "Confirmation"
 category: feedback
+a11y_refs:
+  - { ref: modals }
+  - { ref: alerts-toasts-banners }
 domains:
   content: { status: approved, owner: content-team }
   usage:    { status: not-started }

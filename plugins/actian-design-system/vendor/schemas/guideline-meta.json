@@ -33,6 +33,32 @@
         ["link", "icon-button"]
       ]
     },
+    "a11y_refs": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Component-specific accessibility references by slug — the per-component tier of the two-tier a11y model. Foundation/cross-cutting slugs stay on the category; component-pattern slugs (buttons, modals, tabs, …) attach here. Each `ref` must exist in accessibility/dist/a11y-index.json (validated by tests/a11y-refs-coverage.test.js, not the schema). Mirrors the category-defaults `a11y_refs` field.",
+      "examples": [
+        [{ "ref": "buttons", "note": "operable with Enter and Space" }]
+      ],
+      "items": {
+        "type": "object",
+        "required": ["ref"],
+        "additionalProperties": false,
+        "properties": {
+          "ref": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$",
+            "description": "Accessibility pattern slug. Must exist in accessibility/dist/a11y-index.json.",
+            "examples": ["buttons", "modals", "data-tables"]
+          },
+          "note": {
+            "type": "string",
+            "description": "Optional component-specific note refining the generic pattern guidance.",
+            "examples": ["focus returns to trigger on close"]
+          }
+        }
+      }
+    },
     "examples": {
       "type": "array",
       "description": "Canonical examples — Figma nodes or live URLs. Each entry needs a label plus at least one of {figmaNode, url}. Optional. Consumers (docs site, plugin) render these as an 'Examples' section / deep-links.",
