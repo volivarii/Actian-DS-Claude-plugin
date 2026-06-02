@@ -24,7 +24,7 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 | Layer | Vendor (in plugin) | Canonical (knowledge repo) | Format | Purpose |
 |---|---|---|---|---|
 | Tokens | `vendor/tokens/tokens.json` + `tokens.css` | `tokens/` | DTCG JSON + CSS | 155 tokens, 3 themes, 8 collections |
-| Component registries | `vendor/components/registries/{fmkit,dskit,metakit}.json` | `components/registries/` | JSON | Component keys, variants, properties |
+| Component registries | `vendor/components/dist/registries/{fmkit,dskit,metakit}.json` | `components/dist/registries/` | JSON | Component keys, variants, properties |
 | Component guidelines | `vendor/components/dist/guidelines/<slug>.json` (`domains.*` shape) | `components/dist/guidelines/` | JSON | Per-component multi-domain merged docs |
 | Foundations | `vendor/foundations/src/<slug>.md` (per-section, ordered via `_order.json`) + `vendor/foundations/dist/*.json` | `foundations/src/` | MD + JSON | Spacing, typography, color, motion (8 derived) |
 | Content guidelines | `vendor/content/dist/global.md` + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` | `content/` + `components/` | MD + JSON | Voice, tone, copy patterns |

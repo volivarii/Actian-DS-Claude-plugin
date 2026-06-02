@@ -80,7 +80,7 @@ Data flows: `Figma -> volivarii/actian-ds-knowledge CI -> vendor/ (snapshot pull
 The plugin reads design-system knowledge from the vendored substrate. Two rules keep references fast + drift-proof:
 
 1. **Code resolves via `PATHS`** (`scripts/lib/paths.js`) — logical names, never hardcoded `vendor/…` literals. Guarded by `tests/integration/no-bare-vendor-paths.test.js`.
-2. **Prose may name concrete `vendor/…` paths** (skills/references/agents markdown — the agent needs them to open files) **but every such path is CI-guarded to resolve** to a real vendored file/dir by `tests/integration/vendor-paths-resolve.test.js` (template-aware: `<slug>` paths are checked at the containing-directory level). A re-vendor that moves a path fails CI loudly instead of silently breaking a skill at runtime.
+2. **Prose may name concrete `vendor/…` paths** (skills/references/agents markdown + the plugin's own docs — `CLAUDE.md`, `ARCHITECTURE.md`, `README.md`, `docs/` — the agent needs them to open files) **but every such path is CI-guarded to resolve** to a real vendored file/dir by `tests/integration/vendor-paths-resolve.test.js` (template-aware: `<slug>` paths are checked at the containing-directory level; relative refs written with leading parent-dir hops are normalized to the substrate root and checked too). A re-vendor that moves a path fails CI loudly instead of silently breaking a skill at runtime.
 3. **For whole-domain coverage, prefer the `*.bundle.json` roll-ups** (`guidelines.bundle.json`, `categories.bundle.json`, `accessibility.bundle.json`, `foundations.bundle.json`) over globbing per-file.
 
 ---

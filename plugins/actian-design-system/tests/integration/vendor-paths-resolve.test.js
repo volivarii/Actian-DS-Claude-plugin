@@ -16,28 +16,46 @@ const path = require("path");
 const PLUGIN_DIR = path.join(__dirname, "..", "..");
 const VENDOR = path.join(PLUGIN_DIR, "vendor");
 
-// Extract every `vendor/<path>` token from a block of text, with its 1-based line.
-// A negative lookbehind ensures we only catch the SUBSTRATE-rooted `vendor/…` —
-// not the tail of a longer source path like `scripts/vendor/…` or `tests/vendor/…`
-// (those are in-tree dirs, not the vendored knowledge root).
+// Extract every SUBSTRATE-rooted `vendor/<path>` token from a block of text, with
+// its 1-based line. Refs may be written substrate-root-relative (`vendor/…`),
+// backtick-wrapped, or with leading `../` hops (`../../vendor/…` — common in
+// references/ + skills/ prose pointing up out of their dir into the vendored tree).
+// We classify by the path PREFIX captured before `vendor/`:
+//   • empty prefix or only `../` hops → a real substrate ref (KEEP, normalized to
+//     `vendor/…` by stripping the `../` hops);
+//   • a prefix ending in a real dir segment (`scripts/`, `tests/`) or an absolute
+//     path → an IN-TREE path (e.g. `scripts/vendor/vendor-snapshot.js`), NOT a
+//     vendored-knowledge ref → SKIP.
 // Trailing markdown/sentence punctuation (backtick, quote, comma, period, colon) is
 // trimmed. A trailing `)`/`]` is only trimmed when it has NO matching opener in the
 // token (a stray markdown-link/sentence bracket) — a balanced one (e.g. the `]` of
 // `[<slug>]`) is part of the path token and is preserved.
+function trimTrailing(ref) {
+  ref = ref.replace(/[.,`'":]+$/, "");
+  while (/[)\]]$/.test(ref)) {
+    const close = ref[ref.length - 1];
+    const open = close === ")" ? "(" : "[";
+    if (ref.includes(open)) break; // balanced — part of the token
+    ref = ref.slice(0, -1).replace(/[.,`'":]+$/, "");
+  }
+  return ref;
+}
+
 function extractVendorRefs(text) {
   const out = [];
   const lines = text.split("\n");
-  const RE = /(?<![A-Za-z0-9_.\/-])vendor\/[A-Za-z0-9_./<>{}\[\],*#:-]+/g;
+  // Capture any path prefix before "vendor/". Greedy prefix backtracks to the
+  // vendor/ occurrence. Empty prefix or only "../" hops → substrate-root-relative
+  // ref (keep, normalized). Prefix ending in a real dir segment (scripts/, tests/,
+  // /abs/) → in-tree path, NOT a substrate ref → skip.
+  const RE = /([A-Za-z0-9_./-]*)vendor\/[A-Za-z0-9_./<>{}\[\],*#:-]+/g;
   for (let i = 0; i < lines.length; i++) {
     let m;
     while ((m = RE.exec(lines[i])) !== null) {
-      let ref = m[0].replace(/[.,`'":]+$/, "");
-      while (/[)\]]$/.test(ref)) {
-        const close = ref[ref.length - 1];
-        const open = close === ")" ? "(" : "[";
-        if (ref.includes(open)) break; // balanced — part of the token
-        ref = ref.slice(0, -1).replace(/[.,`'":]+$/, "");
-      }
+      const prefix = m[1];
+      if (prefix && !/^(\.\.\/)+$/.test(prefix)) continue; // in-tree → not substrate
+      let ref = m[0].slice(prefix.length); // strip ../ hops → "vendor/…"
+      ref = trimTrailing(ref);
       if (ref.length > "vendor/".length) out.push({ ref, line: i + 1 });
     }
   }
@@ -74,6 +92,32 @@ test("extractVendorRefs pulls tokens + trims trailing punctuation/anchors", () =
     got.includes("vendor/accessibility/dist/a11y-index.json#bySlug[<slug>]"),
   );
   assert.equal(refs[2].line, 2);
+});
+
+test("extractVendorRefs: relative ../vendor refs are kept, normalized (no ../)", () => {
+  const refs = extractVendorRefs(
+    "See `../../vendor/components/dist/registries/metakit.json`.\n" +
+      "Also ../vendor/content/dist/global.md applies.",
+  );
+  const got = refs.map((r) => r.ref);
+  assert.ok(
+    got.includes("vendor/components/dist/registries/metakit.json"),
+    "../../vendor/… should be extracted, normalized to vendor/…",
+  );
+  assert.ok(got.includes("vendor/content/dist/global.md"));
+  // Normalized: no leading ../ survives on any extracted ref.
+  for (const r of got) assert.ok(!r.startsWith(".."), `unexpected ../ in ${r}`);
+});
+
+test("extractVendorRefs: in-tree scripts/tests vendor paths are skipped", () => {
+  const refs = extractVendorRefs(
+    "Edit scripts/vendor/vendor-snapshot.js and tests/vendor/x.test.js.",
+  );
+  assert.equal(
+    refs.length,
+    0,
+    "in-tree vendor/ paths must not be treated as substrate refs",
+  );
 });
 
 test("concreteVendorPrefix: concrete path stays whole", () => {
@@ -122,8 +166,11 @@ test("resolution check: concrete prefix existence is decidable in a tmp vendor",
   fs.rmSync(dir, { recursive: true, force: true });
 });
 
-// Source dirs the agent reads (prose) + code. NOT vendor/ (the tree itself).
-const SCAN_DIRS = ["skills", "references", "agents", "scripts"];
+// Source dirs the agent reads (prose) + code + the plugin's own top-level docs.
+// NOT vendor/ (the tree itself). `docs/` + the top-level `.md` files below are
+// scanned too so their vendor refs stay drift-proof alongside skills/references.
+const SCAN_DIRS = ["skills", "references", "agents", "scripts", "docs"];
+const SCAN_TOP_FILES = ["CLAUDE.md", "ARCHITECTURE.md", "README.md"];
 const SCAN_EXT = new Set([".md", ".js", ".cjs", ".mjs"]);
 
 // Legitimately-nonresolving refs (illustrative examples, etc.). Keep MINIMAL +
@@ -144,6 +191,10 @@ function walk(dir, files) {
 test("every vendor/ path referenced in plugin prose + code resolves", () => {
   const files = [];
   for (const d of SCAN_DIRS) walk(path.join(PLUGIN_DIR, d), files);
+  for (const f of SCAN_TOP_FILES) {
+    const full = path.join(PLUGIN_DIR, f);
+    if (fs.existsSync(full)) files.push(full);
+  }
 
   const violations = [];
   for (const file of files) {
