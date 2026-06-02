@@ -28,7 +28,15 @@ var shared = require("../lib/shared-constants.js");
 // ---------------------------------------------------------------------------
 
 var GENERATED_DIR = path.resolve(__dirname, "../..", "docs", "generated");
-var MAP_PATH = path.join(GENERATED_DIR, "fm-to-ds-map.json");
+// Plugin-owned FM→DS mapping table (evicted from the substrate in Track E —
+// it's a tool-specific alignment table, not agnostic DS knowledge).
+var MAP_PATH = path.resolve(
+  __dirname,
+  "../..",
+  "references",
+  "convert-to-hifi",
+  "fm-to-ds-map.json",
+);
 var DS_REGISTRY_PATH = path.join(GENERATED_DIR, "dskit.json");
 
 // ---------------------------------------------------------------------------

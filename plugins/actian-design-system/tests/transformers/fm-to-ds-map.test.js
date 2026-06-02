@@ -38,8 +38,8 @@ var REGISTRIES_DIR = path.join(
 );
 var FM_TO_DS_MAP_PATH = path.join(
   PLUGIN_ROOT,
-  "vendor",
-  "fm-to-ds-map",
+  "references",
+  "convert-to-hifi",
   "fm-to-ds-map.json",
 );
 

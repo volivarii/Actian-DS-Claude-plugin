@@ -140,7 +140,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" && \
     -o {project_working_directory}/components/hifi/[frame-name]-hifi-data.json
 ```
 
-The script reads `vendor/fm-to-ds-map/fm-to-ds-map.json` and `vendor/components/dist/registries/dskit.json`, rewrites every FM `ref` to its DS Kit equivalent, preserves variant mappings where defined, and embeds `meta.transformStats` in the output (`total`, `mapped`, `unmapped`).
+The script reads `references/convert-to-hifi/fm-to-ds-map.json` and `vendor/components/dist/registries/dskit.json`, rewrites every FM `ref` to its DS Kit equivalent, preserves variant mappings where defined, and embeds `meta.transformStats` in the output (`total`, `mapped`, `unmapped`).
 
 **Confirmation gate** — present verbatim after the script completes:
 
@@ -228,7 +228,7 @@ Before pushing, audit all visible text against `vendor/content/dist/global.md` (
 
 ## References
 
-- `vendor/fm-to-ds-map/fm-to-ds-map.json` — FM component key → DS component mapping table with variant axis maps
+- `references/convert-to-hifi/fm-to-ds-map.json` — FM component key → DS component mapping table with variant axis maps
 - `vendor/components/dist/registries/dskit.json` — DS Kit component registry (keys, variants, properties, descriptions)
 - `vendor/components/dist/registries/fmkit.json` — FM Kit component registry (keys, variants, properties)
 - `scripts/transformers/fm-tree-to-flow-data.js` — converts raw Figma tree to flow-data format (resolves componentKey → FM ref names via FM_SLUGS)
