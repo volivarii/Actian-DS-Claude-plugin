@@ -62,7 +62,6 @@ Data flows: `Figma -> volivarii/actian-ds-knowledge CI -> vendor/ (snapshot pull
 - `vendor/content/dist/global.md` — global / cross-cutting content guidelines (voice, tone, words to avoid, UX-pattern topics). Component-specific copy lives per-component in `components/dist/guidelines/<slug>.json` `domains.content`. *(The transitional full-concat under `content/dist/` was retired in Phase 5, knowledge v0.11.0.)*
 - `vendor/content/dist/words-to-avoid.json` — structured words-to-avoid rules (content's first JSON dist); each rule = `{ avoid, reason, example: { do, dont } }`, advisory rules carry `avoid: []`. Read by `validate-flow-data.js` (avoid-word soft-check); `global.md` keeps the prose table for humans. Resolve via `PATHS.content.wordsToAvoid`.
 - `vendor/app-context/app-context.json`, `vendor/fm-to-ds-map/fm-to-ds-map.json`
-- `vendor/presentation/presentation-guide.md`
 
 `vendored.json` records the pinned knowledge-repo SHA. Run `vendor-snapshot.yml` workflow (manual or nightly cron) to refresh; auto-bumps plugin.json patch on diff so the marketplace picks up the new content.
 

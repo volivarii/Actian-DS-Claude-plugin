@@ -11,7 +11,7 @@ Generate a structured Figma presentation deck using official Actian slide templa
 > **Always pass `skillNames: "figma-use"` on every `mcp__claude_ai_Figma__use_figma` invocation.** This is mandatory per Figma's official contract — the `figma-use` skill carries the load-bearing Plugin API rules (atomic-on-error, color 0–1 range, HUG-after-append, font preload, await-all-promises, page-context-reset, return-all-IDs, explicit `variable.scopes`). Skipping it produces hard-to-debug failures.
 > (Source: https://help.figma.com/hc/en-us/articles/39287396773399)
 
-Read `../../vendor/presentation/presentation-guide.md` before generating any slides — primary reference for slide types, typography, colors, sequencing, voice & tone, charts, and review report format.
+Read `../../references/generate-presentation/presentation-guide.md` before generating any slides — primary reference for slide types, typography, colors, sequencing, voice & tone, charts, and review report format.
 
 ## Step 1 — Gather content
 
@@ -93,13 +93,13 @@ Serve, present review report, accept feedback or "push".
 - All content uses DS Kit tokens (`--zen-*` prefix), Roboto font
 - Charts rotate through semantic palette tokens (`--zen-color-primary-500`, `--zen-color-success-500`, `--zen-color-warning-500`, `--zen-color-error-500`, `--zen-color-annotation-annotation`, `--zen-color-neutral-600`) — never hardcode chart colors
 - 1 message per slide, headlines as conclusions ("So what?" test), max 6 bullets or 150 words
-- All slide copy follows `../../vendor/presentation/presentation-guide.md`
+- All slide copy follows `../../references/generate-presentation/presentation-guide.md`
 
 ## References
 
 - `references/generate-presentation/templates.md` — 8 CSS chart types, slide type details
 - `references/ds-rules/quality-tiers.md` — Draft / Standard / Production tier definitions
-- `vendor/presentation/presentation-guide.md` — voice & tone, narrative arc, review report format
+- `references/generate-presentation/presentation-guide.md` — voice & tone, narrative arc, review report format
 - `references/context/app-context.md` — Actian terminology
 - `references/figma/parity-check.md` — post-push parity check procedure
 - `references/ds-rules/quality-checklist.md` — cleanup pass checklist
