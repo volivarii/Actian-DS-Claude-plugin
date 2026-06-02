@@ -1,14 +1,19 @@
 "use strict";
 
 /**
- * paths.js — Manifest-driven vendor path resolver.
+ * paths.js — Manifest-driven vendor path resolver (thin wrapper).
  *
- * Reads vendor/paths-manifest.json at module load and builds the PATHS
- * object via dot-notation walker + collection function builders.
- * Plugin-derived overlays (component mirrors written post-vendor by
- * render-component-reference.js) are added on top.
+ * Reads vendor/paths-manifest.json at module load and builds the PATHS object.
+ * The GENERIC manifest→PATHS walker (schema-version check, dot-notation
+ * setNested, collection function builders) is single-sourced from the
+ * substrate's reference reader (vendor/clients/resolve-paths.js, imported
+ * below) — refreshed every vendor pull, zero drift. This wrapper adds the
+ * plugin-specific layers: the vendor-integrity check + the plugin-derived
+ * overlays (component mirrors written post-vendor by render-component-reference.js,
+ * byKit/bySlug ergonomics, convenience constants).
  *
- * Spec: docs/superpowers/specs/2026-05-10-manifest-and-tag-pin-design.md
+ * Spec: docs/superpowers/specs/2026-05-10-manifest-and-tag-pin-design.md +
+ *       docs/superpowers/specs/2026-06-02-shared-consumption-client-design.md
  *
  * Note on caching: PATHS is built once per Node process at module load.
  * Plugin processes are short-lived (per skill invocation), so vendor
@@ -23,7 +28,14 @@ var VENDOR = path.join(PLUGIN_ROOT, "vendor");
 var MANIFEST_PATH = path.join(VENDOR, "paths-manifest.json");
 var VENDORED_JSON_PATH = path.join(PLUGIN_ROOT, "vendored.json");
 
-var SUPPORTED_SCHEMA_VERSION = "v1";
+// Generic manifest→PATHS resolver core — single-sourced from the vendored
+// substrate reference reader. IMPORTING the vendored copy (vs maintaining our
+// own) is safe: it's read-only runtime code that doesn't mutate the tree, and
+// it's refreshed on every vendor pull. The plugin-specific integrity check +
+// overlays stay here in the wrapper.
+var resolverCore = require(path.join(VENDOR, "clients", "resolve-paths.js"));
+var buildPathsFromManifest = resolverCore.buildPathsFromManifest;
+var SUPPORTED_SCHEMA_VERSION = resolverCore.SUPPORTED_SCHEMA_VERSION;
 
 // Strip leading "v" so git tag "v0.3.1" compares equal to
 // package.json#version "0.3.1".
@@ -63,114 +75,6 @@ function verifyVendorIntegrity(manifest, vendoredJsonPath) {
         "of band. Re-run scripts/vendor/vendor-snapshot.js --range.",
     );
   }
-}
-
-function setNested(obj, parts, value) {
-  var cursor = obj;
-  for (var i = 0; i < parts.length - 1; i++) {
-    var part = parts[i];
-    if (cursor[part] !== undefined && typeof cursor[part] !== "object") {
-      throw new Error(
-        "paths.js: dot-notation key conflict — '" +
-          parts.join(".") +
-          "' cannot coexist with a leaf at '" +
-          parts.slice(0, i + 1).join(".") +
-          "'",
-      );
-    }
-    cursor[part] = cursor[part] || {};
-    cursor = cursor[part];
-  }
-  var leaf = parts[parts.length - 1];
-  if (cursor[leaf] !== undefined) {
-    throw new Error(
-      "paths.js: dot-notation key conflict — '" +
-        parts.join(".") +
-        "' is already set",
-    );
-  }
-  cursor[leaf] = value;
-}
-
-function buildPathsFromManifest(manifest, vendorRoot) {
-  if (manifest.manifest_schema_version !== SUPPORTED_SCHEMA_VERSION) {
-    throw new Error(
-      "paths.js: expected manifest_schema_version '" +
-        SUPPORTED_SCHEMA_VERSION +
-        "', found '" +
-        manifest.manifest_schema_version +
-        "'. Plugin must be upgraded.",
-    );
-  }
-
-  var out = {};
-  var paths = manifest.paths || {};
-  for (var name in paths) {
-    var entry = paths[name];
-    if (!entry.path) {
-      throw new Error("paths.js: entry '" + name + "' missing 'path' field");
-    }
-    if (!entry.type) {
-      throw new Error("paths.js: entry '" + name + "' missing 'type' field");
-    }
-    if (!entry.origin) {
-      throw new Error("paths.js: entry '" + name + "' missing 'origin' field");
-    }
-    if (!entry.description) {
-      throw new Error(
-        "paths.js: entry '" + name + "' missing 'description' field",
-      );
-    }
-    setNested(out, name.split("."), path.join(vendorRoot, entry.path));
-  }
-
-  var collections = manifest.collections || {};
-  for (var collName in collections) {
-    var coll = collections[collName];
-    if (!coll.dir) {
-      throw new Error(
-        "paths.js: collection '" + collName + "' missing 'dir' field",
-      );
-    }
-    if (!coll.pattern) {
-      throw new Error(
-        "paths.js: collection '" + collName + "' missing 'pattern' field",
-      );
-    }
-    var dir = path.join(vendorRoot, coll.dir);
-    setNested(
-      out,
-      collName.split("."),
-      (function (collDir, pattern) {
-        return function (slug) {
-          // Substitute {slug}; if no other placeholders remain, join + return.
-          var resolved = pattern.replace("{slug}", slug);
-          if (!/\{[^}]+\}/.test(resolved)) {
-            return path.join(collDir, resolved);
-          }
-          // Pattern has additional placeholders (e.g. {bucket}/{slug}.md for
-          // recursive collections). Walk one level of sub-dirs and return the
-          // first match. Slugs are unique across sub-buckets by convention —
-          // if that ever changes, this needs to return all matches instead.
-          var entries = fs.existsSync(collDir) ? fs.readdirSync(collDir) : [];
-          for (var i = 0; i < entries.length; i++) {
-            var entry = entries[i];
-            var sub = path.join(collDir, entry);
-            try {
-              if (!fs.statSync(sub).isDirectory()) continue;
-            } catch (e) {
-              continue;
-            }
-            var candidate = path.join(sub, slug + ".md");
-            if (fs.existsSync(candidate)) return candidate;
-          }
-          return null;
-        };
-      })(dir, coll.pattern),
-    );
-  }
-
-  return out;
 }
 
 function loadAndBuildPaths() {
