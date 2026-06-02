@@ -108,7 +108,7 @@
           ],
           "contract": ["graph"],
           "metadata": ["appContext", "tokens"],
-          "_pendingEviction": ["fmToDsMap", "presentation"]
+          "_pendingEviction": ["fmToDsMap"]
         }
       ],
       "additionalProperties": { "type": "array", "items": { "type": "string" } }
