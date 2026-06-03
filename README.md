@@ -43,7 +43,7 @@ DS knowledge (tokens, components, foundations, content + accessibility guideline
 
 The plugin is available in both **Cowork** and **Code** tabs after install. At this time, **Code** is recommended for best results.
 
-> **Figma integration:** The Figma MCP (`claude.ai Figma`) is built into Claude. On first use, you'll be prompted to authorize your Figma account — no additional setup required. Works with Figma files in the browser and Figma desktop.
+> **Figma integration:** The plugin's Figma read/write uses the `claude.ai Figma` connector. On **Claude Desktop / Cowork** it's built in — you'll be prompted to authorize your Figma account on first use (no separate install). On the **Claude Code CLI**, connect it via `/mcp` (or `claude plugin install figma@claude-plugins-official`). Works with Figma files in the browser and Figma desktop.
 
 ### Claude Code CLI
 
@@ -51,6 +51,15 @@ The plugin is available in both **Cowork** and **Code** tabs after install. At t
 claude plugin marketplace add volivarii/Actian-DS-Claude-plugin
 claude plugin install actian-design-system@actian-design-system
 ```
+
+### Prerequisites
+
+For the plugin to produce real DS output (not hex fallbacks), you need:
+
+- **Figma desktop running** — for canvas read/write.
+- **A Figma editor seat with the DS / FM / Meta libraries enabled.** Without it — or if a file isn't connected to the libraries — output falls back to raw hex values instead of bound design-system styles. That's a setup issue, not a plugin bug.
+- **The Figma MCP connected** — built in on Desktop / Cowork; on CLI connect via `/mcp` (see the Figma integration note above).
+- **Node.js available** — used by the local preview/validation scripts. The plugin auto-resolves nvm / Volta / asdf / fnm / Homebrew / system installs; if it can't find node, install it from [nodejs.org](https://nodejs.org) or set `NODE_BIN`.
 
 ### Auto-updates + permissions (optional)
 
@@ -89,6 +98,14 @@ Add to `~/.claude/settings.json`:
 1. Remove the marketplace: Customize > find marketplace > Remove
 2. Re-add the marketplace: `volivarii/Actian-DS-Claude-plugin`
 3. Install the plugin again
+
+Or, faster — clear the cached copy directly, then restart Claude:
+
+```bash
+rm -rf ~/.claude/plugins/cache/Actian-DS-Claude-plugin/actian-design-system/
+```
+
+(If the path differs, verify the `cache/<marketplace>/<plugin>/` folder names on your machine. During the testing window, the maintainer ships hot-fixes by version bump — clearing the cache is how you pull them.)
 
 **CLI:**
 
