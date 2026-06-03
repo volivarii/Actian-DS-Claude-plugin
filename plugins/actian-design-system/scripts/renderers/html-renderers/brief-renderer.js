@@ -1301,10 +1301,13 @@
         var slug = esc(data.meta.slug || "this-component");
         var footer = document.createElement("div");
         footer.className = "stub-footer";
+        // Inlined literals: --zen-color-background-grey-1 (#fbfbff) and
+        // --zen-color-status-warning (#d27b00) are absent from vendored tokens.css,
+        // so these previously silently fell back to the hex below (token-gate phantoms).
         footer.style.cssText =
           "margin-top: 24px; padding: 16px 20px; " +
-          "background: var(--zen-color-background-grey-1, #fbfbff); " +
-          "border-left: 3px solid var(--zen-color-status-warning, #d27b00); " +
+          "background: #fbfbff; " +
+          "border-left: 3px solid #d27b00; " +
           "color: var(--zen-color-text-secondary, #3f3f4a); font-size: 13px;";
         footer.innerHTML =
           "<strong>Guidance pending curation.</strong> " +

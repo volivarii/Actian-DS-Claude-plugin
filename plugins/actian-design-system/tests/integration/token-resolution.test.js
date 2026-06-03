@@ -23,6 +23,20 @@ var CSS_FILES = [
   return path.join(RDIR, f);
 });
 
+// Renderer JS also hand-writes inline `var(--…)` (e.g. brief-renderer SVG/style
+// strings). The spec called for the gate to cover renderer CSS *and JS*; JS only
+// REFERENCES vars (it never DEFINES them), so these are scanned for references
+// against the CSS+tokens `defined` set.
+var JS_FILES = [
+  "fm-html-map.js",
+  "flow-renderer.js",
+  "presentation-renderer.js",
+  "brief-renderer.js",
+  "render-node.js",
+].map(function (f) {
+  return path.join(RDIR, f);
+});
+
 // Extract every referenced custom-property NAME from `var(--name` (ignoring fallback).
 function referencedVars(src) {
   var out = new Set();
@@ -40,7 +54,7 @@ function definedVars(src) {
   return out;
 }
 
-test("every var(--…) referenced in renderer CSS resolves to a definition", function () {
+test("every var(--…) referenced in renderer CSS/JS resolves to a definition", function () {
   var defined = definedVars(fs.readFileSync(PATHS.tokens.css, "utf8"));
   var referenced = new Set();
   CSS_FILES.forEach(function (f) {
@@ -49,6 +63,12 @@ test("every var(--…) referenced in renderer CSS resolves to a definition", fun
       defined.add(n);
     });
     referencedVars(src).forEach(function (n) {
+      referenced.add(n);
+    });
+  });
+  // JS files only contribute references (they don't define tokens).
+  JS_FILES.forEach(function (f) {
+    referencedVars(fs.readFileSync(f, "utf8")).forEach(function (n) {
       referenced.add(n);
     });
   });
