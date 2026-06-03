@@ -526,15 +526,101 @@
         );
       }
 
-      default: {
+      case "fmTabs": {
+        var tabs = (props.Tabs || props.Labels || "Tab 1, Tab 2, Tab 3")
+          .split(",")
+          .map(function (t) {
+            return t.trim();
+          });
+        var active = props.Active || tabs[0];
         return (
-          '<div class="fm-component" data-ref="' +
+          '<div class="fm-tabs">' +
+          tabs
+            .map(function (t) {
+              var tabCls = t === active ? "fm-tab fm-tab--active" : "fm-tab";
+              return '<div class="' + tabCls + '">' + esc(t) + "</div>";
+            })
+            .join("") +
+          "</div>"
+        );
+      }
+      case "fmMenu": {
+        var items = (props.Items || "Item 1, Item 2, Item 3")
+          .split(",")
+          .map(function (s) {
+            return s.trim();
+          });
+        return (
+          '<div class="fm-menu">' +
+          items
+            .map(function (it) {
+              return '<div class="fm-menu-item">' + esc(it) + "</div>";
+            })
+            .join("") +
+          "</div>"
+        );
+      }
+      case "fmMultiSelectMenuItem": {
+        var checked = v.State === "Selected" || props.Selected === "true";
+        var cbCls = checked
+          ? "fm-checkbox fm-checkbox--on"
+          : "fm-checkbox fm-checkbox--off";
+        return (
+          '<div class="fm-menu-item fm-menu-item--multi">' +
+          '<span class="' +
+          cbCls +
+          '"></span>' +
+          "<span>" +
+          esc(props.Label || "Option") +
+          "</span></div>"
+        );
+      }
+      case "fmNavBar": {
+        var navItems = (props.Items || "Home, Reports, Settings")
+          .split(",")
+          .map(function (s) {
+            return s.trim();
+          });
+        return (
+          '<div class="fm-nav-bar">' +
+          navItems
+            .map(function (it) {
+              return '<div class="fm-nav-item">' + esc(it) + "</div>";
+            })
+            .join("") +
+          "</div>"
+        );
+      }
+      case "fmUser": {
+        var uname = props.Name || props.Label || "User";
+        var initials = uname
+          .split(/\s+/)
+          .map(function (w) {
+            return w.charAt(0);
+          })
+          .join("")
+          .slice(0, 2)
+          .toUpperCase();
+        return (
+          '<div class="fm-user"><span class="fm-user__avatar">' +
+          esc(initials) +
+          '</span><span class="fm-user__name">' +
+          esc(uname) +
+          "</span></div>"
+        );
+      }
+
+      default: {
+        // Graceful fallback for icons (no glyph data in the registry) and any
+        // unmapped ref: a clean labeled chip using the human name. Never a raw [ref].
+        return (
+          '<span class="fm-component" data-ref="' +
           esc(ref) +
           '" data-name="' +
           esc(name) +
-          '">[' +
-          esc(ref) +
-          "]</div>"
+          '">' +
+          esc(name) +
+          "</span>"
         );
       }
     }

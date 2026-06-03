@@ -687,7 +687,62 @@ const unknown = renderFMComponent({
 });
 assertContains(unknown, "fm-component", "generic fallback class");
 assertContains(unknown, 'data-ref="fmUnknownWidget"', "ref attribute");
-assertContains(unknown, "[fmUnknownWidget]", "ref text in brackets");
+assertNotContains(
+  unknown,
+  "[fmUnknownWidget]",
+  "no raw [ref] box (graceful fallback)",
+);
+assertContains(unknown, "Widget: Foo", "renders the human name");
+
+// ---------------------------------------------------------------------------
+// New FM cases — fmTabs / fmUser / fmNavBar / fmMenu / fmMultiSelectMenuItem
+// ---------------------------------------------------------------------------
+
+section("fmTabs");
+
+const tabs = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmTabs",
+  props: { Tabs: "A, B", Active: "B" },
+});
+assertContains(tabs, "fm-tab--active", "active tab class");
+assertContains(tabs, ">B<", "active tab label rendered");
+
+section("fmUser");
+
+const user = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmUser",
+  props: { Name: "Ada Lovelace" },
+});
+assertContains(user, "AL", "initials rendered");
+assertContains(user, "Ada Lovelace", "full name rendered");
+
+section("fmNavBar / fmMenu / fmMultiSelectMenuItem");
+
+["fmNavBar", "fmMenu", "fmMultiSelectMenuItem"].forEach(function (refName) {
+  const elHtml = renderFMComponent({
+    type: "INSTANCE",
+    ref: refName,
+    props: {},
+  });
+  assertNotContains(elHtml, "[" + refName + "]", refName + " no raw box");
+  assert(elHtml.length > 0, refName + " renders non-empty html");
+});
+
+section("graceful default escaping");
+
+const escapedDefault = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmSomethingNew",
+  name: "Some <b>thing</b>",
+});
+assertNotContains(
+  escapedDefault,
+  "[fmSomethingNew]",
+  "no raw [ref] in graceful default",
+);
+assertContains(escapedDefault, "&lt;b&gt;", "name is escaped");
 
 // ---------------------------------------------------------------------------
 // XSS safety
