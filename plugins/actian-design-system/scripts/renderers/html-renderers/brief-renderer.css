@@ -269,8 +269,8 @@ td code {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   color: var(--zen-color-text-secondary, #717d96);
-  background: var(--zen-color-surface-subtle, #f5f5fa);
-  border: 1px solid var(--zen-color-border-subtle, #edf0f7);
+  background: #f5f5fa; /* was --zen-color-surface-subtle: name absent from frozen tokens.css snapshot */
+  border: 1px solid #edf0f7; /* was --zen-color-border-subtle: name absent from frozen tokens.css snapshot */
   border-radius: 3px;
   vertical-align: middle;
 }
@@ -729,24 +729,24 @@ td code {
   vertical-align: middle;
 }
 .brief-source-badge--figma {
-  background: var(--zen-color-feedback-success-subtle, #e8f5e9);
-  color: var(--zen-color-feedback-success-text, #1b5e20);
+  background: #e8f5e9; /* was --zen-color-feedback-success-subtle: name absent from frozen tokens.css snapshot */
+  color: #1b5e20; /* was --zen-color-feedback-success-text: name absent from frozen tokens.css snapshot */
 }
 .brief-source-badge--generated {
-  background: var(--zen-color-surface-subtle, #f5f5f5);
+  background: #f5f5f5;
   color: var(--zen-color-text-secondary, #555);
 }
 .brief-source-badge--fallback {
-  background: var(--zen-color-feedback-warning-subtle, #fff3e0);
-  color: var(--zen-color-feedback-warning-text, #e65100);
+  background: #fff3e0; /* was --zen-color-feedback-warning-subtle: name absent from frozen tokens.css snapshot */
+  color: #e65100; /* was --zen-color-feedback-warning-text: name absent from frozen tokens.css snapshot */
 }
 
 /* ===== RESEARCH INSIGHTS ===== */
 .research-insights {
   margin-top: 16px;
   padding: 12px 16px;
-  background: var(--zen-color-surface-subtle, #fafafa);
-  border-left: 3px solid var(--zen-color-feedback-info, #2196f3);
+  background: #fafafa;
+  border-left: 3px solid #2196f3; /* was --zen-color-feedback-info: name absent from frozen tokens.css snapshot */
 }
 .research-insights h4 {
   margin: 0 0 8px;
@@ -761,7 +761,7 @@ td code {
 .research-divergences {
   margin-top: 12px;
   padding: 8px 12px;
-  background: var(--zen-color-feedback-warning-subtle, #fff3e0);
+  background: #fff3e0;
   border-radius: 4px;
 }
 .research-sources {
