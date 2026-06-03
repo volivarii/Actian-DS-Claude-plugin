@@ -149,42 +149,29 @@ When no FM component fits, build custom elements inline.
 
 ## Flow structure in HTML
 
-**One row per flow.** Never split across rows. Use `flex-wrap: nowrap`.
+**One row per flow.** Never split across rows — the renderer wraps everything in a single
+`.flow-row` (`display:flex; flex-direction:row; flex-wrap:nowrap`).
+
+The HTML is **assembled by `scripts/renderers/html-renderers/flow-renderer.js`** from the
+`flow-data.json` model (`{ meta, screens[] }`) — you do not hand-author this markup. The
+renderer emits, in order:
+
+1. the **generation card** (from `meta`),
+2. the **cover card** (from `meta`), then
+3. one **screen** per `screens[]` entry.
 
 ```html
-<div class="flow-row">
-  <!-- Generation card (first element in first flow-row only) -->
-  <div class="flow-cover">
-    <div class="flow-cover__feature">[Feature]</div>
-    <div class="flow-cover__flow">Flow: [Sub-flow]</div>
-    <div class="flow-cover__user">User: [Role]</div>
-  </div>
-
-  <!-- Research card (REQUIRED if research was conducted — placed after cover, before screens) -->
-  <div class="flow-research" data-name="Research: [Feature]">
-    <div class="flow-research__title">Research: [Feature]</div>
-    <div class="flow-research__section">
-      <div class="flow-research__heading">How others handle this</div>
-      <ul class="flow-research__list">
-        <li><strong>[Product A]:</strong> [approach]</li>
-        <li><strong>[Product B]:</strong> [approach]</li>
-      </ul>
-    </div>
-    <div class="flow-research__section">
-      <div class="flow-research__heading">Common patterns</div>
-      <ul class="flow-research__list">
-        <li>[Pattern observation]</li>
-      </ul>
-    </div>
-    <div class="flow-research__section">
-      <div class="flow-research__heading">Recommendation</div>
-      <p class="flow-research__body">[What to adopt and why]</p>
-    </div>
-    <div class="flow-research__section">
-      <div class="flow-research__heading">Sources</div>
-      <ul class="flow-research__list flow-research__list--sources">
-        <li>[Source URL or name]</li>
-      </ul>
+<div class="flow-row" data-name="Flow: [Feature]">
+  <!-- generation card (genCard, from fm-html-map) -->
+  <!-- cover card -->
+  <div class="screen cover-card" data-name="Cover: [Feature]">
+    <div class="cover-card__content">
+      <div class="cover-card__label">FEATURE</div>
+      <div class="cover-card__title">[meta.feature || meta.flow]</div>
+      <div class="cover-card__meta">
+        <div>User: [meta.user]</div>
+        <div>Screens: [count]</div>
+      </div>
     </div>
   </div>
 
@@ -193,65 +180,45 @@ When no FM component fits, build custom elements inline.
 </div>
 ```
 
-### Research card CSS
+### Cover card
 
-Add these styles when research is included:
+The cover card is the first frame of the flow (after the generation card). The renderer builds
+it directly from `meta` — there is no separate research card and no `flow-cover`/`flow-research`
+markup (those were removed). The emitted structure is fixed:
 
-```css
-.flow-research {
-  min-width: 480px;
-  max-width: 480px;
-  background: var(--fm-base-900, #1a1d23);
-  color: var(--fm-base-white, #ffffff);
-  border-radius: 12px;
-  padding: 32px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-self: stretch;
-}
-.flow-research__title {
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: -0.2px;
-}
-.flow-research__heading {
-  font-size: 13px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--fm-base-400, #9ca3af);
-  margin-bottom: 8px;
-}
-.flow-research__list {
-  margin: 0;
-  padding-left: 16px;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--fm-base-200, #e5e7eb);
-}
-.flow-research__list li {
-  margin-bottom: 4px;
-}
-.flow-research__list--sources {
-  color: var(--fm-base-400, #9ca3af);
-  font-size: 12px;
-}
-.flow-research__body {
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--fm-base-200, #e5e7eb);
-  margin: 0;
-}
-.flow-research__section {
-  border-top: 1px solid var(--fm-base-700, #374151);
-  padding-top: 16px;
-}
-.flow-research__section:first-of-type {
-  border-top: none;
-  padding-top: 0;
-}
-```
+- `.screen.cover-card` — outer frame (`data-name="Cover: [feature]"`)
+  - `.cover-card__content` — centered column
+    - `.cover-card__label` — the literal text `FEATURE`
+    - `.cover-card__title` — `meta.feature` (falls back to `meta.flow`, then `"Flow"`)
+    - `.cover-card__meta` — two plain `<div>` rows: `User: [meta.user]` and `Screens: [count]`
+
+Cover-card styling lives in `scripts/renderers/html-renderers/flow-renderer.css` (`.cover-card`,
+`.cover-card__content`, `.cover-card__label`, `.cover-card__title`, `.cover-card__meta`) using
+`--fm-*` tokens. Do not author these classes by hand.
+
+### Screen content — structured `content[]` nodes
+
+Each `screens[]` entry carries its content as a structured `content[]` array (the legacy
+`contentHtml` string is still accepted as a fallback). The renderer maps every node in
+`content[]` through the **shared structural-node renderer**,
+`scripts/renderers/html-renderers/render-node.js` (`renderNode(node, { defaultFont: "Inter" })`),
+which is the single source of truth for the Figma-node → HTML mapping (shared with
+generate-presentation). It handles these `node.type` values:
+
+| `type` | Emits | Notes |
+|---|---|---|
+| `FRAME` | `<div class="fm-frame">` | Layout/sizing/fills/radius/stroke/opacity from `node.layout`, `node.sizing`, `node.fills`, etc.; renders `node.children[]` recursively |
+| `TEXT` | `<span class="fm-text">` | Font/size/color/align from `node.font`, `node.size`, `node.color`, `node.textAlign`; text from `node.content` |
+| `INSTANCE` | (delegated) | Dispatched to `renderFMComponent` in `fm-html-map.js` (the FM component → HTML map) |
+| `ELLIPSE` | `<div class="fm-ellipse">` | Circle from `node.width`/`node.height`/`node.fills` |
+| `RECT` | `<div class="fm-rect">` | Rectangle from `node.width`/`node.height`/`node.fills`/`node.cornerRadius` |
+| `DIVIDER` | `<hr class="fm-divider">` | Horizontal rule |
+| _(other)_ | children only | Unknown types render their `children[]`, otherwise nothing |
+
+Chrome (App header, sidebar, page header) is added by `flow-renderer.js` around this content
+based on the screen `template` — see the `TEMPLATE_CHROME` map in that file. The structured
+content area is `.screen__content-area`; `bare`/`mobile`/`tablet`/`compact`/`custom` templates
+emit the content with no chrome wrapper.
 
 ## Screen dimensions
 
