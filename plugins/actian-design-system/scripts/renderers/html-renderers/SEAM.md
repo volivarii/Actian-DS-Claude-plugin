@@ -14,7 +14,11 @@ Figma emitter. Later still: a DS/hifi interpreter branch.
   INSIDE the interpreter (as `fm-html-map.js` already does). This is what lets a
   DS interpreter (and B's Figma emitter) plug in behind an unchanged seam.
 - Validated by `validate-node.js` (pure, no-throw, error-accumulating — the
-  `render-figma.js` pattern generalized from tables to components).
+  `render-figma.js` pattern generalized from tables to components). Today this is
+  a contract-checker exercised by its unit test, not a render-time gate: the HTML
+  renderers do not call it on the hot path. Runtime enforcement (validating a tree
+  before emit) is deferred to Sub-project B's deterministic emitter, where an
+  invalid spec must fail loudly rather than render lo-fi.
 
 ## How a new fidelity tier plugs in
 A new interpreter implements `switch(node.type)` -> for `INSTANCE`, `switch(ref)`.

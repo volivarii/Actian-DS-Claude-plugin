@@ -89,6 +89,7 @@ var STRUCT_FIXTURES = {
   textUpper: { type: "TEXT", content: "header", textCase: "UPPER" },
   textDefaultFont: { type: "TEXT", content: "Defaulted", font: ":Bold" },
   rectFallback: { type: "RECT" },
+  ellipseFallback: { type: "ELLIPSE" },
   divider: { type: "DIVIDER" },
 };
 Object.keys(STRUCT_FIXTURES).forEach(function (name) {

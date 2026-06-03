@@ -5,19 +5,42 @@ var fs = require("fs");
 var path = require("path");
 var PATHS = require("../../scripts/lib/paths.js");
 
+// Intentionally mirrors scripts/lib/shared-constants.js `slugToRef` so this gate
+// stays dependency-free (importing shared-constants pulls in registry-loading
+// side effects). shared-constants.test.js is the authority for the mapping.
 function slugToRef(slug, prefix) {
-  var stripped = slug.indexOf(prefix + "-") === 0 ? slug.slice(prefix.length + 1) : slug;
-  return prefix + stripped.charAt(0).toUpperCase() +
-    stripped.slice(1).replace(/-([a-z])/g, function (_, c) { return c.toUpperCase(); });
+  var stripped =
+    slug.indexOf(prefix + "-") === 0 ? slug.slice(prefix.length + 1) : slug;
+  return (
+    prefix +
+    stripped.charAt(0).toUpperCase() +
+    stripped.slice(1).replace(/-([a-z])/g, function (_, c) {
+      return c.toUpperCase();
+    })
+  );
 }
 
 var ALLOWLIST = new Set(["fmCursor", "fmTableExample"]);
 
 test("every non-icon fm- component has a bespoke renderer case (or is allowlisted)", function () {
-  var fmkit = JSON.parse(fs.readFileSync(PATHS.components.registries.fmkit, "utf8"));
-  var src = fs.readFileSync(path.join(__dirname, "..", "..", "scripts", "renderers", "html-renderers", "fm-html-map.js"), "utf8");
+  var fmkit = JSON.parse(
+    fs.readFileSync(PATHS.components.registries.fmkit, "utf8"),
+  );
+  var src = fs.readFileSync(
+    path.join(
+      __dirname,
+      "..",
+      "..",
+      "scripts",
+      "renderers",
+      "html-renderers",
+      "fm-html-map.js",
+    ),
+    "utf8",
+  );
   var cases = new Set();
-  var re = /case\s+"([^"]+)":/g, m;
+  var re = /case\s+"([^"]+)":/g,
+    m;
   while ((m = re.exec(src))) cases.add(m[1]);
 
   var missing = [];
@@ -27,12 +50,20 @@ test("every non-icon fm- component has a bespoke renderer case (or is allowliste
     if (ALLOWLIST.has(ref)) return;
     if (!cases.has(ref)) missing.push(ref + " (" + slug + ")");
   });
-  assert.deepEqual(missing.sort(), [], "fm- components missing a renderer case: " + missing.join(", "));
+  assert.deepEqual(
+    missing.sort(),
+    [],
+    "fm- components missing a renderer case: " + missing.join(", "),
+  );
 });
 
 test("the default fallback never emits a raw [ref] token", function () {
   var fmMap = require("../../scripts/renderers/html-renderers/fm-html-map.js");
-  var html = fmMap.renderFMComponent({ type: "INSTANCE", ref: "fmAcademicCap", name: "Academic cap" });
+  var html = fmMap.renderFMComponent({
+    type: "INSTANCE",
+    ref: "fmAcademicCap",
+    name: "Academic cap",
+  });
   assert.ok(html.indexOf("[fmAcademicCap]") === -1, "no raw [ref] box");
   assert.ok(html.indexOf("Academic cap") !== -1, "renders the human name");
 });
