@@ -19,7 +19,9 @@ test("resolveLinkedCriteria groups component vs inherited", function () {
   assert.equal(r.component.length, 1);
   assert.equal(r.component[0].slug, KNOWN_A);
   assert.ok(Array.isArray(r.component[0].wcag));
-  assert.ok(typeof r.component[0].title === "string" && r.component[0].title.length > 0);
+  assert.ok(
+    typeof r.component[0].title === "string" && r.component[0].title.length > 0,
+  );
   assert.equal(r.inherited.length, 1);
   assert.equal(r.inherited[0].slug, KNOWN_B);
   assert.equal(r.inherited[0].note, "n");
@@ -27,12 +29,18 @@ test("resolveLinkedCriteria groups component vs inherited", function () {
 
 test("dedupe: a slug in both groups stays only in component", function () {
   var doc = { meta: { a11y_refs: [{ ref: KNOWN_A }] } };
-  var cat = { a11y_refs: { requirementRefs: [{ ref: KNOWN_A }, { ref: KNOWN_B }] } };
+  var cat = {
+    a11y_refs: { requirementRefs: [{ ref: KNOWN_A }, { ref: KNOWN_B }] },
+  };
   var r = a11y.resolveLinkedCriteria(doc, cat);
   assert.equal(r.component.length, 1);
   assert.equal(r.inherited.length, 1);
   assert.equal(r.inherited[0].slug, KNOWN_B);
-  assert.ok(!r.inherited.some(function (c) { return c.slug === KNOWN_A; }));
+  assert.ok(
+    !r.inherited.some(function (c) {
+      return c.slug === KNOWN_A;
+    }),
+  );
 });
 
 test("unresolved slugs are skipped", function () {
@@ -61,4 +69,38 @@ test("empty wcag still yields a criterion (title-only render is the renderer's j
   var r = a11y.resolveLinkedCriteria(doc, null);
   assert.equal(r.component.length, 1);
   assert.ok(Array.isArray(r.component[0].wcag));
+});
+
+test("linkedCriteriaForComponent opts override skips loading", function () {
+  var r = a11y.linkedCriteriaForComponent("whats-new-dropdown", {
+    guidelinesJson: { meta: { a11y_refs: [{ ref: KNOWN_A }] } },
+    categoryDefaults: null,
+  });
+  assert.equal(r.component.length, 1);
+  assert.equal(r.component[0].slug, KNOWN_A);
+  assert.equal(r.inherited.length, 0);
+});
+
+test("linkedCriteriaForComponent load-by-slug resolves a documented component", function () {
+  // 'whats-new-dropdown' carries meta.a11y_refs in the vendored guidelines.
+  var r = a11y.linkedCriteriaForComponent("whats-new-dropdown");
+  assert.equal(typeof r.resolved, "boolean");
+  assert.ok(Array.isArray(r.component));
+  assert.ok(Array.isArray(r.inherited));
+});
+
+test("linkedCriteriaForComponent unknown slug -> resolved:false", function () {
+  var r = a11y.linkedCriteriaForComponent("definitely-not-a-real-component");
+  assert.equal(r.resolved, false);
+  assert.equal(r.component.length, 0);
+  assert.equal(r.inherited.length, 0);
+});
+
+test("linkedCriteriaForCategory returns inherited only", function () {
+  // 'action' category-defaults carries requirementRefs in the vendor snapshot.
+  var r = a11y.linkedCriteriaForCategory("action");
+  assert.ok(Array.isArray(r.inherited));
+  assert.equal(typeof r.resolved, "boolean");
+  assert.equal(r.resolved, true);
+  assert.equal(r.component, undefined);
 });
