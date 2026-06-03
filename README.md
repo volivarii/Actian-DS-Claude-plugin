@@ -61,9 +61,9 @@ For the plugin to produce real DS output (not hex fallbacks), you need:
 - **The Figma MCP connected** — built in on Desktop / Cowork; on CLI connect via `/mcp` (see the Figma integration note above).
 - **Node.js available** — used by the local preview/validation scripts. The plugin auto-resolves nvm / Volta / asdf / fnm / Homebrew / system installs; if it can't find node, install it from [nodejs.org](https://nodejs.org) or set `NODE_BIN`.
 
-### Auto-updates + permissions (optional)
+### Auto-updates + permissions (recommended for testers)
 
-Add to `~/.claude/settings.json`:
+Add to `~/.claude/settings.json` — `autoUpdate: true` makes hot-fixes land automatically at session start (this is the simplest way to stay current during the test window):
 
 ```json
 {
@@ -91,30 +91,26 @@ Add to `~/.claude/settings.json`:
 
 ### Updating the plugin
 
-**Desktop:**
+Plugin auto-update works in current Claude Code (v2.1.x, June 2026+). Because this is a **third-party** marketplace, auto-update is **opt-in** — turn it on once and updates arrive automatically at session start (you'll be prompted to run `/reload-plugins`).
 
-> **Known issue:** The built-in update mechanism for external marketplace plugins [does not reliably detect new versions](https://github.com/anthropics/claude-code/issues/38271). The cached version persists even after a new release is pushed.
+**Enable auto-update (recommended for testers):** either set `"autoUpdate": true` in the `extraKnownMarketplaces` block above, or run `/plugin` > **Marketplaces** tab > select Actian Design System > **Enable auto-update**.
 
-1. Remove the marketplace: Customize > find marketplace > Remove
-2. Re-add the marketplace: `volivarii/Actian-DS-Claude-plugin`
-3. Install the plugin again
-
-Or, faster — clear the cached copy directly, then restart Claude:
-
-```bash
-rm -rf ~/.claude/plugins/cache/Actian-DS-Claude-plugin/actian-design-system/
-```
-
-(If the path differs, verify the `cache/<marketplace>/<plugin>/` folder names on your machine. During the testing window, the maintainer ships hot-fixes by version bump — clearing the cache is how you pull them.)
-
-**CLI:**
+**CLI — manual pull** (if you didn't enable auto-update):
 
 ```bash
 claude plugin marketplace update actian-design-system
 claude plugin update actian-design-system@actian-design-system
 ```
 
-**Auto-update** (one-time): Run `/plugin` > **Marketplaces** tab > select Actian Design System > **Enable auto-update**. Updates are then applied at startup.
+**Cowork / Desktop:** an org owner can turn on **Organization settings > Plugins > Sync automatically** (the GitHub marketplace then re-syncs whenever a PR merges); otherwise use the manual **Update** button. Changes reach each member on their next session (up to ~30 min).
+
+**Fallback (rarely needed):** if an update still doesn't land, refresh the marketplace with `/plugin marketplace update` or, as a last resort, clear the cached copy and restart Claude:
+
+```bash
+rm -rf ~/.claude/plugins/cache/Actian-DS-Claude-plugin/actian-design-system/
+```
+
+(Verify the `cache/<marketplace>/<plugin>/` folder names if the path differs.)
 
 **Verify your version:** Ask the companion "what version are you running?"
 
