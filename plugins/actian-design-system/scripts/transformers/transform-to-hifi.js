@@ -22,12 +22,12 @@ var fs = require("fs");
 var path = require("path");
 var resolver = require("../lib/intent-resolver.js");
 var shared = require("../lib/shared-constants.js");
+var PATHS = require("../lib/paths.js");
 
 // ---------------------------------------------------------------------------
 // Paths
 // ---------------------------------------------------------------------------
 
-var GENERATED_DIR = path.resolve(__dirname, "../..", "docs", "generated");
 // Plugin-owned FM→DS mapping table (evicted from the substrate in Track E —
 // it's a tool-specific alignment table, not agnostic DS knowledge).
 var MAP_PATH = path.resolve(
@@ -37,7 +37,8 @@ var MAP_PATH = path.resolve(
   "convert-to-hifi",
   "fm-to-ds-map.json",
 );
-var DS_REGISTRY_PATH = path.join(GENERATED_DIR, "dskit.json");
+// DS Kit registry — vendored from the substrate (PATHS.components.registries.dskit).
+var DS_REGISTRY_PATH = PATHS.components.registries.dskit;
 
 // ---------------------------------------------------------------------------
 // Variant helpers
