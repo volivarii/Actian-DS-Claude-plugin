@@ -19,12 +19,7 @@ function ph(name) {
 }
 
 test("renderSection1 returns one supercard with 4 sub-section headings", function () {
-  var html = renderer.renderSection1(
-    fix.variants,
-    fix.anatomy,
-    fix.tokens,
-    ph,
-  );
+  var html = renderer.renderSection1(fix.variants, fix.anatomy, fix.tokens, ph);
 
   // Single card frame
   var cardFrameMatches = html.match(/<div class="brief-card"/g) || [];
@@ -95,12 +90,7 @@ test("renderSection1 omits Specs sub-section when anatomy.specs absent", functio
 
 test("Draft badge appears for generated sub-sections without _authored flag", function () {
   // Button fixture is AI-generated (Phase B), no _authored flags.
-  var html = renderer.renderSection1(
-    fix.variants,
-    fix.anatomy,
-    fix.tokens,
-    ph,
-  );
+  var html = renderer.renderSection1(fix.variants, fix.anatomy, fix.tokens, ph);
   // Expect at least 3 Draft badges (one per sub-section heading where source is set)
   var matches = html.match(/class="subsection-draft-badge"/g) || [];
   assert.ok(
@@ -155,12 +145,7 @@ test("renderSection1 + sibling renders together produce 6-card sequence (DS mode
   // Simulate the DOM cards array assembly the way DOMContentLoaded does it.
   var cards = [
     renderer.renderCard1(fix.card_header),
-    renderer.renderSection1(
-      fix.variants,
-      fix.anatomy,
-      fix.tokens,
-      ph,
-    ),
+    renderer.renderSection1(fix.variants, fix.anatomy, fix.tokens, ph),
     renderer.renderCard6(fix.usage),
     renderer.renderCard7(fix.card_content),
     renderer.renderCardMotion(fix.motion),
@@ -193,4 +178,51 @@ test("renderSection1 + sibling renders together produce 6-card sequence (DS mode
   assert.equal(componentDataName.length, 0, "no separate Component card");
   assert.equal(anatomyDataName.length, 0, "no separate Anatomy card");
   assert.equal(tokensDataName.length, 0, "no separate Design tokens card");
+});
+
+test("renderCard8 renders grouped Linked WCAG criteria when present", function () {
+  var a11y = {
+    linkedCriteria: {
+      component: [{ slug: "x", title: "Keyboard operable", wcag: ["2.1.1"] }],
+      inherited: [
+        {
+          slug: "y",
+          title: "Contrast (minimum)",
+          wcag: ["1.4.3"],
+          note: "4.5:1",
+        },
+      ],
+    },
+    requirements: [{ title: "R1", body: "b" }],
+    _source: "generated",
+  };
+  var html = renderer.renderCard8(a11y);
+  assert.ok(html.indexOf("Linked WCAG criteria") !== -1);
+  assert.ok(html.indexOf("This component") !== -1);
+  assert.ok(html.indexOf("Inherited from category") !== -1);
+  assert.ok(html.indexOf("Keyboard operable") !== -1);
+  assert.ok(html.indexOf("WCAG 2.1.1") !== -1);
+  assert.ok(html.indexOf("4.5:1") !== -1); // note rendered
+  assert.ok(html.indexOf("Requirements") !== -1); // existing block still renders
+});
+
+test("renderCard8 omits the criteria block when absent", function () {
+  var html = renderer.renderCard8({
+    requirements: [{ title: "R1" }],
+    _source: "generated",
+  });
+  assert.ok(html.indexOf("Linked WCAG criteria") === -1);
+});
+
+test("renderCard8 criterion with empty wcag renders title without a dangling WCAG", function () {
+  var a11y = {
+    linkedCriteria: {
+      component: [{ slug: "p", title: "Principles", wcag: [] }],
+      inherited: [],
+    },
+    _source: "generated",
+  };
+  var html = renderer.renderCard8(a11y);
+  assert.ok(html.indexOf("Principles") !== -1);
+  assert.ok(html.indexOf("Principles — WCAG") === -1);
 });
