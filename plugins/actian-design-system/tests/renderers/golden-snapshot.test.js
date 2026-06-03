@@ -91,6 +91,23 @@ var STRUCT_FIXTURES = {
   rectFallback: { type: "RECT" },
   ellipseFallback: { type: "ELLIPSE" },
   divider: { type: "DIVIDER" },
+  frameJustified: {
+    type: "FRAME",
+    layout: {
+      mode: "HORIZONTAL",
+      primaryAxisAlignItems: "SPACE_BETWEEN",
+      counterAxisAlignItems: "CENTER",
+    },
+    children: [
+      { type: "TEXT", content: "L" },
+      { type: "TEXT", content: "R" },
+    ],
+  },
+  framePadded: {
+    type: "FRAME",
+    layout: { mode: "VERTICAL", padding: [12, 8, 4, 16] },
+    children: [{ type: "TEXT", content: "x" }],
+  },
 };
 Object.keys(STRUCT_FIXTURES).forEach(function (name) {
   test("golden(struct/inter): " + name, function () {

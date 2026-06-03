@@ -25,8 +25,8 @@ If you find yourself typing a hex value that isn't in the palette below, STOP â€
   --fm-base-200:   #EDF0F7;   /* Active nav bg, hover, dividers */
   --fm-base-100:   #F5F5FA;
   --fm-base-white: #FFFFFF;
-  --fm-brand:      #0550DC;
-  --fm-brand-dark: #0029A9;
+  --fm-brand:      #0f5fdc;
+  --fm-brand-dark: #0047bc;
   --fm-brand-light:#EDF6FF;
   --fm-text-primary:  #101828;
   --fm-text-secondary:#2D3648;

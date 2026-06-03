@@ -745,6 +745,143 @@ assertNotContains(
 assertContains(escapedDefault, "&lt;b&gt;", "name is escaped");
 
 // ---------------------------------------------------------------------------
+// Robustness — non-string list/text props must not throw (crash regression)
+//
+// A real Figma node or AI-authored content[] can pass an array, number, or
+// boolean where the code previously assumed a string and called .split(). That
+// threw a TypeError, and because the browser render loop has no try/catch, one
+// bad node blanked the ENTIRE preview. The 5 list/text cases must coerce.
+// ---------------------------------------------------------------------------
+
+section("robustness: array / number / boolean list-props never throw");
+
+function noThrow(label, node) {
+  let html = null;
+  let threw = false;
+  try {
+    html = renderFMComponent(node);
+  } catch (e) {
+    threw = true;
+  }
+  assert(!threw, label + " does not throw");
+  assert(typeof html === "string" && html.length > 0, label + " returns html");
+  if (typeof html === "string") {
+    assertNotContains(
+      html,
+      "[" + (node.ref || "") + "]",
+      label + " no raw box",
+    );
+    assertNotContains(html, "undefined", label + " no literal undefined");
+  }
+}
+
+// fmTabs — array and number
+noThrow("fmTabs array Tabs", {
+  type: "INSTANCE",
+  ref: "fmTabs",
+  props: { Tabs: ["Overview", "Details"] },
+});
+noThrow("fmTabs number Tabs", {
+  type: "INSTANCE",
+  ref: "fmTabs",
+  props: { Tabs: 3 },
+});
+
+// fmMenu — array and boolean
+noThrow("fmMenu array Items", {
+  type: "INSTANCE",
+  ref: "fmMenu",
+  props: { Items: ["Edit", "Delete"] },
+});
+noThrow("fmMenu boolean Items", {
+  type: "INSTANCE",
+  ref: "fmMenu",
+  props: { Items: true },
+});
+
+// fmNavBar — array and number
+noThrow("fmNavBar array Items", {
+  type: "INSTANCE",
+  ref: "fmNavBar",
+  props: { Items: ["Home", "Reports"] },
+});
+noThrow("fmNavBar number Items", {
+  type: "INSTANCE",
+  ref: "fmNavBar",
+  props: { Items: 5 },
+});
+
+// fmUser — array and number Name
+noThrow("fmUser array Name", {
+  type: "INSTANCE",
+  ref: "fmUser",
+  props: { Name: ["Ada", "Lovelace"] },
+});
+noThrow("fmUser number Name", {
+  type: "INSTANCE",
+  ref: "fmUser",
+  props: { Name: 42 },
+});
+
+// fmMultiSelectMenuItem — number/boolean props
+noThrow("fmMultiSelectMenuItem number Label", {
+  type: "INSTANCE",
+  ref: "fmMultiSelectMenuItem",
+  props: { Label: 7, Selected: false },
+});
+
+// fmTabs array renders escaped, real labels (not a chip)
+const tabsArr = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmTabs",
+  props: { Tabs: ["Overview", "Details"], Active: "Details" },
+});
+assertContains(tabsArr, "Overview", "array tab label rendered");
+assertContains(tabsArr, "fm-tab--active", "array active tab class");
+
+// fmMultiSelectMenuItem accepts boolean Selected (A3) — same as "true"
+const msBoolTrue = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmMultiSelectMenuItem",
+  props: { Selected: true, Label: "Option" },
+});
+assertContains(msBoolTrue, "fm-checkbox--on", "boolean Selected:true → on");
+const msStrTrue = renderFMComponent({
+  type: "INSTANCE",
+  ref: "fmMultiSelectMenuItem",
+  props: { Selected: "true", Label: "Option" },
+});
+assertContains(msStrTrue, "fm-checkbox--on", 'string Selected:"true" → on');
+assert(
+  msBoolTrue === msStrTrue,
+  "boolean Selected renders identically to string 'true'",
+);
+
+// Defense in depth (A2): a deliberately hostile node (props getter throws) must
+// still return a string (the graceful chip), never propagate.
+const hostile = {
+  type: "INSTANCE",
+  ref: "fmTabs",
+  name: "Hostile",
+  get props() {
+    throw new Error("boom");
+  },
+};
+let hostileHtml = null;
+let hostileThrew = false;
+try {
+  hostileHtml = renderFMComponent(hostile);
+} catch (e) {
+  hostileThrew = true;
+}
+assert(!hostileThrew, "hostile node does not throw");
+assertContains(
+  hostileHtml || "",
+  "fm-component",
+  "hostile node degrades to graceful chip",
+);
+
+// ---------------------------------------------------------------------------
 // XSS safety
 // ---------------------------------------------------------------------------
 

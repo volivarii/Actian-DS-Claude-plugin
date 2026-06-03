@@ -47,17 +47,6 @@
   // existing callers/tests that reach for flow.buildFrameStyle etc. resolve).
   // -------------------------------------------------------------------------
 
-  var FONT_WEIGHT_MAP = nodeRenderer.FONT_WEIGHT_MAP || {
-    Regular: "400",
-    Medium: "500",
-    "Semi Bold": "600",
-    SemiBold: "600",
-    Bold: "700",
-    Light: "300",
-    Thin: "100",
-    "Extra Bold": "800",
-  };
-
   function buildFrameStyle(node) {
     return nodeRenderer.buildFrameStyle(node);
   }

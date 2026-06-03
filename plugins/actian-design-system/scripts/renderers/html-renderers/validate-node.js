@@ -29,6 +29,7 @@ var ALLOWED_KEYS = [
   "size",
   "color",
   "width",
+  "height",
   "letterSpacing",
   "textAlign",
   "textCase",

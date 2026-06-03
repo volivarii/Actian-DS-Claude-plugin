@@ -19,6 +19,10 @@ test("valid structural nodes pass", function () {
   });
 });
 
+test("node carrying height validates (emitter reads node.height)", function () {
+  assert.deepEqual(v.validateNode({ type: "RECT", width: 10, height: 10 }), []);
+});
+
 test("unknown node type is an error", function () {
   var errs = v.validateNode({ type: "WIDGET" });
   assert.equal(errs.length, 1);
