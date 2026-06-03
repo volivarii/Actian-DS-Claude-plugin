@@ -113,7 +113,12 @@ All three operate on existing URLs. Pick by prose:
 
 - **Design ops:** List findings (current vs. correct value). Spot fixes (wrong token, spacing, auto-layout): fix via `use_figma`, report what changed. Ambiguous fixes: present options first.
 - **Content designer:** Read text from selection, check against `vendor/content/dist/global.md` (cross-cutting voice/tone) + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` when the selection is inside a known component, suggest rewrites with reasoning.
-- **A11y specialist:** Check contrast (4.5:1 normal, 3:1 large), touch targets (44x44px min), focus order. For full audit, recommend `/design-audit`.
+- **A11y specialist:** For "what are the WCAG requirements for this component/behavior?" questions, resolve the component slug from the registries (`vendor/components/dist/registries/dskit.json`, `vendor/components/dist/registries/fmkit.json`, `vendor/components/dist/registries/metakit.json`), then run the knowledge helper for authoritative, substrate-sourced criteria:
+  ```bash
+  source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" \
+    && "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/lib/knowledge/a11y.js" <slug>
+  ```
+  Present the result grouped — "This component" (`component`) and "Inherited from category" (`inherited`) — citing each criterion's title + WCAG number(s); never the raw slug. For a category-level question use `--category=<categorySlug>` (which returns only the `inherited` group). If `resolved` is false, say so and fall back to general guidance. For live contrast/touch-target/focus-order checks on a selection, check contrast (4.5:1 normal, 3:1 large), touch targets (44x44px min), and focus order directly; for a full audit, recommend `/design-audit`.
 - **UX researcher:** Load `references/context/ux-patterns.md`, search by flow type, optionally web search. Ground recommendations in Actian product context.
 - **System librarian:** Draft guideline in existing format, show draft, user approves before any file edit.
 - **Tier review** (signals: "review tier-3", "show improvised screens", "what got improvised", "show deviations" + Figma URL): Read `.last-push.json` for the URL's flow page; for each `pushedNodes` entry where `tier === "improvised"`, or where `tier === "adapted"` with `matchedRecipe` set and `composition` null, print `label`: `justification`. No skill routing — companion handles directly.

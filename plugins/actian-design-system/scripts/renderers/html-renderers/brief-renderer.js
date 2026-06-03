@@ -926,6 +926,55 @@
     if (!a11y) return "";
     var parts = [];
 
+    // Linked WCAG criteria (knowledge/a11y.js) — authoritative, substrate-sourced,
+    // grouped by provenance. Rendered above the generated requirements. No raw slugs.
+    var lc = a11y.linkedCriteria;
+    if (
+      lc &&
+      ((lc.component && lc.component.length) ||
+        (lc.inherited && lc.inherited.length))
+    ) {
+      var critList = function (items) {
+        var out = '<ul class="a11y-criteria-list">';
+        items.forEach(function (c) {
+          var wcag =
+            Array.isArray(c.wcag) && c.wcag.length
+              ? " — WCAG " + esc(c.wcag.join(", "))
+              : "";
+          out +=
+            "<li>" +
+            '<span class="a11y-criteria-list__title">' +
+            esc(c.title) +
+            "</span>" +
+            wcag +
+            (c.note
+              ? ' <span class="a11y-criteria-list__note">' +
+                esc(c.note) +
+                "</span>"
+              : "") +
+            "</li>";
+        });
+        return out + "</ul>";
+      };
+      var lcHtml = "";
+      if (lc.component && lc.component.length) {
+        lcHtml +=
+          '<div class="a11y-criteria-group__label">This component</div>' +
+          critList(lc.component);
+      }
+      if (lc.inherited && lc.inherited.length) {
+        lcHtml +=
+          '<div class="a11y-criteria-group__label">Inherited from category</div>' +
+          critList(lc.inherited);
+      }
+      parts.push(
+        '<div class="section" data-name="Linked WCAG criteria">' +
+          sectionTitle("Linked WCAG criteria") +
+          lcHtml +
+          "</div>",
+      );
+    }
+
     // Requirements as a plain bulleted list (Brief Refresh v2 Phase 1: dropped
     // the dense 2x3 a11y-card grid in favor of plain text). The data still
     // carries `icon` + `code` for any future re-elevation, but the renderer
@@ -1009,7 +1058,7 @@
     return cardShell(
       (a11y && a11y.cardTitle) || "Accessibility",
       (a11y && a11y.cardSubtitle) ||
-        "WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios",
+        "WCAG 2.2 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios",
       parts.join(""),
       null,
       a11y,
