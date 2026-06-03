@@ -151,6 +151,25 @@ directly (the substrate's canonical slug, = slugify(category); knowledge
 `ctx.motionRefResolver` to `category-defaults-loader.resolveMotionRef`
 so the Phase A motion fallback can resolve the slug.
 
+**Linked WCAG criteria (v1.94.0+).** When the Accessibility card (`accessibility`)
+is selected, attach the authoritative, substrate-sourced criteria to it. Run the
+knowledge helper with the component slug:
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh" \
+  && "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/lib/knowledge/a11y.js" <slug>
+```
+
+Take the `component` and `inherited` arrays from the JSON output and set
+`accessibility.linkedCriteria = { component, inherited }` on the card object. This
+is deterministic and authoritative — do NOT let the Phase B generator invent it.
+If the helper returns `resolved: false` (undocumented component, no category refs),
+omit `linkedCriteria` entirely (the renderer then renders the card as before).
+The generated `requirements` / Contrast / ARIA tables still render as practical
+guidance below the linked criteria.
+
+`accessibility.linkedCriteria` (optional) — `{ component: [{slug,title,wcag[],tier,note?,excerpt?}], inherited: [...] }`, sourced from `scripts/lib/knowledge/a11y.js`; omitted when unresolved. (No schema change — `validateBriefData` ignores unknown card fields.)
+
 **Phase A — Transcription (sequential, inline).** For each Phase A card:
 - If `resolveSection` returned `{ source: "figma", content }`: call `formatForBrief(cardKey, result, ctx)` and write directly into `brief-data.json`. Card object includes `_source: "figma"`.
 - If `resolveSection` returned `{ source: null, fallback: true, fallbackReason }`: invoke yourself (the main agent) inline to generate the missing content using the recipe's `sections` + `qualityRules` as guidance. Stamp `_source: "generated"`, `_fallback: true`, `_fallbackReason`. Do NOT dispatch the card-generator agent for this — Phase A fallbacks are inline.
@@ -186,6 +205,7 @@ Write: `{project_working_directory}/components/[name]/[name]-brief-data.json`
 - All token names use `--zen-` prefix (DS Kit) or `--fm-` prefix (FM)
 - No hardcoded hex values in token fields
 - `accessibility.requirements` has exactly 6 items (if card 7 selected)
+- `accessibility.linkedCriteria` (if present): each item has a non-empty title; no raw slug strings leak into rendered text.
 - **Code values use ASCII operators only** — `=>` not `⇒` (U+21D2), `->` not `→`, `<=` not `≤`, `>=` not `≥`, `!==` not `≠`. Especially watch generated content.
 - **`meta.pluginVersion` matches the project's `plugin.json` `version`** — read the file, do not transcribe from any example. If the value differs from the actual `plugin.json`, fix it before push.
 
@@ -227,6 +247,12 @@ Read your `brief-data.json` and push directly to Figma using small `use_figma` c
    a. Create card shell (Pattern 1). Read `card.cardTitle` and `card.cardSubtitle` from the data model — pass them straight to `setProperties` as `Title#140:0` and `Subtitle#140:1`. Do NOT hardcode card titles. **Default-leak detection (post-v1.66.0):** the Meta Kit Card Header now defaults to the generic placeholders `"Card title"` / `"Subtitle text"`. If a pushed card displays either string verbatim, `setProperties` silently failed (wrong property ID, wrong nested instance, or unresolved Card Header lookup) — fix the push call rather than ignoring the leak.
    b. Populate content: translate data model fields to Plugin API calls using component-brief/push-patterns.md
    c. Accessibility card (`accessibility`): use the simplified Pattern 6 — render `requirements` as a vertical bulleted list with bold-title + plain-body rows (one row per requirement, no per-card frames, no embedded code blocks). This replaces the 2×3 a11y-card grid retired in v1.66.3. Then render the Contrast table and ARIA table after the requirements list. Use Contrast Badge `setProperties` and A11y Spec Row `setProperties` for the table rows.
+   Additionally, before the requirements list, render the **Linked WCAG criteria** block when
+   `accessibility.linkedCriteria` is present: a "Linked WCAG criteria" sub-heading,
+   then two labeled groups — "This component" (`linkedCriteria.component`) and
+   "Inherited from category" (`linkedCriteria.inherited`) — each a bulleted list of
+   `{title} — WCAG {wcag joined}` (+ `note` if present; title alone when `wcag` is
+   empty). Never render the raw `slug`. Omit the block (and either group) when empty.
 6. After all cards pushed, report to user with count
 
 **Rules:**

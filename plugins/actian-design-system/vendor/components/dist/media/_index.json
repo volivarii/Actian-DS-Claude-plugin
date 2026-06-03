@@ -20,15 +20,9 @@
     },
     "badge": {
       "preview": "components/dist/media/badge/preview.webp",
-      "parts": [
-        "components/dist/media/badge/parts-0.webp"
-      ],
       "variations": [
         "components/dist/media/badge/variations-0.webp",
         "components/dist/media/badge/variations-1.webp"
-      ],
-      "spacing": [
-        "components/dist/media/badge/spacing-0.webp"
       ],
       "behavior": [
         "components/dist/media/badge/behavior-0.webp"
@@ -60,6 +54,10 @@
       "preview": "components/dist/media/card-for-perimeter/preview.webp"
     },
     "chat-with-ai-steward": {
+      "preview": "components/dist/media/chat-with-ai-steward/preview.webp",
+      "variations": [
+        "components/dist/media/chat-with-ai-steward/variations-0.webp"
+      ],
       "behavior": [
         "components/dist/media/chat-with-ai-steward/behavior-0.webp"
       ]
@@ -286,6 +284,9 @@
       "variations": [
         "components/dist/media/side-nav/variations-0.webp",
         "components/dist/media/side-nav/variations-1.webp"
+      ],
+      "behavior": [
+        "components/dist/media/side-nav/behavior-0.webp"
       ]
     },
     "spinner": {

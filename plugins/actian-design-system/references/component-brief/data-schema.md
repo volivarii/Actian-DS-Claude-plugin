@@ -222,7 +222,7 @@ Sentence case for both, per Figma content guideline (section/page headers are se
 ```json
 {
   "cardTitle": "Accessibility",
-  "cardSubtitle": "WCAG 2.1 AA requirements, keyboard, ARIA, and contrast",
+  "cardSubtitle": "WCAG 2.2 AA requirements, keyboard, ARIA, and contrast",
   "requirements": [
     {
       "title": "Role & semantics",
