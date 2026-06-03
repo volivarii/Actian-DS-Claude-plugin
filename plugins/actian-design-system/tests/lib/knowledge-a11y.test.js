@@ -82,10 +82,15 @@ test("linkedCriteriaForComponent opts override skips loading", function () {
 });
 
 test("linkedCriteriaForComponent load-by-slug resolves a documented component", function () {
-  // 'whats-new-dropdown' carries meta.a11y_refs in the vendored guidelines.
+  // 'whats-new-dropdown' carries meta.a11y_refs in the vendored guidelines —
+  // a documented component MUST resolve component-level criteria (guards against
+  // a future re-vendor silently dropping its refs).
   var r = a11y.linkedCriteriaForComponent("whats-new-dropdown");
-  assert.equal(typeof r.resolved, "boolean");
-  assert.ok(Array.isArray(r.component));
+  assert.equal(r.resolved, true);
+  assert.ok(
+    r.component.length > 0,
+    "whats-new-dropdown must have component-level criteria",
+  );
   assert.ok(Array.isArray(r.inherited));
 });
 
