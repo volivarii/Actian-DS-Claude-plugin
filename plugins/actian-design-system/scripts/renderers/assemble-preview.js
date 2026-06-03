@@ -49,6 +49,7 @@ var TYPE_CONFIGS = {
   flow: {
     css: [
       path.join(RENDERERS_DIR, "fm-base.css"),
+      path.join(RENDERERS_DIR, "render-node.css"),
       path.join(RENDERERS_DIR, "flow-renderer.css"),
     ],
     renderers: [
@@ -89,7 +90,10 @@ var TYPE_CONFIGS = {
     },
   },
   presentation: {
-    css: [path.join(RENDERERS_DIR, "presentation-renderer.css")],
+    css: [
+      path.join(RENDERERS_DIR, "render-node.css"),
+      path.join(RENDERERS_DIR, "presentation-renderer.css"),
+    ],
     renderers: [
       // render-node.js UMD must load BEFORE presentation-renderer.js so the
       // IIFE can pick it up via window.renderNode (shared structural-node
