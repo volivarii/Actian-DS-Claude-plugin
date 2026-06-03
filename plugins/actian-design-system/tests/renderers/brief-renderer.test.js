@@ -226,3 +226,17 @@ test("renderCard8 criterion with empty wcag renders title without a dangling WCA
   assert.ok(html.indexOf("Principles") !== -1);
   assert.ok(html.indexOf("Principles — WCAG") === -1);
 });
+
+test("renderCard8 renders only 'Inherited from category' when component is empty", function () {
+  // The common case for stub / undocumented-but-categorized components.
+  var html = renderer.renderCard8({
+    linkedCriteria: {
+      component: [],
+      inherited: [{ slug: "z", title: "Text spacing", wcag: ["1.4.12"] }],
+    },
+    _source: "generated",
+  });
+  assert.ok(html.indexOf("Inherited from category") !== -1);
+  assert.ok(html.indexOf("This component") === -1);
+  assert.ok(html.indexOf("Text spacing") !== -1);
+});
