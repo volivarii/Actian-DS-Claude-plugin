@@ -1,0 +1,30 @@
+{
+  "root": "Minimal FM Screen",
+  "nodes": [
+    {
+      "t": "F",
+      "n": "Content",
+      "p": "Content",
+      "lm": "VERTICAL",
+      "w": 360,
+      "h": 200
+    },
+    {
+      "t": "I",
+      "n": "Primary Button",
+      "k": "368b62312ca941c80ea8eeed84a57d33bb470b09",
+      "v": { "Type": "Primary", "Size": "md" },
+      "pr": { "label": "Save" },
+      "p": "Content/Primary Button",
+      "w": 120,
+      "h": 40
+    },
+    {
+      "t": "T",
+      "n": "Helper text",
+      "c": "Choose an option below",
+      "s": 14,
+      "p": "Content/Helper text"
+    }
+  ]
+}

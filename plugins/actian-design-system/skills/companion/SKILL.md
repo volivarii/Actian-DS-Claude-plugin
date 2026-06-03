@@ -21,6 +21,8 @@ Designers learn three input shapes; the companion does the rest:
 
 1. Read `../../references/context/companion-context.md` — always-loaded DS summary
 2. If Figma URL(s) shared: extract fileKey + nodeId, classify node via `use_figma` (see `../../references/figma/figma-output.md`), then `get_design_context` + `get_screenshot`
+   - **If the Figma MCP is unavailable or unauthorized** (the `use_figma` / `get_design_context` calls error or the tool isn't found): say so and guide the user — on Claude Desktop / Cowork the `claude.ai Figma` connector is built in (authorize it on first use); on Claude Code CLI, connect it via `/mcp` (it's a Claude-managed connector, not the `figma@claude-plugins-official` Dev Mode plugin). Stop and tell the user rather than failing cryptically mid-task.
+   - **If a Figma file renders hex colors instead of bound DS styles**, the file isn't connected to the DS libraries — or you lack a Figma editor seat. Flag this as a setup issue, not a plugin bug.
 3. Note app context (Studio/Explorer/Administration)
 
 ## Step 2 — Classify intent

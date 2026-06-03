@@ -153,7 +153,7 @@ module.exports = {
 
 if (require.main === module) {
   var fs = require("fs");
-  var path = require("path");
+  var PATHS = require("../lib/paths.js");
   var args = process.argv.slice(2);
 
   var slugs = null;
@@ -188,21 +188,15 @@ if (require.main === module) {
     process.exit(1);
   }
 
-  var PLUGIN_ROOT = path.resolve(__dirname, "..");
-  function loadKit(file) {
+  function loadKit(registryPath) {
     try {
-      return JSON.parse(
-        fs.readFileSync(
-          path.join(PLUGIN_ROOT, "docs", "generated", file),
-          "utf8",
-        ),
-      );
+      return JSON.parse(fs.readFileSync(registryPath, "utf8"));
     } catch (e) {
       return { components: {} };
     }
   }
-  var fm = loadKit("fmkit.json").components || {};
-  var ds = loadKit("dskit.json").components || {};
+  var fm = loadKit(PATHS.components.registries.fmkit).components || {};
+  var ds = loadKit(PATHS.components.registries.dskit).components || {};
 
   function indexBoth(kit) {
     var index = {};

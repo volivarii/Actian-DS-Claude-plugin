@@ -29,7 +29,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**v1.79.1** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
+**v1.96.0** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
 
 ---
 
@@ -43,7 +43,7 @@ DS knowledge (tokens, components, foundations, content + accessibility guideline
 
 The plugin is available in both **Cowork** and **Code** tabs after install. At this time, **Code** is recommended for best results.
 
-> **Figma integration:** The Figma MCP (`claude.ai Figma`) is built into Claude. On first use, you'll be prompted to authorize your Figma account — no additional setup required. Works with Figma files in the browser and Figma desktop.
+> **Figma integration:** The plugin's Figma read/write uses the `claude.ai Figma` connector. On **Claude Desktop / Cowork** it's built in — you'll be prompted to authorize your Figma account on first use (no separate install). On the **Claude Code CLI**, connect it via `/mcp` (it's a Claude-managed connector, surfaced under `/mcp`). Works with Figma files in the browser and Figma desktop.
 
 ### Claude Code CLI
 
@@ -52,9 +52,18 @@ claude plugin marketplace add volivarii/Actian-DS-Claude-plugin
 claude plugin install actian-design-system@actian-design-system
 ```
 
-### Auto-updates + permissions (optional)
+### Prerequisites
 
-Add to `~/.claude/settings.json`:
+For the plugin to produce real DS output (not hex fallbacks), you need:
+
+- **Figma desktop running** — for canvas read/write.
+- **A Figma editor seat with the DS / FM / Meta libraries enabled.** Without it — or if a file isn't connected to the libraries — output falls back to raw hex values instead of bound design-system styles. That's a setup issue, not a plugin bug.
+- **The Figma MCP connected** — built in on Desktop / Cowork; on CLI connect via `/mcp` (see the Figma integration note above).
+- **Node.js available** — used by the local preview/validation scripts. The plugin auto-resolves nvm / Volta / asdf / fnm / Homebrew / system installs; if it can't find node, install it from [nodejs.org](https://nodejs.org) or set `NODE_BIN`.
+
+### Auto-updates + permissions (recommended for testers)
+
+Add to `~/.claude/settings.json` — `autoUpdate: true` makes hot-fixes land automatically at session start (this is the simplest way to stay current during the test window):
 
 ```json
 {
@@ -82,22 +91,26 @@ Add to `~/.claude/settings.json`:
 
 ### Updating the plugin
 
-**Desktop:**
+Plugin auto-update works in current Claude Code (v2.1.x, June 2026+). Because this is a **third-party** marketplace, auto-update is **opt-in** — turn it on once and updates arrive automatically at session start (you'll be prompted to run `/reload-plugins`).
 
-> **Known issue:** The built-in update mechanism for external marketplace plugins [does not reliably detect new versions](https://github.com/anthropics/claude-code/issues/38271). The cached version persists even after a new release is pushed.
+**Enable auto-update (recommended for testers):** either set `"autoUpdate": true` in the `extraKnownMarketplaces` block above, or run `/plugin` > **Marketplaces** tab > select Actian Design System > **Enable auto-update**.
 
-1. Remove the marketplace: Customize > find marketplace > Remove
-2. Re-add the marketplace: `volivarii/Actian-DS-Claude-plugin`
-3. Install the plugin again
-
-**CLI:**
+**CLI — manual pull** (if you didn't enable auto-update):
 
 ```bash
 claude plugin marketplace update actian-design-system
 claude plugin update actian-design-system@actian-design-system
 ```
 
-**Auto-update** (one-time): Run `/plugin` > **Marketplaces** tab > select Actian Design System > **Enable auto-update**. Updates are then applied at startup.
+**Cowork / Desktop:** an org owner can turn on **Organization settings > Plugins > Sync automatically** (the GitHub marketplace then re-syncs whenever a PR merges); otherwise use the manual **Update** button. Changes reach each member on their next session (up to ~30 min).
+
+**Fallback (rarely needed):** if an update still doesn't land, refresh the marketplace with `/plugin marketplace update` or, as a last resort, clear the cached copy and restart Claude:
+
+```bash
+rm -rf ~/.claude/plugins/cache/actian-design-system/actian-design-system/
+```
+
+(The cache is keyed by `cache/<marketplace>/<plugin>/` — here both are `actian-design-system`; verify the folder names if your path differs.)
 
 **Verify your version:** Ask the companion "what version are you running?"
 

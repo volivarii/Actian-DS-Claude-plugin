@@ -15,14 +15,13 @@
 var fs = require("fs");
 var path = require("path");
 
-var PLUGIN_ROOT = path.resolve(__dirname, "../..");
-var DOCS_DIR = path.join(PLUGIN_ROOT, "docs", "generated");
 var shared = require("../lib/shared-constants");
+var PATHS = require("../lib/paths.js");
 
 // Build reverse lookup: componentKey → FM ref name
 function buildKeyToRefMap() {
   var fmRegistry = JSON.parse(
-    fs.readFileSync(path.join(DOCS_DIR, "fmkit.json"), "utf8"),
+    fs.readFileSync(PATHS.components.registries.fmkit, "utf8"),
   );
 
   // Reverse FM_SLUGS: slug → ref name
