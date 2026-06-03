@@ -802,6 +802,40 @@ td code {
 .a11y-req-list__body {
   color: #475467;
 }
+/* Linked WCAG criteria (knowledge/a11y.js) — sourced, grouped-by-provenance list
+   rendered above the requirements list in the Accessibility card. */
+.a11y-criteria-group__label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #667085;
+  margin: 12px 0 6px;
+}
+.a11y-criteria-group__label:first-child {
+  margin-top: 0;
+}
+.a11y-criteria-list {
+  margin: 0 0 4px;
+  padding-left: 20px;
+  font-size: 14px;
+  color: #2d3648;
+  line-height: 1.6;
+}
+.a11y-criteria-list li {
+  margin-bottom: 6px;
+}
+.a11y-criteria-list li:last-child {
+  margin-bottom: 0;
+}
+.a11y-criteria-list__title {
+  font-weight: 600;
+  color: #101828;
+}
+.a11y-criteria-list__note {
+  color: #475467;
+  font-style: italic;
+}
 .code-block {
   background: #1a202c;
   border-radius: 12px;
