@@ -69,9 +69,13 @@ const mockDocument = {
   },
 };
 
-// Pre-load fm-html-map so flow-renderer can resolve shared functions
+// Pre-load fm-html-map + render-node so flow-renderer can resolve shared
+// functions. (The IIFE runs under `new Function`, whose global `require`
+// cannot resolve flow-renderer's relative paths, so we provide both deps on
+// the mocked window — mirroring how the browser bundle inlines them.)
 const fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
-const mockWindow = { fmHtmlMap: fmHtmlMap };
+const renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
+const mockWindow = { fmHtmlMap: fmHtmlMap, renderNode: renderNodeModule };
 
 // Execute the IIFE with mocked globals
 // We wrap in a function that provides window and document

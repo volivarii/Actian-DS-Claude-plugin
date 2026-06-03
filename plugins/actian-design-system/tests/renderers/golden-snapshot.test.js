@@ -64,3 +64,45 @@ Object.keys(FIXTURES).forEach(function (name) {
     golden("component-" + name, fm.renderFMComponent(node));
   });
 });
+
+var renderNode;
+try {
+  renderNode = require("../../scripts/renderers/html-renderers/render-node.js");
+} catch (e) {
+  renderNode = null;
+}
+
+var STRUCT_FIXTURES = {
+  frameRow: {
+    type: "FRAME",
+    layout: { mode: "HORIZONTAL" },
+    children: [
+      { type: "TEXT", content: "A", width: 80 },
+      { type: "TEXT", content: "B" },
+    ],
+  },
+  textClamped: {
+    type: "TEXT",
+    content: "A very long label that should clamp",
+    width: 100,
+  },
+  textUpper: { type: "TEXT", content: "header", textCase: "UPPER" },
+  rectFallback: { type: "RECT" },
+  divider: { type: "DIVIDER" },
+};
+Object.keys(STRUCT_FIXTURES).forEach(function (name) {
+  test("golden(struct/inter): " + name, function () {
+    assert.ok(renderNode, "render-node.js must exist");
+    golden(
+      "struct-inter-" + name,
+      renderNode.renderNode(STRUCT_FIXTURES[name], { defaultFont: "Inter" }),
+    );
+  });
+  test("golden(struct/roboto): " + name, function () {
+    assert.ok(renderNode, "render-node.js must exist");
+    golden(
+      "struct-roboto-" + name,
+      renderNode.renderNode(STRUCT_FIXTURES[name], { defaultFont: "Roboto" }),
+    );
+  });
+});

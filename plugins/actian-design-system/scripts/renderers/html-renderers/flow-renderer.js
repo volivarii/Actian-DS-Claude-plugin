@@ -35,11 +35,19 @@
       return "";
     };
 
+  // Shared structural-node renderer (single source of truth for the
+  // Figma-node → HTML mapping). Resolved the same way as fm-html-map.
+  var nodeRenderer =
+    (typeof window !== "undefined" && window.renderNode) ||
+    (typeof require !== "undefined" && require("./render-node.js")) ||
+    {};
+
   // -------------------------------------------------------------------------
-  // Style builders for structured nodes
+  // Style builders — delegate to the shared module (re-exported below so
+  // existing callers/tests that reach for flow.buildFrameStyle etc. resolve).
   // -------------------------------------------------------------------------
 
-  var FONT_WEIGHT_MAP = {
+  var FONT_WEIGHT_MAP = nodeRenderer.FONT_WEIGHT_MAP || {
     Regular: "400",
     Medium: "500",
     "Semi Bold": "600",
@@ -51,303 +59,22 @@
   };
 
   function buildFrameStyle(node) {
-    var parts = [];
-    var layout = node.layout || {};
-    var sizing = node.sizing || {};
-
-    // Flex layout
-    if (layout.mode === "HORIZONTAL") {
-      parts.push("display:flex", "flex-direction:row");
-    } else if (layout.mode === "VERTICAL") {
-      parts.push("display:flex", "flex-direction:column");
-    }
-
-    if (layout.spacing != null) {
-      parts.push("gap:" + layout.spacing + "px");
-    }
-
-    // Primary axis alignment
-    if (layout.primaryAxisAlignItems) {
-      var alignMap = {
-        SPACE_BETWEEN: "space-between",
-        CENTER: "center",
-        MIN: "flex-start",
-        MAX: "flex-end",
-      };
-      var justifyVal = alignMap[layout.primaryAxisAlignItems];
-      if (justifyVal) parts.push("justify-content:" + justifyVal);
-    }
-
-    // Counter axis alignment
-    if (layout.counterAxisAlignItems) {
-      var crossMap = {
-        CENTER: "center",
-        MIN: "flex-start",
-        MAX: "flex-end",
-      };
-      var alignItemsVal = crossMap[layout.counterAxisAlignItems];
-      if (alignItemsVal) parts.push("align-items:" + alignItemsVal);
-    }
-
-    if (layout.padding) {
-      var p = layout.padding;
-      if (Array.isArray(p)) {
-        // [top, right, bottom, left]
-        parts.push(
-          "padding:" +
-            (p[0] || 0) +
-            "px " +
-            (p[1] || 0) +
-            "px " +
-            (p[2] || 0) +
-            "px " +
-            (p[3] || 0) +
-            "px",
-        );
-      } else if (typeof p === "object") {
-        var t = p.top != null ? p.top : p.vertical != null ? p.vertical : 0;
-        var r =
-          p.right != null ? p.right : p.horizontal != null ? p.horizontal : 0;
-        var b =
-          p.bottom != null ? p.bottom : p.vertical != null ? p.vertical : 0;
-        var l =
-          p.left != null ? p.left : p.horizontal != null ? p.horizontal : 0;
-        parts.push("padding:" + t + "px " + r + "px " + b + "px " + l + "px");
-      } else {
-        parts.push("padding:" + p + "px");
-      }
-    }
-
-    // Horizontal sizing
-    if (sizing.horizontal === "FILL") {
-      parts.push("flex:1", "min-width:0");
-    } else if (sizing.horizontal === "HUG") {
-      // default — no extra CSS
-    } else if (typeof sizing.horizontal === "number") {
-      parts.push("width:" + sizing.horizontal + "px", "flex-shrink:0");
-    } else if (node.width != null) {
-      parts.push("width:" + node.width + "px");
-    }
-
-    // Vertical sizing
-    if (sizing.vertical === "FILL") {
-      parts.push("flex:1", "min-height:0");
-    } else if (typeof sizing.vertical === "number") {
-      parts.push("height:" + sizing.vertical + "px");
-    } else if (node.height != null) {
-      parts.push("height:" + node.height + "px");
-    }
-
-    // Fills
-    if (node.fills && node.fills.length > 0) {
-      parts.push("background:" + node.fills[0]);
-    }
-
-    // Corner radius
-    if (node.cornerRadius != null) {
-      if (typeof node.cornerRadius === "number") {
-        parts.push("border-radius:" + node.cornerRadius + "px");
-      } else if (typeof node.cornerRadius === "object") {
-        var cr = node.cornerRadius;
-        parts.push(
-          "border-radius:" +
-            (cr.topLeft || 0) +
-            "px " +
-            (cr.topRight || 0) +
-            "px " +
-            (cr.bottomRight || 0) +
-            "px " +
-            (cr.bottomLeft || 0) +
-            "px",
-        );
-      }
-    }
-
-    // Stroke
-    if (node.stroke) {
-      var stroke = node.stroke;
-      var weight = stroke.weight != null ? stroke.weight : 1;
-      var color = stroke.color || "#000000";
-      if (stroke.sides && typeof stroke.sides === "object") {
-        if (stroke.sides.top)
-          parts.push("border-top:" + weight + "px solid " + color);
-        if (stroke.sides.right)
-          parts.push("border-right:" + weight + "px solid " + color);
-        if (stroke.sides.bottom)
-          parts.push("border-bottom:" + weight + "px solid " + color);
-        if (stroke.sides.left)
-          parts.push("border-left:" + weight + "px solid " + color);
-      } else {
-        parts.push("border:" + weight + "px solid " + color);
-      }
-    }
-
-    // Opacity
-    if (node.opacity != null) {
-      parts.push("opacity:" + node.opacity);
-    }
-
-    // Clips content
-    if (node.clipsContent) {
-      parts.push("overflow:hidden");
-    }
-
-    return parts.join(";");
+    return nodeRenderer.buildFrameStyle(node);
   }
 
   function buildTextStyle(node) {
-    var parts = [];
-
-    // Font family + weight
-    if (node.font) {
-      var fontParts = node.font.split(":");
-      var family = fontParts[0] ? fontParts[0].trim() : "Inter";
-      var weightName = fontParts[1] ? fontParts[1].trim() : "Regular";
-      var weight = FONT_WEIGHT_MAP[weightName] || "400";
-      parts.push("font-family:" + family);
-      parts.push("font-weight:" + weight);
-    }
-
-    if (node.size != null) {
-      parts.push("font-size:" + node.size + "px");
-    }
-
-    if (node.color) {
-      parts.push("color:" + node.color);
-    }
-
-    if (node.width != null) {
-      parts.push("display:block", "width:" + node.width + "px");
-      // Clamp overflow on fixed-width text so it can't blow out its container.
-      // Multi-line text (contains \n) only clips; single-line text ellipsizes.
-      // The renderer displays node.content; fall back to node.text for callers
-      // (and the single-line unit test) that only supply node.text.
-      var __txt = node.content != null ? node.content : node.text;
-      var __multiline = typeof __txt === "string" && __txt.indexOf("\n") !== -1;
-      if (__multiline) {
-        parts.push("overflow:hidden");
-      } else {
-        parts.push(
-          "overflow:hidden",
-          "text-overflow:ellipsis",
-          "white-space:nowrap",
-        );
-      }
-    }
-
-    if (node.letterSpacing != null) {
-      parts.push("letter-spacing:" + node.letterSpacing + "px");
-    }
-
-    if (node.textAlign && node.textAlign.horizontal) {
-      var align = node.textAlign.horizontal;
-      if (align === "CENTER") parts.push("text-align:center");
-      else if (align === "RIGHT") parts.push("text-align:right");
-      else if (align === "LEFT") parts.push("text-align:left");
-    }
-
-    if (node.opacity != null) {
-      parts.push("opacity:" + node.opacity);
-    }
-
-    return parts.join(";");
+    return nodeRenderer.buildTextStyle(node, { defaultFont: "Inter" });
   }
 
   // -------------------------------------------------------------------------
-  // renderContentNode — recursive structured node → HTML
+  // renderContentNode — recursive structured node → HTML.
+  // Now a thin wrapper over the shared render-node.js module (flow uses the
+  // Inter default font). The function name + export are kept so existing
+  // callers/tests continue to resolve.
   // -------------------------------------------------------------------------
 
   function renderContentNode(node) {
-    if (!node) return "";
-
-    switch (node.type) {
-      case "FRAME": {
-        var style = buildFrameStyle(node);
-        var children = (node.children || []).map(renderContentNode).join("");
-        return (
-          '<div class="fm-frame" data-name="' +
-          esc(node.name || "") +
-          '"' +
-          (style ? ' style="' + style + '"' : "") +
-          ">" +
-          children +
-          "</div>"
-        );
-      }
-
-      case "TEXT": {
-        var style = buildTextStyle(node);
-        return (
-          '<span class="fm-text" data-name="' +
-          esc(node.name || "") +
-          '"' +
-          (style ? ' style="' + style + '"' : "") +
-          ">" +
-          esc(node.content || "") +
-          "</span>"
-        );
-      }
-
-      case "INSTANCE": {
-        return renderFMComponent(node);
-      }
-
-      case "ELLIPSE": {
-        var bg = (node.fills && node.fills[0]) || "#CBD2E0";
-        var ellipseStyle =
-          "width:" +
-          (node.width || 16) +
-          "px;height:" +
-          (node.height || 16) +
-          "px;min-width:1px;min-height:1px;border-radius:50%;background:" +
-          bg;
-        if (node.opacity != null) ellipseStyle += ";opacity:" + node.opacity;
-        return (
-          '<div class="fm-ellipse" data-name="' +
-          esc(node.name || "") +
-          '" style="' +
-          ellipseStyle +
-          '"></div>'
-        );
-      }
-
-      case "RECT": {
-        var rectStyle =
-          "width:" +
-          (node.width || 32) +
-          "px;height:" +
-          (node.height || 32) +
-          "px;min-width:1px;min-height:1px;";
-        if (node.fills && node.fills[0])
-          rectStyle += "background:" + node.fills[0] + ";";
-        if (node.cornerRadius)
-          rectStyle +=
-            "border-radius:" +
-            (typeof node.cornerRadius === "number"
-              ? node.cornerRadius + "px"
-              : "0") +
-            ";";
-        return (
-          '<div class="fm-rect" data-name="' +
-          esc(node.name || "") +
-          '" style="' +
-          rectStyle +
-          '"></div>'
-        );
-      }
-
-      case "DIVIDER": {
-        return '<hr class="fm-divider">';
-      }
-
-      default: {
-        // Unknown node type — render children if present, otherwise empty
-        if (node.children && node.children.length) {
-          return (node.children || []).map(renderContentNode).join("");
-        }
-        return "";
-      }
-    }
+    return nodeRenderer.renderNode(node, { defaultFont: "Inter" });
   }
 
   // -------------------------------------------------------------------------
