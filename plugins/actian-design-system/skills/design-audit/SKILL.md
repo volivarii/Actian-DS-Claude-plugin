@@ -35,7 +35,7 @@ Audit scope for <target>:
   all (default) — copy + tokens + a11y + heuristic
   copy          — content guidelines, banned terms, label patterns
   tokens        — color/spacing/radius binding, hardcoded values
-  a11y          — WCAG 2.1 AA, contrast, ARIA, keyboard
+  a11y          — WCAG 2.2 AA, contrast, ARIA, keyboard
   heuristic     — UX patterns, layout, intent
 
 Reply: scope name, comma-separated list, or enter for all.
