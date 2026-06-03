@@ -8,11 +8,6 @@
             "type": "command",
             "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/hooks/check-update.sh\"",
             "timeout": 5
-          },
-          {
-            "type": "command",
-            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/scripts/sync/sync-check.sh\"",
-            "timeout": 15
           }
         ]
       }
