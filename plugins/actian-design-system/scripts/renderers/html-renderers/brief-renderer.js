@@ -1058,7 +1058,7 @@
     return cardShell(
       (a11y && a11y.cardTitle) || "Accessibility",
       (a11y && a11y.cardSubtitle) ||
-        "WCAG 2.1 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios",
+        "WCAG 2.2 AA requirements, keyboard navigation, ARIA patterns, and contrast ratios",
       parts.join(""),
       null,
       a11y,
