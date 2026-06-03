@@ -29,7 +29,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**v1.79.1** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
+**v1.96.0** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
 
 ---
 
@@ -43,7 +43,7 @@ DS knowledge (tokens, components, foundations, content + accessibility guideline
 
 The plugin is available in both **Cowork** and **Code** tabs after install. At this time, **Code** is recommended for best results.
 
-> **Figma integration:** The plugin's Figma read/write uses the `claude.ai Figma` connector. On **Claude Desktop / Cowork** it's built in — you'll be prompted to authorize your Figma account on first use (no separate install). On the **Claude Code CLI**, connect it via `/mcp` (or `claude plugin install figma@claude-plugins-official`). Works with Figma files in the browser and Figma desktop.
+> **Figma integration:** The plugin's Figma read/write uses the `claude.ai Figma` connector. On **Claude Desktop / Cowork** it's built in — you'll be prompted to authorize your Figma account on first use (no separate install). On the **Claude Code CLI**, connect it via `/mcp` (it's a Claude-managed connector, surfaced under `/mcp`). Works with Figma files in the browser and Figma desktop.
 
 ### Claude Code CLI
 
@@ -107,10 +107,10 @@ claude plugin update actian-design-system@actian-design-system
 **Fallback (rarely needed):** if an update still doesn't land, refresh the marketplace with `/plugin marketplace update` or, as a last resort, clear the cached copy and restart Claude:
 
 ```bash
-rm -rf ~/.claude/plugins/cache/Actian-DS-Claude-plugin/actian-design-system/
+rm -rf ~/.claude/plugins/cache/actian-design-system/actian-design-system/
 ```
 
-(Verify the `cache/<marketplace>/<plugin>/` folder names if the path differs.)
+(The cache is keyed by `cache/<marketplace>/<plugin>/` — here both are `actian-design-system`; verify the folder names if your path differs.)
 
 **Verify your version:** Ask the companion "what version are you running?"
 
