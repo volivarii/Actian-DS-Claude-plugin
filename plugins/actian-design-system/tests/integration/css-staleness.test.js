@@ -24,7 +24,7 @@ var RENDERERS_DIR = path.join(
   __dirname,
   "..",
   "..",
-      "scripts",
+  "scripts",
   "renderers",
   "html-renderers",
 );
@@ -105,10 +105,12 @@ var PAIRS = [
     name: "Flow",
     js: [
       path.join(RENDERERS_DIR, "flow-renderer.js"),
+      path.join(RENDERERS_DIR, "render-node.js"),
       path.join(RENDERERS_DIR, "fm-html-map.js"),
     ],
     css: [
       path.join(RENDERERS_DIR, "fm-base.css"),
+      path.join(RENDERERS_DIR, "render-node.css"),
       path.join(RENDERERS_DIR, "flow-renderer.css"),
     ],
   },
@@ -125,8 +127,14 @@ var PAIRS = [
   },
   {
     name: "Presentation",
-    js: [path.join(RENDERERS_DIR, "presentation-renderer.js")],
-    css: [path.join(RENDERERS_DIR, "presentation-renderer.css")],
+    js: [
+      path.join(RENDERERS_DIR, "presentation-renderer.js"),
+      path.join(RENDERERS_DIR, "render-node.js"),
+    ],
+    css: [
+      path.join(RENDERERS_DIR, "render-node.css"),
+      path.join(RENDERERS_DIR, "presentation-renderer.css"),
+    ],
   },
 ];
 

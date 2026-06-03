@@ -49,10 +49,14 @@ var TYPE_CONFIGS = {
   flow: {
     css: [
       path.join(RENDERERS_DIR, "fm-base.css"),
+      path.join(RENDERERS_DIR, "render-node.css"),
       path.join(RENDERERS_DIR, "flow-renderer.css"),
     ],
     renderers: [
       path.join(RENDERERS_DIR, "fm-html-map.js"),
+      // render-node.js UMD must load BEFORE flow-renderer.js so the IIFE can
+      // pick it up via window.renderNode (shared structural-node renderer).
+      path.join(RENDERERS_DIR, "render-node.js"),
       path.join(RENDERERS_DIR, "flow-renderer.js"),
     ],
     containerHtml: '<div id="flow-container"></div>',
@@ -86,8 +90,19 @@ var TYPE_CONFIGS = {
     },
   },
   presentation: {
-    css: [path.join(RENDERERS_DIR, "presentation-renderer.css")],
-    renderers: [path.join(RENDERERS_DIR, "presentation-renderer.js")],
+    css: [
+      path.join(RENDERERS_DIR, "render-node.css"),
+      path.join(RENDERERS_DIR, "presentation-renderer.css"),
+    ],
+    renderers: [
+      // render-node.js UMD must load BEFORE presentation-renderer.js so the
+      // IIFE can pick it up via window.renderNode (shared structural-node
+      // renderer). render-node carries its own esc fallback, so fm-html-map is
+      // not required here; INSTANCE nodes (rare in decks) render empty as they
+      // did before, since this bundle ships no fm-html-map.
+      path.join(RENDERERS_DIR, "render-node.js"),
+      path.join(RENDERERS_DIR, "presentation-renderer.js"),
+    ],
     containerHtml: '<div id="deck-container"></div>',
     fonts: "Roboto:wght@400;500;700",
     title: function (data) {

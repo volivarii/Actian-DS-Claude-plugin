@@ -1,0 +1,33 @@
+/* render-node.css — styling for the shared structural-node renderer (render-node.js).
+   Inlined by BOTH the flow and presentation bundles so the unified renderer's
+   primitives render identically wherever it runs. This is the CSS mirror of the
+   JS unification in render-node.js: the styling travels with the shared renderer
+   instead of being duplicated into one consumer's stylesheet (which would
+   re-introduce the very drift Task 6 removed). */
+
+:root {
+  /* Self-contained so the divider resolves even in bundles that do NOT inline
+     fm-base.css (e.g. the presentation bundle). Value matches fm-base.css. */
+  --fm-base-300: #e2e7f0;
+}
+
+/* ── Structured node primitives (emitted by render-node.js) ── */
+.fm-frame {
+  display: flex;
+}
+.fm-text {
+  display: inline;
+  line-height: 1.5;
+}
+.fm-ellipse {
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.fm-rect {
+  flex-shrink: 0;
+}
+.fm-divider {
+  border: none;
+  border-top: 1px solid var(--fm-base-300);
+  margin: 0;
+}

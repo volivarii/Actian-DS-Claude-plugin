@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "component-node.schema.json",
+  "$comment": "additionalProperties is true here by design: the runtime validator (validate-node.js) is the enforcement point — it applies the ALLOWED_KEYS allowlist and the no-fidelity-vocabulary discipline rule. Do NOT set this to false (it would wrongly reject legitimate structural fields like fills/sizing not enumerated below).",
+  "title": "Render component-node",
+  "description": "Tier-agnostic node taxonomy shared by HTML (now) and Figma (Sub-project B). No fidelity-specific vocabulary (fm-* classes, FM axis names) appears here — styling lives in the interpreter.",
+  "type": "object",
+  "required": ["type"],
+  "additionalProperties": true,
+  "properties": {
+    "type": {
+      "enum": ["FRAME", "TEXT", "INSTANCE", "RECT", "ELLIPSE", "DIVIDER"]
+    },
+    "ref": { "type": "string" },
+    "variant": { "type": "string" },
+    "props": { "type": "object" },
+    "library": { "type": "string" },
+    "children": { "type": "array" }
+  }
+}
