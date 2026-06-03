@@ -87,6 +87,7 @@ var STRUCT_FIXTURES = {
     width: 100,
   },
   textUpper: { type: "TEXT", content: "header", textCase: "UPPER" },
+  textDefaultFont: { type: "TEXT", content: "Defaulted", font: ":Bold" },
   rectFallback: { type: "RECT" },
   divider: { type: "DIVIDER" },
 };
