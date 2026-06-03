@@ -50,7 +50,13 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 SERVER_LOG="/tmp/preview-server-$PORT.log"
 # Resolve node binary — Desktop sandbox may not have it in PATH
-source "$SCRIPT_DIR/resolve-node.sh"
+source "$SCRIPT_DIR/../lib/resolve-node.sh"
+# Fallback: if resolve-node.sh was unavailable/didn't set NODE_BIN, try PATH directly.
+if [ -z "$NODE_BIN" ]; then NODE_BIN="$(command -v node 2>/dev/null || echo "")"; fi
+if [ -z "$NODE_BIN" ]; then
+  echo "Error: node not found (resolve-node.sh unavailable and node not in PATH). Install Node.js or set NODE_BIN." >&2
+  exit 1
+fi
 # Use nohup + disown to ensure the server survives after this script exits.
 # On Desktop (Cowork), background processes get killed when the parent bash exits.
 nohup "$NODE_BIN" "$SCRIPT_DIR/preview-server.js" "$PORT" "$DIR_ABS" > "$SERVER_LOG" 2>&1 &
