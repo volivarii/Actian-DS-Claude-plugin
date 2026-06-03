@@ -218,6 +218,21 @@
 
     if (node.width != null) {
       parts.push("display:block", "width:" + node.width + "px");
+      // Clamp overflow on fixed-width text so it can't blow out its container.
+      // Multi-line text (contains \n) only clips; single-line text ellipsizes.
+      // The renderer displays node.content; fall back to node.text for callers
+      // (and the single-line unit test) that only supply node.text.
+      var __txt = node.content != null ? node.content : node.text;
+      var __multiline = typeof __txt === "string" && __txt.indexOf("\n") !== -1;
+      if (__multiline) {
+        parts.push("overflow:hidden");
+      } else {
+        parts.push(
+          "overflow:hidden",
+          "text-overflow:ellipsis",
+          "white-space:nowrap",
+        );
+      }
     }
 
     if (node.letterSpacing != null) {
@@ -284,7 +299,7 @@
           (node.width || 16) +
           "px;height:" +
           (node.height || 16) +
-          "px;border-radius:50%;background:" +
+          "px;min-width:1px;min-height:1px;border-radius:50%;background:" +
           bg;
         if (node.opacity != null) ellipseStyle += ";opacity:" + node.opacity;
         return (
@@ -302,7 +317,7 @@
           (node.width || 32) +
           "px;height:" +
           (node.height || 32) +
-          "px;";
+          "px;min-width:1px;min-height:1px;";
         if (node.fills && node.fills[0])
           rectStyle += "background:" + node.fills[0] + ";";
         if (node.cornerRadius)
@@ -607,6 +622,24 @@
 
   if (typeof window !== "undefined") {
     window._testExports = {
+      renderContentNode: renderContentNode,
+      renderFMComponent: renderFMComponent,
+      parseVariant: parseVariant,
+      buildFrameStyle: buildFrameStyle,
+      buildTextStyle: buildTextStyle,
+      resolveChrome: resolveChrome,
+      tierBadge: tierBadge,
+      screen: screen,
+    };
+  }
+
+  // -------------------------------------------------------------------------
+  // Node exports (UMD tail — mirrors fm-html-map.js; browser behavior above is
+  // untouched, so this file still works inlined by assemble-preview.js)
+  // -------------------------------------------------------------------------
+
+  if (typeof module !== "undefined" && module.exports) {
+    module.exports = {
       renderContentNode: renderContentNode,
       renderFMComponent: renderFMComponent,
       parseVariant: parseVariant,
