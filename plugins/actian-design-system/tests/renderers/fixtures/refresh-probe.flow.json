@@ -1,0 +1,12 @@
+{
+  "meta": { "feature": "Refresh probe", "app": "Studio" },
+  "screens": [
+    {
+      "name": "Probe",
+      "template": "admin",
+      "content": [
+        { "type": "TEXT", "content": "refresh counter: 1", "size": 48, "font": "Inter:Bold" }
+      ]
+    }
+  ]
+}
