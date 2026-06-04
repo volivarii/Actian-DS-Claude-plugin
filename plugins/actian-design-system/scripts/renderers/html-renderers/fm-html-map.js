@@ -35,6 +35,26 @@
    * node = { type: 'INSTANCE', ref: 'fmButton', variant: '...', props: {...}, name: '...' }
    * Returns an HTML string.
    */
+  // Make the hand-written renderers tolerant of the prop-key shapes the data
+  // actually ships. Authoring may carry Figma "#id" suffixes (e.g.
+  // "Label#1411:32") that the Figma push resolves at runtime (split('#')[0])
+  // but the HTML renderer historically could not — so a suffixed key rendered
+  // blank in HTML while Figma rendered it correctly (a twin divergence). This
+  // aliases each suffixed key to its base name, without clobbering an exact
+  // key, so a case reading props["Label"] also finds "Label#1411:32".
+  function normalizeProps(props) {
+    var out = {};
+    var keys = Object.keys(props || {});
+    keys.forEach(function (k) {
+      out[k] = props[k];
+    });
+    keys.forEach(function (k) {
+      var base = k.split("#")[0];
+      if (base !== k && !(base in out)) out[base] = props[k];
+    });
+    return out;
+  }
+
   function renderFMComponent(node) {
     node = node || {};
     var ref = node.ref || "";
@@ -58,7 +78,7 @@
 
     try {
       var v = parseVariant(node.variant || "");
-      var props = node.props || {};
+      var props = normalizeProps(node.props);
       switch (ref) {
         case "fmButton": {
           var typeMap = {
@@ -207,7 +227,37 @@
             Placeholder: "placeholder",
           };
           var cellType = cellTypeMap[v.Type] || "text";
-          var cellText = esc(props["Cell Text"] || props["Text"] || name || "");
+          // A single fmTableCell instance can model a whole row via numbered
+          // "Label", "Label 2"… "Label 5" columns (how the FM set authors a
+          // header/data row). Render each present column as a cell so the row
+          // shows its real content instead of just the node name.
+          var cols = [];
+          ["Label", "Label 2", "Label 3", "Label 4", "Label 5"].forEach(
+            function (k) {
+              if (props[k] != null && props[k] !== "") cols.push(esc(props[k]));
+            },
+          );
+          if (cols.length > 1) {
+            return (
+              '<div class="fm-table-cell fm-table-cell--' +
+              cellType +
+              ' fm-table-cell--row">' +
+              cols
+                .map(function (c) {
+                  return '<span class="fm-table-cell__col">' + c + "</span>";
+                })
+                .join("") +
+              "</div>"
+            );
+          }
+          var cellText = esc(
+            props["Cell Text"] ||
+              props["Text"] ||
+              props["Label"] ||
+              cols[0] ||
+              name ||
+              "",
+          );
           return (
             '<div class="fm-table-cell fm-table-cell--' +
             cellType +
@@ -282,12 +332,25 @@
             Upcoming: "upcoming",
           };
           var stepState = stepStateMap[v.State] || "upcoming";
-          var stepNum = esc(props["Step"] || props["Number"] || "");
+          var stepNum = esc(
+            props["Step number"] || props["Step"] || props["Number"] || "",
+          );
+          var stepLabel = esc(props["Label"] || props["Text"] || "");
+          var dot =
+            '<span class="fm-stepper__dot fm-stepper__dot--' +
+            stepState +
+            '">' +
+            (stepState === "complete" ? "&#10003;" : stepNum) +
+            "</span>";
+          var lbl = stepLabel
+            ? '<span class="fm-stepper__label">' + stepLabel + "</span>"
+            : "";
           return (
             '<div class="fm-stepper fm-stepper--' +
             stepState +
             '">' +
-            stepNum +
+            dot +
+            lbl +
             "</div>"
           );
         }

@@ -15,6 +15,28 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.98.1] — 2026-06-04
+
+### Fixed
+- **HTML preview render fidelity — prop-key drift in `fm-html-map.js`.** Several
+  hand-written FM component renderers read prop keys that didn't match what the
+  flow data ships, so they rendered **blank** in the HTML preview while the Figma
+  push (which resolves keys at runtime) rendered them correctly — a twin
+  divergence:
+  - **`#id`-suffixed keys now resolve in HTML.** Added `normalizeProps()` which
+    aliases `"Label#1411:32"` → `"Label"` (mirroring the emitter's
+    `split('#')[0]` resolver), so e.g. buttons authored with suffixed keys no
+    longer render label-less.
+  - **`fmStepper`** now reads the `"Step number"` key and renders the step
+    **Label** + active/upcoming/complete state (was an empty grey circle — the
+    dominant break on wizard flows).
+  - **`fmTableCell`** renders multi-column header/data rows authored as one
+    instance with numbered `Label`…`Label 5` props (was showing only the node
+    name).
+  - Regression-guarded with new golden fixtures (stepper, suffixed-key button,
+    multi-column row) — the coverage gate proves a renderer *exists*; these prove
+    it renders real *content*.
+
 ## [1.98.0] — 2026-06-04
 
 ### Added

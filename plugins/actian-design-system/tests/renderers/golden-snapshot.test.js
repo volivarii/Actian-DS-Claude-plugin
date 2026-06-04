@@ -56,6 +56,31 @@ var FIXTURES = {
     props: { Label: "Option" },
   },
   iconFallback: { ref: "fmAcademicCap", name: "Academic cap" },
+  // Prop-key-drift regression guards (the fm-html-map case must render real
+  // content, not just exist). fmStepper: numbered + labelled wizard step.
+  fmStepperActive: {
+    ref: "fmStepper",
+    variant: "State=Active",
+    props: { Label: "Choose connector", "Step number": "1" },
+  },
+  fmStepperUpcoming: {
+    ref: "fmStepper",
+    variant: "State=Upcoming",
+    props: { Label: "Review", "Step number": "5" },
+  },
+  // #id-suffixed prop keys (as the Figma push consumes them) must resolve in
+  // HTML too — guards normalizeProps() suffix-stripping.
+  fmButtonSuffixedProps: {
+    ref: "fmButton",
+    variant: "Type=Outline, Size=md",
+    props: { "Label#1411:32": "Cancel", "👁 Leading Icon#1410:3": false },
+  },
+  // Multi-column header row authored as one fmTableCell with numbered Labels.
+  fmTableCellHeaderRow: {
+    ref: "fmTableCell",
+    variant: "Type=Header",
+    props: { Label: "Name", "Label 2": "Type", "Label 3": "Status" },
+  },
 };
 
 Object.keys(FIXTURES).forEach(function (name) {
