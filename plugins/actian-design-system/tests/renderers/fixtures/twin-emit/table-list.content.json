@@ -1,0 +1,106 @@
+{
+  "content": [
+    {
+      "type": "FRAME",
+      "name": "List",
+      "layout": {
+        "mode": "VERTICAL",
+        "spacing": 0
+      },
+      "sizing": { "horizontal": "FILL" },
+      "fills": ["#F8F9FA"],
+      "children": [
+        {
+          "type": "TEXT",
+          "content": "Records",
+          "font": "Inter:Bold",
+          "size": 18,
+          "color": "#1A1A2E"
+        },
+        {
+          "type": "FRAME",
+          "name": "Toolbar",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 8,
+            "padding": [8, 0, 8, 0]
+          },
+          "sizing": { "horizontal": "FILL" },
+          "children": [
+            {
+              "type": "INSTANCE",
+              "ref": "fmTextInput",
+              "props": { "Label Text": "", "Input Text": "Search…" }
+            },
+            {
+              "type": "INSTANCE",
+              "ref": "fmButton",
+              "variant": "Type=Primary, Size=md",
+              "props": { "Label": "Add" }
+            }
+          ]
+        },
+        {
+          "type": "DIVIDER"
+        },
+        {
+          "type": "FRAME",
+          "name": "Row 1",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 16,
+            "padding": [12, 0, 12, 0]
+          },
+          "sizing": { "horizontal": "FILL" },
+          "children": [
+            { "type": "TEXT", "content": "Alpha Corp", "width": 160 },
+            { "type": "TEXT", "content": "Active" },
+            {
+              "type": "INSTANCE",
+              "ref": "fmBadge",
+              "props": { "Label": "New" }
+            }
+          ]
+        },
+        {
+          "type": "FRAME",
+          "name": "Row 2",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 16,
+            "padding": [12, 0, 12, 0]
+          },
+          "sizing": { "horizontal": "FILL" },
+          "children": [
+            { "type": "TEXT", "content": "Beta Ltd", "width": 160 },
+            { "type": "TEXT", "content": "Pending" },
+            {
+              "type": "INSTANCE",
+              "ref": "fmBadge",
+              "props": { "Label": "Draft" }
+            }
+          ]
+        },
+        {
+          "type": "FRAME",
+          "name": "Row 3",
+          "layout": {
+            "mode": "HORIZONTAL",
+            "spacing": 16,
+            "padding": [12, 0, 12, 0]
+          },
+          "sizing": { "horizontal": "FILL" },
+          "children": [
+            { "type": "TEXT", "content": "Gamma Inc", "width": 160 },
+            { "type": "TEXT", "content": "Closed" },
+            {
+              "type": "INSTANCE",
+              "ref": "fmBadge",
+              "props": { "Label": "Done" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

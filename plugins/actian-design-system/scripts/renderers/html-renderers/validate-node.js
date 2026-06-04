@@ -31,6 +31,7 @@ var ALLOWED_KEYS = [
   "width",
   "height",
   "letterSpacing",
+  "lineHeight",
   "textAlign",
   "textCase",
   "primaryAxisAlignItems",
@@ -39,6 +40,7 @@ var ALLOWED_KEYS = [
   "sides",
   "contentHtml",
   "content",
+  "intent",
 ];
 
 function validateNode(node) {

@@ -71,7 +71,7 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 - `hooks/` — PreToolUse / PostToolUse shell guards (one `.sh` each). Wired in `hooks/hooks.json`. New PreToolUse guards go here.
 - `vendor/` — Vendor-snapshot tooling. `vendor-snapshot.js` is a thin entry (plugin config + CLI shell + the component-mirror `postVendorHook`) over `vendor-snapshot-core.js` — a byte-identical copy of the substrate's canonical `vendor/clients/vendor-snapshot.js`, drift-guarded by `tests/vendor/vendor-snapshot-core-drift.test.js`. It pulls a pinned snapshot from `volivarii/actian-ds-knowledge` into `vendor/`. New vendor-pipeline code goes here.
 - `validation/` — Pipeline validators (banned text, tokens, terminology, schema, avoid-word soft-check from `vendor/content/dist/words-to-avoid.json`). New validators go here.
-- `renderers/` — HTML/preview output. `assemble-preview.js`, the local preview server, the `html-renderers/` adapters, and `render-component-reference.js` (called post-vendor-pull to regenerate `*-components.md` mirrors).
+- `renderers/` — HTML/preview output. `assemble-preview.js`, the local preview server, the `html-renderers/` adapters, and `render-component-reference.js` (called post-vendor-pull to regenerate `*-components.md` mirrors). The `html-renderers/` adapters include `render-node.js` (HTML) and its deterministic Figma twin `render-node-figma.js` (emits a `use_figma`-ready Plugin-API script from the same `content[]` spec; pinned by `tests/renderers/twin-parity-emit.test.js`).
 - `transformers/` — Data shape transformations between source formats (Figma → flow-data, flow-data → hifi, recipe partials → final).
 - `evals/` — Eval lane scripts (component-brief: grading-assertions, grade-locally, run-component-brief).
 

@@ -51,6 +51,15 @@ This is the same discipline as Martin Fowler's "Parallel Change"
 (expand-contract): widen the API, run both paths, verify the new path works
 in production, then narrow.
 
+### Active parallel change — flow content push (v1.98.0)
+
+`render-node-figma.js` (the deterministic content-tree emitter, twin of the HTML
+`render-node.js`) is the **canonical** path for pushing `screen.content[]` in
+`/generate-flow`. The hand-walk in `generate-flow/SKILL.md` push step 6d is the
+**documented fallback**, kept functional per step 2 above. Cutover (deleting the
+fallback) happens only after the emitter shows sustained adoption across the
+recipe set — a later MINOR/PATCH, not this PR.
+
 ## Rule 2 — Friction asymmetry
 
 Before merging a migration, ask: **is using the new path simpler than not

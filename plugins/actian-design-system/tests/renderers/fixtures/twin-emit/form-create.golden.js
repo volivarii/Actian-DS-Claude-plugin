@@ -1,0 +1,52 @@
+await Promise.all([figma.loadFontAsync({ family: "Inter", style: "Bold" })]);
+const root0 = figma.createFrame();
+root0.name = "Create form";
+root0.layoutMode = 'VERTICAL';
+root0.primaryAxisSizingMode = 'AUTO';
+root0.counterAxisSizingMode = 'AUTO';
+root0.itemSpacing = 16;
+root0.paddingTop = 24;
+root0.paddingRight = 24;
+root0.paddingBottom = 24;
+root0.paddingLeft = 24;
+root0.fills = [{ type: 'SOLID', color: { r:1, g:1, b:1 } }];
+root0.topLeftRadius = 8;
+root0.topRightRadius = 8;
+root0.bottomRightRadius = 8;
+root0.bottomLeftRadius = 8;
+const root0_c0 = figma.createText();
+root0_c0.fontName = { family: "Inter", style: "Bold" };
+root0_c0.characters = "Create Record";
+root0_c0.fontSize = 20;
+root0_c0.lineHeight = { value: 28, unit: "PIXELS" };
+root0_c0.letterSpacing = { value: 0.5, unit: "PIXELS" };
+root0_c0.fills = [{ type:'SOLID', color: { r:0.10196078431372549, g:0.10196078431372549, b:0.1803921568627451 } }];
+root0.appendChild(root0_c0);
+const root0_c1_set = await figma.importComponentSetByKeyAsync("355855c7b2e05b5b336167883b3c9ebbfbd881ad");
+const root0_c1 = root0_c1_set.defaultVariant.createInstance();
+{ const __defs = root0_c1.componentProperties; const __want = {"Input Text":"Enter name","Label Text":"Name"}; const __resolved = {};
+  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
+  root0_c1.setProperties(__resolved); }
+root0.appendChild(root0_c1);
+const root0_c2_set = await figma.importComponentSetByKeyAsync("355855c7b2e05b5b336167883b3c9ebbfbd881ad");
+const root0_c2 = root0_c2_set.defaultVariant.createInstance();
+{ const __defs = root0_c2.componentProperties; const __want = {"Input Text":"you@example.com","Label Text":"Email"}; const __resolved = {};
+  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
+  root0_c2.setProperties(__resolved); }
+root0.appendChild(root0_c2);
+const root0_c3_set = await figma.importComponentSetByKeyAsync("965cf2c85659bbde891f6f086bbd02d50d445d58");
+const root0_c3 = root0_c3_set.defaultVariant.createInstance();
+{ const __defs = root0_c3.componentProperties; const __want = {"Label":"I agree to the terms","State":"On"}; const __resolved = {};
+  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
+  root0_c3.setProperties(__resolved); }
+root0.appendChild(root0_c3);
+const root0_c4_set = await figma.importComponentSetByKeyAsync("368b62312ca941c80ea8eeed84a57d33bb470b09");
+const root0_c4 = root0_c4_set.defaultVariant.createInstance();
+{ const __defs = root0_c4.componentProperties; const __want = {"Label":"Submit","Size":"md","Type":"Primary"}; const __resolved = {};
+  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
+  root0_c4.setProperties(__resolved); }
+root0.appendChild(root0_c4);
+const __parent = await figma.getNodeByIdAsync("1:1");
+__parent.appendChild(root0);
+root0.layoutSizingHorizontal = 'FILL';
+return { createdNodeIds: [root0.id], mutatedNodeIds: ["1:1"] };

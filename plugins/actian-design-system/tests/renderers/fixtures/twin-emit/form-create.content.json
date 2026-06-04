@@ -1,0 +1,49 @@
+{
+  "content": [
+    {
+      "type": "FRAME",
+      "name": "Create form",
+      "layout": {
+        "mode": "VERTICAL",
+        "spacing": 16,
+        "padding": [24, 24, 24, 24]
+      },
+      "sizing": { "horizontal": "FILL" },
+      "fills": ["#FFFFFF"],
+      "cornerRadius": 8,
+      "children": [
+        {
+          "type": "TEXT",
+          "content": "Create Record",
+          "font": "Inter:Bold",
+          "size": 20,
+          "color": "#1A1A2E",
+          "lineHeight": { "value": 28, "unit": "PIXELS" },
+          "letterSpacing": { "value": 0.5, "unit": "PIXELS" }
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "fmTextInput",
+          "props": { "Label Text": "Name", "Input Text": "Enter name" }
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "fmTextInput",
+          "props": { "Label Text": "Email", "Input Text": "you@example.com" }
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "fmCheckbox",
+          "variant": "State=On",
+          "props": { "Label": "I agree to the terms" }
+        },
+        {
+          "type": "INSTANCE",
+          "ref": "fmButton",
+          "variant": "Type=Primary, Size=md",
+          "props": { "Label": "Submit" }
+        }
+      ]
+    }
+  ]
+}
