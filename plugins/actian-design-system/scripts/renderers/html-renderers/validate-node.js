@@ -39,6 +39,7 @@ var ALLOWED_KEYS = [
   "sides",
   "contentHtml",
   "content",
+  "intent",
 ];
 
 function validateNode(node) {
