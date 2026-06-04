@@ -13,9 +13,9 @@ Direct Figma Plugin API patterns for pushing content to Figma. Each pattern is a
 
 | Registry | File | Contents |
 |----------|------|----------|
-| FM Kit | `vendor/components/dist/registries/fmkit.json` | 33 wireframe components with keys, variants, and properties |
-| Meta Kit | `vendor/components/dist/registries/metakit.json` | 25 components + 3 templates |
-| DS Kit | `vendor/components/dist/registries/dskit.json` | 107 design system components with keys, variants, and properties |
+| FM Kit | `vendor/components/dist/registries/fmkit.json` | 287 wireframe components with keys, variants, and properties |
+| Meta Kit | `vendor/components/dist/registries/metakit.json` | 28 components with keys, variants, and properties |
+| DS Kit | `vendor/components/dist/registries/dskit.json` | 318 design system components with keys, variants, and properties |
 
 Each registry entry contains: `key`, `importMethod` ("set" for `importComponentSetByKeyAsync`, "single" for `importComponentByKeyAsync`), `variants`, and `properties` (with exact hash-suffixed names for `setProperties()`).
 

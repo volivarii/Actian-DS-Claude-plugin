@@ -104,9 +104,9 @@ Full context: `references/context/app-context.md`
 
 | Library | Count | Font | Use |
 |---------|-------|------|-----|
-| DS Kit | 107 sets | Roboto | Full design system, all tokens, 3 themes |
-| FM Kit | 44 components | Inter | Lo-fi wireframes, FM palette |
-| Meta Kit | 25 components + 3 templates | Inter | Generation output, annotation markers |
+| DS Kit | 318 components (80 sets) | Roboto | Full design system, all tokens, 3 themes |
+| FM Kit | 287 components (33 sets) | Inter | Lo-fi wireframes, FM palette |
+| Meta Kit | 28 components (11 sets) | Inter | Generation output, annotation markers |
 
 Before building custom frames, check: `vendor/components/dist/dskit-components.md`, `vendor/components/dist/fm-components.md`, `vendor/components/dist/guidelines/{slug}.json`
 
@@ -162,9 +162,11 @@ The knowledge repo ships per-category structural defaults at
 category: action, form-input-selection, navigation, data-display,
 feedback, overlays) plus a `categories.bundle.json` roll-up. Each file
 declares the anatomy/variants/motion-refs/a11y-refs that apply across
-every component in the category. Stub components (those with auto-stub
-guidelines, ~41 of 85) lift these defaults into the brief grounding
-payload via `scripts/transformers/category-defaults-loader.js`.
+every component in the category. Components without curated guideline
+content — a stub guideline, or no per-component doc at all (most of the
+catalog; 44 guideline docs cover 36 components + 8 registry-key aliases) —
+lift these defaults into the brief grounding payload via
+`scripts/transformers/category-defaults-loader.js`.
 
 **Authoring workflow** lives in the knowledge repo at
 `components/src/categories/<slug>.md` (YAML frontmatter — the data —

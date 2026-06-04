@@ -1,10 +1,11 @@
 name: PR checks
 
 # Tier 1 PR gates for the Actian Design System plugin.
-# Three parallel jobs:
+# Four parallel jobs:
 #   1. test            — runs the plugin's full test suite
 #   2. json-syntax     — validates that all checked-in JSON files parse
 #   3. version-bump    — ensures plugin.json is bumped when source changes
+#   4. plugin-validate — `claude plugin validate` on the manifests (offline)
 #
 # Runs on EVERY PR (no paths: filter). Avoids the path-filtered-required-
 # check dead-PR gotcha: required status checks with paths: filters create a
@@ -62,3 +63,27 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         run: node .github/workflows/scripts/check-version-bump.js
+
+  plugin-validate:
+    name: Manifest validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Install Claude Code CLI
+        # Pinned to the 2.x major (mirrors the @v5 action pins above) so an
+        # upstream major bump can't silently change `validate --strict` behavior
+        # and break this gate mid-test-window.
+        run: npm install -g @anthropic-ai/claude-code@2
+      - name: Validate marketplace manifest (strict)
+        # `claude plugin validate` is a fully offline manifest linter (no auth,
+        # no network — verified). --strict treats warnings as errors.
+        run: claude plugin validate --strict .claude-plugin/marketplace.json
+      - name: Validate plugin manifest
+        # Non-strict: the plugin ships a root CLAUDE.md, which the validator
+        # flags as a warning ("not loaded as project context"). That file is
+        # intentional (local --plugin-dir dev + the plugin's own rules), so we
+        # don't fail on it. Re-add --strict here if/when CLAUDE.md is migrated.
+        run: claude plugin validate plugins/actian-design-system
