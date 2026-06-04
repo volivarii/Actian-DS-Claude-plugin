@@ -32,6 +32,7 @@ var JS_FILES = [
   "flow-renderer.js",
   "presentation-renderer.js",
   "brief-renderer.js",
+  "render-node-figma.js",
   "render-node.js",
 ].map(function (f) {
   return path.join(RDIR, f);
