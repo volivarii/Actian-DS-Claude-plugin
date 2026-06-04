@@ -44,6 +44,15 @@ are summarized at the release level.
   - **Screen-frame clipping.** The push created a fixed `1440×960` screen frame,
     so tall screens (long forms) clipped at 960px. The frame now hugs content
     height (960 as a minimum, not a cap) and never clips.
+  - **Chrome props left as defaults.** The content emitter sets `screen.content[]`
+    props deterministically, but app-header / page-header / sidebar (chrome) are
+    pushed by prose — and the push step never mapped the screen data → the chrome
+    component props, so headers showed "Page Title" / "Description text" /
+    "Button label". Step 6c now spells out the data→prop mapping
+    (`Title#979:22` ← `pageHeader.title`, action-button labels, nav labels,
+    active-item state) + the page-header top margin. (Deterministic chrome
+    emission — extending the twin emitter to whole-screen — is queued as the next
+    stage.)
 
 ## [1.98.0] — 2026-06-04
 
