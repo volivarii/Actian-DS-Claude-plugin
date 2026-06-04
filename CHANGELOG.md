@@ -15,6 +15,45 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.98.2] — 2026-06-04
+
+### Fixed
+- **HTML preview render fidelity — prop-key drift in `fm-html-map.js`.** Several
+  hand-written FM component renderers read prop keys that didn't match what the
+  flow data ships, so they rendered **blank** in the HTML preview while the Figma
+  push (which resolves keys at runtime) rendered them correctly — a twin
+  divergence:
+  - **`#id`-suffixed keys now resolve in HTML.** Added `normalizeProps()` which
+    aliases `"Label#1411:32"` → `"Label"` (mirroring the emitter's
+    `split('#')[0]` resolver), so e.g. buttons authored with suffixed keys no
+    longer render label-less.
+  - **`fmStepper`** now reads the `"Step number"` key and renders the step
+    **Label** + active/upcoming/complete state (was an empty grey circle — the
+    dominant break on wizard flows).
+  - **`fmTableCell`** renders multi-column header/data rows authored as one
+    instance with numbered `Label`…`Label 5` props (was showing only the node
+    name).
+  - Regression-guarded with new golden fixtures (stepper, suffixed-key button,
+    multi-column row) — the coverage gate proves a renderer *exists*; these prove
+    it renders real *content*.
+- **generate-flow Figma push — two output bugs found in wider-audience testing:**
+  - **GenLog version trap.** `SKILL.md` and `figma-push-patterns.md` told the AI
+    to "read the version from `plugin.json`, never hardcode" — then printed the
+    literal `v1.55.0`, which the AI copied verbatim. Replaced the stale literal
+    with a run-time read command, so the generation card shows the real version.
+  - **Screen-frame clipping.** The push created a fixed `1440×960` screen frame,
+    so tall screens (long forms) clipped at 960px. The frame now hugs content
+    height (960 as a minimum, not a cap) and never clips.
+  - **Chrome props left as defaults.** The content emitter sets `screen.content[]`
+    props deterministically, but app-header / page-header / sidebar (chrome) are
+    pushed by prose — and the push step never mapped the screen data → the chrome
+    component props, so headers showed "Page Title" / "Description text" /
+    "Button label". Step 6c now spells out the data→prop mapping
+    (`Title#979:22` ← `pageHeader.title`, action-button labels, nav labels,
+    active-item state) + the page-header top margin. (Deterministic chrome
+    emission — extending the twin emitter to whole-screen — is queued as the next
+    stage.)
+
 ## [1.98.0] — 2026-06-04
 
 ### Added

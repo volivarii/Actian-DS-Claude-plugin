@@ -396,6 +396,19 @@ body {
   color: var(--fm-text-primary);
   border-bottom: 1px solid var(--fm-base-200);
 }
+.fm-table-cell--row {
+  display: flex;
+  gap: 24px;
+  padding: 0;
+}
+.fm-table-cell--row .fm-table-cell__col {
+  flex: 1;
+  padding: 10px 12px;
+}
+.fm-table-cell--header.fm-table-cell--row .fm-table-cell__col {
+  font-weight: 600;
+  color: var(--fm-text-secondary);
+}
 
 /* ── FM Checkbox / Radio / Toggle ── */
 .fm-checkbox {
@@ -488,14 +501,41 @@ body {
 .fm-stepper {
   display: inline-flex;
   align-items: center;
+  gap: 8px;
+}
+.fm-stepper__dot {
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: var(--fm-base-300);
   font-size: 13px;
   font-weight: 600;
   color: var(--fm-text-primary);
+  flex-shrink: 0;
+}
+.fm-stepper__dot--active {
+  background: var(--fm-base-700);
+  color: #fff;
+}
+.fm-stepper__dot--complete {
+  background: var(--fm-base-600);
+  color: #fff;
+}
+.fm-stepper__dot--upcoming {
+  background: var(--fm-base-200);
+  color: var(--fm-text-secondary);
+}
+.fm-stepper__label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--fm-text-primary);
+  white-space: nowrap;
+}
+.fm-stepper--upcoming .fm-stepper__label {
+  color: var(--fm-text-secondary);
 }
 
 /* ── FM Badge ── */
