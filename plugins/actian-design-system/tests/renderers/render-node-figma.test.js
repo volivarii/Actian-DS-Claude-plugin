@@ -59,3 +59,34 @@ describe("render-node-figma — CLI + gate", function () {
     assert.equal(r.status, 0);
   });
 });
+
+describe("render-node-figma — FRAME", function () {
+  it("emits an auto-layout frame with mapped layout/sizing/fills", function () {
+    var r = runEmitter(
+      {
+        content: [
+          {
+            type: "FRAME",
+            name: "Row",
+            layout: {
+              mode: "HORIZONTAL",
+              spacing: 8,
+              primaryAxisAlignItems: "SPACE_BETWEEN",
+            },
+            sizing: { horizontal: "FILL" },
+            fills: ["#FFFFFF"],
+            cornerRadius: 4,
+          },
+        ],
+      },
+      "1:1",
+    );
+    assert.equal(r.status, 0);
+    var js = r.stdout;
+    assert.match(js, /createFrame\(\)/);
+    assert.match(js, /layoutMode\s*=\s*["']HORIZONTAL["']/);
+    assert.match(js, /itemSpacing\s*=\s*8/);
+    assert.match(js, /primaryAxisAlignItems\s*=\s*["']SPACE_BETWEEN["']/);
+    assert.match(js, /topLeftRadius\s*=\s*4/);
+  });
+});
