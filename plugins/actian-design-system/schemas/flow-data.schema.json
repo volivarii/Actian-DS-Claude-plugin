@@ -470,6 +470,10 @@
           "type": "object",
           "description": "Letter spacing configuration"
         },
+        "lineHeight": {
+          "type": "object",
+          "description": "Line height configuration"
+        },
         "intent": {
           "type": "string",
           "enum": [

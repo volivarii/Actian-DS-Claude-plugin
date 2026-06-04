@@ -18,6 +18,8 @@ const root0_c0 = figma.createText();
 root0_c0.fontName = { family: "Inter", style: "Bold" };
 root0_c0.characters = "Create Record";
 root0_c0.fontSize = 20;
+root0_c0.lineHeight = { value: 28, unit: "PIXELS" };
+root0_c0.letterSpacing = { value: 0.5, unit: "PIXELS" };
 root0_c0.fills = [{ type:'SOLID', color: { r:0.10196078431372549, g:0.10196078431372549, b:0.1803921568627451 } }];
 root0.appendChild(root0_c0);
 const root0_c1_set = await figma.importComponentSetByKeyAsync("355855c7b2e05b5b336167883b3c9ebbfbd881ad");

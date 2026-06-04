@@ -250,7 +250,24 @@
     }
 
     if (node.letterSpacing != null) {
-      parts.push("letter-spacing:" + node.letterSpacing + "px");
+      var lsVal =
+        typeof node.letterSpacing === "object"
+          ? node.letterSpacing.value
+          : node.letterSpacing;
+      parts.push("letter-spacing:" + lsVal + "px");
+    }
+
+    // Line height — object {value,unit} (canonical) or scalar px. PERCENT unit
+    // renders as %, everything else as px. Twin of render-node-figma.js emitText.
+    if (node.lineHeight != null) {
+      var lh = node.lineHeight;
+      if (typeof lh === "object") {
+        parts.push(
+          "line-height:" + lh.value + (lh.unit === "PERCENT" ? "%" : "px"),
+        );
+      } else {
+        parts.push("line-height:" + lh + "px");
+      }
     }
 
     if (node.textAlign && node.textAlign.horizontal) {

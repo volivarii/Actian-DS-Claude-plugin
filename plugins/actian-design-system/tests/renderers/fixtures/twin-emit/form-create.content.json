@@ -17,7 +17,9 @@
           "content": "Create Record",
           "font": "Inter:Bold",
           "size": 20,
-          "color": "#1A1A2E"
+          "color": "#1A1A2E",
+          "lineHeight": { "value": 28, "unit": "PIXELS" },
+          "letterSpacing": { "value": 0.5, "unit": "PIXELS" }
         },
         {
           "type": "INSTANCE",
