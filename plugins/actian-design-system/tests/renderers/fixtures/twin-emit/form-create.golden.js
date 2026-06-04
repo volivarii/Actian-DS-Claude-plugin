@@ -36,13 +36,13 @@ const root0_c2 = root0_c2_set.defaultVariant.createInstance();
 root0.appendChild(root0_c2);
 const root0_c3_set = await figma.importComponentSetByKeyAsync("965cf2c85659bbde891f6f086bbd02d50d445d58");
 const root0_c3 = root0_c3_set.defaultVariant.createInstance();
-{ const __defs = root0_c3.componentProperties; const __want = {"State":"On","Label":"I agree to the terms"}; const __resolved = {};
+{ const __defs = root0_c3.componentProperties; const __want = {"Label":"I agree to the terms","State":"On"}; const __resolved = {};
   Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
   root0_c3.setProperties(__resolved); }
 root0.appendChild(root0_c3);
 const root0_c4_set = await figma.importComponentSetByKeyAsync("368b62312ca941c80ea8eeed84a57d33bb470b09");
 const root0_c4 = root0_c4_set.defaultVariant.createInstance();
-{ const __defs = root0_c4.componentProperties; const __want = {"Type":"Primary","Size":"md","Label":"Submit"}; const __resolved = {};
+{ const __defs = root0_c4.componentProperties; const __want = {"Label":"Submit","Size":"md","Type":"Primary"}; const __resolved = {};
   Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });
   root0_c4.setProperties(__resolved); }
 root0.appendChild(root0_c4);

@@ -251,10 +251,37 @@ function emitFrame(node, v, lines, ctx) {
   lines.push("const " + v + " = figma.createFrame();");
   if (node.name) lines.push(v + ".name = " + JSON.stringify(node.name) + ";");
   var L = node.layout || {};
+  var sizing = node.sizing || {};
+  var hsz = sizing.horizontal;
+  var vsz = sizing.vertical;
+  var wNum =
+    typeof hsz === "number"
+      ? hsz
+      : hsz == null && node.width != null
+        ? node.width
+        : null;
+  var hNum =
+    typeof vsz === "number"
+      ? vsz
+      : vsz == null && node.height != null
+        ? node.height
+        : null;
   if (L.mode === "HORIZONTAL" || L.mode === "VERTICAL") {
     lines.push(v + ".layoutMode = '" + L.mode + "';");
-    lines.push(v + ".primaryAxisSizingMode = 'AUTO';");
-    lines.push(v + ".counterAxisSizingMode = 'AUTO';");
+    var primaryNum = L.mode === "VERTICAL" ? hNum : wNum;
+    var counterNum = L.mode === "VERTICAL" ? wNum : hNum;
+    lines.push(
+      v +
+        ".primaryAxisSizingMode = '" +
+        (primaryNum != null ? "FIXED" : "AUTO") +
+        "';",
+    );
+    lines.push(
+      v +
+        ".counterAxisSizingMode = '" +
+        (counterNum != null ? "FIXED" : "AUTO") +
+        "';",
+    );
   }
   if (L.spacing != null)
     lines.push(v + ".itemSpacing = " + Number(L.spacing) + ";");
@@ -278,16 +305,15 @@ function emitFrame(node, v, lines, ctx) {
     lines.push(v + ".opacity = " + Number(node.opacity) + ";");
   if (node.clipsContent) lines.push(v + ".clipsContent = true;");
   // Emit numeric sizes (in body, before children)
-  var sizing = node.sizing || {};
-  var sw = typeof sizing.horizontal === "number" ? sizing.horizontal : null;
-  var sh = typeof sizing.vertical === "number" ? sizing.vertical : null;
-  if (sw != null || sh != null) {
+  if (wNum != null || hNum != null) {
+    var __missing =
+      L.mode === "HORIZONTAL" || L.mode === "VERTICAL" ? 0.01 : 100;
     lines.push(
       v +
         ".resize(" +
-        (sw != null ? sw : 0.01) +
+        (wNum != null ? wNum : __missing) +
         ", " +
-        (sh != null ? sh : 0.01) +
+        (hNum != null ? hNum : __missing) +
         ");",
     );
   }
@@ -359,6 +385,13 @@ function emitText(node, v, lines, ctx) {
   if (node.textCase === "UPPER") lines.push(v + ".textCase = 'UPPER';");
   if (node.opacity != null)
     lines.push(v + ".opacity = " + Number(node.opacity) + ";");
+  if (node.width != null) {
+    // Fixed-width text: width pinned, height auto (twin of render-node.js
+    // display:block;width:Npx). textAutoResize='HEIGHT' makes the height arg
+    // to resize() a throwaway (content-driven), so we never read live .height.
+    lines.push(v + ".textAutoResize = 'HEIGHT';");
+    lines.push(v + ".resize(" + Number(node.width) + ", 1);");
+  }
 }
 
 // --- Rect emitter (mirrors render-node.js:333-356) --------------------------
@@ -402,7 +435,7 @@ function emitDivider(node, v, lines) {
   if (node.name) lines.push(v + ".name = " + JSON.stringify(node.name) + ";");
   lines.push(v + ".strokeWeight = 1;");
   lines.push(
-    v + ".strokes = [{ type: 'SOLID', color: " + rgbLit("#E5E5E5") + " }];",
+    v + ".strokes = [{ type: 'SOLID', color: " + rgbLit("#E2E7F0") + " }];",
   );
 }
 
@@ -422,7 +455,13 @@ function buildWantMap(node) {
       .forEach(function (k) {
         want[k] = node.props[k];
       });
-  return want;
+  var sorted = {};
+  Object.keys(want)
+    .sort()
+    .forEach(function (k) {
+      sorted[k] = want[k];
+    });
+  return sorted;
 }
 
 function emitInstance(node, v, lines) {

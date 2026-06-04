@@ -178,6 +178,28 @@ describe("render-node-figma — INSTANCE", function () {
     );
     assert.equal(r.status, 1);
   });
+
+  it("single-method ref (fmChip) uses importComponentByKeyAsync, not importComponentSetByKeyAsync, and calls createInstance()", function () {
+    // fmChip is the first ref in the registry whose method is not "set".
+    // This exercises the else-branch in emitInstance (importComponentByKeyAsync
+    // + .createInstance() without .defaultVariant).
+    var r = runEmitter(
+      {
+        content: [
+          {
+            type: "INSTANCE",
+            ref: "fmChip",
+          },
+        ],
+      },
+      "1:1",
+    );
+    assert.equal(r.status, 0);
+    var js = r.stdout;
+    assert.match(js, /importComponentByKeyAsync\(/);
+    assert.doesNotMatch(js, /importComponentSetByKeyAsync\(/);
+    assert.match(js, /\.createInstance\(\)/);
+  });
 });
 
 describe("render-node-figma — assembly", function () {

@@ -460,7 +460,7 @@ Read `references/figma/figma-push-patterns.md` for component keys and patterns. 
    a. Import components (header, sidebar, content components)
    b. Create screen frame (1440×960, auto-layout)
    c. App chrome (header, sidebar with nav items, page header)
-   d. Content area with `paddingTop: 24, paddingLeft: 24, paddingRight: 24, paddingBottom: 24` — content NEVER flush against tab bar. Populate from `screen.content[]`.
+   d. Content area with `paddingTop: 24, paddingLeft: 24, paddingRight: 24, paddingBottom: 24` — content NEVER flush against tab bar. Populate from `screen.content[]`. Capture the content-area frame's id from its creation call's returned `createdNodeIds[0]` — that id is `<contentFrameId>` below.
 
    **Content push (deterministic, v1.98+) — preferred:** instead of hand-walking `content[]`, emit the whole content tree as one atomic Plugin-API script. Capture the JSON for `screen.content[]` into `$CONTENT_JSON`, then:
    ```bash
