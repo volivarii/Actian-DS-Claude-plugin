@@ -246,6 +246,22 @@ If any condition fails, fall back per the table below.
 
    **Pass through to screen-generators:** the persisted `meta.references[]` (with fingerprints attached) flows into screen-generator agents' input as the "Reference fingerprints" block (see `agents/screen-generator.md`). Sequential mode reads them inline; parallel mode includes them in each batch's dispatch payload.
 
+5.0. **Skeleton preview at approval (Tier B streaming).** As soon as the screen list is approved (Gate 2), show the structure instantly so the user isn't staring at an empty panel during the build:
+   - Write the ordered screen list to `{project_working_directory}/flows/screen-list.json` as `{ "meta": {…}, "screens": [{ "name": "<screen name>", "template": "<template>" }, …] }` (one entry per approved screen, in final order; carry the known `meta`).
+   - **Parallel mode (6+):** render the skeleton via the incremental merge against the (empty) partials dir, then render with `--refresh`:
+     ```bash
+     source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
+     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/transformers/merge-partials.js" \
+       --type flow --incremental \
+       --screen-list {project_working_directory}/flows/screen-list.json \
+       --partials-dir {project_working_directory}/flows/.partial \
+       --output {project_working_directory}/flows/flow-data.json
+     "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
+       {project_working_directory}/flows/flow-data.json --type flow \
+       -o {project_working_directory}/flows/[feature]-flow.html --refresh 2
+     ```
+   - **Sequential mode (<6):** author `flow-data.json` with one `{ "name": …, "template": …, "status": "pending" }` stub per screen (the skeleton), then run the same `assemble-preview.js … --refresh 2` render.
+   - Tell the user: `Preview ready (skeleton) → <path> — open it in the browser (CLI/IDE) or it updates live in the Cowork panel.` **Fail-open:** any skeleton/render error is skipped — proceed to the build (no regression).
 5. Build `flow-data.json`
    - **Tier classification (REQUIRED — runs in BOTH modes before generating screen content):** Read `agents/screen-generator.md` Step 0 and apply the classifier per-screen. Every screen object in the output MUST carry the 5 tier fields (`tier`, `confidence`, `matchedRecipe`, `composition`, `justification`) populated according to the per-tier field rules in that section. Then read `agents/screen-generator.md` "Tier-aware generation rules" section and apply the rules matching each screen's tier when authoring its content. **Parallel and sequential modes both apply the classifier — sequential does NOT skip Step 0.**
    - Read `recipes/flow/_index.json` — if an archetype matches the screen, use its skeleton. Recipes are accelerators, not constraints.
@@ -257,7 +273,7 @@ If any condition fails, fall back per the table below.
        --output {project_working_directory}/flows/flow-data.json
      ```
      Sequential mode (<6 screens): build flow-data.json directly — but FIRST classify each screen per the agent's Step 0 (above). When `meta.references[]` has fingerprints, the AI reads them inline from the in-memory flow-data when picking recipes.
-   - **Progress (chat):** this is the longest silent phase — keep the user informed. Print one line per screen as it lands (parallel batches: as each batch's partials merge; sequential: as each screen object is authored): `✓ <N>/<M> <screen name>`. Lead with `Building <feature> — <M> screens` before the first.
+   - **Progress (chat) + live streaming:** this is the longest silent phase — keep the user informed AND populate the preview as screens land. Print one line per screen as it lands (parallel batches: as each batch's partials merge; sequential: as each screen object is authored): `✓ <N>/<M> <screen name>`. Lead with `Building <feature> — <M> screens` before the first. **After each `✓` line, re-render the work-dir preview so the panel/browser fills in live** — parallel: re-run the `merge-partials.js --incremental` + `assemble-preview.js … --refresh 2` pair from Step 5.0 (present partials become ready, the rest stay shimmer); sequential: replace that screen's pending stub with its real content (drop `status`) in `flow-data.json`, then re-run `assemble-preview.js … --refresh 2`. Every streaming render is fail-open (a render error never blocks the build).
 6. **Validate flow data** — run the validation script before pushing:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -300,7 +316,7 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
 
 **`intent-mismatch` recovery (hifi tier only):** When the validator flags `intent-mismatch` findings on hifi-converted data, either change the variant to match the expected variant for the effective intent (e.g., `Type=Critical primary` for `destructive-action` on a DS button), OR change the `intent` field at the responsible node to reflect the actual screen role. For sibling-rule warnings ("destructive-action container ambiguous" or "missing Critical primary"), restructure the button group: exactly one Critical primary action button, with Tertiary or Secondary cancel/dismiss siblings.
 
-6.5. **Auto-render the HTML preview (always — before the push).** As soon as validation passes, render the preview from `flow-data.json` and surface it to the user. This is automatic (NOT opt-in) and happens BEFORE the slow Figma push, so the user sees the design fast:
+6.5. **Auto-render the HTML preview (final, clean — before the push).** Validation passed, so every screen is now `ready`. Render the FINAL preview **without `--refresh`** — this stops the browser's reload loop and leaves a static finished preview (the Cowork panel re-renders once more from this write). Happens BEFORE the slow Figma push, so the user sees the design fast:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
    "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
