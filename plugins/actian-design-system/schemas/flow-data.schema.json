@@ -286,6 +286,10 @@
             "type": "string",
             "description": "Screen name (e.g. Screen 1: Dashboard)"
           },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "ready"]
+          },
           "template": {
             "type": "string",
             "description": "Template name controlling chrome, size, layout"
