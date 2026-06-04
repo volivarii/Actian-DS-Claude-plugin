@@ -36,6 +36,14 @@ are summarized at the release level.
   - Regression-guarded with new golden fixtures (stepper, suffixed-key button,
     multi-column row) — the coverage gate proves a renderer *exists*; these prove
     it renders real *content*.
+- **generate-flow Figma push — two output bugs found in wider-audience testing:**
+  - **GenLog version trap.** `SKILL.md` and `figma-push-patterns.md` told the AI
+    to "read the version from `plugin.json`, never hardcode" — then printed the
+    literal `v1.55.0`, which the AI copied verbatim. Replaced the stale literal
+    with a run-time read command, so the generation card shows the real version.
+  - **Screen-frame clipping.** The push created a fixed `1440×960` screen frame,
+    so tall screens (long forms) clipped at 960px. The frame now hugs content
+    height (960 as a minimum, not a cap) and never clips.
 
 ## [1.98.0] — 2026-06-04
 
