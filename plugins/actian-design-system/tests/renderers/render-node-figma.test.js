@@ -149,3 +149,33 @@ describe("render-node-figma — shapes", function () {
     assert.match(js, /createLine\(\)|createRectangle\(\)[\s\S]*height\s*=\s*1/);
   });
 });
+
+describe("render-node-figma — INSTANCE", function () {
+  it("emits import + createInstance + setProperties for an FM ref", function () {
+    var r = runEmitter(
+      {
+        content: [
+          {
+            type: "INSTANCE",
+            ref: "fmButton",
+            props: { Label: "Save" },
+          },
+        ],
+      },
+      "1:1",
+    );
+    assert.equal(r.status, 0);
+    var js = r.stdout;
+    assert.match(js, /importComponent(Set)?ByKeyAsync\(/);
+    assert.match(js, /createInstance\(\)/);
+    assert.match(js, /setProperties\(/);
+  });
+
+  it("rejects an INSTANCE whose ref is not in the registry", function () {
+    var r = runEmitter(
+      { content: [{ type: "INSTANCE", ref: "fmNope" }] },
+      "1:1",
+    );
+    assert.equal(r.status, 1);
+  });
+});

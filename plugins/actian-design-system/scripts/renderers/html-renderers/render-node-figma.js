@@ -21,6 +21,10 @@
 
 var fs = require("fs");
 var validateNode = require("./validate-node.js");
+var sharedConstants = require("../../lib/shared-constants.js");
+
+// Build the FM key map once at module load (camelCase ref → { key, method })
+var FM_KEYS = sharedConstants.buildKeyMapFromRegistry("fmkit", "fm");
 
 // ---------------------------------------------------------------------------
 // CLI — copied verbatim from figma-table/render-figma.js lines 38-70
@@ -87,6 +91,27 @@ function main() {
     validateNode.validateTree(n, "content[" + i + "]").forEach(function (e) {
       errors.push(e);
     });
+  });
+
+  // After structural validation: check INSTANCE refs against FM registry
+  function collectInstances(node, basePath) {
+    if (!node || typeof node !== "object") return;
+    if (node.type === "INSTANCE" && typeof node.ref === "string" && node.ref) {
+      if (!FM_KEYS[node.ref]) {
+        errors.push({
+          path: basePath + ".ref",
+          message: "unknown FM ref: " + node.ref,
+        });
+      }
+    }
+    if (Array.isArray(node.children)) {
+      node.children.forEach(function (child, i) {
+        collectInstances(child, basePath + ".children[" + i + "]");
+      });
+    }
+  }
+  nodes.forEach(function (n, i) {
+    collectInstances(n, "content[" + i + "]");
   });
 
   if (errors.length) {
@@ -392,6 +417,64 @@ function emitDivider(node, v, lines) {
   );
 }
 
+// --- Instance helpers -------------------------------------------------------
+
+function buildWantMap(node) {
+  var want = {};
+  (node.variant ? String(node.variant).split(",") : []).forEach(
+    function (pair) {
+      var kv = pair.split("=");
+      if (kv.length === 2) want[kv[0].trim()] = kv[1].trim();
+    },
+  );
+  if (node.props)
+    Object.keys(node.props)
+      .sort()
+      .forEach(function (k) {
+        want[k] = node.props[k];
+      });
+  return want;
+}
+
+function emitInstance(node, v, lines) {
+  var entry = FM_KEYS[node.ref]; // guaranteed present (gate checked)
+  if (entry.method === "set") {
+    lines.push(
+      "const " +
+        v +
+        "_set = await figma.importComponentSetByKeyAsync(" +
+        JSON.stringify(entry.key) +
+        ");",
+    );
+    lines.push(
+      "const " + v + " = " + v + "_set.defaultVariant.createInstance();",
+    );
+  } else {
+    lines.push(
+      "const " +
+        v +
+        "_cmp = await figma.importComponentByKeyAsync(" +
+        JSON.stringify(entry.key) +
+        ");",
+    );
+    lines.push("const " + v + " = " + v + "_cmp.createInstance();");
+  }
+  var want = buildWantMap(node);
+  if (Object.keys(want).length) {
+    lines.push(
+      "{ const __defs = " +
+        v +
+        ".componentProperties; const __want = " +
+        JSON.stringify(want) +
+        "; const __resolved = {};",
+    );
+    lines.push(
+      "  Object.keys(__want).forEach(function(name){ var k = Object.keys(__defs).find(function(d){ return d === name || d.split('#')[0] === name; }) || name; __resolved[k] = __want[name]; });",
+    );
+    lines.push("  " + v + ".setProperties(__resolved); }");
+  }
+}
+
 // --- Node dispatcher --------------------------------------------------------
 
 function emitNode(node, v, lines, ctx) {
@@ -406,7 +489,8 @@ function emitNode(node, v, lines, ctx) {
       return emitEllipse(node, v, lines);
     case "DIVIDER":
       return emitDivider(node, v, lines);
-    // INSTANCE added in a later task
+    case "INSTANCE":
+      return emitInstance(node, v, lines);
     default:
       return; // unknown handled by the validate gate before emit
   }
