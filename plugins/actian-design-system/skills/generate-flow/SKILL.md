@@ -461,6 +461,19 @@ Read `references/figma/figma-push-patterns.md` for component keys and patterns. 
    b. Create screen frame (1440×960, auto-layout)
    c. App chrome (header, sidebar with nav items, page header)
    d. Content area with `paddingTop: 24, paddingLeft: 24, paddingRight: 24, paddingBottom: 24` — content NEVER flush against tab bar. Populate from `screen.content[]`.
+
+   **Content push (deterministic, v1.98+) — preferred:** instead of hand-walking `content[]`, emit the whole content tree as one atomic Plugin-API script. Capture the JSON for `screen.content[]` into `$CONTENT_JSON`, then:
+   ```bash
+   printf '%s' "$CONTENT_JSON" | (
+     source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" &&
+     "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/renderers/html-renderers/render-node-figma.js" \
+       --parent-id "<contentFrameId>"
+   )
+   ```
+   Capture stdout (Plugin-API JS) and pass it **verbatim** into ONE `mcp__claude_ai_Figma__use_figma` call (`skillNames: "figma-use"`). On exit 1, read the `{ ok:false, errors }` JSON on stderr, fix the offending `content[]` node, and re-run the emitter — never hand-edit the emitted JS. This guarantees the Figma content is mechanically identical to the HTML preview produced by the twin `render-node.js`.
+
+   **Fallback (parallel-change, MIGRATIONS Rule 1):** the hand-walk in sub-step **d** above stays valid if the emitter can't yet handle a node; it remains documented until cutover completes.
+
    e. Append to wrapper
 7. Report results to the designer:
    - Count of pushed screens

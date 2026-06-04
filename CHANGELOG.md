@@ -15,6 +15,26 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.98.0] — 2026-06-04
+
+### Added
+- **Deterministic Figma content emitter (`render-node-figma.js`)** — the
+  structural twin of the HTML `render-node.js`. One component-node spec
+  (`content[]`: FRAME/TEXT/INSTANCE/RECT/ELLIPSE/DIVIDER) now drives BOTH the
+  offline HTML preview and the Figma push, so they are mechanically identical
+  by construction rather than by convention. The emitter validates the tree
+  (runtime gate), resolves FM refs to component keys, and emits one atomic
+  `use_figma` script (font-preload → build → append-into-parent →
+  FILL-after-append → `{createdNodeIds, mutatedNodeIds}`).
+- **Twin-parity golden gate** (`tests/renderers/twin-parity-emit.test.js`) +
+  `form-create` / `table-list` fixtures, plus extension of the fm-coverage and
+  token-resolution gates to the emitter.
+
+### Changed
+- **`/generate-flow` content push routes through the emitter** as the canonical
+  path (parallel-change per MIGRATIONS Rule 1; the hand-walk remains the
+  documented fallback during cutover).
+
 ## [1.97.0] — 2026-06-04
 
 ### Fixed
