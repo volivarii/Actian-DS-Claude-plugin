@@ -1,7 +1,7 @@
 {
   "name": "actian-design-system",
   "metadata": {
-    "description": "Actian Design System 2026 toolkit — sync tokens from Figma, generate wireframe flows with prototype wiring (with tiered generation: recognized / adapted / improvised), create component briefs, audit designs, compare flows, and build presentations. 9 skills, 8 agents, 155 tokens (3 themes, 8 collections), WCAG 2.1 AA."
+    "description": "Actian Design System 2026 toolkit — generate wireframe flows with prototype wiring (with tiered generation: recognized / adapted / improvised), create component briefs, audit designs, compare flows, and build presentations. 8 skills, 9 agents, 155 tokens (3 themes, 8 collections), WCAG 2.2 AA."
   },
   "owner": {
     "name": "Actian UX Team"
@@ -10,7 +10,7 @@
     {
       "name": "actian-design-system",
       "source": "./plugins/actian-design-system",
-      "description": "Actian Design System 2026 toolkit — 9 skills + 8 agents. Skills: companion, sync-design-system, design-audit, generate-flow, component-brief, create-component, compare-flows, convert-to-hifi, generate-presentation. Agents: flow-researcher, brief-data-validator, wiring-analyzer, flow-consistency, parity-analyzer, screen-generator, card-generator, slide-generator. Direct Figma MCP extraction, 25 recipes, 3-tier fallback ladder for novel patterns, 155 tokens (3 themes, 8 collections), WCAG 2.1 AA."
+      "description": "Actian Design System 2026 toolkit — 8 skills + 9 agents. Skills: companion, design-audit, generate-flow, component-brief, create-component, compare-flows, convert-to-hifi, generate-presentation. Agents: flow-researcher, brief-researcher, brief-data-validator, wiring-analyzer, flow-consistency, parity-analyzer, screen-generator, card-generator, slide-generator. Direct Figma MCP extraction, 24 recipes, 3-tier fallback ladder for novel patterns, 155 tokens (3 themes, 8 collections), WCAG 2.2 AA."
     }
   ]
 }

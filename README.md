@@ -29,7 +29,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**v1.96.0** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 23 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.1 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
+**v1.97.0** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 24 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
 
 ---
 
@@ -165,7 +165,7 @@ Find every empty state we use across DS Kit
 Brief the Button component from https://figma.com/design/FILEKEY/DS?node-id=123-456
 ```
 
-The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (322 DS Kit + 287 FM Kit + 28 Meta Kit components — 82 / 33 / 11 component sets), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
+The companion knows canonical layout patterns (dashboard, detail, browse, creation form, table view, explorer homepage, overlays), the registries (318 DS Kit + 287 FM Kit + 28 Meta Kit components — 80 / 33 / 11 component sets), and the content guidelines. Naming a pattern in your prompt gets you the right skeleton on the first try.
 
 ---
 
@@ -226,8 +226,8 @@ The companion has always-loaded knowledge of:
 - **Foundations** — `foundations.md` is the source of truth (v1.60.0+): a CI workflow regenerates 8 derived JSONs (color roles, spacing scale, type ramp, etc.) on every change, with PR comments confirming the regen
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
 - **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — structured as queryable JSON with entities, terminology rules, and UI patterns
-- **Component inventory** — 322 DS Kit + 287 FM Kit + 28 Meta Kit components (82 / 33 / 11 sets) — dynamically derived from synced registries
-- **Component guidelines** — 85 per-component guideline JSONs (44 fully curated, 41 auto-stubs for set components awaiting authoring)
+- **Component inventory** — 318 DS Kit + 287 FM Kit + 28 Meta Kit components (80 / 33 / 11 sets) — dynamically derived from synced registries
+- **Component guidelines** — 44 per-component guideline docs (36 components + 8 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
 
 It loads detailed references on demand: per-component guidelines, accessibility standards, UX patterns, foundation docs.
 
@@ -261,8 +261,8 @@ Figma libraries (DS Kit + FM Kit + Meta Kit) + foundations.md (UX-authored)
 volivarii/actian-ds-knowledge CI (sync-from-figma + foundations-derive)
     |
 plugin's vendor/ snapshot (refreshed nightly via vendor-snapshot.yml)
-    ├─ vendor/components/registries/  -- DS Kit + FM Kit + Meta Kit registries
-    ├─ vendor/components/guidelines/  -- per-component guidelines (44 curated + 41 auto-stubs)
+    ├─ vendor/components/dist/registries/  -- DS Kit + FM Kit + Meta Kit registries
+    ├─ vendor/components/dist/guidelines/  -- 44 per-component guideline docs (36 components + 8 aliases)
     ├─ vendor/foundations/            -- foundations.md + 8 derived JSONs
     ├─ vendor/tokens/                 -- DTCG + CSS custom properties
     ├─ vendor/{content,accessibility,presentation,app-context,fm-to-ds-map}/
@@ -275,7 +275,7 @@ Companion + skills read at runtime
 | Layer | Font | Components | Used for |
 |-------|------|-----------|----------|
 | **Fat Marker (lo-fi)** | Inter | 287 FM Kit components (33 sets) | Wireframe flows |
-| **DS Kit (hi-fi)** | Roboto | 322 DS Kit components (82 sets) | Component briefs, audits, hifi conversion |
+| **DS Kit (hi-fi)** | Roboto | 318 DS Kit components (80 sets) | Component briefs, audits, hifi conversion |
 | **Meta Kit** | Inter | 28 Meta Kit components (11 sets) | All output skills (cards, headers, badges) |
 
 3 themes: **Actian**, **Studio**, **Explorer** — tokens switch via `[data-theme]` CSS or Figma variable modes.
@@ -326,13 +326,16 @@ actian-design-system-plugin/
 │   │   ├── design-audit/                  # skill-specific
 │   │   ├── generate-flow/                 # skill-specific
 │   │   └── generate-presentation/         # skill-specific
-│   ├── tokens/                            # W3C DTCG + CSS custom properties
-│   └── docs/
-│       ├── foundations.md                 # editable source of truth
-│       ├── content-guidelines.md
-│       ├── accessibility-guidelines.md
-│       ├── component-guidelines/          # 85 per-component JSONs (45 full, 40 auto-stub)
-│       └── generated/                     # registries (dskit/fmkit/metakit), app-context, fm-to-ds-map, foundations JSONs
+│   ├── schemas/                           # JSON schemas (brief-data, flow-data, slide-data)
+│   ├── templates/                         # HTML wrappers (flow, fm, component-playground, annotation-layer)
+│   ├── vendor/                            # pinned knowledge-repo snapshot — the DS substrate
+│   │   ├── components/                    # registries (dskit/fmkit/metakit) + 44 guideline docs + bundles
+│   │   ├── foundations/                   # foundations.md (source of truth) + 8 derived JSONs
+│   │   ├── tokens/                        # W3C DTCG JSON + CSS custom properties
+│   │   ├── accessibility/                 # per-section WCAG 2.2 AA docs
+│   │   ├── content/                       # global.md + words-to-avoid.json
+│   │   └── app-context/                   # app-context.json
+│   └── docs/                              # llms-overview.md (AI orientation) + superpowers/ (specs, plans, audits)
 └── USAGE.md                               # detailed usage guide
 ```
 

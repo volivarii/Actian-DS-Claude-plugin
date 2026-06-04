@@ -326,7 +326,7 @@ Write an error message for a failed connection — timeout after 30s
 What should the empty state say when there are no data products?
 ```
 
-### Accessibility — WCAG 2.1 AA checks
+### Accessibility — WCAG 2.2 AA checks
 
 ```
 https://figma.com/design/FILEKEY/File?node-id=123-456

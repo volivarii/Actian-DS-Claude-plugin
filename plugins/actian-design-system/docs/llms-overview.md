@@ -7,9 +7,9 @@ repo root.
 ## What this plugin is
 
 Actian's federated DS substrate, packaged as a Claude Code plugin. Provides
-9 skills (component-brief, generate-flow, generate-presentation,
-create-component, convert-to-hifi, design-audit, compare-flows, companion,
-sync-design-system) that author and audit Figma designs against the
+8 skills (component-brief, generate-flow, generate-presentation,
+create-component, convert-to-hifi, design-audit, compare-flows, companion)
+that author and audit Figma designs against the
 Actian DS via the official Figma MCP server.
 
 ## How knowledge is structured
