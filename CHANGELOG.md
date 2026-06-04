@@ -15,7 +15,7 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
-## [1.98.1] — 2026-06-04
+## [1.98.2] — 2026-06-04
 
 ### Fixed
 - **HTML preview render fidelity — prop-key drift in `fm-html-map.js`.** Several
