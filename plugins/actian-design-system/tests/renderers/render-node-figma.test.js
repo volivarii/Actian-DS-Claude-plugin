@@ -14,7 +14,48 @@ describe("validate-node — flow-field coverage", function () {
   });
 
   it("still rejects an unknown/fidelity key", function () {
-    var errors = validateNode.validateTree({ type: "FRAME", className: "fm-x" });
-    assert.ok(errors.some(function (e) { return e.path === "className"; }));
+    var errors = validateNode.validateTree({
+      type: "FRAME",
+      className: "fm-x",
+    });
+    assert.ok(
+      errors.some(function (e) {
+        return e.path === "className";
+      }),
+    );
+  });
+});
+
+var cp = require("node:child_process");
+var path = require("node:path");
+var EMITTER = path.resolve(
+  __dirname,
+  "../../scripts/renderers/html-renderers/render-node-figma.js",
+);
+
+function runEmitter(specObj, parentId) {
+  return cp.spawnSync(
+    process.execPath,
+    [EMITTER, "--parent-id", parentId || "1:1"],
+    {
+      input: JSON.stringify(specObj),
+      encoding: "utf8",
+    },
+  );
+}
+
+describe("render-node-figma — CLI + gate", function () {
+  it("rejects an invalid tree with exit 1 + structured errors on stderr", function () {
+    var r = runEmitter({ content: [{ type: "BOGUS" }] }, "1:1");
+    assert.equal(r.status, 1);
+    var report = JSON.parse(r.stderr);
+    assert.equal(report.ok, false);
+    assert.ok(report.errors.length >= 1);
+    assert.equal(r.stdout.trim(), "");
+  });
+
+  it("accepts a valid empty tree with exit 0", function () {
+    var r = runEmitter({ content: [] }, "1:1");
+    assert.equal(r.status, 0);
   });
 });
