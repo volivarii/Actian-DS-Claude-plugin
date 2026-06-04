@@ -355,12 +355,28 @@ function main() {
     "</body>\n" +
     "</html>\n";
 
-  // Write output
+  // Write output atomically: a 2s browser reload / Cowork panel watch must never
+  // catch a half-written file. Write a temp sibling, then rename (atomic on the
+  // same filesystem). Fall back to a direct write on rename failure (warn, never fail).
   var outputDir = path.dirname(args.output);
   if (!fs.existsSync(outputDir)) {
     fs.mkdirSync(outputDir, { recursive: true });
   }
-  fs.writeFileSync(args.output, html, "utf8");
+  var tmpPath = args.output + ".tmp";
+  try {
+    fs.writeFileSync(tmpPath, html, "utf8");
+    fs.renameSync(tmpPath, args.output);
+  } catch (e) {
+    process.stderr.write(
+      "WARN: atomic rename failed (" + e.message + "); writing directly.\n",
+    );
+    fs.writeFileSync(args.output, html, "utf8");
+    try {
+      if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
+    } catch (e2) {
+      /* ignore cleanup error */
+    }
+  }
 
   var size = Buffer.byteLength(html, "utf8");
   process.stderr.write(
