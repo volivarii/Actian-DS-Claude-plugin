@@ -113,3 +113,56 @@
   border-color: var(--fm-base-500);
   color: var(--fm-text-primary);
 }
+
+/* ── FM Skeleton (Tier B streaming placeholder) ──────────────────────────
+   Token-bound (no hardcoded colors → passes the token-resolution gate).
+   Shimmer is CSS-only, so the rendered HTML string stays deterministic. */
+.fm-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 32px;
+}
+.fm-skeleton__caption {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--fm-text-tertiary);
+  letter-spacing: 0.2px;
+}
+.fm-skeleton__block {
+  border-radius: 8px;
+  background: linear-gradient(
+    90deg,
+    var(--fm-base-200) 25%,
+    var(--fm-base-300) 37%,
+    var(--fm-base-200) 63%
+  );
+  background-size: 400% 100%;
+  animation: fm-skeleton-shimmer 1.4s ease-in-out infinite;
+}
+/* When nested in the chrome content area (which already pads 24px 32px),
+   drop the skeleton's own padding to avoid doubling. Bare/custom templates
+   render the skeleton as a direct screen child and keep .fm-skeleton's padding. */
+.screen__content-area > .fm-skeleton {
+  padding: 0;
+}
+.fm-skeleton__block--title {
+  height: 32px;
+  width: 280px;
+}
+.fm-skeleton__block--line {
+  height: 16px;
+  width: 60%;
+}
+.fm-skeleton__block--wide {
+  height: 220px;
+  width: 100%;
+}
+@keyframes fm-skeleton-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
