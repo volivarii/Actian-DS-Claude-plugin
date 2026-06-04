@@ -90,3 +90,36 @@ describe("render-node-figma — FRAME", function () {
     assert.match(js, /topLeftRadius\s*=\s*4/);
   });
 });
+
+describe("render-node-figma — TEXT", function () {
+  it("emits a text node with font preload, literal size, object lineHeight", function () {
+    var r = runEmitter(
+      {
+        content: [
+          {
+            type: "TEXT",
+            content: "Hello",
+            font: "Inter:Medium",
+            size: 14,
+            color: "#1A1A1A",
+            lineHeight: { value: 20, unit: "PIXELS" },
+          },
+        ],
+      },
+      "1:1",
+    );
+    assert.equal(r.status, 0);
+    var js = r.stdout;
+    assert.match(
+      js,
+      /loadFontAsync\(\s*\{[^}]*family:\s*["']Inter["'][^}]*style:\s*["']Medium["']/,
+    );
+    assert.match(js, /createText\(\)/);
+    assert.match(js, /\.characters\s*=\s*"Hello"/);
+    assert.match(js, /\.fontSize\s*=\s*14/);
+    assert.match(
+      js,
+      /lineHeight\s*=\s*\{\s*value:\s*20,\s*unit:\s*["']PIXELS["']/,
+    );
+  });
+});

@@ -31,6 +31,7 @@ var ALLOWED_KEYS = [
   "width",
   "height",
   "letterSpacing",
+  "lineHeight",
   "textAlign",
   "textCase",
   "primaryAxisAlignItems",

@@ -286,13 +286,76 @@ function emitFrame(node, v, lines, ctx) {
   recordSizing(node, v, ctx);
 }
 
+// --- Text helpers -----------------------------------------------------------
+
+function parseFont(font, def) {
+  var p = String(font || "").split(":");
+  return {
+    family: (p[0] || def || "Inter").trim(),
+    style: (p[1] || "Regular").trim(),
+  };
+}
+
+function emitText(node, v, lines, ctx) {
+  var fn = parseFont(node.font, ctx.defaultFont);
+  ctx.fonts[fn.family + "|" + fn.style] = fn; // dedup; preloaded by the header (below)
+  lines.push("const " + v + " = figma.createText();");
+  lines.push(
+    v +
+      ".fontName = { family: " +
+      JSON.stringify(fn.family) +
+      ", style: " +
+      JSON.stringify(fn.style) +
+      " };",
+  );
+  lines.push(
+    v +
+      ".characters = " +
+      JSON.stringify(node.content != null ? node.content : node.text || "") +
+      ";",
+  );
+  var size = typeof node.size === "object" ? node.size.value : node.size;
+  if (size != null) lines.push(v + ".fontSize = " + Number(size) + ";");
+  if (node.lineHeight && typeof node.lineHeight === "object")
+    lines.push(
+      v +
+        ".lineHeight = { value: " +
+        Number(node.lineHeight.value) +
+        ", unit: " +
+        JSON.stringify(node.lineHeight.unit || "PIXELS") +
+        " };",
+    );
+  if (node.letterSpacing && typeof node.letterSpacing === "object")
+    lines.push(
+      v +
+        ".letterSpacing = { value: " +
+        Number(node.letterSpacing.value) +
+        ", unit: " +
+        JSON.stringify(node.letterSpacing.unit || "PIXELS") +
+        " };",
+    );
+  if (node.color)
+    lines.push(
+      v + ".fills = [{ type:'SOLID', color: " + rgbLit(node.color) + " }];",
+    );
+  if (node.textAlign && node.textAlign.horizontal)
+    lines.push(
+      v + ".textAlignHorizontal = '" + node.textAlign.horizontal + "';",
+    );
+  if (node.textCase === "UPPER") lines.push(v + ".textCase = 'UPPER';");
+  if (node.opacity != null)
+    lines.push(v + ".opacity = " + Number(node.opacity) + ";");
+}
+
 // --- Node dispatcher --------------------------------------------------------
 
 function emitNode(node, v, lines, ctx) {
   switch (node.type) {
     case "FRAME":
       return emitFrame(node, v, lines, ctx);
-    // TEXT / INSTANCE / RECT / ELLIPSE / DIVIDER added in later tasks
+    case "TEXT":
+      return emitText(node, v, lines, ctx);
+    // INSTANCE / RECT / ELLIPSE / DIVIDER added in later tasks
     default:
       return; // unknown handled by the validate gate before emit
   }
@@ -302,11 +365,37 @@ function emitNode(node, v, lines, ctx) {
 
 function emit(nodes, parentId) {
   var ctx = { fonts: {}, fillSizing: [], defaultFont: "Inter" };
-  var lines = [];
+  var body = [];
   nodes.forEach(function (n, i) {
-    emitNode(n, "root" + i, lines, ctx);
+    emitNode(n, "root" + i, body, ctx);
   });
-  return { code: lines.join("\n"), manifest: { rootCount: nodes.length } };
+  var header = [];
+  var fonts = Object.keys(ctx.fonts)
+    .sort()
+    .map(function (k) {
+      return ctx.fonts[k];
+    }); // sort -> deterministic order
+  if (fonts.length) {
+    header.push(
+      "await Promise.all([" +
+        fonts
+          .map(function (f) {
+            return (
+              "figma.loadFontAsync({ family: " +
+              JSON.stringify(f.family) +
+              ", style: " +
+              JSON.stringify(f.style) +
+              " })"
+            );
+          })
+          .join(", ") +
+        "]);",
+    );
+  }
+  return {
+    code: header.concat(body).join("\n"),
+    manifest: { rootCount: nodes.length, fontCount: fonts.length },
+  };
 }
 
 if (require.main === module) main();
