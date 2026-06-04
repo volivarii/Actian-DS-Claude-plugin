@@ -234,11 +234,6 @@ function recordSizing(node, v, ctx) {
       axis: "layoutSizingHorizontal",
       value: "FILL",
     });
-  } else if (typeof sizing.horizontal === "number") {
-    // Resize is done below; emit a width set via resize stub so caller can use it
-    ctx._pendingResize = ctx._pendingResize || {};
-    ctx._pendingResize[v] = ctx._pendingResize[v] || {};
-    ctx._pendingResize[v].w = sizing.horizontal;
   }
   // Vertical
   if (sizing.vertical === "FILL") {
@@ -247,10 +242,6 @@ function recordSizing(node, v, ctx) {
       axis: "layoutSizingVertical",
       value: "FILL",
     });
-  } else if (typeof sizing.vertical === "number") {
-    ctx._pendingResize = ctx._pendingResize || {};
-    ctx._pendingResize[v] = ctx._pendingResize[v] || {};
-    ctx._pendingResize[v].h = sizing.vertical;
   }
 }
 
@@ -288,19 +279,17 @@ function emitFrame(node, v, lines, ctx) {
   if (node.clipsContent) lines.push(v + ".clipsContent = true;");
   // Emit numeric sizes (in body, before children)
   var sizing = node.sizing || {};
-  if (typeof sizing.horizontal === "number") {
+  var sw = typeof sizing.horizontal === "number" ? sizing.horizontal : null;
+  var sh = typeof sizing.vertical === "number" ? sizing.vertical : null;
+  if (sw != null || sh != null) {
     lines.push(
       v +
         ".resize(" +
-        sizing.horizontal +
+        (sw != null ? sw : 0.01) +
         ", " +
-        (typeof sizing.vertical === "number"
-          ? sizing.vertical
-          : v + ".height") +
+        (sh != null ? sh : 0.01) +
         ");",
     );
-  } else if (typeof sizing.vertical === "number") {
-    lines.push(v + ".resize(" + v + ".width, " + sizing.vertical + ");");
   }
   // Recurse into children
   (node.children || []).forEach(function (child, i) {
@@ -501,8 +490,11 @@ function emitNode(node, v, lines, ctx) {
 function emit(nodes, parentId) {
   var ctx = { fonts: {}, fillSizing: [], defaultFont: "Inter" };
   var body = [];
+  var roots = [];
   nodes.forEach(function (n, i) {
-    emitNode(n, "root" + i, body, ctx);
+    var varName = "root" + i;
+    roots.push(varName);
+    emitNode(n, varName, body, ctx);
   });
   var header = [];
   var fonts = Object.keys(ctx.fonts)
@@ -527,8 +519,32 @@ function emit(nodes, parentId) {
         "]);",
     );
   }
+  // Footer: append roots into parent, apply FILL sizing post-append, return IDs
+  var footer = [];
+  footer.push(
+    "const __parent = await figma.getNodeByIdAsync(" +
+      JSON.stringify(parentId) +
+      ");",
+  );
+  roots.forEach(function (rv) {
+    footer.push("__parent.appendChild(" + rv + ");");
+  });
+  ctx.fillSizing.forEach(function (entry) {
+    footer.push(entry.varName + "." + entry.axis + " = '" + entry.value + "';");
+  });
+  footer.push(
+    "return { createdNodeIds: [" +
+      roots
+        .map(function (rv) {
+          return rv + ".id";
+        })
+        .join(", ") +
+      "], mutatedNodeIds: [" +
+      JSON.stringify(parentId) +
+      "] };",
+  );
   return {
-    code: header.concat(body).join("\n"),
+    code: header.concat(body, footer).join("\n"),
     manifest: { rootCount: nodes.length, fontCount: fonts.length },
   };
 }

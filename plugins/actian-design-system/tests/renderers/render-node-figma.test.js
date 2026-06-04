@@ -179,3 +179,40 @@ describe("render-node-figma — INSTANCE", function () {
     assert.equal(r.status, 1);
   });
 });
+
+describe("render-node-figma — assembly", function () {
+  it("preloads fonts before any node, appends roots into --parent-id, sets FILL after append, returns IDs", function () {
+    var r = runEmitter(
+      {
+        content: [
+          {
+            type: "FRAME",
+            sizing: { horizontal: "FILL" },
+            children: [
+              { type: "TEXT", content: "Hi", font: "Inter:Regular", size: 12 },
+            ],
+          },
+        ],
+      },
+      "42:7",
+    );
+    assert.equal(r.status, 0);
+    var js = r.stdout;
+    // font preload precedes the first createText
+    assert.ok(
+      js.indexOf("loadFontAsync") < js.indexOf("createText"),
+      "preload before create",
+    );
+    // appended into the parent retrieved by id
+    assert.match(js, /getNodeByIdAsync\(\s*["']42:7["']\s*\)/);
+    assert.match(js, /\.appendChild\(/);
+    // FILL applied after append (layoutSizingHorizontal appears after the append call)
+    assert.ok(
+      js.lastIndexOf("appendChild") < js.indexOf("layoutSizingHorizontal"),
+      "FILL after append",
+    );
+    // atomic return shape
+    assert.match(js, /return\s*\{\s*createdNodeIds:/);
+    assert.match(js, /mutatedNodeIds:/);
+  });
+});
