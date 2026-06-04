@@ -15,6 +15,20 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.99.1] — 2026-06-04
+
+### Added
+- **Tier B — live-streaming flow preview.** generate-flow now streams the HTML
+  preview as screens generate: a chrome-aware shimmer **skeleton at screen-list
+  approval**, then each screen **fills in live** as it lands — in the Cowork
+  inline panel (file-watch) and the CLI/IDE browser (`--refresh`).
+- **New `status: "pending" | "ready"` screen field** (absent = ready;
+  backward-compatible).
+- **`merge-partials.js --incremental --screen-list`** skeleton-fill mode
+  (parallel-mode streaming).
+- **`assemble-preview.js` atomic writes** — temp + rename so a reload never
+  catches a half-written file. Final render is clean (no `--refresh`).
+
 ## [1.99.0] — 2026-06-04
 
 ### Added
