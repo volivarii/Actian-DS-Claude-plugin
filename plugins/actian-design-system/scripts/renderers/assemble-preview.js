@@ -142,7 +142,13 @@ function escapeJsonForScript(jsonStr) {
 // ---------------------------------------------------------------------------
 
 function parseArgs(argv) {
-  var args = { input: null, type: null, output: null, annotations: true };
+  var args = {
+    input: null,
+    type: null,
+    output: null,
+    annotations: true,
+    refresh: 0,
+  };
   var positionals = [];
   var i = 2; // skip node + script
 
@@ -154,6 +160,8 @@ function parseArgs(argv) {
       args.output = argv[++i];
     } else if (arg === "--no-annotations") {
       args.annotations = false;
+    } else if (arg === "--refresh" && i + 1 < argv.length) {
+      args.refresh = parseFloat(argv[++i]);
     } else if (arg.charAt(0) !== "-") {
       positionals.push(arg);
     }
@@ -197,6 +205,12 @@ function main() {
               name: "--no-annotations",
               required: false,
               description: "Skip annotation layer (Alpine.js + UI)",
+            },
+            {
+              name: "--refresh",
+              required: false,
+              description:
+                "Inject a self-contained auto-reload (meta + JS) every N seconds; 0/absent = off",
             },
           ],
           types: Object.keys(TYPE_CONFIGS),
@@ -283,6 +297,20 @@ function main() {
   // No transform needed — all renderers read the same format as their *-to-figma.js counterparts
   var escapedJson = escapeJsonForScript(rawJson);
 
+  // Self-contained auto-reload (no server). Off unless --refresh <positive seconds>.
+  // meta-refresh covers static panels; the setTimeout is a JS fallback. Both are
+  // deterministic given the interval (no timestamps/randomness) so goldens are stable.
+  var refreshSecs =
+    typeof args.refresh === "number" && args.refresh > 0 ? args.refresh : 0;
+  var refreshHead = refreshSecs
+    ? '  <meta http-equiv="refresh" content="' + refreshSecs + '">\n'
+    : "";
+  var refreshBody = refreshSecs
+    ? "  <script>setTimeout(function(){location.reload();}, " +
+      Math.round(refreshSecs * 1000) +
+      ");</script>\n"
+    : "";
+
   // Assemble HTML
   var html =
     "<!DOCTYPE html>\n" +
@@ -290,6 +318,7 @@ function main() {
     "<head>\n" +
     '  <meta charset="UTF-8">\n' +
     '  <meta name="viewport" content="width=device-width, initial-scale=1.0">\n' +
+    refreshHead +
     "  <title>" +
     title +
     "</title>\n" +
@@ -322,6 +351,7 @@ function main() {
         annotationHtml +
         "\n"
       : "") +
+    refreshBody +
     "</body>\n" +
     "</html>\n";
 

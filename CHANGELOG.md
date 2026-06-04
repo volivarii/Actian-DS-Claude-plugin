@@ -15,6 +15,18 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.99.0] — 2026-06-04
+
+### Added
+- **generate-flow visual feedback (Tier A).** The HTML preview now renders
+  **automatically and before** the Figma push (was opt-in and last), and the
+  build + push phases stream `N/M` progress to the chat — so the run is never a
+  silent wait and the visual lands before the slow push.
+- **`assemble-preview.js --refresh <seconds>`** — injects a self-contained
+  auto-reload (meta-refresh + JS fallback, no server) into the preview HTML.
+  Off by default; deterministic. Seam for the staged "watch it build"
+  follow-on + a Cowork auto-refresh spike.
+
 ## [1.98.2] — 2026-06-04
 
 ### Fixed

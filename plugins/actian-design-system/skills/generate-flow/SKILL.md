@@ -257,6 +257,7 @@ If any condition fails, fall back per the table below.
        --output {project_working_directory}/flows/flow-data.json
      ```
      Sequential mode (<6 screens): build flow-data.json directly — but FIRST classify each screen per the agent's Step 0 (above). When `meta.references[]` has fingerprints, the AI reads them inline from the in-memory flow-data when picking recipes.
+   - **Progress (chat):** this is the longest silent phase — keep the user informed. Print one line per screen as it lands (parallel batches: as each batch's partials merge; sequential: as each screen object is authored): `✓ <N>/<M> <screen name>`. Lead with `Building <feature> — <M> screens` before the first.
 6. **Validate flow data** — run the validation script before pushing:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
@@ -299,12 +300,20 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
 
 **`intent-mismatch` recovery (hifi tier only):** When the validator flags `intent-mismatch` findings on hifi-converted data, either change the variant to match the expected variant for the effective intent (e.g., `Type=Critical primary` for `destructive-action` on a DS button), OR change the `intent` field at the responsible node to reflect the actual screen role. For sibling-rule warnings ("destructive-action container ambiguous" or "missing Critical primary"), restructure the button group: exactly one Critical primary action button, with Tertiary or Secondary cancel/dismiss siblings.
 
-7. Push to Figma (see Push section below)
-7.5. **Post-push gate** (interactive — see Step 7.5 below) — runs the audit if `--audit` is set OR designer opts in via gate.
-8. Preview (opt-in):
+6.5. **Auto-render the HTML preview (always — before the push).** As soon as validation passes, render the preview from `flow-data.json` and surface it to the user. This is automatic (NOT opt-in) and happens BEFORE the slow Figma push, so the user sees the design fast:
    ```bash
    source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" flow-data.json --type flow -o {project_working_directory}/flows/[feature]-flow.html
+   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
+     {project_working_directory}/flows/flow-data.json --type flow \
+     -o {project_working_directory}/flows/[feature]-flow.html
+   ```
+   Tell the user: `Preview ready → <path>`. **If the render fails, surface the error and CONTINUE to the push** — the preview is an aid, never a gate. (The render reads only `flow-data.json`; it has no dependency on the push.)
+7. Push to Figma (see Push section below)
+   - **Progress (chat):** print `Pushing <N>/<M> to Figma…` as each screen frame is pushed, so the push phase is never silent.
+7.5. **Post-push gate** (interactive — see Step 7.5 below) — runs the audit if `--audit` is set OR designer opts in via gate.
+8. Preview — already rendered automatically at Step 6.5 (before the push). If the user needs it re-served (local server), run `ensure-server.sh`:
+   ```bash
+   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
    BASE_URL=$(${CLAUDE_PLUGIN_ROOT}/scripts/renderers/ensure-server.sh "{project_working_directory}" 8765)
    ```
 9. Parity check (opt-in) → `references/figma/parity-check.md` + `references/ds-rules/quality-checklist.md`. Manifest includes `sourceHash` (of flow-data.json), `componentKeys` (from push), and `tokenHash` (of tokens file).
@@ -395,7 +404,7 @@ Does this work, or would you like to adjust?
 **Actions:**
 - **"approve"** — standard detail, build data model
 - **"approve draft"** or **"approve production"** — specify detail level
-- **"preview"** — generate HTML preview before pushing
+- **"preview"** — (now default) the HTML preview always renders automatically before the push; this action no longer changes behavior
 - **"push [Figma URL]"** — approve standard + push directly to Figma
 - **"push draft [URL]"** or **"push production [URL]"** — specify detail + push
 ```
