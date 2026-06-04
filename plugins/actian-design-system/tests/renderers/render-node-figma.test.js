@@ -123,3 +123,29 @@ describe("render-node-figma — TEXT", function () {
     );
   });
 });
+
+describe("render-node-figma — shapes", function () {
+  it("emits rect, ellipse, divider", function () {
+    var r = runEmitter(
+      {
+        content: [
+          {
+            type: "RECT",
+            width: 32,
+            height: 8,
+            fills: ["#CBD2E0"],
+            cornerRadius: 2,
+          },
+          { type: "ELLIPSE", width: 16, height: 16, fills: ["#888888"] },
+          { type: "DIVIDER" },
+        ],
+      },
+      "1:1",
+    );
+    assert.equal(r.status, 0);
+    var js = r.stdout;
+    assert.match(js, /createRectangle\(\)/);
+    assert.match(js, /createEllipse\(\)/);
+    assert.match(js, /createLine\(\)|createRectangle\(\)[\s\S]*height\s*=\s*1/);
+  });
+});

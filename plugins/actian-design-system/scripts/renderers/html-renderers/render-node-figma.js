@@ -347,6 +347,51 @@ function emitText(node, v, lines, ctx) {
     lines.push(v + ".opacity = " + Number(node.opacity) + ";");
 }
 
+// --- Rect emitter (mirrors render-node.js:333-356) --------------------------
+
+function emitRect(node, v, lines) {
+  lines.push("const " + v + " = figma.createRectangle();");
+  if (node.name) lines.push(v + ".name = " + JSON.stringify(node.name) + ";");
+  lines.push(
+    v + ".resize(" + (node.width || 32) + ", " + (node.height || 32) + ");",
+  );
+  if (node.fills && node.fills[0]) {
+    lines.push(
+      v + ".fills = [{ type: 'SOLID', color: " + rgbLit(node.fills[0]) + " }];",
+    );
+  }
+  if (node.cornerRadius != null && typeof node.cornerRadius === "number") {
+    lines.push(v + ".cornerRadius = " + node.cornerRadius + ";");
+  }
+  if (node.opacity != null)
+    lines.push(v + ".opacity = " + Number(node.opacity) + ";");
+}
+
+// --- Ellipse emitter (mirrors render-node.js:314-331) -----------------------
+
+function emitEllipse(node, v, lines) {
+  lines.push("const " + v + " = figma.createEllipse();");
+  if (node.name) lines.push(v + ".name = " + JSON.stringify(node.name) + ";");
+  lines.push(
+    v + ".resize(" + (node.width || 16) + ", " + (node.height || 16) + ");",
+  );
+  var fill = (node.fills && node.fills[0]) || "#CBD2E0";
+  lines.push(v + ".fills = [{ type: 'SOLID', color: " + rgbLit(fill) + " }];");
+  if (node.opacity != null)
+    lines.push(v + ".opacity = " + Number(node.opacity) + ";");
+}
+
+// --- Divider emitter (mirrors render-node.js:358-360 — parameterless hr) ----
+
+function emitDivider(node, v, lines) {
+  lines.push("const " + v + " = figma.createLine();");
+  if (node.name) lines.push(v + ".name = " + JSON.stringify(node.name) + ";");
+  lines.push(v + ".strokeWeight = 1;");
+  lines.push(
+    v + ".strokes = [{ type: 'SOLID', color: " + rgbLit("#E5E5E5") + " }];",
+  );
+}
+
 // --- Node dispatcher --------------------------------------------------------
 
 function emitNode(node, v, lines, ctx) {
@@ -355,7 +400,13 @@ function emitNode(node, v, lines, ctx) {
       return emitFrame(node, v, lines, ctx);
     case "TEXT":
       return emitText(node, v, lines, ctx);
-    // INSTANCE / RECT / ELLIPSE / DIVIDER added in later tasks
+    case "RECT":
+      return emitRect(node, v, lines);
+    case "ELLIPSE":
+      return emitEllipse(node, v, lines);
+    case "DIVIDER":
+      return emitDivider(node, v, lines);
+    // INSTANCE added in a later task
     default:
       return; // unknown handled by the validate gate before emit
   }
