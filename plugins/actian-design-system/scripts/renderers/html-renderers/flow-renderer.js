@@ -211,6 +211,23 @@
   // Screen renderer
   // -------------------------------------------------------------------------
 
+  // Chrome-aware loading placeholder for a screen whose content has not been
+  // generated yet (status === "pending"). Deterministic markup (no timestamps/
+  // randomness) so goldens stay stable; the shimmer is pure CSS animation.
+  function skeletonBody(s) {
+    return (
+      '<div class="fm-skeleton" data-name="Loading">' +
+      '<div class="fm-skeleton__caption">' +
+      esc(s.name || "Screen") +
+      "</div>" +
+      '<div class="fm-skeleton__block fm-skeleton__block--title"></div>' +
+      '<div class="fm-skeleton__block fm-skeleton__block--line"></div>' +
+      '<div class="fm-skeleton__block fm-skeleton__block--line"></div>' +
+      '<div class="fm-skeleton__block fm-skeleton__block--wide"></div>' +
+      "</div>"
+    );
+  }
+
   function screen(s) {
     var type = s.type || "standard";
     var w = 1440;
@@ -218,13 +235,19 @@
 
     var chrome = resolveChrome(s);
 
-    // Render content — prefer structured content[] over legacy contentHtml
+    var isPending = s.status === "pending";
+
+    // Render content — skeleton when pending, else structured content[] over
+    // legacy contentHtml.
     var contentHtml = "";
-    if (s.content && s.content.length) {
+    if (isPending) {
+      contentHtml = skeletonBody(s);
+    } else if (s.content && s.content.length) {
       contentHtml = s.content.map(renderContentNode).join("");
     } else {
       contentHtml = s.contentHtml || "";
     }
+    var pendingClass = isPending ? " screen--pending" : "";
 
     // Bare/mobile/tablet/compact/custom → no chrome wrapper
     var template = s.template || "";
@@ -238,6 +261,7 @@
       return (
         '<div class="screen screen--' +
         esc(template) +
+        pendingClass +
         '" data-name="' +
         esc(s.name) +
         '" style="width:' +
@@ -261,7 +285,9 @@
     var sidebarHtml = chrome.hasSidebar ? sidebar(sidebarConfig) : "";
 
     return (
-      '<div class="screen" data-name="' +
+      '<div class="screen' +
+      pendingClass +
+      '" data-name="' +
       esc(s.name) +
       '" style="width:' +
       w +
