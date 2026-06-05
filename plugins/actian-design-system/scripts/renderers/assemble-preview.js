@@ -22,34 +22,18 @@
 var fs = require("fs");
 var path = require("path");
 var PATHS = require("../lib/paths");
+var shared = require("./assemble-shared");
 
 // ---------------------------------------------------------------------------
-// Paths
+// Paths (via shared module)
 // ---------------------------------------------------------------------------
 
-var PLUGIN_ROOT = path.resolve(__dirname, "../..");
+var TEMPLATES_DIR = shared.TEMPLATES_DIR;
+var RENDERERS_DIR = shared.RENDERERS_DIR;
+var FIGMA_TABLE_DIR = shared.FIGMA_TABLE_DIR;
 
-var TEMPLATES_DIR = path.join(PLUGIN_ROOT, "templates");
-var RENDERERS_DIR = path.join(
-  PLUGIN_ROOT,
-  "scripts",
-  "renderers",
-  "html-renderers",
-);
-var FIGMA_TABLE_DIR = path.join(
-  PLUGIN_ROOT,
-  "scripts",
-  "renderers",
-  "figma-table",
-);
-
-var WRAPPER_PATH = path.join(TEMPLATES_DIR, "flow-prototype-wrapper.html");
-// templates/vendor/ holds offline-embeddable third-party assets (Alpine etc.).
-// This is the plugin's OWN asset dir — unrelated to the knowledge vendor/
-// substrate that no-bare-vendor-paths.test.js protects. The guard has a
-// scoped exemption for templates/vendor references so path.join is idiomatic here.
-var TEMPLATES_VENDOR_DIR = path.join(TEMPLATES_DIR, "vendor");
-var VENDOR_ALPINE = path.join(TEMPLATES_VENDOR_DIR, "alpinejs-3.14.9.min.js");
+var readFileChecked = shared.readFileChecked;
+var escapeJsonForScript = shared.escapeJsonForScript;
 
 // ---------------------------------------------------------------------------
 // Type configurations
@@ -57,11 +41,7 @@ var VENDOR_ALPINE = path.join(TEMPLATES_VENDOR_DIR, "alpinejs-3.14.9.min.js");
 
 var TYPE_CONFIGS = {
   flow: {
-    css: [
-      path.join(RENDERERS_DIR, "fm-base.css"),
-      path.join(RENDERERS_DIR, "render-node.css"),
-      path.join(RENDERERS_DIR, "flow-renderer.css"),
-    ],
+    css: shared.FLOW_CSS,
     renderers: [
       path.join(RENDERERS_DIR, "fm-html-map.js"),
       // render-node.js UMD must load BEFORE flow-renderer.js so the IIFE can
@@ -73,7 +53,7 @@ var TYPE_CONFIGS = {
     fonts: "Inter:wght@400;500;600;700",
     title: function (data) {
       var meta = data.meta || {};
-      return (meta.feature || "Flow") + " \u2014 " + (meta.app || "Preview");
+      return (meta.feature || "Flow") + " — " + (meta.app || "Preview");
     },
   },
   brief: {
@@ -95,7 +75,7 @@ var TYPE_CONFIGS = {
       var header = data.card_header || data.card1_header || {};
       return (
         (header.componentName || header.name || "Component") +
-        " \u2014 Component Brief"
+        " — Component Brief"
       );
     },
   },
@@ -117,15 +97,10 @@ var TYPE_CONFIGS = {
     fonts: "Roboto:wght@400;500;700",
     title: function (data) {
       var meta = data.meta || {};
-      return (meta.title || "Presentation") + " \u2014 Presentation";
+      return (meta.title || "Presentation") + " — Presentation";
     },
   },
 };
-
-// flow-share reuses the flow type's CSS set \u2014 derive from the single source of
-// truth (TYPE_CONFIGS.flow.css) so the two never drift. Must come AFTER the
-// TYPE_CONFIGS literal so the reference resolves.
-var FLOW_CSS_FILES = TYPE_CONFIGS.flow.css;
 
 // ---------------------------------------------------------------------------
 // Annotation layer paths (shared across all types)
@@ -134,39 +109,6 @@ var FLOW_CSS_FILES = TYPE_CONFIGS.flow.css;
 var ANNOTATION_CSS = path.join(TEMPLATES_DIR, "annotation-layer.css");
 var ANNOTATION_JS = path.join(TEMPLATES_DIR, "annotation-layer.js");
 var ANNOTATION_HTML = path.join(TEMPLATES_DIR, "annotation-layer-markup.html");
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-function readFileChecked(filePath) {
-  if (!fs.existsSync(filePath)) {
-    process.stderr.write("ERROR: Missing asset: " + filePath + "\n");
-    process.exit(1);
-  }
-  return fs.readFileSync(filePath, "utf8");
-}
-
-function escapeJsonForScript(jsonStr) {
-  // Replace </ with <\/ to prevent </script> from closing the tag
-  return jsonStr.replace(/<\//g, "<\\/");
-}
-
-// Prevent meta values from closing the leading HTML comment early.
-// Insert a zero-width space between consecutive dashes so meta values can never
-// form a "-->" that closes the surrounding provenance HTML comment early (the
-// /--/g pair-replace left a live "-->" on odd-length dash runs like "--->").
-function maskComment(s) {
-  return String(s == null ? "" : s).replace(/-(?=-)/g, "-​");
-}
-
-function escAttr(s) {
-  return String(s == null ? "" : s)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
-}
 
 // ---------------------------------------------------------------------------
 // Arg parsing
@@ -234,127 +176,6 @@ function writeOutput(outputPath, html) {
   process.stderr.write(
     "Done: " + outputPath + " (" + (size / 1024).toFixed(1) + " KB)\n",
   );
-}
-
-// ---------------------------------------------------------------------------
-// flow-share assembler
-// ---------------------------------------------------------------------------
-
-function assembleFlowShare(data) {
-  var meta = data.meta || {};
-  var screens = Array.isArray(data.screens) ? data.screens : [];
-
-  // Per-screen render reuse — the SAME function the strip preview uses.
-  var flowRenderer = require("./html-renderers/flow-renderer.js");
-  var renderScreen = flowRenderer.renderScreen;
-
-  // Assets (fail loudly if missing — same contract as readFileChecked).
-  var wrapper = readFileChecked(WRAPPER_PATH);
-  var alpine = readFileChecked(VENDOR_ALPINE);
-  var cssParts = [readFileChecked(PATHS.tokens.css)];
-  for (var i = 0; i < FLOW_CSS_FILES.length; i++) {
-    cssParts.push(readFileChecked(FLOW_CSS_FILES[i]));
-  }
-  var flowCss = cssParts.join("\n");
-
-  // Server-render each screen into a .proto-screen-cell. The cell is a click
-  // target in Overview (enter that screen); display:contents in Prototype.
-  var screensHtml = "";
-  var navArray = [];
-  for (var s = 0; s < screens.length; s++) {
-    var id = s + 1;
-    navArray.push({ id: id, label: screens[s].name || "Screen " + id });
-    screensHtml +=
-      '<div class="proto-screen-cell" @click="view === \'overview\' && enter(' +
-      id +
-      ')">' +
-      '<div class="proto-screen" data-screen="' +
-      id +
-      '"' +
-      " :aria-hidden=\"view === 'prototype' && screen !== " +
-      id +
-      '"' +
-      " x-show=\"view === 'overview' || screen === " +
-      id +
-      '">' +
-      renderScreen(screens[s]) +
-      "</div></div>\n";
-  }
-  // navJson sits inside a double-quoted HTML attribute (x-data="{ screens: … }").
-  // escAttr (not escapeJsonForScript) is required: a bare " in a screen name would
-  // truncate the attribute and allow markup injection.
-  var navJson = escAttr(JSON.stringify(navArray));
-
-  // Audience-safe visible meta (NO prompt, NO model).
-  var shareMeta = [
-    meta.app || "",
-    meta.generatedAt || meta.date || "",
-    meta.pluginVersion ? "v" + meta.pluginVersion : "",
-  ]
-    .filter(Boolean)
-    .join("  \xb7  ");
-
-  // Full provenance lives in a leading comment (satisfies the gen-card rule).
-  var metaComment =
-    "<!--\n" +
-    "  Actian Design System — generate-flow (shareable deliverable)\n" +
-    "  skill:    " +
-    maskComment(meta.skill || "generate-flow") +
-    "\n" +
-    "  feature:  " +
-    maskComment(meta.feature || "") +
-    "\n" +
-    "  prompt:   " +
-    maskComment(meta.prompt || "") +
-    "\n" +
-    "  date:     " +
-    maskComment(meta.generatedAt || meta.date || "") +
-    "\n" +
-    "  duration: " +
-    maskComment(meta.duration || "") +
-    "\n" +
-    "  model:    " +
-    maskComment(meta.model || "") +
-    "\n" +
-    "  plugin:   " +
-    maskComment(meta.pluginVersion || "") +
-    "\n" +
-    "-->";
-
-  var featureName = escAttr(meta.feature || meta.flow || "Flow");
-
-  // Use FUNCTION replacers everywhere so '$' inside CSS/JS/screens is not
-  // interpreted as a replacement pattern by String.replace.
-  // Strip the ASSEMBLER-STRIP-BEGIN…END block (developer-guidance comment that
-  // has no runtime value in the shareable deliverable).
-  var html = wrapper.replace(
-    /[ \t]*<!--\s*ASSEMBLER-STRIP-BEGIN[\s\S]*?ASSEMBLER-STRIP-END\s*-->\s*\n?/,
-    function () {
-      return "";
-    },
-  );
-  return html
-    .replace("{{META_COMMENT}}", function () {
-      return metaComment;
-    })
-    .replace(/\{\{FEATURE_NAME\}\}/g, function () {
-      return featureName;
-    })
-    .replace("{{SHARE_META}}", function () {
-      return escAttr(shareMeta);
-    })
-    .replace("{{FLOW_CSS}}", function () {
-      return flowCss;
-    })
-    .replace("{{INLINE_ALPINE}}", function () {
-      return alpine;
-    })
-    .replace("{{SCREENS_ARRAY}}", function () {
-      return navJson;
-    })
-    .replace("<!-- {{SCREENS}} -->", function () {
-      return screensHtml;
-    });
 }
 
 // ---------------------------------------------------------------------------
@@ -434,8 +255,8 @@ function main() {
       process.exit(1);
     }
     var shareData = JSON.parse(fs.readFileSync(args.input, "utf8"));
-    var shareHtml = assembleFlowShare(shareData);
-    writeOutput(args.output, shareHtml);
+    var assembleFlowShare = require("./assemble-flow-share.js").assembleFlowShare;
+    writeOutput(args.output, assembleFlowShare(shareData));
     return;
   }
 
