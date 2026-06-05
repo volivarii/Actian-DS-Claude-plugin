@@ -44,11 +44,10 @@ var FIGMA_TABLE_DIR = path.join(
 );
 
 var WRAPPER_PATH = path.join(TEMPLATES_DIR, "flow-prototype-wrapper.html");
-var VENDOR_ALPINE = path.join(
-  TEMPLATES_DIR,
-  "vendor",
-  "alpinejs-3.14.9.min.js",
-);
+// templates/vendor/ holds offline-embeddable third-party assets (not the
+// knowledge vendor/ dir — no PATHS routing needed here).
+var TEMPLATES_VENDOR_DIR = TEMPLATES_DIR + "/vendor";
+var VENDOR_ALPINE = path.join(TEMPLATES_VENDOR_DIR, "alpinejs-3.14.9.min.js");
 
 // ---------------------------------------------------------------------------
 // Type configurations
