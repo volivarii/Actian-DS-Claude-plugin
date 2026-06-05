@@ -12,6 +12,8 @@
  *   flow          — FM flow preview (fm-flow.css, fm-html-map + flow-renderer)
  *   brief         — Component brief preview (fm-brief.css, fm-html-map + brief-renderer)
  *   presentation  — DS presentation preview (ds-presentation.css, presentation-renderer)
+ *   flow-share    — Self-contained shareable flow deliverable (two views:
+ *                   Prototype + Overview; inlines Alpine + flow CSS; offline)
  *
  * Output: A single self-contained HTML file with all CSS, JS, and data inlined.
  * Logs:   Progress messages to stderr.
@@ -39,6 +41,13 @@ var FIGMA_TABLE_DIR = path.join(
   "scripts",
   "renderers",
   "figma-table",
+);
+
+var WRAPPER_PATH = path.join(TEMPLATES_DIR, "flow-prototype-wrapper.html");
+var VENDOR_ALPINE = path.join(
+  TEMPLATES_DIR,
+  "vendor",
+  "alpinejs-3.14.9.min.js",
 );
 
 // ---------------------------------------------------------------------------
@@ -112,6 +121,11 @@ var TYPE_CONFIGS = {
   },
 };
 
+// flow-share reuses the flow type's CSS set \u2014 derive from the single source of
+// truth (TYPE_CONFIGS.flow.css) so the two never drift. Must come AFTER the
+// TYPE_CONFIGS literal so the reference resolves.
+var FLOW_CSS_FILES = TYPE_CONFIGS.flow.css;
+
 // ---------------------------------------------------------------------------
 // Annotation layer paths (shared across all types)
 // ---------------------------------------------------------------------------
@@ -135,6 +149,19 @@ function readFileChecked(filePath) {
 function escapeJsonForScript(jsonStr) {
   // Replace </ with <\/ to prevent </script> from closing the tag
   return jsonStr.replace(/<\//g, "<\\/");
+}
+
+// Prevent meta values from closing the leading HTML comment early.
+function maskComment(s) {
+  return String(s == null ? "" : s).replace(/--/g, "-​-");
+}
+
+function escAttr(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
 }
 
 // ---------------------------------------------------------------------------
@@ -176,6 +203,154 @@ function parseArgs(argv) {
 }
 
 // ---------------------------------------------------------------------------
+// Atomic write helper (shared by all assembly paths)
+// ---------------------------------------------------------------------------
+
+function writeOutput(outputPath, html) {
+  // Write atomically (tmp sibling + rename): a 2s browser reload / Cowork panel
+  // watch must never catch a half-written file. Fall back to a direct write.
+  var outputDir = path.dirname(outputPath);
+  if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+  var tmpPath = outputPath + ".tmp";
+  try {
+    fs.writeFileSync(tmpPath, html, "utf8");
+    fs.renameSync(tmpPath, outputPath);
+  } catch (e) {
+    process.stderr.write(
+      "WARN: atomic rename failed (" + e.message + "); writing directly.\n",
+    );
+    fs.writeFileSync(outputPath, html, "utf8");
+    try {
+      if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
+    } catch (e2) {
+      /* ignore */
+    }
+  }
+  var size = Buffer.byteLength(html, "utf8");
+  process.stderr.write(
+    "Done: " + outputPath + " (" + (size / 1024).toFixed(1) + " KB)\n",
+  );
+}
+
+// ---------------------------------------------------------------------------
+// flow-share assembler
+// ---------------------------------------------------------------------------
+
+function assembleFlowShare(data) {
+  var meta = data.meta || {};
+  var screens = Array.isArray(data.screens) ? data.screens : [];
+
+  // Per-screen render reuse — the SAME function the strip preview uses.
+  var flowRenderer = require("./html-renderers/flow-renderer.js");
+  var renderScreen = flowRenderer.renderScreen;
+
+  // Assets (fail loudly if missing — same contract as readFileChecked).
+  var wrapper = readFileChecked(WRAPPER_PATH);
+  var alpine = readFileChecked(VENDOR_ALPINE);
+  var cssParts = [readFileChecked(PATHS.tokens.css)];
+  for (var i = 0; i < FLOW_CSS_FILES.length; i++) {
+    cssParts.push(readFileChecked(FLOW_CSS_FILES[i]));
+  }
+  var flowCss = cssParts.join("\n");
+
+  // Server-render each screen into a .proto-screen-cell. The cell is a click
+  // target in Overview (enter that screen); display:contents in Prototype.
+  var screensHtml = "";
+  var navArray = [];
+  for (var s = 0; s < screens.length; s++) {
+    var id = s + 1;
+    navArray.push({ id: id, label: screens[s].name || "Screen " + id });
+    screensHtml +=
+      '<div class="proto-screen-cell" @click="view === \'overview\' && enter(' +
+      id +
+      ')">' +
+      '<div class="proto-screen" data-screen="' +
+      id +
+      '"' +
+      " :aria-hidden=\"view === 'prototype' && screen !== " +
+      id +
+      '"' +
+      " x-show=\"view === 'overview' || screen === " +
+      id +
+      '">' +
+      renderScreen(screens[s]) +
+      "</div></div>\n";
+  }
+  var navJson = escapeJsonForScript(JSON.stringify(navArray));
+
+  // Audience-safe visible meta (NO prompt, NO model).
+  var shareMeta = [
+    meta.app || "",
+    meta.generatedAt || meta.date || "",
+    meta.pluginVersion ? "v" + meta.pluginVersion : "",
+  ]
+    .filter(Boolean)
+    .join("  \xb7  ");
+
+  // Full provenance lives in a leading comment (satisfies the gen-card rule).
+  var metaComment =
+    "<!--\n" +
+    "  Actian Design System — generate-flow (shareable deliverable)\n" +
+    "  skill:    " +
+    maskComment(meta.skill || "generate-flow") +
+    "\n" +
+    "  feature:  " +
+    maskComment(meta.feature || "") +
+    "\n" +
+    "  prompt:   " +
+    maskComment(meta.prompt || "") +
+    "\n" +
+    "  date:     " +
+    maskComment(meta.generatedAt || meta.date || "") +
+    "\n" +
+    "  duration: " +
+    maskComment(meta.duration || "") +
+    "\n" +
+    "  model:    " +
+    maskComment(meta.model || "") +
+    "\n" +
+    "  plugin:   " +
+    maskComment(meta.pluginVersion || "") +
+    "\n" +
+    "-->";
+
+  var featureName = escAttr(meta.feature || meta.flow || "Flow");
+
+  // Use FUNCTION replacers everywhere so '$' inside CSS/JS/screens is not
+  // interpreted as a replacement pattern by String.replace.
+  // Strip the template-instruction comment block (contains example markup that
+  // would confuse screen-count checks; it has no runtime value in the deliverable).
+  var html = wrapper.replace(
+    /[ \t]*<!--\s*═[\s\S]*?═+\s*-->\s*\n?/,
+    function () {
+      return "";
+    },
+  );
+  return html
+    .replace("{{META_COMMENT}}", function () {
+      return metaComment;
+    })
+    .replace(/\{\{FEATURE_NAME\}\}/g, function () {
+      return featureName;
+    })
+    .replace("{{SHARE_META}}", function () {
+      return escAttr(shareMeta);
+    })
+    .replace("{{FLOW_CSS}}", function () {
+      return flowCss;
+    })
+    .replace("{{INLINE_ALPINE}}", function () {
+      return alpine;
+    })
+    .replace("{{SCREENS_ARRAY}}", function () {
+      return navJson;
+    })
+    .replace("<!-- {{SCREENS}} -->", function () {
+      return screensHtml;
+    });
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -213,7 +388,7 @@ function main() {
                 "Inject a self-contained auto-reload (meta + JS) every N seconds; 0/absent = off",
             },
           ],
-          types: Object.keys(TYPE_CONFIGS),
+          types: Object.keys(TYPE_CONFIGS).concat(["flow-share"]),
         },
         null,
         2,
@@ -245,12 +420,24 @@ function main() {
     process.exit(1);
   }
 
+  if (args.type === "flow-share") {
+    process.stderr.write("Reading data: " + args.input + "\n");
+    if (!fs.existsSync(args.input)) {
+      process.stderr.write("ERROR: Input file not found: " + args.input + "\n");
+      process.exit(1);
+    }
+    var shareData = JSON.parse(fs.readFileSync(args.input, "utf8"));
+    var shareHtml = assembleFlowShare(shareData);
+    writeOutput(args.output, shareHtml);
+    return;
+  }
+
   var config = TYPE_CONFIGS[args.type];
   if (!config) {
     process.stderr.write(
       'ERROR: Unknown type "' +
         args.type +
-        '". Must be one of: flow, brief, presentation.\n',
+        '". Must be one of: flow, brief, presentation, flow-share.\n',
     );
     process.exit(1);
   }
@@ -355,33 +542,7 @@ function main() {
     "</body>\n" +
     "</html>\n";
 
-  // Write output atomically: a 2s browser reload / Cowork panel watch must never
-  // catch a half-written file. Write a temp sibling, then rename (atomic on the
-  // same filesystem). Fall back to a direct write on rename failure (warn, never fail).
-  var outputDir = path.dirname(args.output);
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-  }
-  var tmpPath = args.output + ".tmp";
-  try {
-    fs.writeFileSync(tmpPath, html, "utf8");
-    fs.renameSync(tmpPath, args.output);
-  } catch (e) {
-    process.stderr.write(
-      "WARN: atomic rename failed (" + e.message + "); writing directly.\n",
-    );
-    fs.writeFileSync(args.output, html, "utf8");
-    try {
-      if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
-    } catch (e2) {
-      /* ignore cleanup error */
-    }
-  }
-
-  var size = Buffer.byteLength(html, "utf8");
-  process.stderr.write(
-    "Done: " + args.output + " (" + (size / 1024).toFixed(1) + " KB)\n",
-  );
+  writeOutput(args.output, html);
 }
 
 main();
