@@ -1,12 +1,10 @@
+{{META_COMMENT}}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{{FEATURE_NAME}} — Interactive Prototype</title>
-
-  <!-- Alpine.js -->
-  <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
 
   <style>
     /* ─── Reset ─────────────────────────────────────────────────────────────── */
@@ -208,19 +206,46 @@
       outline-color: #f87171 !important;
     }
 
-    /* ─── Component-specific CSS placeholder ────────────────────────────────── */
-    /*
-     * {{COMPONENT_SPECIFIC_CSS}}
-     * Replace this comment with any component styles needed for this prototype,
-     * e.g., custom table rows, status badges, sidebar nav items, etc.
-     */
+    /* ─── Top bar ─────────────────────────────────────────────────────────── */
+    .proto-topbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 102;
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 16px; min-height: 48px;
+      background: #2d3648; border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .proto-topbar__title { font-size: 13px; font-weight: 600; color: #fff; }
+    .proto-topbar__meta { font-size: 12px; color: rgba(255,255,255,0.55); }
+    .proto-topbar__spacer { flex: 1; }
+    .proto-toggle { display: flex; gap: 2px; background: rgba(255,255,255,0.06); border-radius: 8px; padding: 2px; }
+    .proto-toggle__btn {
+      font: inherit; font-size: 12px; cursor: pointer;
+      padding: 5px 12px; border: 0; border-radius: 6px;
+      background: transparent; color: rgba(255,255,255,0.6);
+    }
+    .proto-toggle__btn--active { background: #3b82f6; color: #fff; }
 
-    /* ─── Additional styles placeholder ─────────────────────────────────────── */
-    /*
-     * {{ADDITIONAL_STYLES}}
-     * Replace this comment with any additional one-off styles specific to
-     * this feature's screens.
-     */
+    /* Push the stage below the fixed top bar */
+    .proto-stage { padding-top: 64px; }
+
+    /* ─── Overview (contact sheet) ────────────────────────────────────────── */
+    .proto-stage--overview {
+      display: grid; align-content: start;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px; padding: 72px 24px 24px; overflow: auto;
+    }
+    .proto-screen-cell { display: contents; }
+    .proto-stage--overview .proto-screen-cell {
+      display: block; cursor: pointer; position: relative;
+      height: 240px; overflow: hidden; border-radius: 8px;
+    }
+    .proto-stage--overview .proto-screen {
+      width: 1440px; transform: scale(0.25); transform-origin: top left;
+      pointer-events: none; box-shadow: none; border-radius: 0;
+      min-height: 0;
+    }
+  </style>
+  <style>
+{{FLOW_CSS}}
   </style>
 </head>
 
@@ -228,6 +253,9 @@
   x-data="{
     /* ── Active screen index (1-based) ── */
     screen: 1,
+
+    /* ── Active view: 'prototype' (one at a time) | 'overview' (contact sheet) ── */
+    view: 'prototype',
 
     /* ── Navigation path taken through the flow (e.g. 'happy', 'error') ── */
     path: '',
@@ -238,22 +266,8 @@
     /* ── Validation error messages keyed by field name ── */
     errors: {},
 
-    /*
-     * ── Screens definition ──
-     * Replace the placeholder array below with the actual screen list.
-     * Each entry: { id: Number, label: String }
-     *
-     * {{SCREENS_ARRAY}}
-     * Example:
-     * screens: [
-     *   { id: 1, label: 'Browse datasets' },
-     *   { id: 2, label: 'Request access' },
-     *   { id: 3, label: 'Confirmation' },
-     * ],
-     */
-    screens: [
-      /* {{SCREENS_ARRAY}} */
-    ],
+    /* ── Screens nav metadata: [{ id, label }] — filled by the assembler ── */
+    screens: {{SCREENS_ARRAY}},
 
     /* ── Navigate to a specific screen by 1-based index ── */
     goto(index) {
@@ -271,38 +285,18 @@
       this.goto(this.screen - 1);
     },
 
-    /*
-     * ── Validate the current screen's form fields ──
-     * Replace with field-specific validation logic.
-     *
-     * {{VALIDATE_IMPL}}
-     * Example:
-     * validate() {
-     *   this.errors = {};
-     *   if (!this.form.name || !this.form.name.trim()) {
-     *     this.errors.name = 'Name is required';
-     *   }
-     *   return Object.keys(this.errors).length === 0;
-     * },
-     */
+    /* ── From Overview, click a screen to open it in Prototype view ── */
+    enter(index) {
+      this.view = 'prototype';
+      this.goto(index);
+    },
+
     validate() {
       this.errors = {};
-      /* {{VALIDATE_IMPL}} */
       return Object.keys(this.errors).length === 0;
     },
 
-    /*
-     * ── Returns true when the current screen's primary action may be taken ──
-     * Replace with field-presence checks as needed.
-     *
-     * {{CAN_SUBMIT_IMPL}}
-     * Example:
-     * canSubmit() {
-     *   return Boolean(this.form.dataset && this.form.reason);
-     * },
-     */
     canSubmit() {
-      /* {{CAN_SUBMIT_IMPL}} */
       return true;
     }
   }"
@@ -311,35 +305,36 @@
   @keyup.right.window="next()"
 >
 
+  <header class="proto-topbar">
+    <div class="proto-topbar__title">{{FEATURE_NAME}}</div>
+    <div class="proto-topbar__meta">{{SHARE_META}}</div>
+    <div class="proto-topbar__spacer"></div>
+    <div class="proto-toggle" role="tablist" aria-label="View">
+      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': view === 'prototype' }" @click="view = 'prototype'" :aria-selected="view === 'prototype'">Prototype</button>
+      <button class="proto-toggle__btn" :class="{ 'proto-toggle__btn--active': view === 'overview' }" @click="view = 'overview'" :aria-selected="view === 'overview'">Overview</button>
+    </div>
+  </header>
+
   <!-- ── Screen indicator (top-right): shows "N / total" ────────────────────── -->
-  <div class="proto-indicator" x-text="`${screen} / ${screens.length}`" aria-live="polite"></div>
+  <div class="proto-indicator" x-text="`${screen} / ${screens.length}`" aria-live="polite" x-show="view === 'prototype'"></div>
 
   <!-- ── Keyboard hint bar ────────────────────────────────────────────────────── -->
-  <div class="proto-hint">
+  <div class="proto-hint" x-show="view === 'prototype'">
     <kbd>←</kbd> prev &nbsp;·&nbsp; <kbd>→</kbd> next &nbsp;·&nbsp; click step to jump
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       STAGE — wraps all proto-screen elements
-       ─────────────────────────────────────────────────────────────────────────
-       Replace the comment below with one <div class="proto-screen"> per screen.
-
-       Template for a single screen:
-
-         <div class="proto-screen"
-              :aria-hidden="screen !== 1"
-              x-show="screen === 1"
-              x-transition:enter="proto-screen"
-              data-screen="1">
-           <!-- Screen 1 content here -->
-           <!-- {{SCREEN_1_CONTENT}} -->
+  <!-- ASSEMBLER-STRIP-BEGIN
+       Screen-fill contract (removed from the shareable deliverable by the assembler):
+       the assembler replaces the {{SCREENS}} marker below with one cell block per screen —
+         <div class="proto-screen-cell" @click="view === 'overview' && enter(N)">
+           <div class="proto-screen" data-screen="N"
+                x-show="view === 'overview' || screen === N"
+                :aria-hidden="view === 'prototype' && screen !== N"> … </div>
          </div>
-
-       Increment data-screen and the x-show / :aria-hidden comparisons for each
-       additional screen. Alpine's x-show keeps DOM in place while hiding screens
-       that are not active — this preserves form state across navigation.
-  ═══════════════════════════════════════════════════════════════════════════ -->
-  <main class="proto-stage">
+       In Prototype view the cell is display:contents and one screen shows; in Overview the
+       cell is a fixed overflow:hidden grid item and the screen is transform:scale(0.25).
+  ASSEMBLER-STRIP-END -->
+  <main class="proto-stage" :class="{ 'proto-stage--overview': view === 'overview' }">
     <!-- {{SCREENS}} -->
   </main>
 
@@ -350,7 +345,7 @@
        @click navigates to that screen.
        :class applies the active highlight to the currently visible screen.
   -->
-  <nav class="proto-nav" aria-label="Prototype screen navigation">
+  <nav class="proto-nav" aria-label="Prototype screen navigation" x-show="view === 'prototype'">
     <template x-for="item in screens" :key="item.id">
       <button
         class="proto-nav__item"
@@ -365,8 +360,9 @@
     </template>
   </nav>
 
-<!-- Annotation layer — include contents of annotation-layer.html here -->
-<!-- {{ANNOTATION_LAYER}} -->
-
+  <script>
+/* Alpine.js (vendored, inlined for offline use) */
+{{INLINE_ALPINE}}
+  </script>
 </body>
 </html>

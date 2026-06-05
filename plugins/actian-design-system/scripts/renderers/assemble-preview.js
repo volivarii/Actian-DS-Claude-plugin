@@ -12,6 +12,8 @@
  *   flow          — FM flow preview (fm-flow.css, fm-html-map + flow-renderer)
  *   brief         — Component brief preview (fm-brief.css, fm-html-map + brief-renderer)
  *   presentation  — DS presentation preview (ds-presentation.css, presentation-renderer)
+ *   flow-share    — Self-contained shareable flow deliverable (two views:
+ *                   Prototype + Overview; inlines Alpine + flow CSS; offline)
  *
  * Output: A single self-contained HTML file with all CSS, JS, and data inlined.
  * Logs:   Progress messages to stderr.
@@ -20,26 +22,18 @@
 var fs = require("fs");
 var path = require("path");
 var PATHS = require("../lib/paths");
+var shared = require("./assemble-shared");
 
 // ---------------------------------------------------------------------------
-// Paths
+// Paths (via shared module)
 // ---------------------------------------------------------------------------
 
-var PLUGIN_ROOT = path.resolve(__dirname, "../..");
+var TEMPLATES_DIR = shared.TEMPLATES_DIR;
+var RENDERERS_DIR = shared.RENDERERS_DIR;
+var FIGMA_TABLE_DIR = shared.FIGMA_TABLE_DIR;
 
-var TEMPLATES_DIR = path.join(PLUGIN_ROOT, "templates");
-var RENDERERS_DIR = path.join(
-  PLUGIN_ROOT,
-  "scripts",
-  "renderers",
-  "html-renderers",
-);
-var FIGMA_TABLE_DIR = path.join(
-  PLUGIN_ROOT,
-  "scripts",
-  "renderers",
-  "figma-table",
-);
+var readFileChecked = shared.readFileChecked;
+var escapeJsonForScript = shared.escapeJsonForScript;
 
 // ---------------------------------------------------------------------------
 // Type configurations
@@ -47,11 +41,7 @@ var FIGMA_TABLE_DIR = path.join(
 
 var TYPE_CONFIGS = {
   flow: {
-    css: [
-      path.join(RENDERERS_DIR, "fm-base.css"),
-      path.join(RENDERERS_DIR, "render-node.css"),
-      path.join(RENDERERS_DIR, "flow-renderer.css"),
-    ],
+    css: shared.FLOW_CSS,
     renderers: [
       path.join(RENDERERS_DIR, "fm-html-map.js"),
       // render-node.js UMD must load BEFORE flow-renderer.js so the IIFE can
@@ -63,7 +53,7 @@ var TYPE_CONFIGS = {
     fonts: "Inter:wght@400;500;600;700",
     title: function (data) {
       var meta = data.meta || {};
-      return (meta.feature || "Flow") + " \u2014 " + (meta.app || "Preview");
+      return (meta.feature || "Flow") + " — " + (meta.app || "Preview");
     },
   },
   brief: {
@@ -85,7 +75,7 @@ var TYPE_CONFIGS = {
       var header = data.card_header || data.card1_header || {};
       return (
         (header.componentName || header.name || "Component") +
-        " \u2014 Component Brief"
+        " — Component Brief"
       );
     },
   },
@@ -107,7 +97,7 @@ var TYPE_CONFIGS = {
     fonts: "Roboto:wght@400;500;700",
     title: function (data) {
       var meta = data.meta || {};
-      return (meta.title || "Presentation") + " \u2014 Presentation";
+      return (meta.title || "Presentation") + " — Presentation";
     },
   },
 };
@@ -119,23 +109,6 @@ var TYPE_CONFIGS = {
 var ANNOTATION_CSS = path.join(TEMPLATES_DIR, "annotation-layer.css");
 var ANNOTATION_JS = path.join(TEMPLATES_DIR, "annotation-layer.js");
 var ANNOTATION_HTML = path.join(TEMPLATES_DIR, "annotation-layer-markup.html");
-
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
-function readFileChecked(filePath) {
-  if (!fs.existsSync(filePath)) {
-    process.stderr.write("ERROR: Missing asset: " + filePath + "\n");
-    process.exit(1);
-  }
-  return fs.readFileSync(filePath, "utf8");
-}
-
-function escapeJsonForScript(jsonStr) {
-  // Replace </ with <\/ to prevent </script> from closing the tag
-  return jsonStr.replace(/<\//g, "<\\/");
-}
 
 // ---------------------------------------------------------------------------
 // Arg parsing
@@ -176,6 +149,36 @@ function parseArgs(argv) {
 }
 
 // ---------------------------------------------------------------------------
+// Atomic write helper (shared by all assembly paths)
+// ---------------------------------------------------------------------------
+
+function writeOutput(outputPath, html) {
+  // Write atomically (tmp sibling + rename): a 2s browser reload / Cowork panel
+  // watch must never catch a half-written file. Fall back to a direct write.
+  var outputDir = path.dirname(outputPath);
+  if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
+  var tmpPath = outputPath + ".tmp";
+  try {
+    fs.writeFileSync(tmpPath, html, "utf8");
+    fs.renameSync(tmpPath, outputPath);
+  } catch (e) {
+    process.stderr.write(
+      "WARN: atomic rename failed (" + e.message + "); writing directly.\n",
+    );
+    fs.writeFileSync(outputPath, html, "utf8");
+    try {
+      if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
+    } catch (e2) {
+      /* ignore */
+    }
+  }
+  var size = Buffer.byteLength(html, "utf8");
+  process.stderr.write(
+    "Done: " + outputPath + " (" + (size / 1024).toFixed(1) + " KB)\n",
+  );
+}
+
+// ---------------------------------------------------------------------------
 // Main
 // ---------------------------------------------------------------------------
 
@@ -213,7 +216,7 @@ function main() {
                 "Inject a self-contained auto-reload (meta + JS) every N seconds; 0/absent = off",
             },
           ],
-          types: Object.keys(TYPE_CONFIGS),
+          types: Object.keys(TYPE_CONFIGS).concat(["flow-share"]),
         },
         null,
         2,
@@ -245,12 +248,24 @@ function main() {
     process.exit(1);
   }
 
+  if (args.type === "flow-share") {
+    process.stderr.write("Reading data: " + args.input + "\n");
+    if (!fs.existsSync(args.input)) {
+      process.stderr.write("ERROR: Input file not found: " + args.input + "\n");
+      process.exit(1);
+    }
+    var shareData = JSON.parse(fs.readFileSync(args.input, "utf8"));
+    var assembleFlowShare = require("./assemble-flow-share.js").assembleFlowShare;
+    writeOutput(args.output, assembleFlowShare(shareData));
+    return;
+  }
+
   var config = TYPE_CONFIGS[args.type];
   if (!config) {
     process.stderr.write(
       'ERROR: Unknown type "' +
         args.type +
-        '". Must be one of: flow, brief, presentation.\n',
+        '". Must be one of: flow, brief, presentation, flow-share.\n',
     );
     process.exit(1);
   }
@@ -355,33 +370,7 @@ function main() {
     "</body>\n" +
     "</html>\n";
 
-  // Write output atomically: a 2s browser reload / Cowork panel watch must never
-  // catch a half-written file. Write a temp sibling, then rename (atomic on the
-  // same filesystem). Fall back to a direct write on rename failure (warn, never fail).
-  var outputDir = path.dirname(args.output);
-  if (!fs.existsSync(outputDir)) {
-    fs.mkdirSync(outputDir, { recursive: true });
-  }
-  var tmpPath = args.output + ".tmp";
-  try {
-    fs.writeFileSync(tmpPath, html, "utf8");
-    fs.renameSync(tmpPath, args.output);
-  } catch (e) {
-    process.stderr.write(
-      "WARN: atomic rename failed (" + e.message + "); writing directly.\n",
-    );
-    fs.writeFileSync(args.output, html, "utf8");
-    try {
-      if (fs.existsSync(tmpPath)) fs.unlinkSync(tmpPath);
-    } catch (e2) {
-      /* ignore cleanup error */
-    }
-  }
-
-  var size = Buffer.byteLength(html, "utf8");
-  process.stderr.write(
-    "Done: " + args.output + " (" + (size / 1024).toFixed(1) + " KB)\n",
-  );
+  writeOutput(args.output, html);
 }
 
 main();

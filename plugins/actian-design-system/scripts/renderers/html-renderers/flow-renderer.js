@@ -347,7 +347,7 @@
 
       var html = genCard(meta) + coverHtml;
       screens.forEach(function (s) {
-        html += screen(s);
+        html += renderScreen(s);
       });
       container.innerHTML =
         '<div class="flow-row" data-name="Flow: ' +
@@ -357,6 +357,11 @@
         "</div>";
     });
   }
+
+  // Canonical shared name. renderScreen IS screen — the per-screen renderer is
+  // the single source of truth used by both the strip preview (above) and the
+  // flow-share deliverable assembler (server-side). Aliased, never forked.
+  var renderScreen = screen;
 
   // -------------------------------------------------------------------------
   // Test exports (browser only)
@@ -372,6 +377,7 @@
       resolveChrome: resolveChrome,
       tierBadge: tierBadge,
       screen: screen,
+      renderScreen: renderScreen,
     };
   }
 
@@ -390,6 +396,7 @@
       resolveChrome: resolveChrome,
       tierBadge: tierBadge,
       screen: screen,
+      renderScreen: renderScreen,
     };
   }
 })();
