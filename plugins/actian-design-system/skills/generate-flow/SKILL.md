@@ -1,7 +1,7 @@
 ---
 name: generate-flow
 description: Generate one or more lo-fi screens — single screen or multi-screen flow — from a feature idea, user story, or single-screen prompt. Also handles refine (URL + instruction), iterate (URL only), branch (URL + new variant), prototype wiring, and hifi conversion. Pushes to Figma.
-argument-hint: "[feature description or Figma URL] [prose instruction] [--hifi --audit --variants N --ref <url> --breakpoints tablet,mobile --from <url> --branch <name> --states empty,error --no-prompt]"
+argument-hint: "[feature description or Figma URL] [prose instruction] [--hifi --audit --variants N --ref <url> --breakpoints tablet,mobile --from <url> --branch <name> --states empty,error --share --no-prompt]"
 ---
 
 # Generate Fat Marker Flow
@@ -36,6 +36,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | `--branch <name>` | string | none | Requires `--from <url>`. Forks the flow into a sibling frame named `[original] — <name>`. Provenance in `.last-push.json` so `/compare-flows` works between branches. |
 | `--states <list>` | string list | none | State coverage: `empty`, `error`, `loading`, `no-permission`, `populated`, `partial-data`. Generates each as additional screens or variants. |
 | `--no-prompt` | boolean | false | Skip the interactive pre-gen gate (Step 0.5) AND post-push audit gate (Step 7.5). Use defaults for any unset flags. See `references/ds-rules/interactive-gates.md`. Refine path is unaffected (already explicit). |
+| `--share` | bool | off | After the flow's screens are finalized, also emit a single self-contained, offline shareable HTML deliverable (clickable Prototype + all-screens Overview) at `{project_working_directory}/flows/[feature].html`. Independent of and composable with the Figma push. See `references/generate-flow/share.md`. |
 
 ### Flag interaction matrix
 
@@ -48,6 +49,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | `--breakpoints tablet --variants 3` | 3 variants × 2 breakpoints (desktop + tablet) = 6 outputs. Hard cap: 9 outputs total. |
 | `--ref <url> --states empty,error` | Reference biases base layout; states inherit the same reference treatment. |
 | `--states X` without `--from` | Generates flow + states from prompt (greenfield). |
+| `--share` + anything | `--share` is orthogonal — emitted once after the normal pipeline (and after `--hifi`/push if set). It re-reads the validated `flow-data.json`; never regenerates. |
 
 ## Step 0 — Parse args + classify input shape
 
@@ -55,6 +57,7 @@ Parse args. Note which flags are explicitly passed:
 - `--no-prompt` — parsed via `scripts/lib/parse-no-prompt.js`. Suppresses Step 0.5 + Step 7.5.
 - `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set.
 - `--from <url>`, `--branch <name>` — special cases. Not gated. Detected by companion or absent by default.
+- `--share` — note presence; triggers the shareable-deliverable emit after Step 6.5 / push. Not gated by Step 0.5.
 
 Classify input shape (Prompt / Refine / Iterate per the table above). **Refine and Iterate paths skip Step 0.5 entirely** — URL + prose (refine) or `--from <url>` (iterate) are already explicit intent.
 
@@ -199,6 +202,9 @@ For warning-level findings (`default-true-boolean-unset`, `unresolved-token`, `t
      -o {project_working_directory}/flows/[feature]-flow.html
    ```
    Tell the user: `Preview ready → <path>`. **If the render fails, surface the error and CONTINUE to the push** — the preview is an aid, never a gate. (The render reads only `flow-data.json`; it has no dependency on the push.)
+
+6.6. **Emit the shareable deliverable (if `--share`).** When `--share` is set, after the final preview render, emit the self-contained two-view file. **REQUIRED:** read `references/generate-flow/share.md` for the command, output path, the surfaced message, and the fail-open rule. Skip entirely when `--share` is not set.
+
 7. Push to Figma (see Push section below)
    - **Progress (chat):** print `Pushing <N>/<M> to Figma…` as each screen frame is pushed, so the push phase is never silent.
 7.5. **Post-push gate** (interactive — see Step 7.5 below) — runs the audit if `--audit` is set OR designer opts in via gate.
@@ -233,6 +239,19 @@ Parser:
 - 3 retries → abort with: "Aborting. Run again with `--no-prompt` to skip, or pass `--audit` to auto-run."
 
 When `--audit` is set explicitly, skip this gate and run the audit pipeline immediately after push (existing behavior preserved).
+
+**Shareable-deliverable offer (greenfield only).** When `--share` was NOT passed, this is a greenfield run (not refine/iterate), and `--no-prompt` is not set, also offer — as a second prompt in the same step — a self-contained prototype to share:
+
+```
+Share a self-contained prototype?  (opens offline, no Figma needed)
+
+  no (default) — skip
+  share        — writes {project_working_directory}/flows/[feature].html you can email or host
+
+Reply: enter for no, or "share".
+```
+
+Parser: empty / "no" → skip; "share" → run the Step 6.6 emit (read `references/generate-flow/share.md`); invalid → re-prompt; 3 retries → skip with a one-line note. This offer is independent of the audit offer (the designer may take both).
 
 ---
 
@@ -395,3 +414,4 @@ Push-apart row: `{ "type": "FRAME", "name": "Header Row", "layout": { "mode": "H
 - `references/figma/prototype-reference.md` — interactive HTML prototype (opt-in)
 - `references/figma/prototype-wiring.md` — Figma prototype wiring (opt-in)
 - `recipes/flow/_index.json` — archetype recipe catalog
+- `references/generate-flow/share.md` — `--share` self-contained shareable deliverable

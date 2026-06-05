@@ -22,6 +22,7 @@ const TOPICS = [
   "references/generate-flow/refine.md",
   "references/generate-flow/vision-refs.md",
   "references/generate-flow/push-sequence.md",
+  "references/generate-flow/share.md",
 ];
 
 describe("generate-flow progressive disclosure reachability", () => {
@@ -39,7 +40,10 @@ describe("generate-flow progressive disclosure reachability", () => {
       const abs = path.join(PLUGIN_ROOT, rel);
       assert.ok(fs.existsSync(abs), `${rel} missing`);
       const lines = (fs.readFileSync(abs, "utf8").match(/\n/g) || []).length;
-      assert.ok(lines > 15, `${rel} is only ${lines} lines — likely empty stub`);
+      assert.ok(
+        lines > 15,
+        `${rel} is only ${lines} lines — likely empty stub`,
+      );
     });
   }
 });
