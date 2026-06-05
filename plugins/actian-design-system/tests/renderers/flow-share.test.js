@@ -189,6 +189,41 @@ describe("flow-share assembly", function () {
     );
   });
 
+  it("masks odd-length dash runs so meta values cannot break out of the provenance comment", function () {
+    var tmp = path.join(os.tmpdir(), "share-dash-" + Date.now() + ".json");
+    fs.writeFileSync(
+      tmp,
+      JSON.stringify({
+        meta: {
+          feature: "F",
+          app: "A",
+          pluginVersion: "1.0",
+          prompt: "before ---><script>BREAKOUT()</script> after",
+          model: "m-----> x",
+        },
+        screens: [{ name: "S", template: "studio", content: [] }],
+      }),
+      "utf8",
+    );
+    var r = runFile(tmp);
+    fs.unlinkSync(tmp);
+    assert.strictEqual(r.status, 0, "exits cleanly: " + r.stderr);
+    // The leading provenance comment must close exactly once, before <!DOCTYPE>.
+    var head = r.html.slice(0, r.html.indexOf("<!DOCTYPE"));
+    assert.ok(head.indexOf("-->") !== -1, "provenance comment closes");
+    assert.ok(
+      head.split("-->").length === 2,
+      "provenance comment closes exactly once (no early break)",
+    );
+    // The injected <script> must NOT appear as live markup — it must only exist
+    // inside the comment, not after the comment closes.
+    var afterComment = r.html.slice(r.html.indexOf("-->") + 3);
+    assert.ok(
+      afterComment.indexOf("<script>BREAKOUT") === -1,
+      "no comment breakout from odd dash run",
+    );
+  });
+
   it("preserves the Prototype UX chrome (indicator, hint, nav) through the comment strip", function () {
     var r = runFile(FLOW_FIXTURE);
     assert.ok(

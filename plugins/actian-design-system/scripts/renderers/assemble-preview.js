@@ -153,8 +153,11 @@ function escapeJsonForScript(jsonStr) {
 }
 
 // Prevent meta values from closing the leading HTML comment early.
+// Insert a zero-width space between consecutive dashes so meta values can never
+// form a "-->" that closes the surrounding provenance HTML comment early (the
+// /--/g pair-replace left a live "-->" on odd-length dash runs like "--->").
 function maskComment(s) {
-  return String(s == null ? "" : s).replace(/--/g, "-​-");
+  return String(s == null ? "" : s).replace(/-(?=-)/g, "-​");
 }
 
 function escAttr(s) {
