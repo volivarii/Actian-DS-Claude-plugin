@@ -36,9 +36,6 @@
       "variations": [
         "components/dist/media/button/variations-0.webp",
         "components/dist/media/button/variations-1.webp"
-      ],
-      "spacing": [
-        "components/dist/media/button/spacing-0.webp"
       ]
     },
     "calendar": {
@@ -64,9 +61,6 @@
     },
     "checkbox-with-label": {
       "preview": "components/dist/media/checkbox-with-label/preview.webp",
-      "parts": [
-        "components/dist/media/checkbox-with-label/parts-0.webp"
-      ],
       "spacing": [
         "components/dist/media/checkbox-with-label/spacing-0.webp",
         "components/dist/media/checkbox-with-label/spacing-1.webp"
@@ -191,9 +185,6 @@
     },
     "link": {
       "preview": "components/dist/media/link/preview.webp",
-      "parts": [
-        "components/dist/media/link/parts-0.webp"
-      ],
       "variations": [
         "components/dist/media/link/variations-0.webp"
       ]
@@ -278,9 +269,6 @@
     },
     "side-nav": {
       "preview": "components/dist/media/side-nav/preview.webp",
-      "parts": [
-        "components/dist/media/side-nav/parts-0.webp"
-      ],
       "variations": [
         "components/dist/media/side-nav/variations-0.webp",
         "components/dist/media/side-nav/variations-1.webp"
@@ -297,12 +285,6 @@
     },
     "sticky-footer": {
       "preview": "components/dist/media/sticky-footer/preview.webp",
-      "parts": [
-        "components/dist/media/sticky-footer/parts-0.webp"
-      ],
-      "spacing": [
-        "components/dist/media/sticky-footer/spacing-0.webp"
-      ],
       "behavior": [
         "components/dist/media/sticky-footer/behavior-0.webp",
         "components/dist/media/sticky-footer/behavior-1.webp"
