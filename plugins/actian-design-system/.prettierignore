@@ -1,0 +1,4 @@
+# Placeholder-bearing HTML templates — prettier parses {{TOKENS}} as JS and
+# corrupts them (e.g. {{INLINE_ALPINE}} → { { INLINE_ALPINE; } }). These are
+# filled by assemble-preview.js, not hand-formatted.
+templates/*.html
