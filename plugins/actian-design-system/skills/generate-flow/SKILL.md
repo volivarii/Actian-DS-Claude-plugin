@@ -104,91 +104,14 @@ Once resolved, proceed to the pipeline.
 
 ## Refine shape
 
-Refine is a shape the skill detects, not a flag. When detected (v1.56.0+), it runs a targeted edit through the engine in `scripts/lib/resolve-unit.js`, `scripts/lib/snapshot-store.js`, and `scripts/lib/derive-scope.js`, with the validator running scope-filtered (B-refine.1). It skips the standard 3-gate pipeline AND the Step 0.5 pre-gen gate, and pushes only the affected screen frames.
+Refine activates when ALL of: a Figma URL is provided, a prose instruction is
+provided alongside, AND the URL resolves to a `pushedNodes[]` entry (or the
+wrapper `pageNodeId`) in `.last-push.json`. Refine edits the existing
+`flow-data.json` in place and re-pushes — it does not regenerate.
 
-### Detection (all must match)
-
-1. A Figma URL is present in the input
-2. Prose instruction is present alongside (not just whitespace, not only flags)
-3. The URL resolves to a `pushedNodes[]` entry (single-screen refine) or the wrapper `pageNodeId` (whole-flow refine) in `.last-push.json`
-
-If any condition fails, fall back per the table below.
-
-| Failure | Resolver `reason` | Behavior |
-|---------|-------------------|----------|
-| URL provided, no prose instruction | n/a | Iterate mode (`--from <url>` semantics) |
-| Prose provided, no URL | n/a | Standard generate from prompt |
-| URL parses but `fileKey` doesn't match the local manifest | `file mismatch` | Treat as new generation; warn: "no prior push found, treating as new flow." |
-| URL parses and file matches, but `nodeId` is not in `pushedNodes` and not the wrapper `pageNodeId` (designer copied a child or random node) | `node not in pushedNodes` | **Loud error:** "URL points to a nested element or wrapper. Copy the screen frame URL and retry." Do not silently fall through. |
-| URL matches a `pushedNodes` entry but the manifest pre-dates v1.56.0 (no `screenId` field) | `manifest pre-dates screenId` | Treat as new generation; warn: "manifest is from an older plugin version; treating as new flow. Re-push once to enable surgical refines." |
-| URL parses but the resolver string is malformed | `unparseable URL` | Treat as new generation; warn the designer the URL was unrecognized. |
-| Manifest file unreadable / missing | `manifest unreadable` | Treat as new generation; warn: "no prior push manifest found at this location, treating as new flow." |
-| Snapshot sidecar (`flow-data.snapshot.json`) missing or corrupt | n/a | Treat as new generation; warn: "no usable snapshot found, treating as new flow." |
-| `derive-scope.js` returns `null` (AI's edit produced no actual data difference) | n/a | Abort: "no changes detected; nothing to push." Don't push or rewrite manifest. |
-| Refine instruction the data model can't represent (e.g., "add a 3D shader") | n/a | Return error; suggest alternative or `/create-component`. |
-| Refine instruction conflicts with glossary | n/a | Validator flags; companion presents conflict and asks. |
-| Refine on a hifi unit | n/a | Re-route through `/generate-flow` refine on the underlying lo-fi data model (hifi is downstream); explain to designer. |
-
-### Behavior (v1.56.0+)
-
-> **Designer note:** Refine recreates affected screen frames (delete + re-push at the
-> original wrapper position). Manual edits inside those frames are lost. Out-of-scope
-> screen frames are preserved untouched — byte-identical layer trees before and after.
-> If you need to keep manual edits inside a frame, don't refine it; copy the frame to a
-> new wrapper first.
-
-1. **Resolve URL.** Run `scripts/lib/resolve-unit.js` `resolveByUrl(url, manifestPath)`.
-   The manifest path is inferred from the URL's enclosing project flow directory
-   (typically `{project_working_directory}/flows/<feature>/.last-push.json`).
-   - `kind === "miss"` → fall through per the failure table; emit the message tied to `reason`.
-   - `kind === "single-unit"` → proceed with single-screen refine; `screenId` + `figmaNodeId` are returned.
-   - `kind === "full"` → proceed; designer pasted the wrapper URL → whole-flow refine.
-
-2. **Load snapshot.** Read `flow-data.snapshot.json` from the same manifest dir via
-   `scripts/lib/snapshot-store.js` `read()`. If `null` → fall through to greenfield with the
-   documented warning ("no usable snapshot found, treating as new flow").
-
-3. **Apply edit inline.** AI reads prose + snapshot in context. Mutate the targeted screen
-   object(s) in memory, then write the result as the new `flow-data.json`.
-   No screen-generator agents — refine is a targeted edit, not parallel generation.
-
-   **C-vision (v1.57.0+) note:** the snapshot's `meta.references[]` carries cached
-   fingerprints from the prior push. Step 4.5 logic applies in refine: reuse fingerprints
-   whose URL is unchanged in the new flow-data; re-analyze (via `get_screenshot` →
-   vision-extract) only when a ref URL changed. The targeted edit may also add or remove
-   refs entirely, in which case re-analysis follows the standard step 4.5 flow.
-
-4. **Derive scope.** Run `scripts/lib/derive-scope.js` `deriveScope(snapshot, newData)`.
-   - Returns a scope tag (`single-unit:<id>` | `multi-unit:[…]` | `full`) → continue.
-   - Returns `null` → abort with `"no changes detected; nothing to push."` Don't push or rewrite manifest.
-
-5. **Validate.** Run validator with the derived scope:
-   ```bash
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/validation/validate-flow-data.js" \
-     {project_working_directory}/flows/<feature>/flow-data.json \
-     --scope <scope-tag>
-   ```
-   Findings filtered to changed screens. P0s → patch in place per existing 3-strike protocol;
-   warnings → proceed.
-
-6. **Push surgically.** For each changed screen id (in original wrapper order):
-   a. Look up Figma node id: `pushedNodes` entry where `screenId === <id>` → `id`.
-   b. Note the frame's position index within the wrapper. Recreation must restore the same
-      index, or refine reshuffles unrelated screens.
-   c. `use_figma`: delete that frame.
-   d. `use_figma`: recreate frame from the new screen data (same per-screen push pattern as
-      the greenfield Step 6 of the standard push sequence) and insert at the recorded position.
-
-   Skip wrapper / Cover Card / Research card / Tier Summary recreation — those persist.
-   Update GenLog metadata fields (Date, Duration, Plugin Version) via `setProperties` on the
-   existing GenLog instance. Emit the Scope text node sibling per existing Step 3b — the
-   runtime scope variable from §4 flows directly here.
-
-7. **Rewrite manifest + snapshot.** Update `.last-push.json`: refresh entries for changed
-   screens (new Figma node ids, new tier/justification if changed), preserve untouched
-   entries verbatim, refresh `sourceHash` / `pushedAt` / `componentKeys` / hash fields.
-   Then call `scripts/lib/snapshot-store.js` `write(manifestDir, newFlowData)` as the last step.
+**REQUIRED:** before running a Refine, read
+`references/generate-flow/refine.md` for the full detection rules and the
+step-by-step behavior.
 
 ## Pipeline (3 gates, then build + push uninterrupted) — for prompt + greenfield generation
 
@@ -196,55 +119,7 @@ If any condition fails, fall back per the table below.
 2. **Gate 1 — Research** (present verbatim, see below)
 3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
 4. **Gate 3 — Screen list + detail level** (single gate, both choices, see below)
-4.5. **Vision analysis on `meta.references[]`** (C-vision, v1.57.0+) — when `--ref <url>` was provided and `meta.references[]` is non-empty, run the vision pipeline before building flow-data. Skip entirely when `meta.references` is missing or empty (C-vision is opt-in).
-
-   ```bash
-   # Load the canonical RECIPE_IDS for vision-prompt parameterization:
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-   "$NODE_BIN" -e 'console.log(require("'${CLAUDE_PLUGIN_ROOT}'/scripts/recipes/fingerprint-schema.js").RECIPE_IDS.join(", "))'
-   ```
-
-   For each entry in `meta.references[]`:
-
-   1. **Cache check** (refine path): if `meta.references[i].fingerprint` already exists AND the snapshot's prior URL for this index matches the current URL → reuse the cached fingerprint. Skip to the next ref. (B-refine.2's `flow-data.snapshot.json` preserves the prior `meta.references[]` shape.)
-   2. Otherwise, call `mcp__claude_ai_Figma__get_screenshot` with the ref URL → image bytes.
-   3. Run the vision-extraction prompt below on the screenshot, parameterized with the RECIPE_IDS list from the bash command above.
-   4. Validate the output via `scripts/recipes/fingerprint-schema.js` `validateFingerprint`. If invalid: retry once with a "your previous output was invalid; emit STRICT JSON" reminder. If still invalid: drop the invalid fields, persist the rest. (Empty fingerprint objects are valid.)
-   5. Persist on `meta.references[i].fingerprint`, including `extracted_at` as the current ISO timestamp.
-
-   **Vision-extraction prompt template:**
-
-   ```
-   Analyze the attached screenshot and extract a structural fingerprint as STRICT JSON.
-
-   Output ONLY this JSON object — no prose, no markdown fences:
-
-   {
-     "density": "high" | "medium" | "low",
-     "hierarchy_depth": <integer 1-8>,
-     "primary_components": [<lowercase strings, e.g., "toolbar", "table", "filter-chips">],
-     "layout_archetype": <one of: <COPY THE RECIPE_IDS LIST FROM THE BASH OUTPUT HERE>>
-   }
-
-   Definitions:
-   - density: information density of the layout. high = packed (many rows/columns/data points per screen). medium = balanced. low = generous whitespace, hero-style.
-   - hierarchy_depth: levels of visual nesting from top-level container to leaf content. A page with sidebar + main + table-with-rows = depth 4.
-   - primary_components: 3-7 dominant UI elements. Use generic noun phrases (e.g., "command palette", "filter chips"), not implementation names.
-   - layout_archetype: closest match from the provided recipe ID list. If the screenshot does not clearly match any, OMIT the field entirely. Do not guess.
-   ```
-
-   **Failure-mode dispatch:**
-
-   | Mode | Behavior |
-   |------|----------|
-   | `get_screenshot` MCP fails (auth, missing node, file deleted) | Per-ref warning to designer; mark this fingerprint as missing; continue with remaining refs. |
-   | Vision returns malformed JSON | Retry once with strict-JSON reminder. If still invalid, soft-fail this ref. |
-   | Vision returns `layout_archetype` not in `RECIPE_IDS` | Drop that field, keep density/depth/components. |
-   | All refs fail | Loud abort: "Could not extract fingerprints from any reference. Drop `--ref` or fix the URLs and retry." |
-   | Some refs fail | Proceed with successful subset. Surface a list of which URLs failed and why. |
-   | `kind === "image"` URL provided | Loud error per Sprint A v1: "Image URLs not yet supported. Screenshot into a Figma frame first." Abort. |
-
-   **Pass through to screen-generators:** the persisted `meta.references[]` (with fingerprints attached) flows into screen-generator agents' input as the "Reference fingerprints" block (see `agents/screen-generator.md`). Sequential mode reads them inline; parallel mode includes them in each batch's dispatch payload.
+4.5. **Vision analysis on `meta.references[]`** (C-vision, v1.57.0+, opt-in) — when `--ref <url>` was provided and `meta.references[]` is non-empty, extract a structural fingerprint per reference before building flow-data; skip entirely when empty. **REQUIRED:** read `references/generate-flow/vision-refs.md` for the per-ref loop, the vision-extraction prompt template, and failure-mode handling.
 
 5.0. **Skeleton preview at approval (Tier B streaming).** As soon as the screen list is approved (Gate 2), show the structure instantly so the user isn't staring at an empty panel during the build:
    - Write the ordered screen list to `{project_working_directory}/flows/screen-list.json` as `{ "meta": {…}, "screens": [{ "name": "<screen name>", "template": "<template>" }, …] }` (one entry per approved screen, in final order; carry the known `meta`).
@@ -473,71 +348,10 @@ Set `meta._glossary` before dispatching screen-generators or building flow-data 
 
 Read `references/figma/figma-push-patterns.md` for component keys and patterns. Push from `flow-data.json` using small `use_figma` calls. Always pass `skillNames: "figma-use"`.
 
-**Push sequence:**
-
-1. Navigate to target page + create wrapper frame
-2. GenLog — import by key `a9653f30925367e96dea90093d750bfe70849571`, `setProperties` with `"Skill#3:0"`, `"Prompt#3:1"`, `"Date#3:2"`, `"Duration#3:3"`, `"Model#3:4"`, `"Plugin Version#3:5"`. **Read the Plugin Version from `plugin.json` at run time — never hardcode a number, and never copy a version printed anywhere in these docs (they go stale).** Get the live value with:
-   ```bash
-   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
-   "$NODE_BIN" -e 'process.stdout.write("v"+require(process.env.CLAUDE_PLUGIN_ROOT+"/.claude-plugin/plugin.json").version)'
-   ```
-   Use that exact output (e.g. `v1.98.1`) for `"Plugin Version#3:5"`.
-3. Tier Summary (if any screen has a `tier` field) — call `buildTierSummary(screens)` from `scripts/lib/shared-constants.js`. If it returns a TEXT node spec (not null), push the TEXT node into the wrapper as a sibling of the GenLog instance, immediately following it. Skip when `buildTierSummary` returns null (none of the screens are tiered).
-3b. **Scope tag (B-refine.1, v1.55.0+)** — when this run was scoped (`--scope single-unit:<id>` or `multi-unit:[…]`), push an additional TEXT node sibling immediately after Tier Summary with content `"Scope: <scope-tag>"` (e.g., `"Scope: single-unit:notification-preferences-2"`). Use the same TEXT styling as Tier Summary. Skip when scope is `"full"` (the default; producing no annotation matches v1.54.x behavior). The skill holds scope in its own runtime state — passed to the validator via `--scope` and to this push step in parallel.
-4. Research card (if opted-in) — import Research Frame `e671618f2b4c6ea406a995fdc3012ac54eadfe56`, `setProperties` with `"Title#48:10"`, `"Source#48:11"`, detach, inject findings into Content slot. **Must contain the exact same content as the chat findings** — same competitors, patterns, recommendations, source URLs. Card is the persistent record of what informed the design.
-5. Cover Card — import `eaebde6bd07d2f19f3f9c00a9587240cb085a90d`, `setProperties` with `"Feature#46:8"`, `"Flow#46:9"`, `"User#46:10"` — NEVER leave defaults
-6. For each screen:
-   a. Import components (header, sidebar, content components)
-   b. Create screen frame — width **1440 fixed**, VERTICAL auto-layout, **height HUGS content** (`primaryAxisSizingMode = 'AUTO'`). 960 is a *minimum* (set a min-height), NOT a fixed cap. **Never fix the height at 960 with `clipsContent`** — tall screens (long forms, multi-section pages) MUST grow downward, never crop. If you need a viewport reference, add a non-clipping 960 guide, but the frame itself hugs.
-   c. App chrome — **set EVERY chrome component's props from the screen data; never leave a default placeholder.** `"Page Title"`, `"Description text"`, `"Button label"`, `"Nav Item"` are P0 blockers (see `references/figma/figma-push-patterns.md` → "NEVER leave default property values"; prop keys + defaults for every chrome component are listed there). Chrome is NOT covered by the content emitter — you must `setProperties` it explicitly:
-      - **App header** (`fm-app-header`) — variant `Type=` the screen's app (Admin / Explorer / Studio / Actian, from `meta.app`); set the product/app name via the nested `findOne` (per push-patterns).
-      - **Page header** (`fm-page-header`) — `setProperties`: `"Title#979:22"` ← `screen.pageHeader.title`, `"Subtitle#979:23"` ← `screen.pageHeader.subtitle`. Variant `Type=Title + Subtitle`, or `Type=Title + Actions` when `screen.pageHeader.actions[]` is non-empty — then push one `fm-button` per action with `"Label#1411:32"` ← the action label (NEVER "Button label"). Give the page-header band ≈24px top + horizontal padding so the title is not flush against the app header (this is the "no header margin" fix).
-      - **Sidebar** — for each `screen.navItems[i]`, set the side-nav item `"Label#1463:4"` ← the nav label; the item matching `screen.activeNavItem` (or `meta._glossary.sidebarActive`) gets variant `State=On`, all others `State=Placeholder` (focus principle — `references/ds-rules/quality-tiers.md`).
-   d. Content area with `paddingTop: 24, paddingLeft: 24, paddingRight: 24, paddingBottom: 24` — content NEVER flush against tab bar. Populate from `screen.content[]`. Capture the content-area frame's id from its creation call's returned `createdNodeIds[0]` — that id is `<contentFrameId>` below.
-
-   **Content push (deterministic, v1.98+) — preferred:** instead of hand-walking `content[]`, emit the whole content tree as one atomic Plugin-API script. Capture the JSON for `screen.content[]` into `$CONTENT_JSON`, then:
-   ```bash
-   printf '%s' "$CONTENT_JSON" | (
-     source "$CLAUDE_PLUGIN_ROOT/scripts/lib/resolve-node.sh" &&
-     "$NODE_BIN" "$CLAUDE_PLUGIN_ROOT/scripts/renderers/html-renderers/render-node-figma.js" \
-       --parent-id "<contentFrameId>"
-   )
-   ```
-   Capture stdout (Plugin-API JS) and pass it **verbatim** into ONE `mcp__claude_ai_Figma__use_figma` call (`skillNames: "figma-use"`). On exit 1, read the `{ ok:false, errors }` JSON on stderr, fix the offending `content[]` node, and re-run the emitter — never hand-edit the emitted JS. This guarantees the Figma content is mechanically identical to the HTML preview produced by the twin `render-node.js`.
-
-   **Fallback (parallel-change, MIGRATIONS Rule 1):** the hand-walk in sub-step **d** above stays valid if the emitter can't yet handle a node; it remains documented until cutover completes.
-
-   e. Append to wrapper
-7. Report results to the designer:
-   - Count of pushed screens
-   - Tier breakdown (when any screen has a `tier` field):
-
-     ```
-     Generated <N> screens for <feature>:
-       ✓ <count> recognized — <recipe names, comma-separated>
-       ~ <count> adapted — <composition or matchedRecipe names>
-       ! <count> improvised — <screen names>
-
-     Confidence: avg <avg-confidence to 2 decimals>
-     ```
-
-   - If any screen is tier-3 (improvised), append:
-
-     ```
-     Review tier-3 justifications? [yes / skip]
-       yes → print full justification text per tier-3 screen
-       skip → proceed
-     ```
-
-   - If any screen is tier-2 deviation (adapted with `matchedRecipe` set, `composition` null), include those names in the `~ adapted` line and offer to surface their justifications under a separate `show-deviations` option.
-
-   This summary is informational, not a gate. The designer decides whether to act on it.
-
-**Push rules:**
-- Each `use_figma` call creates 1-3 nodes max
-- Return IDs from every call
-- If a call fails, skip and continue
-- Do NOT run `flow-to-figma.js` or read `.js` files
+**REQUIRED:** read `references/generate-flow/push-sequence.md` for the full push
+sequence (wrapper + GenLog → tier/scope annotations → research/cover cards →
+per-screen frame + chrome `setProperties` + the deterministic content emitter →
+designer report) and the push rules.
 
 ### HiFi conversion (if --hifi flag)
 
