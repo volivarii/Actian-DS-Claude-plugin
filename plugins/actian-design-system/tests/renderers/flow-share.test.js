@@ -224,6 +224,24 @@ describe("flow-share assembly", function () {
     );
   });
 
+  it("strips the instruction block and ships no template tokens", function () {
+    var r = runFile(FLOW_FIXTURE);
+    assert.ok(
+      r.html.indexOf("ASSEMBLER-STRIP-BEGIN") === -1,
+      "strip sentinel removed from output",
+    );
+    assert.ok(
+      r.html.indexOf("ASSEMBLER-STRIP-END") === -1,
+      "strip-end removed from output",
+    );
+    // Check no {{UPPERCASE}} placeholder tokens leak (the {{...}} in Alpine's minified
+    // source are JS template literals, not unfilled placeholders).
+    assert.ok(
+      !/\{\{[A-Z_]+\}\}/.test(r.html),
+      "no {{TOKEN}} placeholder leaks into the deliverable",
+    );
+  });
+
   it("preserves the Prototype UX chrome (indicator, hint, nav) through the comment strip", function () {
     var r = runFile(FLOW_FIXTURE);
     assert.ok(
@@ -238,9 +256,9 @@ describe("flow-share assembly", function () {
       r.html.indexOf('class="proto-nav"') !== -1,
       "bottom nav survives",
     );
-    // The instruction comment block IS stripped (no leftover guidance / example cell).
+    // The instruction comment block IS stripped (ASSEMBLER-STRIP-BEGIN sentinel is gone).
     assert.ok(
-      r.html.indexOf("wraps all proto-screen elements") === -1,
+      r.html.indexOf("ASSEMBLER-STRIP-BEGIN") === -1,
       "instruction comment stripped",
     );
   });

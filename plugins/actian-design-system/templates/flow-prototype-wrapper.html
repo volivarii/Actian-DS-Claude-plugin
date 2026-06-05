@@ -206,13 +206,6 @@
       outline-color: #f87171 !important;
     }
 
-    /* ─── Component-specific CSS placeholder ────────────────────────────────── */
-    /*
-     * {{COMPONENT_SPECIFIC_CSS}}
-     * Replace this comment with any component styles needed for this prototype,
-     * e.g., custom table rows, status badges, sidebar nav items, etc.
-     */
-
     /* ─── Top bar ─────────────────────────────────────────────────────────── */
     .proto-topbar {
       position: fixed; top: 0; left: 0; right: 0; z-index: 102;
@@ -298,38 +291,12 @@
       this.goto(index);
     },
 
-    /*
-     * ── Validate the current screen's form fields ──
-     * Replace with field-specific validation logic.
-     *
-     * {{VALIDATE_IMPL}}
-     * Example:
-     * validate() {
-     *   this.errors = {};
-     *   if (!this.form.name || !this.form.name.trim()) {
-     *     this.errors.name = 'Name is required';
-     *   }
-     *   return Object.keys(this.errors).length === 0;
-     * },
-     */
     validate() {
       this.errors = {};
-      /* {{VALIDATE_IMPL}} */
       return Object.keys(this.errors).length === 0;
     },
 
-    /*
-     * ── Returns true when the current screen's primary action may be taken ──
-     * Replace with field-presence checks as needed.
-     *
-     * {{CAN_SUBMIT_IMPL}}
-     * Example:
-     * canSubmit() {
-     *   return Boolean(this.form.dataset && this.form.reason);
-     * },
-     */
     canSubmit() {
-      /* {{CAN_SUBMIT_IMPL}} */
       return true;
     }
   }"
@@ -356,35 +323,17 @@
     <kbd>←</kbd> prev &nbsp;·&nbsp; <kbd>→</kbd> next &nbsp;·&nbsp; click step to jump
   </div>
 
-  <!-- ═══════════════════════════════════════════════════════════════════════════
-       STAGE — wraps all screen cells (two-view: Prototype + Overview)
-       ─────────────────────────────────────────────────────────────────────────
-       The assembler replaces the {{SCREENS}} marker below with one cell block per screen.
-
-       Template for a single screen (N = 1-based index):
-
-         <div class="proto-screen-cell" @click="view === 'overview' && enter(1)">
-           <div class="proto-screen" data-screen="1"
-                x-show="view === 'overview' || screen === 1"
-                :aria-hidden="view === 'prototype' && screen !== 1">
-             <!-- screen 1 content -->
-           </div>
+  <!-- ASSEMBLER-STRIP-BEGIN
+       Screen-fill contract (removed from the shareable deliverable by the assembler):
+       the assembler replaces the {{SCREENS}} marker below with one cell block per screen —
+         <div class="proto-screen-cell" @click="view === 'overview' && enter(N)">
+           <div class="proto-screen" data-screen="N"
+                x-show="view === 'overview' || screen === N"
+                :aria-hidden="view === 'prototype' && screen !== N"> … </div>
          </div>
-
-       Contract:
-       - Each screen is emitted as a .proto-screen-cell wrapping a .proto-screen.
-       - The cell carries @click="view === 'overview' && enter(N)" so clicking a
-         thumbnail in Overview enters that screen in Prototype view.
-       - The screen carries x-show="view === 'overview' || screen === N" and
-         :aria-hidden="view === 'prototype' && screen !== N" and data-screen="N".
-       - In Prototype view the cell is display:contents (passthrough) and exactly
-         one screen is shown. In Overview the cell becomes a fixed-size,
-         overflow:hidden grid item and the .proto-screen is transform: scale(0.25)
-         clipped to a contact-sheet thumbnail.
-
-       Alpine's x-show keeps DOM in place while hiding inactive screens — this
-       preserves form state across navigation and across view switches.
-  ═══════════════════════════════════════════════════════════════════════════ -->
+       In Prototype view the cell is display:contents and one screen shows; in Overview the
+       cell is a fixed overflow:hidden grid item and the screen is transform:scale(0.25).
+  ASSEMBLER-STRIP-END -->
   <main class="proto-stage" :class="{ 'proto-stage--overview': view === 'overview' }">
     <!-- {{SCREENS}} -->
   </main>

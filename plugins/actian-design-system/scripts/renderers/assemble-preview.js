@@ -325,10 +325,10 @@ function assembleFlowShare(data) {
 
   // Use FUNCTION replacers everywhere so '$' inside CSS/JS/screens is not
   // interpreted as a replacement pattern by String.replace.
-  // Strip the template-instruction comment block (contains example markup that
-  // would confuse screen-count checks; it has no runtime value in the deliverable).
+  // Strip the ASSEMBLER-STRIP-BEGIN…END block (developer-guidance comment that
+  // has no runtime value in the shareable deliverable).
   var html = wrapper.replace(
-    /[ \t]*<!--\s*═[\s\S]*?═+\s*-->\s*\n?/,
+    /[ \t]*<!--\s*ASSEMBLER-STRIP-BEGIN[\s\S]*?ASSEMBLER-STRIP-END\s*-->\s*\n?/,
     function () {
       return "";
     },

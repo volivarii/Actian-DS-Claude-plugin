@@ -83,3 +83,22 @@ test("the SCREENS fill marker is unique", function () {
     "exactly one <!-- {{SCREENS}} --> fill marker",
   );
 });
+
+test("instruction block is wrapped in strip sentinels; vestigial tokens removed", function () {
+  assert.ok(
+    src.indexOf("ASSEMBLER-STRIP-BEGIN") !== -1,
+    "strip-begin sentinel present",
+  );
+  assert.ok(
+    src.indexOf("ASSEMBLER-STRIP-END") !== -1,
+    "strip-end sentinel present",
+  );
+  [
+    "{{COMPONENT_SPECIFIC_CSS}}",
+    "{{ADDITIONAL_STYLES}}",
+    "{{VALIDATE_IMPL}}",
+    "{{CAN_SUBMIT_IMPL}}",
+  ].forEach(function (t) {
+    assert.ok(src.indexOf(t) === -1, "vestigial token removed: " + t);
+  });
+});
