@@ -1,9 +1,9 @@
 {
   "knowledge_repo": "volivarii/actian-ds-knowledge",
   "knowledge_repo_version_range": "<1.0.0",
-  "knowledge_repo_resolved_version": "v0.28.3",
-  "knowledge_repo_resolved_sha": "ddfb5a820f2d60bab612347bfec4c4c10a4980fd",
-  "vendored_at": "2026-06-04T11:50:18.469Z",
+  "knowledge_repo_resolved_version": "v0.28.5",
+  "knowledge_repo_resolved_sha": "2691ec4b5fb71651d208edbf4b397e4fddce90c5",
+  "vendored_at": "2026-06-05T12:06:46.646Z",
   "vendored_entries": [
     "ARCHITECTURE.md",
     "CONSUMING.md",
@@ -40,5 +40,5 @@
     "scripts",
     "tests"
   ],
-  "vendor_url": "https://github.com/volivarii/actian-ds-knowledge/tree/v0.28.3"
+  "vendor_url": "https://github.com/volivarii/actian-ds-knowledge/tree/v0.28.5"
 }
