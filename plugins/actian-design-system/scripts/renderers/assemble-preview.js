@@ -44,9 +44,11 @@ var FIGMA_TABLE_DIR = path.join(
 );
 
 var WRAPPER_PATH = path.join(TEMPLATES_DIR, "flow-prototype-wrapper.html");
-// templates/vendor/ holds offline-embeddable third-party assets (not the
-// knowledge vendor/ dir — no PATHS routing needed here).
-var TEMPLATES_VENDOR_DIR = TEMPLATES_DIR + "/vendor";
+// templates/vendor/ holds offline-embeddable third-party assets (Alpine etc.).
+// This is the plugin's OWN asset dir — unrelated to the knowledge vendor/
+// substrate that no-bare-vendor-paths.test.js protects. The guard has a
+// scoped exemption for templates/vendor references so path.join is idiomatic here.
+var TEMPLATES_VENDOR_DIR = path.join(TEMPLATES_DIR, "vendor");
 var VENDOR_ALPINE = path.join(TEMPLATES_VENDOR_DIR, "alpinejs-3.14.9.min.js");
 
 // ---------------------------------------------------------------------------
@@ -275,7 +277,10 @@ function assembleFlowShare(data) {
       renderScreen(screens[s]) +
       "</div></div>\n";
   }
-  var navJson = escapeJsonForScript(JSON.stringify(navArray));
+  // navJson sits inside a double-quoted HTML attribute (x-data="{ screens: … }").
+  // escAttr (not escapeJsonForScript) is required: a bare " in a screen name would
+  // truncate the attribute and allow markup injection.
+  var navJson = escAttr(JSON.stringify(navArray));
 
   // Audience-safe visible meta (NO prompt, NO model).
   var shareMeta = [

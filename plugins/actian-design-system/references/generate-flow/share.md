@@ -7,7 +7,7 @@ of and composable with the Figma push.
 
 ## Behavior
 
-- Runs after the final clean preview render (Step 6.5), before the Figma push — it reads the already-validated flow-data.json and is independent of the push (it runs whether or not you push).
+- The explicit `--share` flag emits at Step 6.6 (after the preview render, before the Figma push); the post-push gate also OFFERS the same deliverable after a push. Either way it re-reads the already-validated flow-data.json and never regenerates.
 - Re-uses the validated `flow-data.json` — no regeneration, no extra model calls.
 - Output: `{project_working_directory}/flows/[feature].html`
   (note: the live preview is `[feature]-flow.html`; the deliverable drops `-flow`).

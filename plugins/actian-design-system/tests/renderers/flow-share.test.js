@@ -157,6 +157,38 @@ describe("flow-share assembly", function () {
     assert.ok(/<title>Admin Dashboard/.test(r.html), "title from meta.feature");
   });
 
+  it("escapes quotes in screen names so the x-data attribute is not truncated (no injection)", function () {
+    var tmp = path.join(os.tmpdir(), "share-xss-" + Date.now() + ".json");
+    fs.writeFileSync(
+      tmp,
+      JSON.stringify({
+        meta: { feature: "Q", app: "Studio", pluginVersion: "1.100.0" },
+        screens: [
+          {
+            name: 'Bad "name" <img src=x onerror=alert(1)>',
+            template: "studio",
+            content: [],
+          },
+        ],
+      }),
+      "utf8",
+    );
+    var r = runFile(tmp);
+    fs.unlinkSync(tmp);
+    assert.strictEqual(r.status, 0, "exits cleanly: " + r.stderr);
+    // No live injected element: the raw onerror attribute must not appear as markup.
+    assert.ok(
+      r.html.indexOf("onerror=alert(1)>") === -1,
+      "no unescaped injected element",
+    );
+    // The x-data attribute must not be truncated by the quote in the name —
+    // the bottom nav template that follows screens: must still be intact.
+    assert.ok(
+      r.html.indexOf('x-for="item in screens"') !== -1,
+      "x-data/markup after screens[] survives",
+    );
+  });
+
   it("preserves the Prototype UX chrome (indicator, hint, nav) through the comment strip", function () {
     var r = runFile(FLOW_FIXTURE);
     assert.ok(

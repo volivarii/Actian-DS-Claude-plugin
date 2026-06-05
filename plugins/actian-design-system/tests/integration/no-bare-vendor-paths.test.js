@@ -58,10 +58,21 @@ test("no bare vendor paths in plugin scripts", () => {
 
   for (const { rel, content } of files) {
     if (ALLOWLIST.has(rel)) continue;
+    // Strip lines that build paths rooted at TEMPLATES_VENDOR_DIR or that define
+    // TEMPLATES_VENDOR_DIR itself. templates/vendor is the plugin's OWN offline-asset
+    // directory (Alpine etc.) — NOT the knowledge vendor/ substrate this guard protects.
+    // We exempt those lines narrowly so the rest of the file is still fully scanned.
+    const lines = content.split("\n");
+    const filteredLines = lines.filter(
+      (line) =>
+        !/TEMPLATES_VENDOR_DIR/.test(line) &&
+        !/path\.join\(TEMPLATES_DIR,\s*["']vendor["']/.test(line),
+    );
+    const scannable = filteredLines.join("\n");
     for (const pattern of BARE_PATTERNS) {
-      const match = content.match(pattern);
+      const match = scannable.match(pattern);
       if (match) {
-        const lineNum = content.slice(0, match.index).split("\n").length;
+        const lineNum = scannable.slice(0, match.index).split("\n").length;
         violations.push(
           rel + ":" + lineNum + " — bare vendor path: " + match[0],
         );
