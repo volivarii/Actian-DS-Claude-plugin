@@ -4,14 +4,16 @@ var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
 
-// DS hi-fi render-tier coverage gate.
+// FM→DS CONVERSION coverage gate (one of two feeders into the shared DS render tier).
 //
-// The hi-fi HTML tier can only ever RECEIVE the DS slugs that transform-to-hifi
-// emits, which is exactly the set of `dsSlug`s mapped in fm-to-ds-map.json. This
-// gate asserts that every reachable dsSlug either has a bespoke `case` in
-// ds-html-map.js OR is explicitly listed in NOT_YET_IMPLEMENTED — so a new
-// mapping can never silently fall through to the graceful chip unnoticed, and
-// progress is visible (each build phase removes slugs from the allowlist).
+// The DS render tier (ds-html-map.js) is fed by two paths: (1) FM→DS CONVERSION —
+// transform-to-hifi.js maps a fat-marker wireframe onto the DS slugs in
+// fm-to-ds-map.json; and (2) DS-NATIVE authoring (future) — a generator that emits
+// DS nodes directly, reaching the broader *authorable* dskit surface. This gate
+// covers feeder (1) ONLY: every DS slug reachable via conversion must have a `case`
+// in ds-html-map.js OR be in NOT_YET_IMPLEMENTED — so a mapping can never silently
+// fall through to the graceful chip, and phase progress is visible. The DS-native
+// authorable surface gets its own coverage gate when that feeder lands.
 //
 // Mirrors tests/integration/fm-coverage.test.js (the FM-tier equivalent).
 

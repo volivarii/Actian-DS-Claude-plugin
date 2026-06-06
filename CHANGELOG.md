@@ -27,13 +27,16 @@ are summarized at the release level.
   inlined via `FLOW_CSS` (inert for lo-fi) and the offline single-file contract is
   preserved; no new `--type`.
 - **Three gates for the new tier:** `token-resolution` now covers ds-base.css +
-  ds-html-map.js; new `ds-coverage` test asserts every DS slug reachable from
-  `fm-to-ds-map.json` has a renderer case or is in a shrinking allowlist; frozen
-  `golden-snapshot` `ds-*` baselines; plus an end-to-end offline assembly test.
+  ds-html-map.js; new `ds-coverage` test asserts every DS slug reachable via
+  FM→DS conversion (`fm-to-ds-map.json`) has a renderer case or is in a shrinking
+  allowlist; frozen `golden-snapshot` `ds-*` baselines; plus an end-to-end offline
+  assembly test.
 
-  Infrastructure release — the user-facing `--hifi` wiring in generate-flow and
-  the remaining 19 components (P1 forms, P2 display/feedback, P3 chrome) follow.
-  See `scripts/renderers/html-renderers/SEAM.md`.
+  The DS render tier is **shared substrate**, fed by two paths: FM→DS conversion
+  (today) and DS-native authoring against the broader authorable dskit (future) —
+  it is not capped at the FM map's slugs. Infrastructure release — the user-facing
+  `--hifi` wiring, the DS-native authoring feeder, and the remaining components
+  follow. See `scripts/renderers/html-renderers/SEAM.md`.
 
 ## [1.101.0] — 2026-06-06
 

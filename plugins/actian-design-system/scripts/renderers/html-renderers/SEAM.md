@@ -10,7 +10,9 @@ button/input/checkbox-with-label) — plus a deterministic **Figma twin emitter*
 - **Closed node taxonomy:** `FRAME · TEXT · INSTANCE · RECT · ELLIPSE · DIVIDER`.
 - **The only tier-variant carrier:** `INSTANCE { ref, variant, props, library?, dsSlug? }`.
   Fatmarker carries FM refs (`fmButton`); hifi carries `library:"ds"` + `dsSlug`
-  (`button`), emitted by `transform-to-hifi.js`. Nothing else differs between tiers.
+  (`button`). Today those DS nodes come from `transform-to-hifi.js` (FM→DS
+  conversion); a future DS-native generator will emit the **same shape** directly.
+  Nothing else differs between tiers.
 - **Discipline rule (load-bearing):** NO fidelity-specific vocabulary in the spec
   — no `fm-*` classes, no FM axis names, no inline styles. All of that lives
   INSIDE the interpreter (as `fm-html-map.js` already does). This is what lets a
@@ -42,8 +44,18 @@ hi-fi DS tier is the worked example:
   `fm-to-ds-map.json` has a case or is in a shrinking allowlist), `golden-snapshot`
   (frozen `ds-*` goldens), plus an end-to-end offline assembly test.
 
-**Deferred (not yet built):** the remaining 19 reachable DS slugs (P1 forms, P2
-display/feedback, P3 chrome — tracked by `ds-coverage`'s `NOT_YET_IMPLEMENTED`);
+**Two feeders into this one tier.** The DS render tier is shared substrate, NOT
+capped at the FM-map's slugs. It is fed by (1) **FM→DS conversion**
+(`transform-to-hifi.js` + `fm-to-ds-map.json`, the "translate my wireframe"
+path — 22 slugs, gated by `ds-coverage`), and (2) **DS-native authoring**
+(future — a generator that emits DS nodes directly, reaching the broader
+*authorable dskit* surface, far beyond 22). Both emit the same node shape and
+render through this seam unchanged; only their coverage targets differ.
+
+**Deferred (not yet built):** the remaining 19 conversion-reachable DS slugs (P1
+forms, P2 display/feedback, P3 chrome — tracked by `ds-coverage`'s
+`NOT_YET_IMPLEMENTED`); the DS-native authoring feeder + its authorable-dskit
+coverage gate;
 user-facing `--hifi` skill wiring in generate-flow; the durable anatomy-geometry
 JSON substrate (ds-base.css's px comments are the interim record); icon-name→SVG
 mapping (generic SVGs for now). Static interactive states approximate via CSS
