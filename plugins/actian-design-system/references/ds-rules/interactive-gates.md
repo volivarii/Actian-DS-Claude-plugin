@@ -54,7 +54,7 @@ Gates are batched per **pipeline phase**, not per flag. Reasons:
 The proven precedent: `/component-brief` Step 1.5 batches card selection + research scope into one prompt with one combined parser. This convention generalizes that.
 
 **Per-skill batching:**
-- `/generate-flow`: 2 phases — pre-generation gate (5 flags: `--hifi`, `--variants`, `--ref`, `--breakpoints`, `--states`), post-push gate (1 flag: `--audit`). Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
+- `/generate-flow`: ~3 interactive gates — (1) research opt-in, (2) research findings (only when research is opted in), (3) single merged screen-list + detail + config gate (the old pre-gen Step 0.5 config questions are folded into this gate). Plus one **combined post-build gate** (Step 7.5) offering push to Figma and audit after the HTML deliverable is rendered. `--no-prompt` suppresses Gate 3 and the Step 7.5 gate. Special-case flags `--from` and `--branch` are NOT gated; they're detected by companion or absent by default.
 - `/design-audit`: 2 single-flag gates — scope at start, fix after findings reported.
 - `/convert-to-hifi`: 1 single-flag gate — ref at start.
 
@@ -112,8 +112,9 @@ This table is the source of truth for "what does the skill do when a flag is mis
 
 | Flag | Skill | Default if missing AND `--no-prompt` |
 |---|---|---|
+| `--push` | `/generate-flow` | false (HTML-only; no Figma push). Override: `--no-push` (absolute veto) |
 | `--hifi` | `/generate-flow` | false (lo-fi output) |
-| `--audit` | `/generate-flow` | false (skip post-gen audit) |
+| `--audit` | `/generate-flow` | false (skip post-gen audit). Implies a Figma push when set. |
 | `--variants <N>` | `/generate-flow` | 1 |
 | `--ref <url>` | `/generate-flow`, `/convert-to-hifi` | none |
 | `--breakpoints <list>` | `/generate-flow` | desktop only |

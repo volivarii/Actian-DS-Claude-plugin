@@ -67,7 +67,6 @@ Want to do more?
 
   done (default) — keep the HTML, nothing else
   push           — push the flow to Figma
-  audit          — run /design-audit on the HTML (no Figma push)
   push + audit   — push to Figma, then run /design-audit on the result
 
 Reply: enter for done, or type one of the options above.
@@ -77,9 +76,9 @@ Parser:
 - Empty / "done" / "no" → exit cleanly; HTML deliverable stands.
 - "push" → proceed with Step 7 Figma push (push sequence per
   `references/generate-flow/push-sequence.md`).
-- "audit" → invoke `/design-audit` on the local HTML output; no push.
-- "push + audit" / "push+audit" / "push and audit" → push first, then
-  audit the pushed result.
+- "audit" / "push + audit" / "push+audit" / "push and audit" → push first,
+  then audit the pushed Figma result. (`/design-audit` takes a Figma URL, so
+  audit always requires a prior push — "audit" is treated as "push + audit".)
 - Invalid → re-prompt.
 - 3 retries → abort with:
   `"Aborting. Pass --push, --audit, or --no-prompt to skip this gate."`

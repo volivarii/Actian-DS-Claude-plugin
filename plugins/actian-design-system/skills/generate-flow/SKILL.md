@@ -205,8 +205,9 @@ After the `flows/[feature].html` deliverable is rendered (Step 6.5), present a *
 **REQUIRED:** present the verbatim combined gate prompt from
 `references/generate-flow/push-opt-in.md` ("Combined post-build gate") and use
 its parser. The choices it offers are: `done` (default — keep the HTML),
-`push` (push to Figma), `audit` (run `/design-audit` on the HTML), and
-`push + audit` (push, then audit the pushed result).
+`push` (push to Figma), and `push + audit` (push to Figma, then audit the
+pushed result). Audit always implies a push — `/design-audit` operates on a
+Figma URL, not local HTML; typing "audit" is treated as "push + audit".
 
 When `--audit` is set explicitly, skip this gate and run the push + audit pipeline immediately after the final render (existing behavior preserved).
 
