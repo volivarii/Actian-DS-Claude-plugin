@@ -128,15 +128,26 @@ describe("assembleFlowShare — hi-fi DS tier end-to-end (offline)", function ()
     );
   });
 
-  // --- ds-base.css INLINED: a recognizable selector from ds-base.css present.
-  it("inlines ds-base.css content (recognizable selectors present)", function () {
+  // --- ds-base.css INLINED. Discriminating assertions that would FAIL if
+  // ds-base.css were dropped from FLOW_CSS:
+  //  - the file-header comment is unique to ds-base.css and can never appear in
+  //    rendered markup or any other inlined CSS (ironclad "file was inlined").
+  //  - dot-prefixed `.ds-*` selectors appear ONLY in ds-base.css — the markup
+  //    carries them space/quote-prefixed (`class="ds-button ds-button--primary"`),
+  //    so a leading-dot match cannot be satisfied by markup or by fm-base.css.
+  //  - a `var(--zen-*)` property value can only come from CSS, never from markup.
+  it("inlines ds-base.css content (CSS-only markers, not markup)", function () {
     assert.ok(
-      html.indexOf(".ds-button--primary") !== -1,
-      "expected .ds-button--primary selector from ds-base.css inlined in <style>",
+      html.indexOf("ds-base.css — hi-fi DS leaf styles") !== -1,
+      "expected the ds-base.css file-header comment inlined in <style>",
     );
     assert.ok(
-      html.indexOf(".ds-checkbox__box") !== -1,
-      "expected .ds-checkbox__box selector from ds-base.css inlined in <style>",
+      html.indexOf(".ds-button--primary") !== -1,
+      "expected the .ds-button--primary RULE (dot-prefixed) from ds-base.css",
+    );
+    assert.ok(
+      html.indexOf("var(--zen-color-bg-emphasis)") !== -1,
+      "expected ds-base.css's .ds-button--primary background token value (CSS-only)",
     );
   });
 
