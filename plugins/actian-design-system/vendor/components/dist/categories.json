@@ -1,24 +1,8 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-06-05T10:44:13.108Z",
+  "generatedAt": "2026-06-06T09:23:26.298Z",
   "categories": {
-    "Form (input & selection)": {
-      "components": [
-        "calendar",
-        "checkbox-with-label",
-        "dropdown-select-default",
-        "input",
-        "input-date",
-        "radio-button",
-        "rich-text",
-        "search",
-        "search-dropdown-menu",
-        "search-filters",
-        "toggle"
-      ],
-      "count": 11
-    },
     "Breakpoint, grid & structure": {
       "components": [
         "l-grid",
@@ -79,26 +63,27 @@
       ],
       "count": 31
     },
+    "Form (input & selection)": {
+      "components": [
+        "calendar",
+        "checkbox-with-label",
+        "dropdown-select-default",
+        "input",
+        "input-date",
+        "radio-button",
+        "rich-text",
+        "search",
+        "search-dropdown-menu",
+        "search-filters",
+        "toggle"
+      ],
+      "count": 11
+    },
     "White-label services": {
       "components": [
         "white-label-merck-favicon"
       ],
       "count": 1
-    },
-    "Feedback": {
-      "components": [
-        "alert-banner",
-        "confirmation",
-        "empty-state",
-        "error-state",
-        "loader",
-        "loader-with-logo",
-        "loading-skeleton",
-        "maintenance-state",
-        "notification",
-        "spinner"
-      ],
-      "count": 10
     },
     "Product logos": {
       "components": [
@@ -117,6 +102,21 @@
         "illustration"
       ],
       "count": 2
+    },
+    "Feedback": {
+      "components": [
+        "alert-banner",
+        "confirmation",
+        "empty-state",
+        "error-state",
+        "loader",
+        "loader-with-logo",
+        "loading-skeleton",
+        "maintenance-state",
+        "notification",
+        "spinner"
+      ],
+      "count": 10
     },
     "Overlays": {
       "components": [
