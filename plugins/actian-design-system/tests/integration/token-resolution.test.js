@@ -19,6 +19,7 @@ var CSS_FILES = [
   "brief-renderer.css",
   "presentation-renderer.css",
   "render-node.css",
+  "ds-base.css", // hi-fi DS tier — 100% --zen-* bound; gated here so any drift is caught.
 ].map(function (f) {
   return path.join(RDIR, f);
 });
@@ -34,6 +35,7 @@ var JS_FILES = [
   "brief-renderer.js",
   "render-node-figma.js", // render-node-figma.js emits {r,g,b} literals (no var(--…) today); listed so any future token leak into the emitter is auto-caught.
   "render-node.js",
+  "ds-html-map.js", // hi-fi DS interpreter — scanned for any inline var(--…) references.
 ].map(function (f) {
   return path.join(RDIR, f);
 });
