@@ -220,15 +220,16 @@ based on the screen `template` — see the `TEMPLATE_CHROME` map in that file. T
 content area is `.screen__content-area`; `bare`/`mobile`/`tablet`/`compact`/`custom` templates
 emit the content with no chrome wrapper.
 
-## Shareable deliverable (`flow-share`)
+## Default deliverable (`flow-share`)
 
-`generate-flow --share` emits a second, **self-contained** HTML artifact from the
-same `flow-data.json` via `assemble-preview.js --type flow-share`. Unlike the
-streaming `--type flow` preview (a local aid), the `flow-share` file is a
-first-class **deliverable**: one file, two in-page views (clickable Prototype +
-all-screens Overview), Alpine + flow CSS inlined, system-font stack, no CDN — it
-opens offline and is safe to email or host. Per-screen HTML is byte-identical to
-the preview (both call the shared `renderScreen`). See
+`flows/[feature].html` — rendered via `assemble-preview.js --type flow-share` — is
+the **default, first-class deliverable** emitted on every generate-flow run. No
+flag is required. Unlike the streaming `--type flow` preview (a local render aid),
+the `flow-share` file is a complete, self-contained artifact: one file, two in-page
+views (clickable Prototype + all-screens Overview), Alpine + flow CSS inlined,
+system-font stack, no CDN — it opens offline and is safe to email or host.
+Per-screen HTML is byte-identical to the preview (both call the shared
+`renderScreen`). Figma push is opt-in (see `--push`). See
 `references/generate-flow/share.md`.
 
 ## Screen dimensions
@@ -325,9 +326,12 @@ The annotation layer targets elements with `data-name` attributes. Add `data-nam
 
 ---
 
-## Figma output — `use_figma` (default)
+## Figma output — `use_figma` (opt-in)
 
-Imports published library components via `getComponentByKeyAsync()`. Instances arrive with Figma variables intact.
+Figma push is **opt-in** — triggered by `--push`, a gate confirmation, or implicitly
+by refine/iterate/branch flows that operate on an existing Figma frame. Imports
+published library components via `getComponentByKeyAsync()`. Instances arrive with
+Figma variables intact.
 
 ### Screen scaffolding (Meta Kit)
 

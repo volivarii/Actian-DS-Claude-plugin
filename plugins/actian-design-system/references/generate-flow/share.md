@@ -1,27 +1,41 @@
-# generate-flow — `--share` (shareable deliverable)
+# generate-flow — default encapsulated deliverable
 
-`--share` emits a **single self-contained HTML file** alongside the normal flow:
-a clickable Prototype + an all-screens Overview in one file that opens offline
-from `file://` and is safe to email or drop on a static host. It is independent
-of and composable with the Figma push.
+`flows/[feature].html` is the **default output** of every generate-flow run: a
+single self-contained HTML file that opens offline from `file://`, is safe to
+email or drop on a static host, and serves two purposes simultaneously:
+
+1. **Streaming preview** — re-emitted at each screen as it is built, so you see
+   the flow grow live in your browser before the run finishes.
+2. **Final deliverable** — the same file is the shareable/exportable artifact
+   handed to stakeholders, reviewers, or anyone who doesn't use Figma.
+
+No flag is required. The file is emitted automatically on every run.
 
 ## Behavior
 
-- The explicit `--share` flag emits at Step 6.6 (after the preview render, before the Figma push); the post-push gate also OFFERS the same deliverable after a push. Either way it re-reads the already-validated flow-data.json and never regenerates.
-- Re-uses the validated `flow-data.json` — no regeneration, no extra model calls.
-- Output: `{project_working_directory}/flows/[feature].html`
-  (note: the live preview is `[feature]-flow.html`; the deliverable drops `-flow`).
-- Command:
+- Rendered via `assemble-preview.js --type flow-share` — re-reads the
+  already-validated `flow-data.json` (no extra model calls).
+- Output path: `{project_working_directory}/flows/[feature].html`
+- Command (for manual re-emit):
   ```bash
   source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
   "$NODE_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/renderers/assemble-preview.js" \
     {project_working_directory}/flows/flow-data.json --type flow-share \
     -o {project_working_directory}/flows/[feature].html
   ```
-- Print, surfacing the real working-dir path (NOT a Cowork `outputs/` mirror):
-  `Shareable prototype ready → {project_working_directory}/flows/[feature].html  (open in a browser or send the file)`
-- Fail-open: a flow-share render error is surfaced and skipped; it never blocks
-  the run (parity with the Step 6.5 preview).
+- Surfaced to the user as:
+  `Flow ready → {project_working_directory}/flows/[feature].html  (open in a browser or send the file)`
+- Fail-open: a render error is surfaced and skipped; it never blocks the run.
+
+## Two in-page views
+
+The file contains two switchable views:
+
+- **Prototype** — a clickable, screen-by-screen walkthrough.
+- **Overview** — all screens side-by-side for at-a-glance review.
+
+Per-screen HTML is byte-identical between the streaming preview and the final
+deliverable (both call the shared `renderScreen`).
 
 ## Guarantees
 
@@ -32,6 +46,13 @@ of and composable with the Figma push.
   version only. Full provenance (skill, prompt, model, duration) is preserved in
   a leading HTML comment so the generation-card rule is satisfied without
   exposing the prompt/model to viewers.
+
+## Figma push (opt-in)
+
+The HTML deliverable is the default. Figma push is opt-in via `--push`, or
+triggered automatically when the run exits the final gate and the user confirms.
+Refine / iterate / branch flows still push to Figma as their primary action
+(they operate on an existing Figma frame).
 
 ## Framing
 
