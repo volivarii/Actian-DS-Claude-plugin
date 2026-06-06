@@ -1,0 +1,57 @@
+{
+  "_meta": {
+    "description": "Measured anatomy (geometry + token bindings) for the catalog-browse vertical-slice DS components. Captured once from the published Figma DS Kit; the durable grounding the hi-fi renderers bind to. Figma vars are reported without the --zen- prefix; map name → --zen-<name> (strip 'Spacing/'); the bare size tokens lg=24/xl=32 → --zen-size-lg/-xl.",
+    "dsKitFileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "measuredAt": "2026-06-06",
+    "tokenAlias": "Figma color-bg-default→--zen-color-bg-default; Spacing/spacing-xs→--zen-spacing-xs; border-radius-sm→--zen-border-radius-sm; lg(24)→--zen-size-lg; xl(32)→--zen-size-xl; color-text-default→--zen-color-text-primary; color-text-tertiary→--zen-color-text-tertiary; color-text-secondary→--zen-color-text-secondary; border-default→--zen-border-default; color-border-primary/border-selected→--zen-border-selected"
+  },
+  "components": {
+    "tag-default": {
+      "dsKey": "69c8a031b8b1f1703474cc000eaeb14611f0319c",
+      "nodeId": "7257:3037",
+      "variants": { "Color": ["Default","Gray","Pink","Purple","Indigo","Yellow","Lime","Teal","Orange"] },
+      "props": { "Label": "text", "Leading icon show": "bool(default true)", "Trailing icon show": "bool(default false)" },
+      "geometry": { "height": 24, "radius": "border-radius-sm(6)", "padHoriz": "spacing-2xs(4)..spacing-xs(8)", "gap": "spacing-2xs(4)", "borderWidth": "border-width-md(1)", "font": "body-subtle (12/16, regular, ls .3)" },
+      "tokens": { "text": "--zen-color-text-tertiary", "icon": "--zen-color-icon-default", "bgDefault": "--zen-color-bg-default", "palette": "per-Color: <hue>/25 bg + <hue>/50 border (cool-grey, blue-grey, pomegranate-red, purple, primary, warning, success, turquoise, error)" }
+    },
+    "badge": {
+      "dsKey": "e8d93a3432951bd42d9b0bb20287eb61262ae10e",
+      "nodeId": "12159:16447",
+      "variants": { "Type": ["Number","Dot"] },
+      "geometry": { "font": "body-subtle (12/16, regular)", "shape": "Dot=small circle; Number=pill min 16-20px" },
+      "tokens": { "bg": "--zen-color-icon-error (#dc3514)", "text": "--zen-color-text-reverse (#fff)" }
+    },
+    "search": {
+      "dsKey": "1b7cd9f309d84560098a2506089a77da8972d470",
+      "nodeId": "8589:11055",
+      "variants": { "Type": ["Inline","Global header","Explorer home"], "State": ["Default","Hovered","Focused","Filled","Active","Dsiabled"] },
+      "props": { "AI icon": "bool(default true)" },
+      "geometry": { "height": 32, "radius": "border-radius-sm(6) [Inline] / full [global]", "padHoriz": "spacing-xs(8)..spacing-md(16)", "gap": "spacing-xs(8)", "border": "border-default(1)", "font": "body-stardard (14/20, regular, ls .2)", "focus": "border-selected 2px + focus-ring" },
+      "tokens": { "bg": "--zen-color-bg-default", "border": "--zen-border-default", "borderFocus": "--zen-border-selected", "placeholder": "--zen-color-text-secondary", "icon": "--zen-color-icon-default", "text": "--zen-color-text-primary" }
+    },
+    "card-for-items": {
+      "dsKey": "95764c702b7dcb1dc2e2aef2cd5ee46b27a5cf30",
+      "nodeId": "7613:7853",
+      "variants": { "Type": ["Catalog","Item","item type","Glossary type","Topic"], "State": ["Default","Hover","Focus","Pressed","Selected"] },
+      "props": { "Show AI ready": "bool" },
+      "structure_Catalog": "vertical card: [eyebrow tag e.g. 'Dataset'] + [Title — heading-subtle 14 semibold] + [category tag w/ folder icon e.g. 'Catalog'] + [Body — body 14 regular, secondary/tertiary, 2-line clamp]. Topic type adds an avatar + star + 'AI Ready' tag.",
+      "geometry": { "radius": "border-radius-sm(6)", "padding": "spacing-md(16)", "gap": "spacing-xs(8)", "border": "border-default(1)", "shadow": "shadow-xs", "titleFont": "heading-subtle (14/20, semibold, ls .2)", "bodyFont": "body (14/20, regular)" },
+      "tokens": { "bg": "--zen-color-bg-default", "border": "--zen-border-default", "title": "--zen-color-text-primary", "body": "--zen-color-text-tertiary", "hoverOverlay": "#0000000d", "selectedBg": "--zen-color-bg-selected (#edf6ff)", "selectedBorder": "--zen-border-selected", "shadow": "--zen-shadow-xs" },
+      "states": { "Default": "border-default + shadow-xs", "Hover": "+ subtle dark overlay", "Focus/Selected": "border-selected 2px (Selected also bg-selected)" }
+    },
+    "global-header": {
+      "dsKey": "e3e1e5d29f092fbd6ba5f0f40141ba55473548a8",
+      "nodeId": "7384:22554",
+      "variants": { "App type": ["Explorer","Admin","Studio"], "Breakpoints": ["XL","L","M","S","XS"] },
+      "geometry": { "height": "xl(32)-based row, ~56-64 total", "padHoriz": "spacing-md(16)", "gap": "spacing-xs(8)..spacing-lg(24)", "font": "label-standard (14/20, medium)", "structure": "left: app logo/switcher + nav; center/right: search (Global header) + actions + account avatar" },
+      "tokens": { "bg": "--zen-color-bg-default", "border": "--zen-border-default (#dadada)", "text": "--zen-color-text-primary", "muted": "--zen-color-text-secondary" }
+    },
+    "side-nav": {
+      "dsKey": "3606cc19247f989332aac33953ffdf57c9d1bbdd",
+      "nodeId": "13599:20120",
+      "variants": { "App": ["Admin","Studio"], "View": ["Collapsed","Expanded"] },
+      "geometry": { "widthExpanded": "~240-260", "widthCollapsed": "~56-64 (xl)", "itemHeight": "lg(24)-icon row ~40", "padding": "spacing-xs(8)", "gap": "spacing-2xs(4)", "font": "body-stardard (14/20)" },
+      "tokens": { "bg": "--zen-color-bg-default", "border": "--zen-border-default", "itemText": "--zen-color-text-primary", "itemIcon": "--zen-color-icon-default", "activeBg": "--zen-color-bg-selected", "activeAccent": "--zen-border-selected" }
+    }
+  }
+}

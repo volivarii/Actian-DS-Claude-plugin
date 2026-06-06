@@ -249,6 +249,231 @@ describe("ds-html-map: checkbox-with-label", function () {
   });
 });
 
+describe("ds-html-map: tag-default", function () {
+  it("default (no icon): ds-tag pill with esc'd Label, no icon span", function () {
+    var html = render({
+      dsSlug: "tag-default",
+      variant: "Color=Default",
+      props: { Label: "Active" },
+    });
+    assert.ok(html.indexOf('<span class="ds-tag"') === 0, "starts with ds-tag");
+    assert.ok(html.indexOf("Active") !== -1, "renders label");
+    assert.ok(
+      html.indexOf("ds-tag__icon") === -1,
+      "no icon span when Leading icon show falsy",
+    );
+    assert.ok(
+      html.indexOf("ds-tag--with-icon") === -1,
+      "no with-icon modifier when icon off",
+    );
+  });
+
+  it("Leading icon show: renders the folder icon span + with-icon modifier", function () {
+    var html = render({
+      dsSlug: "tag-default",
+      variant: "Color=Default",
+      props: { Label: "Folder", "Leading icon show": true },
+    });
+    assert.ok(
+      html.indexOf("ds-tag ds-tag--with-icon") !== -1,
+      "has with-icon modifier",
+    );
+    assert.ok(
+      html.indexOf('<span class="ds-tag__icon">') !== -1,
+      "has icon span",
+    );
+    assert.ok(html.indexOf("<svg") !== -1, "has inline svg");
+    assert.ok(html.indexOf("Folder") !== -1, "renders label");
+  });
+
+  it("escapes a hostile Label", function () {
+    var html = render({
+      dsSlug: "tag-default",
+      variant: "Color=Default",
+      props: { Label: "<img src=x onerror=1>" },
+    });
+    assert.ok(html.indexOf("&lt;img") !== -1, "label escaped");
+    assert.ok(html.indexOf("<img") === -1, "no raw injection");
+  });
+});
+
+describe("ds-html-map: badge", function () {
+  it("Number: ds-badge--number with esc'd Label", function () {
+    var html = render({
+      dsSlug: "badge",
+      variant: "Type=Number",
+      props: { Label: "3" },
+    });
+    assert.ok(
+      html.indexOf("ds-badge ds-badge--number") !== -1,
+      "has number modifier",
+    );
+    assert.ok(html.indexOf(">3</span>") !== -1, "renders the number");
+    assert.ok(html.indexOf("ds-badge--dot") === -1, "not a dot");
+  });
+
+  it("Dot: ds-badge--dot, empty, no text", function () {
+    var html = render({
+      dsSlug: "badge",
+      variant: "Type=Dot",
+      props: { Label: "ignored" },
+    });
+    assert.ok(
+      html.indexOf("ds-badge ds-badge--dot") !== -1,
+      "has dot modifier",
+    );
+    assert.ok(html.indexOf("ignored") === -1, "dot does not render Label text");
+    assert.ok(html.indexOf("ds-badge--number") === -1, "not a number");
+  });
+
+  it("escapes a hostile Label on Number", function () {
+    var html = render({
+      dsSlug: "badge",
+      variant: "Type=Number",
+      props: { Label: "<b>9</b>" },
+    });
+    assert.ok(html.indexOf("&lt;b&gt;9&lt;/b&gt;") !== -1, "label escaped");
+    assert.ok(html.indexOf("<b>") === -1, "no raw injection");
+  });
+});
+
+describe("ds-html-map: search", function () {
+  it("default: ds-search with leading icon + placeholder text", function () {
+    var html = render({
+      dsSlug: "search",
+      variant: "State=Default",
+      props: { "Placeholder text": "Search catalog" },
+    });
+    assert.ok(
+      html.indexOf('<div class="ds-search"') === 0,
+      "starts with ds-search",
+    );
+    assert.ok(html.indexOf("ds-search__icon") !== -1, "has icon span");
+    assert.ok(html.indexOf("<svg") !== -1, "has inline svg");
+    assert.ok(html.indexOf("ds-search__text") !== -1, "has text span");
+    assert.ok(html.indexOf("Search catalog") !== -1, "renders placeholder");
+    assert.ok(html.indexOf("is-disabled") === -1, "not disabled");
+  });
+
+  it("falls back to 'Search' when no placeholder", function () {
+    var html = render({
+      dsSlug: "search",
+      variant: "State=Default",
+      props: {},
+    });
+    assert.ok(html.indexOf(">Search</span>") !== -1, "default placeholder");
+  });
+
+  it("Disabled: is-disabled (canonical spelling)", function () {
+    var html = render({
+      dsSlug: "search",
+      variant: "State=Disabled",
+      props: { "Placeholder text": "Search" },
+    });
+    assert.ok(
+      html.indexOf("ds-search is-disabled") !== -1,
+      "has is-disabled when State=Disabled",
+    );
+  });
+
+  it("Disabled: accepts the kit typo 'Dsiabled'", function () {
+    var html = render({
+      dsSlug: "search",
+      variant: "State=Dsiabled",
+      props: { "Placeholder text": "Search" },
+    });
+    assert.ok(
+      html.indexOf("ds-search is-disabled") !== -1,
+      "has is-disabled for the 'Dsiabled' typo too",
+    );
+  });
+
+  it("escapes a hostile placeholder", function () {
+    var html = render({
+      dsSlug: "search",
+      variant: "State=Default",
+      props: { "Placeholder text": '"><script>' },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "no raw injection");
+    assert.ok(html.indexOf("&lt;script&gt;") !== -1, "escaped");
+  });
+});
+
+describe("ds-html-map: card-for-items (DS-native only)", function () {
+  it("Catalog default: card composes .ds-tag for eyebrow + category, plus title/body", function () {
+    var html = render({
+      dsSlug: "card-for-items",
+      variant: "Type=Catalog, State=Default",
+      props: {
+        Eyebrow: "Dataset",
+        Title: "Sales records",
+        Category: "Catalog",
+        Body: "Quarterly sales figures across regions.",
+      },
+    });
+    assert.ok(
+      html.indexOf('<div class="ds-card"') === 0,
+      "starts with ds-card",
+    );
+    assert.ok(
+      html.indexOf("ds-card--selected") === -1,
+      "not selected by default",
+    );
+    // composes the shared tag classes
+    assert.ok(
+      html.indexOf("ds-tag ds-card__eyebrow") !== -1,
+      "eyebrow reuses ds-tag",
+    );
+    assert.ok(
+      html.indexOf("ds-tag ds-tag--with-icon ds-card__cat") !== -1,
+      "category reuses ds-tag w/ icon",
+    );
+    assert.ok(html.indexOf("ds-tag__icon") !== -1, "category folder icon");
+    assert.ok(html.indexOf("ds-card__title") !== -1, "has title");
+    assert.ok(html.indexOf("ds-card__body") !== -1, "has body");
+    assert.ok(html.indexOf("Dataset") !== -1, "renders eyebrow");
+    assert.ok(html.indexOf("Sales records") !== -1, "renders title");
+    assert.ok(html.indexOf("Catalog") !== -1, "renders category");
+    assert.ok(
+      html.indexOf("Quarterly sales figures across regions.") !== -1,
+      "renders body",
+    );
+  });
+
+  it("Selected: ds-card--selected", function () {
+    var html = render({
+      dsSlug: "card-for-items",
+      variant: "Type=Catalog, State=Selected",
+      props: { Title: "Picked" },
+    });
+    assert.ok(
+      html.indexOf("ds-card ds-card--selected") !== -1,
+      "has selected modifier when State=Selected",
+    );
+  });
+
+  it("falls back to defaults when props absent", function () {
+    var html = render({
+      dsSlug: "card-for-items",
+      variant: "Type=Catalog",
+      props: {},
+    });
+    assert.ok(html.indexOf("Dataset") !== -1, "default eyebrow");
+    assert.ok(html.indexOf("Title") !== -1, "default title");
+    assert.ok(html.indexOf("Catalog") !== -1, "default category");
+  });
+
+  it("escapes a hostile Title", function () {
+    var html = render({
+      dsSlug: "card-for-items",
+      variant: "Type=Catalog",
+      props: { Title: "<svg onload=1>" },
+    });
+    assert.ok(html.indexOf("&lt;svg") !== -1, "title escaped");
+    assert.ok(html.indexOf("<svg onload") === -1, "no raw injection");
+  });
+});
+
 describe("ds-html-map: fallback + resilience", function () {
   it("unknown dsSlug returns the graceful chip", function () {
     var html = render({ dsSlug: "nope", name: "Mystery" });

@@ -54,6 +54,12 @@
     '<span class="ds-input__icon"><svg viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
   var ICON_CHECK =
     '<span class="ds-checkbox__check"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5 5.5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+  // Bare folder + search glyphs (no wrapping span — callers wrap them in the
+  // appropriate __icon span). Geometry in raw px (viewBox coords, not tokens).
+  var SVG_FOLDER =
+    '<svg viewBox="0 0 16 16" fill="none"><path d="M2 4.5A1 1 0 013 3.5h3l1.2 1.2H13a1 1 0 011 1V12a1 1 0 01-1 1H3a1 1 0 01-1-1V4.5z" stroke="currentColor" stroke-width="1.2"/></svg>';
+  var SVG_SEARCH =
+    '<svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M14 14l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
   /**
    * renderDSComponent(node)
@@ -153,6 +159,84 @@
             '</span><span class="ds-checkbox__label">' +
             cbLabel +
             "</span></label>"
+          );
+        }
+
+        case "tag-default": {
+          // Color variant axis exists in the kit (Default, Gray, Pink, …) but
+          // this slice renders the Default palette for every Color; the
+          // per-Color hue palette (<hue>/25 bg + <hue>/50 border) is deferred.
+          var tagCls = "ds-tag";
+          var tagIcon = "";
+          if (props["Leading icon show"]) {
+            tagCls += " ds-tag--with-icon";
+            tagIcon = '<span class="ds-tag__icon">' + SVG_FOLDER + "</span>";
+          }
+          return (
+            '<span class="' +
+            tagCls +
+            '">' +
+            tagIcon +
+            esc(props.Label || "") +
+            "</span>"
+          );
+        }
+
+        case "badge": {
+          if (v.Type === "Dot") {
+            return '<span class="ds-badge ds-badge--dot"></span>';
+          }
+          // Number (default): the count/text pill.
+          return (
+            '<span class="ds-badge ds-badge--number">' +
+            esc(props.Label || "") +
+            "</span>"
+          );
+        }
+
+        case "search": {
+          var searchCls = "ds-search";
+          // Accept the kit's typo "Dsiabled" as well as the canonical spelling.
+          if (v.State === "Disabled" || v.State === "Dsiabled") {
+            searchCls += " is-disabled";
+          }
+          var searchText = esc(props["Placeholder text"] || "Search");
+          return (
+            '<div class="' +
+            searchCls +
+            '"><span class="ds-search__icon">' +
+            SVG_SEARCH +
+            '</span><span class="ds-search__text">' +
+            searchText +
+            "</span></div>"
+          );
+        }
+
+        case "card-for-items": {
+          // DS-native only — no FM mapping. Composite data-product card (Catalog
+          // type). Reuses the shared .ds-tag classes for the eyebrow + category.
+          var cardCls = "ds-card";
+          if (v.State === "Selected") cardCls += " ds-card--selected";
+          return (
+            '<div class="' +
+            cardCls +
+            '">' +
+            '<span class="ds-tag ds-card__eyebrow">' +
+            esc(props.Eyebrow || "Dataset") +
+            "</span>" +
+            '<div class="ds-card__title">' +
+            esc(props.Title || "Title") +
+            "</div>" +
+            '<span class="ds-tag ds-tag--with-icon ds-card__cat">' +
+            '<span class="ds-tag__icon">' +
+            SVG_FOLDER +
+            "</span>" +
+            esc(props.Category || "Catalog") +
+            "</span>" +
+            '<p class="ds-card__body">' +
+            esc(props.Body || "") +
+            "</p>" +
+            "</div>"
           );
         }
 
