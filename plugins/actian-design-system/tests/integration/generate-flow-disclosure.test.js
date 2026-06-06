@@ -23,6 +23,7 @@ const TOPICS = [
   "references/generate-flow/vision-refs.md",
   "references/generate-flow/push-sequence.md",
   "references/generate-flow/share.md",
+  "references/generate-flow/push-opt-in.md",
 ];
 
 describe("generate-flow progressive disclosure reachability", () => {

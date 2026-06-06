@@ -220,15 +220,16 @@ based on the screen `template` — see the `TEMPLATE_CHROME` map in that file. T
 content area is `.screen__content-area`; `bare`/`mobile`/`tablet`/`compact`/`custom` templates
 emit the content with no chrome wrapper.
 
-## Shareable deliverable (`flow-share`)
+## Default deliverable (`flow-share`)
 
-`generate-flow --share` emits a second, **self-contained** HTML artifact from the
-same `flow-data.json` via `assemble-preview.js --type flow-share`. Unlike the
-streaming `--type flow` preview (a local aid), the `flow-share` file is a
-first-class **deliverable**: one file, two in-page views (clickable Prototype +
-all-screens Overview), Alpine + flow CSS inlined, system-font stack, no CDN — it
-opens offline and is safe to email or host. Per-screen HTML is byte-identical to
-the preview (both call the shared `renderScreen`). See
+`flows/[feature].html` — rendered via `assemble-preview.js --type flow-share` — is
+the **default, first-class deliverable** emitted on every generate-flow run. No
+flag is required. Unlike the streaming `--type flow` preview (a local render aid),
+the `flow-share` file is a complete, self-contained artifact: one file, two in-page
+views (clickable Prototype + all-screens Overview), Alpine + flow CSS inlined,
+system-font stack, no CDN — it opens offline and is safe to email or host.
+Per-screen HTML is byte-identical to the preview (both call the shared
+`renderScreen`). Figma push is opt-in (see `--push`). See
 `references/generate-flow/share.md`.
 
 ## Screen dimensions
@@ -258,9 +259,16 @@ the preview (both call the shared `renderScreen`). See
 
 When both types coexist on one screen, use **separate containers**: 480px wrapper for simple inputs, full-width wrapper for extended elements. Do not wrap the entire form in one width constraint.
 
-## Annotation layer (required)
+## Annotation layer (server-served render only — opt-in)
 
-Every generated HTML file MUST include the annotation layer inline before `</body>`. Read the 3 files from `templates/` and embed directly:
+> The annotation layer is **opt-in** and applies ONLY to the server-served
+> annotation render (started via `ensure-server.sh`). It is **structurally
+> absent from the canonical `flow-share` deliverable** above — that file is
+> annotation-free and offline by design (no inlined annotation layer, no CDN).
+> The instructions below apply only when explicitly producing the server-served
+> annotation render, not the default `flows/[feature].html` deliverable.
+
+When producing the server-served annotation render, include the annotation layer inline before `</body>`. Read the 3 files from `templates/` and embed directly:
 
 1. `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer.css` → wrap in `<style>...</style>`
 2. `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer.js` → wrap in `<script>...</script>`
@@ -320,14 +328,19 @@ The annotation layer targets elements with `data-name` attributes. Add `data-nam
 ## Styling rules
 
 - Read `../ds-rules/fm-css-reference.md` — copy exact styles, do not approximate
-- Load Inter font from Google Fonts
+- Fonts: use the **system-font stack** — no Google Fonts. The canonical
+  `flow-share` deliverable must open offline, so it loads no external fonts
+  (matches `share.md`). (Only the legacy server-served render may pull web fonts.)
 - Screen labels: 12px, #888
 
 ---
 
-## Figma output — `use_figma` (default)
+## Figma output — `use_figma` (opt-in)
 
-Imports published library components via `getComponentByKeyAsync()`. Instances arrive with Figma variables intact.
+Figma push is **opt-in** — triggered by `--push`, a gate confirmation, or implicitly
+by refine/iterate/branch flows that operate on an existing Figma frame. Imports
+published library components via `getComponentByKeyAsync()`. Instances arrive with
+Figma variables intact.
 
 ### Screen scaffolding (Meta Kit)
 

@@ -107,7 +107,7 @@ The classify-node step should prevent this. If it still occurs:
 
 All Figma output uses `use_figma` — build directly in Figma via Plugin API JavaScript.
 
-**Two emitters, one data model.** The Figma push (`use_figma`) is the default output. The same `flow-data.json` can also emit a **self-contained HTML twin deliverable** via `assemble-preview.js --type flow-share` (generate-flow `--share`) — a first-class, offline, shareable artifact for audiences that don't use Figma. The streaming HTML *preview* (`--type flow`) remains a local aid, not a deliverable; do not confuse the preview with the `flow-share` deliverable.
+**Two emitters, one data model.** The encapsulated `flows/[feature].html` — rendered via `assemble-preview.js --type flow-share` — is the **default, first-class deliverable** for generate-flow. It is a self-contained **twin deliverable**: one file, two in-page views (Prototype + Overview), offline-capable, safe to email or host, and the same file used as the live streaming preview. The Figma push (`use_figma`) is the **opt-in** second output — triggered by `--push`, a gate confirmation, or implicitly by refine/iterate/branch flows that operate on an existing Figma frame. Do not confuse the streaming `--type flow` preview (a local render aid) with the `flow-share` deliverable (which is that same file, finalized).
 
 ## Direct Push Pattern (all skills)
 
@@ -427,7 +427,7 @@ This also catches cases where a component was renamed, deprecated, or moved.
 - **Tag pushed nodes** with `setSharedPluginData('actian_ds', ...)` for reliable retrieval.
 - **Never use `generate_figma_design`** — it produces raw geometry without design system awareness.
 - **Never delegate Figma output to a subagent.** Subagents do NOT have MCP tools.
-- **HTML has two roles:** the streaming `--type flow` render is a local preview aid; the `--type flow-share` render is a first-class self-contained twin deliverable (generate-flow `--share`).
+- **HTML has two roles:** the streaming `--type flow` render is a local preview aid; the `--type flow-share` render is the **default, first-class self-contained twin deliverable** — emitted automatically on every generate-flow run, no flag required. Figma push is opt-in.
 - **Figma output must match HTML preview exactly.** The Figma push is a 1:1 translation of the approved HTML — not a reinterpretation. If the HTML uses placeholder bars, the Figma uses Placeholder component variants. If the HTML shows only one active nav item, the Figma shows only one active nav item. Do not add detail, color, or content that wasn't in the HTML.
 - **One `use_figma` call per logical unit.** Don't split a single card or slide across multiple calls. Group related content.
 - **Keep code under 20KB per call.** Split into multiple calls if needed.
