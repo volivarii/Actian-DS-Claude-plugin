@@ -6,14 +6,18 @@
  * from a data JSON file + static assets (CSS, renderers, annotation layer).
  *
  * Usage:
- *   node scripts/assemble-preview.js <data.json> --type <flow|brief|presentation> -o <output.html>
+ *   node scripts/assemble-preview.js <data.json> --type <flow-share|brief|presentation> -o <output.html>
  *
  * Supported types:
- *   flow          — FM flow preview (fm-flow.css, fm-html-map + flow-renderer)
+ *   flow-share    — CANONICAL deliverable: self-contained two-view file
+ *                   (clickable Prototype + all-screens Overview; inlines Alpine +
+ *                   flow CSS; fully offline). This is the default streaming target
+ *                   and the shareable output for the generate-flow pipeline.
+ *   flow          — INTERNAL strip renderer retained for streaming-fallback and
+ *                   existing tests; NOT the canonical pipeline output.
+ *                   (fm-flow.css, fm-html-map + flow-renderer)
  *   brief         — Component brief preview (fm-brief.css, fm-html-map + brief-renderer)
  *   presentation  — DS presentation preview (ds-presentation.css, presentation-renderer)
- *   flow-share    — Self-contained shareable flow deliverable (two views:
- *                   Prototype + Overview; inlines Alpine + flow CSS; offline)
  *
  * Output: A single self-contained HTML file with all CSS, JS, and data inlined.
  * Logs:   Progress messages to stderr.
@@ -196,7 +200,9 @@ function main() {
             {
               name: "--type",
               required: true,
-              description: "Preview type: flow, brief, or presentation",
+              description:
+                "Preview type. Canonical deliverable: flow-share (two-view encapsulated offline file). " +
+                "Internal/fallback renderer: flow. Also: brief, presentation.",
             },
             {
               name: "-o",
@@ -216,7 +222,7 @@ function main() {
                 "Inject a self-contained auto-reload (meta + JS) every N seconds; 0/absent = off",
             },
           ],
-          types: Object.keys(TYPE_CONFIGS).concat(["flow-share"]),
+          types: ["flow-share"].concat(Object.keys(TYPE_CONFIGS)),
         },
         null,
         2,
@@ -229,21 +235,21 @@ function main() {
   if (!args.input) {
     process.stderr.write("ERROR: Missing input JSON file.\n");
     process.stderr.write(
-      "Usage: node scripts/assemble-preview.js <data.json> --type <flow|brief|presentation> -o <output.html>\n",
+      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|brief|presentation> -o <output.html>\n",
     );
     process.exit(1);
   }
   if (!args.type) {
     process.stderr.write("ERROR: Missing --type argument.\n");
     process.stderr.write(
-      "Usage: node scripts/assemble-preview.js <data.json> --type <flow|brief|presentation> -o <output.html>\n",
+      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|brief|presentation> -o <output.html>\n",
     );
     process.exit(1);
   }
   if (!args.output) {
     process.stderr.write("ERROR: Missing -o / --output argument.\n");
     process.stderr.write(
-      "Usage: node scripts/assemble-preview.js <data.json> --type <flow|brief|presentation> -o <output.html>\n",
+      "Usage: node scripts/assemble-preview.js <data.json> --type <flow-share|brief|presentation> -o <output.html>\n",
     );
     process.exit(1);
   }
@@ -255,7 +261,8 @@ function main() {
       process.exit(1);
     }
     var shareData = JSON.parse(fs.readFileSync(args.input, "utf8"));
-    var assembleFlowShare = require("./assemble-flow-share.js").assembleFlowShare;
+    var assembleFlowShare =
+      require("./assemble-flow-share.js").assembleFlowShare;
     writeOutput(args.output, assembleFlowShare(shareData));
     return;
   }
