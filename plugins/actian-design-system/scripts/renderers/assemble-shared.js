@@ -54,6 +54,7 @@ var FLOW_CSS = [
   path.join(RENDERERS_DIR, "fm-base.css"),
   path.join(RENDERERS_DIR, "render-node.css"),
   path.join(RENDERERS_DIR, "flow-renderer.css"),
+  path.join(RENDERERS_DIR, "ds-base.css"), // hi-fi DS tier; inert for lo-fi (only styles .ds-*).
 ];
 
 // ---------------------------------------------------------------------------

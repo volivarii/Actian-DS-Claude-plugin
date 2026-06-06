@@ -48,6 +48,11 @@ var TYPE_CONFIGS = {
     css: shared.FLOW_CSS,
     renderers: [
       path.join(RENDERERS_DIR, "fm-html-map.js"),
+      // ds-html-map.js (hi-fi DS leaf map) must load AFTER fm-html-map.js (it
+      // reads window.fmHtmlMap) and BEFORE render-node.js (which reads
+      // window.dsHtmlMap to route library:"ds" INSTANCE nodes). Order is
+      // load-bearing: fm-html-map → ds-html-map → render-node → flow-renderer.
+      path.join(RENDERERS_DIR, "ds-html-map.js"),
       // render-node.js UMD must load BEFORE flow-renderer.js so the IIFE can
       // pick it up via window.renderNode (shared structural-node renderer).
       path.join(RENDERERS_DIR, "render-node.js"),
