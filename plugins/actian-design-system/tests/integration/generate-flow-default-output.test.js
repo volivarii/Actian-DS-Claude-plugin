@@ -18,10 +18,8 @@ var SKILL = path.resolve(__dirname, "../../skills/generate-flow/SKILL.md");
  *    --no-annotations (annotations are structurally absent from flow-share by
  *    architecture, not suppressed at the call site via a flag).
  *
- * NOTE: This test is intentionally RED until SKILL.md is rewritten in a later
- * task (4.1).  It must fail with assertion failures (new contract not yet in
- * SKILL.md), NOT with syntax / setup errors.  A syntax/setup failure is a bug
- * in THIS file; an assertion failure is the expected pre-4.1 state.
+ * The HTML-first contract has landed (SKILL.md rewrite, Task 4.1) — these
+ * assertions are GREEN and act as the regression gate.
  *
  * Scope is deliberately narrow and non-overlapping with
  * generate-flow-preview-ordering.test.js which already covers:

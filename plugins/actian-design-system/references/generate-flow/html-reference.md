@@ -259,9 +259,16 @@ Per-screen HTML is byte-identical to the preview (both call the shared
 
 When both types coexist on one screen, use **separate containers**: 480px wrapper for simple inputs, full-width wrapper for extended elements. Do not wrap the entire form in one width constraint.
 
-## Annotation layer (required)
+## Annotation layer (server-served render only — opt-in)
 
-Every generated HTML file MUST include the annotation layer inline before `</body>`. Read the 3 files from `templates/` and embed directly:
+> The annotation layer is **opt-in** and applies ONLY to the server-served
+> annotation render (started via `ensure-server.sh`). It is **structurally
+> absent from the canonical `flow-share` deliverable** above — that file is
+> annotation-free and offline by design (no inlined annotation layer, no CDN).
+> The instructions below apply only when explicitly producing the server-served
+> annotation render, not the default `flows/[feature].html` deliverable.
+
+When producing the server-served annotation render, include the annotation layer inline before `</body>`. Read the 3 files from `templates/` and embed directly:
 
 1. `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer.css` → wrap in `<style>...</style>`
 2. `${CLAUDE_PLUGIN_ROOT}/templates/annotation-layer.js` → wrap in `<script>...</script>`
@@ -321,7 +328,9 @@ The annotation layer targets elements with `data-name` attributes. Add `data-nam
 ## Styling rules
 
 - Read `../ds-rules/fm-css-reference.md` — copy exact styles, do not approximate
-- Load Inter font from Google Fonts
+- Fonts: use the **system-font stack** — no Google Fonts. The canonical
+  `flow-share` deliverable must open offline, so it loads no external fonts
+  (matches `share.md`). (Only the legacy server-served render may pull web fonts.)
 - Screen labels: 12px, #888
 
 ---

@@ -46,4 +46,13 @@ test("figma-output.md frames Figma push as opt-in (not the default)", function (
     ),
     "figma-output.md describes Figma push as opt-in",
   );
+  // Discriminating regression guard: the pre-flip doc declared the Figma push
+  // "the default output" — the OPPOSITE doctrine. Asserting that phrasing is
+  // ABSENT catches a revert of the HTML-first flip (the positive opt-in match
+  // above also passed against intermediate twin-deliverable wording).
+  assert.doesNotMatch(
+    doc,
+    /figma push[^.]*\bdefault output\b/i,
+    "the Figma push must NOT be described as the default output (HTML-first flip)",
+  );
 });

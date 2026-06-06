@@ -22,10 +22,11 @@ var SKILL = path.resolve(__dirname, "../../skills/generate-flow/SKILL.md");
  * - Step 7.5 is the single combined post-build gate (push + audit offer).
  * - --share flag is RETIRED (its behavior is now default); --push added.
  *
- * NOTE: This test is intentionally RED until SKILL.md is rewritten in a later
- * task (4.1).  It fails for the RIGHT reason: the new contract is not yet in
- * SKILL.md.  A syntax/setup failure is a bug in THIS file; an assertion failure
- * is the expected state.
+ * The HTML-first contract has landed (SKILL.md rewrite, Task 4.1) — these
+ * assertions are GREEN and act as the regression gate.  Each is anchored on a
+ * token absent from the old strip-preview pipeline (--type flow-share, --push,
+ * the literal "## Step 7.5" heading, the [feature]-flow.html filename) so it
+ * would fail if the old pipeline were reintroduced.
  */
 
 describe("generate-flow pipeline ordering (HTML-first contract)", function () {
@@ -53,13 +54,20 @@ describe("generate-flow pipeline ordering (HTML-first contract)", function () {
     );
   });
 
-  it("does NOT use --type flow --refresh for the streaming preview", function () {
-    // The old strip-preview pattern (--type flow + --refresh for streaming) is
-    // retired. Any assemble-preview.js call paired with --refresh must be gone.
+  it("does NOT invoke a render with the --refresh auto-reload flag (old streaming retired)", function () {
+    // The old strip-preview streamed via `assemble-preview.js … --refresh <s>`.
+    // The new pipeline re-emits the flow-share file instead (file-watch / re-
+    // render), with NO --refresh flag — SKILL.md Step 6.5 says so explicitly.
+    // The ONLY permitted mention of --refresh is the backtick-quoted negation
+    // ("No `--refresh`"); a --refresh used as a COMMAND flag is preceded by a
+    // space, not a backtick, so a space-prefixed match catches the old pattern
+    // (which had ` --refresh 2`) while ignoring the prose negation. NOTE the
+    // bare `--type flow` token now legitimately appears in merge-partials.js
+    // calls, so anchoring on it would false-trip — we anchor on --refresh.
     assert.doesNotMatch(
       src,
-      /--type flow\b[^-\n]*--refresh/,
-      "--type flow --refresh pattern must not appear (old strip-preview retired)",
+      / --refresh\b/,
+      "--refresh must not appear as a command flag (old streaming auto-reload retired)",
     );
   });
 

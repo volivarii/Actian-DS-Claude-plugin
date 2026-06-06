@@ -16,6 +16,7 @@
 //   7. Empty args → push=false, explicit=false
 //   8. Partial / prefixed variants don't match
 //   9. Does not mutate the input array
+//  10. Non-array input → defaults (guard branch)
 
 var { describe, it } = require("node:test");
 var assert = require("node:assert");
@@ -78,7 +79,13 @@ describe("parse-push", function () {
   });
 
   it("unrelated flags don't trigger push", function () {
-    var result = parsePush(["--no-prompt", "--share", "--refresh", "--variants", "3"]);
+    var result = parsePush([
+      "--no-prompt",
+      "--share",
+      "--refresh",
+      "--variants",
+      "3",
+    ]);
     assert.strictEqual(result.push, false);
     assert.strictEqual(result.explicit, false);
   });
@@ -114,7 +121,13 @@ describe("parse-push", function () {
   });
 
   it("preserves value-bearing flags adjacent to --push", function () {
-    var result = parsePush(["--variants", "3", "--push", "--ref", "https://figma.com/x"]);
+    var result = parsePush([
+      "--variants",
+      "3",
+      "--push",
+      "--ref",
+      "https://figma.com/x",
+    ]);
     assert.strictEqual(result.push, true);
     assert.strictEqual(result.explicit, true);
   });
@@ -124,5 +137,17 @@ describe("parse-push", function () {
     var snapshot = input.slice();
     parsePush(input);
     assert.deepStrictEqual(input, snapshot);
+  });
+
+  it("non-array input → push=false, explicit=false (guard branch)", function () {
+    assert.deepStrictEqual(parsePush(null), { push: false, explicit: false });
+    assert.deepStrictEqual(parsePush(undefined), {
+      push: false,
+      explicit: false,
+    });
+    assert.deepStrictEqual(parsePush("--push"), {
+      push: false,
+      explicit: false,
+    });
   });
 });

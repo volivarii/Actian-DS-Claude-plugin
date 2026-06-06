@@ -15,6 +15,37 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.101.0] — 2026-06-06
+
+### Changed
+- **generate-flow is now HTML-first.** The default deliverable is a single
+  encapsulated, offline `flows/[feature].html` (two-view Prototype + Overview,
+  rendered as `--type flow-share`) — the live preview *is* the deliverable. The
+  Figma push is now **opt-in** rather than automatic and last.
+- **Gates collapsed to ~3.** The old pre-gen config questions (Step 0.5) are
+  folded into Gate 3; **Step 7.5** is a single combined post-build gate offering
+  the Figma push **and** the design audit.
+
+### Added
+- **`--push` / `--no-push` flags** (`scripts/lib/parse-push.js`). A push is also
+  triggered by explicit prose ("push to figma" / "in figma" / "as a figma
+  file"), by `--hifi`/`--audit` (which imply a push), or by accepting the Step
+  7.5 gate. `--no-push` wins ties. Refine/iterate/branch on an existing Figma
+  URL always pushes.
+- **`references/generate-flow/push-opt-in.md`** — the push-trigger reference.
+
+### Removed
+- **`--share` flag retired.** Its behavior — the shareable, offline two-view
+  deliverable — is now the default, so the flag is no longer needed.
+
+## [1.100.0] — 2026-06-05
+
+### Added
+- **Shareable flow deliverable (`--share`).** generate-flow can emit a
+  self-contained, offline two-view HTML file (Prototype + Overview) for sharing
+  with reviewers who don't use Figma
+  (`scripts/renderers/assemble-flow-share.js`).
+
 ## [1.99.1] — 2026-06-04
 
 ### Added

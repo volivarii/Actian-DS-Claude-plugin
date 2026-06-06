@@ -26,10 +26,8 @@ var SKILL = path.resolve(__dirname, "../../skills/generate-flow/SKILL.md");
  * --share retirement, and --push documentation at a coarse level.  This file
  * focuses on the TRIGGERS + the refine-exemption + the reference-pointer.
  *
- * NOTE: This test is intentionally RED until SKILL.md is rewritten in Task 4.1.
- * It must fail with assertion failures (contract not yet in SKILL.md), NOT with
- * syntax / setup errors.  A syntax/setup failure is a bug in THIS file; an
- * assertion failure is the expected pre-4.1 state.
+ * The opt-in push contract has landed (SKILL.md rewrite, Task 4.1) — these
+ * assertions are GREEN and act as the regression gate.
  */
 
 describe("generate-flow push opt-in contract", function () {

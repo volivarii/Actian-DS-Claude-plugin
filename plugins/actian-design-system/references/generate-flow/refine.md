@@ -4,7 +4,7 @@ Detailed detection rules and the step-by-step refine behavior for `generate-flow
 Refine mode (Figma URL + prose instruction). Loaded on demand from
 `skills/generate-flow/SKILL.md`.
 
-Refine is a shape the skill detects, not a flag. When detected (v1.56.0+), it runs a targeted edit through the engine in `scripts/lib/resolve-unit.js`, `scripts/lib/snapshot-store.js`, and `scripts/lib/derive-scope.js`, with the validator running scope-filtered (B-refine.1). It skips the standard 3-gate pipeline AND the Step 0.5 pre-gen gate, and pushes only the affected screen frames.
+Refine is a shape the skill detects, not a flag. When detected (v1.56.0+), it runs a targeted edit through the engine in `scripts/lib/resolve-unit.js`, `scripts/lib/snapshot-store.js`, and `scripts/lib/derive-scope.js`, with the validator running scope-filtered (B-refine.1). It skips the standard 3-gate pipeline (which now subsumes the old pre-gen Step 0.5 config questions — folded into Gate 3), and pushes only the affected screen frames.
 
 ## Contents
 - Detection (all must match)
