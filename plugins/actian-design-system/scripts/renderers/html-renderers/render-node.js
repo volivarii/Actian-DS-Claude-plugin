@@ -39,6 +39,13 @@
       return "";
     };
 
+  // Hi-fi DS leaf map — same UMD resolution as fmMap. INSTANCE nodes flagged
+  // `library: "ds"` render through this; everything else stays on the FM map.
+  var dsMap =
+    (typeof window !== "undefined" && window.dsHtmlMap) ||
+    (typeof require !== "undefined" && require("./ds-html-map")) ||
+    {};
+
   // -------------------------------------------------------------------------
   // Style builders for structured nodes
   // -------------------------------------------------------------------------
@@ -325,6 +332,9 @@
       }
 
       case "INSTANCE": {
+        if (node.library === "ds" && dsMap.renderDSComponent) {
+          return dsMap.renderDSComponent(node);
+        }
         return renderFMComponent(node);
       }
 
