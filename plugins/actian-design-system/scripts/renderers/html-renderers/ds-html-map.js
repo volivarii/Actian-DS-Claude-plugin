@@ -279,7 +279,9 @@
             .filter(function (s) {
               return s.length > 0;
             });
-          var navActive = props.Active || navItems[0];
+          var navActive =
+            (props.Active != null ? String(props.Active).trim() : "") ||
+            navItems[0];
           var navRows = navItems
             .map(function (item) {
               var itemCls = "ds-sidenav__item";

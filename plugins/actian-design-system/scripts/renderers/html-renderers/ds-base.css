@@ -246,7 +246,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--zen-color-text-error);
+  background: var(--zen-color-icon-error);
   color: var(--zen-color-text-reverse);
   font-family: var(--zen-font-family-text);
   font-size: var(--zen-font-size-sm); /* 12 */
