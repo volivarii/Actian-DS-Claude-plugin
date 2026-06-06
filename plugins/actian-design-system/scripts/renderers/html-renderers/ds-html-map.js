@@ -13,6 +13,11 @@
     (typeof window !== "undefined" && window.fmHtmlMap) ||
     (typeof require !== "undefined" && require("./fm-html-map")) ||
     {};
+  // The `esc`/`parseVariant`/`normalizeProps` fallbacks below are intentional
+  // inline mirrors of fm-html-map's helpers, kept for the browser-without-
+  // preloaded-fm case (no window.fmHtmlMap and no require). Do NOT delete them
+  // as "dead code" in a future cleanup — they are the only implementation when
+  // `fm` resolves to {}.
   var esc =
     fm.esc ||
     function (s) {
@@ -25,8 +30,14 @@
     };
   var parseVariant =
     fm.parseVariant ||
-    function () {
-      return {};
+    function (variantString) {
+      if (!variantString) return {};
+      var result = {};
+      variantString.split(",").forEach(function (part) {
+        var kv = part.trim().split("=");
+        if (kv.length === 2) result[kv[0].trim()] = kv[1].trim();
+      });
+      return result;
     };
   var normalizeProps =
     fm.normalizeProps ||
@@ -79,7 +90,7 @@
             Primary: "primary",
             Secondary: "secondary",
             Tertiary: "tertiary",
-            "Critical primary": "primary",
+            "Critical primary": "critical",
             Icon: "primary",
           };
           var btnType = typeMap[v.Type] || "primary";
@@ -87,27 +98,43 @@
           if (v.Size === "Small") cls += " ds-button--small";
           if (v.State === "Disabled") cls += " is-disabled";
           var lead = props["Leading icon show"] ? ICON_PLUS : "";
-          var trail = props["Trailing icon show"]
-            ? ICON_CHEVRON_DOWN_BTN
-            : "";
+          var trail = props["Trailing icon show"] ? ICON_CHEVRON_DOWN_BTN : "";
           var label = esc(props.Label || "");
           return (
-            '<button class="' + cls + '">' + lead + label + trail + "</button>"
+            '<button class="' +
+            cls +
+            '"' +
+            (v.State === "Disabled" ? " disabled" : "") +
+            ">" +
+            lead +
+            label +
+            trail +
+            "</button>"
           );
         }
 
         case "input": {
           var inLabel = esc(props.Label || "Label");
-          var inPlaceholder = esc(props["Placeholder text"] || "Placeholder text");
+          var inPlaceholder = esc(
+            props["Placeholder text"] || "Placeholder text",
+          );
+          var fieldCls = "ds-field";
+          if (v.States === "Disabled") fieldCls += " is-disabled";
+          // Trailing chevron is for selects/dropdowns only — a plain text input
+          // must not imply one. Render the icon span only when a trailing-icon
+          // prop is present.
+          var inTrail = props["Trailing icon"] ? ICON_CHEVRON_DOWN_INPUT : "";
           return (
-            '<div class="ds-field">' +
+            '<div class="' +
+            fieldCls +
+            '">' +
             '<div class="ds-field__label-row"><span class="ds-field__label">' +
             inLabel +
             "</span></div>" +
             '<div class="ds-input"><span class="ds-input__text">' +
             inPlaceholder +
             "</span>" +
-            ICON_CHEVRON_DOWN_INPUT +
+            inTrail +
             "</div>" +
             "</div>"
           );
@@ -116,6 +143,7 @@
         case "checkbox-with-label": {
           var cbCls = "ds-checkbox";
           if (v.Selected === "Yes") cbCls += " ds-checkbox--checked";
+          if (v.State === "Disabled") cbCls += " is-disabled";
           var cbLabel = esc(props.Label || "Label");
           return (
             '<label class="' +
@@ -143,6 +171,7 @@
   exports.renderDSComponent = renderDSComponent;
   exports.esc = esc;
   exports.parseVariant = parseVariant;
+  exports.normalizeProps = normalizeProps;
 })(
   typeof module !== "undefined"
     ? module.exports

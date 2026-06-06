@@ -49,22 +49,45 @@ describe("ds-html-map: button", function () {
     assert.ok(html.indexOf("ds-button--tertiary") !== -1);
   });
 
-  it("Critical primary maps to primary", function () {
+  it("Critical primary maps to critical (NOT brand-blue primary)", function () {
     var html = render({
       dsSlug: "button",
       variant: "Type=Critical primary",
       props: { Label: "Delete" },
     });
-    assert.ok(html.indexOf("ds-button--primary") !== -1);
+    assert.ok(
+      html.indexOf("ds-button--critical") !== -1,
+      "has critical modifier",
+    );
+    assert.ok(
+      html.indexOf("ds-button--primary") === -1,
+      "does NOT render as primary",
+    );
   });
 
-  it("Disabled: contains is-disabled", function () {
+  it("Disabled: contains is-disabled class AND the disabled attribute", function () {
     var html = render({
       dsSlug: "button",
       variant: "Type=Primary, State=Disabled",
       props: { Label: "Save" },
     });
-    assert.ok(html.indexOf("is-disabled") !== -1);
+    assert.ok(html.indexOf("is-disabled") !== -1, "has is-disabled class");
+    assert.ok(
+      html.indexOf(" disabled>") !== -1 || html.indexOf(" disabled ") !== -1,
+      "emits the disabled attribute",
+    );
+  });
+
+  it("not disabled: no disabled attribute", function () {
+    var html = render({
+      dsSlug: "button",
+      variant: "Type=Primary, State=Default",
+      props: { Label: "Save" },
+    });
+    assert.ok(
+      html.indexOf(" disabled") === -1,
+      "no disabled attr when enabled",
+    );
   });
 
   it("Small: contains ds-button--small", function () {
@@ -143,8 +166,48 @@ describe("ds-html-map: input", function () {
     assert.ok(html.indexOf("you@co.com") !== -1, "renders Placeholder text");
   });
 
+  it("plain text input (no Trailing icon prop): NO ds-input__icon chevron", function () {
+    var html = render({
+      dsSlug: "input",
+      variant: "States=Default",
+      props: { Label: "Email", "Placeholder text": "you@co.com" },
+    });
+    assert.ok(
+      html.indexOf("ds-input__icon") === -1,
+      "no trailing chevron on a plain text input",
+    );
+  });
+
+  it("with Trailing icon prop: renders the ds-input__icon chevron", function () {
+    var html = render({
+      dsSlug: "input",
+      variant: "States=Default",
+      props: { Label: "Email", "Trailing icon": "chevron" },
+    });
+    assert.ok(
+      html.indexOf("ds-input__icon") !== -1,
+      "trailing chevron present when Trailing icon prop set",
+    );
+  });
+
+  it("Disabled (States=Disabled): ds-field carries is-disabled", function () {
+    var html = render({
+      dsSlug: "input",
+      variant: "States=Disabled",
+      props: { Label: "Email" },
+    });
+    assert.ok(
+      html.indexOf("ds-field is-disabled") !== -1,
+      "ds-field has is-disabled when States=Disabled",
+    );
+  });
+
   it("falls back to default Label/Placeholder text when absent", function () {
-    var html = render({ dsSlug: "input", variant: "States=Default", props: {} });
+    var html = render({
+      dsSlug: "input",
+      variant: "States=Default",
+      props: {},
+    });
     assert.ok(html.indexOf("Label") !== -1, "default label");
     assert.ok(html.indexOf("Placeholder text") !== -1, "default placeholder");
   });
@@ -170,9 +233,18 @@ describe("ds-html-map: checkbox-with-label", function () {
       variant: "Selected=Yes",
       props: { Label: "Agree" },
     });
+    assert.ok(html.indexOf("ds-checkbox--checked") !== -1, "checked when Yes");
+  });
+
+  it("Disabled (State=Disabled): label carries is-disabled", function () {
+    var html = render({
+      dsSlug: "checkbox-with-label",
+      variant: "Selected=No, State=Disabled",
+      props: { Label: "Agree" },
+    });
     assert.ok(
-      html.indexOf("ds-checkbox--checked") !== -1,
-      "checked when Yes",
+      html.indexOf("is-disabled") !== -1,
+      "checkbox label has is-disabled when State=Disabled",
     );
   });
 });
@@ -199,11 +271,30 @@ describe("ds-html-map: fallback + resilience", function () {
     );
   });
 
-  it("hostile props shape never throws", function () {
+  it("hostile props shape never throws (normalizeProps absorbs it)", function () {
+    // props:42 does NOT throw — normalizeProps treats a non-object as {} and the
+    // button renders normally. The genuine catch-branch coverage is the test
+    // below (a throwing `variant` getter). This guards graceful absorption.
     var html;
     assert.doesNotThrow(function () {
       html = render({ dsSlug: "button", variant: "Type=Primary", props: 42 });
     });
     assert.ok(typeof html === "string", "returns a string");
+    assert.ok(html.indexOf("<button") === 0, "renders a normal button");
+  });
+
+  it("never throws — degrades to chip even if internals throw", function () {
+    // Genuinely exercises the catch branch: reading node.variant throws.
+    var evil = { dsSlug: "button" };
+    Object.defineProperty(evil, "variant", {
+      get: function () {
+        throw new Error("boom");
+      },
+    });
+    var html = render(evil);
+    assert.ok(
+      html.indexOf('<span class="ds-component"') === 0,
+      "returns graceful chip on throw",
+    );
   });
 });
