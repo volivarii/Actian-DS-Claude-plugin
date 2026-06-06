@@ -1,5 +1,7 @@
 /* ds-base.css — hi-fi DS leaf styles. 100% bound to vendored --zen-* tokens.
- * SPIKE scope: button, input, checkbox-with-label. Geometry + token bindings
+ * SPIKE scope: button, input, checkbox-with-label. Catalog slice adds:
+ * tag-default, badge, search, card-for-items + chrome (global-header,
+ * side-nav). Geometry + token bindings
  * measured from the published Figma DS Kit (file l8biHxfarNi1I2RMvVxVOK, 2026-06-06).
  * Figma-var -> --zen-* alias notes: color-bg-primary->bg-emphasis,
  * color-text-default->text-primary, color-text-interactive->text-link-default,
@@ -203,6 +205,240 @@
 .ds-checkbox.is-disabled {
   opacity: 0.4;
   cursor: not-allowed;
+}
+
+/* ============ Tag (default) ============ */
+/* Color variant axis renders the Default palette here; per-Color hue palette
+ * (<hue>/25 bg + <hue>/50 border) is deferred. */
+.ds-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  height: var(--zen-size-lg); /* 24 */
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+  border: 1px solid var(--zen-border-default); /* border-width-md (1) */
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-text-tertiary);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12 */
+  line-height: var(--zen-font-lineheight-sm); /* 16 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-3); /* 0.3 */
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+.ds-tag__icon {
+  width: 14px; /* icon box geometry (raw px) */
+  height: 14px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-tag__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* ============ Badge ============ */
+.ds-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--zen-color-icon-error);
+  color: var(--zen-color-text-reverse);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12 */
+  font-weight: var(--zen-font-weight-medium);
+  box-sizing: border-box;
+}
+.ds-badge--number {
+  min-width: 16px; /* count-pill geometry (raw px) */
+  height: 16px;
+  padding: 0 4px; /* count-pill geometry (raw px) */
+  border-radius: var(--zen-border-radius-full);
+}
+.ds-badge--dot {
+  width: 8px; /* dot geometry (raw px) */
+  height: 8px;
+  border-radius: var(--zen-border-radius-full);
+}
+
+/* ============ Search ============ */
+.ds-search {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  height: var(--zen-size-xl); /* 32 */
+  padding: 0 var(--zen-spacing-sm); /* 12 */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-search__icon {
+  width: 20px; /* icon box geometry (raw px) */
+  height: 20px;
+  flex: 0 0 auto;
+  display: inline-flex;
+  color: var(--zen-color-icon-default);
+}
+.ds-search__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.ds-search__text {
+  flex: 1 1 0;
+  min-width: 0;
+  color: var(--zen-color-text-secondary);
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+}
+.ds-search.is-disabled {
+  opacity: 0.4;
+}
+
+/* ============ Card (for items — Catalog) ============ */
+.ds-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8 */
+  width: 280px; /* fixed card width (raw px — slice geometry) */
+  padding: var(--zen-spacing-md); /* 16 */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  box-shadow: var(--zen-shadow-xs);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-card--selected {
+  border-color: var(--zen-border-selected);
+  background: var(--zen-color-bg-selected);
+}
+.ds-card__title {
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-semibold);
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  color: var(--zen-color-text-primary);
+}
+.ds-card__body {
+  margin: 0;
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-tertiary);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.ds-card__eyebrow,
+.ds-card__cat {
+  align-self: flex-start;
+}
+
+/* ============ Global header (top app bar — chrome) ============ */
+.ds-header {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-md); /* 16 */
+  height: 56px; /* measured app-bar row (raw px) */
+  padding: 0 var(--zen-spacing-md); /* 16 */
+  background: var(--zen-color-bg-default);
+  border-bottom: 1px solid var(--zen-border-default);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+}
+.ds-header__logo {
+  width: 24px; /* logo box geometry (raw px) */
+  height: 24px;
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  background: var(--zen-color-bg-emphasis);
+}
+.ds-header__app {
+  font-size: var(--zen-font-size-md); /* 14 */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  color: var(--zen-color-text-primary);
+}
+.ds-header__spacer {
+  flex: 1;
+}
+.ds-header__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+}
+.ds-header__avatar {
+  width: 32px; /* avatar box geometry (raw px) */
+  height: 32px;
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-bg-selected);
+  color: var(--zen-color-text-link-default);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--zen-font-size-sm); /* 12 */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+}
+
+/* ============ Side nav (left rail — chrome) ============ */
+.ds-sidenav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  width: 240px; /* expanded rail width (raw px) */
+  padding: var(--zen-spacing-xs); /* 8 */
+  background: var(--zen-color-bg-default);
+  border-right: 1px solid var(--zen-border-default);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-sidenav__item {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: var(--zen-spacing-xs); /* 8 */
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  color: var(--zen-color-text-primary);
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  text-decoration: none;
+  cursor: pointer;
+}
+.ds-sidenav__icon {
+  width: 20px; /* nav icon box geometry (raw px) */
+  height: 20px;
+  border-radius: var(--zen-border-radius-xs); /* 4 */
+  background: var(--zen-color-bg-subtle);
+  flex: 0 0 auto;
+}
+.ds-sidenav__item.is-active {
+  background: var(--zen-color-bg-selected);
+  color: var(--zen-color-text-link-default);
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+}
+.ds-sidenav__item.is-active .ds-sidenav__icon {
+  background: var(--zen-border-selected);
+}
+.ds-sidenav--collapsed {
+  width: 56px; /* collapsed rail width (raw px) */
+}
+.ds-sidenav--collapsed .ds-sidenav__label {
+  display: none;
 }
 
 /* ============ Graceful fallback chip ============ */

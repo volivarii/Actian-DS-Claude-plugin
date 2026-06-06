@@ -15,6 +15,21 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.103.0] — 2026-06-06
+
+### Added
+- **Hi-fi DS render tier — 6 more components (catalog-browse vertical slice).**
+  `tag-default`, `badge`, `search`, `card-for-items` (content) and
+  `global-header`, `side-nav` (chrome) — token-bound (`ds-base.css`), grounded by
+  measured Figma anatomy (`references/convert-to-hifi/anatomy/catalog-slice.json`).
+  Proves the DS-native authoring path end-to-end: a real Studio Data Catalog
+  screen composed from real DS components and rendered hi-fi offline.
+- **`card-for-items` is DS-native-only** (no FM mapping). The `ds-coverage`
+  orphan gate now validates renderer cases against the **authorable dskit
+  surface** (~76, dskit minus icon/brand-asset categories) rather than the
+  22-slug FM→DS conversion map — so DS-native-only components are legitimate. The
+  conversion-coverage check still keys on `fm-to-ds-map.json`.
+
 ## [1.102.0] — 2026-06-06
 
 ### Added

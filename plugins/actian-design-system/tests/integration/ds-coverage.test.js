@@ -3,6 +3,17 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
+var PATHS = require("../../scripts/lib/paths.js");
+
+// dskit categories that are NOT authorable UI components (icons + brand assets).
+// The authorable UI surface = dskit minus these (≈76 components) — the real
+// ceiling for the DS render tier (DS-native feeder), broader than the 22
+// conversion-reachable slugs.
+var NON_AUTHORABLE_CATEGORIES = new Set([
+  "Icons",
+  "Product logos",
+  "Illustrations & graphics",
+]);
 
 // FM→DS CONVERSION coverage gate (one of two feeders into the shared DS render tier).
 //
@@ -42,12 +53,9 @@ var NOT_YET_IMPLEMENTED = new Set([
   "dropdown-select-default",
   "radio-button",
   "toggle",
-  "search",
   "input-date",
   "rich-text",
   // P2 — display / feedback
-  "badge",
-  "tag-default",
   "tag-interactive",
   "alert-banner",
   "notification",
@@ -56,8 +64,6 @@ var NOT_YET_IMPLEMENTED = new Set([
   "empty-state",
   "stepper",
   // P3 — chrome / structural
-  "global-header",
-  "side-nav",
   "page-header",
   "modal",
 ]);
@@ -81,6 +87,21 @@ function implementedCases() {
   return cases;
 }
 
+// The authorable UI surface = every dskit component NOT in an icon/brand-asset
+// category. This is the real ceiling for the render tier (the DS-native feeder
+// can author any of these directly — far beyond the 22 conversion-reachable).
+function authorableDsSlugs() {
+  var dskit = JSON.parse(
+    fs.readFileSync(PATHS.components.registries.dskit, "utf8"),
+  );
+  var comps = dskit.components || {};
+  var slugs = new Set();
+  Object.keys(comps).forEach(function (slug) {
+    if (!NON_AUTHORABLE_CATEGORIES.has(comps[slug].category)) slugs.add(slug);
+  });
+  return slugs;
+}
+
 test("every reachable DS slug has a renderer case or is allowlisted", function () {
   var reachable = reachableDsSlugs();
   var cases = implementedCases();
@@ -100,19 +121,23 @@ test("every reachable DS slug has a renderer case or is allowlisted", function (
   );
 });
 
-test("no orphan renderer cases (every case maps to a reachable DS slug)", function () {
-  var reachable = reachableDsSlugs();
+test("no orphan renderer cases (every case is a real authorable DS component)", function () {
+  // Validated against the AUTHORABLE dskit surface, not the conversion map — a
+  // DS-native-only component (e.g. card-for-items, which has no FM mapping) is a
+  // legitimate case, not an orphan. An orphan is a case whose slug isn't a real
+  // authorable DS component at all (typo, or a renamed/removed component).
+  var authorable = authorableDsSlugs();
   var cases = implementedCases();
 
   var orphans = [];
   cases.forEach(function (slug) {
-    if (!reachable.has(slug)) orphans.push(slug);
+    if (!authorable.has(slug)) orphans.push(slug);
   });
   assert.deepEqual(
     orphans.sort(),
     [],
-    "ds-html-map.js has case(s) for slug(s) not reachable from " +
-      "fm-to-ds-map.json (typo, or a mapping was removed): " +
+    "ds-html-map.js has case(s) for slug(s) that are not authorable dskit " +
+      "components (typo, or a component was renamed/removed): " +
       orphans.join(", "),
   );
 });

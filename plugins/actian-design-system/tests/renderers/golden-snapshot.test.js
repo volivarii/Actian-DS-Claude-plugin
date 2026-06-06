@@ -167,6 +167,79 @@ var DS_FIXTURES = {
     variant: "Selected=No, State=Disabled",
     props: { Label: "Agree to terms" },
   },
+  // Catalog-slice content components.
+  tagDefault: {
+    dsSlug: "tag-default",
+    variant: "Color=Default",
+    props: { Label: "Active" },
+  },
+  tagWithIcon: {
+    dsSlug: "tag-default",
+    variant: "Color=Default",
+    props: { Label: "Catalog", "Leading icon show": true },
+  },
+  badgeNumber: {
+    dsSlug: "badge",
+    variant: "Type=Number",
+    props: { Label: "3" },
+  },
+  badgeDot: {
+    dsSlug: "badge",
+    variant: "Type=Dot",
+    props: {},
+  },
+  searchDefault: {
+    dsSlug: "search",
+    variant: "State=Default",
+    props: { "Placeholder text": "Search catalog" },
+  },
+  searchDisabled: {
+    dsSlug: "search",
+    variant: "State=Disabled",
+    props: { "Placeholder text": "Search catalog" },
+  },
+  cardCatalog: {
+    dsSlug: "card-for-items",
+    variant: "Type=Catalog, State=Default",
+    props: {
+      Eyebrow: "Dataset",
+      Title: "Quarterly sales",
+      Category: "Catalog",
+      Body: "Quarterly sales figures across all regions and product lines.",
+    },
+  },
+  cardCatalogSelected: {
+    dsSlug: "card-for-items",
+    variant: "Type=Catalog, State=Selected",
+    props: {
+      Eyebrow: "Dataset",
+      Title: "Quarterly sales",
+      Category: "Catalog",
+      Body: "Quarterly sales figures across all regions and product lines.",
+    },
+  },
+  // Catalog-slice chrome components.
+  globalHeaderStudio: {
+    dsSlug: "global-header",
+    variant: "App type=Studio, Breakpoints=XL",
+    props: {},
+  },
+  sideNavExpanded: {
+    dsSlug: "side-nav",
+    variant: "App=Studio, View=Expanded",
+    props: {
+      Items: "Catalog, Pipelines, Connections, Settings",
+      Active: "Catalog",
+    },
+  },
+  sideNavCollapsed: {
+    dsSlug: "side-nav",
+    variant: "App=Studio, View=Collapsed",
+    props: {
+      Items: "Catalog, Pipelines, Connections, Settings",
+      Active: "Catalog",
+    },
+  },
 };
 
 Object.keys(DS_FIXTURES).forEach(function (name) {
