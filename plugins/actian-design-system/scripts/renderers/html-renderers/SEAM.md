@@ -42,7 +42,7 @@ hi-fi DS tier is the worked example:
   `fm-to-ds-map.json` has a case or is in a shrinking allowlist), `golden-snapshot`
   (frozen `ds-*` goldens), plus an end-to-end offline assembly test.
 
-**Deferred (not yet built):** the remaining 18 reachable DS slugs (P1 forms, P2
+**Deferred (not yet built):** the remaining 19 reachable DS slugs (P1 forms, P2
 display/feedback, P3 chrome — tracked by `ds-coverage`'s `NOT_YET_IMPLEMENTED`);
 user-facing `--hifi` skill wiring in generate-flow; the durable anatomy-geometry
 JSON substrate (ds-base.css's px comments are the interim record); icon-name→SVG

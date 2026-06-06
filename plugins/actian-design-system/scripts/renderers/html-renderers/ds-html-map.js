@@ -94,15 +94,15 @@
             Icon: "primary",
           };
           var btnType = typeMap[v.Type] || "primary";
-          var cls = "ds-button ds-button--" + btnType;
-          if (v.Size === "Small") cls += " ds-button--small";
-          if (v.State === "Disabled") cls += " is-disabled";
+          var btnCls = "ds-button ds-button--" + btnType;
+          if (v.Size === "Small") btnCls += " ds-button--small";
+          if (v.State === "Disabled") btnCls += " is-disabled";
           var lead = props["Leading icon show"] ? ICON_PLUS : "";
           var trail = props["Trailing icon show"] ? ICON_CHEVRON_DOWN_BTN : "";
           var label = esc(props.Label || "");
           return (
             '<button class="' +
-            cls +
+            btnCls +
             '"' +
             (v.State === "Disabled" ? " disabled" : "") +
             ">" +

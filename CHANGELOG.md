@@ -32,7 +32,7 @@ are summarized at the release level.
   `golden-snapshot` `ds-*` baselines; plus an end-to-end offline assembly test.
 
   Infrastructure release — the user-facing `--hifi` wiring in generate-flow and
-  the remaining 18 components (P1 forms, P2 display/feedback, P3 chrome) follow.
+  the remaining 19 components (P1 forms, P2 display/feedback, P3 chrome) follow.
   See `scripts/renderers/html-renderers/SEAM.md`.
 
 ## [1.101.0] — 2026-06-06

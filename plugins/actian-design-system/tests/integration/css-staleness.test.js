@@ -136,6 +136,11 @@ var PAIRS = [
       path.join(RENDERERS_DIR, "presentation-renderer.css"),
     ],
   },
+  {
+    name: "DS",
+    js: [path.join(RENDERERS_DIR, "ds-html-map.js")],
+    css: [path.join(RENDERERS_DIR, "ds-base.css")],
+  },
 ];
 
 describe("CSS Staleness", function () {

@@ -204,3 +204,20 @@
   opacity: 0.4;
   cursor: not-allowed;
 }
+
+/* ============ Graceful fallback chip ============ */
+/* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
+ * a node that would otherwise throw. Keeps the fallback visible + on-brand. */
+.ds-component {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs);
+  padding: var(--zen-spacing-3xs) var(--zen-spacing-xs);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-xs);
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-text-secondary);
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm);
+  line-height: var(--zen-font-lineheight-sm);
+}
