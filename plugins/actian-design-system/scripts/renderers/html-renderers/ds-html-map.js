@@ -240,6 +240,63 @@
           );
         }
 
+        case "global-header": {
+          // Top app bar (chrome). The brand app label defaults to the App-type
+          // variant value (Studio/Explorer/Admin), then to "Studio".
+          var headerApp = esc(props.App || v["App type"] || "Studio");
+          var headerAvatar = esc(props.Account || "AU");
+          return (
+            '<header class="ds-header">' +
+            '<div class="ds-header__brand">' +
+            '<span class="ds-header__logo"></span>' +
+            '<span class="ds-header__app">' +
+            headerApp +
+            "</span>" +
+            "</div>" +
+            '<div class="ds-header__spacer"></div>' +
+            '<div class="ds-header__actions">' +
+            '<span class="ds-header__avatar">' +
+            headerAvatar +
+            "</span>" +
+            "</div>" +
+            "</header>"
+          );
+        }
+
+        case "side-nav": {
+          // Left navigation rail (chrome). Items are a comma-separated label
+          // list; the Active label's row is marked is-active (defaults to the
+          // first item). Collapsed view hides labels via the CSS modifier.
+          var navCls = "ds-sidenav";
+          if (v.View === "Collapsed") navCls += " ds-sidenav--collapsed";
+          var navItems = String(
+            props.Items || "Catalog, Pipelines, Connections, Settings",
+          )
+            .split(",")
+            .map(function (s) {
+              return s.trim();
+            })
+            .filter(function (s) {
+              return s.length > 0;
+            });
+          var navActive = props.Active || navItems[0];
+          var navRows = navItems
+            .map(function (item) {
+              var itemCls = "ds-sidenav__item";
+              if (item === navActive) itemCls += " is-active";
+              return (
+                '<a class="' +
+                itemCls +
+                '"><span class="ds-sidenav__icon"></span>' +
+                '<span class="ds-sidenav__label">' +
+                esc(item) +
+                "</span></a>"
+              );
+            })
+            .join("");
+          return '<nav class="' + navCls + '">' + navRows + "</nav>";
+        }
+
         default: {
           // Unmapped slug: a clean labeled chip using the human name.
           return gracefulChip();

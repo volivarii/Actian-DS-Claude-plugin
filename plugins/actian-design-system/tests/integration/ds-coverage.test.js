@@ -64,8 +64,6 @@ var NOT_YET_IMPLEMENTED = new Set([
   "empty-state",
   "stepper",
   // P3 — chrome / structural
-  "global-header",
-  "side-nav",
   "page-header",
   "modal",
 ]);

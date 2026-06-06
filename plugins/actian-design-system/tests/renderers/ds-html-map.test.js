@@ -474,6 +474,173 @@ describe("ds-html-map: card-for-items (DS-native only)", function () {
   });
 });
 
+describe("ds-html-map: global-header", function () {
+  it("default: emits a <header> with brand, app label, spacer, avatar", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: {},
+    });
+    assert.ok(
+      html.indexOf('<header class="ds-header"') === 0,
+      "starts with ds-header",
+    );
+    assert.ok(html.indexOf("ds-header__brand") !== -1, "has brand");
+    assert.ok(html.indexOf("ds-header__logo") !== -1, "has logo");
+    assert.ok(html.indexOf("ds-header__app") !== -1, "has app label");
+    assert.ok(html.indexOf("ds-header__spacer") !== -1, "has spacer");
+    assert.ok(html.indexOf("ds-header__actions") !== -1, "has actions");
+    assert.ok(html.indexOf("ds-header__avatar") !== -1, "has avatar");
+    assert.ok(html.indexOf("</header>") !== -1, "closes header tag");
+  });
+
+  it("App label defaults to the App type variant value", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Explorer",
+      props: {},
+    });
+    assert.ok(html.indexOf(">Explorer</span>") !== -1, "uses App type value");
+  });
+
+  it("App prop overrides the App type variant value", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: { App: "My Workspace" },
+    });
+    assert.ok(html.indexOf("My Workspace") !== -1, "renders App prop");
+    assert.ok(
+      html.indexOf(">Studio</span>") === -1,
+      "App prop wins over variant",
+    );
+  });
+
+  it("falls back to 'Studio' when neither App prop nor variant present", function () {
+    var html = render({ dsSlug: "global-header", variant: "", props: {} });
+    assert.ok(html.indexOf(">Studio</span>") !== -1, "default app label");
+  });
+
+  it("Account prop sets the avatar initials; defaults to 'AU'", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: { Account: "VO" },
+    });
+    assert.ok(html.indexOf(">VO</span>") !== -1, "renders Account initials");
+    var html2 = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: {},
+    });
+    assert.ok(html2.indexOf(">AU</span>") !== -1, "default avatar initials");
+  });
+
+  it("escapes a hostile App label", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: { App: "<img src=x onerror=1>" },
+    });
+    assert.ok(html.indexOf("&lt;img") !== -1, "app label escaped");
+    assert.ok(html.indexOf("<img") === -1, "no raw injection");
+  });
+});
+
+describe("ds-html-map: side-nav", function () {
+  it("Expanded default: nav with one item per default label, no collapsed modifier", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "App=Studio, View=Expanded",
+      props: {},
+    });
+    assert.ok(
+      html.indexOf('<nav class="ds-sidenav"') === 0,
+      "starts with ds-sidenav (not collapsed)",
+    );
+    assert.ok(
+      html.indexOf("ds-sidenav--collapsed") === -1,
+      "no collapsed modifier when Expanded",
+    );
+    var itemCount = html.split("ds-sidenav__item").length - 1;
+    // default Items = "Catalog, Pipelines, Connections, Settings" → 4 rows.
+    // (each row's class string contributes the substring once.)
+    assert.equal(itemCount, 4, "four item rows from the default Items");
+    assert.ok(html.indexOf("Catalog") !== -1, "renders Catalog");
+    assert.ok(html.indexOf("Pipelines") !== -1, "renders Pipelines");
+    assert.ok(html.indexOf("Connections") !== -1, "renders Connections");
+    assert.ok(html.indexOf("Settings") !== -1, "renders Settings");
+    assert.ok(html.indexOf("ds-sidenav__icon") !== -1, "rows have icons");
+    assert.ok(html.indexOf("ds-sidenav__label") !== -1, "rows have labels");
+  });
+
+  it("item count tracks the Items prop (comma-split + trim)", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "View=Expanded",
+      props: { Items: "Home,  Reports , Admin" },
+    });
+    var itemCount = html.split("ds-sidenav__item").length - 1;
+    assert.equal(itemCount, 3, "three rows from three Items");
+    assert.ok(html.indexOf(">Home</span>") !== -1, "trimmed Home");
+    assert.ok(html.indexOf(">Reports</span>") !== -1, "trimmed Reports");
+    assert.ok(html.indexOf(">Admin</span>") !== -1, "trimmed Admin");
+  });
+
+  it("is-active lands on the Active label's row only", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "View=Expanded",
+      props: { Items: "Catalog, Pipelines, Settings", Active: "Pipelines" },
+    });
+    var activeCount = html.split("is-active").length - 1;
+    assert.equal(activeCount, 1, "exactly one active row");
+    // the active row is the Pipelines one: its class string precedes the label
+    var activeIdx = html.indexOf("ds-sidenav__item is-active");
+    assert.ok(activeIdx !== -1, "active row carries is-active");
+    var pipeIdx = html.indexOf("Pipelines");
+    assert.ok(pipeIdx > activeIdx, "Pipelines label follows its active row");
+  });
+
+  it("Active defaults to the first item when not specified", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "View=Expanded",
+      props: { Items: "Catalog, Pipelines" },
+    });
+    var activeCount = html.split("is-active").length - 1;
+    assert.equal(activeCount, 1, "one active row by default");
+    // first row (Catalog) is the active one
+    var firstItem = html.indexOf("ds-sidenav__item");
+    assert.ok(
+      html.indexOf("ds-sidenav__item is-active") === firstItem,
+      "first item is active by default",
+    );
+  });
+
+  it("Collapsed view adds ds-sidenav--collapsed", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "App=Studio, View=Collapsed",
+      props: { Items: "Catalog, Pipelines" },
+    });
+    assert.ok(
+      html.indexOf('<nav class="ds-sidenav ds-sidenav--collapsed"') === 0,
+      "has collapsed modifier when View=Collapsed",
+    );
+  });
+
+  it("escapes hostile item labels", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "View=Expanded",
+      props: { Items: "<x>,Safe" },
+    });
+    assert.ok(html.indexOf("&lt;x&gt;") !== -1, "label escaped");
+    assert.ok(html.indexOf("<x>") === -1, "no raw injection");
+  });
+});
+
 describe("ds-html-map: fallback + resilience", function () {
   it("unknown dsSlug returns the graceful chip", function () {
     var html = render({ dsSlug: "nope", name: "Mystery" });
