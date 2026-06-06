@@ -743,6 +743,7 @@
   exports.esc = esc;
   exports.renderFMComponent = renderFMComponent;
   exports.parseVariant = parseVariant;
+  exports.normalizeProps = normalizeProps;
 
   exports.genCard = function (meta, promptFallback) {
     var prompt = meta.prompt || promptFallback || "";

@@ -15,6 +15,29 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.102.0] — 2026-06-06
+
+### Added
+- **Hi-fi DS HTML render tier (Phase 0: button, input, checkbox-with-label).**
+  A second HTML render tier behind the existing INSTANCE seam: when a flow node
+  carries `library:"ds"` (emitted by `transform-to-hifi.js`), `render-node.js`
+  routes it to `ds-html-map.js`, which renders token-bound markup styled by
+  `ds-base.css` (100% `--zen-*`, geometry measured once from the published Figma
+  DS Kit). Hi-fi is a **mode of the `flow-share` deliverable** — `ds-base.css` is
+  inlined via `FLOW_CSS` (inert for lo-fi) and the offline single-file contract is
+  preserved; no new `--type`.
+- **Three gates for the new tier:** `token-resolution` now covers ds-base.css +
+  ds-html-map.js; new `ds-coverage` test asserts every DS slug reachable via
+  FM→DS conversion (`fm-to-ds-map.json`) has a renderer case or is in a shrinking
+  allowlist; frozen `golden-snapshot` `ds-*` baselines; plus an end-to-end offline
+  assembly test.
+
+  The DS render tier is **shared substrate**, fed by two paths: FM→DS conversion
+  (today) and DS-native authoring against the broader authorable dskit (future) —
+  it is not capped at the FM map's slugs. Infrastructure release — the user-facing
+  `--hifi` wiring, the DS-native authoring feeder, and the remaining components
+  follow. See `scripts/renderers/html-renderers/SEAM.md`.
+
 ## [1.101.0] — 2026-06-06
 
 ### Changed

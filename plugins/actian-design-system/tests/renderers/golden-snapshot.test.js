@@ -4,6 +4,7 @@ var assert = require("node:assert/strict");
 var fs = require("fs");
 var path = require("path");
 var fm = require("../../scripts/renderers/html-renderers/fm-html-map.js");
+var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
 
 var GOLDEN_DIR = path.join(__dirname, "__goldens__");
 var UPDATE = process.env.UPDATE_GOLDENS === "1";
@@ -87,6 +88,94 @@ Object.keys(FIXTURES).forEach(function (name) {
   test("golden: " + name, function () {
     var node = Object.assign({ type: "INSTANCE" }, FIXTURES[name]);
     golden("component-" + name, fm.renderFMComponent(node));
+  });
+});
+
+// Hi-fi DS tier goldens (Phase 0 scope: button, input, checkbox-with-label).
+// Each fixture is a library:"ds" INSTANCE; renderDSComponent switches on dsSlug.
+var DS_FIXTURES = {
+  buttonPrimary: {
+    dsSlug: "button",
+    variant: "Type=Primary, Size=Default",
+    props: { Label: "Save" },
+  },
+  buttonSecondary: {
+    dsSlug: "button",
+    variant: "Type=Secondary, Size=Default",
+    props: { Label: "Cancel" },
+  },
+  buttonTertiary: {
+    dsSlug: "button",
+    variant: "Type=Tertiary, Size=Default",
+    props: { Label: "Skip" },
+  },
+  buttonCritical: {
+    dsSlug: "button",
+    variant: "Type=Critical primary, Size=Default",
+    props: { Label: "Delete" },
+  },
+  buttonDisabled: {
+    dsSlug: "button",
+    variant: "Type=Primary, Size=Default, State=Disabled",
+    props: { Label: "Save" },
+  },
+  buttonSmall: {
+    dsSlug: "button",
+    variant: "Type=Primary, Size=Small",
+    props: { Label: "Go" },
+  },
+  buttonWithIcons: {
+    dsSlug: "button",
+    variant: "Type=Primary, Size=Default",
+    props: {
+      Label: "Add",
+      "Leading icon show": true,
+      "Trailing icon show": true,
+    },
+  },
+  inputDefault: {
+    dsSlug: "input",
+    variant: "States=Default",
+    props: { Label: "Email", "Placeholder text": "you@co" },
+  },
+  inputTrailingIcon: {
+    dsSlug: "input",
+    variant: "States=Default",
+    props: {
+      Label: "Date",
+      "Placeholder text": "Select a date",
+      "Trailing icon": "chevron",
+    },
+  },
+  inputDisabled: {
+    dsSlug: "input",
+    variant: "States=Disabled",
+    props: { Label: "Email", "Placeholder text": "you@co" },
+  },
+  checkboxOff: {
+    dsSlug: "checkbox-with-label",
+    variant: "Selected=No",
+    props: { Label: "Agree to terms" },
+  },
+  checkboxOn: {
+    dsSlug: "checkbox-with-label",
+    variant: "Selected=Yes",
+    props: { Label: "Agree to terms" },
+  },
+  checkboxDisabled: {
+    dsSlug: "checkbox-with-label",
+    variant: "Selected=No, State=Disabled",
+    props: { Label: "Agree to terms" },
+  },
+};
+
+Object.keys(DS_FIXTURES).forEach(function (name) {
+  test("golden(ds): " + name, function () {
+    var node = Object.assign(
+      { type: "INSTANCE", library: "ds" },
+      DS_FIXTURES[name],
+    );
+    golden("ds-" + name, ds.renderDSComponent(node));
   });
 });
 
