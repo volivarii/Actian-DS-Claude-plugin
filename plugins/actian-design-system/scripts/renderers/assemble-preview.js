@@ -304,6 +304,14 @@ function main() {
   var cssContent = cssParts.join("\n");
 
   var rendererScripts = "";
+  // Inject the icon-geometry global so renderDSComponent's renderIcon() resolves
+  // glyphs client-side. Only for configs that inline the DS leaf map.
+  var inlinesDs = config.renderers.some(function (p) {
+    return path.basename(p) === "ds-html-map.js";
+  });
+  if (inlinesDs) {
+    rendererScripts += shared.buildDsIconsScript() + "\n";
+  }
   for (var r = 0; r < config.renderers.length; r++) {
     var rendererPath = config.renderers[r];
     var rendererSrc = readFileChecked(rendererPath);
