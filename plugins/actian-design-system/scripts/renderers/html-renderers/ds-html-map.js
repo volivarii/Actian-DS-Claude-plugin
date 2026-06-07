@@ -60,16 +60,17 @@
       })()) ||
     {};
 
-  // renderIcon(slug, {rotate}) -> bare '<svg class="ds-icon[ ds-icon--rotN]" …>'.
-  // Unknown slug -> '' (never throws; the orphan-ref gate prevents shipping one).
+  // renderIcon(slug, {rotate}) -> bare <svg> carrying the ds-icon base class
+  // (plus ds-icon--rotN when rotated). Unknown slug -> '' (never throws; the
+  // orphan-ref gate prevents shipping one).
   function renderIcon(slug, opts) {
     var icon = dsIcons && dsIcons[slug];
     if (!icon || !icon.viewBox || !icon.body) return "";
-    var cls = "ds-icon";
-    if (opts && opts.rotate) cls += " ds-icon--rot" + opts.rotate;
+    var iconCls = "ds-icon";
+    if (opts && opts.rotate) iconCls += " ds-icon--rot" + opts.rotate;
     return (
       '<svg class="' +
-      cls +
+      iconCls +
       '" viewBox="' +
       esc(icon.viewBox) +
       '" aria-hidden="true">' +
