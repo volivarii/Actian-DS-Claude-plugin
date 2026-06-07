@@ -46,6 +46,25 @@ function escapeJsonForScript(jsonStr) {
   return jsonStr.replace(/<\//g, "<\\/");
 }
 
+// Build the inline <script> that exposes the vendored icon geometry as a
+// browser global, so ds-html-map.js's renderIcon() can resolve glyphs client-
+// side. Geometry-only ({viewBox, body}) — drops dsKey/nodeId/group (the browser
+// needs no provenance). Read from the vendored read-surface via PATHS.
+function buildDsIconsScript() {
+  var PATHS = require("../lib/paths.js");
+  var doc = JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8"));
+  var icons = doc.icons || {};
+  var geo = {};
+  Object.keys(icons).forEach(function (slug) {
+    geo[slug] = { viewBox: icons[slug].viewBox, body: icons[slug].body };
+  });
+  return (
+    "  <script>window.dsIcons = " +
+    escapeJsonForScript(JSON.stringify(geo)) +
+    ";</script>"
+  );
+}
+
 // ---------------------------------------------------------------------------
 // Flow CSS list (single source of truth — shared by flow preview + flow-share)
 // ---------------------------------------------------------------------------
@@ -68,5 +87,6 @@ module.exports = {
   FIGMA_TABLE_DIR: FIGMA_TABLE_DIR,
   readFileChecked: readFileChecked,
   escapeJsonForScript: escapeJsonForScript,
+  buildDsIconsScript: buildDsIconsScript,
   FLOW_CSS: FLOW_CSS,
 };
