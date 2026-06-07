@@ -79,18 +79,9 @@
   }
 
   // Inline icon glyphs (geometry in raw px — viewBox coords, not design tokens).
-  var ICON_PLUS =
-    '<span class="ds-button__icon"><svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.67" stroke-linecap="round"/></svg></span>';
-  var ICON_CHEVRON_DOWN_BTN =
-    '<span class="ds-button__icon"><svg viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
-  var ICON_CHEVRON_DOWN_INPUT =
-    '<span class="ds-input__icon"><svg viewBox="0 0 20 20" fill="none"><path d="M5 7.5l5 5 5-5" stroke="currentColor" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
-  var ICON_CHECK =
-    '<span class="ds-checkbox__check"><svg viewBox="0 0 14 14" fill="none"><path d="M3 7.5l2.5 2.5 5.5-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
-  // Bare folder + search glyphs (no wrapping span — callers wrap them in the
-  // appropriate __icon span). Geometry in raw px (viewBox coords, not tokens).
-  var SVG_FOLDER =
-    '<svg viewBox="0 0 16 16" fill="none"><path d="M2 4.5A1 1 0 013 3.5h3l1.2 1.2H13a1 1 0 011 1V12a1 1 0 01-1 1H3a1 1 0 01-1-1V4.5z" stroke="currentColor" stroke-width="1.2"/></svg>';
+  // The button/input/checkbox/tag/card glyphs now come from renderIcon() (real
+  // vendored DS icons, orphan-ref gated). The search magnifier stays hardcoded
+  // for now — no clean vendored slug match yet.
   var SVG_SEARCH =
     '<svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M14 14l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
@@ -136,8 +127,14 @@
           var btnCls = "ds-button ds-button--" + btnType;
           if (v.Size === "Small") btnCls += " ds-button--small";
           if (v.State === "Disabled") btnCls += " is-disabled";
-          var lead = props["Leading icon show"] ? ICON_PLUS : "";
-          var trail = props["Trailing icon show"] ? ICON_CHEVRON_DOWN_BTN : "";
+          var lead = props["Leading icon show"]
+            ? '<span class="ds-button__icon">' + renderIcon("add") + "</span>"
+            : "";
+          var trail = props["Trailing icon show"]
+            ? '<span class="ds-button__icon">' +
+              renderIcon("chevron-up", { rotate: 180 }) +
+              "</span>"
+            : "";
           var label = esc(props.Label || "");
           return (
             '<button class="' +
@@ -162,7 +159,11 @@
           // Trailing chevron is for selects/dropdowns only — a plain text input
           // must not imply one. Render the icon span only when a trailing-icon
           // prop is present.
-          var inTrail = props["Trailing icon"] ? ICON_CHEVRON_DOWN_INPUT : "";
+          var inTrail = props["Trailing icon"]
+            ? '<span class="ds-input__icon">' +
+              renderIcon("chevron-up", { rotate: 180 }) +
+              "</span>"
+            : "";
           return (
             '<div class="' +
             fieldCls +
@@ -188,7 +189,9 @@
             '<label class="' +
             cbCls +
             '"><span class="ds-checkbox__box">' +
-            ICON_CHECK +
+            '<span class="ds-checkbox__check">' +
+            renderIcon("simple-check") +
+            "</span>" +
             '</span><span class="ds-checkbox__label">' +
             cbLabel +
             "</span></label>"
@@ -203,7 +206,10 @@
           var tagIcon = "";
           if (props["Leading icon show"]) {
             tagCls += " ds-tag--with-icon";
-            tagIcon = '<span class="ds-tag__icon">' + SVG_FOLDER + "</span>";
+            tagIcon =
+              '<span class="ds-tag__icon">' +
+              renderIcon("directory") +
+              "</span>";
           }
           return (
             '<span class="' +
@@ -262,7 +268,7 @@
             "</div>" +
             '<span class="ds-tag ds-tag--with-icon ds-card__cat">' +
             '<span class="ds-tag__icon">' +
-            SVG_FOLDER +
+            renderIcon("directory") +
             "</span>" +
             esc(props.Category || "Catalog") +
             "</span>" +

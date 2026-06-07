@@ -10,6 +10,7 @@ var assert = require("node:assert");
 var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
 var PATHS = require("../../scripts/lib/paths.js");
 var fs = require("fs");
+var path = require("path");
 
 function render(node) {
   return ds.renderDSComponent(node);
@@ -30,6 +31,40 @@ describe("ds-html-map: P1a precondition", function () {
         "vendored icons.json missing required slug: " + s,
       );
     });
+  });
+});
+
+describe("ds-html-map: orphan-ref gate", function () {
+  it("every renderIcon('slug') in ds-html-map resolves to a vendored icon", function () {
+    var src = fs.readFileSync(
+      path.join(
+        __dirname,
+        "../../scripts/renderers/html-renderers/ds-html-map.js",
+      ),
+      "utf8",
+    );
+    var doc = JSON.parse(fs.readFileSync(PATHS.components.icons.svg, "utf8"));
+    var known = doc.icons || {};
+    var re = /renderIcon\(\s*["']([a-z0-9-]+)["']/g;
+    var m,
+      missing = [],
+      used = [];
+    while ((m = re.exec(src))) {
+      used.push(m[1]);
+      if (!(m[1] in known)) missing.push(m[1]);
+    }
+    assert.ok(
+      used.length >= 4,
+      "expected the migrated glyphs to call renderIcon (got " +
+        used.length +
+        ")",
+    );
+    assert.deepEqual(
+      missing,
+      [],
+      "renderIcon slugs missing from vendored icons.json: " +
+        missing.join(", "),
+    );
   });
 });
 
