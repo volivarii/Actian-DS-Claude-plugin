@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.28.8",
+  "knowledge_version": "0.30.1",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -285,6 +285,13 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'multi-select' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.page-header": {
+      "path": "components/dist/guidelines/page-header.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'page-header' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.popover": {
       "path": "components/dist/guidelines/popover.json",
       "type": "json",
@@ -381,6 +388,19 @@
       "type": "json",
       "origin": "human",
       "description": "Icon → semantic group mapping (ζ.5). Curated from the Figma Actual-icons layout; consumed by sync orchestrator to populate registry entries' `group` + `secondaryGroups` fields for items in category === 'Icons'. Key order = priority for primary-group resolution (specific-first)."
+    },
+    "components.icons.src": {
+      "path": "components/src/icons-svg.json",
+      "type": "json",
+      "origin": "human",
+      "description": "Curated icon SVG geometry ({viewBox, body} per slug) for the hi-fi render tier. Hand-extracted from Figma (REST format=svg -> normalize fills to currentColor). Provenance (dsKey/nodeId/group) is joined at derive time from the registry + icon-groups.json. Source for components.icons.svg."
+    },
+    "components.icons.svg": {
+      "path": "components/dist/icons/icons.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/icons/derive-icons-svg.js",
+      "description": "Derived icon-geometry read-surface: per-slug {viewBox, body, group, dsKey, nodeId} for the curated UI-icon set. Consumed by the plugin render tier's renderIcon() to inline real glyphs. Backfilled to the full 234 by the future icon-export pipeline."
     },
     "components.media.index": {
       "path": "components/dist/media/_index.json",

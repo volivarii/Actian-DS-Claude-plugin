@@ -5,11 +5,11 @@
 | Component | Content | Usage | Design | Behavior | Tokens |
 |---|---|---|---|---|---|
 | Alert / banner | approved | not started | inherited | inherited | not started |
-| Badges | approved | not started | inherited | inherited | not started |
-| Breadcrumbs | approved | not started | inherited | inherited | not started |
-| Buttons | approved | not started | draft | inherited | not started |
-| Cards | approved | not started | inherited | inherited | not started |
-| Checkboxes | approved | not started | inherited | inherited | not started |
+| Badges | approved | not started | inherited | inherited | approved |
+| Breadcrumbs | approved | not started | inherited | inherited | approved |
+| Buttons | approved | not started | draft | inherited | approved |
+| Cards | approved | not started | inherited | inherited | approved |
+| Checkboxes | approved | not started | inherited | inherited | approved |
 | Combo box | approved | not started | inherited | inherited | not started |
 | Confirmation | approved | not started | inherited | inherited | not started |
 | Drawer, side panel | approved | not started | inherited | inherited | not started |
@@ -17,7 +17,7 @@
 | Empty state | synthesized | — | — | — | — |
 | Error state | synthesized | — | — | — | — |
 | Filters | approved | not started | inherited | inherited | not started |
-| Global header | approved | not started | inherited | inherited | not started |
+| Global header | approved | not started | inherited | inherited | approved |
 | Inline toast | approved | not started | inherited | inherited | not started |
 | Input, date | synthesized | — | — | — | — |
 | Links | approved | not started | inherited | inherited | not started |
@@ -27,17 +27,18 @@
 | Maintenance state | synthesized | — | — | — | — |
 | Modal | approved | not started | inherited | inherited | not started |
 | Multi-select | approved | not started | inherited | inherited | not started |
+| Page header | not started | not started | not started | not started | approved |
 | Popover | approved | not started | inherited | inherited | not started |
 | Radio button | synthesized | — | — | — | — |
-| Search | approved | not started | inherited | inherited | not started |
-| Side nav | approved | not started | inherited | inherited | not started |
+| Search | approved | not started | inherited | inherited | approved |
+| Side nav | approved | not started | inherited | inherited | approved |
 | Spinner | synthesized | — | — | — | — |
 | Stepper | approved | not started | inherited | inherited | not started |
 | Sticky footer | approved | not started | inherited | inherited | not started |
 | Table | approved | not started | inherited | inherited | not started |
-| Tabs | approved | not started | inherited | inherited | not started |
-| Tags | approved | not started | inherited | inherited | not started |
-| Text input | approved | not started | inherited | inherited | not started |
+| Tabs | approved | not started | inherited | inherited | approved |
+| Tags | approved | not started | inherited | inherited | approved |
+| Text input | approved | not started | inherited | inherited | approved |
 | Toggle control | approved | not started | inherited | inherited | not started |
 | What's new | approved | not started | inherited | inherited | not started |
 
@@ -45,11 +46,11 @@
 
 | Domain | Approved | Draft | Inherited | Not started | Absent |
 |---|---|---|---|---|---|
-| content | 27 | 0 | 0 | 0 | 0 |
-| usage | 0 | 0 | 0 | 27 | 9 |
-| design | 0 | 1 | 26 | 0 | 9 |
-| behavior | 0 | 0 | 27 | 0 | 9 |
-| tokens | 0 | 0 | 0 | 27 | 9 |
+| content | 27 | 0 | 0 | 1 | 0 |
+| usage | 0 | 0 | 0 | 28 | 9 |
+| design | 0 | 1 | 26 | 1 | 9 |
+| behavior | 0 | 0 | 27 | 1 | 9 |
+| tokens | 12 | 0 | 0 | 16 | 9 |
 
 ## Registry aliases
 

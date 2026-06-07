@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=../../../schemas/guideline-tokens.json
+# NOTE: Default-Color palette only. The per-Color hue palette (<hue>/25 bg +
+# <hue>/50 border) is deferred — captured when the tag Color axis is built out.
+bindings:
+  - { token: size-lg,                    context: "Height" }
+  - { token: spacing-xs,                 context: "Horizontal padding" }
+  - { token: spacing-2xs,                context: "Gap between icon and label" }
+  - { token: border-default,             context: "Border (Default color)" }
+  - { token: border-radius-sm,           context: "Corner rounding" }
+  - { token: color-bg-subtle,            context: "Fill (Default color)" }
+  - { token: color-text-tertiary,        context: "Label text" }
+  - { token: color-icon-default,         context: "Leading icon" }
+  - { token: font-family-text,           context: "Font family" }
+  - { token: font-size-sm,               context: "Label font size" }
+  - { token: font-weight-regular,        context: "Label font weight" }
+  - { token: font-lineheight-sm,         context: "Label line height" }
+  - { token: font-letterspacing-wide-3,  context: "Label letter spacing" }

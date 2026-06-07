@@ -1,0 +1,13 @@
+# yaml-language-server: $schema=../../../schemas/guideline-tokens.json
+# Figma-measured (file l8biHxfarNi1I2RMvVxVOK, node 13792:15247, 2026-06-07).
+# Figma var aliases applied: color-text-interactive→color-text-link-default,
+# color-text-default→color-text-primary.
+bindings:
+  - { token: color-text-link-default,    context: "Breadcrumb link text" }
+  - { token: color-text-primary,         context: "Current (last) crumb text and separator" }
+  - { token: font-family-text,           context: "Font family" }
+  - { token: font-size-md,               context: "Crumb font size" }
+  - { token: font-weight-regular,        context: "Link crumb font weight (body-standard)" }
+  - { token: font-weight-medium,         context: "Current crumb font weight (label-standard)" }
+  - { token: font-lineheight-md,         context: "Crumb line height" }
+  - { token: font-letterspacing-wide-2,  context: "Crumb letter spacing" }

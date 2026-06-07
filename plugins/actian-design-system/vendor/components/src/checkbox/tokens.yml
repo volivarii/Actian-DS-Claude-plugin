@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=../../../schemas/guideline-tokens.json
+bindings:
+  - { token: size-lg,                    context: "Checkbox box size" }
+  - { token: border-width-lg,            context: "Box border width (unchecked)" }
+  - { token: color-icon-default,         context: "Box border (unchecked)" }
+  - { token: border-radius-sm,           context: "Box corner rounding" }
+  - { token: color-icon-primary,         context: "Checked box fill and border" }
+  - { token: color-text-reverse,         context: "Checkmark glyph" }
+  - { token: spacing-2xs,                context: "Gap between box and label" }
+  - { token: color-text-primary,         context: "Label text" }
+  - { token: font-family-text,           context: "Label font family" }
+  - { token: font-size-md,               context: "Label font size" }
+  - { token: font-weight-regular,        context: "Label font weight" }
+  - { token: font-lineheight-md,         context: "Label line height" }
+  - { token: font-letterspacing-wide-2,  context: "Label letter spacing" }

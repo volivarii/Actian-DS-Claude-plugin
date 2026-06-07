@@ -1,0 +1,8 @@
+# yaml-language-server: $schema=../../../schemas/guideline-tokens.json
+bindings:
+  - { token: color-icon-error,    context: "Badge fill (error/notification)" }
+  - { token: color-text-reverse,  context: "Badge number text" }
+  - { token: border-radius-full,  context: "Number-pill and dot corner rounding" }
+  - { token: font-family-text,    context: "Badge font family" }
+  - { token: font-size-sm,        context: "Badge number font size" }
+  - { token: font-weight-medium,  context: "Badge number font weight" }
