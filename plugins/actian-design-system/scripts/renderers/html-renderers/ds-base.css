@@ -457,3 +457,16 @@
   font-size: var(--zen-font-size-sm);
   line-height: var(--zen-font-lineheight-sm);
 }
+
+/* ============ Icon (real DS glyphs) ============ */
+/* Real DS icon glyphs (inlined from the vendored icon substrate via renderIcon). */
+.ds-icon {
+  width: 1em;
+  height: 1em;
+  display: inline-block;
+  flex: none;
+  vertical-align: middle;
+}
+.ds-icon--rot180 {
+  transform: rotate(180deg);
+}

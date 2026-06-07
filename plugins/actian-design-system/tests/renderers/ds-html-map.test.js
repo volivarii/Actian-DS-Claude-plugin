@@ -33,6 +33,34 @@ describe("ds-html-map: P1a precondition", function () {
   });
 });
 
+describe("ds-html-map: renderIcon", function () {
+  it("known slug returns a bare svg with class + viewBox + body", function () {
+    var html = ds.renderIcon("add");
+    assert.ok(
+      /^<svg class="ds-icon" viewBox="0 0 24 24" aria-hidden="true">/.test(
+        html,
+      ),
+      "svg open tag",
+    );
+    assert.ok(/<\/svg>$/.test(html), "closes svg");
+    assert.ok(
+      html.indexOf("<path") !== -1 || html.indexOf("currentColor") !== -1,
+      "has glyph body",
+    );
+  });
+  it("rotate adds the rotation class", function () {
+    assert.ok(
+      /class="ds-icon ds-icon--rot180"/.test(
+        ds.renderIcon("chevron-up", { rotate: 180 }),
+      ),
+      "rot180 class",
+    );
+  });
+  it("unknown slug returns empty string (never throws)", function () {
+    assert.equal(ds.renderIcon("definitely-not-an-icon"), "");
+  });
+});
+
 describe("ds-html-map: button", function () {
   it("Primary: emits a <button> with ds-button--primary and the esc'd Label", function () {
     var html = render({

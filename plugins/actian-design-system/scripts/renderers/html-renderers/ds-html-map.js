@@ -45,6 +45,39 @@
       return p || {};
     };
 
+  // Icon geometry: browser global (injected by the assembler) or the vendored
+  // read-surface in Node. Geometry-only { slug: {viewBox, body} }.
+  var dsIcons =
+    (typeof window !== "undefined" && window.dsIcons) ||
+    (typeof require !== "undefined" &&
+      (function () {
+        try {
+          var p = require("../../lib/paths.js").components.icons.svg;
+          return p ? require(p).icons : null;
+        } catch (e) {
+          return null;
+        }
+      })()) ||
+    {};
+
+  // renderIcon(slug, {rotate}) -> bare '<svg class="ds-icon[ ds-icon--rotN]" …>'.
+  // Unknown slug -> '' (never throws; the orphan-ref gate prevents shipping one).
+  function renderIcon(slug, opts) {
+    var icon = dsIcons && dsIcons[slug];
+    if (!icon || !icon.viewBox || !icon.body) return "";
+    var cls = "ds-icon";
+    if (opts && opts.rotate) cls += " ds-icon--rot" + opts.rotate;
+    return (
+      '<svg class="' +
+      cls +
+      '" viewBox="' +
+      esc(icon.viewBox) +
+      '" aria-hidden="true">' +
+      icon.body +
+      "</svg>"
+    );
+  }
+
   // Inline icon glyphs (geometry in raw px — viewBox coords, not design tokens).
   var ICON_PLUS =
     '<span class="ds-button__icon"><svg viewBox="0 0 20 20" fill="none"><path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.67" stroke-linecap="round"/></svg></span>';
@@ -312,6 +345,7 @@
   }
 
   exports.renderDSComponent = renderDSComponent;
+  exports.renderIcon = renderIcon;
   exports.esc = esc;
   exports.parseVariant = parseVariant;
   exports.normalizeProps = normalizeProps;
