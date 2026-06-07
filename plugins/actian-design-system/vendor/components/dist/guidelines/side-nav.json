@@ -74,8 +74,74 @@
       "status": "inherited"
     },
     "tokens": {
-      "status": "not-started"
+      "status": "approved",
+      "bindings": [
+        {
+          "token": "spacing-xs",
+          "context": "Rail padding, item padding, item icon gap"
+        },
+        {
+          "token": "spacing-2xs",
+          "context": "Item list gap"
+        },
+        {
+          "token": "color-bg-default",
+          "context": "Rail fill"
+        },
+        {
+          "token": "border-default",
+          "context": "Right border"
+        },
+        {
+          "token": "border-radius-sm",
+          "context": "Item corner rounding"
+        },
+        {
+          "token": "border-radius-xs",
+          "context": "Item icon corner rounding"
+        },
+        {
+          "token": "color-bg-subtle",
+          "context": "Item icon fill (default)"
+        },
+        {
+          "token": "color-text-primary",
+          "context": "Item text (default)"
+        },
+        {
+          "token": "color-bg-selected",
+          "context": "Active item fill"
+        },
+        {
+          "token": "color-text-link-default",
+          "context": "Active item text"
+        },
+        {
+          "token": "border-selected",
+          "context": "Active item icon fill"
+        },
+        {
+          "token": "font-family-text",
+          "context": "Font family"
+        },
+        {
+          "token": "font-size-md",
+          "context": "Item font size"
+        },
+        {
+          "token": "font-weight-regular",
+          "context": "Item font weight (default)"
+        },
+        {
+          "token": "font-weight-medium",
+          "context": "Item font weight (active)"
+        },
+        {
+          "token": "font-lineheight-md",
+          "context": "Item line height"
+        }
+      ]
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-07T14:35:57+02:00"
 }

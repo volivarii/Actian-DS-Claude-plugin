@@ -226,8 +226,86 @@
       "status": "inherited"
     },
     "tokens": {
-      "status": "not-started"
+      "status": "approved",
+      "bindings": [
+        {
+          "token": "size-xl",
+          "context": "Height (medium)"
+        },
+        {
+          "token": "size-lg",
+          "context": "Height (small size)"
+        },
+        {
+          "token": "spacing-sm",
+          "context": "Horizontal padding"
+        },
+        {
+          "token": "spacing-xs",
+          "context": "Gap between label and icon"
+        },
+        {
+          "token": "border-radius-full",
+          "context": "Corner rounding (pill)"
+        },
+        {
+          "token": "color-bg-emphasis",
+          "context": "Primary fill"
+        },
+        {
+          "token": "color-text-reverse",
+          "context": "Primary/critical label text"
+        },
+        {
+          "token": "color-icon-reverse",
+          "context": "Primary/critical icon"
+        },
+        {
+          "token": "color-text-link-default",
+          "context": "Secondary label text"
+        },
+        {
+          "token": "border-selected",
+          "context": "Secondary border"
+        },
+        {
+          "token": "color-icon-primary",
+          "context": "Secondary icon"
+        },
+        {
+          "token": "color-text-primary",
+          "context": "Tertiary label text"
+        },
+        {
+          "token": "color-icon-default",
+          "context": "Tertiary icon"
+        },
+        {
+          "token": "color-text-error",
+          "context": "Critical/destructive fill (approximate — confirm in P1)"
+        },
+        {
+          "token": "font-family-text",
+          "context": "Label font family"
+        },
+        {
+          "token": "font-size-md",
+          "context": "Label font size"
+        },
+        {
+          "token": "font-weight-medium",
+          "context": "Label font weight"
+        },
+        {
+          "token": "font-lineheight-md",
+          "context": "Label line height"
+        },
+        {
+          "token": "font-letterspacing-wide-2",
+          "context": "Label letter spacing"
+        }
+      ]
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-07T14:34:32+02:00"
 }

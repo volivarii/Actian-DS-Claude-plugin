@@ -140,8 +140,70 @@
       "status": "inherited"
     },
     "tokens": {
-      "status": "not-started"
+      "status": "approved",
+      "bindings": [
+        {
+          "token": "spacing-md",
+          "context": "Card padding"
+        },
+        {
+          "token": "spacing-xs",
+          "context": "Inner stack gap"
+        },
+        {
+          "token": "color-bg-default",
+          "context": "Fill (default)"
+        },
+        {
+          "token": "border-default",
+          "context": "Border (default)"
+        },
+        {
+          "token": "border-radius-sm",
+          "context": "Corner rounding"
+        },
+        {
+          "token": "border-selected",
+          "context": "Border (selected)"
+        },
+        {
+          "token": "color-bg-selected",
+          "context": "Fill (selected)"
+        },
+        {
+          "token": "color-text-primary",
+          "context": "Title text"
+        },
+        {
+          "token": "color-text-tertiary",
+          "context": "Body text"
+        },
+        {
+          "token": "font-family-text",
+          "context": "Font family"
+        },
+        {
+          "token": "font-size-md",
+          "context": "Title and body font size"
+        },
+        {
+          "token": "font-weight-semibold",
+          "context": "Title font weight"
+        },
+        {
+          "token": "font-weight-regular",
+          "context": "Body font weight"
+        },
+        {
+          "token": "font-lineheight-md",
+          "context": "Title and body line height"
+        },
+        {
+          "token": "font-letterspacing-wide-2",
+          "context": "Title letter spacing"
+        }
+      ]
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-07T14:35:57+02:00"
 }

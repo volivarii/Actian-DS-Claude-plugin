@@ -338,10 +338,36 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "color-icon-error",
+              "context": "Badge fill (error/notification)"
+            },
+            {
+              "token": "color-text-reverse",
+              "context": "Badge number text"
+            },
+            {
+              "token": "border-radius-full",
+              "context": "Number-pill and dot corner rounding"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Badge font family"
+            },
+            {
+              "token": "font-size-sm",
+              "context": "Badge number font size"
+            },
+            {
+              "token": "font-weight-medium",
+              "context": "Badge number font weight"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:32:19+02:00"
     },
     "breadcrumbs": {
       "_schema_version": 1,
@@ -406,10 +432,44 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "color-text-link-default",
+              "context": "Breadcrumb link text"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Current (last) crumb text and separator"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Crumb font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Link crumb font weight (body-standard)"
+            },
+            {
+              "token": "font-weight-medium",
+              "context": "Current crumb font weight (label-standard)"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Crumb line height"
+            },
+            {
+              "token": "font-letterspacing-wide-2",
+              "context": "Crumb letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:39:49+02:00"
     },
     "button": {
       "_schema_version": 1,
@@ -639,10 +699,88 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-xl",
+              "context": "Height (medium)"
+            },
+            {
+              "token": "size-lg",
+              "context": "Height (small size)"
+            },
+            {
+              "token": "spacing-sm",
+              "context": "Horizontal padding"
+            },
+            {
+              "token": "spacing-xs",
+              "context": "Gap between label and icon"
+            },
+            {
+              "token": "border-radius-full",
+              "context": "Corner rounding (pill)"
+            },
+            {
+              "token": "color-bg-emphasis",
+              "context": "Primary fill"
+            },
+            {
+              "token": "color-text-reverse",
+              "context": "Primary/critical label text"
+            },
+            {
+              "token": "color-icon-reverse",
+              "context": "Primary/critical icon"
+            },
+            {
+              "token": "color-text-link-default",
+              "context": "Secondary label text"
+            },
+            {
+              "token": "border-selected",
+              "context": "Secondary border"
+            },
+            {
+              "token": "color-icon-primary",
+              "context": "Secondary icon"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Tertiary label text"
+            },
+            {
+              "token": "color-icon-default",
+              "context": "Tertiary icon"
+            },
+            {
+              "token": "color-text-error",
+              "context": "Critical/destructive fill (approximate — confirm in P1)"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Label font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Label font size"
+            },
+            {
+              "token": "font-weight-medium",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Label line height"
+            },
+            {
+              "token": "font-letterspacing-wide-2",
+              "context": "Label letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:34:32+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -786,10 +924,72 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "spacing-md",
+              "context": "Card padding"
+            },
+            {
+              "token": "spacing-xs",
+              "context": "Inner stack gap"
+            },
+            {
+              "token": "color-bg-default",
+              "context": "Fill (default)"
+            },
+            {
+              "token": "border-default",
+              "context": "Border (default)"
+            },
+            {
+              "token": "border-radius-sm",
+              "context": "Corner rounding"
+            },
+            {
+              "token": "border-selected",
+              "context": "Border (selected)"
+            },
+            {
+              "token": "color-bg-selected",
+              "context": "Fill (selected)"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Title text"
+            },
+            {
+              "token": "color-text-tertiary",
+              "context": "Body text"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Title and body font size"
+            },
+            {
+              "token": "font-weight-semibold",
+              "context": "Title font weight"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Body font weight"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Title and body line height"
+            },
+            {
+              "token": "font-letterspacing-wide-2",
+              "context": "Title letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:35:57+02:00"
     },
     "checkbox": {
       "_schema_version": 1,
@@ -1351,10 +1551,64 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-lg",
+              "context": "Checkbox box size"
+            },
+            {
+              "token": "border-width-lg",
+              "context": "Box border width (unchecked)"
+            },
+            {
+              "token": "color-icon-default",
+              "context": "Box border (unchecked)"
+            },
+            {
+              "token": "border-radius-sm",
+              "context": "Box corner rounding"
+            },
+            {
+              "token": "color-icon-primary",
+              "context": "Checked box fill and border"
+            },
+            {
+              "token": "color-text-reverse",
+              "context": "Checkmark glyph"
+            },
+            {
+              "token": "spacing-2xs",
+              "context": "Gap between box and label"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Label text"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Label font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Label font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Label line height"
+            },
+            {
+              "token": "font-letterspacing-wide-2",
+              "context": "Label letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:34:32+02:00"
     },
     "checkbox-with-label": {
       "_schema_version": 1,
@@ -1916,10 +2170,64 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-lg",
+              "context": "Checkbox box size"
+            },
+            {
+              "token": "border-width-lg",
+              "context": "Box border width (unchecked)"
+            },
+            {
+              "token": "color-icon-default",
+              "context": "Box border (unchecked)"
+            },
+            {
+              "token": "border-radius-sm",
+              "context": "Box corner rounding"
+            },
+            {
+              "token": "color-icon-primary",
+              "context": "Checked box fill and border"
+            },
+            {
+              "token": "color-text-reverse",
+              "context": "Checkmark glyph"
+            },
+            {
+              "token": "spacing-2xs",
+              "context": "Gap between box and label"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Label text"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Label font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Label font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Label line height"
+            },
+            {
+              "token": "font-letterspacing-wide-2",
+              "context": "Label letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00",
+      "updated_at": "2026-06-07T14:34:32+02:00",
       "_alias_of": "checkbox"
     },
     "combo-box": {
@@ -3559,10 +3867,72 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "spacing-md",
+              "context": "Item gap and horizontal padding"
+            },
+            {
+              "token": "spacing-xs",
+              "context": "Brand gap and actions gap"
+            },
+            {
+              "token": "color-bg-default",
+              "context": "Bar fill"
+            },
+            {
+              "token": "border-default",
+              "context": "Bottom border"
+            },
+            {
+              "token": "color-bg-emphasis",
+              "context": "Logo box fill"
+            },
+            {
+              "token": "border-radius-sm",
+              "context": "Logo box corner rounding"
+            },
+            {
+              "token": "border-radius-full",
+              "context": "Account avatar rounding"
+            },
+            {
+              "token": "color-bg-selected",
+              "context": "Account avatar fill"
+            },
+            {
+              "token": "color-text-link-default",
+              "context": "Account avatar initials"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "App label text"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "App label font size"
+            },
+            {
+              "token": "font-size-sm",
+              "context": "Avatar initials font size"
+            },
+            {
+              "token": "font-weight-medium",
+              "context": "App label and avatar font weight"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "App label line height"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:35:57+02:00"
     },
     "inline-toast": {
       "_schema_version": 1,
@@ -4305,10 +4675,88 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "color-bg-default",
+              "context": "Input field fill"
+            },
+            {
+              "token": "border-default",
+              "context": "Input field border"
+            },
+            {
+              "token": "border-radius-xs",
+              "context": "Input field corner rounding"
+            },
+            {
+              "token": "color-text-placeholder",
+              "context": "Input placeholder text"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Label and description text"
+            },
+            {
+              "token": "color-text-error",
+              "context": "Required asterisk"
+            },
+            {
+              "token": "color-text-secondary",
+              "context": "Helper text"
+            },
+            {
+              "token": "color-icon-default",
+              "context": "Info icon and trailing icon"
+            },
+            {
+              "token": "spacing-xs",
+              "context": "Field stack gap and input inner padding"
+            },
+            {
+              "token": "spacing-2xs",
+              "context": "Label-row gap"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Label, input and description font size"
+            },
+            {
+              "token": "font-size-sm",
+              "context": "Helper text font size"
+            },
+            {
+              "token": "font-weight-medium",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Input and description font weight"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Label and input line height"
+            },
+            {
+              "token": "font-lineheight-sm",
+              "context": "Helper text line height"
+            },
+            {
+              "token": "font-letterspacing-wide-2",
+              "context": "Label and input letter spacing"
+            },
+            {
+              "token": "font-letterspacing-wide-3",
+              "context": "Helper text letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00",
+      "updated_at": "2026-06-07T14:34:32+02:00",
       "_alias_of": "text-input"
     },
     "input-date": {
@@ -5833,6 +6281,95 @@
       "updated_at": "2026-06-01T15:13:47+02:00",
       "_alias_of": "inline-toast"
     },
+    "page-header": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/page-header/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "page-header",
+      "component": "Page header",
+      "meta": {
+        "category": "data-display"
+      },
+      "domains": {
+        "content": {
+          "status": "not-started"
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "not-started"
+        },
+        "behavior": {
+          "status": "not-started"
+        },
+        "tokens": {
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "color-bg-default",
+              "context": "Header surface fill"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Title text (heading-display)"
+            },
+            {
+              "token": "color-text-secondary",
+              "context": "Description/subtitle text (body-prominent)"
+            },
+            {
+              "token": "spacing-md",
+              "context": "Gap between title block and actions"
+            },
+            {
+              "token": "spacing-2xs",
+              "context": "Title/description stack gap"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-3xl",
+              "context": "Title font size"
+            },
+            {
+              "token": "font-weight-semibold",
+              "context": "Title font weight"
+            },
+            {
+              "token": "font-lineheight-2xl",
+              "context": "Title line height"
+            },
+            {
+              "token": "font-letterspacing-normal",
+              "context": "Title letter spacing"
+            },
+            {
+              "token": "font-size-lg",
+              "context": "Description font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Description font weight"
+            },
+            {
+              "token": "font-lineheight-lg",
+              "context": "Description line height"
+            },
+            {
+              "token": "font-letterspacing-wide-1",
+              "context": "Description letter spacing"
+            }
+          ]
+        }
+      },
+      "updated_at": "2026-06-07T14:39:49+02:00"
+    },
     "popover": {
       "_schema_version": 1,
       "_meta": {
@@ -6533,10 +7070,64 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-xl",
+              "context": "Height"
+            },
+            {
+              "token": "spacing-sm",
+              "context": "Horizontal padding"
+            },
+            {
+              "token": "spacing-xs",
+              "context": "Gap between icon and text"
+            },
+            {
+              "token": "color-bg-default",
+              "context": "Field fill"
+            },
+            {
+              "token": "border-default",
+              "context": "Field border"
+            },
+            {
+              "token": "border-radius-sm",
+              "context": "Corner rounding"
+            },
+            {
+              "token": "color-icon-default",
+              "context": "Search icon"
+            },
+            {
+              "token": "color-text-secondary",
+              "context": "Placeholder text"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Text font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Text font weight"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Text line height"
+            },
+            {
+              "token": "font-letterspacing-wide-2",
+              "context": "Text letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:34:32+02:00"
     },
     "search-filters": {
       "_schema_version": 1,
@@ -7052,10 +7643,76 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "spacing-xs",
+              "context": "Rail padding, item padding, item icon gap"
+            },
+            {
+              "token": "spacing-2xs",
+              "context": "Item list gap"
+            },
+            {
+              "token": "color-bg-default",
+              "context": "Rail fill"
+            },
+            {
+              "token": "border-default",
+              "context": "Right border"
+            },
+            {
+              "token": "border-radius-sm",
+              "context": "Item corner rounding"
+            },
+            {
+              "token": "border-radius-xs",
+              "context": "Item icon corner rounding"
+            },
+            {
+              "token": "color-bg-subtle",
+              "context": "Item icon fill (default)"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Item text (default)"
+            },
+            {
+              "token": "color-bg-selected",
+              "context": "Active item fill"
+            },
+            {
+              "token": "color-text-link-default",
+              "context": "Active item text"
+            },
+            {
+              "token": "border-selected",
+              "context": "Active item icon fill"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Item font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Item font weight (default)"
+            },
+            {
+              "token": "font-weight-medium",
+              "context": "Item font weight (active)"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Item line height"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:35:57+02:00"
     },
     "spinner": {
       "_schema_version": 1,
@@ -7765,10 +8422,72 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-xl",
+              "context": "Tab row height"
+            },
+            {
+              "token": "spacing-xs",
+              "context": "Tab inner padding and gap"
+            },
+            {
+              "token": "border-width-md",
+              "context": "Tab row track border width"
+            },
+            {
+              "token": "border-default",
+              "context": "Tab row bottom border (track)"
+            },
+            {
+              "token": "border-selected",
+              "context": "Active tab underline"
+            },
+            {
+              "token": "color-bg-selected",
+              "context": "Tab fill (hover/selected)"
+            },
+            {
+              "token": "color-text-link-default",
+              "context": "Active tab label text"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Inactive tab label text"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Tab label font size"
+            },
+            {
+              "token": "font-weight-semibold",
+              "context": "Active tab label weight (heading-subtle)"
+            },
+            {
+              "token": "font-weight-medium",
+              "context": "Tab label weight (label-standard variant)"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Inactive tab label weight (body-standard)"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Tab label line height"
+            },
+            {
+              "token": "font-letterspacing-wide-2",
+              "context": "Tab label letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:39:49+02:00"
     },
     "tag": {
       "_schema_version": 1,
@@ -7836,10 +8555,64 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-lg",
+              "context": "Height"
+            },
+            {
+              "token": "spacing-xs",
+              "context": "Horizontal padding"
+            },
+            {
+              "token": "spacing-2xs",
+              "context": "Gap between icon and label"
+            },
+            {
+              "token": "border-default",
+              "context": "Border (Default color)"
+            },
+            {
+              "token": "border-radius-sm",
+              "context": "Corner rounding"
+            },
+            {
+              "token": "color-bg-subtle",
+              "context": "Fill (Default color)"
+            },
+            {
+              "token": "color-text-tertiary",
+              "context": "Label text"
+            },
+            {
+              "token": "color-icon-default",
+              "context": "Leading icon"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-sm",
+              "context": "Label font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-lineheight-sm",
+              "context": "Label line height"
+            },
+            {
+              "token": "font-letterspacing-wide-3",
+              "context": "Label letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:34:32+02:00"
     },
     "tag-default": {
       "_schema_version": 1,
@@ -7907,10 +8680,64 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "size-lg",
+              "context": "Height"
+            },
+            {
+              "token": "spacing-xs",
+              "context": "Horizontal padding"
+            },
+            {
+              "token": "spacing-2xs",
+              "context": "Gap between icon and label"
+            },
+            {
+              "token": "border-default",
+              "context": "Border (Default color)"
+            },
+            {
+              "token": "border-radius-sm",
+              "context": "Corner rounding"
+            },
+            {
+              "token": "color-bg-subtle",
+              "context": "Fill (Default color)"
+            },
+            {
+              "token": "color-text-tertiary",
+              "context": "Label text"
+            },
+            {
+              "token": "color-icon-default",
+              "context": "Leading icon"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-sm",
+              "context": "Label font size"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-lineheight-sm",
+              "context": "Label line height"
+            },
+            {
+              "token": "font-letterspacing-wide-3",
+              "context": "Label letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00",
+      "updated_at": "2026-06-07T14:34:32+02:00",
       "_alias_of": "tag"
     },
     "text-input": {
@@ -8420,10 +9247,88 @@
           "status": "inherited"
         },
         "tokens": {
-          "status": "not-started"
+          "status": "approved",
+          "bindings": [
+            {
+              "token": "color-bg-default",
+              "context": "Input field fill"
+            },
+            {
+              "token": "border-default",
+              "context": "Input field border"
+            },
+            {
+              "token": "border-radius-xs",
+              "context": "Input field corner rounding"
+            },
+            {
+              "token": "color-text-placeholder",
+              "context": "Input placeholder text"
+            },
+            {
+              "token": "color-text-primary",
+              "context": "Label and description text"
+            },
+            {
+              "token": "color-text-error",
+              "context": "Required asterisk"
+            },
+            {
+              "token": "color-text-secondary",
+              "context": "Helper text"
+            },
+            {
+              "token": "color-icon-default",
+              "context": "Info icon and trailing icon"
+            },
+            {
+              "token": "spacing-xs",
+              "context": "Field stack gap and input inner padding"
+            },
+            {
+              "token": "spacing-2xs",
+              "context": "Label-row gap"
+            },
+            {
+              "token": "font-family-text",
+              "context": "Font family"
+            },
+            {
+              "token": "font-size-md",
+              "context": "Label, input and description font size"
+            },
+            {
+              "token": "font-size-sm",
+              "context": "Helper text font size"
+            },
+            {
+              "token": "font-weight-medium",
+              "context": "Label font weight"
+            },
+            {
+              "token": "font-weight-regular",
+              "context": "Input and description font weight"
+            },
+            {
+              "token": "font-lineheight-md",
+              "context": "Label and input line height"
+            },
+            {
+              "token": "font-lineheight-sm",
+              "context": "Helper text line height"
+            },
+            {
+              "token": "font-letterspacing-wide-2",
+              "context": "Label and input letter spacing"
+            },
+            {
+              "token": "font-letterspacing-wide-3",
+              "context": "Helper text letter spacing"
+            }
+          ]
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-07T14:34:32+02:00"
     },
     "toggle": {
       "_schema_version": 1,

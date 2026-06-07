@@ -1,0 +1,89 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/page-header/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "page-header",
+  "component": "Page header",
+  "meta": {
+    "category": "data-display"
+  },
+  "domains": {
+    "content": {
+      "status": "not-started"
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "not-started"
+    },
+    "behavior": {
+      "status": "not-started"
+    },
+    "tokens": {
+      "status": "approved",
+      "bindings": [
+        {
+          "token": "color-bg-default",
+          "context": "Header surface fill"
+        },
+        {
+          "token": "color-text-primary",
+          "context": "Title text (heading-display)"
+        },
+        {
+          "token": "color-text-secondary",
+          "context": "Description/subtitle text (body-prominent)"
+        },
+        {
+          "token": "spacing-md",
+          "context": "Gap between title block and actions"
+        },
+        {
+          "token": "spacing-2xs",
+          "context": "Title/description stack gap"
+        },
+        {
+          "token": "font-family-text",
+          "context": "Font family"
+        },
+        {
+          "token": "font-size-3xl",
+          "context": "Title font size"
+        },
+        {
+          "token": "font-weight-semibold",
+          "context": "Title font weight"
+        },
+        {
+          "token": "font-lineheight-2xl",
+          "context": "Title line height"
+        },
+        {
+          "token": "font-letterspacing-normal",
+          "context": "Title letter spacing"
+        },
+        {
+          "token": "font-size-lg",
+          "context": "Description font size"
+        },
+        {
+          "token": "font-weight-regular",
+          "context": "Description font weight"
+        },
+        {
+          "token": "font-lineheight-lg",
+          "context": "Description line height"
+        },
+        {
+          "token": "font-letterspacing-wide-1",
+          "context": "Description letter spacing"
+        }
+      ]
+    }
+  },
+  "updated_at": "2026-06-07T14:39:49+02:00"
+}

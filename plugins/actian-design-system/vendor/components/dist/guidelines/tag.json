@@ -64,8 +64,62 @@
       "status": "inherited"
     },
     "tokens": {
-      "status": "not-started"
+      "status": "approved",
+      "bindings": [
+        {
+          "token": "size-lg",
+          "context": "Height"
+        },
+        {
+          "token": "spacing-xs",
+          "context": "Horizontal padding"
+        },
+        {
+          "token": "spacing-2xs",
+          "context": "Gap between icon and label"
+        },
+        {
+          "token": "border-default",
+          "context": "Border (Default color)"
+        },
+        {
+          "token": "border-radius-sm",
+          "context": "Corner rounding"
+        },
+        {
+          "token": "color-bg-subtle",
+          "context": "Fill (Default color)"
+        },
+        {
+          "token": "color-text-tertiary",
+          "context": "Label text"
+        },
+        {
+          "token": "color-icon-default",
+          "context": "Leading icon"
+        },
+        {
+          "token": "font-family-text",
+          "context": "Font family"
+        },
+        {
+          "token": "font-size-sm",
+          "context": "Label font size"
+        },
+        {
+          "token": "font-weight-regular",
+          "context": "Label font weight"
+        },
+        {
+          "token": "font-lineheight-sm",
+          "context": "Label line height"
+        },
+        {
+          "token": "font-letterspacing-wide-3",
+          "context": "Label letter spacing"
+        }
+      ]
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-07T14:34:32+02:00"
 }
