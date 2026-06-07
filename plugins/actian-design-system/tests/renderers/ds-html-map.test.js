@@ -8,10 +8,30 @@ var { describe, it } = require("node:test");
 var assert = require("node:assert");
 
 var ds = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+var PATHS = require("../../scripts/lib/paths.js");
+var fs = require("fs");
 
 function render(node) {
   return ds.renderDSComponent(node);
 }
+
+describe("ds-html-map: P1a precondition", function () {
+  it("vendored icons.json has the slugs renderIcon needs", function () {
+    var iconsPath = PATHS.components.icons.svg;
+    assert.ok(
+      iconsPath,
+      "PATHS.components.icons.svg must resolve (vendored manifest)",
+    );
+    var doc = JSON.parse(fs.readFileSync(iconsPath, "utf8"));
+    var slugs = Object.keys(doc.icons || {});
+    ["add", "chevron-up", "simple-check", "directory"].forEach(function (s) {
+      assert.ok(
+        slugs.indexOf(s) !== -1,
+        "vendored icons.json missing required slug: " + s,
+      );
+    });
+  });
+});
 
 describe("ds-html-map: button", function () {
   it("Primary: emits a <button> with ds-button--primary and the esc'd Label", function () {
