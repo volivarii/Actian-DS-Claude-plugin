@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/icons-svg.json",
+  "title": "Curated icon SVG geometry (source)",
+  "description": "Schema for components/src/icons-svg.json — hand-curated {viewBox, body} geometry for a subset of DS Kit icons. Provenance (dsKey/nodeId/group) is joined at derive time from the registry + icon-groups.json and is NOT stored here. The currentColor coloring contract is enforced by tests/icons-svg.test.js, not this schema.",
+  "type": "object",
+  "required": ["_schema_version", "icons"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": {
+      "const": 1,
+      "description": "Substrate schema version. Pinned at 1; bump only on a schema-incompatible change to the file shape."
+    },
+    "_regen": {
+      "$ref": "#/$defs/regenBlock",
+      "description": "Optional provenance block describing how this file is regenerated. See $defs.regenBlock.",
+      "examples": [
+        {
+          "source": "figma",
+          "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+          "instructions": "Re-extract a slug when its Figma node changes."
+        }
+      ]
+    },
+    "icons": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": false,
+      "description": "Map of icon slug -> geometry. Slug keys are lowercase alphanumeric + hyphens and must exist in the dskit registry as category Icons (enforced at derive time).",
+      "examples": [
+        {
+          "close": {
+            "viewBox": "0 0 24 24",
+            "body": "<path d=\"M21.14 1.97L12.88 11.99L21.14 22.02Z\" fill=\"currentColor\"/>"
+          }
+        }
+      ],
+      "patternProperties": {
+        "^[a-z0-9-]+$": {
+          "type": "object",
+          "required": ["viewBox", "body"],
+          "additionalProperties": false,
+          "properties": {
+            "viewBox": {
+              "type": "string",
+              "pattern": "^-?[0-9.]+ -?[0-9.]+ -?[0-9.]+ -?[0-9.]+$",
+              "description": "SVG viewBox: four space-separated numbers (minX minY width height)."
+            },
+            "body": {
+              "type": "string",
+              "minLength": 1,
+              "description": "Inner SVG markup (paths/groups), no root <svg>. Every fill/stroke normalized to currentColor (enforced in tests/icons-svg.test.js)."
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "regenBlock": {
+      "type": "object",
+      "description": "Structured provenance block. Shared shape across Class C JSONs in this substrate.",
+      "required": ["source"],
+      "additionalProperties": false,
+      "properties": {
+        "source": {
+          "enum": ["manual", "figma", "ai-assisted"],
+          "description": "Where the canonical content comes from."
+        },
+        "lastSync": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp of the most recent sync; omit for manual.",
+          "examples": ["2026-06-07T00:00:00Z"]
+        },
+        "instructions": {
+          "type": "string",
+          "description": "Prose telling a human/AI how to update this file responsibly.",
+          "examples": ["Re-extract a slug when its Figma node changes."]
+        },
+        "fileKey": {
+          "type": "string",
+          "description": "Figma file key, when source = figma.",
+          "examples": ["l8biHxfarNi1I2RMvVxVOK"]
+        },
+        "nodeId": {
+          "type": "string",
+          "description": "Figma node id, when source = figma.",
+          "examples": ["7293:24"]
+        }
+      }
+    }
+  }
+}

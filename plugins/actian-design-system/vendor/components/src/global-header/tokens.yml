@@ -1,0 +1,17 @@
+# yaml-language-server: $schema=../../../schemas/guideline-tokens.json
+bindings:
+  - { token: spacing-md,                 context: "Item gap and horizontal padding" }
+  - { token: spacing-xs,                 context: "Brand gap and actions gap" }
+  - { token: color-bg-default,           context: "Bar fill" }
+  - { token: border-default,             context: "Bottom border" }
+  - { token: color-bg-emphasis,          context: "Logo box fill" }
+  - { token: border-radius-sm,           context: "Logo box corner rounding" }
+  - { token: border-radius-full,         context: "Account avatar rounding" }
+  - { token: color-bg-selected,          context: "Account avatar fill" }
+  - { token: color-text-link-default,    context: "Account avatar initials" }
+  - { token: color-text-primary,         context: "App label text" }
+  - { token: font-family-text,           context: "Font family" }
+  - { token: font-size-md,               context: "App label font size" }
+  - { token: font-size-sm,               context: "Avatar initials font size" }
+  - { token: font-weight-medium,         context: "App label and avatar font weight" }
+  - { token: font-lineheight-md,         context: "App label line height" }

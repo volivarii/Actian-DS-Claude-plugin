@@ -8,4 +8,4 @@ domains:
   usage:    { status: not-started }
   design:   { status: draft, owner: design }
   behavior: { status: inherited }
-  tokens:   { status: not-started }
+  tokens:   { status: approved }

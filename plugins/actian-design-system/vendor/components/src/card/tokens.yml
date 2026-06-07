@@ -1,0 +1,21 @@
+# yaml-language-server: $schema=../../../schemas/guideline-tokens.json
+# NOTE: the card's drop shadow binds to a composite shadow token (shadow-xs)
+# that is NOT present in tokens/tokens.json (known composite-token gap). It is
+# intentionally omitted here; the render CSS keeps var(--zen-shadow-xs) from
+# tokens.css. Add the binding when shadows land in tokens.json.
+bindings:
+  - { token: spacing-md,                 context: "Card padding" }
+  - { token: spacing-xs,                 context: "Inner stack gap" }
+  - { token: color-bg-default,           context: "Fill (default)" }
+  - { token: border-default,             context: "Border (default)" }
+  - { token: border-radius-sm,           context: "Corner rounding" }
+  - { token: border-selected,            context: "Border (selected)" }
+  - { token: color-bg-selected,          context: "Fill (selected)" }
+  - { token: color-text-primary,         context: "Title text" }
+  - { token: color-text-tertiary,        context: "Body text" }
+  - { token: font-family-text,           context: "Font family" }
+  - { token: font-size-md,               context: "Title and body font size" }
+  - { token: font-weight-semibold,       context: "Title font weight" }
+  - { token: font-weight-regular,        context: "Body font weight" }
+  - { token: font-lineheight-md,         context: "Title and body line height" }
+  - { token: font-letterspacing-wide-2,  context: "Title letter spacing" }

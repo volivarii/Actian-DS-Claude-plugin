@@ -61,8 +61,42 @@
       "status": "inherited"
     },
     "tokens": {
-      "status": "not-started"
+      "status": "approved",
+      "bindings": [
+        {
+          "token": "color-text-link-default",
+          "context": "Breadcrumb link text"
+        },
+        {
+          "token": "color-text-primary",
+          "context": "Current (last) crumb text and separator"
+        },
+        {
+          "token": "font-family-text",
+          "context": "Font family"
+        },
+        {
+          "token": "font-size-md",
+          "context": "Crumb font size"
+        },
+        {
+          "token": "font-weight-regular",
+          "context": "Link crumb font weight (body-standard)"
+        },
+        {
+          "token": "font-weight-medium",
+          "context": "Current crumb font weight (label-standard)"
+        },
+        {
+          "token": "font-lineheight-md",
+          "context": "Crumb line height"
+        },
+        {
+          "token": "font-letterspacing-wide-2",
+          "context": "Crumb letter spacing"
+        }
+      ]
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-07T17:50:37+02:00"
 }

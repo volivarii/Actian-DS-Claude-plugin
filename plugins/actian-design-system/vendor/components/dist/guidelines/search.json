@@ -116,8 +116,62 @@
       "status": "inherited"
     },
     "tokens": {
-      "status": "not-started"
+      "status": "approved",
+      "bindings": [
+        {
+          "token": "size-xl",
+          "context": "Height"
+        },
+        {
+          "token": "spacing-sm",
+          "context": "Horizontal padding"
+        },
+        {
+          "token": "spacing-xs",
+          "context": "Gap between icon and text"
+        },
+        {
+          "token": "color-bg-default",
+          "context": "Field fill"
+        },
+        {
+          "token": "border-default",
+          "context": "Field border"
+        },
+        {
+          "token": "border-radius-sm",
+          "context": "Corner rounding"
+        },
+        {
+          "token": "color-icon-default",
+          "context": "Search icon"
+        },
+        {
+          "token": "color-text-secondary",
+          "context": "Placeholder text"
+        },
+        {
+          "token": "font-family-text",
+          "context": "Font family"
+        },
+        {
+          "token": "font-size-md",
+          "context": "Text font size"
+        },
+        {
+          "token": "font-weight-regular",
+          "context": "Text font weight"
+        },
+        {
+          "token": "font-lineheight-md",
+          "context": "Text line height"
+        },
+        {
+          "token": "font-letterspacing-wide-2",
+          "context": "Text letter spacing"
+        }
+      ]
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-07T17:50:37+02:00"
 }
