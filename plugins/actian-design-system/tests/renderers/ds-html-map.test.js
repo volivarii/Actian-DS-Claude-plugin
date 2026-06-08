@@ -804,3 +804,39 @@ describe("ds-html-map: page-header (P1b)", function () {
     assert.match(html, /ds-page-header__title/);
   });
 });
+
+describe("ds-html-map: breadcrumbs (P1b)", function () {
+  function bc(items) {
+    return render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "breadcrumbs",
+      props: { Items: items },
+    });
+  }
+
+  it("renders one crumb per item with N-1 separators", function () {
+    var html = bc("Catalog, Datasets, Orders");
+    var crumbs = html.match(/ds-breadcrumbs__crumb(?!--)/g) || [];
+    var seps = html.match(/ds-breadcrumbs__sep/g) || [];
+    assert.equal(crumbs.length, 3);
+    assert.equal(seps.length, 2);
+  });
+
+  it("marks the last crumb current and uses a rotated chevron separator", function () {
+    var html = bc("Catalog, Orders");
+    assert.match(html, /ds-breadcrumbs__crumb ds-breadcrumbs__crumb--current">Orders</);
+    assert.match(html, /ds-icon--rot180/); // chevron-left rotated → right-pointing
+  });
+
+  it("single crumb has no separator", function () {
+    var html = bc("Home");
+    assert.ok((html.match(/ds-breadcrumbs__sep/g) || []).length === 0);
+  });
+
+  it("never throws on empty props (graceful)", function () {
+    var html = render({ type: "INSTANCE", library: "ds", dsSlug: "breadcrumbs", props: {} });
+    assert.equal(typeof html, "string");
+    assert.match(html, /ds-breadcrumbs/);
+  });
+});

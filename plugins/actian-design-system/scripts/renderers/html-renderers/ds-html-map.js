@@ -358,6 +358,45 @@
           );
         }
 
+        case "breadcrumbs": {
+          var crumbItems = String(props.Items || "Home, Section, Page")
+            .split(",")
+            .map(function (s) {
+              return s.trim();
+            })
+            .filter(function (s) {
+              return s.length > 0;
+            });
+          var crumbSep =
+            '<span class="ds-breadcrumbs__sep">' +
+            renderIcon("chevron-left", { rotate: 180 }) +
+            "</span>";
+          var crumbHtml = crumbItems
+            .map(function (label, i) {
+              var isLast = i === crumbItems.length - 1;
+              var crumbCls = "ds-breadcrumbs__crumb";
+              if (isLast) crumbCls += " ds-breadcrumbs__crumb--current";
+              var tag = isLast ? "span" : "a";
+              return (
+                "<" +
+                tag +
+                ' class="' +
+                crumbCls +
+                '">' +
+                esc(label) +
+                "</" +
+                tag +
+                ">"
+              );
+            })
+            .join(crumbSep);
+          return (
+            '<nav class="ds-breadcrumbs" aria-label="Breadcrumb">' +
+            crumbHtml +
+            "</nav>"
+          );
+        }
+
         default: {
           // Unmapped slug: a clean labeled chip using the human name.
           return gracefulChip();
