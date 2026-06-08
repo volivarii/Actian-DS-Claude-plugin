@@ -462,7 +462,9 @@
   margin: 0;
   font-size: var(--zen-font-size-3xl);
   font-weight: var(--zen-font-weight-semibold);
-  line-height: var(--zen-font-lineheight-2xl);
+  line-height: var(
+    --zen-font-lineheight-2xl
+  ); /* 32 — heading leading, intentionally > size tier */
   letter-spacing: var(--zen-font-letterspacing-normal);
   color: var(--zen-color-text-primary);
 }
