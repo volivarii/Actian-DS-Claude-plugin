@@ -96,21 +96,52 @@
     );
   }
 
+  function navItemHtml(label, active) {
+    // Keep each class attribute a complete string literal (never split a
+    // class list across a ternary/concatenation) so the css-staleness
+    // extractor doesn't capture stray expression tokens.
+    var open = active
+      ? '<div class="fm-nav-item fm-nav-item--active" data-name="'
+      : '<div class="fm-nav-item" data-name="';
+    return (
+      open +
+      esc(label) +
+      '">' +
+      '<div class="fm-nav-item__icon"></div>' +
+      '<div class="fm-nav-item__label">' +
+      esc(label) +
+      "</div>" +
+      "</div>"
+    );
+  }
+
   function sidebar(config) {
     if (!config) return "";
     var items = "";
+    // Rich shape: config.items is an array of nav entries (string or
+    // { label, state }). Render real labels — active = On-state or a label
+    // matching config.activeItem (the generator passes a slug/id, so compare
+    // case-insensitively). Falls back to the legacy count shape below.
+    if (Array.isArray(config.items)) {
+      for (var j = 0; j < config.items.length; j++) {
+        var entry = config.items[j] || {};
+        var label = typeof entry === "string" ? entry : entry.label || "";
+        var onState =
+          entry && entry.state && String(entry.state).toLowerCase() === "on";
+        var matchesActive =
+          config.activeItem &&
+          label &&
+          String(label).toLowerCase() ===
+            String(config.activeItem).toLowerCase();
+        items += navItemHtml(label, !!(onState || matchesActive));
+      }
+      return '<div class="fm-sidebar" data-name="Sidebar">' + items + "</div>";
+    }
+    // Legacy shape: numeric placeholder count + one labeled active item.
     var total = config.items || 6;
     for (var i = 0; i < total; i++) {
       if (i === 0 && config.activeItem) {
-        items +=
-          '<div class="fm-nav-item fm-nav-item--active" data-name="' +
-          esc(config.activeItem) +
-          '">' +
-          '<div class="fm-nav-item__icon"></div>' +
-          '<div class="fm-nav-item__label">' +
-          esc(config.activeItem) +
-          "</div>" +
-          "</div>";
+        items += navItemHtml(config.activeItem, true);
       } else {
         items +=
           '<div class="fm-nav-item fm-nav-item--placeholder">' +
@@ -137,8 +168,10 @@
     if (config.actions && config.actions.length) {
       html += '<div class="fm-page-header__actions">';
       config.actions.forEach(function (a) {
+        // Actions arrive as a bare label string or a { label, variant } object.
+        var label = typeof a === "string" ? a : (a && a.label) || "";
         html +=
-          '<div class="fm-button fm-button--primary">' + esc(a) + "</div>";
+          '<div class="fm-button fm-button--primary">' + esc(label) + "</div>";
       });
       html += "</div>";
     }

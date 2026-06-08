@@ -15,6 +15,26 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.104.3] — 2026-06-08
+
+### Fixed
+- Flow HTML chrome contract drift — the screen-generator now emits richer,
+  Figma-shaped data than the FM renderer consumed, producing broken output
+  (surfaced by a `generate-flow` hi-fi test):
+  - **Empty sidebar:** `navItems` (an array of `{label,state}`) was passed
+    where `sidebar()` expected a numeric count, so the placeholder loop never
+    ran and the nav rail rendered empty. It now renders real nav labels with
+    the active item highlighted (On-state or `activeNavItem` match), keeping
+    the legacy numeric-count shape working.
+  - **`[object Object]` page-header button:** `pageHeader.actions` (now
+    `[{label,variant}]`) was stringified whole; the renderer now reads
+    `.label` (still accepts bare strings).
+  - **`background:[object Object]` on frames/rects/ellipses:** Figma-shaped
+    fills `[{type,color}]` are normalized to a CSS color string via a new
+    `fillToCss` helper in `render-node.js` (string fills unchanged).
+- These affect the lo-fi deliverable; the same chrome/fills path also feeds
+  the planned DS-native hi-fi render, so the fixes are a prerequisite for it.
+
 ## [1.104.1] — 2026-06-08
 
 ### Added

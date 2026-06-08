@@ -61,6 +61,18 @@
     "Extra Bold": "800",
   };
 
+  // Normalize one fill entry to a CSS color string. Fills arrive either as a
+  // bare CSS string (a hex value or token reference) or a Figma-shaped object
+  // { type:"SOLID", color:"…" } when a screen-generator emits richer data.
+  // Returning "" for anything unrecognized keeps a bad fill from leaking
+  // "[object Object]" into the style attribute.
+  function fillToCss(fill) {
+    if (fill == null) return "";
+    if (typeof fill === "string") return fill;
+    if (typeof fill === "object" && fill.color != null) return fill.color;
+    return "";
+  }
+
   function buildFrameStyle(node) {
     var parts = [];
     var layout = node.layout || {};
@@ -153,7 +165,8 @@
 
     // Fills
     if (node.fills && node.fills.length > 0) {
-      parts.push("background:" + node.fills[0]);
+      var bgFill = fillToCss(node.fills[0]);
+      if (bgFill) parts.push("background:" + bgFill);
     }
 
     // Corner radius
@@ -339,7 +352,7 @@
       }
 
       case "ELLIPSE": {
-        var bg = (node.fills && node.fills[0]) || "#CBD2E0";
+        var bg = (node.fills && fillToCss(node.fills[0])) || "#CBD2E0";
         var ellipseStyle =
           "width:" +
           (node.width || 16) +
@@ -364,8 +377,8 @@
           "px;height:" +
           (node.height || 32) +
           "px;min-width:1px;min-height:1px;";
-        if (node.fills && node.fills[0])
-          rectStyle += "background:" + node.fills[0] + ";";
+        if (node.fills && fillToCss(node.fills[0]))
+          rectStyle += "background:" + fillToCss(node.fills[0]) + ";";
         if (node.cornerRadius)
           rectStyle +=
             "border-radius:" +
