@@ -441,6 +441,40 @@
   display: none;
 }
 
+/* ============ Page header (chrome) ============ */
+.ds-page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--zen-spacing-md); /* 16 — title block ↔ actions */
+  padding: var(--zen-spacing-md); /* 16 — band padding */
+  background: var(--zen-color-bg-default);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-page-header__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 — title/desc stack */
+  min-width: 0;
+}
+.ds-page-header__title {
+  margin: 0;
+  font-size: var(--zen-font-size-3xl);
+  font-weight: var(--zen-font-weight-semibold);
+  line-height: var(--zen-font-lineheight-2xl);
+  letter-spacing: var(--zen-font-letterspacing-normal);
+  color: var(--zen-color-text-primary);
+}
+.ds-page-header__desc {
+  margin: 0;
+  font-size: var(--zen-font-size-lg);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-lg);
+  letter-spacing: var(--zen-font-letterspacing-wide-1);
+  color: var(--zen-color-text-secondary);
+}
+
 /* ============ Graceful fallback chip ============ */
 /* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
  * a node that would otherwise throw. Keeps the fallback visible + on-brand. */

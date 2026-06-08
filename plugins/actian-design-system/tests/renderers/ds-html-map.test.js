@@ -773,3 +773,34 @@ describe("ds-html-map: fallback + resilience", function () {
     );
   });
 });
+
+describe("ds-html-map: page-header (P1b)", function () {
+  it("renders title + optional description with bound classes", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: { Title: "Data Catalog", Description: "Browse datasets" },
+    });
+    assert.match(html, /<header class="ds-page-header">/);
+    assert.match(html, /ds-page-header__title">Data Catalog</);
+    assert.match(html, /ds-page-header__desc">Browse datasets</);
+  });
+
+  it("omits the description element when no Description prop", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: { Title: "Only title" },
+    });
+    assert.match(html, /ds-page-header__title">Only title</);
+    assert.ok(html.indexOf("ds-page-header__desc") === -1);
+  });
+
+  it("never throws on empty props (graceful)", function () {
+    var html = render({ type: "INSTANCE", library: "ds", dsSlug: "page-header", props: {} });
+    assert.equal(typeof html, "string");
+    assert.match(html, /ds-page-header__title/);
+  });
+});

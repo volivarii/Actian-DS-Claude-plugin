@@ -339,6 +339,25 @@
           return '<nav class="' + navCls + '">' + navRows + "</nav>";
         }
 
+        case "page-header": {
+          var phTitle = esc(props.Title || "Page title");
+          var phDesc = props.Description
+            ? '<p class="ds-page-header__desc">' +
+              esc(props.Description) +
+              "</p>"
+            : "";
+          return (
+            '<header class="ds-page-header">' +
+            '<div class="ds-page-header__text">' +
+            '<h1 class="ds-page-header__title">' +
+            phTitle +
+            "</h1>" +
+            phDesc +
+            "</div>" +
+            "</header>"
+          );
+        }
+
         default: {
           // Unmapped slug: a clean labeled chip using the human name.
           return gracefulChip();
