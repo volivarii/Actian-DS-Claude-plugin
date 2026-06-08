@@ -240,6 +240,22 @@ var DS_FIXTURES = {
       Active: "Catalog",
     },
   },
+  // P1b chrome leaves.
+  pageHeaderDefault: {
+    dsSlug: "page-header",
+    variant: "Type=Default",
+    props: { Title: "Data Catalog", Description: "Browse and manage datasets" },
+  },
+  breadcrumbsPath: {
+    dsSlug: "breadcrumbs",
+    variant: "Type=Default",
+    props: { Items: "Catalog, Datasets, Orders" },
+  },
+  tabsRow: {
+    dsSlug: "tabs",
+    variant: "Property 1=Default",
+    props: { Items: "Overview, Schema, Lineage", Active: "Schema" },
+  },
 };
 
 Object.keys(DS_FIXTURES).forEach(function (name) {

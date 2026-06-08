@@ -15,6 +15,21 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.104.1] — 2026-06-08
+
+### Added
+- Hi-fi DS render tier grows 9 → 12: `page-header`, `breadcrumbs`, and `tabs`
+  chrome leaves (`ds-html-map.js` + `ds-base.css`), 100% token-bound and grounded
+  in K1's vendored `domains.tokens` bindings. Breadcrumb separators reuse the P1a
+  `renderIcon` mechanism (rotated `chevron-left`).
+- `ds-token-bindings.test.js` — binding-conformance gate making `domains.tokens`
+  load-bearing for the three new leaves (every binding resolves + is used in CSS).
+
+### Fixed
+- `tabs` / `side-nav`: a non-matching `Active` prop now falls back to the first
+  item instead of leaving zero items active. Shared `parseItems`/`resolveActive`
+  helpers de-duplicate list parsing across the chrome leaves.
+
 ## [1.103.0] — 2026-06-06
 
 ### Added

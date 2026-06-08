@@ -86,6 +86,28 @@
   var SVG_SEARCH =
     '<svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M14 14l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
+  // Parse a comma-separated list prop (nav items, tabs, crumbs) into a trimmed,
+  // empty-dropped array. `fallback` is used when raw is falsy (matches the prior
+  // inline `String(props.Items || "default")` behavior exactly).
+  function parseItems(raw, fallback) {
+    return String(raw || fallback || "")
+      .split(",")
+      .map(function (s) {
+        return s.trim();
+      })
+      .filter(function (s) {
+        return s.length > 0;
+      });
+  }
+
+  // Resolve the active item for a list prop: the trimmed Active value when it
+  // matches an item, else the first item. Falls back to first on absent OR
+  // non-matching Active, so a stale/renamed Active never yields zero-active.
+  function resolveActive(items, active) {
+    var a = active != null ? String(active).trim() : "";
+    return items.indexOf(a) !== -1 ? a : items[0];
+  }
+
   /**
    * renderDSComponent(node)
    * node = { type: 'INSTANCE', library: 'ds', dsSlug: 'button', variant: '...', props: {...}, name: '...' }
@@ -309,19 +331,11 @@
           // first item). Collapsed view hides labels via the CSS modifier.
           var navCls = "ds-sidenav";
           if (v.View === "Collapsed") navCls += " ds-sidenav--collapsed";
-          var navItems = String(
-            props.Items || "Catalog, Pipelines, Connections, Settings",
-          )
-            .split(",")
-            .map(function (s) {
-              return s.trim();
-            })
-            .filter(function (s) {
-              return s.length > 0;
-            });
-          var navActive =
-            (props.Active != null ? String(props.Active).trim() : "") ||
-            navItems[0];
+          var navItems = parseItems(
+            props.Items,
+            "Catalog, Pipelines, Connections, Settings",
+          );
+          var navActive = resolveActive(navItems, props.Active);
           var navRows = navItems
             .map(function (item) {
               var itemCls = "ds-sidenav__item";
@@ -337,6 +351,76 @@
             })
             .join("");
           return '<nav class="' + navCls + '">' + navRows + "</nav>";
+        }
+
+        case "page-header": {
+          var phTitle = esc(props.Title || "Page title");
+          var phDesc = props.Description
+            ? '<p class="ds-page-header__desc">' +
+              esc(props.Description) +
+              "</p>"
+            : "";
+          return (
+            '<header class="ds-page-header">' +
+            '<div class="ds-page-header__text">' +
+            '<h1 class="ds-page-header__title">' +
+            phTitle +
+            "</h1>" +
+            phDesc +
+            "</div>" +
+            "</header>"
+          );
+        }
+
+        case "breadcrumbs": {
+          var crumbItems = parseItems(props.Items, "Home, Section, Page");
+          var crumbSep =
+            '<span class="ds-breadcrumbs__sep">' +
+            renderIcon("chevron-left", { rotate: 180 }) +
+            "</span>";
+          var crumbHtml = crumbItems
+            .map(function (label, i) {
+              var isLast = i === crumbItems.length - 1;
+              var crumbCls = "ds-breadcrumbs__crumb";
+              if (isLast) crumbCls += " ds-breadcrumbs__crumb--current";
+              var tag = isLast ? "span" : "a";
+              return (
+                "<" +
+                tag +
+                ' class="' +
+                crumbCls +
+                '">' +
+                esc(label) +
+                "</" +
+                tag +
+                ">"
+              );
+            })
+            .join(crumbSep);
+          return (
+            '<nav class="ds-breadcrumbs" aria-label="Breadcrumb">' +
+            crumbHtml +
+            "</nav>"
+          );
+        }
+
+        case "tabs": {
+          var tabItems = parseItems(props.Items, "Overview, Schema, Lineage");
+          var tabActive = resolveActive(tabItems, props.Active);
+          var tabHtml = tabItems
+            .map(function (label) {
+              var tabCls = "ds-tabs__tab";
+              if (label === tabActive) tabCls += " is-active";
+              return (
+                '<button class="' +
+                tabCls +
+                '" role="tab">' +
+                esc(label) +
+                "</button>"
+              );
+            })
+            .join("");
+          return '<div class="ds-tabs" role="tablist">' + tabHtml + "</div>";
         }
 
         default: {

@@ -773,3 +773,143 @@ describe("ds-html-map: fallback + resilience", function () {
     );
   });
 });
+
+describe("ds-html-map: page-header (P1b)", function () {
+  it("renders title + optional description with bound classes", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: { Title: "Data Catalog", Description: "Browse datasets" },
+    });
+    assert.match(html, /<header class="ds-page-header">/);
+    assert.match(html, /ds-page-header__title">Data Catalog</);
+    assert.match(html, /ds-page-header__desc">Browse datasets</);
+  });
+
+  it("omits the description element when no Description prop", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: { Title: "Only title" },
+    });
+    assert.match(html, /ds-page-header__title">Only title</);
+    assert.ok(html.indexOf("ds-page-header__desc") === -1);
+  });
+
+  it("never throws on empty props (graceful)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: {},
+    });
+    assert.equal(typeof html, "string");
+    assert.match(html, /ds-page-header__title/);
+  });
+});
+
+describe("ds-html-map: breadcrumbs (P1b)", function () {
+  function bc(items) {
+    return render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "breadcrumbs",
+      props: { Items: items },
+    });
+  }
+
+  it("renders one crumb per item with N-1 separators", function () {
+    var html = bc("Catalog, Datasets, Orders");
+    var crumbs = html.match(/ds-breadcrumbs__crumb(?!--)/g) || [];
+    var seps = html.match(/ds-breadcrumbs__sep/g) || [];
+    assert.equal(crumbs.length, 3);
+    assert.equal(seps.length, 2);
+  });
+
+  it("marks the last crumb current and uses a rotated chevron separator", function () {
+    var html = bc("Catalog, Orders");
+    assert.match(
+      html,
+      /ds-breadcrumbs__crumb ds-breadcrumbs__crumb--current">Orders</,
+    );
+    assert.match(html, /ds-icon--rot180/); // chevron-left rotated → right-pointing
+  });
+
+  it("single crumb has no separator", function () {
+    var html = bc("Home");
+    assert.ok((html.match(/ds-breadcrumbs__sep/g) || []).length === 0);
+  });
+
+  it("never throws on empty props (graceful)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "breadcrumbs",
+      props: {},
+    });
+    assert.equal(typeof html, "string");
+    assert.match(html, /ds-breadcrumbs/);
+  });
+
+  it("all-empty items → nav with no crumbs or separators", function () {
+    var html = bc(",,,");
+    assert.match(html, /<nav class="ds-breadcrumbs"/);
+    assert.equal((html.match(/ds-breadcrumbs__crumb/g) || []).length, 0);
+    assert.equal((html.match(/ds-breadcrumbs__sep/g) || []).length, 0);
+  });
+});
+
+describe("ds-html-map: tabs (P1b)", function () {
+  function tabs(items, active) {
+    var props = { Items: items };
+    if (active != null) props.Active = active;
+    return render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "tabs",
+      props: props,
+    });
+  }
+
+  it("renders one tab button per item", function () {
+    var html = tabs("Overview, Schema, Lineage");
+    assert.equal((html.match(/ds-tabs__tab/g) || []).length, 3);
+    assert.match(html, /<div class="ds-tabs" role="tablist">/);
+  });
+
+  it("marks the Active item is-active", function () {
+    var html = tabs("Overview, Schema", "Schema");
+    assert.match(html, /ds-tabs__tab is-active" role="tab">Schema</);
+    assert.ok(/ds-tabs__tab" role="tab">Overview</.test(html));
+  });
+
+  it("defaults active to the first item", function () {
+    var html = tabs("Overview, Schema");
+    assert.match(html, /ds-tabs__tab is-active" role="tab">Overview</);
+  });
+
+  it("falls back to first tab when Active matches no item", function () {
+    var html = tabs("Overview, Schema", "Nonexistent");
+    assert.match(html, /ds-tabs__tab is-active" role="tab">Overview</);
+    assert.equal((html.match(/is-active/g) || []).length, 1);
+  });
+
+  it("never throws on empty props (graceful)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "tabs",
+      props: {},
+    });
+    assert.equal(typeof html, "string");
+    assert.match(html, /ds-tabs/);
+  });
+
+  it("all-empty items → empty tablist, no tabs", function () {
+    var html = tabs(",,,");
+    assert.match(html, /<div class="ds-tabs" role="tablist">/);
+    assert.equal((html.match(/ds-tabs__tab/g) || []).length, 0);
+  });
+});
