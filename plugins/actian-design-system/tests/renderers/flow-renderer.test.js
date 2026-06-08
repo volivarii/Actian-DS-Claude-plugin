@@ -651,6 +651,96 @@ const screenNoTier = screen({
 assertNotContains(screenNoTier, "tier-badge", "no badge when tier missing");
 
 // ---------------------------------------------------------------------------
+// Contract drift regressions — screen-generator emits richer Figma-shaped data
+// than the FM renderer historically consumed (sidebar count, string actions,
+// string fills). These guard the three bugs found in the connection-setup-
+// wizard hi-fi test (2026-06-08).
+// ---------------------------------------------------------------------------
+
+section("B3 — FRAME fills as Figma object shape {type,color}");
+
+const frameFillObj = renderContentNode({
+  type: "FRAME",
+  name: "Toolbar",
+  fills: [{ type: "SOLID", color: "var(--zen-color-bg-muted)" }],
+});
+assertContains(
+  frameFillObj,
+  "background:var(--zen-color-bg-muted)",
+  "fills object → color string",
+);
+assertNotContains(
+  frameFillObj,
+  "[object Object]",
+  "no [object Object] from fills object",
+);
+// String fills still work (backward compat).
+assertContains(
+  renderContentNode({ type: "FRAME", name: "Plain", fills: ["#FFFFFF"] }),
+  "background:#FFFFFF",
+  "string fill still works",
+);
+
+section("B1 — sidebar renders real navItems labels");
+
+const navScreen = screen({
+  name: "Connections list",
+  template: "admin",
+  activeNavItem: "connections",
+  navItems: [
+    { label: "Catalogs", state: "Off" },
+    { label: "Connections", state: "On" },
+    { label: "Scanners", state: "Off" },
+  ],
+  content: [],
+});
+assertContains(navScreen, "Catalogs", "nav label Catalogs rendered");
+assertContains(navScreen, "Scanners", "nav label Scanners rendered");
+assertNotContains(
+  navScreen,
+  '<div class="fm-sidebar" data-name="Sidebar"></div>',
+  "sidebar is not empty when navItems present",
+);
+assertContains(
+  navScreen,
+  'fm-nav-item--active" data-name="Connections"',
+  "active nav item is the on-state / activeNavItem match",
+);
+
+section("B2 — pageHeader action objects {label,variant}");
+
+const actionScreen = screen({
+  name: "Connections",
+  template: "admin",
+  pageHeader: {
+    title: "Connections",
+    actions: [{ label: "Create connection", variant: "Primary" }],
+  },
+  content: [],
+});
+assertContains(
+  actionScreen,
+  "Create connection",
+  "action object label rendered",
+);
+assertNotContains(
+  actionScreen,
+  "[object Object]",
+  "no [object Object] from action object",
+);
+// String actions still work (backward compat).
+assertContains(
+  screen({
+    name: "Legacy actions",
+    template: "admin",
+    pageHeader: { title: "X", actions: ["Save"] },
+    content: [],
+  }),
+  ">Save<",
+  "string action still works",
+);
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 
