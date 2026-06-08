@@ -397,6 +397,34 @@
           );
         }
 
+        case "tabs": {
+          var tabItems = String(props.Items || "Overview, Schema, Lineage")
+            .split(",")
+            .map(function (s) {
+              return s.trim();
+            })
+            .filter(function (s) {
+              return s.length > 0;
+            });
+          var tabActive =
+            (props.Active != null ? String(props.Active).trim() : "") ||
+            tabItems[0];
+          var tabHtml = tabItems
+            .map(function (label) {
+              var tabCls = "ds-tabs__tab";
+              if (label === tabActive) tabCls += " is-active";
+              return (
+                '<button class="' +
+                tabCls +
+                '" role="tab">' +
+                esc(label) +
+                "</button>"
+              );
+            })
+            .join("");
+          return '<div class="ds-tabs" role="tablist">' + tabHtml + "</div>";
+        }
+
         default: {
           // Unmapped slug: a clean labeled chip using the human name.
           return gracefulChip();

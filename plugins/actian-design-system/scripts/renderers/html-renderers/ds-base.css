@@ -510,6 +510,44 @@
   display: block;
 }
 
+/* ============ Tabs (chrome) ============ */
+.ds-tabs {
+  display: flex;
+  align-items: stretch;
+  gap: var(--zen-spacing-xs); /* 8 */
+  height: var(--zen-size-xl); /* 32 */
+  border-bottom: var(--zen-border-width-md) solid var(--zen-border-default);
+  box-sizing: border-box;
+  font-family: var(--zen-font-family-text);
+}
+.ds-tabs__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+  margin: 0;
+  border: none;
+  border-bottom: var(--zen-border-width-md) solid transparent;
+  background: transparent;
+  color: var(--zen-color-text-primary);
+  font-family: inherit;
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-weight: var(--zen-font-weight-regular);
+  letter-spacing: var(--zen-font-letterspacing-wide-2); /* 0.2 */
+  cursor: pointer;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+.ds-tabs__tab:hover {
+  background: var(--zen-color-bg-selected);
+}
+.ds-tabs__tab.is-active {
+  color: var(--zen-color-text-link-default);
+  font-weight: var(--zen-font-weight-semibold);
+  border-bottom-color: var(--zen-border-selected);
+}
+
 /* ============ Graceful fallback chip ============ */
 /* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
  * a node that would otherwise throw. Keeps the fallback visible + on-brand. */

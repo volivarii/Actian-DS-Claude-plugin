@@ -840,3 +840,34 @@ describe("ds-html-map: breadcrumbs (P1b)", function () {
     assert.match(html, /ds-breadcrumbs/);
   });
 });
+
+describe("ds-html-map: tabs (P1b)", function () {
+  function tabs(items, active) {
+    var props = { Items: items };
+    if (active != null) props.Active = active;
+    return render({ type: "INSTANCE", library: "ds", dsSlug: "tabs", props: props });
+  }
+
+  it("renders one tab button per item", function () {
+    var html = tabs("Overview, Schema, Lineage");
+    assert.equal((html.match(/ds-tabs__tab/g) || []).length, 3);
+    assert.match(html, /<div class="ds-tabs" role="tablist">/);
+  });
+
+  it("marks the Active item is-active", function () {
+    var html = tabs("Overview, Schema", "Schema");
+    assert.match(html, /ds-tabs__tab is-active" role="tab">Schema</);
+    assert.ok(/ds-tabs__tab" role="tab">Overview</.test(html));
+  });
+
+  it("defaults active to the first item", function () {
+    var html = tabs("Overview, Schema");
+    assert.match(html, /ds-tabs__tab is-active" role="tab">Overview</);
+  });
+
+  it("never throws on empty props (graceful)", function () {
+    var html = render({ type: "INSTANCE", library: "ds", dsSlug: "tabs", props: {} });
+    assert.equal(typeof html, "string");
+    assert.match(html, /ds-tabs/);
+  });
+});
