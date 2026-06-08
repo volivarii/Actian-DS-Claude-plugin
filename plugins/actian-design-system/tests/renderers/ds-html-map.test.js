@@ -890,6 +890,12 @@ describe("ds-html-map: tabs (P1b)", function () {
     assert.match(html, /ds-tabs__tab is-active" role="tab">Overview</);
   });
 
+  it("falls back to first tab when Active matches no item", function () {
+    var html = tabs("Overview, Schema", "Nonexistent");
+    assert.match(html, /ds-tabs__tab is-active" role="tab">Overview</);
+    assert.equal((html.match(/is-active/g) || []).length, 1);
+  });
+
   it("never throws on empty props (graceful)", function () {
     var html = render({
       type: "INSTANCE",

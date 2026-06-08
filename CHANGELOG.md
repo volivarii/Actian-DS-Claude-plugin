@@ -25,6 +25,11 @@ are summarized at the release level.
 - `ds-token-bindings.test.js` — binding-conformance gate making `domains.tokens`
   load-bearing for the three new leaves (every binding resolves + is used in CSS).
 
+### Fixed
+- `tabs` / `side-nav`: a non-matching `Active` prop now falls back to the first
+  item instead of leaving zero items active. Shared `parseItems`/`resolveActive`
+  helpers de-duplicate list parsing across the chrome leaves.
+
 ## [1.103.0] — 2026-06-06
 
 ### Added
