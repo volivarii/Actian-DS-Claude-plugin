@@ -1579,6 +1579,24 @@ describe("ds-html-map: empty-state (Task 9b)", function () {
 // ---------------------------------------------------------------------------
 
 describe("ds-html-map: alert-banner (Task 9b)", function () {
+  it("clamps a crafted Type to a safe enum — no class-attribute breakout (XSS)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: 'Type=Danger"><script>alert(1)</script>',
+      props: { Message: "x" },
+    });
+    assert.ok(
+      html.indexOf("<script>") === -1,
+      "crafted Type must not inject a <script> tag",
+    );
+    assert.ok(
+      html.indexOf("ds-alert--primary") !== -1,
+      "unknown/crafted Type falls back to the primary modifier",
+    );
+  });
+
   it("renders Warning banner with correct modifier, icon, and role=status", function () {
     var html = render({
       type: "INSTANCE",

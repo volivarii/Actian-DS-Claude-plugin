@@ -73,7 +73,7 @@ function assembleFlowShare(data) {
   var metaLibrary =
     meta.library ||
     (meta._glossary && meta._glossary.library) ||
-    (meta.hifi ? "ds" : null) ||
+    (meta.hifi ? "ds" : null) || // legacy boolean — kept for back-compat with older flow files
     (meta.mode === "hifi" ? "ds" : null);
 
   // Server-render each screen into a .proto-screen-cell. The cell is a click

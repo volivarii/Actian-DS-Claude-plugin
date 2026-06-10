@@ -617,14 +617,19 @@
           // Success → success-filled icon, role=status
           // Warning → warning-filled icon, role=status
           // Danger  → error-filled icon,   role=alert
-          var alertType = (v.Type || "Primary").toLowerCase();
           var alertIconMap = {
             primary: "info-filled",
             success: "success-filled",
             warning: "warning-filled",
             danger: "error-filled",
           };
-          var alertIconSlug = alertIconMap[alertType] || "info-filled";
+          // Clamp Type to the known enum BEFORE it reaches the class attribute —
+          // v.Type is user-supplied flow-data; an unclamped value would break out
+          // of the class attribute and inject markup (XSS). Unknown/crafted values
+          // fall back to "primary".
+          var alertTypeRaw = (v.Type || "Primary").toLowerCase();
+          var alertType = alertIconMap[alertTypeRaw] ? alertTypeRaw : "primary";
+          var alertIconSlug = alertIconMap[alertType];
           var alertRole = alertType === "danger" ? "alert" : "status";
           var alertCls = "ds-alert ds-alert--" + alertType;
           var alertTitleHtml = props.Title

@@ -82,6 +82,10 @@ function getCombinedRegistry() {
   return _registryCache;
 }
 
+// Fires `callback` on every INSTANCE node (FM `ref` or DS `library:"ds"`), then
+// always recurses into ALL keys so nested INSTANCE children (e.g. a FRAME holding
+// DS leaves, or a DS node nesting another) are validated too. Do not short-circuit
+// the recursion after an INSTANCE — that would skip nested nodes.
 function walkInstanceNodes(node, currentPath, callback) {
   if (node === null || node === undefined) return;
   if (Array.isArray(node)) {

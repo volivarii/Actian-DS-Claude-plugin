@@ -139,7 +139,7 @@
     "The search bar spans the full content width above the split — author it as a standalone row",
     "Filter tags act as a tab-like filter row — the active filter uses a colored variant, inactive use Default",
     "search-result-card is a chip leaf — its visual fidelity comes from the DS component; supply a realistic name prop",
-    "For the Figma push path, both search-result-card and chat-with-ai-steward render as labeled chips that Figma will map to real DS kit components"
+    "search-result-card renders as a labeled chip (no built leaf yet); chat-with-ai-steward is a BUILT leaf — author its full props (Title, Insight, Source, Confidence)"
   ],
   "missing_states": ["empty-results", "loading", "error", "ai-steward-collapsed"],
   "dsComposition": "search / tag-default(filters) / search-result-card(results) / chat-with-ai-steward(rail)"

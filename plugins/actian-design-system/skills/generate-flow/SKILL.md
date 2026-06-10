@@ -27,8 +27,8 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 
 | Flag                   | Type        | Default | Behavior                                                                                                                                                                                                                                                                                               |
 | ---------------------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--hifi`               | bool        | off     | **DS-native authoring** — screens composed against the DS vocabulary (`references/generate-flow/ds-components-authoring.md`) and rendered as themed hi-fi HTML (the deliverable). Does NOT imply a Figma push. To also get a Figma artifact, pass `--push` alongside.                              |
-| `--audit`              | bool        | off     | After lo-fi (or hifi if `--hifi`) push, runs `/design-audit` on the result. Reports findings; does not auto-fix unless paired with `--audit --fix all`. **Implies a Figma push.**                                                                                                                      |
+| `--hifi`               | bool        | off     | **DS-native authoring** — screens composed against the DS vocabulary (`references/generate-flow/ds-components-authoring.md`) and rendered as themed hi-fi HTML (the deliverable). HTML-only: does NOT imply a Figma push and does NOT combine with the push-dependent flags (`--push`, `--audit`) — DS-native nodes have no FM refs to push. For Figma, use a separate lo-fi `--push` run then `/convert-to-hifi`.                              |
+| `--audit`              | bool        | off     | After a **lo-fi** push, runs `/design-audit` on the pushed Figma frame. Reports findings; does not auto-fix unless paired with `--audit --fix all`. **Implies a Figma push** — so it does not combine with `--hifi` (which is HTML-only).                                                                                                                      |
 | `--variants <n>`       | int         | 1       | Generates n parallel structurally-distinct takes (different recipe selection or composition). Range 2–5. n>5 → refuse with clear error. Lays out side-by-side. Provenance tracked in `.last-push.json`.                                                                                                |
 | `--ref <url[,url]>`    | URL list    | none    | **v1: Figma URLs only.** Reference frames whose structural fingerprint biases recipe selection. Multi-URL = blended influence. For external references (Linear, Stripe, etc.), screenshot into a Figma frame first and pass that URL. Image-URL support targeted for v2 alongside the vision pipeline. |
 | `--breakpoints <list>` | string list | none    | Comma-separated: `tablet`, `mobile`, `custom-Npx`. Generates additional variants per breakpoint. Lo-fi level = structural decisions only (collapse, stack).                                                                                                                                            |
@@ -43,16 +43,16 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 
 | Combination                         | Behavior                                                                                                     |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `--hifi --audit`                    | DS-native hi-fi HTML + post-push audit chain; `--audit` implies push — a Figma push happens before auditing  |
-| `--variants 3 --hifi`               | 3 DS-native hi-fi HTML variants; `--audit` audits each after push when also set                              |
+| `--hifi --audit`                    | **Incompatible** — `--hifi` is HTML-only (no push), `--audit` needs a pushed Figma frame. Warn, run `--hifi` HTML-only, and drop `--audit`. For an audited DS frame, run lo-fi `--push` → `/convert-to-hifi` → `/design-audit`. |
+| `--variants 3 --hifi`               | 3 DS-native hi-fi HTML variants (HTML-only; no push)                                                          |
 | `--from <url> --variants 3`         | 3 alternative iterations on the existing flow                                                                |
 | `--from <url> --branch X`           | Single fork named X. `--variants` is ignored when `--branch` is set.                                         |
 | `--breakpoints tablet --variants 3` | 3 variants × 2 breakpoints (desktop + tablet) = 6 outputs. Hard cap: 9 outputs total.                        |
 | `--ref <url> --states empty,error`  | Reference biases base layout; states inherit the same reference treatment.                                   |
 | `--states X` without `--from`       | Generates flow + states from prompt (greenfield).                                                            |
 | `--push --no-push`                  | `--no-push` wins — no push (the HTML deliverable still renders).                                             |
-| `--hifi --push`                     | DS-native hi-fi HTML rendered; Figma push also runs (explicit `--push`).                                     |
-| `--hifi --no-push`                  | Valid — hi-fi HTML renders as normal; the `--no-push` veto suppresses the Figma push (no conflict).          |
+| `--hifi --push`                     | **Incompatible** — DS-native nodes have no FM refs, so the FM push path can't render them. Warn, render `--hifi` HTML-only, and drop `--push`. For a Figma artifact use a separate lo-fi `--push` run → `/convert-to-hifi`. |
+| `--hifi --no-push`                  | Valid (redundant) — `--hifi` is already HTML-only; `--no-push` changes nothing.                              |
 
 ## Step 0 — Parse args + classify input shape
 
@@ -365,7 +365,7 @@ When `--hifi` is set, every content INSTANCE node must carry `library:"ds"` and 
 
 **The HTML deliverable IS the hi-fi artifact.** The `flows/[feature].html` file is themed and fully styled — it is what you share. No separate conversion step is needed.
 
-**To also get a Figma artifact:** pass `--push` alongside `--hifi`. The FM push step runs as normal, then `/convert-to-hifi` on the pushed URL upgrades it to DS Kit (`references/convert-to-hifi/fm-to-ds-map.json`). `--hifi` alone does NOT imply a push.
+**Figma output for a DS-native flow is not available via `--push`.** DS-native flow-data authors `library:"ds"` INSTANCE nodes that carry no FM component `ref`, so the FM push path (`references/figma/figma-push-patterns.md`, keyed on FM component keys) cannot render them — `--hifi --push` would fail at key lookup. `--hifi` alone does NOT imply a push. If a Figma artifact is required, run a **separate** lo-fi pass (`generate-flow <feature> --push`, which authors FM content) then `/convert-to-hifi <pushed-url>` to upgrade it to DS Kit (`references/convert-to-hifi/fm-to-ds-map.json`). The DS-native HTML deliverable and the Figma-via-convert path are two different routes — do not combine `--hifi` with `--push` on the same run.
 
 ### Audit pass (if --audit flag)
 
