@@ -991,6 +991,225 @@
       },
       "updated_at": "2026-06-07T17:50:37+02:00"
     },
+    "chat-with-ai-steward": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/chat-with-ai-steward/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "chat-with-ai-steward",
+      "component": "Chat with AI Steward",
+      "meta": {
+        "category": "overlays",
+        "a11y_refs": [
+          {
+            "ref": "ai-output-suggestions"
+          }
+        ],
+        "examples": [
+          {
+            "label": "DS Kit component",
+            "figmaNode": "15464:24509"
+          }
+        ],
+        "lastReviewed": "2026-06-10"
+      },
+      "domains": {
+        "content": {
+          "status": "draft",
+          "owner": "design",
+          "markdown": "# Chat with AI Steward\n\nThe AI steward panel surfaces AI-generated insights in Studio and Explorer. Its copy rules make generated content trustworthy: cited, confidence-labeled, and clearly distinguished from static UI.\n\n---\n\n## Voice\n\nThe steward explains, it does not perform. Plain sentences, no exclamation marks, no anthropomorphic filler (\"I think…\", \"Let me…\"). Answers lead with the finding, then the evidence.\n\n## Source attribution (citation pattern)\n\n- Every AI-generated insight carries a source line: `Source: <asset name>`, linking to the catalog asset it was derived from.\n- Multiple sources: comma-separated, max 3 visible, \"+N more\" beyond that.\n- Never present an uncited insight as fact; uncited output is labeled \"Generated — verify before use.\"\n\n## Confidence\n\n- Confidence is a labeled value, not a bare number: `Confidence: High` / `Medium` / `Low` (badge component). Show the percentage in a tooltip, not inline.\n- Low-confidence answers must include the verify affordance (\"Check source\").\n\n## Disclaimer\n\n- One persistent, plain-language line in the panel footer: \"AI-generated content can contain errors. Verify important information.\"\n- Per app-context vocabulary: the feature is \"Ask AI\" — never \"chatbot\", \"AI search\", or \"assistant\".\n\n## Actions\n\n- Output actions use verb-first labels: \"Accept\", \"Regenerate\", \"Discard\" (matches the accessibility checklist's required affordances).",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "The AI steward panel surfaces AI-generated insights in Studio and Explorer. Its copy rules make generated content trustworthy: cited, confidence-labeled, and clearly distinguished from static UI."
+                }
+              ]
+            },
+            {
+              "heading": "Voice",
+              "content": [
+                {
+                  "prose": "The steward explains, it does not perform. Plain sentences, no exclamation marks, no anthropomorphic filler (\"I think…\", \"Let me…\"). Answers lead with the finding, then the evidence."
+                }
+              ]
+            },
+            {
+              "heading": "Source attribution (citation pattern)",
+              "content": [
+                {
+                  "bullets": [
+                    "Every AI-generated insight carries a source line: `Source: <asset name>`, linking to the catalog asset it was derived from.",
+                    "Multiple sources: comma-separated, max 3 visible, \"+N more\" beyond that.",
+                    "Never present an uncited insight as fact; uncited output is labeled \"Generated — verify before use.\""
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Confidence",
+              "content": [
+                {
+                  "bullets": [
+                    "Confidence is a labeled value, not a bare number: `Confidence: High` / `Medium` / `Low` (badge component). Show the percentage in a tooltip, not inline.",
+                    "Low-confidence answers must include the verify affordance (\"Check source\")."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Disclaimer",
+              "content": [
+                {
+                  "bullets": [
+                    "One persistent, plain-language line in the panel footer: \"AI-generated content can contain errors. Verify important information.\"",
+                    "Per app-context vocabulary: the feature is \"Ask AI\" — never \"chatbot\", \"AI search\", or \"assistant\"."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Actions",
+              "content": [
+                {
+                  "bullets": [
+                    "Output actions use verb-first labels: \"Accept\", \"Regenerate\", \"Discard\" (matches the accessibility checklist's required affordances)."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "draft",
+          "owner": "design",
+          "markdown": "## Where it lives\n\nThe steward is the AI surface for **Studio and Explorer**. It is not part of Administration. It opens as a side panel (Drawer variant) over the working context — search results, asset detail, lineage — and never navigates away.\n\n## When AI content appears\n\n- On explicit user ask (\"Ask AI\" entry points: global header action, asset detail, search results).\n- As inline suggestions (\"Suggestion\" = AI-generated metadata enrichment) surfaced in context; suggestions follow the same identification rules as panel content and are always dismissible.\n\n## Distinguishing AI content from static UI\n\n1. **Surface:** AI content renders on an elevated surface (see the design guidelines) — never flush with static page content.\n2. **Identification:** every AI-generated block carries the sparkle marker (`ai` icon) with the accessible label \"Generated by AI\". Identification is icon + label, never color alone.\n3. **Provenance:** source line + confidence (see the content guidelines). Static UI never carries these; their presence is itself a signal.\n\n## Interaction expectations\n\n- Accept / Regenerate / Discard on every output; generation is cancellable.\n- AI output is never injected into the user's focus path without warning.\n- Suggestions are bypassable — they must never gate task completion.\n\n## Don't\n\n- Don't use the steward pattern in Administration (no AI surface there today).\n- Don't restyle static components in \"AI purple\" to imply intelligence.\n- Don't stream into a surface the user is actively editing.",
+          "sections": [
+            {
+              "heading": "Where it lives",
+              "content": [
+                {
+                  "prose": "The steward is the AI surface for **Studio and Explorer**. It is not part of Administration. It opens as a side panel (Drawer variant) over the working context — search results, asset detail, lineage — and never navigates away."
+                }
+              ]
+            },
+            {
+              "heading": "When AI content appears",
+              "content": [
+                {
+                  "bullets": [
+                    "On explicit user ask (\"Ask AI\" entry points: global header action, asset detail, search results).",
+                    "As inline suggestions (\"Suggestion\" = AI-generated metadata enrichment) surfaced in context; suggestions follow the same identification rules as panel content and are always dismissible."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Distinguishing AI content from static UI",
+              "content": [
+                {
+                  "bullets": [
+                    "**Surface:** AI content renders on an elevated surface (see the design guidelines) — never flush with static page content.",
+                    "**Identification:** every AI-generated block carries the sparkle marker (`ai` icon) with the accessible label \"Generated by AI\". Identification is icon + label, never color alone.",
+                    "**Provenance:** source line + confidence (see the content guidelines). Static UI never carries these; their presence is itself a signal."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Interaction expectations",
+              "content": [
+                {
+                  "bullets": [
+                    "Accept / Regenerate / Discard on every output; generation is cancellable.",
+                    "AI output is never injected into the user's focus path without warning.",
+                    "Suggestions are bypassable — they must never gate task completion."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Don't",
+              "content": [
+                {
+                  "bullets": [
+                    "Don't use the steward pattern in Administration (no AI surface there today).",
+                    "Don't restyle static components in \"AI purple\" to imply intelligence.",
+                    "Don't stream into a surface the user is actively editing."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "design": {
+          "status": "draft",
+          "owner": "design",
+          "markdown": "## Surface elevation\n\nThe panel is an overlay surface: background `--zen-color-bg-default`, border `--zen-border-default`, shadow `--zen-shadow-xl` (overlay tier per the foundations elevation scale; cards within the panel use `--zen-shadow-xs`). Elevation signals depth, not decoration — one elevated tier, no stacking.\n\n## Identification\n\n- Panel header: `ai` icon (sparkle) + \"AI Steward\" title.\n- Per-insight marker: `ai` icon at 16px with accessible label \"Generated by AI\".\n- Identification is never color-only. The purple primitives (`--zen-color-purple-*`) MAY accent the marker but are not the marker.\n\n## Confidence indicator\n\nBadge component (Number type) next to the source line: High / Medium / Low. Colors follow standard badge semantics — no AI-specific color coding.\n\n## Streaming state\n\n- While generating: skeleton shimmer blocks (foundations spec: 2000ms linear loop — currently not tokenized; flagged for the motion-token program) in the answer area, `aria-busy=\"true\"` on the region.\n- Completion announced via `aria-live=\"polite\"`.\n- Shimmer and any typewriter effect respect `prefers-reduced-motion` (static placeholder instead).\n- Motion durations/easings: use the foundations motion tokens (status 🟡 Proposed — cite, don't invent values).\n\n## States\n\nClosed (entry point visible) · Open (Drawer) · Generating (shimmer + Stop/Cancel) · Answered (insight + source + confidence + actions) · Error (alert-banner inside panel, retry affordance).",
+          "sections": [
+            {
+              "heading": "Surface elevation",
+              "content": [
+                {
+                  "prose": "The panel is an overlay surface: background `--zen-color-bg-default`, border `--zen-border-default`, shadow `--zen-shadow-xl` (overlay tier per the foundations elevation scale; cards within the panel use `--zen-shadow-xs`). Elevation signals depth, not decoration — one elevated tier, no stacking."
+                }
+              ]
+            },
+            {
+              "heading": "Identification",
+              "content": [
+                {
+                  "bullets": [
+                    "Panel header: `ai` icon (sparkle) + \"AI Steward\" title.",
+                    "Per-insight marker: `ai` icon at 16px with accessible label \"Generated by AI\".",
+                    "Identification is never color-only. The purple primitives (`--zen-color-purple-*`) MAY accent the marker but are not the marker."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Confidence indicator",
+              "content": [
+                {
+                  "prose": "Badge component (Number type) next to the source line: High / Medium / Low. Colors follow standard badge semantics — no AI-specific color coding."
+                }
+              ]
+            },
+            {
+              "heading": "Streaming state",
+              "content": [
+                {
+                  "bullets": [
+                    "While generating: skeleton shimmer blocks (foundations spec: 2000ms linear loop — currently not tokenized; flagged for the motion-token program) in the answer area, `aria-busy=\"true\"` on the region.",
+                    "Completion announced via `aria-live=\"polite\"`.",
+                    "Shimmer and any typewriter effect respect `prefers-reduced-motion` (static placeholder instead).",
+                    "Motion durations/easings: use the foundations motion tokens (status 🟡 Proposed — cite, don't invent values)."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "States",
+              "content": [
+                {
+                  "prose": "Closed (entry point visible) · Open (Drawer) · Generating (shimmer + Stop/Cancel) · Answered (insight + source + confidence + actions) · Error (alert-banner inside panel, retry affordance)."
+                }
+              ]
+            }
+          ]
+        },
+        "behavior": {
+          "status": "not-started"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-10T13:35:50+02:00"
+    },
     "checkbox": {
       "_schema_version": 1,
       "_meta": {
