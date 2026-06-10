@@ -55,8 +55,12 @@
         },
         "mode": {
           "type": "string",
-          "enum": ["full", "refine"],
-          "description": "How the artifact was produced. 'full' (default) is generation-from-scratch; 'refine' indicates a partial patch over a prior push. Drives downstream gate behavior alongside the runtime --scope flag."
+          "enum": ["full", "refine", "hifi"],
+          "description": "How the artifact was produced. 'full' (default) is generation-from-scratch; 'refine' indicates a partial patch over a prior push; 'hifi' indicates DS-native hi-fi rendering is active. Drives downstream gate behavior alongside the runtime --scope flag."
+        },
+        "library": {
+          "enum": ["ds"],
+          "description": "Flow-level hi-fi signal — promotes every screen without its own library to DS rendering."
         },
         "research": {
           "type": "object",
@@ -304,13 +308,44 @@
             "description": "Legacy size field (deprecated - use template)",
             "deprecated": true
           },
+          "library": {
+            "enum": ["ds"],
+            "description": "Per-screen DS chrome/leaf routing; overrides meta.library for mixed flows."
+          },
           "activeNavItem": {
             "type": "string",
             "description": "Label for the active sidebar nav item"
           },
           "navItems": {
-            "type": ["number", "integer"],
-            "description": "Number of sidebar nav items"
+            "oneOf": [
+              {
+                "type": ["number", "integer"],
+                "description": "Legacy shape: placeholder count of sidebar nav items."
+              },
+              {
+                "type": "array",
+                "description": "Rich shape: ordered nav item descriptors (flow-renderer.js sidebar()).",
+                "items": {
+                  "oneOf": [
+                    { "type": "string" },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "description": "Display label"
+                        },
+                        "state": {
+                          "type": "string",
+                          "description": "Item state — 'On' marks the item active"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            ],
+            "description": "Sidebar nav items — number (legacy placeholder count) or array of {label, state} descriptors (rich shape). Consumed by flow-renderer.js sidebar()."
           },
           "pageHeader": {
             "type": "object",
@@ -320,7 +355,26 @@
               "subtitle": { "type": "string" },
               "actions": {
                 "type": "array",
-                "items": { "type": "string" }
+                "description": "Page header action buttons — bare label string or {label, variant} object. Consumed by flow-renderer.js pageHeader().",
+                "items": {
+                  "oneOf": [
+                    { "type": "string", "description": "Bare action label." },
+                    {
+                      "type": "object",
+                      "description": "Rich action descriptor.",
+                      "properties": {
+                        "label": {
+                          "type": "string",
+                          "description": "Button label"
+                        },
+                        "variant": {
+                          "type": "string",
+                          "description": "Button variant (e.g. 'primary', 'secondary')"
+                        }
+                      }
+                    }
+                  ]
+                }
               }
             }
           },
@@ -487,6 +541,37 @@
             "default"
           ],
           "description": "Semantic intent for variant selection in hifi conversion. Optional. Inherited by descendants unless overridden at a leaf."
+        },
+        "library": {
+          "enum": ["ds"],
+          "description": "DS render tier marker. With dsSlug, routes this INSTANCE to the hi-fi DS leaf map instead of the FM map."
+        },
+        "dsSlug": {
+          "type": "string",
+          "description": "DS Kit registry slug (validated against the dskit authorable surface)."
+        },
+        "clipsContent": {
+          "type": "boolean",
+          "description": "Whether the node clips its children (overflow:hidden). Read by render-node.js buildFrameStyle()."
+        },
+        "textCase": {
+          "type": "string",
+          "description": "Text transform case. 'UPPER' maps to text-transform:uppercase. Read by render-node.js buildTextStyle()."
+        },
+        "textAlign": {
+          "type": "object",
+          "description": "Text alignment. Reads .horizontal: 'CENTER'|'RIGHT'|'LEFT'. Read by render-node.js buildTextStyle().",
+          "properties": {
+            "horizontal": {
+              "type": "string",
+              "enum": ["LEFT", "CENTER", "RIGHT"],
+              "description": "Horizontal text alignment"
+            }
+          }
+        },
+        "text": {
+          "type": "string",
+          "description": "Text content fallback — read by render-node.js when node.content is absent. Callers that supply only node.text are supported for back-compat."
         }
       }
     }
