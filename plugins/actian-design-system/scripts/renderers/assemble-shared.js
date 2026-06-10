@@ -70,6 +70,7 @@ function buildDsIconsScript() {
 // ---------------------------------------------------------------------------
 
 var FLOW_CSS = [
+  path.join(RENDERERS_DIR, "ds-fonts.css"), // embedded woff2 faces (offline) — MUST precede any use.
   path.join(RENDERERS_DIR, "fm-base.css"),
   path.join(RENDERERS_DIR, "render-node.css"),
   path.join(RENDERERS_DIR, "flow-renderer.css"),
