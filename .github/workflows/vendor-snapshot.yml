@@ -109,6 +109,20 @@ jobs:
             --kit all \
             --output vendor/components/dist
 
+      - name: Sync doc inventory counts
+        # A re-vendor can change a registry component count. The doc-counts
+        # guard (tests/integration/doc-counts.test.js) then fails on the now
+        # stale prose, leaving this auto-merge PR stuck with no self-healing
+        # path (observed on the v0.30.5 refresh: DS Kit 318→319). This rewrites
+        # the managed docs (README, llms.txt, marketplace.json, plugin.json,
+        # companion-context, figma-push-patterns) from the registries so the
+        # guard passes. Idempotent no-op when no count changed. Shares its
+        # source of truth (scripts/lib/doc-counts.js) with the guard, so the
+        # two can't disagree.
+        working-directory: plugins/actian-design-system
+        run: |
+          node scripts/vendor/sync-doc-counts.js
+
       - name: Detect changes
         id: diff
         run: |
@@ -158,6 +172,12 @@ jobs:
             plugins/actian-design-system/vendor/**
             plugins/actian-design-system/vendored.json
             plugins/actian-design-system/.claude-plugin/plugin.json
+            README.md
+            llms.txt
+            USAGE.md
+            .claude-plugin/marketplace.json
+            plugins/actian-design-system/references/context/companion-context.md
+            plugins/actian-design-system/references/figma/figma-push-patterns.md
 
       - name: Enable auto-merge
         if: steps.diff.outputs.changed == 'true' && steps.cpr.outputs.pull-request-number
