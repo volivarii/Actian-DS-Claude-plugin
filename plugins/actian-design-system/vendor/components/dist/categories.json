@@ -1,7 +1,7 @@
 {
   "_schema_version": 1,
   "library": "ds",
-  "generatedAt": "2026-06-08T11:54:36.484Z",
+  "generatedAt": "2026-06-09T10:32:52.557Z",
   "categories": {
     "Breakpoint, grid & structure": {
       "components": [
@@ -142,6 +142,7 @@
         "add-circle",
         "adlsgen1",
         "adobe-analytics",
+        "ai",
         "alert",
         "alert-circle",
         "alteryx",
@@ -373,7 +374,7 @@
         "zoom-reset",
         "zoom-to-fit"
       ],
-      "count": 234
+      "count": 235
     },
     "Local components": {
       "components": [

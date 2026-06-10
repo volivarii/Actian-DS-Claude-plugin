@@ -439,6 +439,11 @@
       "title": "adobe-analytics"
     },
     {
+      "id": "component:ai",
+      "type": "component",
+      "title": "ai"
+    },
+    {
       "id": "component:alert",
       "type": "component",
       "title": "alert"
@@ -4520,6 +4525,11 @@
     },
     {
       "source": "component:adobe-analytics",
+      "target": "category:icons",
+      "type": "in_category"
+    },
+    {
+      "source": "component:ai",
       "target": "category:icons",
       "type": "in_category"
     },
