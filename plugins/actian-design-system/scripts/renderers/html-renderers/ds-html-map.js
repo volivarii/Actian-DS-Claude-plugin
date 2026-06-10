@@ -221,6 +221,58 @@
           );
         }
 
+        case "radio-button": {
+          var rbCls = "ds-radio";
+          if (v.Selected === "Yes") rbCls += " ds-radio--checked";
+          if (v.Format === "Card format") rbCls += " ds-radio--card";
+          if (v.State === "Disabled") rbCls += " is-disabled";
+          var rbLabel = esc(props.Label || "Label");
+          var rbHelper =
+            props["Helper text"] && props["Show Helper text"] !== false
+              ? '<span class="ds-radio__helper">' +
+                esc(props["Helper text"]) +
+                "</span>"
+              : "";
+          return (
+            '<label class="' +
+            rbCls +
+            '">' +
+            '<span class="ds-radio__circle"><span class="ds-radio__dot"></span></span>' +
+            '<span class="ds-radio__text"><span class="ds-radio__label">' +
+            rbLabel +
+            "</span>" +
+            rbHelper +
+            "</span>" +
+            "</label>"
+          );
+        }
+
+        case "toggle": {
+          var tgCls = "ds-toggle";
+          if (v.Selected === "Yes") tgCls += " ds-toggle--on";
+          if (v["Toggle location"] === "Right") tgCls += " ds-toggle--right";
+          if (v.State === "Disabled") tgCls += " is-disabled";
+          var tgLabel = esc(props.Label || "Label");
+          var tgHelper =
+            props["Helper text"] && props["Show Helper text"] !== false
+              ? '<span class="ds-toggle__helper">' +
+                esc(props["Helper text"]) +
+                "</span>"
+              : "";
+          return (
+            '<label class="' +
+            tgCls +
+            '">' +
+            '<span class="ds-toggle__switch"><span class="ds-toggle__thumb"></span></span>' +
+            '<span class="ds-toggle__text"><span class="ds-toggle__label">' +
+            tgLabel +
+            "</span>" +
+            tgHelper +
+            "</span>" +
+            "</label>"
+          );
+        }
+
         case "tag-default": {
           // Color variant axis exists in the kit (Default, Gray, Pink, …) but
           // this slice renders the Default palette for every Color; the

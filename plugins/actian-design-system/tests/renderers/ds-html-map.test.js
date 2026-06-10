@@ -913,3 +913,203 @@ describe("ds-html-map: tabs (P1b)", function () {
     assert.equal((html.match(/ds-tabs__tab/g) || []).length, 0);
   });
 });
+
+describe("ds-html-map: toggle (P1c)", function () {
+  function tg(variant, props) {
+    return render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "toggle",
+      variant: variant,
+      props: props || {},
+    });
+  }
+
+  it("Off (Selected=No): ds-toggle label + switch + thumb, no --on, no is-disabled", function () {
+    var html = tg("Toggle location=Left, Selected=No, State=Default", {
+      Label: "Email notifications",
+    });
+    assert.ok(
+      html.indexOf('<label class="ds-toggle">') === 0,
+      "starts with the bare ds-toggle label",
+    );
+    assert.ok(html.indexOf("ds-toggle__switch") !== -1, "has the switch track");
+    assert.ok(html.indexOf("ds-toggle__thumb") !== -1, "has the thumb");
+    assert.ok(html.indexOf("ds-toggle__label") !== -1, "has the label slot");
+    assert.ok(html.indexOf("Email notifications") !== -1, "renders the Label");
+    assert.ok(html.indexOf("ds-toggle--on") === -1, "not on when Selected=No");
+    assert.ok(html.indexOf("is-disabled") === -1, "not disabled by default");
+  });
+
+  it("On (Selected=Yes): ds-toggle--on", function () {
+    var html = tg("Toggle location=Left, Selected=Yes, State=Default", {
+      Label: "On",
+    });
+    assert.ok(
+      html.indexOf("ds-toggle ds-toggle--on") !== -1,
+      "has the on modifier when Selected=Yes",
+    );
+  });
+
+  it("Right (Toggle location=Right): ds-toggle--right", function () {
+    var html = tg("Toggle location=Right, Selected=No, State=Default", {
+      Label: "Right-aligned",
+    });
+    assert.ok(
+      html.indexOf("ds-toggle--right") !== -1,
+      "has the right modifier when Toggle location=Right",
+    );
+  });
+
+  it("Disabled (State=Disabled): is-disabled", function () {
+    var html = tg("Toggle location=Left, Selected=No, State=Disabled", {
+      Label: "Off",
+    });
+    assert.ok(
+      html.indexOf("is-disabled") !== -1,
+      "has is-disabled when State=Disabled",
+    );
+  });
+
+  it("renders helper text when Helper text set and Show Helper text not false", function () {
+    var html = tg("Toggle location=Left, Selected=Yes", {
+      Label: "Auto-sync",
+      "Helper text": "Sync every 5 minutes",
+    });
+    assert.ok(html.indexOf("ds-toggle__helper") !== -1, "has the helper slot");
+    assert.ok(
+      html.indexOf("Sync every 5 minutes") !== -1,
+      "renders the helper copy",
+    );
+  });
+
+  it("suppresses helper text when Show Helper text is false", function () {
+    var html = tg("Toggle location=Left, Selected=Yes", {
+      Label: "Auto-sync",
+      "Helper text": "Sync every 5 minutes",
+      "Show Helper text": false,
+    });
+    assert.ok(
+      html.indexOf("ds-toggle__helper") === -1,
+      "no helper slot when Show Helper text=false",
+    );
+  });
+
+  it("no helper slot when no Helper text prop", function () {
+    var html = tg("Toggle location=Left, Selected=No", { Label: "Plain" });
+    assert.ok(
+      html.indexOf("ds-toggle__helper") === -1,
+      "no helper slot without Helper text",
+    );
+  });
+
+  it("falls back to 'Label' when no Label prop", function () {
+    var html = tg("Toggle location=Left, Selected=No", {});
+    assert.ok(html.indexOf(">Label</span>") !== -1, "default label");
+  });
+
+  it("escapes a hostile Label", function () {
+    var html = tg("Toggle location=Left, Selected=No", {
+      Label: "<img src=x onerror=1>",
+    });
+    assert.ok(html.indexOf("&lt;img") !== -1, "label escaped");
+    assert.ok(html.indexOf("<img") === -1, "no raw injection");
+  });
+});
+
+describe("ds-html-map: radio-button (P1c)", function () {
+  function rb(variant, props) {
+    return render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "radio-button",
+      variant: variant,
+      props: props || {},
+    });
+  }
+
+  it("Default unselected: ds-radio label + circle + dot + label, no --checked/--card/is-disabled", function () {
+    var html = rb("Format=Default, Selected=No, State=Default", {
+      Label: "Standard",
+    });
+    assert.ok(
+      html.indexOf('<label class="ds-radio">') === 0,
+      "starts with the bare ds-radio label",
+    );
+    assert.ok(html.indexOf("ds-radio__circle") !== -1, "has the ring");
+    assert.ok(html.indexOf("ds-radio__dot") !== -1, "has the center dot");
+    assert.ok(html.indexOf("ds-radio__label") !== -1, "has the label slot");
+    assert.ok(html.indexOf("Standard") !== -1, "renders the Label");
+    assert.ok(html.indexOf("ds-radio--checked") === -1, "not checked when No");
+    assert.ok(html.indexOf("ds-radio--card") === -1, "not card by default");
+    assert.ok(html.indexOf("is-disabled") === -1, "not disabled by default");
+  });
+
+  it("Selected=Yes: ds-radio--checked", function () {
+    var html = rb("Format=Default, Selected=Yes", { Label: "Picked" });
+    assert.ok(
+      html.indexOf("ds-radio ds-radio--checked") !== -1,
+      "has the checked modifier when Selected=Yes",
+    );
+  });
+
+  it("Card format: ds-radio--card", function () {
+    var html = rb("Format=Card format, Selected=No", { Label: "In a card" });
+    assert.ok(
+      html.indexOf("ds-radio--card") !== -1,
+      "has the card modifier when Format=Card format",
+    );
+  });
+
+  it("Disabled (State=Disabled): is-disabled", function () {
+    var html = rb("Format=Default, Selected=No, State=Disabled", {
+      Label: "Off",
+    });
+    assert.ok(
+      html.indexOf("is-disabled") !== -1,
+      "has is-disabled when State=Disabled",
+    );
+  });
+
+  it("renders helper text when Helper text set and Show Helper text not false", function () {
+    var html = rb("Format=Default, Selected=Yes", {
+      Label: "Notify",
+      "Helper text": "We'll email you",
+    });
+    assert.ok(html.indexOf("ds-radio__helper") !== -1, "has the helper slot");
+    assert.ok(html.indexOf("We'll email you") !== -1, "renders helper copy");
+  });
+
+  it("suppresses helper text when Show Helper text is false", function () {
+    var html = rb("Format=Default, Selected=Yes", {
+      Label: "Notify",
+      "Helper text": "We'll email you",
+      "Show Helper text": false,
+    });
+    assert.ok(
+      html.indexOf("ds-radio__helper") === -1,
+      "no helper slot when Show Helper text=false",
+    );
+  });
+
+  it("no helper slot when no Helper text prop", function () {
+    var html = rb("Format=Default, Selected=No", { Label: "Plain" });
+    assert.ok(
+      html.indexOf("ds-radio__helper") === -1,
+      "no helper slot without Helper text",
+    );
+  });
+
+  it("falls back to 'Label' when no Label prop", function () {
+    var html = rb("Format=Default, Selected=No", {});
+    assert.ok(html.indexOf(">Label</span>") !== -1, "default label");
+  });
+
+  it("escapes a hostile Label", function () {
+    var html = rb("Format=Default, Selected=No", {
+      Label: "<img src=x onerror=1>",
+    });
+    assert.ok(html.indexOf("&lt;img") !== -1, "label escaped");
+    assert.ok(html.indexOf("<img") === -1, "no raw injection");
+  });
+});

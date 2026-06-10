@@ -256,6 +256,51 @@ var DS_FIXTURES = {
     variant: "Property 1=Default",
     props: { Items: "Overview, Schema, Lineage", Active: "Schema" },
   },
+  // P1c forms — toggle (the first leaf built via the Dev Mode + knowledge + LLM
+  // engine; vector component, so Dev Mode flattened it — geometry came from the
+  // media oracle + judgment, not extraction).
+  toggleOff: {
+    dsSlug: "toggle",
+    variant: "Toggle location=Left, Selected=No, State=Default",
+    props: { Label: "Email notifications" },
+  },
+  toggleOn: {
+    dsSlug: "toggle",
+    variant: "Toggle location=Left, Selected=Yes, State=Default",
+    props: { Label: "Email notifications" },
+  },
+  toggleRightWithHelper: {
+    dsSlug: "toggle",
+    variant: "Toggle location=Right, Selected=Yes, State=Default",
+    props: { Label: "Auto-sync", "Helper text": "Sync every 5 minutes" },
+  },
+  toggleDisabled: {
+    dsSlug: "toggle",
+    variant: "Toggle location=Left, Selected=No, State=Disabled",
+    props: { Label: "Email notifications" },
+  },
+  // P1c forms — radio-button (sibling of checkbox; built from the checkbox
+  // structure + the media oracle, Default + Card formats).
+  radioOff: {
+    dsSlug: "radio-button",
+    variant: "Format=Default, Selected=No, State=Default",
+    props: { Label: "Standard plan" },
+  },
+  radioOn: {
+    dsSlug: "radio-button",
+    variant: "Format=Default, Selected=Yes, State=Default",
+    props: { Label: "Standard plan", "Helper text": "Best for small teams" },
+  },
+  radioCard: {
+    dsSlug: "radio-button",
+    variant: "Format=Card format, Selected=Yes, State=Default",
+    props: { Label: "Premium", "Helper text": "Advanced features" },
+  },
+  radioDisabled: {
+    dsSlug: "radio-button",
+    variant: "Format=Default, Selected=No, State=Disabled",
+    props: { Label: "Standard plan" },
+  },
 };
 
 Object.keys(DS_FIXTURES).forEach(function (name) {

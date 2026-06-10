@@ -207,6 +207,140 @@
   cursor: not-allowed;
 }
 
+/* ============ Radio button ============ */
+.ds-radio {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-xs); /* 8 */
+  font-family: var(--zen-font-family-text);
+  cursor: pointer;
+}
+.ds-radio__circle {
+  position: relative;
+  flex: 0 0 auto;
+  box-sizing: border-box;
+  width: 18px; /* ring geometry (raw px, measured) */
+  height: 18px;
+  margin-top: 2px; /* align ring with label cap height */
+  border: var(--zen-border-width-lg) solid var(--zen-color-icon-default); /* 2px grey ring */
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-text-reverse);
+}
+.ds-radio__dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--zen-border-radius-full);
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.ds-radio--checked .ds-radio__circle {
+  background: var(--zen-color-icon-primary); /* blue disc (on) */
+  border-color: var(--zen-color-icon-primary);
+}
+.ds-radio--checked .ds-radio__dot {
+  display: block;
+  background: var(--zen-color-icon-primary); /* blue center */
+  box-shadow: 0 0 0 2px var(--zen-color-text-reverse); /* white ring between disc + dot */
+}
+.ds-radio__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+}
+.ds-radio__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-primary);
+}
+.ds-radio__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-tertiary);
+}
+/* Card format = bordered, padded container (matches the .ds-card idiom). */
+.ds-radio--card {
+  align-items: center;
+  padding: var(--zen-spacing-sm) var(--zen-spacing-md);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+}
+.ds-radio.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* ============ Toggle ============ */
+.ds-toggle {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-xs); /* 8 */
+  font-family: var(--zen-font-family-text);
+  cursor: pointer;
+}
+/* Right-aligned location = full-width row: text left, switch far right. */
+.ds-toggle--right {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.ds-toggle--right .ds-toggle__switch {
+  order: 2;
+}
+.ds-toggle__switch {
+  position: relative;
+  flex: 0 0 auto;
+  width: 24px; /* track geometry (raw px, measured) */
+  height: 14px;
+  margin-top: 2px; /* align switch with label cap height */
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-text-placeholder-subtle); /* off track */
+  transition: background 0.15s ease;
+}
+.ds-toggle__thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 10px; /* thumb geometry (raw px, measured) */
+  height: 10px;
+  border-radius: var(--zen-border-radius-full);
+  background: var(--zen-color-text-reverse); /* #fff (icon/reverse) */
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease;
+}
+.ds-toggle--on .ds-toggle__switch {
+  background: var(--zen-color-icon-primary); /* theme accent (on) */
+}
+.ds-toggle--on .ds-toggle__thumb {
+  transform: translateX(10px); /* 24 - 10 - 2 - 2 */
+}
+.ds-toggle__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4 */
+}
+.ds-toggle__label {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  line-height: var(--zen-font-lineheight-md);
+  letter-spacing: var(--zen-font-letterspacing-wide-2);
+  color: var(--zen-color-text-primary);
+}
+.ds-toggle__helper {
+  font-size: var(--zen-font-size-sm);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-tertiary);
+}
+.ds-toggle.is-disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
 /* ============ Tag (default) ============ */
 /* Color variant axis renders the Default palette here; per-Color hue palette
  * (<hue>/25 bg + <hue>/50 border) is deferred. */
