@@ -220,25 +220,45 @@
     }
   }
 
-  function dsHeader(headerApp) {
+  function dsHeader(headerApp, config) {
+    // Feed the real Studio header cluster: app label + search + context.
+    // `config` (optional screen.header) may carry account/context overrides.
+    var c = config || {};
     return renderDS(
       "global-header",
       "App type=" + headerApp + ", Breakpoints=XL",
-      {},
+      {
+        App: headerApp,
+        Search: c.search !== false,
+        Account: c.account || "VO",
+        Context: c.context || "Catalog",
+        ContextValue: c.contextValue || "Default",
+      },
     );
   }
 
   function dsSidebar(config, navApp) {
-    // Convert the chrome sidebar config into the DS side-nav prop shape
-    // (Items = comma-joined labels, Active = the selected label). The legacy
-    // numeric-count shape carries no labels → side-nav renders its defaults.
-    var labels = [];
+    // Convert the chrome sidebar config into the DS side-nav prop shape.
+    // Preferred: `config.groups` (array of {items:[{label,icon}]}) → grouped
+    // sidebar. Else `config.items` carrying icons → wrap as one icon'd group.
+    // Else legacy `Items` comma list (back-compat for older flows).
     var active = config && config.activeItem ? config.activeItem : "";
+    if (config && Array.isArray(config.groups) && config.groups.length) {
+      var props = { Groups: JSON.stringify(config.groups) };
+      if (active) props.Active = active;
+      return renderDS("side-nav", "App=" + navApp + ", View=Expanded", props);
+    }
+    var labels = [];
+    var hasIcon = false;
+    var items = [];
     if (config && Array.isArray(config.items)) {
       config.items.forEach(function (entry) {
         var label =
           typeof entry === "string" ? entry : (entry && entry.label) || "";
+        var icon = entry && typeof entry === "object" ? entry.icon : null;
         if (label) labels.push(label);
+        if (icon) hasIcon = true;
+        if (label) items.push({ label: label, icon: icon || null });
         if (
           !active &&
           entry &&
@@ -250,7 +270,8 @@
       });
     }
     var props = {};
-    if (labels.length) props.Items = labels.join(", ");
+    if (hasIcon) props.Groups = JSON.stringify([{ items: items }]);
+    else if (labels.length) props.Items = labels.join(", ");
     if (active) props.Active = active;
     return renderDS("side-nav", "App=" + navApp + ", View=Expanded", props);
   }
@@ -405,7 +426,9 @@
     // is untouched.
     if (s.library === "ds") {
       var prof = appProfile(chrome.appHeaderType);
-      var dsHeaderHtml = chrome.appHeaderType ? dsHeader(prof.headerApp) : "";
+      var dsHeaderHtml = chrome.appHeaderType
+        ? dsHeader(prof.headerApp, s.header)
+        : "";
       var dsSidebarHtml = chrome.hasSidebar
         ? dsSidebar(sidebarConfig, prof.navApp)
         : "";
