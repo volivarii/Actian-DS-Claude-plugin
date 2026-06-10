@@ -28,20 +28,26 @@ sets `push: true` without requiring the flag.  Phrases that trigger:
 
 These are normalised lower-case matches; trailing punctuation is ignored.
 
-### 3. `--hifi` or `--audit` implies push
+### 3. `--audit` implies push
 
-`--hifi` produces a DS-Kit hi-fi output; `--audit` runs a post-push design
-audit.  Both produce Figma artifacts, so Figma push is implicitly required.
-When either flag is set, push is treated as if `--push` were passed.
+`--audit` runs a post-push design audit — it requires a Figma artifact, so
+Figma push is implicitly required. When `--audit` is set, push is treated as
+if `--push` were passed.
+
+`--hifi` selects DS-native authoring mode and does NOT imply a push. The
+hi-fi HTML deliverable is the artifact; no Figma step is required. To also
+get a Figma artifact from a `--hifi` run, pass `--push` explicitly.
 
 ## `--no-push` override
 
 `--no-push` is an absolute veto.  It overrides every trigger above:
 - Explicit `--push` → vetoed.
 - Prose intent detected → vetoed.
-- `--hifi` / `--audit` set → vetoed (skill warns that the audit cannot run
-  without a push and invites the designer to remove `--no-push` or omit the
-  implication flags).
+- `--audit` set → vetoed (skill warns that the audit cannot run without a push
+  and invites the designer to remove `--no-push` or omit `--audit`).
+- `--hifi --no-push` → valid combination (hi-fi HTML renders normally; no
+  Figma push happens, which is the expected behavior since `--hifi` does not
+  imply push anyway).
 
 ## Explicit-Figma-path exemption (refine / iterate / branch)
 
@@ -93,6 +99,6 @@ This gate is **not** shown when:
 ## Relationship to `--no-prompt`
 
 When `--no-prompt` is set, the combined post-build gate is suppressed.
-Push happens only if a trigger (flag, prose, `--hifi`/`--audit`) fired at
-parse time.  See `references/ds-rules/interactive-gates.md` for the full
-`--no-prompt` convention.
+Push happens only if a trigger (flag, prose, `--audit`) fired at parse time.
+See `references/ds-rules/interactive-gates.md` for the full `--no-prompt`
+convention.

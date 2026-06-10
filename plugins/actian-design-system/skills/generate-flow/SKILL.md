@@ -27,7 +27,7 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 
 | Flag                   | Type        | Default | Behavior                                                                                                                                                                                                                                                                                               |
 | ---------------------- | ----------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `--hifi`               | bool        | off     | After lo-fi push, runs hifi conversion on the result. Preserves prototype wiring. **Implies a Figma push** (produces a DS-Kit Figma artifact).                                                                                                                                                         |
+| `--hifi`               | bool        | off     | **DS-native authoring** — screens composed against the DS vocabulary (`references/generate-flow/ds-components-authoring.md`) and rendered as themed hi-fi HTML (the deliverable). Does NOT imply a Figma push. To also get a Figma artifact, pass `--push` alongside.                              |
 | `--audit`              | bool        | off     | After lo-fi (or hifi if `--hifi`) push, runs `/design-audit` on the result. Reports findings; does not auto-fix unless paired with `--audit --fix all`. **Implies a Figma push.**                                                                                                                      |
 | `--variants <n>`       | int         | 1       | Generates n parallel structurally-distinct takes (different recipe selection or composition). Range 2–5. n>5 → refuse with clear error. Lays out side-by-side. Provenance tracked in `.last-push.json`.                                                                                                |
 | `--ref <url[,url]>`    | URL list    | none    | **v1: Figma URLs only.** Reference frames whose structural fingerprint biases recipe selection. Multi-URL = blended influence. For external references (Linear, Stripe, etc.), screenshot into a Figma frame first and pass that URL. Image-URL support targeted for v2 alongside the vision pipeline. |
@@ -35,23 +35,24 @@ Refine activates when ALL of: a Figma URL is provided, prose instruction is prov
 | `--from <url>`         | URL         | none    | URL-type detected. **Figma URL** → iterate on existing flow (preserves data model, re-rolls recipes). **Jira/Confluence/Google doc URL** → spec input (extracts user story, acceptance criteria). **Image URL** → primary visual reference.                                                            |
 | `--branch <name>`      | string      | none    | Requires `--from <url>`. Forks the flow into a sibling frame named `[original] — <name>`. Provenance in `.last-push.json` so `/compare-flows` works between branches.                                                                                                                                  |
 | `--states <list>`      | string list | none    | State coverage: `empty`, `error`, `loading`, `no-permission`, `populated`, `partial-data`. Generates each as additional screens or variants.                                                                                                                                                           |
-| `--push`               | bool        | off     | Opt in to a Figma push. Default greenfield is **HTML only, no push** — `--push` (or prose "push to figma", or `--hifi`/`--audit`, or accepting the Step 7.5 gate) opts in. Parsed via `scripts/lib/parse-push.js`. See `references/generate-flow/push-opt-in.md`.                                      |
-| `--no-push`            | bool        | off     | Absolute veto. Overrides every push trigger (`--push`, prose intent, `--hifi`/`--audit`, and the gate). Wins ties when both `--push` and `--no-push` are present.                                                                                                                                      |
+| `--push`               | bool        | off     | Opt in to a Figma push. Default greenfield is **HTML only, no push** — `--push` (or prose "push to figma", or `--audit`, or accepting the Step 7.5 gate) opts in. Parsed via `scripts/lib/parse-push.js`. See `references/generate-flow/push-opt-in.md`.                                            |
+| `--no-push`            | bool        | off     | Absolute veto. Overrides every push trigger (`--push`, prose intent, `--audit`, and the gate). Wins ties when both `--push` and `--no-push` are present.                                                                                                                                               |
 | `--no-prompt`          | boolean     | false   | Skip the interactive gates (the Step 3 config questions AND the Step 7.5 combined post-build gate). Use defaults for any unset flags. See `references/ds-rules/interactive-gates.md`. Refine path is unaffected (already explicit).                                                                    |
 
 ### Flag interaction matrix
 
 | Combination                         | Behavior                                                                                                     |
 | ----------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| `--hifi --audit`                    | lo-fi → hifi → audit chain (both imply push); audit operates on hifi output                                  |
-| `--variants 3 --hifi`               | 3 lo-fi variants → all converted to hifi; `--audit` runs per variant if also set                             |
+| `--hifi --audit`                    | DS-native hi-fi HTML + post-push audit chain; `--audit` implies push — a Figma push happens before auditing  |
+| `--variants 3 --hifi`               | 3 DS-native hi-fi HTML variants; `--audit` audits each after push when also set                              |
 | `--from <url> --variants 3`         | 3 alternative iterations on the existing flow                                                                |
 | `--from <url> --branch X`           | Single fork named X. `--variants` is ignored when `--branch` is set.                                         |
 | `--breakpoints tablet --variants 3` | 3 variants × 2 breakpoints (desktop + tablet) = 6 outputs. Hard cap: 9 outputs total.                        |
 | `--ref <url> --states empty,error`  | Reference biases base layout; states inherit the same reference treatment.                                   |
 | `--states X` without `--from`       | Generates flow + states from prompt (greenfield).                                                            |
 | `--push --no-push`                  | `--no-push` wins — no push (the HTML deliverable still renders).                                             |
-| `--hifi --no-push`                  | Implication vetoed — warn the designer that hifi/audit cannot run without a push; offer to drop `--no-push`. |
+| `--hifi --push`                     | DS-native hi-fi HTML rendered; Figma push also runs (explicit `--push`).                                     |
+| `--hifi --no-push`                  | Valid — hi-fi HTML renders as normal; the `--no-push` veto suppresses the Figma push (no conflict).          |
 
 ## Step 0 — Parse args + classify input shape
 
@@ -59,7 +60,7 @@ Parse args. Note which flags are explicitly passed:
 
 - `--push` / `--no-push` — parsed via `scripts/lib/parse-push.js` → `parsePush(argv)` → `{ push, explicit }`. `--no-push` wins ties. Resolves whether Step 7 push runs (see **Push opt-in** below).
 - `--no-prompt` — parsed via `scripts/lib/parse-no-prompt.js`. Suppresses the Step 3 config questions + the Step 7.5 gate.
-- `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set. `--hifi`/`--audit` additionally imply a push.
+- `--hifi`, `--audit`, `--variants <N>`, `--ref <url>`, `--breakpoints <list>`, `--states <list>` — note presence; missing flags are subject to gates unless `--no-prompt` is set. `--audit` additionally implies a push; `--hifi` does NOT imply a push (it controls authoring mode, not push destination).
 - `--from <url>`, `--branch <name>` — special cases. Not gated. Detected by companion or absent by default.
 
 Classify input shape (Prompt / Refine / Iterate per the table above). **Refine and Iterate paths skip Gate 3 entirely** — URL + prose (refine) or `--from <url>` (iterate) are already explicit intent.
@@ -70,7 +71,7 @@ The default greenfield run is **HTML only — no push**. A Figma push happens **
 
 - `--push` flag set.
 - Prose intent in the prompt: "push to figma", "in figma", "as a figma file".
-- `--hifi` or `--audit` set (they produce Figma artifacts → imply push).
+- `--audit` set (runs a post-push design audit → implies push). `--hifi` does NOT imply push — it selects DS-native authoring mode; the deliverable is hi-fi HTML.
 - The designer accepts push at the Step 7.5 combined gate.
 
 **`--no-push` overrides all of the above** (wins ties with `--push`).
@@ -184,7 +185,7 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 
 Tell the user: `Your flow is ready → {project_working_directory}/flows/[feature].html`. **If the render fails, surface the error and continue** — for the HTML-only default this is the deliverable, so a failure is worth reporting; for a push run it is an aid, never a gate. (The render reads only `flow-data.json`; it has no dependency on the push.)
 
-7. **Push to Figma — OPT-IN (only if push resolved).** Skipped otherwise (HTML-only default). Push runs when **`--push`**, prose "push to figma", `--hifi`/`--audit`, the explicit-Figma exemption (refine/iterate/branch), or acceptance at the Step 7.5 gate resolved push to true — and `--no-push` did not veto. See the **Push to Figma** section below and `references/generate-flow/push-opt-in.md`.
+7. **Push to Figma — OPT-IN (only if push resolved).** Skipped otherwise (HTML-only default). Push runs when **`--push`**, prose "push to figma", `--audit`, the explicit-Figma exemption (refine/iterate/branch), or acceptance at the Step 7.5 gate resolved push to true — and `--no-push` did not veto. (`--hifi` alone does NOT trigger a push — it selects DS-native authoring mode.) See the **Push to Figma** section below and `references/generate-flow/push-opt-in.md`.
    - **Progress (chat):** print `Pushing <N>/<M> to Figma…` as each screen frame is pushed, so the push phase is never silent.
      7.5. **Combined post-build gate** (interactive — see Step 7.5 below) — single prompt offering push + audit. Skipped when `--no-prompt` is set, or for refine/iterate paths.
 8. Annotations (opt-in) — the flow-share deliverable is annotation-free. To inspect annotations, re-serve the work dir via `ensure-server.sh`:
@@ -289,7 +290,7 @@ Does this work, or would you like to adjust?
 **Actions:**
 - **"approve"** — standard detail, all config defaults, build the HTML deliverable
 - **"approve draft"** or **"approve production"** — specify detail level
-- **"approve hifi 3 empty,error"** — approve + set config inline (hifi implies a Figma push)
+- **"approve hifi 3 empty,error"** — approve + set config inline (hi-fi uses DS-native authoring; add `--push` to also get a Figma artifact)
 - **"push [Figma URL]"** — approve standard + push directly to Figma
 ```
 
@@ -356,9 +357,15 @@ sequence (wrapper + GenLog → tier/scope annotations → research/cover cards �
 per-screen frame + chrome `setProperties` + the deterministic content emitter →
 designer report) and the push rules.
 
-### HiFi conversion (if --hifi flag)
+### DS-native authoring (if --hifi flag)
 
-After FM push completes, delegate to `/convert-to-hifi`. Pass the pushed flow's Figma URL — the skill reads the FM frame, maps to DS Kit using `references/convert-to-hifi/fm-to-ds-map.json`, applies layout polish, and pushes a sibling frame named `[Flow name] — HiFi`. Generation card carries `mode: "hifi"`. (`--hifi` implies a push — see Push opt-in.)
+When `--hifi` is set, every content INSTANCE node must carry `library:"ds"` and `dsSlug` from the vocabulary doc `references/generate-flow/ds-components-authoring.md`. Set `meta.library:"ds"` on the flow-data when writing it — the renderer picks up the DS chrome branch and applies themed hi-fi HTML automatically.
+
+**Vocabulary and built leaves:** read `references/generate-flow/ds-components-authoring.md` FIRST. Favor BUILT leaves (they produce full CSS-styled HTML); unbuilt slugs render as labeled chips (informative but unstyled). Validation adds `unknown-ds-slug` (hard error — the slug is not in the DS registry) and `ds-slug-unbuilt` (warning — slug is valid but not yet a built leaf; renders as a chip; prefer a built leaf when one exists that covers the use case).
+
+**The HTML deliverable IS the hi-fi artifact.** The `flows/[feature].html` file is themed and fully styled — it is what you share. No separate conversion step is needed.
+
+**To also get a Figma artifact:** pass `--push` alongside `--hifi`. The FM push step runs as normal, then `/convert-to-hifi` on the pushed URL upgrades it to DS Kit (`references/convert-to-hifi/fm-to-ds-map.json`). `--hifi` alone does NOT imply a push.
 
 ### Audit pass (if --audit flag)
 

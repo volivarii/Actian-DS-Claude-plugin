@@ -1,0 +1,146 @@
+{
+  "archetype": "search-results-ai",
+  "description": "Full-page search results layout with an AI Steward right rail. Left column shows the search bar, filter bar, and result cards; right rail shows the Chat with AI Steward panel for contextual assistance. Studio-specific pattern used on the Catalog search page.",
+  "pattern": 13,
+  "tags": ["search", "results", "ai", "steward", "chat", "catalog", "two-column"],
+  "slots": {
+    "header-section": "Search bar spanning full width above the two-column split",
+    "body-section": "Left: filter tags + search result cards; Right: AI Steward chat panel",
+    "footer-section": "Pagination row below the result cards (optional)"
+  },
+  "skeleton": {
+    "chrome": "standard",
+    "pageHeader": {
+      "title": "Search",
+      "subtitle": "Find assets across the catalog"
+    },
+    "content": [
+      {
+        "type": "FRAME",
+        "name": "Search bar row",
+        "layout": { "mode": "HORIZONTAL", "spacing": 8 },
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          {
+            "type": "INSTANCE",
+            "library": "ds",
+            "dsSlug": "search",
+            "variant": "Type=Default, State=Focused",
+            "props": { "Placeholder text": "Search assets, pipelines, glossary…" }
+          }
+        ]
+      },
+      {
+        "type": "FRAME",
+        "name": "Results + AI panel",
+        "layout": { "mode": "HORIZONTAL", "spacing": 24 },
+        "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+        "children": [
+          {
+            "type": "FRAME",
+            "name": "Results column",
+            "layout": { "mode": "VERTICAL", "spacing": 12 },
+            "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+            "children": [
+              {
+                "type": "FRAME",
+                "name": "Filter bar",
+                "layout": { "mode": "HORIZONTAL", "spacing": 8 },
+                "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                "children": [
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "tag-default",
+                    "variant": "Color=Default",
+                    "props": { "Label": "All", "Leading icon show": false }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "tag-default",
+                    "variant": "Color=Blue",
+                    "props": { "Label": "Datasets", "Leading icon show": false }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "tag-default",
+                    "variant": "Color=Default",
+                    "props": { "Label": "Pipelines", "Leading icon show": false }
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "library": "ds",
+                    "dsSlug": "tag-default",
+                    "variant": "Color=Default",
+                    "props": { "Label": "Glossary", "Leading icon show": false }
+                  }
+                ]
+              },
+              {
+                "type": "INSTANCE",
+                "library": "ds",
+                "dsSlug": "search-result-card",
+                "variant": "App=Studio, State=Default",
+                "name": "Result: Sales Q1 2025",
+                "props": {}
+              },
+              {
+                "type": "INSTANCE",
+                "library": "ds",
+                "dsSlug": "search-result-card",
+                "variant": "App=Studio, State=Default",
+                "name": "Result: Customer CRM Export",
+                "props": {}
+              },
+              {
+                "type": "INSTANCE",
+                "library": "ds",
+                "dsSlug": "search-result-card",
+                "variant": "App=Studio, State=Default",
+                "name": "Result: Revenue Forecast Pipeline",
+                "props": {}
+              },
+              {
+                "type": "INSTANCE",
+                "library": "ds",
+                "dsSlug": "search-result-card",
+                "variant": "App=Studio, State=Default",
+                "name": "Result: Product Inventory",
+                "props": {}
+              }
+            ]
+          },
+          {
+            "type": "FRAME",
+            "name": "AI Steward rail",
+            "layout": { "mode": "VERTICAL", "spacing": 0 },
+            "sizing": { "horizontal": "HUG", "vertical": "HUG" },
+            "width": 360,
+            "children": [
+              {
+                "type": "INSTANCE",
+                "library": "ds",
+                "dsSlug": "chat-with-ai-steward",
+                "variant": "size=Default, history=With history",
+                "name": "AI Steward panel",
+                "props": {}
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Left results column is FILL — it takes all remaining width after the 360px AI rail",
+    "AI Steward rail is fixed at 360px (per the chat-with-ai-steward component spec) — use HUG width override",
+    "The search bar spans the full content width above the split — author it as a standalone row",
+    "Filter tags act as a tab-like filter row — the active filter uses a colored variant, inactive use Default",
+    "search-result-card is a chip leaf — its visual fidelity comes from the DS component; supply a realistic name prop",
+    "For the Figma push path, both search-result-card and chat-with-ai-steward render as labeled chips that Figma will map to real DS kit components"
+  ],
+  "missing_states": ["empty-results", "loading", "error", "ai-steward-collapsed"],
+  "dsComposition": "search / tag-default(filters) / search-result-card(results) / chat-with-ai-steward(rail)"
+}

@@ -29,7 +29,7 @@ The guidelines hold throughout — tokens, spacing, content rules, accessibility
 
 DS knowledge (tokens, components, foundations, content + accessibility guidelines) is vendored from [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge) — the canonical source-of-truth repo synced directly from Figma. The plugin pulls a pinned snapshot nightly via `vendor-snapshot.yml`.
 
-**v1.97.0** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 24 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
+**v1.97.0** · 8 skills (tiered generation: recognized / adapted / improvised) · 9 agents · 25 recipes · 155 design tokens across 8 collections · 3 themes · WCAG 2.2 AA · surgical refine engine · vision-grounded references · interactive gates · federated knowledge substrate · component briefs with Section 1 supercard (anatomy + variation + tokens + specs / usages / content / motion / accessibility) — Section 6 (real platform examples) deferred
 
 ---
 
@@ -227,7 +227,7 @@ The companion has always-loaded knowledge of:
 - **Content rules** — sentence case, action verbs, error message patterns, empty state CTAs
 - **App context** — Studio (integration/catalog), Explorer (discovery), Administration (settings/users) — structured as queryable JSON with entities, terminology rules, and UI patterns
 - **Component inventory** — 319 DS Kit + 287 FM Kit + 28 Meta Kit components (80 / 33 / 11 sets) — dynamically derived from synced registries
-- **Component guidelines** — 45 per-component guideline docs (37 components + 8 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
+- **Component guidelines** — 46 per-component guideline docs (38 components + 8 registry-key aliases), all curated in the current snapshot; components without a doc fall back to per-category structural defaults
 
 It loads detailed references on demand: per-component guidelines, accessibility standards, UX patterns, foundation docs.
 
@@ -262,7 +262,7 @@ volivarii/actian-ds-knowledge CI (sync-from-figma + foundations-derive)
     |
 plugin's vendor/ snapshot (refreshed nightly via vendor-snapshot.yml)
     ├─ vendor/components/dist/registries/  -- DS Kit + FM Kit + Meta Kit registries
-    ├─ vendor/components/dist/guidelines/  -- 45 per-component guideline docs (37 components + 8 aliases)
+    ├─ vendor/components/dist/guidelines/  -- 46 per-component guideline docs (38 components + 8 aliases)
     ├─ vendor/foundations/            -- foundations.md + 8 derived JSONs
     ├─ vendor/tokens/                 -- DTCG + CSS custom properties
     ├─ vendor/{content,accessibility,presentation,app-context,fm-to-ds-map}/
