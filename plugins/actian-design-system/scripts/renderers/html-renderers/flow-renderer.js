@@ -409,18 +409,9 @@
       var dsSidebarHtml = chrome.hasSidebar
         ? dsSidebar(sidebarConfig, prof.navApp)
         : "";
-      return (
-        '<div class="screen screen--hifi' +
-        pendingClass +
-        '" data-theme="' +
-        esc(prof.theme) +
-        '" data-name="' +
-        esc(s.name) +
-        '" style="width:' +
-        w +
-        "px;height:" +
-        h +
-        'px;">' +
+
+      // Build the shared inner chrome + content markup (header + body) once.
+      var dsInnerHtml =
         dsHeaderHtml +
         '<div class="screen__body">' +
         dsSidebarHtml +
@@ -430,7 +421,91 @@
         tierBadge(s) +
         contentHtml +
         "</div>" +
-        "</div></div></div>"
+        "</div></div>";
+
+      // Per-screen data attributes (theme, name, dimensions). The closing
+      // double-quote of the class attribute is written inline in each return
+      // below so the css-staleness regex terminates the capture cleanly
+      // and never crosses into the next tag.
+      var dsTheme = esc(prof.theme);
+      var dsName = esc(s.name);
+      var dsDims = "width:" + w + "px;height:" + h + "px;";
+
+      // Steward descriptor — if present, build and wrap.
+      var st = s.steward;
+      if (st) {
+        var stewardHtml = renderDS(
+          "chat-with-ai-steward",
+          "size=" +
+            (st.size || (st.mode === "docked" ? "Drawer" : "Default")) +
+            ", State=" +
+            (st.state || "Answered"),
+          {
+            Title: st.title,
+            State: st.state,
+            Insight: st.insight,
+            Source: st.source,
+            Confidence: st.confidence,
+            Context: st.context,
+            Greeting: st.greeting,
+          },
+        );
+        if (st.mode === "docked") {
+          // 3-column reflow: screen__shell holds main-frame + docked steward layer.
+          return (
+            '<div class="screen screen--hifi screen--steward-docked' +
+            pendingClass +
+            '" data-theme="' +
+            dsTheme +
+            '" data-name="' +
+            dsName +
+            '" style="' +
+            dsDims +
+            '">' +
+            '<div class="screen__shell">' +
+            '<div class="screen__main-frame">' +
+            dsInnerHtml +
+            "</div>" +
+            '<div class="ds-steward-layer ds-steward-layer--docked">' +
+            stewardHtml +
+            "</div>" +
+            "</div>" +
+            "</div>"
+          );
+        } else {
+          // Overlay: keep original screen structure, append fixed layer inside.
+          return (
+            '<div class="screen screen--hifi' +
+            pendingClass +
+            '" data-theme="' +
+            dsTheme +
+            '" data-name="' +
+            dsName +
+            '" style="' +
+            dsDims +
+            '">' +
+            dsInnerHtml +
+            '<div class="ds-steward-layer ds-steward-layer--overlay">' +
+            stewardHtml +
+            "</div>" +
+            "</div>"
+          );
+        }
+      }
+
+      // No steward — emit the unchanged original markup.
+      return (
+        '<div class="screen screen--hifi' +
+        pendingClass +
+        '" data-theme="' +
+        dsTheme +
+        '" data-name="' +
+        dsName +
+        '" style="' +
+        dsDims +
+        '">' +
+        dsInnerHtml +
+        "</div>"
       );
     }
 

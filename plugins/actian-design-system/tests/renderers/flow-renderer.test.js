@@ -846,6 +846,91 @@ assertContains(
 );
 
 // ---------------------------------------------------------------------------
+// Task 5 — Steward overlay + docked wrapping
+// ---------------------------------------------------------------------------
+
+section("Task 5 — steward overlay layer");
+
+const stewardOverlay = screen({
+  name: "S",
+  template: "studio",
+  library: "ds",
+  pageHeader: { title: "Catalog" },
+  content: [],
+  steward: {
+    mode: "overlay",
+    size: "Default",
+    state: "Answered",
+    title: "Data Steward",
+    insight: "x",
+  },
+});
+assertContains(
+  stewardOverlay,
+  "ds-steward-layer--overlay",
+  "overlay steward: layer carries --overlay modifier",
+);
+assert(
+  stewardOverlay.indexOf("screen--steward-docked") === -1,
+  "overlay steward: no docked modifier on screen",
+);
+
+section("Task 5 — steward docked layer");
+
+const stewardDocked = screen({
+  name: "S",
+  template: "studio",
+  library: "ds",
+  pageHeader: { title: "Catalog" },
+  content: [],
+  steward: {
+    mode: "docked",
+    size: "Drawer",
+    state: "Answered",
+    title: "Data Steward",
+    insight: "x",
+  },
+});
+assertContains(
+  stewardDocked,
+  "screen--steward-docked",
+  "docked steward: screen carries --steward-docked modifier",
+);
+assertContains(
+  stewardDocked,
+  "screen__main-frame",
+  "docked steward: screen__main-frame wrapper present",
+);
+assertContains(
+  stewardDocked,
+  "ds-steward-layer--docked",
+  "docked steward: layer carries --docked modifier",
+);
+assertContains(
+  stewardDocked,
+  "ds-steward--drawer",
+  "docked steward: drawer-size leaf rendered",
+);
+
+section("Task 5 — steward negative control (no steward)");
+
+const noStewardScreen = screen({
+  name: "S",
+  template: "studio",
+  library: "ds",
+  pageHeader: { title: "Catalog" },
+  content: [],
+});
+assert(
+  noStewardScreen.indexOf("ds-steward-layer") === -1,
+  "no steward: no steward layer emitted",
+);
+assert(
+  noStewardScreen.indexOf("screen--steward-docked") === -1,
+  "no steward: no docked modifier",
+);
+
+// ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------
 
