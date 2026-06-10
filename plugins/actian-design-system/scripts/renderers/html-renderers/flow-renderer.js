@@ -457,12 +457,15 @@
       // Steward descriptor — if present, build and wrap.
       var st = s.steward;
       if (st) {
+        // st.size/st.state are flow-data; the leaf only compares them (never
+        // writes them to HTML), but esc() defensively against a future direct use.
+        var stSize = esc(
+          st.size || (st.mode === "docked" ? "Drawer" : "Default"),
+        );
+        var stState = esc(st.state || "Answered");
         var stewardHtml = renderDS(
           "chat-with-ai-steward",
-          "size=" +
-            (st.size || (st.mode === "docked" ? "Drawer" : "Default")) +
-            ", State=" +
-            (st.state || "Answered"),
+          "size=" + stSize + ", State=" + stState,
           {
             Title: st.title,
             State: st.state,

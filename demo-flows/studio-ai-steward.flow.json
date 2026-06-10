@@ -42,7 +42,7 @@
         "insight": "Customer Orders joins cleanly to Customer Accounts on customer_id (98% match). Use Accounts to enrich Orders with region and billing tier.",
         "source": "Customer Accounts",
         "confidence": "High",
-        "context": { "type": "Dataset", "name": "Customer Orders" }
+        "context": { "type": "Data product", "name": "Customer Orders" }
       },
       "content": [
         {
@@ -77,7 +77,7 @@
                   "library": "ds",
                   "dsSlug": "card-for-items",
                   "variant": "Type=Catalog, State=Default",
-                  "props": { "Eyebrow": "Dataset", "Title": "Customer Orders", "Category": "Sales", "Body": "Order-level transactions joined to customer accounts. 2.4M rows, refreshed hourly." },
+                  "props": { "Eyebrow": "Data product", "Title": "Customer Orders", "Category": "Sales", "Body": "Order-level transactions joined to customer accounts. 2.4M rows, refreshed hourly." },
                   "name": "Result: Customer Orders"
                 },
                 {
@@ -85,7 +85,7 @@
                   "library": "ds",
                   "dsSlug": "card-for-items",
                   "variant": "Type=Catalog, State=Selected",
-                  "props": { "Eyebrow": "Dataset", "Title": "Customer Accounts", "Category": "Sales", "Body": "Canonical customer records with billing and region attributes. 180K rows." },
+                  "props": { "Eyebrow": "Data product", "Title": "Customer Accounts", "Category": "Sales", "Body": "Canonical customer records with billing and region attributes. 180K rows." },
                   "name": "Result: Customer Accounts"
                 },
                 {
@@ -93,7 +93,7 @@
                   "library": "ds",
                   "dsSlug": "card-for-items",
                   "variant": "Type=Catalog, State=Default",
-                  "props": { "Eyebrow": "Dataset", "Title": "Revenue Forecast", "Category": "Finance", "Body": "Modeled quarterly revenue by segment. Derived from Orders + Accounts." },
+                  "props": { "Eyebrow": "Data product", "Title": "Revenue Forecast", "Category": "Finance", "Body": "Modeled quarterly revenue by segment. Derived from Orders + Accounts." },
                   "name": "Result: Revenue Forecast"
                 }
               ]

@@ -565,16 +565,56 @@
 /* anatomy: 568px, border, radius-sm, placeholder in text-secondary.  */
 .ds-header__search {
   display: flex;
-  align-items: center;
-  gap: var(--zen-spacing-xs); /* 8 */
+  align-items: stretch;
   width: 568px; /* anatomy: search bar width (raw px) */
   max-width: 568px;
-  padding: 0 var(--zen-spacing-xs); /* 8 */
   height: 36px; /* anatomy: search row height (raw px) */
   border: 1px solid var(--zen-border-default);
   border-radius: var(--zen-border-radius-sm); /* 6 */
   box-sizing: border-box;
   background: var(--zen-color-bg-default);
+}
+/* Left scope dropdown ("Default ▾") — anatomy: ~128px, divider on the right. */
+.ds-header__search-scope {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  flex-shrink: 0;
+  padding: 0 var(--zen-spacing-md); /* 16 */
+  border-right: 1px solid var(--zen-border-default);
+  color: var(--zen-color-text-primary);
+  font-size: var(--zen-font-size-md); /* 14 */
+  font-family: var(--zen-font-family-text);
+}
+.ds-header__search-scope-value {
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+}
+.ds-header__search-scope svg {
+  width: 16px;
+  height: 16px;
+  color: var(--zen-color-text-secondary);
+}
+.ds-header__search-field {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+}
+/* Trailing tooltip/info affordance inside the field's right edge. */
+.ds-header__search-info {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--zen-color-text-secondary);
+}
+.ds-header__search-info svg {
+  width: 16px;
+  height: 16px;
 }
 .ds-header__search-icon {
   display: flex;

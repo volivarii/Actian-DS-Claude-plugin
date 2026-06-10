@@ -419,15 +419,27 @@
             renderIcon("chevron-up", { rotate: 180 }) +
             "</div>";
 
-          // Search bar: magnifier + text input + placeholder.
-          // anatomy: 568px max-width, left scope toggle + search input with SVG_SEARCH.
+          // Search bar: left scope dropdown + magnifier + input + trailing info.
+          // anatomy: 568px max-width, left "Default ▾" scope toggle (128px) then
+          // the search input with SVG_SEARCH; a tooltip info icon trails the field.
           var searchBlock = showSearch
             ? '<div class="ds-header__search">' +
+              '<span class="ds-header__search-scope">' +
+              '<span class="ds-header__search-scope-value">' +
+              headerContextValue +
+              "</span>" +
+              renderIcon("chevron-up", { rotate: 180 }) +
+              "</span>" +
+              '<span class="ds-header__search-field">' +
               '<span class="ds-header__search-icon">' +
               SVG_SEARCH +
               "</span>" +
               '<input class="ds-header__search-input" type="search"' +
               ' placeholder="Search items" aria-label="Search items">' +
+              "</span>" +
+              '<span class="ds-header__search-info" aria-hidden="true">' +
+              renderIcon("info-filled") +
+              "</span>" +
               "</div>"
             : "";
 
@@ -527,10 +539,10 @@
             });
             var navActive = resolveActive(allLabels, props.Active);
 
-            // Top section: all groups separated by dividers.
-            var topHtml = "";
-            groups.forEach(function (g, gi) {
-              if (gi > 0) topHtml += navSeparator;
+            // anatomy: primary groups at the top; the LAST group (utilities:
+            // Access request / Catalog design / Analytics) is anchored to the
+            // rail bottom. With a single group, keep it all at the top.
+            var renderGroup = function (g) {
               var groupItems = (g.items || [])
                 .map(function (it) {
                   return renderNavItem(
@@ -540,19 +552,24 @@
                   );
                 })
                 .join("");
-              topHtml +=
-                '<div class="ds-sidenav__group">' + groupItems + "</div>";
-            });
+              return '<div class="ds-sidenav__group">' + groupItems + "</div>";
+            };
+            var hasBottomGroup = groups.length >= 2;
+            var topGroups = hasBottomGroup ? groups.slice(0, -1) : groups;
+            var topHtml = topGroups.map(renderGroup).join(navSeparator);
 
-            // Bottom section: separator + collapse button (24px round, chevron-left).
-            // anatomy: pushed down by justify-content:space-between on the root.
-            var collapseHtml =
-              '<div class="ds-sidenav__bottom">' +
+            // Bottom section: the utilities group (if any) + separator + collapse.
+            var bottomInner = "";
+            if (hasBottomGroup) {
+              bottomInner += renderGroup(groups[groups.length - 1]);
+            }
+            bottomInner +=
               navSeparator +
               '<button class="ds-sidenav__collapse" type="button" aria-label="Collapse sidebar">' +
               renderIcon("chevron-left") +
-              "</button>" +
-              "</div>";
+              "</button>";
+            var collapseHtml =
+              '<div class="ds-sidenav__bottom">' + bottomInner + "</div>";
 
             return (
               '<nav class="' +
@@ -874,13 +891,20 @@
             "</div>" +
             "</div>";
 
-          // Task-input footer (shown for Welcome state; anatomy: input + context chip + Plan button)
-          var stCtx = props.Context
+          // Task-input footer (anatomy: input + context chip + Plan button).
+          // Context may be an object {type,name} ("Dataset Customer Orders") or a
+          // bare string; both render to a single esc'd chip label.
+          var stCtxLabel = "";
+          if (props.Context && typeof props.Context === "object") {
+            stCtxLabel =
+              String(props.Context.type || "") +
+              (props.Context.name ? " " + props.Context.name : "");
+          } else if (props.Context) {
+            stCtxLabel = String(props.Context);
+          }
+          var stCtx = stCtxLabel.trim()
             ? '<span class="ds-steward__context-chip">' +
-              esc(
-                String(props.Context.type || "") +
-                  (props.Context.name ? " " + props.Context.name : ""),
-              ) +
+              esc(stCtxLabel) +
               "</span>"
             : "";
           var stTaskInput =
@@ -944,7 +968,7 @@
             '">' +
             stHeader +
             stBody +
-            (welcome ? stTaskInput : "") +
+            (generating ? "" : stTaskInput) +
             stFooter +
             "</aside>"
           );
