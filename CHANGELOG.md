@@ -15,6 +15,26 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.105.0] — 2026-06-10
+
+### Added
+- **Self-healing doc-count sync in the vendor pipeline** — a knowledge re-vendor
+  that changes a registry component count (e.g. DS Kit 318→319 in v0.30.5) used
+  to leave the human-facing inventory counts (README, llms.txt, marketplace.json,
+  plugin.json, companion-context, figma-push-patterns) stale, failing the
+  `doc-counts` guard and leaving the auto-merge vendor PR **stuck** with no
+  self-healing path. The vendor-snapshot workflow now runs
+  `scripts/vendor/sync-doc-counts.js` after each pull to rewrite those counts
+  from the registries, and commits the result (the managed docs were added to
+  the PR's `add-paths`), so count-changing refreshes merge cleanly.
+  - The guard (`tests/integration/doc-counts.test.js`) and the fixer now share
+    one source of truth — `scripts/lib/doc-counts.js` (`deriveCounts` +
+    `buildChecks` + `fixContent` + `syncDocCounts`) — so they can never
+    disagree. Vendor reads route through `PATHS`; fixer regexes are anchored and
+    idempotent (a real-doc idempotency test guards against over-greedy
+    rewrites). Run `node scripts/vendor/sync-doc-counts.js --check` to report
+    drift, or without `--check` to fix it.
+
 ## [1.104.5] — 2026-06-10
 
 ### Added
