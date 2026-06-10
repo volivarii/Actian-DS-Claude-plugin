@@ -2060,4 +2060,49 @@ describe("ds-html-map: chat-with-ai-steward (Task 11)", function () {
     });
     assert.ok(html.indexOf("<aside") !== -1, "root element is aside");
   });
+
+  // Task 4 — full Figma anatomy re-model
+  it("steward header has New chat + settings + expand + close", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: { Title: "Data Steward", State: "Welcome" },
+    });
+    assert.match(html, /ds-steward__newchat/);
+    assert.match(html, /ds-steward__control--settings/);
+    assert.match(html, /ds-steward__control--expand/);
+    assert.match(html, /ds-steward__control--close/);
+  });
+
+  it("Welcome state shows greeting + task-input footer with context chip + Plan", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: {
+        Title: "Data Steward",
+        State: "Welcome",
+        Greeting: "Welcome Vincent!",
+        Context: { type: "Dataset", name: "/why_not/table" },
+      },
+    });
+    assert.match(html, /Welcome Vincent!/);
+    assert.match(html, /ds-steward__taskinput/);
+    assert.match(html, /Give Steward a task/);
+    assert.match(html, /ds-steward__context-chip/);
+    assert.match(html, /Dataset/);
+    assert.match(html, /Plan/);
+  });
+
+  it("size=Drawer adds the docked modifier", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      variant: "size=Drawer",
+      props: { Title: "Data Steward", State: "Answered", Insight: "x" },
+    });
+    assert.match(html, /ds-steward--drawer/);
+  });
 });

@@ -417,6 +417,28 @@ var DS_FIXTURES = {
     variant: "State=Generating",
     props: {},
   },
+  // Task 4 — full Figma anatomy re-model (Welcome state + Drawer size)
+  stewardWelcome: {
+    dsSlug: "chat-with-ai-steward",
+    props: {
+      Title: "Data Steward",
+      State: "Welcome",
+      Greeting:
+        "Welcome Vincent! I'm your Data Steward Agent. I can help you explore your catalog.",
+      Context: { type: "Dataset", name: "/why_not/table" },
+    },
+  },
+  stewardDocked: {
+    dsSlug: "chat-with-ai-steward",
+    variant: "size=Drawer",
+    props: {
+      Title: "Data Steward",
+      State: "Answered",
+      Insight: "Orders joins cleanly to Customers on customer_id.",
+      Source: "Sales catalog",
+      Confidence: "High",
+    },
+  },
 };
 
 Object.keys(DS_FIXTURES).forEach(function (name) {

@@ -1196,6 +1196,98 @@
   padding-top: var(--zen-spacing-xs); /* 8px */
   line-height: var(--zen-font-lineheight-lg);
 }
+/* Drawer size modifier — 550px wide, full-height per anatomy (Figma 550×897) */
+.ds-steward--drawer {
+  width: 550px; /* raw px: Figma Drawer variant geometry; overlay base stays 320px on .ds-steward */
+  height: 100%; /* full side-panel height */
+  border-radius: 0; /* drawer variant: flush with edge, no rounded corners */
+}
+/* Header controls — "New chat" dropdown + icon button row */
+.ds-steward__newchat {
+  margin-left: var(--zen-spacing-xs); /* 8px gap from title */
+  font-size: var(--zen-font-size-xs); /* 10px — secondary action label */
+  font-weight: var(--zen-font-weight-medium);
+  color: var(--zen-color-text-secondary);
+  background: none;
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  padding: 2px var(--zen-spacing-xs); /* raw 2px top/bottom, xs(8px) sides */
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: var(--zen-font-lineheight-md);
+}
+.ds-steward__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4px */
+  margin-left: auto; /* push controls to the right edge of the header */
+}
+.ds-steward__control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* raw px: icon button size per anatomy */
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  color: var(--zen-color-icon-subtle);
+  cursor: pointer;
+}
+.ds-steward__control:hover {
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-icon-default);
+}
+.ds-steward__control svg {
+  width: 16px; /* raw px: icon within 24px control — DS-conventional 16px icon */
+  height: 16px;
+}
+/* Welcome state greeting */
+.ds-steward__greeting {
+  margin: 0;
+  font-size: var(--zen-font-size-sm);
+  color: var(--zen-color-text-primary);
+  line-height: var(--zen-font-lineheight-lg);
+}
+/* Task-input footer — input row + context chip + Plan button */
+.ds-steward__taskinput {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8px */
+  padding: var(--zen-spacing-xs) 0; /* 8px top/bottom, flush sides */
+  border-top: 1px solid var(--zen-border-default);
+  flex-wrap: wrap;
+}
+.ds-steward__taskinput-field {
+  flex: 1;
+  min-width: 0; /* flex shrink below content */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* 4px 8px */
+  font-size: var(--zen-font-size-sm);
+  font-family: var(--zen-font-family-text);
+  color: var(--zen-color-text-primary);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  outline: none;
+}
+.ds-steward__taskinput-field::placeholder {
+  color: var(--zen-color-text-placeholder-subtle);
+}
+.ds-steward__context-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4px */
+  padding: 2px var(--zen-spacing-xs); /* raw 2px + xs(8px) — compact pill */
+  font-size: var(--zen-font-size-xs); /* 10px — meta label */
+  color: var(--zen-color-text-secondary);
+  background: var(
+    --zen-color-bg-subtle
+  ); /* --zen-color-bg-subtle (#fbfbff) — nearest to Figma --color-bg-subtle */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-full); /* pill shape */
+  white-space: nowrap;
+}
 
 /* ============ Graceful fallback chip ============ */
 /* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
