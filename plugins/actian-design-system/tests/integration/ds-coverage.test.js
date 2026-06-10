@@ -51,8 +51,6 @@ var DS_HTML_MAP = path.join(
 var NOT_YET_IMPLEMENTED = new Set([
   // P1 — forms core
   "dropdown-select-default",
-  "radio-button",
-  "toggle",
   "input-date",
   "rich-text",
   // P2 — display / feedback

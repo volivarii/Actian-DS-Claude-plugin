@@ -15,6 +15,36 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.104.5] — 2026-06-10
+
+### Added
+- **Hi-fi DS render core** — the first DS-native render tier for `generate-flow`
+  HTML output, gated entirely on `library: "ds"` so fat-marker (lo-fi) flows are
+  untouched:
+  - **Two new DS leaves — `toggle` and `radio-button`** (now 14 leaves total),
+    hand-authored token-bound BEM markup modeled on the existing
+    `checkbox-with-label` leaf. Each covers off / on / disabled states (toggle
+    also right-aligned-with-helper; radio also card format). 8 goldens + DOM
+    tests assert real rendered HTML (incl. hostile-label escaping).
+  - **Phase-1 chrome + theming** — `flow-renderer.js` `screen()` now branches
+    `library: "ds"` screens to real DS chrome leaves (global-header / side-nav /
+    page-header) via an `appProfile` (app → `{theme, headerApp, navApp}`), sets
+    `data-theme` (studio / explorer / actian) so per-app accent tokens recolor
+    by inheritance, and adds a `.screen--hifi` surface class. Lo-fi screens
+    render byte-identically to before (negative test asserts no DS chrome /
+    theme / hifi class leaks onto a no-`library` screen).
+  - **Assembler stamping** — `assemble-flow-share.js` propagates `meta.library`
+    (or `meta._glossary.library` / `meta.hifi`) down to each screen's `library`
+    field before render, never overriding a per-screen authored value.
+  - **Capture-as-you-build ledger** — `tests/renderers/__fidelity__/` records
+    per-leaf fidelity gates + substrate facts (anatomy + token bindings + known
+    gaps) as build provenance for the eventual knowledge backfill.
+
+Known follow-up (non-blocking): tier-wide a11y pass (semantic `role` /
+`aria-checked` on checkbox + radio + toggle together; `href` / `aria-selected` /
+`:focus-visible` on chrome) — tracked, deliberately not one-off'd here to keep
+the leaf idiom uniform.
+
 ## [1.104.3] — 2026-06-08
 
 ### Fixed

@@ -42,6 +42,24 @@
     (typeof require !== "undefined" && require("./render-node.js")) ||
     {};
 
+  // Hi-fi DS leaf map — used to render real DS chrome (global-header, side-nav,
+  // page-header) for screens flagged library:"ds". Resolved the same dual-context
+  // way; inert for lo-fi screens (the FM chrome path never touches it).
+  var dsMap =
+    (typeof window !== "undefined" && window.dsHtmlMap) ||
+    (typeof require !== "undefined" && require("./ds-html-map.js")) ||
+    {};
+  function renderDS(slug, variant, props) {
+    if (typeof dsMap.renderDSComponent !== "function") return "";
+    return dsMap.renderDSComponent({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: slug,
+      variant: variant || "",
+      props: props || {},
+    });
+  }
+
   // -------------------------------------------------------------------------
   // Style builders — delegate to the shared module (re-exported below so
   // existing callers/tests that reach for flow.buildFrameStyle etc. resolve).
@@ -180,6 +198,72 @@
   }
 
   // -------------------------------------------------------------------------
+  // Hi-fi DS chrome — maps the same chrome config the FM path uses onto the
+  // real DS chrome leaves (global-header, side-nav, page-header), themed per app.
+  // -------------------------------------------------------------------------
+
+  // app header type → { theme, headerApp, navApp }. The DS axes are narrower
+  // than the FM ones: global-header App type ∈ {Studio,Explorer,Admin};
+  // side-nav App ∈ {Studio,Admin} (Explorer reuses the Studio nav). Admin is
+  // the base `actian` theme. Unknown/null falls back to Studio chrome + actian.
+  function appProfile(appHeaderType) {
+    switch (appHeaderType) {
+      case "Studio":
+        return { theme: "studio", headerApp: "Studio", navApp: "Studio" };
+      case "Explorer":
+        return { theme: "explorer", headerApp: "Explorer", navApp: "Studio" };
+      case "Administration":
+      case "Admin":
+        return { theme: "actian", headerApp: "Admin", navApp: "Admin" };
+      default:
+        return { theme: "actian", headerApp: "Studio", navApp: "Studio" };
+    }
+  }
+
+  function dsHeader(headerApp) {
+    return renderDS(
+      "global-header",
+      "App type=" + headerApp + ", Breakpoints=XL",
+      {},
+    );
+  }
+
+  function dsSidebar(config, navApp) {
+    // Convert the chrome sidebar config into the DS side-nav prop shape
+    // (Items = comma-joined labels, Active = the selected label). The legacy
+    // numeric-count shape carries no labels → side-nav renders its defaults.
+    var labels = [];
+    var active = config && config.activeItem ? config.activeItem : "";
+    if (config && Array.isArray(config.items)) {
+      config.items.forEach(function (entry) {
+        var label =
+          typeof entry === "string" ? entry : (entry && entry.label) || "";
+        if (label) labels.push(label);
+        if (
+          !active &&
+          entry &&
+          entry.state &&
+          String(entry.state).toLowerCase() === "on"
+        ) {
+          active = label;
+        }
+      });
+    }
+    var props = {};
+    if (labels.length) props.Items = labels.join(", ");
+    if (active) props.Active = active;
+    return renderDS("side-nav", "App=" + navApp + ", View=Expanded", props);
+  }
+
+  function dsPageHeader(config) {
+    if (!config) return "";
+    return renderDS("page-header", "Type=Default", {
+      Title: config.title,
+      Description: config.subtitle,
+    });
+  }
+
+  // -------------------------------------------------------------------------
   // Template → chrome config resolution
   // -------------------------------------------------------------------------
 
@@ -308,13 +392,50 @@
       );
     }
 
-    var headerHtml = chrome.appHeaderType
-      ? appHeader(chrome.appHeaderType)
-      : "";
     var sidebarConfig = s.sidebar || {
       items: s.navItems || 6,
       activeItem: s.activeNavItem || null,
     };
+
+    // Hi-fi branch: route chrome through the real DS leaves + theme the wrapper.
+    // Same structural skeleton as the FM path (.screen__body / .screen__content /
+    // .screen__content-area) so the layout CSS is shared; only the chrome leaves
+    // and the data-theme / screen--hifi additions differ. The lo-fi path below
+    // is untouched.
+    if (s.library === "ds") {
+      var prof = appProfile(chrome.appHeaderType);
+      var dsHeaderHtml = chrome.appHeaderType ? dsHeader(prof.headerApp) : "";
+      var dsSidebarHtml = chrome.hasSidebar
+        ? dsSidebar(sidebarConfig, prof.navApp)
+        : "";
+      return (
+        '<div class="screen screen--hifi' +
+        pendingClass +
+        '" data-theme="' +
+        esc(prof.theme) +
+        '" data-name="' +
+        esc(s.name) +
+        '" style="width:' +
+        w +
+        "px;height:" +
+        h +
+        'px;">' +
+        dsHeaderHtml +
+        '<div class="screen__body">' +
+        dsSidebarHtml +
+        '<div class="screen__content">' +
+        dsPageHeader(s.pageHeader) +
+        '<div class="screen__content-area">' +
+        tierBadge(s) +
+        contentHtml +
+        "</div>" +
+        "</div></div></div>"
+      );
+    }
+
+    var headerHtml = chrome.appHeaderType
+      ? appHeader(chrome.appHeaderType)
+      : "";
     var sidebarHtml = chrome.hasSidebar ? sidebar(sidebarConfig) : "";
 
     return (

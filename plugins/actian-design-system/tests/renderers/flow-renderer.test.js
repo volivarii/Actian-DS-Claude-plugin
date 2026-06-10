@@ -75,7 +75,12 @@ const mockDocument = {
 // the mocked window — mirroring how the browser bundle inlines them.)
 const fmHtmlMap = require("../../scripts/renderers/html-renderers/fm-html-map");
 const renderNodeModule = require("../../scripts/renderers/html-renderers/render-node.js");
-const mockWindow = { fmHtmlMap: fmHtmlMap, renderNode: renderNodeModule };
+const dsHtmlMap = require("../../scripts/renderers/html-renderers/ds-html-map.js");
+const mockWindow = {
+  fmHtmlMap: fmHtmlMap,
+  renderNode: renderNodeModule,
+  dsHtmlMap: dsHtmlMap,
+};
 
 // Execute the IIFE with mocked globals
 // We wrap in a function that provides window and document
@@ -531,6 +536,87 @@ const noSidebarScreen = screen({
 });
 assertContains(noSidebarScreen, "fm-app-header", "no-sidebar has app header");
 assertNotContains(noSidebarScreen, "fm-sidebar", "no-sidebar has no sidebar");
+
+// ---------------------------------------------------------------------------
+// screen() — hi-fi DS chrome branch (library:"ds") + per-app theming
+// ---------------------------------------------------------------------------
+
+section("screen() — hi-fi DS chrome + theming");
+
+const hifiAdmin = screen({
+  name: "Roles",
+  template: "admin",
+  library: "ds",
+  pageHeader: { title: "Roles", subtitle: "Manage permissions" },
+  sidebar: { items: ["Users", "Roles", "Settings"], activeItem: "Roles" },
+  contentHtml: "<p>Admin body</p>",
+});
+assertContains(
+  hifiAdmin,
+  "screen--hifi",
+  "hi-fi screen carries the hifi modifier",
+);
+assertContains(
+  hifiAdmin,
+  'data-theme="actian"',
+  "admin hi-fi themes to actian",
+);
+assertContains(hifiAdmin, "ds-header", "hi-fi uses the DS global-header");
+assertContains(hifiAdmin, "ds-sidenav", "hi-fi uses the DS side-nav");
+assertContains(hifiAdmin, "ds-page-header", "hi-fi uses the DS page-header");
+assertContains(hifiAdmin, "Roles", "hi-fi page-header title rendered");
+assertContains(
+  hifiAdmin,
+  "Manage permissions",
+  "hi-fi page-header subtitle rendered",
+);
+assertContains(hifiAdmin, "Admin body", "hi-fi content rendered");
+assertNotContains(
+  hifiAdmin,
+  "fm-app-header",
+  "hi-fi does NOT emit FM app header",
+);
+assertNotContains(hifiAdmin, "fm-sidebar", "hi-fi does NOT emit FM sidebar");
+
+// side-nav reflects authored nav items + active selection
+assertContains(hifiAdmin, "Users", "hi-fi sidebar renders authored item");
+assertContains(hifiAdmin, "is-active", "hi-fi sidebar marks the active item");
+
+const hifiStudio = screen({
+  name: "Catalog",
+  template: "studio",
+  library: "ds",
+  contentHtml: "<p>x</p>",
+});
+assertContains(
+  hifiStudio,
+  'data-theme="studio"',
+  "studio hi-fi themes to studio",
+);
+
+const hifiExplorer = screen({
+  name: "Browse",
+  template: "explorer",
+  library: "ds",
+  contentHtml: "<p>x</p>",
+});
+assertContains(
+  hifiExplorer,
+  'data-theme="explorer"',
+  "explorer hi-fi themes to explorer",
+);
+
+// Backward compat: a screen WITHOUT library:"ds" stays on the FM chrome path,
+// no theme attribute, no DS chrome — the lo-fi pipeline is untouched.
+const lofiAdmin = screen({
+  name: "Dashboard",
+  template: "admin",
+  contentHtml: "<p>Content</p>",
+});
+assertContains(lofiAdmin, "fm-app-header", "lo-fi still uses FM app header");
+assertNotContains(lofiAdmin, "ds-header", "lo-fi does NOT use DS chrome");
+assertNotContains(lofiAdmin, "data-theme", "lo-fi has no theme attribute");
+assertNotContains(lofiAdmin, "screen--hifi", "lo-fi has no hifi modifier");
 
 // ---------------------------------------------------------------------------
 // screen() — content[] takes priority over contentHtml

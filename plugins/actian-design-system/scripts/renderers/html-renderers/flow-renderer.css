@@ -53,6 +53,20 @@
   background: var(--fm-bg-grey);
 }
 
+/* ── Hi-fi (library:"ds") screens — DS chrome + token-bound surfaces ──
+ * Overrides the FM grey canvas with neutral --zen surfaces so the real DS
+ * chrome (ds-header / ds-sidenav / ds-page-header) reads as a true app screen.
+ * data-theme on the wrapper supplies the per-app accent tokens. */
+.screen--hifi {
+  background: var(--zen-color-bg-subtle);
+}
+.screen--hifi .screen__content-area {
+  background: var(--zen-color-bg-default);
+}
+.screen--hifi .ds-sidenav {
+  flex-shrink: 0;
+}
+
 /* ── Cover card ── */
 .cover-card {
   width: 1440px;

@@ -61,13 +61,26 @@ function assembleFlowShare(data) {
   );
   var flowCss = cssParts.join("\n");
 
+  // Flow-level hi-fi signal → per-screen library flag. The generate-flow skill
+  // sets meta.library:"ds" (or meta.hifi:true) for a hi-fi flow; the renderer
+  // branches on a per-screen `library` so individual screens can still override
+  // (mixed flows). Authored per-screen `library` always wins.
+  var metaLibrary =
+    meta.library ||
+    (meta._glossary && meta._glossary.library) ||
+    (meta.hifi ? "ds" : null);
+
   // Server-render each screen into a .proto-screen-cell. The cell is a click
   // target in Overview (enter that screen); display:contents in Prototype.
   var screensHtml = "";
   var navArray = [];
   for (var s = 0; s < screens.length; s++) {
     var id = s + 1;
-    navArray.push({ id: id, label: screens[s].name || "Screen " + id });
+    var sc = screens[s];
+    if (metaLibrary && !sc.library) {
+      sc = Object.assign({}, sc, { library: metaLibrary });
+    }
+    navArray.push({ id: id, label: sc.name || "Screen " + id });
     screensHtml +=
       '<div class="proto-screen-cell" @click="view === \'overview\' && enter(' +
       id +
@@ -81,7 +94,7 @@ function assembleFlowShare(data) {
       " x-show=\"view === 'overview' || screen === " +
       id +
       '">' +
-      renderScreen(screens[s]) +
+      renderScreen(sc) +
       "</div></div>\n";
   }
   // navJson sits inside a double-quoted HTML attribute (x-data="{ screens: … }").
