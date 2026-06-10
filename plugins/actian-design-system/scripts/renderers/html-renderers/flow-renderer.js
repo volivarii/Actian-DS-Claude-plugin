@@ -260,6 +260,7 @@
     return renderDS("page-header", "Type=Default", {
       Title: config.title,
       Description: config.subtitle,
+      Actions: config.actions,
     });
   }
 

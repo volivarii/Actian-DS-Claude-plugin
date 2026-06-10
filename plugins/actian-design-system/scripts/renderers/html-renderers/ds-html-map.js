@@ -148,6 +148,7 @@
             Secondary: "secondary",
             Tertiary: "tertiary",
             "Critical primary": "critical",
+            "Critical secondary": "critical-secondary",
             Icon: "primary",
           };
           var btnType = typeMap[v.Type] || "primary";
@@ -416,6 +417,27 @@
               esc(props.Description) +
               "</p>"
             : "";
+          var phActions = "";
+          var actionsRaw = props.Actions;
+          if (Array.isArray(actionsRaw) && actionsRaw.length) {
+            phActions =
+              '<div class="ds-page-header__actions">' +
+              actionsRaw
+                .map(function (a, i) {
+                  var label = typeof a === "string" ? a : (a && a.label) || "";
+                  var variant =
+                    (a && a.variant) || (i === 0 ? "primary" : "secondary");
+                  return (
+                    '<button class="ds-button ds-button--' +
+                    esc(variant) +
+                    '">' +
+                    esc(label) +
+                    "</button>"
+                  );
+                })
+                .join("") +
+              "</div>";
+          }
           return (
             '<header class="ds-page-header">' +
             '<div class="ds-page-header__text">' +
@@ -424,6 +446,7 @@
             "</h1>" +
             phDesc +
             "</div>" +
+            phActions +
             "</header>"
           );
         }

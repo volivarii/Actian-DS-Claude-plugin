@@ -1163,3 +1163,101 @@ describe("ds-html-map: side-nav — B11 case-insensitive Active", function () {
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// Task A (audit B8): page-header actions slot
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: page-header — actions slot (B8)", function () {
+  it("renders ds-page-header__actions with primary + secondary buttons from mixed Actions array", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: {
+        Title: "Users",
+        Actions: [{ label: "Add user", variant: "primary" }, "Export"],
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-page-header__actions") !== -1,
+      "actions container present",
+    );
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "first action renders as primary button",
+    );
+    assert.ok(html.indexOf("Add user") !== -1, "first action label rendered");
+    assert.ok(html.indexOf("Export") !== -1, "second action label rendered");
+  });
+
+  it("first action defaults to primary, second to secondary when variant omitted", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: {
+        Title: "Roles",
+        Actions: ["Create role", "Cancel"],
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "first string action → primary",
+    );
+    assert.ok(
+      html.indexOf("ds-button--secondary") !== -1,
+      "second string action → secondary",
+    );
+  });
+
+  it("omits actions container when Actions prop is absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: { Title: "Dashboard" },
+    });
+    assert.ok(
+      html.indexOf("ds-page-header__actions") === -1,
+      "no actions container when Actions not set",
+    );
+  });
+
+  it("omits actions container when Actions is an empty array", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: { Title: "Dashboard", Actions: [] },
+    });
+    assert.ok(
+      html.indexOf("ds-page-header__actions") === -1,
+      "no actions container for empty array",
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task B (audit B7): critical-secondary button variant
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: button — critical-secondary (B7)", function () {
+  it("Type=Critical secondary → ds-button--critical-secondary (NOT primary)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "button",
+      variant: "Type=Critical secondary",
+      props: { Label: "Delete" },
+    });
+    assert.ok(
+      html.indexOf("ds-button--critical-secondary") !== -1,
+      "has critical-secondary modifier",
+    );
+    assert.ok(
+      html.indexOf("ds-button--primary") === -1,
+      "does NOT fall back to primary",
+    );
+  });
+});

@@ -78,6 +78,16 @@
 .ds-button--critical .ds-button__icon {
   color: var(--zen-color-icon-reverse);
 }
+/* Critical-secondary: outline treatment of the critical variant — transparent
+ * background, critical-colored text + border (same token set as --critical). */
+.ds-button--critical-secondary {
+  background: transparent;
+  color: var(--zen-color-text-error);
+  border-color: var(--zen-color-text-error);
+}
+.ds-button--critical-secondary .ds-button__icon {
+  color: var(--zen-color-text-error);
+}
 
 /* ============ Input (field group) ============ */
 .ds-field {
@@ -609,6 +619,12 @@
   line-height: var(--zen-font-lineheight-lg);
   letter-spacing: var(--zen-font-letterspacing-wide-1);
   color: var(--zen-color-text-secondary);
+}
+.ds-page-header__actions {
+  display: flex;
+  gap: var(--zen-spacing-xs); /* 8 — gap between action buttons */
+  flex-shrink: 0;
+  align-items: center;
 }
 
 /* ============ Breadcrumbs (chrome) ============ */
