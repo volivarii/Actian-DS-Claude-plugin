@@ -101,11 +101,15 @@
   }
 
   // Resolve the active item for a list prop: the trimmed Active value when it
-  // matches an item, else the first item. Falls back to first on absent OR
-  // non-matching Active, so a stale/renamed Active never yields zero-active.
+  // matches an item (case-insensitive), else the first item. Falls back to
+  // first on absent OR non-matching Active, so a stale/renamed Active never
+  // yields zero-active. Case-insensitive matching aligns with flow-renderer.js.
   function resolveActive(items, active) {
-    var a = active != null ? String(active).trim() : "";
-    return items.indexOf(a) !== -1 ? a : items[0];
+    var a = active != null ? String(active).trim().toLowerCase() : "";
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].toLowerCase() === a) return items[i];
+    }
+    return items[0];
   }
 
   /**

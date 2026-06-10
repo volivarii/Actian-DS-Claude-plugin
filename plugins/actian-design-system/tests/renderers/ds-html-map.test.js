@@ -1113,3 +1113,53 @@ describe("ds-html-map: radio-button (P1c)", function () {
     assert.ok(html.indexOf("<img") === -1, "no raw injection");
   });
 });
+
+// B11: side-nav resolveActive must be case-insensitive so a lowercase Active
+// value still highlights the correct item (aligns with flow-renderer.js:149-154).
+describe("ds-html-map: side-nav — B11 case-insensitive Active", function () {
+  it("Active 'catalog' (lowercase) matches 'Catalog' item and marks it is-active", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "View=Expanded",
+      props: { Items: "Home, Catalog, Pipelines", Active: "catalog" },
+    });
+    // exactly one is-active mark
+    var activeCount = html.split("is-active").length - 1;
+    assert.equal(activeCount, 1, "exactly one active row");
+    // the Catalog row is active: the is-active class must precede the Catalog label
+    var activeIdx = html.indexOf("ds-sidenav__item is-active");
+    assert.ok(activeIdx !== -1, "is-active class present");
+    var catalogIdx = html.indexOf(">Catalog<");
+    assert.ok(
+      catalogIdx > activeIdx,
+      "Catalog label follows its active row class (is-active at " +
+        activeIdx +
+        ", Catalog at " +
+        catalogIdx +
+        ")",
+    );
+    // Home (first item) must NOT be active: its row class must appear before
+    // the is-active marker (the active row is Catalog, not Home)
+    var homeLabel = html.indexOf(">Home<");
+    assert.ok(
+      homeLabel !== -1 && homeLabel < activeIdx,
+      "Home row appears before the active (Catalog) row — Home is not active",
+    );
+  });
+
+  it("Active 'PIPELINES' (uppercase) matches 'Pipelines' item", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "View=Expanded",
+      props: { Items: "Catalog, Pipelines, Settings", Active: "PIPELINES" },
+    });
+    var activeCount = html.split("is-active").length - 1;
+    assert.equal(activeCount, 1, "exactly one active row");
+    var activeIdx = html.indexOf("ds-sidenav__item is-active");
+    var pipelinesIdx = html.indexOf(">Pipelines<");
+    assert.ok(
+      pipelinesIdx > activeIdx,
+      "Pipelines label follows its active row",
+    );
+  });
+});
