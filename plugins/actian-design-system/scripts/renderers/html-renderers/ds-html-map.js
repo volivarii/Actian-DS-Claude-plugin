@@ -487,11 +487,31 @@
     }
   }
 
+  // Slugs with a real leaf (everything else chip-degrades). Gated against the
+  // switch cases by tests/renderers/ds-built-slugs.test.js — update BOTH.
+  var BUILT_SLUGS = [
+    "button",
+    "input",
+    "checkbox-with-label",
+    "radio-button",
+    "toggle",
+    "tag-default",
+    "badge",
+    "search",
+    "card-for-items",
+    "global-header",
+    "side-nav",
+    "page-header",
+    "breadcrumbs",
+    "tabs",
+  ];
+
   exports.renderDSComponent = renderDSComponent;
   exports.renderIcon = renderIcon;
   exports.esc = esc;
   exports.parseVariant = parseVariant;
   exports.normalizeProps = normalizeProps;
+  exports.BUILT_SLUGS = BUILT_SLUGS;
 })(
   typeof module !== "undefined"
     ? module.exports
