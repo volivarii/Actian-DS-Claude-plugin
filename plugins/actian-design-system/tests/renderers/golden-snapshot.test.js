@@ -376,6 +376,23 @@ var DS_FIXTURES = {
       Message: "Check out the latest updates in the release notes.",
     },
   },
+  // Task 11 — chat-with-ai-steward leaf
+  stewardAnswered: {
+    dsSlug: "chat-with-ai-steward",
+    variant: "State=Answered",
+    props: {
+      Title: "AI Steward",
+      Insight:
+        "Orders joins cleanly to Customers on customer_id. The foreign key is enforced and the join selectivity is high.",
+      Source: "Sales catalog",
+      Confidence: "High",
+    },
+  },
+  stewardGenerating: {
+    dsSlug: "chat-with-ai-steward",
+    variant: "State=Generating",
+    props: {},
+  },
 };
 
 Object.keys(DS_FIXTURES).forEach(function (name) {

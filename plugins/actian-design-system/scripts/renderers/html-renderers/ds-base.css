@@ -887,6 +887,123 @@
   line-height: var(--zen-font-lineheight-lg);
 }
 
+/* ============ Chat with AI Steward (elevated overlay panel) ============ */
+/* Oracle: vendor/components/dist/media/chat-with-ai-steward/
+ *   preview.webp — ~420px floating panel, white bg, shadow-xl, radius-md
+ *   behavior-0.webp — Overlay=420px/Drawer=550px/Floating variants; leaf renders open panel
+ *   variations-0.webp — confirms floating/drawer layout geometry
+ * Shadow token: --zen-shadow-xl (overlay tier, from foundations elevation scale).
+ * Note: --zen-color-purple-* NOT present in vendored tokens.css;
+ *   sparkle accent uses --zen-color-icon-primary (nearest semantic match; flagged
+ *   for token-domain backfill when purple primitives land). */
+.ds-steward {
+  display: flex;
+  flex-direction: column;
+  gap: 12px; /* raw px: DS-conventional inner gap, measured from oracle */
+  width: 320px; /* raw px: default overlay width (oracle: ~420px; 320px for static leaf rendering in flows context) */
+  padding: var(--zen-spacing-md); /* 16px */
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(
+    --zen-border-radius-md
+  ); /* 8px, matches oracle rounded corners */
+  box-shadow: var(
+    --zen-shadow-xl
+  ); /* overlay elevation: 8px/12px shadow per tokens */
+  font-family: var(--zen-font-family-text);
+  box-sizing: border-box;
+}
+.ds-steward__header {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8px */
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-primary);
+}
+.ds-steward__spark {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+}
+.ds-steward__spark .ds-icon {
+  width: 16px; /* raw px: ai icon 16px per design guideline */
+  height: 16px;
+  color: var(
+    --zen-color-icon-primary
+  ); /* purple-500 not in tokens.css; nearest = icon-primary */
+}
+.ds-steward__title {
+  flex: 1;
+  line-height: var(--zen-font-lineheight-sm);
+}
+.ds-steward__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs); /* 8px */
+}
+.ds-steward__insight {
+  margin: 0;
+  font-size: var(--zen-font-size-sm);
+  color: var(--zen-color-text-primary);
+  line-height: var(--zen-font-lineheight-lg);
+}
+.ds-steward__source {
+  font-size: var(--zen-font-size-xs); /* 10px — secondary/meta label */
+  color: var(--zen-color-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8px */
+}
+.ds-steward__source-link {
+  color: var(--zen-color-text-link-default);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.ds-steward__conf {
+  /* Extends .ds-badge--number; no additional overrides needed */
+}
+.ds-steward__actions {
+  display: flex;
+  gap: var(--zen-spacing-xs); /* 8px */
+  flex-wrap: wrap;
+}
+/* Generating (shimmer) state */
+.ds-steward__shimmer {
+  display: block;
+  height: 12px; /* raw px: shimmer bar height, DS-conventional skeleton */
+  border-radius: var(--zen-border-radius-xs); /* 4px */
+  background: linear-gradient(
+    90deg,
+    var(--zen-color-bg-subtle) 25%,
+    var(--zen-color-bg-emphasis) 50%,
+    var(--zen-color-bg-subtle) 75%
+  );
+  background-size: 200% 100%;
+  animation: ds-shimmer 2000ms linear infinite; /* 2000ms per foundations spec (not yet tokenized) */
+}
+.ds-steward__shimmer--short {
+  width: 60%; /* raw px: shorter second skeleton bar, DS-conventional */
+}
+@keyframes ds-shimmer {
+  to {
+    background-position: -200% 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ds-steward__shimmer {
+    animation: none;
+    background: var(--zen-color-bg-subtle);
+  }
+}
+.ds-steward__disclaimer {
+  font-size: var(--zen-font-size-xs); /* 10px */
+  color: var(--zen-color-text-secondary);
+  border-top: 1px solid var(--zen-border-default);
+  padding-top: var(--zen-spacing-xs); /* 8px */
+  line-height: var(--zen-font-lineheight-lg);
+}
+
 /* ============ Graceful fallback chip ============ */
 /* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
  * a node that would otherwise throw. Keeps the fallback visible + on-brand. */
