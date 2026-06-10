@@ -240,6 +240,30 @@ var DS_FIXTURES = {
       Active: "Catalog",
     },
   },
+  // Task 3: real Studio grouped sidebar (top group + bottom group + collapse).
+  sideNavGrouped: {
+    dsSlug: "side-nav",
+    variant: "App=Studio, View=Expanded",
+    props: {
+      Groups: JSON.stringify([
+        {
+          items: [
+            { label: "Dashboard", icon: "dashboard" },
+            { label: "Catalog", icon: "directory" },
+            { label: "Topics", icon: "more" },
+          ],
+        },
+        {
+          items: [
+            { label: "Access request", icon: "user-single" },
+            { label: "Catalog design", icon: "edit" },
+            { label: "Analytics", icon: "dashboard" },
+          ],
+        },
+      ]),
+      Active: "Catalog",
+    },
+  },
   // P1b chrome leaves.
   pageHeaderDefault: {
     dsSlug: "page-header",
@@ -392,6 +416,28 @@ var DS_FIXTURES = {
     dsSlug: "chat-with-ai-steward",
     variant: "State=Generating",
     props: {},
+  },
+  // Task 4 — full Figma anatomy re-model (Welcome state + Drawer size)
+  stewardWelcome: {
+    dsSlug: "chat-with-ai-steward",
+    props: {
+      Title: "Data Steward",
+      State: "Welcome",
+      Greeting:
+        "Welcome Vincent! I'm your Data Steward Agent. I can help you explore your catalog.",
+      Context: { type: "Dataset", name: "/why_not/table" },
+    },
+  },
+  stewardDocked: {
+    dsSlug: "chat-with-ai-steward",
+    variant: "size=Drawer",
+    props: {
+      Title: "Data Steward",
+      State: "Answered",
+      Insight: "Orders joins cleanly to Customers on customer_id.",
+      Source: "Sales catalog",
+      Confidence: "High",
+    },
   },
 };
 

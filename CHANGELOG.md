@@ -15,6 +15,25 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.106.1] — 2026-06-10
+
+### Added
+- **Studio chrome + AI Steward, sourced from Figma intent.** The hi-fi DS chrome now reads as the
+  real Studio app, authored from the Figma component frames (Figma is the source of truth; the
+  shipping code is a reference only):
+  - **global-header** → the real cluster: brand/app + context selector + global search + a right
+    cluster (What's new · notifications · apps switcher · avatar). No invented AI trigger (Figma has none).
+  - **side-nav** → grouped icon sidebar (groups, per-item icons, active state, collapse). The legacy
+    comma `Items` prop still works (back-compat).
+  - **chat-with-ai-steward** → header controls (New chat · settings · expand · close), a Welcome state,
+    a task-input footer (Give Steward a task + context chip + Plan), and a `Drawer` size.
+  - **Steward placement** — the renderer now wraps the Steward as an **overlay** (fixed, floats over
+    content) or a **docked full-height column** (`mode:"docked"` → 3-column shell that reflows the main
+    content), matching the Figma `size` Default/Drawer variants.
+- Chrome-config wiring: `screen.header` (search/account/context) and `screen.sidebar.groups`
+  (grouped icon nav) feed the upgraded leaves; `screen.steward` descriptor drives the overlay/docked Steward.
+- Captured Figma anatomy reference (`references/generate-flow/studio-chrome-anatomy.md`) as the authoring oracle.
+
 ## [1.106.0] — 2026-06-10
 
 ### Added

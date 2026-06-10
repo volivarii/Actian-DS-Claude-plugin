@@ -64,3 +64,4 @@ comms/
 
 # Demo flow rendered deliverables (regenerable; embed ~340kb fonts)
 demo-flows/*.html
+demo-flows/*.flow.json

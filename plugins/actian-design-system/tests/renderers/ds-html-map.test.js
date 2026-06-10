@@ -558,7 +558,7 @@ describe("ds-html-map: card-for-items (DS-native only)", function () {
 });
 
 describe("ds-html-map: global-header", function () {
-  it("default: emits a <header> with brand, app label, spacer, avatar", function () {
+  it("default: emits a <header> with brand, center, actions, and avatar", function () {
     var html = render({
       dsSlug: "global-header",
       variant: "App type=Studio",
@@ -571,7 +571,7 @@ describe("ds-html-map: global-header", function () {
     assert.ok(html.indexOf("ds-header__brand") !== -1, "has brand");
     assert.ok(html.indexOf("ds-header__logo") !== -1, "has logo");
     assert.ok(html.indexOf("ds-header__app") !== -1, "has app label");
-    assert.ok(html.indexOf("ds-header__spacer") !== -1, "has spacer");
+    assert.ok(html.indexOf("ds-header__center") !== -1, "has center block");
     assert.ok(html.indexOf("ds-header__actions") !== -1, "has actions");
     assert.ok(html.indexOf("ds-header__avatar") !== -1, "has avatar");
     assert.ok(html.indexOf("</header>") !== -1, "closes header tag");
@@ -627,6 +627,80 @@ describe("ds-html-map: global-header", function () {
     });
     assert.ok(html.indexOf("&lt;img") !== -1, "app label escaped");
     assert.ok(html.indexOf("<img") === -1, "no raw injection");
+  });
+
+  it("global-header renders the real Studio cluster", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: {
+        App: "Studio",
+        Context: "Catalog",
+        ContextValue: "Default",
+        Search: true,
+        Account: "VO",
+      },
+    });
+    assert.match(html, /ds-header__context/);
+    assert.match(html, /ds-header__search/);
+    assert.match(html, /ds-header__action--whatsnew/);
+    assert.match(html, /ds-header__action--notifications/);
+    assert.match(html, /ds-header__action--apps/);
+    assert.match(html, /ds-header__avatar/);
+    assert.ok(!html.includes("[object Object]"));
+    assert.ok(!/ds-header__action--ai/.test(html)); // Figma has no AI trigger
+  });
+
+  it("global-header: center section renders context label, value, and search placeholder", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: { Context: "MyDomain", ContextValue: "Staging", Search: true },
+    });
+    assert.ok(html.indexOf("MyDomain") !== -1, "renders Context label");
+    assert.ok(html.indexOf("Staging") !== -1, "renders ContextValue");
+    assert.ok(
+      html.indexOf("Search items") !== -1,
+      "renders search placeholder",
+    );
+  });
+
+  it("global-header: Search=false omits the search field", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: { Search: false },
+    });
+    assert.ok(
+      html.indexOf("ds-header__search") === -1,
+      "no search when Search=false",
+    );
+  });
+
+  it("global-header: right cluster has What's new text and dividers", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: { Account: "AB" },
+    });
+    assert.ok(
+      html.indexOf("What&#39;s new") !== -1 || html.indexOf("What") !== -1,
+      "renders whatsnew text",
+    );
+    assert.ok(html.indexOf("ds-header__divider") !== -1, "renders dividers");
+    assert.ok(html.indexOf(">AB</") !== -1, "renders account initials");
+  });
+
+  it("global-header: no AI/sparkle trigger", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: {},
+    });
+    assert.ok(!/ds-header__action--ai/.test(html), "no AI trigger");
+    assert.ok(!/sparkle/.test(html), "no sparkle");
   });
 });
 
@@ -1161,6 +1235,141 @@ describe("ds-html-map: side-nav — B11 case-insensitive Active", function () {
       pipelinesIdx > activeIdx,
       "Pipelines label follows its active row",
     );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task 3: side-nav grouped — real Studio sidebar from Figma anatomy
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: side-nav — Task 3 grouped Studio sidebar", function () {
+  it("side-nav renders grouped items with icons, active, collapse", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          {
+            items: [
+              { label: "Dashboard", icon: "dashboard" },
+              { label: "Catalog", icon: "directory" },
+              { label: "Topics", icon: "more" },
+            ],
+          },
+          {
+            items: [
+              { label: "Access request", icon: "user-single" },
+              { label: "Analytics", icon: "dashboard" },
+            ],
+          },
+        ]),
+        Active: "Catalog",
+      },
+    });
+    assert.strictEqual(
+      (html.match(/ds-sidenav__group/g) || []).length,
+      2,
+      "two ds-sidenav__group containers",
+    );
+    assert.match(html, /ds-sidenav__icon/, "items have icon spans");
+    assert.match(html, /ds-sidenav__collapse/, "collapse button present");
+    assert.match(
+      html,
+      /ds-sidenav__item[^"]*is-active[\s\S]*?Catalog/,
+      "Catalog item is active and label follows",
+    );
+  });
+
+  it("side-nav legacy comma Items prop still works (back-compat)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: { Items: "Catalog, Pipelines", Active: "Catalog" },
+    });
+    assert.match(html, /is-active/, "active class present in legacy mode");
+  });
+
+  it("Groups renders separator between groups and before collapse", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          { items: [{ label: "Dashboard", icon: "dashboard" }] },
+          { items: [{ label: "Access request", icon: "user-single" }] },
+        ]),
+        Active: "Dashboard",
+      },
+    });
+    assert.match(
+      html,
+      /ds-sidenav__separator/,
+      "at least one separator present",
+    );
+  });
+
+  it("Groups active defaults to first item across all groups when Active absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          {
+            items: [
+              { label: "Dashboard", icon: "dashboard" },
+              { label: "Catalog", icon: "directory" },
+            ],
+          },
+        ]),
+      },
+    });
+    var activeIdx = html.indexOf("ds-sidenav__item is-active");
+    assert.ok(activeIdx !== -1, "an item is active");
+    var dashboardIdx = html.indexOf("Dashboard");
+    assert.ok(
+      dashboardIdx > activeIdx,
+      "Dashboard (first item) is the default active",
+    );
+  });
+
+  it("Groups collapse button renders chevron-left icon (24px round)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          { items: [{ label: "Dashboard", icon: "dashboard" }] },
+        ]),
+        Active: "Dashboard",
+      },
+    });
+    assert.match(html, /ds-sidenav__collapse/, "collapse button present");
+    // collapse button should contain the chevron-left icon (SVG)
+    var collapseIdx = html.indexOf("ds-sidenav__collapse");
+    assert.ok(collapseIdx !== -1, "collapse button exists");
+    var svgAfterCollapse = html.indexOf("<svg", collapseIdx);
+    assert.ok(svgAfterCollapse !== -1, "collapse contains an SVG icon");
+  });
+
+  it("Groups escapes hostile item labels", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          { items: [{ label: "<script>bad</script>", icon: "dashboard" }] },
+        ]),
+        Active: "",
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "no raw script tag");
+    assert.match(html, /&lt;script&gt;/, "script tag is escaped");
   });
 });
 
@@ -1850,5 +2059,50 @@ describe("ds-html-map: chat-with-ai-steward (Task 11)", function () {
       props: {},
     });
     assert.ok(html.indexOf("<aside") !== -1, "root element is aside");
+  });
+
+  // Task 4 — full Figma anatomy re-model
+  it("steward header has New chat + settings + expand + close", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: { Title: "Data Steward", State: "Welcome" },
+    });
+    assert.match(html, /ds-steward__newchat/);
+    assert.match(html, /ds-steward__control--settings/);
+    assert.match(html, /ds-steward__control--expand/);
+    assert.match(html, /ds-steward__control--close/);
+  });
+
+  it("Welcome state shows greeting + task-input footer with context chip + Plan", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: {
+        Title: "Data Steward",
+        State: "Welcome",
+        Greeting: "Welcome Vincent!",
+        Context: { type: "Dataset", name: "/why_not/table" },
+      },
+    });
+    assert.match(html, /Welcome Vincent!/);
+    assert.match(html, /ds-steward__taskinput/);
+    assert.match(html, /Give Steward a task/);
+    assert.match(html, /ds-steward__context-chip/);
+    assert.match(html, /Dataset/);
+    assert.match(html, /Plan/);
+  });
+
+  it("size=Drawer adds the docked modifier", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      variant: "size=Drawer",
+      props: { Title: "Data Steward", State: "Answered", Insight: "x" },
+    });
+    assert.match(html, /ds-steward--drawer/);
   });
 });

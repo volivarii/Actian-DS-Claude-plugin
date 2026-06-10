@@ -220,25 +220,45 @@
     }
   }
 
-  function dsHeader(headerApp) {
+  function dsHeader(headerApp, config) {
+    // Feed the real Studio header cluster: app label + search + context.
+    // `config` (optional screen.header) may carry account/context overrides.
+    var c = config || {};
     return renderDS(
       "global-header",
       "App type=" + headerApp + ", Breakpoints=XL",
-      {},
+      {
+        App: headerApp,
+        Search: c.search !== false,
+        Account: c.account || "VO",
+        Context: c.context || "Catalog",
+        ContextValue: c.contextValue || "Default",
+      },
     );
   }
 
   function dsSidebar(config, navApp) {
-    // Convert the chrome sidebar config into the DS side-nav prop shape
-    // (Items = comma-joined labels, Active = the selected label). The legacy
-    // numeric-count shape carries no labels → side-nav renders its defaults.
-    var labels = [];
+    // Convert the chrome sidebar config into the DS side-nav prop shape.
+    // Preferred: `config.groups` (array of {items:[{label,icon}]}) → grouped
+    // sidebar. Else `config.items` carrying icons → wrap as one icon'd group.
+    // Else legacy `Items` comma list (back-compat for older flows).
     var active = config && config.activeItem ? config.activeItem : "";
+    if (config && Array.isArray(config.groups) && config.groups.length) {
+      var props = { Groups: JSON.stringify(config.groups) };
+      if (active) props.Active = active;
+      return renderDS("side-nav", "App=" + navApp + ", View=Expanded", props);
+    }
+    var labels = [];
+    var hasIcon = false;
+    var items = [];
     if (config && Array.isArray(config.items)) {
       config.items.forEach(function (entry) {
         var label =
           typeof entry === "string" ? entry : (entry && entry.label) || "";
+        var icon = entry && typeof entry === "object" ? entry.icon : null;
         if (label) labels.push(label);
+        if (icon) hasIcon = true;
+        if (label) items.push({ label: label, icon: icon || null });
         if (
           !active &&
           entry &&
@@ -250,7 +270,8 @@
       });
     }
     var props = {};
-    if (labels.length) props.Items = labels.join(", ");
+    if (hasIcon) props.Groups = JSON.stringify([{ items: items }]);
+    else if (labels.length) props.Items = labels.join(", ");
     if (active) props.Active = active;
     return renderDS("side-nav", "App=" + navApp + ", View=Expanded", props);
   }
@@ -405,22 +426,15 @@
     // is untouched.
     if (s.library === "ds") {
       var prof = appProfile(chrome.appHeaderType);
-      var dsHeaderHtml = chrome.appHeaderType ? dsHeader(prof.headerApp) : "";
+      var dsHeaderHtml = chrome.appHeaderType
+        ? dsHeader(prof.headerApp, s.header)
+        : "";
       var dsSidebarHtml = chrome.hasSidebar
         ? dsSidebar(sidebarConfig, prof.navApp)
         : "";
-      return (
-        '<div class="screen screen--hifi' +
-        pendingClass +
-        '" data-theme="' +
-        esc(prof.theme) +
-        '" data-name="' +
-        esc(s.name) +
-        '" style="width:' +
-        w +
-        "px;height:" +
-        h +
-        'px;">' +
+
+      // Build the shared inner chrome + content markup (header + body) once.
+      var dsInnerHtml =
         dsHeaderHtml +
         '<div class="screen__body">' +
         dsSidebarHtml +
@@ -430,7 +444,94 @@
         tierBadge(s) +
         contentHtml +
         "</div>" +
-        "</div></div></div>"
+        "</div></div>";
+
+      // Per-screen data attributes (theme, name, dimensions). The closing
+      // double-quote of the class attribute is written inline in each return
+      // below so the css-staleness regex terminates the capture cleanly
+      // and never crosses into the next tag.
+      var dsTheme = esc(prof.theme);
+      var dsName = esc(s.name);
+      var dsDims = "width:" + w + "px;height:" + h + "px;";
+
+      // Steward descriptor — if present, build and wrap.
+      var st = s.steward;
+      if (st) {
+        // st.size/st.state are flow-data; the leaf only compares them (never
+        // writes them to HTML), but esc() defensively against a future direct use.
+        var stSize = esc(
+          st.size || (st.mode === "docked" ? "Drawer" : "Default"),
+        );
+        var stState = esc(st.state || "Answered");
+        var stewardHtml = renderDS(
+          "chat-with-ai-steward",
+          "size=" + stSize + ", State=" + stState,
+          {
+            Title: st.title,
+            State: st.state,
+            Insight: st.insight,
+            Source: st.source,
+            Confidence: st.confidence,
+            Context: st.context,
+            Greeting: st.greeting,
+          },
+        );
+        if (st.mode === "docked") {
+          // 3-column reflow: screen__shell holds main-frame + docked steward layer.
+          return (
+            '<div class="screen screen--hifi screen--steward-docked' +
+            pendingClass +
+            '" data-theme="' +
+            dsTheme +
+            '" data-name="' +
+            dsName +
+            '" style="' +
+            dsDims +
+            '">' +
+            '<div class="screen__shell">' +
+            '<div class="screen__main-frame">' +
+            dsInnerHtml +
+            "</div>" +
+            '<div class="ds-steward-layer ds-steward-layer--docked">' +
+            stewardHtml +
+            "</div>" +
+            "</div>" +
+            "</div>"
+          );
+        } else {
+          // Overlay: keep original screen structure, append fixed layer inside.
+          return (
+            '<div class="screen screen--hifi' +
+            pendingClass +
+            '" data-theme="' +
+            dsTheme +
+            '" data-name="' +
+            dsName +
+            '" style="' +
+            dsDims +
+            '">' +
+            dsInnerHtml +
+            '<div class="ds-steward-layer ds-steward-layer--overlay">' +
+            stewardHtml +
+            "</div>" +
+            "</div>"
+          );
+        }
+      }
+
+      // No steward — emit the unchanged original markup.
+      return (
+        '<div class="screen screen--hifi' +
+        pendingClass +
+        '" data-theme="' +
+        dsTheme +
+        '" data-name="' +
+        dsName +
+        '" style="' +
+        dsDims +
+        '">' +
+        dsInnerHtml +
+        "</div>"
       );
     }
 

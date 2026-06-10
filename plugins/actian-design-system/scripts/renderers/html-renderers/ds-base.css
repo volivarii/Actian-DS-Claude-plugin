@@ -489,25 +489,32 @@
 }
 
 /* ============ Global header (top app bar — chrome) ============ */
+/* Anatomy: 1440×64, flex space-between, padding 0 24px.              */
+/* Left = brand; Center = context + search; Right = actions cluster.  */
 .ds-header {
   display: flex;
   align-items: center;
-  gap: var(--zen-spacing-md); /* 16 */
-  height: 56px; /* measured app-bar row (raw px) */
-  padding: 0 var(--zen-spacing-md); /* 16 */
+  justify-content: space-between;
+  height: 64px; /* anatomy: measured header row (raw px) */
+  padding: 0 24px; /* anatomy: 24px horizontal gutter (raw px) */
   background: var(--zen-color-bg-default);
   border-bottom: 1px solid var(--zen-border-default);
   box-sizing: border-box;
   font-family: var(--zen-font-family-text);
+  position: relative; /* for center absolute positioning */
 }
+
+/* --- Left: brand block (logo mark + app label) --- */
 .ds-header__brand {
   display: flex;
   align-items: center;
   gap: var(--zen-spacing-xs); /* 8 */
+  flex-shrink: 0;
+  z-index: 1;
 }
 .ds-header__logo {
-  width: 24px; /* logo box geometry (raw px) */
-  height: 24px;
+  width: 121px; /* anatomy: logo ~121×32 (raw px) */
+  height: 32px;
   border-radius: var(--zen-border-radius-sm); /* 6 */
   background: var(--zen-color-bg-emphasis);
 }
@@ -517,66 +524,292 @@
   line-height: var(--zen-font-lineheight-md); /* 20 */
   color: var(--zen-color-text-primary);
 }
-.ds-header__spacer {
-  flex: 1;
+
+/* --- Center: context dropdown + search bar --- */
+/* Anatomy: absolutely centered, gap 16px between context and search. */
+.ds-header__center {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-md); /* 16 */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+/* Context dropdown: stacked micro label + value in primary colour.   */
+/* anatomy: ~128px, label 11px + value primary-500 medium.            */
+.ds-header__context {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-width: 128px; /* anatomy: context dropdown ~128px (raw px) */
+  cursor: pointer;
+  user-select: none;
+}
+.ds-header__context-label {
+  font-size: var(--zen-font-size-xs); /* 11px — anatomy micro label */
+  line-height: var(--zen-font-lineheight-xs); /* 14 */
+  color: var(--zen-color-text-secondary);
+  width: 100%;
+}
+.ds-header__context-value {
+  font-size: var(--zen-font-size-md); /* 14 */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  color: var(--zen-color-primary-500); /* studio azure */
+}
+
+/* Search bar: magnifier + input.                                      */
+/* anatomy: 568px, border, radius-sm, placeholder in text-secondary.  */
+.ds-header__search {
+  display: flex;
+  align-items: stretch;
+  width: 568px; /* anatomy: search bar width (raw px) */
+  max-width: 568px;
+  height: 36px; /* anatomy: search row height (raw px) */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  box-sizing: border-box;
+  background: var(--zen-color-bg-default);
+}
+/* Left scope dropdown ("Default ▾") — anatomy: ~128px, divider on the right. */
+.ds-header__search-scope {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  flex-shrink: 0;
+  padding: 0 var(--zen-spacing-md); /* 16 */
+  border-right: 1px solid var(--zen-border-default);
+  color: var(--zen-color-text-primary);
+  font-size: var(--zen-font-size-md); /* 14 */
+  font-family: var(--zen-font-family-text);
+}
+.ds-header__search-scope-value {
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+}
+.ds-header__search-scope svg {
+  width: 16px;
+  height: 16px;
+  color: var(--zen-color-text-secondary);
+}
+.ds-header__search-field {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  gap: var(--zen-spacing-xs); /* 8 */
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+}
+/* Trailing tooltip/info affordance inside the field's right edge. */
+.ds-header__search-info {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--zen-color-text-secondary);
+}
+.ds-header__search-info svg {
+  width: 16px;
+  height: 16px;
+}
+.ds-header__search-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--zen-color-text-secondary);
+  width: 20px; /* anatomy: icon 20px (raw px) */
+  height: 20px;
+}
+.ds-header__search-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.ds-header__search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  color: var(--zen-color-text-primary);
+  font-family: var(--zen-font-family-text);
+}
+.ds-header__search-input::placeholder {
+  color: var(--zen-color-text-secondary);
+}
+
+/* --- Right: actions cluster --- */
+/* anatomy: gap 8px between groups, vertical dividers between groups.  */
 .ds-header__actions {
   display: flex;
   align-items: center;
   gap: var(--zen-spacing-xs); /* 8 */
+  flex-shrink: 0;
+  z-index: 1;
 }
+
+/* Vertical divider between action groups.                             */
+.ds-header__divider {
+  display: inline-block;
+  width: 1px;
+  height: 20px; /* anatomy: divider height (raw px) */
+  background: var(--zen-border-default);
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* Base action button (32px round): bell + apps + What's new text.    */
+/* anatomy: round buttons 32×32, icon 20px, no visible bg at rest.    */
+.ds-header__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px; /* anatomy: action button 32px (raw px) */
+  min-width: 32px;
+  border-radius: var(--zen-border-radius-full);
+  border: none;
+  background: transparent;
+  color: var(--zen-color-text-primary);
+  cursor: pointer;
+  padding: 0 var(--zen-spacing-2xs); /* 4 */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+}
+.ds-header__action:hover {
+  background: var(--zen-color-bg-selected);
+}
+.ds-header__action svg {
+  width: 20px; /* anatomy: icon within action button 20px (raw px) */
+  height: 20px;
+}
+
+/* What's new: text-label action (no icon, wider hit-area).           */
+.ds-header__action--whatsnew {
+  white-space: nowrap;
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+}
+
+/* Avatar: 32px round, turquoise background, initials.                */
+/* --zen-color-turquoise-50 (#d0efed) absent from vendored tokens →   */
+/* fallback: --zen-color-bg-selected (theme-aware; studio ≈ #cfeafd). */
 .ds-header__avatar {
-  width: 32px; /* avatar box geometry (raw px) */
+  width: 32px; /* anatomy: avatar 32×32 (raw px) */
   height: 32px;
   border-radius: var(--zen-border-radius-full);
-  background: var(--zen-color-bg-selected);
+  background: var(
+    --zen-color-bg-selected
+  ); /* fallback: turquoise-50 not vendored */
   color: var(--zen-color-text-link-default);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--zen-font-size-sm); /* 12 */
   font-weight: var(--zen-font-weight-medium); /* 500 */
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
 }
 
 /* ============ Side nav (left rail — chrome) ============ */
+/* anatomy: 240×~896, flex-column, justify-content:space-between,
+   padding:16px (--zen-spacing-md), bg:--zen-color-bg-default,
+   border-right:1px solid --zen-border-default.
+   Groups mode (real Studio sidebar) uses ds-sidenav__top + ds-sidenav__bottom
+   to split the flex space. Legacy Items mode renders flat rows directly. */
 .ds-sidenav {
   display: flex;
   flex-direction: column;
-  gap: var(--zen-spacing-2xs); /* 4 */
-  width: 240px; /* expanded rail width (raw px) */
-  padding: var(--zen-spacing-xs); /* 8 */
+  justify-content: space-between; /* pushes bottom group down */
+  width: 240px; /* anatomy: expanded rail width (raw px) */
+  padding: var(--zen-spacing-md); /* anatomy: 16px container padding */
   background: var(--zen-color-bg-default);
   border-right: 1px solid var(--zen-border-default);
   box-sizing: border-box;
   font-family: var(--zen-font-family-text);
 }
+/* Top section (groups) — grows to fill available height */
+.ds-sidenav__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4px between groups */
+  flex: 1 1 auto;
+}
+/* Bottom section (secondary items + collapse) */
+.ds-sidenav__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4px */
+}
+/* Group container — anatomy: gap 4px between items within a group */
+.ds-sidenav__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px item gap */
+}
+/* Horizontal rule separator between groups and before collapse button.
+   anatomy: 1px line, --zen-border-default, 4px (--zen-spacing-2xs) vertical margin. */
+.ds-sidenav__separator {
+  height: 1px; /* raw px — hairline rule */
+  background: var(--zen-border-default);
+  margin: var(--zen-spacing-2xs) 0; /* 4px vertical rhythm */
+  flex-shrink: 0;
+}
+/* Nav item row — anatomy: height:32px, padding:4px 8px, gap:8px, icon:16px + label:14px */
 .ds-sidenav__item {
   display: flex;
   align-items: center;
-  gap: var(--zen-spacing-xs); /* 8 */
-  padding: var(--zen-spacing-xs); /* 8 */
-  border-radius: var(--zen-border-radius-sm); /* 6 */
+  height: 32px; /* anatomy: item row height (raw px) */
+  gap: var(--zen-spacing-xs); /* anatomy: 8px icon ↔ label gap */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* anatomy: 4px 8px */
+  border-radius: var(--zen-border-radius-sm); /* 6px */
   color: var(--zen-color-text-primary);
-  font-size: var(--zen-font-size-md); /* 14 */
-  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-size: var(--zen-font-size-md); /* 14px */
+  line-height: var(--zen-font-lineheight-md); /* 20px */
   font-weight: var(--zen-font-weight-regular);
   text-decoration: none;
   cursor: pointer;
 }
+/* Icon slot — anatomy: 16px square, SVG currentColor. Legacy path renders an
+   empty span (no SVG) so we keep a small fixed box for visual alignment. */
 .ds-sidenav__icon {
-  width: 20px; /* nav icon box geometry (raw px) */
-  height: 20px;
-  border-radius: var(--zen-border-radius-xs); /* 4 */
-  background: var(--zen-color-bg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px; /* anatomy: icon size (raw px) */
+  height: 16px;
   flex: 0 0 auto;
+  color: inherit; /* SVG currentColor picks up parent text color */
 }
+/* Active item — anatomy: --zen-color-primary-500 on text + icon; bg highlight */
 .ds-sidenav__item.is-active {
   background: var(--zen-color-bg-selected);
-  color: var(--zen-color-text-link-default);
+  color: var(
+    --zen-color-primary-500
+  ); /* anatomy: primary-500 on active label */
   font-weight: var(--zen-font-weight-medium); /* 500 */
 }
 .ds-sidenav__item.is-active .ds-sidenav__icon {
-  background: var(--zen-border-selected);
+  color: var(--zen-color-primary-500); /* anatomy: primary-500 on active icon */
+}
+/* Collapse button — anatomy: 24px round, chevron-left, bottom-right of the rail */
+.ds-sidenav__collapse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* anatomy: collapse button diameter (raw px) */
+  height: 24px;
+  border-radius: var(--zen-border-radius-full); /* full circle */
+  border: 1px solid var(--zen-border-default);
+  background: var(--zen-color-bg-default);
+  cursor: pointer;
+  align-self: flex-end; /* bottom-right */
+  color: var(--zen-color-text-primary);
+  padding: 0;
 }
 .ds-sidenav--collapsed {
   width: 56px; /* collapsed rail width (raw px) */
@@ -1002,6 +1235,98 @@
   border-top: 1px solid var(--zen-border-default);
   padding-top: var(--zen-spacing-xs); /* 8px */
   line-height: var(--zen-font-lineheight-lg);
+}
+/* Drawer size modifier — 550px wide, full-height per anatomy (Figma 550×897) */
+.ds-steward--drawer {
+  width: 550px; /* raw px: Figma Drawer variant geometry; overlay base stays 320px on .ds-steward */
+  height: 100%; /* full side-panel height */
+  border-radius: 0; /* drawer variant: flush with edge, no rounded corners */
+}
+/* Header controls — "New chat" dropdown + icon button row */
+.ds-steward__newchat {
+  margin-left: var(--zen-spacing-xs); /* 8px gap from title */
+  font-size: var(--zen-font-size-xs); /* 10px — secondary action label */
+  font-weight: var(--zen-font-weight-medium);
+  color: var(--zen-color-text-secondary);
+  background: none;
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  padding: 2px var(--zen-spacing-xs); /* raw 2px top/bottom, xs(8px) sides */
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: var(--zen-font-lineheight-md);
+}
+.ds-steward__controls {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4px */
+  margin-left: auto; /* push controls to the right edge of the header */
+}
+.ds-steward__control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* raw px: icon button size per anatomy */
+  height: 24px;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  color: var(--zen-color-icon-subtle);
+  cursor: pointer;
+}
+.ds-steward__control:hover {
+  background: var(--zen-color-bg-subtle);
+  color: var(--zen-color-icon-default);
+}
+.ds-steward__control svg {
+  width: 16px; /* raw px: icon within 24px control — DS-conventional 16px icon */
+  height: 16px;
+}
+/* Welcome state greeting */
+.ds-steward__greeting {
+  margin: 0;
+  font-size: var(--zen-font-size-sm);
+  color: var(--zen-color-text-primary);
+  line-height: var(--zen-font-lineheight-lg);
+}
+/* Task-input footer — input row + context chip + Plan button */
+.ds-steward__taskinput {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8px */
+  padding: var(--zen-spacing-xs) 0; /* 8px top/bottom, flush sides */
+  border-top: 1px solid var(--zen-border-default);
+  flex-wrap: wrap;
+}
+.ds-steward__taskinput-field {
+  flex: 1;
+  min-width: 0; /* flex shrink below content */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* 4px 8px */
+  font-size: var(--zen-font-size-sm);
+  font-family: var(--zen-font-family-text);
+  color: var(--zen-color-text-primary);
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6px */
+  outline: none;
+}
+.ds-steward__taskinput-field::placeholder {
+  color: var(--zen-color-text-placeholder-subtle);
+}
+.ds-steward__context-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4px */
+  padding: 2px var(--zen-spacing-xs); /* raw 2px + xs(8px) — compact pill */
+  font-size: var(--zen-font-size-xs); /* 10px — meta label */
+  color: var(--zen-color-text-secondary);
+  background: var(
+    --zen-color-bg-subtle
+  ); /* --zen-color-bg-subtle (#fbfbff) — nearest to Figma --color-bg-subtle */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-full); /* pill shape */
+  white-space: nowrap;
 }
 
 /* ============ Graceful fallback chip ============ */
