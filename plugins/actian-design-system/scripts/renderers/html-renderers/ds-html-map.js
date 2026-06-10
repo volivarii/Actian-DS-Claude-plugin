@@ -472,31 +472,112 @@
         }
 
         case "side-nav": {
-          // Left navigation rail (chrome). Items are a comma-separated label
-          // list; the Active label's row is marked is-active (defaults to the
-          // first item). Collapsed view hides labels via the CSS modifier.
+          // Left navigation rail (chrome).
+          // Grouped mode (props.Groups JSON string): real Studio sidebar from
+          //   Figma anatomy — groups of {items:[{label,icon}]}, separators,
+          //   collapse button. resolveActive matches across all group items.
+          // Legacy mode (props.Items comma string): back-compat for existing
+          //   flows that pass a flat item list with no icons.
+          // anatomy: width:240px; padding:16px; flex-direction:column;
+          //   justify-content:space-between; bg:--zen-color-bg-default;
+          //   border-right:1px solid --zen-border-default.
           var navCls = "ds-sidenav";
           if (v.View === "Collapsed") navCls += " ds-sidenav--collapsed";
-          var navItems = parseItems(
-            props.Items,
-            "Catalog, Pipelines, Connections, Settings",
-          );
-          var navActive = resolveActive(navItems, props.Active);
-          var navRows = navItems
-            .map(function (item) {
-              var itemCls = "ds-sidenav__item";
-              if (item === navActive) itemCls += " is-active";
-              return (
-                '<a class="' +
-                itemCls +
-                '"><span class="ds-sidenav__icon"></span>' +
-                '<span class="ds-sidenav__label">' +
-                esc(item) +
-                "</span></a>"
-              );
-            })
-            .join("");
-          return '<nav class="' + navCls + '">' + navRows + "</nav>";
+
+          // Helper: render a single nav item row.
+          // icon may be null (legacy path) or a slug string (grouped path).
+          function renderNavItem(label, icon, isActive) {
+            var itemCls = "ds-sidenav__item";
+            if (isActive) itemCls += " is-active";
+            var iconHtml = icon
+              ? '<span class="ds-sidenav__icon">' + renderIcon(icon) + "</span>"
+              : '<span class="ds-sidenav__icon"></span>';
+            return (
+              '<a class="' +
+              itemCls +
+              '">' +
+              iconHtml +
+              '<span class="ds-sidenav__label">' +
+              esc(label) +
+              "</span></a>"
+            );
+          }
+
+          // Separator bar between groups (and before the collapse button).
+          // anatomy: 1px horizontal rule, --zen-border-default, 4px vertical margin.
+          var navSeparator =
+            '<div class="ds-sidenav__separator" aria-hidden="true"></div>';
+
+          if (props.Groups) {
+            // ── Grouped mode (Studio anatomy) ────────────────────────────
+            var groups;
+            try {
+              groups = JSON.parse(props.Groups);
+            } catch (e) {
+              groups = [];
+            }
+            if (!Array.isArray(groups)) groups = [];
+
+            // Flatten all group items to run resolveActive across the full set.
+            var allLabels = [];
+            groups.forEach(function (g) {
+              (g.items || []).forEach(function (it) {
+                allLabels.push(it.label || "");
+              });
+            });
+            var navActive = resolveActive(allLabels, props.Active);
+
+            // Top section: all groups separated by dividers.
+            var topHtml = "";
+            groups.forEach(function (g, gi) {
+              if (gi > 0) topHtml += navSeparator;
+              var groupItems = (g.items || [])
+                .map(function (it) {
+                  return renderNavItem(
+                    it.label || "",
+                    it.icon || null,
+                    (it.label || "") === navActive,
+                  );
+                })
+                .join("");
+              topHtml +=
+                '<div class="ds-sidenav__group">' + groupItems + "</div>";
+            });
+
+            // Bottom section: separator + collapse button (24px round, chevron-left).
+            // anatomy: pushed down by justify-content:space-between on the root.
+            var collapseHtml =
+              '<div class="ds-sidenav__bottom">' +
+              navSeparator +
+              '<button class="ds-sidenav__collapse" type="button" aria-label="Collapse sidebar">' +
+              renderIcon("chevron-left") +
+              "</button>" +
+              "</div>";
+
+            return (
+              '<nav class="' +
+              navCls +
+              '">' +
+              '<div class="ds-sidenav__top">' +
+              topHtml +
+              "</div>" +
+              collapseHtml +
+              "</nav>"
+            );
+          } else {
+            // ── Legacy mode (comma Items list, no icons) ──────────────────
+            var navItems = parseItems(
+              props.Items,
+              "Catalog, Pipelines, Connections, Settings",
+            );
+            var legacyActive = resolveActive(navItems, props.Active);
+            var navRows = navItems
+              .map(function (item) {
+                return renderNavItem(item, null, item === legacyActive);
+              })
+              .join("");
+            return '<nav class="' + navCls + '">' + navRows + "</nav>";
+          }
         }
 
         case "page-header": {

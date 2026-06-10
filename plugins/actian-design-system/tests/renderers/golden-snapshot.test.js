@@ -240,6 +240,30 @@ var DS_FIXTURES = {
       Active: "Catalog",
     },
   },
+  // Task 3: real Studio grouped sidebar (top group + bottom group + collapse).
+  sideNavGrouped: {
+    dsSlug: "side-nav",
+    variant: "App=Studio, View=Expanded",
+    props: {
+      Groups: JSON.stringify([
+        {
+          items: [
+            { label: "Dashboard", icon: "dashboard" },
+            { label: "Catalog", icon: "directory" },
+            { label: "Topics", icon: "more" },
+          ],
+        },
+        {
+          items: [
+            { label: "Access request", icon: "user-single" },
+            { label: "Catalog design", icon: "edit" },
+            { label: "Analytics", icon: "dashboard" },
+          ],
+        },
+      ]),
+      Active: "Catalog",
+    },
+  },
   // P1b chrome leaves.
   pageHeaderDefault: {
     dsSlug: "page-header",

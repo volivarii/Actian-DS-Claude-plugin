@@ -1239,6 +1239,141 @@ describe("ds-html-map: side-nav — B11 case-insensitive Active", function () {
 });
 
 // ---------------------------------------------------------------------------
+// Task 3: side-nav grouped — real Studio sidebar from Figma anatomy
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: side-nav — Task 3 grouped Studio sidebar", function () {
+  it("side-nav renders grouped items with icons, active, collapse", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          {
+            items: [
+              { label: "Dashboard", icon: "dashboard" },
+              { label: "Catalog", icon: "directory" },
+              { label: "Topics", icon: "more" },
+            ],
+          },
+          {
+            items: [
+              { label: "Access request", icon: "user-single" },
+              { label: "Analytics", icon: "dashboard" },
+            ],
+          },
+        ]),
+        Active: "Catalog",
+      },
+    });
+    assert.strictEqual(
+      (html.match(/ds-sidenav__group/g) || []).length,
+      2,
+      "two ds-sidenav__group containers",
+    );
+    assert.match(html, /ds-sidenav__icon/, "items have icon spans");
+    assert.match(html, /ds-sidenav__collapse/, "collapse button present");
+    assert.match(
+      html,
+      /ds-sidenav__item[^"]*is-active[\s\S]*?Catalog/,
+      "Catalog item is active and label follows",
+    );
+  });
+
+  it("side-nav legacy comma Items prop still works (back-compat)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: { Items: "Catalog, Pipelines", Active: "Catalog" },
+    });
+    assert.match(html, /is-active/, "active class present in legacy mode");
+  });
+
+  it("Groups renders separator between groups and before collapse", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          { items: [{ label: "Dashboard", icon: "dashboard" }] },
+          { items: [{ label: "Access request", icon: "user-single" }] },
+        ]),
+        Active: "Dashboard",
+      },
+    });
+    assert.match(
+      html,
+      /ds-sidenav__separator/,
+      "at least one separator present",
+    );
+  });
+
+  it("Groups active defaults to first item across all groups when Active absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          {
+            items: [
+              { label: "Dashboard", icon: "dashboard" },
+              { label: "Catalog", icon: "directory" },
+            ],
+          },
+        ]),
+      },
+    });
+    var activeIdx = html.indexOf("ds-sidenav__item is-active");
+    assert.ok(activeIdx !== -1, "an item is active");
+    var dashboardIdx = html.indexOf("Dashboard");
+    assert.ok(
+      dashboardIdx > activeIdx,
+      "Dashboard (first item) is the default active",
+    );
+  });
+
+  it("Groups collapse button renders chevron-left icon (24px round)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          { items: [{ label: "Dashboard", icon: "dashboard" }] },
+        ]),
+        Active: "Dashboard",
+      },
+    });
+    assert.match(html, /ds-sidenav__collapse/, "collapse button present");
+    // collapse button should contain the chevron-left icon (SVG)
+    var collapseIdx = html.indexOf("ds-sidenav__collapse");
+    assert.ok(collapseIdx !== -1, "collapse button exists");
+    var svgAfterCollapse = html.indexOf("<svg", collapseIdx);
+    assert.ok(svgAfterCollapse !== -1, "collapse contains an SVG icon");
+  });
+
+  it("Groups escapes hostile item labels", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "side-nav",
+      props: {
+        Groups: JSON.stringify([
+          { items: [{ label: "<script>bad</script>", icon: "dashboard" }] },
+        ]),
+        Active: "",
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "no raw script tag");
+    assert.match(html, /&lt;script&gt;/, "script tag is escaped");
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Task A (audit B8): page-header actions slot
 // ---------------------------------------------------------------------------
 

@@ -676,44 +676,100 @@
 }
 
 /* ============ Side nav (left rail — chrome) ============ */
+/* anatomy: 240×~896, flex-column, justify-content:space-between,
+   padding:16px (--zen-spacing-md), bg:--zen-color-bg-default,
+   border-right:1px solid --zen-border-default.
+   Groups mode (real Studio sidebar) uses ds-sidenav__top + ds-sidenav__bottom
+   to split the flex space. Legacy Items mode renders flat rows directly. */
 .ds-sidenav {
   display: flex;
   flex-direction: column;
-  gap: var(--zen-spacing-2xs); /* 4 */
-  width: 240px; /* expanded rail width (raw px) */
-  padding: var(--zen-spacing-xs); /* 8 */
+  justify-content: space-between; /* pushes bottom group down */
+  width: 240px; /* anatomy: expanded rail width (raw px) */
+  padding: var(--zen-spacing-md); /* anatomy: 16px container padding */
   background: var(--zen-color-bg-default);
   border-right: 1px solid var(--zen-border-default);
   box-sizing: border-box;
   font-family: var(--zen-font-family-text);
 }
+/* Top section (groups) — grows to fill available height */
+.ds-sidenav__top {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4px between groups */
+  flex: 1 1 auto;
+}
+/* Bottom section (secondary items + collapse) */
+.ds-sidenav__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* 4px */
+}
+/* Group container — anatomy: gap 4px between items within a group */
+.ds-sidenav__group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-2xs); /* anatomy: 4px item gap */
+}
+/* Horizontal rule separator between groups and before collapse button.
+   anatomy: 1px line, --zen-border-default, 4px (--zen-spacing-2xs) vertical margin. */
+.ds-sidenav__separator {
+  height: 1px; /* raw px — hairline rule */
+  background: var(--zen-border-default);
+  margin: var(--zen-spacing-2xs) 0; /* 4px vertical rhythm */
+  flex-shrink: 0;
+}
+/* Nav item row — anatomy: height:32px, padding:4px 8px, gap:8px, icon:16px + label:14px */
 .ds-sidenav__item {
   display: flex;
   align-items: center;
-  gap: var(--zen-spacing-xs); /* 8 */
-  padding: var(--zen-spacing-xs); /* 8 */
-  border-radius: var(--zen-border-radius-sm); /* 6 */
+  height: 32px; /* anatomy: item row height (raw px) */
+  gap: var(--zen-spacing-xs); /* anatomy: 8px icon ↔ label gap */
+  padding: var(--zen-spacing-2xs) var(--zen-spacing-xs); /* anatomy: 4px 8px */
+  border-radius: var(--zen-border-radius-sm); /* 6px */
   color: var(--zen-color-text-primary);
-  font-size: var(--zen-font-size-md); /* 14 */
-  line-height: var(--zen-font-lineheight-md); /* 20 */
+  font-size: var(--zen-font-size-md); /* 14px */
+  line-height: var(--zen-font-lineheight-md); /* 20px */
   font-weight: var(--zen-font-weight-regular);
   text-decoration: none;
   cursor: pointer;
 }
+/* Icon slot — anatomy: 16px square, SVG currentColor. Legacy path renders an
+   empty span (no SVG) so we keep a small fixed box for visual alignment. */
 .ds-sidenav__icon {
-  width: 20px; /* nav icon box geometry (raw px) */
-  height: 20px;
-  border-radius: var(--zen-border-radius-xs); /* 4 */
-  background: var(--zen-color-bg-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px; /* anatomy: icon size (raw px) */
+  height: 16px;
   flex: 0 0 auto;
+  color: inherit; /* SVG currentColor picks up parent text color */
 }
+/* Active item — anatomy: --zen-color-primary-500 on text + icon; bg highlight */
 .ds-sidenav__item.is-active {
   background: var(--zen-color-bg-selected);
-  color: var(--zen-color-text-link-default);
+  color: var(
+    --zen-color-primary-500
+  ); /* anatomy: primary-500 on active label */
   font-weight: var(--zen-font-weight-medium); /* 500 */
 }
 .ds-sidenav__item.is-active .ds-sidenav__icon {
-  background: var(--zen-border-selected);
+  color: var(--zen-color-primary-500); /* anatomy: primary-500 on active icon */
+}
+/* Collapse button — anatomy: 24px round, chevron-left, bottom-right of the rail */
+.ds-sidenav__collapse {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; /* anatomy: collapse button diameter (raw px) */
+  height: 24px;
+  border-radius: var(--zen-border-radius-full); /* full circle */
+  border: 1px solid var(--zen-border-default);
+  background: var(--zen-color-bg-default);
+  cursor: pointer;
+  align-self: flex-end; /* bottom-right */
+  color: var(--zen-color-text-primary);
+  padding: 0;
 }
 .ds-sidenav--collapsed {
   width: 56px; /* collapsed rail width (raw px) */
