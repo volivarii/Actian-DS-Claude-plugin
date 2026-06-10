@@ -1,7 +1,7 @@
 # Actian Design System 2026 — Component Reference
 
 Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/renderers/render-component-reference.js`.
-318 components.
+319 components.
 
 ---
 
@@ -44,6 +44,11 @@ Auto-generated from `vendor/components/dist/registries/dskit.json` by `scripts/r
 
 - Single component (no variants)
 - Node: `8400:25195` | Key: `dbbd381b0a1be15cf5f3c68aa1348c5fda1fbb1c`
+
+### ai
+
+- Single component (no variants)
+- Node: `17991:4240` | Key: `7afdab93e1015a122408dc9aff0a95c07b6a15d8`
 
 ### alert
 
