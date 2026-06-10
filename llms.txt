@@ -1,6 +1,6 @@
 # Actian Design System
 
-> Actian's design system, packaged as a Claude Code plugin. 8 skills for authoring and auditing Figma designs against the Actian DS via the official Figma MCP server. 155 tokens (3 themes, 8 collections), 318 DS Kit components, 287 FM Kit wireframe components, 28 Meta Kit components.
+> Actian's design system, packaged as a Claude Code plugin. 8 skills for authoring and auditing Figma designs against the Actian DS via the official Figma MCP server. 155 tokens (3 themes, 8 collections), 319 DS Kit components, 287 FM Kit wireframe components, 28 Meta Kit components.
 
 The Actian DS is in a federated configuration (2026-05-09): the **knowledge layer** lives in [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge); this plugin vendors a pinned snapshot at release time. The URLs below point AI agents at the canonical knowledge repo. The plugin's own AI orientation, push patterns, and skill code are linked at the bottom under "Plugin meta-docs".
 
