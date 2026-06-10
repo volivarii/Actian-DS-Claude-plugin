@@ -61,14 +61,20 @@ function assembleFlowShare(data) {
   );
   var flowCss = cssParts.join("\n");
 
-  // Flow-level hi-fi signal → per-screen library flag. The generate-flow skill
-  // sets meta.library:"ds" (or meta.hifi:true) for a hi-fi flow; the renderer
-  // branches on a per-screen `library` so individual screens can still override
-  // (mixed flows). Authored per-screen `library` always wins.
+  // Flow-level hi-fi signal → per-screen library flag.
+  // Sources (in priority order):
+  //   1. meta.library:"ds"    — generate-flow skill stamps this for DS-native flows
+  //                             (being wired this week); direct and authoritative.
+  //   2. meta._glossary.library — legacy glossary path, kept for back-compat.
+  //   3. meta.hifi:true       — older boolean shorthand; maps to "ds".
+  //   4. meta.mode:"hifi"     — /convert-to-hifi transform output carries this signal
+  //                             (transform-to-hifi.js stamps mode, not library).
+  // Authored per-screen `library` always wins (screen-level overrides meta-level).
   var metaLibrary =
     meta.library ||
     (meta._glossary && meta._glossary.library) ||
-    (meta.hifi ? "ds" : null);
+    (meta.hifi ? "ds" : null) ||
+    (meta.mode === "hifi" ? "ds" : null);
 
   // Server-render each screen into a .proto-screen-cell. The cell is a click
   // target in Overview (enter that screen); display:contents in Prototype.
