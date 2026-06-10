@@ -86,6 +86,28 @@
   var SVG_SEARCH =
     '<svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="6" stroke="currentColor" stroke-width="1.5"/><path d="M14 14l3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
 
+  // Bell outline — notification button icon (20×20, geometry from anatomy).
+  // Stroke-only so it responds to currentColor on the action button.
+  var SVG_BELL =
+    '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">' +
+    '<path d="M10 2a6 6 0 0 0-6 6v3.5l-1.5 2V15h15v-1.5L16 11.5V8a6 6 0 0 0-6-6z" stroke-linejoin="round"/>' +
+    '<path d="M8 15a2 2 0 0 0 4 0" stroke-linecap="round"/>' +
+    "</svg>";
+
+  // 3×3 dot/square grid — app-switcher button icon (20×20, fill, geometry from anatomy).
+  var SVG_APPS =
+    '<svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">' +
+    '<rect x="3" y="3" width="4" height="4" rx="1"/>' +
+    '<rect x="8" y="3" width="4" height="4" rx="1"/>' +
+    '<rect x="13" y="3" width="4" height="4" rx="1"/>' +
+    '<rect x="3" y="8" width="4" height="4" rx="1"/>' +
+    '<rect x="8" y="8" width="4" height="4" rx="1"/>' +
+    '<rect x="13" y="8" width="4" height="4" rx="1"/>' +
+    '<rect x="3" y="13" width="4" height="4" rx="1"/>' +
+    '<rect x="8" y="13" width="4" height="4" rx="1"/>' +
+    '<rect x="13" y="13" width="4" height="4" rx="1"/>' +
+    "</svg>";
+
   // Parse a comma-separated list prop (nav items, tabs, crumbs) into a trimmed,
   // empty-dropped array. `fallback` is used when raw is falsy (matches the prior
   // inline `String(props.Items || "default")` behavior exactly).
@@ -360,24 +382,91 @@
         }
 
         case "global-header": {
-          // Top app bar (chrome). The brand app label defaults to the App-type
-          // variant value (Studio/Explorer/Admin), then to "Studio".
+          // Top app bar (chrome) — real Studio header, authored from Figma anatomy.
+          // anatomy: 1440×64, flex space-between, padding 0 24px.
+          // Left  = logo mark + app name label.
+          // Center = context dropdown + search bar (when props.Search truthy).
+          // Right = What's new · divider · notifications · divider · apps · divider · avatar.
+          // NO AI/sparkle trigger — Figma anatomy has none.
           var headerApp = esc(props.App || v["App type"] || "Studio");
           var headerAvatar = esc(props.Account || "AU");
-          return (
-            '<header class="ds-header">' +
+          var headerContext = esc(props.Context || "Catalog");
+          var headerContextValue = esc(props.ContextValue || "Default");
+          var showSearch =
+            props.Search !== false &&
+            props.Search !== "false" &&
+            props.Search !== 0;
+
+          // Left brand block: logo mark + app name label.
+          var brandBlock =
             '<div class="ds-header__brand">' +
-            '<span class="ds-header__logo"></span>' +
+            '<span class="ds-header__logo" aria-hidden="true"></span>' +
             '<span class="ds-header__app">' +
             headerApp +
             "</span>" +
-            "</div>" +
-            '<div class="ds-header__spacer"></div>' +
+            "</div>";
+
+          // Context dropdown: micro label (Catalog) + value in --zen-color-primary-500.
+          // chevron-up rotated 180° = chevron-down (anatomy: arrow-down).
+          var contextBlock =
+            '<div class="ds-header__context">' +
+            '<span class="ds-header__context-label">' +
+            headerContext +
+            "</span>" +
+            '<span class="ds-header__context-value">' +
+            headerContextValue +
+            "</span>" +
+            renderIcon("chevron-up", { rotate: 180 }) +
+            "</div>";
+
+          // Search bar: magnifier + text input + placeholder.
+          // anatomy: 568px max-width, left scope toggle + search input with SVG_SEARCH.
+          var searchBlock = showSearch
+            ? '<div class="ds-header__search">' +
+              '<span class="ds-header__search-icon">' +
+              SVG_SEARCH +
+              "</span>" +
+              '<input class="ds-header__search-input" type="search"' +
+              ' placeholder="Search items" aria-label="Search items">' +
+              "</div>"
+            : "";
+
+          var centerBlock =
+            '<div class="ds-header__center">' +
+            contextBlock +
+            searchBlock +
+            "</div>";
+
+          // Right actions cluster: What's new · divider · bell · divider · apps · divider · avatar.
+          // anatomy: gap 8px, vertical dividers between groups.
+          var hdrDivider =
+            '<span class="ds-header__divider" aria-hidden="true"></span>';
+          var actionsBlock =
             '<div class="ds-header__actions">' +
+            '<button class="ds-header__action ds-header__action--whatsnew" type="button">' +
+            "What&#39;s new" +
+            "</button>" +
+            hdrDivider +
+            '<button class="ds-header__action ds-header__action--notifications"' +
+            ' type="button" aria-label="Notifications">' +
+            SVG_BELL +
+            "</button>" +
+            hdrDivider +
+            '<button class="ds-header__action ds-header__action--apps"' +
+            ' type="button" aria-label="App switcher">' +
+            SVG_APPS +
+            "</button>" +
+            hdrDivider +
             '<span class="ds-header__avatar">' +
             headerAvatar +
             "</span>" +
-            "</div>" +
+            "</div>";
+
+          return (
+            '<header class="ds-header">' +
+            brandBlock +
+            centerBlock +
+            actionsBlock +
             "</header>"
           );
         }

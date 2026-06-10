@@ -558,7 +558,7 @@ describe("ds-html-map: card-for-items (DS-native only)", function () {
 });
 
 describe("ds-html-map: global-header", function () {
-  it("default: emits a <header> with brand, app label, spacer, avatar", function () {
+  it("default: emits a <header> with brand, center, actions, and avatar", function () {
     var html = render({
       dsSlug: "global-header",
       variant: "App type=Studio",
@@ -571,7 +571,7 @@ describe("ds-html-map: global-header", function () {
     assert.ok(html.indexOf("ds-header__brand") !== -1, "has brand");
     assert.ok(html.indexOf("ds-header__logo") !== -1, "has logo");
     assert.ok(html.indexOf("ds-header__app") !== -1, "has app label");
-    assert.ok(html.indexOf("ds-header__spacer") !== -1, "has spacer");
+    assert.ok(html.indexOf("ds-header__center") !== -1, "has center block");
     assert.ok(html.indexOf("ds-header__actions") !== -1, "has actions");
     assert.ok(html.indexOf("ds-header__avatar") !== -1, "has avatar");
     assert.ok(html.indexOf("</header>") !== -1, "closes header tag");
@@ -627,6 +627,80 @@ describe("ds-html-map: global-header", function () {
     });
     assert.ok(html.indexOf("&lt;img") !== -1, "app label escaped");
     assert.ok(html.indexOf("<img") === -1, "no raw injection");
+  });
+
+  it("global-header renders the real Studio cluster", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: {
+        App: "Studio",
+        Context: "Catalog",
+        ContextValue: "Default",
+        Search: true,
+        Account: "VO",
+      },
+    });
+    assert.match(html, /ds-header__context/);
+    assert.match(html, /ds-header__search/);
+    assert.match(html, /ds-header__action--whatsnew/);
+    assert.match(html, /ds-header__action--notifications/);
+    assert.match(html, /ds-header__action--apps/);
+    assert.match(html, /ds-header__avatar/);
+    assert.ok(!html.includes("[object Object]"));
+    assert.ok(!/ds-header__action--ai/.test(html)); // Figma has no AI trigger
+  });
+
+  it("global-header: center section renders context label, value, and search placeholder", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: { Context: "MyDomain", ContextValue: "Staging", Search: true },
+    });
+    assert.ok(html.indexOf("MyDomain") !== -1, "renders Context label");
+    assert.ok(html.indexOf("Staging") !== -1, "renders ContextValue");
+    assert.ok(
+      html.indexOf("Search items") !== -1,
+      "renders search placeholder",
+    );
+  });
+
+  it("global-header: Search=false omits the search field", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: { Search: false },
+    });
+    assert.ok(
+      html.indexOf("ds-header__search") === -1,
+      "no search when Search=false",
+    );
+  });
+
+  it("global-header: right cluster has What's new text and dividers", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: { Account: "AB" },
+    });
+    assert.ok(
+      html.indexOf("What&#39;s new") !== -1 || html.indexOf("What") !== -1,
+      "renders whatsnew text",
+    );
+    assert.ok(html.indexOf("ds-header__divider") !== -1, "renders dividers");
+    assert.ok(html.indexOf(">AB</") !== -1, "renders account initials");
+  });
+
+  it("global-header: no AI/sparkle trigger", function () {
+    var html = render({
+      dsSlug: "global-header",
+      variant: "App type=Studio",
+      props: {},
+    });
+    assert.ok(!/ds-header__action--ai/.test(html), "no AI trigger");
+    assert.ok(!/sparkle/.test(html), "no sparkle");
   });
 });
 

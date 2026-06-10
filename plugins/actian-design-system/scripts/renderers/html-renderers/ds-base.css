@@ -489,25 +489,32 @@
 }
 
 /* ============ Global header (top app bar — chrome) ============ */
+/* Anatomy: 1440×64, flex space-between, padding 0 24px.              */
+/* Left = brand; Center = context + search; Right = actions cluster.  */
 .ds-header {
   display: flex;
   align-items: center;
-  gap: var(--zen-spacing-md); /* 16 */
-  height: 56px; /* measured app-bar row (raw px) */
-  padding: 0 var(--zen-spacing-md); /* 16 */
+  justify-content: space-between;
+  height: 64px; /* anatomy: measured header row (raw px) */
+  padding: 0 24px; /* anatomy: 24px horizontal gutter (raw px) */
   background: var(--zen-color-bg-default);
   border-bottom: 1px solid var(--zen-border-default);
   box-sizing: border-box;
   font-family: var(--zen-font-family-text);
+  position: relative; /* for center absolute positioning */
 }
+
+/* --- Left: brand block (logo mark + app label) --- */
 .ds-header__brand {
   display: flex;
   align-items: center;
   gap: var(--zen-spacing-xs); /* 8 */
+  flex-shrink: 0;
+  z-index: 1;
 }
 .ds-header__logo {
-  width: 24px; /* logo box geometry (raw px) */
-  height: 24px;
+  width: 121px; /* anatomy: logo ~121×32 (raw px) */
+  height: 32px;
   border-radius: var(--zen-border-radius-sm); /* 6 */
   background: var(--zen-color-bg-emphasis);
 }
@@ -517,25 +524,155 @@
   line-height: var(--zen-font-lineheight-md); /* 20 */
   color: var(--zen-color-text-primary);
 }
-.ds-header__spacer {
-  flex: 1;
+
+/* --- Center: context dropdown + search bar --- */
+/* Anatomy: absolutely centered, gap 16px between context and search. */
+.ds-header__center {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-md); /* 16 */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
+
+/* Context dropdown: stacked micro label + value in primary colour.   */
+/* anatomy: ~128px, label 11px + value primary-500 medium.            */
+.ds-header__context {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-2xs); /* 4 */
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-width: 128px; /* anatomy: context dropdown ~128px (raw px) */
+  cursor: pointer;
+  user-select: none;
+}
+.ds-header__context-label {
+  font-size: var(--zen-font-size-xs); /* 11px — anatomy micro label */
+  line-height: var(--zen-font-lineheight-xs); /* 14 */
+  color: var(--zen-color-text-secondary);
+  width: 100%;
+}
+.ds-header__context-value {
+  font-size: var(--zen-font-size-md); /* 14 */
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  color: var(--zen-color-primary-500); /* studio azure */
+}
+
+/* Search bar: magnifier + input.                                      */
+/* anatomy: 568px, border, radius-sm, placeholder in text-secondary.  */
+.ds-header__search {
+  display: flex;
+  align-items: center;
+  gap: var(--zen-spacing-xs); /* 8 */
+  width: 568px; /* anatomy: search bar width (raw px) */
+  max-width: 568px;
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+  height: 36px; /* anatomy: search row height (raw px) */
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm); /* 6 */
+  box-sizing: border-box;
+  background: var(--zen-color-bg-default);
+}
+.ds-header__search-icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  color: var(--zen-color-text-secondary);
+  width: 20px; /* anatomy: icon 20px (raw px) */
+  height: 20px;
+}
+.ds-header__search-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.ds-header__search-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+  color: var(--zen-color-text-primary);
+  font-family: var(--zen-font-family-text);
+}
+.ds-header__search-input::placeholder {
+  color: var(--zen-color-text-secondary);
+}
+
+/* --- Right: actions cluster --- */
+/* anatomy: gap 8px between groups, vertical dividers between groups.  */
 .ds-header__actions {
   display: flex;
   align-items: center;
   gap: var(--zen-spacing-xs); /* 8 */
+  flex-shrink: 0;
+  z-index: 1;
 }
+
+/* Vertical divider between action groups.                             */
+.ds-header__divider {
+  display: inline-block;
+  width: 1px;
+  height: 20px; /* anatomy: divider height (raw px) */
+  background: var(--zen-border-default);
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* Base action button (32px round): bell + apps + What's new text.    */
+/* anatomy: round buttons 32×32, icon 20px, no visible bg at rest.    */
+.ds-header__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px; /* anatomy: action button 32px (raw px) */
+  min-width: 32px;
+  border-radius: var(--zen-border-radius-full);
+  border: none;
+  background: transparent;
+  color: var(--zen-color-text-primary);
+  cursor: pointer;
+  padding: 0 var(--zen-spacing-2xs); /* 4 */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md); /* 14 */
+  line-height: var(--zen-font-lineheight-md); /* 20 */
+}
+.ds-header__action:hover {
+  background: var(--zen-color-bg-selected);
+}
+.ds-header__action svg {
+  width: 20px; /* anatomy: icon within action button 20px (raw px) */
+  height: 20px;
+}
+
+/* What's new: text-label action (no icon, wider hit-area).           */
+.ds-header__action--whatsnew {
+  white-space: nowrap;
+  padding: 0 var(--zen-spacing-xs); /* 8 */
+}
+
+/* Avatar: 32px round, turquoise background, initials.                */
+/* --zen-color-turquoise-50 (#d0efed) absent from vendored tokens →   */
+/* fallback: --zen-color-bg-selected (theme-aware; studio ≈ #cfeafd). */
 .ds-header__avatar {
-  width: 32px; /* avatar box geometry (raw px) */
+  width: 32px; /* anatomy: avatar 32×32 (raw px) */
   height: 32px;
   border-radius: var(--zen-border-radius-full);
-  background: var(--zen-color-bg-selected);
+  background: var(
+    --zen-color-bg-selected
+  ); /* fallback: turquoise-50 not vendored */
   color: var(--zen-color-text-link-default);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: var(--zen-font-size-sm); /* 12 */
   font-weight: var(--zen-font-weight-medium); /* 500 */
+  flex-shrink: 0;
+  cursor: pointer;
+  user-select: none;
 }
 
 /* ============ Side nav (left rail — chrome) ============ */
