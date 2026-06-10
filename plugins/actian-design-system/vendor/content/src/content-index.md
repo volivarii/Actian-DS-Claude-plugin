@@ -29,6 +29,7 @@ Use the sidebar to navigate, or jump directly to a section below.
   <a href="badge">Badges</a>
   <a href="breadcrumbs">Breadcrumbs</a>
   <a href="card">Cards</a>
+  <a href="chat-with-ai-steward">Chat with AI Steward</a>
   <a href="checkbox">Checkboxes</a>
   <a href="combo-box">Combo box</a>
   <a href="confirmation">Confirmation</a>

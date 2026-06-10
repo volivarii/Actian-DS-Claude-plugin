@@ -171,6 +171,28 @@ describe("assembleFlowShare — hi-fi DS tier end-to-end (offline)", function ()
     );
   });
 
+  // --- Embedded fonts: Roboto (DS) + Inter (FM) faces ship inline as data
+  // URIs, so the offline contract holds AND DS leaves render in the real
+  // --zen-font-family-text face instead of silently falling back (audit B4).
+  it("embeds Roboto + Inter woff2 faces as data URIs (no network fonts)", function () {
+    assert.ok(
+      /@font-face[^}]*font-family:\s*"Roboto"/.test(html),
+      "expected an embedded Roboto @font-face",
+    );
+    assert.ok(
+      /@font-face[^}]*font-family:\s*"Inter"/.test(html),
+      "expected an embedded Inter @font-face",
+    );
+    assert.ok(
+      html.indexOf("src: url(data:font/woff2;base64,") !== -1,
+      "faces must be base64 data URIs, not network URLs",
+    );
+    assert.ok(
+      !/fonts\.(googleapis|gstatic)\.com/.test(html),
+      "no Google Fonts network references",
+    );
+  });
+
   // --- NEGATIVE CONTROL: the FM tier still renders.
   it("still renders the lo-fi FM button (fm-button) — DS wiring is additive", function () {
     assert.ok(

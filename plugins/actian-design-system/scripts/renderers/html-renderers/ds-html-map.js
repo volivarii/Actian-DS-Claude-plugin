@@ -101,11 +101,15 @@
   }
 
   // Resolve the active item for a list prop: the trimmed Active value when it
-  // matches an item, else the first item. Falls back to first on absent OR
-  // non-matching Active, so a stale/renamed Active never yields zero-active.
+  // matches an item (case-insensitive), else the first item. Falls back to
+  // first on absent OR non-matching Active, so a stale/renamed Active never
+  // yields zero-active. Case-insensitive matching aligns with flow-renderer.js.
   function resolveActive(items, active) {
-    var a = active != null ? String(active).trim() : "";
-    return items.indexOf(a) !== -1 ? a : items[0];
+    var a = active != null ? String(active).trim().toLowerCase() : "";
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].toLowerCase() === a) return items[i];
+    }
+    return items[0];
   }
 
   /**
@@ -144,6 +148,7 @@
             Secondary: "secondary",
             Tertiary: "tertiary",
             "Critical primary": "critical",
+            "Critical secondary": "critical-secondary",
             Icon: "primary",
           };
           var btnType = typeMap[v.Type] || "primary";
@@ -412,6 +417,27 @@
               esc(props.Description) +
               "</p>"
             : "";
+          var phActions = "";
+          var actionsRaw = props.Actions;
+          if (Array.isArray(actionsRaw) && actionsRaw.length) {
+            phActions =
+              '<div class="ds-page-header__actions">' +
+              actionsRaw
+                .map(function (a, i) {
+                  var label = typeof a === "string" ? a : (a && a.label) || "";
+                  var variant =
+                    (a && a.variant) || (i === 0 ? "primary" : "secondary");
+                  return (
+                    '<button class="ds-button ds-button--' +
+                    esc(variant) +
+                    '">' +
+                    esc(label) +
+                    "</button>"
+                  );
+                })
+                .join("") +
+              "</div>";
+          }
           return (
             '<header class="ds-page-header">' +
             '<div class="ds-page-header__text">' +
@@ -420,6 +446,7 @@
             "</h1>" +
             phDesc +
             "</div>" +
+            phActions +
             "</header>"
           );
         }
@@ -475,6 +502,222 @@
           return '<div class="ds-tabs" role="tablist">' + tabHtml + "</div>";
         }
 
+        case "table": {
+          var cols = parseItems(props.Columns, "Name, Status, Updated");
+          var rowsRaw = props.Rows;
+          var rows = Array.isArray(rowsRaw)
+            ? rowsRaw
+            : parseItems(rowsRaw, "").map(function (cell) {
+                return [cell];
+              });
+          var thead =
+            '<thead><tr class="ds-table__head-row">' +
+            cols
+              .map(function (c) {
+                return '<th class="ds-table__th">' + esc(c) + "</th>";
+              })
+              .join("") +
+            "</tr></thead>";
+          var tbody =
+            "<tbody>" +
+            rows
+              .map(function (r) {
+                var cells = Array.isArray(r) ? r : [r];
+                return (
+                  '<tr class="ds-table__row">' +
+                  cols
+                    .map(function (_c, i) {
+                      return (
+                        '<td class="ds-table__td">' +
+                        esc(cells[i] != null ? cells[i] : "") +
+                        "</td>"
+                      );
+                    })
+                    .join("") +
+                  "</tr>"
+                );
+              })
+              .join("") +
+            "</tbody>";
+          return '<table class="ds-table">' + thead + tbody + "</table>";
+        }
+
+        case "modal": {
+          var modalTitle = esc(props.Title || "Dialog");
+          var modalBody = props.Body
+            ? '<div class="ds-modal__body">' + esc(props.Body) + "</div>"
+            : "";
+          var modalFooter = "";
+          var modalActionsRaw = props.Actions;
+          if (Array.isArray(modalActionsRaw) && modalActionsRaw.length) {
+            modalFooter =
+              '<div class="ds-modal__footer">' +
+              modalActionsRaw
+                .map(function (a, i) {
+                  var label = typeof a === "string" ? a : (a && a.label) || "";
+                  var variant =
+                    (a && a.variant) || (i === 0 ? "primary" : "secondary");
+                  return (
+                    '<button class="ds-button ds-button--' +
+                    esc(variant) +
+                    '">' +
+                    esc(label) +
+                    "</button>"
+                  );
+                })
+                .join("") +
+              "</div>";
+          } else if (typeof modalActionsRaw === "string" && modalActionsRaw) {
+            // String Actions fallback: treat the whole string as a single
+            // primary button label (mirrors page-header string-actions idiom).
+            modalFooter =
+              '<div class="ds-modal__footer">' +
+              '<button class="ds-button ds-button--primary">' +
+              esc(modalActionsRaw) +
+              "</button>" +
+              "</div>";
+          }
+          return (
+            '<div class="ds-modal-backdrop">' +
+            '<div class="ds-modal" role="dialog" aria-modal="true">' +
+            '<h2 class="ds-modal__title">' +
+            modalTitle +
+            "</h2>" +
+            modalBody +
+            modalFooter +
+            "</div>" +
+            "</div>"
+          );
+        }
+
+        case "empty-state": {
+          var esHeadline = esc(props.Headline || "Nothing here yet");
+          var esBody = props.Body
+            ? '<p class="ds-empty-state__body">' + esc(props.Body) + "</p>"
+            : "";
+          var esCta = props.Cta
+            ? '<button class="ds-button ds-button--primary ds-empty-state__cta">' +
+              esc(props.Cta) +
+              "</button>"
+            : "";
+          return (
+            '<div class="ds-empty-state">' +
+            '<p class="ds-empty-state__headline">' +
+            esHeadline +
+            "</p>" +
+            esBody +
+            esCta +
+            "</div>"
+          );
+        }
+
+        case "alert-banner": {
+          // Registry variant axis: Type = Primary | Success | Warning | Danger
+          // Primary → info-filled icon, role=status
+          // Success → success-filled icon, role=status
+          // Warning → warning-filled icon, role=status
+          // Danger  → error-filled icon,   role=alert
+          var alertIconMap = {
+            primary: "info-filled",
+            success: "success-filled",
+            warning: "warning-filled",
+            danger: "error-filled",
+          };
+          // Clamp Type to the known enum BEFORE it reaches the class attribute —
+          // v.Type is user-supplied flow-data; an unclamped value would break out
+          // of the class attribute and inject markup (XSS). Unknown/crafted values
+          // fall back to "primary".
+          var alertTypeRaw = (v.Type || "Primary").toLowerCase();
+          var alertType = alertIconMap[alertTypeRaw] ? alertTypeRaw : "primary";
+          var alertIconSlug = alertIconMap[alertType];
+          var alertRole = alertType === "danger" ? "alert" : "status";
+          var alertCls = "ds-alert ds-alert--" + alertType;
+          var alertTitleHtml = props.Title
+            ? '<p class="ds-alert__title">' + esc(props.Title) + "</p>"
+            : "";
+          var alertMsg = esc(props.Message || "");
+          return (
+            '<div class="' +
+            alertCls +
+            '" role="' +
+            alertRole +
+            '">' +
+            '<span class="ds-alert__icon">' +
+            renderIcon(alertIconSlug) +
+            "</span>" +
+            '<div class="ds-alert__content">' +
+            alertTitleHtml +
+            '<p class="ds-alert__message">' +
+            alertMsg +
+            "</p>" +
+            "</div>" +
+            "</div>"
+          );
+        }
+
+        case "chat-with-ai-steward": {
+          // Oracle: vendor/components/dist/media/chat-with-ai-steward/
+          //   preview.webp — ~420px floating panel, bg-default, shadow-xl elevation
+          //   behavior-0.webp — overlay/drawer/floating variants; this leaf = static open panel
+          // Design guideline: surface elevation (shadow-xl), ai icon sparkle (16px),
+          //   confidence = badge, streaming shimmer (2000ms), disclaimer footer.
+          // Note: --zen-color-purple-* NOT in vendored tokens.css — using
+          //   --zen-color-icon-primary as sparkle accent (nearest semantic match).
+          var stTitle = esc(props.Title || "AI Steward");
+          var generating = v.State === "Generating";
+          var stHeader =
+            '<div class="ds-steward__header">' +
+            '<span class="ds-steward__spark" aria-label="Generated by AI">' +
+            renderIcon("ai") +
+            "</span>" +
+            '<span class="ds-steward__title">' +
+            stTitle +
+            "</span></div>";
+          var stBody;
+          if (generating) {
+            stBody =
+              '<div class="ds-steward__body" aria-busy="true">' +
+              '<span class="ds-steward__shimmer"></span>' +
+              '<span class="ds-steward__shimmer ds-steward__shimmer--short"></span>' +
+              '<button class="ds-button ds-button--tertiary ds-button--small">Stop</button>' +
+              "</div>";
+          } else {
+            var stConf = props.Confidence
+              ? '<span class="ds-badge ds-badge--number ds-steward__conf">' +
+                esc(props.Confidence) +
+                "</span>"
+              : "";
+            var stSrc = props.Source
+              ? '<div class="ds-steward__source">Source: <a class="ds-steward__source-link">' +
+                esc(props.Source) +
+                "</a>" +
+                stConf +
+                "</div>"
+              : "";
+            stBody =
+              '<div class="ds-steward__body" aria-live="polite">' +
+              '<p class="ds-steward__insight">' +
+              esc(props.Insight || "") +
+              "</p>" +
+              stSrc +
+              '<div class="ds-steward__actions">' +
+              '<button class="ds-button ds-button--secondary ds-button--small">Accept</button>' +
+              '<button class="ds-button ds-button--tertiary ds-button--small">Regenerate</button>' +
+              '<button class="ds-button ds-button--tertiary ds-button--small">Discard</button>' +
+              "</div>" +
+              "</div>";
+          }
+          var stFooter =
+            '<div class="ds-steward__disclaimer">AI-generated content can contain errors. Verify important information.</div>';
+          return (
+            '<aside class="ds-steward">' +
+            stHeader +
+            stBody +
+            stFooter +
+            "</aside>"
+          );
+        }
+
         default: {
           // Unmapped slug: a clean labeled chip using the human name.
           return gracefulChip();
@@ -487,11 +730,36 @@
     }
   }
 
+  // Slugs with a real leaf (everything else chip-degrades). Gated against the
+  // switch cases by tests/renderers/ds-built-slugs.test.js — update BOTH.
+  var BUILT_SLUGS = [
+    "button",
+    "input",
+    "checkbox-with-label",
+    "radio-button",
+    "toggle",
+    "tag-default",
+    "badge",
+    "search",
+    "card-for-items",
+    "global-header",
+    "side-nav",
+    "page-header",
+    "breadcrumbs",
+    "tabs",
+    "table",
+    "modal",
+    "empty-state",
+    "alert-banner",
+    "chat-with-ai-steward",
+  ];
+
   exports.renderDSComponent = renderDSComponent;
   exports.renderIcon = renderIcon;
   exports.esc = esc;
   exports.parseVariant = parseVariant;
   exports.normalizeProps = normalizeProps;
+  exports.BUILT_SLUGS = BUILT_SLUGS;
 })(
   typeof module !== "undefined"
     ? module.exports

@@ -82,6 +82,10 @@ function getCombinedRegistry() {
   return _registryCache;
 }
 
+// Fires `callback` on every INSTANCE node (FM `ref` or DS `library:"ds"`), then
+// always recurses into ALL keys so nested INSTANCE children (e.g. a FRAME holding
+// DS leaves, or a DS node nesting another) are validated too. Do not short-circuit
+// the recursion after an INSTANCE — that would skip nested nodes.
 function walkInstanceNodes(node, currentPath, callback) {
   if (node === null || node === undefined) return;
   if (Array.isArray(node)) {
@@ -91,7 +95,10 @@ function walkInstanceNodes(node, currentPath, callback) {
     return;
   }
   if (typeof node !== "object") return;
-  if (node.type === "INSTANCE" && typeof node.ref === "string") {
+  if (
+    node.type === "INSTANCE" &&
+    (typeof node.ref === "string" || node.library === "ds")
+  ) {
     callback(node, currentPath);
   }
   var keys = Object.keys(node);
@@ -121,6 +128,8 @@ var STRUCTURAL_FIELD_KEYS = {
   app: true,
   view: true,
   layoutMode: true,
+  library: true,
+  dsSlug: true,
 };
 
 function walkStringValues(node, currentPath, callback, parentKey) {
@@ -1146,6 +1155,23 @@ function checkRecipeAdherence(screen, findings) {
 }
 
 // ---------------------------------------------------------------------------
+// DS-native slug check helpers (Task 3)
+// ---------------------------------------------------------------------------
+//
+// DS-native nodes: dsSlug must exist in the dskit registry (hard error —
+// blocks hallucinated slugs); a registry slug without a built leaf renders
+// as a graceful chip (warning — telemetry for leaf prioritization).
+var BUILT_DS_SLUGS = (function () {
+  try {
+    return (
+      require("../renderers/html-renderers/ds-html-map.js").BUILT_SLUGS || []
+    );
+  } catch (e) {
+    return [];
+  }
+})();
+
+// ---------------------------------------------------------------------------
 // Aggregator entry point. Returns { findings: [...] } using the unified shape
 // { severity, kind, screen, message } plus any extra fields needed by legacy
 // adapters. opts.skipTokens and opts.skipTerminology mirror the CLI flags.
@@ -1184,9 +1210,46 @@ function validate(data, opts) {
 
   // Pass 1: walk INSTANCE nodes, check ref exists + required overrides present
   var registry = getCombinedRegistry();
+  // DS kit registry keyed by kebab-case slug (verbatim) — used for dsSlug lookups.
+  var dsKitComponents = loadKitRegistry("ds").components || {};
   if (data.screens) {
     walkInstanceNodes(data.screens, "screens", function (instNode, p) {
       var sId = screenIdFromPath(p);
+
+      // DS-native nodes: validate dsSlug against the dskit registry.
+      // Guard FIRST — these nodes have no `ref` so the FM checks below must not run.
+      if (instNode.library === "ds") {
+        var slug = instNode.dsSlug;
+        if (
+          !slug ||
+          !Object.prototype.hasOwnProperty.call(dsKitComponents, slug)
+        ) {
+          findings.push({
+            kind: "unknown-ds-slug",
+            severity: "error",
+            path: p + ".dsSlug",
+            screen: sId,
+            message:
+              "DS node dsSlug '" +
+              (slug || "") +
+              "' not found in dskit registry — check spelling or remove the node",
+          });
+        } else if (BUILT_DS_SLUGS.indexOf(slug) === -1) {
+          findings.push({
+            kind: "ds-slug-unbuilt",
+            severity: "warning",
+            path: p + ".dsSlug",
+            screen: sId,
+            message:
+              "DS node dsSlug '" +
+              slug +
+              "' is in the registry but has no built leaf — renders as a graceful chip (prioritize for leaf implementation)",
+          });
+        }
+        // DS-native nodes have no ref; skip the FM ref/override checks entirely.
+        return;
+      }
+
       var componentDef = registry[instNode.ref];
       if (!componentDef) {
         findings.push({
@@ -1658,6 +1721,8 @@ if (require.main === module) {
     "unknown-component": true,
     "soft-deviation": true,
     "stub-guideline-used": true,
+    "unknown-ds-slug": true,
+    "ds-slug-unbuilt": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;

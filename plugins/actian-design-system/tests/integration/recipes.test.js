@@ -38,7 +38,16 @@ function validateContentNode(node, nodePath) {
   }
 
   if (node.type === "INSTANCE" && !node.ref) {
-    errors.push(`${nodePath}: INSTANCE node missing "ref"`);
+    // DS-native nodes use library:"ds" + dsSlug instead of ref — accept either form
+    const isDsNative =
+      node.library === "ds" &&
+      typeof node.dsSlug === "string" &&
+      node.dsSlug.length > 0;
+    if (!isDsNative) {
+      errors.push(
+        `${nodePath}: INSTANCE node missing "ref" (or use library:"ds" + dsSlug for DS-native nodes)`,
+      );
+    }
   }
 
   if (node.type === "FRAME") {

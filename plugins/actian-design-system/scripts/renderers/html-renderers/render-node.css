@@ -31,3 +31,17 @@
   border-top: 1px solid var(--fm-base-300);
   margin: 0;
 }
+
+/* Never-throws fallback chip (render-node.js B10 guard): a single malformed
+   node degrades to this labeled placeholder instead of blanking the preview. */
+.render-error {
+  display: inline-block;
+  padding: 2px 8px;
+  border: 1px dashed var(--fm-base-300);
+  border-radius: 4px;
+  color: var(--fm-base-500);
+  font-size: 11px;
+}
+.render-error::after {
+  content: attr(data-name);
+}

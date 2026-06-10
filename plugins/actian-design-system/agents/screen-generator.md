@@ -158,7 +158,7 @@ Use the output to write each `{ type: "INSTANCE", ref: "<slug>", props: {...} }`
 
    You MAY do classification inline as part of the same reasoning that selects the recipe and writes the screen. The classification must commit to a tier value BEFORE writing the screen's content (so the content reflects the tier's rules — see the Tier-aware generation rules section below).
 
-1. Read `references/generate-flow/figma-spec-builder.md` for the content node spec and FM component table
+1. Read `references/generate-flow/html-reference.md` for the content node spec and FM component table
 2. Read `recipes/flow/_index.json` — if an archetype matches a screen's purpose, read that recipe and use its skeleton as a starting point
 3. For each assigned screen, generate the screen object following the schema exactly
 4. Write the partial JSON to the specified output path
@@ -193,6 +193,41 @@ Apply different rules for content generation per the classified tier:
 
   Example: *"Considered detail-page (no detail data — auth blocks before fetch), empty-state (not a result-zero condition — auth-pre-empts query). Improvising auth-block-with-cta pattern using `Banner[variant=info]` for system status + `Button[variant=primary]` request-access CTA + `Link[variant=subtle]` support contact."*
 
+## DS-native mode (dispatch payload `library: "ds"`)
+
+When the dispatch payload carries `library: "ds"` (set by the generate-flow skill when `--hifi` is active and `meta.library:"ds"` is set), author content INSTANCE nodes using the DS vocabulary instead of the FM vocabulary.
+
+### DS INSTANCE node shape
+
+```json
+{
+  "type": "INSTANCE",
+  "library": "ds",
+  "dsSlug": "<slug>",
+  "variant": "Axis=Value, Axis=Value",
+  "props": { "PropName": "value" },
+  "name": "Optional human name"
+}
+```
+
+- **No `ref` field** — DS nodes use `dsSlug`, not `ref`. Omit `ref` entirely.
+- **Read `references/generate-flow/ds-components-authoring.md` FIRST** — it lists the available slugs, which are built vs chip, and what props each built leaf consumes.
+- **Prefer BUILT leaves** — built leaves produce full CSS-styled HTML. Unbuilt slugs render as labeled chips. When a built leaf covers the use case, use it.
+
+### DS detail bar (hi-fi authoring standards)
+
+The DS detail bar is higher than the FM deliberate-simplicity bar:
+
+- **Realistic app-context data** — real entity names, realistic row/column content, actual status values (not "Row 1", "Row 2").
+- **Real page-header Actions** — `page-header` Actions array carries actual button labels and variants (Primary / Secondary). First action is always Primary.
+- **Full-detail copy** — no generic "Description text" or "Button label" placeholders; all copy models real usage.
+- **States where the leaf supports them** — if the leaf has a `State` variant axis, set a meaningful state (Default, Hovered, Disabled) rather than always defaulting.
+- **Full prop set on built leaves** — set all props the leaf documents; omitting them leaves the component in an incomplete state.
+
+### Chrome rule (DS mode)
+
+Do **not** author `global-header` or `side-nav` INSTANCE nodes in screen content arrays. The renderer's DS chrome branch supplies them automatically when `meta.library:"ds"` is set. Author only feature-content INSTANCE nodes. `page-header` and `breadcrumbs` ARE authored in screen content (they are page-level feature chrome, not the global shell).
+
 ## Output format
 
 Write a JSON file containing:
@@ -216,7 +251,7 @@ Example for screens 4-6:
 ## Rules
 
 - Generate ONLY the assigned screens — do not generate screens outside your batch
-- Follow figma-spec-builder.md for content node types (FRAME, TEXT, INSTANCE, DIVIDER)
+- Follow `references/generate-flow/html-reference.md` for content node types (FRAME, TEXT, INSTANCE, DIVIDER)
 - Use FM component refs from the ref table — never hardcode component keys
 - Use recipes as accelerators — deviate when the screen needs a novel layout
 - All buttons must set `"👁 Leading Icon": false, "👁 Trailing Icon": false`

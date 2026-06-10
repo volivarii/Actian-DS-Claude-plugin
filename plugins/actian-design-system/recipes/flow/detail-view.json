@@ -22,17 +22,46 @@
         "layout": { "mode": "HORIZONTAL", "spacing": 0 },
         "sizing": { "horizontal": "FILL", "vertical": "HUG" },
         "children": [
-          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=On", "props": { "Tab label": "{{tab1_label}}" } },
-          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=Off", "props": { "Tab label": "{{tab2_label}}" } },
-          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=Off", "props": { "Tab label": "{{tab3_label}}" } },
-          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=Placeholder", "props": {} },
-          { "type": "INSTANCE", "ref": "fmTab", "variant": "State=Placeholder", "props": {} }
+          {
+            "type": "INSTANCE",
+            "ref": "fmTab",
+            "variant": "State=On",
+            "props": { "Tab label": "{{tab1_label}}" }
+          },
+          {
+            "type": "INSTANCE",
+            "ref": "fmTab",
+            "variant": "State=Off",
+            "props": { "Tab label": "{{tab2_label}}" }
+          },
+          {
+            "type": "INSTANCE",
+            "ref": "fmTab",
+            "variant": "State=Off",
+            "props": { "Tab label": "{{tab3_label}}" }
+          },
+          {
+            "type": "INSTANCE",
+            "ref": "fmTab",
+            "variant": "State=Placeholder",
+            "props": {}
+          },
+          {
+            "type": "INSTANCE",
+            "ref": "fmTab",
+            "variant": "State=Placeholder",
+            "props": {}
+          }
         ]
       },
       {
         "type": "FRAME",
         "name": "Two-column layout",
-        "layout": { "mode": "HORIZONTAL", "spacing": 24, "padding": [24, 0, 0, 0] },
+        "layout": {
+          "mode": "HORIZONTAL",
+          "spacing": 24,
+          "padding": [24, 0, 0, 0]
+        },
         "sizing": { "horizontal": "FILL", "vertical": "HUG" },
         "children": [
           {
@@ -44,14 +73,35 @@
               {
                 "type": "FRAME",
                 "name": "Section: {{section1_title}}",
-                "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 8,
+                  "padding": [16, 16, 16, 16]
+                },
                 "fills": ["#FFFFFF"],
                 "cornerRadius": 8,
-                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "stroke": {
+                  "color": "#E0E0E0",
+                  "weight": 1,
+                  "align": "INSIDE"
+                },
                 "sizing": { "horizontal": "FILL", "vertical": "HUG" },
                 "children": [
-                  { "type": "TEXT", "content": "{{section1_title}}", "font": "Inter:Semi Bold", "size": 16, "color": "#1A1A2E" },
-                  { "type": "TEXT", "content": "{{section1_body}}", "font": "Inter:Regular", "size": 14, "color": "#595968", "width": 520 }
+                  {
+                    "type": "TEXT",
+                    "content": "{{section1_title}}",
+                    "font": "Inter:Semi Bold",
+                    "size": 16,
+                    "color": "#1A1A2E"
+                  },
+                  {
+                    "type": "TEXT",
+                    "content": "{{section1_body}}",
+                    "font": "Inter:Regular",
+                    "size": 14,
+                    "color": "#595968",
+                    "width": 520
+                  }
                 ]
               }
             ]
@@ -65,15 +115,31 @@
               {
                 "type": "FRAME",
                 "name": "Section: {{meta_section_title}}",
-                "layout": { "mode": "VERTICAL", "spacing": 8, "padding": [16, 16, 16, 16] },
+                "layout": {
+                  "mode": "VERTICAL",
+                  "spacing": 8,
+                  "padding": [16, 16, 16, 16]
+                },
                 "fills": ["#FFFFFF"],
                 "cornerRadius": 8,
-                "stroke": { "color": "#E0E0E0", "weight": 1, "align": "INSIDE" },
+                "stroke": {
+                  "color": "#E0E0E0",
+                  "weight": 1,
+                  "align": "INSIDE"
+                },
                 "sizing": { "horizontal": "FILL", "vertical": "HUG" },
                 "children": [
-                  { "type": "TEXT", "content": "{{meta_section_title}}", "font": "Inter:Semi Bold", "size": 16, "color": "#1A1A2E" },
                   {
-                    "type": "INSTANCE", "ref": "fmPlaceholder", "variant": "Type=Label+3lines",
+                    "type": "TEXT",
+                    "content": "{{meta_section_title}}",
+                    "font": "Inter:Semi Bold",
+                    "size": 16,
+                    "color": "#1A1A2E"
+                  },
+                  {
+                    "type": "INSTANCE",
+                    "ref": "fmPlaceholder",
+                    "variant": "Type=Label+3lines",
                     "props": {}
                   }
                 ]
@@ -92,5 +158,6 @@
     "Section cards use header (Semi Bold 16px) + body content — repeat the card pattern per section",
     "For Explorer, the page header includes type badge, breadcrumb, and right-aligned actions"
   ],
-  "missing_states": ["empty-section", "loading"]
+  "missing_states": ["empty-section", "loading"],
+  "dsComposition": "page-header(+actions) / breadcrumbs / tabs / card-for-items or content sections"
 }

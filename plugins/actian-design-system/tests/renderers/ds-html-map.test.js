@@ -1113,3 +1113,742 @@ describe("ds-html-map: radio-button (P1c)", function () {
     assert.ok(html.indexOf("<img") === -1, "no raw injection");
   });
 });
+
+// B11: side-nav resolveActive must be case-insensitive so a lowercase Active
+// value still highlights the correct item (aligns with flow-renderer.js:149-154).
+describe("ds-html-map: side-nav — B11 case-insensitive Active", function () {
+  it("Active 'catalog' (lowercase) matches 'Catalog' item and marks it is-active", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "View=Expanded",
+      props: { Items: "Home, Catalog, Pipelines", Active: "catalog" },
+    });
+    // exactly one is-active mark
+    var activeCount = html.split("is-active").length - 1;
+    assert.equal(activeCount, 1, "exactly one active row");
+    // the Catalog row is active: the is-active class must precede the Catalog label
+    var activeIdx = html.indexOf("ds-sidenav__item is-active");
+    assert.ok(activeIdx !== -1, "is-active class present");
+    var catalogIdx = html.indexOf(">Catalog<");
+    assert.ok(
+      catalogIdx > activeIdx,
+      "Catalog label follows its active row class (is-active at " +
+        activeIdx +
+        ", Catalog at " +
+        catalogIdx +
+        ")",
+    );
+    // Home (first item) must NOT be active: its row class must appear before
+    // the is-active marker (the active row is Catalog, not Home)
+    var homeLabel = html.indexOf(">Home<");
+    assert.ok(
+      homeLabel !== -1 && homeLabel < activeIdx,
+      "Home row appears before the active (Catalog) row — Home is not active",
+    );
+  });
+
+  it("Active 'PIPELINES' (uppercase) matches 'Pipelines' item", function () {
+    var html = render({
+      dsSlug: "side-nav",
+      variant: "View=Expanded",
+      props: { Items: "Catalog, Pipelines, Settings", Active: "PIPELINES" },
+    });
+    var activeCount = html.split("is-active").length - 1;
+    assert.equal(activeCount, 1, "exactly one active row");
+    var activeIdx = html.indexOf("ds-sidenav__item is-active");
+    var pipelinesIdx = html.indexOf(">Pipelines<");
+    assert.ok(
+      pipelinesIdx > activeIdx,
+      "Pipelines label follows its active row",
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task A (audit B8): page-header actions slot
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: page-header — actions slot (B8)", function () {
+  it("renders ds-page-header__actions with primary + secondary buttons from mixed Actions array", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: {
+        Title: "Users",
+        Actions: [{ label: "Add user", variant: "primary" }, "Export"],
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-page-header__actions") !== -1,
+      "actions container present",
+    );
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "first action renders as primary button",
+    );
+    assert.ok(html.indexOf("Add user") !== -1, "first action label rendered");
+    assert.ok(html.indexOf("Export") !== -1, "second action label rendered");
+  });
+
+  it("first action defaults to primary, second to secondary when variant omitted", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: {
+        Title: "Roles",
+        Actions: ["Create role", "Cancel"],
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "first string action → primary",
+    );
+    assert.ok(
+      html.indexOf("ds-button--secondary") !== -1,
+      "second string action → secondary",
+    );
+  });
+
+  it("omits actions container when Actions prop is absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: { Title: "Dashboard" },
+    });
+    assert.ok(
+      html.indexOf("ds-page-header__actions") === -1,
+      "no actions container when Actions not set",
+    );
+  });
+
+  it("omits actions container when Actions is an empty array", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "page-header",
+      props: { Title: "Dashboard", Actions: [] },
+    });
+    assert.ok(
+      html.indexOf("ds-page-header__actions") === -1,
+      "no actions container for empty array",
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task B (audit B7): critical-secondary button variant
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: button — critical-secondary (B7)", function () {
+  it("Type=Critical secondary → ds-button--critical-secondary (NOT primary)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "button",
+      variant: "Type=Critical secondary",
+      props: { Label: "Delete" },
+    });
+    assert.ok(
+      html.indexOf("ds-button--critical-secondary") !== -1,
+      "has critical-secondary modifier",
+    );
+    assert.ok(
+      html.indexOf("ds-button--primary") === -1,
+      "does NOT fall back to primary",
+    );
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task 9: table leaf (DS-native hi-fi program)
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: table (Task 9)", function () {
+  it("renders header row + data rows from structured props", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {
+        Columns: "Name, Status, Owner",
+        Rows: [
+          ["Orders", "Active", "M. Chen"],
+          ["Returns", "Draft", "A. Roy"],
+        ],
+      },
+    });
+    assert.ok(
+      html.indexOf('<table class="ds-table"') !== -1,
+      "has ds-table element",
+    );
+    assert.ok(/<th[^>]*>Name<\/th>/.test(html), "renders Name column header");
+    assert.strictEqual(
+      (html.match(/<tr class="ds-table__row"/g) || []).length,
+      2,
+      "renders exactly 2 data rows",
+    );
+    assert.ok(html.indexOf("M. Chen") !== -1, "renders cell value M. Chen");
+  });
+
+  it("renders all column headers from Columns prop", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {
+        Columns: "Name, Status, Owner",
+        Rows: [["Orders", "Active", "M. Chen"]],
+      },
+    });
+    assert.ok(/<th[^>]*>Name<\/th>/.test(html), "Name header present");
+    assert.ok(/<th[^>]*>Status<\/th>/.test(html), "Status header present");
+    assert.ok(/<th[^>]*>Owner<\/th>/.test(html), "Owner header present");
+  });
+
+  it("degrades gracefully on string rows", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: { Columns: "Name", Rows: "Orders, Returns" },
+    });
+    assert.ok(html.indexOf("ds-table") !== -1, "has ds-table class");
+  });
+
+  it("uses fallback columns when Columns prop absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-table") !== -1, "has ds-table element");
+    assert.ok(/<th[^>]*>Name<\/th>/.test(html), "fallback Name column");
+  });
+
+  it("renders thead and tbody structure", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {
+        Columns: "A, B",
+        Rows: [["1", "2"]],
+      },
+    });
+    assert.ok(html.indexOf("<thead>") !== -1, "has thead");
+    assert.ok(html.indexOf("<tbody>") !== -1, "has tbody");
+    assert.ok(
+      html.indexOf('class="ds-table__head-row"') !== -1,
+      "has head-row class",
+    );
+    assert.ok(html.indexOf('class="ds-table__th"') !== -1, "has th class");
+    assert.ok(html.indexOf('class="ds-table__td"') !== -1, "has td class");
+  });
+
+  it("escapes XSS in cell values", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {
+        Columns: "<script>",
+        Rows: [["<img onerror=x>"]],
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script tag not injected");
+    assert.ok(
+      html.indexOf("&lt;script&gt;") !== -1,
+      "script tag escaped in header",
+    );
+    assert.ok(html.indexOf("&lt;img") !== -1, "img tag escaped in cell");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task 9b: modal leaf (DS-native hi-fi program)
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: modal (Task 9b)", function () {
+  it("renders backdrop + dialog wrapper with correct ARIA", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: {
+        Title: "Confirm deletion",
+        Body: "This action cannot be undone.",
+        Actions: [{ label: "Delete", variant: "primary" }],
+      },
+    });
+    assert.ok(
+      html.indexOf('class="ds-modal-backdrop"') !== -1,
+      "has ds-modal-backdrop",
+    );
+    assert.ok(html.indexOf('class="ds-modal"') !== -1, "has ds-modal element");
+    assert.ok(html.indexOf('role="dialog"') !== -1, "has role=dialog");
+    assert.ok(html.indexOf('aria-modal="true"') !== -1, "has aria-modal=true");
+  });
+
+  it("renders title, body, and footer slots", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: {
+        Title: "Edit record",
+        Body: "Make changes below.",
+        Actions: [
+          { label: "Save", variant: "primary" },
+          { label: "Cancel", variant: "secondary" },
+        ],
+      },
+    });
+    assert.ok(
+      html.indexOf('class="ds-modal__title"') !== -1,
+      "has ds-modal__title",
+    );
+    assert.ok(
+      html.indexOf('class="ds-modal__body"') !== -1,
+      "has ds-modal__body",
+    );
+    assert.ok(
+      html.indexOf('class="ds-modal__footer"') !== -1,
+      "has ds-modal__footer",
+    );
+    assert.ok(html.indexOf("Edit record") !== -1, "title text present");
+    assert.ok(html.indexOf("Make changes below.") !== -1, "body text present");
+  });
+
+  it("renders action buttons: first primary, rest secondary", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: {
+        Title: "Confirm",
+        Body: "Are you sure?",
+        Actions: [
+          { label: "Confirm", variant: "primary" },
+          { label: "Cancel", variant: "secondary" },
+        ],
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "first action is primary",
+    );
+    assert.ok(
+      html.indexOf("ds-button--secondary") !== -1,
+      "second action is secondary",
+    );
+    assert.ok(html.indexOf("Confirm") !== -1, "action label present");
+  });
+
+  it("renders with string Actions fallback", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: { Title: "Alert", Body: "Something happened.", Actions: "OK" },
+    });
+    assert.ok(html.indexOf('role="dialog"') !== -1, "still a dialog");
+    assert.ok(html.indexOf("OK") !== -1, "string action label present");
+  });
+
+  it("renders title fallback when Title absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: { Body: "Body text." },
+    });
+    assert.ok(html.indexOf('role="dialog"') !== -1, "still a dialog");
+    assert.ok(html.indexOf("ds-modal__title") !== -1, "title slot present");
+  });
+
+  it("escapes XSS in title and body", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: {
+        Title: "<script>alert(1)</script>",
+        Body: "<img onerror=x>",
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script not injected");
+    assert.ok(html.indexOf("&lt;script&gt;") !== -1, "script escaped");
+    assert.ok(html.indexOf("&lt;img") !== -1, "img escaped in body");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task 9b: empty-state leaf (DS-native hi-fi program)
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: empty-state (Task 9b)", function () {
+  it("renders the empty-state container with headline and body", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: {
+        Headline: "No results found",
+        Body: "Try adjusting your search filters.",
+        Cta: "Clear filters",
+      },
+    });
+    assert.ok(
+      html.indexOf('class="ds-empty-state"') !== -1,
+      "has ds-empty-state container",
+    );
+    assert.ok(
+      html.indexOf("ds-empty-state__headline") !== -1,
+      "has headline element",
+    );
+    assert.ok(html.indexOf("ds-empty-state__body") !== -1, "has body element");
+    assert.ok(html.indexOf("No results found") !== -1, "headline text present");
+    assert.ok(html.indexOf("Try adjusting") !== -1, "body text present");
+  });
+
+  it("renders a primary CTA button when Cta prop is present", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: {
+        Headline: "Nothing here",
+        Body: "Get started.",
+        Cta: "Add item",
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "CTA is a primary button",
+    );
+    assert.ok(html.indexOf("Add item") !== -1, "CTA label present");
+  });
+
+  it("renders no button when Cta prop is absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: { Headline: "Nothing here", Body: "No actions available." },
+    });
+    assert.ok(
+      html.indexOf("<button") === -1,
+      "no button rendered when Cta absent",
+    );
+  });
+
+  it("uses fallback headline when Headline absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-empty-state") !== -1, "container present");
+  });
+
+  it("escapes XSS in headline and body", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: {
+        Headline: "<script>x</script>",
+        Body: "<img onerror=x>",
+        Cta: "<b>Click</b>",
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script not injected");
+    assert.ok(html.indexOf("<img") === -1, "img tag not injected");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task 9b: alert-banner leaf (DS-native hi-fi program)
+// Registry variant axis: Type = Primary | Success | Warning | Danger
+// (Note: registry uses "Danger" not "Error"; "Primary" maps to info semantics)
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: alert-banner (Task 9b)", function () {
+  it("clamps a crafted Type to a safe enum — no class-attribute breakout (XSS)", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: 'Type=Danger"><script>alert(1)</script>',
+      props: { Message: "x" },
+    });
+    assert.ok(
+      html.indexOf("<script>") === -1,
+      "crafted Type must not inject a <script> tag",
+    );
+    assert.ok(
+      html.indexOf("ds-alert--primary") !== -1,
+      "unknown/crafted Type falls back to the primary modifier",
+    );
+  });
+
+  it("renders Warning banner with correct modifier, icon, and role=status", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Warning",
+      props: { Message: "Scheduled maintenance window tonight." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert--warning") !== -1,
+      "has ds-alert--warning modifier",
+    );
+    assert.ok(
+      html.indexOf("warning-filled") !== -1 || html.indexOf("ds-icon") !== -1,
+      "warning-filled icon svg present",
+    );
+    assert.ok(html.indexOf('role="status"') !== -1, "Warning uses role=status");
+    assert.ok(
+      html.indexOf("Scheduled maintenance") !== -1,
+      "message text present",
+    );
+  });
+
+  it("renders Danger banner with role=alert", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Danger",
+      props: { Message: "Critical error occurred." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert--danger") !== -1,
+      "has ds-alert--danger modifier",
+    );
+    assert.ok(html.indexOf('role="alert"') !== -1, "Danger uses role=alert");
+    assert.ok(html.indexOf("Critical error") !== -1, "message text present");
+  });
+
+  it("renders Success banner with success-filled icon", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Success",
+      props: { Message: "Data saved successfully." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert--success") !== -1,
+      "has ds-alert--success modifier",
+    );
+    assert.ok(
+      html.indexOf("success-filled") !== -1 || html.indexOf("ds-icon") !== -1,
+      "success-filled icon present",
+    );
+    assert.ok(html.indexOf('role="status"') !== -1, "Success uses role=status");
+  });
+
+  it("renders Primary (info) banner with info-filled icon", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Primary",
+      props: { Message: "New features available." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert--primary") !== -1,
+      "has ds-alert--primary modifier",
+    );
+    assert.ok(
+      html.indexOf("info-filled") !== -1 || html.indexOf("ds-icon") !== -1,
+      "info-filled icon present",
+    );
+  });
+
+  it("renders optional Title when present", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Warning",
+      props: { Title: "Heads up", Message: "Maintenance tonight." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert__title") !== -1,
+      "title element present when Title prop given",
+    );
+    assert.ok(html.indexOf("Heads up") !== -1, "title text present");
+  });
+
+  it("defaults to role=status when no variant specified", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      props: { Message: "Info message." },
+    });
+    assert.ok(html.indexOf("ds-alert") !== -1, "ds-alert container present");
+    assert.ok(html.indexOf('role="status"') !== -1, "defaults to role=status");
+  });
+
+  it("escapes XSS in Message and Title", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Warning",
+      props: {
+        Title: "<script>alert(1)</script>",
+        Message: "<img onerror=x>",
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script not injected");
+    assert.ok(html.indexOf("<img") === -1, "img not injected");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task 11: chat-with-ai-steward leaf (DS-native hi-fi program)
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: chat-with-ai-steward (Task 11)", function () {
+  it("steward (answered) renders sparkle header, insight, source, confidence, actions", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: {
+        Title: "AI Steward",
+        Insight: "Orders joins cleanly to Customers on customer_id.",
+        Source: "Sales catalog",
+        Confidence: "High",
+      },
+    });
+    assert.ok(html.indexOf("ds-steward") !== -1, "has ds-steward container");
+    assert.ok(
+      html.indexOf('aria-label="Generated by AI"') !== -1,
+      "sparkle has aria-label",
+    );
+    assert.ok(html.indexOf("Source:") !== -1, "source label present");
+    assert.ok(html.indexOf("Sales catalog") !== -1, "source value present");
+    assert.ok(html.indexOf("ds-badge") !== -1, "confidence = badge component");
+    assert.ok(
+      html.indexOf("Accept") !== -1 || html.indexOf("Regenerate") !== -1,
+      "action buttons present",
+    );
+  });
+
+  it("steward (generating) renders shimmer with aria-busy", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      variant: "State=Generating",
+      props: {},
+    });
+    assert.ok(
+      html.indexOf("ds-steward__shimmer") !== -1,
+      "has shimmer element",
+    );
+    assert.ok(html.indexOf('aria-busy="true"') !== -1, "aria-busy on region");
+  });
+
+  it("renders default Title when absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: { Insight: "Some insight." },
+    });
+    assert.ok(html.indexOf("ds-steward") !== -1, "still renders steward");
+    assert.ok(html.indexOf("ds-steward__title") !== -1, "title slot present");
+  });
+
+  it("renders disclaimer footer always", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: {},
+    });
+    assert.ok(
+      html.indexOf("ds-steward__disclaimer") !== -1,
+      "disclaimer always present",
+    );
+    assert.ok(html.indexOf("AI-generated") !== -1, "disclaimer text present");
+  });
+
+  it("omits source block when Source prop absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: { Title: "AI Steward", Insight: "A finding.", Confidence: "Low" },
+    });
+    assert.ok(html.indexOf("Source:") === -1, "no source when prop absent");
+  });
+
+  it("generating state renders Stop button instead of answer actions", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      variant: "State=Generating",
+      props: {},
+    });
+    assert.ok(html.indexOf("Stop") !== -1, "Stop button in generating state");
+    assert.ok(html.indexOf("Accept") === -1, "Accept absent in generating");
+    assert.ok(
+      html.indexOf("Regenerate") === -1,
+      "Regenerate absent in generating",
+    );
+  });
+
+  it("escapes XSS in Title, Insight, and Source", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: {
+        Title: "<script>alert(1)</script>",
+        Insight: "<img onerror=x>",
+        Source: '<a href="evil">',
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script not injected in title");
+    assert.ok(html.indexOf("&lt;script&gt;") !== -1, "script escaped");
+    assert.ok(html.indexOf("<img") === -1, "img not injected in insight");
+    assert.ok(html.indexOf("&lt;img") !== -1, "img escaped");
+  });
+
+  it("answered state uses aria-live=polite on body region", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: { Insight: "A data insight." },
+    });
+    assert.ok(
+      html.indexOf('aria-live="polite"') !== -1,
+      "answered body has aria-live=polite",
+    );
+  });
+
+  it("uses aside semantic element", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "chat-with-ai-steward",
+      props: {},
+    });
+    assert.ok(html.indexOf("<aside") !== -1, "root element is aside");
+  });
+});

@@ -19,7 +19,12 @@
       {
         "type": "FRAME",
         "name": "Control bar",
-        "layout": { "mode": "HORIZONTAL", "spacing": 8, "padding": [0, 0, 16, 0], "primaryAxisAlignItems": "SPACE_BETWEEN" },
+        "layout": {
+          "mode": "HORIZONTAL",
+          "spacing": 8,
+          "padding": [0, 0, 16, 0],
+          "primaryAxisAlignItems": "SPACE_BETWEEN"
+        },
         "sizing": { "horizontal": "FILL", "vertical": "HUG" },
         "children": [
           {
@@ -29,13 +34,23 @@
             "sizing": { "horizontal": "HUG", "vertical": "HUG" },
             "children": [
               {
-                "type": "INSTANCE", "ref": "fmSearchInput", "variant": "Type=Empty",
-                "props": { "Placeholder": "Search {{resource_plural_lower}}..." }
+                "type": "INSTANCE",
+                "ref": "fmSearchInput",
+                "variant": "Type=Empty",
+                "props": {
+                  "Placeholder": "Search {{resource_plural_lower}}..."
+                }
               },
               {
-                "type": "INSTANCE", "ref": "fmDropdown", "variant": "Type=Filled",
+                "type": "INSTANCE",
+                "ref": "fmDropdown",
+                "variant": "Type=Filled",
                 "name": "Filter: {{filter_name}}",
-                "props": { "Dropdown Text": "All", "Label Text": "{{filter_name}}", "Show label": false }
+                "props": {
+                  "Dropdown Text": "All",
+                  "Label Text": "{{filter_name}}",
+                  "Show label": false
+                }
               }
             ]
           },
@@ -46,7 +61,9 @@
             "sizing": { "horizontal": "HUG", "vertical": "HUG" },
             "children": [
               {
-                "type": "INSTANCE", "ref": "fmIconButtons", "variant": "Type=Outline, State=Default",
+                "type": "INSTANCE",
+                "ref": "fmIconButtons",
+                "variant": "Type=Outline, State=Default",
                 "name": "View toggle",
                 "props": {}
               }
@@ -61,20 +78,48 @@
         "sizing": { "horizontal": "FILL", "vertical": "HUG" },
         "children": [
           {
-            "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Header",
-            "props": { "Label": "Name", "Label 2": "{{col2}}", "Label 3": "{{col3}}", "Label 4": "{{col4}}" }
+            "type": "INSTANCE",
+            "ref": "fmTableCell",
+            "variant": "Type=Header",
+            "props": {
+              "Label": "Name",
+              "Label 2": "{{col2}}",
+              "Label 3": "{{col3}}",
+              "Label 4": "{{col4}}"
+            }
           },
           {
-            "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Text",
-            "props": { "Label": "{{row1_name}}", "Label 2": "{{row1_col2}}", "Label 3": "{{row1_col3}}", "Label 4": "{{row1_col4}}" }
+            "type": "INSTANCE",
+            "ref": "fmTableCell",
+            "variant": "Type=Text",
+            "props": {
+              "Label": "{{row1_name}}",
+              "Label 2": "{{row1_col2}}",
+              "Label 3": "{{row1_col3}}",
+              "Label 4": "{{row1_col4}}"
+            }
           },
           {
-            "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Text",
-            "props": { "Label": "{{row2_name}}", "Label 2": "{{row2_col2}}", "Label 3": "{{row2_col3}}", "Label 4": "{{row2_col4}}" }
+            "type": "INSTANCE",
+            "ref": "fmTableCell",
+            "variant": "Type=Text",
+            "props": {
+              "Label": "{{row2_name}}",
+              "Label 2": "{{row2_col2}}",
+              "Label 3": "{{row2_col3}}",
+              "Label 4": "{{row2_col4}}"
+            }
           },
           {
-            "type": "INSTANCE", "ref": "fmTableCell", "variant": "Type=Text",
-            "props": { "Label": "{{row3_name}}", "Label 2": "{{row3_col2}}", "Label 3": "{{row3_col3}}", "Label 4": "{{row3_col4}}" }
+            "type": "INSTANCE",
+            "ref": "fmTableCell",
+            "variant": "Type=Text",
+            "props": {
+              "Label": "{{row3_name}}",
+              "Label 2": "{{row3_col2}}",
+              "Label 3": "{{row3_col3}}",
+              "Label 4": "{{row3_col4}}"
+            }
           }
         ]
       }
@@ -88,5 +133,6 @@
     "Control bar items are flexible — add/remove filters and toggles as needed",
     "For sortable columns, note sort direction in the header label (e.g., 'Name ▾')"
   ],
-  "missing_states": ["empty", "loading", "error"]
+  "missing_states": ["empty", "loading", "error"],
+  "dsComposition": "page-header(+actions) / search / table / tag-default"
 }

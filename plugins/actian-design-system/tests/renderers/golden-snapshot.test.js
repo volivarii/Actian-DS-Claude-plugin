@@ -301,6 +301,98 @@ var DS_FIXTURES = {
     variant: "Format=Default, Selected=No, State=Disabled",
     props: { Label: "Standard plan" },
   },
+  // Task 9 — table leaf (content data grid)
+  tableDefault: {
+    dsSlug: "table",
+    variant: "",
+    props: {
+      Columns: "Name, Status, Owner",
+      Rows: [
+        ["Orders", "Active", "M. Chen"],
+        ["Returns", "Draft", "A. Roy"],
+        ["Shipments", "Active", "K. Patel"],
+      ],
+    },
+  },
+  // Task 9b — modal leaf
+  modalDefault: {
+    dsSlug: "modal",
+    variant: "Size & Type=700px setting",
+    props: {
+      Title: "Confirm deletion",
+      Body: "This action cannot be undone. All associated data will be permanently removed.",
+      Actions: [
+        { label: "Delete", variant: "primary" },
+        { label: "Cancel", variant: "secondary" },
+      ],
+    },
+  },
+  // Task 9b — empty-state leaf
+  emptyStateWithCta: {
+    dsSlug: "empty-state",
+    variant: "Size=Large",
+    props: {
+      Headline: "No policies available",
+      Body: "Create policies to define how your platform operates.",
+      Cta: "Create policy",
+    },
+  },
+  emptyStateNoCta: {
+    dsSlug: "empty-state",
+    variant: "Size=Medium",
+    props: {
+      Headline: "No results found",
+      Body: "Try adjusting your filters or search terms.",
+    },
+  },
+  // Task 9b — alert-banner leaf
+  alertBannerWarning: {
+    dsSlug: "alert-banner",
+    variant: "Type=Warning",
+    props: {
+      Title: "Scheduled maintenance",
+      Message: "The system will be unavailable from 2:00 AM to 4:00 AM UTC.",
+    },
+  },
+  alertBannerDanger: {
+    dsSlug: "alert-banner",
+    variant: "Type=Danger",
+    props: {
+      Message: "A critical error occurred. Please contact support.",
+    },
+  },
+  alertBannerSuccess: {
+    dsSlug: "alert-banner",
+    variant: "Type=Success",
+    props: {
+      Message: "Your changes have been saved successfully.",
+    },
+  },
+  alertBannerPrimary: {
+    dsSlug: "alert-banner",
+    variant: "Type=Primary",
+    props: {
+      Title: "New features available",
+      Message: "Check out the latest updates in the release notes.",
+    },
+  },
+  // Task 11 — chat-with-ai-steward leaf
+  stewardAnswered: {
+    dsSlug: "chat-with-ai-steward",
+    variant: "State=Answered",
+    props: {
+      Title: "AI Steward",
+      Insight:
+        "Orders joins cleanly to Customers on customer_id. The foreign key is enforced and the join selectivity is high.",
+      Source: "Sales catalog",
+      Confidence: "High",
+    },
+  },
+  stewardGenerating: {
+    dsSlug: "chat-with-ai-steward",
+    variant: "State=Generating",
+    props: {},
+  },
 };
 
 Object.keys(DS_FIXTURES).forEach(function (name) {

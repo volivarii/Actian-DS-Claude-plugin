@@ -826,6 +826,25 @@ assertContains(
   "string action still works",
 );
 
+section(
+  "Task A — DS chrome pageHeader actions forwarded to ds-page-header__actions",
+);
+
+assertContains(
+  screen({
+    name: "DS Actions",
+    template: "admin",
+    library: "ds",
+    pageHeader: {
+      title: "Users",
+      actions: [{ label: "Add user", variant: "primary" }, "Export"],
+    },
+    content: [],
+  }),
+  "ds-page-header__actions",
+  "DS chrome pageHeader actions → ds-page-header__actions container",
+);
+
 // ---------------------------------------------------------------------------
 // Summary
 // ---------------------------------------------------------------------------

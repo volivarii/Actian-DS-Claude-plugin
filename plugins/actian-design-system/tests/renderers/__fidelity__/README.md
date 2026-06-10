@@ -24,10 +24,30 @@ See the full design: `docs/superpowers/specs/2026-06-08-self-learnable-iteration
 | `reuse_rate` | how much was drawn from substrate vs measured fresh (trends ↑ as the substrate fills) |
 | `duration` | build wall-clock (harvest gen-card when available); trends ↓ |
 
-## Phase A vs B
+## Phase A vs B — Gate Doctrine
 
-- **Phase A (now, near-zero cost):** this ledger + assisted-vision scoring during the build +
-  the existing deterministic gates. No new scripts.
-- **Phase B (fast-follow):** scripted headless render → zero-dep visual-golden (sha) +
-  scripted vision-judge checklist + `fidelity-report.js` (transplant `scripts/evals/summarize.js`)
-  + drift loop on the nightly media-sync. The corpus PNG pairs get captured then.
+### Phase A (now, near-zero cost)
+This ledger + **assisted-vision scoring** during the build + the existing deterministic gates.
+No new scripts. Assisted-vision is the interim gate: a human-guided or LLM-guided checklist
+review against the media oracle. Sufficient for the Friday demo.
+
+### Phase B (fast-follow) — pixel-diff is the PRIMARY gate
+Scripted headless render + **ImageMagick `compare -metric RMSE -fuzz`** vs the media oracle,
+region-weighted, with `await document.fonts.ready` before screenshot capture. Both system
+binaries (Chrome headless + ImageMagick `compare`) — zero npm dependencies.
+
+**Why pixel-diff primary:** LLM vision judges are systematically overconfident (ECE 39–74% in
+adversarial testing). A vision judge may PASS a layout that pixel-diff catches as a clear miss.
+The revised doctrine from counter-research: **vision may ADD findings on a pixel-pass, but
+vision alone can never CLEAR a pixel failure.** A leaf is fidelity-green only when pixel-diff
+passes first.
+
+Pipeline: Chrome headless screenshot → ImageMagick `compare` (RMSE per region) → pass/fail
+threshold → [if pass] optional vision additive checklist → ledger row.
+
+`fidelity-report.js` (transplant `scripts/evals/summarize.js`) + drift loop on the nightly
+media-sync capture the corpus PNG pairs.
+
+See counter-research assessment:
+`docs/superpowers/specs/2026-06-09-hifi-dsnative-counter-research-assessment.md` (gitignored,
+local-only) — §"Fidelity gate" for the ECE calibration data and the full revised doctrine.

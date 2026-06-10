@@ -55,14 +55,10 @@ var NOT_YET_IMPLEMENTED = new Set([
   "rich-text",
   // P2 — display / feedback
   "tag-interactive",
-  "alert-banner",
   "notification",
   "progress-bar-small",
   "tooltip",
-  "empty-state",
   "stepper",
-  // P3 — chrome / structural
-  "modal",
 ]);
 
 function reachableDsSlugs() {

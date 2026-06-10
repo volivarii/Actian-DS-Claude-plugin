@@ -65,11 +65,12 @@
   // bare CSS string (a hex value or token reference) or a Figma-shaped object
   // { type:"SOLID", color:"…" } when a screen-generator emits richer data.
   // Returning "" for anything unrecognized keeps a bad fill from leaking
-  // "[object Object]" into the style attribute.
+  // "[object Object]" into the style attribute (B5: guard fill.color to string).
   function fillToCss(fill) {
     if (fill == null) return "";
     if (typeof fill === "string") return fill;
-    if (typeof fill === "object" && fill.color != null) return fill.color;
+    if (typeof fill === "object" && fill.color != null)
+      return typeof fill.color === "string" ? fill.color : "";
     return "";
   }
 
@@ -312,104 +313,116 @@
   function renderNode(node, opts) {
     if (!node) return "";
 
-    switch (node.type) {
-      case "FRAME": {
-        var style = buildFrameStyle(node);
-        var children = (node.children || [])
-          .map(function (child) {
-            return renderNode(child, opts);
-          })
-          .join("");
-        return (
-          '<div class="fm-frame" data-name="' +
-          esc(node.name || "") +
-          '"' +
-          (style ? ' style="' + style + '"' : "") +
-          ">" +
-          children +
-          "</div>"
-        );
-      }
-
-      case "TEXT": {
-        var style = buildTextStyle(node, opts);
-        return (
-          '<span class="fm-text" data-name="' +
-          esc(node.name || "") +
-          '"' +
-          (style ? ' style="' + style + '"' : "") +
-          ">" +
-          esc(node.content || "") +
-          "</span>"
-        );
-      }
-
-      case "INSTANCE": {
-        if (node.library === "ds" && dsMap.renderDSComponent) {
-          return dsMap.renderDSComponent(node);
-        }
-        return renderFMComponent(node);
-      }
-
-      case "ELLIPSE": {
-        var bg = (node.fills && fillToCss(node.fills[0])) || "#CBD2E0";
-        var ellipseStyle =
-          "width:" +
-          (node.width || 16) +
-          "px;height:" +
-          (node.height || 16) +
-          "px;min-width:1px;min-height:1px;border-radius:50%;background:" +
-          bg;
-        if (node.opacity != null) ellipseStyle += ";opacity:" + node.opacity;
-        return (
-          '<div class="fm-ellipse" data-name="' +
-          esc(node.name || "") +
-          '" style="' +
-          ellipseStyle +
-          '"></div>'
-        );
-      }
-
-      case "RECT": {
-        var rectStyle =
-          "width:" +
-          (node.width || 32) +
-          "px;height:" +
-          (node.height || 32) +
-          "px;min-width:1px;min-height:1px;";
-        if (node.fills && fillToCss(node.fills[0]))
-          rectStyle += "background:" + fillToCss(node.fills[0]) + ";";
-        if (node.cornerRadius)
-          rectStyle +=
-            "border-radius:" +
-            (typeof node.cornerRadius === "number"
-              ? node.cornerRadius + "px"
-              : "0") +
-            ";";
-        return (
-          '<div class="fm-rect" data-name="' +
-          esc(node.name || "") +
-          '" style="' +
-          rectStyle +
-          '"></div>'
-        );
-      }
-
-      case "DIVIDER": {
-        return '<hr class="fm-divider">';
-      }
-
-      default: {
-        // Unknown node type — render children if present, otherwise empty
-        if (node.children && node.children.length) {
-          return (node.children || [])
+    // B10: a single malformed node (e.g. non-string font) must never throw and
+    // must never blank siblings. Mirrors renderDSComponent's never-throws contract.
+    try {
+      switch (node.type) {
+        case "FRAME": {
+          var style = buildFrameStyle(node);
+          var children = (node.children || [])
             .map(function (child) {
               return renderNode(child, opts);
             })
             .join("");
+          return (
+            '<div class="fm-frame" data-name="' +
+            esc(node.name || "") +
+            '"' +
+            (style ? ' style="' + esc(style) + '"' : "") +
+            ">" +
+            children +
+            "</div>"
+          );
         }
-        return "";
+
+        case "TEXT": {
+          var style = buildTextStyle(node, opts);
+          return (
+            '<span class="fm-text" data-name="' +
+            esc(node.name || "") +
+            '"' +
+            (style ? ' style="' + esc(style) + '"' : "") +
+            ">" +
+            esc(node.content || "") +
+            "</span>"
+          );
+        }
+
+        case "INSTANCE": {
+          if (node.library === "ds" && dsMap.renderDSComponent) {
+            return dsMap.renderDSComponent(node);
+          }
+          return renderFMComponent(node);
+        }
+
+        case "ELLIPSE": {
+          var bg = (node.fills && fillToCss(node.fills[0])) || "#CBD2E0";
+          var ellipseStyle =
+            "width:" +
+            (node.width || 16) +
+            "px;height:" +
+            (node.height || 16) +
+            "px;min-width:1px;min-height:1px;border-radius:50%;background:" +
+            bg;
+          if (node.opacity != null) ellipseStyle += ";opacity:" + node.opacity;
+          return (
+            '<div class="fm-ellipse" data-name="' +
+            esc(node.name || "") +
+            '" style="' +
+            esc(ellipseStyle) +
+            '"></div>'
+          );
+        }
+
+        case "RECT": {
+          var rectStyle =
+            "width:" +
+            (node.width || 32) +
+            "px;height:" +
+            (node.height || 32) +
+            "px;min-width:1px;min-height:1px;";
+          if (node.fills && fillToCss(node.fills[0]))
+            rectStyle += "background:" + fillToCss(node.fills[0]) + ";";
+          if (node.cornerRadius)
+            rectStyle +=
+              "border-radius:" +
+              (typeof node.cornerRadius === "number"
+                ? node.cornerRadius + "px"
+                : "0") +
+              ";";
+          return (
+            '<div class="fm-rect" data-name="' +
+            esc(node.name || "") +
+            '" style="' +
+            esc(rectStyle) +
+            '"></div>'
+          );
+        }
+
+        case "DIVIDER": {
+          return '<hr class="fm-divider">';
+        }
+
+        default: {
+          // Unknown node type — render children if present, otherwise empty
+          if (node.children && node.children.length) {
+            return (node.children || [])
+              .map(function (child) {
+                return renderNode(child, opts);
+              })
+              .join("");
+          }
+          return "";
+        }
       }
+    } catch (e) {
+      // Graceful labeled fallback — a single bad node must never blank the
+      // whole preview (mirrors renderDSComponent's never-throws contract).
+      return (
+        '<div class="render-error" data-name="' +
+        esc(String((node && node.name) || "node")) +
+        '"></div>'
+      );
     }
   }
 

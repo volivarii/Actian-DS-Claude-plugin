@@ -9,6 +9,7 @@
 | Breadcrumbs | approved | not started | inherited | inherited | approved |
 | Buttons | approved | not started | draft | inherited | approved |
 | Cards | approved | not started | inherited | inherited | approved |
+| Chat with AI Steward | draft | draft | draft | not started | not started |
 | Checkboxes | approved | not started | inherited | inherited | approved |
 | Combo box | approved | not started | inherited | inherited | not started |
 | Confirmation | approved | not started | inherited | inherited | not started |
@@ -46,11 +47,11 @@
 
 | Domain | Approved | Draft | Inherited | Not started | Absent |
 |---|---|---|---|---|---|
-| content | 27 | 0 | 0 | 1 | 0 |
-| usage | 0 | 0 | 0 | 28 | 9 |
-| design | 0 | 1 | 26 | 1 | 9 |
-| behavior | 0 | 0 | 27 | 1 | 9 |
-| tokens | 12 | 0 | 0 | 16 | 9 |
+| content | 27 | 1 | 0 | 1 | 0 |
+| usage | 0 | 1 | 0 | 28 | 9 |
+| design | 0 | 2 | 26 | 1 | 9 |
+| behavior | 0 | 0 | 27 | 2 | 9 |
+| tokens | 12 | 0 | 0 | 17 | 9 |
 
 ## Registry aliases
 

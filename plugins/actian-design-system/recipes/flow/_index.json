@@ -85,5 +85,19 @@
       "hybrid",
       "sticky"
     ]
+  },
+  {
+    "file": "search-results-ai.json",
+    "archetype": "search-results-ai",
+    "pattern": 13,
+    "tags": [
+      "search",
+      "results",
+      "ai",
+      "steward",
+      "chat",
+      "catalog",
+      "two-column"
+    ]
   }
 ]

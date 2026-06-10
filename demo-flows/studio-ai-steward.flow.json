@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "feature": "Ask the AI Steward about a search result",
+    "app": "Studio",
+    "library": "ds",
+    "pluginVersion": "1.106.0",
+    "generatedAt": "2026-06-10"
+  },
+  "screens": [
+    {
+      "name": "Catalog search — AI Steward",
+      "template": "studio",
+      "activeNavItem": "Catalog",
+      "navItems": [
+        { "label": "Catalog", "state": "On" },
+        { "label": "Pipelines" },
+        { "label": "Connections" },
+        { "label": "Glossary" },
+        { "label": "Settings" }
+      ],
+      "pageHeader": {
+        "title": "Data catalog",
+        "subtitle": "Search curated datasets across your connected sources",
+        "actions": [
+          { "label": "New data product", "variant": "primary" },
+          { "label": "Import", "variant": "secondary" }
+        ]
+      },
+      "content": [
+        {
+          "type": "FRAME",
+          "name": "Search + results / steward",
+          "layout": { "mode": "HORIZONTAL", "spacing": 24, "padding": [24, 24, 24, 24] },
+          "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "Results column",
+              "layout": { "mode": "VERTICAL", "spacing": 16 },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "library": "ds",
+                  "dsSlug": "search",
+                  "variant": "Type=Default, State=Default",
+                  "props": { "Placeholder text": "Search datasets, e.g. “customer orders”" },
+                  "name": "Catalog search"
+                },
+                {
+                  "type": "INSTANCE",
+                  "library": "ds",
+                  "dsSlug": "tabs",
+                  "props": { "Items": "All, Datasets, Dashboards, Pipelines", "Active": "Datasets" },
+                  "name": "Result type tabs"
+                },
+                {
+                  "type": "FRAME",
+                  "name": "Results grid",
+                  "layout": { "mode": "HORIZONTAL", "spacing": 16 },
+                  "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+                  "children": [
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "card-for-items",
+                      "variant": "Type=Catalog, State=Default",
+                      "props": { "Eyebrow": "Dataset", "Title": "Customer Orders", "Category": "Sales", "Body": "Order-level transactions joined to customer accounts. 2.4M rows, refreshed hourly." },
+                      "name": "Result: Customer Orders"
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "card-for-items",
+                      "variant": "Type=Catalog, State=Selected",
+                      "props": { "Eyebrow": "Dataset", "Title": "Customer Accounts", "Category": "Sales", "Body": "Canonical customer records with billing and region attributes. 180K rows." },
+                      "name": "Result: Customer Accounts"
+                    },
+                    {
+                      "type": "INSTANCE",
+                      "library": "ds",
+                      "dsSlug": "card-for-items",
+                      "variant": "Type=Catalog, State=Default",
+                      "props": { "Eyebrow": "Dataset", "Title": "Revenue Forecast", "Category": "Finance", "Body": "Modeled quarterly revenue by segment. Derived from Orders + Accounts." },
+                      "name": "Result: Revenue Forecast"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "FRAME",
+              "name": "Steward rail",
+              "layout": { "mode": "VERTICAL", "spacing": 12 },
+              "sizing": { "horizontal": "HUG", "vertical": "HUG" },
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "library": "ds",
+                  "dsSlug": "chat-with-ai-steward",
+                  "variant": "State=Default",
+                  "props": {
+                    "Title": "AI Steward",
+                    "Insight": "Customer Orders joins cleanly to Customer Accounts on customer_id (98% match). Use Accounts to enrich Orders with region and billing tier.",
+                    "Source": "Customer Accounts",
+                    "Confidence": "High"
+                  },
+                  "name": "AI Steward — answered"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

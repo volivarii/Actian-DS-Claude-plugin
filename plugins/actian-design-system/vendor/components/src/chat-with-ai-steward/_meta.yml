@@ -1,0 +1,14 @@
+# yaml-language-server: $schema=../../../schemas/guideline-meta.json
+component: "Chat with AI Steward"
+category: overlays
+a11y_refs:
+  - { ref: ai-output-suggestions }
+domains:
+  content: { status: draft, owner: design }
+  usage:    { status: draft, owner: design }
+  design:   { status: draft, owner: design }
+  behavior: { status: not-started }
+  tokens:   { status: not-started }
+examples:
+  - { label: "DS Kit component", figmaNode: "15464:24509" }
+lastReviewed: 2026-06-10

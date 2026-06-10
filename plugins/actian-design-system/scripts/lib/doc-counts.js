@@ -206,7 +206,7 @@ function buildChecks(c) {
         { str: "WCAG 2.2 AA" },
         { str: "brief-researcher" },
       ],
-      notContains: ["WCAG 2.1 AA", "sync-design-system", "25 recipes"],
+      notContains: ["WCAG 2.1 AA", "sync-design-system", "24 recipes"],
     },
     {
       file: "plugins/actian-design-system/.claude-plugin/plugin.json",
