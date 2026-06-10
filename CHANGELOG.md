@@ -15,6 +15,49 @@ they are not individually listed below unless they changed user-facing behavior.
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
 
+## [1.106.0] — 2026-06-10
+
+### Added
+- **`--hifi` = DS-native authoring.** `generate-flow --hifi` now composes screens directly
+  against the DS component vocabulary (content INSTANCE nodes carry `library:"ds"` + `dsSlug`)
+  and renders themed hi-fi HTML as the deliverable — no Figma round-trip. `--hifi` no longer
+  implies a Figma push (push stays `--push`); the `transform-to-hifi` path survives only inside
+  `/convert-to-hifi`. New vocabulary reference `references/generate-flow/ds-components-authoring.md`
+  (the 69-slug surface, built-vs-chip status, per-leaf props), a DS-native branch in the
+  screen-generator agent, and a Studio `search-results-ai` recipe.
+- **AI feature foundations (demo Use Case 2).** Vendored the `chat-with-ai-steward` component
+  guideline (Studio/Explorer AI surface — first authored `usage` doc) + curated `ai`/`stars`
+  glyphs (knowledge v0.31.1, 37 icons). New `ux-patterns.md` §F "AI Surfaces" answer path; the
+  AI a11y slice is now reachable via `a11y.js` (un-orphaned through `a11y_refs`).
+- **Five new DS leaves** (19 built total): `table`, `modal`, `empty-state`, `alert-banner`, and
+  the static `chat-with-ai-steward` panel (sparkle header, insight, source line, confidence
+  badge, streaming shimmer). Each token-bound, oracle-checked, with a fidelity-ledger row
+  depositing anatomy facts.
+- **DS-node contract.** `flow-data.schema.json` declares `library`/`dsSlug` (decision #2:
+  extend) + renderer-drift repairs; the validator hard-errors `unknown-ds-slug` and warns
+  `ds-slug-unbuilt` (renders as a graceful chip). `BUILT_SLUGS` is exported with a switch-case
+  sync gate.
+- **page-header actions slot** on the DS chrome path — primary/secondary CTAs survive hi-fi
+  (was dropped).
+- **Embedded Roboto + Inter** woff2 subsets (base64 data URIs) in the flow deliverable — DS
+  leaves render in the real `--zen-font-family-text` face while staying fully offline.
+
+### Fixed
+- **`meta.mode:"hifi"` promotion** — `/convert-to-hifi` outputs now render DS leaves in themed
+  DS chrome instead of grey FM chrome (the assembler ignored `meta.mode`).
+- **Render-path hardening** — `fillToCss` object-shaped colors no longer leak `[object Object]`;
+  style-attribute values are escaped (injection); a malformed node degrades to a labeled chip
+  instead of blanking the preview; DS nav active-item matching is case-insensitive (FM parity).
+- **Critical-secondary button** renders its own outline variant instead of silently falling back
+  to primary blue on destructive flows.
+- Repointed a dead `figma-spec-builder.md` reference in the screen-generator agent.
+
+### Decisions (recorded)
+- #2 schema = extend (shipped). #3 fidelity gate = assisted-vision for now, pixel-diff
+  (ImageMagick vs media oracle) as the PRIMARY gate fast-follow (fidelity README doctrine
+  flipped). #1 bridge framing / Renderers-publish ask = OPEN. `--hifi` = DS-native authoring;
+  AI carrier = chat-with-ai-steward (Studio/Explorer).
+
 ## [1.105.0] — 2026-06-10
 
 ### Added

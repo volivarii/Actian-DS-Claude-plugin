@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "feature": "Manage users — list, invite, remove",
+    "app": "Administration",
+    "library": "ds",
+    "pluginVersion": "1.106.0",
+    "generatedAt": "2026-06-10"
+  },
+  "screens": [
+    {
+      "name": "Users — list",
+      "template": "admin",
+      "activeNavItem": "Users",
+      "navItems": [
+        { "label": "Overview" },
+        { "label": "Users", "state": "On" },
+        { "label": "Roles" },
+        { "label": "Connections" },
+        { "label": "Audit log" }
+      ],
+      "pageHeader": {
+        "title": "Users",
+        "subtitle": "Manage who can access this organization",
+        "actions": [
+          { "label": "Invite user", "variant": "primary" },
+          { "label": "Export", "variant": "secondary" }
+        ]
+      },
+      "content": [
+        {
+          "type": "FRAME",
+          "name": "Users content",
+          "layout": { "mode": "VERTICAL", "spacing": 16, "padding": [24, 24, 24, 24] },
+          "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+          "children": [
+            {
+              "type": "FRAME",
+              "name": "Toolbar",
+              "layout": { "mode": "HORIZONTAL", "spacing": 12 },
+              "sizing": { "horizontal": "FILL", "vertical": "HUG" },
+              "children": [
+                {
+                  "type": "INSTANCE",
+                  "library": "ds",
+                  "dsSlug": "search",
+                  "variant": "Type=Default, State=Default",
+                  "props": { "Placeholder text": "Search users by name or email" },
+                  "name": "User search"
+                },
+                {
+                  "type": "INSTANCE",
+                  "library": "ds",
+                  "dsSlug": "tabs",
+                  "props": { "Items": "All, Admins, Members, Invited", "Active": "All" },
+                  "name": "Role filter"
+                }
+              ]
+            },
+            {
+              "type": "INSTANCE",
+              "library": "ds",
+              "dsSlug": "table",
+              "variant": "Built type=Default",
+              "props": {
+                "Columns": "Name, Email, Role, Status, Last active",
+                "Rows": [
+                  ["Maya Chen", "maya.chen@acme.com", "Admin", "Active", "2 minutes ago"],
+                  ["Arun Roy", "arun.roy@acme.com", "Member", "Active", "1 hour ago"],
+                  ["Dana Okafor", "dana.okafor@acme.com", "Member", "Invited", "—"],
+                  ["Lena Vogt", "lena.vogt@acme.com", "Admin", "Active", "Yesterday"],
+                  ["Sam Pereira", "sam.pereira@acme.com", "Member", "Deactivated", "3 weeks ago"]
+                ]
+              },
+              "name": "Users table"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Remove user — confirm",
+      "template": "admin",
+      "activeNavItem": "Users",
+      "navItems": [
+        { "label": "Overview" },
+        { "label": "Users", "state": "On" },
+        { "label": "Roles" },
+        { "label": "Connections" },
+        { "label": "Audit log" }
+      ],
+      "pageHeader": {
+        "title": "Users",
+        "subtitle": "Manage who can access this organization"
+      },
+      "content": [
+        {
+          "type": "FRAME",
+          "name": "Confirm layer",
+          "layout": { "mode": "VERTICAL", "spacing": 0, "padding": [24, 24, 24, 24] },
+          "sizing": { "horizontal": "FILL", "vertical": "FILL" },
+          "children": [
+            {
+              "type": "INSTANCE",
+              "library": "ds",
+              "dsSlug": "modal",
+              "variant": "Size & Type=Default",
+              "props": {
+                "Title": "Remove Sam Pereira?",
+                "Body": "Sam will lose access to this organization immediately. Their audit history is retained. This cannot be undone.",
+                "Actions": [
+                  { "label": "Remove user", "variant": "critical" },
+                  { "label": "Cancel", "variant": "secondary" }
+                ]
+              },
+              "name": "Remove confirmation"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
