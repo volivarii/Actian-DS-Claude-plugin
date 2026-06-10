@@ -1367,3 +1367,332 @@ describe("ds-html-map: table (Task 9)", function () {
     assert.ok(html.indexOf("&lt;img") !== -1, "img tag escaped in cell");
   });
 });
+
+// ---------------------------------------------------------------------------
+// Task 9b: modal leaf (DS-native hi-fi program)
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: modal (Task 9b)", function () {
+  it("renders backdrop + dialog wrapper with correct ARIA", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: {
+        Title: "Confirm deletion",
+        Body: "This action cannot be undone.",
+        Actions: [{ label: "Delete", variant: "primary" }],
+      },
+    });
+    assert.ok(
+      html.indexOf('class="ds-modal-backdrop"') !== -1,
+      "has ds-modal-backdrop",
+    );
+    assert.ok(html.indexOf('class="ds-modal"') !== -1, "has ds-modal element");
+    assert.ok(html.indexOf('role="dialog"') !== -1, "has role=dialog");
+    assert.ok(html.indexOf('aria-modal="true"') !== -1, "has aria-modal=true");
+  });
+
+  it("renders title, body, and footer slots", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: {
+        Title: "Edit record",
+        Body: "Make changes below.",
+        Actions: [
+          { label: "Save", variant: "primary" },
+          { label: "Cancel", variant: "secondary" },
+        ],
+      },
+    });
+    assert.ok(
+      html.indexOf('class="ds-modal__title"') !== -1,
+      "has ds-modal__title",
+    );
+    assert.ok(
+      html.indexOf('class="ds-modal__body"') !== -1,
+      "has ds-modal__body",
+    );
+    assert.ok(
+      html.indexOf('class="ds-modal__footer"') !== -1,
+      "has ds-modal__footer",
+    );
+    assert.ok(html.indexOf("Edit record") !== -1, "title text present");
+    assert.ok(html.indexOf("Make changes below.") !== -1, "body text present");
+  });
+
+  it("renders action buttons: first primary, rest secondary", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: {
+        Title: "Confirm",
+        Body: "Are you sure?",
+        Actions: [
+          { label: "Confirm", variant: "primary" },
+          { label: "Cancel", variant: "secondary" },
+        ],
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "first action is primary",
+    );
+    assert.ok(
+      html.indexOf("ds-button--secondary") !== -1,
+      "second action is secondary",
+    );
+    assert.ok(html.indexOf("Confirm") !== -1, "action label present");
+  });
+
+  it("renders with string Actions fallback", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: { Title: "Alert", Body: "Something happened.", Actions: "OK" },
+    });
+    assert.ok(html.indexOf('role="dialog"') !== -1, "still a dialog");
+    assert.ok(html.indexOf("OK") !== -1, "string action label present");
+  });
+
+  it("renders title fallback when Title absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: { Body: "Body text." },
+    });
+    assert.ok(html.indexOf('role="dialog"') !== -1, "still a dialog");
+    assert.ok(html.indexOf("ds-modal__title") !== -1, "title slot present");
+  });
+
+  it("escapes XSS in title and body", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "modal",
+      props: {
+        Title: "<script>alert(1)</script>",
+        Body: "<img onerror=x>",
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script not injected");
+    assert.ok(html.indexOf("&lt;script&gt;") !== -1, "script escaped");
+    assert.ok(html.indexOf("&lt;img") !== -1, "img escaped in body");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task 9b: empty-state leaf (DS-native hi-fi program)
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: empty-state (Task 9b)", function () {
+  it("renders the empty-state container with headline and body", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: {
+        Headline: "No results found",
+        Body: "Try adjusting your search filters.",
+        Cta: "Clear filters",
+      },
+    });
+    assert.ok(
+      html.indexOf('class="ds-empty-state"') !== -1,
+      "has ds-empty-state container",
+    );
+    assert.ok(
+      html.indexOf("ds-empty-state__headline") !== -1,
+      "has headline element",
+    );
+    assert.ok(html.indexOf("ds-empty-state__body") !== -1, "has body element");
+    assert.ok(html.indexOf("No results found") !== -1, "headline text present");
+    assert.ok(html.indexOf("Try adjusting") !== -1, "body text present");
+  });
+
+  it("renders a primary CTA button when Cta prop is present", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: {
+        Headline: "Nothing here",
+        Body: "Get started.",
+        Cta: "Add item",
+      },
+    });
+    assert.ok(
+      html.indexOf("ds-button--primary") !== -1,
+      "CTA is a primary button",
+    );
+    assert.ok(html.indexOf("Add item") !== -1, "CTA label present");
+  });
+
+  it("renders no button when Cta prop is absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: { Headline: "Nothing here", Body: "No actions available." },
+    });
+    assert.ok(
+      html.indexOf("<button") === -1,
+      "no button rendered when Cta absent",
+    );
+  });
+
+  it("uses fallback headline when Headline absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-empty-state") !== -1, "container present");
+  });
+
+  it("escapes XSS in headline and body", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "empty-state",
+      props: {
+        Headline: "<script>x</script>",
+        Body: "<img onerror=x>",
+        Cta: "<b>Click</b>",
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script not injected");
+    assert.ok(html.indexOf("<img") === -1, "img tag not injected");
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Task 9b: alert-banner leaf (DS-native hi-fi program)
+// Registry variant axis: Type = Primary | Success | Warning | Danger
+// (Note: registry uses "Danger" not "Error"; "Primary" maps to info semantics)
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: alert-banner (Task 9b)", function () {
+  it("renders Warning banner with correct modifier, icon, and role=status", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Warning",
+      props: { Message: "Scheduled maintenance window tonight." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert--warning") !== -1,
+      "has ds-alert--warning modifier",
+    );
+    assert.ok(
+      html.indexOf("warning-filled") !== -1 || html.indexOf("ds-icon") !== -1,
+      "warning-filled icon svg present",
+    );
+    assert.ok(html.indexOf('role="status"') !== -1, "Warning uses role=status");
+    assert.ok(
+      html.indexOf("Scheduled maintenance") !== -1,
+      "message text present",
+    );
+  });
+
+  it("renders Danger banner with role=alert", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Danger",
+      props: { Message: "Critical error occurred." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert--danger") !== -1,
+      "has ds-alert--danger modifier",
+    );
+    assert.ok(html.indexOf('role="alert"') !== -1, "Danger uses role=alert");
+    assert.ok(html.indexOf("Critical error") !== -1, "message text present");
+  });
+
+  it("renders Success banner with success-filled icon", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Success",
+      props: { Message: "Data saved successfully." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert--success") !== -1,
+      "has ds-alert--success modifier",
+    );
+    assert.ok(
+      html.indexOf("success-filled") !== -1 || html.indexOf("ds-icon") !== -1,
+      "success-filled icon present",
+    );
+    assert.ok(html.indexOf('role="status"') !== -1, "Success uses role=status");
+  });
+
+  it("renders Primary (info) banner with info-filled icon", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Primary",
+      props: { Message: "New features available." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert--primary") !== -1,
+      "has ds-alert--primary modifier",
+    );
+    assert.ok(
+      html.indexOf("info-filled") !== -1 || html.indexOf("ds-icon") !== -1,
+      "info-filled icon present",
+    );
+  });
+
+  it("renders optional Title when present", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Warning",
+      props: { Title: "Heads up", Message: "Maintenance tonight." },
+    });
+    assert.ok(
+      html.indexOf("ds-alert__title") !== -1,
+      "title element present when Title prop given",
+    );
+    assert.ok(html.indexOf("Heads up") !== -1, "title text present");
+  });
+
+  it("defaults to role=status when no variant specified", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      props: { Message: "Info message." },
+    });
+    assert.ok(html.indexOf("ds-alert") !== -1, "ds-alert container present");
+    assert.ok(html.indexOf('role="status"') !== -1, "defaults to role=status");
+  });
+
+  it("escapes XSS in Message and Title", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "alert-banner",
+      variant: "Type=Warning",
+      props: {
+        Title: "<script>alert(1)</script>",
+        Message: "<img onerror=x>",
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script not injected");
+    assert.ok(html.indexOf("<img") === -1, "img not injected");
+  });
+});

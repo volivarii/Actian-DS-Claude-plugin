@@ -733,6 +733,160 @@
   background: var(--zen-color-bg-subtle);
 }
 
+/* ============ Modal (overlay dialog) ============ */
+/* Oracle: vendor/components/dist/media/modal/preview.webp present.
+ * Geometry judged from DS token conventions + common modal anatomy
+ * (backdrop full-viewport, dialog max-width 700px default, padding 24px,
+ * shadow for elevation, radius sm). Tokens bound by name to --zen-* families. */
+.ds-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(
+    0,
+    0,
+    0,
+    0.5
+  ); /* scrim: no zen token for overlay tint; raw value documented */
+  z-index: 100;
+}
+.ds-modal {
+  background: var(--zen-color-bg-default);
+  border: 1px solid var(--zen-border-default);
+  border-radius: var(--zen-border-radius-sm);
+  box-shadow: var(--zen-shadow-xs);
+  padding: 24px; /* raw px: ~24px inner padding, DS-conventional for overlays */
+  max-width: 700px; /* default size from registry "700px setting" variant */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-md);
+  box-sizing: border-box;
+}
+.ds-modal__title {
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-lg);
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-primary);
+  line-height: var(--zen-font-lineheight-md);
+  margin: 0;
+}
+.ds-modal__body {
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-secondary);
+  line-height: var(--zen-font-lineheight-lg);
+}
+.ds-modal__footer {
+  display: flex;
+  gap: var(--zen-spacing-sm);
+  justify-content: flex-end;
+  padding-top: var(--zen-spacing-sm);
+  border-top: 1px solid var(--zen-border-default);
+}
+
+/* ============ Empty state (zero-content placeholder) ============ */
+/* Oracle: vendor/components/dist/media/empty-state/preview.webp + layout-*.webp present.
+ * Anatomy: centered column, illustration (omitted — content-specific), headline,
+ * body copy, primary CTA button. Padding generous (48px/32px). */
+.ds-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: var(--zen-spacing-md);
+  padding: 48px 32px; /* raw px: large empty-state variant anatomy */
+  font-family: var(--zen-font-family-text);
+}
+.ds-empty-state__headline {
+  font-size: var(--zen-font-size-lg);
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-primary);
+  line-height: var(--zen-font-lineheight-md);
+  margin: 0;
+}
+.ds-empty-state__body {
+  font-size: var(--zen-font-size-md);
+  font-weight: var(--zen-font-weight-regular);
+  color: var(--zen-color-text-secondary);
+  line-height: var(--zen-font-lineheight-lg);
+  max-width: 480px; /* raw px: readable line length cap */
+  margin: 0;
+}
+.ds-empty-state__cta {
+  /* Extends .ds-button--primary; no additional overrides needed */
+}
+
+/* ============ Alert banner (page-level feedback) ============ */
+/* Oracle: vendor/components/dist/media/alert-banner/preview.webp + layout-0.webp present.
+ * Registry variant axis: Type = Primary | Success | Warning | Danger.
+ * Anatomy: full-width band, icon left, content (optional title + message) right.
+ * Colors: semantic bg-subtle base + status-colored left border accent (4px).
+ * Note: no --zen-color-bg-* per-status tokens exist yet; using bg-subtle + border accent. */
+.ds-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--zen-spacing-sm);
+  padding: var(--zen-spacing-md);
+  border-radius: var(--zen-border-radius-xs);
+  background: var(--zen-color-bg-subtle);
+  border: 1px solid var(--zen-border-default);
+  border-left-width: 4px; /* raw px: status accent strip, DS-conventional */
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm);
+}
+.ds-alert--primary {
+  border-left-color: var(--zen-color-icon-primary);
+}
+.ds-alert--success {
+  border-left-color: var(
+    --zen-color-icon-primary
+  ); /* nearest available — no zen-success token */
+}
+.ds-alert--warning {
+  border-left-color: var(
+    --zen-color-icon-error
+  ); /* nearest warm token for caution */
+}
+.ds-alert--danger {
+  border-left-color: var(--zen-color-icon-error);
+}
+.ds-alert__icon {
+  flex: none;
+  display: flex;
+  align-items: center;
+  color: var(--zen-color-icon-default);
+  font-size: var(--zen-font-size-lg);
+}
+.ds-alert--primary .ds-alert__icon,
+.ds-alert--success .ds-alert__icon {
+  color: var(--zen-color-icon-primary);
+}
+.ds-alert--warning .ds-alert__icon,
+.ds-alert--danger .ds-alert__icon {
+  color: var(--zen-color-icon-error);
+}
+.ds-alert__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--zen-spacing-xs);
+}
+.ds-alert__title {
+  font-weight: var(--zen-font-weight-semibold);
+  color: var(--zen-color-text-primary);
+  margin: 0;
+}
+.ds-alert__message {
+  color: var(--zen-color-text-secondary);
+  margin: 0;
+  line-height: var(--zen-font-lineheight-lg);
+}
+
 /* ============ Graceful fallback chip ============ */
 /* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
  * a node that would otherwise throw. Keeps the fallback visible + on-brand. */

@@ -542,6 +542,114 @@
           return '<table class="ds-table">' + thead + tbody + "</table>";
         }
 
+        case "modal": {
+          var modalTitle = esc(props.Title || "Dialog");
+          var modalBody = props.Body
+            ? '<div class="ds-modal__body">' + esc(props.Body) + "</div>"
+            : "";
+          var modalFooter = "";
+          var modalActionsRaw = props.Actions;
+          if (Array.isArray(modalActionsRaw) && modalActionsRaw.length) {
+            modalFooter =
+              '<div class="ds-modal__footer">' +
+              modalActionsRaw
+                .map(function (a, i) {
+                  var label = typeof a === "string" ? a : (a && a.label) || "";
+                  var variant =
+                    (a && a.variant) || (i === 0 ? "primary" : "secondary");
+                  return (
+                    '<button class="ds-button ds-button--' +
+                    esc(variant) +
+                    '">' +
+                    esc(label) +
+                    "</button>"
+                  );
+                })
+                .join("") +
+              "</div>";
+          } else if (typeof modalActionsRaw === "string" && modalActionsRaw) {
+            // String Actions fallback: treat the whole string as a single
+            // primary button label (mirrors page-header string-actions idiom).
+            modalFooter =
+              '<div class="ds-modal__footer">' +
+              '<button class="ds-button ds-button--primary">' +
+              esc(modalActionsRaw) +
+              "</button>" +
+              "</div>";
+          }
+          return (
+            '<div class="ds-modal-backdrop">' +
+            '<div class="ds-modal" role="dialog" aria-modal="true">' +
+            '<h2 class="ds-modal__title">' +
+            modalTitle +
+            "</h2>" +
+            modalBody +
+            modalFooter +
+            "</div>" +
+            "</div>"
+          );
+        }
+
+        case "empty-state": {
+          var esHeadline = esc(props.Headline || "Nothing here yet");
+          var esBody = props.Body
+            ? '<p class="ds-empty-state__body">' + esc(props.Body) + "</p>"
+            : "";
+          var esCta = props.Cta
+            ? '<button class="ds-button ds-button--primary ds-empty-state__cta">' +
+              esc(props.Cta) +
+              "</button>"
+            : "";
+          return (
+            '<div class="ds-empty-state">' +
+            '<p class="ds-empty-state__headline">' +
+            esHeadline +
+            "</p>" +
+            esBody +
+            esCta +
+            "</div>"
+          );
+        }
+
+        case "alert-banner": {
+          // Registry variant axis: Type = Primary | Success | Warning | Danger
+          // Primary → info-filled icon, role=status
+          // Success → success-filled icon, role=status
+          // Warning → warning-filled icon, role=status
+          // Danger  → error-filled icon,   role=alert
+          var alertType = (v.Type || "Primary").toLowerCase();
+          var alertIconMap = {
+            primary: "info-filled",
+            success: "success-filled",
+            warning: "warning-filled",
+            danger: "error-filled",
+          };
+          var alertIconSlug = alertIconMap[alertType] || "info-filled";
+          var alertRole = alertType === "danger" ? "alert" : "status";
+          var alertCls = "ds-alert ds-alert--" + alertType;
+          var alertTitleHtml = props.Title
+            ? '<p class="ds-alert__title">' + esc(props.Title) + "</p>"
+            : "";
+          var alertMsg = esc(props.Message || "");
+          return (
+            '<div class="' +
+            alertCls +
+            '" role="' +
+            alertRole +
+            '">' +
+            '<span class="ds-alert__icon">' +
+            renderIcon(alertIconSlug) +
+            "</span>" +
+            '<div class="ds-alert__content">' +
+            alertTitleHtml +
+            '<p class="ds-alert__message">' +
+            alertMsg +
+            "</p>" +
+            "</div>" +
+            "</div>"
+          );
+        }
+
         default: {
           // Unmapped slug: a clean labeled chip using the human name.
           return gracefulChip();
@@ -572,6 +680,9 @@
     "breadcrumbs",
     "tabs",
     "table",
+    "modal",
+    "empty-state",
+    "alert-banner",
   ];
 
   exports.renderDSComponent = renderDSComponent;

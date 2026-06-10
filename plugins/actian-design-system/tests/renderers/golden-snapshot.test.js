@@ -314,6 +314,68 @@ var DS_FIXTURES = {
       ],
     },
   },
+  // Task 9b — modal leaf
+  modalDefault: {
+    dsSlug: "modal",
+    variant: "Size & Type=700px setting",
+    props: {
+      Title: "Confirm deletion",
+      Body: "This action cannot be undone. All associated data will be permanently removed.",
+      Actions: [
+        { label: "Delete", variant: "primary" },
+        { label: "Cancel", variant: "secondary" },
+      ],
+    },
+  },
+  // Task 9b — empty-state leaf
+  emptyStateWithCta: {
+    dsSlug: "empty-state",
+    variant: "Size=Large",
+    props: {
+      Headline: "No policies available",
+      Body: "Create policies to define how your platform operates.",
+      Cta: "Create policy",
+    },
+  },
+  emptyStateNoCta: {
+    dsSlug: "empty-state",
+    variant: "Size=Medium",
+    props: {
+      Headline: "No results found",
+      Body: "Try adjusting your filters or search terms.",
+    },
+  },
+  // Task 9b — alert-banner leaf
+  alertBannerWarning: {
+    dsSlug: "alert-banner",
+    variant: "Type=Warning",
+    props: {
+      Title: "Scheduled maintenance",
+      Message: "The system will be unavailable from 2:00 AM to 4:00 AM UTC.",
+    },
+  },
+  alertBannerDanger: {
+    dsSlug: "alert-banner",
+    variant: "Type=Danger",
+    props: {
+      Message: "A critical error occurred. Please contact support.",
+    },
+  },
+  alertBannerSuccess: {
+    dsSlug: "alert-banner",
+    variant: "Type=Success",
+    props: {
+      Message: "Your changes have been saved successfully.",
+    },
+  },
+  alertBannerPrimary: {
+    dsSlug: "alert-banner",
+    variant: "Type=Primary",
+    props: {
+      Title: "New features available",
+      Message: "Check out the latest updates in the release notes.",
+    },
+  },
 };
 
 Object.keys(DS_FIXTURES).forEach(function (name) {
