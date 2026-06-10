@@ -502,6 +502,46 @@
           return '<div class="ds-tabs" role="tablist">' + tabHtml + "</div>";
         }
 
+        case "table": {
+          var cols = parseItems(props.Columns, "Name, Status, Updated");
+          var rowsRaw = props.Rows;
+          var rows = Array.isArray(rowsRaw)
+            ? rowsRaw
+            : parseItems(rowsRaw, "").map(function (cell) {
+                return [cell];
+              });
+          var thead =
+            '<thead><tr class="ds-table__head-row">' +
+            cols
+              .map(function (c) {
+                return '<th class="ds-table__th">' + esc(c) + "</th>";
+              })
+              .join("") +
+            "</tr></thead>";
+          var tbody =
+            "<tbody>" +
+            rows
+              .map(function (r) {
+                var cells = Array.isArray(r) ? r : [r];
+                return (
+                  '<tr class="ds-table__row">' +
+                  cols
+                    .map(function (_c, i) {
+                      return (
+                        '<td class="ds-table__td">' +
+                        esc(cells[i] != null ? cells[i] : "") +
+                        "</td>"
+                      );
+                    })
+                    .join("") +
+                  "</tr>"
+                );
+              })
+              .join("") +
+            "</tbody>";
+          return '<table class="ds-table">' + thead + tbody + "</table>";
+        }
+
         default: {
           // Unmapped slug: a clean labeled chip using the human name.
           return gracefulChip();
@@ -531,6 +571,7 @@
     "page-header",
     "breadcrumbs",
     "tabs",
+    "table",
   ];
 
   exports.renderDSComponent = renderDSComponent;

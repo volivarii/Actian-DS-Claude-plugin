@@ -1261,3 +1261,109 @@ describe("ds-html-map: button — critical-secondary (B7)", function () {
     );
   });
 });
+
+// ---------------------------------------------------------------------------
+// Task 9: table leaf (DS-native hi-fi program)
+// ---------------------------------------------------------------------------
+
+describe("ds-html-map: table (Task 9)", function () {
+  it("renders header row + data rows from structured props", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {
+        Columns: "Name, Status, Owner",
+        Rows: [
+          ["Orders", "Active", "M. Chen"],
+          ["Returns", "Draft", "A. Roy"],
+        ],
+      },
+    });
+    assert.ok(
+      html.indexOf('<table class="ds-table"') !== -1,
+      "has ds-table element",
+    );
+    assert.ok(/<th[^>]*>Name<\/th>/.test(html), "renders Name column header");
+    assert.strictEqual(
+      (html.match(/<tr class="ds-table__row"/g) || []).length,
+      2,
+      "renders exactly 2 data rows",
+    );
+    assert.ok(html.indexOf("M. Chen") !== -1, "renders cell value M. Chen");
+  });
+
+  it("renders all column headers from Columns prop", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {
+        Columns: "Name, Status, Owner",
+        Rows: [["Orders", "Active", "M. Chen"]],
+      },
+    });
+    assert.ok(/<th[^>]*>Name<\/th>/.test(html), "Name header present");
+    assert.ok(/<th[^>]*>Status<\/th>/.test(html), "Status header present");
+    assert.ok(/<th[^>]*>Owner<\/th>/.test(html), "Owner header present");
+  });
+
+  it("degrades gracefully on string rows", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: { Columns: "Name", Rows: "Orders, Returns" },
+    });
+    assert.ok(html.indexOf("ds-table") !== -1, "has ds-table class");
+  });
+
+  it("uses fallback columns when Columns prop absent", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {},
+    });
+    assert.ok(html.indexOf("ds-table") !== -1, "has ds-table element");
+    assert.ok(/<th[^>]*>Name<\/th>/.test(html), "fallback Name column");
+  });
+
+  it("renders thead and tbody structure", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {
+        Columns: "A, B",
+        Rows: [["1", "2"]],
+      },
+    });
+    assert.ok(html.indexOf("<thead>") !== -1, "has thead");
+    assert.ok(html.indexOf("<tbody>") !== -1, "has tbody");
+    assert.ok(
+      html.indexOf('class="ds-table__head-row"') !== -1,
+      "has head-row class",
+    );
+    assert.ok(html.indexOf('class="ds-table__th"') !== -1, "has th class");
+    assert.ok(html.indexOf('class="ds-table__td"') !== -1, "has td class");
+  });
+
+  it("escapes XSS in cell values", function () {
+    var html = render({
+      type: "INSTANCE",
+      library: "ds",
+      dsSlug: "table",
+      props: {
+        Columns: "<script>",
+        Rows: [["<img onerror=x>"]],
+      },
+    });
+    assert.ok(html.indexOf("<script>") === -1, "script tag not injected");
+    assert.ok(
+      html.indexOf("&lt;script&gt;") !== -1,
+      "script tag escaped in header",
+    );
+    assert.ok(html.indexOf("&lt;img") !== -1, "img tag escaped in cell");
+  });
+});

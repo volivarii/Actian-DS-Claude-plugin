@@ -301,6 +301,19 @@ var DS_FIXTURES = {
     variant: "Format=Default, Selected=No, State=Disabled",
     props: { Label: "Standard plan" },
   },
+  // Task 9 — table leaf (content data grid)
+  tableDefault: {
+    dsSlug: "table",
+    variant: "",
+    props: {
+      Columns: "Name, Status, Owner",
+      Rows: [
+        ["Orders", "Active", "M. Chen"],
+        ["Returns", "Draft", "A. Roy"],
+        ["Shipments", "Active", "K. Patel"],
+      ],
+    },
+  },
 };
 
 Object.keys(DS_FIXTURES).forEach(function (name) {

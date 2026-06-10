@@ -700,6 +700,39 @@
   border-bottom-color: var(--zen-border-selected);
 }
 
+/* ============ Table (data grid — content leaf) ============ */
+/* Oracle: no media preview available; geometry judged from DS token families
+ * and common table anatomy (row-height ~40px, header ~36px, padding 10/12x16).
+ * Tokens bound by name to existing --zen-* families in ds-base.css. */
+.ds-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--zen-font-family-text);
+  font-size: var(--zen-font-size-sm); /* 12px */
+  color: var(--zen-color-text-primary);
+  background: var(--zen-color-bg-default);
+}
+.ds-table__head-row {
+  /* head row selector — no extra styling beyond the th cells */
+}
+.ds-table__th {
+  text-align: left;
+  font-weight: var(--zen-font-weight-medium); /* 500 */
+  color: var(--zen-color-text-secondary);
+  padding: 10px 16px; /* header row raw px: ~36px total row height */
+  border-bottom: 1px solid var(--zen-border-default);
+  white-space: nowrap;
+}
+.ds-table__td {
+  padding: 12px 16px; /* data row raw px: ~40px total row height */
+  border-bottom: 1px solid var(--zen-border-default);
+  color: var(--zen-color-text-primary);
+  vertical-align: middle;
+}
+.ds-table__row:hover {
+  background: var(--zen-color-bg-subtle);
+}
+
 /* ============ Graceful fallback chip ============ */
 /* Mirrors .fm-component: the labeled chip rendered for an unmapped DS slug or
  * a node that would otherwise throw. Keeps the fallback visible + on-brand. */
