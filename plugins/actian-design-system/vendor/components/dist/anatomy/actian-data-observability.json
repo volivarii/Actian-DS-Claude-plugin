@@ -2,46 +2,19 @@
   "_schema_version": 1,
   "slug": "actian-data-observability",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "7764:7671"
+    "nodeId": "7764:7671",
+    "variant": "Color=Full colo, Layout=Horizontal"
   },
   "quality": {
-    "nodesTotal": 105,
-    "nodesNormalized": 92,
+    "nodesTotal": 26,
+    "nodesNormalized": 23,
     "ratio": 0.88,
     "degraded": [
       {
-        "name": "Actian Data Observability",
-        "reason": "layoutMode:NONE"
-      },
-      {
         "name": "Color=Full colo, Layout=Horizontal",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Actian Data Observability",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Color=White, Layout=Horizontal",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Actian Data Observability",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Color=Full colo, Layout=Vertical",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Actian Data Observability",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Color=White, Layout=Vertical",
         "reason": "layoutMode:NONE"
       },
       {
@@ -51,544 +24,132 @@
     ]
   },
   "root": {
-    "name": "Actian Data Observability",
+    "name": "Color=Full colo, Layout=Horizontal",
     "kind": "container",
     "normalizable": false,
     "rawHint": {
       "layoutMode": "NONE",
-      "x": -448,
-      "y": -93,
+      "x": -433,
+      "y": -77,
       "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+        "vertical": "CENTER",
+        "horizontal": "CENTER"
       }
     },
     "children": [
       {
-        "name": "Color=Full colo, Layout=Horizontal",
-        "kind": "container",
-        "normalizable": false,
-        "rawHint": {
-          "layoutMode": "NONE",
-          "x": -433,
-          "y": -77,
-          "constraints": {
-            "vertical": "CENTER",
-            "horizontal": "CENTER"
-          }
-        },
-        "children": [
-          {
-            "name": "Actian pyramid",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Color": "Full color"
-            }
-          },
-          {
-            "name": "Actian Data Observability",
-            "kind": "container",
-            "normalizable": false,
-            "rawHint": {
-              "layoutMode": "NONE",
-              "x": -358.8487548828125,
-              "y": -66,
-              "constraints": {
-                "vertical": "CENTER",
-                "horizontal": "LEFT"
-              }
-            },
-            "children": [
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              }
-            ]
-          }
-        ]
+        "name": "Actian pyramid",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Color": "Full color"
+        }
       },
       {
-        "name": "Color=White, Layout=Horizontal",
+        "name": "Actian Data Observability",
         "kind": "container",
         "normalizable": false,
         "rawHint": {
           "layoutMode": "NONE",
-          "x": -433,
-          "y": 156,
+          "x": -358.8487548828125,
+          "y": -66,
           "constraints": {
             "vertical": "CENTER",
-            "horizontal": "CENTER"
-          }
-        },
-        "children": [
-          {
-            "name": "Actian pyramid",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Color": "White"
-            }
-          },
-          {
-            "name": "Actian Data Observability",
-            "kind": "container",
-            "normalizable": false,
-            "rawHint": {
-              "layoutMode": "NONE",
-              "x": -358.848876953125,
-              "y": 167,
-              "constraints": {
-                "vertical": "CENTER",
-                "horizontal": "LEFT"
-              }
-            },
-            "children": [
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Color=Full colo, Layout=Vertical",
-        "kind": "container",
-        "normalizable": false,
-        "rawHint": {
-          "layoutMode": "NONE",
-          "x": 213,
-          "y": -63,
-          "constraints": {
-            "vertical": "TOP",
             "horizontal": "LEFT"
           }
         },
         "children": [
           {
-            "name": "Actian pyramid",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Color": "Full color"
-            }
+            "name": "Vector",
+            "kind": "vector"
           },
           {
-            "name": "Actian Data Observability",
-            "kind": "container",
-            "normalizable": false,
-            "rawHint": {
-              "layoutMode": "NONE",
-              "x": 216.977294921875,
-              "y": 31,
-              "constraints": {
-                "vertical": "TOP",
-                "horizontal": "CENTER"
-              }
-            },
-            "children": [
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Color=White, Layout=Vertical",
-        "kind": "container",
-        "normalizable": false,
-        "rawHint": {
-          "layoutMode": "NONE",
-          "x": 213,
-          "y": 106,
-          "constraints": {
-            "vertical": "TOP",
-            "horizontal": "LEFT"
-          }
-        },
-        "children": [
-          {
-            "name": "Actian pyramid",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Color": "White"
-            }
+            "name": "Vector",
+            "kind": "vector"
           },
           {
-            "name": "Actian Data Observability",
-            "kind": "container",
-            "normalizable": false,
-            "rawHint": {
-              "layoutMode": "NONE",
-              "x": 216.977294921875,
-              "y": 200,
-              "constraints": {
-                "vertical": "TOP",
-                "horizontal": "CENTER"
-              }
-            },
-            "children": [
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              },
-              {
-                "name": "Vector",
-                "kind": "vector"
-              }
-            ]
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
           }
         ]
       }

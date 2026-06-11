@@ -2,64 +2,44 @@
   "_schema_version": 1,
   "slug": "tag-shared",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "13812:22307"
+    "nodeId": "13812:22307",
+    "variant": "Property 1=Default"
   },
   "quality": {
-    "nodesTotal": 3,
+    "nodesTotal": 2,
     "nodesNormalized": 2,
-    "ratio": 0.67,
-    "degraded": [
-      {
-        "name": "✍️ Tag, Shared",
-        "reason": "layoutMode:NONE"
-      }
-    ]
+    "ratio": 1,
+    "degraded": []
   },
   "root": {
-    "name": "✍️ Tag, Shared",
+    "name": "Property 1=Default",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 5857,
-      "y": 599,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "row",
+      "gap": "0px",
+      "padding": {
+        "top": "0px",
+        "right": "8px",
+        "bottom": "0px",
+        "left": "8px"
+      },
+      "align": {
+        "main": "center",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "hug",
+        "v": "fixed"
       }
     },
     "children": [
       {
-        "name": "Property 1=Default",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "0px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "hug",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Shared",
-            "kind": "text",
-            "text": "Shared"
-          }
-        ]
+        "name": "Shared",
+        "kind": "text",
+        "text": "Shared"
       }
     ]
   }

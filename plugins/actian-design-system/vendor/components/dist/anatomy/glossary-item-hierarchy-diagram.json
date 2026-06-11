@@ -2,20 +2,17 @@
   "_schema_version": 1,
   "slug": "glossary-item-hierarchy-diagram",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "14747:30242"
+    "nodeId": "14747:30242",
+    "variant": "Type=Default"
   },
   "quality": {
-    "nodesTotal": 28,
+    "nodesTotal": 27,
     "nodesNormalized": 4,
-    "ratio": 0.14,
+    "ratio": 0.15,
     "degraded": [
-      {
-        "name": "Glossary item hierarchy diagram",
-        "reason": "layoutMode:NONE"
-      },
       {
         "name": "Graph",
         "reason": "layoutMode:NONE"
@@ -23,305 +20,289 @@
     ]
   },
   "root": {
-    "name": "Glossary item hierarchy diagram",
+    "name": "Type=Default",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": -3698,
-      "y": 2427,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "column",
+      "gap": "0px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
       }
     },
     "children": [
       {
-        "name": "Type=Default",
+        "name": "Header",
         "kind": "container",
         "layout": {
-          "axis": "column",
-          "gap": "0px",
+          "axis": "row",
+          "gap": "8px",
           "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
+            "top": "8px",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px"
           },
           "align": {
             "main": "start",
             "cross": "start"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "fill",
             "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Header",
+            "name": "sideNavHeading",
+            "kind": "text",
+            "text": "Glossary item hierarchy"
+          },
+          {
+            "name": "Button",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show label": true,
+              "Show trailing icon": false,
+              "Label": "Switch to list view",
+              "Show leading icon": false,
+              "Type": "Tertiary",
+              "Size": "Small",
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Body",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "16px",
+            "right": "0px",
+            "bottom": "16px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Graph",
             "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -3632.25,
+              "y": 2499,
+              "constraints": {
+                "vertical": "TOP",
+                "horizontal": "LEFT"
               }
             },
             "children": [
               {
-                "name": "sideNavHeading",
-                "kind": "text",
-                "text": "Glossary item hierarchy"
-              },
-              {
-                "name": "Button",
+                "name": ".Glossary connecting line",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
-                  "Show label": true,
-                  "Show trailing icon": false,
-                  "Label": "Switch to list view",
-                  "Show leading icon": false,
-                  "Type": "Tertiary",
-                  "Size": "Small",
+                  "Type": "Straight"
+                }
+              },
+              {
+                "name": ".Glossary connecting line",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Going down"
+                }
+              },
+              {
+                "name": ".Glossary connecting line",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Going up"
+                }
+              },
+              {
+                "name": ".Glossary connecting line",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Going up"
+                }
+              },
+              {
+                "name": ".Glossary connecting line",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Going up"
+                }
+              },
+              {
+                "name": ".Glossary connecting line",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Going down"
+                }
+              },
+              {
+                "name": ".Glossary connecting line",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Going down"
+                }
+              },
+              {
+                "name": ".Glossary connecting line",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Going down"
+                }
+              },
+              {
+                "name": ".Glossary connecting line",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Going up"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Main item",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Sub items",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Sub items",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Sub items",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Sub items",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Sub items",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Sub items",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Sub items",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Sub items",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": ".Glossary item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Sub items",
                   "State": "Default"
                 }
               }
             ]
           },
           {
-            "name": "Body",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "16px",
-                "right": "0px",
-                "bottom": "16px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "center",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Graph",
-                "kind": "container",
-                "normalizable": false,
-                "rawHint": {
-                  "layoutMode": "NONE",
-                  "x": -3632.25,
-                  "y": 2499,
-                  "constraints": {
-                    "vertical": "TOP",
-                    "horizontal": "LEFT"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Straight"
-                    }
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going down"
-                    }
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going up"
-                    }
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going up"
-                    }
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going up"
-                    }
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going down"
-                    }
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going down"
-                    }
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going down"
-                    }
-                  },
-                  {
-                    "name": ".Glossary connecting line",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Going up"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Main item",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": ".Glossary item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Type": "Sub items",
-                      "State": "Default"
-                    }
-                  }
-                ]
-              },
-              {
-                "name": "Toolbar",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show View scale": true,
-                  "Type": "Group",
-                  "Orientation": "Horizontal"
-                }
-              },
-              {
-                "name": "Toolbar",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show View scale": true,
-                  "Type": "Single",
-                  "Orientation": "Horizontal"
-                }
-              }
-            ]
+            "name": "Toolbar",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show View scale": true,
+              "Type": "Group",
+              "Orientation": "Horizontal"
+            }
+          },
+          {
+            "name": "Toolbar",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show View scale": true,
+              "Type": "Single",
+              "Orientation": "Horizontal"
+            }
           }
         ]
       }

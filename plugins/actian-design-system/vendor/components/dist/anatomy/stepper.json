@@ -2,129 +2,75 @@
   "_schema_version": 1,
   "slug": "stepper",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "7676:4492"
+    "nodeId": "7676:4492",
+    "variant": "State=Complete"
   },
   "quality": {
-    "nodesTotal": 25,
-    "nodesNormalized": 24,
-    "ratio": 0.96,
-    "degraded": [
-      {
-        "name": "Stepper",
-        "reason": "layoutMode:NONE"
-      }
-    ]
+    "nodesTotal": 6,
+    "nodesNormalized": 6,
+    "ratio": 1,
+    "degraded": []
   },
   "root": {
-    "name": "Stepper",
+    "name": "State=Complete",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 4311,
-      "y": 391,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "column",
+      "gap": "4px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "hug",
+        "v": "hug"
       }
     },
     "children": [
       {
-        "name": "State=Complete",
+        "name": "Status",
         "kind": "container",
         "layout": {
-          "axis": "column",
-          "gap": "4px",
+          "axis": "row",
+          "gap": "8px",
           "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
+            "top": "2px",
+            "right": "2px",
+            "bottom": "2px",
+            "left": "2px"
           },
           "align": {
-            "main": "start",
+            "main": "center",
             "cross": "center"
           },
           "sizing": {
-            "h": "hug",
-            "v": "hug"
+            "h": "fixed",
+            "v": "fixed"
           }
         },
         "children": [
           {
-            "name": "Status",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "2px",
-                "right": "2px",
-                "bottom": "2px",
-                "left": "2px"
-              },
-              "align": {
-                "main": "center",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fixed",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "1",
-                "kind": "text",
-                "text": "1"
-              }
-            ]
-          },
-          {
-            "name": "Text",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "0px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "hug",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Title",
-                "kind": "text",
-                "text": "Complete"
-              },
-              {
-                "name": "Body",
-                "kind": "text",
-                "text": "Optional body"
-              }
-            ]
+            "name": "1",
+            "kind": "text",
+            "text": "1"
           }
         ]
       },
       {
-        "name": "State=Active",
+        "name": "Text",
         "kind": "container",
         "layout": {
           "axis": "column",
-          "gap": "4px",
+          "gap": "0px",
           "padding": {
             "top": "0px",
             "right": "0px",
@@ -142,241 +88,14 @@
         },
         "children": [
           {
-            "name": "Status",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "2px",
-                "right": "2px",
-                "bottom": "2px",
-                "left": "2px"
-              },
-              "align": {
-                "main": "center",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fixed",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "1",
-                "kind": "text",
-                "text": "1"
-              }
-            ]
+            "name": "Title",
+            "kind": "text",
+            "text": "Complete"
           },
           {
-            "name": "Text",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "0px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "hug",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Title",
-                "kind": "text",
-                "text": "Active"
-              },
-              {
-                "name": "Body",
-                "kind": "text",
-                "text": "Optional body"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "State=Default",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "hug",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Status",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "2px",
-                "right": "2px",
-                "bottom": "2px",
-                "left": "2px"
-              },
-              "align": {
-                "main": "center",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fixed",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "1",
-                "kind": "text",
-                "text": "1"
-              }
-            ]
-          },
-          {
-            "name": "Text",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "0px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "hug",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Title",
-                "kind": "text",
-                "text": "Not started"
-              },
-              {
-                "name": "Body",
-                "kind": "text",
-                "text": "Optional body"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "State=State5",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "hug",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Status",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "2px",
-                "right": "2px",
-                "bottom": "2px",
-                "left": "2px"
-              },
-              "align": {
-                "main": "center",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fixed",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "1",
-                "kind": "text",
-                "text": "1"
-              }
-            ]
-          },
-          {
-            "name": "Text",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "0px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "hug",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Title",
-                "kind": "text",
-                "text": "Disabled"
-              },
-              {
-                "name": "Body",
-                "kind": "text",
-                "text": "Optional body"
-              }
-            ]
+            "name": "Body",
+            "kind": "text",
+            "text": "Optional body"
           }
         ]
       }

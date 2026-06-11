@@ -2,166 +2,46 @@
   "_schema_version": 1,
   "slug": "page-header",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "12923:2794"
+    "nodeId": "12923:2794",
+    "variant": "Type=Default"
   },
   "quality": {
-    "nodesTotal": 40,
-    "nodesNormalized": 25,
+    "nodesTotal": 8,
+    "nodesNormalized": 5,
     "ratio": 0.63,
-    "degraded": [
-      {
-        "name": "Page header",
-        "reason": "layoutMode:NONE"
-      }
-    ]
+    "degraded": []
   },
   "root": {
-    "name": "Page header",
+    "name": "Type=Default",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 5696,
-      "y": 288,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "column",
+      "gap": "8px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
       }
     },
     "children": [
       {
-        "name": "Type=Default",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Title + action",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "space-between",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Title",
-                "kind": "text",
-                "text": "Financial Objectives"
-              },
-              {
-                "name": "Buttons",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "8px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "end",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Button",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Label": "Button",
-                      "Show label": true,
-                      "Show trailing icon": true,
-                      "Show leading icon": true,
-                      "Type": "Tertiary",
-                      "Size": "Default",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Button",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Show label": true,
-                      "Label": "Button",
-                      "Show trailing icon": true,
-                      "Show leading icon": true,
-                      "Type": "Secondary",
-                      "Size": "Default",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Button",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Label": "Button",
-                      "Show label": true,
-                      "Show trailing icon": true,
-                      "Show leading icon": true,
-                      "Type": "Primary",
-                      "Size": "Default",
-                      "State": "Default"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "Suppot text",
-            "kind": "text",
-            "text": "Support text"
-          }
-        ]
-      },
-      {
-        "name": "Type=Explorer home",
+        "name": "Title + action",
         "kind": "container",
         "layout": {
           "axis": "row",
-          "gap": "158px",
+          "gap": "8px",
           "padding": {
             "top": "0px",
             "right": "0px",
@@ -173,7 +53,7 @@
             "cross": "center"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "fill",
             "v": "hug"
           }
         },
@@ -181,215 +61,10 @@
           {
             "name": "Title",
             "kind": "text",
-            "text": "Discover Your Data Assets"
+            "text": "Financial Objectives"
           },
           {
-            "name": "Search",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "AI icon": false,
-              "Type": "Explorer home",
-              "State": "Default"
-            }
-          }
-        ]
-      },
-      {
-        "name": "Type=Explorer detail",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Page headers",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "16px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "space-between",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "Name, tags, actions",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "16px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Name, tags",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "hug",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "✍️ Tag, Catalog item type",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show counter": false,
-                          "Type": "Dataset"
-                        }
-                      },
-                      {
-                        "name": "Name",
-                        "kind": "text",
-                        "text": "Revenue"
-                      },
-                      {
-                        "name": "Revenue",
-                        "kind": "text",
-                        "text": "Revenue"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Actions",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "end",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fixed",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Button",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Label": "Open in Power BI",
-                          "Show trailing icon": false,
-                          "Show leading icon": true,
-                          "Show label": true,
-                          "Type": "Tertiary",
-                          "Size": "Default",
-                          "State": "Default"
-                        }
-                      },
-                      {
-                        "name": "Button",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show label": true,
-                          "Label": "Submit a suggestion",
-                          "Show trailing icon": false,
-                          "Show leading icon": true,
-                          "Type": "Secondary",
-                          "Size": "Default",
-                          "State": "Default"
-                        }
-                      },
-                      {
-                        "name": "Button",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Label": "Open in Studio",
-                          "Show label": true,
-                          "Show trailing icon": false,
-                          "Show leading icon": true,
-                          "Type": "Primary",
-                          "Size": "Default",
-                          "State": "Default"
-                        }
-                      },
-                      {
-                        "name": "Button",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show label": true,
-                          "Label": "Button",
-                          "Show leading icon": true,
-                          "Show trailing icon": true,
-                          "Type": "Icon",
-                          "Size": "Default",
-                          "State": "Default"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "Tags",
+            "name": "Buttons",
             "kind": "container",
             "layout": {
               "axis": "row",
@@ -401,32 +76,55 @@
                 "left": "0px"
               },
               "align": {
-                "main": "start",
-                "cross": "start"
+                "main": "end",
+                "cross": "center"
               },
               "sizing": {
-                "h": "hug",
+                "h": "fixed",
                 "v": "hug"
               }
             },
             "children": [
               {
-                "name": "✍️ Tag, Catalog",
+                "name": "Button",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
-                  "Type": "Default"
+                  "Label": "Button",
+                  "Show label": true,
+                  "Show trailing icon": true,
+                  "Show leading icon": true,
+                  "Type": "Tertiary",
+                  "Size": "Default",
+                  "State": "Default"
                 }
               },
               {
-                "name": "✍️ Tag, Default",
+                "name": "Button",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
-                  "Leading icon show": true,
-                  "Trailing icon show": false,
-                  "Label": "mgu-powerbi",
-                  "Color": "Default"
+                  "Show label": true,
+                  "Label": "Button",
+                  "Show trailing icon": true,
+                  "Show leading icon": true,
+                  "Type": "Secondary",
+                  "Size": "Default",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Label": "Button",
+                  "Show label": true,
+                  "Show trailing icon": true,
+                  "Show leading icon": true,
+                  "Type": "Primary",
+                  "Size": "Default",
+                  "State": "Default"
                 }
               }
             ]
@@ -434,202 +132,9 @@
         ]
       },
       {
-        "name": "Type=Details page",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Page headers",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "16px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Name, tags, actions",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "16px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Name, tags",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "hug",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "✍️ Tag, Catalog item type",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show counter": false,
-                          "Type": "Dataset"
-                        }
-                      },
-                      {
-                        "name": "✍️ Tag, Default",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Leading icon show": false,
-                          "Trailing icon show": false,
-                          "Label": "Shared",
-                          "Color": "Default"
-                        }
-                      },
-                      {
-                        "name": "Name",
-                        "kind": "text",
-                        "text": "Revenue"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Actions",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "end",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fixed",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Button",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Label": "Actions",
-                          "Show label": true,
-                          "Show trailing icon": true,
-                          "Show leading icon": false,
-                          "Type": "Primary",
-                          "Size": "Default",
-                          "State": "Default"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "Container",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Technical name: Revenue",
-                "kind": "text",
-                "text": "Technical name: Revenue"
-              },
-              {
-                "name": "Catalog: Default / Connection: mgu-powerbi",
-                "kind": "text",
-                "text": "Catalog: Default /  Connection: mgu-powerbi"
-              },
-              {
-                "name": "Last updated: May 15, 2025",
-                "kind": "text",
-                "text": "Last updated: May 15, 2025"
-              }
-            ]
-          }
-        ]
+        "name": "Suppot text",
+        "kind": "text",
+        "text": "Support text"
       }
     ]
   }

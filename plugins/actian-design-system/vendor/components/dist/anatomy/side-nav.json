@@ -2,68 +2,114 @@
   "_schema_version": 1,
   "slug": "side-nav",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "13599:20120"
+    "nodeId": "13599:20120",
+    "variant": "App=Studio, View=Expanded"
   },
   "quality": {
-    "nodesTotal": 69,
-    "nodesNormalized": 28,
-    "ratio": 0.41,
-    "degraded": [
-      {
-        "name": "✍️ Side nav",
-        "reason": "layoutMode:NONE"
-      }
-    ]
+    "nodesTotal": 18,
+    "nodesNormalized": 7,
+    "ratio": 0.39,
+    "degraded": []
   },
   "root": {
-    "name": "✍️ Side nav",
+    "name": "App=Studio, View=Expanded",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 12639,
-      "y": -6018,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "column",
+      "gap": "8px",
+      "padding": {
+        "top": "16px",
+        "right": "16px",
+        "bottom": "16px",
+        "left": "16px"
+      },
+      "align": {
+        "main": "space-between",
+        "cross": "end"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "fixed"
       }
     },
     "children": [
       {
-        "name": "App=Studio, View=Expanded",
+        "name": "Main",
         "kind": "container",
         "layout": {
           "axis": "column",
-          "gap": "8px",
+          "gap": "4px",
           "padding": {
-            "top": "16px",
-            "right": "16px",
-            "bottom": "16px",
-            "left": "16px"
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
           },
           "align": {
-            "main": "space-between",
-            "cross": "end"
+            "main": "start",
+            "cross": "start"
           },
           "sizing": {
-            "h": "fixed",
-            "v": "fixed"
+            "h": "fill",
+            "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Main",
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": false,
+              "Label": true,
+              "Icon left": true,
+              "Name": "Dashboard",
+              "Level": "Top",
+              "Opened/Closed": "Closed",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": false,
+              "Label": true,
+              "Icon left": true,
+              "Name": "Catalog",
+              "Level": "Top",
+              "Opened/Closed": "Closed",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": false,
+              "Label": true,
+              "Icon left": true,
+              "Name": "Topics",
+              "Level": "Top",
+              "Opened/Closed": "Closed",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "Divider",
             "kind": "container",
             "layout": {
               "axis": "column",
-              "gap": "4px",
+              "gap": "8px",
               "padding": {
-                "top": "0px",
+                "top": "4px",
                 "right": "0px",
-                "bottom": "0px",
+                "bottom": "4px",
                 "left": "0px"
               },
               "align": {
@@ -77,275 +123,143 @@
             },
             "children": [
               {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Dashboard",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Catalog",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Topics",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
                 "name": "Divider",
-                "kind": "container",
-                "layout": {
-                  "axis": "column",
-                  "gap": "8px",
-                  "padding": {
-                    "top": "4px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Divider",
-                    "kind": "vector"
-                  }
-                ]
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": true,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Import",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": true,
-                  "Icon left": true,
-                  "Label": true,
-                  "Name": "Select a connection",
-                  "Level": "Sub",
-                  "Opened/Closed": "N/A",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": true,
-                  "Icon left": true,
-                  "Label": true,
-                  "Name": "Select a file",
-                  "Level": "Sub",
-                  "Opened/Closed": "N/A",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "New item",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
+                "kind": "vector"
               }
             ]
           },
           {
-            "name": "Frame 1948754907",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "end"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Access request",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Catalog design",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Analytics",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "Divider",
-                "kind": "container",
-                "layout": {
-                  "axis": "column",
-                  "gap": "8px",
-                  "padding": {
-                    "top": "4px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Divider",
-                    "kind": "vector"
-                  }
-                ]
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show leading icon": true,
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "Button",
-                  "Type": "Icon",
-                  "Size": "Small",
-                  "State": "Default"
-                }
-              }
-            ]
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": true,
+              "Label": true,
+              "Icon left": true,
+              "Name": "Import",
+              "Level": "Top",
+              "Opened/Closed": "Closed",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": true,
+              "Icon left": true,
+              "Label": true,
+              "Name": "Select a connection",
+              "Level": "Sub",
+              "Opened/Closed": "N/A",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": true,
+              "Icon left": true,
+              "Label": true,
+              "Name": "Select a file",
+              "Level": "Sub",
+              "Opened/Closed": "N/A",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": false,
+              "Label": true,
+              "Icon left": true,
+              "Name": "New item",
+              "Level": "Top",
+              "Opened/Closed": "Closed",
+              "State": "Default"
+            }
           }
         ]
       },
       {
-        "name": "App=Studio, View=Collapsed",
+        "name": "Frame 1948754907",
         "kind": "container",
         "layout": {
           "axis": "column",
-          "gap": "8px",
+          "gap": "4px",
           "padding": {
-            "top": "16px",
-            "right": "16px",
-            "bottom": "16px",
-            "left": "16px"
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
           },
           "align": {
-            "main": "space-between",
+            "main": "start",
             "cross": "end"
           },
           "sizing": {
-            "h": "fixed",
-            "v": "fixed"
+            "h": "fill",
+            "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Main",
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": false,
+              "Label": true,
+              "Icon left": true,
+              "Name": "Access request",
+              "Level": "Top",
+              "Opened/Closed": "Closed",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": false,
+              "Label": true,
+              "Icon left": true,
+              "Name": "Catalog design",
+              "Level": "Top",
+              "Opened/Closed": "Closed",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "nav item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Icon right": false,
+              "Label": true,
+              "Icon left": true,
+              "Name": "Analytics",
+              "Level": "Top",
+              "Opened/Closed": "Closed",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "Divider",
             "kind": "container",
             "layout": {
               "axis": "column",
-              "gap": "4px",
+              "gap": "8px",
               "padding": {
-                "top": "0px",
+                "top": "4px",
                 "right": "0px",
-                "bottom": "0px",
+                "bottom": "4px",
                 "left": "0px"
               },
               "align": {
@@ -359,708 +273,24 @@
             },
             "children": [
               {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Dashboard",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Catalog",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Topics",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
                 "name": "Divider",
-                "kind": "container",
-                "layout": {
-                  "axis": "column",
-                  "gap": "8px",
-                  "padding": {
-                    "top": "4px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Divider",
-                    "kind": "vector"
-                  }
-                ]
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Import",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "New item",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              }
-            ]
-          },
-          {
-            "name": "Frame 1948754906",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "end"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Access request",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Catalog design",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Analytics",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "Divider",
-                "kind": "container",
-                "layout": {
-                  "axis": "column",
-                  "gap": "8px",
-                  "padding": {
-                    "top": "4px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Divider",
-                    "kind": "vector"
-                  }
-                ]
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show leading icon": true,
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "Button",
-                  "Type": "Icon",
-                  "Size": "Small",
-                  "State": "Default"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "App=Admin, View=Expanded",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "16px",
-            "right": "16px",
-            "bottom": "16px",
-            "left": "16px"
-          },
-          "align": {
-            "main": "space-between",
-            "cross": "end"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Main",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Users & contacts",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Groups",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Connections",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "Rectangle 5598",
                 "kind": "vector"
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "API keys",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Scanners",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "Rectangle 5598",
-                "kind": "vector"
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Access request",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": true,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Policies",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon left": true,
-                  "Icon right": false,
-                  "Label": true,
-                  "Name": "Access request",
-                  "Level": "Sub",
-                  "Opened/Closed": "N/A",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon left": true,
-                  "Icon right": false,
-                  "Label": true,
-                  "Name": "Lifecycle",
-                  "Level": "Sub",
-                  "Opened/Closed": "N/A",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": true,
-                  "Icon left": true,
-                  "Name": "Maintenance mode",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
               }
             ]
           },
           {
-            "name": "Frame 1948754907",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "end"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Divider",
-                "kind": "container",
-                "layout": {
-                  "axis": "column",
-                  "gap": "8px",
-                  "padding": {
-                    "top": "4px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Divider",
-                    "kind": "vector"
-                  }
-                ]
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show leading icon": true,
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "Button",
-                  "Type": "Icon",
-                  "Size": "Small",
-                  "State": "Default"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "App=Admin, View=Collapsed",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "16px",
-            "right": "16px",
-            "bottom": "16px",
-            "left": "16px"
-          },
-          "align": {
-            "main": "space-between",
-            "cross": "end"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Main",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "end"
-              },
-              "sizing": {
-                "h": "hug",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Dashboard",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Catalog",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Topics",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "Rectangle 5598",
-                "kind": "vector"
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Import",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "New item",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "Rectangle 5598",
-                "kind": "vector"
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Catalog design",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Catalog design",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "nav item",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Icon right": false,
-                  "Label": false,
-                  "Icon left": true,
-                  "Name": "Analytics",
-                  "Level": "Top",
-                  "Opened/Closed": "Closed",
-                  "State": "Default"
-                }
-              }
-            ]
-          },
-          {
-            "name": "Frame 1948754906",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "end"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Divider",
-                "kind": "container",
-                "layout": {
-                  "axis": "column",
-                  "gap": "8px",
-                  "padding": {
-                    "top": "4px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Divider",
-                    "kind": "vector"
-                  }
-                ]
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show leading icon": true,
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "Button",
-                  "Type": "Icon",
-                  "Size": "Small",
-                  "State": "Default"
-                }
-              }
-            ]
+            "name": "Button",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show leading icon": true,
+              "Show label": true,
+              "Show trailing icon": true,
+              "Label": "Button",
+              "Type": "Icon",
+              "Size": "Small",
+              "State": "Default"
+            }
           }
         ]
       }

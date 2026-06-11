@@ -2,136 +2,150 @@
   "_schema_version": 1,
   "slug": "popover",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "14294:7345"
+    "nodeId": "14294:7345",
+    "variant": "Type=Interaction guide"
   },
   "quality": {
-    "nodesTotal": 86,
-    "nodesNormalized": 48,
-    "ratio": 0.56,
-    "degraded": [
-      {
-        "name": "⛔️ Popover",
-        "reason": "layoutMode:NONE"
-      }
-    ]
+    "nodesTotal": 65,
+    "nodesNormalized": 30,
+    "ratio": 0.46,
+    "degraded": []
   },
   "root": {
-    "name": "⛔️ Popover",
+    "name": "Type=Interaction guide",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 1109,
-      "y": 194,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "column",
+      "gap": "16px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "16px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
       }
     },
     "children": [
       {
-        "name": "Type=Interaction guide",
+        "name": "Header",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "666px",
+          "padding": {
+            "top": "16px",
+            "right": "16px",
+            "bottom": "16px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "space-between",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Icon + header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "info",
+                "kind": "instance",
+                "slug": "info"
+              },
+              {
+                "name": "Header",
+                "kind": "text",
+                "text": "Interaction guide"
+              }
+            ]
+          },
+          {
+            "name": "Close",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show icon": true,
+              "Label": "Button"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Body 1",
         "kind": "container",
         "layout": {
           "axis": "column",
-          "gap": "16px",
+          "gap": "8px",
           "padding": {
             "top": "0px",
-            "right": "0px",
-            "bottom": "16px",
-            "left": "0px"
+            "right": "16px",
+            "bottom": "0px",
+            "left": "16px"
           },
           "align": {
             "main": "start",
             "cross": "start"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "fill",
             "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Header",
+            "name": "Label",
+            "kind": "text",
+            "text": "About this lineage"
+          },
+          {
+            "name": "description",
+            "kind": "text",
+            "text": "Explore this asset’s upstream sources and downstream consumers, as well as the transformations connecting them across the data pipeline.  Learn how to navigate data lineage using mouse and keyboard controls."
+          },
+          {
+            "name": "Table",
             "kind": "container",
             "layout": {
               "axis": "row",
-              "gap": "666px",
-              "padding": {
-                "top": "16px",
-                "right": "16px",
-                "bottom": "16px",
-                "left": "16px"
-              },
-              "align": {
-                "main": "space-between",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Icon + header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "8px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "info",
-                    "kind": "instance",
-                    "slug": "info"
-                  },
-                  {
-                    "name": "Header",
-                    "kind": "text",
-                    "text": "Interaction guide"
-                  }
-                ]
-              },
-              {
-                "name": "Close",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show icon": true,
-                  "Label": "Button"
-                }
-              }
-            ]
-          },
-          {
-            "name": "Body 1",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
+              "gap": "0px",
               "padding": {
                 "top": "0px",
-                "right": "16px",
+                "right": "0px",
                 "bottom": "0px",
-                "left": "16px"
+                "left": "0px"
               },
               "align": {
                 "main": "start",
@@ -144,20 +158,565 @@
             },
             "children": [
               {
-                "name": "Label",
-                "kind": "text",
-                "text": "About this lineage"
-              },
-              {
-                "name": "description",
-                "kind": "text",
-                "text": "Explore this asset’s upstream sources and downstream consumers, as well as the transformations connecting them across the data pipeline.  Learn how to navigate data lineage using mouse and keyboard controls."
-              },
-              {
-                "name": "Table",
+                "name": ".Table column",
                 "kind": "container",
                 "layout": {
-                  "axis": "row",
+                  "axis": "column",
+                  "gap": "0px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Button 2": true,
+                      "Show Avatar": false,
+                      "Show Sort": false,
+                      "Type": "Header"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": ".Table column",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "0px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Button 2": true,
+                      "Show Avatar": false,
+                      "Show Sort": false,
+                      "Type": "Header"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "6px",
+                      "padding": {
+                        "top": "8px",
+                        "right": "8px",
+                        "bottom": "8px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Buttons",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "row",
+                          "gap": "0px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "4px",
+                            "bottom": "0px",
+                            "left": "4px"
+                          },
+                          "align": {
+                            "main": "center",
+                            "cross": "center"
+                          },
+                          "sizing": {
+                            "h": "fixed",
+                            "v": "fixed"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "collapse-categories",
+                            "kind": "instance",
+                            "unresolved": true
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "0px",
+                      "padding": {
+                        "top": "8px",
+                        "right": "8px",
+                        "bottom": "8px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Buttons",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "row",
+                          "gap": "0px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "4px",
+                            "bottom": "0px",
+                            "left": "4px"
+                          },
+                          "align": {
+                            "main": "center",
+                            "cross": "center"
+                          },
+                          "sizing": {
+                            "h": "fixed",
+                            "v": "fixed"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "zoom-out",
+                            "kind": "instance",
+                            "slug": "zoom-out"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "/ Scroll down / pinch in",
+                        "kind": "text",
+                        "text": "/ Scroll down / pinch in"
+                      }
+                    ]
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "0px",
+                      "padding": {
+                        "top": "8px",
+                        "right": "8px",
+                        "bottom": "8px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Buttons",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "row",
+                          "gap": "0px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "4px",
+                            "bottom": "0px",
+                            "left": "4px"
+                          },
+                          "align": {
+                            "main": "center",
+                            "cross": "center"
+                          },
+                          "sizing": {
+                            "h": "fixed",
+                            "v": "fixed"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "zoom-in",
+                            "kind": "instance",
+                            "slug": "zoom-in"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "/ Scroll up / pinch out",
+                        "kind": "text",
+                        "text": "/ Scroll up / pinch out"
+                      }
+                    ]
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Show Button 3": true,
+                      "Show Button 2": true,
+                      "Show Button 1": true,
+                      "Type": "Action"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "6px",
+                      "padding": {
+                        "top": "8px",
+                        "right": "8px",
+                        "bottom": "8px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Frame 1948755108",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "row",
+                          "gap": "8px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "0px",
+                            "bottom": "0px",
+                            "left": "0px"
+                          },
+                          "align": {
+                            "main": "start",
+                            "cross": "center"
+                          },
+                          "sizing": {
+                            "h": "hug",
+                            "v": "hug"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Frame 1948755105",
+                            "kind": "container",
+                            "layout": {
+                              "axis": "row",
+                              "gap": "0px",
+                              "padding": {
+                                "top": "0px",
+                                "right": "0px",
+                                "bottom": "0px",
+                                "left": "0px"
+                              },
+                              "align": {
+                                "main": "start",
+                                "cross": "center"
+                              },
+                              "sizing": {
+                                "h": "hug",
+                                "v": "hug"
+                              }
+                            },
+                            "children": [
+                              {
+                                "name": "Graph view",
+                                "kind": "instance",
+                                "unresolved": true,
+                                "props": {
+                                  "Property 1": "Default"
+                                }
+                              },
+                              {
+                                "name": "Table view",
+                                "kind": "instance",
+                                "unresolved": true,
+                                "props": {
+                                  "Property 1": "Default"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Show Button 3": true,
+                      "Show Button 2": true,
+                      "Show Button 1": true,
+                      "Type": "Action"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "6px",
+                      "padding": {
+                        "top": "8px",
+                        "right": "8px",
+                        "bottom": "8px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Frame 2055248437",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "row",
+                          "gap": "0px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "0px",
+                            "bottom": "0px",
+                            "left": "0px"
+                          },
+                          "align": {
+                            "main": "start",
+                            "cross": "center"
+                          },
+                          "sizing": {
+                            "h": "hug",
+                            "v": "hug"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Button",
+                            "kind": "instance",
+                            "unresolved": true,
+                            "props": {
+                              "Show leading icon": true,
+                              "Show label": true,
+                              "Show trailing icon": true,
+                              "Label": "Button",
+                              "Type": "Icon",
+                              "Size": "Small",
+                              "State": "Default"
+                            }
+                          },
+                          {
+                            "name": "/",
+                            "kind": "text",
+                            "text": "/"
+                          },
+                          {
+                            "name": "Button",
+                            "kind": "instance",
+                            "unresolved": true,
+                            "props": {
+                              "Show leading icon": true,
+                              "Show label": true,
+                              "Show trailing icon": true,
+                              "Label": "Button",
+                              "Type": "Icon",
+                              "Size": "Small",
+                              "State": "Default"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": ".Table column",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
                   "gap": "0px",
                   "padding": {
                     "top": "0px",
@@ -176,811 +735,162 @@
                 },
                 "children": [
                   {
-                    "name": ".Table column",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "column",
-                      "gap": "0px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "start"
-                      },
-                      "sizing": {
-                        "h": "fixed",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Button 2": true,
-                          "Show Avatar": false,
-                          "Show Sort": false,
-                          "Type": "Header"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "name": ".Table column",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "column",
-                      "gap": "0px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "start"
-                      },
-                      "sizing": {
-                        "h": "fixed",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Button 2": true,
-                          "Show Avatar": false,
-                          "Show Sort": false,
-                          "Type": "Header"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "6px",
-                          "padding": {
-                            "top": "8px",
-                            "right": "8px",
-                            "bottom": "8px",
-                            "left": "0px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "fixed",
-                            "v": "fixed"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Buttons",
-                            "kind": "container",
-                            "layout": {
-                              "axis": "row",
-                              "gap": "0px",
-                              "padding": {
-                                "top": "0px",
-                                "right": "4px",
-                                "bottom": "0px",
-                                "left": "4px"
-                              },
-                              "align": {
-                                "main": "center",
-                                "cross": "center"
-                              },
-                              "sizing": {
-                                "h": "fixed",
-                                "v": "fixed"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "collapse-categories",
-                                "kind": "instance",
-                                "unresolved": true
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "0px",
-                          "padding": {
-                            "top": "8px",
-                            "right": "8px",
-                            "bottom": "8px",
-                            "left": "0px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "fixed",
-                            "v": "fixed"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Buttons",
-                            "kind": "container",
-                            "layout": {
-                              "axis": "row",
-                              "gap": "0px",
-                              "padding": {
-                                "top": "0px",
-                                "right": "4px",
-                                "bottom": "0px",
-                                "left": "4px"
-                              },
-                              "align": {
-                                "main": "center",
-                                "cross": "center"
-                              },
-                              "sizing": {
-                                "h": "fixed",
-                                "v": "fixed"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "zoom-out",
-                                "kind": "instance",
-                                "slug": "zoom-out"
-                              }
-                            ]
-                          },
-                          {
-                            "name": "/ Scroll down / pinch in",
-                            "kind": "text",
-                            "text": "/ Scroll down / pinch in"
-                          }
-                        ]
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "0px",
-                          "padding": {
-                            "top": "8px",
-                            "right": "8px",
-                            "bottom": "8px",
-                            "left": "0px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "fixed",
-                            "v": "fixed"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Buttons",
-                            "kind": "container",
-                            "layout": {
-                              "axis": "row",
-                              "gap": "0px",
-                              "padding": {
-                                "top": "0px",
-                                "right": "4px",
-                                "bottom": "0px",
-                                "left": "4px"
-                              },
-                              "align": {
-                                "main": "center",
-                                "cross": "center"
-                              },
-                              "sizing": {
-                                "h": "fixed",
-                                "v": "fixed"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "zoom-in",
-                                "kind": "instance",
-                                "slug": "zoom-in"
-                              }
-                            ]
-                          },
-                          {
-                            "name": "/ Scroll up / pinch out",
-                            "kind": "text",
-                            "text": "/ Scroll up / pinch out"
-                          }
-                        ]
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Show Button 3": true,
-                          "Show Button 2": true,
-                          "Show Button 1": true,
-                          "Type": "Action"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "6px",
-                          "padding": {
-                            "top": "8px",
-                            "right": "8px",
-                            "bottom": "8px",
-                            "left": "0px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "fixed",
-                            "v": "fixed"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame 1948755108",
-                            "kind": "container",
-                            "layout": {
-                              "axis": "row",
-                              "gap": "8px",
-                              "padding": {
-                                "top": "0px",
-                                "right": "0px",
-                                "bottom": "0px",
-                                "left": "0px"
-                              },
-                              "align": {
-                                "main": "start",
-                                "cross": "center"
-                              },
-                              "sizing": {
-                                "h": "hug",
-                                "v": "hug"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame 1948755105",
-                                "kind": "container",
-                                "layout": {
-                                  "axis": "row",
-                                  "gap": "0px",
-                                  "padding": {
-                                    "top": "0px",
-                                    "right": "0px",
-                                    "bottom": "0px",
-                                    "left": "0px"
-                                  },
-                                  "align": {
-                                    "main": "start",
-                                    "cross": "center"
-                                  },
-                                  "sizing": {
-                                    "h": "hug",
-                                    "v": "hug"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Graph view",
-                                    "kind": "instance",
-                                    "unresolved": true,
-                                    "props": {
-                                      "Property 1": "Default"
-                                    }
-                                  },
-                                  {
-                                    "name": "Table view",
-                                    "kind": "instance",
-                                    "unresolved": true,
-                                    "props": {
-                                      "Property 1": "Default"
-                                    }
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Show Button 3": true,
-                          "Show Button 2": true,
-                          "Show Button 1": true,
-                          "Type": "Action"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "6px",
-                          "padding": {
-                            "top": "8px",
-                            "right": "8px",
-                            "bottom": "8px",
-                            "left": "0px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "fixed",
-                            "v": "fixed"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame 2055248437",
-                            "kind": "container",
-                            "layout": {
-                              "axis": "row",
-                              "gap": "0px",
-                              "padding": {
-                                "top": "0px",
-                                "right": "0px",
-                                "bottom": "0px",
-                                "left": "0px"
-                              },
-                              "align": {
-                                "main": "start",
-                                "cross": "center"
-                              },
-                              "sizing": {
-                                "h": "hug",
-                                "v": "hug"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Button",
-                                "kind": "instance",
-                                "unresolved": true,
-                                "props": {
-                                  "Show leading icon": true,
-                                  "Show label": true,
-                                  "Show trailing icon": true,
-                                  "Label": "Button",
-                                  "Type": "Icon",
-                                  "Size": "Small",
-                                  "State": "Default"
-                                }
-                              },
-                              {
-                                "name": "/",
-                                "kind": "text",
-                                "text": "/"
-                              },
-                              {
-                                "name": "Button",
-                                "kind": "instance",
-                                "unresolved": true,
-                                "props": {
-                                  "Show leading icon": true,
-                                  "Show label": true,
-                                  "Show trailing icon": true,
-                                  "Label": "Button",
-                                  "Type": "Icon",
-                                  "Size": "Small",
-                                  "State": "Default"
-                                }
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "name": ".Table column",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "column",
-                      "gap": "0px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "start"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Button 2": true,
-                          "Show Avatar": false,
-                          "Show Sort": false,
-                          "Type": "Header"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      },
-                      {
-                        "name": ".Table cell",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Show Button 2": true,
-                          "Show Button 3": true,
-                          "Show Button 1": true,
-                          "Show Sort": false,
-                          "Show Avatar": false,
-                          "Type": "Text"
-                        }
-                      }
-                    ]
-                  },
-                  {
-                    "name": ".Table column",
+                    "name": ".Table cell",
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Type": "Default"
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Button 2": true,
+                      "Show Avatar": false,
+                      "Show Sort": false,
+                      "Type": "Header"
                     }
                   },
                   {
-                    "name": ".Table column",
+                    "name": ".Table cell",
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Type": "Default"
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
                     }
                   },
                   {
-                    "name": ".Table column",
+                    "name": ".Table cell",
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Type": "Default"
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
                     }
                   },
                   {
-                    "name": ".Table column",
+                    "name": ".Table cell",
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Type": "Tag"
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
                     }
                   },
                   {
-                    "name": ".Table column",
+                    "name": ".Table cell",
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
-                      "Type": "Actions"
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
+                    }
+                  },
+                  {
+                    "name": ".Table cell",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Button 2": true,
+                      "Show Button 3": true,
+                      "Show Button 1": true,
+                      "Show Sort": false,
+                      "Show Avatar": false,
+                      "Type": "Text"
                     }
                   }
                 ]
-              }
-            ]
-          },
-          {
-            "name": "Body 2",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "16px",
-                "bottom": "0px",
-                "left": "16px"
               },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
               {
-                "name": "✍️ Collapse-accordion",
+                "name": ".Table column",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
-                  "State": "Collapsed"
+                  "Type": "Default"
                 }
-              }
-            ]
-          },
-          {
-            "name": "Action",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "16px",
-                "bottom": "0px",
-                "left": "16px"
               },
-              "align": {
-                "main": "center",
-                "cross": "end"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
               {
-                "name": "Button",
+                "name": ".Table column",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
-                  "Show label": true,
-                  "Show trailing icon": false,
-                  "Label": "Replay lineage tour",
-                  "Show leading icon": false,
-                  "Type": "Tertiary",
-                  "Size": "Small",
-                  "State": "Default"
+                  "Type": "Default"
+                }
+              },
+              {
+                "name": ".Table column",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Default"
+                }
+              },
+              {
+                "name": ".Table column",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Tag"
+                }
+              },
+              {
+                "name": ".Table column",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Actions"
                 }
               }
             ]
@@ -988,261 +898,72 @@
         ]
       },
       {
-        "name": "Type=Advanced search",
+        "name": "Body 2",
         "kind": "container",
         "layout": {
           "axis": "column",
-          "gap": "16px",
+          "gap": "8px",
           "padding": {
             "top": "0px",
-            "right": "0px",
-            "bottom": "16px",
-            "left": "0px"
+            "right": "16px",
+            "bottom": "0px",
+            "left": "16px"
           },
           "align": {
             "main": "start",
             "cross": "start"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "fill",
             "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Header",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "666px",
-              "padding": {
-                "top": "16px",
-                "right": "16px",
-                "bottom": "16px",
-                "left": "16px"
-              },
-              "align": {
-                "main": "space-between",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Icon + header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "8px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "info",
-                    "kind": "instance",
-                    "slug": "info"
-                  },
-                  {
-                    "name": "Header",
-                    "kind": "text",
-                    "text": "Advanced search"
-                  }
-                ]
-              },
-              {
-                "name": "Close",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show icon": true,
-                  "Label": "Button"
-                }
-              }
-            ]
+            "name": "✍️ Collapse-accordion",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Collapsed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Action",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "0px",
+            "right": "16px",
+            "bottom": "0px",
+            "left": "16px"
           },
-          {
-            "name": "Body 1",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "16px",
-                "bottom": "0px",
-                "left": "16px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label",
-                "kind": "text",
-                "text": "AND"
-              },
-              {
-                "name": "description",
-                "kind": "text",
-                "text": "To search for items that contain \"Orange\" and \"apple\" use the following query: \"Orange AND apple\""
-              }
-            ]
+          "align": {
+            "main": "center",
+            "cross": "end"
           },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
           {
-            "name": "Body 2",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "16px",
-                "bottom": "0px",
-                "left": "16px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label",
-                "kind": "text",
-                "text": "NOT"
-              },
-              {
-                "name": "description",
-                "kind": "text",
-                "text": "To search for items that contain the phrase \"Orange apple\" but do not contain the phrase \"Search dataset\" use the following query: \"Orange apple\" NOT \"Search dataset\""
-              }
-            ]
-          },
-          {
-            "name": "Body 3",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "16px",
-                "bottom": "0px",
-                "left": "16px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label",
-                "kind": "text",
-                "text": "OR"
-              },
-              {
-                "name": "description",
-                "kind": "text",
-                "text": "To search for items that contain either \"Orange apple\" or just \"Orange\" use the following query: \"Orange apple\" OR \"Orange\""
-              }
-            ]
-          },
-          {
-            "name": "Body 4",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "16px",
-                "bottom": "0px",
-                "left": "16px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label",
-                "kind": "text",
-                "text": "+"
-              },
-              {
-                "name": "description",
-                "kind": "text",
-                "text": "To search for items that must contain \"Orange\" and that may or may not contain \"apple\" use the following query: +Orange apple"
-              }
-            ]
-          },
-          {
-            "name": "Link",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "16px",
-                "bottom": "0px",
-                "left": "16px"
-              },
-              "align": {
-                "main": "center",
-                "cross": "end"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Link",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "State": "Enabled"
-                }
-              }
-            ]
+            "name": "Button",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show label": true,
+              "Show trailing icon": false,
+              "Label": "Replay lineage tour",
+              "Show leading icon": false,
+              "Type": "Tertiary",
+              "Size": "Small",
+              "State": "Default"
+            }
           }
         ]
       }

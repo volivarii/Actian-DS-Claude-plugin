@@ -2,87 +2,43 @@
   "_schema_version": 1,
   "slug": "actian-pyramid",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "7764:7688"
+    "nodeId": "7764:7688",
+    "variant": "Color=Full color"
   },
   "quality": {
-    "nodesTotal": 5,
-    "nodesNormalized": 3,
-    "ratio": 0.6,
-    "degraded": [
-      {
-        "name": "Actian pyramid",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Color=White",
-        "reason": "layoutMode:NONE"
-      }
-    ]
+    "nodesTotal": 2,
+    "nodesNormalized": 2,
+    "ratio": 1,
+    "degraded": []
   },
   "root": {
-    "name": "Actian pyramid",
+    "name": "Color=Full color",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": -3133,
-      "y": -101,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "column",
+      "gap": "8px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "fixed"
       }
     },
     "children": [
       {
-        "name": "Color=Full color",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Vector",
-            "kind": "vector"
-          }
-        ]
-      },
-      {
-        "name": "Color=White",
-        "kind": "container",
-        "normalizable": false,
-        "rawHint": {
-          "layoutMode": "NONE",
-          "x": -3117,
-          "y": 87,
-          "constraints": {
-            "vertical": "TOP",
-            "horizontal": "LEFT"
-          }
-        },
-        "children": [
-          {
-            "name": "Vector",
-            "kind": "vector"
-          }
-        ]
+        "name": "Vector",
+        "kind": "vector"
       }
     ]
   }

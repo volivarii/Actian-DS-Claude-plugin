@@ -2,20 +2,17 @@
   "_schema_version": 1,
   "slug": "line-graph",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "15473:49490"
+    "nodeId": "15473:49490",
+    "variant": "Property 1=Default"
   },
   "quality": {
-    "nodesTotal": 81,
+    "nodesTotal": 80,
     "nodesNormalized": 71,
-    "ratio": 0.88,
+    "ratio": 0.89,
     "degraded": [
-      {
-        "name": "⛔️ Line graph",
-        "reason": "layoutMode:NONE"
-      },
       {
         "name": "Lines",
         "reason": "layoutMode:NONE"
@@ -27,47 +24,103 @@
     ]
   },
   "root": {
-    "name": "⛔️ Line graph",
+    "name": "Property 1=Default",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 3548,
-      "y": 2787,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "column",
+      "gap": "16px",
+      "padding": {
+        "top": "16px",
+        "right": "16px",
+        "bottom": "16px",
+        "left": "16px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
       }
     },
     "children": [
       {
-        "name": "Property 1=Default",
+        "name": "Header",
         "kind": "container",
         "layout": {
-          "axis": "column",
-          "gap": "16px",
+          "axis": "row",
+          "gap": "8px",
           "padding": {
-            "top": "16px",
-            "right": "16px",
-            "bottom": "16px",
-            "left": "16px"
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
           },
           "align": {
-            "main": "start",
-            "cross": "start"
+            "main": "center",
+            "cross": "center"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "fill",
             "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Header",
+            "name": "Title",
+            "kind": "text",
+            "text": "Total incidents over timeframe"
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "May 07, 2025 to June 07, 2025"
+          },
+          {
+            "name": "Button",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show leading icon": true,
+              "Show label": true,
+              "Show trailing icon": true,
+              "Label": "Button",
+              "Type": "Icon",
+              "Size": "Small",
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Bars + labels",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "8px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "end",
+            "cross": "end"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Y-axis",
             "kind": "container",
             "layout": {
-              "axis": "row",
-              "gap": "8px",
+              "axis": "column",
+              "gap": "12px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
@@ -75,8 +128,263 @@
                 "left": "0px"
               },
               "align": {
-                "main": "center",
-                "cross": "center"
+                "main": "space-between",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Y-axis line",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Number",
+                    "kind": "text",
+                    "text": "90"
+                  },
+                  {
+                    "name": "Stroke",
+                    "kind": "vector"
+                  }
+                ]
+              },
+              {
+                "name": "Y-axis line",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Number",
+                    "kind": "text",
+                    "text": "75"
+                  },
+                  {
+                    "name": "Stroke",
+                    "kind": "vector"
+                  }
+                ]
+              },
+              {
+                "name": "Y-axis line",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Number",
+                    "kind": "text",
+                    "text": "60"
+                  },
+                  {
+                    "name": "Stroke",
+                    "kind": "vector"
+                  }
+                ]
+              },
+              {
+                "name": "Y-axis line",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Number",
+                    "kind": "text",
+                    "text": "45"
+                  },
+                  {
+                    "name": "Stroke",
+                    "kind": "vector"
+                  }
+                ]
+              },
+              {
+                "name": "Y-axis line",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Number",
+                    "kind": "text",
+                    "text": "30"
+                  },
+                  {
+                    "name": "Stroke",
+                    "kind": "vector"
+                  }
+                ]
+              },
+              {
+                "name": "Y-axis line",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Number",
+                    "kind": "text",
+                    "text": "15"
+                  },
+                  {
+                    "name": "Stroke",
+                    "kind": "vector"
+                  }
+                ]
+              },
+              {
+                "name": "Baseline",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Number",
+                    "kind": "text",
+                    "text": "0"
+                  },
+                  {
+                    "name": "Stroke",
+                    "kind": "vector"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "X-axis",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "8px",
+                "bottom": "0px",
+                "left": "56px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "end"
               },
               "sizing": {
                 "h": "fill",
@@ -85,59 +393,11 @@
             },
             "children": [
               {
-                "name": "Title",
-                "kind": "text",
-                "text": "Total incidents over timeframe"
-              },
-              {
-                "name": "Title",
-                "kind": "text",
-                "text": "May 07, 2025 to June 07, 2025"
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show leading icon": true,
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "Button",
-                  "Type": "Icon",
-                  "Size": "Small",
-                  "State": "Default"
-                }
-              }
-            ]
-          },
-          {
-            "name": "Bars + labels",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "0px",
-              "padding": {
-                "top": "8px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "end",
-                "cross": "end"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "Y-axis",
+                "name": "X-axis",
                 "kind": "container",
                 "layout": {
-                  "axis": "column",
-                  "gap": "12px",
+                  "axis": "row",
+                  "gap": "47px",
                   "padding": {
                     "top": "0px",
                     "right": "0px",
@@ -146,262 +406,7 @@
                   },
                   "align": {
                     "main": "space-between",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Y-axis line",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Number",
-                        "kind": "text",
-                        "text": "90"
-                      },
-                      {
-                        "name": "Stroke",
-                        "kind": "vector"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Y-axis line",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Number",
-                        "kind": "text",
-                        "text": "75"
-                      },
-                      {
-                        "name": "Stroke",
-                        "kind": "vector"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Y-axis line",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Number",
-                        "kind": "text",
-                        "text": "60"
-                      },
-                      {
-                        "name": "Stroke",
-                        "kind": "vector"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Y-axis line",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Number",
-                        "kind": "text",
-                        "text": "45"
-                      },
-                      {
-                        "name": "Stroke",
-                        "kind": "vector"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Y-axis line",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Number",
-                        "kind": "text",
-                        "text": "30"
-                      },
-                      {
-                        "name": "Stroke",
-                        "kind": "vector"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Y-axis line",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Number",
-                        "kind": "text",
-                        "text": "15"
-                      },
-                      {
-                        "name": "Stroke",
-                        "kind": "vector"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Baseline",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "8px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Number",
-                        "kind": "text",
-                        "text": "0"
-                      },
-                      {
-                        "name": "Stroke",
-                        "kind": "vector"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "X-axis",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "8px",
-                    "bottom": "0px",
-                    "left": "56px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "end"
+                    "cross": "center"
                   },
                   "sizing": {
                     "h": "fill",
@@ -410,212 +415,208 @@
                 },
                 "children": [
                   {
-                    "name": "X-axis",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "47px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "space-between",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "May",
-                        "kind": "text",
-                        "text": "May"
-                      },
-                      {
-                        "name": "7",
-                        "kind": "text",
-                        "text": "7"
-                      },
-                      {
-                        "name": "8",
-                        "kind": "text",
-                        "text": "8"
-                      },
-                      {
-                        "name": "9",
-                        "kind": "text",
-                        "text": "9"
-                      },
-                      {
-                        "name": "10",
-                        "kind": "text",
-                        "text": "10"
-                      },
-                      {
-                        "name": "11",
-                        "kind": "text",
-                        "text": "11"
-                      },
-                      {
-                        "name": "12",
-                        "kind": "text",
-                        "text": "12"
-                      },
-                      {
-                        "name": "13",
-                        "kind": "text",
-                        "text": "13"
-                      },
-                      {
-                        "name": "14",
-                        "kind": "text",
-                        "text": "14"
-                      },
-                      {
-                        "name": "15",
-                        "kind": "text",
-                        "text": "15"
-                      },
-                      {
-                        "name": "16",
-                        "kind": "text",
-                        "text": "16"
-                      },
-                      {
-                        "name": "17",
-                        "kind": "text",
-                        "text": "17"
-                      },
-                      {
-                        "name": "18",
-                        "kind": "text",
-                        "text": "18"
-                      },
-                      {
-                        "name": "19",
-                        "kind": "text",
-                        "text": "19"
-                      },
-                      {
-                        "name": "20",
-                        "kind": "text",
-                        "text": "20"
-                      },
-                      {
-                        "name": "21",
-                        "kind": "text",
-                        "text": "21"
-                      },
-                      {
-                        "name": "22",
-                        "kind": "text",
-                        "text": "22"
-                      },
-                      {
-                        "name": "23",
-                        "kind": "text",
-                        "text": "23"
-                      },
-                      {
-                        "name": "24",
-                        "kind": "text",
-                        "text": "24"
-                      },
-                      {
-                        "name": "25",
-                        "kind": "text",
-                        "text": "25"
-                      },
-                      {
-                        "name": "26",
-                        "kind": "text",
-                        "text": "26"
-                      },
-                      {
-                        "name": "27",
-                        "kind": "text",
-                        "text": "27"
-                      },
-                      {
-                        "name": "28",
-                        "kind": "text",
-                        "text": "28"
-                      },
-                      {
-                        "name": "29",
-                        "kind": "text",
-                        "text": "29"
-                      },
-                      {
-                        "name": "30",
-                        "kind": "text",
-                        "text": "30"
-                      },
-                      {
-                        "name": "30",
-                        "kind": "text",
-                        "text": "30"
-                      },
-                      {
-                        "name": "31",
-                        "kind": "text",
-                        "text": "31"
-                      },
-                      {
-                        "name": "June",
-                        "kind": "text",
-                        "text": "June"
-                      },
-                      {
-                        "name": "2",
-                        "kind": "text",
-                        "text": "2"
-                      },
-                      {
-                        "name": "3",
-                        "kind": "text",
-                        "text": "3"
-                      },
-                      {
-                        "name": "4",
-                        "kind": "text",
-                        "text": "4"
-                      },
-                      {
-                        "name": "5",
-                        "kind": "text",
-                        "text": "5"
-                      },
-                      {
-                        "name": "6",
-                        "kind": "text",
-                        "text": "6"
-                      },
-                      {
-                        "name": "7",
-                        "kind": "text",
-                        "text": "7"
-                      }
-                    ]
+                    "name": "May",
+                    "kind": "text",
+                    "text": "May"
+                  },
+                  {
+                    "name": "7",
+                    "kind": "text",
+                    "text": "7"
+                  },
+                  {
+                    "name": "8",
+                    "kind": "text",
+                    "text": "8"
+                  },
+                  {
+                    "name": "9",
+                    "kind": "text",
+                    "text": "9"
+                  },
+                  {
+                    "name": "10",
+                    "kind": "text",
+                    "text": "10"
+                  },
+                  {
+                    "name": "11",
+                    "kind": "text",
+                    "text": "11"
+                  },
+                  {
+                    "name": "12",
+                    "kind": "text",
+                    "text": "12"
+                  },
+                  {
+                    "name": "13",
+                    "kind": "text",
+                    "text": "13"
+                  },
+                  {
+                    "name": "14",
+                    "kind": "text",
+                    "text": "14"
+                  },
+                  {
+                    "name": "15",
+                    "kind": "text",
+                    "text": "15"
+                  },
+                  {
+                    "name": "16",
+                    "kind": "text",
+                    "text": "16"
+                  },
+                  {
+                    "name": "17",
+                    "kind": "text",
+                    "text": "17"
+                  },
+                  {
+                    "name": "18",
+                    "kind": "text",
+                    "text": "18"
+                  },
+                  {
+                    "name": "19",
+                    "kind": "text",
+                    "text": "19"
+                  },
+                  {
+                    "name": "20",
+                    "kind": "text",
+                    "text": "20"
+                  },
+                  {
+                    "name": "21",
+                    "kind": "text",
+                    "text": "21"
+                  },
+                  {
+                    "name": "22",
+                    "kind": "text",
+                    "text": "22"
+                  },
+                  {
+                    "name": "23",
+                    "kind": "text",
+                    "text": "23"
+                  },
+                  {
+                    "name": "24",
+                    "kind": "text",
+                    "text": "24"
+                  },
+                  {
+                    "name": "25",
+                    "kind": "text",
+                    "text": "25"
+                  },
+                  {
+                    "name": "26",
+                    "kind": "text",
+                    "text": "26"
+                  },
+                  {
+                    "name": "27",
+                    "kind": "text",
+                    "text": "27"
+                  },
+                  {
+                    "name": "28",
+                    "kind": "text",
+                    "text": "28"
+                  },
+                  {
+                    "name": "29",
+                    "kind": "text",
+                    "text": "29"
+                  },
+                  {
+                    "name": "30",
+                    "kind": "text",
+                    "text": "30"
+                  },
+                  {
+                    "name": "30",
+                    "kind": "text",
+                    "text": "30"
+                  },
+                  {
+                    "name": "31",
+                    "kind": "text",
+                    "text": "31"
+                  },
+                  {
+                    "name": "June",
+                    "kind": "text",
+                    "text": "June"
+                  },
+                  {
+                    "name": "2",
+                    "kind": "text",
+                    "text": "2"
+                  },
+                  {
+                    "name": "3",
+                    "kind": "text",
+                    "text": "3"
+                  },
+                  {
+                    "name": "4",
+                    "kind": "text",
+                    "text": "4"
+                  },
+                  {
+                    "name": "5",
+                    "kind": "text",
+                    "text": "5"
+                  },
+                  {
+                    "name": "6",
+                    "kind": "text",
+                    "text": "6"
+                  },
+                  {
+                    "name": "7",
+                    "kind": "text",
+                    "text": "7"
                   }
                 ]
+              }
+            ]
+          },
+          {
+            "name": "Lines",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": 3628,
+              "y": 2857,
+              "constraints": {
+                "vertical": "CENTER",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Line",
+                "kind": "vector"
               },
               {
-                "name": "Lines",
+                "name": "Shodowing line",
                 "kind": "container",
                 "normalizable": false,
                 "rawHint": {
                   "layoutMode": "NONE",
                   "x": 3628,
-                  "y": 2857,
+                  "y": 2912.754119873047,
                   "constraints": {
-                    "vertical": "CENTER",
-                    "horizontal": "SCALE"
+                    "vertical": "TOP",
+                    "horizontal": "LEFT"
                   }
                 },
                 "children": [
@@ -624,39 +625,107 @@
                     "kind": "vector"
                   },
                   {
-                    "name": "Shodowing line",
-                    "kind": "container",
-                    "normalizable": false,
-                    "rawHint": {
-                      "layoutMode": "NONE",
-                      "x": 3628,
-                      "y": 2912.754119873047,
-                      "constraints": {
-                        "vertical": "TOP",
-                        "horizontal": "LEFT"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Line",
-                        "kind": "vector"
-                      },
-                      {
-                        "name": "Line",
-                        "kind": "vector"
-                      }
-                    ]
+                    "name": "Line",
+                    "kind": "vector"
                   }
                 ]
               }
             ]
+          }
+        ]
+      },
+      {
+        "name": "Legends + checkbox",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "8px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
           },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
           {
-            "name": "Legends + checkbox",
+            "name": "Legend",
             "kind": "container",
             "layout": {
               "axis": "row",
-              "gap": "8px",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": ".data-viz-legend-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Property 1": "Selected"
+                }
+              },
+              {
+                "name": ".data-viz-legend-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Property 1": "Default"
+                }
+              },
+              {
+                "name": ".data-viz-legend-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Property 1": "Default"
+                }
+              },
+              {
+                "name": ".data-viz-legend-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Property 1": "Default"
+                }
+              },
+              {
+                "name": ".data-viz-legend-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Property 1": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "checkbox",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
@@ -674,11 +743,20 @@
             },
             "children": [
               {
-                "name": "Legend",
+                "name": ".Checkbox",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Selected": "Yes",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": "Title",
                 "kind": "container",
                 "layout": {
-                  "axis": "row",
-                  "gap": "0px",
+                  "axis": "column",
+                  "gap": "4px",
                   "padding": {
                     "top": "0px",
                     "right": "0px",
@@ -696,106 +774,9 @@
                 },
                 "children": [
                   {
-                    "name": ".data-viz-legend-item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Property 1": "Selected"
-                    }
-                  },
-                  {
-                    "name": ".data-viz-legend-item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Property 1": "Default"
-                    }
-                  },
-                  {
-                    "name": ".data-viz-legend-item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Property 1": "Default"
-                    }
-                  },
-                  {
-                    "name": ".data-viz-legend-item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Property 1": "Default"
-                    }
-                  },
-                  {
-                    "name": ".data-viz-legend-item",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Property 1": "Default"
-                    }
-                  }
-                ]
-              },
-              {
-                "name": "checkbox",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "hug",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "Yes",
-                      "State": "Default"
-                    }
-                  },
-                  {
                     "name": "Title",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "column",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "start"
-                      },
-                      "sizing": {
-                        "h": "hug",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Title",
-                        "kind": "text",
-                        "text": "Show comparison trend"
-                      }
-                    ]
+                    "kind": "text",
+                    "text": "Show comparison trend"
                   }
                 ]
               }
