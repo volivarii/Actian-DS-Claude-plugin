@@ -7,13 +7,17 @@ var url = require("node:url");
 
 var HR = path.join(__dirname, "..", "renderers", "html-renderers");
 var dsMap = require(path.join(HR, "ds-html-map.js"));
+var PATHS = require("../lib/paths");
 
 var _cssCache = null;
 function readCss() {
   if (_cssCache === null) {
-    var base = fs.readFileSync(path.join(HR, "ds-base.css"), "utf8");
+    // tokens.css FIRST — it defines the :root `--zen-*` custom properties that
+    // ds-base.css references. Without it leaves render unstyled/collapsed (blank).
+    var tokens = fs.readFileSync(PATHS.tokens.css, "utf8");
     var fonts = fs.readFileSync(path.join(HR, "ds-fonts.css"), "utf8");
-    _cssCache = fonts + "\n" + base;
+    var base = fs.readFileSync(path.join(HR, "ds-base.css"), "utf8");
+    _cssCache = tokens + "\n" + fonts + "\n" + base;
   }
   return _cssCache;
 }

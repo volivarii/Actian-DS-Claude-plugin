@@ -113,6 +113,13 @@ PATHS.components.mirrors = {
   metaKit: path.join(VENDOR, "components", "dist", "meta-kit", "components.md"),
 };
 
+// Media oracle: per-component reference screenshots vendored from knowledge.
+// media(slug) → vendor/components/dist/media/<slug>/preview.webp (the canonical
+// single-component shot). Used by the fidelity gate as the Gate-1 oracle.
+PATHS.components.media = function (slug) {
+  return path.join(VENDOR, "components", "dist", "media", slug, "preview.webp");
+};
+
 // Synthesized helper: byKit("ds"/"fm"/"meta") maps to registry leaf paths.
 // Preserved from pre-manifest API for backward compat with validate-flow-data.js etc.
 PATHS.components.registries = PATHS.components.registries || {};

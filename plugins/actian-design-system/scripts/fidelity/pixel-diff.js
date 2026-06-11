@@ -76,9 +76,12 @@ function resizeNearest(data, w, h, tw, th) {
 // STRUCTURAL miss (e.g. single component vs a multi-variant oracle grid), which
 // should fail Gate 1 outright rather than be averaged away by pixel diffing.
 function aspectMismatch(d1, d2, tol) {
+  // Degenerate (zero-dimension) box → incomparable, treat as a mismatch.
+  if (!d1.w || !d1.h || !d2.w || !d2.h) return true;
   var r1 = d1.w / d1.h,
     r2 = d2.w / d2.h;
-  return Math.abs(r1 - r2) / r1 > tol;
+  // Symmetric: divide by the smaller ratio so swapping args gives the same answer.
+  return Math.abs(r1 - r2) / Math.min(r1, r2) > tol;
 }
 
 // Trim both images to content, bail on aspect mismatch, else resize both to the
@@ -94,8 +97,20 @@ function normalizePair(a, b, opts) {
   var tw = Math.min(boxA.w, boxB.w);
   var th = Math.min(boxA.h, boxB.h);
   return {
-    a: resizeNearest(crop(a.data, a.width, a.height, boxA), boxA.w, boxA.h, tw, th),
-    b: resizeNearest(crop(b.data, b.width, b.height, boxB), boxB.w, boxB.h, tw, th),
+    a: resizeNearest(
+      crop(a.data, a.width, a.height, boxA),
+      boxA.w,
+      boxA.h,
+      tw,
+      th,
+    ),
+    b: resizeNearest(
+      crop(b.data, b.width, b.height, boxB),
+      boxB.w,
+      boxB.h,
+      tw,
+      th,
+    ),
     w: tw,
     h: th,
   };
