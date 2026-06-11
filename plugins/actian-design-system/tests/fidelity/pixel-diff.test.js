@@ -19,8 +19,10 @@ test("buildCompareArgs targets RMSE with fuzz", function () {
 
 test("parseMetric reads the normalized RMSE from compare stderr", function () {
   // ImageMagick compare emits e.g. "1357.36 (0.0207100)" on stderr
-  assert.ok(Math.abs(P.parseMetric("1357.36 (0.0207100)") - 0.0207100) < 1e-6);
+  assert.ok(Math.abs(P.parseMetric("1357.36 (0.0207100)") - 0.02071) < 1e-6);
   assert.equal(P.parseMetric("garbage"), null);
+  // perfect-match is Gate 1's success path — must read 0, not null
+  assert.equal(P.parseMetric("0 (0)"), 0);
 });
 
 test("gridVerdict fails if ANY cell exceeds threshold", function () {
@@ -31,8 +33,14 @@ test("gridVerdict fails if ANY cell exceeds threshold", function () {
 });
 
 test("aspectMismatch flags structural divergence beyond tolerance", function () {
-  assert.equal(P.aspectMismatch({ w: 100, h: 50 }, { w: 100, h: 51 }, 0.1), false);
-  assert.equal(P.aspectMismatch({ w: 100, h: 50 }, { w: 100, h: 90 }, 0.1), true);
+  assert.equal(
+    P.aspectMismatch({ w: 100, h: 50 }, { w: 100, h: 51 }, 0.1),
+    false,
+  );
+  assert.equal(
+    P.aspectMismatch({ w: 100, h: 50 }, { w: 100, h: 90 }, 0.1),
+    true,
+  );
 });
 
 test("gridVerdict empty array passes with worstCell 0", function () {
