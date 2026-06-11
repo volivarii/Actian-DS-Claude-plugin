@@ -1,0 +1,487 @@
+{
+  "_schema_version": 1,
+  "slug": "search-dropdown-menu",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8756:9994"
+  },
+  "quality": {
+    "nodesTotal": 33,
+    "nodesNormalized": 28,
+    "ratio": 0.85,
+    "degraded": [
+      {
+        "name": "Search dropdown menu",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Search dropdown menu",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 7086,
+      "y": 1191,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Type=After typed",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "4px",
+            "right": "0px",
+            "bottom": "4px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "4px",
+                "right": "8px",
+                "bottom": "4px",
+                "left": "8px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "Suggestions"
+              }
+            ]
+          },
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "8px",
+                "bottom": "0px",
+                "left": "8px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
+                "kind": "vector"
+              },
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "transmitting"
+              }
+            ]
+          },
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "8px",
+                "bottom": "0px",
+                "left": "8px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
+                "kind": "vector"
+              },
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "transmitter"
+              }
+            ]
+          },
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "8px",
+                "bottom": "0px",
+                "left": "8px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
+                "kind": "vector"
+              },
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "transmit"
+              }
+            ]
+          },
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "8px",
+                "bottom": "0px",
+                "left": "8px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Screenshot 2025-07-09 at 11.13.30 AM 1",
+                "kind": "vector"
+              },
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "transparent"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=No result",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "4px",
+            "right": "0px",
+            "bottom": "4px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "4px",
+                "right": "8px",
+                "bottom": "4px",
+                "left": "8px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "No results available for your search"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Explorer home",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "4px",
+            "right": "0px",
+            "bottom": "4px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "4px",
+                "right": "16px",
+                "bottom": "4px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "Latest search"
+              }
+            ]
+          },
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "16px",
+                "bottom": "0px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "finance"
+              }
+            ]
+          },
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show leading icon": true,
+              "Show trailing icon": true,
+              "Label text": "Menu item",
+              "Type": "Divider",
+              "State": "Default"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show trailing icon": true,
+              "Show leading icon": true,
+              "Label text": "Menu item",
+              "Type": "Category",
+              "State": "Default"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show trailing icon": false,
+              "Show leading icon": false,
+              "Label text": "AND  Limit search to items matching all keywords",
+              "Type": "Selectable item",
+              "State": "Default"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show trailing icon": false,
+              "Show leading icon": false,
+              "Label text": "INFIELD  Search only on dataset fields",
+              "Type": "Selectable item",
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Type=Before typed",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "4px",
+            "right": "0px",
+            "bottom": "4px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "4px",
+                "right": "8px",
+                "bottom": "4px",
+                "left": "8px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "Latest search"
+              }
+            ]
+          },
+          {
+            "name": "Menu list",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "8px",
+                "bottom": "0px",
+                "left": "8px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "finance"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "_schema_version": 1,
+  "slug": "tag-interactive",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "13845:33759"
+  },
+  "quality": {
+    "nodesTotal": 25,
+    "nodesNormalized": 19,
+    "ratio": 0.76,
+    "degraded": [
+      {
+        "name": "✍️ Tag, Interactive",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "✍️ Tag, Interactive",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 5363,
+      "y": 1125,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Leading icon",
+            "kind": "instance",
+            "unresolved": true
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Label"
+          },
+          {
+            "name": "Trailing icon",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "State=Hovered",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Leading icon",
+            "kind": "instance",
+            "unresolved": true
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Label"
+          },
+          {
+            "name": "Trailing icon",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "State=Focused",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Leading icon",
+            "kind": "instance",
+            "unresolved": true
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Label"
+          },
+          {
+            "name": "Trailing icon",
+            "kind": "instance",
+            "slug": "arrow-down"
+          },
+          {
+            "name": "State",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Leading icon",
+            "kind": "instance",
+            "unresolved": true
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Label"
+          },
+          {
+            "name": "Trailing icon",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "State=Selected",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Label"
+          },
+          {
+            "name": "Trailing icon",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "State=Disabled",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Leading icon",
+            "kind": "instance",
+            "unresolved": true
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Label"
+          },
+          {
+            "name": "Trailing icon",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      }
+    ]
+  }
+}

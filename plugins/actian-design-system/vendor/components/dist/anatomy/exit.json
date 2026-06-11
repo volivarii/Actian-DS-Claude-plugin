@@ -1,0 +1,41 @@
+{
+  "_schema_version": 1,
+  "slug": "exit",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "7301:2777"
+  },
+  "quality": {
+    "nodesTotal": 2,
+    "nodesNormalized": 1,
+    "ratio": 0.5,
+    "degraded": [
+      {
+        "name": "exit",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "exit",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": -3248,
+      "y": 528,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Union",
+        "kind": "vector"
+      }
+    ]
+  }
+}

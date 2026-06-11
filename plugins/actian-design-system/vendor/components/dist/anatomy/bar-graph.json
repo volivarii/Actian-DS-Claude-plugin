@@ -1,0 +1,762 @@
+{
+  "_schema_version": 1,
+  "slug": "bar-graph",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "15473:49489"
+  },
+  "quality": {
+    "nodesTotal": 63,
+    "nodesNormalized": 58,
+    "ratio": 0.92,
+    "degraded": [
+      {
+        "name": "⛔️ Bar graph",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "⛔️ Bar graph",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 3548,
+      "y": 2318,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Property 1=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "16px",
+          "padding": {
+            "top": "16px",
+            "right": "16px",
+            "bottom": "16px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Title",
+                "kind": "text",
+                "text": "Data Quality Status"
+              },
+              {
+                "name": "Title",
+                "kind": "text",
+                "text": "Support text"
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show leading icon": true,
+                  "Show label": true,
+                  "Show trailing icon": true,
+                  "Label": "Button",
+                  "Type": "Icon",
+                  "Size": "Small",
+                  "State": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Bars + labels",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "0px",
+              "padding": {
+                "top": "8px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "end"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Y-axis",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "12px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "16px"
+                  },
+                  "align": {
+                    "main": "space-between",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Y-axis main label",
+                    "kind": "text",
+                    "text": "Number of Data quality checks"
+                  },
+                  {
+                    "name": "Y-axis line",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fill",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Number",
+                        "kind": "text",
+                        "text": "100"
+                      },
+                      {
+                        "name": "Stroke",
+                        "kind": "vector"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Y-axis line",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fill",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Number",
+                        "kind": "text",
+                        "text": "80"
+                      },
+                      {
+                        "name": "Stroke",
+                        "kind": "vector"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Y-axis line",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fill",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Number",
+                        "kind": "text",
+                        "text": "60"
+                      },
+                      {
+                        "name": "Stroke",
+                        "kind": "vector"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Y-axis line",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fill",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Number",
+                        "kind": "text",
+                        "text": "40"
+                      },
+                      {
+                        "name": "Stroke",
+                        "kind": "vector"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Y-axis line",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fill",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Number",
+                        "kind": "text",
+                        "text": "20"
+                      },
+                      {
+                        "name": "Stroke",
+                        "kind": "vector"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Baseline",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fill",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Number",
+                        "kind": "text",
+                        "text": "0"
+                      },
+                      {
+                        "name": "Stroke",
+                        "kind": "vector"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Bars + x-axis",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "0px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "8px",
+                    "bottom": "20px",
+                    "left": "72px"
+                  },
+                  "align": {
+                    "main": "space-between",
+                    "cross": "end"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Bar + label",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "column",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "end",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Bar",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "column",
+                          "gap": "0px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "0px",
+                            "bottom": "0px",
+                            "left": "0px"
+                          },
+                          "align": {
+                            "main": "start",
+                            "cross": "start"
+                          },
+                          "sizing": {
+                            "h": "hug",
+                            "v": "fixed"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Series 1",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 2",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 3",
+                            "kind": "vector"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "X-axis sub label",
+                        "kind": "text",
+                        "text": "Freshness"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Bar + label",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "column",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "end",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Bar",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "column",
+                          "gap": "0px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "0px",
+                            "bottom": "0px",
+                            "left": "0px"
+                          },
+                          "align": {
+                            "main": "start",
+                            "cross": "start"
+                          },
+                          "sizing": {
+                            "h": "hug",
+                            "v": "fixed"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Series 1",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 2",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 3",
+                            "kind": "vector"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "X-axis sub label",
+                        "kind": "text",
+                        "text": "Volume"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Bar + label",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "column",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "end",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Bar",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "column",
+                          "gap": "0px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "0px",
+                            "bottom": "0px",
+                            "left": "0px"
+                          },
+                          "align": {
+                            "main": "start",
+                            "cross": "start"
+                          },
+                          "sizing": {
+                            "h": "hug",
+                            "v": "fixed"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Series 1",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 2",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 3",
+                            "kind": "vector"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "X-axis sub label",
+                        "kind": "text",
+                        "text": "Anomalies"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Bar + label",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "column",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "end",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Bar",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "column",
+                          "gap": "0px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "0px",
+                            "bottom": "0px",
+                            "left": "0px"
+                          },
+                          "align": {
+                            "main": "start",
+                            "cross": "start"
+                          },
+                          "sizing": {
+                            "h": "hug",
+                            "v": "fixed"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Series 1",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 2",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 3",
+                            "kind": "vector"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "X-axis sub label",
+                        "kind": "text",
+                        "text": "Target"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Bar + label",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "column",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "end",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fixed",
+                        "v": "fixed"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Bar",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "column",
+                          "gap": "0px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "0px",
+                            "bottom": "0px",
+                            "left": "0px"
+                          },
+                          "align": {
+                            "main": "start",
+                            "cross": "start"
+                          },
+                          "sizing": {
+                            "h": "hug",
+                            "v": "fixed"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Series 1",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 2",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Series 3",
+                            "kind": "vector"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "X-axis sub label",
+                        "kind": "text",
+                        "text": "Other"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "X-axis main label",
+                    "kind": "text",
+                    "text": "Type"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Legend",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": ".data-viz-legend-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Property 1": "Default"
+                }
+              },
+              {
+                "name": ".data-viz-legend-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Property 1": "Default"
+                }
+              },
+              {
+                "name": ".data-viz-legend-item",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Property 1": "Default"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

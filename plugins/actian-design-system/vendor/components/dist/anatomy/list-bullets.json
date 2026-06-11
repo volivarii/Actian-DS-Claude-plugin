@@ -1,0 +1,61 @@
+{
+  "_schema_version": 1,
+  "slug": "list-bullets",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "7622:5395"
+  },
+  "quality": {
+    "nodesTotal": 7,
+    "nodesNormalized": 6,
+    "ratio": 0.86,
+    "degraded": [
+      {
+        "name": "list-bullets",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "list-bullets",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": -2705,
+      "y": 1368,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Vector (Stroke)",
+        "kind": "vector"
+      },
+      {
+        "name": "Vector (Stroke)",
+        "kind": "vector"
+      },
+      {
+        "name": "Vector (Stroke)",
+        "kind": "vector"
+      },
+      {
+        "name": "Vector (Stroke)",
+        "kind": "vector"
+      },
+      {
+        "name": "Vector (Stroke)",
+        "kind": "vector"
+      },
+      {
+        "name": "Vector (Stroke)",
+        "kind": "vector"
+      }
+    ]
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "_schema_version": 1,
+  "slug": "safyr-salesforce",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8400:25158"
+  },
+  "quality": {
+    "nodesTotal": 9,
+    "nodesNormalized": 4,
+    "ratio": 0.44,
+    "degraded": [
+      {
+        "name": "safyr-salesforce",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Salesforce.com_logo 1",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Mask group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "safyr-salesforce",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 1639,
+      "y": 3552,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Salesforce.com_logo 1",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 1641,
+          "y": 3557.003662109375,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "CENTER"
+          }
+        },
+        "children": [
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": 1641.00439453125,
+              "y": 3557.040283203125,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Mask group",
+                "kind": "container",
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": 1641.00439453125,
+                  "y": 3557.040283203125,
+                  "constraints": {
+                    "vertical": "SCALE",
+                    "horizontal": "SCALE"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Group",
+                    "kind": "container",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 1641.00439453125,
+                      "y": 3557.040283203125,
+                      "constraints": {
+                        "vertical": "SCALE",
+                        "horizontal": "SCALE"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  }
+                ]
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

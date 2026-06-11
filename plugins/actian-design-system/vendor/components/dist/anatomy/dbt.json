@@ -1,0 +1,41 @@
+{
+  "_schema_version": 1,
+  "slug": "dbt",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8400:25057"
+  },
+  "quality": {
+    "nodesTotal": 2,
+    "nodesNormalized": 1,
+    "ratio": 0.5,
+    "degraded": [
+      {
+        "name": "dbt",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "dbt",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 1639,
+      "y": 1032.1666259765625,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "dbt",
+        "kind": "vector"
+      }
+    ]
+  }
+}

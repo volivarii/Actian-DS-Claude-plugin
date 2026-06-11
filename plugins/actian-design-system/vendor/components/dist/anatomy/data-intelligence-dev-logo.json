@@ -1,0 +1,825 @@
+{
+  "_schema_version": 1,
+  "slug": "data-intelligence-dev-logo",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "12770:6655"
+  },
+  "quality": {
+    "nodesTotal": 130,
+    "nodesNormalized": 112,
+    "ratio": 0.86,
+    "degraded": [
+      {
+        "name": "Data Intelligence Dev Logo",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Property 1=Dev Actian Data Intelligence Admin",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group 6",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Dev",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Property 1=Dev Actian Data Intelligence Explorer",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Dev",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Property 1=Dev Actian Data Intelligence Studio",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Actian Data Intelligence Studio",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Dev",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Data Intelligence Dev Logo",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": -1658,
+      "y": -99,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Property 1=Dev Actian Data Intelligence Admin",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -1641,
+          "y": 221,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Group 6",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1641,
+              "y": 221.4000244140625,
+              "constraints": {
+                "vertical": "TOP",
+                "horizontal": "LEFT"
+              }
+            },
+            "children": [
+              {
+                "name": "Group",
+                "kind": "container",
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": -1641,
+                  "y": 221.40240478515625,
+                  "constraints": {
+                    "vertical": "SCALE",
+                    "horizontal": "SCALE"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  }
+                ]
+              },
+              {
+                "name": "Group",
+                "kind": "container",
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": -1555.8819580078125,
+                  "y": 221.40003967285156,
+                  "constraints": {
+                    "vertical": "SCALE",
+                    "horizontal": "SCALE"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Group",
+                    "kind": "container",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": -1411.363525390625,
+                      "y": 221.40003967285156,
+                      "constraints": {
+                        "vertical": "SCALE",
+                        "horizontal": "SCALE"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Group",
+                "kind": "container",
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": -1555.8819580078125,
+                  "y": 255.18890380859375,
+                  "constraints": {
+                    "vertical": "SCALE",
+                    "horizontal": "SCALE"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Dev",
+                    "kind": "container",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": -1337.9998779296875,
+                      "y": 256,
+                      "constraints": {
+                        "vertical": "TOP",
+                        "horizontal": "LEFT"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      },
+                      {
+                        "name": "Vector",
+                        "kind": "vector"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Property 1=Dev Actian Data Intelligence Explorer",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -1642,
+          "y": 69,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1642,
+              "y": 68.80240631103516,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1556.8184814453125,
+              "y": 68.800048828125,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Group",
+                "kind": "container",
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": -1412.1923828125,
+                  "y": 68.800048828125,
+                  "constraints": {
+                    "vertical": "SCALE",
+                    "horizontal": "SCALE"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1556.81396484375,
+              "y": 102.67955780029297,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Dev",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1431,
+              "y": 104,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Property 1=Dev Actian Data Intelligence Studio",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -1641,
+          "y": -83,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Actian Data Intelligence Studio",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1558.2666015625,
+              "y": -83,
+              "constraints": {
+                "vertical": "TOP",
+                "horizontal": "LEFT"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Dev",
+                "kind": "container",
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": -1458,
+                  "y": -48,
+                  "constraints": {
+                    "vertical": "TOP",
+                    "horizontal": "LEFT"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Vector",
+                    "kind": "vector"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1641,
+              "y": -82.79757690429688,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

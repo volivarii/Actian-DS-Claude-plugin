@@ -1,0 +1,41 @@
+{
+  "_schema_version": 1,
+  "slug": "atlas",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8400:25203"
+  },
+  "quality": {
+    "nodesTotal": 2,
+    "nodesNormalized": 1,
+    "ratio": 0.5,
+    "degraded": [
+      {
+        "name": "atlas",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "atlas",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 1639,
+      "y": -144,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "atlas",
+        "kind": "vector"
+      }
+    ]
+  }
+}

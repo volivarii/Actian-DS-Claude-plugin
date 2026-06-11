@@ -1,0 +1,1521 @@
+{
+  "_schema_version": 1,
+  "slug": "card-for-items",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "7613:7853"
+  },
+  "quality": {
+    "nodesTotal": 132,
+    "nodesNormalized": 91,
+    "ratio": 0.69,
+    "degraded": [
+      {
+        "name": "Card for items",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Card for items",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 14965,
+      "y": 419,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Type=Item, State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": false,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Title"
+          },
+          {
+            "name": "Tag",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "✍️ Tag, Catalog",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Item, State=Hover",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": false,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Title"
+          },
+          {
+            "name": "✍️ Tag, Catalog",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Default"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Item, State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": false,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Title"
+          },
+          {
+            "name": "✍️ Tag, Catalog",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Default"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Item, State=Selected",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": false,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Title"
+          },
+          {
+            "name": "✍️ Tag, Catalog",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Default"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Item, State=Focus",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": false,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Title"
+          },
+          {
+            "name": "✍️ Tag, Catalog",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Default"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Catalog, State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "directory",
+                "kind": "instance",
+                "unresolved": true
+              },
+              {
+                "name": "Title",
+                "kind": "text",
+                "text": "Catalog"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Catalog, State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "directory",
+                "kind": "instance",
+                "unresolved": true
+              },
+              {
+                "name": "Title",
+                "kind": "text",
+                "text": "Catalog"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Catalog, State=Hover",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "directory",
+                "kind": "instance",
+                "unresolved": true
+              },
+              {
+                "name": "Title",
+                "kind": "text",
+                "text": "Catalog"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Catalog, State=Selected",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "directory",
+                "kind": "instance",
+                "unresolved": true
+              },
+              {
+                "name": "Title",
+                "kind": "text",
+                "text": "Catalog"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Catalog, State=Focus",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "directory",
+                "kind": "instance",
+                "unresolved": true
+              },
+              {
+                "name": "Title",
+                "kind": "text",
+                "text": "Catalog"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=item type, State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": true,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=item type, State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": true,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=item type, State=Hover",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": true,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=item type, State=Selected",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": true,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Glossary type, State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Glossary item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show Counter": true,
+              "Property 1": "Default"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=item type, State=Focus",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Catalog item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show counter": true,
+              "Type": "Dataset"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Glossary type, State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "✍️ Tag, Glossary item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show Counter": true,
+              "Property 1": "Default"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Glossary type, State=Hover",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Glossary item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show Counter": true,
+              "Property 1": "Default"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Topic, State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Topic",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Dark blue"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show leading icon": true,
+                  "Show label": true,
+                  "Show trailing icon": true,
+                  "Label": "Button",
+                  "Type": "Icon",
+                  "Size": "Small",
+                  "State": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Topic"
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          },
+          {
+            "name": "✍️ Tag, Default",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Leading icon show": true,
+              "Trailing icon show": false,
+              "Label": "AI Ready",
+              "Color": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Type=Glossary type, State=Selected",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Glossary item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show Counter": true,
+              "Property 1": "Default"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Glossary type, State=Focus",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "✍️ Tag, Glossary item type",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show Counter": true,
+              "Property 1": "Default"
+            }
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          }
+        ]
+      },
+      {
+        "name": "Type=Topic, State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Topic",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Dark blue"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show leading icon": true,
+                  "Show label": true,
+                  "Show trailing icon": true,
+                  "Label": "Button",
+                  "Type": "Icon",
+                  "Size": "Small",
+                  "State": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Topic"
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          },
+          {
+            "name": "✍️ Tag, Default",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Leading icon show": true,
+              "Trailing icon show": false,
+              "Label": "AI Ready",
+              "Color": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Type=Topic, State=Hover",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Topic",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Dark blue"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show leading icon": true,
+                  "Show label": true,
+                  "Show trailing icon": true,
+                  "Label": "Button",
+                  "Type": "Icon",
+                  "Size": "Small",
+                  "State": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Topic"
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          },
+          {
+            "name": "✍️ Tag, Default",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Leading icon show": true,
+              "Trailing icon show": false,
+              "Label": "AI Ready",
+              "Color": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Type=Topic, State=Selected",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Topic",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Dark blue"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show leading icon": true,
+                  "Show label": true,
+                  "Show trailing icon": true,
+                  "Label": "Button",
+                  "Type": "Icon",
+                  "Size": "Small",
+                  "State": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Topic"
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          },
+          {
+            "name": "✍️ Tag, Default",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Leading icon show": true,
+              "Trailing icon show": false,
+              "Label": "AI Ready",
+              "Color": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Type=Topic, State=Focus",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "12px",
+            "right": "16px",
+            "bottom": "12px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "State",
+            "kind": "vector"
+          },
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Topic",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Type": "Dark blue"
+                }
+              },
+              {
+                "name": "Button",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show leading icon": true,
+                  "Show label": true,
+                  "Show trailing icon": true,
+                  "Label": "Button",
+                  "Type": "Icon",
+                  "Size": "Small",
+                  "State": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Title",
+            "kind": "text",
+            "text": "Topic"
+          },
+          {
+            "name": "Subtitle",
+            "kind": "text",
+            "text": "Body goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec lacus urna."
+          },
+          {
+            "name": "✍️ Tag, Default",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Leading icon show": true,
+              "Trailing icon show": false,
+              "Label": "AI Ready",
+              "Color": "Default"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

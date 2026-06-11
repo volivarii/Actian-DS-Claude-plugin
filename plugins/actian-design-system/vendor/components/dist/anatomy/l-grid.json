@@ -1,0 +1,221 @@
+{
+  "_schema_version": 1,
+  "slug": "l-grid",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "12054:30598"
+  },
+  "quality": {
+    "nodesTotal": 25,
+    "nodesNormalized": 22,
+    "ratio": 0.88,
+    "degraded": [
+      {
+        "name": "Property=Default",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "L grid",
+    "kind": "container",
+    "layout": {
+      "axis": "column",
+      "gap": "20px",
+      "padding": {
+        "top": "16px",
+        "right": "16px",
+        "bottom": "16px",
+        "left": "16px"
+      },
+      "align": {
+        "main": "center",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
+      }
+    },
+    "children": [
+      {
+        "name": "Property=Default",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 2079,
+          "y": 1240,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Columns",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "16px",
+              "padding": {
+                "top": "0px",
+                "right": "24px",
+                "bottom": "0px",
+                "left": "24px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Property=Side nav collapsed",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "64px"
+          },
+          "align": {
+            "main": "space-between",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "L grid",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Property": "Default"
+            }
+          },
+          {
+            "name": "Side nav collapsed",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Property=Side nav expanded",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "240px"
+          },
+          "align": {
+            "main": "space-between",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "L grid",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Property": "Default"
+            }
+          },
+          {
+            "name": "Side nav expanded",
+            "kind": "vector"
+          }
+        ]
+      }
+    ]
+  }
+}

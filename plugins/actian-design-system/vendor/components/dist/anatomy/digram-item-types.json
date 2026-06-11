@@ -1,0 +1,1661 @@
+{
+  "_schema_version": 1,
+  "slug": "digram-item-types",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "14007:23209"
+  },
+  "quality": {
+    "nodesTotal": 113,
+    "nodesNormalized": 112,
+    "ratio": 0.99,
+    "degraded": [
+      {
+        "name": "Digram, Item types",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Digram, Item types",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 4451,
+      "y": 464,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Item type=Category, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Ca"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Dataset, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Ds"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Data process, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "DP"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Data product, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "DP"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Field, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Fi"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Output port, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "OP"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Use case, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "UC"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Visualization, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Vi"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Category, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Ca"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Dataset, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Ds"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Data process, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "DP"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Data product, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "DP"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Field, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Fi"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Output port, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "OP"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Use case, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "UC"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Visualization, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Vi"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 1, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 2, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 3, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 4, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 5, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 6, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 7, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 8, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 9, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 10, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 11, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 12, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 13, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 14, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 16, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 1, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 2, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 3, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 4, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 5, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 6, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 7, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 8, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 9, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 10, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 11, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 12, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 13, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 14, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Custom 16, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "CI"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 1, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G1"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 2, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G2"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 3, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G3"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 4, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G4"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 5, Size=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G5"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 1, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G1"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 2, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G2"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 3, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G3"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 4, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G4"
+          }
+        ]
+      },
+      {
+        "name": "Item type=Glossary 5, Size=Large",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "G5"
+          }
+        ]
+      }
+    ]
+  }
+}

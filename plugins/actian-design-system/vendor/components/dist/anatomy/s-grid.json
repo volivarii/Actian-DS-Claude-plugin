@@ -1,0 +1,113 @@
+{
+  "_schema_version": 1,
+  "slug": "s-grid",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "14744:8072"
+  },
+  "quality": {
+    "nodesTotal": 11,
+    "nodesNormalized": 9,
+    "ratio": 0.82,
+    "degraded": [
+      {
+        "name": "S grid",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Property 1=Default",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "S grid",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 485,
+      "y": 1228,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Property 1=Default",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 501,
+          "y": 1244,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Columns",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "16px",
+              "padding": {
+                "top": "0px",
+                "right": "16px",
+                "bottom": "0px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

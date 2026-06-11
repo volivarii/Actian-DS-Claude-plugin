@@ -1,0 +1,577 @@
+{
+  "_schema_version": 1,
+  "slug": "lineage-grouped-node",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "15634:17895"
+  },
+  "quality": {
+    "nodesTotal": 33,
+    "nodesNormalized": 20,
+    "ratio": 0.61,
+    "degraded": [
+      {
+        "name": "Lineage grouped node",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Lineage grouped node",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 3694,
+      "y": 1604,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "State=Default, Type=Main item",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Card",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Header",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "9px",
+                  "padding": {
+                    "top": "8px",
+                    "right": "8px",
+                    "bottom": "4px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Category",
+                      "Size": "Large"
+                    }
+                  },
+                  {
+                    "name": "Name",
+                    "kind": "text",
+                    "text": "Connection1"
+                  }
+                ]
+              },
+              {
+                "name": "Field expand collapse",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "10px",
+                  "padding": {
+                    "top": "4px",
+                    "right": "8px",
+                    "bottom": "4px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "center",
+                    "cross": "end"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Show trailing icon": true,
+                      "Label": "2 datasets",
+                      "Show leading icon": false,
+                      "Type": "Tertiary",
+                      "Size": "Small",
+                      "State": "Default"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "State=Expanded, Type=Main item",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Card",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Header",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "9px",
+                  "padding": {
+                    "top": "8px",
+                    "right": "8px",
+                    "bottom": "4px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Category",
+                      "Size": "Large"
+                    }
+                  },
+                  {
+                    "name": "Name",
+                    "kind": "text",
+                    "text": "Connection1"
+                  }
+                ]
+              },
+              {
+                "name": "Field expand collapse",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "4px",
+                    "right": "8px",
+                    "bottom": "8px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "center",
+                    "cross": "end"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Show trailing icon": true,
+                      "Label": "2 datasets",
+                      "Show leading icon": false,
+                      "Type": "Tertiary",
+                      "Size": "Small",
+                      "State": "Default"
+                    }
+                  },
+                  {
+                    "name": "Lineage individual node",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show left control": true,
+                      "Type": "Sub item",
+                      "State": "Default",
+                      "Fields": "Collapsed"
+                    }
+                  },
+                  {
+                    "name": "Lineage individual node",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show left control": true,
+                      "Type": "Sub item",
+                      "State": "Default",
+                      "Fields": "Collapsed"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "State=Default, Type=Sub item",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Card",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Header",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "9px",
+                  "padding": {
+                    "top": "8px",
+                    "right": "8px",
+                    "bottom": "4px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Category",
+                      "Size": "Large"
+                    }
+                  },
+                  {
+                    "name": "Name",
+                    "kind": "text",
+                    "text": "Connection1"
+                  }
+                ]
+              },
+              {
+                "name": "Field expand collapse",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "10px",
+                  "padding": {
+                    "top": "4px",
+                    "right": "8px",
+                    "bottom": "4px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "center",
+                    "cross": "end"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Show trailing icon": true,
+                      "Label": "2 datasets",
+                      "Show leading icon": false,
+                      "Type": "Tertiary",
+                      "Size": "Small",
+                      "State": "Default"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "State=Expanded, Type=Sub item",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Card",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Header",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "9px",
+                  "padding": {
+                    "top": "8px",
+                    "right": "8px",
+                    "bottom": "4px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Category",
+                      "Size": "Large"
+                    }
+                  },
+                  {
+                    "name": "Name",
+                    "kind": "text",
+                    "text": "Connection1"
+                  }
+                ]
+              },
+              {
+                "name": "Field expand collapse",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "4px",
+                    "right": "8px",
+                    "bottom": "8px",
+                    "left": "8px"
+                  },
+                  "align": {
+                    "main": "center",
+                    "cross": "end"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Show trailing icon": true,
+                      "Label": "2 datasets",
+                      "Show leading icon": false,
+                      "Type": "Tertiary",
+                      "Size": "Small",
+                      "State": "Default"
+                    }
+                  },
+                  {
+                    "name": "Lineage individual node",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show left control": true,
+                      "Type": "Sub item",
+                      "State": "Default",
+                      "Fields": "Collapsed"
+                    }
+                  },
+                  {
+                    "name": "Lineage individual node",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show left control": true,
+                      "Type": "Sub item",
+                      "State": "Default",
+                      "Fields": "Collapsed"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

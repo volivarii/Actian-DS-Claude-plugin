@@ -1,0 +1,1060 @@
+{
+  "_schema_version": 1,
+  "slug": "drawer-side-panel",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "14294:5758"
+  },
+  "quality": {
+    "nodesTotal": 73,
+    "nodesNormalized": 54,
+    "ratio": 0.74,
+    "degraded": [
+      {
+        "name": "Drawer, side panel",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Drawer, side panel",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 3333,
+      "y": 416,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "App=Studio",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "16px",
+                "right": "16px",
+                "bottom": "16px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Back + Tag + Name",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Back",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Label": "Button",
+                      "Show leading icon": true,
+                      "Show trailing icon": true,
+                      "Type": "Icon",
+                      "Size": "Default",
+                      "State": "Default"
+                    }
+                  },
+                  {
+                    "name": "Tag",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "4px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "hug",
+                        "v": "hug"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "✍️ Tag, Catalog item type",
+                        "kind": "instance",
+                        "unresolved": true,
+                        "props": {
+                          "Show counter": false,
+                          "Type": "Dataset"
+                        }
+                      },
+                      {
+                        "name": "Shared",
+                        "kind": "instance",
+                        "unresolved": true,
+                        "props": {
+                          "Leading icon show": false,
+                          "Trailing icon show": false,
+                          "Label": "Shared",
+                          "Color": "Default"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Name",
+                    "kind": "text",
+                    "text": "Name"
+                  }
+                ]
+              },
+              {
+                "name": "Actions",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Label": "Button",
+                      "Show leading icon": true,
+                      "Show trailing icon": true,
+                      "Type": "Icon",
+                      "Size": "Default",
+                      "State": "Default"
+                    }
+                  },
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Label": "Button",
+                      "Show leading icon": true,
+                      "Show trailing icon": true,
+                      "Type": "Icon",
+                      "Size": "Default",
+                      "State": "Default"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Body 1",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "16px",
+                "right": "16px",
+                "bottom": "16px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Technical name: able_agency",
+                "kind": "text",
+                "text": "Technical name: able_agency"
+              },
+              {
+                "name": "Catalog + Category + Connection",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Catalog",
+                    "kind": "text",
+                    "text": "Catalog: Finance "
+                  },
+                  {
+                    "name": "/",
+                    "kind": "text",
+                    "text": "/"
+                  },
+                  {
+                    "name": "Category",
+                    "kind": "text",
+                    "text": "Category: 24/7"
+                  },
+                  {
+                    "name": "/",
+                    "kind": "text",
+                    "text": "/"
+                  },
+                  {
+                    "name": "Connection",
+                    "kind": "text",
+                    "text": "Connection: Powerbi"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Body 2",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "16px",
+                "right": "16px",
+                "bottom": "16px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Last updated",
+                "kind": "text",
+                "text": "Last updated\nDec 15, 2025"
+              },
+              {
+                "name": "Fields",
+                "kind": "text",
+                "text": "Fields\n10 Fields"
+              },
+              {
+                "name": "Completion",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fixed",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Completion",
+                    "kind": "text",
+                    "text": "Completion"
+                  },
+                  {
+                    "name": "Progress bar small",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Size": "Default",
+                      "Completeness": "50%"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Tabs",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "8px",
+              "padding": {
+                "top": "16px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Tabs",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show Avatar": false,
+                  "Property 1": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Body 3",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "16px",
+              "padding": {
+                "top": "16px",
+                "right": "16px",
+                "bottom": "16px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fill"
+              }
+            },
+            "children": [
+              {
+                "name": "Glossary",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Last updated",
+                    "kind": "text",
+                    "text": "Glossary items (2)"
+                  },
+                  {
+                    "name": "Dropdown, Select, default",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show Label": false,
+                      "Show helper text": false,
+                      "Show info icon": false,
+                      "Show asterisk ": false,
+                      "Show description": false,
+                      "Type": "Search/Multiple",
+                      "State": "Filled"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "Description",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "7.989999771118164px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Heading",
+                    "kind": "text",
+                    "text": "Description"
+                  },
+                  {
+                    "name": "Body",
+                    "kind": "text",
+                    "text": "Etiamenim adhuc et tation graecis auctor oratio curabitur habitant audire ac mucius volumus aliquet lacinia. Melinteresset adipisci dignissim ultrices deseruisse posuere consectetuer acnovum numquam reprehendunt delectus ludus vehicula eros. Persequerislitora in sociisdelicata est amet sapientem natum consetetur amet habitasse molestiae mei invenire accusata. Duisplatonem agam sagittis noster diam veri comprehensam explicari aliquip ecteque epicurei definitiones viris mi dignissim regione. "
+                  }
+                ]
+              },
+              {
+                "name": "Source description",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "7.085000038146973px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Heading",
+                    "kind": "text",
+                    "text": "Source description"
+                  },
+                  {
+                    "name": "Body",
+                    "kind": "text",
+                    "text": "Etiamenim adhuc et tation graecis auctor oratio curabitur habitant audire ac mucius volumus aliquet lacinia. Melinteresset adipisci dignissim ultrices deseruisse posuere consectetuer acnovum numquam reprehendunt delectus ludus vehicula eros. Persequerislitora in sociisdelicata est amet sapientem natum consetetur amet habitasse molestiae mei invenire accusata. "
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "App=Explorer",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "16px",
+                "right": "16px",
+                "bottom": "16px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Back + Tag + Name",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Back",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Label": "Button",
+                      "Show leading icon": true,
+                      "Show trailing icon": true,
+                      "Type": "Icon",
+                      "Size": "Default",
+                      "State": "Default"
+                    }
+                  },
+                  {
+                    "name": "Name",
+                    "kind": "text",
+                    "text": "Name"
+                  }
+                ]
+              },
+              {
+                "name": "Actions",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "8px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Label": "Button",
+                      "Show leading icon": true,
+                      "Show trailing icon": true,
+                      "Type": "Icon",
+                      "Size": "Default",
+                      "State": "Default"
+                    }
+                  },
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Label": "Button",
+                      "Show leading icon": true,
+                      "Show trailing icon": true,
+                      "Type": "Icon",
+                      "Size": "Default",
+                      "State": "Default"
+                    }
+                  },
+                  {
+                    "name": "Button",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show label": true,
+                      "Label": "Button",
+                      "Show leading icon": true,
+                      "Show trailing icon": true,
+                      "Type": "Icon",
+                      "Size": "Default",
+                      "State": "Default"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Body 1",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "16px",
+                "bottom": "0px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Tag",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "✍️ Tag, Catalog item type",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Show counter": false,
+                      "Type": "Dataset"
+                    }
+                  },
+                  {
+                    "name": "✍️ Tag, Default",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Leading icon show": false,
+                      "Trailing icon show": false,
+                      "Label": "Data source: Powerbi",
+                      "Color": "Default"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Body 2",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "16px",
+              "padding": {
+                "top": "16px",
+                "right": "16px",
+                "bottom": "16px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Description",
+                "kind": "text",
+                "text": "Description\nEtiamenim adhuc et tation graecis auctor oratio curabitur habitant audire ac mucius volumus aliquet lacinia. "
+              },
+              {
+                "name": "Featured properties",
+                "kind": "text",
+                "text": "Featured properties\nBusiness Domain: IT\nSource Application: App 120"
+              },
+              {
+                "name": "Glossary",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Glossary",
+                    "kind": "text",
+                    "text": "Glossary"
+                  },
+                  {
+                    "name": "Glossary",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "4px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fill",
+                        "v": "hug"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Digram, Item types",
+                        "kind": "instance",
+                        "unresolved": true
+                      },
+                      {
+                        "name": "Glossary item",
+                        "kind": "text",
+                        "text": "Vehicle"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "Tabs",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "8px",
+              "padding": {
+                "top": "16px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Tabs",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Show Avatar": false,
+                  "Property 1": "Default"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Body 3",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "16px",
+              "padding": {
+                "top": "16px",
+                "right": "16px",
+                "bottom": "16px",
+                "left": "16px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fill"
+              }
+            },
+            "children": [
+              {
+                "name": "Total field + search",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "32px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Last updated",
+                    "kind": "text",
+                    "text": "1 field"
+                  },
+                  {
+                    "name": "Search",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "AI icon": true,
+                      "Type": "Inline",
+                      "State": "Default"
+                    }
+                  }
+                ]
+              },
+              {
+                "name": "Filed card",
+                "kind": "container",
+                "layout": {
+                  "axis": "column",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "16px",
+                    "right": "16px",
+                    "bottom": "16px",
+                    "left": "16px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "start"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Name + tag",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "8px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "space-between",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "fill",
+                        "v": "hug"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Icon + name",
+                        "kind": "container",
+                        "layout": {
+                          "axis": "row",
+                          "gap": "4px",
+                          "padding": {
+                            "top": "0px",
+                            "right": "0px",
+                            "bottom": "0px",
+                            "left": "0px"
+                          },
+                          "align": {
+                            "main": "start",
+                            "cross": "center"
+                          },
+                          "sizing": {
+                            "h": "hug",
+                            "v": "hug"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Icon",
+                            "kind": "instance",
+                            "slug": "integer-type"
+                          },
+                          {
+                            "name": "Name",
+                            "kind": "text",
+                            "text": "onlyField [onlyField]"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Identification key",
+                        "kind": "instance",
+                        "unresolved": true,
+                        "props": {
+                          "Property 1": "Default"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Description",
+                    "kind": "text",
+                    "text": "Description"
+                  },
+                  {
+                    "name": "Property",
+                    "kind": "text",
+                    "text": "Type: Integer"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

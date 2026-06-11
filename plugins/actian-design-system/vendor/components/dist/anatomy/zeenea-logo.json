@@ -1,0 +1,997 @@
+{
+  "_schema_version": 1,
+  "slug": "zeenea-logo",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "12770:6651"
+  },
+  "quality": {
+    "nodesTotal": 129,
+    "nodesNormalized": 100,
+    "ratio": 0.78,
+    "degraded": [
+      {
+        "name": "Zeenea logo",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Logo Explorer",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Logo Explorer Icon",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Favicon Zeenea 1",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Favicon Studio",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Favicon Explorer",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Logo Zenea Corporate",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Logo Zeenea Corporate Icon",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Logo Studio",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Logo Studio Icon",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Dev Logo Zenea Corporate",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Logo Zeenea Corporate Icon",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Dev",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Dev Logo Explorer",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Logo Explorer Icon",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Dev",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Type=Dev Logo Studio",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Logo Studio Icon",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Dev",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Zeenea logo",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": -1155,
+      "y": -100,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Type=Logo Explorer",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -880,
+          "y": 187,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Logo Explorer Icon",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -880,
+              "y": 187,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -828.817626953125,
+              "y": 206.65029907226562,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -829.1173706054688,
+              "y": 228.59246826171875,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Favicon Zeenea 1",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -1137,
+          "y": -71,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Type=Favicon Studio",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -1113,
+          "y": -71,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Type=Favicon Explorer",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -1093,
+          "y": -71,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Type=Logo Zenea Corporate",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -880,
+          "y": 329,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Logo Zeenea Corporate Icon",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -880,
+              "y": 329,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -828.2489624023438,
+              "y": 348.78564453125,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Logo Studio",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -880,
+          "y": 71,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Logo Studio Icon",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -880,
+              "y": 71,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -827.964599609375,
+              "y": 90.78562927246094,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -828.040771484375,
+              "y": 113.67339324951172,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Dev Logo Zenea Corporate",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -1139,
+          "y": 342,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Logo Zeenea Corporate Icon",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1139,
+              "y": 342,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1087.2490234375,
+              "y": 361.78564453125,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Dev",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1087,
+              "y": 387,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Dev Logo Explorer",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -1139,
+          "y": 184,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Logo Explorer Icon",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1139,
+              "y": 184,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1087.817626953125,
+              "y": 203.65029907226562,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1088.117431640625,
+              "y": 225.59246826171875,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Dev",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -976,
+              "y": 229,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Type=Dev Logo Studio",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -1139,
+          "y": 28,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Logo Studio Icon",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1139,
+              "y": 28,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1086.964599609375,
+              "y": 47.78562927246094,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Group",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1087.040771484375,
+              "y": 70.67339324951172,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          },
+          {
+            "name": "Dev",
+            "kind": "container",
+            "normalizable": false,
+            "rawHint": {
+              "layoutMode": "NONE",
+              "x": -1012,
+              "y": 71,
+              "constraints": {
+                "vertical": "SCALE",
+                "horizontal": "SCALE"
+              }
+            },
+            "children": [
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              },
+              {
+                "name": "Vector",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,61 @@
+{
+  "_schema_version": 1,
+  "slug": "relation",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8587:44312"
+  },
+  "quality": {
+    "nodesTotal": 3,
+    "nodesNormalized": 1,
+    "ratio": 0.33,
+    "degraded": [
+      {
+        "name": "relation",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "SVG",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "relation",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": -2162,
+      "y": 80,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "SVG",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -2160,
+          "y": 82,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Union",
+            "kind": "vector"
+          }
+        ]
+      }
+    ]
+  }
+}

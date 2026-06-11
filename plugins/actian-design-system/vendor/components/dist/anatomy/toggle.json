@@ -1,0 +1,1377 @@
+{
+  "_schema_version": 1,
+  "slug": "toggle",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "14000:4395"
+  },
+  "quality": {
+    "nodesTotal": 101,
+    "nodesNormalized": 80,
+    "ratio": 0.79,
+    "degraded": [
+      {
+        "name": "Toggle",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Toggle",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 5981,
+      "y": 1044,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Toggle location=Left, Selected=No, State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Left, Selected=No, State=Hover",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Hover"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Left, Selected=Yes, State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Default"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Left, Selected=No, State=Focus",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Focus"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Left, Selected=No, State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Pressed"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Left, Selected=No, State=Disabled",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Disabled"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Left, Selected=Yes, State=Hover",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Hover"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Left, Selected=Yes, State=Focus",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Focus"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Left, Selected=Yes, State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Pressed"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Left, Selected=Yes, State=Disabled",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Disabled"
+            }
+          },
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=No, State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=No, State=Hover",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Hover"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=Yes, State=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=No, State=Focus",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Focus"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=No, State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Pressed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=No, State=Disabled",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "No",
+              "State": "Disabled"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=Yes, State=Hover",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Hover"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=Yes, State=Focus",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Focus"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=Yes, State=Pressed",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Pressed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Toggle location=Right, Selected=Yes, State=Disabled",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Text",
+            "kind": "container",
+            "layout": {
+              "axis": "column",
+              "gap": "4px",
+              "padding": {
+                "top": "2px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label",
+                "kind": "text",
+                "text": "Label"
+              },
+              {
+                "name": "Helper text",
+                "kind": "text",
+                "text": "Helper text"
+              }
+            ]
+          },
+          {
+            "name": ".Toggle switch",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Selected": "Yes",
+              "State": "Disabled"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
