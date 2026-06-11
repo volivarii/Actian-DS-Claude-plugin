@@ -120,6 +120,19 @@ PATHS.components.media = function (slug) {
   return path.join(VENDOR, "components", "dist", "media", slug, "preview.webp");
 };
 
+// Anatomy: machine-extracted, Figma-synced structure-tree facts (knowledge's
+// `anatomy` domain, v0.32.x). byKey(slug) → the per-component artifact; bundle →
+// the slug-keyed roll-up. Consumers interpret the normalized layout-intent tree.
+PATHS.components.anatomy = function (slug) {
+  return path.join(VENDOR, "components", "dist", "anatomy", slug + ".json");
+};
+PATHS.components.anatomyBundle = path.join(
+  VENDOR,
+  "components",
+  "dist",
+  "anatomy.bundle.json",
+);
+
 // Synthesized helper: byKit("ds"/"fm"/"meta") maps to registry leaf paths.
 // Preserved from pre-manifest API for backward compat with validate-flow-data.js etc.
 PATHS.components.registries = PATHS.components.registries || {};
