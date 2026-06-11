@@ -1,0 +1,45 @@
+{
+  "_schema_version": 1,
+  "slug": "minimize",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8298:5067"
+  },
+  "quality": {
+    "nodesTotal": 3,
+    "nodesNormalized": 2,
+    "ratio": 0.67,
+    "degraded": [
+      {
+        "name": "minimize",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "minimize",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": -2705,
+      "y": 1144,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Vector",
+        "kind": "vector"
+      },
+      {
+        "name": "Vector",
+        "kind": "vector"
+      }
+    ]
+  }
+}

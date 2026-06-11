@@ -1,0 +1,357 @@
+{
+  "_schema_version": 1,
+  "slug": "spinner",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "7372:2170"
+  },
+  "quality": {
+    "nodesTotal": 49,
+    "nodesNormalized": 40,
+    "ratio": 0.82,
+    "degraded": [
+      {
+        "name": "Spinner",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Color mode=On light bg, Complete=100%",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Color mode=On dark bg, Complete=100%",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Color mode=On light bg, Complete=75%",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Color mode=On dark bg, Complete=75%",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Color mode=On light bg, Complete=50%",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Color mode=On dark bg, Complete=50%",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Color mode=On light bg, Complete=25%",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Color mode=On dark bg, Complete=25%",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Spinner",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 5105,
+      "y": -181,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Color mode=On light bg, Complete=100%",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5255,
+          "y": -165,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Ellipse 8",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 9",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 10",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 12",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 11",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Color mode=On dark bg, Complete=100%",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5255,
+          "y": -125,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Ellipse 8",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 9",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 10",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 12",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 11",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Color mode=On light bg, Complete=75%",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5221,
+          "y": -165,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Ellipse 8",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 9",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 10",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 12",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 11",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Color mode=On dark bg, Complete=75%",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5221,
+          "y": -125,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Ellipse 8",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 9",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 10",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 12",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 11",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Color mode=On light bg, Complete=50%",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5187,
+          "y": -165,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Ellipse 8",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 9",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 10",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 12",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 11",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Color mode=On dark bg, Complete=50%",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5187,
+          "y": -125,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Ellipse 8",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 9",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 10",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 12",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 11",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Color mode=On light bg, Complete=25%",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5153,
+          "y": -165,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Ellipse 8",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 9",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 10",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 11",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 12",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Color mode=On dark bg, Complete=25%",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5153,
+          "y": -125,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Ellipse 8",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 9",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 10",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 11",
+            "kind": "vector"
+          },
+          {
+            "name": "Ellipse 12",
+            "kind": "vector"
+          }
+        ]
+      }
+    ]
+  }
+}

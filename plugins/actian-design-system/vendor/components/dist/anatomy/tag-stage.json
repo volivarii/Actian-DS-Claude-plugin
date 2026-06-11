@@ -1,0 +1,488 @@
+{
+  "_schema_version": 1,
+  "slug": "tag-stage",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "8655:10279"
+  },
+  "quality": {
+    "nodesTotal": 33,
+    "nodesNormalized": 33,
+    "ratio": 1,
+    "degraded": []
+  },
+  "root": {
+    "name": "✍️ Tag, Stage",
+    "kind": "container",
+    "layout": {
+      "axis": "column",
+      "gap": "8px",
+      "padding": {
+        "top": "20px",
+        "right": "20px",
+        "bottom": "20px",
+        "left": "20px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "hug",
+        "v": "hug"
+      }
+    },
+    "children": [
+      {
+        "name": "Color=Gray",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Dot",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "4px",
+                "bottom": "0px",
+                "left": "4px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "fixed"
+              }
+            }
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Stage"
+          },
+          {
+            "name": "arrow-down",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "Color=Yellow",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Dot",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "4px",
+                "bottom": "0px",
+                "left": "4px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "fixed"
+              }
+            }
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Stage"
+          },
+          {
+            "name": "arrow-down",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "Color=Orange",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Dot",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "4px",
+                "bottom": "0px",
+                "left": "4px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            }
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Stage"
+          },
+          {
+            "name": "arrow-down",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "Color=Pink",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Dot",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "4px",
+                "bottom": "0px",
+                "left": "4px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            }
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Stage"
+          },
+          {
+            "name": "arrow-down",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "Color=Teal",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Dot",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "4px",
+                "bottom": "0px",
+                "left": "4px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            }
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Stage"
+          },
+          {
+            "name": "arrow-down",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "Color=Indigo",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Dot",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "4px",
+                "bottom": "0px",
+                "left": "4px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            }
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Stage"
+          },
+          {
+            "name": "arrow-down",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "Color=Purple",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Dot",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "4px",
+                "bottom": "0px",
+                "left": "4px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            }
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Stage"
+          },
+          {
+            "name": "arrow-down",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      },
+      {
+        "name": "Color=Lime",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "8px",
+            "bottom": "0px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Dot",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "4px",
+                "bottom": "0px",
+                "left": "4px"
+              },
+              "align": {
+                "main": "center",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "fixed"
+              }
+            }
+          },
+          {
+            "name": "Tag-Name",
+            "kind": "text",
+            "text": "Stage"
+          },
+          {
+            "name": "arrow-down",
+            "kind": "instance",
+            "slug": "arrow-down"
+          }
+        ]
+      }
+    ]
+  }
+}

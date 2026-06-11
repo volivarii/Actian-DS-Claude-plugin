@@ -1,0 +1,126 @@
+{
+  "_schema_version": 1,
+  "slug": "account-dropdown",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "9118:17382"
+  },
+  "quality": {
+    "nodesTotal": 8,
+    "nodesNormalized": 3,
+    "ratio": 0.38,
+    "degraded": []
+  },
+  "root": {
+    "name": "Account dropdown",
+    "kind": "container",
+    "layout": {
+      "axis": "column",
+      "gap": "4px",
+      "padding": {
+        "top": "4px",
+        "right": "0px",
+        "bottom": "4px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
+      }
+    },
+    "children": [
+      {
+        "name": "Avatar + Name",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "16px",
+          "padding": {
+            "top": "8px",
+            "right": "16px",
+            "bottom": "16px",
+            "left": "16px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Avatar",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Default",
+              "Type": "Default"
+            }
+          },
+          {
+            "name": "Timothy Neal timothy.neal@hcl-software.com",
+            "kind": "text",
+            "text": "Timothy Neal\ntimothy.neal@hcl-software.com"
+          }
+        ]
+      },
+      {
+        "name": ".menu item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show leading icon": true,
+          "Label text": "Support",
+          "Show trailing icon": false,
+          "Type": "Divider",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".menu item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show trailing icon": false,
+          "Show leading icon": true,
+          "Label text": "Support",
+          "Type": "Selectable item",
+          "State": "Selected"
+        }
+      },
+      {
+        "name": ".menu item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show leading icon": true,
+          "Label text": "Support",
+          "Show trailing icon": false,
+          "Type": "Divider",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".menu item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show trailing icon": false,
+          "Show leading icon": true,
+          "Label text": "Log out",
+          "Type": "Selectable item",
+          "State": "Selected"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,390 @@
+{
+  "_schema_version": 1,
+  "slug": "metamodel-widget",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "14747:23588"
+  },
+  "quality": {
+    "nodesTotal": 26,
+    "nodesNormalized": 16,
+    "ratio": 0.62,
+    "degraded": []
+  },
+  "root": {
+    "name": "Metamodel widget",
+    "kind": "container",
+    "layout": {
+      "axis": "column",
+      "gap": "20px",
+      "padding": {
+        "top": "37px",
+        "right": "23px",
+        "bottom": "37px",
+        "left": "23px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
+      }
+    },
+    "children": [
+      {
+        "name": "Type=Dataset",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "8px",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Item types",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Item type": "Dataset",
+                  "Size": "Large"
+                }
+              },
+              {
+                "name": "Dataset",
+                "kind": "text",
+                "text": "Dataset"
+              }
+            ]
+          },
+          {
+            "name": ".metamodel property section",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Section": "Collapsed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Type=Visualisation",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "8px",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Item types",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Item type": "Visualization",
+                  "Size": "Large"
+                }
+              },
+              {
+                "name": "Visualization",
+                "kind": "text",
+                "text": "Visualization"
+              }
+            ]
+          },
+          {
+            "name": ".metamodel property section",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Section": "Collapsed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Type=Field",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "8px",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Item types",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Item type": "Field",
+                  "Size": "Large"
+                }
+              },
+              {
+                "name": "Field",
+                "kind": "text",
+                "text": "Field"
+              }
+            ]
+          },
+          {
+            "name": ".metamodel property section",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Section": "Collapsed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Type=Data Process",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "8px",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Item types",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Item type": "Data process",
+                  "Size": "Large"
+                }
+              },
+              {
+                "name": "Data Process",
+                "kind": "text",
+                "text": "Data Process"
+              }
+            ]
+          },
+          {
+            "name": ".metamodel property section",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Section": "Collapsed"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Type=Business Term",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "8px",
+          "padding": {
+            "top": "8px",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": "Header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fixed",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Digram, Item types",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Item type": "Glossary 1",
+                  "Size": "Large"
+                }
+              },
+              {
+                "name": "Business Term",
+                "kind": "text",
+                "text": "Business Term"
+              }
+            ]
+          },
+          {
+            "name": ".metamodel property section",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Section": "Collapsed"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

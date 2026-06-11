@@ -1,0 +1,334 @@
+{
+  "_schema_version": 1,
+  "slug": "notification-dropdown",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "9114:15379"
+  },
+  "quality": {
+    "nodesTotal": 24,
+    "nodesNormalized": 16,
+    "ratio": 0.67,
+    "degraded": [
+      {
+        "name": "Notification dropdown",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Notification dropdown",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 3995,
+      "y": -3369,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Property 1=List",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "4px",
+            "right": "0px",
+            "bottom": "4px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show trailing icon": true,
+              "Show leading icon": false,
+              "Label text": "Notification",
+              "Type": "Selectable item",
+              "State": "Selected"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show leading icon": true,
+              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
+              "Show trailing icon": false,
+              "Type": "Divider",
+              "State": "Default"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "8px",
+                "right": "8px",
+                "bottom": "8px",
+                "left": "32px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "New items inventoried from PowerBi Online V1 at 7/11/25, 12:42 AM."
+              },
+              {
+                "name": "Leading icon",
+                "kind": "instance",
+                "slug": "checkmark-outline"
+              }
+            ]
+          },
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show leading icon": true,
+              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
+              "Show trailing icon": false,
+              "Type": "Divider",
+              "State": "Default"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "8px",
+                "right": "8px",
+                "bottom": "8px",
+                "left": "32px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "New items inventoried from PowerBi Online V1 at 7/6/25 12:42 AM."
+              },
+              {
+                "name": "Leading icon",
+                "kind": "instance",
+                "slug": "checkmark-outline"
+              }
+            ]
+          },
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show leading icon": true,
+              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
+              "Show trailing icon": false,
+              "Type": "Divider",
+              "State": "Default"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "8px",
+                "right": "8px",
+                "bottom": "8px",
+                "left": "32px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "New items inventoried from PowerBi Online V1 at 7/3/25, 4:47 PM."
+              },
+              {
+                "name": "Leading icon",
+                "kind": "instance",
+                "slug": "checkmark-outline"
+              }
+            ]
+          },
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show leading icon": true,
+              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
+              "Show trailing icon": false,
+              "Type": "Divider",
+              "State": "Default"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "8px",
+                "right": "8px",
+                "bottom": "8px",
+                "left": "32px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02 PM."
+              },
+              {
+                "name": "Leading icon",
+                "kind": "instance",
+                "slug": "checkmark-outline"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Property 1=Empty",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "4px",
+            "right": "0px",
+            "bottom": "4px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show trailing icon": false,
+              "Show leading icon": false,
+              "Label text": "Notification",
+              "Type": "Selectable item",
+              "State": "Selected"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show leading icon": true,
+              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
+              "Show trailing icon": false,
+              "Type": "Divider",
+              "State": "Default"
+            }
+          },
+          {
+            "name": ".menu item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "8px",
+              "padding": {
+                "top": "8px",
+                "right": "8px",
+                "bottom": "8px",
+                "left": "8px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "start"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": "Label text",
+                "kind": "text",
+                "text": "No notification"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

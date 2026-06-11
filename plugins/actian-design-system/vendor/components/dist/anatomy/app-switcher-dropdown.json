@@ -1,0 +1,64 @@
+{
+  "_schema_version": 1,
+  "slug": "app-switcher-dropdown",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "9118:17666"
+  },
+  "quality": {
+    "nodesTotal": 3,
+    "nodesNormalized": 1,
+    "ratio": 0.33,
+    "degraded": []
+  },
+  "root": {
+    "name": "App switcher dropdown",
+    "kind": "container",
+    "layout": {
+      "axis": "column",
+      "gap": "4px",
+      "padding": {
+        "top": "4px",
+        "right": "0px",
+        "bottom": "4px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "hug",
+        "v": "hug"
+      }
+    },
+    "children": [
+      {
+        "name": ".menu item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show trailing icon": false,
+          "Show leading icon": true,
+          "Label text": "Administration",
+          "Type": "Selectable item",
+          "State": "Selected"
+        }
+      },
+      {
+        "name": ".menu item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show trailing icon": false,
+          "Show leading icon": true,
+          "Label text": "Explorer",
+          "Type": "Selectable item",
+          "State": "Default"
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "_schema_version": 1,
+  "slug": "xl-grid",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "12054:30623"
+  },
+  "quality": {
+    "nodesTotal": 25,
+    "nodesNormalized": 23,
+    "ratio": 0.92,
+    "degraded": []
+  },
+  "root": {
+    "name": "XL grid",
+    "kind": "container",
+    "layout": {
+      "axis": "column",
+      "gap": "20px",
+      "padding": {
+        "top": "16px",
+        "right": "16px",
+        "bottom": "16px",
+        "left": "16px"
+      },
+      "align": {
+        "main": "center",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
+      }
+    },
+    "children": [
+      {
+        "name": "Property=Default",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "16px",
+          "padding": {
+            "top": "0px",
+            "right": "160px",
+            "bottom": "0px",
+            "left": "160px"
+          },
+          "align": {
+            "main": "center",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "hug",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "Coumns",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "16px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "hug",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              },
+              {
+                "name": "Column",
+                "kind": "vector"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Property=Side nav collapsed",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "8px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "64px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "XL grid",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Property": "Default"
+            }
+          },
+          {
+            "name": "Side nav collapsed",
+            "kind": "vector"
+          }
+        ]
+      },
+      {
+        "name": "Property=Side nav expanded",
+        "kind": "container",
+        "layout": {
+          "axis": "row",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "240px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "center"
+          },
+          "sizing": {
+            "h": "fixed",
+            "v": "fixed"
+          }
+        },
+        "children": [
+          {
+            "name": "XL grid",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Property": "Default"
+            }
+          },
+          {
+            "name": "Side nav expanded",
+            "kind": "vector"
+          }
+        ]
+      }
+    ]
+  }
+}

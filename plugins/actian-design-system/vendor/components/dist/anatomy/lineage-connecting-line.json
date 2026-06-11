@@ -1,0 +1,325 @@
+{
+  "_schema_version": 1,
+  "slug": "lineage-connecting-line",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "14747:20085"
+  },
+  "quality": {
+    "nodesTotal": 28,
+    "nodesNormalized": 9,
+    "ratio": 0.32,
+    "degraded": [
+      {
+        "name": "Lineage connecting line",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=Straight, State=Default",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=Down, State=Default",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=Up, State=Default",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=Straight, State=Selected",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=Down, State=Selected",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=up, State=Selected",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=Straight, State=Disabled",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=Down, State=Disabled",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Direction=up, State=Disabled",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "Lineage connecting line",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": 5712,
+      "y": 590,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Direction=Straight, State=Default",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5794,
+          "y": 817,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/Straight",
+            "kind": "vector"
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Direction=Down, State=Default",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5797,
+          "y": 637,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/Down",
+            "kind": "vector"
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Direction=Up, State=Default",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 5794,
+          "y": 851,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/up",
+            "kind": "vector"
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Direction=Straight, State=Selected",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 6127,
+          "y": 817,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/Straight",
+            "kind": "vector"
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Direction=Down, State=Selected",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 6130,
+          "y": 637,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/Down",
+            "kind": "vector"
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Direction=up, State=Selected",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 6127,
+          "y": 851,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/up",
+            "kind": "vector"
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Default"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Direction=Straight, State=Disabled",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 6466,
+          "y": 817,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/Straight",
+            "kind": "vector"
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Disabled"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Direction=Down, State=Disabled",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 6469,
+          "y": 637,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/Down",
+            "kind": "vector"
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Disabled"
+            }
+          }
+        ]
+      },
+      {
+        "name": "Direction=up, State=Disabled",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": 6466,
+          "y": 851,
+          "constraints": {
+            "vertical": "TOP",
+            "horizontal": "LEFT"
+          }
+        },
+        "children": [
+          {
+            "name": "Lineage connector/Right/up",
+            "kind": "vector"
+          },
+          {
+            "name": ".lineage connector icon",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "State": "Disabled"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

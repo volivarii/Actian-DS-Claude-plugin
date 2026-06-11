@@ -1,0 +1,189 @@
+{
+  "_schema_version": 1,
+  "slug": "background-explore",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "16494:19414"
+  },
+  "quality": {
+    "nodesTotal": 35,
+    "nodesNormalized": 33,
+    "ratio": 0.94,
+    "degraded": [
+      {
+        "name": "background-explore",
+        "reason": "layoutMode:NONE"
+      },
+      {
+        "name": "Group",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "background-explore",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": -2117,
+      "y": 944,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Group",
+        "kind": "container",
+        "normalizable": false,
+        "rawHint": {
+          "layoutMode": "NONE",
+          "x": -2117,
+          "y": 943.9981689453125,
+          "constraints": {
+            "vertical": "SCALE",
+            "horizontal": "SCALE"
+          }
+        },
+        "children": [
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          },
+          {
+            "name": "Vector",
+            "kind": "vector"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "_schema_version": 1,
+  "slug": "view-card",
+  "kit": "dskit",
+  "synced_at": "2026-06-11T13:59:20.559Z",
+  "source": {
+    "fileKey": "l8biHxfarNi1I2RMvVxVOK",
+    "nodeId": "7622:5375"
+  },
+  "quality": {
+    "nodesTotal": 2,
+    "nodesNormalized": 1,
+    "ratio": 0.5,
+    "degraded": [
+      {
+        "name": "view-card",
+        "reason": "layoutMode:NONE"
+      }
+    ]
+  },
+  "root": {
+    "name": "view-card",
+    "kind": "container",
+    "normalizable": false,
+    "rawHint": {
+      "layoutMode": "NONE",
+      "x": -2705,
+      "y": 1256,
+      "constraints": {
+        "vertical": "TOP",
+        "horizontal": "LEFT"
+      }
+    },
+    "children": [
+      {
+        "name": "Union",
+        "kind": "vector"
+      }
+    ]
+  }
+}
