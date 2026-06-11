@@ -7,6 +7,9 @@ var WIDTHS = [1440, 768, 360];
 // In-page measurement script. Runs after layout, embeds JSON into #fidelity-metrics.
 // Strategy: call run() synchronously first (so --dump-dom always gets a result),
 // then also schedule an async update after fonts.ready + rAF for live-browser accuracy.
+// Caveat: the sync run() fires before web fonts load, so 'clipped' may under-report on
+// text-heavy leaves; the async fonts/rAF update corrects live runs. For --dump-dom the
+// sync result is the one captured (overflow/absPos are layout-computed, font-independent).
 function measureScript() {
   return [
     "(function(){function run(){",
@@ -65,6 +68,7 @@ function measureAtWidth(opts) {
     "--disable-gpu",
     "--hide-scrollbars",
     "--force-device-scale-factor=1",
+    // advance virtual time 2s so deferred scripts settle before --dump-dom captures
     "--virtual-time-budget=2000",
     "--window-size=" + width + ",900",
     "--dump-dom",
@@ -74,6 +78,16 @@ function measureAtWidth(opts) {
     encoding: "utf8",
     maxBuffer: 64 * 1024 * 1024,
   });
+  // Surface spawn failures (missing binary, crash) instead of returning a silent
+  // null — the caller still gets null and treats it as a structural fail.
+  if (res.error || res.status !== 0) {
+    process.stderr.write(
+      "[fidelity] Chrome --dump-dom failed (status " +
+        res.status +
+        (res.error ? ", " + res.error.message : "") +
+        ")\n",
+    );
+  }
   return parseMetrics(res.stdout || "");
 }
 
