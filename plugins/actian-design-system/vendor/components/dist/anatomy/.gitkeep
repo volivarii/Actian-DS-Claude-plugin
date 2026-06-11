@@ -1,0 +1,1 @@
+# Keeps the anatomy dist dir tracked pre-sync so paths-manifest byKey resolves on fresh clones. Real <slug>.json files land here on first Figma sync.

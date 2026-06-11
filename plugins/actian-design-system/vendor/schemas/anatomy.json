@@ -1,0 +1,191 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian.com/schemas/anatomy.json",
+  "title": "Component anatomy (machine-extracted, Figma-synced)",
+  "description": "A normalized, medium-neutral structure tree for one component, extracted from its Figma auto-layout and regenerated on every sync. Consumers interpret it into their own medium (HTML, etc.). Recursion stops at DS-component instance boundaries (referenced by slug), so the tree is compositional.",
+  "type": "object",
+  "required": ["_schema_version", "slug", "kit", "quality", "root"],
+  "properties": {
+    "_schema_version": {
+      "type": "integer",
+      "description": "Dist-artifact schema version, injected by the sync writer.",
+      "examples": [1]
+    },
+    "slug": {
+      "type": "string",
+      "description": "Component slug this anatomy describes (registry key).",
+      "examples": ["button", "alert-banner"]
+    },
+    "kit": {
+      "type": "string",
+      "description": "Source kit the component belongs to.",
+      "examples": ["dskit"]
+    },
+    "synced_at": {
+      "type": "string",
+      "description": "ISO timestamp (or date) of the sync run that produced this artifact.",
+      "examples": ["2026-06-11T12:00:00Z", "2026-06-11"]
+    },
+    "source": {
+      "type": "object",
+      "description": "Figma provenance: file key + node id the tree was extracted from.",
+      "examples": [{ "fileKey": "AbC123", "nodeId": "1:23" }]
+    },
+    "quality": {
+      "type": "object",
+      "description": "Self-measured extraction quality — how much of the tree normalized cleanly (a proxy for 'is this Figma well-built').",
+      "examples": [{ "nodesTotal": 7, "nodesNormalized": 7, "ratio": 1, "degraded": [] }],
+      "required": ["nodesTotal", "nodesNormalized", "ratio", "degraded"],
+      "properties": {
+        "nodesTotal": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total nodes visited during extraction.",
+          "examples": [7]
+        },
+        "nodesNormalized": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Nodes that normalized cleanly (not degraded).",
+          "examples": [7]
+        },
+        "ratio": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "nodesNormalized / nodesTotal — 1.0 means the whole tree mapped cleanly.",
+          "examples": [1, 0.75]
+        },
+        "degraded": {
+          "type": "array",
+          "description": "Nodes that could not be normalized to flex intent (e.g. absolute-positioned), with why.",
+          "examples": [[{ "name": "Badge overlay", "reason": "layoutMode:NONE" }]],
+          "items": {
+            "type": "object",
+            "required": ["name", "reason"],
+            "properties": {
+              "name": {
+                "type": "string",
+                "description": "Figma layer name of the degraded node.",
+                "examples": ["Badge overlay"]
+              },
+              "reason": {
+                "type": "string",
+                "description": "Why the node was not normalizable.",
+                "examples": ["layoutMode:NONE"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "root": {
+      "$ref": "#/$defs/node",
+      "description": "The root anatomy node of the component's structure tree.",
+      "examples": [{ "name": "Button", "kind": "container" }]
+    }
+  },
+  "$defs": {
+    "node": {
+      "type": "object",
+      "required": ["name", "kind"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Verbatim Figma layer name (semantic hint).",
+          "examples": ["Banner container", "Label"]
+        },
+        "kind": { "enum": ["container", "text", "instance", "icon", "vector"] },
+        "slug": {
+          "type": "string",
+          "description": "For kind=instance: the resolved DS-component slug (recursion stops here).",
+          "examples": ["checkbox-with-label"]
+        },
+        "unresolved": {
+          "type": "boolean",
+          "description": "For kind=instance: true when the instance's component is not in the registry (slug omitted).",
+          "examples": [true]
+        },
+        "props": {
+          "type": "object",
+          "description": "For kind=instance: variant/boolean/text component properties on the instance.",
+          "examples": [{ "Size": "Small", "State": "Default" }]
+        },
+        "text": {
+          "type": "string",
+          "description": "For kind=text: the characters of the text node (structure marker, not canonical copy).",
+          "examples": ["Heads up"]
+        },
+        "tokenRefs": {
+          "type": "array",
+          "description": "Design-token names bound on this node (fills/strokes/radius), resolved inline.",
+          "examples": [["--zen-color-surface-warning"]],
+          "items": { "type": "string" }
+        },
+        "normalizable": {
+          "type": "boolean",
+          "description": "False when this container could not be expressed as flex intent (see rawHint).",
+          "examples": [false]
+        },
+        "rawHint": {
+          "type": "object",
+          "description": "For non-normalizable nodes: minimal raw Figma positioning data for the consumer to interpret.",
+          "examples": [{ "layoutMode": "NONE", "x": 12, "y": -4 }]
+        },
+        "layout": {
+          "type": "object",
+          "description": "Normalized auto-layout intent (present on flex containers), medium-neutral.",
+          "examples": [{ "axis": "row", "gap": "8px", "padding": { "top": "0px", "right": "0px", "bottom": "0px", "left": "0px" }, "align": { "main": "center", "cross": "center" }, "sizing": { "h": "hug", "v": "hug" } }],
+          "required": ["axis", "gap", "padding", "align", "sizing"],
+          "properties": {
+            "axis": { "enum": ["row", "column"] },
+            "gap": {
+              "type": "string",
+              "description": "Item spacing as a token ref or px value.",
+              "examples": ["--zen-spacing-200", "8px"]
+            },
+            "padding": {
+              "type": "object",
+              "description": "Per-side padding as token refs or px values.",
+              "examples": [{ "top": "--zen-spacing-150", "right": "16px", "bottom": "16px", "left": "16px" }],
+              "required": ["top", "right", "bottom", "left"],
+              "properties": {
+                "top": { "type": "string", "description": "Top padding.", "examples": ["16px"] },
+                "right": { "type": "string", "description": "Right padding.", "examples": ["16px"] },
+                "bottom": { "type": "string", "description": "Bottom padding.", "examples": ["16px"] },
+                "left": { "type": "string", "description": "Left padding.", "examples": ["16px"] }
+              }
+            },
+            "align": {
+              "type": "object",
+              "description": "Main- and cross-axis alignment.",
+              "examples": [{ "main": "center", "cross": "center" }],
+              "required": ["main", "cross"],
+              "properties": {
+                "main": { "enum": ["start", "center", "end", "space-between"] },
+                "cross": { "enum": ["start", "center", "end", "baseline", "stretch"] }
+              }
+            },
+            "sizing": {
+              "type": "object",
+              "description": "Horizontal/vertical sizing behaviour.",
+              "examples": [{ "h": "hug", "v": "hug" }],
+              "required": ["h", "v"],
+              "properties": {
+                "h": { "enum": ["hug", "fill", "fixed"] },
+                "v": { "enum": ["hug", "fill", "fixed"] }
+              }
+            }
+          }
+        },
+        "children": {
+          "type": "array",
+          "description": "Child anatomy nodes (absent for instances — recursion stops at instance boundaries).",
+          "examples": [[{ "name": "Label", "kind": "text", "text": "Go" }]],
+          "items": { "$ref": "#/$defs/node" }
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

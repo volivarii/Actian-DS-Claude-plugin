@@ -1,0 +1,5 @@
+{
+  "_schema_version": 1,
+  "_note": "Placeholder — populated by scripts/sync/sync-anatomy.js on first sync. Real shape: { _schema_version, components: { <slug>: <anatomyFile> } }.",
+  "components": {}
+}
