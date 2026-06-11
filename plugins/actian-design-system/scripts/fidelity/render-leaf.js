@@ -3,14 +3,19 @@
 var fs = require("node:fs");
 var path = require("node:path");
 var cp = require("node:child_process");
+var url = require("node:url");
 
 var HR = path.join(__dirname, "..", "renderers", "html-renderers");
 var dsMap = require(path.join(HR, "ds-html-map.js"));
 
+var _cssCache = null;
 function readCss() {
-  var base = fs.readFileSync(path.join(HR, "ds-base.css"), "utf8");
-  var fonts = fs.readFileSync(path.join(HR, "ds-fonts.css"), "utf8");
-  return fonts + "\n" + base;
+  if (_cssCache === null) {
+    var base = fs.readFileSync(path.join(HR, "ds-base.css"), "utf8");
+    var fonts = fs.readFileSync(path.join(HR, "ds-fonts.css"), "utf8");
+    _cssCache = fonts + "\n" + base;
+  }
+  return _cssCache;
 }
 
 function defaultNodeForSlug(slug) {
@@ -30,7 +35,11 @@ function buildLeafHtml(slug, fragmentHtml) {
     "<style>" + css + "</style>",
     "<style>body{margin:0;padding:24px;background:#fff;display:inline-block}</style>",
     "</head><body>",
-    "<div id='fidelity-root' data-slug='" + slug + "'>" + fragmentHtml + "</div>",
+    '<div id="fidelity-root" data-slug="' +
+      dsMap.esc(slug) +
+      '">' +
+      fragmentHtml +
+      "</div>",
     "<script>document.fonts.ready.then(function(){",
     "requestAnimationFrame(function(){document.documentElement.setAttribute('data-fidelity-ready','1');});",
     "});</script>",
@@ -53,10 +62,26 @@ function screenshot(opts) {
     "--virtual-time-budget=2000",
     "--window-size=" + width + "," + height,
     "--screenshot=" + outPng,
-    "file://" + htmlPath,
+    url.pathToFileURL(htmlPath).href,
   ];
-  cp.execFileSync(chrome, args, { stdio: "ignore" });
+  try {
+    cp.execFileSync(chrome, args, { stdio: "pipe" });
+  } catch (e) {
+    var detail = (e.stderr || "").toString().slice(0, 500);
+    throw new Error(
+      "[fidelity] Chrome screenshot failed (exit " +
+        e.status +
+        ")" +
+        (detail ? ":\n" + detail : ""),
+    );
+  }
   return outPng;
 }
 
-module.exports = { defaultNodeForSlug, renderLeafFragment, buildLeafHtml, screenshot, readCss };
+module.exports = {
+  defaultNodeForSlug,
+  renderLeafFragment,
+  buildLeafHtml,
+  screenshot,
+  readCss,
+};
