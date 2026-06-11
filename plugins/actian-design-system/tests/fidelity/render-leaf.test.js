@@ -27,6 +27,12 @@ test("buildLeafHtml embeds the rendered leaf + a fonts.ready measure hook", func
   );
 });
 
+test("buildMeasureHtml injects the measure script", function () {
+  var html = H.buildMeasureHtml("button", "<button></button>", "/*MEASURE*/");
+  assert.ok(html.indexOf("/*MEASURE*/") >= 0);
+  assert.ok(html.indexOf("<button></button>") >= 0);
+});
+
 test("buildLeafHtml escapes the slug in the data-slug attribute", function () {
   var html = H.buildLeafHtml('a"b', "<span></span>");
   assert.ok(

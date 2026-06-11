@@ -28,6 +28,13 @@ function renderLeafFragment(slug) {
   return dsMap.renderDSComponent(defaultNodeForSlug(slug));
 }
 
+function buildMeasureHtml(slug, fragmentHtml, measureJs) {
+  return buildLeafHtml(slug, fragmentHtml).replace(
+    "</body>",
+    "<script>" + measureJs + "</script></body>",
+  );
+}
+
 function buildLeafHtml(slug, fragmentHtml) {
   var css = readCss();
   return [
@@ -82,6 +89,7 @@ module.exports = {
   defaultNodeForSlug,
   renderLeafFragment,
   buildLeafHtml,
+  buildMeasureHtml,
   screenshot,
   readCss,
 };
