@@ -2,28 +2,29 @@
   "_schema_version": 1,
   "slug": "whats-new-dropdown",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "9114:16794"
+    "nodeId": "9114:16794",
+    "variant": "Property 1=Empty"
   },
   "quality": {
-    "nodesTotal": 56,
-    "nodesNormalized": 33,
-    "ratio": 0.59,
+    "nodesTotal": 6,
+    "nodesNormalized": 5,
+    "ratio": 0.83,
     "degraded": []
   },
   "root": {
-    "name": "Whats new dropdown",
+    "name": "Property 1=Empty",
     "kind": "container",
     "layout": {
-      "axis": "row",
-      "gap": "45px",
+      "axis": "column",
+      "gap": "0px",
       "padding": {
-        "top": "16px",
-        "right": "16px",
-        "bottom": "16px",
-        "left": "16px"
+        "top": "4px",
+        "right": "0px",
+        "bottom": "4px",
+        "left": "0px"
       },
       "align": {
         "main": "start",
@@ -36,775 +37,72 @@
     },
     "children": [
       {
-        "name": "Property 1=Empty",
+        "name": "Header",
         "kind": "container",
         "layout": {
-          "axis": "column",
-          "gap": "0px",
+          "axis": "row",
+          "gap": "8px",
           "padding": {
-            "top": "4px",
-            "right": "0px",
-            "bottom": "4px",
-            "left": "0px"
+            "top": "8px",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px"
           },
           "align": {
             "main": "start",
-            "cross": "start"
+            "cross": "center"
           },
           "sizing": {
-            "h": "fixed",
-            "v": "hug"
+            "h": "fill",
+            "v": "fixed"
           }
         },
         "children": [
           {
-            "name": "Header",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "Label text",
-                "kind": "text",
-                "text": "What’s new"
-              }
-            ]
-          },
-          {
-            "name": ".menu item",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Show leading icon": true,
-              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
-              "Show trailing icon": false,
-              "Type": "Divider",
-              "State": "Default"
-            }
-          },
-          {
-            "name": "Body",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label text",
-                "kind": "text",
-                "text": "No release updates"
-              }
-            ]
+            "name": "Label text",
+            "kind": "text",
+            "text": "What’s new"
           }
         ]
       },
       {
-        "name": "Property 1=List",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "0px",
-          "padding": {
-            "top": "4px",
-            "right": "0px",
-            "bottom": "4px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Header",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "Label text",
-                "kind": "text",
-                "text": "What’s new"
-              }
-            ]
-          },
-          {
-            "name": "Divider",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Show leading icon": true,
-              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
-              "Show trailing icon": false,
-              "Type": "Divider",
-              "State": "Default"
-            }
-          },
-          {
-            "name": "Release item",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label text",
-                "kind": "text",
-                "text": "Quick Access to Featured Properties. We've improved the display of featured properties to provide a smoother and more efficient search experience. You can now feature properties related to Custom Items in the search results."
-              },
-              {
-                "name": "Tags",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "hug",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Studio",
-                      "Color": "Indigo"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Explorer",
-                      "Color": "Teal"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Leading icon show": false,
-                      "Trailing icon show": false,
-                      "Label": "Enhancement",
-                      "Color": "Purple"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "Divider",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Show leading icon": true,
-              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
-              "Show trailing icon": false,
-              "Type": "Divider",
-              "State": "Default"
-            }
-          },
-          {
-            "name": "Release item",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label text",
-                "kind": "text",
-                "text": "Track and Act on Access Requests We’ve enhanced the Data Access Requests experience in Zeenea Studio and Zeenea Explorer, making it easier to manage and review requests.\nExplorer\nEnhancement"
-              },
-              {
-                "name": "Tags",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "hug",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Studio",
-                      "Color": "Indigo"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Explorer",
-                      "Color": "Teal"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Leading icon show": false,
-                      "Trailing icon show": false,
-                      "Label": "Enhancement",
-                      "Color": "Purple"
-                    }
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            "name": "Divider",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Show leading icon": true,
-              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
-              "Show trailing icon": false,
-              "Type": "Divider",
-              "State": "Default"
-            }
-          },
-          {
-            "name": "Release item",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Label text",
-                "kind": "text",
-                "text": "Introducing Data Access Requests You can now request access to datasets and visualizations directly in Zeenea Explorer, making it easier than ever to get the data you need."
-              },
-              {
-                "name": "Tags",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "hug",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Studio",
-                      "Color": "Indigo"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Explorer",
-                      "Color": "Teal"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "New feature",
-                      "Color": "Yellow"
-                    }
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "name": ".menu item",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Show leading icon": true,
+          "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
+          "Show trailing icon": false,
+          "Type": "Divider",
+          "State": "Default"
+        }
       },
       {
-        "name": "Property 1=Drilldown1",
+        "name": "Body",
         "kind": "container",
         "layout": {
-          "axis": "column",
-          "gap": "0px",
+          "axis": "row",
+          "gap": "8px",
           "padding": {
-            "top": "4px",
-            "right": "0px",
-            "bottom": "4px",
-            "left": "0px"
+            "top": "8px",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px"
           },
           "align": {
             "main": "start",
             "cross": "start"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "fill",
             "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Header",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "Leading icon",
-                "kind": "instance",
-                "slug": "chevron-left"
-              },
-              {
-                "name": "Label text",
-                "kind": "text",
-                "text": "Quick Access to Featured Properties"
-              }
-            ]
-          },
-          {
-            "name": "Divider",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Show leading icon": true,
-              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
-              "Show trailing icon": false,
-              "Type": "Divider",
-              "State": "Default"
-            }
-          },
-          {
-            "name": "Body",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Tag",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "hug",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Studio",
-                      "Color": "Indigo"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Explorer",
-                      "Color": "Teal"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Leading icon show": false,
-                      "Trailing icon show": false,
-                      "Label": "Enhancement",
-                      "Color": "Purple"
-                    }
-                  }
-                ]
-              },
-              {
-                "name": "Label text",
-                "kind": "text",
-                "text": "We've improved the display of featured properties to provide a smoother and more efficient search experience. You can now feature properties related to Custom Items in the search results.\n\nWhen searching in Zeenea Studio and Zeenea Explorer, these properties are not only shown in the preview of each Item in the results list but are also clickable—clicking on a property opens a side panel with complete details without leaving the search results page."
-              },
-              {
-                "name": "Image",
-                "kind": "vector"
-              },
-              {
-                "name": "Link",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "State": "Enabled"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "Property 1=Drilldown2",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "0px",
-          "padding": {
-            "top": "4px",
-            "right": "0px",
-            "bottom": "4px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Header",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "fixed"
-              }
-            },
-            "children": [
-              {
-                "name": "Leading icon",
-                "kind": "instance",
-                "slug": "chevron-left"
-              },
-              {
-                "name": "Label text",
-                "kind": "text",
-                "text": "Quick Access to Featured Properties"
-              }
-            ]
-          },
-          {
-            "name": "Divider",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Show leading icon": true,
-              "Label text": "New items inventoried from PowerBi Online V1 at 7/3/25, 2:02PM.",
-              "Show trailing icon": false,
-              "Type": "Divider",
-              "State": "Default"
-            }
-          },
-          {
-            "name": "Body",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "8px",
-                "right": "8px",
-                "bottom": "8px",
-                "left": "8px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "Tags",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "hug",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Studio",
-                      "Color": "Indigo"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "Explorer",
-                      "Color": "Teal"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Default",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Trailing icon show": false,
-                      "Leading icon show": false,
-                      "Label": "New feature",
-                      "Color": "Yellow"
-                    }
-                  }
-                ]
-              },
-              {
-                "name": "Body",
-                "kind": "text",
-                "text": "You can now request access to datasets and visualizations directly in Zeenea Explorer, making it easier than ever to get the data you need.\n\nWhen submitting a request, you'll specify key details: why you need the data and who will use it (individual or service account).\n\nQuick & Simple Requests –Click \"Request Access\" on any dataset or visualization and fill in key details. ..."
-              },
-              {
-                "name": "Link",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "State": "Enabled"
-                }
-              }
-            ]
+            "name": "Label text",
+            "kind": "text",
+            "text": "No release updates"
           }
         ]
       }

@@ -2,44 +2,53 @@
   "_schema_version": 1,
   "slug": "table",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "15295:14902"
+    "nodeId": "15295:14902",
+    "variant": "Built type=By columns"
   },
   "quality": {
-    "nodesTotal": 21,
-    "nodesNormalized": 5,
-    "ratio": 0.24,
+    "nodesTotal": 12,
+    "nodesNormalized": 2,
+    "ratio": 0.17,
     "degraded": []
   },
   "root": {
-    "name": "✍️ Table",
+    "name": "Built type=By columns",
     "kind": "container",
     "layout": {
       "axis": "column",
-      "gap": "8px",
+      "gap": "0px",
       "padding": {
-        "top": "16px",
-        "right": "16px",
-        "bottom": "16px",
-        "left": "16px"
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
       },
       "align": {
         "main": "start",
         "cross": "start"
       },
       "sizing": {
-        "h": "fixed",
-        "v": "fixed"
+        "h": "fill",
+        "v": "hug"
       }
     },
     "children": [
       {
-        "name": "Built type=By columns",
+        "name": ".table header control",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Property 1": "Default"
+        }
+      },
+      {
+        "name": "Columns",
         "kind": "container",
         "layout": {
-          "axis": "column",
+          "axis": "row",
           "gap": "0px",
           "padding": {
             "top": "0px",
@@ -49,7 +58,7 @@
           },
           "align": {
             "main": "start",
-            "cross": "start"
+            "cross": "center"
           },
           "sizing": {
             "h": "fill",
@@ -58,206 +67,78 @@
         },
         "children": [
           {
-            "name": ".table header control",
+            "name": ".Table column",
             "kind": "instance",
             "unresolved": true,
             "props": {
-              "Property 1": "Default"
+              "Type": "Default"
             }
           },
           {
-            "name": "Columns",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "0px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".Table column",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Default"
-                }
-              },
-              {
-                "name": ".Table column",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Default"
-                }
-              },
-              {
-                "name": ".Table column",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Default"
-                }
-              },
-              {
-                "name": ".Table column",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Default"
-                }
-              },
-              {
-                "name": ".Table column",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Default"
-                }
-              },
-              {
-                "name": ".Table column",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Default"
-                }
-              },
-              {
-                "name": ".Table column",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Tag"
-                }
-              },
-              {
-                "name": ".Table column",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Type": "Actions"
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Pagination",
+            "name": ".Table column",
             "kind": "instance",
             "unresolved": true,
             "props": {
-              "Property 1": "Default"
+              "Type": "Default"
+            }
+          },
+          {
+            "name": ".Table column",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Default"
+            }
+          },
+          {
+            "name": ".Table column",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Default"
+            }
+          },
+          {
+            "name": ".Table column",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Default"
+            }
+          },
+          {
+            "name": ".Table column",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Default"
+            }
+          },
+          {
+            "name": ".Table column",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Tag"
+            }
+          },
+          {
+            "name": ".Table column",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Type": "Actions"
             }
           }
         ]
       },
       {
-        "name": "Built type=By rows",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "0px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fill",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": ".table header control",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Property 1": "Default"
-            }
-          },
-          {
-            "name": "Columns",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "0px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "center",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".table-row-header",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Property 1": "Default"
-                }
-              },
-              {
-                "name": ".table-row-body",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Property 1": "Default"
-                }
-              },
-              {
-                "name": ".table-row-body",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Property 1": "Default"
-                }
-              },
-              {
-                "name": ".table-row-body",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Property 1": "Default"
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Pagination",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Property 1": "Default"
-            }
-          }
-        ]
+        "name": ".Pagination",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Property 1": "Default"
+        }
       }
     ]
   }

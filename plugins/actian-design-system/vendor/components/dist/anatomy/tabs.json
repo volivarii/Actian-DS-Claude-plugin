@@ -2,200 +2,180 @@
   "_schema_version": 1,
   "slug": "tabs",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "14747:14818"
+    "nodeId": "14747:14818",
+    "variant": "Property 1=Default"
   },
   "quality": {
-    "nodesTotal": 14,
+    "nodesTotal": 13,
     "nodesNormalized": 1,
-    "ratio": 0.07,
-    "degraded": [
-      {
-        "name": "Tabs",
-        "reason": "layoutMode:NONE"
-      }
-    ]
+    "ratio": 0.08,
+    "degraded": []
   },
   "root": {
-    "name": "Tabs",
+    "name": "Property 1=Default",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 4406,
-      "y": 410,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "row",
+      "gap": "0px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "fixed"
       }
     },
     "children": [
       {
-        "name": "Property 1=Default",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "0px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
-          },
-          "align": {
-            "main": "start",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Number": true,
-              "Label text": "Tab",
-              "Icon": false,
-              "Selected": "Yes",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": ".tab",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "Label text": "Tab",
-              "Number": true,
-              "Icon": false,
-              "Selected": "No",
-              "State": "Default"
-            }
-          },
-          {
-            "name": "Avatar",
-            "kind": "instance",
-            "unresolved": true,
-            "props": {
-              "State": "Default",
-              "Type": "Two groups"
-            }
-          }
-        ]
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Number": true,
+          "Label text": "Tab",
+          "Icon": false,
+          "Selected": "Yes",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": ".tab",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "Label text": "Tab",
+          "Number": true,
+          "Icon": false,
+          "Selected": "No",
+          "State": "Default"
+        }
+      },
+      {
+        "name": "Avatar",
+        "kind": "instance",
+        "unresolved": true,
+        "props": {
+          "State": "Default",
+          "Type": "Two groups"
+        }
       }
     ]
   }

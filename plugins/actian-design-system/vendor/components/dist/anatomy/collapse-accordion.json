@@ -2,188 +2,79 @@
   "_schema_version": 1,
   "slug": "collapse-accordion",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "8292:80"
+    "nodeId": "8292:80",
+    "variant": "State=Collapsed"
   },
   "quality": {
-    "nodesTotal": 10,
-    "nodesNormalized": 7,
-    "ratio": 0.7,
-    "degraded": [
-      {
-        "name": "✍️ Collapse-accordion",
-        "reason": "layoutMode:NONE"
-      }
-    ]
+    "nodesTotal": 4,
+    "nodesNormalized": 3,
+    "ratio": 0.75,
+    "degraded": []
   },
   "root": {
-    "name": "✍️ Collapse-accordion",
+    "name": "State=Collapsed",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 2118,
-      "y": 1821,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "row",
+      "gap": "8px",
+      "padding": {
+        "top": "16px",
+        "right": "16px",
+        "bottom": "16px",
+        "left": "16px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
       }
     },
     "children": [
       {
-        "name": "State=Collapsed",
+        "name": "Header",
         "kind": "container",
         "layout": {
           "axis": "row",
-          "gap": "8px",
+          "gap": "242px",
           "padding": {
-            "top": "16px",
-            "right": "16px",
-            "bottom": "16px",
-            "left": "16px"
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
           },
           "align": {
-            "main": "start",
+            "main": "space-between",
             "cross": "center"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "fill",
             "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Header",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "242px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "space-between",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "sideNavHeading",
-                "kind": "text",
-                "text": "Accordion header "
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show leading icon": true,
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "Add",
-                  "Type": "Icon",
-                  "Size": "Small",
-                  "State": "Default"
-                }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "name": "State=Expanede",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "8px",
-          "padding": {
-            "top": "16px",
-            "right": "16px",
-            "bottom": "16px",
-            "left": "16px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "hug"
-          }
-        },
-        "children": [
-          {
-            "name": "Header",
-            "kind": "container",
-            "layout": {
-              "axis": "row",
-              "gap": "242px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "space-between",
-                "cross": "center"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": "sideNavHeading",
-                "kind": "text",
-                "text": "Accordion header "
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show leading icon": true,
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "Add",
-                  "Type": "Icon",
-                  "Size": "Small",
-                  "State": "Default"
-                }
-              }
-            ]
+            "name": "sideNavHeading",
+            "kind": "text",
+            "text": "Accordion header "
           },
           {
-            "name": "Slot",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "8px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
+            "name": "Button",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show leading icon": true,
+              "Show label": true,
+              "Show trailing icon": true,
+              "Label": "Add",
+              "Type": "Icon",
+              "Size": "Small",
+              "State": "Default"
             }
           }
         ]

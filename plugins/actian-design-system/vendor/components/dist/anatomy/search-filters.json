@@ -2,20 +2,17 @@
   "_schema_version": 1,
   "slug": "search-filters",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "9660:49637"
+    "nodeId": "9660:49637",
+    "variant": "Type=Studio"
   },
   "quality": {
-    "nodesTotal": 284,
-    "nodesNormalized": 208,
-    "ratio": 0.73,
+    "nodesTotal": 126,
+    "nodesNormalized": 95,
+    "ratio": 0.75,
     "degraded": [
-      {
-        "name": "Search filters",
-        "reason": "layoutMode:NONE"
-      },
       {
         "name": "Bar",
         "reason": "layoutMode:NONE"
@@ -23,48 +20,90 @@
     ]
   },
   "root": {
-    "name": "Search filters",
+    "name": "Type=Studio",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": -1312,
-      "y": -5671,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "column",
+      "gap": "16px",
+      "padding": {
+        "top": "12px",
+        "right": "12px",
+        "bottom": "12px",
+        "left": "12px"
+      },
+      "align": {
+        "main": "start",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "hug"
       }
     },
     "children": [
       {
-        "name": "Type=Studio",
+        "name": "Filters",
+        "kind": "text",
+        "text": "Filters"
+      },
+      {
+        "name": ".Filter groups",
         "kind": "container",
         "layout": {
           "axis": "column",
-          "gap": "16px",
+          "gap": "4px",
           "padding": {
-            "top": "12px",
-            "right": "12px",
-            "bottom": "12px",
-            "left": "12px"
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
           },
           "align": {
             "main": "start",
             "cross": "start"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "fill",
             "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Filters",
-            "kind": "text",
-            "text": "Filters"
+            "name": ".Filter group header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "4px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Group label",
+                "kind": "text",
+                "text": "Completion level"
+              },
+              {
+                "name": "arrow-down",
+                "kind": "instance",
+                "slug": "arrow-down"
+              }
+            ]
           },
           {
-            "name": ".Filter groups",
+            "name": "Bar, percentage",
             "kind": "container",
             "layout": {
               "axis": "column",
@@ -86,15 +125,48 @@
             },
             "children": [
               {
-                "name": ".Filter group header",
+                "name": "Result",
+                "kind": "text",
+                "text": "2,341 results"
+              },
+              {
+                "name": "Bar",
+                "kind": "container",
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": -968,
+                  "y": -5557,
+                  "constraints": {
+                    "vertical": "TOP",
+                    "horizontal": "LEFT"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Background",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Progress",
+                    "kind": "vector"
+                  },
+                  {
+                    "name": "Progress",
+                    "kind": "vector"
+                  }
+                ]
+              },
+              {
+                "name": "0% 100%",
                 "kind": "container",
                 "layout": {
                   "axis": "row",
-                  "gap": "4px",
+                  "gap": "201px",
                   "padding": {
                     "top": "0px",
                     "right": "0px",
-                    "bottom": "4px",
+                    "bottom": "0px",
                     "left": "0px"
                   },
                   "align": {
@@ -103,1343 +175,87 @@
                   },
                   "sizing": {
                     "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Completion level"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Bar, percentage",
-                "kind": "container",
-                "layout": {
-                  "axis": "column",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fill",
                     "v": "hug"
                   }
                 },
                 "children": [
                   {
-                    "name": "Result",
+                    "name": "0%",
                     "kind": "text",
-                    "text": "2,341 results"
+                    "text": "0%"
                   },
                   {
-                    "name": "Bar",
-                    "kind": "container",
-                    "normalizable": false,
-                    "rawHint": {
-                      "layoutMode": "NONE",
-                      "x": -968,
-                      "y": -5557,
-                      "constraints": {
-                        "vertical": "TOP",
-                        "horizontal": "LEFT"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Background",
-                        "kind": "vector"
-                      },
-                      {
-                        "name": "Progress",
-                        "kind": "vector"
-                      },
-                      {
-                        "name": "Progress",
-                        "kind": "vector"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "0% 100%",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "201px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "space-between",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "0%",
-                        "kind": "text",
-                        "text": "0%"
-                      },
-                      {
-                        "name": "100%",
-                        "kind": "text",
-                        "text": "100%"
-                      }
-                    ]
+                    "name": "100%",
+                    "kind": "text",
+                    "text": "100%"
                   }
                 ]
               }
             ]
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
           },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
           {
-            "name": ".Filter groups",
+            "name": ".Filter group header",
             "kind": "container",
             "layout": {
-              "axis": "column",
+              "axis": "row",
               "gap": "4px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
-                "bottom": "0px",
+                "bottom": "4px",
                 "left": "0px"
               },
               "align": {
-                "main": "start",
-                "cross": "start"
+                "main": "space-between",
+                "cross": "center"
               },
               "sizing": {
                 "h": "fill",
-                "v": "hug"
+                "v": "fixed"
               }
             },
             "children": [
               {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Item type"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
+                "name": "Group label",
+                "kind": "text",
+                "text": "Item type"
               },
               {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Data products",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Digram, Item types",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Item type": "Data product",
-                          "Size": "Default"
-                        }
-                      },
-                      {
-                        "name": "Data Products",
-                        "kind": "text",
-                        "text": "Data Products"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "10",
-                    "kind": "text",
-                    "text": "10"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Datasets",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Digram, Item types",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Item type": "Dataset",
-                          "Size": "Default"
-                        }
-                      },
-                      {
-                        "name": "Datasets",
-                        "kind": "text",
-                        "text": "Datasets"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "325",
-                    "kind": "text",
-                    "text": "325"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Visualizations",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Digram, Item types",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Item type": "Visualization",
-                          "Size": "Default"
-                        }
-                      },
-                      {
-                        "name": "Visualizations",
-                        "kind": "text",
-                        "text": "Visualizations"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "147,247",
-                    "kind": "text",
-                    "text": "147,247"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Data processes",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Digram, Item types",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Item type": "Data process",
-                          "Size": "Default"
-                        }
-                      },
-                      {
-                        "name": "Data Processes",
-                        "kind": "text",
-                        "text": "Data Processes"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "15",
-                    "kind": "text",
-                    "text": "15"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Use cases",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Digram, Item types",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Item type": "Use case",
-                          "Size": "Default"
-                        }
-                      },
-                      {
-                        "name": "Use Cases",
-                        "kind": "text",
-                        "text": "Use Cases"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "5",
-                    "kind": "text",
-                    "text": "5"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Categories",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Digram, Item types",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Item type": "Category",
-                          "Size": "Default"
-                        }
-                      },
-                      {
-                        "name": "Categories",
-                        "kind": "text",
-                        "text": "Categories"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "5",
-                    "kind": "text",
-                    "text": "5"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "[A-Team] delete",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Digram, Item types",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Item type": "Field",
-                          "Size": "Default"
-                        }
-                      },
-                      {
-                        "name": "[A-Team] delete",
-                        "kind": "text",
-                        "text": "[A-Team] delete"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "5",
-                    "kind": "text",
-                    "text": "5"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "aa_new_type",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Digram, Item types",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Item type": "Field",
-                          "Size": "Default"
-                        }
-                      },
-                      {
-                        "name": "aa_new_type",
-                        "kind": "text",
-                        "text": "aa_new_type"
-                      }
-                    ]
-                  },
-                  {
-                    "name": "5",
-                    "kind": "text",
-                    "text": "5"
-                  }
-                ]
-              },
-              {
-                "name": "Button",
+                "name": "arrow-down",
                 "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "View more (269)",
-                  "Show leading icon": false,
-                  "Type": "Tertiary",
-                  "Size": "Small",
-                  "State": "Default"
-                }
+                "slug": "arrow-down"
               }
             ]
           },
           {
-            "name": ".Filter groups",
+            "name": "fitler item",
             "kind": "container",
             "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "User suggestion"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Toglge",
-                "kind": "container",
-                "layout": {
-                  "axis": "column",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Radio + label",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "4px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "fill",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Label",
-                        "kind": "text",
-                        "text": "Show items with pending suggestions"
-                      },
-                      {
-                        "name": ".Toggle switch",
-                        "kind": "instance",
-                        "unresolved": true,
-                        "props": {
-                          "Selected": "No",
-                          "State": "Default"
-                        }
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Placeholder text": "Choose a value",
-                  "Label": false,
-                  "Input text": "Last 24 hours",
-                  "Description": false,
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Info icon": false,
-                  "Delete icon": false,
-                  "* (Asterisk)": false,
-                  "Label text": "",
-                  "Helper": false,
-                  "Trailing icon": true
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Filter groups",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Item lifecycle event"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Placeholder text": "Choose a value",
-                  "Label": false,
-                  "Input text": "Choose a value",
-                  "Description": false,
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Info icon": false,
-                  "Delete icon": false,
-                  "* (Asterisk)": false,
-                  "Label text": "",
-                  "Helper": false,
-                  "Trailing icon": true
-                }
-              },
-              {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Placeholder text": "Choose a value",
-                  "Label": false,
-                  "Input text": "Last 24 hours",
-                  "Description": false,
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Info icon": false,
-                  "Delete icon": false,
-                  "* (Asterisk)": false,
-                  "Label text": "",
-                  "Helper": false,
-                  "Trailing icon": true
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Filter groups",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Curator"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Input text": "Choose a value",
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Delete icon": false,
-                  "Helper": false,
-                  "Label text": "",
-                  "Placeholder text": "Choose a value",
-                  "Info icon": false,
-                  "* (Asterisk)": false,
-                  "Trailing icon": true,
-                  "Description": false,
-                  "Label": false
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Filter groups",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Contact"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Input text": "Choose a value",
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Delete icon": false,
-                  "Helper": false,
-                  "Label text": "",
-                  "Placeholder text": "Choose a value",
-                  "Info icon": false,
-                  "* (Asterisk)": false,
-                  "Trailing icon": true,
-                  "Description": false,
-                  "Label": false
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Filter groups",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Category"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Input text": "Choose a value",
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Delete icon": false,
-                  "Helper": false,
-                  "Label text": "",
-                  "Placeholder text": "Choose a value",
-                  "Info icon": false,
-                  "* (Asterisk)": false,
-                  "Trailing icon": true,
-                  "Description": false,
-                  "Label": false
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Filter groups",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Access request policy"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Input text": "Choose a value",
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Delete icon": false,
-                  "Helper": false,
-                  "Label text": "",
-                  "Placeholder text": "Choose a value",
-                  "Info icon": false,
-                  "* (Asterisk)": false,
-                  "Trailing icon": true,
-                  "Description": false,
-                  "Label": false
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Filter groups",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
+              "axis": "row",
               "gap": "0px",
               "padding": {
                 "top": "0px",
@@ -1449,7 +265,7 @@
               },
               "align": {
                 "main": "start",
-                "cross": "start"
+                "cross": "center"
               },
               "sizing": {
                 "h": "fill",
@@ -1458,84 +274,16 @@
             },
             "children": [
               {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Source application"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Input",
+                "name": ".Checkbox",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
-                  "Helper text": "Helper text goes here",
-                  "Input text": "Choose a value",
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Delete icon": false,
-                  "Helper": false,
-                  "Label text": "",
-                  "Placeholder text": "Choose a value",
-                  "Info icon": false,
-                  "* (Asterisk)": false,
-                  "Trailing icon": true,
-                  "Description": false,
-                  "Label": false
+                  "Selected": "No",
+                  "State": "Default"
                 }
-              }
-            ]
-          },
-          {
-            "name": ".Filter groups",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
               },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
               {
-                "name": ".Filter group header",
+                "name": "Data products",
                 "kind": "container",
                 "layout": {
                   "axis": "row",
@@ -1543,161 +291,7 @@
                   "padding": {
                     "top": "0px",
                     "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Regulation"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Input text": "Choose a value",
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Delete icon": false,
-                  "Helper": false,
-                  "Label text": "",
-                  "Placeholder text": "Choose a value",
-                  "Info icon": false,
-                  "* (Asterisk)": false,
-                  "Trailing icon": true,
-                  "Description": false,
-                  "Label": false
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Filter groups",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Connection type"
-                  },
-                  {
-                    "name": "arrow-down",
-                    "kind": "instance",
-                    "slug": "arrow-down"
-                  }
-                ]
-              },
-              {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Input text": "Choose a value",
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Delete icon": false,
-                  "Helper": false,
-                  "Label text": "",
-                  "Placeholder text": "Choose a value",
-                  "Info icon": false,
-                  "* (Asterisk)": false,
-                  "Trailing icon": true,
-                  "Description": false,
-                  "Label": false
-                }
-              }
-            ]
-          },
-          {
-            "name": ".Filter groups",
-            "kind": "container",
-            "layout": {
-              "axis": "column",
-              "gap": "4px",
-              "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
-              },
-              "align": {
-                "main": "start",
-                "cross": "start"
-              },
-              "sizing": {
-                "h": "fill",
-                "v": "hug"
-              }
-            },
-            "children": [
-              {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
+                    "bottom": "0px",
                     "left": "0px"
                   },
                   "align": {
@@ -1706,44 +300,39 @@
                   },
                   "sizing": {
                     "h": "fill",
-                    "v": "fixed"
+                    "v": "hug"
                   }
                 },
                 "children": [
                   {
-                    "name": "Group label",
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Data product",
+                      "Size": "Default"
+                    }
+                  },
+                  {
+                    "name": "Data Products",
                     "kind": "text",
-                    "text": "Curator"
+                    "text": "Data Products"
                   }
                 ]
               },
               {
-                "name": "Input",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Helper text": "Helper text goes here",
-                  "Input text": "Choose a value",
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Delete icon": false,
-                  "Helper": false,
-                  "Label text": "",
-                  "Placeholder text": "Choose a value",
-                  "Info icon": false,
-                  "* (Asterisk)": false,
-                  "Trailing icon": true,
-                  "Description": false,
-                  "Label": false
-                }
+                "name": "10",
+                "kind": "text",
+                "text": "10"
               }
             ]
           },
           {
-            "name": ".Filter groups",
+            "name": "fitler item",
             "kind": "container",
             "layout": {
-              "axis": "column",
-              "gap": "4px",
+              "axis": "row",
+              "gap": "0px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
@@ -1752,7 +341,7 @@
               },
               "align": {
                 "main": "start",
-                "cross": "start"
+                "cross": "center"
               },
               "sizing": {
                 "h": "fill",
@@ -1761,7 +350,16 @@
             },
             "children": [
               {
-                "name": ".Filter group header",
+                "name": ".Checkbox",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Selected": "No",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": "Datasets",
                 "kind": "container",
                 "layout": {
                   "axis": "row",
@@ -1769,7 +367,7 @@
                   "padding": {
                     "top": "0px",
                     "right": "0px",
-                    "bottom": "4px",
+                    "bottom": "0px",
                     "left": "0px"
                   },
                   "align": {
@@ -1778,431 +376,571 @@
                   },
                   "sizing": {
                     "h": "fill",
-                    "v": "fixed"
+                    "v": "hug"
                   }
                 },
                 "children": [
                   {
-                    "name": "Group label",
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Dataset",
+                      "Size": "Default"
+                    }
+                  },
+                  {
+                    "name": "Datasets",
                     "kind": "text",
-                    "text": "Curator"
+                    "text": "Datasets"
                   }
                 ]
               },
               {
-                "name": "Input",
+                "name": "325",
+                "kind": "text",
+                "text": "325"
+              }
+            ]
+          },
+          {
+            "name": "fitler item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": ".Checkbox",
                 "kind": "instance",
                 "unresolved": true,
                 "props": {
-                  "Helper text": "Helper text goes here",
-                  "Input text": "Choose a value",
-                  "Description text": "A description helps users to define and understand the purpose of the input.",
-                  "Delete icon": false,
-                  "Helper": false,
-                  "Label text": "",
-                  "Placeholder text": "Choose a value",
-                  "Info icon": false,
-                  "* (Asterisk)": false,
-                  "Trailing icon": true,
-                  "Description": false,
-                  "Label": false
+                  "Selected": "No",
+                  "State": "Default"
                 }
+              },
+              {
+                "name": "Visualizations",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Visualization",
+                      "Size": "Default"
+                    }
+                  },
+                  {
+                    "name": "Visualizations",
+                    "kind": "text",
+                    "text": "Visualizations"
+                  }
+                ]
+              },
+              {
+                "name": "147,247",
+                "kind": "text",
+                "text": "147,247"
               }
             ]
+          },
+          {
+            "name": "fitler item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": ".Checkbox",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Selected": "No",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": "Data processes",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Data process",
+                      "Size": "Default"
+                    }
+                  },
+                  {
+                    "name": "Data Processes",
+                    "kind": "text",
+                    "text": "Data Processes"
+                  }
+                ]
+              },
+              {
+                "name": "15",
+                "kind": "text",
+                "text": "15"
+              }
+            ]
+          },
+          {
+            "name": "fitler item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": ".Checkbox",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Selected": "No",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": "Use cases",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Use case",
+                      "Size": "Default"
+                    }
+                  },
+                  {
+                    "name": "Use Cases",
+                    "kind": "text",
+                    "text": "Use Cases"
+                  }
+                ]
+              },
+              {
+                "name": "5",
+                "kind": "text",
+                "text": "5"
+              }
+            ]
+          },
+          {
+            "name": "fitler item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": ".Checkbox",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Selected": "No",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": "Categories",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Category",
+                      "Size": "Default"
+                    }
+                  },
+                  {
+                    "name": "Categories",
+                    "kind": "text",
+                    "text": "Categories"
+                  }
+                ]
+              },
+              {
+                "name": "5",
+                "kind": "text",
+                "text": "5"
+              }
+            ]
+          },
+          {
+            "name": "fitler item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": ".Checkbox",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Selected": "No",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": "[A-Team] delete",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Field",
+                      "Size": "Default"
+                    }
+                  },
+                  {
+                    "name": "[A-Team] delete",
+                    "kind": "text",
+                    "text": "[A-Team] delete"
+                  }
+                ]
+              },
+              {
+                "name": "5",
+                "kind": "text",
+                "text": "5"
+              }
+            ]
+          },
+          {
+            "name": "fitler item",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "0px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "0px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "hug"
+              }
+            },
+            "children": [
+              {
+                "name": ".Checkbox",
+                "kind": "instance",
+                "unresolved": true,
+                "props": {
+                  "Selected": "No",
+                  "State": "Default"
+                }
+              },
+              {
+                "name": "aa_new_type",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "4px",
+                  "padding": {
+                    "top": "0px",
+                    "right": "0px",
+                    "bottom": "0px",
+                    "left": "0px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "fill",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Digram, Item types",
+                    "kind": "instance",
+                    "unresolved": true,
+                    "props": {
+                      "Item type": "Field",
+                      "Size": "Default"
+                    }
+                  },
+                  {
+                    "name": "aa_new_type",
+                    "kind": "text",
+                    "text": "aa_new_type"
+                  }
+                ]
+              },
+              {
+                "name": "5",
+                "kind": "text",
+                "text": "5"
+              }
+            ]
+          },
+          {
+            "name": "Button",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Show label": true,
+              "Show trailing icon": true,
+              "Label": "View more (269)",
+              "Show leading icon": false,
+              "Type": "Tertiary",
+              "Size": "Small",
+              "State": "Default"
+            }
           }
         ]
       },
       {
-        "name": "Type=Explorer",
+        "name": ".Filter groups",
         "kind": "container",
         "layout": {
           "axis": "column",
-          "gap": "16px",
+          "gap": "4px",
           "padding": {
-            "top": "16px",
-            "right": "16px",
-            "bottom": "16px",
-            "left": "16px"
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
           },
           "align": {
             "main": "start",
             "cross": "start"
           },
           "sizing": {
-            "h": "fixed",
+            "h": "fill",
             "v": "hug"
           }
         },
         "children": [
           {
-            "name": ".Filter groups",
+            "name": ".Filter group header",
             "kind": "container",
             "layout": {
-              "axis": "column",
+              "axis": "row",
               "gap": "4px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
-                "bottom": "0px",
+                "bottom": "4px",
                 "left": "0px"
               },
               "align": {
-                "main": "start",
-                "cross": "start"
+                "main": "space-between",
+                "cross": "center"
               },
               "sizing": {
                 "h": "fill",
-                "v": "hug"
+                "v": "fixed"
               }
             },
             "children": [
               {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Item type"
-                  }
-                ]
+                "name": "Group label",
+                "kind": "text",
+                "text": "User suggestion"
               },
               {
-                "name": "Search",
+                "name": "arrow-down",
                 "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "AI icon": false,
-                  "Type": "Inline",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Catalog item type",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Show counter": false,
-                      "Type": "Data product"
-                    }
-                  },
-                  {
-                    "name": "10",
-                    "kind": "text",
-                    "text": "10"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Catalog item type",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Show counter": false,
-                      "Type": "Dataset"
-                    }
-                  },
-                  {
-                    "name": "325",
-                    "kind": "text",
-                    "text": "325"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Catalog item type",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Show counter": false,
-                      "Type": "Visualization"
-                    }
-                  },
-                  {
-                    "name": "147,247",
-                    "kind": "text",
-                    "text": "147,247"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Catalog item type",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Show counter": false,
-                      "Type": "Data process"
-                    }
-                  },
-                  {
-                    "name": "15",
-                    "kind": "text",
-                    "text": "15"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Catalog item type",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Show counter": false,
-                      "Type": "Use case"
-                    }
-                  },
-                  {
-                    "name": "5",
-                    "kind": "text",
-                    "text": "5"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "✍️ Tag, Catalog item type",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Show counter": false,
-                      "Type": "Category"
-                    }
-                  },
-                  {
-                    "name": "5",
-                    "kind": "text",
-                    "text": "5"
-                  }
-                ]
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "View all (+58)",
-                  "Show leading icon": false,
-                  "Type": "Tertiary",
-                  "Size": "Small",
-                  "State": "Default"
-                }
+                "slug": "arrow-down"
               }
             ]
           },
           {
-            "name": ".Filter groups",
+            "name": "Toglge",
             "kind": "container",
             "layout": {
               "axis": "column",
-              "gap": "4px",
+              "gap": "0px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
-                "bottom": "0px",
+                "bottom": "4px",
                 "left": "0px"
               },
               "align": {
@@ -2216,7 +954,7 @@
             },
             "children": [
               {
-                "name": ".Filter group header",
+                "name": "Radio + label",
                 "kind": "container",
                 "layout": {
                   "axis": "row",
@@ -2224,35 +962,6 @@
                   "padding": {
                     "top": "0px",
                     "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Data quality check result"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
                     "bottom": "0px",
                     "left": "0px"
                   },
@@ -2267,1420 +976,820 @@
                 },
                 "children": [
                   {
-                    "name": ".Checkbox",
+                    "name": "Label",
+                    "kind": "text",
+                    "text": "Show items with pending suggestions"
+                  },
+                  {
+                    "name": ".Toggle switch",
                     "kind": "instance",
                     "unresolved": true,
                     "props": {
                       "Selected": "No",
                       "State": "Default"
                     }
-                  },
-                  {
-                    "name": "Ok",
-                    "kind": "text",
-                    "text": "Ok"
-                  },
-                  {
-                    "name": "4",
-                    "kind": "text",
-                    "text": "4"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "0px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "DoNotUse",
-                    "kind": "text",
-                    "text": "DoNotUse"
-                  },
-                  {
-                    "name": "4",
-                    "kind": "text",
-                    "text": "4"
                   }
                 ]
               }
             ]
           },
           {
-            "name": ".Filter groups",
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Placeholder text": "Choose a value",
+              "Label": false,
+              "Input text": "Last 24 hours",
+              "Description": false,
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Info icon": false,
+              "Delete icon": false,
+              "* (Asterisk)": false,
+              "Label text": "",
+              "Helper": false,
+              "Trailing icon": true
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
             "kind": "container",
             "layout": {
-              "axis": "column",
+              "axis": "row",
               "gap": "4px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
-                "bottom": "0px",
+                "bottom": "4px",
                 "left": "0px"
               },
               "align": {
-                "main": "start",
-                "cross": "start"
+                "main": "space-between",
+                "cross": "center"
               },
               "sizing": {
                 "h": "fill",
-                "v": "hug"
+                "v": "fixed"
               }
             },
             "children": [
               {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Data source"
-                  }
-                ]
+                "name": "Group label",
+                "kind": "text",
+                "text": "Item lifecycle event"
               },
               {
-                "name": "Search",
+                "name": "arrow-down",
                 "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "AI icon": false,
-                  "Type": "Inline",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Api Connection",
-                    "kind": "text",
-                    "text": "Api Connection"
-                  },
-                  {
-                    "name": "3",
-                    "kind": "text",
-                    "text": "3"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "atemple’s mock dataset connection",
-                    "kind": "text",
-                    "text": "atemple’s mock dataset connection"
-                  },
-                  {
-                    "name": "2",
-                    "kind": "text",
-                    "text": "2"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Bigquery public data",
-                    "kind": "text",
-                    "text": "Bigquery public data"
-                  },
-                  {
-                    "name": "13",
-                    "kind": "text",
-                    "text": "13"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "BigQuery Public Data",
-                    "kind": "text",
-                    "text": "BigQuery Public Data"
-                  },
-                  {
-                    "name": "3",
-                    "kind": "text",
-                    "text": "3"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Custom Item Lifecycel",
-                    "kind": "text",
-                    "text": "Custom Item Lifecycel"
-                  },
-                  {
-                    "name": "10",
-                    "kind": "text",
-                    "text": "10"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Custom Item Summary",
-                    "kind": "text",
-                    "text": "Custom Item Summary"
-                  },
-                  {
-                    "name": "10",
-                    "kind": "text",
-                    "text": "10"
-                  }
-                ]
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "View all (+23)",
-                  "Show leading icon": false,
-                  "Type": "Tertiary",
-                  "Size": "Small",
-                  "State": "Default"
-                }
+                "slug": "arrow-down"
               }
             ]
           },
           {
-            "name": ".Filter groups",
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Placeholder text": "Choose a value",
+              "Label": false,
+              "Input text": "Choose a value",
+              "Description": false,
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Info icon": false,
+              "Delete icon": false,
+              "* (Asterisk)": false,
+              "Label text": "",
+              "Helper": false,
+              "Trailing icon": true
+            }
+          },
+          {
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Placeholder text": "Choose a value",
+              "Label": false,
+              "Input text": "Last 24 hours",
+              "Description": false,
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Info icon": false,
+              "Delete icon": false,
+              "* (Asterisk)": false,
+              "Label text": "",
+              "Helper": false,
+              "Trailing icon": true
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
             "kind": "container",
             "layout": {
-              "axis": "column",
+              "axis": "row",
               "gap": "4px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
-                "bottom": "0px",
+                "bottom": "4px",
                 "left": "0px"
               },
               "align": {
-                "main": "start",
-                "cross": "start"
+                "main": "space-between",
+                "cross": "center"
               },
               "sizing": {
                 "h": "fill",
-                "v": "hug"
+                "v": "fixed"
               }
             },
             "children": [
               {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Connection"
-                  }
-                ]
+                "name": "Group label",
+                "kind": "text",
+                "text": "Curator"
               },
               {
-                "name": "Search",
+                "name": "arrow-down",
                 "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "AI icon": false,
-                  "Type": "Inline",
-                  "State": "Default"
-                }
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Api Connection",
-                    "kind": "text",
-                    "text": "Api Connection"
-                  },
-                  {
-                    "name": "3",
-                    "kind": "text",
-                    "text": "3"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "atemple’s mock dataset connection",
-                    "kind": "text",
-                    "text": "atemple’s mock dataset connection"
-                  },
-                  {
-                    "name": "2",
-                    "kind": "text",
-                    "text": "2"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Bigquery public data",
-                    "kind": "text",
-                    "text": "Bigquery public data"
-                  },
-                  {
-                    "name": "13",
-                    "kind": "text",
-                    "text": "13"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "BigQuery Public Data",
-                    "kind": "text",
-                    "text": "BigQuery Public Data"
-                  },
-                  {
-                    "name": "3",
-                    "kind": "text",
-                    "text": "3"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Custom Item Lifecycel",
-                    "kind": "text",
-                    "text": "Custom Item Lifecycel"
-                  },
-                  {
-                    "name": "10",
-                    "kind": "text",
-                    "text": "10"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Custom Item Summary",
-                    "kind": "text",
-                    "text": "Custom Item Summary"
-                  },
-                  {
-                    "name": "10",
-                    "kind": "text",
-                    "text": "10"
-                  }
-                ]
-              },
-              {
-                "name": "Button",
-                "kind": "instance",
-                "unresolved": true,
-                "props": {
-                  "Show label": true,
-                  "Show trailing icon": true,
-                  "Label": "View all (+86)",
-                  "Show leading icon": false,
-                  "Type": "Tertiary",
-                  "Size": "Small",
-                  "State": "Default"
-                }
+                "slug": "arrow-down"
               }
             ]
           },
           {
-            "name": ".Filter groups",
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Input text": "Choose a value",
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Delete icon": false,
+              "Helper": false,
+              "Label text": "",
+              "Placeholder text": "Choose a value",
+              "Info icon": false,
+              "* (Asterisk)": false,
+              "Trailing icon": true,
+              "Description": false,
+              "Label": false
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
             "kind": "container",
             "layout": {
-              "axis": "column",
+              "axis": "row",
               "gap": "4px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
-                "bottom": "0px",
+                "bottom": "4px",
                 "left": "0px"
               },
               "align": {
-                "main": "start",
-                "cross": "start"
+                "main": "space-between",
+                "cross": "center"
               },
               "sizing": {
                 "h": "fill",
-                "v": "hug"
+                "v": "fixed"
               }
             },
             "children": [
               {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Contact"
-                  }
-                ]
+                "name": "Group label",
+                "kind": "text",
+                "text": "Contact"
               },
               {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Finance",
-                    "kind": "text",
-                    "text": "Finance"
-                  },
-                  {
-                    "name": "106,387",
-                    "kind": "text",
-                    "text": "106,387"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "IT",
-                    "kind": "text",
-                    "text": "IT"
-                  },
-                  {
-                    "name": "40,686",
-                    "kind": "text",
-                    "text": "40,686"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Product",
-                    "kind": "text",
-                    "text": "Product"
-                  },
-                  {
-                    "name": "172",
-                    "kind": "text",
-                    "text": "172"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Default",
-                    "kind": "text",
-                    "text": "Default"
-                  },
-                  {
-                    "name": "11",
-                    "kind": "text",
-                    "text": "11"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Demo",
-                    "kind": "text",
-                    "text": "Demo"
-                  },
-                  {
-                    "name": "1",
-                    "kind": "text",
-                    "text": "1"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "Jan Grimes"
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "1"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "4px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "Display all (+3) "
-                  }
-                ]
+                "name": "arrow-down",
+                "kind": "instance",
+                "slug": "arrow-down"
               }
             ]
           },
           {
-            "name": ".Filter groups",
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Input text": "Choose a value",
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Delete icon": false,
+              "Helper": false,
+              "Label text": "",
+              "Placeholder text": "Choose a value",
+              "Info icon": false,
+              "* (Asterisk)": false,
+              "Trailing icon": true,
+              "Description": false,
+              "Label": false
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
             "kind": "container",
             "layout": {
-              "axis": "column",
+              "axis": "row",
               "gap": "4px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
-                "bottom": "0px",
+                "bottom": "4px",
                 "left": "0px"
               },
               "align": {
-                "main": "start",
-                "cross": "start"
+                "main": "space-between",
+                "cross": "center"
               },
               "sizing": {
                 "h": "fill",
-                "v": "hug"
+                "v": "fixed"
               }
             },
             "children": [
               {
-                "name": ".Filter group header",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "4px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Group label",
-                    "kind": "text",
-                    "text": "Contact"
-                  }
-                ]
+                "name": "Group label",
+                "kind": "text",
+                "text": "Category"
               },
               {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "No",
-                    "kind": "text",
-                    "text": "No"
-                  },
-                  {
-                    "name": "105,139",
-                    "kind": "text",
-                    "text": "105,139"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Yes",
-                    "kind": "text",
-                    "text": "Yes"
-                  },
-                  {
-                    "name": "42,118",
-                    "kind": "text",
-                    "text": "42,118"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "Product"
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "172"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "Default"
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "11"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "Demo"
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "1"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": ".Checkbox",
-                    "kind": "instance",
-                    "unresolved": true,
-                    "props": {
-                      "Selected": "No",
-                      "State": "Default"
-                    }
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "Jan Grimes"
-                  },
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "1"
-                  }
-                ]
-              },
-              {
-                "name": "fitler item",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "4px",
-                  "padding": {
-                    "top": "4px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fixed",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "Text",
-                    "kind": "text",
-                    "text": "Display all (+3) "
-                  }
-                ]
+                "name": "arrow-down",
+                "kind": "instance",
+                "slug": "arrow-down"
               }
             ]
+          },
+          {
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Input text": "Choose a value",
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Delete icon": false,
+              "Helper": false,
+              "Label text": "",
+              "Placeholder text": "Choose a value",
+              "Info icon": false,
+              "* (Asterisk)": false,
+              "Trailing icon": true,
+              "Description": false,
+              "Label": false
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "4px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Group label",
+                "kind": "text",
+                "text": "Access request policy"
+              },
+              {
+                "name": "arrow-down",
+                "kind": "instance",
+                "slug": "arrow-down"
+              }
+            ]
+          },
+          {
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Input text": "Choose a value",
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Delete icon": false,
+              "Helper": false,
+              "Label text": "",
+              "Placeholder text": "Choose a value",
+              "Info icon": false,
+              "* (Asterisk)": false,
+              "Trailing icon": true,
+              "Description": false,
+              "Label": false
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "0px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "4px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Group label",
+                "kind": "text",
+                "text": "Source application"
+              },
+              {
+                "name": "arrow-down",
+                "kind": "instance",
+                "slug": "arrow-down"
+              }
+            ]
+          },
+          {
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Input text": "Choose a value",
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Delete icon": false,
+              "Helper": false,
+              "Label text": "",
+              "Placeholder text": "Choose a value",
+              "Info icon": false,
+              "* (Asterisk)": false,
+              "Trailing icon": true,
+              "Description": false,
+              "Label": false
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "4px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Group label",
+                "kind": "text",
+                "text": "Regulation"
+              },
+              {
+                "name": "arrow-down",
+                "kind": "instance",
+                "slug": "arrow-down"
+              }
+            ]
+          },
+          {
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Input text": "Choose a value",
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Delete icon": false,
+              "Helper": false,
+              "Label text": "",
+              "Placeholder text": "Choose a value",
+              "Info icon": false,
+              "* (Asterisk)": false,
+              "Trailing icon": true,
+              "Description": false,
+              "Label": false
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "4px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "space-between",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Group label",
+                "kind": "text",
+                "text": "Connection type"
+              },
+              {
+                "name": "arrow-down",
+                "kind": "instance",
+                "slug": "arrow-down"
+              }
+            ]
+          },
+          {
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Input text": "Choose a value",
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Delete icon": false,
+              "Helper": false,
+              "Label text": "",
+              "Placeholder text": "Choose a value",
+              "Info icon": false,
+              "* (Asterisk)": false,
+              "Trailing icon": true,
+              "Description": false,
+              "Label": false
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "4px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Group label",
+                "kind": "text",
+                "text": "Curator"
+              }
+            ]
+          },
+          {
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Input text": "Choose a value",
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Delete icon": false,
+              "Helper": false,
+              "Label text": "",
+              "Placeholder text": "Choose a value",
+              "Info icon": false,
+              "* (Asterisk)": false,
+              "Trailing icon": true,
+              "Description": false,
+              "Label": false
+            }
+          }
+        ]
+      },
+      {
+        "name": ".Filter groups",
+        "kind": "container",
+        "layout": {
+          "axis": "column",
+          "gap": "4px",
+          "padding": {
+            "top": "0px",
+            "right": "0px",
+            "bottom": "0px",
+            "left": "0px"
+          },
+          "align": {
+            "main": "start",
+            "cross": "start"
+          },
+          "sizing": {
+            "h": "fill",
+            "v": "hug"
+          }
+        },
+        "children": [
+          {
+            "name": ".Filter group header",
+            "kind": "container",
+            "layout": {
+              "axis": "row",
+              "gap": "4px",
+              "padding": {
+                "top": "0px",
+                "right": "0px",
+                "bottom": "4px",
+                "left": "0px"
+              },
+              "align": {
+                "main": "start",
+                "cross": "center"
+              },
+              "sizing": {
+                "h": "fill",
+                "v": "fixed"
+              }
+            },
+            "children": [
+              {
+                "name": "Group label",
+                "kind": "text",
+                "text": "Curator"
+              }
+            ]
+          },
+          {
+            "name": "Input",
+            "kind": "instance",
+            "unresolved": true,
+            "props": {
+              "Helper text": "Helper text goes here",
+              "Input text": "Choose a value",
+              "Description text": "A description helps users to define and understand the purpose of the input.",
+              "Delete icon": false,
+              "Helper": false,
+              "Label text": "",
+              "Placeholder text": "Choose a value",
+              "Info icon": false,
+              "* (Asterisk)": false,
+              "Trailing icon": true,
+              "Description": false,
+              "Label": false
+            }
           }
         ]
       }

@@ -2,20 +2,17 @@
   "_schema_version": 1,
   "slug": "rich-text",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "9480:17723"
+    "nodeId": "9480:17723",
+    "variant": "State=Default"
   },
   "quality": {
-    "nodesTotal": 127,
-    "nodesNormalized": 66,
+    "nodesTotal": 58,
+    "nodesNormalized": 30,
     "ratio": 0.52,
     "degraded": [
-      {
-        "name": "Rich text",
-        "reason": "layoutMode:NONE"
-      },
       {
         "name": "svg.fr-svg",
         "reason": "layoutMode:NONE"
@@ -127,153 +124,33 @@
       {
         "name": "Frame",
         "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "svg.fr-svg",
-        "reason": "layoutMode:NONE"
-      },
-      {
-        "name": "Frame",
-        "reason": "layoutMode:NONE"
       }
     ]
   },
   "root": {
-    "name": "Rich text",
+    "name": "State=Default",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 4716,
-      "y": 701,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "row",
+      "gap": "206px",
+      "padding": {
+        "top": "0px",
+        "right": "0px",
+        "bottom": "0px",
+        "left": "0px"
+      },
+      "align": {
+        "main": "space-between",
+        "cross": "start"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "fixed"
       }
     },
     "children": [
       {
-        "name": "State=Default",
+        "name": "Toolbar",
         "kind": "container",
         "layout": {
           "axis": "row",
@@ -286,20 +163,20 @@
           },
           "align": {
             "main": "space-between",
-            "cross": "start"
+            "cross": "center"
           },
           "sizing": {
-            "h": "fixed",
-            "v": "fixed"
+            "h": "fill",
+            "v": "hug"
           }
         },
         "children": [
           {
-            "name": "Toolbar",
+            "name": "Left toolbar",
             "kind": "container",
             "layout": {
               "axis": "row",
-              "gap": "206px",
+              "gap": "12px",
               "padding": {
                 "top": "0px",
                 "right": "0px",
@@ -307,605 +184,17 @@
                 "left": "0px"
               },
               "align": {
-                "main": "space-between",
-                "cross": "center"
+                "main": "start",
+                "cross": "start"
               },
               "sizing": {
-                "h": "fill",
+                "h": "hug",
                 "v": "hug"
               }
             },
             "children": [
               {
-                "name": "Left toolbar",
-                "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "12px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "start",
-                    "cross": "start"
-                  },
-                  "sizing": {
-                    "h": "hug",
-                    "v": "hug"
-                  }
-                },
-                "children": [
-                  {
-                    "name": "div.fr-btn-grp",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "18px",
-                      "padding": {
-                        "top": "12px",
-                        "right": "9px",
-                        "bottom": "12px",
-                        "left": "9px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "start"
-                      },
-                      "sizing": {
-                        "h": "hug",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "svg.fr-svg",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 4742,
-                          "y": 757,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Bold",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4742,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "svg.fr-svg",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 4784,
-                          "y": 757,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Italicize",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4784,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Underline",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 4826,
-                          "y": 757,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Underline",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4826,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "A:",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 4868,
-                          "y": 757,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4868,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Text positioning",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "18px",
-                      "padding": {
-                        "top": "12px",
-                        "right": "9px",
-                        "bottom": "12px",
-                        "left": "9px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "hug",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Justify left",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "0px",
-                          "padding": {
-                            "top": "0px",
-                            "right": "0px",
-                            "bottom": "0px",
-                            "left": "0px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "hug",
-                            "v": "hug"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4922,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 4922,
-                                  "y": 757,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "name": "Polygon 1",
-                            "kind": "container"
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Numbered list",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "0px",
-                          "padding": {
-                            "top": "0px",
-                            "right": "0px",
-                            "bottom": "0px",
-                            "left": "0px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "hug",
-                            "v": "hug"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4972,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 4972,
-                                  "y": 757,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "name": "Polygon 2",
-                            "kind": "container"
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Bulleted list",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "0px",
-                          "padding": {
-                            "top": "0px",
-                            "right": "0px",
-                            "bottom": "0px",
-                            "left": "0px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "hug",
-                            "v": "hug"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5022,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 5022,
-                                  "y": 757,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              },
-                              {
-                                "name": "Ellipse 1",
-                                "kind": "vector"
-                              },
-                              {
-                                "name": "Ellipse 2",
-                                "kind": "vector"
-                              },
-                              {
-                                "name": "Ellipse 3",
-                                "kind": "vector"
-                              }
-                            ]
-                          },
-                          {
-                            "name": "Polygon 2",
-                            "kind": "container"
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Insert options",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "19px",
-                      "padding": {
-                        "top": "9px",
-                        "right": "9px",
-                        "bottom": "9px",
-                        "left": "9px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "center"
-                      },
-                      "sizing": {
-                        "h": "hug",
-                        "v": "fixed"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "Link",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 5084,
-                          "y": 757,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5084,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Table",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 5127,
-                          "y": 757,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5127,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Omega",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 5170,
-                          "y": 757,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5170,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "Image",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 5213,
-                          "y": 757,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5213,
-                              "y": 757,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "name": "Right toolbar",
+                "name": "div.fr-btn-grp",
                 "kind": "container",
                 "layout": {
                   "axis": "row",
@@ -927,12 +216,12 @@
                 },
                 "children": [
                   {
-                    "name": "Backwards arrow",
+                    "name": "svg.fr-svg",
                     "kind": "container",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
-                      "x": 5461,
+                      "x": 4742,
                       "y": 757,
                       "constraints": {
                         "vertical": "TOP",
@@ -941,12 +230,12 @@
                     },
                     "children": [
                       {
-                        "name": "Frame",
+                        "name": "Bold",
                         "kind": "container",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
-                          "x": 5461,
+                          "x": 4742,
                           "y": 757,
                           "constraints": {
                             "vertical": "TOP",
@@ -963,12 +252,12 @@
                     ]
                   },
                   {
-                    "name": "Forwards arrow",
+                    "name": "svg.fr-svg",
                     "kind": "container",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
-                      "x": 5503,
+                      "x": 4784,
                       "y": 757,
                       "constraints": {
                         "vertical": "TOP",
@@ -977,12 +266,12 @@
                     },
                     "children": [
                       {
-                        "name": "Frame",
+                        "name": "Italicize",
                         "kind": "container",
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
-                          "x": 5503,
+                          "x": 4784,
                           "y": 757,
                           "constraints": {
                             "vertical": "TOP",
@@ -999,12 +288,48 @@
                     ]
                   },
                   {
-                    "name": "More",
+                    "name": "Underline",
                     "kind": "container",
                     "normalizable": false,
                     "rawHint": {
                       "layoutMode": "NONE",
-                      "x": 5545,
+                      "x": 4826,
+                      "y": 757,
+                      "constraints": {
+                        "vertical": "TOP",
+                        "horizontal": "LEFT"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Underline",
+                        "kind": "container",
+                        "normalizable": false,
+                        "rawHint": {
+                          "layoutMode": "NONE",
+                          "x": 4826,
+                          "y": 757,
+                          "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "CENTER"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Vector",
+                            "kind": "vector"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "A:",
+                    "kind": "container",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 4868,
                       "y": 757,
                       "constraints": {
                         "vertical": "TOP",
@@ -1018,7 +343,403 @@
                         "normalizable": false,
                         "rawHint": {
                           "layoutMode": "NONE",
-                          "x": 5545,
+                          "x": 4868,
+                          "y": 757,
+                          "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "CENTER"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Vector",
+                            "kind": "vector"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Text positioning",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "18px",
+                  "padding": {
+                    "top": "12px",
+                    "right": "9px",
+                    "bottom": "12px",
+                    "left": "9px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "hug"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Justify left",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "0px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "hug",
+                        "v": "hug"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "svg.fr-svg",
+                        "kind": "container",
+                        "normalizable": false,
+                        "rawHint": {
+                          "layoutMode": "NONE",
+                          "x": 4922,
+                          "y": 757,
+                          "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "LEFT"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Frame",
+                            "kind": "container",
+                            "normalizable": false,
+                            "rawHint": {
+                              "layoutMode": "NONE",
+                              "x": 4922,
+                              "y": 757,
+                              "constraints": {
+                                "vertical": "TOP",
+                                "horizontal": "CENTER"
+                              }
+                            },
+                            "children": [
+                              {
+                                "name": "Vector",
+                                "kind": "vector"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Polygon 1",
+                        "kind": "container"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Numbered list",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "0px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "hug",
+                        "v": "hug"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "svg.fr-svg",
+                        "kind": "container",
+                        "normalizable": false,
+                        "rawHint": {
+                          "layoutMode": "NONE",
+                          "x": 4972,
+                          "y": 757,
+                          "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "LEFT"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Frame",
+                            "kind": "container",
+                            "normalizable": false,
+                            "rawHint": {
+                              "layoutMode": "NONE",
+                              "x": 4972,
+                              "y": 757,
+                              "constraints": {
+                                "vertical": "TOP",
+                                "horizontal": "CENTER"
+                              }
+                            },
+                            "children": [
+                              {
+                                "name": "Vector",
+                                "kind": "vector"
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Polygon 2",
+                        "kind": "container"
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Bulleted list",
+                    "kind": "container",
+                    "layout": {
+                      "axis": "row",
+                      "gap": "0px",
+                      "padding": {
+                        "top": "0px",
+                        "right": "0px",
+                        "bottom": "0px",
+                        "left": "0px"
+                      },
+                      "align": {
+                        "main": "start",
+                        "cross": "center"
+                      },
+                      "sizing": {
+                        "h": "hug",
+                        "v": "hug"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "svg.fr-svg",
+                        "kind": "container",
+                        "normalizable": false,
+                        "rawHint": {
+                          "layoutMode": "NONE",
+                          "x": 5022,
+                          "y": 757,
+                          "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "LEFT"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Frame",
+                            "kind": "container",
+                            "normalizable": false,
+                            "rawHint": {
+                              "layoutMode": "NONE",
+                              "x": 5022,
+                              "y": 757,
+                              "constraints": {
+                                "vertical": "TOP",
+                                "horizontal": "CENTER"
+                              }
+                            },
+                            "children": [
+                              {
+                                "name": "Vector",
+                                "kind": "vector"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "Ellipse 1",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Ellipse 2",
+                            "kind": "vector"
+                          },
+                          {
+                            "name": "Ellipse 3",
+                            "kind": "vector"
+                          }
+                        ]
+                      },
+                      {
+                        "name": "Polygon 2",
+                        "kind": "container"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "Insert options",
+                "kind": "container",
+                "layout": {
+                  "axis": "row",
+                  "gap": "19px",
+                  "padding": {
+                    "top": "9px",
+                    "right": "9px",
+                    "bottom": "9px",
+                    "left": "9px"
+                  },
+                  "align": {
+                    "main": "start",
+                    "cross": "center"
+                  },
+                  "sizing": {
+                    "h": "hug",
+                    "v": "fixed"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Link",
+                    "kind": "container",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 5084,
+                      "y": 757,
+                      "constraints": {
+                        "vertical": "TOP",
+                        "horizontal": "LEFT"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Frame",
+                        "kind": "container",
+                        "normalizable": false,
+                        "rawHint": {
+                          "layoutMode": "NONE",
+                          "x": 5084,
+                          "y": 757,
+                          "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "CENTER"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Vector",
+                            "kind": "vector"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Table",
+                    "kind": "container",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 5127,
+                      "y": 757,
+                      "constraints": {
+                        "vertical": "TOP",
+                        "horizontal": "LEFT"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Frame",
+                        "kind": "container",
+                        "normalizable": false,
+                        "rawHint": {
+                          "layoutMode": "NONE",
+                          "x": 5127,
+                          "y": 757,
+                          "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "CENTER"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Vector",
+                            "kind": "vector"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Omega",
+                    "kind": "container",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 5170,
+                      "y": 757,
+                      "constraints": {
+                        "vertical": "TOP",
+                        "horizontal": "LEFT"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Frame",
+                        "kind": "container",
+                        "normalizable": false,
+                        "rawHint": {
+                          "layoutMode": "NONE",
+                          "x": 5170,
+                          "y": 757,
+                          "constraints": {
+                            "vertical": "TOP",
+                            "horizontal": "CENTER"
+                          }
+                        },
+                        "children": [
+                          {
+                            "name": "Vector",
+                            "kind": "vector"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "name": "Image",
+                    "kind": "container",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 5213,
+                      "y": 757,
+                      "constraints": {
+                        "vertical": "TOP",
+                        "horizontal": "LEFT"
+                      }
+                    },
+                    "children": [
+                      {
+                        "name": "Frame",
+                        "kind": "container",
+                        "normalizable": false,
+                        "rawHint": {
+                          "layoutMode": "NONE",
+                          "x": 5213,
                           "y": 757,
                           "constraints": {
                             "vertical": "TOP",
@@ -1037,916 +758,132 @@
                 ]
               }
             ]
-          }
-        ]
-      },
-      {
-        "name": "State=Expanded",
-        "kind": "container",
-        "layout": {
-          "axis": "column",
-          "gap": "206px",
-          "padding": {
-            "top": "0px",
-            "right": "0px",
-            "bottom": "0px",
-            "left": "0px"
           },
-          "align": {
-            "main": "space-between",
-            "cross": "start"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
           {
-            "name": "Toolbar",
+            "name": "Right toolbar",
             "kind": "container",
             "layout": {
-              "axis": "column",
-              "gap": "0px",
+              "axis": "row",
+              "gap": "18px",
               "padding": {
-                "top": "0px",
-                "right": "0px",
-                "bottom": "0px",
-                "left": "0px"
+                "top": "12px",
+                "right": "9px",
+                "bottom": "12px",
+                "left": "9px"
               },
               "align": {
                 "main": "start",
                 "cross": "start"
               },
               "sizing": {
-                "h": "fill",
+                "h": "hug",
                 "v": "hug"
               }
             },
             "children": [
               {
-                "name": "Main toolbar ",
+                "name": "Backwards arrow",
                 "kind": "container",
-                "layout": {
-                  "axis": "row",
-                  "gap": "169px",
-                  "padding": {
-                    "top": "0px",
-                    "right": "0px",
-                    "bottom": "0px",
-                    "left": "0px"
-                  },
-                  "align": {
-                    "main": "space-between",
-                    "cross": "center"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "fixed"
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": 5461,
+                  "y": 757,
+                  "constraints": {
+                    "vertical": "TOP",
+                    "horizontal": "LEFT"
                   }
                 },
                 "children": [
                   {
-                    "name": "Selected",
-                    "kind": "container"
-                  },
-                  {
-                    "name": "Left toolbar",
+                    "name": "Frame",
                     "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "12px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "start"
-                      },
-                      "sizing": {
-                        "h": "hug",
-                        "v": "hug"
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 5461,
+                      "y": 757,
+                      "constraints": {
+                        "vertical": "TOP",
+                        "horizontal": "CENTER"
                       }
                     },
                     "children": [
                       {
-                        "name": "div.fr-btn-grp",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "18px",
-                          "padding": {
-                            "top": "12px",
-                            "right": "9px",
-                            "bottom": "12px",
-                            "left": "9px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "start"
-                          },
-                          "sizing": {
-                            "h": "hug",
-                            "v": "hug"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4743,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 4743,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4785,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 4785,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4827,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 4827,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 4869,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 4869,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "div.fr-btn-grp",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "18px",
-                          "padding": {
-                            "top": "12px",
-                            "right": "9px",
-                            "bottom": "12px",
-                            "left": "9px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "hug",
-                            "v": "hug"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame 3",
-                            "kind": "container",
-                            "layout": {
-                              "axis": "row",
-                              "gap": "0px",
-                              "padding": {
-                                "top": "0px",
-                                "right": "0px",
-                                "bottom": "0px",
-                                "left": "0px"
-                              },
-                              "align": {
-                                "main": "start",
-                                "cross": "center"
-                              },
-                              "sizing": {
-                                "h": "hug",
-                                "v": "hug"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "svg.fr-svg",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 4923,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Frame",
-                                    "kind": "container",
-                                    "normalizable": false,
-                                    "rawHint": {
-                                      "layoutMode": "NONE",
-                                      "x": 4923,
-                                      "y": 1119,
-                                      "constraints": {
-                                        "vertical": "TOP",
-                                        "horizontal": "CENTER"
-                                      }
-                                    },
-                                    "children": [
-                                      {
-                                        "name": "Vector",
-                                        "kind": "vector"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "name": "Polygon 1",
-                                "kind": "container"
-                              }
-                            ]
-                          },
-                          {
-                            "name": "Frame 4",
-                            "kind": "container",
-                            "layout": {
-                              "axis": "row",
-                              "gap": "0px",
-                              "padding": {
-                                "top": "0px",
-                                "right": "0px",
-                                "bottom": "0px",
-                                "left": "0px"
-                              },
-                              "align": {
-                                "main": "start",
-                                "cross": "center"
-                              },
-                              "sizing": {
-                                "h": "hug",
-                                "v": "hug"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "svg.fr-svg",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 4973,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Frame",
-                                    "kind": "container",
-                                    "normalizable": false,
-                                    "rawHint": {
-                                      "layoutMode": "NONE",
-                                      "x": 4973,
-                                      "y": 1119,
-                                      "constraints": {
-                                        "vertical": "TOP",
-                                        "horizontal": "CENTER"
-                                      }
-                                    },
-                                    "children": [
-                                      {
-                                        "name": "Vector",
-                                        "kind": "vector"
-                                      }
-                                    ]
-                                  }
-                                ]
-                              },
-                              {
-                                "name": "Polygon 2",
-                                "kind": "container"
-                              }
-                            ]
-                          },
-                          {
-                            "name": "Frame 5",
-                            "kind": "container",
-                            "layout": {
-                              "axis": "row",
-                              "gap": "0px",
-                              "padding": {
-                                "top": "0px",
-                                "right": "0px",
-                                "bottom": "0px",
-                                "left": "0px"
-                              },
-                              "align": {
-                                "main": "start",
-                                "cross": "center"
-                              },
-                              "sizing": {
-                                "h": "hug",
-                                "v": "hug"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "svg.fr-svg",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 5023,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "LEFT"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Frame",
-                                    "kind": "container",
-                                    "normalizable": false,
-                                    "rawHint": {
-                                      "layoutMode": "NONE",
-                                      "x": 5023,
-                                      "y": 1119,
-                                      "constraints": {
-                                        "vertical": "TOP",
-                                        "horizontal": "CENTER"
-                                      }
-                                    },
-                                    "children": [
-                                      {
-                                        "name": "Vector",
-                                        "kind": "vector"
-                                      }
-                                    ]
-                                  },
-                                  {
-                                    "name": "Ellipse 1",
-                                    "kind": "vector"
-                                  },
-                                  {
-                                    "name": "Ellipse 2",
-                                    "kind": "vector"
-                                  },
-                                  {
-                                    "name": "Ellipse 3",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              },
-                              {
-                                "name": "Polygon 2",
-                                "kind": "container"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "div.fr-btn-grp",
-                        "kind": "container",
-                        "layout": {
-                          "axis": "row",
-                          "gap": "19px",
-                          "padding": {
-                            "top": "9px",
-                            "right": "9px",
-                            "bottom": "9px",
-                            "left": "9px"
-                          },
-                          "align": {
-                            "main": "start",
-                            "cross": "center"
-                          },
-                          "sizing": {
-                            "h": "hug",
-                            "v": "fixed"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5085,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 5085,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5128,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 5128,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5171,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 5171,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          },
-                          {
-                            "name": "svg.fr-svg",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5214,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "LEFT"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Frame",
-                                "kind": "container",
-                                "normalizable": false,
-                                "rawHint": {
-                                  "layoutMode": "NONE",
-                                  "x": 5214,
-                                  "y": 1119,
-                                  "constraints": {
-                                    "vertical": "TOP",
-                                    "horizontal": "CENTER"
-                                  }
-                                },
-                                "children": [
-                                  {
-                                    "name": "Vector",
-                                    "kind": "vector"
-                                  }
-                                ]
-                              }
-                            ]
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  {
-                    "name": "Right toolbar",
-                    "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "18px",
-                      "padding": {
-                        "top": "12px",
-                        "right": "9px",
-                        "bottom": "12px",
-                        "left": "9px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "start"
-                      },
-                      "sizing": {
-                        "h": "hug",
-                        "v": "hug"
-                      }
-                    },
-                    "children": [
-                      {
-                        "name": "svg.fr-svg",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 5461,
-                          "y": 1119,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5461,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "svg.fr-svg",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 5503,
-                          "y": 1119,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5503,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      },
-                      {
-                        "name": "svg.fr-svg",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 5545,
-                          "y": 1119,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5545,
-                              "y": 1119,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
+                        "name": "Vector",
+                        "kind": "vector"
                       }
                     ]
                   }
                 ]
               },
               {
-                "name": "Sub toolbar",
+                "name": "Forwards arrow",
                 "kind": "container",
-                "layout": {
-                  "axis": "column",
-                  "gap": "10px",
-                  "padding": {
-                    "top": "12px",
-                    "right": "12px",
-                    "bottom": "12px",
-                    "left": "12px"
-                  },
-                  "align": {
-                    "main": "center",
-                    "cross": "end"
-                  },
-                  "sizing": {
-                    "h": "fill",
-                    "v": "hug"
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": 5503,
+                  "y": 757,
+                  "constraints": {
+                    "vertical": "TOP",
+                    "horizontal": "LEFT"
                   }
                 },
                 "children": [
                   {
-                    "name": "Frame 2",
+                    "name": "Frame",
                     "kind": "container",
-                    "layout": {
-                      "axis": "row",
-                      "gap": "22px",
-                      "padding": {
-                        "top": "0px",
-                        "right": "0px",
-                        "bottom": "0px",
-                        "left": "0px"
-                      },
-                      "align": {
-                        "main": "start",
-                        "cross": "start"
-                      },
-                      "sizing": {
-                        "h": "hug",
-                        "v": "hug"
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 5503,
+                      "y": 757,
+                      "constraints": {
+                        "vertical": "TOP",
+                        "horizontal": "CENTER"
                       }
                     },
                     "children": [
                       {
-                        "name": "svg.fr-svg",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 5496,
-                          "y": 1167,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5496,
-                              "y": 1167,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
-                      },
+                        "name": "Vector",
+                        "kind": "vector"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "name": "More",
+                "kind": "container",
+                "normalizable": false,
+                "rawHint": {
+                  "layoutMode": "NONE",
+                  "x": 5545,
+                  "y": 757,
+                  "constraints": {
+                    "vertical": "TOP",
+                    "horizontal": "LEFT"
+                  }
+                },
+                "children": [
+                  {
+                    "name": "Frame",
+                    "kind": "container",
+                    "normalizable": false,
+                    "rawHint": {
+                      "layoutMode": "NONE",
+                      "x": 5545,
+                      "y": 757,
+                      "constraints": {
+                        "vertical": "TOP",
+                        "horizontal": "CENTER"
+                      }
+                    },
+                    "children": [
                       {
-                        "name": "svg.fr-svg",
-                        "kind": "container",
-                        "normalizable": false,
-                        "rawHint": {
-                          "layoutMode": "NONE",
-                          "x": 5542,
-                          "y": 1167,
-                          "constraints": {
-                            "vertical": "TOP",
-                            "horizontal": "LEFT"
-                          }
-                        },
-                        "children": [
-                          {
-                            "name": "Frame",
-                            "kind": "container",
-                            "normalizable": false,
-                            "rawHint": {
-                              "layoutMode": "NONE",
-                              "x": 5542,
-                              "y": 1167,
-                              "constraints": {
-                                "vertical": "TOP",
-                                "horizontal": "CENTER"
-                              }
-                            },
-                            "children": [
-                              {
-                                "name": "Vector",
-                                "kind": "vector"
-                              }
-                            ]
-                          }
-                        ]
+                        "name": "Vector",
+                        "kind": "vector"
                       }
                     ]
                   }

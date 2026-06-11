@@ -2,365 +2,48 @@
   "_schema_version": 1,
   "slug": "digram-topic",
   "kit": "dskit",
-  "synced_at": "2026-06-11T13:59:20.559Z",
+  "synced_at": "2026-06-11T14:55:22.601Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-    "nodeId": "14128:3800"
+    "nodeId": "14128:3800",
+    "variant": "Type=Light purple"
   },
   "quality": {
-    "nodesTotal": 31,
-    "nodesNormalized": 30,
-    "ratio": 0.97,
-    "degraded": [
-      {
-        "name": "Digram, Topic",
-        "reason": "layoutMode:NONE"
-      }
-    ]
+    "nodesTotal": 3,
+    "nodesNormalized": 3,
+    "ratio": 1,
+    "degraded": []
   },
   "root": {
-    "name": "Digram, Topic",
+    "name": "Type=Light purple",
     "kind": "container",
-    "normalizable": false,
-    "rawHint": {
-      "layoutMode": "NONE",
-      "x": 4679,
-      "y": 472,
-      "constraints": {
-        "vertical": "TOP",
-        "horizontal": "LEFT"
+    "layout": {
+      "axis": "row",
+      "gap": "4px",
+      "padding": {
+        "top": "0px",
+        "right": "8px",
+        "bottom": "0px",
+        "left": "8px"
+      },
+      "align": {
+        "main": "center",
+        "cross": "center"
+      },
+      "sizing": {
+        "h": "fixed",
+        "v": "fixed"
       }
     },
     "children": [
       {
-        "name": "Type=Light purple",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
+        "name": "Tag-Name",
+        "kind": "text",
+        "text": "TP"
       },
       {
-        "name": "Type=Dark purple",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
-      },
-      {
-        "name": "Type=Light blue",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
-      },
-      {
-        "name": "Type=Dark blue",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
-      },
-      {
-        "name": "Type=Light green",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
-      },
-      {
-        "name": "Type=Dark green",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
-      },
-      {
-        "name": "Type=Yellow",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
-      },
-      {
-        "name": "Type=Orange",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
-      },
-      {
-        "name": "Type=Red",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
-      },
-      {
-        "name": "Type=Dark orange",
-        "kind": "container",
-        "layout": {
-          "axis": "row",
-          "gap": "4px",
-          "padding": {
-            "top": "0px",
-            "right": "8px",
-            "bottom": "0px",
-            "left": "8px"
-          },
-          "align": {
-            "main": "center",
-            "cross": "center"
-          },
-          "sizing": {
-            "h": "fixed",
-            "v": "fixed"
-          }
-        },
-        "children": [
-          {
-            "name": "Tag-Name",
-            "kind": "text",
-            "text": "TP"
-          },
-          {
-            "name": "Border",
-            "kind": "vector"
-          }
-        ]
+        "name": "Border",
+        "kind": "vector"
       }
     ]
   }
