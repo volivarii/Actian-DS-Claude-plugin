@@ -120,6 +120,13 @@ PATHS.components.media = function (slug) {
   return path.join(VENDOR, "components", "dist", "media", slug, "preview.webp");
 };
 
+// NOTE: anatomy resolution is NOT overlaid here. The knowledge `anatomy` domain
+// is declared in paths-manifest.json (components.anatomy.byKey collection +
+// components.anatomy.bundle path), so buildPathsFromManifest already produces
+// PATHS.components.anatomy.byKey(slug) + PATHS.components.anatomy.bundle. Adding a
+// plugin overlay here would CLOBBER the manifest-built object (anatomy is
+// manifest-driven, unlike `media` which is plugin-only). Consume the manifest API.
+
 // Synthesized helper: byKit("ds"/"fm"/"meta") maps to registry leaf paths.
 // Preserved from pre-manifest API for backward compat with validate-flow-data.js etc.
 PATHS.components.registries = PATHS.components.registries || {};
