@@ -5,7 +5,7 @@ a11y_refs:
   - { ref: forms }
 domains:
   content: { status: approved, owner: content-team }
-  usage:    { status: not-started }
-  design:   { status: inherited }
+  usage: { status: not-started }
+  design: { status: draft }
   behavior: { status: inherited }
-  tokens:   { status: approved }
+  tokens: { status: approved }

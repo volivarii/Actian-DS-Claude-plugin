@@ -7,7 +7,7 @@
 | Alert / banner | approved | not started | inherited | inherited | not started |
 | Badges | approved | not started | inherited | inherited | approved |
 | Breadcrumbs | approved | not started | inherited | inherited | approved |
-| Buttons | approved | not started | draft | inherited | approved |
+| Buttons | approved | not started | draft | draft | approved |
 | Cards | approved | not started | inherited | inherited | approved |
 | Chat with AI Steward | draft | draft | draft | not started | not started |
 | Checkboxes | approved | not started | inherited | inherited | approved |
@@ -39,7 +39,7 @@
 | Table | approved | not started | inherited | inherited | not started |
 | Tabs | approved | not started | inherited | inherited | approved |
 | Tags | approved | not started | inherited | inherited | approved |
-| Text input | approved | not started | inherited | inherited | approved |
+| Text input | approved | not started | draft | inherited | approved |
 | Toggle control | approved | not started | inherited | inherited | not started |
 | What's new | approved | not started | inherited | inherited | not started |
 
@@ -49,8 +49,8 @@
 |---|---|---|---|---|---|
 | content | 27 | 1 | 0 | 1 | 0 |
 | usage | 0 | 1 | 0 | 28 | 9 |
-| design | 0 | 2 | 26 | 1 | 9 |
-| behavior | 0 | 0 | 27 | 2 | 9 |
+| design | 0 | 3 | 25 | 1 | 9 |
+| behavior | 0 | 1 | 26 | 2 | 9 |
 | tokens | 12 | 0 | 0 | 17 | 9 |
 
 ## Registry aliases

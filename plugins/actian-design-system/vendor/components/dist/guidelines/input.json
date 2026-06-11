@@ -499,7 +499,22 @@
       "status": "not-started"
     },
     "design": {
-      "status": "inherited"
+      "status": "draft",
+      "markdown": "# Text Input — Design\n\n- Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text\n- Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear\n- Reserve the space consistently across all inputs in forms",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "bullets": [
+                "Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text",
+                "Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear",
+                "Reserve the space consistently across all inputs in forms"
+              ]
+            }
+          ]
+        }
+      ]
     },
     "behavior": {
       "status": "inherited"
@@ -586,6 +601,6 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00",
+  "updated_at": "2026-06-10T20:43:48+02:00",
   "_alias_of": "text-input"
 }

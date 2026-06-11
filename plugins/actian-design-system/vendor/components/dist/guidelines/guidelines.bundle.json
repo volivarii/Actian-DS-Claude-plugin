@@ -696,7 +696,18 @@
           ]
         },
         "behavior": {
-          "status": "inherited"
+          "status": "draft",
+          "markdown": "# Button — Behavior\nLoading state: The spinner replaced the label while loading. The skeleton loading (already exists) together with this should give a clear signal that the page is loading. The interaction is disabled  to prevent double-clicks and dim the background slightly using a brightness filter.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Loading state: The spinner replaced the label while loading. The skeleton loading (already exists) together with this should give a clear signal that the page is loading. The interaction is disabled to prevent double-clicks and dim the background slightly using a brightness filter."
+                }
+              ]
+            }
+          ]
         },
         "tokens": {
           "status": "approved",
@@ -780,7 +791,7 @@
           ]
         }
       },
-      "updated_at": "2026-06-07T17:50:37+02:00"
+      "updated_at": "2026-06-10T20:43:48+02:00"
     },
     "card": {
       "_schema_version": 1,
@@ -1208,7 +1219,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-10T13:35:50+02:00"
+      "updated_at": "2026-06-10T14:22:30+02:00"
     },
     "checkbox": {
       "_schema_version": 1,
@@ -4888,7 +4899,22 @@
           "status": "not-started"
         },
         "design": {
-          "status": "inherited"
+          "status": "draft",
+          "markdown": "# Text Input — Design\n\n- Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text\n- Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear\n- Reserve the space consistently across all inputs in forms",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "bullets": [
+                    "Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text",
+                    "Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear",
+                    "Reserve the space consistently across all inputs in forms"
+                  ]
+                }
+              ]
+            }
+          ]
         },
         "behavior": {
           "status": "inherited"
@@ -4975,7 +5001,7 @@
           ]
         }
       },
-      "updated_at": "2026-06-07T17:50:37+02:00",
+      "updated_at": "2026-06-10T20:43:48+02:00",
       "_alias_of": "text-input"
     },
     "input-date": {
@@ -9460,7 +9486,22 @@
           "status": "not-started"
         },
         "design": {
-          "status": "inherited"
+          "status": "draft",
+          "markdown": "# Text Input — Design\n\n- Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text\n- Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear\n- Reserve the space consistently across all inputs in forms",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "bullets": [
+                    "Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text",
+                    "Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear",
+                    "Reserve the space consistently across all inputs in forms"
+                  ]
+                }
+              ]
+            }
+          ]
         },
         "behavior": {
           "status": "inherited"
@@ -9547,7 +9588,7 @@
           ]
         }
       },
-      "updated_at": "2026-06-07T17:50:37+02:00"
+      "updated_at": "2026-06-10T20:43:48+02:00"
     },
     "toggle": {
       "_schema_version": 1,

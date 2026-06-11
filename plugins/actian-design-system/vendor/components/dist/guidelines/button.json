@@ -223,7 +223,18 @@
       ]
     },
     "behavior": {
-      "status": "inherited"
+      "status": "draft",
+      "markdown": "# Button — Behavior\nLoading state: The spinner replaced the label while loading. The skeleton loading (already exists) together with this should give a clear signal that the page is loading. The interaction is disabled  to prevent double-clicks and dim the background slightly using a brightness filter.",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "Loading state: The spinner replaced the label while loading. The skeleton loading (already exists) together with this should give a clear signal that the page is loading. The interaction is disabled to prevent double-clicks and dim the background slightly using a brightness filter."
+            }
+          ]
+        }
+      ]
     },
     "tokens": {
       "status": "approved",
@@ -307,5 +318,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00"
+  "updated_at": "2026-06-10T20:43:48+02:00"
 }
