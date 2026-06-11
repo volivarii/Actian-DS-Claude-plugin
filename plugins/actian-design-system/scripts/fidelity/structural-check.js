@@ -1,6 +1,7 @@
 // scripts/fidelity/structural-check.js
 "use strict";
 var cp = require("node:child_process");
+var url = require("node:url");
 
 var WIDTHS = [1440, 768, 360];
 
@@ -72,7 +73,7 @@ function measureAtWidth(opts) {
     "--virtual-time-budget=2000",
     "--window-size=" + width + ",900",
     "--dump-dom",
-    "file://" + htmlPath,
+    url.pathToFileURL(htmlPath).href,
   ];
   var res = cp.spawnSync(chrome, args, {
     encoding: "utf8",

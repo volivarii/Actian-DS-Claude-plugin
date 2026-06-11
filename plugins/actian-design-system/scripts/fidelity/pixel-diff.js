@@ -23,8 +23,14 @@ function parseMetric(stderr) {
 
 function gridVerdict(cellRmses, threshold) {
   var worst = 0;
-  for (var i = 0; i < cellRmses.length; i++) if (cellRmses[i] > worst) worst = cellRmses[i];
-  return { pass: worst <= threshold, worstCell: worst, cells: cellRmses.length, threshold: threshold };
+  for (var i = 0; i < cellRmses.length; i++)
+    if (cellRmses[i] > worst) worst = cellRmses[i];
+  return {
+    pass: worst <= threshold,
+    worstCell: worst,
+    cells: cellRmses.length,
+    threshold: threshold,
+  };
 }
 
 function aspectMismatch(d1, d2, tol) {
@@ -43,8 +49,29 @@ function imExec(im, args) {
 function normalize(im, input, output) {
   var convertCmd = im.mode === "im7" ? [im.cmd, "convert"] : ["convert"]; // im6 ships `convert`
   var argv = convertCmd.slice(1).concat(buildNormalizeArgs(input, output));
-  cp.spawnSync(convertCmd[0], argv, { stdio: "ignore" });
+  var res = cp.spawnSync(convertCmd[0], argv, { encoding: "utf8" });
+  // Surface failures (unreadable .webp, missing binary) instead of swallowing them —
+  // the unreadable-output then fails safe downstream (missing file → RMSE 1 → fail),
+  // but the operator needs the diagnostic on the most likely real-world failure.
+  if (res.error || res.status !== 0) {
+    process.stderr.write(
+      "[fidelity] ImageMagick normalize failed for " +
+        input +
+        " (status " +
+        res.status +
+        (res.stderr ? ", " + String(res.stderr).slice(0, 200) : "") +
+        ")\n",
+    );
+  }
   return output;
 }
 
-module.exports = { buildNormalizeArgs, buildCompareArgs, parseMetric, gridVerdict, aspectMismatch, imExec, normalize };
+module.exports = {
+  buildNormalizeArgs,
+  buildCompareArgs,
+  parseMetric,
+  gridVerdict,
+  aspectMismatch,
+  imExec,
+  normalize,
+};

@@ -125,12 +125,16 @@ function run(slugs, opts) {
   }
 }
 
+var PILOT = ["button", "checkbox-with-label", "alert-banner"];
+
 if (require.main === module) {
   var args = process.argv.slice(2);
   var slugs =
     args[0] === "--all"
-      ? ["button", "checkbox-with-label", "alert-banner"]
-      : args;
+      ? require("../renderers/html-renderers/ds-html-map.js").BUILT_SLUGS
+      : args[0] === "--pilot"
+        ? PILOT
+        : args;
   var rows = run(slugs, {});
   rows.forEach(function (r) {
     console.log(
