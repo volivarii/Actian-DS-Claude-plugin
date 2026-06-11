@@ -37,63 +37,23 @@ test("resolveChrome prefers CHROME_BIN env override", function () {
   assert.equal(got, "/custom/chrome");
 });
 
-test("resolveImageMagick returns a {cmd, mode} or null", function () {
-  var got = R.resolveImageMagick({
-    exists: function (p) {
-      return p === "compare";
-    },
-  });
-  assert.deepEqual(got, { cmd: "compare", mode: "im6" });
-  var got7 = R.resolveImageMagick({
-    exists: function (p) {
-      return p === "magick";
-    },
-  });
-  assert.deepEqual(got7, { cmd: "magick", mode: "im7" });
-  assert.equal(
-    R.resolveImageMagick({
-      exists: function () {
-        return false;
-      },
-    }),
-    null,
-  );
-});
-
-test("requireAll throws a setup message naming the missing binary", function () {
+test("requireAll throws a Chrome setup message when chrome is missing", function () {
   assert.throws(function () {
-    R.requireAll({ chrome: null, imagemagick: { cmd: "magick", mode: "im7" } });
-  }, /brew install|Chrome/i);
+    R.requireAll({ chrome: null });
+  }, /Chrome/i);
 });
 
-test("requireAll throws naming BOTH tools when both are missing", function () {
-  assert.throws(
-    function () {
-      R.requireAll({ chrome: null, imagemagick: null });
-    },
-    function (err) {
-      return /Chrome/i.test(err.message) && /brew install/i.test(err.message);
-    },
-  );
-});
-
-test("requireAll returns the resolved object when both present", function () {
-  var resolved = {
-    chrome: "/x/chrome",
-    imagemagick: { cmd: "magick", mode: "im7" },
-  };
+test("requireAll returns the resolved object when chrome is present", function () {
+  var resolved = { chrome: "/x/chrome" };
   assert.equal(R.requireAll(resolved), resolved);
 });
 
-test("resolveAll composes chrome + imagemagick into one shape", function () {
+test("resolveAll returns just the chrome path (no system image tool needed)", function () {
   var got = R.resolveAll({
     env: {},
     exists: function (p) {
-      return p === "compare";
+      return p === "chrome";
     },
   });
-  assert.deepEqual(got, {
-    chrome: null,
-    imagemagick: { cmd: "compare", mode: "im6" },
-  });
+  assert.deepEqual(got, { chrome: "chrome" });
 });

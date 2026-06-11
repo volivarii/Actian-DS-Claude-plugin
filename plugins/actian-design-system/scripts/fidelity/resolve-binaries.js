@@ -49,38 +49,26 @@ function resolveChrome(opts) {
   return resolveBinary(candidates, { exists: opts.exists });
 }
 
-function resolveImageMagick(opts) {
-  opts = opts || {};
-  var exists = opts.exists || defaultExists;
-  if (exists("magick")) return { cmd: "magick", mode: "im7" };
-  if (exists("compare")) return { cmd: "compare", mode: "im6" };
-  return null;
-}
-
+// Chrome is the ONLY external tool the gate needs (rendering requires a browser
+// engine; there is no pure-JS substitute). Image decode + diff are pure-JS
+// (vendored pngjs + pixelmatch), so no system image tool is required.
 function requireAll(resolved) {
-  var missing = [];
-  if (!resolved.chrome)
-    missing.push("Chrome/Chromium (set CHROME_BIN, or install Google Chrome)");
-  if (!resolved.imagemagick)
-    missing.push(
-      "ImageMagick — run `brew install imagemagick` (macOS) or `apt-get install imagemagick`",
-    );
-  if (missing.length) {
+  if (!resolved.chrome) {
     throw new Error(
-      "[fidelity] missing required tools:\n  - " + missing.join("\n  - "),
+      "[fidelity] missing required tool:\n  - " +
+        "Chrome/Chromium (set CHROME_BIN, or install Google Chrome)",
     );
   }
   return resolved;
 }
 
 function resolveAll(opts) {
-  return { chrome: resolveChrome(opts), imagemagick: resolveImageMagick(opts) };
+  return { chrome: resolveChrome(opts) };
 }
 
 module.exports = {
   resolveBinary: resolveBinary,
   resolveChrome: resolveChrome,
-  resolveImageMagick: resolveImageMagick,
   requireAll: requireAll,
   resolveAll: resolveAll,
   defaultExists: defaultExists,

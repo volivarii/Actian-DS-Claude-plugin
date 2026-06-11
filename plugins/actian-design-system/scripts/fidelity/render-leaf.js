@@ -54,6 +54,23 @@ function buildLeafHtml(slug, fragmentHtml) {
   ].join("");
 }
 
+// Wrap an image file (e.g. the .webp oracle) in a standalone page so Chrome can
+// rasterize it to PNG — pngjs can't decode webp, but Chrome can, so we screenshot
+// the decoded <img>. The content-box trim in pixel-diff removes the surrounding canvas.
+function buildImageHtml(imagePath) {
+  var href = url.pathToFileURL(imagePath).href;
+  return [
+    "<!doctype html><html><head><meta charset='utf-8'>",
+    "<style>html,body{margin:0;padding:0;background:#fff}img{display:block}</style>",
+    "</head><body>",
+    '<img id="fidelity-oracle" src="' + href + '">',
+    "<script>var i=document.getElementById('fidelity-oracle');",
+    "function rdy(){document.documentElement.setAttribute('data-fidelity-ready','1');}",
+    "if(i.complete)rdy();else i.onload=rdy;</script>",
+    "</body></html>",
+  ].join("");
+}
+
 // Shell edge: write HTML, screenshot via headless Chrome to PNG. Gated on chrome present.
 function screenshot(opts) {
   var chrome = opts.chrome; // resolved path
@@ -90,6 +107,7 @@ module.exports = {
   renderLeafFragment,
   buildLeafHtml,
   buildMeasureHtml,
+  buildImageHtml,
   screenshot,
   readCss,
 };

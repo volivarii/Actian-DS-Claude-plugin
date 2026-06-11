@@ -33,6 +33,13 @@ test("buildMeasureHtml injects the measure script", function () {
   assert.ok(html.indexOf("<button></button>") >= 0);
 });
 
+test("buildImageHtml wraps the oracle image with a file:// URL + ready flag", function () {
+  var html = H.buildImageHtml("/tmp/x/preview.webp");
+  assert.ok(/id="fidelity-oracle"/.test(html), "oracle img present");
+  assert.ok(/src="file:\/\//.test(html), "file:// URL");
+  assert.ok(/data-fidelity-ready/.test(html), "ready flag on load");
+});
+
 test("buildLeafHtml escapes the slug in the data-slug attribute", function () {
   var html = H.buildLeafHtml('a"b', "<span></span>");
   assert.ok(
