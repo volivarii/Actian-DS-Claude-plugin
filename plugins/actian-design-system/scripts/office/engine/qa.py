@@ -34,7 +34,8 @@ def _text(pptx_path):
 def check_pptx(path):
     """Return a list of issue strings ([] == clean)."""
     issues = []
-    names = zipfile.ZipFile(path).namelist()
+    with zipfile.ZipFile(path) as z:
+        names = z.namelist()
     dups = [n for n, c in Counter(names).items() if c > 1]
     if dups:
         issues.append(f"duplicate zip entries: {dups}")
