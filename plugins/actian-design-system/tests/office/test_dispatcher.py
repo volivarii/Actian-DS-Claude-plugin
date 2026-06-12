@@ -18,3 +18,14 @@ def test_missing_input_errors():
                        capture_output=True, text=True)
     assert r.returncode != 0
     assert "not found" in (r.stderr + r.stdout).lower()
+
+
+def test_presentation_happy_path(tmp_path):
+    import os
+    fx = os.path.join(os.path.dirname(__file__), "fixtures", "slide-data.json")
+    out = tmp_path / "deck.pptx"
+    r = subprocess.run([sys.executable, DISPATCH, "--type", "presentation", fx, "-o", str(out)],
+                       capture_output=True, text=True)
+    assert r.returncode == 0, r.stderr
+    assert out.exists()
+    assert "ok: wrote" in r.stdout

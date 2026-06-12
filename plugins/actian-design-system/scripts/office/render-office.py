@@ -39,6 +39,12 @@ def main(argv=None):
         from mappers.presentation_pptx import render_presentation
         render_presentation(data, args.out)
 
+    from engine.qa import check_pptx
+    issues = check_pptx(args.out)
+    if issues:
+        print("warning: structural QA found issues:", file=sys.stderr)
+        for i in issues:
+            print(f"  - {i}", file=sys.stderr)
     print(f"ok: wrote {args.out}")
     return 0
 
