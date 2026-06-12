@@ -77,6 +77,7 @@ Each row is a user-facing skill (slash command). Use this table to find every fi
 
 > **Removed in Federation Phase 1.5 (v1.79.0):** `sync/`, `foundations/`, `changelog/` — moved to `volivarii/actian-ds-knowledge` CI.
 - `lib/` — Shared utilities used by 2+ scripts (constants, ID stamping, scope derivation, snapshot store, intent resolver, unit resolver, Node binary resolver). New shared utilities go here.
+- `office/` — Python Office-document renderer (engine + mappers + dispatcher). Consumes the medium-agnostic data models (`slide-data.json` now; `brief-data`/`audit-data` later) and emits branded `.pptx`/`.docx`. Brand assets in `assets/office/`; reference docs in `references/office/`. Invoked opt-in from skills via `scripts/lib/resolve-python.sh` + `render-office.py`.
 
 ### `tests/` subdirs
 
