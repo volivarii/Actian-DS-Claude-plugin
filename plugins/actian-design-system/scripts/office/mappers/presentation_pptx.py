@@ -19,9 +19,8 @@ IMPORTANT — template findings (inspected 2026-06-12):
     idx=10 BODY     → divider title ("Divider Title Placeholder")
     idx=1  SUBTITLE → subtitle
     idx=11 DATE     → "2026" — remove
-  layout[29] 1_Title Only (used for back-cover — 1_End Slide has zero placeholders):
-    idx=0  TITLE → page title
-    idx=10 DATE  → "2026" — remove
+  layout[52] 1_End Slide (back-cover — branded gradient closer; zero placeholders):
+    title and subtitle drawn as white text boxes above the centered Actian logo
 
 No TITLE-type placeholder exists on the Title cover or Divider layouts;
 all text is idx-addressed as BODY/SUBTITLE.
@@ -32,7 +31,8 @@ import sys
 from pptx import Presentation
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from engine.pptx_helpers import open_template, save_dedup  # noqa: E402
+from engine.pptx_helpers import open_template, save_dedup, text_box, WHITE  # noqa: E402
+from pptx.enum.text import PP_ALIGN  # noqa: E402
 
 # Layout 0-based indices (file index N => python-pptx slide_layouts[N-1])
 # See references/office/layouts.md
@@ -41,7 +41,7 @@ LAYOUT = {
     "section":          40,   # 1_Divider
     "body-full":        18,   # 1_Content
     "body-text-visual": 18,   # 1_Content (PR1: text only; Two Content upgrade deferred)
-    "back-cover":       29,   # 1_Title Only (1_End Slide[52/53] has 0 placeholders)
+    "back-cover":       52,   # 1_End Slide (branded gradient closer; 0 placeholders — title drawn)
 }
 
 
@@ -160,28 +160,30 @@ def _fill_body(slide, slide_data):
 
 def _fill_back_cover(slide, slide_data):
     """
-    1_Title Only layout (used as branded closer — 1_End Slide has 0 placeholders):
-      idx=0  TITLE → title
-      idx=10 DATE  → remove
+    1_End Slide layout (layout[52]) — zero fillable placeholders.
+
+    The corporate gradient background, centered Actian logo, "a division of
+    HCLSoftware" lockup, and actian.com link are all STATIC shapes in the
+    layout and render automatically.  We draw the title and optional subtitle
+    as white centered text boxes in the clear space above the logo.
+
+    Layout 52 shape geometry (inspected 2026-06-12):
+      Picture 7 (Actian logo):           top=2.66in, h=1.32in (bottom ~3.98in)
+      Picture 9 (HCLSoftware lockup):    top=4.65in
+      TextBox 4 (actian.com):            top=6.48in
+      Rectangle 5 (background):          full-bleed gradient
+
+    Clear space above the logo: ~0.34in – 2.66in.
+    Title is placed at top=1.0in; subtitle (if present) at top=2.1in,
+    giving ≥0.56in clearance below the subtitle before the logo.
     """
-    title = slide_data.get("title") or ""
-    subtitle = slide_data.get("subtitle") or ""
-
-    title_ph = _ph_by_idx(slide, 0)
-    if title_ph is not None:
-        if title:
-            _set_text(title_ph, title)
-        else:
-            _remove_ph(title_ph)
-
-    date_ph = _ph_by_idx(slide, 10)
-    if date_ph is not None:
-        _remove_ph(date_ph)
-
-    # If there's a subtitle/body slot we can reach (layout[29] only has title+date),
-    # any additional text we want to show can be skipped in PR1 scope.
-    # The subtitle text from the data is intentionally not rendered here since
-    # 1_Title Only has no subtitle placeholder — back-cover is a visual closer.
+    title = slide_data.get("title") or "Thank you"
+    text_box(slide, 0.64, 1.0, 12.05, 1.4, title,
+             size=40, color=WHITE, bold=True, align=PP_ALIGN.CENTER)
+    subtitle = slide_data.get("subtitle")
+    if subtitle:
+        text_box(slide, 0.64, 2.1, 12.05, 1.0, subtitle,
+                 size=18, color=WHITE, align=PP_ALIGN.CENTER)
 
 
 def render_presentation(data, out_path):
