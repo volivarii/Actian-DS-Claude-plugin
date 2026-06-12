@@ -39,6 +39,7 @@ Deck outline: N slides (cover + N body + back cover). Reply:
 - **approve** or adjust ("drop slide 3", "add a metrics slide")
 - **"preview"** -- HTML preview with annotations before pushing
 - **"push [Figma URL]"** -- approve and push directly to Figma
+- **"pptx"** -- render a native, corporate-branded PowerPoint (.pptx) from the deck
 ```
 
 ## Step 3 — Build slide-data.json and push to Figma
@@ -88,6 +89,24 @@ source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-node.sh"
 
 Serve, present review report, accept feedback or "push".
 
+### PowerPoint export (opt-in, trigger: "pptx")
+
+Renders a native, editable `.pptx` in the **corporate brand** (Arial, HCLSoftware lockup, navy→teal) — distinct from the DS-Zen Figma/HTML output. The Office path is additive: if the Python toolchain is absent it skips cleanly and the deck is unaffected.
+
+```bash
+source "${CLAUDE_PLUGIN_ROOT}/scripts/lib/resolve-python.sh"
+if [ -z "$PYTHON_BIN" ]; then
+  echo "PowerPoint export needs python-pptx. Install with: pip install python-pptx — skipping .pptx, your deck data is unaffected."
+else
+  "$PYTHON_BIN" "${CLAUDE_PLUGIN_ROOT}/scripts/office/render-office.py" \
+    --type presentation \
+    {project_working_directory}/presentations/[topic-slug]/slide-data.json \
+    -o {project_working_directory}/presentations/[topic-slug]/[topic-slug]-deck.pptx
+fi
+```
+
+Report the output path. If the renderer prints structural QA warnings, surface them and offer to fix `slide-data.json` and re-render.
+
 ## Key rules
 
 - All content uses DS Kit tokens (`--zen-*` prefix), Roboto font
@@ -103,3 +122,5 @@ Serve, present review report, accept feedback or "push".
 - `references/context/app-context.md` — Actian terminology
 - `references/figma/parity-check.md` — post-push parity check procedure
 - `references/ds-rules/quality-checklist.md` — cleanup pass checklist
+- `references/office/brand.md` — corporate Office brand (used by the `pptx` export)
+- `references/office/layouts.md` — corporate 54-layout catalog
