@@ -1,7 +1,6 @@
 import os
 
 from pptx import Presentation
-from pptx.enum.shapes import PP_PLACEHOLDER
 
 from mappers.presentation_pptx import render_presentation
 from engine.qa import PROMPT_MARKERS
