@@ -3,7 +3,7 @@
 The bundled working template `assets/Actian-Template-2026.pptx` contains **54 slide layouts** on a single
 master (13.33" × 7.5"). They are grouped below by purpose. The number is the layout's file index
 (`ppt/slideLayouts/slideLayout<N>.xml`) — use it with `add_slide.py` in the
-[editing workflow](editing.md). Names ending in a number (`1_`, `2_`, `3_`) are **style variants of
+editing workflow. Names ending in a number (`1_`, `2_`, `3_`) are **style variants of
 the same purpose** (usually light / alternate / dark treatments) — pick whichever tone fits the
 slide's place in the dark→light→dark rhythm.
 
@@ -56,12 +56,12 @@ Place a divider between major sections to reset attention and keep the dark/ligh
 | # | Layout | Use for |
 |---|--------|---------|
 | 38 | `Case Study` | Customer story / case study framing. |
-| 40 | `Chart` | Title + takeaway + a content-placeholder **frame**. The chart itself is **not** a placeholder — add a real chart via the [hybrid method](editing.md#adding-visuals-to-template-slides-hybrid-method) sized to the frame. |
+| 40 | `Chart` | Title + takeaway + a content-placeholder **frame**. The chart itself is **not** a placeholder — add a real chart via the hybrid method sized to the frame. |
 | 45 | `Quote` | Large grey quotation marks + a single pull quote. |
 | 46 | `3 Quotes` | Three testimonials/quotes in a row. |
 | 47 | `Table` | Has a real **table placeholder** (idx 12) — but populate it by adding a table via the hybrid method (header `0E5FDB`/white, alt rows, teal total row). |
 | 48 | `Substitution analysis` | Comparison / flow. The `1`/`2`/`3` badges are **static shapes** (not relabelable by fill); only the text slots are fillable — redraw badges via the hybrid method to change them. |
-| 49 | `Step process chart` | Horizontal **STEP 1 → STEP 6** flow. The STEP pills and their numbers are **static shapes**; only the step *descriptions* (idx 12–17) are fillable. To relabel/renumber the steps, redraw the pills via the [hybrid method](editing.md#adding-visuals-to-template-slides-hybrid-method). |
+| 49 | `Step process chart` | Horizontal **STEP 1 → STEP 6** flow. The STEP pills and their numbers are **static shapes**; only the step *descriptions* (idx 12–17) are fillable. To relabel/renumber the steps, redraw the pills via the hybrid method. |
 | 50 | `Timeline` | Milestone timeline. The axis and **`Q1`–`Q4` tick labels are static shapes**; only the milestone text slots (idx 12–20) are fillable. For non-quarterly timelines, redraw the axis/labels via the hybrid method. |
 | 51–52 | `1_Poll Question`, `2_Poll Question` | Audience poll / interactive question. |
 
