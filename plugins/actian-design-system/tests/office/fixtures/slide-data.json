@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "title": "Actian Design System 2026",
+    "topic": "Design System",
+    "targetNodeId": "0:0",
+    "prompt": "Create a presentation about the DS 2026 update",
+    "duration": "25s",
+    "model": "claude-opus-4-6",
+    "pluginVersion": "1.31.0",
+    "skill": "generate-presentation",
+    "generatedAt": "2026-04-03T00:00:00Z"
+  },
+  "slides": [
+    {
+      "type": "cover",
+      "name": "Slide: Cover",
+      "topic": "Design System",
+      "title": "Actian Design System 2026",
+      "subtitle": "Tokens, components, and guidelines for consistent product experiences",
+      "date": "April 2026",
+      "creators": "UX Team"
+    },
+    {
+      "type": "section",
+      "name": "Slide: Section — Foundation",
+      "title": "Foundation",
+      "subtitle": "Tokens, spacing, and typography"
+    },
+    {
+      "type": "body-full",
+      "name": "Slide: Token architecture",
+      "title": "Token architecture",
+      "body": "The design system uses W3C DTCG format tokens organized in three layers:\n\n1. Primitive tokens — raw color, spacing, and type values\n2. Semantic tokens — purpose-driven aliases (e.g., theme-primary, text-secondary)\n3. Component tokens — per-component bindings (e.g., button-bg, input-border)\n\nAll tokens support three themes: Actian (default), Studio, and Explorer.",
+      "content": []
+    },
+    {
+      "type": "body-text-visual",
+      "name": "Slide: Spacing scale",
+      "title": "Spacing scale",
+      "body": "Eight-point grid with 7 named steps. Used consistently across all components and layouts.",
+      "content": [
+        {
+          "type": "FRAME",
+          "name": "Spacing scale visual",
+          "layout": { "mode": "HORIZONTAL", "spacing": 16, "padding": [24, 24, 24, 24] },
+          "fills": ["#F5F5FA"],
+          "cornerRadius": 12,
+          "children": [
+            { "type": "RECT", "name": "4px", "width": 4, "height": 48, "fills": ["#0550DC"], "cornerRadius": 2 },
+            { "type": "RECT", "name": "8px", "width": 8, "height": 48, "fills": ["#0550DC"], "cornerRadius": 2 },
+            { "type": "RECT", "name": "12px", "width": 12, "height": 48, "fills": ["#0550DC"], "cornerRadius": 2 },
+            { "type": "RECT", "name": "16px", "width": 16, "height": 48, "fills": ["#0550DC"], "cornerRadius": 2 },
+            { "type": "RECT", "name": "24px", "width": 24, "height": 48, "fills": ["#0550DC"], "cornerRadius": 2 },
+            { "type": "RECT", "name": "28px", "width": 28, "height": 48, "fills": ["#0550DC"], "cornerRadius": 2 },
+            { "type": "RECT", "name": "32px", "width": 32, "height": 48, "fills": ["#0550DC"], "cornerRadius": 2 }
+          ],
+          "sizing": { "horizontal": "FILL", "vertical": "HUG" }
+        }
+      ]
+    },
+    {
+      "type": "back-cover",
+      "name": "Slide: Back cover",
+      "title": "Thank you",
+      "subtitle": "Questions? Reach the UX team on Slack #design-system"
+    }
+  ]
+}
