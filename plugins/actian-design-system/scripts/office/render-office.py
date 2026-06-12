@@ -35,9 +35,17 @@ def main(argv=None):
     with open(args.data, encoding="utf-8") as fh:
         data = json.load(fh)
 
-    if args.type == "presentation":
-        from mappers.presentation_pptx import render_presentation
-        render_presentation(data, args.out)
+    out_dir = os.path.dirname(args.out)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+
+    try:
+        if args.type == "presentation":
+            from mappers.presentation_pptx import render_presentation
+            render_presentation(data, args.out)
+    except Exception as e:  # noqa: BLE001 - CLI boundary: surface a clean message
+        print(f"error: failed to render {args.type}: {e}", file=sys.stderr)
+        return 4
 
     from engine.qa import check_pptx
     issues = check_pptx(args.out)

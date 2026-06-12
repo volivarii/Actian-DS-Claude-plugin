@@ -4,8 +4,7 @@ from pptx import Presentation
 from pptx.enum.shapes import PP_PLACEHOLDER
 
 from mappers.presentation_pptx import render_presentation
-
-PROMPT_MARKERS = ["click to edit", "presenter name", "month #", "placeholder", "lorem", "xxxx"]
+from engine.qa import PROMPT_MARKERS
 
 
 def _all_text(prs):

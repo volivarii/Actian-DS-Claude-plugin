@@ -28,7 +28,7 @@ def _text(pptx_path):
             if n.startswith("ppt/slides/slide") and n.endswith(".xml"):
                 xml = z.read(n).decode("utf-8", "ignore")
                 out.extend(re.findall(r"<a:t>([^<]*)</a:t>", xml))
-    return "\n".join(out).lower()
+    return " ".join(out).lower()
 
 
 def check_pptx(path):
