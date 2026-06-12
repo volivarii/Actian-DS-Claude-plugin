@@ -31,17 +31,17 @@ import sys
 from pptx import Presentation
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-from engine.pptx_helpers import open_template, save_dedup, text_box, WHITE  # noqa: E402
+from engine.pptx_helpers import open_template, save_dedup, text_box, WHITE, LY_TITLE, LY_DIVIDER, LY_END  # noqa: E402
 from pptx.enum.text import PP_ALIGN  # noqa: E402
 
 # Layout 0-based indices (file index N => python-pptx slide_layouts[N-1])
 # See references/office/layouts.md
 LAYOUT = {
-    "cover":             6,   # 1_Title  (all BODY placeholders by idx)
-    "section":          40,   # 1_Divider
-    "body-full":        18,   # 1_Content
-    "body-text-visual": 18,   # 1_Content (PR1: text only; Two Content upgrade deferred)
-    "back-cover":       52,   # 1_End Slide (branded gradient closer; 0 placeholders — title drawn)
+    "cover":             LY_TITLE,    # 1_Title  (all BODY placeholders by idx)
+    "section":           LY_DIVIDER,  # 1_Divider
+    "body-full":         18,          # 1_Content (no named constant)
+    "body-text-visual":  18,          # 1_Content (PR1: text only; Two Content upgrade deferred)
+    "back-cover":        LY_END,      # 1_End Slide (branded gradient closer; 0 placeholders — title drawn)
 }
 
 

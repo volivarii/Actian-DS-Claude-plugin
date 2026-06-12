@@ -48,3 +48,10 @@ def test_every_run_is_arial(tmp_path, fixture_slide_data):
                 for r in p.runs:
                     if r.text.strip():
                         assert r.font.name == "Arial", f"non-Arial run: {r.text!r}"
+
+
+def test_back_cover_uses_end_slide_layout(tmp_path, fixture_slide_data):
+    out = tmp_path / "deck.pptx"
+    render_presentation(fixture_slide_data, str(out))
+    prs = Presentation(str(out))
+    assert prs.slides[-1].slide_layout.name == "1_End Slide"
