@@ -1,4 +1,3 @@
-import importlib.util
 import os
 import sys
 
@@ -13,6 +12,7 @@ sys.path.insert(0, PLUGIN_ROOT)
 def test_template_opens_with_54_layouts():
     from pptx import Presentation
     from scripts.office.engine.pptx_helpers import WORKING_TEMPLATE, open_template
+    assert open_template() == WORKING_TEMPLATE
     assert os.path.exists(WORKING_TEMPLATE)
     prs = Presentation(open_template())
     assert len(prs.slide_layouts) == 54

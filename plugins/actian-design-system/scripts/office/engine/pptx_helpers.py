@@ -4,7 +4,7 @@ Add slides from the branded template, then draw real visuals on top — the slid
 the master footer (page number, "Copyright © Actian Corporation", teal corner accent,
 ACTIAN color logo). Import everything:
 
-    from scripts.actian_helpers import *      # run from the skill root
+    from scripts.office.engine.pptx_helpers import *      # run from the skill root
 
 Brand tokens and chart styling come from brand.md. Every snippet here is tested.
 """
