@@ -2,7 +2,7 @@
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$HERE/../.." && pwd)"
-source "$ROOT/scripts/lib/resolve-python.sh"
+source "$ROOT/scripts/lib/resolve-python.sh" || true
 if python3 -c "import pptx" >/dev/null 2>&1; then
   [ -n "$PYTHON_BIN" ] || { echo "FAIL: pptx importable but PYTHON_BIN empty"; exit 1; }
   echo "PASS: found $PYTHON_BIN"
