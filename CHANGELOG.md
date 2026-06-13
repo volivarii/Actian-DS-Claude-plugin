@@ -2,18 +2,33 @@
 
 All notable changes to the Actian Design System plugin are documented here.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
-in `plugins/actian-design-system/.claude-plugin/plugin.json`:
-**MAJOR** = breaking, **MINOR** = features, **PATCH** = fixes.
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
+Since `2026.6.0` the plugin uses **calendar versioning** (`YYYY.MM.PATCH`) in
+`plugins/actian-design-system/.claude-plugin/plugin.json`: same month bumps
+**PATCH**, a new month resets to `YYYY.MM.0`. (Versions through `1.108.0` were
+semver; `2026.6.0 > 1.108.0` numerically, so release ordering is preserved.)
 
 Routine `vendor(knowledge): refresh to vX.Y.Z` commits are automated nightly
-patch bumps that propagate a pinned snapshot from
+version bumps (PATCH within a month, or a `YYYY.MM.0` reset at a month boundary)
+that propagate a pinned snapshot from
 [`volivarii/actian-ds-knowledge`](https://github.com/volivarii/actian-ds-knowledge);
 they are not individually listed below unless they changed user-facing behavior.
 
 This file was seeded at v1.97.0 from the commit history; entries before that
 are summarized at the release level.
+
+## [2026.6.0] — 2026-06-13
+
+### Changed
+
+- **Versioning switched to calendar versioning** (`YYYY.MM.PATCH`). The plugin
+  is an end-user tool whose version is a release counter, not an API contract,
+  so month-granularity recency is the meaningful signal rather than a
+  major/minor/patch semantic. Same month → PATCH+1; new month → `YYYY.MM.0`. CI
+  auto-bump (`vendor-snapshot.yml`) and the manual `scripts/lib/bump-version.js`
+  now share one `calendar` mode. Knowledge-repo versioning is unaffected (it
+  stays semver — it's resolved through a version range). Prior plugin history
+  through `1.108.0` was semver.
 
 ## [1.106.1] — 2026-06-10
 

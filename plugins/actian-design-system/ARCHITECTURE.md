@@ -102,4 +102,4 @@ No `tests/hooks/` — shell guards aren't unit-tested.
 6. If it has HTML/JSON templates, add files under `templates/`.
 7. Add tests under `tests/` (PR-3 will create the integration/ subdir for cross-cutting tests).
 8. Update this `ARCHITECTURE.md` Section 2 with the new row.
-9. Bump version in `.claude-plugin/plugin.json`.
+9. Bump version in `.claude-plugin/plugin.json` (calendar `YYYY.MM.PATCH` — see CLAUDE.md "Versioning").

@@ -66,10 +66,12 @@ Per MIGRATIONS.md (parallel-change rule):
 
 ## Version bump
 
-- [ ] `plugins/actian-design-system/.claude-plugin/plugin.json` bumped per semver
-      (PATCH = fix, MINOR = feature, MAJOR = breaking). The `plugin.json bumped`
-      CI check enforces the bump exists; it does not check the bump kind — pick
-      it correctly.
+- [ ] `plugins/actian-design-system/.claude-plugin/plugin.json` bumped per
+      calendar versioning `YYYY.MM.PATCH` (same month → PATCH+1; new month →
+      `YYYY.MM.0`). From the repo root, run: `node
+      plugins/actian-design-system/scripts/lib/bump-version.js
+      plugins/actian-design-system/.claude-plugin/plugin.json calendar`. The
+      `plugin.json bumped` CI check enforces the bump exists.
 
 ## Out-of-scope / follow-up
 

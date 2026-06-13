@@ -21,7 +21,7 @@
 //   node scripts/vendor/vendor-snapshot.js --resolve-only
 //
 // vendored.json#knowledge_repo_version_range pins the snapshot; vendor-snapshot.yml
-// refreshes it nightly and bumps plugin.json patch on diff.
+// refreshes it nightly and bumps plugin.json (calendar YYYY.MM.PATCH) on diff.
 
 var fs = require("fs");
 var path = require("path");

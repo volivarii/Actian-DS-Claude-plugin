@@ -4,8 +4,8 @@ name: Vendor knowledge-repo snapshot
 # volivarii/actian-ds-knowledge into plugins/actian-design-system/vendor/.
 # Runs nightly via cron + manual via workflow_dispatch. Regenerates the
 # *-components.md mirrors via render-component-reference.js after each
-# pull. Auto-bumps plugin.json patch when there's a content diff so the
-# marketplace cache propagates new content to designers.
+# pull. Auto-bumps plugin.json (calendar YYYY.MM.PATCH) when there's a content
+# diff so the marketplace cache propagates new content to designers.
 #
 # Required repo settings:
 #   Settings → Actions → General → Workflow permissions → Allow GH Actions
@@ -135,18 +135,17 @@ jobs:
             git diff --stat -- plugins/actian-design-system/vendor/ plugins/actian-design-system/vendored.json
           fi
 
-      - name: Auto-bump plugin.json patch
+      - name: Auto-bump plugin.json (calendar)
         if: steps.diff.outputs.changed == 'true'
+        # Calendar versioning (YYYY.MM.PATCH) — same month bumps PATCH, a new
+        # month resets to YYYY.MM.0. Delegates to the shared, unit-tested bumper
+        # so CI and manual bumps share one implementation. See CLAUDE.md
+        # "Versioning". Runs from repo root (no working-directory) — both paths
+        # are repo-root-relative; don't add a working-directory without also
+        # stripping the plugins/actian-design-system/ prefix.
         run: |
-          CURRENT=$(jq -r '.version' plugins/actian-design-system/.claude-plugin/plugin.json)
-          MAJOR=$(echo "$CURRENT" | cut -d. -f1)
-          MINOR=$(echo "$CURRENT" | cut -d. -f2)
-          PATCH=$(echo "$CURRENT" | cut -d. -f3)
-          NEW_PATCH=$((PATCH + 1))
-          NEW="$MAJOR.$MINOR.$NEW_PATCH"
-          jq ".version = \"$NEW\"" plugins/actian-design-system/.claude-plugin/plugin.json > /tmp/plugin.json
-          mv /tmp/plugin.json plugins/actian-design-system/.claude-plugin/plugin.json
-          echo "Bumped $CURRENT → $NEW"
+          node plugins/actian-design-system/scripts/lib/bump-version.js \
+            plugins/actian-design-system/.claude-plugin/plugin.json calendar
 
       - name: Open pull request
         if: steps.diff.outputs.changed == 'true'
@@ -164,7 +163,7 @@ jobs:
 
             See https://github.com/volivarii/actian-ds-knowledge/tree/${{ steps.target.outputs.sha }} for source state.
 
-            Auto-bumps plugin.json patch so the marketplace cache propagates the new content to designers.
+            Auto-bumps plugin.json (calendar `YYYY.MM.PATCH`) so the marketplace cache propagates the new content to designers.
           branch: "vendor/refresh-${{ steps.target.outputs.short_sha }}"
           labels: vendor,knowledge-snapshot,auto-merge
           delete-branch: true
