@@ -23,9 +23,8 @@
  *   - If source files changed and version is unchanged from base: fail
  *   - If source files changed and version is bumped: pass
  *
- * The auto-bump-on-data-sync workflow (sync-from-figma.yml, derive-foundations
- * via shared bump-version.js) covers automated bumps; this gate covers
- * human-authored PRs.
+ * The vendor-snapshot workflow auto-bumps via the shared bump-version.js
+ * (calendar mode) on a data refresh; this gate covers human-authored PRs.
  */
 
 var fs = require("fs");
@@ -141,7 +140,8 @@ function main() {
     );
     process.stderr.write(
       "  Bump plugins/actian-design-system/.claude-plugin/plugin.json " +
-        "version (PATCH for fixes, MINOR for features, MAJOR for breaking).\n",
+        "version (calendar versioning YYYY.MM.PATCH — same month bumps PATCH, " +
+        "a new month resets to YYYY.MM.0; see CLAUDE.md 'Versioning').\n",
     );
     return 1;
   }

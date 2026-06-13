@@ -63,7 +63,7 @@ Data flows: `Figma -> volivarii/actian-ds-knowledge CI -> vendor/ (snapshot pull
 - `vendor/content/dist/words-to-avoid.json` — structured words-to-avoid rules (content's first JSON dist); each rule = `{ avoid, reason, example: { do, dont } }`, advisory rules carry `avoid: []`. Read by `validate-flow-data.js` (avoid-word soft-check); `global.md` keeps the prose table for humans. Resolve via `PATHS.content.wordsToAvoid`.
 - `vendor/app-context/app-context.json`
 
-`vendored.json` records the pinned knowledge-repo SHA. Run `vendor-snapshot.yml` workflow (manual or nightly cron) to refresh; auto-bumps plugin.json patch on diff so the marketplace picks up the new content.
+`vendored.json` records the pinned knowledge-repo SHA. Run `vendor-snapshot.yml` workflow (manual or nightly cron) to refresh; auto-bumps plugin.json (calendar `YYYY.MM.PATCH`) on diff so the marketplace picks up the new content.
 
 **Scripts** (utilities — NOT used for Figma push):
 - `scripts/renderers/assemble-preview.js` — generates HTML previews from data models
@@ -100,7 +100,14 @@ When generating code or docs in this plugin, consult `ARCHITECTURE.md` for place
 
 ## Versioning
 
-Semver in `.claude-plugin/plugin.json`. PATCH = fixes, MINOR = features, MAJOR = breaking. Bump as part of the feature/fix commit, not separately. Batch related changes.
+**Calendar versioning** (`YYYY.MM.PATCH`) in `.claude-plugin/plugin.json` — e.g. `2026.6.3` is the 4th release in June 2026. The version is a release counter, not an API contract: this is an end-user plugin and nothing pins it by semver range, so the meaningful signal is *recency at month granularity*, not a major/minor/patch semantic.
+
+- **Same month:** bump PATCH (`2026.6.3` → `2026.6.4`).
+- **New month:** reset to `YYYY.MM.0` (`2026.6.4` → `2026.7.0`).
+- **Bump as part of the feature/fix commit**, not separately. Batch related changes into one bump.
+- **Tooling:** `node scripts/lib/bump-version.js .claude-plugin/plugin.json calendar` does the right thing for the current UTC month; `vendor-snapshot.yml` calls it on a data refresh. Legacy `patch`/`minor`/`major` modes remain for explicit manual bumps.
+- **Ordering:** versions compare **segment-wise as integers** (the YYYY.MM key increments before PATCH resets), so each release is strictly greater than the last — `2026.7.0 > 2026.6.47` — and every CalVer release beats the pre-CalVer tail (`2026.6.0 > 1.108.0`). Months are intentionally **not** zero-padded (`2026.6.0`, not `2026.06.0`): leading zeros are illegal in SemVer, so padding would risk `claude plugin validate` / parser rejection — and unpadded stays valid SemVer. The trade-off is that *naive lexical* string sort is unreliable for two-digit months (`"2026.10.0"` sorts before `"2026.9.0"` as a raw string), so **don't lexically sort versions — compare numerically.** Claude Code's update detection is string-**equality**, which is unaffected either way.
+- `marketplace.json` carries no version; `plugin.json#version` is the single source of truth.
 
 ---
 
