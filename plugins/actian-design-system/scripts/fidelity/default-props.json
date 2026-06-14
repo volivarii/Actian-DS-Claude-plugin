@@ -1,5 +1,9 @@
 {
-  "button": { "Label": "Button", "Leading icon show": true },
+  "button": {
+    "Label": "Button",
+    "Leading icon show": true,
+    "Trailing icon show": true
+  },
   "checkbox-with-label": { "Label": "Inline label for checkbox" },
   "alert-banner": { "Message": "Primary" }
 }
