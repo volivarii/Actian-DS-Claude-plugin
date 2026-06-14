@@ -10,10 +10,17 @@ var S = require("./structural-check");
 var PATHS = require("../lib/paths");
 
 var PLUGIN_DIR = path.resolve(__dirname, "..", "..");
-// Resolve the Gate-1 oracle via PATHS (guarded by no-bare-vendor-paths.test.js).
-var ORACLE = function (slug) {
-  return PATHS.components.media(slug);
-};
+// Resolve the Gate-1 oracle: prefer the single-component default.webp; fall
+// back to the legacy preview.webp board (which runPixel still skips on aspect
+// mismatch). Returns null when neither exists. `exists` is injectable for tests.
+function oracleFor(slug, exists) {
+  exists = exists || fs.existsSync;
+  var def = PATHS.components.mediaDefault(slug);
+  if (exists(def)) return def;
+  var prev = PATHS.components.media(slug);
+  if (exists(prev)) return prev;
+  return null;
+}
 var LEDGER = path.join(
   PLUGIN_DIR,
   "tests",
@@ -53,8 +60,8 @@ function shoot(chrome, htmlPath, outPng, w, h) {
 
 function runPixel(slug, chrome, tmp, opts) {
   opts = opts || {};
-  var oracle = ORACLE(slug);
-  if (!fs.existsSync(oracle)) return { pass: null, skipped: "no preview.webp" };
+  var oracle = oracleFor(slug);
+  if (!oracle) return { pass: null, skipped: "no-oracle" };
 
   // 1. render the leaf → PNG → decode
   var lhp = path.join(tmp, slug + "-leaf.html");
@@ -110,6 +117,7 @@ function runPixel(slug, chrome, tmp, opts) {
 }
 
 function ledgerRow(slug, gate1, gate2) {
+  var chosenOracle = oracleFor(slug);
   var g1 =
     gate1.pass === null
       ? "skip(" + (gate1.skipped || "") + ")"
@@ -130,7 +138,12 @@ function ledgerRow(slug, gate1, gate2) {
       method: "Program C two-gate (pixel + structural)",
     },
     reference: {
-      media: ["components/dist/media/" + slug + "/preview.webp"],
+      media: [
+        "components/dist/media/" +
+          slug +
+          "/" +
+          (chosenOracle ? path.basename(chosenOracle) : "default.webp"),
+      ],
     },
     pixel: gate1,
     structural: gate2,
@@ -182,4 +195,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { run, runStructural, runPixel, ledgerRow };
+module.exports = { run, runStructural, runPixel, ledgerRow, oracleFor };
