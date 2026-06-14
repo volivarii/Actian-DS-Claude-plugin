@@ -3,12 +3,29 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var H = require("../../scripts/fidelity/render-leaf");
 
-test("defaultNodeForSlug uses dsSlug shape", function () {
-  assert.deepEqual(H.defaultNodeForSlug("button"), {
-    dsSlug: "button",
-    variant: "",
-    props: {},
-  });
+test("defaultNodeForSlug reads anatomy variant + merges default-props", function () {
+  var node = H.defaultNodeForSlug("button");
+  assert.equal(node.dsSlug, "button");
+  // variant comes from vendored anatomy source.variant
+  assert.match(node.variant, /Type=Primary/);
+  // props come from default-props.json
+  assert.equal(node.props.Label, "Button");
+});
+
+test("defaultNodeForSlug falls back to empty props for an unmapped slug", function () {
+  var node = H.defaultNodeForSlug("radio-button");
+  assert.equal(node.dsSlug, "radio-button");
+  assert.deepEqual(node.props, {});
+});
+
+test("defaultNodeForSlug yields an empty variant when the slug has no anatomy", function () {
+  // A slug with no vendored anatomy file: the anatomy read throws (ENOENT, or
+  // byKey rejects the unknown slug) and the try/catch degrades to variant="".
+  // Every BUILT_SLUG has anatomy, so this fabricated slug is the only way to
+  // exercise the fail-soft branch the gate relies on.
+  var node = H.defaultNodeForSlug("definitely-not-a-real-slug-xyz");
+  assert.equal(node.variant, "");
+  assert.deepEqual(node.props, {});
 });
 
 test("buildLeafHtml embeds the rendered leaf + a fonts.ready measure hook", function () {

@@ -120,6 +120,12 @@ PATHS.components.media = function (slug) {
   return path.join(VENDOR, "components", "dist", "media", slug, "preview.webp");
 };
 
+// Single-component oracle for the fidelity gate (Gate-1). Additive overlay,
+// mirroring PATHS.components.media — NOT manifest-driven (media is plugin-only).
+PATHS.components.mediaDefault = function (slug) {
+  return path.join(VENDOR, "components", "dist", "media", slug, "default.webp");
+};
+
 // NOTE: anatomy resolution is NOT overlaid here. The knowledge `anatomy` domain
 // is declared in paths-manifest.json (components.anatomy.byKey collection +
 // components.anatomy.bundle path), so buildPathsFromManifest already produces

@@ -10,10 +10,31 @@ var S = require("./structural-check");
 var PATHS = require("../lib/paths");
 
 var PLUGIN_DIR = path.resolve(__dirname, "..", "..");
-// Resolve the Gate-1 oracle via PATHS (guarded by no-bare-vendor-paths.test.js).
-var ORACLE = function (slug) {
-  return PATHS.components.media(slug);
-};
+// Resolve the Gate-1 oracle: prefer the single-component default.webp; fall
+// back to the legacy preview.webp board (which runPixel still skips on aspect
+// mismatch). Returns null when neither exists. `exists` is injectable for tests.
+function oracleFor(slug, exists) {
+  exists = exists || fs.existsSync;
+  var def = PATHS.components.mediaDefault(slug);
+  if (exists(def)) return def;
+  var prev = PATHS.components.media(slug);
+  if (exists(prev)) return prev;
+  return null;
+}
+
+// Per-slug Gate-1 threshold overrides (max diff ratio that still passes).
+// Empty by default; populated during calibration only for components whose text
+// anti-aliasing pushes them above the global default with no real regression.
+// Keep this list short and justified.
+var THRESHOLD_OVERRIDES = {};
+var DEFAULT_THRESHOLD = 0.06;
+
+function thresholdFor(slug, def, overrides) {
+  overrides = overrides || THRESHOLD_OVERRIDES;
+  return Object.prototype.hasOwnProperty.call(overrides, slug)
+    ? overrides[slug]
+    : def;
+}
 var LEDGER = path.join(
   PLUGIN_DIR,
   "tests",
@@ -51,10 +72,13 @@ function shoot(chrome, htmlPath, outPng, w, h) {
   return P.decodePng(fs.readFileSync(outPng));
 }
 
-function runPixel(slug, chrome, tmp, opts) {
+function runPixel(slug, chrome, tmp, opts, oracle) {
   opts = opts || {};
-  var oracle = ORACLE(slug);
-  if (!fs.existsSync(oracle)) return { pass: null, skipped: "no preview.webp" };
+  // The oracle is resolved once per slug in run() and threaded in so runPixel
+  // and ledgerRow agree on exactly which file was diffed. Direct callers
+  // (tests) may omit it; resolve on demand for backward compatibility.
+  if (oracle === undefined) oracle = oracleFor(slug);
+  if (!oracle) return { pass: null, skipped: "no-oracle" };
 
   // 1. render the leaf → PNG → decode
   var lhp = path.join(tmp, slug + "-leaf.html");
@@ -100,16 +124,24 @@ function runPixel(slug, chrome, tmp, opts) {
     pmThreshold: opts.pmThreshold,
   });
   // threshold default 0.06 (≤6% of pixels may differ) is provisional — calibrate in Task 7.
+  // Per-slug overrides go through thresholdFor (DEFAULT_THRESHOLD / THRESHOLD_OVERRIDES);
+  // an explicit opts.threshold still wins for callers that pass one.
   var v = P.gridVerdict(
     [d.ratio],
-    opts.threshold == null ? 0.06 : opts.threshold,
+    opts.threshold == null
+      ? thresholdFor(slug, DEFAULT_THRESHOLD)
+      : opts.threshold,
   );
   v.ratio = d.ratio;
   v.dims = { w: norm.w, h: norm.h };
   return v;
 }
 
-function ledgerRow(slug, gate1, gate2) {
+function ledgerRow(slug, gate1, gate2, oracle) {
+  // Same oracle instance runPixel diffed against (threaded from run()); falls
+  // back to a fresh resolve only for direct callers that omit it — so the
+  // recorded reference can never disagree with what was actually compared.
+  var chosenOracle = oracle === undefined ? oracleFor(slug) : oracle;
   var g1 =
     gate1.pass === null
       ? "skip(" + (gate1.skipped || "") + ")"
@@ -130,7 +162,12 @@ function ledgerRow(slug, gate1, gate2) {
       method: "Program C two-gate (pixel + structural)",
     },
     reference: {
-      media: ["components/dist/media/" + slug + "/preview.webp"],
+      media: [
+        "components/dist/media/" +
+          slug +
+          "/" +
+          (chosenOracle ? path.basename(chosenOracle) : "default.webp"),
+      ],
     },
     pixel: gate1,
     structural: gate2,
@@ -146,11 +183,15 @@ function run(slugs, opts) {
   var tmp = fs.mkdtempSync(path.join(os.tmpdir(), "fid-"));
   try {
     var rows = slugs.map(function (slug) {
+      // Resolve the Gate-1 oracle ONCE per slug and thread it to both runPixel
+      // (diff) and ledgerRow (provenance) so they can never disagree, and so
+      // the filesystem is probed once instead of three times.
+      var oracle = oracleFor(slug);
       var gate2 = runStructural(slug, resolved.chrome, tmp);
       // Gate 1 always runs (pure-JS diff, Chrome present); pass:null only when the
-      // component has no preview.webp oracle to compare against.
-      var gate1 = runPixel(slug, resolved.chrome, tmp, opts);
-      var row = ledgerRow(slug, gate1, gate2);
+      // component has no single-component oracle to compare against.
+      var gate1 = runPixel(slug, resolved.chrome, tmp, opts, oracle);
+      var row = ledgerRow(slug, gate1, gate2, oracle);
       if (opts.write !== false)
         fs.appendFileSync(LEDGER, JSON.stringify(row) + "\n");
       return row;
@@ -182,4 +223,11 @@ if (require.main === module) {
   });
 }
 
-module.exports = { run, runStructural, runPixel, ledgerRow };
+module.exports = {
+  run,
+  runStructural,
+  runPixel,
+  ledgerRow,
+  oracleFor,
+  thresholdFor,
+};

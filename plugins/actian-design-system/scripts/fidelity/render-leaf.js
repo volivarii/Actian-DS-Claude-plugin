@@ -22,10 +22,35 @@ function readCss() {
   return _cssCache;
 }
 
+var _defaultProps = null;
+function defaultProps() {
+  if (_defaultProps === null) {
+    _defaultProps = JSON.parse(
+      fs.readFileSync(path.join(__dirname, "default-props.json"), "utf8"),
+    );
+  }
+  return _defaultProps;
+}
+
+// Read the captured variant from the anatomy substrate so the rendered leaf
+// matches the oracle's state; merge per-slug content from default-props.json
+// (the variant string can't carry Label/Message text). Missing anatomy →
+// empty variant; missing map entry → empty props (the leaf renders its own
+// defaults and simply won't pixel-match, which is visible, not a crash).
 function defaultNodeForSlug(slug) {
-  // v1: render the default variant. Per-slug variant strings may need tuning to
-  // match the oracle's captured state (Spec §7 variant-mismatch risk).
-  return { dsSlug: slug, variant: "", props: {} };
+  var variant = "";
+  try {
+    var anatomy = JSON.parse(
+      fs.readFileSync(PATHS.components.anatomy.byKey(slug), "utf8"),
+    );
+    if (anatomy && anatomy.source && anatomy.source.variant) {
+      variant = anatomy.source.variant;
+    }
+  } catch (_) {
+    // no anatomy file → render the empty variant (component defaults)
+  }
+  var props = defaultProps()[slug] || {};
+  return { dsSlug: slug, variant: variant, props: props };
 }
 
 function renderLeafFragment(slug) {

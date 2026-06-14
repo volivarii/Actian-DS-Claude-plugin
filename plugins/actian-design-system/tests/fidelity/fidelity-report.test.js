@@ -19,7 +19,7 @@ test("aggregate computes mean over SCORED rows + counts skipped", function () {
       slug: "checkbox-with-label",
       fidelity: { score: null },
       gates: {
-        pixel_diff: "skip(no preview.webp)",
+        pixel_diff: "skip(no-oracle)",
         responsive_structural: "pass",
       },
     },
