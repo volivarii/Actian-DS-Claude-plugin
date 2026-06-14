@@ -7,7 +7,17 @@
   },
   "media": {
     "account-dropdown": {
-      "preview": "components/dist/media/account-dropdown/preview.webp"
+      "preview": "components/dist/media/account-dropdown/preview.webp",
+      "default": "components/dist/media/account-dropdown/default.webp"
+    },
+    "actian-data-intelligence": {
+      "default": "components/dist/media/actian-data-intelligence/default.webp"
+    },
+    "actian-data-observability": {
+      "default": "components/dist/media/actian-data-observability/default.webp"
+    },
+    "actian-pyramid": {
+      "default": "components/dist/media/actian-pyramid/default.webp"
     },
     "alert-banner": {
       "preview": "components/dist/media/alert-banner/preview.webp",
@@ -16,16 +26,22 @@
       ],
       "layout": [
         "components/dist/media/alert-banner/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/alert-banner/default.webp"
     },
     "app-switcher-dropdown": {
-      "preview": "components/dist/media/app-switcher-dropdown/preview.webp"
+      "preview": "components/dist/media/app-switcher-dropdown/preview.webp",
+      "default": "components/dist/media/app-switcher-dropdown/default.webp"
     },
     "avatar": {
       "preview": "components/dist/media/avatar/preview.webp",
       "behavior": [
         "components/dist/media/avatar/behavior-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/avatar/default.webp"
+    },
+    "background-explore": {
+      "default": "components/dist/media/background-explore/default.webp"
     },
     "badge": {
       "preview": "components/dist/media/badge/preview.webp",
@@ -35,29 +51,39 @@
       ],
       "behavior": [
         "components/dist/media/badge/behavior-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/badge/default.webp"
+    },
+    "bar-graph": {
+      "default": "components/dist/media/bar-graph/default.webp"
     },
     "breadcrumbs": {
-      "preview": "components/dist/media/breadcrumbs/preview.webp"
+      "preview": "components/dist/media/breadcrumbs/preview.webp",
+      "default": "components/dist/media/breadcrumbs/default.webp"
     },
     "button": {
       "preview": "components/dist/media/button/preview.webp",
       "variations": [
         "components/dist/media/button/variations-0.webp",
         "components/dist/media/button/variations-1.webp"
-      ]
+      ],
+      "default": "components/dist/media/button/default.webp"
     },
     "calendar": {
-      "preview": "components/dist/media/calendar/preview.webp"
+      "preview": "components/dist/media/calendar/preview.webp",
+      "default": "components/dist/media/calendar/default.webp"
     },
     "card-for-grouped-content": {
-      "preview": "components/dist/media/card-for-grouped-content/preview.webp"
+      "preview": "components/dist/media/card-for-grouped-content/preview.webp",
+      "default": "components/dist/media/card-for-grouped-content/default.webp"
     },
     "card-for-items": {
-      "preview": "components/dist/media/card-for-items/preview.webp"
+      "preview": "components/dist/media/card-for-items/preview.webp",
+      "default": "components/dist/media/card-for-items/default.webp"
     },
     "card-for-perimeter": {
-      "preview": "components/dist/media/card-for-perimeter/preview.webp"
+      "preview": "components/dist/media/card-for-perimeter/preview.webp",
+      "default": "components/dist/media/card-for-perimeter/default.webp"
     },
     "chat-with-ai-steward": {
       "preview": "components/dist/media/chat-with-ai-steward/preview.webp",
@@ -66,20 +92,26 @@
       ],
       "behavior": [
         "components/dist/media/chat-with-ai-steward/behavior-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/chat-with-ai-steward/default.webp"
     },
     "checkbox-with-label": {
       "preview": "components/dist/media/checkbox-with-label/preview.webp",
       "spacing": [
         "components/dist/media/checkbox-with-label/spacing-0.webp",
         "components/dist/media/checkbox-with-label/spacing-1.webp"
-      ]
+      ],
+      "default": "components/dist/media/checkbox-with-label/default.webp"
     },
     "collapse-accordion": {
       "preview": "components/dist/media/collapse-accordion/preview.webp",
       "behavior": [
         "components/dist/media/collapse-accordion/behavior-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/collapse-accordion/default.webp"
+    },
+    "component-1": {
+      "default": "components/dist/media/component-1/default.webp"
     },
     "confirmation": {
       "preview": "components/dist/media/confirmation/preview.webp",
@@ -89,19 +121,27 @@
         "components/dist/media/confirmation/layout-2.webp",
         "components/dist/media/confirmation/layout-3.webp",
         "components/dist/media/confirmation/layout-4.webp"
-      ]
+      ],
+      "default": "components/dist/media/confirmation/default.webp"
+    },
+    "data-intelligence-dev-logo": {
+      "default": "components/dist/media/data-intelligence-dev-logo/default.webp"
     },
     "digram-item-types": {
-      "preview": "components/dist/media/digram-item-types/preview.webp"
+      "preview": "components/dist/media/digram-item-types/preview.webp",
+      "default": "components/dist/media/digram-item-types/default.webp"
     },
     "digram-topic": {
-      "preview": "components/dist/media/digram-topic/preview.webp"
+      "preview": "components/dist/media/digram-topic/preview.webp",
+      "default": "components/dist/media/digram-topic/default.webp"
     },
     "drawer-side-panel": {
-      "preview": "components/dist/media/drawer-side-panel/preview.webp"
+      "preview": "components/dist/media/drawer-side-panel/preview.webp",
+      "default": "components/dist/media/drawer-side-panel/default.webp"
     },
     "dropdown-select-default": {
-      "preview": "components/dist/media/dropdown-select-default/preview.webp"
+      "preview": "components/dist/media/dropdown-select-default/preview.webp",
+      "default": "components/dist/media/dropdown-select-default/default.webp"
     },
     "empty-state": {
       "preview": "components/dist/media/empty-state/preview.webp",
@@ -111,7 +151,8 @@
         "components/dist/media/empty-state/layout-2.webp",
         "components/dist/media/empty-state/layout-3.webp",
         "components/dist/media/empty-state/layout-4.webp"
-      ]
+      ],
+      "default": "components/dist/media/empty-state/default.webp"
     },
     "error-state": {
       "preview": "components/dist/media/error-state/preview.webp",
@@ -121,13 +162,16 @@
         "components/dist/media/error-state/layout-2.webp",
         "components/dist/media/error-state/layout-3.webp",
         "components/dist/media/error-state/layout-4.webp"
-      ]
+      ],
+      "default": "components/dist/media/error-state/default.webp"
     },
     "global-header": {
-      "preview": "components/dist/media/global-header/preview.webp"
+      "preview": "components/dist/media/global-header/preview.webp",
+      "default": "components/dist/media/global-header/default.webp"
     },
     "glossary-item-hierarchy-diagram": {
-      "preview": "components/dist/media/glossary-item-hierarchy-diagram/preview.webp"
+      "preview": "components/dist/media/glossary-item-hierarchy-diagram/preview.webp",
+      "default": "components/dist/media/glossary-item-hierarchy-diagram/default.webp"
     },
     "identification-key": {
       "preview": "components/dist/media/identification-key/preview.webp",
@@ -139,46 +183,68 @@
       ],
       "layout": [
         "components/dist/media/identification-key/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/identification-key/default.webp"
+    },
+    "illustration": {
+      "default": "components/dist/media/illustration/default.webp"
     },
     "input": {
-      "preview": "components/dist/media/input/preview.webp"
+      "preview": "components/dist/media/input/preview.webp",
+      "default": "components/dist/media/input/default.webp"
     },
     "input-date": {
-      "preview": "components/dist/media/input-date/preview.webp"
+      "preview": "components/dist/media/input-date/preview.webp",
+      "default": "components/dist/media/input-date/default.webp"
+    },
+    "l-grid": {
+      "default": "components/dist/media/l-grid/default.webp"
+    },
+    "line-graph": {
+      "default": "components/dist/media/line-graph/default.webp"
     },
     "lineage-connecting-line": {
       "preview": "components/dist/media/lineage-connecting-line/preview.webp",
       "behavior": [
         "components/dist/media/lineage-connecting-line/behavior-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/lineage-connecting-line/default.webp"
     },
     "lineage-grouped-node": {
       "preview": "components/dist/media/lineage-grouped-node/preview.webp",
       "behavior": [
         "components/dist/media/lineage-grouped-node/behavior-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/lineage-grouped-node/default.webp"
     },
     "lineage-individual-node": {
       "preview": "components/dist/media/lineage-individual-node/preview.webp",
       "behavior": [
         "components/dist/media/lineage-individual-node/behavior-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/lineage-individual-node/default.webp"
     },
     "link": {
       "preview": "components/dist/media/link/preview.webp",
       "variations": [
         "components/dist/media/link/variations-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/link/default.webp"
     },
     "loader": {
-      "preview": "components/dist/media/loader/preview.webp"
+      "preview": "components/dist/media/loader/preview.webp",
+      "default": "components/dist/media/loader/default.webp"
     },
     "loader-with-logo": {
-      "preview": "components/dist/media/loader-with-logo/preview.webp"
+      "preview": "components/dist/media/loader-with-logo/preview.webp",
+      "default": "components/dist/media/loader-with-logo/default.webp"
     },
     "loading-skeleton": {
-      "preview": "components/dist/media/loading-skeleton/preview.webp"
+      "preview": "components/dist/media/loading-skeleton/preview.webp",
+      "default": "components/dist/media/loading-skeleton/default.webp"
+    },
+    "m-grid": {
+      "default": "components/dist/media/m-grid/default.webp"
     },
     "maintenance-state": {
       "preview": "components/dist/media/maintenance-state/preview.webp",
@@ -188,52 +254,74 @@
         "components/dist/media/maintenance-state/layout-2.webp",
         "components/dist/media/maintenance-state/layout-3.webp",
         "components/dist/media/maintenance-state/layout-4.webp"
-      ]
+      ],
+      "default": "components/dist/media/maintenance-state/default.webp"
     },
     "metamodel-widget": {
-      "preview": "components/dist/media/metamodel-widget/preview.webp"
+      "preview": "components/dist/media/metamodel-widget/preview.webp",
+      "default": "components/dist/media/metamodel-widget/default.webp"
     },
     "modal": {
-      "preview": "components/dist/media/modal/preview.webp"
+      "preview": "components/dist/media/modal/preview.webp",
+      "default": "components/dist/media/modal/default.webp"
+    },
+    "notes-feedback": {
+      "default": "components/dist/media/notes-feedback/default.webp"
     },
     "notification": {
-      "preview": "components/dist/media/notification/preview.webp"
+      "preview": "components/dist/media/notification/preview.webp",
+      "default": "components/dist/media/notification/default.webp"
     },
     "notification-dropdown": {
-      "preview": "components/dist/media/notification-dropdown/preview.webp"
+      "preview": "components/dist/media/notification-dropdown/preview.webp",
+      "default": "components/dist/media/notification-dropdown/default.webp"
     },
     "page-header": {
-      "preview": "components/dist/media/page-header/preview.webp"
+      "preview": "components/dist/media/page-header/preview.webp",
+      "default": "components/dist/media/page-header/default.webp"
     },
     "popover": {
-      "preview": "components/dist/media/popover/preview.webp"
+      "preview": "components/dist/media/popover/preview.webp",
+      "default": "components/dist/media/popover/default.webp"
     },
     "progress-bar-small": {
-      "preview": "components/dist/media/progress-bar-small/preview.webp"
+      "preview": "components/dist/media/progress-bar-small/preview.webp",
+      "default": "components/dist/media/progress-bar-small/default.webp"
     },
     "radio-button": {
-      "preview": "components/dist/media/radio-button/preview.webp"
+      "preview": "components/dist/media/radio-button/preview.webp",
+      "default": "components/dist/media/radio-button/default.webp"
     },
     "rich-text": {
-      "preview": "components/dist/media/rich-text/preview.webp"
+      "preview": "components/dist/media/rich-text/preview.webp",
+      "default": "components/dist/media/rich-text/default.webp"
+    },
+    "s-grid": {
+      "default": "components/dist/media/s-grid/default.webp"
     },
     "scroll-bar": {
-      "preview": "components/dist/media/scroll-bar/preview.webp"
+      "preview": "components/dist/media/scroll-bar/preview.webp",
+      "default": "components/dist/media/scroll-bar/default.webp"
     },
     "search": {
-      "preview": "components/dist/media/search/preview.webp"
+      "preview": "components/dist/media/search/preview.webp",
+      "default": "components/dist/media/search/default.webp"
     },
     "search-dropdown-menu": {
-      "preview": "components/dist/media/search-dropdown-menu/preview.webp"
+      "preview": "components/dist/media/search-dropdown-menu/preview.webp",
+      "default": "components/dist/media/search-dropdown-menu/default.webp"
     },
     "search-filters": {
-      "preview": "components/dist/media/search-filters/preview.webp"
+      "preview": "components/dist/media/search-filters/preview.webp",
+      "default": "components/dist/media/search-filters/default.webp"
     },
     "search-result-card": {
-      "preview": "components/dist/media/search-result-card/preview.webp"
+      "preview": "components/dist/media/search-result-card/preview.webp",
+      "default": "components/dist/media/search-result-card/default.webp"
     },
     "segmented-control": {
-      "preview": "components/dist/media/segmented-control/preview.webp"
+      "preview": "components/dist/media/segmented-control/preview.webp",
+      "default": "components/dist/media/segmented-control/default.webp"
     },
     "side-nav": {
       "preview": "components/dist/media/side-nav/preview.webp",
@@ -243,19 +331,27 @@
       ],
       "behavior": [
         "components/dist/media/side-nav/behavior-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/side-nav/default.webp"
     },
     "spinner": {
-      "preview": "components/dist/media/spinner/preview.webp"
+      "preview": "components/dist/media/spinner/preview.webp",
+      "default": "components/dist/media/spinner/default.webp"
     },
     "stepper": {
-      "preview": "components/dist/media/stepper/preview.webp"
+      "preview": "components/dist/media/stepper/preview.webp",
+      "default": "components/dist/media/stepper/default.webp"
     },
     "sticky-footer": {
-      "preview": "components/dist/media/sticky-footer/preview.webp"
+      "preview": "components/dist/media/sticky-footer/preview.webp",
+      "default": "components/dist/media/sticky-footer/default.webp"
+    },
+    "table": {
+      "default": "components/dist/media/table/default.webp"
     },
     "tabs": {
-      "preview": "components/dist/media/tabs/preview.webp"
+      "preview": "components/dist/media/tabs/preview.webp",
+      "default": "components/dist/media/tabs/default.webp"
     },
     "tag-catalog": {
       "preview": "components/dist/media/tag-catalog/preview.webp",
@@ -267,7 +363,8 @@
       ],
       "layout": [
         "components/dist/media/tag-catalog/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/tag-catalog/default.webp"
     },
     "tag-catalog-item-type": {
       "preview": "components/dist/media/tag-catalog-item-type/preview.webp",
@@ -279,7 +376,8 @@
       ],
       "layout": [
         "components/dist/media/tag-catalog-item-type/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/tag-catalog-item-type/default.webp"
     },
     "tag-default": {
       "preview": "components/dist/media/tag-default/preview.webp",
@@ -291,7 +389,8 @@
       ],
       "layout": [
         "components/dist/media/tag-default/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/tag-default/default.webp"
     },
     "tag-glossary-item-type": {
       "preview": "components/dist/media/tag-glossary-item-type/preview.webp",
@@ -303,7 +402,8 @@
       ],
       "layout": [
         "components/dist/media/tag-glossary-item-type/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/tag-glossary-item-type/default.webp"
     },
     "tag-interactive": {
       "preview": "components/dist/media/tag-interactive/preview.webp",
@@ -315,7 +415,8 @@
       ],
       "layout": [
         "components/dist/media/tag-interactive/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/tag-interactive/default.webp"
     },
     "tag-shared": {
       "preview": "components/dist/media/tag-shared/preview.webp",
@@ -327,7 +428,8 @@
       ],
       "layout": [
         "components/dist/media/tag-shared/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/tag-shared/default.webp"
     },
     "tag-stage": {
       "preview": "components/dist/media/tag-stage/preview.webp",
@@ -339,7 +441,8 @@
       ],
       "layout": [
         "components/dist/media/tag-stage/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/tag-stage/default.webp"
     },
     "tag-status": {
       "preview": "components/dist/media/tag-status/preview.webp",
@@ -351,16 +454,19 @@
       ],
       "layout": [
         "components/dist/media/tag-status/layout-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/tag-status/default.webp"
     },
     "toggle": {
       "preview": "components/dist/media/toggle/preview.webp",
       "variations": [
         "components/dist/media/toggle/variations-0.webp"
-      ]
+      ],
+      "default": "components/dist/media/toggle/default.webp"
     },
     "toolbar": {
-      "preview": "components/dist/media/toolbar/preview.webp"
+      "preview": "components/dist/media/toolbar/preview.webp",
+      "default": "components/dist/media/toolbar/default.webp"
     },
     "tooltip": {
       "preview": "components/dist/media/tooltip/preview.webp",
@@ -373,10 +479,24 @@
       "layout": [
         "components/dist/media/tooltip/layout-0.webp",
         "components/dist/media/tooltip/layout-1.webp"
-      ]
+      ],
+      "default": "components/dist/media/tooltip/default.webp"
     },
     "whats-new-dropdown": {
-      "preview": "components/dist/media/whats-new-dropdown/preview.webp"
+      "preview": "components/dist/media/whats-new-dropdown/preview.webp",
+      "default": "components/dist/media/whats-new-dropdown/default.webp"
+    },
+    "white-label-merck-favicon": {
+      "default": "components/dist/media/white-label-merck-favicon/default.webp"
+    },
+    "xl-grid": {
+      "default": "components/dist/media/xl-grid/default.webp"
+    },
+    "xs-grid": {
+      "default": "components/dist/media/xs-grid/default.webp"
+    },
+    "zeenea-logo": {
+      "default": "components/dist/media/zeenea-logo/default.webp"
     }
   }
 }
