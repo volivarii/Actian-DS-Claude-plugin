@@ -3,12 +3,19 @@ var test = require("node:test");
 var assert = require("node:assert/strict");
 var H = require("../../scripts/fidelity/render-leaf");
 
-test("defaultNodeForSlug uses dsSlug shape", function () {
-  assert.deepEqual(H.defaultNodeForSlug("button"), {
-    dsSlug: "button",
-    variant: "",
-    props: {},
-  });
+test("defaultNodeForSlug reads anatomy variant + merges default-props", function () {
+  var node = H.defaultNodeForSlug("button");
+  assert.equal(node.dsSlug, "button");
+  // variant comes from vendored anatomy source.variant
+  assert.match(node.variant, /Type=Primary/);
+  // props come from default-props.json
+  assert.equal(node.props.Label, "Button");
+});
+
+test("defaultNodeForSlug falls back to empty props for an unmapped slug", function () {
+  var node = H.defaultNodeForSlug("radio-button");
+  assert.equal(node.dsSlug, "radio-button");
+  assert.deepEqual(node.props, {});
 });
 
 test("buildLeafHtml embeds the rendered leaf + a fonts.ready measure hook", function () {
