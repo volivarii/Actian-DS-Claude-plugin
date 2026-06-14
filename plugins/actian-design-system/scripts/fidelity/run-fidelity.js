@@ -72,9 +72,12 @@ function shoot(chrome, htmlPath, outPng, w, h) {
   return P.decodePng(fs.readFileSync(outPng));
 }
 
-function runPixel(slug, chrome, tmp, opts) {
+function runPixel(slug, chrome, tmp, opts, oracle) {
   opts = opts || {};
-  var oracle = oracleFor(slug);
+  // The oracle is resolved once per slug in run() and threaded in so runPixel
+  // and ledgerRow agree on exactly which file was diffed. Direct callers
+  // (tests) may omit it; resolve on demand for backward compatibility.
+  if (oracle === undefined) oracle = oracleFor(slug);
   if (!oracle) return { pass: null, skipped: "no-oracle" };
 
   // 1. render the leaf → PNG → decode
@@ -134,8 +137,11 @@ function runPixel(slug, chrome, tmp, opts) {
   return v;
 }
 
-function ledgerRow(slug, gate1, gate2) {
-  var chosenOracle = oracleFor(slug);
+function ledgerRow(slug, gate1, gate2, oracle) {
+  // Same oracle instance runPixel diffed against (threaded from run()); falls
+  // back to a fresh resolve only for direct callers that omit it — so the
+  // recorded reference can never disagree with what was actually compared.
+  var chosenOracle = oracle === undefined ? oracleFor(slug) : oracle;
   var g1 =
     gate1.pass === null
       ? "skip(" + (gate1.skipped || "") + ")"
@@ -177,11 +183,15 @@ function run(slugs, opts) {
   var tmp = fs.mkdtempSync(path.join(os.tmpdir(), "fid-"));
   try {
     var rows = slugs.map(function (slug) {
+      // Resolve the Gate-1 oracle ONCE per slug and thread it to both runPixel
+      // (diff) and ledgerRow (provenance) so they can never disagree, and so
+      // the filesystem is probed once instead of three times.
+      var oracle = oracleFor(slug);
       var gate2 = runStructural(slug, resolved.chrome, tmp);
       // Gate 1 always runs (pure-JS diff, Chrome present); pass:null only when the
-      // component has no preview.webp oracle to compare against.
-      var gate1 = runPixel(slug, resolved.chrome, tmp, opts);
-      var row = ledgerRow(slug, gate1, gate2);
+      // component has no single-component oracle to compare against.
+      var gate1 = runPixel(slug, resolved.chrome, tmp, opts, oracle);
+      var row = ledgerRow(slug, gate1, gate2, oracle);
       if (opts.write !== false)
         fs.appendFileSync(LEDGER, JSON.stringify(row) + "\n");
       return row;

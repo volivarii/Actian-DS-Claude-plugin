@@ -18,6 +18,16 @@ test("defaultNodeForSlug falls back to empty props for an unmapped slug", functi
   assert.deepEqual(node.props, {});
 });
 
+test("defaultNodeForSlug yields an empty variant when the slug has no anatomy", function () {
+  // A slug with no vendored anatomy file: the anatomy read throws (ENOENT, or
+  // byKey rejects the unknown slug) and the try/catch degrades to variant="".
+  // Every BUILT_SLUG has anatomy, so this fabricated slug is the only way to
+  // exercise the fail-soft branch the gate relies on.
+  var node = H.defaultNodeForSlug("definitely-not-a-real-slug-xyz");
+  assert.equal(node.variant, "");
+  assert.deepEqual(node.props, {});
+});
+
 test("buildLeafHtml embeds the rendered leaf + a fonts.ready measure hook", function () {
   var html = H.buildLeafHtml("button", "<button class='ds-button'>Go</button>");
   assert.ok(html.indexOf("ds-button") >= 0, "leaf fragment present");
