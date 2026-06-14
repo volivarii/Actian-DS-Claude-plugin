@@ -21,6 +21,20 @@ function oracleFor(slug, exists) {
   if (exists(prev)) return prev;
   return null;
 }
+
+// Per-slug Gate-1 threshold overrides (max diff ratio that still passes).
+// Empty by default; populated during calibration only for components whose text
+// anti-aliasing pushes them above the global default with no real regression.
+// Keep this list short and justified.
+var THRESHOLD_OVERRIDES = {};
+var DEFAULT_THRESHOLD = 0.06;
+
+function thresholdFor(slug, def, overrides) {
+  overrides = overrides || THRESHOLD_OVERRIDES;
+  return Object.prototype.hasOwnProperty.call(overrides, slug)
+    ? overrides[slug]
+    : def;
+}
 var LEDGER = path.join(
   PLUGIN_DIR,
   "tests",
@@ -107,9 +121,13 @@ function runPixel(slug, chrome, tmp, opts) {
     pmThreshold: opts.pmThreshold,
   });
   // threshold default 0.06 (≤6% of pixels may differ) is provisional — calibrate in Task 7.
+  // Per-slug overrides go through thresholdFor (DEFAULT_THRESHOLD / THRESHOLD_OVERRIDES);
+  // an explicit opts.threshold still wins for callers that pass one.
   var v = P.gridVerdict(
     [d.ratio],
-    opts.threshold == null ? 0.06 : opts.threshold,
+    opts.threshold == null
+      ? thresholdFor(slug, DEFAULT_THRESHOLD)
+      : opts.threshold,
   );
   v.ratio = d.ratio;
   v.dims = { w: norm.w, h: norm.h };
@@ -195,4 +213,11 @@ if (require.main === module) {
   });
 }
 
-module.exports = { run, runStructural, runPixel, ledgerRow, oracleFor };
+module.exports = {
+  run,
+  runStructural,
+  runPixel,
+  ledgerRow,
+  oracleFor,
+  thresholdFor,
+};
