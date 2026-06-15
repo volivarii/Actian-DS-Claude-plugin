@@ -142,6 +142,33 @@ function formatReport(findings) {
   );
 }
 
+// Denominators for pass-rate scoring: how many checks the lint actually ran.
+// refsChecked = distinct --zen-* vars referenced via var(); contrastChecks =
+// resolvable CONTRAST_PAIRS × themes (only pairs whose tokens exist count).
+function countChecks(opts) {
+  opts = opts || {};
+  var cssText = opts.cssText || "";
+  var tokensJson = opts.tokensJson || {};
+  var pairs = opts.pairs || CONTRAST_PAIRS;
+  var themes = opts.themes || THEMES;
+
+  var refs = new Set();
+  var refRe = /var\(\s*(--zen-[A-Za-z0-9-]+)/g;
+  var m;
+  while ((m = refRe.exec(cssText))) refs.add(m[1]);
+
+  var contrastChecks = 0;
+  pairs.forEach(function (p) {
+    themes.forEach(function (theme) {
+      var fg = themeValue(tokensJson, p.fg, theme);
+      var bg = themeValue(tokensJson, p.bg, theme);
+      if (fg && bg) contrastChecks += 1;
+    });
+  });
+
+  return { refsChecked: refs.size, contrastChecks: contrastChecks };
+}
+
 module.exports = {
   lintCssVarRefs: lintCssVarRefs,
   relativeLuminance: relativeLuminance,
@@ -150,6 +177,7 @@ module.exports = {
   lintContrast: lintContrast,
   lintTokens: lintTokens,
   formatReport: formatReport,
+  countChecks: countChecks,
   CONTRAST_PAIRS: CONTRAST_PAIRS,
   THEMES: THEMES,
 };

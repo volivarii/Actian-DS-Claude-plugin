@@ -148,6 +148,42 @@ describe("lintContrast", function () {
   });
 });
 
+describe("countChecks", function () {
+  it("counts distinct --zen var references and contrast pair×theme checks", function () {
+    var css = [
+      "a { font: var(--zen-font-family-text); color: var(--zen-color-x); }",
+      "b { color: var(--zen-color-x); }", // duplicate ref — counted once
+    ].join("\n");
+    var tokens = {
+      color: {
+        text: {
+          primary: { $type: "color", $value: "#000000" },
+          secondary: { $type: "color", $value: "#222222" },
+          link: { default: { $type: "color", $value: "#0000FF" } },
+          error: { $type: "color", $value: "#CC0000" },
+        },
+        bg: { default: { $type: "color", $value: "#FFFFFF" } },
+      },
+    };
+    var counts = lint.countChecks({ cssText: css, tokensJson: tokens });
+    assert.strictEqual(counts.refsChecked, 2); // text + color-x, deduped
+    // 4 CONTRAST_PAIRS that resolve × 3 themes = 12 contrast checks
+    assert.strictEqual(counts.contrastChecks, 12);
+  });
+
+  it("only counts contrast pairs whose tokens resolve", function () {
+    var tokens = {
+      color: {
+        text: { primary: { $type: "color", $value: "#000000" } },
+        bg: { default: { $type: "color", $value: "#FFFFFF" } },
+      },
+    };
+    // Only color.text.primary + color.bg.default exist → 1 pair × 3 themes = 3
+    var counts = lint.countChecks({ cssText: "", tokensJson: tokens });
+    assert.strictEqual(counts.contrastChecks, 3);
+  });
+});
+
 describe("lintTokens + formatReport", function () {
   it("returns [] and does not throw when called with no argument", function () {
     assert.deepStrictEqual(lint.lintTokens(), []);
