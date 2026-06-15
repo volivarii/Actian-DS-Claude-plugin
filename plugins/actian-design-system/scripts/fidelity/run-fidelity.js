@@ -123,6 +123,16 @@ function runPixel(slug, chrome, tmp, opts, oracle) {
   var d = P.diffRatio(norm.a, norm.b, norm.w, norm.h, {
     pmThreshold: opts.pmThreshold,
   });
+  if (opts.diffDir) {
+    if (!fs.existsSync(opts.diffDir))
+      fs.mkdirSync(opts.diffDir, { recursive: true });
+    fs.writeFileSync(
+      path.join(opts.diffDir, slug + "-diff.png"),
+      P.diffImage(norm.a, norm.b, norm.w, norm.h, {
+        pmThreshold: opts.pmThreshold,
+      }),
+    );
+  }
   // threshold default 0.06 (≤6% of pixels may differ) is provisional — calibrate in Task 7.
   // Per-slug overrides go through thresholdFor (DEFAULT_THRESHOLD / THRESHOLD_OVERRIDES);
   // an explicit opts.threshold still wins for callers that pass one.
