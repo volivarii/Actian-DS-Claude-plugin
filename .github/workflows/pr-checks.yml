@@ -1,11 +1,12 @@
 name: PR checks
 
 # Tier 1 PR gates for the Actian Design System plugin.
-# Four parallel jobs:
+# Five parallel jobs:
 #   1. test            — runs the plugin's full test suite
 #   2. json-syntax     — validates that all checked-in JSON files parse
 #   3. version-bump    — ensures plugin.json is bumped when source changes
 #   4. plugin-validate — `claude plugin validate` on the manifests (offline)
+#   5. token-lint      — report-only token-quality lint (broken var-refs + WCAG contrast)
 #
 # Runs on EVERY PR (no paths: filter). Avoids the path-filtered-required-
 # check dead-PR gotcha: required status checks with paths: filters create a
@@ -87,3 +88,19 @@ jobs:
         # intentional (local --plugin-dir dev + the plugin's own rules), so we
         # don't fail on it. Re-add --strict here if/when CLAUDE.md is migrated.
         run: claude plugin validate plugins/actian-design-system
+
+  token-lint:
+    name: Token quality lint (report-only)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+      - name: Lint design tokens
+        working-directory: plugins/actian-design-system
+        # Report-only for now (no --strict): surfaces findings to the run
+        # summary without blocking. Promote to --strict once the source fix
+        # (Task 9) has propagated to the vendored snapshot.
+        run: |
+          node scripts/lint/lint-tokens-cli.js | tee "$GITHUB_STEP_SUMMARY"
