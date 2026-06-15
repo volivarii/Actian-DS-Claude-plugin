@@ -1,12 +1,14 @@
 "use strict";
 
+var fs = require("fs");
+
 // DS Quality Score: composite headline (0-100) + per-gate pass-rates.
 // Each gate yields a pass-rate in [0,1]; the headline is the mean of the
 // gates that have data, ×100. Pure + dependency-free.
 
 function rate(total, fails) {
   if (total === 0) return 1; // no checks ⇒ nothing failing
-  return (total - fails) / total;
+  return Math.max(0, Math.min(1, (total - fails) / total));
 }
 
 // Token gate: broken-ref + contrast pass-rates from lint findings + counts.
@@ -71,8 +73,6 @@ function composeScore(input) {
   };
 }
 
-var fs = require("fs");
-
 function readLedger(file) {
   if (!fs.existsSync(file)) return [];
   return fs
@@ -93,21 +93,25 @@ function appendRow(file, row) {
 function formatReport(row) {
   var t = row.gates.tokens || {};
   var f = row.gates.fidelity || {};
+  var tokenLine =
+    t.score == null
+      ? "  tokens   : n/a"
+      : "  tokens   : " +
+        Math.round(t.score * 100) +
+        "/100  (broken-ref " +
+        Math.round(t.brokenRefRate * 100) +
+        "%, contrast " +
+        Math.round(t.contrastRate * 100) +
+        "%, " +
+        t.errors +
+        " error(s))";
   var lines = [
     "DS Quality Score: " +
       (row.score === null ? "n/a" : row.score) +
       " / 100  [" +
       row.scope +
       "]",
-    "  tokens   : " +
-      Math.round(t.score * 100) +
-      "/100  (broken-ref " +
-      Math.round(t.brokenRefRate * 100) +
-      "%, contrast " +
-      Math.round(t.contrastRate * 100) +
-      "%, " +
-      t.errors +
-      " error(s))",
+    tokenLine,
     "  fidelity : " +
       (f.score === null
         ? "n/a (0 scored)"

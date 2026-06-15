@@ -49,6 +49,10 @@ describe("tokenGate", function () {
     });
     assert.strictEqual(g.score, 1);
   });
+
+  it("clamps rate to [0,1] when fails exceed total", function () {
+    assert.strictEqual(q.rate(10, 11), 0);
+  });
 });
 
 describe("fidelityGate", function () {
@@ -107,6 +111,15 @@ describe("composeScore", function () {
     assert.strictEqual(row.app, "studio");
     assert.strictEqual(row.theme, "studio");
   });
+
+  it("produces a null headline when all gates are null", function () {
+    var row = q.composeScore({
+      date: "2026-06-15",
+      tokens: { score: null },
+      fidelity: { score: null },
+    });
+    assert.strictEqual(row.score, null);
+  });
 });
 
 var fs = require("node:fs");
@@ -153,5 +166,18 @@ describe("ledger + formatReport", function () {
     assert.match(report, /DS Quality Score: 70/);
     assert.match(report, /tokens/);
     assert.match(report, /fidelity/);
+  });
+
+  it("renders n/a for a null token score", function () {
+    var report = q.formatReport({
+      date: "2026-06-15",
+      scope: "ecosystem",
+      score: null,
+      gates: {
+        tokens: { score: null },
+        fidelity: { score: null, scored: 0, total: 0 },
+      },
+    });
+    assert.match(report, /tokens   : n\/a/);
   });
 });

@@ -162,6 +162,8 @@ function countChecks(opts) {
     themes.forEach(function (theme) {
       var fg = themeValue(tokensJson, p.fg, theme);
       var bg = themeValue(tokensJson, p.bg, theme);
+      // Note: pairs with alpha-hex (8-digit) values are counted here but lintContrast
+      // skips them via !isFinite(ratio) — they therefore count as a pass, not an error.
       if (fg && bg) contrastChecks += 1;
     });
   });
