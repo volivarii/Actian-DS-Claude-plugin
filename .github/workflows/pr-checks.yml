@@ -1,11 +1,12 @@
 name: PR checks
 
 # Tier 1 PR gates for the Actian Design System plugin.
-# Four parallel jobs:
+# Five parallel jobs:
 #   1. test            — runs the plugin's full test suite
 #   2. json-syntax     — validates that all checked-in JSON files parse
 #   3. version-bump    — ensures plugin.json is bumped when source changes
 #   4. plugin-validate — `claude plugin validate` on the manifests (offline)
+#   5. token-lint      — report-only token-quality lint (broken var-refs + WCAG contrast)
 #
 # Runs on EVERY PR (no paths: filter). Avoids the path-filtered-required-
 # check dead-PR gotcha: required status checks with paths: filters create a
