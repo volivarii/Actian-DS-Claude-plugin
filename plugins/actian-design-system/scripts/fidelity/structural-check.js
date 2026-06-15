@@ -59,22 +59,32 @@ function verdict(perWidth) {
   };
 }
 
-// --- shell edge: render at one width with the measure script injected, dump DOM ---
-function measureAtWidth(opts) {
-  var chrome = opts.chrome,
-    htmlPath = opts.htmlPath,
-    width = opts.width;
-  var args = [
+// Pure builder for the --dump-dom args — extracted so the flag set (incl. the
+// Linux-determinism flags) is unit-testable without launching Chrome.
+// --no-sandbox + --disable-dev-shm-usage are required on CI runners;
+// --font-render-hinting=none + --disable-lcd-text reduce cross-OS font noise.
+function measureArgs(opts) {
+  return [
     "--headless=new",
     "--disable-gpu",
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--font-render-hinting=none",
+    "--disable-lcd-text",
     "--hide-scrollbars",
     "--force-device-scale-factor=1",
     // advance virtual time 2s so deferred scripts settle before --dump-dom captures
     "--virtual-time-budget=2000",
-    "--window-size=" + width + ",900",
+    "--window-size=" + opts.width + ",900",
     "--dump-dom",
-    url.pathToFileURL(htmlPath).href,
+    url.pathToFileURL(opts.htmlPath).href,
   ];
+}
+
+// --- shell edge: render at one width with the measure script injected, dump DOM ---
+function measureAtWidth(opts) {
+  var chrome = opts.chrome;
+  var args = measureArgs(opts);
   var res = cp.spawnSync(chrome, args, {
     encoding: "utf8",
     maxBuffer: 64 * 1024 * 1024,
@@ -97,5 +107,6 @@ module.exports = {
   measureScript: measureScript,
   parseMetrics: parseMetrics,
   verdict: verdict,
+  measureArgs: measureArgs,
   measureAtWidth: measureAtWidth,
 };

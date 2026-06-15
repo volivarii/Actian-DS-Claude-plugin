@@ -100,23 +100,35 @@ function buildImageHtml(imagePath) {
   ].join("");
 }
 
-// Shell edge: write HTML, screenshot via headless Chrome to PNG. Gated on chrome present.
-function screenshot(opts) {
-  var chrome = opts.chrome; // resolved path
-  var htmlPath = opts.htmlPath,
-    outPng = opts.outPng;
+// Pure builder for the headless-Chrome screenshot args — extracted so the
+// flag set (incl. the Linux-determinism flags below) is unit-testable without
+// launching Chrome. --no-sandbox + --disable-dev-shm-usage are required on CI
+// runners (GitHub ubuntu-latest); --font-render-hinting=none + --disable-lcd-text
+// reduce cross-OS font-rasterization noise so the pixel diff is portable.
+function screenshotArgs(opts) {
   var width = opts.width || 1440,
     height = opts.height || 900;
-  var args = [
+  return [
     "--headless=new",
     "--disable-gpu",
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--font-render-hinting=none",
+    "--disable-lcd-text",
     "--hide-scrollbars",
     "--force-device-scale-factor=1",
     "--virtual-time-budget=2000",
     "--window-size=" + width + "," + height,
-    "--screenshot=" + outPng,
-    url.pathToFileURL(htmlPath).href,
+    "--screenshot=" + opts.outPng,
+    url.pathToFileURL(opts.htmlPath).href,
   ];
+}
+
+// Shell edge: write HTML, screenshot via headless Chrome to PNG. Gated on chrome present.
+function screenshot(opts) {
+  var chrome = opts.chrome; // resolved path
+  var outPng = opts.outPng;
+  var args = screenshotArgs(opts);
   try {
     cp.execFileSync(chrome, args, { stdio: "pipe" });
   } catch (e) {
@@ -137,6 +149,7 @@ module.exports = {
   buildLeafHtml,
   buildMeasureHtml,
   buildImageHtml,
+  screenshotArgs,
   screenshot,
   readCss,
 };
