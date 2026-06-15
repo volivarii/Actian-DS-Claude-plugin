@@ -22,7 +22,12 @@ function measureScript() {
     "if(cs.position==='absolute')absPos++;",
     "if(el.scrollWidth>el.clientWidth+1||el.scrollHeight>el.clientHeight+1){",
     "if(el.children.length===0)clipped++;}}",
-    "var out={overflow:overflow,clipped:clipped,absPos:absPos};",
+    // The root is now a full-width block, so scrollWidth always fills the viewport
+    // and can no longer signal an empty render. Detect empty via the root's
+    // bounding-rect height + no-children-and-no-text instead.
+    "var rect=root.getBoundingClientRect();",
+    "var empty=(rect.height<1)||(root.children.length===0&&!(root.textContent||'').trim());",
+    "var out={overflow:overflow,clipped:clipped,absPos:absPos,empty:empty};",
     "var n=document.getElementById('fidelity-metrics');",
     "if(!n){n=document.createElement('div');n.id='fidelity-metrics';document.body.appendChild(n);}",
     "n.textContent=JSON.stringify(out);}",
@@ -51,6 +56,7 @@ function verdict(perWidth) {
     if (mx.overflow) failures.push({ width: Number(w), kind: "overflow" });
     if (mx.clipped > 0) failures.push({ width: Number(w), kind: "clip" });
     if (mx.absPos > 0) failures.push({ width: Number(w), kind: "abs-pos" });
+    if (mx.empty) failures.push({ width: Number(w), kind: "empty" });
   });
   return {
     pass: failures.length === 0,

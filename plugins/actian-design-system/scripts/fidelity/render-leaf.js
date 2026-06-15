@@ -79,18 +79,29 @@ function renderTarget(slug) {
 }
 
 function buildMeasureHtml(slug, fragmentHtml, measureJs) {
-  return buildLeafHtml(slug, fragmentHtml).replace(
+  // The MEASURE path renders the leaf in a FULL-WIDTH block body (fullWidth:true)
+  // so a too-wide component actually overflows the viewport at 360/768/1440.
+  // The default (pixel/screenshot) body stays inline-block — byte-identical — so
+  // the pixel oracle diff is unaffected.
+  return buildLeafHtml(slug, fragmentHtml, { fullWidth: true }).replace(
     "</body>",
     "<script>" + measureJs + "</script></body>",
   );
 }
 
-function buildLeafHtml(slug, fragmentHtml) {
+function buildLeafHtml(slug, fragmentHtml, opts) {
   var css = readCss();
+  // DEFAULT body is inline-block (shrink-wraps to content) — the pixel path
+  // depends on this exact byte string staying unchanged. Only the measure path
+  // opts into a full-width block body via { fullWidth: true }.
+  var bodyStyle =
+    opts && opts.fullWidth
+      ? "body{margin:0;padding:24px;background:#fff}"
+      : "body{margin:0;padding:24px;background:#fff;display:inline-block}";
   return [
     "<!doctype html><html><head><meta charset='utf-8'>",
     "<style>" + css + "</style>",
-    "<style>body{margin:0;padding:24px;background:#fff;display:inline-block}</style>",
+    "<style>" + bodyStyle + "</style>",
     "</head><body>",
     '<div id="fidelity-root" data-slug="' +
       dsMap.esc(slug) +
