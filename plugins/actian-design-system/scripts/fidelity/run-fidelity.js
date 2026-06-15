@@ -205,15 +205,32 @@ function run(slugs, opts) {
 
 var PILOT = ["button", "checkbox-with-label", "alert-banner"];
 
+// Validated CLI parser: flags are explicit; an unknown --flag is an error
+// (never silently a slug — a typo'd flag used to write a junk ledger row).
+// Precedence (broadest wins): --all overrides --pilot/bare slugs. Empty/falsy
+// bare tokens are dropped so they can't become an empty-slug junk row.
+function parseArgs(argv) {
+  var out = { slugs: null, write: true, all: false };
+  var bare = [];
+  argv.forEach(function (a) {
+    if (a === "--pilot") out.slugs = PILOT.slice();
+    else if (a === "--all") out.all = true;
+    else if (a === "--no-write") out.write = false;
+    else if (a.charAt(0) === "-") throw new Error("unknown flag: " + a);
+    else if (a) bare.push(a);
+  });
+  if (out.all) {
+    out.slugs =
+      require("../renderers/html-renderers/ds-html-map.js").BUILT_SLUGS;
+  } else if (!out.slugs) {
+    out.slugs = bare;
+  }
+  return out;
+}
+
 if (require.main === module) {
-  var args = process.argv.slice(2);
-  var slugs =
-    args[0] === "--all"
-      ? require("../renderers/html-renderers/ds-html-map.js").BUILT_SLUGS
-      : args[0] === "--pilot"
-        ? PILOT
-        : args;
-  var rows = run(slugs, {});
+  var parsed = parseArgs(process.argv.slice(2));
+  var rows = run(parsed.slugs, { write: parsed.write });
   rows.forEach(function (r) {
     console.log(
       r.slug,
@@ -230,4 +247,5 @@ module.exports = {
   ledgerRow,
   oracleFor,
   thresholdFor,
+  parseArgs,
 };
