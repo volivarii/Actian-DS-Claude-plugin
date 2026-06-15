@@ -55,22 +55,26 @@ describe("tokenGate", function () {
   });
 });
 
-describe("fidelityGate", function () {
-  it("is n/a (null score) when no components are scored", function () {
-    var g = q.fidelityGate({
-      count: 7,
-      scored: 0,
-      skipped: 7,
-      meanScore: null,
-    });
+describe("structuralGate (structural pass-rate)", function () {
+  it("is n/a (null) when there are no Program-C rows", function () {
+    var g = q.structuralGate({ count: 0, structuralPass: 0, pixelPass: 0 });
     assert.strictEqual(g.score, null);
-    assert.strictEqual(g.scored, 0);
+    assert.strictEqual(g.total, 0);
   });
-
-  it("uses the ledger meanScore when components are scored", function () {
-    var g = q.fidelityGate({ count: 3, scored: 2, skipped: 1, meanScore: 0.5 });
-    assert.strictEqual(g.score, 0.5);
-    assert.strictEqual(g.scored, 2);
+  it("scores the structural pass-rate over all rows (pixel is not scored)", function () {
+    var g = q.structuralGate({
+      count: 4,
+      structuralPass: 3,
+      pixelPass: 1,
+      pixelFail: 1,
+      pixelSkip: 2,
+    });
+    assert.strictEqual(g.score, 0.75);
+    assert.strictEqual(g.structuralPass, 3);
+    assert.strictEqual(g.total, 4);
+    assert.strictEqual(g.pixelPass, 1);
+    assert.strictEqual(g.pixelFail, 1);
+    assert.strictEqual(g.pixelSkip, 2);
   });
 });
 
@@ -79,21 +83,21 @@ describe("composeScore", function () {
     var row = q.composeScore({
       date: "2026-06-15",
       tokens: { brokenRefRate: 1, contrastRate: 0.8, score: 0.9, errors: 2 },
-      fidelity: { score: 0.5, scored: 2, total: 3 },
+      structural: { score: 0.5, structuralPass: 2, total: 3 },
     });
     assert.strictEqual(row.score, 70); // mean(0.9, 0.5) = 0.7 → 70
     assert.strictEqual(row.scope, "ecosystem");
     assert.strictEqual(row.app, null);
     assert.strictEqual(row.theme, null);
     assert.strictEqual(row.gates.tokens.score, 0.9);
-    assert.strictEqual(row.gates.fidelity.score, 0.5);
+    assert.strictEqual(row.gates.structural.score, 0.5);
   });
 
   it("excludes a null-score gate from the headline", function () {
     var row = q.composeScore({
       date: "2026-06-15",
       tokens: { brokenRefRate: 1, contrastRate: 1, score: 1, errors: 0 },
-      fidelity: { score: null, scored: 0, total: 7 },
+      structural: { score: null, structuralPass: 0, total: 7 },
     });
     assert.strictEqual(row.score, 100); // only tokens counts → mean(1) = 1 → 100
   });
@@ -105,7 +109,7 @@ describe("composeScore", function () {
       app: "studio",
       theme: "studio",
       tokens: { brokenRefRate: 1, contrastRate: 1, score: 1, errors: 0 },
-      fidelity: { score: null, scored: 0, total: 0 },
+      structural: { score: null, structuralPass: 0, total: 0 },
     });
     assert.strictEqual(row.scope, "component");
     assert.strictEqual(row.app, "studio");
@@ -116,7 +120,7 @@ describe("composeScore", function () {
     var row = q.composeScore({
       date: "2026-06-15",
       tokens: { score: null },
-      fidelity: { score: null },
+      structural: { score: null },
     });
     assert.strictEqual(row.score, null);
   });
@@ -125,7 +129,7 @@ describe("composeScore", function () {
     var row = q.composeScore({ date: "2026-06-15" });
     assert.strictEqual(row.score, null);
     assert.deepStrictEqual(row.gates.tokens, {});
-    assert.deepStrictEqual(row.gates.fidelity, {});
+    assert.deepStrictEqual(row.gates.structural, {});
   });
 });
 
@@ -188,27 +192,58 @@ describe("ledger + formatReport", function () {
           score: 0.92,
           errors: 2,
         },
-        fidelity: { score: 0.5, scored: 2, total: 3 },
+        structural: {
+          score: 0.75,
+          structuralPass: 3,
+          total: 4,
+          pixelPass: 0,
+          pixelFail: 1,
+          pixelSkip: 2,
+        },
       },
     });
     assert.match(report, /DS Quality Score: 70/);
     assert.match(report, /tokens/);
-    assert.match(report, /fidelity/);
+    assert.match(report, /refs 100%/);
+    assert.match(report, /structural : 75\/100/);
+    assert.match(report, /visual/);
+    assert.match(report, /1 fail, 2 skipped, 0 verified/);
   });
 
-  it("renders n/a for a null token score", function () {
+  it("renders n/a for a null token score and a null structural score", function () {
     var report = q.formatReport({
       date: "2026-06-15",
       scope: "ecosystem",
       score: null,
       gates: {
         tokens: { score: null },
-        fidelity: { score: null, scored: 0, total: 0 },
+        structural: {
+          score: null,
+          structuralPass: 0,
+          total: 0,
+          pixelPass: 0,
+          pixelFail: 0,
+          pixelSkip: 0,
+        },
       },
     });
-    assert.match(report, /tokens   : n\/a/);
-    // fidelity n/a line carries the count once via the suffix, not twice
-    assert.match(report, /fidelity : n\/a {2}\(0\/0 scored\)/);
-    assert.doesNotMatch(report, /n\/a \(0 scored\)/);
+    assert.match(report, /tokens     : n\/a/);
+    assert.match(report, /structural : n\/a/);
+    assert.match(report, /visual     : n\/a/);
+  });
+
+  it("readLedger skips malformed lines instead of throwing", function () {
+    var dir = fs.mkdtempSync(path.join(os.tmpdir(), "qledger-bad-"));
+    var file = path.join(dir, "ledger.jsonl");
+    fs.writeFileSync(
+      file,
+      '{"slug":"a","score":1}\n' +
+        "not json at all\n" +
+        '{"slug":"b","score":2}\n',
+    );
+    var rows = q.readLedger(file);
+    assert.strictEqual(rows.length, 2);
+    assert.strictEqual(rows[1].slug, "b");
+    fs.rmSync(dir, { recursive: true, force: true });
   });
 });

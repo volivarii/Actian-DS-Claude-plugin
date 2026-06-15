@@ -7,7 +7,7 @@ name: PR checks
 #   3. version-bump    — ensures plugin.json is bumped when source changes
 #   4. plugin-validate — `claude plugin validate` on the manifests (offline)
 #   5. token-lint      — report-only token-quality lint (broken var-refs + WCAG contrast)
-#   6. ds-quality-score — report-only DS Quality Score (token + fidelity rollup)
+#   6. quality-gates    — report-only live DS Quality Score (token + structural fidelity)
 #
 # Runs on EVERY PR (no paths: filter). Avoids the path-filtered-required-
 # check dead-PR gotcha: required status checks with paths: filters create a
@@ -106,18 +106,28 @@ jobs:
         run: |
           node scripts/lint/lint-tokens-cli.js | tee "$GITHUB_STEP_SUMMARY"
 
-  ds-quality-score:
-    name: DS Quality Score (report-only)
+  quality-gates:
+    name: Quality gates — fidelity (report-only)
     runs-on: ubuntu-latest
+    continue-on-error: true   # report-only: never reds the build (day 1)
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
-      - name: Compute DS Quality Score
+      - uses: browser-actions/setup-chrome@v1
+        id: chrome
+        with:
+          chrome-version: stable   # pin a specific version once Linux thresholds are calibrated
+      - name: Compute live DS Quality Score (token + structural fidelity)
         working-directory: plugins/actian-design-system
-        # Report-only: prints the headline + gate breakdown to the run summary.
-        # --no-write so CI never mutates the trend ledger (trend rows are
-        # appended intentionally, not on every PR).
+        env:
+          CHROME_BIN: ${{ steps.chrome.outputs.chrome-path }}
         run: |
-          node scripts/quality/quality-score-cli.js --no-write | tee "$GITHUB_STEP_SUMMARY"
+          node scripts/quality/quality-gates-cli.js --no-write | tee "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: fidelity-pixel-diffs
+          path: plugins/actian-design-system/tests/renderers/__fidelity__/diffs/
+          if-no-files-found: ignore

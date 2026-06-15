@@ -22,7 +22,12 @@ function measureScript() {
     "if(cs.position==='absolute')absPos++;",
     "if(el.scrollWidth>el.clientWidth+1||el.scrollHeight>el.clientHeight+1){",
     "if(el.children.length===0)clipped++;}}",
-    "var out={overflow:overflow,clipped:clipped,absPos:absPos};",
+    // The root is now a full-width block, so scrollWidth always fills the viewport
+    // and can no longer signal an empty render. Detect empty via the root's
+    // bounding-rect height + no-children-and-no-text instead.
+    "var rect=root.getBoundingClientRect();",
+    "var empty=(rect.height<1)||(root.children.length===0&&!(root.textContent||'').trim());",
+    "var out={overflow:overflow,clipped:clipped,absPos:absPos,empty:empty};",
     "var n=document.getElementById('fidelity-metrics');",
     "if(!n){n=document.createElement('div');n.id='fidelity-metrics';document.body.appendChild(n);}",
     "n.textContent=JSON.stringify(out);}",
@@ -51,6 +56,7 @@ function verdict(perWidth) {
     if (mx.overflow) failures.push({ width: Number(w), kind: "overflow" });
     if (mx.clipped > 0) failures.push({ width: Number(w), kind: "clip" });
     if (mx.absPos > 0) failures.push({ width: Number(w), kind: "abs-pos" });
+    if (mx.empty) failures.push({ width: Number(w), kind: "empty" });
   });
   return {
     pass: failures.length === 0,
@@ -59,22 +65,32 @@ function verdict(perWidth) {
   };
 }
 
-// --- shell edge: render at one width with the measure script injected, dump DOM ---
-function measureAtWidth(opts) {
-  var chrome = opts.chrome,
-    htmlPath = opts.htmlPath,
-    width = opts.width;
-  var args = [
+// Pure builder for the --dump-dom args — extracted so the flag set (incl. the
+// Linux-determinism flags) is unit-testable without launching Chrome.
+// --no-sandbox + --disable-dev-shm-usage are required on CI runners;
+// --font-render-hinting=none + --disable-lcd-text reduce cross-OS font noise.
+function measureArgs(opts) {
+  return [
     "--headless=new",
     "--disable-gpu",
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--font-render-hinting=none",
+    "--disable-lcd-text",
     "--hide-scrollbars",
     "--force-device-scale-factor=1",
     // advance virtual time 2s so deferred scripts settle before --dump-dom captures
     "--virtual-time-budget=2000",
-    "--window-size=" + width + ",900",
+    "--window-size=" + opts.width + ",900",
     "--dump-dom",
-    url.pathToFileURL(htmlPath).href,
+    url.pathToFileURL(opts.htmlPath).href,
   ];
+}
+
+// --- shell edge: render at one width with the measure script injected, dump DOM ---
+function measureAtWidth(opts) {
+  var chrome = opts.chrome;
+  var args = measureArgs(opts);
   var res = cp.spawnSync(chrome, args, {
     encoding: "utf8",
     maxBuffer: 64 * 1024 * 1024,
@@ -97,5 +113,6 @@ module.exports = {
   measureScript: measureScript,
   parseMetrics: parseMetrics,
   verdict: verdict,
+  measureArgs: measureArgs,
   measureAtWidth: measureAtWidth,
 };

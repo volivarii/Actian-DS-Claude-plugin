@@ -9,7 +9,7 @@ var LEDGER = path.join(
   "tests",
   "renderers",
   "__fidelity__",
-  "ledger.jsonl"
+  "ledger.jsonl",
 );
 
 function readLedger(file) {
@@ -48,6 +48,8 @@ function aggregate(rows) {
   var sum = 0;
   var skipped = 0;
   var pixelPass = 0;
+  var pixelFail = 0;
+  var pixelSkip = 0;
   var structuralPass = 0;
   rows.forEach(function (r) {
     var s = r.fidelity ? r.fidelity.score : undefined;
@@ -59,6 +61,12 @@ function aggregate(rows) {
     }
     var g = r.gates || {};
     if (g.pixel_diff === "pass") pixelPass++;
+    else if (g.pixel_diff === "fail") pixelFail++;
+    else if (
+      typeof g.pixel_diff === "string" &&
+      g.pixel_diff.indexOf("skip") === 0
+    )
+      pixelSkip++;
     if (g.responsive_structural === "pass") structuralPass++;
   });
   return {
@@ -67,6 +75,8 @@ function aggregate(rows) {
     skipped: skipped,
     meanScore: scored ? Math.round((sum / scored) * 1000) / 1000 : null,
     pixelPass: pixelPass,
+    pixelFail: pixelFail,
+    pixelSkip: pixelSkip,
     structuralPass: structuralPass,
   };
 }
@@ -82,9 +92,7 @@ function format(agg) {
       agg.skipped +
       " pixel-skipped)",
     "  mean score       : " +
-      (agg.meanScore === null
-        ? "n/a (no pixel-scored rows)"
-        : agg.meanScore),
+      (agg.meanScore === null ? "n/a (no pixel-scored rows)" : agg.meanScore),
     "  pixel pass       : " + agg.pixelPass + "/" + agg.count,
     "  structural pass  : " + agg.structuralPass + "/" + agg.count,
   ].join("\n");

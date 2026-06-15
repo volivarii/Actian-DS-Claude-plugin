@@ -124,6 +124,19 @@ function diffRatio(aData, bData, w, h, opts) {
   return { diffPixels: diff, ratio: w * h ? diff / (w * h) : 0 };
 }
 
+// Render the visual diff to a PNG buffer (pixelmatch writes highlighted diffs
+// into the output RGBA buffer; pngjs encodes it). Used for the report-only
+// artifact humans review — never feeds the score.
+function diffImage(aData, bData, w, h, opts) {
+  opts = opts || {};
+  var pm = opts.pmThreshold == null ? 0.1 : opts.pmThreshold;
+  var out = Buffer.alloc(w * h * 4);
+  pixelmatch(aData, bData, out, w, h, { threshold: pm });
+  var png = new PNG({ width: w, height: h });
+  out.copy(png.data);
+  return PNG.sync.write(png);
+}
+
 function gridVerdict(cellRatios, threshold) {
   var worst = 0;
   for (var i = 0; i < cellRatios.length; i++) {
@@ -145,5 +158,6 @@ module.exports = {
   aspectMismatch: aspectMismatch,
   normalizePair: normalizePair,
   diffRatio: diffRatio,
+  diffImage: diffImage,
   gridVerdict: gridVerdict,
 };

@@ -57,28 +57,58 @@ function renderLeafFragment(slug) {
   return dsMap.renderDSComponent(defaultNodeForSlug(slug));
 }
 
+// Capture-ready signal: flips data-fidelity-ready once fonts have loaded so the
+// screenshot/measure step waits for a settled render. WC-ready seam: a future
+// web-component tier extends this to also await customElements.whenDefined()
+// + Stencil hydration before signalling ready.
+function readySignalScript() {
+  return [
+    "<script>document.fonts.ready.then(function(){",
+    "requestAnimationFrame(function(){document.documentElement.setAttribute('data-fidelity-ready','1');});",
+    "});</script>",
+  ].join("");
+}
+
+// Single render entry both gates (pixel/structural here, axe in Plan B) consume.
+// WC-ready seam: the fragment source is ds-html-map today; a web-component tier
+// would register an alternative producer here. The oracle SOURCE stays swappable
+// via oracleFor() in run-fidelity.js (Figma-export now, browser-capture later).
+function renderTarget(slug) {
+  var fragment = renderLeafFragment(slug);
+  return { fragment: fragment, html: buildLeafHtml(slug, fragment) };
+}
+
 function buildMeasureHtml(slug, fragmentHtml, measureJs) {
-  return buildLeafHtml(slug, fragmentHtml).replace(
+  // The MEASURE path renders the leaf in a FULL-WIDTH block body (fullWidth:true)
+  // so a too-wide component actually overflows the viewport at 360/768/1440.
+  // The default (pixel/screenshot) body stays inline-block — byte-identical — so
+  // the pixel oracle diff is unaffected.
+  return buildLeafHtml(slug, fragmentHtml, { fullWidth: true }).replace(
     "</body>",
     "<script>" + measureJs + "</script></body>",
   );
 }
 
-function buildLeafHtml(slug, fragmentHtml) {
+function buildLeafHtml(slug, fragmentHtml, opts) {
   var css = readCss();
+  // DEFAULT body is inline-block (shrink-wraps to content) — the pixel path
+  // depends on this exact byte string staying unchanged. Only the measure path
+  // opts into a full-width block body via { fullWidth: true }.
+  var bodyStyle =
+    opts && opts.fullWidth
+      ? "body{margin:0;padding:24px;background:#fff}"
+      : "body{margin:0;padding:24px;background:#fff;display:inline-block}";
   return [
     "<!doctype html><html><head><meta charset='utf-8'>",
     "<style>" + css + "</style>",
-    "<style>body{margin:0;padding:24px;background:#fff;display:inline-block}</style>",
+    "<style>" + bodyStyle + "</style>",
     "</head><body>",
     '<div id="fidelity-root" data-slug="' +
       dsMap.esc(slug) +
       '">' +
       fragmentHtml +
       "</div>",
-    "<script>document.fonts.ready.then(function(){",
-    "requestAnimationFrame(function(){document.documentElement.setAttribute('data-fidelity-ready','1');});",
-    "});</script>",
+    readySignalScript(),
     "</body></html>",
   ].join("");
 }
@@ -100,23 +130,35 @@ function buildImageHtml(imagePath) {
   ].join("");
 }
 
-// Shell edge: write HTML, screenshot via headless Chrome to PNG. Gated on chrome present.
-function screenshot(opts) {
-  var chrome = opts.chrome; // resolved path
-  var htmlPath = opts.htmlPath,
-    outPng = opts.outPng;
+// Pure builder for the headless-Chrome screenshot args — extracted so the
+// flag set (incl. the Linux-determinism flags below) is unit-testable without
+// launching Chrome. --no-sandbox + --disable-dev-shm-usage are required on CI
+// runners (GitHub ubuntu-latest); --font-render-hinting=none + --disable-lcd-text
+// reduce cross-OS font-rasterization noise so the pixel diff is portable.
+function screenshotArgs(opts) {
   var width = opts.width || 1440,
     height = opts.height || 900;
-  var args = [
+  return [
     "--headless=new",
     "--disable-gpu",
+    "--no-sandbox",
+    "--disable-dev-shm-usage",
+    "--font-render-hinting=none",
+    "--disable-lcd-text",
     "--hide-scrollbars",
     "--force-device-scale-factor=1",
     "--virtual-time-budget=2000",
     "--window-size=" + width + "," + height,
-    "--screenshot=" + outPng,
-    url.pathToFileURL(htmlPath).href,
+    "--screenshot=" + opts.outPng,
+    url.pathToFileURL(opts.htmlPath).href,
   ];
+}
+
+// Shell edge: write HTML, screenshot via headless Chrome to PNG. Gated on chrome present.
+function screenshot(opts) {
+  var chrome = opts.chrome; // resolved path
+  var outPng = opts.outPng;
+  var args = screenshotArgs(opts);
   try {
     cp.execFileSync(chrome, args, { stdio: "pipe" });
   } catch (e) {
@@ -134,9 +176,12 @@ function screenshot(opts) {
 module.exports = {
   defaultNodeForSlug,
   renderLeafFragment,
+  readySignalScript,
+  renderTarget,
   buildLeafHtml,
   buildMeasureHtml,
   buildImageHtml,
+  screenshotArgs,
   screenshot,
   readCss,
 };

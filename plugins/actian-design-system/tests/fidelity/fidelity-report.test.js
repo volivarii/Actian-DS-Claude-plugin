@@ -46,6 +46,27 @@ test("aggregate meanScore is null when all rows are pixel-skipped", function () 
   assert.equal(agg.meanScore, null);
 });
 
+test("aggregate counts pixel pass / fail / skip from gates.pixel_diff", function () {
+  var rows = [
+    { slug: "a", fidelity: { score: 1.0 }, gates: { pixel_diff: "pass" } },
+    { slug: "b", fidelity: { score: 0.0 }, gates: { pixel_diff: "fail" } },
+    {
+      slug: "c",
+      fidelity: { score: null },
+      gates: { pixel_diff: "skip(no-oracle)" },
+    },
+    {
+      slug: "d",
+      fidelity: { score: null },
+      gates: { pixel_diff: "skip(dimension-mismatch)" },
+    },
+  ];
+  var agg = F.aggregate(rows);
+  assert.equal(agg.pixelPass, 1);
+  assert.equal(agg.pixelFail, 1);
+  assert.equal(agg.pixelSkip, 2);
+});
+
 test("latestPerSlug keeps the most recent row per slug", function () {
   var rows = [
     { slug: "button", date: "2026-06-01", fidelity: { score: 0.0 } },
