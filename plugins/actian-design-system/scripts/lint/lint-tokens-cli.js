@@ -6,15 +6,11 @@
 // error-severity finding exists. --json: emit machine-readable findings.
 
 var fs = require("fs");
-var path = require("path");
 var lint = require("./lint-tokens.js");
+var PATHS = require("../lib/paths.js");
 
-var TOKENS_DIR = path.join(__dirname, "..", "..", "vendor", "tokens");
-
-var cssText = fs.readFileSync(path.join(TOKENS_DIR, "tokens.css"), "utf8");
-var tokensJson = JSON.parse(
-  fs.readFileSync(path.join(TOKENS_DIR, "tokens.json"), "utf8")
-);
+var cssText = fs.readFileSync(PATHS.tokens.css, "utf8");
+var tokensJson = JSON.parse(fs.readFileSync(PATHS.tokens.json, "utf8"));
 
 var findings = lint.lintTokens({ cssText: cssText, tokensJson: tokensJson });
 
