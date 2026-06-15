@@ -42,8 +42,38 @@ function fidelityGate(agg) {
   };
 }
 
+// Compose the trended ledger row. Headline = mean of gate scores that are
+// non-null, ×100, rounded. Axes (scope/app/theme/context) default to an
+// ecosystem-wide run; 1b/1d may emit component- or theme-scoped rows.
+function composeScore(input) {
+  var gateScores = [input.tokens.score, input.fidelity.score].filter(
+    function (s) {
+      return typeof s === "number";
+    },
+  );
+  var headline = gateScores.length
+    ? Math.round(
+        (gateScores.reduce(function (a, b) {
+          return a + b;
+        }, 0) /
+          gateScores.length) *
+          100,
+      )
+    : null;
+  return {
+    date: input.date,
+    scope: input.scope || "ecosystem",
+    app: input.app || null,
+    theme: input.theme || null,
+    context: input.context || null,
+    score: headline,
+    gates: { tokens: input.tokens, fidelity: input.fidelity },
+  };
+}
+
 module.exports = {
   rate: rate,
   tokenGate: tokenGate,
   fidelityGate: fidelityGate,
+  composeScore: composeScore,
 };

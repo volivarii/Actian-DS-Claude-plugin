@@ -69,3 +69,42 @@ describe("fidelityGate", function () {
     assert.strictEqual(g.scored, 2);
   });
 });
+
+describe("composeScore", function () {
+  it("averages only gates that have data, ×100, rounded", function () {
+    var row = q.composeScore({
+      date: "2026-06-15",
+      tokens: { brokenRefRate: 1, contrastRate: 0.8, score: 0.9, errors: 2 },
+      fidelity: { score: 0.5, scored: 2, total: 3 },
+    });
+    assert.strictEqual(row.score, 70); // mean(0.9, 0.5) = 0.7 → 70
+    assert.strictEqual(row.scope, "ecosystem");
+    assert.strictEqual(row.app, null);
+    assert.strictEqual(row.theme, null);
+    assert.strictEqual(row.gates.tokens.score, 0.9);
+    assert.strictEqual(row.gates.fidelity.score, 0.5);
+  });
+
+  it("excludes a null-score gate from the headline", function () {
+    var row = q.composeScore({
+      date: "2026-06-15",
+      tokens: { brokenRefRate: 1, contrastRate: 1, score: 1, errors: 0 },
+      fidelity: { score: null, scored: 0, total: 7 },
+    });
+    assert.strictEqual(row.score, 100); // only tokens counts → mean(1) = 1 → 100
+  });
+
+  it("carries optional app/theme/context axes through", function () {
+    var row = q.composeScore({
+      date: "2026-06-15",
+      scope: "component",
+      app: "studio",
+      theme: "studio",
+      tokens: { brokenRefRate: 1, contrastRate: 1, score: 1, errors: 0 },
+      fidelity: { score: null, scored: 0, total: 0 },
+    });
+    assert.strictEqual(row.scope, "component");
+    assert.strictEqual(row.app, "studio");
+    assert.strictEqual(row.theme, "studio");
+  });
+});
