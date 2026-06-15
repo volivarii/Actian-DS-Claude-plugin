@@ -108,3 +108,50 @@ describe("composeScore", function () {
     assert.strictEqual(row.theme, "studio");
   });
 });
+
+var fs = require("node:fs");
+var os = require("node:os");
+var path = require("node:path");
+
+describe("ledger + formatReport", function () {
+  it("appends a row and reads it back", function () {
+    var dir = fs.mkdtempSync(path.join(os.tmpdir(), "qledger-"));
+    var file = path.join(dir, "quality-ledger.jsonl");
+    var row = { date: "2026-06-15", scope: "ecosystem", score: 83, gates: {} };
+    q.appendRow(file, row);
+    q.appendRow(file, {
+      date: "2026-06-16",
+      scope: "ecosystem",
+      score: 90,
+      gates: {},
+    });
+    var rows = q.readLedger(file);
+    assert.strictEqual(rows.length, 2);
+    assert.strictEqual(rows[1].score, 90);
+    fs.rmSync(dir, { recursive: true, force: true });
+  });
+
+  it("readLedger returns [] for a missing file", function () {
+    assert.deepStrictEqual(q.readLedger("/no/such/quality-ledger.jsonl"), []);
+  });
+
+  it("formatReport renders the headline + gate breakdown", function () {
+    var report = q.formatReport({
+      date: "2026-06-15",
+      scope: "ecosystem",
+      score: 70,
+      gates: {
+        tokens: {
+          brokenRefRate: 1,
+          contrastRate: 0.83,
+          score: 0.92,
+          errors: 2,
+        },
+        fidelity: { score: 0.5, scored: 2, total: 3 },
+      },
+    });
+    assert.match(report, /DS Quality Score: 70/);
+    assert.match(report, /tokens/);
+    assert.match(report, /fidelity/);
+  });
+});

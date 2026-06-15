@@ -71,9 +71,62 @@ function composeScore(input) {
   };
 }
 
+var fs = require("fs");
+
+function readLedger(file) {
+  if (!fs.existsSync(file)) return [];
+  return fs
+    .readFileSync(file, "utf8")
+    .split("\n")
+    .filter(function (l) {
+      return l.trim();
+    })
+    .map(function (l) {
+      return JSON.parse(l);
+    });
+}
+
+function appendRow(file, row) {
+  fs.appendFileSync(file, JSON.stringify(row) + "\n");
+}
+
+function formatReport(row) {
+  var t = row.gates.tokens || {};
+  var f = row.gates.fidelity || {};
+  var lines = [
+    "DS Quality Score: " +
+      (row.score === null ? "n/a" : row.score) +
+      " / 100  [" +
+      row.scope +
+      "]",
+    "  tokens   : " +
+      Math.round(t.score * 100) +
+      "/100  (broken-ref " +
+      Math.round(t.brokenRefRate * 100) +
+      "%, contrast " +
+      Math.round(t.contrastRate * 100) +
+      "%, " +
+      t.errors +
+      " error(s))",
+    "  fidelity : " +
+      (f.score === null
+        ? "n/a (0 scored)"
+        : Math.round(f.score * 100) + "/100") +
+      "  (" +
+      f.scored +
+      "/" +
+      f.total +
+      " scored)",
+  ];
+  return lines.join("\n");
+}
+
 module.exports = {
   rate: rate,
   tokenGate: tokenGate,
   fidelityGate: fidelityGate,
   composeScore: composeScore,
+  readLedger: readLedger,
+  appendRow: appendRow,
+  formatReport: formatReport,
 };
