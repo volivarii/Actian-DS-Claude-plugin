@@ -33,18 +33,20 @@ function tokenGate(input) {
   };
 }
 
-// Fidelity gate: SCORE = structural pass-rate over Program-C rows (deterministic).
-// The pixel result is reported as a review-only annotation and never scored,
-// because oracles are Figma exports, not browser renders. Null (excluded from
-// the headline) until Program-C rows exist.
-function fidelityGate(agg) {
+// Structural gate: SCORE = structural pass-rate over Program-C rows (deterministic:
+// renders non-empty without overflow/clip/abs-pos breakage at 1440/768/360). The
+// pixel/visual result is carried as a review-only ANNOTATION and never scored
+// (oracles are Figma exports, not browser renders). Null until rows exist.
+function structuralGate(agg) {
   agg = agg || {};
   var total = agg.count || 0;
   return {
     score: total ? (agg.structuralPass || 0) / total : null,
     structuralPass: agg.structuralPass || 0,
-    pixelPass: agg.pixelPass || 0,
     total: total,
+    pixelPass: agg.pixelPass || 0,
+    pixelFail: agg.pixelFail || 0,
+    pixelSkip: agg.pixelSkip || 0,
   };
 }
 
@@ -53,8 +55,8 @@ function fidelityGate(agg) {
 // ecosystem-wide run; 1b/1d may emit component- or theme-scoped rows.
 function composeScore(input) {
   var tokens = input.tokens || {};
-  var fidelity = input.fidelity || {};
-  var gateScores = [tokens.score, fidelity.score].filter(function (s) {
+  var structural = input.structural || {};
+  var gateScores = [tokens.score, structural.score].filter(function (s) {
     return typeof s === "number";
   });
   var headline = gateScores.length
@@ -73,7 +75,7 @@ function composeScore(input) {
     theme: input.theme || null,
     context: input.context || null,
     score: headline,
-    gates: { tokens: tokens, fidelity: fidelity },
+    gates: { tokens: tokens, structural: structural },
   };
 }
 
@@ -101,19 +103,39 @@ function appendRow(file, row) {
 
 function formatReport(row) {
   var t = row.gates.tokens || {};
-  var f = row.gates.fidelity || {};
+  var s = row.gates.structural || {};
   var tokenLine =
     t.score == null
-      ? "  tokens   : n/a"
-      : "  tokens   : " +
+      ? "  tokens     : n/a"
+      : "  tokens     : " +
         Math.round(t.score * 100) +
-        "/100  (broken-ref " +
+        "/100  (refs " +
         Math.round(t.brokenRefRate * 100) +
         "%, contrast " +
         Math.round(t.contrastRate * 100) +
         "%, " +
         t.errors +
         " error(s))";
+  var structuralLine =
+    s.score == null
+      ? "  structural : n/a"
+      : "  structural : " +
+        Math.round(s.score * 100) +
+        "/100  (" +
+        (s.structuralPass || 0) +
+        "/" +
+        (s.total || 0) +
+        " clean — overflow/clip/empty at 1440/768/360)";
+  var visualLine =
+    (s.total || 0) === 0
+      ? "  visual     : n/a  (pixel vs Figma — not yet measured)"
+      : "  visual     : not scored  (pixel vs Figma: " +
+        (s.pixelFail || 0) +
+        " fail, " +
+        (s.pixelSkip || 0) +
+        " skipped, " +
+        (s.pixelPass || 0) +
+        " verified — review-only)";
   var lines = [
     "DS Quality Score: " +
       (row.score == null ? "n/a" : row.score) +
@@ -121,17 +143,8 @@ function formatReport(row) {
       row.scope +
       "]",
     tokenLine,
-    "  fidelity : " +
-      (f.score == null ? "n/a" : Math.round(f.score * 100) + "/100") +
-      "  (structural " +
-      (f.structuralPass || 0) +
-      "/" +
-      (f.total || 0) +
-      "; pixel " +
-      (f.pixelPass || 0) +
-      "/" +
-      (f.total || 0) +
-      " — review-only)",
+    structuralLine,
+    visualLine,
   ];
   return lines.join("\n");
 }
@@ -146,7 +159,7 @@ function noChecksRan(counts) {
 module.exports = {
   rate: rate,
   tokenGate: tokenGate,
-  fidelityGate: fidelityGate,
+  structuralGate: structuralGate,
   composeScore: composeScore,
   readLedger: readLedger,
   appendRow: appendRow,

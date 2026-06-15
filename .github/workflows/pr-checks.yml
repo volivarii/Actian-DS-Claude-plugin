@@ -1,14 +1,13 @@
 name: PR checks
 
 # Tier 1 PR gates for the Actian Design System plugin.
-# Seven parallel jobs:
+# Six parallel jobs:
 #   1. test            — runs the plugin's full test suite
 #   2. json-syntax     — validates that all checked-in JSON files parse
 #   3. version-bump    — ensures plugin.json is bumped when source changes
 #   4. plugin-validate — `claude plugin validate` on the manifests (offline)
 #   5. token-lint      — report-only token-quality lint (broken var-refs + WCAG contrast)
-#   6. ds-quality-score — report-only DS Quality Score (token + fidelity rollup)
-#   7. quality-gates    — report-only live fidelity (structural-scored) + DS Quality Score
+#   6. quality-gates    — report-only live DS Quality Score (token + structural fidelity)
 #
 # Runs on EVERY PR (no paths: filter). Avoids the path-filtered-required-
 # check dead-PR gotcha: required status checks with paths: filters create a
@@ -106,22 +105,6 @@ jobs:
         # (Task 9) has propagated to the vendored snapshot.
         run: |
           node scripts/lint/lint-tokens-cli.js | tee "$GITHUB_STEP_SUMMARY"
-
-  ds-quality-score:
-    name: DS Quality Score (report-only)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version: '22'
-      - name: Compute DS Quality Score
-        working-directory: plugins/actian-design-system
-        # Report-only: prints the headline + gate breakdown to the run summary.
-        # --no-write so CI never mutates the trend ledger (trend rows are
-        # appended intentionally, not on every PR).
-        run: |
-          node scripts/quality/quality-score-cli.js --no-write | tee "$GITHUB_STEP_SUMMARY"
 
   quality-gates:
     name: Quality gates — fidelity (report-only)

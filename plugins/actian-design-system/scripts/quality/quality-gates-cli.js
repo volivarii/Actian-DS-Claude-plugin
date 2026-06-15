@@ -44,12 +44,16 @@ if (q.noChecksRan(tokenCounts)) {
 }
 var tokens = q.tokenGate({ findings: tokenFindings, counts: tokenCounts });
 
-// --- fidelity gate (live, structural-scored; pixel diffs saved as artifacts) ---
+// --- structural gate (live, scored; pixel/visual = review-only artifacts) ---
 var rows = runFidelity.run(PILOT, { write: false, diffDir: DIFF_DIR });
-var fidelity = q.fidelityGate(fidelityReport.aggregate(rows));
+var structural = q.structuralGate(fidelityReport.aggregate(rows));
 
 var date = new Date().toISOString().slice(0, 10);
-var row = q.composeScore({ date: date, tokens: tokens, fidelity: fidelity });
+var row = q.composeScore({
+  date: date,
+  tokens: tokens,
+  structural: structural,
+});
 
 if (process.argv.indexOf("--json") !== -1) {
   process.stdout.write(JSON.stringify(row) + "\n");
