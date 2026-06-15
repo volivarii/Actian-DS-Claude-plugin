@@ -30,4 +30,33 @@ function lintCssVarRefs(cssText) {
   return findings;
 }
 
-module.exports = { lintCssVarRefs: lintCssVarRefs };
+function srgbToLinear(channel8bit) {
+  var cs = channel8bit / 255;
+  return cs <= 0.03928 ? cs / 12.92 : Math.pow((cs + 0.055) / 1.055, 2.4);
+}
+
+function relativeLuminance(hex) {
+  var h = hex.replace("#", "");
+  var r = parseInt(h.slice(0, 2), 16);
+  var g = parseInt(h.slice(2, 4), 16);
+  var b = parseInt(h.slice(4, 6), 16);
+  return (
+    0.2126 * srgbToLinear(r) +
+    0.7152 * srgbToLinear(g) +
+    0.0722 * srgbToLinear(b)
+  );
+}
+
+function contrastRatio(hex1, hex2) {
+  var l1 = relativeLuminance(hex1);
+  var l2 = relativeLuminance(hex2);
+  var hi = Math.max(l1, l2);
+  var lo = Math.min(l1, l2);
+  return (hi + 0.05) / (lo + 0.05);
+}
+
+module.exports = {
+  lintCssVarRefs: lintCssVarRefs,
+  relativeLuminance: relativeLuminance,
+  contrastRatio: contrastRatio,
+};

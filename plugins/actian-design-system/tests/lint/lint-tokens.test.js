@@ -10,7 +10,7 @@ describe("lintCssVarRefs", function () {
   it("flags a var() reference with no matching definition", function () {
     var css = [
       ":root {",
-      "  --zen-font-family-text: \"Roboto\", sans-serif;",
+      '  --zen-font-family-text: "Roboto", sans-serif;',
       "  --zen-font-heading-display-family: var(--zen-font-family-roboto);",
       "}",
     ].join("\n");
@@ -24,7 +24,7 @@ describe("lintCssVarRefs", function () {
   it("returns no findings when every referenced var is defined", function () {
     var css = [
       ":root {",
-      "  --zen-font-family-text: \"Roboto\", sans-serif;",
+      '  --zen-font-family-text: "Roboto", sans-serif;',
       "  --zen-font-heading-display-family: var(--zen-font-family-text);",
       "}",
     ].join("\n");
@@ -38,5 +38,25 @@ describe("lintCssVarRefs", function () {
     ].join("\n");
     var findings = lint.lintCssVarRefs(css);
     assert.strictEqual(findings.length, 1);
+  });
+});
+
+describe("contrastRatio", function () {
+  it("black on white is 21:1", function () {
+    assert.strictEqual(
+      Math.round(lint.contrastRatio("#000000", "#FFFFFF")),
+      21,
+    );
+  });
+
+  it("is order-independent", function () {
+    assert.strictEqual(
+      lint.contrastRatio("#000000", "#FFFFFF"),
+      lint.contrastRatio("#FFFFFF", "#000000"),
+    );
+  });
+
+  it("white on white is 1:1", function () {
+    assert.strictEqual(Math.round(lint.contrastRatio("#FFFFFF", "#FFFFFF")), 1);
   });
 });
