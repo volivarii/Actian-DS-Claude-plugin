@@ -120,6 +120,34 @@ describe("composeScore", function () {
     });
     assert.strictEqual(row.score, null);
   });
+
+  it("does not throw when a gate is omitted (defensive)", function () {
+    var row = q.composeScore({ date: "2026-06-15" });
+    assert.strictEqual(row.score, null);
+    assert.deepStrictEqual(row.gates.tokens, {});
+    assert.deepStrictEqual(row.gates.fidelity, {});
+  });
+});
+
+describe("noChecksRan", function () {
+  it("is true when both denominators are zero", function () {
+    assert.strictEqual(
+      q.noChecksRan({ refsChecked: 0, contrastChecks: 0 }),
+      true,
+    );
+    assert.strictEqual(q.noChecksRan({}), true);
+    assert.strictEqual(q.noChecksRan(), true);
+  });
+  it("is false when any check ran", function () {
+    assert.strictEqual(
+      q.noChecksRan({ refsChecked: 50, contrastChecks: 0 }),
+      false,
+    );
+    assert.strictEqual(
+      q.noChecksRan({ refsChecked: 0, contrastChecks: 12 }),
+      false,
+    );
+  });
 });
 
 var fs = require("node:fs");
@@ -179,5 +207,8 @@ describe("ledger + formatReport", function () {
       },
     });
     assert.match(report, /tokens   : n\/a/);
+    // fidelity n/a line carries the count once via the suffix, not twice
+    assert.match(report, /fidelity : n\/a {2}\(0\/0 scored\)/);
+    assert.doesNotMatch(report, /n\/a \(0 scored\)/);
   });
 });

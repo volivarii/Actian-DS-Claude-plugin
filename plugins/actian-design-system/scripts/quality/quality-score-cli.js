@@ -12,13 +12,26 @@ var lint = require("../lint/lint-tokens.js");
 var fidelity = require("../fidelity/fidelity-report.js");
 var q = require("./quality-score.js");
 
-var LEDGER = path.join(__dirname, "..", "..", "tests", "renderers", "__fidelity__", "quality-ledger.jsonl");
+var LEDGER = path.join(
+  __dirname,
+  "..",
+  "..",
+  "tests",
+  "renderers",
+  "__fidelity__",
+  "quality-ledger.jsonl",
+);
 
 // --- token gate (live) ---
 var cssText = fs.readFileSync(PATHS.tokens.css, "utf8");
 var tokensJson = JSON.parse(fs.readFileSync(PATHS.tokens.json, "utf8"));
 var findings = lint.lintTokens({ cssText: cssText, tokensJson: tokensJson });
 var counts = lint.countChecks({ cssText: cssText, tokensJson: tokensJson });
+if (q.noChecksRan(counts)) {
+  process.stderr.write(
+    "warning: token lint ran 0 checks — the token source may be empty or unreadable; the token gate score is not meaningful.\n",
+  );
+}
 var tokens = q.tokenGate({ findings: findings, counts: counts });
 
 // --- fidelity gate (from ledger, Program-C rows only) ---

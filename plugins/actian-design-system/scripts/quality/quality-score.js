@@ -48,11 +48,11 @@ function fidelityGate(agg) {
 // non-null, ×100, rounded. Axes (scope/app/theme/context) default to an
 // ecosystem-wide run; 1b/1d may emit component- or theme-scoped rows.
 function composeScore(input) {
-  var gateScores = [input.tokens.score, input.fidelity.score].filter(
-    function (s) {
-      return typeof s === "number";
-    },
-  );
+  var tokens = input.tokens || {};
+  var fidelity = input.fidelity || {};
+  var gateScores = [tokens.score, fidelity.score].filter(function (s) {
+    return typeof s === "number";
+  });
   var headline = gateScores.length
     ? Math.round(
         (gateScores.reduce(function (a, b) {
@@ -69,7 +69,7 @@ function composeScore(input) {
     theme: input.theme || null,
     context: input.context || null,
     score: headline,
-    gates: { tokens: input.tokens, fidelity: input.fidelity },
+    gates: { tokens: tokens, fidelity: fidelity },
   };
 }
 
@@ -107,15 +107,13 @@ function formatReport(row) {
         " error(s))";
   var lines = [
     "DS Quality Score: " +
-      (row.score === null ? "n/a" : row.score) +
+      (row.score == null ? "n/a" : row.score) +
       " / 100  [" +
       row.scope +
       "]",
     tokenLine,
     "  fidelity : " +
-      (f.score === null
-        ? "n/a (0 scored)"
-        : Math.round(f.score * 100) + "/100") +
+      (f.score == null ? "n/a" : Math.round(f.score * 100) + "/100") +
       "  (" +
       f.scored +
       "/" +
@@ -123,6 +121,13 @@ function formatReport(row) {
       " scored)",
   ];
   return lines.join("\n");
+}
+
+// True when the token gate ran zero checks (empty/structurally-missing token
+// source). Used by the CLI to warn instead of silently scoring a perfect 100.
+function noChecksRan(counts) {
+  counts = counts || {};
+  return (counts.refsChecked || 0) === 0 && (counts.contrastChecks || 0) === 0;
 }
 
 module.exports = {
@@ -133,4 +138,5 @@ module.exports = {
   readLedger: readLedger,
   appendRow: appendRow,
   formatReport: formatReport,
+  noChecksRan: noChecksRan,
 };
