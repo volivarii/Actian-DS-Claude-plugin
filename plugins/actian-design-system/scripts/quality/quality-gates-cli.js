@@ -16,13 +16,32 @@ var fidelityReport = require("../fidelity/fidelity-report.js");
 var q = require("./quality-score.js");
 
 var PILOT = ["button", "checkbox-with-label", "alert-banner"];
-var DIFF_DIR = path.join(__dirname, "..", "..", "tests", "renderers", "__fidelity__", "diffs");
+var DIFF_DIR = path.join(
+  __dirname,
+  "..",
+  "..",
+  "tests",
+  "renderers",
+  "__fidelity__",
+  "diffs",
+);
 
 // --- token gate (live) ---
 var cssText = fs.readFileSync(PATHS.tokens.css, "utf8");
 var tokensJson = JSON.parse(fs.readFileSync(PATHS.tokens.json, "utf8"));
-var tokenFindings = lint.lintTokens({ cssText: cssText, tokensJson: tokensJson });
-var tokenCounts = lint.countChecks({ cssText: cssText, tokensJson: tokensJson });
+var tokenFindings = lint.lintTokens({
+  cssText: cssText,
+  tokensJson: tokensJson,
+});
+var tokenCounts = lint.countChecks({
+  cssText: cssText,
+  tokensJson: tokensJson,
+});
+if (q.noChecksRan(tokenCounts)) {
+  process.stderr.write(
+    "warning: token lint ran 0 checks — the token source may be empty or unreadable; the token gate score is not meaningful.\n",
+  );
+}
 var tokens = q.tokenGate({ findings: tokenFindings, counts: tokenCounts });
 
 // --- fidelity gate (live, structural-scored; pixel diffs saved as artifacts) ---
@@ -36,7 +55,9 @@ if (process.argv.indexOf("--json") !== -1) {
   process.stdout.write(JSON.stringify(row) + "\n");
 } else {
   process.stdout.write(q.formatReport(row) + "\n");
-  process.stdout.write("(pixel diffs, if any, written to tests/renderers/__fidelity__/diffs/ — review-only)\n");
+  process.stdout.write(
+    "(pixel diffs, if any, written to tests/renderers/__fidelity__/diffs/ — review-only)\n",
+  );
 }
 
 process.exit(0);
