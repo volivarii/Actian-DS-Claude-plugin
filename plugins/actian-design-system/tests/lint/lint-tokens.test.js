@@ -123,9 +123,36 @@ describe("lintContrast", function () {
     ];
     assert.deepStrictEqual(lint.lintContrast(tokens, pairs, ["actian"]), []);
   });
+
+  it("does not flag a pair whose ratio exactly equals the minimum", function () {
+    var tokens = {
+      color: {
+        text: { mid: { $type: "color", $value: "#767676" } },
+        bg: { default: { $type: "color", $value: "#FFFFFF" } },
+      },
+    };
+    var ratio = lint.contrastRatio("#767676", "#FFFFFF");
+    var pairs = [{ fg: "color.text.mid", bg: "color.bg.default", min: ratio }];
+    assert.deepStrictEqual(lint.lintContrast(tokens, pairs, ["actian"]), []);
+  });
+
+  it("skips (does not flag) an alpha (8-digit) hex value", function () {
+    var tokens = {
+      color: {
+        text: { alpha: { $type: "color", $value: "#00000066" } },
+        bg: { default: { $type: "color", $value: "#FFFFFF" } },
+      },
+    };
+    var pairs = [{ fg: "color.text.alpha", bg: "color.bg.default", min: 4.5 }];
+    assert.deepStrictEqual(lint.lintContrast(tokens, pairs, ["actian"]), []);
+  });
 });
 
 describe("lintTokens + formatReport", function () {
+  it("returns [] and does not throw when called with no argument", function () {
+    assert.deepStrictEqual(lint.lintTokens(), []);
+  });
+
   it("aggregates css + contrast findings", function () {
     var css = "a { font: var(--zen-undefined-y); }";
     var tokens = {

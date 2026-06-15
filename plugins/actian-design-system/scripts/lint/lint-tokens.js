@@ -8,6 +8,7 @@
 // edit points at a variable that was never declared.
 function lintCssVarRefs(cssText) {
   var defined = new Set();
+  // Known limitation: a `--zen-*:` pattern inside a block comment counts as a definition (acceptable — real tokens.css never does this; it only risks suppressing a finding, never a false positive).
   var defRe = /^\s*(--zen-[A-Za-z0-9-]+)\s*:/gm;
   var m;
   while ((m = defRe.exec(cssText))) defined.add(m[1]);
@@ -37,6 +38,7 @@ function srgbToLinear(channel8bit) {
 
 function relativeLuminance(hex) {
   var h = hex.replace("#", "");
+  if (h.length !== 6) return NaN;
   var r = parseInt(h.slice(0, 2), 16);
   var g = parseInt(h.slice(2, 4), 16);
   var b = parseInt(h.slice(4, 6), 16);
@@ -64,7 +66,7 @@ function themeValue(tokensJson, dotPath, theme) {
   }, tokensJson);
   if (!node) return undefined;
   var themes = node.$extensions && node.$extensions["com.actian.themes"];
-  if (themes && themes[theme]) return themes[theme];
+  if (themes && themes[theme] != null) return themes[theme];
   return node.$value;
 }
 
@@ -90,6 +92,7 @@ function lintContrast(tokensJson, pairs, themes) {
       var bg = themeValue(tokensJson, p.bg, theme);
       if (!fg || !bg) return;
       var ratio = contrastRatio(fg, bg);
+      if (!isFinite(ratio)) return;
       if (ratio < p.min) {
         findings.push({
           rule: "contrast",
@@ -113,6 +116,7 @@ function lintContrast(tokensJson, pairs, themes) {
 }
 
 function lintTokens(opts) {
+  opts = opts || {};
   var css = lintCssVarRefs(opts.cssText || "");
   var contrast = lintContrast(opts.tokensJson || {}, opts.pairs, opts.themes);
   return css.concat(contrast);
