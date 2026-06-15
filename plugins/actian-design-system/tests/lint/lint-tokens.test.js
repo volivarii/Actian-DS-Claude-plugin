@@ -60,3 +60,67 @@ describe("contrastRatio", function () {
     assert.strictEqual(Math.round(lint.contrastRatio("#FFFFFF", "#FFFFFF")), 1);
   });
 });
+
+describe("themeValue", function () {
+  var tokens = {
+    color: {
+      text: {
+        primary: {
+          $type: "color",
+          $value: "#000000",
+          $extensions: {
+            "com.actian.themes": {
+              actian: "#000000",
+              studio: "#111111",
+              explorer: "#222222",
+            },
+          },
+        },
+      },
+      bg: { default: { $type: "color", $value: "#FFFFFF" } },
+    },
+  };
+
+  it("returns the per-theme override when present", function () {
+    assert.strictEqual(
+      lint.themeValue(tokens, "color.text.primary", "studio"),
+      "#111111",
+    );
+  });
+
+  it("falls back to $value when no theme override exists", function () {
+    assert.strictEqual(
+      lint.themeValue(tokens, "color.bg.default", "studio"),
+      "#FFFFFF",
+    );
+  });
+});
+
+describe("lintContrast", function () {
+  it("flags a pair below its minimum ratio", function () {
+    var tokens = {
+      color: {
+        text: { faint: { $type: "color", $value: "#AAAAAA" } },
+        bg: { default: { $type: "color", $value: "#FFFFFF" } },
+      },
+    };
+    var pairs = [{ fg: "color.text.faint", bg: "color.bg.default", min: 4.5 }];
+    var findings = lint.lintContrast(tokens, pairs, ["actian"]);
+    assert.strictEqual(findings.length, 1);
+    assert.strictEqual(findings[0].rule, "contrast");
+    assert.strictEqual(findings[0].severity, "error");
+  });
+
+  it("passes a high-contrast pair", function () {
+    var tokens = {
+      color: {
+        text: { primary: { $type: "color", $value: "#000000" } },
+        bg: { default: { $type: "color", $value: "#FFFFFF" } },
+      },
+    };
+    var pairs = [
+      { fg: "color.text.primary", bg: "color.bg.default", min: 4.5 },
+    ];
+    assert.deepStrictEqual(lint.lintContrast(tokens, pairs, ["actian"]), []);
+  });
+});

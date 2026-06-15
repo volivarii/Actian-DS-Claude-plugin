@@ -55,8 +55,69 @@ function contrastRatio(hex1, hex2) {
   return (hi + 0.05) / (lo + 0.05);
 }
 
+// Resolves a dotted token path (e.g. "color.text.primary") to its value
+// for a given theme, preferring the com.actian.themes override and falling
+// back to the DTCG $value.
+function themeValue(tokensJson, dotPath, theme) {
+  var node = dotPath.split(".").reduce(function (o, k) {
+    return o ? o[k] : undefined;
+  }, tokensJson);
+  if (!node) return undefined;
+  var themes = node.$extensions && node.$extensions["com.actian.themes"];
+  if (themes && themes[theme]) return themes[theme];
+  return node.$value;
+}
+
+// Curated text/background pairs that MUST meet WCAG AA normal-text (4.5:1).
+// Intentionally excludes tertiary/placeholder/disabled tokens, which are
+// designed to be lower-contrast and carry different requirements.
+var CONTRAST_PAIRS = [
+  { fg: "color.text.primary", bg: "color.bg.default", min: 4.5 },
+  { fg: "color.text.secondary", bg: "color.bg.default", min: 4.5 },
+  { fg: "color.text.link.default", bg: "color.bg.default", min: 4.5 },
+  { fg: "color.text.error", bg: "color.bg.default", min: 4.5 },
+];
+
+var THEMES = ["actian", "studio", "explorer"];
+
+function lintContrast(tokensJson, pairs, themes) {
+  pairs = pairs || CONTRAST_PAIRS;
+  themes = themes || THEMES;
+  var findings = [];
+  pairs.forEach(function (p) {
+    themes.forEach(function (theme) {
+      var fg = themeValue(tokensJson, p.fg, theme);
+      var bg = themeValue(tokensJson, p.bg, theme);
+      if (!fg || !bg) return;
+      var ratio = contrastRatio(fg, bg);
+      if (ratio < p.min) {
+        findings.push({
+          rule: "contrast",
+          severity: "error",
+          token: p.fg + " on " + p.bg + " [" + theme + "]",
+          message:
+            "contrast " +
+            ratio.toFixed(2) +
+            ":1 < required " +
+            p.min +
+            ":1 (" +
+            fg +
+            " on " +
+            bg +
+            ")",
+        });
+      }
+    });
+  });
+  return findings;
+}
+
 module.exports = {
   lintCssVarRefs: lintCssVarRefs,
   relativeLuminance: relativeLuminance,
   contrastRatio: contrastRatio,
+  themeValue: themeValue,
+  lintContrast: lintContrast,
+  CONTRAST_PAIRS: CONTRAST_PAIRS,
+  THEMES: THEMES,
 };
