@@ -33,14 +33,18 @@ function tokenGate(input) {
   };
 }
 
-// Fidelity gate: pass-rate = ledger meanScore over SCORED components.
-// Null score (excluded from the headline) until Program-C rows exist.
+// Fidelity gate: SCORE = structural pass-rate over Program-C rows (deterministic).
+// The pixel result is reported as a review-only annotation and never scored,
+// because oracles are Figma exports, not browser renders. Null (excluded from
+// the headline) until Program-C rows exist.
 function fidelityGate(agg) {
   agg = agg || {};
+  var total = agg.count || 0;
   return {
-    score: typeof agg.meanScore === "number" ? agg.meanScore : null,
-    scored: agg.scored || 0,
-    total: agg.count || 0,
+    score: total ? (agg.structuralPass || 0) / total : null,
+    structuralPass: agg.structuralPass || 0,
+    pixelPass: agg.pixelPass || 0,
+    total: total,
   };
 }
 
@@ -119,11 +123,15 @@ function formatReport(row) {
     tokenLine,
     "  fidelity : " +
       (f.score == null ? "n/a" : Math.round(f.score * 100) + "/100") +
-      "  (" +
-      f.scored +
+      "  (structural " +
+      (f.structuralPass || 0) +
       "/" +
-      f.total +
-      " scored)",
+      (f.total || 0) +
+      "; pixel " +
+      (f.pixelPass || 0) +
+      "/" +
+      (f.total || 0) +
+      " — review-only)",
   ];
   return lines.join("\n");
 }

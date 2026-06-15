@@ -55,22 +55,18 @@ describe("tokenGate", function () {
   });
 });
 
-describe("fidelityGate", function () {
-  it("is n/a (null score) when no components are scored", function () {
-    var g = q.fidelityGate({
-      count: 7,
-      scored: 0,
-      skipped: 7,
-      meanScore: null,
-    });
+describe("fidelityGate (structural pass-rate)", function () {
+  it("is n/a (null) when there are no Program-C rows", function () {
+    var g = q.fidelityGate({ count: 0, structuralPass: 0, pixelPass: 0 });
     assert.strictEqual(g.score, null);
-    assert.strictEqual(g.scored, 0);
+    assert.strictEqual(g.total, 0);
   });
-
-  it("uses the ledger meanScore when components are scored", function () {
-    var g = q.fidelityGate({ count: 3, scored: 2, skipped: 1, meanScore: 0.5 });
-    assert.strictEqual(g.score, 0.5);
-    assert.strictEqual(g.scored, 2);
+  it("scores the structural pass-rate over all rows (pixel is not scored)", function () {
+    var g = q.fidelityGate({ count: 4, structuralPass: 3, pixelPass: 1 });
+    assert.strictEqual(g.score, 0.75);
+    assert.strictEqual(g.structuralPass, 3);
+    assert.strictEqual(g.pixelPass, 1);
+    assert.strictEqual(g.total, 4);
   });
 });
 
@@ -188,28 +184,28 @@ describe("ledger + formatReport", function () {
           score: 0.92,
           errors: 2,
         },
-        fidelity: { score: 0.5, scored: 2, total: 3 },
+        fidelity: { score: 0.75, structuralPass: 3, pixelPass: 1, total: 4 },
       },
     });
     assert.match(report, /DS Quality Score: 70/);
     assert.match(report, /tokens/);
     assert.match(report, /fidelity/);
+    assert.match(report, /structural 3\/4/);
+    assert.match(report, /pixel 1\/4 — review-only/);
   });
 
-  it("renders n/a for a null token score", function () {
+  it("renders n/a for a null token score and a null fidelity score", function () {
     var report = q.formatReport({
       date: "2026-06-15",
       scope: "ecosystem",
       score: null,
       gates: {
         tokens: { score: null },
-        fidelity: { score: null, scored: 0, total: 0 },
+        fidelity: { score: null, structuralPass: 0, pixelPass: 0, total: 0 },
       },
     });
     assert.match(report, /tokens   : n\/a/);
-    // fidelity n/a line carries the count once via the suffix, not twice
-    assert.match(report, /fidelity : n\/a {2}\(0\/0 scored\)/);
-    assert.doesNotMatch(report, /n\/a \(0 scored\)/);
+    assert.match(report, /fidelity : n\/a/);
   });
 
   it("readLedger skips malformed lines instead of throwing", function () {
