@@ -112,12 +112,40 @@ function lintContrast(tokensJson, pairs, themes) {
   return findings;
 }
 
+function lintTokens(opts) {
+  var css = lintCssVarRefs(opts.cssText || "");
+  var contrast = lintContrast(opts.tokensJson || {}, opts.pairs, opts.themes);
+  return css.concat(contrast);
+}
+
+function formatReport(findings) {
+  if (!findings.length) return "token-lint: PASS (0 findings)";
+  var errors = findings.filter(function (f) {
+    return f.severity === "error";
+  }).length;
+  var lines = findings.map(function (f) {
+    return (
+      "  [" + f.severity + "] " + f.rule + ": " + f.token + " — " + f.message
+    );
+  });
+  return (
+    "token-lint: " +
+    findings.length +
+    " finding(s), " +
+    errors +
+    " error(s)\n" +
+    lines.join("\n")
+  );
+}
+
 module.exports = {
   lintCssVarRefs: lintCssVarRefs,
   relativeLuminance: relativeLuminance,
   contrastRatio: contrastRatio,
   themeValue: themeValue,
   lintContrast: lintContrast,
+  lintTokens: lintTokens,
+  formatReport: formatReport,
   CONTRAST_PAIRS: CONTRAST_PAIRS,
   THEMES: THEMES,
 };

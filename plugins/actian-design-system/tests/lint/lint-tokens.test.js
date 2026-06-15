@@ -124,3 +124,33 @@ describe("lintContrast", function () {
     assert.deepStrictEqual(lint.lintContrast(tokens, pairs, ["actian"]), []);
   });
 });
+
+describe("lintTokens + formatReport", function () {
+  it("aggregates css + contrast findings", function () {
+    var css = "a { font: var(--zen-undefined-y); }";
+    var tokens = {
+      color: {
+        text: { faint: { $type: "color", $value: "#AAAAAA" } },
+        bg: { default: { $type: "color", $value: "#FFFFFF" } },
+      },
+    };
+    var findings = lint.lintTokens({
+      cssText: css,
+      tokensJson: tokens,
+      pairs: [{ fg: "color.text.faint", bg: "color.bg.default", min: 4.5 }],
+      themes: ["actian"],
+    });
+    assert.strictEqual(findings.length, 2);
+  });
+
+  it("formats a PASS line when there are no findings", function () {
+    assert.match(lint.formatReport([]), /PASS/);
+  });
+
+  it("formats an error count when findings exist", function () {
+    var report = lint.formatReport([
+      { rule: "broken-ref", severity: "error", token: "--x", message: "msg" },
+    ]);
+    assert.match(report, /1 error/);
+  });
+});
