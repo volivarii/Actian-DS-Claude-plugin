@@ -82,8 +82,13 @@ function readLedger(file) {
       return l.trim();
     })
     .map(function (l) {
-      return JSON.parse(l);
-    });
+      try {
+        return JSON.parse(l);
+      } catch (e) {
+        return null;
+      }
+    })
+    .filter(Boolean);
 }
 
 function appendRow(file, row) {

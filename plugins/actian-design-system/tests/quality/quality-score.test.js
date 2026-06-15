@@ -211,4 +211,19 @@ describe("ledger + formatReport", function () {
     assert.match(report, /fidelity : n\/a {2}\(0\/0 scored\)/);
     assert.doesNotMatch(report, /n\/a \(0 scored\)/);
   });
+
+  it("readLedger skips malformed lines instead of throwing", function () {
+    var dir = fs.mkdtempSync(path.join(os.tmpdir(), "qledger-bad-"));
+    var file = path.join(dir, "ledger.jsonl");
+    fs.writeFileSync(
+      file,
+      '{"slug":"a","score":1}\n' +
+        "not json at all\n" +
+        '{"slug":"b","score":2}\n',
+    );
+    var rows = q.readLedger(file);
+    assert.strictEqual(rows.length, 2);
+    assert.strictEqual(rows[1].slug, "b");
+    fs.rmSync(dir, { recursive: true, force: true });
+  });
 });
