@@ -57,6 +57,27 @@ function renderLeafFragment(slug) {
   return dsMap.renderDSComponent(defaultNodeForSlug(slug));
 }
 
+// Capture-ready signal: flips data-fidelity-ready once fonts have loaded so the
+// screenshot/measure step waits for a settled render. WC-ready seam: a future
+// web-component tier extends this to also await customElements.whenDefined()
+// + Stencil hydration before signalling ready.
+function readySignalScript() {
+  return [
+    "<script>document.fonts.ready.then(function(){",
+    "requestAnimationFrame(function(){document.documentElement.setAttribute('data-fidelity-ready','1');});",
+    "});</script>",
+  ].join("");
+}
+
+// Single render entry both gates (pixel/structural here, axe in Plan B) consume.
+// WC-ready seam: the fragment source is ds-html-map today; a web-component tier
+// would register an alternative producer here. The oracle SOURCE stays swappable
+// via oracleFor() in run-fidelity.js (Figma-export now, browser-capture later).
+function renderTarget(slug) {
+  var fragment = renderLeafFragment(slug);
+  return { fragment: fragment, html: buildLeafHtml(slug, fragment) };
+}
+
 function buildMeasureHtml(slug, fragmentHtml, measureJs) {
   return buildLeafHtml(slug, fragmentHtml).replace(
     "</body>",
@@ -76,9 +97,7 @@ function buildLeafHtml(slug, fragmentHtml) {
       '">' +
       fragmentHtml +
       "</div>",
-    "<script>document.fonts.ready.then(function(){",
-    "requestAnimationFrame(function(){document.documentElement.setAttribute('data-fidelity-ready','1');});",
-    "});</script>",
+    readySignalScript(),
     "</body></html>",
   ].join("");
 }
@@ -146,6 +165,8 @@ function screenshot(opts) {
 module.exports = {
   defaultNodeForSlug,
   renderLeafFragment,
+  readySignalScript,
+  renderTarget,
   buildLeafHtml,
   buildMeasureHtml,
   buildImageHtml,
