@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=../../../schemas/guideline-meta.json
+component: "Upload file"
+category: form-input-selection
+domains:
+  content:  { status: approved, owner: content-team }
+  usage:    { status: not-started }
+  design:   { status: inherited }
+  behavior: { status: inherited }
+  tokens:   { status: not-started }

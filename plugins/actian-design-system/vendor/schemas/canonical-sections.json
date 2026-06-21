@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/canonical-sections.json",
+  "title": "Canonical sections",
+  "description": "The canonical design-guideline section list: per-section heading, stable anchor, accepted heading aliases, and paired media role. Single source for the editor's stub scaffolder and the docs design-section renderer.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["_schema_version", "_meta", "design"],
+  "properties": {
+    "_schema_version": { "const": 1, "description": "Schema version pin. Always 1." },
+    "_meta": {
+      "type": "object",
+      "description": "Derivation provenance.",
+      "examples": [{ "auto_generated": true, "source": "components/src/canonical-sections.json", "do_not_edit": "Edit the src JSON; CI validates." }],
+      "additionalProperties": false,
+      "required": ["auto_generated", "source", "do_not_edit"],
+      "properties": {
+        "auto_generated": { "const": true, "description": "Always true for derived dist." },
+        "source": { "type": "string", "description": "Repo-relative source path.", "examples": ["components/src/canonical-sections.json"] },
+        "do_not_edit": { "type": "string", "description": "Human-readable edit warning.", "examples": ["Edit the src JSON; CI validates."] }
+      }
+    },
+    "design": {
+      "type": "array",
+      "description": "Ordered canonical sections for the design domain.",
+      "examples": [[{ "key": "anatomy", "heading": "Anatomy", "anchor": "anatomy", "aliases": ["anatomy", "parts"], "mediaRole": "parts" }]],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["key", "heading", "anchor", "aliases", "mediaRole"],
+        "properties": {
+          "key": { "type": "string", "description": "Stable section key.", "examples": ["anatomy"] },
+          "heading": { "type": "string", "description": "Canonical H2 heading text.", "examples": ["Spacing & size"] },
+          "anchor": { "type": "string", "pattern": "^[a-z0-9-]+$", "description": "Stable anchor slug (anchor-legal; '&' becomes '-and-').", "examples": ["spacing-and-size"] },
+          "aliases": { "type": "array", "items": { "type": "string" }, "description": "Accepted heading spellings that map to this section.", "examples": [["spacing & size", "spacing", "sizing"]] },
+          "mediaRole": { "enum": ["parts", "variations", "spacing", "behavior", "layout"], "description": "Media role paired with this section." }
+        }
+      }
+    }
+  }
+}
