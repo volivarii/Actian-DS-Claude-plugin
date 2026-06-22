@@ -1,0 +1,79 @@
+[
+  {
+    "dimension": "coverage",
+    "metric": "a11y_ref",
+    "value": 1,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "coverage",
+    "metric": "foundations_ref",
+    "value": 1,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "coverage",
+    "metric": "motion_ref",
+    "value": 1,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "coverage",
+    "metric": "overall",
+    "value": 1,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "integrity",
+    "metric": "schema_errors",
+    "value": 0,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "integrity",
+    "metric": "dangling_edges",
+    "value": 0,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "integrity",
+    "metric": "typed_edge_violations",
+    "value": 0,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "connectivity",
+    "metric": "orphan_nodes",
+    "value": 306,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "connectivity",
+    "metric": "components_without_category",
+    "value": 293,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "connectivity",
+    "metric": "categories_without_a11y",
+    "value": 6,
+    "timestamp": null,
+    "severity": "info"
+  },
+  {
+    "dimension": "connectivity",
+    "metric": "criteria_unreferenced",
+    "value": 14,
+    "timestamp": null,
+    "severity": "info"
+  }
+]

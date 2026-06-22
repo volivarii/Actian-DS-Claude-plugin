@@ -3,7 +3,7 @@
   "_convention": "Fields prefixed with _ are system-managed (auto_generated, source, schema_version, sourceFile, generatedAt, meta). Authored content uses bare keys; system metadata uses _-prefix. Reserved for future extensions.",
   "_naming_convention": "Every key in paths and collections is leaf XOR namespace, never both. A key cannot resolve to a file AND be a prefix of nested children. To add a sibling artifact under an existing leaf, rename the leaf to a sub-key first (e.g., accessibility.guide + accessibility.index, not accessibility + accessibility.index). Enforced by tests/manifest-convention.test.js.",
   "manifest_schema_version": "v1",
-  "knowledge_version": "0.34.7",
+  "knowledge_version": "0.34.23",
   "_zones": {
     "knowledge": [
       "accessibility",
@@ -16,6 +16,8 @@
     ],
     "metadata": [
       "appContext",
+      "appContextBundle",
+      "appContextSrc",
       "tokens"
     ],
     "_pendingEviction": []
@@ -49,10 +51,18 @@
       "description": "Per-section block-JSON for accessibility (mirrors foundations dist); slug-shared with accessibility.index. Root metadata + top-level child list; navigate from here to per-section directories. Sibling files under accessibility/dist/."
     },
     "appContext": {
-      "path": "app-context/app-context.json",
+      "path": "app-context/dist/app-context.json",
       "type": "json",
-      "origin": "human",
-      "description": "Per-app patterns + persona + terminology"
+      "origin": "ci",
+      "generator": "scripts/app-context/derive-app-context.js",
+      "description": "Per-app patterns + persona + terminology (consolidated dist — do not edit)"
+    },
+    "appContextBundle": {
+      "path": "app-context/dist/app-context.bundle.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/app-context/derive-app-context.js",
+      "description": "Self-contained bundle wrapping the app-context dist under an `appContext` key; consumed by tools that embed the whole domain in a single JSON."
     },
     "components.anatomy.bundle": {
       "path": "components/dist/anatomy.bundle.json",
@@ -60,6 +70,13 @@
       "origin": "ci",
       "generator": "scripts/sync/sync-anatomy.js",
       "description": "Roll-up of every per-component anatomy JSON, keyed by slug. One-shot LLM consumption for structure-tree access across the whole DS."
+    },
+    "components.canonicalSections": {
+      "path": "components/dist/canonical-sections.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-canonical-sections.js",
+      "description": "Canonical design-guideline section list (heading, stable anchor, aliases, media role) — single source for the editor stub scaffolder and the docs design-section renderer."
     },
     "components.categories": {
       "path": "components/dist/categories.json",
@@ -236,6 +253,13 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'global-header' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.global-toast": {
+      "path": "components/dist/guidelines/global-toast.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'global-toast' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.inline-toast": {
       "path": "components/dist/guidelines/inline-toast.json",
       "type": "json",
@@ -299,6 +323,20 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'multi-select' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.notification": {
+      "path": "components/dist/guidelines/notification.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'notification' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.notification-dropdown": {
+      "path": "components/dist/guidelines/notification-dropdown.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'notification-dropdown' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.page-header": {
       "path": "components/dist/guidelines/page-header.json",
       "type": "json",
@@ -312,6 +350,13 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'popover' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.progress-bar-small": {
+      "path": "components/dist/guidelines/progress-bar-small.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'progress-bar-small' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.radio-button": {
       "path": "components/dist/guidelines/radio-button.json",
@@ -355,6 +400,13 @@
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'sticky-footer' component (content, usage, design, behavior, tokens — each optional)."
     },
+    "components.guidelineDoc.success-state": {
+      "path": "components/dist/guidelines/success-state.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'success-state' component (content, usage, design, behavior, tokens — each optional)."
+    },
     "components.guidelineDoc.table": {
       "path": "components/dist/guidelines/table.json",
       "type": "json",
@@ -389,6 +441,20 @@
       "origin": "ci",
       "generator": "scripts/components/derive-guidelines.js",
       "description": "Merged multi-domain guideline object for the 'toggle-control' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.tooltip": {
+      "path": "components/dist/guidelines/tooltip.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'tooltip' component (content, usage, design, behavior, tokens — each optional)."
+    },
+    "components.guidelineDoc.upload-file": {
+      "path": "components/dist/guidelines/upload-file.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/components/derive-guidelines.js",
+      "description": "Merged multi-domain guideline object for the 'upload-file' component (content, usage, design, behavior, tokens — each optional)."
     },
     "components.guidelineDoc.whats-new": {
       "path": "components/dist/guidelines/whats-new.json",
@@ -539,7 +605,14 @@
       "type": "json",
       "origin": "ci",
       "generator": "scripts/graph/derive-graph.js",
-      "description": "Derived knowledge graph: typed nodes (component/category/a11y_criterion/foundation_section/motion_pattern/content_topic) + typed edges (in_category, a11y_ref, motion_ref, foundations_ref, related, child). Transversal refs are category-mediated. Consumed by future graph viz + AI agents."
+      "description": "Derived knowledge graph: typed nodes (component/category/a11y_criterion/foundation_section/motion_pattern/content_topic) + typed edges (in_category, a11y_ref, motion_ref, foundations_ref, related, narrower). Transversal refs are category-mediated. Consumed by future graph viz + AI agents."
+    },
+    "graph.quality-report": {
+      "path": "graph/dist/quality-report.json",
+      "type": "json",
+      "origin": "ci",
+      "generator": "scripts/graph/validate-graph.js",
+      "description": "Derived graph quality/health report: per-dimension metrics — coverage (authored transversal refs that became edges), integrity violation counts, connectivity/orphan counts — each tagged with a severity tier (violation/warning/info). Emitted by validate-graph.js; timestamp injected by CI at publish. Trendable graph-health signal."
     },
     "tokens.css": {
       "path": "tokens/tokens.css",
@@ -577,6 +650,14 @@
       "origin": "ci",
       "description": "Per-leaf accessibility section JSONs in hierarchical Pattern H layout (mirrors foundations.leaf). Each leaf mirrors its MD heading path. Branch nodes carry an `_index.json` instead. Single roll-up at accessibility.bundle. Recursive: any file under accessibility/dist/ is covered by this collection."
     },
+    "appContextSrc": {
+      "dir": "app-context/src",
+      "pattern": "{kind}/{slug}.md",
+      "type": "markdown",
+      "origin": "human",
+      "recursive": true,
+      "description": "Authoring surface for app context. Per-kind subdirs: apps, entities, patterns. Terminology lives in terminology.yml (not covered by this collection)."
+    },
     "components.anatomy.byKey": {
       "dir": "components/dist/anatomy",
       "pattern": "{slug}.json",
@@ -612,6 +693,13 @@
       "origin": "human",
       "recursive": true,
       "description": "Authoring surface for per-component guidelines. Each {slug}/ directory holds _meta.yml + optional per-domain files (content.md, usage.md, design.md, behavior.md, tokens.yml). Recursive: covers everything under components/src/ — the per-component {slug}/ trees plus the sibling categories/ and guidelines/ source dirs (which also carry their own collections). See components/src/AUTHORING.md."
+    },
+    "components.icons.dist": {
+      "dir": "components/dist/icons",
+      "pattern": "{name}.json",
+      "type": "json",
+      "origin": "ci",
+      "description": "The icons dist directory. Holds the derived read-surface icons.json (documented explicitly as components.icons.svg) plus the auto-generated icons.degraded.json worklist — the slugs the icons sync phase could not normalize (reasons: bad-viewbox, multicolor, gradient-or-image-fill, render-failed, empty), mirroring anatomy's quality.degraded honesty. A collection (not a per-file path) so the degraded worklist is covered without requiring the file to pre-exist on a clean checkout."
     },
     "components.images": {
       "dir": "components/src",
@@ -661,14 +749,14 @@
     "tag-default": "tag",
     "input": "text-input",
     "toggle": "toggle-control",
-    "whats-new-dropdown": "whats-new",
-    "notification": "inline-toast"
+    "whats-new-dropdown": "whats-new"
   },
   "_notes": {
     "foundations_auto": "foundations.* entries are auto-regenerated by scripts/foundations/derive-foundations.js. Do not hand-edit. Hierarchical layout: bundle for one-shot, per-H2 _index entries for navigation; full per-leaf tree lives under foundations/dist/<slug>/.",
     "categories_auto": "components.categoryDefaults.* entries are auto-regenerated by scripts/categories/derive-categories.js. Do not hand-edit. Per-category dist JSONs + a single bundle + collection entries.",
     "guideline_doc_auto": "components.guidelineDoc.* entries are auto-regenerated by scripts/components/derive-guidelines.js. Do not hand-edit. Per-component merged JSONs + a bundle + a coverage report + collection entries.",
     "registry_aliases_interim": "registryAliases maps a registry component key (e.g. 'checkbox-with-label' from components/dist/registries/dskit.json) to the components.guidelineDoc.byKey slug its guideline is authored under ('checkbox'). It exists because component-guideline authoring slugs and Figma/registry component keys evolved separately. INTERIM: the long-term fix is naming convergence, not a growing map — see components/src/AUTHORING.md 'Slug naming'. Two migrated guidelines have no registry component to alias yet (combo-box, multi-select) — they cannot be bridged until those components exist in the registry. Hand-maintained; scripts/components/derive-guidelines.js READS this block (each entry makes it emit a registry-alias copy of the named guideline doc) but does not WRITE it; tests/manifest.test.js validates every key, value, and emitted alias file resolves.",
-    "zones": "_zones classifies each manifest paths/collections artifact by role for external-team legibility (see ARCHITECTURE.md): knowledge (foundations/components/content/accessibility), contract (graph + cross-cutting connector artifacts), metadata (app-context, tokens). Keyed by top-level manifest-key prefix. '_zones._pendingEviction' lists consumer-specific artifacts slated to move to the plugin (structure-audit Track E); now empty — Track E complete (fmToDsMap + presentation evicted). Enforced by scripts/validate-manifest.js (validateZones) + tests/manifest-zones.test.js."
+    "zones": "_zones classifies each manifest paths/collections artifact by role for external-team legibility (see ARCHITECTURE.md): knowledge (foundations/components/content/accessibility), contract (graph + cross-cutting connector artifacts), metadata (app-context, tokens). Keyed by top-level manifest-key prefix. '_zones._pendingEviction' lists consumer-specific artifacts slated to move to the plugin (structure-audit Track E); now empty — Track E complete (fmToDsMap + presentation evicted). Enforced by scripts/validate-manifest.js (validateZones) + tests/manifest-zones.test.js.",
+    "app_context_auto": "appContext.* entries are auto-regenerated by scripts/app-context/derive-app-context.js. Do not hand-edit. Single consolidated dist JSON + src collection."
   }
 }

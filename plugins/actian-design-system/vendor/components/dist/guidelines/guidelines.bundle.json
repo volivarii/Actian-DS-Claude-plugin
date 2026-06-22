@@ -124,137 +124,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "heading": "Notification",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Notifications inform users of updates, background task completions, or events that require their attention. They appear in the notification panel or dropdown."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To inform users of updates, background task completions, or events that require their attention."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use direct, concise language. One to two sentences.",
-                        "Include a timestamp.",
-                        "Include a link or action if the user must do something in response.",
-                        "Do not use generic text like `You have a new notification`."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Notification toast",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Toasts confirm that a background action completed, or surface non-critical errors and warnings that do not block the user."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To confirm that a background action completed.",
-                        "To surface non-critical errors or warnings that do not block the user.",
-                        "Do not use toasts for actions that require user input.",
-                        "For routine confirmations that need persistence, use an [alert / banner](/components/feedback/alert-banner/) instead."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Keep to one short sentence.",
-                        "Include an undo action where relevant."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Examples",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Scenario",
-                          "Toast text"
-                        ],
-                        "rows": [
-                          [
-                            "Dataset deleted",
-                            "Dataset deleted. Undo"
-                          ],
-                          [
-                            "Export complete",
-                            "Export ready. Download"
-                          ],
-                          [
-                            "Connection failed",
-                            "Connection failed. Try again"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Tooltip",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Tooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To provide short contextual help on hover or focus.",
-                        "For icon-only controls that require a label.",
-                        "Do not use tooltips for critical information — users should not be required to hover to understand the UI."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Limit to a few words or one concise sentence.",
-                        "Do not repeat the label of the element being described.",
-                        "For multi-sentence explanations, use a [popover](/components/overlays/popover/) or inline help text instead."
-                      ]
-                    }
-                  ]
-                }
-              ]
             }
           ]
         },
@@ -3056,7 +2925,7 @@
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "(patterns)",
+        "source": "components/src/empty-state/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
       "slug": "empty-state",
@@ -3066,8 +2935,86 @@
       },
       "domains": {
         "content": {
-          "status": "synthesized",
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Empty state\n\nEmpty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement.\n\n---\n\n## When to use\n\n- When users have not yet created or uploaded items.\n- When [filters](/components/form-input-selection/search-filters/) result in no visible results.\n- To encourage engagement with a clear next action.\n\nDo not use an empty state as a generic fallback without guiding the user toward a next action.\n\n## Style\n\n- Use a short, instructive headline (a noun phrase or imperative verb).\n- Follow with one concise sentence explaining what the user can do.\n- Provide one primary CTA.\n- Do not use \"No results found\" as a standalone message without guidance.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| No items found / Add your first dataset to start exploring. | No results. |\n| Nothing here yet / Create a connection to get started. | There are no items to display at this time. |\n\n## Examples\n\n| Element | Example text |\n|---|---|\n| Title | No items found |\n| Body | Add your first dataset to start exploring. |\n| CTA | Create dataset |",
           "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Empty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "When users have not yet created or uploaded items.",
+                    "When [filters](/components/form-input-selection/search-filters/) result in no visible results.",
+                    "To encourage engagement with a clear next action."
+                  ]
+                },
+                {
+                  "prose": "Do not use an empty state as a generic fallback without guiding the user toward a next action."
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Use a short, instructive headline (a noun phrase or imperative verb).",
+                    "Follow with one concise sentence explaining what the user can do.",
+                    "Provide one primary CTA.",
+                    "Do not use \"No results found\" as a standalone message without guidance."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "No items found / Add your first dataset to start exploring.",
+                  "dont": "No results."
+                },
+                {
+                  "do": "Nothing here yet / Create a connection to get started.",
+                  "dont": "There are no items to display at this time."
+                }
+              ]
+            },
+            {
+              "heading": "Examples",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Element",
+                      "Example text"
+                    ],
+                    "rows": [
+                      [
+                        "Title",
+                        "No items found"
+                      ],
+                      [
+                        "Body",
+                        "Add your first dataset to start exploring."
+                      ],
+                      [
+                        "CTA",
+                        "Create dataset"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
             {
               "heading": "",
               "source": "pattern:empty-and-system-states",
@@ -3076,254 +3023,29 @@
                   "prose": "System states communicate the current condition of the platform or a specific view. Clear, direct copy helps users understand what happened and what to do next."
                 }
               ]
-            },
-            {
-              "heading": "Empty state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Empty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "When users have not yet created or uploaded items.",
-                        "When [filters](/components/form-input-selection/search-filters/) result in no visible results.",
-                        "To encourage engagement with a clear next action."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use a short, instructive headline (noun phrase or imperative verb).",
-                        "Follow with one concise sentence that explains what the user can do.",
-                        "Provide one primary action (for example, **Create dataset**).",
-                        "Do not use `No results found` as a standalone message without guidance."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Do / Don't",
-                  "content": [
-                    {
-                      "do": "No items found / Add your first dataset to start exploring.",
-                      "dont": "No results."
-                    },
-                    {
-                      "do": "Nothing here yet / Create a connection to get started.",
-                      "dont": "There are no items to display at this time."
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "No items found"
-                          ],
-                          [
-                            "Body",
-                            "Add your first dataset to start exploring."
-                          ],
-                          [
-                            "CTA",
-                            "Create dataset"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Error state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Error states communicate that something failed or a resource could not be loaded. Copy must be specific, non-blaming, and actionable."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "When something fails or a resource cannot be loaded.",
-                        "When a user action fails to complete."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Be specific about what went wrong where possible.",
-                        "Offer a resolution step or next action.",
-                        "Do not use technical error codes as the primary message.",
-                        "Do not blame the user."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "Something went wrong"
-                          ],
-                          [
-                            "Body",
-                            "There was an error creating your item. Try again or contact support if the problem continues."
-                          ],
-                          [
-                            "Primary CTA",
-                            "Try again"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Maintenance state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Maintenance states inform users that part of the platform is temporarily unavailable due to planned or unplanned work."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Explain what is affected and for how long.",
-                        "Provide an estimated time to resolution when available.",
-                        "Include a single action if there is something the user can do (for example, **Refresh**)."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "Scheduled maintenance in progress"
-                          ],
-                          [
-                            "Body",
-                            "Reports may be unavailable until 12:00 PM EST."
-                          ],
-                          [
-                            "CTA",
-                            "Refresh"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Success state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Success states confirm that a user action completed. They often follow an action that previously triggered an empty state."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Confirm what was completed, not just that it succeeded.",
-                        "Keep copy brief. One line is usually sufficient.",
-                        "Offer a logical next action."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "Items imported"
-                          ],
-                          [
-                            "Body",
-                            "Your datasets are ready to explore."
-                          ],
-                          [
-                            "Primary CTA",
-                            "Open catalog"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
             }
           ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-06-16T20:00:20-07:00"
     },
     "error-state": {
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "(patterns)",
+        "source": "components/src/error-state/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
       "slug": "error-state",
@@ -3333,8 +3055,82 @@
       },
       "domains": {
         "content": {
-          "status": "synthesized",
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Error state\n\nError states communicate that something failed or a resource could not be loaded. Copy must be specific, non-blaming, and give users a path forward.\n\n---\n\n## When to use\n\n- When a page, component, or resource fails to load.\n- When a user action fails to complete.\n\n## Style\n\n- Be specific about what failed where possible.\n- Offer a resolution step or next action.\n- Do not use technical error codes as the primary message.\n- Do not blame the user.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Something went wrong / Try again or contact support if the problem continues. | Error 500. |\n| We couldn't load your datasets. / Refresh the page or try again later. | An unexpected error occurred. |\n\n## Examples\n\n| Element | Example text |\n|---|---|\n| Title | Something went wrong |\n| Body | There was an error creating your item. Try again or contact support if the problem continues. |\n| Primary CTA | Try again |",
           "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Error states communicate that something failed or a resource could not be loaded. Copy must be specific, non-blaming, and give users a path forward."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "When a page, component, or resource fails to load.",
+                    "When a user action fails to complete."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Be specific about what failed where possible.",
+                    "Offer a resolution step or next action.",
+                    "Do not use technical error codes as the primary message.",
+                    "Do not blame the user."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Something went wrong / Try again or contact support if the problem continues.",
+                  "dont": "Error 500."
+                },
+                {
+                  "do": "We couldn't load your datasets. / Refresh the page or try again later.",
+                  "dont": "An unexpected error occurred."
+                }
+              ]
+            },
+            {
+              "heading": "Examples",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Element",
+                      "Example text"
+                    ],
+                    "rows": [
+                      [
+                        "Title",
+                        "Something went wrong"
+                      ],
+                      [
+                        "Body",
+                        "There was an error creating your item. Try again or contact support if the problem continues."
+                      ],
+                      [
+                        "Primary CTA",
+                        "Try again"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
             {
               "heading": "",
               "source": "pattern:empty-and-system-states",
@@ -3343,248 +3139,23 @@
                   "prose": "System states communicate the current condition of the platform or a specific view. Clear, direct copy helps users understand what happened and what to do next."
                 }
               ]
-            },
-            {
-              "heading": "Empty state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Empty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "When users have not yet created or uploaded items.",
-                        "When [filters](/components/form-input-selection/search-filters/) result in no visible results.",
-                        "To encourage engagement with a clear next action."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use a short, instructive headline (noun phrase or imperative verb).",
-                        "Follow with one concise sentence that explains what the user can do.",
-                        "Provide one primary action (for example, **Create dataset**).",
-                        "Do not use `No results found` as a standalone message without guidance."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Do / Don't",
-                  "content": [
-                    {
-                      "do": "No items found / Add your first dataset to start exploring.",
-                      "dont": "No results."
-                    },
-                    {
-                      "do": "Nothing here yet / Create a connection to get started.",
-                      "dont": "There are no items to display at this time."
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "No items found"
-                          ],
-                          [
-                            "Body",
-                            "Add your first dataset to start exploring."
-                          ],
-                          [
-                            "CTA",
-                            "Create dataset"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Error state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Error states communicate that something failed or a resource could not be loaded. Copy must be specific, non-blaming, and actionable."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "When something fails or a resource cannot be loaded.",
-                        "When a user action fails to complete."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Be specific about what went wrong where possible.",
-                        "Offer a resolution step or next action.",
-                        "Do not use technical error codes as the primary message.",
-                        "Do not blame the user."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "Something went wrong"
-                          ],
-                          [
-                            "Body",
-                            "There was an error creating your item. Try again or contact support if the problem continues."
-                          ],
-                          [
-                            "Primary CTA",
-                            "Try again"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Maintenance state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Maintenance states inform users that part of the platform is temporarily unavailable due to planned or unplanned work."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Explain what is affected and for how long.",
-                        "Provide an estimated time to resolution when available.",
-                        "Include a single action if there is something the user can do (for example, **Refresh**)."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "Scheduled maintenance in progress"
-                          ],
-                          [
-                            "Body",
-                            "Reports may be unavailable until 12:00 PM EST."
-                          ],
-                          [
-                            "CTA",
-                            "Refresh"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Success state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Success states confirm that a user action completed. They often follow an action that previously triggered an empty state."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Confirm what was completed, not just that it succeeded.",
-                        "Keep copy brief. One line is usually sufficient.",
-                        "Offer a logical next action."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "Items imported"
-                          ],
-                          [
-                            "Body",
-                            "Your datasets are ready to explore."
-                          ],
-                          [
-                            "Primary CTA",
-                            "Open catalog"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
             }
           ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-06-16T19:44:17-07:00"
     },
     "filters": {
       "_schema_version": 1,
@@ -4164,6 +3735,100 @@
       },
       "updated_at": "2026-06-07T17:50:37+02:00"
     },
+    "global-toast": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/global-toast/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "global-toast",
+      "component": "Global toast",
+      "meta": {
+        "category": "feedback"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Global toast\n\nGlobal toasts appear at a fixed position on screen, independent of the triggering element.\n\n---\n\n## When to use\n\n- To confirm background action completions.\n- To surface non-critical errors or warnings that do not block the user.\n- Do not use for actions that require user input.\n- For confirmations that need to persist, use an [alert / banner](alert-banner) instead.\n\n## Style\n\n- Keep to one short sentence.\n- Include an undo action where relevant.\n\n## Examples\n\n| Scenario | Toast text |\n|---|---|\n| Dataset deleted | Dataset deleted. Undo |\n| Export complete | Export ready. Download |\n| Connection failed | Connection failed. Try again |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Global toasts appear at a fixed position on screen, independent of the triggering element."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To confirm background action completions.",
+                    "To surface non-critical errors or warnings that do not block the user.",
+                    "Do not use for actions that require user input.",
+                    "For confirmations that need to persist, use an [alert / banner](alert-banner) instead."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Keep to one short sentence.",
+                    "Include an undo action where relevant."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Examples",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Scenario",
+                      "Toast text"
+                    ],
+                    "rows": [
+                      [
+                        "Dataset deleted",
+                        "Dataset deleted. Undo"
+                      ],
+                      [
+                        "Export complete",
+                        "Export ready. Download"
+                      ],
+                      [
+                        "Connection failed",
+                        "Connection failed. Try again"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-16T20:00:20-07:00"
+    },
     "inline-toast": {
       "_schema_version": 1,
       "_meta": {
@@ -4185,7 +3850,7 @@
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Inline toast\n\nAn inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to.\n\n---\n\n## When to use\n\n- To confirm a localized action, such as copying a value or saving a field inline.\n- To surface a validation warning directly below or beside a specific form field.\n- Do not use an inline toast for global events - use the global toast or snackbar instead.\n\n## Style\n\n- One short sentence maximum. Ideally fewer than ten words.\n- Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.\n- Do not use inline toasts for error messages that require user action - use inline validation instead.\n\n## Examples\n\n| Scenario | Inline toast text |\n|---|---|\n| Value copied to clipboard | Copied |\n| Field saved inline | Saved |\n| Tag added to asset | Tag added |\n| Link generated | Link created |",
+          "markdown": "# Inline toast\n\nAn inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to.\n\n---\n\n## When to use\n\n- To confirm a localized action, such as copying a value or saving a field inline.\n- To surface a validation warning directly below or beside a specific form field.\n- Do not use an inline toast for global events. Use a [global toast](global-toast) instead.\n\n## Style\n\n- One short sentence maximum. Ideally fewer than ten words.\n- Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.\n- Do not use inline toasts for error messages that require user action - use inline validation instead.\n\n## Examples\n\n| Scenario | Inline toast text |\n|---|---|\n| Value copied to clipboard | Copied |\n| Field saved inline | Saved |\n| Tag added to asset | Tag added |\n| Link generated | Link created |",
           "sections": [
             {
               "heading": "",
@@ -4202,7 +3867,7 @@
                   "bullets": [
                     "To confirm a localized action, such as copying a value or saving a field inline.",
                     "To surface a validation warning directly below or beside a specific form field.",
-                    "Do not use an inline toast for global events - use the global toast or snackbar instead."
+                    "Do not use an inline toast for global events. Use a [global toast](global-toast) instead."
                   ]
                 }
               ]
@@ -4249,137 +3914,6 @@
                   }
                 }
               ]
-            },
-            {
-              "heading": "Notification",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Notifications inform users of updates, background task completions, or events that require their attention. They appear in the notification panel or dropdown."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To inform users of updates, background task completions, or events that require their attention."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use direct, concise language. One to two sentences.",
-                        "Include a timestamp.",
-                        "Include a link or action if the user must do something in response.",
-                        "Do not use generic text like `You have a new notification`."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Notification toast",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Toasts confirm that a background action completed, or surface non-critical errors and warnings that do not block the user."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To confirm that a background action completed.",
-                        "To surface non-critical errors or warnings that do not block the user.",
-                        "Do not use toasts for actions that require user input.",
-                        "For routine confirmations that need persistence, use an [alert / banner](/components/feedback/alert-banner/) instead."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Keep to one short sentence.",
-                        "Include an undo action where relevant."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Examples",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Scenario",
-                          "Toast text"
-                        ],
-                        "rows": [
-                          [
-                            "Dataset deleted",
-                            "Dataset deleted. Undo"
-                          ],
-                          [
-                            "Export complete",
-                            "Export ready. Download"
-                          ],
-                          [
-                            "Connection failed",
-                            "Connection failed. Try again"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Tooltip",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Tooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To provide short contextual help on hover or focus.",
-                        "For icon-only controls that require a label.",
-                        "Do not use tooltips for critical information — users should not be required to hover to understand the UI."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Limit to a few words or one concise sentence.",
-                        "Do not repeat the label of the element being described.",
-                        "For multi-sentence explanations, use a [popover](/components/overlays/popover/) or inline help text instead."
-                      ]
-                    }
-                  ]
-                }
-              ]
             }
           ]
         },
@@ -4396,7 +3930,7 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00"
+      "updated_at": "2026-06-16T20:00:20-07:00"
     },
     "input": {
       "_schema_version": 1,
@@ -5602,7 +5136,7 @@
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "(patterns)",
+        "source": "components/src/loader/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
       "slug": "loader",
@@ -5612,74 +5146,75 @@
       },
       "domains": {
         "content": {
-          "status": "synthesized",
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Loader\n\nThe loader appears during page transitions, data fetches, and background processes to communicate that the system is working. For application startup or full-screen transitions, use the [loader with logo](loader-with-logo) instead.\n\n---\n\n## When to use\n\n- During page loads, data fetches, or transitions that require the user to wait.\n- For in-page or component-level loading states.\n\n## Style\n\n- Include a loading message only when the wait is likely to exceed three seconds.\n- Keep messages brief and present-tense.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Loading datasets... | Please wait. |\n| Fetching results... | Loading, this may take a moment. |",
           "sections": [
             {
-              "heading": "Loading indicator",
-              "source": "pattern:loading-and-progress",
-              "content": [],
-              "subsections": [
+              "heading": "",
+              "content": [
                 {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "prose": "During transitions, page loads, or background processes."
-                    }
-                  ]
-                },
+                  "prose": "The loader appears during page transitions, data fetches, and background processes to communicate that the system is working. For application startup or full-screen transitions, use the [loader with logo](loader-with-logo) instead."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
                 {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use a loading message only when the wait is likely to exceed three seconds.",
-                        "Keep loading messages brief and present-tense. For example, `Loading datasets...`",
-                        "Do not use `Please wait`."
-                      ]
-                    }
+                  "bullets": [
+                    "During page loads, data fetches, or transitions that require the user to wait.",
+                    "For in-page or component-level loading states."
                   ]
                 }
               ]
             },
             {
-              "heading": "Progress indicator",
-              "source": "pattern:loading-and-progress",
-              "content": [],
-              "subsections": [
+              "heading": "Style",
+              "content": [
                 {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "For multi-step flows such as wizards or onboarding sequences.",
-                        "For file uploads or long-running background processes."
-                      ]
-                    }
+                  "bullets": [
+                    "Include a loading message only when the wait is likely to exceed three seconds.",
+                    "Keep messages brief and present-tense."
                   ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Loading datasets...",
+                  "dont": "Please wait."
                 },
                 {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Label each step in a stepper with a short noun or verb phrase.",
-                        "Show current step and total step count. For example, `Step 2 of 4`.",
-                        "For upload progress, show percentage or file size transferred."
-                      ]
-                    }
-                  ]
+                  "do": "Fetching results...",
+                  "dont": "Loading, this may take a moment."
                 }
               ]
             }
           ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-06-16T19:44:17-07:00"
     },
     "loader-with-logo": {
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "(patterns)",
+        "source": "components/src/loader-with-logo/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
       "slug": "loader-with-logo",
@@ -5689,74 +5224,75 @@
       },
       "domains": {
         "content": {
-          "status": "synthesized",
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Loader with logo\n\nThe loader with logo is a branded loading screen used during application startup or major full-screen transitions. For in-page or component-level loading, use the standard [loader](loader) instead.\n\n---\n\n## When to use\n\n- During application startup.\n- During major context switches that require a full-screen loading experience.\n\n## Style\n\n- Include a loading message only when the wait is likely to exceed three seconds.\n- Keep messages brief and present-tense.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Loading your workspace... | Please wait while we load your experience. |\n| Preparing your environment... | Please wait. |",
           "sections": [
             {
-              "heading": "Loading indicator",
-              "source": "pattern:loading-and-progress",
-              "content": [],
-              "subsections": [
+              "heading": "",
+              "content": [
                 {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "prose": "During transitions, page loads, or background processes."
-                    }
-                  ]
-                },
+                  "prose": "The loader with logo is a branded loading screen used during application startup or major full-screen transitions. For in-page or component-level loading, use the standard [loader](loader) instead."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
                 {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use a loading message only when the wait is likely to exceed three seconds.",
-                        "Keep loading messages brief and present-tense. For example, `Loading datasets...`",
-                        "Do not use `Please wait`."
-                      ]
-                    }
+                  "bullets": [
+                    "During application startup.",
+                    "During major context switches that require a full-screen loading experience."
                   ]
                 }
               ]
             },
             {
-              "heading": "Progress indicator",
-              "source": "pattern:loading-and-progress",
-              "content": [],
-              "subsections": [
+              "heading": "Style",
+              "content": [
                 {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "For multi-step flows such as wizards or onboarding sequences.",
-                        "For file uploads or long-running background processes."
-                      ]
-                    }
+                  "bullets": [
+                    "Include a loading message only when the wait is likely to exceed three seconds.",
+                    "Keep messages brief and present-tense."
                   ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Loading your workspace...",
+                  "dont": "Please wait while we load your experience."
                 },
                 {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Label each step in a stepper with a short noun or verb phrase.",
-                        "Show current step and total step count. For example, `Step 2 of 4`.",
-                        "For upload progress, show percentage or file size transferred."
-                      ]
-                    }
-                  ]
+                  "do": "Preparing your environment...",
+                  "dont": "Please wait."
                 }
               ]
             }
           ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-06-16T19:44:17-07:00"
     },
     "loading-skeleton": {
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "(patterns)",
+        "source": "components/src/loading-skeleton/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
       "slug": "loading-skeleton",
@@ -5766,74 +5302,63 @@
       },
       "domains": {
         "content": {
-          "status": "synthesized",
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Loading skeleton\n\nLoading skeletons are visual placeholders that show the layout of a page or component while content loads. They do not include copy.\n\n---\n\n## When to use\n\n- When loading a page or section where the layout structure is known in advance.\n- As an alternative to a spinner for content-heavy views.\n\n## Style\n\n- Skeletons are visual only and require no text labels.\n- Do not add placeholder text such as \"Loading...\" inside skeleton blocks.\n- If a loading message is needed alongside a skeleton, pair with a [loader](loader) instead.",
           "sections": [
             {
-              "heading": "Loading indicator",
-              "source": "pattern:loading-and-progress",
-              "content": [],
-              "subsections": [
+              "heading": "",
+              "content": [
                 {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "prose": "During transitions, page loads, or background processes."
-                    }
-                  ]
-                },
+                  "prose": "Loading skeletons are visual placeholders that show the layout of a page or component while content loads. They do not include copy."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
                 {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use a loading message only when the wait is likely to exceed three seconds.",
-                        "Keep loading messages brief and present-tense. For example, `Loading datasets...`",
-                        "Do not use `Please wait`."
-                      ]
-                    }
+                  "bullets": [
+                    "When loading a page or section where the layout structure is known in advance.",
+                    "As an alternative to a spinner for content-heavy views."
                   ]
                 }
               ]
             },
             {
-              "heading": "Progress indicator",
-              "source": "pattern:loading-and-progress",
-              "content": [],
-              "subsections": [
+              "heading": "Style",
+              "content": [
                 {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "For multi-step flows such as wizards or onboarding sequences.",
-                        "For file uploads or long-running background processes."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Label each step in a stepper with a short noun or verb phrase.",
-                        "Show current step and total step count. For example, `Step 2 of 4`.",
-                        "For upload progress, show percentage or file size transferred."
-                      ]
-                    }
+                  "bullets": [
+                    "Skeletons are visual only and require no text labels.",
+                    "Do not add placeholder text such as \"Loading...\" inside skeleton blocks.",
+                    "If a loading message is needed alongside a skeleton, pair with a [loader](loader) instead."
                   ]
                 }
               ]
             }
           ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-06-16T19:44:17-07:00"
     },
     "maintenance-state": {
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "(patterns)",
+        "source": "components/src/maintenance-state/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
       "slug": "maintenance-state",
@@ -5843,8 +5368,80 @@
       },
       "domains": {
         "content": {
-          "status": "synthesized",
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Maintenance state\n\nMaintenance states inform users that part of the platform is temporarily unavailable due to planned or unplanned work.\n\n---\n\n## When to use\n\n- When a page or feature is temporarily unavailable due to maintenance.\n\n## Style\n\n- Explain what is affected and for how long.\n- Provide an estimated time to resolution when available.\n- Include a single CTA if there is something the user can do.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Scheduled maintenance in progress / Reports may be unavailable until 12:00 PM EST. | System unavailable. |\n| We're making improvements. / Check back in a few minutes. | Under construction. |\n\n## Examples\n\n| Element | Example text |\n|---|---|\n| Title | Scheduled maintenance in progress |\n| Body | Reports may be unavailable until 12:00 PM EST. |\n| CTA | Refresh |",
           "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Maintenance states inform users that part of the platform is temporarily unavailable due to planned or unplanned work."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "When a page or feature is temporarily unavailable due to maintenance."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Explain what is affected and for how long.",
+                    "Provide an estimated time to resolution when available.",
+                    "Include a single CTA if there is something the user can do."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Scheduled maintenance in progress / Reports may be unavailable until 12:00 PM EST.",
+                  "dont": "System unavailable."
+                },
+                {
+                  "do": "We're making improvements. / Check back in a few minutes.",
+                  "dont": "Under construction."
+                }
+              ]
+            },
+            {
+              "heading": "Examples",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Element",
+                      "Example text"
+                    ],
+                    "rows": [
+                      [
+                        "Title",
+                        "Scheduled maintenance in progress"
+                      ],
+                      [
+                        "Body",
+                        "Reports may be unavailable until 12:00 PM EST."
+                      ],
+                      [
+                        "CTA",
+                        "Refresh"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            },
             {
               "heading": "",
               "source": "pattern:empty-and-system-states",
@@ -5853,248 +5450,23 @@
                   "prose": "System states communicate the current condition of the platform or a specific view. Clear, direct copy helps users understand what happened and what to do next."
                 }
               ]
-            },
-            {
-              "heading": "Empty state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Empty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "When users have not yet created or uploaded items.",
-                        "When [filters](/components/form-input-selection/search-filters/) result in no visible results.",
-                        "To encourage engagement with a clear next action."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use a short, instructive headline (noun phrase or imperative verb).",
-                        "Follow with one concise sentence that explains what the user can do.",
-                        "Provide one primary action (for example, **Create dataset**).",
-                        "Do not use `No results found` as a standalone message without guidance."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Do / Don't",
-                  "content": [
-                    {
-                      "do": "No items found / Add your first dataset to start exploring.",
-                      "dont": "No results."
-                    },
-                    {
-                      "do": "Nothing here yet / Create a connection to get started.",
-                      "dont": "There are no items to display at this time."
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "No items found"
-                          ],
-                          [
-                            "Body",
-                            "Add your first dataset to start exploring."
-                          ],
-                          [
-                            "CTA",
-                            "Create dataset"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Error state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Error states communicate that something failed or a resource could not be loaded. Copy must be specific, non-blaming, and actionable."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "When something fails or a resource cannot be loaded.",
-                        "When a user action fails to complete."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Be specific about what went wrong where possible.",
-                        "Offer a resolution step or next action.",
-                        "Do not use technical error codes as the primary message.",
-                        "Do not blame the user."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "Something went wrong"
-                          ],
-                          [
-                            "Body",
-                            "There was an error creating your item. Try again or contact support if the problem continues."
-                          ],
-                          [
-                            "Primary CTA",
-                            "Try again"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Maintenance state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Maintenance states inform users that part of the platform is temporarily unavailable due to planned or unplanned work."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Explain what is affected and for how long.",
-                        "Provide an estimated time to resolution when available.",
-                        "Include a single action if there is something the user can do (for example, **Refresh**)."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "Scheduled maintenance in progress"
-                          ],
-                          [
-                            "Body",
-                            "Reports may be unavailable until 12:00 PM EST."
-                          ],
-                          [
-                            "CTA",
-                            "Refresh"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Success state",
-              "source": "pattern:empty-and-system-states",
-              "content": [
-                {
-                  "prose": "Success states confirm that a user action completed. They often follow an action that previously triggered an empty state."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Confirm what was completed, not just that it succeeded.",
-                        "Keep copy brief. One line is usually sufficient.",
-                        "Offer a logical next action."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Example",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Element",
-                          "Example text"
-                        ],
-                        "rows": [
-                          [
-                            "Title",
-                            "Items imported"
-                          ],
-                          [
-                            "Body",
-                            "Your datasets are ready to explore."
-                          ],
-                          [
-                            "Primary CTA",
-                            "Open catalog"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
             }
           ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-06-16T19:44:17-07:00"
     },
     "modal": {
       "_schema_version": 1,
@@ -6295,30 +5667,25 @@
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "components/src/inline-toast/",
+        "source": "components/src/notification/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
-      "slug": "inline-toast",
-      "component": "Inline toast",
+      "slug": "notification",
+      "component": "Notification",
       "meta": {
-        "category": "feedback",
-        "a11y_refs": [
-          {
-            "ref": "alerts-toasts-banners"
-          }
-        ]
+        "category": "feedback"
       },
       "domains": {
         "content": {
           "status": "approved",
           "owner": "content-team",
-          "markdown": "# Inline toast\n\nAn inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to.\n\n---\n\n## When to use\n\n- To confirm a localized action, such as copying a value or saving a field inline.\n- To surface a validation warning directly below or beside a specific form field.\n- Do not use an inline toast for global events - use the global toast or snackbar instead.\n\n## Style\n\n- One short sentence maximum. Ideally fewer than ten words.\n- Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.\n- Do not use inline toasts for error messages that require user action - use inline validation instead.\n\n## Examples\n\n| Scenario | Inline toast text |\n|---|---|\n| Value copied to clipboard | Copied |\n| Field saved inline | Saved |\n| Tag added to asset | Tag added |\n| Link generated | Link created |",
+          "markdown": "# Notification\n\nNotifications inform users of updates, background task completions, or events that require their attention. Individual notification items appear in the notification panel.\n\n---\n\n## When to use\n\n- To inform users of completed background tasks.\n- To surface updates or system events that require the user's attention.\n- Do not use for actions requiring immediate input. Use a [modal](modal) instead.\n\n## Style\n\n- Use direct, concise language. One to two sentences.\n- Include a timestamp.\n- Include a link or action if the user must respond.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Export complete - Your file is ready to download. | You have a new notification. |\n| Connection error - The Snowflake connection failed. Reconnect | Something happened. |",
           "sections": [
             {
               "heading": "",
               "content": [
                 {
-                  "prose": "An inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to."
+                  "prose": "Notifications inform users of updates, background task completions, or events that require their attention. Individual notification items appear in the notification panel."
                 }
               ]
             },
@@ -6327,9 +5694,9 @@
               "content": [
                 {
                   "bullets": [
-                    "To confirm a localized action, such as copying a value or saving a field inline.",
-                    "To surface a validation warning directly below or beside a specific form field.",
-                    "Do not use an inline toast for global events - use the global toast or snackbar instead."
+                    "To inform users of completed background tasks.",
+                    "To surface updates or system events that require the user's attention.",
+                    "Do not use for actions requiring immediate input. Use a [modal](modal) instead."
                   ]
                 }
               ]
@@ -6339,172 +5706,23 @@
               "content": [
                 {
                   "bullets": [
-                    "One short sentence maximum. Ideally fewer than ten words.",
-                    "Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.",
-                    "Do not use inline toasts for error messages that require user action - use inline validation instead."
+                    "Use direct, concise language. One to two sentences.",
+                    "Include a timestamp.",
+                    "Include a link or action if the user must respond."
                   ]
                 }
               ]
             },
             {
-              "heading": "Examples",
+              "heading": "Do / Don't",
               "content": [
                 {
-                  "table": {
-                    "headers": [
-                      "Scenario",
-                      "Inline toast text"
-                    ],
-                    "rows": [
-                      [
-                        "Value copied to clipboard",
-                        "Copied"
-                      ],
-                      [
-                        "Field saved inline",
-                        "Saved"
-                      ],
-                      [
-                        "Tag added to asset",
-                        "Tag added"
-                      ],
-                      [
-                        "Link generated",
-                        "Link created"
-                      ]
-                    ]
-                  }
-                }
-              ]
-            },
-            {
-              "heading": "Notification",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Notifications inform users of updates, background task completions, or events that require their attention. They appear in the notification panel or dropdown."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To inform users of updates, background task completions, or events that require their attention."
-                      ]
-                    }
-                  ]
+                  "do": "Export complete - Your file is ready to download.",
+                  "dont": "You have a new notification."
                 },
                 {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use direct, concise language. One to two sentences.",
-                        "Include a timestamp.",
-                        "Include a link or action if the user must do something in response.",
-                        "Do not use generic text like `You have a new notification`."
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Notification toast",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Toasts confirm that a background action completed, or surface non-critical errors and warnings that do not block the user."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To confirm that a background action completed.",
-                        "To surface non-critical errors or warnings that do not block the user.",
-                        "Do not use toasts for actions that require user input.",
-                        "For routine confirmations that need persistence, use an [alert / banner](/components/feedback/alert-banner/) instead."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Keep to one short sentence.",
-                        "Include an undo action where relevant."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Examples",
-                  "content": [
-                    {
-                      "table": {
-                        "headers": [
-                          "Scenario",
-                          "Toast text"
-                        ],
-                        "rows": [
-                          [
-                            "Dataset deleted",
-                            "Dataset deleted. Undo"
-                          ],
-                          [
-                            "Export complete",
-                            "Export ready. Download"
-                          ],
-                          [
-                            "Connection failed",
-                            "Connection failed. Try again"
-                          ]
-                        ]
-                      }
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "heading": "Tooltip",
-              "source": "pattern:notifications-and-messaging",
-              "content": [
-                {
-                  "prose": "Tooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible."
-                }
-              ],
-              "subsections": [
-                {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "To provide short contextual help on hover or focus.",
-                        "For icon-only controls that require a label.",
-                        "Do not use tooltips for critical information — users should not be required to hover to understand the UI."
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Limit to a few words or one concise sentence.",
-                        "Do not repeat the label of the element being described.",
-                        "For multi-sentence explanations, use a [popover](/components/overlays/popover/) or inline help text instead."
-                      ]
-                    }
-                  ]
+                  "do": "Connection error - The Snowflake connection failed. Reconnect",
+                  "dont": "Something happened."
                 }
               ]
             }
@@ -6523,8 +5741,89 @@
           "status": "not-started"
         }
       },
-      "updated_at": "2026-06-01T15:13:47+02:00",
-      "_alias_of": "inline-toast"
+      "updated_at": "2026-06-16T19:44:17-07:00"
+    },
+    "notification-dropdown": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/notification-dropdown/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "notification-dropdown",
+      "component": "Notification dropdown",
+      "meta": {
+        "category": "feedback"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Notification dropdown\n\nThe notification dropdown is the panel that surfaces all recent notifications. It provides the frame for browsing, acting on, and dismissing notification items.\n\n---\n\n## When to use\n\n- As the primary entry point for viewing all recent notifications.\n\n## Style\n\n- Panel header: use **Notifications** in title case with no article.\n- Empty state: use \"No notifications\" with a brief supporting line if helpful.\n- Do not truncate notification body text in the panel if it can be avoided.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Notifications | Your Notifications |\n| You're all caught up. | No new notifications at this time. |\n| Mark all as read | Clear all / Dismiss all |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "The notification dropdown is the panel that surfaces all recent notifications. It provides the frame for browsing, acting on, and dismissing notification items."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "As the primary entry point for viewing all recent notifications."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Panel header: use **Notifications** in title case with no article.",
+                    "Empty state: use \"No notifications\" with a brief supporting line if helpful.",
+                    "Do not truncate notification body text in the panel if it can be avoided."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Notifications",
+                  "dont": "Your Notifications"
+                },
+                {
+                  "do": "You're all caught up.",
+                  "dont": "No new notifications at this time."
+                },
+                {
+                  "do": "Mark all as read",
+                  "dont": "Clear all / Dismiss all"
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-16T19:44:17-07:00"
     },
     "page-header": {
       "_schema_version": 1,
@@ -6760,6 +6059,89 @@
         }
       },
       "updated_at": "2026-06-01T15:13:47+02:00"
+    },
+    "progress-bar-small": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/progress-bar-small/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "progress-bar-small",
+      "component": "Progress bar",
+      "meta": {
+        "category": "feedback"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Progress bar\n\nProgress bars communicate the status of multi-step flows, file operations, and long-running background processes.\n\n---\n\n## When to use\n\n- For multi-step flows such as wizards or onboarding sequences.\n- For file uploads or long-running background processes.\n\n## Style\n\n- For step-based progress, show current step and total count.\n- For upload or processing progress, show percentage or bytes transferred.\n- Use short noun or verb phrases for step labels.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Step 2 of 4 | Step two |\n| 45% complete | Almost done... |\n| 3.2 MB of 10 MB uploaded | Uploading... |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Progress bars communicate the status of multi-step flows, file operations, and long-running background processes."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "For multi-step flows such as wizards or onboarding sequences.",
+                    "For file uploads or long-running background processes."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "For step-based progress, show current step and total count.",
+                    "For upload or processing progress, show percentage or bytes transferred.",
+                    "Use short noun or verb phrases for step labels."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Step 2 of 4",
+                  "dont": "Step two"
+                },
+                {
+                  "do": "45% complete",
+                  "dont": "Almost done..."
+                },
+                {
+                  "do": "3.2 MB of 10 MB uploaded",
+                  "dont": "Uploading..."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-16T19:44:17-07:00"
     },
     "radio-button": {
       "_schema_version": 1,
@@ -7963,7 +7345,7 @@
       "_schema_version": 1,
       "_meta": {
         "auto_generated": true,
-        "source": "(patterns)",
+        "source": "components/src/spinner/",
         "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
       },
       "slug": "spinner",
@@ -7973,68 +7355,69 @@
       },
       "domains": {
         "content": {
-          "status": "synthesized",
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Spinner\n\nThe spinner communicates that the system is processing an action. It is used inline, inside buttons, form fields, or small UI sections, rather than as a full-page loading state.\n\n---\n\n## When to use\n\n- After a user triggers an action and the system is processing it.\n- Inline within a component rather than as a full-page loader.\n\n## Style\n\n- Use an accompanying label only when the context does not make it clear what is happening.\n- Keep labels brief and present-tense.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Running query... | Please wait while your query runs. |\n| Saving... | Loading. |",
           "sections": [
             {
-              "heading": "Loading indicator",
-              "source": "pattern:loading-and-progress",
-              "content": [],
-              "subsections": [
+              "heading": "",
+              "content": [
                 {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "prose": "During transitions, page loads, or background processes."
-                    }
-                  ]
-                },
+                  "prose": "The spinner communicates that the system is processing an action. It is used inline, inside buttons, form fields, or small UI sections, rather than as a full-page loading state."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
                 {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Use a loading message only when the wait is likely to exceed three seconds.",
-                        "Keep loading messages brief and present-tense. For example, `Loading datasets...`",
-                        "Do not use `Please wait`."
-                      ]
-                    }
+                  "bullets": [
+                    "After a user triggers an action and the system is processing it.",
+                    "Inline within a component rather than as a full-page loader."
                   ]
                 }
               ]
             },
             {
-              "heading": "Progress indicator",
-              "source": "pattern:loading-and-progress",
-              "content": [],
-              "subsections": [
+              "heading": "Style",
+              "content": [
                 {
-                  "subheading": "When to use",
-                  "content": [
-                    {
-                      "bullets": [
-                        "For multi-step flows such as wizards or onboarding sequences.",
-                        "For file uploads or long-running background processes."
-                      ]
-                    }
+                  "bullets": [
+                    "Use an accompanying label only when the context does not make it clear what is happening.",
+                    "Keep labels brief and present-tense."
                   ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Running query...",
+                  "dont": "Please wait while your query runs."
                 },
                 {
-                  "subheading": "Style",
-                  "content": [
-                    {
-                      "bullets": [
-                        "Label each step in a stepper with a short noun or verb phrase.",
-                        "Show current step and total step count. For example, `Step 2 of 4`.",
-                        "For upload progress, show percentage or file size transferred."
-                      ]
-                    }
-                  ]
+                  "do": "Saving...",
+                  "dont": "Loading."
                 }
               ]
             }
           ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
         }
-      }
+      },
+      "updated_at": "2026-06-16T19:44:17-07:00"
     },
     "stepper": {
       "_schema_version": 1,
@@ -8352,6 +7735,112 @@
         }
       },
       "updated_at": "2026-06-01T15:13:47+02:00"
+    },
+    "success-state": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/success-state/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "success-state",
+      "component": "Success state",
+      "meta": {
+        "category": "feedback"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Success state\n\nSuccess states confirm that a user action completed. They often follow an action that previously triggered an empty state.\n\n---\n\n## When to use\n\n- After a significant user action completes successfully.\n- When confirmation would reduce user anxiety or encourage a logical next step.\n\n## Style\n\n- Confirm what was completed, not just that it succeeded.\n- Keep copy brief. One line is usually sufficient.\n- Offer a logical next action.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Items imported / Your datasets are ready to explore. | Success! |\n| Connection created / You can now start querying your data. | The operation completed successfully. |\n\n## Examples\n\n| Element | Example text |\n|---|---|\n| Title | Items imported |\n| Body | Your datasets are ready to explore. |\n| Primary CTA | Open catalog |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Success states confirm that a user action completed. They often follow an action that previously triggered an empty state."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "After a significant user action completes successfully.",
+                    "When confirmation would reduce user anxiety or encourage a logical next step."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Confirm what was completed, not just that it succeeded.",
+                    "Keep copy brief. One line is usually sufficient.",
+                    "Offer a logical next action."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Items imported / Your datasets are ready to explore.",
+                  "dont": "Success!"
+                },
+                {
+                  "do": "Connection created / You can now start querying your data.",
+                  "dont": "The operation completed successfully."
+                }
+              ]
+            },
+            {
+              "heading": "Examples",
+              "content": [
+                {
+                  "table": {
+                    "headers": [
+                      "Element",
+                      "Example text"
+                    ],
+                    "rows": [
+                      [
+                        "Title",
+                        "Items imported"
+                      ],
+                      [
+                        "Body",
+                        "Your datasets are ready to explore."
+                      ],
+                      [
+                        "Primary CTA",
+                        "Open catalog"
+                      ]
+                    ]
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-16T19:44:17-07:00"
     },
     "table": {
       "_schema_version": 1,
@@ -10598,6 +10087,168 @@
         }
       },
       "updated_at": "2026-06-01T15:13:47+02:00"
+    },
+    "tooltip": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/tooltip/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "tooltip",
+      "component": "Tooltip",
+      "meta": {
+        "category": "overlays"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Tooltip\n\nTooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible.\n\n---\n\n## When to use\n\n- To provide short contextual help on hover or focus.\n- For icon-only controls that require a label.\n- Do not use tooltips for critical information. Users should not be required to hover to understand the UI.\n\n## Style\n\n- Limit to a few words or one concise sentence.\n- Do not repeat the label of the element being described.\n- For multi-sentence explanations, use a [popover](popover) or inline help text instead.",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Tooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "To provide short contextual help on hover or focus.",
+                    "For icon-only controls that require a label.",
+                    "Do not use tooltips for critical information. Users should not be required to hover to understand the UI."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Limit to a few words or one concise sentence.",
+                    "Do not repeat the label of the element being described.",
+                    "For multi-sentence explanations, use a [popover](popover) or inline help text instead."
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-16T20:00:20-07:00"
+    },
+    "upload-file": {
+      "_schema_version": 1,
+      "_meta": {
+        "auto_generated": true,
+        "source": "components/src/upload-file/",
+        "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+      },
+      "slug": "upload-file",
+      "component": "Upload file",
+      "meta": {
+        "category": "form-input-selection"
+      },
+      "domains": {
+        "content": {
+          "status": "approved",
+          "owner": "content-team",
+          "markdown": "# Upload file\n\nUpload components allow users to add files to the platform. They appear in dataset import flows, connection setup, and file attachment contexts.\n\n---\n\n## When to use\n\n- When users need to import data files, certificates, configuration files, or attachments.\n\n## Style\n\n- Drop zone label: use an action phrase plus the accepted file types. For example, \"Drag and drop a CSV file, or browse.\"\n- Browse link text: use **Browse** or **Choose file**, not \"Click here.\"\n- File type restrictions: list accepted formats explicitly. For example, \"Accepts `.csv`, `.json`, and `.xlsx` files.\"\n- File size limit: state the limit in plain language. For example, \"Maximum file size: 50 MB.\"\n\n## Progress and status\n\n- During upload: show filename, progress bar, and percentage.\n- On success: show filename with a success indicator. For example, \"`data_export.csv` - Uploaded.\"\n- On error: show filename with a specific error. For example, \"`data_export.csv` - File exceeds the 50 MB size limit.\"\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Drag and drop a CSV file, or browse. | Click here to upload your file. |\n| Accepts .csv, .json, and .xlsx files. | Only certain file types are supported. |\n| data.csv - File exceeds the 50 MB size limit. | Upload failed. |",
+          "sections": [
+            {
+              "heading": "",
+              "content": [
+                {
+                  "prose": "Upload components allow users to add files to the platform. They appear in dataset import flows, connection setup, and file attachment contexts."
+                }
+              ]
+            },
+            {
+              "heading": "When to use",
+              "content": [
+                {
+                  "bullets": [
+                    "When users need to import data files, certificates, configuration files, or attachments."
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Style",
+              "content": [
+                {
+                  "bullets": [
+                    "Drop zone label: use an action phrase plus the accepted file types. For example, \"Drag and drop a CSV file, or browse.\"",
+                    "Browse link text: use **Browse** or **Choose file**, not \"Click here.\"",
+                    "File type restrictions: list accepted formats explicitly. For example, \"Accepts `.csv`, `.json`, and `.xlsx` files.\"",
+                    "File size limit: state the limit in plain language. For example, \"Maximum file size: 50 MB.\""
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Progress and status",
+              "content": [
+                {
+                  "bullets": [
+                    "During upload: show filename, progress bar, and percentage.",
+                    "On success: show filename with a success indicator. For example, \"`data_export.csv` - Uploaded.\"",
+                    "On error: show filename with a specific error. For example, \"`data_export.csv` - File exceeds the 50 MB size limit.\""
+                  ]
+                }
+              ]
+            },
+            {
+              "heading": "Do / Don't",
+              "content": [
+                {
+                  "do": "Drag and drop a CSV file, or browse.",
+                  "dont": "Click here to upload your file."
+                },
+                {
+                  "do": "Accepts .csv, .json, and .xlsx files.",
+                  "dont": "Only certain file types are supported."
+                },
+                {
+                  "do": "data.csv - File exceeds the 50 MB size limit.",
+                  "dont": "Upload failed."
+                }
+              ]
+            }
+          ]
+        },
+        "usage": {
+          "status": "not-started"
+        },
+        "design": {
+          "status": "inherited"
+        },
+        "behavior": {
+          "status": "inherited"
+        },
+        "tokens": {
+          "status": "not-started"
+        }
+      },
+      "updated_at": "2026-06-16T20:00:20-07:00"
     },
     "whats-new": {
       "_schema_version": 1,

@@ -1,0 +1,9 @@
+{
+  "design": [
+    { "key": "anatomy",  "heading": "Anatomy",       "anchor": "anatomy",          "aliases": ["anatomy", "parts"],                                  "mediaRole": "parts" },
+    { "key": "variants",  "heading": "Variants",      "anchor": "variants",         "aliases": ["variants", "variations"],                            "mediaRole": "variations" },
+    { "key": "spacing",   "heading": "Spacing & size", "anchor": "spacing-and-size", "aliases": ["spacing & size", "spacing", "spacing and size", "sizing"], "mediaRole": "spacing" },
+    { "key": "behavior",  "heading": "Behavior",      "anchor": "behavior",         "aliases": ["behavior", "motion"],                                "mediaRole": "behavior" },
+    { "key": "layout",    "heading": "Layout",        "anchor": "layout",           "aliases": ["layout"],                                            "mediaRole": "layout" }
+  ]
+}
