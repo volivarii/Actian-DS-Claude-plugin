@@ -1,0 +1,106 @@
+{
+  "_schema_version": 1,
+  "_meta": {
+    "auto_generated": true,
+    "source": "components/src/success-state/",
+    "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
+  },
+  "slug": "success-state",
+  "component": "Success state",
+  "meta": {
+    "category": "feedback"
+  },
+  "domains": {
+    "content": {
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Success state\n\nSuccess states confirm that a user action completed. They often follow an action that previously triggered an empty state.\n\n***\n\n## When to use\n\n* After a significant user action completes successfully.\n\n* When confirmation would reduce user anxiety or encourage a logical next step.\n\n## Style\n\n* Confirm what was completed, not just that it succeeded.\n\n* Keep copy brief. One line is usually sufficient.\n\n* Offer a logical next action.\n\n## Do / Don't\n\n| Do                                                         | Don't                                 |\n| ---------------------------------------------------------- | ------------------------------------- |\n| Items imported / Your datasets are ready to explore.       | Success!                              |\n| Connection created / You can now start querying your data. | The operation completed successfully. |\n\n## Examples\n\n| Element     | Example text                        |\n| ----------- | ----------------------------------- |\n| Title       | Items imported                      |\n| Body        | Your datasets are ready to explore. |\n| Primary CTA | Open catalog                        |",
+      "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "Success states confirm that a user action completed. They often follow an action that previously triggered an empty state."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "After a significant user action completes successfully.",
+                "When confirmation would reduce user anxiety or encourage a logical next step."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "Confirm what was completed, not just that it succeeded.",
+                "Keep copy brief. One line is usually sufficient.",
+                "Offer a logical next action."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Items imported / Your datasets are ready to explore.",
+              "dont": "Success!"
+            },
+            {
+              "do": "Connection created / You can now start querying your data.",
+              "dont": "The operation completed successfully."
+            }
+          ]
+        },
+        {
+          "heading": "Examples",
+          "content": [
+            {
+              "table": {
+                "headers": [
+                  "Element",
+                  "Example text"
+                ],
+                "rows": [
+                  [
+                    "Title",
+                    "Items imported"
+                  ],
+                  [
+                    "Body",
+                    "Your datasets are ready to explore."
+                  ],
+                  [
+                    "Primary CTA",
+                    "Open catalog"
+                  ]
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
+    }
+  },
+  "updated_at": "2026-06-23T13:14:48+02:00"
+}

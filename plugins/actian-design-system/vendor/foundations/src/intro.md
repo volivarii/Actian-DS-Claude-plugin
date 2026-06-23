@@ -32,4 +32,3 @@
 
 **Version:** 1.2.0
 **Last updated:** May 11, 2026
-

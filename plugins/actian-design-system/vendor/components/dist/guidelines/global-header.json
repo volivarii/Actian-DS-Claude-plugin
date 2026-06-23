@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Global header\n\nPermanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options.\n\n---\n\n## When to use\n\n- To switch between product areas or catalogs.\n- To access global tools such as [search](search) or notifications.\n- To view account and profile options.\n\n## Style\n\n- Only the branded title and navigation context change between applications.\n- Utility icons (notifications, help, profile) should be unlabeled but include tooltips.\n\n## Behavior\n\nNav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on).",
+      "markdown": "# Global header\n\nPermanently anchored to the top of the screen across all pages and apps, for access when users need to switch context, use global tools, or access account options.\n\n***\n\n## When to use\n\n* To switch between product areas or catalogs.\n\n* To access global tools such as [search](search) or notifications.\n\n* To view account and profile options.\n\n## Style\n\n* Only the branded title and navigation context change between applications.\n\n* Utility icons (notifications, help, profile) should be unlabeled but include tooltips.\n\n## Behavior\n\nNav elements should be adapted to reflect the current app (Studio, Explorer, Admin, and so on).",
       "sections": [
         {
           "heading": "",
@@ -137,5 +137,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00"
+  "updated_at": "2026-06-23T13:14:48+02:00"
 }

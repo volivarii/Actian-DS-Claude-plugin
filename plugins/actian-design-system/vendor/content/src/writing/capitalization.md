@@ -26,4 +26,3 @@ Don't overuse capitalization — it makes copy harder to read and de-emphasizes 
 | Add a row to the catalog. List it on the page. | Add a row to the Catalog. List it on the Page. |
 | Add a row to the MyCatalog page. | Add a row to the MyCatalog Page. |
 | Selects an item type. | Select an Item Type. |
-{: .do-dont-table}

@@ -22,7 +22,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Multi-select\n\nMulti-select allows users to choose more than one option from a list. It is used in filters, tag assignment, bulk operations, and configuration flows where multiple simultaneous selections are valid.\n\n---\n\n## When to use\n\n- When users need to apply multiple filters at the same time.\n- When assigning multiple tags, owners, or categories to an asset.\n- Do not use multi-select when only one selection is valid - use a single-select dropdown or radio buttons instead.\n\n## Style\n\n- Label the control with a short noun phrase describing the category being selected. For example, **Data domains** or **Owners**.\n- Show selected values as chips or tokens inside the input field.\n- Keep chip labels concise - use the item name only, not additional metadata.\n- Use **Select all** and **Clear all** as action labels when applicable.\n\n## Behavior\n\n- Show a count of selected items when the list collapses. For example, `3 selected`.\n- Allow individual chip removal via a close icon on each chip.\n- Keep the dropdown open until the user clicks outside or presses Escape.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| 3 selected | 3 items have been selected |\n| Clear all | Remove all selections |\n| Select all | Check all |\n{: .do-dont-table}",
+      "markdown": "# Multi-select\n\nMulti-select allows users to choose more than one option from a list. It is used in filters, tag assignment, bulk operations, and configuration flows where multiple simultaneous selections are valid.\n\n***\n\n## When to use\n\n* When users need to apply multiple filters at the same time.\n\n* When assigning multiple tags, owners, or categories to an asset.\n\n* Do not use multi-select when only one selection is valid - use a single-select dropdown or radio buttons instead.\n\n## Style\n\n* Label the control with a short noun phrase describing the category being selected. For example, **Data domains** or **Owners**.\n\n* Show selected values as chips or tokens inside the input field.\n\n* Keep chip labels concise - use the item name only, not additional metadata.\n\n* Use **Select all** and **Clear all** as action labels when applicable.\n\n## Behavior\n\n* Show a count of selected items when the list collapses. For example, `3 selected`.\n\n* Allow individual chip removal via a close icon on each chip.\n\n* Keep the dropdown open until the user clicks outside or presses Escape.\n\n## Do / Don't\n\n| Do         | Don't                      |\n| ---------- | -------------------------- |\n| 3 selected | 3 items have been selected |\n| Clear all  | Remove all selections      |\n| Select all | Check all                  |",
       "sections": [
         {
           "heading": "",
@@ -101,5 +101,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-23T13:14:48+02:00"
 }

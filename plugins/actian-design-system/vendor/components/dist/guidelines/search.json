@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Search\n\nSearch allows users to find assets quickly. Placeholder text should provide a hint as to what is being searched and help the user understand the scope of the search.\n\n---\n\n## When to use\n\n- As a global entry point for finding any data asset.\n- As a scoped filter within a specific view or catalog section.\n\n## Placeholder text\n\n- Placeholder text should provide a hint as to what is being searched.\n- Do not include a period at the end of placeholder text.\n- When search is meant to retrieve assets based on keywords found in metadata, use `Search in [asset names]` (plural).\n- When in doubt, `Search [asset names]` (also plural) is always a safe default.\n\n## Placeholder text examples\n\n| Context | Placeholder text |\n|---|---|\n| Global search | Search items |\n| Topic search | Search topics |\n| User search | Search users |\n| Contact search | Search contacts |\n| Property search | Search properties |\n| Glossary search | Search glossary types |\n\n## Behavior\n\n- Execute search on Enter or on suggestion click.\n- Maintain the last query when the user returns to the search view.\n- Support keyboard navigation through results.",
+      "markdown": "# Search\n\nSearch allows users to find assets quickly. Placeholder text should provide a hint as to what is being searched and help the user understand the scope of the search.\n\n***\n\n## When to use\n\n* As a global entry point for finding any data asset.\n\n* As a scoped filter within a specific view or catalog section.\n\n## Placeholder text\n\n* Placeholder text should provide a hint as to what is being searched.\n\n* Do not include a period at the end of placeholder text.\n\n* When search is meant to retrieve assets based on keywords found in metadata, use `Search in [asset names]` (plural).\n\n* When in doubt, `Search [asset names]` (also plural) is always a safe default.\n\n## Placeholder text examples\n\n| Context         | Placeholder text      |\n| --------------- | --------------------- |\n| Global search   | Search items          |\n| Topic search    | Search topics         |\n| User search     | Search users          |\n| Contact search  | Search contacts       |\n| Property search | Search properties     |\n| Glossary search | Search glossary types |\n\n## Behavior\n\n* Execute search on Enter or on suggestion click.\n\n* Maintain the last query when the user returns to the search view.\n\n* Support keyboard navigation through results.",
       "sections": [
         {
           "heading": "",
@@ -173,5 +173,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00"
+  "updated_at": "2026-06-23T13:14:48+02:00"
 }

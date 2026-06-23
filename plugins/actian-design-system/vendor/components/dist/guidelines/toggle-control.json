@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Toggle control\n\nToggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead.\n\n---\n\n## When to use\n\n- For enabling or disabling a feature, setting, or permission that takes effect immediately.\n- Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead.\n\n## Style\n\n- Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.\n- If the on and off states have meaningfully different consequences, add a short description below the toggle label.\n- Use sentence case.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Email notifications | Enable email notifications |\n| Public access | Turn on public access |\n| Auto-refresh | Auto-refresh: ON |\n{: .do-dont-table}",
+      "markdown": "# Toggle control\n\nToggle control is a binary control that turns a setting on or off. Use it for settings that take effect immediately — without requiring a save action. When a save action is needed, use a checkbox instead.\n\n***\n\n## When to use\n\n* For enabling or disabling a feature, setting, or permission that takes effect immediately.\n\n* Do not use a toggle control when the change requires a save action to apply — use a checkbox or radio button within a form instead.\n\n## Style\n\n* Label the toggle control for the feature or setting being controlled, not the on/off state. For example, **Email notifications** — not **Enable email notifications** or **Email notifications on**.\n\n* If the on and off states have meaningfully different consequences, add a short description below the toggle label.\n\n* Use sentence case.\n\n## Do / Don't\n\n| Do                  | Don't                      |\n| ------------------- | -------------------------- |\n| Email notifications | Enable email notifications |\n| Public access       | Turn on public access      |\n| Auto-refresh        | Auto-refresh: ON           |",
       "sections": [
         {
           "heading": "",
@@ -144,7 +144,7 @@
                 },
                 {
                   "bullets": [
-                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (*) symbol or text label.",
+                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (\\*) symbol or text label.",
                     "Avoid redundancy: if a section title already establishes context, field labels can be shorter.",
                     "Provide context when needed: helper text should explain the \"why,\" never just restate the label.",
                     "Error text should guide correction."
@@ -339,7 +339,7 @@
                   ]
                 },
                 {
-                  "prose": "**Use a [checkbox](/components/form-input-selection/checkbox-with-label/) when:**"
+                  "prose": "**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**"
                 },
                 {
                   "bullets": [
@@ -500,5 +500,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-23T13:14:48+02:00"
 }

@@ -20,7 +20,7 @@
       "wcag": [
         "1.4.1"
       ],
-      "body_excerpt": "Content type Min ratio ------------------------ Normal text (< 18px regular or < 14px bold) 4.5:1 Large text (≥ 18px regular or ≥ 14px bold) 3:1 UI components and icons 3:1 Disabled states No requirem"
+      "body_excerpt": "Content type Min ratio ------------------------------------------- -------------- Normal text (< 18px regular or < 14px bold) 4.5:1 Large text (≥ 18px regular or ≥ 14px bold) 3:1 UI components and ico"
     },
     {
       "slug": "typography",
@@ -30,7 +30,7 @@
         "1.4.5",
         "1.4.4"
       ],
-      "body_excerpt": "- Minimum size: 11px — only for non-essential UI (tags, data viz). Default body is 14px, minimum body is 12px. - Never use light weight (font-weight: 300) — fails contrast at small sizes. - Do not use"
+      "body_excerpt": "Minimum size: 11px — only for non-essential UI (tags, data viz). Default body is 14px, minimum body is 12px. Never use light weight (font-weight: 300) — fails contrast at small sizes. Do not use image"
     },
     {
       "slug": "motion",
@@ -39,7 +39,7 @@
       "wcag": [
         "2.3.1"
       ],
-      "body_excerpt": "- All motion respects prefers-reduced-motion: reduce — fade transitions disabled, elements toggle visibility instantly. - No content flashes more than 3 times per second (WCAG 2.3.1). - State changes"
+      "body_excerpt": "All motion respects prefers-reduced-motion: reduce — fade transitions disabled, elements toggle visibility instantly. No content flashes more than 3 times per second (WCAG 2.3.1). State changes commun"
     },
     {
       "slug": "focus-keyboard",
@@ -48,7 +48,7 @@
       "wcag": [
         "2.4.11"
       ],
-      "body_excerpt": "Focus is the only interactive state handled by a token. Hover, pressed, and disabled use CSS brightness filters — see the Design Foundation. Focus ring rules - --zen-focus-ring-primary (2px solid Roya"
+      "body_excerpt": "Focus is the only interactive state handled by a token. Hover, pressed, and disabled use CSS brightness filters — see the Design Foundation. Focus ring rules --zen-focus-ring-primary (2px solid Royal"
     },
     {
       "slug": "aria-labels",
@@ -62,7 +62,7 @@
       "title": "7. Reading Order & Landmarks",
       "tier": "foundation",
       "wcag": [],
-      "body_excerpt": "- Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order. - Annotate landmark regions in specs: header, nav, main, footer. Screen readers use th"
+      "body_excerpt": "Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order. Annotate landmark regions in specs: header, nav, main, footer. Screen readers use these"
     },
     {
       "slug": "touch-pointer",
@@ -71,7 +71,7 @@
       "wcag": [
         "2.5.1"
       ],
-      "body_excerpt": "- Hover-only interactions don't work on touch devices — every hover action needs a touch equivalent. - Touch targets must have adequate spacing between them, not just adequate size — crowded targets c"
+      "body_excerpt": "Hover-only interactions don't work on touch devices — every hover action needs a touch equivalent. Touch targets must have adequate spacing between them, not just adequate size — crowded targets cause"
     },
     {
       "slug": "error-prevention",
@@ -80,7 +80,7 @@
       "wcag": [
         "3.3.4"
       ],
-      "body_excerpt": "- Destructive or irreversible actions (delete, bulk remove, permanent changes) must require a confirmation step (WCAG 3.3.4). - Forms with significant data should support undo or review before final s"
+      "body_excerpt": "Destructive or irreversible actions (delete, bulk remove, permanent changes) must require a confirmation step (WCAG 3.3.4). Forms with significant data should support undo or review before final submi"
     },
     {
       "slug": "session-timeout-warnings",
@@ -89,7 +89,7 @@
       "wcag": [
         "2.2.1"
       ],
-      "body_excerpt": "- If a session can expire, users must be warned before it happens and given a way to extend or save their work (WCAG 2.2.1). - Timeout warnings must be announced via an ARIA live region — annotate for"
+      "body_excerpt": "If a session can expire, users must be warned before it happens and given a way to extend or save their work (WCAG 2.2.1). Timeout warnings must be announced via an ARIA live region — annotate for eng"
     },
     {
       "slug": "components",
@@ -321,42 +321,42 @@
       "title": "12. Designer Handoff Checklist",
       "tier": "header",
       "wcag": [],
-      "body_excerpt": "Use before every handoff or design review. - All text meets contrast minimum (4.5:1 normal · 3:1 large) - UI component boundaries meet 3:1 against background - No information conveyed by color alone -"
+      "body_excerpt": "Use before every handoff or design review. All text meets contrast minimum (4.5:1 normal · 3:1 large) UI component boundaries meet 3:1 against background No information conveyed by color alone Contras"
     },
     {
       "slug": "typography-content",
       "title": "Typography & Content",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- No text smaller than 11px - All inputs have visible labels — no placeholder-only fields - Error messages describe the problem and how to fix it - No images of text - Line lengths within limits for t"
+      "body_excerpt": "No text smaller than 11px All inputs have visible labels — no placeholder-only fields Error messages describe the problem and how to fix it No images of text Line lengths within limits for the font si"
     },
     {
       "slug": "focus-interaction",
       "title": "Focus & Interaction",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- All interactive elements have a designed focus state - Focus order is logical — annotated if non-standard - All actions have a keyboard alternative documented - Touch targets meet minimums (24px des"
+      "body_excerpt": "All interactive elements have a designed focus state Focus order is logical — annotated if non-standard All actions have a keyboard alternative documented Touch targets meet minimums (24px desktop · 4"
     },
     {
       "slug": "states",
       "title": "States",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- All interactive states designed: default, hover, focus, pressed, disabled, error - Empty, loading, and error states included for data-driven components - State changes use more than one signal — ico"
+      "body_excerpt": "All interactive states designed: default, hover, focus, pressed, disabled, error Empty, loading, and error states included for data-driven components State changes use more than one signal — icon + co"
     },
     {
       "slug": "labels-annotations",
       "title": "Labels & Annotations",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- Icon-only elements have aria-label documented - Decorative icons marked as decorative - Dynamic regions annotated with aria-live - Modal focus trap and return focus documented - Form groupings and r"
+      "body_excerpt": "Icon-only elements have aria-label documented Decorative icons marked as decorative Dynamic regions annotated with aria-live Modal focus trap and return focus documented Form groupings and required fi"
     },
     {
       "slug": "reading-order-touch",
       "title": "Reading Order & Touch",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- Visual order matches intended reading order — annotated if non-standard - Landmark regions annotated (header, nav, main, footer) - Heading hierarchy is logical — no skipped levels - Hover interactio"
+      "body_excerpt": "Visual order matches intended reading order — annotated if non-standard Landmark regions annotated (header, nav, main, footer) Heading hierarchy is logical — no skipped levels Hover interactions have"
     }
   ],
   "bySlug": {
@@ -374,7 +374,7 @@
       "wcag": [
         "1.4.1"
       ],
-      "body_excerpt": "Content type Min ratio ------------------------ Normal text (< 18px regular or < 14px bold) 4.5:1 Large text (≥ 18px regular or ≥ 14px bold) 3:1 UI components and icons 3:1 Disabled states No requirem"
+      "body_excerpt": "Content type Min ratio ------------------------------------------- -------------- Normal text (< 18px regular or < 14px bold) 4.5:1 Large text (≥ 18px regular or ≥ 14px bold) 3:1 UI components and ico"
     },
     "typography": {
       "slug": "typography",
@@ -384,7 +384,7 @@
         "1.4.5",
         "1.4.4"
       ],
-      "body_excerpt": "- Minimum size: 11px — only for non-essential UI (tags, data viz). Default body is 14px, minimum body is 12px. - Never use light weight (font-weight: 300) — fails contrast at small sizes. - Do not use"
+      "body_excerpt": "Minimum size: 11px — only for non-essential UI (tags, data viz). Default body is 14px, minimum body is 12px. Never use light weight (font-weight: 300) — fails contrast at small sizes. Do not use image"
     },
     "motion": {
       "slug": "motion",
@@ -393,7 +393,7 @@
       "wcag": [
         "2.3.1"
       ],
-      "body_excerpt": "- All motion respects prefers-reduced-motion: reduce — fade transitions disabled, elements toggle visibility instantly. - No content flashes more than 3 times per second (WCAG 2.3.1). - State changes"
+      "body_excerpt": "All motion respects prefers-reduced-motion: reduce — fade transitions disabled, elements toggle visibility instantly. No content flashes more than 3 times per second (WCAG 2.3.1). State changes commun"
     },
     "focus-keyboard": {
       "slug": "focus-keyboard",
@@ -402,7 +402,7 @@
       "wcag": [
         "2.4.11"
       ],
-      "body_excerpt": "Focus is the only interactive state handled by a token. Hover, pressed, and disabled use CSS brightness filters — see the Design Foundation. Focus ring rules - --zen-focus-ring-primary (2px solid Roya"
+      "body_excerpt": "Focus is the only interactive state handled by a token. Hover, pressed, and disabled use CSS brightness filters — see the Design Foundation. Focus ring rules --zen-focus-ring-primary (2px solid Royal"
     },
     "aria-labels": {
       "slug": "aria-labels",
@@ -416,7 +416,7 @@
       "title": "7. Reading Order & Landmarks",
       "tier": "foundation",
       "wcag": [],
-      "body_excerpt": "- Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order. - Annotate landmark regions in specs: header, nav, main, footer. Screen readers use th"
+      "body_excerpt": "Visual order must match DOM order — don't use CSS to reorder content in ways that differ from the source order. Annotate landmark regions in specs: header, nav, main, footer. Screen readers use these"
     },
     "touch-pointer": {
       "slug": "touch-pointer",
@@ -425,7 +425,7 @@
       "wcag": [
         "2.5.1"
       ],
-      "body_excerpt": "- Hover-only interactions don't work on touch devices — every hover action needs a touch equivalent. - Touch targets must have adequate spacing between them, not just adequate size — crowded targets c"
+      "body_excerpt": "Hover-only interactions don't work on touch devices — every hover action needs a touch equivalent. Touch targets must have adequate spacing between them, not just adequate size — crowded targets cause"
     },
     "error-prevention": {
       "slug": "error-prevention",
@@ -434,7 +434,7 @@
       "wcag": [
         "3.3.4"
       ],
-      "body_excerpt": "- Destructive or irreversible actions (delete, bulk remove, permanent changes) must require a confirmation step (WCAG 3.3.4). - Forms with significant data should support undo or review before final s"
+      "body_excerpt": "Destructive or irreversible actions (delete, bulk remove, permanent changes) must require a confirmation step (WCAG 3.3.4). Forms with significant data should support undo or review before final submi"
     },
     "session-timeout-warnings": {
       "slug": "session-timeout-warnings",
@@ -443,7 +443,7 @@
       "wcag": [
         "2.2.1"
       ],
-      "body_excerpt": "- If a session can expire, users must be warned before it happens and given a way to extend or save their work (WCAG 2.2.1). - Timeout warnings must be announced via an ARIA live region — annotate for"
+      "body_excerpt": "If a session can expire, users must be warned before it happens and given a way to extend or save their work (WCAG 2.2.1). Timeout warnings must be announced via an ARIA live region — annotate for eng"
     },
     "components": {
       "slug": "components",
@@ -675,42 +675,42 @@
       "title": "12. Designer Handoff Checklist",
       "tier": "header",
       "wcag": [],
-      "body_excerpt": "Use before every handoff or design review. - All text meets contrast minimum (4.5:1 normal · 3:1 large) - UI component boundaries meet 3:1 against background - No information conveyed by color alone -"
+      "body_excerpt": "Use before every handoff or design review. All text meets contrast minimum (4.5:1 normal · 3:1 large) UI component boundaries meet 3:1 against background No information conveyed by color alone Contras"
     },
     "typography-content": {
       "slug": "typography-content",
       "title": "Typography & Content",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- No text smaller than 11px - All inputs have visible labels — no placeholder-only fields - Error messages describe the problem and how to fix it - No images of text - Line lengths within limits for t"
+      "body_excerpt": "No text smaller than 11px All inputs have visible labels — no placeholder-only fields Error messages describe the problem and how to fix it No images of text Line lengths within limits for the font si"
     },
     "focus-interaction": {
       "slug": "focus-interaction",
       "title": "Focus & Interaction",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- All interactive elements have a designed focus state - Focus order is logical — annotated if non-standard - All actions have a keyboard alternative documented - Touch targets meet minimums (24px des"
+      "body_excerpt": "All interactive elements have a designed focus state Focus order is logical — annotated if non-standard All actions have a keyboard alternative documented Touch targets meet minimums (24px desktop · 4"
     },
     "states": {
       "slug": "states",
       "title": "States",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- All interactive states designed: default, hover, focus, pressed, disabled, error - Empty, loading, and error states included for data-driven components - State changes use more than one signal — ico"
+      "body_excerpt": "All interactive states designed: default, hover, focus, pressed, disabled, error Empty, loading, and error states included for data-driven components State changes use more than one signal — icon + co"
     },
     "labels-annotations": {
       "slug": "labels-annotations",
       "title": "Labels & Annotations",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- Icon-only elements have aria-label documented - Decorative icons marked as decorative - Dynamic regions annotated with aria-live - Modal focus trap and return focus documented - Form groupings and r"
+      "body_excerpt": "Icon-only elements have aria-label documented Decorative icons marked as decorative Dynamic regions annotated with aria-live Modal focus trap and return focus documented Form groupings and required fi"
     },
     "reading-order-touch": {
       "slug": "reading-order-touch",
       "title": "Reading Order & Touch",
       "tier": "checklist",
       "wcag": [],
-      "body_excerpt": "- Visual order matches intended reading order — annotated if non-standard - Landmark regions annotated (header, nav, main, footer) - Heading hierarchy is logical — no skipped levels - Hover interactio"
+      "body_excerpt": "Visual order matches intended reading order — annotated if non-standard Landmark regions annotated (header, nav, main, footer) Heading hierarchy is logical — no skipped levels Hover interactions have"
     }
   }
 }

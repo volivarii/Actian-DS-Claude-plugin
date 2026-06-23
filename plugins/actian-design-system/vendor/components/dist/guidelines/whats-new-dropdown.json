@@ -22,7 +22,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# What's new\n\nThe What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful.\n\n---\n\n## Style\n\n- Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).\n- Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"\n- Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"\n- Keep each item to one to two sentences.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Added support for bulk dataset import. | We've supercharged the import experience with powerful new bulk capabilities! |\n| Fixed an issue where filters were not preserved on page reload. | Bug fixes and performance improvements. |\n{: .do-dont-table}",
+      "markdown": "# What's new\n\nThe What's New section summarizes recent product changes. It is product communication, not marketing. The tone should be factual and helpful.\n\n***\n\n## Style\n\n* Group updates by category (for example, **Data catalog**, **Connections**, **Performance**).\n\n* Use past tense to describe what changed. For example, \"Added support for...\" or \"Fixed an issue where...\"\n\n* Do not use marketing adjectives like \"powerful,\" \"seamless,\" or \"game-changing.\"\n\n* Keep each item to one to two sentences.\n\n## Do / Don't\n\n| Do                                                              | Don't                                                                         |\n| --------------------------------------------------------------- | ----------------------------------------------------------------------------- |\n| Added support for bulk dataset import.                          | We've supercharged the import experience with powerful new bulk capabilities! |\n| Fixed an issue where filters were not preserved on page reload. | Bug fixes and performance improvements.                                       |",
       "sections": [
         {
           "heading": "",
@@ -73,6 +73,6 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00",
+  "updated_at": "2026-06-23T13:14:48+02:00",
   "_alias_of": "whats-new"
 }

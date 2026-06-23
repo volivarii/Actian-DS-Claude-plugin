@@ -15,8 +15,6 @@ Avoid using ampersands in place of "and" except for common abbreviations (e.g. Q
 | Do | Don't |
 |---|---|
 | Common abbreviations: Q&A. Organization formal names: H&R Block, AT&T | Using & in place of "and" in general copy |
-{: .do-dont-table}
-
 ## Periods (".")
 
 Avoid using periods on solitary sentences within these UI elements:

@@ -45,6 +45,9 @@
     },
     "badge": {
       "preview": "components/dist/media/badge/preview.webp",
+      "parts": [
+        "components/dist/media/badge/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/badge/variations-0.webp",
         "components/dist/media/badge/variations-1.webp"
@@ -63,6 +66,16 @@
     },
     "button": {
       "preview": "components/dist/media/button/preview.webp",
+      "parts": [
+        "components/dist/media/button/parts-0.webp",
+        "components/dist/media/button/parts-1.webp",
+        "components/dist/media/button/parts-2.webp",
+        "components/dist/media/button/parts-3.webp",
+        "components/dist/media/button/parts-4.webp",
+        "components/dist/media/button/parts-5.webp",
+        "components/dist/media/button/parts-6.webp",
+        "components/dist/media/button/parts-7.webp"
+      ],
       "variations": [
         "components/dist/media/button/variations-0.webp",
         "components/dist/media/button/variations-1.webp"
@@ -87,6 +100,9 @@
     },
     "chat-with-ai-steward": {
       "preview": "components/dist/media/chat-with-ai-steward/preview.webp",
+      "parts": [
+        "components/dist/media/chat-with-ai-steward/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/chat-with-ai-steward/variations-0.webp"
       ],
@@ -97,6 +113,9 @@
     },
     "checkbox-with-label": {
       "preview": "components/dist/media/checkbox-with-label/preview.webp",
+      "parts": [
+        "components/dist/media/checkbox-with-label/parts-0.webp"
+      ],
       "spacing": [
         "components/dist/media/checkbox-with-label/spacing-0.webp",
         "components/dist/media/checkbox-with-label/spacing-1.webp"
@@ -115,6 +134,11 @@
     },
     "confirmation": {
       "preview": "components/dist/media/confirmation/preview.webp",
+      "parts": [
+        "components/dist/media/confirmation/parts-0.webp",
+        "components/dist/media/confirmation/parts-1.webp",
+        "components/dist/media/confirmation/parts-2.webp"
+      ],
       "layout": [
         "components/dist/media/confirmation/layout-0.webp",
         "components/dist/media/confirmation/layout-1.webp",
@@ -145,6 +169,11 @@
     },
     "empty-state": {
       "preview": "components/dist/media/empty-state/preview.webp",
+      "parts": [
+        "components/dist/media/empty-state/parts-0.webp",
+        "components/dist/media/empty-state/parts-1.webp",
+        "components/dist/media/empty-state/parts-2.webp"
+      ],
       "layout": [
         "components/dist/media/empty-state/layout-0.webp",
         "components/dist/media/empty-state/layout-1.webp",
@@ -156,6 +185,11 @@
     },
     "error-state": {
       "preview": "components/dist/media/error-state/preview.webp",
+      "parts": [
+        "components/dist/media/error-state/parts-0.webp",
+        "components/dist/media/error-state/parts-1.webp",
+        "components/dist/media/error-state/parts-2.webp"
+      ],
       "layout": [
         "components/dist/media/error-state/layout-0.webp",
         "components/dist/media/error-state/layout-1.webp",
@@ -175,6 +209,9 @@
     },
     "identification-key": {
       "preview": "components/dist/media/identification-key/preview.webp",
+      "parts": [
+        "components/dist/media/identification-key/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/identification-key/variations-0.webp"
       ],
@@ -226,6 +263,9 @@
     },
     "link": {
       "preview": "components/dist/media/link/preview.webp",
+      "parts": [
+        "components/dist/media/link/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/link/variations-0.webp"
       ],
@@ -248,6 +288,11 @@
     },
     "maintenance-state": {
       "preview": "components/dist/media/maintenance-state/preview.webp",
+      "parts": [
+        "components/dist/media/maintenance-state/parts-0.webp",
+        "components/dist/media/maintenance-state/parts-1.webp",
+        "components/dist/media/maintenance-state/parts-2.webp"
+      ],
       "layout": [
         "components/dist/media/maintenance-state/layout-0.webp",
         "components/dist/media/maintenance-state/layout-1.webp",
@@ -325,6 +370,9 @@
     },
     "side-nav": {
       "preview": "components/dist/media/side-nav/preview.webp",
+      "parts": [
+        "components/dist/media/side-nav/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/side-nav/variations-0.webp",
         "components/dist/media/side-nav/variations-1.webp"
@@ -344,6 +392,9 @@
     },
     "sticky-footer": {
       "preview": "components/dist/media/sticky-footer/preview.webp",
+      "parts": [
+        "components/dist/media/sticky-footer/parts-0.webp"
+      ],
       "default": "components/dist/media/sticky-footer/default.webp"
     },
     "table": {
@@ -355,6 +406,9 @@
     },
     "tag-catalog": {
       "preview": "components/dist/media/tag-catalog/preview.webp",
+      "parts": [
+        "components/dist/media/tag-catalog/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/tag-catalog/variations-0.webp"
       ],
@@ -368,6 +422,9 @@
     },
     "tag-catalog-item-type": {
       "preview": "components/dist/media/tag-catalog-item-type/preview.webp",
+      "parts": [
+        "components/dist/media/tag-catalog-item-type/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/tag-catalog-item-type/variations-0.webp"
       ],
@@ -381,6 +438,9 @@
     },
     "tag-default": {
       "preview": "components/dist/media/tag-default/preview.webp",
+      "parts": [
+        "components/dist/media/tag-default/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/tag-default/variations-0.webp"
       ],
@@ -394,6 +454,9 @@
     },
     "tag-glossary-item-type": {
       "preview": "components/dist/media/tag-glossary-item-type/preview.webp",
+      "parts": [
+        "components/dist/media/tag-glossary-item-type/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/tag-glossary-item-type/variations-0.webp"
       ],
@@ -407,6 +470,9 @@
     },
     "tag-interactive": {
       "preview": "components/dist/media/tag-interactive/preview.webp",
+      "parts": [
+        "components/dist/media/tag-interactive/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/tag-interactive/variations-0.webp"
       ],
@@ -420,6 +486,9 @@
     },
     "tag-shared": {
       "preview": "components/dist/media/tag-shared/preview.webp",
+      "parts": [
+        "components/dist/media/tag-shared/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/tag-shared/variations-0.webp"
       ],
@@ -433,6 +502,9 @@
     },
     "tag-stage": {
       "preview": "components/dist/media/tag-stage/preview.webp",
+      "parts": [
+        "components/dist/media/tag-stage/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/tag-stage/variations-0.webp"
       ],
@@ -446,6 +518,9 @@
     },
     "tag-status": {
       "preview": "components/dist/media/tag-status/preview.webp",
+      "parts": [
+        "components/dist/media/tag-status/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/tag-status/variations-0.webp"
       ],
@@ -470,6 +545,9 @@
     },
     "tooltip": {
       "preview": "components/dist/media/tooltip/preview.webp",
+      "parts": [
+        "components/dist/media/tooltip/parts-0.webp"
+      ],
       "variations": [
         "components/dist/media/tooltip/variations-0.webp"
       ],

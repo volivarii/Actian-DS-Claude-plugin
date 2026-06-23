@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "slug": "lineage-individual-node",
   "kit": "dskit",
-  "synced_at": "2026-06-15T13:10:36.917Z",
+  "synced_at": "2026-06-17T11:44:30.222Z",
   "source": {
     "fileKey": "l8biHxfarNi1I2RMvVxVOK",
     "nodeId": "14747:19902",
@@ -226,7 +226,8 @@
                   "Show trailing icon": false,
                   "Label": "4 fields",
                   "Show leading icon": false,
-                  "Type": "Tertiary",
+                  "Intent": "Default",
+                  "Emphasis": "Ghost",
                   "Size": "Small",
                   "State": "Default"
                 }

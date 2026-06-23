@@ -152,7 +152,7 @@
                 },
                 {
                   "bullets": [
-                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (*) symbol or text label.",
+                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (\\*) symbol or text label.",
                     "Avoid redundancy: if a section title already establishes context, field labels can be shorter.",
                     "Provide context when needed: helper text should explain the \"why,\" never just restate the label.",
                     "Error text should guide correction."
@@ -347,7 +347,7 @@
                   ]
                 },
                 {
-                  "prose": "**Use a [checkbox](/components/form-input-selection/checkbox-with-label/) when:**"
+                  "prose": "**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**"
                 },
                 {
                   "bullets": [
@@ -500,7 +500,7 @@
     },
     "design": {
       "status": "draft",
-      "markdown": "# Text Input — Design\n\n- Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text\n- Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear\n- Reserve the space consistently across all inputs in forms",
+      "markdown": "# Text Input — Design\n\n* Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text\n\n* Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear\n\n* Reserve the space consistently across all inputs in forms",
       "sections": [
         {
           "heading": "",
@@ -601,5 +601,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-10T20:43:48+02:00"
+  "updated_at": "2026-06-23T13:14:48+02:00"
 }

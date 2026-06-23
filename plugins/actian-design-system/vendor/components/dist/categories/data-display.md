@@ -10,34 +10,29 @@ confidence:
   motion: medium
   a11y: high
 last_reviewed: 2026-05-12
-
 anatomy:
   - { name: Container, description: the bounding surface — frames the data presentation }
   - { name: Title or heading (optional), description: identifies what the data represents }
-  - { name: Primary content, description: the data itself — text, value, chart, table cells, badge label }
-  - { name: Supporting metadata (optional), description: timestamps, units, counts, attribution }
-  - { name: Visual indicator (optional), description: color dot, icon, badge, or status pill }
-  - { name: Action affordance (optional), description: expand, drill-in, dismiss, or copy }
-
+  - { name: Primary content, description: "the data itself — text, value, chart, table cells, badge label" }
+  - { name: Supporting metadata (optional), description: "timestamps, units, counts, attribution" }
+  - { name: Visual indicator (optional), description: "color dot, icon, badge, or status pill" }
+  - { name: Action affordance (optional), description: "expand, drill-in, dismiss, or copy" }
 variants:
-  - { axis: Density, values: [compact, comfortable, spacious] }
-  - { axis: Status, values: [neutral, info, success, warning, error] }
-  - { axis: State, values: [default, hover, selected, loading, empty] }
-
+  - { axis: Density, values: [ compact, comfortable, spacious ] }
+  - { axis: Status, values: [ neutral, info, success, warning, error ] }
+  - { axis: State, values: [ default, hover, selected, loading, empty ] }
 motion_refs:
   - { ref: skeleton-loading, note: rows/cards reveal with skeleton placeholders during load }
-  - { ref: staggered-entrance, note: lists, tables, search-result-cards enter with staggered fades }
+  - { ref: staggered-entrance, note: "lists, tables, search-result-cards enter with staggered fades" }
   - { ref: accordion-expand-collapse, note: collapsible cards/sections expand at the accordion pace }
-
 a11y_refs:
-  - { ref: color-contrast, note: status colors must have a non-color cue (icon, label, pattern) }
+  - { ref: color-contrast, note: "status colors must have a non-color cue (icon, label, pattern)" }
   - { ref: typography }
   - { ref: data-tables, note: tables and graphs must reflow or scroll horizontally; never clip }
   - { ref: aria-labels, note: tables use thead/tbody/scope; charts expose data tables for screen readers }
   - { ref: focus-keyboard }
-
 foundations_refs:
-  - { ref: tokens, note: spacing, elevation, and radius tokens }
+  - { ref: tokens, note: "spacing, elevation, and radius tokens" }
   - { ref: color-primitives, note: status and data-category colors }
   - { ref: design-guidelines }
 ---
@@ -48,9 +43,11 @@ Components in this category present information rather than collect it. Members 
 
 ## Reference patterns
 
-- **Polaris** — DataTable, ResourceList, Card, Badge, Avatar
-- **Material** — Cards, Data Tables, Chips, Badges, Progress Indicators
-- **Carbon** — DataTable, Tile, Tag, Progress Bar, ProgressIndicator
+* **Polaris** — DataTable, ResourceList, Card, Badge, Avatar
+
+* **Material** — Cards, Data Tables, Chips, Badges, Progress Indicators
+
+* **Carbon** — DataTable, Tile, Tag, Progress Bar, ProgressIndicator
 
 ## Why these defaults
 
@@ -58,7 +55,10 @@ This category is intentionally broad: charts, tables, cards, badges, and graph p
 
 ## Notes for refining authors
 
-- `table` likely needs its own component-level extension: `Header row`, `Column header`, `Cell`, `Selection control`, `Sort indicator`, `Pagination`.
-- Graph components (`bar-graph`, `line-graph`) need `Axis`, `Legend`, `Data point`, `Tooltip` extensions.
-- Lineage + diagram primitives (`lineage-*`, `digram-*`) may not all belong in this category long-term — they're closer to canvas/graph primitives. Flag during team review.
-- `progress-bar-small` and `scroll-bar` are arguably feedback/system primitives — re-evaluate placement.
+* `table` likely needs its own component-level extension: `Header row`, `Column header`, `Cell`, `Selection control`, `Sort indicator`, `Pagination`.
+
+* Graph components (`bar-graph`, `line-graph`) need `Axis`, `Legend`, `Data point`, `Tooltip` extensions.
+
+* Lineage + diagram primitives (`lineage-*`, `digram-*`) may not all belong in this category long-term — they're closer to canvas/graph primitives. Flag during team review.
+
+* `progress-bar-small` and `scroll-bar` are arguably feedback/system primitives — re-evaluate placement.

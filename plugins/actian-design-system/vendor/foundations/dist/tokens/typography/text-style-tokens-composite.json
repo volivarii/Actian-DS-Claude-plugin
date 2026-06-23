@@ -42,8 +42,8 @@
           "Letter Spacing": "letterspacing-normal",
           "Line Height": "2xl",
           "Usage": "Primary header, display font",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-heading-prominent",
@@ -52,8 +52,8 @@
           "Letter Spacing": "letterspacing-normal",
           "Line Height": "xl",
           "Usage": "Secondary header, default page header",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-heading-standard",
@@ -62,8 +62,8 @@
           "Letter Spacing": "letterspacing-wide-1",
           "Line Height": "lg",
           "Usage": "Tertiary header, section header",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-heading-subtle",
@@ -72,8 +72,8 @@
           "Letter Spacing": "letterspacing-wide-2",
           "Line Height": "md",
           "Usage": "Subsection header",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-heading-micro",
@@ -82,8 +82,18 @@
           "Letter Spacing": "letterspacing-wide-3",
           "Line Height": "sm",
           "Usage": "Low-emphasis header",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
+        },
+        {
+          "Token": "--zen-text-body-display",
+          "Weight": "regular",
+          "Size": "xl",
+          "Letter Spacing": "letterspacing-wide-1",
+          "Line Height": "lg",
+          "Usage": "Support text next to header",
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-body-prominent",
@@ -92,8 +102,8 @@
           "Letter Spacing": "letterspacing-wide-1",
           "Line Height": "lg",
           "Usage": "Intro, highlighted paragraph",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-body-standard",
@@ -102,8 +112,8 @@
           "Letter Spacing": "letterspacing-wide-2",
           "Line Height": "md",
           "Usage": "Main content",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-body-subtle",
@@ -112,8 +122,8 @@
           "Letter Spacing": "letterspacing-wide-3",
           "Line Height": "sm",
           "Usage": "Secondary content",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-body-micro",
@@ -122,8 +132,8 @@
           "Letter Spacing": "letterspacing-wide-4",
           "Line Height": "xs",
           "Usage": "Footnotes, microcopy",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-label-standard",
@@ -132,8 +142,8 @@
           "Letter Spacing": "letterspacing-wide-2",
           "Line Height": "md",
           "Usage": "Default button, form label",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-label-subtle",
@@ -142,8 +152,8 @@
           "Letter Spacing": "letterspacing-wide-3",
           "Line Height": "sm",
           "Usage": "Less prominent actions, secondary info label",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-text-label-micro",
@@ -152,8 +162,8 @@
           "Letter Spacing": "letterspacing-wide-4",
           "Line Height": "xs",
           "Usage": "Microcopy",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         }
       ]
     }

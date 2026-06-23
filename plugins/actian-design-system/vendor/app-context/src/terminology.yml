@@ -1,0 +1,182 @@
+_schema_version: 1
+terms:
+  data-intelligence-platform:
+    use: Data Intelligence Platform
+    meaning: The overall product
+    notUse:
+      - the tool
+      - the app
+  studio:
+    use: Studio
+    meaning: Governance/catalog app
+    notUse:
+      - admin panel
+      - backend
+  explorer:
+    use: Explorer
+    meaning: Consumer/marketplace app
+    notUse:
+      - frontend
+      - user portal
+  administration:
+    use: Administration
+    meaning: Config/settings app
+    notUse:
+      - admin app
+  catalog-object:
+    use: Catalog object
+    meaning: Any indexed data asset
+    notUse:
+      - item
+      - record
+      - entry
+  data-product:
+    use: Data product
+    meaning: Curated published asset
+    notUse:
+      - dataset
+  data-contract:
+    use: Data contract
+    meaning: Quality/access agreement
+    notUse:
+      - SLA
+      - policy
+  governance-by-design:
+    use: Governance-by-design
+    meaning: Policies embedded at creation
+    notUse:
+      - governance overlay
+  contract-first:
+    use: Contract-first
+    meaning: Define expectations before building
+    notUse:
+      - quality-first
+  shift-left:
+    use: Shift-left
+    meaning: Catch issues at source
+    notUse:
+      - early detection
+  field-level-lineage:
+    use: Field-level lineage
+    meaning: Column-level transformation tracking
+    notUse:
+      - table lineage
+  impact-analysis:
+    use: Impact analysis
+    meaning: Understanding downstream effects of changes
+    notUse:
+      - dependency check
+  federated-knowledge-graph:
+    use: Federated knowledge graph
+    meaning: Enterprise metadata architecture
+    notUse:
+      - metadata store
+  topic:
+    use: Topic
+    meaning: Curated, filtered collection of catalog items for Explorer
+    notUse:
+      - folder
+      - category
+  connection:
+    use: Connection
+    meaning: Configured data source connector
+    notUse:
+      - integration
+  completion-level:
+    use: Completion level
+    meaning: Percentage of metadata filled for an item
+    notUse:
+      - progress
+      - completeness
+  suggestion:
+    use: Suggestion
+    meaning: AI-generated metadata enrichment proposal
+    notUse:
+      - recommendation
+  curator:
+    use: Curator
+    meaning: Person responsible for curating a catalog item
+    notUse:
+      - owner
+  output-port:
+    use: Output port
+    meaning: Published endpoint/view of a data product
+    notUse:
+      - API
+      - export
+  view-360:
+    use: View 360
+    meaning: Radial knowledge graph centered on an asset
+    notUse:
+      - relationship view
+  watchlist:
+    use: Watchlist
+    meaning: Saved filter shortcut on Studio Dashboard
+    notUse:
+      - saved search
+  perimeter:
+    use: Perimeter
+    meaning: Scope of a curator's item responsibility
+    notUse:
+      - scope
+  scanner:
+    use: Scanner
+    meaning: External data ingestion agent
+    notUse:
+      - crawler
+      - harvester
+  metamodel:
+    use: Metamodel
+    meaning: System structure/template configuration
+    notUse:
+      - schema
+      - model
+  pii:
+    use: PII
+    meaning: Personally Identifiable Information flag on fields
+    notUse:
+      - sensitive data
+  ask-ai:
+    use: Ask AI
+    meaning: Natural language query feature in Explorer
+    notUse:
+      - AI search
+      - chatbot
+  ai-ready:
+    use: AI Ready
+    meaning: Auto-tag on Topics with well-documented items
+    notUse:
+      - indexed
+      - searchable
+  data-profiling:
+    use: Data Profiling
+    meaning: Statistical profile of field values
+    notUse:
+      - data analysis
+  data-sampling:
+    use: Data Sampling
+    meaning: Sample data rows from a dataset
+    notUse:
+      - data preview
+  input-port:
+    use: Input Port
+    meaning: Interface for receiving upstream data into a data product
+    notUse:
+      - input
+      - source
+  federated-catalog:
+    use: Federated Catalog
+    meaning: Multi-catalog architecture with scoped permissions
+    notUse:
+      - multi-tenant
+  discussion-thread:
+    use: Discussion Thread
+    meaning: Conversation on a Dataset detail page
+    notUse:
+      - comment
+      - note
+  access-request-policy:
+    use: Access Request Policy
+    meaning: Rules governing the approval workflow for data access
+    notUse:
+      - access control

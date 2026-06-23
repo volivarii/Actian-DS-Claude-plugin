@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Filters\n\nFilters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products.\n\n---\n\n## When to use\n\n- When a dataset or list is large enough that users need to narrow results to find what they need.\n- When multiple filter criteria can be applied simultaneously.\n- Do not use filters for permanent data modifications - filters only affect the current view.\n\n## Style\n\n- Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.\n- Use sentence case for all filter labels and option values.\n- Show the active filter count when filters are collapsed. For example, `Filters (3)`.\n- Use consistent terminology across all filter controls in the same view.\n\n## Behavior\n\n- Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.\n- Provide a **Clear all** or **Reset filters** action when filters are active.\n- Persist filter state when users navigate away and return to the same view.",
+      "markdown": "# Filters\n\nFilters allow users to refine visible data by applying structured criteria. They reduce results without modifying underlying data. Filters must be consistent in terminology, placement, and behavior across all products.\n\n***\n\n## When to use\n\n* When a dataset or list is large enough that users need to narrow results to find what they need.\n\n* When multiple filter criteria can be applied simultaneously.\n\n* Do not use filters for permanent data modifications - filters only affect the current view.\n\n## Style\n\n* Filter labels use short noun phrases that match the attribute being filtered. For example, `Owner`, `Status`, `Data domain`.\n\n* Use sentence case for all filter labels and option values.\n\n* Show the active filter count when filters are collapsed. For example, `Filters (3)`.\n\n* Use consistent terminology across all filter controls in the same view.\n\n## Behavior\n\n* Apply filters immediately on selection, or provide an explicit **Apply** button for complex filter sets.\n\n* Provide a **Clear all** or **Reset filters** action when filters are active.\n\n* Persist filter state when users navigate away and return to the same view.",
       "sections": [
         {
           "heading": "",
@@ -141,7 +141,7 @@
                 },
                 {
                   "bullets": [
-                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (*) symbol or text label.",
+                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (\\*) symbol or text label.",
                     "Avoid redundancy: if a section title already establishes context, field labels can be shorter.",
                     "Provide context when needed: helper text should explain the \"why,\" never just restate the label.",
                     "Error text should guide correction."
@@ -336,7 +336,7 @@
                   ]
                 },
                 {
-                  "prose": "**Use a [checkbox](/components/form-input-selection/checkbox-with-label/) when:**"
+                  "prose": "**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**"
                 },
                 {
                   "bullets": [
@@ -433,6 +433,6 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00",
+  "updated_at": "2026-06-23T13:14:48+02:00",
   "_alias_of": "filters"
 }

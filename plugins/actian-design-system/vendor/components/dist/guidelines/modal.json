@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Modal\n\nModals interrupt the current flow to require the user's attention for a confirmation, input, or critical action. Use them sparingly - overuse degrades their impact.\n\n---\n\n## When to use\n\n- To confirm destructive or irreversible actions. For full confirmation dialog patterns, see [confirmation](confirmation).\n- To collect a small amount of input before completing an action.\n- Do not use modals for purely informational content - use inline messages or tooltips instead.\n\n## Style\n\n- Modal title should match the label of the button or link that triggered it.\n- Keep body copy short and actionable. One to two sentences.\n- Use a primary and secondary button pair. Align with the [button terminology guidelines](button).\n- Do not nest modals.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Title: Delete dataset | Title: OK |\n| This will permanently delete the dataset and cannot be undone. | Are you sure you want to do this? |\n| Primary CTA: Delete / Secondary CTA: Cancel | Primary CTA: Yes / Secondary CTA: No |\n{: .do-dont-table}",
+      "markdown": "# Modal\n\nModals interrupt the current flow to require the user's attention for a confirmation, input, or critical action. Use them sparingly - overuse degrades their impact.\n\n***\n\n## When to use\n\n* To confirm destructive or irreversible actions. For full confirmation dialog patterns, see [confirmation](confirmation).\n\n* To collect a small amount of input before completing an action.\n\n* Do not use modals for purely informational content - use inline messages or tooltips instead.\n\n## Style\n\n* Modal title should match the label of the button or link that triggered it.\n\n* Keep body copy short and actionable. One to two sentences.\n\n* Use a primary and secondary button pair. Align with the [button terminology guidelines](button).\n\n* Do not nest modals.\n\n## Do / Don't\n\n| Do                                                             | Don't                                |\n| -------------------------------------------------------------- | ------------------------------------ |\n| Title: Delete dataset                                          | Title: OK                            |\n| This will permanently delete the dataset and cannot be undone. | Are you sure you want to do this?    |\n| Primary CTA: Delete / Secondary CTA: Cancel                    | Primary CTA: Yes / Secondary CTA: No |",
       "sections": [
         {
           "heading": "",
@@ -86,5 +86,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-23T13:14:48+02:00"
 }

@@ -38,40 +38,66 @@
 ## Table of Contents
 
 1. [Color Primitives](./color-primitives.md)
-   - OKLCH Shade Formula
-   - Primitives (all palettes, 25–900)
+
+   * OKLCH Shade Formula
+
+   * Primitives (all palettes, 25–900)
 
 2. [Tokens](./tokens.md)
-   - Status Key
-   - 2.1 Global Color
-   - 2.2 Typography
-   - 2.3 Borders
-   - 2.4 Breakpoints
-   - 2.5 Focus Rings
-   - 2.6 Elevation
-   - 2.7 Spacing
-   - 2.8 Backgrounds
-   - 2.9 Heights and Trigger Areas
-   - 2.10 Icons
-   - 2.11 Motion
+
+   * Status Key
+
+   * 2.1 Global Color
+
+   * 2.2 Typography
+
+   * 2.3 Borders
+
+   * 2.4 Breakpoints
+
+   * 2.5 Focus Rings
+
+   * 2.6 Elevation
+
+   * 2.7 Spacing
+
+   * 2.8 Backgrounds
+
+   * 2.9 Heights and Trigger Areas
+
+   * 2.10 Icons
+
+   * 2.11 Motion
 
 3. [Design Guidelines](./design-guidelines.md)
-   - 3.1 Color Usage Rules
-   - 3.2 Typography Rules
-   - 3.3 Spacing Rules
-   - 3.4 Elevation Rules
-   - 3.5 Brightness Filter Convention — Interactive States
-   - 3.6 Breakpoints
+
+   * 3.1 Color Usage Rules
+
+   * 3.2 Typography Rules
+
+   * 3.3 Spacing Rules
+
+   * 3.4 Elevation Rules
+
+   * 3.5 Brightness Filter Convention — Interactive States
+
+   * 3.6 Breakpoints
 
 4. [Handoff Protocol](./handoff-protocol.md)
-   - 4.1 Before You Hand Off
-   - 4.2 Figma Handoff Checklist
-   - 4.3 What to Include in Every Handoff
-   - 4.4 When Something Is Missing
+
+   * 4.1 Before You Hand Off
+
+   * 4.2 Figma Handoff Checklist
+
+   * 4.3 What to Include in Every Handoff
+
+   * 4.4 When Something Is Missing
 
 5. [Related Guidelines](./related-guidelines.md)
-   - 5.1 Accessibility Guidelines
-   - 5.2 Content Guidelines
+
+   * 5.1 Accessibility Guidelines
+
+   * 5.2 Content Guidelines
 
 ---
 
@@ -584,7 +610,7 @@ All tokens are implemented as CSS custom properties under the `--zen-` namespace
 
 | Token | Value | Usage | Status |
 |-------|-------|-------|--------|
-| `--zen-font-size-xs` | `0.6875rem` (11px) *(update from 10px)* | Hint | 🟡 Proposed |
+| `--zen-font-size-xs` | `0.6875rem` (11px) | Hint | 🟢 Shipped  |
 | `--zen-font-size-sm` | `0.75rem` (12px) | Body, section subtitle | 🟢 Shipped |
 | `--zen-font-size-md` | `0.875rem` (14px) | Page subtitle, card header (small) | 🟢 Shipped |
 | `--zen-font-size-lg` | `1rem` (16px) | Section title, card header (default) | 🟢 Shipped |
@@ -609,12 +635,12 @@ All tokens are implemented as CSS custom properties under the `--zen-` namespace
 
 | Token | Value | Usage | Status |
 |-------|-------|-------|--------|
-| `--zen-font-lineheight-xs` | `14px / 0.875rem` | Font size 11px or smaller | 🔵 In Review |
-| `--zen-font-lineheight-sm` | `16px / 1rem` | Font size 12px | 🔵 In Review |
-| `--zen-font-lineheight-md` | `20px / 1.25rem` | Font size 14px | 🔵 In Review |
-| `--zen-font-lineheight-lg` | `24px / 1.5rem` | Font size 16px | 🔵 In Review |
-| `--zen-font-lineheight-xl` | `26px / 1.625rem` | Font size 18px | 🔵 In Review |
-| `--zen-font-lineheight-2xl` | `32px / 2rem` | Font size 24px | 🔵 In Review |
+| `--zen-font-lineheight-xs` | `14px / 0.875rem` | Font size 11px or smaller | 🟢 Shipped  |
+| `--zen-font-lineheight-sm` | `16px / 1rem` | Font size 12px | 🟢 Shipped  |
+| `--zen-font-lineheight-md` | `20px / 1.25rem` | Font size 14px | 🟢 Shipped |
+| `--zen-font-lineheight-lg` | `24px / 1.5rem` | Font size 16px | 🟢 Shipped  |
+| `--zen-font-lineheight-xl` | `26px / 1.625rem` | Font size 18px | 🟢 Shipped |
+| `--zen-font-lineheight-2xl` | `32px / 2rem` | Font size 24px | 🟢 Shipped  |
 
 #### Text Style Tokens (Composite)
 
@@ -622,18 +648,19 @@ These are semantic aliases that combine weight + size + letter spacing + line he
 
 | Token | Weight | Size | Letter Spacing | Line Height | Usage | Status |
 |-------|--------|------|---------------|-------------|-------|--------|
-| `--zen-text-heading-display` | semibold | 3xl | letterspacing-normal | 2xl | Primary header, display font | 🔵 In Review |
-| `--zen-text-heading-prominent` | semibold | xl | letterspacing-normal | xl | Secondary header, default page header | 🔵 In Review |
-| `--zen-text-heading-standard` | semibold | lg | letterspacing-wide-1 | lg | Tertiary header, section header | 🔵 In Review |
-| `--zen-text-heading-subtle` | semibold | md | letterspacing-wide-2 | md | Subsection header | 🔵 In Review |
-| `--zen-text-heading-micro` | semibold | sm | letterspacing-wide-3 | sm | Low-emphasis header | 🔵 In Review |
-| `--zen-text-body-prominent` | regular | lg | letterspacing-wide-1 | lg | Intro, highlighted paragraph | 🔵 In Review |
-| `--zen-text-body-standard` | regular | md | letterspacing-wide-2 | md | Main content | 🔵 In Review |
-| `--zen-text-body-subtle` | regular | sm | letterspacing-wide-3 | sm | Secondary content | 🔵 In Review |
-| `--zen-text-body-micro` | regular | xs | letterspacing-wide-4 | xs | Footnotes, microcopy | 🔵 In Review |
-| `--zen-text-label-standard` | medium | md | letterspacing-wide-2 | md | Default button, form label | 🔵 In Review |
-| `--zen-text-label-subtle` | medium | sm | letterspacing-wide-3 | sm | Less prominent actions, secondary info label | 🔵 In Review |
-| `--zen-text-label-micro` | medium | xs | letterspacing-wide-4 | xs | Microcopy | 🔵 In Review |
+| `--zen-text-heading-display` | semibold | 3xl | letterspacing-normal | 2xl | Primary header, display font | 🟢 Shipped  |
+| `--zen-text-heading-prominent` | semibold | xl | letterspacing-normal | xl | Secondary header, default page header | 🟢 Shipped  |
+| `--zen-text-heading-standard` | semibold | lg | letterspacing-wide-1 | lg | Tertiary header, section header | 🟢 Shipped  |
+| `--zen-text-heading-subtle` | semibold | md | letterspacing-wide-2 | md | Subsection header | 🟢 Shipped  |
+| `--zen-text-heading-micro` | semibold | sm | letterspacing-wide-3 | sm | Low-emphasis header | 🟢 Shipped  |
+| `--zen-text-body-display` | regular | xl | letterspacing-wide-1 | lg | Support text next to header | 🟢 Shipped  |
+| `--zen-text-body-prominent` | regular | lg | letterspacing-wide-1 | lg | Intro, highlighted paragraph | 🟢 Shipped  |
+| `--zen-text-body-standard` | regular | md | letterspacing-wide-2 | md | Main content | 🟢 Shipped  |
+| `--zen-text-body-subtle` | regular | sm | letterspacing-wide-3 | sm | Secondary content | 🟢 Shipped  |
+| `--zen-text-body-micro` | regular | xs | letterspacing-wide-4 | xs | Footnotes, microcopy | 🟢 Shipped |
+| `--zen-text-label-standard` | medium | md | letterspacing-wide-2 | md | Default button, form label | 🟢 Shipped  |
+| `--zen-text-label-subtle` | medium | sm | letterspacing-wide-3 | sm | Less prominent actions, secondary info label | 🟢 Shipped  |
+| `--zen-text-label-micro` | medium | xs | letterspacing-wide-4 | xs | Microcopy | 🟢 Shipped  |
 
 ### 2.3 Borders
 
@@ -708,8 +735,8 @@ Outlined focus rings must be applied with an offset on interactive elements. For
 | Token | Value | Usage | Status |
 |-------|-------|-------|--------|
 | `--zen-spacing-3xs` | `0.125rem` (2px) | Tightest spacing, hairline gaps | 🟡 Proposed |
-| `--zen-spacing-2xs` | `0.25rem` (4px) | Between elements within a small component | 🟢 Shipped |
-| `--zen-spacing-xs` | `0.5rem` (8px) | Default spacing between components | 🟢 Shipped |
+| `--zen-spacing-2xs` | `0.25rem` (4px) | Between elements within a small component & default paddings within an extra compact component | 🟢 Shipped |
+| `--zen-spacing-xs` | `0.5rem` (8px) | Default spacing between components & default paddings within a small component | 🟢 Shipped |
 | `--zen-spacing-sm` | `0.75rem` (12px) | Padding in a large component | 🟢 Shipped |
 | `--zen-spacing-md` | `1rem` (16px) | Padding in a large component; spacing between components | 🟢 Shipped |
 | `--zen-spacing-lg` | `1.5rem` (24px) | Spacing between sections | 🟢 Shipped |
@@ -915,9 +942,11 @@ The cascading effect guides the eye naturally downward and prevents the screen f
 
 **Contrast.** Text on backgrounds must meet WCAG AA minimum (4.5:1 for body text, 3:1 for large text). Use the following pairings as reference:
 
-- `text-default` on `bg-default` ✅
-- `text-secondary` on `bg-subtle` ✅
-- `text-disabled` should never be used on interactive elements that require action
+* `text-default` on `bg-default` ✅
+
+* `text-secondary` on `bg-subtle` ✅
+
+* `text-disabled` should never be used on interactive elements that require action
 
 **Semantic color intent.** Color conveys meaning — don't use `success-*` colors for non-success contexts, even if the green looks right.
 
@@ -937,9 +966,11 @@ Must not use type sizes smaller than 11px. You may use 11px text in labels, tags
 
 #### Line Length
 
-- Text line length is 544px at max with 16px text
-- Text line length is 480px at max with 14px text
-- Text line length is 424px at max with 12px text
+* Text line length is 544px at max with 16px text
+
+* Text line length is 480px at max with 14px text
+
+* Text line length is 424px at max with 12px text
 
 #### Paragraph Spacing
 
@@ -947,16 +978,25 @@ At default, the paragraph spacing is 8px.
 
 #### Accessibility
 
-- Default body text size is 14px
-- Minimum body text size is 12px
-- 11px is only acceptable for non-essential UI
-- Use defined type styles (avoid light weight)
-- Maintain readable line height and spacing
-- Text line length is 544px at max with 16px text
-- Text line length is 480px at max with 14px text
-- Text line length is 424px at max with 12px text
-- Avoid placeholder-only labels
-- Avoid long blocks of dense text
+* Default body text size is 14px
+
+* Minimum body text size is 12px
+
+* 11px is only acceptable for non-essential UI
+
+* Use defined type styles (avoid light weight)
+
+* Maintain readable line height and spacing
+
+* Text line length is 544px at max with 16px text
+
+* Text line length is 480px at max with 14px text
+
+* Text line length is 424px at max with 12px text
+
+* Avoid placeholder-only labels
+
+* Avoid long blocks of dense text
 
 Don't create one-off font sizes. If your design needs a size between tokens, first check whether a token can be used, then raise it as a proposed token addition.
 
@@ -964,10 +1004,13 @@ Don't create one-off font sizes. If your design needs a size between tokens, fir
 
 Use spacing tokens for all margin, padding, and gap values. The scale is:
 
-- **2xs–xs** for internal element spacing (icon-to-label, checkbox-to-text)
-- **sm–md** for internal component padding
-- **lg–xl** for spacing between sections and groups
-- **2xl–3xl** for page-level layout breathing room
+* **2xs–xs** for internal element spacing (icon-to-label, checkbox-to-text)
+
+* **sm–md** for internal component padding
+
+* **lg–xl** for spacing between sections and groups
+
+* **2xl–3xl** for page-level layout breathing room
 
 Never use arbitrary pixel values for spacing. If a layout needs something outside the scale, it's a signal to propose a new token.
 
@@ -983,36 +1026,47 @@ Common layer levels: `xs` → `sm` → `md` → `lg` → `xl` (each level sugges
 
 **Interaction States**
 
-- **Default:** The neutral state of an element before any user interaction.
-- **Hover\*:** Triggered when a cursor is placed over an interactive element.
-- **Focus\*:** Triggered when an element is highlighted via keyboard, voice, or other input methods.
-- **Pressed\*:** The momentary state during a physical click or tap.
-- **Dragged:** Active when a user presses and moves an element from its original position.
-- **Selected:** A persistent state indicating an element has been chosen (e.g. via checkbox, tab, or radio button).
-- **Disabled:** An inoperable state where the element cannot be interacted with or focused.
+* **Default:** The neutral state of an element before any user interaction.
+
+* **Hover\*:** Triggered when a cursor is placed over an interactive element.
+
+* **Focus\*:** Triggered when an element is highlighted via keyboard, voice, or other input methods.
+
+* **Pressed\*:** The momentary state during a physical click or tap.
+
+* **Dragged:** Active when a user presses and moves an element from its original position.
+
+* **Selected:** A persistent state indicating an element has been chosen (e.g. via checkbox, tab, or radio button).
+
+* **Disabled:** An inoperable state where the element cannot be interacted with or focused.
 
 *\*Hover states should be suppressed on touch devices to avoid "sticky" visual effects. Conversely, Focus and Pressed states must be supported across all input types to ensure accessibility and tactile feedback.*
 
 **Feedback & System States**
 
-- **Loading:** Indicates a component is processing an action or fetching data.
-- **Error:** Indicates invalid input or a failed system action, usually via color or icons.
-- **Success:** Indicates valid input or a successfully completed action.
-- **Warning:** Indicates a non-blocking issue or a state requiring user caution.
-- **Read-Only:** Content is legible and focusable for copying, but cannot be edited.
-- **Indeterminate:** A "partial" state, typically for parent checkboxes with mixed child selections.
+* **Loading:** Indicates a component is processing an action or fetching data.
 
----
+* **Error:** Indicates invalid input or a failed system action, usually via color or icons.
+
+* **Success:** Indicates valid input or a successfully completed action.
+
+* **Warning:** Indicates a non-blocking issue or a state requiring user caution.
+
+* **Read-Only:** Content is legible and focusable for copying, but cannot be edited.
+
+* **Indeterminate:** A "partial" state, typically for parent checkboxes with mixed child selections.
+
+***
 
 #### Implementation
 
 Interactive color states (hover, pressed/active, disabled) are **not handled with tokens**. Engineering implements these using CSS brightness filters at the component level.
 
-| State | Filter | Notes |
-|-------|--------|-------|
-| Hover | `filter: brightness(0.92)` | Subtle darkening |
-| Pressed / Active | `filter: brightness(0.85)` | More pronounced |
-| Disabled | `opacity: 0.4` | Combined with `cursor: not-allowed` |
+| State            | Filter                     | Notes                               |
+| ---------------- | -------------------------- | ----------------------------------- |
+| Hover            | `filter: brightness(0.92)` | Subtle darkening                    |
+| Pressed / Active | `filter: brightness(0.85)` | More pronounced                     |
+| Disabled         | `opacity: 0.4`             | Combined with `cursor: not-allowed` |
 
 The only tokenized interactive state is **focus** — see `--zen-focus-ring-primary` and `--zen-focus-ring-error` in Section 2.5.
 
@@ -1032,17 +1086,15 @@ Layouts are built on a column grid with three key measurements:
 
 Target XL and until S. XS is not considered at this moment.
 
-| Grid type | Breakpoint | Token | Total columns | Column | Margin | Gutter | Body |
-|-----------|-----------|-------|--------------|--------|--------|--------|------|
-| XS | Under 600px | — | 4 | Fluid | 16px | 16px | Fluid |
-| S | 600px | `--zen-breakpoint-sm` | 8 | Fluid | 16px | 16px | Fluid |
-| M | 840px | `--zen-breakpoint-md` | 16 | Fluid | 24px | 16px | Fluid |
-| L | 1200px | `--zen-breakpoint-lg` | 16 | Fluid | 24px | 16px | Fluid |
-| XL | 1920px | `--zen-breakpoint-xl` | 16 | 85px | 40px | 16px | 1600px |
+| Grid type | Breakpoint  | Token                 | Total columns | Column | Margin | Gutter | Body   |
+| --------- | ----------- | --------------------- | ------------- | ------ | ------ | ------ | ------ |
+| XS        | Under 600px | —                     | 4             | Fluid  | 16px   | 16px   | Fluid  |
+| S         | 600px       | `--zen-breakpoint-sm` | 8             | Fluid  | 16px   | 16px   | Fluid  |
+| M         | 840px       | `--zen-breakpoint-md` | 16            | Fluid  | 24px   | 16px   | Fluid  |
+| L         | 1200px      | `--zen-breakpoint-lg` | 16            | Fluid  | 24px   | 16px   | Fluid  |
+| XL        | 1920px      | `--zen-breakpoint-xl` | 16            | 85px   | 40px   | 16px   | 1600px |
 
----
-
-
+***
 
 ### 3.7 Focus Ring Rules
 
@@ -1076,20 +1128,29 @@ Two tiers of placeholder exist for inputs: `--zen-color-text-placeholder` is the
 
 Before marking a design ready for engineering:
 
-- All colors reference Zen tokens (no raw hex or one-offs)
-- All spacing uses Zen spacing tokens
-- All typography uses Zen type tokens
-- Component states are fully specified: default, hover, focus, active, disabled, error
-- Responsive behavior is documented for each breakpoint
+* All colors reference Zen tokens (no raw hex or one-offs)
+
+* All spacing uses Zen spacing tokens
+
+* All typography uses Zen type tokens
+
+* Component states are fully specified: default, hover, focus, active, disabled, error
+
+* Responsive behavior is documented for each breakpoint
 
 ### 4.2 Figma Handoff Checklist
 
-- [ ] Frame is named clearly (component name + variant)
-- [ ] All layers are named (no "Rectangle 47")
-- [ ] Auto-layout is used for all resizable containers
-- [ ] Components use library components, not detached copies
-- [ ] Prototype flows are linked where interaction context matters
-- [ ] Annotations added for non-obvious behavior (animations, edge cases, empty states)
+* [ ] Frame is named clearly (component name + variant)
+
+* [ ] All layers are named (no "Rectangle 47")
+
+* [ ] Auto-layout is used for all resizable containers
+
+* [ ] Components use library components, not detached copies
+
+* [ ] Prototype flows are linked where interaction context matters
+
+* [ ] Annotations added for non-obvious behavior (animations, edge cases, empty states)
 
 ### 4.3 What to Include in Every Handoff
 

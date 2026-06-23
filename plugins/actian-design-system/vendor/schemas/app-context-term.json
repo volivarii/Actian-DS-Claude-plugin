@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/app-context-term.json",
+  "title": "App-context terminology entry",
+  "description": "Frontmatter of app-context/src/terminology/<slug>.md. Defines preferred and discouraged wording for a concept within Actian products.",
+  "type": "object",
+  "required": ["_schema_version", "slug", "use", "meaning", "notUse"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": { "const": 1 },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 60,
+      "description": "Kebab-case identifier for the terminology entry; used as the filename (minus .md) and cross-reference target.",
+      "examples": ["pipeline", "connection", "data-product"]
+    },
+    "use": {
+      "type": "string",
+      "description": "The preferred, canonical term to use in Actian product UI and documentation.",
+      "examples": ["Pipeline", "Connection", "Data Product"]
+    },
+    "meaning": {
+      "type": "string",
+      "description": "Brief definition explaining what this term means in the context of Actian products.",
+      "examples": ["A configured sequence of data transformation steps executed as a single unit."]
+    },
+    "notUse": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Discouraged synonyms or alternative phrasings that should not appear in UI copy or docs.",
+      "examples": [["workflow", "job", "dataflow"]]
+    }
+  }
+}

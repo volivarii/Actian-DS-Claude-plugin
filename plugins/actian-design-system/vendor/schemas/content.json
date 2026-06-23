@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian.com/ds-knowledge/content.json",
+  "title": "Content source frontmatter",
+  "description": "Frontmatter contract for content/src/**/*.md (writing/product/patterns guidance). Authored by the content team; governs nav + related-component wiring. README.md/AUTHORING.md are exempt (no frontmatter).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["title"],
+  "properties": {
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable page/section title.",
+      "examples": ["Forms", "Empty & system states"]
+    },
+    "nav_order": {
+      "type": "integer",
+      "description": "Sort position in the docs navigation (lower = earlier).",
+      "examples": [14, 52]
+    },
+    "relatedComponents": {
+      "type": "array",
+      "description": "Component registry slugs this content relates to; drives graph edges + guideline fan-out.",
+      "examples": [["input", "checkbox-with-label", "radio-button"]],
+      "uniqueItems": true,
+      "items": { "type": "string", "pattern": "^[a-z0-9-]+$" }
+    },
+    "nav_exclude": {
+      "type": "boolean",
+      "description": "Exclude this page from the docs navigation.",
+      "examples": [true]
+    },
+    "search_exclude": {
+      "type": "boolean",
+      "description": "Exclude this page from docs search.",
+      "examples": [true]
+    },
+    "wordsToAvoid": {
+      "type": "array",
+      "description": "Banned-word lint rules — present only on content/src/writing/words-to-avoid.md. Each row carries the words to flag, the human reason, and a do/don't example. Derived verbatim into content/dist/words-to-avoid.json (the plugin copy-linter) and re-rendered into content/dist/global.md.",
+      "examples": [
+        [
+          {
+            "avoid": ["please", "sorry"],
+            "reason": "Never say \"Please\".",
+            "example": {
+              "do": "Contact Support",
+              "dont": "Please Contact Support"
+            }
+          }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["avoid", "reason", "example"],
+        "properties": {
+          "avoid": {
+            "type": "array",
+            "description": "Lowercased words/phrases to flag in UI copy (empty array = advisory-only row).",
+            "examples": [["please", "sorry"], []],
+            "items": { "type": "string" }
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Human-readable rationale shown in the guidance table.",
+            "examples": [
+              "Never say \"Please\" or \"Sorry\" — they are unnecessary."
+            ]
+          },
+          "example": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["do", "dont"],
+            "description": "A do/don't copy pair illustrating the rule.",
+            "examples": [
+              { "do": "Contact Support", "dont": "Please Contact Support" }
+            ],
+            "properties": {
+              "do": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Recommended phrasing.",
+                "examples": ["Contact Support"]
+              },
+              "dont": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Phrasing to avoid.",
+                "examples": ["Please Contact Support"]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,24 +1,44 @@
 ---
 title: "Words to avoid"
 nav_order: 5
+wordsToAvoid:
+  - avoid: ["please", "sorry"]
+    reason: "Never say \"Please\" or \"Sorry\" — they are unnecessary."
+    example: { do: "Contact Support", dont: "Please Contact Support" }
+  - avoid: ["we", "us"]
+    reason: "Don't refer to Actian as \"we\" or \"us.\""
+    example: { do: "Actian recommends", dont: "We recommend" }
+  - avoid: ["execute", "abort"]
+    reason: "Don't use \"Execute\" or \"Abort.\""
+    example: { do: "The process was cancelled/stopped", dont: "The process was aborted." }
+  - avoid: ["master", "slave"]
+    reason: "Don't use \"Master\" or \"Slave.\""
+    example: { do: "Primary and Secondary servers", dont: "Master and Slave servers" }
+  - avoid: ["blacklist", "whitelist"]
+    reason: "Don't use \"Blacklist\" or \"Whitelist.\""
+    example: { do: "Add a row to the Allow/Deny List", dont: "Add a row to the Black/Whitelist" }
+  - avoid: ["press", "type"]
+    reason: "Don't use \"Press\" or \"Type\" as verbs."
+    example: { do: "Click \"OK\", Enter/Provide a name", dont: "Press \"OK\", Type a name" }
+  - avoid: []
+    reason: "Never use developer-speak."
+    example: { do: "Click the **OK** button.", dont: "Click the OK CTA." }
+  - avoid: ["caution", "danger"]
+    reason: "Don't use \"Caution\" or \"Danger.\""
+    example: { do: "Remember: Restart the server first.", dont: "Danger: Stop the server first." }
+  - avoid: ["ensure"]
+    reason: "Don't use \"Ensure.\""
+    example: { do: "Verify that the value is provided.", dont: "Ensure you provided the correct value." }
+  - avoid: ["disabled"]
+    reason: "Don't use \"Disabled.\""
+    example: { do: "This setting is blocked/off", dont: "This setting is disabled" }
+  - avoid: ["agnostic"]
+    reason: "Don't use \"Agnostic.\""
+    example: { do: "This feature is platform independent", dont: "This feature is platform agnostic" }
+  - avoid: ["sign in", "signin"]
+    reason: "Don't use \"Sign in\" or \"Signin.\""
+    example: { do: "Log in to begin", dont: "Signin to begin" }
 ---
 # Words to avoid
 
 Guidance on what content works best, including text, imagery, and messaging.
-
----
-
-| Example | Do | Don't |
-|---|---|---|
-| Never say "Please" or "Sorry" — they are unnecessary. | Contact Support | Please Contact Support |
-| Don't refer to Actian as "we" or "us." | Actian recommends | We recommend |
-| Don't use "Execute" or "Abort." | The process was cancelled/stopped | The process was aborted. |
-| Don't use "Master" or "Slave." | Primary and Secondary servers | Master and Slave servers |
-| Don't use "Blacklist" or "Whitelist." | Add a row to the Allow/Deny List | Add a row to the Black/Whitelist |
-| Don't use "Press" or "Type" as verbs. | Click "OK", Enter/Provide a name | Press "OK", Type a name |
-| Never use developer-speak. | Click the **OK** button. | Click the OK CTA. |
-| Don't use "Caution" or "Danger." | Remember: Restart the server first. | Danger: Stop the server first. |
-| Don't use "Ensure." | Verify that the value is provided. | Ensure you provided the correct value. |
-| Don't use "Disabled." | This setting is blocked/off | This setting is disabled |
-| Don't use "Agnostic." | This feature is platform independent | This feature is platform agnostic |
-| Don't use "Sign in" or "Signin." | Log in to begin | Signin to begin |

@@ -22,7 +22,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Dropdown / Select\n\nDropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times.\n\n---\n\n## Behavior\n\n- Menu opens on click, not on hover.\n- Close the menu on Escape key press or on outside click.\n\n## Style\n\n- Label the button with a clear action or noun. For example, **Actions** or **More**.\n- Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.\n- Use sentence case for all menu items.\n- Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Actions | Click here |\n| Download PDF | PDF download |\n| Add tag | Tag adding |\n{: .do-dont-table}",
+      "markdown": "# Dropdown / Select\n\nDropdowns and select menus allow users to choose one option from a list. They are used for actions menus, filter selections, and single-choice inputs where the full list does not need to be visible at all times.\n\n***\n\n## Behavior\n\n* Menu opens on click, not on hover.\n\n* Close the menu on Escape key press or on outside click.\n\n## Style\n\n* Label the button with a clear action or noun. For example, **Actions** or **More**.\n\n* Menu items should follow the verb + noun formula. For example, **Download PDF**, **Add tag**, **Delete record**.\n\n* Use sentence case for all menu items.\n\n* Multi-selection dropdowns: include checkboxes, and selections should persist until the user closes the menu.\n\n## Do / Don't\n\n| Do           | Don't        |\n| ------------ | ------------ |\n| Actions      | Click here   |\n| Download PDF | PDF download |\n| Add tag      | Tag adding   |",
       "sections": [
         {
           "heading": "",
@@ -88,5 +88,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-23T13:14:48+02:00"
 }

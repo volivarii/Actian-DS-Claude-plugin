@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/app-context-pattern.json",
+  "title": "App-context pattern (per-record frontmatter)",
+  "description": "Frontmatter of app-context/src/patterns/<slug>.md. Documents a recurring UX interaction pattern scoped to one or more Actian apps.",
+  "type": "object",
+  "required": ["_schema_version", "slug", "label", "apps"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": { "const": 1 },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 60,
+      "description": "Kebab-case identifier for the pattern; used as the filename (minus .md) and cross-reference target.",
+      "examples": ["empty-state", "inline-edit", "bulk-action"]
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable display name of the UX pattern.",
+      "examples": ["Empty State", "Inline Edit", "Bulk Action"]
+    },
+    "apps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "App slugs where this UX pattern appears.",
+      "examples": [["studio", "explorer"]]
+    }
+  }
+}
