@@ -1,9 +1,9 @@
 {
   "knowledge_repo": "volivarii/actian-ds-knowledge",
-  "knowledge_repo_version_range": "<1.0.0",
+  "knowledge_repo_version_range": "0.34.5",
   "knowledge_repo_resolved_version": "v0.34.5",
   "knowledge_repo_resolved_sha": "cfda6b6ad9aab62a2955be42ac572a179d5b0c3f",
-  "vendored_at": "2026-06-15T09:31:39.608Z",
+  "vendored_at": "2026-06-24T20:31:02.445Z",
   "vendored_entries": [
     "ARCHITECTURE.md",
     "CONSUMING.md",
