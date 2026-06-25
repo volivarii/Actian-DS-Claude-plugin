@@ -166,10 +166,14 @@ describe("Transform-to-Hifi Tests", function () {
       assert.strictEqual(result.dsSlug, "button");
     });
 
-    it("maps FM Type=Primary to DS Type=Primary", function () {
+    it("maps FM Type=Primary to DS Emphasis=Filled, Intent=Default", function () {
+      // Button taxonomy is Intent×Emphasis as of knowledge v0.34.x (was the
+      // legacy single Type axis): FM Primary → highest-emphasis Filled.
       var out = xformInstance(buttonNode);
       var parsed = t.parseVariant(out.variant);
-      assert.strictEqual(parsed.Type, "Primary");
+      assert.strictEqual(parsed.Emphasis, "Filled");
+      assert.strictEqual(parsed.Intent, "Default");
+      assert.strictEqual(parsed.Type, undefined);
     });
 
     it("maps FM Size=md to DS Size=Default", function () {

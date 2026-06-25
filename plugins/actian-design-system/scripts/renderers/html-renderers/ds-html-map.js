@@ -165,15 +165,34 @@
       var props = normalizeProps(node.props);
       switch (slug) {
         case "button": {
-          var typeMap = {
-            Primary: "primary",
-            Secondary: "secondary",
-            Tertiary: "tertiary",
-            "Critical primary": "critical",
-            "Critical secondary": "critical-secondary",
-            Icon: "primary",
-          };
-          var btnType = typeMap[v.Type] || "primary";
+          // Button taxonomy is Intent×Emphasis as of knowledge v0.34.x. Map the
+          // two axes onto the hand-authored emphasis classes; fall back to the
+          // legacy single Type axis when Intent/Emphasis are absent (older
+          // flow-data + the frozen ds-button goldens still feed Type=).
+          var btnType;
+          if (v.Intent || v.Emphasis) {
+            var isCritical = v.Intent === "Critical";
+            var emphasis = v.Emphasis || "Filled";
+            if (emphasis === "Outlined") {
+              btnType = isCritical ? "critical-secondary" : "secondary";
+            } else if (emphasis === "Ghost") {
+              btnType = isCritical ? "critical-secondary" : "tertiary";
+            } else {
+              // Filled or Icon-only (icon styling comes from props, as the
+              // legacy Icon type did → primary base class).
+              btnType = isCritical ? "critical" : "primary";
+            }
+          } else {
+            var typeMap = {
+              Primary: "primary",
+              Secondary: "secondary",
+              Tertiary: "tertiary",
+              "Critical primary": "critical",
+              "Critical secondary": "critical-secondary",
+              Icon: "primary",
+            };
+            btnType = typeMap[v.Type] || "primary";
+          }
           var btnCls = "ds-button ds-button--" + btnType;
           if (v.Size === "Small") btnCls += " ds-button--small";
           if (v.State === "Disabled") btnCls += " is-disabled";

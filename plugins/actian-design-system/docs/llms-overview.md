@@ -29,7 +29,7 @@ in sync via the plugin's `vendor-snapshot.yml` workflow.
 | Foundations | `vendor/foundations/src/<slug>.md` (per-section, ordered via `_order.json`) + `vendor/foundations/dist/*.json` | `foundations/src/` | MD + JSON | Spacing, typography, color, motion (8 derived) |
 | Content guidelines | `vendor/content/dist/global.md` + per-component `vendor/components/dist/guidelines/<slug>.json` `domains.content` | `content/` + `components/` | MD + JSON | Voice, tone, copy patterns |
 | Accessibility | `vendor/accessibility/src/<slug>.md` (per-section, ordered via `_order.json`) | `accessibility/src/` | MD | WCAG 2.2 AA conformance rules |
-| App context | `vendor/app-context/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
+| App context | `vendor/app-context/dist/app-context.json` | `app-context/` | JSON | Apps, entities, terminology, patterns |
 | FM↔DS map | `references/convert-to-hifi/fm-to-ds-map.json` | (plugin only) | JSON | Wireframe-to-DS component mapping (plugin-owned; Track E eviction) |
 | Skill behavior | `plugins/actian-design-system/skills/*/SKILL.md` | (plugin only) | MD | Per-skill instructions and references |
 | Push patterns | `references/figma/figma-push-patterns.md` + `references/component-brief/push-patterns.md` | (plugin only) | MD | Figma Plugin API patterns |

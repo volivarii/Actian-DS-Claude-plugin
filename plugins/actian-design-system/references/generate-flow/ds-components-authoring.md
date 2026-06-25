@@ -91,7 +91,7 @@ The following 19 slugs have real HTML leaf renderers. Prop names are case-sensit
   "type": "INSTANCE",
   "library": "ds",
   "dsSlug": "button",
-  "variant": "Type=Primary, Size=Default, State=Default",
+  "variant": "Intent=Default, Emphasis=Filled, Size=Default, State=Default",
   "props": {
     "Label": "Save",
     "Leading icon show": false,
@@ -100,9 +100,10 @@ The following 19 slugs have real HTML leaf renderers. Prop names are case-sensit
 }
 ```
 
-- `variant.Type`: `Primary` | `Secondary` | `Tertiary` | `Critical primary` | `Critical secondary` | `Icon` (default: `Primary`)
+- `variant.Intent`: `Default` | `Critical` (default: `Default`) — use `Critical` for destructive/error actions
+- `variant.Emphasis`: `Filled` | `Outlined` | `Ghost` | `Icon-only` (default: `Filled`) — emphasis ladder; `Filled` is the primary CTA, `Outlined`/`Ghost` step down, `Icon-only` for icon-only buttons
 - `variant.Size`: `Default` | `Small` (default: `Default`)
-- `variant.State`: `Default` | `Hovered` | `Disabled` (default: `Default`)
+- `variant.State`: `Default` | `Hover` | `Focus` | `Pressed` | `Selected` | `Disabled` | `Loading` (default: `Default`)
 - `props.Label`: button text (required, never generic — use real action copy)
 - `props["Leading icon show"]`: `true` renders the `add` icon before the label
 - `props["Trailing icon show"]`: `true` renders a rotated `chevron-up` (chevron-down) after the label
