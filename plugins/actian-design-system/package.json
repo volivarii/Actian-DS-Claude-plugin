@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "test": "node tests/codegen-snapshots.test.js",
-    "update-snapshots": "UPDATE_SNAPSHOTS=1 node tests/codegen-snapshots.test.js"
+    "test": "find tests -name '*.test.js' -type f -print0 | xargs -0 node --test",
+    "update-snapshots": "UPDATE_GOLDENS=1 node --test tests/renderers/golden-snapshot.test.js"
   }
 }

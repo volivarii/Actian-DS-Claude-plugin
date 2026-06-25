@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "node codegen.test.js"
+    "test": "find . -name '*.test.js' -type f -print0 | xargs -0 node --test"
   }
 }
