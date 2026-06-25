@@ -6,8 +6,9 @@ var H = require("../../scripts/fidelity/render-leaf");
 test("defaultNodeForSlug reads anatomy variant + merges default-props", function () {
   var node = H.defaultNodeForSlug("button");
   assert.equal(node.dsSlug, "button");
-  // variant comes from vendored anatomy source.variant
-  assert.match(node.variant, /Type=Primary/);
+  // variant comes from vendored anatomy source.variant (Button taxonomy is
+  // Intent×Emphasis as of knowledge v0.34.x — was the legacy single Type axis)
+  assert.match(node.variant, /Intent=Default, Emphasis=Filled/);
   // props come from default-props.json
   assert.equal(node.props.Label, "Button");
 });

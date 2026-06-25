@@ -4,20 +4,29 @@
 
 Before marking a design ready for engineering:
 
-- All colors reference Zen tokens (no raw hex or one-offs)
-- All spacing uses Zen spacing tokens
-- All typography uses Zen type tokens
-- Component states are fully specified: default, hover, focus, active, disabled, error
-- Responsive behavior is documented for each breakpoint
+* All colors reference Zen tokens (no raw hex or one-offs)
+
+* All spacing uses Zen spacing tokens
+
+* All typography uses Zen type tokens
+
+* Component states are fully specified: default, hover, focus, active, disabled, error
+
+* Responsive behavior is documented for each breakpoint
 
 ### 4.2 Figma Handoff Checklist
 
-- [ ] Frame is named clearly (component name + variant)
-- [ ] All layers are named (no "Rectangle 47")
-- [ ] Auto-layout is used for all resizable containers
-- [ ] Components use library components, not detached copies
-- [ ] Prototype flows are linked where interaction context matters
-- [ ] Annotations added for non-obvious behavior (animations, edge cases, empty states)
+* [ ] Frame is named clearly (component name + variant)
+
+* [ ] All layers are named (no "Rectangle 47")
+
+* [ ] Auto-layout is used for all resizable containers
+
+* [ ] Components use library components, not detached copies
+
+* [ ] Prototype flows are linked where interaction context matters
+
+* [ ] Annotations added for non-obvious behavior (animations, edge cases, empty states)
 
 ### 4.3 What to Include in Every Handoff
 
@@ -36,4 +45,3 @@ If you need a value that doesn't exist as a token:
 1. Don't use a raw value in production design
 2. Flag it in the design review with the `#design-systems` channel or equivalent
 3. Work with engineering to agree on the token before implementation
-

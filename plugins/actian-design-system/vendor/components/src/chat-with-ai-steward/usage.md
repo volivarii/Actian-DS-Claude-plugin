@@ -1,15 +1,15 @@
 ---
 title: "Chat with AI Steward — Usage guidelines"
 ---
-
 ## Where it lives
 
 The steward is the AI surface for **Studio and Explorer**. It is not part of Administration. It opens as a side panel (Drawer variant) over the working context — search results, asset detail, lineage — and never navigates away.
 
 ## When AI content appears
 
-- On explicit user ask ("Ask AI" entry points: global header action, asset detail, search results).
-- As inline suggestions ("Suggestion" = AI-generated metadata enrichment) surfaced in context; suggestions follow the same identification rules as panel content and are always dismissible.
+* On explicit user ask ("Ask AI" entry points: global header action, asset detail, search results).
+
+* As inline suggestions ("Suggestion" = AI-generated metadata enrichment) surfaced in context; suggestions follow the same identification rules as panel content and are always dismissible.
 
 ## Distinguishing AI content from static UI
 
@@ -19,12 +19,16 @@ The steward is the AI surface for **Studio and Explorer**. It is not part of Adm
 
 ## Interaction expectations
 
-- Accept / Regenerate / Discard on every output; generation is cancellable.
-- AI output is never injected into the user's focus path without warning.
-- Suggestions are bypassable — they must never gate task completion.
+* Accept / Regenerate / Discard on every output; generation is cancellable.
+
+* AI output is never injected into the user's focus path without warning.
+
+* Suggestions are bypassable — they must never gate task completion.
 
 ## Don't
 
-- Don't use the steward pattern in Administration (no AI surface there today).
-- Don't restyle static components in "AI purple" to imply intelligence.
-- Don't stream into a surface the user is actively editing.
+* Don't use the steward pattern in Administration (no AI surface there today).
+
+* Don't restyle static components in "AI purple" to imply intelligence.
+
+* Don't stream into a surface the user is actively editing.

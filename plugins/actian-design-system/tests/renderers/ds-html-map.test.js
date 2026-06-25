@@ -148,6 +148,58 @@ describe("ds-html-map: button", function () {
     );
   });
 
+  // Intent×Emphasis taxonomy (knowledge v0.34.x). The transform-to-hifi feeder
+  // and DS-native authoring emit these axes; the legacy Type= tests above gate
+  // the back-compat fallback.
+  it("Intent=Default, Emphasis=Filled → ds-button--primary", function () {
+    var html = render({
+      dsSlug: "button",
+      variant: "Intent=Default, Emphasis=Filled",
+      props: { Label: "Save" },
+    });
+    assert.ok(html.indexOf("ds-button--primary") !== -1);
+  });
+
+  it("Intent=Default, Emphasis=Outlined → ds-button--secondary", function () {
+    var html = render({
+      dsSlug: "button",
+      variant: "Intent=Default, Emphasis=Outlined",
+      props: { Label: "Cancel" },
+    });
+    assert.ok(html.indexOf("ds-button--secondary") !== -1);
+  });
+
+  it("Intent=Default, Emphasis=Ghost → ds-button--tertiary", function () {
+    var html = render({
+      dsSlug: "button",
+      variant: "Intent=Default, Emphasis=Ghost",
+      props: { Label: "Skip" },
+    });
+    assert.ok(html.indexOf("ds-button--tertiary") !== -1);
+  });
+
+  it("Intent=Critical, Emphasis=Filled → critical (NOT primary)", function () {
+    var html = render({
+      dsSlug: "button",
+      variant: "Intent=Critical, Emphasis=Filled",
+      props: { Label: "Delete" },
+    });
+    assert.ok(html.indexOf("ds-button--critical") !== -1, "has critical");
+    assert.ok(
+      html.indexOf("ds-button--primary") === -1,
+      "does NOT render as primary",
+    );
+  });
+
+  it("Intent=Critical, Emphasis=Outlined → ds-button--critical-secondary", function () {
+    var html = render({
+      dsSlug: "button",
+      variant: "Intent=Critical, Emphasis=Outlined",
+      props: { Label: "Remove" },
+    });
+    assert.ok(html.indexOf("ds-button--critical-secondary") !== -1);
+  });
+
   it("Disabled: contains is-disabled class AND the disabled attribute", function () {
     var html = render({
       dsSlug: "button",

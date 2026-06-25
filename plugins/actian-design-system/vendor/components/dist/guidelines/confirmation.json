@@ -22,7 +22,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Confirmation\n\nConfirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone.\n\n---\n\n## When to use\n\nBefore irreversible or destructive actions (delete, remove, reset).\n\n## Style\n\n- Title: name the action, not the outcome.\n\n| Do | Don't |\n|---|---|\n| Delete connection | This is permanent |\n{: .do-dont-table}\n\n- Body: one sentence stating what will happen and whether it can be undone.\n- Primary CTA: matches the title verb. For example, **Delete**.\n- Secondary CTA: **Cancel**.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Delete connection / This will remove the connection and cannot be undone. / Delete \\| Cancel | Warning! Are you sure? This action is permanent. / Yes \\| No |\n{: .do-dont-table}",
+      "markdown": "# Confirmation\n\nConfirmation dialogs interrupt the user before an irreversible or destructive action to verify intent. Use them only for actions that cannot be undone.\n\n***\n\n## When to use\n\nBefore irreversible or destructive actions (delete, remove, reset).\n\n## Style\n\n* Title: name the action, not the outcome.\n\n| Do                | Don't             |\n| ----------------- | ----------------- |\n| Delete connection | This is permanent |\n\n* Body: one sentence stating what will happen and whether it can be undone.\n\n* Primary CTA: matches the title verb. For example, **Delete**.\n\n* Secondary CTA: **Cancel**.\n\n## Do / Don't\n\n| Do                                                                                           | Don't                                                        |\n| -------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |\n| Delete connection / This will remove the connection and cannot be undone. / Delete \\| Cancel | Warning! Are you sure? This action is permanent. / Yes \\| No |",
       "sections": [
         {
           "heading": "",
@@ -85,5 +85,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }

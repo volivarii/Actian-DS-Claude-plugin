@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://actian-ds.example.com/schemas/app-context.json",
   "title": "App context — Actian product surface area",
-  "description": "Schema for app-context/app-context.json — the hand-maintained catalogue of Actian apps (Studio, Explorer, Administration), the entities they expose, the canonical product terminology, and the cross-app UX patterns. Consumed by flow generators, content guardrails, and the Knowledge Editor's secondary tier (form-driven editing). The optional `_regen` block records provenance (D4 from R6).",
+  "description": "Schema for the app-context domain — validates the CI-derived consolidated output `app-context/dist/app-context.json`.",
   "type": "object",
   "required": [
     "_schema_version",
@@ -16,6 +16,37 @@
     "_schema_version": {
       "const": 1,
       "description": "Substrate schema version. Pinned at 1; bump only on a schema-incompatible change to the file shape."
+    },
+    "_meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Provenance stamp on the CI-derived consolidated file. Present only on the derived dist output; absent on hand-authored src files.",
+      "examples": [
+        {
+          "auto_generated": true,
+          "source": "scripts/app-context/derive-app-context.js",
+          "do_not_edit": "Edit the app-context/src/ files; CI regenerates this file."
+        }
+      ],
+      "properties": {
+        "auto_generated": {
+          "type": "boolean",
+          "description": "True when this file was produced by the derive script rather than hand-authored.",
+          "examples": [true]
+        },
+        "source": {
+          "type": "string",
+          "description": "Relative path (from repo root) of the script that generated this file.",
+          "examples": ["scripts/app-context/derive-app-context.js"]
+        },
+        "do_not_edit": {
+          "type": "string",
+          "description": "Guidance string signalling that manual edits will be overwritten on next derive run; edit the src files instead.",
+          "examples": [
+            "Edit the app-context/src/ files; CI regenerates this file."
+          ]
+        }
+      }
     },
     "_regen": {
       "$ref": "#/$defs/regenBlock",

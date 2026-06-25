@@ -35,43 +35,43 @@
           "Token": "--zen-font-lineheight-xs",
           "Value": "14px / 0.875rem",
           "Usage": "Font size 11px or smaller",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-font-lineheight-sm",
           "Value": "16px / 1rem",
           "Usage": "Font size 12px",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-font-lineheight-md",
           "Value": "20px / 1.25rem",
           "Usage": "Font size 14px",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-font-lineheight-lg",
           "Value": "24px / 1.5rem",
           "Usage": "Font size 16px",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-font-lineheight-xl",
           "Value": "26px / 1.625rem",
           "Usage": "Font size 18px",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         },
         {
           "Token": "--zen-font-lineheight-2xl",
           "Value": "32px / 2rem",
           "Usage": "Font size 24px",
-          "status_note": "In Review",
-          "status": "in-review"
+          "status_note": "Shipped",
+          "status": "shipped"
         }
       ]
     }

@@ -15,16 +15,17 @@
     "fmButton": {
       "dsSlug": "button",
       "defaultVariant": {
-        "Type": "Primary",
+        "Intent": "Default",
+        "Emphasis": "Filled",
         "Size": "Default",
         "State": "Default"
       },
       "variantMap": {
         "Type": {
-          "Primary": "Primary",
-          "Secondary": "Secondary",
-          "Outline": "Tertiary",
-          "Destructive": "Critical primary"
+          "Primary": "Filled",
+          "Secondary": "Outlined",
+          "Outline": "Ghost",
+          "Destructive": "Critical"
         },
         "Size": {
           "md": "Default",
@@ -37,10 +38,12 @@
       },
       "intentVariants": {
         "destructive-action": {
-          "Type": "Critical primary"
+          "Intent": "Critical",
+          "Emphasis": "Filled"
         },
         "error-state": {
-          "Type": "Critical secondary"
+          "Intent": "Critical",
+          "Emphasis": "Outlined"
         },
         "success-confirmation": null,
         "default": null
@@ -58,15 +61,16 @@
     "fmIconButtons": {
       "dsSlug": "button",
       "defaultVariant": {
-        "Type": "Icon",
+        "Intent": "Default",
+        "Emphasis": "Icon-only",
         "Size": "Default",
         "State": "Default"
       },
       "variantMap": {
         "Type": {
-          "Primary": "Icon",
-          "Secondary": "Icon",
-          "Outline": "Icon"
+          "Primary": "Icon-only",
+          "Secondary": "Icon-only",
+          "Outline": "Icon-only"
         },
         "State": {
           "Default": "Default",
@@ -75,10 +79,12 @@
       },
       "intentVariants": {
         "destructive-action": {
-          "Type": "Critical primary"
+          "Intent": "Critical",
+          "Emphasis": "Icon-only"
         },
         "error-state": {
-          "Type": "Critical secondary"
+          "Intent": "Critical",
+          "Emphasis": "Icon-only"
         },
         "success-confirmation": null,
         "default": null
@@ -86,7 +92,7 @@
       "propertyMap": {
         "Icon": "Leading icon"
       },
-      "notes": "FM icon buttons collapse all types into DS Icon type; FM Type is dropped",
+      "notes": "FM icon buttons collapse all types into DS Emphasis=Icon-only; FM Type is dropped",
       "dsKey": "5a6d10d26bef3cc83955bf32a318c6b4682f25d3"
     },
     "fmTextInput": {

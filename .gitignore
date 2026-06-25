@@ -71,3 +71,6 @@ comms/
 # Demo flow rendered deliverables (regenerable; embed ~340kb fonts)
 demo-flows/*.html
 demo-flows/*.flow.json
+
+# GSD planning artifacts (codebase maps, phase plans) — never tracked
+.planning/

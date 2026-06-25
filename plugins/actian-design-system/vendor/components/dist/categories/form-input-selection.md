@@ -10,7 +10,6 @@ confidence:
   motion: high
   a11y: high
 last_reviewed: 2026-05-12
-
 anatomy:
   - { name: Label, description: caller-supplied text bound to the control via for/aria-labelledby }
   - { name: Required indicator, description: visible asterisk; aria-required carries the semantics }
@@ -18,16 +17,13 @@ anatomy:
   - { name: Helper text, description: optional persistent guidance below the control }
   - { name: Validation message, description: error/warning/success; replaces helper text when active }
   - { name: Leading icon (optional), description: decorative or semantic hint inside the control }
-  - { name: Trailing icon (optional), description: often interactive — clear, reveal, dropdown caret }
-
+  - { name: Trailing icon (optional), description: "often interactive — clear, reveal, dropdown caret" }
 variants:
-  - { axis: State, values: [default, focus, error, disabled, read-only] }
-  - { axis: Size, values: [small, medium, large] }
-  - { axis: Label position, values: [top, inline] }
-
+  - { axis: State, values: [ default, focus, error, disabled, read-only ] }
+  - { axis: Size, values: [ small, medium, large ] }
+  - { axis: Label position, values: [ top, inline ] }
 motion_refs:
   - { ref: state-transitions, note: focus-ring fade-in on focus; opacity transition on disabled }
-
 a11y_refs:
   - { ref: forms, note: every control needs a programmatically-associated label + accessible error message }
   - { ref: states }
@@ -35,9 +31,8 @@ a11y_refs:
   - { ref: focus-keyboard }
   - { ref: color-contrast }
   - { ref: aria-labels }
-
 foundations_refs:
-  - { ref: tokens, note: spacing, radius, and focus-ring tokens }
+  - { ref: tokens, note: "spacing, radius, and focus-ring tokens" }
   - { ref: design-guidelines }
 ---
 
@@ -47,9 +42,11 @@ Components in this category share input/selection patterns. Members: `calendar`,
 
 ## Reference patterns
 
-- **Polaris** — TextField, Select, Choice (Checkbox/RadioButton)
-- **Material** — Text Field, Selection Controls (Checkbox/Radio/Switch)
-- **Carbon** — Form, Text Input, Dropdown, Checkbox, Radio Button
+* **Polaris** — TextField, Select, Choice (Checkbox/RadioButton)
+
+* **Material** — Text Field, Selection Controls (Checkbox/Radio/Switch)
+
+* **Carbon** — Form, Text Input, Dropdown, Checkbox, Radio Button
 
 ## Why these defaults
 
@@ -57,7 +54,10 @@ Inputs and selections converge on Label → Control → Helper → Validation as
 
 ## Notes for refining authors
 
-- Specific components may add `Clear button` (search, input with reveal) or `Toggle thumb` (toggle) to the anatomy.
-- `Label position` axis is optional — only relevant when the component supports inline labels.
-- Motion is minimal by design — form interactions should feel instantaneous.
-- For `search` + `search-filters`, the `aria-labels` ref should be tightened to live-region announcement of result counts.
+* Specific components may add `Clear button` (search, input with reveal) or `Toggle thumb` (toggle) to the anatomy.
+
+* `Label position` axis is optional — only relevant when the component supports inline labels.
+
+* Motion is minimal by design — form interactions should feel instantaneous.
+
+* For `search` + `search-filters`, the `aria-labels` ref should be tightened to live-region announcement of result counts.

@@ -39,14 +39,14 @@
         {
           "Token": "--zen-spacing-2xs",
           "Value": "`0.25rem` (4px)",
-          "Usage": "Between elements within a small component",
+          "Usage": "Between elements within a small component & default paddings within an extra compact component",
           "status_note": "Shipped",
           "status": "shipped"
         },
         {
           "Token": "--zen-spacing-xs",
           "Value": "`0.5rem` (8px)",
-          "Usage": "Default spacing between components",
+          "Usage": "Default spacing between components & default paddings within a small component",
           "status_note": "Shipped",
           "status": "shipped"
         },

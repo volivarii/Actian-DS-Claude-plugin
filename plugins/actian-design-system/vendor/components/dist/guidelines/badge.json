@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Badges\n\nBadges indicate a count or a status qualifier on an item — for example, unread notifications or a new-item label.\n\n---\n\n## When to use\n\n- To show a numeric count on an item (for example, unread notifications).\n- To apply a status qualifier that does not fit inline as a tag.\n\n## Style\n\n- Badge labels are single words or short abbreviations.\n- Use standard status vocabulary: New, Updated, Draft, Published, Deprecated.",
+      "markdown": "# Badges\n\nBadges indicate a count or a status qualifier on an item — for example, unread notifications or a new-item label.\n\n***\n\n## When to use\n\n* To show a numeric count on an item (for example, unread notifications).\n\n* To apply a status qualifier that does not fit inline as a tag.\n\n## Style\n\n* Badge labels are single words or short abbreviations.\n\n* Use standard status vocabulary: New, Updated, Draft, Published, Deprecated.",
       "sections": [
         {
           "heading": "",
@@ -92,5 +92,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00"
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }

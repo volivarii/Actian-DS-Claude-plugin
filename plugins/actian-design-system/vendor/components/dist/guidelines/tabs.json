@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Tabs\n\nTabs switch between related views on the same page without full navigation.\n\n---\n\n## When to use\n\n- To switch between related views on the same page without full navigation.\n\n## Style\n\n- Tab labels are short nouns or noun phrases. For example, **Overview**, **Lineage**, **Settings**.\n- Use sentence case.\n- Avoid verbs in tab labels.",
+      "markdown": "# Tabs\n\nTabs switch between related views on the same page without full navigation.\n\n***\n\n## When to use\n\n* To switch between related views on the same page without full navigation.\n\n## Style\n\n* Tab labels are short nouns or noun phrases. For example, **Overview**, **Lineage**, **Settings**.\n\n* Use sentence case.\n\n* Avoid verbs in tab labels.",
       "sections": [
         {
           "heading": "",
@@ -128,5 +128,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00"
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }

@@ -1,0 +1,19 @@
+{
+  "_meta": {
+    "auto_generated": true
+  },
+  "degraded": [
+    {
+      "slug": "cursor-arrow",
+      "reason": "gradient-or-image-fill"
+    },
+    {
+      "slug": "cursor-hand",
+      "reason": "gradient-or-image-fill"
+    },
+    {
+      "slug": "lifecycle-policy",
+      "reason": "gradient-or-image-fill"
+    }
+  ]
+}

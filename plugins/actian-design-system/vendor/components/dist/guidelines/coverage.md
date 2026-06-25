@@ -15,43 +15,50 @@
 | Confirmation | approved | not started | inherited | inherited | not started |
 | Drawer, side panel | approved | not started | inherited | inherited | not started |
 | Dropdown / Select | approved | not started | inherited | inherited | not started |
-| Empty state | synthesized | — | — | — | — |
-| Error state | synthesized | — | — | — | — |
+| Empty state | approved | not started | inherited | inherited | not started |
+| Error state | approved | not started | inherited | inherited | not started |
 | Filters | approved | not started | inherited | inherited | not started |
 | Global header | approved | not started | inherited | inherited | approved |
+| Global toast | approved | not started | inherited | inherited | not started |
 | Inline toast | approved | not started | inherited | inherited | not started |
 | Input, date | synthesized | — | — | — | — |
 | Links | approved | not started | inherited | inherited | not started |
-| Loader | synthesized | — | — | — | — |
-| Loader with logo | synthesized | — | — | — | — |
-| Loading skeleton | synthesized | — | — | — | — |
-| Maintenance state | synthesized | — | — | — | — |
+| Loader | approved | not started | inherited | inherited | not started |
+| Loader with logo | approved | not started | inherited | inherited | not started |
+| Loading skeleton | approved | not started | inherited | inherited | not started |
+| Maintenance state | approved | not started | inherited | inherited | not started |
 | Modal | approved | not started | inherited | inherited | not started |
 | Multi-select | approved | not started | inherited | inherited | not started |
+| Notification | approved | not started | inherited | inherited | not started |
+| Notification dropdown | approved | not started | inherited | inherited | not started |
 | Page header | not started | not started | not started | not started | approved |
 | Popover | approved | not started | inherited | inherited | not started |
+| Progress bar | approved | not started | inherited | inherited | not started |
 | Radio button | synthesized | — | — | — | — |
 | Search | approved | not started | inherited | inherited | approved |
 | Side nav | approved | not started | inherited | inherited | approved |
-| Spinner | synthesized | — | — | — | — |
+| Spinner | approved | not started | inherited | inherited | not started |
 | Stepper | approved | not started | inherited | inherited | not started |
 | Sticky footer | approved | not started | inherited | inherited | not started |
+| Success state | approved | not started | inherited | inherited | not started |
 | Table | approved | not started | inherited | inherited | not started |
 | Tabs | approved | not started | inherited | inherited | approved |
 | Tags | approved | not started | inherited | inherited | approved |
 | Text input | approved | not started | draft | inherited | approved |
 | Toggle control | approved | not started | inherited | inherited | not started |
+| Tooltip | approved | not started | inherited | inherited | not started |
+| Upload file | approved | not started | inherited | inherited | not started |
 | What's new | approved | not started | inherited | inherited | not started |
 
 ## Summary
 
 | Domain | Approved | Draft | Inherited | Not started | Absent |
 |---|---|---|---|---|---|
-| content | 27 | 1 | 0 | 1 | 0 |
-| usage | 0 | 1 | 0 | 28 | 9 |
-| design | 0 | 3 | 25 | 1 | 9 |
-| behavior | 0 | 1 | 26 | 2 | 9 |
-| tokens | 12 | 0 | 0 | 17 | 9 |
+| content | 41 | 1 | 0 | 1 | 0 |
+| usage | 0 | 1 | 0 | 42 | 2 |
+| design | 0 | 3 | 39 | 1 | 2 |
+| behavior | 0 | 1 | 40 | 2 | 2 |
+| tokens | 12 | 0 | 0 | 31 | 2 |
 
 ## Registry aliases
 
@@ -62,7 +69,6 @@
 | checkbox-with-label | checkbox |
 | dropdown-select-default | dropdown-select |
 | input | text-input |
-| notification | inline-toast |
 | search-filters | filters |
 | tag-default | tag |
 | toggle | toggle-control |

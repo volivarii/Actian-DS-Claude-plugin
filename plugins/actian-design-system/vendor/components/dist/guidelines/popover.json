@@ -22,7 +22,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Popover\n\nPopovers display richer contextual content than a tooltip. They appear on click and can contain formatted text, links, and actions. Use them when the information is too long or interactive for a tooltip.\n\n---\n\n## When to use\n\n- To explain a concept or term inline, without leaving the current page.\n- To show a small set of related actions in a compact overlay (also called an action popover).\n- To provide definitions or help text for complex fields.\n- Do not use popovers for critical error messages - use inline alerts or validation messages.\n\n## Style\n\n- Popover title: short noun phrase in sentence case. Optional but recommended for longer content.\n- Body: plain prose, two to four sentences maximum.\n- Avoid bullet lists inside popovers - keep content scannable through short sentences.\n- Link text within a popover follows the same descriptive link text guidelines as inline links.\n\n## Behavior\n\n- Opens on click, closes on click outside or Escape.\n- Do not open popovers on hover - use tooltips for hover-triggered content.\n- Trap focus inside the popover while it is open for accessibility.",
+      "markdown": "# Popover\n\nPopovers display richer contextual content than a tooltip. They appear on click and can contain formatted text, links, and actions. Use them when the information is too long or interactive for a tooltip.\n\n***\n\n## When to use\n\n* To explain a concept or term inline, without leaving the current page.\n\n* To show a small set of related actions in a compact overlay (also called an action popover).\n\n* To provide definitions or help text for complex fields.\n\n* Do not use popovers for critical error messages - use inline alerts or validation messages.\n\n## Style\n\n* Popover title: short noun phrase in sentence case. Optional but recommended for longer content.\n\n* Body: plain prose, two to four sentences maximum.\n\n* Avoid bullet lists inside popovers - keep content scannable through short sentences.\n\n* Link text within a popover follows the same descriptive link text guidelines as inline links.\n\n## Behavior\n\n* Opens on click, closes on click outside or Escape.\n\n* Do not open popovers on hover - use tooltips for hover-triggered content.\n\n* Trap focus inside the popover while it is open for accessibility.",
       "sections": [
         {
           "heading": "",
@@ -142,5 +142,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }

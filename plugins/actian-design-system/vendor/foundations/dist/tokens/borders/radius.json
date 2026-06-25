@@ -34,14 +34,14 @@
         {
           "Token": "--zen-border-radius-2xs",
           "Value": "2px",
-          "Usage": "",
+          "Usage": "—",
           "status_note": "Shipped",
           "status": "shipped"
         },
         {
           "Token": "--zen-border-radius-xs",
           "Value": "4px",
-          "Usage": "",
+          "Usage": "—",
           "status_note": "Shipped",
           "status": "shipped"
         },
@@ -55,21 +55,21 @@
         {
           "Token": "--zen-border-radius-md",
           "Value": "8px",
-          "Usage": "",
+          "Usage": "—",
           "status_note": "Shipped",
           "status": "shipped"
         },
         {
           "Token": "--zen-border-radius-lg",
           "Value": "10px",
-          "Usage": "",
+          "Usage": "—",
           "status_note": "Shipped",
           "status": "shipped"
         },
         {
           "Token": "--zen-border-radius-xl",
           "Value": "12px",
-          "Usage": "",
+          "Usage": "—",
           "status_note": "Shipped",
           "status": "shipped"
         },

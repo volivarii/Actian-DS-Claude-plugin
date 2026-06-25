@@ -1,5 +1,5 @@
 {
-  "_schema_version": 1,
+  "_schema_version": 2,
   "_meta": {
     "auto_generated": true,
     "generator": "scripts/graph/derive-graph.js",
@@ -3904,588 +3904,876 @@
       "source": "category:action",
       "target": "a11y:alerts-toasts-banners",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/action.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "loading + disabled states must be announced; do not rely on color alone"
     },
     {
       "source": "category:action",
       "target": "a11y:aria-labels",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/action.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:action",
       "target": "a11y:color-contrast",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/action.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:action",
       "target": "a11y:focus-keyboard",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/action.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "must be operable with Enter and Space (button) or Enter (link)"
     },
     {
       "source": "category:data-display",
       "target": "a11y:aria-labels",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "tables use thead/tbody/scope; charts expose data tables for screen readers"
     },
     {
       "source": "category:data-display",
       "target": "a11y:color-contrast",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "status colors must have a non-color cue (icon, label, pattern)"
     },
     {
       "source": "category:data-display",
       "target": "a11y:data-tables",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "tables and graphs must reflow or scroll horizontally; never clip"
     },
     {
       "source": "category:data-display",
       "target": "a11y:focus-keyboard",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:data-display",
       "target": "a11y:typography",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:feedback",
       "target": "a11y:alerts-toasts-banners",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "error severity must be conveyed by text + icon, not color alone"
     },
     {
       "source": "category:feedback",
       "target": "a11y:aria-labels",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "transient messages use role=status (polite) or role=alert (assertive) per severity"
     },
     {
       "source": "category:feedback",
       "target": "a11y:color-contrast",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:feedback",
       "target": "a11y:focus-keyboard",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "focus must not be stolen by toasts; persistent alerts may receive focus when actionable"
     },
     {
       "source": "category:feedback",
       "target": "a11y:motion",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "respect prefers-reduced-motion — disable entrance pulse + slide"
     },
     {
       "source": "category:form-input-selection",
       "target": "a11y:alerts-toasts-banners",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/form-input-selection.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:form-input-selection",
       "target": "a11y:aria-labels",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/form-input-selection.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:form-input-selection",
       "target": "a11y:color-contrast",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/form-input-selection.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:form-input-selection",
       "target": "a11y:focus-keyboard",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/form-input-selection.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:form-input-selection",
       "target": "a11y:forms",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/form-input-selection.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "every control needs a programmatically-associated label + accessible error message"
     },
     {
       "source": "category:form-input-selection",
       "target": "a11y:states",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/form-input-selection.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:navigation",
       "target": "a11y:alerts-toasts-banners",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/navigation.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:navigation",
       "target": "a11y:aria-labels",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/navigation.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "use aria-current=page on the active item; nav landmark on the container"
     },
     {
       "source": "category:navigation",
       "target": "a11y:color-contrast",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/navigation.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:navigation",
       "target": "a11y:focus-keyboard",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/navigation.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "arrow-key traversal between items; Tab moves to/from the navigation region"
     },
     {
       "source": "category:overlays",
       "target": "a11y:aria-labels",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/overlays.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "dialogs use role=dialog + aria-modal=true + labelled by header; tooltips use role=tooltip + aria-describedby"
     },
     {
       "source": "category:overlays",
       "target": "a11y:color-contrast",
-      "type": "a11y_ref"
+      "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/overlays.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      }
     },
     {
       "source": "category:overlays",
       "target": "a11y:focus-keyboard",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/overlays.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "focus moves into the overlay on open, trapped while modal-blocking, returns to trigger on close; Escape closes dismissible overlays, outside-click closes popovers but not modals"
     },
     {
       "source": "category:overlays",
       "target": "a11y:motion",
       "type": "a11y_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/overlays.md",
+        "deriver": "derive-graph.js",
+        "method": "a11y_refs.requirementRefs"
+      },
       "note": "respect prefers-reduced-motion — disable scale + slide, keep fade"
     },
     {
-      "source": "foundation:color-primitives",
-      "target": "foundation:color-primitives/oklch-shade-formula",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives",
-      "target": "foundation:color-primitives/primitives",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/blue",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/blue-grey",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/clematis-purple",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/cool-grey",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/dropped-brick-red",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/frosted-glass-green",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/glint-green",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/green",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/grey",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/kickstart-purple",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/mellow-melon-pink",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/olive-green",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/orange",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/pacific-blue",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/pomegranate-red",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/purple",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/red",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/royal-blue",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/shutters-green",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/singapore-orchid-purple",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/turquoise",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/viva-gold-orange",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/white-black",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/yellow",
-      "type": "child"
-    },
-    {
-      "source": "foundation:color-primitives/primitives",
-      "target": "foundation:color-primitives/primitives/zima-blue",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines",
-      "target": "foundation:design-guidelines/border-usage",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines",
-      "target": "foundation:design-guidelines/breakpoints",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines",
-      "target": "foundation:design-guidelines/brightness-filter-convention-interactive-states",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines",
-      "target": "foundation:design-guidelines/color-usage-rules",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines",
-      "target": "foundation:design-guidelines/elevation-rules",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines",
-      "target": "foundation:design-guidelines/focus-ring-rules",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines",
-      "target": "foundation:design-guidelines/placeholder-text",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines",
-      "target": "foundation:design-guidelines/spacing-rules",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines",
-      "target": "foundation:design-guidelines/typography-rules",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/breakpoints",
-      "target": "foundation:design-guidelines/breakpoints/columns-gutters-and-margins",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/breakpoints",
-      "target": "foundation:design-guidelines/breakpoints/grid-settings",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/brightness-filter-convention-interactive-states",
-      "target": "foundation:design-guidelines/brightness-filter-convention-interactive-states/implementation",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/brightness-filter-convention-interactive-states",
-      "target": "foundation:design-guidelines/brightness-filter-convention-interactive-states/types-of-states",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/typography-rules",
-      "target": "foundation:design-guidelines/typography-rules/accessibility",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/typography-rules",
-      "target": "foundation:design-guidelines/typography-rules/language-support",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/typography-rules",
-      "target": "foundation:design-guidelines/typography-rules/line-length",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/typography-rules",
-      "target": "foundation:design-guidelines/typography-rules/minimum-size",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/typography-rules",
-      "target": "foundation:design-guidelines/typography-rules/paragraph-spacing",
-      "type": "child"
-    },
-    {
-      "source": "foundation:design-guidelines/typography-rules",
-      "target": "foundation:design-guidelines/typography-rules/typeface",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/backgrounds",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/borders",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/breakpoints",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/elevation",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/focus-rings",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/global-color",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/heights-and-trigger-areas",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/icons",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/motion",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/spacing",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens",
-      "target": "foundation:tokens/typography",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/borders",
-      "target": "foundation:tokens/borders/radius",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/borders",
-      "target": "foundation:tokens/borders/style-composite",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/borders",
-      "target": "foundation:tokens/borders/width",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/heights-and-trigger-areas",
-      "target": "foundation:tokens/heights-and-trigger-areas/component-heights",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/heights-and-trigger-areas",
-      "target": "foundation:tokens/heights-and-trigger-areas/trigger-area",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/icons",
-      "target": "foundation:tokens/icons/icon-colors",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/icons",
-      "target": "foundation:tokens/icons/icon-sizes",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/typography",
-      "target": "foundation:tokens/typography/font-family",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/typography",
-      "target": "foundation:tokens/typography/font-size",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/typography",
-      "target": "foundation:tokens/typography/font-weight",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/typography",
-      "target": "foundation:tokens/typography/letter-spacing",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/typography",
-      "target": "foundation:tokens/typography/line-height",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/typography",
-      "target": "foundation:tokens/typography/text-color-tokens",
-      "type": "child"
-    },
-    {
-      "source": "foundation:tokens/typography",
-      "target": "foundation:tokens/typography/text-style-tokens-composite",
-      "type": "child"
+      "source": "component:alert-banner",
+      "target": "a11y:alerts-toasts-banners",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/alert-banner/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:badge",
+      "target": "a11y:icons",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/badge/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:breadcrumbs",
+      "target": "a11y:navigation",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/breadcrumbs/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:button",
+      "target": "a11y:buttons",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/button/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:chat-with-ai-steward",
+      "target": "a11y:ai-output-suggestions",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/chat-with-ai-steward/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:checkbox-with-label",
+      "target": "a11y:forms",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/checkbox/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:confirmation",
+      "target": "a11y:alerts-toasts-banners",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/confirmation/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:confirmation",
+      "target": "a11y:modals",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/confirmation/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:drawer-side-panel",
+      "target": "a11y:modals",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/drawer-side-panel/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      },
+      "note": "non-modal variant does not trap focus"
+    },
+    {
+      "source": "component:dropdown-select-default",
+      "target": "a11y:dropdowns-menus-popovers",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/dropdown-select/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:dropdown-select-default",
+      "target": "a11y:forms",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/dropdown-select/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:global-header",
+      "target": "a11y:navigation",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/global-header/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:input",
+      "target": "a11y:forms",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/text-input/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:modal",
+      "target": "a11y:modals",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/modal/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:popover",
+      "target": "a11y:dropdowns-menus-popovers",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/popover/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:popover",
+      "target": "a11y:tooltips",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/popover/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:search",
+      "target": "a11y:forms",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/search/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:search-filters",
+      "target": "a11y:forms",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/filters/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:side-nav",
+      "target": "a11y:navigation",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/side-nav/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:stepper",
+      "target": "a11y:navigation",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/stepper/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:sticky-footer",
+      "target": "a11y:buttons",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/sticky-footer/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:table",
+      "target": "a11y:data-tables",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/table/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:table",
+      "target": "a11y:truncation-overflow",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/table/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:tabs",
+      "target": "a11y:tabs",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tabs/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:tag",
+      "target": "a11y:truncation-overflow",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:tag-default",
+      "target": "a11y:truncation-overflow",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/tag/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:toggle",
+      "target": "a11y:forms",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/toggle-control/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:whats-new-dropdown",
+      "target": "a11y:dropdowns-menus-popovers",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/whats-new/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
+    },
+    {
+      "source": "component:whats-new-dropdown",
+      "target": "a11y:navigation",
+      "type": "a11y_ref",
+      "scope": "component",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/whats-new/",
+        "deriver": "derive-graph.js",
+        "method": "meta.a11y_refs"
+      }
     },
     {
       "source": "category:action",
       "target": "foundation:design-guidelines",
-      "type": "foundations_ref"
+      "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/action.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      }
     },
     {
       "source": "category:action",
       "target": "foundation:tokens",
       "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/action.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      },
       "note": "spacing, radius, and focus-ring tokens for interactive surfaces"
     },
     {
       "source": "category:data-display",
       "target": "foundation:color-primitives",
       "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      },
       "note": "status and data-category colors"
     },
     {
       "source": "category:data-display",
       "target": "foundation:design-guidelines",
-      "type": "foundations_ref"
+      "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      }
     },
     {
       "source": "category:data-display",
       "target": "foundation:tokens",
       "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      },
       "note": "spacing, elevation, and radius tokens"
     },
     {
       "source": "category:feedback",
       "target": "foundation:color-primitives",
       "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      },
       "note": "severity/status colors must not rely on hue alone"
     },
     {
       "source": "category:feedback",
       "target": "foundation:design-guidelines",
-      "type": "foundations_ref"
+      "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      }
     },
     {
       "source": "category:feedback",
       "target": "foundation:tokens",
       "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      },
       "note": "spacing and motion-timing tokens"
     },
     {
       "source": "category:form-input-selection",
       "target": "foundation:design-guidelines",
-      "type": "foundations_ref"
+      "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/form-input-selection.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      }
     },
     {
       "source": "category:form-input-selection",
       "target": "foundation:tokens",
       "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/form-input-selection.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      },
       "note": "spacing, radius, and focus-ring tokens"
     },
     {
       "source": "category:navigation",
       "target": "foundation:design-guidelines",
-      "type": "foundations_ref"
+      "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/navigation.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      }
     },
     {
       "source": "category:navigation",
       "target": "foundation:tokens",
       "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/navigation.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      },
       "note": "spacing and elevation tokens"
     },
     {
       "source": "category:overlays",
       "target": "foundation:design-guidelines",
-      "type": "foundations_ref"
+      "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/overlays.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      }
     },
     {
       "source": "category:overlays",
       "target": "foundation:tokens",
       "type": "foundations_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/overlays.md",
+        "deriver": "derive-graph.js",
+        "method": "foundations_refs.sectionRefs"
+      },
       "note": "elevation, radius, and spacing tokens"
     },
     {
@@ -6087,79 +6375,525 @@
       "source": "category:action",
       "target": "motion:state-transitions",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/action.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "hover/focus/active transitions stay within the 100-200ms band"
     },
     {
       "source": "category:data-display",
       "target": "motion:accordion-expand-collapse",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "collapsible cards/sections expand at the accordion pace"
     },
     {
       "source": "category:data-display",
       "target": "motion:skeleton-loading",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "rows/cards reveal with skeleton placeholders during load"
     },
     {
       "source": "category:data-display",
       "target": "motion:staggered-entrance",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/data-display.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "lists, tables, search-result-cards enter with staggered fades"
     },
     {
       "source": "category:feedback",
       "target": "motion:skeleton-loading",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "loader-with-logo + loading-skeleton inherit the skeleton pulse cadence"
     },
     {
       "source": "category:feedback",
       "target": "motion:state-transitions",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "severity transitions (e.g. error → success) cross-fade rather than swap"
     },
     {
       "source": "category:feedback",
       "target": "motion:success-toast",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/feedback.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "transient feedback follows the toast enter/exit timing curve"
     },
     {
       "source": "category:form-input-selection",
       "target": "motion:state-transitions",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/form-input-selection.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "focus-ring fade-in on focus; opacity transition on disabled"
     },
     {
       "source": "category:navigation",
       "target": "motion:anchor-motion",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/navigation.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "dropdown triggers (account-dropdown, notification-dropdown, etc.) anchor to their button"
     },
     {
       "source": "category:navigation",
       "target": "motion:state-transitions",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/navigation.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "hover/focus transitions on items stay subtle — no large translation"
     },
     {
       "source": "category:overlays",
       "target": "motion:anchor-motion",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/overlays.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "popover/tooltip anchor open at the trigger with origin transform"
     },
     {
       "source": "category:overlays",
       "target": "motion:drawer-open-close",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/overlays.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "drawer-side-panel slides on axis with easing per the drawer pattern"
     },
     {
       "source": "category:overlays",
       "target": "motion:layered-overlays-modals",
       "type": "motion_ref",
+      "scope": "category",
+      "confidence": "asserted",
+      "provenance": {
+        "source_file": "components/src/categories/overlays.md",
+        "deriver": "derive-graph.js",
+        "method": "motion_refs.patternRefs"
+      },
       "note": "modals fade + scale; scrim cross-fades"
+    },
+    {
+      "source": "foundation:color-primitives",
+      "target": "foundation:color-primitives/oklch-shade-formula",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives",
+      "target": "foundation:color-primitives/primitives",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/blue",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/blue-grey",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/clematis-purple",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/cool-grey",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/dropped-brick-red",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/frosted-glass-green",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/glint-green",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/green",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/grey",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/kickstart-purple",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/mellow-melon-pink",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/olive-green",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/orange",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/pacific-blue",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/pomegranate-red",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/purple",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/red",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/royal-blue",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/shutters-green",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/singapore-orchid-purple",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/turquoise",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/viva-gold-orange",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/white-black",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/yellow",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:color-primitives/primitives",
+      "target": "foundation:color-primitives/primitives/zima-blue",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/border-usage",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/breakpoints",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/brightness-filter-convention-interactive-states",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/color-usage-rules",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/elevation-rules",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/focus-ring-rules",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/placeholder-text",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/spacing-rules",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines",
+      "target": "foundation:design-guidelines/typography-rules",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/breakpoints",
+      "target": "foundation:design-guidelines/breakpoints/columns-gutters-and-margins",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/breakpoints",
+      "target": "foundation:design-guidelines/breakpoints/grid-settings",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/brightness-filter-convention-interactive-states",
+      "target": "foundation:design-guidelines/brightness-filter-convention-interactive-states/implementation",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/brightness-filter-convention-interactive-states",
+      "target": "foundation:design-guidelines/brightness-filter-convention-interactive-states/types-of-states",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/typography-rules",
+      "target": "foundation:design-guidelines/typography-rules/accessibility",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/typography-rules",
+      "target": "foundation:design-guidelines/typography-rules/language-support",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/typography-rules",
+      "target": "foundation:design-guidelines/typography-rules/line-length",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/typography-rules",
+      "target": "foundation:design-guidelines/typography-rules/minimum-size",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/typography-rules",
+      "target": "foundation:design-guidelines/typography-rules/paragraph-spacing",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:design-guidelines/typography-rules",
+      "target": "foundation:design-guidelines/typography-rules/typeface",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/backgrounds",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/borders",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/breakpoints",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/elevation",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/focus-rings",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/global-color",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/heights-and-trigger-areas",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/icons",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/motion",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/spacing",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens",
+      "target": "foundation:tokens/typography",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/borders",
+      "target": "foundation:tokens/borders/radius",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/borders",
+      "target": "foundation:tokens/borders/style-composite",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/borders",
+      "target": "foundation:tokens/borders/width",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/heights-and-trigger-areas",
+      "target": "foundation:tokens/heights-and-trigger-areas/component-heights",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/heights-and-trigger-areas",
+      "target": "foundation:tokens/heights-and-trigger-areas/trigger-area",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/icons",
+      "target": "foundation:tokens/icons/icon-colors",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/icons",
+      "target": "foundation:tokens/icons/icon-sizes",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/typography",
+      "target": "foundation:tokens/typography/font-family",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/typography",
+      "target": "foundation:tokens/typography/font-size",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/typography",
+      "target": "foundation:tokens/typography/font-weight",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/typography",
+      "target": "foundation:tokens/typography/letter-spacing",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/typography",
+      "target": "foundation:tokens/typography/line-height",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/typography",
+      "target": "foundation:tokens/typography/text-color-tokens",
+      "type": "narrower"
+    },
+    {
+      "source": "foundation:tokens/typography",
+      "target": "foundation:tokens/typography/text-style-tokens-composite",
+      "type": "narrower"
     },
     {
       "source": "content:empty-and-system-states",
