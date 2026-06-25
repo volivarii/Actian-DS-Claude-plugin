@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Text input\n\nText inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list.\n\n---\n\n## Behavior\n\nError validation should happen at the latest when the user clicks out of the text entry field (on blur).\n\n## Placeholder text\n\n- Placeholder text provides a brief example of the expected input content.\n- Use placeholder text only to model good input - not to convey instructions or restrictions for the field.\n- Placeholder text should never simply repeat the field label or description.\n\n### When to use placeholder text\n\n- When an example would model the correct input.\n- When naming conventions or restrictions should be reinforced.\n- When the field label could be interpreted in different ways and an example would reduce that ambiguity.\n- Never use placeholder text if the label text is sufficient on its own.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Label: Dataset name / Placeholder: e.g. Q4_sales_report | Placeholder: Enter dataset name |\n| Placeholder: e.g. john.doe@company.com | Placeholder: Enter your email address |\n{: .do-dont-table}",
+      "markdown": "# Text input\n\nText inputs allow users to enter freeform text. They are used for naming, descriptions, search, and any field where the expected value cannot be constrained to a fixed list.\n\n***\n\n## Behavior\n\nError validation should happen at the latest when the user clicks out of the text entry field (on blur).\n\n## Placeholder text\n\n* Placeholder text provides a brief example of the expected input content.\n\n* Use placeholder text only to model good input - not to convey instructions or restrictions for the field.\n\n* Placeholder text should never simply repeat the field label or description.\n\n### When to use placeholder text\n\n* When an example would model the correct input.\n\n* When naming conventions or restrictions should be reinforced.\n\n* When the field label could be interpreted in different ways and an example would reduce that ambiguity.\n\n* Never use placeholder text if the label text is sufficient on its own.\n\n## Do / Don't\n\n| Do                                                        | Don't                                 |\n| --------------------------------------------------------- | ------------------------------------- |\n| Label: Dataset name / Placeholder: e.g. `Q4_sales_report` | Placeholder: Enter dataset name       |\n| Placeholder: e.g. `john.doe@company.com`                  | Placeholder: Enter your email address |",
       "sections": [
         {
           "heading": "",
@@ -68,11 +68,11 @@
           "heading": "Do / Don't",
           "content": [
             {
-              "do": "Label: Dataset name / Placeholder: e.g. Q4_sales_report",
+              "do": "Label: Dataset name / Placeholder: e.g. `Q4_sales_report`",
               "dont": "Placeholder: Enter dataset name"
             },
             {
-              "do": "Placeholder: e.g. john.doe@company.com",
+              "do": "Placeholder: e.g. `john.doe@company.com`",
               "dont": "Placeholder: Enter your email address"
             }
           ]
@@ -152,7 +152,7 @@
                 },
                 {
                   "bullets": [
-                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (*) symbol or text label.",
+                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (\\*) symbol or text label.",
                     "Avoid redundancy: if a section title already establishes context, field labels can be shorter.",
                     "Provide context when needed: helper text should explain the \"why,\" never just restate the label.",
                     "Error text should guide correction."
@@ -347,7 +347,7 @@
                   ]
                 },
                 {
-                  "prose": "**Use a [checkbox](/components/form-input-selection/checkbox-with-label/) when:**"
+                  "prose": "**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**"
                 },
                 {
                   "bullets": [
@@ -500,7 +500,7 @@
     },
     "design": {
       "status": "draft",
-      "markdown": "# Text Input — Design\n\n- Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text\n- Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear\n- Reserve the space consistently across all inputs in forms",
+      "markdown": "# Text Input — Design\n\n* Reserve space for hints by default using --zen-spacing-2xs (4px) gap between input field and hint text\n\n* Maintains “position: absolute” approach (prevents layout shift in modals and other containers) while avoiding visual instability when hints appear\n\n* Reserve the space consistently across all inputs in forms",
       "sections": [
         {
           "heading": "",
@@ -601,5 +601,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-10T20:43:48+02:00"
+  "updated_at": "2026-06-24T17:52:59+02:00"
 }

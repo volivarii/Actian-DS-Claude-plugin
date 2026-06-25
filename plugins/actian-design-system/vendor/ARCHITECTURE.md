@@ -11,7 +11,7 @@ which. The same classification is machine-readable in the `_zones` block of
 |---|---|---|
 | **Knowledge** | The design-system content — *how to design*. | `foundations/` `components/` `content/` `accessibility/` |
 | **Contract** | The machine-readable consumption surface — *the connector*. | [`paths-manifest.json`](paths-manifest.json), `schemas/`, `graph/dist/graph.json`, [`llms.txt`](llms.txt) / `llms-full.txt` |
-| **Metadata** | Product/config reference data consumed by tooling. | `app-context/`, `tokens/` (interim, frozen) |
+| **Metadata** | Product/config reference data consumed by tooling. | `app-context/` (`src/` human-authored → `dist/` CI-derived), `tokens/` (interim, frozen) |
 | **Tooling** | Build machinery — *not consumed by anyone reading the substrate*. | `scripts/`, `tests/`, `editor/`, `auth-worker/` |
 
 > **Track E complete.** The consumer-specific artifacts `fm-to-ds-map/` (a

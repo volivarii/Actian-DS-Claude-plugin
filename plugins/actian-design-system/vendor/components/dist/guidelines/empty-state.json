@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "_meta": {
     "auto_generated": true,
-    "source": "(patterns)",
+    "source": "components/src/empty-state/",
     "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
   },
   "slug": "empty-state",
@@ -12,8 +12,86 @@
   },
   "domains": {
     "content": {
-      "status": "synthesized",
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Empty state\n\nEmpty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement.\n\n***\n\n## When to use\n\n* When users have not yet created or uploaded items.\n\n* When [filters](/components/form-input-selection/search-filters/) result in no visible results.\n\n* To encourage engagement with a clear next action.\n\nDo not use an empty state as a generic fallback without guiding the user toward a next action.\n\n## Style\n\n* Use a short, instructive headline (a noun phrase or imperative verb).\n\n* Follow with one concise sentence explaining what the user can do.\n\n* Provide one primary CTA.\n\n* Do not use \"No results found\" as a standalone message without guidance.\n\n## Do / Don't\n\n| Do                                                          | Don't                                       |\n| ----------------------------------------------------------- | ------------------------------------------- |\n| No items found / Add your first dataset to start exploring. | No results.                                 |\n| Nothing here yet / Create a connection to get started.      | There are no items to display at this time. |\n\n## Examples\n\n| Element | Example text                               |\n| ------- | ------------------------------------------ |\n| Title   | No items found                             |\n| Body    | Add your first dataset to start exploring. |\n| CTA     | Create dataset                             |",
       "sections": [
+        {
+          "heading": "",
+          "content": [
+            {
+              "prose": "Empty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
+            {
+              "bullets": [
+                "When users have not yet created or uploaded items.",
+                "When [filters](/components/form-input-selection/search-filters/) result in no visible results.",
+                "To encourage engagement with a clear next action."
+              ]
+            },
+            {
+              "prose": "Do not use an empty state as a generic fallback without guiding the user toward a next action."
+            }
+          ]
+        },
+        {
+          "heading": "Style",
+          "content": [
+            {
+              "bullets": [
+                "Use a short, instructive headline (a noun phrase or imperative verb).",
+                "Follow with one concise sentence explaining what the user can do.",
+                "Provide one primary CTA.",
+                "Do not use \"No results found\" as a standalone message without guidance."
+              ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "No items found / Add your first dataset to start exploring.",
+              "dont": "No results."
+            },
+            {
+              "do": "Nothing here yet / Create a connection to get started.",
+              "dont": "There are no items to display at this time."
+            }
+          ]
+        },
+        {
+          "heading": "Examples",
+          "content": [
+            {
+              "table": {
+                "headers": [
+                  "Element",
+                  "Example text"
+                ],
+                "rows": [
+                  [
+                    "Title",
+                    "No items found"
+                  ],
+                  [
+                    "Body",
+                    "Add your first dataset to start exploring."
+                  ],
+                  [
+                    "CTA",
+                    "Create dataset"
+                  ]
+                ]
+              }
+            }
+          ]
+        },
         {
           "heading": "",
           "source": "pattern:empty-and-system-states",
@@ -22,246 +100,21 @@
               "prose": "System states communicate the current condition of the platform or a specific view. Clear, direct copy helps users understand what happened and what to do next."
             }
           ]
-        },
-        {
-          "heading": "Empty state",
-          "source": "pattern:empty-and-system-states",
-          "content": [
-            {
-              "prose": "Empty states appear when users have not yet created items, or when filters return no results. Clear copy and a direct CTA reduce friction and encourage engagement."
-            }
-          ],
-          "subsections": [
-            {
-              "subheading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "When users have not yet created or uploaded items.",
-                    "When [filters](/components/form-input-selection/search-filters/) result in no visible results.",
-                    "To encourage engagement with a clear next action."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Use a short, instructive headline (noun phrase or imperative verb).",
-                    "Follow with one concise sentence that explains what the user can do.",
-                    "Provide one primary action (for example, **Create dataset**).",
-                    "Do not use `No results found` as a standalone message without guidance."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Do / Don't",
-              "content": [
-                {
-                  "do": "No items found / Add your first dataset to start exploring.",
-                  "dont": "No results."
-                },
-                {
-                  "do": "Nothing here yet / Create a connection to get started.",
-                  "dont": "There are no items to display at this time."
-                }
-              ]
-            },
-            {
-              "subheading": "Example",
-              "content": [
-                {
-                  "table": {
-                    "headers": [
-                      "Element",
-                      "Example text"
-                    ],
-                    "rows": [
-                      [
-                        "Title",
-                        "No items found"
-                      ],
-                      [
-                        "Body",
-                        "Add your first dataset to start exploring."
-                      ],
-                      [
-                        "CTA",
-                        "Create dataset"
-                      ]
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "heading": "Error state",
-          "source": "pattern:empty-and-system-states",
-          "content": [
-            {
-              "prose": "Error states communicate that something failed or a resource could not be loaded. Copy must be specific, non-blaming, and actionable."
-            }
-          ],
-          "subsections": [
-            {
-              "subheading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "When something fails or a resource cannot be loaded.",
-                    "When a user action fails to complete."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Be specific about what went wrong where possible.",
-                    "Offer a resolution step or next action.",
-                    "Do not use technical error codes as the primary message.",
-                    "Do not blame the user."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Example",
-              "content": [
-                {
-                  "table": {
-                    "headers": [
-                      "Element",
-                      "Example text"
-                    ],
-                    "rows": [
-                      [
-                        "Title",
-                        "Something went wrong"
-                      ],
-                      [
-                        "Body",
-                        "There was an error creating your item. Try again or contact support if the problem continues."
-                      ],
-                      [
-                        "Primary CTA",
-                        "Try again"
-                      ]
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "heading": "Maintenance state",
-          "source": "pattern:empty-and-system-states",
-          "content": [
-            {
-              "prose": "Maintenance states inform users that part of the platform is temporarily unavailable due to planned or unplanned work."
-            }
-          ],
-          "subsections": [
-            {
-              "subheading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Explain what is affected and for how long.",
-                    "Provide an estimated time to resolution when available.",
-                    "Include a single action if there is something the user can do (for example, **Refresh**)."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Example",
-              "content": [
-                {
-                  "table": {
-                    "headers": [
-                      "Element",
-                      "Example text"
-                    ],
-                    "rows": [
-                      [
-                        "Title",
-                        "Scheduled maintenance in progress"
-                      ],
-                      [
-                        "Body",
-                        "Reports may be unavailable until 12:00 PM EST."
-                      ],
-                      [
-                        "CTA",
-                        "Refresh"
-                      ]
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "heading": "Success state",
-          "source": "pattern:empty-and-system-states",
-          "content": [
-            {
-              "prose": "Success states confirm that a user action completed. They often follow an action that previously triggered an empty state."
-            }
-          ],
-          "subsections": [
-            {
-              "subheading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Confirm what was completed, not just that it succeeded.",
-                    "Keep copy brief. One line is usually sufficient.",
-                    "Offer a logical next action."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Example",
-              "content": [
-                {
-                  "table": {
-                    "headers": [
-                      "Element",
-                      "Example text"
-                    ],
-                    "rows": [
-                      [
-                        "Title",
-                        "Items imported"
-                      ],
-                      [
-                        "Body",
-                        "Your datasets are ready to explore."
-                      ],
-                      [
-                        "Primary CTA",
-                        "Open catalog"
-                      ]
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
         }
       ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
     }
-  }
+  },
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }

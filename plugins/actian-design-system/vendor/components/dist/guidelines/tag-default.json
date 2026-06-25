@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated.\n\n---\n\n## When to use\n\n- To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n- Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n- Use sentence case.\n- Keep tag text to one to three words.\n- Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
+      "markdown": "# Tags\n\nTags categorize or label items with metadata values such as topics, types, or user-defined attributes. The tag component has several variants: default, status, stage, catalog, interactive, and updated.\n\n***\n\n## When to use\n\n* To categorize or label items with metadata values such as topics, types, or user-defined attributes.\n\n* Do not use tags as action triggers — they are labels, not buttons. Use an [interactive tag](tag) for clickable tag behavior.\n\n## Style\n\n* Use sentence case.\n\n* Keep tag text to one to three words.\n\n* Status tags use standard vocabulary: Active, Inactive, Draft, Published, Deprecated, Error.",
       "sections": [
         {
           "heading": "",
@@ -121,6 +121,6 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00",
+  "updated_at": "2026-06-23T13:38:19+02:00",
   "_alias_of": "tag"
 }

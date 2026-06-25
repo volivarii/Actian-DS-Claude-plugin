@@ -1,0 +1,190 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian.com/ds-knowledge/domains.json",
+  "title": "Domains registry (per-domain authoring contract)",
+  "description": "Per-domain authoring contract for the knowledge substrate: where each domain's source lives, which schema governs its frontmatter, how its markdown body is handled (the orthogonal bodyMode axes), and its dist shape. Hand-authored source of truth; STEP 4's unified derive engine will read it.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["_schema_version", "domains"],
+  "properties": {
+    "_schema_version": { "const": 1 },
+    "_note": {
+      "type": "string",
+      "description": "Free-text provenance note for human readers (not consumed by tooling).",
+      "examples": [
+        "Per-domain authoring contract. Hand-authored source of truth."
+      ]
+    },
+    "domains": {
+      "type": "object",
+      "description": "Map of unit key → authoring-contract unit. Keys are domain names; domains that split by record-type use `domain/recordType` (e.g. `app-context/apps`).",
+      "examples": [
+        {
+          "categories": {
+            "summary": "Component category defaults.",
+            "src": "components/src/categories/*.md",
+            "generator": "scripts/categories/derive-categories.js",
+            "frontmatterSchema": "schemas/category-defaults.json",
+            "body": { "parse": "none", "mirror": true, "field": null },
+            "distShape": "per-record+bundle"
+          }
+        }
+      ],
+      "minProperties": 1,
+      "propertyNames": { "pattern": "^[a-z][a-z0-9-]*(/[a-z][a-z0-9-]*)?$" },
+      "additionalProperties": { "$ref": "#/$defs/unit" }
+    }
+  },
+  "$defs": {
+    "unit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "summary",
+        "src",
+        "generator",
+        "frontmatterSchema",
+        "body",
+        "distShape"
+      ],
+      "properties": {
+        "summary": {
+          "type": "string",
+          "minLength": 1,
+          "description": "One-line human description of the domain and how its body is handled.",
+          "examples": [
+            "Component category defaults — body mirrored verbatim to dist .md."
+          ]
+        },
+        "src": {
+          "type": ["string", "null"],
+          "description": "Source location glob (or exact file); null for body-less domains derived from dist (e.g. graph).",
+          "examples": [
+            "components/src/categories/*.md",
+            "tokens/tokens.json",
+            null
+          ]
+        },
+        "generator": {
+          "type": ["string", "null"],
+          "pattern": "^scripts/.*\\.js$",
+          "description": "The derive script that produces this domain's dist; null for hand-authored data files with no derive.",
+          "examples": ["scripts/categories/derive-categories.js", null]
+        },
+        "frontmatterSchema": {
+          "type": ["string", "null"],
+          "pattern": "^schemas/.*\\.json$",
+          "description": "JSON Schema governing this domain's frontmatter; null when unschematized (a gap to close in a later slice).",
+          "examples": ["schemas/category-defaults.json", null]
+        },
+        "body": {
+          "type": "object",
+          "description": "Orthogonal body-handling axes: whether the markdown body is structurally parsed, copied verbatim, and/or normalized into a single named field.",
+          "examples": [
+            { "parse": "none", "mirror": true, "field": null },
+            { "parse": "sections", "mirror": false, "field": null },
+            { "parse": "none", "mirror": false, "field": "description" }
+          ],
+          "additionalProperties": false,
+          "required": ["parse", "mirror", "field"],
+          "properties": {
+            "parse": { "enum": ["sections", "none"] },
+            "mirror": {
+              "type": "boolean",
+              "description": "True if the body is also copied verbatim into dist (a .md mirror or a verbatim field).",
+              "examples": [true, false]
+            },
+            "field": {
+              "type": ["string", "null"],
+              "description": "Name of the single field the body is normalized into (field-extraction), or null.",
+              "examples": ["description", null]
+            }
+          }
+        },
+        "distShape": {
+          "enum": [
+            "per-record+bundle",
+            "pattern-H-tree",
+            "single-object",
+            "embedded",
+            "none"
+          ]
+        },
+        "wysiwyg": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["safePaths"],
+          "description": "WYSIWYG enablement: explicit allowlist of source paths whose Milkdown body round-trip is proven dist-safe (idempotent + fail-closed; + dist-equivalent for section-dist domains). Consumed by the editor gate, the drift guard, and the baseline runner.",
+          "examples": [
+            {
+              "safePaths": [
+                "foundations/src/intro.md",
+                "accessibility/src/principles.md"
+              ]
+            }
+          ],
+          "properties": {
+            "safePaths": {
+              "type": "array",
+              "items": { "type": "string" },
+              "uniqueItems": true,
+              "description": "Repo-relative .md paths in this domain proven WYSIWYG-safe.",
+              "examples": [
+                ["foundations/src/intro.md", "content/src/global-guidelines.md"]
+              ]
+            },
+            "distEquivalence": {
+              "type": "object",
+              "additionalProperties": false,
+              "description": "Per-file dist-equivalence config. Tells the drift guard which engine to compute the structured view it compares across a Milkdown round-trip, and how to call it. Absent for domains whose dist-safety is proven holistically by a CI derive-and-diff gate (e.g. content/global, content/patterns).",
+              "examples": [
+                {
+                  "engine": "section-dist",
+                  "sourceRel": "foundations/src/",
+                  "applySkipH2Slugs": true
+                },
+                {
+                  "engine": "section-dist",
+                  "sourceRel": "accessibility/src/",
+                  "rootAnchor": "accessibility"
+                },
+                { "engine": "guideline-sections" }
+              ],
+              "required": ["engine"],
+              "allOf": [
+                {
+                  "if": {
+                    "required": ["engine"],
+                    "properties": { "engine": { "const": "section-dist" } }
+                  },
+                  "then": { "required": ["sourceRel"] }
+                }
+              ],
+              "properties": {
+                "engine": {
+                  "enum": ["section-dist", "guideline-sections"],
+                  "description": "The drift-guard equivalence engine. 'section-dist' (scripts/lib/section-dist/index.js) parses the body into a Pattern-H file tree — used by foundations/accessibility, requires sourceRel. 'guideline-sections' (scripts/components/guideline-md-parser.js) parses the body into the per-component sections[] array, accepting the verbatim markdown-field drift as rendered-equivalent — used by the guidelines domain, needs no further options."
+                },
+                "sourceRel": {
+                  "type": "string",
+                  "description": "Repo-relative source prefix passed as the sourceRel option to deriveFromMarkdown (e.g. 'foundations/src/'). Required by the section-dist engine; unused by guideline-sections.",
+                  "examples": ["foundations/src/", "accessibility/src/"]
+                },
+                "rootAnchor": {
+                  "type": "string",
+                  "description": "Optional rootAnchor option passed to deriveFromMarkdown. Required by domains whose top-level anchor differs from the default.",
+                  "examples": ["accessibility"]
+                },
+                "applySkipH2Slugs": {
+                  "type": "boolean",
+                  "description": "When true the guard imports SKIP_H2_SLUGS from derive-foundations.js and passes it as skipH2Slugs. Only foundations currently needs this.",
+                  "examples": [true]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

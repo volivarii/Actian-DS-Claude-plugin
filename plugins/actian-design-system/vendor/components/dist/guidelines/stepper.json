@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Stepper\n\nA stepper guides users through a multi-step process in a defined sequence. Each step represents a discrete task that must be completed before moving to the next. Steppers are used in onboarding flows, connection setup, and wizards.\n\n---\n\n## When to use\n\n- When a process has three or more distinct steps that must be completed in order.\n- When it is important for users to understand their progress through a workflow.\n- Do not use a stepper for simple two-step confirmations - use a [modal](modal) instead.\n\n## Step titles\n\n- Use short imperative verb phrases. For example, `Choose a data source`, `Configure settings`, `Review and create`.\n- Do not include the step number in the title text - the stepper component displays that.\n- Keep titles parallel in structure across all steps.\n\n## Navigation buttons\n\n- Use **Back** for the previous step button. Do not use **Previous**.\n- Use **Next** for all intermediate steps.\n- Use **Create** (or the appropriate object-specific verb) for the final step - not **Finish**, **Done**, or **Submit**.\n- See the [Buttons](button) section for full stepper button terminology.\n\n## Do / Don't\n\n| Do | Don't |\n|---|---|\n| Choose a data source | Step 1: Data source selection |\n| Create (final step) | Finish / Done / Submit |\n| Back | Previous |\n{: .do-dont-table}",
+      "markdown": "# Stepper\n\nA stepper guides users through a multi-step process in a defined sequence. Each step represents a discrete task that must be completed before moving to the next. Steppers are used in onboarding flows, connection setup, and wizards.\n\n***\n\n## When to use\n\n* When a process has three or more distinct steps that must be completed in order.\n\n* When it is important for users to understand their progress through a workflow.\n\n* Do not use a stepper for simple two-step confirmations - use a [modal](modal) instead.\n\n## Step titles\n\n* Use short imperative verb phrases. For example, `Choose a data source`, `Configure settings`, `Review and create`.\n\n* Do not include the step number in the title text - the stepper component displays that.\n\n* Keep titles parallel in structure across all steps.\n\n## Navigation buttons\n\n* Use **Back** for the previous step button. Do not use **Previous**.\n\n* Use **Next** for all intermediate steps.\n\n* Use **Create** (or the appropriate object-specific verb) for the final step - not **Finish**, **Done**, or **Submit**.\n\n* See the [Buttons](button) section for full stepper button terminology.\n\n## Do / Don't\n\n| Do                   | Don't                         |\n| -------------------- | ----------------------------- |\n| Choose a data source | Step 1: Data source selection |\n| Create (final step)  | Finish / Done / Submit        |\n| Back                 | Previous                      |",
       "sections": [
         {
           "heading": "",
@@ -191,5 +191,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }

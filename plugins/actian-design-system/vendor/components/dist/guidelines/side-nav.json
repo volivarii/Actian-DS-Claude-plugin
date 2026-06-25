@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Side nav\n\nPermanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product.\n\n---\n\n## When to use\n\n- For persistent access to primary sections of the product.\n\n## Style\n\n- Clarity: use short, descriptive labels that match the text used in page headers.\n- Consistency: keep naming and order consistent across the platform.\n- Use plain language and common industry terms.\n\n## Behavior\n\n- Highlight the current section (and its parent if applicable) in the hierarchy.\n- The side nav collapses and expands in response to different screen sizes.",
+      "markdown": "# Side nav\n\nPermanently anchored (though collapsible) to the left side of all apps in which it is available, for persistent access to primary sections of the product.\n\n***\n\n## When to use\n\n* For persistent access to primary sections of the product.\n\n## Style\n\n* Clarity: use short, descriptive labels that match the text used in page headers.\n\n* Consistency: keep naming and order consistent across the platform.\n\n* Use plain language and common industry terms.\n\n## Behavior\n\n* Highlight the current section (and its parent if applicable) in the hierarchy.\n\n* The side nav collapses and expands in response to different screen sizes.",
       "sections": [
         {
           "heading": "",
@@ -143,5 +143,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00"
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }

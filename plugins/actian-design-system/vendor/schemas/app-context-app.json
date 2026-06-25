@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/app-context-app.json",
+  "title": "App-context app (per-record frontmatter)",
+  "description": "Frontmatter of app-context/src/apps/<slug>.md. Describes an Actian application's identity, header variant, navigation structure, and behavioural signals.",
+  "type": "object",
+  "required": ["_schema_version", "slug", "label", "header", "sidebar"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": { "const": 1 },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 60,
+      "description": "Kebab-case identifier for the app; used as the filename (minus .md) and cross-reference target.",
+      "examples": ["studio", "explorer", "data-catalog"]
+    },
+    "label": {
+      "type": "string",
+      "description": "Human-readable display name of the app shown in navigation and documentation.",
+      "examples": ["Studio", "Explorer", "Data Catalog"]
+    },
+    "header": {
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "description": "Global-header configuration for the app; controls the DS header variant rendered at runtime.",
+      "examples": [{ "type": "Studio" }],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": ["Studio", "Explorer", "Admin"],
+          "description": "Header variant; matches the DS global-header App type axis.",
+          "examples": ["Studio", "Explorer", "Admin"]
+        }
+      }
+    },
+    "sidebar": {
+      "type": "array",
+      "description": "Ordered list of primary navigation items shown in the app sidebar.",
+      "examples": [
+        [
+          { "label": "Pipelines", "id": "pipelines" },
+          { "label": "Connections", "id": "connections" }
+        ]
+      ],
+      "items": {
+        "type": "object",
+        "required": ["label", "id"],
+        "additionalProperties": false,
+        "properties": {
+          "label": {
+            "type": "string",
+            "description": "Display text for the sidebar navigation item.",
+            "examples": ["Pipelines", "Connections", "Settings"]
+          },
+          "id": {
+            "type": "string",
+            "description": "Stable identifier for the sidebar item; used for deep-linking and analytics.",
+            "examples": ["pipelines", "connections", "settings"]
+          }
+        }
+      }
+    }
+  }
+}

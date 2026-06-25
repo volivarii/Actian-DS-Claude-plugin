@@ -1,7 +1,6 @@
 ---
 title: "Buttons — Design guidelines"
 ---
-
 ## Anatomy
 
 A button is a single container holding an optional leading icon and a text
@@ -25,10 +24,12 @@ shape or size.
 
 <Media role="spacing" />
 
-- Three sizes: small (28px), medium (32px), large (40px). Medium is the
+* Three sizes: small (28px), medium (32px), large (40px). Medium is the
   default.
-- Horizontal padding is `space-150`; the icon-to-label gap is `space-100`.
-- Buttons never set their own margins — spacing belongs to the parent layout.
+
+* Horizontal padding is `space-150`; the icon-to-label gap is `space-100`.
+
+* Buttons never set their own margins — spacing belongs to the parent layout.
 
 ## Behavior
 

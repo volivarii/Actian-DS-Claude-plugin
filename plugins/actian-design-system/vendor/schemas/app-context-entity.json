@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://actian-ds.example.com/schemas/app-context-entity.json",
+  "title": "App-context entity (per-record frontmatter)",
+  "description": "Frontmatter of app-context/src/entities/<slug>.md. The prose `description` lives in the markdown body, not here.",
+  "type": "object",
+  "required": ["_schema_version", "slug", "label", "properties", "relationships", "apps"],
+  "additionalProperties": false,
+  "properties": {
+    "_schema_version": { "const": 1, "description": "Schema version pin." },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "maxLength": 60,
+      "description": "Kebab-case id; doubles as the filename (minus .md) and the cross-reference target.",
+      "examples": ["pipeline", "connection", "data-product"]
+    },
+    "label": {
+      "type": "string",
+      "description": "Display name of the entity.",
+      "examples": ["Pipeline", "Connection", "Data Product"]
+    },
+    "properties": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Common attributes/fields of this entity as shown in the UI.",
+      "examples": [["name", "status", "created-by"]]
+    },
+    "relationships": {
+      "type": "object",
+      "additionalProperties": { "type": "string" },
+      "description": "Map of relationship verb → target entity slug. Referential integrity is enforced by scripts/app-context/validate-app-context.js, not this schema.",
+      "examples": [{ "belongs-to": "project", "uses": "connection" }]
+    },
+    "apps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "App slugs where this entity is surfaced.",
+      "examples": [["studio", "explorer"]]
+    }
+  }
+}

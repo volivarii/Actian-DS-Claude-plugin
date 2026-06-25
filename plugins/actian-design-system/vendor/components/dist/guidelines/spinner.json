@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "_meta": {
     "auto_generated": true,
-    "source": "(patterns)",
+    "source": "components/src/spinner/",
     "do_not_edit": "Edit the per-domain source files; CI regenerates this file."
   },
   "slug": "spinner",
@@ -12,66 +12,67 @@
   },
   "domains": {
     "content": {
-      "status": "synthesized",
+      "status": "approved",
+      "owner": "content-team",
+      "markdown": "# Spinner\n\nThe spinner communicates that the system is processing an action. It is used inline, inside buttons, form fields, or small UI sections, rather than as a full-page loading state.\n\n***\n\n## When to use\n\n* After a user triggers an action and the system is processing it.\n\n* Inline within a component rather than as a full-page loader.\n\n## Style\n\n* Use an accompanying label only when the context does not make it clear what is happening.\n\n* Keep labels brief and present-tense.\n\n## Do / Don't\n\n| Do               | Don't                              |\n| ---------------- | ---------------------------------- |\n| Running query... | Please wait while your query runs. |\n| Saving...        | Loading.                           |",
       "sections": [
         {
-          "heading": "Loading indicator",
-          "source": "pattern:loading-and-progress",
-          "content": [],
-          "subsections": [
+          "heading": "",
+          "content": [
             {
-              "subheading": "When to use",
-              "content": [
-                {
-                  "prose": "During transitions, page loads, or background processes."
-                }
-              ]
-            },
+              "prose": "The spinner communicates that the system is processing an action. It is used inline, inside buttons, form fields, or small UI sections, rather than as a full-page loading state."
+            }
+          ]
+        },
+        {
+          "heading": "When to use",
+          "content": [
             {
-              "subheading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Use a loading message only when the wait is likely to exceed three seconds.",
-                    "Keep loading messages brief and present-tense. For example, `Loading datasets...`",
-                    "Do not use `Please wait`."
-                  ]
-                }
+              "bullets": [
+                "After a user triggers an action and the system is processing it.",
+                "Inline within a component rather than as a full-page loader."
               ]
             }
           ]
         },
         {
-          "heading": "Progress indicator",
-          "source": "pattern:loading-and-progress",
-          "content": [],
-          "subsections": [
+          "heading": "Style",
+          "content": [
             {
-              "subheading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "For multi-step flows such as wizards or onboarding sequences.",
-                    "For file uploads or long-running background processes."
-                  ]
-                }
+              "bullets": [
+                "Use an accompanying label only when the context does not make it clear what is happening.",
+                "Keep labels brief and present-tense."
               ]
+            }
+          ]
+        },
+        {
+          "heading": "Do / Don't",
+          "content": [
+            {
+              "do": "Running query...",
+              "dont": "Please wait while your query runs."
             },
             {
-              "subheading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Label each step in a stepper with a short noun or verb phrase.",
-                    "Show current step and total step count. For example, `Step 2 of 4`.",
-                    "For upload progress, show percentage or file size transferred."
-                  ]
-                }
-              ]
+              "do": "Saving...",
+              "dont": "Loading."
             }
           ]
         }
       ]
+    },
+    "usage": {
+      "status": "not-started"
+    },
+    "design": {
+      "status": "inherited"
+    },
+    "behavior": {
+      "status": "inherited"
+    },
+    "tokens": {
+      "status": "not-started"
     }
-  }
+  },
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }

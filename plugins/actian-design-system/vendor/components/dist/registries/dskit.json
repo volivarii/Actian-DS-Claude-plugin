@@ -2,7 +2,7 @@
   "_schema_version": 1,
   "library": "ds",
   "fileKey": "l8biHxfarNi1I2RMvVxVOK",
-  "lastSynced": "2026-06-09T10:32:52.540Z",
+  "lastSynced": "2026-06-17T11:44:49.423Z",
   "componentCount": 319,
   "components": {
     "xs-grid": {
@@ -2662,13 +2662,15 @@
       "group": "Button",
       "status": "in-progress",
       "variants": {
-        "Type": [
-          "Primary",
-          "Secondary",
-          "Tertiary",
-          "Icon",
-          "Critical primary",
-          "Critical secondary"
+        "Intent": [
+          "Default",
+          "Critical"
+        ],
+        "Emphasis": [
+          "Filled",
+          "Outlined",
+          "Ghost",
+          "Icon-only"
         ],
         "Size": [
           "Default",
@@ -2676,8 +2678,8 @@
         ],
         "State": [
           "Default",
-          "Hovered",
-          "Focused",
+          "Hover",
+          "Focus",
           "Pressed",
           "Selected",
           "Disabled",

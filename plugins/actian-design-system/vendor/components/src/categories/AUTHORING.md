@@ -21,7 +21,9 @@ Membership lists are derived from `components/dist/categories.json` (auto-synced
 
 ## Required frontmatter schema
 
-Every MD must start with YAML frontmatter. The contract is `schemas/category-defaults.json`; the parser in `scripts/categories/categories-parser.js` validates against it.
+Every MD must start with YAML frontmatter. The contract is `schemas/category-defaults.json` (validated by `scripts/validate/validate-category-defaults.js`); frontmatter is parsed as **strict YAML 1.2** by the shared `scripts/lib/frontmatter.js`.
+
+> **Quoting rule.** Any flow-map value containing a comma, colon, `#`, or `;` MUST be quoted — e.g. `description: "receives focus, hover, press states"`. An unquoted comma splits the value into phantom keys (`hover: null, press: null`) and silently corrupts the derived JSON.
 
 ```yaml
 ---

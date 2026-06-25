@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Inline toast\n\nAn inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to.\n\n---\n\n## When to use\n\n- To confirm a localized action, such as copying a value or saving a field inline.\n- To surface a validation warning directly below or beside a specific form field.\n- Do not use an inline toast for global events - use the global toast or snackbar instead.\n\n## Style\n\n- One short sentence maximum. Ideally fewer than ten words.\n- Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.\n- Do not use inline toasts for error messages that require user action - use inline validation instead.\n\n## Examples\n\n| Scenario | Inline toast text |\n|---|---|\n| Value copied to clipboard | Copied |\n| Field saved inline | Saved |\n| Tag added to asset | Tag added |\n| Link generated | Link created |",
+      "markdown": "# Inline toast\n\nAn inline toast is a brief, non-blocking message displayed within a specific area of the page rather than at a global level. It provides feedback directly adjacent to the action or element it refers to.\n\n***\n\n## When to use\n\n* To confirm a localized action, such as copying a value or saving a field inline.\n\n* To surface a validation warning directly below or beside a specific form field.\n\n* Do not use an inline toast for global events. Use a [global toast](global-toast) instead.\n\n## Style\n\n* One short sentence maximum. Ideally fewer than ten words.\n\n* Use present or past tense to confirm what happened. For example, `Copied` or `Saved`.\n\n* Do not use inline toasts for error messages that require user action - use inline validation instead.\n\n## Examples\n\n| Scenario                  | Inline toast text |\n| ------------------------- | ----------------- |\n| Value copied to clipboard | Copied            |\n| Field saved inline        | Saved             |\n| Tag added to asset        | Tag added         |\n| Link generated            | Link created      |",
       "sections": [
         {
           "heading": "",
@@ -36,7 +36,7 @@
               "bullets": [
                 "To confirm a localized action, such as copying a value or saving a field inline.",
                 "To surface a validation warning directly below or beside a specific form field.",
-                "Do not use an inline toast for global events - use the global toast or snackbar instead."
+                "Do not use an inline toast for global events. Use a [global toast](global-toast) instead."
               ]
             }
           ]
@@ -83,137 +83,6 @@
               }
             }
           ]
-        },
-        {
-          "heading": "Notification",
-          "source": "pattern:notifications-and-messaging",
-          "content": [
-            {
-              "prose": "Notifications inform users of updates, background task completions, or events that require their attention. They appear in the notification panel or dropdown."
-            }
-          ],
-          "subsections": [
-            {
-              "subheading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "To inform users of updates, background task completions, or events that require their attention."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Use direct, concise language. One to two sentences.",
-                    "Include a timestamp.",
-                    "Include a link or action if the user must do something in response.",
-                    "Do not use generic text like `You have a new notification`."
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "heading": "Notification toast",
-          "source": "pattern:notifications-and-messaging",
-          "content": [
-            {
-              "prose": "Toasts confirm that a background action completed, or surface non-critical errors and warnings that do not block the user."
-            }
-          ],
-          "subsections": [
-            {
-              "subheading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "To confirm that a background action completed.",
-                    "To surface non-critical errors or warnings that do not block the user.",
-                    "Do not use toasts for actions that require user input.",
-                    "For routine confirmations that need persistence, use an [alert / banner](/components/feedback/alert-banner/) instead."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Keep to one short sentence.",
-                    "Include an undo action where relevant."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Examples",
-              "content": [
-                {
-                  "table": {
-                    "headers": [
-                      "Scenario",
-                      "Toast text"
-                    ],
-                    "rows": [
-                      [
-                        "Dataset deleted",
-                        "Dataset deleted. Undo"
-                      ],
-                      [
-                        "Export complete",
-                        "Export ready. Download"
-                      ],
-                      [
-                        "Connection failed",
-                        "Connection failed. Try again"
-                      ]
-                    ]
-                  }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "heading": "Tooltip",
-          "source": "pattern:notifications-and-messaging",
-          "content": [
-            {
-              "prose": "Tooltips provide short contextual help on hover or focus. They are best for icon-only controls that need a label, or for brief supplementary information that does not need to be persistently visible."
-            }
-          ],
-          "subsections": [
-            {
-              "subheading": "When to use",
-              "content": [
-                {
-                  "bullets": [
-                    "To provide short contextual help on hover or focus.",
-                    "For icon-only controls that require a label.",
-                    "Do not use tooltips for critical information — users should not be required to hover to understand the UI."
-                  ]
-                }
-              ]
-            },
-            {
-              "subheading": "Style",
-              "content": [
-                {
-                  "bullets": [
-                    "Limit to a few words or one concise sentence.",
-                    "Do not repeat the label of the element being described.",
-                    "For multi-sentence explanations, use a [popover](/components/overlays/popover/) or inline help text instead."
-                  ]
-                }
-              ]
-            }
-          ]
         }
       ]
     },
@@ -230,5 +99,5 @@
       "status": "not-started"
     }
   },
-  "updated_at": "2026-06-01T15:13:47+02:00"
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }

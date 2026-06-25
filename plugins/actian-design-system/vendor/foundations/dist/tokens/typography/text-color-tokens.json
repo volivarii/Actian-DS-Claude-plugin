@@ -35,7 +35,7 @@
           "Token": "--zen-color-text-default",
           "Resolves To": "--zen-color-black",
           "Usage": "Titles, labels, body text",
-          "status_note": "Proposed *(rename from `text-primary` — eng update required)*",
+          "status_note": "Proposed (rename from `text-primary` — eng update required)",
           "status": "proposed"
         },
         {
@@ -77,7 +77,7 @@
           "Token": "--zen-color-text-primary",
           "Resolves To": "--zen-color-primary-500",
           "Usage": "Interactive text",
-          "status_note": "Proposed *(named `primary` to align with primary color convention)*",
+          "status_note": "Proposed (named `primary` to align with primary color convention)",
           "status": "proposed"
         },
         {

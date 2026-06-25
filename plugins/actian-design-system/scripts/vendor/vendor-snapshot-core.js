@@ -152,11 +152,31 @@ function notifyIfNewerAvailable(tags, currentRange, resolvedTag) {
   return true;
 }
 
-// Fetch all tags from a public GitHub repo via the API. No auth needed
-// for public repos; uses curl which is always available in CI runners.
+// Build curl args for a GitHub request: the shared flags, plus an
+// Authorization header WHEN a token is present in the environment (GH_TOKEN,
+// else GITHUB_TOKEN). Auth is OPTIONAL — public-repo reads work without it —
+// but unauthenticated GitHub API requests are capped at 60/hr PER IP. A
+// developer's own machine rarely hits that; CI runners SHARE egress IPs across
+// tenants, so the budget is frequently already spent by neighbors, surfacing
+// as an intermittent `GitHub tags API returned non-array: {"API rate limit
+// exceeded ..."}` and a failed sync. A token raises the limit to 5,000/hr
+// (PAT) or 15,000/hr (GitHub App installation). The token is passed as a
+// discrete execFileSync arg — never interpolated into a shell string — so
+// there is no shell-injection surface. curl drops the Authorization header on
+// cross-host redirects by default (since 7.58 / CVE-2018-1000007), so the
+// tarball fetch (github.com → codeload) does not leak it.
+function githubCurlArgs(extraArgs) {
+  var token = process.env.GH_TOKEN || process.env.GITHUB_TOKEN || "";
+  var authArgs = token ? ["-H", "Authorization: Bearer " + token] : [];
+  return ["-sSL"].concat(authArgs, extraArgs);
+}
+
+// Fetch all tags from a GitHub repo via the API. Authenticated when a token is
+// in the environment (see githubCurlArgs); unauthenticated fallback works for
+// public repos. Uses curl, always available in CI runners.
 function fetchTagsFromGitHub(repo) {
   var url = "https://api.github.com/repos/" + repo + "/tags?per_page=100";
-  var raw = execFileSync("curl", ["-sSL", url], { encoding: "utf8" });
+  var raw = execFileSync("curl", githubCurlArgs([url]), { encoding: "utf8" });
   var parsed = JSON.parse(raw);
   if (!Array.isArray(parsed)) {
     throw new Error(
@@ -176,7 +196,9 @@ function resolveTagSha(repo, tag) {
   var versionOnly = tag.replace(/^v/, "");
   var refUrl =
     "https://api.github.com/repos/" + repo + "/git/refs/tags/v" + versionOnly;
-  var rawRef = execFileSync("curl", ["-sSL", refUrl], { encoding: "utf8" });
+  var rawRef = execFileSync("curl", githubCurlArgs([refUrl]), {
+    encoding: "utf8",
+  });
   var parsedRef = JSON.parse(rawRef);
   if (!parsedRef || !parsedRef.object || !parsedRef.object.sha) {
     throw new Error(
@@ -196,7 +218,9 @@ function resolveTagSha(repo, tag) {
     repo +
     "/git/tags/" +
     parsedRef.object.sha;
-  var rawTag = execFileSync("curl", ["-sSL", tagUrl], { encoding: "utf8" });
+  var rawTag = execFileSync("curl", githubCurlArgs([tagUrl]), {
+    encoding: "utf8",
+  });
   var parsedTag = JSON.parse(rawTag);
   if (!parsedTag || !parsedTag.object || !parsedTag.object.sha) {
     throw new Error(
@@ -228,12 +252,17 @@ function writeVendoredJson(vendoredJsonPath, data) {
 
 // (Parameterized: repo comes from config.)
 function fetchTarball(repo, sha, destPath) {
-  // GitHub returns a tarball at this URL for any SHA on a public repo. No auth
-  // needed. The .tar.gz contains a single top-level directory like
+  // GitHub returns a tarball at this URL for any SHA on a public repo. Auth is
+  // optional here (the github.com archive endpoint has its own, separate
+  // budget), but we still pass githubCurlArgs for consistency; curl strips the
+  // Authorization header on the cross-host redirect to codeload, so it is not
+  // sent off-host. The .tar.gz contains a single top-level directory like
   // `actian-ds-knowledge-<full-sha>/` with the repo content inside.
   var url = "https://github.com/" + repo + "/archive/" + sha + ".tar.gz";
   process.stdout.write("[vendor] fetching " + url + "\n");
-  execFileSync("curl", ["-sSL", "-o", destPath, url], { stdio: "inherit" });
+  execFileSync("curl", githubCurlArgs(["-o", destPath, url]), {
+    stdio: "inherit",
+  });
 }
 
 function extractTarball(tarballPath, destDir) {
@@ -480,6 +509,7 @@ function runSnapshot(config, argv) {
 module.exports = {
   runSnapshot: runSnapshot,
   parseArgs: parseArgs,
+  githubCurlArgs: githubCurlArgs,
   matchesRange: matchesRange,
   compareSemver: compareSemver,
   resolveTargetTag: resolveTargetTag,

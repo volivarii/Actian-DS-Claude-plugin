@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Checkboxes\n\nCheckboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms.\n\n---\n\n## Default format\n\n### When to use\n\n- To allow users to select multiple options in a group.\n- For binary settings that are independent of other choices. For example, **Enable notifications**.\n- When a task involves filtering or refining data. For example, applying multiple filters to a search.\n\n### Style\n\n- Use clear, direct labels that describe what happens if the box is checked.\n- Write labels in positive form.\n\n| Do | Don't |\n|---|---|\n| Show archived items | Don't hide archived items |\n{: .do-dont-table}\n- Group related checkboxes under a group label when possible for context.\n- Keep labels parallel in style and length for readability.\n- Avoid jargon and abbreviations.\n\n### Behavior\n\nAllow users to select by clicking either the box or the label.\n\n### Do / Don't\n\n| Do | Don't |\n|---|---|\n| Enable notifications | Notifications enabled (noun-first label) |\n| Show archived items | Don't hide archived items |\n| Agree to terms and conditions | Agreement with terms and conditions |\n{: .do-dont-table}\n\n---\n\n## Card format\n\nUse card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label.\n\n### When to use\n\n- Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.\n- Examples: pricing tiers, template selections (for example, use cases), or layout choices.\n\n### Behavior\n\n- Indicate selected state visually (`Selected` highlight border, and so on).\n- Click anywhere on the tile to toggle selection.\n- For multi-select: use checkbox behavior. For single-select: use radio group behavior.\n- Maintain selection across steps if part of a multi-step process.\n- Title: short, descriptive, and consistent across tiles.\n- Supporting text: use only in the large variant.",
+      "markdown": "# Checkboxes\n\nCheckboxes let users select one or more options from a list. They are used for choices that are not mutually exclusive, such as selecting multiple preferences or agreeing to terms.\n\n***\n\n## Default format\n\n### When to use\n\n* To allow users to select multiple options in a group.\n\n* For binary settings that are independent of other choices. For example, **Enable notifications**.\n\n* When a task involves filtering or refining data. For example, applying multiple filters to a search.\n\n### Style\n\n* Use clear, direct labels that describe what happens if the box is checked.\n\n* Write labels in positive form.\n\n| Do                  | Don't                     |\n| ------------------- | ------------------------- |\n| Show archived items | Don't hide archived items |\n\n* Group related checkboxes under a group label when possible for context.\n\n* Keep labels parallel in style and length for readability.\n\n* Avoid jargon and abbreviations.\n\n### Behavior\n\nAllow users to select by clicking either the box or the label.\n\n### Do / Don't\n\n| Do                            | Don't                                    |\n| ----------------------------- | ---------------------------------------- |\n| Enable notifications          | Notifications enabled (noun-first label) |\n| Show archived items           | Don't hide archived items                |\n| Agree to terms and conditions | Agreement with terms and conditions      |\n\n***\n\n## Card format\n\nUse card-format checkboxes instead of traditional checkboxes or radio buttons when each option needs rich context such as a title, description, image, metadata, or tags, and the selection should feel like a visual choice rather than a text label.\n\n### When to use\n\n* Primary decision point: when the consequences of the choice are important, or they drive a main workflow or journey.\n\n* Examples: pricing tiers, template selections (for example, use cases), or layout choices.\n\n### Behavior\n\n* Indicate selected state visually (`Selected` highlight border, and so on).\n\n* Click anywhere on the tile to toggle selection.\n\n* For multi-select: use checkbox behavior. For single-select: use radio group behavior.\n\n* Maintain selection across steps if part of a multi-step process.\n\n* Title: short, descriptive, and consistent across tiles.\n\n* Supporting text: use only in the large variant.",
       "sections": [
         {
           "heading": "",
@@ -205,7 +205,7 @@
                 },
                 {
                   "bullets": [
-                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (*) symbol or text label.",
+                    "Clarify optional vs. required fields: mark required fields consistently using the asterisk (\\*) symbol or text label.",
                     "Avoid redundancy: if a section title already establishes context, field labels can be shorter.",
                     "Provide context when needed: helper text should explain the \"why,\" never just restate the label.",
                     "Error text should guide correction."
@@ -400,7 +400,7 @@
                   ]
                 },
                 {
-                  "prose": "**Use a [checkbox](/components/form-input-selection/checkbox-with-label/) when:**"
+                  "prose": "**Use a** **[checkbox](/components/form-input-selection/checkbox-with-label/)** **when:**"
                 },
                 {
                   "bullets": [
@@ -615,6 +615,6 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00",
+  "updated_at": "2026-06-23T13:38:19+02:00",
   "_alias_of": "checkbox"
 }

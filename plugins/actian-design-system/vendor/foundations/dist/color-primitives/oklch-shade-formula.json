@@ -32,7 +32,7 @@
         {
           "Shade": "25",
           "Lightness (L)": "`0.97` 🟡 Proposed *(update from 0.99)*",
-          "Chroma (C)": "`calc(c * 0.005)` 🟡 Proposed *(update from c * 0.2)*"
+          "Chroma (C)": "`calc(c * 0.005)` 🟡 Proposed *(update from c \\* 0.2)*"
         },
         {
           "Shade": "50",

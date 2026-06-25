@@ -19,7 +19,7 @@
     "content": {
       "status": "approved",
       "owner": "content-team",
-      "markdown": "# Breadcrumbs\n\nBreadcrumbs show the user's location within the product hierarchy and allow navigation back up the tree.\n\n---\n\n## Usage\n\nFollow the pattern: Main component / Sub component / Specific item or page name.\n\n## Style\n\n- Use the exact page or item name at each level.\n- Do not truncate unless space is severely limited.\n- The current page is not a link — it is plain text at the end of the breadcrumb trail.",
+      "markdown": "# Breadcrumbs\n\nBreadcrumbs show the user's location within the product hierarchy and allow navigation back up the tree.\n\n***\n\n## Usage\n\nFollow the pattern: Main component / Sub component / Specific item or page name.\n\n## Style\n\n* Use the exact page or item name at each level.\n\n* Do not truncate unless space is severely limited.\n\n* The current page is not a link — it is plain text at the end of the breadcrumb trail.",
       "sections": [
         {
           "heading": "",
@@ -98,5 +98,5 @@
       ]
     }
   },
-  "updated_at": "2026-06-07T17:50:37+02:00"
+  "updated_at": "2026-06-23T13:38:19+02:00"
 }
