@@ -94,7 +94,7 @@ step-by-step behavior.
 
 ## Pipeline (3 gates, then build + render; push opt-in) — for prompt + greenfield generation
 
-1. Read `references/context/app-context.md` → determine app (Studio/Explorer/Administration)
+1. Read `references/context/app-context.md` → determine app (Studio/Explorer/Administration). Disambiguate the app against the per-app keyword lists in `vendor/app-context/dist/app-context.json` → `apps[*].signals` (e.g. `studio`: steward/govern/curate/lineage…; `explorer`: browse/discover/marketplace…). An explicit app in the prompt ("in Studio") always wins.
 2. **Gate 1 — Research** (present verbatim, see below)
 3. **Gate 2 — Research findings** (mandatory when research opted-in, see below)
 4. **Gate 3 — Screen list + detail + config** (single merged gate — screen approval, detail level, AND generation config; see below). Prose pre-inference runs first.
@@ -343,6 +343,22 @@ After the screen list is approved, build a `_glossary` object and set it on `met
 Example: entity "Data Product" → slug "data-product" → `entities["data-product"].properties` → `["name", "description", "status", "input ports", "output ports", "datasets", "contacts", "attachments"]`
 
 If the flow doesn't center on a single entity (e.g., a dashboard or settings page), set entity fields to the most prominent noun in the feature description. Set verb fields to the most common actions visible in the screen list.
+
+**App chrome (grounded shell):** set `_glossary.chrome` to the canonical app shell. Get it deterministically by running:
+
+```bash
+source scripts/lib/resolve-node.sh && "$NODE_BIN" scripts/lib/app-context/resolve-chrome.js --app <app>
+```
+
+(or read `vendor/app-context/dist/app-context.json` → `apps[<app lowercased>]` and copy its `header` + `sidebar` verbatim). Set:
+
+```json
+"chrome": { "app": "studio", "header": { "type": "Studio" }, "sidebar": [ { "label": "Dashboard", "id": "dashboard" }, … ] }
+```
+
+This is the authoritative shell every screen shares. **Do not invent, add, remove, rename, or reorder sidebar items** unless the prompt explicitly asks to restructure the navigation (e.g. "add a Reports section", "redesign the nav", "no app shell"). When it does, modify `_glossary.chrome` accordingly **and** set `_glossary.chromeJustification` to a one-line reason (30+ chars) — the change then applies flow-wide. The validator reports an ungrounded change without a justification as `chrome-drift` (warning).
+
+On **refine / iterate** of an existing flow, preserve any existing `_glossary.chrome` + `_glossary.chromeJustification` rather than re-resolving from scratch — only re-ground the screens you actually regenerate.
 
 Set `meta._glossary` before dispatching screen-generators or building flow-data directly.
 
