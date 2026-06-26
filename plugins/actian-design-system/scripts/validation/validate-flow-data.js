@@ -1277,6 +1277,42 @@ function checkChromeBaseline(data, findings) {
   }
 }
 
+function navItemLabels(navItems) {
+  if (!Array.isArray(navItems)) return null;
+  return navItems.map(function (it) {
+    if (it && typeof it === "object")
+      return String(it.label == null ? "" : it.label);
+    return String(it == null ? "" : it);
+  });
+}
+
+function checkChromeCoherence(screen, glossaryChrome, findings) {
+  if (!glossaryChrome || !Array.isArray(glossaryChrome.sidebar)) return;
+  if (!screen) return;
+  var nav = screen.navItems;
+  if (nav == null || typeof nav === "number") return; // omitted / legacy count → not a structural claim
+  var screenLabels = navItemLabels(nav);
+  if (!screenLabels) return;
+  var flowLabels = sidebarLabels(glossaryChrome.sidebar);
+  var same =
+    screenLabels.length === flowLabels.length &&
+    screenLabels.every(function (l, i) {
+      return l === flowLabels[i];
+    });
+  if (same) return;
+  findings.push({
+    kind: "chrome-incoherent",
+    severity: "warning",
+    screen: screen.id || "",
+    message:
+      "Screen nav [" +
+      screenLabels.join(", ") +
+      "] doesn't match the flow chrome [" +
+      flowLabels.join(", ") +
+      "] — every screen should share the flow's shell.",
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Aggregator entry point. Returns { findings: [...] } using the unified shape
 // { severity, kind, screen, message } plus any extra fields needed by legacy
@@ -1307,11 +1343,14 @@ function validate(data, opts) {
     return (s && s.id) || "";
   }
 
-  // Tier-level checks (existing — unchanged behavior)
+  // Tier-level + per-screen chrome coherence checks
   if (Array.isArray(data.screens)) {
+    var glossaryChrome =
+      data.meta && data.meta._glossary && data.meta._glossary.chrome;
     for (var si = 0; si < data.screens.length; si++) {
       checkTierJustification(data.screens[si], findings);
       checkRecipeAdherence(data.screens[si], findings);
+      checkChromeCoherence(data.screens[si], glossaryChrome, findings);
     }
   }
 
@@ -1833,6 +1872,7 @@ if (require.main === module) {
     "chrome-divergence": true,
     "chrome-drift": true,
     "chrome-ungrounded": true,
+    "chrome-incoherent": true,
   };
 
   var runGate = require("../lib/scope-aware-runner.js").runGate;
